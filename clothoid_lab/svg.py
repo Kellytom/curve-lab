@@ -95,6 +95,7 @@ def _bbox(spans: list[dict]) -> tuple[float, float, float, float]:
 def document(design, chain, spine: list[dict], rails: list[dict],
              prec: int = 4, margin: float = 5.0, stroke: float | None = None,
              page: tuple[float, float] | None = None,
+             frame: tuple[float, float] | None = None,
              view: str | None = None) -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata."""
     groups = [("spine", spine, None)]
@@ -105,34 +106,52 @@ def document(design, chain, spine: list[dict], rails: list[dict],
     x0, y0, x1, y1 = _bbox(all_spans)
     content_w, content_h = x1 - x0, y1 - y0
 
-    # A fixed page is what keeps a reload from jumping. When the page is derived
-    # from the drawing, every parameter change resizes the document and the
-    # viewer re-fits, so the zoom moves under the hand. With a stated page the
-    # viewBox is constant and the drawing moves inside it instead.
-    if page is not None:
+    # Three ways to size the sheet, and the difference matters in a viewer.
+    #
+    # `frame` scales the drawing to fill a stated sheet. The sheet is constant,
+    # so the viewer's fit-page lands in the same place every time and a parameter
+    # change is visible at a constant scale. Absolute size is given up, and the
+    # scale is reported.
+    #
+    # `page` states a sheet without scaling, so millimetres stay true and the
+    # drawing moves inside the sheet.
+    #
+    # Neither means the sheet follows the drawing, which is right for a one-off
+    # and wrong in a reload loop, because the view re-fits on every change.
+    scale = 1.0
+    if frame is not None:
+        fw, fh = float(frame[0]), float(frame[1])
+        inner_w, inner_h = fw - 2 * margin, fh - 2 * margin
+        if inner_w <= 0 or inner_h <= 0:
+            raise ValueError(f"frame {fw:g}x{fh:g} mm leaves no room inside a {margin:g} mm margin")
+        if content_w <= 0 or content_h <= 0:
+            raise ValueError("the drawing has no extent to scale")
+        scale = min(inner_w / content_w, inner_h / content_h)
+        width, height = fw, fh
+        pad_x = (fw - content_w * scale) / 2.0
+        pad_y = (fh - content_h * scale) / 2.0
+    elif page is not None:
         width, height = float(page[0]), float(page[1])
         if width <= content_w or height <= content_h:
             raise ValueError(
                 f"page {width:g}x{height:g} mm is smaller than the drawing "
                 f"({content_w:.1f}x{content_h:.1f} mm)"
             )
-        ox = x0 - (width - content_w) / 2.0
-        oy = y0 - (height - content_h) / 2.0
+        pad_x = (width - content_w) / 2.0
+        pad_y = (height - content_h) / 2.0
     else:
-        width = content_w + 2 * margin
-        height = content_h + 2 * margin
-        ox, oy = x0 - margin, y0 - margin
+        width, height = content_w + 2 * margin, content_h + 2 * margin
+        pad_x = pad_y = margin
 
     def shift(spans):
         def move(p):
-            return (p[0] - ox, p[1] - oy)
-        out = []
-        for span in spans:
-            out.append({**span, "p0": move(span["p0"]), "c1": move(span["c1"]),
-                        "c2": move(span["c2"]), "p3": move(span["p3"])})
-        return out
+            return ((p[0] - x0) * scale + pad_x, (p[1] - y0) * scale + pad_y)
+        return [{**span, "p0": move(span["p0"]), "c1": move(span["c1"]),
+                 "c2": move(span["c2"]), "p3": move(span["p3"])} for span in spans]
 
-    stroke = design.stroke if stroke is None else stroke
+    # Ink weight follows the geometry when the geometry is scaled, or a 7x
+    # enlargement would draw hairlines.
+    stroke = (design.stroke if stroke is None else stroke) * scale
     width_mm, height_mm = num(width, prec), num(height, prec)
     ns = (f'     xmlns:sodipodi="{SODIPODI}"\n'
           f'     xmlns:inkscape="{INKSCAPE}"\n') if view else ""

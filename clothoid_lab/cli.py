@@ -28,6 +28,7 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
            max_spans: int = 64, split: int = 2,
            backend: str | None = None,
            page: tuple[float, float] | None = None,
+           frame: tuple[float, float] | None = None,
            view: str | None = None) -> tuple[str, dict]:
     """Build a design into SVG text, with the report that justifies it."""
     chain = engine.build(design, backend=backend)
@@ -42,7 +43,7 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
                         split=split)
 
     text = svg.document(design, chain, spine, rails, prec=prec, margin=margin,
-                        page=page, view=view)
+                        page=page, frame=frame, view=view)
     info = {
         "chain": engine.report(chain),
         "fit": fit,
@@ -125,8 +126,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--width", type=float, default=None, help="ribbon width in mm, two rails")
     ap.add_argument("--prec", type=int, default=4, help="decimal places in the path data")
     ap.add_argument("--margin", type=float, default=5.0, help="page margin in mm")
-    ap.add_argument("--page", default=None, metavar="WxH",
-                    help="fixed page in mm, so a reload does not re-fit the view")
+    size = ap.add_mutually_exclusive_group()
+    size.add_argument("--page", default=None, metavar="WxH",
+                      help="fixed page in mm, true size, drawing centred")
+    size.add_argument("--frame", default=None, metavar="WxH",
+                      help="fixed page in mm with the drawing scaled to fill it, "
+                           "so the view never moves between rebuilds")
     ap.add_argument("--split", type=int, default=2,
                     help="pieces a span is cut into when it misses the tolerance")
     ap.add_argument("--backend", choices=sorted(backend_names()), default=None,
@@ -143,13 +148,15 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--quiet", action="store_true", help="write the file, print nothing")
     args = ap.parse_args(argv)
 
-    page = None
-    if args.page:
+    def size_of(text, flag):
         try:
-            w, h = (float(v) for v in args.page.lower().split("x"))
+            w, h = (float(v) for v in text.lower().split("x"))
         except ValueError:
-            ap.error("--page takes WxH in mm, for example 210x148")
-        page = (w, h)
+            ap.error(f"{flag} takes WxH in mm, for example 210x148")
+        return (w, h)
+
+    page = size_of(args.page, "--page") if args.page else None
+    frame = size_of(args.frame, "--frame") if args.frame else None
 
     if args.watch:
         if not args.design:
@@ -169,6 +176,7 @@ def main(argv: list[str] | None = None) -> int:
             split=args.split,
             backend=args.backend,
             page=page,
+            frame=frame,
         )
 
     design = Design.load(args.design) if args.design else presets.get(args.preset)
@@ -180,7 +188,7 @@ def main(argv: list[str] | None = None) -> int:
     out_path = args.out or os.path.join("out", f"{design.name.split()[0]}.svg")
     text, info = render(design, tol=args.tol, width=args.width,
                         prec=args.prec, margin=args.margin, split=args.split,
-                        backend=args.backend, page=page,
+                        backend=args.backend, page=page, frame=frame,
                         view=svg.read_view(out_path) if args.keep_view else None)
 
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)

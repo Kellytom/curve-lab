@@ -59,6 +59,24 @@ class TestDocument(unittest.TestCase):
             self.assertIn('height="148mm"', text)
             self.assertIn('viewBox="0 0 210 148"', text)
 
+    def test_a_frame_keeps_the_sheet_and_fills_it(self):
+        for name in ("ogee", "bracket", "petal"):
+            text, _ = cli.render(presets.get(name), width=6.0, frame=(200.0, 120.0))
+            self.assertIn('viewBox="0 0 200 120"', text, name)
+            pts = []
+            for d in re.findall(r' d="([^"]*)"', text):
+                for _, vals in svg.parse_d(d):
+                    pts += list(zip(vals[0::2], vals[1::2]))
+            xs = [p[0] for p in pts]
+            ys = [p[1] for p in pts]
+            self.assertGreaterEqual(min(ys), 4.99, name)
+            self.assertLessEqual(max(ys), 115.01, name)
+            self.assertLess(abs((max(xs) + min(xs)) / 2 - 100.0), 0.01, name)
+
+    def test_a_frame_smaller_than_its_margin_is_refused(self):
+        with self.assertRaises(ValueError):
+            cli.render(presets.get("ogee"), frame=(8.0, 8.0), margin=5.0)
+
     def test_a_page_smaller_than_the_drawing_is_refused(self):
         with self.assertRaises(ValueError):
             cli.render(presets.get("ogee"), tol=0.02, width=6.0, page=(10.0, 10.0))
