@@ -53,6 +53,35 @@ def path_d(spans: list[dict], prec: int = 4, close: bool = False) -> str:
     return " ".join(parts)
 
 
+SODIPODI = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+INKSCAPE = "http://www.inkscape.org/namespaces/inkscape"
+
+
+def read_view(path) -> str | None:
+    """The Inkscape view element from an existing file, if it has one.
+
+    Zoom, pan, document units and the current layer live in `sodipodi:namedview`,
+    which Inkscape writes when it saves. Our rebuilds replace the drawing, so
+    without this the view would be thrown away every time and the document would
+    re-fit itself on load. Carrying it over is what makes the zoom stay put.
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            text = fh.read()
+    except OSError:
+        return None
+    start = text.find("<sodipodi:namedview")
+    if start < 0:
+        return None
+    close = text.find("</sodipodi:namedview>", start)
+    if close >= 0:
+        return text[start:close + len("</sodipodi:namedview>")]
+    self_closing = text.find("/>", start)
+    if self_closing >= 0:
+        return text[start:self_closing + 2]
+    return None
+
+
 def _bbox(spans: list[dict]) -> tuple[float, float, float, float]:
     xs: list[float] = []
     ys: list[float] = []
@@ -65,7 +94,8 @@ def _bbox(spans: list[dict]) -> tuple[float, float, float, float]:
 
 def document(design, chain, spine: list[dict], rails: list[dict],
              prec: int = 4, margin: float = 5.0, stroke: float | None = None,
-             page: tuple[float, float] | None = None) -> str:
+             page: tuple[float, float] | None = None,
+             view: str | None = None) -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata."""
     groups = [("spine", spine, None)]
     for rail in rails:
@@ -104,11 +134,18 @@ def document(design, chain, spine: list[dict], rails: list[dict],
 
     stroke = design.stroke if stroke is None else stroke
     width_mm, height_mm = num(width, prec), num(height, prec)
+    ns = (f'     xmlns:sodipodi="{SODIPODI}"\n'
+          f'     xmlns:inkscape="{INKSCAPE}"\n') if view else ""
     out = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        f'<svg xmlns="http://www.w3.org/2000/svg" version="1.1"',
+        f'<svg xmlns="http://www.w3.org/2000/svg"',
+        ns + '     version="1.1"',
         f'     width="{width_mm}mm" height="{height_mm}mm"',
         f'     viewBox="0 0 {width_mm} {height_mm}">',
+    ]
+    if view:
+        out.append("  " + view.strip())
+    out += [
         f"  <title>{_escape(design.name)}</title>",
         f'  <desc id="clothoid-lab-design">{_escape(design.to_json())}</desc>',
         '  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="round"',

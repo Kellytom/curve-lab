@@ -27,7 +27,8 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
            prec: int = 4, margin: float = 5.0,
            max_spans: int = 64, split: int = 2,
            backend: str | None = None,
-           page: tuple[float, float] | None = None) -> tuple[str, dict]:
+           page: tuple[float, float] | None = None,
+           view: str | None = None) -> tuple[str, dict]:
     """Build a design into SVG text, with the report that justifies it."""
     chain = engine.build(design, backend=backend)
     spine, fit = bezier.fit_chain(chain, tol=tol, max_spans_per_segment=max_spans,
@@ -41,7 +42,7 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
                         split=split)
 
     text = svg.document(design, chain, spine, rails, prec=prec, margin=margin,
-                        page=page)
+                        page=page, view=view)
     info = {
         "chain": engine.report(chain),
         "fit": fit,
@@ -137,6 +138,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--reopen", nargs="?", const="Inkscape", default=None,
                     metavar="APP",
                     help="ask this app to reopen the drawing after each rebuild")
+    ap.add_argument("--keep-view", action="store_true",
+                    help="carry Inkscape's zoom and pan over from the file being replaced")
     ap.add_argument("--quiet", action="store_true", help="write the file, print nothing")
     args = ap.parse_args(argv)
 
@@ -174,13 +177,14 @@ def main(argv: list[str] | None = None) -> int:
             ap.error("--width must be positive")
     if args.split < 2:
         ap.error("--split must be at least 2")
+    out_path = args.out or os.path.join("out", f"{design.name.split()[0]}.svg")
     text, info = render(design, tol=args.tol, width=args.width,
                         prec=args.prec, margin=args.margin, split=args.split,
-                        backend=args.backend, page=page)
+                        backend=args.backend, page=page,
+                        view=svg.read_view(out_path) if args.keep_view else None)
 
-    out = args.out or os.path.join("out", f"{design.name.split()[0]}.svg")
-    os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
-    svg.write(out, text)
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    svg.write(out_path, text)
 
     if args.json:
         os.makedirs(os.path.dirname(args.json) or ".", exist_ok=True)
@@ -188,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.quiet:
         print(format_report(info, args.tol))
-        print(f"wrote         {out}")
+        print(f"wrote         {out_path}")
     return 0 if info["ok"] else 1
 
 

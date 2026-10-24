@@ -42,6 +42,10 @@ def rebuild(design_path: str, out_path: str, render, encoding: str = "utf-8",
     try:
         with open(design_path, "r", encoding=encoding) as fh:
             design = Design.from_json(fh.read())
+        # Always keep the view in the loop: the file Inkscape saved holds the
+        # zoom, and a rebuild that dropped it would re-fit the document and move
+        # the view under the hand.
+        options.setdefault("view", svg.read_view(out_path))
         text, info = render(design, **options)
     except Exception as exc:
         return False, f"{type(exc).__name__}: {exc}"

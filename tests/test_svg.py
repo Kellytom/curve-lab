@@ -1,5 +1,6 @@
 """The SVG layer: what Inkscape will actually be handed."""
 
+import os
 import re
 import unittest
 
@@ -83,6 +84,62 @@ class TestDocument(unittest.TestCase):
     def test_the_writer_refuses_an_empty_path(self):
         with self.assertRaises(ValueError):
             svg.path_d([])
+
+
+class TestInkscapeView(unittest.TestCase):
+    """The zoom is Inkscape's, in the file. A rebuild must not throw it away."""
+
+    def setUp(self):
+        import tempfile
+        self.dir = tempfile.TemporaryDirectory()
+        self.path = os.path.join(self.dir.name, "drawing.svg")
+
+    def tearDown(self):
+        self.dir.cleanup()
+
+    def _save_as_inkscape_would(self, zoom="2.5", cx="105", cy="74"):
+        """Write the file, then add what Inkscape writes when a human saves."""
+        text, _ = cli.render(presets.get("ogee"), width=6.0, page=(210.0, 148.0))
+        view = (f'<sodipodi:namedview id="namedview1" pagecolor="#ffffff" '
+                f'bordercolor="#666666" borderopacity="1.0" '
+                f'inkscape:document-units="mm" inkscape:zoom="{zoom}" '
+                f'inkscape:cx="{cx}" inkscape:cy="{cy}" '
+                f'inkscape:current-layer="clothoid"/>')
+        text = text.replace(
+            '<svg xmlns="http://www.w3.org/2000/svg"',
+            '<svg xmlns="http://www.w3.org/2000/svg"\n'
+            '     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n'
+            '     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"', 1)
+        text = text.replace("<title>", "  " + view + "\n  <title>", 1)
+        svg.write(self.path, text)
+
+    def test_a_file_without_a_view_reports_none(self):
+        text, _ = cli.render(presets.get("ogee"), width=6.0)
+        svg.write(self.path, text)
+        self.assertIsNone(svg.read_view(self.path))
+
+    def test_the_zoom_and_pan_survive_a_rebuild(self):
+        self._save_as_inkscape_would(zoom="2.5", cx="105", cy="74")
+        view = svg.read_view(self.path)
+        self.assertIsNotNone(view)
+        text, _ = cli.render(presets.get("bracket"), width=6.0,
+                             page=(210.0, 148.0), view=view)
+        self.assertIn('inkscape:zoom="2.5"', text)
+        self.assertIn('inkscape:cx="105"', text)
+        self.assertIn('inkscape:cy="74"', text)
+        self.assertIn('xmlns:sodipodi=', text)
+        self.assertIn('xmlns:inkscape=', text)
+        # the view comes before the drawing, as Inkscape expects
+        self.assertLess(text.index("namedview"), text.index("<g id="))
+
+    def test_the_view_is_read_back_from_what_we_wrote(self):
+        self._save_as_inkscape_would(zoom="0.8")
+        view = svg.read_view(self.path)
+        text, _ = cli.render(presets.get("ogee"), width=6.0,
+                             page=(210.0, 148.0), view=view)
+        svg.write(self.path, text)
+        again = svg.read_view(self.path)
+        self.assertIn('inkscape:zoom="0.8"', again)
 
 
 class TestCommandLine(unittest.TestCase):
