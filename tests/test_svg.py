@@ -1,0 +1,120 @@
+"""The SVG layer: what Inkscape will actually be handed."""
+
+import re
+import unittest
+
+from clothoid_lab import bezier, cli, engine, presets, svg
+from clothoid_lab.model import Design, Segment
+
+
+def build(name="s-curve", width=6.0, prec=4):
+    design = presets.get(name)
+    text, info = cli.render(design, tol=0.02, width=width, prec=prec)
+    return design, text, info
+
+
+class TestNumbers(unittest.TestCase):
+    def test_no_exponent_notation_ever_reaches_the_path(self):
+        for name in presets.PRESETS:
+            _, text, _ = build(name)
+            d = re.search(r' d="([^"]*)"', text).group(1)
+            self.assertNotIn("e", d.lower(), name)
+            self.assertNotIn("E", d, name)
+
+    def test_precision_is_respected(self):
+        _, text, _ = build(prec=3)
+        for d in re.findall(r' d="([^"]*)"', text):
+            for number in re.findall(r"-?\d+\.(\d+)", d):
+                self.assertLessEqual(len(number), 3, d[:80])
+
+    def test_tiny_numbers_becomes_zero_not_dust(self):
+        self.assertEqual(svg.num(1e-9, 4), "0")
+        self.assertEqual(svg.num(-1e-9, 4), "0")
+        self.assertEqual(svg.num(-0.0, 4), "0")
+        self.assertEqual(svg.num(12.5, 4), "12.5")
+        self.assertEqual(svg.num(-3.14159, 3), "-3.142")
+
+    def test_a_non_finite_coordinate_is_refused(self):
+        with self.assertRaises(ValueError):
+            svg.num(float("nan"))
+
+
+class TestDocument(unittest.TestCase):
+    def test_millimetre_units_and_no_transform(self):
+        design, text, _ = build()
+        self.assertIn('width="', text)
+        self.assertIn("mm", text)
+        self.assertIn("viewBox=", text)
+        self.assertNotIn("transform=", text)
+        self.assertNotIn("matrix(", text)
+
+    def test_one_path_per_rail(self):
+        _, text, info = build(width=6.0)
+        self.assertEqual(len(re.findall(r"<path ", text)), 1 + len(info["rails"]))
+        self.assertIn('id="spine"', text)
+
+    def test_the_path_starts_with_a_move_then_only_curves(self):
+        _, text, _ = build()
+        d = re.search(r'id="spine" d="([^"]*)"', text).group(1)
+        tokens = svg.parse_d(d)
+        self.assertEqual(tokens[0][0], "M")
+        self.assertEqual({cmd for cmd, _ in tokens}, {"M", "C"})
+        self.assertEqual(sum(1 for cmd, _ in tokens if cmd == "C"), len(tokens) - 1)
+
+    def test_the_design_survives_the_round_trip(self):
+        design, text, _ = build()
+        recovered = Design.from_dict(svg.metadata_design(text))
+        self.assertEqual(recovered.to_dict(), design.to_dict())
+
+    def test_the_writer_refuses_an_empty_path(self):
+        with self.assertRaises(ValueError):
+            svg.path_d([])
+
+
+class TestCommandLine(unittest.TestCase):
+    def test_a_fold_does_not_fail_the_run_but_a_bad_fit_does(self):
+        design = presets.get("bracket")
+        chain = engine.build(design)
+        r_min, _ = chain.min_radius()
+        _, info = cli.render(design, tol=0.02, width=2.0 * r_min * 1.2)
+        self.assertTrue(info["rails"][0]["folds"] or info["rails"][1]["folds"])
+        self.assertTrue(info["ok"], "a fold is a reported shape, not a failure")
+
+    def test_an_impossible_tolerance_reports_over_tolerance(self):
+        design = presets.get("bracket")
+        _, info = cli.render(design, tol=1e-9, max_spans=2)
+        self.assertFalse(info["ok"])
+
+    def test_report_states_the_numbers(self):
+        design = presets.get("ogee")
+        _, info = cli.render(design, tol=0.02, width=6.0)
+        text = cli.format_report(info, 0.02)
+        self.assertIn("joins", text)
+        self.assertIn("G2", text)
+        self.assertIn("mm", text)
+
+
+class TestModel(unittest.TestCase):
+    def test_json_round_trip(self):
+        design = presets.get("petal")
+        again = Design.from_json(design.to_json())
+        self.assertEqual(again.to_dict(), design.to_dict())
+
+    def test_a_zero_length_segment_is_refused(self):
+        with self.assertRaises(ValueError):
+            Segment(kd=0.0, length=0.0)
+
+    def test_a_design_needs_a_segment(self):
+        with self.assertRaises(ValueError):
+            Design(segments=[])
+
+    def test_null_kappa_means_continue(self):
+        design = Design(segments=[Segment(kd=0.01, length=10.0),
+                                  Segment(kd=-0.01, length=10.0)])
+        chain = engine.build(design)
+        self.assertTrue(chain.g2)
+        self.assertTrue(chain.joins[0]["inherited"])
+
+
+if __name__ == "__main__":
+    unittest.main()
