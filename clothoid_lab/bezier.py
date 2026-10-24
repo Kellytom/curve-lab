@@ -106,8 +106,19 @@ def span_error(span: dict, point, samples: int = 17) -> float:
 
 
 def fit_interval(s0: float, s1: float, point, tangent,
-                 tol: float = 0.02, max_spans: int = 64) -> list[dict]:
-    """Adaptive fit of [s0, s1], bisecting the worst span until it is under tolerance."""
+                 tol: float = 0.02, max_spans: int = 64,
+                 split: int = 2) -> list[dict]:
+    """Adaptive fit of [s0, s1], redividing the worst span until it is under tolerance.
+
+    `split` is how many pieces a span that misses the tolerance is cut into.
+    Measured on a ninety degree turn at 0.02 mm: bisection reaches the tolerance
+    in three spans per segment, a four-way split needs four, and a three-way
+    split lands on three with more room to spare. So the factor is a dial on
+    evenness and headroom rather than a saving, and two stays the default.
+    """
+    if split < 2:
+        raise ValueError(f"split factor must be at least 2, got {split}")
+
     spans = [fit_span(s0, s1, point, tangent)]
     errors = [span_error(spans[0], point)]
 
@@ -115,31 +126,34 @@ def fit_interval(s0: float, s1: float, point, tangent,
         i = errors.index(max(errors))
         bad = spans.pop(i)
         errors.pop(i)
-        mid = 0.5 * (bad["s0"] + bad["s1"])
-        if mid <= bad["s0"] or mid >= bad["s1"]:
+        cuts = [bad["s0"] + (bad["s1"] - bad["s0"]) * k / split
+                for k in range(split + 1)]
+        pieces = [fit_span(cuts[k], cuts[k + 1], point, tangent) for k in range(split)]
+        pieces = [p for p in pieces if p["s1"] > p["s0"]]
+        if not pieces:
             break
-        left = fit_span(bad["s0"], mid, point, tangent)
-        right = fit_span(mid, bad["s1"], point, tangent)
-        spans[i:i] = [left, right]
-        errors[i:i] = [span_error(left, point), span_error(right, point)]
+        spans[i:i] = pieces
+        errors[i:i] = [span_error(p, point) for p in pieces]
 
     return spans
 
 
-def fit_chain(chain, tol: float = 0.02, max_spans_per_segment: int = 64) -> tuple[list[dict], dict]:
+def fit_chain(chain, tol: float = 0.02, max_spans_per_segment: int = 64,
+              split: int = 2) -> tuple[list[dict], dict]:
     """Fit every segment of a chain, and report the numbers behind the drawing."""
     spans: list[dict] = []
     per_segment: list[int] = []
     for placed in chain.segments:
         fitted = fit_interval(placed.s_base, placed.s_base + placed.length,
                               chain.point, chain.tangent,
-                              tol=tol, max_spans=max_spans_per_segment)
+                              tol=tol, max_spans=max_spans_per_segment, split=split)
         spans.extend(fitted)
         per_segment.append(len(fitted))
     errors = [span_error(s, chain.point) for s in spans]
     return spans, {
         "spans": len(spans),
         "tol": tol,
+        "split": split,
         "error_max": max(errors) if errors else 0.0,
         "spans_per_segment": per_segment,
     }

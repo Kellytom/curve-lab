@@ -21,9 +21,9 @@ def rail_functions(chain, distance: float):
     """Point and tangent callables for the rail at a signed normal distance."""
 
     def point(s: float) -> tuple[float, float]:
-        x, y = chain.point(s)
-        nx, ny = chain.normal(s)
-        return (x + distance * nx, y + distance * ny)
+        # The backend's own offset when it has one: Bertolazzi's X_ISO and Y_ISO
+        # are the exact parallel curve, not a sampled normal step.
+        return chain.offset_point(s, distance)
 
     def tangent(s: float) -> float:
         return chain.tangent(s)
@@ -49,14 +49,14 @@ def cusp_ranges(chain, distance: float, steps: int = 512) -> list[tuple[float, f
 
 
 def build_rail(chain, distance: float, tol: float = 0.02,
-               max_spans_per_segment: int = 64) -> dict:
+               max_spans_per_segment: int = 64, split: int = 2) -> dict:
     """Fit one rail, with its fold report."""
     point, tangent = rail_functions(chain, distance)
     spans: list[dict] = []
     for placed in chain.segments:
         spans.extend(fit_interval(placed.s_base, placed.s_base + placed.length,
                                   point, tangent,
-                                  tol=tol, max_spans=max_spans_per_segment))
+                                  tol=tol, max_spans=max_spans_per_segment, split=split))
     errors = [span_error(s, point) for s in spans]
     folds = cusp_ranges(chain, distance)
     r_min, r_at = chain.min_radius()
@@ -75,20 +75,20 @@ def build_rail(chain, distance: float, tol: float = 0.02,
 
 
 def build_rails(chain, distances, tol: float = 0.02,
-                max_spans_per_segment: int = 64) -> list[dict]:
-    return [build_rail(chain, float(d), tol=tol,
+                max_spans_per_segment: int = 64, split: int = 2) -> list[dict]:
+    return [build_rail(chain, float(d), tol=tol, split=split,
                        max_spans_per_segment=max_spans_per_segment) for d in distances]
 
 
-def ribbon_outline(chain, width: float, tol: float = 0.02) -> dict:
+def ribbon_outline(chain, width: float, tol: float = 0.02, split: int = 2) -> dict:
     """Two rails at half width, joined at both ends, as one closed outline.
 
     The end joins are straight lines, which is the blunt terminal. Tapered and
     round terminals are their own problem and are not pretended here.
     """
     half = width / 2.0
-    left = build_rail(chain, half, tol=tol)
-    right = build_rail(chain, -half, tol=tol)
+    left = build_rail(chain, half, tol=tol, split=split)
+    right = build_rail(chain, -half, tol=tol, split=split)
     folds = left["folds"] + right["folds"]
     return {
         "width": width,

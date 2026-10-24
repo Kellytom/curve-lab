@@ -30,18 +30,22 @@ edit.
 
 ## Decisions taken
 
-1. **Engine: Bertolazzi's Clothoids, GPL-3.** It carries the offsets, trimming
-   and fitting that would otherwise be ours to write and get wrong. The cost is
-   the licence: this repository is GPL-3 and stays a standalone tool.
-2. **Offsets are emitted, not clipped.** Where a rail folds, `|d * kappa| >= 1`,
+1. **Engine: Bertolazzi's Clothoids, compiled from the vendored source.** It
+   carries the exact parallel curve, the G1 fitter and the trimming that would
+   otherwise be ours to write and get wrong. Its licence is BSD-2-Clause, so our
+   code is MIT and can move between projects.
+2. **The wheel is a cross-check, not the engine.** `pyclothoids` carries the same
+   source, so it cannot vouch for the mathematics; it does catch what actually
+   breaks in a ctypes wrapper. It is optional and off the default path.
+3. **Offsets are emitted, not clipped.** Where a rail folds, `|d * kappa| >= 1`,
    the fold is drawn and its arc-length range and margin are printed. A fold is
    often the point of the shape; an unannounced one never is.
-3. **No path library.** `M` and `C` are string formatting. A library here earns
+4. **No path library.** `M` and `C` are string formatting. A library here earns
    nothing and costs a dependency.
-4. **No GUI yet.** The engine, the fit and the writer come first. The parameter
+5. **No GUI yet.** The engine, the fit and the writer come first. The parameter
    window is the last piece, not the first.
-5. **The tolerance decides the node count.** Not an angle rule, not a fixed
-   count.
+6. **The tolerance decides the node count.** Not an angle rule, not a fixed
+   count. `--split` sets how many pieces a span is redivided into.
 
 ## Acceptance numbers
 
@@ -54,8 +58,11 @@ These are the promises, and each has a test.
   Any jump is printed. Presets must be G2.
 - **Engine fidelity.** The engine matches an independent Simpson integration of
   the clothoid's defining integral to 1e-9 mm.
-- **Rails.** A rail holds its distance from the spine and reports its worst
-  deviation. A zero-distance rail reproduces the spine inside tolerance.
+- **Rails.** A rail is the library's exact parallel curve, refitted, and reports
+  its worst deviation. A zero-distance rail reproduces the spine inside tolerance.
+- **Backend agreement.** The compiled library and the wheel must agree on
+  position, tangent, curvature and offset to 1e-9 over 41 points on every preset.
+  That is the test the ctypes wrapper earns.
 - **Path data.** No exponent notation, no transform, no coordinate more precise
   than the stated decimals, and no non-finite number.
 - **Round trip.** The design JSON recovered from a written SVG equals the design
@@ -83,8 +90,9 @@ two at half width.
 
 ## Roadmap
 
-1. Seed the span count from the turn (about 30 degrees), then refine by error.
-   Bisection from one span costs up to twice the nodes an even split needs.
+1. Cut the span count from the turn as a seed, then refine by error. Measured
+   today, bisection already reaches tolerance in three spans per segment on a
+   quarter turn, so this is a tidy-up rather than a saving.
 2. Terminals: tapered and round ends. The ribbon outline still closes with a
    straight join.
 3. The Inkscape extension: an `.inx` menu entry and a Python entry point calling

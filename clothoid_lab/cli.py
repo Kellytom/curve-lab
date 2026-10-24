@@ -25,16 +25,19 @@ from .offsets import build_rails, rail_deviation
 
 def render(design: Design, tol: float = 0.02, width: float | None = None,
            prec: int = 4, margin: float = 5.0,
-           max_spans: int = 64) -> tuple[str, dict]:
+           max_spans: int = 64, split: int = 2,
+           backend: str | None = None) -> tuple[str, dict]:
     """Build a design into SVG text, with the report that justifies it."""
-    chain = engine.build(design)
-    spine, fit = bezier.fit_chain(chain, tol=tol, max_spans_per_segment=max_spans)
+    chain = engine.build(design, backend=backend)
+    spine, fit = bezier.fit_chain(chain, tol=tol, max_spans_per_segment=max_spans,
+                                  split=split)
     spacing = bezier.path_deviation(spine, chain.point)
 
     distances = list(design.offsets)
     if width is not None:
         distances.extend([width / 2.0, -width / 2.0])
-    rails = build_rails(chain, distances, tol=tol, max_spans_per_segment=max_spans)
+    rails = build_rails(chain, distances, tol=tol, max_spans_per_segment=max_spans,
+                        split=split)
 
     text = svg.document(design, chain, spine, rails, prec=prec, margin=margin)
     info = {
@@ -62,11 +65,12 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
 def format_report(info: dict, tol: float) -> str:
     c = info["chain"]
     lines = [
+        f"engine        {c['backend']}",
         f"segments      {c['segments']}   length {c['length']:.3f} mm",
         f"joins         {'G2' if c['join_g2'] else 'G1'}   "
         f"worst curvature jump {c['join_kappa_error_max']:.3e} 1/mm",
         f"tightest      radius {c['min_radius']:.3f} mm at s={c['min_radius_at']:.2f}",
-        f"cubics        {info['fit']['spans']}  "
+        f"cubics        {info['fit']['spans']}  split {info['fit']['split']}  "
         f"per segment {info['fit']['spans_per_segment']}",
         f"fit           {info['spine_error']:.4f} mm worst, "
         f"{info['spine_deviation']:.4f} mm spacing  (tol {tol:g} mm)",
@@ -83,6 +87,11 @@ def format_report(info: dict, tol: float) -> str:
     return "\n".join(lines)
 
 
+def backend_names() -> list[str]:
+    from . import backend as backends
+    return list(backends.BACKENDS)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="clothoid_lab", description=__doc__.splitlines()[0])
     src = ap.add_mutually_exclusive_group(required=True)
@@ -94,6 +103,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--width", type=float, default=None, help="ribbon width in mm, two rails")
     ap.add_argument("--prec", type=int, default=4, help="decimal places in the path data")
     ap.add_argument("--margin", type=float, default=5.0, help="page margin in mm")
+    ap.add_argument("--split", type=int, default=2,
+                    help="pieces a span is cut into when it misses the tolerance")
+    ap.add_argument("--backend", choices=sorted(backend_names()), default=None,
+                    help="geometry backend (default: the compiled library)")
     ap.add_argument("--quiet", action="store_true", help="write the file, print nothing")
     args = ap.parse_args(argv)
 
@@ -101,8 +114,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.width is not None:
         if args.width <= 0:
             ap.error("--width must be positive")
+    if args.split < 2:
+        ap.error("--split must be at least 2")
     text, info = render(design, tol=args.tol, width=args.width,
-                        prec=args.prec, margin=args.margin)
+                        prec=args.prec, margin=args.margin, split=args.split,
+                        backend=args.backend)
 
     out = args.out or os.path.join("out", f"{design.name.split()[0]}.svg")
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)

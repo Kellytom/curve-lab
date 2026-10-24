@@ -26,6 +26,21 @@ class TestFit(unittest.TestCase):
             counts.append(len(spans))
         self.assertEqual(counts, sorted(counts), counts)
 
+    def test_the_split_factor_is_a_dial_on_evenness(self):
+        chain = engine.build(presets.get("s-curve"))
+        for split in (2, 3, 4, 8):
+            spans, info = bezier.fit_chain(chain, tol=0.02, split=split)
+            self.assertLessEqual(info["error_max"], 0.02, f"split {split}")
+            self.assertEqual(info["split"], split)
+            self.assertEqual(len(spans), info["spans"])
+            for span in spans:
+                self.assertLess(span["s0"], span["s1"])
+
+    def test_a_split_of_one_is_refused(self):
+        chain = engine.build(presets.get("ogee"))
+        with self.assertRaises(ValueError):
+            bezier.fit_interval(0.0, 10.0, chain.point, chain.tangent, split=1)
+
     def test_a_straight_span_is_one_cubic(self):
         chain = engine.build(Design(segments=[Segment(kappa0=0.0, kd=0.0, length=30.0)]))
         spans, info = bezier.fit_chain(chain, tol=1e-6)

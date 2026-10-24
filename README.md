@@ -8,17 +8,22 @@ under a French curve. This tool builds chains of them to stated tolerance,
 offsets them into ribbons, and writes SVG that Inkscape opens as ordinary cubic
 Bézier nodes.
 
-The engine is Bertolazzi's Clothoids through `pyclothoids`. Everything around
-it is here: the chain model, the cubic fit, the rails, and the writer.
+The engine is Bertolazzi's Clothoids, compiled from the vendored source and
+called through a small C surface. Everything around it is here: the chain
+model, the cubic fit, the rails, and the writer.
 
 ## Install and run
 
 ```sh
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-
+bash scripts/build-native.sh          # compiles the engine, about a minute
+python3 -m venv .venv                 # nothing to install: no runtime deps
 .venv/bin/python -m clothoid_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
 ```
+
+The build needs a C++ compiler and nothing else. If the compiler is unavailable,
+install the wheel and ask for it: `pip install -r requirements-dev.txt`, then add
+`--backend pyclothoids` or `export CLOTHOID_BACKEND=pyclothoids`. The wheel carries
+the same engine, which is why it works as a cross-check and not as the default.
 
 ```
 segments      2   length 80.000 mm
@@ -34,7 +39,8 @@ wrote         out/s-curve.svg
 
 Presets: `s-curve`, `ogee`, `bracket`, `petal`. Options: `--tol` in mm,
 `--width` for a two-rail ribbon, `--prec` for decimals in the path data,
-`--design` to read a JSON design, `--json` to write one, `--quiet`.
+`--split` for how many pieces a span is cut into, `--backend` to choose the
+engine, `--design` to read a JSON design, `--json` to write one, `--quiet`.
 
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
@@ -65,14 +71,15 @@ against the previous end is measured and printed.
    direction the last ended in. Position, tangent and curvature carry across,
    so continuity is structural rather than hoped for.
 2. **Cut it into cubics.** Each span takes the parabola rule's arm along its end
-   tangents, chord over three cosine-squared halves. A span is bisected while
-   its measured deviation from the true clothoid exceeds the tolerance.
+   tangents, chord over three cosine-squared halves. A span that misses the
+   tolerance is redivided `--split` ways, two by default.
 3. **Measure, never assume.** The error is the distance from the cubic to the
    curve, found by searching arc length, not the distance to sampled points. A
    sampled metric cannot report zero, so a straight line would look bent.
-4. **Offset.** Rails step along the normal and refit. A rail folds where the
-   offset reaches the centre of curvature, `|d * kappa| >= 1`; the fold is drawn
-   and its arc-length range and margin are printed.
+4. **Offset.** Rails are the library's exact parallel curve (`X_ISO`, `Y_ISO`),
+   refitted to cubics. A rail folds where the offset reaches the centre of
+   curvature, `|d * kappa| >= 1`; the fold is drawn and its arc-length range and
+   margin are printed.
 5. **Write.** Absolute `M` and `C` only, fixed-point numbers with no exponent,
    one user unit to one millimetre, `width` and `height` in mm with a matching
    viewBox, no transform. The design rides along in a `<desc>` so a round trip
@@ -80,8 +87,9 @@ against the previous end is measured and printed.
 
 ## What is settled
 
-- **Bertolazzi's Clothoids, GPL-3.** The repo is GPL-3 with it, and nothing here
-  can move into an unencumbered project later.
+- **The engine is compiled from source, BSD-2-Clause.** No wheel in the critical
+  path, no copyleft: our code is MIT and can move between projects. The wheel is
+  kept as a second opinion on the wrapper.
 - **The fold is drawn, not clipped.** A fold is often the point of a ribbon. What
   must not happen is an unannounced one, so every rail carries its fold range in
   the report.
@@ -89,6 +97,9 @@ against the previous end is measured and printed.
   segment is 0.024 mm off, by measurement, here. The tolerance decides, not the
   angle.
 - **No path library.** Writing `M` and `C` is a formatting job, not a dependency.
+- **The split factor is a dial, not a saving.** Measured on a 90 degree turn at
+  0.02 mm: two-way splitting reaches tolerance in three spans per segment, a
+  four-way split needs four. The default stays two.
 
 ## Files
 
@@ -113,4 +124,5 @@ transforms, and coordinates that never touch the curve.
 
 ## Licence
 
-GPL-3.0-or-later. See `LICENSE` and `ATTRIBUTION.md`.
+MIT for this project. The vendored engine is BSD-2-Clause, Eigen is MPL-2.0, and
+the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.
