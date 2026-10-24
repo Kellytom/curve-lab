@@ -45,6 +45,32 @@ engine, `--design` to read a JSON design, `--json` to write one, `--quiet`.
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
 
+## Two windows
+
+Start the watcher, keep Inkscape open on the drawing, edit the design on the
+other side, and save.
+
+```sh
+.venv/bin/python -m clothoid_lab.cli --watch \
+    --design out/play.json --seed ogee --width 6 --out out/play.svg
+```
+
+```
+seeded out/play.json from preset ogee
+built     8 cubics  0.0050 mm  bertolazzi  ok
+watching out/play.json -> out/play.svg   (ctrl-c to stop)
+rebuilt   8 cubics  0.0031 mm  bertolazzi  ok
+```
+
+Inkscape notices the file changed and offers to reload. The write is atomic, so
+it never opens a half-written file, and a design that does not parse leaves the
+last good drawing untouched, because typing a number passes through states that
+are not valid JSON.
+
+This is generate-and-look, not a round trip: a rebuild replaces the file, so node
+edits made in Inkscape are lost on the next save. The extension is what closes
+that loop.
+
 ## A design is data
 
 ```json
@@ -109,7 +135,9 @@ against the previous end is measured and printed.
 - `clothoid_lab/offsets.py` builds the rails, the fold ranges and the ribbon.
 - `clothoid_lab/svg.py` writes the path data and reads the design back.
 - `clothoid_lab/presets.py` holds the named starting designs, numbers derived.
+- `clothoid_lab/backend/` holds the ctypes surface and the wheel adapter.
 - `clothoid_lab/cli.py` runs one command and prints the report.
+- `clothoid_lab/watch.py` holds the two-window loop and its safety rules.
 
 ## Tests
 
@@ -117,10 +145,12 @@ against the previous end is measured and printed.
 .venv/bin/python -m unittest discover tests
 ```
 
-34 checks. The engine is held against an independent Simpson integral of the
+46 checks. The engine is held against an independent Simpson integral of the
 Fresnel form, every preset against G2, the fitter against its own tolerance,
 and the writer against the things that break Inkscape: exponent notation,
-transforms, and coordinates that never touch the curve.
+transforms, and coordinates that never touch the curve. The two backends are held
+against each other, and the watcher is held against a broken edit, which must not
+blank the drawing.
 
 ## Licence
 

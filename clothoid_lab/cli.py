@@ -107,8 +107,30 @@ def main(argv: list[str] | None = None) -> int:
                     help="pieces a span is cut into when it misses the tolerance")
     ap.add_argument("--backend", choices=sorted(backend_names()), default=None,
                     help="geometry backend (default: the compiled library)")
+    ap.add_argument("--watch", action="store_true",
+                    help="stay running and rebuild when the design file changes")
+    ap.add_argument("--seed", choices=sorted(presets.PRESETS), default=None,
+                    help="preset to write when --watch starts with no design file")
     ap.add_argument("--quiet", action="store_true", help="write the file, print nothing")
     args = ap.parse_args(argv)
+
+    if args.watch:
+        if not args.design:
+            ap.error("--watch needs --design: there must be a file to watch")
+        from . import watch as watcher
+        return watcher.run(
+            args.design,
+            args.out or os.path.join("out", "watched.svg"),
+            render,
+            interval=0.4,
+            seed_preset=args.seed,
+            tol=args.tol,
+            width=args.width,
+            prec=args.prec,
+            margin=args.margin,
+            split=args.split,
+            backend=args.backend,
+        )
 
     design = Design.load(args.design) if args.design else presets.get(args.preset)
     if args.width is not None:
