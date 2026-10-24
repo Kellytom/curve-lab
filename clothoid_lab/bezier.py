@@ -20,21 +20,39 @@ from __future__ import annotations
 import math
 
 
-def fit_span(s0: float, s1: float, point, tangent) -> dict:
-    """One cubic from s0 to s1, on the parabola rule."""
+def fit_span(s0: float, s1: float, point, tangent,
+             max_arm: float = 4.0) -> dict:
+    """One cubic from s0 to s1, on the parabola rule.
+
+    The arm is bounded at `max_arm` times the chord, and a span that hits the
+    bound is flagged. The rule divides by the square of the cosine of half the
+    angle between the tangent and the chord, so where a curve reverses inside a
+    span, which is what a folded rail does, the arm runs away and the control
+    point leaves the drawing. A bound turns a 50 metre control point into a
+    clamped one and a counted one, which is a fact the report can carry.
+    """
     p0 = point(s0)
     p3 = point(s1)
     cx, cy = p3[0] - p0[0], p3[1] - p0[1]
     chord = math.hypot(cx, cy)
     if chord < 1e-12:
-        return {"s0": s0, "s1": s1, "p0": p0, "c1": p0, "c2": p3, "p3": p3}
+        return {"s0": s0, "s1": s1, "p0": p0, "c1": p0, "c2": p3, "p3": p3,
+                "clamped": False}
+
+    limit = max_arm * chord
+    clamped = False
 
     def arm(s):
+        nonlocal clamped
         ux, uy = math.cos(tangent(s)), math.sin(tangent(s))
         cos = (cx * ux + cy * uy) / chord
         cos = max(-1.0, min(1.0, cos))
         half = (1.0 + cos) / 2.0
-        return chord / (3.0 * half) if half > 1e-9 else chord / 3.0
+        want = chord / (3.0 * half) if half > 1e-9 else limit
+        if want > limit:
+            clamped = True
+            return limit
+        return want
 
     a0, a1 = arm(s0), arm(s1)
     t0, t1 = tangent(s0), tangent(s1)
@@ -43,6 +61,7 @@ def fit_span(s0: float, s1: float, point, tangent) -> dict:
         "p0": p0, "p3": p3,
         "c1": (p0[0] + a0 * math.cos(t0), p0[1] + a0 * math.sin(t0)),
         "c2": (p3[0] - a1 * math.cos(t1), p3[1] - a1 * math.sin(t1)),
+        "clamped": clamped,
     }
 
 

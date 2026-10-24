@@ -26,7 +26,8 @@ from .offsets import build_rails, rail_deviation
 def render(design: Design, tol: float = 0.02, width: float | None = None,
            prec: int = 4, margin: float = 5.0,
            max_spans: int = 64, split: int = 2,
-           backend: str | None = None) -> tuple[str, dict]:
+           backend: str | None = None,
+           page: tuple[float, float] | None = None) -> tuple[str, dict]:
     """Build a design into SVG text, with the report that justifies it."""
     chain = engine.build(design, backend=backend)
     spine, fit = bezier.fit_chain(chain, tol=tol, max_spans_per_segment=max_spans,
@@ -39,7 +40,8 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
     rails = build_rails(chain, distances, tol=tol, max_spans_per_segment=max_spans,
                         split=split)
 
-    text = svg.document(design, chain, spine, rails, prec=prec, margin=margin)
+    text = svg.document(design, chain, spine, rails, prec=prec, margin=margin,
+                        page=page)
     info = {
         "chain": engine.report(chain),
         "fit": fit,
@@ -52,12 +54,15 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
                 "error_max": r["error_max"],
                 "deviation": rail_deviation(r, chain),
                 "folds": r["folds"],
+                "clamped": r["clamped"],
                 "min_radius": r["min_radius"],
                 "margin": r["margin"],
             }
             for r in rails
         ],
+        "fit_ok": fit["error_max"] <= tol,
         "ok": fit["error_max"] <= tol and chain.g2,
+        "worst_join": max(chain.joins, key=lambda j: abs(j["d_kappa"]), default=None),
     }
     return text, info
 
@@ -77,14 +82,30 @@ def format_report(info: dict, tol: float) -> str:
     ]
     for r in info["rails"]:
         fold = "fold" if r["folds"] else "clear"
+        clamp = f"  {r['clamped']} clamped at the reversal" if r.get("clamped") else ""
         lines.append(
             f"rail {r['distance']:+.3f}  {fold}  {r['spans']} cubics  "
-            f"error {r['error_max']:.4f} mm  margin {r['margin']:.3f} mm"
+            f"error {r['error_max']:.4f} mm  margin {r['margin']:.3f} mm{clamp}"
         )
         for s0, s1 in r["folds"]:
             lines.append(f"              folds from s={s0:.2f} to s={s1:.2f}")
-    lines.append(f"verdict       {'inside tolerance' if info['ok'] else 'OVER TOLERANCE'}")
+    lines.append(f"verdict       {_verdict(info, tol)}")
     return "\n".join(lines)
+
+
+def _verdict(info: dict, tol: float) -> str:
+    """Say which promise failed, because the two failures look nothing alike."""
+    if info.get("ok"):
+        return "inside tolerance, joins G2"
+    reasons = []
+    if not info.get("fit_ok", True):
+        reasons.append(f"fit {info['spine_error']:.4f} mm over tol {tol:g} mm")
+    join = info.get("worst_join")
+    if join and abs(join["d_kappa"]) >= 1e-9:
+        reasons.append(
+            f"join at s={join['at']:.2f} jumps {join['d_kappa']:+.3e} 1/mm, so G1 not G2 "
+            f"(set kappa0 to null to inherit)")
+    return "; ".join(reasons) if reasons else "over tolerance"
 
 
 def backend_names() -> list[str]:
@@ -103,6 +124,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--width", type=float, default=None, help="ribbon width in mm, two rails")
     ap.add_argument("--prec", type=int, default=4, help="decimal places in the path data")
     ap.add_argument("--margin", type=float, default=5.0, help="page margin in mm")
+    ap.add_argument("--page", default=None, metavar="WxH",
+                    help="fixed page in mm, so a reload does not re-fit the view")
     ap.add_argument("--split", type=int, default=2,
                     help="pieces a span is cut into when it misses the tolerance")
     ap.add_argument("--backend", choices=sorted(backend_names()), default=None,
@@ -111,8 +134,19 @@ def main(argv: list[str] | None = None) -> int:
                     help="stay running and rebuild when the design file changes")
     ap.add_argument("--seed", choices=sorted(presets.PRESETS), default=None,
                     help="preset to write when --watch starts with no design file")
+    ap.add_argument("--reopen", nargs="?", const="Inkscape", default=None,
+                    metavar="APP",
+                    help="ask this app to reopen the drawing after each rebuild")
     ap.add_argument("--quiet", action="store_true", help="write the file, print nothing")
     args = ap.parse_args(argv)
+
+    page = None
+    if args.page:
+        try:
+            w, h = (float(v) for v in args.page.lower().split("x"))
+        except ValueError:
+            ap.error("--page takes WxH in mm, for example 210x148")
+        page = (w, h)
 
     if args.watch:
         if not args.design:
@@ -124,12 +158,14 @@ def main(argv: list[str] | None = None) -> int:
             render,
             interval=0.4,
             seed_preset=args.seed,
+            reopen_app=args.reopen,
             tol=args.tol,
             width=args.width,
             prec=args.prec,
             margin=args.margin,
             split=args.split,
             backend=args.backend,
+            page=page,
         )
 
     design = Design.load(args.design) if args.design else presets.get(args.preset)
@@ -140,7 +176,7 @@ def main(argv: list[str] | None = None) -> int:
         ap.error("--split must be at least 2")
     text, info = render(design, tol=args.tol, width=args.width,
                         prec=args.prec, margin=args.margin, split=args.split,
-                        backend=args.backend)
+                        backend=args.backend, page=page)
 
     out = args.out or os.path.join("out", f"{design.name.split()[0]}.svg")
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)

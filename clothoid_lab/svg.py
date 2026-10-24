@@ -64,7 +64,8 @@ def _bbox(spans: list[dict]) -> tuple[float, float, float, float]:
 
 
 def document(design, chain, spine: list[dict], rails: list[dict],
-             prec: int = 4, margin: float = 5.0, stroke: float | None = None) -> str:
+             prec: int = 4, margin: float = 5.0, stroke: float | None = None,
+             page: tuple[float, float] | None = None) -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata."""
     groups = [("spine", spine, None)]
     for rail in rails:
@@ -72,9 +73,25 @@ def document(design, chain, spine: list[dict], rails: list[dict],
 
     all_spans = [s for _, spans, _ in groups for s in spans]
     x0, y0, x1, y1 = _bbox(all_spans)
-    width = (x1 - x0) + 2 * margin
-    height = (y1 - y0) + 2 * margin
-    ox, oy = x0 - margin, y0 - margin
+    content_w, content_h = x1 - x0, y1 - y0
+
+    # A fixed page is what keeps a reload from jumping. When the page is derived
+    # from the drawing, every parameter change resizes the document and the
+    # viewer re-fits, so the zoom moves under the hand. With a stated page the
+    # viewBox is constant and the drawing moves inside it instead.
+    if page is not None:
+        width, height = float(page[0]), float(page[1])
+        if width <= content_w or height <= content_h:
+            raise ValueError(
+                f"page {width:g}x{height:g} mm is smaller than the drawing "
+                f"({content_w:.1f}x{content_h:.1f} mm)"
+            )
+        ox = x0 - (width - content_w) / 2.0
+        oy = y0 - (height - content_h) / 2.0
+    else:
+        width = content_w + 2 * margin
+        height = content_h + 2 * margin
+        ox, oy = x0 - margin, y0 - margin
 
     def shift(spans):
         def move(p):

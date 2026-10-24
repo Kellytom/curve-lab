@@ -59,6 +59,7 @@ def build_rail(chain, distance: float, tol: float = 0.02,
                                   tol=tol, max_spans=max_spans_per_segment, split=split))
     errors = [span_error(s, point) for s in spans]
     folds = cusp_ranges(chain, distance)
+    clamped = sum(1 for s in spans if s.get("clamped"))
     r_min, r_at = chain.min_radius()
     return {
         "distance": distance,
@@ -66,10 +67,10 @@ def build_rail(chain, distance: float, tol: float = 0.02,
         "spans_count": len(spans),
         "error_max": max(errors) if errors else 0.0,
         "folds": folds,
+        "clamped": clamped,
         "min_radius": r_min,
         "min_radius_at": r_at,
         "margin": r_min - abs(distance),
-        "clipped": False,
         "point": point,
     }
 

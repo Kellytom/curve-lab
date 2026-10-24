@@ -38,9 +38,18 @@ wrote         out/s-curve.svg
 ```
 
 Presets: `s-curve`, `ogee`, `bracket`, `petal`. Options: `--tol` in mm,
-`--width` for a two-rail ribbon, `--prec` for decimals in the path data,
-`--split` for how many pieces a span is cut into, `--backend` to choose the
-engine, `--design` to read a JSON design, `--json` to write one, `--quiet`.
+`--width` for a two-rail ribbon, `--page WxH` to fix the page in mm, `--prec` for
+decimals in the path data, `--split` for how many pieces a span is cut into,
+`--backend` to choose the engine, `--design` to read a JSON design, `--json` to
+write one, `--watch` to rebuild on save, `--quiet`.
+
+`--page` matters in the two-window loop: with an automatic page every parameter
+change resizes the document and the viewer re-fits, so the zoom moves under your
+hand. A fixed page keeps the viewBox constant and the drawing moves inside it.
+
+A rail that folds reverses inside a span, where the parabola arm runs away and
+would place a control point tens of metres out. The arm is bounded at four times
+the chord, and each clamped span is counted in the report rather than hidden.
 
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
@@ -151,6 +160,14 @@ and the writer against the things that break Inkscape: exponent notation,
 transforms, and coordinates that never touch the curve. The two backends are held
 against each other, and the watcher is held against a broken edit, which must not
 blank the drawing.
+
+## Known roughness
+
+- A rebuild replaces the whole file, so node edits made in Inkscape are lost.
+- `--reopen` asks the macOS open handler for the file, which can hand Inkscape a
+  second window and break a tiled layout. It is off unless you ask for it.
+- The error is measured from the cubic to the curve, not the curve to the cubic,
+  so a span that skipped a piece of curve would report small.
 
 ## Licence
 

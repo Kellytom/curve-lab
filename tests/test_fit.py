@@ -96,6 +96,25 @@ class TestRails(unittest.TestCase):
         self.assertAlmostEqual(rail["margin"], rail["min_radius"] - 4.0, places=9)
         self.assertGreater(rail["margin"], 0)
 
+    def test_a_folded_rail_is_clamped_and_counted(self):
+        # A fold reverses the rail inside a span, so the parabola arm runs away.
+        # It must be bounded and reported, not left to place a control point
+        # fifty metres from the drawing.
+        chain = engine.build(presets.get("bracket"))
+        r_min, _ = chain.min_radius()
+        rail = build_rail(chain, r_min * 1.5, tol=0.02)
+        self.assertTrue(rail["folds"])
+        self.assertGreater(rail["clamped"], 0)
+        reach = max(abs(v) for span in rail["spans"]
+                    for p in (span["p0"], span["c1"], span["c2"], span["p3"])
+                    for v in p)
+        self.assertLess(reach, 1e3, "a clamped rail must stay near the drawing")
+
+    def test_a_clean_rail_has_nothing_clamped(self):
+        chain = engine.build(presets.get("ogee"))
+        rail = build_rail(chain, 2.0, tol=0.02)
+        self.assertEqual(rail["clamped"], 0)
+
     def test_both_rails_and_both_signs(self):
         chain = engine.build(presets.get("petal"))
         rails = build_rails(chain, [3.0, -3.0], tol=0.05)

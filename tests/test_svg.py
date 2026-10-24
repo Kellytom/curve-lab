@@ -48,6 +48,20 @@ class TestDocument(unittest.TestCase):
         self.assertNotIn("transform=", text)
         self.assertNotIn("matrix(", text)
 
+    def test_a_fixed_page_does_not_move_with_the_drawing(self):
+        design = presets.get("ogee")
+        wide, _ = cli.render(design, tol=0.02, width=6.0, page=(210.0, 148.0))
+        narrow, _ = cli.render(presets.get("bracket"), tol=0.02, width=6.0,
+                               page=(210.0, 148.0))
+        for text in (wide, narrow):
+            self.assertIn('width="210mm"', text)
+            self.assertIn('height="148mm"', text)
+            self.assertIn('viewBox="0 0 210 148"', text)
+
+    def test_a_page_smaller_than_the_drawing_is_refused(self):
+        with self.assertRaises(ValueError):
+            cli.render(presets.get("ogee"), tol=0.02, width=6.0, page=(10.0, 10.0))
+
     def test_one_path_per_rail(self):
         _, text, info = build(width=6.0)
         self.assertEqual(len(re.findall(r"<path ", text)), 1 + len(info["rails"]))
@@ -84,6 +98,18 @@ class TestCommandLine(unittest.TestCase):
         design = presets.get("bracket")
         _, info = cli.render(design, tol=1e-9, max_spans=2)
         self.assertFalse(info["ok"])
+
+    def test_the_verdict_names_a_broken_join(self):
+        from clothoid_lab.model import Design, Segment
+        from clothoid_lab import cli
+        design = Design(segments=[Segment(kappa0=0.0, kd=0.01, length=10.0),
+                                  Segment(kappa0=0.0, kd=0.0, length=10.0)])
+        _, info = cli.render(design, tol=0.02)
+        text = cli.format_report(info, 0.02)
+        self.assertIn("G1 not G2", text)
+        self.assertIn("kappa0 to null", text)
+        self.assertFalse(info["ok"])
+        self.assertTrue(info["fit_ok"], "the fit is fine; the join is not")
 
     def test_report_states_the_numbers(self):
         design = presets.get("ogee")
