@@ -3,8 +3,10 @@
 A design is plain data, so it round-trips through JSON and can be written into
 the SVG metadata for later recovery.
 
-Units are millimetres throughout. Curvature is 1/mm, curvature rate is
-1/mm^2. A segment is a clothoid: its curvature runs linearly with arc length,
+Lengths are in design units. At output one design unit maps to millimetres:
+1:1 for `--page` or an automatic sheet, and multiplied by the frame scale when
+`--frame` is used. Curvature is 1/design-unit, curvature rate is
+1/design-unit^2. A segment is a clothoid: its curvature runs linearly with arc length,
 kappa(s) = kappa0 + kd * s, over an arc length `length`.
 
 `kappa0: null` means "continue from the previous segment's end curvature",

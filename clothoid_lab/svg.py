@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import math
+from xml.sax.saxutils import escape as _xml_text
 
 
 def num(value: float, prec: int = 4) -> str:
@@ -96,8 +97,14 @@ def document(design, chain, spine: list[dict], rails: list[dict],
              prec: int = 4, margin: float = 5.0, stroke: float | None = None,
              page: tuple[float, float] | None = None,
              frame: tuple[float, float] | None = None,
-             view: str | None = None) -> str:
-    """One SVG: the spine, one path per rail, mm units, JSON in the metadata."""
+             view: str | None = None,
+             annotations: list[dict] | None = None) -> str:
+    """One SVG: the spine, one path per rail, mm units, JSON in the metadata.
+
+    `annotations` are optional standard SVG marks (lines, circles, text) placed
+    with the drawing. Coordinates are in design units; line widths, radii and
+    font sizes are in page millimetres. Set `front` to draw above the ink.
+    """
     groups = [("spine", spine, None)]
     for rail in rails:
         groups.append((f"rail {num(rail['distance'], 3)}", rail["spans"], rail["distance"]))
@@ -143,11 +150,55 @@ def document(design, chain, spine: list[dict], rails: list[dict],
         width, height = content_w + 2 * margin, content_h + 2 * margin
         pad_x = pad_y = margin
 
+    # SVG's native y is down. The design is y-up, so the writer flips at this
+    # boundary and nowhere else: y' = pad_y + (y1 - y). The design JSON and all
+    # geometry remain y-up.
     def shift(spans):
         def move(p):
-            return ((p[0] - x0) * scale + pad_x, (p[1] - y0) * scale + pad_y)
+            return ((p[0] - x0) * scale + pad_x,
+                    pad_y + (y1 - p[1]) * scale)
         return [{**span, "p0": move(span["p0"]), "c1": move(span["c1"]),
                  "c2": move(span["c2"]), "p3": move(span["p3"])} for span in spans]
+
+    def place(x, y):
+        return ((x - x0) * scale + pad_x,
+                pad_y + (y1 - y) * scale)
+
+    def annotations_markup(front: bool) -> list[str]:
+        marks = []
+        for mark in annotations or []:
+            if bool(mark.get("front", False)) != front:
+                continue
+            kind = mark.get("kind")
+            if kind == "line":
+                x1, y1 = place(float(mark["x1"]), float(mark["y1"]))
+                x2, y2 = place(float(mark["x2"]), float(mark["y2"]))
+                dash = (f' stroke-dasharray="{mark["dash"]}"'
+                        if mark.get("dash") else "")
+                marks.append(
+                    f'    <line x1="{num(x1, prec)}" y1="{num(y1, prec)}" '
+                    f'x2="{num(x2, prec)}" y2="{num(y2, prec)}" '
+                    f'stroke="{mark.get("stroke", "#c4c4c4")}" '
+                    f'stroke-width="{num(float(mark.get("width", 0.25)), prec)}"'
+                    f'{dash}/>')
+            elif kind == "circle":
+                cx, cy = place(float(mark["x"]), float(mark["y"]))
+                marks.append(
+                    f'    <circle cx="{num(cx, prec)}" cy="{num(cy, prec)}" '
+                    f'r="{num(float(mark.get("r", 1.0)), prec)}" '
+                    f'fill="{mark.get("fill", "#555555")}"/>')
+            elif kind == "text":
+                x, y = place(float(mark["x"]), float(mark["y"]))
+                x += float(mark.get("dx", 0.0))
+                y += float(mark.get("dy", 0.0))
+                marks.append(
+                    f'    <text x="{num(x, prec)}" y="{num(y, prec)}" '
+                    f'font-family="Helvetica, Arial, sans-serif" '
+                    f'font-size="{num(float(mark.get("size", 3.2)), prec)}" '
+                    f'fill="{mark.get("fill", "#777777")}" '
+                    f'text-anchor="{mark.get("anchor", "start")}">'
+                    f'{_xml_text(str(mark["text"]))}</text>')
+        return marks
 
     # Ink weight follows the geometry when the geometry is scaled, or a 7x
     # enlargement would draw hairlines.
@@ -167,6 +218,13 @@ def document(design, chain, spine: list[dict], rails: list[dict],
     out += [
         f"  <title>{_escape(design.name)}</title>",
         f'  <desc id="clothoid-lab-design">{_escape(design.to_json())}</desc>',
+    ]
+    behind = annotations_markup(False)
+    if behind:
+        out.append('  <g id="annotation-lines">')
+        out.extend(behind)
+        out.append("  </g>")
+    out += [
         '  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="round"',
         f'     stroke-width="{num(stroke, prec)}">',
     ]
@@ -174,6 +232,11 @@ def document(design, chain, spine: list[dict], rails: list[dict],
         gid = "spine" if index == 0 else f"rail-{index}"
         out.append(f'    <path id="{gid}" d="{path_d(shift(spans), prec)}"/>')
     out.append("  </g>")
+    front = annotations_markup(True)
+    if front:
+        out.append('  <g id="annotations">')
+        out.extend(front)
+        out.append("  </g>")
     out.append("</svg>")
     return "\n".join(out) + "\n"
 

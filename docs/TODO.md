@@ -37,10 +37,13 @@ Effort is focused working time, not calendar time.
   `docs/clothoid-grid-3125.md`.
 - **G2 and splicing.** G2 splines through points (open or closed), quasi-G2
   smoothing, trim, reverse, projection, intersections, ISO measurements, and
-  G2 connectors with `join`. 85 tests, all passing.
+  G2 connectors with `join`. 90 tests, all passing.
 - **Twin and view helpers.** `scripts/twin.py` writes a self-contained HTML twin;
   `scripts/fit_view.py` computes the Inkscape saved view (zoom is a factor, not
   pixels per millimetre).
+- **Cap family and fold.** The two-clothoid caps from `closed-cl-1` were
+  continued from y=10 to y=162.2817, where `kd2` reaches zero; documented in
+  `docs/caps.md` with the full table in `out/caps/README.md`.
 
 ## Planned, in priority order
 
@@ -80,11 +83,26 @@ tapered or looped end needs a width envelope.
 - [ ] Half-width as a function of arc length, `w(s)`, and rails offset by it.
 - [ ] Terminal kinds made from clothoids: round, tapered to a point, looped.
 - [ ] Outline builder: rail + terminal + rail + terminal, one closed path.
+- [ ] Keep the three-line mode. The spine is already a separate path, so the
+      paint can change without touching the geometry.
+- [ ] Add a filled ribbon mode and an `inlay` style: filled outline, spine drawn
+      last as an accent line. The accent must stay a separate path so it remains
+      editable.
+- [ ] Decide what "white" means: white ink printed on top of the fill, or a
+      knockout that lets the paper through. They are different SVGs and print
+      differently; the accent path alone cannot express a knockout.
+- [ ] Terminals close the rails; the centreline may stop at the terminal or run
+      to the tip.
+- [ ] Styles named `lines` (current), `ribbon` (closed outline), `inlay`
+      (filled ribbon plus a centreline accent).
 - [ ] Report terminal length, taper, and any self-intersection.
-- [ ] Tests: square end, taper to zero width, round end, no crossing.
+- [ ] Tests: square end, taper to zero width, round end, no crossing, and the
+      three-line output unchanged.
 
 Acceptance: a ribbon closes with a chosen terminal at both ends and its outline
-is a single path with no self-crossing for the test designs.
+is a single path with no self-crossing for the test designs. The existing
+three-line drawing remains the default; a filled ribbon can carry the spine as a
+centreline accent, with the accent's ink semantics stated rather than assumed.
 
 ### 3. Splicing and a parts library — 1–2 days
 

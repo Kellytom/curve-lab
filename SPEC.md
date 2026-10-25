@@ -22,8 +22,8 @@ edit.
 - Trim, reverse and G2-connect existing chains, so pieces can be spliced without
   refitting them.
 - A measured fit. Every cubic says how far it sits from the true curve.
-- Plain absolute-cubic SVG, millimetre units, no transform, no exponent
-  notation, four decimals by default.
+- Plain absolute-cubic SVG, millimetre units, **positive y up**, no transform,
+  no exponent notation, four decimals by default.
 - A JSON design that survives the round trip, carried inside the SVG.
 - Light enough to run on an eight gigabyte machine beside Inkscape.
 
@@ -67,7 +67,8 @@ These are the promises, and each has a test.
 
 - **Accuracy.** The fit error is measured as the distance from the cubic to the
   curve, minimised along arc length. It is reported per run and must not exceed
-  `--tol`, default 0.02 mm. On failure the exit status is 1.
+  `--tol`, default 0.02 design units (millimetres at 1:1; a frame scales it with
+  the drawing). On failure the exit status is 1.
 - **Continuity.** A join is G2 when the curvature jump is below 1e-9 per mm.
   Any jump is printed. Presets must be G2.
 - **Engine fidelity.** The engine matches an independent Simpson integration of
@@ -77,8 +78,9 @@ These are the promises, and each has a test.
 - **Backend agreement.** The compiled library and the wheel must agree on
   position, tangent, curvature and offset to 1e-9 over 41 points on every preset.
   That is the test the ctypes wrapper earns.
-- **Path data.** No exponent notation, no transform, no coordinate more precise
-  than the stated decimals, and no non-finite number.
+- **Path data.** No exponent notation, no transform, **positive y up** (the
+  writer flips SVG's y-down at output), no coordinate more precise than the
+  stated decimals, and no non-finite number.
 - **Round trip.** The design JSON recovered from a written SVG equals the design
   it was written from.
 - **The 45 degree rule is not assumed.** Measured: two spans over a 90 degree
@@ -108,13 +110,15 @@ A design is an anchor `{x, y, angle}` and a list of segments.
 {"kd": 0.0019635, "length": 40.0, "kappa0": null}
 ```
 
-`kd` is curvature rate in 1/mm², `length` is arc length in mm, and `kappa0` is
-the curvature the segment starts from, with `null` meaning "continue from the
-previous end" and therefore G2. A number is honoured as given and the mismatch
-against the previous end is printed.
+`kd` is curvature rate in 1/design-unit², `length` is arc length in design
+units, and `kappa0` is the curvature the segment starts from, with `null`
+meaning "continue from the previous end" and therefore G2. One design unit is
+one millimetre at 1:1 (`--page`, or an automatic sheet); `--frame` multiplies
+the design by a scale to fill the sheet. A number is honoured as given and the
+mismatch against the previous end is printed.
 
-Rails are `offsets`, a list of signed distances in mm, or `--width`, which adds
-two at half width.
+Rails are `offsets`, a list of signed distances in design units, or `--width`,
+which adds two at half width. The frame scales them with the drawing.
 
 A design fitted through points carries `"g1": true`. It marks the curvature
 jumps at the joins as the fit, so the report prints them without failing the

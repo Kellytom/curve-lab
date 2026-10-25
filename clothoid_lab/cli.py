@@ -31,7 +31,8 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
            backend: str | None = None,
            page: tuple[float, float] | None = None,
            frame: tuple[float, float] | None = None,
-           view: str | None = None) -> tuple[str, dict]:
+           view: str | None = None,
+           annotations: list[dict] | None = None) -> tuple[str, dict]:
     """Build a design into SVG text, with the report that justifies it."""
     chain = engine.build(design, backend=backend)
     spine, fit = bezier.fit_chain(chain, tol=tol, max_spans_per_segment=max_spans,
@@ -44,10 +45,21 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
     rails = build_rails(chain, distances, tol=tol, max_spans_per_segment=max_spans,
                         split=split)
 
+    scale = 1.0
+    if frame is not None:
+        all_spans = list(spine) + [s for rail in rails for s in rail["spans"]]
+        x0, y0, x1, y1 = svg._bbox(all_spans)
+        fw, fh = float(frame[0]), float(frame[1])
+        inner_w, inner_h = fw - 2 * margin, fh - 2 * margin
+        if (x1 - x0) > 0 and (y1 - y0) > 0 and inner_w > 0 and inner_h > 0:
+            scale = min(inner_w / (x1 - x0), inner_h / (y1 - y0))
+
     text = svg.document(design, chain, spine, rails, prec=prec, margin=margin,
-                        page=page, frame=frame, view=view)
+                        page=page, frame=frame, view=view,
+                        annotations=annotations)
     info = {
         "chain": engine.report(chain),
+        "scale": scale,
         "fit": fit,
         "spine_error": fit["error_max"],
         "spine_deviation": spacing,
@@ -78,23 +90,24 @@ def format_report(info: dict, tol: float) -> str:
         joins = "G1   curvature jumps are intended by construction"
     else:
         joins = (f"{'G2' if c['join_g2'] else 'G1'}   "
-                 f"worst curvature jump {c['join_kappa_error_max']:.3e} 1/mm")
+                 f"worst curvature jump {c['join_kappa_error_max']:.3e} 1/unit")
     lines = [
         f"engine        {c['backend']}",
-        f"segments      {c['segments']}   length {c['length']:.3f} mm",
+        f"segments      {c['segments']}   length {c['length']:.3f} units",
+        f"scale         1 unit = {info.get('scale', 1.0):.4f} mm",
         f"joins         {joins}",
-        f"tightest      radius {c['min_radius']:.3f} mm at s={c['min_radius_at']:.2f}",
+        f"tightest      radius {c['min_radius']:.3f} units at s={c['min_radius_at']:.2f}",
         f"cubics        {info['fit']['spans']}  split {info['fit']['split']}  "
         f"per segment {info['fit']['spans_per_segment']}",
-        f"fit           {info['spine_error']:.4f} mm worst, "
-        f"{info['spine_deviation']:.4f} mm spacing  (tol {tol:g} mm)",
+        f"fit           {info['spine_error']:.4f} units worst, "
+        f"{info['spine_deviation']:.4f} units spacing  (tol {tol:g} units)",
     ]
     for r in info["rails"]:
         fold = "fold" if r["folds"] else "clear"
         clamp = f"  {r['clamped']} clamped at the reversal" if r.get("clamped") else ""
         lines.append(
             f"rail {r['distance']:+.3f}  {fold}  {r['spans']} cubics  "
-            f"error {r['error_max']:.4f} mm  margin {r['margin']:.3f} mm{clamp}"
+            f"error {r['error_max']:.4f} units  margin {r['margin']:.3f} units{clamp}"
         )
         for s0, s1 in r["folds"]:
             lines.append(f"              folds from s={s0:.2f} to s={s1:.2f}")
@@ -114,7 +127,7 @@ def _verdict(info: dict, tol: float) -> str:
     join = info.get("worst_join")
     if join and abs(join["d_kappa"]) >= 1e-9:
         reasons.append(
-            f"join at s={join['at']:.2f} jumps {join['d_kappa']:+.3e} 1/mm, so G1 not G2 "
+            f"join at s={join['at']:.2f} jumps {join['d_kappa']:+.3e} 1/unit, so G1 not G2 "
             f"(set kappa0 to null to inherit)")
     return "; ".join(reasons) if reasons else "over tolerance"
 
@@ -143,16 +156,16 @@ def main(argv: list[str] | None = None) -> int:
                     help="traverse the design backwards")
     ap.add_argument("--out", default=None, help="SVG path (default out/<name>.svg)")
     ap.add_argument("--json", default=None, help="also write the design JSON here")
-    ap.add_argument("--tol", type=float, default=0.02, help="fit tolerance in mm")
-    ap.add_argument("--width", type=float, default=None, help="ribbon width in mm, two rails")
+    ap.add_argument("--tol", type=float, default=0.02, help="fit tolerance in design units")
+    ap.add_argument("--width", type=float, default=None, help="ribbon width in design units, two rails")
     ap.add_argument("--prec", type=int, default=4, help="decimal places in the path data")
     ap.add_argument("--margin", type=float, default=5.0, help="page margin in mm")
     size = ap.add_mutually_exclusive_group()
     size.add_argument("--page", default=None, metavar="WxH",
                       help="fixed page in mm, true size, drawing centred")
     size.add_argument("--frame", default=None, metavar="WxH",
-                      help="fixed page in mm with the drawing scaled to fill it, "
-                           "so the view never moves between rebuilds")
+                      help="fixed page in mm with the drawing scaled to fill it; "
+                           "this scales design units away from millimetres")
     ap.add_argument("--split", type=int, default=2,
                     help="pieces a span is cut into when it misses the tolerance")
     ap.add_argument("--backend", choices=sorted(backend_names()), default=None,

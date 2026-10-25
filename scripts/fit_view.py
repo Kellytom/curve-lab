@@ -78,10 +78,34 @@ def main(argv=None) -> int:
     cx, cy = page[0] / 2.0, page[1] / 2.0
 
     if "<sodipodi:namedview" not in text:
-        raise SystemExit("no sodipodi:namedview in the file to update")
-    text = re.sub(r'inkscape:zoom="[^"]*"', f'inkscape:zoom="{zoom:.6g}"', text)
-    text = re.sub(r'inkscape:cx="[^"]*"', f'inkscape:cx="{cx:g}"', text)
-    text = re.sub(r'inkscape:cy="[^"]*"', f'inkscape:cy="{cy:g}"', text)
+        if "xmlns:sodipodi=" not in text:
+            text = text.replace(
+                "<svg ",
+                '<svg xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n'
+                '     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"\n     ',
+                1)
+        view = (
+            f'<sodipodi:namedview\n'
+            f'     id="namedview1"\n'
+            f'     pagecolor="#ffffff"\n'
+            f'     bordercolor="#666666"\n'
+            f'     borderopacity="1.0"\n'
+            f'     inkscape:showpageshadow="2"\n'
+            f'     inkscape:pageopacity="1.0"\n'
+            f'     inkscape:pagecheckerboard="0"\n'
+            f'     inkscape:deskcolor="#d1d1d1"\n'
+            f'     inkscape:zoom="{zoom:.6g}"\n'
+            f'     inkscape:cx="{cx:g}"\n'
+            f'     inkscape:cy="{cy:g}"\n'
+            f'     inkscape:document-units="mm"\n'
+            f'     showgrid="false" />'
+        )
+        end = text.index(">", text.index("<svg")) + 1
+        text = text[:end] + "\n  " + view + text[end:]
+    else:
+        text = re.sub(r'inkscape:zoom="[^"]*"', f'inkscape:zoom="{zoom:.6g}"', text)
+        text = re.sub(r'inkscape:cx="[^"]*"', f'inkscape:cx="{cx:g}"', text)
+        text = re.sub(r'inkscape:cy="[^"]*"', f'inkscape:cy="{cy:g}"', text)
     with open(args.svg, "w", encoding="utf-8") as fh:
         fh.write(text)
 

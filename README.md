@@ -26,19 +26,21 @@ install the wheel and ask for it: `pip install -r requirements-dev.txt`, then ad
 the same engine, which is why it works as a cross-check and not as the default.
 
 ```
-segments      2   length 80.000 mm
-joins         G2   worst curvature jump 0.000e+00 1/mm
-tightest      radius 12.732 mm at s=40.00
+scale         1 unit = 1.0000 mm
+segments      2   length 80.000 units
+joins         G2   worst curvature jump 0.000e+00 1/unit
+tightest      radius 12.732 units at s=40.00
 cubics        6  per segment [3, 3]
-fit           0.0032 mm worst, 0.0032 mm spacing  (tol 0.02 mm)
-rail +3.000  clear  7 cubics  error 0.0167 mm  margin 9.732 mm
-rail -3.000  clear  7 cubics  error 0.0136 mm  margin 9.732 mm
+fit           0.0032 units worst, 0.0032 units spacing  (tol 0.02 units)
+rail +3.000  clear  7 cubics  error 0.0167 units  margin 9.732 units
+rail -3.000  clear  7 cubics  error 0.0136 units  margin 9.732 units
 verdict       inside tolerance
 wrote         out/s-curve.svg
 ```
 
-Presets: `s-curve`, `ogee`, `bracket`, `petal`. Options: `--tol` in mm,
-`--width` for a two-rail ribbon, `--page WxH` to fix the page in mm, `--prec` for
+Presets: `s-curve`, `ogee`, `bracket`, `petal`. Options: `--tol` in design
+units (millimetres at 1:1), `--width` for a two-rail ribbon in design units,
+`--page WxH` to fix the page in mm, `--prec` for
 decimals in the path data, `--split` for how many pieces a span is cut into,
 `--backend` to choose the engine, `--design` to read a JSON design, `--points` to
 fit a spline through a points file, `--g2` and `--closed` for that spline,
@@ -48,6 +50,11 @@ one, `--watch` to rebuild on save, `--quiet`.
 `--page` matters in the two-window loop: with an automatic page every parameter
 change resizes the document and the viewer re-fits, so the zoom moves under your
 hand. A fixed page keeps the viewBox constant and the drawing moves inside it.
+
+`--page` keeps one design unit equal to one millimetre. `--frame` instead scales
+the drawing to fill the sheet, so a design unit becomes the reported scale in
+millimetres; the report prints `1 unit = ... mm` on every run so the two cannot
+be confused silently.
 
 A rail that folds reverses inside a span, where the parabola arm runs away and
 would place a control point tens of metres out. The arm is bounded at four times
@@ -115,10 +122,13 @@ It needs no server and no external assets, so it can be sent on as one file.
 }
 ```
 
-`kd` is curvature rate in 1/mm², `length` is arc length in mm, and `kappa0` is
-the curvature the segment starts from. `null` means "continue from the previous
-segment's end", which is what makes the join G2. Set a number and the jump
-against the previous end is measured and printed.
+`kd` is curvature rate in 1/unit², `length` is arc length in design units, and
+`kappa0` is the curvature the segment starts from. At output, one design unit is
+one millimetre for a page or an automatic sheet; with `--frame`, the writer
+scales the design to the sheet, so one unit becomes that much larger or smaller.
+`null` means "continue from the previous segment's end", which is what makes the
+join G2. Set a number and the jump against the previous end is measured and
+printed.
 
 ## Through points
 
@@ -161,9 +171,9 @@ Two points give one clothoid. The fit is available directly too, as
 `interpolate.fit(p0, t0, p1, t1)`, returning `(kappa0, kd, length)`.
 
 ```
-segments      4   length 55.461 mm
+segments      4   length 55.461 units
 joins         G1   curvature jumps are intended by construction
-fit           0.0100 mm worst  (tol 0.02 mm)
+fit           0.0100 units worst  (tol 0.02 units)
 verdict       inside tolerance, joins G1 by construction
 ```
 
@@ -208,8 +218,10 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
    margin are printed.
 5. **Write.** Absolute `M` and `C` only, fixed-point numbers with no exponent,
    one user unit to one millimetre, `width` and `height` in mm with a matching
-   viewBox, no transform. The design rides along in a `<desc>` so a round trip
-   has something to recover.
+   viewBox, no transform. Positive y is up: SVG's y is down, so the writer flips
+   at output (`y' = page_height - y`) and nowhere else, leaving the design JSON
+   y-up. The design rides along in a `<desc>` so a round trip has something to
+   recover.
 
 ## What is settled
 
@@ -247,7 +259,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 .venv/bin/python -m unittest discover tests
 ```
 
-85 checks. The engine is held against an independent Simpson integral of the
+90 checks. The engine is held against an independent Simpson integral of the
 Fresnel form, every preset against G2, both spline methods against the points
 they were given, the G2 spline and the joined designs against their own
 curvature continuity, the fitter against its own tolerance, and the writer

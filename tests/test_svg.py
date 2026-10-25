@@ -195,6 +195,39 @@ class TestCommandLine(unittest.TestCase):
         self.assertIn("mm", text)
 
 
+class TestAnnotations(unittest.TestCase):
+    def test_marks_are_standard_svg(self):
+        design = presets.get("s-curve")
+        marks = [
+            {"kind": "line", "x1": 0.0, "y1": 0.0, "x2": 10.0, "y2": 0.0,
+             "width": 0.25},
+            {"kind": "circle", "x": 5.0, "y": 5.0, "r": 1.0, "front": True},
+            {"kind": "text", "x": 5.0, "y": 5.0, "text": "a & b", "size": 4.0,
+             "front": True},
+        ]
+        text, _ = cli.render(design, width=6.0, annotations=marks)
+        self.assertIn('<g id="annotation-lines">', text)
+        self.assertIn('<g id="annotations">', text)
+        self.assertIn("<line ", text)
+        self.assertIn("<circle ", text)
+        self.assertIn("a &amp; b</text>", text)
+        self.assertIn('font-size="4"', text)
+        self.assertNotIn("transform=", text)
+
+    def test_output_is_y_up(self):
+        design = presets.get("s-curve")
+        chain = engine.build(design)
+        x0, y0, x1, y1 = chain.bounds()
+        marks = [
+            {"kind": "circle", "x": x0, "y": y0, "r": 1.0, "front": True},
+            {"kind": "circle", "x": x0, "y": y1, "r": 1.0, "front": True},
+        ]
+        text, _ = cli.render(design, width=6.0, annotations=marks)
+        ys = [float(v) for v in re.findall(r'<circle cx="[^"]*" cy="([^"]*)"', text)]
+        self.assertEqual(len(ys), 2)
+        self.assertLess(ys[1], ys[0], "the larger design y must sit higher on the page")
+
+
 class TestModel(unittest.TestCase):
     def test_json_round_trip(self):
         design = presets.get("petal")

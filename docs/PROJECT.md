@@ -45,6 +45,7 @@ Three properties the code takes seriously:
 │   ├── presets.py             s-curve, ogee, bracket, petal
 │   ├── interpolate.py         G1/G2 fit and spline through points
 │   ├── compose.py             trim, reverse, connect, join
+│   ├── solve.py               bounded least squares for exercises
 │   ├── cli.py                 report, flags, exit status
 │   ├── watch.py               two-window loop, atomic rebuild
 │   └── backend/               ctypes surface + pyclothoids adapter
@@ -57,10 +58,11 @@ Three properties the code takes seriously:
 │   ├── twin.py                self-contained HTML twin of a drawing (Python)
 │   ├── set_window_geometry.py Inkscape window frame and chrome (Python)
 │   └── place-window.sh        window helper (Bash)
-├── tests/                     Python, unittest, 85 checks
+├── tests/                     Python, unittest, 90 checks
 ├── vendor/Clothoids/          C++17 engine and submodules (BSD-2 and friends)
 ├── build/libclothoidlab.dylib the compiled engine + C surface
 ├── out/                       drawings, designs, grid tables (scratch)
+│   └── caps/                  cap family, fold and index
 ├── docs/                      TODO, this overview, the 3125 grid note
 ├── README.md  SPEC.md  ATTRIBUTION.md  LICENSE
 ```
@@ -140,7 +142,7 @@ Inkscape: `Cmd+Opt+R` reverts after a rebuild; `5` fits the page. The window is
 placed by `scripts/set_window_geometry.py`.
 
 ```sh
-.venv/bin/python -m unittest discover tests   # 85 checks
+.venv/bin/python -m unittest discover tests   # 90 checks
 .venv/bin/python scripts/grid_3125.py         # reverse-curve table
 ```
 
@@ -159,4 +161,5 @@ placed by `scripts/set_window_geometry.py`.
 - `SPEC.md` — what it promises, with the acceptance numbers.
 - `docs/TODO.md` — what is done, planned, and what is broken.
 - `docs/clothoid-grid-3125.md` — reverse curves, odd symmetry, the exact 4% table.
+- `docs/caps.md` — the closed two-clothoid cap family and its fold.
 - `ATTRIBUTION.md` — licences and provenance.
