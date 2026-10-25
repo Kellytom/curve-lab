@@ -40,8 +40,10 @@ wrote         out/s-curve.svg
 Presets: `s-curve`, `ogee`, `bracket`, `petal`. Options: `--tol` in mm,
 `--width` for a two-rail ribbon, `--page WxH` to fix the page in mm, `--prec` for
 decimals in the path data, `--split` for how many pieces a span is cut into,
-`--backend` to choose the engine, `--design` to read a JSON design, `--json` to
-write one, `--watch` to rebuild on save, `--quiet`.
+`--backend` to choose the engine, `--design` to read a JSON design, `--points` to
+fit a spline through a points file, `--g2` and `--closed` for that spline,
+`--smooth N`, `--trim S0,S1` and `--reverse` on any design, `--json` to write
+one, `--watch` to rebuild on save, `--quiet`.
 
 `--page` matters in the two-window loop: with an automatic page every parameter
 change resizes the document and the viewer re-fits, so the zoom moves under your
@@ -76,9 +78,27 @@ it never opens a half-written file, and a design that does not parse leaves the
 last good drawing untouched, because typing a number passes through states that
 are not valid JSON.
 
+If the drawing opens zoomed into a corner, the saved view is wrong. Inkscape
+stores `inkscape:zoom` as a factor, not as pixels per millimetre, so
+`scripts/fit_view.py out/play.svg` recomputes it from the page and the window
+and centres the view.
+
 This is generate-and-look, not a round trip: a rebuild replaces the file, so node
 edits made in Inkscape are lost on the next save. The extension is what closes
 that loop.
+
+## A browser twin
+
+`scripts/twin.py` writes a self-contained HTML page: the SVG inline, the chain
+report and the design JSON beside it.
+
+```sh
+.venv/bin/python scripts/twin.py --svg out/play.svg --design out/play.json \
+    --out out/twin.html
+```
+
+It needs no server and no external assets, so it can be sent on as one file.
+`--refresh 2` reloads it on a timer while the watcher rebuilds.
 
 ## A design is data
 
@@ -99,6 +119,77 @@ that loop.
 the curvature the segment starts from. `null` means "continue from the previous
 segment's end", which is what makes the join G2. Set a number and the jump
 against the previous end is measured and printed.
+
+## Through points
+
+When the shape starts as a sketch rather than a curvature list, give the tool
+the points and let it fit them:
+
+```sh
+.venv/bin/python -m clothoid_lab.cli --points out/route.txt \
+    --width 4 --frame 200x250 --out out/route.svg
+```
+
+`out/route.txt` is one point per line, in millimetres:
+
+```
+0, 0
+12, 6
+24, 2
+36, 10
+```
+
+This is Bertolazzi and Frego's G1 fitting. Each pair of points gets one clothoid
+that passes through both with the directions at its ends, and the directions are
+estimated so neighbours share a tangent. The fit is G1, not G2: curvature is
+free to jump at a point, and the report prints the jump rather than hiding it.
+Every fitted segment is written into the design in full, so a spline is still a
+design — editable, offsettable, and reproducible without the points file.
+
+For control, JSON may carry the directions and a name:
+
+```json
+{"name": "ridge", "points": [[0, 0], [12, 6], [24, 2]],
+ "thetas": [0.0, 0.4, 0.9]}
+```
+
+A supplied direction is honoured; with no `thetas`, they are estimated.
+`--watch --points out/route.txt` watches the points file and refits on save,
+the same loop as a design file.
+
+Two points give one clothoid. The fit is available directly too, as
+`interpolate.fit(p0, t0, p1, t1)`, returning `(kappa0, kd, length)`.
+
+```
+segments      4   length 55.461 mm
+joins         G1   curvature jumps are intended by construction
+fit           0.0100 mm worst  (tol 0.02 mm)
+verdict       inside tolerance, joins G1 by construction
+```
+
+`--g2` fits with continuous curvature instead: the end directions default to
+the first and last chord, the end curvatures to zero, and `--closed` closes the
+ring. It costs more segments, and it removes the jumps — measured, not assumed.
+
+## Splicing and trimming
+
+The chain can be cut and reversed without refitting, so the pieces stay the
+same clothoid arcs. Two designs can be joined with a G2 connector at the seam:
+
+```python
+from clothoid_lab import compose
+
+short = compose.trim(design, 20.0, 120.0)   # arc-length range, mm
+back = compose.reverse(design)
+joined = compose.join(first, second, method="3arc")
+```
+
+`compose.join` places the second design where its anchor says and bridges the
+gap with one of the library's G2 connectors: `2arc`, `3arc` or `clc`. The seam
+is curvature-continuous; the result is an ordinary design, not a new type.
+
+From the command line, `--trim 20,120` and `--reverse` apply to any design, and
+`--smooth N` moves the shared tangents to reduce curvature jumps (quasi-G2).
 
 ## How the drawing is made
 
@@ -140,6 +231,8 @@ against the previous end is measured and printed.
 
 - `clothoid_lab/model.py` holds the design, its JSON, and its validation.
 - `clothoid_lab/engine.py` places the chain and addresses it by arc length.
+- `clothoid_lab/interpolate.py` fits a G1 or G2 spline through points and turns it into a design.
+- `clothoid_lab/compose.py` trims, reverses, connects and joins designs.
 - `clothoid_lab/bezier.py` holds the arm rule, the subdivision, and the error metric.
 - `clothoid_lab/offsets.py` builds the rails, the fold ranges and the ribbon.
 - `clothoid_lab/svg.py` writes the path data and reads the design back.
@@ -154,12 +247,14 @@ against the previous end is measured and printed.
 .venv/bin/python -m unittest discover tests
 ```
 
-46 checks. The engine is held against an independent Simpson integral of the
-Fresnel form, every preset against G2, the fitter against its own tolerance,
-and the writer against the things that break Inkscape: exponent notation,
-transforms, and coordinates that never touch the curve. The two backends are held
-against each other, and the watcher is held against a broken edit, which must not
-blank the drawing.
+85 checks. The engine is held against an independent Simpson integral of the
+Fresnel form, every preset against G2, both spline methods against the points
+they were given, the G2 spline and the joined designs against their own
+curvature continuity, the fitter against its own tolerance, and the writer
+against the things that break Inkscape: exponent notation, transforms, and
+coordinates that never touch the curve. The two backends are held against each
+other, and the watcher is held against a broken edit, which must not blank the
+drawing.
 
 ## Known roughness
 

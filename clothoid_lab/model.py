@@ -47,6 +47,9 @@ class Design:
     offsets: list[float] = field(default_factory=list)
     stroke: float = 1.0
     name: str = "untitled"
+    # A G1 spline through points is G1 by construction: curvature jumps at the
+    # joins are the fit, not a mistake, so the report must not fail the run.
+    g1: bool = False
 
     def __post_init__(self):
         if not self.segments:
@@ -56,14 +59,35 @@ class Design:
         if self.stroke <= 0:
             raise ValueError("stroke width must be positive")
 
+    @classmethod
+    def from_pieces(cls, pieces, anchor=None, name: str = "untitled",
+                    stroke: float = 1.0, g1: bool = False) -> "Design":
+        """A design from backend pieces: start point, direction, curvature, rate, length."""
+        if not pieces:
+            raise ValueError("a design needs at least one piece")
+        if anchor is None:
+            first = pieces[0]
+            anchor = {"x": float(first["x0"]), "y": float(first["y0"]),
+                      "angle": float(first["theta0"])}
+        segments = [
+            Segment(kd=float(p["kd"]), length=float(p["length"]),
+                    kappa0=float(p["kappa0"] if "kappa0" in p else p["k0"]))
+            for p in pieces
+        ]
+        return cls(segments=segments, anchor=dict(anchor), stroke=float(stroke),
+                   name=name, g1=g1)
+
     def to_dict(self) -> dict:
-        return {
+        out = {
             "name": self.name,
             "anchor": dict(self.anchor),
             "segments": [s.to_dict() for s in self.segments],
             "offsets": list(self.offsets),
             "stroke": self.stroke,
         }
+        if self.g1:
+            out["g1"] = True
+        return out
 
     @classmethod
     def from_dict(cls, data: dict) -> "Design":
@@ -78,6 +102,7 @@ class Design:
             offsets=[float(d) for d in data.get("offsets", [])],
             stroke=float(data.get("stroke", 1.0)),
             name=str(data.get("name", "untitled")),
+            g1=bool(data.get("g1", False)),
         )
 
     def to_json(self) -> str:

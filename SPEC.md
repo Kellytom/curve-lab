@@ -15,6 +15,12 @@ edit.
 - Chains of clothoids with stated start curvature, curvature rate and arc
   length, joined G2 unless the design says otherwise.
 - Parallel rails at signed distances, for ribbons and thickness.
+- A G1 clothoid spline through a list of points, for when the shape starts as a
+  sketch rather than a curvature list.
+- A G2 clothoid spline through points, with prescribed end tangent and
+  curvature, and optional closure.
+- Trim, reverse and G2-connect existing chains, so pieces can be spliced without
+  refitting them.
 - A measured fit. Every cubic says how far it sits from the true curve.
 - Plain absolute-cubic SVG, millimetre units, no transform, no exponent
   notation, four decimals by default.
@@ -46,6 +52,14 @@ edit.
    window is the last piece, not the first.
 6. **The tolerance decides the node count.** Not an angle rule, not a fixed
    count. `--split` sets how many pieces a span is redivided into.
+7. **G1 fitting is the library's, surfaced as a design.** The two-point fit and
+   the spline through points come from Clothoids (`build_G1`), not a second
+   implementation. A fitted spline is written out as ordinary segments with
+   explicit curvature, marked `g1`, so its curvature jumps are reported as the
+   fit rather than failed as a defect.
+8. **Splicing uses the library's cut and connectors.** Trimming and reversing
+   are the library's own operations, so a cut piece is the same arcs, not a
+   refit. Joining uses `G2solve2arc`, `G2solve3arc` or `G2solveCLC` at the seam.
 
 ## Acceptance numbers
 
@@ -71,6 +85,20 @@ These are the promises, and each has a test.
   turn on a 40 mm segment deviates 0.024 mm, over the default tolerance. Three
   spans give 0.0036 mm; four give 0.0009 mm. The fitter measures rather than
   counts degrees.
+- **G1 interpolation.** A fitted spline passes through every supplied point
+  within 1e-9 mm, and its direction at each point matches the fitted or supplied
+  direction within 1e-9 rad. A two-point fit meets both prescribed directions
+  within 1e-9 rad.
+- **G2 interpolation.** A G2 spline passes through every point within 1e-9 mm,
+  every join is G2, and a closed spline returns to its start within 1e-9 mm in
+  position and direction.
+- **Splicing.** A trimmed design is the original between the two arc lengths,
+  within 1e-9 mm; a reversed design starts where the original ended. A G2
+  connector reaches both poses within 1e-9, and a joined design is G2 at the
+  seams and lands on the second design's end.
+- **G1 is reported, not disguised.** A spline design is marked `g1`; its
+  curvature jumps are printed and the run succeeds when the fit is inside
+  tolerance. A jump from a hand-set `kappa0` without the flag still fails.
 
 ## The model
 
@@ -87,6 +115,10 @@ against the previous end is printed.
 
 Rails are `offsets`, a list of signed distances in mm, or `--width`, which adds
 two at half width.
+
+A design fitted through points carries `"g1": true`. It marks the curvature
+jumps at the joins as the fit, so the report prints them without failing the
+run. A hand-set `kappa0` without that flag is still a defect.
 
 ## Roadmap
 

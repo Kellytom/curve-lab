@@ -1,4 +1,4 @@
-"""Command line: a preset or a design file in, one SVG out, the numbers printed.
+"""Command line: a preset, a design file or a list of points in, one SVG out.
 
 The report is the point of the tool as much as the path is. It says how many
 cubics were needed, how far they sit from the true clothoid, whether every join
@@ -6,9 +6,11 @@ is G2, the tightest radius on the chain, and for each rail whether it has folded
 and by how much margin.
 
     python -m clothoid_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
+    python -m clothoid_lab.cli --points route.txt --width 4 --out out/route.svg
 
-Exit status is 0 when the drawing is inside tolerance and the chain is G2, 1
-when it is not. A fold in a rail is reported and does not fail the run, because
+Exit status is 0 when the fit is inside tolerance and the joins are G2, or when
+the design is a G1 spline through points and its jumps are the fit. It is 1
+otherwise. A fold in a rail is reported and does not fail the run, because
 drawing the fold is a deliberate choice.
 """
 
@@ -18,7 +20,7 @@ import argparse
 import os
 import sys
 
-from . import bezier, engine, presets, svg
+from . import bezier, compose, engine, interpolate, presets, svg
 from .model import Design
 from .offsets import build_rails, rail_deviation
 
@@ -63,7 +65,8 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
             for r in rails
         ],
         "fit_ok": fit["error_max"] <= tol,
-        "ok": fit["error_max"] <= tol and chain.g2,
+        "ok": fit["error_max"] <= tol and (chain.g2 or design.g1),
+        "g1": design.g1,
         "worst_join": max(chain.joins, key=lambda j: abs(j["d_kappa"]), default=None),
     }
     return text, info
@@ -71,11 +74,15 @@ def render(design: Design, tol: float = 0.02, width: float | None = None,
 
 def format_report(info: dict, tol: float) -> str:
     c = info["chain"]
+    if info.get("g1"):
+        joins = "G1   curvature jumps are intended by construction"
+    else:
+        joins = (f"{'G2' if c['join_g2'] else 'G1'}   "
+                 f"worst curvature jump {c['join_kappa_error_max']:.3e} 1/mm")
     lines = [
         f"engine        {c['backend']}",
         f"segments      {c['segments']}   length {c['length']:.3f} mm",
-        f"joins         {'G2' if c['join_g2'] else 'G1'}   "
-        f"worst curvature jump {c['join_kappa_error_max']:.3e} 1/mm",
+        f"joins         {joins}",
         f"tightest      radius {c['min_radius']:.3f} mm at s={c['min_radius_at']:.2f}",
         f"cubics        {info['fit']['spans']}  split {info['fit']['split']}  "
         f"per segment {info['fit']['spans_per_segment']}",
@@ -98,6 +105,8 @@ def format_report(info: dict, tol: float) -> str:
 def _verdict(info: dict, tol: float) -> str:
     """Say which promise failed, because the two failures look nothing alike."""
     if info.get("ok"):
+        if info.get("g1"):
+            return "inside tolerance, joins G1 by construction"
         return "inside tolerance, joins G2"
     reasons = []
     if not info.get("fit_ok", True):
@@ -120,6 +129,18 @@ def main(argv: list[str] | None = None) -> int:
     src = ap.add_mutually_exclusive_group(required=True)
     src.add_argument("--preset", choices=sorted(presets.PRESETS), help="a named starting design")
     src.add_argument("--design", help="a design JSON file")
+    src.add_argument("--points", metavar="FILE",
+                     help="fit a G1 spline through these points (JSON, or 'x, y' per line)")
+    ap.add_argument("--g2", action="store_true",
+                    help="fit a G2 spline through --points instead of G1")
+    ap.add_argument("--closed", action="store_true",
+                    help="close the spline from --points")
+    ap.add_argument("--smooth", type=int, default=0, metavar="N",
+                    help="reduce curvature jumps over N iterations")
+    ap.add_argument("--trim", default=None, metavar="S0,S1",
+                    help="keep an arc-length range in mm")
+    ap.add_argument("--reverse", action="store_true",
+                    help="traverse the design backwards")
     ap.add_argument("--out", default=None, help="SVG path (default out/<name>.svg)")
     ap.add_argument("--json", default=None, help="also write the design JSON here")
     ap.add_argument("--tol", type=float, default=0.02, help="fit tolerance in mm")
@@ -158,17 +179,53 @@ def main(argv: list[str] | None = None) -> int:
     page = size_of(args.page, "--page") if args.page else None
     frame = size_of(args.frame, "--frame") if args.frame else None
 
+    if (args.g2 or args.closed) and not args.points:
+        ap.error("--g2 and --closed apply to --points only")
+    if args.smooth < 0:
+        ap.error("--smooth takes a non-negative number of iterations")
+
+    trim_range = None
+    if args.trim:
+        try:
+            s0, s1 = (float(v) for v in args.trim.split(","))
+        except ValueError:
+            ap.error("--trim takes S0,S1 in mm, for example 10,120")
+        if s1 <= s0:
+            ap.error("--trim needs S1 greater than S0")
+        trim_range = (s0, s1)
+
+    def prepare(design: Design) -> Design:
+        if args.smooth:
+            design = interpolate.smooth(design, iterations=args.smooth)
+        if trim_range is not None:
+            design = compose.trim(design, *trim_range)
+        if args.reverse:
+            design = compose.reverse(design)
+        return design
+
+    def load_design(path: str) -> Design:
+        if args.points:
+            return prepare(interpolate.load(
+                path,
+                method="g2" if args.g2 else None,
+                cyclic=True if args.closed else None,
+            ))
+        return prepare(Design.load(path))
+
+    needs_loader = bool(args.points or args.smooth or trim_range or args.reverse)
     if args.watch:
-        if not args.design:
-            ap.error("--watch needs --design: there must be a file to watch")
+        if not (args.design or args.points):
+            ap.error("--watch needs --design or --points: there must be a file to watch")
         from . import watch as watcher
+        source = args.points or args.design
         return watcher.run(
-            args.design,
+            source,
             args.out or os.path.join("out", "watched.svg"),
             render,
             interval=0.4,
             seed_preset=args.seed,
             reopen_app=args.reopen,
+            load=load_design if needs_loader else None,
             tol=args.tol,
             width=args.width,
             prec=args.prec,
@@ -179,7 +236,19 @@ def main(argv: list[str] | None = None) -> int:
             frame=frame,
         )
 
-    design = Design.load(args.design) if args.design else presets.get(args.preset)
+    try:
+        if args.points:
+            design = prepare(interpolate.load(
+                args.points,
+                method="g2" if args.g2 else None,
+                cyclic=True if args.closed else None,
+            ))
+        elif args.design:
+            design = prepare(Design.load(args.design))
+        else:
+            design = prepare(presets.get(args.preset))
+    except (interpolate.InterpolationError, compose.ComposeError, OSError) as exc:
+        ap.error(str(exc))
     if args.width is not None:
         if args.width <= 0:
             ap.error("--width must be positive")

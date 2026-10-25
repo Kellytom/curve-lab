@@ -36,12 +36,12 @@ def seed(path: str, preset_name: str = "s-curve") -> Design:
     return design
 
 
-def rebuild(design_path: str, out_path: str, render, encoding: str = "utf-8",
+def rebuild(design_path: str, out_path: str, render, load=None,
             **options) -> tuple[bool, str]:
     """Render the design file into the SVG, atomically. Never clobbers on failure."""
+    reader = load or Design.load
     try:
-        with open(design_path, "r", encoding=encoding) as fh:
-            design = Design.from_json(fh.read())
+        design = reader(design_path)
         # Always keep the view in the loop: the file Inkscape saved holds the
         # zoom, and a rebuild that dropped it would re-fit the document and move
         # the view under the hand.
@@ -88,9 +88,12 @@ def reopen(path: str, app: str = "Inkscape") -> bool:
 
 def run(design_path: str, out_path: str, render, interval: float = 0.4,
         seed_preset: str | None = None, reopen_app: str | None = None,
-        **options) -> int:
+        load=None, **options) -> int:
     """Watch until interrupted. Returns the number of successful rebuilds."""
     if not os.path.exists(design_path):
+        if load is not None:
+            print(f"no such file: {design_path}", flush=True)
+            return 1
         name = seed_preset or "s-curve"
         seed(design_path, name)
         print(f"seeded {design_path} from preset {name}", flush=True)
@@ -101,7 +104,7 @@ def run(design_path: str, out_path: str, render, interval: float = 0.4,
             print(f"        could not hand {out_path} to {reopen_app}", flush=True)
 
     stamp = _stamp(design_path)
-    ok, message = rebuild(design_path, out_path, render, **options)
+    ok, message = rebuild(design_path, out_path, render, load=load, **options)
     print(f"built   {message}" if ok else f"waiting {message}", flush=True)
     if ok and reopen_app:
         reopen(out_path, reopen_app)
@@ -116,7 +119,7 @@ def run(design_path: str, out_path: str, render, interval: float = 0.4,
             if now == stamp:
                 continue
             stamp = now
-            ok, message = rebuild(design_path, out_path, render, **options)
+            ok, message = rebuild(design_path, out_path, render, load=load, **options)
             if ok:
                 rebuilds += 1
                 announce("rebuilt", ok, message)

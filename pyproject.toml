@@ -18,4 +18,4 @@ wheel = ["pyclothoids==0.2.0"]
 clothoid-lab = "clothoid_lab.cli:main"
 
 [tool.setuptools]
-packages = ["clothoid_lab"]
+packages = ["clothoid_lab", "clothoid_lab.backend"]
