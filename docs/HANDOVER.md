@@ -222,8 +222,11 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `tests/test_web.py` | web API tests |
 | `clothoid_lab/` | existing geometry/policy layer |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
-| `docs/HANDOVER.md` | this handover |
+| `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
+| `docs/HANDOFF.md` | compact current-session continuation brief |
+| `~/.config/opencode/commands/fhandoff.md` | `/fhandoff` command definition |
+| `~/.config/opencode/commands/fhandon.md` | `/fhandon` command definition |
 
 `out/play-template.svg` is an untracked user file; leave it alone.
 
@@ -299,8 +302,24 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 8. **No database, accounts, sharing, or saved designs.** This is an MVP, not a
    multi-user product.
 
+## Continuation commands
+
+Two global OpenCode commands make the next session cheap to start:
+
+- **`/fhandoff [focus]`** — inspects git/local/remote state, writes or refreshes
+  `docs/HANDOFF.md`, updates the durable handover if a fact changed, and commits
+  only the handoff files. It replies with a five-bullet summary.
+- **`/fhandon [focus]`** — reads `docs/HANDOFF.md`, checks git and the public
+  URL, reports the current state, and either proceeds with a supplied task or
+  stops for direction.
+
+They are global so they work from the current home workspace:
+`~/.config/opencode/commands/fhandoff.md` and
+`~/.config/opencode/commands/fhandon.md`.
+
 ## Handoff checklist
 
+- [ ] Start the next session with `/fhandon`.
 - [ ] Open the remote URL on the phone; load a class I cap and a `cap-pt` leaf.
 - [ ] Confirm the $1 budget alert email reaches the billing admin.
 - [ ] Run `git log -1` and `git status`; commit/push the MVP/handover files.

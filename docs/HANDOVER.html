@@ -222,8 +222,11 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>tests/test_web.py</code></td><td>web API tests</td></tr>
   <tr><td><code>clothoid_lab/</code></td><td>existing geometry/policy layer</td></tr>
   <tr><td><code>out/caps/</code></td><td>existing cap SVG/JSON, baked into remote image</td></tr>
-  <tr><td><code>docs/HANDOVER.md</code></td><td>Markdown handover</td></tr>
+  <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
   <tr><td><code>docs/HANDOVER.html</code></td><td>this browser-readable mirror</td></tr>
+  <tr><td><code>docs/HANDOFF.md</code></td><td>compact current-session continuation brief</td></tr>
+  <tr><td><code>~/.config/opencode/commands/fhandoff.md</code></td><td><code>/fhandoff</code> command</td></tr>
+  <tr><td><code>~/.config/opencode/commands/fhandon.md</code></td><td><code>/fhandon</code> command</td></tr>
 </table>
 <p class="note"><code>out/play-template.svg</code> is an untracked user file; leave it alone.</p>
 
@@ -271,8 +274,17 @@ gcloud run deploy clothoid-web \
   <li><strong>No accounts, saved designs, sharing, or database.</strong> This is an MVP.</li>
 </ol>
 
+<h2>Continuation commands</h2>
+<p>Two global OpenCode commands make the next session cheap to start:</p>
+<ul>
+  <li><strong><code>/fhandoff [focus]</code></strong> — inspects git/local/remote state, writes or refreshes <code>docs/HANDOFF.md</code>, updates the durable handover if a fact changed, and commits only the handoff files. It replies with a five-bullet summary.</li>
+  <li><strong><code>/fhandon [focus]</code></strong> — reads <code>docs/HANDOFF.md</code>, checks git and the public URL, reports the current state, and either proceeds with a supplied task or stops for direction.</li>
+</ul>
+<p>They are global so they work from the current home workspace: <code>~/.config/opencode/commands/fhandoff.md</code> and <code>~/.config/opencode/commands/fhandon.md</code>.</p>
+
 <h2>Handoff checklist</h2>
 <ul class="check">
+  <li>Start the next session with <code>/fhandon</code>.</li>
   <li>Open the remote URL on the phone; load a class I cap and a <code>cap-pt</code> leaf.</li>
   <li>Confirm the $1 budget alert email reaches the billing admin.</li>
   <li>Run <code>git log -1</code> and <code>git status</code>; commit/push MVP and handover files.</li>
