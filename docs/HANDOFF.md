@@ -23,9 +23,10 @@ remote MVP now exist.
 - **Budget:** `$1/month` alert (`clothoid-lab guardrail`) at 50/90/100%; alerts
   do not stop spend.
 - **Parity:** local and remote static assets, preset/cap lists, and a real cap-14
-  render are byte-identical. `scripts/check-parity.py` passes.
+  render are byte-identical. `scripts/check-parity.py` passed on 2026-10-25
+  23:32 UTC (local and remote both HTTP 200).
 - **Local tests:** 96 pass.
-- **Git:** run `git log -1`; the last pre-parity commit was `fcf2968`.
+- **Git:** HEAD `b698a2d`; only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
