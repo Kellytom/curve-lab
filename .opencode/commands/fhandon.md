@@ -5,14 +5,19 @@ description: Focused handon — read next-fhandoff.md and carry out its one acti
 Focused handon for clothoid-lab. Work in
 `/Users/thomaskelly/developer/clothoid-lab`.
 
-1. Read `next-fhandoff.md` at the repo root, and nothing else yet.
-2. Its first line names the docs to read. Read them, in order, and stop reading
+1. Before any tool call, write one sentence naming the focused action you are
+   about to carry out, so the operator can see you are on the right thing.
+2. Read `next-fhandoff.md` at the repo root, and nothing else yet.
+3. Its first line names the docs to read. Read them, in order, and stop reading
    when they tell you to.
-3. Its second line is the single focused action. Do that action, and only that
+4. Its second line is the single focused action. Do that action, and only that
    action.
-4. Keep `docs/HANDOFF.md` current as you work, so a freeze costs one step and
+5. Keep `docs/HANDOFF.md` current as you work, so a freeze costs one step and
    not the session.
-5. Do the action and stop. The operator runs `/fhandoff` when they want the
+6. Where a browser check is needed, drive **headless Chrome** directly with the
+   DevTools Protocol (`--headless=old`, `--remote-debugging-port`). Do not look
+   for a connected desktop browser, the Review pane, or Safari/safaridriver.
+7. Do the action and stop. The operator runs `/fhandoff` when they want the
    focused handoff refreshed; it is not run automatically.
 
 If `next-fhandoff.md` is missing or empty, read `docs/HANDOFF.md` and ask for the
