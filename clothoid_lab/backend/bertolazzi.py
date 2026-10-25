@@ -17,10 +17,12 @@ import os
 from pathlib import Path
 
 import math
+import sys
 
 NAME = "bertolazzi"
 _ROOT = Path(__file__).resolve().parents[2]
-LIB_PATH = Path(os.environ.get("CLOTHOID_LIB", _ROOT / "build" / "libclothoidlab.dylib"))
+_SUFFIX = ".dylib" if sys.platform == "darwin" else ".so"
+LIB_PATH = Path(os.environ.get("CLOTHOID_LIB", _ROOT / "build" / f"libclothoidlab{_SUFFIX}"))
 
 _lib = None
 

@@ -1,22 +1,49 @@
 #!/bin/bash
-# scripts/build-native.sh — build libclothoidlab.dylib from the vendored Clothoids.
+# scripts/build-native.sh — build the native Clothoids library.
 #
-# No CMake. The vendored tree is CMake 3.x era and the installed CMake is 4,
-# which rejects the old minimum versions; the sources compile cleanly with the
-# system clang, so the build is one compile per file and one link.
+# macOS: build/libclothoidlab.dylib (Mach-O)
+# Linux: build/libclothoidlab.so   (ELF, for servers and CI)
 #
-# DEVELOPER_DIR is set because xcode-select on this machine points at a path
-# that does not resolve, and every compiler call fails without it.
+# No CMake. The vendored tree is CMake 3.x era and modern CMake rejects its old
+# minimum versions; the sources compile cleanly with the system compiler, so the
+# build is one compile per file and one link. Objects are kept per platform, so a
+# macOS and a Linux build can share the tree without mixing object formats.
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CL="$ROOT/vendor/Clothoids"
 BUILD="$ROOT/build"
-OBJ="$BUILD/obj"
 
-CXX="${CXX:-/usr/bin/clang++}"
-export DEVELOPER_DIR="${DEVELOPER_DIR:-/Library/Developer/CommandLineTools}"
+OS="$(uname -s)"
+case "$OS" in
+  Darwin)
+    EXT="dylib"
+    LINK_FLAGS=(-dynamiclib -install_name @rpath/libclothoidlab.dylib)
+    ;;
+  Linux)
+    EXT="so"
+    LINK_FLAGS=(-shared -pthread)
+    ;;
+  *)
+    echo "unsupported platform: $OS (macOS and Linux are built here)" >&2
+    exit 1
+    ;;
+esac
+
+OUT="$BUILD/libclothoidlab.$EXT"
+OBJ="$BUILD/obj-$OS"
+CXX="${CXX:-c++}"
+
+# Xcode is needed for clang on macOS; on Linux the system compiler is enough.
+if [ "$OS" = "Darwin" ] && [ -z "${DEVELOPER_DIR:-}" ]; then
+  if command -v xcode-select >/dev/null 2>&1; then
+    DEVELOPER_DIR="$(xcode-select -p 2>/dev/null || true)"
+  fi
+fi
+if [ -n "${DEVELOPER_DIR:-}" ]; then
+  export DEVELOPER_DIR
+fi
 
 if [ ! -d "$CL/src/Clothoids" ]; then
   echo "vendor/Clothoids is missing. Run: git submodule update --init --recursive" >&2
@@ -32,7 +59,7 @@ INCLUDES=(
 )
 
 INC="${INCLUDES[*]}"
-export INC
+export INC ROOT
 
 mkdir -p "$OBJ"
 
@@ -54,7 +81,8 @@ compile_one() {
   local name
   name="$(echo "${f#"$ROOT"/}" | tr '/' '_' | sed 's/\.cc$/.o/; s/\.cpp$/.o/')"
   # Resumable: an object that is already there is not rebuilt, so a fix to one
-  # file does not cost the whole tree. Delete build/obj to force a full build.
+  # file does not cost the whole tree. Delete the object directory to force a
+  # full build.
   [ -f "$OBJ/$name" ] && return 0
   # shellcheck disable=SC2086
   "$CXX" -std=c++17 -O3 -fPIC -w $INC -c "$f" -o "$OBJ/$name"
@@ -64,8 +92,7 @@ export CXX OBJ
 
 printf '%s\n' "${SOURCES[@]}" | xargs -P 4 -I{} bash -c 'compile_one "$@"' _ {}
 
-echo "linking"
-"$CXX" -std=c++17 -O3 -dynamiclib -o "$BUILD/libclothoidlab.dylib" \
-  -install_name @rpath/libclothoidlab.dylib "$OBJ"/*.o
+echo "linking $OUT"
+"$CXX" -std=c++17 -O3 "${LINK_FLAGS[@]}" -o "$OUT" "$OBJ"/*.o
 
-echo "built $BUILD/libclothoidlab.dylib"
+echo "built $OUT"
