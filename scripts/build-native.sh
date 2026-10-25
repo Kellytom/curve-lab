@@ -85,7 +85,7 @@ compile_one() {
   # full build.
   [ -f "$OBJ/$name" ] && return 0
   # shellcheck disable=SC2086
-  "$CXX" -std=c++17 -O3 -fPIC -w $INC -c "$f" -o "$OBJ/$name"
+  "$CXX" -std=c++17 -O3 -fPIC -w -include utility $INC -c "$f" -o "$OBJ/$name"
 }
 export -f compile_one
 export CXX OBJ
