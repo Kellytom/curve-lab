@@ -1,7 +1,9 @@
 # clothoid-lab handoff
 
 **Updated:** 2026-10-25  
-**Use `/fhandon` to resume, `/fhandoff` to refresh this file.**
+**Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
+project-scoped: open OpenCode in this repository to use them. They are not
+global and do not appear in `grid-8` or `ornaments`.
 
 ## Objective
 
@@ -21,7 +23,7 @@ remote MVP now exist.
 - **Budget:** `$1/month` alert (`clothoid-lab guardrail`) at 50/90/100%; alerts
   do not stop spend.
 - **Local tests:** 96 pass.
-- **Git:** run `git log -1`; the last pre-command commit was `615ea94`.
+- **Git:** run `git log -1`; the last pre-command commit was `59ead35`.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
@@ -35,7 +37,8 @@ remote MVP now exist.
 - Deployed the container to Cloud Run via Cloud Build.
 - Set min 0 / max 1, concurrency 2, 1 vCPU / 512 MiB, 60 s timeout.
 - Created the $1 budget alert.
-- Added global `/fhandoff` and `/fhandon` commands.
+- Added project-scoped, focused `/fhandoff` and `/fhandon` commands, modelled
+  on the existing `handoff`/`handon` pattern in `grid-8` and `ornaments`.
 
 ## Risks / open decisions
 
@@ -53,9 +56,9 @@ remote MVP now exist.
 
 ## Next move
 
-First, confirm the remote MVP on the phone and check the responsive layout.
-Then add a lightweight auth/rate-limit layer before publicizing the URL. Do not
-increase max instances until that exists.
+Confirm the remote MVP on the phone and check the responsive layout. The
+focused handoff currently points at adding a lightweight auth/rate-limit layer
+before publicizing the URL. Do not increase max instances until that exists.
 
 ## Important paths and commands
 
@@ -68,8 +71,9 @@ increase max instances until that exists.
 | `tests/test_web.py` | web tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
-| `~/.config/opencode/commands/fhandoff.md` | write this handoff |
-| `~/.config/opencode/commands/fhandon.md` | resume from it |
+| `next-fhandoff.md` | two-line focused pointer |
+| `.opencode/commands/fhandoff.md` | write the focused handoff |
+| `.opencode/commands/fhandon.md` | resume from it |
 
 ```sh
 cd /Users/thomaskelly/developer/clothoid-lab

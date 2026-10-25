@@ -225,8 +225,9 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
   <tr><td><code>docs/HANDOVER.html</code></td><td>this browser-readable mirror</td></tr>
   <tr><td><code>docs/HANDOFF.md</code></td><td>compact current-session continuation brief</td></tr>
-  <tr><td><code>~/.config/opencode/commands/fhandoff.md</code></td><td><code>/fhandoff</code> command</td></tr>
-  <tr><td><code>~/.config/opencode/commands/fhandon.md</code></td><td><code>/fhandon</code> command</td></tr>
+  <tr><td><code>next-fhandoff.md</code></td><td>two-line focused handoff pointer</td></tr>
+  <tr><td><code>.opencode/commands/fhandoff.md</code></td><td>focused handoff command</td></tr>
+  <tr><td><code>.opencode/commands/fhandon.md</code></td><td>focused handon command</td></tr>
 </table>
 <p class="note"><code>out/play-template.svg</code> is an untracked user file; leave it alone.</p>
 
@@ -275,16 +276,16 @@ gcloud run deploy clothoid-web \
 </ol>
 
 <h2>Continuation commands</h2>
-<p>Two global OpenCode commands make the next session cheap to start:</p>
+<p>Two <strong>project-scoped, focused</strong> OpenCode commands make the next session cheap to start. They are modelled on the existing <code>handoff</code>/<code>handon</code> pattern in <code>grid-8</code> and <code>ornaments</code>, but they carry only one action:</p>
 <ul>
-  <li><strong><code>/fhandoff [focus]</code></strong> — inspects git/local/remote state, writes or refreshes <code>docs/HANDOFF.md</code>, updates the durable handover if a fact changed, and commits only the handoff files. It replies with a five-bullet summary.</li>
-  <li><strong><code>/fhandon [focus]</code></strong> — reads <code>docs/HANDOFF.md</code>, checks git and the public URL, reports the current state, and either proceeds with a supplied task or stops for direction.</li>
+  <li><strong><code>/fhandoff [focus]</code></strong> — squares the record in <code>docs/HANDOFF.md</code>, chooses one focused action, writes <code>next-fhandoff.md</code> with a two-line pointer, and commits only the handoff files.</li>
+  <li><strong><code>/fhandon</code></strong> — reads <code>next-fhandoff.md</code>, follows its doc pointers, performs that single action, and stops. The operator runs <code>/fhandoff</code> when it is time to put the work down again.</li>
 </ul>
-<p>They are global so they work from the current home workspace: <code>~/.config/opencode/commands/fhandoff.md</code> and <code>~/.config/opencode/commands/fhandon.md</code>.</p>
+<p>They live in <code>.opencode/commands/</code> and are available when OpenCode is opened in this repository. They are <strong>not global</strong>, so they do not appear in the other projects. The <code>grid-8</code> and <code>ornaments</code> commands were not touched.</p>
 
 <h2>Handoff checklist</h2>
 <ul class="check">
-  <li>Start the next session with <code>/fhandon</code>.</li>
+  <li>Open OpenCode in <code>clothoid-lab</code> and start the next session with <code>/fhandon</code>.</li>
   <li>Open the remote URL on the phone; load a class I cap and a <code>cap-pt</code> leaf.</li>
   <li>Confirm the $1 budget alert email reaches the billing admin.</li>
   <li>Run <code>git log -1</code> and <code>git status</code>; commit/push MVP and handover files.</li>

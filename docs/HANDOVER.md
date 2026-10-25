@@ -225,8 +225,9 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
 | `docs/HANDOFF.md` | compact current-session continuation brief |
-| `~/.config/opencode/commands/fhandoff.md` | `/fhandoff` command definition |
-| `~/.config/opencode/commands/fhandon.md` | `/fhandon` command definition |
+| `next-fhandoff.md` | two-line focused handoff pointer |
+| `.opencode/commands/fhandoff.md` | focused handoff command |
+| `.opencode/commands/fhandon.md` | focused handon command |
 
 `out/play-template.svg` is an untracked user file; leave it alone.
 
@@ -304,22 +305,24 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 
 ## Continuation commands
 
-Two global OpenCode commands make the next session cheap to start:
+Two **project-scoped, focused** OpenCode commands make the next session cheap to
+start. They are modelled on the existing `handoff`/`handon` pattern in
+`grid-8` and `ornaments`, but they carry only one action:
 
-- **`/fhandoff [focus]`** — inspects git/local/remote state, writes or refreshes
-  `docs/HANDOFF.md`, updates the durable handover if a fact changed, and commits
-  only the handoff files. It replies with a five-bullet summary.
-- **`/fhandon [focus]`** — reads `docs/HANDOFF.md`, checks git and the public
-  URL, reports the current state, and either proceeds with a supplied task or
-  stops for direction.
+- **`/fhandoff [focus]`** — squares the record in `docs/HANDOFF.md`, chooses one
+  focused action, writes `next-fhandoff.md` with a two-line pointer, and commits
+  only the handoff files.
+- **`/fhandon`** — reads `next-fhandoff.md`, follows its doc pointers, performs
+  that single action, and stops. The operator runs `/fhandoff` when it is time
+  to put the work down again.
 
-They are global so they work from the current home workspace:
-`~/.config/opencode/commands/fhandoff.md` and
-`~/.config/opencode/commands/fhandon.md`.
+They live in `.opencode/commands/` and are available when OpenCode is opened in
+this repository. They are **not global**, so they do not appear in the other
+projects. The `grid-8` and `ornaments` commands were not touched.
 
 ## Handoff checklist
 
-- [ ] Start the next session with `/fhandon`.
+- [ ] Open OpenCode in `clothoid-lab` and start the next session with `/fhandon`.
 - [ ] Open the remote URL on the phone; load a class I cap and a `cap-pt` leaf.
 - [ ] Confirm the $1 budget alert email reaches the billing admin.
 - [ ] Run `git log -1` and `git status`; commit/push the MVP/handover files.
