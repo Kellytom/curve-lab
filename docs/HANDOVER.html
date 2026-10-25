@@ -157,6 +157,17 @@ open http://127.0.0.1:8000/</code></pre>
 </ol>
 <p>The Linux <code>.so</code> is deliberately built inside Debian bookworm. A downloaded Ubuntu 24.04 artifact requires glibc 2.38 and will <strong>not</strong> run on the Debian bookworm runtime; do not substitute it without changing the base.</p>
 
+<h2>Local/remote parity</h2>
+<p>The local and remote apps are the same app at the same level: same <code>web/</code> code, same 36 caps, same presets, and the same rendered result.</p>
+<p><code>scripts/check-parity.py</code> verifies:</p>
+<ul>
+  <li><code>index.html</code>, <code>app.js</code>, <code>style.css</code> are byte-identical;</li>
+  <li><code>/api/presets</code> and <code>/api/caps</code> match;</li>
+  <li>a <code>cap-14</code> render produces the same SVG and report on both.</li>
+</ul>
+<pre><code>.venv/bin/python scripts/check-parity.py</code></pre>
+<p>The last check passed all seven comparisons. The two native libraries differ only by platform (Mach-O <code>.dylib</code> locally, ELF <code>.so</code> remotely); the output is identical at the app’s precision.</p>
+
 <h2>The limiting factor</h2>
 <div class="card warn">
   <p><strong>It is not “Cloud Run cannot run Python, binaries, or C++.”</strong> It can. The limits are the runtime shape and the free allowance.</p>
@@ -219,6 +230,7 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>Dockerfile</code></td><td>Debian build + Python runtime image</td></tr>
   <tr><td><code>.dockerignore</code></td><td>small Docker build context</td></tr>
   <tr><td><code>.gcloudignore</code></td><td>small Cloud Build source upload</td></tr>
+  <tr><td><code>scripts/check-parity.py</code></td><td>local/remote parity smoke test</td></tr>
   <tr><td><code>tests/test_web.py</code></td><td>web API tests</td></tr>
   <tr><td><code>clothoid_lab/</code></td><td>existing geometry/policy layer</td></tr>
   <tr><td><code>out/caps/</code></td><td>existing cap SVG/JSON, baked into remote image</td></tr>
@@ -265,7 +277,7 @@ gcloud run deploy clothoid-web \
 
 <h2>Known issues and next steps</h2>
 <ol>
-  <li><strong>Add auth/rate limiting</strong> before publicizing. Highest-value next step.</li>
+  <li><strong>Auth/rate limiting is deferred by operator decision.</strong> The URL remains public and unauthenticated; keep it private until a guard is added.</li>
   <li><strong>Cold starts</strong> with min 0; use min 1 only for a demo window.</li>
   <li><strong>Large build upload</strong> due to the vendored C++ tree; future optimization is a prebuilt Linux <code>.so</code> in an Ubuntu 24.04-compatible image or GitHub Actions. Current Debian build is the safer correctness choice.</li>
   <li><strong>Static caps:</strong> new <code>out/caps/*.json</code> files need a rebuild/redeploy.</li>
@@ -290,7 +302,8 @@ gcloud run deploy clothoid-web \
   <li>Confirm the $1 budget alert email reaches the billing admin.</li>
   <li>Run <code>git log -1</code> and <code>git status</code>; commit/push MVP and handover files.</li>
   <li>Run <code>.venv/bin/python -m unittest discover tests</code> (expect 96 pass).</li>
-  <li>Decide whether to add auth/rate limiting before sharing the URL.</li>
+  <li>Run <code>.venv/bin/python scripts/check-parity.py</code> (expect <code>PARITY OK</code>).</li>
+  <li>Keep the public URL private; auth/rate limiting is deferred.</li>
   <li>Keep <code>out/play-template.svg</code> untouched.</li>
 </ul>
 

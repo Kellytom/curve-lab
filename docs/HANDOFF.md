@@ -22,8 +22,10 @@ remote MVP now exist.
   60 s timeout, public/unauthenticated.
 - **Budget:** `$1/month` alert (`clothoid-lab guardrail`) at 50/90/100%; alerts
   do not stop spend.
+- **Parity:** local and remote static assets, preset/cap lists, and a real cap-14
+  render are byte-identical. `scripts/check-parity.py` passes.
 - **Local tests:** 96 pass.
-- **Git:** run `git log -1`; the last pre-command commit was `59ead35`.
+- **Git:** run `git log -1`; the last pre-parity commit was `fcf2968`.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
@@ -39,11 +41,15 @@ remote MVP now exist.
 - Created the $1 budget alert.
 - Added project-scoped, focused `/fhandoff` and `/fhandon` commands, modelled
   on the existing `handoff`/`handon` pattern in `grid-8` and `ornaments`.
+- Added `scripts/check-parity.py`, which compares the local and remote served
+  assets, presets/caps, SVG and report. It passes.
+- Opened the local and remote apps in Chrome tabs as the shared starting base.
 
 ## Risks / open decisions
 
-1. **No auth or rate limiting.** The public URL can consume the free allowance.
-   This is the main blocker to sharing it broadly.
+1. **No auth or rate limiting — deferred by operator decision.** The public URL
+   can consume the free allowance, so keep it private for now. Do not increase
+   max instances until this is addressed.
 2. **Cold starts** at min 0 are roughly 1–3 s. Do not pay for min 1 unless a
    demo needs it; set it back to 0.
 3. **Free-tier usage.** Stay within the monthly Cloud Run/Cloud Build/Artifact
@@ -56,9 +62,8 @@ remote MVP now exist.
 
 ## Next move
 
-Confirm the remote MVP on the phone and check the responsive layout. The
-focused handoff currently points at adding a lightweight auth/rate-limit layer
-before publicizing the URL. Do not increase max instances until that exists.
+Review the local and remote apps on the phone and fix any mobile layout issues.
+Auth/rate limiting is deferred. Keep the URL private until it is added.
 
 ## Important paths and commands
 
@@ -68,6 +73,7 @@ before publicizing the URL. Do not increase max instances until that exists.
 | `web/static/` | MVP page, JS, CSS |
 | `Dockerfile` | Linux build + runtime image |
 | `.gcloudignore` | small Cloud Build upload |
+| `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
@@ -79,6 +85,8 @@ before publicizing the URL. Do not increase max instances until that exists.
 cd /Users/thomaskelly/developer/clothoid-lab
 .venv/bin/python -m unittest discover tests
 .venv/bin/python web/server.py
+# with the local server up and the remote reachable:
+.venv/bin/python scripts/check-parity.py
 ```
 
 ```sh

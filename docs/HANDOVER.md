@@ -114,6 +114,27 @@ The Linux `.so` is deliberately built inside Debian bookworm. A locally
 downloaded Ubuntu 24.04 artifact requires glibc 2.38 and will **not** run on the
 Debian bookworm runtime; do not substitute it without changing the runtime base.
 
+## Local/remote parity
+
+The local and remote apps are the same app at the same level: same `web/` code,
+same 36 caps, same presets, and the same rendered result.
+
+`scripts/check-parity.py` verifies:
+
+- `index.html`, `app.js`, `style.css` are byte-identical;
+- `/api/presets` and `/api/caps` match;
+- a `cap-14` render produces the same SVG and report on both.
+
+Run it while the local server is up:
+
+```sh
+.venv/bin/python scripts/check-parity.py
+```
+
+The last check passed all seven comparisons. The two native libraries differ
+only by platform (Mach-O `.dylib` locally, ELF `.so` remotely); the output is
+identical at the app’s precision.
+
 ## The limiting factor
 
 It is **not** “Cloud Run cannot run binaries or Python.” It can. The limits are
@@ -219,6 +240,7 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `Dockerfile` | Debian build + Python runtime image |
 | `.dockerignore` | small Docker build context |
 | `.gcloudignore` | small Cloud Build source upload |
+| `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web API tests |
 | `clothoid_lab/` | existing geometry/policy layer |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
@@ -284,8 +306,8 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 
 ## Known issues and next steps
 
-1. **Add auth/rate limiting** before publicizing the URL. This is the highest
-   value next step.
+1. **Auth/rate limiting is deferred by operator decision.** The URL remains
+   public and unauthenticated; keep it private until a guard is added.
 2. **Cold starts** are visible with min instances 0. Use min 1 only for a demo
    window, then set it back.
 3. **Build upload is large** because the full vendored C++ tree is sent. A
@@ -327,5 +349,6 @@ projects. The `grid-8` and `ornaments` commands were not touched.
 - [ ] Confirm the $1 budget alert email reaches the billing admin.
 - [ ] Run `git log -1` and `git status`; commit/push the MVP/handover files.
 - [ ] Run `.venv/bin/python -m unittest discover tests` (expect 96 pass).
-- [ ] Decide whether to add auth/rate limiting before sharing the URL.
+- [ ] Run `.venv/bin/python scripts/check-parity.py` (expect `PARITY OK`).
+- [ ] Keep the public URL private; auth/rate limiting is deferred.
 - [ ] Keep `out/play-template.svg` untouched.
