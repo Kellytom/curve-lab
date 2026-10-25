@@ -78,6 +78,36 @@ where the *right-leaning* constraint ends.
 Every committed cap fits under the 0.02 mm tolerance; the worst are `cap-17`
 and `cap-22` at about 0.0196 mm. The rest are between 0.004 and 0.015 mm.
 
+## Class II: the pointed leaf
+
+A second family uses the same two clothoids as the **two edges of a leaf**, not
+as a centreline with rails. The edges meet at a **tangent corner**, the point.
+The y-axis closes the base.
+
+Both halves turn left. The second is the mirror of the *reversed* first half, so
+its curvature is not reversed:
+
+```
+first    kappa0 = 0,       kd1 = +KD, length L1
+second   kappa0 = +KD*L1,  kd2 = -KD, length L1, corner = pi - 2*theta1
+```
+
+`theta1 = 0.5*KD*L1^2` is the tangent at the hand-off. The corner is the only
+discontinuity; curvature is continuous across it, and the second half still
+turns left while its curvature falls to zero at the y-axis. The end is
+`(0, 2*y(L1))`, heading west, by symmetry.
+
+The point closes when `corner = 0`, at `L1 = 227.30`, giving `Y = 199.239`.
+The series `cap-pt-1` … `cap-pt-9` runs from `Y = 20` to `Y = 180`, with the
+corner falling from 145° to 15°.
+
+This required a real model change: `Segment.corner` is a tangent jump at the
+start of a segment, carried through JSON and the engine, and reported as
+`corners`. Class II uses no rails; the two clothoid edges themselves are the
+drawing, closed by the y-axis. A cornered ribbon is still possible, and its rail
+fit stops a fraction of a millimetre short of the break so the offset search
+never sits exactly on the discontinuity.
+
 ## What the exercise established
 
 - The family is a genuine one-parameter continuation: fixed curvature scale,

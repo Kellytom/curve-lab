@@ -17,6 +17,7 @@ drawing the fold is a deliberate choice.
 from __future__ import annotations
 
 import argparse
+import math
 import os
 import sys
 
@@ -96,6 +97,11 @@ def format_report(info: dict, tol: float) -> str:
         f"segments      {c['segments']}   length {c['length']:.3f} units",
         f"scale         1 unit = {info.get('scale', 1.0):.4f} mm",
         f"joins         {joins}",
+    ]
+    if c.get("corner_count"):
+        lines.append(f"corners       {c['corner_count']}  "
+                     f"max {math.degrees(c['corner_max']):.2f} deg")
+    lines += [
         f"tightest      radius {c['min_radius']:.3f} units at s={c['min_radius_at']:.2f}",
         f"cubics        {info['fit']['spans']}  split {info['fit']['split']}  "
         f"per segment {info['fit']['spans_per_segment']}",
@@ -129,6 +135,10 @@ def _verdict(info: dict, tol: float) -> str:
         reasons.append(
             f"join at s={join['at']:.2f} jumps {join['d_kappa']:+.3e} 1/unit, so G1 not G2 "
             f"(set kappa0 to null to inherit)")
+    if info["chain"].get("corner_count"):
+        reasons.append(
+            f"{info['chain']['corner_count']} tangent corner(s), max "
+            f"{math.degrees(info['chain']['corner_max']):.2f} deg")
     return "; ".join(reasons) if reasons else "over tolerance"
 
 

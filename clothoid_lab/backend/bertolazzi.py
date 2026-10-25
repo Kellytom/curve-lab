@@ -145,6 +145,14 @@ def _make_handle(lib, segments, anchor) -> int:
         for i, seg in enumerate(segments):
             if i == 0:
                 rc = lib.cl_push_at(handle, x, y, t, seg["k0"], seg["kd"], seg["length"])
+            elif seg.get("corner"):
+                end = _FOUR()
+                rc = lib.cl_eval(handle, lib.cl_length(handle), end)
+                if rc != 0:
+                    raise BackendError(f"could not read the join before segment {i} (code {rc})")
+                rc = lib.cl_push_at(handle, end[0], end[1],
+                                    end[2] + seg["corner"],
+                                    seg["k0"], seg["kd"], seg["length"])
             else:
                 rc = lib.cl_push(handle, seg["k0"], seg["kd"], seg["length"])
             if rc != 0:

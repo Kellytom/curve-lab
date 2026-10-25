@@ -58,7 +58,7 @@ Three properties the code takes seriously:
 │   ├── twin.py                self-contained HTML twin of a drawing (Python)
 │   ├── set_window_geometry.py Inkscape window frame and chrome (Python)
 │   └── place-window.sh        window helper (Bash)
-├── tests/                     Python, unittest, 90 checks
+├── tests/                     Python, unittest, 92 checks
 ├── vendor/Clothoids/          C++17 engine and submodules (BSD-2 and friends)
 ├── build/libclothoidlab.dylib the compiled engine + C surface
 ├── out/                       drawings, designs, grid tables (scratch)
@@ -142,7 +142,7 @@ Inkscape: `Cmd+Opt+R` reverts after a rebuild; `5` fits the page. The window is
 placed by `scripts/set_window_geometry.py`.
 
 ```sh
-.venv/bin/python -m unittest discover tests   # 90 checks
+.venv/bin/python -m unittest discover tests   # 92 checks
 .venv/bin/python scripts/grid_3125.py         # reverse-curve table
 ```
 

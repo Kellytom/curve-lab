@@ -69,8 +69,9 @@ These are the promises, and each has a test.
   curve, minimised along arc length. It is reported per run and must not exceed
   `--tol`, default 0.02 design units (millimetres at 1:1; a frame scales it with
   the drawing). On failure the exit status is 1.
-- **Continuity.** A join is G2 when the curvature jump is below 1e-9 per mm.
-  Any jump is printed. Presets must be G2.
+- **Continuity.** A join is G2 when the curvature jump is below 1e-9 per unit
+  and the tangent corner is zero. Any jump or corner is printed. Presets must
+  be G2.
 - **Engine fidelity.** The engine matches an independent Simpson integration of
   the clothoid's defining integral to 1e-9 mm.
 - **Rails.** A rail is the library's exact parallel curve, refitted, and reports
@@ -116,6 +117,10 @@ meaning "continue from the previous end" and therefore G2. One design unit is
 one millimetre at 1:1 (`--page`, or an automatic sheet); `--frame` multiplies
 the design by a scale to fill the sheet. A number is honoured as given and the
 mismatch against the previous end is printed.
+
+A segment may also carry `"corner"` in radians, a tangent jump at its start.
+Curvature can remain continuous across a corner; the report counts corners
+separately from curvature jumps.
 
 Rails are `offsets`, a list of signed distances in design units, or `--width`,
 which adds two at half width. The frame scales them with the drawing.

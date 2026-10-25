@@ -113,11 +113,20 @@ class Chain:
 
     @property
     def g2(self) -> bool:
-        return all(abs(j["d_kappa"]) < 1e-9 for j in self.joins)
+        return all(abs(j["d_kappa"]) < 1e-9 and abs(j.get("corner", 0.0)) < 1e-12
+                   for j in self.joins)
 
     @property
     def max_join_kappa_error(self) -> float:
         return max((abs(j["d_kappa"]) for j in self.joins), default=0.0)
+
+    @property
+    def max_corner(self) -> float:
+        return max((abs(j.get("corner", 0.0)) for j in self.joins), default=0.0)
+
+    @property
+    def corner_count(self) -> int:
+        return sum(1 for j in self.joins if abs(j.get("corner", 0.0)) >= 1e-12)
 
     def close(self):
         close = getattr(self.curve, "close", None)
@@ -141,15 +150,18 @@ def build(design: Design, backend: str | None = None) -> Chain:
     joins: list[dict] = []
 
     for i, seg in enumerate(design.segments):
+        corner = float(seg.corner) if i > 0 else 0.0
+        t += corner
         k0 = k if seg.kappa0 is None else float(seg.kappa0)
         if i > 0:
             joins.append({
                 "at": s_base,
                 "between": (i - 1, i),
                 "d_kappa": k0 - k,
+                "corner": corner,
                 "inherited": seg.kappa0 is None,
             })
-        entry = {"k0": k0, "kd": seg.kd, "length": seg.length}
+        entry = {"k0": k0, "kd": seg.kd, "length": seg.length, "corner": corner}
         resolved.append(entry)
         piece = Placed(i, s_base, seg.length, k0, seg.kd, t)
         placed.append(piece)
@@ -170,6 +182,8 @@ def report(chain: Chain) -> dict:
         "length": chain.length,
         "join_g2": chain.g2,
         "join_kappa_error_max": chain.max_join_kappa_error,
+        "corner_count": chain.corner_count,
+        "corner_max": chain.max_corner,
         "min_radius": r_min,
         "min_radius_at": r_at,
         "bounds": (x0, y0, x1, y1),

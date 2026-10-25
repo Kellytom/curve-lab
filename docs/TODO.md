@@ -37,13 +37,15 @@ Effort is focused working time, not calendar time.
   `docs/clothoid-grid-3125.md`.
 - **G2 and splicing.** G2 splines through points (open or closed), quasi-G2
   smoothing, trim, reverse, projection, intersections, ISO measurements, and
-  G2 connectors with `join`. 90 tests, all passing.
+  G2 connectors with `join`. 92 tests, all passing.
 - **Twin and view helpers.** `scripts/twin.py` writes a self-contained HTML twin;
   `scripts/fit_view.py` computes the Inkscape saved view (zoom is a factor, not
   pixels per millimetre).
 - **Cap family and fold.** The two-clothoid caps from `closed-cl-1` were
   continued from y=10 to y=162.2817, where `kd2` reaches zero; documented in
   `docs/caps.md` with the full table in `out/caps/README.md`.
+- **Class II pointed leaves.** Both clothoids left-turning, one tangent corner;
+  `cap-pt-1`…`cap-pt-9` from Y=20 to Y=180, the point closing at Y=199.239.
 
 ## Planned, in priority order
 

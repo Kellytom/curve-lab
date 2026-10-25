@@ -259,7 +259,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 .venv/bin/python -m unittest discover tests
 ```
 
-90 checks. The engine is held against an independent Simpson integral of the
+92 checks. The engine is held against an independent Simpson integral of the
 Fresnel form, every preset against G2, both spline methods against the points
 they were given, the G2 spline and the joined designs against their own
 curvature continuity, the fitter against its own tolerance, and the writer

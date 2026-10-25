@@ -44,7 +44,9 @@ class Curve:
         y = float(anchor.get("y", 0.0))
         t = float(anchor.get("angle", 0.0))
         placed = []
-        for seg in segments:
+        for i, seg in enumerate(segments):
+            if i > 0 and seg.get("corner"):
+                t += float(seg["corner"])
             cloth = pc.Clothoid.StandardParams(x, y, t, seg["k0"], seg["kd"], seg["length"])
             placed.append({
                 "clothoid": cloth,

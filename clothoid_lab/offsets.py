@@ -52,12 +52,50 @@ def build_rail(chain, distance: float, tol: float = 0.02,
                max_spans_per_segment: int = 64, split: int = 2) -> dict:
     """Fit one rail, with its fold report."""
     point, tangent = rail_functions(chain, distance)
+    # A corner has no single normal, and the library's offset search can stall
+    # exactly at that arc length. Keep the fitted intervals a hair inside the
+    # corner; the path writer bridges the gap, which is the point of the leaf.
+    corners = {j["at"] for j in getattr(chain, "joins", ())
+               if abs(j.get("corner", 0.0)) >= 1e-12}
+    eps = 1e-4
     spans: list[dict] = []
+    boundaries: list[tuple[int, float]] = []
     for placed in chain.segments:
-        spans.extend(fit_interval(placed.s_base, placed.s_base + placed.length,
-                                  point, tangent,
-                                  tol=tol, max_spans=max_spans_per_segment, split=split))
-    errors = [span_error(s, point) for s in spans]
+        s0 = placed.s_base
+        s1 = s0 + placed.length
+        if s0 in corners:
+            s0 += eps
+        if s1 in corners:
+            s1 -= eps
+        if s1 > s0:
+            spans.extend(fit_interval(s0, s1, point, tangent,
+                                      tol=tol, max_spans=max_spans_per_segment,
+                                      split=split))
+        if placed.s_base + placed.length in corners:
+            boundaries.append((len(spans), placed.s_base + placed.length))
+    # A corner has no single normal. Bring both rail ends to the centreline
+    # corner, so the three lines meet at the point instead of forming a miter
+    # box across the gap.
+    def straight(p0, p3, s):
+        return {
+            "p0": p0,
+            "c1": (p0[0] + (p3[0] - p0[0]) / 3.0,
+                   p0[1] + (p3[1] - p0[1]) / 3.0),
+            "c2": (p0[0] + 2.0 * (p3[0] - p0[0]) / 3.0,
+                   p0[1] + 2.0 * (p3[1] - p0[1]) / 3.0),
+            "p3": p3,
+            "s0": s,
+            "s1": s,
+            "join": True,
+        }
+
+    for index, at in reversed(boundaries):
+        if 0 < index < len(spans):
+            p0, p3 = spans[index - 1]["p3"], spans[index]["p0"]
+            corner = chain.point(at)
+            spans.insert(index, straight(p0, corner, at))
+            spans.insert(index + 1, straight(corner, p3, at))
+    errors = [span_error(s, point) for s in spans if not s.get("join")]
     folds = cusp_ranges(chain, distance)
     clamped = sum(1 for s in spans if s.get("clamped"))
     r_min, r_at = chain.min_radius()

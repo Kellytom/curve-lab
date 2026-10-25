@@ -43,6 +43,29 @@ class TestAgainstTheIntegral(unittest.TestCase):
         self.assertAlmostEqual(y, 13.0, places=12)
 
 
+class TestCorners(unittest.TestCase):
+    def test_a_tangent_corner_is_kept(self):
+        design = Design(segments=[
+            Segment(kd=0.0, length=10.0, kappa0=0.0),
+            Segment(kd=0.0, length=10.0, kappa0=0.0, corner=math.pi / 2),
+        ])
+        chain = engine.build(design)
+        x, y = chain.point(20.0)
+        self.assertAlmostEqual(x, 10.0, places=12)
+        self.assertAlmostEqual(y, 10.0, places=12)
+        self.assertAlmostEqual(chain.tangent(20.0), math.pi / 2, places=12)
+        self.assertEqual(chain.corner_count, 1)
+        self.assertFalse(chain.g2)
+
+    def test_the_corner_survives_json(self):
+        design = Design(segments=[
+            Segment(kd=0.0, length=10.0, kappa0=0.0,
+                    corner=math.radians(30)),
+        ])
+        again = Design.from_json(design.to_json())
+        self.assertAlmostEqual(again.segments[0].corner, math.radians(30), places=12)
+
+
 class TestJoins(unittest.TestCase):
     """Where two segments meet, position, direction and curvature must agree."""
 

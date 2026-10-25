@@ -26,18 +26,26 @@ class Segment:
     kd: float
     length: float
     kappa0: float | None = None
+    # A tangent jump at the start of this segment. Zero means continuous; a
+    # nonzero value makes a corner, as at the point of a leaf.
+    corner: float = 0.0
 
     def __post_init__(self):
         if self.length <= 0:
             raise ValueError(f"segment length must be positive, got {self.length}")
         if self.kappa0 is not None and not _finite(self.kappa0):
             raise ValueError("segment kappa0 must be a finite number or null")
+        if not _finite(self.corner):
+            raise ValueError("segment corner must be a finite angle")
 
     def kappa_end(self, k0: float) -> float:
         return k0 + self.kd * self.length
 
     def to_dict(self) -> dict:
-        return {"kd": self.kd, "length": self.length, "kappa0": self.kappa0}
+        out = {"kd": self.kd, "length": self.length, "kappa0": self.kappa0}
+        if self.corner:
+            out["corner"] = self.corner
+        return out
 
 
 @dataclass
@@ -73,7 +81,8 @@ class Design:
                       "angle": float(first["theta0"])}
         segments = [
             Segment(kd=float(p["kd"]), length=float(p["length"]),
-                    kappa0=float(p["kappa0"] if "kappa0" in p else p["k0"]))
+                    kappa0=float(p["kappa0"] if "kappa0" in p else p["k0"]),
+                    corner=float(p.get("corner", 0.0)))
             for p in pieces
         ]
         return cls(segments=segments, anchor=dict(anchor), stroke=float(stroke),
@@ -95,7 +104,8 @@ class Design:
     def from_dict(cls, data: dict) -> "Design":
         segs = [
             Segment(kd=float(s["kd"]), length=float(s["length"]),
-                    kappa0=None if s.get("kappa0") is None else float(s["kappa0"]))
+                    kappa0=None if s.get("kappa0") is None else float(s["kappa0"]),
+                    corner=float(s.get("corner", 0.0)))
             for s in data.get("segments", [])
         ]
         return cls(

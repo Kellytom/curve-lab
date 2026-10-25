@@ -1,8 +1,8 @@
 # Caps
 
-Every cap is on a **200 × 250 mm** page, **1 design unit = 1 mm**, ribbon **10 mm**
-(5 mm each side), stroke **0.5 mm**, y-up, with a fitted view. All were solved
-with `clothoid_lab.solve` and rendered through the normal CLI path.
+Every cap is on a **200 × 250 mm** page, **1 design unit = 1 mm**, stroke
+**0.5 mm**, y-up, with a fitted view. Class I caps use the **10 mm ribbon**
+(5 mm each side); class II leaves draw only the two clothoid edges.
 
 Columns: segments, end y (mm), first length, second curvature rate, second
 length, fit error (mm), cubics.
@@ -52,3 +52,27 @@ length, fit error (mm), cubics.
 
 Past the fold, with `k2 > 0` allowed, the same equations continue to solve; `k2`
 turns over near Y ≈ 235 (max ≈ 4.4e-5) and the branch still solves at Y = 500.
+
+## Class II: pointed leaves
+
+Both clothoids turn left. They are the **two edges of the leaf**, not a
+centreline with rails. The second half is the mirror of the reversed first half,
+so its curvature stays positive: `kappa0 = +kd1*L1`, `kd2 = -kd1`, and only the
+tangent breaks at the point. The edges end at `(0, 0)` and `(0, Y)`, both
+horizontal; the y-axis closes the base. `Y = 2*y(L1)`, so the leaves are ordered by their
+first half length.
+
+| file | end y | L1 | corner | fit | cubics |
+|---|---|---|---|---|---|
+| `cap-pt-1` | 20.0 | 99.772 | 145.32 | 0.01864 | 15 |
+| `cap-pt-2` | 40.0 | 126.132 | 124.57 | 0.01863 | 15 |
+| `cap-pt-3` | 60.0 | 144.987 | 106.76 | 0.01407 | 15 |
+| `cap-pt-4` | 80.0 | 160.355 | 90.41 | 0.01165 | 15 |
+| `cap-pt-5` | 100.0 | 173.691 | 74.89 | 0.01937 | 14 |
+| `cap-pt-6` | 120.0 | 185.723 | 59.82 | 0.01541 | 15 |
+| `cap-pt-7` | 140.0 | 196.878 | 44.95 | 0.01175 | 15 |
+| `cap-pt-8` | 160.0 | 207.448 | 30.06 | 0.01607 | 14 |
+| `cap-pt-9` | 180.0 | 217.653 | 14.95 | 0.01648 | 13 |
+
+The point closes when the corner reaches zero: `L1 = 227.30`, `Y = 199.239`;
+past that the two halves meet smoothly and the leaf is no longer pointed.
