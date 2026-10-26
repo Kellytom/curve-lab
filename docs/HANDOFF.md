@@ -15,12 +15,13 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-26 11:15 UTC. Auth is unset locally, so the loopback server stays
+  2026-10-26 11:39 UTC. Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
 - **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
   project `clothoid-lab-1792967460`, region `us-central1`, service
-  `clothoid-web`, revision `clothoid-web-00006-zrx`. HTTP **401 without the
-  token, 200 with it** at 2026-10-26 11:13 UTC; a thin app deploy takes ~30 s.
+  `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
+  without the token, 200 with it** at 2026-10-26 11:39 UTC; a thin app deploy
+  takes ~30 s.
 - **Access:** HTTP Basic with a shared token; every route except `/health`.
   Token in Secret Manager `clothoid-token`, local copy
   `~/.config/clothoid-lab/token` (outside the repo). `/api/render` is limited to
@@ -37,10 +38,10 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 110 pass (re-run 2026-10-26 11:30 UTC, including auth,
-  rate-limit and piece-model tests).
-- **Git:** HEAD `c18af67` (W01 piece model); the handoff commit sits on top.
-  Only `out/play-template.svg` is untracked.
+- **Local tests:** 110 pass (carried from 2026-10-26 11:30 UTC; the tree is
+  clean under `web/`, `clothoid_lab/`, `csrc/`, and `tests/`).
+- **Git:** HEAD `c2ea171` (W01 piece model plus the handoff); the handoff
+  commit sits on top. Only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
