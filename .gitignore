@@ -6,3 +6,5 @@ out/*.png
 build/
 reference/inbox/*
 !reference/inbox/README.md
+.DS_Store
+**/.DS_Store
