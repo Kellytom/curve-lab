@@ -39,9 +39,8 @@ remote MVP now exist.
   (not re-run in the handoff).
 - **Local tests:** 105 pass (re-run 2026-10-26 11:12 UTC, including the auth and
   rate-limit tests).
-- **Git:** HEAD `eb67f4c` (image split). Pushed through the split; the visual
-  board and this handoff update are in the working tree. Only
-  `out/play-template.svg` is untracked.
+- **Git:** HEAD `16c8edf` (auth + render limits); the handoff commit sits on
+  top. Only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
