@@ -71,7 +71,26 @@ not fit the shorter edge, collinear edges, and edges that double back.
   is accepted and reported under `merged`, while the gore outside the footprint
   is still measured.
 
-## The junction object this is heading towards
+## The junction object
+
+`clothoid_lab/junction.py` now has it:
+
+```python
+from clothoid_lab.junction import Junction
+
+j = Junction(corner=(0, 0), branch_end=(30, 0), trunk_end=(0, 40), radius=6)
+built = j.build()          # {"piece", "contact", "report"}
+report = built["report"]   # angle, tangent, arc length, trim, join "G1", 1/r
+result = j.check()         # the clearance report, merge declared
+```
+
+The branch is a straight run, the fillet arc, and the merge; the trunk is a
+straight ribbon. The contact at the merge carries `waives_clearance=True`, so
+the overlap is accepted and reported under `merged` — while anything crowding
+the junction from outside still fails. The reported join is **G1**: that is the
+circular fillet, stated rather than dressed up.
+
+## What comes after this object
 
 ```text
 Junction

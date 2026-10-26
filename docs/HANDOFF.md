@@ -109,6 +109,14 @@ remote MVP now exist.
   no geometry, so W01 output is unchanged. `svg.document(..., linecap=...)` lets
   the piece ink use `butt` caps while the single-design default stays `round`.
   `docs/piece-model.html` gained the labelled terminal strip (seven rows).
+- **Junction object:** `clothoid_lab/junction.py` — `Junction(corner,
+  branch_end, trunk_end, radius, widths)`, `.build()` returns a `Piece`, a
+  declared `Contact` and a report (angle, trim, arc length, G1 join, 1/r step),
+  `.check()` returns the clearance report with the merge already declared.
+  Tests: `tests/test_junction.py`.
+- **Contacts are model data:** `Piece.contacts` round-trips through JSON and
+  `piece_clearance()` uses it by default. `Contact` moved to
+  `clothoid_lab/contact.py` to keep the import graph acyclic.
 - **Junctions started:** `clothoid_lab/fillet.py` gives the tangent-arc fillet
   at a corner (`corner_fillet`), plus `fillet_span()` to trim two straight
   spans and insert the arc. It refuses a radius that does not fit, collinear
