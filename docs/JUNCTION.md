@@ -60,7 +60,10 @@ not fit the shorter edge, collinear edges, and edges that double back.
 - **Straight edges only.** `fillet_span` rejects curved spans instead of
   pretending a tangent point lies on the chord.
 - **No clearance check.** A fillet can still crowd a neighbouring stroke. Run
-  `piece_clearance()` on the result; the fillet does not police itself.
+  `piece_clearance()` on the result; the fillet does not police itself. At the
+  junction itself, declare a `Contact` with `waives_clearance=True` so the merge
+  is accepted and reported under `merged`, while the gore outside the footprint
+  is still measured.
 
 ## The junction object this is heading towards
 

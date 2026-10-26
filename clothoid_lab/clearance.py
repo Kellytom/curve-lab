@@ -44,16 +44,20 @@ class Contact:
     so, not because the geometry happens to meet.
     """
 
-    __slots__ = ("point", "radius", "a", "b")
+    __slots__ = ("point", "radius", "a", "b", "waives_clearance")
 
     def __init__(self, point: Point, radius: float = 1.0,
-                 a: str | None = None, b: str | None = None):
+                 a: str | None = None, b: str | None = None,
+                 waives_clearance: bool = True):
         if radius <= 0:
             raise ValueError("contact radius must be positive")
         self.point = (float(point[0]), float(point[1]))
         self.radius = float(radius)
         self.a = a
         self.b = b
+        # Inside its footprint a contact is a merge: the strokes are joined, so
+        # the clearance rule does not apply there. Outside it, it very much does.
+        self.waives_clearance = bool(waives_clearance)
 
     def allows(self, point: Point, a: str, b: str) -> bool:
         if self.a is not None and self.b is not None:
@@ -234,6 +238,14 @@ class _Ink:
                     best = (distance, pa, pb, name)
         return best
 
+    def near(self, point: Point, radius: float) -> bool:
+        """Is any part of this ink within `radius` of `point`?"""
+        for a0, a1, _ in self.segments:
+            distance, _, _ = segment_distance(a0, a1, point, point)
+            if distance <= radius:
+                return True
+        return False
+
     def crossings(self, other: "_Ink"):
         hits = []
         for a0, a1, name in self.segments:
@@ -276,6 +288,8 @@ def measure(groups: list[Group], clearance: float = 5.0, tol: float = 0.05,
     - `violations` — pairs below `clearance - 2*tol`
     - `warnings` — pairs inside the flattening band around `clearance`
     - `crossings` — each intersection, allowed only if a `Contact` covers it
+    - `merged` — pairs inside a contact footprint whose clearance is waived by
+      declaration, reported rather than hidden
     """
     if clearance <= 0:
         raise ValueError("clearance must be positive")
@@ -285,7 +299,7 @@ def measure(groups: list[Group], clearance: float = 5.0, tol: float = 0.05,
     ink = _instances(groups, tol, roles)
     names = list(ink)
     margin = 2.0 * tol
-    violations, warnings, crossings = [], [], []
+    violations, warnings, crossings, merged = [], [], [], []
     best = None
     for i, a_name in enumerate(names):
         a = ink[a_name]
@@ -308,8 +322,16 @@ def measure(groups: list[Group], clearance: float = 5.0, tol: float = 0.05,
                 "at": ((pa[0] + pb[0]) / 2.0, (pa[1] + pb[1]) / 2.0),
             }
             if distance < clearance - margin:
-                entry["shortfall"] = clearance - margin - distance
-                violations.append(entry)
+                if any(c.waives_clearance
+                       and c.allows(c.point, a_name, b_name)
+                       and a.near(c.point, c.radius)
+                       and b.near(c.point, c.radius)
+                       for c in contacts):
+                    entry["merged"] = True
+                    merged.append(entry)
+                else:
+                    entry["shortfall"] = clearance - margin - distance
+                    violations.append(entry)
             elif distance < clearance + margin:
                 warnings.append(entry)
             # Two shapes whose boxes do not touch cannot cross; skip the
@@ -337,6 +359,7 @@ def measure(groups: list[Group], clearance: float = 5.0, tol: float = 0.05,
         "warnings": warnings,
         "crossings": crossings,
         "disallowed": disallowed,
+        "merged": merged,
     }
 
 

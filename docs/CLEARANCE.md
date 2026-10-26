@@ -62,6 +62,20 @@ At `clearance = 5`, `tol = 0.05`: violation below 4.9, warning from 4.9 to 5.1.
 The warning band is not noise — it is the only responsible answer when the
 measurement cannot resolve the last tenth of a millimetre.
 
+## Junctions waive clearance inside their footprint
+
+A junction is not a violation; it is a merge. A `Contact` therefore carries
+`waives_clearance=True` by default: a pair closer than the rule is accepted when
+**both strokes pass within the contact's radius**, and the pair is listed under
+`merged` rather than dropped. Testing the footprint rather than one sampled
+closest point matters: the minimum between two parallel rails is a whole line,
+and the first point found is arbitrary. The gore — the narrowing gap just outside
+the footprint — is still measured normally, which is the point: the waiver has
+an edge, and the edge is where the drawing must start respecting the rule again.
+
+Pass `waives_clearance=False` for a contact that only permits a crossing while
+still demanding the gap.
+
 ## Why instances matter
 
 A 6 mm ribbon has two rails 6 mm apart and a cap that meets both at the tips.
@@ -120,10 +134,10 @@ AABB index, and the engine already has one internally.
 
 ## Tests
 
-`tests/test_clearance.py` — 22 cases: segment distances (parallel, crossing,
+`tests/test_clearance.py` — 26 cases: segment distances (parallel, crossing,
 collinear, endpoint, degenerate), flattening bound, pass/warn/fail bands, the
 same-instance exclusion, mirror gap, disallowed crossing, declared contact,
-named contacts, argument validation, report shape.
+named contacts, argument validation, report shape, clearance waivers inside and outside a contact.
 
 ## Where this goes next
 

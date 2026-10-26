@@ -170,6 +170,38 @@ class TestMeasure(unittest.TestCase):
         with self.assertRaises(ValueError):
             cl.measure(groups, tol=0.0)
 
+    def test_contact_waives_clearance_inside_its_footprint(self):
+        # Edges at y = 1 and y = 2: 1 mm apart, so a merge.
+        piece = two(0.0, 1.0)
+        contact = cl.Contact((30.0, 1.5), radius=5.0,
+                             a="ink/a", b="ink/b")
+        result = cl.piece_clearance(piece, clearance=5.0, contacts=[contact])
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["violations"], [])
+        self.assertEqual(len(result["merged"]), 1)
+
+    def test_contact_far_away_does_not_waive(self):
+        piece = two(0.0, 1.0)
+        contact = cl.Contact((30.0, 200.0), radius=2.0, a="ink/a", b="ink/b")
+        result = cl.piece_clearance(piece, clearance=5.0, contacts=[contact])
+        self.assertFalse(result["ok"])
+        self.assertEqual(len(result["violations"]), 1)
+        self.assertEqual(result["merged"], [])
+
+    def test_contact_can_be_declared_without_waiving(self):
+        piece = two(0.0, 1.0)
+        contact = cl.Contact((30.0, 1.5), radius=5.0,
+                             a="ink/a", b="ink/b", waives_clearance=False)
+        result = cl.piece_clearance(piece, clearance=5.0, contacts=[contact])
+        self.assertFalse(result["ok"])
+        self.assertEqual(len(result["violations"]), 1)
+
+    def test_merged_pairs_appear_in_the_report(self):
+        result = cl.piece_clearance(two(0.0, 1.0), clearance=5.0,
+                                    contacts=[cl.Contact((30.0, 1.5), 5.0)])
+        self.assertIn("merged", result)
+        self.assertEqual(result["merged"][0]["a"], "ink/a")
+
     def test_named_contact_only_covers_its_pair(self):
         contact = cl.Contact((0.0, 0.0), radius=10.0, a="ink/in", b="ink/other")
         self.assertTrue(contact.allows((1.0, 0.0), "ink/other", "ink/in"))
