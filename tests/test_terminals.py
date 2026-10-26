@@ -7,6 +7,7 @@ from clothoid_lab.offsets import build_rail
 from clothoid_lab.piece import Piece, Trace, render_piece
 from clothoid_lab.terminals import (
     TERMINALS, ARC_RADIUS, TAPER_FACTOR, terminal_extension, terminal_spans,
+    width_law,
 )
 
 
@@ -81,6 +82,34 @@ class TestTerminalSpans(unittest.TestCase):
         end = terminal_spans(pos, neg, "round", end="end")
         self.assertAlmostEqual(start[0]["p0"][0], 0.0, places=6)
         self.assertAlmostEqual(end[0]["p3"][0], 60.0, places=6)
+
+    def test_width_laws_meet_the_stroke_at_g2(self):
+        # Recovered from the ornaments stage-two page: w(1) = 1/2 and both
+        # derivatives vanish, so the taper starts without a step.
+        for kind in ("bulb", "cone"):
+            law = width_law(kind)
+            self.assertAlmostEqual(law(0.0), 0.0, places=12)
+            self.assertAlmostEqual(law(1.0), 0.5, places=12)
+            h = 1e-4
+            slope = (law(1.0) - law(1.0 - h)) / h
+            self.assertLess(abs(slope), 1e-3, msg=f"{kind} slope at the join")
+            curvature = (law(1.0) - 2 * law(1.0 - h) + law(1.0 - 2 * h)) / (h * h)
+            self.assertLess(abs(curvature), 1e-2, msg=f"{kind} curvature at the join")
+
+    def test_bulb_swells_wider_than_cone(self):
+        bulb, cone = width_law("bulb"), width_law("cone")
+        self.assertGreater(bulb(0.5), cone(0.5) * 1.3)
+
+    def test_law_tapers_end_at_the_centreline_tip(self):
+        width = 8.0
+        pos, neg = rails(width)
+        for kind in ("bulb", "cone"):
+            spans = terminal_spans(pos, neg, kind)
+            tip = spans[len(spans) // 2 - 1]["p3"]  # plus side ends at the tip
+            self.assertAlmostEqual(tip[0], 60.0 + TAPER_FACTOR * width / 2.0, places=3)
+            self.assertAlmostEqual(tip[1], 0.0, places=3)
+            self.assertAlmostEqual(
+                terminal_extension(kind, width), TAPER_FACTOR * width / 2.0)
 
     def test_extension_matches_geometry(self):
         width = 8.0

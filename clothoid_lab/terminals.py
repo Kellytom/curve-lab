@@ -12,13 +12,21 @@ control points in the design plane. The SVG writer flips y once, at output.
 - `arc`   one shallow dome, radius 5 mm, so it reads as a cut corner.
 - `round` one dome of radius half the ribbon width: a semicircular end.
 - `taper` the rails converge over several half-widths to a narrow tip.
+- `bulb`  a taper on the width law `w = ½(t(3−3t+t²) + 12t²(1−t)³)`: it holds
+          its width, swells, then draws to a point.
+- `cone`  a taper on `w = ½(1−(1−t)³)`: the short cone.
+
+`bulb` and `cone` are the two laws recovered from the ornaments `stage-two`
+page. Both meet the full stroke at the join with zero slope and zero curvature,
+so there is no step where the taper starts; `w` is the half-width as a fraction
+of the full width, which is why it runs 0 to ½.
 """
 
 from __future__ import annotations
 
 import math
 
-TERMINALS = ("butt", "point", "arc", "round", "taper")
+TERMINALS = ("butt", "point", "arc", "round", "taper", "bulb", "cone")
 ARC_RADIUS = 5.0
 TAPER_FACTOR = 4.0
 
@@ -44,6 +52,15 @@ def terminal_extension(kind: str, width: float) -> float:
         radius = max(ARC_RADIUS, half)
         return radius - math.sqrt(radius * radius - half * half)
     return TAPER_FACTOR * half
+
+
+def width_law(kind: str):
+    """The half-width fraction at t: 0 at the tip, ½ at the full-width join."""
+    if kind == "bulb":
+        return lambda t: 0.5 * (t * (3 - 3 * t + t * t) + 12 * t * t * (1 - t) ** 3)
+    if kind == "cone":
+        return lambda t: 0.5 * (1 - (1 - t) ** 3)
+    raise ValueError(f"{kind!r} has no width law")
 
 
 def _unit(dx: float, dy: float) -> tuple[float, float]:
@@ -97,6 +114,33 @@ def _dome(p_pos, p_neg, outward, sagitta: float) -> dict:
     return _span(p_pos, p_neg, c1, c2)
 
 
+def _catmull(points: list[tuple[float, float]]) -> list[dict]:
+    """A smooth cubic chain through points, endpoints gently clamped."""
+    pts = [points[0]] + list(points) + [points[-1]]
+    spans = []
+    for i in range(1, len(pts) - 2):
+        p0, p1, p2, p3 = pts[i - 1], pts[i], pts[i + 1], pts[i + 2]
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6.0, p1[1] + (p2[1] - p0[1]) / 6.0)
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6.0, p2[1] - (p3[1] - p1[1]) / 6.0)
+        spans.append(_span(p1, p2, c1, c2))
+    return spans
+
+
+def _law_spans(p_pos, p_neg, mid, outward, side, half, length, law):
+    """Two rails from the ribbon ends to a point, on a width law."""
+    plus, minus = [], []
+    steps = 8
+    for i in range(steps + 1):
+        u = i / steps
+        centre = (mid[0] + outward[0] * length * u,
+                  mid[1] + outward[1] * length * u)
+        width = 2.0 * half * law(1.0 - u)
+        plus.append((centre[0] + side[0] * width, centre[1] + side[1] * width))
+        minus.append((centre[0] - side[0] * width, centre[1] - side[1] * width))
+    plus[0], minus[0] = p_pos, p_neg
+    return _catmull(plus) + list(reversed(_catmull(minus)))
+
+
 def terminal_spans(rail_pos: dict, rail_neg: dict, kind: str,
                    end: str = "end", radius: float = ARC_RADIUS,
                    taper: float = TAPER_FACTOR) -> list[dict]:
@@ -123,6 +167,12 @@ def terminal_spans(rail_pos: dict, rail_neg: dict, kind: str,
     if kind == "point":
         apex = (mid[0] + outward[0] * half, mid[1] + outward[1] * half)
         return [_straight(p_pos, apex), _straight(apex, p_neg)]
+
+    if kind in ("bulb", "cone"):
+        length = taper * half
+        side = _unit(p_pos[0] - p_neg[0], p_pos[1] - p_neg[1])
+        return _law_spans(p_pos, p_neg, mid, outward, side, half, length,
+                          width_law(kind))
 
     if kind == "taper":
         length = taper * half

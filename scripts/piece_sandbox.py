@@ -1,4 +1,4 @@
-"""Build the W01 sandbox: one piece, several traces, a mirror.
+"""Build the W01/W02 sandbox: a piece, a mirror, and the terminal strip.
 
 Run from the repo root:
 
@@ -42,13 +42,13 @@ def terminal_strip() -> tuple[str, dict]:
         name="W02 terminal strip",
         stroke=0.6,
         traces=[
-            Trace(kind, ribbon(90.0 - 20.0 * index), width=8.0,
+            Trace(kind, ribbon(96.0 - 16.0 * index), width=8.0,
                   mirror=False, terminals=(kind, kind))
             for index, kind in enumerate(TERMINALS)
         ],
     )
     annotations = [
-        {"kind": "text", "x": -22.0, "y": 90.0 - 20.0 * index + 1.2,
+        {"kind": "text", "x": -22.0, "y": 96.0 - 16.0 * index + 1.2,
          "text": kind, "size": 4.0, "anchor": "end", "fill": "#7b6c4e"}
         for index, kind in enumerate(TERMINALS)
     ]
@@ -167,7 +167,7 @@ def main() -> int:
   <h2>What this proves</h2>
   <div class="panel">
     <p>The engine still draws one chain at a time. A <code>Piece</code> holds named traces, each with its own <code>Design</code>, optional ribbon width and mirror rule. <code>render_piece()</code> builds every trace, mirrors the groups that ask for it, and writes one SVG with one page, one frame and one y-flip. The path ids are the trace names, so a later grammar can address a band or a petal directly.</p>
-    <p>The terminal strip is the W02 vocabulary, eight millimetres wide, the same on both ends: <code>butt</code> stops the rails where they are; <code>point</code> brings them to a sharp tip; <code>arc</code> is a shallow five-millimetre dome; <code>round</code> is a semicircle of half the width; <code>taper</code> converges over four half-widths. Each end is set on the trace and reported per end with its kind and reach, and a terminal refuses a ribbon that folds.</p>
+    <p>The terminal strip is the W02 vocabulary, eight millimetres wide, the same on both ends: <code>butt</code> stops the rails where they are; <code>point</code> brings them to a sharp tip; <code>arc</code> is a shallow five-millimetre dome; <code>round</code> is a semicircle of half the width; <code>taper</code> converges over four half-widths; <code>bulb</code> and <code>cone</code> are the two width laws recovered from the ornaments stage-two page, <code>w = ½(t(3−3t+t²)+12t²(1−t)³)</code> and <code>w = ½(1−(1−t)³)</code>. Both meet the full stroke at the join with zero slope and zero curvature. Each end is set on the trace and reported per end with its kind and reach, and a terminal refuses a ribbon that folds.</p>
     <p>The next step is W03, the fleur grammar on top of this structure.</p>
   </div>
 </main>
