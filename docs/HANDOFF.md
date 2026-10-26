@@ -78,10 +78,11 @@ remote MVP now exist.
   `.gcloudignore.engine`; app `.gcloudignore` now drops `vendor/`, `csrc/`, and
   `scripts/`. Engine base built in 6m43s; first thin deploy took 30 s
   (revision `clothoid-web-00004-nwx`); parity passed.
-- Added `docs/ornament-board.html`: 20 plate thumbnails (P01–P20), 10 work
-  items (W01–W10), 6 design decisions (D01–D06), priority 1–5, stage tags,
-  drag/↑↓ ordering, notes, localStorage, and JSON/order export. This is the
-  visual chooser for the ornament pass.
+- Added `docs/ornament-board.html` and `docs/fleur-studies.html`: the board
+  carries 45 catalogue plates (P21–P65), 10 work items (W01–W10) and 6 design
+  decisions (D01–D06), with expanded briefs, priority 1–5, stage tags,
+  drag/↑↓ ordering, notes, localStorage, and JSON/order export. The twenty
+  fleur studies (P01–P20) are a subpage, defaulted to “Needs work”.
 
 ## Risks / open decisions
 
@@ -103,10 +104,12 @@ remote MVP now exist.
 
 ## Next move
 
-Open `docs/ornament-board.html`, set **D01–D06**, rank the plates and work
-items, and copy the order. If nothing is ranked, the technical default is
-**W01 piece model → W02 terminals → W03 fleur grammar → W04 twenty sets**.
-Auth/rate limiting stays deferred; keep the URL private.
+Open `docs/ornament-board.html`, set **D01–D06**, rank the catalogue plates and
+work items, and copy the order. The twenty fleur studies are the working subpage
+`docs/fleur-studies.html` (P01–P20, all marked **Needs work**); rank those
+separately. If nothing is ranked, the technical default is **W01 piece model →
+W02 terminals → W03 fleur grammar → W04 twenty sets**. Auth/rate limiting stays
+deferred; keep the URL private.
 
 ## Tooling notes
 
@@ -130,7 +133,8 @@ Auth/rate limiting stays deferred; keep the URL private.
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
 | `docs/BACKLOG.md` | execution detail for W01–W10 |
-| `docs/ornament-board.html` | visual order board: P/W/D labels |
+| `docs/ornament-board.html` | visual board: 45 catalogue plates, W/D labels |
+| `docs/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `next-fhandoff.md` | two-line focused pointer |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |

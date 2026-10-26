@@ -259,9 +259,12 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `web/static/app.js` | fetch/render/editor/download logic |
 | `web/static/style.css` | page styling |
 | `web/README.md` | local and container usage |
-| `Dockerfile` | Debian build + Python runtime image |
-| `.dockerignore` | small Docker build context |
-| `.gcloudignore` | small Cloud Build source upload |
+| `Dockerfile` | thin app image; starts FROM the engine base |
+| `engine/Dockerfile` | engine base: C++ build + Python runtime + `.so` |
+| `cloudbuild.engine.yaml` | build and push the engine base |
+| `.dockerignore` | local Docker build context |
+| `.gcloudignore` | small app-only Cloud Build upload |
+| `.gcloudignore.engine` | engine-base build context |
 | `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web API tests |
 | `clothoid_lab/` | existing geometry/policy layer |
@@ -269,9 +272,13 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
 | `docs/HANDOFF.md` | compact current-session continuation brief |
+| `docs/BACKLOG.md` | execution detail for W01–W10 |
+| `docs/ornament-board.html` | visual board: 45 catalogue plates, W/D labels |
+| `docs/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `next-fhandoff.md` | two-line focused handoff pointer |
 | `.opencode/commands/fhandoff.md` | focused handoff command |
 | `.opencode/commands/fhandon.md` | focused handon command |
+| `.opencode/commands/morsel.md` | do the next backlog item |
 
 `out/play-template.svg` is an untracked user file; leave it alone.
 

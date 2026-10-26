@@ -1,9 +1,13 @@
 # Backlog — the ornament pass
 
 The **order** is chosen on the visual board: [`docs/ornament-board.html`](ornament-board.html).
-Labels are stable: **P01–P20** plates, **W01–W10** work items, **D01–D06**
-design decisions. The board is the authority on what comes next; this file keeps
-the execution detail for each label.
+The twenty fleur studies are a **subpage** — [`docs/fleur-studies.html`](fleur-studies.html) —
+because they are a working set, not finished plates. The board carries the 45
+catalogue plates (P21–P65), the 10 work items, and the 6 decisions.
+
+Labels are stable: **P01–P20** fleur studies (subpage), **P21–P65** catalogue
+plates, **W01–W10** work items, **D01–D06** design decisions. The board is the
+authority on order; this file keeps the execution detail for each label.
 
 Open the board, rank, tag, then copy the order back into the session.
 
