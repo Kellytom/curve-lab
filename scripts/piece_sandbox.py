@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 from clothoid_lab.model import Design, Segment
 from clothoid_lab.piece import Piece, Trace, render_piece
 from clothoid_lab.presets import s_curve
+from clothoid_lab.terminals import TERMINALS, terminal_extension
 
 
 def band() -> Design:
@@ -25,6 +26,33 @@ def band() -> Design:
         segments=[Segment(kd=0.0, length=90.0, kappa0=0.0)],
         anchor={"x": -45.0, "y": 58.0, "angle": 0.0},
     )
+
+
+def ribbon(y: float, length: float = 45.0) -> Design:
+    return Design(
+        name="ribbon",
+        segments=[Segment(kd=0.0, length=length, kappa0=0.0)],
+        anchor={"x": 0.0, "y": y, "angle": 0.0},
+    )
+
+
+def terminal_strip() -> tuple[str, dict]:
+    """One straight ribbon per terminal, stacked, labelled to the left."""
+    piece = Piece(
+        name="W02 terminal strip",
+        stroke=0.6,
+        traces=[
+            Trace(kind, ribbon(90.0 - 20.0 * index), width=8.0,
+                  mirror=False, terminals=(kind, kind))
+            for index, kind in enumerate(TERMINALS)
+        ],
+    )
+    annotations = [
+        {"kind": "text", "x": -22.0, "y": 90.0 - 20.0 * index + 1.2,
+         "text": kind, "size": 4.0, "anchor": "end", "fill": "#7b6c4e"}
+        for index, kind in enumerate(TERMINALS)
+    ]
+    return render_piece(piece, tol=0.05, margin=34, annotations=annotations)
 
 
 def main() -> int:
@@ -38,6 +66,14 @@ def main() -> int:
         ],
     )
     svg, info = render_piece(piece, tol=0.05, margin=8)
+    strip, strip_info = terminal_strip()
+
+    terminal_rows = "\n".join(
+        f"<tr><td><code>{kind}</code></td>"
+        f"<td>{terminal_extension(kind, 8.0):.2f} mm</td>"
+        f"<td>{'the rails simply stop (baseline)' if kind == 'butt' else 'closes the ribbon end'}</td></tr>"
+        for kind in TERMINALS
+    )
 
     rows = "\n".join(
         f"<tr><td><code>{trace['layer']}/{trace['name']}</code></td>"
@@ -52,7 +88,7 @@ def main() -> int:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>W01 — the piece model</title>
+<title>W01–W02 — the piece model and terminals</title>
 <style>
   :root {{
     color-scheme: light;
@@ -91,8 +127,8 @@ def main() -> int:
 <body>
 <main>
   <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
-  <h1>W01 — the piece model</h1>
-  <p class="lead">One drawing, several traces, one mirror. This is the structure the ornaments need before the fleur grammar can be ported.</p>
+  <h1>W01–W02 — the piece model and terminals</h1>
+  <p class="lead">One drawing, several traces, one mirror — and a vocabulary for how each ribbon ends.</p>
 
   <h2>What you are looking at</h2>
   <div class="panel">
@@ -117,10 +153,22 @@ def main() -> int:
     </table>
   </div>
 
+  <h2>The terminal strip — W02</h2>
+  <div class="panel art" id="terminal-strip">
+    {strip}
+  </div>
+  <div class="panel" style="margin-top:12px">
+    <table>
+      <tr><th>terminal</th><th>reach past the rails</th><th>shape</th></tr>
+      {terminal_rows}
+    </table>
+  </div>
+
   <h2>What this proves</h2>
   <div class="panel">
     <p>The engine still draws one chain at a time. A <code>Piece</code> holds named traces, each with its own <code>Design</code>, optional ribbon width and mirror rule. <code>render_piece()</code> builds every trace, mirrors the groups that ask for it, and writes one SVG with one page, one frame and one y-flip. The path ids are the trace names, so a later grammar can address a band or a petal directly.</p>
-    <p>The next steps are W02 (point, arc, round and taper terminals) and W03 (the fleur grammar on top of this structure).</p>
+    <p>The terminal strip is the W02 vocabulary, eight millimetres wide, the same on both ends: <code>butt</code> stops the rails where they are; <code>point</code> brings them to a sharp tip; <code>arc</code> is a shallow five-millimetre dome; <code>round</code> is a semicircle of half the width; <code>taper</code> converges over four half-widths. Each end is set on the trace and reported per end with its kind and reach, and a terminal refuses a ribbon that folds.</p>
+    <p>The next step is W03, the fleur grammar on top of this structure.</p>
   </div>
 </main>
 </body>
@@ -133,6 +181,8 @@ def main() -> int:
     for trace in info["traces"]:
         print(f"  {trace['layer']}/{trace['name']}: fit {trace['fit_error']:.4f} mm, "
               f"rails {trace['rails']}, mirrored {trace['mirrored']}")
+    print(f"terminal strip: {len(strip_info['traces'])} ribbons, "
+          f"{', '.join(t['terminals'][0]['kind'] for t in strip_info['traces'])}")
     return 0
 
 

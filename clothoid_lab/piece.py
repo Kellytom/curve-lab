@@ -16,6 +16,20 @@ from dataclasses import dataclass, field
 from . import bezier, engine, svg
 from .model import Design
 from .offsets import build_rails
+from .terminals import check_terminal, terminal_extension, terminal_spans
+
+
+def _terminals(value) -> tuple[str, str]:
+    """Normalise start/end terminals from a name, a pair, or a dict."""
+    if isinstance(value, str):
+        pair = (value, value)
+    elif isinstance(value, dict):
+        pair = (value.get("start", "butt"), value.get("end", "butt"))
+    else:
+        pair = tuple(value)
+    if len(pair) != 2:
+        raise ValueError("terminals need one kind for each end")
+    return check_terminal(pair[0]), check_terminal(pair[1])
 
 
 @dataclass
@@ -29,6 +43,8 @@ class Trace:
     # sets False so the mirror does not draw it twice.
     mirror: bool | None = None
     layer: str = "ink"
+    # (start, end). Only ribbon traces can take a terminal other than `butt`.
+    terminals: tuple[str, str] = ("butt", "butt")
 
     def __post_init__(self):
         if not self.name.strip():
@@ -37,6 +53,9 @@ class Trace:
             raise ValueError("trace width must be positive")
         if not self.layer.strip():
             raise ValueError("a trace needs a layer")
+        self.terminals = _terminals(self.terminals)
+        if self.width is None and any(k != "butt" for k in self.terminals):
+            raise ValueError("a terminal needs a ribbon width")
 
     def to_dict(self) -> dict:
         return {
@@ -44,6 +63,7 @@ class Trace:
             "layer": self.layer,
             "width": self.width,
             "mirror": self.mirror,
+            "terminals": list(self.terminals),
             "design": self.design.to_dict(),
         }
 
@@ -55,6 +75,7 @@ class Trace:
             width=None if data.get("width") is None else float(data["width"]),
             mirror=data.get("mirror"),
             layer=str(data.get("layer", "ink")),
+            terminals=data.get("terminals", ("butt", "butt")),
         )
 
 
@@ -111,7 +132,8 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
                  backend: str | None = None,
                  page: tuple[float, float] | None = None,
                  frame: tuple[float, float] | None = None,
-                 view: str | None = None) -> tuple[str, dict]:
+                 view: str | None = None,
+                 annotations: list[dict] | None = None) -> tuple[str, dict]:
     """Build every trace, mirror where asked, and write one SVG."""
     groups: list[tuple[str, list[dict], float | None]] = []
     report = []
@@ -137,12 +159,39 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
                  rail["spans"], rail["distance"])
             )
 
+        # Terminals close the ribbon ends. They are extra geometry, so a butt
+        # end adds nothing and the pre-W02 drawings stay byte-identical.
+        terminals = []
+        caps: list[tuple[str, list[dict]]] = []
+        folded = False
+        for index, end in enumerate(("start", "end")):
+            kind = trace.terminals[index]
+            extension = 0.0 if trace.width is None else terminal_extension(kind, trace.width)
+            if kind != "butt":
+                rail_pos, rail_neg = rails[-2], rails[-1]
+                folded = bool(rail_pos["folds"] or rail_neg["folds"])
+                if folded:
+                    raise ValueError(
+                        f"{base}: the {kind} terminal needs a ribbon that does "
+                        f"not fold ({trace.width:g} mm wide)"
+                    )
+                spans = terminal_spans(rail_pos, rail_neg, kind, end=end)
+                caps.append((f"{base} {end} {kind}", spans))
+                groups.append((caps[-1][0], spans, None))
+            terminals.append({
+                "end": end,
+                "kind": kind,
+                "extension": extension,
+                "fold": folded,
+            })
+
         entry = {
             "name": trace.name,
             "layer": trace.layer,
             "fit_error": fit["error_max"],
             "rails": len(rails),
             "mirrored": piece.mirror if trace.mirror is None else bool(trace.mirror),
+            "terminals": terminals,
         }
         report.append(entry)
 
@@ -153,10 +202,14 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
                     (f"{base} mirrored rail {svg.num(rail['distance'], 3)}",
                      _mirror_spans(rail["spans"]), rail["distance"])
                 )
+            for name, spans in caps:
+                suffix = name[len(base):]
+                groups.append((f"{base} mirrored{suffix}", _mirror_spans(spans), None))
 
     text = svg.document(
         piece, groups=groups, prec=prec, margin=margin,
-        page=page, frame=frame, view=view,
+        page=page, frame=frame, view=view, annotations=annotations,
+        linecap="butt",
     )
     info = {
         "piece": piece.name,

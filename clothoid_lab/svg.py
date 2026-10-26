@@ -99,7 +99,8 @@ def document(design, chain=None, spine=None, rails=None,
              frame: tuple[float, float] | None = None,
              view: str | None = None,
              annotations: list[dict] | None = None,
-             groups: list[tuple[str, list[dict], float | None]] | None = None) -> str:
+             groups: list[tuple[str, list[dict], float | None]] | None = None,
+             linecap: str = "round") -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata.
 
     `annotations` are optional standard SVG marks (lines, circles, text) placed
@@ -108,6 +109,10 @@ def document(design, chain=None, spine=None, rails=None,
 
     `groups` lets a piece supply several named traces instead of the usual
     single spine plus rails. Each tuple is (name, spans, distance-or-None).
+
+    `linecap` sets the stroke cap for the ink group. The single-design default
+    stays `round`; a piece passes `butt`, because a ribbon end is geometry, not
+    a brush tip, and a round hairline cap would blur the terminal vocabulary.
     """
     if groups is None:
         groups = [("spine", spine, None)]
@@ -230,7 +235,7 @@ def document(design, chain=None, spine=None, rails=None,
         out.extend(behind)
         out.append("  </g>")
     out += [
-        '  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="round"',
+        f'  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="{linecap}"',
         f'     stroke-width="{num(stroke, prec)}">',
     ]
     for index, (name, spans, _) in enumerate(groups):
