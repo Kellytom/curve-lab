@@ -17,7 +17,13 @@
   "refs": [
    "earth/01-Cliff_beach_North_Stradbroke_Island.jpg",
    "earth/02-Cliff_beach_North_Stradbroke_Island.jpg"
-  ]
+  ],
+  "check": {
+   "segments": 4,
+   "max_segment_turn_deg": 0.5,
+   "max_corner_deg": 35,
+   "terminal": "taper"
+  }
  },
  {
   "id": "water",
@@ -37,7 +43,12 @@
   "refs": [
    "water/01-Wave_cloud_sunset.jpg",
    "water/02-Wave_cloud_sunset.jpg"
-  ]
+  ],
+  "check": {
+   "segments": 3,
+   "max_segment_turn_deg": 90,
+   "terminal": "round"
+  }
  },
  {
   "id": "air",
@@ -57,7 +68,12 @@
   "refs": [
    "air/01-Cumulus_clouds.jpg",
    "air/02-Cumulus_clouds.jpg"
-  ]
+  ],
+  "check": {
+   "segments": 3,
+   "max_segment_turn_deg": 180,
+   "terminal": "round"
+  }
  },
  {
   "id": "fire",
@@ -77,7 +93,13 @@
   "refs": [
    "fire/01-Flame.jpg",
    "fire/02-Flame.jpg"
-  ]
+  ],
+  "check": {
+   "segments": 2,
+   "max_segment_turn_deg": 95,
+   "max_corner_deg": 10,
+   "terminal": "point"
+  }
  },
  {
   "id": "fleur",

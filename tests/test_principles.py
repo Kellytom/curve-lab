@@ -42,3 +42,34 @@ class TestCards(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCardGeometry(unittest.TestCase):
+    """The cards' numbers are assertions about the rendered grammar."""
+
+    def stats(self, piece):
+        import math
+        segments = piece.traces[0].design.segments
+        turns = [abs(math.degrees(s.kappa0 * s.length + 0.5 * s.kd * s.length ** 2))
+                 for s in segments]
+        corners = [abs(math.degrees(s.corner)) for s in segments]
+        return {"segments": len(segments),
+                "max_segment_turn_deg": max(turns),
+                "max_corner_deg": max(corners),
+                "terminal": piece.traces[0].terminals[1]}
+
+    def test_primal_cards_match_their_geometry(self):
+        from clothoid_lab import primal
+        for card in CARDS:
+            if card["class"] != "primal":
+                continue
+            got = self.stats(primal.PRIMAL[card["id"]]())
+            check = card["check"]
+            with self.subTest(element=card["id"]):
+                self.assertEqual(got["segments"], check["segments"])
+                self.assertLessEqual(
+                    got["max_segment_turn_deg"],
+                    check["max_segment_turn_deg"] + 1e-6)
+                self.assertLessEqual(
+                    got["max_corner_deg"], check.get("max_corner_deg", 0.0) + 1e-6)
+                self.assertEqual(got["terminal"], check["terminal"])

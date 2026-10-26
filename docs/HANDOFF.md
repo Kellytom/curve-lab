@@ -130,7 +130,10 @@ remote MVP now exist.
   numbers and a "not this" list. `scripts/principles.py` rebuilds
   `docs/principles.html`; images attach by subject from `reference/manifest.json`
   (never hard-coded), so links cannot rot. `tests/test_principles.py` validates
-  the cards, the corpus and the rendered page. Images are for measurement only.
+  the cards, the corpus and the rendered page. Each primal card also carries a
+  `check` block, and the tests assert the rendered grammar against it: segment
+  count, maximum segment turn, maximum corner and end terminal. The board header
+  links the page.
 - **Primal first slice:** `clothoid_lab/primal.py` has one canonical grammar per
   element — earth (terraces with corners, taper), water (sweep and reversal,
   round), air (billowing arcs, round), fire (Euler tongue with a point). Render:
