@@ -29,6 +29,13 @@ No primal work starts until all of these are true:
 
 Until then this page is intent, not a plan of record.
 
+**Status 2026-10-26:** the first slice exists ahead of the gate, by request —
+`clothoid_lab/primal.py` and `docs/primal.html`: one canonical grammar per
+element (earth terraces with corners, a water wave, cloud billows, a fire
+tongue), rendered from clothoid segments with the terminals each needs. They
+are sketches to argue with, not the studies described above: no parameter
+families, no measured gores, no web route. The gate still stands for those.
+
 ## The four, and what each one tests
 
 | Element | Grammar | What it forces the framework to prove |

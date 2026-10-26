@@ -125,6 +125,11 @@ remote MVP now exist.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
   filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
   `tests/test_fillet.py`.
+- **Primal first slice:** `clothoid_lab/primal.py` has one canonical grammar per
+  element — earth (terraces with corners, taper), water (sweep and reversal,
+  round), air (billowing arcs, round), fire (Euler tongue with a point). Render:
+  `scripts/primal.py` → `docs/primal.html`; tests: `tests/test_primal.py`.
+  These are ahead of the gate on purpose and are sketches, not the four studies.
 - **Section and Bundle:** `clothoid_lab/section.py` gives the read model —
   `Section(s, spine, tangent, width, left, right)` sampled by arc length, with
   left = `(-t.y, t.x)`. `clothoid_lab/bundle.py` gives the design box: a named
