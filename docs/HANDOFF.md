@@ -38,7 +38,7 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 168 pass (2026-10-26; 22 clearance, 16 fillet).
+- **Local tests:** 171 pass (2026-10-26; 22 clearance, 19 fillet).
 - **Git:** HEAD `0365a67` (W02 terminals); the handoff commit sits on top.
   Only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -108,7 +108,9 @@ remote MVP now exist.
   spans and insert the arc. It refuses a radius that does not fit, collinear
   edges and doubled-back edges. This is G1 by construction: curvature still
   jumps at the touch points, so a trunk needs the clothoid blend next.
-  Docs: `docs/JUNCTION.md`; tests: `tests/test_fillet.py`.
+  `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
+  filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
+  `tests/test_fillet.py`.
 - **Spirals recovered:** `scripts/extract-spirals.py` pulls every `spine` path
   from the Stage II and LAC pages, keeps the page's own cubics and its
   `data-span` tag (`line`, `arc`, `euler`, `logaesthetic`, `reflected`,

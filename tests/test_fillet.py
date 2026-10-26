@@ -1,7 +1,11 @@
 import math
 import unittest
 
-from clothoid_lab.fillet import FilletError, corner_fillet, fillet_span
+from clothoid_lab import engine
+from clothoid_lab.fillet import (
+    FilletError, arc_segment, corner_fillet, fillet_span,
+)
+from clothoid_lab.model import Design, Segment
 
 
 def cubic(span, t):
@@ -137,6 +141,45 @@ class TestFilletSpan(unittest.TestCase):
         right = straight((1, 0), (1, 10))
         with self.assertRaises(FilletError):
             fillet_span([short, right], 0, 3.0)
+
+
+class TestArcSegment(unittest.TestCase):
+    def test_arc_matches_the_fillet(self):
+        f = corner_fillet((10, 0), (0, 0), (0, 10), 2.0)
+        spec = arc_segment(f)
+        segment = Segment(**spec["segment"])
+        chain = engine.build(Design(name="arc", segments=[segment],
+                                    anchor=spec["anchor"]))
+        start = chain.point(0.0)
+        end = chain.point(segment.length)
+        assert_points(self, start, f["start"], places=6)
+        assert_points(self, end, f["end"], places=6)
+        self.assertAlmostEqual(chain.kappa(0.0), -0.5, places=9)
+        self.assertAlmostEqual(chain.kappa(segment.length), -0.5, places=9)
+
+    def test_mirrored_corner_has_the_other_hand(self):
+        f = corner_fillet((10, 0), (0, 0), (0, -10), 2.0)
+        spec = arc_segment(f)
+        self.assertAlmostEqual(spec["segment"]["kappa0"], 0.5, places=12)
+
+    def test_joins_are_g1_not_g2(self):
+        f = corner_fillet((10, 0), (0, 0), (0, 10), 2.0)
+        spec = arc_segment(f)
+        arc = spec["segment"]
+        design = Design(
+            name="filleted run",
+            anchor={"x": f["start"][0] - 8.0, "y": 0.0, "angle": 0.0},
+            segments=[
+                Segment(kd=0.0, length=8.0, kappa0=0.0),
+                Segment(**arc),
+                Segment(kd=0.0, length=8.0, kappa0=0.0),
+            ],
+        )
+        chain = engine.build(design)
+        self.assertEqual(len(chain.joins), 2)
+        for join in chain.joins:
+            self.assertAlmostEqual(abs(join["d_kappa"]), 0.5, places=9)
+        self.assertFalse(chain.g2)
 
 
 if __name__ == "__main__":

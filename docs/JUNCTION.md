@@ -29,6 +29,24 @@ f["spans"]               # cubic spans, start → end
 straight spans at their shared corner and inserts the arc, so the result is one
 continuous chain.
 
+`arc_segment(f)` turns the fillet into a circular-arc `Segment` and anchor, so
+it can enter a `Design` chain and be rendered by the same writer as everything
+else:
+
+```python
+from clothoid_lab.fillet import arc_segment
+from clothoid_lab.model import Design, Segment
+
+spec = arc_segment(f)
+design = Design(anchor=..., segments=[Segment(kd=0, length=8, kappa0=0),
+                                      Segment(**spec["segment"]),
+                                      Segment(kd=0, length=8, kappa0=0)])
+```
+
+The two joins come out G1 with a curvature step of `1/r` — exactly what a
+circular fillet is, and the reason a trunk eventually wants the clothoid
+blend.
+
 The maths is the standard construction: for interior angle `θ`, the touch
 distance is `T = r / tan(θ/2)`, the centre sits on the bisector at
 `r / sin(θ/2)`, and the arc turns through `π − θ`. It refuses a radius that does
@@ -72,6 +90,7 @@ drawing and becomes something the tests can hold.
 
 ## Tests
 
-`tests/test_fillet.py` — 16 cases: right angle and 60°, arc on the circle,
+`tests/test_fillet.py` — 19 cases: right angle and 60°, arc on the circle,
 continuity, clearance from the corner, radius fit, collinear and doubled-back
-rejection, trimming two spans, keeping the outer ends, curved-span rejection.
+rejection, trimming two spans, keeping the outer ends, curved-span rejection, arc-segment endpoints and curvature, and the G1 join
+report.

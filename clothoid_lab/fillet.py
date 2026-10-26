@@ -125,7 +125,34 @@ def corner_fillet(a: Point, corner: Point, c: Point, radius: float,
         "tangent": tangent,
         "trim": (tangent, tangent),
         "spans": spans,
+        "sweep": sweep,
         "length": radius * expected,
+    }
+
+
+def arc_segment(fillet: dict) -> dict:
+    """The fillet as a circular-arc clothoid segment, ready for a `Design`.
+
+    A circular arc is a clothoid with `kd = 0`, curvature `±1/r` and length
+    `r·|sweep|`. The anchor is the arc's start point and its tangent, so the
+    segment can follow a straight run in a chain. The join at each end is G1,
+    not G2: curvature steps from 0 to `1/r`. That is the fillet, stated plainly.
+    """
+    radius = fillet["radius"]
+    sweep = fillet["sweep"]
+    if radius <= 0 or abs(sweep) <= 0:
+        raise FilletError("not a fillet")
+    start = fillet["start"]
+    centre = fillet["centre"]
+    # tangent at the start, in the direction of motion
+    dx, dy = start[0] - centre[0], start[1] - centre[1]
+    sign = 1.0 if sweep > 0 else -1.0
+    tx, ty = -dy * sign, dx * sign
+    return {
+        "anchor": {"x": start[0], "y": start[1],
+                   "angle": math.atan2(ty, tx)},
+        "segment": {"kd": 0.0, "length": radius * abs(sweep),
+                    "kappa0": sign / radius},
     }
 
 

@@ -33,7 +33,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
-| `tests/` | 168 tests; run the whole suite |
+| `tests/` | 171 tests; run the whole suite |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/HANDOFF.md` | current truth |
