@@ -125,6 +125,12 @@ remote MVP now exist.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
   filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
   `tests/test_fillet.py`.
+- **Principle cards:** `reference/principles.json` holds eight cards — four
+  primals, four archetypes — each with a gesture paragraph, exactly three
+  numbers and a "not this" list. `scripts/principles.py` rebuilds
+  `docs/principles.html`; images attach by subject from `reference/manifest.json`
+  (never hard-coded), so links cannot rot. `tests/test_principles.py` validates
+  the cards, the corpus and the rendered page. Images are for measurement only.
 - **Primal first slice:** `clothoid_lab/primal.py` has one canonical grammar per
   element — earth (terraces with corners, taper), water (sweep and reversal,
   round), air (billowing arcs, round), fire (Euler tongue with a point). Render:

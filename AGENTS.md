@@ -40,9 +40,11 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
-| `tests/` | 210 tests; run the whole suite |
+| `tests/` | 214 tests; run the whole suite |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
 | `docs/PRIMAL.md` | primal ornaments (fire, water, earth, air) and their gate |
+| `reference/principles.json` | principle cards: gesture, 3 numbers, not-this |
+| `reference/` | attributed reference images + manifest (measurement only) |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
