@@ -1,6 +1,6 @@
 ```text
 Read docs/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
-You are starting W01 — the piece model: a Piece that holds several named traces (half-stroke, band, parallels), a mirror and layers, plus the SVG writer path, tests and a visual sandbox.
+You are starting W02 — the terminal vocabulary: butt, point, arc, round and taper for each trace end, reported like a join, with tests and a terminal strip added to the piece sandbox.
 ```
 
-Source: `docs/HANDOFF.md`, 2026-10-26, commit `16c8edf`.
+Source: `docs/HANDOFF.md`, 2026-10-26, commit `c18af67`.
