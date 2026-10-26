@@ -38,7 +38,7 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 152 pass (2026-10-26; 22 of them clearance tests).
+- **Local tests:** 168 pass (2026-10-26; 22 clearance, 16 fillet).
 - **Git:** HEAD `0365a67` (W02 terminals); the handoff commit sits on top.
   Only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -103,6 +103,12 @@ remote MVP now exist.
   no geometry, so W01 output is unchanged. `svg.document(..., linecap=...)` lets
   the piece ink use `butt` caps while the single-design default stays `round`.
   `docs/piece-model.html` gained the labelled terminal strip (seven rows).
+- **Junctions started:** `clothoid_lab/fillet.py` gives the tangent-arc fillet
+  at a corner (`corner_fillet`), plus `fillet_span()` to trim two straight
+  spans and insert the arc. It refuses a radius that does not fit, collinear
+  edges and doubled-back edges. This is G1 by construction: curvature still
+  jumps at the touch points, so a trunk needs the clothoid blend next.
+  Docs: `docs/JUNCTION.md`; tests: `tests/test_fillet.py`.
 - **Spirals recovered:** `scripts/extract-spirals.py` pulls every `spine` path
   from the Stage II and LAC pages, keeps the page's own cubics and its
   `data-span` tag (`line`, `arc`, `euler`, `logaesthetic`, `reflected`,
@@ -153,12 +159,14 @@ remote MVP now exist.
 
 ## Next move
 
-**Recover the Stage II spirals** — the S curves. The twenty plates on
-`stage-two.html` carry `spine` layers with `data-span` attributes; extract them
-the way the terminals were extracted, so the ideals (clothoid, circle, log
-spiral, involute) and the S joints are reference data before W03 redraws them.
+**The junction object, then W03.** The fillet exists; what is missing is the
+junction itself — a small object carrying the corner, the clearance that must
+survive through the crotch, the fillet or clothoid blend, the taper, and the
+declared contacts, with a report that gives the join grades and the gore. The
+recovered spirals (`docs/spirals/`) are its first test data: the S joints are
+real joins that must come out G2 or be explained.
 
-After that, **clearance and junction work**: a measured minimum gap between
+**Clearance and junction work**: a measured minimum gap between
 strokes (the 5 mm local clearance), a crossing report that allows a crossing
 only at a declared terminal, and a blend where a leaf meets a branch and a
 branch meets the trunk.
