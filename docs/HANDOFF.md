@@ -253,6 +253,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `tests/test_piece.py` | piece model, mirror, round-trip tests |
 | `tests/test_terminals.py` | each terminal, extension, fold and width rejection |
 | `scripts/piece_sandbox.py` | builds `docs/piece-model.html` |
+| `docs/REVIEW.md` | senior review: page model, PDF, outline, ids, CI |
 | `docs/PHILOSOPHY.md` | what a glyph is: parts, full lines, sections, joints |
 | `docs/PRIMAL.md` | primal ornaments: the four elements, their gate and order |
 | `docs/piece-model.html` | W01/W02 visual proof: traces, rails, mirror, terminal strip |
