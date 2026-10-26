@@ -149,12 +149,13 @@ open http://127.0.0.1:8000/</code></pre>
 <p class="note">Uses the locally built <code>build/libclothoidlab.dylib</code>. The original session's server was still running on port 8000.</p>
 
 <h3>Remote</h3>
-<p>Cloud Run runs the same Python server in Linux. Cloud Build uses the repository <code>Dockerfile</code>:</p>
+<p>Cloud Run runs the same Python server in Linux. The build is split:</p>
 <ol>
-  <li>Debian stage installs <code>clang</code>, compiles vendored Clothoids and <code>csrc/</code> into <code>libclothoidlab.so</code>.</li>
-  <li>Runtime stage starts from <code>python:3.12-slim</code>, installs <code>libstdc++6</code>, copies the <code>.so</code>, <code>clothoid_lab</code>, <code>web</code>, and <code>out/caps</code>.</li>
+  <li><strong>Engine base</strong> (<code>engine/Dockerfile</code>, built by <code>cloudbuild.engine.yaml</code>): Debian bookworm installs <code>clang</code> and compiles vendored Clothoids and <code>csrc/</code> into <code>libclothoidlab.so</code>; the runtime is <code>python:3.12-slim</code> plus <code>libstdc++6</code> and that <code>.so</code>. Rebuild only when <code>vendor/</code>, <code>csrc/</code>, or <code>scripts/build-native.sh</code> changes.</li>
+  <li><strong>App image</strong> (root <code>Dockerfile</code>): starts FROM the engine base and copies <code>clothoid_lab/</code>, <code>web/</code>, and <code>out/caps/</code>. Every UI or Python change rebuilds only this thin layer.</li>
   <li>Process listens on <code>$PORT</code> (<code>8080</code>) with <code>HOST=0.0.0.0</code>.</li>
 </ol>
+<p>An app-only <code>.gcloudignore</code> drops <code>vendor/</code>, <code>csrc/</code>, <code>scripts/</code>, and <code>engine/</code>, so an app deploy uploads about 100 files and never runs the compiler. A first thin deploy took 30 seconds; the engine base took 6m43s once.</p>
 <p>The Linux <code>.so</code> is deliberately built inside Debian bookworm. A downloaded Ubuntu 24.04 artifact requires glibc 2.38 and will <strong>not</strong> run on the Debian bookworm runtime; do not substitute it without changing the base.</p>
 
 <h2>Local/remote parity</h2>
@@ -227,9 +228,12 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>web/static/app.js</code></td><td>fetch/render/editor/download logic</td></tr>
   <tr><td><code>web/static/style.css</code></td><td>page styling</td></tr>
   <tr><td><code>web/README.md</code></td><td>local and container usage</td></tr>
-  <tr><td><code>Dockerfile</code></td><td>Debian build + Python runtime image</td></tr>
-  <tr><td><code>.dockerignore</code></td><td>small Docker build context</td></tr>
-  <tr><td><code>.gcloudignore</code></td><td>small Cloud Build source upload</td></tr>
+  <tr><td><code>Dockerfile</code></td><td>thin app image; starts FROM the engine base</td></tr>
+  <tr><td><code>engine/Dockerfile</code></td><td>engine base: C++ build + Python runtime + <code>.so</code></td></tr>
+  <tr><td><code>cloudbuild.engine.yaml</code></td><td>build and push the engine base</td></tr>
+  <tr><td><code>.dockerignore</code></td><td>local Docker build context</td></tr>
+  <tr><td><code>.gcloudignore</code></td><td>small app-only Cloud Build upload</td></tr>
+  <tr><td><code>.gcloudignore.engine</code></td><td>engine-base build context</td></tr>
   <tr><td><code>scripts/check-parity.py</code></td><td>local/remote parity smoke test</td></tr>
   <tr><td><code>tests/test_web.py</code></td><td>web API tests</td></tr>
   <tr><td><code>clothoid_lab/</code></td><td>existing geometry/policy layer</td></tr>
@@ -237,6 +241,8 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
   <tr><td><code>docs/HANDOVER.html</code></td><td>this browser-readable mirror</td></tr>
   <tr><td><code>docs/HANDOFF.md</code></td><td>compact current-session continuation brief</td></tr>
+  <tr><td><code>docs/BACKLOG.md</code></td><td>execution detail for W01–W10</td></tr>
+  <tr><td><code>docs/ornament-board.html</code></td><td>visual order board with P/W/D labels</td></tr>
   <tr><td><code>next-fhandoff.md</code></td><td>two-line focused handoff pointer</td></tr>
   <tr><td><code>.opencode/commands/fhandoff.md</code></td><td>focused handoff command</td></tr>
   <tr><td><code>.opencode/commands/fhandon.md</code></td><td>focused handon command</td></tr>
@@ -251,6 +257,12 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
 <h3>Remote deploy</h3>
 <pre><code>cd /Users/thomaskelly/developer/clothoid-lab
 gcloud config set project clothoid-lab-1792967460
+
+# engine base — only when vendor/, csrc/, or scripts/build-native.sh changes
+gcloud builds submit --config cloudbuild.engine.yaml \
+  --ignore-file=.gcloudignore.engine .
+
+# app — every UI/Python change (thin upload, no compiler)
 gcloud run deploy clothoid-web \
   --source . \
   --region us-central1 \
@@ -279,8 +291,8 @@ gcloud run deploy clothoid-web \
 <ol>
   <li><strong>Auth/rate limiting is deferred by operator decision.</strong> The URL remains public and unauthenticated; keep it private until a guard is added.</li>
   <li><strong>Cold starts</strong> with min 0; use min 1 only for a demo window.</li>
-  <li><strong>Large build upload</strong> due to the vendored C++ tree; future optimization is a prebuilt Linux <code>.so</code> in an Ubuntu 24.04-compatible image or GitHub Actions. Current Debian build is the safer correctness choice.</li>
-  <li><strong>Static caps:</strong> new <code>out/caps/*.json</code> files need a rebuild/redeploy.</li>
+  <li><strong>Large build upload (fixed for app deploys).</strong> The vendored C++ tree is uploaded only when rebuilding the engine base. App deploys are thin. The Debian build is deliberate: the Ubuntu 24.04 artifact needs glibc 2.38 and will not run on Debian bookworm.</li>
+  <li><strong>Static caps:</strong> new <code>out/caps/*.json</code> files need an app deploy (thin), not an engine rebuild.</li>
   <li><strong>Class II width:</strong> UI clears ribbon width for <code>cap-pt-*</code>; do not add rails at the point.</li>
   <li><strong>Platform libraries differ:</strong> local Mach-O <code>.dylib</code>, remote ELF <code>.so</code>.</li>
   <li><strong>Mobile polish</strong> is responsive CSS only; not yet a phone-first editor.</li>

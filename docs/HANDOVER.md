@@ -101,14 +101,25 @@ again with the command above.
 
 ### The remote MVP
 
-Cloud Run runs the same Python server in a Linux container. The image is built
-by Cloud Build from the repository's `Dockerfile`:
+Cloud Run runs the same Python server in a Linux container. The build is split
+into two images:
 
-1. Debian stage installs `clang` and compiles the vendored Clothoids sources and
-   `csrc/` into `libclothoidlab.so`.
-2. Runtime stage starts from `python:3.12-slim`, installs `libstdc++6`, copies
-   the `.so`, `clothoid_lab`, `web`, and `out/caps`.
-3. The process listens on `$PORT` (`8080`), with `HOST=0.0.0.0`.
+1. **Engine base** (`engine/Dockerfile`, built by `cloudbuild.engine.yaml`): a
+   Debian bookworm stage installs `clang` and compiles the vendored Clothoids
+   sources and `csrc/` into `libclothoidlab.so`; the runtime stage is
+   `python:3.12-slim` plus `libstdc++6` and that `.so`. Pushed to
+   `us-central1-docker.pkg.dev/clothoid-lab-1792967460/cloud-run-source-deploy/clothoid-engine:2026-10-26`.
+   Rebuild only when `vendor/`, `csrc/`, or `scripts/build-native.sh` changes.
+2. **App image** (root `Dockerfile`): starts FROM the engine base and copies
+   `clothoid_lab/`, `web/`, and `out/caps/`. Every UI or Python change rebuilds
+   only this thin layer.
+
+The app build uses an app-only `.gcloudignore` that drops `vendor/`, `csrc/`,
+`scripts/`, and `engine/`, so an app deploy uploads about 100 files and never
+runs the C++ compiler. The engine build uses `.gcloudignore.engine`, which keeps
+the vendored tree and drops `web/`, `clothoid_lab/`, and `out/`.
+
+The process listens on `$PORT` (`8080`), with `HOST=0.0.0.0`.
 
 The Linux `.so` is deliberately built inside Debian bookworm. A locally
 downloaded Ubuntu 24.04 artifact requires glibc 2.38 and will **not** run on the
@@ -165,13 +176,24 @@ not justified for the current 0.37 s render.
 
 ## What Cloud Build does
 
-- Runs the Docker build on Google infrastructure.
-- Compiles the C++ engine for Linux.
-- Pushes the resulting image to Artifact Registry.
+- Runs the Docker builds on Google infrastructure.
+- Compiles the C++ engine for Linux, but only for the engine base image.
+- Pushes images to Artifact Registry.
 - Is ephemeral: it is a build machine, not the running service.
 - Has a free build-minutes allowance (commonly 120 build-minutes/day; check
   current pricing and the project’s usage).
 - Is not required locally: no Docker installation is needed on the Mac.
+
+Two builds are kept separate on purpose:
+
+```sh
+# engine base — rare; only when vendor/, csrc/, or build-native.sh changes
+gcloud builds submit --config cloudbuild.engine.yaml \
+  --ignore-file=.gcloudignore.engine .
+
+# app — every UI/Python change; thin upload, no compiler
+gcloud run deploy clothoid-web --source . ...
+```
 
 ## What Cloud Run does
 

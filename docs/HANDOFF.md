@@ -18,14 +18,15 @@ remote MVP now exist.
   2026-10-26 00:11 UTC. Phone CSS hardening is live locally.
 - **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
   project `clothoid-lab-1792967460`, region `us-central1`, service
-  `clothoid-web`, revision `clothoid-web-00003-r4m`. HTTP 200 at
-  2026-10-26 00:11 UTC. The phone CSS fix is live remotely.
+  `clothoid-web`, revision `clothoid-web-00004-nwx`. HTTP 200 at
+  2026-10-26 00:39 UTC. The phone CSS fix is live remotely; the thin app deploy
+  took 30 s.
 - **Remote limits:** min `0`, max `1`, 1 vCPU, 512 MiB, concurrency `2`,
   60 s timeout, public/unauthenticated.
-- **Build split (in progress):** Cloud Build `99f299ba-6c89-419d-a9aa-08e86147fd0c`
-  is building the engine base `clothoid-engine:2026-10-26` (WORKING since
-  00:10:16 UTC). The app `Dockerfile` now starts FROM that tag; the live
-  revision is unaffected until the thin app is deployed.
+- **Build split (done):** engine base `clothoid-engine:2026-10-26` built in
+  6m43s and pushed; the thin app deploy took 30 s (revision
+  `clothoid-web-00004-nwx`, commit `eb67f4c`). App deploys now upload ~100
+  files and skip the C++ compiler.
 - **Budget:** `$1/month` alert (`clothoid-lab guardrail`) at 50/90/100%; alerts
   do not stop spend. Re-confirmed against billing account
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
@@ -33,10 +34,8 @@ remote MVP now exist.
   (not re-run in the handoff).
 - **Local tests:** 96 pass (carried from 2026-10-25 23:52 UTC); nothing under
   `web/`, `clothoid_lab/`, `csrc/`, or `tests/` differs from HEAD.
-- **Git:** HEAD `b953801`, pushed to `origin/main`. The image split is
-  uncommitted in the working tree (`Dockerfile`, `.gcloudignore`,
-  `engine/Dockerfile`, `cloudbuild.engine.yaml`, `.gcloudignore.engine`).
-  `docs/HANDOFF.md` and `next-fhandoff.md` are the handoff commit. Only
+- **Git:** HEAD `eb67f4c` (image split). Pushed through the split; the visual
+  board and this handoff update are in the working tree. Only
   `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
@@ -74,10 +73,15 @@ remote MVP now exist.
   390/390 at 390 × 844 with the same control geometry as local; parity passes.
 - Phone check on the Samsung: right edge confirmed clean, 2026-10-26. The
   temporary tunnel was closed after the check.
-- Started the image split: added `engine/Dockerfile` (C++ build + runtime base),
+- Split the image: added `engine/Dockerfile` (C++ build + runtime base),
   `cloudbuild.engine.yaml`, a thin app `Dockerfile` (FROM the engine base), and
   `.gcloudignore.engine`; app `.gcloudignore` now drops `vendor/`, `csrc/`, and
-  `scripts/`. Engine base build is still running.
+  `scripts/`. Engine base built in 6m43s; first thin deploy took 30 s
+  (revision `clothoid-web-00004-nwx`); parity passed.
+- Added `docs/ornament-board.html`: 20 plate thumbnails (P01–P20), 10 work
+  items (W01–W10), 6 design decisions (D01–D06), priority 1–5, stage tags,
+  drag/↑↓ ordering, notes, localStorage, and JSON/order export. This is the
+  visual chooser for the ornament pass.
 
 ## Risks / open decisions
 
@@ -88,8 +92,8 @@ remote MVP now exist.
    demo needs it; set it back to 0.
 3. **Free-tier usage.** Stay within the monthly Cloud Run/Cloud Build/Artifact
    Registry allowances; the budget alert is only a warning.
-4. **Large deploys (being fixed).** App deploys are now thin and skip the C++
-   compiler, but the engine base must be rebuilt when `vendor/`, `csrc/`, or
+4. **Large deploys (fixed).** App deploys are thin and skip the C++ compiler;
+   the engine base must be rebuilt only when `vendor/`, `csrc/`, or
    `scripts/build-native.sh` changes. The base tag is pinned to `2026-10-26`.
    The Debian build is deliberate: the Ubuntu 24.04 artifact needs glibc 2.38
    and will not run on Debian bookworm.
@@ -99,10 +103,10 @@ remote MVP now exist.
 
 ## Next move
 
-Finish the image split: confirm the engine base build succeeded, deploy the thin
-app image, and time an app-only change (target under a minute). Then commit and
-push the split. Use a temporary Cloudflare quick tunnel for phone tuning in
-between. Auth/rate limiting stays deferred; keep the URL private.
+Open `docs/ornament-board.html`, set **D01–D06**, rank the plates and work
+items, and copy the order. If nothing is ranked, the technical default is
+**W01 piece model → W02 terminals → W03 fleur grammar → W04 twenty sets**.
+Auth/rate limiting stays deferred; keep the URL private.
 
 ## Tooling notes
 
@@ -125,6 +129,8 @@ between. Auth/rate limiting stays deferred; keep the URL private.
 | `tests/test_web.py` | web tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
+| `docs/BACKLOG.md` | execution detail for W01–W10 |
+| `docs/ornament-board.html` | visual order board: P/W/D labels |
 | `next-fhandoff.md` | two-line focused pointer |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |
