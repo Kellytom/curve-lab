@@ -125,6 +125,13 @@ remote MVP now exist.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
   filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
   `tests/test_fillet.py`.
+- **W03 first slice:** `clothoid_lab/grammar.py` ports study 01 from
+  `ornament_set.js` as clothoid segments — straight runs, circle arcs and the
+  petal's Euler span exact — with `Segment.corner` carrying the tangent jumps the
+  old chain allows. All 12 nodes match the original within **0.030 units** (its
+  3125-lattice snap). `scripts/study_01.py` writes `docs/fleur-study-01.html`
+  with the drawing and the node table. Not done: per-stroke terminals, the
+  declared centre-seam contact, and studies 02–20.
 - **Spiral parity:** `scripts/check-spirals.py` fits one clothoid per recovered
   cubic span (endpoints + tangents) and measures the worst distance to the drawn
   curve. All 586 Stage II spans fit. Median error per chord: `line` 0.00%,

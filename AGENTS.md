@@ -31,11 +31,12 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `clothoid_lab/clearance.py` | min-gap and crossing report; `piece_clearance()` |
 | `clothoid_lab/fillet.py` | tangent-arc fillet at a corner (`corner_fillet`) |
 | `clothoid_lab/junction.py` | `Junction`: branch + trunk + declared merge |
+| `clothoid_lab/grammar.py` | fleur study 01 ported from the old grammar |
 | `clothoid_lab/contact.py` | `Contact`: a declared legal touch |
 | `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
-| `tests/` | 193 tests; run the whole suite |
+| `tests/` | 200 tests; run the whole suite |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
