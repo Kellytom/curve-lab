@@ -33,6 +33,10 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from recover import cards, fetch, label as card_label, parse_d  # noqa: E402
+
 SOURCES = [
     ("stage-two", "Stage II", "http://127.0.0.1:8001/stage-two.html"),
     ("lac", "Log-aesthetic family", "http://127.0.0.1:8001/LAC-log-asth-curve.html"),
@@ -41,49 +45,9 @@ PER_SPAN = 8
 STATIONS = 96
 FULL = 0.99  # a station counts as full width at 99 per cent of the band's max
 
-FIG_RE = re.compile(r'class="fig">([^<]*)<')
-TITLE_RE = re.compile(r"<title>(.*?)</title>", re.DOTALL)
-META_RE = re.compile(r'data-(plate|family|k0|k1|curve)="([^"]*)"')
 OUTLINE_RE = re.compile(
     r'<g[^>]*inkscape:label="outline"[^>]*>(.*?)</g>', re.DOTALL)
 PATH_RE = re.compile(r"<path[^>]*\sid=\"([^\"]+)\"[^>]*\sd=\"([^\"]+)\"[^>]*/>")
-TOKEN_RE = re.compile(r"[MCLZ]|-?\d+(?:\.\d+)?(?:e-?\d+)?")
-
-
-def fetch(source: str) -> str:
-    if source.startswith(("http://", "https://")):
-        with urllib.request.urlopen(source, timeout=15) as response:
-            return response.read().decode("utf-8")
-    return Path(source).read_text(encoding="utf-8")
-
-
-def cards(page: str) -> list[str]:
-    """The page is a run of plain card divs with one plate SVG each."""
-    parts = page.split('<div class="card">')[1:]
-    out = []
-    for part in parts:
-        end = part.find('<div class="card">')
-        out.append(part if end < 0 else part[:end])
-    return out
-
-
-def parse_d(d: str) -> list[tuple[str, list[float]]]:
-    tokens = TOKEN_RE.findall(d)
-    out, i = [], 0
-    while i < len(tokens):
-        cmd = tokens[i]
-        if cmd in ("M", "L"):
-            out.append((cmd, [float(tokens[i + 1]), float(tokens[i + 2])]))
-            i += 3
-        elif cmd == "C":
-            out.append((cmd, [float(v) for v in tokens[i + 1:i + 7]]))
-            i += 7
-        elif cmd == "Z":
-            out.append(("Z", []))
-            i += 1
-        else:
-            raise ValueError(f"unexpected path token {cmd!r}")
-    return out
 
 
 def as_span(values) -> dict:
@@ -254,11 +218,9 @@ def read_page(name: str, label: str, source: str) -> dict:
     page = fetch(source)
     figures = []
     for card in cards(page):
-        fig = FIG_RE.search(card)
-        title = TITLE_RE.search(card)
-        meta = dict(META_RE.findall(card))
+        figure_label, title, meta = card_label(card)
         outline = OUTLINE_RE.search(card)
-        if not (fig and outline):
+        if not (figure_label and outline):
             continue
         ends = []
         for path_id, d in PATH_RE.findall(outline.group(1)):
@@ -272,15 +234,15 @@ def read_page(name: str, label: str, source: str) -> dict:
                 piece = cut_terminal(inbound, outbound, fraction)
                 piece.update({
                     "end": end, "tip": list(tip), "plate": path_id,
-                    "figure": fig.group(1).strip(),
+                    "figure": figure_label,
                     "taper_fraction": round(fraction, 4),
                     "full_width": round(peak, 1),
                     "d": d_for(piece["spans"]),
                 })
                 ends.append(piece)
         figures.append({
-            "figure": fig.group(1).strip(),
-            "title": html.unescape((title.group(1) if title else "").strip()),
+            "figure": figure_label,
+            "title": title,
             "family": meta.get("family", ""),
             "plate": meta.get("plate", ""),
             "k0": meta.get("k0", ""),

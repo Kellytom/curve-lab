@@ -103,6 +103,13 @@ remote MVP now exist.
   no geometry, so W01 output is unchanged. `svg.document(..., linecap=...)` lets
   the piece ink use `butt` caps while the single-design default stays `round`.
   `docs/piece-model.html` gained the labelled terminal strip (seven rows).
+- **Spirals recovered:** `scripts/extract-spirals.py` pulls every `spine` path
+  from the Stage II and LAC pages, keeps the page's own cubics and its
+  `data-span` tag (`line`, `arc`, `euler`, `logaesthetic`, `reflected`,
+  `hyperbezier`, `member`), and writes `docs/spirals/stage-two.json` (20 plates,
+  90 spines) and `docs/spirals/lac.json` (31 plates, 31 spines) plus a gallery.
+  Coordinates are page units with y down, recorded as found. Shared reading
+  helpers now live in `scripts/recover.py`.
 - **Clearance built:** `clothoid_lab/clearance.py` measures the minimum
   edge-to-edge gap between ink instances and lists crossings, allowing one only
   where a declared `Contact` covers it. Measurements carry a `2·tol` band, so
