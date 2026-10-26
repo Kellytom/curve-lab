@@ -125,6 +125,12 @@ remote MVP now exist.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
   filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
   `tests/test_fillet.py`.
+- **Section and Bundle:** `clothoid_lab/section.py` gives the read model —
+  `Section(s, spine, tangent, width, left, right)` sampled by arc length, with
+  left = `(-t.y, t.x)`. `clothoid_lab/bundle.py` gives the design box: a named
+  set of full lines with an internal clearance and a footprint (sheaf, fasces,
+  capital, acanthus leaves, fleur halves). `Bundle.check()` measures members
+  only; the box is for placement, not clipping.
 - **W03 first slice:** `clothoid_lab/grammar.py` ports study 01 from
   `ornament_set.js` as clothoid segments — straight runs, circle arcs and the
   petal's Euler span exact — with `Segment.corner` carrying the tangent jumps the

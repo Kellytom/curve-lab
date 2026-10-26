@@ -95,12 +95,12 @@ that contact is declared.
 |---|---|
 | glyph = parts + joints + mirror | `Piece` (traces, contacts, mirror) |
 | full line | `Trace` + width; rails built as `Group`s |
-| section | implicit in the rail build; not yet a first-class object |
+| section | `section.py`: `Section`, sampled by arc length |
 | terminal (cap / taper / turned) | `terminals.py`; turned not built |
 | joint | `Contact`, `Junction` |
 | measurement | `clearance.py` |
 | grammar | `grammar.py` (study 01) |
 
-The missing first-class object is `Section`. It is what a terminal width law, a
+The read model is `Section`; the grouping object is `Bundle`. It is what a terminal width law, a
 junction gore and a clearance sample all want to read, and today each of them
 reconstructs it from the fitted paths.

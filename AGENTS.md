@@ -34,10 +34,12 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `clothoid_lab/junction.py` | `Junction`: branch + trunk + declared merge |
 | `clothoid_lab/grammar.py` | fleur study 01 ported from the old grammar |
 | `clothoid_lab/contact.py` | `Contact`: a declared legal touch |
+| `clothoid_lab/section.py` | `Section`: one station across a full line |
+| `clothoid_lab/bundle.py` | `Bundle`: the design box — full lines that must not touch |
 | `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
-| `tests/` | 200 tests; run the whole suite |
+| `tests/` | 207 tests; run the whole suite |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
 | `docs/PRIMAL.md` | primal ornaments (fire, water, earth, air) and their gate |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
