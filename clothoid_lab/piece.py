@@ -14,6 +14,7 @@ import json
 from dataclasses import dataclass, field
 
 from . import bezier, engine, svg
+from .contact import Contact
 from .model import Design
 from .offsets import build_rails
 from .terminals import check_terminal, terminal_extension, terminal_spans
@@ -87,18 +88,28 @@ class Piece:
     traces: list[Trace]
     mirror: bool = False
     stroke: float = 1.0
+    # Declared junctions: places where ink is allowed to meet. Part of the
+    # model, not an argument to the measurement, so a piece remembers them.
+    contacts: list[Contact] = field(default_factory=list)
 
     def __post_init__(self):
         if not self.traces:
             raise ValueError("a piece needs at least one trace")
         if self.stroke <= 0:
             raise ValueError("stroke width must be positive")
+        if any(not isinstance(c, Contact) for c in self.contacts):
+            raise ValueError("contacts must be Contact objects")
 
     def to_dict(self) -> dict:
         return {
             "name": self.name,
             "mirror": self.mirror,
             "stroke": self.stroke,
+            "contacts": [
+                {"point": list(c.point), "radius": c.radius,
+                 "a": c.a, "b": c.b, "waives_clearance": c.waives_clearance}
+                for c in self.contacts
+            ],
             "traces": [trace.to_dict() for trace in self.traces],
         }
 
@@ -111,6 +122,12 @@ class Piece:
             name=str(data.get("name", "untitled")),
             mirror=bool(data.get("mirror", False)),
             stroke=float(data.get("stroke", 1.0)),
+            contacts=[
+                Contact(tuple(c["point"]), float(c["radius"]),
+                        c.get("a"), c.get("b"),
+                        bool(c.get("waives_clearance", True)))
+                for c in data.get("contacts", [])
+            ],
             traces=[Trace.from_dict(t) for t in data.get("traces", [])],
         )
 

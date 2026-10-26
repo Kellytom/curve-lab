@@ -1,6 +1,7 @@
 import unittest
 
 from clothoid_lab.model import Design, Segment
+from clothoid_lab.contact import Contact
 from clothoid_lab.piece import Piece, Trace, render_piece
 from clothoid_lab.presets import s_curve
 
@@ -61,6 +62,22 @@ class TestPiece(unittest.TestCase):
     def test_rejects_bad_width(self):
         with self.assertRaises(ValueError):
             Trace("bad", s_curve(), width=0.0)
+
+    def test_contacts_are_part_of_the_piece(self):
+        piece = Piece(
+            name="junction",
+            traces=[Trace("a", s_curve(), width=6.0)],
+            contacts=[Contact((0.0, 3.0), 2.5, "ink/a", "ink/b")],
+        )
+        restored = Piece.from_dict(piece.to_dict())
+        self.assertEqual(restored.to_dict(), piece.to_dict())
+        self.assertEqual(len(restored.contacts), 1)
+        self.assertAlmostEqual(restored.contacts[0].radius, 2.5)
+
+    def test_rejects_a_contact_that_is_not_one(self):
+        with self.assertRaises(ValueError):
+            Piece(name="bad", traces=[Trace("a", s_curve(), width=6.0)],
+                  contacts=[("not", "a", "contact")])
 
 
 if __name__ == "__main__":

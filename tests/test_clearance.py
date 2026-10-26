@@ -196,6 +196,13 @@ class TestMeasure(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(len(result["violations"]), 1)
 
+    def test_piece_contacts_are_used_by_default(self):
+        piece = two(0.0, 1.0)
+        piece.contacts = [cl.Contact((30.0, 1.5), 5.0, "ink/a", "ink/b")]
+        result = cl.piece_clearance(piece, clearance=5.0)
+        self.assertTrue(result["ok"])
+        self.assertEqual(len(result["merged"]), 1)
+
     def test_merged_pairs_appear_in_the_report(self):
         result = cl.piece_clearance(two(0.0, 1.0), clearance=5.0,
                                     contacts=[cl.Contact((30.0, 1.5), 5.0)])

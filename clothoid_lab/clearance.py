@@ -30,47 +30,11 @@ from __future__ import annotations
 
 import math
 
+from .contact import Contact
 from .piece import Group, Piece, build_piece
 
 Point = tuple[float, float]
 _EPS = 1e-12
-
-
-class Contact:
-    """A spot where two strokes are allowed to touch or cross.
-
-    `radius` is in design units (millimetres at 1:1). Contacts are declared by
-    the caller, never inferred: a terminal is a contact because the drawing says
-    so, not because the geometry happens to meet.
-    """
-
-    __slots__ = ("point", "radius", "a", "b", "waives_clearance")
-
-    def __init__(self, point: Point, radius: float = 1.0,
-                 a: str | None = None, b: str | None = None,
-                 waives_clearance: bool = True):
-        if radius <= 0:
-            raise ValueError("contact radius must be positive")
-        self.point = (float(point[0]), float(point[1]))
-        self.radius = float(radius)
-        self.a = a
-        self.b = b
-        # Inside its footprint a contact is a merge: the strokes are joined, so
-        # the clearance rule does not apply there. Outside it, it very much does.
-        self.waives_clearance = bool(waives_clearance)
-
-    def allows(self, point: Point, a: str, b: str) -> bool:
-        if self.a is not None and self.b is not None:
-            if {self.a, self.b} != {a, b}:
-                return False
-        elif self.a is not None and self.a not in (a, b):
-            return False
-        elif self.b is not None and self.b not in (a, b):
-            return False
-        return math.dist(point, self.point) <= self.radius
-
-    def __repr__(self) -> str:
-        return f"Contact({self.point}, r={self.radius})"
 
 
 # --------------------------------------------------------------------------
@@ -364,7 +328,7 @@ def measure(groups: list[Group], clearance: float = 5.0, tol: float = 0.05,
 
 
 def piece_clearance(piece: Piece, clearance: float = 5.0, tol: float = 0.05,
-                    contacts: list[Contact] | tuple = (),
+                    contacts: list[Contact] | tuple | None = None,
                     roles=("rail", "cap"), **build) -> dict:
     """`measure()` over a piece's ink, built the same way the SVG is built.
 
@@ -372,6 +336,8 @@ def piece_clearance(piece: Piece, clearance: float = 5.0, tol: float = 0.05,
     a spine is usually closer to its neighbour than the rails are. Pass
     `roles=("spine", "rail", "cap")` to include them.
     """
+    if contacts is None:
+        contacts = piece.contacts
     groups, info = build_piece(piece, **build)
     result = measure(groups, clearance=clearance, tol=tol, contacts=contacts)
     result["piece"] = info["piece"]
