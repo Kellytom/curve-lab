@@ -12,12 +12,15 @@ Run from the repository root after building the native library:
 
 from __future__ import annotations
 
+import base64
+import hmac
 import json
 import math
 import mimetypes
 import os
 import re
 import sys
+import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -91,6 +94,88 @@ def render_payload(payload: dict) -> dict:
 CAP_NAME = re.compile(r"^cap-(?:pt-)?\d+$")
 
 
+def _env_float(name: str, default: float) -> float:
+    try:
+        return float(os.environ.get(name, default))
+    except (TypeError, ValueError):
+        return default
+
+
+# A shared token gates every route except /healthz. Empty means open, which is
+# the local default; the public deployment always sets it.
+AUTH_TOKEN = os.environ.get("CLOTHOID_TOKEN", "").strip()
+RATE_PER_MIN = _env_float("CLOTHOID_RATE_PER_MIN", 60.0)
+RATE_BURST = _env_float("CLOTHOID_RATE_BURST", 20.0)
+
+
+def parse_basic(header: str | None) -> tuple[str, str] | None:
+    """Return (user, password) from a Basic header, or None."""
+    if not header:
+        return None
+    scheme, _, value = header.partition(" ")
+    if scheme.lower() != "basic" or not value:
+        return None
+    try:
+        raw = base64.b64decode(value.strip(), validate=True).decode("utf-8")
+    except (ValueError, UnicodeDecodeError):
+        return None
+    user, sep, password = raw.partition(":")
+    if not sep:
+        return None
+    return user, password
+
+
+def authorized(header: str | None, token: str) -> bool:
+    """True when the request may proceed. No token means local/open mode."""
+    if not token:
+        return True
+    credentials = parse_basic(header)
+    if credentials is None:
+        return False
+    user, password = credentials
+    # Accept the token in either field so a person can type it as the username
+    # in a client that handles passwords awkwardly.
+    return hmac.compare_digest(password, token) or hmac.compare_digest(user, token)
+
+
+def client_ip(handler) -> str:
+    forwarded = handler.headers.get("X-Forwarded-For", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    return handler.client_address[0]
+
+
+class RateLimiter:
+    """A small token bucket per key. In-process is enough for one Cloud Run instance."""
+
+    def __init__(self, per_min: float, burst: float, clock=time.monotonic):
+        self.rate = max(per_min, 0.0) / 60.0
+        self.burst = max(burst, 1.0)
+        self.clock = clock
+        self._buckets: dict[str, tuple[float, float]] = {}
+        self._lock = threading.Lock()
+
+    def allow(self, key: str) -> bool:
+        if self.rate <= 0:
+            return True
+        now = self.clock()
+        with self._lock:
+            tokens, last = self._buckets.get(key, (self.burst, now))
+            tokens = min(self.burst, tokens + (now - last) * self.rate)
+            if tokens < 1.0:
+                self._buckets[key] = (tokens, now)
+                return False
+            self._buckets[key] = (tokens - 1.0, now)
+            if len(self._buckets) > 4096:
+                self._buckets = {
+                    k: v for k, v in self._buckets.items() if now - v[1] < 300.0
+                }
+            return True
+
+
+LIMITER = RateLimiter(RATE_PER_MIN, RATE_BURST)
+
+
 def cap_names() -> list[str]:
     if not CAPS.exists():
         return []
@@ -124,6 +209,32 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _authorized(self) -> bool:
+        return authorized(self.headers.get("Authorization"), AUTH_TOKEN)
+
+    def _unauthorized(self):
+        body = b"authentication required\n"
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="clothoid-lab"')
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _rate_limited(self) -> bool:
+        if LIMITER.allow(client_ip(self)):
+            return False
+        body = json.dumps(
+            {"error": "rate limit exceeded; try again shortly"}
+        ).encode("utf-8")
+        self.send_response(429)
+        self.send_header("Retry-After", "5")
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+        return True
+
     def _file(self, name: str):
         path = (STATIC / name).resolve()
         if STATIC.resolve() not in path.parents or not path.is_file():
@@ -141,6 +252,12 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         url = urlparse(self.path)
         query = parse_qs(url.query)
+        if url.path == "/health":
+            self._json(200, {"ok": True})
+            return
+        if not self._authorized():
+            self._unauthorized()
+            return
         try:
             if url.path in ("/", "/index.html"):
                 self._file("index.html")
@@ -167,8 +284,13 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         url = urlparse(self.path)
+        if not self._authorized():
+            self._unauthorized()
+            return
         if url.path != "/api/render":
             self.send_error(404)
+            return
+        if self._rate_limited():
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))

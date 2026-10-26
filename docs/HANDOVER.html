@@ -236,6 +236,7 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
   <tr><td><code>.gcloudignore.engine</code></td><td>engine-base build context</td></tr>
   <tr><td><code>scripts/check-parity.py</code></td><td>local/remote parity smoke test</td></tr>
   <tr><td><code>tests/test_web.py</code></td><td>web API tests</td></tr>
+  <tr><td><code>tests/test_auth.py</code></td><td>token auth and rate-limit tests</td></tr>
   <tr><td><code>clothoid_lab/</code></td><td>existing geometry/policy layer</td></tr>
   <tr><td><code>out/caps/</code></td><td>existing cap SVG/JSON, baked into remote image</td></tr>
   <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
@@ -281,18 +282,18 @@ gcloud run deploy clothoid-web \
 
 <h2>Security and operations</h2>
 <ul>
-  <li>Public and unauthenticated; suitable for a phone check, not for broadcasting.</li>
-  <li>Bodies are bounded at 1 MB and designs at 200 segments, but there is no rate limit or user authentication yet.</li>
-  <li>No user designs are persisted; requests are independent. Server logs request paths, not design bodies.</li>
+  <li>Every route except <code>/health</code> requires HTTP Basic auth with a shared token. The username is ignored; the password is the token. The token lives in Secret Manager as <code>clothoid-token</code> and is mounted as <code>CLOTHOID_TOKEN</code>; the local copy is <code>~/.config/clothoid-lab/token</code>, outside the repo.</li>
+  <li><code>/health</code> is public and returns <code>{"ok": true}</code>. <code>/healthz</code> is intercepted by Google's frontend and is not used.</li>
+  <li>Bodies are bounded at 1 MB and designs at 200 segments. <code>POST /api/render</code> is limited to 60 requests/minute, burst 20, per client address; excess returns 429 with <code>Retry-After</code>. The limiter is in-process and resets on a cold start.</li>
+  <li>No accounts, roles or saved designs; the shared token is the whole access model. Rotate it with a new Secret Manager version and a redeploy.</li>
   <li>No secrets or service-account keys are in the repository or image.</li>
-  <li>Before sharing widely, add Cloudflare/Access, an API token, or app-level rate limiting before increasing max instances.</li>
   <li>Logs and metrics are in the Google Cloud console.</li>
   <li>The budget is an alert only. Delete the service to guarantee zero runtime spend.</li>
 </ul>
 
 <h2>Known issues and next steps</h2>
 <ol>
-  <li><strong>Auth/rate limiting is deferred by operator decision.</strong> The URL remains public and unauthenticated; keep it private until a guard is added.</li>
+  <li><strong>Accounts and roles are still absent.</strong> The shared token gates the URL (W11) and a per-address render limit guards the allowance (W12), but there are no named users, saved designs or audit trail. Keep the token private and rotate it if it leaks.</li>
   <li><strong>Cold starts</strong> with min 0; use min 1 only for a demo window.</li>
   <li><strong>Large build upload (fixed for app deploys).</strong> The vendored C++ tree is uploaded only when rebuilding the engine base. App deploys are thin. The Debian build is deliberate: the Ubuntu 24.04 artifact needs glibc 2.38 and will not run on Debian bookworm.</li>
   <li><strong>Static caps:</strong> new <code>out/caps/*.json</code> files need an app deploy (thin), not an engine rebuild.</li>

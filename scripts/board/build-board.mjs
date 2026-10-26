@@ -562,8 +562,8 @@ const workCopy = {
   W08: "Drapery is the bridge to church decoration. The fold report is the instrument: a fold must be chosen, not discovered. There are no plates yet; this starts the next phase.",
   W09: "Sliders over the family parameters — length, turn, band, lean, terminal — not over raw segment numbers. A clothoid chain is coupled, so a per-segment slider would break the joins. The JSON stays the source of truth.",
   W10: "This saves a design in the browser and puts it in a link. It is independent of the geometry and cheap. Do it before a long tuning session so variants are not lost.",
-  W11: "Authentication proves who may use the URL. The options are private, a shared password, or Google sign-in. This is deliberately gated by D07; nothing is implemented until you choose.",
-  W12: "A public endpoint can use up the free allowance even with sign-in. This job adds a usage limit per person or address and a cap on simultaneous work, on top of the existing size limits. It protects the budget, not the geometry.",
+  W11: "Done 2026-10-26. Every route except /health now requires a shared token over HTTP Basic; the token lives in Secret Manager as clothoid-token. Accounts, named users and roles are still absent.",
+  W12: "Done 2026-10-26. POST /api/render is limited to 60 requests per minute with a burst of 20 per client address; excess returns 429 with Retry-After. The limiter is in-process, so it resets on a cold start.",
   W13: "The page works on a phone but still feels like a desktop form. This job makes inputs large enough to tap, stops the browser zooming when a field is focused, collapses the JSON editor, and makes the preview easy to inspect. Test it on the actual Samsung in Chrome and Samsung Internet.",
   W14: "A browsable gallery of all 85 plates, with their written recipes. The board is for ordering; the gallery is for finding a piece by eye. It is also the natural home for the reference library.",
   W15: "One edit can break a chain. This adds undo and redo for the design, page and ribbon width, with a short visible history. Snapshot on render; do not store every keystroke.",
@@ -662,8 +662,8 @@ const decisions = [
   {
     id: "D07",
     title: "Access",
-    note: "Private means only people you send the link to can use it. A shared token is one password for invited people. Google sign-in names each user. Public + rate limit lets anyone in, with usage caps. Recommendation: stay private until you need to share; then use a shared token.",
-    default: "private",
+    note: "Chosen 2026-10-26 and implemented: a shared token over HTTP Basic. Private means no sharing; Google sign-in names each user; public + rate limit lets anyone in with caps. The token is in Secret Manager; accounts and roles are still a later job.",
+    default: "token",
     options: [
       { value: "private", label: "Private — no sign-in yet" },
       { value: "token", label: "Shared token — one password" },
@@ -791,7 +791,7 @@ for (const item of fleurPlates) {
 
 const boardData = {
   mode: "board",
-  version: 4,
+  version: 5,
   storageKey: "clothoid-ornament-board-v1",
   exportName: "ornament-board.json",
   title: "clothoid ornament board — what to do next",

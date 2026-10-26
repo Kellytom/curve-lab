@@ -267,6 +267,7 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `.gcloudignore.engine` | engine-base build context |
 | `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web API tests |
+| `tests/test_auth.py` | token auth and rate-limit tests |
 | `clothoid_lab/` | existing geometry/policy layer |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
@@ -321,23 +322,29 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 
 ## Security and operations
 
-- The service is public and unauthenticated. The URL is suitable for a phone
-  check, not for broadcasting.
-- The server bounds request bodies at 1 MB and designs at 200 segments, but
-  there is no rate limit or user authentication yet.
-- No user designs are persisted; each request is independent. The server logs
-  request paths, not design bodies.
+- Every route except `/health` requires **HTTP Basic auth** with a shared token.
+  The username is ignored; the password is the token. The token is stored in
+  Secret Manager as `clothoid-token` and mounted as `CLOTHOID_TOKEN`; the local
+  copy is `~/.config/clothoid-lab/token`, outside the repository.
+- `/health` is public and returns `{"ok": true}` for uptime checks. `/healthz`
+  is intercepted by Google's frontend and is not used.
+- Bodies are bounded at 1 MB and designs at 200 segments. `POST /api/render` is
+  limited to 60 requests/minute with a burst of 20 per client address; excess
+  returns 429 with `Retry-After`. The limiter is in-process, so it resets on a
+  cold start and is per instance.
+- There are no accounts, roles or saved designs; the token is the whole access
+  model. Rotate it by adding a new Secret Manager version and redeploying.
 - No secrets or service-account keys are in the repository or image.
-- If sharing more widely, put Cloudflare/Access, an API token, or app-level
-  rate limiting in front before increasing max instances.
 - Cloud Run request logs and metrics are visible in the Google Cloud console.
 - The budget is an alert only. Delete the service to guarantee zero runtime
   spend.
 
 ## Known issues and next steps
 
-1. **Auth/rate limiting is deferred by operator decision.** The URL remains
-   public and unauthenticated; keep it private until a guard is added.
+1. **Accounts and roles are still absent.** A shared token now gates the URL
+   (W11) and a per-address render limit guards the allowance (W12), but there
+   are no named users, no saved designs and no audit trail. Keep the token
+   private and rotate it if it leaks.
 2. **Cold starts** are visible with min instances 0. Use min 1 only for a demo
    window, then set it back.
 3. **Build upload is large** because the full vendored C++ tree is sent. A

@@ -15,14 +15,19 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-26 00:11 UTC. Phone CSS hardening is live locally.
+  2026-10-26 11:15 UTC. Auth is unset locally, so the loopback server stays
+  open; the public deployment requires the token.
 - **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
   project `clothoid-lab-1792967460`, region `us-central1`, service
-  `clothoid-web`, revision `clothoid-web-00004-nwx`. HTTP 200 at
-  2026-10-26 00:39 UTC. The phone CSS fix is live remotely; the thin app deploy
-  took 30 s.
+  `clothoid-web`, revision `clothoid-web-00006-zrx`. HTTP **401 without the
+  token, 200 with it** at 2026-10-26 11:13 UTC; a thin app deploy takes ~30 s.
+- **Access:** HTTP Basic with a shared token; every route except `/health`.
+  Token in Secret Manager `clothoid-token`, local copy
+  `~/.config/clothoid-lab/token` (outside the repo). `/api/render` is limited to
+  60/min, burst 20, per client address; excess is 429 with `Retry-After`.
 - **Remote limits:** min `0`, max `1`, 1 vCPU, 512 MiB, concurrency `2`,
-  60 s timeout, public/unauthenticated.
+  60 s timeout. The Cloud Run IAM policy still allows unauthenticated ingress;
+  the application token is the gate.
 - **Build split (done):** engine base `clothoid-engine:2026-10-26` built in
   6m43s and pushed; the thin app deploy took 30 s (revision
   `clothoid-web-00004-nwx`, commit `eb67f4c`). App deploys now upload ~100
@@ -32,8 +37,8 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 96 pass (carried from 2026-10-25 23:52 UTC); nothing under
-  `web/`, `clothoid_lab/`, `csrc/`, or `tests/` differs from HEAD.
+- **Local tests:** 105 pass (re-run 2026-10-26 11:12 UTC, including the auth and
+  rate-limit tests).
 - **Git:** HEAD `eb67f4c` (image split). Pushed through the split; the visual
   board and this handoff update are in the working tree. Only
   `out/play-template.svg` is untracked.
@@ -78,6 +83,11 @@ remote MVP now exist.
   `.gcloudignore.engine`; app `.gcloudignore` now drops `vendor/`, `csrc/`, and
   `scripts/`. Engine base built in 6m43s; first thin deploy took 30 s
   (revision `clothoid-web-00004-nwx`); parity passed.
+- Added shared-token access and quotas: HTTP Basic on every route except
+  `/health`, token in Secret Manager `clothoid-token`, and a per-address
+  render limit (60/min, burst 20). Deployed as revision
+  `clothoid-web-00006-zrx`; 401 without the token, 200 with it. Added
+  `tests/test_auth.py`.
 - Added `docs/ornament-board.html`: **85 plates** (45 catalogue ornaments
   P21–P65, 27 class I caps P66–P92, 9 class II leaves P93–P101, 4 presets
   P102–P105), **26 work items** W01–W26 and **11 decisions** D01–D11. The
@@ -88,9 +98,10 @@ remote MVP now exist.
 
 ## Risks / open decisions
 
-1. **No auth or rate limiting — staged, not implemented.** W11 and D07 put the
-   access model on the board; W12 covers quotas. Keep the public URL private
-   until one is chosen, and do not raise max instances.
+1. **Accounts and roles are still absent.** The shared token (W11) and the
+   per-address render limit (W12) protect the URL, but there are no named users,
+   saved designs or audit trail. Rotate the Secret Manager version if the token
+   leaks.
 2. **Cold starts** at min 0 are roughly 1–3 s. Do not pay for min 1 unless a
    demo needs it; set it back to 0.
 3. **Free-tier usage.** Stay within the monthly Cloud Run/Cloud Build/Artifact
@@ -106,12 +117,10 @@ remote MVP now exist.
 
 ## Next move
 
-Open `docs/ornament-board.html`, set **D01–D06**, rank the catalogue plates and
-work items, and copy the order. The twenty fleur studies are the working subpage
-`docs/fleur-studies.html` (P01–P20, all marked **Needs work**); rank those
-separately. If nothing is ranked, the technical default is **W01 piece model →
-W02 terminals → W03 fleur grammar → W04 twenty sets**. Auth/rate limiting stays
-deferred; keep the URL private.
+Start the DeepSeek order. **W01 — piece model:** a `Piece` that holds several
+named traces (half-stroke, band, parallels), a mirror and layers, plus the SVG
+writer path for it. Then W02 terminals, W03 the fleur grammar, W04 the twenty
+parameter sets. Auth is done; accounts and roles remain a later item.
 
 ## Tooling notes
 
@@ -131,7 +140,8 @@ deferred; keep the URL private.
 | `.gcloudignore` | small app-only Cloud Build upload |
 | `.gcloudignore.engine` | engine-base build context |
 | `scripts/check-parity.py` | local/remote parity smoke test |
-| `tests/test_web.py` | web tests |
+| `tests/test_web.py` | web API tests |
+| `tests/test_auth.py` | token auth and rate-limit tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
 | `docs/BACKLOG.md` | execution detail for W01–W26 |

@@ -131,10 +131,12 @@ but cheap. Depends on nothing.
 
 Each label is on the board with its full plain-language brief. The short form:
 
-- **W11 Auth and access.** Private, shared password or Google sign-in. Gated by
-  **D07**; do not implement until it is chosen.
-- **W12 Rate limiting and quotas.** Per-person or per-address limits and a
-  concurrency cap, on top of the size bounds.
+- **W11 Auth and access — done 2026-10-26.** Every route except `/health`
+  requires HTTP Basic with a shared token; token in Secret Manager
+  `clothoid-token`. Accounts and roles remain later.
+- **W12 Rate limiting and quotas — done 2026-10-26.** `POST /api/render` is
+  limited to 60/min, burst 20, per client address; 429 with `Retry-After`.
+  In-process, resets on a cold start.
 - **W13 Mobile and touch.** 16 px fields, 44 px targets, collapsible JSON,
   pinchable preview, report collapsed. Test the Samsung in two browsers.
 - **W14 Gallery and browse.** Find a plate by eye, not by ID; home of the
@@ -165,7 +167,7 @@ Each label is on the board with its full plain-language brief. The short form:
 
 ## Blocked
 
-- **Auth and rate limiting.** Staged as W11/W12 and decision D07; not
-  implemented. Keep the URL private until D07 is chosen.
+- **Accounts and roles.** The shared token (W11) and render limit (W12) are in
+  place; named users, saved designs and audit remain a later decision.
 - **Parametric caps.** Needs a product decision about which cap family is worth
   parameterising; do not invent one.

@@ -25,12 +25,33 @@ curl -s http://127.0.0.1:8000/api/render \
   | jq -r .report
 ```
 
+## Access and limits
+
+The public deployment requires a **shared token** over HTTP Basic auth. The
+username is ignored; use `clothoid` and the token as the password. The token
+lives in Secret Manager (`clothoid-token`) and is mounted as `CLOTHOID_TOKEN`.
+Locally it is unset, so the server is open on `127.0.0.1`.
+
+```sh
+# local, protected
+CLOTHOID_TOKEN=my-token .venv/bin/python web/server.py
+curl -u clothoid:my-token http://127.0.0.1:8000/
+
+# the rate limit applies to POST /api/render, per client address
+CLOTHOID_RATE_PER_MIN=60 CLOTHOID_RATE_BURST=20 .venv/bin/python web/server.py
+```
+
+`/health` is public and returns `{"ok": true}`; use it for uptime checks.
+`/healthz` is not used because Google's frontend intercepts it. Every other
+route, including the static page, requires the token when `CLOTHOID_TOKEN` is
+set.
+
 ## What it is not
 
 This is a feel-it-now MVP, not the final architecture:
 
-- no auth, no persistence, no job queue;
-- one process, one render at a time per request thread;
+- one shared token, no accounts, no persistence, no job queue;
+- one process; render limits are in-process and reset on a cold start;
 - the design JSON is the editor (the PWA gets proper controls);
 - it uses the Python policy layer and the `ctypes` native backend, so the
   host must run Linux and have `libclothoidlab.so` for a public deploy.
