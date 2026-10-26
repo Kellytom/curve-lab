@@ -78,17 +78,19 @@ remote MVP now exist.
   `.gcloudignore.engine`; app `.gcloudignore` now drops `vendor/`, `csrc/`, and
   `scripts/`. Engine base built in 6m43s; first thin deploy took 30 s
   (revision `clothoid-web-00004-nwx`); parity passed.
-- Added `docs/ornament-board.html` and `docs/fleur-studies.html`: the board
-  carries 45 catalogue plates (P21–P65), 10 work items (W01–W10) and 6 design
-  decisions (D01–D06), with expanded briefs, priority 1–5, stage tags,
-  drag/↑↓ ordering, notes, localStorage, and JSON/order export. The twenty
-  fleur studies (P01–P20) are a subpage, defaulted to “Needs work”.
+- Added `docs/ornament-board.html`: **85 plates** (45 catalogue ornaments
+  P21–P65, 27 class I caps P66–P92, 9 class II leaves P93–P101, 4 presets
+  P102–P105), **26 work items** W01–W26 and **11 decisions** D01–D11. The
+  twenty fleur studies (P01–P20) are the subpage `docs/fleur-studies.html`,
+  defaulted to “Needs work”. The board has a beginner glossary, plain-language
+  briefs, editable text per card, DeepSeek-pick sorting, priority/stage,
+  drag/↑↓, notes, localStorage and JSON/order export.
 
 ## Risks / open decisions
 
-1. **No auth or rate limiting — deferred by operator decision.** The public URL
-   can consume the free allowance, so keep it private for now. Do not increase
-   max instances until this is addressed.
+1. **No auth or rate limiting — staged, not implemented.** W11 and D07 put the
+   access model on the board; W12 covers quotas. Keep the public URL private
+   until one is chosen, and do not raise max instances.
 2. **Cold starts** at min 0 are roughly 1–3 s. Do not pay for min 1 unless a
    demo needs it; set it back to 0.
 3. **Free-tier usage.** Stay within the monthly Cloud Run/Cloud Build/Artifact
@@ -132,9 +134,10 @@ deferred; keep the URL private.
 | `tests/test_web.py` | web tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
-| `docs/BACKLOG.md` | execution detail for W01–W10 |
-| `docs/ornament-board.html` | visual board: 45 catalogue plates, W/D labels |
+| `docs/BACKLOG.md` | execution detail for W01–W26 |
+| `docs/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `docs/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
+| `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff.md` | two-line focused pointer |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |

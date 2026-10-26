@@ -2,12 +2,14 @@
 
 The **order** is chosen on the visual board: [`docs/ornament-board.html`](ornament-board.html).
 The twenty fleur studies are a **subpage** — [`docs/fleur-studies.html`](fleur-studies.html) —
-because they are a working set, not finished plates. The board carries the 45
-catalogue plates (P21–P65), the 10 work items, and the 6 decisions.
+because they are a working set, not finished plates. The board carries **85
+plates** (45 catalogue ornaments, 27 caps, 9 leaves, 4 presets), **26 work
+items** W01–W26, and **11 decisions** D01–D11.
 
 Labels are stable: **P01–P20** fleur studies (subpage), **P21–P65** catalogue
-plates, **W01–W10** work items, **D01–D06** design decisions. The board is the
-authority on order; this file keeps the execution detail for each label.
+plates, **P66–P92** class I caps, **P93–P101** class II leaves, **P102–P105**
+presets, **W01–W26** work items, **D01–D11** decisions. The board is the
+authority on order; this file keeps the execution detail.
 
 Open the board, rank, tag, then copy the order back into the session.
 
@@ -125,9 +127,45 @@ but cheap. Depends on nothing.
 **Verify:** reload restores; a `#d=` link restores; tests.
 **Commit:** `feat(web): remember and share designs`
 
+## W11–W26 — the supporting work
+
+Each label is on the board with its full plain-language brief. The short form:
+
+- **W11 Auth and access.** Private, shared password or Google sign-in. Gated by
+  **D07**; do not implement until it is chosen.
+- **W12 Rate limiting and quotas.** Per-person or per-address limits and a
+  concurrency cap, on top of the size bounds.
+- **W13 Mobile and touch.** 16 px fields, 44 px targets, collapsible JSON,
+  pinchable preview, report collapsed. Test the Samsung in two browsers.
+- **W14 Gallery and browse.** Find a plate by eye, not by ID; home of the
+  reference library.
+- **W15 Undo and history.** Snapshot the design on render; undo/redo the design,
+  page and width.
+- **W16 Accessibility and keyboard.** Labels, focus order, visible focus, safe
+  shortcuts. The preview and JSON editor are the gaps.
+- **W17 Onboarding and help.** A first-run guide that does not start in JSON.
+- **W18 CI on push.** GitHub Actions: unit tests + headless layout gate.
+- **W19 Deploy, rollback, cache.** One deploy, one rollback, a smoke check, the
+  previous revision one command away.
+- **W20 Monitoring and alerts.** Uptime, error/latency alerts, revision note in
+  the handoff, usage beside the budget alert.
+- **W21 Backup and restore.** Repo, caps, ornament sources and saved designs in
+  a second copy.
+- **W22 Regression suite.** Fixed cap/preset/ornament corpus + screenshots at
+  320/390/1280.
+- **W23 Performance budget.** Render, page, deploy and cold-start numbers
+  measured and recorded.
+- **W24 Docs sync automation.** Counts, links and command names checked before
+  `/fhandoff`; board generated from one data file.
+- **W25 Reference library.** The 58 designs and 72 ornament SVGs, browsable but
+  separate from the work board.
+- **W26 Export paths.** SVG + PNG now; OTF/Glyphs when the shapes are stable.
+
+
+
 ## Blocked
 
-- **Auth and rate limiting.** Deferred by operator decision; keep the URL
-  private.
+- **Auth and rate limiting.** Staged as W11/W12 and decision D07; not
+  implemented. Keep the URL private until D07 is chosen.
 - **Parametric caps.** Needs a product decision about which cap family is worth
   parameterising; do not invent one.

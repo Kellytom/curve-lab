@@ -272,9 +272,10 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
 | `docs/HANDOFF.md` | compact current-session continuation brief |
-| `docs/BACKLOG.md` | execution detail for W01–W10 |
-| `docs/ornament-board.html` | visual board: 45 catalogue plates, W/D labels |
+| `docs/BACKLOG.md` | execution detail for W01–W26 |
+| `docs/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `docs/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
+| `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff.md` | two-line focused handoff pointer |
 | `.opencode/commands/fhandoff.md` | focused handoff command |
 | `.opencode/commands/fhandon.md` | focused handon command |
