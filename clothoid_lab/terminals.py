@@ -1,5 +1,14 @@
 """How an open ribbon ends: butt, point, arc, round and taper.
 
+A terminal is any treatment of an open ribbon's end. **Cap** is a subset: an end
+that closes the cross-section without turning the stroke past a limit. The
+current limit is 120 degrees, a project choice rather than a law — see
+`docs/JUNCTION.md`. Under it, `butt`, `point`, `arc` and `round` are caps;
+`taper`, `cone` and `bulb` are tapers (terminals, not caps); and a hairpin, which
+turns the stroke back on itself, is a *turned terminal* — also not a cap, and not
+built yet. `bulb` here is the Stage II width-law taper, not the old ornament bulb
+that wraps around; they share a name, not a shape.
+
 A terminal is geometry, not a stroke hint. `render_piece` already draws a ribbon
 as two offset rails; a terminal adds the few spans that bridge those rail ends,
 so the end shape survives export to a tool that ignores `stroke-linecap`.

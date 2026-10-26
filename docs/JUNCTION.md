@@ -10,6 +10,12 @@ The vocabulary is borrowed, because the problem is older than this project:
 | **gore** | road design | the triangular white between diverging carriageways |
 | **haunch** | architecture | the thickening where a member meets its support |
 | **bulb** | this project | a width law at a terminal, swelling into the gap |
+| **cap** | drafting / SVG | a *subset* of terminal: closes the end without turning the stroke past the cap limit |
+| **turned terminal** | this project | a terminal that turns past the limit (hairpin, wrapped bulb) — not a cap |
+
+The cap limit is currently **120°**, chosen for this project and free to move;
+it is a threshold, not a theorem. Under it: `butt`, `point`, `arc` and `round`
+are caps; `taper`, `cone` and `bulb` are tapers; a hairpin is a turned terminal.
 
 ## What exists now
 
