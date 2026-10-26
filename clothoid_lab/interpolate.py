@@ -21,11 +21,47 @@ import math
 import os
 
 from . import backend as backends
-from .model import Design
+from .model import Design, Segment
 
 
 class InterpolationError(ValueError):
     """The points or the directions cannot be fitted."""
+
+
+def design_from_spans(spans: list[dict], name: str = "from spans") -> Design:
+    """One clothoid segment per cubic span, G1 at every join.
+
+    The bridge from recovered drawings and grammar output into our model: each
+    cubic contributes its two endpoints and their tangents, which is exactly the
+    G1 problem. An `euler`, `arc` or `line` span comes back exact (to floating
+    point); a `logaesthetic` or `hyperbezier` span comes back as the closest
+    clothoid, which is the honest answer rather than a claim of equality.
+
+    Spans are the dicts the rest of the package uses: `p0`, `c1`, `c2`, `p3`.
+    The design is marked `g1`, because curvature is free to jump at the joins.
+    """
+    if not spans:
+        raise InterpolationError("no spans to convert")
+    segments = []
+    for index, span in enumerate(spans):
+        p0, p3 = span["p0"], span["p3"]
+        chord = math.dist(p0, p3)
+        if chord <= 1e-12:
+            raise InterpolationError(f"span {index} has no length")
+        c1, c2 = span["c1"], span["c2"]
+        t0 = math.atan2(c1[1] - p0[1], c1[0] - p0[0])
+        t1 = math.atan2(p3[1] - c2[1], p3[0] - c2[0])
+        kappa, kd, length = fit(p0, t0, p3, t1)
+        segments.append(Segment(kd=kd, length=length, kappa0=kappa))
+    first = spans[0]
+    t0 = math.atan2(first["c1"][1] - first["p0"][1],
+                    first["c1"][0] - first["p0"][0])
+    return Design(
+        name=name,
+        anchor={"x": first["p0"][0], "y": first["p0"][1], "angle": t0},
+        segments=segments,
+        g1=True,
+    )
 
 
 def fit(p0, theta0, p1, theta1, tol: float = 1e-12, backend: str | None = None):

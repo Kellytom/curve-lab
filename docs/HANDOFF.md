@@ -125,6 +125,15 @@ remote MVP now exist.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
   filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
   `tests/test_fillet.py`.
+- **Spiral parity:** `scripts/check-spirals.py` fits one clothoid per recovered
+  cubic span (endpoints + tangents) and measures the worst distance to the drawn
+  curve. All 586 Stage II spans fit. Median error per chord: `line` 0.00%,
+  `euler` 0.01% (worst 0.12%), `arc` 0.02%, `logaesthetic` 0.01% (worst 0.16%),
+  `member` 0.03%, `reflected` 0.03%. `hyperbezier` diverges as it must: 35.8%
+  median, worst 78× chord. Writes `docs/spirals/parity.json`.
+- **Span bridge:** `interpolate.design_from_spans(spans)` turns a recovered or
+  grammar-produced cubic chain into a `Design`, one clothoid segment per span,
+  marked G1. This is the entry point a W03 port consumes.
 - **Spirals recovered:** `scripts/extract-spirals.py` pulls every `spine` path
   from the Stage II and LAC pages, keeps the page's own cubics and its
   `data-span` tag (`line`, `arc`, `euler`, `logaesthetic`, `reflected`,

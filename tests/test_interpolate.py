@@ -120,5 +120,48 @@ class TestCli(unittest.TestCase):
             self.assertIn("&quot;g1&quot;: true", text)
 
 
+class TestDesignFromSpans(unittest.TestCase):
+    def straight(self, p0, p3):
+        dx, dy = p3[0] - p0[0], p3[1] - p0[1]
+        return {"p0": p0, "c1": (p0[0] + dx / 3, p0[1] + dy / 3),
+                "c2": (p0[0] + 2 * dx / 3, p0[1] + 2 * dy / 3), "p3": p3}
+
+    def test_straight_spans_become_straight_segments(self):
+        spans = [self.straight((0.0, 0.0), (10.0, 0.0)),
+                 self.straight((10.0, 0.0), (25.0, 0.0))]
+        design = interpolate.design_from_spans(spans, name="two")
+        self.assertEqual(len(design.segments), 2)
+        self.assertTrue(design.g1)
+        for segment in design.segments:
+            self.assertAlmostEqual(segment.kappa0, 0.0, places=9)
+        self.assertAlmostEqual(sum(s.length for s in design.segments), 25.0, places=6)
+        chain = engine.build(design)
+        end = chain.point(chain.length)
+        self.assertAlmostEqual(end[0], 25.0, places=4)
+        self.assertAlmostEqual(end[1], 0.0, places=4)
+
+    def test_quarter_circle_comes_back_with_its_curvature(self):
+        k = 0.5522847498307936
+        span = {"p0": (1.0, 0.0), "c1": (1.0, k), "c2": (k, 1.0), "p3": (0.0, 1.0)}
+        design = interpolate.design_from_spans([span], name="quarter")
+        self.assertAlmostEqual(design.segments[0].kappa0, 1.0, delta=2e-3)
+        self.assertAlmostEqual(design.segments[0].length, math.pi / 2, delta=2e-3)
+        chain = engine.build(design)
+        start = chain.point(0.0)
+        end = chain.point(chain.length)
+        self.assertAlmostEqual(start[0], 1.0, places=5)
+        self.assertAlmostEqual(end[1], 1.0, places=5)
+
+    def test_rejects_empty(self):
+        with self.assertRaises(interpolate.InterpolationError):
+            interpolate.design_from_spans([])
+
+    def test_rejects_a_span_with_no_length(self):
+        span = {"p0": (1.0, 1.0), "c1": (1.0, 1.0),
+                "c2": (1.0, 1.0), "p3": (1.0, 1.0)}
+        with self.assertRaises(interpolate.InterpolationError):
+            interpolate.design_from_spans([span])
+
+
 if __name__ == "__main__":
     unittest.main()
