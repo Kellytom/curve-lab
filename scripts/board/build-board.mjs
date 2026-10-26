@@ -552,7 +552,7 @@ const definitions = [
 ];
 
 const workCopy = {
-  W01: "The engine draws one chain of curves. An ornament is several traces at once: the main stroke, the band, the two parallel edges, and their mirror. This job adds a “piece” that holds all of them in register, with layers. Without it, every new ornament becomes a one-off program.",
+  W01: "Done 2026-10-26. A Piece now holds named traces (spine, band, rails), an optional ribbon width per trace, a piece-level mirror with per-trace override, and layers. render_piece() writes one SVG through svg.document(groups=...); the visual proof is docs/piece-model.html. Tests: tests/test_piece.py.",
   W02: "A terminal is how an open stroke ends: a point, a small arc, a round cap, or a taper. The old ornaments use points and arcs; the ribbon tool needs round and taper. This job gives all four one name and one measured report, so an end becomes a choice rather than an accident.",
   W03: "This is the port of the old fleur grammar: foot, tail, band, petals and centre leaf, redrawn with clothoid segments. Straight lines become zero-curvature segments; arcs stay arcs; Euler curves stay clothoids. The first target is P01, so the new grammar can be compared directly with the old drawing.",
   W04: "Once the grammar works, the twenty studies are data, not twenty programs. This job turns the parameter sets into P01–P20, each with its written recipe (prompt) and its measured error. Then the set can be judged as one hand.",
@@ -791,7 +791,7 @@ for (const item of fleurPlates) {
 
 const boardData = {
   mode: "board",
-  version: 5,
+  version: 6,
   storageKey: "clothoid-ornament-board-v1",
   exportName: "ornament-board.json",
   title: "clothoid ornament board — what to do next",

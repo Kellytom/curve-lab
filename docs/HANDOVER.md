@@ -269,6 +269,8 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `tests/test_web.py` | web API tests |
 | `tests/test_auth.py` | token auth and rate-limit tests |
 | `clothoid_lab/` | existing geometry/policy layer |
+| `clothoid_lab/piece.py` | `Piece`/`Trace` multi-trace model and renderer |
+| `docs/piece-model.html` | W01 visual proof: traces, rails, mirror |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |

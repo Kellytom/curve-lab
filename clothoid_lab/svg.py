@@ -93,21 +93,26 @@ def _bbox(spans: list[dict]) -> tuple[float, float, float, float]:
     return min(xs), min(ys), max(xs), max(ys)
 
 
-def document(design, chain, spine: list[dict], rails: list[dict],
+def document(design, chain=None, spine=None, rails=None,
              prec: int = 4, margin: float = 5.0, stroke: float | None = None,
              page: tuple[float, float] | None = None,
              frame: tuple[float, float] | None = None,
              view: str | None = None,
-             annotations: list[dict] | None = None) -> str:
+             annotations: list[dict] | None = None,
+             groups: list[tuple[str, list[dict], float | None]] | None = None) -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata.
 
     `annotations` are optional standard SVG marks (lines, circles, text) placed
     with the drawing. Coordinates are in design units; line widths, radii and
     font sizes are in page millimetres. Set `front` to draw above the ink.
+
+    `groups` lets a piece supply several named traces instead of the usual
+    single spine plus rails. Each tuple is (name, spans, distance-or-None).
     """
-    groups = [("spine", spine, None)]
-    for rail in rails:
-        groups.append((f"rail {num(rail['distance'], 3)}", rail["spans"], rail["distance"]))
+    if groups is None:
+        groups = [("spine", spine, None)]
+        for rail in rails or []:
+            groups.append((f"rail {num(rail['distance'], 3)}", rail["spans"], rail["distance"]))
 
     all_spans = [s for _, spans, _ in groups for s in spans]
     x0, y0, x1, y1 = _bbox(all_spans)
@@ -229,7 +234,7 @@ def document(design, chain, spine: list[dict], rails: list[dict],
         f'     stroke-width="{num(stroke, prec)}">',
     ]
     for index, (name, spans, _) in enumerate(groups):
-        gid = "spine" if index == 0 else f"rail-{index}"
+        gid = _slug(name) or ("spine" if index == 0 else f"rail-{index}")
         out.append(f'    <path id="{gid}" d="{path_d(shift(spans), prec)}"/>')
     out.append("  </g>")
     front = annotations_markup(True)

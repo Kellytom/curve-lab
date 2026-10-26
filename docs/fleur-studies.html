@@ -346,7 +346,7 @@
         priority: null,
         stage: DATA.mode === "fleur"
           ? "sketch"
-          : (item.kind === "work" && ["W11", "W12"].includes(item.id)
+          : (item.kind === "work" && ["W01", "W11", "W12"].includes(item.id)
             ? "finished"
             : (item.kind === "work" && ["W01", "W02", "W03", "W04"].includes(item.id)
               ? "foundational" : null)),

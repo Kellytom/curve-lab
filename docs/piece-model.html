@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W01 — the piece model</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f6f1e4; --card: #fffdf7; --ink: #2e2413;
+    --muted: #7b6c4e; --gold: #8c6a21; --line: #d8ccae;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --serif: "EB Garamond", Georgia, "Palatino Linotype", Palatino, serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink);
+    background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper);
+    font: 16px/1.55 var(--serif);
+  }
+  main { max-width: 900px; margin: 0 auto; padding: 34px 22px 70px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .lead { color: var(--gold); margin: 0 0 18px; }
+  h2 { font: 600 11px/1.2 var(--mono); letter-spacing: .12em;
+        text-transform: uppercase; color: var(--muted); margin: 26px 0 8px; }
+  .panel { background: var(--card); border: 1px solid var(--line);
+            border-radius: 6px; padding: 14px; }
+  .art svg { display: block; width: 100%; height: auto; background: #fff; }
+  p { margin: 0 0 10px; }
+  ul { margin: 0 0 10px 20px; padding: 0; }
+  li { margin: 4px 0; }
+  code { font: 12px/1 var(--mono); background: #fbf8ee;
+          border: 1px solid var(--line); border-radius: 3px; padding: 2px 4px; }
+  table { border-collapse: collapse; width: 100%; font: 12px/1.5 var(--mono); }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 4px; text-align: left; }
+  th { color: var(--muted); font-weight: 500; }
+  a { color: var(--gold); }
+  .back { font: 12px var(--mono); margin-bottom: 16px; }
+  @media (max-width: 560px) { main { padding: 22px 14px 60px; } h1 { font-size: 23px; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
+  <h1>W01 — the piece model</h1>
+  <p class="lead">One drawing, several traces, one mirror. This is the structure the ornaments need before the fleur grammar can be ported.</p>
+
+  <h2>What you are looking at</h2>
+  <div class="panel">
+    <ul>
+      <li><code>ink/half</code> — one clothoid chain, drawn as the centre line of a ribbon.</li>
+      <li><code>ink/half rail ±3</code> — the two edges, each offset 3 mm from the centre line; together they make a 6 mm ribbon.</li>
+      <li><code>ink/half mirrored</code> — the same three paths reflected across x = 0. The mirror is one setting on the piece, not a second drawing.</li>
+      <li><code>guide/band</code> — a straight guide, explicitly <em>not</em> mirrored, so it does not draw twice.</li>
+    </ul>
+  </div>
+
+  <h2>The piece</h2>
+  <div class="panel art">
+    <?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="106mm" height="77mm"
+     viewBox="0 0 106 77">
+  <title>W01 sandbox</title>
+  <desc id="clothoid-lab-design">{
+  &quot;mirror&quot;: true,
+  &quot;name&quot;: &quot;W01 sandbox&quot;,
+  &quot;stroke&quot;: 0.6,
+  &quot;traces&quot;: [
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 0.0,
+          &quot;x&quot;: 0.0,
+          &quot;y&quot;: 0.0
+        },
+        &quot;name&quot;: &quot;s-curve 90 deg&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: null,
+            &quot;kd&quot;: 0.001963495408493621,
+            &quot;length&quot;: 40.0
+          },
+          {
+            &quot;kappa0&quot;: null,
+            &quot;kd&quot;: -0.0029452431127404313,
+            &quot;length&quot;: 40.0
+          }
+        ],
+        &quot;stroke&quot;: 0.8
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;half&quot;,
+      &quot;width&quot;: 6.0
+    },
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 0.0,
+          &quot;x&quot;: -45.0,
+          &quot;y&quot;: 58.0
+        },
+        &quot;name&quot;: &quot;band&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 90.0
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;guide&quot;,
+      &quot;mirror&quot;: false,
+      &quot;name&quot;: &quot;band&quot;,
+      &quot;width&quot;: null
+    }
+  ]
+}</desc>
+  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="round"
+     stroke-width="0.6">
+    <path id="ink-half" d="M 53,66 C 59.6495 66, 66.4705 65.9885, 72.6938 63.4107 C 78.9148 60.8339, 84.1957 55.4828, 84.1957 48.4696 C 84.1957 41.4815, 79.0362 36.2253, 73.5094 32.5324 C 67.9804 28.8381, 61.6694 26.1983, 56.9218 21.4507"/>
+    <path id="ink-half-rail-3" d="M 53,63 C 59.2568 63, 65.6852 63.0666, 71.5457 60.6391 C 76.6506 58.5246, 81.1957 54.275, 81.1957 48.4696 C 81.1957 45.7372, 80.0845 43.1745, 78.4727 41.0013 C 76.6828 38.588, 74.3292 36.6883, 71.8426 35.0268 C 66.1515 31.2241, 59.6861 28.4576, 54.8005 23.572"/>
+    <path id="ink-half-rail--3" d="M 53,69 C 60.0422 69, 67.2557 68.9104, 73.8418 66.1823 C 81.1805 63.1426, 87.1957 56.6923, 87.1957 48.4696 C 87.1957 40.4867, 81.5304 34.2838, 75.1761 30.038 C 69.8093 26.4521, 63.6528 23.9391, 59.0432 19.3294"/>
+    <path id="ink-half-mirrored" d="M 53,66 C 46.3505 66, 39.5295 65.9885, 33.3062 63.4107 C 27.0852 60.8339, 21.8043 55.4828, 21.8043 48.4696 C 21.8043 41.4815, 26.9638 36.2253, 32.4906 32.5324 C 38.0196 28.8381, 44.3306 26.1983, 49.0782 21.4507"/>
+    <path id="ink-half-mirrored-rail-3" d="M 53,63 C 46.7432 63, 40.3148 63.0666, 34.4543 60.6391 C 29.3494 58.5246, 24.8043 54.275, 24.8043 48.4696 C 24.8043 45.7372, 25.9155 43.1745, 27.5273 41.0013 C 29.3172 38.588, 31.6708 36.6883, 34.1574 35.0268 C 39.8485 31.2241, 46.3139 28.4576, 51.1995 23.572"/>
+    <path id="ink-half-mirrored-rail--3" d="M 53,69 C 45.9578 69, 38.7443 68.9104, 32.1582 66.1823 C 24.8195 63.1426, 18.8043 56.6923, 18.8043 48.4696 C 18.8043 40.4867, 24.4696 34.2838, 30.8239 30.038 C 36.1907 26.4521, 42.3472 23.9391, 46.9568 19.3294"/>
+    <path id="guide-band" d="M 8,8 C 38 8, 68 8, 98 8"/>
+  </g>
+</svg>
+
+  </div>
+
+  <h2>The report</h2>
+  <div class="panel">
+    <table>
+      <tr><th>trace</th><th>fit</th><th>rails</th><th>mirrored</th></tr>
+      <tr><td><code>ink/half</code></td><td>0.0270 mm</td><td>2</td><td>yes</td></tr>
+<tr><td><code>guide/band</code></td><td>0.0000 mm</td><td>0</td><td>no</td></tr>
+    </table>
+  </div>
+
+  <h2>What this proves</h2>
+  <div class="panel">
+    <p>The engine still draws one chain at a time. A <code>Piece</code> holds named traces, each with its own <code>Design</code>, optional ribbon width and mirror rule. <code>render_piece()</code> builds every trace, mirrors the groups that ask for it, and writes one SVG with one page, one frame and one y-flip. The path ids are the trace names, so a later grammar can address a band or a petal directly.</p>
+    <p>The next steps are W02 (point, arc, round and taper terminals) and W03 (the fleur grammar on top of this structure).</p>
+  </div>
+</main>
+</body>
+</html>

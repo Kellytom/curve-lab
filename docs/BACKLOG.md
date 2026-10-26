@@ -31,18 +31,20 @@ Open the board, rank, tag, then copy the order back into the session.
   image. First app-only deploy took 30 s; revision `clothoid-web-00004-nwx`;
   parity passed. Commit `eb67f4c`.
 
-## W01 — Piece model
+## W01 — Piece model — done 2026-10-26
 
 A piece is several named traces: the half-stroke, the band, the two parallels,
-then the mirror. The engine renders one chain today, so this is the gate.
+then the mirror. Implemented in `clothoid_lab/piece.py`:
 
-- Add a `Piece` (or `Trace` list) model: named chains, style/layer per trace,
-  a mirror flag, and the page/frame metadata.
-- Teach the SVG writer to emit several paths and a mirrored group.
-- Tests: a two-trace piece with a mirror; metadata round trip.
-- Do not change the single-design CLI path.
+- `Piece` and `Trace`: named chains, layer, optional width, piece mirror with
+  per-trace override.
+- `render_piece()` builds every trace and writes one SVG through
+  `svg.document(..., groups=...)`.
+- Tests: `tests/test_piece.py`; visual proof: `docs/piece-model.html`
+  (`scripts/piece_sandbox.py`).
+- The single-design CLI path is unchanged.
 
-**Verify:** tests + one SVG that opens in Inkscape.
+**Verify:** 110 tests pass; the sandbox SVG opens.
 **Commit:** `feat: add a piece model for several traces`
 
 ## W02 — Terminal vocabulary
