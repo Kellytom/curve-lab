@@ -203,6 +203,13 @@ strokes (the 5 mm local clearance), a crossing report that allows a crossing
 only at a declared terminal, and a blend where a leaf meets a branch and a
 branch meets the trunk.
 
+**After W03/W04: the primal studies.** Fire, water, earth and air are a category
+of their own (`docs/PRIMAL.md`), gated on a finished framework: twenty fleur
+studies with node parity, turned terminals, junctions with measured gores,
+`Section` as a first-class model, and a web route. Order within it is earth →
+water → air → fire, because fire needs the turned terminals. The archetypes
+(fleur, acanthus, palmette) follow the primals.
+
 **W03 — fleur grammar.** Port the old half-stroke grammar from
 `ornaments/assets/ornament_set.js` (foot, tail, band, petal, lance, with its
 lines, 5ⁿ arcs and Euler spans) onto `Piece`/`Trace` from W01 and the terminals
@@ -227,6 +234,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `tests/test_terminals.py` | each terminal, extension, fold and width rejection |
 | `scripts/piece_sandbox.py` | builds `docs/piece-model.html` |
 | `docs/PHILOSOPHY.md` | what a glyph is: parts, full lines, sections, joints |
+| `docs/PRIMAL.md` | primal ornaments: the four elements, their gate and order |
 | `docs/piece-model.html` | W01/W02 visual proof: traces, rails, mirror, terminal strip |
 | `Dockerfile` | thin app image; starts FROM the engine base |
 | `engine/Dockerfile` | engine base: C++ build + Python runtime + `.so` |

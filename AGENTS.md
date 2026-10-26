@@ -18,7 +18,8 @@ repository unless the action is extraction or comparison.
 ## Focus (2026-10-26)
 
 The DeepSeek order: **W01 piece model** → **W02 terminals** → **W03 fleur
-grammar** → **W04 twenty parameter sets**, then the catalogue plates. Auth and
+grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
+water, earth, air — see `docs/PRIMAL.md`), then the archetypal ornaments. Auth and
 render limits are live; accounts/roles are later. Keep the public URL private.
 
 ## Files that matter
@@ -38,6 +39,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
 | `tests/` | 200 tests; run the whole suite |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
+| `docs/PRIMAL.md` | primal ornaments (fire, water, earth, air) and their gate |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
