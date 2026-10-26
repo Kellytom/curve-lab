@@ -38,7 +38,7 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 130 pass (2026-10-26; W02 has 20 terminal tests).
+- **Local tests:** 152 pass (2026-10-26; 22 of them clearance tests).
 - **Git:** HEAD `0365a67` (W02 terminals); the handoff commit sits on top.
   Only `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -103,6 +103,13 @@ remote MVP now exist.
   no geometry, so W01 output is unchanged. `svg.document(..., linecap=...)` lets
   the piece ink use `butt` caps while the single-design default stays `round`.
   `docs/piece-model.html` gained the labelled terminal strip (seven rows).
+- **Clearance built:** `clothoid_lab/clearance.py` measures the minimum
+  edge-to-edge gap between ink instances and lists crossings, allowing one only
+  where a declared `Contact` covers it. Measurements carry a `2·tol` band, so
+  the report says *violation*, *warning* or *pass* instead of pretending the
+  last tenth of a millimetre is known. `render_piece()` was split into
+  `build_piece()` + writer so drawing and measuring share one geometry build.
+  Docs: `docs/CLEARANCE.md`; tests: `tests/test_clearance.py`.
 - **Terminals recovered:** `scripts/extract-terminals.py` cuts the outline ends
   out of the two ornaments pages at their `L`/`Z` seams and writes
   `docs/terminals/stage-two.json` (20 plates, 88 ends),

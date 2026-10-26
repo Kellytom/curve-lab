@@ -60,6 +60,27 @@ A rail that folds reverses inside a span, where the parabola arm runs away and
 would place a control point tens of metres out. The arm is bounded at four times
 the chord, and each clamped span is counted in the report rather than hidden.
 
+## Clearance
+
+A piece can be measured as well as drawn. `piece_clearance()` reports the
+minimum edge-to-edge gap between strokes, the pairs that fall below it, and
+every crossing that no declared contact covers:
+
+```python
+from clothoid_lab.clearance import Contact, piece_clearance
+
+result = piece_clearance(piece, clearance=5.0)
+print(result["ok"], result["min"])
+
+# a junction is a declared contact, not an accident
+piece_clearance(piece, clearance=5.0,
+                contacts=[Contact((12.0, 0.0), 2.5, "ink/leaf", "ink/branch")])
+```
+
+Measurements carry their error: a pair is only called a violation when it is
+below `clearance - 2·tol`, and the band in between is reported as a warning.
+See `docs/CLEARANCE.md` for the rule, the algorithm and its limits.
+
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
 

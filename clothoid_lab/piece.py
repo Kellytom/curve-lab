@@ -127,15 +127,38 @@ def _mirror_spans(spans: list[dict]) -> list[dict]:
     return mirrored
 
 
-def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
-                 margin: float = 5.0, max_spans: int = 64, split: int = 2,
-                 backend: str | None = None,
-                 page: tuple[float, float] | None = None,
-                 frame: tuple[float, float] | None = None,
-                 view: str | None = None,
-                 annotations: list[dict] | None = None) -> tuple[str, dict]:
-    """Build every trace, mirror where asked, and write one SVG."""
-    groups: list[tuple[str, list[dict], float | None]] = []
+class Group:
+    """One drawn path in a piece: a spine, a rail or a terminal cap.
+
+    `instance` names the drawing the path belongs to — a trace, or the mirror
+    of one — so a measurement can tell "this ribbon's own two rails" from "this
+    ribbon and the one beside it". `distance` is the offset a rail was built at,
+    and is None for spines and caps.
+    """
+
+    __slots__ = ("name", "spans", "distance", "instance", "role")
+
+    def __init__(self, name: str, spans: list[dict], distance: float | None = None,
+                 instance: str = "", role: str = "spine"):
+        self.name = name
+        self.spans = spans
+        self.distance = distance
+        self.instance = instance or name
+        self.role = role
+
+    def __repr__(self) -> str:
+        return f"Group({self.name!r}, {len(self.spans)} spans, {self.role})"
+
+
+def build_piece(piece: Piece, tol: float = 0.02, max_spans: int = 64,
+                split: int = 2, backend: str | None = None):
+    """Build the geometry of every trace and return `(groups, info)`.
+
+    This is the step that costs the engine calls, and it is deliberately
+    separate from writing SVG: a measurement needs the same groups without a
+    document, and a writer should not have to rebuild them.
+    """
+    groups: list[Group] = []
     report = []
 
     for trace in piece.traces:
@@ -152,12 +175,12 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
         )
 
         base = f"{trace.layer}/{trace.name}"
-        groups.append((base, spine, None))
+        groups.append(Group(base, spine, None, base, "spine"))
         for rail in rails:
-            groups.append(
-                (f"{base} rail {svg.num(rail['distance'], 3)}",
-                 rail["spans"], rail["distance"])
-            )
+            groups.append(Group(
+                f"{base} rail {svg.num(rail['distance'], 3)}",
+                rail["spans"], rail["distance"], base, "rail",
+            ))
 
         # Terminals close the ribbon ends. They are extra geometry, so a butt
         # end adds nothing and the pre-W02 drawings stay byte-identical.
@@ -177,7 +200,7 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
                     )
                 spans = terminal_spans(rail_pos, rail_neg, kind, end=end)
                 caps.append((f"{base} {end} {kind}", spans))
-                groups.append((caps[-1][0], spans, None))
+                groups.append(Group(caps[-1][0], spans, None, base, "cap"))
             terminals.append({
                 "end": end,
                 "kind": kind,
@@ -196,25 +219,43 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
         report.append(entry)
 
         if entry["mirrored"]:
-            groups.append((f"{base} mirrored", _mirror_spans(spine), None))
+            mirrored_instance = f"{base} mirrored"
+            groups.append(Group(mirrored_instance, _mirror_spans(spine), None,
+                                mirrored_instance, "spine"))
             for rail in rails:
-                groups.append(
-                    (f"{base} mirrored rail {svg.num(rail['distance'], 3)}",
-                     _mirror_spans(rail["spans"]), rail["distance"])
-                )
+                groups.append(Group(
+                    f"{mirrored_instance} rail {svg.num(rail['distance'], 3)}",
+                    _mirror_spans(rail["spans"]), rail["distance"],
+                    mirrored_instance, "rail",
+                ))
             for name, spans in caps:
                 suffix = name[len(base):]
-                groups.append((f"{base} mirrored{suffix}", _mirror_spans(spans), None))
+                groups.append(Group(f"{mirrored_instance}{suffix}",
+                                    _mirror_spans(spans), None,
+                                    mirrored_instance, "cap"))
 
-    text = svg.document(
-        piece, groups=groups, prec=prec, margin=margin,
-        page=page, frame=frame, view=view, annotations=annotations,
-        linecap="butt",
-    )
     info = {
         "piece": piece.name,
         "traces": report,
         "fit_ok": all(t["fit_error"] <= tol for t in report),
         "mirror": piece.mirror,
     }
+    return groups, info
+
+
+def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
+                 margin: float = 5.0, max_spans: int = 64, split: int = 2,
+                 backend: str | None = None,
+                 page: tuple[float, float] | None = None,
+                 frame: tuple[float, float] | None = None,
+                 view: str | None = None,
+                 annotations: list[dict] | None = None) -> tuple[str, dict]:
+    """Build every trace, mirror where asked, and write one SVG."""
+    groups, info = build_piece(piece, tol=tol, max_spans=max_spans, split=split,
+                               backend=backend)
+    text = svg.document(
+        piece, groups=[(g.name, g.spans, g.distance) for g in groups],
+        prec=prec, margin=margin, page=page, frame=frame, view=view,
+        annotations=annotations, linecap="butt",
+    )
     return text, info
