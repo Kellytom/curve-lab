@@ -8,3 +8,5 @@ reference/inbox/*
 !reference/inbox/README.md
 .DS_Store
 **/.DS_Store
+reference/theory/*
+!reference/theory/README.md
