@@ -1,6 +1,6 @@
 ```text
 Read docs/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
-You are starting W02 — the terminal vocabulary: butt, point, arc, round and taper for each trace end, reported like a join, with tests and a terminal strip added to the piece sandbox.
+You are building fleur_canonical() from the measured fleur reference and rendering its silhouette beside the metrics.
 ```
 
-Source: `docs/HANDOFF.md`, 2026-10-26, commit `c2ea171`.
+Source: `docs/HANDOFF.md`, 2026-10-28, commit `8951e40`.

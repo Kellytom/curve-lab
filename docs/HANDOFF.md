@@ -1,6 +1,6 @@
 # clothoid-lab handoff
 
-**Updated:** 2026-10-26  
+**Updated:** 2026-10-28  
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
@@ -15,13 +15,13 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-26 11:39 UTC. Auth is unset locally, so the loopback server stays
+  2026-10-28 08:0x UTC (probe). Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
 - **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
   project `clothoid-lab-1792967460`, region `us-central1`, service
   `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
-  without the token, 200 with it** at 2026-10-26 11:39 UTC; a thin app deploy
-  takes ~30 s.
+  without the token** at 2026-10-28 08:0x UTC (probe); a thin app deploy takes
+  ~30 s.
 - **Access:** HTTP Basic with a shared token; every route except `/health`.
   Token in Secret Manager `clothoid-token`, local copy
   `~/.config/clothoid-lab/token` (outside the repo). `/api/render` is limited to
@@ -38,9 +38,13 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 171 pass (2026-10-26; 22 clearance, 19 fillet).
-- **Git:** HEAD `0365a67` (W02 terminals); the handoff commit sits on top.
-  Only `out/play-template.svg` is untracked.
+- **Local tests:** 215 pass — **carried** from 2026-10-27; no change under
+  `web/`, `clothoid_lab/`, `csrc/` or `tests/` since.
+- **Git:** HEAD `8951e40`; the handoff commit sits on top. The code tree is
+  clean. `reference/` is dirty: six tracked reference images deleted (earth ×2,
+  fire ×1, fleur ×1, water ×2), `reference/1/` and `reference/hard/` added, and
+  another `IMG_*` dump at `reference/` root. `out/play-template.svg` is
+  untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
@@ -208,10 +212,21 @@ remote MVP now exist.
 5. **Caps are baked in.** New `out/caps/*.json` files need an app deploy (thin),
    not an engine rebuild.
 6. **No persistence/accounts.** Designs live in the browser and are not saved.
+7. **Reference tree is dirty and growing.** Untriaged images sit at `reference/`
+   root, `reference/1/` and `reference/hard/`; the last hash/dedupe pass was
+   2026-10-27. Nothing there is committed except the measured references and
+   READMEs.
 
 ## Next move
 
-**The junction object, then W03.** The fillet exists; what is missing is the
+**The canonical fleur.** Build `fleur_canonical()` from the measured fleur
+reference (`reference/fleur/png/metrics.json`: aspect 1.43, fill 0.17,
+symmetry 0.83), with exact clothoid segments, the band as a `Bundle`, terminals
+per stroke, the centre seam declared, and a silhouette render beside the
+numbers. Old study 01 stays as history; do not conform the other nineteen
+until the silhouette is approved.
+
+**Superseded, kept for context: the junction object, then W03.** The fillet exists; what is missing is the
 junction itself — a small object carrying the corner, the clearance that must
 survive through the crotch, the fillet or clothoid blend, the taper, and the
 declared contacts, with a report that gives the join grades and the gore. The
