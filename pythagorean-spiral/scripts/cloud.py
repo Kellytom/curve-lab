@@ -122,8 +122,8 @@ CLOUD = [
     (30, 36, 5, 3.5, 5, "haze"),
     (40, 71, 4, 3.5, 5, "haze"), (70, 68, 4, 3.5, -5, "haze"),
     # base: the flat underside
-    (38, 34, 9, 4.5, 2, "bank"), (52, 36, 11, 4.5, -1, "bank"),
-    (66, 37, 9, 4.5, 3, "bank"), (79, 38, 7, 4, -3, "bank"),
+    (38, 34, 9, 4.5, 2, "bank"), (52, 38, 11, 4.5, -1, "bank"),
+    (66, 36, 9, 4.5, 3, "bank"), (79, 41, 7, 4, -3, "bank"),
     # lower lobes
     (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
     (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
@@ -139,16 +139,17 @@ LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60}
 _FILTER = [0]
 
 
-def _cloud_filter(c, scale=8):
+def _cloud_filter(c, scale=8, blur=6):
     """A displacement filter: the geometry stays ellipses, the edge is air."""
     _FILTER[0] += 1
     fid = f"cloud{_FILTER[0]}"
     c.out.append(
-        f'<defs><filter id="{fid}" x="-30%" y="-30%" width="160%" '
-        f'height="160%"><feTurbulence type="fractalNoise" '
+        f'<defs><filter id="{fid}" x="-50%" y="-50%" width="200%" '
+        f'height="200%"><feTurbulence type="fractalNoise" '
         f'baseFrequency="0.012 0.02" numOctaves="3" seed="7" result="noise"/>'
         f'<feDisplacementMap in="SourceGraphic" in2="noise" scale="{scale}" '
-        f'xChannelSelector="R" yChannelSelector="G"/></filter></defs>')
+        f'xChannelSelector="R" yChannelSelector="G" result="air"/>'
+        f'<feGaussianBlur in="air" stdDeviation="{blur}"/></filter></defs>')
     return fid
 
 
@@ -282,7 +283,7 @@ def build_blocks(sizes):
         ("code", f"layers   4   haze {LAYER['haze']}, bank {LAYER['bank']}, "
                  f"billow {LAYER['billow']}, crown {LAYER['crown']}\n"
                  f"puffs    {len(CLOUD)}  ellipses, tilted by whole triangle angles\n"
-                 "edge     fractal displacement, optical not geometric\n"
+                 "edge     fractal displacement + gaussian blur, optical only\n"
                  "overlap  the sum does the softening\n"
                  "geometry exact; opacity and tone are choices"),
         ("p", "Two variants are worth keeping. A **cumulus** (above) has a flat "

@@ -36,7 +36,7 @@ The cloud is built from **exact ellipses**. A circle is a chain with one triangl
 ```text
 layers   4   haze 0.14, bank 0.34, billow 0.46, crown 0.6
 puffs    19  ellipses, tilted by whole triangle angles
-edge     fractal displacement, optical not geometric
+edge     fractal displacement + gaussian blur, optical only
 overlap  the sum does the softening
 geometry exact; opacity and tone are choices
 ```
