@@ -317,7 +317,7 @@ def _cloud_filter(c, scale=8, blur=6):
     return fid
 
 
-def draw_cloud(c, version="v2", only=None, veil=1.0, drop=0.0):
+def draw_cloud(c, version="v2", only=None, veil=1.0, drop=0.0, group=""):
     """Fill the billows of one version.
 
     Every billow is drawn at `layers(version)[layer] * VEIL[version]` -- the
@@ -328,7 +328,7 @@ def draw_cloud(c, version="v2", only=None, veil=1.0, drop=0.0):
     fid = _cloud_filter(c)
     table = veil_mod.layers(version)
     factor = VEIL[version]
-    c.out.append(f'<g filter="url(#{fid})">')
+    c.out.append(f'<g filter="url(#{fid})"' + (f' id="{group}"' if group else '') + '>')
     for layer, pts in veil_mod.polygons(version):
         if only is not None and layer != only:
             continue
@@ -398,10 +398,11 @@ def fig_veil(sizes, version="v2"):
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
     image_at(c, 16, 16, aw, hs, f"fig/{STATUE.name}")
     image_at(c, 100 - bw, 16, bw, hs, f"fig/{FRESCO.name}")
-    draw_cloud(c, version)
+    draw_cloud(c, version, group=f"cloud-group-{version}")
     badge(c, 19, 45, "c" if version == "v1" else "e")
     badge(c, 103 - bw, 45, "d" if version == "v1" else "f")
-    return c.svg(f"cloud over two works, {version}")
+    return c.svg(f"cloud over two works, {version}").replace(
+        "<svg ", f'<svg id="veil-figure-{version}" ', 1)
 
 
 def fig_conics():
@@ -477,6 +478,38 @@ def _build_blocks(sizes):
               "every layer instead of the base alone. **v2** replaces each "
               "ellipse with a turn-chain ribbon. Both are measured by the same "
               "function and judged by the same strips."),
+        ("html", """<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;
+ font:12px ui-monospace,Menlo,monospace;color:#8c6a21;margin:6px 0 18px">
+ <label>definition <input id="veil-def" type="range" min="0" max="100" value="55"
+   style="vertical-align:middle;width:180px"></label>
+ <label>transparency <input id="veil-trans" type="range" min="0" max="80" value="0"
+   style="vertical-align:middle;width:150px"></label>
+ <span style="color:#9b8a70">both veils; the geometry does not change</span>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var def = document.getElementById('veil-def');
+  var tr = document.getElementById('veil-trans');
+  if (!def || !tr) return;
+  function apply() {
+    var d = Number(def.value) / 100;
+    var blur = (9 - 8 * d).toFixed(2);
+    var disp = (20 - 16 * d).toFixed(1);
+    document.querySelectorAll('[id^="veil-figure-"]').forEach(function (fig) {
+      fig.querySelectorAll('feGaussianBlur').forEach(function (e) {
+        e.setAttribute('stdDeviation', blur);
+      });
+      fig.querySelectorAll('feDisplacementMap').forEach(function (e) {
+        e.setAttribute('scale', disp);
+      });
+      var g = fig.querySelector('[id^="cloud-group"]');
+      if (g) g.style.opacity = String(1 - Number(tr.value) / 100);
+    });
+  }
+  def.addEventListener('input', apply);
+  tr.addEventListener('input', apply);
+});
+</script>"""),
         ("fig", lambda: fig_veil(sizes, "v1"),
          "c and d: v1, the original ellipse cloud, one veil factor on every layer."),
         ("fig", lambda: fig_veil(sizes, "v2"),

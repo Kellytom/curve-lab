@@ -726,6 +726,8 @@ def to_md(blocks, fig_names):
             n += 1
         elif kind == "raw":
             out.append(rest[0])
+        elif kind == "html":
+            pass
         elif kind == "table":
             rows = rest[0]
             out.append("| " + " | ".join(rows[0]) + " |")
@@ -780,6 +782,8 @@ def to_html(blocks, figs, title):
             out.append(f"<figure>{figs[n][0]}<figcaption>{rest[1]}</figcaption></figure>")
             n += 1
         elif kind == "raw":
+            out.append(rest[0])
+        elif kind == "html":
             out.append(rest[0])
         elif kind == "table":
             rows = rest[0]
