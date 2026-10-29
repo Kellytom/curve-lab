@@ -99,6 +99,17 @@ class Spiral:
     def final(self) -> tuple[Fraction, Fraction]:
         return self.nodes[-1]
 
+    def knots(self) -> list[tuple[tuple[Fraction, Fraction], Dir]]:
+        """Every node with the exact heading of the path at it.
+
+        The heading at a node is the direction of the chord that leaves it; at
+        the final node no chord leaves, so the last chord's heading carries
+        forward.  These are the attachment points for a branch: a branch reads
+        one of these pairs, so both sides share the same rational point and the
+        same exact direction -- no measurement, no tolerance.
+        """
+        return list(zip(self.nodes, list(self.headings) + [self.heading]))
+
     @property
     def arc_length(self) -> Fraction:
         return self.length * len(self.turns)

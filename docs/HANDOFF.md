@@ -162,6 +162,16 @@ remote MVP now exist.
   `euler` 0.01% (worst 0.12%), `arc` 0.02%, `logaesthetic` 0.01% (worst 0.16%),
   `member` 0.03%, `reflected` 0.03%. `hyperbezier` diverges as it must: 35.8%
   median, worst 78× chord. Writes `docs/spirals/parity.json`.
+- **Spike exponent dial (2026-10-28):** `pythagorean-spiral` now takes
+  `power` in `design.spiral/lobe/curl` — turns run `k**p`, the clothoid at
+  p = 1 (frozen digest test proves the old curl bit for bit), and every
+  integer p closes exactly because the reversal cancels the same integers.
+  `--power` on the CLI. **Join/fork landed too:** `Spiral.knots()`, `fork()`
+  (angle as triangle steps or quarter turns, never degrees) and `joined()`
+  asserting exact point and vector equality; the explainer's branch figure is
+  now drawn by them. 90 tests in the spike. The chord budget is the base
+  angle only: at p > 1 the last chord turns `(n-1)**p` times it. Next in the
+  spike is the float hybrid; the spike stays off the W01→W04 path.
 - **Span bridge:** `interpolate.design_from_spans(spans)` turns a recovered or
   grammar-produced cubic chain into a `Design`, one clothoid segment per span,
   marked G1. This is the entry point a W03 port consumes.

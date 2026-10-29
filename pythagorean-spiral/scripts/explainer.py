@@ -314,8 +314,8 @@ def fig_branch():
     k = 7
     node = nodes[k]
     head = p.headings[k].angle
-    b = Spiral(tri, 1.0, heading=p.headings[k], start=node)
-    b.extend(-t for t in range(1, 9))
+    anchor, b = design.fork(p, k, steps=9, length=1.0)
+    design.joined(p, b, k)
     xs = [q[0] for q in nodes] + [q[0] for q in b.floats()]
     ys = [q[1] for q in nodes] + [q[1] for q in b.floats()]
     c = Canvas((min(xs) - 1.2, max(xs) + 1.2), (min(ys) - 3.5, max(ys) + 3.5), 620, 380)

@@ -30,7 +30,8 @@ def _build(args, triangle: Triple) -> Spiral:
         return design.lobe(triangle, args.steps, length)
     if args.mode == "curl":
         return design.curl(args.peak, args.chord,
-                           None if args.accel else length, accel=args.accel)
+                           None if args.accel else length, accel=args.accel,
+                           power=args.power)
     if args.mode == "hook":
         return design.hook(triangle, args.multiplier, args.n_out, length)
     return design.g2_lobe(triangle, args.steps, length)
@@ -97,6 +98,8 @@ def main(argv: list[str] | None = None) -> int:
                    help="curl: target peak |curvature|; the chord length follows")
     p.add_argument("--chord", type=float, default=6.0,
                    help="curl: widest turn one chord may take, in degrees")
+    p.add_argument("--power", type=int, default=1,
+                   help="curl: exponent dial, turns = k**power; 1 is the clothoid")
     p.add_argument("--multiplier", type=int, default=3,
                    help="hook: how much faster the exit unwinds")
     p.add_argument("--n-out", type=int, default=None,

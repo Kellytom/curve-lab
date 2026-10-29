@@ -1,5 +1,6 @@
 """The curl: resolution-driven shape, and a fit that is at the chain's floor."""
 
+import hashlib
 import math
 import unittest
 
@@ -67,6 +68,51 @@ class TestCurl(unittest.TestCase):
         fine = design.curl(200.0, 8.0, 1.0)
         self.assertLess(fine.triangle.degrees, coarse.triangle.degrees)
         self.assertGreater(len(fine.turns), len(coarse.turns))
+
+
+class TestExponentDial(unittest.TestCase):
+    def test_power_one_reproduces_the_curl_bit_for_bit(self):
+        """Frozen at a8653ba: the chain was k before the dial, and is k**1."""
+        p = design.curl(200.0, 6.0, 1.0)
+        digest = hashlib.sha256()
+        for x, y in p.nodes:
+            for v in (x.numerator, x.denominator, y.numerator, y.denominator):
+                raw = abs(v).to_bytes(max(1, (abs(v).bit_length() + 7) // 8),
+                                      "big")
+                digest.update(b"-" if v < 0 else b"+")
+                digest.update(len(raw).to_bytes(4, "big"))
+                digest.update(raw)
+        digest.update(",".join(map(str, p.turns)).encode())
+        self.assertEqual(len(p.turns), 134)
+        self.assertEqual(
+            digest.hexdigest(),
+            "81cbac4e127dd71f9fa5e9981ba58d8493677d0ab3c5f070a1e52b72acaca49d")
+
+    def test_every_integer_power_still_closes_exactly(self):
+        """The reversal cancels the same integers, so closure is inherited."""
+        for power in (0, 2, 3):
+            p = design.curl(30.0, 6.0, 1.0, power=power)
+            n = len(p.turns) // 2
+            self.assertEqual(p.coeff, 0)
+            self.assertEqual(p.heading.axis_name(), "east")
+            self.assertEqual(p.turns[:n], [k ** power for k in range(n)])
+            self.assertEqual(p.turns[n:],
+                             [-(k ** power) for k in range(n - 1, -1, -1)])
+
+    def test_power_must_be_a_whole_number(self):
+        with self.assertRaises(ValueError):
+            design.curl(200.0, 6.0, 1.0, power=1.5)
+        with self.assertRaises(ValueError):
+            design.lobe(THIN, 5, power=-1)
+
+    def test_the_dial_moves_the_turning_to_the_last_chords(self):
+        straight = design.curl(200.0, 6.0, 1.0, power=1)
+        late = design.curl(200.0, 6.0, 1.0, power=2)
+        self.assertLess(len(late.turns), len(straight.turns))
+        self.assertGreater(max(late.turns), max(straight.turns))
+        widest = max(late.turns) * late.triangle.degrees
+        self.assertAlmostEqual(late.peak_degrees, 200.0, delta=widest)
+        self.assertGreaterEqual(late.peak_degrees, 200.0)
 
 
 class TestFittedCurve(unittest.TestCase):
