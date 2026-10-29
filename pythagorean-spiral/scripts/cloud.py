@@ -26,6 +26,8 @@ FIG = ex.FIG
 REF = ROOT.parent / "reference"
 RAW = FIG / "cloud-photo-raw.png"
 STATUE = FIG / "cloud-photo-statue.png"
+COLOUR_STATUE = FIG / "cloud-colour-statue.png"
+COLOUR_FRESCO = FIG / "cloud-colour-fresco.png"
 FRESCO = FIG / "cloud-photo-fresco.png"
 INK, GOLD, RED, BLUE, FAINT = ex.INK, ex.GOLD, ex.RED, ex.BLUE, ex.FAINT
 
@@ -84,6 +86,16 @@ def tone_photo(src: Path, out: Path, width=460):
     rgb = Image.merge("RGB", tuple(im.point(lut(c)) for c in range(3)))
     rgb.save(out)
     return rgb.size
+
+
+def colour_photo(src: Path, out: Path, width=460):
+    """The photograph with its colour kept: the starting point, before toning."""
+    from PIL import Image, ImageOps
+    im = Image.open(src).convert("RGB")
+    im = ImageOps.autocontrast(im, cutoff=1)
+    im.thumbnail((width, width * 2))
+    im.save(out)
+    return im.size
 
 
 def raw_photo(src: Path, out: Path, width=460):
@@ -147,7 +159,8 @@ def _veil_test_figure(version="v2"):
     palette and `draw_cloud`; a module-level import would close the cycle.
     """
     import veil_test
-    return veil_test.figure(VEIL[version], version)
+    letters = ("g", "h", "i", "j") if version == "v1" else ("k", "l", "m", "n")
+    return veil_test.figure(VEIL[version], version, letters)
 
 
 def _slider_html():
@@ -365,6 +378,26 @@ def fig_tone(sizes):
     return ex.stack(rows, width=760, gap=8)
 
 
+def badge(c, x, y, letter, size=13):
+    """A lettered disc at a picture's corner, so panels can be called by name."""
+    c.dot((x, y), size / 22.0, "#2E2413", "#2E2413", 0.0)
+    c.text(x, y, letter, size, "#fffdf7", "middle")
+
+
+def fig_colour(sizes):
+    c = ex.Canvas((0, 120), (0, 44), 800, 320)
+    c.poly([(0, 44), (120, 44), (120, 0), (0, 0)], fill=WALL, stroke="none")
+    hs = 32
+    aw = hs * sizes[COLOUR_STATUE][0] / sizes[COLOUR_STATUE][1]
+    bw = hs * sizes[COLOUR_FRESCO][0] / sizes[COLOUR_FRESCO][1]
+    for x, w, name, letter in ((16, aw, COLOUR_STATUE, "a"),
+                               (76, bw, COLOUR_FRESCO, "b")):
+        image_at(c, x, 6, w, hs, f"fig/{name.name}")
+        badge(c, x + 3, 6 + hs - 3, letter)
+        c.text(x, 2.4, f"{letter} · {name.stem.split('-')[-1]} in colour", 7, GOLD)
+    return c.svg("the two works in colour")
+
+
 def fig_veil(sizes, version="v2"):
     c = ex.Canvas((0, 120), (0, 80), 800, 560)
     c.poly([(0, 80), (120, 80), (120, 0), (0, 0)], fill=WALL, stroke="none")
@@ -374,6 +407,8 @@ def fig_veil(sizes, version="v2"):
     image_at(c, 16, 10, aw, hs, f"fig/{STATUE.name}")
     image_at(c, 100 - bw, 10, bw, hs, f"fig/{FRESCO.name}")
     draw_cloud(c, version)
+    badge(c, 19, 39, "c" if version == "v1" else "e")
+    badge(c, 103 - bw, 39, "d" if version == "v1" else "f")
     return c.svg(f"cloud over two works, {version}")
 
 
@@ -429,6 +464,8 @@ def build_blocks(sizes):
               "honestly by being visible."),
 
         ("h2", "2. The veil"),
+        ("fig", lambda: fig_colour(sizes),
+         "Fig. 2 · a and b: the two works in colour, before any veil."),
         ("p", "Two versions, same composition, different geometry. **v1** is "
               "the original cloud of exact ellipses -- the one that was right "
               "in principle and only too opaque -- now with the veil factor on "
@@ -436,9 +473,9 @@ def build_blocks(sizes):
               "ellipse with a turn-chain ribbon. Both are measured by the same "
               "function and judged by the same strips."),
         ("fig", lambda: fig_veil(sizes, "v1"),
-         "v1: the original ellipse cloud, one veil factor on every layer."),
+         "Fig. 3 · c and d: v1, the original ellipse cloud, one veil factor on every layer."),
         ("fig", lambda: fig_veil(sizes, "v2"),
-         "v2: the same composition in turn-chain ribbons, one veil factor on every layer."),
+         "Fig. 4 · e and f: v2, the same composition in turn-chain ribbons."),
         ("p", "The cloud is built from **exact turn chains**, not circles. A "
               "billow is a lobe whose turns run k**p and then reverse, so the "
               "exit is parallel to the entry; a taper through "
@@ -479,9 +516,9 @@ def build_blocks(sizes):
               "of the image is covered: top mean under 0.25 (a hot corner is "
               "allowed up to 0.50), bottom mean under 0.12 (up to 0.30)."),
         ("fig", lambda: _veil_test_figure("v1"),
-         "v1 under the four patterns: two on top, two below."),
+         "Fig. 5 · g to j: v1 under the four patterns, two on top, two below."),
         ("fig", lambda: _veil_test_figure("v2"),
-         "v2 under the four patterns: two on top, two below."),
+         "Fig. 6 · k to n: v2 under the four patterns."),
         ("table", _veil_rows()),
         ("p", "The numbers come from `pythagorean_spiral.veil`, the same "
               "function the drawing fills, so a strip cannot pass on paper "
@@ -562,6 +599,8 @@ def build_blocks(sizes):
 
 def prepare():
     sizes = {}
+    sizes[COLOUR_STATUE] = colour_photo(REF / "IMG_5972.JPG", COLOUR_STATUE)
+    sizes[COLOUR_FRESCO] = colour_photo(REF / "IMG_5975.JPG", COLOUR_FRESCO)
     sizes[RAW] = raw_photo(REF / "IMG_5972.JPG", RAW)
     sizes[STATUE] = tone_photo(REF / "IMG_5972.JPG", STATUE)
     sizes[FRESCO] = tone_photo(REF / "IMG_5975.JPG", FRESCO)
@@ -583,8 +622,9 @@ def main():
               f"worst over the works "
               f"{artwork_worst_opacity(sizes, None, version):.3f}")
     blocks = build_blocks(sizes)
-    names = ["cloud-tone", "veil-v1", "veil-v2", "veil-test-v1", "veil-test-v2",
-             "cloud-conics", "cloud-form-stated", "cloud-form-adjusted"]
+    names = ["cloud-tone", "veil-colour", "veil-v1", "veil-v2",
+             "veil-test-v1", "veil-test-v2", "cloud-conics",
+             "cloud-form-stated", "cloud-form-adjusted"]
     figs, fig_names = [], []
     i = 0
     for kind, *rest in blocks:

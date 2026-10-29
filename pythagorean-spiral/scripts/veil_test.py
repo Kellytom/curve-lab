@@ -128,7 +128,7 @@ def rows_pass(rows):
     return all(r["pass"] for r in rows)
 
 
-def figure(veil, version="v2"):
+def figure(veil, version="v2", letters=("a", "b", "c", "d")):
     c = ex.Canvas((0, 120), (0, 80), 820, 560)
     c.poly([(0, 80), (120, 80), (120, 0), (0, 0)], fill=cloud.WALL, stroke="none")
     for row, side, name, box, kind in PANELS:
@@ -136,12 +136,12 @@ def figure(veil, version="v2"):
         PATTERNS[kind](c, box)
         c.poly([(x, y), (x + w, y), (x + w, y + h), (x, y + h), (x, y)],
                stroke=cloud.INK, width=0.5)
-        c.text(x, y + h + 1.8, f"{name} · {row} {side}", 8, cloud.GOLD)
     cloud.draw_cloud(c, version)
     # the same labels again, above the veil, so a covered caption is not a lie
-    for row, side, name, box, kind in PANELS:
+    for letter, (row, side, name, box, kind) in zip(letters, PANELS):
         x, y, w, h = box
-        c.text(x, y + h + 1.8, f"{name} · {row} {side}", 8, cloud.GOLD)
+        cloud.badge(c, x + 3, y + h - 3, letter)
+        c.text(x, y + h + 1.8, f"{letter} · {name}", 8, cloud.GOLD)
     return c.svg(f"four test patterns under the veil, {version}")
 
 

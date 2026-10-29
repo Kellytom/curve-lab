@@ -27,15 +27,19 @@ This is deliberately unheroic: no restoration, no repainting, no claim that the 
 
 ## 2. The veil
 
+![Fig. 2 · a and b: the two works in colour, before any veil.](fig/veil-colour.svg)
+
+*Fig. 2 · a and b: the two works in colour, before any veil.*
+
 Two versions, same composition, different geometry. **v1** is the original cloud of exact ellipses -- the one that was right in principle and only too opaque -- now with the veil factor on every layer instead of the base alone. **v2** replaces each ellipse with a turn-chain ribbon. Both are measured by the same function and judged by the same strips.
 
-![v1: the original ellipse cloud, one veil factor on every layer.](fig/veil-v1.svg)
+![Fig. 3 · c and d: v1, the original ellipse cloud, one veil factor on every layer.](fig/veil-v1.svg)
 
-*v1: the original ellipse cloud, one veil factor on every layer.*
+*Fig. 3 · c and d: v1, the original ellipse cloud, one veil factor on every layer.*
 
-![v2: the same composition in turn-chain ribbons, one veil factor on every layer.](fig/veil-v2.svg)
+![Fig. 4 · e and f: v2, the same composition in turn-chain ribbons.](fig/veil-v2.svg)
 
-*v2: the same composition in turn-chain ribbons, one veil factor on every layer.*
+*Fig. 4 · e and f: v2, the same composition in turn-chain ribbons.*
 
 The cloud is built from **exact turn chains**, not circles. A billow is a lobe whose turns run k**p and then reverse, so the exit is parallel to the entry; a taper through `ribbon.outline` turns it into a closed rational polygon with pointed ends. The power dial is the layer: p = 1 is the clothoid, p = 2 and 3 hold the turn back to the apsis and curl the tail. So each billow can be placed, repeated and stored without a float deciding its edge. What is not exact is the compositing: tone and transparency are design numbers, not geometry.
 
@@ -55,13 +59,13 @@ Two variants are worth keeping. A **cumulus** (above) has a flat base and a dome
 
 A veil is judged by what it leaves legible. Four standard patterns -- a Siemens star, an eleven-step grey wedge, colour bars and a chequer with a crosshair -- sit under the same billows as the works: two on top, where the cloud is densest and meets the top of the image, two below, where it drifts. Each is sampled on a grid and the composited alpha is reported as mean, 95th percentile and worst. Both versions are solved to the same peak, 80 per cent -- the number chosen on the slider below -- so the comparison is about where the density lands, not how strong it is. The gate reads the row mean, because the mean is how much of the image is covered: top mean under 0.25 (a hot corner is allowed up to 0.50), bottom mean under 0.12 (up to 0.30).
 
-![v1 under the four patterns: two on top, two below.](fig/veil-test-v1.svg)
+![Fig. 5 · g to j: v1 under the four patterns, two on top, two below.](fig/veil-test-v1.svg)
 
-*v1 under the four patterns: two on top, two below.*
+*Fig. 5 · g to j: v1 under the four patterns, two on top, two below.*
 
-![v2 under the four patterns: two on top, two below.](fig/veil-test-v2.svg)
+![Fig. 6 · k to n: v2 under the four patterns.](fig/veil-test-v2.svg)
 
-*v2 under the four patterns: two on top, two below.*
+*Fig. 6 · k to n: v2 under the four patterns.*
 
 | version | pattern | row | mean | p95 | worst |
 | --- | --- | --- | --- | --- | --- |
