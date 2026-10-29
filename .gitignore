@@ -10,3 +10,4 @@ reference/inbox/*
 **/.DS_Store
 reference/theory/*
 !reference/theory/README.md
+node_modules
