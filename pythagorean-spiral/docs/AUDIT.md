@@ -144,8 +144,8 @@ Recommendation: keep this as a study at the span layer, and do not touch
 ## 6. Reproduce
 
 ```sh
-cd triples-clothoid
+cd pythagorean-spiral
 ../.venv/bin/python -m unittest discover -s tests -t .     # 36 tests
-../.venv/bin/python -m triples_clothoid.cli --list-closures
-cd .. && .venv/bin/python triples-clothoid/scripts/compare_bertolazzi.py
+../.venv/bin/python -m pythagorean_spiral.cli --list-closures
+cd .. && .venv/bin/python pythagorean-spiral/scripts/compare_bertolazzi.py
 ```

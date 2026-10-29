@@ -4,8 +4,8 @@ import math
 import unittest
 from fractions import Fraction
 
-from triples_clothoid.exact import Dir
-from triples_clothoid.triples import Triple, primitive, thinnest, thinnest_consecutive
+from pythagorean_spiral.exact import Dir
+from pythagorean_spiral.triples import Triple, primitive, thinnest, thinnest_consecutive
 
 
 class TestDir(unittest.TestCase):

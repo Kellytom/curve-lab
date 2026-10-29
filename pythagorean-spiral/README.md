@@ -1,4 +1,4 @@
-# triples-clothoid
+# pythagorean-spiral
 
 Clothoid-shaped chains built from Pythagorean triangles, in exact rational
 arithmetic. No `sin`, no `cos`, no floats in the geometry: a heading is a pair
@@ -11,10 +11,10 @@ package yet.
 ## Run
 
 ```sh
-cd triples-clothoid
-../.venv/bin/python -m triples_clothoid.cli --mode lobe --steps 15 --length 3121
-../.venv/bin/python -m triples_clothoid.cli --mode hook --multiplier 3 --n-out 5 --out /tmp/hook.svg
-../.venv/bin/python -m triples_clothoid.cli --list-closures
+cd pythagorean-spiral
+../.venv/bin/python -m pythagorean_spiral.cli --mode lobe --steps 15 --length 3121
+../.venv/bin/python -m pythagorean_spiral.cli --mode hook --multiplier 3 --n-out 5 --out /tmp/hook.svg
+../.venv/bin/python -m pythagorean_spiral.cli --list-closures
 ../.venv/bin/python -m unittest discover -s tests -t .
 ../.venv/bin/python scripts/compare_bertolazzi.py   # from the repo root
 ```
@@ -44,13 +44,13 @@ on the integer solutions of `T(N) = m*T(n_out)` and `j(j+1) = 2n(n-1)`.
 
 | Path | What |
 |---|---|
-| `triples_clothoid/exact.py` | `Dir`: an exact unit direction, closed under multiplication |
-| `triples_clothoid/triples.py` | primitive triples, thinness, double-angle twin |
-| `triples_clothoid/spiral.py` | `Spiral`: the chord chain; exact nodes; the equivalent clothoid |
-| `triples_clothoid/closure.py` | which turn sums cancel, exactly |
-| `triples_clothoid/design.py` | the four named constructions |
-| `triples_clothoid/spans.py` | chords to cubics, in `clothoid_lab`'s span format |
-| `triples_clothoid/svg.py` | a small writer; y is flipped here, once |
+| `pythagorean_spiral/exact.py` | `Dir`: an exact unit direction, closed under multiplication |
+| `pythagorean_spiral/triples.py` | primitive triples, thinness, double-angle twin |
+| `pythagorean_spiral/spiral.py` | `Spiral`: the chord chain; exact nodes; the equivalent clothoid |
+| `pythagorean_spiral/closure.py` | which turn sums cancel, exactly |
+| `pythagorean_spiral/design.py` | the four named constructions |
+| `pythagorean_spiral/spans.py` | chords to cubics, in `clothoid_lab`'s span format |
+| `pythagorean_spiral/svg.py` | a small writer; y is flipped here, once |
 | `docs/AUDIT.md` | every claim in the source notes, checked, and the verdicts |
 | `scripts/compare_bertolazzi.py` | the chain against the engine already in this repo |
 

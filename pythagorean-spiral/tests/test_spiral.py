@@ -4,9 +4,9 @@ import math
 import unittest
 from fractions import Fraction
 
-from triples_clothoid import design
-from triples_clothoid.spiral import Spiral, triangular
-from triples_clothoid.triples import thinnest
+from pythagorean_spiral import design
+from pythagorean_spiral.spiral import Spiral, triangular
+from pythagorean_spiral.triples import thinnest
 
 THIN = thinnest(3125)
 

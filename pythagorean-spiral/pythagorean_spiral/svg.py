@@ -16,7 +16,7 @@ def _fmt(v: float) -> str:
 
 
 def document(path, spans: list[dict], page=(200.0, 200.0), margin: float = 10.0,
-             title: str = "triples-clothoid", marks: bool = True) -> str:
+             title: str = "pythagorean-spiral", marks: bool = True) -> str:
     pts = path.floats()
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]

@@ -6,8 +6,8 @@ are carried as exact rational unit vectors, so the coordinates are rational at
 every node; `Fraction` is the data type, and no `sin` or `cos` is ever
 evaluated to build the geometry.
 
-    from triples_clothoid import design
-    from triples_clothoid.triples import thinnest
+    from pythagorean_spiral import design
+    from pythagorean_spiral.triples import thinnest
 
     path = design.lobe(thinnest(3125), steps=7)
     path.final          # exact Fractions

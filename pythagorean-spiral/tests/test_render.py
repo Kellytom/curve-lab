@@ -5,8 +5,8 @@ import sys
 import unittest
 from pathlib import Path
 
-from triples_clothoid import design, spans as spanmod, svg
-from triples_clothoid.triples import thinnest
+from pythagorean_spiral import design, spans as spanmod, svg
+from pythagorean_spiral.triples import thinnest
 
 THIN = thinnest(3125)
 REPO = Path(__file__).resolve().parents[2]

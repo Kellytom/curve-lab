@@ -5,7 +5,7 @@ clothoid with `kappa0 = alpha/(2L)` and `kd = alpha/L^2`.  If that is true, the
 node *headings* must agree with the engine's tangent at `s = k*L` to rounding,
 and the node *positions* must sit within one chord of the engine's curve.
 
-Run from the repository root:  .venv/bin/python triples-clothoid/scripts/compare_bertolazzi.py
+Run from the repository root:  .venv/bin/python pythagorean-spiral/scripts/compare_bertolazzi.py
 """
 
 from __future__ import annotations
@@ -16,12 +16,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "triples-clothoid"))
+sys.path.insert(0, str(ROOT / "pythagorean-spiral"))
 
 from clothoid_lab import engine                      # noqa: E402
 from clothoid_lab.model import Design, Segment       # noqa: E402
-from triples_clothoid import design as tdesign        # noqa: E402
-from triples_clothoid.triples import thinnest         # noqa: E402
+from pythagorean_spiral import design as tdesign        # noqa: E402
+from pythagorean_spiral.triples import thinnest         # noqa: E402
 
 
 def main() -> int:

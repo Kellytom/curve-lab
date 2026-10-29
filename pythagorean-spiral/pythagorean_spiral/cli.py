@@ -66,7 +66,7 @@ def report(path: Spiral, digits: int = 6) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    p = argparse.ArgumentParser(prog="triples-clothoid", description=__doc__)
+    p = argparse.ArgumentParser(prog="pythagorean-spiral", description=__doc__)
     p.add_argument("--triangle", default="thin",
                    help="'thin', or a primitive triple like 79-3120-3121")
     p.add_argument("--limit", type=int, default=3125,
@@ -109,7 +109,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.out:
         text = svg.document(path, curves, page=(args.page, args.page),
-                            title=f"triples-clothoid {path.triangle}")
+                            title=f"pythagorean-spiral {path.triangle}")
         with open(args.out, "w", encoding="utf-8") as fh:
             fh.write(text)
         print(f"wrote         {args.out}")

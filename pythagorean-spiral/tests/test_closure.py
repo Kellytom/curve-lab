@@ -2,7 +2,7 @@
 
 import unittest
 
-from triples_clothoid.closure import (
+from pythagorean_spiral.closure import (
     closure_pairs, g2_pairs, inverse_triangular, triangular,
 )
 
