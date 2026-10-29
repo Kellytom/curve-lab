@@ -169,9 +169,12 @@ remote MVP now exist.
   `--power` on the CLI. **Join/fork landed too:** `Spiral.knots()`, `fork()`
   (angle as triangle steps or quarter turns, never degrees) and `joined()`
   asserting exact point and vector equality; the explainer's branch figure is
-  now drawn by them. 90 tests in the spike. The chord budget is the base
-  angle only: at p > 1 the last chord turns `(n-1)**p` times it. Next in the
-  spike is the float hybrid; the spike stays off the W01→W04 path.
+  now drawn by them. 90 tests. The chord budget is the base angle only: at
+  p > 1 the last chord turns `(n-1)**p` times it. This is the exact **spine
+  layer**, central to the curve work, not a spike — it is just not yet
+  imported by `clothoid_lab` (promotion gate in
+  `pythagorean-spiral/docs/HANDOVER.md`). Next action there: the float hybrid,
+  which lifts the ~300-node exact ceiling.
 - **Span bridge:** `interpolate.design_from_spans(spans)` turns a recovered or
   grammar-produced cubic chain into a `Design`, one clothoid segment per span,
   marked G1. This is the entry point a W03 port consumes.

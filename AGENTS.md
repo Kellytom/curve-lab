@@ -49,7 +49,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
-| `pythagorean-spiral/` | spike: exact Pythagorean-triangle chains; span layer only, not wired in, off the W01→W04 path |
+| `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `docs/HANDOFF.md` | current truth |
 | `next-fhandoff.md` | one action |
 

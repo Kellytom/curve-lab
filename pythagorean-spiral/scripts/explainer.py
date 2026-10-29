@@ -504,8 +504,8 @@ BLOCKS = [
     ("p", "Smooth curves that connect to each other and branch from each other. "
           "A chain of equal chords, each turned by a whole number of right-triangle "
           "angles, carried in exact rational arithmetic, and drawn as cubic Béziers."),
-    ("p", "This is a spike in `pythagorean-spiral/`. It is not wired into "
-          "`clothoid_lab/`, it is not on the W01–W04 path, and its curve is an "
+    ("p", "This is the spine layer in `pythagorean-spiral/`: central to the "
+          "curve work, though not yet wired into `clothoid_lab/`. Its curve is an "
           "imitation of a clothoid rather than a clothoid. Everything below is "
           "either measured by the code beside it or proved, and the claims that did "
           "not survive are in `docs/AUDIT.md`."),
