@@ -95,6 +95,9 @@ def main(argv: list[str] | None = None) -> int:
                    help="hook: force an exit length instead of the first closure")
     p.add_argument("--length", default="1", help="chord length, integer or a/b")
     p.add_argument("--page", type=float, default=200.0)
+    p.add_argument("--apsis", default="sharp", choices=["sharp", "smooth"],
+                   help="sharp: the exact corner at a curvature reversal; "
+                        "smooth: round it and overshoot the curvature")
     p.add_argument("--max-turn", type=float, default=20.0,
                    help="degrees of heading change allowed inside one cubic")
     p.add_argument("--brief", action="store_true",
@@ -121,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
     path = _build(args, triangle)
     print(report(path, exact=args.exact, brief=args.brief))
 
-    curves = spanmod.spans(path, math.radians(args.max_turn))
+    curves = spanmod.spans(path, math.radians(args.max_turn), apsis=args.apsis)
     nodes = path.floats()
     worst = max((spanmod.deviation(s, nodes) for s in curves), default=0.0)
     floor = spanmod.sagitta(path)
@@ -131,6 +134,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.out:
         text = svg.document(path, curves, page=(args.page, args.page),
+                            marks=False,
                             title=f"pythagorean-spiral {path.triangle}")
         with open(args.out, "w", encoding="utf-8") as fh:
             fh.write(text)

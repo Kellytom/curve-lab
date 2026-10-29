@@ -101,6 +101,15 @@ worst fit error        0.0289     on a 63-unit figure
 chain sagitta          0.0129
 ```
 
+The apsis is the one place the drawing has to choose, because the chain's curvature jumps there by twice its peak and no cubic chain follows that smoothly. `apsis="sharp"` keeps the corner, which is the chain's own turn to the digit. `apsis="smooth"` rounds it, which draws a curve the data does not contain — the fit has to bend harder than the chain ever does:
+
+| apsis | corner | peak curvature | fit error |
+| --- | --- | --- | --- |
+| sharp (default) | 5.904 deg, exact | 1.18x the chain | 0.0289 |
+| smooth | none | 3.00x the chain | 0.0129 |
+
+A genuinely smooth apsis cannot come from the renderer at all: it has to come from the turn schedule, which then has to pass through zero curvature and come back. Exactly closing chains of that kind exist only at `j(j+1) = 2n(n-1)` — n = 2, 14, 84 — so at the resolution the curl needs there is no smooth, exactly closing apsis available. The corner is not a rendering defect; it is the arithmetic.
+
 The fit sits at twice the resolution of the chords it interpolates, because the apsis corner has to be cut across rather than rounded; away from the apsis it is at the floor. On a 200 mm page that gap is about 0.09 mm: below what the page can show.
 
 

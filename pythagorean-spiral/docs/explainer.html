@@ -68,6 +68,12 @@ everywhere else         G1         (tangent jump 3e-13 deg)
 peak drawn curvature   0.121      the chain's own peak is 0.103
 worst fit error        0.0289     on a 63-unit figure
 chain sagitta          0.0129</pre>
+<p>The apsis is the one place the drawing has to choose, because the chain's curvature jumps there by twice its peak and no cubic chain follows that smoothly. `apsis="sharp"` keeps the corner, which is the chain's own turn to the digit. `apsis="smooth"` rounds it, which draws a curve the data does not contain — the fit has to bend harder than the chain ever does:</p>
+<table><tr><th>apsis</th><th>corner</th><th>peak curvature</th><th>fit error</th></tr>
+<tr><td>sharp (default)</td><td>5.904 deg, exact</td><td>1.18x the chain</td><td>0.0289</td></tr>
+<tr><td>smooth</td><td>none</td><td>3.00x the chain</td><td>0.0129</td></tr>
+</table>
+<p>A genuinely smooth apsis cannot come from the renderer at all: it has to come from the turn schedule, which then has to pass through zero curvature and come back. Exactly closing chains of that kind exist only at `j(j+1) = 2n(n-1)` — n = 2, 14, 84 — so at the resolution the curl needs there is no smooth, exactly closing apsis available. The corner is not a rendering defect; it is the arithmetic.</p>
 <p>The fit sits at twice the resolution of the chords it interpolates, because the apsis corner has to be cut across rather than rounded; away from the apsis it is at the floor. On a 200 mm page that gap is about 0.09 mm: below what the page can show.</p>
 <h2>7. Resolution, and what exactness is for</h2>
 <p>Coordinates are integers over `c^T(steps−1)`, so finer chords cost steeply:</p>

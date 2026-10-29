@@ -22,7 +22,8 @@ import math
 from .spiral import Spiral
 
 
-def node_tangents(path: Spiral, sharp: float = math.radians(12.0)):
+def node_tangents(path: Spiral, sharp: float = math.radians(12.0),
+                  apsis: str = "sharp"):
     """Two tangents per node: the one arriving, and the one leaving.
 
     A node whose turn is under `sharp` is smoothed onto the bisector, so
@@ -43,8 +44,8 @@ def node_tangents(path: Spiral, sharp: float = math.radians(12.0)):
         # smoothing it hands the two spans a tangent that does not lie on
         # their own chords, and a single short chord forced to bow between
         # them overshoots the chain's curvature by 3x. Keep the corner.
-        if 0 < k < len(turns) and turns[k] and turns[k - 1] \
-                and (turns[k] > 0) != (turns[k - 1] > 0):
+        if apsis == "sharp" and 0 < k < len(turns) and turns[k] \
+                and turns[k - 1] and (turns[k] > 0) != (turns[k - 1] > 0):
             continue
         a, b = heads[k - 1], heads[k]
         vx, vy = math.cos(a) + math.cos(b), math.sin(a) + math.sin(b)
@@ -55,12 +56,12 @@ def node_tangents(path: Spiral, sharp: float = math.radians(12.0)):
 
 
 def spans(path: Spiral, max_turn: float = math.radians(50.0),
-          sharp: float = math.radians(12.0)) -> list[dict]:
+          sharp: float = math.radians(12.0), apsis: str = "sharp") -> list[dict]:
     """Group the chords of `path` into cubics, each within `max_turn`."""
     nodes = path.floats()
     if len(nodes) < 2:
         return []
-    leave, arrive = node_tangents(path, sharp)
+    leave, arrive = node_tangents(path, sharp, apsis)
     heads = [h.angle for h in path.headings]
 
     alpha = path.triangle.radians
@@ -89,7 +90,7 @@ def spans(path: Spiral, max_turn: float = math.radians(50.0),
 
     out = []
     for i, j in groups:
-        if j - i == 1:
+        if j - i == 1 and apsis == "sharp":
             # one chord: draw the chord.  Smoothing one end of a single short
             # span asks the cubic to bend 3 degrees over one chord, which
             # overshoots the chain's curvature by 2x.  The straight chord is

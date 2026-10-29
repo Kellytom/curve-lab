@@ -80,6 +80,15 @@ class TestFittedCurve(unittest.TestCase):
         corner = max(abs(t) for t in self.path.turns) * self.path.triangle.radians
         self.assertAlmostEqual(spanmod.join_kink(self.curves), corner, places=9)
 
+    def test_the_apsis_is_a_choice_and_both_modes_do_what_they_say(self):
+        corner = max(abs(t) for t in self.path.turns) * self.path.triangle.radians
+        sharp = spanmod.spans(self.path, math.radians(20), apsis="sharp")
+        smooth = spanmod.spans(self.path, math.radians(20), apsis="smooth")
+        self.assertAlmostEqual(spanmod.join_kink(sharp), corner, places=9)
+        self.assertLess(spanmod.join_kink(smooth), 1e-9)
+        self.assertGreater(spanmod.max_curvature(smooth),
+                           2.0 * spanmod.max_curvature(sharp))
+
     def test_the_cubics_never_overshoot_the_chain_curvature(self):
         peak = max(abs(t) for t in self.path.turns) * self.path.triangle.radians
         self.assertLess(spanmod.max_curvature(self.curves), 1.3 * peak)
