@@ -1,0 +1,202 @@
+{
+ "gate": {
+  "top": [
+   0.25,
+   0.5
+  ],
+  "bottom": [
+   0.12,
+   0.3
+  ]
+ },
+ "canvas": [
+  0.0,
+  0.0,
+  120.0,
+  80.0
+ ],
+ "versions": {
+  "v1": {
+   "target_peak": 0.8,
+   "veil": 0.1038,
+   "billows": 58,
+   "layers": {
+    "haze": 0.0145,
+    "bank": 0.0353,
+    "billow": 0.0477,
+    "crown": 0.0623,
+    "shade": 0.0125,
+    "light": 0.0166
+   },
+   "pass": false,
+   "panels": [
+    {
+     "row": "top",
+     "side": "left",
+     "pattern": "Siemens star",
+     "box": [
+      14.0,
+      26.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.4282,
+     "p95": 0.5528,
+     "max": 0.5873,
+     "gate": [
+      0.25,
+      0.5
+     ],
+     "pass": false
+    },
+    {
+     "row": "top",
+     "side": "right",
+     "pattern": "grey step wedge",
+     "box": [
+      68.0,
+      26.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.4241,
+     "p95": 0.5891,
+     "max": 0.6088,
+     "gate": [
+      0.25,
+      0.5
+     ],
+     "pass": false
+    },
+    {
+     "row": "bottom",
+     "side": "left",
+     "pattern": "colour bars",
+     "box": [
+      14.0,
+      6.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.104,
+     "p95": 0.2224,
+     "max": 0.2321,
+     "gate": [
+      0.12,
+      0.3
+     ],
+     "pass": true
+    },
+    {
+     "row": "bottom",
+     "side": "right",
+     "pattern": "chequer + cross",
+     "box": [
+      68.0,
+      6.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.1116,
+     "p95": 0.2142,
+     "max": 0.2687,
+     "gate": [
+      0.12,
+      0.3
+     ],
+     "pass": true
+    }
+   ]
+  },
+  "v2": {
+   "target_peak": 0.8,
+   "veil": 0.7364,
+   "billows": 90,
+   "layers": {
+    "haze": 0.0736,
+    "bank": 0.0663,
+    "billow": 0.2209,
+    "crown": 0.3093
+   },
+   "pass": true,
+   "panels": [
+    {
+     "row": "top",
+     "side": "left",
+     "pattern": "Siemens star",
+     "box": [
+      14.0,
+      26.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.1308,
+     "p95": 0.3014,
+     "max": 0.4171,
+     "gate": [
+      0.25,
+      0.5
+     ],
+     "pass": true
+    },
+    {
+     "row": "top",
+     "side": "right",
+     "pattern": "grey step wedge",
+     "box": [
+      68.0,
+      26.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.0849,
+     "p95": 0.2399,
+     "max": 0.475,
+     "gate": [
+      0.25,
+      0.5
+     ],
+     "pass": true
+    },
+    {
+     "row": "bottom",
+     "side": "left",
+     "pattern": "colour bars",
+     "box": [
+      14.0,
+      6.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.0892,
+     "p95": 0.2051,
+     "max": 0.2636,
+     "gate": [
+      0.12,
+      0.3
+     ],
+     "pass": true
+    },
+    {
+     "row": "bottom",
+     "side": "right",
+     "pattern": "chequer + cross",
+     "box": [
+      68.0,
+      6.0,
+      38.0,
+      16.0
+     ],
+     "mean": 0.045,
+     "p95": 0.1859,
+     "max": 0.2636,
+     "gate": [
+      0.12,
+      0.3
+     ],
+     "pass": true
+    }
+   ]
+  }
+ }
+}

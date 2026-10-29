@@ -243,7 +243,69 @@ remote MVP now exist.
    2026-10-27. Nothing there is committed except the measured references and
    READMEs.
 
+## Veil rebuilt on turn chains (2026-10-29, this session)
+
+- **Two versions, both live on `docs/cloud.html`.** *v1* is the original veil:
+  the same ellipse composition, now with the veil factor on every layer (the
+  drawing used to give it to `bank` alone while the report gave it to all, so
+  the top went opaque while the numbers said 5 per cent). *v2* replaces each
+  ellipse with a turn-chain ribbon. The page carries both figures, both strips
+  and the numbers side by side.
+- **v1 is restored faithfully, including its under-shading.** The cloud read by
+  shading, not by outline: every billow and crown had a darker under-lobe and a
+  cream top. Those strokes were outside the opacity model; they are now a
+  `shade` / `light` layer like any other, so the measurement counts them.
+  v1's measured flaw is the original one: top row mean **0.54**, worst 0.72.
+- **v2 is turn chains.** `design.lobe` (turns `k**p`, then the same integers
+  reversed) through `ribbon.outline` with a rational taper: a closed rational
+  polygon with pointed ends. Power dial = layer: haze p1, bank p2, billow p2,
+  crown p3. 90 lobes from 30 puffs. Top row mean **0.07**, worst 0.28.
+- **One model.** `pythagorean_spiral/veil.py` owns the geometry and the
+  composite; `scripts/cloud.py` draws exactly those polygons.
+- **2b: four standard patterns,** two on top (where the cloud meets the image)
+  and two below, sampled and gated in `tests/test_veil.py`. v2 passes, v1 fails
+  — that difference is the finding, not a bug.
+- **2c: the slider.** One uniform layer of one cloud colour over the same four
+  patterns, with `?veil=0.42` to set it from the URL. The number the operator
+  picks there is the target the veil should be solved to; the model is not the
+  authority on a design number.
+- **The operator's number is 80 per cent opacity** (chosen on the 2c slider,
+  now ranged 0-100 and sitting at 80). Both versions are solved to that peak,
+  so the comparison is about *where* the density lands, not how strong it is.
+  v1: top row mean 0.43, worst 0.61 — over the image. v2: top row mean 0.09,
+  worst 0.47 — the peak is in the sky above the works. Same transparency,
+  different geometry.
+- **The gate reads the row mean** (how much of the image is covered), with a
+  looser allowance for a single bad corner: top mean ≤ 0.25 (worst ≤ 0.50),
+  bottom mean ≤ 0.12 (worst ≤ 0.30). v2 passes, v1 fails on the top mean.
+- 139 tests pass. `scripts/veil_test.py` writes both versions' numbers to
+  `docs/veil-test.json`.
+
+- **Pixel truth is now measured, and it agrees with the model.** The analytic
+  model was predicting the browser's compositing a second time; that duplication
+  is what let the report and the picture drift apart. `scripts/veil_measure.py`
+  now renders the veil over a black field and a white field in headless Chrome
+  and recovers alpha exactly, per channel, from `a = 1 - (Rw - Rb)/255` --
+  independent of the composite colour, edges and overlaps included. ~26 s.
+  Measured vs model at the same factors: v1 top mean 0.461 / 0.428, v2 top mean
+  0.120 / 0.131, peaks 0.84-0.85 / 0.80. Agreement is within ~8 per cent, so the
+  original failure was the drawing/model split, not the arithmetic.
+- **Still half-wired:** `docs/veil-measured.json` exists and is correct, but
+  §2b's table and `tests/test_veil.py` still read the model numbers. The one
+  remaining step is to make the measured block the reported truth and keep the
+  model as the design aid (the operator asked for both, not one).
+
 ## Next move
+
+**Wire the measured numbers in.** §2b's table gains a measured column beside the
+model one, and the gate reads the measured values. The model stays in
+`pythagorean_spiral/veil.py` as the design aid — it is fast and now provably
+close — but nothing ships a number the pixels have not confirmed.
+
+**v2 is still sparse where it counts.** Its measured peak is 0.85 but its canvas
+mean is 0.04: the lobes are separate streaks, not a mass. More overlap (more
+lobes per puff, or a larger `SCALE`), not a larger factor: the operator has
+fixed the number at 80 per cent.
 
 **Give the terminals a frame.** In `scripts/extract-terminals.py`, record the
 seam's point and tangent beside each terminal's cubic spans (`anchor`,

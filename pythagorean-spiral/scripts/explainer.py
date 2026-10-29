@@ -724,6 +724,8 @@ def to_md(blocks, fig_names):
             caption = rest[1]
             out.append(f"![{caption}](fig/{fig_names[n]})\n\n*{caption}*\n")
             n += 1
+        elif kind == "raw":
+            out.append(rest[0])
         elif kind == "table":
             rows = rest[0]
             out.append("| " + " | ".join(rows[0]) + " |")
@@ -777,6 +779,8 @@ def to_html(blocks, figs, title):
         elif kind == "fig":
             out.append(f"<figure>{figs[n][0]}<figcaption>{rest[1]}</figcaption></figure>")
             n += 1
+        elif kind == "raw":
+            out.append(rest[0])
         elif kind == "table":
             rows = rest[0]
             out.append("<table><tr>" + "".join(f"<th>{c}</th>" for c in rows[0]) + "</tr>")

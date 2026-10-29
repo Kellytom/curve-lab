@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from pythagorean_spiral import place  # noqa: E402
+from pythagorean_spiral import place, veil as veil_mod  # noqa: E402
 from pythagorean_spiral.exact import Dir  # noqa: E402
 from pythagorean_spiral.spiral import Spiral  # noqa: E402
 from pythagorean_spiral.triples import for_angle  # noqa: E402
@@ -42,6 +42,8 @@ PALETTE = {
     "cool_dark": "#71777c",
     "warm": "#c3b49b",
     "warm_dark": "#9b8a70",
+    "shade": "#9b8a70",
+    "light": "#fbf6ea",
 }
 
 STOPS = [(0, (143, 127, 102)), (128, (195, 180, 155)), (255, (242, 234, 217))]
@@ -57,7 +59,7 @@ def circle_points(per_degree: float = 2.0):
 
 CIRCLE, TRI = circle_points()
 STATUE_SIZE = (940, 1185)
-VEIL_TARGET = 0.9
+VEIL_TARGET = {"v1": 0.80, "v2": 0.80}  # operator's number: 80% opacity
 
 
 def tone_photo(src: Path, out: Path, width=460):
@@ -118,86 +120,183 @@ def billow(c, cx, cy, rx, ry, tilt=0, fill=None, alpha=0.4, edge=0.0):
     return pts
 
 
-# a cumulus: a tower with shaded lobes, not a band
-CLOUD = [
-    # haze: the outer breath
-    (24, 39, 6, 4, -4, "haze"), (90, 40, 5, 4, 3, "haze"),
-    (30, 36, 5, 3.5, 5, "haze"),
-    (40, 71, 4, 3.5, 5, "haze"), (70, 68, 4, 3.5, -5, "haze"),
-    # base: the flat underside
-    (38, 34, 9, 4.5, 2, "bank"), (52, 38, 11, 4.5, -1, "bank"),
-    (66, 36, 9, 4.5, 3, "bank"), (79, 41, 7, 4, -3, "bank"),
-    # the veil down over the works, so the whole image is covered
-    (24, 20, 9, 6, -3, "bank"), (42, 18, 11, 6, 3, "bank"),
-    (60, 19, 11, 6, -2, "bank"), (78, 21, 9, 6, 4, "bank"),
-    (32, 27, 10, 8, -5, "billow"), (50, 29, 11, 9, 4, "billow"),
-    (68, 28, 10, 9, -3, "billow"), (84, 30, 8, 7, 5, "billow"),
-    # only the bottom layer reaches the work; the upper layers stay above it
-    (36, 8, 10, 4.5, -2, "bank"), (56, 7, 11, 4.5, 3, "bank"),
-    (76, 8, 10, 4.5, -3, "bank"),
-    # lower lobes
-    (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
-    (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
-    # middle
-    (42, 52, 8, 7, 4, "billow"), (56, 55, 9, 8, -3, "billow"),
-    (70, 52, 7, 7, 5, "billow"),
-    # upper and crown
-    (48, 62, 6, 6, -4, "crown"), (60, 63, 6, 6, 3, "crown"),
-    (54, 69, 5, 4.5, -3, "crown"),
-]
+# the billows live in pythagorean_spiral.veil: turn-chain ribbons, one polygon
+# each, shared by the drawing and the opacity report
+CLOUD = veil_mod.BILLOWS
+LAYER = veil_mod.V2_LAYER
 
-VEIL = 0.14  # solved at run time: see solve_veil()
-LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60}
+VEIL = {"v1": 0.05, "v2": 0.32}  # solved at run time: see solve_veil()
 _FILTER = [0]
 
 
-def _inside(cx, cy, rx, ry, tilt, x, y):
-    """Is (x,y) inside the tilted ellipse? Whole triangle angles for tilt."""
-    a = math.radians(tilt * TRI.degrees)
-    dx, dy = x - cx, y - cy
-    u = dx * math.cos(a) + dy * math.sin(a)
-    v = -dx * math.sin(a) + dy * math.cos(a)
-    return (u / rx) ** 2 + (v / ry) ** 2 <= 1.0
+def veil_opacity(x, y, version="v2", veil=None):
+    """Composited alpha of every billow covering a point, at a veil setting.
 
-
-def veil_opacity(x, y, veil=None):
-    """Composited alpha of every billow covering a point, at a veil setting."""
-    v = VEIL if veil is None else veil
-    a = 0.0
-    for cx, cy, rx, ry, tilt, layer in CLOUD:
-        if _inside(cx, cy, rx, ry, tilt, x, y):
-            a = a + (1 - a) * LAYER[layer] * v
-    return a
-
-
-def artwork_worst_opacity(veil=None, size=None):
-    """The most opaque point over the works: the veil is judged there."""
-    pw, ph = size or (STATUE_SIZE[0], STATUE_SIZE[1])
-    aspect = pw / ph
-    hs = 32.0
-    aw = hs * aspect
-    xs = [16 + aw * i / 12 for i in range(13)] + [100 - aw + aw * i / 12
-                                                  for i in range(13)]
-    ys = [10 + hs * j / 12 for j in range(13)]
-    return max(veil_opacity(x, y, veil) for x in xs for y in ys)
-
-
-def solve_veil(target_contrast=0.95):
-    """The veil setting whose worst artwork point keeps the total under limit.
-
-    The bottom layer is the veil; the upper layers are kept off the work, so
-    the sampled opacity there is the bottom layer's alone. Bisection, because
-    the opacity is monotone in the veil.
+    The same function the drawing uses, so the report cannot drift from the
+    picture: every layer carries the veil factor, as it does in `draw_cloud`.
     """
-    limit = 1.0 - target_contrast
-    lo, hi = 0.0, 1.0
-    for _ in range(40):
-        mid = (lo + hi) / 2
-        if artwork_worst_opacity(mid) > limit:
-            hi = mid
-        else:
-            lo = mid
-    return lo
+    if veil is None:
+        veil = VEIL[version]
+    return veil_mod.alpha(x, y, veil, version)
+
+
+def _veil_test_figure(version="v2"):
+    """Section 2b's drawing: the four patterns under one version's veil.
+
+    Imported inside the call because `veil_test` imports this module for the
+    palette and `draw_cloud`; a module-level import would close the cycle.
+    """
+    import veil_test
+    return veil_test.figure(VEIL[version], version)
+
+
+def _slider_html():
+    """A strip where the operator sets the veil by eye.
+
+    One uniform layer of one cloud colour over four test patterns: no layers,
+    no solved factor, no argument.  The number the slider lands on is the number
+    the model should be told to use.  `?veil=0.42` sets it from the URL, so the
+    page can be shown at a value without dragging.
+    """
+    def siemens():
+        spokes = 24
+        parts = []
+        for i in range(spokes):
+            a0 = 2 * math.pi * i / spokes
+            a1 = 2 * math.pi * (i + 0.5) / spokes
+            fill = "#14120e" if i % 2 == 0 else "#f7f4ec"
+            parts.append(
+                f'<polygon points="50,50 {50 + 46 * math.cos(a0):.2f},'
+                f'{50 + 46 * math.sin(a0):.2f} '
+                f'{50 + 46 * math.cos(a1):.2f},{50 + 46 * math.sin(a1):.2f}" '
+                f'fill="{fill}"/>')
+        return "".join(parts)
+
+    def wedge():
+        return "".join(
+            f'<rect x="{100 * i / 11:.2f}" y="0" width="{100 / 11 + 0.2:.2f}" '
+            f'height="100" fill="#{round(255 * i / 10):02x}'
+            f'{round(255 * i / 10):02x}{round(255 * i / 10):02x}"/>'
+            for i in range(11))
+
+    def bars():
+        cols = ["#c81e1e", "#e0a000", "#e8e000", "#1f9b3a",
+                "#1f6fd0", "#7a3fbf", "#f7f4ec", "#101010"]
+        return "".join(
+            f'<rect x="{100 * i / 8:.2f}" y="0" width="{100 / 8 + 0.2:.2f}" '
+            f'height="100" fill="{c}"/>' for i, c in enumerate(cols))
+
+    def chequer():
+        out = []
+        for j in range(6):
+            for i in range(10):
+                fill = "#14120e" if (i + j) % 2 == 0 else "#f7f4ec"
+                out.append(f'<rect x="{10 * i}" y="{100 / 6 * j:.2f}" width="10" '
+                           f'height="{100 / 6 + 0.2:.2f}" fill="{fill}"/>')
+        out.append('<line x1="0" y1="50" x2="100" y2="50" stroke="#c81e1e" '
+                   'stroke-width="1"/>')
+        out.append('<line x1="50" y1="0" x2="50" y2="100" stroke="#c81e1e" '
+                   'stroke-width="1"/>')
+        return "".join(out)
+
+    cells = [("Siemens star · top left", siemens()),
+             ("grey wedge · top right", wedge()),
+             ("colour bars · bottom left", bars()),
+             ("chequer · bottom right", chequer())]
+    strips = "".join(
+        f'<figure><svg viewBox="0 0 100 100" preserveAspectRatio="none" '
+        f'role="img" aria-label="{label}">{body}</svg>'
+        f'<figcaption>{label}</figcaption></figure>'
+        for label, body in cells)
+    return f'''<div class="veillab">
+<style>
+.veillab {{ margin: 22px 0 8px; }}
+.veillab .wrap {{ position: relative; border: 1px solid #d8ccae; }}
+.veillab .strips {{ display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  padding: 6px; background: #e6dbc9; }}
+.veillab figure {{ margin: 0; }}
+.veillab svg {{ display: block; width: 100%; height: 120px; border: 1px solid #cbbfa2; }}
+.veillab figcaption {{ font: 10px ui-monospace, Menlo, monospace; color: #7b6c4e;
+  padding-top: 3px; }}
+.veillab .veil {{ position: absolute; inset: 0; background: #ddd0bb;
+  opacity: 0.80; pointer-events: none; }}
+.veillab .controls {{ display: flex; gap: 14px; align-items: baseline;
+  margin-top: 12px; font: 12px ui-monospace, Menlo, monospace; color: #7b6c4e; }}
+.veillab input[type=range] {{ flex: 1; max-width: 420px; accent-color: #8c6a21; }}
+.veillab output {{ font-size: 15px; color: #2e2413; }}
+.veillab .note {{ font-size: 12px; color: #7b6c4e; margin-top: 6px; }}
+</style>
+<div class="wrap">
+  <div class="strips">{strips}</div>
+  <div class="veil" id="veil-layer"></div>
+</div>
+<div class="controls">
+  <label for="veil-alpha">veil</label>
+  <input id="veil-alpha" type="range" min="0" max="100" step="1" value="80">
+  <output id="veil-read" for="veil-alpha">80%</output>
+</div>
+<div class="note">One layer, one cloud colour (<code>#ddd0bb</code>). Top row is
+where the cloud meets the top of the work; bottom row is the drift. The number
+you settle on is the target the model should be solved to.</div>
+<script>
+(function () {{
+  var q = new URLSearchParams(location.search).get('veil');
+  var slider = document.getElementById('veil-alpha');
+  var layer = document.getElementById('veil-layer');
+  var read = document.getElementById('veil-read');
+  if (q !== null && !isNaN(parseFloat(q))) {{
+    var pct = Math.max(0, Math.min(100, parseFloat(q) * 100));
+    slider.value = Math.round(pct);
+  }}
+  function apply() {{
+    var v = slider.value / 100;
+    layer.style.opacity = v;
+    read.textContent = Math.round(v * 100) + '%';
+  }}
+  slider.addEventListener('input', apply);
+  apply();
+}})();
+</script>
+</div>'''
+
+
+def _veil_rows():
+    """Section 2b's table: one row per strip, per version, measured."""
+    import veil_test
+    rows = [["version", "pattern", "row", "mean", "p95", "worst"]]
+    for version in veil_mod.VERSIONS:
+        for r in veil_test.report(VEIL[version], version):
+            rows.append([version, r["pattern"], f'{r["row"]} {r["side"]}',
+                         f'{r["mean"]:.3f}', f'{r["p95"]:.3f}',
+                         f'{r["max"]:.3f}'])
+    return rows
+
+
+def works_boxes(sizes):
+    """The two work rectangles on the canvas: (x, y, w, h), y up."""
+    hs = 32.0
+    aw = hs * sizes[STATUE][0] / sizes[STATUE][1]
+    bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
+    return [(16, 10, aw, hs), (100 - bw, 10, bw, hs)]
+
+
+def artwork_worst_opacity(sizes, veil=None, version="v2"):
+    """The most opaque point over the works: the veil is judged there."""
+    if veil is None:
+        veil = VEIL[version]
+    return max(veil_mod.panel(b, veil, version=version)["max"]
+               for b in works_boxes(sizes))
+
+
+def solve_veil(target=0.55, version="v2"):
+    """The veil factor whose densest point anywhere reaches `target`.
+
+    Solved on the whole canvas, not on the works and not on one row, so the two
+    versions are compared at the same peak density: the difference between them
+    is then the geometry, not the strength.  Where that peak lands is the
+    finding -- on v1 it lands on the top of the image, on v2 above it.
+    """
+    return veil_mod.solve(target, None, version=version)
 
 
 def _cloud_filter(c, scale=8, blur=6):
@@ -214,29 +313,24 @@ def _cloud_filter(c, scale=8, blur=6):
     return fid
 
 
-def draw_cloud(c, only=None, veil=1.0, drop=0.0):
-    # a soft shadow where the mass meets the air, biased under the crown
-    if only is None:
-        c.poly([(22, 34), (48, 31), (74, 32), (96, 35), (88, 30), (42, 29)],
-               fill=PALETTE["shadow"], stroke="none", opacity=0.13 * veil)
-    cy = 0
+def draw_cloud(c, version="v2", only=None, veil=1.0, drop=0.0):
+    """Fill the billows of one version.
+
+    Every billow is drawn at `layers(version)[layer] * VEIL[version]` -- the
+    same number the opacity report composites, in both versions.  v1 is the
+    original ellipse cloud; v2 is the turn-chain cloud.  The displacement
+    filter softens the edge optically; it moves pixels, not the alpha model.
+    """
     fid = _cloud_filter(c)
+    table = veil_mod.layers(version)
+    factor = VEIL[version]
     c.out.append(f'<g filter="url(#{fid})">')
-    for cx, cy, rx, ry, tilt, layer in CLOUD:
+    for layer, pts in veil_mod.polygons(version):
         if only is not None and layer != only:
             continue
-        if layer in ("billow", "crown") and only is None:
-            # undersides give the lobes their edges even where the silhouette
-            # is smooth: a cloud reads by shading, not by outline
-            billow(c, cx + 1.8, cy - drop - 3.4, rx * 1.02, ry * 0.92, tilt,
-                   PALETTE["warm_dark"], 0.12 * veil)
-            billow(c, cx - 1.4, cy - drop + 2.6, rx * 0.84, ry * 0.78, tilt,
-                   "#fbf6ea", 0.16 * veil)
-        # only the bottom layer is the veil and carries the veil factor; the
-        # upper layers keep their body because they never reach the work
-        alpha = LAYER[layer] * (VEIL if layer == "bank" else 1.0)
-        billow(c, cx, cy - drop, rx, ry, tilt, PALETTE[layer],
-               alpha * veil, edge=2.6)
+        moved = [(x, y - drop) for x, y in pts]
+        c.poly(moved, fill=PALETTE[layer], stroke=PALETTE[layer], width=0.8,
+               opacity=table[layer] * (1.0 if only else factor) * veil)
     c.out.append('</g>')
 
 
@@ -271,7 +365,7 @@ def fig_tone(sizes):
     return ex.stack(rows, width=760, gap=8)
 
 
-def fig_veil(sizes):
+def fig_veil(sizes, version="v2"):
     c = ex.Canvas((0, 120), (0, 80), 800, 560)
     c.poly([(0, 80), (120, 80), (120, 0), (0, 0)], fill=WALL, stroke="none")
     hs = 32
@@ -279,8 +373,8 @@ def fig_veil(sizes):
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
     image_at(c, 16, 10, aw, hs, f"fig/{STATUE.name}")
     image_at(c, 100 - bw, 10, bw, hs, f"fig/{FRESCO.name}")
-    draw_cloud(c)
-    return c.svg("cloud over two works")
+    draw_cloud(c, version)
+    return c.svg(f"cloud over two works, {version}")
 
 
 def fig_conics():
@@ -315,10 +409,10 @@ def build_blocks(sizes):
                   "is hidden stays God's to reveal."),
         ("table", [["role", "tone", "use"],
                    ["wall", PALETTE["wall"], "the constant ground"],
-                   ["haze", PALETTE["haze"], f"outer breath, alpha {LAYER['haze'] * VEIL:.2f}"],
-                   ["bank", PALETTE["bank"], f"the flat base, alpha {LAYER['bank'] * VEIL:.2f}"],
-                   ["billow", PALETTE["billow"], f"volume, alpha {LAYER['billow'] * VEIL:.2f}"],
-                   ["crown", PALETTE["crown"], f"lit tops, alpha {LAYER['crown'] * VEIL:.2f}"],
+                   ["haze", PALETTE["haze"], f"outer breath, alpha {LAYER['haze'] * VEIL['v2']:.2f}"],
+                   ["bank", PALETTE["bank"], f"the flat base, alpha {LAYER['bank'] * VEIL['v2']:.2f}"],
+                   ["billow", PALETTE["billow"], f"volume, alpha {LAYER['billow'] * VEIL['v2']:.2f}"],
+                   ["crown", PALETTE["crown"], f"lit tops, alpha {LAYER['crown'] * VEIL['v2']:.2f}"],
                    ["shadow", PALETTE["shadow"], "under the mass, never black"]]),
         ("h2", "1. Tone first, then veil"),
         ("fig", lambda: fig_tone(sizes),
@@ -335,22 +429,32 @@ def build_blocks(sizes):
               "honestly by being visible."),
 
         ("h2", "2. The veil"),
-        ("fig", lambda: fig_veil(sizes),
-         "Four layers of billows over a toned statue and a toned fresco: the works stay legible, the edges soften."),
-        ("p", "The cloud is built from **exact ellipses**. A circle is a chain "
-              "with one triangle angle per chord; scaling it by two rational "
-              "radii and turning it by whole triangle angles gives an ellipse "
-              "whose every point is still rational. So each billow can be "
-              "placed on the integer lattice, repeated, mirrored and stored "
+        ("p", "Two versions, same composition, different geometry. **v1** is "
+              "the original cloud of exact ellipses -- the one that was right "
+              "in principle and only too opaque -- now with the veil factor on "
+              "every layer instead of the base alone. **v2** replaces each "
+              "ellipse with a turn-chain ribbon. Both are measured by the same "
+              "function and judged by the same strips."),
+        ("fig", lambda: fig_veil(sizes, "v1"),
+         "v1: the original ellipse cloud, one veil factor on every layer."),
+        ("fig", lambda: fig_veil(sizes, "v2"),
+         "v2: the same composition in turn-chain ribbons, one veil factor on every layer."),
+        ("p", "The cloud is built from **exact turn chains**, not circles. A "
+              "billow is a lobe whose turns run k**p and then reverse, so the "
+              "exit is parallel to the entry; a taper through "
+              "`ribbon.outline` turns it into a closed rational polygon with "
+              "pointed ends. The power dial is the layer: p = 1 is the "
+              "clothoid, p = 2 and 3 hold the turn back to the apsis and curl "
+              "the tail. So each billow can be placed, repeated and stored "
               "without a float deciding its edge. What is not exact is the "
               "compositing: tone and transparency are design numbers, not "
               "geometry."),
         ("code", f"layers   4   haze {LAYER['haze']}, bank {LAYER['bank']}, "
                  f"billow {LAYER['billow']}, crown {LAYER['crown']}\n"
-                 f"puffs    {len(CLOUD)}  ellipses, tilted by whole triangle angles\n"
+                 f"billows  {len(CLOUD)}  turn-chain ribbons: turns k**p, tapered\n"
                  "edge     fractal displacement + gaussian blur, optical only\n"
-                 f"veil     {VEIL:.2f}, solved to keep "
-                 f"{VEIL_TARGET:.0%} of the works' contrast\n"
+                 f"veil     v1 {VEIL['v1']:.3f} (peak {VEIL_TARGET['v1']:.0%}), "
+                 f"v2 {VEIL['v2']:.3f} (peak {VEIL_TARGET['v2']:.0%})\n"
                  "overlap  the sum does the softening\n"
                  "geometry exact; opacity and tone are choices"),
         ("p", "Two variants are worth keeping. A **cumulus** (above) has a flat "
@@ -360,6 +464,37 @@ def build_blocks(sizes):
               "of the work rather than rest above it. Both are the same palette "
               "and the same ellipses -- only the layout and the opacities "
               "differ."),
+
+        ("h2", "2b. Against four test patterns"),
+        ("p", "A veil is judged by what it leaves legible. Four standard "
+              "patterns -- a Siemens star, an eleven-step grey wedge, colour "
+              "bars and a chequer with a crosshair -- sit under the same "
+              "billows as the works: two on top, where the cloud is densest and "
+              "meets the top of the image, two below, where it drifts. Each is "
+              "sampled on a grid and the composited alpha is reported as mean, "
+              "95th percentile and worst. Both versions are solved to the same "
+              "peak, 80 per cent -- the number chosen on the slider below -- so "
+              "the comparison is about where the density lands, not how strong "
+              "it is. The gate reads the row mean, because the mean is how much "
+              "of the image is covered: top mean under 0.25 (a hot corner is "
+              "allowed up to 0.50), bottom mean under 0.12 (up to 0.30)."),
+        ("fig", lambda: _veil_test_figure("v1"),
+         "v1 under the four patterns: two on top, two below."),
+        ("fig", lambda: _veil_test_figure("v2"),
+         "v2 under the four patterns: two on top, two below."),
+        ("table", _veil_rows()),
+        ("p", "The numbers come from `pythagorean_spiral.veil`, the same "
+              "function the drawing fills, so a strip cannot pass on paper "
+              "while the picture covers it. `scripts/veil_test.py` writes the "
+              "standalone page and `tests/test_veil.py` holds the gate."),
+
+        ("h2", "2c. Set the transparency by eye"),
+        ("p", "The model should not be the authority on a design number. This "
+              "strip is one uniform layer of one cloud colour over the same four "
+              "patterns; drag the slider until the top row is as legible as you "
+              "want it and the bottom as light as you want it. The percentage is "
+              "the target the veil should then be solved to."),
+        ("raw", _slider_html()),
 
         ("h2", "3. Circles, ellipses, parabolas, hyperbolas"),
         ("fig", fig_conics,
@@ -439,13 +574,17 @@ def main():
     global VEIL
     import sys as _sys
     global VEIL_TARGET
-    VEIL_TARGET = float(_sys.argv[1]) if len(_sys.argv) > 1 else 0.9
-    VEIL = solve_veil(VEIL_TARGET)
-    print(f"veil {VEIL:.3f}  worst artwork opacity "
-          f"{artwork_worst_opacity(VEIL):.3f}  contrast kept {1 - artwork_worst_opacity(VEIL):.2f}")
+    if len(_sys.argv) > 1:
+        VEIL_TARGET = {"v1": float(_sys.argv[1]), "v2": float(_sys.argv[1])}
+    for version in veil_mod.VERSIONS:
+        VEIL[version] = solve_veil(VEIL_TARGET[version], version)
+        print(f"{version} veil {VEIL[version]:.3f}  "
+              f"worst on the canvas {veil_mod.worst(VEIL[version], version=version):.3f}  "
+              f"worst over the works "
+              f"{artwork_worst_opacity(sizes, None, version):.3f}")
     blocks = build_blocks(sizes)
-    names = ["cloud-tone", "cloud-veil", "cloud-conics",
-             "cloud-form-stated", "cloud-form-adjusted"]
+    names = ["cloud-tone", "veil-v1", "veil-v2", "veil-test-v1", "veil-test-v2",
+             "cloud-conics", "cloud-form-stated", "cloud-form-adjusted"]
     figs, fig_names = [], []
     i = 0
     for kind, *rest in blocks:
@@ -465,9 +604,12 @@ def main():
         "veil_transparency": VEIL,
         "canvas": [120, 80],
         "palette": PALETTE,
-        "layers": {k: round(v * VEIL, 4) for k, v in LAYER.items()},
-        "blobs": [{"x": x, "y": y, "rx": rx, "ry": ry, "tilt": t, "layer": l}
-                  for x, y, rx, ry, t, l in CLOUD],
+        "layers": {k: round(v * VEIL['v2'], 4) for k, v in LAYER.items()},
+        "layers_v1": {k: round(v * VEIL['v1'], 4)
+                      for k, v in veil_mod.V1_LAYER.items()},
+        "billows": [{"x": round(x, 3), "y": round(y, 3), "rx": rx, "ry": ry,
+                     "tilt": t, "layer": l, "power": p}
+                    for x, y, rx, ry, t, l, p in CLOUD],
         "filter": {"displacement": 8, "blur": 6},
         "works": {"statue": "reference/IMG_5972.JPG",
                   "fresco": "reference/IMG_5975.JPG"},
