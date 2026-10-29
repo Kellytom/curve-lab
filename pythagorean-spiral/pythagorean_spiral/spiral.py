@@ -77,6 +77,24 @@ class Spiral:
         return self
 
     # -- readings ------------------------------------------------------
+    def cumulative(self) -> list[int]:
+        """The turn coefficient at each node, unwrapped.
+
+        The heading is stored as a vector, so `Dir.degrees` folds past 180.
+        This is the heading as a count of triangle angles, which is what a
+        report wants: a curl whose apsis is 198 degrees says 198, not -162.
+        """
+        out, total = [0], 0
+        for turn in self.turns:
+            total += turn
+            out.append(total)
+        return out
+
+    @property
+    def peak_degrees(self) -> float:
+        """The largest unwrapped heading the chain reaches."""
+        return max(self.cumulative()) * self.triangle.degrees
+
     @property
     def final(self) -> tuple[Fraction, Fraction]:
         return self.nodes[-1]

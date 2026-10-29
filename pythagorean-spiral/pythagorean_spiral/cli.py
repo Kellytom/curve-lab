@@ -28,40 +28,51 @@ def _build(args, triangle: Triple) -> Spiral:
         return design.spiral(triangle, args.steps, length)
     if args.mode == "lobe":
         return design.lobe(triangle, args.steps, length)
+    if args.mode == "curl":
+        return design.curl(args.peak, args.chord, length)
     if args.mode == "hook":
         return design.hook(triangle, args.multiplier, args.n_out, length)
     return design.g2_lobe(triangle, args.steps, length)
 
 
-def report(path: Spiral, digits: int = 6) -> str:
+def _digits(value: Fraction) -> int:
+    """Rough digit count without converting to a string."""
+    return max(1, int(len(bin(abs(value.numerator))) * 0.30103) + 1)
+
+
+def report(path: Spiral, exact: bool = False, brief: bool = False,
+           digits: int = 6) -> str:
     x, y = path.final
     ints, scale = path.integer_form()
     ix, iy = ints[-1]
-    head = path.heading.axis_name()
     cloth = path.equivalent_clothoid()
+    head = path.heading.axis_name()
+    size = max(_digits(x), _digits(y))
+
     lines = [
         f"triangle      {path.triangle}   alpha = {path.triangle.degrees:.6f} deg"
         f"   tan = {path.triangle.slope}",
-        f"chords        {len(path.turns)}   step = {path.length}"
-        f"   arc = {path.arc_length}",
-        f"turn coeff    {path.coeff}   heading = {path.heading.degrees:.6f} deg"
-        f"   axis = {head or 'not axis-aligned'}",
-        f"final x       {x}",
-        f"final y       {y}",
-        f"final (float) ({float(x):.{digits}f}, {float(y):.{digits}f})",
-        f"final (int)   ({ix}, {iy})   after exact scale {scale}",
+        f"shape         {len(path.turns)} chords   step {path.length}"
+        f"   widest chord {math.degrees(path.chord_angle()):.2f} deg"
+        f"   peak heading {path.peak_degrees:.2f} deg",
+        f"closing       turn coeff {path.coeff}   heading exactly "
+        f"{head or f'{path.heading.degrees:.6f} deg'}",
+        f"final         ({float(x):.{digits}f}, {float(y):.{digits}f})",
         f"clothoid      kappa0 = {cloth['kappa0']:.9g}   kd = {cloth['kd']:.9g}"
         f"   A^2 = {cloth['A2']:.6f}",
-        f"resolution    usable steps ~ {path.usable_steps()}"
-        f"   widest chord angle = {math.degrees(path.chord_angle()):.2f} deg",
-        f"exactness     coefficient {path.coeff} -> "
-        f"{'exactly on the axis' if path.heading.is_axis_aligned() else 'off axis'}",
     ]
+    if exact:
+        lines += [f"final x       {x}", f"final y       {y}",
+                  f"scaled        ({ix}, {iy})   over {_digits(Fraction(scale))} "
+                  f"digits, scale {scale}"]
+    elif not brief:
+        lines.append(f"exactness     exact rational, {size} digits "
+                     f"(pass --exact to print it)")
+    if path.cusps:
+        lines.append(f"cusps         {path.cusps} (exact quarter turns)")
     if path.chord_angle() > 0.9:
         lines.append("warning       a chord turns more than ~52 deg: the chain is "
                      "aliased here, not a curve")
-    if path.cusps:
-        lines.append(f"cusps         {path.cusps} (exact quarter turns)")
     return "\n".join(lines)
 
 
@@ -72,8 +83,12 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--limit", type=int, default=3125,
                    help="hypotenuse bound when choosing the thin triangle")
     p.add_argument("--mode", default="lobe",
-                   choices=["spiral", "lobe", "hook", "g2"])
+                   choices=["curl", "spiral", "lobe", "hook", "g2"])
     p.add_argument("--steps", type=int, default=15)
+    p.add_argument("--peak", type=float, default=200.0,
+                   help="curl: heading at the apsis, in degrees")
+    p.add_argument("--chord", type=float, default=6.0,
+                   help="curl: widest turn one chord may take, in degrees")
     p.add_argument("--multiplier", type=int, default=3,
                    help="hook: how much faster the exit unwinds")
     p.add_argument("--n-out", type=int, default=None,
@@ -82,10 +97,17 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--page", type=float, default=200.0)
     p.add_argument("--max-turn", type=float, default=20.0,
                    help="degrees of heading change allowed inside one cubic")
+    p.add_argument("--brief", action="store_true",
+                   help="keep the shape numbers, drop the arithmetic")
+    p.add_argument("--exact", action="store_true",
+                   help="print the exact rational coordinates in full")
     p.add_argument("--out", default=None, help="write an SVG here")
     p.add_argument("--list-closures", action="store_true",
                    help="print exact closure pairs and exit")
     args = p.parse_args(argv)
+    if args.exact:
+        import sys
+        sys.set_int_max_str_digits(0)
 
     if args.list_closures:
         print("hook closures  (n_wind, n_unwind) with T(n_wind) = m*T(n_unwind)")
@@ -97,7 +119,7 @@ def main(argv: list[str] | None = None) -> int:
 
     triangle = _triangle(args.triangle, args.limit)
     path = _build(args, triangle)
-    print(report(path))
+    print(report(path, exact=args.exact, brief=args.brief))
 
     curves = spanmod.spans(path, math.radians(args.max_turn))
     nodes = path.floats()

@@ -22,19 +22,48 @@ import math
 from .spiral import Spiral
 
 
-def spans(path: Spiral, max_turn: float = math.radians(50.0)) -> list[dict]:
+def node_tangents(path: Spiral, sharp: float = math.radians(12.0)):
+    """Two tangents per node: the one arriving, and the one leaving.
+
+    A node whose turn is under `sharp` is smoothed onto the bisector, so
+    consecutive cubics meet G1 and the polygon stops reading like a polygon.
+    A node whose turn is bigger keeps both chord directions, so a deliberate
+    corner stays a corner.  This is the whole difference between a faceted
+    chain and a curve, and it costs one line of arithmetic.
+    """
+    heads = [h.angle for h in path.headings]
+    # one entry per node (chords + 1), not per chord
+    arrive = [heads[0]] + list(heads)
+    leave = list(heads) + [heads[-1]]
+    turns = [path.triangle.radians * t for t in path.turns]
+    for k in range(1, len(heads)):
+        if abs(turns[k]) > sharp:
+            continue
+        a, b = heads[k - 1], heads[k]
+        vx, vy = math.cos(a) + math.cos(b), math.sin(a) + math.sin(b)
+        if math.hypot(vx, vy) > 1e-12:
+            mid = math.atan2(vy, vx)
+            arrive[k] = leave[k] = mid
+    return leave, arrive
+
+
+def spans(path: Spiral, max_turn: float = math.radians(50.0),
+          sharp: float = math.radians(12.0)) -> list[dict]:
     """Group the chords of `path` into cubics, each within `max_turn`."""
     nodes = path.floats()
-    heads = [h.angle for h in path.headings]
     if len(nodes) < 2:
         return []
+    leave, arrive = node_tangents(path, sharp)
 
     alpha = path.triangle.radians
     groups: list[tuple[int, int]] = []
     i = 0
     while i < len(nodes) - 1:
         j, turn = i + 1, 0.0
-        sign = 0
+        # the curvature sign entering the span: the turn that produced its
+        # first chord.  Without it a span can start just after an apsis and
+        # swallow the reversal, which is exactly where a cubic fails worst.
+        sign = (turns_sign := (path.turns[i] > 0) - (path.turns[i] < 0))
         while j < len(nodes) - 1:
             step = alpha * path.turns[j]
             # a curvature reversal means the cubic has to change its bulge
@@ -50,13 +79,23 @@ def spans(path: Spiral, max_turn: float = math.radians(50.0)) -> list[dict]:
         groups.append((i, j))
         i = j
 
-    out = []
-    for i, j in groups:
-        p0, p3 = nodes[i], nodes[j]
-        # arriving tangents: a span is tangent to the chords it replaces, so a
-        # one-chord span is exactly that chord and no span invents curvature
-        out.append(_cubic(p0, p3, heads[i], heads[j - 1], s0=float(i), s1=float(j)))
-    return out
+    return [_cubic(nodes[i], nodes[j], leave[i], arrive[j], s0=float(i), s1=float(j))
+            for i, j in groups]
+
+
+def join_kink(curves: list[dict]) -> float:
+    """The largest tangent jump between one cubic and the next, in radians.
+
+    Zero means the path is G1 as drawn.  A nonzero value is a corner that was
+    left in on purpose, by `node_tangents` keeping a big turn sharp.
+    """
+    worst = 0.0
+    for a, b in zip(curves, curves[1:]):
+        ta = math.atan2(a["p3"][1] - a["c2"][1], a["p3"][0] - a["c2"][0])
+        tb = math.atan2(b["c1"][1] - b["p0"][1], b["c1"][0] - b["p0"][0])
+        d = abs((ta - tb + math.pi) % (2 * math.pi) - math.pi)
+        worst = max(worst, d)
+    return worst
 
 
 def sagitta(path: Spiral) -> float:

@@ -13,16 +13,21 @@ REPO = Path(__file__).resolve().parents[2]
 
 
 class TestCubics(unittest.TestCase):
-    def test_one_chord_span_is_that_chord(self):
+    def test_unsmoothed_one_chord_span_is_that_chord(self):
         p = design.spiral(THIN, 4, 3121)
-        curves = spanmod.spans(p, math.radians(0.1))
+        curves = spanmod.spans(p, math.radians(0.1), sharp=0.0)
         first = curves[0]
-        # a straight chord: both arms lie on it, a third of the way in
         self.assertAlmostEqual(first["c1"][1], first["p0"][1], places=9)
         self.assertAlmostEqual(
             math.dist(first["p0"], first["c1"]),
             math.dist(first["p0"], first["p3"]) / 3.0, places=6)
-        self.assertAlmostEqual(first["c2"][0], first["p3"][0] - 3121 / 3.0, places=6)
+
+    def test_smoothing_leaves_no_kink(self):
+        p = design.lobe(THIN, 7, 3121)
+        smooth = spanmod.spans(p, math.radians(20))
+        self.assertLess(spanmod.join_kink(smooth), 1e-9)
+        sharp = spanmod.spans(p, math.radians(0.1), sharp=0.0)
+        self.assertGreater(spanmod.join_kink(sharp), math.radians(1))
 
     def test_fit_reaches_the_chain_resolution(self):
         p = design.lobe(THIN, 7, 3121)

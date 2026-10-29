@@ -146,3 +146,22 @@ def thinnest_consecutive(limit: int) -> Triple | None:
             return best
         best = t
         n += 1
+
+
+def for_angle(degrees: float) -> Triple:
+    """The thinnest primitive triple whose acute angle is at most `degrees`.
+
+    The `(m, m-1)` family -- `2m-1, 2m(m-1), m^2+(m-1)^2` -- is the thinnest
+    family at any given size, so the first member under the target is the
+    thinnest triangle available at that resolution.  A chain's widest chord
+    turn sets its resolution, and that turn *is* this angle, so choosing the
+    triangle is really choosing how smooth the curve can be.
+    """
+    if not 0 < degrees < 45:
+        raise ValueError(f"want 0 < degrees < 45, got {degrees}")
+    m = 2
+    while True:
+        t = Triple(2 * m - 1, 2 * m * (m - 1), m * m + (m - 1) ** 2, m, m - 1)
+        if t.degrees <= degrees:
+            return t
+        m += 1

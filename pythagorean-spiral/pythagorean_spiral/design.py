@@ -11,9 +11,11 @@ decoration: `closure.py` proves no other exact axis landing exists.
 
 from __future__ import annotations
 
+import math
+
 from .closure import closure_pairs, g2_pairs, inverse_triangular, triangular
-from .spiral import Spiral
-from .triples import Triple
+from .spiral import Spiral, triangular
+from .triples import Triple, for_angle
 
 
 def spiral(triangle: Triple, steps: int, length=1) -> Spiral:
@@ -90,3 +92,34 @@ def _assert_closed(path: Spiral) -> None:
         raise AssertionError(f"chain does not close: coefficient {path.coeff}")
     if not path.heading.is_axis_aligned():
         raise AssertionError(f"chain does not end on an axis: {path.heading}")
+
+
+def curl(peak: float = 200.0, chord: float = 6.0, length=1) -> Spiral:
+    """A volute whose smoothness you ask for in degrees.
+
+    `peak` is the heading at the apsis; `chord` is the widest turn any single
+    chord may take, which fixes the triangle -- the thinner the triangle, the
+    smoother the drawn curve, at the cost of a longer hypotenuse.  The step
+    count follows from the two: T(n-1)*alpha = peak.
+
+    Two numbers instead of three, and neither is a hairiness knob you have to
+    tune by eye: the chord budget *is* the resolution.
+    """
+    if not 0 < chord < 45:
+        raise ValueError(f"chord budget must be in (0, 45) degrees, got {chord}")
+    if not 0 < peak < 720:
+        raise ValueError(f"peak must be in (0, 720) degrees, got {peak}")
+
+    rough = max(3, math.ceil(2 * peak / chord) + 1)
+    triangle = for_angle(chord / (rough - 1))
+    alpha = triangle.degrees
+    steps = max(2, int(round((-1 + math.sqrt(1 + 8 * peak / alpha)) / 2)) + 1)
+    # exactness is carried by integers over a power of the hypotenuse, so the
+    # cost is set by c^T(steps-1). Guard it rather than hang for ten minutes.
+    digits = triangular(steps - 1) * math.log10(triangle.c)
+    if digits > 25_000:
+        raise ValueError(
+            f"chord {chord} deg needs about {digits:.0f}-digit integers at "
+            f"c={triangle.c}; the exact chain stops being practical here, "
+            f"use a chord budget of 4 deg or more")
+    return lobe(triangle, steps, length)

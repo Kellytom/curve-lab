@@ -113,7 +113,7 @@ The method is more general than the notes allow, and narrower than they claim.
 | "Integer coordinates" | Unnecessary, and it is what produced the wrong scaling rules. `Fraction` is exact and cheap. |
 | "One triangle only" | Unnecessary. Products of powers of different triples stay rational. Closure bookkeeping wants one `alpha`. |
 | "Use the thinnest triangle" | Not for exactness. It is a *resolution* constraint: chords resolve the curve while `alpha·k < ~1`, so `k ≲ 39` here. |
-| "One cubic per 45-60°" | Not a global rule. The budget is the sagitta; spans split per chord when the turn is coarse. |
+| "One cubic per 45-60°" | Not a global rule, and the wrong variable. A cubic's error follows the turn it carries, so the budget is a turn budget, and it must break at a curvature reversal or it cannot fit the apsis at all. With 6° chords the measured deviation is the chain's own sagitta. |
 | "3125 grid, 31 250 panel" | Unnecessary. Page size is a render concern, and the writer scales. |
 | Equal chord lengths | The one real constraint: integer turn coefficients plus linear curvature force a quadratic arc-length schedule. |
 

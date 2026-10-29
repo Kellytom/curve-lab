@@ -12,7 +12,7 @@ package yet.
 
 ```sh
 cd pythagorean-spiral
-../.venv/bin/python -m pythagorean_spiral.cli --mode lobe --steps 15 --length 3121
+../.venv/bin/python -m pythagorean_spiral.cli --mode curl --peak 200 --chord 6 --out /tmp/curl.svg
 ../.venv/bin/python -m pythagorean_spiral.cli --mode hook --multiplier 3 --n-out 5 --out /tmp/hook.svg
 ../.venv/bin/python -m pythagorean_spiral.cli --list-closures
 ../.venv/bin/python -m unittest discover -s tests -t .
@@ -31,6 +31,7 @@ Three named constructions, each ending **exactly** on an axis:
 
 | mode | turning | end | chords |
 |---|---|---|---|
+| `curl` | `0..n-1`, then `-(n-1)..0`, at a chosen resolution | east | 2n |
 | `spiral` | `0,1,2,…` | open | n |
 | `lobe` | `0..n-1`, then `-(n-1)..0` | east, sharp apsis | 2n |
 | `hook --multiplier m` | `0..N`, then `-m,-2m,…` | east, sharp apsis | N+1+n_out |
@@ -39,6 +40,40 @@ Three named constructions, each ending **exactly** on an axis:
 Exact closure is not a matter of tuning: see `docs/AUDIT.md` §3. With one
 triangle the only axis landing is total turn zero, so `hook` and `g2` exist only
 on the integer solutions of `T(N) = m*T(n_out)` and `j(j+1) = 2n(n-1)`.
+
+## Making a curve rather than a polygon
+
+Two numbers set the drawing, neither of them a hairiness knob you tune by eye:
+
+```sh
+python -m pythagorean_spiral.cli --mode curl --peak 200 --chord 6
+```
+
+`--peak 200` is the heading at the apsis, in degrees: past vertical, so the
+chain rises, turns over, and comes back to an exact east exit. `--chord 6` is
+the widest turn a single chord may take; that budget *is* the resolution, and
+it picks the triangle (`for_angle`). 200 degrees at 6 degrees a chord gives 134
+chords on 1281-820480-820481, `alpha = 0.0895°`.
+
+The polygon is then drawn as cubics:
+
+- spans break at a curvature reversal, so no cubic has to change its bulge
+  sense inside a span;
+- a node whose turn is under 12° is smoothed onto the bisector of its incoming
+  and outgoing chord, so consecutive cubics meet G1 — the polygon stops
+  reading as a polygon. A larger turn keeps both chord directions, so a
+  deliberate corner stays a corner;
+- the arms use the parabola rule, which is exact for a circular arc.
+
+Measured on that curl: `join_kink = 0` (G1 everywhere) and the worst distance
+from the cubics to the chords is `0.0129` on a figure 63 units tall — equal to
+the chain's own sagitta, i.e. the fit is below the resolution of the chords it
+interpolates. On a 200 mm page that is about 0.04 mm.
+
+Exactness costs: the coordinates are integers over `c^T(steps-1)`, so a chord
+budget of 6° is 13 000-digit integers and takes about a second; 4° is 21 000
+digits and nine seconds. `curl` refuses budgets past ~25 000 digits rather
+than hang, and 6° is already at the floor of what the page can show.
 
 ## Files
 
