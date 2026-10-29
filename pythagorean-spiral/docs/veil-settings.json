@@ -1,5 +1,5 @@
 {
- "veil_transparency": 0.08214156976828235,
+ "veil_transparency": 0.04035661814850755,
  "canvas": [
   120,
   80
@@ -17,10 +17,10 @@
   "warm_dark": "#9b8a70"
  },
  "layers": {
-  "haze": 0.0115,
-  "bank": 0.0279,
-  "billow": 0.0378,
-  "crown": 0.0493
+  "haze": 0.0056,
+  "bank": 0.0137,
+  "billow": 0.0186,
+  "crown": 0.0242
  },
  "blobs": [
   {
@@ -157,46 +157,6 @@
    "rx": 8,
    "ry": 7,
    "tilt": 5,
-   "layer": "billow"
-  },
-  {
-   "x": 28,
-   "y": 16,
-   "rx": 11,
-   "ry": 7,
-   "tilt": 3,
-   "layer": "billow"
-  },
-  {
-   "x": 46,
-   "y": 14,
-   "rx": 13,
-   "ry": 7,
-   "tilt": -4,
-   "layer": "billow"
-  },
-  {
-   "x": 64,
-   "y": 15,
-   "rx": 13,
-   "ry": 7,
-   "tilt": 2,
-   "layer": "billow"
-  },
-  {
-   "x": 82,
-   "y": 16,
-   "rx": 11,
-   "ry": 7,
-   "tilt": -3,
-   "layer": "billow"
-  },
-  {
-   "x": 96,
-   "y": 18,
-   "rx": 8,
-   "ry": 6,
-   "tilt": 4,
    "layer": "billow"
   },
   {

@@ -132,10 +132,7 @@ CLOUD = [
     (60, 19, 11, 6, -2, "bank"), (78, 21, 9, 6, 4, "bank"),
     (32, 27, 10, 8, -5, "billow"), (50, 29, 11, 9, 4, "billow"),
     (68, 28, 10, 9, -3, "billow"), (84, 30, 8, 7, 5, "billow"),
-    # and down to the base of the works, so the images are covered entirely
-    (28, 16, 11, 7, 3, "billow"), (46, 14, 13, 7, -4, "billow"),
-    (64, 15, 13, 7, 2, "billow"), (82, 16, 11, 7, -3, "billow"),
-    (96, 18, 8, 6, 4, "billow"),
+    # only the bottom layer reaches the work; the upper layers stay above it
     (36, 8, 10, 4.5, -2, "bank"), (56, 7, 11, 4.5, 3, "bank"),
     (76, 8, 10, 4.5, -3, "bank"),
     # lower lobes
@@ -185,11 +182,12 @@ def artwork_worst_opacity(veil=None, size=None):
     return max(veil_opacity(x, y, veil) for x in xs for y in ys)
 
 
-def solve_veil(target_contrast=0.6):
-    """The veil setting whose worst artwork point keeps `target_contrast`.
+def solve_veil(target_contrast=0.95):
+    """The veil setting whose worst artwork point keeps the total under limit.
 
-    Contrast survives as (1 - opacity), so the target asks for
-    opacity <= 1 - target. Bisection: the opacity is monotone in the veil.
+    The bottom layer is the veil; the upper layers are kept off the work, so
+    the sampled opacity there is the bottom layer's alone. Bisection, because
+    the opacity is monotone in the veil.
     """
     limit = 1.0 - target_contrast
     lo, hi = 0.0, 1.0
@@ -234,8 +232,11 @@ def draw_cloud(c, only=None, veil=1.0, drop=0.0):
                    PALETTE["warm_dark"], 0.12 * veil)
             billow(c, cx - 1.4, cy - drop + 2.6, rx * 0.84, ry * 0.78, tilt,
                    "#fbf6ea", 0.16 * veil)
+        # only the bottom layer is the veil and carries the veil factor; the
+        # upper layers keep their body because they never reach the work
+        alpha = LAYER[layer] * (VEIL if layer == "bank" else 1.0)
         billow(c, cx, cy - drop, rx, ry, tilt, PALETTE[layer],
-               LAYER[layer] * veil * VEIL, edge=2.6)
+               alpha * veil, edge=2.6)
     c.out.append('</g>')
 
 
