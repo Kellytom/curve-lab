@@ -61,7 +61,7 @@ def circle_points(per_degree: float = 2.0):
 
 CIRCLE, TRI = circle_points()
 STATUE_SIZE = (940, 1185)
-VEIL_TARGET = {"v1": 0.80, "v2": 0.80}  # operator's number: 80% opacity
+VEIL_TARGET = {"v1": 0.85, "v2": 0.85}  # operator: good between 80 and 90
 
 
 def tone_photo(src: Path, out: Path, width=460):
@@ -164,113 +164,104 @@ def _veil_test_figure(version="v2"):
 
 
 def _slider_html():
-    """A strip where the operator sets the veil by eye.
+    """One slider per picture, with a clear label and a way to save.
 
-    One uniform layer of one cloud colour over four test patterns: no layers,
-    no solved factor, no argument.  The number the slider lands on is the number
-    the model should be told to use.  `?veil=0.42` sets it from the URL, so the
-    page can be shown at a value without dragging.
+    The cloud as a whole is one composition, but the design question is per
+    image: how much veil each work tolerates.  So every picture gets its own
+    uniform layer and its own control, defaulting to the operator's band
+    (80-90 per cent).  Save writes the settings as JSON and one picture as a
+    PNG, so a choice can be looked at later instead of remembered.
     """
-    def siemens():
-        spokes = 24
-        parts = []
-        for i in range(spokes):
-            a0 = 2 * math.pi * i / spokes
-            a1 = 2 * math.pi * (i + 0.5) / spokes
-            fill = "#14120e" if i % 2 == 0 else "#f7f4ec"
-            parts.append(
-                f'<polygon points="50,50 {50 + 46 * math.cos(a0):.2f},'
-                f'{50 + 46 * math.sin(a0):.2f} '
-                f'{50 + 46 * math.cos(a1):.2f},{50 + 46 * math.sin(a1):.2f}" '
-                f'fill="{fill}"/>')
-        return "".join(parts)
-
-    def wedge():
-        return "".join(
-            f'<rect x="{100 * i / 11:.2f}" y="0" width="{100 / 11 + 0.2:.2f}" '
-            f'height="100" fill="#{round(255 * i / 10):02x}'
-            f'{round(255 * i / 10):02x}{round(255 * i / 10):02x}"/>'
-            for i in range(11))
-
-    def bars():
-        cols = ["#c81e1e", "#e0a000", "#e8e000", "#1f9b3a",
-                "#1f6fd0", "#7a3fbf", "#f7f4ec", "#101010"]
-        return "".join(
-            f'<rect x="{100 * i / 8:.2f}" y="0" width="{100 / 8 + 0.2:.2f}" '
-            f'height="100" fill="{c}"/>' for i, c in enumerate(cols))
-
-    def chequer():
-        out = []
-        for j in range(6):
-            for i in range(10):
-                fill = "#14120e" if (i + j) % 2 == 0 else "#f7f4ec"
-                out.append(f'<rect x="{10 * i}" y="{100 / 6 * j:.2f}" width="10" '
-                           f'height="{100 / 6 + 0.2:.2f}" fill="{fill}"/>')
-        out.append('<line x1="0" y1="50" x2="100" y2="50" stroke="#c81e1e" '
-                   'stroke-width="1"/>')
-        out.append('<line x1="50" y1="0" x2="50" y2="100" stroke="#c81e1e" '
-                   'stroke-width="1"/>')
-        return "".join(out)
-
-    cells = [("Siemens star · top left", siemens()),
-             ("grey wedge · top right", wedge()),
-             ("colour bars · bottom left", bars()),
-             ("chequer · bottom right", chequer())]
-    strips = "".join(
-        f'<figure><svg viewBox="0 0 100 100" preserveAspectRatio="none" '
-        f'role="img" aria-label="{label}">{body}</svg>'
-        f'<figcaption>{label}</figcaption></figure>'
-        for label, body in cells)
-    return f'''<div class="veillab">
+    # letters continue the page's sequence: a-f are the fixed figures above
+    pictures = [("o", "statue, colour", "fig/" + COLOUR_STATUE.name),
+                ("p", "fresco, colour", "fig/" + COLOUR_FRESCO.name),
+                ("q", "statue, toned", "fig/" + STATUE.name),
+                ("r", "fresco, toned", "fig/" + FRESCO.name)]
+    cards = []
+    for letter, title, href in pictures:
+        cards.append(
+            '<figure class="card" data-name="' + letter + '">'
+            '<div class="pic" style="background-image:url(\'' + href + '\')">'
+            '<div class="layer" data-layer style="opacity:0.85"></div>'
+            '<span class="tag">' + letter + '</span></div>'
+            '<figcaption>' + letter + ' · ' + title + '</figcaption>'
+            '<label class="ctl"><span>veil opacity</span>'
+            '<input type="range" min="0" max="100" step="1" value="85" '
+            'data-slider aria-label="veil opacity for ' + title + '">'
+            '<output data-read>85%</output></label></figure>')
+    return """<div class="veillab">
 <style>
-.veillab {{ margin: 22px 0 8px; }}
-.veillab .wrap {{ position: relative; border: 1px solid #d8ccae; }}
-.veillab .strips {{ display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
-  padding: 6px; background: #e6dbc9; }}
-.veillab figure {{ margin: 0; }}
-.veillab svg {{ display: block; width: 100%; height: 120px; border: 1px solid #cbbfa2; }}
-.veillab figcaption {{ font: 10px ui-monospace, Menlo, monospace; color: #7b6c4e;
-  padding-top: 3px; }}
-.veillab .veil {{ position: absolute; inset: 0; background: #ddd0bb;
-  opacity: 0.80; pointer-events: none; }}
-.veillab .controls {{ display: flex; gap: 14px; align-items: baseline;
-  margin-top: 12px; font: 12px ui-monospace, Menlo, monospace; color: #7b6c4e; }}
-.veillab input[type=range] {{ flex: 1; max-width: 420px; accent-color: #8c6a21; }}
-.veillab output {{ font-size: 15px; color: #2e2413; }}
-.veillab .note {{ font-size: 12px; color: #7b6c4e; margin-top: 6px; }}
+.veillab { margin: 22px 0 10px; }
+.veillab .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.veillab .card { margin: 0; border: 1px solid #d8ccae; background: #fffdf7; padding: 8px; }
+.veillab .pic { position: relative; height: 220px; background: #e6dbc9 center/cover no-repeat; }
+.veillab .layer { position: absolute; inset: 0; background: #ddd0bb; }
+.veillab .tag { position: absolute; left: 6px; top: 6px; width: 20px; height: 20px;
+  border-radius: 50%; background: #2e2413; color: #fffdf7; font: 11px/20px Georgia, serif;
+  text-align: center; }
+.veillab figcaption { font: 11px ui-monospace, Menlo, monospace; color: #7b6c4e;
+  padding: 6px 0 2px; }
+.veillab .ctl { display: grid; grid-template-columns: auto 1fr auto; gap: 8px;
+  align-items: center; font: 11px ui-monospace, Menlo, monospace; color: #7b6c4e; }
+.veillab input[type=range] { width: 100%; accent-color: #8c6a21; }
+.veillab output { font-size: 13px; color: #2e2413; min-width: 40px; text-align: right; }
+.veillab .bar { display: flex; gap: 10px; align-items: center; margin-top: 14px;
+  flex-wrap: wrap; }
+.veillab .bar button { font: 12px ui-monospace, Menlo, monospace; padding: 7px 14px;
+  border: 1px solid #8c6a21; background: #f6f1e4; color: #2e2413; cursor: pointer; }
+.veillab .bar button:hover { background: #efe6d2; }
+.veillab .bar span { font: 11px ui-monospace, Menlo, monospace; color: #7b6c4e; }
 </style>
-<div class="wrap">
-  <div class="strips">{strips}</div>
-  <div class="veil" id="veil-layer"></div>
+<div class="grid">""" + "".join(cards) + """</div>
+<div class="bar">
+  <button type="button" id="save-json">save settings (json)</button>
+  <button type="button" id="save-png">save o (png)</button>
+  <span>the band that read best was 80-90 per cent</span>
 </div>
-<div class="controls">
-  <label for="veil-alpha">veil</label>
-  <input id="veil-alpha" type="range" min="0" max="100" step="1" value="80">
-  <output id="veil-read" for="veil-alpha">80%</output>
-</div>
-<div class="note">One layer, one cloud colour (<code>#ddd0bb</code>). Top row is
-where the cloud meets the top of the work; bottom row is the drift. The number
-you settle on is the target the model should be solved to.</div>
 <script>
-(function () {{
-  var q = new URLSearchParams(location.search).get('veil');
-  var slider = document.getElementById('veil-alpha');
-  var layer = document.getElementById('veil-layer');
-  var read = document.getElementById('veil-read');
-  if (q !== null && !isNaN(parseFloat(q))) {{
-    var pct = Math.max(0, Math.min(100, parseFloat(q) * 100));
-    slider.value = Math.round(pct);
-  }}
-  function apply() {{
-    var v = slider.value / 100;
-    layer.style.opacity = v;
-    read.textContent = Math.round(v * 100) + '%';
-  }}
-  slider.addEventListener('input', apply);
-  apply();
-}})();
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.veillab .card'));
+  function sync(card) {
+    var v = card.querySelector('[data-slider]').value / 100;
+    card.querySelector('[data-layer]').style.opacity = v;
+    card.querySelector('[data-read]').textContent = Math.round(v * 100) + '%';
+  }
+  cards.forEach(function (card) {
+    card.querySelector('[data-slider]').addEventListener('input', function () { sync(card); });
+    sync(card);
+  });
+  function settings() {
+    var out = {};
+    cards.forEach(function (c) { out[c.dataset.name] = c.querySelector('[data-slider]').value / 100; });
+    return out;
+  }
+  function download(name, blob) {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  document.getElementById('save-json').addEventListener('click', function () {
+    download('veil-settings-chosen.json',
+             new Blob([JSON.stringify(settings(), null, 1)], {type: 'application/json'}));
+  });
+  document.getElementById('save-png').addEventListener('click', function () {
+    var card = cards[0], pic = card.querySelector('.pic');
+    var img = new Image();
+    img.onload = function () {
+      var cv = document.createElement('canvas');
+      cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+      var g = cv.getContext('2d');
+      g.drawImage(img, 0, 0, cv.width, cv.height);
+      g.globalAlpha = card.querySelector('[data-slider]').value / 100;
+      g.fillStyle = '#ddd0bb';
+      g.fillRect(0, 0, cv.width, cv.height);
+      cv.toBlob(function (b) { download('veil-o.png', b); });
+    };
+    img.src = pic.style.backgroundImage.slice(5, -2);
+  });
+})();
 </script>
-</div>'''
+</div>"""
 
 
 def _veil_rows():
@@ -390,47 +381,61 @@ def fig_colour(sizes):
     hs = 32
     aw = hs * sizes[COLOUR_STATUE][0] / sizes[COLOUR_STATUE][1]
     bw = hs * sizes[COLOUR_FRESCO][0] / sizes[COLOUR_FRESCO][1]
+    labelled = {"a": "a · Christ crowned with thorns, in colour", "b": "b · Madonna in terracotta, in colour"}
     for x, w, name, letter in ((16, aw, COLOUR_STATUE, "a"),
                                (76, bw, COLOUR_FRESCO, "b")):
         image_at(c, x, 6, w, hs, f"fig/{name.name}")
         badge(c, x + 3, 6 + hs - 3, letter)
-        c.text(x, 2.4, f"{letter} · {name.stem.split('-')[-1]} in colour", 7, GOLD)
+        c.text(x, 2.4, labelled[letter], 7, GOLD)
     return c.svg("the two works in colour")
 
 
 def fig_veil(sizes, version="v2"):
-    c = ex.Canvas((0, 120), (0, 80), 800, 560)
-    c.poly([(0, 80), (120, 80), (120, 0), (0, 0)], fill=WALL, stroke="none")
     hs = 32
+    c = ex.Canvas((0, 120), (0, 64), 800, 470)
+    c.poly([(0, 64), (120, 64), (120, 0), (0, 0)], fill=WALL, stroke="none")
     aw = hs * sizes[STATUE][0] / sizes[STATUE][1]
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
-    image_at(c, 16, 10, aw, hs, f"fig/{STATUE.name}")
-    image_at(c, 100 - bw, 10, bw, hs, f"fig/{FRESCO.name}")
+    image_at(c, 16, 16, aw, hs, f"fig/{STATUE.name}")
+    image_at(c, 100 - bw, 16, bw, hs, f"fig/{FRESCO.name}")
     draw_cloud(c, version)
-    badge(c, 19, 39, "c" if version == "v1" else "e")
-    badge(c, 103 - bw, 39, "d" if version == "v1" else "f")
+    badge(c, 19, 45, "c" if version == "v1" else "e")
+    badge(c, 103 - bw, 45, "d" if version == "v1" else "f")
     return c.svg(f"cloud over two works, {version}")
 
 
 def fig_conics():
-    c = ex.Canvas((0, 100), (0, 60), 760, 380)
-    for cx, rx, ry, label in ((25, 18, 18, "circle"), (72, 26, 14, "ellipse")):
-        pts = []
-        for x, y in CIRCLE:
-            pts.append((float(Fraction(rx) * x) + cx,
-                        float(Fraction(ry) * y) + 30))
-        c.poly(pts + [pts[0]], stroke=INK, width=1.4)
-        for t in (-3, -2, -1, 0, 1, 2, 3):
-            px = cx + rx * t / 4
-            qx = px + rx * (1 - abs(t) / 4) * (1 if t >= 0 else -1)
-            c.line((px, 30), (qx, 30 + ry * 0.55), FAINT, 0.9)
-        c.text(cx, 8, label, 10, GOLD, "middle")
-    c.text(3, 56, "the same points, scaled: exact; rays stay rational", 10, GOLD)
+    """Circle and ellipse, drawn as areas: the two exact members, side by side."""
+    c = ex.Canvas((0, 100), (0, 56), 760, 360)
+    for cx, rx, ry, label in ((26, 16, 16, "circle"), (72, 22, 13, "ellipse")):
+        pts = [(rx * x + cx, ry * y + 28) for x, y in veil_mod._circle()[0]]
+        c.poly(pts + [pts[0]], fill=PALETTE["bank"], stroke=INK, width=1.6)
+        c.poly(pts + [pts[0]], stroke=INK, width=1.2)
+        c.line((cx, 28), (cx + rx, 28), GOLD, 1.0, "3 3")
+        c.text(cx, 50, label, 11, GOLD, "middle")
+        c.text(cx, 46, f"{rx} × {ry}" if rx != ry else f"r {rx}", 8,
+               PALETTE["warm_dark"], "middle")
+    c.text(3, 3, "the same rational points, scaled on two rational axes: "
+                 "the circle stays a circle, the ellipse stays exact", 8,
+           PALETTE["warm_dark"])
     return c.svg("circle and ellipse")
 
 
 # ----------------------------------------------------------------- text ---
 def build_blocks(sizes):
+    """Number every illustration once, in page order: Fig. 1, Fig. 2, ..."""
+    blocks = _build_blocks(sizes)
+    out, n = [], 0
+    for block in blocks:
+        if block[0] == "fig":
+            n += 1
+            out.append(("fig", block[1], f"Fig. {n} · {block[2]}"))
+        else:
+            out.append(block)
+    return out
+
+
+def _build_blocks(sizes):
     blocks = [
         ("h1", "A cloud, for veiling"),
         ("p", "The cathedral has no single artwork problem; it has one per "
@@ -465,7 +470,7 @@ def build_blocks(sizes):
 
         ("h2", "2. The veil"),
         ("fig", lambda: fig_colour(sizes),
-         "Fig. 2 · a and b: the two works in colour, before any veil."),
+         "a and b: the two works in colour, before any veil."),
         ("p", "Two versions, same composition, different geometry. **v1** is "
               "the original cloud of exact ellipses -- the one that was right "
               "in principle and only too opaque -- now with the veil factor on "
@@ -473,9 +478,9 @@ def build_blocks(sizes):
               "ellipse with a turn-chain ribbon. Both are measured by the same "
               "function and judged by the same strips."),
         ("fig", lambda: fig_veil(sizes, "v1"),
-         "Fig. 3 · c and d: v1, the original ellipse cloud, one veil factor on every layer."),
+         "c and d: v1, the original ellipse cloud, one veil factor on every layer."),
         ("fig", lambda: fig_veil(sizes, "v2"),
-         "Fig. 4 · e and f: v2, the same composition in turn-chain ribbons."),
+         "e and f: v2, the same composition in turn-chain ribbons."),
         ("p", "The cloud is built from **exact turn chains**, not circles. A "
               "billow is a lobe whose turns run k**p and then reverse, so the "
               "exit is parallel to the entry; a taper through "
@@ -516,21 +521,23 @@ def build_blocks(sizes):
               "of the image is covered: top mean under 0.25 (a hot corner is "
               "allowed up to 0.50), bottom mean under 0.12 (up to 0.30)."),
         ("fig", lambda: _veil_test_figure("v1"),
-         "Fig. 5 · g to j: v1 under the four patterns, two on top, two below."),
+         "g to j: v1 under the four patterns, two on top, two below."),
         ("fig", lambda: _veil_test_figure("v2"),
-         "Fig. 6 · k to n: v2 under the four patterns."),
+         "k to n: v2 under the four patterns."),
         ("table", _veil_rows()),
         ("p", "The numbers come from `pythagorean_spiral.veil`, the same "
               "function the drawing fills, so a strip cannot pass on paper "
               "while the picture covers it. `scripts/veil_test.py` writes the "
               "standalone page and `tests/test_veil.py` holds the gate."),
 
-        ("h2", "2c. Set the transparency by eye"),
+        ("h2", "2c. Set the transparency by eye (o to r)"),
         ("p", "The model should not be the authority on a design number. This "
               "strip is one uniform layer of one cloud colour over the same four "
               "patterns; drag the slider until the top row is as legible as you "
               "want it and the bottom as light as you want it. The percentage is "
-              "the target the veil should then be solved to."),
+              "the target the veil should then be solved to. Below, o to r each "
+              "carry their own control: the design question is per picture, not "
+              "per page."),
         ("raw", _slider_html()),
 
         ("h2", "3. Circles, ellipses, parabolas, hyperbolas"),
@@ -599,11 +606,11 @@ def build_blocks(sizes):
 
 def prepare():
     sizes = {}
-    sizes[COLOUR_STATUE] = colour_photo(REF / "IMG_5972.JPG", COLOUR_STATUE)
-    sizes[COLOUR_FRESCO] = colour_photo(REF / "IMG_5975.JPG", COLOUR_FRESCO)
-    sizes[RAW] = raw_photo(REF / "IMG_5972.JPG", RAW)
-    sizes[STATUE] = tone_photo(REF / "IMG_5972.JPG", STATUE)
-    sizes[FRESCO] = tone_photo(REF / "IMG_5975.JPG", FRESCO)
+    sizes[COLOUR_STATUE] = colour_photo(REF / "IMG_5903.JPG", COLOUR_STATUE)
+    sizes[COLOUR_FRESCO] = colour_photo(REF / "IMG_5978.JPG", COLOUR_FRESCO)
+    sizes[RAW] = raw_photo(REF / "IMG_5903.JPG", RAW)
+    sizes[STATUE] = tone_photo(REF / "IMG_5903.JPG", STATUE)
+    sizes[FRESCO] = tone_photo(REF / "IMG_5978.JPG", FRESCO)
     return sizes
 
 
@@ -649,10 +656,10 @@ def main():
                       for k, v in veil_mod.V1_LAYER.items()},
         "billows": [{"x": round(x, 3), "y": round(y, 3), "rx": rx, "ry": ry,
                      "tilt": t, "layer": l, "power": p}
-                    for x, y, rx, ry, t, l, p in CLOUD],
+                    for x, y, rx, ry, t, l, p, _shape in CLOUD],
         "filter": {"displacement": 8, "blur": 6},
-        "works": {"statue": "reference/IMG_5972.JPG",
-                  "fresco": "reference/IMG_5975.JPG"},
+        "works": {"christ": "reference/IMG_5903.JPG",
+                  "madonna": "reference/IMG_5978.JPG"},
     }
     (ROOT / "docs" / "veil-settings.json").write_text(
         json.dumps(settings, indent=1) + "\n")

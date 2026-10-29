@@ -51,9 +51,11 @@ ELLIPSES = [
     (60, 19, 11, 6, -2, "bank"), (78, 21, 9, 6, 4, "bank"),
     (32, 27, 10, 8, -5, "billow"), (50, 29, 11, 9, 4, "billow"),
     (68, 28, 10, 9, -3, "billow"), (84, 30, 8, 7, 5, "billow"),
-    # only the bottom layer reaches the work
-    (36, 8, 10, 4.5, -2, "bank"), (56, 7, 11, 4.5, 3, "bank"),
-    (76, 8, 10, 4.5, -3, "bank"),
+    # the veil reaches the bottom of the pictures, not just their tops
+    (24, 12, 11, 5, -2, "bank"), (44, 11, 13, 5, 3, "bank"),
+    (64, 12, 12, 5, -3, "bank"), (84, 14, 9, 4.5, 4, "bank"),
+    (36, 6, 10, 4.5, -2, "bank"), (56, 5, 11, 4.5, 3, "bank"),
+    (76, 6, 10, 4.5, -3, "bank"),
     # lower lobes
     (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
     (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
@@ -76,17 +78,29 @@ SHADING = ((1.8, -3.4, 1.02, 0.92, "shade"),
            (-1.4, 2.6, 0.84, 0.78, "light"))
 
 
+# One puff becomes several smaller ellipses.  Drawn at full size they were a
+# fog: a handful of washes with no edge inside them.  The same composition at
+# a third of the radius, repeated, has structure -- and the lobes still overlap.
+CLUSTER = ((-0.45, -0.30, 0.42, 0), (0.42, -0.25, 0.38, 1),
+           (-0.05, 0.38, 0.44, -1), (0.10, -0.02, 0.30, 2))
+
+
 def _v1_ellipses():
     out = []
     for cx, cy, rx, ry, tilt, layer in ELLIPSES:
-        out.append((cx, cy, rx, ry, tilt, layer))
-        if layer in ("billow", "crown"):
-            for dx, dy, sx, sy, under in SHADING:
-                out.append((cx + dx, cy + dy, rx * sx, ry * sy, tilt, under))
+        for dx, dy, k, step in CLUSTER:
+            ex, ey = cx + dx * rx * 2.2, cy + dy * ry * 2.2
+            er, es = rx * k * 2.2, ry * k * 2.2
+            out.append((ex, ey, er, es, tilt + step, layer))
+            if layer in ("billow", "crown"):
+                for sx, sy, kx, ky, under in SHADING:
+                    out.append((ex + sx * er, ey + sy * es, er * kx,
+                                es * ky, tilt + step, under))
     return out
 
 # ---------------------------------------------------------------- v2 -----
-V2_LAYER = {"haze": 0.10, "bank": 0.09, "billow": 0.30, "crown": 0.42}
+V2_LAYER = {"haze": 0.10, "bank": 0.09, "billow": 0.30, "crown": 0.42,
+            "shade": 0.14, "light": 0.18}
 
 # shape per layer for v2: (power, steps, width, taper) -- the dial is the layer
 SHAPE = {
@@ -111,9 +125,11 @@ PUFTS = [
     (60, 19, 11, 6, -2, "haze"), (78, 21, 9, 6, 4, "haze"),
     (32, 27, 10, 8, -5, "haze"), (50, 29, 11, 9, 4, "haze"),
     (68, 28, 10, 9, -3, "haze"), (84, 30, 8, 7, 5, "haze"),
-    # only the bottom layer reaches the work
-    (36, 8, 10, 4.5, -2, "bank"), (56, 7, 11, 4.5, 3, "bank"),
-    (76, 8, 10, 4.5, -3, "bank"),
+    # the veil reaches the bottom of the pictures, not just their tops
+    (24, 12, 11, 5, -2, "bank"), (44, 11, 13, 5, 3, "bank"),
+    (64, 12, 12, 5, -3, "bank"), (84, 14, 9, 4.5, 4, "bank"),
+    (36, 6, 10, 4.5, -2, "bank"), (56, 5, 11, 4.5, 3, "bank"),
+    (76, 6, 10, 4.5, -3, "bank"),
     # lower lobes
     (36, 46, 9, 6, -5, "billow"), (50, 48, 11, 7, 3, "billow"),
     (65, 47, 9, 6, -4, "billow"), (79, 45, 7, 5, 5, "billow"),
@@ -147,12 +163,19 @@ def layers(version="v2"):
 
 
 def _spread():
+    """Puffs into lobes, each with its own shaped under-lobe and top."""
     out = []
     for cx, cy, rx, ry, tilt, layer in PUFTS:
         power, steps, width, taper = SHAPE[layer]
         for dx, dy, size, quarter, dstep in SPREAD:
-            out.append((cx + dx * rx, cy + dy * ry, rx * size, ry * size,
-                        tilt + quarter, layer, max(1, power + dstep)))
+            p = max(1, power + dstep)
+            base = (cx + dx * rx, cy + dy * ry, rx * size, ry * size,
+                    tilt + quarter)
+            out.append(base + (layer, p, layer))
+            for sx, sy, kx, ky, under in SHADING:
+                out.append((base[0] + sx * size, base[1] + sy * size,
+                            base[2] * kx, base[3] * ky, base[4],
+                            under, p, layer))
     return out
 
 
@@ -161,12 +184,24 @@ BILLOWS = _spread()
 
 @lru_cache(maxsize=None)
 def _circle():
-    """Rational circle points and their triangle, from the turn chain itself."""
+    """The turn-chain circle, **normalised to radius 1**.
+
+    The polygon's own radius is 1/(2 sin(alpha/2)) -- about 9.5 at a 6-degree
+    chord -- so every billow used to be drawn at 9.5 times the radius it asked
+    for, and a handful of them blanketed the whole image.  The circumradius is
+    irrational, so this is the one place exactness stops being rational: the
+    shape is still the exact polygon, its scale is a float.
+    """
     tri = for_angle(2.0)
     n = round(360 / tri.degrees)
     path = Spiral(tri, 1, heading=Dir.east())
     path.extend([0] + [1] * (n - 1))
-    return tuple(path.nodes), tri
+    nodes = [(float(x), float(y)) for x, y in path.nodes]
+    # the chain closes through the origin, so the circle's centre is the mean
+    cx = sum(x for x, _ in nodes[:-1]) / (len(nodes) - 1)
+    cy = sum(y for _, y in nodes[:-1]) / (len(nodes) - 1)
+    r = max(math.hypot(x - cx, y - cy) for x, y in nodes)
+    return tuple(((x - cx) / r, (y - cy) / r) for x, y in nodes), tri
 
 
 def _ellipse(cx, cy, rx, ry, tilt):
@@ -174,7 +209,8 @@ def _ellipse(cx, cy, rx, ry, tilt):
     d = place.rotation(tri, int(tilt))
     out = []
     for x, y in pts:
-        q = place.rotate((Fraction(rx) * x, Fraction(ry) * y), d)
+        q = place.rotate((Fraction(rx) * Fraction(x).limit_denominator(10 ** 9),
+                          Fraction(ry) * Fraction(y).limit_denominator(10 ** 9)), d)
         out.append((float(q[0]) + cx, float(q[1]) + cy))
     return tuple(out)
 
@@ -202,11 +238,11 @@ def polygons(version="v2"):
         for cx, cy, rx, ry, tilt, layer in _v1_ellipses():
             out.append((layer, _ellipse(cx, cy, rx, ry, tilt)))
         return tuple(out)
-    for cx, cy, rx, ry, tilt, layer, power in BILLOWS:
+    for cx, cy, rx, ry, tilt, layer, power, shape in BILLOWS:
         a = math.radians(tilt * for_angle(CHORD).degrees)
         ca, sa = math.cos(a), math.sin(a)
         pts = []
-        for x, y in _unit_outline(layer, power):
+        for x, y in _unit_outline(shape, power):
             u, v = float(x) * rx * SCALE, float(y) * ry * SCALE
             pts.append((cx + u * ca - v * sa, cy + u * sa + v * ca))
         out.append((layer, tuple(pts)))
@@ -251,8 +287,8 @@ def grid(x0, y0, x1, y1, nx, ny):
 
 # the two test rows as corners (x0, y0, x1, y1), y up: where the four standard
 # patterns sit.  `row_box` turns a row into the (x, y, w, h) that `panel` wants.
-TOP_ROW = (14.0, 26.0, 106.0, 42.0)
-BOTTOM_ROW = (14.0, 6.0, 106.0, 22.0)
+TOP_ROW = (14.0, 32.0, 106.0, 48.0)
+BOTTOM_ROW = (14.0, 8.0, 106.0, 24.0)
 
 
 @lru_cache(maxsize=None)

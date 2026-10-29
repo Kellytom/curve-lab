@@ -82,8 +82,8 @@
   </div>
   <div class="card good">
     <h3>Remote MVP</h3>
-    <p class="url"><a href="https://clothoid-web-ba5ahdu6bq-uc.a.run.app">https://clothoid-web-ba5ahdu6bq-uc.a.run.app</a></p>
-    <p class="note">Cloud Run, Linux container. Project-number alias: <code>https://clothoid-web-538547911090.us-central1.run.app</code>.</p>
+    <p class="url"><a href="https://<your-service>.run.app">https://<your-service>.run.app</a></p>
+    <p class="note">Cloud Run, Linux container. Project-number alias: <code>https://<your-service>-<project-number>.us-central1.run.app</code>.</p>
   </div>
 </div>
 
@@ -94,12 +94,12 @@
 <table>
   <tr><th>Item</th><th>Value</th></tr>
   <tr><td>Account</td><td><code>kelly.aquinas.tom@gmail.com</code></td></tr>
-  <tr><td>Project</td><td><code>clothoid-lab-1792967460</code></td></tr>
+  <tr><td>Project</td><td><code><your-gcp-project></code></td></tr>
   <tr><td>Region</td><td><code>us-central1</code></td></tr>
   <tr><td>Cloud Run service</td><td><code>clothoid-web</code></td></tr>
   <tr><td>Current revision</td><td><code>clothoid-web-00002-wsp</code></td></tr>
   <tr><td>Runtime</td><td>Linux, Python 3.12, Debian slim</td></tr>
-  <tr><td>Image repository</td><td><code>us-central1-docker.pkg.dev/clothoid-lab-1792967460/cloud-run-source-deploy/clothoid-web</code></td></tr>
+  <tr><td>Image repository</td><td><code>us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-web</code></td></tr>
   <tr><td>Min / max instances</td><td><code>0</code> / <code>1</code></td></tr>
   <tr><td>Concurrency</td><td><code>2</code></td></tr>
   <tr><td>CPU / memory</td><td><code>1 vCPU</code> / <code>512 MiB</code></td></tr>
@@ -207,7 +207,7 @@ open http://127.0.0.1:8000/</code></pre>
 <p>The URL and IAM/billing plumbing change; the engine, UI, and tests do not. There is no database or proprietary data store to migrate. The commercial attachment is to the Google account/billing setup, not the code.</p>
 <pre><code>gcloud run services delete clothoid-web --region us-central1
 # Optional and destructive: removes the whole project.
-gcloud projects delete clothoid-lab-1792967460</code></pre>
+gcloud projects delete <your-gcp-project></code></pre>
 <p>Deleting the service stops runtime charges. The $1 budget is only an alert; it does <strong>not</strong> shut the service down.</p>
 
 <h2>Free-tier controls</h2>
@@ -262,7 +262,7 @@ gcloud projects delete clothoid-lab-1792967460</code></pre>
 .venv/bin/python web/server.py</code></pre>
 <h3>Remote deploy</h3>
 <pre><code>cd /Users/thomaskelly/developer/clothoid-lab
-gcloud config set project clothoid-lab-1792967460
+gcloud config set project <your-gcp-project>
 
 # engine base — only when vendor/, csrc/, or scripts/build-native.sh changes
 gcloud builds submit --config cloudbuild.engine.yaml \
@@ -284,7 +284,7 @@ gcloud run deploy clothoid-web \
 
 <h2>Security and operations</h2>
 <ul>
-  <li>Every route except <code>/health</code> requires HTTP Basic auth with a shared token. The username is ignored; the password is the token. The token lives in Secret Manager as <code>clothoid-token</code> and is mounted as <code>CLOTHOID_TOKEN</code>; the local copy is <code>~/.config/clothoid-lab/token</code>, outside the repo.</li>
+  <li>Every route except <code>/health</code> requires HTTP Basic auth with a shared token. The username is ignored; the password is the token. The token lives in Secret Manager as <code>clothoid-token</code> and is mounted as <code>CLOTHOID_TOKEN</code>; the local copy is <code>~/.config/<app>/token</code>, outside the repo.</li>
   <li><code>/health</code> is public and returns <code>{"ok": true}</code>. <code>/healthz</code> is intercepted by Google's frontend and is not used.</li>
   <li>Bodies are bounded at 1 MB and designs at 200 segments. <code>POST /api/render</code> is limited to 60 requests/minute, burst 20, per client address; excess returns 429 with <code>Retry-After</code>. The limiter is in-process and resets on a cold start.</li>
   <li>No accounts, roles or saved designs; the shared token is the whole access model. Rotate it with a new Secret Manager version and a redeploy.</li>

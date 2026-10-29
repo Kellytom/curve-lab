@@ -17,14 +17,14 @@ remote MVP now exist.
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
   2026-10-29 (probe). Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
-- **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
-  project `clothoid-lab-1792967460`, region `us-central1`, service
+- **Remote:** `https://<your-service>.run.app` — Cloud Run,
+  project `<your-gcp-project>`, region `us-central1`, service
   `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
   without the token** at 2026-10-29 (probe); a thin app deploy takes
   ~30 s.
 - **Access:** HTTP Basic with a shared token; every route except `/health`.
   Token in Secret Manager `clothoid-token`, local copy
-  `~/.config/clothoid-lab/token` (outside the repo). `/api/render` is limited to
+  `~/.config/<app>/token` (outside the repo). `/api/render` is limited to
   60/min, burst 20, per client address; excess is 429 with `Retry-After`.
 - **Remote limits:** min `0`, max `1`, 1 vCPU, 512 MiB, concurrency `2`,
   60 s timeout. The Cloud Run IAM policy still allows unauthenticated ingress;
@@ -35,7 +35,7 @@ remote MVP now exist.
   files and skip the C++ compiler.
 - **Budget:** `$1/month` alert (`clothoid-lab guardrail`) at 50/90/100%; alerts
   do not stop spend. Re-confirmed against billing account
-  `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
+  `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
 - **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean

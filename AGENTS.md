@@ -79,7 +79,7 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
-- The auth token is at `~/.config/clothoid-lab/token` and in Secret Manager.
+- The auth token is at `~/.config/<app>/token` and in Secret Manager.
   Never print it, commit it, or put it in a URL.
 - Auth is HTTP Basic on everything except `/health`; `/healthz` is intercepted
   by Google's frontend.

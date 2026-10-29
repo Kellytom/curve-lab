@@ -9,10 +9,10 @@
 | What | URL |
 |---|---|
 | Local MVP | `http://127.0.0.1:8000/` |
-| Remote MVP | `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` |
-| Alternate Cloud Run URL | `https://clothoid-web-538547911090.us-central1.run.app` |
+| Remote MVP | `https://<your-service>.run.app` |
+| Alternate Cloud Run URL | `https://<your-service>-<project-number>.us-central1.run.app` |
 
-Both remote URLs work; the `...ba5ahdu6bq-uc.a.run.app` form is the canonical
+Both remote URLs work; the `...uc.a.run.app` form is the canonical
 `status.url` from Cloud Run.
 
 The remote page and `/api/render` were smoke-tested after deployment:
@@ -26,12 +26,12 @@ The remote page and `/api/render` were smoke-tested after deployment:
 | Item | Value |
 |---|---|
 | Account | `kelly.aquinas.tom@gmail.com` |
-| Project | `clothoid-lab-1792967460` |
+| Project | `<your-gcp-project>` |
 | Region | `us-central1` |
 | Cloud Run service | `clothoid-web` |
 | Current revision | `clothoid-web-00002-wsp` |
 | Runtime | Linux container, Python 3.12, Debian slim |
-| Image repository | `us-central1-docker.pkg.dev/clothoid-lab-1792967460/cloud-run-source-deploy/clothoid-web` |
+| Image repository | `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-web` |
 | Min / max instances | `0` / `1` |
 | Concurrency | `2` |
 | CPU / memory | `1 vCPU` / `512 MiB` |
@@ -108,7 +108,7 @@ into two images:
    Debian bookworm stage installs `clang` and compiles the vendored Clothoids
    sources and `csrc/` into `libclothoidlab.so`; the runtime stage is
    `python:3.12-slim` plus `libstdc++6` and that `.so`. Pushed to
-   `us-central1-docker.pkg.dev/clothoid-lab-1792967460/cloud-run-source-deploy/clothoid-engine:2026-10-26`.
+   `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-engine:2026-10-26`.
    Rebuild only when `vendor/`, `csrc/`, or `scripts/build-native.sh` changes.
 2. **App image** (root `Dockerfile`): starts FROM the engine base and copies
    `clothoid_lab/`, `web/`, and `out/caps/`. Every UI or Python change rebuilds
@@ -225,7 +225,7 @@ To stop everything:
 ```sh
 gcloud run services delete clothoid-web --region us-central1
 # Optional and destructive: removes the whole project.
-gcloud projects delete clothoid-lab-1792967460
+gcloud projects delete <your-gcp-project>
 ```
 
 Deleting the Cloud Run service stops runtime charges. The $1 budget is only an
@@ -300,7 +300,7 @@ Remote deploy (rebuilds the Linux image and updates the service):
 
 ```sh
 cd /Users/thomaskelly/developer/clothoid-lab
-gcloud config set project clothoid-lab-1792967460
+gcloud config set project <your-gcp-project>
 gcloud run deploy clothoid-web \
   --source . \
   --region us-central1 \
@@ -327,7 +327,7 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 - Every route except `/health` requires **HTTP Basic auth** with a shared token.
   The username is ignored; the password is the token. The token is stored in
   Secret Manager as `clothoid-token` and mounted as `CLOTHOID_TOKEN`; the local
-  copy is `~/.config/clothoid-lab/token`, outside the repository.
+  copy is `~/.config/<app>/token`, outside the repository.
 - `/health` is public and returns `{"ok": true}` for uptime checks. `/healthz`
   is intercepted by Google's frontend and is not used.
 - Bodies are bounded at 1 MB and designs at 200 segments. `POST /api/render` is
