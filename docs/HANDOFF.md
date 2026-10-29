@@ -40,7 +40,7 @@ remote MVP now exist.
   (not re-run in the handoff).
 - **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
   under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-29 probe.
-- **Git:** HEAD `281ad6b`; the handoff commit sits on top. The code tree is
+- **Git:** HEAD `c0652dd`; the handoff commit sits on top. The code tree is
   clean. `reference/` has only untracked images (`reference/1/`,
   `reference/hard/`, an `IMG_*` dump) and no tracked change at the 2026-10-29
   probe. `out/play-template.svg` is untracked.
@@ -180,7 +180,10 @@ remote MVP now exist.
   0.44% gap) and reports that the 150 terminal ends have no frame stored. The
   cloud study is `pythagorean-spiral/docs/CLOUD.md` + `cloud.html`: a toned
   photograph and a toned fresco under four layers of exact ellipse billows;
-  the edge filter is optical, the geometry is rational. 127 tests there. This is the exact **spine
+  the edge filter is optical, the geometry is rational. The veil strength is
+  solved from the artwork area (`solve_veil`), saved in
+  `pythagorean-spiral/docs/veil-settings.json`; the solve is analytic, so a
+  rendered-contrast check is still wanted. 127 tests there. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `clothoid_lab` (promotion gate in
   `pythagorean-spiral/docs/HANDOVER.md`).
