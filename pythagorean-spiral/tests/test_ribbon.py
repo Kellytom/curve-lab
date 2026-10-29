@@ -90,5 +90,28 @@ class TestRail(unittest.TestCase):
             ribbon.rail(path.nodes, Fraction(1, 10), taper=-1)
 
 
+class TestFloatRail(unittest.TestCase):
+    def test_the_same_offset_in_doubles(self):
+        pts = [(0.0, 0.0), (1.0, 0.0), (2.0, 0.0)]
+        left, right = ribbon.rails_float(pts, 0.1)
+        for a, b in zip(left, right):
+            self.assertAlmostEqual(a[1], 0.1, places=12)
+            self.assertAlmostEqual(b[1], -0.1, places=12)
+
+    def test_taper_still_lands_on_the_end_nodes(self):
+        pts = [(0.0, 0.0), (1.0, 0.0), (2.0, 0.0), (3.0, 0.0)]
+        left, right = ribbon.rails_float(pts, 0.1, taper=2)
+        self.assertEqual(left[0], pts[0])
+        self.assertEqual(right[-1], pts[-1])
+
+    def test_a_long_float_chain_offsets_without_raising(self):
+        from pythagorean_spiral import hybrid
+        from pythagorean_spiral.triples import thinnest
+        chain = hybrid.build(thinnest(3125), range(2000))
+        poly = ribbon.outline_float(chain.nodes, 0.01, taper=4)
+        self.assertEqual(len(poly), 2 * len(chain.nodes))
+        self.assertTrue(all(x == x and y == y for x, y in poly))
+
+
 if __name__ == "__main__":
     unittest.main()
