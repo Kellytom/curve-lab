@@ -39,6 +39,13 @@ def node_tangents(path: Spiral, sharp: float = math.radians(12.0)):
     for k in range(1, len(heads)):
         if abs(turns[k]) > sharp:
             continue
+        # A curvature reversal is not a small turn, it is a different thing:
+        # smoothing it hands the two spans a tangent that does not lie on
+        # their own chords, and a single short chord forced to bow between
+        # them overshoots the chain's curvature by 3x. Keep the corner.
+        if 0 < k < len(turns) and turns[k] and turns[k - 1] \
+                and (turns[k] > 0) != (turns[k - 1] > 0):
+            continue
         a, b = heads[k - 1], heads[k]
         vx, vy = math.cos(a) + math.cos(b), math.sin(a) + math.sin(b)
         if math.hypot(vx, vy) > 1e-12:
@@ -54,6 +61,7 @@ def spans(path: Spiral, max_turn: float = math.radians(50.0),
     if len(nodes) < 2:
         return []
     leave, arrive = node_tangents(path, sharp)
+    heads = [h.angle for h in path.headings]
 
     alpha = path.triangle.radians
     groups: list[tuple[int, int]] = []
@@ -79,8 +87,19 @@ def spans(path: Spiral, max_turn: float = math.radians(50.0),
         groups.append((i, j))
         i = j
 
-    return [_cubic(nodes[i], nodes[j], leave[i], arrive[j], s0=float(i), s1=float(j))
-            for i, j in groups]
+    out = []
+    for i, j in groups:
+        if j - i == 1:
+            # one chord: draw the chord.  Smoothing one end of a single short
+            # span asks the cubic to bend 3 degrees over one chord, which
+            # overshoots the chain's curvature by 2x.  The straight chord is
+            # both exact and the thing the polygon actually says.
+            out.append(_cubic(nodes[i], nodes[j], heads[i], heads[i],
+                              s0=float(i), s1=float(j)))
+        else:
+            out.append(_cubic(nodes[i], nodes[j], leave[i], arrive[j],
+                              s0=float(i), s1=float(j)))
+    return out
 
 
 def join_kink(curves: list[dict]) -> float:
@@ -154,6 +173,31 @@ def _segment_distance(p, a, b) -> float:
     t = ((p[0] - ax) * dx + (p[1] - ay) * dy) / den
     t = max(0.0, min(1.0, t))
     return math.hypot(p[0] - (ax + t * dx), p[1] - (ay + t * dy))
+
+
+def curvature(span: dict, t: float) -> float:
+    """Signed curvature of the cubic at `t`, from its first two derivatives."""
+    px = (span["p0"], span["c1"], span["c2"], span["p3"])
+    u = 1.0 - t
+    x1 = 3 * u * u * (px[1][0] - px[0][0]) + 6 * u * t * (px[2][0] - px[1][0]) \
+        + 3 * t * t * (px[3][0] - px[2][0])
+    y1 = 3 * u * u * (px[1][1] - px[0][1]) + 6 * u * t * (px[2][1] - px[1][1]) \
+        + 3 * t * t * (px[3][1] - px[2][1])
+    x2 = 6 * u * (px[2][0] - 2 * px[1][0] + px[0][0]) \
+        + 6 * t * (px[3][0] - 2 * px[2][0] + px[1][0])
+    y2 = 6 * u * (px[2][1] - 2 * px[1][1] + px[0][1]) \
+        + 6 * t * (px[3][1] - 2 * px[2][1] + px[1][1])
+    speed = math.hypot(x1, y1)
+    return (x1 * y2 - y1 * x2) / speed ** 3 if speed > 1e-12 else 0.0
+
+
+def max_curvature(curves: list[dict], samples: int = 48) -> float:
+    """Largest |curvature| anywhere on the drawn curve."""
+    worst = 0.0
+    for c in curves:
+        for i in range(samples + 1):
+            worst = max(worst, abs(curvature(c, i / samples)))
+    return worst
 
 
 def deviation(span: dict, nodes: list[tuple[float, float]], samples: int = 33) -> float:

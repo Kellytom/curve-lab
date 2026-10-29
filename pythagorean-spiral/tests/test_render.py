@@ -22,12 +22,18 @@ class TestCubics(unittest.TestCase):
             math.dist(first["p0"], first["c1"]),
             math.dist(first["p0"], first["p3"]) / 3.0, places=6)
 
-    def test_smoothing_leaves_no_kink(self):
-        p = design.lobe(THIN, 7, 3121)
+    def test_smoothing_leaves_no_kink_away_from_a_reversal(self):
+        p = design.spiral(THIN, 4, 3121)          # no curvature reversal
         smooth = spanmod.spans(p, math.radians(20))
         self.assertLess(spanmod.join_kink(smooth), 1e-9)
         sharp = spanmod.spans(p, math.radians(0.1), sharp=0.0)
         self.assertGreater(spanmod.join_kink(sharp), math.radians(1))
+
+    def test_a_curvature_reversal_is_left_sharp(self):
+        p = design.lobe(THIN, 7, 3121)
+        corner = max(abs(t) for t in p.turns) * p.triangle.radians
+        self.assertAlmostEqual(spanmod.join_kink(spanmod.spans(p, math.radians(20))),
+                               corner, places=9)
 
     def test_fit_reaches_the_chain_resolution(self):
         p = design.lobe(THIN, 7, 3121)

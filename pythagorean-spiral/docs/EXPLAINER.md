@@ -89,17 +89,19 @@ If the final artwork is cubic Béziers, the polygon is already the right scaffol
 
 *One cubic. Anchors sit on the curve; the arms carry the heading and are the only free numbers.*
 
-Three rules make it draw as a curve rather than a polygon. Anchors are the nodes — control points are off-curve, so feeding vertices in as controls shrinks the shape and rounds the corners you drew. Tangents come from the heading, smoothed onto the bisector of the two chords meeting at a node, so consecutive cubics meet G1. And spans break at a curvature reversal, because a cubic has one bulge sense and cannot un-bulge inside a span.
+Four rules make it draw as a curve rather than a polygon. Anchors are the nodes — control points are off-curve, so feeding vertices in as controls shrinks the shape and rounds the corners you drew. Tangents come from the heading, smoothed onto the bisector of the two chords meeting at a node, so consecutive cubics meet G1. Spans break at a curvature reversal, because a cubic has one bulge sense and cannot un-bulge inside a span. And a reversal is *not* smoothed and single-chord spans are drawn as their chord, because smoothing one end of a short span asks a cubic to bend three degrees over one chord, which overshoots the chain's curvature by a factor of three.
 
 With those three rules the fit stops being the error:
 
 ```text
-join_kink             0.0        (G1 everywhere)
-worst fit error       0.01288    on a 63-unit figure
-chain sagitta          0.01288    the same number
+corner at the apsis    5.904 deg  = 66 alpha, the chain's own turn
+everywhere else         G1         (tangent jump 3e-13 deg)
+peak drawn curvature   0.121      the chain's own peak is 0.103
+worst fit error        0.0289     on a 63-unit figure
+chain sagitta          0.0129
 ```
 
-The fit is at the floor set by the chords themselves. On a 200 mm page that gap is about 0.04 mm: below what the page can show.
+The fit sits at twice the resolution of the chords it interpolates, because the apsis corner has to be cut across rather than rounded; away from the apsis it is at the floor. On a 200 mm page that gap is about 0.09 mm: below what the page can show.
 
 
 ## 7. Resolution, and what exactness is for

@@ -410,19 +410,26 @@ BLOCKS = [
           "for its two arm lengths, and those arms are the only approximation in the "
           "pipeline."),
     ("fig", fig_cubic, "One cubic. Anchors sit on the curve; the arms carry the heading and are the only free numbers."),
-    ("p", "Three rules make it draw as a curve rather than a polygon. Anchors are "
+    ("p", "Four rules make it draw as a curve rather than a polygon. Anchors are "
           "the nodes — control points are off-curve, so feeding vertices in as "
           "controls shrinks the shape and rounds the corners you drew. Tangents come "
           "from the heading, smoothed onto the bisector of the two chords meeting at "
-          "a node, so consecutive cubics meet G1. And spans break at a curvature "
+          "a node, so consecutive cubics meet G1. Spans break at a curvature "
           "reversal, because a cubic has one bulge sense and cannot un-bulge inside "
-          "a span."),
+          "a span. And a reversal is *not* smoothed and single-chord spans are drawn "
+          "as their chord, because smoothing one end of a short span asks a cubic to "
+          "bend three degrees over one chord, which overshoots the chain's curvature "
+          "by a factor of three."),
     ("p", "With those three rules the fit stops being the error:"),
-    ("code", "join_kink             0.0        (G1 everywhere)\n"
-             "worst fit error       0.01288    on a 63-unit figure\n"
-             "chain sagitta          0.01288    the same number"),
-    ("p", "The fit is at the floor set by the chords themselves. On a 200 mm page "
-          "that gap is about 0.04 mm: below what the page can show."),
+    ("code", "corner at the apsis    5.904 deg  = 66 alpha, the chain's own turn\n"
+             "everywhere else         G1         (tangent jump 3e-13 deg)\n"
+             "peak drawn curvature   0.121      the chain's own peak is 0.103\n"
+             "worst fit error        0.0289     on a 63-unit figure\n"
+             "chain sagitta          0.0129"),
+    ("p", "The fit sits at twice the resolution of the chords it interpolates, "
+          "because the apsis corner has to be cut across rather than rounded; away "
+          "from the apsis it is at the floor. On a 200 mm page that gap is about "
+          "0.09 mm: below what the page can show."),
 
     ("h2", "7. Resolution, and what exactness is for"),
     ("p", "Coordinates are integers over `c^T(steps−1)`, so finer chords cost "
