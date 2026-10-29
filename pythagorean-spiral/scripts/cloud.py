@@ -20,6 +20,7 @@ from pythagorean_spiral.spiral import Spiral  # noqa: E402
 from pythagorean_spiral.triples import for_angle  # noqa: E402
 
 import explainer as ex  # noqa: E402
+import cloud_form as cf  # noqa: E402
 
 FIG = ex.FIG
 REF = ROOT.parent / "reference"
@@ -124,6 +125,17 @@ CLOUD = [
     # base: the flat underside
     (38, 34, 9, 4.5, 2, "bank"), (52, 38, 11, 4.5, -1, "bank"),
     (66, 36, 9, 4.5, 3, "bank"), (79, 41, 7, 4, -3, "bank"),
+    # the veil down over the works, so the whole image is covered
+    (24, 20, 9, 6, -3, "bank"), (42, 18, 11, 6, 3, "bank"),
+    (60, 19, 11, 6, -2, "bank"), (78, 21, 9, 6, 4, "bank"),
+    (32, 27, 10, 8, -5, "billow"), (50, 29, 11, 9, 4, "billow"),
+    (68, 28, 10, 9, -3, "billow"), (84, 30, 8, 7, 5, "billow"),
+    # and down to the base of the works, so the images are covered entirely
+    (28, 16, 11, 7, 3, "billow"), (46, 14, 13, 7, -4, "billow"),
+    (64, 15, 13, 7, 2, "billow"), (82, 16, 11, 7, -3, "billow"),
+    (96, 18, 8, 6, 4, "billow"),
+    (36, 8, 10, 4.5, -2, "bank"), (56, 7, 11, 4.5, 3, "bank"),
+    (76, 8, 10, 4.5, -3, "bank"),
     # lower lobes
     (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
     (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
@@ -135,6 +147,7 @@ CLOUD = [
     (54, 69, 5, 4.5, -3, "crown"),
 ]
 
+VEIL = 0.25  # a quarter opaque: the works read clearly through
 LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60}
 _FILTER = [0]
 
@@ -172,7 +185,7 @@ def draw_cloud(c, only=None, veil=1.0, drop=0.0):
             billow(c, cx - 1.4, cy - drop + 2.6, rx * 0.84, ry * 0.78, tilt,
                    "#fbf6ea", 0.16 * veil)
         billow(c, cx, cy - drop, rx, ry, tilt, PALETTE[layer],
-               LAYER[layer] * veil, edge=2.6)
+               LAYER[layer] * veil * VEIL, edge=2.6)
     c.out.append('</g>')
 
 
@@ -215,7 +228,7 @@ def fig_veil(sizes):
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
     image_at(c, 16, 10, aw, hs, f"fig/{STATUE.name}")
     image_at(c, 100 - bw, 10, bw, hs, f"fig/{FRESCO.name}")
-    draw_cloud(c, drop=5)
+    draw_cloud(c)
     return c.svg("cloud over two works")
 
 
@@ -251,10 +264,10 @@ def build_blocks(sizes):
                   "is hidden stays God's to reveal."),
         ("table", [["role", "tone", "use"],
                    ["wall", PALETTE["wall"], "the constant ground"],
-                   ["haze", PALETTE["haze"], "outer breath, alpha 0.14"],
-                   ["bank", PALETTE["bank"], "the flat base, alpha 0.34"],
-                   ["billow", PALETTE["billow"], "volume, alpha 0.46"],
-                   ["crown", PALETTE["crown"], "lit tops, alpha 0.60"],
+                   ["haze", PALETTE["haze"], f"outer breath, alpha {LAYER['haze'] * VEIL:.2f}"],
+                   ["bank", PALETTE["bank"], f"the flat base, alpha {LAYER['bank'] * VEIL:.2f}"],
+                   ["billow", PALETTE["billow"], f"volume, alpha {LAYER['billow'] * VEIL:.2f}"],
+                   ["crown", PALETTE["crown"], f"lit tops, alpha {LAYER['crown'] * VEIL:.2f}"],
                    ["shadow", PALETTE["shadow"], "under the mass, never black"]]),
         ("h2", "1. Tone first, then veil"),
         ("fig", lambda: fig_tone(sizes),
@@ -318,7 +331,28 @@ def build_blocks(sizes):
               "is enough. For a true parabola or hyperbola, use the float path "
               "and report the gap."),
 
-        ("h2", "4. What this is not"),
+        ("h2", "4. The clothoid-like cloud, in four arcs"),
+        ("p", "The simplest form is not a mass of puffs but four arcs: two big "
+              "ones under the cloud, turning upward and meeting at (0,0); two "
+              "half-size ones on top, turning downward and meeting near "
+              "(0,200). Plotted with the stated centres, the form does not "
+              "close -- the bottom circles are centred at (120,120) and "
+              "(-120,120) with radius 169.7, the top at (60,180) and (-60,180) "
+              "with radius 63.2, and the right-hand pair is nested by 21.6, so "
+              "there is no side joint."),
+        ("fig", cf.fig_literal,
+         "The four arcs as stated, with centres and the two meeting points."),
+        ("p", "Moving the bottom centres in to (100,100) fixes it more neatly "
+              "than a side crossing would: the bottom radius becomes 141.4, "
+              "which is also the distance to (0,200), so the bottom pair passes "
+              "through both (0,0) and (0,200) -- and the top pair already passes "
+              "through (0,200). That is the common point, and the cloud closes "
+              "there. Two numbers remain: the big lobes reach x = 241 (about "
+              "twice the intended width), and the tangent at (0,200) is G0, not "
+              "G1, so the next tune is one centre and one tangent."),
+        ("fig", cf.fig_adjusted,
+         "Bottom centres at (100,100): all four arcs meet at (0,200)."),
+        ("h2", "5. What this is not"),
         ("p", "This framework does not replace the clothoid engine, and it is "
               "not a subset of its curves. Bertolazzi gives real clothoids -- "
               "exact Fresnel geometry, many parameterisations, tolerances. The "
@@ -350,7 +384,8 @@ def main():
     FIG.mkdir(parents=True, exist_ok=True)
     sizes = prepare()
     blocks = build_blocks(sizes)
-    names = ["cloud-tone", "cloud-veil", "cloud-conics"]
+    names = ["cloud-tone", "cloud-veil", "cloud-conics",
+             "cloud-form-stated", "cloud-form-adjusted"]
     figs, fig_names = [], []
     i = 0
     for kind, *rest in blocks:
@@ -365,7 +400,21 @@ def main():
     (ROOT / "docs" / "CLOUD.md").write_text(md.rstrip() + "\n")
     html = ex.to_html(blocks, figs, "A cloud, for veiling")
     (ROOT / "docs" / "cloud.html").write_text(html + "\n")
-    print(f"docs/CLOUD.md, docs/cloud.html, {len(figs)} figures")
+    import json
+    settings = {
+        "veil_transparency": VEIL,
+        "canvas": [120, 80],
+        "palette": PALETTE,
+        "layers": {k: round(v * VEIL, 4) for k, v in LAYER.items()},
+        "blobs": [{"x": x, "y": y, "rx": rx, "ry": ry, "tilt": t, "layer": l}
+                  for x, y, rx, ry, t, l in CLOUD],
+        "filter": {"displacement": 8, "blur": 6},
+        "works": {"statue": "reference/IMG_5972.JPG",
+                  "fresco": "reference/IMG_5975.JPG"},
+    }
+    (ROOT / "docs" / "veil-settings.json").write_text(
+        json.dumps(settings, indent=1) + "\n")
+    print(f"docs/CLOUD.md, docs/cloud.html, docs/veil-settings.json, {len(figs)} figures")
 
 
 if __name__ == "__main__":

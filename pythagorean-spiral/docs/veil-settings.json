@@ -1,0 +1,315 @@
+{
+ "veil_transparency": 0.25,
+ "canvas": [
+  120,
+  80
+ ],
+ "palette": {
+  "wall": "#e6dbc9",
+  "haze": "#ded8cf",
+  "bank": "#cfc9bf",
+  "billow": "#ddd0bb",
+  "crown": "#f2ead9",
+  "shadow": "#b7ad9d",
+  "cool": "#9aa0a4",
+  "cool_dark": "#71777c",
+  "warm": "#c3b49b",
+  "warm_dark": "#9b8a70"
+ },
+ "layers": {
+  "haze": 0.035,
+  "bank": 0.085,
+  "billow": 0.115,
+  "crown": 0.15
+ },
+ "blobs": [
+  {
+   "x": 24,
+   "y": 39,
+   "rx": 6,
+   "ry": 4,
+   "tilt": -4,
+   "layer": "haze"
+  },
+  {
+   "x": 90,
+   "y": 40,
+   "rx": 5,
+   "ry": 4,
+   "tilt": 3,
+   "layer": "haze"
+  },
+  {
+   "x": 30,
+   "y": 36,
+   "rx": 5,
+   "ry": 3.5,
+   "tilt": 5,
+   "layer": "haze"
+  },
+  {
+   "x": 40,
+   "y": 71,
+   "rx": 4,
+   "ry": 3.5,
+   "tilt": 5,
+   "layer": "haze"
+  },
+  {
+   "x": 70,
+   "y": 68,
+   "rx": 4,
+   "ry": 3.5,
+   "tilt": -5,
+   "layer": "haze"
+  },
+  {
+   "x": 38,
+   "y": 34,
+   "rx": 9,
+   "ry": 4.5,
+   "tilt": 2,
+   "layer": "bank"
+  },
+  {
+   "x": 52,
+   "y": 38,
+   "rx": 11,
+   "ry": 4.5,
+   "tilt": -1,
+   "layer": "bank"
+  },
+  {
+   "x": 66,
+   "y": 36,
+   "rx": 9,
+   "ry": 4.5,
+   "tilt": 3,
+   "layer": "bank"
+  },
+  {
+   "x": 79,
+   "y": 41,
+   "rx": 7,
+   "ry": 4,
+   "tilt": -3,
+   "layer": "bank"
+  },
+  {
+   "x": 24,
+   "y": 20,
+   "rx": 9,
+   "ry": 6,
+   "tilt": -3,
+   "layer": "bank"
+  },
+  {
+   "x": 42,
+   "y": 18,
+   "rx": 11,
+   "ry": 6,
+   "tilt": 3,
+   "layer": "bank"
+  },
+  {
+   "x": 60,
+   "y": 19,
+   "rx": 11,
+   "ry": 6,
+   "tilt": -2,
+   "layer": "bank"
+  },
+  {
+   "x": 78,
+   "y": 21,
+   "rx": 9,
+   "ry": 6,
+   "tilt": 4,
+   "layer": "bank"
+  },
+  {
+   "x": 32,
+   "y": 27,
+   "rx": 10,
+   "ry": 8,
+   "tilt": -5,
+   "layer": "billow"
+  },
+  {
+   "x": 50,
+   "y": 29,
+   "rx": 11,
+   "ry": 9,
+   "tilt": 4,
+   "layer": "billow"
+  },
+  {
+   "x": 68,
+   "y": 28,
+   "rx": 10,
+   "ry": 9,
+   "tilt": -3,
+   "layer": "billow"
+  },
+  {
+   "x": 84,
+   "y": 30,
+   "rx": 8,
+   "ry": 7,
+   "tilt": 5,
+   "layer": "billow"
+  },
+  {
+   "x": 28,
+   "y": 16,
+   "rx": 11,
+   "ry": 7,
+   "tilt": 3,
+   "layer": "billow"
+  },
+  {
+   "x": 46,
+   "y": 14,
+   "rx": 13,
+   "ry": 7,
+   "tilt": -4,
+   "layer": "billow"
+  },
+  {
+   "x": 64,
+   "y": 15,
+   "rx": 13,
+   "ry": 7,
+   "tilt": 2,
+   "layer": "billow"
+  },
+  {
+   "x": 82,
+   "y": 16,
+   "rx": 11,
+   "ry": 7,
+   "tilt": -3,
+   "layer": "billow"
+  },
+  {
+   "x": 96,
+   "y": 18,
+   "rx": 8,
+   "ry": 6,
+   "tilt": 4,
+   "layer": "billow"
+  },
+  {
+   "x": 36,
+   "y": 8,
+   "rx": 10,
+   "ry": 4.5,
+   "tilt": -2,
+   "layer": "bank"
+  },
+  {
+   "x": 56,
+   "y": 7,
+   "rx": 11,
+   "ry": 4.5,
+   "tilt": 3,
+   "layer": "bank"
+  },
+  {
+   "x": 76,
+   "y": 8,
+   "rx": 10,
+   "ry": 4.5,
+   "tilt": -3,
+   "layer": "bank"
+  },
+  {
+   "x": 36,
+   "y": 42,
+   "rx": 10,
+   "ry": 8,
+   "tilt": -5,
+   "layer": "billow"
+  },
+  {
+   "x": 50,
+   "y": 44,
+   "rx": 12,
+   "ry": 9,
+   "tilt": 3,
+   "layer": "billow"
+  },
+  {
+   "x": 65,
+   "y": 43,
+   "rx": 10,
+   "ry": 8,
+   "tilt": -4,
+   "layer": "billow"
+  },
+  {
+   "x": 79,
+   "y": 41,
+   "rx": 7,
+   "ry": 6,
+   "tilt": 5,
+   "layer": "billow"
+  },
+  {
+   "x": 42,
+   "y": 52,
+   "rx": 8,
+   "ry": 7,
+   "tilt": 4,
+   "layer": "billow"
+  },
+  {
+   "x": 56,
+   "y": 55,
+   "rx": 9,
+   "ry": 8,
+   "tilt": -3,
+   "layer": "billow"
+  },
+  {
+   "x": 70,
+   "y": 52,
+   "rx": 7,
+   "ry": 7,
+   "tilt": 5,
+   "layer": "billow"
+  },
+  {
+   "x": 48,
+   "y": 62,
+   "rx": 6,
+   "ry": 6,
+   "tilt": -4,
+   "layer": "crown"
+  },
+  {
+   "x": 60,
+   "y": 63,
+   "rx": 6,
+   "ry": 6,
+   "tilt": 3,
+   "layer": "crown"
+  },
+  {
+   "x": 54,
+   "y": 69,
+   "rx": 5,
+   "ry": 4.5,
+   "tilt": -3,
+   "layer": "crown"
+  }
+ ],
+ "filter": {
+  "displacement": 8,
+  "blur": 6
+ },
+ "works": {
+  "statue": "reference/IMG_5972.JPG",
+  "fresco": "reference/IMG_5975.JPG"
+ }
+}

@@ -14,6 +14,32 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import explainer as ex  # noqa: E402
+from fractions import Fraction  # noqa: E402
+from pythagorean_spiral import hybrid  # noqa: E402
+from pythagorean_spiral.triples import for_angle  # noqa: E402
+
+TRI = for_angle(2.0)
+
+
+def chain_arc(centre, radius, start_deg, sweep_deg):
+    """The circle as a chain: one whole triangle turn per chord.
+
+    The vertices sit on the circle because the chord is 2r*sin(alpha/2); the
+    radius is a construction value, the curve is the exact chain. Placement is
+    float (the start angle is not in the rotation group); the chain is not.
+    """
+    alpha = math.degrees(TRI.radians)
+    n = max(2, round(abs(sweep_deg) / alpha) + 1)
+    step = math.radians(alpha * (1 if sweep_deg >= 0 else -1))
+    length = 2 * radius * math.sin(abs(step) / 2)
+    chain = hybrid.build(TRI, [0] + [1] * (n - 1),
+                         length=Fraction(length).limit_denominator(10 ** 6))
+    tangent = math.radians(start_deg) + (math.pi / 2 if sweep_deg > 0 else -math.pi / 2)
+    ca, sa = math.cos(tangent), math.sin(tangent)
+    x0 = centre[0] + radius * math.cos(math.radians(start_deg))
+    y0 = centre[1] + radius * math.sin(math.radians(start_deg))
+    return [(x0 + x * ca - y * sa, y0 + x * sa + y * ca)
+            for x, y in chain.nodes]
 
 FIG = ex.FIG
 INK, GOLD, RED, BLUE, FAINT = ex.INK, ex.GOLD, ex.RED, ex.BLUE, ex.FAINT
@@ -86,16 +112,18 @@ def fig_adjusted():
     # bottom lobes: (0,0) -> (0,200), the long way around the outside
     a0 = math.atan2(0 - bottom[1], 0 - bottom[0])          # 225 deg
     a1 = math.atan2(200 - bottom[1], 0 - bottom[0]) + 2 * math.pi
-    c.poly(circle_arc(bottom, rb, a0, a1), INK, 2.0)
-    c.poly(circle_arc((-bottom[0], bottom[1]), rb, math.pi - a0, math.pi - a1),
-           INK, 2.0)
+    c.poly(chain_arc(bottom, rb, math.degrees(a0), 270), INK, 2.0)
+    c.poly(chain_arc((-bottom[0], bottom[1]), rb,
+                     math.degrees(math.pi - a0), -270), INK, 2.0)
     # the top pair passes through (0,200) and (0,160); the lobe between them
     # is the small crescent left of each top centre -- drawn faint, unresolved
     b0 = math.atan2(160 - top[1], 0 - top[0])
     b1 = math.atan2(200 - top[1], 0 - top[0])
-    c.poly(circle_arc(top, rt, b0, b1), BLUE, 1.2, opacity=0.5)
-    c.poly(circle_arc((-top[0], top[1]), rt, math.pi - b0, math.pi - b1),
-           BLUE, 1.2, opacity=0.5)
+    c.poly(chain_arc(top, rt, math.degrees(b0), math.degrees(b1 - b0)),
+           BLUE, 1.6)
+    c.poly(chain_arc((-top[0], top[1]), rt,
+                     math.degrees(math.pi - b0), -math.degrees(b1 - b0)),
+           BLUE, 1.6)
     c.dot((0, 200), 4.4, RED, "#fffdf7", 1.2)
     c.text(6, 206, "common point (0,200)", 10, RED)
     c.dot(BOTTOM_MEET, 4.0, RED, "#fffdf7", 1.0)

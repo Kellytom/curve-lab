@@ -7,10 +7,10 @@ The cathedral has no single artwork problem; it has one per piece. The proposal 
 | role | tone | use |
 | --- | --- | --- |
 | wall | #e6dbc9 | the constant ground |
-| haze | #ded8cf | outer breath, alpha 0.14 |
-| bank | #cfc9bf | the flat base, alpha 0.34 |
-| billow | #ddd0bb | volume, alpha 0.46 |
-| crown | #f2ead9 | lit tops, alpha 0.60 |
+| haze | #ded8cf | outer breath, alpha 0.04 |
+| bank | #cfc9bf | the flat base, alpha 0.09 |
+| billow | #ddd0bb | volume, alpha 0.12 |
+| crown | #f2ead9 | lit tops, alpha 0.15 |
 | shadow | #b7ad9d | under the mass, never black |
 
 
@@ -35,7 +35,7 @@ The cloud is built from **exact ellipses**. A circle is a chain with one triangl
 
 ```text
 layers   4   haze 0.14, bank 0.34, billow 0.46, crown 0.6
-puffs    19  ellipses, tilted by whole triangle angles
+puffs    35  ellipses, tilted by whole triangle angles
 edge     fractal displacement + gaussian blur, optical only
 overlap  the sum does the softening
 geometry exact; opacity and tone are choices
@@ -55,7 +55,22 @@ Not all four are the same curve, and it matters which is which. The chain is bui
 The constructive part is real: because the ellipse is a scaled circle, a circle with rays from its diameter scales into an ellipse with rays, exactly. That is how the second drawing was made -- same points, same rational slopes, one rational scale. For a sunburst, a rose-window basis, or a billow with ribs, that is enough. For a true parabola or hyperbola, use the float path and report the gap.
 
 
-## 4. What this is not
+## 4. The clothoid-like cloud, in four arcs
+
+The simplest form is not a mass of puffs but four arcs: two big ones under the cloud, turning upward and meeting at (0,0); two half-size ones on top, turning downward and meeting near (0,200). Plotted with the stated centres, the form does not close -- the bottom circles are centred at (120,120) and (-120,120) with radius 169.7, the top at (60,180) and (-60,180) with radius 63.2, and the right-hand pair is nested by 21.6, so there is no side joint.
+
+![The four arcs as stated, with centres and the two meeting points.](fig/cloud-form-stated.svg)
+
+*The four arcs as stated, with centres and the two meeting points.*
+
+Moving the bottom centres in to (100,100) fixes it more neatly than a side crossing would: the bottom radius becomes 141.4, which is also the distance to (0,200), so the bottom pair passes through both (0,0) and (0,200) -- and the top pair already passes through (0,200). That is the common point, and the cloud closes there. Two numbers remain: the big lobes reach x = 241 (about twice the intended width), and the tangent at (0,200) is G0, not G1, so the next tune is one centre and one tangent.
+
+![Bottom centres at (100,100): all four arcs meet at (0,200).](fig/cloud-form-adjusted.svg)
+
+*Bottom centres at (100,100): all four arcs meet at (0,200).*
+
+
+## 5. What this is not
 
 This framework does not replace the clothoid engine, and it is not a subset of its curves. Bertolazzi gives real clothoids -- exact Fresnel geometry, many parameterisations, tolerances. The chain here is an Euler polygon whose *headings* match a clothoid at the nodes; its position is up to a chord away, and its curvature is a staircase. What it adds is the other column: rational points, rational slopes, exact joins and mirrors, and a known lattice. The caps in `out/caps` came from the engine and transfer here by quantising each chord's turn, with a measured gap. The honest architecture is: engine for the transcendental curve, chain for the exact plan, and a converter between them.
 

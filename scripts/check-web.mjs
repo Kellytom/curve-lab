@@ -18,13 +18,18 @@ const shotsAt = process.argv.indexOf("--shots");
 const shotsDir = shotsAt > -1 ? process.argv[shotsAt + 1] : null;
 if (shotsDir) fs.mkdirSync(shotsDir, { recursive: true });
 
+// The gate launches its own Chrome: connectOverCDP to the persistent :9223
+// instance hangs on this machine. For ad-hoc shots of that instance use
+// scripts/shot.mjs, which speaks CDP directly.
 const browser = await chromium.launch({ channel: "chrome", headless: true });
+const context = await browser.newContext();
 const results = [];
 let failed = false;
 
 async function check(label, url) {
   for (const [width, height] of VIEWPORTS) {
-    const page = await browser.newPage({ viewport: { width, height } });
+    const page = await context.newPage();
+    await page.setViewportSize({ width, height });
     let status = null;
     let error = null;
     try {
@@ -54,6 +59,7 @@ async function check(label, url) {
 for (const page of PAGES) await check(page, `${DOCS}/${page}`);
 await check("app", `${APP}/`);
 
+await context.close();
 await browser.close();
 console.log(JSON.stringify(results, null, 1));
 process.exit(failed ? 1 : 0);
