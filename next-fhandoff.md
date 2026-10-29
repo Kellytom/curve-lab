@@ -1,6 +1,8 @@
 ```text
-Read docs/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
-You are building fleur_canonical() from the measured fleur reference and rendering its silhouette beside the metrics.
+Read pythagorean-spiral/docs/HANDOVER.md. The spike there is complete to a
+decision point; the next one action is the exponent dial (turns = k^p, integer
+p), proved identical to today's curl at p = 1. fleur_canonical() from
+docs/HANDOFF.md is still the W03 action and is deferred, not dropped.
 ```
 
-Source: `docs/HANDOFF.md`, 2026-10-28, commit `8951e40`.
+Source: `pythagorean-spiral/docs/HANDOVER.md`, 2026-10-28, commit `a8653ba`.
