@@ -6,7 +6,7 @@ import argparse
 import math
 from fractions import Fraction
 
-from . import design, spans as spanmod, svg
+from . import design, quality, spans as spanmod, svg
 from .closure import closure_pairs, g2_pairs
 from .spiral import Spiral
 from .triples import Triple, thinnest
@@ -29,7 +29,8 @@ def _build(args, triangle: Triple) -> Spiral:
     if args.mode == "lobe":
         return design.lobe(triangle, args.steps, length)
     if args.mode == "curl":
-        return design.curl(args.peak, args.chord, length)
+        return design.curl(args.peak, args.chord,
+                           None if args.accel else length, accel=args.accel)
     if args.mode == "hook":
         return design.hook(triangle, args.multiplier, args.n_out, length)
     return design.g2_lobe(triangle, args.steps, length)
@@ -68,6 +69,11 @@ def report(path: Spiral, exact: bool = False, brief: bool = False,
     elif not brief:
         lines.append(f"exactness     exact rational, {size} digits "
                      f"(pass --exact to print it)")
+    r = quality.report(path)
+    lines.append(
+        f"acceleration  peak |k| {r['peak_acceleration']:.6g}   "
+        f"|k| jump {r['jump_in_steps']:.2f} ramp steps   "
+        f"({quality.verdict(path)})")
     if path.cusps:
         lines.append(f"cusps         {path.cusps} (exact quarter turns)")
     if path.chord_angle() > 0.9:
@@ -87,6 +93,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--steps", type=int, default=15)
     p.add_argument("--peak", type=float, default=200.0,
                    help="curl: heading at the apsis, in degrees")
+    p.add_argument("--accel", type=float, default=None,
+                   help="curl: target peak |curvature|; the chord length follows")
     p.add_argument("--chord", type=float, default=6.0,
                    help="curl: widest turn one chord may take, in degrees")
     p.add_argument("--multiplier", type=int, default=3,
@@ -95,6 +103,9 @@ def main(argv: list[str] | None = None) -> int:
                    help="hook: force an exit length instead of the first closure")
     p.add_argument("--length", default="1", help="chord length, integer or a/b")
     p.add_argument("--page", type=float, default=200.0)
+    p.add_argument("--arms", default="arc", choices=["arc", "menger"],
+                   help="arc: the parabola rule; menger: solve the arms so the "
+                        "knot curvature matches the three-point circle")
     p.add_argument("--apsis", default="sharp", choices=["sharp", "smooth"],
                    help="sharp: the exact corner at a curvature reversal; "
                         "smooth: round it and overshoot the curvature")
@@ -124,13 +135,18 @@ def main(argv: list[str] | None = None) -> int:
     path = _build(args, triangle)
     print(report(path, exact=args.exact, brief=args.brief))
 
-    curves = spanmod.spans(path, math.radians(args.max_turn), apsis=args.apsis)
+    curves = spanmod.spans(path, math.radians(args.max_turn), apsis=args.apsis,
+                           arms=args.arms)
     nodes = path.floats()
     worst = max((spanmod.deviation(s, nodes) for s in curves), default=0.0)
     floor = spanmod.sagitta(path)
     print(f"cubics        {len(curves)}   worst distance to the chords "
           f"{worst:.6g} ({100 * worst / max(1e-9, float(path.length)):.2f}% of a chord)")
     print(f"chord floor   {floor:.6g}   (fit is at the chain's own resolution)")
+    w, node, corner = quality.menger_agrees(curves, path)
+    print(f"menger        worst knot curvature error {w * 100:.2f}%"
+          f"{f' at node {node}' if node is not None else ''}"
+          f"   at the corner {corner * 100:.2f}%")
 
     if args.out:
         text = svg.document(path, curves, page=(args.page, args.page),

@@ -460,6 +460,7 @@ def fig_apsis():
         lo, hi = min(ks) * 1.25, max(ks) * 1.25
         c = Canvas((-0.5, len(ks) - 0.5), (lo, hi), w, h, margin=34, aspect=False)
         c.line((0, 0), (len(ks) - 1, 0), FAINT, 1.1)
+        c.poly([(k, abs(v)) for k, v in enumerate(ks)], GOLD, 1.3, opacity=0.55)
         for k in range(len(ks) - 1):
             c.line((k, ks[k]), (k + 1, ks[k]), colour, 1.8)
             if ks[k] * ks[k + 1] < 0:      # the reversal: draw the jump
@@ -471,9 +472,9 @@ def fig_apsis():
     left = curve_panel(sharp, "sharp", 340, 330, "corner: 5.9 deg, the exact turn")
     right = curve_panel(g2, "sharp", 340, 330, "g2 at n = 15: no corner")
     kl = kappa_panel(sharp, 340, 200, INK,
-                     "jumps +5.9 to -5.9 in one chord")
+                     "signed: jumps +5.9 to -5.9.  gold: |k|")
     kr = kappa_panel(g2, 340, 200, BLUE,
-                     "walks down through zero")
+                     "signed: walks through zero")
 
     W, H = 700, 606
     defs = "".join(f'<clipPath id="r{i}"><rect width="{c.w}" height="{h}"/></clipPath>'
@@ -633,6 +634,21 @@ BLOCKS = [
           "corner to draw and nothing to choose. The price is resolution: at 20° a "
           "chord it is three times coarser than the curl, and the closing condition "
           "admits no n between 15 and 85."),
+    ("p", "Measured as acceleration instead of signed curvature, the corner is "
+          "not a discontinuity at all. The force a pen or cutter feels goes as "
+          "`|kappa| = |a|/v²`, and at the apsis that never moves: `|kappa|` rises "
+          "by exactly one ramp step per chord, through the reversal and past it. "
+          "What jumps is the *sign*. So the corner is a leaf tip — peak bending "
+          "held while the direction of bending flips — and that is a design "
+          "decision, reported as one:"),
+    ("code", "curl(200, 6)             peak |k| 0.103   |k| jump 1.00 ramp steps\n"
+             "curl(200, 6, accel=0.02)  peak |k| 0.020   |k| jump 1.00 ramp steps\n"
+             "                          both: a designed apsis, not a defect"),
+    ("p", "That also gives the constructor a knob with a physical meaning. "
+          "`accel=` sets the peak `|kappa|` and solves for the chord length, "
+          "`L = peak_turn * alpha / kappa`. Ask for a gentler stroke and the whole "
+          "figure grows: the triangle and the turn schedule do not change, so the "
+          "shape does not change, only its size."),
     ("p", "A genuinely smooth apsis cannot come from the renderer at all: it has "
           "to come from the turn schedule, which then has to pass through zero "
           "curvature and come back. Exactly closing chains of that kind exist only "

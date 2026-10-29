@@ -94,7 +94,23 @@ def _assert_closed(path: Spiral) -> None:
         raise AssertionError(f"chain does not end on an axis: {path.heading}")
 
 
-def curl(peak: float = 200.0, chord: float = 6.0, length=1) -> Spiral:
+def chord_for_acceleration(triangle: Triple, turns, acceleration: float):
+    """The chord length that puts the peak |curvature| at `acceleration`.
+
+    Curvature is turn-per-chord over chord length, so it scales as 1/L: ask for
+    a softer stroke and the whole chain grows.  This is the constructor that
+    treats acceleration as a design input rather than a symptom.
+    """
+    if acceleration <= 0:
+        raise ValueError(f"acceleration must be positive, got {acceleration}")
+    peak_turn = max(abs(t) for t in turns)
+    if peak_turn == 0:
+        raise ValueError("a straight chain has no curvature to bound")
+    return peak_turn * triangle.radians / acceleration
+
+
+def curl(peak: float = 200.0, chord: float = 6.0, length=None,
+         accel: float | None = None) -> Spiral:
     """A volute whose smoothness you ask for in degrees.
 
     `peak` is the heading at the apsis; `chord` is the widest turn any single
@@ -114,6 +130,12 @@ def curl(peak: float = 200.0, chord: float = 6.0, length=1) -> Spiral:
     triangle = for_angle(chord / (rough - 1))
     alpha = triangle.degrees
     steps = max(2, int(round((-1 + math.sqrt(1 + 8 * peak / alpha)) / 2)) + 1)
+    if accel is not None:
+        # the stroke's softness is the input; the chord length follows from it
+        turns = list(range(steps)) + list(range(-(steps - 1), 1))
+        length = chord_for_acceleration(triangle, turns, accel)
+    elif length is None:
+        length = 1
     # exactness is carried by integers over a power of the hypotenuse, so the
     # cost is set by c^T(steps-1). Guard it rather than hang for ten minutes.
     digits = triangular(steps - 1) * math.log10(triangle.c)
@@ -122,4 +144,4 @@ def curl(peak: float = 200.0, chord: float = 6.0, length=1) -> Spiral:
             f"chord {chord} deg needs about {digits:.0f}-digit integers at "
             f"c={triangle.c}; the exact chain stops being practical here, "
             f"use a chord budget of 4 deg or more")
-    return lobe(triangle, steps, length)
+    return lobe(triangle, steps, 1 if length is None else length)

@@ -55,8 +55,50 @@ def node_tangents(path: Spiral, sharp: float = math.radians(12.0),
     return leave, arrive
 
 
+def _cross(a, b):
+    return a[0] * b[1] - a[1] * b[0]
+
+
+def arms_for_curvature(p0, p3, t0, t1, k0, k1, iters=60):
+    """Two arm lengths that put the cubic's end curvatures on `k0` and `k1`.
+
+    For a cubic with `P1 = P0 + a u` and `P2 = P3 - b v`,
+
+        k(0) = (2/3) (cross(u, D) - b cross(u, v)) / a^2
+        k(1) = (2/3) (cross(v, D) + a cross(u, v)) / b^2
+
+    which is two coupled quadratics.  Fixed point on (a, b), starting from the
+    arc arms; returns None when the target cannot be met.
+    """
+    D = (p3[0] - p0[0], p3[1] - p0[1])
+    u = (math.cos(t0), math.sin(t0))
+    v = (math.cos(t1), math.sin(t1))
+    chord = math.hypot(*D)
+    if chord < 1e-12:
+        return None
+    Z = _cross(u, v)
+    X0 = _cross(u, D)
+    X1 = _cross(v, D)
+    a = b = chord / 3.0
+    for _ in range(iters):
+        if k0 > 1e-12:
+            num = (2.0 / 3.0) * (X0 - b * Z)
+            if num <= 0:
+                return None
+            a = math.sqrt(num / k0)
+        if k1 > 1e-12:
+            num = (2.0 / 3.0) * (X1 + a * Z)
+            if num <= 0:
+                return None
+            b = math.sqrt(num / k1)
+        if a > 100 * chord or b > 100 * chord:
+            return None
+    return a, b
+
+
 def spans(path: Spiral, max_turn: float = math.radians(50.0),
-          sharp: float = math.radians(12.0), apsis: str = "sharp") -> list[dict]:
+          sharp: float = math.radians(12.0), apsis: str = "sharp",
+          arms: str = "arc") -> list[dict]:
     """Group the chords of `path` into cubics, each within `max_turn`."""
     nodes = path.floats()
     if len(nodes) < 2:
@@ -88,9 +130,40 @@ def spans(path: Spiral, max_turn: float = math.radians(50.0),
         groups.append((i, j))
         i = j
 
+    from .quality import curvature_targets
+
+    targets = curvature_targets(path) if arms == "menger" else None
+
     out = []
     for i, j in groups:
-        if j - i == 1 and apsis == "sharp":
+        if arms == "menger":
+            k0 = abs(targets[i][1])
+            k1 = abs(targets[j][0])
+            solved = arms_for_curvature(nodes[i], nodes[j], leave[i], arrive[j],
+                                        k0, k1)
+            if solved is not None:
+                # verify: a converged solve must actually land on the targets
+                probe = {"s0": float(i), "s1": float(j), "p0": nodes[i],
+                         "c1": (nodes[i][0] + solved[0] * math.cos(leave[i]),
+                                nodes[i][1] + solved[0] * math.sin(leave[i])),
+                         "c2": (nodes[j][0] - solved[1] * math.cos(arrive[j]),
+                                nodes[j][1] - solved[1] * math.sin(arrive[j])),
+                         "p3": nodes[j]}
+                got0, got1 = abs(curvature(probe, 0.0)), abs(curvature(probe, 1.0))
+                if k0 > 1e-9 and abs(got0 - k0) > 0.05 * k0:
+                    solved = None
+                elif k1 > 1e-9 and abs(got1 - k1) > 0.05 * k1:
+                    solved = None
+            if solved is not None:
+                a, b = solved
+                out.append({"s0": float(i), "s1": float(j), "p0": nodes[i],
+                            "c1": (nodes[i][0] + a * math.cos(leave[i]),
+                                   nodes[i][1] + a * math.sin(leave[i])),
+                            "c2": (nodes[j][0] - b * math.cos(arrive[j]),
+                                   nodes[j][1] - b * math.sin(arrive[j])),
+                            "p3": nodes[j]})
+                continue
+        if j - i == 1 and apsis == "sharp" and arms != "menger":
             # one chord: draw the chord.  Smoothing one end of a single short
             # span asks the cubic to bend 3 degrees over one chord, which
             # overshoots the chain's curvature by 2x.  The straight chord is

@@ -120,6 +120,16 @@ The apsis is the one place the drawing has to choose, because the chain's curvat
 
 The alternative is a different chain, not a different fit. `design.g2_lobe(tri, 15)` is the first closure past n = 3: turns 0…14, then 14…0 so the curvature walks back through zero, then −1…−20. It is 50 chords at α = 1.450°, its widest chord turns 20.3°, it peaks at 304.6° (a full volute rather than a hook) and it still closes exactly east, at (3.82, −8.47). Its curvature is continuous at the apsis, so there is no corner to draw and nothing to choose. The price is resolution: at 20° a chord it is three times coarser than the curl, and the closing condition admits no n between 15 and 85.
 
+Measured as acceleration instead of signed curvature, the corner is not a discontinuity at all. The force a pen or cutter feels goes as `|kappa| = |a|/v²`, and at the apsis that never moves: `|kappa|` rises by exactly one ramp step per chord, through the reversal and past it. What jumps is the *sign*. So the corner is a leaf tip — peak bending held while the direction of bending flips — and that is a design decision, reported as one:
+
+```text
+curl(200, 6)             peak |k| 0.103   |k| jump 1.00 ramp steps
+curl(200, 6, accel=0.02)  peak |k| 0.020   |k| jump 1.00 ramp steps
+                          both: a designed apsis, not a defect
+```
+
+That also gives the constructor a knob with a physical meaning. `accel=` sets the peak `|kappa|` and solves for the chord length, `L = peak_turn * alpha / kappa`. Ask for a gentler stroke and the whole figure grows: the triangle and the turn schedule do not change, so the shape does not change, only its size.
+
 A genuinely smooth apsis cannot come from the renderer at all: it has to come from the turn schedule, which then has to pass through zero curvature and come back. Exactly closing chains of that kind exist only at `j(j+1) = 2n(n-1)` — n = 2, 14, 84 — so at the resolution the curl needs there is no smooth, exactly closing apsis available. The corner is not a rendering defect; it is the arithmetic.
 
 The fit sits at twice the resolution of the chords it interpolates, because the apsis corner has to be cut across rather than rounded; away from the apsis it is at the floor. On a 200 mm page that gap is about 0.09 mm: below what the page can show.
