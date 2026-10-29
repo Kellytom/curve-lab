@@ -458,7 +458,7 @@ def _build_blocks(sizes):
         ("fig", lambda: fig_tone(sizes),
          "One photograph: value kept, colour dropped, then mapped onto the palette."),
         ("p", "Tone is the first half of the unification and the cloud is the "
-              "second. The photograph here is `reference/IMG_5972.JPG`, reduced "
+              "second. The photograph here is one of the author's own, reduced "
               "to luminance and mapped onto the ramp above; the value structure "
               "stays, the colour argument goes. Two works of different periods "
               "then sit in the same room before the cloud is even drawn. The "
@@ -604,13 +604,26 @@ def _build_blocks(sizes):
     return blocks
 
 
+def _size_or_existing(src, out, fn):
+    """Regenerate from the photograph if it is present, else reuse the plate.
+
+    The works are the author's own photographs and are not distributed with the
+    repository, but the derived plates in `docs/fig` are, so the page still
+    builds from a clean clone.
+    """
+    if src.exists():
+        return fn(src, out)
+    from PIL import Image
+    return Image.open(out).size
+
+
 def prepare():
     sizes = {}
-    sizes[COLOUR_STATUE] = colour_photo(REF / "IMG_5903.JPG", COLOUR_STATUE)
-    sizes[COLOUR_FRESCO] = colour_photo(REF / "IMG_5978.JPG", COLOUR_FRESCO)
-    sizes[RAW] = raw_photo(REF / "IMG_5903.JPG", RAW)
-    sizes[STATUE] = tone_photo(REF / "IMG_5903.JPG", STATUE)
-    sizes[FRESCO] = tone_photo(REF / "IMG_5978.JPG", FRESCO)
+    sizes[COLOUR_STATUE] = _size_or_existing(REF / "IMG_5903.JPG", COLOUR_STATUE, colour_photo)
+    sizes[COLOUR_FRESCO] = _size_or_existing(REF / "IMG_5978.JPG", COLOUR_FRESCO, colour_photo)
+    sizes[RAW] = _size_or_existing(REF / "IMG_5903.JPG", RAW, raw_photo)
+    sizes[STATUE] = _size_or_existing(REF / "IMG_5903.JPG", STATUE, tone_photo)
+    sizes[FRESCO] = _size_or_existing(REF / "IMG_5978.JPG", FRESCO, tone_photo)
     return sizes
 
 

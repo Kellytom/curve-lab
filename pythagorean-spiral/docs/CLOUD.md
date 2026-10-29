@@ -20,7 +20,7 @@ The cathedral has no single artwork problem; it has one per piece. The proposal 
 
 *Fig. 1 · One photograph: value kept, colour dropped, then mapped onto the palette.*
 
-Tone is the first half of the unification and the cloud is the second. The photograph here is `reference/IMG_5972.JPG`, reduced to luminance and mapped onto the ramp above; the value structure stays, the colour argument goes. Two works of different periods then sit in the same room before the cloud is even drawn. The cloud hides the remaining seams -- the edges, the varnish, the reproduction -- rather than the subjects.
+Tone is the first half of the unification and the cloud is the second. The photograph here is one of the author's own, reduced to luminance and mapped onto the ramp above; the value structure stays, the colour argument goes. Two works of different periods then sit in the same room before the cloud is even drawn. The cloud hides the remaining seams -- the edges, the varnish, the reproduction -- rather than the subjects.
 
 This is deliberately unheroic: no restoration, no repainting, no claim that the works match. They do not, and the veil says so honestly by being visible.
 

@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT))
 from clothoid_lab.model import Design  # noqa: E402
 LOCAL = os.environ.get("LOCAL_URL", "http://127.0.0.1:8000").rstrip("/")
 REMOTE = os.environ.get(
-    "REMOTE_URL", "https://clothoid-web-ba5ahdu6bq-uc.a.run.app"
+    "REMOTE_URL", "https://<your-service>.run.app"
 ).rstrip("/")
 
 
