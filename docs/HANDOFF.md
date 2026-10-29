@@ -169,7 +169,11 @@ remote MVP now exist.
   `--power` on the CLI. **Join/fork landed too:** `Spiral.knots()`, `fork()`
   (angle as triangle steps or quarter turns, never degrees) and `joined()`
   asserting exact point and vector equality; the explainer's branch figure is
-  now drawn by them. 90 tests. The chord budget is the base angle only: at
+  now drawn by them. **Rails landed too:** `ribbon.py` offsets a chain exactly
+  (miter of rational lines) with a rational taper, and `docs/GALLERY.md` +
+  `docs/gallery.html` put six studies on it -- catenary, drapery, Corinthian
+  volute, violin scroll, acanthus, fleur-de-lis -- each a filled ribbon. 100
+  tests. The chord budget is the base angle only: at
   p > 1 the last chord turns `(n-1)**p` times it. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `clothoid_lab` (promotion gate in
