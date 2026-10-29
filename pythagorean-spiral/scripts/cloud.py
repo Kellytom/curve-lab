@@ -153,11 +153,12 @@ def _cloud_filter(c, scale=8, blur=6):
     return fid
 
 
-def draw_cloud(c, only=None, veil=1.0):
+def draw_cloud(c, only=None, veil=1.0, drop=0.0):
     # a soft shadow where the mass meets the air, biased under the crown
     if only is None:
         c.poly([(22, 34), (48, 31), (74, 32), (96, 35), (88, 30), (42, 29)],
                fill=PALETTE["shadow"], stroke="none", opacity=0.13 * veil)
+    cy = 0
     fid = _cloud_filter(c)
     c.out.append(f'<g filter="url(#{fid})">')
     for cx, cy, rx, ry, tilt, layer in CLOUD:
@@ -166,11 +167,11 @@ def draw_cloud(c, only=None, veil=1.0):
         if layer in ("billow", "crown") and only is None:
             # undersides give the lobes their edges even where the silhouette
             # is smooth: a cloud reads by shading, not by outline
-            billow(c, cx + 1.8, cy - 3.4, rx * 1.02, ry * 0.92, tilt,
+            billow(c, cx + 1.8, cy - drop - 3.4, rx * 1.02, ry * 0.92, tilt,
                    PALETTE["warm_dark"], 0.12 * veil)
-            billow(c, cx - 1.4, cy + 2.6, rx * 0.84, ry * 0.78, tilt,
+            billow(c, cx - 1.4, cy - drop + 2.6, rx * 0.84, ry * 0.78, tilt,
                    "#fbf6ea", 0.16 * veil)
-        billow(c, cx, cy, rx, ry, tilt, PALETTE[layer],
+        billow(c, cx, cy - drop, rx, ry, tilt, PALETTE[layer],
                LAYER[layer] * veil, edge=2.6)
     c.out.append('</g>')
 
@@ -212,9 +213,9 @@ def fig_veil(sizes):
     hs = 32
     aw = hs * sizes[STATUE][0] / sizes[STATUE][1]
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
-    image_at(c, 16, 2, aw, hs, f"fig/{STATUE.name}")
-    image_at(c, 100 - bw, 2, bw, hs, f"fig/{FRESCO.name}")
-    draw_cloud(c)
+    image_at(c, 16, 10, aw, hs, f"fig/{STATUE.name}")
+    image_at(c, 100 - bw, 10, bw, hs, f"fig/{FRESCO.name}")
+    draw_cloud(c, drop=5)
     return c.svg("cloud over two works")
 
 
