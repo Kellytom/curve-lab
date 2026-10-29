@@ -40,7 +40,7 @@ remote MVP now exist.
   (not re-run in the handoff).
 - **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
   under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-29 probe.
-- **Git:** HEAD `72abab7`; the handoff commit sits on top. The code tree is
+- **Git:** HEAD `281ad6b`; the handoff commit sits on top. The code tree is
   clean. `reference/` has only untracked images (`reference/1/`,
   `reference/hard/`, an `IMG_*` dump) and no tracked change at the 2026-10-29
   probe. `out/play-template.svg` is untracked.
