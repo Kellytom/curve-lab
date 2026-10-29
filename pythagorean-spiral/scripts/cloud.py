@@ -22,9 +22,10 @@ from pythagorean_spiral.triples import for_angle  # noqa: E402
 import explainer as ex  # noqa: E402
 
 FIG = ex.FIG
-PHOTO = ROOT.parent / "reference" / "IMG_5972.JPG"
-TONED = FIG / "cloud-photo.png"
+REF = ROOT.parent / "reference"
 RAW = FIG / "cloud-photo-raw.png"
+STATUE = FIG / "cloud-photo-statue.png"
+FRESCO = FIG / "cloud-photo-fresco.png"
 INK, GOLD, RED, BLUE, FAINT = ex.INK, ex.GOLD, ex.RED, ex.BLUE, ex.FAINT
 
 # one palette: light tans and grays, narrow enough to tone any photograph into
@@ -42,49 +43,7 @@ PALETTE = {
     "warm_dark": "#9b8a70",
 }
 
-
-def tone_photo(width=460):
-    """Map a photograph onto the palette: luminance in, tan/gray out.
-
-    The value structure is kept and the colour argument is dropped. This is the
-    half of the unification that happens before the cloud is drawn.
-    """
-    from PIL import Image, ImageOps
-
-    stops = [(0, (143, 127, 102)), (128, (195, 180, 155)), (255, (242, 234, 217))]
-
-    def lut(channel):
-        table = []
-        for v in range(256):
-            for (a, ca), (b, cb) in zip(stops, stops[1:]):
-                if a <= v <= b:
-                    t = (v - a) / (b - a)
-                    table.append(round(ca[channel] + t * (cb[channel] - ca[channel])))
-                    break
-            else:
-                table.append(stops[-1][1][channel])
-        return table
-
-    im = Image.open(PHOTO).convert("L")
-    im = ImageOps.autocontrast(im, cutoff=1)
-    im.thumbnail((width, width * 2))
-    raw = im.convert("RGB")
-    raw.save(RAW)
-    rgb = Image.merge("RGB", tuple(im.point(lut(c)) for c in range(3)))
-    rgb.save(TONED)
-    return rgb.size
-
-
-def image_at(c, x, y, w, h, href):
-    """Place a raster in the canvas's data rectangle, in page coordinates."""
-    x0, y0 = c.xy(x, y + h)
-    x1, y1 = c.xy(x + w, y)
-    c.out.append(f'<image x="{x0:.2f}" y="{y0:.2f}" width="{x1 - x0:.2f}" '
-                 f'height="{y1 - y0:.2f}" href="{href}" '
-                 f'preserveAspectRatio="xMidYMid slice"/>')
-    c.out.append(f'<rect x="{x0:.2f}" y="{y0:.2f}" width="{x1 - x0:.2f}" '
-                 f'height="{y1 - y0:.2f}" fill="none" stroke="{INK}" '
-                 f'stroke-width="0.8"/>')
+STOPS = [(0, (143, 127, 102)), (128, (195, 180, 155)), (255, (242, 234, 217))]
 
 
 def circle_points(per_degree: float = 2.0):
@@ -96,6 +55,50 @@ def circle_points(per_degree: float = 2.0):
 
 
 CIRCLE, TRI = circle_points()
+
+
+def tone_photo(src: Path, out: Path, width=460):
+    """Map a photograph onto the palette: luminance in, tan/gray out."""
+    from PIL import Image, ImageOps
+
+    def lut(channel):
+        table = []
+        for v in range(256):
+            for (a, ca), (b, cb) in zip(STOPS, STOPS[1:]):
+                if a <= v <= b:
+                    t = (v - a) / (b - a)
+                    table.append(round(ca[channel] + t * (cb[channel] - ca[channel])))
+                    break
+            else:
+                table.append(STOPS[-1][1][channel])
+        return table
+
+    im = Image.open(src).convert("L")
+    im = ImageOps.autocontrast(im, cutoff=1)
+    im.thumbnail((width, width * 2))
+    rgb = Image.merge("RGB", tuple(im.point(lut(c)) for c in range(3)))
+    rgb.save(out)
+    return rgb.size
+
+
+def raw_photo(src: Path, out: Path, width=460):
+    from PIL import Image, ImageOps
+    im = Image.open(src).convert("L")
+    im = ImageOps.autocontrast(im, cutoff=1)
+    im.thumbnail((width, width * 2))
+    im.convert("RGB").save(out)
+    return im.size
+
+
+def image_at(c, x, y, w, h, href):
+    x0, y0 = c.xy(x, y + h)
+    x1, y1 = c.xy(x + w, y)
+    c.out.append(f'<image x="{x0:.2f}" y="{y0:.2f}" width="{x1 - x0:.2f}" '
+                 f'height="{y1 - y0:.2f}" href="{href}" '
+                 f'preserveAspectRatio="xMidYMid slice"/>')
+    c.out.append(f'<rect x="{x0:.2f}" y="{y0:.2f}" width="{x1 - x0:.2f}" '
+                 f'height="{y1 - y0:.2f}" fill="none" stroke="{INK}" '
+                 f'stroke-width="0.7"/>')
 
 
 def billow(c, cx, cy, rx, ry, tilt=0, fill=None, alpha=0.4, edge=0.0):
@@ -112,109 +115,106 @@ def billow(c, cx, cy, rx, ry, tilt=0, fill=None, alpha=0.4, edge=0.0):
     return pts
 
 
-# (cx, cy, rx, ry, tilt in triangle steps, layer)
+# a cumulus: a tower with shaded lobes, not a band
 CLOUD = [
-    # haze: the outer breath, almost no edge
-    (10, 33, 12, 6, 3, "haze"),
-    (66, 30, 16, 5, -4, "haze"),
-    (113, 36, 10, 7, 2, "haze"),
-    (24, 55, 9, 6, 5, "haze"),
-    # bank: the heavy base, coolest
-    (22, 37, 16, 8, 2, "bank"),
-    (42, 35, 18, 9, -2, "bank"),
-    (64, 36, 20, 9, 1, "bank"),
-    (87, 37, 17, 8, -3, "bank"),
-    (104, 35, 12, 7, 4, "bank"),
-    # billows: the volume, warmer
-    (25, 45, 12, 10, -6, "billow"),
-    (45, 47, 14, 11, 4, "billow"),
-    (66, 49, 15, 13, -3, "billow"),
-    (88, 46, 12, 10, 6, "billow"),
-    (103, 44, 8, 8, -5, "billow"),
-    # crowns: the lit tops
-    (34, 56, 8, 7, 7, "crown"),
-    (54, 59, 9, 8, -5, "crown"),
-    (73, 61, 9, 8, 3, "crown"),
-    (91, 56, 7, 6, -6, "crown"),
+    # haze: the outer breath
+    (24, 39, 6, 4, -4, "haze"), (90, 40, 5, 4, 3, "haze"),
+    (30, 36, 5, 3.5, 5, "haze"),
+    (40, 71, 4, 3.5, 5, "haze"), (70, 68, 4, 3.5, -5, "haze"),
+    # base: the flat underside
+    (38, 34, 9, 4.5, 2, "bank"), (52, 36, 11, 4.5, -1, "bank"),
+    (66, 37, 9, 4.5, 3, "bank"), (79, 38, 7, 4, -3, "bank"),
+    # lower lobes
+    (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
+    (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
+    # middle
+    (42, 52, 8, 7, 4, "billow"), (56, 55, 9, 8, -3, "billow"),
+    (70, 52, 7, 7, 5, "billow"),
+    # upper and crown
+    (48, 62, 6, 6, -4, "crown"), (60, 63, 6, 6, 3, "crown"),
+    (54, 69, 5, 4.5, -3, "crown"),
 ]
 
-LAYER = {"haze": 0.16, "bank": 0.40, "billow": 0.44, "crown": 0.56}
+LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60}
+_FILTER = [0]
+
+
+def _cloud_filter(c, scale=8):
+    """A displacement filter: the geometry stays ellipses, the edge is air."""
+    _FILTER[0] += 1
+    fid = f"cloud{_FILTER[0]}"
+    c.out.append(
+        f'<defs><filter id="{fid}" x="-30%" y="-30%" width="160%" '
+        f'height="160%"><feTurbulence type="fractalNoise" '
+        f'baseFrequency="0.012 0.02" numOctaves="3" seed="7" result="noise"/>'
+        f'<feDisplacementMap in="SourceGraphic" in2="noise" scale="{scale}" '
+        f'xChannelSelector="R" yChannelSelector="G"/></filter></defs>')
+    return fid
 
 
 def draw_cloud(c, only=None, veil=1.0):
+    # a soft shadow where the mass meets the air, biased under the crown
+    if only is None:
+        c.poly([(22, 34), (48, 31), (74, 32), (96, 35), (88, 30), (42, 29)],
+               fill=PALETTE["shadow"], stroke="none", opacity=0.13 * veil)
+    fid = _cloud_filter(c)
+    c.out.append(f'<g filter="url(#{fid})">')
     for cx, cy, rx, ry, tilt, layer in CLOUD:
         if only is not None and layer != only:
             continue
+        if layer in ("billow", "crown") and only is None:
+            # undersides give the lobes their edges even where the silhouette
+            # is smooth: a cloud reads by shading, not by outline
+            billow(c, cx + 1.8, cy - 3.4, rx * 1.02, ry * 0.92, tilt,
+                   PALETTE["warm_dark"], 0.12 * veil)
+            billow(c, cx - 1.4, cy + 2.6, rx * 0.84, ry * 0.78, tilt,
+                   "#fbf6ea", 0.16 * veil)
         billow(c, cx, cy, rx, ry, tilt, PALETTE[layer],
-               LAYER[layer] * veil, edge=3.2)
+               LAYER[layer] * veil, edge=2.6)
+    c.out.append('</g>')
 
 
-def draw_work(c, cx, base_y, kind, toned):
-    """A framed painting or a statue, in a cool or a warm tone."""
-    light = PALETTE["warm"] if toned else PALETTE["cool"]
-    dark = PALETTE["warm_dark"] if toned else PALETTE["cool_dark"]
-    if kind == "painting":
-        c.poly([(cx - 13, base_y), (cx - 13, base_y + 26),
-                (cx + 13, base_y + 26), (cx + 13, base_y)], fill=light,
-               stroke=dark, width=1.0)
-        c.poly([(cx - 10, base_y + 3), (cx - 10, base_y + 22),
-                (cx + 10, base_y + 22), (cx + 10, base_y + 3)], fill=dark,
-               stroke="none", opacity=0.55)
-        c.dot((cx, base_y + 18), 2.6, light)
-        c.poly([(cx - 3.4, base_y + 14), (cx - 2.4, base_y + 5),
-                (cx + 2.4, base_y + 5), (cx + 3.4, base_y + 14)],
-               fill=light, stroke="none", opacity=0.85)
-    else:
-        c.poly([(cx - 8, base_y), (cx - 8, base_y + 4), (cx + 8, base_y + 4),
-                (cx + 8, base_y)], fill=dark, stroke="none")
-        c.poly([(cx - 4.4, base_y + 4), (cx - 3.0, base_y + 15),
-                (cx - 2.2, base_y + 22), (cx + 2.2, base_y + 22),
-                (cx + 3.0, base_y + 15), (cx + 4.4, base_y + 4)],
-               fill=light, stroke=dark, width=0.5)
-        c.dot((cx, base_y + 23.6), 2.2, light)
+def draw_statue(c, cx, base_y):
+    """A robed figure on a plinth, in the warm tone."""
+    light, dark = PALETTE["warm"], PALETTE["warm_dark"]
+    c.poly([(cx - 7, base_y), (cx + 7, base_y), (cx + 7, base_y + 3),
+            (cx - 7, base_y + 3)], fill=dark, stroke="none")
+    c.poly([(cx - 3.6, base_y + 3), (cx - 4.2, base_y + 16),
+            (cx - 2.6, base_y + 24), (cx + 2.6, base_y + 24),
+            (cx + 4.2, base_y + 16), (cx + 3.6, base_y + 3)],
+           fill=light, stroke=dark, width=0.6)
+    c.line((cx - 1.0, base_y + 6), (cx - 1.6, base_y + 20), dark, 0.6)
+    c.dot((cx, base_y + 26), 2.3, light, dark, 0.5)
 
 
-def fig_tone(size):
-    pw, ph = size
-    aspect = pw / ph
+def fig_tone(sizes):
     rows = []
-    for href, label in ((RAW, "as photographed: value kept, colour dropped"),
-                        (TONED, "toned: the one palette")):
-        c = ex.Canvas((0, 120), (0, 52), 760, 300)
-        c.poly([(0, 52), (120, 52), (120, 0), (0, 0)], fill=WALL, stroke="none")
-        h = 40
-        image_at(c, 20, 5, h * aspect, h, f"fig/{Path(href).name}")
-        c.text(3, 49, label, 10, GOLD)
-        c.text(56, 26, "one work, two treatments", 10, GOLD)
-        rows.append((c, 300))
+    for src, label in ((RAW, "as photographed: value kept, colour dropped"),
+                       (STATUE, "toned: the one palette")):
+        w, h = sizes[src]
+        aspect = w / h
+        c = ex.Canvas((0, 120), (0, 54), 760, 320)
+        c.poly([(0, 54), (120, 54), (120, 0), (0, 0)], fill=WALL, stroke="none")
+        hh = 42
+        image_at(c, 22, 5, hh * aspect, hh, f"fig/{src.name}")
+        c.text(3, 51, label, 10, GOLD)
+        c.text(58, 22, "one work, two treatments", 10, GOLD)
+        c.text(58, 17, "the cloud in the next figure sits over both",
+               9, PALETTE["warm_dark"])
+        rows.append((c, 320))
     return ex.stack(rows, width=760, gap=8)
 
 
-def fig_veil(size):
-    pw, ph = size
-    aspect = pw / ph
-    c = ex.Canvas((0, 120), (0, 78), 800, 560)
-    c.poly([(0, 78), (120, 78), (120, 0), (0, 0)], fill=WALL, stroke="none")
-    h = 30
-    image_at(c, 22, 3, h * aspect, h, f"fig/{Path(TONED).name}")
-    draw_work(c, 84, 4, "statue", True)
-    c.poly([(6, 0), (6, 12), (114, 12), (114, 0)], fill=PALETTE["shadow"],
-           stroke="none", opacity=0.35)
+def fig_veil(sizes):
+    c = ex.Canvas((0, 120), (0, 80), 800, 560)
+    c.poly([(0, 80), (120, 80), (120, 0), (0, 0)], fill=WALL, stroke="none")
+    hs = 32
+    aw = hs * sizes[STATUE][0] / sizes[STATUE][1]
+    bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
+    image_at(c, 16, 2, aw, hs, f"fig/{STATUE.name}")
+    image_at(c, 100 - bw, 2, bw, hs, f"fig/{FRESCO.name}")
     draw_cloud(c)
-    c.text(3, 74, "one veil over a photograph and a statue: the constant is the cloud",
-           10, GOLD)
     return c.svg("cloud over two works")
-
-
-def fig_layers():
-    panels = []
-    for key in ("haze", "bank", "billow", "crown"):
-        c = ex.Canvas((0, 120), (0, 70), 760, 210)
-        c.poly([(0, 70), (120, 70), (120, 0), (0, 0)], fill=WALL, stroke="none")
-        draw_cloud(c, only=key)
-        c.text(3, 66, f"{key}  alpha {LAYER[key]}", 10, GOLD)
-        panels.append((c, 210))
-    return ex.stack(panels, width=760, gap=8)
 
 
 def fig_conics():
@@ -235,7 +235,7 @@ def fig_conics():
 
 
 # ----------------------------------------------------------------- text ---
-def build_blocks(photo_size):
+def build_blocks(sizes):
     blocks = [
         ("h1", "A cloud, for veiling"),
         ("p", "The cathedral has no single artwork problem; it has one per "
@@ -249,29 +249,28 @@ def build_blocks(photo_size):
                   "is hidden stays God's to reveal."),
         ("table", [["role", "tone", "use"],
                    ["wall", PALETTE["wall"], "the constant ground"],
-                   ["haze", PALETTE["haze"], "outer breath, alpha 0.16"],
-                   ["bank", PALETTE["bank"], "the heavy base, alpha 0.40"],
-                   ["billow", PALETTE["billow"], "volume, alpha 0.44"],
-                   ["crown", PALETTE["crown"], "lit tops, alpha 0.56"],
-                   ["shadow", PALETTE["shadow"], "under the cloud, never black"]]),
+                   ["haze", PALETTE["haze"], "outer breath, alpha 0.14"],
+                   ["bank", PALETTE["bank"], "the flat base, alpha 0.34"],
+                   ["billow", PALETTE["billow"], "volume, alpha 0.46"],
+                   ["crown", PALETTE["crown"], "lit tops, alpha 0.60"],
+                   ["shadow", PALETTE["shadow"], "under the mass, never black"]]),
         ("h2", "1. Tone first, then veil"),
-        ("fig", lambda: fig_tone(photo_size),
+        ("fig", lambda: fig_tone(sizes),
          "One photograph: value kept, colour dropped, then mapped onto the palette."),
         ("p", "Tone is the first half of the unification and the cloud is the "
               "second. The photograph here is `reference/IMG_5972.JPG`, reduced "
               "to luminance and mapped onto the ramp above; the value structure "
-              "stays, the colour argument goes. "
-              "Two works of different periods then sit in the same room before "
-              "the cloud is even drawn. The cloud hides the remaining seams -- "
-              "the edges, the varnish, the reproduction -- rather than the "
-              "subjects."),
+              "stays, the colour argument goes. Two works of different periods "
+              "then sit in the same room before the cloud is even drawn. The "
+              "cloud hides the remaining seams -- the edges, the varnish, the "
+              "reproduction -- rather than the subjects."),
         ("p", "This is deliberately unheroic: no restoration, no repainting, no "
               "claim that the works match. They do not, and the veil says so "
               "honestly by being visible."),
 
         ("h2", "2. The veil"),
-        ("fig", lambda: fig_veil(photo_size),
-         "Four layers of billows over a toned photograph and a toned statue: the works stay legible, the edges soften."),
+        ("fig", lambda: fig_veil(sizes),
+         "Four layers of billows over a toned statue and a toned fresco: the works stay legible, the edges soften."),
         ("p", "The cloud is built from **exact ellipses**. A circle is a chain "
               "with one triangle angle per chord; scaling it by two rational "
               "radii and turning it by whole triangle angles gives an ellipse "
@@ -280,27 +279,21 @@ def build_blocks(photo_size):
               "without a float deciding its edge. What is not exact is the "
               "compositing: tone and transparency are design numbers, not "
               "geometry."),
-        ("code", "layers   4   haze 0.16, bank 0.40, billow 0.44, crown 0.56\n"
-                 "puffs    18  ellipses, tilted by whole triangle angles\n"
-                 "edge     a wider translucent stroke, same colour\n"
+        ("code", f"layers   4   haze {LAYER['haze']}, bank {LAYER['bank']}, "
+                 f"billow {LAYER['billow']}, crown {LAYER['crown']}\n"
+                 f"puffs    {len(CLOUD)}  ellipses, tilted by whole triangle angles\n"
+                 "edge     fractal displacement, optical not geometric\n"
                  "overlap  the sum does the softening\n"
                  "geometry exact; opacity and tone are choices"),
-        ("h2", "3. The layers"),
-        ("fig", fig_layers,
-         "Haze, bank, billow and crown drawn alone. No single shape is a cloud; their sum is."),
-        ("p", "Drawing the layers separately is the whole method: the base is "
-              "cool and heavy, the volume warmer, the crowns light. Move one "
-              "puff, resize it by a rational, change one opacity -- the cloud "
-              "changes without any retouching. The same palette then sits over "
-              "every work in the building."),
         ("p", "Two variants are worth keeping. A **cumulus** (above) has a flat "
-              "base and a domed top; an **incense** cloud is taller, thinner and "
-              "more transparent, with vertical drift, and is better for a side "
-              "chapel or a shrine where the veil should rise rather than rest. "
-              "Both use the same palette and the same ellipses; only the layout "
-              "and the opacities differ."),
+              "base and a domed top. An **incense** cloud is taller, thinner and "
+              "more transparent, with vertical drift; it is the better veil for "
+              "a side chapel or a shrine, where the cloud should rise in front "
+              "of the work rather than rest above it. Both are the same palette "
+              "and the same ellipses -- only the layout and the opacities "
+              "differ."),
 
-        ("h2", "4. Circles, ellipses, parabolas, hyperbolas"),
+        ("h2", "3. Circles, ellipses, parabolas, hyperbolas"),
         ("fig", fig_conics,
          "A circle and the same circle scaled: both exact, and the rays remain rational under the scale."),
         ("p", "Not all four are the same curve, and it matters which is which. "
@@ -323,7 +316,7 @@ def build_blocks(photo_size):
               "is enough. For a true parabola or hyperbola, use the float path "
               "and report the gap."),
 
-        ("h2", "5. What this is not"),
+        ("h2", "4. What this is not"),
         ("p", "This framework does not replace the clothoid engine, and it is "
               "not a subset of its curves. Bertolazzi gives real clothoids -- "
               "exact Fresnel geometry, many parameterisations, tolerances. The "
@@ -343,11 +336,19 @@ def build_blocks(photo_size):
     return blocks
 
 
+def prepare():
+    sizes = {}
+    sizes[RAW] = raw_photo(REF / "IMG_5972.JPG", RAW)
+    sizes[STATUE] = tone_photo(REF / "IMG_5972.JPG", STATUE)
+    sizes[FRESCO] = tone_photo(REF / "IMG_5975.JPG", FRESCO)
+    return sizes
+
+
 def main():
     FIG.mkdir(parents=True, exist_ok=True)
-    size = tone_photo()
-    blocks = build_blocks(size)
-    names = ["cloud-tone", "cloud-veil", "cloud-layers", "cloud-conics"]
+    sizes = prepare()
+    blocks = build_blocks(sizes)
+    names = ["cloud-tone", "cloud-veil", "cloud-conics"]
     figs, fig_names = [], []
     i = 0
     for kind, *rest in blocks:

@@ -178,9 +178,9 @@ remote MVP now exist.
   `place.py` rotates inside the rational group, fits a 200 x 250 page and emits
   integers; `docs/TRANSFER.md` carries the 36 caps onto the new curve (median
   0.44% gap) and reports that the 150 terminal ends have no frame stored. The
-  layered cloud study is `pythagorean-spiral/docs/CLOUD.md` + `cloud.html`
-  (three layers of exact ellipse billows in one tan/gray palette; generated,
-  not yet visually reviewed). 127 tests there. This is the exact **spine
+  cloud study is `pythagorean-spiral/docs/CLOUD.md` + `cloud.html`: a toned
+  photograph and a toned fresco under four layers of exact ellipse billows;
+  the edge filter is optical, the geometry is rational. 127 tests there. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `clothoid_lab` (promotion gate in
   `pythagorean-spiral/docs/HANDOVER.md`).
@@ -241,12 +241,11 @@ remote MVP now exist.
 
 ## Next move
 
-**Review the cloud and tune the veil.** Open
-`pythagorean-spiral/docs/cloud.html`, compare the three layers against one
-photograph toned into the tan/gray palette, and adjust the puff placements,
-overlaps and opacities until the work stays legible and the edge reads as
-cloud. No new geometry: the billows are exact ellipses and the palette is
-fixed; this is composition and tone only.
+**Give the terminals a frame.** In `scripts/extract-terminals.py`, record the
+seam's point and tangent beside each terminal's cubic spans (`anchor`,
+`heading`), the way `out/caps` already carries an anchor. Then the 150 ends can
+be attached with one affine call (`place.place`) and the transfer is complete.
+No new curve work: the geometry exists; the missing datum is the frame.
 
 **Deferred, not dropped: the canonical fleur.** Build `fleur_canonical()` from the measured fleur
 reference (`reference/fleur/png/metrics.json`: aspect 1.43, fill 0.17,

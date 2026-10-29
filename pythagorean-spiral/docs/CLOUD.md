@@ -7,11 +7,11 @@ The cathedral has no single artwork problem; it has one per piece. The proposal 
 | role | tone | use |
 | --- | --- | --- |
 | wall | #e6dbc9 | the constant ground |
-| haze | #ded8cf | outer breath, alpha 0.16 |
-| bank | #cfc9bf | the heavy base, alpha 0.40 |
-| billow | #ddd0bb | volume, alpha 0.44 |
-| crown | #f2ead9 | lit tops, alpha 0.56 |
-| shadow | #b7ad9d | under the cloud, never black |
+| haze | #ded8cf | outer breath, alpha 0.14 |
+| bank | #cfc9bf | the flat base, alpha 0.34 |
+| billow | #ddd0bb | volume, alpha 0.46 |
+| crown | #f2ead9 | lit tops, alpha 0.60 |
+| shadow | #b7ad9d | under the mass, never black |
 
 
 ## 1. Tone first, then veil
@@ -27,33 +27,24 @@ This is deliberately unheroic: no restoration, no repainting, no claim that the 
 
 ## 2. The veil
 
-![Four layers of billows over a toned photograph and a toned statue: the works stay legible, the edges soften.](fig/cloud-veil.svg)
+![Four layers of billows over a toned statue and a toned fresco: the works stay legible, the edges soften.](fig/cloud-veil.svg)
 
-*Four layers of billows over a toned photograph and a toned statue: the works stay legible, the edges soften.*
+*Four layers of billows over a toned statue and a toned fresco: the works stay legible, the edges soften.*
 
 The cloud is built from **exact ellipses**. A circle is a chain with one triangle angle per chord; scaling it by two rational radii and turning it by whole triangle angles gives an ellipse whose every point is still rational. So each billow can be placed on the integer lattice, repeated, mirrored and stored without a float deciding its edge. What is not exact is the compositing: tone and transparency are design numbers, not geometry.
 
 ```text
-layers   4   haze 0.16, bank 0.40, billow 0.44, crown 0.56
-puffs    18  ellipses, tilted by whole triangle angles
-edge     a wider translucent stroke, same colour
+layers   4   haze 0.14, bank 0.34, billow 0.46, crown 0.6
+puffs    19  ellipses, tilted by whole triangle angles
+edge     fractal displacement, optical not geometric
 overlap  the sum does the softening
 geometry exact; opacity and tone are choices
 ```
 
-
-## 3. The layers
-
-![Haze, bank, billow and crown drawn alone. No single shape is a cloud; their sum is.](fig/cloud-layers.svg)
-
-*Haze, bank, billow and crown drawn alone. No single shape is a cloud; their sum is.*
-
-Drawing the layers separately is the whole method: the base is cool and heavy, the volume warmer, the crowns light. Move one puff, resize it by a rational, change one opacity -- the cloud changes without any retouching. The same palette then sits over every work in the building.
-
-Two variants are worth keeping. A **cumulus** (above) has a flat base and a domed top; an **incense** cloud is taller, thinner and more transparent, with vertical drift, and is better for a side chapel or a shrine where the veil should rise rather than rest. Both use the same palette and the same ellipses; only the layout and the opacities differ.
+Two variants are worth keeping. A **cumulus** (above) has a flat base and a domed top. An **incense** cloud is taller, thinner and more transparent, with vertical drift; it is the better veil for a side chapel or a shrine, where the cloud should rise in front of the work rather than rest above it. Both are the same palette and the same ellipses -- only the layout and the opacities differ.
 
 
-## 4. Circles, ellipses, parabolas, hyperbolas
+## 3. Circles, ellipses, parabolas, hyperbolas
 
 ![A circle and the same circle scaled: both exact, and the rays remain rational under the scale.](fig/cloud-conics.svg)
 
@@ -64,7 +55,7 @@ Not all four are the same curve, and it matters which is which. The chain is bui
 The constructive part is real: because the ellipse is a scaled circle, a circle with rays from its diameter scales into an ellipse with rays, exactly. That is how the second drawing was made -- same points, same rational slopes, one rational scale. For a sunburst, a rose-window basis, or a billow with ribs, that is enough. For a true parabola or hyperbola, use the float path and report the gap.
 
 
-## 5. What this is not
+## 4. What this is not
 
 This framework does not replace the clothoid engine, and it is not a subset of its curves. Bertolazzi gives real clothoids -- exact Fresnel geometry, many parameterisations, tolerances. The chain here is an Euler polygon whose *headings* match a clothoid at the nodes; its position is up to a chord away, and its curvature is a staircase. What it adds is the other column: rational points, rational slopes, exact joins and mirrors, and a known lattice. The caps in `out/caps` came from the engine and transfer here by quantising each chord's turn, with a measured gap. The honest architecture is: engine for the transcendental curve, chain for the exact plan, and a converter between them.
 
