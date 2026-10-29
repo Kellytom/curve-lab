@@ -1,6 +1,6 @@
 # clothoid-lab handoff
 
-**Updated:** 2026-10-28  
+**Updated:** 2026-10-29  
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
@@ -15,12 +15,12 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-28 08:0x UTC (probe). Auth is unset locally, so the loopback server stays
+  2026-10-29 (probe). Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
 - **Remote:** `https://clothoid-web-ba5ahdu6bq-uc.a.run.app` — Cloud Run,
   project `clothoid-lab-1792967460`, region `us-central1`, service
   `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
-  without the token** at 2026-10-28 08:0x UTC (probe); a thin app deploy takes
+  without the token** at 2026-10-29 (probe); a thin app deploy takes
   ~30 s.
 - **Access:** HTTP Basic with a shared token; every route except `/health`.
   Token in Secret Manager `clothoid-token`, local copy
@@ -38,13 +38,12 @@ remote MVP now exist.
   `015303-69BA52-95C035` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 215 pass — **carried** from 2026-10-27; no change under
-  `web/`, `clothoid_lab/`, `csrc/` or `tests/` since.
-- **Git:** HEAD `8951e40`; the handoff commit sits on top. The code tree is
-  clean. `reference/` is dirty: six tracked reference images deleted (earth ×2,
-  fire ×1, fleur ×1, water ×2), `reference/1/` and `reference/hard/` added, and
-  another `IMG_*` dump at `reference/` root. `out/play-template.svg` is
-  untracked.
+- **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
+  under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-29 probe.
+- **Git:** HEAD `72abab7`; the handoff commit sits on top. The code tree is
+  clean. `reference/` has only untracked images (`reference/1/`,
+  `reference/hard/`, an `IMG_*` dump) and no tracked change at the 2026-10-29
+  probe. `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
@@ -178,13 +177,13 @@ remote MVP now exist.
   (exact cusp) and the angles the lattice can hit. **Placement started:**
   `place.py` rotates inside the rational group, fits a 200 x 250 page and emits
   integers; `docs/TRANSFER.md` carries the 36 caps onto the new curve (median
-  0.44% gap) and reports that the 150 terminal ends have no frame stored. 127
-  tests. The chord budget is the base angle only: at
-  p > 1 the last chord turns `(n-1)**p` times it. This is the exact **spine
+  0.44% gap) and reports that the 150 terminal ends have no frame stored. The
+  layered cloud study is `pythagorean-spiral/docs/CLOUD.md` + `cloud.html`
+  (three layers of exact ellipse billows in one tan/gray palette; generated,
+  not yet visually reviewed). 127 tests there. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `clothoid_lab` (promotion gate in
-  `pythagorean-spiral/docs/HANDOVER.md`). Next action there: the float hybrid,
-  which lifts the ~300-node exact ceiling.
+  `pythagorean-spiral/docs/HANDOVER.md`).
 - **Span bridge:** `interpolate.design_from_spans(spans)` turns a recovered or
   grammar-produced cubic chain into a `Design`, one clothoid segment per span,
   marked G1. This is the entry point a W03 port consumes.
@@ -242,7 +241,14 @@ remote MVP now exist.
 
 ## Next move
 
-**The canonical fleur.** Build `fleur_canonical()` from the measured fleur
+**Review the cloud and tune the veil.** Open
+`pythagorean-spiral/docs/cloud.html`, compare the three layers against one
+photograph toned into the tan/gray palette, and adjust the puff placements,
+overlaps and opacities until the work stays legible and the edge reads as
+cloud. No new geometry: the billows are exact ellipses and the palette is
+fixed; this is composition and tone only.
+
+**Deferred, not dropped: the canonical fleur.** Build `fleur_canonical()` from the measured fleur
 reference (`reference/fleur/png/metrics.json`: aspect 1.43, fill 0.17,
 symmetry 0.83), with exact clothoid segments, the band as a `Bundle`, terminals
 per stroke, the centre seam declared, and a silhouette render beside the

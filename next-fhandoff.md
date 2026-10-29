@@ -1,8 +1,6 @@
 ```text
-Read pythagorean-spiral/docs/HANDOVER.md. The spike there is complete to a
-decision point; the next one action is the exponent dial (turns = k^p, integer
-p), proved identical to today's curl at p = 1. fleur_canonical() from
-docs/HANDOFF.md is still the W03 action and is deferred, not dropped.
+Read docs/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
+You are reviewing the layered cloud against one toned photograph and tuning the three billow layers.
 ```
 
-Source: `pythagorean-spiral/docs/HANDOVER.md`, 2026-10-28, commit `a8653ba`.
+Source: `docs/HANDOFF.md`, 2026-10-29, commit `72abab7`.
