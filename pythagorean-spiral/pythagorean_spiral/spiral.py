@@ -108,7 +108,12 @@ class Spiral:
         return self.heading.is_axis_aligned()
 
     def equivalent_clothoid(self) -> dict:
-        """The clothoid whose node headings the chain reproduces exactly.
+        """The clothoid whose node *headings* the chain reproduces exactly.
+
+        NOT the curve. Do not use this to obtain a clothoid: evaluating it
+        gives a different curve, a full chord away in position, and the chain
+        itself has piecewise-constant curvature. For a real clothoid use
+        `clothoid_lab` / pyclothoids. This is here so the two can be compared.
 
         With h(s) the chain's heading at arc length s = j*L,
 

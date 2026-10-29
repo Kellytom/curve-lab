@@ -4,6 +4,14 @@ Clothoid-shaped chains built from Pythagorean triangles, in exact rational
 arithmetic. No `sin`, no `cos`, no floats in the geometry: a heading is a pair
 of `Fraction`s, and every node is rational.
 
+> **This is not a clothoid.** It is a chord polygon whose *headings* match a
+> clothoid's at the nodes: ~1e-13 degrees. Everything else is different --
+> curvature is a staircase rather than linear, and the position is up to a full
+> chord behind the real curve. For CAD, road/rail alignment, or Class-A surface
+> work, use a clothoid engine (`clothoid_lab`, pyclothoids) instead. This is a
+> generator of ornamental spines, with exact rational anchors and an exact
+> closure rule.
+
 This directory is a **candidate replacement** for the curve layer, kept beside
 `clothoid_lab/` so the two can be compared. Nothing here is imported by the
 package yet.
