@@ -19,8 +19,8 @@ What this is not: the clothoid.  See `docs/AUDIT.md`.
 from .exact import Dir
 from .triples import Triple, primitive, thinnest
 from .spiral import Spiral, triangular
-from . import design, hybrid, quality, ribbon
+from . import design, hybrid, place, quality, ribbon
 
 __all__ = ["Dir", "Triple", "primitive", "thinnest", "Spiral", "triangular",
-           "design", "hybrid", "quality", "ribbon"]
+           "design", "hybrid", "place", "quality", "ribbon"]
 __version__ = "0.1.0"

@@ -175,7 +175,11 @@ remote MVP now exist.
   volute, violin scroll, acanthus, fleur-de-lis -- each a filled ribbon. The
   float hybrid landed (`hybrid.py`): exact plan, double ink, 20,000 chords in
   0.03 s, closure still exact; `docs/EXTREMES.md` tests a 90-degree leaf corner
-  (exact cusp) and the angles the lattice can hit. 115 tests. The chord budget is the base angle only: at
+  (exact cusp) and the angles the lattice can hit. **Placement started:**
+  `place.py` rotates inside the rational group, fits a 200 x 250 page and emits
+  integers; `docs/TRANSFER.md` carries the 36 caps onto the new curve (median
+  0.44% gap) and reports that the 150 terminal ends have no frame stored. 127
+  tests. The chord budget is the base angle only: at
   p > 1 the last chord turns `(n-1)**p` times it. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `clothoid_lab` (promotion gate in
