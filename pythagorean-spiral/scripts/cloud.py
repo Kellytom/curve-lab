@@ -56,6 +56,8 @@ def circle_points(per_degree: float = 2.0):
 
 
 CIRCLE, TRI = circle_points()
+STATUE_SIZE = (940, 1185)
+VEIL_TARGET = 0.9
 
 
 def tone_photo(src: Path, out: Path, width=460):
@@ -147,9 +149,57 @@ CLOUD = [
     (54, 69, 5, 4.5, -3, "crown"),
 ]
 
-VEIL = 0.25  # a quarter opaque: the works read clearly through
+VEIL = 0.14  # solved at run time: see solve_veil()
 LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60}
 _FILTER = [0]
+
+
+def _inside(cx, cy, rx, ry, tilt, x, y):
+    """Is (x,y) inside the tilted ellipse? Whole triangle angles for tilt."""
+    a = math.radians(tilt * TRI.degrees)
+    dx, dy = x - cx, y - cy
+    u = dx * math.cos(a) + dy * math.sin(a)
+    v = -dx * math.sin(a) + dy * math.cos(a)
+    return (u / rx) ** 2 + (v / ry) ** 2 <= 1.0
+
+
+def veil_opacity(x, y, veil=None):
+    """Composited alpha of every billow covering a point, at a veil setting."""
+    v = VEIL if veil is None else veil
+    a = 0.0
+    for cx, cy, rx, ry, tilt, layer in CLOUD:
+        if _inside(cx, cy, rx, ry, tilt, x, y):
+            a = a + (1 - a) * LAYER[layer] * v
+    return a
+
+
+def artwork_worst_opacity(veil=None, size=None):
+    """The most opaque point over the works: the veil is judged there."""
+    pw, ph = size or (STATUE_SIZE[0], STATUE_SIZE[1])
+    aspect = pw / ph
+    hs = 32.0
+    aw = hs * aspect
+    xs = [16 + aw * i / 12 for i in range(13)] + [100 - aw + aw * i / 12
+                                                  for i in range(13)]
+    ys = [10 + hs * j / 12 for j in range(13)]
+    return max(veil_opacity(x, y, veil) for x in xs for y in ys)
+
+
+def solve_veil(target_contrast=0.6):
+    """The veil setting whose worst artwork point keeps `target_contrast`.
+
+    Contrast survives as (1 - opacity), so the target asks for
+    opacity <= 1 - target. Bisection: the opacity is monotone in the veil.
+    """
+    limit = 1.0 - target_contrast
+    lo, hi = 0.0, 1.0
+    for _ in range(40):
+        mid = (lo + hi) / 2
+        if artwork_worst_opacity(mid) > limit:
+            hi = mid
+        else:
+            lo = mid
+    return lo
 
 
 def _cloud_filter(c, scale=8, blur=6):
@@ -298,6 +348,8 @@ def build_blocks(sizes):
                  f"billow {LAYER['billow']}, crown {LAYER['crown']}\n"
                  f"puffs    {len(CLOUD)}  ellipses, tilted by whole triangle angles\n"
                  "edge     fractal displacement + gaussian blur, optical only\n"
+                 f"veil     {VEIL:.2f}, solved to keep "
+                 f"{VEIL_TARGET:.0%} of the works' contrast\n"
                  "overlap  the sum does the softening\n"
                  "geometry exact; opacity and tone are choices"),
         ("p", "Two variants are worth keeping. A **cumulus** (above) has a flat "
@@ -383,6 +435,13 @@ def prepare():
 def main():
     FIG.mkdir(parents=True, exist_ok=True)
     sizes = prepare()
+    global VEIL
+    import sys as _sys
+    global VEIL_TARGET
+    VEIL_TARGET = float(_sys.argv[1]) if len(_sys.argv) > 1 else 0.9
+    VEIL = solve_veil(VEIL_TARGET)
+    print(f"veil {VEIL:.3f}  worst artwork opacity "
+          f"{artwork_worst_opacity(VEIL):.3f}  contrast kept {1 - artwork_worst_opacity(VEIL):.2f}")
     blocks = build_blocks(sizes)
     names = ["cloud-tone", "cloud-veil", "cloud-conics",
              "cloud-form-stated", "cloud-form-adjusted"]

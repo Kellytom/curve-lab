@@ -7,10 +7,10 @@ The cathedral has no single artwork problem; it has one per piece. The proposal 
 | role | tone | use |
 | --- | --- | --- |
 | wall | #e6dbc9 | the constant ground |
-| haze | #ded8cf | outer breath, alpha 0.04 |
-| bank | #cfc9bf | the flat base, alpha 0.09 |
-| billow | #ddd0bb | volume, alpha 0.12 |
-| crown | #f2ead9 | lit tops, alpha 0.15 |
+| haze | #ded8cf | outer breath, alpha 0.01 |
+| bank | #cfc9bf | the flat base, alpha 0.03 |
+| billow | #ddd0bb | volume, alpha 0.04 |
+| crown | #f2ead9 | lit tops, alpha 0.05 |
 | shadow | #b7ad9d | under the mass, never black |
 
 
@@ -37,6 +37,7 @@ The cloud is built from **exact ellipses**. A circle is a chain with one triangl
 layers   4   haze 0.14, bank 0.34, billow 0.46, crown 0.6
 puffs    35  ellipses, tilted by whole triangle angles
 edge     fractal displacement + gaussian blur, optical only
+veil     0.08, solved to keep 90% of the works' contrast
 overlap  the sum does the softening
 geometry exact; opacity and tone are choices
 ```

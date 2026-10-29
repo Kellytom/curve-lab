@@ -1,5 +1,5 @@
 {
- "veil_transparency": 0.25,
+ "veil_transparency": 0.08214156976828235,
  "canvas": [
   120,
   80
@@ -17,10 +17,10 @@
   "warm_dark": "#9b8a70"
  },
  "layers": {
-  "haze": 0.035,
-  "bank": 0.085,
-  "billow": 0.115,
-  "crown": 0.15
+  "haze": 0.0115,
+  "bank": 0.0279,
+  "billow": 0.0378,
+  "crown": 0.0493
  },
  "blobs": [
   {
