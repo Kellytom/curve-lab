@@ -84,7 +84,7 @@ class Spiral:
         This is the heading as a count of triangle angles, which is what a
         report wants: a curl whose apsis is 198 degrees says 198, not -162.
         """
-        out, total = [0], 0
+        out, total = [], 0
         for turn in self.turns:
             total += turn
             out.append(total)

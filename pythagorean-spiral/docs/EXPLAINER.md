@@ -55,6 +55,12 @@ Two consequences that decide the design. A smooth join can still close exactly, 
 
 For a hook that winds in on 1, 2, 3… and unwinds `m` times faster, closure is `T(n_in) = m·T(n_out)`. The exact pairs are sparse, and the grid below is where they coincide:
 
+Four graphs make the difference visible, because on the drawing it is not: the heading steps where the ideal ramps, the curvature is a staircase where the ideal is a straight line, the lag grows to 0.82 of a chord, and on a 32-chord spiral the fit error is a hundred times smaller than the gap it is fitting to. Curvature is acceleration at unit speed — `a = κv²` — so the second panel is the acceleration graph.
+
+![Heading, curvature, and the two gaps — the chain against the ideal, and the drawn cubics against the chain.](fig/error.svg)
+
+*Heading, curvature, and the two gaps — the chain against the ideal, and the drawn cubics against the chain.*
+
 ![With a 2× exit, the ladders meet at 3 in / 2 out and 20 in / 14 out, and nowhere else.](fig/closure.svg)
 
 *With a 2× exit, the ladders meet at 3 in / 2 out and 20 in / 14 out, and nowhere else.*
@@ -85,6 +91,10 @@ Four constructions, each asserting exact closure at build time:
 
 If the final artwork is cubic Béziers, the polygon is already the right scaffold. Every node carries a point and an exact tangent, which is a Hermite skeleton; a cubic between two nodes is fully determined except for its two arm lengths, and those arms are the only approximation in the pipeline.
 
+![Two apses at once: the corner the curl actually has, and the g2 closure at n = 15, whose curvature walks through zero. Below, the curvature along each chord.](fig/apsis.svg)
+
+*Two apses at once: the corner the curl actually has, and the g2 closure at n = 15, whose curvature walks through zero. Below, the curvature along each chord.*
+
 ![One cubic. Anchors sit on the curve; the arms carry the heading and are the only free numbers.](fig/cubic.svg)
 
 *One cubic. Anchors sit on the curve; the arms carry the heading and are the only free numbers.*
@@ -107,6 +117,8 @@ The apsis is the one place the drawing has to choose, because the chain's curvat
 | --- | --- | --- | --- |
 | sharp (default) | 5.904 deg, exact | 1.18x the chain | 0.0289 |
 | smooth | none | 3.00x the chain | 0.0129 |
+
+The alternative is a different chain, not a different fit. `design.g2_lobe(tri, 15)` is the first closure past n = 3: turns 0…14, then 14…0 so the curvature walks back through zero, then −1…−20. It is 50 chords at α = 1.450°, its widest chord turns 20.3°, it peaks at 304.6° (a full volute rather than a hook) and it still closes exactly east, at (3.82, −8.47). Its curvature is continuous at the apsis, so there is no corner to draw and nothing to choose. The price is resolution: at 20° a chord it is three times coarser than the curl, and the closing condition admits no n between 15 and 85.
 
 A genuinely smooth apsis cannot come from the renderer at all: it has to come from the turn schedule, which then has to pass through zero curvature and come back. Exactly closing chains of that kind exist only at `j(j+1) = 2n(n-1)` — n = 2, 14, 84 — so at the resolution the curl needs there is no smooth, exactly closing apsis available. The corner is not a rendering defect; it is the arithmetic.
 

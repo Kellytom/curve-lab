@@ -96,6 +96,9 @@ class Canvas:
                  b[1] - 9 / self.k * math.sin(ang + s * 0.4))
             self.line(b, q, stroke, width)
 
+    def inner(self):
+        return "".join(self.out)
+
     def svg(self, title=""):
         return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" '
                 f'width="100%" role="img" aria-label="{title}">'
@@ -106,6 +109,22 @@ class Canvas:
 def frame(c, title):
     c.text(c.x0, c.y1 + (c.y1 - c.y0) * 0.02, title, size=11, fill=GOLD)
     return c
+
+
+def stack(panels, width=680, gap=16):
+    """Stack canvases vertically into one clipped SVG."""
+    total = sum(h for _, h in panels) + gap * (len(panels) - 1)
+    defs = "".join(f'<clipPath id="p{i}"><rect x="0" y="0" width="{c.w}" '
+                   f'height="{h}"/></clipPath>' for i, (c, h) in enumerate(panels))
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {total}" '
+           f'width="100%" role="img" aria-label="comparison">',
+           f'<rect width="{width}" height="{total}" fill="#fffdf7"/>', f"<defs>{defs}</defs>"]
+    y = 0
+    for i, (c, h) in enumerate(panels):
+        out.append(f'<g transform="translate(0,{y})" clip-path="url(#p{i})">{c.inner()}</g>')
+        y += h + gap
+    out.append("</svg>")
+    return "\n".join(out)
 
 
 # --------------------------------------------------------------- figures ---
@@ -316,7 +335,169 @@ def fig_branch():
     return c.svg("a branch")
 
 
-# ---------------------------------------------------------------- blocks ---
+def fig_error():
+    """Heading, curvature, and the two gaps -- where the difference lives."""
+    tri = thinnest(3125)
+    n = 12
+    p = design.spiral(tri, n, 1.0)          # monotone: a clothoid is its ideal
+    nodes = p.floats()
+    chords = len(p.turns)
+    al = tri.radians
+
+    def th(u):                              # kappa0 = al/2, kd = al, L = 1
+        return al * u * u / 2 + al * u / 2
+
+    def clothoid(s, steps=160):
+        x = y = 0.0
+        for i in range(steps):
+            a0, b0 = s * i / steps, s * (i + 1) / steps
+            ds = b0 - a0
+            x += ds * (math.cos(th(a0)) + 4 * math.cos(th((a0 + b0) / 2)) + math.cos(th(b0))) / 6
+            y += ds * (math.sin(th(a0)) + 4 * math.sin(th((a0 + b0) / 2)) + math.sin(th(b0))) / 6
+        return x, y
+
+    top = math.degrees(th(chords)) * 1.08
+
+    c1 = Canvas((-0.5, chords + 0.5), (-0.04 * top, top), 680, 175, margin=38, aspect=False)
+    c1.line((0, 0), (chords, 0), FAINT, 1.0)
+    cum = p.cumulative()
+    for k in range(chords):
+        c1.line((k, math.degrees(cum[k] * al)), (k + 1, math.degrees(cum[k] * al)), INK, 2.2)
+    c1.poly([(u * 0.2, math.degrees(th(u * 0.2))) for u in range(chords * 5 + 1)], BLUE, 1.7)
+    c1.text(0.3, top * 0.9, "heading: the chain steps, the ideal ramps", 10.5, GOLD)
+    c1.text(chords - 0.2, top * 0.05, "chord", 9.5, GOLD, "end")
+    c1.text(-0.4, top * 0.86, "deg", 9.5, GOLD)
+
+    kmax = math.degrees(al * (chords + 0.5)) * 1.12
+    c2 = Canvas((-0.5, chords + 0.5), (-0.12 * kmax, kmax), 680, 175, margin=38, aspect=False)
+    c2.line((0, 0), (chords, 0), FAINT, 1.0)
+    for k in range(chords):
+        kk = math.degrees(p.turns[k] * al)
+        c2.line((k, kk), (k + 1, kk), INK, 2.2)
+    c2.poly([(u * 0.2, math.degrees(al * (u * 0.2) + al / 2)) for u in range(chords * 5 + 1)],
+            BLUE, 1.7)
+    c2.text(0.3, kmax * 0.88, "curvature k(s) -- at unit speed, a = k v^2, so this is acceleration",
+            10.5, GOLD)
+    c2.text(chords - 0.2, kmax * 0.06, "chord", 9.5, GOLD, "end")
+
+    gap = []
+    for k in range(chords + 1):
+        cx, cy = clothoid(k)
+        gap.append((k, math.hypot(nodes[k][0] - cx, nodes[k][1] - cy)))
+    gtop = max(v for _, v in gap) * 1.35
+    c3 = Canvas((-0.5, chords + 0.5), (-0.06 * gtop, gtop), 680, 165, margin=38, aspect=False)
+    c3.line((0, 0), (chords, 0), FAINT, 1.0)
+    c3.poly(gap, INK, 2.0)
+    for k, v in gap:
+        c3.dot((k, v), 2.0, INK)
+    c3.text(0.3, gtop * 0.9, f"the lag: how far the chain sits behind the ideal, "
+                             f"in chords (max {max(v for _,v in gap):.2f})", 10.5, GOLD)
+    c3.text(chords - 0.2, gtop * 0.06, "chord", 9.5, GOLD, "end")
+
+    # panel 4: on a long spiral, the fit error against the modelling gap
+    q = design.spiral(tri, 32, 1.0)
+    cs = spanmod.spans(q, math.radians(20))
+    qn = q.floats()
+    qal = q.triangle.radians
+
+    def qth(u):
+        return qal * u * u / 2 + qal * u / 2
+
+    def qcurve(u, steps=50):
+        x = y = 0.0
+        for i in range(steps):
+            a0, b0 = u * i / steps, u * (i + 1) / steps
+            ds = b0 - a0
+            x += ds * (math.cos(qth(a0)) + 4 * math.cos(qth((a0 + b0) / 2)) + math.cos(qth(b0))) / 6
+            y += ds * (math.sin(qth(a0)) + 4 * math.sin(qth((a0 + b0) / 2)) + math.sin(qth(b0))) / 6
+        return x, y
+
+    model = [(k, math.hypot(qn[k][0] - qcurve(k)[0], qn[k][1] - qcurve(k)[1]))
+             for k in range(len(qn))]
+    fit = []
+    for c in cs:
+        i, j = int(c["s0"]), int(c["s1"])
+        for m in range(7):
+            t = m / 6
+            pt = spanmod.cubic_at(c, t)
+            fit.append((i + t * (j - i),
+                        min(spanmod._segment_distance(pt, qn[a2], qn[a2 + 1])
+                            for a2 in range(i, j))))
+    mtop = max(v for _, v in model) * 1.25
+    c4 = Canvas((-4, len(qn) + 4), (-0.05 * mtop, mtop), 680, 235, margin=38, aspect=False)
+    c4.line((0, 0), (len(qn), 0), FAINT, 1.0)
+    c4.poly(model, INK, 1.9)
+    c4.poly(fit, RED, 1.7)
+    c4.text(3, mtop * 0.94, "32 chords: black, chain vs ideal; red, cubics vs chain",
+            10.5, GOLD)
+    c4.text(len(qn) - 3, mtop * 0.06, "chord", 9.5, GOLD, "end")
+    print(f"  error fig: model gap {max(v for _,v in model):.3f} chords, "
+          f"fit gap {max(v for _,v in fit):.4f} chords")
+    return stack([(c1, 175), (c2, 175), (c3, 165), (c4, 235)])
+
+
+def fig_apsis():
+    """Two apses: the corner the curl has, and the g2 closure at n = 15."""
+    tri = thinnest(3125)
+    sharp = design.curl(200, 6, 1.0)
+    g2 = design.g2_lobe(tri, 15, 1.0)
+
+    def curve_panel(path, apsis, w, h, title):
+        cs = spanmod.spans(path, math.radians(20), apsis=apsis)
+        pts = [spanmod.cubic_at(c, i / 10) for c in cs for i in range(10)]
+        xs = [v[0] for v in pts]
+        ys = [v[1] for v in pts]
+        c = Canvas((min(xs) - 1.2, max(xs) + 1.2), (min(ys) - 1.6, max(ys) + 2.6), w, h,
+                   margin=24)
+        c.poly(pts, INK, 1.9)
+        apex = max(range(len(path.turns)), key=lambda k: path.cumulative()[k])
+        c.dot(path.floats()[apex], 3.8, RED)
+        c.text(min(xs) - 1.0, max(ys) + 1.9, title, 10.5, GOLD)
+        return c
+
+    def kappa_panel(path, w, h, colour, caption):
+        ks = [0.0] + [math.degrees(t * path.triangle.radians) for t in path.turns]
+        lo, hi = min(ks) * 1.25, max(ks) * 1.25
+        c = Canvas((-0.5, len(ks) - 0.5), (lo, hi), w, h, margin=34, aspect=False)
+        c.line((0, 0), (len(ks) - 1, 0), FAINT, 1.1)
+        for k in range(len(ks) - 1):
+            c.line((k, ks[k]), (k + 1, ks[k]), colour, 1.8)
+            if ks[k] * ks[k + 1] < 0:      # the reversal: draw the jump
+                c.line((k + 1, ks[k]), (k + 1, ks[k + 1]), colour, 1.4, dash="4 4")
+        c.text(0.5, hi * 0.90, caption, 10, colour)
+        c.text(len(ks) - 1, lo * 0.55, "chord", 9, GOLD, "end")
+        return c
+
+    left = curve_panel(sharp, "sharp", 340, 330, "corner: 5.9 deg, the exact turn")
+    right = curve_panel(g2, "sharp", 340, 330, "g2 at n = 15: no corner")
+    kl = kappa_panel(sharp, 340, 200, INK,
+                     "jumps +5.9 to -5.9 in one chord")
+    kr = kappa_panel(g2, 340, 200, BLUE,
+                     "walks down through zero")
+
+    W, H = 700, 606
+    defs = "".join(f'<clipPath id="r{i}"><rect width="{c.w}" height="{h}"/></clipPath>'
+                   for i, (c, h) in enumerate([(left, 330), (right, 330),
+                                               (kl, 200), (kr, 200)]))
+    cells = [(left, 330, 6, 6), (right, 330, 352, 6), (kl, 200, 6, 352),
+             (kr, 200, 352, 352)]
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+           f'width="100%" role="img" aria-label="two apses">',
+           f'<rect width="{W}" height="{H}" fill="#fffdf7"/>', f"<defs>{defs}</defs>"]
+    for i, (c, h, x, y) in enumerate(cells):
+        out.append(f'<g transform="translate({x},{y})"><g clip-path="url(#r{i})">'
+                   f'{c.inner()}</g></g>')
+    out.append(f'<text x="6" y="{H - 24}" font-family="Georgia, serif" font-size="12.5" '
+               f'fill="{GOLD}">Left: the curl\'s apsis is a real corner, so the '
+               f'curvature jumps and the jump is drawn dashed.</text>')
+    out.append(f'<text x="6" y="{H - 8}" font-family="Georgia, serif" font-size="12.5" '
+               f'fill="{GOLD}">Right: the g2 closure turns through zero curvature, so '
+               f'there is nothing to corner. Below each: curvature per chord.</text>')
+    out.append("</svg>")
+    return "\n".join(out)
+
+
+# ---------------------------------------------------------------- blocks ---# ---------------------------------------------------------------- blocks ---# ---------------------------------------------------------------- blocks ---
 BLOCKS = [
     ("h1", "The Pythagorean spiral"),
     ("p", "Smooth curves that connect to each other and branch from each other. "
@@ -385,6 +566,13 @@ BLOCKS = [
     ("p", "For a hook that winds in on 1, 2, 3… and unwinds `m` times faster, "
           "closure is `T(n_in) = m·T(n_out)`. The exact pairs are sparse, and the "
           "grid below is where they coincide:"),
+    ("p", "Four graphs make the difference visible, because on the drawing it is "
+          "not: the heading steps where the ideal ramps, the curvature is a staircase "
+          "where the ideal is a straight line, the lag grows to 0.82 of a chord, and "
+          "on a 32-chord spiral the fit error is a hundred times smaller than the "
+          "gap it is fitting to. Curvature is acceleration at unit speed — `a = κv²` "
+          "— so the second panel is the acceleration graph."),
+    ("fig", fig_error, "Heading, curvature, and the two gaps — the chain against the ideal, and the drawn cubics against the chain."),
     ("fig", fig_closure, "With a 2× exit, the ladders meet at 3 in / 2 out and 20 in / 14 out, and nowhere else."),
     ("p", "`T(15) = 120` and `8·T(5) = 120`, so a 15/5 hook closes at exactly east. "
           "The common belief that 15 in and 8 out at 2× closes is wrong: it leaves "
@@ -409,6 +597,7 @@ BLOCKS = [
           "Hermite skeleton; a cubic between two nodes is fully determined except "
           "for its two arm lengths, and those arms are the only approximation in the "
           "pipeline."),
+    ("fig", fig_apsis, "Two apses at once: the corner the curl actually has, and the g2 closure at n = 15, whose curvature walks through zero. Below, the curvature along each chord."),
     ("fig", fig_cubic, "One cubic. Anchors sit on the curve; the arms carry the heading and are the only free numbers."),
     ("p", "Four rules make it draw as a curve rather than a polygon. Anchors are "
           "the nodes — control points are off-curve, so feeding vertices in as "
@@ -435,6 +624,15 @@ BLOCKS = [
     ("table", [["apsis", "corner", "peak curvature", "fit error"],
                ["sharp (default)", "5.904 deg, exact", "1.18x the chain", "0.0289"],
                ["smooth", "none", "3.00x the chain", "0.0129"]]),
+    ("p", "The alternative is a different chain, not a different fit. "
+          "`design.g2_lobe(tri, 15)` is the first closure past n = 3: turns 0…14, "
+          "then 14…0 so the curvature walks back through zero, then −1…−20. It is 50 "
+          "chords at α = 1.450°, its widest chord turns 20.3°, it peaks at 304.6° (a "
+          "full volute rather than a hook) and it still closes exactly east, at "
+          "(3.82, −8.47). Its curvature is continuous at the apsis, so there is no "
+          "corner to draw and nothing to choose. The price is resolution: at 20° a "
+          "chord it is three times coarser than the curl, and the closing condition "
+          "admits no n between 15 and 85."),
     ("p", "A genuinely smooth apsis cannot come from the renderer at all: it has "
           "to come from the turn schedule, which then has to pass through zero "
           "curvature and come back. Exactly closing chains of that kind exist only "
@@ -575,7 +773,7 @@ def to_html(blocks, figs, title):
 
 def main():
     FIG.mkdir(parents=True, exist_ok=True)
-    names = ["rotation", "turning", "polygon", "closure", "curl", "cubic", "branch"]
+    names = ["rotation", "turning", "polygon", "error", "closure", "curl", "apsis", "cubic", "branch"]
     figs, fig_names = [], []
     i = 0
     for kind, *rest in BLOCKS:
