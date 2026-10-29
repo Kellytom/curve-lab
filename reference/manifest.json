@@ -1,41 +1,5 @@
 [
  {
-  "subject": "earth",
-  "file": "earth/01-Rock_Strata_on_Clifton_Cliff_-_geograph.org.uk_-_637480.jpg",
-  "title": "File:Rock Strata on Clifton Cliff - geograph.org.uk - 637480.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Rock_Strata_on_Clifton_Cliff_-_geograph.org.uk_-_637480.jpg",
-  "licence": "CC BY-SA 2.0",
-  "artist": "Mick Garratt",
-  "bytes": 109909
- },
- {
-  "subject": "earth",
-  "file": "earth/02-Cliff_rock_strata__St_Audries_Bay_-_geograph.org.uk_-_3406184.jpg",
-  "title": "File:Cliff rock strata, St Audries Bay - geograph.org.uk - 3406184.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Cliff_rock_strata,_St_Audries_Bay_-_geograph.org.uk_-_3406184.jpg",
-  "licence": "CC BY-SA 2.0",
-  "artist": "Roger Cornfoot",
-  "bytes": 170436
- },
- {
-  "subject": "water",
-  "file": "water/01-Baltic_Sea_view_from_Schmiedeberg_hill_in_Rerik__2025-06-23.jpg",
-  "title": "File:Baltic Sea view from Schmiedeberg hill in Rerik, 2025-06-23.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Baltic_Sea_view_from_Schmiedeberg_hill_in_Rerik,_2025-06-23.jpg",
-  "licence": "CC BY-SA 4.0",
-  "artist": "Radomianin",
-  "bytes": 225434
- },
- {
-  "subject": "water",
-  "file": "water/02-William-Adolphe_Bouguereau__1825-1905__-_The_Wave__1896_.jpg",
-  "title": "File:William-Adolphe Bouguereau (1825-1905) - The Wave (1896).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:William-Adolphe_Bouguereau_(1825-1905)_-_The_Wave_(1896).jpg",
-  "licence": "Public domain",
-  "artist": "William-Adolphe Bouguereau",
-  "bytes": 137928
- },
- {
   "subject": "air",
   "file": "air/01-Cumulus_cloud_above_Lechtaler_Alps_at_tannheim__Austria.jpg",
   "title": "File:Cumulus cloud above Lechtaler Alps at tannheim, Austria.jpg",
@@ -63,15 +27,6 @@
   "bytes": 167042
  },
  {
-  "subject": "fire",
-  "file": "fire/02-The_hidden_fires_of_the_Flame_Nebula.jpg",
-  "title": "File:The hidden fires of the Flame Nebula.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:The_hidden_fires_of_the_Flame_Nebula.jpg",
-  "licence": "CC BY 4.0",
-  "artist": "ESO/J. Emerson/VISTA. Acknowledgment: Cambridge Astronomical Survey Unit",
-  "bytes": 326004
- },
- {
   "subject": "fleur",
   "file": "fleur/01-Fleur-de-Lis.jpg",
   "title": "File:Fleur-de-Lis.jpg",
@@ -79,15 +34,6 @@
   "licence": "CC BY 4.0",
   "artist": "Miguel Angel Oma\u00f1a Rojas",
   "bytes": 581298
- },
- {
-  "subject": "fleur",
-  "file": "fleur/02-The_Fleur_de_Lis_-_Stoke_sub_Hamdon_-_geograph.org.uk_-_1557106.jpg",
-  "title": "File:The Fleur de Lis - Stoke sub Hamdon - geograph.org.uk - 1557106.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:The_Fleur_de_Lis_-_Stoke_sub_Hamdon_-_geograph.org.uk_-_1557106.jpg",
-  "licence": "CC BY-SA 2.0",
-  "artist": "Sarah Smith",
-  "bytes": 81578
  },
  {
   "subject": "acanthus",
