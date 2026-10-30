@@ -101,5 +101,28 @@ class TestQuantize(unittest.TestCase):
             place.quantize([(0.0, 0.0)], 0)
 
 
+class TestFrame(unittest.TestCase):
+    def test_the_anchor_is_the_local_origin(self):
+        self.assertEqual(place.place_at_frame([(0, 0)], (12, -3), (1, 0)),
+                         [(12.0, -3.0)])
+
+    def test_local_x_goes_along_the_heading(self):
+        out = place.place_at_frame([(2, 0), (0, 2)], (0, 0), (0, 1))
+        self.assertAlmostEqual(out[0][0], 0.0)
+        self.assertAlmostEqual(out[0][1], 2.0)
+        self.assertAlmostEqual(out[1][0], -2.0)
+        self.assertAlmostEqual(out[1][1], 0.0)
+
+    def test_a_float_heading_is_accepted(self):
+        h = 2 ** -0.5
+        out = place.place_at_frame([(1, 0)], (5, 5), (h, h))
+        self.assertAlmostEqual(out[0][0], 5 + h)
+        self.assertAlmostEqual(out[0][1], 5 + h)
+
+    def test_a_non_unit_heading_is_refused(self):
+        with self.assertRaises(ValueError):
+            place.place_at_frame([(0, 0)], (0, 0), (1, 1))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -98,3 +98,22 @@ def fit(points, box=(200, 250), margin=2, units_per_unit: int = 1000,
         gy = margin * units_per_unit + (float(y) - y0) * s * units_per_unit
         out.append((int(round(gx)), int(round(gy))))
     return out, s
+
+
+def place_at_frame(points, anchor, heading):
+    """Put local points into a node framework: local +x along `heading`.
+
+    A node framework is a point and a direction. This maps the local origin to
+    the anchor and the local x-axis to the heading, so geometry authored facing
+    east can attach at a recovered terminal or a chain node.
+
+    `heading` may be a float pair, because a recovered terminal's direction is
+    not in the rational rotation group. Callers keep their own exactness.
+    """
+    hx, hy = float(heading[0]), float(heading[1])
+    length = math.hypot(hx, hy)
+    if abs(length - 1.0) > 1e-6:
+        raise ValueError(f"heading must be a unit pair, got {heading!r}")
+    ax, ay = float(anchor[0]), float(anchor[1])
+    return [(ax + float(x) * hx - float(y) * hy,
+             ay + float(x) * hy + float(y) * hx) for x, y in points]
