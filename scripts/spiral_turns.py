@@ -106,6 +106,10 @@ CALCULATOR = """
   </div>
   <table id="calc-out"></table>
   <p class="hint" id="calc-note"></p>
+  <div class="calc-illus">
+    <svg id="calc-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+    <p class="hint">Blue dashed: the final circle. Red dot: where the spiral meets it.</p>
+  </div>
 </div>
 <script>
 (function () {
@@ -114,6 +118,7 @@ CALCULATOR = """
   const r = document.getElementById("calc-r");
   const out = document.getElementById("calc-out");
   const note = document.getElementById("calc-note");
+  const svg = document.getElementById("calc-svg");
   const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
   function update() {
     const page = Math.max(1, +L.value || 100);
@@ -141,6 +146,60 @@ CALCULATOR = """
     else if (radius < 0.75 * rbest) verdict = "Small and tight: it merges after only a turn or two.";
     else verdict = "Near the best radius: the most turns that fit without merging.";
     note.textContent = verdict;
+    draw(page, stroke, radius);
+  }
+
+  function draw(page, stroke, radius) {
+    const L = Math.max(page, 10);
+    const nmerge = radius / (2 * stroke);
+    const nbox = Math.pow(L / (2 * radius), 2);
+    let N = Math.min(nmerge, nbox);
+    if (!isFinite(N) || N <= 0) N = 1;
+    const path = [];
+    const centre = L / 2;
+    if (N <= 1.0001) {
+      for (let k = 0; k <= 240; k++) {
+        const a = 2 * Math.PI * k / 240;
+        path.push([centre + radius * Math.cos(a), centre + radius * Math.sin(a)]);
+      }
+    } else {
+      const R = Math.min(radius * Math.sqrt(N), L / 2);
+      const k0 = 1 / R, k1 = 1 / radius, theta = 2 * Math.PI * N;
+      const kd = (k1 * k1 - k0 * k0) / (2 * theta);
+      const len = (k1 - k0) / kd, n = 400, h = len / n;
+      let x = 0, y = 0;
+      const f = (sv) => {
+        const t = k0 * sv + 0.5 * kd * sv * sv;
+        return [Math.cos(t), Math.sin(t)];
+      };
+      for (let i = 0; i <= n; i++) {
+        const sv = i * h;
+        path.push([x, y]);
+        const a = f(sv), b = f(sv + h / 2), c = f(sv + h);
+        x += h * (a[0] + 4 * b[0] + c[0]) / 6;
+        y += h * (a[1] + 4 * b[1] + c[1]) / 6;
+      }
+      const th = k0 * len + 0.5 * kd * len * len;
+      const ex = x - radius * Math.sin(th), ey = y + radius * Math.cos(th);
+      path.forEach(p => { p[0] += centre - ex; p[1] += centre - ey; });
+    }
+    const S = 100 / L;
+    const d = path.map((p, i) => (i ? "L" : "M") + " " +
+      (p[0] * S).toFixed(2) + " " + (100 - p[1] * S).toFixed(2)).join(" ");
+    const end = path[path.length - 1];
+    let grid = "";
+    for (let g = 10; g < 100; g += 10) {
+      grid += '<line x1="' + g + '" y1="0" x2="' + g + '" y2="100" stroke="#e8dfc8" stroke-width="0.25"/>';
+      grid += '<line x1="0" y1="' + g + '" x2="100" y2="' + g + '" stroke="#e8dfc8" stroke-width="0.25"/>';
+    }
+    svg.innerHTML =
+      grid +
+      '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
+      '<path d="' + d + '" fill="none" stroke="#2e2413" stroke-width="0.85"/>' +
+      '<circle cx="50" cy="50" r="' + (radius * S).toFixed(2) + '" fill="none" ' +
+      'stroke="#2f6f8f" stroke-width="0.45" stroke-dasharray="1.5 1.5"/>' +
+      '<circle cx="' + (end[0] * S).toFixed(2) + '" cy="' + (100 - end[1] * S).toFixed(2) +
+      '" r="1.3" fill="#b04a3a"/>';
   }
   [L, w, r].forEach(el => el.addEventListener("input", update));
   update();
@@ -235,8 +294,10 @@ def main() -> int:
             '<div class="cell"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
             + grid_markup()
             + f'<path d="{d}" fill="none" stroke="#2e2413" stroke-width="0.8"/>'
-            + f'<circle cx="50" cy="50" r="{radius:g}" fill="none" stroke="#8c6a21" '
+            + f'<circle cx="50" cy="50" r="{radius:g}" fill="none" stroke="#2f6f8f" '
               'stroke-width="0.35" stroke-dasharray="1.5 1.5"/>'
+            + f'<circle cx="{pts[-1][0]:.2f}" cy="{100 - pts[-1][1]:.2f}" '
+              'r="1.1" fill="#b04a3a"/>'
             + '</svg><p>' + label + '</p></div>')
     three_panels = '<div class="three">' + "".join(three) + '</div>'
 
@@ -277,8 +338,10 @@ def main() -> int:
     centre = (last[0] - R_END * math.sin(last_heading),
               last[1] + R_END * math.cos(last_heading))
     circle = (f'<circle cx="{place(centre)[0]:.2f}" cy="{place(centre)[1]:.2f}" '
-              f'r="{R_END * scale:.2f}" fill="none" stroke="#8c6a21" '
+              f'r="{R_END * scale:.2f}" fill="none" stroke="#2f6f8f" '
               f'stroke-width="0.4" stroke-dasharray="2 2"/>')
+    end_dot = (f'<circle cx="{place(points[-1])[0]:.2f}" '
+               f'cy="{place(points[-1])[1]:.2f}" r="1.1" fill="#b04a3a"/>')
 
     page = f"""<!doctype html>
 <html lang="en">
@@ -316,6 +379,9 @@ def main() -> int:
   .calc input {{ font:13px var(--mono); padding:4px 6px; border:1px solid var(--line);
     border-radius:4px; background:#fff; width:110px; color:var(--ink); }}
   .calc .hint {{ margin:10px 0 0; color:var(--gold); }}
+  .calc-illus {{ margin-top:12px; }}
+  .calc-illus svg {{ display:block; width:100%; max-width:300px; height:auto;
+    margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:4px; }}
   .back {{ font: 12px var(--mono); margin-bottom: 16px; }}
   a {{ color: var(--gold); }}
   @media (max-width: 620px) {{
@@ -341,6 +407,7 @@ def main() -> int:
       </g>
       <path d="{path}" fill="none" stroke="#2e2413" stroke-width="0.7"/>
       {circle}
+      {end_dot}
     </svg>
   </div>
   <div class="panel" style="margin-top:12px">
@@ -349,9 +416,9 @@ def main() -> int:
       <tr><th>turns</th><td>{turns:.2f}</td><th>bounding box</th><td>{width:.1f} × {height:.1f}</td></tr>
       <tr><th>final radius</th><td>{R_END:g}</td><th>gap to the previous winding</th><td>{merge_gap:.1f} units</td></tr>
     </table>
-    <p style="margin-top:10px">The dashed circle is the final radius. Almost the whole box is the
-    long near-straight approach, so the curve makes only <strong>{turns:.2f} turns</strong> before it is
-    already the circle. The previous winding is <strong>{merge_gap:.1f} units</strong> away: no line
+    <p style="margin-top:10px">The blue dashed circle is the final radius; the red dot is
+    where the spiral meets it. Almost the whole box is the long near-straight approach, so
+    the curve makes only <strong>{turns:.2f} turns</strong> before it is already the circle. The previous winding is <strong>{merge_gap:.1f} units</strong> away: no line
     width collides on this grid.</p>
   </div>
 
@@ -426,8 +493,9 @@ def main() -> int:
     (r = 2w = 2), one turn, no room for a tail. Middle: the best turn budget
     (r ≈ 17, about 8.5 turns), the Euler spiral winding in from the page edge.
     Right: r = 40 with a 40° entry tail — the full-circle bound is 50, but 50
-    leaves no room for a tail, so the largest example is set back to 40. The
-    dashed circle is the final radius; the grid is 10 units.</p>
+    leaves no room for a tail, so the largest example is set back to 40. The blue
+    dashed circle is the final radius; the red dot is where the spiral meets it; the
+    grid is 10 units.</p>
     {three_panels}
   </div>
 
