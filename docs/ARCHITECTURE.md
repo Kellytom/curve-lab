@@ -59,7 +59,7 @@ The intended pipeline, from exact plan to finished page:
    edit, measure, download SVG
 ```
 
-**Three of the four conditions hold (2026-10-30, `3f7a603`).** The two tools now
+**All four conditions hold under the operator's fidelity rule (2026-10-30).** The two tools now
 meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary clothoid
 segments, so rails, terminals, clearance and the SVG writer need no second
 geometry kind.
@@ -70,14 +70,12 @@ geometry kind.
    through `svg.document`.
 3. **Done.** `piece_clearance()` measures the same build; a contact declared at
    a forked node passes, and the same gap fails without the declaration.
-4. **Open.** One W03 study is drawn entirely from Pythagorean chains. P01's
+4. **Done.** One W03 study is drawn entirely from Pythagorean chains. P01's
    start heading (77.97°) and corners are not in any triangle's rotation group,
-   so exact chains cannot reproduce its node table; the measured drift is 15
-   units at 1° steps (0.99% of the study) and does not fall with finer steps.
-   The conformance rule is the open decision; see `SESSIONS.md`.
-
-Until 4 is decided, "central" is true of the software but not yet of the study
-corpus.
+   so this is a chain plan, not P01's node table. It passes the operator's
+   rule — worst span-end drift at most **1.6% of study height** — at **1.29%**
+   with a 0.5° turn step. See `FIDELITY.md`; the study is **not** node parity
+   (0.03 units for the port against 19.44 here).
 
 ## Where to look
 
@@ -90,6 +88,7 @@ corpus.
 | What is true today, and what is next | [Current truth](HANDOFF.md) |
 | The spine layer, step by step | [Spine guide](SPINE.md) |
 | The curve model in detail | [Curve model](CURVE-MODEL.md) |
+| The accepted accuracy budget | [Fidelity](FIDELITY.md) |
 | The recovered plates and their formats | [Recovered corpus](CORPUS.md) |
 | Work items, plates and decisions | [Work items and the work board](WORK.md) |
 | What passes, and how | [Verification](VERIFY.md) |
@@ -111,7 +110,7 @@ corpus.
 ## What this overview does not claim
 
 - That the engine is G2 everywhere. It is not; see above.
-- That a study has been drawn from the spine layer. Gates 1–3 pass; gate 4 is
-  open, and exact chains cannot reproduce P01's node table.
+- That a chain study is P01. It passes the 1.6% fidelity rule and is not node
+  parity; see `FIDELITY.md`.
 - That "exact" means the coordinates at any scale. It means the plan; the ink is
   measured.

@@ -8,9 +8,13 @@ work inside each step. The order here follows `HANDOFF.md`; the code blocks are
 
 ## 1. Promotion gate 4 — one study from chains
 
-**State:** gates 1–3 are done (`3f7a603`). This is the open one.
+**State: done.** Gates 1–3 landed in `3f7a603`; gate 4 is met under the
+operator's fidelity rule (2026-10-30): **worst span-end drift at most 1.6% of the
+study height**. The candidate at 0.5° steps measures **1.29%**. The full rule,
+its precedent and its caveats are in `FIDELITY.md`; read that before quoting the
+number.
 
-The condition is: *one W03 study is drawn entirely from Pythagorean chains.*
+The condition was: *one W03 study is drawn entirely from Pythagorean chains.*
 Study 01 is the target. Its spans already have the chain's own law in them:
 
 | P01 span | chain law |
@@ -20,68 +24,52 @@ Study 01 is the target. Its spans already have the chain's own law in them:
 | Euler span (10°) | turns increasing linearly |
 | corner between spans | an exact `quarter` or a whole triangle turn |
 
-The blocker is arithmetic, not shape. A chain's heading is
+The arithmetic is the constraint. A chain's heading is
 `heading0 * triangle.direction ** k`, so every heading change is a whole
 multiple of one triangle angle. P01's start heading is `atan2(305, 65) =
 77.97°`, and its spans turn by 25°, 35° and 10°. No single triangle angle
 divides 77.97° and 25°, so the chain cannot reproduce P01's node table exactly.
 
-**Decision needed (operator):** which conformance rule?
+### The measured table (study 01, right half)
 
-- **A. Law-fitted, drift measured.** Build each span by its own law at a chosen
-  `alpha` (e.g. 1°), re-anchor each span on the previous chain node, and report
-  the worst distance to P01's nodes and headings. Accept if under a stated
-  budget (say 2 units on a 1180-unit study).
-- **B. Node parity.** Keep the 12 P01 nodes and headings as fixed constraints,
-  and solve for a chain that passes through them. In general this has no exact
-  solution in the group, so it becomes an optimisation with a published
-  residual — more work, and a weaker claim than the layer usually makes.
-- **C. Re-parameterise P01** so its angles are whole triangle turns (a new
-  study, visibly close but not the old one).
+In P01's own frame; the study height is 1510 units.
 
-Recommendation: **A**, because it keeps the exactness claim where it is true
-(the plan of the chain) and states the drift to the old drawing as a
-measurement, which is the posture used everywhere else in this project.
+| turn step | chords | worst drift | of height | build |
+|---|---|---|---|---|
+| 2° | 62 | 66.19 units | 4.38% | 0.08 s |
+| 1° | 115 | 21.38 units | 1.42% | 0.08 s |
+| 0.5° | 221 | 19.44 units | **1.29%** | 0.25 s |
+| 0.25° | 431 | 20.76 units | 1.38% | 1.45 s |
+| 0.125° | 852 | 1.67 units | **0.11%** | 9.44 s |
+| 0.0625° | — | did not finish in 60 s | — | — |
 
-### Measured before writing the study
+The coarse steps are not monotone: independently rounded corners can add or
+cancel, so 0.5° beats 0.25° by luck. At 0.125° the grid is fine enough that the
+residual collapses. **Finer triangles do converge; cost rises steeply.** An
+earlier version of this page said the drift "does not fall with the angle"; that
+was wrong and is corrected here.
 
-`scripts/spine_study_probe.py` walks the right half as one composite chain and
-compares each span boundary with P01's node (rotated into the chain's frame):
-
-| step | chords | worst drift | end heading |
-|---|---|---|---|
-| 1.0° | 115 | 14.9 units (0.99% of the 1510-unit height) | 16.94° |
-| 0.5° | 221 | 30.0 units (1.98%) | 17.86° |
-| 0.25° | 431 | 18.9 units (1.25%) | 16.23° |
-| 0.1° | — | did not finish in two minutes (exact integers) | — |
-
-The drift does not fall with the angle: it is dominated by quantising the
-corners (P01's foot/tail corner is 77.97°), each of which swings the rest of
-the study on a long lever. Finer steps also cost exact digits fast, so 0.1° is
-already unaffordable in whole-number arithmetic. The band adds two 180° arcs
-at the same cost.
-
-That makes the decision sharper, not softer. A chain study is a **new plan with
-a measured resemblance**, not a re-drawing of P01's node table. If the gate
-means "the study is a chain object", option A passes with the table above. If
-it means "P01's geometry, drawn by chains", the honest answer is that exact
-chains cannot get there — option C (re-parameterise) or the float hybrid is the
-only route, and both change what is being claimed.
+The chain study is still a **new plan with a measured resemblance**, not P01's
+node table: the ported P01 matches within 0.03 units, the chain candidate within
+19.44. Do not call it parity.
 
 **Files:** `clothoid_lab/spine_study.py` (new), `scripts/spine_study_01.py`,
 `tests/test_spine_study.py`, `docs/spine-study-01.html`.
 
 ```python
-# target API
-def chain_for_span(span, alpha, chord, start):  # -> Spiral
-    """line: turns 0; arc: constant turn; euler: turns 0,1,2,..."""
+# shipped API
+def composite(spans, alpha_deg=0.5, start=(0, 0), heading=0.0):
+    """Walk the spans as one rational chain; return points, span ends, heading."""
 
-def study_01_from_chains(STUDY_01, alpha=math.radians(1.0)) -> Piece:
-    """Every stroke a chain; returns Piece + a drift report."""
+def study_01_from_chains(alpha_deg=0.5) -> Piece:
+    """The right half mirrored, plus the band, every stroke a chain."""
+
+def report(alpha_deg=0.5) -> dict:
+    """Per-span drift from P01, the worst, and the study height."""
 ```
 
-**Verify:** the study renders; every node/heading drift is reported against
-P01; the worst drift is under the agreed budget; mirror is exact; tests.
+**Verify:** the study renders; every span end is reported against P01; the
+worst is at most 1.6% of height; the metric is named; tests.
 **Commit:** `feat(spine): draw study 01 from Pythagorean chains`
 
 ## 2. W03 — the canonical fleur

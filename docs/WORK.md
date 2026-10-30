@@ -69,8 +69,8 @@ nothing should implement them until D07 is answered.
 
 ## What would make the spine layer part of the tool
 
-The spine layer is now partly part of the tool: gates 1–3 pass (`3f7a603`), and
-`clothoid_lab/spine.py` is the bridge. One condition is still open:
+The spine layer is part of the tool: all four conditions hold (`3f7a603`,
+`97e83d5`), and `clothoid_lab/spine.py` is the bridge.
 
 1. **Done.** The engine reads a chain's spans and builds a `Design`, `Trace`
    and `Piece` from its anchors.
@@ -78,10 +78,9 @@ The spine layer is now partly part of the tool: gates 1–3 pass (`3f7a603`), an
    normal writer (`docs/spine-sheet.html`).
 3. **Done.** The clearance check measures it, and one declared contact at a
    forked node passes.
-4. **Open.** One fleur study is drawn entirely from these chains. Exact chains
-   cannot reproduce P01's node table; the drift at 1° steps is 0.99% of the
-   study, and finer steps do not converge. The conformance rule is the
-   operator's decision, with the numbers in `SESSIONS.md`.
+4. **Done** under the operator's fidelity rule: worst span-end drift at most
+   1.6% of study height. Study 01 at 0.5° measures 1.29%; it is a chain plan,
+   not P01 parity. See `FIDELITY.md`.
 
 The gate is repeated in `PLAN` and `ARCHITECTURE` on purpose: it decides the
 order of work.

@@ -11,8 +11,9 @@ into the chain's frame (start east at the origin).
 The probe does not draw anything and does not claim the gate. It measures the
 price of the only exact route: every heading change must be a whole number of
 triangle turns, and P01's start heading (77.97 degrees) and corners are not in
-that group. A finer angle reduces the quantisation but the exact integers grow
-with it; 0.1 degrees did not finish in two minutes on this machine.
+that group. A finer angle reduces the quantisation, and it does converge: 0.125
+degrees reaches 0.11% of height, while 0.0625 degrees did not finish in a minute.
+The cost is the limit, not the method. See `docs/FIDELITY.md`.
 
 The band is not included: it is a second stroke, and its 180 degree arcs need
 the same treatment at the same cost.
@@ -107,7 +108,7 @@ def main() -> int:
               f"({100 * worst / height:.2f}% of height), "
               f"end heading {heading.degrees:7.2f} deg")
         print("   per span: " + " ".join(f"{d:.1f}" for d in drifts))
-    print("alpha 0.10 deg did not finish in two minutes (exact integers).")
+    print("alpha 0.125 deg reaches 0.11%; 0.0625 deg did not finish in 60 s.")
     return 0
 
 

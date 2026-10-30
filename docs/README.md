@@ -10,6 +10,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `HANDOVER.md` | Durable reference: architecture, deploy, security, decisions. Long on purpose. |
 | `BACKLOG.md` | Execution detail for W01–W26 (the work items on the work board). |
 | `SESSIONS.md` | Proposed order for the next sessions; gate 4 first. Not yet agreed. |
+| `FIDELITY.md` | **The accepted accuracy budget** (1.4–1.6%), its precedent and metrics. |
 | `REVIEW.md` | Architecture and print review; act after the current work. |
 | `ARCHITECTURE.md` | How the engine and the spine layer fit, and which gate conditions hold. |
 | `WEB-GUIDE.md` | The browser workbench: controls, the design recipe, the status line, the limits. |

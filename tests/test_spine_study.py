@@ -33,6 +33,12 @@ class TestChainStudy(unittest.TestCase):
         # Not parity: the ported P01 matches within 0.03 units, this does not.
         self.assertGreater(self.result["worst"], 0.03)
 
+    def test_the_study_meets_the_1_6_percent_rule(self):
+        measured = spine_study.report(0.5)
+        self.assertLessEqual(measured["worst_fraction"], 0.016,
+                             "the default chain study left the fidelity budget")
+        self.assertAlmostEqual(measured["worst_fraction"], 0.0129, delta=0.0005)
+
     def test_the_chain_is_rational_before_placement(self):
         right = fleur_right(STUDY_01)
         points, ends, heading = spine_study.composite(

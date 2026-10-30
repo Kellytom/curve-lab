@@ -1,12 +1,13 @@
-"""Gate 4 candidate: study 01 drawn from Pythagorean chains.
+"""Gate 4: study 01 drawn from Pythagorean chains.
 
     .venv/bin/python scripts/spine_study_01.py
     open docs/spine-study-01.html
 
-Draws the right half and the band as composite chains at 1 degree turns, on
-the 200 x 250 mm sheet, and prints the drift of every span end from P01's node.
-This is a candidate for promotion gate 4, not a claim that the gate has passed:
-the conformance rule is still the operator's decision (`docs/SESSIONS.md`).
+Draws the right half and the band as composite chains at the default turn step
+on the 200 x 250 mm sheet, and prints the drift of every span end from P01's
+node. The study passes the operator's fidelity rule — worst span-end drift at
+most 1.6% of study height — and is still not P01 parity. See
+`docs/FIDELITY.md`.
 """
 
 from __future__ import annotations
@@ -52,7 +53,7 @@ def main() -> int:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Study 01 from chains — gate 4 candidate</title>
+<title>Study 01 from chains — gate 4</title>
 <style>
   :root {{ color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
     --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
@@ -86,13 +87,15 @@ def main() -> int:
 <main>
   <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
   <h1>Study 01 from chains</h1>
-  <p class="lead">A gate-4 candidate: every stroke a Pythagorean chain, measured against P01.</p>
+  <p class="lead">Gate 4: every stroke a Pythagorean chain, measured against P01.</p>
 
   <div class="note">
-    <strong>This is not a pass.</strong> P01's start heading (77.97°) and corners
-    are not in the chain's rotation group, so this is a chain <em>plan</em> with a
-    measured resemblance, not P01's node table. Whether that satisfies the gate
-    is the open conformance decision in <code>docs/SESSIONS.md</code>.
+    <strong>Meets the 1.6% fidelity rule; not P01 parity.</strong> The operator
+    accepted a worst span-end drift of at most 1.6% of the study height
+    (2026-10-30); this drawing measures 1.29% at a 0.5° turn step. P01's start
+    heading (77.97°) and corners are not in the chain's rotation group, so this
+    is a chain <em>plan</em> with a measured resemblance, not P01's node table.
+    The rule, its precedent and its caveats are in <code>docs/FIDELITY.md</code>.
   </div>
 
   <h2>The drawing</h2>
@@ -123,10 +126,11 @@ def main() -> int:
     clothoids. The filled ribbon is the spine layer's miter job
     (<code>ribbon.outline</code>), and that is the next connection to make.</p>
     <p>The drift is the price of the group: the start heading is snapped to the
-    nearest degree and every corner with it, so each quantised corner swings the
-    rest of the stroke on a long lever. The table is the honest measurement, not
-    an error to be hidden. Finer turns do not converge in practice: 0.1° did not
-    finish in two minutes in whole-number arithmetic.</p>
+    nearest whole turn and every corner with it, so each quantised corner swings
+    the rest of the stroke on a long lever. The table is the honest measurement,
+    not an error to be hidden. Finer turns do converge: 0.125° reaches 0.11%,
+    while 0.0625° did not finish in a minute in whole-number arithmetic. The
+    limit is cost, not principle.</p>
   </div>
 </main>
 </body>

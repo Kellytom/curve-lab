@@ -22,9 +22,10 @@ What works today, and what does not. The dated detail is in `HANDOFF.md`.
 
 ## Not connected yet
 
-- **Gate 4 is open: no W03 study is drawn from chains.** Exact chains cannot
-  reproduce P01's node table (15 units of drift at 1° steps, not falling with
-  finer steps); the conformance rule is the decision. See `SESSIONS.md`.
+- **A filled chain study.** The gate is met: study 01 is drawn from chains at
+  1.29% worst drift, inside the 1.6% rule. The strokes are centre lines; a
+  ribbon width crosses at every per-chord corner under the engine's rail
+  builder. The fill is the spine layer's miter job, not yet wired.
 - **The recovered ends have attachment points, but nothing uses them yet,**
   apart from the extractor and the transfer study.
 - **Ends that turn past 120°** and a **smoother corner blend** are not built.

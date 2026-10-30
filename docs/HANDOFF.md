@@ -38,8 +38,8 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **227 pass** (1 skipped) at the 2026-10-30 run; 215 were
-  carried from 2026-10-27 and 12 are new this session. The tree is clean
+- **Local tests:** **233 pass** (1 skipped) at the 2026-10-30 run; 215 were
+  carried from 2026-10-27 and 18 are new this session. The tree is clean
   under `web/`, `clothoid_lab/`, `csrc/` and `tests/`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
@@ -51,8 +51,10 @@ remote MVP now exist.
   `scripts/spine_sheet.py` writes `docs/spine-sheet.html`: a curl plus a forked
   branch on 200 × 250 mm through `svg.document`, with a declared contact at the
   fork (`merged` 1, 0 violations; the same gap fails without the contact).
-  Tests: `tests/test_spine.py` (10), full suite **227 pass** (1 skipped).
-  Commits `3f7a603`, `413dc86`, `5ef5359`. Gate 4 is open: see `docs/SESSIONS.md` for the decision.
+  Tests: `tests/test_spine.py` (10). **Gate 4 is met under the operator's
+  fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
+  study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
+  `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
 - **Git:** HEAD is the handoff commit; six commits sit on top of `79819ea`.
   The code tree is clean. `reference/` has only untracked images, two untracked photos sit at the
   root, and `out/play-template.svg` is untracked; leave them.
@@ -325,18 +327,20 @@ remote MVP now exist.
 
 ## Next move
 
-**Promotion gate, step 4: one study from chains.** Gates 1–3 are done
-(`3f7a603`). The remaining condition is that one W03 study is drawn entirely
-from Pythagorean chains. Study 01's angles are degrees (25, 35, 10) but its
-start heading is 77.97°, which is not in any triangle's rotation group, so a
-chain cannot hit P01's nodes exactly. `scripts/spine_study_probe.py` measures
-the honest gap: 115 chords at 1° steps drift 14.9 units (0.99% of the study
-height) from P01's nodes, and finer steps do **not** converge — 0.5° is 30.0
-units, 0.25° is 18.9, and 0.1° does not finish in two minutes in exact
-arithmetic. The open decision is the conformance rule: accept that measured
-resemblance (a new plan, not a port), or re-parameterise the study so its
-angles are in the group. Until that is chosen, do not claim the gate.
-`docs/SESSIONS.md` carries the numbers and the proposed order.
+**The promotion gate is complete (2026-10-30).** Gates 1–3 landed in `3f7a603`;
+gate 4 is met under the operator's fidelity rule: a chain study passes if its
+worst span-end drift is at most **1.6% of the study height**. Study 01 at 0.5°
+steps measures **1.29%** (19.44 units on 1510), with every span end tabulated in
+`docs/spine-study-01.html`. The rule, its precedent (the accepted 1.4% Euler
+fit) and the difference between the two metrics are in `docs/FIDELITY.md`; read
+that before quoting the number. The candidate is a chain plan with a measured
+resemblance, **not** P01 parity (the port is 0.03 units, this is 19.44).
+
+**The next real connection is the fill.** A ribbon width on a per-chord chain
+crosses at every corner under the engine's rail builder; the filled shape is the
+spine layer's miter job (`ribbon.outline`). Until that is wired, chain studies
+are centre lines. After the fill: the canonical fleur, W04, the turned
+terminals, and the primals in the order in `docs/SESSIONS.md`.
 
 **Parked: the veil.** The measured column in §2b is unwired, the v1 caption
 overstates what it is, and the three.js page is a study.

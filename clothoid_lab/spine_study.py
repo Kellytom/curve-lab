@@ -29,7 +29,7 @@ from .grammar import STUDY_01, band, fleur_right
 from .model import Design, Segment
 from .piece import Piece, Trace
 
-ALPHA_DEG = 1.0
+ALPHA_DEG = 0.5
 
 
 def _wrap(angle: float) -> float:
