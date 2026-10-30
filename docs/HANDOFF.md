@@ -1,6 +1,6 @@
 # clothoid-lab handoff
 
-**Updated:** 2026-10-29  
+**Updated:** 2026-10-30  
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
@@ -15,12 +15,12 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-29 (probe). Auth is unset locally, so the loopback server stays
+  2026-10-30 (probe). Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
 - **Remote:** `https://<your-service>.run.app` — Cloud Run,
   project `<your-gcp-project>`, region `us-central1`, service
   `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
-  without the token** at 2026-10-29 (probe); a thin app deploy takes
+  without the token** at 2026-10-30 (probe); a thin app deploy takes
   ~30 s.
 - **Access:** HTTP Basic with a shared token; every route except `/health`.
   Token in Secret Manager `clothoid-token`, local copy
@@ -39,12 +39,12 @@ remote MVP now exist.
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
 - **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
-  under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-29 probe.
-- **Git:** HEAD `be967fb`; the handoff commit sits on top. Uncommitted
-  spike edits in `pythagorean-spiral/scripts/cloud.py` and `docs/cloud.html`
-  (the v1/v2 veil work) and two untracked photos at the root; leave both. `reference/` has only untracked images (`reference/1/`,
-  `reference/hard/`, an `IMG_*` dump) and no tracked change at the 2026-10-29
-  probe. `out/play-template.svg` is untracked.
+  under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-30 probe.
+- **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
+  tests).
+- **Git:** HEAD `79819ea`; the handoff commit sits on top. The code tree is
+  clean. `reference/` has only untracked images, two untracked photos sit at the
+  root, and `out/play-template.svg` is untracked; leave them.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
@@ -52,7 +52,14 @@ remote MVP now exist.
   `kellytom.github.io/clothoid-docs/` — the Markdown, generated HTML, spine
   package, examples and context pages, with photographs and deployment
   identifiers removed. Built by MkDocs Material; sitemap, robots and
-  `llms.txt` present.
+  `llms.txt` present. Pushed to `baf0bca` on 2026-10-30.
+- **Joins (2026-10-30):** all 150 terminals carry `anchor` and `heading`
+  (`43e3fc6`); `attach.py` places a cap on a terminal seam (gap 0, reach median
+  0.98 of the cut) and a recovered end on a chain node (gap 0) (`79819ea`).
+- **Veil (2026-10-30):** the v1/v3 experiment is reverted; the operator's
+  two-version gate (v2 lighter than v1, both solved to the 85 per cent peak) is
+  green again. `pythagorean-spiral/docs/veil3d.html` remains a three.js study
+  with clustered puffs and an additive-light slider (`c00183f`), not product.
 
 ## What changed this session
 
@@ -303,21 +310,16 @@ remote MVP now exist.
 
 ## Next move
 
-**Wire the measured numbers in.** §2b's table gains a measured column beside the
-model one, and the gate reads the measured values. The model stays in
-`pythagorean_spiral/veil.py` as the design aid — it is fast and now provably
-close — but nothing ships a number the pixels have not confirmed.
+**Promotion gate, step 1: import a chain.** Make `clothoid_lab` read a spine
+chain and build a `Piece`/`Trace` from its anchors, so the engine can consume the
+spine layer. Then, in order: render one spine on the 200 × 250 sheet through
+`svg.document`; run `piece_clearance()` with one declared contact; draw one W03
+study entirely from chains. The gate is in `PLAN`. The joins are done
+(`79819ea`): a cap lands on a terminal seam with zero gap, and a recovered end
+lands on a chain node.
 
-**v2 is still sparse where it counts.** Its measured peak is 0.85 but its canvas
-mean is 0.04: the lobes are separate streaks, not a mass. More overlap (more
-lobes per puff, or a larger `SCALE`), not a larger factor: the operator has
-fixed the number at 80 per cent.
-
-**Give the terminals a frame.** In `scripts/extract-terminals.py`, record the
-seam's point and tangent beside each terminal's cubic spans (`anchor`,
-`heading`), the way `out/caps` already carries an anchor. Then the 150 ends can
-be attached with one affine call (`place.place`) and the transfer is complete.
-No new curve work: the geometry exists; the missing datum is the frame.
+**Parked: the veil.** The measured column in §2b is unwired, the v1 caption
+overstates what it is, and the three.js page is a study.
 
 **Deferred, not dropped: the canonical fleur.** Build `fleur_canonical()` from the measured fleur
 reference (`reference/fleur/png/metrics.json`: aspect 1.43, fill 0.17,

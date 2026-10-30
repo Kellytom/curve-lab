@@ -37,13 +37,9 @@ Two versions, same composition, different geometry. **v1** is the original cloud
 
 *Fig. 3 · c and d: v1, the original ellipse cloud, one veil factor on every layer.*
 
-![Fig. 4 · v3: the cover-everything ellipse set, kept for comparison.](fig/veil-v3.svg)
+![Fig. 4 · e and f: v2, the same composition in turn-chain ribbons.](fig/veil-v2.svg)
 
-*Fig. 4 · v3: the cover-everything ellipse set, kept for comparison.*
-
-![Fig. 5 · e and f: v2, the same composition in turn-chain ribbons.](fig/veil-v2.svg)
-
-*Fig. 5 · e and f: v2, the same composition in turn-chain ribbons.*
+*Fig. 4 · e and f: v2, the same composition in turn-chain ribbons.*
 
 The cloud is built from **exact turn chains**, not circles. A billow is a lobe whose turns run k**p and then reverse, so the exit is parallel to the entry; a taper through `ribbon.outline` turns it into a closed rational polygon with pointed ends. The power dial is the layer: p = 1 is the clothoid, p = 2 and 3 hold the turn back to the apsis and curl the tail. So each billow can be placed, repeated and stored without a float deciding its edge. What is not exact is the compositing: tone and transparency are design numbers, not geometry.
 
@@ -51,7 +47,7 @@ The cloud is built from **exact turn chains**, not circles. A billow is a lobe w
 layers   4   haze 0.1, bank 0.09, billow 0.3, crown 0.42
 billows  306  turn-chain ribbons: turns k**p, tapered
 edge     fractal displacement + gaussian blur, optical only
-veil     v1 0.350 (peak 85%), v2 0.594 (peak 85%)
+veil     v1 0.403 (peak 85%), v2 0.594 (peak 85%)
 overlap  the sum does the softening
 geometry exact; opacity and tone are choices
 ```
@@ -63,28 +59,24 @@ Two variants are worth keeping. A **cumulus** (above) has a flat base and a dome
 
 A veil is judged by what it leaves legible. Four standard patterns -- a Siemens star, an eleven-step grey wedge, colour bars and a chequer with a crosshair -- sit under the same billows as the works: two on top, where the cloud is densest and meets the top of the image, two below, where it drifts. Each is sampled on a grid and the composited alpha is reported as mean, 95th percentile and worst. Both versions are solved to the same peak, 80 per cent -- the number chosen on the slider below -- so the comparison is about where the density lands, not how strong it is. The gate reads the row mean, because the mean is how much of the image is covered: top mean under 0.25 (a hot corner is allowed up to 0.50), bottom mean under 0.12 (up to 0.30).
 
-![Fig. 6 · g to j: v1 under the four patterns, two on top, two below.](fig/veil-test-v1.svg)
+![Fig. 5 · g to j: v1 under the four patterns, two on top, two below.](fig/veil-test-v1.svg)
 
-*Fig. 6 · g to j: v1 under the four patterns, two on top, two below.*
+*Fig. 5 · g to j: v1 under the four patterns, two on top, two below.*
 
-![Fig. 7 · k to n: v2 under the four patterns.](fig/veil-test-v2.svg)
+![Fig. 6 · k to n: v2 under the four patterns.](fig/veil-test-v2.svg)
 
-*Fig. 7 · k to n: v2 under the four patterns.*
+*Fig. 6 · k to n: v2 under the four patterns.*
 
 | version | pattern | row | mean | p95 | worst |
 | --- | --- | --- | --- | --- | --- |
-| v1 | Siemens star | top left | 0.138 | 0.349 | 0.454 |
-| v1 | grey step wedge | top right | 0.090 | 0.292 | 0.406 |
-| v1 | colour bars | bottom left | 0.007 | 0.042 | 0.042 |
-| v1 | chequer + cross | bottom right | 0.037 | 0.082 | 0.082 |
+| v1 | Siemens star | top left | 0.464 | 0.742 | 0.794 |
+| v1 | grey step wedge | top right | 0.306 | 0.740 | 0.826 |
+| v1 | colour bars | bottom left | 0.443 | 0.632 | 0.698 |
+| v1 | chequer + cross | bottom right | 0.324 | 0.614 | 0.722 |
 | v2 | Siemens star | top left | 0.309 | 0.626 | 0.720 |
 | v2 | grey step wedge | top right | 0.213 | 0.559 | 0.686 |
 | v2 | colour bars | bottom left | 0.317 | 0.500 | 0.601 |
 | v2 | chequer + cross | bottom right | 0.171 | 0.442 | 0.526 |
-| v3 | Siemens star | top left | 0.464 | 0.742 | 0.794 |
-| v3 | grey step wedge | top right | 0.306 | 0.740 | 0.826 |
-| v3 | colour bars | bottom left | 0.443 | 0.632 | 0.698 |
-| v3 | chequer + cross | bottom right | 0.324 | 0.614 | 0.722 |
 
 The numbers come from `pythagorean_spiral.veil`, the same function the drawing fills, so a strip cannot pass on paper while the picture covers it. `scripts/veil_test.py` writes the standalone page and `tests/test_veil.py` holds the gate.
 
@@ -169,9 +161,9 @@ The model should not be the authority on a design number. This strip is one unif
 
 ## 3. Circles, ellipses, parabolas, hyperbolas
 
-![Fig. 8 · A circle and the same circle scaled: both exact, and the rays remain rational under the scale.](fig/cloud-conics.svg)
+![Fig. 7 · A circle and the same circle scaled: both exact, and the rays remain rational under the scale.](fig/cloud-conics.svg)
 
-*Fig. 8 · A circle and the same circle scaled: both exact, and the rays remain rational under the scale.*
+*Fig. 7 · A circle and the same circle scaled: both exact, and the rays remain rational under the scale.*
 
 Not all four are the same curve, and it matters which is which. The chain is built from whole triangle angles, so its exact members are the circle (constant turn), the straight line (zero turn), the quarter-turn corner, and the clothoid-like family where curvature grows linearly. A circle is exact. An ellipse is exact **as an affine image of a circle** -- scale x by one rational and y by another, and every point stays rational -- but it is not a Euclidean circle and its curvature is not a clothoid. A parabola and a hyperbola have no such rational affine origin here, and no linear-curvature parameterisation; they can only be approximated, to the lattice's resolution, and the error should be measured rather than assumed.
 
@@ -182,15 +174,15 @@ The constructive part is real: because the ellipse is a scaled circle, a circle 
 
 The simplest form is not a mass of puffs but four arcs: two big ones under the cloud, turning upward and meeting at (0,0); two half-size ones on top, turning downward and meeting near (0,200). Plotted with the stated centres, the form does not close -- the bottom circles are centred at (120,120) and (-120,120) with radius 169.7, the top at (60,180) and (-60,180) with radius 63.2, and the right-hand pair is nested by 21.6, so there is no side joint.
 
-![Fig. 9 · The four arcs as stated, with centres and the two meeting points.](fig/cloud-form-stated.svg)
+![Fig. 8 · The four arcs as stated, with centres and the two meeting points.](fig/cloud-form-stated.svg)
 
-*Fig. 9 · The four arcs as stated, with centres and the two meeting points.*
+*Fig. 8 · The four arcs as stated, with centres and the two meeting points.*
 
 Moving the bottom centres in to (100,100) fixes it more neatly than a side crossing would: the bottom radius becomes 141.4, which is also the distance to (0,200), so the bottom pair passes through both (0,0) and (0,200) -- and the top pair already passes through (0,200). That is the common point, and the cloud closes there. Two numbers remain: the big lobes reach x = 241 (about twice the intended width), and the tangent at (0,200) is G0, not G1, so the next tune is one centre and one tangent.
 
-![Fig. 10 · Bottom centres at (100,100): all four arcs meet at (0,200).](fig/cloud-form-adjusted.svg)
+![Fig. 9 · Bottom centres at (100,100): all four arcs meet at (0,200).](fig/cloud-form-adjusted.svg)
 
-*Fig. 10 · Bottom centres at (100,100): all four arcs meet at (0,200).*
+*Fig. 9 · Bottom centres at (100,100): all four arcs meet at (0,200).*
 
 
 ## 5. What this is not
