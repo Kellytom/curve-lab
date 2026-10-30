@@ -77,6 +77,14 @@ geometry kind.
    with a 0.5° turn step. See `FIDELITY.md`; the study is **not** node parity
    (0.03 units for the port against 19.44 here).
 
+There are now **two profiles** of a chain study: the exact one (one cubic per
+chord, 1,164 cubics) for zooming and choosing, and the practical one (one
+clothoid per structural run, 34 cubics at 0.42 mm) for output. A **pin** carries
+a branch chosen on the exact curve into the practical curve as an exact vertex.
+The remaining gap is surface, not wiring: the fill currently needs the spine
+layer's exact miter, because the engine's rail builder crosses at per-chord
+corners.
+
 ## Where to look
 
 | If you want | Read |

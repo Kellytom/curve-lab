@@ -17,6 +17,9 @@ What works today, and what does not. The dated detail is in `HANDOFF.md`.
 - **The spine import**: a chain becomes a `Piece`/`Trace` through
   `clothoid_lab/spine.py`, drawing on the 200 × 250 mm sheet with a declared
   contact that passes clearance (gates 1–3, `3f7a603`).
+- **Two profiles of the same study**: exact (1,164 cubics) and practical
+  (34 cubics at 0.42 mm), the latter with pins so a branch chosen on the exact
+  curve lands on an exact vertex. See `FIDELITY.md`.
 - **The caps transfer**: all 36 caps re-drawn on the spine layer, with a middle
   error of 0.44 per cent of their length and a worst case of 10 per cent.
 

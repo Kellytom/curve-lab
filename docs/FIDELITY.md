@@ -98,6 +98,76 @@ the composite alone.
   the corners under the engine's rail builder; the filled shape is the spine
   layer's miter job (`ribbon.outline`).
 
+## Two profiles, one shape
+
+The exact profile is the chain itself: one straight design segment per chord,
+and therefore one cubic per chord. At a 0.5 degree step that is 943 design
+segments and **1,164 cubics** with the mirror, a 249 KB page. It is the file to
+zoom into and to keep as the record.
+
+The practical profile fits one clothoid through each *structural run* — the part
+between two of the study's corners — and subdivides a run only when the measured
+error exceeds the tolerance. At 0.5 mm:
+
+| profile | design segments | cubics with mirror | page | worst deviation |
+|---|---|---|---|---|
+| exact | 943 | 1,164 | 249 KB | reference |
+| practical, no pin | 18 | 34 | 7 KB | 0.42 mm |
+| practical, one pin | 19 | 36 | 7 KB | 0.32 mm |
+| practical at 0.25 mm | 22 | 42 | 8 KB | 0.23 mm |
+| practical at 1.0 mm | 16 | 30 | 6 KB | 0.92 mm |
+
+`clothoid_lab/practical.py` builds it; `docs/practical-curve.html` compares it
+with the exact curve.
+
+## Pins: choosing a branch on the exact curve
+
+The exact curve is where you zoom in to choose a branch point. The practical
+curve cannot be a fixed simplification, because a branch must land on a real
+vertex with the exact heading.
+
+A **pin** is that choice: a point on the exact chain (or its knot index) made a
+hard split in the practical fit. Both sides of the pin use the chain's outgoing
+heading; the rest of the curve is re-simplified within the same tolerance. The
+measured pin error is about **2e-7 units**, and the tangent is continuous across
+it, so the branch joins without a correction. Adding one pin costs one or two
+cubics.
+
+Workflow: choose on the exact curve → pin the point → regenerate the practical
+curve → attach the branch.
+
+## How that compares with type
+
+A capital C in a serif face is **not** two or three cubics; that is a geometric
+ring, not a letter. Measured native counts from ten installed serif faces:
+
+| face | C | @ | & | ~ |
+|---|---|---|---|---|
+| Times New Roman | 21 | 55 | 45 | 14 |
+| Baskerville | 19 | 46 | 42 | 12 |
+| Didot | 38 | 82 | 70 | 24 |
+| Bodoni 72 | 34 | 51 | 47 | 10 |
+| Big Caslon | 42 | 68 | 94 | 12 |
+| Charter | 18 | 56 | 32 | 16 |
+| Hoefler Text | 23 | 49 | 48 | 14 |
+| Iowan Old Style | 20 | 56 | 48 | 16 |
+| New York | 28 | 71 | 47 | 18 |
+| PT Serif | 32 | 69 | 64 | 16 |
+
+TrueType stores quadratics, and one cubic reproduces a quadratic exactly by
+degree elevation, so the count is the cubic equivalent. One serif C is 18–42
+cubics; `@` is 46–82 and `&` is 32–94. The practical half at 14 clothoids is in the
+range of one serif C; the exact half at 221 is past a whole glyph, and the band
+at 722 is past an `@` several times over.
+
+## The fitter bug behind the old count
+
+The first exact measurement was inflated by a real bug: at a segment boundary
+the backend reports the *next* segment's tangent, so a corner corrupted the end
+of the previous cubic and the fitter kept splitting to hide it. Reading the
+tangent just inside the segment fixed it. One straight segment now takes one
+cubic, not nine.
+
 ## Where the rule came from
 
 The operator set it on 2026-10-30, in the same conversation that produced the

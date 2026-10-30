@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The practical curve — same study, a smaller SVG</title>
+<style>
+  :root { color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
+    --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
+    --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --serif:"EB Garamond",Georgia,"Palatino Linotype",Palatino,serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font:16px/1.55 var(--serif);
+    background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }
+  main { max-width: 900px; margin: 0 auto; padding: 34px 22px 70px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .lead { color: var(--gold); margin: 0 0 18px; }
+  h2 { font: 600 11px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin: 26px 0 8px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+  .art svg { display: block; width: 100%; height: auto; background: #fff; }
+  table { border-collapse: collapse; width: 100%; font: 12px/1.5 var(--mono); }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 4px; text-align: left; }
+  th { color: var(--muted); font-weight: 500; }
+  code { font: 12px/1 var(--mono); background: #fbf8ee; border: 1px solid var(--line);
+    border-radius: 3px; padding: 2px 4px; }
+  .scroll { overflow-x: auto; }
+  .back { font: 12px var(--mono); margin-bottom: 16px; }
+  a { color: var(--gold); }
+  @media (max-width: 620px) {
+    main { padding: 22px 14px 60px; }
+    table { font-size: 10px; }
+    th, td { padding: 4px 2px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
+  <h1>The practical curve</h1>
+  <p class="lead">The same study, fitted for a small SVG: 36 cubics instead of 1164.</p>
+
+  <h2>The drawing</h2>
+  <div class="panel art">
+    <?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="200mm" height="250mm"
+     viewBox="0 0 200 250">
+  <title>Fleur study 01 — practical curve</title>
+  <desc id="clothoid-lab-design">{
+  &quot;contacts&quot;: [],
+  &quot;mirror&quot;: true,
+  &quot;name&quot;: &quot;Fleur study 01 \u2014 practical curve&quot;,
+  &quot;stroke&quot;: 0.6,
+  &quot;traces&quot;: [
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 1.350640913562565,
+          &quot;x&quot;: 0.0,
+          &quot;y&quot;: -330.0
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;practical&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 311.8493225902535
+          },
+          {
+            &quot;corner&quot;: -1.350640913562565,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 55.0
+          },
+          {
+            &quot;corner&quot;: -0.26839659179768877,
+            &quot;kappa0&quot;: -0.001451548044968478,
+            &quot;kd&quot;: -1.4233392512526561e-06,
+            &quot;length&quot;: 190.89573329748444
+          },
+          {
+            &quot;corner&quot;: -3.289625238878102e-10,
+            &quot;kappa0&quot;: -0.001542384110146051,
+            &quot;kd&quot;: 1.1799766216900343e-19,
+            &quot;length&quot;: 190.85418060496903
+          },
+          {
+            &quot;corner&quot;: 2.9523625094802037,
+            &quot;kappa0&quot;: 0.0015603404667152386,
+            &quot;kd&quot;: -8.3003199937194085e-19,
+            &quot;length&quot;: 277.43799378433255
+          },
+          {
+            &quot;corner&quot;: -0.9610329572943073,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 49.99999999999999
+          },
+          {
+            &quot;corner&quot;: -0.6060568201883314,
+            &quot;kappa0&quot;: -0.00013889514092526963,
+            &quot;kd&quot;: 1.3369688608633936e-05,
+            &quot;length&quot;: 62.333499070567385
+          },
+          {
+            &quot;kappa0&quot;: 0.0004630158164538653,
+            &quot;kd&quot;: 1.089215808497095e-05,
+            &quot;length&quot;: 93.50375285649316
+          },
+          {
+            &quot;kappa0&quot;: 0.002222494861096983,
+            &quot;kd&quot;: -3.34283576721991e-05,
+            &quot;length&quot;: 62.32695591757681
+          },
+          {
+            &quot;corner&quot;: 0.008657954604444518,
+            &quot;kappa0&quot;: 0.0015561401651903795,
+            &quot;kd&quot;: -8.813595331547009e-21,
+            &quot;length&quot;: 272.6231117361642
+          },
+          {
+            &quot;corner&quot;: 4.24240864660419e-10,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 525.4317230825168
+          },
+          {
+            &quot;corner&quot;: 2.7012818271251295,
+            &quot;kappa0&quot;: 0.0002807629249333392,
+            &quot;kd&quot;: 1.0664686544016361e-07,
+            &quot;length&quot;: 493.41359274251744
+          },
+          {
+            &quot;kappa0&quot;: 0.0003324608568499287,
+            &quot;kd&quot;: -9.571259083916442e-08,
+            &quot;length&quot;: 520.8238302221985
+          },
+          {
+            &quot;corner&quot;: -1.454536368165358,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 49.99999999999999
+          },
+          {
+            &quot;corner&quot;: -1.463194323026112,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 1160.2262710350942
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;half&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    },
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 0.0,
+          &quot;x&quot;: -250.0,
+          &quot;y&quot;: -25.0
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;practical&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 500.0
+          },
+          {
+            &quot;corner&quot;: 0.008657954574114866,
+            &quot;kappa0&quot;: 0.03968264635473773,
+            &quot;kd&quot;: 2.3458367999166995e-18,
+            &quot;length&quot;: 78.32657288839401
+          },
+          {
+            &quot;corner&quot;: 3.1081976992197724e-09,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 500.00000000000006
+          },
+          {
+            &quot;corner&quot;: 0.008657954574122328,
+            &quot;kappa0&quot;: 0.039682646354737824,
+            &quot;kd&quot;: -6.3095898483619765e-19,
+            &quot;length&quot;: 78.32657288839357
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: false,
+      &quot;name&quot;: &quot;band&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    }
+  ]
+}</desc>
+  <g id="annotation-lines">
+    <circle cx="144.1601" cy="204.1757" r="2.2" fill="#8c6a21"/>
+  </g>
+  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="butt"
+     stroke-width="0.0892">
+    <path id="ink-half" d="M 100,238 C 103.3744 222.9212, 106.7488 207.8423, 110.1231 192.7635 C 112.8483 192.7635, 115.5735 192.7635, 118.2987 192.7635 C 127.4332 195.2758, 136.1862 199.0487, 144.1601 204.1757 C 152.1288 209.2994, 159.2984 215.5701, 165.4377 222.7853 C 158.6311 210.78, 149.2974 200.3968, 138.0825 192.3542 C 138.1131 189.877, 138.1437 187.3997, 138.1744 184.9225 C 139.9649 182.406, 141.7665 179.897, 143.5133 177.3498 C 146.1335 173.5289, 148.6725 169.6489, 150.9359 165.6045 C 152.4445 162.9086, 153.7635 160.1137, 155.0693 157.3154 C 160.6964 144.9791, 163.6326 131.5862, 163.6829 118.0273 C 163.7794 91.9929, 163.8759 65.9585, 163.9724 39.9242 C 153.466 62.0104, 144.4999 84.8055, 137.4463 108.2283 C 130.0005 132.9538, 124.7123 158.2691, 121.3058 183.8612 C 118.8287 183.8214, 116.3516 183.7816, 113.8744 183.7417 C 108.6199 126.4945, 103.3653 69.2472, 98.1107 12"/>
+    <path id="ink-half-mirrored" d="M 100,238 C 96.6256 222.9212, 93.2512 207.8423, 89.8769 192.7635 C 87.1517 192.7635, 84.4265 192.7635, 81.7013 192.7635 C 72.5668 195.2758, 63.8138 199.0487, 55.8399 204.1757 C 47.8712 209.2994, 40.7016 215.5701, 34.5623 222.7853 C 41.3689 210.78, 50.7026 200.3968, 61.9175 192.3542 C 61.8869 189.877, 61.8563 187.3997, 61.8256 184.9225 C 60.0351 182.406, 58.2335 179.897, 56.4867 177.3498 C 53.8665 173.5289, 51.3275 169.6489, 49.0641 165.6045 C 47.5555 162.9086, 46.2365 160.1137, 44.9307 157.3154 C 39.3036 144.9791, 36.3674 131.5862, 36.3171 118.0273 C 36.2206 91.9929, 36.1241 65.9585, 36.0276 39.9242 C 46.534 62.0104, 55.5001 84.8055, 62.5537 108.2283 C 69.9995 132.9538, 75.2877 158.2691, 78.6942 183.8612 C 81.1713 183.8214, 83.6484 183.7816, 86.1256 183.7417 C 91.3801 126.4945, 96.6347 69.2472, 101.8893 12"/>
+    <path id="ink-band" d="M 62.8384,192.6628 C 87.6128 192.6628, 112.3872 192.6628, 137.1616 192.6628 C 139.206 192.6451, 140.8586 190.9915, 140.875 188.9471 C 140.8914 186.9028, 139.2656 185.2229, 137.2218 185.1723 C 112.455 184.5597, 87.6881 183.9471, 62.9213 183.3346 C 60.8771 183.3017, 59.1842 184.9139, 59.1172 186.9572 C 59.0502 189.0006, 60.634 190.7202, 62.6759 190.8213"/>
+  </g>
+</svg>
+
+  </div>
+
+  <h2>What each profile costs</h2>
+  <div class="panel">
+    <div class="scroll"><table>
+      <tr><th>profile</th><th>tolerance</th><th>design segments</th>
+          <th>cubics with mirror</th><th>SVG</th><th>worst deviation</th></tr>
+      <tr><td>exact</td><td>0.02</td><td>943</td><td>1164</td><td>249 KB</td><td>reference</td></tr><tr><td>practical (no pin)</td><td>0.5</td><td>18</td><td>34</td><td>7 KB</td><td>0.42 mm</td></tr><tr><td>practical (one pin)</td><td>0.5</td><td>19</td><td>36</td><td>7 KB</td><td>0.32 mm</td></tr><tr><td>practical</td><td>0.25</td><td>22</td><td>42</td><td>8 KB</td><td>0.23 mm</td></tr><tr><td>practical</td><td>1</td><td>16</td><td>30</td><td>6 KB</td><td>0.92 mm</td></tr>
+    </table></div>
+    <p style="margin-top:10px">The exact profile is the chain itself: one straight
+    design segment per chord, one cubic per segment. The practical profile fits
+    one clothoid through each structural run (the parts between the study's
+    corners) and subdivides a run only when the measured error exceeds the
+    tolerance. The drawing above has one pin — the gold dot — chosen on the
+    exact chain as a branch point; it is a hard split with the exact heading, and
+    the rest of the curve is re-fitted around it. Measured deviation
+    0.32 mm.</p>
+  </div>
+
+  <h2>How big is that in type terms</h2>
+  <div class="panel">
+    <p>A capital C in a serif face is not two or three cubics; that is a
+    geometric ring, not a letter. These are the native segment counts from ten
+    installed serif faces. TrueType stores quadratics, and one cubic reproduces
+    a quadratic exactly by degree elevation, so the count is the cubic
+    equivalent.</p>
+    <div class="scroll"><table>
+      <tr><th>serif face</th><th>C</th><th>@</th><th>&amp;</th><th>~</th></tr>
+      <tr><td>Times New Roman</td><td>21</td><td>55</td><td>45</td><td>14</td></tr>
+<tr><td>Baskerville</td><td>19</td><td>46</td><td>42</td><td>12</td></tr>
+<tr><td>Didot</td><td>38</td><td>82</td><td>70</td><td>24</td></tr>
+<tr><td>Bodoni 72</td><td>34</td><td>51</td><td>47</td><td>10</td></tr>
+<tr><td>Big Caslon</td><td>42</td><td>68</td><td>94</td><td>12</td></tr>
+<tr><td>Charter</td><td>18</td><td>56</td><td>32</td><td>16</td></tr>
+<tr><td>Hoefler Text</td><td>23</td><td>49</td><td>48</td><td>14</td></tr>
+<tr><td>Iowan Old Style</td><td>20</td><td>56</td><td>48</td><td>16</td></tr>
+<tr><td>New York</td><td>28</td><td>71</td><td>47</td><td>18</td></tr>
+<tr><td>PT Serif</td><td>32</td><td>69</td><td>64</td><td>16</td></tr>
+    </table></div>
+    <p style="margin-top:10px">So one letter C is 18–42 cubics, and <code>@</code>
+    is 46–82 and <code>&amp;</code> is 32–94. The practical half at 14 clothoids is in
+    the range of one serif C. The exact half, at 221, is past a whole glyph —
+    and the band, at 722, is past an <code>@</code> several times over.</p>
+  </div>
+
+  <h2>Why the exact count was even higher</h2>
+  <div class="panel">
+    <p>The first measurement at a 1 degree step gave 1,078 cubics with 351 in
+    the half. Some of that was a real bug: at a segment boundary the backend reports the
+    <em>next</em> segment's tangent, so a corner was corrupting the end of the
+    previous cubic and the fitter kept splitting to hide it. Reading the tangent
+    just inside the segment fixed it: one straight segment now takes one cubic,
+    not nine. The exact profile still uses one segment per chord by design; the
+    practical profile exists to avoid paying for that.</p>
+  </div>
+</main>
+</body>
+</html>

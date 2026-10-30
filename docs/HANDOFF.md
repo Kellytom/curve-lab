@@ -249,6 +249,13 @@ remote MVP now exist.
   bridge from `pythagorean_spiral` chains; `docs/spine-sheet.html` is its visual
   proof (sheet, join, declared contact). Gate 4 and the session order are in
   `docs/SESSIONS.md`.
+- **Practical curve (this session):** `clothoid_lab/practical.py` fits one
+  clothoid per structural run and emits **34 cubics** (36 with one pin) instead
+  of 1,164, at 0.42 mm worst deviation; `docs/practical-curve.html` compares the
+  two and prints the serif `C/@/&/~` counts. **Pins** let a branch chosen on the
+  exact curve become an exact vertex in the practical one (pin error 2e-7).
+  Fixed `bezier.fit_chain`, which read the next segment's tangent at a boundary
+  and inflated every cornered fit.
 
 ## Risks / open decisions
 
@@ -335,6 +342,10 @@ steps measures **1.29%** (19.44 units on 1510), with every span end tabulated in
 fit) and the difference between the two metrics are in `docs/FIDELITY.md`; read
 that before quoting the number. The candidate is a chain plan with a measured
 resemblance, **not** P01 parity (the port is 0.03 units, this is 19.44).
+
+**The practical profile landed** (`docs/practical-curve.html`): 34 cubics at
+0.42 mm, with pins for branch points. Read `FIDELITY.md` before quoting any
+count.
 
 **The next real connection is the fill.** A ribbon width on a per-chord chain
 crosses at every corner under the engine's rail builder; the filled shape is the

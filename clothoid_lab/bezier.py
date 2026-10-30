@@ -163,8 +163,21 @@ def fit_chain(chain, tol: float = 0.02, max_spans_per_segment: int = 64,
     spans: list[dict] = []
     per_segment: list[int] = []
     for placed in chain.segments:
-        fitted = fit_interval(placed.s_base, placed.s_base + placed.length,
-                              chain.point, chain.tangent,
+        s0 = placed.s_base
+        s1 = placed.s_base + placed.length
+
+        def tangent(s, s0=s0, s1=s1):
+            # A boundary belongs to the next segment in the backend, and the
+            # next segment may start with a corner. Reading the end tangent at
+            # exactly s1 therefore hands the fit the *next* direction and bows
+            # the last span; step just inside the segment instead.
+            if s >= s1:
+                s = math.nextafter(s1, s0)
+            elif s <= s0:
+                s = math.nextafter(s0, s1)
+            return chain.tangent(s)
+
+        fitted = fit_interval(s0, s1, chain.point, tangent,
                               tol=tol, max_spans=max_spans_per_segment, split=split)
         spans.extend(fitted)
         per_segment.append(len(fitted))

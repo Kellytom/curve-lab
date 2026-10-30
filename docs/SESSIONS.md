@@ -86,6 +86,9 @@ def fleur_canonical(metrics=None, width=None) -> Piece:
     """The measured silhouette: petals, band, seam, terminals, contacts."""
 ```
 
+Choose the centre seam and any branch points on the **exact** curve, pin them,
+then generate the practical profile for output (`FIDELITY.md`).
+
 **Verify:** silhouette against the reference metrics (aspect, fill,
 symmetry); `piece_clearance()` passes with the seam contact; tests.
 **Commit:** `feat(fleur): add the canonical fleur from the measured reference`

@@ -44,6 +44,8 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `fleur-studies.html` | `scripts/board/build-board.mjs` |
 | `piece-model.html` | `scripts/piece_sandbox.py` |
 | `spine-sheet.html` | `scripts/spine_sheet.py` |
+| `spine-study-01.html` | `scripts/spine_study_01.py` |
+| `practical-curve.html` | `scripts/practical_curve.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |
