@@ -8,12 +8,13 @@ Four checks. Each answers one practical question, and each can fail on its own.
 .venv/bin/python -m unittest discover tests
 ```
 
-215 tests: curve geometry, pieces, ends, junctions, clearance, the web API, the
+227 tests: curve geometry, pieces, ends, junctions, clearance, the web API, the
 shared-token gate, and the work board's principle cards. When they pass, the
 engine still does what it says.
 
-*Status:* carried from 2026-10-27; nothing under `web/`, `clothoid_lab/`,
-`csrc/` or `tests/` has changed since.
+*Status:* 227 pass (1 skipped), 2026-10-30. The spine bridge is included:
+`tests/test_spine.py` checks the anchor import, the 200 × 250 sheet and the
+declared contact.
 
 ## 2. Does the spine layer still work?
 

@@ -67,9 +67,11 @@ proved rather than fitted.
 Use the web app when you want the drawn clothoid curve: smooth, G2-capable, with
 widths and a clearance report, exported as SVG.
 
-They are not yet wired together. The spine layer is a library, not a page: the
-promotion gate in the plan lists the four conditions that would make the app use
-it.
+They now meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary
+clothoid segments, so a `Piece` can hold a spine and the normal rails, terminals
+and clearance apply. Three of the four promotion conditions pass (`3f7a603`);
+the fourth — one W03 study drawn entirely from chains — is open because exact
+chains cannot reproduce P01's node table. See `SESSIONS.md`.
 
 ## 5. Walkthrough: an S-curve ribbon
 

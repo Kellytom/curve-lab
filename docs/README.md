@@ -9,8 +9,9 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `HANDOFF.md` | Current truth: local, remote, tests, git, risks, next move. Written by `/fhandoff`; do not hand-edit the state lines. |
 | `HANDOVER.md` | Durable reference: architecture, deploy, security, decisions. Long on purpose. |
 | `BACKLOG.md` | Execution detail for W01–W26 (the work items on the work board). |
+| `SESSIONS.md` | Proposed order for the next sessions; gate 4 first. Not yet agreed. |
 | `REVIEW.md` | Architecture and print review; act after the current work. |
-| `ARCHITECTURE.md` | How the engine and the spine layer fit, and what is not wired yet. |
+| `ARCHITECTURE.md` | How the engine and the spine layer fit, and which gate conditions hold. |
 | `WEB-GUIDE.md` | The browser workbench: controls, the design recipe, the status line, the limits. |
 | `SPINE.md` | The spine layer step by step: turns, closure, cusps, rails, and a worked S-curve. |
 | `GLOSSARY.md` | Plain-English terms for both sides, and how the vocabularies map. |
@@ -41,6 +42,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `ornament-board.html` | `scripts/board/build-board.mjs` |
 | `fleur-studies.html` | `scripts/board/build-board.mjs` |
 | `piece-model.html` | `scripts/piece_sandbox.py` |
+| `spine-sheet.html` | `scripts/spine_sheet.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |
