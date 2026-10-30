@@ -40,13 +40,19 @@ remote MVP now exist.
   (not re-run in the handoff).
 - **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
   under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-29 probe.
-- **Git:** HEAD `d2b49e3`; the handoff commit sits on top. The code tree is
-  clean. `reference/` has only untracked images (`reference/1/`,
+- **Git:** HEAD `be967fb`; the handoff commit sits on top. Uncommitted
+  spike edits in `pythagorean-spiral/scripts/cloud.py` and `docs/cloud.html`
+  (the v1/v2 veil work) and two untracked photos at the root; leave both. `reference/` has only untracked images (`reference/1/`,
   `reference/hard/`, an `IMG_*` dump) and no tracked change at the 2026-10-29
   probe. `out/play-template.svg` is untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
+- **Public docs (2026-10-29):** `github.com/Kellytom/clothoid-docs`, site
+  `kellytom.github.io/clothoid-docs/` — the Markdown, generated HTML, spine
+  package, examples and context pages, with photographs and deployment
+  identifiers removed. Built by MkDocs Material; sitemap, robots and
+  `llms.txt` present.
 
 ## What changed this session
 
