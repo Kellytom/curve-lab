@@ -109,49 +109,55 @@ def grid_markup() -> str:
 WINDER = """
 <div class="calc">
   <div class="fields">
-    <label>inner circle r (pt) <input id="wind-r" type="number" value="5" min="1" max="49" step="0.5"></label>
+    <label>inner circle r (pt) <input id="wind-r" type="number" value="5" min="1" max="150" step="0.5"></label>
     <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.1" max="5" step="0.1"></label>
-    <label>outer end R (pt, ≤ 50) <input id="wind-R" type="number" value="49" min="10" max="50" step="1"></label>
+    <label>page L (pt) <input id="wind-L" type="number" value="100" min="20" max="400" step="10"></label>
+    <label>outer radius R (pt) <input id="wind-R" type="number" value="49" min="10" max="200" step="1"></label>
   </div>
   <div class="calc-illus">
     <svg id="wind-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
   <table id="wind-out"></table>
   <p class="hint" id="wind-note"></p>
+  <p><button id="wind-save" type="button">Save JSON</button></p>
 </div>
 <script>
 (function () {
   const RIN = document.getElementById("wind-r");
   const CLEAR = document.getElementById("wind-c");
+  const PAGE = document.getElementById("wind-L");
   const ROUT = document.getElementById("wind-R");
   const svg = document.getElementById("wind-svg");
   const out = document.getElementById("wind-out");
   const note = document.getElementById("wind-note");
+  const save = document.getElementById("wind-save");
+  let last = null;
   const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
 
   function update() {
     const r = Math.max(0.5, +RIN.value || 5);
     const c = Math.max(0.05, +CLEAR.value || 1);
-    const R = Math.min(50, Math.max(r + 1, +ROUT.value || 49));
-    const k0 = 1 / r, k1 = 1 / R;
-    const kd = c / (2 * Math.PI * r * r * r);
-    const len = (k0 - k1) / kd;
-    const n = 2000, h = len / n;
-    let x = r, y = 0;
-    const pts = [];
-    for (let i = 0; i <= n; i++) {
-      const sv = i * h;
-      pts.push([x + 50, y + 50]);
+    const L = Math.max(20, +PAGE.value || 100);
+    const R = Math.min(L / 2, Math.max(r + 1, +ROUT.value || Math.min(49, L / 2)));
+    const S = 100 / L;
+    const k0 = 1 / r, kd = c / (2 * Math.PI * r * r * r);
+    let x = r, y = 0, arc = 0;
+    const pts = [], pagePts = [], h = 0.1;
+    while (Math.hypot(x, y) < R && arc < 20000) {
+      pts.push([(x + L / 2) * S, (y + L / 2) * S]);
+      pagePts.push([x + L / 2, y + L / 2]);
       const fv = (q) => {
         const t = Math.PI / 2 + k0 * q - 0.5 * kd * q * q;
         return [Math.cos(t), Math.sin(t)];
       };
-      const a = fv(sv), b = fv(sv + h / 2), d = fv(sv + h);
+      const a = fv(arc), b = fv(arc + h / 2), d = fv(arc + h);
       x += h * (a[0] + 4 * b[0] + d[0]) / 6;
       y += h * (a[1] + 4 * b[1] + d[1]) / 6;
+      arc += h;
     }
-    // closed form, so the readout matches the page text exactly
-    const turns = ((Math.PI / c) * (r - r ** 3 / (R * R))) / (2 * Math.PI);
+    pts.push([(x + L / 2) * S, (y + L / 2) * S]);
+    pagePts.push([x + L / 2, y + L / 2]);
+    const turns = (k0 * arc - 0.5 * kd * arc * arc) / (2 * Math.PI);
     const gapEnd = c * Math.pow(R / r, 3);
     const rBest = R / Math.sqrt(3);
     const turnsBest = ((Math.PI / c) * (rBest - rBest ** 3 / (R * R))) / (2 * Math.PI);
@@ -166,24 +172,68 @@ WINDER = """
     const end = pts[pts.length - 1];
     svg.innerHTML = grid +
       '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
-      '<circle cx="50" cy="50" r="' + r.toFixed(2) + '" fill="none" stroke="#2f6f8f" ' +
+      '<circle cx="50" cy="50" r="' + (r * S).toFixed(2) + '" fill="none" stroke="#2f6f8f" ' +
       'stroke-width="0.5" stroke-dasharray="1.5 1.5"/>' +
       '<path d="' + dpath + '" fill="none" stroke="#2e2413" stroke-width="0.7"/>' +
-      '<circle cx="' + (50 + r).toFixed(2) + '" cy="50" r="1.6" fill="#b04a3a"/>' +
+      '<circle cx="' + (50 + r * S).toFixed(2) + '" cy="50" r="1.6" fill="#b04a3a"/>' +
       '<circle cx="' + end[0].toFixed(2) + '" cy="' + (100 - end[1]).toFixed(2) +
       '" r="1.2" fill="#8c6a21"/>';
 
     out.innerHTML =
+      "<tr><th>page</th><td>" + f(L, 0) + " pt across, radius " + f(L / 2, 0) + " pt</td></tr>" +
       "<tr><th>inner circle</th><td>r " + f(r) + " pt</td></tr>" +
       "<tr><th>turns to R</th><td>" + f(turns, 1) + "</td></tr>" +
       "<tr><th>gap at the join</th><td>" + f(c) + " pt</td></tr>" +
       "<tr><th>gap at R</th><td>" + f(gapEnd, 1) + " pt</td></tr>" +
-      "<tr><th>page radius limit (L/2)</th><td>50 pt</td></tr>" +
+      "<tr><th>outer radius used</th><td>" + f(R, 1) + " pt</td></tr>" +
       "<tr><th>max-turn radius R/√3</th><td>" + f(rBest, 1) + " pt</td></tr>" +
       "<tr><th>turns there</th><td>" + f(turnsBest, 1) + "</td></tr>";
     note.textContent = "The join is curvature-matched to the circle (G2), so there is no kink; the gap grows outward.";
+    last = { r, c, L, R, turns, gapEnd, rBest, turnsBest, k0, kd,
+             arc, pagePts };
   }
-  [RIN, CLEAR, ROUT].forEach(el => el.addEventListener("input", update));
+
+  save.addEventListener("click", () => {
+    if (!last) return;
+    const step = Math.max(1, Math.ceil(last.pagePts.length / 2000));
+    const points = [];
+    for (let i = 0; i < last.pagePts.length; i += step) points.push(last.pagePts[i]);
+    if ((last.pagePts.length - 1) % step !== 0) points.push(last.pagePts[last.pagePts.length - 1]);
+    const data = {
+      kind: "clothoid-lab/euler-outward",
+      version: 1,
+      saved: new Date().toISOString(),
+      inputs: {
+        inner_radius_pt: last.r,
+        clearance_pt: last.c,
+        page_pt: last.L,
+        outer_radius_pt: last.R
+      },
+      results: {
+        turns: last.turns,
+        gap_at_join_pt: last.c,
+        gap_at_edge_estimate_pt: last.gapEnd,
+        max_turn_radius_pt: last.rBest,
+        turns_at_max: last.turnsBest
+      },
+      geometry: {
+        k0: last.k0,
+        kd: last.kd,
+        arc_length_pt: last.arc,
+        centre_pt: [last.L / 2, last.L / 2],
+        points_pt: points,
+        points_count: points.length
+      }
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)],
+                          { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "spiral-r" + last.r + "-R" + last.R + ".json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+  [RIN, CLEAR, PAGE, ROUT].forEach(el => el.addEventListener("input", update));
   update();
 })();
 </script>
@@ -191,31 +241,32 @@ WINDER = """
 
 
 def outward_path(radius: float, clearance: float, outer: float = 49.0,
-                 steps: int = 1600):
-    """A circle of `radius` with a clothoid unwinding outward to `outer`.
+                 ds: float = 0.05):
+    """A circle of `radius` with a clothoid unwinding to the outer distance.
 
-    The curvature at the join is 1/radius, matching the circle, so the join is
-    G2. The curvature rate sets the gap at the join to `clearance`; the gap then
-    grows like r^3. Points are centred on (50, 50).
+    The curvature at the join is 1/radius, matching the circle (G2). The rate
+    sets the gap at the join to `clearance`. Integration stops when the point is
+    `outer` from the centre, so `outer` is a distance, not a curvature radius.
     """
-    k0, k1 = 1.0 / radius, 1.0 / outer
+    k0 = 1.0 / radius
     kd = clearance / (2 * math.pi * radius ** 3)
-    length = (k0 - k1) / kd
-    h = length / steps
-    x, y = radius, 0.0
+    x, y, s = radius, 0.0, 0.0
     pts, heads = [], []
-    for i in range(steps + 1):
-        sv = i * h
-        pts.append((x + 50, y + 50))
-        heads.append(math.pi / 2 + k0 * sv - 0.5 * kd * sv * sv)
+    while math.hypot(x, y) < outer and s < 20000:
+        heads.append(math.pi / 2 + k0 * s - 0.5 * kd * s * s)
+        pts.append((x + 50.0, y + 50.0))
         def f(q):
             t = math.pi / 2 + k0 * q - 0.5 * kd * q * q
             return math.cos(t), math.sin(t)
-        a, b, c = f(sv), f(sv + h / 2), f(sv + h)
-        x += h * (a[0] + 4 * b[0] + c[0]) / 6
-        y += h * (a[1] + 4 * b[1] + c[1]) / 6
-    turns = (k0 * length - 0.5 * kd * length ** 2) / (2 * math.pi)
-    return pts, heads, turns, clearance * (outer / radius) ** 3
+        a, b, c = f(s), f(s + ds / 2), f(s + ds)
+        x += ds * (a[0] + 4 * b[0] + c[0]) / 6
+        y += ds * (a[1] + 4 * b[1] + c[1]) / 6
+        s += ds
+    heads.append(math.pi / 2 + k0 * s - 0.5 * kd * s * s)
+    pts.append((x + 50.0, y + 50.0))
+    turns = (k0 * s - 0.5 * kd * s * s) / (2 * math.pi)
+    gap = clearance * (max(math.hypot(x, y), radius) / radius) ** 3
+    return pts, heads, turns, gap
 
 def main() -> int:
     def outward_turns(r0, c, R):
@@ -352,8 +403,11 @@ def main() -> int:
   .calc input {{ font:13px var(--mono); padding:4px 6px; border:1px solid var(--line);
     border-radius:4px; background:#fff; width:110px; color:var(--ink); }}
   .calc .hint {{ margin:10px 0 0; color:var(--gold); }}
+  .calc button {{ font:12px var(--mono); padding:6px 10px; border:1px solid var(--line);
+    border-radius:4px; background:#fbf8ee; color:var(--ink); cursor:pointer; }}
+  .calc button:hover {{ border-color:var(--gold); }}
   .calc-illus {{ margin-top:12px; }}
-  .calc-illus svg {{ display:block; width:100%; max-width:300px; height:auto;
+  .calc-illus svg {{ display:block; width:100%; max-width:560px; height:auto;
     margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:4px; }}
   .back {{ font: 12px var(--mono); margin-bottom: 16px; }}
   a {{ color: var(--gold); }}
@@ -476,10 +530,13 @@ def main() -> int:
   <div class="panel">
     <p>Set the inner circle, the clearance at the join and the outer radius. The
     spiral starts tangent and curvature-matched to the circle, and the readout gives
-    the turns and the gap at the edge. The page is 100 pt across and the circle is
-    centred, so the outer radius cannot exceed <strong>50 pt</strong>; R = 100 needs
-    a 200-point page. The inner radius does not change that limit — it changes how
-    many turns you get before it.</p>
+    the turns and the gap at the edge. The outer end is a distance from the centre,
+    not a curvature radius; the page is a parameter, and the outer radius cannot
+    exceed half of it. For R = 150, set the page to 300 pt. The inner radius
+    does not change that limit — it changes how many turns you get before it.
+    <strong>Save JSON</strong> writes the inputs, the results, the clothoid constants
+    and about 2,000 sampled points in page coordinates — enough to redraw or continue
+    the same spiral.</p>
     {WINDER}
   </div>
 
