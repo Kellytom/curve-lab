@@ -314,6 +314,143 @@ def outward_path(radius: float, clearance: float, outer: float = 49.0,
     gap = clearance * (max(math.hypot(x, y), radius) / radius) ** 3
     return pts, heads, turns, gap, inflection
 
+
+SCROLL = """
+<div class="calc">
+  <div class="fields">
+    <label>end radius r (pt) <input id="s-r" type="number" value="2" min="0.5" max="20" step="0.5"></label>
+    <label>join gap g₀ (pt) <input id="s-g" type="number" value="0.1" min="0.005" max="2" step="0.005"></label>
+    <label>page L (pt) <input id="s-L" type="number" value="100" min="20" max="400" step="10"></label>
+  </div>
+  <div class="calc-illus">
+    <svg id="s-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <table id="s-out"></table>
+  <p class="hint" id="s-note"></p>
+  <p><button id="s-save" type="button">Save JSON</button></p>
+</div>
+<script>
+(function () {
+  const RIN = document.getElementById("s-r");
+  const GAP = document.getElementById("s-g");
+  const PAGE = document.getElementById("s-L");
+  const svg = document.getElementById("s-svg");
+  const out = document.getElementById("s-out");
+  const note = document.getElementById("s-note");
+  const save = document.getElementById("s-save");
+  let last = null;
+  const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
+
+  function update() {
+    const r = Math.max(0.5, +RIN.value || 2);
+    const g0 = Math.max(0.005, +GAP.value || 0.1);
+    const L = Math.max(20, +PAGE.value || 100);
+    const k0 = 1 / r, kd = -g0 / (2 * Math.PI * r ** 3);
+    const send = 2 / (r * Math.abs(kd));
+    let x = r, y = 0, arc = 0, inflection = null;
+    const pts = [], heads = [], h = 0.1;
+    while (arc < send) {
+      const th = Math.PI / 2 + k0 * arc + 0.5 * kd * arc * arc;
+      pts.push([x, y]); heads.push(th);
+      if (inflection === null && k0 + kd * arc < 0) inflection = [x, y];
+      const fv = (q) => {
+        const t = Math.PI / 2 + k0 * q + 0.5 * kd * q * q;
+        return [Math.cos(t), Math.sin(t)];
+      };
+      const a = fv(arc), b = fv(arc + h / 2), d = fv(arc + h);
+      x += h * (a[0] + 4 * b[0] + d[0]) / 6;
+      y += h * (a[1] + 4 * b[1] + d[1]) / 6;
+      arc += h;
+    }
+    const th = Math.PI / 2 + k0 * send + 0.5 * kd * send * send;
+    pts.push([x, y]); heads.push(th);
+    if (inflection === null) inflection = [x / 2, y / 2];
+
+    const startC = [0, 0];
+    const endC = [x + r * Math.sin(th), y - r * Math.cos(th)];
+    const xs = pts.map(p => p[0]).concat([-r, x + r, endC[0] - r, endC[0] + r]);
+    const ys = pts.map(p => p[1]).concat([-r, y + r, endC[1] - r, endC[1] + r]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs);
+    const y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const m = 8, S = (100 - 2 * m) / Math.max(x1 - x0, y1 - y0, 1);
+    const place = (p) => [m + (p[0] - x0) * S, 100 - (m + (p[1] - y0) * S)];
+    const d = pts.map((p, i) => (i ? "L" : "M") + " " + place(p)[0].toFixed(2) +
+      " " + place(p)[1].toFixed(2)).join(" ");
+    let grid = "";
+    for (let q = 10; q < 100; q += 10) {
+      grid += '<line x1="' + q + '" y1="0" x2="' + q + '" y2="100" stroke="#e8dfc8" stroke-width="0.25"/>';
+      grid += '<line x1="0" y1="' + q + '" x2="100" y2="' + q + '" stroke="#e8dfc8" stroke-width="0.25"/>';
+    }
+    svg.innerHTML = grid +
+      '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
+      '<circle cx="' + place(startC)[0].toFixed(2) + '" cy="' + place(startC)[1].toFixed(2) +
+      '" r="' + (r * S).toFixed(2) + '" fill="none" stroke="#2f6f8f" stroke-width="0.45"/>' +
+      '<circle cx="' + place(endC)[0].toFixed(2) + '" cy="' + place(endC)[1].toFixed(2) +
+      '" r="' + (r * S).toFixed(2) + '" fill="none" stroke="#2f6f8f" stroke-width="0.45"/>' +
+      '<path d="' + d + '" fill="none" stroke="#2e2413" stroke-width="0.8"/>' +
+      '<circle cx="' + place(inflection)[0].toFixed(2) + '" cy="' + place(inflection)[1].toFixed(2) +
+      '" r="1.5" fill="#6f4a8c"/>' +
+      '<circle cx="' + place([r, 0])[0].toFixed(2) + '" cy="' + place([r, 0])[1].toFixed(2) +
+      '" r="1.5" fill="#b04a3a"/>' +
+      '<circle cx="' + place([x, y])[0].toFixed(2) + '" cy="' + place([x, y])[1].toFixed(2) +
+      '" r="1.5" fill="#8c6a21"/>';
+
+    out.innerHTML =
+      "<tr><th>end radius</th><td>r " + f(r) + " pt at both ends</td></tr>" +
+      "<tr><th>curvature</th><td>+1/r → 0 → −1/r</td></tr>" +
+      "<tr><th>arc length</th><td>" + f(send, 0) + " pt</td></tr>" +
+      "<tr><th>bounding box</th><td>" + f(x1 - x0, 1) + " × " + f(y1 - y0, 1) + " pt</td></tr>" +
+      "<tr><th>inflection</th><td>violet dot</td></tr>";
+    note.textContent = "The two ends are the same radius r; the curve is an S, and the net turn is zero.";
+    last = { r, g0, L, send, x0, x1, y0, y1, k0, kd, startC, endC,
+             inflection, pts };
+  }
+
+  save.addEventListener("click", () => {
+    if (!last) return;
+    const step = Math.max(1, Math.ceil(last.pts.length / 2000));
+    const points = [];
+    for (let i = 0; i < last.pts.length; i += step) points.push(last.pts[i]);
+    if ((last.pts.length - 1) % step !== 0) points.push(last.pts[last.pts.length - 1]);
+    const data = {
+      kind: "clothoid-lab/s-scroll",
+      version: 1,
+      saved: new Date().toISOString(),
+      inputs: {
+        radius_pt: last.r,
+        join_gap_pt: last.g0,
+        page_pt: last.L
+      },
+      results: {
+        arc_length_pt: last.send,
+        bounding_box_pt: [last.x1 - last.x0, last.y1 - last.y0],
+        curvature: "+1/r -> 0 -> -1/r",
+        net_turn_deg: 0
+      },
+      geometry: {
+        k0: last.k0,
+        kd: last.kd,
+        start_circle_pt: last.startC,
+        end_circle_pt: last.endC,
+        inflection_pt: last.inflection,
+        points_pt: points,
+        points_count: points.length
+      }
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)],
+                          { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "s-scroll-r" + last.r + ".json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+  [RIN, GAP, PAGE].forEach(el => el.addEventListener("input", update));
+  update();
+})();
+</script>
+"""
+
 def main() -> int:
     def outward_turns(r0, c, R):
         return ((math.pi / c) * (r0 - r0 ** 3 / (R * R))) / (2 * math.pi)
@@ -623,6 +760,16 @@ def main() -> int:
     fixed clearance, the radius that buys the most turns is <code>R/√3 ≈ {rbest:.1f}</code>,
     at about {turnsbest:.1f} turns. That is the radius to solve for when the turn count
     is the goal; r = 5 is the radius to solve for when the circle is the goal.</p>
+  </div>
+
+  <h2>9. The S-scroll: return to the inner radius</h2>
+  <div class="panel">
+    <p>Start at a circle of radius r, let the curvature fall through zero (the
+    inflection) and reach −1/r at the other end. Both ends have the same radius r,
+    the net turn is zero, and the result is an S. At r=2 with a 0.1 pt join gap it
+    spans about 57 × 62 pt. The blue circles are the two ends; the violet dot is the
+    inflection; the red and gold dots are the start and finish.</p>
+    {SCROLL}
   </div>
 
   <h2>What the napkin got right, and what it missed</h2>
