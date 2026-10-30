@@ -45,6 +45,39 @@ PER_SPAN = 8
 STATIONS = 96
 FULL = 0.99  # a station counts as full width at 99 per cent of the band's max
 
+# The attachment datum: the seam's point and its outward tangent, in page
+# units with +y up. Outward means off the end of the work, the direction a cap
+# or a veil would continue. This is the same idea the caps already carry as
+# `anchor`, and it is what makes a terminal attachable rather than merely
+# drawn.
+FRAME_UNITS = "page, +y up"
+
+
+def frame_for(spans: list[dict]) -> dict:
+    """(anchor, heading) at the seam, from the first span alone.
+
+    `spans` runs from the seam toward the tip, so `p0 -> c1` already points
+    outward; the stored page units are y-down, so y is negated here.
+    """
+    p0 = spans[0]["p0"]
+    # the first span can be a zero-length seam; take the first real direction
+    dx = dy = 0.0
+    for span in spans:
+        for target in (span["c1"], span["p3"]):
+            dx, dy = target[0] - p0[0], -(target[1] - p0[1])
+            if math.hypot(dx, dy) > 1e-9:
+                break
+        if math.hypot(dx, dy) > 1e-9:
+            break
+    length = math.hypot(dx, dy) or 1.0
+    return {
+        "anchor": [round(p0[0], 4), round(-p0[1], 4)],
+        "heading": [round(dx / length, 6), round(dy / length, 6)],
+        "units": FRAME_UNITS,
+        "sense": "outward",
+    }
+
+
 OUTLINE_RE = re.compile(
     r'<g[^>]*inkscape:label="outline"[^>]*>(.*?)</g>', re.DOTALL)
 PATH_RE = re.compile(r"<path[^>]*\sid=\"([^\"]+)\"[^>]*\sd=\"([^\"]+)\"[^>]*/>")
@@ -232,6 +265,7 @@ def read_page(name: str, label: str, source: str) -> dict:
                 ("near", rail_b, reverse(rail_a), tip_a, near_fraction),
             ):
                 piece = cut_terminal(inbound, outbound, fraction)
+                piece["frame"] = frame_for(piece["spans"])
                 piece.update({
                     "end": end, "tip": list(tip), "plate": path_id,
                     "figure": figure_label,
@@ -326,7 +360,26 @@ The percentage is the measured taper fraction — how much of the band the taper
 """
 
 
+def frames_only() -> int:
+    """Add frames to the stored JSON without refetching the pages."""
+    out_dir = ROOT / "docs" / "terminals"
+    total = 0
+    for name, _label, _source in SOURCES:
+        path = out_dir / f"{name}.json"
+        page = json.loads(path.read_text(encoding="utf-8"))
+        for figure in page["figures"]:
+            for terminal in figure["terminals"]:
+                terminal["frame"] = frame_for(terminal["spans"])
+                total += 1
+        path.write_text(json.dumps(page, indent=1) + "\n", encoding="utf-8")
+        print(f"{path.name}: {sum(len(f['terminals']) for f in page['figures'])} frames")
+    print(f"{total} terminals framed")
+    return 0
+
+
 def main() -> int:
+    if "--frames-only" in sys.argv:
+        return frames_only()
     sources = SOURCES if len(sys.argv) == 1 else [
         (Path(arg).stem.lower(), Path(arg).stem, arg) for arg in sys.argv[1:]
     ]
