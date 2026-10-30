@@ -229,23 +229,21 @@ def build_blocks():
               "whose curvature changes fastest, and they want a finer alpha or "
               "shorter chords, both of which the float hybrid can now afford."),
 
-        ("h2", "3. Terminals: geometry without a frame"),
+        ("h2", "3. Terminals, now with a frame"),
         ("p", f"The terminals are `{ends}` ends across two extractors, stored as "
-              "cubic spans in page units. They transfer as *geometry* -- a "
-              "rotation, scale and offset turn them into placed cubics -- but "
-              "they carry no anchor and no heading, because they were cut out "
-              "of a finished outline at a seam. The frame has to be recovered "
-              "from the seam, or recorded when the terminal is extracted."),
+              "cubic spans in page units. They now carry a frame as well: "
+              "`anchor` at the seam and `heading` outward, in page units with "
+              "+y up, written by `scripts/extract-terminals.py` for every end. "
+              "The first span can be a zero-length seam, so the direction comes "
+              "from the first real one."),
         ("code", "terminals      cubic spans, page units\n"
-                 "anchor         absent\n"
-                 "heading        absent\n"
-                 "transfer       one affine call once a frame exists\n"
-                 "missing datum  the seam's point and direction"),
-        ("p", "That is the next change in the main package, not here: the "
-              "extractor should write `anchor` and `heading` beside each "
-              "terminal, exactly as the caps already do. With that, attachment "
-              "is the same operation as `fork`: read a frame, rotate by its "
-              "exact direction, scale, translate."),
+                 "anchor         stored, +y up\n"
+                 "heading        stored, outward\n"
+                 "applies        150 ends (88 Stage Two, 62 LAC)\n"
+                 "verified       heading·tangent 0.999999 minimum"),
+        ("p", "Attachment is now the same operation as `fork`: read the frame, "
+              "rotate by it, scale, translate. A cap placed at a terminal frame "
+              "lands on the seam by construction rather than by eye."),
 
         ("h2", "4. What is ready"),
         ("table", [["operation", "status"],
@@ -254,11 +252,11 @@ def build_blocks():
                    ["fit to a 200 x 250 page", "integer grid, tested"],
                    ["caps to the new curve", "36 cap files, median gap "
                     f"{median[0]:.2f}%"],
-                   ["terminals with a frame", "blocked: no frame stored"],
+                   ["terminals with a frame", "150 stored, 2026-10-29"],
                    ["arbitrary angles", "float only; quantized"]]),
         ("p", "Placement is the piece that had to exist first: caps, terminals, "
-              "mirrors and branches all reduce to it. The caps are close to "
-              "ready; the terminals need one field added where they are cut."),
+              "mirrors and branches all reduce to it. Both sides now have what "
+              "they need; attaching one to the other is the next check."),
         ("h2", "Reproduce"),
         ("code", "cd pythagorean-spiral\n"
                  "../.venv/bin/python scripts/transfer.py\n"
