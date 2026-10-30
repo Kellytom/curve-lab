@@ -52,7 +52,19 @@ def chain_spans(chain, **options) -> list[dict]:
 
     `options` go straight to the spine layer's `spans()`: `max_turn`, `sharp`,
     `apsis`, `arms`. The defaults are the layer's own.
+
+    A chain cusp is refused. `Spiral.cusp` records how many right angles it
+    applied but not at which nodes, and `spans()` reads only the turn schedule,
+    so a cusp's heading jump has nowhere to go in the span seam. Importing one
+    would round a deliberate right angle without saying so; the caller must
+    split the chain at the cusp instead.
     """
+    cusps = getattr(chain, "cusps", [])
+    if cusps:
+        raise ValueError(
+            f"this chain carries {len(cusps)} cusp(s); the span seam cannot "
+            "locate a cusp's heading jump, so split the chain at the cusp "
+            "before importing it")
     load()
     from pythagorean_spiral import spans as span_module
 

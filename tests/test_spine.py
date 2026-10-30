@@ -78,6 +78,13 @@ class TestChainImport(unittest.TestCase):
         self.assertGreater(abs(turn), math.radians(1.0),
                            "the lobe's apsis keeps a real tangent jump")
 
+    def test_a_cusp_is_refused_not_rounded(self):
+        package = self.package
+        path = package.Spiral(package.thinnest(3125), length=1.0)
+        path.walk(0).cusp(1).walk(0)
+        with self.assertRaisesRegex(ValueError, "cusp"):
+            spine.chain_spans(path)
+
     def test_trace_and_piece_carry_the_chain(self):
         piece = spine.piece_from_chain(
             self.chain, name="lobe", width=1.0, terminals=("butt", "round"))
