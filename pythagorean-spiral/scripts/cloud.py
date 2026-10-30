@@ -28,6 +28,12 @@ RAW = FIG / "cloud-photo-raw.png"
 STATUE = FIG / "cloud-photo-statue.png"
 COLOUR_STATUE = FIG / "cloud-colour-statue.png"
 COLOUR_FRESCO = FIG / "cloud-colour-fresco.png"
+
+# marked for editing: the label did not match the image
+EDITING = {
+    "IMG_5903.JPG": "figure study mislabelled as 'Christ crowned with thorns'; "
+                    "identify it or drop it",
+}
 FRESCO = FIG / "cloud-photo-fresco.png"
 INK, GOLD, RED, BLUE, FAINT = ex.INK, ex.GOLD, ex.RED, ex.BLUE, ex.FAINT
 
@@ -61,7 +67,7 @@ def circle_points(per_degree: float = 2.0):
 
 CIRCLE, TRI = circle_points()
 STATUE_SIZE = (940, 1185)
-VEIL_TARGET = {"v1": 0.85, "v2": 0.85}  # operator: good between 80 and 90
+VEIL_TARGET = {"v1": 0.85, "v2": 0.85, "v3": 0.85}  # operator: good between 80 and 90
 
 
 def tone_photo(src: Path, out: Path, width=460):
@@ -137,7 +143,7 @@ def billow(c, cx, cy, rx, ry, tilt=0, fill=None, alpha=0.4, edge=0.0):
 CLOUD = veil_mod.BILLOWS
 LAYER = veil_mod.V2_LAYER
 
-VEIL = {"v1": 0.05, "v2": 0.32}  # solved at run time: see solve_veil()
+VEIL = {"v1": 0.05, "v2": 0.32, "v3": 0.30}  # solved at run time: see solve_veil()
 _FILTER = [0]
 
 
@@ -159,7 +165,8 @@ def _veil_test_figure(version="v2"):
     palette and `draw_cloud`; a module-level import would close the cycle.
     """
     import veil_test
-    letters = ("g", "h", "i", "j") if version == "v1" else ("k", "l", "m", "n")
+    letters = {"v1": ("g", "h", "i", "j"), "v2": ("k", "l", "m", "n"),
+               "v3": ("o", "p", "q", "r")}[version]
     return veil_test.figure(VEIL[version], version, letters)
 
 
@@ -381,7 +388,7 @@ def fig_colour(sizes):
     hs = 32
     aw = hs * sizes[COLOUR_STATUE][0] / sizes[COLOUR_STATUE][1]
     bw = hs * sizes[COLOUR_FRESCO][0] / sizes[COLOUR_FRESCO][1]
-    labelled = {"a": "a · Christ crowned with thorns, in colour", "b": "b · Madonna in terracotta, in colour"}
+    labelled = {"a": "a · Marble bust, in colour", "b": "b · Madonna in terracotta, in colour"}
     for x, w, name, letter in ((16, aw, COLOUR_STATUE, "a"),
                                (76, bw, COLOUR_FRESCO, "b")):
         image_at(c, x, 6, w, hs, f"fig/{name.name}")
@@ -392,15 +399,21 @@ def fig_colour(sizes):
 
 def fig_veil(sizes, version="v2"):
     hs = 32
-    c = ex.Canvas((0, 120), (0, 64), 800, 470)
-    c.poly([(0, 64), (120, 64), (120, 0), (0, 0)], fill=WALL, stroke="none")
+    if version == "v1":          # the original layout: works low, veil dropped
+        H, y0, drop, letters = 80, 10, 5, ("c", "d")
+    elif version == "v3":        # the cover-everything layout
+        H, y0, drop, letters = 64, 16, 0, ("g", "h")
+    else:
+        H, y0, drop, letters = 64, 16, 0, ("e", "f")
+    c = ex.Canvas((0, 120), (0, H), 800, 470)
+    c.poly([(0, H), (120, H), (120, 0), (0, 0)], fill=WALL, stroke="none")
     aw = hs * sizes[STATUE][0] / sizes[STATUE][1]
     bw = hs * sizes[FRESCO][0] / sizes[FRESCO][1]
-    image_at(c, 16, 16, aw, hs, f"fig/{STATUE.name}")
-    image_at(c, 100 - bw, 16, bw, hs, f"fig/{FRESCO.name}")
-    draw_cloud(c, version, group=f"cloud-group-{version}")
-    badge(c, 19, 45, "c" if version == "v1" else "e")
-    badge(c, 103 - bw, 45, "d" if version == "v1" else "f")
+    image_at(c, 16, y0, aw, hs, f"fig/{STATUE.name}")
+    image_at(c, 100 - bw, y0, bw, hs, f"fig/{FRESCO.name}")
+    draw_cloud(c, version, drop=drop, group=f"cloud-group-{version}")
+    badge(c, 19, y0 + hs - 3, letters[0])
+    badge(c, 103 - bw, y0 + hs - 3, letters[1])
     return c.svg(f"cloud over two works, {version}").replace(
         "<svg ", f'<svg id="veil-figure-{version}" ', 1)
 
@@ -478,19 +491,33 @@ def _build_blocks(sizes):
               "every layer instead of the base alone. **v2** replaces each "
               "ellipse with a turn-chain ribbon. Both are measured by the same "
               "function and judged by the same strips."),
-        ("html", """<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;
+        ("html", """<div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;
  font:12px ui-monospace,Menlo,monospace;color:#8c6a21;margin:6px 0 18px">
- <label>definition <input id="veil-def" type="range" min="0" max="100" value="55"
-   style="vertical-align:middle;width:180px"></label>
- <label>transparency <input id="veil-trans" type="range" min="0" max="80" value="0"
-   style="vertical-align:middle;width:150px"></label>
+ <label>definition
+   <input id="veil-def" type="range" min="0" max="100" value="55"
+     style="vertical-align:middle;width:170px">
+   <output id="def-out" style="display:inline-block;min-width:2.6em">55</output>
+ </label>
+ <label>transparency
+   <input id="veil-trans" type="range" min="0" max="80" value="0"
+     style="vertical-align:middle;width:150px">
+   <output id="trans-out" style="display:inline-block;min-width:3em">0%</output>
+ </label>
+ <button id="veil-save" style="font:inherit;color:#2e2413;background:#fffdf7;
+   border:1px solid #b9ac8e;border-radius:3px;padding:3px 9px;cursor:pointer">save</button>
+ <span id="veil-saved" style="color:#9b8a70"></span>
  <span style="color:#9b8a70">both veils; the geometry does not change</span>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
   var def = document.getElementById('veil-def');
   var tr = document.getElementById('veil-trans');
+  var defOut = document.getElementById('def-out');
+  var trOut = document.getElementById('trans-out');
+  var save = document.getElementById('veil-save');
+  var saved = document.getElementById('veil-saved');
   if (!def || !tr) return;
+
   function apply() {
     var d = Number(def.value) / 100;
     var blur = (9 - 8 * d).toFixed(2);
@@ -505,13 +532,48 @@ document.addEventListener('DOMContentLoaded', function () {
       var g = fig.querySelector('[id^="cloud-group"]');
       if (g) g.style.opacity = String(1 - Number(tr.value) / 100);
     });
+    defOut.value = def.value;
+    trOut.value = tr.value + '%';
   }
+
+  function writeUrl() {
+    var url = new URL(window.location.href);
+    url.searchParams.set('def', def.value);
+    url.searchParams.set('trans', tr.value);
+    history.replaceState(null, '', url);
+  }
+
+  save.addEventListener('click', function () {
+    var data = {
+      definition: Number(def.value),
+      transparency: Number(tr.value),
+      blur: Number((9 - 8 * Number(def.value) / 100).toFixed(2)),
+      displacement: Number((20 - 16 * Number(def.value) / 100).toFixed(1)),
+      saved: new Date().toISOString(),
+      page: window.location.href
+    };
+    var blob = new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'veil-choice.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    writeUrl();
+    saved.textContent = 'saved ' + data.definition + ' / ' + data.transparency + '%';
+  });
+
+  var q = new URLSearchParams(window.location.search);
+  if (q.has('def')) def.value = q.get('def');
+  if (q.has('trans')) tr.value = q.get('trans');
   def.addEventListener('input', apply);
   tr.addEventListener('input', apply);
-});
+  apply();
+})();
 </script>"""),
         ("fig", lambda: fig_veil(sizes, "v1"),
          "c and d: v1, the original ellipse cloud, one veil factor on every layer."),
+        ("fig", lambda: fig_veil(sizes, "v3"),
+         "v3: the cover-everything ellipse set, kept for comparison."),
         ("fig", lambda: fig_veil(sizes, "v2"),
          "e and f: v2, the same composition in turn-chain ribbons."),
         ("p", "The cloud is built from **exact turn chains**, not circles. A "
@@ -652,10 +714,10 @@ def _size_or_existing(src, out, fn):
 
 def prepare():
     sizes = {}
-    sizes[COLOUR_STATUE] = _size_or_existing(REF / "IMG_5903.JPG", COLOUR_STATUE, colour_photo)
+    sizes[COLOUR_STATUE] = _size_or_existing(REF / "IMG_5971.JPG", COLOUR_STATUE, colour_photo)
     sizes[COLOUR_FRESCO] = _size_or_existing(REF / "IMG_5978.JPG", COLOUR_FRESCO, colour_photo)
-    sizes[RAW] = _size_or_existing(REF / "IMG_5903.JPG", RAW, raw_photo)
-    sizes[STATUE] = _size_or_existing(REF / "IMG_5903.JPG", STATUE, tone_photo)
+    sizes[RAW] = _size_or_existing(REF / "IMG_5971.JPG", RAW, raw_photo)
+    sizes[STATUE] = _size_or_existing(REF / "IMG_5971.JPG", STATUE, tone_photo)
     sizes[FRESCO] = _size_or_existing(REF / "IMG_5978.JPG", FRESCO, tone_photo)
     return sizes
 
@@ -669,13 +731,16 @@ def main():
     if len(_sys.argv) > 1:
         VEIL_TARGET = {"v1": float(_sys.argv[1]), "v2": float(_sys.argv[1])}
     for version in veil_mod.VERSIONS:
-        VEIL[version] = solve_veil(VEIL_TARGET[version], version)
+        # v1 is the composition the operator approved, at the veil factor it
+        # was approved with; the later versions are solved.
+        VEIL[version] = (0.35 if version == "v1"
+                         else solve_veil(VEIL_TARGET[version], version))
         print(f"{version} veil {VEIL[version]:.3f}  "
               f"worst on the canvas {veil_mod.worst(VEIL[version], version=version):.3f}  "
               f"worst over the works "
               f"{artwork_worst_opacity(sizes, None, version):.3f}")
     blocks = build_blocks(sizes)
-    names = ["cloud-tone", "veil-colour", "veil-v1", "veil-v2",
+    names = ["cloud-tone", "veil-colour", "veil-v1", "veil-v3", "veil-v2",
              "veil-test-v1", "veil-test-v2", "cloud-conics",
              "cloud-form-stated", "cloud-form-adjusted"]
     figs, fig_names = [], []

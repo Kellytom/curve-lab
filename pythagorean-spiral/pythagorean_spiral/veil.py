@@ -34,11 +34,11 @@ from .exact import Dir
 from .spiral import Spiral
 from .triples import for_angle
 
-VERSIONS = ("v1", "v2")
+VERSIONS = ("v1", "v2", "v3")
 
 # ---------------------------------------------------------------- v1 -----
 # the original composition: one ellipse per entry
-ELLIPSES = [
+ELLIPSES_V3 = [
     # haze: the outer breath
     (24, 39, 6, 4, -4, "haze"), (90, 40, 5, 4, 3, "haze"),
     (30, 36, 5, 3.5, 5, "haze"),
@@ -66,9 +66,25 @@ ELLIPSES = [
     (48, 62, 6, 6, -4, "crown"), (60, 63, 6, 6, 3, "crown"),
     (54, 69, 5, 4.5, -3, "crown"),
 ]
+ELLIPSES = [
+    # the original composition, as approved: 19 bodies, no clustering
+    (24, 39, 6, 4, -4, "haze"), (90, 40, 5, 4, 3, "haze"),
+    (30, 36, 5, 3.5, 5, "haze"),
+    (40, 71, 4, 3.5, 5, "haze"), (70, 68, 4, 3.5, -5, "haze"),
+    (38, 34, 9, 4.5, 2, "bank"), (52, 38, 11, 4.5, -1, "bank"),
+    (66, 36, 9, 4.5, 3, "bank"), (79, 41, 7, 4, -3, "bank"),
+    (36, 42, 10, 8, -5, "billow"), (50, 44, 12, 9, 3, "billow"),
+    (65, 43, 10, 8, -4, "billow"), (79, 41, 7, 6, 5, "billow"),
+    (42, 52, 8, 7, 4, "billow"), (56, 55, 9, 8, -3, "billow"),
+    (70, 52, 7, 7, 5, "billow"),
+    (48, 62, 6, 6, -4, "crown"), (60, 63, 6, 6, 3, "crown"),
+    (54, 69, 5, 4.5, -3, "crown"),
+]
 # As it was: the bodies the operator approved, shading included.
 V1_LAYER = {"haze": 0.14, "bank": 0.34, "billow": 0.46, "crown": 0.60,
             "shade": 0.12, "light": 0.16}
+# the cover-everything composition, kept as v3
+V3_LAYER = dict(V1_LAYER)
 
 # The old cloud read by shading, not by outline: every billow and crown carried
 # a darker under-lobe and a cream top.  Those strokes used to sit outside the
@@ -85,9 +101,9 @@ CLUSTER = ((-0.45, -0.30, 0.42, 0), (0.42, -0.25, 0.38, 1),
            (-0.05, 0.38, 0.44, -1), (0.10, -0.02, 0.30, 2))
 
 
-def _v1_ellipses():
+def _v3_ellipses():
     out = []
-    for cx, cy, rx, ry, tilt, layer in ELLIPSES:
+    for cx, cy, rx, ry, tilt, layer in ELLIPSES_V3:
         for dx, dy, k, step in CLUSTER:
             ex, ey = cx + dx * rx * 2.2, cy + dy * ry * 2.2
             er, es = rx * k * 2.2, ry * k * 2.2
@@ -97,6 +113,18 @@ def _v1_ellipses():
                     out.append((ex + sx * er, ey + sy * es, er * kx,
                                 es * ky, tilt + step, under))
     return out
+
+def _v1_ellipses():
+    """The original: one ellipse per entry, plus its shade and light."""
+    out = []
+    for cx, cy, rx, ry, tilt, layer in ELLIPSES:
+        out.append((cx, cy, rx, ry, tilt, layer))
+        if layer in ("billow", "crown"):
+            for sx, sy, kx, ky, under in SHADING:
+                out.append((cx + sx * rx, cy + sy * ry, rx * kx, ry * ky,
+                            tilt, under))
+    return out
+
 
 # ---------------------------------------------------------------- v2 -----
 V2_LAYER = {"haze": 0.10, "bank": 0.09, "billow": 0.30, "crown": 0.42,
@@ -159,7 +187,11 @@ LAYER = V2_LAYER
 
 
 def layers(version="v2"):
-    return V1_LAYER if version == "v1" else V2_LAYER
+    if version == "v1":
+        return V1_LAYER
+    if version == "v3":
+        return V3_LAYER
+    return V2_LAYER
 
 
 def _spread():
@@ -236,6 +268,10 @@ def polygons(version="v2"):
     out = []
     if version == "v1":
         for cx, cy, rx, ry, tilt, layer in _v1_ellipses():
+            out.append((layer, _ellipse(cx, cy, rx, ry, tilt)))
+        return tuple(out)
+    if version == "v3":
+        for cx, cy, rx, ry, tilt, layer in _v3_ellipses():
             out.append((layer, _ellipse(cx, cy, rx, ry, tilt)))
         return tuple(out)
     for cx, cy, rx, ry, tilt, layer, power, shape in BILLOWS:
