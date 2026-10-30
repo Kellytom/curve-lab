@@ -69,13 +69,19 @@ nothing should implement them until D07 is answered.
 
 ## What would make the spine layer part of the tool
 
-The spine layer is central to the curve work, but it is not connected to the app
-yet. Four conditions promote it, and all four must hold:
+The spine layer is now partly part of the tool: gates 1–3 pass (`3f7a603`), and
+`clothoid_lab/spine.py` is the bridge. One condition is still open:
 
-1. The engine can read a spine and build a drawing from its points.
-2. One spine is drawn on the 200 × 250 mm sheet, upward, by the normal writer.
-3. The clearance check measures it, and one declared touch passes.
-4. One fleur study is drawn entirely from these chains.
+1. **Done.** The engine reads a chain's spans and builds a `Design`, `Trace`
+   and `Piece` from its anchors.
+2. **Done.** One spine is drawn on the 200 × 250 mm sheet, upward, by the
+   normal writer (`docs/spine-sheet.html`).
+3. **Done.** The clearance check measures it, and one declared contact at a
+   forked node passes.
+4. **Open.** One fleur study is drawn entirely from these chains. Exact chains
+   cannot reproduce P01's node table; the drift at 1° steps is 0.99% of the
+   study, and finer steps do not converge. The conformance rule is the
+   operator's decision, with the numbers in `SESSIONS.md`.
 
-Until then, "central" describes the intention, not the software. The gate is
-repeated in `PLAN` and `ARCHITECTURE` on purpose: it decides the order of work.
+The gate is repeated in `PLAN` and `ARCHITECTURE` on purpose: it decides the
+order of work.

@@ -59,17 +59,25 @@ The intended pipeline, from exact plan to finished page:
    edit, measure, download SVG
 ```
 
-**This connection is not wired yet.** Today the two tools are separate: the
-spine layer is not imported by `clothoid_lab`, and the terminal corpus carries
-node frameworks that nothing consumes. Four conditions promote it, and all four
-must hold:
+**Three of the four conditions hold (2026-10-30, `3f7a603`).** The two tools now
+meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary clothoid
+segments, so rails, terminals, clearance and the SVG writer need no second
+geometry kind.
 
-1. `clothoid_lab` imports a chain and builds a `Piece`/`Trace` from its anchors.
-2. One spine renders on the 200 × 250 mm sheet, +y up, through `svg.document`.
-3. `piece_clearance()` measures it, and a declared contact passes.
-4. One W03 study is drawn entirely from Pythagorean chains.
+1. **Done.** `clothoid_lab` imports a chain and builds a `Piece`/`Trace` from its
+   anchors; every fitted join lands on a chain anchor (worst 2e-14 units).
+2. **Done.** `docs/spine-sheet.html` draws a curl on the 200 × 250 mm sheet
+   through `svg.document`.
+3. **Done.** `piece_clearance()` measures the same build; a contact declared at
+   a forked node passes, and the same gap fails without the declaration.
+4. **Open.** One W03 study is drawn entirely from Pythagorean chains. P01's
+   start heading (77.97°) and corners are not in any triangle's rotation group,
+   so exact chains cannot reproduce its node table; the measured drift is 15
+   units at 1° steps (0.99% of the study) and does not fall with finer steps.
+   The conformance rule is the open decision; see `SESSIONS.md`.
 
-Until then, "central" describes intent rather than practice.
+Until 4 is decided, "central" is true of the software but not yet of the study
+corpus.
 
 ## Where to look
 
@@ -103,6 +111,7 @@ Until then, "central" describes intent rather than practice.
 ## What this overview does not claim
 
 - That the engine is G2 everywhere. It is not; see above.
-- That the spine layer is wired into the app. It is not.
+- That a study has been drawn from the spine layer. Gates 1–3 pass; gate 4 is
+  open, and exact chains cannot reproduce P01's node table.
 - That "exact" means the coordinates at any scale. It means the plan; the ink is
   measured.

@@ -38,10 +38,21 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** 215 pass — **carried** from 2026-10-27; the tree is clean
-  under `web/`, `clothoid_lab/`, `csrc/` and `tests/` at the 2026-10-30 probe.
+- **Local tests:** **226 pass** (1 skipped) at the 2026-10-30 run; 215 were
+  carried from 2026-10-27 and 11 are new this session. The tree is clean
+  under `web/`, `clothoid_lab/`, `csrc/` and `tests/`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
+- **Promotion gate 1–3 (2026-10-30, this session):** `clothoid_lab/spine.py`
+  reads a `pythagorean_spiral` chain through its own cubic spans and returns an
+  ordinary `Design`/`Trace`/`Piece`; every fitted join lands on a chain anchor
+  (worst 2e-14 units). `design_from_spans` now carries a span-to-span tangent
+  jump as a segment `corner` (the apsis case), which it previously dropped.
+  `scripts/spine_sheet.py` writes `docs/spine-sheet.html`: a curl plus a forked
+  branch on 200 × 250 mm through `svg.document`, with a declared contact at the
+  fork (`merged` 1, 0 violations; the same gap fails without the contact).
+  Tests: `tests/test_spine.py` (9), full suite **226 pass** (1 skipped).
+  Commit `3f7a603`. Gate 4 is open: see `docs/SESSIONS.md` for the decision.
 - **Git:** HEAD `79819ea`; the handoff commit sits on top. The code tree is
   clean. `reference/` has only untracked images, two untracked photos sit at the
   root, and `out/play-template.svg` is untracked; leave them.
@@ -232,6 +243,10 @@ remote MVP now exist.
   defaulted to “Needs work”. The board has a beginner glossary, plain-language
   briefs, editable text per card, DeepSeek-pick sorting, priority/stage,
   drag/↑↓, notes, localStorage and JSON/order export.
+- **Spine imported (this session):** `clothoid_lab/spine.py` is the one-way
+  bridge from `pythagorean_spiral` chains; `docs/spine-sheet.html` is its visual
+  proof (sheet, join, declared contact). Gate 4 and the session order are in
+  `docs/SESSIONS.md`.
 
 ## Risks / open decisions
 
@@ -310,13 +325,18 @@ remote MVP now exist.
 
 ## Next move
 
-**Promotion gate, step 1: import a chain.** Make `clothoid_lab` read a spine
-chain and build a `Piece`/`Trace` from its anchors, so the engine can consume the
-spine layer. Then, in order: render one spine on the 200 × 250 sheet through
-`svg.document`; run `piece_clearance()` with one declared contact; draw one W03
-study entirely from chains. The gate is in `PLAN`. The joins are done
-(`79819ea`): a cap lands on a terminal seam with zero gap, and a recovered end
-lands on a chain node.
+**Promotion gate, step 4: one study from chains.** Gates 1–3 are done
+(`3f7a603`). The remaining condition is that one W03 study is drawn entirely
+from Pythagorean chains. Study 01's angles are degrees (25, 35, 10) but its
+start heading is 77.97°, which is not in any triangle's rotation group, so a
+chain cannot hit P01's nodes exactly. `scripts/spine_study_probe.py` measures
+the honest gap: 115 chords at 1° steps drift 14.9 units (0.99% of the study
+height) from P01's nodes, and finer steps do **not** converge — 0.5° is 30.0
+units, 0.25° is 18.9, and 0.1° does not finish in two minutes in exact
+arithmetic. The open decision is the conformance rule: accept that measured
+resemblance (a new plan, not a port), or re-parameterise the study so its
+angles are in the group. Until that is chosen, do not claim the gate.
+`docs/SESSIONS.md` carries the numbers and the proposed order.
 
 **Parked: the veil.** The measured column in §2b is unwired, the v1 caption
 overstates what it is, and the three.js page is a study.
@@ -366,6 +386,11 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `web/server.py` | stdlib server and `/api/render` |
 | `web/static/` | MVP page, JS, CSS |
 | `clothoid_lab/piece.py` | `Piece`/`Trace` multi-trace model and renderer |
+| `clothoid_lab/spine.py` | the one-way bridge from `pythagorean_spiral` chains |
+| `tests/test_spine.py` | chain import, sheet render and declared contact |
+| `scripts/spine_sheet.py` | builds `docs/spine-sheet.html` |
+| `scripts/spine_study_probe.py` | measures a chain study's drift from P01 |
+| `docs/SESSIONS.md` | proposed order for the next sessions, gate 4 first |
 | `clothoid_lab/terminals.py` | `butt`, `point`, `arc`, `round`, `taper` cap geometry |
 | `tests/test_piece.py` | piece model, mirror, round-trip tests |
 | `tests/test_terminals.py` | each terminal, extension, fold and width rejection |
