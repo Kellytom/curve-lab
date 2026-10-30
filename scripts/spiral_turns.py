@@ -283,7 +283,7 @@ def main() -> int:
     # three true-scale examples: the limits and the best turn budget
     three = []
     for label, radius, turns in (
-            ("r 2 · 1 turn · dot", 2.0, 1.0),
+            ("r 2 · 1 turn · hole limit", 2.0, 1.0),
             ("r 17 · 8.5 turns · best", 17.1, 8.55),
             ("r 40 · 1 turn · 40° tail", 40.0, 1.0 + 40.0 / 360.0)):
         entry = radius * math.sqrt(turns)
@@ -490,7 +490,9 @@ def main() -> int:
   <h2>5. The three sizes, at the same scale</h2>
   <div class="panel">
     <p>Same 100 grid, same 1-unit stroke. Left: the smallest circle with a hole
-    (r = 2w = 2), one turn, no room for a tail. Middle: the best turn budget
+    (r = 2w = 2). It has plenty of blank page around it, but no extra winding: a
+    second turn would sit within one stroke width of the first and close the hole.
+    That is a width limit, not a page limit. Middle: the best turn budget
     (r ≈ 17, about 8.5 turns), the Euler spiral winding in from the page edge.
     Right: r = 40 with a 40° entry tail — the full-circle bound is 50, but 50
     leaves no room for a tail, so the largest example is set back to 40. The blue
