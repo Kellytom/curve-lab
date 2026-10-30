@@ -97,173 +97,6 @@ def winding_gap(radius: float, turns: int) -> float:
 
 
 
-CALCULATOR = """
-<div class="calc">
-  <div class="fields">
-    <label>page L (pt) <input id="calc-L" type="number" value="100" min="10" max="2000" step="10"></label>
-    <label>stroke w (pt) <input id="calc-w" type="number" value="1" min="0.05" max="20" step="0.05"></label>
-    <label>final radius r (pt) <input id="calc-r" type="number" value="15" min="0.1" max="1000" step="0.5"></label>
-  </div>
-  <table id="calc-out"></table>
-  <p class="hint" id="calc-note"></p>
-  <p class="hint">Max turns is the smaller of the merge limit <code>r/(2c)</code> and
-  the page limit <code>(L/2r)²</code>. It is a ceiling, not a target; the measured
-  gap on the drawing is the truth.</p>
-  <div class="calc-illus">
-    <svg id="calc-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
-    <p class="hint">Blue dashed: the final circle. Red dot: where the spiral meets it.</p>
-  </div>
-</div>
-<script>
-(function () {
-  const L = document.getElementById("calc-L");
-  const w = document.getElementById("calc-w");
-  const r = document.getElementById("calc-r");
-  const out = document.getElementById("calc-out");
-  const note = document.getElementById("calc-note");
-  const svg = document.getElementById("calc-svg");
-  const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
-  function update() {
-    const page = Math.max(1, +L.value || 100);
-    const stroke = Math.max(0.01, +w.value || 1);
-    const radius = Math.max(0.01, +r.value || 15);
-    const rmin = 2 * stroke;
-    const rmax = page / 2;
-    const rbest = Math.cbrt(stroke * page * page / 2);
-    const nmerge = radius / (2 * stroke);
-    const nbox = Math.pow(page / (2 * radius), 2);
-    const nmax = Math.min(nmerge, nbox);
-    const gap = nmax > 0 ? radius / (2 * Math.max(nmax, 0.0001)) : NaN;
-    out.innerHTML =
-      "<tr><th>smallest circle (2w)</th><td>" + f(rmin) + "</td></tr>" +
-      "<tr><th>largest full circle (L/2)</th><td>" + f(rmax) + "</td></tr>" +
-      "<tr><th>best radius (wL²/2)^⅓</th><td>" + f(rbest) + "</td></tr>" +
-      "<tr><th>turns before merging (r/2w)</th><td>" + f(nmerge, 1) + "</td></tr>" +
-      "<tr><th>turns that fit the box</th><td>" + f(nbox, 1) + "</td></tr>" +
-      "<tr><th>max turns (smaller limit)</th><td><strong>" + f(nmax, 1) + "</strong></td></tr>" +
-      "<tr><th>gap at that turn</th><td>" + f(gap) + " pt</td></tr>";
-    let verdict;
-    if (radius < rmin) verdict = "Below 2w: the ribbon has no hole; it reads as a dot.";
-    else if (radius > rmax) verdict = "Above L/2: a full circle does not fit; only an arc appears.";
-    else if (radius > 1.25 * rbest) verdict = "Large and roomy, but few turns fit before the edge.";
-    else if (radius < 0.75 * rbest) verdict = "Small and tight: it merges after only a turn or two.";
-    else verdict = "Near the best radius: the most turns that fit without merging.";
-    note.textContent = verdict;
-    draw(page, stroke, radius);
-  }
-
-  function draw(page, stroke, radius) {
-    const L = Math.max(page, 10);
-    const nmerge = radius / (2 * stroke);
-    const nbox = Math.pow(L / (2 * radius), 2);
-    let N = Math.min(nmerge, nbox);
-    if (!isFinite(N) || N <= 0) N = 1;
-    const path = [];
-    const centre = L / 2;
-    if (N <= 1.0001) {
-      for (let k = 0; k <= 240; k++) {
-        const a = 2 * Math.PI * k / 240;
-        path.push([centre + radius * Math.cos(a), centre + radius * Math.sin(a)]);
-      }
-    } else {
-      const R = Math.min(radius * Math.sqrt(N), L / 2);
-      const k0 = 1 / R, k1 = 1 / radius, theta = 2 * Math.PI * N;
-      const kd = (k1 * k1 - k0 * k0) / (2 * theta);
-      const len = (k1 - k0) / kd, n = 400, h = len / n;
-      let x = 0, y = 0;
-      const f = (sv) => {
-        const t = k0 * sv + 0.5 * kd * sv * sv;
-        return [Math.cos(t), Math.sin(t)];
-      };
-      for (let i = 0; i <= n; i++) {
-        const sv = i * h;
-        path.push([x, y]);
-        const a = f(sv), b = f(sv + h / 2), c = f(sv + h);
-        x += h * (a[0] + 4 * b[0] + c[0]) / 6;
-        y += h * (a[1] + 4 * b[1] + c[1]) / 6;
-      }
-      const th = k0 * len + 0.5 * kd * len * len;
-      const ex = x - radius * Math.sin(th), ey = y + radius * Math.cos(th);
-      path.forEach(p => { p[0] += centre - ex; p[1] += centre - ey; });
-    }
-    const S = 100 / L;
-    const d = path.map((p, i) => (i ? "L" : "M") + " " +
-      (p[0] * S).toFixed(2) + " " + (100 - p[1] * S).toFixed(2)).join(" ");
-    const end = path[path.length - 1];
-    let grid = "";
-    for (let g = 10; g < 100; g += 10) {
-      grid += '<line x1="' + g + '" y1="0" x2="' + g + '" y2="100" stroke="#e8dfc8" stroke-width="0.25"/>';
-      grid += '<line x1="0" y1="' + g + '" x2="100" y2="' + g + '" stroke="#e8dfc8" stroke-width="0.25"/>';
-    }
-    svg.innerHTML =
-      grid +
-      '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
-      '<path d="' + d + '" fill="none" stroke="#2e2413" stroke-width="0.85"/>' +
-      '<circle cx="50" cy="50" r="' + (radius * S).toFixed(2) + '" fill="none" ' +
-      'stroke="#2f6f8f" stroke-width="0.45" stroke-dasharray="1.5 1.5"/>' +
-      '<circle cx="' + (end[0] * S).toFixed(2) + '" cy="' + (100 - end[1] * S).toFixed(2) +
-      '" r="1.3" fill="#b04a3a"/>';
-  }
-  [L, w, r].forEach(el => el.addEventListener("input", update));
-  update();
-})();
-</script>
-"""
-
-
-def winding_points(radius: float, turns: float, entry: float, ds: float = 0.5):
-    """A clothoid from an entry radius to `radius`, wound `turns` times.
-
-    Curvature runs linearly from 1/entry to 1/radius. The path is translated
-    so the osculating centre of its last chord sits at (50, 50), which is the
-    centre of one 100-point cell.
-    """
-    if turns <= 1.0000001:
-        # one turn: a circle; a clothoid with no rate is the same thing
-        pts = [(50 + radius * math.cos(2 * math.pi * k / 720),
-                50 + radius * math.sin(2 * math.pi * k / 720)) for k in range(721)]
-        return pts, [2 * math.pi * k / 720 for k in range(721)]
-    theta = 2 * math.pi * turns
-    k0, k1 = 1.0 / entry, 1.0 / radius
-    kd = (k1 * k1 - k0 * k0) / (2 * theta)
-    length = (k1 - k0) / kd
-    n = max(2, int(length / ds))
-    h = length / n
-    x = y = 0.0
-    pts = []
-    for i in range(n + 1):
-        s_loc = i * h
-        heading = k0 * s_loc + 0.5 * kd * s_loc * s_loc
-        # osculating centre at the end, used only for the last point
-        pts.append((x, y))
-        def f(sv):
-            t = k0 * sv + 0.5 * kd * sv * sv
-            return math.cos(t), math.sin(t)
-        a = f(s_loc); b = f(s_loc + h / 2); c = f(s_loc + h)
-        x += h * (a[0] + 4 * b[0] + c[0]) / 6
-        y += h * (a[1] + 4 * b[1] + c[1]) / 6
-    end_heading = k0 * length + 0.5 * kd * length * length
-    cx = x - radius * math.sin(end_heading)
-    cy = y + radius * math.cos(end_heading)
-    moved = [(50 + px - cx, 50 + py - cy) for px, py in pts]
-    headings = [k0 * (i * length / n) + 0.5 * kd * (i * length / n) ** 2
-                for i in range(n + 1)]
-    return moved, headings
-
-
-def last_gap(points, headings) -> float:
-    """Smallest distance between the last winding and the one before it."""
-    if not headings or headings[-1] < 2 * math.pi:
-        return float("nan")
-    best = float("inf")
-    for i, (p, h) in enumerate(zip(points, headings)):
-        if h < 2 * math.pi:
-            continue
-        for q, hh in zip(points, headings):
-            # exactly one turn behind, not the same turn modulo 2*pi
-            if abs((h - hh) - 2 * math.pi) < 0.2:
-                best = min(best, math.dist(p, q))
-    return best
 
 
 def grid_markup() -> str:
@@ -276,9 +109,9 @@ def grid_markup() -> str:
 WINDER = """
 <div class="calc">
   <div class="fields">
-    <label>inner radius r₀ (pt) <input id="wind-r" type="number" value="4" min="2" max="20" step="0.5"></label>
-    <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.1" max="2" step="0.1"></label>
-    <label>start gap g₀ (pt) <input id="wind-g" type="number" value="0.15" min="0.02" max="0.5" step="0.01"></label>
+    <label>inner circle r (pt) <input id="wind-r" type="number" value="5" min="1" max="49" step="0.5"></label>
+    <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.1" max="5" step="0.1"></label>
+    <label>outer end R (pt) <input id="wind-R" type="number" value="49" min="10" max="100" step="1"></label>
   </div>
   <div class="calc-illus">
     <svg id="wind-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -288,138 +121,108 @@ WINDER = """
 </div>
 <script>
 (function () {
-  const R = document.getElementById("wind-r");
-  const C = document.getElementById("wind-c");
-  const G = document.getElementById("wind-g");
+  const RIN = document.getElementById("wind-r");
+  const CLEAR = document.getElementById("wind-c");
+  const ROUT = document.getElementById("wind-R");
   const svg = document.getElementById("wind-svg");
   const out = document.getElementById("wind-out");
   const note = document.getElementById("wind-note");
   const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
 
   function update() {
-    const r0 = Math.max(0.5, +R.value || 4);
-    const clearance = Math.max(0.01, +C.value || 1);
-    const gap0 = Math.max(0.001, +G.value || 0.15);
-    const L = 100, half = L / 2;
-    const k0 = 1 / r0, k1 = 1 / half;
-    const kd = gap0 / (2 * Math.PI * r0 * r0 * r0);
-    const sEnd = (k0 - k1) / kd;
-    const n = 2400, h = sEnd / n;
-    const pts = [], heads = [];
-    let x = 0, y = 0;
+    const r = Math.max(0.5, +RIN.value || 5);
+    const c = Math.max(0.05, +CLEAR.value || 1);
+    const R = Math.max(r + 1, +ROUT.value || 49);
+    const k0 = 1 / r, k1 = 1 / R;
+    const kd = c / (2 * Math.PI * r * r * r);
+    const len = (k0 - k1) / kd;
+    const n = 2000, h = len / n;
+    let x = r, y = 0;
+    const pts = [];
     for (let i = 0; i <= n; i++) {
       const sv = i * h;
-      const t = k0 * sv - 0.5 * kd * sv * sv;
-      pts.push([x, y, sv]);
-      heads.push(t);
+      pts.push([x + 50, y + 50]);
       const fv = (q) => {
-        const tt = k0 * q - 0.5 * kd * q * q;
-        return [Math.cos(tt), Math.sin(tt)];
+        const t = Math.PI / 2 + k0 * q - 0.5 * kd * q * q;
+        return [Math.cos(t), Math.sin(t)];
       };
-      const a = fv(sv), b = fv(sv + h / 2), c = fv(sv + h);
-      x += h * (a[0] + 4 * b[0] + c[0]) / 6;
-      y += h * (a[1] + 4 * b[1] + c[1]) / 6;
+      const a = fv(sv), b = fv(sv + h / 2), d = fv(sv + h);
+      x += h * (a[0] + 4 * b[0] + d[0]) / 6;
+      y += h * (a[1] + 4 * b[1] + d[1]) / 6;
     }
-    // the inner circle centre is r0 to the left of the start heading
-    const ox = r0, oy = r0;            // translation: start centre (0, r0) -> (50,50)
-    const P = pts.map(p => [p[0] + half - 0, p[1] + half - oy]);
-    // gap to the previous winding, and the first index that clears c
-    let mark = -1, j = 0, lastGap = NaN;
-    for (let i = 0; i < pts.length; i++) {
-      const target = heads[i] - 2 * Math.PI;
-      if (target < 0) continue;
-      while (j < pts.length && heads[j] < target - 0.12) j++;
-      let best = Infinity;
-      for (let q = j; q < pts.length && heads[q] <= target + 0.12; q++) {
-        const d = Math.hypot(pts[i][0] - pts[q][0], pts[i][1] - pts[q][1]);
-        if (d < best) best = d;
-      }
-      lastGap = best;
-      if (best >= clearance) { mark = i; break; }
-    }
-    const sMark = mark >= 0 ? pts[mark][2] : sEnd;
-    const rMark = 1 / Math.max(k0 - kd * sMark, 1e-9);
-    const turnsMark = mark >= 0 ? heads[mark] / (2 * Math.PI) : NaN;
-    const turnsEnd = heads[heads.length - 1] / (2 * Math.PI);
-    const rEnd = 1 / Math.max(k0 - kd * sEnd, 1e-9);
+    // closed form, so the readout matches the page text exactly
+    const turns = ((Math.PI / c) * (r - r ** 3 / (R * R))) / (2 * Math.PI);
+    const gapEnd = c * Math.pow(R / r, 3);
+    const rBest = R / Math.sqrt(3);
+    const turnsBest = ((Math.PI / c) * (rBest - rBest ** 3 / (R * R))) / (2 * Math.PI);
 
-    const S = 1;
-    const path = (from, to) => P.slice(from, to + 1)
-      .map((p, i) => (i ? "L" : "M") + " " + (p[0] * S).toFixed(2) + " " +
-        (100 - p[1] * S).toFixed(2)).join(" ");
     let grid = "";
     for (let g = 10; g < 100; g += 10) {
       grid += '<line x1="' + g + '" y1="0" x2="' + g + '" y2="100" stroke="#e8dfc8" stroke-width="0.25"/>';
       grid += '<line x1="0" y1="' + g + '" x2="100" y2="' + g + '" stroke="#e8dfc8" stroke-width="0.25"/>';
     }
-    const dot = mark >= 0
-      ? '<circle cx="' + P[mark][0].toFixed(2) + '" cy="' + (100 - P[mark][1]).toFixed(2) +
-        '" r="1.6" fill="#b04a3a"/>'
-      : "";
+    const dpath = pts.map((p, i) => (i ? "L" : "M") + " " + p[0].toFixed(2) + " " +
+      (100 - p[1]).toFixed(2)).join(" ");
+    const end = pts[pts.length - 1];
     svg.innerHTML = grid +
       '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
-      '<path d="' + path(0, mark >= 0 ? mark : pts.length - 1) + '" fill="none" stroke="#b04a3a" stroke-width="0.7"/>' +
-      (mark >= 0 ? '<path d="' + path(mark, pts.length - 1) + '" fill="none" stroke="#2e2413" stroke-width="0.8"/>' : "") +
-      '<circle cx="' + half + '" cy="' + half + '" r="' + r0.toFixed(2) + '" fill="none" ' +
-      'stroke="#2f6f8f" stroke-width="0.4" stroke-dasharray="1.5 1.5"/>' + dot;
+      '<circle cx="50" cy="50" r="' + r.toFixed(2) + '" fill="none" stroke="#2f6f8f" ' +
+      'stroke-width="0.5" stroke-dasharray="1.5 1.5"/>' +
+      '<path d="' + dpath + '" fill="none" stroke="#2e2413" stroke-width="0.7"/>' +
+      '<circle cx="' + (50 + r).toFixed(2) + '" cy="50" r="1.6" fill="#b04a3a"/>' +
+      '<circle cx="' + end[0].toFixed(2) + '" cy="' + (100 - end[1]).toFixed(2) +
+      '" r="1.2" fill="#8c6a21"/>';
 
     out.innerHTML =
-      "<tr><th>inner circle</th><td>r " + f(r0) + "</td></tr>" +
-      "<tr><th>start gap (at r₀)</th><td>" + f(gap0) + " pt</td></tr>" +
-      "<tr><th>turns until the gap reaches c</th><td>" + f(turnsMark, 1) + "</td></tr>" +
-      "<tr><th>radius at that turn</th><td>" + f(rMark, 1) + " pt</td></tr>" +
-      "<tr><th>turns to the page edge</th><td>" + f(turnsEnd, 1) + "</td></tr>" +
-      "<tr><th>radius at the edge</th><td>" + f(rEnd, 1) + " pt</td></tr>";
-    note.textContent = mark >= 0
-      ? "Red is too tight; the dot is where the gap first reaches " + f(clearance) + " pt; dark from there on."
-      : "The gap never reaches the clearance before the page edge.";
+      "<tr><th>inner circle</th><td>r " + f(r) + " pt</td></tr>" +
+      "<tr><th>turns to R</th><td>" + f(turns, 1) + "</td></tr>" +
+      "<tr><th>gap at the join</th><td>" + f(c) + " pt</td></tr>" +
+      "<tr><th>gap at R</th><td>" + f(gapEnd, 1) + " pt</td></tr>" +
+      "<tr><th>max-turn radius R/√3</th><td>" + f(rBest, 1) + " pt</td></tr>" +
+      "<tr><th>turns there</th><td>" + f(turnsBest, 1) + "</td></tr>";
+    note.textContent = "The join is curvature-matched to the circle (G2), so there is no kink; the gap grows outward.";
   }
-  [R, C, G].forEach(el => el.addEventListener("input", update));
+  [RIN, CLEAR, ROUT].forEach(el => el.addEventListener("input", update));
   update();
 })();
 </script>
 """
 
 
-def wind_stats(r0: float, clearance: float, gap0: float = 0.15, L: float = 100.0):
-    """Turns to first clear `clearance`, and turns to the page edge."""
-    k0, k1 = 1.0 / r0, 1.0 / (L / 2)
-    kd = gap0 / (2 * math.pi * r0 ** 3)
-    s_end = (k0 - k1) / kd
-    n = 2000
-    h = s_end / n
-    x = y = 0.0
+def outward_path(radius: float, clearance: float, outer: float = 49.0,
+                 steps: int = 1600):
+    """A circle of `radius` with a clothoid unwinding outward to `outer`.
+
+    The curvature at the join is 1/radius, matching the circle, so the join is
+    G2. The curvature rate sets the gap at the join to `clearance`; the gap then
+    grows like r^3. Points are centred on (50, 50).
+    """
+    k0, k1 = 1.0 / radius, 1.0 / outer
+    kd = clearance / (2 * math.pi * radius ** 3)
+    length = (k0 - k1) / kd
+    h = length / steps
+    x, y = radius, 0.0
     pts, heads = [], []
-    for i in range(n + 1):
+    for i in range(steps + 1):
         sv = i * h
-        t = k0 * sv - 0.5 * kd * sv * sv
-        pts.append((x, y)); heads.append(t)
-        fv = lambda q: (math.cos(k0 * q - 0.5 * kd * q * q),
-                        math.sin(k0 * q - 0.5 * kd * q * q))
-        a, b, c = fv(sv), fv(sv + h / 2), fv(sv + h)
+        pts.append((x + 50, y + 50))
+        heads.append(math.pi / 2 + k0 * sv - 0.5 * kd * sv * sv)
+        def f(q):
+            t = math.pi / 2 + k0 * q - 0.5 * kd * q * q
+            return math.cos(t), math.sin(t)
+        a, b, c = f(sv), f(sv + h / 2), f(sv + h)
         x += h * (a[0] + 4 * b[0] + c[0]) / 6
         y += h * (a[1] + 4 * b[1] + c[1]) / 6
-    mark = None
-    j = 0
-    for i, (p, th) in enumerate(zip(pts, heads)):
-        target = th - 2 * math.pi
-        if target < 0:
-            continue
-        best = float("inf")
-        for q, hh in zip(pts, heads):
-            if abs((th - hh) - 2 * math.pi) < 0.15:
-                best = min(best, math.dist(p, q))
-        if best >= clearance:
-            mark = heads[i] / (2 * math.pi)
-            break
-    return (mark if mark is not None else float("nan"),
-            heads[-1] / (2 * math.pi))
-
+    turns = (k0 * length - 0.5 * kd * length ** 2) / (2 * math.pi)
+    return pts, heads, turns, clearance * (outer / radius) ** 3
 
 def main() -> int:
-    stats4 = wind_stats(4.0, 1.0)
-    stats17 = wind_stats(17.0, 1.0)
-    stats40 = wind_stats(40.0, 1.0)
+    def outward_turns(r0, c, R):
+        return ((math.pi / c) * (r0 - r0 ** 3 / (R * R))) / (2 * math.pi)
+    turns5 = outward_turns(5.0, 1.0, 49.0)
+    gap5 = 1.0 * (49.0 / 5.0) ** 3
+    rbest = 49.0 / math.sqrt(3.0)
+    turnsbest = outward_turns(rbest, 1.0, 49.0)
     points, headings, count = fit_from_rest()
     theta = headings[-1]
     alpha = math.degrees(1.0 / (R_END * count))
@@ -449,24 +252,24 @@ def main() -> int:
 
     # three true-scale examples: the limits and the best turn budget
     three = []
-    for label, radius, turns in (
-            ("r 4 · 2 turns", 4.0, 2.0),
-            ("r 17 · 8.5 turns · best", 17.1, 8.55),
-            ("r 40 · 1.6 turns", 40.0, (100.0 / 80.0) ** 2)):
-        entry = radius * math.sqrt(turns)
-        pts, heads = winding_points(radius, turns, max(entry, radius))
-        gap = last_gap(pts, heads)
-        label += f" · gap {gap:.2f} pt"
+    for label, radius in (
+            ("r 5", 5.0),
+            ("r 17", 17.0),
+            ("r 28.3 · max turns", 49.0 / math.sqrt(3.0))):
+        pts, heads, turns, gap = outward_path(radius, 1.0, 49.0)
+        label += f" · {turns:.1f} turns · edge gap {gap:.0f} pt"
         d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f},{100 - y:.2f}"
                      for i, (x, y) in enumerate(pts))
         three.append(
             '<div class="cell"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
             + grid_markup()
-            + f'<path d="{d}" fill="none" stroke="#2e2413" stroke-width="0.8"/>'
-            + f'<circle cx="50" cy="50" r="{radius:g}" fill="none" stroke="#2f6f8f" '
-              'stroke-width="0.35" stroke-dasharray="1.5 1.5"/>'
+            + f'<circle cx="50" cy="50" r="{radius:.2f}" fill="none" stroke="#2f6f8f" '
+              'stroke-width="0.5"/>'
+            + f'<path d="{d}" fill="none" stroke="#2e2413" stroke-width="0.6"/>'
+            + f'<circle cx="{pts[0][0]:.2f}" cy="{100 - pts[0][1]:.2f}" '
+              'r="1.4" fill="#b04a3a"/>'
             + f'<circle cx="{pts[-1][0]:.2f}" cy="{100 - pts[-1][1]:.2f}" '
-              'r="1.1" fill="#b04a3a"/>'
+              'r="1.2" fill="#8c6a21"/>'
             + '</svg><p>' + label + '</p></div>')
     three_panels = '<div class="three">' + "".join(three) + '</div>'
 
@@ -659,38 +462,36 @@ def main() -> int:
 
   <h2>5. The three sizes, at the same scale</h2>
   <div class="panel">
-    <p>Same 100-point grid, one-point line, one-point clearance. Left: r = 4 has a
-    budget of only <strong>two turns</strong> at a one-point gap; the many-turn case at
-    that radius is the outward winding in section 7. Middle: the best turn budget
-    (r ≈ 17, about 8.5 turns), the Euler spiral winding in from the page edge.
-    Right: r = 40 with a 40° entry tail — the full-circle bound is 50, but 50
-    leaves no room for a tail, so the largest example is set back to 40. The blue
-    dashed circle is the final radius; the red dot is where the spiral meets it; the
-    grid is 10 pt. The gap printed on each panel is the measured distance to the
-    previous winding: 1.0 at r=4 and r=17 (one stroke), 2.2 at r=40.</p>
+    <p>Same 100-point grid, one-point line, one-point clearance. Each starts as a
+    circle and unwinds <strong>outward</strong> to R = 49: the join is G2 (matching
+    tangent and curvature), and the gap grows outward. r = 5 makes 2.5 turns with a
+    941 pt gap at the edge; r = 17 makes 7.5 turns with a 24 pt gap; r = 28.3 is the
+    max-turn radius, 9.4 turns with a 5.2 pt gap. The red dot is the join; the gold
+    dot is the outer end.</p>
     {three_panels}
   </div>
 
   <h2>6. Try your own numbers</h2>
   <div class="panel">
-    {CALCULATOR}
+    <p>Set the inner circle, the clearance at the join and the outer radius. The
+    spiral starts tangent and curvature-matched to the circle, and the readout gives
+    the turns and the gap at the edge.</p>
+    {WINDER}
   </div>
 
-  <h2>7. Winding outward, by eye</h2>
+  <h2>7. Outward from the circle — the special case</h2>
   <div class="panel">
-    <p>The three examples wind inward to a final circle. An ornament volute winds the
-    other way: start at an inner radius and keep going out. The radial gap of an Euler
-    spiral grows like <code>r³</code>, so a <em>small</em> inner radius makes the outer
-    turns fly apart; a larger one keeps them tighter. Start tight (g₀ below the
-    clearance), wind out, and the red part is the illegal start. The red dot is the
-    first turn that clears by <code>c</code>; the dark part is legal.</p>
-    {WINDER}
-    <p>At the defaults (r₀ = 4, c = 1 point, g₀ = 0.15), r = 4 clears after about
-    {stats4[0]:.1f} turns and reaches the edge after about {stats4[1]:.1f}. Starting at
-    r = 17 clears after about {stats17[0]:.1f} and reaches the edge after about
-    {stats17[1]:.1f}; r = 40 clears after about {stats40[0]:.1f} and reaches the edge
-    after about {stats40[1]:.1f}. A larger inner radius keeps the pitch tighter for
-    longer, so it carries more turns before the page cuts it off.</p>
+    <p>The special case is a spiral that <em>becomes</em> a circle. At the join the
+    clothoid's curvature is <code>1/r</code>, exactly the circle's, so the tangent and
+    the curvature match: G2, no kink. Start on the circle and unwind outward; the
+    curve ends as it approaches <code>R = 49</code>. The gap grows like <code>r³</code>,
+    so the join is the tightest point. Set the gap there to the clearance <code>c</code>
+    and the rest is legal by construction.</p>
+    <p>At r = 5 and c = 1 pt, the spiral makes about {turns5:.1f} turns to R = 49, and
+    the gap at the edge is about {gap5:.0f} pt: the outer turns are very wide. For a
+    fixed clearance, the radius that buys the most turns is <code>R/√3 ≈ {rbest:.1f}</code>,
+    at about {turnsbest:.1f} turns. That is the radius to solve for when the turn count
+    is the goal; r = 5 is the radius to solve for when the circle is the goal.</p>
   </div>
 
   <h2>What the napkin got right, and what it missed</h2>
