@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veil — additive light</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #e6dbc9; overflow: hidden; }
+  canvas { display: block; }
+  .panel {
+    position: fixed; left: 16px; top: 14px; z-index: 2;
+    font: 12.5px ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #5b4718; background: rgba(255,253,247,.82);
+    border: 1px solid #d8ccae; border-radius: 5px; padding: 9px 12px;
+  }
+  .panel label { display: flex; gap: 10px; align-items: center; }
+  .panel input { width: 200px; }
+  .panel output { min-width: 3em; color: #2e2413; }
+  .note { margin-top: 6px; color: #8c6a21; }
+</style>
+</head>
+<body>
+<div class="panel">
+  <label>additive light
+    <input id="light" type="range" min="0" max="100" value="22">
+    <output id="light-out">22</output>
+  </label>
+  <div class="note">three.js · sprites in clusters · veil across the full width</div>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js" } }
+</script>
+
+<script type="module">
+import * as THREE from "three";
+
+const W = 120, H = 80;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(1);
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xe6dbc9);
+
+const camera = new THREE.OrthographicCamera(0, W, H, 0, 0.1, 200);
+camera.position.set(0, 0, 100);
+
+function resize() {
+  const a = innerWidth / innerHeight;
+  const target = W / H;
+  let w = W, h = H;
+  if (a > target) w = H * a; else h = W / a;
+  camera.left = (W - w) / 2; camera.right = (W + w) / 2;
+  camera.bottom = (H - h) / 2; camera.top = (H + h) / 2;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+addEventListener("resize", resize); resize();
+
+// --- the works -----------------------------------------------------------
+const loader = new THREE.TextureLoader();
+function work(url, x, h) {
+  const tex = loader.load(url);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const aspect = tex.image ? tex.image.width / tex.image.height : 0.8;
+  const geo = new THREE.PlaneGeometry(h * aspect, h);
+  const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex }));
+  mesh.position.set(x + (h * aspect) / 2, 10 + h / 2, -1);
+  scene.add(mesh);
+  return h * aspect;
+}
+const sw = work("fig/veil-work-statue.png", 16, 32);
+const fw = work("fig/veil-work-fresco.png", 100 - 32 * (480 / 535), 32);
+
+// --- a soft disc, never used alone ---------------------------------------
+function puff() {
+  // three to five soft lobes in one texture: a mini cloud, not a bubble
+  const c = document.createElement("canvas");
+  c.width = c.height = 192;
+  const g = c.getContext("2d");
+  const lobes = 3 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < lobes; i++) {
+    const x = 96 + (Math.random() - 0.5) * 78;
+    const y = 96 + (Math.random() - 0.5) * 54;
+    const r = 38 + Math.random() * 34;
+    const grd = g.createRadialGradient(x, y, 0, x, y, r);
+    grd.addColorStop(0.0, "rgba(255,255,255,0.80)");
+    grd.addColorStop(0.45, "rgba(255,255,255,0.34)");
+    grd.addColorStop(1.0, "rgba(255,255,255,0)");
+    g.fillStyle = grd;
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+// --- clusters: 3-5 discs of one shade make a mini cloud -------------------
+const SHADES = {
+  bank:  { color: 0xcfc9bf, opacity: 0.16, y0: 16, y1: 30, rx: [9, 14], ry: [5, 8] },
+  billow:{ color: 0xddd0bb, opacity: 0.18, y0: 26, y1: 44, rx: [8, 13], ry: [7, 10] },
+  crown: { color: 0xf2ead9, opacity: 0.22, y0: 42, y1: 62, rx: [6, 11], ry: [6, 9] },
+};
+const PUFFS = Array.from({ length: 8 }, puff);
+const lightSprites = [];
+
+function cluster(x, y, rx, ry, shade) {
+  const n = 2 + Math.floor(Math.random() * 2);   // 2 or 3 puffs per mini cloud
+  const tex = PUFFS[Math.floor(Math.random() * PUFFS.length)];
+  for (let i = 0; i < n; i++) {
+    const ox = (Math.random() - 0.5) * rx * 1.2;
+    const oy = (Math.random() - 0.5) * ry * 0.8;
+    const s = 0.7 + Math.random() * 0.5;
+    // body: normal blending, so the tan wall stays tan underneath
+    const body = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: tex, color: shade.color, transparent: true,
+      opacity: shade.opacity * 0.55, depthWrite: false,
+    }));
+    body.scale.set(rx * 2 * s, ry * 2 * s, 1);
+    body.position.set(x + ox, y + oy, 1 + Math.random() * 2);
+    scene.add(body);
+    // light: additive, controlled by the slider
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: tex, color: 0xfff6e6, transparent: true, opacity: 0,
+      depthWrite: false, blending: THREE.AdditiveBlending,
+    }));
+    glow.scale.set(rx * 2 * s * 0.9, ry * 2 * s * 0.9, 1);
+    glow.position.set(x + ox, y + oy, 4 + Math.random() * 2);
+    scene.add(glow);
+    lightSprites.push(glow);
+  }
+}
+
+const COLS = 18;
+for (let i = 0; i < COLS; i++) {
+  const x = 2 + i * (116 / (COLS - 1));
+  for (const [name, sh] of Object.entries(SHADES)) {
+    const k = 2;
+    for (let j = 0; j < k; j++) {
+      const y = sh.y0 + Math.random() * (sh.y1 - sh.y0);
+      const rx = sh.rx[0] + Math.random() * (sh.rx[1] - sh.rx[0]);
+      const ry = sh.ry[0] + Math.random() * (sh.ry[1] - sh.ry[0]);
+      cluster(x + (Math.random() - 0.5) * 9, y, rx, ry, sh);
+    }
+  }
+}
+
+// --- the slider ----------------------------------------------------------
+const input = document.getElementById("light");
+const out = document.getElementById("light-out");
+function applyLight() {
+  const v = Number(input.value) / 100;
+  out.value = input.value;
+  for (const s of lightSprites) s.material.opacity = v * 0.28;
+}
+input.addEventListener("input", applyLight);
+applyLight();
+
+renderer.setAnimationLoop(() => renderer.render(scene, camera));
+</script>
+</body>
+</html>
