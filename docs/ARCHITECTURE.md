@@ -85,6 +85,29 @@ The remaining gap is surface, not wiring: the fill currently needs the spine
 layer's exact miter, because the engine's rail builder crosses at per-chord
 corners.
 
+## Two systems, three ways in
+
+The tool has two curve systems and three ways to enter them. The distinction
+matters, because only two of the three are different geometry.
+
+| way in | you supply | it solves | it produces |
+|---|---|---|---|
+| **spine** | a triangle, a turn schedule, a closure | an exact rational Euler polygon | a chain → `Piece` |
+| **engine** | segments, points with tangents, or recovered spans | the clothoid through those constraints | a `Design` → `Piece` |
+| **scroll** | an end radius, a join gap, a page and a clearance | the curvature rate and the length, plus the inflection or the return to radius `r` | a `Design` → `Piece` |
+
+The spine is a *different* curve: a discrete polygon with exact rational nodes.
+The engine and the scroll share one equation, `kappa(s) = kappa0 + kd*s`; the
+scroll is a front end that turns a designer's numbers (circle radius, gap, page)
+into that equation, instead of asking for `kappa0`, `kd` and a length or for a
+list of points. It is the volute/scroll family, not a fourth kind of ink.
+
+The practical consequence: a scroll should emit an ordinary `Design`, so it
+inherits the rails, terminals, clearance, SVG writer and the practical curve's
+pins. Today it lives in `scripts/spiral_turns.py`; the next step is to promote it
+to `clothoid_lab/scroll.py` with tests, and then it is a first-class way in
+rather than a page experiment.
+
 ## Where to look
 
 | If you want | Read |
