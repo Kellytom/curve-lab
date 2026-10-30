@@ -395,6 +395,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/spine_sheet.py` | builds `docs/spine-sheet.html` |
 | `scripts/spine_study_probe.py` | measures a chain study's drift from P01 |
 | `docs/SESSIONS.md` | proposed order for the next sessions, gate 4 first |
+| `docs/FIDELITY.md` | **the accepted 1.4–1.6% accuracy budget** and its metrics |
 | `clothoid_lab/terminals.py` | `butt`, `point`, `arc`, `round`, `taper` cap geometry |
 | `tests/test_piece.py` | piece model, mirror, round-trip tests |
 | `tests/test_terminals.py` | each terminal, extension, fold and width rejection |
