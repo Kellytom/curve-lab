@@ -183,7 +183,7 @@ def main() -> int:
         f'<div class="cell"><div class="art">{svg}</div>'
         f'<p><strong>Branch {item["number"]}</strong> at '
         f'{item["fraction"]:.0%} of the chain, {item["side"]}, '
-        f'{item["clearance"]:.1f} units clear.</p></div>'
+        f'{item["clearance"]:.1f} mm clear (1:1).</p></div>'
         for item, svg in panels)
 
     page = f"""<!doctype html>
@@ -261,10 +261,10 @@ def main() -> int:
   <h2>The numbers</h2>
   <div class="panel">
     <p>Each probe leaves the pin at 90° to the chain, on whichever side has more
-    room, and runs {PROBE:.0f} units. “Clearance” is the distance from the probe
-    (after the first {START:.0f} units, so the pin itself does not count) to the
+    room, and runs {PROBE:.0f} mm (1:1). “Clearance” is the distance from the probe
+    (after the first {START:.0f} mm (1:1), so the pin itself does not count) to the
     nearest ink in the half, its mirror or the band. Open means at least
-    {CLEARANCE:.0f} units.</p>
+    {CLEARANCE:.0f} mm (1:1).</p>
     <div class="scroll"><table>
       <tr><th>#</th><th>along</th><th>pin</th><th>chain heading</th>
           <th>side</th><th>clearance</th><th>verdict</th></tr>
@@ -286,7 +286,7 @@ def main() -> int:
   <div class="panel">
     <p>Choose the point on the <a href="spine-study-01.html">exact curve</a>, pin it,
     then generate the practical curve and attach the branch. The pin is a hard split
-    with the chain's heading (pin error about 2e-7 units), so the junction is exact
+    with the chain's heading (pin error about 2e-7 mm (1:1)), so the junction is exact
     even though the rest of the curve is a 34-cubic approximation. If a probe is
     blocked, move along the chain until the dot turns gold; the table is the quick
     way to see whether the blockage is the mirror, the band, or another winding.</p>
