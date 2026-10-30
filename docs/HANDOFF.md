@@ -38,8 +38,8 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **226 pass** (1 skipped) at the 2026-10-30 run; 215 were
-  carried from 2026-10-27 and 11 are new this session. The tree is clean
+- **Local tests:** **227 pass** (1 skipped) at the 2026-10-30 run; 215 were
+  carried from 2026-10-27 and 12 are new this session. The tree is clean
   under `web/`, `clothoid_lab/`, `csrc/` and `tests/`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
@@ -51,10 +51,10 @@ remote MVP now exist.
   `scripts/spine_sheet.py` writes `docs/spine-sheet.html`: a curl plus a forked
   branch on 200 × 250 mm through `svg.document`, with a declared contact at the
   fork (`merged` 1, 0 violations; the same gap fails without the contact).
-  Tests: `tests/test_spine.py` (9), full suite **226 pass** (1 skipped).
-  Commit `3f7a603`. Gate 4 is open: see `docs/SESSIONS.md` for the decision.
-- **Git:** HEAD `79819ea`; the handoff commit sits on top. The code tree is
-  clean. `reference/` has only untracked images, two untracked photos sit at the
+  Tests: `tests/test_spine.py` (10), full suite **227 pass** (1 skipped).
+  Commits `3f7a603`, `413dc86`, `5ef5359`. Gate 4 is open: see `docs/SESSIONS.md` for the decision.
+- **Git:** HEAD is the handoff commit; six commits sit on top of `79819ea`.
+  The code tree is clean. `reference/` has only untracked images, two untracked photos sit at the
   root, and `out/play-template.svg` is untracked; leave them.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
