@@ -249,6 +249,11 @@ remote MVP now exist.
   bridge from `pythagorean_spiral` chains; `docs/spine-sheet.html` is its visual
   proof (sheet, join, declared contact). Gate 4 and the session order are in
   `docs/SESSIONS.md`.
+- **Sandbox and spiral turns (this session):** `docs/sandbox.html` is the
+  hand-written index of the working pages; `docs/spiral-turns.html` measures how
+  many times a clothoid winds in a 100 grid and when the windings merge (about
+  1.2 turns from rest at r=15; 7.5 turns at a 1-unit gap when already winding),
+  plus the page bounds r_min=2w and r_max=L/2.
 - **Practical curve (this session):** `clothoid_lab/practical.py` fits one
   clothoid per structural run and emits **34 cubics** (36 with one pin) instead
   of 1,164, at 0.42 mm worst deviation; `docs/practical-curve.html` compares the

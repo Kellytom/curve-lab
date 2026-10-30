@@ -32,6 +32,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `JUNCTION.md` | Junctions: vocabulary, fillet, what comes next. |
 | `PRIMAL.md` | Fire, water, earth, air: the primal ornaments and their gate. |
 | `caps.md` | Cap families and the 120° rule. |
+| `sandbox.html` | Handwritten index of the working pages. |
 | `clothoid-grid-3125.md` | The 3125 lattice and the old source pages. |
 | `web.md` | The web MVP. |
 | `PROJECT.md`, `TODO.md` | Older planning, kept for history. Do not treat as current. |
@@ -46,6 +47,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `spine-sheet.html` | `scripts/spine_sheet.py` |
 | `spine-study-01.html` | `scripts/spine_study_01.py` |
 | `practical-curve.html` | `scripts/practical_curve.py` |
+| `spiral-turns.html` | `scripts/spiral_turns.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>clothoid-lab sandbox</title>
+<style>
+  :root { color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
+    --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
+    --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --serif:"EB Garamond",Georgia,"Palatino Linotype",Palatino,serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font:16px/1.55 var(--serif);
+    background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }
+  main { max-width: 900px; margin: 0 auto; padding: 34px 22px 70px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .lead { color: var(--gold); margin: 0 0 18px; }
+  h2 { font: 600 11px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin: 26px 0 8px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  li { padding: 9px 4px; border-bottom: 1px solid var(--line); }
+  li:last-child { border-bottom: 0; }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .what { color: var(--muted); font-size: 14px; display: block; }
+  .tag { font: 10px/1 var(--mono); color: var(--muted); border: 1px solid var(--line);
+    border-radius: 3px; padding: 2px 5px; margin-left: 6px; }
+  code { font: 12px/1 var(--mono); background:#fbf8ee; border:1px solid var(--line);
+    border-radius:3px; padding:2px 4px; }
+  .back { font: 12px var(--mono); margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="back"><a href="ornament-board.html">← the ornament board</a></p>
+  <h1>Sandbox</h1>
+  <p class="lead">The working pages: draw, measure, compare. Every one is generated from code in this repository.</p>
+
+  <h2>The curve and the pipeline</h2>
+  <div class="panel">
+    <ul>
+      <li><a href="spiral-turns.html">Euler spiral: turns and merging</a>
+        <span class="tag">new</span>
+        <span class="what">How many times a clothoid winds in a 100 grid, and when the windings touch.</span></li>
+      <li><a href="practical-curve.html">The practical curve</a>
+        <span class="tag">new</span>
+        <span class="what">The same study at 34 cubics instead of 1,164, with pins for branch points.</span></li>
+      <li><a href="spine-study-01.html">Study 01 from chains</a>
+        <span class="what">The exact chain study, every span end measured against P01.</span></li>
+      <li><a href="spine-sheet.html">Spine on the sheet</a>
+        <span class="what">A chain on 200 × 250 mm, and a declared contact at a forked node.</span></li>
+      <li><a href="piece-model.html">Piece model and terminals</a>
+        <span class="what">Traces, rails, mirror, and the seven kinds of end.</span></li>
+      <li><a href="fleur-study-01.html">Fleur study 01 — the port</a>
+        <span class="what">The old grammar rebuilt as clothoid segments, with node parity.</span></li>
+      <li><a href="primal.html">Primal studies</a>
+        <span class="what">Earth, water, air, fire: one grammar each.</span></li>
+      <li><a href="principles.html">Principle cards</a>
+        <span class="what">Four primals and four archetypes: gesture, three numbers, not-this.</span></li>
+    </ul>
+  </div>
+
+  <h2>The recovered corpus</h2>
+  <div class="panel">
+    <ul>
+      <li><a href="terminals/index.html">Recovered terminals</a>
+        <span class="what">150 ends cut from the ornaments pages, with attachment frames.</span></li>
+      <li><a href="spirals/index.html">Recovered spirals</a>
+        <span class="what">Stage II and LAC spine paths, fitted one clothoid per cubic span.</span></li>
+      <li><a href="ornament-board.html">The ornament board</a>
+        <span class="what">85 plates, 26 work items, 11 decisions; read-only and generated.</span></li>
+      <li><a href="fleur-studies.html">The twenty fleur studies</a>
+        <span class="what">The board's subpage: P01–P20.</span></li>
+    </ul>
+  </div>
+
+  <h2>How to run it</h2>
+  <div class="panel">
+    <p>The local app is <code>127.0.0.1:8000</code> from <code>.venv/bin/python web/server.py</code>.
+    These pages are static: <code>.venv/bin/python -m http.server 8003 --directory docs</code>,
+    then <code>http://127.0.0.1:8003/sandbox.html</code>. Each page is written by its script in
+    <code>scripts/</code>; edit the script, not the HTML.</p>
+  </div>
+</main>
+</body>
+</html>
