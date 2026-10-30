@@ -130,7 +130,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
+  <p class="back"><a href="sandbox.html">← sandbox</a> · <a href="ornament-board.html">the ornament board</a></p>
   <h1>The practical curve</h1>
   <p class="lead">The same study, fitted for a small SVG: {practical_cubics} cubics instead of {exact_cubics}.</p>
 

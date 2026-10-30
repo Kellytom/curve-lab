@@ -96,6 +96,102 @@ def winding_gap(radius: float, turns: int) -> float:
     return radius / (2.0 * turns)
 
 
+
+CALCULATOR = """
+<div class="calc">
+  <div class="fields">
+    <label>page L <input id="calc-L" type="number" value="100" min="10" max="2000" step="10"></label>
+    <label>stroke w <input id="calc-w" type="number" value="1" min="0.05" max="20" step="0.05"></label>
+    <label>final radius r <input id="calc-r" type="number" value="15" min="0.1" max="1000" step="0.5"></label>
+  </div>
+  <table id="calc-out"></table>
+  <p class="hint" id="calc-note"></p>
+</div>
+<script>
+(function () {
+  const L = document.getElementById("calc-L");
+  const w = document.getElementById("calc-w");
+  const r = document.getElementById("calc-r");
+  const out = document.getElementById("calc-out");
+  const note = document.getElementById("calc-note");
+  const f = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : "—";
+  function update() {
+    const page = Math.max(1, +L.value || 100);
+    const stroke = Math.max(0.01, +w.value || 1);
+    const radius = Math.max(0.01, +r.value || 15);
+    const rmin = 2 * stroke;
+    const rmax = page / 2;
+    const rbest = Math.cbrt(stroke * page * page / 2);
+    const nmerge = radius / (2 * stroke);
+    const nbox = Math.pow(page / (2 * radius), 2);
+    const nmax = Math.min(nmerge, nbox);
+    const gap = nmax > 0 ? radius / (2 * Math.max(nmax, 0.0001)) : NaN;
+    out.innerHTML =
+      "<tr><th>smallest circle (2w)</th><td>" + f(rmin) + "</td></tr>" +
+      "<tr><th>largest full circle (L/2)</th><td>" + f(rmax) + "</td></tr>" +
+      "<tr><th>best radius (wL²/2)^⅓</th><td>" + f(rbest) + "</td></tr>" +
+      "<tr><th>turns before merging (r/2w)</th><td>" + f(nmerge, 1) + "</td></tr>" +
+      "<tr><th>turns that fit the box</th><td>" + f(nbox, 1) + "</td></tr>" +
+      "<tr><th>turns available</th><td><strong>" + f(nmax, 1) + "</strong></td></tr>" +
+      "<tr><th>gap at that turn</th><td>" + f(gap) + " units</td></tr>";
+    let verdict;
+    if (radius < rmin) verdict = "Below 2w: the ribbon has no hole; it reads as a dot.";
+    else if (radius > rmax) verdict = "Above L/2: a full circle does not fit; only an arc appears.";
+    else if (radius > 1.25 * rbest) verdict = "Large and roomy, but few turns fit before the edge.";
+    else if (radius < 0.75 * rbest) verdict = "Small and tight: it merges after only a turn or two.";
+    else verdict = "Near the best radius: the most turns that fit without merging.";
+    note.textContent = verdict;
+  }
+  [L, w, r].forEach(el => el.addEventListener("input", update));
+  update();
+})();
+</script>
+"""
+
+
+def winding_points(radius: float, turns: float, entry: float, ds: float = 0.5):
+    """A clothoid from an entry radius to `radius`, wound `turns` times.
+
+    Curvature runs linearly from 1/entry to 1/radius. The path is translated
+    so the osculating centre of its last chord sits at (50, 50), which is the
+    centre of one 100-unit cell.
+    """
+    if turns <= 1.0000001:
+        # one turn: a circle; a clothoid with no rate is the same thing
+        pts = [(50 + radius * math.cos(2 * math.pi * k / 720),
+                50 + radius * math.sin(2 * math.pi * k / 720)) for k in range(721)]
+        return pts
+    theta = 2 * math.pi * turns
+    k0, k1 = 1.0 / entry, 1.0 / radius
+    kd = (k1 * k1 - k0 * k0) / (2 * theta)
+    length = (k1 - k0) / kd
+    n = max(2, int(length / ds))
+    h = length / n
+    x = y = 0.0
+    pts = []
+    for i in range(n + 1):
+        s_loc = i * h
+        heading = k0 * s_loc + 0.5 * kd * s_loc * s_loc
+        # osculating centre at the end, used only for the last point
+        pts.append((x, y))
+        def f(sv):
+            t = k0 * sv + 0.5 * kd * sv * sv
+            return math.cos(t), math.sin(t)
+        a = f(s_loc); b = f(s_loc + h / 2); c = f(s_loc + h)
+        x += h * (a[0] + 4 * b[0] + c[0]) / 6
+        y += h * (a[1] + 4 * b[1] + c[1]) / 6
+    end_heading = k0 * length + 0.5 * kd * length * length
+    cx = x - radius * math.sin(end_heading)
+    cy = y + radius * math.cos(end_heading)
+    return [(50 + px - cx, 50 + py - cy) for px, py in pts]
+
+
+def grid_markup() -> str:
+    return ('<g stroke="#e8dfc8" stroke-width="0.25">'
+            + "".join(f'<line x1="{g}" y1="0" x2="{g}" y2="100"/>' for g in range(10, 100, 10))
+            + "".join(f'<line x1="0" y1="{g}" x2="100" y2="{g}"/>' for g in range(10, 100, 10))
+            + "</g>")
+
 def main() -> int:
     points, headings, count = fit_from_rest()
     theta = headings[-1]
@@ -124,6 +220,25 @@ def main() -> int:
         f"{'M' if i == 0 else 'L'} {place(p)[0]:.2f},{place(p)[1]:.2f}"
         for i, p in enumerate(points))
     cx, cy = place((x0 + x1 / 2, y0 + y1 / 2))
+
+    # three true-scale examples: the limits and the best turn budget
+    three = []
+    for label, radius, turns in (
+            ("r 2 · 1 turn · dot", 2.0, 1.0),
+            ("r 17 · 8.5 turns · best", 17.1, 8.55),
+            ("r 50 · 1 turn · edge", 50.0, 1.0)):
+        entry = radius * math.sqrt(turns)
+        pts = winding_points(radius, turns, max(entry, radius))
+        d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f},{100 - y:.2f}"
+                     for i, (x, y) in enumerate(pts))
+        three.append(
+            '<div class="cell"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+            + grid_markup()
+            + f'<path d="{d}" fill="none" stroke="#2e2413" stroke-width="0.8"/>'
+            + f'<circle cx="50" cy="50" r="{radius:g}" fill="none" stroke="#8c6a21" '
+              'stroke-width="0.35" stroke-dasharray="1.5 1.5"/>'
+            + '</svg><p>' + label + '</p></div>')
+    three_panels = '<div class="three">' + "".join(three) + '</div>'
 
     table = []
     for radius in (15.0, 30.0):
@@ -192,9 +307,23 @@ def main() -> int:
   .scroll {{ overflow-x: auto; }}
   code {{ font: 12px/1 var(--mono); background:#fbf8ee; border:1px solid var(--line);
     border-radius:3px; padding:2px 4px; }}
+  .three {{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }}
+  .three .cell {{ border:1px solid var(--line); border-radius:4px; padding:6px; background:#fff; }}
+  .three svg {{ display:block; width:100%; height:auto; }}
+  .three p {{ margin:6px 0 0; font:10px/1.4 var(--mono); color:var(--muted); text-align:center; }}
+  .calc .fields {{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:10px; font:12px var(--mono); }}
+  .calc label {{ display:flex; flex-direction:column; gap:4px; color:var(--muted); }}
+  .calc input {{ font:13px var(--mono); padding:4px 6px; border:1px solid var(--line);
+    border-radius:4px; background:#fff; width:110px; color:var(--ink); }}
+  .calc .hint {{ margin:10px 0 0; color:var(--gold); }}
   .back {{ font: 12px var(--mono); margin-bottom: 16px; }}
   a {{ color: var(--gold); }}
-  @media (max-width: 620px) {{ main {{ padding:22px 14px 60px; }} table {{ font-size:10px; }} th,td {{ padding:4px 2px; }} }}
+  @media (max-width: 620px) {{
+    main {{ padding:22px 14px 60px; }}
+    table {{ font-size:10px; }}
+    th,td {{ padding:4px 2px; }}
+    .three {{ grid-template-columns:1fr; }}
+  }}
 </style>
 </head>
 <body>
@@ -294,26 +423,16 @@ def main() -> int:
   <h2>5. The three sizes, at the same scale</h2>
   <div class="panel">
     <p>Same 100 grid, same 1-unit stroke. Left: the smallest circle with a hole
-    (r = 2w = 2). Middle: the best turn budget (r ≈ 17, about 8.5 turns). Right:
-    the largest full circle (r = L/2 = 50, one turn). The grid lines are 10 units.</p>
-    <svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg"
-         style="display:block;width:100%;height:auto;background:#fff">
-      <g stroke="#e8dfc8" stroke-width="0.25">
-        {''.join(f'<line x1="{g}" y1="0" x2="{g}" y2="100"/>' for g in range(10, 300, 10))}
-        {''.join(f'<line x1="0" y1="{g}" x2="300" y2="{g}"/>' for g in range(10, 100, 10))}
-      </g>
-      <g fill="none" stroke="#2e2413" stroke-width="1">
-        <circle cx="50" cy="50" r="2"/>
-        <circle cx="150" cy="50" r="17.1"/>
-        <circle cx="250" cy="50" r="50"/>
-      </g>
-      <g font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#7b6c4e"
-         text-anchor="middle">
-        <text x="50" y="96">r 2 · 1 turn · dot</text>
-        <text x="150" y="96">r 17 · 8.5 turns · best</text>
-        <text x="250" y="96">r 50 · 1 turn · edge</text>
-      </g>
-    </svg>
+    (r = 2w = 2), one turn. Middle: the best turn budget (r ≈ 17, about 8.5 turns),
+    drawn as the Euler spiral that winds in from the page edge. Right: the largest
+    full circle (r = L/2 = 50), one turn. The dashed circle is the final radius;
+    the grid is 10 units.</p>
+    {three_panels}
+  </div>
+
+  <h2>6. Try your own numbers</h2>
+  <div class="panel">
+    {CALCULATOR}
   </div>
 
   <h2>What the napkin got right, and what it missed</h2>

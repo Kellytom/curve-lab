@@ -85,7 +85,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
+  <p class="back"><a href="sandbox.html">← sandbox</a> · <a href="ornament-board.html">the ornament board</a></p>
   <h1>Study 01 from chains</h1>
   <p class="lead">Gate 4: every stroke a Pythagorean chain, measured against P01.</p>
 
