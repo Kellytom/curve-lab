@@ -111,7 +111,7 @@ WINDER = """
   <div class="fields">
     <label>inner circle r (pt) <input id="wind-r" type="number" value="5" min="1" max="49" step="0.5"></label>
     <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.1" max="5" step="0.1"></label>
-    <label>outer end R (pt) <input id="wind-R" type="number" value="49" min="10" max="100" step="1"></label>
+    <label>outer end R (pt, ≤ 50) <input id="wind-R" type="number" value="49" min="10" max="50" step="1"></label>
   </div>
   <div class="calc-illus">
     <svg id="wind-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -132,7 +132,7 @@ WINDER = """
   function update() {
     const r = Math.max(0.5, +RIN.value || 5);
     const c = Math.max(0.05, +CLEAR.value || 1);
-    const R = Math.max(r + 1, +ROUT.value || 49);
+    const R = Math.min(50, Math.max(r + 1, +ROUT.value || 49));
     const k0 = 1 / r, k1 = 1 / R;
     const kd = c / (2 * Math.PI * r * r * r);
     const len = (k0 - k1) / kd;
@@ -178,6 +178,7 @@ WINDER = """
       "<tr><th>turns to R</th><td>" + f(turns, 1) + "</td></tr>" +
       "<tr><th>gap at the join</th><td>" + f(c) + " pt</td></tr>" +
       "<tr><th>gap at R</th><td>" + f(gapEnd, 1) + " pt</td></tr>" +
+      "<tr><th>page radius limit (L/2)</th><td>50 pt</td></tr>" +
       "<tr><th>max-turn radius R/√3</th><td>" + f(rBest, 1) + " pt</td></tr>" +
       "<tr><th>turns there</th><td>" + f(turnsBest, 1) + "</td></tr>";
     note.textContent = "The join is curvature-matched to the circle (G2), so there is no kink; the gap grows outward.";
@@ -475,7 +476,10 @@ def main() -> int:
   <div class="panel">
     <p>Set the inner circle, the clearance at the join and the outer radius. The
     spiral starts tangent and curvature-matched to the circle, and the readout gives
-    the turns and the gap at the edge.</p>
+    the turns and the gap at the edge. The page is 100 pt across and the circle is
+    centred, so the outer radius cannot exceed <strong>50 pt</strong>; R = 100 needs
+    a 200-point page. The inner radius does not change that limit — it changes how
+    many turns you get before it.</p>
     {WINDER}
   </div>
 
@@ -484,7 +488,7 @@ def main() -> int:
     <p>The special case is a spiral that <em>becomes</em> a circle. At the join the
     clothoid's curvature is <code>1/r</code>, exactly the circle's, so the tangent and
     the curvature match: G2, no kink. Start on the circle and unwind outward; the
-    curve ends as it approaches <code>R = 49</code>. The gap grows like <code>r³</code>,
+    curve ends as it approaches <code>R = 49</code> (the page radius is 50). The gap grows like <code>r³</code>,
     so the join is the tightest point. Set the gap there to the clearance <code>c</code>
     and the rest is legal by construction.</p>
     <p>At r = 5 and c = 1 pt, the spiral makes about {turns5:.1f} turns to R = 49, and
