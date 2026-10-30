@@ -226,7 +226,7 @@ def main() -> int:
     for label, radius, turns in (
             ("r 2 · 1 turn · dot", 2.0, 1.0),
             ("r 17 · 8.5 turns · best", 17.1, 8.55),
-            ("r 50 · 1 turn · edge", 50.0, 1.0)):
+            ("r 40 · 1 turn · 40° tail", 40.0, 1.0 + 40.0 / 360.0)):
         entry = radius * math.sqrt(turns)
         pts = winding_points(radius, turns, max(entry, radius))
         d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f},{100 - y:.2f}"
@@ -423,10 +423,11 @@ def main() -> int:
   <h2>5. The three sizes, at the same scale</h2>
   <div class="panel">
     <p>Same 100 grid, same 1-unit stroke. Left: the smallest circle with a hole
-    (r = 2w = 2), one turn. Middle: the best turn budget (r ≈ 17, about 8.5 turns),
-    drawn as the Euler spiral that winds in from the page edge. Right: the largest
-    full circle (r = L/2 = 50), one turn. The dashed circle is the final radius;
-    the grid is 10 units.</p>
+    (r = 2w = 2), one turn, no room for a tail. Middle: the best turn budget
+    (r ≈ 17, about 8.5 turns), the Euler spiral winding in from the page edge.
+    Right: r = 40 with a 40° entry tail — the full-circle bound is 50, but 50
+    leaves no room for a tail, so the largest example is set back to 40. The
+    dashed circle is the final radius; the grid is 10 units.</p>
     {three_panels}
   </div>
 

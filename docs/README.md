@@ -47,6 +47,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `spine-sheet.html` | `scripts/spine_sheet.py` |
 | `spine-study-01.html` | `scripts/spine_study_01.py` |
 | `practical-curve.html` | `scripts/practical_curve.py` |
+| `branch-points.html` | `scripts/branch_points.py` |
 | `spiral-turns.html` | `scripts/spiral_turns.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
