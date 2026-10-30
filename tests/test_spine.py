@@ -114,16 +114,17 @@ class TestSheetAndJoin(unittest.TestCase):
     def setUpClass(cls):
         cls.package = spine.load()
         cls.trunk = cls.package.design.curl(peak=200, chord=6)
+        node = len(cls.trunk.nodes) - 1
         anchor, cls.branch = cls.package.design.fork(
-            cls.trunk, 47, steps=5, length=0.6, turn=0)
-        cls.package.design.joined(cls.trunk, cls.branch, 47)
+            cls.trunk, node, steps=9, length=1.5, quarter=1)
+        cls.node = node
         cls.point = (float(anchor[0][0]), float(anchor[0][1]))
 
     def piece(self, contact=True):
         return Piece(
             name="spine sheet",
             stroke=0.5,
-            contacts=([Contact(self.point, 2.0, "ink/trunk", "ink/branch")]
+            contacts=([Contact(self.point, 3.0, "ink/trunk", "ink/branch")]
                       if contact else []),
             traces=[
                 spine.trace_from_chain(self.trunk, "trunk", width=3.0),
@@ -150,13 +151,15 @@ class TestSheetAndJoin(unittest.TestCase):
         report = piece_clearance(self.piece())
         self.assertTrue(report["ok"], report["violations"])
         self.assertEqual(len(report["merged"]), 1)
-        self.assertLess(report["min"]["distance"], report["clearance"])
-        self.assertFalse(report["crossings"])
+        self.assertEqual(len(report["crossings"]), 1)
+        self.assertTrue(report["crossings"][0]["allowed"])
+        self.assertFalse(report["disallowed"])
 
-    def test_the_same_gap_fails_without_the_contact(self):
+    def test_the_same_join_fails_without_the_contact(self):
         report = piece_clearance(self.piece(contact=False))
         self.assertFalse(report["ok"])
         self.assertTrue(report["violations"])
+        self.assertTrue(report["disallowed"])
         self.assertFalse(report["merged"])
 
 

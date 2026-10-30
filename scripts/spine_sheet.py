@@ -23,7 +23,6 @@ from clothoid_lab.clearance import piece_clearance  # noqa: E402
 from clothoid_lab.contact import Contact  # noqa: E402
 from clothoid_lab.piece import Piece, render_piece  # noqa: E402
 
-NODE = 47          # a span boundary of this curl, so the join is an anchor
 TRUNK_WIDTH = 3.0
 BRANCH_WIDTH = 1.5
 PAGE = (200.0, 250.0)
@@ -32,20 +31,20 @@ PAGE = (200.0, 250.0)
 def build():
     package = spine.load()
     trunk = package.design.curl(peak=200, chord=6)
+    node = len(trunk.nodes) - 1          # the free end: a branch has room here
     anchor, branch = package.design.fork(
-        trunk, NODE, steps=5, length=0.6, turn=0)
-    package.design.joined(trunk, branch, NODE)
+        trunk, node, steps=9, length=1.5, quarter=1)
     point = (float(anchor[0][0]), float(anchor[0][1]))
     piece = Piece(
         name="spine sheet",
         stroke=0.5,
-        contacts=[Contact(point, 2.0, "ink/trunk", "ink/branch")],
+        contacts=[Contact(point, 3.0, "ink/trunk", "ink/branch")],
         traces=[
             spine.trace_from_chain(trunk, "trunk", width=TRUNK_WIDTH),
             spine.trace_from_chain(branch, "branch", width=BRANCH_WIDTH),
         ],
     )
-    return trunk, branch, piece, point
+    return trunk, branch, piece, point, node
 
 
 def anchor_error(chain, name):
@@ -62,7 +61,7 @@ def anchor_error(chain, name):
 
 
 def main() -> int:
-    trunk, branch, piece, point = build()
+    trunk, branch, piece, point, node = build()
     svg, info = render_piece(piece, frame=PAGE, margin=12)
     report = piece_clearance(piece)
     trunk_error, trunk_segments = anchor_error(trunk, "trunk")
@@ -82,11 +81,11 @@ def main() -> int:
         ("worst anchor error", f"{trunk_error:.2e} units"),
     ]
     branch_facts = [
-        ("branch node", str(NODE)),
+        ("branch node", str(node)),
         ("branch spans", str(len(spine.chain_spans(branch)))),
         ("fitted segments", str(branch_segments)),
         ("worst anchor error", f"{branch_error:.2e} units"),
-        ("declared contact", f"({point[0]:.3f}, {point[1]:.3f}), r 2 mm"),
+        ("declared contact", f"({point[0]:.3f}, {point[1]:.3f}), r 3 mm"),
     ]
     clearance_facts = [
         ("minimum edge gap", f"{report['min']['distance']:.3f} mm"),
@@ -151,9 +150,10 @@ def main() -> int:
   <h2>Clearance through the same build</h2>
   <div class="panel">
     <table>{rows(clearance_facts)}</table>
-    <p style="margin-top:10px">The trunk and its branch are closer than the 5 mm rule at the
-    fork. That is allowed only because the drawing declares the contact at the shared
-    node; remove the <code>Contact</code> and the same pair reports a violation.</p>
+    <p style="margin-top:10px">The branch leaves the last node at an exact right angle and
+    crosses the trunk there. That is allowed only because the drawing declares the contact
+    at the shared node; remove the <code>Contact</code> and the crossing is disallowed and
+    the gap is a violation.</p>
   </div>
 
   <h2>What is proved</h2>
