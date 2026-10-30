@@ -109,8 +109,9 @@ def grid_markup() -> str:
 WINDER = """
 <div class="calc">
   <div class="fields">
-    <label>inner circle r (pt) <input id="wind-r" type="number" value="5" min="1" max="150" step="0.5"></label>
-    <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.1" max="5" step="0.1"></label>
+    <label>inner circle r (pt) <input id="wind-r" type="number" value="2" min="1" max="150" step="0.5"></label>
+    <label>clearance c (pt) <input id="wind-c" type="number" value="1" min="0.005" max="5" step="0.005"></label>
+    <label>join gap g₀ (pt) <input id="wind-g" type="number" value="0.1" min="0.005" max="5" step="0.005"></label>
     <label>page L (pt) <input id="wind-L" type="number" value="100" min="20" max="400" step="10"></label>
     <label>outer radius R (pt) <input id="wind-R" type="number" value="49" min="10" max="200" step="1"></label>
   </div>
@@ -125,6 +126,7 @@ WINDER = """
 (function () {
   const RIN = document.getElementById("wind-r");
   const CLEAR = document.getElementById("wind-c");
+  const JOIN = document.getElementById("wind-g");
   const PAGE = document.getElementById("wind-L");
   const ROUT = document.getElementById("wind-R");
   const svg = document.getElementById("wind-svg");
@@ -136,14 +138,17 @@ WINDER = """
 
   function update() {
     const r = Math.max(0.5, +RIN.value || 5);
-    const c = Math.max(0.05, +CLEAR.value || 1);
+    const c = Math.max(0.005, +CLEAR.value || 1);
+    const g0 = Math.max(0.005, +JOIN.value || 1);
     const L = Math.max(20, +PAGE.value || 100);
     const R = Math.min(L / 2, Math.max(r + 1, +ROUT.value || Math.min(49, L / 2)));
     const S = 100 / L;
-    const k0 = 1 / r, kd = c / (2 * Math.PI * r * r * r);
-    let x = r, y = 0, arc = 0;
-    const pts = [], pagePts = [], h = 0.1;
-    while (Math.hypot(x, y) < R && arc < 20000) {
+    const k0 = 1 / r, kd = g0 / (2 * Math.PI * r * r * r);
+    let x = r, y = 0, arc = 0, best = r, stall = 0, inflection = null;
+    let clearIndex = null, clearPoint = null;
+    const markRadius = r * Math.pow(c / g0, 1 / 3);
+    const pts = [], pagePts = [], h = 0.1, MAX_STEPS = 6000;
+    while (Math.hypot(x, y) < R && arc < MAX_STEPS * h) {
       pts.push([(x + L / 2) * S, (y + L / 2) * S]);
       pagePts.push([x + L / 2, y + L / 2]);
       const fv = (q) => {
@@ -154,43 +159,74 @@ WINDER = """
       x += h * (a[0] + 4 * b[0] + d[0]) / 6;
       y += h * (a[1] + 4 * b[1] + d[1]) / 6;
       arc += h;
+      const rho = Math.hypot(x, y);
+      if (inflection === null && k0 - kd * arc < 0) {
+        inflection = [(x + L / 2) * S, (y + L / 2) * S];
+      }
+      if (clearIndex === null && Math.hypot(x, y) >= markRadius) {
+        clearIndex = pts.length - 1;
+        clearPoint = [(x + L / 2) * S, (y + L / 2) * S];
+      }
+      if (rho > best + 1e-4) { best = rho; stall = 0; }
+      else if (++stall > 800) break;
     }
     pts.push([(x + L / 2) * S, (y + L / 2) * S]);
     pagePts.push([x + L / 2, y + L / 2]);
+    const reached = Math.hypot(x, y) >= R - 1e-6;
     const turns = (k0 * arc - 0.5 * kd * arc * arc) / (2 * Math.PI);
-    const gapEnd = c * Math.pow(R / r, 3);
+    const gapEnd = g0 * Math.pow(Math.max(best, r) / r, 3);
     const rBest = R / Math.sqrt(3);
-    const turnsBest = ((Math.PI / c) * (rBest - rBest ** 3 / (R * R))) / (2 * Math.PI);
+    const turnsBest = ((Math.PI / g0) * (rBest - rBest ** 3 / (R * R))) / (2 * Math.PI);
 
     let grid = "";
     for (let g = 10; g < 100; g += 10) {
       grid += '<line x1="' + g + '" y1="0" x2="' + g + '" y2="100" stroke="#e8dfc8" stroke-width="0.25"/>';
       grid += '<line x1="0" y1="' + g + '" x2="100" y2="' + g + '" stroke="#e8dfc8" stroke-width="0.25"/>';
     }
-    const dpath = pts.map((p, i) => (i ? "L" : "M") + " " + p[0].toFixed(2) + " " +
+    const stride = Math.max(1, Math.ceil(pts.length / 3000));
+    const drawPts = pts.filter((_, i) => i % stride === 0);
+    if ((pts.length - 1) % stride) drawPts.push(pts[pts.length - 1]);
+    const split = clearIndex === null ? drawPts.length : Math.max(0, Math.floor(clearIndex / stride));
+    const pathOf = (a) => a.map((p, i) => (i ? "L" : "M") + " " + p[0].toFixed(2) + " " +
       (100 - p[1]).toFixed(2)).join(" ");
+    const tight = split > 0 ? pathOf(drawPts.slice(0, split + 1)) : "";
+    const clear = split < drawPts.length - 1 ? pathOf(drawPts.slice(Math.max(0, split))) : "";
     const end = pts[pts.length - 1];
     svg.innerHTML = grid +
       '<rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>' +
       '<circle cx="50" cy="50" r="' + (r * S).toFixed(2) + '" fill="none" stroke="#2f6f8f" ' +
       'stroke-width="0.5" stroke-dasharray="1.5 1.5"/>' +
-      '<path d="' + dpath + '" fill="none" stroke="#2e2413" stroke-width="0.7"/>' +
+      (tight ? '<path d="' + tight + '" fill="none" stroke="#b04a3a" stroke-width="0.7"/>' : "") +
+      (clear ? '<path d="' + clear + '" fill="none" stroke="#2e2413" stroke-width="0.7"/>' : "") +
       '<circle cx="' + (50 + r * S).toFixed(2) + '" cy="50" r="1.6" fill="#b04a3a"/>' +
       '<circle cx="' + end[0].toFixed(2) + '" cy="' + (100 - end[1]).toFixed(2) +
-      '" r="1.2" fill="#8c6a21"/>';
+      '" r="1.2" fill="#8c6a21"/>' +
+      (clearPoint ? '<circle cx="' + clearPoint[0].toFixed(2) + '" cy="' +
+        (100 - clearPoint[1]).toFixed(2) + '" r="1.4" fill="#b04a3a"/>' : "") +
+      (inflection ? '<circle cx="' + inflection[0].toFixed(2) + '" cy="' +
+        (100 - inflection[1]).toFixed(2) + '" r="1.4" fill="#6f4a8c"/>' : "");
 
     out.innerHTML =
       "<tr><th>page</th><td>" + f(L, 0) + " pt across, radius " + f(L / 2, 0) + " pt</td></tr>" +
       "<tr><th>inner circle</th><td>r " + f(r) + " pt</td></tr>" +
+      "<tr><th>reached the edge</th><td>" + (reached ? "yes" : "no — stopped at " + f(best, 1) + " pt") + "</td></tr>" +
       "<tr><th>turns to R</th><td>" + f(turns, 1) + "</td></tr>" +
-      "<tr><th>gap at the join</th><td>" + f(c) + " pt</td></tr>" +
-      "<tr><th>gap at R</th><td>" + f(gapEnd, 1) + " pt</td></tr>" +
+      "<tr><th>join gap g₀</th><td>" + f(g0) + " pt</td></tr>" +
+      "<tr><th>clearance target</th><td>" + f(c) + " pt</td></tr>" +
+      "<tr><th>first clears at</th><td>" + (clearIndex === null ? "never before the end" : f(markRadius, 1) + " pt") + "</td></tr>" +
+      "<tr><th>gap at edge (estimate)</th><td>" + f(gapEnd, 1) + " pt</td></tr>" +
       "<tr><th>outer radius used</th><td>" + f(R, 1) + " pt</td></tr>" +
+      "<tr><th>inflection</th><td>" + (inflection ? "yes — violet dot" : "none before the end") + "</td></tr>" +
       "<tr><th>max-turn radius R/√3</th><td>" + f(rBest, 1) + " pt</td></tr>" +
       "<tr><th>turns there</th><td>" + f(turnsBest, 1) + "</td></tr>";
-    note.textContent = "The join is curvature-matched to the circle (G2), so there is no kink; the gap grows outward.";
-    last = { r, c, L, R, turns, gapEnd, rBest, turnsBest, k0, kd,
-             arc, pagePts };
+    note.textContent = reached
+      ? (clearIndex === null || clearIndex === 0
+          ? "G2 join; legal from the start."
+          : "G2 join; red until the gap reaches the clearance at " + f(markRadius, 1) + " pt.")
+      : "This inner radius turns back before it reaches R. Lower the join gap g₀ (r=1 needs about 0.02, r=2 about 0.1, r=3 about 0.25) and mark where it clears. Stopped at " + f(best, 1) + " pt.";
+    last = { r, c, g0, L, R, turns, gapEnd, rBest, turnsBest, k0, kd,
+             arc, pagePts, reached, best, inflection, markRadius,
+             clearIndex, clearPoint };
   }
 
   save.addEventListener("click", () => {
@@ -206,13 +242,18 @@ WINDER = """
       inputs: {
         inner_radius_pt: last.r,
         clearance_pt: last.c,
+        join_gap_pt: last.g0,
         page_pt: last.L,
         outer_radius_pt: last.R
       },
       results: {
         turns: last.turns,
-        gap_at_join_pt: last.c,
+        gap_at_join_pt: last.g0,
+        clears_at_radius_pt: last.clearIndex === null ? null : last.markRadius,
         gap_at_edge_estimate_pt: last.gapEnd,
+        reached_outer: last.reached,
+        max_distance_pt: last.best,
+        inflection: last.inflection ? "yes" : "none",
         max_turn_radius_pt: last.rBest,
         turns_at_max: last.turnsBest
       },
@@ -233,7 +274,9 @@ WINDER = """
     link.click();
     URL.revokeObjectURL(link.href);
   });
-  [RIN, CLEAR, PAGE, ROUT].forEach(el => el.addEventListener("input", update));
+  let timer = null;
+  const schedule = () => { clearTimeout(timer); timer = setTimeout(update, 120); };
+  [RIN, CLEAR, JOIN, PAGE, ROUT].forEach(el => el.addEventListener("input", schedule));
   update();
 })();
 </script>
@@ -252,9 +295,12 @@ def outward_path(radius: float, clearance: float, outer: float = 49.0,
     kd = clearance / (2 * math.pi * radius ** 3)
     x, y, s = radius, 0.0, 0.0
     pts, heads = [], []
+    inflection = None
     while math.hypot(x, y) < outer and s < 20000:
         heads.append(math.pi / 2 + k0 * s - 0.5 * kd * s * s)
         pts.append((x + 50.0, y + 50.0))
+        if inflection is None and k0 - kd * s < 0:
+            inflection = (x + 50.0, y + 50.0)
         def f(q):
             t = math.pi / 2 + k0 * q - 0.5 * kd * q * q
             return math.cos(t), math.sin(t)
@@ -266,7 +312,7 @@ def outward_path(radius: float, clearance: float, outer: float = 49.0,
     pts.append((x + 50.0, y + 50.0))
     turns = (k0 * s - 0.5 * kd * s * s) / (2 * math.pi)
     gap = clearance * (max(math.hypot(x, y), radius) / radius) ** 3
-    return pts, heads, turns, gap
+    return pts, heads, turns, gap, inflection
 
 def main() -> int:
     def outward_turns(r0, c, R):
@@ -308,7 +354,7 @@ def main() -> int:
             ("r 5", 5.0),
             ("r 17", 17.0),
             ("r 28.3 · max turns", 49.0 / math.sqrt(3.0))):
-        pts, heads, turns, gap = outward_path(radius, 1.0, 49.0)
+        pts, heads, turns, gap, inflection = outward_path(radius, 1.0, 49.0)
         label += f" · {turns:.1f} turns · edge gap {gap:.0f} pt"
         d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f},{100 - y:.2f}"
                      for i, (x, y) in enumerate(pts))
@@ -322,7 +368,9 @@ def main() -> int:
               'r="1.4" fill="#b04a3a"/>'
             + f'<circle cx="{pts[-1][0]:.2f}" cy="{100 - pts[-1][1]:.2f}" '
               'r="1.2" fill="#8c6a21"/>'
-            + '</svg><p>' + label + '</p></div>')
+            + ((f'<circle cx="{inflection[0]:.2f}" cy="{100 - inflection[1]:.2f}" '
+                'r="1.2" fill="#6f4a8c"/>') if inflection else "")
+            + '</svg><p>' + label + (' · inflection' if inflection else '') + '</p></div>')
     three_panels = '<div class="three">' + "".join(three) + '</div>'
 
     table = []
@@ -530,17 +578,39 @@ def main() -> int:
   <div class="panel">
     <p>Set the inner circle, the clearance at the join and the outer radius. The
     spiral starts tangent and curvature-matched to the circle, and the readout gives
-    the turns and the gap at the edge. The outer end is a distance from the centre,
+    the turns and the gap at the edge. <strong>Join gap</strong> sets the curvature
+    rate; <strong>clearance</strong> is the target. Put g₀ below c to wind a small
+    circle outward; the red part is too tight, and the red dot is where it clears.
+    The outer end is a distance from the centre,
     not a curvature radius; the page is a parameter, and the outer radius cannot
     exceed half of it. For R = 150, set the page to 300 pt. The inner radius
     does not change that limit — it changes how many turns you get before it.
+    Below r ≈ 3.9 a one-point join gap makes the spiral turn back before R: lower
+    the clearance to 0.02 at r=1, 0.1 at r=2, 0.25 at r=3. The join stays G2; only
+    the inner turns get tighter than the pen.
     <strong>Save JSON</strong> writes the inputs, the results, the clothoid constants
     and about 2,000 sampled points in page coordinates — enough to redraw or continue
     the same spiral.</p>
     {WINDER}
   </div>
 
-  <h2>7. Outward from the circle — the special case</h2>
+  <h2>7. Why small circles stop early — in plain English</h2>
+  <div class="panel">
+    <p>The gap at the join sets how fast the curve's bending changes:
+    <code>kd = gap / (2πr³)</code>. A one-point gap on a small circle makes that
+    change fast. The spiral straightens — the <strong>inflection</strong>, where
+    the bend passes through zero and the curve starts bending the other way — and
+    turns back before it reaches <code>R = 49</code>. That is why r below about 3.9
+    stops short at a one-point gap.</p>
+    <p>The workaround is to let the <em>join</em> gap be smaller than the clearance.
+    The join still matches the circle in tangent and curvature (G2); the curve holds
+    its bend longer and winds outward. The cost is that the first turns are tighter
+    than the pen, so you mark where the gap reaches the clearance and treat the inner
+    part as too tight. That is why r=1 wants about 0.02 pt, r=2 about 0.1 and r=3
+    about 0.25. The violet dot is the inflection whenever there is one.</p>
+  </div>
+
+  <h2>8. The special case, stated</h2>
   <div class="panel">
     <p>The special case is a spiral that <em>becomes</em> a circle. At the join the
     clothoid's curvature is <code>1/r</code>, exactly the circle's, so the tangent and
