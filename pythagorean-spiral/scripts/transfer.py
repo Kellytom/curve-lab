@@ -229,9 +229,9 @@ def build_blocks():
               "whose curvature changes fastest, and they want a finer alpha or "
               "shorter chords, both of which the float hybrid can now afford."),
 
-        ("h2", "3. Terminals, now with a frame"),
+        ("h2", "3. Terminals, now with a framework"),
         ("p", f"The terminals are `{ends}` ends across two extractors, stored as "
-              "cubic spans in page units. They now carry a frame as well: "
+              "cubic spans in page units. They now carry a framework as well: "
               "`anchor` at the seam and `heading` outward, in page units with "
               "+y up, written by `scripts/extract-terminals.py` for every end. "
               "The first span can be a zero-length seam, so the direction comes "
@@ -241,8 +241,8 @@ def build_blocks():
                  "heading        stored, outward\n"
                  "applies        150 ends (88 Stage Two, 62 LAC)\n"
                  "verified       heading·tangent 0.999999 minimum"),
-        ("p", "Attachment is now the same operation as `fork`: read the frame, "
-              "rotate by it, scale, translate. A cap placed at a terminal frame "
+        ("p", "Attachment is now the same operation as `fork`: read the framework, "
+              "rotate by it, scale, translate. A cap placed at a terminal framework "
               "lands on the seam by construction rather than by eye."),
 
         ("h2", "4. What is ready"),
@@ -252,7 +252,7 @@ def build_blocks():
                    ["fit to a 200 x 250 page", "integer grid, tested"],
                    ["caps to the new curve", "36 cap files, median gap "
                     f"{median[0]:.2f}%"],
-                   ["terminals with a frame", "150 stored, 2026-10-29"],
+                   ["terminals with a framework", "150 stored, 2026-10-29"],
                    ["arbitrary angles", "float only; quantized"]]),
         ("p", "Placement is the piece that had to exist first: caps, terminals, "
               "mirrors and branches all reduce to it. Both sides now have what "
