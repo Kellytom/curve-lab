@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spine on the sheet — promotion gate 2 and 3</title>
+<style>
+  :root { color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
+    --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
+    --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --serif:"EB Garamond",Georgia,"Palatino Linotype",Palatino,serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font:16px/1.55 var(--serif);
+    background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }
+  main { max-width: 900px; margin: 0 auto; padding: 34px 22px 70px; }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  .lead { color: var(--gold); margin: 0 0 18px; }
+  h2 { font: 600 11px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin: 26px 0 8px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 14px; }
+  .art svg { display: block; width: 100%; height: auto; background: #fff; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  table { border-collapse: collapse; width: 100%; font: 12px/1.5 var(--mono); }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 4px; text-align: left; }
+  th { color: var(--muted); font-weight: 500; width: 52%; }
+  code { font: 12px/1 var(--mono); background: #fbf8ee; border: 1px solid var(--line);
+    border-radius: 3px; padding: 2px 4px; }
+  .back { font: 12px var(--mono); margin-bottom: 16px; }
+  a { color: var(--gold); }
+  @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } main { padding: 22px 14px 60px; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="back"><a href="ornament-board.html">← back to the ornament board</a></p>
+  <h1>Spine on the sheet</h1>
+  <p class="lead">Promotion gate 2: a chain on 200 × 250 mm, +y up. Gate 3: a declared join passes the clearance check.</p>
+
+  <h2>The drawing</h2>
+  <div class="panel art">
+    <?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="200mm" height="250mm"
+     viewBox="0 0 200 250">
+  <title>spine sheet</title>
+  <desc id="clothoid-lab-design">{
+  &quot;contacts&quot;: [
+    {
+      &quot;a&quot;: &quot;ink/trunk&quot;,
+      &quot;b&quot;: &quot;ink/branch&quot;,
+      &quot;point&quot;: [
+        34.82831164935333,
+        21.787089331258347
+      ],
+      &quot;radius&quot;: 2.0,
+      &quot;waives_clearance&quot;: true
+    }
+  ],
+  &quot;mirror&quot;: false,
+  &quot;name&quot;: &quot;spine sheet&quot;,
+  &quot;stroke&quot;: 0.5,
+  &quot;traces&quot;: [
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 0.0,
+          &quot;x&quot;: 0.0,
+          &quot;y&quot;: 0.0
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;trunk&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: -4.519641432625153e-05,
+            &quot;kd&quot;: 0.0015638844341449392,
+            &quot;length&quot;: 33.001422125278246
+          },
+          {
+            &quot;corner&quot;: 2.220446049250313e-16,
+            &quot;kappa0&quot;: 0.051407195647034616,
+            &quot;kd&quot;: 0.0015759795295409457,
+            &quot;length&quot;: 14.002314182807787
+          },
+          {
+            &quot;kappa0&quot;: 0.07322431035408557,
+            &quot;kd&quot;: 0.001584972100257475,
+            &quot;length&quot;: 11.003098727416866
+          },
+          {
+            &quot;kappa0&quot;: 0.10214292620489335,
+            &quot;kd&quot;: -0.0022444741974256472,
+            &quot;length&quot;: 8.969893224066722
+          },
+          {
+            &quot;corner&quot;: -0.10304447555539077,
+            &quot;kappa0&quot;: -0.08311042982461467,
+            &quot;kd&quot;: -0.0014665063130215974,
+            &quot;length&quot;: 9.96346659770023
+          },
+          {
+            &quot;corner&quot;: -4.440892098500626e-16,
+            &quot;kappa0&quot;: -0.08753272451274718,
+            &quot;kd&quot;: 0.0015810461752111058,
+            &quot;length&quot;: 12.003071718088837
+          },
+          {
+            &quot;kappa0&quot;: -0.06877998038298423,
+            &quot;kd&quot;: 0.0015724752684034703,
+            &quot;length&quot;: 16.00216396851178
+          },
+          {
+            &quot;corner&quot;: -2.220446049250313e-16,
+            &quot;kappa0&quot;: -0.04371202298579622,
+            &quot;kd&quot;: 0.0015591538850431505,
+            &quot;length&quot;: 29.001810362450822
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;trunk&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: 3.0
+    },
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 1.761123764037563,
+          &quot;x&quot;: 34.82831164935333,
+          &quot;y&quot;: 21.787089331258347
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;branch&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: -0.0020816976844634477,
+            &quot;kd&quot;: -0.0020817440793086265,
+            &quot;length&quot;: 2.9999829368075783
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;branch&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: 1.5
+    }
+  ]
+}</desc>
+  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="butt"
+     stroke-width="1.7085">
+    <path id="ink-trunk" d="M 27.4923,232.8746 C 46.2722 232.8746, 65.1936 232.8765, 83.6217 228.9071 C 102.0494 224.9378, 119.7994 216.886, 132.3824 202.5589 C 143.017 190.4504, 148.9941 174.5404, 146.4992 158.429 C 144.5553 145.8763, 137.4704 134.5097, 126.3365 128.2009 C 121.8726 125.6715, 116.8948 124.2049, 111.7848 123.7953 C 109.2365 123.591, 106.6745 123.6506, 104.1369 123.9588 C 102.8689 124.1128, 101.6092 124.3285, 100.3619 124.6036 C 99.1145 124.8786, 97.915 125.3397, 96.6647 125.6028 C 85.3994 127.9727, 73.5351 125.4768, 64.6323 118.0763 C 53.8724 109.1322, 48.7928 95.3493, 49.6169 81.5099 C 50.7277 62.8548, 61.8709 46.8375, 76.9307 36.2666 C 104.7003 16.7742, 139.7126 17.2873, 172.5077 17.2873"/>
+    <path id="ink-trunk-rail-1-5" d="M 27.4923,227.7491 C 45.9097 227.7491, 64.4686 227.7896, 82.5425 223.8965 C 99.8966 220.1585, 116.673 212.6786, 128.5313 199.1767 C 138.1648 188.208, 143.6969 173.8255, 141.4341 159.2134 C 139.73 148.2089, 133.5806 138.1966, 123.8097 132.6602 C 116.0085 128.2398, 106.7056 127.7647, 98.2305 130.4832 C 97.7085 128.8564, 97.1866 127.2296, 96.6647 125.6028 C 97.0163 127.2747, 97.3679 128.9466, 97.7195 130.6185 C 84.9223 133.3106, 71.4625 130.4189, 61.356 122.0178 C 49.3426 112.0318, 43.5795 96.6717, 44.5005 81.2052 C 45.7042 60.9914, 57.6481 43.5396, 73.986 32.0714 C 88.2724 22.0434, 105.1532 16.8332, 122.3256 14.3767 C 138.9403 12, 155.7559 12.1619, 172.5077 12.1619"/>
+    <path id="ink-trunk-rail--1-5" d="M 27.4923,238 C 46.6346 238, 65.9185 237.9633, 84.701 233.9176 C 104.2022 229.7171, 122.9257 221.0934, 136.2334 205.9412 C 147.8692 192.6926, 154.2914 175.2554, 151.5642 157.6446 C 149.3806 143.5436, 141.3604 130.8227, 128.8633 123.7415 C 118.5717 117.9101, 106.3003 117.1294, 95.0996 120.7221 C 95.6213 122.349, 96.143 123.9759, 96.6647 125.6028 C 96.3129 123.9309, 95.961 122.259, 95.6092 120.5872 C 85.8759 122.6348, 75.6076 120.5345, 67.9087 114.1348 C 58.4021 106.2325, 54.006 94.027, 54.7333 81.8146 C 55.7513 64.718, 66.0935 50.1356, 79.8754 40.4617 C 92.8422 31.3599, 108.2008 26.7525, 123.7772 24.5243 C 139.9114 22.2163, 156.2413 22.4127, 172.5077 22.4127"/>
+    <path id="ink-branch" d="M 146.4992,158.429 C 145.8528 155.0738, 145.2168 151.7164, 144.6228 148.3515"/>
+    <path id="ink-branch-rail-0-75" d="M 143.9827,158.9138 C 143.3338 155.5455, 142.6954 152.175, 142.0991 148.7969"/>
+    <path id="ink-branch-rail--0-75" d="M 149.0156,157.9442 C 148.3717 154.602, 147.7382 151.2578, 147.1465 147.906"/>
+  </g>
+</svg>
+
+  </div>
+
+  <div class="grid" style="margin-top:12px">
+    <div class="panel"><table><tr><th>chain</th><td>curl, power 1</td></tr>
+<tr><th>chord budget</th><td>6 deg</td></tr>
+<tr><th>chords</th><td>134</td></tr>
+<tr><th>peak heading</th><td>197.78 deg</td></tr>
+<tr><th>anchors</th><td>135</td></tr>
+<tr><th>spans</th><td>8</td></tr>
+<tr><th>fitted segments</th><td>8</td></tr>
+<tr><th>worst anchor error</th><td>2.08e-14 units</td></tr></table></div>
+    <div class="panel"><table><tr><th>branch node</th><td>47</td></tr>
+<tr><th>branch spans</th><td>1</td></tr>
+<tr><th>fitted segments</th><td>1</td></tr>
+<tr><th>worst anchor error</th><td>0.00e+00 units</td></tr>
+<tr><th>declared contact</th><td>(34.828, 21.787), r 2 mm</td></tr></table></div>
+  </div>
+
+  <h2>Clearance through the same build</h2>
+  <div class="panel">
+    <table><tr><th>minimum edge gap</th><td>0.517 mm</td></tr>
+<tr><th>between</th><td>ink/trunk and ink/branch</td></tr>
+<tr><th>violations</th><td>0</td></tr>
+<tr><th>warnings</th><td>0</td></tr>
+<tr><th>crossings</th><td>0</td></tr>
+<tr><th>merged by contact</th><td>1</td></tr></table>
+    <p style="margin-top:10px">The trunk and its branch are closer than the 5 mm rule at the
+    fork. That is allowed only because the drawing declares the contact at the shared
+    node; remove the <code>Contact</code> and the same pair reports a violation.</p>
+  </div>
+
+  <h2>What is proved</h2>
+  <div class="panel">
+    <p>The chain arrives as ordinary clothoid segments, one per span, so the rails,
+    the SVG writer and the clearance check need no second geometry kind. Every
+    segment join lands on a chain anchor to machine precision, and the tangent jump
+    the spine layer keeps at a curvature reversal travels as a segment corner.
+    The writer flips y once at the SVG boundary: the design stays +y up, and the
+    start at y = 0 sits at the bottom of the page.</p>
+  </div>
+</main>
+</body>
+</html>

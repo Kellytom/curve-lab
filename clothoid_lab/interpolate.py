@@ -28,6 +28,11 @@ class InterpolationError(ValueError):
     """The points or the directions cannot be fitted."""
 
 
+def _wrap(angle: float) -> float:
+    """Shortest signed turn, so a corner never says 359 degrees."""
+    return math.atan2(math.sin(angle), math.cos(angle))
+
+
 def design_from_spans(spans: list[dict], name: str = "from spans") -> Design:
     """One clothoid segment per cubic span, G1 at every join.
 
@@ -39,10 +44,17 @@ def design_from_spans(spans: list[dict], name: str = "from spans") -> Design:
 
     Spans are the dicts the rest of the package uses: `p0`, `c1`, `c2`, `p3`.
     The design is marked `g1`, because curvature is free to jump at the joins.
+
+    A span boundary need not be G1. The spine layer keeps a deliberate corner
+    at a curvature reversal, and a recovered drawing can carry one anywhere,
+    so the difference between one span's outgoing tangent and the next one's
+    incoming tangent becomes the next segment's `corner`. Dropping it would
+    silently rotate every later segment away from its own anchor.
     """
     if not spans:
         raise InterpolationError("no spans to convert")
     segments = []
+    previous_t1 = None
     for index, span in enumerate(spans):
         p0, p3 = span["p0"], span["p3"]
         chord = math.dist(p0, p3)
@@ -52,7 +64,10 @@ def design_from_spans(spans: list[dict], name: str = "from spans") -> Design:
         t0 = math.atan2(c1[1] - p0[1], c1[0] - p0[0])
         t1 = math.atan2(p3[1] - c2[1], p3[0] - c2[0])
         kappa, kd, length = fit(p0, t0, p3, t1)
-        segments.append(Segment(kd=kd, length=length, kappa0=kappa))
+        corner = 0.0 if previous_t1 is None else _wrap(t0 - previous_t1)
+        segments.append(Segment(kd=kd, length=length, kappa0=kappa,
+                                corner=corner))
+        previous_t1 = t1
     first = spans[0]
     t0 = math.atan2(first["c1"][1] - first["p0"][1],
                     first["c1"][0] - first["p0"][0])

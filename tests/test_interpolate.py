@@ -152,6 +152,18 @@ class TestDesignFromSpans(unittest.TestCase):
         self.assertAlmostEqual(start[0], 1.0, places=5)
         self.assertAlmostEqual(end[1], 1.0, places=5)
 
+    def test_corner_between_spans_is_carried(self):
+        first = {"p0": (0.0, 0.0), "c1": (3.0, 0.0), "c2": (8.0, 2.0),
+                 "p3": (10.0, 2.0)}
+        second = {"p0": (10.0, 2.0), "c1": (11.0, 4.0), "c2": (12.0, 8.0),
+                  "p3": (12.0, 10.0)}
+        design = interpolate.design_from_spans([first, second], name="corner")
+        self.assertNotAlmostEqual(design.segments[1].corner, 0.0, places=3)
+        chain = engine.build(design)
+        end = chain.point(chain.length)
+        self.assertAlmostEqual(end[0], 12.0, delta=1e-6)
+        self.assertAlmostEqual(end[1], 10.0, delta=1e-6)
+
     def test_rejects_empty(self):
         with self.assertRaises(interpolate.InterpolationError):
             interpolate.design_from_spans([])
