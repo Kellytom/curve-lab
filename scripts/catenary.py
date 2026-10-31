@@ -59,28 +59,28 @@ def branch(a: float, length: float, steps: int):
     return pts
 
 
-def integer_branch(a: float, length: float, band=(400, 500)):
-    """Walk the rungs. Each chord is the rung's own legs, so every node is an
-    integer and the height and width are whatever the walk accumulates.
+def integer_branch(a: float, length: float, target: float = 450.0):
+    """Walk the rungs. Each chord is a scaled rung, so every node is an integer
+    and the height and width are whatever the walk accumulates.
 
-    Nothing is fitted: the tangent only decides *which* rung to take next, and
-    the rung decides the step.  Choose a hypotenuse band and the whole curve
-    falls out of it, dimensions included.
+    The angle comes from the whole catalogue -- 65 rungs below 12 degrees, so
+    the flat part near the vertex is dense -- and the size comes from `target`,
+    the chord length the walk aims for.  Multiplying a rung by an integer keeps
+    both the angle and the lattice: m*(u, v) is still integer.
     """
-    rungs = [r for r in RUNGS if band[0] <= r["triple"][2] <= band[1]]
-    if not rungs:
-        raise ValueError(f"no triples with hypotenuse in {band}")
     pts = [(0, 0)]
     rows = []
     s = 0.0
     while s < length:
-        want = math.degrees(math.atan((s + 0.5 * band[0]) / a))
-        rung = min(rungs, key=lambda r: abs(r["deg"] - want))
+        want = math.degrees(math.atan((s + 0.5 * target) / a))
+        rung = min(RUNGS, key=lambda r: abs(r["deg"] - want))
         u, v, h = rung["triple"]
+        m = max(1, round(target / h))
+        u, v = m * u, m * v
         x, y = pts[-1]
         pts.append((x + u, y + v))
-        s += h
-        rows.append({"deg": rung["deg"], "triple": rung["triple"], "s": s})
+        s += m * h
+        rows.append({"deg": rung["deg"], "triple": rung["triple"], "m": m, "s": s})
     return pts, rows
 
 
@@ -229,10 +229,10 @@ def row_catenary(span: float, arc: float, n: int = 40):
             for x in (-span / 2 + span * i / n for i in range(n + 1))], a
 
 
-def walk_drape(a: float, split: float, band):
+def walk_drape(a: float, split: float, target: float):
     """Both branches walked on rungs; returns the chain and its exact size."""
-    up, _ = integer_branch(a, split * 2.2 * a, band)
-    down_pts, _ = integer_branch(a, (1 - split) * 2.2 * a, band)
+    up, _ = integer_branch(a, split * 2.2 * a, target)
+    down_pts, _ = integer_branch(a, (1 - split) * 2.2 * a, target)
     down = [(-x, y) for x, y in down_pts]
     down.reverse()
     chain = down + up[1:]
@@ -255,7 +255,7 @@ def integer_figure(pts, w=860.0, h=400.0, grid=True) -> str:
         return (dx + (p[0] - x0) * scale, h - (dy + (p[1] - y0) * scale))
 
     span = max(x1 - x0, y1 - y0)
-    step = 10 ** math.floor(math.log10(span / 14)) if span else 1
+    step = 10 ** math.floor(math.log10(span / 8)) if span else 1
     lines = []
     gx = math.floor(x0 / step) * step if grid else x1 + 1
     while gx <= x1:
@@ -535,12 +535,12 @@ window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)),
 
 
 VARIANTS = (
-    ("band 400–500 · split 0.62", (400, 500), 0.62),
-    ("band 200–300 · split 0.62", (200, 300), 0.62),
-    ("band 600–800 · split 0.62", (600, 800), 0.62),
-    ("band 400–500 · split 0.50", (400, 500), 0.50),
-    ("band 400–500 · split 0.75", (400, 500), 0.75),
-    ("band 1200–1600 · split 0.62", (1200, 1600), 0.62),
+    ("step 260 · split 0.62", 260.0, 0.62),
+    ("step 450 · split 0.62", 450.0, 0.62),
+    ("step 800 · split 0.62", 800.0, 0.62),
+    ("step 450 · split 0.50", 450.0, 0.50),
+    ("step 450 · split 0.75", 450.0, 0.75),
+    ("step 1400 · split 0.62", 1400.0, 0.62),
 )
 
 
@@ -552,9 +552,9 @@ def main() -> int:
     fig_main, up_rows, down_rows = fig_catenary(a, 0.62, steps)
 
     # the same drape, walked on rungs instead of fitted: integer every step
-    ia = 3300.0
-    up_i, ir = integer_branch(ia, 0.62 * 2.2 * ia)
-    down_pts_i, dr = integer_branch(ia, 0.38 * 2.2 * ia)
+    ia = 9000.0
+    up_i, ir = integer_branch(ia, 0.62 * 2.2 * ia, 450.0)
+    down_pts_i, dr = integer_branch(ia, 0.38 * 2.2 * ia, 450.0)
     down_i = [(-x, y) for x, y in down_pts_i]
     down_i.reverse()
     ichain = down_i + up_i[1:]
@@ -626,17 +626,18 @@ def main() -> int:
       ({100 * max(err_hi, err_lo) / total:.1f}% of arc)</p></div>
     <div class="three">{''.join(small)}</div>
     <p style="margin-top:14px"><strong>Every dial here is free.</strong> The
-    band picks which triples may be used and therefore how big a step is; the
-    split picks where the low point sits; the parameter <code>a</code> only
-    says how many steps fit. Change any of them and the drape comes out at a
+    step target says how long a chord to aim for; the split picks where the low
+    point sits; the radius <code>a</code> says how many steps fit around the
+    curve, and a bigger radius means each fixed-size chord subtends less angle,
+    so the vertex gets smoother without any new triples. Change any of them and the drape comes out at a
     different size, with different triples — and still every node an integer.
     Six walks, same rule, nothing fitted:</p>
     <div class="two">
       {''.join(
-        f'<figure style="margin:0">{integer_figure(walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[0], 430.0, 220.0, False)}'
-        f'<figcaption>{label}<br><strong>{walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[1]} × '
-        f'{walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[2]}</strong> · '
-        f'{len(walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[0]) - 1} chords</figcaption></figure>'
+        f'<figure style="margin:0">{integer_figure(walk_drape(6.5 * 900, sp, b)[0], 430.0, 220.0, False)}'
+        f'<figcaption>{label}<br><strong>{walk_drape(6.5 * 900, sp, b)[1]} × '
+        f'{walk_drape(6.5 * 900, sp, b)[2]}</strong> · '
+        f'{len(walk_drape(6.5 * 900, sp, b)[0]) - 1} chords</figcaption></figure>'
         for label, b, sp in VARIANTS)}
     </div>
     <p style="margin-top:14px"><strong>The governing rule: build with the
@@ -646,8 +647,8 @@ def main() -> int:
     off the result</em>. Nothing is fitted and nothing is rounded, so every node
     is an integer by construction.</p>
     <div class="strip">{integer_figure(ichain)}
-      <p><strong>Fig. 2</strong> · the walked chain · {len(ichain) - 1} chords
-      from {len(ir)} rungs in the {400}–{500} hypotenuse band ·
+      <p><strong>Fig. 2</strong> · the walked chain · {len(ir)} chords a side,
+      {len(ir)} steps of about 450 on a radius of {ia:.0f} ·
       <strong>{iwidth} × {iheight} units</strong> (exact integers) ·
       split {0.62:.2f} : {0.38:.2f}</p></div>
     <p style="margin-top:10px" class="next">The split is the only dial a
