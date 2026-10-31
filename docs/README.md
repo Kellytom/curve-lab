@@ -50,6 +50,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `branch-points.html` | `scripts/branch_points.py` |
 | `spiral-turns.html` | `scripts/spiral_turns.py` |
 | `curve-families.html` | `scripts/curve_families.py` |
+| `stage-two.html` | `scripts/stage_two.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |
