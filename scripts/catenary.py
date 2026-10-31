@@ -59,7 +59,8 @@ def branch(a: float, length: float, steps: int):
     return pts
 
 
-def integer_branch(a: float, length: float, target: float = 450.0):
+def integer_branch(a: float, length: float, target: float = 450.0,
+                   axis: str = "horizontal"):
     """Walk the rungs. Each chord is a scaled rung, so every node is an integer
     and the height and width are whatever the walk accumulates.
 
@@ -73,7 +74,8 @@ def integer_branch(a: float, length: float, target: float = 450.0):
     s = 0.0
     while s < length:
         want = math.degrees(math.atan((s + 0.5 * target) / a))
-        rung = min(RUNGS, key=lambda r: abs(r["deg"] - want))
+        key = "deg" if axis == "horizontal" else "deg_v"
+        rung = min(RUNGS, key=lambda r: abs(r[key] - want))
         u, v, h = rung["triple"]
         m = max(1, round(target / h))
         u, v = m * u, m * v
@@ -229,10 +231,11 @@ def row_catenary(span: float, arc: float, n: int = 40):
             for x in (-span / 2 + span * i / n for i in range(n + 1))], a
 
 
-def walk_drape(a: float, split: float, target: float):
+def walk_drape(a: float, split: float, target: float,
+               axis: str = "horizontal"):
     """Both branches walked on rungs; returns the chain and its exact size."""
-    up, _ = integer_branch(a, split * 2.2 * a, target)
-    down_pts, _ = integer_branch(a, (1 - split) * 2.2 * a, target)
+    up, _ = integer_branch(a, split * 2.2 * a, target, axis)
+    down_pts, _ = integer_branch(a, (1 - split) * 2.2 * a, target, axis)
     down = [(-x, y) for x, y in down_pts]
     down.reverse()
     chain = down + up[1:]
@@ -243,9 +246,9 @@ def walk_drape(a: float, split: float, target: float):
 
 
 def variant_card(letter: str, label: str, target: float, split: float,
-                 note: str = "") -> str:
+                 note: str = "", axis: str = "horizontal") -> str:
     """One walk card: the figure, its letter, and its exact size."""
-    chain, width, height = walk_drape(6.5 * 900, split, target)
+    chain, width, height = walk_drape(6.5 * 900, split, target, axis)
     return (f'<figure style="margin:0">'
             f'{integer_figure(chain, 430.0, 220.0, False)}'
             f'<figcaption><strong>Fig. {letter}</strong> \u00b7 {label}{note}<br>'
@@ -706,10 +709,14 @@ def main() -> int:
   <div class="panel">
     <p>The six walks again, <strong>copied</strong> rather than moved, so the
     set can be compared in one block while the arrangement is still open. Same
-    parameters as E–J and the same exact integers; each is labelled with the
-    figure it copies.</p>
+    parameters as E–J, same exact integers — but matched against the rung
+    angle <em>read from the vertical</em>, which is the mistake that made the
+    first version of these faces read as check marks. The mistake is kept
+    here on purpose: it is a different and useful face.</p>
     <div class="two">{''.join(
-      variant_card("NOPQRS"[i], label, b, sp, f' <em>(copy of {"EFGHIJ"[i]})</em>')
+      variant_card("NOPQRS"[i], label, b, sp,
+                   f' <em>(copy of {"EFGHIJ"[i]}, vertical-axis rungs)</em>',
+                   axis="vertical")
       for i, (label, b, sp) in enumerate(VARIANTS))}
     </div>
   </div>

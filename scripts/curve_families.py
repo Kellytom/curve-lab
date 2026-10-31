@@ -159,7 +159,12 @@ def ladder(max_h: int = 500, max_deg: float = 62.0):
                 if key in seen:
                     continue
                 seen.add(key)
-                rungs.append({"deg": ang, "triple": (legs[0], legs[1], h)})
+                rungs.append({"deg": ang,
+                              # the reading from the vertical: what the
+                              # original walk matched against, kept because
+                              # the shapes it made were worth keeping
+                              "deg_v": math.degrees(math.atan2(legs[0], legs[1])),
+                              "triple": (legs[0], legs[1], h)})
     rungs.sort(key=lambda r: r["deg"])
     return rungs
 
