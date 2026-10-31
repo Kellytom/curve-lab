@@ -49,6 +49,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `practical-curve.html` | `scripts/practical_curve.py` |
 | `branch-points.html` | `scripts/branch_points.py` |
 | `spiral-turns.html` | `scripts/spiral_turns.py` |
+| `curve-families.html` | `scripts/curve_families.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |
