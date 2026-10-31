@@ -59,6 +59,21 @@ def orient(points):
     return [(c * x - s * y, s * x + c * y) for x, y in points]
 
 
+def poly_points(power: float, turn: float, ds: float = 0.002):
+    """Generalized Euler spiral: kappa proportional to s**power."""
+    length = 1.0
+    c = turn * (power + 1) / length ** (power + 1)
+    x = y = s_arc = 0.0
+    pts = []
+    while s_arc <= length:
+        theta = c * s_arc ** (power + 1) / (power + 1)
+        pts.append((x, y))
+        x += ds * math.cos(theta)
+        y += ds * math.sin(theta)
+        s_arc += ds
+    return pts
+
+
 def aspect(points) -> float:
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
@@ -176,9 +191,10 @@ def main() -> int:
         rows.append((family, "".join(strips)))
 
     hip = "".join((
-        hip_strip("log spiral · 180°", fit_arc(lambda p: log_points(0.18, p), 4.8)),
+        hip_strip("log spiral · b = 1.6", fit_arc(lambda p: log_points(1.6, p), 4.8)),
+        hip_strip("polynomial spiral · κ ∝ s⁵·⁵",
+                  fit_arc(lambda p: poly_points(5.5, p), 4.8)),
         hip_strip("hyperbolic · 180° window", fit_hyper(4.8)[0]),
-        hip_strip("clothoid · 180°", fit_arc(clothoid_points, 4.8)),
     ))
     sections = "".join(
         f'<h2>{family}</h2><div class="panel">{strips}</div>'
@@ -237,11 +253,11 @@ def main() -> int:
 
   <h2>The real hip curve: 24 × 5 with a 180° hook</h2>
   <div class="panel">
-    <p>A 24 × 5 shape is 4.8:1. A single log-spiral or clothoid arc over 180°
-    only reaches about 2:1, so at 5 inches high it spans about 10–11 inches, not
-    24. The hyperbolic reaches 4.8:1 with a long asymptotic arm and a hook — the
-    closest single-curve match. If the real curve is a long arm followed by a
-    separate 180° hook, it is a compound, not one spiral.</p>
+    <p>A 24 × 5 shape is 4.8:1. The gentle log spiral (b = 0.18) and the
+    clothoid only reach about 2:1, but the sharpness is a parameter: a log spiral
+    at b ≈ 1.6, a polynomial spiral κ ∝ s⁵·⁵, and a hyperbolic window all reach
+    4.8:1 with a long arm and a 180° hook. The three panels are those sharp
+    members; the earlier 8-inch strips use the gentle ones.</p>
     {hip}
   </div>
 
