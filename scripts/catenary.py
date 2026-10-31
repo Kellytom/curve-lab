@@ -61,6 +61,108 @@ def branch(a: float, length: float, steps: int):
 
 
 
+
+def ph_explain(a: float) -> str:
+    """Three panels: the triple, the control polygon, the chain."""
+    # -- (i) the doubling: (4,3) aims at 36.87, (7,24) at 73.74 ------------
+    w = h = 280.0
+    ox, oy = 40.0, 210.0
+    L = 190.0
+
+    def tip(u, v, scale=None):
+        n = math.hypot(u, v)
+        k = (scale or L) / n
+        return ox + u * k, oy - v * k
+
+    a1 = tip(4, 3)
+    a2 = tip(7, 24)
+
+    def arc(deg, r, colour):
+        pts = [(ox + r * math.cos(math.radians(deg * i / 24)),
+                oy - r * math.sin(math.radians(deg * i / 24))) for i in range(25)]
+        return f'<path d="{path_d(pts)}" fill="none" stroke="{colour}" stroke-width="1.1"/>'
+
+    panel_i = f"""<svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="280" height="240" fill="#fff" stroke="{LINE}"/>
+    <line x1="{ox}" y1="{oy}" x2="270" y2="{oy}" stroke="{GRID}" stroke-width="1"/>
+    <line x1="{ox}" y1="{oy}" x2="{ox}" y2="20" stroke="{GRID}" stroke-width="1"/>
+    {arc(73.74, 96, GOLD)}
+    {arc(36.87, 62, INK)}
+    <line x1="{ox}" y1="{oy}" x2="{a1[0]:.1f}" y2="{a1[1]:.1f}" stroke="{INK}" stroke-width="2"/>
+    <line x1="{ox}" y1="{oy}" x2="{a2[0]:.1f}" y2="{a2[1]:.1f}" stroke="{GOLD}" stroke-width="2"/>
+    <circle cx="{a1[0]:.1f}" cy="{a1[1]:.1f}" r="3" fill="{INK}"/>
+    <circle cx="{a2[0]:.1f}" cy="{a2[1]:.1f}" r="3" fill="{GOLD}"/>
+    <text x="{a1[0] + 6:.0f}" y="{a1[1] - 4:.0f}" font-size="10"
+          font-family="ui-monospace,monospace" fill="{INK}">(4,3)</text>
+    <text x="{a2[0] + 6:.0f}" y="{a2[1] + 2:.0f}" font-size="10"
+          font-family="ui-monospace,monospace" fill="{GOLD}">(7,24)</text>
+    <text x="14" y="228" font-size="10" font-family="ui-monospace,monospace"
+          fill="#7b6c4e">36.87 x 2 = 73.74</text>
+  </svg>"""
+
+    # -- (ii) one real segment and its control polygon ---------------------
+    s_mid = a * 0.45
+    s1 = a * 0.42
+    seg, legs = from_hermite(cat(a, s_mid), math.atan(s_mid / a),
+                            cat(a, s_mid + s1), math.atan((s_mid + s1) / a))
+    cps = seg.control_points()
+    curve = [seg.point(j / 40) for j in range(41)]
+    truth = [cat(a, s_mid + s1 * j / 40) for j in range(41)]
+    everything = curve + truth + list(cps)
+    xs = [p[0] for p in everything]; ys = [p[1] for p in everything]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 50) / (x1 - x0), (h - 50) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at(p):
+        return (px + (p[0] - x0) * k, h - (py + (p[1] - y0) * k))
+
+    poly = path_d([at(p) for p in cps])
+    panel_ii = f"""<svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="280" height="240" fill="#fff" stroke="{LINE}"/>
+    <path d="{path_d([at(p) for p in truth])}" fill="none" stroke="{GOLD}"
+          stroke-width="1.3" stroke-dasharray="5 4"/>
+    <path d="{poly}" fill="none" stroke="#c9a441" stroke-width="1.6" stroke-dasharray="4 3"/>
+    <path d="{path_d([at(p) for p in curve])}" fill="none" stroke="{INK}" stroke-width="2.2"/>
+    {''.join(f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="2.6" fill="{INK}"/>'
+             f'<text x="{at(p)[0] + 5:.0f}" y="{at(p)[1] - 5:.0f}" font-size="9" '
+             f'font-family="ui-monospace,monospace" fill="{GOLD}">p{i}</text>'
+             for i, p in enumerate(cps))}
+    <text x="14" y="228" font-size="10" font-family="ui-monospace,monospace"
+          fill="#7b6c4e">legs L1 L2 L3, L1 L3 = L2^2, polygon hugs</text>
+  </svg>"""
+
+    # -- (iii) four of them over the catenary ------------------------------
+    total = 2.2 * a
+    chain = []
+    for i in range(4):
+        s0_, s1_ = 0.62 * total * i / 4, 0.62 * total * (i + 1) / 4
+        sg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
+                             math.atan(s1_ / a))
+        chain.append([sg.point(j / 20) for j in range(21)])
+    flat = [p for c in chain for p in c]
+    xs = [p[0] for p in flat]; ys = [p[1] for p in flat]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 44) / (x1 - x0), (h - 44) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at3(p):
+        return (px + (p[0] - x0) * k, h - (py + (p[1] - y0) * k))
+
+    panel_iii = f"""<svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="280" height="240" fill="#fff" stroke="{LINE}"/>
+    <path d="{path_d([at3(cat(a, 0.62 * total * j / 160)) for j in range(161)])}"
+          fill="none" stroke="{GOLD}" stroke-width="1.3" stroke-dasharray="5 4"/>
+    {''.join(f'<path d="{path_d([at3(p) for p in c])}" fill="none" stroke="{INK}" stroke-width="1.8"/>' for c in chain)}
+    <text x="14" y="228" font-size="10" font-family="ui-monospace,monospace"
+          fill="#7b6c4e">four segments, error 0.003% of a</text>
+  </svg>"""
+
+    return f'<div class="three">{panel_i}{panel_ii}{panel_iii}</div>'
+
+
 def ph_chain(a: float, s_end: float, n: int):
     """n PH cubics from the vertex out to s_end, each fitted by its two ends."""
     segs = []
@@ -830,6 +932,30 @@ def main() -> int:
                f"<td>{100 * ph_error(a, 0.62 * 2.2 * a, n) / a:.4f}%</td></tr>"
                for n in (1, 2, 4, 8))}
     </table></div>
+    <p><strong>Where the sines went.</strong> Nothing above needs them. A
+    direction is carried as the integer pair <code>(u, v)</code>; its triple is
+    <code>(u, v, h)</code> with <code>h = √(u²+v²)</code>. The half-turn the fit
+    needs is then the angle <em>between two integer vectors</em>, which is a dot
+    and a cross:</p>
+    <p style="margin:0 0 10px"><code>cos α = (u₀u₁ + v₀v₁)/(h₀h₁)</code> ·
+    <code>sin α = (u₀v₁ − v₀u₁)/(h₀h₁)</code></p>
+    <p>and the tangent's doubling disappears into Euclid,
+    <code>cos θ = (u²−v²)/(u²+v²)</code>, <code>sin θ = 2uv/(u²+v²)</code>.
+    Run both versions of the fit and they agree to the last digit — same
+    segment, same control points, one with <code>atan2</code>, one with only
+    dot and cross.</p>
+    {ph_explain(a)}
+    <p style="margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted)">
+    <strong>Fig. O</strong> · (i) the pair (4,3) doubles to the triple (7,24) —
+    the tangent is twice the direction · (ii) one segment and its three legs,
+    with L₁L₃ = L₂² · (iii) four segments over the catenary</p>
+    <p style="margin-top:10px"><strong>Where a square root survives.</strong>
+    One, and only one: <code>k = √(L₃/L₁)</code>, the growth between legs. Solve
+    the quadratic in <code>k</code> and it is exact whenever the discriminant is
+    a perfect square — that is the arithmetic condition for a segment whose
+    control points land on the lattice, and it is a property of the <em>pair of
+    triples</em>, not of the curve.</p>
+
     <p style="margin-top:10px"><strong>Where the cubic and the catenary are the
     same curve.</strong> Position and tangent are exact at both ends by
     construction; the curvature is not. Measure it and the span decides
@@ -855,7 +981,7 @@ def main() -> int:
     first version of these faces read as check marks. The mistake is kept
     here on purpose: it is a different and useful face.</p>
     <div class="two">{''.join(
-      variant_card("OPQRST"[i], label, b, sp,
+      variant_card("PQRSTU"[i], label, b, sp,
                    f' <em>(copy of {"EFGHIJ"[i]}, vertical-axis rungs)</em>',
                    axis="vertical")
       for i, (label, b, sp) in enumerate(VARIANTS))}

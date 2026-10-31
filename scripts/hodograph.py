@@ -152,3 +152,62 @@ def from_hermite(p0, theta0, p3, theta1):
     u1 = math.sqrt(3 * l3) * math.cos(theta1 / 2.0)
     v1 = math.sqrt(3 * l3) * math.sin(theta1 / 2.0)
     return PHCubic(u0, v0, u1, v1, origin=p0), (l1, l2, l3)
+
+
+def from_pairs(p0, u0, v0, p3, u1, v1):
+    """The same fit as from_hermite, with no sine, cosine or arctangent.
+
+    A direction is carried as the integer pair (u, v) -- the triple is
+    (u, v, h).  The angles the Hermite fit needs then come from dot and cross:
+
+        cos(alpha) = (u0 u1 + v0 v1) / (h0 h1)
+        sin(alpha) = (u0 v1 - v0 u1) / (h0 h1)
+
+    with alpha half the turn, because the tangent angle is twice arg(u + iv).
+    Dividing a vector by its own hypotenuse is the only normalisation, and it
+    cancels everywhere below, so the arithmetic stays in integers until the
+    quadratic root.
+    """
+    h0 = math.hypot(u0, v0)
+    h1 = math.hypot(u1, v1)
+    c0, s0 = u0 / h0, v0 / h0
+    ca = (u0 * u1 + v0 * v1) / (h0 * h1)
+    sa = (u0 * v1 - v0 * u1) / (h0 * h1)
+    theta0 = math.atan2(v0, u0) * 2.0
+
+    dx, dy = p3[0] - p0[0], p3[1] - p0[1]
+    a_ = dx * c0 + dy * s0
+    b_ = -dx * s0 + dy * c0
+    c2, s2 = ca * ca - sa * sa, 2 * ca * sa
+
+    A = b_ * c2 - a_ * s2
+    B = b_ * ca - a_ * sa
+    C = b_
+    if abs(A) < 1e-12:
+        roots = [-C / B] if abs(B) > 1e-12 else []
+    else:
+        disc = B * B - 4 * A * C
+        if disc < 0:
+            raise ValueError("no real PH cubic")
+        roots = [(-B + math.sqrt(disc)) / (2 * A), (-B - math.sqrt(disc)) / (2 * A)]
+
+    best = None
+    for k in roots:
+        denom = 1 + k * ca + k * k * c2
+        if abs(denom) < 1e-12:
+            continue
+        l1 = a_ / denom
+        l2, l3 = k * l1, k * k * l1
+        if l1 > 0 and l2 > 0 and l3 > 0 and (best is None or l2 < best[0]):
+            best = (l2, (l1, l2, l3))
+    if best is None:
+        raise ValueError("no positive-leg solution")
+    l1, l2, l3 = best[1]
+    # u, v here are the hodograph pair: |u+iv| = sqrt(3L), arg = theta/2 = arg(w)
+    gu = u0 / h0
+    gv = v0 / h0
+    e1u = u1 / h1
+    e1v = v1 / h1
+    return PHCubic(math.sqrt(3 * l1) * gu, math.sqrt(3 * l1) * gv,
+                   math.sqrt(3 * l3) * e1u, math.sqrt(3 * l3) * e1v,
+                   origin=p0), (l1, l2, l3)
