@@ -101,16 +101,39 @@ def fit_hyper(target: float):
     return orient(hyper_points(t0, phi)), t0, phi
 
 
-def placed(points, h: float):
+def placed(points, h: float, w: float = W):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    scale = min((W - 2 * MARGIN) / max(x1 - x0, 1e-9),
+    scale = min((w - 2 * MARGIN) / max(x1 - x0, 1e-9),
                 (h - 2 * MARGIN) / max(y1 - y0, 1e-9))
-    dx = (W - (x1 - x0) * scale) / 2
+    dx = (w - (x1 - x0) * scale) / 2
     dy = (h - (y1 - y0) * scale) / 2
     return [(dx + (x - x0) * scale, h - (dy + (y - y0) * scale))
             for x, y in points]
+
+
+
+def hip_strip(label: str, points) -> str:
+    """A 24 x 5 inch frame (100 units per inch), curve scaled to fit."""
+    w, h = 2400.0, 500.0
+    pts = placed(points, h, w)
+    d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f} {y:.2f}"
+                 for i, (x, y) in enumerate(pts))
+    grid = "".join(f'<line x1="{i * 100}" y1="0" x2="{i * 100}" y2="{h}"/>'
+                   for i in range(1, 24))
+    grid += "".join(f'<line x1="0" y1="{i * 100}" x2="{w}" y2="{i * 100}"/>'
+                    for i in range(1, 5))
+    fill = min(24.0, 5.0 * aspect(points))
+    return f"""<div class="strip">
+  <svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#e8dfc8" stroke-width="0.6">{grid}</g>
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="none"
+          stroke="#d8ccae" stroke-width="1"/>
+    <path d="{d}" fill="none" stroke="#2e2413" stroke-width="2.2"/>
+  </svg>
+  <p><strong>{label}</strong> · at 5 in high it spans {fill:.1f} in of 24</p>
+</div>"""
 
 
 def strip(label: str, points, n: int) -> str:
@@ -152,6 +175,11 @@ def main() -> int:
             strips.append(strip(label, points, n))
         rows.append((family, "".join(strips)))
 
+    hip = "".join((
+        hip_strip("log spiral · 180°", fit_arc(lambda p: log_points(0.18, p), 4.8)),
+        hip_strip("hyperbolic · 180° window", fit_hyper(4.8)[0]),
+        hip_strip("clothoid · 180°", fit_arc(clothoid_points, 4.8)),
+    ))
     sections = "".join(
         f'<h2>{family}</h2><div class="panel">{strips}</div>'
         for family, strips in rows)
@@ -205,6 +233,16 @@ def main() -> int:
     <p>Shallow strips are small turns; tall strips are large turns. Compare the
     <em>asymmetry</em>: a log spiral tightens toward one end by a fixed ratio;
     a clothoid tightens continuously; a hyperbolic has a long asymptotic arm.</p>
+  </div>
+
+  <h2>The real hip curve: 24 × 5 with a 180° hook</h2>
+  <div class="panel">
+    <p>A 24 × 5 shape is 4.8:1. A single log-spiral or clothoid arc over 180°
+    only reaches about 2:1, so at 5 inches high it spans about 10–11 inches, not
+    24. The hyperbolic reaches 4.8:1 with a long asymptotic arm and a hook — the
+    closest single-curve match. If the real curve is a long arm followed by a
+    separate 180° hook, it is a compound, not one spiral.</p>
+    {hip}
   </div>
 
   {sections}
