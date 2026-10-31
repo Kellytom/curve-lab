@@ -145,58 +145,48 @@ def path_d(points) -> str:
                     for i, (x, y) in enumerate(points))
 
 
-ALPHA = math.atan2(7.0, 24.0)          # the 7-24-25 angle: 16.26 degrees
+THIN = (237, 3116, 3125)      # a thin p-triple: 4.35 degrees a chord
+THICK = (7, 24, 25)           # the wide one: 16.26 degrees a chord
 
 
-def doubling_chain(top: int = 10, base: float = 25.0):
+def triple_angle(triple) -> float:
+    """The thin angle of a p-triple -- the turn contributed by one chord."""
+    return math.atan2(triple[0], triple[1])
+
+
+def doubling_chain(top: int, triple=THIN):
     """Stack k = top, top-1, ... 1 triangles; the triple doubles each stack.
 
-    One chord per triangle, the heading turning ALPHA at every chord.  The angle
-    is the same in every stack -- (14,48,50) and (28,96,100) are the same shape
-    as (7,24,25) -- so doubling changes the chord and never the turn.
+    One chord per triangle, the heading turning by the triple's angle at every
+    chord.  A doubled triple is the same shape -- (474,6232,6250) has the same
+    angle as (237,3116,3125) -- so doubling changes the chord, never the turn.
     """
+    alpha = triple_angle(triple)
     x = y = heading = 0.0
     pts = [(0.0, 0.0)]
     for i, k in enumerate(range(top, 0, -1)):
-        chord = base * 2.0 ** i
+        chord = float(triple[2]) * 2.0 ** i
         for _ in range(k):
             x += chord * math.cos(heading)
             y += chord * math.sin(heading)
             pts.append((x, y))
-            heading += ALPHA
+            heading += alpha
     return pts
 
 
-def stack_rows(top: int = 10, base: float = 25.0):
-    """What the recipe does, stack by stack, in its own numbers."""
-    rows, turn = [], 0
-    for i, k in enumerate(range(top, 0, -1)):
-        chord = base * 2.0 ** i
-        turn += k * ALPHA
-        rows.append({
-            "k": k,
-            "triple": f"{7 << i}-{24 << i}-{25 << i}",
-            "chord": chord,
-            "turn": math.degrees(turn),
-            "radius": chord / ALPHA,
-            # doubling one stack costs k*ALPHA of turn: d ln r / d theta
-            "b": math.log(2.0) / (k * ALPHA),
-        })
-    return rows
-
-
-def doubling_gap(top: int = 10) -> dict:
+def series_top(top: int, triple=THIN) -> dict:
+    """What a stack of k = top ... 1 does, in its own numbers."""
+    alpha = triple_angle(triple)
     chords = top * (top + 1) // 2
-    turn = chords * ALPHA
-    rows = stack_rows(top)
+    turn = chords * alpha
     return {
+        "top": top,
         "chords": chords,
         "turn": math.degrees(turn),
         "growth": 2.0 ** (top - 1),
         "b_eff": math.log(2.0 ** (top - 1)) / turn,
-        "b_hook": rows[0]["b"],
-        "b_arm": rows[-1]["b"],
-        "hook_180": math.degrees(turn) / 180.0,
+        "b_in": math.log(2.0) / (top * alpha),
+        "b_out": math.log(2.0) / alpha,
     }
 
 
@@ -276,120 +266,147 @@ def curve_gap(a, b):
     return 100.0 * sum(d) / len(d) / diag, 100.0 * max(d) / diag
 
 
-def doubling_section() -> str:
-    """The user's construction, drawn and measured."""
-    top = 10
-    st = doubling_gap(top)
-    rows = stack_rows(top)
-    chain = doubling_chain(top)
-
-    # -- the whole chain, square frame, stack boundaries dotted ----------
-    draw, _ = fitter(chain, 760, 760)
-    pts = draw(chain)
-    d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f} {y:.2f}"
-                 for i, (x, y) in enumerate(pts))
-    start, dots = 0, []
-    for k in range(top, 0, -1):
-        dots.append(f'<circle cx="{pts[start][0]:.1f}" cy="{pts[start][1]:.1f}" r="4"/>')
-        start += k
-    whole = f"""<div class="strip">
+def square_panel(points, caption: str, top: int | None = None) -> str:
+    """A square panel; `top` marks the stack boundaries with dots."""
+    draw, _ = fitter(points, 760, 760)
+    pts = draw(points)
+    dots = ""
+    if top:
+        start, circles = 0, []
+        for k in range(top, 0, -1):
+            circles.append(f'<circle cx="{pts[start][0]:.1f}" '
+                           f'cy="{pts[start][1]:.1f}" r="4"/>')
+            start += k
+        dots = f'<g fill="#8c6a21">{"".join(circles)}</g>'
+    return f"""<div class="strip">
   <svg viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="760" height="760" fill="#fff"
           stroke="#d8ccae" stroke-width="1"/>
-    <path d="{d}" fill="none" stroke="#2e2413" stroke-width="2.2"/>
-    <g fill="#8c6a21">{''.join(dots)}</g>
+    <path d="{path_d(pts)}" fill="none" stroke="#2e2413" stroke-width="2.2"/>
+    {dots}
   </svg>
-  <p><strong>all {st['chords']} chords</strong> · {st['turn']:.0f}° of turn ·
-  radius grows {st['growth']:.0f}× from hook to arm · one dot per stack</p>
+  <p>{caption}</p>
 </div>"""
 
-    # -- against the hip spiral the page already uses (b = 1.6) ----------
+
+def triple_label(triple) -> str:
+    return "-".join(str(v) for v in triple)
+
+
+def counts_table(triple, counts, chosen: int) -> str:
+    rows = []
+    for n in counts:
+        st = series_top(n, triple)
+        fill = 5.0 * aspect(doubling_chain(n, triple))
+        mark = ' class="now"' if n == chosen else ""
+        rows.append(
+            f"<tr{mark}><td>{n}..1</td><td>{st['chords']}</td>"
+            f"<td>{st['turn']:.0f}°</td><td>{st['growth']:.0f}×</td>"
+            f"<td>{st['b_eff']:.2f}</td><td>{fill:.1f} in</td></tr>")
+    return f"""<table>
+      <tr><th>stacks</th><th>chords</th><th>turn</th><th>growth</th>
+      <th>b</th><th>fills at 5 in</th></tr>
+      {"".join(rows)}
+    </table>"""
+
+
+def doubling_section() -> str:
+    """The doubling stack for two triples: one compact, one reaching."""
     hip_log = fit_arc(lambda p: log_points(1.6, p), 4.8)
-    fit4 = fitter(doubling_chain(4), 500, 2400, 45.0)[0]
-    cut_gap = curve_gap(fit4(doubling_chain(4)),
-                        fitter(hip_log, 500, 2400, 45.0)[0](hip_log))
+    cases = ((THICK, 4), (THIN, 9))
 
-    # -- where 180 degrees actually lands --------------------------------
-    cuts = "".join((
-        hip_strip("4 stacks (10 chords) · 163°", doubling_chain(4),
-                  margin=45.0, over=hip_log,
-                  note=f"· over the b = 1.6 spiral (gold), mean offset "
-                       f"{cut_gap[0]:.1f}%"),
-        hip_strip("5 stacks (15 chords) · 244°", doubling_chain(5),
-                  margin=45.0),
-    ))
+    panels, tables = [], []
+    stats = {}
+    for triple, top in cases:
+        chain = doubling_chain(top, triple)
+        st = series_top(top, triple)
+        stats[triple] = st
+        label = triple_label(triple)
+        fill = 5.0 * aspect(chain)
 
-    # -- against the hip spiral the page already uses (b = 1.6) ----------
-    draw_c, _ = fitter(chain, 500, 2400)
-    draw_g, _ = fitter(hip_log, 500, 2400)
-    ink = draw_c(chain)
-    gold = draw_g(hip_log)
-    d_ink = path_d(ink)
-    d_gold = path_d(gold)
-    grid = "".join(f'<line x1="{i * 100}" y1="0" x2="{i * 100}" y2="500"/>'
-                   for i in range(1, 24))
-    grid += "".join(f'<line x1="0" y1="{i * 100}" x2="2400" y2="{i * 100}"/>'
-                    for i in range(1, 5))
-    hip_gap = curve_gap(ink, gold)
-    hip_fill = 5.0 * aspect(chain)
-    hip_panel = f"""<div class="strip">
-  <svg viewBox="0 0 2400 500" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#e8dfc8" stroke-width="0.6">{grid}</g>
-    <rect x="0" y="0" width="2400" height="500" fill="none"
-          stroke="#d8ccae" stroke-width="1"/>
-    <path d="{d_gold}" fill="none" stroke="#c9a441" stroke-width="5"
-          stroke-dasharray="14 10" stroke-linecap="round"/>
-    <path d="{d_ink}" fill="none" stroke="#2e2413" stroke-width="2.4"/>
-  </svg>
-  <p><strong>the doubling stack</strong> (ink) against
-  <strong>the b = 1.6 hip spiral</strong> (gold) in the same 24 × 5 frame ·
-  the chain fills {hip_fill:.1f} in of the 24 and is rounder than the slot,
-  mean offset {hip_gap[0]:.1f}% of the frame, worst {hip_gap[1]:.1f}%</p>
-</div>"""
+        panels.append(square_panel(
+            chain,
+            f"<strong>{label}, {top} stacks</strong> · {st['chords']} chords "
+            f"· {st['turn']:.0f}° of turn · radius grows {st['growth']:.0f}× "
+            f"· one dot per stack", top=top))
 
-    table_rows = []
-    for r in rows:
-        table_rows.append(
-            f"<tr><td>{r['k']}</td><td>{r['triple']}</td>"
-            f"<td>{r['chord']:.0f}</td><td>{r['turn']:.0f}°</td>"
-            f"<td>{r['radius']:.0f}</td><td>{r['b']:.2f}</td></tr>")
-    table = "".join(table_rows)
+        ink = fitter(chain, 500, 2400, 45.0)[0](chain)
+        gold = fitter(hip_log, 500, 2400, 45.0)[0](hip_log)
+        gap = curve_gap(ink, gold)
+        panels.append(hip_strip(
+            f"{label} · {top} stacks · {st['turn']:.0f}°", chain,
+            margin=45.0, over=hip_log,
+            note=f"· over the b = 1.6 hip spiral (gold) · mean offset "
+                 f"{gap[0]:.1f}% of the frame"))
+
+        counts = (3, 4, 5) if triple is THICK else (7, 8, 9, 10, 11)
+        tables.append(counts_table(triple, counts, top))
+
+    thick_st, thin_st = stats[THICK], stats[THIN]
+    thick_fill = 5.0 * aspect(doubling_chain(4, THICK))
+    thin_fill = 5.0 * aspect(doubling_chain(9, THIN))
 
     return f"""
   <h2>The doubling stack</h2>
   <div class="panel">
-    <p>Ten triangles of 7-24-25, then nine of 14-48-50, then eight of
-    28-96-100, down to one. The angle is the same in every stack — a doubled
-    triple is the same <em>shape</em> — so the chord doubles and the turn never
+    <p>Stack k triangles, then k-1 of the same shape at twice the size, down to
+    one. A doubled triple is the same <em>shape</em> — (474,6232,6250) has the
+    same angle as (237,3116,3125) — so the chord grows and the turn never
     changes. That is what makes it a log spiral: radius and arc grow together.
     Read from the tight end it is a hook, then a sweep that runs away.</p>
-    {whole}
-    {hip_panel}
+    <p>Two triples carry the work, and both are good:</p>
+    <table>
+      <tr><th>triple</th><th>angle per chord</th><th>the hook arrives at</th>
+      <th>reach</th></tr>
+      <tr><td>7-24-25</td><td>16.26°</td><td>4 stacks · 163°</td>
+      <td>compact · {thick_fill:.1f} in of the 24</td></tr>
+      <tr class="now"><td>237-3116-3125</td><td>4.35°</td>
+      <td>9 stacks · 196°</td><td>long · {thin_fill:.1f} in of the 24</td></tr>
+    </table>
+    <p style="margin-top:10px">The angle is the lever: a chord of the wide
+    triple turns 3.7 times as far as one of the thin, so the same schedule gives
+    a compact hook or a long reaching one. Which you want is a choice about the
+    garment, not about the maths.</p>
   </div>
 
-  <h2>What the series actually delivers</h2>
+  <h2>The two landings</h2>
   <div class="panel">
-    <div class="scroll"><table>
-      <tr><th>stack</th><th>triple</th><th>chord</th><th>turn so far</th>
-      <th>radius</th><th>b here</th></tr>
-      {table}
-    </table></div>
-    <p style="margin-top:10px">The last column is the local log-spiral rate
-    <em>b = ln 2 / (k · α)</em> for a stack of k triangles: the doubling
-    always doubles, but the turn it is spread over shrinks, so b climbs from
-    {st['b_hook']:.2f} at the hook to {st['b_arm']:.2f} at the outer end. No
-    single b describes the curve; over its whole length it acts like
-    b = {st['b_eff']:.2f}. The hip panel wants b ≈ 1.6, which this schedule
-    passes through only at the last two stacks.</p>
-    <p>The series is also {st['hook_180']:.1f} times too long for a 180° hook:
-    {st['chords']} chords at {math.degrees(ALPHA):.2f}° is {st['turn']:.0f}°.
-    Cut it at four or five stacks and the hook lands at 163° or 244°, which is
-    why those two strips follow. Cutting the length does not fix the
-    <em>proportion</em>, though — every stack both doubles the radius and turns,
-    so a longer arm means more turn. To get 4.8:1 you have to break that
-    coupling: fewer chords per stack (thinner turning), or grow by more than 2×
-    per stack.</p>
-    {cuts}
+    <p>Each triple at the stack count where the hook comes out near 180°,
+    then the same chain over the b = 1.6 hip spiral from the panel above,
+    in the same 24 × 5 frame.</p>
+    {panels[0]}
+    {panels[1]}
+    {panels[2]}
+    {panels[3]}
+  </div>
+
+  <h2>How many stacks</h2>
+  <div class="panel">
+    <div class="tables">
+      <div><h3>7-24-25</h3>{tables[0]}</div>
+      <div><h3>237-3116-3125</h3>{tables[1]}</div>
+    </div>
+    <p style="margin-top:12px">Turn grows with the square of the count and
+    growth doubles with the count, so the count sets both at once. The wide
+    triple lands on the hook at four stacks: {thick_st['turn']:.0f}°, but only
+    {thick_st['growth']:.0f}× growth over it, so b = {thick_st['b_eff']:.2f} —
+    a compact hook, rounder than the hip spiral. The thin one needs nine for
+    {thin_st['turn']:.0f}°, and because it has grown
+    {thin_st['growth']:.0f}× over that same turn, b =
+    {thin_st['b_eff']:.2f}, which is the panel's 1.6.</p>
+    <p>So the angle sets the count, and the count sets the rate: to hold a hook
+    near 180° the wide triple can only afford four stacks, the thin one nine.
+    That is why the two triples land on different curves — same law, same hook,
+    one compact and one reaching. Both are worth keeping for that reason.</p>
+    <p>The fill column is a bounding-box measure, so it swings when the last
+    chord doubles back over the start — eight stacks of the thin triple do
+    exactly that. Read the turn column for the hook and the fill column for the
+    slot, and expect them to disagree by a stack.</p>
+    <p>No single b describes either chain: the doubling is constant, but the
+    turn it is spread over shrinks, so the thin curve runs from
+    {thin_st['b_in']:.1f} at the hook to {thin_st['b_out']:.1f} at the last
+    chord, and the wide one from {thick_st['b_in']:.1f} to
+    {thick_st['b_out']:.1f}. The tables' b is the average over the whole run.</p>
   </div>
 """
 
@@ -450,12 +467,17 @@ def main() -> int:
   table {{ border-collapse:collapse; width:100%; font:12px/1.5 var(--mono); }}
   th, td {{ border-bottom:1px solid var(--line); padding:6px 4px; text-align:left; }}
   th {{ color:var(--muted); font-weight:500; }}
+  tr.now td {{ background:#fbf3dc; font-weight:600; }}
+  .tables {{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }}
+  .tables h3 {{ font:600 11px/1.3 var(--mono); letter-spacing:.08em;
+    color:var(--gold); margin:0 0 6px; }}
   .scroll {{ overflow-x:auto; }}
   .back {{ font:12px var(--mono); margin-bottom:16px; }}
   a {{ color:var(--gold); }}
   @media (max-width:620px) {{
     main {{ padding:22px 14px 60px; }}
     table {{ font-size:10px; }} th,td {{ padding:4px 2px; }}
+    .tables {{ grid-template-columns:1fr; }}
   }}
 </style>
 </head>
