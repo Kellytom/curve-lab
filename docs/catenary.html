@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catenary sandbox: triples and drapery</title>
+<style>
+  :root { color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
+    --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
+    --mono: ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --serif:"EB Garamond",Georgia,"Palatino Linotype",Palatino,serif; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font:16px/1.55 var(--serif);
+    background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }
+  main { max-width: 920px; margin: 0 auto; padding: 34px 22px 70px; }
+  h1 { font-size: 25px; margin: 0 0 4px; text-wrap: balance; }
+  .lead { color: var(--gold); margin: 0 0 18px; }
+  h2 { font: 600 11px/1.2 var(--mono); letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin:30px 0 8px; }
+  h2 span { color: var(--gold); }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:6px; padding:12px; }
+  .strip { margin: 0 0 14px; }
+  .strip:last-child { margin-bottom: 0; }
+  .strip svg { display:block; width:100%; height:auto; background:#fff;
+    border:1px solid var(--line); border-radius:3px; }
+  .strip p { margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted); }
+  .strip strong { color:var(--ink); }
+  table { border-collapse:collapse; width:100%; font:12px/1.5 var(--mono); }
+  th, td { border-bottom:1px solid var(--line); padding:6px 4px; text-align:left; }
+  th { color:var(--muted); font-weight:500; }
+  .scroll { overflow-x:auto; }
+  .back { font:12px var(--mono); margin-bottom:16px; }
+  code { font:12px var(--mono); color:var(--gold); }
+  a { color: var(--gold); }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .three { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .three figure { margin:0; }
+  .three figcaption { font:10px/1.3 var(--mono); color:var(--muted); margin-top:4px; }
+  #view { width:100%; height:440px; background:#fff; border:1px solid var(--line);
+    border-radius:3px; display:block; cursor:grab; }
+  #view:active { cursor:grabbing; }
+  .controls { display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+    font:11px var(--mono); color:var(--muted); margin:8px 0 0; }
+  .controls input[type=range] { width:130px; accent-color:#8c6a21; }
+  .controls label { display:flex; gap:6px; align-items:center; }
+  .next { border-left:3px solid var(--gold); padding-left:10px; color:var(--muted); }
+  @media (max-width:620px) {
+    main { padding:22px 14px 60px; }
+    table { font-size:10px; } th,td { padding:4px 2px; }
+    .two, .three { grid-template-columns:1fr; }
+  }
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<main>
+  <p class="back"><a href="sandbox.html">← sandbox</a> ·
+  <a href="stage-two.html">the stage II page</a></p>
+  <h1>Catenary sandbox</h1>
+  <p class="lead">Two projects running side by side: one hangs a catenary on
+  pythagorean triangles, the other drapes a cloth on catenaries.</p>
+
+  <h2>A · <span>the catenary, chained from triples</span></h2>
+  <div class="panel">
+    <p>A catenary asks for a tangent angle that changes with arc length:
+    <code>tan θ = s/a</code>. The chain here may only take directions that a
+    pythagorean triple can make, so each step snaps θ to the nearest rung of a
+    110-rung ladder, then lays a chord of the arc length that step
+    deserves. Every chord is the hypotenuse of a real triangle — two of them
+    are drawn on each end.</p>
+    <p>The two branches share one catenary. Down to the vertex is
+    <em>toward the focus</em>; up from it is <em>away</em>. The split sets how
+    much of the curve each side owns, and since height rises with arc, the side
+    that owns more is also the higher anchor. At 0.62 : 0.38 the
+    high anchor sits 71 above the vertex and the low one
+    32.</p>
+    <div class="strip"><svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="860" height="380" fill="#fff"
+          stroke="#d8ccae" stroke-width="1"/>
+    <path d="M 40.00 212.03 L 41.33 213.14 L 42.67 214.25 L 44.01 215.36 L 45.35 216.46 L 46.70 217.56 L 48.04 218.65 L 49.39 219.74 L 50.75 220.83 L 52.10 221.92 L 53.46 223.00 L 54.82 224.08 L 56.19 225.15 L 57.55 226.22 L 58.92 227.29 L 60.30 228.36 L 61.67 229.42 L 63.05 230.47 L 64.43 231.53 L 65.81 232.58 L 67.20 233.62 L 68.59 234.67 L 69.98 235.70 L 71.38 236.74 L 72.77 237.77 L 74.17 238.80 L 75.58 239.82 L 76.98 240.84 L 78.39 241.86 L 79.80 242.87 L 81.22 243.88 L 82.63 244.88 L 84.05 245.88 L 85.48 246.88 L 86.90 247.87 L 88.33 248.86 L 89.76 249.84 L 91.19 250.82 L 92.63 251.80 L 94.07 252.77 L 95.51 253.73 L 96.96 254.70 L 98.40 255.66 L 99.86 256.61 L 101.31 257.56 L 102.76 258.51 L 104.22 259.45 L 105.69 260.39 L 107.15 261.32 L 108.62 262.25 L 110.09 263.18 L 111.56 264.10 L 113.03 265.01 L 114.51 265.92 L 115.99 266.83 L 117.48 267.73 L 118.96 268.63 L 120.45 269.52 L 121.95 270.41 L 123.44 271.30 L 124.94 272.18 L 126.44 273.05 L 127.94 273.92 L 129.45 274.79 L 130.96 275.65 L 132.47 276.50 L 133.98 277.35 L 135.50 278.20 L 137.02 279.04 L 138.54 279.88 L 140.06 280.71 L 141.59 281.54 L 143.12 282.36 L 144.65 283.18 L 146.19 283.99 L 147.73 284.79 L 149.27 285.60 L 150.81 286.39 L 152.35 287.18 L 153.90 287.97 L 155.45 288.75 L 157.01 289.53 L 158.56 290.30 L 160.12 291.06 L 161.68 291.82 L 163.25 292.58 L 164.81 293.33 L 166.38 294.07 L 167.96 294.81 L 169.53 295.55 L 171.11 296.27 L 172.68 297.00 L 174.27 297.71 L 175.85 298.43 L 177.44 299.13 L 179.03 299.83 L 180.62 300.53 L 182.21 301.22 L 183.81 301.90 L 185.41 302.58 L 187.01 303.25 L 188.61 303.92 L 190.22 304.58 L 191.83 305.24 L 193.44 305.89 L 195.05 306.53 L 196.66 307.17 L 198.28 307.80 L 199.90 308.43 L 201.52 309.05 L 203.15 309.66 L 204.77 310.27 L 206.40 310.87 L 208.03 311.47 L 209.67 312.06 L 211.30 312.64 L 212.94 313.22 L 214.58 313.79 L 216.22 314.36 L 217.86 314.92 L 219.51 315.47 L 221.16 316.02 L 222.81 316.56 L 224.46 317.10 L 226.12 317.63 L 227.77 318.15 L 229.43 318.67 L 231.09 319.18 L 232.75 319.68 L 234.42 320.18 L 236.08 320.67 L 237.75 321.15 L 239.42 321.63 L 241.09 322.10 L 242.76 322.57 L 244.44 323.03 L 246.11 323.48 L 247.79 323.92 L 249.47 324.36 L 251.16 324.80 L 252.84 325.22 L 254.52 325.64 L 256.21 326.05 L 257.90 326.46 L 259.59 326.86 L 261.28 327.25 L 262.98 327.64 L 264.67 328.02 L 266.37 328.39 L 268.06 328.75 L 269.76 329.11 L 271.46 329.46 L 273.17 329.81 L 274.87 330.15 L 276.57 330.48 L 278.28 330.80 L 279.99 331.12 L 281.70 331.43 L 283.41 331.73 L 285.12 332.03 L 286.83 332.32 L 288.54 332.60 L 290.26 332.88 L 291.97 333.15 L 293.69 333.41 L 295.41 333.67 L 297.13 333.91 L 298.85 334.15 L 300.57 334.39 L 302.29 334.61 L 304.01 334.83 L 305.74 335.05 L 307.46 335.25 L 309.19 335.45 L 310.91 335.64 L 312.64 335.83 L 314.37 336.00 L 316.09 336.17 L 317.82 336.34 L 319.55 336.49 L 321.28 336.64 L 323.01 336.78 L 324.75 336.91 L 326.48 337.04 L 328.21 337.16 L 329.94 337.27 L 331.68 337.38 L 333.41 337.48 L 335.14 337.57 L 336.88 337.65 L 338.61 337.73 L 340.35 337.79 L 342.08 337.86 L 343.82 337.91 L 345.56 337.96 L 347.29 338.00 L 349.03 338.03 L 350.77 338.06 L 352.50 338.07 L 354.24 338.08 L 355.98 338.09 L 358.81 338.08 L 361.64 338.05 L 364.48 338.00 L 367.31 337.93 L 370.14 337.85 L 372.97 337.74 L 375.80 337.62 L 378.63 337.47 L 381.46 337.31 L 384.29 337.12 L 387.11 336.92 L 389.94 336.70 L 392.76 336.46 L 395.58 336.20 L 398.40 335.92 L 401.22 335.62 L 404.04 335.31 L 406.85 334.97 L 409.66 334.61 L 412.47 334.24 L 415.28 333.85 L 418.08 333.44 L 420.88 333.01 L 423.68 332.56 L 426.47 332.09 L 429.27 331.61 L 432.05 331.10 L 434.84 330.58 L 437.62 330.04 L 440.40 329.48 L 443.17 328.90 L 445.94 328.31 L 448.71 327.70 L 451.47 327.07 L 454.23 326.42 L 456.98 325.75 L 459.73 325.07 L 462.48 324.36 L 465.22 323.64 L 467.95 322.91 L 470.69 322.15 L 473.41 321.38 L 476.13 320.59 L 478.85 319.79 L 481.56 318.96 L 484.27 318.12 L 486.97 317.27 L 489.66 316.39 L 492.35 315.50 L 495.04 314.60 L 497.72 313.67 L 500.39 312.74 L 503.06 311.78 L 505.72 310.81 L 508.38 309.82 L 511.03 308.82 L 513.67 307.80 L 516.31 306.77 L 518.94 305.72 L 521.57 304.65 L 524.18 303.57 L 526.80 302.47 L 529.40 301.36 L 532.00 300.24 L 534.60 299.10 L 537.18 297.94 L 539.77 296.77 L 542.34 295.58 L 544.91 294.39 L 547.47 293.17 L 550.02 291.94 L 552.57 290.70 L 555.11 289.45 L 557.64 288.18 L 560.17 286.89 L 562.69 285.60 L 565.20 284.29 L 567.70 282.96 L 570.20 281.62 L 572.69 280.27 L 575.18 278.91 L 577.65 277.53 L 580.12 276.14 L 582.58 274.74 L 585.04 273.33 L 587.49 271.90 L 589.93 270.46 L 592.36 269.01 L 594.79 267.54 L 597.20 266.07 L 599.62 264.58 L 602.02 263.08 L 604.42 261.57 L 606.80 260.04 L 609.19 258.51 L 611.56 256.96 L 613.93 255.40 L 616.29 253.84 L 618.64 252.26 L 620.98 250.66 L 623.32 249.06 L 625.65 247.45 L 627.97 245.83 L 630.29 244.19 L 632.60 242.55 L 634.90 240.89 L 637.19 239.23 L 639.47 237.55 L 641.75 235.87 L 644.02 234.17 L 646.28 232.47 L 648.54 230.75 L 650.79 229.03 L 653.03 227.29 L 655.26 225.55 L 657.49 223.80 L 659.71 222.03 L 661.92 220.26 L 664.12 218.48 L 666.32 216.69 L 668.51 214.89 L 670.69 213.08 L 672.86 211.27 L 675.03 209.44 L 677.19 207.61 L 679.34 205.76 L 681.49 203.91 L 683.63 202.05 L 685.76 200.19 L 687.88 198.31 L 690.00 196.43 L 692.11 194.54 L 694.21 192.64 L 696.30 190.73 L 698.39 188.81 L 700.47 186.89 L 702.55 184.96 L 704.61 183.02 L 706.67 181.08 L 708.73 179.12 L 710.77 177.16 L 712.81 175.19 L 714.84 173.22 L 716.87 171.24 L 718.89 169.25 L 720.90 167.25 L 722.90 165.25 L 724.90 163.24 L 726.89 161.22 L 728.87 159.20 L 730.85 157.17 L 732.82 155.14 L 734.79 153.09 L 736.74 151.04 L 738.69 148.99 L 740.64 146.93 L 742.57 144.86 L 744.51 142.79 L 746.43 140.71 L 748.35 138.62 L 750.26 136.53 L 752.16 134.43 L 754.06 132.33 L 755.95 130.22 L 757.84 128.10 L 759.72 125.98 L 761.59 123.85 L 763.46 121.72 L 765.32 119.59 L 767.17 117.44 L 769.02 115.29 L 770.86 113.14 L 772.69 110.98 L 774.52 108.82 L 776.35 106.65 L 778.16 104.47 L 779.97 102.29 L 781.78 100.11 L 783.58 97.92 L 785.37 95.73 L 787.16 93.53 L 788.94 91.32 L 790.71 89.11 L 792.48 86.90 L 794.24 84.68 L 796.00 82.46 L 797.75 80.23 L 799.50 78.00 L 801.24 75.76 L 802.97 73.52 L 804.70 71.28 L 806.42 69.03 L 808.14 66.77 L 809.85 64.51 L 811.55 62.25 L 813.25 59.99 L 814.95 57.71 L 816.64 55.44 L 818.32 53.16 L 820.00 50.88" fill="none" stroke="#c9a441" stroke-width="1.2" stroke-dasharray="6 5"/>
+    <path d="M 355.98 338.09 L 377.73 338.09 L 377.73 336.68 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 377.73 336.68 L 399.40 336.68 L 399.40 334.40 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 399.40 334.40 L 420.94 334.40 L 420.94 331.06 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 420.94 331.06 L 442.28 331.06 L 442.28 326.60 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 342.64 337.23 L 342.64 338.09 L 355.98 338.09 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 329.31 336.37 L 329.31 337.23 L 342.64 337.23 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 316.02 335.10 L 316.02 336.37 L 329.31 336.37 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 302.76 333.43 L 302.76 335.10 L 316.02 335.10 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/>
+    <path d="M 41.50 207.55 L 51.74 216.13 L 62.14 224.52 L 72.83 232.53 L 83.51 240.55 L 94.45 248.22 L 105.54 255.66 L 116.77 262.90 L 128.19 269.83 L 139.78 276.48 L 151.45 282.97 L 163.34 289.07 L 175.35 294.92 L 187.53 300.40 L 199.87 305.53 L 212.34 310.32 L 224.93 314.79 L 237.63 318.91 L 250.46 322.65 L 263.41 325.94 L 276.44 328.87 L 289.56 331.39 L 302.76 333.43 L 316.02 335.10 L 329.31 336.37 L 342.64 337.23 L 355.98 338.09 L 377.73 336.68 L 399.40 334.40 L 420.94 331.06 L 442.28 326.60 L 463.34 321.01 L 484.13 314.46 L 504.61 307.00 L 524.73 298.61 L 544.47 289.38 L 563.71 279.13 L 582.61 268.27 L 601.11 256.76 L 619.14 244.51 L 636.58 231.43 L 653.61 217.84 L 670.32 203.84 L 686.63 189.38 L 702.42 174.35 L 717.89 159.00 L 732.92 143.22 L 747.53 127.04 L 761.86 110.62 L 775.75 93.82 L 789.35 76.79 L 802.42 59.35 L 815.50 41.91" fill="none" stroke="#2e2413"
+          stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="41.5" cy="207.6" r="5" fill="#2e2413"/><circle cx="815.5" cy="41.9" r="5" fill="#2e2413"/><circle cx="356.0" cy="338.1" r="4" fill="#fff" stroke="#2e2413" stroke-width="1.6"/>
+  </svg>
+      <p><strong>Fig. 1</strong> · the chain (ink) on the true catenary (gold) ·
+      arc 220, split 0.62 : 0.38 · worst node error
+      2.4 on the high branch
+      (1.1% of arc)</p></div>
+    <div class="three"><figure><svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="860" height="380" fill="#fff"
+          stroke="#d8ccae" stroke-width="1"/>
+    
+    <path d="M 430.00 293.88 L 447.45 293.88 L 447.45 292.75 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 447.45 292.75 L 464.87 292.75 L 464.87 291.23 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 464.87 291.23 L 482.22 291.23 L 482.22 289.06 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 482.22 289.06 L 499.46 289.06 L 499.46 286.16 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 412.55 292.75 L 412.55 293.88 L 430.00 293.88 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 395.13 291.23 L 395.13 292.75 L 412.55 292.75 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 377.78 289.06 L 377.78 291.23 L 395.13 291.23 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 360.54 286.16 L 360.54 289.06 L 377.78 289.06 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/>
+    <path d="M 40.00 86.12 L 51.72 99.10 L 63.78 111.76 L 76.09 124.18 L 88.59 136.40 L 101.44 148.26 L 114.52 159.86 L 127.83 171.20 L 141.44 182.18 L 155.43 192.67 L 169.74 202.71 L 184.20 212.54 L 198.90 222.01 L 213.97 230.88 L 229.25 239.38 L 244.86 247.26 L 260.70 254.66 L 276.84 261.39 L 293.16 267.65 L 309.70 273.32 L 326.49 278.22 L 343.44 282.52 L 360.54 286.16 L 377.78 289.06 L 395.13 291.23 L 412.55 292.75 L 430.00 293.88 L 447.45 292.75 L 464.87 291.23 L 482.22 289.06 L 499.46 286.16 L 516.56 282.52 L 533.51 278.22 L 550.30 273.32 L 566.84 267.65 L 583.16 261.39 L 599.30 254.66 L 615.14 247.26 L 630.75 239.38 L 646.03 230.88 L 661.10 222.01 L 675.80 212.54 L 690.26 202.71 L 704.57 192.67 L 718.56 182.18 L 732.17 171.20 L 745.48 159.86 L 758.56 148.26 L 771.41 136.40 L 783.91 124.18 L 796.22 111.76 L 808.28 99.10 L 820.00 86.12" fill="none" stroke="#2e2413"
+          stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="40.0" cy="86.1" r="5" fill="#2e2413"/><circle cx="820.0" cy="86.1" r="5" fill="#2e2413"/><circle cx="430.0" cy="293.9" r="4" fill="#fff" stroke="#2e2413" stroke-width="1.6"/>
+  </svg><figcaption>split 0.50 : 0.50</figcaption></figure><figure><svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="860" height="380" fill="#fff"
+          stroke="#d8ccae" stroke-width="1"/>
+    
+    <path d="M 356.91 339.24 L 378.83 339.24 L 378.83 337.82 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 378.83 337.82 L 400.67 337.82 L 400.67 335.52 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 400.67 335.52 L 422.38 335.52 L 422.38 332.16 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 422.38 332.16 L 443.88 332.16 L 443.88 327.66 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 343.48 338.37 L 343.48 339.24 L 356.91 339.24 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 330.04 337.50 L 330.04 338.37 L 343.48 338.37 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 316.64 336.22 L 316.64 337.50 L 330.04 337.50 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 303.28 334.55 L 303.28 336.22 L 316.64 336.22 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/>
+    <path d="M 40.00 207.69 L 50.32 216.34 L 60.80 224.79 L 71.57 232.86 L 82.34 240.94 L 93.36 248.67 L 104.54 256.17 L 115.86 263.46 L 127.36 270.45 L 139.04 277.15 L 150.80 283.70 L 162.78 289.84 L 174.88 295.74 L 187.16 301.25 L 199.59 306.43 L 212.16 311.25 L 224.85 315.76 L 237.65 319.91 L 250.58 323.68 L 263.63 326.99 L 276.76 329.95 L 289.98 332.49 L 303.28 334.55 L 316.64 336.22 L 330.04 337.50 L 343.48 338.37 L 356.91 339.24 L 378.83 337.82 L 400.67 335.52 L 422.38 332.16 L 443.88 327.66 L 465.11 322.03 L 486.06 315.42 L 506.70 307.90 L 526.97 299.46 L 546.87 290.15 L 566.25 279.82 L 585.30 268.88 L 603.95 257.28 L 622.12 244.93 L 639.69 231.75 L 656.86 218.05 L 673.69 203.94 L 690.13 189.38 L 706.04 174.23 L 721.63 158.76 L 736.78 142.86 L 751.50 126.55 L 765.94 110.00 L 779.94 93.08 L 793.64 75.91 L 806.82 58.34 L 820.00 40.76" fill="none" stroke="#2e2413"
+          stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="40.0" cy="207.7" r="5" fill="#2e2413"/><circle cx="820.0" cy="40.8" r="5" fill="#2e2413"/><circle cx="356.9" cy="339.2" r="4" fill="#fff" stroke="#2e2413" stroke-width="1.6"/>
+  </svg><figcaption>split 0.62 : 0.38</figcaption></figure><figure><svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="860" height="380" fill="#fff"
+          stroke="#d8ccae" stroke-width="1"/>
+    
+    <path d="M 314.68 340.00 L 334.54 340.00 L 334.54 338.72 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 334.54 338.72 L 354.29 338.72 L 354.29 336.24 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 354.29 336.24 L 373.84 336.24 L 373.84 332.48 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 373.84 332.48 L 393.13 332.48 L 393.13 327.58 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 308.06 339.57 L 308.06 340.00 L 314.68 340.00 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 301.43 339.14 L 301.43 339.57 L 308.06 339.57 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 294.81 338.72 L 294.81 339.14 L 301.43 339.14 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/><path d="M 288.20 338.14 L 288.20 338.72 L 294.81 338.72 Z" fill="none" stroke="#c9a441" stroke-width="0.8" opacity="0.75"/>
+    <path d="M 150.29 293.67 L 156.09 296.90 L 161.94 300.02 L 167.87 303.01 L 173.83 305.92 L 179.84 308.73 L 185.91 311.40 L 192.04 313.95 L 198.21 316.39 L 204.40 318.77 L 210.66 320.99 L 216.93 323.14 L 223.26 325.14 L 229.63 326.99 L 236.02 328.77 L 242.45 330.40 L 248.91 331.94 L 255.40 333.33 L 261.91 334.58 L 268.45 335.68 L 275.02 336.62 L 281.61 337.44 L 288.20 338.14 L 294.81 338.72 L 301.43 339.14 L 308.06 339.57 L 314.68 340.00 L 334.54 338.72 L 354.29 336.24 L 373.84 332.48 L 393.13 327.58 L 412.11 321.60 L 430.70 314.47 L 448.91 306.45 L 466.68 297.48 L 483.94 287.57 L 500.68 276.79 L 516.97 265.36 L 532.90 253.41 L 548.23 240.73 L 563.13 227.53 L 577.54 213.80 L 591.56 199.67 L 605.07 185.05 L 618.16 170.05 L 630.84 154.71 L 643.26 139.15 L 655.20 123.23 L 666.63 106.94 L 677.90 90.53 L 688.86 73.91 L 699.37 57.01 L 709.71 40.00" fill="none" stroke="#2e2413"
+          stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="150.3" cy="293.7" r="5" fill="#2e2413"/><circle cx="709.7" cy="40.0" r="5" fill="#2e2413"/><circle cx="314.7" cy="340.0" r="4" fill="#fff" stroke="#2e2413" stroke-width="1.6"/>
+  </svg><figcaption>split 0.75 : 0.25</figcaption></figure></div>
+    <p style="margin-top:10px" class="next">The split is the only dial a
+    drapery needs: it says where the low point sits, and therefore which
+    anchor the cloth is hanging from.</p>
+    <div class="scroll"><table style="margin-top:10px">
+      <tr><th>step</th><th>catenary wants</th><th>triple angle</th>
+      <th>triple</th><th>error</th></tr>
+      <tr><td>1</td><td>3.0°</td><td>3.70°</td><td>31-480-481</td><td>+0.7°</td></tr><tr><td>2</td><td>6.0°</td><td>6.03°</td><td>19-180-181</td><td>+0.0°</td></tr><tr><td>3</td><td>8.9°</td><td>8.80°</td><td>13-84-85</td><td>-0.1°</td></tr><tr><td>4</td><td>11.9°</td><td>11.81°</td><td>87-416-425</td><td>-0.0°</td></tr><tr><td>5</td><td>14.7°</td><td>14.86°</td><td>69-260-269</td><td>+0.2°</td></tr><tr><td>6</td><td>17.5°</td><td>17.49°</td><td>52-165-173</td><td>+0.0°</td></tr><tr><td>7</td><td>20.2°</td><td>20.02°</td><td>51-140-149</td><td>-0.1°</td></tr><tr><td>8</td><td>22.8°</td><td>22.62°</td><td>5-12-13</td><td>-0.1°</td></tr><tr><td>9</td><td>25.3°</td><td>25.06°</td><td>36-77-85</td><td>-0.2°</td></tr><tr><td>10</td><td>27.7°</td><td>28.07°</td><td>8-15-17</td><td>+0.4°</td></tr>
+    </table></div>
+    <p style="margin-top:8px">First ten steps of the high branch, at
+    a = 100. The ladder is the whole catalogue of slopes below
+    62° with hypotenuse ≤ 500; gaps between rungs are what the
+    error column measures.</p>
+  </div>
+
+  <h2>B · <span>catenary drapery, in 2.5D</span></h2>
+  <div class="panel">
+    <p>Weil's method is geometric, not physical: cloth is a grid of points, and
+    the shape is found by fitting catenaries between the restraint points,
+    splitting each triangle by the <em>lower</em> of the two candidate
+    catenaries, then relaxing so the points keep their spacing. It aims at the
+    look of cloth, not its properties. (The page it comes from is
+    <a href="https://davis.wpi.edu/~matt/courses/cloth/geometric.html">WPI's
+    geometric techniques</a>, which also covers Agui's sleeve folds.)</p>
+    <p>What is built here is the first half, the hanging: every row of the
+    sheet is the catenary of its own rest width, so a row that has lost span
+    sags more, and the cloth gathers toward the free edge. The relaxation pass
+    is not in yet — the rows keep equal spacing down the sheet, which is why
+    the folds read as neat rather than lived-in.</p>
+    <div class="strip"><svg viewBox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="860" height="430" fill="#fff"
+          stroke="#d8ccae" stroke-width="1"/>
+    <path d="M 30.00 71.11 L 48.18 71.11 L 66.36 71.11 L 84.55 71.11 L 102.73 71.11 L 120.91 71.11 L 139.09 71.11 L 157.27 71.11 L 175.45 71.11 L 193.64 71.11 L 211.82 71.11 L 230.00 71.11 L 248.18 71.11 L 266.36 71.11 L 284.55 71.11 L 302.73 71.11 L 320.91 71.11 L 339.09 71.11 L 357.27 71.11 L 375.45 71.11 L 393.64 71.11 L 411.82 71.11 L 430.00 71.11 L 448.18 71.11 L 466.36 71.11 L 484.55 71.11 L 502.73 71.11 L 520.91 71.11 L 539.09 71.11 L 557.27 71.11 L 575.45 71.11 L 593.64 71.11 L 611.82 71.11 L 630.00 71.11 L 648.18 71.11 L 666.36 71.11 L 684.55 71.11 L 702.73 71.11 L 720.91 71.11 L 739.09 71.11 L 757.27 71.11 L 775.45 71.11 L 793.64 71.11 L 811.82 71.11 L 830.00 71.11" fill="none" stroke="rgba(46,36,19,0.90)" stroke-width="1.5"/><path d="M 45.56 139.17 L 63.03 134.39 L 80.51 129.85 L 97.98 125.55 L 115.45 121.47 L 132.93 117.63 L 150.40 114.02 L 167.88 110.64 L 185.35 107.48 L 202.83 104.55 L 220.30 101.84 L 237.78 99.36 L 255.25 97.09 L 272.73 95.04 L 290.20 93.21 L 307.68 91.60 L 325.15 90.20 L 342.63 89.02 L 360.10 88.06 L 377.58 87.31 L 395.05 86.77 L 412.53 86.45 L 430.00 86.35 L 447.47 86.45 L 464.95 86.77 L 482.42 87.31 L 499.90 88.06 L 517.37 89.02 L 534.85 90.20 L 552.32 91.60 L 569.80 93.21 L 587.27 95.04 L 604.75 97.09 L 622.22 99.36 L 639.70 101.84 L 657.17 104.55 L 674.65 107.48 L 692.12 110.64 L 709.60 114.02 L 727.07 117.63 L 744.55 121.47 L 762.02 125.55 L 779.49 129.85 L 796.97 134.39 L 814.44 139.17" fill="none" stroke="rgba(46,36,19,0.84)" stroke-width="1.5"/><path d="M 61.11 175.84 L 77.88 169.00 L 94.65 162.52 L 111.41 156.40 L 128.18 150.63 L 144.95 145.20 L 161.72 140.11 L 178.48 135.36 L 195.25 130.93 L 212.02 126.83 L 228.79 123.05 L 245.56 119.59 L 262.32 116.44 L 279.09 113.59 L 295.86 111.06 L 312.63 108.83 L 329.39 106.90 L 346.16 105.27 L 362.93 103.94 L 379.70 102.91 L 396.46 102.17 L 413.23 101.73 L 430.00 101.58 L 446.77 101.73 L 463.54 102.17 L 480.30 102.91 L 497.07 103.94 L 513.84 105.27 L 530.61 106.90 L 547.37 108.83 L 564.14 111.06 L 580.91 113.59 L 597.68 116.44 L 614.44 119.59 L 631.21 123.05 L 647.98 126.83 L 664.75 130.93 L 681.52 135.36 L 698.28 140.11 L 715.05 145.20 L 731.82 150.63 L 748.59 156.40 L 765.35 162.52 L 782.12 169.00 L 798.89 175.84" fill="none" stroke="rgba(46,36,19,0.79)" stroke-width="1.5"/><path d="M 76.67 207.22 L 92.73 198.73 L 108.79 190.72 L 124.85 183.18 L 140.91 176.09 L 156.97 169.45 L 173.03 163.24 L 189.09 157.45 L 205.15 152.08 L 221.21 147.12 L 237.27 142.55 L 253.33 138.38 L 269.39 134.59 L 285.45 131.18 L 301.52 128.14 L 317.58 125.47 L 333.64 123.16 L 349.70 121.22 L 365.76 119.63 L 381.82 118.40 L 397.88 117.52 L 413.94 117.00 L 430.00 116.82 L 446.06 117.00 L 462.12 117.52 L 478.18 118.40 L 494.24 119.63 L 510.30 121.22 L 526.36 123.16 L 542.42 125.47 L 558.48 128.14 L 574.55 131.18 L 590.61 134.59 L 606.67 138.38 L 622.73 142.55 L 638.79 147.12 L 654.85 152.08 L 670.91 157.45 L 686.97 163.24 L 703.03 169.45 L 719.09 176.09 L 735.15 183.18 L 751.21 190.72 L 767.27 198.73 L 783.33 207.22" fill="none" stroke="rgba(46,36,19,0.73)" stroke-width="1.5"/><path d="M 92.22 235.80 L 107.58 225.87 L 122.93 216.53 L 138.28 207.76 L 153.64 199.56 L 168.99 191.89 L 184.34 184.75 L 199.70 178.11 L 215.05 171.97 L 230.40 166.30 L 245.76 161.11 L 261.11 156.37 L 276.46 152.07 L 291.82 148.21 L 307.17 144.79 L 322.53 141.78 L 337.88 139.18 L 353.23 137.00 L 368.59 135.21 L 383.94 133.83 L 399.29 132.85 L 414.65 132.26 L 430.00 132.06 L 445.35 132.26 L 460.71 132.85 L 476.06 133.83 L 491.41 135.21 L 506.77 137.00 L 522.12 139.18 L 537.47 141.78 L 552.83 144.79 L 568.18 148.21 L 583.54 152.07 L 598.89 156.37 L 614.24 161.11 L 629.60 166.30 L 644.95 171.97 L 660.30 178.11 L 675.66 184.75 L 691.01 191.89 L 706.36 199.56 L 721.72 207.76 L 737.07 216.53 L 752.42 225.87 L 767.78 235.80" fill="none" stroke="rgba(46,36,19,0.68)" stroke-width="1.5"/><path d="M 107.78 262.56 L 122.42 251.30 L 137.07 240.75 L 151.72 230.89 L 166.36 221.68 L 181.01 213.12 L 195.66 205.16 L 210.30 197.79 L 224.95 190.99 L 239.60 184.74 L 254.24 179.01 L 268.89 173.81 L 283.54 169.10 L 298.18 164.88 L 312.83 161.13 L 327.47 157.85 L 342.12 155.03 L 356.77 152.65 L 371.41 150.72 L 386.06 149.22 L 400.71 148.15 L 415.35 147.51 L 430.00 147.30 L 444.65 147.51 L 459.29 148.15 L 473.94 149.22 L 488.59 150.72 L 503.23 152.65 L 517.88 155.03 L 532.53 157.85 L 547.17 161.13 L 561.82 164.88 L 576.46 169.10 L 591.11 173.81 L 605.76 179.01 L 620.40 184.74 L 635.05 190.99 L 649.70 197.79 L 664.34 205.16 L 678.99 213.12 L 693.64 221.68 L 708.28 230.89 L 722.93 240.75 L 737.58 251.30 L 752.22 262.56" fill="none" stroke="rgba(46,36,19,0.62)" stroke-width="1.5"/><path d="M 123.33 288.00 L 137.27 275.48 L 151.21 263.80 L 165.15 252.92 L 179.09 242.81 L 193.03 233.43 L 206.97 224.75 L 220.91 216.73 L 234.85 209.36 L 248.79 202.60 L 262.73 196.43 L 276.67 190.83 L 290.61 185.78 L 304.55 181.26 L 318.48 177.26 L 332.42 173.76 L 346.36 170.75 L 360.30 168.22 L 374.24 166.17 L 388.18 164.57 L 402.12 163.44 L 416.06 162.76 L 430.00 162.54 L 443.94 162.76 L 457.88 163.44 L 471.82 164.57 L 485.76 166.17 L 499.70 168.22 L 513.64 170.75 L 527.58 173.76 L 541.52 177.26 L 555.45 181.26 L 569.39 185.78 L 583.33 190.83 L 597.27 196.43 L 611.21 202.60 L 625.15 209.36 L 639.09 216.73 L 653.03 224.75 L 666.97 233.43 L 680.91 242.81 L 694.85 252.92 L 708.79 263.80 L 722.73 275.48 L 736.67 288.00" fill="none" stroke="rgba(46,36,19,0.57)" stroke-width="1.5"/><path d="M 138.89 312.41 L 152.12 298.68 L 165.35 285.92 L 178.59 274.09 L 191.82 263.13 L 205.05 253.01 L 218.28 243.67 L 231.52 235.07 L 244.75 227.19 L 257.98 219.99 L 271.21 213.44 L 284.44 207.50 L 297.68 202.17 L 310.91 197.40 L 324.14 193.19 L 337.37 189.52 L 350.61 186.36 L 363.84 183.71 L 377.07 181.56 L 390.30 179.90 L 403.54 178.72 L 416.77 178.01 L 430.00 177.77 L 443.23 178.01 L 456.46 178.72 L 469.70 179.90 L 482.93 181.56 L 496.16 183.71 L 509.39 186.36 L 522.63 189.52 L 535.86 193.19 L 549.09 197.40 L 562.32 202.17 L 575.56 207.50 L 588.79 213.44 L 602.02 219.99 L 615.25 227.19 L 628.48 235.07 L 641.72 243.67 L 654.95 253.01 L 668.18 263.13 L 681.41 274.09 L 694.65 285.92 L 707.88 298.68 L 721.11 312.41" fill="none" stroke="rgba(46,36,19,0.51)" stroke-width="1.5"/><path d="M 154.44 336.00 L 166.97 321.08 L 179.49 307.28 L 192.02 294.54 L 204.55 282.79 L 217.07 271.97 L 229.60 262.02 L 242.12 252.91 L 254.65 244.58 L 267.17 236.99 L 279.70 230.10 L 292.22 223.88 L 304.75 218.31 L 317.27 213.34 L 329.80 208.96 L 342.32 205.15 L 354.85 201.88 L 367.37 199.14 L 379.90 196.92 L 392.42 195.20 L 404.95 193.98 L 417.47 193.25 L 430.00 193.01 L 442.53 193.25 L 455.05 193.98 L 467.58 195.20 L 480.10 196.92 L 492.63 199.14 L 505.15 201.88 L 517.68 205.15 L 530.20 208.96 L 542.73 213.34 L 555.25 218.31 L 567.78 223.88 L 580.30 230.10 L 592.83 236.99 L 605.35 244.58 L 617.88 252.91 L 630.40 262.02 L 642.93 271.97 L 655.45 282.79 L 667.98 294.54 L 680.51 307.28 L 693.03 321.08 L 705.56 336.00" fill="none" stroke="rgba(46,36,19,0.46)" stroke-width="1.5"/><path d="M 170.00 358.89 L 181.82 342.80 L 193.64 327.99 L 205.45 314.36 L 217.27 301.85 L 229.09 290.38 L 240.91 279.88 L 252.73 270.29 L 264.55 261.55 L 276.36 253.63 L 288.18 246.46 L 300.00 240.00 L 311.82 234.23 L 323.64 229.10 L 335.45 224.59 L 347.27 220.67 L 359.09 217.32 L 370.91 214.52 L 382.73 212.24 L 394.55 210.49 L 406.36 209.24 L 418.18 208.50 L 430.00 208.25 L 441.82 208.50 L 453.64 209.24 L 465.45 210.49 L 477.27 212.24 L 489.09 214.52 L 500.91 217.32 L 512.73 220.67 L 524.55 224.59 L 536.36 229.10 L 548.18 234.23 L 560.00 240.00 L 571.82 246.46 L 583.64 253.63 L 595.45 261.55 L 607.27 270.29 L 619.09 279.88 L 630.91 290.38 L 642.73 301.85 L 654.55 314.36 L 666.36 327.99 L 678.18 342.80 L 690.00 358.89" fill="none" stroke="rgba(46,36,19,0.40)" stroke-width="1.5"/>
+  </svg>
+      <p><strong>Fig. 2</strong> · nine rows, each the catenary of the full
+      rest width on a span that narrows with depth</p></div>
+    <canvas id="view"></canvas>
+    <div class="controls">
+      <label>gather <input id="gather" type="range" min="0" max="0.7"
+        step="0.01" value="0.42"><span id="gatherOut">0.42</span></label>
+      <label><input id="wire" type="checkbox"> wireframe</label>
+      <span>drag to orbit · wheel to zoom</span>
+    </div>
+    <p style="margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted)">
+      <strong>Fig. 3</strong> · the same drape in 2.5D (three.js) — 26 × 46
+      grid, two pins at the top corners</p>
+  </div>
+</main>
+<script type="module">
+import * as THREE from 'three';
+
+const host = document.getElementById('view');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false,
+    preserveDrawingBuffer: true });
+} catch (err) {
+  host.innerHTML = '<p style="font:12px/1.5 ui-monospace,monospace;color:#7b6c4e;' +
+    'padding:18px">This browser has no WebGL, so the 2.5D view cannot run here.' +
+    ' The 2D figure above is the same drape.</p>';
+  throw err;
+}
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+host.appendChild(renderer.domElement);
+renderer.domElement.style.width = '100%';
+renderer.domElement.style.height = '100%';
+renderer.domElement.style.display = 'block';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+let yaw = -0.62, pitch = 0.34, dist = 7.4;
+function place() {
+  camera.position.set(
+    dist * Math.cos(pitch) * Math.sin(yaw),
+    dist * Math.sin(pitch),
+    dist * Math.cos(pitch) * Math.cos(yaw));
+  camera.lookAt(0, -0.15, 0);
+}
+
+const hemi = new THREE.HemisphereLight(0xfffdf6, 0x6d6248, 0.55);
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(3, 5, 4);
+scene.add(hemi, key);
+
+const material = new THREE.MeshStandardMaterial({
+  color: 0xdfd2b4, roughness: 0.9, metalness: 0.0,
+  side: THREE.DoubleSide, flatShading: false,
+  wireframe: false
+});
+
+// a catenary of fixed arc on a span shorter than the arc
+function rowCatenary(span, arc, n) {
+  let lo = 1e-6 * span, hi = 1e6 * span, a = 0;
+  for (let k = 0; k < 90; k++) {
+    a = (lo + hi) / 2;
+    if (2 * a * Math.sinh(span / (2 * a)) > arc) lo = a; else hi = a;
+  }
+  a = (lo + hi) / 2;
+  const out = [];
+  for (let i = 0; i <= n; i++) {
+    const x = -span / 2 + span * i / n;
+    out.push([x, a * (Math.cosh(x / a) - 1)]);
+  }
+  return out;
+}
+
+let mesh = null, pinGroup = null;
+const state = { gather: 0.42, rows: 26, cols: 46, wire: false };
+
+function build() {
+  if (mesh) { scene.remove(mesh); mesh.geometry.dispose(); }
+  if (pinGroup) { scene.remove(pinGroup); pinGroup = null; }
+
+  const rows = state.rows, cols = state.cols;
+  const rest = 4.6;               // rest width of the sheet, in scene units
+  const height = 3.0;
+  const pos = [];
+
+  for (let j = 0; j <= rows; j++) {
+    const t = j / rows;
+    const span = rest * (1 - state.gather * t);
+    const row = rowCatenary(span, rest, cols);
+    for (let i = 0; i <= cols; i++) {
+      pos.push(row[i][0], -t * height, row[i][1] * 1.0);
+    }
+  }
+
+  const index = [];
+  for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < cols; i++) {
+      const a = j * (cols + 1) + i, b = a + 1, c = a + cols + 1, d = c + 1;
+      index.push(a, c, b, b, c, d);
+    }
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+
+  material.wireframe = state.wire;
+  mesh = new THREE.Mesh(geo, material);
+  scene.add(mesh);
+
+  // the two pins: the top corners
+  pinGroup = new THREE.Group();
+  const pinMat = new THREE.MeshStandardMaterial({ color: 0x8c6a21, roughness: 0.5 });
+  for (const x of [-rest / 2, rest / 2]) {
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), pinMat);
+    s.position.set(x, 0, 0);
+    pinGroup.add(s);
+  }
+  scene.add(pinGroup);
+}
+
+function render() { renderer.render(scene, camera); }
+
+function resize() {
+  const w = host.clientWidth, h = host.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  place();
+  render();
+}
+
+// a small orbit, so no second vendor file is needed
+let dragging = false, lastX = 0, lastY = 0;
+host.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; host.setPointerCapture(e.pointerId); });
+host.addEventListener('pointerup', e => { dragging = false; });
+host.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  yaw -= (e.clientX - lastX) * 0.008;
+  pitch = Math.max(-0.15, Math.min(0.95, pitch + (e.clientY - lastY) * 0.006));
+  lastX = e.clientX; lastY = e.clientY;
+});
+host.addEventListener('wheel', e => {
+  e.preventDefault();
+  dist = Math.max(3.5, Math.min(14, dist + e.deltaY * 0.004));
+}, { passive: false });
+
+window.addEventListener('resize', resize);
+
+const gatherEl = document.getElementById('gather');
+const gatherOut = document.getElementById('gatherOut');
+const wireEl = document.getElementById('wire');
+gatherEl.value = state.gather;
+gatherOut.textContent = state.gather.toFixed(2);
+gatherEl.addEventListener('input', () => {
+  state.gather = parseFloat(gatherEl.value);
+  gatherOut.textContent = state.gather.toFixed(2);
+  build();
+  render();
+});
+wireEl.addEventListener('change', () => { state.wire = wireEl.checked; build(); render(); });
+
+build();
+resize();          // sizes, places the camera, and draws the first frame
+render();
+renderer.setAnimationLoop(() => { place(); render(); });
+window.__dbgObj = () => ({ scene, camera, renderer, mesh });
+window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)),
+  verts: mesh ? mesh.geometry.attributes.position.count : 0,
+  children: scene.children.length });
+</script>
+</body>
+</html>

@@ -51,6 +51,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `spiral-turns.html` | `scripts/spiral_turns.py` |
 | `curve-families.html` | `scripts/curve_families.py` |
 | `stage-two.html` | `scripts/stage_two.py` |
+| `catenary.html` | `scripts/catenary.py` |
 | `fleur-study-01.html` | `scripts/study_01.py` |
 | `primal.html` | `scripts/primal.py` |
 | `principles.html` | `scripts/principles.py` |
