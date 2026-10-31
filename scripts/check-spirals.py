@@ -91,7 +91,7 @@ def fit_span(span) -> dict:
 
 
 def main() -> int:
-    source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "docs/spirals/stage-two.json"
+    source = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "workbench/spirals/stage-two.json"
     data = json.loads(source.read_text(encoding="utf-8"))
     rows = []
     for figure in data["figures"]:

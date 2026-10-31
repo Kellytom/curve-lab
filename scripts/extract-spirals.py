@@ -182,7 +182,7 @@ def main() -> int:
     sources = SOURCES if len(sys.argv) == 1 else [
         (Path(arg).stem.lower(), Path(arg).stem, arg) for arg in sys.argv[1:]
     ]
-    out_dir = ROOT / "docs" / "spirals"
+    out_dir = ROOT / "workbench" / "spirals"
     out_dir.mkdir(parents=True, exist_ok=True)
     pages = []
     for name, title, source in sources:

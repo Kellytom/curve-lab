@@ -48,7 +48,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `reference/` | attributed reference images + manifest (measurement only) |
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
-| `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
+| `workbench/spirals/` | recovered Stage II + LAC spines and their parity report |
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `docs/HANDOFF.md` | current truth |

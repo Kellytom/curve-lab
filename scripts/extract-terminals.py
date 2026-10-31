@@ -362,7 +362,7 @@ The percentage is the measured taper fraction — how much of the band the taper
 
 def frames_only() -> int:
     """Add frameworks to the stored JSON without refetching the pages."""
-    out_dir = ROOT / "docs" / "terminals"
+    out_dir = ROOT / "workbench" / "terminals"
     total = 0
     for name, _label, _source in SOURCES:
         path = out_dir / f"{name}.json"
@@ -384,7 +384,7 @@ def main() -> int:
     sources = SOURCES if len(sys.argv) == 1 else [
         (Path(arg).stem.lower(), Path(arg).stem, arg) for arg in sys.argv[1:]
     ]
-    out_dir = ROOT / "docs" / "terminals"
+    out_dir = ROOT / "workbench" / "terminals"
     out_dir.mkdir(parents=True, exist_ok=True)
     data = []
     for name, label, source in sources:
