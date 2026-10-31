@@ -1,11 +1,12 @@
-"""The spiral families that make a dress curve: log, hyperbolic, clothoid.
+"""Spiral families at dress-curve proportions: 8 inches wide, 1-5 high.
 
     .venv/bin/python scripts/curve_families.py
     open docs/curve-families.html
 
-Each panel is a quarter-turn or so of the family, scaled to the same 100-point
-cell so the *bend* is comparable. A hip curve is a gentle single arc; a vary
-form is a compound. This page is for the eye; the fit is what settles it.
+Each strip is 8 x n inches (n = 1..5). For each family the arc is chosen so its
+bounding box has that 8:n aspect, then scaled to fill the strip. A shallow arc
+is a small turn; a tall one is a large turn. That is the honest way to compare
+"which curve fills an 8 by 3 inch dress curve".
 """
 
 from __future__ import annotations
@@ -15,36 +16,34 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CELL = 100.0
-MARGIN = 8.0
+W = 800.0
+MARGIN = 14.0
 
 
-def log_spiral(b: float, start: float = 0.0, end: float = math.pi / 2,
-               a: float = 1.0):
-    n = 240
-    return [(a * math.exp(b * (start + (end - start) * i / n))
-             * math.cos(start + (end - start) * i / n),
-             a * math.exp(b * (start + (end - start) * i / n))
-             * math.sin(start + (end - start) * i / n)) for i in range(n + 1)]
+def log_points(b: float, phi: float):
+    n = 300
+    return [(math.exp(b * phi * i / n) * math.cos(phi * i / n),
+             math.exp(b * phi * i / n) * math.sin(phi * i / n))
+            for i in range(n + 1)]
 
 
-def hyperbolic(start: float = 0.5, end: float = 2.5, a: float = 1.0):
-    n = 240
+def hyper_points(t0: float, phi: float):
+    n = 300
     pts = []
     for i in range(n + 1):
-        t = start + (end - start) * i / n
-        pts.append((a / t * math.cos(t), a / t * math.sin(t)))
+        t = t0 + phi * i / n
+        pts.append((math.cos(t) / t, math.sin(t) / t))
     return pts
 
 
-def clothoid(turn: float = math.pi / 2, ds: float = 0.005):
-    """kappa = s/A^2, with A chosen so the arc turns `turn` over length 1."""
+def clothoid_points(phi: float):
     length = 1.0
-    area = math.sqrt(length * length / (2 * turn))
+    k = 2.0 * phi / length          # turn = 0.5 * k * L
     x = y = s = 0.0
     pts = []
+    ds = 0.004
     while s <= length:
-        theta = s * s / (2 * area * area)
+        theta = s * s * k / (2 * length)
         pts.append((x, y))
         x += ds * math.cos(theta)
         y += ds * math.sin(theta)
@@ -52,56 +51,117 @@ def clothoid(turn: float = math.pi / 2, ds: float = 0.005):
     return pts
 
 
-def placed(points):
+def orient(points):
+    """Rotate so the chord from first to last point is horizontal."""
+    a = math.atan2(points[-1][1] - points[0][1],
+                   points[-1][0] - points[0][0])
+    c, s = math.cos(-a), math.sin(-a)
+    return [(c * x - s * y, s * x + c * y) for x, y in points]
+
+
+def aspect(points) -> float:
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    return (max(xs) - min(xs)) / max(max(ys) - min(ys), 1e-9)
+
+
+def fit_arc(make, target: float, lo: float = 0.005, hi: float = math.pi):
+    """The arc turn whose bbox aspect is closest to the target.
+
+    The aspect is not monotonic for a log spiral once it wraps, so scan and
+    take the closest, then refine locally.
+    """
+    best, best_err = lo, float("inf")
+    steps = 400
+    for i in range(steps + 1):
+        phi = lo + (hi - lo) * i / steps
+        err = abs(aspect(orient(make(phi))) - target)
+        if err < best_err:
+            best, best_err = phi, err
+    span = (hi - lo) / steps
+    for _ in range(30):
+        for phi in (best - span, best + span):
+            if lo <= phi <= hi:
+                err = abs(aspect(orient(make(phi))) - target)
+                if err < best_err:
+                    best, best_err = phi, err
+        span *= 0.5
+    return orient(make(best))
+
+
+def fit_hyper(target: float):
+    """A window of r=a/θ whose oriented bbox has the target aspect."""
+    best = (float("inf"), 1.4, 3.1)
+    for t0 in [0.3 + 0.1 * i for i in range(30)]:
+        for phi in [0.2 + 0.1 * j for j in range(60)]:
+            err = abs(aspect(orient(hyper_points(t0, phi))) - target)
+            if err < best[0]:
+                best = (err, t0, phi)
+    _, t0, phi = best
+    return orient(hyper_points(t0, phi)), t0, phi
+
+
+def placed(points, h: float):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    scale = (CELL - 2 * MARGIN) / max(x1 - x0, y1 - y0, 1e-9)
-    return [(MARGIN + (x - x0) * scale, CELL - (MARGIN + (y - y0) * scale))
+    scale = min((W - 2 * MARGIN) / max(x1 - x0, 1e-9),
+                (h - 2 * MARGIN) / max(y1 - y0, 1e-9))
+    dx = (W - (x1 - x0) * scale) / 2
+    dy = (h - (y1 - y0) * scale) / 2
+    return [(dx + (x - x0) * scale, h - (dy + (y - y0) * scale))
             for x, y in points]
 
 
-def panel(label: str, formula: str, points, note: str) -> str:
+def strip(label: str, points, n: int) -> str:
+    h = n * 100.0
+    pts = placed(points, h)
     d = " ".join(f"{'M' if i == 0 else 'L'} {x:.2f} {y:.2f}"
-                 for i, (x, y) in enumerate(placed(points)))
-    return f"""<div class="cell">
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#e8dfc8" stroke-width="0.25">
-      {''.join(f'<line x1="{g}" y1="0" x2="{g}" y2="100"/>' for g in range(10, 100, 10))}
-      {''.join(f'<line x1="0" y1="{g}" x2="100" y2="{g}"/>' for g in range(10, 100, 10))}
-    </g>
-    <rect x="0" y="0" width="100" height="100" fill="none" stroke="#d8ccae" stroke-width="0.4"/>
-    <path d="{d}" fill="none" stroke="#2e2413" stroke-width="1.1"/>
+                 for i, (x, y) in enumerate(pts))
+    grid = "".join(f'<line x1="{g * 100}" y1="0" x2="{g * 100}" y2="{h}"/>'
+                   for g in range(1, 8))
+    grid += "".join(f'<line x1="0" y1="{g * 100}" x2="{W}" y2="{g * 100}"/>'
+                    for g in range(1, n))
+    return f"""<div class="strip">
+  <svg viewBox="0 0 {W:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#e8dfc8" stroke-width="0.6">{grid}</g>
+    <rect x="0" y="0" width="{W:.0f}" height="{h:.0f}" fill="none"
+          stroke="#d8ccae" stroke-width="1"/>
+    <path d="{d}" fill="none" stroke="#2e2413" stroke-width="2.2"/>
   </svg>
-  <p><strong>{label}</strong><br><code>{formula}</code><br>{note}</p>
+  <p><strong>{label}</strong> · 8 × {n} in
+    {"" if abs(aspect(points) - 8.0 / n) < 0.06 else
+     f"· the arc itself fills 8 × {8.0 / aspect(points):.1f}"}</p>
 </div>"""
 
 
 def main() -> int:
-    log_panels = [
-        (b, panel(f"log spiral · b = {b:g}", "r = a e^(bθ)",
-                  log_spiral(b),
-                  f"radius grows {math.exp(b * math.pi / 2):.2f}× over 90°"))
-        for b in (0.10, 0.18, 0.25, 0.35, 0.50)
-    ]
-    hyper_panels = [
-        (start, end, panel(f"hyperbolic · θ {start:g}–{end:g}", "r = a / θ",
-                           hyperbolic(start, end),
-                           "asymptote at y = a; rθ is constant"))
-        for start, end in ((0.5, 2.5), (0.3, 1.8), (0.8, 3.2))
-    ]
-    cloth_panel = panel("clothoid · 90°", "κ = s / A²", clothoid(),
-                        "curvature linear in arc length")
+    rows = []
+    for family in ("log spiral · b = 0.18", "hyperbolic", "clothoid"):
+        strips = []
+        for n in (1, 2, 3, 4, 5):
+            if family.startswith("log"):
+                points = fit_arc(lambda phi: log_points(0.18, phi), 8.0 / n)
+                label = family
+            elif family.startswith("hyper"):
+                points, t0, phi = fit_hyper(8.0 / n)
+                label = f"hyperbolic · θ {t0:.1f}–{t0 + phi:.1f}"
+            else:
+                points = fit_arc(clothoid_points, 8.0 / n)
+                label = family
+            strips.append(strip(label, points, n))
+        rows.append((family, "".join(strips)))
 
-    log_html = "".join(p for _, p in log_panels)
-    hyper_html = "".join(p for _, _, p in hyper_panels)
+    sections = "".join(
+        f'<h2>{family}</h2><div class="panel">{strips}</div>'
+        for family, strips in rows)
 
     page = f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spirals that make a dress curve</title>
+<title>Spirals at dress-curve proportions</title>
 <style>
   :root {{ color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
     --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
@@ -110,19 +170,18 @@ def main() -> int:
   * {{ box-sizing: border-box; }}
   body {{ margin:0; color:var(--ink); font:16px/1.55 var(--serif);
     background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }}
-  main {{ max-width: 900px; margin: 0 auto; padding: 34px 22px 70px; }}
+  main {{ max-width: 920px; margin: 0 auto; padding: 34px 22px 70px; }}
   h1 {{ font-size: 28px; margin: 0 0 4px; }}
   .lead {{ color: var(--gold); margin: 0 0 18px; }}
   h2 {{ font: 600 11px/1.2 var(--mono); letter-spacing:.12em; text-transform:uppercase;
     color:var(--muted); margin:26px 0 8px; }}
-  .panel {{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:14px; }}
-  .cells {{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }}
-  .cell {{ border:1px solid var(--line); border-radius:4px; padding:8px; background:#fff; }}
-  .cell svg {{ display:block; width:100%; height:auto; }}
-  .cell p {{ margin:6px 0 0; font:10px/1.45 var(--mono); color:var(--muted); }}
-  .cell strong {{ color:var(--ink); }}
-  code {{ font:11px/1 var(--mono); background:#fbf8ee; border:1px solid var(--line);
-    border-radius:3px; padding:2px 4px; }}
+  .panel {{ background:var(--card); border:1px solid var(--line); border-radius:6px; padding:12px; }}
+  .strip {{ margin: 0 0 14px; }}
+  .strip:last-child {{ margin-bottom: 0; }}
+  .strip svg {{ display:block; width:100%; height:auto; background:#fff;
+    border:1px solid var(--line); border-radius:3px; }}
+  .strip p {{ margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted); }}
+  .strip strong {{ color:var(--ink); }}
   table {{ border-collapse:collapse; width:100%; font:12px/1.5 var(--mono); }}
   th, td {{ border-bottom:1px solid var(--line); padding:6px 4px; text-align:left; }}
   th {{ color:var(--muted); font-weight:500; }}
@@ -131,7 +190,6 @@ def main() -> int:
   a {{ color:var(--gold); }}
   @media (max-width:620px) {{
     main {{ padding:22px 14px 60px; }}
-    .cells {{ grid-template-columns:1fr; }}
     table {{ font-size:10px; }} th,td {{ padding:4px 2px; }}
   }}
 </style>
@@ -139,53 +197,30 @@ def main() -> int:
 <body>
 <main>
   <p class="back"><a href="sandbox.html">← sandbox</a></p>
-  <h1>Spirals that make a dress curve</h1>
-  <p class="lead">Log spirals, hyperbolic spirals and a clothoid, all at the same scale.
-  Which bend does the hip curve have?</p>
+  <h1>Spirals at dress-curve proportions</h1>
+  <p class="lead">8 inches wide, 1 to 5 inches high. Each strip uses the arc of
+  that family whose bounding box is 8:n, so it fills the shape.</p>
 
-  <h2>Logarithmic spirals: r = a e^(bθ)</h2>
-  <div class="panel">
-    <p>The tangent makes a constant angle with the radius. Small b is almost a
-    circle; large b opens fast. A hip curve is a gentle arc, so it would sit at
-    the small end.</p>
-    <div class="cells">{log_html}</div>
+  <div class="panel" style="margin-bottom:18px">
+    <p>Shallow strips are small turns; tall strips are large turns. Compare the
+    <em>asymmetry</em>: a log spiral tightens toward one end by a fixed ratio;
+    a clothoid tightens continuously; a hyperbolic has a long asymptotic arm.</p>
   </div>
 
-  <h2>Hyperbolic spirals: r = a / θ</h2>
-  <div class="panel">
-    <p>The radius falls as 1/θ. It has a horizontal asymptote at y = a and winds
-    into the pole; the curves below are different windows on the same spiral.</p>
-    <div class="cells">{hyper_html}</div>
-  </div>
+  {sections}
 
-  <h2>Clothoid, for comparison</h2>
-  <div class="panel">
-    <div class="cells">{cloth_panel}</div>
-    <p style="margin-top:10px">The clothoid's curvature is linear in arc length;
-    the log spiral's radius of curvature is proportional to the radius; the
-    hyperbolic has rθ constant. Those are three different signatures.</p>
-  </div>
-
-  <h2>How to tell which one you have</h2>
+  <h2>How to identify the real one</h2>
   <div class="panel">
     <div class="scroll"><table>
-      <tr><th>family</th><th>equation</th><th>signature</th><th>fit</th></tr>
-      <tr><td>log spiral</td><td>r = a e^(bθ)</td>
-          <td>tangent–radius angle constant; ρ ∝ s</td>
-          <td>log ρ vs log s has slope +1; b = tan(angle)</td></tr>
-      <tr><td>clothoid</td><td>κ = s / A²</td>
-          <td>curvature linear in arc length; ρ ∝ 1/s</td>
-          <td>log ρ vs log s has slope −1</td></tr>
-      <tr><td>hyperbolic</td><td>r = a / θ</td>
-          <td>rθ constant; asymptote at y = a</td>
-          <td>fit rθ; the asymptote gives a</td></tr>
-      <tr><td>log-aesthetic</td><td>ρ^α = c₀s + c₁</td>
-          <td>α = 1 is log, α = −1 is clothoid</td>
-          <td>fit α; the slope of log ρ vs log s is 1/α</td></tr>
+      <tr><th>family</th><th>equation</th><th>signature</th></tr>
+      <tr><td>log spiral</td><td>r = a e^(bθ)</td><td>tangent–radius angle constant; ρ ∝ s</td></tr>
+      <tr><td>clothoid</td><td>κ = s / A²</td><td>curvature linear in arc length; ρ ∝ 1/s</td></tr>
+      <tr><td>hyperbolic</td><td>r = a / θ</td><td>rθ constant; asymptote</td></tr>
+      <tr><td>log-aesthetic</td><td>ρ^α = c₀s + c₁</td><td>α = 1 log; α = −1 clothoid</td></tr>
     </table></div>
-    <p style="margin-top:10px">If the hip curve is one of these, the fitted
-    numbers will say which; if it is a compound (as the vary form often is),
-    it will fit two segments with different α or b.</p>
+    <p style="margin-top:10px">Pick the strip closest to the physical curve, then
+    scan it: the fit gives b, the θ window or α. The page is an eye test, not a
+    proof.</p>
   </div>
 </main>
 </body>
