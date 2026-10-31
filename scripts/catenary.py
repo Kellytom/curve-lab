@@ -567,8 +567,9 @@ def main() -> int:
     small = []
     for p in (0.50, 0.62, 0.75):
         svg, _, _ = fig_catenary(a, p, steps, gold=False, grid=False)
-        small.append(f'<figure>{svg}<figcaption>split {p:.2f} : '
-                     f'{1 - p:.2f}</figcaption></figure>')
+        letter = "BCD"[len(small)]
+        small.append(f'<figure>{svg}<figcaption><strong>Fig. {letter}</strong> '
+                     f'\u00b7 split {p:.2f} : {1 - p:.2f}</figcaption></figure>')
 
     node_rows = []
     for side, rows, sign in (("high", ir, 1), ("low", dr, -1)):
@@ -620,7 +621,7 @@ def main() -> int:
     high anchor sits {0.71 * a:.0f} above the vertex and the low one
     {0.32 * a:.0f}.</p>
     <div class="strip">{fig_main}
-      <p><strong>Fig. 1</strong> · the chain (ink) on the true catenary (gold) ·
+      <p><strong>Fig. A</strong> · the chain (ink) on the true catenary (gold) ·
       arc {total:.0f}, split 0.62 : 0.38 · worst node error
       {max(err_hi, err_lo):.1f} on the high branch
       ({100 * max(err_hi, err_lo) / total:.1f}% of arc)</p></div>
@@ -635,10 +636,11 @@ def main() -> int:
     <div class="two">
       {''.join(
         f'<figure style="margin:0">{integer_figure(walk_drape(6.5 * 900, sp, b)[0], 430.0, 220.0, False)}'
-        f'<figcaption>{label}<br><strong>{walk_drape(6.5 * 900, sp, b)[1]} × '
+        f'<figcaption><strong>Fig. {"EFGHIJ"[i]}</strong> · {label}<br>'
+        f'<strong>{walk_drape(6.5 * 900, sp, b)[1]} × '
         f'{walk_drape(6.5 * 900, sp, b)[2]}</strong> · '
         f'{len(walk_drape(6.5 * 900, sp, b)[0]) - 1} chords</figcaption></figure>'
-        for label, b, sp in VARIANTS)}
+        for i, (label, b, sp) in enumerate(VARIANTS))}
     </div>
     <p style="margin-top:14px"><strong>The governing rule: build with the
     triples, and let everything else follow.</strong> The figure above is a fit
@@ -647,7 +649,7 @@ def main() -> int:
     off the result</em>. Nothing is fitted and nothing is rounded, so every node
     is an integer by construction.</p>
     <div class="strip">{integer_figure(ichain)}
-      <p><strong>Fig. 2</strong> · the walked chain · {len(ir)} chords a side,
+      <p><strong>Fig. K</strong> · the walked chain · {len(ir)} chords a side,
       {len(ir)} steps of about 450 on a radius of {ia:.0f} ·
       <strong>{iwidth} × {iheight} units</strong> (exact integers) ·
       split {0.62:.2f} : {0.38:.2f}</p></div>
@@ -680,7 +682,7 @@ def main() -> int:
     is not in yet — the rows keep equal spacing down the sheet, which is why
     the folds read as neat rather than lived-in.</p>
     <div class="strip">{drape_svg()}
-      <p><strong>Fig. 3</strong> · nine rows, each the catenary of the full
+      <p><strong>Fig. L</strong> · nine rows, each the catenary of the full
       rest width on a span that narrows with depth</p></div>
     <canvas id="view"></canvas>
     <div class="controls">
@@ -690,7 +692,7 @@ def main() -> int:
       <span>drag to orbit · wheel to zoom</span>
     </div>
     <p style="margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted)">
-      <strong>Fig. 4</strong> · the same drape in 2.5D (three.js) — 26 × 46
+      <strong>Fig. M</strong> · the same drape in 2.5D (three.js) — 26 × 46
       grid, two pins at the top corners</p>
   </div>
 </main>
