@@ -3,8 +3,8 @@
     python3 -m http.server 8001 --bind 127.0.0.1     # in ../ornaments
     .venv/bin/python scripts/extract-spirals.py
 
-Writes `docs/spirals/stage-two.json`, `docs/spirals/lac.json` and
-`docs/spirals/index.html`.
+Writes `sandbox/spirals/stage-two.json`, `sandbox/spirals/lac.json` and
+`sandbox/spirals/index.html`.
 
 Each plate carries a `spine` layer. Every path there is one continuous spine,
 split into cubics at 45 degrees of turn, and tagged with `data-span`: `line`,

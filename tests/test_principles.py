@@ -38,7 +38,7 @@ class TestCards(unittest.TestCase):
         """The coverage half, which reports rather than blocks.
 
         A card without an image is a gap in the reference set, not a broken
-        build: `docs/principles.html` already renders "no references" for one.
+        build: `sandbox/principles.html` already renders "no references" for one.
         It is skipped loudly instead of failing, so the gap stays visible in a
         verbose run without holding the suite red until the images are chosen.
         """
@@ -48,7 +48,7 @@ class TestCards(unittest.TestCase):
             self.skipTest("cards with no reference image yet: " + ", ".join(missing))
 
     def test_page_matches_the_cards(self):
-        page = (ROOT / "docs" / "principles.html").read_text()
+        page = (ROOT / "workbench" / "principles.html").read_text()
         for card in CARDS:
             self.assertIn(card["name"], page)
             self.assertIn(card["gesture"], page)

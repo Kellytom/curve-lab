@@ -836,7 +836,7 @@ function render(data, path) {
   return { path, bytes: html.length, items: data.items.length };
 }
 
-const a = render(boardData, path.join(ROOT, "docs/ornament-board.html"));
-const b = render(fleurData, path.join(ROOT, "docs/fleur-studies.html"));
+const a = render(boardData, path.join(ROOT, "sandbox/ornament-board.html"));
+const b = render(fleurData, path.join(ROOT, "sandbox/fleur-studies.html"));
 console.log(a);
 console.log(b);

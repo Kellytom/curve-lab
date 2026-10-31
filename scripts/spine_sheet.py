@@ -1,7 +1,7 @@
 """The promotion gate, steps 2 and 3: one spine on the sheet, one declared join.
 
     .venv/bin/python scripts/spine_sheet.py
-    open docs/spine-sheet.html
+    open workbench/spine-sheet.html
 
 A curl from the spine layer, a branch forked off one of its exact nodes, and a
 contact declared at that node. The piece is drawn on the 200 x 250 mm sheet
@@ -133,7 +133,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a> · <a href="ornament-board.html">the ornament board</a></p>
+  <p class="back"><a href="workbench.html">← workbench</a> · <a href="ornament-board.html">the ornament board</a></p>
   <h1>Spine on the sheet</h1>
   <p class="lead">Promotion gate 2: a chain on 200 × 250 mm, +y up. Gate 3: a declared join passes the clearance check.</p>
 
@@ -169,7 +169,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "spine-sheet.html"
+    path = ROOT / "workbench" / "spine-sheet.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"sheet {PAGE[0]:g}x{PAGE[1]:g} mm, fit_ok={info['fit_ok']}")

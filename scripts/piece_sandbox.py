@@ -3,7 +3,7 @@
 Run from the repo root:
 
     .venv/bin/python scripts/piece_sandbox.py
-    open docs/piece-model.html
+    open workbench/piece-model.html
 """
 
 from __future__ import annotations
@@ -174,7 +174,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = Path(__file__).resolve().parents[1] / "docs" / "piece-model.html"
+    path = Path(__file__).resolve().parents[1] / "workbench" / "piece-model.html"
     path.write_text(html, encoding="utf-8")
     print(path)
     print(f"traces={len(info['traces'])} fit_ok={info['fit_ok']}")

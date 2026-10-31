@@ -1,7 +1,7 @@
 """Spiral families at dress-curve proportions: 8 inches wide, 1-5 high.
 
     .venv/bin/python scripts/curve_families.py
-    open docs/curve-families.html
+    open workbench/curve-families.html
 
 Each strip is 8 x n inches (n = 1..5). For each family the arc is chosen so its
 bounding box has that 8:n aspect, then scaled to fill the strip. A shallow arc
@@ -12,6 +12,7 @@ is a small turn; a tall one is a large turn. That is the honest way to compare
 from __future__ import annotations
 
 import math
+from fractions import Fraction
 import sys
 from pathlib import Path
 
@@ -134,6 +135,91 @@ def fitter(points, h: float, w: float = W, margin: float = MARGIN):
                 for x, y in points_]
 
     return draw, scale
+
+
+def ladder(max_h: int = 500, max_deg: float = 62.0):
+    """Pythagorean slopes as angles, sorted: the rungs the chain may use."""
+    seen, rungs = set(), []
+    for u in range(1, max_h):
+        for v in range(u + 1, max_h):
+            h = math.isqrt(u * u + v * v)
+            if h * h != u * u + v * v or h > max_h:
+                continue
+            for legs in ((u, v), (v, u)):
+                ang = math.degrees(math.atan2(legs[0], legs[1]))
+                if ang > max_deg:
+                    continue
+                key = round(ang, 2)
+                if key in seen:
+                    continue
+                seen.add(key)
+                rungs.append({"deg": ang, "triple": (legs[0], legs[1], h)})
+    rungs.sort(key=lambda r: r["deg"])
+    return rungs
+
+
+def exact_spine(top: int, triple, rungs):
+    """A spine whose every node is an integer point.
+
+    The ideal chain turns by a fixed angle, so its chords run at k*alpha and
+    cos(k*alpha) is irrational -- those nodes can never be integers.  Here each
+    chord is an integer multiple of a triple's legs instead: the direction is
+    the nearest rung to the ideal heading, the length is rounded to whole
+    hypotenuses of that rung.  The nodes are exactly integral; the curve is an
+    approximation of the ideal, and the error is reported.
+    """
+    ideal = doubling_chain(top, triple)
+    pts = [(0, 0)]
+    rows = []
+    x = y = 0
+    for i in range(len(ideal) - 1):
+        dx = ideal[i + 1][0] - ideal[i][0]
+        dy = ideal[i + 1][1] - ideal[i][1]
+        want = math.degrees(math.atan2(dy, dx))
+        rung = min(rungs, key=lambda r: abs(r["deg"] - want))
+        u, v, h = rung["triple"]
+        m = max(1, round(math.hypot(dx, dy) / h))
+        sx, sy = m * u, m * v
+        x, y = x + sx, y + sy
+        pts.append((x, y))
+        rows.append({"want": want, "deg": rung["deg"], "triple": (u, v, h),
+                     "m": m, "chord": (sx, sy)})
+    return pts, rows, ideal
+
+
+def exact_plate(pts, d):
+    """The offset of an integer chain, in Fractions: exact, no snapping."""
+    lines = []
+    for i in range(len(pts) - 1):
+        dx = pts[i + 1][0] - pts[i][0]
+        dy = pts[i + 1][1] - pts[i][1]
+        h = math.isqrt(dx * dx + dy * dy)
+        shift_x = Fraction(-dy, 1) * d / h
+        shift_y = Fraction(dx, 1) * d / h
+        lines.append(((Fraction(pts[i][0]) + shift_x,
+                       Fraction(pts[i][1]) + shift_y),
+                      (Fraction(dx), Fraction(dy))))
+
+    out = [lines[0][0]]
+    for i in range(1, len(lines)):
+        (ax, ay), (ux, uy) = lines[i - 1]
+        (bx, by), (vx, vy) = lines[i]
+        den = ux * vy - uy * vx
+        if den == 0:
+            out.append(bx)
+            continue
+        t = ((bx - ax) * vy - (by - ay) * vx) / den
+        out.append((ax + ux * t, ay + uy * t))
+    return out
+
+
+def common_denominator(pts):
+    """Rescale exact points so every coordinate is an integer again."""
+    den = 1
+    for x, y in pts:
+        for v in (x, y):
+            den = den * v.denominator // math.gcd(den, v.denominator)
+    return [(x * den, y * den) for x, y in pts], den
 
 
 def placed(points, h: float, w: float = W):
@@ -529,7 +615,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a></p>
+  <p class="back"><a href="workbench.html">← workbench</a></p>
   <h1>Spirals at dress-curve proportions</h1>
   <p class="lead">8 inches wide, 1 to 5 inches high. Each strip uses the arc of
   that family whose bounding box is 8:n, so it fills the shape.</p>
@@ -571,7 +657,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "curve-families.html"
+    path = ROOT / "workbench" / "curve-families.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     return 0

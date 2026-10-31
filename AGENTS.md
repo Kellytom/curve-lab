@@ -7,7 +7,7 @@ Keep the context small. Read only what the current action names.
 1. `next-fhandoff.md` — the one action.
 2. `docs/HANDOFF.md` — current truth. Stop there unless it points onward.
 3. `docs/BACKLOG.md` — the W-label detail for the action, and nothing else.
-4. `docs/ornament-board.html` — visual order and labels (generated; do not
+4. `workbench/ornament-board.html` — visual order and labels (generated; do not
    edit by hand).
 
 Do **not** read `docs/HANDOVER.md` unless the action needs durable
@@ -39,7 +39,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `clothoid_lab/primal.py` | earth, water, air, fire: one grammar each |
 | `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
-| `scripts/board/` | board generator + template + extractors (edit these, not `docs/*.html`) |
+| `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
 | `tests/` | 215 tests; run the whole suite |
 | `docs/REVIEW.md` | architecture/print review — act after the current work |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
@@ -49,6 +49,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
 | `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
 | `docs/spirals/` | recovered Stage II + LAC spines and their parity report |
+| `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `docs/HANDOFF.md` | current truth |
 | `next-fhandoff.md` | one action |

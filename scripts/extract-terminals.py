@@ -5,8 +5,8 @@ Run with the ornaments repository served locally (or pass URLs as arguments):
     python3 -m http.server 8001 --bind 127.0.0.1     # in ../ornaments
     .venv/bin/python scripts/extract-terminals.py
 
-Writes `docs/terminals/stage-two.json`, `docs/terminals/lac.json` and
-`docs/terminals/index.html`.
+Writes `sandbox/terminals/stage-two.json`, `sandbox/terminals/lac.json` and
+`sandbox/terminals/index.html`.
 
 Every plate on those pages is static SVG with an `outline` layer, and every
 band is one closed path:

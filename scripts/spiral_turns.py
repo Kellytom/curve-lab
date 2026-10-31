@@ -1,7 +1,7 @@
 """How many turns fit before an Euler spiral is a circle — and before it merges.
 
     .venv/bin/python scripts/spiral_turns.py
-    open docs/spiral-turns.html
+    open workbench/spiral-turns.html
 
 Two experiments, both with 1-point chords on a 100-point grid:
 
@@ -606,7 +606,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a></p>
+  <p class="back"><a href="workbench.html">← workbench</a></p>
   <h1>Euler spiral: turns and merging</h1>
   <p class="lead">A 100-point grid, one-point chords, a one-point line and a one-point
   clearance. How many times around, and when the windings touch.</p>
@@ -788,7 +788,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "spiral-turns.html"
+    path = ROOT / "workbench" / "spiral-turns.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"from rest: {count} chords, {turns:.2f} turns, box {width:.1f}x{height:.1f}, "

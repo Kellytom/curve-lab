@@ -1,4 +1,4 @@
-"""Build docs/primal.html: earth, water, air and fire, one page."""
+"""Build sandbox/primal.html: earth, water, air and fire, one page."""
 
 import sys
 from pathlib import Path
@@ -45,7 +45,7 @@ svg{display:block;width:100%;height:auto}
 """ + "".join(panels) + """
 </main></body></html>
 """
-path = ROOT / "docs" / "primal.html"
+path = ROOT / "workbench" / "primal.html"
 path.write_text(page, encoding="utf-8")
 print(path)
 for name in primal.PRIMAL:

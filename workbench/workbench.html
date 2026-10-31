@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>clothoid-lab sandbox</title>
+<title>Clothoid workbench</title>
 <style>
   :root { color-scheme: light; --paper:#f6f1e4; --card:#fffdf7; --ink:#2e2413;
     --muted:#7b6c4e; --gold:#8c6a21; --line:#d8ccae;
@@ -34,7 +34,7 @@
 <body>
 <main>
   <p class="back"><a href="ornament-board.html">← the ornament board</a></p>
-  <h1>Sandbox</h1>
+  <h1>Workbench</h1>
   <p class="lead">The working pages: draw, measure, compare. Every one is generated from code in this repository.</p>
 
   <h2>The curve and the pipeline</h2>
@@ -46,7 +46,7 @@
       <li><a href="spiral-turns.html">Euler spiral: turns and merging</a>
         <span class="tag">new</span>
         <span class="what">How many times a clothoid winds in a 100 grid, and when the windings touch. Sections 5–8 cover the special case: a spiral curvature-matched to its inner circle (G2), unwinding outward from r = 5 to the page edge at r = 49; the join is the tightest point, and R/√3 is the max-turn radius.</span></li>
-      <li><a href="catenary.html">Catenary sandbox: triples and drapery</a>
+      <li><a href="catenary.html">Catenary studies: triples and drapery</a>
         <span class="tag">new</span>
         <span class="what">Two projects: a catenary chained from pythagorean triples (two branches, split by percentage), and Weil’s catenary drapery in 2.5D.</span></li>
       <li><a href="stage-two.html">Clothoid intermediate curves stage II</a>
@@ -75,9 +75,9 @@
   <h2>The recovered corpus</h2>
   <div class="panel">
     <ul>
-      <li><a href="terminals/index.html">Recovered terminals</a>
+      <li><a href="../docs/terminals/index.html">Recovered terminals</a>
         <span class="what">150 ends cut from the ornaments pages, with attachment frames.</span></li>
-      <li><a href="spirals/index.html">Recovered spirals</a>
+      <li><a href="../docs/spirals/index.html">Recovered spirals</a>
         <span class="what">Stage II and LAC spine paths, fitted one clothoid per cubic span.</span></li>
       <li><a href="ornament-board.html">The ornament board</a>
         <span class="what">85 plates, 26 work items, 11 decisions; read-only and generated.</span></li>
@@ -89,9 +89,10 @@
   <h2>How to run it</h2>
   <div class="panel">
     <p>The local app is <code>127.0.0.1:8000</code> from <code>.venv/bin/python web/server.py</code>.
-    These pages are static: <code>.venv/bin/python -m http.server 8003 --directory docs</code>,
-    then <code>http://127.0.0.1:8003/sandbox.html</code>. Each page is written by its script in
-    <code>scripts/</code>; edit the script, not the HTML.</p>
+    These pages are static: <code>.venv/bin/python -m http.server 8003 --directory .</code>,
+    then <code>http://127.0.0.1:8003/workbench/workbench.html</code>. Each page is written by its
+    script in <code>scripts/</code>; edit the script, not the HTML. Prose lives in
+    <code>docs/</code>; these pages are the workbench's future inputs.</p>
   </div>
 </main>
 </body>

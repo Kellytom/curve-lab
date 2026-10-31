@@ -1,4 +1,4 @@
-"""Rebuild docs/principles.html from reference/principles.json + manifest.json.
+"""Rebuild sandbox/principles.html from reference/principles.json + manifest.json.
 
 Images are attached by subject id from the manifest, never hard-coded in a card,
 so a re-download cannot leave a broken link. No shape is traced; the images are
@@ -59,6 +59,6 @@ a{color:#8c6a21}
 no shape is traced. Attribution: <a href="../reference/ATTRIBUTION.md">reference/ATTRIBUTION.md</a>.</p>
 </main></body></html>'''
 
-out = ROOT / "docs" / "principles.html"
+out = ROOT / "workbench" / "principles.html"
 out.write_text(PAGE)
 print(f"{out} — {len(cards)} cards, {len(manifest)} images")

@@ -1,7 +1,7 @@
 """Where can a branch go? The practical curve with candidate pins.
 
     .venv/bin/python scripts/branch_points.py
-    open docs/branch-points.html
+    open workbench/branch-points.html
 
 A branch is exact only at a pin: a point chosen on the exact chain that becomes
 a hard split with the chain's heading. This page pins six candidate knots along
@@ -234,7 +234,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a> ·
+  <p class="back"><a href="workbench.html">← workbench</a> ·
     <a href="practical-curve.html">the practical curve</a></p>
   <h1>Where to branch</h1>
   <p class="lead">The practical curve is {practical_cubics} cubics instead of {exact_cubics}.
@@ -295,7 +295,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "branch-points.html"
+    path = ROOT / "workbench" / "branch-points.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"exact {exact_cubics}, practical {practical_cubics}, "

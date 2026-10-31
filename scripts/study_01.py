@@ -104,7 +104,7 @@ report can be believed.</p>
 </div>
 </main></body></html>
 """
-    path = ROOT / "docs" / "fleur-study-01.html"
+    path = ROOT / "workbench" / "fleur-study-01.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"spans={len(right['spans'])} nodes={len(right['nodes'])} worst={worst:.3f}")

@@ -1,7 +1,7 @@
 """Gate 4: study 01 drawn from Pythagorean chains.
 
     .venv/bin/python scripts/spine_study_01.py
-    open docs/spine-study-01.html
+    open workbench/spine-study-01.html
 
 Draws the right half and the band as composite chains at the default turn step
 on the 200 x 250 mm sheet, and prints the drift of every span end from P01's
@@ -85,7 +85,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a> · <a href="ornament-board.html">the ornament board</a></p>
+  <p class="back"><a href="workbench.html">← workbench</a> · <a href="ornament-board.html">the ornament board</a></p>
   <h1>Study 01 from chains</h1>
   <p class="lead">Gate 4: every stroke a Pythagorean chain, measured against P01.</p>
 
@@ -136,7 +136,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "spine-study-01.html"
+    path = ROOT / "workbench" / "spine-study-01.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"alpha {result['alpha_deg']:g} deg: {result['chords']} chords, "

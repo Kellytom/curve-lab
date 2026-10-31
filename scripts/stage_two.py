@@ -1,7 +1,7 @@
 """Stage II: the plates.  Offsets, then branches.
 
     .venv/bin/python scripts/stage_two.py
-    open docs/stage-two.html
+    open workbench/stage-two.html
 
 A *spine* is a chain of chords turned by the triple's angle at every node.  A
 *plate* is what gets drawn: an offset of the spine, or a branch of it.  The
@@ -18,9 +18,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from fractions import Fraction
+
 from curve_families import (  # noqa: E402
-    THIN, aspect, doubling_chain, fitter, offset_chain, path_d, series_top,
-    triple_angle, turn_of,
+    THIN, aspect, common_denominator, doubling_chain, exact_plate, exact_spine,
+    fitter, ladder, offset_chain, path_d, series_top, triple_angle, turn_of,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -315,6 +317,14 @@ def join_figure(chain, d, index, w=860.0, h=430.0, boost=40.0) -> tuple:
         f'<circle cx="{at(b)[0]:.1f}" cy="{at(b)[1]:.1f}" r="2.4" fill="{INK}"/>'
         for b in snapped[lo:hi])
 
+    # the branch that leaves the magnified join, so the join is visible
+    here = snapped[index]
+    branch, _ = spine(4, THIN, here, heading_at(plate, index), 0.032, 1)
+    branches = [f'<path d="{path_d([at(p) for p in branch])}" fill="none" '
+                f'stroke="{INK}" stroke-width="1.6"/>',
+                f'<circle cx="{at(here)[0]:.1f}" cy="{at(here)[1]:.1f}" r="5" '
+                f'fill="none" stroke="{GOLD}" stroke-width="1.6"/>']
+
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
           stroke="{LINE}" stroke-width="1"/>
@@ -323,6 +333,7 @@ def join_figure(chain, d, index, w=860.0, h=430.0, boost=40.0) -> tuple:
     <path d="{path_d([at(p) for p in plate])}" fill="none" stroke="{INK}"
           stroke-width="2.0"/>
     {marks}
+    {''.join(branches)}
     {''.join(jogs)}
   </svg>""", residual
 
@@ -437,6 +448,29 @@ def main() -> int:
                        f"<strong>{label}</strong> · {len(tree)} plates · "
                        f"{chords} chords"))
 
+    # -- 4. the exact spine ---------------------------------------------
+    rungs = ladder(max_deg=95.0)
+    ept, erows, ideal = exact_spine(5, THIN, rungs)
+    exact_offset = exact_plate(ept, Fraction(1, 3))
+    _, den = common_denominator(exact_offset)
+    snap_worst = max(abs(r["want"] - r["deg"]) for r in erows)
+    ep = [(float(x), float(y)) for x, y in ept]
+    eo = [(float(x), float(y)) for x, y in exact_offset]
+    draw_e, _ = fitter(ep + eo, 760, 760, 24.0)
+
+    def eat(p):
+        q = draw_e([p])[0]
+        return f"{q[0]:.2f} {q[1]:.2f}"
+    exact_panel = f"""<svg viewBox="0 0 760 760" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="760" height="760" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    <path d="{path_d([draw_e([p])[0] for p in eo])}" fill="none" stroke="{GOLD}"
+          stroke-width="1.8"/>
+    <path d="{path_d([draw_e([p])[0] for p in ep])}" fill="none" stroke="{INK}"
+          stroke-width="2.4" stroke-linejoin="round"/>
+    {''.join(f'<circle cx="{eat(p).split()[0]}" cy="{eat(p).split()[1]}" r="3.2" fill="{INK}"/>' for p in ep)}
+  </svg>"""
+
     page = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -448,7 +482,7 @@ def main() -> int:
 <body>
 <main>
   <p class="back"><a href="curve-families.html">← the curves</a> ·
-  <a href="sandbox.html">sandbox</a></p>
+  <a href="workbench.html">workbench</a></p>
   <h1>Clothoid intermediate curves stage II</h1>
   <p class="lead">A spine is a chain of chords. Everything drawn from it — an
   offset, a branch — is a plate, and every plate is a construction on the
@@ -540,11 +574,47 @@ def main() -> int:
     <p class="next">Next: leaves. A leaf is a plate that stops — one span at the
     end of a branch, sized by the chord that carries it.</p>
   </div>
+
+  <h2>Exact: chords from legs</h2>
+  <div class="panel">
+    <p>Everything above is built on a chain that turns by a fixed angle, so its
+    chords run at k·α and every chord has a length of 2ⁿ times a hypotenuse.
+    <code>cos(kα)</code> is irrational, so those nodes are irrational too: no
+    amount of care makes them land on a lattice. That is why the joins had to
+    be snapped, and why the snap was drawn.</p>
+    <p>An exact spine is built the other way round — <strong>the chord is an
+    integer vector, and the angle follows from it</strong>:</p>
+    <table>
+      <tr><th>step</th><th>what it does</th></tr>
+      <tr><td>1 · direction</td><td>take the ideal heading, snap it to the
+      nearest rung of the triple catalogue</td></tr>
+      <tr><td>2 · chord</td><td>lay <code>m·(u, v)</code> for that rung, with
+      m the ideal chord length rounded to whole hypotenuses</td></tr>
+      <tr><td>3 · offset</td><td>slide each chord by d along
+      <code>(−v, u)/h</code> in <code>Fraction</code> arithmetic and intersect
+      the neighbours — exact, no snapping</td></tr>
+    </table>
+    <p style="margin-top:10px">Every node is now an integer point, and every
+    plate node is an exact rational. The worst direction snap on this spine is
+    {snap_worst:.1f}°, and it costs nothing in exactness — the rung you choose
+    <em>is</em> the direction you get.</p>
+    {strip(exact_panel, f"<strong>the exact spine</strong> (ink) and its plate "
+                        f"at d = 1/3 (gold) · every node an integer, every "
+                        f"plate node a fraction", 8)}
+    <p style="margin-top:10px"><strong>The catch, and it is the whole
+    problem:</strong> a general rung catalogue puts the plate on a lattice with
+    denominator <span style="font-family:var(--mono)">10^{len(str(den)) - 1}</span>
+    — exact, and useless. The plate is only <em>usable</em> if the rungs share
+    a hypotenuse, because then the shift is integral and the intersections
+    land on a lattice of 1/det. That is the argument for a single-hypotenuse
+    family — the 3125 lattice the rest of the work already sits on — rather
+    than a wide catalogue of triples.</p>
+  </div>
 </main>
 </body>
 </html>
 """
-    path = ROOT / "docs" / "stage-two.html"
+    path = ROOT / "workbench" / "stage-two.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"close={close:.0f} chord_min={chord_min:.0f} worst_cubic={worst:.0f}")

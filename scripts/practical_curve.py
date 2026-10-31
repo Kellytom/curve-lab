@@ -1,7 +1,7 @@
 """Build the practical-curve page: exact study vs the small-SVG profile.
 
     .venv/bin/python scripts/practical_curve.py
-    open docs/practical-curve.html
+    open workbench/practical-curve.html
 
 Both drawings are the same study. The exact one keeps one cubic per chain
 chord; the practical one fits one clothoid per structural run and emits about
@@ -130,7 +130,7 @@ def main() -> int:
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a> · <a href="ornament-board.html">the ornament board</a></p>
+  <p class="back"><a href="workbench.html">← workbench</a> · <a href="ornament-board.html">the ornament board</a></p>
   <h1>The practical curve</h1>
   <p class="lead">The same study, fitted for a small SVG: {practical_cubics} cubics instead of {exact_cubics}.</p>
 
@@ -187,7 +187,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "practical-curve.html"
+    path = ROOT / "workbench" / "practical-curve.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"exact {exact_cubics} cubics, practical {practical_cubics} cubics, "

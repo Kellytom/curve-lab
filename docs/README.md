@@ -37,27 +37,26 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `web.md` | The web MVP. |
 | `PROJECT.md`, `TODO.md` | Older planning, kept for history. Do not treat as current. |
 
-## Generated — change the generator, never the page
+## Generated working pages — not here any more
 
-| Page | Generator |
-|---|---|
-| `ornament-board.html` | `scripts/board/build-board.mjs` |
-| `fleur-studies.html` | `scripts/board/build-board.mjs` |
-| `piece-model.html` | `scripts/piece_sandbox.py` |
-| `spine-sheet.html` | `scripts/spine_sheet.py` |
-| `spine-study-01.html` | `scripts/spine_study_01.py` |
-| `practical-curve.html` | `scripts/practical_curve.py` |
-| `branch-points.html` | `scripts/branch_points.py` |
-| `spiral-turns.html` | `scripts/spiral_turns.py` |
-| `curve-families.html` | `scripts/curve_families.py` |
-| `stage-two.html` | `scripts/stage_two.py` |
-| `catenary.html` | `scripts/catenary.py` |
-| `fleur-study-01.html` | `scripts/study_01.py` |
-| `primal.html` | `scripts/primal.py` |
-| `principles.html` | `scripts/principles.py` |
-| `terminals/index.html`, `terminals/*.json` | `scripts/extract-terminals.py` |
-| `spirals/index.html`, `spirals/*.json` | `scripts/extract-spirals.py` |
-| `HANDOVER.html` | mirror of `HANDOVER.md`, kept in step by hand |
+The working pages moved out of `docs/` to `workbench/`, on their own server root:
+
+    .venv/bin/python -m http.server 8003 --directory sandbox
+
+`docs/` is prose only: the truth (`HANDOFF`), the durable reference
+(`HANDOVER`), the design writing, and the reviews. A generated page never
+belongs here, because a generated page is a *working* artefact — it is read
+with a browser, rebuilt from a script, and thrown away when the question it
+was built to answer is settled.
+
+An **HTML twin of a markdown file stays here**, beside its source:
+`HANDOVER.html` is the printable mirror of `HANDOVER.md` and is kept in step by
+hand. Prose and its twin are one artefact; a generated page is not.
+
+`workbench/` holds one generator per page (`scripts/<name>.py`, or
+`scripts/board/build-board.mjs` for the board), plus the hand-written index
+`workbench/workbench.html` and a one-line `workbench/index.html` that points at it
+for now.
 
 ## Conventions
 

@@ -1,7 +1,7 @@
-"""Two catenary projects in one sandbox.
+"""Two catenary studies on one page.
 
     .venv/bin/python scripts/catenary.py
-    open docs/catenary.html
+    open workbench/catenary.html
 
 A. A catenary chained from pythagorean triples: every chord's direction is a
    triple's slope, the chord length is the arc step the catenary asks for, so
@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from curve_families import offset_chain, path_d  # noqa: E402
+from curve_families import ladder, offset_chain, path_d  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 INK = "#2e2413"
@@ -31,28 +31,7 @@ MUTED = "#7b6c4e"
 
 # -- A: the pythagorean catenary -------------------------------------------
 
-def ladder(max_h: int = 500, max_deg: float = 62.0):
-    """Pythagorean slopes as angles, sorted: the rungs the chain may use."""
-    seen, rungs = set(), []
-    for u in range(1, max_h):
-        for v in range(u + 1, max_h):
-            h = math.isqrt(u * u + v * v)
-            if h * h != u * u + v * v or h > max_h:
-                continue
-            for legs in ((u, v), (v, u)):
-                ang = math.degrees(math.atan2(legs[0], legs[1]))
-                if ang > max_deg:
-                    continue
-                key = round(ang, 2)
-                if key in seen:
-                    continue
-                seen.add(key)
-                rungs.append({"deg": ang, "triple": (legs[0], legs[1], h)})
-    rungs.sort(key=lambda r: r["deg"])
-    return rungs
-
-
-RUNGS = ladder()
+RUNGS = ladder(max_h=1600, max_deg=62.0)
 DEGREES = [r["deg"] for r in RUNGS]
 
 
@@ -78,6 +57,31 @@ def branch(a: float, length: float, steps: int):
         pts.append((x + step * math.cos(math.radians(theta)),
                     y + step * math.sin(math.radians(theta))))
     return pts
+
+
+def integer_branch(a: float, length: float, band=(400, 500)):
+    """Walk the rungs. Each chord is the rung's own legs, so every node is an
+    integer and the height and width are whatever the walk accumulates.
+
+    Nothing is fitted: the tangent only decides *which* rung to take next, and
+    the rung decides the step.  Choose a hypotenuse band and the whole curve
+    falls out of it, dimensions included.
+    """
+    rungs = [r for r in RUNGS if band[0] <= r["triple"][2] <= band[1]]
+    if not rungs:
+        raise ValueError(f"no triples with hypotenuse in {band}")
+    pts = [(0, 0)]
+    rows = []
+    s = 0.0
+    while s < length:
+        want = math.degrees(math.atan((s + 0.5 * band[0]) / a))
+        rung = min(rungs, key=lambda r: abs(r["deg"] - want))
+        u, v, h = rung["triple"]
+        x, y = pts[-1]
+        pts.append((x + u, y + v))
+        s += h
+        rows.append({"deg": rung["deg"], "triple": rung["triple"], "s": s})
+    return pts, rows
 
 
 def branch_data(a: float, length: float, steps: int):
@@ -223,6 +227,65 @@ def row_catenary(span: float, arc: float, n: int = 40):
     a = (lo + hi) / 2
     return [(x, a * (math.cosh(x / a) - 1))
             for x in (-span / 2 + span * i / n for i in range(n + 1))], a
+
+
+def walk_drape(a: float, split: float, band):
+    """Both branches walked on rungs; returns the chain and its exact size."""
+    up, _ = integer_branch(a, split * 2.2 * a, band)
+    down_pts, _ = integer_branch(a, (1 - split) * 2.2 * a, band)
+    down = [(-x, y) for x, y in down_pts]
+    down.reverse()
+    chain = down + up[1:]
+    width = max(x for x, _ in chain) - min(x for x, _ in chain)
+    height = max(y for _, y in chain)
+    return chain, width, height
+
+
+def integer_figure(pts, w=860.0, h=400.0, grid=True) -> str:
+    """An integer chain on its own grid: every node is a lattice point."""
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    margin = 30.0
+    scale = min((w - 2 * margin) / (x1 - x0), (h - 2 * margin) / (y1 - y0))
+    dx = (w - (x1 - x0) * scale) / 2
+    dy = (h - (y1 - y0) * scale) / 2
+
+    def at(p):
+        return (dx + (p[0] - x0) * scale, h - (dy + (p[1] - y0) * scale))
+
+    span = max(x1 - x0, y1 - y0)
+    step = 10 ** math.floor(math.log10(span / 14)) if span else 1
+    lines = []
+    gx = math.floor(x0 / step) * step if grid else x1 + 1
+    while gx <= x1:
+        px, _ = at((gx, y0))
+        lines.append(f'<line x1="{px:.1f}" y1="0" x2="{px:.1f}" y2="{h:.0f}" '
+                     f'stroke="{GRID}" stroke-width="0.7"/>')
+        gx += step
+    gy = math.floor(y0 / step) * step if grid else y1 + 1
+    while gy <= y1:
+        _, py = at((x0, gy))
+        lines.append(f'<line x1="0" y1="{py:.1f}" x2="{w:.0f}" y2="{py:.1f}" '
+                     f'stroke="{GRID}" stroke-width="0.7"/>')
+        gy += step
+
+    tris = []
+    for i in range(len(pts) - 1):
+        (px, py), (qx, qy) = at(pts[i]), at(pts[i + 1])
+        tris.append(f'<path d="M {px:.2f} {py:.2f} L {qx:.2f} {py:.2f} '
+                    f'L {qx:.2f} {qy:.2f} Z" fill="none" stroke="{GOLD}" '
+                    f'stroke-width="0.8" opacity="0.8"/>')
+
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    {''.join(lines)}
+    {''.join(tris)}
+    <path d="{path_d([at(p) for p in pts])}" fill="none" stroke="{INK}"
+          stroke-width="2.2" stroke-linejoin="round"/>
+    {''.join(f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="3" fill="{INK}"/>' for p in pts)}
+  </svg>"""
 
 
 def drape_svg(gather=0.35, rows=9, cols=44, w=860.0, h=430.0) -> str:
@@ -471,12 +534,32 @@ window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)),
 """
 
 
+VARIANTS = (
+    ("band 400–500 · split 0.62", (400, 500), 0.62),
+    ("band 200–300 · split 0.62", (200, 300), 0.62),
+    ("band 600–800 · split 0.62", (600, 800), 0.62),
+    ("band 400–500 · split 0.50", (400, 500), 0.50),
+    ("band 400–500 · split 0.75", (400, 500), 0.75),
+    ("band 1200–1600 · split 0.62", (1200, 1600), 0.62),
+)
+
+
 def main() -> int:
     a = 100.0
     total = 2.2 * a
     steps = 10
 
     fig_main, up_rows, down_rows = fig_catenary(a, 0.62, steps)
+
+    # the same drape, walked on rungs instead of fitted: integer every step
+    ia = 3300.0
+    up_i, ir = integer_branch(ia, 0.62 * 2.2 * ia)
+    down_pts_i, dr = integer_branch(ia, 0.38 * 2.2 * ia)
+    down_i = [(-x, y) for x, y in down_pts_i]
+    down_i.reverse()
+    ichain = down_i + up_i[1:]
+    iwidth = max(x for x, _ in ichain) - min(x for x, _ in ichain)
+    iheight = max(y for _, y in ichain)
     err_hi = branch_error(a, 0.62 * total, steps)
     err_lo = branch_error(a, 0.38 * total, steps)
 
@@ -488,13 +571,17 @@ def main() -> int:
                      f'{1 - p:.2f}</figcaption></figure>')
 
     node_rows = []
-    for side, rows, sign in (("high", up_rows, 1), ("low", down_rows, -1)):
-        for r in rows:
+    for side, rows, sign in (("high", ir, 1), ("low", dr, -1)):
+        x = y = 0
+        for i, r in enumerate(rows, 1):
+            u, v, h = r["triple"]
+            if sign > 0:
+                x, y = x + u, y + v
+            else:
+                x, y = x - u, y + v
             node_rows.append(
-                f"<tr><td>{side}</td><td>{r['i']}</td>"
-                f"<td>{sign * r['x']:.1f}</td><td>{r['y']:.1f}</td>"
-                f"<td>{r['deg']:.2f}°</td>"
-                f"<td>{r['triple'][0]}-{r['triple'][1]}-{r['triple'][2]}</td></tr>")
+                f"<tr><td>{side}</td><td>{i}</td><td>{x}</td><td>{y}</td>"
+                f"<td>{r['deg']:.2f}°</td><td>{u}-{v}-{h}</td></tr>")
     table = "".join(node_rows)
 
     page = f"""<!doctype html>
@@ -502,15 +589,15 @@ def main() -> int:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Catenary sandbox: triples and drapery</title>
+<title>Catenary studies: triples and drapery</title>
 <style>{CSS}</style>
 <script type="importmap">{{ "imports": {{ "three": "./vendor/three.module.js" }} }}</script>
 </head>
 <body>
 <main>
-  <p class="back"><a href="sandbox.html">← sandbox</a> ·
+  <p class="back"><a href="workbench.html">← workbench</a> ·
   <a href="stage-two.html">the stage II page</a></p>
-  <h1>Catenary sandbox</h1>
+  <h1>Catenary studies</h1>
   <p class="lead">Two projects running side by side: one hangs a catenary on
   pythagorean triangles, the other drapes a cloth on catenaries.</p>
 
@@ -538,6 +625,31 @@ def main() -> int:
       {max(err_hi, err_lo):.1f} on the high branch
       ({100 * max(err_hi, err_lo) / total:.1f}% of arc)</p></div>
     <div class="three">{''.join(small)}</div>
+    <p style="margin-top:14px"><strong>Every dial here is free.</strong> The
+    band picks which triples may be used and therefore how big a step is; the
+    split picks where the low point sits; the parameter <code>a</code> only
+    says how many steps fit. Change any of them and the drape comes out at a
+    different size, with different triples — and still every node an integer.
+    Six walks, same rule, nothing fitted:</p>
+    <div class="two">
+      {''.join(
+        f'<figure style="margin:0">{integer_figure(walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[0], 430.0, 220.0, False)}'
+        f'<figcaption>{label}<br><strong>{walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[1]} × '
+        f'{walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[2]}</strong> · '
+        f'{len(walk_drape(6.5 * (b[0] + b[1]) / 2, sp, b)[0]) - 1} chords</figcaption></figure>'
+        for label, b, sp in VARIANTS)}
+    </div>
+    <p style="margin-top:14px"><strong>The governing rule: build with the
+    triples, and let everything else follow.</strong> The figure above is a fit
+    — it takes an ideal curve and snaps to it. Below is the other way round:
+    walk the rungs, lay each rung's own legs, and <em>read the height and width
+    off the result</em>. Nothing is fitted and nothing is rounded, so every node
+    is an integer by construction.</p>
+    <div class="strip">{integer_figure(ichain)}
+      <p><strong>Fig. 2</strong> · the walked chain · {len(ichain) - 1} chords
+      from {len(ir)} rungs in the {400}–{500} hypotenuse band ·
+      <strong>{iwidth} × {iheight} units</strong> (exact integers) ·
+      split {0.62:.2f} : {0.38:.2f}</p></div>
     <p style="margin-top:10px" class="next">The split is the only dial a
     drapery needs: it says where the low point sits, and therefore which
     anchor the cloth is hanging from.</p>
@@ -546,11 +658,10 @@ def main() -> int:
       <th>triple</th></tr>
       {table}
     </table></div>
-    <p style="margin-top:8px">Every node, in catenary units: x runs from the
-    vertex (x = 0, the low point) outward, y is the rise. The heading is the
-    triple's angle, so a curve attached at a node leaves on one of these
-    directions. The ladder is every pythagorean slope below
-    {max(DEGREES):.0f}° with hypotenuse ≤ 500.</p>
+    <p style="margin-top:8px">Every node of the walked chain: x runs from the
+    vertex outward, y is the rise, and <strong>both are exact integers</strong>
+    — each row is the triple whose legs were laid. A curve attached at a node
+    leaves along that row's angle, on the same lattice.</p>
   </div>
 
   <h2>B · <span>catenary drapery, in 2.5D</span></h2>
@@ -568,7 +679,7 @@ def main() -> int:
     is not in yet — the rows keep equal spacing down the sheet, which is why
     the folds read as neat rather than lived-in.</p>
     <div class="strip">{drape_svg()}
-      <p><strong>Fig. 2</strong> · nine rows, each the catenary of the full
+      <p><strong>Fig. 3</strong> · nine rows, each the catenary of the full
       rest width on a span that narrows with depth</p></div>
     <canvas id="view"></canvas>
     <div class="controls">
@@ -578,7 +689,7 @@ def main() -> int:
       <span>drag to orbit · wheel to zoom</span>
     </div>
     <p style="margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted)">
-      <strong>Fig. 3</strong> · the same drape in 2.5D (three.js) — 26 × 46
+      <strong>Fig. 4</strong> · the same drape in 2.5D (three.js) — 26 × 46
       grid, two pins at the top corners</p>
   </div>
 </main>
@@ -586,7 +697,7 @@ def main() -> int:
 </body>
 </html>
 """
-    path = ROOT / "docs" / "catenary.html"
+    path = ROOT / "workbench" / "catenary.html"
     path.write_text(page, encoding="utf-8")
     print(path)
     print(f"rungs={len(RUNGS)} max_err={max(err_hi, err_lo):.2f} a={a}")
