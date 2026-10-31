@@ -56,9 +56,12 @@ CSS = """
   code { font:12px var(--mono); color:var(--gold); }
   a { color: var(--gold); }
   .next { border-left:3px solid var(--gold); padding-left:10px; color:var(--muted); }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .two svg { border:1px solid var(--line); border-radius:3px; }
   @media (max-width:620px) {
     main { padding:22px 14px 60px; }
     table { font-size:10px; } th,td { padding:4px 2px; }
+    .two { grid-template-columns:1fr; }
   }
 """
 
@@ -242,9 +245,12 @@ def upright(points, root):
     return [(c * x - s * y, s * x + c * y) for x, y in points]
 
 
-def tree_svg(strokes, w=760, h=760) -> str:
+def tree_svg(strokes, w=760, h=760, flip: bool = False) -> str:
+    """`flip` mirrors the whole tree left to right, so B keeps pointing up."""
     root = strokes[0][0]
     strokes = [(upright(pts, root), depth) for pts, depth in strokes]
+    if flip:
+        strokes = [([(-x, y) for x, y in pts], depth) for pts, depth in strokes]
     flat = [p for pts, _ in strokes for p in pts]
     draw, _ = fitter(flat, h, w, margin=18.0)
     parts = []
@@ -283,6 +289,18 @@ def offset_svg(points, offsets, w=760, h=760, crop=None) -> str:
           stroke="{LINE}" stroke-width="1"/>
     {''.join(parts)}
   </svg>"""
+
+
+def two_up(a: str, b: str) -> str:
+    return f'<div class="two">{a}{b}</div>'
+
+
+def pair(n: int, panels) -> str:
+    """Two illustrations side by side: A, and B, the same tree turned over."""
+    a, b, caption = panels
+    return f"""<div class="strip"><div class="two">{a}{b}</div>
+  <p><strong>Fig. {n}</strong> · {caption} · <strong>A</strong> as grown,
+  <strong>B</strong> the same tree mirrored</p></div>"""
 
 
 def strip(svg: str, caption: str, n: int) -> str:
@@ -375,9 +393,10 @@ def main() -> int:
     growth = []
     for label, rule in rules:
         tree = grow(branch_chain, branch_top, THIN, 1, rule)
-        growth.append((tree_svg(tree), f"<strong>{label}</strong> · "
-                       f"{len(tree)} plates · "
-                       f"{sum(len(p) - 1 for p, _ in tree)} chords"))
+        chords = sum(len(p) - 1 for p, _ in tree)
+        growth.append((tree_svg(tree), tree_svg(tree, flip=True),
+                       f"<strong>{label}</strong> · {len(tree)} plates · "
+                       f"{chords} chords"))
 
     page = f"""<!doctype html>
 <html lang="en">
@@ -412,12 +431,12 @@ def main() -> int:
     closes at a point. That number is the hook's own radius of curvature,
     <code>c/α = {chord_min / alpha:.0f}</code>: the plate closes when the offset
     reaches the centre it is turning about.</p>
-    {strip(whole, f"<strong>the spine</strong> (ink) and four plates, at 0.30 and "
-                  f"0.62 of the closing distance, on both sides", 1)}
-    {strip(zoom, f"<strong>the same plates, zoomed</strong> to the first "
-                 f"{hook} chords: the distance that is a skin over the arm is a "
-                 f"third of the radius at the hook, so the plates fan out "
-                 f"there", 2)}
+    {two_up(
+      strip(whole, f"<strong>the spine</strong> (ink) and four plates, at 0.30 "
+                   f"and 0.62 of the closing distance, on both sides", 1),
+      strip(zoom, f"<strong>the same plates, zoomed</strong> to the first "
+                  f"{hook} chords: the distance that is a skin over the arm is "
+                  f"a third of the radius at the hook, so they fan out", 2))}
     <div class="scroll"><table style="margin-top:10px">
       <tr><th>offset d</th><th>its own b</th><th>shortest chord</th></tr>
       {table}
@@ -440,9 +459,9 @@ def main() -> int:
     {branch_top}-stack spine turned upright, branching at every node
     ({series_top(branch_top)["chords"]} chords,
     {series_top(branch_top)["turn"]:.0f}°).</p>
-    {strip(growth[0][0], growth[0][1], 3)}
-    {strip(growth[1][0], growth[1][1], 4)}
-    {strip(growth[2][0], growth[2][1], 5)}
+    {pair(3, growth[0])}
+    {pair(4, growth[1])}
+    {pair(5, growth[2])}
     <p style="margin-top:10px">Same spine, same child, three rules — and the
     difference between a fern and a fishbone is only whether the side flips.
     Depth is the next dial: each child is a spine too, so it branches as well.</p>
