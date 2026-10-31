@@ -138,7 +138,13 @@ def fitter(points, h: float, w: float = W, margin: float = MARGIN):
 
 
 def ladder(max_h: int = 500, max_deg: float = 62.0):
-    """Pythagorean slopes as angles, sorted: the rungs the chain may use."""
+    """Pythagorean slopes as angles, sorted: the rungs the chain may use.
+
+    `deg` is the angle of the legs *as laid* -- atan2(v, u), measured from the
+    horizontal, because a chord is (u, v) in x, y order.  Measuring it from the
+    vertical instead puts every chord at 90 - theta, which turns a catenary
+    into a check mark.
+    """
     seen, rungs = set(), []
     for u in range(1, max_h):
         for v in range(u + 1, max_h):
@@ -146,7 +152,7 @@ def ladder(max_h: int = 500, max_deg: float = 62.0):
             if h * h != u * u + v * v or h > max_h:
                 continue
             for legs in ((u, v), (v, u)):
-                ang = math.degrees(math.atan2(legs[0], legs[1]))
+                ang = math.degrees(math.atan2(legs[1], legs[0]))
                 if ang > max_deg:
                     continue
                 key = round(ang, 2)
