@@ -1,9 +1,9 @@
 # Glossary
 
 The two sides of the project use different words for overlapping ideas. This
-page defines each word as the code uses it, then maps the two vocabularies. The
-short canonical list is in [Vocabulary](../VOCABULARY.md); this page is the longer,
-plainer version.
+page defines each word as the code uses it, then maps the two vocabularies. It
+is the only vocabulary list the repo keeps: the shorter one it used to defer to
+was never written.
 
 ## The curve engine (`clothoid_lab`)
 

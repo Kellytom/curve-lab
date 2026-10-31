@@ -1,9 +1,11 @@
 site_name: clothoid-lab
 site_description: Clothoid curves, pythagorean triples, and the ornament work built on them.
 docs_dir: docs
+exclude_docs: |
+  README.md
 site_dir: site
 use_directory_urls: true
-strict: false
+strict: true
 
 theme:
   name: material
@@ -67,4 +69,3 @@ nav:
       - The web MVP: web.md
   - Reviews:
       - Architecture and print review: REVIEW.md
-      - This folder: README.md

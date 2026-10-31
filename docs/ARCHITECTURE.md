@@ -112,10 +112,10 @@ rather than a page experiment.
 
 | If you want | Read |
 |---|---|
-| Why the project exists and in what order | [The plan](../PLAN.md) |
+| Why the project exists and in what order | [The plan](PROJECT.md) |
 | To use the browser tool | [Web application guide](WEB-GUIDE.md) |
 | A plain-English term | [Glossary](GLOSSARY.md) |
-| The words, and how the two sides' vocabularies map | [Vocabulary](../VOCABULARY.md) |
+| The words, and how the two sides' vocabularies map | [Glossary](GLOSSARY.md) |
 | What is true today, and what is next | Current truth (`state/HANDOFF.md`) |
 | The spine layer, step by step | [Spine guide](SPINE.md) |
 | The curve model in detail | [Curve model](CURVE-MODEL.md) |
@@ -125,8 +125,8 @@ rather than a page experiment.
 | What passes, and how | [Verification](VERIFY.md) |
 | What works today | Status (`state/STATUS.md`) |
 | Who wrote the engine | [Credits](CREDITS.md) |
-| The spine layer in depth | [Spine explainer](../spine/EXPLAINER.md) |
-| How the folder is organised | [Documentation index](README.md) |
+| The spine layer in depth | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
+| How the folder is organised | [Documentation index](index.md) |
 
 ## Which tool for which job
 
@@ -134,9 +134,9 @@ rather than a page experiment.
 |---|---|---|
 | Sketch a curve and see it | web app | `web/`, and the app's own page |
 | Download an SVG for Inkscape | web app | the download control |
-| Close a loop that must meet exactly | spine layer | [Spine explainer](../spine/EXPLAINER.md) |
-| Snap a flourish to an exact grid | spine layer | [Spine explainer](../spine/EXPLAINER.md) |
-| Look up a term | — | [Vocabulary](../VOCABULARY.md) |
+| Close a loop that must meet exactly | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
+| Snap a flourish to an exact grid | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
+| Look up a term | — | [Glossary](GLOSSARY.md) |
 
 ## What this overview does not claim
 
