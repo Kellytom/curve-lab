@@ -20,6 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from curve_families import ladder, offset_chain, path_d  # noqa: E402
+from hodograph import PHCubic, from_hermite  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 INK = "#2e2413"
@@ -57,6 +58,93 @@ def branch(a: float, length: float, steps: int):
         pts.append((x + step * math.cos(math.radians(theta)),
                     y + step * math.sin(math.radians(theta))))
     return pts
+
+
+
+def ph_chain(a: float, s_end: float, n: int):
+    """n PH cubics from the vertex out to s_end, each fitted by its two ends."""
+    segs = []
+    for i in range(n):
+        s0, s1 = s_end * i / n, s_end * (i + 1) / n
+        seg, legs = from_hermite(cat(a, s0), math.atan(s0 / a),
+                                 cat(a, s1), math.atan(s1 / a))
+        segs.append((seg, legs))
+    return segs
+
+
+def ph_error(a: float, s_end: float, n: int) -> float:
+    """Worst distance from an n-segment PH chain to the catenary it was fitted to."""
+    dense = [cat(a, s_end * k / 1200) for k in range(1201)]
+
+    def dist(pt):
+        best = 1e18
+        for k in range(len(dense) - 1):
+            p0, p1 = dense[k], dense[k + 1]
+            vx, vy = p1[0] - p0[0], p1[1] - p0[1]
+            L = vx * vx + vy * vy
+            t = 0.0 if L == 0 else max(0.0, min(1.0,
+                ((pt[0] - p0[0]) * vx + (pt[1] - p0[1]) * vy) / L))
+            best = min(best, math.hypot(pt[0] - (p0[0] + t * vx),
+                                        pt[1] - (p0[1] + t * vy)))
+        return best
+
+    worst = 0.0
+    for seg, _ in ph_chain(a, s_end, n):
+        worst = max(worst, max(dist(seg.point(j / 24)) for j in range(25)))
+    return worst
+
+
+def ph_figure(a: float, split: float, n: int, w=860.0, h=420.0) -> str:
+    """Both branches as PH cubics, over the catenary, with the control polygons."""
+    total = 2.2 * a
+    high = ph_chain(a, split * total, n)
+    low = ph_chain(a, (1 - split) * total, n)
+
+    paths, frames, nodes = [], [], []
+    for seg, legs in high:
+        paths.append([seg.point(j / 24) for j in range(25)])
+        frames.append(seg.control_points())
+        nodes.append(seg.control_points()[0])
+    nodes.append(high[-1][0].control_points()[3])
+    for seg, legs in low:
+        pts = [(-x, y) for x, y in (seg.point(j / 24) for j in range(25))]
+        pts.reverse()
+        paths.append(pts)
+        cp = [(-x, y) for x, y in seg.control_points()]
+        frames.append(tuple(reversed(cp)))
+
+    truth = [(-cat(a, (1 - split) * total * i / 400)[0],
+              cat(a, (1 - split) * total * i / 400)[1]) for i in range(400, -1, -1)]
+    truth += [cat(a, split * total * i / 400) for i in range(1, 401)]
+
+    everything = [p for path in paths for p in path] + truth
+    xs = [p[0] for p in everything]; ys = [p[1] for p in everything]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    scale = min((w - 40) / (x1 - x0), (h - 40) / (y1 - y0))
+    dx = (w - (x1 - x0) * scale) / 2
+    dy = (h - (y1 - y0) * scale) / 2
+
+    def at(p):
+        return (dx + (p[0] - x0) * scale, h - (dy + (p[1] - y0) * scale))
+
+    polys = "".join(
+        f'<path d="{path_d([at(p) for p in cp])}" fill="none" stroke="#e0d2b0" '
+        f'stroke-width="1"/>' for cp in frames)
+    curves = "".join(
+        f'<path d="{path_d([at(p) for p in path])}" fill="none" stroke="{INK}" '
+        f'stroke-width="2.2"/>' for path in paths)
+    dots = "".join(
+        f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="3.2" fill="{INK}"/>'
+        for p in nodes)
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    <path d="{path_d([at(p) for p in truth])}" fill="none" stroke="{GOLD}"
+          stroke-width="1.3" stroke-dasharray="6 5"/>
+    {polys}
+    {curves}
+    {dots}
+  </svg>"""
 
 
 def integer_branch(a: float, length: float, target: float = 450.0,
@@ -600,6 +688,17 @@ def main() -> int:
                 f"<td>{r['deg']:.2f}°</td><td>{u}-{v}-{h}</td></tr>")
     table = "".join(node_rows)
 
+    # curvature error of one PH cubic against the catenary, by span
+    ph_spans = []
+    for deg in (10, 20, 30, 40, 60):
+        s1 = a * math.tan(math.radians(deg))
+        seg, _ = from_hermite(cat(a, 0.0), 0.0, cat(a, s1), math.atan(s1 / a))
+        worst = max(abs(abs(seg.curvature(t)) / (math.cos(math.atan(s1 * t / a)) ** 2 / a) - 1)
+                    for t in (0.0, 1.0))
+        verdict = ("same curve" if worst < 0.015 else
+                   "close" if worst < 0.06 else "not the same curve")
+        ph_spans.append((deg, 100 * worst, verdict))
+
     page = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -705,6 +804,48 @@ def main() -> int:
       <strong>Fig. M</strong> · the same drape in 2.5D (three.js) — 26 × 46
       grid, two pins at the top corners</p>
   </div>
+  <h2>C · <span>the hodograph chain</span></h2>
+  <div class="panel">
+    <p>A cubic with a <strong>pythagorean hodograph</strong> is a p-triple drawn as
+    a curve. With <code>u(t), v(t)</code> linear between two integer pairs, the
+    control points are built from Euclid's formula,
+    <code>(u²−v², 2uv, u²+v²)</code>, and three things come free and exact: the
+    arc length is a polynomial, the tangent angle is <code>2·atan(v/u)</code>,
+    and the curvature is a rational function.</p>
+    <p>That gives the reverse gear. Given two points on the catenary and the
+    tangent at each, a PH cubic through them is <strong>closed form</strong>: write
+    <code>Δ = p₃ − p₀</code> in the frame of the first tangent, let
+    <code>k = √(L₃/L₁)</code>, and the closure conditions give a quadratic in
+    <code>k</code>. Pick the root with three positive legs; then
+    <code>u² + v² = 3L</code> with <code>arg(u + iv) = θ/2</code>. No catalogue,
+    no nearest neighbour, no search.</p>
+    <div class="strip">{ph_figure(a, 0.62, 4)}
+      <p><strong>Fig. N</strong> · four PH cubics a side (ink) over the catenary
+      (gold dashed, hidden under the ink — that is the result) · control
+      polygons in pale gold · worst
+      {100 * ph_error(a, 0.62 * 2.2 * a, 4) / a:.4f}% of a</p></div>
+    <div class="scroll"><table style="margin-top:10px">
+      <tr><th>segments a side</th><th>worst error</th><th>of a</th></tr>
+      {''.join(f"<tr><td>{n}</td><td>{ph_error(a, 0.62 * 2.2 * a, n):.3f}</td>"
+               f"<td>{100 * ph_error(a, 0.62 * 2.2 * a, n) / a:.4f}%</td></tr>"
+               for n in (1, 2, 4, 8))}
+    </table></div>
+    <p style="margin-top:10px"><strong>Where the cubic and the catenary are the
+    same curve.</strong> Position and tangent are exact at both ends by
+    construction; the curvature is not. Measure it and the span decides
+    everything: under about <strong>20° of turn</strong> per segment the two
+    curvatures agree to ~1% across the whole segment, so the cubic and the
+    catenary are interchangeable there. Past that they cross twice and drift
+    apart at the ends.</p>
+    <div class="scroll"><table style="margin-top:10px">
+      <tr><th>span per segment</th><th>curvature error at the ends</th>
+      <th>verdict</th></tr>
+      {''.join(f"<tr><td>{deg}°</td><td>{err:.1f}%</td><td>{verdict}</td></tr>"
+               for deg, err, verdict in ph_spans)}
+    </table></div>
+  </div>
+
+
   <h2>Check Mark</h2>
   <div class="panel">
     <p>The six walks again, <strong>copied</strong> rather than moved, so the
@@ -714,7 +855,7 @@ def main() -> int:
     first version of these faces read as check marks. The mistake is kept
     here on purpose: it is a different and useful face.</p>
     <div class="two">{''.join(
-      variant_card("NOPQRS"[i], label, b, sp,
+      variant_card("OPQRST"[i], label, b, sp,
                    f' <em>(copy of {"EFGHIJ"[i]}, vertical-axis rungs)</em>',
                    axis="vertical")
       for i, (label, b, sp) in enumerate(VARIANTS))}
