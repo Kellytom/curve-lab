@@ -241,6 +241,18 @@ def walk_drape(a: float, split: float, target: float):
     return chain, width, height
 
 
+
+def variant_card(letter: str, label: str, target: float, split: float,
+                 note: str = "") -> str:
+    """One walk card: the figure, its letter, and its exact size."""
+    chain, width, height = walk_drape(6.5 * 900, split, target)
+    return (f'<figure style="margin:0">'
+            f'{integer_figure(chain, 430.0, 220.0, False)}'
+            f'<figcaption><strong>Fig. {letter}</strong> \u00b7 {label}{note}<br>'
+            f'<strong>{width} \u00d7 {height}</strong> \u00b7 '
+            f'{len(chain) - 1} chords</figcaption></figure>')
+
+
 def integer_figure(pts, w=860.0, h=400.0, grid=True) -> str:
     """An integer chain on its own grid: every node is a lattice point."""
     xs = [p[0] for p in pts]
@@ -633,14 +645,9 @@ def main() -> int:
     so the vertex gets smoother without any new triples. Change any of them and the drape comes out at a
     different size, with different triples — and still every node an integer.
     Six walks, same rule, nothing fitted:</p>
-    <div class="two">
-      {''.join(
-        f'<figure style="margin:0">{integer_figure(walk_drape(6.5 * 900, sp, b)[0], 430.0, 220.0, False)}'
-        f'<figcaption><strong>Fig. {"EFGHIJ"[i]}</strong> · {label}<br>'
-        f'<strong>{walk_drape(6.5 * 900, sp, b)[1]} × '
-        f'{walk_drape(6.5 * 900, sp, b)[2]}</strong> · '
-        f'{len(walk_drape(6.5 * 900, sp, b)[0]) - 1} chords</figcaption></figure>'
-        for i, (label, b, sp) in enumerate(VARIANTS))}
+    <div class="two">{''.join(
+      variant_card("EFGHIJ"[i], label, b, sp)
+      for i, (label, b, sp) in enumerate(VARIANTS))}
     </div>
     <p style="margin-top:14px"><strong>The governing rule: build with the
     triples, and let everything else follow.</strong> The figure above is a fit
@@ -694,6 +701,17 @@ def main() -> int:
     <p style="margin:5px 0 0; font:10px/1.3 var(--mono); color:var(--muted)">
       <strong>Fig. M</strong> · the same drape in 2.5D (three.js) — 26 × 46
       grid, two pins at the top corners</p>
+  </div>
+  <h2>Check Mark</h2>
+  <div class="panel">
+    <p>The six walks again, <strong>copied</strong> rather than moved, so the
+    set can be compared in one block while the arrangement is still open. Same
+    parameters as E–J and the same exact integers; each is labelled with the
+    figure it copies.</p>
+    <div class="two">{''.join(
+      variant_card("NOPQRS"[i], label, b, sp, f' <em>(copy of {"EFGHIJ"[i]})</em>')
+      for i, (label, b, sp) in enumerate(VARIANTS))}
+    </div>
   </div>
 </main>
 <script type="module">{SCRIPT}</script>
