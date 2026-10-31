@@ -66,7 +66,7 @@ geometry kind.
 
 1. **Done.** `clothoid_lab` imports a chain and builds a `Piece`/`Trace` from its
    anchors; every fitted join lands on a chain anchor (worst 2e-14 units).
-2. **Done.** `docs/spine-sheet.html` draws a curl on the 200 × 250 mm sheet
+2. **Done.** `workbench/spine-sheet.html` draws a curl on the 200 × 250 mm sheet
    through `svg.document`.
 3. **Done.** `piece_clearance()` measures the same build; a contact declared at
    a forked node passes, and the same gap fails without the declaration.

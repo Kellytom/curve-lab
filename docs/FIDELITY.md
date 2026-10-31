@@ -117,7 +117,7 @@ error exceeds the tolerance. At 0.5 mm:
 | practical at 0.25 mm | 22 | 42 | 8 KB | 0.23 mm |
 | practical at 1.0 mm | 16 | 30 | 6 KB | 0.92 mm |
 
-`clothoid_lab/practical.py` builds it; `docs/practical-curve.html` compares it
+`clothoid_lab/practical.py` builds it; `workbench/practical-curve.html` compares it
 with the exact curve.
 
 ## Pins: choosing a branch on the exact curve

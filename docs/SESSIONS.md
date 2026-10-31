@@ -54,7 +54,7 @@ node table: the ported P01 matches within 0.03 units, the chain candidate within
 19.44. Do not call it parity.
 
 **Files:** `clothoid_lab/spine_study.py` (new), `scripts/spine_study_01.py`,
-`tests/test_spine_study.py`, `docs/spine-study-01.html`.
+`tests/test_spine_study.py`, `workbench/spine-study-01.html`.
 
 ```python
 # shipped API
@@ -168,4 +168,4 @@ after the primals because they reuse the same terminals, junctions and bundle.
   published. The docs repository is a separate, cleaned copy; do not mirror
   this page until the rule and the order are agreed.
 - Any deploy, auth or board change. The board is generated; edit
-  `scripts/board/`, never `docs/ornament-board.html`.
+  `scripts/board/`, never `workbench/ornament-board.html`.

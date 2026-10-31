@@ -270,14 +270,14 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `tests/test_auth.py` | token auth and rate-limit tests |
 | `clothoid_lab/` | existing geometry/policy layer |
 | `clothoid_lab/piece.py` | `Piece`/`Trace` multi-trace model and renderer |
-| `docs/piece-model.html` | W01 visual proof: traces, rails, mirror |
+| `workbench/piece-model.html` | W01 visual proof: traces, rails, mirror |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
 | `docs/HANDOFF.md` | compact current-session continuation brief |
 | `docs/BACKLOG.md` | execution detail for W01–W26 |
-| `docs/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
-| `docs/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
+| `workbench/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
+| `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff.md` | two-line focused handoff pointer |
 | `.opencode/commands/fhandoff.md` | focused handoff command |

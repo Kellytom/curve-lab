@@ -1,7 +1,7 @@
 # Backlog — the ornament pass
 
-The **order** is chosen on the work board: [`docs/ornament-board.html`](ornament-board.html).
-The twenty fleur studies are a **subpage** — [`docs/fleur-studies.html`](fleur-studies.html) —
+The **order** is chosen on the work board: [`workbench/ornament-board.html`](../workbench/ornament-board.html).
+The twenty fleur studies are a **subpage** — [`workbench/fleur-studies.html`](../workbench/fleur-studies.html) —
 because they are a working set, not finished plates. The board carries **85
 plates** (45 catalogue ornaments, 27 caps, 9 leaves, 4 presets), **26 work
 items** W01–W26, and **11 decisions** D01–D11.
@@ -40,7 +40,7 @@ then the mirror. Implemented in `clothoid_lab/piece.py`:
   per-trace override.
 - `render_piece()` builds every trace and writes one SVG through
   `svg.document(..., groups=...)`.
-- Tests: `tests/test_piece.py`; visual proof: `docs/piece-model.html`
+- Tests: `tests/test_piece.py`; visual proof: `workbench/piece-model.html`
   (`scripts/piece_sandbox.py`).
 - The single-design CLI path is unchanged.
 
