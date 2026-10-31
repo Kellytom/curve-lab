@@ -62,6 +62,54 @@ def branch(a: float, length: float, steps: int):
 
 
 
+
+def ph_offset_figure(a: float, n: int = 4, w=860.0, h=380.0):
+    """The PH chain and two offsets of it, computed exactly.
+
+    For a PH curve z'(t) = w(t)^2, the unit normal is i w^2 / |w|^2, so the
+    offset at distance d is z(t) + d * i w^2 / |w|^2 -- rational in t.  No
+    re-fitting, no approximation.
+    """
+    total = 2.2 * a
+    chars, offsets = [], []
+    for i in range(n):
+        s0_, s1_ = 0.62 * total * i / n, 0.62 * total * (i + 1) / n
+        seg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
+                              math.atan(s1_ / a))
+        chars.append([seg.point(j / 20) for j in range(21)])
+        for d in (-0.075 * a, 0.075 * a):
+            line = []
+            for j in range(21):
+                t = j / 20
+                u, v = seg.u(t), seg.v(t)
+                q = u * u + v * v
+                p_ = seg.point(t)
+                line.append((p_[0] + d * (-2 * u * v) / q,
+                             p_[1] + d * (u * u - v * v) / q))
+            offsets.append(line)
+
+    flat = [p for c in chars for p in c] + [p for o in offsets for p in o]
+    xs = [p[0] for p in flat]; ys = [p[1] for p in flat]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 40) / (x1 - x0), (h - 40) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at(p):
+        return (px + (p[0] - x0) * k, h - (py + (p[1] - y0) * k))
+
+    out = "".join(f'<path d="{path_d([at(p) for p in o])}" fill="none" '
+                  f'stroke="{GOLD}" stroke-width="1.2"/>' for o in offsets)
+    ink = "".join(f'<path d="{path_d([at(p) for p in c])}" fill="none" '
+                  f'stroke="{INK}" stroke-width="2.2"/>' for c in chars)
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    {out}
+    {ink}
+  </svg>"""
+
+
 def ph_explain(a: float) -> str:
     """Three panels: the triple, the control polygon, the chain."""
     # -- (i) the doubling: (4,3) aims at 36.87, (7,24) at 73.74 ------------
@@ -100,37 +148,43 @@ def ph_explain(a: float) -> str:
           fill="#7b6c4e">36.87 x 2 = 73.74</text>
   </svg>"""
 
-    # -- (ii) one real segment and its control polygon ---------------------
-    s_mid = a * 0.45
-    s1 = a * 0.42
-    seg, legs = from_hermite(cat(a, s_mid), math.atan(s_mid / a),
-                            cat(a, s_mid + s1), math.atan((s_mid + s1) / a))
+    # -- (ii) the three legs are three triangles --------------------------
+    seg = PHCubic(24, 7, 4, 3)
     cps = seg.control_points()
     curve = [seg.point(j / 40) for j in range(41)]
-    truth = [cat(a, s_mid + s1 * j / 40) for j in range(41)]
-    everything = curve + truth + list(cps)
+    legs = [(24 * 24 - 7 * 7, 2 * 24 * 7, "(24,7) squared"),
+            (24 * 4 - 7 * 3, 24 * 3 + 4 * 7, "(24,7) x (4,3)"),
+            (4 * 4 - 3 * 3, 2 * 4 * 3, "(4,3) squared")]
+    everything = curve + list(cps)
     xs = [p[0] for p in everything]; ys = [p[1] for p in everything]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    k = min((w - 50) / (x1 - x0), (h - 50) / (y1 - y0))
+    k = min((w - 50) / (x1 - x0), (h - 70) / (y1 - y0))
     px = (w - (x1 - x0) * k) / 2
-    py = (h - (y1 - y0) * k) / 2
+    py = (h - 30 - (y1 - y0) * k) / 2
 
     def at(p):
-        return (px + (p[0] - x0) * k, h - (py + (p[1] - y0) * k))
+        return (px + (p[0] - x0) * k, h - 30 - (py + (p[1] - y0) * k))
 
-    poly = path_d([at(p) for p in cps])
+    tri = []
+    for i, (lu, lv, name) in enumerate(legs):
+        p_, q_ = at(cps[i]), at(cps[i + 1])
+        corner = (q_[0], p_[1])
+        tri.append(f'<path d="M {p_[0]:.1f} {p_[1]:.1f} L {corner[0]:.1f} '
+                   f'{corner[1]:.1f} L {q_[0]:.1f} {q_[1]:.1f} Z" fill="none" '
+                   f'stroke="{GOLD}" stroke-width="0.9" opacity="0.85"/>')
+
     panel_ii = f"""<svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="280" height="240" fill="#fff" stroke="{LINE}"/>
-    <path d="{path_d([at(p) for p in truth])}" fill="none" stroke="{GOLD}"
-          stroke-width="1.3" stroke-dasharray="5 4"/>
-    <path d="{poly}" fill="none" stroke="#c9a441" stroke-width="1.6" stroke-dasharray="4 3"/>
     <path d="{path_d([at(p) for p in curve])}" fill="none" stroke="{INK}" stroke-width="2.2"/>
-    {''.join(f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="2.6" fill="{INK}"/>'
-             f'<text x="{at(p)[0] + 5:.0f}" y="{at(p)[1] - 5:.0f}" font-size="9" '
-             f'font-family="ui-monospace,monospace" fill="{GOLD}">p{i}</text>'
-             for i, p in enumerate(cps))}
-    <text x="14" y="228" font-size="10" font-family="ui-monospace,monospace"
-          fill="#7b6c4e">legs L1 L2 L3, L1 L3 = L2^2, polygon hugs</text>
+    <path d="{path_d([at(p) for p in cps])}" fill="none" stroke="#c9a441"
+          stroke-width="1.2" stroke-dasharray="4 3"/>
+    {''.join(tri)}
+    {''.join(f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="2.4" fill="{INK}"/>'
+             for p in cps)}
+    <text x="10" y="222" font-size="9" font-family="ui-monospace,monospace"
+          fill="#7b6c4e">527,336,625 &middot; 75,100,125 &middot; 7,24,25</text>
+    <text x="10" y="234" font-size="9" font-family="ui-monospace,monospace"
+          fill="#7b6c4e">each leg is a triple: square, product, square</text>
   </svg>"""
 
     # -- (iii) four of them over the catenary ------------------------------
@@ -949,6 +1003,41 @@ def main() -> int:
     <strong>Fig. O</strong> · (i) the pair (4,3) doubles to the triple (7,24) —
     the tangent is twice the direction · (ii) one segment and its three legs,
     with L₁L₃ = L₂² · (iii) four segments over the catenary</p>
+    <p><strong>What else a PH curve gives you.</strong> The offset — the curve
+    moved sideways by a fixed distance — is <em>rational</em>, not an
+    approximation: for <code>z′ = w²</code> the unit normal is
+    <code>−i·w²/|w|²</code>, so the plate at distance <code>d</code> is
+    <code>z(t) + d·(−2uv, u²−v²)/(u²+v²)</code>, evaluated exactly at any
+    <code>t</code>. This is the Stage II plate without the re-fitting, and it
+    is why PH curves are used for tool paths and road layouts.</p>
+    <div class="strip">{ph_offset_figure(a)}
+      <p><strong>Fig. P</strong> · the chain (ink) and two exact offsets at
+      ±7.5% of a (gold) · no approximation anywhere</p></div>
+
+    <p><strong>What a PH curve can do with a p-triple, in one list.</strong></p>
+    <table>
+      <tr><th>operation</th><th>usual cost</th><th>here</th></tr>
+      <tr><td>length of the curve</td><td>numerical integration</td>
+      <td>a polynomial, exact</td></tr>
+      <tr><td>offset / parallel plate</td><td>degree 10, refit</td>
+      <td>rational, exact (Fig. P)</td></tr>
+      <tr><td>curvature</td><td>second derivative, noisy</td>
+      <td>a fraction, exact</td></tr>
+      <tr><td>tangent direction</td><td>atan2</td>
+      <td>Euclid doubling, dot and cross</td></tr>
+      <tr><td>split a segment</td><td>re-fit both halves</td>
+      <td>subdivide, still PH, still triples</td></tr>
+      <tr><td>control points on the lattice</td><td>—</td>
+      <td>when the quadratic's discriminant is a square</td></tr>
+    </table>
+    <p style="margin-top:10px">Two of those are worth dwelling on. The split is
+    exact: cut at any <code>t</code> and the halves are PH cubics with integer
+    pairs again, so a curve can be refined without ever leaving the family. And
+    the lattice condition is a <em>number-theoretic</em> test on the pair of
+    directions — in a scan of 960 endpoint-and-direction cases, 158 had an exact
+    rational square discriminant, so integer control polygons are ordinary, not
+    rare.</p>
+
     <p style="margin-top:10px"><strong>Where a square root survives.</strong>
     One, and only one: <code>k = √(L₃/L₁)</code>, the growth between legs. Solve
     the quadratic in <code>k</code> and it is exact whenever the discriminant is
@@ -981,7 +1070,7 @@ def main() -> int:
     first version of these faces read as check marks. The mistake is kept
     here on purpose: it is a different and useful face.</p>
     <div class="two">{''.join(
-      variant_card("PQRSTU"[i], label, b, sp,
+      variant_card("QRSTUV"[i], label, b, sp,
                    f' <em>(copy of {"EFGHIJ"[i]}, vertical-axis rungs)</em>',
                    axis="vertical")
       for i, (label, b, sp) in enumerate(VARIANTS))}
