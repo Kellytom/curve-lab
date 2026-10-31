@@ -19,7 +19,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from curve_families import (  # noqa: E402
-    THIN, aspect, doubling_chain, fitter, path_d, series_top, triple_angle,
+    THIN, aspect, doubling_chain, fitter, offset_chain, path_d, series_top,
+    triple_angle, turn_of,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,52 +68,6 @@ CSS = """
 
 
 # -- geometry ---------------------------------------------------------------
-
-def turn_of(points, i: int) -> float:
-    """Signed turn at node i of a polyline, in radians."""
-    (x0, y0), (x1, y1), (x2, y2) = points[i - 1], points[i], points[i + 1]
-    a = math.atan2(y1 - y0, x1 - x0)
-    b = math.atan2(y2 - y1, x2 - x1)
-    d = b - a
-    while d > math.pi:
-        d -= 2 * math.pi
-    while d < -math.pi:
-        d += 2 * math.pi
-    return d
-
-
-def offset_chain(points, d):
-    """Offset a chain by d to the left of travel (negative: right).
-
-    Each chord is slid by d along its left normal, then consecutive slid chords
-    are intersected.  That is the polygon offset, exactly: the node angles do
-    not change and every chord shortens by d*tan(turn/2) at each end.
-    """
-    if d == 0:
-        return list(points)
-    segs = []
-    for i in range(len(points) - 1):
-        (x0, y0), (x1, y1) = points[i], points[i + 1]
-        dx, dy = x1 - x0, y1 - y0
-        length = math.hypot(dx, dy)
-        ux, uy = dx / length, dy / length
-        segs.append(((x0 - uy * d, y0 + ux * d), (ux, uy), length))
-
-    out = [segs[0][0]]
-    for i in range(1, len(segs)):
-        (p0, u0, _), (p1, u1, _) = segs[i - 1], segs[i]
-        denom = u0[0] * u1[1] - u0[1] * u1[0]
-        if abs(denom) < 1e-12:
-            out.append(p1)
-            continue
-        t = ((p1[0] - p0[0]) * u1[1] - (p1[1] - p0[1]) * u1[0]) / denom
-        out.append((p0[0] + u0[0] * t, p0[1] + u0[1] * t))
-    (sx, sy), (ux, uy), length = segs[-1]
-    turn = abs(turn_of(points, len(points) - 2))
-    trim = abs(d) * math.tan(turn / 2)
-    out.append((sx + ux * length, sy + uy * length))     # free end, untrimmed
-    return out
-
 
 def closing_distance(points, d_sign: float = 1.0) -> float:
     """The offset at which the shortest chord is eaten up."""
@@ -209,27 +164,38 @@ def heading_at(points, i):
     return math.atan2(b[1] - a[1], b[0] - a[0])
 
 
-def grow(points, top: int, triple, levels: int, rule: str = "one",
-         scale: float = 0.34, side: int = 1, shrink: float = 0.032):
-    """Branch at every node of a spine, and recurse.
+def lattice(p):
+    """The nearest integer lattice point."""
+    return (float(round(p[0])), float(round(p[1])))
 
-    A child starts at the node's own chord size times `shrink`, so the join
-    reads as a continuation rather than a hair.  `rule` picks the side:
-    "one", "alternate", or "both".  `levels` counts the branch levels still to
-    grow below this spine.
+
+def grow(points, top: int, triple, levels: int, rule: str = "one",
+         scale: float = 0.34, side: int = 1, shrink: float = 0.032,
+         plate: float = 0.0, snap: bool = True):
+    """Branch at every node of a plate, and recurse.
+
+    `plate` is the offset distance: 0 branches from the spine itself, positive
+    branches from the left plate, negative from the right one.  Origins are
+    snapped to the integer lattice, because a branch is a place other curves
+    get connected to, not a decoration.  A child starts at the node's own chord
+    size times `shrink`, so the join reads as a continuation rather than a
+    hair.  `rule` picks the side: "one", "alternate", or "both".
     """
     strokes = [(points, levels)]
     if levels <= 0:
         return strokes
+    origins = points if plate == 0 else offset_chain(points, plate)
+    snapped = [lattice(p) for p in origins] if snap else origins
+    strokes.append((origins, levels))            # draw the plate the joins sit on
     child_top = 4          # every branch is the same little spine
-    for i in range(1, len(points) - 1):
-        heading = heading_at(points, i)
-        local = math.dist(points[i], points[i + 1])
+    for i in range(1, len(origins) - 1):
+        heading = heading_at(origins, i)
+        local = math.dist(origins[i], origins[i + 1])
         start = shrink * local / triple[2]
         sides = (side, -side) if rule == "both" else (
             (side * (-1) ** i if rule == "alternate" else side,))
         for s in sides:
-            child, _ = spine(child_top, triple, points[i], heading, start, s)
+            child, _ = spine(child_top, triple, snapped[i], heading, start, s)
             strokes.extend(grow(child, child_top, triple, levels - 1,
                                 rule, scale * 0.62, s, shrink))
     return strokes
@@ -289,6 +255,76 @@ def offset_svg(points, offsets, w=760, h=760, crop=None) -> str:
           stroke="{LINE}" stroke-width="1"/>
     {''.join(parts)}
   </svg>"""
+
+
+def join_figure(chain, d, index, w=860.0, h=430.0, boost=40.0) -> tuple:
+    """One join, magnified: the plate point, the lattice, and the jog between."""
+    plate = offset_chain(chain, d)
+    snapped = [lattice(p) for p in plate]
+    residual = max(math.dist(a, b) for a, b in zip(plate, snapped))
+
+    lo, hi = max(0, index - 3), min(len(plate), index + 4)
+    window = plate[lo:hi]
+    x0 = min(p[0] for p in window)
+    x1 = max(p[0] for p in window)
+    y0 = min(p[1] for p in window)
+    y1 = max(p[1] for p in window)
+    pad = 0.25 * max(x1 - x0, y1 - y0)
+    x0, x1, y0, y1 = x0 - pad, x1 + pad, y0 - pad, y1 + pad
+    scale = min((w - 60) / (x1 - x0), (h - 60) / (y1 - y0))
+
+    def at(p):
+        return (30 + (p[0] - x0) * scale, h - 30 - (p[1] - y0) * scale)
+
+    # lattice, at the round step that puts about 12 across the window
+    span = max(x1 - x0, y1 - y0)
+    step = 10 ** math.floor(math.log10(span / 12)) if span > 0 else 1.0
+    dots = []
+    gx = math.floor(x0 / step) * step
+    while gx <= x1:
+        gy = math.floor(y0 / step) * step
+        while gy <= y1:
+            px, py = at((gx, gy))
+            dots.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="1.1" fill="#d9cdae"/>')
+            gy += step
+        gx += step
+
+    # the jog from the true plate point to the lattice point, exaggerated
+    jogs = []
+    for a, b in zip(plate[lo:hi], snapped[lo:hi]):
+        pa, pb = at(a), at(b)
+        ex, ey = pb[0] + (pa[0] - pb[0]) * boost, pb[1] + (pa[1] - pb[1]) * boost
+        jogs.append(f'<line x1="{pb[0]:.1f}" y1="{pb[1]:.1f}" x2="{ex:.1f}" '
+                    f'y2="{ey:.1f}" stroke="{GOLD}" stroke-width="1.2"/>')
+        jogs.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="2.6" fill="none" '
+                    f'stroke="{GOLD}" stroke-width="1.2"/>')
+
+    lines = []
+    gx = math.floor(x0 / step) * step
+    while gx <= x1:
+        px, _ = at((gx, y0))
+        lines.append(f'<line x1="{px:.1f}" y1="0" x2="{px:.1f}" y2="{h:.0f}" stroke="#eee5cd" stroke-width="0.7"/>')
+        gx += step
+    gy = math.floor(y0 / step) * step
+    while gy <= y1:
+        _, py = at((x0, gy))
+        lines.append(f'<line x1="0" y1="{py:.1f}" x2="{w:.0f}" y2="{py:.1f}" stroke="#eee5cd" stroke-width="0.7"/>')
+        gy += step
+
+    marks = "".join(
+        f'<circle cx="{at(b)[0]:.1f}" cy="{at(b)[1]:.1f}" r="2.4" fill="{INK}"/>'
+        for b in snapped[lo:hi])
+
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    {''.join(lines)}
+    {''.join(dots)}
+    <path d="{path_d([at(p) for p in plate])}" fill="none" stroke="{INK}"
+          stroke-width="2.0"/>
+    {marks}
+    {''.join(jogs)}
+  </svg>""", residual
 
 
 def two_up(a: str, b: str) -> str:
@@ -390,9 +426,12 @@ def main() -> int:
              ("one side at every node", "one"))
     branch_top = 6                       # a shorter spine: the branches stay legible
     branch_chain = doubling_chain(branch_top)
+    plate_d = 0.45 * min(math.dist(branch_chain[i], branch_chain[i + 1])
+                         for i in range(len(branch_chain) - 1))
+    join_svg, residual = join_figure(branch_chain, plate_d, 4)
     growth = []
     for label, rule in rules:
-        tree = grow(branch_chain, branch_top, THIN, 1, rule)
+        tree = grow(branch_chain, branch_top, THIN, 1, rule, plate=plate_d)
         chords = sum(len(p) - 1 for p, _ in tree)
         growth.append((tree_svg(tree), tree_svg(tree, flip=True),
                        f"<strong>{label}</strong> · {len(tree)} plates · "
@@ -459,9 +498,18 @@ def main() -> int:
     {branch_top}-stack spine turned upright, branching at every node
     ({series_top(branch_top)["chords"]} chords,
     {series_top(branch_top)["turn"]:.0f}°).</p>
-    {pair(3, growth[0])}
-    {pair(4, growth[1])}
-    {pair(5, growth[2])}
+    <p>Branches start on the <strong>left plate</strong>, not on the spine: the
+    offset curve at {plate_d:.0f} is where a second curve can be joined without
+    cutting the first one. Every origin is then snapped to the integer lattice,
+    which moves it by at most {residual:.2f} — small against a
+    {min(math.dist(branch_chain[i], branch_chain[i + 1]) for i in range(len(branch_chain) - 1)):.0f}
+    chord, but it is a real move, so it is drawn.</p>
+    {strip(join_svg, f"<strong>one join, magnified</strong> · the plate (ink), "
+                     f"the lattice, the branches' origins (dots) · the gold jogs "
+                     f"are the snap, exaggerated ×40, worst {residual:.2f}", 3)}
+    {pair(4, growth[0])}
+    {pair(5, growth[1])}
+    {pair(6, growth[2])}
     <p style="margin-top:10px">Same spine, same child, three rules — and the
     difference between a fern and a fishbone is only whether the side flips.
     Depth is the next dial: each child is a spine too, so it branches as well.</p>
@@ -485,7 +533,7 @@ def main() -> int:
                         f"the plate at d = {d:.0f}, spans fitted to the offset spine "
                         f"(dark) · the same plate by moving the four control points "
                         f"(gold) · worst gap {100 * worst / d:.0f}% of the offset, "
-                        f"on span {worst_at + 1} of {len(spans)}", 6)}
+                        f"on span {worst_at + 1} of {len(spans)}", 7)}
     <p style="margin-top:10px">So the order is fixed: <strong>offset the spine
     first</strong>, then fit spans to the plate that comes out. Offsetting the
     cubics and hoping is the one move this geometry punishes.</p>

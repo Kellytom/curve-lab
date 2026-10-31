@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from curve_families import path_d  # noqa: E402
+from curve_families import offset_chain, path_d  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 INK = "#2e2413"
@@ -80,6 +80,24 @@ def branch(a: float, length: float, steps: int):
     return pts
 
 
+def branch_data(a: float, length: float, steps: int):
+    """The chain, plus one row per chord: where it lands and which rung it used."""
+    pts = [(0.0, 0.0)]
+    rows = []
+    step = length / steps
+    for i in range(1, steps + 1):
+        s = i * step
+        want = math.degrees(math.atan(s / a))
+        rung = min(RUNGS, key=lambda r: abs(r["deg"] - want))
+        theta = math.radians(rung["deg"])
+        x, y = pts[-1]
+        q = (x + step * math.cos(theta), y + step * math.sin(theta))
+        pts.append(q)
+        rows.append({"i": i, "x": q[0], "y": q[1], "want": want,
+                     "deg": rung["deg"], "triple": rung["triple"]})
+    return pts, rows
+
+
 def branch_error(a: float, length: float, steps: int):
     """Worst distance from a chain node to the true catenary at the same arc."""
     pts = branch(a, length, steps)
@@ -90,27 +108,29 @@ def branch_error(a: float, length: float, steps: int):
     return worst
 
 
-def fig_catenary(a=100.0, high=0.62, steps=26, gold=True) -> str:
-    """Both branches on one catenary: down to the vertex, then up from it."""
+def fig_catenary(a=100.0, high=0.62, steps=10, gold=True, grid=True):
+    """Both branches on one catenary, every triangle drawn on a fine grid."""
     total = 2.2 * a
-    up = branch(a, high * total, steps)                    # to the higher anchor
-    down = [(-x, y) for x, y in branch(a, (1 - high) * total, steps)]
-    down.reverse()                                          # left anchor -> vertex
+    up, up_rows = branch_data(a, high * total, steps)
+    down_pts, down_rows = branch_data(a, (1 - high) * total, steps)
+    down = [(-x, y) for x, y in down_pts]
+    down.reverse()
     chain = down + up[1:]
+    edges = list(zip(chain[:-1], chain[1:]))
 
+    true = []
     if gold:
-        true = [(-cat(a, (1 - high) * total * i / 200)[0],
-                 cat(a, (1 - high) * total * i / 200)[1]) for i in range(200, -1, -1)]
-        true += [cat(a, high * total * i / 200) for i in range(1, 201)]
-    else:
-        true = []
+        low_len, high_len = (1 - high) * total, high * total
+        true = [(-cat(a, low_len * i / 200)[0], cat(a, low_len * i / 200)[1])
+                for i in range(200, -1, -1)]
+        true += [cat(a, high_len * i / 200) for i in range(1, 201)]
 
     pts = chain + true
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    w, h = 860.0, 380.0
-    margin = 40.0
+    w, h = 860.0, 400.0
+    margin = 34.0
     scale = min((w - 2 * margin) / (x1 - x0), (h - 2 * margin) / (y1 - y0))
     dx = (w - (x1 - x0) * scale) / 2
     dy = (h - (y1 - y0) * scale) / 2
@@ -118,18 +138,46 @@ def fig_catenary(a=100.0, high=0.62, steps=26, gold=True) -> str:
     def at(p):
         return (dx + (p[0] - x0) * scale, h - (dy + (p[1] - y0) * scale))
 
-    # the triangles, on the first few chords of each branch
+    # the grid, in model units: fine every 10, heavy every 50
+    grid_lines = []
+    if grid:
+        gx = math.floor(x0 / 10) * 10
+        while gx <= x1:
+            px, _ = at((gx, y0))
+            heavy = abs(gx % 50) < 1e-6
+            grid_lines.append(
+                f'<line x1="{px:.2f}" y1="0" x2="{px:.2f}" y2="{h:.0f}" '
+                f'stroke="{"#e0d6bd" if heavy else GRID}" '
+                f'stroke-width="{1.0 if heavy else 0.6}"/>')
+            gx += 10
+        gy = math.floor(y0 / 10) * 10
+        while gy <= y1:
+            _, py = at((x0, gy))
+            heavy = abs(gy % 50) < 1e-6
+            grid_lines.append(
+                f'<line x1="0" y1="{py:.2f}" x2="{w:.0f}" y2="{py:.2f}" '
+                f'stroke="{"#e0d6bd" if heavy else GRID}" '
+                f'stroke-width="{1.0 if heavy else 0.6}"/>')
+            gy += 10
+
+    # every triangle: the hypotenuse is the chord, the legs are axis-aligned
     tris = []
-    for i in range(1, min(5, len(up))):
-        (px, py), (qx, qy) = at(up[i - 1]), at(up[i])
-        tris.append(f'<path d="M {px:.2f} {py:.2f} L {qx:.2f} {py:.2f} '
-                    f'L {qx:.2f} {qy:.2f} Z" fill="none" stroke="{GOLD}" '
-                    f'stroke-width="0.8" opacity="0.75"/>')
-    for i in range(len(down) - 1, max(len(down) - 5, 0), -1):
-        (px, py), (qx, qy) = at(down[i - 1]), at(down[i])
-        tris.append(f'<path d="M {px:.2f} {py:.2f} L {px:.2f} {qy:.2f} '
-                    f'L {qx:.2f} {qy:.2f} Z" fill="none" stroke="{GOLD}" '
-                    f'stroke-width="0.8" opacity="0.75"/>')
+    for (px, py), (qx, qy) in edges:
+        ax, ay = at((px, py))
+        bx, by = at((qx, py))
+        cx, cy = at((qx, qy))
+        tris.append(f'<path d="M {ax:.2f} {ay:.2f} L {bx:.2f} {by:.2f} '
+                    f'L {cx:.2f} {cy:.2f} Z" fill="none" stroke="{GOLD}" '
+                    f'stroke-width="0.8" opacity="0.8"/>')
+
+    # every spine carries its plates: the same offset rule as Stage II
+    plates = []
+    chord_min = min(math.dist(p, q) for p, q in edges)
+    for frac, shade in ((-0.55, "#c9a441"), (-0.28, "#a8894a"),
+                        (0.28, "#a8894a"), (0.55, "#c9a441")):
+        line = offset_chain(chain, frac * chord_min)
+        plates.append(f'<path d="{path_d([at(p) for p in line])}" fill="none" '
+                      f'stroke="{shade}" stroke-width="1.1"/>')
 
     gold_line = ""
     if true:
@@ -137,22 +185,28 @@ def fig_catenary(a=100.0, high=0.62, steps=26, gold=True) -> str:
                      f'stroke="{GOLD}" stroke-width="1.2" stroke-dasharray="6 5"/>')
 
     dots = ""
-    for p, label in ((chain[0], "high anchor"), (chain[-1], "low anchor")):
+    for p in chain:
+        x, y = at(p)
+        dots += f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="{INK}"/>'
+    for p in (chain[0], chain[-1]):
         x, y = at(p)
         dots += f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{INK}"/>'
     vx, vy = at((0.0, 0.0))
     dots += (f'<circle cx="{vx:.1f}" cy="{vy:.1f}" r="4" fill="#fff" '
              f'stroke="{INK}" stroke-width="1.6"/>')
 
-    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    svg = f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
           stroke="{LINE}" stroke-width="1"/>
+    {''.join(grid_lines)}
     {gold_line}
+    {''.join(plates)}
     {''.join(tris)}
     <path d="{path_d([at(p) for p in chain])}" fill="none" stroke="{INK}"
           stroke-width="2.2" stroke-linejoin="round"/>
     {dots}
   </svg>"""
+    return svg, up_rows, down_rows
 
 
 # -- B: catenary drapery ----------------------------------------------------
@@ -420,30 +474,28 @@ window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)),
 def main() -> int:
     a = 100.0
     total = 2.2 * a
-    steps = 26
+    steps = 10
 
-    fig_main = fig_catenary(a, 0.62, steps)
+    fig_main, up_rows, down_rows = fig_catenary(a, 0.62, steps)
     err_hi = branch_error(a, 0.62 * total, steps)
     err_lo = branch_error(a, 0.38 * total, steps)
 
     # three splits of the same catenary
     small = []
     for p in (0.50, 0.62, 0.75):
-        svg = fig_catenary(a, p, steps, gold=False)
+        svg, _, _ = fig_catenary(a, p, steps, gold=False, grid=False)
         small.append(f'<figure>{svg}<figcaption>split {p:.2f} : '
                      f'{1 - p:.2f}</figcaption></figure>')
 
-    rows = []
-    for s in range(1, steps + 1):
-        ang = math.degrees(math.atan(s * 0.62 * total / steps / a))
-        rows.append((s, ang, snap(ang)))
-    page_rows = []
-    for i, ang, sn in rows:
-        node = RUNGS[min(range(len(RUNGS)), key=lambda k: abs(RUNGS[k]["deg"] - sn))]
-        page_rows.append(
-            f"<tr><td>{i}</td><td>{ang:.1f}°</td><td>{node['deg']:.2f}°</td>"
-            f"<td>{node['triple'][0]}-{node['triple'][1]}-{node['triple'][2]}</td>"
-            f"<td>{sn - ang:+.1f}°</td></tr>")
+    node_rows = []
+    for side, rows, sign in (("high", up_rows, 1), ("low", down_rows, -1)):
+        for r in rows:
+            node_rows.append(
+                f"<tr><td>{side}</td><td>{r['i']}</td>"
+                f"<td>{sign * r['x']:.1f}</td><td>{r['y']:.1f}</td>"
+                f"<td>{r['deg']:.2f}°</td>"
+                f"<td>{r['triple'][0]}-{r['triple'][1]}-{r['triple'][2]}</td></tr>")
+    table = "".join(node_rows)
 
     page = f"""<!doctype html>
 <html lang="en">
@@ -468,8 +520,12 @@ def main() -> int:
     <code>tan θ = s/a</code>. The chain here may only take directions that a
     pythagorean triple can make, so each step snaps θ to the nearest rung of a
     {len(RUNGS)}-rung ladder, then lays a chord of the arc length that step
-    deserves. Every chord is the hypotenuse of a real triangle — two of them
-    are drawn on each end.</p>
+    deserves. Every chord is the hypotenuse of a real triangle, and every
+    triangle is drawn: the legs are axis-aligned, so the chain is a staircase
+    of exact triples you can hang other curves from.</p>
+    <p>The grid is in catenary units — fine every 10, heavy every 50, with
+    a = {a:.0f}. {2 * steps} chords: {steps} down to the vertex and {steps} up
+    from it.</p>
     <p>The two branches share one catenary. Down to the vertex is
     <em>toward the focus</em>; up from it is <em>away</em>. The split sets how
     much of the curve each side owns, and since height rises with arc, the side
@@ -486,14 +542,15 @@ def main() -> int:
     drapery needs: it says where the low point sits, and therefore which
     anchor the cloth is hanging from.</p>
     <div class="scroll"><table style="margin-top:10px">
-      <tr><th>step</th><th>catenary wants</th><th>triple angle</th>
-      <th>triple</th><th>error</th></tr>
-      {''.join(page_rows[:10])}
+      <tr><th>side</th><th>step</th><th>x</th><th>y</th><th>heading</th>
+      <th>triple</th></tr>
+      {table}
     </table></div>
-    <p style="margin-top:8px">First ten steps of the high branch, at
-    a = {a:.0f}. The ladder is the whole catalogue of slopes below
-    {max(DEGREES):.0f}° with hypotenuse ≤ 500; gaps between rungs are what the
-    error column measures.</p>
+    <p style="margin-top:8px">Every node, in catenary units: x runs from the
+    vertex (x = 0, the low point) outward, y is the rise. The heading is the
+    triple's angle, so a curve attached at a node leaves on one of these
+    directions. The ladder is every pythagorean slope below
+    {max(DEGREES):.0f}° with hypotenuse ≤ 500.</p>
   </div>
 
   <h2>B · <span>catenary drapery, in 2.5D</span></h2>

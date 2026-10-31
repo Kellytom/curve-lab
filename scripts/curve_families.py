@@ -140,6 +140,52 @@ def placed(points, h: float, w: float = W):
     return fitter(points, h, w)[0](points)
 
 
+def turn_of(points, i: int) -> float:
+    """Signed turn at node i of a polyline, in radians."""
+    (x0, y0), (x1, y1), (x2, y2) = points[i - 1], points[i], points[i + 1]
+    a = math.atan2(y1 - y0, x1 - x0)
+    b = math.atan2(y2 - y1, x2 - x1)
+    d = b - a
+    while d > math.pi:
+        d -= 2 * math.pi
+    while d < -math.pi:
+        d += 2 * math.pi
+    return d
+
+
+def offset_chain(points, d):
+    """Offset a chain by d to the left of travel (negative: right).
+
+    Each chord is slid by d along its left normal, then consecutive slid chords
+    are intersected.  That is the polygon offset, exactly: the node angles do
+    not change and every chord shortens by d*tan(turn/2) at each end.
+    """
+    if d == 0:
+        return list(points)
+    segs = []
+    for i in range(len(points) - 1):
+        (x0, y0), (x1, y1) = points[i], points[i + 1]
+        dx, dy = x1 - x0, y1 - y0
+        length = math.hypot(dx, dy)
+        ux, uy = dx / length, dy / length
+        segs.append(((x0 - uy * d, y0 + ux * d), (ux, uy), length))
+
+    out = [segs[0][0]]
+    for i in range(1, len(segs)):
+        (p0, u0, _), (p1, u1, _) = segs[i - 1], segs[i]
+        denom = u0[0] * u1[1] - u0[1] * u1[0]
+        if abs(denom) < 1e-12:
+            out.append(p1)
+            continue
+        t = ((p1[0] - p0[0]) * u1[1] - (p1[1] - p0[1]) * u1[0]) / denom
+        out.append((p0[0] + u0[0] * t, p0[1] + u0[1] * t))
+    (sx, sy), (ux, uy), length = segs[-1]
+    turn = abs(turn_of(points, len(points) - 2))
+    trim = abs(d) * math.tan(turn / 2)
+    out.append((sx + ux * length, sy + uy * length))     # free end, untrimmed
+    return out
+
+
 def path_d(points) -> str:
     return " ".join(f"{'M' if i == 0 else 'L'} {x:.2f} {y:.2f}"
                     for i, (x, y) in enumerate(points))
