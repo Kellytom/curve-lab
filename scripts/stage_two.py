@@ -37,7 +37,7 @@ CSS = """
   body { margin:0; color:var(--ink); font:16px/1.55 var(--serif);
     background: radial-gradient(900px 440px at 12% -8%, #fcf9ef 0, transparent 60%), var(--paper); }
   main { max-width: 920px; margin: 0 auto; padding: 34px 22px 70px; }
-  h1 { font-size: 28px; margin: 0 0 4px; }
+  h1 { font-size: 25px; margin: 0 0 4px; text-wrap: balance; }
   .lead { color: var(--gold); margin: 0 0 18px; }
   h2 { font: 600 11px/1.2 var(--mono); letter-spacing:.12em; text-transform:uppercase;
     color:var(--muted); margin:26px 0 8px; }
@@ -234,7 +234,17 @@ def grow(points, top: int, triple, levels: int, rule: str = "one",
 
 # -- drawing ----------------------------------------------------------------
 
+def upright(points, root):
+    """Turn the whole tree so the root spine runs vertically, growing up."""
+    a = math.atan2(root[-1][1] - root[0][1], root[-1][0] - root[0][0])
+    rot = math.pi / 2 - a
+    c, s = math.cos(rot), math.sin(rot)
+    return [(c * x - s * y, s * x + c * y) for x, y in points]
+
+
 def tree_svg(strokes, w=760, h=760) -> str:
+    root = strokes[0][0]
+    strokes = [(upright(pts, root), depth) for pts, depth in strokes]
     flat = [p for pts, _ in strokes for p in pts]
     draw, _ = fitter(flat, h, w, margin=18.0)
     parts = []
@@ -275,8 +285,8 @@ def offset_svg(points, offsets, w=760, h=760, crop=None) -> str:
   </svg>"""
 
 
-def strip(svg: str, caption: str) -> str:
-    return f'<div class="strip">{svg}<p>{caption}</p></div>'
+def strip(svg: str, caption: str, n: int) -> str:
+    return f'<div class="strip">{svg}<p><strong>Fig. {n}</strong> · {caption}</p></div>'
 
 
 # -- the page ---------------------------------------------------------------
@@ -357,31 +367,31 @@ def main() -> int:
   </svg>"""
 
     # -- 3. the growth rules --------------------------------------------
-    rules = (("one side at every node", "one"),
+    rules = (("both sides at every node", "both"),
              ("alternating sides", "alternate"),
-             ("both sides at every node", "both"))
+             ("one side at every node", "one"))
     branch_top = 6                       # a shorter spine: the branches stay legible
     branch_chain = doubling_chain(branch_top)
     growth = []
     for label, rule in rules:
         tree = grow(branch_chain, branch_top, THIN, 1, rule)
-        growth.append(strip(tree_svg(tree), f"<strong>{label}</strong> · "
-                          f"{len(tree)} plates · {sum(len(p) - 1 for p, _ in tree)} "
-                          f"chords"))
+        growth.append((tree_svg(tree), f"<strong>{label}</strong> · "
+                       f"{len(tree)} plates · "
+                       f"{sum(len(p) - 1 for p, _ in tree)} chords"))
 
     page = f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stage II: plates, offsets and branches</title>
+<title>Clothoid intermediate curves stage II</title>
 <style>{CSS}</style>
 </head>
 <body>
 <main>
   <p class="back"><a href="curve-families.html">← the curves</a> ·
   <a href="sandbox.html">sandbox</a></p>
-  <h1>Stage II: plates</h1>
+  <h1>Clothoid intermediate curves stage II</h1>
   <p class="lead">A spine is a chain of chords. Everything drawn from it — an
   offset, a branch — is a plate, and every plate is a construction on the
   spine, not a copy of it.</p>
@@ -403,11 +413,11 @@ def main() -> int:
     <code>c/α = {chord_min / alpha:.0f}</code>: the plate closes when the offset
     reaches the centre it is turning about.</p>
     {strip(whole, f"<strong>the spine</strong> (ink) and four plates, at 0.30 and "
-                  f"0.62 of the closing distance, on both sides")}
+                  f"0.62 of the closing distance, on both sides", 1)}
     {strip(zoom, f"<strong>the same plates, zoomed</strong> to the first "
                  f"{hook} chords: the distance that is a skin over the arm is a "
                  f"third of the radius at the hook, so the plates fan out "
-                 f"there")}
+                 f"there", 2)}
     <div class="scroll"><table style="margin-top:10px">
       <tr><th>offset d</th><th>its own b</th><th>shortest chord</th></tr>
       {table}
@@ -415,6 +425,27 @@ def main() -> int:
     <p style="margin-top:10px">The spine is b = {effective_b(chain, THIN):.2f}.
     Offsetting inward raises b and outward lowers it, which is why a plate
     family reads as one gesture at different tensions.</p>
+  </div>
+
+  <h2>Root and branch</h2>
+  <div class="panel">
+    <p>The root is a spine. A branch is another spine, scaled down and started
+    at a node along that node's own tangent — which is the outgoing chord
+    direction, so the join is G1 for free: there is no blend to compute and no
+    corner to round. The child then turns by the same angle at every node, only
+    faster, because its chords are shorter.</p>
+    <p><em>Where</em> a branch may go is the <a
+    href="branch-points.html">branch-points</a> question — clearance from the
+    rest of the study. This is <em>how</em> it grows. Each panel is the
+    {branch_top}-stack spine turned upright, branching at every node
+    ({series_top(branch_top)["chords"]} chords,
+    {series_top(branch_top)["turn"]:.0f}°).</p>
+    {strip(growth[0][0], growth[0][1], 3)}
+    {strip(growth[1][0], growth[1][1], 4)}
+    {strip(growth[2][0], growth[2][1], 5)}
+    <p style="margin-top:10px">Same spine, same child, three rules — and the
+    difference between a fern and a fishbone is only whether the side flips.
+    Depth is the next dial: each child is a spine too, so it branches as well.</p>
   </div>
 
   <h2>Where the cubics fit</h2>
@@ -435,30 +466,10 @@ def main() -> int:
                         f"the plate at d = {d:.0f}, spans fitted to the offset spine "
                         f"(dark) · the same plate by moving the four control points "
                         f"(gold) · worst gap {100 * worst / d:.0f}% of the offset, "
-                        f"on span {worst_at + 1} of {len(spans)}")}
+                        f"on span {worst_at + 1} of {len(spans)}", 6)}
     <p style="margin-top:10px">So the order is fixed: <strong>offset the spine
     first</strong>, then fit spans to the plate that comes out. Offsetting the
     cubics and hoping is the one move this geometry punishes.</p>
-  </div>
-
-  <h2>Root and branch</h2>
-  <div class="panel">
-    <p>The root is a spine. A branch is another spine, scaled down and started
-    at a node along that node's own tangent — which is the incoming chord
-    direction, so the join is G1 for free: there is no blend to compute and no
-    corner to round. The child then turns by the same angle at every node, only
-    faster, because its chords are shorter.</p>
-    <p><em>Where</em> a branch may go is the <a
-    href="branch-points.html">branch-points</a> question — clearance from the
-    rest of the study. This is <em>how</em> it grows.</p>
-    <p>One rule per panel, at every node of the {branch_top}-stack spine
-    ({series_top(branch_top)["chords"]} chords, {series_top(branch_top)["turn"]:.0f}°):</p>
-    {growth[0]}
-    {growth[1]}
-    {growth[2]}
-    <p style="margin-top:10px">Same spine, same child, three rules — and the
-    difference between a fern and a fishbone is only whether the side flips.
-    Depth is the next dial: each child is a spine too, so it branches as well.</p>
     <p class="next">Next: leaves. A leaf is a plate that stops — one span at the
     end of a branch, sized by the chord that carries it.</p>
   </div>
