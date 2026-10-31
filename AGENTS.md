@@ -5,8 +5,8 @@ Keep the context small. Read only what the current action names.
 ## Start cheap
 
 1. `next-fhandoff.md` — the one action.
-2. `docs/HANDOFF.md` — current truth. Stop there unless it points onward.
-3. `docs/BACKLOG.md` — the W-label detail for the action, and nothing else.
+2. `state/HANDOFF.md` — current truth. Stop there unless it points onward.
+3. `state/BACKLOG.md` — the W-label detail for the action, and nothing else.
 4. `workbench/ornament-board.html` — visual order and labels (generated; do not
    edit by hand).
 
@@ -51,13 +51,15 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `workbench/spirals/` | recovered Stage II + LAC spines and their parity report |
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
-| `docs/HANDOFF.md` | current truth |
+| `state/HANDOFF.md` | current truth |
 | `next-fhandoff.md` | one action |
 
 ## Commands
 
 ```sh
 .venv/bin/python -m unittest discover tests
+.venv/bin/mkdocs serve                          # the docs book, live on :8000
+.venv/bin/mkdocs build                          # static output into site/
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
 node scripts/board/build-board.mjs              # regenerate both board pages
 node scripts/check-web.mjs                      # when it exists: layout gate

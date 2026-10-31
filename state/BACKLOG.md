@@ -1,7 +1,7 @@
 # Backlog — the ornament pass
 
-The **order** is chosen on the work board: [`workbench/ornament-board.html`](../workbench/ornament-board.html).
-The twenty fleur studies are a **subpage** — [`workbench/fleur-studies.html`](../workbench/fleur-studies.html) —
+The **order** is chosen on the work board: `workbench/ornament-board.html`.
+The twenty fleur studies are a **subpage** — `workbench/fleur-studies.html` —
 because they are a working set, not finished plates. The board carries **85
 plates** (45 catalogue ornaments, 27 caps, 9 leaves, 4 presets), **26 work
 items** W01–W26, and **11 decisions** D01–D11.

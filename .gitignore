@@ -27,3 +27,6 @@ reference/*
 
 # local deploy notes (scrubbed from the public docs)
 LOCAL-DEPLOY.md
+
+# mkdocs output
+site/

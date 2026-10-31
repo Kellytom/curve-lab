@@ -6,10 +6,8 @@ What is in this folder, which pages are generated, and where new writing belongs
 
 | File | What it is |
 |---|---|
-| `HANDOFF.md` | Current truth: local, remote, tests, git, risks, next move. Written by `/fhandoff`; do not hand-edit the state lines. |
+| — | The state files (`HANDOFF`, `BACKLOG`, `SESSIONS`, `WORK`, `STATUS`) live in `state/`, not here. |
 | `HANDOVER.md` | Durable reference: architecture, deploy, security, decisions. Long on purpose. |
-| `BACKLOG.md` | Execution detail for W01–W26 (the work items on the work board). |
-| `SESSIONS.md` | Proposed order for the next sessions; gate 4 first. Not yet agreed. |
 | `FIDELITY.md` | **The accepted accuracy budget** (1.4–1.6%), its precedent and metrics. |
 | `REVIEW.md` | Architecture and print review; act after the current work. |
 | `ARCHITECTURE.md` | How the engine and the spine layer fit, and which gate conditions hold. |
@@ -18,9 +16,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `GLOSSARY.md` | Plain-English terms for both sides, and how the vocabularies map. |
 | `CURVE-MODEL.md` | Design/Segment, Piece/Trace, terminals, junctions, Section, Bundle, clearance, grades. |
 | `CORPUS.md` | The recovered plates, the terminal and spiral formats, units, regenerating. |
-| `WORK.md` | P/W/D registers, the order of work, the spine layer's promotion gate. |
 | `VERIFY.md` | The four checks and what passing means. |
-| `STATUS.md` | What works today, what is not wired. |
 | `CREDITS.md` | The engine's authors, the corpus, the licences. |
 
 ## Handwritten reference
@@ -43,7 +39,7 @@ The working pages moved out of `docs/` to `workbench/`, on their own server root
 
     .venv/bin/python -m http.server 8003 --directory sandbox
 
-`docs/` is prose only: the truth (`HANDOFF`), the durable reference
+`docs/` is prose only: the durable reference
 (`HANDOVER`), the design writing, and the reviews. A generated page never
 belongs here, because a generated page is a *working* artefact — it is read
 with a browser, rebuilt from a script, and thrown away when the question it

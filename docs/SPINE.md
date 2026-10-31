@@ -71,7 +71,7 @@ They now meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary
 clothoid segments, so a `Piece` can hold a spine and the normal rails, terminals
 and clearance apply. Three of the four promotion conditions pass (`3f7a603`);
 the fourth — one W03 study drawn entirely from chains — is open because exact
-chains cannot reproduce P01's node table. See `SESSIONS.md`.
+chains cannot reproduce P01's node table. See `state/SESSIONS.md`.
 
 ## 5. Walkthrough: an S-curve ribbon
 

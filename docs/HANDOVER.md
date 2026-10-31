@@ -274,8 +274,8 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
-| `docs/HANDOFF.md` | compact current-session continuation brief |
-| `docs/BACKLOG.md` | execution detail for W01–W26 |
+| `state/HANDOFF.md` | compact current-session continuation brief |
+| `state/BACKLOG.md` | execution detail for W01–W26 |
 | `workbench/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
@@ -370,7 +370,7 @@ Two **project-scoped, focused** OpenCode commands make the next session cheap to
 start. They are modelled on the existing `handoff`/`handon` pattern in
 `grid-8` and `ornaments`, but they carry only one action:
 
-- **`/fhandoff [focus]`** — squares the record in `docs/HANDOFF.md`, chooses one
+- **`/fhandoff [focus]`** — squares the record in `state/HANDOFF.md`, chooses one
   focused action, writes `next-fhandoff.md` with a two-line pointer, and commits
   only the handoff files.
 - **`/fhandon`** — reads `next-fhandoff.md`, follows its doc pointers, performs
