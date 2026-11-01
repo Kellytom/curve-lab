@@ -287,6 +287,105 @@ def leg_triangles(screen_cps, opacity=0.12):
     return "".join(out)
 
 
+
+def involute_figure(a: float = 120.0, n: int = 4, T: float = 3.0,
+                    w=860.0, h=430.0) -> str:
+    """A circle involute as a PH chain, with the string that draws it."""
+    def inv(t):
+        return (a * (math.cos(t) + t * math.sin(t)),
+                a * (math.sin(t) - t * math.cos(t)))
+
+    segs = [from_hermite(inv(T * i / n), T * i / n,
+                         inv(T * (i + 1) / n), T * (i + 1) / n)[0]
+            for i in range(n)]
+    chain = [sg.point(j / 16) for sg in segs for j in range(17)]
+    dense = [inv(T * k / 300) for k in range(301)]
+    circle = [(a * math.cos(2 * math.pi * k / 120),
+               a * math.sin(2 * math.pi * k / 120)) for k in range(121)]
+    strings = []
+    for t in (0.6, 1.2, 1.9, 2.6):
+        strings.append(((a * math.cos(t), a * math.sin(t)), inv(t)))
+
+    everything = chain + dense + circle
+    xs = [p_[0] for p_ in everything]; ys = [p_[1] for p_ in everything]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 40) / (x1 - x0), (h - 40) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at(p_):
+        return (px + (p_[0] - x0) * k, h - (py + (p_[1] - y0) * k))
+
+    tris = "".join(leg_triangles([at(p_) for p_ in sg.control_points()], 0.13)
+                   for sg in segs)
+    strings_svg = "".join(
+        f'<line x1="{at(c)[0]:.1f}" y1="{at(c)[1]:.1f}" x2="{at(p_)[0]:.1f}" '
+        f'y2="{at(p_)[1]:.1f}" stroke="#b9a97f" stroke-width="0.9" '
+        f'stroke-dasharray="3 3"/>' for c, p_ in strings)
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    <path d="{path_d([at(p_) for p_ in circle])}" fill="none" stroke="#e0d2b0"
+          stroke-width="1.2"/>
+    {strings_svg}
+    {tris}
+    <path d="{path_d([at(p_) for p_ in dense])}" fill="none" stroke="{GOLD}"
+          stroke-width="1.3" stroke-dasharray="6 5"/>
+    <path d="{path_d([at(p_) for p_ in chain])}" fill="none" stroke="{INK}"
+          stroke-width="2.2"/>
+  </svg>"""
+
+
+def ball_figure(w=860.0, h=300.0) -> str:
+    """A bouncing ball: exact parabolic arcs, apexes in geometric progression."""
+    H, e, span = 170.0, 0.75, 150.0
+    arcs, xs, ys = [], [], []
+    x = 0.0
+    for i in range(6):
+        height = H * (e ** (2 * i))
+        if height < 6:
+            break
+        p0, p2 = (x, 0.0), (x + span, 0.0)
+        p1 = (x + span / 2, 2 * height)      # quadratic Bezier apex control
+        arcs.append((p0, p1, p2, height))
+        xs += [p0[0], p1[0], p2[0]]
+        ys += [p0[1], p1[1], p2[1]]
+        x += span
+    xs += [0.0, x]; ys += [0.0, H * 1.1]
+
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 60) / (x1 - x0), (h - 50) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - 30 - (y1 - y0) * k) / 2
+
+    def at(p_):
+        return (px + (p_[0] - x0) * k, h - 24 - (py + (p_[1] - y0) * k))
+
+    paths = []
+    for p0, p1, p2, _ in arcs:
+        curve = []
+        for j in range(21):
+            t = j / 20
+            wgt = 1 - t
+            curve.append((wgt * wgt * p0[0] + 2 * wgt * t * p1[0] + t * t * p2[0],
+                          wgt * wgt * p0[1] + 2 * wgt * t * p1[1] + t * t * p2[1]))
+        paths.append(f'<path d="{path_d([at(p_) for p_ in curve])}" fill="none" '
+                     f'stroke="{INK}" stroke-width="2.2"/>')
+        # the control triangle, in gold
+        paths.append(f'<path d="M {at(p0)[0]:.1f} {at(p0)[1]:.1f} '
+                     f'L {at(p1)[0]:.1f} {at(p1)[1]:.1f} '
+                     f'L {at(p2)[0]:.1f} {at(p2)[1]:.1f} Z" fill="{GOLD}" '
+                     f'fill-opacity="0.10" stroke="#c9a441" stroke-width="0.8"/>')
+
+    floor = f'<line x1="20" y1="{h - 24:.0f}" x2="{w - 20:.0f}" y2="{h - 24:.0f}" stroke="#b9a97f" stroke-width="1"/>'
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    {floor}
+    {''.join(paths)}
+  </svg>"""
+
+
 def ph_chain(a: float, s_end: float, n: int):
     """n PH cubics from the vertex out to s_end, each fitted by its two ends."""
     segs = []
@@ -1140,6 +1239,35 @@ def main() -> int:
       {''.join(f"<tr><td>{deg}°</td><td>{err:.1f}%</td><td>{verdict}</td></tr>"
                for deg, err, verdict in ph_spans)}
     </table></div>
+  </div>
+
+
+  <h2>D · <span>two more curves</span></h2>
+  <div class="panel">
+    <p><strong>The involute.</strong> The curve a taut string draws as it
+    unwinds from a circle. Its speed is <code>a·t</code> — polynomial — and its
+    tangent angle is the parameter <code>t</code> itself, so it is the most
+    natural target the hodograph fit could ask for. Four cubics carry it
+    to 0.0004 of <code>a</code>. The dashed spokes are the string: each is
+    tangent to the circle and exactly as long as the arc it has unwound, which
+    is the definition of the curve.</p>
+    <div class="strip">{involute_figure()}
+      <p><strong>Fig. W</strong> · the involute (ink) over its own curve (gold
+      dashed) · the base circle and four strings · three-leg triangles on every
+      cubic</p></div>
+
+    <p style="margin-top:14px"><strong>The bouncing ball, and why it is not a
+    hodograph job.</strong> A parabola is <em>exactly</em> a quadratic Bézier —
+    error 1.8×10⁻¹⁵ — so nothing needs approximating. Its control triangle
+    reaches twice the apex height, drawn here in gold. And the joins are
+    <em>corners</em>: the ball reverses at the floor, so there is no tangent to
+    match and no G1 to keep. What is worth noticing is the heights: with
+    elasticity <code>e</code> the apexes are <code>H, e²H, e⁴H…</code>, a
+    geometric progression — the same shape as the doubling stacks, and the same
+    corner machinery the spine layer already has.</p>
+    <div class="strip">{ball_figure()}
+      <p><strong>Fig. X</strong> · six bounces at e = 0.75 · each arc an exact
+      quadratic with its control triangle · corners at the floor, on purpose</p></div>
   </div>
 
 
