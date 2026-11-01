@@ -71,11 +71,12 @@ def ph_offset_figure(a: float, n: int = 4, w=860.0, h=380.0):
     re-fitting, no approximation.
     """
     total = 2.2 * a
-    chars, offsets = [], []
+    chars, offsets, segs = [], [], []
     for i in range(n):
         s0_, s1_ = 0.62 * total * i / n, 0.62 * total * (i + 1) / n
         seg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
                               math.atan(s1_ / a))
+        segs.append(seg)
         chars.append([seg.point(j / 20) for j in range(21)])
         for d in (-0.075 * a, 0.075 * a):
             line = []
@@ -105,9 +106,62 @@ def ph_offset_figure(a: float, n: int = 4, w=860.0, h=380.0):
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
           stroke="{LINE}" stroke-width="1"/>
+    {''.join(leg_triangles([at(p) for p in sg.control_points()], 0.14) for sg in segs)}
     {out}
     {ink}
   </svg>"""
+
+
+
+def ph_drape(a: float, split: float, n: int):
+    """Both branches of a drape as n PH cubics a side; returns the segments."""
+    total = 2.2 * a
+    segs = []
+    for i in range(n):
+        s0_, s1_ = split * total * i / n, split * total * (i + 1) / n
+        sg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
+                             math.atan(s1_ / a))
+        segs.append((sg, 1))
+    for i in range(n):
+        s0_, s1_ = (1 - split) * total * i / n, (1 - split) * total * (i + 1) / n
+        sg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
+                             math.atan(s1_ / a))
+        segs.append((sg, -1))
+    return segs
+
+
+def ph_card(letter: str, label: str, split: float, n: int,
+            a: float = 100.0, w=430.0, h=220.0) -> str:
+    """One drape card built by the PH algorithm, with its three-leg triangles."""
+    segs = ph_drape(a, split, n)
+    paths, frames = [], []
+    for sg, side in segs:
+        pts = [sg.point(j / 16) for j in range(17)]
+        cp = sg.control_points()
+        if side < 0:
+            pts = [(-x, y) for x, y in pts]
+            cp = tuple((-x, y) for x, y in cp)
+        paths.append(pts)
+        frames.append(cp)
+
+    flat = [p_ for path in paths for p_ in path]
+    xs = [p_[0] for p_ in flat]; ys = [p_[1] for p_ in flat]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 30) / (x1 - x0), (h - 30) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at(p_):
+        return (px + (p_[0] - x0) * k, h - (py + (p_[1] - y0) * k))
+
+    err = max(ph_error(a, split * 2.2 * a, n), ph_error(a, (1 - split) * 2.2 * a, n))
+    return (f'<figure style="margin:0"><svg viewBox="0 0 {w:.0f} {h:.0f}" '
+            f'xmlns="http://www.w3.org/2000/svg">'
+            f'<rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff" '
+            f'stroke="{LINE}"/>{"" .join(leg_triangles([at(p_) for p_ in cp], 0.14) for cp in frames)}'
+            f'{"" .join(f"""<path d="{path_d([at(p_) for p_ in path])}" fill="none" stroke="{INK}" stroke-width="1.8"/>""" for path in paths)}'
+            f'</svg><figcaption><strong>Fig. {letter}</strong> · {label}<br>'
+            f'{len(segs)} cubics · worst {100 * err / a:.4f}% of a</figcaption></figure>')
 
 
 def ph_explain(a: float) -> str:
@@ -189,12 +243,13 @@ def ph_explain(a: float) -> str:
 
     # -- (iii) four of them over the catenary ------------------------------
     total = 2.2 * a
-    chain = []
+    chain, chain_segs = [], []
     for i in range(4):
         s0_, s1_ = 0.62 * total * i / 4, 0.62 * total * (i + 1) / 4
         sg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
                              math.atan(s1_ / a))
         chain.append([sg.point(j / 20) for j in range(21)])
+        chain_segs.append(sg)
     flat = [p for c in chain for p in c]
     xs = [p[0] for p in flat]; ys = [p[1] for p in flat]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
@@ -209,12 +264,27 @@ def ph_explain(a: float) -> str:
     <rect x="0" y="0" width="280" height="240" fill="#fff" stroke="{LINE}"/>
     <path d="{path_d([at3(cat(a, 0.62 * total * j / 160)) for j in range(161)])}"
           fill="none" stroke="{GOLD}" stroke-width="1.3" stroke-dasharray="5 4"/>
+    {''.join(leg_triangles([at3(p) for p in sg.control_points()], 0.16) for sg in chain_segs)}
     {''.join(f'<path d="{path_d([at3(p) for p in c])}" fill="none" stroke="{INK}" stroke-width="1.8"/>' for c in chain)}
     <text x="14" y="228" font-size="10" font-family="ui-monospace,monospace"
           fill="#7b6c4e">four segments, error 0.003% of a</text>
   </svg>"""
 
     return f'<div class="three">{panel_i}{panel_ii}{panel_iii}</div>'
+
+
+
+def leg_triangles(screen_cps, opacity=0.12):
+    """The three control legs, each as its right triangle (screen points)."""
+    out = []
+    for i in range(3):
+        p_, q_ = screen_cps[i], screen_cps[i + 1]
+        corner = (q_[0], p_[1])
+        out.append(f'<path d="M {p_[0]:.1f} {p_[1]:.1f} L {corner[0]:.1f} '
+                   f'{corner[1]:.1f} L {q_[0]:.1f} {q_[1]:.1f} Z" fill="{GOLD}" '
+                   f'fill-opacity="{opacity}" stroke="#c9a441" '
+                   f'stroke-width="0.7"/>')
+    return "".join(out)
 
 
 def ph_chain(a: float, s_end: float, n: int):
@@ -286,6 +356,7 @@ def ph_figure(a: float, split: float, n: int, w=860.0, h=420.0) -> str:
     polys = "".join(
         f'<path d="{path_d([at(p) for p in cp])}" fill="none" stroke="#e0d2b0" '
         f'stroke-width="1"/>' for cp in frames)
+    tris = "".join(leg_triangles([at(p) for p in cp]) for cp in frames)
     curves = "".join(
         f'<path d="{path_d([at(p) for p in path])}" fill="none" stroke="{INK}" '
         f'stroke-width="2.2"/>' for path in paths)
@@ -297,6 +368,7 @@ def ph_figure(a: float, split: float, n: int, w=860.0, h=420.0) -> str:
           stroke="{LINE}" stroke-width="1"/>
     <path d="{path_d([at(p) for p in truth])}" fill="none" stroke="{GOLD}"
           stroke-width="1.3" stroke-dasharray="6 5"/>
+    {tris}
     {polys}
     {curves}
     {dots}
@@ -793,6 +865,15 @@ window.__dbg = () => ({ cam: camera.position.toArray().map(v => +v.toFixed(2)),
 """
 
 
+PH_VARIANTS = (
+    ("1 cubic a side · split 0.62", 1, 0.62),
+    ("2 cubics a side · split 0.62", 2, 0.62),
+    ("4 cubics a side · split 0.62", 4, 0.62),
+    ("2 cubics · split 0.50", 2, 0.50),
+    ("2 cubics · split 0.75", 2, 0.75),
+    ("8 cubics a side · split 0.62", 8, 0.62),
+)
+
 VARIANTS = (
     ("step 260 · split 0.62", 260.0, 0.62),
     ("step 450 · split 0.62", 450.0, 0.62),
@@ -902,17 +983,18 @@ def main() -> int:
     curve, and a bigger radius means each fixed-size chord subtends less angle,
     so the vertex gets smoother without any new triples. Change any of them and the drape comes out at a
     different size, with different triples — and still every node an integer.
-    Six walks, same rule, nothing fitted:</p>
+    Six drapes from the closed-form fit — segments and split are the only choices, and the error is printed on each:</p>
     <div class="two">{''.join(
-      variant_card("EFGHIJ"[i], label, b, sp)
-      for i, (label, b, sp) in enumerate(VARIANTS))}
+      ph_card("EFGHIJ"[i], label, sp, n)
+      for i, (label, n, sp) in enumerate(PH_VARIANTS))}
     </div>
-    <p style="margin-top:14px"><strong>The governing rule: build with the
-    triples, and let everything else follow.</strong> The figure above is a fit
-    — it takes an ideal curve and snaps to it. Below is the other way round:
-    walk the rungs, lay each rung's own legs, and <em>read the height and width
-    off the result</em>. Nothing is fitted and nothing is rounded, so every node
-    is an integer by construction.</p>
+    <p style="margin-top:14px"><strong>Two methods, both honest.</strong> The
+    cards above come from the closed-form fit: every segment passes through two
+    points of the catenary with the right tangent, and the error is what the
+    cubic cannot reach in between. Below is the other method — walk the rung
+    catalogue, lay each rung's own legs, and read the height and width off the
+    result. Nothing is fitted there and every node is an integer, but the step
+    length has to be chosen rather than derived.</p>
     <div class="strip">{integer_figure(ichain)}
       <p><strong>Fig. K</strong> · the walked chain · {len(ir)} chords a side,
       {len(ir)} steps of about 450 on a radius of {ia:.0f} ·
@@ -1063,16 +1145,14 @@ def main() -> int:
 
   <h2>Check Mark</h2>
   <div class="panel">
-    <p>The six walks again, <strong>copied</strong> rather than moved, so the
-    set can be compared in one block while the arrangement is still open. Same
-    parameters as E–J, same exact integers — but matched against the rung
-    angle <em>read from the vertical</em>, which is the mistake that made the
-    first version of these faces read as check marks. The mistake is kept
-    here on purpose: it is a different and useful face.</p>
+    <p>The catalogue walk's six faces, kept here now that E–J are built from
+    the closed-form fit instead. These are the ones whose geometry came from
+    matching each step against the nearest rung: every node an integer, the
+    step length chosen rather than solved. They are the old method, drawn
+    side by side with the new one rather than replaced silently.</p>
     <div class="two">{''.join(
       variant_card("QRSTUV"[i], label, b, sp,
-                   f' <em>(copy of {"EFGHIJ"[i]}, vertical-axis rungs)</em>',
-                   axis="vertical")
+                   ' <em>(catalogue walk)</em>', axis="horizontal")
       for i, (label, b, sp) in enumerate(VARIANTS))}
     </div>
   </div>
