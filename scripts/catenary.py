@@ -130,6 +130,67 @@ def ph_drape(a: float, split: float, n: int):
     return segs
 
 
+
+def ph_lattice_figure(a: float, split: float = 0.62, n: int = 4,
+                      grid: float = 1.0, w=860.0, h=400.0):
+    """The hodograph fit with every control point snapped to a lattice.
+
+    Snapping breaks the pythagorean relation, so the result is an ordinary
+    Bezier chain -- but it starts from an exact fit, and the drift is small
+    enough to measure rather than argue about.
+    """
+    total = 2.2 * a
+    segs = []
+    for side, share in ((1, split), (-1, 1 - split)):
+        for i in range(n):
+            s0_, s1_ = share * total * i / n, share * total * (i + 1) / n
+            sg, _ = from_hermite(cat(a, s0_), math.atan(s0_ / a), cat(a, s1_),
+                                 math.atan(s1_ / a))
+            cps = [(round(x / grid) * grid, round(y / grid) * grid)
+                   for x, y in sg.control_points()]
+            if side < 0:
+                cps = [(-x, y) for x, y in cps]
+            segs.append(cps)
+
+    dense = [(-cat(a, (1 - split) * total * k / 400)[0],
+              cat(a, (1 - split) * total * k / 400)[1]) for k in range(400, -1, -1)]
+    dense += [cat(a, split * total * k / 400) for k in range(1, 401)]
+
+    def bez(cps, t):
+        wgt = 1 - t
+        return (wgt**3 * cps[0][0] + 3 * wgt*wgt*t * cps[1][0]
+                + 3 * wgt*t*t * cps[2][0] + t**3 * cps[3][0],
+                wgt**3 * cps[0][1] + 3 * wgt*wgt*t * cps[1][1]
+                + 3 * wgt*t*t * cps[2][1] + t**3 * cps[3][1])
+
+    flat = [p_ for cps in segs for p_ in cps] + dense
+    xs = [p_[0] for p_ in flat]; ys = [p_[1] for p_ in flat]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    k = min((w - 40) / (x1 - x0), (h - 40) / (y1 - y0))
+    px = (w - (x1 - x0) * k) / 2
+    py = (h - (y1 - y0) * k) / 2
+
+    def at(p_):
+        return (px + (p_[0] - x0) * k, h - (py + (p_[1] - y0) * k))
+
+    worst = 0.0
+    for cps in segs:
+        for j in range(17):
+            p_ = bez(cps, j / 16)
+            worst = max(worst, min(math.dist(p_, q) for q in dense))
+
+    curves = "".join(
+        f'<path d="{path_d([at(bez(cps, j / 20)) for j in range(21)])}" '
+        f'fill="none" stroke="{INK}" stroke-width="2.2"/>' for cps in segs)
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
+          stroke="{LINE}" stroke-width="1"/>
+    <path d="{path_d([at(p_) for p_ in dense])}" fill="none" stroke="{GOLD}"
+          stroke-width="1.3" stroke-dasharray="6 5"/>
+    {curves}
+  </svg>""", worst
+
+
 def ph_card(letter: str, label: str, split: float, n: int,
             a: float = 100.0, w=430.0, h=220.0) -> str:
     """One drape card built by the PH algorithm, with its three-leg triangles."""
@@ -988,7 +1049,7 @@ def main() -> int:
     total = 2.2 * a
     steps = 10
 
-    fig_main, up_rows, down_rows = fig_catenary(a, 0.62, steps)
+    fig_main = ph_figure(a, 0.62, 4)
 
     # the same drape, walked on rungs instead of fitted: integer every step
     ia = 9000.0
@@ -1004,11 +1065,8 @@ def main() -> int:
 
     # three splits of the same catenary
     small = []
-    for p in (0.50, 0.62, 0.75):
-        svg, _, _ = fig_catenary(a, p, steps, gold=False, grid=False)
-        letter = "BCD"[len(small)]
-        small.append(f'<figure>{svg}<figcaption><strong>Fig. {letter}</strong> '
-                     f'\u00b7 split {p:.2f} : {1 - p:.2f}</figcaption></figure>')
+    for i, p in enumerate((0.50, 0.62, 0.75)):
+        small.append(ph_card("BCD"[i], f"split {p:.2f} : {1 - p:.2f}", p, 4))
 
     node_rows = []
     for side, rows, sign in (("high", ir, 1), ("low", dr, -1)):
@@ -1071,31 +1129,29 @@ def main() -> int:
     high anchor sits {0.71 * a:.0f} above the vertex and the low one
     {0.32 * a:.0f}.</p>
     <div class="strip">{fig_main}
-      <p><strong>Fig. A</strong> · the chain (ink) on the true catenary (gold) ·
-      arc {total:.0f}, split 0.62 : 0.38 · worst node error
-      {max(err_hi, err_lo):.1f} on the high branch
-      ({100 * max(err_hi, err_lo) / total:.1f}% of arc)</p></div>
+      <p><strong>Fig. A</strong> · four hodograph cubics a side (ink) over the
+      catenary (gold dashed) · arc {total:.0f}, split 0.62 : 0.38 · worst error
+      {100 * max(ph_error(a, 0.62 * total, 4), ph_error(a, 0.38 * total, 4)) / a:.4f}%
+      of a</p></div>
     <div class="three">{''.join(small)}</div>
-    <p style="margin-top:14px"><strong>Every dial here is free.</strong> The
-    step target says how long a chord to aim for; the split picks where the low
-    point sits; the radius <code>a</code> says how many steps fit around the
-    curve, and a bigger radius means each fixed-size chord subtends less angle,
-    so the vertex gets smoother without any new triples. Change any of them and the drape comes out at a
-    different size, with different triples — and still every node an integer.
-    Six drapes from the closed-form fit — segments and split are the only choices, and the error is printed on each:</p>
+    <p style="margin-top:14px"><strong>Two dials, and nothing else.</strong>
+    How many cubics a side, and where the low point sits. That is the whole
+    control surface: each cubic is solved from two catenary points and their
+    tangents, so there is no step length to choose and no rung to match. The
+    error on each card is what the cubic cannot reach between its ends.</p>
     <div class="two">{''.join(
       ph_card("EFGHIJ"[i], label, sp, n)
       for i, (label, n, sp) in enumerate(PH_VARIANTS))}
     </div>
-    <p style="margin-top:14px"><strong>Two methods, both honest.</strong> The
-    cards above come from the closed-form fit: every segment passes through two
-    points of the catenary with the right tangent, and the error is what the
-    cubic cannot reach in between. Below is the other method — walk the rung
-    catalogue, lay each rung's own legs, and read the height and width off the
-    result. Nothing is fitted there and every node is an integer, but the step
-    length has to be chosen rather than derived.</p>
-    <div class="strip">{integer_figure(ichain)}
-      <p><strong>Fig. K</strong> · the walked chain · {len(ir)} chords a side,
+    <p style="margin-top:14px"><strong>The same fit, snapped to a lattice.</strong>
+    Solve the segments exactly, then round every control point to a whole unit.
+    The pythagorean relation no longer holds — the legs stop being in geometric
+    progression — so what comes out is an ordinary Bezier chain, and it leaves
+    the catenary by {100 * ph_lattice_figure(a)[1] / a:.2f}% of <code>a</code>.
+    That is the price of integer control points, and it is a price, not a
+    rounding detail.</p>
+    <div class="strip">{ph_lattice_figure(a)[0]}
+      <p><strong>Fig. K</strong> · the lattice version · {len(ir)} chords a side,
       {len(ir)} steps of about 450 on a radius of {ia:.0f} ·
       <strong>{iwidth} × {iheight} units</strong> (exact integers) ·
       split {0.62:.2f} : {0.38:.2f}</p></div>
@@ -1242,6 +1298,19 @@ def main() -> int:
   </div>
 
 
+  <h2>Check Mark</h2>
+  <div class="panel">
+    <p>The catalogue walk's six faces, kept here now that E–J are built from
+    the closed-form fit instead. These are the ones whose geometry came from
+    matching each step against the nearest rung: every node an integer, the
+    step length chosen rather than solved. They are the old method, drawn
+    side by side with the new one rather than replaced silently.</p>
+    <div class="two">{''.join(
+      variant_card("QRSTUV"[i], label, b, sp,
+                   ' <em>(catalogue walk)</em>', axis="horizontal")
+      for i, (label, b, sp) in enumerate(VARIANTS))}
+    </div>
+  </div>
   <h2>D · <span>two more curves</span></h2>
   <div class="panel">
     <p><strong>The involute.</strong> The curve a taut string draws as it
@@ -1271,19 +1340,6 @@ def main() -> int:
   </div>
 
 
-  <h2>Check Mark</h2>
-  <div class="panel">
-    <p>The catalogue walk's six faces, kept here now that E–J are built from
-    the closed-form fit instead. These are the ones whose geometry came from
-    matching each step against the nearest rung: every node an integer, the
-    step length chosen rather than solved. They are the old method, drawn
-    side by side with the new one rather than replaced silently.</p>
-    <div class="two">{''.join(
-      variant_card("QRSTUV"[i], label, b, sp,
-                   ' <em>(catalogue walk)</em>', axis="horizontal")
-      for i, (label, b, sp) in enumerate(VARIANTS))}
-    </div>
-  </div>
 </main>
 <script type="module">{SCRIPT}</script>
 </body>
