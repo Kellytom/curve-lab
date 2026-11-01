@@ -216,11 +216,23 @@ def ph_card(letter: str, label: str, split: float, n: int,
         return (px + (p_[0] - x0) * k, h - (py + (p_[1] - y0) * k))
 
     err = max(ph_error(a, split * 2.2 * a, n), ph_error(a, (1 - split) * 2.2 * a, n))
+
+    # the catenary underneath, and a dot wherever the cubics meet it
+    total = 2.2 * a
+    ref = [(-cat(a, (1 - split) * total * k / 200)[0],
+            cat(a, (1 - split) * total * k / 200)[1]) for k in range(200, -1, -1)]
+    ref += [cat(a, split * total * k / 200) for k in range(1, 201)]
+    nodes = [path[0] for path in paths] + [paths[-1][-1]]
+
     return (f'<figure style="margin:0"><svg viewBox="0 0 {w:.0f} {h:.0f}" '
             f'xmlns="http://www.w3.org/2000/svg">'
             f'<rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff" '
-            f'stroke="{LINE}"/>{"" .join(leg_triangles([at(p_) for p_ in cp], 0.14) for cp in frames)}'
+            f'stroke="{LINE}"/>'
+            f'<path d="{path_d([at(p_) for p_ in ref])}" fill="none" stroke="{GOLD}" '
+            f'stroke-width="1.1" stroke-dasharray="5 4"/>'
+            f'{"" .join(leg_triangles([at(p_) for p_ in cp], 0.14) for cp in frames)}'
             f'{"" .join(f"""<path d="{path_d([at(p_) for p_ in path])}" fill="none" stroke="{INK}" stroke-width="1.8"/>""" for path in paths)}'
+            f'{"" .join(f"""<circle cx="{at(p_)[0]:.1f}" cy="{at(p_)[1]:.1f}" r="2.2" fill="{INK}"/>""" for p_ in nodes)}'
             f'</svg><figcaption><strong>Fig. {letter}</strong> · {label}<br>'
             f'{len(segs)} cubics · worst {100 * err / a:.4f}% of a</figcaption></figure>')
 
@@ -1223,6 +1235,16 @@ def main() -> int:
                f"<td>{100 * ph_error(a, 0.62 * 2.2 * a, n) / a:.4f}%</td></tr>"
                for n in (1, 2, 4, 8))}
     </table></div>
+    <p><strong>Two things called a triangle.</strong> In the catalogue-walk
+    figures (Q–V) the gold triangles <em>are</em> the curve: each chord is the
+    hypotenuse, and its corners lie on the curve because the curve is a chain of
+    chords. In the hodograph figures the triangle is the <em>control leg</em> —
+    scaffolding that hangs off the curve on purpose. At this scale the interior
+    control points sit about 1.8 units away from the curve while the curve
+    itself passes through every node to 10⁻¹⁴. So a card can look loose and
+    still be exact; the dashed catenary underneath is the honest check, and in
+    Fig. E you can see it dip below the ink at the vertex, which is the 0.41%.</p>
+
     <p><strong>Where the sines went.</strong> Nothing above needs them. A
     direction is carried as the integer pair <code>(u, v)</code>; its triple is
     <code>(u, v, h)</code> with <code>h = √(u²+v²)</code>. The half-turn the fit
