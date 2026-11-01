@@ -1,6 +1,6 @@
 # clothoid-lab handoff
 
-**Updated:** 2026-10-30  
+**Updated:** 2026-11-01  
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
@@ -15,9 +15,14 @@ remote MVP now exist.
 
 - **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
   `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-10-30 (probe). Auth is unset locally, so the loopback server stays
+  2026-11-01 (probe). Auth is unset locally, so the loopback server stays
   open; the public deployment requires the token.
-- **Remote:** `https://<your-service>.run.app` — Cloud Run,
+- **Workbench (probe 2026-11-01):** `http://127.0.0.1:8003/workbench/workbench.html`
+  — 200, served by `.venv/bin/python -m http.server 8003 --directory .` from the
+  repo root. **Docs book:** `http://127.0.0.1:8020` — 200, `mkdocs serve`,
+  strict build clean at 21 pages. Both are mine; neither is deployed.
+- **Remote:** carried from 2026-10-30, not probed this session (the URL is
+  redacted in this file, so there is nothing to curl). `https://<your-service>.run.app` — Cloud Run,
   project `<your-gcp-project>`, region `us-central1`, service
   `clothoid-web`, revision `clothoid-web-00006-zrx` (carried). HTTP **401
   without the token** at 2026-10-30 (probe); a thin app deploy takes
@@ -38,9 +43,9 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **233 pass** (1 skipped) at the 2026-10-30 run; 215 were
-  carried from 2026-10-27 and 18 are new this session. The tree is clean
-  under `web/`, `clothoid_lab/`, `csrc/` and `tests/`.
+- **Local tests:** **carried — 239 pass** (1 skipped), last run 2026-11-01 at
+  `0518aab`. Nothing under `web/`, `clothoid_lab/`, `csrc/` or `tests/` differs
+  from HEAD, so they were not re-run for this handoff.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `clothoid_lab/spine.py`
@@ -55,10 +60,21 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD is the handoff commit; six commits sit on top of `79819ea`.
-  The code tree is clean. `reference/` has only untracked images, two untracked photos sit at the
-  root, and `out/play-template.svg` is untracked; leave them.
+- **Git:** HEAD `0518aab` (2026-10-31). Tree clean; the only untracked files are
+  three photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`).
+  `out/play-template.svg` is still untracked; leave it.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
+- **Layout (2026-10-31, this is the thing to know):** the generated pages moved
+  out of `docs/` into **`workbench/`** — 16 pages, one generator each in
+  `scripts/`, plus `spirals/`, `terminals/` and the three.js vendor copy. The
+  five state files moved to **`state/`** (`HANDOFF`, `BACKLOG`, `SESSIONS`,
+  `WORK`, `STATUS`); this file now lives at `state/HANDOFF.md`, not
+  `docs/HANDOFF.md`. `docs/` is prose only: 22 markdown including `index.md` and
+  `README.md`, plus `HANDOVER.html`.
+- **Docs book:** `mkdocs.yml` at the repo root builds `docs/` into `site/` with
+  the material theme and `strict: true`. `mkdocs` and `mkdocs-material` are
+  pinned in `requirements-dev.txt`; `site/` is ignored. The state files are not
+  in the book, on purpose.
 - **Docs:** `docs/HANDOVER.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
 - **Public docs (2026-10-29):** `github.com/Kellytom/clothoid-docs`, site
@@ -339,14 +355,23 @@ remote MVP now exist.
 
 ## Next move
 
-**The promotion gate is complete (2026-10-30).** Gates 1–3 landed in `3f7a603`;
-gate 4 is met under the operator's fidelity rule: a chain study passes if its
-worst span-end drift is at most **1.6% of the study height**. Study 01 at 0.5°
-steps measures **1.29%** (19.44 units on 1510), with every span end tabulated in
-`workbench/spine-study-01.html`. The rule, its precedent (the accepted 1.4% Euler
-fit) and the difference between the two metrics are in `docs/FIDELITY.md`; read
-that before quoting the number. The candidate is a chain plan with a measured
-resemblance, **not** P01 parity (the port is 0.03 units, this is 19.44).
+**One action: the integer-control-point chain.** Fig. K on the catenary page
+snaps the fitted control points to whole units and measures the drift (0.49% of
+`a`) — but snapping is a blunt instrument. The exact condition for a segment to
+have integer control points is that the PH fit's quadratic has a rational square
+discriminant, which is a property of the *pair of direction triples*, not of the
+curve (158 of 960 tested cases qualify).
+
+So: build the chain that **chooses** such a pair at each node instead of
+snapping afterwards, print each discriminant as square or not, and measure the
+drift against the catenary. That turns "integer control points at a price" into
+"integer control points where they exist, and a stated reason where they do
+not". Page: `workbench/catenary.html`, section C. Code:
+`scripts/hodograph.py` (`from_pairs`), `scripts/catenary.py`.
+
+The catenary thread itself is current: A–M are hodograph chains, the involute
+(Fig. W) and the bouncing ball (Fig. X) are done, and every PH figure now carries
+the reference curve and the triangles.
 
 **The practical profile landed** (`workbench/practical-curve.html`): 34 cubics at
 0.42 mm, with pins for branch points. Read `FIDELITY.md` before quoting any

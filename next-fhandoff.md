@@ -1,6 +1,8 @@
 ```text
-Read docs/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
-You are making clothoid_lab import a spine chain and build a Piece/Trace from its anchors.
+Read state/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
+You are building the integer-control-point chain: choose direction triples whose
+PH discriminant is a rational square, instead of snapping control points after
+the fit, and measure the drift against the catenary.
 ```
 
-Source: `docs/HANDOFF.md`, 2026-10-30, commit `79819ea`.
+Source: state/HANDOFF.md · 2026-11-01 · written at commit 0518aab.
