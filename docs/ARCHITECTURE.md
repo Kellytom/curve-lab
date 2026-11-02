@@ -116,14 +116,14 @@ rather than a page experiment.
 | To use the browser tool | [Web application guide](WEB-GUIDE.md) |
 | A plain-English term | [Glossary](GLOSSARY.md) |
 | The words, and how the two sides' vocabularies map | [Glossary](GLOSSARY.md) |
-| What is true today, and what is next | Current truth (`state/HANDOFF.md`) |
+| What is true today, and what is next | Current truth (`state/HANDOFF-int.md`) |
 | The spine layer, step by step | [Spine guide](SPINE.md) |
 | The curve model in detail | [Curve model](CURVE-MODEL.md) |
 | The accepted accuracy budget | [Fidelity](FIDELITY.md) |
 | The recovered plates and their formats | [Recovered corpus](CORPUS.md) |
-| Work items, plates and decisions | Work items and the work board (`state/WORK.md`) |
+| Work items, plates and decisions | Work items and the work board (`state/WORK-int.md`) |
 | What passes, and how | [Verification](VERIFY.md) |
-| What works today | Status (`state/STATUS.md`) |
+| What works today | Status (`state/STATUS-int.md`) |
 | Who wrote the engine | [Credits](CREDITS.md) |
 | The spine layer in depth | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
 | How the folder is organised | [Documentation index](index.md) |

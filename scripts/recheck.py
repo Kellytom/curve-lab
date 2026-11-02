@@ -5,7 +5,7 @@
 
 Each check is a claim we have made, the evidence for it, and the code that
 re-derives it from scratch.  Nothing here is remembered: if a claim has stopped
-being true, this says so.  The output is also written to `state/ACHIEVEMENTS.md`
+being true, this says so.  The output is also written to `state/ACHIEVEMENTS-int.md`
 so the list survives the session that found it.
 
 Add a check when a result is established, not afterwards.
@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
-OUT = ROOT / "state" / "ACHIEVEMENTS.md"
+OUT = ROOT / "state" / "ACHIEVEMENTS-int.md"
 CHECKS = []
 
 
@@ -214,7 +214,7 @@ RECORDED = [
     ("Clothoid per recovered span", "586 of 586 spans fit",
      "python scripts/check-spirals.py", "median 0.00-0.03% of the chord"),
     ("The square-discriminant dead end", "0 of 17,168 on the rung ladder",
-     "see state/HANDOFF.md, 'In flight'", "choosing the pair buys exactness, not a lattice"),
+     "see state/HANDOFF-int.md, 'In flight'", "choosing the pair buys exactness, not a lattice"),
     ("Spine chain vs study 01", "1.29% drift", "python scripts/spine_study_probe.py",
      "inside the 1.6% fidelity rule"),
 ]

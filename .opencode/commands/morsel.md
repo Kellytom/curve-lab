@@ -1,18 +1,18 @@
 ---
-description: Do the next unchecked item in docs/BACKLOG.md
+description: Do the next unchecked item in docs/BACKLOG-int.md
 ---
 
 Backlog morsel for curve-lab. Work in
 `/Users/thomaskelly/developer/curve-lab`.
 
 1. Before any tool call, write one sentence naming the item you are about to do.
-2. Read `docs/BACKLOG.md`. Take the first `[>]` item, otherwise the first `[ ]`
+2. Read `docs/BACKLOG-int.md`. Take the first `[>]` item, otherwise the first `[ ]`
    item, and read only that item.
 3. Do that item and only that item. Follow its rules. If it needs an operator
    decision, write the question under it, mark it `[~]`, and stop.
 4. Run its verify command. If it fails twice for the same reason, stop and write
    the reason under the item.
-5. Mark it `[x]`, update `docs/HANDOFF.md`, and commit with the item's commit
+5. Mark it `[x]`, update `docs/HANDOFF-int.md`, and commit with the item's commit
    message. Do not commit unrelated files or `out/play-template.svg`.
 6. Reply with at most five bullets: item, result, commit, blocker, next item.
    Stop; do not pick up the next item.

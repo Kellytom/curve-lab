@@ -12,13 +12,13 @@ being snapped to one.
 
 | you want | open |
 |---|---|
-| what is true right now | `state/HANDOFF.md` |
+| what is true right now | `state/HANDOFF-int.md` |
 | how the engine is wired | [Architecture](ARCHITECTURE.md) |
 | the vocabulary | [Glossary](GLOSSARY.md) |
 | the design thinking | [Philosophy](PHILOSOPHY.md) |
 | the recovered corpus | [Corpus](CORPUS.md) |
 | the accuracy budget and its precedent | [Fidelity](FIDELITY.md) |
-| what to do next | `state/SESSIONS.md`, then `state/BACKLOG.md` |
+| what to do next | `state/SESSIONS-int.md`, then `state/BACKLOG-int.md` |
 
 ## Working pages are not in this book
 

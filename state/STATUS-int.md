@@ -1,6 +1,6 @@
 # Status
 
-What works today, and what does not. The dated detail is in `HANDOFF.md`.
+What works today, and what does not. The dated detail is in `HANDOFF-int.md`.
 
 ## Works
 
@@ -38,4 +38,4 @@ What works today, and what does not. The dated detail is in `HANDOFF.md`.
 ## Checks
 
 226 engine tests, 139 spine tests, the layout check green, and parity as its own
-check. Dates and carried values are in `HANDOFF.md`.
+check. Dates and carried values are in `HANDOFF-int.md`.

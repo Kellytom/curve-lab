@@ -24,7 +24,7 @@ re-derives it. A FAIL here means a result has slipped.
 |---|---|---|---|
 | The catenary, solved | four PH cubics, 0.41% of a; integer chord walk | `python scripts/catenary.py` | workbench/catenary.html, sections A and C |
 | Clothoid per recovered span | 586 of 586 spans fit | `python scripts/check-spirals.py` | median 0.00-0.03% of the chord |
-| The square-discriminant dead end | 0 of 17,168 on the rung ladder | `see state/HANDOFF.md, 'In flight'` | choosing the pair buys exactness, not a lattice |
+| The square-discriminant dead end | 0 of 17,168 on the rung ladder | `see state/HANDOFF-int.md, 'In flight'` | choosing the pair buys exactness, not a lattice |
 | Spine chain vs study 01 | 1.29% drift | `python scripts/spine_study_probe.py` | inside the 1.6% fidelity rule |
 
 ## The command

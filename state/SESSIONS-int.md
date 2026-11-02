@@ -1,9 +1,9 @@
 # The next sessions — proposed, not yet agreed
 
 One focused action per session: build it, verify it, commit it, refresh
-`next-fhandoff.md` with `/fhandoff`. This page exists because the public plan
+`next-fhandoff-int.md` with `/fhandoff`. This page exists because the public plan
 (`PLAN.md` in the docs repository) states the order and the gates but not the
-work inside each step. The order here follows `HANDOFF.md`; the code blocks are
+work inside each step. The order here follows `HANDOFF-int.md`; the code blocks are
 **target APIs**, sketches to argue about, not shipped signatures.
 
 ## 1. Promotion gate 4 — one study from chains

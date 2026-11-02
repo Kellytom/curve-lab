@@ -1,4 +1,4 @@
-# LTMemory — long term memory
+# LTMemory-int — long term memory
 
 Read this first, every session. It exists so a new session can be useful in two
 minutes, and so the same ground is not dug twice.
@@ -6,9 +6,9 @@ minutes, and so the same ground is not dug twice.
 ## Read in this order
 
 1. **this file** — the map and the invariants.
-2. `state/ACHIEVEMENTS.md` — every result we have, with the command that
+2. `state/ACHIEVEMENTS-int.md` — every result we have, with the command that
    re-derives it. Start a session with `.venv/bin/python scripts/recheck.py`.
-3. `state/HANDOFF.md` — current truth, what is in flight, what is next.
+3. `state/HANDOFF-int.md` — current truth, what is in flight, what is next.
 4. `workbench/workbench.html` — the pages, chosen by intent.
 
 Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long.
@@ -22,7 +22,7 @@ Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long
 | `workbench/` | the input pages, one per idea; each has one generator |
 | `scripts/` | the generators, the doc builders, and the checkers |
 | `docs/` | prose that mkdocs builds; `docs/PH-INTEGER.md` and `docs/HUB.md` are generated |
-| `state/` | `HANDOFF.md`, `ACHIEVEMENTS.md`, `BACKLOG.md`, `monitor.log` |
+| `state/` | `HANDOFF-int.md`, `ACHIEVEMENTS-int.md`, `BACKLOG-int.md`, `monitor.log` |
 | `founder/` | screenshots and notes, tracked on purpose so they are backed up |
 | `tests/` | the suite; `scripts/test.py` runs a fast subset by default |
 | `pythagorean-spiral/` | the exact spine layer: rational turns, no floating point |
@@ -56,7 +56,7 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 
 | command | what it proves |
 |---|---|
-| `scripts/recheck.py` | eleven claims re-derived from scratch; writes `state/ACHIEVEMENTS.md` |
+| `scripts/recheck.py` | eleven claims re-derived from scratch; writes `state/ACHIEVEMENTS-int.md` |
 | `scripts/test.py` | the fast suite (~17 s); `--full` for everything (~42 s) |
 | `scripts/hub.py` | rebuilds the hub and every page's bar — **run after any page generator** |
 | `scripts/monitor.py` | tells a local failure from a network one |

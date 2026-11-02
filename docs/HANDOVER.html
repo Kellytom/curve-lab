@@ -243,12 +243,12 @@ gcloud projects delete <your-gcp-project></code></pre>
   <tr><td><code>out/caps/</code></td><td>existing cap SVG/JSON, baked into remote image</td></tr>
   <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
   <tr><td><code>docs/HANDOVER.html</code></td><td>this browser-readable mirror</td></tr>
-  <tr><td><code>state/HANDOFF.md</code></td><td>compact current-session continuation brief</td></tr>
-  <tr><td><code>state/BACKLOG.md</code></td><td>execution detail for W01–W26</td></tr>
+  <tr><td><code>state/HANDOFF-int.md</code></td><td>compact current-session continuation brief</td></tr>
+  <tr><td><code>state/BACKLOG-int.md</code></td><td>execution detail for W01–W26</td></tr>
   <tr><td><code>workbench/ornament-board.html</code></td><td>visual board: 85 plates, 26 work, 11 decisions</td></tr>
   <tr><td><code>workbench/fleur-studies.html</code></td><td>subpage: the twenty fleur studies, P01–P20</td></tr>
   <tr><td><code>scripts/board/</code></td><td>board generator, template, extractors and README</td></tr>
-  <tr><td><code>next-fhandoff.md</code></td><td>two-line focused handoff pointer</td></tr>
+  <tr><td><code>next-fhandoff-int.md</code></td><td>two-line focused handoff pointer</td></tr>
   <tr><td><code>.opencode/commands/fhandoff.md</code></td><td>focused handoff command</td></tr>
   <tr><td><code>.opencode/commands/fhandon.md</code></td><td>focused handon command</td></tr>
   <tr><td><code>.opencode/commands/morsel.md</code></td><td>do the next backlog item</td></tr>
@@ -308,8 +308,8 @@ gcloud run deploy clothoid-web \
 <h2>Continuation commands</h2>
 <p>Two <strong>project-scoped, focused</strong> OpenCode commands make the next session cheap to start. They are modelled on the existing <code>handoff</code>/<code>handon</code> pattern in <code>grid-8</code> and <code>ornaments</code>, but they carry only one action:</p>
 <ul>
-  <li><strong><code>/fhandoff [focus]</code></strong> — squares the record in <code>state/HANDOFF.md</code>, chooses one focused action, writes <code>next-fhandoff.md</code> with a two-line pointer, and commits only the handoff files.</li>
-  <li><strong><code>/fhandon</code></strong> — reads <code>next-fhandoff.md</code>, follows its doc pointers, performs that single action, and stops. The operator runs <code>/fhandoff</code> when it is time to put the work down again.</li>
+  <li><strong><code>/fhandoff [focus]</code></strong> — squares the record in <code>state/HANDOFF-int.md</code>, chooses one focused action, writes <code>next-fhandoff-int.md</code> with a two-line pointer, and commits only the handoff files.</li>
+  <li><strong><code>/fhandon</code></strong> — reads <code>next-fhandoff-int.md</code>, follows its doc pointers, performs that single action, and stops. The operator runs <code>/fhandoff</code> when it is time to put the work down again.</li>
 </ul>
 <p>They live in <code>.opencode/commands/</code> and are available when OpenCode is opened in this repository. They are <strong>not global</strong>, so they do not appear in the other projects. The <code>grid-8</code> and <code>ornaments</code> commands were not touched.</p>
 

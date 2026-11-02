@@ -4,12 +4,12 @@ Keep the context small. Read only what the current action names.
 
 ## Start cheap
 
-0. `LTMemory.md` — the map, the invariants and what is already settled.
-1. `next-fhandoff.md` — the one action.
-2. `state/HANDOFF.md` — current truth. Stop there unless it points onward.
-   `state/ACHIEVEMENTS.md` is the list of what is proved, with the command that
+0. `LTMemory-int.md` — the map, the invariants and what is already settled.
+1. `next-fhandoff-int.md` — the one action.
+2. `state/HANDOFF-int.md` — current truth. Stop there unless it points onward.
+   `state/ACHIEVEMENTS-int.md` is the list of what is proved, with the command that
    re-derives each one (`scripts/recheck.py`).
-3. `state/BACKLOG.md` — the W-label detail for the action, and nothing else.
+3. `state/BACKLOG-int.md` — the W-label detail for the action, and nothing else.
 4. `workbench/ornament-board.html` — visual order and labels (generated; do not
    edit by hand).
 
@@ -54,8 +54,8 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `workbench/spirals/` | recovered Stage II + LAC spines and their parity report |
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
-| `state/HANDOFF.md` | current truth |
-| `next-fhandoff.md` | one action |
+| `state/HANDOFF-int.md` | current truth |
+| `next-fhandoff-int.md` | one action |
 
 ## Commands
 

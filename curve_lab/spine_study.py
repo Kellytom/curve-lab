@@ -1,6 +1,6 @@
 """Gate 4 candidate: study 01 drawn as Pythagorean chains.
 
-This is the law-fitted route, option A in `docs/SESSIONS.md`. Each span of the
+This is the law-fitted route, option A in `docs/SESSIONS-int.md`. Each span of the
 old study is walked in the law the chain already speaks:
 
 - a line is zero turns over one chord,

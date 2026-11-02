@@ -226,7 +226,7 @@ catenary two ways and neither pretends to be a single integer curve:
   ladder and each chord is the hypotenuse of a real triangle, so every node is a
   whole number on the lattice.
 
-That is the answer, and it is recorded in `state/ACHIEVEMENTS.md`. Do not solve
+That is the answer, and it is recorded in `state/ACHIEVEMENTS-int.md`. Do not solve
 it again.
 
 ## What this session measured

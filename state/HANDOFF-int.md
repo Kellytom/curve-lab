@@ -68,8 +68,8 @@ remote MVP now exist.
   out of `docs/` into **`workbench/`** — 16 pages, one generator each in
   `scripts/`, plus `spirals/`, `terminals/` and the three.js vendor copy. The
   five state files moved to **`state/`** (`HANDOFF`, `BACKLOG`, `SESSIONS`,
-  `WORK`, `STATUS`); this file now lives at `state/HANDOFF.md`, not
-  `docs/HANDOFF.md`. `docs/` is prose only: 22 markdown including `index.md` and
+  `WORK`, `STATUS`); this file now lives at `state/HANDOFF-int.md`, not
+  `docs/HANDOFF-int.md`. `docs/` is prose only: 22 markdown including `index.md` and
   `README.md`, plus `HANDOVER.html`.
 - **Docs book:** `mkdocs.yml` at the repo root builds `docs/` into `site/` with
   the material theme and `strict: true`. `mkdocs` and `mkdocs-material` are
@@ -105,7 +105,7 @@ remote MVP now exist.
   assets, presets/caps, SVG and report. It passes.
 - Opened the local and remote apps in Chrome tabs as the shared starting base.
 - Added a **global** `/focus` command (`~/.config/opencode/commands/focus.md`)
-  that moves any session into this repo and surfaces `next-fhandoff.md` without
+  that moves any session into this repo and surfaces `next-fhandoff-int.md` without
   starting work, so `/fhandon` is reachable after a restart from any directory.
   `/fhandon` and `/fhandoff` stay project-scoped on purpose: they are hard-wired
   to this repo and should not appear in `grid-8` or `ornaments`.
@@ -264,7 +264,7 @@ remote MVP now exist.
 - **Spine imported (this session):** `curve_lab/spine.py` is the one-way
   bridge from `pythagorean_spiral` chains; `workbench/spine-sheet.html` is its visual
   proof (sheet, join, declared contact). Gate 4 and the session order are in
-  `docs/SESSIONS.md`.
+  `docs/SESSIONS-int.md`.
 - **Sandbox and spiral turns (this session):** `workbench/sandbox.html` is the
   hand-written index of the working pages; `workbench/spiral-turns.html` measures how
   many times a clothoid winds in a 100 grid and when the windings merge (about
@@ -468,7 +468,7 @@ What is left from this session, in order:
    is the one thing that needs the operator: a renamed Cloud Run service is a
    new service billing beside the old one until deleted. Everything local is
    already `curve-lab`.
-2. **`next-fhandoff.md` is stale** — it points at the chain above. Run
+2. **`next-fhandoff-int.md` is stale** — it points at the chain above. Run
    `/fhandoff` to replace it.
 3. **The hub wants one more pass**: four of the seventeen cards have no
    thumbnail because those pages build their figure in JavaScript. Giving each
@@ -487,7 +487,7 @@ count.
 crosses at every corner under the engine's rail builder; the filled shape is the
 spine layer's miter job (`ribbon.outline`). Until that is wired, chain studies
 are centre lines. After the fill: the canonical fleur, W04, the turned
-terminals, and the primals in the order in `docs/SESSIONS.md`.
+terminals, and the primals in the order in `docs/SESSIONS-int.md`.
 
 **Parked: the veil.** The measured column in §2b is unwired, the v1 caption
 overstates what it is, and the three.js page is a study.
@@ -541,7 +541,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `tests/test_spine.py` | chain import, sheet render and declared contact |
 | `scripts/spine_sheet.py` | builds `workbench/spine-sheet.html` |
 | `scripts/spine_study_probe.py` | measures a chain study's drift from P01 |
-| `docs/SESSIONS.md` | proposed order for the next sessions, gate 4 first |
+| `docs/SESSIONS-int.md` | proposed order for the next sessions, gate 4 first |
 | `docs/FIDELITY.md` | **the accepted 1.4–1.6% accuracy budget** and its metrics |
 | `curve_lab/terminals.py` | `butt`, `point`, `arc`, `round`, `taper` cap geometry |
 | `tests/test_piece.py` | piece model, mirror, round-trip tests |
@@ -561,11 +561,11 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `tests/test_auth.py` | token auth and rate-limit tests |
 | `docs/HANDOVER.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
-| `docs/BACKLOG.md` | execution detail for W01–W26 |
+| `docs/BACKLOG-int.md` | execution detail for W01–W26 |
 | `workbench/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
-| `next-fhandoff.md` | two-line focused pointer |
+| `next-fhandoff-int.md` | two-line focused pointer |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |
 | `~/.config/opencode/commands/focus.md` | global: move session here, show focus |

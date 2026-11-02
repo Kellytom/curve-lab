@@ -55,7 +55,7 @@ There are **26 work items**. The first four are the spine of the project:
 After W04: the **primals** (earth, water, air, fire, in that order, because fire
 needs the turned ends), then the **archetypes** (fleur, acanthus, palmette).
 
-`BACKLOG.md` holds the detail behind each item.
+`BACKLOG-int.md` holds the detail behind each item.
 
 ## Decisions (D)
 

@@ -1,5 +1,5 @@
 ---
-description: Focused handoff — square the record fast, then write next-fhandoff.md with one action
+description: Focused handoff — square the record fast, then write next-fhandoff-int.md with one action
 ---
 
 Focused handoff for curve-lab. Work in
@@ -10,7 +10,7 @@ calls, and no network round-trips for facts that only change when you deploy.
 Anything you carry forward instead of re-checking must be labelled carried, with
 the date it was last checked.
 
-1. **Probe once.** Read `LTMemory.md`, then `state/HANDOFF.md`, then run a single shell block with
+1. **Probe once.** Read `LTMemory-int.md`, then `state/HANDOFF-int.md`, then run a single shell block with
    `--max-time 5` that prints: `git log -1 --format=%h`, `git status
    --porcelain`, and the HTTP status of local and remote. That is the whole
    default probe. Do not run `git diff` over the tree, and do not explore.
@@ -26,23 +26,23 @@ the date it was last checked.
      changed, and then keep `docs/HANDOVER.html` in step with it.
    - If something is genuinely ambiguous, write the uncertainty in one line
      rather than investigating it.
-3. **Update `state/HANDOFF.md`** to the current truth: local, remote, tests,
+3. **Update `state/HANDOFF-int.md`** to the current truth: local, remote, tests,
    git state, risks, and the next move. Keep it to edits, not a rewrite.
 4. **Choose exactly one focused action.** If `$ARGUMENTS` is not empty, use it.
-   Otherwise take the single next move from `state/HANDOFF.md`. Do not bundle
+   Otherwise take the single next move from `state/HANDOFF-int.md`. Do not bundle
    multiple tasks.
-5. **Write `next-fhandoff.md` at the repo root.** One fenced block with exactly
+5. **Write `next-fhandoff-int.md` at the repo root.** One fenced block with exactly
    two lines:
 
    ```text
-   Read state/HANDOFF.md. Read docs/HANDOVER.md only for durable detail.
+   Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
    You are <the single focused action>.
    ```
 
    Below the fence, add one line: the source doc, the date, and the commit that
    wrote it. Change nothing else in that file, and do not read it back.
-6. **Commit only the handoff files** — `state/HANDOFF.md`, `docs/HANDOVER.md`,
-   `docs/HANDOVER.html`, `next-fhandoff.md`. Never add `out/play-template.svg`.
+6. **Commit only the handoff files** — `state/HANDOFF-int.md`, `docs/HANDOVER.md`,
+   `docs/HANDOVER.html`, `next-fhandoff-int.md`. Never add `out/play-template.svg`.
    Do not run the tests after committing.
 7. **Reply with at most five bullets:** current state, the focused action, any
    blocker, the commit hash, and the next command (`/fhandon`).

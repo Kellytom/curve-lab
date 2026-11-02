@@ -13,7 +13,7 @@ not backed up, while a file dropped here is.
 The naming rule is: the name says what the thing is, no dates, no versions. A
 new version of a file replaces the old one; the git history holds the old one.
 
-A screenshot worth keeping is usually worth a line in `state/HANDOFF.md`: what
+A screenshot worth keeping is usually worth a line in `state/HANDOFF-int.md`: what
 it showed, and what it settled.
 
 ## What is already here

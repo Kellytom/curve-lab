@@ -171,5 +171,5 @@ cubic, not nine.
 ## Where the rule came from
 
 The operator set it on 2026-10-30, in the same conversation that produced the
-promotion gate. Record it here, in `state/SESSIONS.md`, and in the public docs; it is
+promotion gate. Record it here, in `state/SESSIONS-int.md`, and in the public docs; it is
 the kind of decision that is expensive to rediscover.

@@ -274,12 +274,12 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
 | `docs/HANDOVER.html` | browser-readable mirror |
-| `state/HANDOFF.md` | compact current-session continuation brief |
-| `state/BACKLOG.md` | execution detail for W01–W26 |
+| `state/HANDOFF-int.md` | compact current-session continuation brief |
+| `state/BACKLOG-int.md` | execution detail for W01–W26 |
 | `workbench/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
-| `next-fhandoff.md` | two-line focused handoff pointer |
+| `next-fhandoff-int.md` | two-line focused handoff pointer |
 | `.opencode/commands/fhandoff.md` | focused handoff command |
 | `.opencode/commands/fhandon.md` | focused handon command |
 | `.opencode/commands/morsel.md` | do the next backlog item |
@@ -370,10 +370,10 @@ Two **project-scoped, focused** OpenCode commands make the next session cheap to
 start. They are modelled on the existing `handoff`/`handon` pattern in
 `grid-8` and `ornaments`, but they carry only one action:
 
-- **`/fhandoff [focus]`** — squares the record in `state/HANDOFF.md`, chooses one
-  focused action, writes `next-fhandoff.md` with a two-line pointer, and commits
+- **`/fhandoff [focus]`** — squares the record in `state/HANDOFF-int.md`, chooses one
+  focused action, writes `next-fhandoff-int.md` with a two-line pointer, and commits
   only the handoff files.
-- **`/fhandon`** — reads `next-fhandoff.md`, follows its doc pointers, performs
+- **`/fhandon`** — reads `next-fhandoff-int.md`, follows its doc pointers, performs
   that single action, and stops. The operator runs `/fhandoff` when it is time
   to put the work down again.
 
