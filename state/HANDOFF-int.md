@@ -1,9 +1,18 @@
 # curve-lab handoff
 
-**Updated:** 2026-11-01  
+**Updated:** 2026-11-02  
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
+
+## If you are reading this first
+
+Read `LTMemory-int.md` before this file. Then run, once each:
+
+```sh
+.venv/bin/python scripts/serve.py     # idempotent; http://127.0.0.1:8003
+.venv/bin/python scripts/recheck.py   # 11/11 proves nothing has slipped
+```
 
 ## Objective
 
@@ -13,14 +22,14 @@ remote MVP now exist.
 
 ## Current state
 
-- **Local:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
-  `.dylib`. Start with `.venv/bin/python web/server.py`. HTTP 200 at
-  2026-11-01 (probe). Auth is unset locally, so the loopback server stays
-  open; the public deployment requires the token.
-- **Workbench (probe 2026-11-01):** `http://127.0.0.1:8003/workbench/workbench.html`
-  — 200, served by `.venv/bin/python -m http.server 8003 --directory .` from the
-  repo root. **Docs book:** `http://127.0.0.1:8020` — 200, `mkdocs serve`,
-  strict build clean at 21 pages. Both are mine; neither is deployed.
+- **Local app:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
+  `.dylib`. Start with `.venv/bin/python web/server.py`. Auth is unset locally,
+  so the loopback server stays open; the public deployment requires the token.
+- **Workbench server:** ONE process, `scripts/serve.py` on **8003**. It serves
+  the repo and redirects a bare page name (`/catenary.html`) to
+  `/workbench/catenary.html`, so both forms work. Starting it twice is safe.
+- **Docs book:** `http://127.0.0.1:8020`, `mkdocs serve`, strict clean. Neither
+  the book nor the workbench is deployed.
 - **Remote:** carried from 2026-10-30, not probed this session (the URL is
   redacted in this file, so there is nothing to curl). `https://<your-service>.run.app` — Cloud Run,
   project `<your-gcp-project>`, region `us-central1`, service
@@ -89,6 +98,36 @@ remote MVP now exist.
   two-version gate (v2 lighter than v1, both solved to the 85 per cent peak) is
   green again. `pythagorean-spiral/docs/veil3d.html` remains a three.js study
   with clustered puffs and an additive-light slider (`c00183f`), not product.
+
+## 2026-11-02 — the curve day
+
+One long session, almost entirely on the `generators` page and the mirror-to-
+tangency construction. Everything below is committed.
+
+- **`workbench/generators.html`** — 23 named curves, 21 exact, each checked
+  against its own equation by `tests/test_named_curves.py`. Bean, pear,
+  piriform, trifolium, bow, cruciform and both lemniscates are rational and
+  exact; the heart (genus 4) and the squircle (genus 3) are not.
+- **The rule the page teaches**: a curve is cheap exactly when it has a
+  singularity to run a line through.
+- **Integer hits** are a factorisation problem, not a size problem. Bean: 4
+  hits at grids 12, 48 and 156 alike; 16 at 273. Under 3125 the twenty-one
+  exact curves go from 114 hits at their control scales to 843 at their best.
+- **`workbench/euler-match.html`** — every exact curve rebuilt as an Euler
+  polygon, one clothoid, and a chain of clothoid spans. One clothoid fails
+  (35–72%) because a single linear-curvature law cannot follow a sign change;
+  spans work at 0.44–1.1%. Cusps defeat all of them (9–63%), as the literature
+  says they must.
+- **`workbench/hearts.html`** — a unit clothoid rotated until it kisses the y
+  axis, then mirrored. Fig. 1 and 2 are good; Fig. 3/4 are broken and known to
+  be broken.
+- **`workbench/euler-square.html`** — eight arcs, curvature a tent, a tight
+  square with G2 everywhere.
+- **`reference/external/parallel-beziers.html`** — Raph Levien on offsetting a
+  cubic, saved with attribution; the honest comparison for PH's exact offsets.
+- **Rename**: the package is `curve_lab`, the directory `~/developer/curve-lab`,
+  and internal documents carry `-int` for a future `-ext` twin. The **deployed**
+  names are still `clothoid-*` on purpose.
 
 ## What changed this session
 
