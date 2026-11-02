@@ -1,0 +1,130 @@
+{
+  "note": "One entry per input page. The hub reads this and the pages themselves; nothing about a page is written twice.",
+  "groups": [
+    {"key": "curve", "label": "I want a curve"},
+    {"key": "terminal", "label": "I want a terminal"},
+    {"key": "strand", "label": "I want a strand"},
+    {"key": "sheet", "label": "I want a sheet"}
+  ],
+  "pages": [
+    {
+      "key": "generators", "file": "generators.html", "group": "curve",
+      "title": "Generators",
+      "purpose": "Four integers in, an integer curve out.",
+      "inputs": "degree, the generator polynomials h, u, v, and a step 1/m",
+      "outputs": "exact control points, the integer grid they need, the scale"
+    },
+    {
+      "key": "catenary", "file": "catenary.html", "group": "curve",
+      "title": "Catenary",
+      "purpose": "A hanging chain, chained from pythagorean triples.",
+      "inputs": "a, the split, steps per side",
+      "outputs": "chord walks, four-cubic fits, a 2.5D drape"
+    },
+    {
+      "key": "practical", "file": "practical-curve.html", "group": "curve",
+      "title": "Practical curve",
+      "purpose": "The same study as 34 cubics instead of 1,164.",
+      "inputs": "nothing — it is a comparison",
+      "outputs": "a hand-off SVG at 0.42 mm worst deviation"
+    },
+    {
+      "key": "families", "file": "curve-families.html", "group": "curve",
+      "title": "Curve families",
+      "purpose": "Spirals at dress-curve proportions.",
+      "inputs": "family, proportions",
+      "outputs": "a drawn family on one sheet"
+    },
+    {
+      "key": "spiral-turns", "file": "spiral-turns.html", "group": "curve",
+      "title": "Spiral turns",
+      "purpose": "How many times a clothoid winds, and when windings merge.",
+      "inputs": "starting radius, the gap",
+      "outputs": "turns before the curves touch"
+    },
+    {
+      "key": "branch-points", "file": "branch-points.html", "group": "curve",
+      "title": "Branch points",
+      "purpose": "Where a curve may safely split.",
+      "inputs": "the fitted run",
+      "outputs": "candidate branch points with their error"
+    },
+    {
+      "key": "piece-model", "file": "piece-model.html", "group": "terminal",
+      "title": "Piece model and terminals",
+      "purpose": "A stroke that ends on purpose instead of stopping.",
+      "inputs": "terminal kind, width, ends",
+      "outputs": "a ribbon with rails, a mirror, and a terminal strip"
+    },
+    {
+      "key": "terminals", "file": "terminals/index.html", "group": "terminal",
+      "title": "Recovered terminals",
+      "purpose": "150 real ends cut out of the ornaments pages.",
+      "inputs": "nothing — it is a corpus",
+      "outputs": "measured taper fractions and gallery plates"
+    },
+    {
+      "key": "spirals", "file": "spirals/index.html", "group": "strand",
+      "title": "Recovered spirals",
+      "purpose": "Every spine path from the Stage II and LAC pages.",
+      "inputs": "nothing — it is a corpus",
+      "outputs": "cubics tagged line, arc, euler, logaesthetic, member"
+    },
+    {
+      "key": "stage-two", "file": "stage-two.html", "group": "strand",
+      "title": "Stage II plates",
+      "purpose": "The intermediate curves, as the old page drew them.",
+      "inputs": "nothing",
+      "outputs": "20 plates of drawn spines"
+    },
+    {
+      "key": "spine-sheet", "file": "spine-sheet.html", "group": "strand",
+      "title": "Spine on the sheet",
+      "purpose": "A recovered chain placed on the 200 × 250 sheet.",
+      "inputs": "a pythagorean spiral chain",
+      "outputs": "a Piece with a declared contact at the fork"
+    },
+    {
+      "key": "spine-study", "file": "spine-study-01.html", "group": "strand",
+      "title": "Spine study 01",
+      "purpose": "Promotion gate 4: how close the chain gets to the study.",
+      "inputs": "study 01",
+      "outputs": "1.29 per cent drift, measured"
+    },
+    {
+      "key": "board", "file": "ornament-board.html", "group": "sheet",
+      "title": "Ornament board",
+      "purpose": "85 plates, 26 work items, 11 decisions.",
+      "inputs": "nothing — it is the index of the work",
+      "outputs": "ordering, notes and a JSON export"
+    },
+    {
+      "key": "fleur-studies", "file": "fleur-studies.html", "group": "sheet",
+      "title": "Fleur studies",
+      "purpose": "The twenty studies, as a subpage of the board.",
+      "inputs": "nothing",
+      "outputs": "twenty plates, all defaulted to needs work"
+    },
+    {
+      "key": "fleur-01", "file": "fleur-study-01.html", "group": "sheet",
+      "title": "Fleur study 01",
+      "purpose": "The old grammar ported onto clothoid segments.",
+      "inputs": "study 01 parameters",
+      "outputs": "12 nodes within 0.030 units of the original"
+    },
+    {
+      "key": "principles", "file": "principles.html", "group": "sheet",
+      "title": "Principle cards",
+      "purpose": "Eight cards: four primals, four archetypes.",
+      "inputs": "nothing — it is reference",
+      "outputs": "gesture, three numbers, and a not-this list"
+    },
+    {
+      "key": "primal", "file": "primal.html", "group": "sheet",
+      "title": "Primal ornaments",
+      "purpose": "Earth, water, air, fire — one grammar each.",
+      "inputs": "nothing yet",
+      "outputs": "four sketches, ahead of their gate on purpose"
+    }
+  ]
+}
