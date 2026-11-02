@@ -115,6 +115,33 @@ def arc_between(pts, s0, s1):
     return [(x, y) for s, x, y in pts if s0 <= s <= s1]
 
 
+def lattice_hits(points, step=0.5, tol=0.03):
+    """Lattice nodes the curve passes within tol of, on a grid of `step`."""
+    out = []
+    for x, y in points:
+        gx, gy = round(x / step) * step, round(y / step) * step
+        if math.hypot(x - gx, y - gy) <= tol:
+            out.append((gx, gy))
+    return out
+
+
+def lattice_lines(x0, x1, y0, y1, step, put):
+    out = []
+    g = math.ceil(x0 / step) * step
+    while g <= x1:
+        a, b = put((g, y0)), put((g, y1))
+        out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                   f'y2="{b[1]:.1f}" stroke="{GRID}"/>')
+        g += step
+    g = math.ceil(y0 / step) * step
+    while g <= y1:
+        a, b = put((x0, g)), put((x1, g))
+        out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                   f'y2="{b[1]:.1f}" stroke="{GRID}"/>')
+        g += step
+    return "".join(out)
+
+
 def heart_figure(a, b, w=430.0, h=330.0):
     """a = the right-hand arc, b = optional overshoot past the kiss.
 
@@ -148,13 +175,19 @@ def heart_figure(a, b, w=430.0, h=330.0):
                 f'" fill="none" stroke="{colour}" stroke-width="{width}" '
                 f'stroke-linecap="round"/>')
 
+    grid = lattice_lines(x0, x1, y0, y1, 0.5, put)
+    hits = lattice_hits(a + [(-x, y) for x, y in a], 0.5)
+    dots = "".join(f'<circle cx="{put(q)[0]:.1f}" cy="{put(q)[1]:.1f}" r="3.2" '
+                   f'fill="{DOT}" stroke="#fffdf7" stroke-width="1"/>' for q in hits)
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
+    {grid}
     {path(a, INK, 2.4)}{path([(-x, y) for x, y in a], INK, 2.4)}
     {path(b, GOLD, 1.6) if b else ""}
     <line x1="{put((0, y0))[0]:.1f}" y1="{put((0, y0))[1]:.1f}"
           x2="{put((0, y1))[0]:.1f}" y2="{put((0, y1))[1]:.1f}"
           stroke="{GOLD}" stroke-width="1" stroke-dasharray="5 4"/>
+    {dots}
   </svg>"""
 
 
@@ -196,12 +229,18 @@ def half_figure(pts, w=430.0, h=330.0, poly=None, spans=None):
     body = path(pts, INK, 2.4)
     if poly:
         body += path(poly, GOLD, 1.3)
+    grid = lattice_lines(x0, x1, y0, y1, 0.25, put)
+    dots = "".join(f'<circle cx="{put(q)[0]:.1f}" cy="{put(q)[1]:.1f}" r="3" '
+                   f'fill="{DOT}" stroke="#fffdf7" stroke-width="1"/>'
+                   for q in lattice_hits(pts, 0.25, tol=0.02))
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
+    {grid}
     {body}
     <line x1="{put((0, y0))[0]:.1f}" y1="{put((0, y0))[1]:.1f}"
           x2="{put((0, y1))[0]:.1f}" y2="{put((0, y1))[1]:.1f}"
           stroke="{GOLD}" stroke-width="1" stroke-dasharray="5 4"/>
+    {dots}
   </svg>"""
 
 
@@ -240,21 +279,6 @@ def main():
         print(f"    s={s:.3f} ({s*s/(4*math.pi):.2f} turns)  rotation "
               f"{math.degrees(phi) % 360:6.2f} deg  touch at (0, {ry:.3f})")
 
-    gallery = []
-    for key in ("heart", "cardioid", "bean", "gerono"):
-        spec = [x for x in G.NAMED if x["key"] == key][0]
-        data = G.named_data(spec)
-        if data["exact"]:
-            item = E.run(spec)
-            gal = E.figure(item)
-            note = (f"{item['n']} chords · Euler polygon error "
-                    f"{100*item['dev']:.2f}% of size")
-        else:
-            gal = sampled_figure(spec)
-            note = "no parametrisation: sampled, so no chain to fit"
-        gallery.append(f"""<section><h2>{key}</h2>
-  <div class="art">{gal}</div><p class="cap">{note}</p></section>""")
-
     cards = []
     for i, (s_t, phi) in enumerate(tans[:-1]):        # the last one folds back
         right = [rotate((x, y), phi) for s, x, y in pts if 0 <= s <= s_t]
@@ -279,6 +303,10 @@ def main():
     print(f"  heart, positive-x half: {n} chords, Euler error {100*dev:.2f}% of size;"
           f" {k_spans} clothoid spans, error {100*dev_spans:.2f}%")
 
+    phis = [math.degrees(phi) % 360 for _, phi in tans]
+    corner = abs(180 - 2 * phis[0]) % 360
+    corner = min(corner, 360 - corner)
+
     page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -297,21 +325,26 @@ section{{background:#fffdf7;border:1px solid {LINE};padding:12px}}
 svg{{display:block;width:100%;height:auto}}
 .panel{{background:#fffdf7;border:1px solid {LINE};padding:16px 18px;margin:0 0 20px}}
 li{{margin:0 0 6px}}
+table{{border-collapse:collapse;margin:0 0 14px;font:12px/1.5 ui-monospace,Menlo,monospace}}
+th,td{{border-bottom:1px solid {LINE};padding:4px 14px 4px 0;text-align:left}}
+th{{color:{MUTED};font-weight:600}}
 </style></head><body><main>
 <h1>Hearts</h1>
 <p class="lead">One Euler arc, rotated until it kisses the y axis, then mirrored.
 The cleft is the kiss; the little extra is where it carries on past it.</p>
 <div class="panel">
-<p><strong>The construction.</strong> A unit clothoid starts at the origin
-heading along +x, with heading <code>theta(s) = s²/2</code> — the curvature grows
-linearly, which is what makes it an Euler spiral. Rotate the whole arc about the
-origin and, at particular angles, it comes back and touches the y axis with a
-vertical tangent. Since the origin is already on that axis, the arc then has
-<em>both</em> ends on it — one at the bottom, one where it only kisses.</p>
-<p>Mirror that about the y axis and the two halves share the origin and meet at
-the kiss. That is a heart, with the cleft at the top. Carry the arc a little
-past the kiss — to the next lattice point — and the halves cross instead of
-touching, which is the extra at the end.</p>
+<p><strong>What the mirror needs, and what is still open.</strong> For the join
+to be smooth the arc has to meet the y axis at two places <em>tangentially</em> —
+it runs along the axis at both, so the mirror continues without a kink. Getting
+both is a rotation <em>and</em> a placement: the rotation lines the two tangents
+up, and a translation then brings both touch points onto the same line. Fixing
+the arc's endpoints, as the figures below do, leaves only the rotation free and
+only one contact — which is why the bottom of Fig. 1 is a corner rather than a
+blend. Double tangency is reachable; it just is not a rotation alone, and the
+first proper solution is still to be found.</p>
+<p>The rotations below are therefore not a family to pick from: they are the
+rotation at which the far end is tangent, for each half turn the arc completes.
+Any of them draws a heart. The first is merely the smallest.</p>
 <p style="font-size:12px;color:{MUTED}">Every percentage on this page, and on
 every page in the workbench, is an <strong>error</strong>: a distance between
 what was drawn and what was wanted, as a share of a stated reference. Where a
@@ -321,21 +354,17 @@ number is not an error it says so in words.</p>
 <h2 style="margin-top:32px">The heart, split at x = 0</h2>
 <p style="font-size:14px;color:{MUTED};max-width:70ch">The heart is symmetric
 in x, so it is two curves. Taking the positive-x half alone gives one open arc
-from the bottom point to the cleft — the shape we actually have to build. Gold
-is an Euler polygon over that arc; the error is <strong>{100*dev:.2f}% of the
-half's own size</strong>, at {n} chords.</p>
+from the bottom point to the cleft — the shape we actually have to build.
+<strong>Correct method is a clothoid chain fitted to that arc, not a chord
+walk</strong>: the gold overlay below is an Euler polygon, and it is shown
+failing, drifting off the curve and never reaching the axis at either end.</p>
 <div class="grid2">
-<section><h2>positive x</h2><div class="art">{half_figure(half, poly=poly)}</div>
-<p class="cap">{n} chords · Euler error {100*dev:.2f}% of size</p></section>
-<section><h2>negative x</h2><div class="art">{half_figure([(-x, y) for x, y in half], poly=[(-x, y) for x, y in poly])}</div>
+<section><h2>Fig. 3 · positive x</h2><div class="art">{half_figure(half, poly=poly)}</div>
+<p class="cap">{n} chords · error {100*dev:.2f}% of size · the chain misses both
+axis ends by ~0.08 units — an open defect, recorded in founder/screens</p></section>
+<section><h2>Fig. 4 · negative x</h2><div class="art">{half_figure([(-x, y) for x, y in half], poly=[(-x, y) for x, y in poly])}</div>
 <p class="cap">the mirror — the same curve, and the same chain flipped</p></section>
 </div>
-<h2 style="margin-top:32px">The existing curves, as Euler chains</h2>
-<p style="font-size:14px;color:{MUTED};max-width:70ch">Gold is the chain, ink is
-the curve. The heart has no parametrisation at all — it is a smooth sextic of
-genus 4 — so it has no chain and is drawn by sampling. The cardioid, the bean and
-Gerono's lemniscate do, and are matched under 1 per cent.</p>
-<div class="grid2">{''.join(gallery)}</div>
 </main></body></html>
 """
     out = ROOT / "workbench" / "hearts.html"
