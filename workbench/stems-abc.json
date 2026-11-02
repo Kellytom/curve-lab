@@ -9,6 +9,7 @@
     ],
     "units_per_in": 100
   },
+  "box_shape": "squircle n=4",
   "stems": [
     {
       "label": "a",

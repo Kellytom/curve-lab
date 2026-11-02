@@ -142,6 +142,7 @@ def main():
     data = {
         "page": {"width_in": 8.5, "height_in": 11.0, "margin_in": 0.5,
                  "drawing_in": [7.5, 10.0], "units_per_in": 100},
+        "box_shape": "squircle n=4",
         "stems": [],
         "note": ("Three generator presets, not clothoid chains: the PH "
                  "generator data is the constant set.  Page samples are in "

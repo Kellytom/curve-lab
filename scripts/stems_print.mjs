@@ -28,6 +28,20 @@ const W = data.page.width_in * U;
 const H = data.page.height_in * U;
 const MARGIN = data.page.margin_in * U;
 
+function squirclePath(cx, cy, r, n = 4, steps = 160) {
+  // |x/r|^n + |y/r|^n = 1; n=4 is the squircle used on the Euler-square page
+  const pts = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = (2 * Math.PI * i) / steps;
+    const c = Math.cos(t);
+    const s = Math.sin(t);
+    const x = Math.sign(c) * Math.pow(Math.abs(c), 2 / n);
+    const y = Math.sign(s) * Math.pow(Math.abs(s), 2 / n);
+    pts.push([cx + r * x, cy + r * y]);
+  }
+  return "M " + pts.map(([x, y]) => `${x.toFixed(2)} ${y.toFixed(2)}`).join(" L ");
+}
+
 const groups = [];
 for (const stem of data.stems) {
   const cellX = stem.cell.x_in * U;
@@ -40,8 +54,8 @@ for (const stem of data.stems) {
   const [sx, sy] = stem.start_page_in.map((v) => v * U);
   const [ex, ey] = stem.end_page_in.map((v) => v * U);
   groups.push(`<g id="stem-${stem.label}">
-    <rect x="${cellX.toFixed(1)}" y="${cellTop.toFixed(1)}"
-          width="${cellSide.toFixed(1)}" height="${cellSide.toFixed(1)}"
+    <path d="${squirclePath(cellX + cellSide / 2, cellTop + cellSide / 2,
+                            cellSide / 2)}"
           fill="none" stroke="${GUIDE}" stroke-width="0.8"/>
     <path d="${d}" fill="none" stroke="${INK}" stroke-width="1.8"
           stroke-linejoin="round" stroke-linecap="round"/>
