@@ -404,6 +404,7 @@ NAMED = [
     dict(key="cruciform", deg=4, m=4, subst="affine",
          eq="x²y² − b²x² − a²y² = 0",
          tail="rational quartic · x = a sec t, y = b csc t · one arm, mirrored four times · tails unbounded",
+         fig_w=215.0, fig_h=430.0,
          branches=[]),
     dict(key="piriform", deg=4, m=4,
          eq="x⁴ − 2x³ + y² = 0",
@@ -705,7 +706,7 @@ def _compose(P, alpha, beta, deg):
     return out
 
 
-def cruciform_arm(lo=F(1, 4), hi=F(3, 4)):
+def cruciform_arm(lo=F(1, 5), hi=F(4, 5)):
     """One arm of x^2 y^2 = x^2 + y^2, exact, over u = tan(t/2) in [lo, hi].
 
     x = (1+u^2)/(1-u^2), y = (1+u^2)/(2u); the common denominator 2u(1-u^2)
@@ -926,7 +927,7 @@ def page(items):
     named_cards = "".join(
         f"""<section><h2>Fig. {6 + ni} · {it['spec']['key']}</h2>
   <p class="input">{it['spec']['eq']}</p>
-  <div class="art">{named_figure(it)}</div>
+  <div class="art">{named_figure(it, it['spec'].get('fig_w', 430.0), it['spec'].get('fig_h', 300.0))}</div>
   <p class="cap">{it['spec']['tail']}</p></section>"""
         for ni, it in enumerate(named))
     named_rows = "".join(

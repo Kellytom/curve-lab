@@ -289,9 +289,13 @@ def main():
               f"  clothoid {100*it['dev_clo']:6.2f}%"
               f"  spans {it['span_count']:2d} -> {100*it['dev_spans']:5.2f}%")
 
+    def size(spec):
+        # tall curves get a portrait panel so the long arms read
+        return (215.0, 430.0) if spec["key"] == "cruciform" else (430.0, 300.0)
+
     cards = "".join(
         f"""<section><h2>Fig. {i+1} · {it['spec']['key']}</h2>
-  <div class="art">{figure(it)}</div>
+  <div class="art">{figure(it, *size(it['spec']))}</div>
   <p class="cap">{it['n']} chords · error {100*it['dev']:.2f}% of curve size ·
   one-clothoid error {100*it['dev_clo']:.1f}% · {it['span_count']}-span error
   {100*it['dev_spans']:.2f}% · snap error {it['snap']*it['scale']:.2f} of a grid

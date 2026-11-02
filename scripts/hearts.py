@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import math
 import sys
+from fractions import Fraction as F
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -188,6 +189,62 @@ def heart_figure(a, b, w=430.0, h=330.0):
           x2="{put((0, y1))[0]:.1f}" y2="{put((0, y1))[1]:.1f}"
           stroke="{GOLD}" stroke-width="1" stroke-dasharray="5 4"/>
     {dots}
+  </svg>"""
+
+
+def gerono_leaf():
+    """Gerono's lemniscate: the line y = 1/2 touches both lobes; mirror the
+    outer arc between the two touch points and a leaf closes."""
+    spec = [x for x in G.NAMED if x["key"] == "gerono"][0]
+    data = G.named_data(spec)
+    pts = []
+    for ctrl in data["ctrl"]:
+        deg = len(ctrl) - 1
+        for i in range(1200):
+            s = F(i, 1199)
+            w = sum(F(p_[2]) * G.bern_n(j, deg, s) for j, p_ in enumerate(ctrl))
+            if w == 0:
+                continue
+            x, y = G.homog_point(ctrl, s)
+            pts.append((float(x), float(y)))
+    lines = [(abs(y - 0.5), i) for i, (x, y) in enumerate(pts)]
+    lines.sort()
+    i1 = lines[0][1]
+    i2 = next(i for _, i in lines[1:] if abs(i - i1) > 40)
+    lo, hi = sorted((i1, i2))
+    arc_a, arc_b = pts[lo:hi + 1], pts[hi:] + pts[:lo + 1]
+    outer = max((arc_a, arc_b), key=lambda a: sum(math.hypot(x, y) for x, y in a))
+    return pts, outer
+
+
+def leaf_figure(pts, arc, w=430.0, h=330.0):
+    mirror = [(x, 1.0 - y) for x, y in arc]
+    allpts = pts + mirror
+    xs = [p[0] for p in allpts]
+    ys = [p[1] for p in allpts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    pad = 0.08
+    x0, x1 = x0 - pad * (x1 - x0), x1 + pad * (x1 - x0)
+    y0, y1 = y0 - pad * (y1 - y0), y1 + pad * (y1 - y0)
+    k = min((w - 16) / (x1 - x0), (h - 16) / (y1 - y0))
+    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+
+    def put(p):
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+
+    def path(q, colour, width, dash=""):
+        d = "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in q)
+        return (f'<path d="{d}" fill="none" stroke="{colour}" '
+                f'stroke-width="{width}" {dash}/>')
+
+    a, b = put((x0, 0.5)), put((x1, 0.5))
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
+    {path(pts, MUTED, 1.1, 'stroke-dasharray="4 3"')}
+    {path(arc, INK, 2.4)}
+    {path(mirror, INK, 2.4)}
+    <line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}"
+          stroke="{GOLD}" stroke-width="1" stroke-dasharray="6 4"/>
   </svg>"""
 
 
