@@ -412,6 +412,16 @@ NAMED = [
          tail="a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
          branches=[([2, 0, 2], [0, 4], [1, 0, 2, 0, 1]),
                    ([2, 0, 2], [0, -4], [1, 0, 2, 0, 1])]),
+    dict(key="abs(x) gerono", deg=4, m=4, subst="affine",
+         eq="x⁴ − x² + y² = 0, x ≥ 0",
+         tail="the figure-eight folded by |x| · one closed lobe · x = (1−u²)/(1+u²), y = 2u(1−u²)/(1+u²)²",
+         branches=[([0, 8, -24, 32, -16], [0, -8, 24, -16],
+                    [4, -16, 32, -32, 16])]),
+    dict(key="piriform 2x", deg=4, m=4,
+         eq="x⁴ − 2x³ + y² = 0, x → 2x",
+         tail="a longer water drop · the piriform stretched 2× on x",
+         branches=[([4, 0, 4], [0, 4], [1, 0, 2, 0, 1]),
+                   ([4, 0, 4], [0, -4], [1, 0, 2, 0, 1])]),
 ]
 
 
