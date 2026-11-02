@@ -191,6 +191,15 @@
       "outputs": "a heart silhouette, and the grid cost of the cut"
     },
     {
+      "key": "clothoid-cut",
+      "file": "clothoid-cut.html",
+      "group": "curve",
+      "title": "Clothoid cut",
+      "purpose": "The eye, the equal-arc cut, and the minimum-width box.",
+      "inputs": "nothing — a measurement",
+      "outputs": "the minimum width of one half and of the full pair"
+    },
+    {
       "key": "euler-square",
       "file": "euler-square.html",
       "group": "curve",
