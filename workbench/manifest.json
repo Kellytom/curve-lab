@@ -180,6 +180,15 @@
       "purpose": "Every exact curve rebuilt as a chain of chords and clothoid spans.",
       "inputs": "nothing — it is a measurement",
       "outputs": "chord count, deviation as % of size, spans per curve, grid snap"
+    },
+    {
+      "key": "hearts",
+      "file": "hearts.html",
+      "group": "curve",
+      "title": "Hearts",
+      "purpose": "One Euler arc, rotated until it kisses the axis, then mirrored.",
+      "inputs": "turns, the rotation found by tangency, where to cut",
+      "outputs": "a heart silhouette, and the grid cost of the cut"
     }
   ]
 }

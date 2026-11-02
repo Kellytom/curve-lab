@@ -54,13 +54,26 @@ def arc(pts):
 
 
 def tangent_at(pts, s, total):
-    """Direction at arc length s, by finite difference on the samples."""
-    acc, t = 0.0, 0.0
-    for a, b in zip(pts, pts[1:]):
+    """Direction at arc length s, blended between neighbouring samples.
+
+    Without the blend, a chord shorter than the sample spacing inherits one
+    segment's angle and the polygon turns into a staircase -- which reads as a
+    huge deviation that has nothing to do with the curve.
+    """
+    acc = 0.0
+    prev_th = None
+    for i, (a, b) in enumerate(zip(pts, pts[1:])):
         d = math.dist(a, b)
-        if acc + d >= s or d == 0:
-            return math.atan2(b[1] - a[1], b[0] - a[0])
+        th = math.atan2(b[1] - a[1], b[0] - a[0])
+        if prev_th is None:
+            prev_th = th
+        if acc + d >= s and d > 0:
+            t = (s - acc) / d
+            # unwrap the two headings before blending
+            delta = (th - prev_th + math.pi) % (2 * math.pi) - math.pi
+            return prev_th + delta * t
         acc += d
+        prev_th = th
     a, b = pts[-2], pts[-1]
     return math.atan2(b[1] - a[1], b[0] - a[0])
 
@@ -272,17 +285,17 @@ def main():
     for spec in curves:
         it = run(spec)
         items.append(it)
-        print(f"  {spec['key']:16s} n={it['n']:4d}  deviation {100*it['dev']:5.2f}%"
+        print(f"  {spec['key']:16s} n={it['n']:4d}  error {100*it['dev']:5.2f}%"
               f"  clothoid {100*it['dev_clo']:6.2f}%"
               f"  spans {it['span_count']:2d} -> {100*it['dev_spans']:5.2f}%")
 
     cards = "".join(
         f"""<section><h2>Fig. {i+1} · {it['spec']['key']}</h2>
   <div class="art">{figure(it)}</div>
-  <p class="cap">{it['n']} chords · Euler polygon {100*it['dev']:.2f}% ·
-  one clothoid {100*it['dev_clo']:.1f}% · {it['span_count']} clothoid spans
-  {100*it['dev_spans']:.2f}% · snap {it['snap']*it['scale']:.2f} of a grid unit on
-  {it['scale']}</p>
+  <p class="cap">{it['n']} chords · error {100*it['dev']:.2f}% of curve size ·
+  one-clothoid error {100*it['dev_clo']:.1f}% · {it['span_count']}-span error
+  {100*it['dev_spans']:.2f}% · snap error {it['snap']*it['scale']:.2f} of a grid
+  unit on {it['scale']}</p>
   </section>""" for i, it in enumerate(items))
 
     rows = "".join(
@@ -321,7 +334,7 @@ th{{color:{MUTED};font-weight:600}}
 heading is the curve's own tangent. Gold is the chain, ink is the curve, red is a
 node.</p>
 <div class="panel">
-<p><strong>What is being measured.</strong> <em>Deviation</em> is how far the
+<p><strong>What is being measured.</strong> <em>Deviation</em> is an <strong>error</strong>: how far the
 chain strays from the curve, as a percentage of the curve's own size — the same
 currency as the fidelity budget. <em>Snap</em> is how far each node has to move
 to sit on that curve's integer grid; it is reported in grid units, because a
@@ -355,9 +368,10 @@ curves want a corner in the chain — a joint, not a blend — which is the
 <div class="grid2">{cards}</div>
 <div class="panel">
 <table>
-<tr><th>curve</th><th>chords</th><th>Euler polygon</th>
-<th>one clothoid</th><th>spans</th><th>span chain</th><th>grid</th>
-<th>snap (grid units)</th><th>worst angle change</th></tr>
+<tr><th>curve</th><th>chords</th><th>Euler polygon<br>error, % of size</th>
+<th>one clothoid<br>error, %</th><th>spans</th><th>span chain<br>error, %</th>
+<th>grid</th><th>snap<br>error, grid units</th>
+<th>angle change<br>degrees</th></tr>
 {rows}
 </table>
 </div>
@@ -366,7 +380,7 @@ curves want a corner in the chain — a joint, not a blend — which is the
     out = ROOT / "workbench" / "euler-match.html"
     out.write_text(page, encoding="utf-8")
     print(out)
-    print(f"  worst deviation {100*max(i['dev'] for i in items):.2f}% ·"
+    print(f"  worst error {100*max(i['dev'] for i in items):.2f}% of size ·"
           f" {sum(i['n'] for i in items)} chords total")
     return 0
 
