@@ -53,8 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **246 pass** (1 skipped), full run 2026-11-02 after the
-  heart fix at `2aea0f1`.
+- **Local tests:** **246 pass** (1 skipped), full run 2026-11-02 at `0d5c56a`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -69,7 +68,7 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD `2aea0f1` (2026-11-02). Tree clean; untracked are three
+- **Git:** HEAD `0d5c56a` (2026-11-02). Tree clean; untracked are three
   photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
   and `state/monitor.log`, which is a log and stays untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -107,7 +106,9 @@ tangency construction. Everything below is committed.
 - **`workbench/generators.html`** — 23 named curves, 21 exact, each checked
   against its own equation by `tests/test_named_curves.py`. Bean, pear,
   piriform, trifolium, bow, cruciform and both lemniscates are rational and
-  exact; the heart (genus 4) and the squircle (genus 3) are not.
+  exact; the heart (genus 4) and the squircle (genus 3) are not. The
+  cruciform's exact arm now runs `u ∈ [1/5, 4/5]`, so the four mirrors read as
+  a cross; the control scale stays **1250** (milestones 1,081,080).
 - **The rule the page teaches**: a curve is cheap exactly when it has a
   singularity to run a line through.
 - **Integer hits** are a factorisation problem, not a size problem. Bean: 4
@@ -124,7 +125,17 @@ tangency construction. Everything below is committed.
   `x² = 1+y²`); the Euler polygon is 32 chords at **0.73%** of size with both
   ends within 0.003 units of the axis. The clothoid-span chain needs 32 spans
   for 1.44% (4 spans 8.21%) — that is now the open reading, not the sample
-  path.
+  path. Fig. 5 joins the two halves back into the whole heart; the ink halves
+  share the cleft and the bottom, and the Euler halves meet within 0.005 units.
+  The double-tangent table measures the closest two vertical-tangent contacts
+  of one arc: 0.079 at 2 turns, 0.022 at 4, 0.0069 at 8, 0.0023 at 16 — it only
+  tends to zero, so a finite arc has no exact double tangent.
+- **`workbench/clothoid-cut.html`** (new, this session) — the eye is
+  `(±√π/2, ±√π/2)`, the equal-arc cut is at the origin on the line between
+  them, and the minimum-width box of one half is **0.898** at 150.5° (full pair
+  **0.984** at 128.5°). The box edges are the two parallel support/tangent
+  lines: a double normal, not a double tangent. Generator
+  `scripts/clothoid_cut.py`; added to the hub (21 pages).
 - **`workbench/euler-square.html`** — eight arcs, curvature a tent, a tight
   square with G2 everywhere.
 - **`reference/external/parallel-beziers.html`** — Raph Levien on offsetting a
@@ -518,11 +529,12 @@ for 1.44%, 4 spans for 8.21%.
 **Next, per the operator (2026-11-02): the heart family.** Add 5+ heart
 equations (the internet has more formulae) to one heart-forms page, each
 sampled to its true extent and spliced at its own tips, then read them against
-the French curves, catenaries and clothoids. The mirrored-clothoid join is a
-separate action: a double tangent is three unknowns (rotation plus two arc
-parameters), and the minimum-width bounding-box pose is a different condition
-(parallel support lines, a double *normal*), so it is a good canonical pose but
-not the answer. Clouds from clothoid puffs use that same double-tangent join.
+the French curves, catenaries and clothoids. The mirrored-clothoid join is now
+measured, not a guess: on one finite arc the two vertical-tangent contacts only
+crowd toward the eye (the hearts table), and the minimum-width box is a double
+*normal* (the clothoid-cut page), so neither gives the join. A two-arc
+placement, or a different curve, is the open route. Clouds from clothoid puffs
+use that same join.
 
 What is left from this session, in order:
 
