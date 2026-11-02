@@ -50,8 +50,8 @@ for (const stem of data.stems) {
     <circle cx="${ex.toFixed(2)}" cy="${ey.toFixed(2)}" r="2.4"
             fill="none" stroke="${DOT}" stroke-width="1"/>
     <text x="${(cellX + cellSide / 2).toFixed(1)}"
-          y="${(cellTop - 8).toFixed(1)}" text-anchor="middle"
-          font-size="11" font-family="Georgia,serif"
+          y="${(cellBottom + 12).toFixed(1)}" text-anchor="middle"
+          font-size="9" font-family="Georgia,serif"
           fill="${MUTED}">${stem.label}</text>
   </g>`);
 }

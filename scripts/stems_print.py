@@ -40,9 +40,10 @@ DOT = "#b23a2b"
 PAGE_W, PAGE_H = 850.0, 1100.0      # 100 units per inch
 MARGIN = 50.0
 DRAW_W, DRAW_H = PAGE_W - 2 * MARGIN, PAGE_H - 2 * MARGIN
-CELL, PAD, GAP = 50.0, 2.0, 10.0
+CELL, PAD, GAP = 50.0, 2.0, 25.0
 CELL_TOP = 1000.0
 CELL_BOTTOM = CELL_TOP + CELL
+STEM_H = 700.0       # 7 in: the vase mark 10 up to the mark 3
 X0 = MARGIN + (DRAW_W - (3 * CELL + 2 * GAP)) / 2
 N = 666                              # 667 points per stem, 2,001 total
 
@@ -81,8 +82,8 @@ def stem_points(spec, n=N):
 
 
 def main():
-    cells = []
-    for i, stem in enumerate(STEMS):
+    raw = []
+    for stem in STEMS:
         pts, item = stem_points(stem["spec"])
         p0, p2 = pts[0], pts[2]
         page_start = math.degrees(math.atan2(-(p2[1] - p0[1]),
@@ -102,25 +103,40 @@ def main():
         rot = rotate(pts, math.radians(model_rot))
         x0, y0, x1, y1 = extent(rot)
         dx, dy = x1 - x0, y1 - y0
-        side = max(dx, dy)
-        scale = (CELL - 2 * PAD) / side
-        cell_x = X0 + i * (CELL + GAP)
-        cx = (x0 + x1) / 2
+        raw.append(dict(stem=stem, pts=rot, item=item, x0=x0, y0=y0,
+                        x1=x1, y1=y1, dx=dx, dy=dy,
+                        rotate_deg=rotate_deg, direction=direction))
+
+    # each stem rises from its 0.5 in vase box to the 3 in ruler mark
+    widths = [r["dx"] * (STEM_H / r["dy"]) for r in raw]
+    total = sum(widths) + GAP * (len(raw) - 1)
+    fit = min(1.0, DRAW_W / total)
+    xcur = MARGIN + (DRAW_W - total * fit) / 2
+    cells = []
+    for r in raw:
+        stem = r["stem"]
+        scale = (STEM_H / r["dy"]) * fit
+        w = r["dx"] * scale
         page = []
         sign = -1 if stem.get("mirror") else 1
-        for x, y in rot:
-            px = cell_x + CELL / 2 + sign * (x - cx) * scale
-            py = CELL_BOTTOM - PAD - (y - y0) * scale
+        for x, y in r["pts"]:
+            px = xcur + w / 2 + sign * (x - (r["x0"] + r["x1"]) / 2) * scale
+            py = CELL_BOTTOM - (y - r["y0"]) * scale
             page.append((px, py))
+        base = max(page, key=lambda p: p[1])
+        cell_x = base[0] - CELL / 2
         start_page = page[0]
         end_page = page[-1]
         lean = "right" if start_page[0] > end_page[0] else "left"
-        cells.append(dict(stem=stem, pts=rot, page=page, item=item,
-                          x0=x0, y0=y0, x1=x1, y1=y1, dx=dx, dy=dy,
-                          side=side, scale=scale, cell_x=cell_x,
-                          rotate_deg=rotate_deg, direction=direction,
-                          lean=lean, mirror=bool(stem.get("mirror")),
+        cells.append(dict(stem=stem, pts=r["pts"], page=page, item=r["item"],
+                          x0=r["x0"], y0=r["y0"], x1=r["x1"], y1=r["y1"],
+                          dx=r["dx"], dy=r["dy"], side=max(r["dx"], r["dy"]),
+                          scale=scale, cell_x=cell_x,
+                          rotate_deg=r["rotate_deg"],
+                          direction=r["direction"], lean=lean,
+                          mirror=bool(stem.get("mirror")),
                           start_page=start_page, end_page=end_page))
+        xcur += w + GAP
 
 
     data = {
