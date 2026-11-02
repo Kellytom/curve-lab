@@ -312,6 +312,47 @@ def half_figure(pts, w=430.0, h=330.0, poly=None, spans=None):
   </svg>"""
 
 
+def double_tangent_gaps(turns_list=(2, 4, 8, 16)):
+    """Closest separation of two vertical-tangent contacts on one arc.
+
+    At rotation phi = pi/2 the vertical tangents sit at s = sqrt(2 k pi).  The
+    closest pair is the last two even-k contacts; their x separation (here the
+    y separation, since X = -y at phi = pi/2) shrinks toward the eye and never
+    reaches zero.  The table on the page is this measurement.
+    """
+    rows = []
+    for turns in turns_list:
+        s_max = math.sqrt(4 * math.pi * turns)
+        pts = clothoid(s_max=s_max, n=20000)
+        ds = s_max / (len(pts) - 1)
+
+        def y_at(s):
+            i = min(int(s / ds), len(pts) - 2)
+            t = (s - i * ds) / ds
+            return pts[i][2] * (1 - t) + pts[i + 1][2] * t
+
+        k = 2 * turns
+        s2 = s_max
+        s1 = math.sqrt(2 * (k - 2) * math.pi)
+        rows.append((turns, abs(y_at(s1) - y_at(s2)), s1, s2))
+    return rows
+
+
+def whole_heart(pts, poly=None):
+    """One closed heart: the positive-x half plus its mirror.
+
+    The half starts at the cleft (0, 1) and ends at the bottom (0, -1).  The
+    mirror runs the other way, so the two halves share both joins exactly.
+    """
+    mirror = [(-x, y) for x, y in pts]
+    full = list(pts) + list(reversed(mirror))[1:]
+    full_poly = None
+    if poly:
+        mpol = [(-x, y) for x, y in poly]
+        full_poly = list(poly) + list(reversed(mpol))[1:]
+    return half_figure(full, w=880.0, h=460.0, poly=full_poly)
+
+
 def sampled_figure(spec, w=430.0, h=300.0):
     """A curve with no parametrisation: draw the samples, claim nothing more."""
     paths = G.named_data(spec)["paths"] or []
@@ -361,6 +402,11 @@ def main():
     half = heart_half()
     n, dev, poly, L = E.fit_branch(half)
     end_drift = max(math.dist(poly[0], half[0]), math.dist(poly[-1], half[-1]))
+    join_gap = 2 * abs(poly[-1][0])
+    dt_rows = double_tangent_gaps()
+    dt_table = "".join(
+        f"<tr><td>{t}</td><td>{g:.4f}</td><td>{s1:.2f}, {s2:.2f}</td></tr>"
+        for t, g, s1, s2 in dt_rows)
     k_spans, dev_spans, span_poly = None, None, None
     for k in (4, 8, 16, 32, 64):
         sp = E.clothoid_spans(half, k)
@@ -404,13 +450,14 @@ The cleft is the kiss; the little extra is where it carries on past it.</p>
 <div class="panel">
 <p><strong>What the mirror needs, and what is still open.</strong> For the join
 to be smooth the arc has to meet the y axis at two places <em>tangentially</em> —
-it runs along the axis at both, so the mirror continues without a kink. Getting
-both is a rotation <em>and</em> a placement: the rotation lines the two tangents
-up, and a translation then brings both touch points onto the same line. Fixing
-the arc's endpoints, as the figures below do, leaves only the rotation free and
-only one contact — which is why the bottom of Fig. 1 is a corner rather than a
-blend. Double tangency is reachable; it just is not a rotation alone, and the
-first proper solution is still to be found.</p>
+it runs along the axis at both, so the mirror continues without a kink. After a
+rotation φ the vertical-tangent points are fixed by s²/2 + φ = π/2 + kπ; the
+two contacts lie on one line only when their rotated x agree. On a finite unit
+arc that never happens: the contacts crowd toward the clothoid's eye and their
+separation only tends to zero (table below). Fixing the arc's endpoints, as the
+figures below do, leaves only the rotation free and one contact — which is why
+the bottom of Fig. 1 is a corner rather than a blend. An exact double tangent
+would need two separately placed arcs, or a different curve; it is still open.</p>
 <p>The rotations below are therefore not a family to pick from: they are the
 rotation at which the far end is tangent, for each half turn the arc completes.
 Any of them draws a heart. The first is merely the smallest.</p>
@@ -420,6 +467,20 @@ what was drawn and what was wanted, as a share of a stated reference. Where a
 number is not an error it says so in words.</p>
 </div>
 <div class="grid2">{''.join(cards)}</div>
+<h2 style="margin-top:32px">Double tangency: the finite arc has none</h2>
+<p style="font-size:14px;color:{MUTED};max-width:70ch">The table is the
+double-tangent measurement. For each turn count the arc was rotated to the
+closest approach; the two vertical-tangent contacts never share an x. They
+crowd toward the clothoid's eye, so the gap shrinks roughly with every
+doubling of turns and reaches zero only in the limit.</p>
+<table>
+<tr><th>turns</th><th>closest gap</th><th>contacts (s)</th></tr>
+{dt_table}
+</table>
+<p style="font-size:14px;color:{MUTED};max-width:70ch">Closest always at
+φ = 90°. The closest pairs sit near the eye, so they are not heart-sized lobes:
+this is a limit, not a join. A two-arc placement, or a different curve, is the
+open route.</p>
 <h2 style="margin-top:32px">The heart, split at x = 0</h2>
 <p style="font-size:14px;color:{MUTED};max-width:70ch">The heart is symmetric
 in x, so it is two curves. Taking the positive-x half alone gives one open arc
@@ -436,6 +497,14 @@ the old jump.</p>
 <section><h2>Fig. 4 · negative x</h2><div class="art">{half_figure([(-x, y) for x, y in half], poly=[(-x, y) for x, y in poly])}</div>
 <p class="cap">the mirror — the same curve, and the same chain flipped</p></section>
 </div>
+<h2 style="margin-top:32px">The whole heart</h2>
+<p style="font-size:14px;color:{MUTED};max-width:70ch">Fig. 5 puts Fig. 3 and
+Fig. 4 back together. The ink halves share the two joins exactly — the cleft
+at (0, 1) and the bottom at (0, −1). The only gap is in the Euler fit, whose two
+ends miss the axis by the amount below.</p>
+<section><h2>Fig. 5 · both halves</h2><div class="art">{whole_heart(half, poly)}</div>
+<p class="cap">the ink halves meet at the cleft and the bottom; the Euler halves
+meet within {join_gap:.3f} units at the bottom, and exactly at the cleft</p></section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "hearts.html"
