@@ -436,15 +436,16 @@ remote MVP now exist.
 - **The goal as stated 2026-11-01: unify every current input.** One central
   page, plain explanations, branching to the individual input pages. Not the
   twenty fleur studies.
-- **Parked: rename `curve-lab` → `curve-lab`.** Size, measured 2026-11-01:
-  `curve_lab` 174 hits / 59 files, `curve-lab` 43 / 19, `clothoid-web` 25 /
-  7, `clothoid-token` 8 / 7, `clothoid-engine` 4 / 4, `Clothoid` 46 / 17.
-  Order matters: (1) package dir + imports, local only; (2) `mkdocs.yml`
-  site_name and prose; (3) deployment — a renamed Cloud Run service is a **new
-  service**, so the old one keeps billing until deleted, and a renamed secret
-  breaks auth until both sides move; (4) the directory itself and the
-  `.opencode` command paths. Keep "clothoid" wherever it means the *curve*; only
-  the project name changes.
+- **RENAME DONE, locally, 2026-11-01.** Package is `curve_lab/`, directory is
+  `~/developer/curve-lab`; imports, pyproject, Dockerfile, mkdocs site name,
+  docs prose, page text, `.opencode` commands and the parity json all follow.
+  Six commits, the last two being the package and the move; the session was
+  moved with the directory so everything builds from the new root.
+  **Still deployed under the old name, deliberately:** Cloud Run `clothoid-web`,
+  secret `clothoid-token`, engine base `clothoid-engine`, budget alert.
+  Renaming those mints a new service that bills next to the old one until it is
+  deleted, and a renamed secret 401s the site if only one side moves. Keep
+  "clothoid" wherever it means the *curve*; only the project name changed.
 - **Correction to the "integer milestones are impossible" claim.** They are not:
   any finite set of rational parameters clears at the lcm of their
   denominators. What *is* impossible is the chat log's "infinitely many integer
