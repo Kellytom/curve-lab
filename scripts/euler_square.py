@@ -20,6 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
+TAN, OVERLAY = "#b9a77f", "#1f5fa8"
 GRID, LINE, MUTED = "#ece4cf", "#d8ccae", "#7b6c4e"
 
 N = 600
@@ -120,6 +121,20 @@ def normalise(pts, half=1.0):
     return [((x - cx) / w * half, (y - cy) / w * half) for x, y in pts]
 
 
+def curve_deviation(a, b):
+    """Symmetric maximum distance between two sampled curves, as a fraction
+    of size (both are normalised to half-extent 1, so size is 2)."""
+    def one(x, y):
+        return max(min(math.dist(p, q) for q in y) for p in x)
+    return max(one(a, b), one(b, a)) / 2.0
+
+
+def family_deviations(ns=(2, 3, 4, 6, 12)):
+    paths, _, _ = square()
+    euler = normalise([pt for seg in paths for pt in seg])
+    return [(n, curve_deviation(euler, superellipse(n))) for n in ns]
+
+
 def curvature_check(paths, samples=400):
     """The heading change from one arc to the next, at every join."""
     worst = 0.0
@@ -140,7 +155,8 @@ def mixed_figure(w=560.0, h=560.0):
     euler = [pt for seg in paths for pt in seg]
     euler = normalise(euler)
     squircle = superellipse(4)
-    family = [superellipse(n) for n in (2, 3, 6, 12)]
+    n3 = superellipse(3)
+    family = [superellipse(n) for n in (2, 6, 12)]
 
     allpts = euler + squircle + [p for f in family for p in f]
     xs = [p[0] for p in allpts]
@@ -160,14 +176,15 @@ def mixed_figure(w=560.0, h=560.0):
         return (f'<path d="{d}" fill="none" stroke="{colour}" '
                 f'stroke-width="{width}" {dash}/>')
 
-    fam = "".join(line(f, "#cbb98a", 1.0, 'stroke-dasharray="2 4"') for f in family)
+    fam = "".join(line(f, "#d9cda9", 1.0, 'stroke-dasharray="2 4"') for f in family)
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
     {fam}
     <path d="M {" L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in squircle)}"
           fill="none" stroke="{GOLD}" stroke-width="1.8" stroke-dasharray="7 5"/>
     <path d="M {" L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in euler)}"
-          fill="none" stroke="{INK}" stroke-width="2.6" stroke-linejoin="round"/>
+          fill="none" stroke="{TAN}" stroke-width="2.8" stroke-linejoin="round"/>
+    {line(n3, OVERLAY, 1.9)}
   </svg>"""
 
 
@@ -176,6 +193,11 @@ def main():
     corner_len = sum(math.dist(a, b) for a, b in zip(c, c[1:]))
     kinks = curvature_check([c])
     paths, w, reach = square()
+    devs = family_deviations()
+    dev_rows = "".join(
+        f'<tr class="hi"><td>{n}</td><td>{100*d:.2f}%</td></tr>' if n == 3
+        else f'<tr><td>{n}</td><td>{100*d:.2f}%</td></tr>'
+        for n, d in devs)
     page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -192,6 +214,10 @@ section{{background:#fffdf7;border:1px solid {LINE};padding:12px}}
 svg{{display:block;width:100%;height:auto}}
 .panel{{background:#fffdf7;border:1px solid {LINE};padding:16px 18px;margin:0 0 20px}}
 .cap{{font-size:12px;color:{MUTED};margin:0}}
+table{{border-collapse:collapse;margin:10px 0 0;font:12px/1.5 ui-monospace,Menlo,monospace}}
+th,td{{border-bottom:1px solid {LINE};padding:4px 16px 4px 0;text-align:left}}
+th{{color:{MUTED};font-weight:600}}
+tr.hi td{{color:{OVERLAY};font-weight:600}}
 </style></head><body><main>
 <h1>A rounded square from eight Euler arcs</h1>
 <p class="lead">Tighten to 45°, relax to 90°, four times. Eight arcs and no
@@ -221,13 +247,19 @@ unit clothoid · largest heading change between consecutive samples
 </div>
 
 <h2 style="margin-top:32px">Fig. 3 · the tight square, the squircle, and the family between</h2>
-<p style="font-size:14px;color:{MUTED};max-width:72ch">Ink is the eight-arc
-Euler square, gold is the squircle <code>|x|⁴ + |y|⁴ = 1</code>, and the dashed
-pale curves are the superellipse family at <code>n = 2, 3, 6, 12</code> — circle
-through squircle to square. The Euler square sits outside the squircle of the
+<p style="font-size:14px;color:{MUTED};max-width:72ch">Pale tan is the eight-arc
+Euler square, blue is the cubic superellipse <code>n = 3</code>, gold is the
+squircle <code>|x|⁴ + |y|⁴ = 1</code>, and the dashed pale curves are
+<code>n = 2, 6, 12</code>. The Euler square sits outside the squircle of the
 same width, because its corners are built from a curvature tent rather than one
 formula: it is slightly fuller at the diagonal and quite a lot straighter along
-the sides. Not the same curve, and there is no reason it should be.</p>
+the sides.</p>
+<p style="font-size:14px;color:{MUTED};max-width:72ch">At <code>n = 3</code>
+the superellipse is <strong>1.05% of size</strong> from the Euler square; the
+squircle is 3.63%. The cubic is the closest member of the family, which is why
+it is the one picked out in blue — the Euler square and the cubic almost
+coincide.</p>
+<table><tr><th>superellipse n</th><th>deviation from Euler</th></tr>{dev_rows}</table>
 <section><div>{mixed_figure()}</div></section>
 </main></body></html>
 """
