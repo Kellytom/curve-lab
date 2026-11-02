@@ -53,10 +53,8 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **246 pass** (1 skipped), last full run 2026-11-02 at
-  `3a354f1`; carried — nothing under `web/`, `curve_lab/`, `csrc/` or `tests/`
-  differs from HEAD. Nothing under `web/`, `curve_lab/`, `csrc/` or `tests/` differs
-  from HEAD, so they were not re-run for this handoff.
+- **Local tests:** **246 pass** (1 skipped), full run 2026-11-02 after the
+  heart fix at `2aea0f1`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -71,7 +69,7 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD `3a354f1` (2026-11-02). Tree clean; untracked are three
+- **Git:** HEAD `2aea0f1` (2026-11-02). Tree clean; untracked are three
   photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
   and `state/monitor.log`, which is a log and stays untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -121,8 +119,12 @@ tangency construction. Everything below is committed.
   spans work at 0.44–1.1%. Cusps defeat all of them (9–63%), as the literature
   says they must.
 - **`workbench/hearts.html`** — a unit clothoid rotated until it kisses the y
-  axis, then mirrored. Fig. 1 and 2 are good; Fig. 3/4 are broken and known to
-  be broken.
+  axis, then mirrored. Fig. 1 and 2 are good. Fig. 3/4 now close on the lobe
+  tip `(1.139028, 0.545330)`, where the two y-roots merge (`8y³−y²−1 = 0`,
+  `x² = 1+y²`); the Euler polygon is 32 chords at **0.73%** of size with both
+  ends within 0.003 units of the axis. The clothoid-span chain needs 32 spans
+  for 1.44% (4 spans 8.21%) — that is now the open reading, not the sample
+  path.
 - **`workbench/euler-square.html`** — eight arcs, curvature a tent, a tight
   square with G2 everywhere.
 - **`reference/external/parallel-beziers.html`** — Raph Levien on offsetting a
@@ -505,13 +507,22 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
 
 ## Next move
 
-**One action: fix the heart half's sample path.** The upper and lower branches
-of the Beutel sextic end at different points on the tip — `(1.105, 0.789)` and
-`(1.105, 0.28)` — a **0.508 jump in a 3.63 arc**, and that jump is the whole
-11.7% error on Fig. 3/4 of `workbench/hearts.html`. Find the tip properly, where
-the two roots merge (the discriminant of the cubic in `y` vanishes), and splice
-both branches through it. Then the Euler fit can finally be judged, because at
-present the measurement is measuring the bug.
+**Done (2026-11-02): the heart half closes at its lobe tip.** The tip is the
+double root of the sextic in `y`: `f = 0` and `f_y = 0` give `x² = 1+y²` and
+`8y³ − y² − 1 = 0`, so `(x, y) = (1.139028…, 0.545330…)`. The sampler now stops
+there and closes both branches on it; the old `x = 1.105` limit left a 0.508
+jump in a 3.63 arc. Euler: 32 chords, **0.73%** of size, both ends within
+0.003 units of the axis. The span chain is the honest open reading: 32 spans
+for 1.44%, 4 spans for 8.21%.
+
+**Next, per the operator (2026-11-02): the heart family.** Add 5+ heart
+equations (the internet has more formulae) to one heart-forms page, each
+sampled to its true extent and spliced at its own tips, then read them against
+the French curves, catenaries and clothoids. The mirrored-clothoid join is a
+separate action: a double tangent is three unknowns (rotation plus two arc
+parameters), and the minimum-width bounding-box pose is a different condition
+(parallel support lines, a double *normal*), so it is a good canonical pose but
+not the answer. Clouds from clothoid puffs use that same double-tangent join.
 
 What is left from this session, in order:
 
