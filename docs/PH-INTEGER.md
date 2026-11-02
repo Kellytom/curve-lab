@@ -136,7 +136,7 @@ with a cusp does not, and sampling is the honest fallback.
 |---|---|---|---|---|
 | bean | `x⁴ + x²y² + y⁴ = x(x² + y²)` | 4 | rational · exact Bézier | control 12, milestones 273 |
 | bicorn | `y²(1 − x²) = (x² + 2y − 1)²` | 4 | rational · exact Bézier | control 6, milestones 105 |
-| pear | `x² = y³(1 − y)` | 4 | not rational · sampled | — |
+| pear | `x² = y³(1 − y)` | 8 | rational · exact Bézier | control 35, milestones 625 |
 | heart | `(x² + y² − 1)³ = x²y³` | 6 | not rational · sampled | — |
 | nodal | `y² = x²(x + 1)` | 3 | rational · exact Bézier | control 3, milestones 1 |
 | tschirnhausen | `27y² = (1 − x)(8 + x)²` | 3 | rational · exact Bézier | control 1, milestones 27 |
@@ -156,7 +156,7 @@ with a cusp does not, and sampling is the honest fallback.
 | bernoulli | `(x² + y²)² = x² − y²` | 4 | rational · exact Bézier | control 4, milestones 41 |
 | gerono | `x⁴ − x² + y² = 0` | 4 | rational · exact Bézier | control 6, milestones 25 |
 | cruciform | `x²y² − b²x² − a²y² = 0` | 4 | rational · unbounded, sampled per arm | — |
-| piriform | `x⁴ − 2x³ + y² = 0` | 4 | rational · exact Bézier | control 6, milestones 25 |
+| piriform | `x⁴ − 2x³ + y² = 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
 
 The bean is worth spelling out. In polar form it is `r = cosθ / (1 − ¼sin²2θ)`,
 a ratio of polynomials; with `t = tan(θ/2)` and `t = s/(1−s)` it becomes an

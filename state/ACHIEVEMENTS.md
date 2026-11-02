@@ -9,10 +9,10 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | from_pairs is the same fit as from_hermite | worst disagreement 1.6e-14 | scripts/hodograph.py — the frame rotates by the tangent, not its half |
 | ok | the degree lemma: n = deg h + 2 max(deg u, deg v) + 1 | 4/4 splits give the degree they claim | scripts/generators.py — Farouki & Sakkalis; why quartics and sextics need h |
 | ok | every exact named curve is its own curve | OK | tests/test_named_curves.py — checked against an independent equation |
-| ok | 23 named curves, 19 exact, with the recorded scales | 23 total, 19 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
-| ok | the four non-rational named curves are the ones we expect | cruciform, heart, pear, squircle | tests/test_named_curves.py — squircle genus 3, heart 4, pear 2; cruciform unbounded |
+| ok | 23 named curves, 19 exact, with the recorded scales | 23 total, 20 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
+| ok | the four non-rational named curves are the ones we expect | cruciform, heart, squircle | tests/test_named_curves.py — squircle genus 3, heart 4, pear 2; cruciform unbounded |
 | ok | a finer grid does not buy hits; the right factors do | grids 12/48/156/273 -> [3, 3, 3, 12] hits | workbench/generators.html Fig. 1a/1b — bean: 3 hits at grid 12, 48 and 156; 12 at 273 |
-| ok | grids under 3125 take the exact curves from 109 hits to 789 | control 109, optimised 789 | scripts/generators.py best_grid(); the table on the generators page |
+| ok | grids under 3125 take the exact curves from 112 hits to 801 | control 112, optimised 801 | scripts/generators.py best_grid(); the table on the generators page |
 | ok | clothoid spans match smooth curves and cannot match a cusp | smooth 0.92%, cusped 15.2% | scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes |
 | ok | the 3-4-5 ladder is fine enough long before a 3125 grid | 350 rungs, median gap 0.14 degrees | scripts/curve_families.py ladder() — measured rung spacing |
 | ok | the hub is built from the manifest and every page carries its bar | 19 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |

@@ -1,9 +1,13 @@
-// Screenshot a page through the persistent headless Chrome on CDP 9223.
-// No dependencies: Node 22's global WebSocket plus fetch.
+// Screenshot a page with Playwright. No daemon, no fixed port: the browser is
+// launched for the shot and closed after it.
 //
 //   node scripts/shot.mjs <url> <out.png> [width] [height] [full|viewport]
+//
+// Playwright launches the Chrome already on the machine; nothing has to be
+// running beforehand, which is what the old CDP-on-9223 version required.
 
 import fs from "node:fs";
+import { chromium } from "playwright-core";
 
 const [, , url, out, w = "900", h = "1400", mode = "full"] = process.argv;
 if (!url || !out) {
@@ -11,58 +15,37 @@ if (!url || !out) {
   process.exit(2);
 }
 
-const BASE = "http://127.0.0.1:9223";
+const candidates = [
+  process.env.CHROME_PATH,
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  `${process.env.HOME}/.cache/puppeteer/chrome-headless-shell/mac-133.0.6943.98/chrome-headless-shell-mac-x64/chrome-headless-shell`,
+].filter(Boolean);
 
-const version = await fetch(`${BASE}/json/version`).catch(() => null);
-if (!version || !version.ok) {
-  console.error("no Chrome on 127.0.0.1:9223 — start it with:");
-  console.error("  /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome \\");
-  console.error("    --headless=old --disable-gpu --remote-debugging-port=9223 \\");
-  console.error("    --user-data-dir=$TMPDIR/opencode/chrome-profile about:blank");
+let browser = null;
+let lastError = null;
+for (const executablePath of candidates) {
+  if (!fs.existsSync(executablePath)) continue;
+  try {
+    browser = await chromium.launch({ executablePath, headless: true });
+    break;
+  } catch (error) {
+    lastError = error;
+  }
+}
+if (!browser) {
+  console.error("no Chrome could be launched:", lastError?.message ?? "none found");
   process.exit(1);
 }
 
-const tab = await (await fetch(`${BASE}/json/new?${encodeURIComponent(url)}`, {
-  method: "PUT",
-})).json();
-
-const ws = new WebSocket(tab.webSocketDebuggerUrl);
-const pending = new Map();
-let next = 0;
-
-ws.onmessage = (event) => {
-  const msg = JSON.parse(event.data);
-  const done = pending.get(msg.id);
-  if (done) {
-    pending.delete(msg.id);
-    done(msg);
-  }
-};
-await new Promise((resolve) => { ws.onopen = resolve; });
-
-const send = (method, params = {}) => new Promise((resolve) => {
-  const id = ++next;
-  pending.set(id, resolve);
-  ws.send(JSON.stringify({ id, method, params }));
+const page = await browser.newPage({
+  viewport: { width: Number(w), height: Number(h) },
+  deviceScaleFactor: 1,
 });
-
-await send("Page.enable");
-await send("Emulation.setDeviceMetricsOverride", {
-  width: Number(w), height: Number(h), deviceScaleFactor: 1, mobile: false,
-});
-await send("Page.navigate", { url });
-await new Promise((resolve) => setTimeout(resolve, 800));
-
-const metrics = await send("Page.getLayoutMetrics");
-const size = metrics.result.cssContentSize;
-const clip = mode === "full"
-  ? { x: 0, y: 0, width: size.width, height: size.height, scale: 1 }
-  : undefined;
-const shot = await send("Page.captureScreenshot", clip
-  ? { format: "png", captureBeyondViewport: true, clip }
-  : { format: "png" });
-
-fs.writeFileSync(out, Buffer.from(shot.result.data, "base64"));
-await fetch(`${BASE}/json/close/${tab.id}`);
-ws.close();
-console.log(out, `${Math.round(size.width)}x${Math.round(size.height)}`);
+await page.goto(url, { waitUntil: "load", timeout: 20000 });
+await page.screenshot({ path: out, fullPage: mode === "full" });
+const size = await page.evaluate(() => [
+  document.documentElement.scrollWidth,
+  document.documentElement.scrollHeight,
+]);
+console.log(out, `${size[0]}x${size[1]}`);
+await browser.close();

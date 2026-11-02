@@ -102,7 +102,7 @@ def c_counts():
         d = G.named_data(spec)
         if (d["cscale"], d["mscale"]) != want:
             bad.append(f"{key} {(d['cscale'], d['mscale'])} != {want}")
-    return (len(G.NAMED) == 23 and len(exact) == 19 and not bad,
+    return (len(G.NAMED) == 23 and len(exact) == 20 and not bad,
             f"{len(G.NAMED)} total, {len(exact)} exact" + (f"; {bad[0]}" if bad else ""))
 
 
@@ -112,7 +112,7 @@ def c_counts():
 def c_sampled():
     import generators as G
     sampled = sorted(s["key"] for s in G.NAMED if not G.named_data(s)["exact"])
-    return (sampled == ["cruciform", "heart", "pear", "squircle"], ", ".join(sampled))
+    return (sampled == ["cruciform", "heart", "squircle"], ", ".join(sampled))
 
 
 # -- integer hits ------------------------------------------------------------
@@ -127,7 +127,7 @@ def c_granularity():
     return got == [3, 3, 3, 12], f"grids 12/48/156/273 -> {got} hits"
 
 
-@check("grids under 3125 take the exact curves from 109 hits to 789",
+@check("grids under 3125 take the exact curves from 112 hits to 801",
        "scripts/generators.py best_grid(); the table on the generators page",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_hit_totals():
@@ -139,7 +139,7 @@ def c_hit_totals():
             continue
         control += len(G.hit_points(s, d["cscale"]))
         best += G.best_grid(s)[1]
-    return (control, best) == (109, 789), f"control {control}, optimised {best}"
+    return (control, best) == (112, 801), f"control {control}, optimised {best}"
 
 
 @check("clothoid spans match smooth curves and cannot match a cusp",

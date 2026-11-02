@@ -40,6 +40,7 @@ IMPLICIT = {
     "trifolium": lambda x, y: (x * x + y * y) ** 2 - x ** 3 + 3 * x * y * y,
     "quadrifolium": lambda x, y: (x * x + y * y) ** 3 - (x * x - y * y) ** 2,
     "circle": lambda x, y: x * x + y * y - 1,
+    "pear": lambda x, y: x * x - y ** 3 * (1 - y),
 }
 
 # roulettes: checked against their trigonometric definition, which is what the
@@ -134,7 +135,8 @@ class TestNamedCurves(unittest.TestCase):
         expect = {
             "bean": (12, 273), "bicorn": (6, 105), "nodal": (3, 1),
             "tschirnhausen": (1, 27), "bow": (3, 16), "circle": (1, 5),
-            "piriform": (6, 25), "gerono": (6, 25), "cardioid": (3, 25),
+            "piriform": (3, 25), "gerono": (6, 25), "cardioid": (3, 25),
+            "pear": (35, 625),
             "bernoulli": (4, 41), "trifolium": (12, 50), "astroid": (5, 1),
             "deltoid": (3, 1), "nephroid": (5, 1), "quadrifolium": (15, 125),
             "rounded square": (1, 425),
@@ -168,7 +170,7 @@ class TestNamedCurves(unittest.TestCase):
         self.assertEqual(G.roulette(4, -1)[0], [3, 0, 36, 0, -70, 0, 20, 0, -5])
 
     def test_non_rational_curves_are_declared_sampled(self):
-        for key in ("squircle", "pear", "heart", "cruciform"):
+        for key in ("squircle", "heart", "cruciform"):
             with self.subTest(curve=key):
                 self.assertFalse(G.named_data(entries()[key])["exact"])
 

@@ -294,10 +294,11 @@ NAMED = [
          tail="rational quartic · two branches, joined at (±1, 0)",
          branches=[([0, 2, 0, 6], [1, 0, -2, 0, 1], [1, 0, 4, 0, 3]),
                    ([0, 6, 0, 2], [1, 0, -2, 0, 1], [3, 0, 4, 0, 1])]),
-    dict(key="pear", deg=4, m=None,
+    dict(key="pear", deg=8, m=4,
          eq="x² = y³(1 − y)",
-         tail="quartic, cusp at the origin · genus 2 · sampled",
-         branches=None, sampler="pear"),
+         tail="rational after all · y = sin² t, x = sin³ t cos t",
+         branches=[([0, 0, 0, 8, 0, -8], [0, 0, 4, 0, 8, 0, 4],
+                    [1, 0, 4, 0, 6, 0, 4, 0, 1])]),
     dict(key="heart", deg=6, m=None,
          eq="(x² + y² − 1)³ = x²y³",
          tail="sextic, three cusps · genus 4 · sampled",
@@ -357,7 +358,8 @@ NAMED = [
     dict(key="trifolium", deg=4, m=4,
          eq="(x² + y²)² − x³ + 3xy² = 0",
          tail="three-petaled rose · rational quartic · r = −cos 3θ",
-         branches=[([1, 0, -3], [0, 1, 0, -3], [1, 0, 2, 0, 1])]),
+         branches=[([1, 0, -3], [0, 1, 0, -3], [1, 0, 2, 0, 1]),
+                   ([1, 0, -3], [0, -1, 0, 3], [1, 0, 2, 0, 1])]),
     dict(key="quadrifolium", deg=6, m=4,
          eq="(x² + y²)³ = (x² − y²)²",
          tail="four-petaled rose · r = cos 2θ · rational sextic",
@@ -406,8 +408,9 @@ NAMED = [
          branches=None, sampler="cruciform"),
     dict(key="piriform", deg=4, m=4,
          eq="x⁴ − 2x³ + y² = 0",
-         tail="rational quartic · a⁴y² = b²x³(2a − x), a = b = 1 · one cusp",
-         branches=[([1, 2, 2, 2, 1], [1, 2, 0, -2, -1], [1, 0, 2, 0, 1])]),
+         tail="a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
+         branches=[([2, 0, 2], [0, 4], [1, 0, 2, 0, 1]),
+                   ([2, 0, 2], [0, -4], [1, 0, 2, 0, 1])]),
 ]
 
 
@@ -955,6 +958,17 @@ code{{font:12px/1.4 ui-monospace,Menlo,monospace;background:#f1ead8;padding:1px 
 you can say out loud.</p>
 
 <div class="panel">
+<p><strong>What this page is for, in plain words.</strong> A curve drawn on a
+screen is usually a chain of decimals. A curve drawn here is a chain of whole
+numbers, chosen before anything is drawn, so the same shape can be cut, measured
+or typed into another program without rounding. That is the whole point: pick
+four whole numbers, get a curve whose control points are whole numbers too.</p>
+<p>The rest of the page is the arithmetic behind that, then a gallery of twenty
+named curves — the ones people actually draw — each with the grid it needs and
+the points where it lands exactly on the grid.</p>
+</div>
+
+<div class="panel">
 <p><strong>The input is the generator, not the curve.</strong> Every planar
 polynomial PH curve is written</p>
 <p style="margin-left:14px"><code>z′(t) = h(t) · ( u(t)² − v(t)² , 2u(t)v(t) )</code>,
@@ -989,7 +1003,7 @@ other side: the grid that collects hits is the one assembled out of the
 arithmetic, not rounded up to something round. And because a hit only needs its
 denominator to <em>divide</em> the grid, the grid is a factorisation problem.
 Searching the grids under 3125 for the best one per curve gives
-<strong>789 hits across the nineteen exact curves, against 109 at their
+<strong>801 hits across the twenty exact curves, against 112 at their
 control scales</strong> — seven times as many, with the same curves and no new
 mathematics. The table's last two columns carry that per curve: the count at
 the control scale, and the best count and grid under 3125.</p>
