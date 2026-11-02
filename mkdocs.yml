@@ -1,4 +1,4 @@
-site_name: clothoid-lab
+site_name: curve-lab
 site_description: Clothoid curves, pythagorean triples, and the ornament work built on them.
 docs_dir: docs
 exclude_docs: |
@@ -50,9 +50,11 @@ nav:
   - The engine:
       - Architecture: ARCHITECTURE.md
       - Curve model: CURVE-MODEL.md
+      - Integer PH curves: PH-INTEGER.md
       - The spine layer: SPINE.md
       - Glossary: GLOSSARY.md
       - The web workbench: WEB-GUIDE.md
+      - The input hub: HUB.md
   - Design:
       - Philosophy: PHILOSOPHY.md
       - Clearance: CLEARANCE.md
