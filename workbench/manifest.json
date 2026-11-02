@@ -189,6 +189,15 @@
       "purpose": "One Euler arc, rotated until it kisses the axis, then mirrored.",
       "inputs": "turns, the rotation found by tangency, where to cut",
       "outputs": "a heart silhouette, and the grid cost of the cut"
+    },
+    {
+      "key": "euler-square",
+      "file": "euler-square.html",
+      "group": "curve",
+      "title": "Euler square",
+      "purpose": "A rounded square whose corners are clothoids, not arcs.",
+      "inputs": "corner scale, straight-run length",
+      "outputs": "eight arcs, curvature continuous everywhere"
     }
   ]
 }
