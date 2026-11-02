@@ -46,6 +46,7 @@ GRID, LINE, MUTED = "#ece4cf", "#d8ccae", "#7b6c4e"
 C = math.sqrt(math.pi) / 2.0
 S = 40.0
 N = 40000
+TABLE_PHI = math.radians(321.544)    # 38.456 degrees clockwise
 
 
 def width_at(points, theta):
@@ -205,6 +206,48 @@ def boxed_figure(points, theta, w=430.0, h=340.0):
   </svg>"""
 
 
+def table_contact(points, phi=TABLE_PHI):
+    """The two lowest points of the rotated full curve, and their heights."""
+    c, s = math.cos(phi), math.sin(phi)
+    frame = [(x * c - y * s, x * s + y * c) for x, y in points]
+    ys = [p[1] for p in frame]
+    mins = [(ys[i], i) for i in range(1, len(ys) - 1)
+            if ys[i] <= ys[i - 1] and ys[i] <= ys[i + 1]]
+    mins.sort()
+    (y1, i1), (y2, i2) = mins[0], mins[1]
+    return frame, i1, i2, y1, y2
+
+
+def table_figure(points, w=880.0, h=360.0):
+    """The full ± curve rotated onto a near-horizontal support line."""
+    frame, i1, i2, y1, y2 = table_contact(points)
+    p1, p2 = frame[i1], frame[i2]
+    put, _ = scale(frame, w, h, pad=0.10)
+    a = put((min(q[0] for q in frame), y1))
+    b = put((max(q[0] for q in frame), y1))
+    q1, q2 = put(p1), put(p2)
+    gap = y2 - y1
+    lx, ly = q2[0] + 14, q2[1] - 22
+    svg = f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
+    {path(frame, put, INK, 2.0)}
+    <line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}"
+          stroke="{GOLD}" stroke-width="1.4"/>
+    <circle cx="{q1[0]:.1f}" cy="{q1[1]:.1f}" r="4.2" fill="{DOT}"/>
+    <circle cx="{q2[0]:.1f}" cy="{q2[1]:.1f}" r="4.2" fill="{DOT}"/>
+    <line x1="{q2[0]:.1f}" y1="{q2[1]:.1f}" x2="{lx:.1f}" y2="{ly:.1f}"
+          stroke="{DOT}" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="{lx + 4:.1f}" y="{ly - 2:.1f}" font-size="11" fill="{DOT}">
+      second contact +{gap:.5f}</text>
+  </svg>"""
+    c, s = math.cos(TABLE_PHI), math.sin(TABLE_PHI)
+
+    def inv(p):
+        return (p[0] * c + p[1] * s, -p[0] * s + p[1] * c)
+
+    return svg, inv(p1), inv(p2), gap
+
+
 def width_chart(half, full, half_th, full_th, w=880.0, h=300.0):
     angles = [math.pi * i / 360 for i in range(361)]
     wh = [width_at(half, t)[0] for t in angles]
@@ -273,6 +316,8 @@ def main():
           f"  height {half_h:.6f}")
     print(f"  full  min width {full_w:.6f} at {math.degrees(full_th) % 180:.2f} deg"
           f"  height {full_h:.6f}")
+    tab_svg, tab1, tab2, tab_gap = table_figure(full)
+    print(f"  table contact gap {tab_gap:.6f} at 38.46 deg CW")
 
     page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -298,8 +343,9 @@ th{{color:{MUTED};font-weight:600}}
 </style></head><body><main>
 <h1>Clothoid cut</h1>
 <p class="lead">The eye is <code>(√π/2, √π/2)</code>.  Cut the curve at the
-origin, box one half, and the box's best width is a double normal, not a double
-tangent.</p>
+origin and box one half: the box's best width is a double normal, not a double
+tangent.  The full ± curve on a table is a different pair — 38.5° clockwise
+leaves its outer turns level to {tab_gap:.5f}.</p>
 <div class="panel">
 <p><strong>The centre is exact.</strong> With <code>x(s)=∫cos(t²/2)dt</code> and
 <code>u=s/√2</code>, the limit is <code>√2∫₀^∞cos(u²)du = √π/2</code>, so the two
@@ -319,10 +365,12 @@ line touching twice, which the box cannot supply.</p>
 <tr><td>half, s ≥ 0</td><td>{half_w:.4f}</td><td>{math.degrees(half_th) % 180:.1f}°</td><td>{half_h:.4f}</td></tr>
 <tr><td>full, s ≥ 0 plus its point reflection</td><td>{full_w:.4f}</td><td>{math.degrees(full_th) % 180:.1f}°</td><td>{full_h:.4f}</td></tr>
 </table>
-<p style="font-size:12px;color:{MUTED}">The closest <em>actual</em> double
-tangency of one 2-turn clothoid arc is 0.079 units at φ=90° (the table on
-<code>hearts.html</code>), and that pair sits near the eye.  The box's best is
-an order of magnitude larger, so the box is not the join.</p>
+<p style="font-size:12px;color:{MUTED}">The 0.079 figure is the <em>same-half
+mirror join</em>, where both contacts are on one half (the table on
+<code>hearts.html</code>); that pair sits near the eye.  The full ± curve is
+different: at 38.5° clockwise its two outer turns are level to
+<strong>{tab_gap:.5f}</strong> (Fig. 5).  That is the usable table contact.  The box's
+best is still {full_w:.3f}, so the box is not that join.</p>
 </div>
 <div class="grid2">
 <section><h2>Fig. 1 · the cut</h2><div class="art">{cut_figure(pts)}</div>
@@ -347,6 +395,16 @@ function is periodic in 180°, and neither minimum is zero.</p>
 <section><h2>Fig. 4 · width vs angle</h2><div class="art">{width_chart(half_hull, full_hull, half_th, full_th)}</div>
 <p class="cap">half {half_w:.4f} at {math.degrees(half_th) % 180:.1f}° ·
 full {full_w:.4f} at {math.degrees(full_th) % 180:.1f}°</p></section>
+<h2 style="margin-top:32px">The table contact</h2>
+<p style="font-size:14px;color:{MUTED};max-width:70ch">Rotate the whole ± curve
+by <strong>38.5° clockwise</strong> and the two outer-turn points are level to
+<strong>{tab_gap:.5f} units</strong> — visually a table contact, not exactly.  The two
+points are on the outer turns, not near the eye, so this is a heart-sized pair.
+It is a different object from the same-half mirror join (0.079) and from the
+minimum-width box (0.984): here one support line touches twice.</p>
+<section><h2>Fig. 5 · the full pair on a table</h2><div class="art">{tab_svg}</div>
+<p class="cap">rotation 38.5° CW · contacts ({tab1[0]:.3f}, {tab1[1]:.3f}) and
+({tab2[0]:.3f}, {tab2[1]:.3f}) · gap {tab_gap:.5f} units</p></section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "clothoid-cut.html"

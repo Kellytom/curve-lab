@@ -452,12 +452,15 @@ The cleft is the kiss; the little extra is where it carries on past it.</p>
 to be smooth the arc has to meet the y axis at two places <em>tangentially</em> —
 it runs along the axis at both, so the mirror continues without a kink. After a
 rotation φ the vertical-tangent points are fixed by s²/2 + φ = π/2 + kπ; the
-two contacts lie on one line only when their rotated x agree. On a finite unit
-arc that never happens: the contacts crowd toward the clothoid's eye and their
-separation only tends to zero (table below). Fixing the arc's endpoints, as the
+two contacts lie on one line only when their rotated x agree. For <em>one half
+mirrored about the axis</em>, both contacts must be on that half; on a finite
+unit arc the gap never reaches zero — those contacts crowd toward the clothoid's
+eye and only tend to it (table below). Fixing the arc's endpoints, as the
 figures below do, leaves only the rotation free and one contact — which is why
-the bottom of Fig. 1 is a corner rather than a blend. An exact double tangent
-would need two separately placed arcs, or a different curve; it is still open.</p>
+the bottom of Fig. 1 is a corner rather than a blend. The <em>full ± curve</em>
+is a different pair: rotated 38.5° clockwise, its two outer turns are level to
+under 0.0001, a usable table contact (<code>clothoid-cut</code> Fig. 5). The
+mirror-axis join still needs two placed arcs or a stated gap.</p>
 <p>The rotations below are therefore not a family to pick from: they are the
 rotation at which the far end is tangent, for each half turn the arc completes.
 Any of them draws a heart. The first is merely the smallest.</p>
@@ -467,20 +470,22 @@ what was drawn and what was wanted, as a share of a stated reference. Where a
 number is not an error it says so in words.</p>
 </div>
 <div class="grid2">{''.join(cards)}</div>
-<h2 style="margin-top:32px">Double tangency: the finite arc has none</h2>
-<p style="font-size:14px;color:{MUTED};max-width:70ch">The table is the
-double-tangent measurement. For each turn count the arc was rotated to the
-closest approach; the two vertical-tangent contacts never share an x. They
-crowd toward the clothoid's eye, so the gap shrinks roughly with every
-doubling of turns and reaches zero only in the limit.</p>
+<h2 style="margin-top:32px">Double tangency: the half mirror join</h2>
+<p style="font-size:14px;color:{MUTED};max-width:70ch">This table is the
+same-half mirror join: both contacts on one half. For each turn count the arc
+was rotated to the closest approach; the two vertical-tangent contacts never
+share an x. They crowd toward the clothoid's eye, so the gap shrinks with every
+doubling of turns and reaches zero only in the limit. The full ± curve's table
+contact is a different pair — under 0.0001 at 38.5° CW (<code>clothoid-cut</code>
+Fig. 5).</p>
 <table>
 <tr><th>turns</th><th>closest gap</th><th>contacts (s)</th></tr>
 {dt_table}
 </table>
 <p style="font-size:14px;color:{MUTED};max-width:70ch">Closest always at
 φ = 90°. The closest pairs sit near the eye, so they are not heart-sized lobes:
-this is a limit, not a join. A two-arc placement, or a different curve, is the
-open route.</p>
+this is a limit, not a join. The full ± outer-turn contact is the usable join;
+the same-half axis join needs two placed arcs or a stated gap.</p>
 <h2 style="margin-top:32px">The heart, split at x = 0</h2>
 <p style="font-size:14px;color:{MUTED};max-width:70ch">The heart is symmetric
 in x, so it is two curves. Taking the positive-x half alone gives one open arc
