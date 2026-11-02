@@ -9,8 +9,8 @@ import heart_forms as H  # noqa: E402
 
 
 class HeartFormsTest(unittest.TestCase):
-    def test_five_forms(self):
-        self.assertEqual(len(H.FORMS), 5)
+    def test_forms(self):
+        self.assertGreaterEqual(len(H.FORMS), 15)
 
     def test_each_form_has_points(self):
         for form in H.FORMS:
@@ -20,10 +20,10 @@ class HeartFormsTest(unittest.TestCase):
                 pts = [p for branch in branches for p in branch]
                 self.assertGreater(len(pts), 500)
 
-    def test_page_has_five_figures(self):
+    def test_page_has_all_figures(self):
         page = (ROOT / "workbench" / "heart-forms.html").read_text(
             encoding="utf-8")
-        self.assertEqual(page.count("<svg"), 5)
+        self.assertEqual(page.count("<svg"), len(H.FORMS))
         for form in H.FORMS:
             self.assertIn(form["key"], page)
 
