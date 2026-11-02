@@ -154,6 +154,62 @@ def from_hermite(p0, theta0, p3, theta1):
     return PHCubic(u0, v0, u1, v1, origin=p0), (l1, l2, l3)
 
 
+def closure_integers(p0, p3, u0, v0, u1, v1):
+    """The k-quadratic of the fit, in integers, for direction *triples*.
+
+    A direction is (u, v) with u^2 + v^2 = h^2 in integers.  Write
+    Delta = p3 - p0 and
+
+        a = (Dx u0 + Dy v0) / h0        b = (-Dx v0 + Dy u0) / h0
+        P = u0u1 + v0v1                 Q = u0v1 - v0u1
+        ca = P / (h0 h1)                sa = Q / (h0 h1)
+
+    The closure conditions give A k^2 + B k + C = 0 with
+
+        A = (b(P^2-Q^2) - 2aPQ) / (h0^3 h1^2) = X / (h0^3 h1^2)
+        B = (bP - aQ) / (h0^2 h1)             = Y / (h0^2 h1)
+        C = b / h0
+
+    so the discriminant is
+
+        B^2 - 4AC = (Y^2 - 4Xb) / (h0^4 h1^2) = N / (h0^4 h1^2)
+
+    and since h0 h1 is an integer, "is this a rational square" is the
+    perfect-square test on N -- no floats anywhere.  Returns
+    (a, b, X, Y, N) as Fractions/ints.
+    """
+    h0 = math.isqrt(u0 * u0 + v0 * v0)
+    h1 = math.isqrt(u1 * u1 + v1 * v1)
+    if h0 * h0 != u0 * u0 + v0 * v0 or h1 * h1 != u1 * u1 + v1 * v1:
+        raise ValueError("direction is not a triple: u^2 + v^2 is not a square")
+    dx, dy = p3[0] - p0[0], p3[1] - p0[1]
+    a_num = dx * u0 + dy * v0
+    b_num = -dx * v0 + dy * u0
+    P = u0 * u1 + v0 * v1
+    Q = u0 * v1 - v0 * u1
+    X = b_num * (P * P - Q * Q) - 2 * a_num * P * Q
+    Y = b_num * P - a_num * Q
+    N = Y * Y - 4 * X * b_num
+    return a_num, b_num, X, Y, N
+
+
+def discriminant_state(p0, p3, u0, v0, u1, v1):
+    """('square' | 'not a square' | 'negative', N, root or None).
+
+    'negative' means no real PH cubic; 'square' means k -- and so all three
+    legs -- is rational, which is the exact condition the page calls
+    "integer control points where they exist".  Rational is not the same as
+    integral: see the drift note in workbench/catenary.html.
+    """
+    _, _, _, _, N = closure_integers(p0, p3, u0, v0, u1, v1)
+    if N < 0:
+        return "negative", N, None
+    r = math.isqrt(N)
+    if r * r == N:
+        return "square", N, r
+    return "not a square", N, None
+
+
 def from_pairs(p0, u0, v0, p3, u1, v1):
     """The same fit as from_hermite, with no sine, cosine or arctangent.
 
@@ -170,10 +226,14 @@ def from_pairs(p0, u0, v0, p3, u1, v1):
     """
     h0 = math.hypot(u0, v0)
     h1 = math.hypot(u1, v1)
-    c0, s0 = u0 / h0, v0 / h0
+    # The frame is the *tangent*, not the pair: the pair is the half angle, so
+    # its doubling is Euclid's formula.  Using u0/h0 here rotates by theta/2 and
+    # the fit only closes when that half angle is zero.
+    s0sq = h0 * h0
+    c0 = (u0 * u0 - v0 * v0) / s0sq
+    s0 = 2.0 * u0 * v0 / s0sq
     ca = (u0 * u1 + v0 * v1) / (h0 * h1)
     sa = (u0 * v1 - v0 * u1) / (h0 * h1)
-    theta0 = math.atan2(v0, u0) * 2.0
 
     dx, dy = p3[0] - p0[0], p3[1] - p0[1]
     a_ = dx * c0 + dy * s0
