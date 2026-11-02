@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **246 pass** (1 skipped), full run 2026-11-02 at `0d5c56a`.
+- **Local tests:** **249 pass** (1 skipped), full run 2026-11-02 at `e2e67c7`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -68,7 +68,7 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD `0d5c56a` (2026-11-02). Tree clean; untracked are three
+- **Git:** HEAD `e2e67c7` (2026-11-02). Tree clean; untracked are three
   photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
   and `state/monitor.log`, which is a log and stays untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -135,7 +135,13 @@ tangency construction. Everything below is committed.
   them, and the minimum-width box of one half is **0.898** at 150.5° (full pair
   **0.984** at 128.5°). The box edges are the two parallel support/tangent
   lines: a double normal, not a double tangent. Generator
-  `scripts/clothoid_cut.py`; added to the hub (21 pages).
+  `scripts/clothoid_cut.py`; added to the hub.
+- **`workbench/heart-forms.html`** (new, this session) — five heart curves to
+  their true extent: Beutel sextic, cardioid (`r = 1+sin θ`, the one rational
+  member), the `|x|^(2/3)` heart, the Fourier Valentine, and the polar heart
+  after MathWorld. Generator `scripts/heart_forms.py`; test
+  `tests/test_heart_forms.py` (5 forms, 5 figures). A catalogue, not a fit;
+  the hub is now 22 pages.
 - **`workbench/euler-square.html`** — eight arcs, curvature a tent, a tight
   square with G2 everywhere.
 - **`reference/external/parallel-beziers.html`** — Raph Levien on offsetting a
@@ -526,15 +532,16 @@ jump in a 3.63 arc. Euler: 32 chords, **0.73%** of size, both ends within
 0.003 units of the axis. The span chain is the honest open reading: 32 spans
 for 1.44%, 4 spans for 8.21%.
 
-**Next, per the operator (2026-11-02): the heart family.** Add 5+ heart
-equations (the internet has more formulae) to one heart-forms page, each
-sampled to its true extent and spliced at its own tips, then read them against
-the French curves, catenaries and clothoids. The mirrored-clothoid join is now
-measured, not a guess: on one finite arc the two vertical-tangent contacts only
-crowd toward the eye (the hearts table), and the minimum-width box is a double
-*normal* (the clothoid-cut page), so neither gives the join. A two-arc
-placement, or a different curve, is the open route. Clouds from clothoid puffs
-use that same join.
+**Done (2026-11-02): the heart family catalogue.** Five forms on
+`workbench/heart-forms.html`; only the cardioid is rational. The next single
+action is to measure the five (aspect, fill, cusp count) against the reference
+and fit one with a clothoid chain at the fidelity budget — read them against
+the French curves, catenaries and clothoids before choosing. The mirrored-
+clothoid join is now measured, not a guess: on one finite arc the two
+vertical-tangent contacts only crowd toward the eye (the hearts table), and the
+minimum-width box is a double *normal* (the clothoid-cut page), so neither
+gives the join. A two-arc placement, or a different curve, is the open route.
+Clouds from clothoid puffs use that same join.
 
 What is left from this session, in order:
 
