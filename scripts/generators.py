@@ -519,6 +519,174 @@ def named_data(spec):
                 milestones=mils, mscale=ms)
 
 
+# -- integer hits ------------------------------------------------------------
+#
+# A "hit" is a point of the curve that lands exactly on a lattice node.  The
+# count is taken over t = p/q with q <= QMAX, which is a stated sample, not a
+# theoretical maximum -- the curve is bounded, so the true number is finite but
+# there is no closed form for it.  What matters for design is the trend, and
+# the trend is blunt: multiplying the grid finds nothing new, because the
+# denominators that occur do not change.  The grid that collects hits is the
+# one built from the denominators that *do* occur.
+
+QMAX = 14
+_POINTS = {}
+
+
+def curve_points(spec):
+    """Every distinct point at t = p/q, q <= QMAX, plus the point at infinity."""
+    if spec["key"] in _POINTS:
+        return _POINTS[spec["key"]]
+    data = named_data(spec)
+    seen = set()
+    for ctrl in data["ctrl"]:
+        deg = len(ctrl) - 1
+
+        def at(s):
+            w = sum(F(p_[2]) * bern_n(j, deg, s) for j, p_ in enumerate(ctrl))
+            return None if w == 0 else homog_point(ctrl, s)
+
+        for q in range(1, QMAX + 1):
+            for p_ in range(-q, q + 1):
+                r = at(F(p_, q))
+                if r:
+                    seen.add(r)
+        r = at(F(1))
+        if r:
+            seen.add(r)
+    _POINTS[spec["key"]] = seen
+    return seen
+
+
+def hit_points(spec, scale):
+    """The lattice nodes this curve passes through at this grid, as integers."""
+    out = set()
+    for x, y in curve_points(spec):
+        X, Y = F(x) * scale, F(y) * scale
+        if X.denominator == 1 and Y.denominator == 1:
+            out.add((int(X), int(Y)))
+    return sorted(out)
+
+
+def hits_figure(spec, scale, caption, w=430.0, h=300.0):
+    data = named_data(spec)
+    curves = []
+    for ctrl in data["ctrl"]:
+        curves.append([(float(a) * scale, float(b) * scale)
+                       for a, b in (homog_point(ctrl, F(i, 200))
+                                    for i in range(201))])
+    marks = [(float(x), float(y)) for x, y in hit_points(spec, scale)]
+    pts = [p for c in curves for p in c] + marks
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    pad = 0.10
+    x0, x1 = x0 - pad * (x1 - x0), x1 + pad * (x1 - x0)
+    y0, y1 = y0 - pad * (y1 - y0), y1 + pad * (y1 - y0)
+    k = min((w - 18) / (x1 - x0), (h - 18) / (y1 - y0))
+    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+
+    def put(p):
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+
+    # the lattice, at a step that divides the grid
+    step = max(1, scale // 16)
+    lines = []
+    gx = x0 - x0 % step
+    while gx <= x1 + step:
+        a, b = put((gx, y0)), put((gx, y1))
+        lines.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                     f'y2="{b[1]:.1f}" stroke="{GRID}"/>')
+        gx += step
+    gy = y0 - y0 % step
+    while gy <= y1 + step:
+        a, b = put((x0, gy)), put((x1, gy))
+        lines.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                     f'y2="{b[1]:.1f}" stroke="{GRID}"/>')
+        gy += step
+
+    paths = "".join(
+        '<path d="' + "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
+                                        for p in c) +
+        f'" fill="none" stroke="{INK}" stroke-width="2.3"/>' for c in curves)
+    dots = "".join(
+        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.9" '
+        f'fill="{DOT}" stroke="#fffdf7" stroke-width="1.2"/>' for p in marks)
+    return (f'<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7"'
+            f' stroke="{LINE}"/>{"".join(lines)}{paths}{dots}</svg>',
+            len(marks), step)
+
+
+# -- the best grid under a budget -------------------------------------------
+#
+# Hits depend only on which denominators divide the grid, so the grid is a
+# factorisation problem, not a size one.  Hill-climb on prime factors, allowing
+# a swap as well as a multiply: multiplying alone gets stuck, e.g. growing
+# 5^6 and never discovering that 3 or 7 buys more.
+
+PRIMES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
+_GRID = {}
+
+
+def _score(dens, S):
+    return sum(1 for v in dens if S % v == 0)
+
+
+def best_grid(spec, budget=3125):
+    """The grid <= budget catching the most lattice points on this curve.
+
+    Scored on exactly the sample `hit_points` reports, so the two numbers in
+    the table are the same measurement.
+    """
+    key = (spec["key"], budget)
+    if key in _GRID:
+        return _GRID[key]
+    pts = curve_points(spec)
+    dens = [lcm(x.denominator, y.denominator) for x, y in pts]
+    ps = sorted({p for v in dens if v <= budget for p in PRIMES if v % p == 0})
+
+    def score(S):
+        return sum(1 for v in dens if S % v == 0)
+
+    best = (score(1), 1)
+    seeds = [1] + sorted({d for d in dens if d <= budget})[:8]
+    for seed in seeds:
+        S = seed
+        for _ in range(80):
+            cur = score(S)
+            nxt = None
+            for p in ps:                       # multiply
+                q = p
+                while q * S <= budget:
+                    sc = score(S * q)
+                    if sc > cur and (nxt is None or sc > nxt[0]):
+                        nxt = (sc, S * q)
+                    q *= p
+            if nxt:
+                S = nxt[1]
+                continue
+            moved = False
+            for p in ps:                       # swap one prime for another
+                if S % p:
+                    continue
+                for q in ps:
+                    if q == p:
+                        continue
+                    nS = S // p * q
+                    if nS <= budget and nS != S and score(nS) > cur:
+                        S, nxt, moved = nS, (0, nS), True
+                        break
+                if moved:
+                    break
+            if not nxt:
+                break
+        if score(S) > best[0]:
+            best = (score(S), S)
+    _GRID[key] = (best[1], best[0])
+    return _GRID[key]
+
+
 def named_figure(item, w=430.0, h=300.0):
     spec = item["spec"]
     if item["exact"]:
@@ -707,27 +875,36 @@ def page(items):
         measured.append(f"this cubic by eighths: <strong>{c8[2]}</strong>")
     measured_html = " · ".join(measured)
 
+    bean = [x for x in NAMED if x["key"] == "bean"][0]
+    hit_a, hits_a, _ = hits_figure(bean, 12, "a")
+    hit_b, hits_b, _ = hits_figure(bean, 273, "b")
+
     named = [named_data(s) for s in NAMED]
     named_cards = "".join(
-        f"""<section><h2>{it['spec']['key']}</h2>
+        f"""<section><h2>Fig. {6 + ni} · {it['spec']['key']}</h2>
   <p class="input">{it['spec']['eq']}</p>
   <div class="art">{named_figure(it)}</div>
   <p class="cap">{it['spec']['tail']}</p></section>"""
-        for it in named)
+        for ni, it in enumerate(named))
     named_rows = "".join(
         f"<tr><td>{it['spec']['key']}</td>"
         f"<td>{it['spec'].get('deg_label', it['spec']['deg'])}</td>"
         f"<td>{'yes' if it['exact'] else it['spec'].get('tier', 'no')}</td>"
         f"<td>{it['cscale'] if it['exact'] else '—'}</td>"
-        f"<td>{it['mscale'] if it['exact'] else '—'}</td></tr>"
-        for it in named)
+        f"<td>{it['mscale'] if it['exact'] else '—'}</td>"
+        f"<td>{len(hit_points(it['spec'], it['cscale'])) if it['exact'] else '—'}</td>"
+        f"<td>{bg[1] if it['exact'] else '—'}</td>"
+        f"<td>{bg[0] if it['exact'] else '—'}</td>"
+        f"</tr>"
+        for it in named
+        for bg in ([best_grid(it["spec"])] if it["exact"] else [(0, 0)]))
 
-    for it in items:
+    for fi, it in enumerate(items):
         sp = it["spec"]
         c = it["curve"]
         x0, y0, x1, y1 = it["box"]
         figures.append(f"""<section>
-  <h2>{sp['key']} · n = {sp['n']}</h2>
+  <h2>Fig. {fi + 2} · {sp['key']} · n = {sp['n']}</h2>
   <p class="input">h = ({','.join(map(str, sp['h']))}) ·
   u = ({','.join(map(str, sp['u']))}) · v = ({','.join(map(str, sp['v']))}) ·
   t by 1/{sp['m']}</p>
@@ -799,6 +976,39 @@ read off the numbers you typed — not off the degree.</li>
 <p>command: <code>.venv/bin/python scripts/generators.py --n 5 --h 1 --u 2,1,3 --v 1,2,5 --m 5</code></p>
 </div>
 
+<div class="panel">
+<p><strong>Fig. 1 · where integer hits come from.</strong> A <em>hit</em> is a
+point of the curve sitting exactly on a lattice node. The natural first guess is
+that a finer grid finds more of them; it does not. Below is one curve — the bean
+— at two grids. At scale 12 it passes through 3 lattice nodes. At 48, and at
+156, it still passes through 3: multiplying the grid finds nothing new, because
+the set of <em>denominators</em> that occur never changed. At 273 it finds 12,
+because 273 is built from the denominators that actually occur.</p>
+<p>So the rule is the same one the scale table already gives, seen from the
+other side: the grid that collects hits is the one assembled out of the
+arithmetic, not rounded up to something round. And because a hit only needs its
+denominator to <em>divide</em> the grid, the grid is a factorisation problem.
+Searching the grids under 3125 for the best one per curve gives
+<strong>789 hits across the nineteen exact curves, against 109 at their
+control scales</strong> — seven times as many, with the same curves and no new
+mathematics. The table's last two columns carry that per curve: the count at
+the control scale, and the best count and grid under 3125.</p>
+<div class="grid2">
+<section><div class="art">{hit_a}</div>
+<p class="cap"><strong>Fig. 1a</strong> · bean at grid 12 · <strong>{hits_a} hits</strong></p></section>
+<section><div class="art">{hit_b}</div>
+<p class="cap"><strong>Fig. 1b</strong> · same bean at grid 273 · <strong>{hits_b} hits</strong> — four times as many, same curve</p></section>
+</div>
+<p style="font-size:12px;color:{MUTED}">A hit is counted over <code>t = p/q</code>
+with <code>q ≤ {QMAX}</code>: a stated sample, not a theoretical maximum. Every
+exact curve hits something — the floor is the crossings, which are integer by
+construction. What varies is how far the grid has to reach: the epicycloids at
+high <code>k</code> carry denominators in the hundreds, so under 3125 no grid
+beats 4, while the rounded square — built from integer pieces — reaches 456.
+The four sampled curves have no parameter at all, so they have no hits to
+count.</p>
+</div>
+
 <div class="grid2">{''.join(figures)}</div>
 
 <div class="panel">
@@ -826,7 +1036,8 @@ exists there is nothing to turn, and the curve can only be sampled.</p>
 <div class="grid3">{named_cards}</div>
 <table style="margin-top:12px">
 <tr><th>curve</th><th>degree</th><th>exact Bézier</th><th>control scale</th>
-<th>milestones clear at</th></tr>
+<th>milestones clear at</th><th>hits at control</th><th>best hits ≤ 3125</th>
+<th>on that grid</th></tr>
 {named_rows}
 </table>
 <p style="margin-top:10px"><strong>Why the bean has no polygon.</strong> Its
