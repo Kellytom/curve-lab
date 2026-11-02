@@ -32,7 +32,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 INK = "#2e2413"
-GOLD = "#c9a441"
+GOLD = "#c9a441"   # scaffolding: control polygons
+DOT = "#b23a2b"    # milestones: needs to read against #fffdf7 and ink
 GRID = "#ece4cf"
 LINE = "#d8ccae"
 MUTED = "#7b6c4e"
@@ -565,8 +566,8 @@ def named_figure(item, w=430.0, h=300.0):
         f'" fill="none" stroke="{INK}" stroke-width="2.3" '
         f'stroke-linejoin="round"/>' for c in curves)
     dots = "".join(
-        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.3" '
-        f'fill="{GOLD}" stroke="#fffdf7" stroke-width="1"/>' for p in marks)
+        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.7" '
+        f'fill="{DOT}" stroke="#fffdf7" stroke-width="1.2"/>' for p in marks)
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7"
           stroke="{LINE}"/>
@@ -659,8 +660,8 @@ def render(item, w=420.0, h=300.0):
     poly = [put(p) for p in item["cps"]]
     poly_d = "M " + " L ".join(f"{p[0]:.1f} {p[1]:.1f}" for p in poly)
     dots = "".join(
-        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.4" '
-        f'fill="{GOLD}" stroke="#fffdf7" stroke-width="1"/>'
+        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.7" '
+        f'fill="{DOT}" stroke="#fffdf7" stroke-width="1.2"/>'
         for p in item["milestones"])
 
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
