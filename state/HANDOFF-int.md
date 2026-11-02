@@ -129,6 +129,17 @@ tangency construction. Everything below is committed.
   and internal documents carry `-int` for a future `-ext` twin. The **deployed**
   names are still `clothoid-*` on purpose.
 
+## Queued after the heart fix
+
+**Offsets.** The generators page claims "offset: rational, exact" in a table and
+never draws one. That is the largest untouched idea in the curve work: every
+stroke, ribbon and `Bundle` in the project is an offset. The tiers decide the
+answer — PH curves offset exactly, rational quartics need fitting, sampled
+curves can only be fitted from samples — so the deliverable is one figure and
+one number per curve: offset by a stated distance, re-fit at the same degree,
+report the error. `reference/external/parallel-beziers.html` is the fitting side
+of that comparison, and `curve_lab/offsets.py` is where it lands.
+
 ## What changed this session
 
 - Added `web/` MVP: stdlib HTTP server, static page, JSON editor, SVG preview,

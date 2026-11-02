@@ -27,7 +27,7 @@ catenary study, the ornament board — live in `workbench/` and are served
 directly, because they are read in a browser and rebuilt from a script:
 
 ```sh
-.venv/bin/python -m http.server 8003 --directory .
+.venv/bin/python scripts/serve.py            # idempotent, one server
 # http://127.0.0.1:8003/workbench/workbench.html
 ```
 

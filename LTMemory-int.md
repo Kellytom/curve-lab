@@ -105,3 +105,8 @@ one, and ports 8000/8001/8002 belong to other projects.
   has a 0.5-unit jump at the lobe tip, which is where the error comes from.
 - Double tangency: the model is rotation *plus* placement; no solution yet.
 - The Gerono leaf: the double-tangent line is right, the arc choice is not.
+- **Offsets are drawn nowhere.** Every curve here will need an offset set, and
+  the page only asserts "rational, exact" in a table. The tiers decide it: PH
+  curves offset exactly, rational quartics need fitting, sampled curves can only
+  be fitted from samples. Nothing has been pushed through `curve_lab/offsets.py`
+  yet, so we do not know which of the twenty-one are safe to give a width.

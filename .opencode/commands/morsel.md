@@ -12,7 +12,7 @@ Backlog morsel for curve-lab. Work in
    decision, write the question under it, mark it `[~]`, and stop.
 4. Run its verify command. If it fails twice for the same reason, stop and write
    the reason under the item.
-5. Mark it `[x]`, update `docs/HANDOFF-int.md`, and commit with the item's commit
+5. Mark it `[x]`, update `state/HANDOFF-int.md`, and commit with the item's commit
    message. Do not commit unrelated files or `out/play-template.svg`.
 6. Reply with at most five bullets: item, result, commit, blocker, next item.
    Stop; do not pick up the next item.

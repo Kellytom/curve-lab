@@ -18,9 +18,8 @@ const shotsAt = process.argv.indexOf("--shots");
 const shotsDir = shotsAt > -1 ? process.argv[shotsAt + 1] : null;
 if (shotsDir) fs.mkdirSync(shotsDir, { recursive: true });
 
-// The gate launches its own Chrome: connectOverCDP to the persistent :9223
-// instance hangs on this machine. For ad-hoc shots of that instance use
-// scripts/shot.mjs, which speaks CDP directly.
+// The gate launches its own Chrome through Playwright — no daemon, no fixed
+// port. For a single screenshot use scripts/shot.mjs, which does the same.
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 const context = await browser.newContext();
 const results = [];

@@ -37,7 +37,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 
 The working pages moved out of `docs/` to `workbench/`, on their own server root:
 
-    .venv/bin/python -m http.server 8003 --directory sandbox
+    .venv/bin/python scripts/serve.py            # http://127.0.0.1:8003
 
 `docs/` is prose only: the durable reference
 (`HANDOVER`), the design writing, and the reviews. A generated page never

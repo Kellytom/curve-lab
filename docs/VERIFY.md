@@ -48,7 +48,8 @@ node scripts/check-web.mjs
 
 Draws the documentation pages and the app at 900, 390 and 320 pixels wide, and
 fails if anything overflows sideways. It starts its own headless Chrome; single
-screenshots use `scripts/shot.mjs` and the long-running browser on port 9223.
+screenshots use `scripts/shot.mjs`, which launches its own browser through
+Playwright — nothing needs to be running first.
 
 ## What passing does not mean
 
