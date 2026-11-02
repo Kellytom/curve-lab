@@ -648,6 +648,8 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff-int.md` | two-line focused pointer |
+| `docs/STEMS-SVG-int.md` | the 8.5 × 11 three-stem vase sheet: mm units, JSON/Node split, regeneration |
+| `scripts/stems_print.py` · `.mjs` | stem geometry → JSON, then the SVG renderer |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |
 | `~/.config/opencode/commands/focus.md` | global: move session here, show focus |

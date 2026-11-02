@@ -49,14 +49,14 @@ X0 = MARGIN + (DRAW_W - (3 * CELL + 2 * GAP)) / 2
 N = 666                              # 667 points per stem, 2,001 total
 
 STEMS = [
+    dict(label="a", key="sextic",
+         spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
+                   v=(2, -1, 0), m=2),
+         rotation="start-vertical"),
     dict(label="b", key="quintic",
          spec=dict(key="quintic", n=5, h=(1,), u=(-2, -1, 1),
                    v=(-1, -1, 2), m=2),
          rotation=30.0),
-    dict(label="a", key="sextic",
-         spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
-                   v=(2, -1, 0), m=2),
-         rotation="start-vertical", shift_mm=6.35),
     dict(label="c", key="cubic",
          spec=dict(key="cubic", n=3, h=(1,), u=(2, -2),
                    v=(1, -2), m=4),
@@ -108,27 +108,22 @@ def main():
                         x1=x1, y1=y1, dx=dx, dy=dy,
                         rotate_deg=rotate_deg, direction=direction))
 
-    # each stem rises from its 0.5 in vase box to the 3 in ruler mark
-    widths = [r["dx"] * (STEM_H / r["dy"]) for r in raw]
-    total = sum(widths) + GAP * (len(raw) - 1)
-    fit = min(1.0, DRAW_W / total)
-    xcur = MARGIN + (DRAW_W - total * fit) / 2
+    # the three vases sit in a row with a 5 mm gap between boxes
+    BOX_GAP = 5.0
     cells = []
-    for r in raw:
+    for i, r in enumerate(raw):
         stem = r["stem"]
-        scale = (STEM_H / r["dy"]) * fit
-        w = r["dx"] * scale
-        page = []
-        sign = -1 if stem.get("mirror") else 1
+        scale = STEM_H / r["dy"]
+        box_x = MARGIN + i * (CELL + BOX_GAP)
+        box_cx = box_x + CELL / 2
+        temp = []
         for x, y in r["pts"]:
-            px = xcur + w / 2 + sign * (x - (r["x0"] + r["x1"]) / 2) * scale
+            px = (x - (r["x0"] + r["x1"]) / 2) * scale
             py = CELL_BOTTOM - STEM_LIFT - (y - r["y0"]) * scale
-            page.append((px, py))
-        shift = stem.get("shift_mm", 0.0)
-        if shift:
-            page = [(x + shift, y) for x, y in page]
-        base = max(page, key=lambda p: p[1])
-        cell_x = base[0] - CELL / 2
+            temp.append((px, py))
+        base0 = max(temp, key=lambda p: p[1])
+        shift = box_cx - base0[0]
+        page = [(x + shift, y) for x, y in temp]
         start_page = page[0]
         end_page = page[-1]
         top = min(page, key=lambda p: p[1])
@@ -137,12 +132,11 @@ def main():
         cells.append(dict(stem=stem, pts=r["pts"], page=page, item=r["item"],
                           x0=r["x0"], y0=r["y0"], x1=r["x1"], y1=r["y1"],
                           dx=r["dx"], dy=r["dy"], side=max(r["dx"], r["dy"]),
-                          scale=scale, cell_x=cell_x,
+                          scale=scale, cell_x=box_x,
                           rotate_deg=r["rotate_deg"],
                           direction=r["direction"], lean=lean,
                           mirror=bool(stem.get("mirror")),
                           start_page=start_page, end_page=end_page))
-        xcur += w + GAP
 
 
     data = {
@@ -169,7 +163,7 @@ def main():
                          "deg": round(c["rotate_deg"], 4)},
             "mirror": c["mirror"],
             "lean": c["lean"],
-            "shift_mm": round(stem.get("shift_mm", 0.0), 4),
+            "shift_mm": round(st.get("shift_mm", 0.0), 4),
             "natural_box": [round(v, 3) for v in
                             (c["x0"], c["y0"], c["x1"], c["y1"])],
             "cell": {"x_mm": round(c["cell_x"], 4),
