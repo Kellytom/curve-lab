@@ -59,6 +59,13 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 
 ## Commands
 
+Start the one server if it is not already up (this is idempotent — it says
+"already serving" and exits):
+
+```sh
+.venv/bin/python scripts/serve.py            # http://127.0.0.1:8003
+```
+
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/mkdocs serve                          # the docs book, live on :8000

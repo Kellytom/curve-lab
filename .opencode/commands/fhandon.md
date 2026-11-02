@@ -7,21 +7,25 @@ Focused handon for curve-lab. Work in
 
 1. Before any tool call, write one sentence naming the focused action you are
    about to carry out, so the operator can see you are on the right thing.
-2. Read `LTMemory.md` first — the map, the invariants and what is
-   already settled — then `next-fhandoff.md`, and nothing else yet.
-3. Its first line names the docs to read. Read them, in order, and stop reading
-   when they tell you to.
-4. Its second line is the single focused action. Do that action, and only that
+2. Bring up the single server. It is idempotent — if it is already up it says
+   "already serving" and exits 0, so this is safe every time:
+   `.venv/bin/python scripts/serve.py` → http://127.0.0.1:8003
+3. Read `LTMemory.md` first — the map, the invariants, and what is already
+   settled — then `next-fhandoff.md`, and nothing else yet.
+4. `next-fhandoff.md`'s first line names the docs to read. Read them, in order,
+   and stop reading when they tell you to.
+5. Its second line is the single focused action. Do that action, and only that
    action.
-5. Keep `docs/HANDOFF.md` current as you work, so a freeze costs one step and
+6. Keep `state/HANDOFF.md` current as you work, so a freeze costs one step and
    not the session.
-6. Where a browser check is needed, drive **headless Chrome** directly with the
-   DevTools Protocol (`--headless=old`, `--remote-debugging-port`). Do not look
-   for a connected desktop browser, the Review pane, or Safari/safaridriver.
-7. Do the action and stop. The operator runs `/fhandoff` when they want the
+7. Where a browser check or a screenshot is needed, use **Playwright** via
+   `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
+   its own browser, so nothing has to be running first. Do not use the Review
+   pane, Safari/safaridriver, or the old CDP-on-9223 daemon.
+8. Do the action and stop. The operator runs `/fhandoff` when they want the
    focused handoff refreshed; it is not run automatically.
 
-If `next-fhandoff.md` is missing or empty, read `docs/HANDOFF.md` and ask for the
+If `next-fhandoff.md` is missing or empty, read `state/HANDOFF.md` and ask for the
 single focused action instead of inventing one.
 
 This is the opening command. `/fhandoff` is its twin at the other end of the

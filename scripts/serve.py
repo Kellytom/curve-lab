@@ -67,7 +67,13 @@ def main() -> int:
     ap.add_argument("--host", default="127.0.0.1")
     args = ap.parse_args()
     handler = partial(Workbench, directory=str(ROOT))
-    server = ThreadingHTTPServer((args.host, args.port), handler)
+    try:
+        server = ThreadingHTTPServer((args.host, args.port), handler)
+    except OSError as exc:
+        if exc.errno in (48, 98):          # already listening
+            print(f"already serving on http://{args.host}:{args.port} — nothing to do")
+            return 0
+        raise
     print(f"serving {ROOT} on http://{args.host}:{args.port}")
     print("  /catenary.html redirects to /workbench/catenary.html")
     try:

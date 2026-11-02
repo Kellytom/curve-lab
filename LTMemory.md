@@ -67,9 +67,11 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 .venv/bin/python scripts/serve.py        # http://127.0.0.1:8003
 ```
 
-It serves the repo and redirects bare page names (`/catenary.html`) to
-`/workbench/catenary.html`. Do not start a second `http.server` — port 8003 is
-the one.
+Start it at the top of **every** session; it is idempotent, so running it
+when it is already up prints "already serving" and exits 0. It serves the repo
+and redirects bare page names (`/catenary.html`) to
+`/workbench/catenary.html`. Do not start a second `http.server` — 8003 is the
+one, and ports 8000/8001/8002 belong to other projects.
 
 ## Invariants
 
