@@ -37,14 +37,14 @@ import generators as G  # noqa: E402
 
 INK, MUTED, GUIDE = "#2e2413", "#7b6c4e", "#ece4cf"
 DOT = "#b23a2b"
-PAGE_W, PAGE_H = 850.0, 1100.0      # 100 units per inch
-MARGIN = 50.0
+PAGE_W, PAGE_H = 215.9, 279.4       # 8.5 x 11 in in millimetres
+MARGIN = 12.7                       # 0.5 in
 DRAW_W, DRAW_H = PAGE_W - 2 * MARGIN, PAGE_H - 2 * MARGIN
-CELL, PAD, GAP = 50.0, 2.0, 25.0
-CELL_TOP = 1000.0
+CELL, PAD, GAP = 12.7, 0.5, 6.35    # 0.5 in vase, 0.25 in gap
+CELL_TOP = 254.0                    # the 10 in line
 CELL_BOTTOM = CELL_TOP + CELL
-STEM_LIFT = 50.0     # 1/2 in: the stems start at the vase mouth
-STEM_H = 700.0       # 7 in: the vase mark 10 up to the mark 3
+STEM_LIFT = 12.7     # 1/2 in: the stems start at the vase mouth
+STEM_H = 177.8       # 7 in: the vase mark 10 up to the mark 3
 X0 = MARGIN + (DRAW_W - (3 * CELL + 2 * GAP)) / 2
 N = 666                              # 667 points per stem, 2,001 total
 
@@ -52,7 +52,7 @@ STEMS = [
     dict(label="a", key="sextic",
          spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
                    v=(2, -1, 0), m=2),
-         rotation="start-vertical", shift_in=0.25),
+         rotation="start-vertical", shift_mm=6.35),
     dict(label="b", key="quintic",
          spec=dict(key="quintic", n=5, h=(1,), u=(-2, -1, 1),
                    v=(-1, -1, 2), m=2),
@@ -124,7 +124,7 @@ def main():
             px = xcur + w / 2 + sign * (x - (r["x0"] + r["x1"]) / 2) * scale
             py = CELL_BOTTOM - STEM_LIFT - (y - r["y0"]) * scale
             page.append((px, py))
-        shift = stem.get("shift_in", 0.0) * 100
+        shift = stem.get("shift_mm", 0.0)
         if shift:
             page = [(x + shift, y) for x, y in page]
         base = max(page, key=lambda p: p[1])
@@ -144,13 +144,13 @@ def main():
 
 
     data = {
-        "page": {"width_in": 8.5, "height_in": 11.0, "margin_in": 0.5,
-                 "drawing_in": [7.5, 10.0], "units_per_in": 100},
+        "page": {"width_mm": 215.9, "height_mm": 279.4, "margin_mm": 12.7,
+                 "drawing_mm": [190.5, 254.0], "units_per_mm": 1},
         "box_shape": "squircle n=4",
         "stems": [],
         "note": ("Three generator presets, not clothoid chains: the PH "
                  "generator data is the constant set.  Page samples are in "
-                 "inches, +y down, at 667 per stem."),
+                 "millimetres, +y down, at 667 per stem."),
     }
     for c in cells:
         st = c["stem"]
@@ -167,16 +167,16 @@ def main():
                          "deg": round(c["rotate_deg"], 4)},
             "mirror": c["mirror"],
             "lean": c["lean"],
-            "shift_in": round(stem.get("shift_in", 0.0), 4),
+            "shift_mm": round(stem.get("shift_mm", 0.0), 4),
             "natural_box": [round(v, 3) for v in
                             (c["x0"], c["y0"], c["x1"], c["y1"])],
-            "cell": {"x_in": round(c["cell_x"] / 100, 4),
-                     "bottom_in": round(CELL_BOTTOM / 100, 4),
-                     "side_in": round(CELL / 100, 4)},
+            "cell": {"x_mm": round(c["cell_x"], 4),
+                     "bottom_mm": round(CELL_BOTTOM, 4),
+                     "side_mm": round(CELL, 4)},
             "scale_page_per_model": round(c["scale"], 6),
-            "start_page_in": [round(v / 100, 5) for v in c["start_page"]],
-            "end_page_in": [round(v / 100, 5) for v in c["end_page"]],
-            "points_page_in": [[round(x / 100, 5), round(y / 100, 5)]
+            "start_page_mm": [round(v, 4) for v in c["start_page"]],
+            "end_page_mm": [round(v, 4) for v in c["end_page"]],
+            "points_page_mm": [[round(x, 4), round(y, 4)]
                                for x, y in c["page"]],
         })
     json_path = ROOT / "workbench" / "stems-abc.json"
