@@ -21,6 +21,8 @@ const INK = "#2e2413";
 const MUTED = "#7b6c4e";
 const GUIDE = "#ece4cf";
 const DOT = "#b23a2b";
+const VASE = "#c9a441";
+const VASE_EDGE = "#a8852f";
 
 const data = JSON.parse(fs.readFileSync(DATA, "utf8"));
 const U = data.page.units_per_in ?? 100;
@@ -56,7 +58,7 @@ for (const stem of data.stems) {
   groups.push(`<g id="stem-${stem.label}">
     <path d="${squirclePath(cellX + cellSide / 2, cellTop + cellSide / 2,
                             cellSide / 2)}"
-          fill="none" stroke="${GUIDE}" stroke-width="0.8"/>
+          fill="${VASE}" stroke="${VASE_EDGE}" stroke-width="0.8"/>
     <path d="${d}" fill="none" stroke="${INK}" stroke-width="1.8"
           stroke-linejoin="round" stroke-linecap="round"/>
     <circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="2.4"

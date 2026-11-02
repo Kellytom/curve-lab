@@ -51,7 +51,7 @@ STEMS = [
     dict(label="a", key="sextic",
          spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
                    v=(2, -1, 0), m=2),
-         rotation="start-vertical"),
+         rotation="start-vertical", shift_in=0.25),
     dict(label="b", key="quintic",
          spec=dict(key="quintic", n=5, h=(1,), u=(-2, -1, 1),
                    v=(-1, -1, 2), m=2),
@@ -123,6 +123,9 @@ def main():
             px = xcur + w / 2 + sign * (x - (r["x0"] + r["x1"]) / 2) * scale
             py = CELL_BOTTOM - (y - r["y0"]) * scale
             page.append((px, py))
+        shift = stem.get("shift_in", 0.0) * 100
+        if shift:
+            page = [(x + shift, y) for x, y in page]
         base = max(page, key=lambda p: p[1])
         cell_x = base[0] - CELL / 2
         start_page = page[0]
@@ -163,6 +166,7 @@ def main():
                          "deg": round(c["rotate_deg"], 4)},
             "mirror": c["mirror"],
             "lean": c["lean"],
+            "shift_in": round(stem.get("shift_in", 0.0), 4),
             "natural_box": [round(v, 3) for v in
                             (c["x0"], c["y0"], c["x1"], c["y1"])],
             "cell": {"x_in": round(c["cell_x"] / 100, 4),
