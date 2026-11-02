@@ -22,12 +22,13 @@ remote MVP now exist.
 
 ## Current state
 
-- **Local app:** `http://127.0.0.1:8000/` — Python stdlib server plus the macOS
-  `.dylib`. Start with `.venv/bin/python web/server.py`. Auth is unset locally,
-  so the loopback server stays open; the public deployment requires the token.
-- **Workbench server:** ONE process, `scripts/serve.py` on **8003**. It serves
-  the repo and redirects a bare page name (`/catenary.html`) to
-  `/workbench/catenary.html`, so both forms work. Starting it twice is safe.
+- **Local app:** `http://127.0.0.1:8000/` — probe 2026-11-02: responds **404 at
+  `/`** (up, but no index at the root path). Start with
+  `.venv/bin/python web/server.py`. Auth is unset locally; the deployment
+  requires the token.
+- **Workbench server:** ONE process, `scripts/serve.py` on **8003** — probe
+  2026-11-02: **200** at `/workbench/workbench.html`. Redirects a bare page name
+  (`/catenary.html`) to `/workbench/catenary.html`. Starting it twice is safe.
 - **Docs book:** `http://127.0.0.1:8020`, `mkdocs serve`, strict clean. Neither
   the book nor the workbench is deployed.
 - **Remote:** carried from 2026-10-30, not probed this session (the URL is
@@ -52,8 +53,9 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **carried — 239 pass** (1 skipped), last run 2026-11-01 at
-  `0518aab`. Nothing under `web/`, `curve_lab/`, `csrc/` or `tests/` differs
+- **Local tests:** **246 pass** (1 skipped), last full run 2026-11-02 at
+  `3a354f1`; carried — nothing under `web/`, `curve_lab/`, `csrc/` or `tests/`
+  differs from HEAD. Nothing under `web/`, `curve_lab/`, `csrc/` or `tests/` differs
   from HEAD, so they were not re-run for this handoff.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
@@ -69,9 +71,9 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD `0518aab` (2026-10-31). Tree clean; the only untracked files are
-  three photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`).
-  `out/play-template.svg` is still untracked; leave it.
+- **Git:** HEAD `3a354f1` (2026-11-02). Tree clean; untracked are three
+  photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
+  and `state/monitor.log`, which is a log and stays untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
 - **Layout (2026-10-31, this is the thing to know):** the generated pages moved
   out of `docs/` into **`workbench/`** — 16 pages, one generator each in
@@ -503,13 +505,13 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
 
 ## Next move
 
-**One action: make the workbench reachable, then the deployment.** The
-integer-control-point chain that used to sit here is **answered and closed**:
-the square-discriminant test is real but yields 0 of 17,168 squares on the rung
-ladder, and where it does fire the legs carry denominators in the thousands. It
-buys exactness, not a lattice. The generator route — `scripts/generators.py` —
-is what actually produces integer curves, and it does so by choosing the
-generator integers rather than fitting points.
+**One action: fix the heart half's sample path.** The upper and lower branches
+of the Beutel sextic end at different points on the tip — `(1.105, 0.789)` and
+`(1.105, 0.28)` — a **0.508 jump in a 3.63 arc**, and that jump is the whole
+11.7% error on Fig. 3/4 of `workbench/hearts.html`. Find the tip properly, where
+the two roots merge (the discriminant of the cubic in `y` vanishes), and splice
+both branches through it. Then the Euler fit can finally be judged, because at
+present the measurement is measuring the bug.
 
 What is left from this session, in order:
 
