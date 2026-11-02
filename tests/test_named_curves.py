@@ -41,6 +41,7 @@ IMPLICIT = {
     "quadrifolium": lambda x, y: (x * x + y * y) ** 3 - (x * x - y * y) ** 2,
     "circle": lambda x, y: x * x + y * y - 1,
     "pear": lambda x, y: x * x - y ** 3 * (1 - y),
+    "cruciform": lambda x, y: x * x * y * y - x * x - y * y,
 }
 
 # roulettes: checked against their trigonometric definition, which is what the
@@ -170,7 +171,7 @@ class TestNamedCurves(unittest.TestCase):
         self.assertEqual(G.roulette(4, -1)[0], [3, 0, 36, 0, -70, 0, 20, 0, -5])
 
     def test_non_rational_curves_are_declared_sampled(self):
-        for key in ("squircle", "heart", "cruciform"):
+        for key in ("squircle", "heart"):
             with self.subTest(curve=key):
                 self.assertFalse(G.named_data(entries()[key])["exact"])
 

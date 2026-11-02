@@ -401,11 +401,10 @@ NAMED = [
          eq="x⁴ − x² + y² = 0",
          tail="lemniscate of Gerono · rational quartic · one figure eight",
          branches=[([-1, 0, 0, 0, 1], [0, -2, 0, 2], [1, 0, 2, 0, 1])]),
-    dict(key="cruciform", deg=4, m=None,
+    dict(key="cruciform", deg=4, m=4, subst="affine",
          eq="x²y² − b²x² − a²y² = 0",
-         tail="rational quartic · x = a sec t, y = b csc t · four unbounded arms",
-         tier="rational · unbounded, sampled per arm",
-         branches=None, sampler="cruciform"),
+         tail="rational quartic · x = a sec t, y = b csc t · one arm, mirrored four times · tails unbounded",
+         branches=[]),
     dict(key="piriform", deg=4, m=4,
          eq="x⁴ − 2x³ + y² = 0",
          tail="a water drop · x = 2/(1+u²), y = 4u/(1+u²)² · mirrored on x",
@@ -690,6 +689,37 @@ def best_grid(spec, budget=3125):
     return _GRID[key]
 
 
+def _compose(P, alpha, beta, deg):
+    """P(u) with u = alpha*s + beta, expanded in s to degree deg."""
+    out = [F(0)] * (deg + 1)
+    for c in reversed(P):
+        nxt = [F(0)] * (deg + 1)
+        for j, v in enumerate(out):
+            if v == 0:
+                continue
+            nxt[j] = nxt[j] + v * beta
+            if j + 1 <= deg:
+                nxt[j + 1] = nxt[j + 1] + v * alpha
+        nxt[0] += F(c)
+        out = nxt
+    return out
+
+
+def cruciform_arm(lo=F(1, 4), hi=F(3, 4)):
+    """One arm of x^2 y^2 = x^2 + y^2, exact, over u = tan(t/2) in [lo, hi].
+
+    x = (1+u^2)/(1-u^2), y = (1+u^2)/(2u); the common denominator 2u(1-u^2)
+    makes X, Y and W polynomials, so an affine change of parameter keeps the
+    arm on whole numbers.
+    """
+    X = [F(0), F(2), F(0), F(2)]
+    Y = [F(1), F(0), F(0), F(0), F(-1)]
+    W = [F(0), F(2), F(0), F(-2)]
+    a = (hi - lo)
+    return ([_compose(X, a, lo, 4), _compose(Y, a, lo, 4),
+             _compose(W, a, lo, 4)])
+
+
 def named_figure(item, w=430.0, h=300.0):
     spec = item["spec"]
     if item["exact"]:
@@ -759,6 +789,16 @@ PRESETS = [
     dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0), v=(2, -1, 0), m=2,
          note="linear h times quadratic generators"),
 ]
+
+_X, _Y, _W = cruciform_arm()
+for _spec in NAMED:
+    if _spec["key"] == "cruciform":
+        _spec["branches"] = [
+            (_X, _Y, _W),
+            ([(-v) for v in _X], _Y, _W),
+            ([(-v) for v in _X], [(-v) for v in _Y], _W),
+            (_X, [(-v) for v in _Y], _W),
+        ]
 
 STEPS = (2, 4, 5, 8, 10, 16)
 
@@ -1003,7 +1043,7 @@ other side: the grid that collects hits is the one assembled out of the
 arithmetic, not rounded up to something round. And because a hit only needs its
 denominator to <em>divide</em> the grid, the grid is a factorisation problem.
 Searching the grids under 3125 for the best one per curve gives
-<strong>801 hits across the twenty exact curves, against 112 at their
+<strong>859 hits across the twenty-one exact curves, against 113 at their
 control scales</strong> — seven times as many, with the same curves and no new
 mathematics. The table's last two columns carry that per curve: the count at
 the control scale, and the best count and grid under 3125.</p>
