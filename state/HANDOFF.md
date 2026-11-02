@@ -453,19 +453,27 @@ remote MVP now exist.
 
 ## Next move
 
-**One action: the integer-control-point chain.** Fig. K on the catenary page
-snaps the fitted control points to whole units and measures the drift (0.49% of
-`a`) — but snapping is a blunt instrument. The exact condition for a segment to
-have integer control points is that the PH fit's quadratic has a rational square
-discriminant, which is a property of the *pair of direction triples*, not of the
-curve (158 of 960 tested cases qualify).
+**One action: make the workbench reachable, then the deployment.** The
+integer-control-point chain that used to sit here is **answered and closed**:
+the square-discriminant test is real but yields 0 of 17,168 squares on the rung
+ladder, and where it does fire the legs carry denominators in the thousands. It
+buys exactness, not a lattice. The generator route — `scripts/generators.py` —
+is what actually produces integer curves, and it does so by choosing the
+generator integers rather than fitting points.
 
-So: build the chain that **chooses** such a pair at each node instead of
-snapping afterwards, print each discriminant as square or not, and measure the
-drift against the catenary. That turns "integer control points at a price" into
-"integer control points where they exist, and a stated reason where they do
-not". Page: `workbench/catenary.html`, section C. Code:
-`scripts/hodograph.py` (`from_pairs`), `scripts/catenary.py`.
+What is left from this session, in order:
+
+1. **The deployment still carries the old name.** `clothoid-web`,
+   `clothoid-token`, `clothoid-engine`, the budget alert. Deciding to move them
+   is the one thing that needs the operator: a renamed Cloud Run service is a
+   new service billing beside the old one until deleted. Everything local is
+   already `curve-lab`.
+2. **`next-fhandoff.md` is stale** — it points at the chain above. Run
+   `/fhandoff` to replace it.
+3. **The hub wants one more pass**: four of the seventeen cards have no
+   thumbnail because those pages build their figure in JavaScript. Giving each
+   one static first SVG is a small job with a visible payoff.
+4. **The branch is 110 commits ahead of `origin/main`.** Nothing is pushed.
 
 The catenary thread itself is current: A–M are hodograph chains, the involute
 (Fig. W) and the bouncing ball (Fig. X) are done, and every PH figure now carries
