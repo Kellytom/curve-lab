@@ -3,7 +3,7 @@ description: Focused handon — read next-fhandoff.md and carry out its one acti
 ---
 
 Focused handon for curve-lab. Work in
-`/Users/thomaskelly/developer/clothoid-lab`.
+`/Users/thomaskelly/developer/curve-lab`.
 
 1. Before any tool call, write one sentence naming the focused action you are
    about to carry out, so the operator can see you are on the right thing.

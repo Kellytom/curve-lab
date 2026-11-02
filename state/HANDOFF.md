@@ -562,7 +562,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `~/.config/opencode/commands/focus.md` | global: move session here, show focus |
 
 ```sh
-cd /Users/thomaskelly/developer/clothoid-lab
+cd /Users/thomaskelly/developer/curve-lab
 .venv/bin/python -m unittest discover tests
 .venv/bin/python web/server.py
 # with the local server up and the remote reachable:

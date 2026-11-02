@@ -291,7 +291,7 @@ unauthenticated URL widely, not the app’s ordinary use.
 Local edit loop:
 
 ```sh
-cd /Users/thomaskelly/developer/clothoid-lab
+cd /Users/thomaskelly/developer/curve-lab
 .venv/bin/python -m unittest discover tests
 .venv/bin/python web/server.py
 ```
@@ -299,7 +299,7 @@ cd /Users/thomaskelly/developer/clothoid-lab
 Remote deploy (rebuilds the Linux image and updates the service):
 
 ```sh
-cd /Users/thomaskelly/developer/clothoid-lab
+cd /Users/thomaskelly/developer/curve-lab
 gcloud config set project <your-gcp-project>
 gcloud run deploy clothoid-web \
   --source . \

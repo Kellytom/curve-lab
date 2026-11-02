@@ -1,5 +1,5 @@
 {
- "source": "/Users/thomaskelly/developer/clothoid-lab/docs/spirals/stage-two.json",
+ "source": "/Users/thomaskelly/developer/curve-lab/docs/spirals/stage-two.json",
  "samples": 48,
  "note": "error is the max distance from the fitted clothoid to the drawn cubic, divided by the span chord",
  "spans": [

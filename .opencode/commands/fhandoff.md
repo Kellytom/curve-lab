@@ -3,7 +3,7 @@ description: Focused handoff — square the record fast, then write next-fhandof
 ---
 
 Focused handoff for curve-lab. Work in
-`/Users/thomaskelly/developer/clothoid-lab`. Do not start new feature work.
+`/Users/thomaskelly/developer/curve-lab`. Do not start new feature work.
 
 **Be fast.** Target a minute, not a session. One batched probe instead of six
 calls, and no network round-trips for facts that only change when you deploy.
