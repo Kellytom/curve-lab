@@ -426,8 +426,33 @@ def pear_branches(n=120):
     return [upper, lower]
 
 
+def heart_tip(x_sign=1):
+    """The rightmost point of a lobe, where the two y-roots merge.
+
+    On ``f = (x^2+y^2-1)^3 - x^2 y^3`` the upper and lower roots meet where
+    ``f = 0`` and ``df/dy = 0``.  That pair reduces to ``x^2 = 1 + y^2`` and
+    ``8y^3 - y^2 - 1 = 0``, so the tip is one algebraic y, found by bisection.
+    """
+    lo, hi = 0.0, 1.0
+    for _ in range(200):
+        m = (lo + hi) / 2
+        if 8 * m ** 3 - m * m - 1 <= 0:
+            lo = m
+        else:
+            hi = m
+    y = (lo + hi) / 2
+    return x_sign * math.sqrt(1 + y * y), y
+
+
 def heart_branches(nx=90):
-    """The heart, sampled.  There is no parametrisation to do better with."""
+    """The heart, sampled.  There is no parametrisation to do better with.
+
+    The two y-roots merge at the lobe tip (``heart_tip``), so the samples stop
+    there and both branches are closed on it.  A sign-change scan cannot see
+    that double root, hence the explicit endpoints: without them the branches
+    stop short and the upper and lower paths end a visible gap apart instead
+    of meeting.
+    """
     def f(x, y):
         return (x * x + y * y - 1) ** 3 - x * x * y ** 3
 
@@ -449,14 +474,17 @@ def heart_branches(nx=90):
                 out.append((lo + hi) / 2)
         return out
 
+    x_tip, y_tip = heart_tip()
     upper, lower = [], []
-    for i in range(nx + 1):
-        x = -1.105 + 2.21 * i / nx
+    for i in range(1, nx):
+        x = x_tip * (2 * i / nx - 1)
         rs = roots(x)
-        if not rs:
+        if len(rs) < 2:
             continue
         upper.append((x, max(rs)))
         lower.append((x, min(rs)))
+    upper = [(-x_tip, y_tip)] + upper + [(x_tip, y_tip)]
+    lower = [(-x_tip, y_tip)] + lower + [(x_tip, y_tip)]
     return [upper, lower]
 
 

@@ -34,6 +34,7 @@ import generators as G  # noqa: E402
 import euler_match as E  # noqa: E402
 
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
+OVERLAY = "#1f5fa8"
 GRID, LINE, MUTED = "#ece4cf", "#d8ccae", "#7b6c4e"
 
 N = 4000
@@ -255,13 +256,19 @@ def heart_half():
     (0, -1) out around the lobe and back to the cleft (0, 1).  Sampling gives
     the upper and lower branches separately; this walks the upper one outward
     and the lower one back.
+
+    Both branches now end on the lobe tip (``generators.heart_tip``), so the
+    join is that shared point.  The reversed lower branch repeats it, and the
+    repeat is dropped: a zero-length chord would break the tangent fit.
     """
-    # the page sampler is deliberately coarse; the fit needs a dense one
-    upper, lower = G.heart_branches(400)
+    # the page sampler is deliberately coarse; the fit needs a dense one.
+    # 4000 keeps the chord across the vertical tangent at the tip under 0.04
+    # units, where 400 left a 0.107 chord that was itself most of the error.
+    upper, lower = G.heart_branches(4000)
     up = [p for p in upper if p[0] >= -1e-9]
     lo = [p for p in lower if p[0] >= -1e-9]
-    return [(float(a), float(b)) for a, b in up] + \
-           [(float(a), float(b)) for a, b in reversed(lo)]
+    back = [(float(a), float(b)) for a, b in reversed(lo)]
+    return [(float(a), float(b)) for a, b in up] + back[1:]
 
 
 def half_figure(pts, w=430.0, h=330.0, poly=None, spans=None):
@@ -278,14 +285,17 @@ def half_figure(pts, w=430.0, h=330.0, poly=None, spans=None):
     def put(q):
         return ox + (q[0] - x0) * k, h - (oy + (q[1] - y0) * k)
 
-    def path(points, colour, width):
+    def path(points, colour, width, dash=None):
+        extra = f' stroke-dasharray="{dash}"' if dash else ""
         return ('<path d="M ' + " L ".join(f"{put(q)[0]:.1f} {put(q)[1]:.1f}"
                                            for q in points) +
-                f'" fill="none" stroke="{colour}" stroke-width="{width}"/>')
+                f'" fill="none" stroke="{colour}" stroke-width="{width}"'
+                f'{extra}/>')
 
     body = path(pts, INK, 2.4)
-    if poly:
-        body += path(poly, GOLD, 1.3)
+    # the fit goes on top, wide and dashed: gold at 1.3 over a 2.4 ink line
+    # was invisible, so the figure could not be read as a comparison
+    over = path(poly, OVERLAY, 1.9, "6 4") if poly else ""
     grid = lattice_lines(x0, x1, y0, y1, 0.25, put)
     dots = "".join(f'<circle cx="{put(q)[0]:.1f}" cy="{put(q)[1]:.1f}" r="3" '
                    f'fill="{DOT}" stroke="#fffdf7" stroke-width="1"/>'
@@ -298,6 +308,7 @@ def half_figure(pts, w=430.0, h=330.0, poly=None, spans=None):
           x2="{put((0, y1))[0]:.1f}" y2="{put((0, y1))[1]:.1f}"
           stroke="{GOLD}" stroke-width="1" stroke-dasharray="5 4"/>
     {dots}
+    {over}
   </svg>"""
 
 
@@ -349,6 +360,7 @@ def main():
 
     half = heart_half()
     n, dev, poly, L = E.fit_branch(half)
+    end_drift = max(math.dist(poly[0], half[0]), math.dist(poly[-1], half[-1]))
     k_spans, dev_spans, span_poly = None, None, None
     for k in (4, 8, 16, 32, 64):
         sp = E.clothoid_spans(half, k)
@@ -413,12 +425,14 @@ number is not an error it says so in words.</p>
 in x, so it is two curves. Taking the positive-x half alone gives one open arc
 from the bottom point to the cleft — the shape we actually have to build.
 <strong>Correct method is a clothoid chain fitted to that arc, not a chord
-walk</strong>: the gold overlay below is an Euler polygon, and it is shown
-failing, drifting off the curve and never reaching the axis at either end.</p>
+walk</strong>: the blue dashed line drawn over the curve is an Euler polygon
+against the same samples. The sample path now closes on the lobe tip, where
+the two y-roots merge, so the polygon is judged on the geometry rather than on
+the old jump.</p>
 <div class="grid2">
 <section><h2>Fig. 3 · positive x</h2><div class="art">{half_figure(half, poly=poly)}</div>
-<p class="cap">{n} chords · error {100*dev:.2f}% of size · the chain misses both
-axis ends by ~0.08 units — an open defect, recorded in founder/screens</p></section>
+<p class="cap">{n} chords · error {100*dev:.2f}% of size · both ends within
+{end_drift:.3f} units of the axis</p></section>
 <section><h2>Fig. 4 · negative x</h2><div class="art">{half_figure([(-x, y) for x, y in half], poly=[(-x, y) for x, y in poly])}</div>
 <p class="cap">the mirror — the same curve, and the same chain flipped</p></section>
 </div>
