@@ -174,7 +174,7 @@ prime; it is a drawing aid.
 3. Round on output, never before geometry decisions. A 0.5-unit shift in a
    control point is invisible; accumulating rounded positions is not.
 4. If a cubic path is required, fit the points with the existing measured fitter
-   (`clothoid_lab.bezier`); do not hand-place Bézier handles from the table.
+   (`curve_lab.bezier`); do not hand-place Bézier handles from the table.
 
 ## Status
 

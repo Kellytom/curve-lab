@@ -5,8 +5,8 @@ import os
 import tempfile
 import unittest
 
-from clothoid_lab import cli, watch
-from clothoid_lab.model import Design
+from curve_lab import cli, watch
+from curve_lab.model import Design
 
 
 class TestWatch(unittest.TestCase):

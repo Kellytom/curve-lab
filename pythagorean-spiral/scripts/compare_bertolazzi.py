@@ -18,8 +18,8 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "pythagorean-spiral"))
 
-from clothoid_lab import engine                      # noqa: E402
-from clothoid_lab.model import Design, Segment       # noqa: E402
+from curve_lab import engine                      # noqa: E402
+from curve_lab.model import Design, Segment       # noqa: E402
 from pythagorean_spiral import design as tdesign        # noqa: E402
 from pythagorean_spiral.triples import thinnest         # noqa: E402
 

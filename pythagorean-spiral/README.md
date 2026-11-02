@@ -8,12 +8,12 @@ of `Fraction`s, and every node is rational.
 > clothoid's at the nodes: ~1e-13 degrees. Everything else is different --
 > curvature is a staircase rather than linear, and the position is up to a full
 > chord behind the real curve. For CAD, road/rail alignment, or Class-A surface
-> work, use a clothoid engine (`clothoid_lab`, pyclothoids) instead. This is a
+> work, use a clothoid engine (`curve_lab`, pyclothoids) instead. This is a
 > generator of ornamental spines, with exact rational anchors and an exact
 > closure rule.
 
 This directory is a **candidate replacement** for the curve layer, kept beside
-`clothoid_lab/` so the two can be compared. Nothing here is imported by the
+`curve_lab/` so the two can be compared. Nothing here is imported by the
 package yet.
 
 **Start with the explainer:** [`docs/EXPLAINER.md`](docs/EXPLAINER.md) is the
@@ -111,7 +111,7 @@ than hang, and 6° is already at the floor of what the page can show.
 | `pythagorean_spiral/spiral.py` | `Spiral`: the chord chain; exact nodes; the equivalent clothoid |
 | `pythagorean_spiral/closure.py` | which turn sums cancel, exactly |
 | `pythagorean_spiral/design.py` | the four named constructions |
-| `pythagorean_spiral/spans.py` | chords to cubics, in `clothoid_lab`'s span format |
+| `pythagorean_spiral/spans.py` | chords to cubics, in `curve_lab`'s span format |
 | `pythagorean_spiral/svg.py` | a small writer; y is flipped here, once |
 | `docs/AUDIT.md` | every claim in the source notes, checked, and the verdicts |
 | `scripts/compare_bertolazzi.py` | the chain against the engine already in this repo |

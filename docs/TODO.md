@@ -151,7 +151,7 @@ centreline accent, with the accent's ink semantics stated rather than assumed.
 
 - [ ] CI on macOS and Linux: build the dylib, run 68+ tests.
 - [ ] Build cache keyed by file content, not absolute path (see Known issues).
-- [ ] sdist/wheel that actually contains `clothoid_lab.backend` (fixed in
+- [ ] sdist/wheel that actually contains `curve_lab.backend` (fixed in
       `pyproject.toml`, untested as a build).
 
 ## Known issues

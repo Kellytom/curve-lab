@@ -3,8 +3,8 @@
 import math
 import unittest
 
-from clothoid_lab import engine, presets
-from clothoid_lab.model import Design, Segment
+from curve_lab import engine, presets
+from curve_lab.model import Design, Segment
 
 
 def simpson(f, a, b, n=20000):

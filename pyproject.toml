@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "clothoid-lab"
+name = "curve-lab"
 version = "0.1.0"
 description = "Numerical clothoid chains out as plain editable SVG"
 readme = "README.md"
@@ -15,7 +15,7 @@ dependencies = []
 wheel = ["pyclothoids==0.2.0"]
 
 [project.scripts]
-clothoid-lab = "clothoid_lab.cli:main"
+curve-lab = "curve_lab.cli:main"
 
 [tool.setuptools]
-packages = ["clothoid_lab", "clothoid_lab.backend"]
+packages = ["curve_lab", "curve_lab.backend"]

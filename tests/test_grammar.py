@@ -1,9 +1,9 @@
 import math
 import unittest
 
-from clothoid_lab import engine
-from clothoid_lab.grammar import STUDY_01, band, fleur_right, study_01
-from clothoid_lab.piece import render_piece
+from curve_lab import engine
+from curve_lab.grammar import STUDY_01, band, fleur_right, study_01
+from curve_lab.piece import render_piece
 
 # Nodes produced by the original generator (ornament_set.js, study-01), with
 # its 3125-lattice snap. Our exact segments should agree within that snap.

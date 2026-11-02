@@ -27,8 +27,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from clothoid_lab import engine  # noqa: E402
-from clothoid_lab.model import Design, Segment  # noqa: E402
+from curve_lab import engine  # noqa: E402
+from curve_lab.model import Design, Segment  # noqa: E402
 
 SCALE = 3125.0
 U_SPAN = 2.2

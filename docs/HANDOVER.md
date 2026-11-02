@@ -1,4 +1,4 @@
-# clothoid-lab handover
+# curve-lab handover
 
 **Updated:** 2026-10-25  
 **Status:** local MVP and public remote MVP are both live.  
@@ -37,7 +37,7 @@ The remote page and `/api/render` were smoke-tested after deployment:
 | CPU / memory | `1 vCPU` / `512 MiB` |
 | Request timeout | `60 s` |
 | Authentication | public, unauthenticated |
-| Budget guardrail | `clothoid-lab guardrail`, **$1/month**, alerts at 50%, 90%, 100% |
+| Budget guardrail | `curve-lab guardrail`, **$1/month**, alerts at 50%, 90%, 100% |
 
 ## What the MVP is
 
@@ -47,12 +47,12 @@ A deliberately small web harness around the existing geometry engine:
   requirements, no database.
 - `web/static/index.html`, `app.js`, `style.css` — plain HTML/CSS/JS page.
 - `/api/render` accepts a design JSON, width, page, tolerance and split; calls
-  `clothoid_lab.cli.render`; returns the SVG, report text, summary info and
+  `curve_lab.cli.render`; returns the SVG, report text, summary info and
   elapsed milliseconds.
 - `/api/presets` and `/api/cap` expose the four presets and the existing cap
   families; `/api/caps` lists `out/caps`.
 - The native Clothoids engine is reached through `ctypes`
-  (`clothoid_lab/backend/bertolazzi.py`).
+  (`curve_lab/backend/bertolazzi.py`).
 - The page can load presets/caps, edit the design JSON, preview the SVG,
   download SVG/JSON, and show the engine report.
 
@@ -111,13 +111,13 @@ into two images:
    `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-engine:2026-10-26`.
    Rebuild only when `vendor/`, `csrc/`, or `scripts/build-native.sh` changes.
 2. **App image** (root `Dockerfile`): starts FROM the engine base and copies
-   `clothoid_lab/`, `web/`, and `out/caps/`. Every UI or Python change rebuilds
+   `curve_lab/`, `web/`, and `out/caps/`. Every UI or Python change rebuilds
    only this thin layer.
 
 The app build uses an app-only `.gcloudignore` that drops `vendor/`, `csrc/`,
 `scripts/`, and `engine/`, so an app deploy uploads about 100 files and never
 runs the C++ compiler. The engine build uses `.gcloudignore.engine`, which keeps
-the vendored tree and drops `web/`, `clothoid_lab/`, and `out/`.
+the vendored tree and drops `web/`, `curve_lab/`, and `out/`.
 
 The process listens on `$PORT` (`8080`), with `HOST=0.0.0.0`.
 
@@ -268,8 +268,8 @@ unauthenticated URL widely, not the app’s ordinary use.
 | `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web API tests |
 | `tests/test_auth.py` | token auth and rate-limit tests |
-| `clothoid_lab/` | existing geometry/policy layer |
-| `clothoid_lab/piece.py` | `Piece`/`Trace` multi-trace model and renderer |
+| `curve_lab/` | existing geometry/policy layer |
+| `curve_lab/piece.py` | `Piece`/`Trace` multi-trace model and renderer |
 | `workbench/piece-model.html` | W01 visual proof: traces, rails, mirror |
 | `out/caps/` | existing cap SVGs and JSON, baked into remote image |
 | `docs/HANDOVER.md` | this durable handover |
@@ -383,7 +383,7 @@ projects. The `grid-8` and `ornaments` commands were not touched.
 
 ## Handoff checklist
 
-- [ ] Open OpenCode in `clothoid-lab` and start the next session with `/fhandon`.
+- [ ] Open OpenCode in `curve-lab` and start the next session with `/fhandon`.
 - [ ] Open the remote URL on the phone; load a class I cap and a `cap-pt` leaf.
 - [ ] Confirm the $1 budget alert email reaches the billing admin.
 - [ ] Run `git log -1` and `git status`; commit/push the MVP/handover files.

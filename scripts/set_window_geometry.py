@@ -134,7 +134,7 @@ def main(argv: list[str] | None = None) -> int:
 
     width, height = screen()
     values = frame(args.side, width, height)
-    backup = PREFS + ".clothoid-lab-backup"
+    backup = PREFS + ".curve-lab-backup"
     if not os.path.exists(backup):
         shutil.copy2(PREFS, backup)
 

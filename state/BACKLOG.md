@@ -34,7 +34,7 @@ Open the board, rank, tag, then copy the order back into the session.
 ## W01 — Piece model — done 2026-10-26
 
 A piece is several named traces: the half-stroke, the band, the two parallels,
-then the mirror. Implemented in `clothoid_lab/piece.py`:
+then the mirror. Implemented in `curve_lab/piece.py`:
 
 - `Piece` and `Trace`: named chains, layer, optional width, piece mirror with
   per-trace override.

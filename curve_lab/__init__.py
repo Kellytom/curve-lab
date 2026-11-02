@@ -1,9 +1,9 @@
-"""clothoid-lab: numerical clothoid chains, out as plain editable SVG.
+"""curve-lab: numerical clothoid chains, out as plain editable SVG.
 
 The engine is Bertolazzi's Clothoids through pyclothoids. Everything around it
 is ours: the chain model, the cubic fit, the rails, and the SVG writer.
 
-    from clothoid_lab import presets, render
+    from curve_lab import presets, render
     text, info = render(presets.get("s-curve"), width=6)
 """
 

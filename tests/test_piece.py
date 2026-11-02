@@ -1,9 +1,9 @@
 import unittest
 
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.contact import Contact
-from clothoid_lab.piece import Piece, Trace, render_piece
-from clothoid_lab.presets import s_curve
+from curve_lab.model import Design, Segment
+from curve_lab.contact import Contact
+from curve_lab.piece import Piece, Trace, render_piece
+from curve_lab.presets import s_curve
 
 
 def band() -> Design:

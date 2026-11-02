@@ -236,7 +236,7 @@ WINDER = """
     for (let i = 0; i < last.pagePts.length; i += step) points.push(last.pagePts[i]);
     if ((last.pagePts.length - 1) % step !== 0) points.push(last.pagePts[last.pagePts.length - 1]);
     const data = {
-      kind: "clothoid-lab/euler-outward",
+      kind: "curve-lab/euler-outward",
       version: 1,
       saved: new Date().toISOString(),
       inputs: {
@@ -413,7 +413,7 @@ SCROLL = """
     for (let i = 0; i < last.pts.length; i += step) points.push(last.pts[i]);
     if ((last.pts.length - 1) % step !== 0) points.push(last.pts[last.pts.length - 1]);
     const data = {
-      kind: "clothoid-lab/s-scroll",
+      kind: "curve-lab/s-scroll",
       version: 1,
       saved: new Date().toISOString(),
       inputs: {

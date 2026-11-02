@@ -24,9 +24,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import engine, interpolate  # noqa: E402
-from clothoid_lab.clearance import segment_distance  # noqa: E402
-from clothoid_lab.model import Design, Segment  # noqa: E402
+from curve_lab import engine, interpolate  # noqa: E402
+from curve_lab.clearance import segment_distance  # noqa: E402
+from curve_lab.model import Design, Segment  # noqa: E402
 
 SAMPLES = 48
 

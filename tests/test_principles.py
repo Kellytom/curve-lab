@@ -73,7 +73,7 @@ class TestCardGeometry(unittest.TestCase):
                 "terminal": piece.traces[0].terminals[1]}
 
     def test_primal_cards_match_their_geometry(self):
-        from clothoid_lab import primal
+        from curve_lab import primal
         for card in CARDS:
             if card["class"] != "primal":
                 continue

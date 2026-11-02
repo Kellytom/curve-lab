@@ -15,7 +15,7 @@ What works today, and what does not. The dated detail is in `HANDOFF.md`.
   and mirrors, width, placement on the sheet, large drawings in ordinary
   decimals, and the 150 recovered ends with their attachment points.
 - **The spine import**: a chain becomes a `Piece`/`Trace` through
-  `clothoid_lab/spine.py`, drawing on the 200 × 250 mm sheet with a declared
+  `curve_lab/spine.py`, drawing on the 200 × 250 mm sheet with a declared
   contact that passes clearance (gates 1–3, `3f7a603`).
 - **Two profiles of the same study**: exact (1,164 cubics) and practical
   (34 cubics at 0.42 mm), the latter with pins so a branch chosen on the exact

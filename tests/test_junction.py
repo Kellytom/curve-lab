@@ -1,10 +1,10 @@
 import math
 import unittest
 
-from clothoid_lab import engine
-from clothoid_lab.clearance import piece_clearance
-from clothoid_lab.fillet import FilletError
-from clothoid_lab.junction import Junction
+from curve_lab import engine
+from curve_lab.clearance import piece_clearance
+from curve_lab.fillet import FilletError
+from curve_lab.junction import Junction
 
 
 def sample(**overrides) -> Junction:

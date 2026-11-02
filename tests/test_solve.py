@@ -3,7 +3,7 @@
 import math
 import unittest
 
-from clothoid_lab.solve import least_squares
+from curve_lab.solve import least_squares
 
 
 class TestLeastSquares(unittest.TestCase):

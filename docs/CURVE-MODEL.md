@@ -103,6 +103,6 @@ everywhere they cross.
 | **G2** | curvature | They point the same way *and* bend by the same amount: an invisible transition. |
 
 **What the engine actually does.** By construction, every join in
-`clothoid_lab` is **G1**. True **G2** appears only where a width law or a
+`curve_lab` is **G1**. True **G2** appears only where a width law or a
 deliberate blend provides it; an unblended corner or junction still has a
 curvature step, and the reports say so.

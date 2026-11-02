@@ -67,7 +67,7 @@ proved rather than fitted.
 Use the web app when you want the drawn clothoid curve: smooth, G2-capable, with
 widths and a clearance report, exported as SVG.
 
-They now meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary
+They now meet at `curve_lab/spine.py`: a chain's own spans become ordinary
 clothoid segments, so a `Piece` can hold a spine and the normal rails, terminals
 and clearance apply. Three of the four promotion conditions pass (`3f7a603`);
 the fourth — one W03 study drawn entirely from chains — is open because exact

@@ -1,7 +1,7 @@
 # Exercises
 
 One script per prompt. Each script defines a curve family, writes the closure
-residual, solves it with `clothoid_lab.solve.least_squares`, and renders the
+residual, solves it with `curve_lab.solve.least_squares`, and renders the
 result through the normal CLI path. The outputs are `out/<name>.svg` and the
 matching `.json`, so an exercise is reproducible from its script.
 

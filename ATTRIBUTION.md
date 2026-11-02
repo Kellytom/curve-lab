@@ -29,7 +29,7 @@ code is vendored.
 
 ## Ours, MIT
 
-Everything in `clothoid_lab/` and `csrc/` that is not a call into the engine:
+Everything in `curve_lab/` and `csrc/` that is not a call into the engine:
 the chain model, the anchor and continuity rules, the cubic arm rule and its
 adaptive subdivision, the error metric, the rails with their fold reporting, the
 SVG writer and reader, the presets, the command line, and the C surface itself.

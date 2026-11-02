@@ -39,7 +39,7 @@ error measure.
 
 ## What we already do
 
-`clothoid_lab/offsets.py` samples the exact offset through the engine, splits
+`curve_lab/offsets.py` samples the exact offset through the engine, splits
 where the fit is worst, and fits cubics until each rail is inside tolerance. The
 control-point arm is bounded at four times the chord (Levien's rule, adapted);
 a clamped span is counted in the report. A rail that folds is reported, not

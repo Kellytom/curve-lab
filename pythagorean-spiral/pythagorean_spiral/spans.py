@@ -1,6 +1,6 @@
 """Chords to cubics, in the span format the existing writer already takes.
 
-`clothoid_lab.svg.path_d` and `clothoid_lab.piece` speak one span shape:
+`curve_lab.svg.path_d` and `curve_lab.piece` speak one span shape:
 
     {"s0", "s1", "p0", "c1", "c2", "p3"}
 

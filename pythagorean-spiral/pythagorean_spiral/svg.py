@@ -1,6 +1,6 @@
 """A small SVG writer for these chains.
 
-Design coordinates are +y up, as everywhere in clothoid-lab.  SVG's y is down,
+Design coordinates are +y up, as everywhere in curve-lab.  SVG's y is down,
 so the flip happens here, once, when the points are written.  The page is
 millimetres and the drawing is scaled to fit, so a chain whose integers run to
 10^5 still lands on a 200 mm sheet.

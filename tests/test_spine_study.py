@@ -9,9 +9,9 @@ import math
 import unittest
 from fractions import Fraction
 
-from clothoid_lab import spine_study
-from clothoid_lab.grammar import STUDY_01, fleur_right
-from clothoid_lab.piece import render_piece
+from curve_lab import spine_study
+from curve_lab.grammar import STUDY_01, fleur_right
+from curve_lab.piece import render_piece
 
 
 class TestChainStudy(unittest.TestCase):

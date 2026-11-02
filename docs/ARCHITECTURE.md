@@ -4,7 +4,7 @@ This project draws smooth decorative curves — scrolls, leaves, ribbons — and
 does so with two tools rather than one. They are good at different things, and
 most of the design decisions follow from keeping them apart.
 
-## The curve engine (`clothoid_lab`)
+## The curve engine (`curve_lab`)
 
 A train does not jerk into a bend; the track eases into it. That transition is a
 clothoid, or Euler spiral, and the engine uses the same idea for ornament.
@@ -51,7 +51,7 @@ The intended pipeline, from exact plan to finished page:
    closure and endpoints on the grid
             |
             v  anchors and headings
-2. INK             clothoid_lab
+2. INK             curve_lab
    smooth segments, width, rails, clearance
             |
             v  paths
@@ -60,11 +60,11 @@ The intended pipeline, from exact plan to finished page:
 ```
 
 **All four conditions hold under the operator's fidelity rule (2026-10-30).** The two tools now
-meet at `clothoid_lab/spine.py`: a chain's own spans become ordinary clothoid
+meet at `curve_lab/spine.py`: a chain's own spans become ordinary clothoid
 segments, so rails, terminals, clearance and the SVG writer need no second
 geometry kind.
 
-1. **Done.** `clothoid_lab` imports a chain and builds a `Piece`/`Trace` from its
+1. **Done.** `curve_lab` imports a chain and builds a `Piece`/`Trace` from its
    anchors; every fitted join lands on a chain anchor (worst 2e-14 units).
 2. **Done.** `workbench/spine-sheet.html` draws a curl on the 200 × 250 mm sheet
    through `svg.document`.
@@ -105,7 +105,7 @@ list of points. It is the volute/scroll family, not a fourth kind of ink.
 The practical consequence: a scroll should emit an ordinary `Design`, so it
 inherits the rails, terminals, clearance, SVG writer and the practical curve's
 pins. Today it lives in `scripts/spiral_turns.py`; the next step is to promote it
-to `clothoid_lab/scroll.py` with tests, and then it is a first-class way in
+to `curve_lab/scroll.py` with tests, and then it is a first-class way in
 rather than a page experiment.
 
 ## Where to look

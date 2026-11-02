@@ -1,1 +1,1 @@
-"""Local web harness for clothoid-lab (MVP)."""
+"""Local web harness for curve-lab (MVP)."""

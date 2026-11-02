@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from clothoid_lab import presets
+from curve_lab import presets
 from web.server import render_payload
 
 

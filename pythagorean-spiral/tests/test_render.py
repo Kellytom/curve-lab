@@ -74,14 +74,14 @@ class TestSvg(unittest.TestCase):
 
 
 class TestIntegration(unittest.TestCase):
-    """The polygon must be drawable by clothoid-lab's writer, untouched."""
+    """The polygon must be drawable by curve-lab's writer, untouched."""
 
     def test_spans_feed_the_existing_path_writer(self):
-        if not (REPO / "clothoid_lab" / "svg.py").exists():
-            self.skipTest("clothoid_lab not on this checkout")
+        if not (REPO / "curve_lab" / "svg.py").exists():
+            self.skipTest("curve_lab not on this checkout")
         sys.path.insert(0, str(REPO))
         try:
-            from clothoid_lab import svg as lab_svg
+            from curve_lab import svg as lab_svg
         finally:
             sys.path.pop(0)
         p = design.lobe(THIN, 5, 3121)

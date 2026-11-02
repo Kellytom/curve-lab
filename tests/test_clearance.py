@@ -1,9 +1,9 @@
 import math
 import unittest
 
-from clothoid_lab import clearance as cl
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.piece import Piece, Trace, build_piece
+from curve_lab import clearance as cl
+from curve_lab.model import Design, Segment
+from curve_lab.piece import Piece, Trace, build_piece
 
 
 def ribbon(x: float = 0.0, y: float = 0.0, length: float = 60.0,

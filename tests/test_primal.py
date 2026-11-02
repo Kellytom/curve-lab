@@ -1,7 +1,7 @@
 import unittest
 
-from clothoid_lab import primal
-from clothoid_lab.piece import render_piece
+from curve_lab import primal
+from curve_lab.piece import render_piece
 
 
 class TestPrimal(unittest.TestCase):

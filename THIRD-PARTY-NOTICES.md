@@ -1,6 +1,6 @@
 # Third-party notices
 
-clothoid-lab is MIT licensed (see `LICENSE`). It vendors and uses the
+curve-lab is MIT licensed (see `LICENSE`). It vendors and uses the
 following third-party work, whose notices are retained here as their licences
 require.
 

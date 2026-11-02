@@ -4,7 +4,7 @@ A reading library, not a dependency. The maths we may need later for terminals,
 clearance, junctions, spirals and instrument outlines, kept where it can be
 found again.
 
-Nothing here is imported by `clothoid_lab/`. The working engine stays
+Nothing here is imported by `curve_lab/`. The working engine stays
 Bertolazzi's Clothoids in `vendor/`; this folder is where the other approaches
 live so we can write our own code with the prior art in view.
 
@@ -29,7 +29,7 @@ history. Run `bash focus-math/fetch.sh` on a new machine.
 - **Referenced only** when the licence is GPL/LGPL, missing, or the repository
   is too large to justify a copy. The licence column in `SOURCES.md` is the
   boundary; nothing from a referenced GPL project is pasted into this tree.
-- `clothoid_lab/` remains MIT. Nothing in `focus-math/repos/` is linked,
+- `curve_lab/` remains MIT. Nothing in `focus-math/repos/` is linked,
   imported or vendored into the build.
 
 ## Where to start

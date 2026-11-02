@@ -1,4 +1,4 @@
-"""A zero-dependency web MVP for clothoid-lab.
+"""A zero-dependency web MVP for curve-lab.
 
 Serves a small HTML/JS page and one JSON render endpoint:
 
@@ -31,8 +31,8 @@ STATIC = Path(__file__).resolve().parent / "static"
 CAPS = ROOT / "out" / "caps"
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import cli, presets  # noqa: E402
-from clothoid_lab.model import Design  # noqa: E402
+from curve_lab import cli, presets  # noqa: E402
+from curve_lab.model import Design  # noqa: E402
 
 
 def _safe(value):
@@ -196,7 +196,7 @@ def cap_design(name: str) -> dict:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "clothoid-lab-web/0.1"
+    server_version = "curve-lab-web/0.1"
 
     def log_message(self, fmt, *args):
         sys.stderr.write(f"{self.address_string()} {fmt % args}\n")
@@ -215,7 +215,7 @@ class Handler(BaseHTTPRequestHandler):
     def _unauthorized(self):
         body = b"authentication required\n"
         self.send_response(401)
-        self.send_header("WWW-Authenticate", 'Basic realm="clothoid-lab"')
+        self.send_header("WWW-Authenticate", 'Basic realm="curve-lab"')
         self.send_header("Content-Type", "text/plain; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
@@ -314,7 +314,7 @@ def main() -> int:
     host = os.environ.get("HOST", "127.0.0.1")
     port = int(os.environ.get("PORT", "8000"))
     server = ThreadingHTTPServer((host, port), Handler)
-    print(f"clothoid-lab web: http://{host}:{port}/")
+    print(f"curve-lab web: http://{host}:{port}/")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

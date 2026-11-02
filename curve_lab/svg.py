@@ -227,7 +227,7 @@ def document(design, chain=None, spine=None, rails=None,
         out.append("  " + view.strip())
     out += [
         f"  <title>{_escape(design.name)}</title>",
-        f'  <desc id="clothoid-lab-design">{_escape(design.to_json())}</desc>',
+        f'  <desc id="curve-lab-design">{_escape(design.to_json())}</desc>',
     ]
     behind = annotations_markup(False)
     if behind:
@@ -291,7 +291,7 @@ def parse_d(d: str) -> list[tuple[str, list[float]]]:
 
 def metadata_design(svg_text: str) -> dict:
     """Recover the design JSON from a file this writer produced."""
-    marker = '<desc id="clothoid-lab-design">'
+    marker = '<desc id="curve-lab-design">'
     start = svg_text.find(marker)
     end = svg_text.find("</desc>", start)
     if start < 0 or end < 0:

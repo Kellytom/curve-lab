@@ -1,11 +1,11 @@
 import math
 import unittest
 
-from clothoid_lab import engine
-from clothoid_lab.fillet import (
+from curve_lab import engine
+from curve_lab.fillet import (
     FilletError, arc_segment, corner_fillet, fillet_span,
 )
-from clothoid_lab.model import Design, Segment
+from curve_lab.model import Design, Segment
 
 
 def cubic(span, t):

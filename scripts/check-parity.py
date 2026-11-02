@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab.model import Design  # noqa: E402
+from curve_lab.model import Design  # noqa: E402
 LOCAL = os.environ.get("LOCAL_URL", "http://127.0.0.1:8000").rstrip("/")
 REMOTE = os.environ.get(
     "REMOTE_URL", "https://<your-service>.run.app"

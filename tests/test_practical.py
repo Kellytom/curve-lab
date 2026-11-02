@@ -8,10 +8,10 @@ the SVG.
 import math
 import unittest
 
-from clothoid_lab import bezier, engine, practical, spine_study
-from clothoid_lab.grammar import STUDY_01, fleur_right
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.piece import build_piece, render_piece
+from curve_lab import bezier, engine, practical, spine_study
+from curve_lab.grammar import STUDY_01, fleur_right
+from curve_lab.model import Design, Segment
+from curve_lab.piece import build_piece, render_piece
 
 
 class TestBoundaryTangent(unittest.TestCase):

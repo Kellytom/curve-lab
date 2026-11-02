@@ -1,10 +1,10 @@
 import math
 import unittest
 
-from clothoid_lab.bundle import Bundle
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.piece import Trace
-from clothoid_lab.section import sections
+from curve_lab.bundle import Bundle
+from curve_lab.model import Design, Segment
+from curve_lab.piece import Trace
+from curve_lab.section import sections
 
 
 def ribbon(y=0.0, width=6.0):

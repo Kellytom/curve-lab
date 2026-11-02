@@ -122,7 +122,7 @@ The method is more general than the notes allow, and narrower than they claim.
 The idea integrates; the artifacts mostly do not.
 
 - **Fits:** the span layer. `spans.spans()` returns exactly
-  `{"s0","s1","p0","c1","c2","p3"}`, and `clothoid_lab.svg.path_d` consumes it
+  `{"s0","s1","p0","c1","c2","p3"}`, and `curve_lab.svg.path_d` consumes it
   today with no change (`tests/test_render.py::TestIntegration`). That is the
   seam the `piece`/`groups` machinery already uses.
 - **Does not fit:** `Design`/`Segment`. Those describe continuous clothoids
@@ -139,7 +139,7 @@ The idea integrates; the artifacts mostly do not.
   to be re-derived against the chain's own curvature, which is impulsive.
 
 Recommendation: keep this as a study at the span layer, and do not touch
-`clothoid_lab/` until the closure and resolution results above are accepted.
+`curve_lab/` until the closure and resolution results above are accepted.
 
 ## 6. Reproduce
 

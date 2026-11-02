@@ -1,6 +1,6 @@
 # Project overview
 
-`clothoid-lab` turns numerical clothoids into plain, editable SVG. A design is
+`curve-lab` turns numerical clothoids into plain, editable SVG. A design is
 a chain of clothoid segments — curvature rising linearly with arc length —
 placed in the plane, fitted to cubic Béziers to a measured tolerance, offset
 into rails, and written in millimetres with no transform, so Inkscape opens it
@@ -36,7 +36,7 @@ Three properties the code takes seriously:
 
 ```
 .
-├── clothoid_lab/              Python 3, the package (MIT)
+├── curve_lab/              Python 3, the package (MIT)
 │   ├── model.py               design, segments, JSON, validation
 │   ├── engine.py              place the chain, arc-length addressing, joins
 │   ├── bezier.py              arm rule, adaptive split, error metric
@@ -89,7 +89,7 @@ math, and glue in Rust would only add a build step.
 | Geometry engine: evaluation, exact offsets, G1/G2 fitting, trim, projection, intersections | `vendor/Clothoids` | C++ | Enrico Bertolazzi, Marco Frego | BSD-2 |
 | Linear algebra | `vendor/.../Eigen` | C++ headers | Eigen authors | MPL-2.0 |
 | UtilsLite, GenericContainer, quarticRootsFlocke | `vendor/.../submodules` | C++ | Enrico Bertolazzi | permissive |
-| Chain model, cubic fit, rails, SVG, presets, CLI, watcher, C surface | `clothoid_lab/`, `csrc/` | Python, C++ | Kellytom (project author); this session's additions by Kellytom with an OpenCode agent | MIT |
+| Chain model, cubic fit, rails, SVG, presets, CLI, watcher, C surface | `curve_lab/`, `csrc/` | Python, C++ | Kellytom (project author); this session's additions by Kellytom with an OpenCode agent | MIT |
 | Tests and scripts | `tests/`, `scripts/` | Python, Bash | same | MIT |
 | Prebuilt wheel, second opinion only | optional dependency | Python/C++ | Phillip Dix (`pyclothoids`) | MIT |
 | Editor and reload target | external app | C++ | Inkscape team | GPL-2.0+ |
@@ -131,10 +131,10 @@ library already implements it.
 ```sh
 bash scripts/build-native.sh                 # compile the engine, ~1 minute
 python3 -m venv .venv                        # no runtime dependencies
-.venv/bin/python -m clothoid_lab.cli --preset ogee --width 6 --out out/ogee.svg
+.venv/bin/python -m curve_lab.cli --preset ogee --width 6 --out out/ogee.svg
 
 # the two-window loop
-.venv/bin/python -m clothoid_lab.cli --watch --design out/play.json \
+.venv/bin/python -m curve_lab.cli --watch --design out/play.json \
     --width 4 --frame 200x250 --out out/play.svg
 ```
 

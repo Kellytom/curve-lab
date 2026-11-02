@@ -2,7 +2,7 @@
 description: Focused handon — read next-fhandoff.md and carry out its one action
 ---
 
-Focused handon for clothoid-lab. Work in
+Focused handon for curve-lab. Work in
 `/Users/thomaskelly/developer/clothoid-lab`.
 
 1. Before any tool call, write one sentence naming the focused action you are

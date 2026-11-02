@@ -2,7 +2,7 @@
 description: Do the next unchecked item in docs/BACKLOG.md
 ---
 
-Backlog morsel for clothoid-lab. Work in
+Backlog morsel for curve-lab. Work in
 `/Users/thomaskelly/developer/clothoid-lab`.
 
 1. Before any tool call, write one sentence naming the item you are about to do.

@@ -6,8 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import primal
-from clothoid_lab.piece import render_piece
+from curve_lab import primal
+from curve_lab.piece import render_piece
 
 NOTES = {
     "earth": "Strata: four terraces, real corners, heavy at the foot, drawn to a taper.",

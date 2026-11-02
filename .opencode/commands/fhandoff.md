@@ -2,7 +2,7 @@
 description: Focused handoff — square the record fast, then write next-fhandoff.md with one action
 ---
 
-Focused handoff for clothoid-lab. Work in
+Focused handoff for curve-lab. Work in
 `/Users/thomaskelly/developer/clothoid-lab`. Do not start new feature work.
 
 **Be fast.** Target a minute, not a session. One batched probe instead of six
@@ -16,7 +16,7 @@ the date it was last checked.
    default probe. Do not run `git diff` over the tree, and do not explore.
 2. **Re-verify only what moved.**
    - **Tests:** run `.venv/bin/python -m unittest discover tests` only if
-     something under `web/`, `clothoid_lab/`, `csrc/`, or `tests/` differs from
+     something under `web/`, `curve_lab/`, `csrc/`, or `tests/` differs from
      HEAD. Otherwise carry the recorded count and label it carried.
    - **Cloud:** skip `gcloud` entirely (revision, limits, budget) unless this
      session deployed or changed Cloud Run, Cloud Build, or billing. Carry the

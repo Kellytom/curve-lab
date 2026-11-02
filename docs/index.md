@@ -1,4 +1,4 @@
-# clothoid-lab
+# curve-lab
 
 A workshop for one thing: **curves that can be built exactly, and ornaments that
 follow from them.**

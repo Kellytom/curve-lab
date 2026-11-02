@@ -112,7 +112,7 @@ is the object the philosophy says is central.
   Ignore or replace with links + hashes before the repo goes public. Provenance
   is not permission.
 - Generated docs in git (1.4 MB board, 600 KB JSON) will bloat; plan a `dist/`.
-- `clothoid_lab` is not installable; scripts use `sys.path.insert`. Add a
+- `curve_lab` is not installable; scripts use `sys.path.insert`. Add a
   packaged module list before an outsider tries.
 
 ## If we changed exactly one thing

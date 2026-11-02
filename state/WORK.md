@@ -70,7 +70,7 @@ nothing should implement them until D07 is answered.
 ## What would make the spine layer part of the tool
 
 The spine layer is part of the tool: all four conditions hold (`3f7a603`,
-`97e83d5`), and `clothoid_lab/spine.py` is the bridge.
+`97e83d5`), and `curve_lab/spine.py` is the bridge.
 
 1. **Done.** The engine reads a chain's spans and builds a `Design`, `Trace`
    and `Piece` from its anchors.

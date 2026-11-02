@@ -1,4 +1,4 @@
-# clothoid-lab
+# curve-lab
 
 Numerical clothoid chains, out as plain editable SVG.
 
@@ -17,7 +17,7 @@ model, the cubic fit, the rails, and the writer.
 ```sh
 bash scripts/build-native.sh          # compiles the engine, about a minute
 python3 -m venv .venv                 # nothing to install: no runtime deps
-.venv/bin/python -m clothoid_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
+.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
 ```
 
 The build needs a C++ compiler and nothing else. If the compiler is unavailable,
@@ -67,7 +67,7 @@ minimum edge-to-edge gap between strokes, the pairs that fall below it, and
 every crossing that no declared contact covers:
 
 ```python
-from clothoid_lab.clearance import Contact, piece_clearance
+from curve_lab.clearance import Contact, piece_clearance
 
 result = piece_clearance(piece, clearance=5.0)
 print(result["ok"], result["min"])
@@ -90,7 +90,7 @@ Start the watcher, keep Inkscape open on the drawing, edit the design on the
 other side, and save.
 
 ```sh
-.venv/bin/python -m clothoid_lab.cli --watch \
+.venv/bin/python -m curve_lab.cli --watch \
     --design out/play.json --seed ogee --width 6 --out out/play.svg
 ```
 
@@ -157,7 +157,7 @@ When the shape starts as a sketch rather than a curvature list, give the tool
 the points and let it fit them:
 
 ```sh
-.venv/bin/python -m clothoid_lab.cli --points out/route.txt \
+.venv/bin/python -m curve_lab.cli --points out/route.txt \
     --width 4 --frame 200x250 --out out/route.svg
 ```
 
@@ -208,7 +208,7 @@ The chain can be cut and reversed without refitting, so the pieces stay the
 same clothoid arcs. Two designs can be joined with a G2 connector at the seam:
 
 ```python
-from clothoid_lab import compose
+from curve_lab import compose
 
 short = compose.trim(design, 20.0, 120.0)   # arc-length range, mm
 back = compose.reverse(design)
@@ -262,17 +262,17 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 
 ## Files
 
-- `clothoid_lab/model.py` holds the design, its JSON, and its validation.
-- `clothoid_lab/engine.py` places the chain and addresses it by arc length.
-- `clothoid_lab/interpolate.py` fits a G1 or G2 spline through points and turns it into a design.
-- `clothoid_lab/compose.py` trims, reverses, connects and joins designs.
-- `clothoid_lab/bezier.py` holds the arm rule, the subdivision, and the error metric.
-- `clothoid_lab/offsets.py` builds the rails, the fold ranges and the ribbon.
-- `clothoid_lab/svg.py` writes the path data and reads the design back.
-- `clothoid_lab/presets.py` holds the named starting designs, numbers derived.
-- `clothoid_lab/backend/` holds the ctypes surface and the wheel adapter.
-- `clothoid_lab/cli.py` runs one command and prints the report.
-- `clothoid_lab/watch.py` holds the two-window loop and its safety rules.
+- `curve_lab/model.py` holds the design, its JSON, and its validation.
+- `curve_lab/engine.py` places the chain and addresses it by arc length.
+- `curve_lab/interpolate.py` fits a G1 or G2 spline through points and turns it into a design.
+- `curve_lab/compose.py` trims, reverses, connects and joins designs.
+- `curve_lab/bezier.py` holds the arm rule, the subdivision, and the error metric.
+- `curve_lab/offsets.py` builds the rails, the fold ranges and the ribbon.
+- `curve_lab/svg.py` writes the path data and reads the design back.
+- `curve_lab/presets.py` holds the named starting designs, numbers derived.
+- `curve_lab/backend/` holds the ctypes surface and the wheel adapter.
+- `curve_lab/cli.py` runs one command and prints the report.
+- `curve_lab/watch.py` holds the two-window loop and its safety rules.
 
 ## Tests
 

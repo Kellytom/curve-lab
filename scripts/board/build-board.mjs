@@ -32,7 +32,7 @@ function cropSvg(text) {
 }
 
 function designFromDesc(svg) {
-  const match = svg.match(/<desc id="clothoid-lab-design">([\s\S]*?)<\/desc>/);
+  const match = svg.match(/<desc id="curve-lab-design">([\s\S]*?)<\/desc>/);
   if (!match) return null;
   const text = match[1]
     .replace(/&quot;/g, '"').replace(/&apos;/g, "'")

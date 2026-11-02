@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>clothoid-lab handover</title>
+<title>curve-lab handover</title>
 <style>
   :root {
     --paper: #f4f0e6;
@@ -70,7 +70,7 @@
 <main>
 <header>
   <div><span class="badge">handover</span><span class="meta">updated 2026-10-25 · latest commit in repository</span></div>
-  <h1>clothoid-lab</h1>
+  <h1>curve-lab</h1>
   <p class="meta">Local MVP + public remote MVP · exact clothoids · 200 × 250 mm sheet · +y up</p>
 </header>
 
@@ -105,7 +105,7 @@
   <tr><td>CPU / memory</td><td><code>1 vCPU</code> / <code>512 MiB</code></td></tr>
   <tr><td>Request timeout</td><td><code>60 s</code></td></tr>
   <tr><td>Authentication</td><td>Public, unauthenticated</td></tr>
-  <tr><td>Budget guardrail</td><td><code>clothoid-lab guardrail</code>, <strong>$1/month</strong>, alerts 50/90/100%</td></tr>
+  <tr><td>Budget guardrail</td><td><code>curve-lab guardrail</code>, <strong>$1/month</strong>, alerts 50/90/100%</td></tr>
 </table>
 
 <h2>What the MVP is</h2>
@@ -113,9 +113,9 @@
 <ul>
   <li><code>web/server.py</code> — Python standard-library HTTP server; no FastAPI, no requirements, no database.</li>
   <li><code>web/static/</code> — plain HTML/CSS/JS page.</li>
-  <li><code>/api/render</code> — accepts design JSON, width, page, tolerance and split; calls <code>clothoid_lab.cli.render</code>; returns SVG, report, summary info and elapsed milliseconds.</li>
+  <li><code>/api/render</code> — accepts design JSON, width, page, tolerance and split; calls <code>curve_lab.cli.render</code>; returns SVG, report, summary info and elapsed milliseconds.</li>
   <li><code>/api/presets</code>, <code>/api/caps</code>, <code>/api/cap</code> — four presets and the existing cap families.</li>
-  <li>The native engine is reached through <code>ctypes</code> (<code>clothoid_lab/backend/bertolazzi.py</code>).</li>
+  <li>The native engine is reached through <code>ctypes</code> (<code>curve_lab/backend/bertolazzi.py</code>).</li>
   <li>The page loads presets/caps, edits design JSON, previews SVG, downloads SVG/JSON, and shows the report.</li>
 </ul>
 <p>Design semantics are unchanged: millimetres at 1:1, <strong>+y up</strong>, standard <strong>200 × 250 mm</strong> sheet, 10 mm ribbon (5 mm each side) where selected, 0.5 mm cap stroke. The SVG writer flips at output; design and JSON remain y-up.</p>
@@ -152,7 +152,7 @@ open http://127.0.0.1:8000/</code></pre>
 <p>Cloud Run runs the same Python server in Linux. The build is split:</p>
 <ol>
   <li><strong>Engine base</strong> (<code>engine/Dockerfile</code>, built by <code>cloudbuild.engine.yaml</code>): Debian bookworm installs <code>clang</code> and compiles vendored Clothoids and <code>csrc/</code> into <code>libclothoidlab.so</code>; the runtime is <code>python:3.12-slim</code> plus <code>libstdc++6</code> and that <code>.so</code>. Rebuild only when <code>vendor/</code>, <code>csrc/</code>, or <code>scripts/build-native.sh</code> changes.</li>
-  <li><strong>App image</strong> (root <code>Dockerfile</code>): starts FROM the engine base and copies <code>clothoid_lab/</code>, <code>web/</code>, and <code>out/caps/</code>. Every UI or Python change rebuilds only this thin layer.</li>
+  <li><strong>App image</strong> (root <code>Dockerfile</code>): starts FROM the engine base and copies <code>curve_lab/</code>, <code>web/</code>, and <code>out/caps/</code>. Every UI or Python change rebuilds only this thin layer.</li>
   <li>Process listens on <code>$PORT</code> (<code>8080</code>) with <code>HOST=0.0.0.0</code>.</li>
 </ol>
 <p>An app-only <code>.gcloudignore</code> drops <code>vendor/</code>, <code>csrc/</code>, <code>scripts/</code>, and <code>engine/</code>, so an app deploy uploads about 100 files and never runs the compiler. A first thin deploy took 30 seconds; the engine base took 6m43s once.</p>
@@ -237,8 +237,8 @@ gcloud projects delete <your-gcp-project></code></pre>
   <tr><td><code>scripts/check-parity.py</code></td><td>local/remote parity smoke test</td></tr>
   <tr><td><code>tests/test_web.py</code></td><td>web API tests</td></tr>
   <tr><td><code>tests/test_auth.py</code></td><td>token auth and rate-limit tests</td></tr>
-  <tr><td><code>clothoid_lab/</code></td><td>existing geometry/policy layer</td></tr>
-  <tr><td><code>clothoid_lab/piece.py</code></td><td>Piece/Trace multi-trace model and renderer</td></tr>
+  <tr><td><code>curve_lab/</code></td><td>existing geometry/policy layer</td></tr>
+  <tr><td><code>curve_lab/piece.py</code></td><td>Piece/Trace multi-trace model and renderer</td></tr>
   <tr><td><code>workbench/piece-model.html</code></td><td>W01 visual proof: traces, rails, mirror</td></tr>
   <tr><td><code>out/caps/</code></td><td>existing cap SVG/JSON, baked into remote image</td></tr>
   <tr><td><code>docs/HANDOVER.md</code></td><td>durable Markdown handover</td></tr>
@@ -315,7 +315,7 @@ gcloud run deploy clothoid-web \
 
 <h2>Handoff checklist</h2>
 <ul class="check">
-  <li>Open OpenCode in <code>clothoid-lab</code> and start the next session with <code>/fhandon</code>.</li>
+  <li>Open OpenCode in <code>curve-lab</code> and start the next session with <code>/fhandon</code>.</li>
   <li>Open the remote URL on the phone; load a class I cap and a <code>cap-pt</code> leaf.</li>
   <li>Confirm the $1 budget alert email reaches the billing admin.</li>
   <li>Run <code>git log -1</code> and <code>git status</code>; commit/push MVP and handover files.</li>
@@ -326,7 +326,7 @@ gcloud run deploy clothoid-web \
 </ul>
 
 <footer>
-  clothoid-lab · handover mirror of <code>docs/HANDOVER.md</code> · generated for the next session
+  curve-lab · handover mirror of <code>docs/HANDOVER.md</code> · generated for the next session
 </footer>
 </main>
 </body>

@@ -5,8 +5,8 @@ cubics were needed, how far they sit from the true clothoid, whether every join
 is G2, the tightest radius on the chain, and for each rail whether it has folded
 and by how much margin.
 
-    python -m clothoid_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
-    python -m clothoid_lab.cli --points route.txt --width 4 --out out/route.svg
+    python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg
+    python -m curve_lab.cli --points route.txt --width 4 --out out/route.svg
 
 Exit status is 0 when the fit is inside tolerance and the joins are G2, or when
 the design is a G1 spline through points and its jumps are the fit. It is 1
@@ -148,7 +148,7 @@ def backend_names() -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(prog="clothoid_lab", description=__doc__.splitlines()[0])
+    ap = argparse.ArgumentParser(prog="curve_lab", description=__doc__.splitlines()[0])
     src = ap.add_mutually_exclusive_group(required=True)
     src.add_argument("--preset", choices=sorted(presets.PRESETS), help="a named starting design")
     src.add_argument("--design", help="a design JSON file")

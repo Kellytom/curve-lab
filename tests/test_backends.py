@@ -9,7 +9,7 @@ restype, a handle freed under a live curve, a chain built at the wrong anchor.
 import math
 import unittest
 
-from clothoid_lab import backend, engine, presets
+from curve_lab import backend, engine, presets
 
 
 class TestBackendAgreement(unittest.TestCase):

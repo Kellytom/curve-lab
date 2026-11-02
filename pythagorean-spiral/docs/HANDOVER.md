@@ -14,14 +14,14 @@ caps onto the new curve.
 **Status:** the exact **spine layer**, and central to the curve work — not a
 spike, and not off the W01→W04 path. It supplies the exact anchors, the proved
 closure rule and the exact joins those studies draw on. It is not yet imported
-by `clothoid_lab`; that import is the promotion gate, not a question about
+by `curve_lab`; that import is the promotion gate, not a question about
 whether the work matters.
 
 ## Promotion gate
 
 The word "central" becomes a fact when all four hold:
 
-1. `clothoid_lab` imports a chain and builds a `Piece`/`Trace` from its anchors.
+1. `curve_lab` imports a chain and builds a `Piece`/`Trace` from its anchors.
 2. One spine renders on the 200 × 250 mm sheet, +y up, through `svg.document`.
 3. `piece_clearance()` measures it, and a declared contact or join passes.
 4. One W03 fleur study is drawn entirely from Pythagorean chains.

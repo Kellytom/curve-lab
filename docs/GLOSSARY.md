@@ -5,7 +5,7 @@ page defines each word as the code uses it, then maps the two vocabularies. It
 is the only vocabulary list the repo keeps: the shorter one it used to defer to
 was never written.
 
-## The curve engine (`clothoid_lab`)
+## The curve engine (`curve_lab`)
 
 | Word | Means |
 |---|---|

@@ -4,8 +4,8 @@ import os
 import re
 import unittest
 
-from clothoid_lab import bezier, cli, engine, presets, svg
-from clothoid_lab.model import Design, Segment
+from curve_lab import bezier, cli, engine, presets, svg
+from curve_lab.model import Design, Segment
 
 
 def build(name="s-curve", width=6.0, prec=4):
@@ -175,8 +175,8 @@ class TestCommandLine(unittest.TestCase):
         self.assertFalse(info["ok"])
 
     def test_the_verdict_names_a_broken_join(self):
-        from clothoid_lab.model import Design, Segment
-        from clothoid_lab import cli
+        from curve_lab.model import Design, Segment
+        from curve_lab import cli
         design = Design(segments=[Segment(kappa0=0.0, kd=0.01, length=10.0),
                                   Segment(kappa0=0.0, kd=0.0, length=10.0)])
         _, info = cli.render(design, tol=0.02)

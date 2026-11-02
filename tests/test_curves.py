@@ -5,8 +5,8 @@ import os
 import tempfile
 import unittest
 
-from clothoid_lab import cli, compose, engine, interpolate
-from clothoid_lab.model import Design, Segment
+from curve_lab import cli, compose, engine, interpolate
+from curve_lab.model import Design, Segment
 
 POINTS = [(0.0, 0.0), (10.0, 5.0), (20.0, 0.0), (30.0, 8.0), (40.0, 2.0)]
 

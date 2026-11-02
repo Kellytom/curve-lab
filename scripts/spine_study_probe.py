@@ -34,7 +34,7 @@ from pythagorean_spiral.exact import Dir  # noqa: E402
 from pythagorean_spiral.spiral import Spiral  # noqa: E402
 from pythagorean_spiral.triples import for_angle  # noqa: E402
 
-from clothoid_lab.grammar import STUDY_01, fleur_right  # noqa: E402
+from curve_lab.grammar import STUDY_01, fleur_right  # noqa: E402
 
 ANGLES = (1.0, 0.5, 0.25)
 

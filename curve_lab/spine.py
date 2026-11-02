@@ -12,7 +12,7 @@ The import is lazy and uninstalled: `pythagorean-spiral/` is not a Python
 package on `sys.path`, and the wheel does not ship it, so `load()` adds the
 directory only when a chain is actually read.
 
-    from clothoid_lab import spine
+    from curve_lab import spine
     package = spine.load()
     chain = package.design.lobe(package.thinnest(3125), steps=7)
     piece = spine.piece_from_chain(chain, width=1.0)
@@ -34,7 +34,7 @@ def load():
     """Import the spine layer from the repository, unsupported and unwrapped.
 
     Kept as an explicit call rather than a module-level import: importing
-    `clothoid_lab` must not depend on a sibling directory existing, and the
+    `curve_lab` must not depend on a sibling directory existing, and the
     spine layer must stay optional until the gate is fully passed.
     """
     if not (SPINE_ROOT / "pythagorean_spiral").is_dir():

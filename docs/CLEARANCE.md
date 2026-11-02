@@ -1,6 +1,6 @@
 # Clearance and crossings
 
-`clothoid_lab/clearance.py` answers one question about a drawing:
+`curve_lab/clearance.py` answers one question about a drawing:
 
 > Does the ink keep at least **5 mm** between strokes, and does it cross
 > anywhere it was not allowed to?
@@ -22,7 +22,7 @@ report tells you where the drawing fails and by how much.
 ## Quick start
 
 ```python
-from clothoid_lab.clearance import Contact, piece_clearance
+from curve_lab.clearance import Contact, piece_clearance
 
 result = piece_clearance(piece, clearance=5.0, tol=0.05)
 

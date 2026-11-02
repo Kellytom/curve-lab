@@ -21,12 +21,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import engine  # noqa: E402
-from clothoid_lab.model import Design  # noqa: E402
+from curve_lab import engine  # noqa: E402
+from curve_lab.model import Design  # noqa: E402
 
 
 def embedded_design(svg: str) -> dict | None:
-    match = re.search(r'<desc id="clothoid-lab-design">(.*?)</desc>', svg, re.S)
+    match = re.search(r'<desc id="curve-lab-design">(.*?)</desc>', svg, re.S)
     if not match:
         return None
     try:
@@ -100,7 +100,7 @@ def build_html(args) -> str:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>{title} - clothoid-lab twin</title>
+<title>{title} - curve-lab twin</title>
 {refresh}
 <style>
   :root {{ color-scheme: light dark; --ink:#111; --paper:#fff; --muted:#666; --line:#d8d8d8; }}
@@ -156,7 +156,7 @@ def build_html(args) -> str:
     <pre>{design_json}</pre>
   </aside>
 </main>
-<footer>clothoid-lab twin. The SVG above is inline; the page has no external assets.</footer>
+<footer>curve-lab twin. The SVG above is inline; the page has no external assets.</footer>
 </body>
 </html>
 """

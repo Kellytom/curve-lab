@@ -48,7 +48,7 @@ wrap(theta_end - pi) = 0
 ```
 
 with `L1 > 0`, `L2 > 0`, `kd2 < 0`. The solver is the bounded
-Levenberg–Marquardt in `clothoid_lab/solve.py`; each solution seeds the next
+Levenberg–Marquardt in `curve_lab/solve.py`; each solution seeds the next
 height, so the branch is a continuation rather than a fresh search.
 
 For the straight-return family the first two residuals are `x_end - X` and
@@ -125,7 +125,7 @@ never sits exactly on the discontinuity.
   parameters and fit errors.
 - `out/caps/cap-N.svg` and `.json` — the drawings and their designs.
 - `out/closed-cl-1.svg` — the closed hairpin the caps were derived from.
-- `clothoid_lab/solve.py` — the bounded solver used for every solve.
+- `curve_lab/solve.py` — the bounded solver used for every solve.
 
 All cap SVGs are y-up, 200 × 250 mm, scale 1.0000, with a fitted view and an
 opaque white page.

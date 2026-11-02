@@ -18,10 +18,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import engine, spine  # noqa: E402
-from clothoid_lab.clearance import piece_clearance  # noqa: E402
-from clothoid_lab.contact import Contact  # noqa: E402
-from clothoid_lab.piece import Piece, render_piece  # noqa: E402
+from curve_lab import engine, spine  # noqa: E402
+from curve_lab.clearance import piece_clearance  # noqa: E402
+from curve_lab.contact import Contact  # noqa: E402
+from curve_lab.piece import Piece, render_piece  # noqa: E402
 
 TRUNK_WIDTH = 3.0
 BRANCH_WIDTH = 1.5

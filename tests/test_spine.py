@@ -10,10 +10,10 @@ import math
 import re
 import unittest
 
-from clothoid_lab import engine, spine, svg
-from clothoid_lab.clearance import piece_clearance
-from clothoid_lab.contact import Contact
-from clothoid_lab.piece import Piece, build_piece, render_piece
+from curve_lab import engine, spine, svg
+from curve_lab.clearance import piece_clearance
+from curve_lab.contact import Contact
+from curve_lab.piece import Piece, build_piece, render_piece
 
 
 def span_tangents(span):

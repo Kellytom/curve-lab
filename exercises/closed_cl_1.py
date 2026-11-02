@@ -35,9 +35,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import cli, engine  # noqa: E402
-from clothoid_lab.model import Design, Segment  # noqa: E402
-from clothoid_lab.solve import least_squares  # noqa: E402
+from curve_lab import cli, engine  # noqa: E402
+from curve_lab.model import Design, Segment  # noqa: E402
+from curve_lab.solve import least_squares  # noqa: E402
 
 TARGET_HEADING = math.pi
 

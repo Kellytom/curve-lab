@@ -37,7 +37,7 @@ a smoothing pass). Our CLI already exposes `--g2`, `--smooth`.
 
 A spline through a list of points with a shared tangent at each join is a chain
 of G1 fits. Curvature is free to jump at each join — the result is G1, not G2,
-and the report must say so. `clothoid_lab/interpolate.py` does exactly this and
+and the report must say so. `curve_lab/interpolate.py` does exactly this and
 marks the design `g1` so the report does not fail it.
 
 ## The junction question this raises

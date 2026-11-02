@@ -1,4 +1,4 @@
-# clothoid-lab — agent notes
+# curve-lab — agent notes
 
 Keep the context small. Read only what the current action names.
 
@@ -27,18 +27,18 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | Path | Purpose |
 |---|---|
 | `web/server.py` | stdlib server, auth, rate limit, `/api/render` |
-| `clothoid_lab/model.py` | `Design` and `Segment` |
-| `clothoid_lab/piece.py` | `Piece`, `Trace`, multi-trace render (W01) |
-| `clothoid_lab/clearance.py` | min-gap and crossing report; `piece_clearance()` |
-| `clothoid_lab/fillet.py` | tangent-arc fillet at a corner (`corner_fillet`) |
-| `clothoid_lab/junction.py` | `Junction`: branch + trunk + declared merge |
-| `clothoid_lab/grammar.py` | fleur study 01 ported from the old grammar |
-| `clothoid_lab/contact.py` | `Contact`: a declared legal touch |
-| `clothoid_lab/section.py` | `Section`: one station across a full line |
-| `clothoid_lab/bundle.py` | `Bundle`: the design box — full lines that must not touch |
-| `clothoid_lab/primal.py` | earth, water, air, fire: one grammar each |
-| `clothoid_lab/svg.py` | SVG writer; `document(..., groups=...)` |
-| `clothoid_lab/presets.py` | bracket, ogee, petal, S-curve |
+| `curve_lab/model.py` | `Design` and `Segment` |
+| `curve_lab/piece.py` | `Piece`, `Trace`, multi-trace render (W01) |
+| `curve_lab/clearance.py` | min-gap and crossing report; `piece_clearance()` |
+| `curve_lab/fillet.py` | tangent-arc fillet at a corner (`corner_fillet`) |
+| `curve_lab/junction.py` | `Junction`: branch + trunk + declared merge |
+| `curve_lab/grammar.py` | fleur study 01 ported from the old grammar |
+| `curve_lab/contact.py` | `Contact`: a declared legal touch |
+| `curve_lab/section.py` | `Section`: one station across a full line |
+| `curve_lab/bundle.py` | `Bundle`: the design box — full lines that must not touch |
+| `curve_lab/primal.py` | earth, water, air, fire: one grammar each |
+| `curve_lab/svg.py` | SVG writer; `document(..., groups=...)` |
+| `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
 | `tests/` | 215 tests; run the whole suite |
 | `docs/REVIEW.md` | architecture/print review — act after the current work |

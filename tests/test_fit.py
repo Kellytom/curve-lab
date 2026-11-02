@@ -3,9 +3,9 @@
 import math
 import unittest
 
-from clothoid_lab import bezier, engine, presets
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.offsets import build_rail, build_rails, cusp_ranges, rail_deviation
+from curve_lab import bezier, engine, presets
+from curve_lab.model import Design, Segment
+from curve_lab.offsets import build_rail, build_rails, cusp_ranges, rail_deviation
 
 
 class TestFit(unittest.TestCase):

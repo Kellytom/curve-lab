@@ -14,10 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.piece import Piece, Trace, render_piece
-from clothoid_lab.presets import s_curve
-from clothoid_lab.terminals import TERMINALS, terminal_extension
+from curve_lab.model import Design, Segment
+from curve_lab.piece import Piece, Trace, render_piece
+from curve_lab.presets import s_curve
+from curve_lab.terminals import TERMINALS, terminal_extension
 
 
 def band() -> Design:

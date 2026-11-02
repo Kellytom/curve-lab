@@ -53,7 +53,7 @@ The chain study is still a **new plan with a measured resemblance**, not P01's
 node table: the ported P01 matches within 0.03 units, the chain candidate within
 19.44. Do not call it parity.
 
-**Files:** `clothoid_lab/spine_study.py` (new), `scripts/spine_study_01.py`,
+**Files:** `curve_lab/spine_study.py` (new), `scripts/spine_study_01.py`,
 `tests/test_spine_study.py`, `workbench/spine-study-01.html`.
 
 ```python
@@ -99,8 +99,8 @@ Port the twenty option sets, generate P01–P20, add a CLI (one piece by id, plu
 a contact sheet), and carry each piece's prompt and measured error.
 
 ```sh
-.venv/bin/python -m clothoid_lab.studies --id P07 --out out/P07.svg
-.venv/bin/python -m clothoid_lab.studies --sheet out/fleur-sheet.svg
+.venv/bin/python -m curve_lab.studies --id P07 --out out/P07.svg
+.venv/bin/python -m curve_lab.studies --sheet out/fleur-sheet.svg
 ```
 
 **Verify:** 20 SVGs, 20 prompts, no failed joins, contact sheet reviewed.
@@ -126,7 +126,7 @@ strip gains a turned-end row; tests.
 Terraces with corners and a taper. One grammar, one study, one page. Earth is
 first because it needs no turned ends and no junctions beyond a declared join.
 
-**Files:** `clothoid_lab/primal.py` (replace the sketch), `scripts/primal.py`,
+**Files:** `curve_lab/primal.py` (replace the sketch), `scripts/primal.py`,
 `tests/test_primal.py`.
 **Verify:** the card's `check` block (segment count, max turn, max corner, end
 terminal) passes; the page renders; tests.

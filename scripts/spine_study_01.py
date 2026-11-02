@@ -18,8 +18,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import spine_study  # noqa: E402
-from clothoid_lab.piece import render_piece  # noqa: E402
+from curve_lab import spine_study  # noqa: E402
+from curve_lab.piece import render_piece  # noqa: E402
 
 PAGE = (200.0, 250.0)
 

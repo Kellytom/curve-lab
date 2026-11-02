@@ -19,10 +19,10 @@ are caps; `taper`, `cone` and `bulb` are tapers; a hairpin is a turned terminal.
 
 ## What exists now
 
-`clothoid_lab/fillet.py` — the circular fillet, and nothing more.
+`curve_lab/fillet.py` — the circular fillet, and nothing more.
 
 ```python
-from clothoid_lab.fillet import corner_fillet
+from curve_lab.fillet import corner_fillet
 
 f = corner_fillet(a=(10, 0), corner=(0, 0), c=(0, 10), radius=2.0)
 f["start"], f["end"]     # (2, 0), (0, 2) — the touch points
@@ -40,8 +40,8 @@ it can enter a `Design` chain and be rendered by the same writer as everything
 else:
 
 ```python
-from clothoid_lab.fillet import arc_segment
-from clothoid_lab.model import Design, Segment
+from curve_lab.fillet import arc_segment
+from curve_lab.model import Design, Segment
 
 spec = arc_segment(f)
 design = Design(anchor=..., segments=[Segment(kd=0, length=8, kappa0=0),
@@ -73,10 +73,10 @@ not fit the shorter edge, collinear edges, and edges that double back.
 
 ## The junction object
 
-`clothoid_lab/junction.py` now has it:
+`curve_lab/junction.py` now has it:
 
 ```python
-from clothoid_lab.junction import Junction
+from curve_lab.junction import Junction
 
 j = Junction(corner=(0, 0), branch_end=(30, 0), trunk_end=(0, 40), radius=6)
 built = j.build()          # {"piece", "contact", "report"}

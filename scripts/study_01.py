@@ -16,9 +16,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from clothoid_lab import engine  # noqa: E402
-from clothoid_lab.grammar import STUDY_01, fleur_right, study_01  # noqa: E402
-from clothoid_lab.piece import render_piece  # noqa: E402
+from curve_lab import engine  # noqa: E402
+from curve_lab.grammar import STUDY_01, fleur_right, study_01  # noqa: E402
+from curve_lab.piece import render_piece  # noqa: E402
 
 REFERENCE = [
     (0.0, -330.0), (65.0, -25.0), (120.0, -25.0), (436.992, -226.944),

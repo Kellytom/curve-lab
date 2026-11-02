@@ -1,11 +1,11 @@
 import math
 import unittest
 
-from clothoid_lab import engine
-from clothoid_lab.model import Design, Segment
-from clothoid_lab.offsets import build_rail
-from clothoid_lab.piece import Piece, Trace, render_piece
-from clothoid_lab.terminals import (
+from curve_lab import engine
+from curve_lab.model import Design, Segment
+from curve_lab.offsets import build_rail
+from curve_lab.piece import Piece, Trace, render_piece
+from curve_lab.terminals import (
     TERMINALS, ARC_RADIUS, TAPER_FACTOR, terminal_extension, terminal_spans,
     width_law,
 )
