@@ -55,7 +55,7 @@ def place(points, at, angle):
     return [(at[0] + x * c - y * s, at[1] + x * s + y * c) for x, y in points]
 
 
-def square(side=2.0):
+def square(side=0.0):
     """Four corners and four straight runs, wound counter-clockwise."""
     c = corner()
     w = c[-1][0] - c[0][0]                 # the corner's own width
@@ -67,12 +67,12 @@ def square(side=2.0):
         ang = k * math.pi / 2
         pts = place(c, start, ang)
         out.append(pts)
-        # straight run along the new heading
+        # a straight run of length `side`; zero butts the corners together
         end = pts[-1]
-        run = side
-        nxt = (end[0] + run * math.cos(ang + math.pi / 2),
-               end[1] + run * math.sin(ang + math.pi / 2))
-        out.append([end, nxt])
+        nxt = (end[0] + side * math.cos(ang + math.pi / 2),
+               end[1] + side * math.sin(ang + math.pi / 2))
+        if side > 0:
+            out.append([end, nxt])
         start = nxt
     return out, w, reach
 
@@ -101,6 +101,25 @@ def figure(paths, w=430.0, h=430.0, show_grid=True):
   </svg>"""
 
 
+def superellipse(n, steps=720):
+    """|x|^n + |y|^n = 1, centred, unit half-extent."""
+    pts = []
+    for i in range(steps + 1):
+        t = 2 * math.pi * i / steps
+        c, s = math.cos(t), math.sin(t)
+        pts.append((math.copysign(abs(c) ** (2 / n), c),
+                    math.copysign(abs(s) ** (2 / n), s)))
+    return pts
+
+
+def normalise(pts, half=1.0):
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
+    w = max(max(xs) - min(xs), max(ys) - min(ys)) / 2
+    return [((x - cx) / w * half, (y - cy) / w * half) for x, y in pts]
+
+
 def curvature_check(paths, samples=400):
     """The heading change from one arc to the next, at every join."""
     worst = 0.0
@@ -113,6 +132,43 @@ def curvature_check(paths, samples=400):
             d = abs((b - a + math.pi) % (2 * math.pi) - math.pi)
             worst = max(worst, d)
     return worst
+
+
+def mixed_figure(w=560.0, h=560.0):
+    """The tight Euler square, the squircle, and the family between them."""
+    paths, _, _ = square()
+    euler = [pt for seg in paths for pt in seg]
+    euler = normalise(euler)
+    squircle = superellipse(4)
+    family = [superellipse(n) for n in (2, 3, 6, 12)]
+
+    allpts = euler + squircle + [p for f in family for p in f]
+    xs = [p[0] for p in allpts]
+    ys = [p[1] for p in allpts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    pad = 0.10
+    x0, x1 = x0 - pad * (x1 - x0), x1 + pad * (x1 - x0)
+    y0, y1 = y0 - pad * (y1 - y0), y1 + pad * (y1 - y0)
+    k = min((w - 16) / (x1 - x0), (h - 16) / (y1 - y0))
+    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+
+    def put(p):
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+
+    def line(q, colour, width, dash=""):
+        d = "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in q)
+        return (f'<path d="{d}" fill="none" stroke="{colour}" '
+                f'stroke-width="{width}" {dash}/>')
+
+    fam = "".join(line(f, "#cbb98a", 1.0, 'stroke-dasharray="2 4"') for f in family)
+    return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
+    {fam}
+    <path d="M {" L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in squircle)}"
+          fill="none" stroke="{GOLD}" stroke-width="1.8" stroke-dasharray="7 5"/>
+    <path d="M {" L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in euler)}"
+          fill="none" stroke="{INK}" stroke-width="2.6" stroke-linejoin="round"/>
+  </svg>"""
 
 
 def main():
@@ -138,8 +194,8 @@ svg{{display:block;width:100%;height:auto}}
 .cap{{font-size:12px;color:{MUTED};margin:0}}
 </style></head><body><main>
 <h1>A rounded square from eight Euler arcs</h1>
-<p class="lead">Tighten to 45°, relax to 90°, four times. The straight runs are
-free, and curvature is zero on every edge.</p>
+<p class="lead">Tighten to 45°, relax to 90°, four times. Eight arcs and no
+straight runs: the corners meet each other.</p>
 <div class="panel">
 <p><strong>Why eight.</strong> A corner has to leave a straight edge and arrive
 at another one, at right angles. One clothoid cannot do both ends: it has a
@@ -160,9 +216,19 @@ unit clothoid · largest heading change between consecutive samples
 <div class="grid2">
 <section><h2>one corner</h2>{figure([c])}
 <p class="cap">curvature a tent: 0 at both ends, peak at the 45° diagonal</p></section>
-<section><h2>the square</h2>{figure(paths, 430.0, 430.0)}
-<p class="cap">four corners, four straight runs</p></section>
+<section><h2>the tight square</h2>{figure(paths, 430.0, 430.0)}
+<p class="cap">eight arcs, nothing else — each corner butts the next</p></section>
 </div>
+
+<h2 style="margin-top:32px">Fig. 3 · the tight square, the squircle, and the family between</h2>
+<p style="font-size:14px;color:{MUTED};max-width:72ch">Ink is the eight-arc
+Euler square, gold is the squircle <code>|x|⁴ + |y|⁴ = 1</code>, and the dashed
+pale curves are the superellipse family at <code>n = 2, 3, 6, 12</code> — circle
+through squircle to square. The Euler square sits outside the squircle of the
+same width, because its corners are built from a curvature tent rather than one
+formula: it is slightly fuller at the diagonal and quite a lot straighter along
+the sides. Not the same curve, and there is no reason it should be.</p>
+<section><div>{mixed_figure()}</div></section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "euler-square.html"

@@ -246,7 +246,7 @@ def run(spec):
                 snap=worst_snap, n=total_n, scale=data["cscale"])
 
 
-def figure(item, w=430.0, h=300.0):
+def figure(item, w=430.0, h=300.0, dot=2.4):
     pts = [p for b in item["branches"] for p in b["pts"]]
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
@@ -293,9 +293,17 @@ def main():
         # tall curves get a portrait panel so the long arms read
         return (215.0, 430.0) if spec["key"] == "cruciform" else (430.0, 300.0)
 
+    def dots(spec):
+        return 1.3 if spec["key"] == "cruciform" else 2.4
+
+    for i, it in enumerate(items):
+        it["num"] = i + 1
+    tall = [it for it in items if it["spec"]["key"] == "cruciform"]
+    items = [it for it in items if it["spec"]["key"] != "cruciform"]
+
     cards = "".join(
-        f"""<section><h2>Fig. {i+1} · {it['spec']['key']}</h2>
-  <div class="art">{figure(it, *size(it['spec']))}</div>
+        f"""<section><h2>Fig. {it['num']} · {it['spec']['key']}</h2>
+  <div class="art">{figure(it, *size(it['spec']), dot=dots(it['spec']))}</div>
   <p class="cap">{it['n']} chords · error {100*it['dev']:.2f}% of curve size ·
   one-clothoid error {100*it['dev_clo']:.1f}% · {it['span_count']}-span error
   {100*it['dev_spans']:.2f}% · snap error {it['snap']*it['scale']:.2f} of a grid
@@ -323,7 +331,7 @@ h1{{font-size:28px;margin:0 0 4px}}
 h2{{font:600 11px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;
 text-transform:uppercase;color:{MUTED};margin:0 0 4px}}
 .cap{{font-size:12px;color:{MUTED};margin:0}}
-.grid2{{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+.grid2{{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}}
 section{{background:#fffdf7;border:1px solid {LINE};padding:12px}}
 .art{{background:#fffdf7;margin:4px 0 8px}}
 svg{{display:block;width:100%;height:auto}}
@@ -370,6 +378,7 @@ curves want a corner in the chain — a joint, not a blend — which is the
 `Segment.corner` the engine already has.</p>
 </div>
 <div class="grid2">{cards}</div>
+{''.join(f"<section style='max-width:300px;margin:24px auto'><h2>Fig. {it['num']} · {it['spec']['key']}</h2><div class='art'>{figure(it, *size(it['spec']), dot=dots(it['spec']))}</div><p class='cap'>{it['n']} chords · error {100*it['dev']:.2f}% · {it['span_count']} spans {100*it['dev_spans']:.2f}%</p></section>" for it in tall)}
 <div class="panel">
 <table>
 <tr><th>curve</th><th>chords</th><th>Euler polygon<br>error, % of size</th>

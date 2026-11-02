@@ -287,11 +287,12 @@ assert roulette(4, -1)[0] == [3, 0, 36, 0, -70, 0, 20, 0, -5]
 NAMED = [
     dict(key="bean", deg=4, m=4,
          eq="x⁴ + x²y² + y⁴ = x(x² + y²)",
-         tail="rational quartic · r = cosθ / (1 − ¼sin²2θ)",
-         branches=[([1, 0, 1], [0, 1, 0, 1], [1, 0, 1, 0, 1])]),
+         tail="rational quartic · r = cosθ / (1 − ¼sin²2θ) · mirrored on x",
+         branches=[([1, 0, 1], [0, 1, 0, 1], [1, 0, 1, 0, 1]),
+                   ([1, 0, 1], [0, -1, 0, -1], [1, 0, 1, 0, 1])]),
     dict(key="bicorn", deg=4, m=4,
          eq="y²(1 − x²) = (x² + 2y − 1)²",
-         tail="rational quartic · two branches, joined at (±1, 0)",
+         tail="rational quartic · two branches, joined at (±1, 0) · closed",
          branches=[([0, 2, 0, 6], [1, 0, -2, 0, 1], [1, 0, 4, 0, 3]),
                    ([0, 6, 0, 2], [1, 0, -2, 0, 1], [3, 0, 4, 0, 1])]),
     dict(key="pear", deg=8, m=4,
@@ -403,7 +404,7 @@ NAMED = [
          branches=[([-1, 0, 0, 0, 1], [0, -2, 0, 2], [1, 0, 2, 0, 1])]),
     dict(key="cruciform", deg=4, m=4, subst="affine",
          eq="x²y² − b²x² − a²y² = 0",
-         tail="rational quartic · x = a sec t, y = b csc t · one arm, mirrored four times · tails unbounded",
+         tail="rational quartic · x = a sec t, y = b csc t · one arm, mirrored four times · tails unbounded · arm 4x taller than wide",
          fig_w=215.0, fig_h=430.0,
          branches=[]),
     dict(key="piriform", deg=4, m=4,
@@ -706,7 +707,7 @@ def _compose(P, alpha, beta, deg):
     return out
 
 
-def cruciform_arm(lo=F(1, 5), hi=F(4, 5)):
+def cruciform_arm(lo=F(1, 5), hi=F(2, 5)):
     """One arm of x^2 y^2 = x^2 + y^2, exact, over u = tan(t/2) in [lo, hi].
 
     x = (1+u^2)/(1-u^2), y = (1+u^2)/(2u); the common denominator 2u(1-u^2)
