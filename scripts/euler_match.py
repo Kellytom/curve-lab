@@ -290,11 +290,11 @@ def main():
               f"  spans {it['span_count']:2d} -> {100*it['dev_spans']:5.2f}%")
 
     def size(spec):
-        # tall curves get a portrait panel so the long arms read
-        return (215.0, 430.0) if spec["key"] == "cruciform" else (430.0, 300.0)
+        # the full cruciform arm is wide, so it keeps the landscape panel
+        return (430.0, 300.0)
 
     def dots(spec):
-        return 1.3 if spec["key"] == "cruciform" else 2.4
+        return 2.4
 
     for i, it in enumerate(items):
         it["num"] = i + 1
@@ -378,7 +378,7 @@ curves want a corner in the chain — a joint, not a blend — which is the
 `Segment.corner` the engine already has.</p>
 </div>
 <div class="grid2">{cards}</div>
-{''.join(f"<section style='max-width:300px;margin:24px auto'><h2>Fig. {it['num']} · {it['spec']['key']}</h2><div class='art'>{figure(it, *size(it['spec']), dot=dots(it['spec']))}</div><p class='cap'>{it['n']} chords · error {100*it['dev']:.2f}% · {it['span_count']} spans {100*it['dev_spans']:.2f}%</p></section>" for it in tall)}
+{''.join(f"<section style='max-width:430px;margin:24px auto'><h2>Fig. {it['num']} · {it['spec']['key']}</h2><div class='art'>{figure(it, *size(it['spec']), dot=dots(it['spec']))}</div><p class='cap'>{it['n']} chords · error {100*it['dev']:.2f}% · {it['span_count']} spans {100*it['dev_spans']:.2f}%</p></section>" for it in tall)}
 <div class="panel">
 <table>
 <tr><th>curve</th><th>chords</th><th>Euler polygon<br>error, % of size</th>

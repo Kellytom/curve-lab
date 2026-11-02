@@ -404,8 +404,8 @@ NAMED = [
          branches=[([-1, 0, 0, 0, 1], [0, -2, 0, 2], [1, 0, 2, 0, 1])]),
     dict(key="cruciform", deg=4, m=4, subst="affine",
          eq="x²y² − b²x² − a²y² = 0",
-         tail="rational quartic · x = a sec t, y = b csc t · one arm, mirrored four times · tails unbounded · arm 4x taller than wide",
-         fig_w=215.0, fig_h=430.0,
+         tail="rational quartic · x = a sec t, y = b csc t · one full arm, mirrored four times · tails unbounded",
+         fig_w=430.0, fig_h=300.0,
          branches=[]),
     dict(key="piriform", deg=4, m=4,
          eq="x⁴ − 2x³ + y² = 0",
@@ -735,12 +735,16 @@ def _compose(P, alpha, beta, deg):
     return out
 
 
-def cruciform_arm(lo=F(1, 5), hi=F(2, 5)):
-    """One arm of x^2 y^2 = x^2 + y^2, exact, over u = tan(t/2) in [lo, hi].
+def cruciform_arm(lo=F(1, 5), hi=F(4, 5)):
+    """One full arm of x^2 y^2 = x^2 + y^2, exact, over u = tan(t/2) in [lo, hi].
 
     x = (1+u^2)/(1-u^2), y = (1+u^2)/(2u); the common denominator 2u(1-u^2)
     makes X, Y and W polynomials, so an affine change of parameter keeps the
     arm on whole numbers.
+
+    The interval [1/5, 4/5] runs well out along both tails, so the four
+    mirrored arms read as a cross.  The old [1/5, 2/5] stopped at the diagonal
+    and left four hooks; [1/5, 3/5] was still too short to read.
     """
     X = [F(0), F(2), F(0), F(2)]
     Y = [F(1), F(0), F(0), F(0), F(-1)]
