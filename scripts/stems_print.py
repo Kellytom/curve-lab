@@ -43,6 +43,7 @@ DRAW_W, DRAW_H = PAGE_W - 2 * MARGIN, PAGE_H - 2 * MARGIN
 CELL, PAD, GAP = 50.0, 2.0, 25.0
 CELL_TOP = 1000.0
 CELL_BOTTOM = CELL_TOP + CELL
+STEM_LIFT = 50.0     # 1/2 in: the stems start at the vase mouth
 STEM_H = 700.0       # 7 in: the vase mark 10 up to the mark 3
 X0 = MARGIN + (DRAW_W - (3 * CELL + 2 * GAP)) / 2
 N = 666                              # 667 points per stem, 2,001 total
@@ -121,7 +122,7 @@ def main():
         sign = -1 if stem.get("mirror") else 1
         for x, y in r["pts"]:
             px = xcur + w / 2 + sign * (x - (r["x0"] + r["x1"]) / 2) * scale
-            py = CELL_BOTTOM - (y - r["y0"]) * scale
+            py = CELL_BOTTOM - STEM_LIFT - (y - r["y0"]) * scale
             page.append((px, py))
         shift = stem.get("shift_in", 0.0) * 100
         if shift:
