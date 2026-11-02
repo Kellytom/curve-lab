@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import generators as G  # noqa: E402
+import spiral_turns as S  # noqa: E402
 
 INK, MUTED, GUIDE = "#2e2413", "#7b6c4e", "#ece4cf"
 DOT = "#b23a2b"
@@ -61,6 +62,9 @@ STEMS = [
          spec=dict(key="cubic", n=3, h=(1,), u=(2, -2),
                    v=(1, -2), m=4),
          rotation=35.0, mirror=False),
+    dict(label="d", key="r5 clothoid", kind="spiral_turns",
+         radius=5.0, clearance=1.0, outer=49.0, height_mm=60.0,
+         box_x_mm=140.0, rotation=0.0),
 ]
 
 
@@ -75,7 +79,17 @@ def extent(points):
     return min(xs), min(ys), max(xs), max(ys)
 
 
-def stem_points(spec, n=N):
+def stem_points(stem, n=N):
+    if stem.get("kind") == "spiral_turns":
+        pts, heads, turns, gap, infl = S.outward_path(
+            stem["radius"], stem["clearance"], stem["outer"])
+        if len(pts) > n + 1:
+            idx = [round(i * (len(pts) - 1) / n) for i in range(n + 1)]
+            pts = [pts[i] for i in idx]
+        return [(float(x), float(y)) for x, y in pts], {
+            "kind": "spiral_turns", "turns": turns, "gap": gap,
+            "inflection": infl}
+    spec = stem["spec"]
     item = G.build_preset(spec)
     scale = item["scale"]
     pts = [item["curve"].bezier(F(i, n)) for i in range(n + 1)]
@@ -85,7 +99,7 @@ def stem_points(spec, n=N):
 def main():
     raw = []
     for stem in STEMS:
-        pts, item = stem_points(stem["spec"])
+        pts, item = stem_points(stem)
         p0, p2 = pts[0], pts[2]
         page_start = math.degrees(math.atan2(-(p2[1] - p0[1]),
                                              p2[0] - p0[0]))
@@ -113,8 +127,8 @@ def main():
     cells = []
     for i, r in enumerate(raw):
         stem = r["stem"]
-        scale = STEM_H / r["dy"]
-        box_x = MARGIN + i * (CELL + BOX_GAP)
+        scale = stem.get("height_mm", STEM_H) / r["dy"]
+        box_x = stem.get("box_x_mm", MARGIN + i * (CELL + BOX_GAP))
         box_cx = box_x + CELL / 2
         temp = []
         for x, y in r["pts"]:
@@ -124,6 +138,11 @@ def main():
         base0 = max(temp, key=lambda p: p[1])
         shift = box_cx - base0[0]
         page = [(x + shift, y) for x, y in temp]
+        infl = r["item"].get("inflection") if isinstance(r["item"], dict) else None
+        infl_page = None
+        if infl:
+            infl_page = ((infl[0] - (r["x0"] + r["x1"]) / 2) * scale + shift,
+                         CELL_BOTTOM - STEM_LIFT - (infl[1] - r["y0"]) * scale)
         start_page = page[0]
         end_page = page[-1]
         top = min(page, key=lambda p: p[1])
@@ -136,6 +155,7 @@ def main():
                           rotate_deg=r["rotate_deg"],
                           direction=r["direction"], lean=lean,
                           mirror=bool(stem.get("mirror")),
+                          inflection_page=infl_page,
                           start_page=start_page, end_page=end_page))
 
 
@@ -153,12 +173,18 @@ def main():
         data["stems"].append({
             "label": st["label"],
             "preset": st["key"],
-            "inputs": {"n": st["spec"]["n"],
-                       "h": list(st["spec"]["h"]),
-                       "u": list(st["spec"]["u"]),
-                       "v": list(st["spec"]["v"]),
-                       "step": f"1/{st['spec']['m']}",
-                       "control_scale": c["item"]["scale"]},
+            "inputs": ({"radius": st["radius"],
+                        "clearance": st["clearance"],
+                        "outer": st["outer"],
+                        "turns": round(c["item"]["turns"], 3),
+                        "edge_gap_pt": round(c["item"]["gap"], 2)}
+                       if st.get("kind") == "spiral_turns" else
+                       {"n": st["spec"]["n"],
+                        "h": list(st["spec"]["h"]),
+                        "u": list(st["spec"]["u"]),
+                        "v": list(st["spec"]["v"]),
+                        "step": f"1/{st['spec']['m']}",
+                        "control_scale": c["item"]["scale"]}),
             "rotation": {"direction": c["direction"],
                          "deg": round(c["rotate_deg"], 4)},
             "mirror": c["mirror"],
@@ -170,6 +196,8 @@ def main():
                      "bottom_mm": round(CELL_BOTTOM, 4),
                      "side_mm": round(CELL, 4)},
             "scale_page_per_model": round(c["scale"], 6),
+            "inflection_page_mm": ([round(v, 4) for v in c["inflection_page"]]
+                                   if c["inflection_page"] else None),
             "start_page_mm": [round(v, 4) for v in c["start_page"]],
             "end_page_mm": [round(v, 4) for v in c["end_page"]],
             "points_page_mm": [[round(x, 4), round(y, 4)]

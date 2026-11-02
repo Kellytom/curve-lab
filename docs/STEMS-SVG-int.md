@@ -1,4 +1,4 @@
-# The stems print sheet — 8.5 × 11, three presets in a vase
+# The stems print sheet — 8.5 × 11, four stems in vases
 
 **Status:** working design, 2026-11-02. Reuse this page rather than rebuild it.
 The visual proof is `workbench/stems-abc.html`; the print file is
@@ -6,9 +6,9 @@ The visual proof is `workbench/stems-abc.html`; the print file is
 
 ## What it is
 
-Three generator presets, sampled from their exact rational Bézier control data,
-standing in solid gold squircle vases at the 10-inch line and rising to about
-the 3-inch mark. The stems are separate groups (`stem-a`, `stem-b`, `stem-c`)
+Three generator presets and one spiral-turns clothoid, standing in solid gold
+squircle vases at the 10-inch line. a/b/c rise to about the 3-inch mark; the d
+spiral is a 60 mm rose in its own vase at the right. The stems are separate groups (`stem-a`, `stem-b`, `stem-c`)
 so they can be moved, mirrored or swapped. The top tips are the positions for
 the ornaments still to come: a leaf, flower, bean or heart.
 
@@ -18,7 +18,7 @@ The sheet has **no page border**. Its two rulers sit in the 0.5 in margins.
 
 | File | Role |
 |---|---|
-| `scripts/stems_print.py` | geometry: preset inputs, rotations, scale, vase placement, 2,001 page samples |
+| `scripts/stems_print.py` | geometry: presets + spiral, rotations, scale, vase placement, 2,668 page samples |
 | `scripts/stems_print.mjs` | renderer: SVG and print wrapper from the JSON; no SVG library |
 | `workbench/stems-abc.json` | the contract between the two |
 | `workbench/stems-abc.svg` | the printable SVG |
@@ -57,18 +57,21 @@ drawing. The JSON is enough to redraw the sheet without Python.
 | **a** | sextic | `n=6`, `h=(1,2)`, `u=(-1,1,0)`, `v=(2,-1,0)`, step `1/2` | **143.0956° CW** — the exact start-vertical angle, requested as ~120° CW | first; most vertical from the box |
 | **b** | quintic | `n=5`, `h=(1)`, `u=(-2,-1,1)`, `v=(-1,-1,2)`, step `1/2` | **30° CCW** | second; slightly right from the box |
 | **c** | cubic | `n=3`, `h=(1)`, `u=(2,-2)`, `v=(1,-2)`, step `1/4` | **35° CCW** | third; unmirrored, right-leaning |
+| **d** | spiral-turns clothoid | `outward_path(r=5, clearance=1, outer=49)` | none | fourth; 2.5 turns, edge gap 941.2 pt (page label 941, request 942); inflection marked violet; 60 mm tall |
 
 - The order is **a, b, c**: a first (most vertical at the box), b second
   (slightly right), c third (right). The title follows the list order.
 - “Lean” is measured from the **visual top** to the **visual base**, not from
   the parameter ends. All three currently read **right** by that test; a is the
   most vertical at the base, b/c progressively more right.
-- Each stem is scaled to **177.8 mm (7 in)** tall, with no fit factor now. a/b
+- a/b/c are scaled to **177.8 mm (7 in)** tall, with no fit factor now. a/b
   tops land at **76.2 mm (3 in)**; c’s parameter end is the inner hook at
   99.5 mm, with its outer hook higher.
 - The base of each stem is lifted **12.7 mm (0.5 in)** from the bottom of its
   vase, so the stem emerges from the **vase mouth**, not from behind it.
-- Sampling: 667 points per stem, 2,001 total, in `points_page_mm`.
+- the d spiral is **60 mm** tall, not 177.8, so it stays a rose in its own vase
+  at the right instead of covering the other stems.
+- Sampling: 667 points per stem, 2,668 total, in `points_page_mm`.
 
 ## Vases
 
@@ -77,10 +80,11 @@ drawing. The JSON is enough to redraw the sheet without Python.
 - Solid **gold**: fill `#c9a441`, edge `#a8852f`, edge width 0.2 mm.
 - At the **10-inch line**: the boxes run from **254.0 mm to 266.7 mm** absolute
   (the drawing bottom is 266.7 mm). The 10-inch line is 254 mm from the top.
-- The boxes are placed explicitly at **x = 12.7, 30.4 and 48.1 mm**, so there
-  is a **5 mm margin between boxes**. The stems’ bases sit at the box centres;
-  the stems overlap and fan from the tight vase row, leaving the right side of
-  the page empty.
+- a/b/c are placed explicitly at **x = 12.7, 30.4 and 48.1 mm**, so there is a
+  **5 mm margin between boxes**. Their bases sit at the box centres and the
+  stems fan from the tight row.
+- d has its **own vase at x = 140 mm**, clear of the row; the spiral base sits at
+  the box centre, and the 60 mm rose occupies the lower right.
 - Labels `a`, `b`, `c` sit 3 mm under each vase, 2.4 mm Georgia, muted.
 
 ## Drawing style
@@ -151,10 +155,11 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 
 - **Change a stem:** edit its entry in `STEMS` in `scripts/stems_print.py`
   (spec, `rotation`, `mirror`); rerun both scripts.
-- **Add a fourth stem:** append to `STEMS`. The boxes are placed at
-  `MARGIN + i * (CELL + BOX_GAP)`, so the new vase lands 5 mm after the last;
-  the stems are shifted so each base sits at its box centre. The Node title
-  and labels follow the list. The 2,001 sample count changes with 667 per stem.
+- **Add a stem:** append to `STEMS`. Presets use `spec`; a spiral-turns stem
+  uses `kind="spiral_turns"`, `radius`, `clearance`, `outer`. By default the vase
+  lands at `MARGIN + i * (CELL + BOX_GAP)` (5 mm after the last); a stem can set
+  `box_x_mm` (as d does) and `height_mm`. The Node title and labels follow the
+  list; the sample count changes with 667 per stem.
 - **Change the vase:** the squircle is `squirclePath(..., n=4)` and the colors
   are `VASE` / `VASE_EDGE` in `scripts/stems_print.mjs`.
 - **Change the layout:** `CELL` (vase), `BOX_GAP` (5 mm), `CELL_TOP`,
@@ -171,8 +176,8 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
   literal 120° matters more than the vertical start.
 - The stems are the **generator presets**, not clothoid chains. There is no
   clothoid `A`/`L` here; the PH inputs are the constants. The JSON note says so.
-- The vases form a **5 mm-spaced row** at the left; the stems overlap and fan
-  from it. The right half of the page is deliberately empty for now.
+- a/b/c form a **5 mm-spaced row** at the left; d has its own vase at 140 mm.
+  The upper right is deliberately empty for now.
 - The top tips are at about the **3-inch mark**; the ornaments (leaf, flower,
   bean, heart) are not part of this sheet yet.
 - The physical print is 8.5 × 11 in even though the internal coordinates are

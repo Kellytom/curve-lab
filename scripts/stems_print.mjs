@@ -60,6 +60,10 @@ for (const stem of data.stems) {
     .join(" L ");
   const [sx, sy] = stem.start_page_mm;
   const [ex, ey] = stem.end_page_mm;
+  const infl = stem.inflection_page_mm
+    ? `<circle cx="${stem.inflection_page_mm[0].toFixed(2)}"
+              cy="${stem.inflection_page_mm[1].toFixed(2)}" r="0.6"
+              fill="#6f4a8c"/>` : "";
   groups.push(`<g id="stem-${stem.label}">
     <path d="${squirclePath(cellX + cellSide / 2, cellTop + cellSide / 2,
                             cellSide / 2)}"
@@ -70,6 +74,7 @@ for (const stem of data.stems) {
             fill="none" stroke="${DOT}" stroke-width="0.25"/>
     <circle cx="${ex.toFixed(2)}" cy="${ey.toFixed(2)}" r="${DOT_R}"
             fill="none" stroke="${DOT}" stroke-width="0.25"/>
+    ${infl}
     <text x="${(cellX + cellSide / 2).toFixed(1)}"
           y="${(cellBottom + 3).toFixed(1)}" text-anchor="middle"
           font-size="${LABEL_FONT}" font-family="Georgia,serif"
@@ -120,7 +125,7 @@ side.push(`<text x="3.2" y="${MARGIN - 1.2}" font-size="${RULER_FONT}"
       font-family="ui-monospace,Menlo,monospace"
       fill="${MUTED}">mm</text>`);
 
-const title = `three stems · ${data.stems
+const title = `four stems · ${data.stems
   .map((s) => `${s.label} ${s.preset}`)
   .join(" · ")}`;
 const svg = `<?xml version="1.0" encoding="UTF-8"?>
