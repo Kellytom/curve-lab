@@ -214,10 +214,20 @@ the `x³` form is the curve.
 ## The catenary
 
 A true catenary is `a·cosh(x/a)`: transcendental, so no scale factor can put it
-on an integer grid. The AHPH family keeps the PH property in a hyperbolic basis
-— exact arc length, rational offsets — but not integers. The integer-friendly
-answer is the one this repo already uses: four Tschirnhausen cubics over the
-curve, worst error 0.41 per cent of `a`.
+on an integer grid, and the AHPH family keeps the PH property in a hyperbolic
+basis — exact arc length, rational offsets — but not integers.
+
+**This is solved, on its own page.** `workbench/catenary.html` builds the
+catenary two ways and neither pretends to be a single integer curve:
+
+- **four PH cubics** over the curve, exact at both endpoints and both tangents,
+  worst error **0.41 per cent of `a`**;
+- an **integer chord walk** where the heading snaps to a rung of the 3-4-5
+  ladder and each chord is the hypotenuse of a real triangle, so every node is a
+  whole number on the lattice.
+
+That is the answer, and it is recorded in `state/ACHIEVEMENTS.md`. Do not solve
+it again.
 
 ## What this session measured
 

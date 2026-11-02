@@ -404,8 +404,8 @@ with a cusp does not, and sampling is the honest fallback.</p>
 <td>cruciform</td>
 <td><code>x²y² − b²x² − a²y² = 0</code></td>
 <td>4</td>
-<td>rational · unbounded, sampled per arm</td>
-<td>—</td>
+<td>rational · exact Bézier</td>
+<td>control 1250, milestones 98280</td>
 </tr>
 <tr>
 <td>piriform</td>
@@ -434,10 +434,19 @@ real point is the origin; and <code>x⁴ + x²y − y² = 0</code> factorises as
 the <code>x³</code> form is the curve.</p>
 <h2 id="the-catenary">The catenary</h2>
 <p>A true catenary is <code>a·cosh(x/a)</code>: transcendental, so no scale factor can put it
-on an integer grid. The AHPH family keeps the PH property in a hyperbolic basis
-— exact arc length, rational offsets — but not integers. The integer-friendly
-answer is the one this repo already uses: four Tschirnhausen cubics over the
-curve, worst error 0.41 per cent of <code>a</code>.</p>
+on an integer grid, and the AHPH family keeps the PH property in a hyperbolic
+basis — exact arc length, rational offsets — but not integers.</p>
+<p><strong>This is solved, on its own page.</strong> <code>workbench/catenary.html</code> builds the
+catenary two ways and neither pretends to be a single integer curve:</p>
+<ul>
+<li><strong>four PH cubics</strong> over the curve, exact at both endpoints and both tangents,
+  worst error <strong>0.41 per cent of <code>a</code></strong>;</li>
+<li>an <strong>integer chord walk</strong> where the heading snaps to a rung of the 3-4-5
+  ladder and each chord is the hypotenuse of a real triangle, so every node is a
+  whole number on the lattice.</li>
+</ul>
+<p>That is the answer, and it is recorded in <code>state/ACHIEVEMENTS.md</code>. Do not solve
+it again.</p>
 <h2 id="what-this-session-measured">What this session measured</h2>
 <p>Two results, both negative, both worth keeping.</p>
 <p><strong>The discriminant route does not produce a lattice.</strong> It is true that a

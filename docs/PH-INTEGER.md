@@ -155,7 +155,7 @@ with a cusp does not, and sampling is the honest fallback.
 | cardioid | `(x² + y²)² + 2x(x² + y²) − y² = 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
 | bernoulli | `(x² + y²)² = x² − y²` | 4 | rational · exact Bézier | control 4, milestones 41 |
 | gerono | `x⁴ − x² + y² = 0` | 4 | rational · exact Bézier | control 6, milestones 25 |
-| cruciform | `x²y² − b²x² − a²y² = 0` | 4 | rational · unbounded, sampled per arm | — |
+| cruciform | `x²y² − b²x² − a²y² = 0` | 4 | rational · exact Bézier | control 1250, milestones 98280 |
 | piriform | `x⁴ − 2x³ + y² = 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
 
 The bean is worth spelling out. In polar form it is `r = cosθ / (1 − ¼sin²2θ)`,
@@ -180,10 +180,20 @@ the `x³` form is the curve.
 ## The catenary
 
 A true catenary is `a·cosh(x/a)`: transcendental, so no scale factor can put it
-on an integer grid. The AHPH family keeps the PH property in a hyperbolic basis
-— exact arc length, rational offsets — but not integers. The integer-friendly
-answer is the one this repo already uses: four Tschirnhausen cubics over the
-curve, worst error 0.41 per cent of `a`.
+on an integer grid, and the AHPH family keeps the PH property in a hyperbolic
+basis — exact arc length, rational offsets — but not integers.
+
+**This is solved, on its own page.** `workbench/catenary.html` builds the
+catenary two ways and neither pretends to be a single integer curve:
+
+- **four PH cubics** over the curve, exact at both endpoints and both tangents,
+  worst error **0.41 per cent of `a`**;
+- an **integer chord walk** where the heading snaps to a rung of the 3-4-5
+  ladder and each chord is the hypotenuse of a real triangle, so every node is a
+  whole number on the lattice.
+
+That is the answer, and it is recorded in `state/ACHIEVEMENTS.md`. Do not solve
+it again.
 
 ## What this session measured
 

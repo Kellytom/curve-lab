@@ -1036,8 +1036,8 @@ read off the numbers you typed — not off the degree.</li>
 <p><strong>Fig. 1 · where integer hits come from.</strong> A <em>hit</em> is a
 point of the curve sitting exactly on a lattice node. The natural first guess is
 that a finer grid finds more of them; it does not. Below is one curve — the bean
-— at two grids. At scale 12 it passes through 3 lattice nodes. At 48, and at
-156, it still passes through 3: multiplying the grid finds nothing new, because
+— at two grids. At scale 12 it passes through 4 lattice nodes. At 48, and at
+156, it still passes through 4: multiplying the grid finds nothing new, because
 the set of <em>denominators</em> that occur never changed. At 273 it finds 12,
 because 273 is built from the denominators that actually occur.</p>
 <p>So the rule is the same one the scale table already gives, seen from the
@@ -1045,7 +1045,7 @@ other side: the grid that collects hits is the one assembled out of the
 arithmetic, not rounded up to something round. And because a hit only needs its
 denominator to <em>divide</em> the grid, the grid is a factorisation problem.
 Searching the grids under 3125 for the best one per curve gives
-<strong>859 hits across the twenty-one exact curves, against 113 at their
+<strong>843 hits across the twenty-one exact curves, against 114 at their
 control scales</strong> — seven times as many, with the same curves and no new
 mathematics. The table's last two columns carry that per curve: the count at
 the control scale, and the best count and grid under 3125.</p>
@@ -1247,17 +1247,26 @@ the Bernstein weights at a rational <code>t</code>, not from the curve.</p>
 <ul>
 <li><strong>n = 2.</strong> There are no quadratic PH curves: the lemma gives
 <code>n = 1</code> or <code>n ≥ 3</code>.</li>
-<li><strong>The bean, the piriform and the heart.</strong> They are quartic
-<em>algebraic</em> curves, not PH: their speed is not a polynomial, so their
-offsets are not rational. They still take integer control points — every
-Bézier does — but their milestones cost <code>m⁴</code> and nothing about them
-is exact. Draw them as plain quartics on the same lattice; do not expect the
-PH machinery.</li>
-<li><strong>The catenary.</strong> A true one needs <code>cosh</code>, so it is
-transcendental and no scale factor can put it on an integer grid — the AHPH
-family keeps the <em>PH property</em> in the hyperbolic basis, but not
-integers. The catenary page already does the integer-friendly thing: four
-Tschirnhausen cubics over the curve, worst error 0.41% of <code>a</code>.</li>
+<li><strong>Bean, pear and piriform: solved, by mirroring.</strong> All three
+are <em>rational</em> quartics — the bean through <code>r = cosθ/(1−¼sin²2θ)</code>,
+the pear through <code>y = sin²t</code>, the piriform because
+<code>y = x·v</code> with <code>v² = x(2−x)</code> is a circle — so each has an
+exact Bézier with whole-number data. Each is drawn on one half and
+<strong>mirrored</strong> about the axis it is symmetric in, which is what
+closes it: the bean and the piriform mirror on <code>x</code>, the pear closes
+on its own. No approximation anywhere.</li>
+<li><strong>The heart: genuinely not rational.</strong> A smooth sextic of genus
+4 with three cusps, so there is no parametrisation to turn into a Bézier and it
+is sampled. That is the one curve in the gallery where the machinery runs out —
+and it is also the curve the mirror-to-tangency construction builds, which is
+what `workbench/hearts.html` is for.</li>
+<li><strong>The catenary: solved elsewhere.</strong> A true catenary needs
+<code>cosh</code>, so it is transcendental and no scale can put it on an integer
+grid. It does not need one: `workbench/catenary.html` builds it two ways — four
+PH cubics over the curve (worst error 0.41% of <code>a</code>, exact endpoints
+and tangents) and an integer chord walk where every chord is a Pythagorean
+triangle and every node is a whole number. That is the answer to the catenary
+question; it is not repeated here.</li>
 <li><strong>The 2^n grids.</strong> 128, 256, 2048 are mesh sizes, not
 mathematics: any scale that is a multiple of the computed one works. Pick the
 power of two above the required grid and the margins are free.</li>

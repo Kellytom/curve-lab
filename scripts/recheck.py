@@ -118,16 +118,16 @@ def c_sampled():
 # -- integer hits ------------------------------------------------------------
 
 @check("a finer grid does not buy hits; the right factors do",
-       "workbench/generators.html Fig. 1a/1b — bean: 3 hits at grid 12, 48 and 156; 12 at 273",
+       "workbench/generators.html Fig. 1a/1b — bean: 4 hits at grid 12, 48 and 156; 16 at 273",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_granularity():
     import generators as G
     bean = [s for s in G.NAMED if s["key"] == "bean"][0]
     got = [len(G.hit_points(bean, S)) for S in (12, 48, 156, 273)]
-    return got == [3, 3, 3, 12], f"grids 12/48/156/273 -> {got} hits"
+    return got == [4, 4, 4, 16], f"grids 12/48/156/273 -> {got} hits"
 
 
-@check("grids under 3125 take the exact curves from 113 hits to 859",
+@check("grids under 3125 take the exact curves from 114 hits to 843",
        "scripts/generators.py best_grid(); the table on the generators page",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_hit_totals():
@@ -139,7 +139,7 @@ def c_hit_totals():
             continue
         control += len(G.hit_points(s, d["cscale"]))
         best += G.best_grid(s)[1]
-    return (control, best) == (113, 859), f"control {control}, optimised {best}"
+    return (control, best) == (114, 843), f"control {control}, optimised {best}"
 
 
 @check("clothoid spans match smooth curves and cannot match a cusp",
@@ -209,6 +209,8 @@ def c_rename():
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [
+    ("The catenary, solved", "four PH cubics, 0.41% of a; integer chord walk",
+     "python scripts/catenary.py", "workbench/catenary.html, sections A and C"),
     ("Clothoid per recovered span", "586 of 586 spans fit",
      "python scripts/check-spirals.py", "median 0.00-0.03% of the chord"),
     ("The square-discriminant dead end", "0 of 17,168 on the rung ladder",

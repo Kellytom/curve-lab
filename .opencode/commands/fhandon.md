@@ -7,7 +7,8 @@ Focused handon for curve-lab. Work in
 
 1. Before any tool call, write one sentence naming the focused action you are
    about to carry out, so the operator can see you are on the right thing.
-2. Read `next-fhandoff.md` at the repo root, and nothing else yet.
+2. Read `LTMemory.md` first — the map, the invariants and what is
+   already settled — then `next-fhandoff.md`, and nothing else yet.
 3. Its first line names the docs to read. Read them, in order, and stop reading
    when they tell you to.
 4. Its second line is the single focused action. Do that action, and only that

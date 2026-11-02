@@ -11,17 +11,18 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | every exact named curve is its own curve | OK | tests/test_named_curves.py — checked against an independent equation |
 | ok | 23 named curves, 19 exact, with the recorded scales | 23 total, 21 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
 | ok | the two non-rational named curves are the ones we expect | heart, squircle | tests/test_named_curves.py — squircle genus 3, heart 4, pear 2; cruciform unbounded |
-| ok | a finer grid does not buy hits; the right factors do | grids 12/48/156/273 -> [3, 3, 3, 12] hits | workbench/generators.html Fig. 1a/1b — bean: 3 hits at grid 12, 48 and 156; 12 at 273 |
-| ok | grids under 3125 take the exact curves from 113 hits to 859 | control 113, optimised 859 | scripts/generators.py best_grid(); the table on the generators page |
+| ok | a finer grid does not buy hits; the right factors do | grids 12/48/156/273 -> [4, 4, 4, 16] hits | workbench/generators.html Fig. 1a/1b — bean: 4 hits at grid 12, 48 and 156; 16 at 273 |
+| ok | grids under 3125 take the exact curves from 114 hits to 843 | control 114, optimised 843 | scripts/generators.py best_grid(); the table on the generators page |
 | ok | clothoid spans match smooth curves and cannot match a cusp | smooth 0.92%, cusped 15.2% | scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes |
 | ok | the 3-4-5 ladder is fine enough long before a 3125 grid | 350 rungs, median gap 0.14 degrees | scripts/curve_families.py ladder() — measured rung spacing |
-| ok | the hub is built from the manifest and every page carries its bar | 19 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 20 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 
 ## Recorded, re-derived elsewhere
 
 | claim | number | command | note |
 |---|---|---|---|
+| The catenary, solved | four PH cubics, 0.41% of a; integer chord walk | `python scripts/catenary.py` | workbench/catenary.html, sections A and C |
 | Clothoid per recovered span | 586 of 586 spans fit | `python scripts/check-spirals.py` | median 0.00-0.03% of the chord |
 | The square-discriminant dead end | 0 of 17,168 on the rung ladder | `see state/HANDOFF.md, 'In flight'` | choosing the pair buys exactness, not a lattice |
 | Spine chain vs study 01 | 1.29% drift | `python scripts/spine_study_probe.py` | inside the 1.6% fidelity rule |

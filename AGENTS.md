@@ -4,8 +4,11 @@ Keep the context small. Read only what the current action names.
 
 ## Start cheap
 
+0. `LTMemory.md` — the map, the invariants and what is already settled.
 1. `next-fhandoff.md` — the one action.
 2. `state/HANDOFF.md` — current truth. Stop there unless it points onward.
+   `state/ACHIEVEMENTS.md` is the list of what is proved, with the command that
+   re-derives each one (`scripts/recheck.py`).
 3. `state/BACKLOG.md` — the W-label detail for the action, and nothing else.
 4. `workbench/ornament-board.html` — visual order and labels (generated; do not
    edit by hand).
