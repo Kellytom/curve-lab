@@ -49,18 +49,18 @@ X0 = MARGIN + (DRAW_W - (3 * CELL + 2 * GAP)) / 2
 N = 666                              # 667 points per stem, 2,001 total
 
 STEMS = [
-    dict(label="a", key="sextic",
-         spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
-                   v=(2, -1, 0), m=2),
-         rotation="start-vertical", shift_mm=6.35),
     dict(label="b", key="quintic",
          spec=dict(key="quintic", n=5, h=(1,), u=(-2, -1, 1),
                    v=(-1, -1, 2), m=2),
          rotation=30.0),
+    dict(label="a", key="sextic",
+         spec=dict(key="sextic", n=6, h=(1, 2), u=(-1, 1, 0),
+                   v=(2, -1, 0), m=2),
+         rotation="start-vertical", shift_mm=6.35),
     dict(label="c", key="cubic",
          spec=dict(key="cubic", n=3, h=(1,), u=(2, -2),
                    v=(1, -2), m=4),
-         rotation=35.0, mirror=True),
+         rotation=35.0, mirror=False),
 ]
 
 
@@ -131,7 +131,9 @@ def main():
         cell_x = base[0] - CELL / 2
         start_page = page[0]
         end_page = page[-1]
-        lean = "right" if start_page[0] > end_page[0] else "left"
+        top = min(page, key=lambda p: p[1])
+        base = max(page, key=lambda p: p[1])
+        lean = "right" if top[0] > base[0] else "left"
         cells.append(dict(stem=stem, pts=r["pts"], page=page, item=r["item"],
                           x0=r["x0"], y0=r["y0"], x1=r["x1"], y1=r["y1"],
                           dx=r["dx"], dy=r["dy"], side=max(r["dx"], r["dy"]),
