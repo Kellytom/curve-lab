@@ -20,15 +20,37 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+SKIP = {".venv", "site", "node_modules", ".git", "out", "__pycache__"}
+
+
+def html_index():
+    """Every page in the repo, keyed by bare name, when the name is unique."""
+    seen = {}
+    for path in ROOT.rglob("*.html"):
+        if any(part in SKIP for part in path.parts):
+            continue
+        seen.setdefault(path.name, []).append(path)
+    return {name: found[0] for name, found in seen.items() if len(found) == 1}
+
+
+INDEX = html_index()
+
+
 class Workbench(SimpleHTTPRequestHandler):
     def do_GET(self):                       # noqa: N802
         path = self.path.split("?", 1)[0]
         if path.count("/") == 1 and path.endswith(".html"):
             name = path.lstrip("/")
+            target = None
             if (ROOT / "workbench" / name).is_file():
+                target = f"/workbench/{name}"
+            elif name in INDEX:
+                target = "/" + INDEX[name].relative_to(ROOT).as_posix()
+            if target:
                 self.send_response(302)
-                self.send_header("Location", f"/workbench/{name}")
+                self.send_header("Location", target)
                 self.end_headers()
+                self.log_message("  %s", f"redirect {path} -> {target}")
                 return
         super().do_GET()
 
