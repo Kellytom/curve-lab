@@ -200,6 +200,15 @@
       "outputs": "the minimum width of one half and of the full pair"
     },
     {
+      "key": "heart-forms",
+      "file": "heart-forms.html",
+      "group": "curve",
+      "title": "Heart forms",
+      "purpose": "Five heart curves, side by side.",
+      "inputs": "nothing — a catalogue",
+      "outputs": "the five shapes, each to its true extent"
+    },
+    {
       "key": "euler-square",
       "file": "euler-square.html",
       "group": "curve",
