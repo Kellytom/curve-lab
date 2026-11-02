@@ -9,7 +9,8 @@
   },
   "scripts": {
     "check-web": "node scripts/check-web.mjs",
-    "shot": "node scripts/shot.mjs"
+    "shot": "node scripts/shot.mjs",
+    "stems": "node scripts/stems_print.mjs"
   },
   "keywords": [],
   "author": "",
