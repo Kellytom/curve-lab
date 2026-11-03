@@ -37,3 +37,7 @@ SVG writer and reader, the presets, the command line, and the C surface itself.
 The arm rule comes from Raph Levien's 2021 work on cleaner parallel curves with
 Euler spirals, as recorded in the sibling project's `docs/clothoid-levien.md`.
 The rule is used; the code is not.
+
+The fitted cubic-Bézier offset option follows Raph Levien's 2022 “Parallel
+curves of cubic Béziers” (`reference/external/parallel-beziers.html`). It is a
+planned option in the offset catalogue, not yet code.

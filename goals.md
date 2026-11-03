@@ -96,6 +96,8 @@ is not a separate art project.
   the stem/ending placement.
 - `docs/FLOWERS-int.md`, `docs/PHILOSOPHY.md`, `docs/CLEARANCE.md`,
   `docs/JUNCTION.md` — the durable prose.
+- `reference/external/parallel-beziers.html` — Raph Levien, “Parallel curves of
+  cubic Béziers” (2022-09-09); the fitted cubic-Bézier offset reference.
 
 ## Source intake
 
@@ -136,9 +138,9 @@ is not PH), so this is a fitted rail, not an exact one.
 
 | item | offset / parallel | integer / exact | where it is now | what is missing |
 |---|---|---|---|---|
-| **Parallel parabola** | fitted; algebraic, not rational | integer points on the parabola, not on its parallel | `lac-parallel.html` (evolute + normal offsets) | a parallel-parabola card/rail, 2× clearance, and a stated fit error |
-| **Parallel ellipse** | fitted | rational points on the ellipse; not an integer parallel | `lac-parallel.html` (astroid evolute) | parallel-ellipse card/rails |
-| **Parallel hyperbola** | fitted | rational points; not an integer parallel | none | the whole family |
+| **Parallel parabola** | fitted; algebraic, not rational | integer points on the parabola, not on its parallel | `lac-parallel.html` (evolute) + `stem-library-offset.html` OffS7 | the fitted rail is shown; no exact claim and no algebraic comparison yet |
+| **Parallel ellipse** | fitted | rational points on the ellipse; not an integer parallel | OffS8 + `lac-parallel.html` (astroid evolute) | fitted rail shown; exactness not claimed |
+| **Parallel hyperbola** | fitted | rational points; not an integer parallel | OffS9 | fitted rail shown; exactness not claimed |
 | **Parallel semicubical / Neile** | fitted; cusp | algebraic; cusp | `lac-parallel.html` | offset card and cusp/fold handling |
 | **Parallel cycloid** | fitted | transcendental | `lac-parallel.html`; stem S69 | offset catalogue and clearance |
 | **Parallel astroid / hypocycloid** | fitted; cusps/folds | algebraic | `lac-parallel.html`; S17 | offset catalogue with fold ranges |
@@ -146,8 +148,9 @@ is not PH), so this is a fitted rail, not an exact one.
 | **Parallel log spiral** | exact: another log spiral | transcendental | `lac-parallel.html`; S67 | verify the exact factor; card |
 | **Parallel circle involute** | exact: another circle involute (same base circle, shifted parameter) | transcendental | `lac-parallel.html`; S68 | exact test/card |
 | **Parallel clothoid / Euler** | fitted: the offset is not a clothoid | transcendental | `lac-parallel.html`; S30/S31 | rail and error |
-| **Parallel LAC** | fitted via `design_from_spans` → `build_rail` | not exact | S35–S65; `lac-parallel.html` | `stem-library-offset.html` |
-| **Parallel PH** | exact rational | integer presets/named | `generators.html`; stem presets | exact offset rail page |
+| **Parallel LAC** | fitted via `design_from_spans` → `build_rail` | not exact | OffS10–OffS11; S35–S65 | chain rail shown with the Levien fit and fold count |
+| **Parallel PH** | exact rational | integer presets/named | OffS1; `generators.html` | exact rail shown beside the Levien fit |
+| **Levien parallel Bézier** | fitted cubic-Bézier segments; O(n⁶) error scaling; cusp-aware | none; fitted | `curve_lab/parallel_bezier.py`; OffS1/10/11; `reference/external/parallel-beziers.html` | fitted option implemented; errors, cusps and clamps reported; still a fitted option |
 | **Parallel rational named curves** | fitted in general | some PH, some not; classify | stem library S05–S29 | classification and rails |
 | **Parallel squircle / heart** | fitted numeric | non-rational | `hearts.html` | rails and error |
 | **Parallel Pythagorean spiral / 3-4-5** | exact arcs/lines; verify joins | exact integer lattice | `pythagorean-spiral/` | rails and terminals |
@@ -158,6 +161,34 @@ is not PH), so this is a fitted rail, not an exact one.
 (parabola, ellipse, hyperbola), then the classical evolute families, then the
 LAC/PH/integer rails, then terminals and branches. The source intake is not
 finished; Stage III and IV are deliberately not claimed as wired.
+
+**Status 2026-11-03:** the first offset catalogue is built — OffS1–OffS12 in
+`stem-library-offset.html`, with the exact normal rail, Levien's fitted cubic
+Bézier, the LAC chain rail, the three parallel conics, and a two-stalk card.
+The next layer is endings: flower, seagrass/leaf, or the cone terminal at
+R = 2 × offset; then the lattice growth marks and branches.
+
+### Offset tiers — the option set
+
+1. **Exact rational:** PH curves, lines and circular arcs. The offset is exact
+   and should be labelled so.
+2. **Exact within the family:** the log spiral and the circle involute, where
+   the offset is another member of the same family (verify the factor/parameter
+   shift before claiming it).
+3. **Fitted cubic-Bézier segments — Levien's parallel Béziers.** Fit a cubic
+   Bézier chain to the true parallel; cusp finding, candidate fitting and
+   Tiller–Hanson error measurement; O(n⁶) error scaling. Output is a cubic
+   Bézier chain, so it is SVG-friendly and works for any cubic source. It is
+   **not exact**; report the fit tolerance and the cusp splits. Reference:
+   `reference/external/parallel-beziers.html` (Raph Levien, 2022-09-09).
+4. **Fitted rail:** LAC via `design_from_spans` → `build_rail`, and the conics,
+   roulettes and catenary where no exact rational offset exists.
+5. **Sampled/numeric:** heart, squircle and other non-rational curves; no
+   exactness claim.
+
+The catalogue should compare the three practical routes on the same source:
+exact PH where available, Levien's cubic fit, and the LAC/chain rail. The same
+2 × offset + breathing-room clearance applies to all three.
 
 ## Open decisions
 
@@ -172,3 +203,6 @@ finished; Stage III and IV are deliberately not claimed as wired.
   lower-bigger rule as a formula.
 - Which flower forms are legal endings; the flowers page currently offers four.
 - Whether the offset page and the plant-form proof are one page or two.
+- Levien adapter: fit each source cubic separately or subdivide first; what
+  tolerance; how to handle cusps; and how its error compares with PH and the
+  LAC rail on the same stem.

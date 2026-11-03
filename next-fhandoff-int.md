@@ -1,17 +1,15 @@
 ```text
-Read state/HANDOFF-int.md. Read docs/FLOWERS-int.md for the stem library and
-docs/CLEARANCE.md for the separation rule.
+Read state/HANDOFF-int.md. Read docs/FLOWERS-int.md for the offset catalogue and
+the stem library, docs/CLEARANCE.md for the separation rule, and goals.md for
+the cone-terminal / growth-mark / branch rules.
 
-You are building workbench/stem-library-offset.html: the separate offset
-catalogue, OffS1…, starting with the curves that have a simple formulaic
-two-sided offset (PH, log spiral, circle involute, cycloid, ½ catenary,
-½ cycloid), then the LACs via design_from_spans → build_rail. Every pair of
-curves in the catalogue is separated by 2×offset plus a little breathing room;
-the offsets must not touch or cross. Add multiple stems only after that base is
-settled.
-
-The next layer after the offsets is endings: every stalk must connect to a
-flower, a seagrass/leaf ending, or a terminal. No bare tip.
+You are building the plant-form endings for the offset catalogue: every stalk
+takes a flower, a seagrass/leaf ending, or — where there is no flower or head —
+a cone terminal made of two arcs of radius 2×offset meeting at the centreline.
+No bare tip.  Then add the integer-lattice growth marks (a pyramid on each
+rail) and the branches, lower branches bigger than upper.  Keep every pair
+separated by 2×offset plus breathing room; add the endings without breaking the
+existing OffS1–OffS12 catalogue.
 ```
 
-Source: state/HANDOFF-int.md · 2026-11-03 · written after the SM/half-stem pass.
+Source: state/HANDOFF-int.md · 2026-11-03 · written after the offset catalogue.

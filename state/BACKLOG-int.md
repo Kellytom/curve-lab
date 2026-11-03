@@ -11,6 +11,12 @@ plates, **P66–P92** class I caps, **P93–P101** class II leaves, **P102–P10
 presets, **W01–W26** work items, **D01–D11** decisions. The board is the
 authority on order; this file keeps the execution detail.
 
+> **Audit 2026-11-03:** this is the old ornament-pass order, not the current
+> plant-form/offset focus. Tests are **260** now, not 96. W01 is done;
+> W02–W04 and W11/W12 have moved on in the handoff and commits, so treat the W
+> labels as historical unless the board says otherwise. Current:
+> `goals.md`, `TODO.md`, and `next-fhandoff-int.md`.
+
 Open the board, rank, tag, then copy the order back into the session.
 
 ## Rules
@@ -23,7 +29,7 @@ Open the board, rank, tag, then copy the order back into the session.
   stop; do not invent. Record the answer on the board under D01–D06.
 - If a verify fails twice for the same reason, stop and write the reason.
 - Deploy only where marked; app deploys are thin now (about 30 s).
-- Tests must stay green: `.venv/bin/python -m unittest discover tests` (96 now).
+- Tests must stay green: `.venv/bin/python -m unittest discover tests` (260 now, 2026-11-03; 96 at the original pass).
 
 ## Done
 
