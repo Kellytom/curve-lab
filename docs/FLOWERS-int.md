@@ -181,23 +181,26 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 
 ## Stem library
 
-`workbench/stem-library.html` is the catalogue, not a print sheet: **165 cards**,
-one curve per tight square, labelled **S01–S165**.  The groups are generator
-presets (4), named curves (25), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
-the 31 recovered LAC spines, and four gestures (catenary, volute, involute,
-cycloid), **80 combinations (S70–S109 and S118–S157)**, and **16 plants
-(S110–S117 and S158–S165)**.  The combinations pair every two
-curves in S35–S39 and again in S41–S45, once joined at their spiral ends and
-once at their straight ends; the second curve is reversed and placed so the
-join point and tangent match (G1).  The plants use one root.  S110/S111 (S35–S39), S112/S113 (S41–S45), then
-S158/S159 (S46–S50) and S160/S161 (S51–S55) fan five stems from 60° to 120°; the first of each pair has the spiral ends at
-the root, the second the straight ends.  S114–S117 and S162–S165 repeat them with every
-stem leaving at **90°**, each stem in its own colour (ink, red, blue, green,
-violet), so the overlap is readable.  The straight-root plants read as plants;
-the spiral-root joins read as an eye/knot.  S158–S165 carry the five colours
-with a swatch→S-number table (S46–S50 and S51–S55); S114–S117 also have the
-table.  The earlier S110–S113 fans stay ink.  The table is the way to name the
-one curve to drop.
+`workbench/stem-library.html` is the catalogue, not a print sheet: **167 cards**,
+one curve per tight square.  Single stems are labelled **S01–S109 and
+S118–S167**; the 16 multiple-stem plants are labelled **SM1–SM16** (their
+internal generator indices stay S110–S117 and S158–S165).  The groups are
+generator presets (4), named curves (25), Euler 45°/90° (2), spiral-turns
+r=5/17/28.3 (3), the 31 recovered LAC spines, four full gestures (catenary,
+volute, involute, cycloid), two half gestures (**S166 ½ catenary**, **S167
+½ cycloid**), **80 combinations (S70–S109 and S118–S157)**, and **16 plants
+(SM1–SM16)**.  The combinations pair every two curves in S35–S39 and again in
+S41–S45, once joined at their spiral ends and once at their straight ends; the
+second curve is reversed and placed so the join point and tangent match (G1).
+The plants use one join.  SM1/SM2 (S35–S39), SM3/SM4 (S41–S45), then SM9/SM10
+(S46–S50) and SM11/SM12 (S51–S55) fan five stems from 60° to 120°; the first of
+each pair has the **spiral ending** at the join, the second the **straight
+stalk**.  SM5–SM8 and SM13–SM16 repeat them with every stem leaving at **90°**,
+each stem in its own colour (ink, red, blue, green, violet), so the overlap is
+readable.  The straight-stalk plants read as plants; the spiral-ending joins
+read as an eye/knot.  SM9–SM16 carry the five colours with a swatch→S-number
+table (S46–S50 and S51–S55); SM5–SM8 also have the table.  The earlier SM1–SM4
+fans stay ink.  The table is the way to name the one curve to drop.
 
 The page links back to `flowers.html`; to promote a card, add the
 curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from

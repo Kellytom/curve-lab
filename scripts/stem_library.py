@@ -40,6 +40,8 @@ N = 120
 
 CARDS = []
 
+ENDING = {"spiral": "spiral ending", "straight": "straight stalk"}
+
 
 def add(group, name, source, note, branches, mark=None, colors=None,
         legend=None):
@@ -282,8 +284,8 @@ def build():
         group = lac_cards[start:start + 5]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind)
-            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root", "plant",
-                f"{root_kind} ends at one root · fan 60–120°", branches,
+            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]}", "plant",
+                f"{ENDING[root_kind]} at one join · fan 60–120°", branches,
                 mark=[(0.0, 0.0)])
 
     # 9. same-angle overlays: all five leave at 90°, one colour each
@@ -293,7 +295,7 @@ def build():
         legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind, same_angle=90.0)
-            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
+            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]} · same angle",
                 "plant overlay",
                 "all five leave at 90° · colours show the overlap", branches,
                 mark=[(0.0, 0.0)], colors=palette, legend=legend)
@@ -313,18 +315,28 @@ def build():
         legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind)
-            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root", "plant",
-                f"{root_kind} ends at one root · fan 60–120°", branches,
+            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]}", "plant",
+                f"{ENDING[root_kind]} at one join · fan 60–120°", branches,
                 mark=[(0.0, 0.0)], colors=palette, legend=legend)
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
         legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind, same_angle=90.0)
-            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
+            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]} · same angle",
                 "plant overlay",
                 "all five leave at 90° · colours show the overlap", branches,
                 mark=[(0.0, 0.0)], colors=palette, legend=legend)
+
+    # 11. the open halves of the two symmetric gestures
+    half_cat = [(x, math.cosh(x)) for x in (2.0 * i / 240 for i in range(241))]
+    add("Gestures · halves", "½ catenary", "cosh",
+        "x∈[0,2] · half a hanging chain", [half_cat])
+
+    half_cyc = [(t - math.sin(t), 1 - math.cos(t))
+                for t in (math.pi * i / 240 for i in range(241))]
+    add("Gestures · halves", "½ cycloid", "cycloid",
+        "t∈[0,π] · half an arch", [half_cyc])
 
 
 def legend(card):
@@ -345,15 +357,21 @@ def main():
         groups[-1][1].append(card)
 
     idx = 0
+    sm = 0
     sections = []
     for group, cards in groups:
         rows = []
         for card in cards:
             idx += 1
             card["index"] = f"S{idx:02d}"
+            if card["group"] == "Plants":
+                sm += 1
+                card["display"] = f"SM{sm}"
+            else:
+                card["display"] = card["index"]
             rows.append(f"""<section class="card">
   <div class="art">{figure(card['branches'], mark=card.get('mark'), colors=card.get('colors'))}</div>
-  <h3><span class="idx">{card['index']}</span> {card['name']}</h3>
+  <h3><span class="idx">{card['display']}</span> {card['name']}</h3>
   <p class="src">{card['source']}</p>
   <p class="note">{card['note']}</p>
   {legend(card)}
@@ -391,8 +409,9 @@ a{{color:{DOT}}}
 <p class="lead">{len(CARDS)} candidates, one curve per tight square.  Nothing here
 is in a vase; this is the catalogue.</p>
 <div class="panel">
-<p><strong>How to use it.</strong> Every card has an <strong>S-number</strong>
-and its source.  Tell the sheet which S-numbers to promote and they can be
+<p><strong>How to use it.</strong> Every single stem has an <strong>S-number</strong>;
+every multiple-stem plant has an <strong>SM-number</strong>.  Both carry their
+source.  Tell the sheet which S- or SM-numbers to promote and they can be
 moved into <a href="flowers.html">flowers.html</a> with their own vases.  The
 curves are drawn at their own scale and orientation; the sheet applies the
 rotation, the 7 in (or 60 mm) height and the vase placement.</p>

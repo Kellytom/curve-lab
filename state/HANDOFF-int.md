@@ -58,10 +58,12 @@ remote MVP now exist.
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
   (cardioid/trifolium/quadrifolium/astroid) at the tips.  `workbench/stem-library.html`
-  is the 165-card labelled catalogue (S01–S165: 4 presets, 25 named, Euler 45/90,
-  3 spiral-turns, 31 LAC spines, 4 gestures, 80 pair combinations S70–S109 and
-  S118–S157, and 16 plants S110–S117 and S158–S165 — fan plants and same-angle
-  coloured overlays).  Doc: `docs/FLOWERS-int.md`.
+  is the 167-card labelled catalogue (S01–S109 and S118–S167 single stems;
+  SM1–SM16 plants, internal S110–S117 and S158–S165; 4 presets, 25 named,
+  Euler 45/90, 3 spiral-turns, 31 LAC spines, 4 full gestures + 2 half gestures
+  S166–S167, 80 pair combinations S70–S109/S118–S157, and 16 plants — fan
+  plants, spiral-ending/straight-stalk bases, same-angle coloured overlays).
+  Doc: `docs/FLOWERS-int.md`.
 - **Evolute parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
   `lac-parallel.js` — the LAC base and the classical families (cycloid,
   epi/hypocycloid, ellipse→astroid, astroid, circle involute, catenary→tractrix,
@@ -666,7 +668,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `docs/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
-| `workbench/stem-library.html` | 165 labelled stem candidates, S01–S165 |
+| `workbench/stem-library.html` | 167 labelled stems: S01–S109, S118–S167; plants SM1–SM16 |
 | `workbench/lac-parallel.html` | evolute → parallel offsets sandbox (LAC and classical families) |
 | `workbench/lac-parallel.js` | the family/evolute/offset geometry |
 | `scripts/stem_library.py` | the stem-library generator |
