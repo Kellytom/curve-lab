@@ -181,33 +181,45 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 
 ## Stem library
 
-`workbench/stem-library.html` is the catalogue, not a print sheet: **167 cards**,
-one curve per tight square.  Single stems are labelled **S01–S109 and
-S118–S167**; the 16 multiple-stem plants are labelled **SM1–SM16** (their
-internal generator indices stay S110–S117 and S158–S165).  The groups are
-generator presets (4), named curves (25), Euler 45°/90° (2), spiral-turns
-r=5/17/28.3 (3), the 31 recovered LAC spines, four full gestures (catenary,
-volute, involute, cycloid), two half gestures (**S166 ½ catenary**, **S167
-½ cycloid**), **80 combinations (S70–S109 and S118–S157)**, and **16 plants
-(SM1–SM16)**.  The combinations pair every two curves in S35–S39 and again in
+`workbench/stem-library.html` is the catalogue, not a print sheet: **169 cards**,
+one curve per tight square.  Single stems keep S numbers (S01–S109, S118–S157,
+and the two halves **S166 ½ catenary** and **S167 ½ cycloid**); the multiple-stem
+cards are **SM1–SM18**.  (The plants keep internal generator indices S110–S117
+and S158–S165; SM17–SM18 are S168–S169 internally.)  The groups are generator
+presets (4), named curves (25), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
+the 31 recovered LAC spines, four full gestures, two half gestures, **80
+combinations (S70–S109 and S118–S157)**, and **18 multiple-stem cards
+(SM1–SM18)**.  The combinations pair every two curves in S35–S39 and again in
 S41–S45, once joined at their spiral ends and once at their straight ends; the
 second curve is reversed and placed so the join point and tangent match (G1).
-The plants use one join.  SM1/SM2 (S35–S39), SM3/SM4 (S41–S45), then SM9/SM10
+
+The plants use one join.  SM1/SM2 (S35–S39), SM3/SM4 (S41–S45), SM9/SM10
 (S46–S50) and SM11/SM12 (S51–S55) fan five stems from 60° to 120°; the first of
 each pair has the **spiral ending** at the join, the second the **straight
 stalk**.  SM5–SM8 and SM13–SM16 repeat them with every stem leaving at **90°**,
-each stem in its own colour (ink, red, blue, green, violet), so the overlap is
-readable.  The straight-stalk plants read as plants; the spiral-ending joins
-read as an eye/knot.  SM9–SM16 carry the five colours with a swatch→S-number
-table (S46–S50 and S51–S55); SM5–SM8 also have the table.  The earlier SM1–SM4
-fans stay ink.  The table is the way to name the one curve to drop.
+each stem in its own colour, so the overlap is readable.  The boundary p=±0.5
+stem is removed from the selected multiples: **SM5/SM6 drop S39; SM7/SM8 drop
+S41; SM9 drops S50; SM11 drops S51; SM13/SM14 drop S50; SM15/SM16 drop S51.**
+SM10 (S46–S50) and SM12 (S51–S55) keep all five; the first four fans SM1–SM4
+also keep five.  The straight-stalk plants read as plants; the spiral-ending
+joins read as an eye/knot.
+
+**SM17** is the fractional LAC series p = 1/4, 1/3, 1/2, 2/3, 3/4, 1, all from
+κ = C(a+s)<sup>p</sup> with the same start, heading, k0/k1 = 8 and 360° turn as
+S52.  The p = 1 curve matches the recovered S52 spine to <0.001 of the chord;
+p = 1/2 is the old p = 0.5; 2/3 and 3/4 fill the jump.  **SM18** combines SM17
+with p = 1.5, 2, 3 (S53–S55), with p = 1 shared once.  The individual p = 0.5
+reference plates remain in the LAC group.  SM5–SM16 are coloured with a
+swatch→source-S table; SM17/SM18 use a p-colour legend.  SM1–SM4 stay ink.  The
+table is the way to name the one curve to drop.
 
 The page links back to `flowers.html`; to promote a card, add the
 curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from
 the JSON).  The S-numbers are the labels to quote.
 
 Rotations requested so far: **S01/S03** 45° CCW, **S04** 135° CW,
-**S30** 90° CCW (Euler 45°), **S35–S39** 90° CCW,
+**S30** 90° CCW (Euler 45°), **S35–S39** 90° CCW, **S166** 150° CW,
+**S167** 90° CW,
 **S46–S50** 180° CCW, **S56–S60** 180° CCW, **S68** 180° CCW.  Each card's note
 repeats its rotation.
 

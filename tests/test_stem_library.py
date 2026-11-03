@@ -29,7 +29,9 @@ class StemLibraryTest(unittest.TestCase):
         self.assertIn("S01", page)
         self.assertIn("Combinations · S35–S39", page)
         self.assertIn("same angle", page)
-        self.assertIn(f"S{len(L.CARDS)}", page)
+        self.assertIn("SM18", page)
+        self.assertIn("p = 1/4", page)
+        self.assertIn("½ catenary", page)
 
 
 if __name__ == "__main__":

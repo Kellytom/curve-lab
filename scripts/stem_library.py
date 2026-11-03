@@ -120,6 +120,54 @@ def lac_branches(spans, per_span=24):
     return [pts]
 
 
+def lac_p_branches(p, turn_deg=360.0, n=480):
+    """One LAC from the law κ = C(a+s)^p, in the recovered LAC page frame.
+
+    The recovered p>0 plates all start at (420,780), head -90° and run from
+    curvature 1/640 to 1/80 over the requested turn.  The library flips the
+    y-down page frame, as it does for the recovered spans.
+    """
+    turn = math.radians(turn_deg)
+    k0, k1 = 1.0 / 640.0, 1.0 / 80.0
+    if p < 0:
+        k0, k1 = k1, k0
+    if abs(p) < 1e-12:
+        k0 = k1 = 1.0 / 80.0
+    if abs(p) < 1e-12:
+        a, L, C = 0.0, abs(turn / k1), k1
+    elif abs(k0) < 1e-12:
+        L = turn * (p + 1) / k1
+        a, C = 0.0, k1 / L ** p
+    else:
+        ratio = (k1 / k0) ** (1.0 / p)
+        if abs(p + 1) < 1e-9:
+            a = turn / (k0 * math.log(ratio))
+            L = a * (ratio - 1)
+            C = k0 * a
+        else:
+            a = turn * (p + 1) / (k0 * (ratio ** (p + 1) - 1))
+            L = a * (ratio - 1)
+            C = k0 / a ** p
+
+    def theta(s):
+        if abs(p) < 1e-12:
+            return C * s
+        if abs(p + 1) < 1e-9:
+            return C * math.log((a + s) / a)
+        return C / (p + 1) * ((a + s) ** (p + 1) - a ** (p + 1))
+
+    th0 = math.radians(-90.0)
+    ds = L / n
+    x, y = 420.0, 780.0
+    pts = [(x, -y)]
+    for i in range(1, n + 1):
+        th = th0 + theta((i - 0.5) * ds)
+        x += math.cos(th) * ds
+        y += math.sin(th) * ds
+        pts.append((x, -y))
+    return pts
+
+
 def _rate(p, q, r):
     v1 = (q[0] - p[0], q[1] - p[1])
     v2 = (r[0] - q[0], r[1] - q[1])
@@ -288,17 +336,27 @@ def build():
                 f"{ENDING[root_kind]} at one join · fan 60–120°", branches,
                 mark=[(0.0, 0.0)])
 
-    # 9. same-angle overlays: all five leave at 90°, one colour each
+    # 9. same-angle overlays.  The boundary p=±0.5 member is the visible jump,
+    #    so S39 is removed from the S35–S39 pair and S41 from S41–S45.
     palette = [INK, "#b23a2b", "#1f5fa8", "#2f6f4f", "#6f4a8c"]
-    for gname, start, s0 in (("S35–S39", 0, 35), ("S41–S45", 6, 41)):
+
+    def sliced(group, s0, drop=()):
+        keep = [i for i in range(len(group)) if i not in drop]
+        return ([group[i] for i in keep],
+                [palette[i] for i in keep],
+                [(palette[i], f"S{s0 + i}") for i in keep],
+                f"S{s0 + keep[0]}–S{s0 + keep[-1]}")
+
+    for gname, start, s0, drop in (("S35–S39", 0, 35, (4,)),
+                                   ("S41–S45", 6, 41, (0,))):
         group = lac_cards[start:start + 5]
-        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
+        sub, colors, legend, label = sliced(group, s0, drop)
         for root_kind in ("spiral", "straight"):
-            branches = plant(group, root_kind, same_angle=90.0)
-            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]} · same angle",
+            branches = plant(sub, root_kind, same_angle=90.0)
+            add("Plants", f"{label} · {ENDING[root_kind]} · same angle",
                 "plant overlay",
-                "all five leave at 90° · colours show the overlap", branches,
-                mark=[(0.0, 0.0)], colors=palette, legend=legend)
+                "all stems leave at 90° · colours show the overlap", branches,
+                mark=[(0.0, 0.0)], colors=colors, legend=legend)
 
     # 10. the same treatment for S46–S50 and S51–S55: scrolls and sprays
     new_groups = (("S46–S50", 11, 46), ("S51–S55", 16, 51))
@@ -312,31 +370,63 @@ def build():
                     f"{variant} ends joined · G1 at the join", [pts])
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
-        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
-            branches = plant(group, root_kind)
-            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]}", "plant",
+            drop = ((4,) if (gname == "S46–S50" and root_kind == "spiral")
+                    else (0,) if (gname == "S51–S55" and root_kind == "spiral")
+                    else ())
+            sub, colors, legend, label = sliced(group, s0, drop)
+            branches = plant(sub, root_kind)
+            add("Plants", f"{label} · {ENDING[root_kind]}", "plant",
                 f"{ENDING[root_kind]} at one join · fan 60–120°", branches,
-                mark=[(0.0, 0.0)], colors=palette, legend=legend)
+                mark=[(0.0, 0.0)], colors=colors, legend=legend)
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
-        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
-            branches = plant(group, root_kind, same_angle=90.0)
-            add("Plants", f"S{s0}–S{s0 + 4} · {ENDING[root_kind]} · same angle",
+            drop = (4,) if gname == "S46–S50" else (0,)
+            sub, colors, legend, label = sliced(group, s0, drop)
+            branches = plant(sub, root_kind, same_angle=90.0)
+            add("Plants", f"{label} · {ENDING[root_kind]} · same angle",
                 "plant overlay",
-                "all five leave at 90° · colours show the overlap", branches,
-                mark=[(0.0, 0.0)], colors=palette, legend=legend)
+                "all stems leave at 90° · colours show the overlap", branches,
+                mark=[(0.0, 0.0)], colors=colors, legend=legend)
 
-    # 11. the open halves of the two symmetric gestures
+    # 11. the open halves of the two symmetric gestures (S166/S167)
     half_cat = [(x, math.cosh(x)) for x in (2.0 * i / 240 for i in range(241))]
     add("Gestures · halves", "½ catenary", "cosh",
-        "x∈[0,2] · half a hanging chain", [half_cat])
+        "x∈[0,2] · half a hanging chain · rotated 150° CW",
+        [rotate(half_cat, -150.0)])
 
     half_cyc = [(t - math.sin(t), 1 - math.cos(t))
                 for t in (math.pi * i / 240 for i in range(241))]
     add("Gestures · halves", "½ cycloid", "cycloid",
-        "t∈[0,π] · half an arch", [half_cyc])
+        "t∈[0,π] · half an arch · rotated 90° CW",
+        [rotate(half_cyc, -90.0)])
+
+    # 12. the fractional LAC series, after the halves: SM17/SM18
+    frac = [(0.25, "1/4"), (1/3, "1/3"), (0.5, "1/2"), (2/3, "2/3"),
+            (3/4, "3/4"), (1.0, "1")]
+    frac_group = [dict(branches=[lac_p_branches(p)]) for p, _ in frac]
+    frac_colors = ["#1f5fa8", "#2f6f9f", "#2f6f4f",
+                   "#6f6a2f", "#8a5a2b", "#b23a2b"]
+    frac_legend = [(c, f"p = {lab}") for c, (_, lab) in zip(frac_colors, frac)]
+    add("Plants · LAC fractions", "LAC p = 1/4 → 1 · fractional series",
+        "LAC law κ = C(a+s)^p",
+        "same start, heading and k0/k1 = 8 · turn 360°",
+        plant(frac_group, "straight", same_angle=90.0),
+        mark=[(0.0, 0.0)], colors=frac_colors, legend=frac_legend)
+
+    tail = lac_cards[18:21]              # S53–S55 = p = 1.5, 2, 3
+    tail_colors = ["#6f4a8c", "#8a3f6b", "#5f6f2f"]
+    combined = frac_group + tail
+    combined_colors = frac_colors + tail_colors
+    combined_legend = frac_legend + [
+        (tail_colors[k], f"p = {lab}")
+        for k, lab in enumerate(("3/2", "2", "3"))]
+    add("Plants · LAC fractions", "SM16 + SM17 · p = 1/4 → 3 · shared p = 1",
+        "frac + S53–S55",
+        "same law/start/k0/k1; p = 1 shared, old p = 0.5 replaced by p = 1/2",
+        plant(combined, "straight", same_angle=90.0),
+        mark=[(0.0, 0.0)], colors=combined_colors, legend=combined_legend)
 
 
 def legend(card):
@@ -364,7 +454,7 @@ def main():
         for card in cards:
             idx += 1
             card["index"] = f"S{idx:02d}"
-            if card["group"] == "Plants":
+            if card["group"].startswith("Plants"):
                 sm += 1
                 card["display"] = f"SM{sm}"
             else:
@@ -419,6 +509,20 @@ rotation, the 7 in (or 60 mm) height and the vase placement.</p>
 (generators, Euler), the spiral-turns clothoids, the recovered LAC spines, and
 four gestures.  The named-curve group is there because a loop or a drop can be
 a stem; the LAC group is there because the soft S is the missing middle.</p>
+</div>
+<div class="panel">
+<p><strong>The fractional LAC series (SM17–SM18).</strong> The LAC is one law,
+κ = C(a+s)<sup>p</sup>; the recovered plates are points on it. SM17 is the same
+law at p = 1/4, 1/3, 1/2, 2/3, 3/4 and 1, with the same start, initial heading,
+curvature range 1/640 → 1/80 and 360° turn. The p = 1 member is the recovered
+S52 spine: generating it from the law matches that spine to less than 0.001 of
+the chord, so the join is the same curve, not a blend. p = 1/2 is the old
+p = 0.5; 2/3 and 3/4 are the new points in the gap. SM18 carries the series on
+into p = 1.5, 2, 3 (S53–S55), with p = 1 shared once. The boundary p = ±0.5
+stems are removed from the same-angle multiples (SM5/SM6 lose S39; SM7/SM8
+lose S41; SM13/SM14 lose S50; SM15/SM16 lose S51) and from the two spiral fans
+SM9/SM11 (S50/S51), so the jump that prompted the series is gone from the
+multiples; the individual reference plates remain in the LAC group.</p>
 </div>
 {''.join(sections)}
 </main></body></html>
