@@ -214,6 +214,34 @@ Diophantine property of the source, not a consequence of the fitting method.
 The exact integer-friendly families remain lines, arcs, PH curves, the
 Pythagorean spiral, and the p-triple polygon.</p>
 </div>
+<h2>Where the bounding-parabola idea lives</h2>
+<div class="panel">
+<p><strong>Blog, cusp finding (2022-09-09).</strong> The sentence is in
+“Parallel curves of cubic Béziers,” section “Cusp finding”:
+<a href="https://raphlinus.github.io/curves/2022/09/09/parallel-beziers.html#cusp-finding">raphlinus.github.io/curves/2022/09/09/parallel-beziers.html#cusp-finding</a>.
+It is a prose aside; the post links no cusp-specific bounding-parabola code.</p>
+<p><strong>Full design, cubic/cubic intersection (2022-08-16).</strong>
+<a href="https://github.com/raphlinus/raphlinus.github.io/issues/79">raphlinus/raphlinus.github.io#79</a>
+“Path operations” is the detailed write-up. It proposes x = ay² + by + c,
+fits it by matching endpoints and signed area (or moments), bounds the cubic
+with two hybrid quadratics, and claims Δy³ scaling — “convergence should be
+cubic.” It also estimates the stop criterion as ε<sup>−1/3</sup>, roughly 100
+segments at ε = 10<sup>−6</sup>.</p>
+<p><strong>Prototype (2022-08 / 2023-05).</strong>
+<a href="https://github.com/linebender/kurbo/pull/258">linebender/kurbo#258</a>
+is the draft cubic/cubic intersection branch. The interesting file is
+<a href="https://github.com/linebender/kurbo/blob/1f86c26bc9d35681d84581ae1bd3089eca8e5787/examples/cubic_fun.rs">examples/cubic_fun.rs</a>;
+see <code>EstParab</code>, <code>from_cubic</code>, and
+<code>intersect_cubics_rec</code>. It is not merged and not wired into kurbo.</p>
+<p><strong>Follow-ups.</strong>
+<a href="https://github.com/linebender/kurbo/issues/277">kurbo#277</a>
+says “My approach is to compute bounding parabolas. A prototype exists in
+#258”; <a href="https://github.com/linebender/kurbo/issues/274">kurbo#274</a>
+separates the intersection-result trait from the bounding-parabola primitive.
+<a href="https://github.com/jneem/linesweeper">jneem/linesweeper</a> is a later
+Rust boolean-ops implementation based on #258; it is archived and has moved to
+Radicle.</p>
+</div>
 <div class="controls">
 <label>family <select id="family"><option value="parabola">parabola · y = x²</option><option value="half">half parabola · y = x²/2</option><option value="quarter">quarter parabola · y = x²/4</option><option value="cubic">cubic control · integer points</option></select></label>
 <label>offset d <select id="d"><option value="0.25">0.25</option><option value="0.5">0.5</option><option value="1.0">1.0</option><option value="1.5">1.5</option><option value="2.0">2.0</option></select></label>

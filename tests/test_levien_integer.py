@@ -35,6 +35,10 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("handles on a parabola", page)
         self.assertIn("B(p/q)", page)
         self.assertIn("tangent intersection", page)
+        self.assertIn("Where the bounding-parabola idea lives", page)
+        self.assertIn("raphlinus.github.io/issues/79", page)
+        self.assertIn("pull/258", page)
+        self.assertIn("EstParab", page)
         self.assertIn("not constrained to a", page)
 
 
