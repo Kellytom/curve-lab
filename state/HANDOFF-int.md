@@ -53,7 +53,13 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **249 pass** (1 skipped), full run 2026-11-02 at `e2e67c7`.
+- **Local tests:** **251 pass** (1 skipped), full run 2026-11-02 at `cf5fcb6`.
+- **Flowers sheet and stem library (2026-11-02):** `workbench/flowers.html` is
+  the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
+  gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
+  (cardioid/trifolium/quadrifolium/astroid) at the tips.  `workbench/stem-library.html`
+  is the 69-card labelled catalogue (S01–S69: 4 presets, 25 named, Euler 45/90,
+  3 spiral-turns, 31 LAC spines, 4 gestures).  Doc: `docs/FLOWERS-int.md`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -68,7 +74,7 @@ remote MVP now exist.
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
   `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
-- **Git:** HEAD `e2e67c7` (2026-11-02). Tree clean; untracked are three
+- **Git:** HEAD `cf5fcb6` (2026-11-02). Tree clean; untracked are three
   photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
   and `state/monitor.log`, which is a log and stays untracked.
 - **Untracked user file:** `out/play-template.svg`; leave it alone.
@@ -648,8 +654,11 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff-int.md` | two-line focused pointer |
-| `docs/STEMS-SVG-int.md` | the 8.5 × 11 three-stem vase sheet: mm units, JSON/Node split, regeneration |
-| `scripts/stems_print.py` · `.mjs` | stem geometry → JSON, then the SVG renderer |
+| `docs/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
+| `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
+| `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
+| `workbench/stem-library.html` | 69 labelled stem candidates, S01–S69 |
+| `scripts/stem_library.py` | the stem-library generator |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |
 | `~/.config/opencode/commands/focus.md` | global: move session here, show focus |
