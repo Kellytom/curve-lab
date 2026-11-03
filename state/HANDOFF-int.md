@@ -58,10 +58,10 @@ remote MVP now exist.
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
   (cardioid/trifolium/quadrifolium/astroid) at the tips.  `workbench/stem-library.html`
-  is the 117-card labelled catalogue (S01–S117: 4 presets, 25 named, Euler 45/90,
-  3 spiral-turns, 31 LAC spines, 4 gestures, 40 pair combinations S70–S109, and
-  8 plants S110–S117 — four fan plants and four same-angle coloured overlays).
-  Doc: `docs/FLOWERS-int.md`.
+  is the 165-card labelled catalogue (S01–S165: 4 presets, 25 named, Euler 45/90,
+  3 spiral-turns, 31 LAC spines, 4 gestures, 80 pair combinations S70–S109 and
+  S118–S157, and 16 plants S110–S117 and S158–S165 — fan plants and same-angle
+  coloured overlays).  Doc: `docs/FLOWERS-int.md`.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -659,7 +659,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `docs/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
-| `workbench/stem-library.html` | 117 labelled stem candidates, S01–S117 |
+| `workbench/stem-library.html` | 165 labelled stem candidates, S01–S165 |
 | `scripts/stem_library.py` | the stem-library generator |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |

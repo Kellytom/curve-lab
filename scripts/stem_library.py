@@ -295,6 +295,32 @@ def build():
                 "all five leave at 90° · colours show the overlap", branches,
                 mark=[(0.0, 0.0)], colors=palette)
 
+    # 10. the same treatment for S46–S50 and S51–S55: scrolls and sprays
+    new_groups = (("S46–S50", 11, 46), ("S51–S55", 16, 51))
+    for gname, start, s0 in new_groups:
+        group = lac_cards[start:start + 5]
+        for i, j in itertools.combinations(range(5), 2):
+            for variant in ("spiral", "straight"):
+                pts = join_pair(group[i], group[j], variant)
+                add(f"Combinations · {gname}", f"S{s0 + i}+S{s0 + j}",
+                    "combination",
+                    f"{variant} ends joined · G1 at the join", [pts])
+    for gname, start, s0 in new_groups:
+        group = lac_cards[start:start + 5]
+        for root_kind in ("spiral", "straight"):
+            branches = plant(group, root_kind)
+            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root", "plant",
+                f"{root_kind} ends at one root · fan 60–120°", branches,
+                mark=[(0.0, 0.0)])
+    for gname, start, s0 in new_groups:
+        group = lac_cards[start:start + 5]
+        for root_kind in ("spiral", "straight"):
+            branches = plant(group, root_kind, same_angle=90.0)
+            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
+                "plant overlay",
+                "all five leave at 90° · colours show the overlap", branches,
+                mark=[(0.0, 0.0)], colors=palette)
+
 
 def main():
     build()
