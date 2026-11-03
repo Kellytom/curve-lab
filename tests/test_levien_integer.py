@@ -21,17 +21,21 @@ class LevienIntegerTest(unittest.TestCase):
 
     def test_success_cases(self):
         cases = L.success_cases()
-        self.assertEqual(len(cases), 4)
-        self.assertEqual(cases[2]["points"],
+        self.assertEqual(len(cases), 6)
+        self.assertEqual(len(cases[0]["points"]), 13)
+        self.assertEqual(cases[1]["points"],
                          [(0, 0), (8, 1), (16, 4), (24, 9)])
-        self.assertEqual(cases[2]["span"]["c2"], (16, 3))
-        self.assertEqual(cases[3]["span"]["c2"], (32, 12))
-        self.assertEqual(len(cases[3]["points"]), 7)
+        self.assertEqual(cases[2]["span"]["c2"], (32, 12))
+        self.assertEqual(cases[3]["span"]["c2"], (64, 48))
+        self.assertEqual(cases[4]["span"]["c2"], (96, 108))
+        self.assertEqual(len(cases[4]["points"]), 19)
+        self.assertEqual(cases[5]["span"]["c2"], (336, 1323))
+        self.assertEqual(len(cases[5]["points"]), 64)
 
     def test_page(self):
         page = (ROOT / "workbench" / "levien-integer.html").read_text(
             encoding="utf-8")
-        self.assertEqual(page.count("<svg"), 29)
+        self.assertEqual(page.count("<svg"), 31)
         self.assertIn("Levien integer sandbox", page)
         self.assertIn("half parabola", page)
         self.assertIn("quarter parabola", page)
@@ -56,6 +60,10 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("integer points are (0,0), (8,1), (16,4), (24,9)", page)
         self.assertIn("Success gallery", page)
         self.assertIn("handles (16,0), (32,12)", page)
+        self.assertIn("handles (48,0), (96,108)", page)
+        self.assertIn("handles (168,0), (336,1323)", page)
+        self.assertIn("Domain note", page)
+        self.assertNotIn("x²/24 · [0,12]", page)
         self.assertIn("not constrained to a", page)
 
 

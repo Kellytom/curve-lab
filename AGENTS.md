@@ -102,6 +102,18 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   by Google's frontend.
 - Browser checks: headless Chrome on CDP port 9223, never the Review pane.
 
+## Figures
+
+- Label every figure **inside the figure**, not only in a caption: a title
+  naming the curve/case, x and y axis labels, units when they matter, a legend
+  for the marks (source, handles, points, rails), and the key endpoint or
+  coordinate values.
+- A caption is an explanation, not a substitute for axis and series labels.
+- This applies to generated workbench SVGs, docs figures, and board panels.
+  If a figure deliberately suppresses axes, it still needs a title and a legend.
+- Check the rendered figure at full width before committing; labels must not
+  overlap the curve or each other.
+
 ## Context discipline
 
 - Probe once with a single shell call; grep before reading; do not re-read a

@@ -132,16 +132,10 @@ def success_cases():
     """Curves where the degree-elevated cubic handles are all integers."""
     return [
         {
-            "label": "y = x² · [0,3]",
-            "span": {"p0": (0, 0), "c1": (1, 0), "c2": (2, 3), "p3": (3, 9)},
-            "points": [(x, x * x) for x in range(4)],
-            "caption": "handles (1,0), (2,3) · 4 integer points",
-        },
-        {
-            "label": "y = x²/24 · [0,12]",
-            "span": {"p0": (0, 0), "c1": (4, 0), "c2": (8, 2), "p3": (12, 6)},
-            "points": [(12 * m, 6 * m * m) for m in range(2)],
-            "caption": "handles (4,0), (8,2) · 2 integer points",
+            "label": "y = x² · [0,12]",
+            "span": {"p0": (0, 0), "c1": (4, 0), "c2": (8, 48), "p3": (12, 144)},
+            "points": [(x, x * x) for x in range(13)],
+            "caption": "handles (4,0), (8,48) · 13 integer points",
         },
         {
             "label": "y = x²/64 · [0,24]",
@@ -155,10 +149,28 @@ def success_cases():
             "points": [(8 * m, m * m) for m in range(7)],
             "caption": "handles (16,0), (32,12) · 7 integer points",
         },
+        {
+            "label": "y = x²/64 · [0,96]",
+            "span": {"p0": (0, 0), "c1": (32, 0), "c2": (64, 48), "p3": (96, 144)},
+            "points": [(8 * m, m * m) for m in range(13)],
+            "caption": "handles (32,0), (64,48) · 13 integer points",
+        },
+        {
+            "label": "y = x²/64 · [0,144]",
+            "span": {"p0": (0, 0), "c1": (48, 0), "c2": (96, 108), "p3": (144, 324)},
+            "points": [(8 * m, m * m) for m in range(19)],
+            "caption": "handles (48,0), (96,108) · 19 integer points",
+        },
+        {
+            "label": "y = x²/64 · [0,504]",
+            "span": {"p0": (0, 0), "c1": (168, 0), "c2": (336, 1323), "p3": (504, 3969)},
+            "points": [(8 * m, m * m) for m in range(64)],
+            "caption": "handles (168,0), (336,1323) · 64 integer points · endpoint y = 3969",
+        },
     ]
 
 
-def success_figure(case, w=330, h=220):
+def success_figure(case, w=1000, h=320):
     span = case["span"]
     source = [cubic_at(span, i / 240) for i in range(241)]
     controls = [span["p0"], span["c1"], span["c2"], span["p3"]]
@@ -169,17 +181,21 @@ def success_figure(case, w=330, h=220):
     pad = 0.08
     x0, x1 = x0 - pad * dx, x1 + pad * dx
     y0, y1 = y0 - pad * dy, y1 + pad * dy
-    k = min((w - 18) / (x1 - x0), (h - 18) / (y1 - y0))
-    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+    # Gallery strips use independent x/y scales so a wide, shallow-looking
+    # x-range still fills the width and every lattice hit stays visible.
+    kx = (w - 18) / (x1 - x0)
+    ky = (h - 18) / (y1 - y0)
+    ox, oy = 9, 9
 
     def put(p):
-        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+        return ox + (p[0] - x0) * kx, h - (oy + (p[1] - y0) * ky)
 
     body = []
-    for gx in range(math.floor(x0), math.ceil(x1) + 1):
+    step = max(1, int(round(max(x1 - x0, y1 - y0) / 50)))
+    for gx in range(int(math.floor(x0 / step)) * step, math.ceil(x1) + 1, step):
         a, b = put((gx, y0)), put((gx, y1))
         body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
-    for gy in range(math.floor(y0), math.ceil(y1) + 1):
+    for gy in range(int(math.floor(y0 / step)) * step, math.ceil(y1) + 1, step):
         a, b = put((x0, gy)), put((x1, gy))
         body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
     # control polygon
@@ -197,6 +213,13 @@ def success_figure(case, w=330, h=220):
     for p in case["points"]:
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.6" fill="{DOT}" stroke="{PAPER}" stroke-width="1"/>')
+    # in-figure labels
+    body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">{case["label"]}</text>')
+    end = span["p3"]
+    q = put(end)
+    body.append(f'<text x="{q[0]-4:.1f}" y="{q[1]-8:.1f}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">({end[0]:g}, {end[1]:g})</text>')
+    body.append(f'<text x="10" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">x →</text>')
+    body.append(f'<text x="10" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">y ↑</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>")
@@ -223,17 +246,21 @@ def figure(fam, d, w=420, h=260):
     pad = 0.1
     x0, x1 = x0 - pad * dx, x1 + pad * dx
     y0, y1 = y0 - pad * dy, y1 + pad * dy
-    k = min((w - 18) / (x1 - x0), (h - 18) / (y1 - y0))
-    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+    # Gallery strips use independent x/y scales so a wide, shallow-looking
+    # x-range still fills the width and every lattice hit stays visible.
+    kx = (w - 18) / (x1 - x0)
+    ky = (h - 18) / (y1 - y0)
+    ox, oy = 9, 9
 
     def put(p):
-        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+        return ox + (p[0] - x0) * kx, h - (oy + (p[1] - y0) * ky)
 
     body = []
-    for gx in range(math.floor(x0), math.ceil(x1) + 1):
+    step = max(1, int(round(max(x1 - x0, y1 - y0) / 50)))
+    for gx in range(int(math.floor(x0 / step)) * step, math.ceil(x1) + 1, step):
         a, b = put((gx, y0)), put((gx, y1))
         body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
-    for gy in range(math.floor(y0), math.ceil(y1) + 1):
+    for gy in range(int(math.floor(y0 / step)) * step, math.ceil(y1) + 1, step):
         a, b = put((x0, gy)), put((x1, gy))
         body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
     for pts2, colour, width, dash in curves:
@@ -243,6 +270,9 @@ def figure(fam, d, w=420, h=260):
     for x, y in fam["source"]:
         q = put((x, y))
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.2" fill="{DOT}"/>')
+    body.append(f'<text x="8" y="15" font-family="Georgia,serif" font-size="11" fill="{INK}">{fam["label"]} · d={d}</text>')
+    body.append(f'<text x="8" y="{h-6}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">x →</text>')
+    body.append(f'<text x="{w-14}" y="15" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">y ↑</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>"), fp, fm, source, plus, minus, fp_points, fm_points
@@ -294,8 +324,8 @@ h3{{font:600 13px/1.35 Georgia,serif;margin:0 0 3px}}
 .note{{font:10px/1.4 ui-monospace,Menlo,monospace;color:{MUTED};margin:0}}
 .panel{{background:{PAPER};border:1px solid #d8ccae;padding:16px 18px;margin:0 0 18px}}
 .panel.quote p{{margin:0 0 10px}}
-.gallery{{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:0 0 20px}}
-.success{{margin:0;background:{PAPER};border:1px solid #d8ccae;padding:8px}}
+.gallery{{display:grid;grid-template-columns:1fr;gap:16px;margin:0 0 20px}}
+.success{{margin:0;background:{PAPER};border:1px solid #d8ccae;padding:10px}}
 .success-art{{margin:0 0 7px}}
 .success figcaption{{font:10px/1.45 ui-monospace,Menlo,monospace;color:{MUTED}}}
 .success figcaption strong{{font:600 12px/1.35 Georgia,serif;color:{INK}}}
@@ -318,16 +348,13 @@ error.</p>
 (0,0), (1,1), (2,4); the half has fewer; the quarter fewer still. A parabola's
 exact offset is a higher-degree <em>rational</em> curve, but not a cubic; for a
 general cubic the exact offset is degree 10. The vertex at t=0 gives an integer
-point when d is an integer. Elsewhere the normal contains √(1+4t²), so an
+point when d is an integer; at d=2 both exact rails and the Levien fit hit the
+vertex (0,±2). Elsewhere the normal contains √(1+4t²), so an
 exact integer point is a Diophantine question, not an automatic one; scaling can
 clear denominators. Levien's rail is a real-valued fit, so it is not expected
 to land on integers either. Use the selects to look for the exceptions; the
 controls in the generator are the variables to reverse-engineer.</p>
 </div>
-<h2>Success gallery · integer handles</h2>
-<p class="lead">Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer.</p>
-<div class="gallery">{gallery_html}</div>
-
 <h2>Levien’s logic</h2>
 <div class="panel quote">
 <p><strong>Why fit at all.</strong> “The exact offset curve of a cubic Bézier can
@@ -536,6 +563,12 @@ Radicle.</p>
 <label>offset d <select id="d">{opts_d}</select></label>
 </div>
 {cards_html}
+<h2>Success gallery · integer handles</h2>
+<p class="lead">Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer. The gallery strips use independent x/y scales; the selectable cards keep equal scales.</p>
+<p class="lead"><strong>Domain note.</strong> Each figure is the segment over the stated x-interval, not the whole parabola. At x=64, y=64; at y=64²=4096, x=512. The [0,512] segment reaches 64², but 512 is not a multiple of 24, so its cubic handles are not integers. The [0,504] success ends at y=3969, the nearest 24-multiple width. The point (64,64) is already inside [0,96] and [0,504]; (512,4096) is beyond [0,504].</p>
+<div class="gallery">{gallery_html}</div>
+
+
 <script>
 const f = document.getElementById("family"), d = document.getElementById("d");
 function show() {{
