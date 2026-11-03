@@ -22,6 +22,8 @@ class LevienIntegerTest(unittest.TestCase):
     def test_success_cases(self):
         cases = L.success_cases()
         self.assertEqual(len(cases), 6)
+        self.assertEqual(cases[0]["fig"], "G1")
+        self.assertEqual(cases[5]["fig"], "G6")
         self.assertEqual(len(cases[0]["points"]), 13)
         self.assertEqual(cases[1]["points"],
                          [(0, 0), (8, 1), (16, 4), (24, 9)])
@@ -59,6 +61,8 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("y = x²/64", page)
         self.assertIn("integer points are (0,0), (8,1), (16,4), (24,9)", page)
         self.assertIn("Success gallery", page)
+        self.assertIn("Fig. C1", page)
+        self.assertIn("Fig. G1", page)
         self.assertIn("handles (16,0), (32,12)", page)
         self.assertIn("handles (48,0), (96,108)", page)
         self.assertIn("handles (168,0), (336,1323)", page)

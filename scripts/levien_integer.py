@@ -130,7 +130,7 @@ def families():
 
 def success_cases():
     """Curves where the degree-elevated cubic handles are all integers."""
-    return [
+    cases = [
         {
             "label": "y = x² · [0,12]",
             "span": {"p0": (0, 0), "c1": (4, 0), "c2": (8, 48), "p3": (12, 144)},
@@ -168,6 +168,9 @@ def success_cases():
             "caption": "handles (168,0), (336,1323) · 64 integer points · endpoint y = 3969",
         },
     ]
+    for i, case in enumerate(cases, 1):
+        case["fig"] = f"G{i}"
+    return cases
 
 
 def success_figure(case, w=1000, h=320):
@@ -214,7 +217,7 @@ def success_figure(case, w=1000, h=320):
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.6" fill="{DOT}" stroke="{PAPER}" stroke-width="1"/>')
     # in-figure labels
-    body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">{case["label"]}</text>')
+    body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">Fig. {case["fig"]} · {case["label"]}</text>')
     end = span["p3"]
     q = put(end)
     body.append(f'<text x="{q[0]-4:.1f}" y="{q[1]-8:.1f}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">({end[0]:g}, {end[1]:g})</text>')
@@ -225,7 +228,7 @@ def success_figure(case, w=1000, h=320):
             + "".join(body) + "</svg>")
 
 
-def figure(fam, d, w=420, h=260):
+def figure(fam, d, w=420, h=260, fig="C?"):
     span = fam["span"]
     source = [cubic_at(span, i / N) for i in range(N + 1)]
     plus = rail_points(span, d)
@@ -246,14 +249,13 @@ def figure(fam, d, w=420, h=260):
     pad = 0.1
     x0, x1 = x0 - pad * dx, x1 + pad * dx
     y0, y1 = y0 - pad * dy, y1 + pad * dy
-    # Gallery strips use independent x/y scales so a wide, shallow-looking
-    # x-range still fills the width and every lattice hit stays visible.
     kx = (w - 18) / (x1 - x0)
     ky = (h - 18) / (y1 - y0)
-    ox, oy = 9, 9
+    k = min(kx, ky)
+    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
 
     def put(p):
-        return ox + (p[0] - x0) * kx, h - (oy + (p[1] - y0) * ky)
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
     body = []
     step = max(1, int(round(max(x1 - x0, y1 - y0) / 50)))
@@ -270,7 +272,7 @@ def figure(fam, d, w=420, h=260):
     for x, y in fam["source"]:
         q = put((x, y))
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.2" fill="{DOT}"/>')
-    body.append(f'<text x="8" y="15" font-family="Georgia,serif" font-size="11" fill="{INK}">{fam["label"]} · d={d}</text>')
+    body.append(f'<text x="8" y="15" font-family="Georgia,serif" font-size="11" fill="{INK}">Fig. {fig} · {fam["label"]} · d={d}</text>')
     body.append(f'<text x="8" y="{h-6}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">x →</text>')
     body.append(f'<text x="{w-14}" y="15" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">y ↑</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
@@ -283,23 +285,24 @@ def main():
     cards = []
     for fam_key, fam in fams.items():
         for d in D_VALUES:
-            svg, fp, fm, source, plus, minus, fpp, fmp = figure(fam, d)
+            fig_id = f"C{len(cards) + 1}"
+            svg, fp, fm, source, plus, minus, fpp, fmp = figure(fam, d, fig=fig_id)
             src_hits = integer_hits(source, 1e-9)
             exact_hits = integer_hits(plus + minus)
             fit_hits = integer_hits(fpp + fmp)
-            cards.append(dict(fam=fam_key, d=d, svg=svg, span=fam["span"],
+            cards.append(dict(fam=fam_key, d=d, fig=fig_id, svg=svg, span=fam["span"],
                               source_hits=len(src_hits), exact_hits=len(exact_hits),
                               fit_hits=len(fit_hits),
                               fit_err=max(fp["error_max"], fm["error_max"])))
     cards_html = "".join(f'''<section class="card" data-family="{c['fam']}" data-d="{c['d']}">
 <div class="art">{c['svg']}</div>
-<h3>{fams[c['fam']]['label']} · d = {c['d']}</h3>
+<h3>Fig. {c['fig']} · {fams[c['fam']]['label']} · d = {c['d']}</h3>
 <p class="note">source integer points {c['source_hits']} · exact rail near-integer {c['exact_hits']} · Levien fit near-integer {c['fit_hits']} · fit error {c['fit_err']:.4f}</p>
 </section>''' for c in cards)
     gallery_cases = success_cases()
     gallery_html = "".join(
         f'<figure class="success"><div class="success-art">{success_figure(c)}</div>'
-        f'<figcaption><strong>{c["label"]}</strong><br><span>{c["caption"]}</span></figcaption></figure>'
+        f'<figcaption><strong>Fig. {c["fig"]} · {c["label"]}</strong><br><span>{c["caption"]}</span></figcaption></figure>'
         for c in gallery_cases)
     opts_fam = "".join(f'<option value="{k}">{v["label"]}</option>' for k, v in fams.items())
     opts_d = "".join(f'<option value="{d}">{d}</option>' for d in D_VALUES)
@@ -564,7 +567,7 @@ Radicle.</p>
 </div>
 {cards_html}
 <h2>Success gallery · integer handles</h2>
-<p class="lead">Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer. The gallery strips use independent x/y scales; the selectable cards keep equal scales.</p>
+<p class="lead">Figure IDs: C = selectable family/d card; G = gallery strip. Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer. The gallery strips use independent x/y scales; the selectable cards keep equal scales.</p>
 <p class="lead"><strong>Domain note.</strong> Each figure is the segment over the stated x-interval, not the whole parabola. At x=64, y=64; at y=64²=4096, x=512. The [0,512] segment reaches 64², but 512 is not a multiple of 24, so its cubic handles are not integers. The [0,504] success ends at y=3969, the nearest 24-multiple width. The point (64,64) is already inside [0,96] and [0,504]; (512,4096) is beyond [0,504].</p>
 <div class="gallery">{gallery_html}</div>
 

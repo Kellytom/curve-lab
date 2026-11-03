@@ -104,10 +104,11 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Figures
 
-- Label every figure **inside the figure**, not only in a caption: a title
-  naming the curve/case, x and y axis labels, units when they matter, a legend
-  for the marks (source, handles, points, rails), and the key endpoint or
-  coordinate values.
+- Label every figure **inside the figure**, not only in a caption: a figure
+  number or letter (for example `Fig. 1`, `Fig. C1`, `Fig. G1`), a title naming
+  the curve/case, x and y axis labels, units when they matter, a legend for the
+  marks (source, handles, points, rails), and the key endpoint or coordinate
+  values.
 - A caption is an explanation, not a substitute for axis and series labels.
 - This applies to generated workbench SVGs, docs figures, and board panels.
   If a figure deliberately suppresses axes, it still needs a title and a legend.
