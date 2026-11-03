@@ -72,6 +72,25 @@
 | Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | terminal, not a stalk |
 | seagrass / flower endings | n/a | n/a | n/a | **A/B** | ending |
 
+### Routes to the Cs (and the D)
+
+- **Cycloid:** [evolute/offset family](/workbench/lac-parallel.html?family=cycloid) · [OffS4](/workbench/stem-library-offset.html) · stem S69.
+- **Astroid / hypocycloid:** [evolute/offset family](/workbench/lac-parallel.html?family=astroid) · stem S17.
+- **Semicubical / Neile:** [evolute/offset family](/workbench/lac-parallel.html?family=semicubical).
+- **Tractrix:** [catenary → tractrix](/workbench/lac-parallel.html?family=catenary) · [catenary study](/workbench/catenary.html) · stem S66.
+- **Heart / squircle:** [hearts](/workbench/hearts.html) · [heart forms](/workbench/heart-forms.html); the squircle is the vase form.
+- **Cusped/looped rationals:** [generators](/workbench/generators.html) · [stem library](/workbench/stem-library.html) S05–S29.
+- **Stage IV width modulation:** [the old Stage IV page](http://localhost:8001/stage-four.html). The ornaments repository must be served there:
+  `cd ../ornaments && python3 -m http.server 8001 --bind 127.0.0.1`.
+  It is not in the hub because its rails are **not equidistant**; it is a width study, not a parallel-offset source.
+
+### What I would eliminate
+
+- **D — eliminate as an offset source:** Stage IV width modulation. Keep the page as a width study; do not put it in `stem-library-offset.html`.
+- **C — demote from production stalks:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and cusped/looped rationals (bicorn, nodal, Tschirnhausen, piriform 2×). Keep them as study/reference/ending material; do not delete the source pages.
+- **Candidates to remove from the stem catalogue only:** the looped/cusped named cards — bicorn, nodal, Tschirnhausen, piriform 2× — because they cannot be a clean stalk. Keep them on `generators.html` as studies. This is a catalogue change, not a page deletion.
+- **Do not remove:** PH/arcs/Pythagorean (A), LAC/clothoid/Euler/log spiral (B), the three conics (B), catenary (B), or the rational non-cusped named curves (B). LAC/Euler are B only because they do not hit the integer lattice; they are still core production curves.
+
 ### The Levien integer question
 
 The fitted rail is a cubic-Bézier chain with real control points. A general cubic Bézier offset is an analytic degree-10 curve; Levien approximates it, so the fitted controls are not integers in general. A probe on an integer cubic at d=1 gave controls such as −0.824 and 1.631. The useful integer cases are the exact ones — lines/arcs, PH curves, and the Pythagorean spiral. A constrained/snapped fit could be investigated, but until it is measured Levien stays **B**, not A; exact integer work should use the exact routes.
