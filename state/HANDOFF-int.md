@@ -58,11 +58,12 @@ remote MVP now exist.
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
   (cardioid/trifolium/quadrifolium/astroid) at the tips.  `workbench/stem-library.html`
-  is the 169-card labelled catalogue (S01–S109 and S118–S157 single stems; halves
-  S166–S167 rotated 150°/90° CW; SM1–SM18 multiple stems, internal S110–S117 and
-  S158–S169; 4 presets, 25 named, Euler 45/90, 3 spiral-turns, 31 LAC spines,
+  is the 173-card labelled catalogue (S01–S109 and S118–S157 single stems; halves
+  S166–S167 rotated 150°/90° CW; SM1–SM22 multiple stems, internal S110–S117 and
+  S158–S173; 4 presets, 25 named, Euler 45/90, 3 spiral-turns, 31 LAC spines,
   4 full gestures + 2 halves, 80 combination cards (70 pairs + 10 doubles), 16 LAC plants + the SM17
-  fractional p=1/4–1 series and the SM18 p=1/4–3 combined fan).  The boundary
+  fractional p=1/4–1 series, the SM18 p=1/4–3 combined fan, and the SM19–SM22
+  end-spacing studies — equal tip arc, simple fractions, log, Fibonacci-like).  The boundary
   p=±0.5 stems are dropped from SM5/SM6, SM7/SM8, SM9, SM11, SM13–SM16; the
   p=±0.5 reference plates stay in the LAC group.  Doc: `docs/FLOWERS-int.md`.
 - **Evolute parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
@@ -669,7 +670,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `docs/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
-| `workbench/stem-library.html` | 169 labelled stems: S01–S109, S118–S157, S166–S167; SM1–SM18 |
+| `workbench/stem-library.html` | 173 labelled stems: S01–S109, S118–S157, S166–S167; SM1–SM22 |
 | `workbench/lac-parallel.html` | evolute → parallel offsets sandbox (LAC and classical families) |
 | `workbench/lac-parallel.js` | the family/evolute/offset geometry |
 | `scripts/stem_library.py` | the stem-library generator |

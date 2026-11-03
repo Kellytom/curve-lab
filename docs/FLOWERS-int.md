@@ -181,15 +181,15 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 
 ## Stem library
 
-`workbench/stem-library.html` is the catalogue, not a print sheet: **169 cards**,
+`workbench/stem-library.html` is the catalogue, not a print sheet: **173 cards**,
 one curve per tight square.  Single stems keep S numbers (S01–S109, S118–S157,
 and the two halves **S166 ½ catenary** and **S167 ½ cycloid**); the multiple-stem
-cards are **SM1–SM18**.  (The plants keep internal generator indices S110–S117
-and S158–S165; SM17–SM18 are S168–S169 internally.)  The groups are generator
+cards are **SM1–SM22**.  (The plants keep internal generator indices S110–S117
+and S158–S165; SM17–SM22 are S168–S173 internally.)  The groups are generator
 presets (4), named curves (25), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
 the 31 recovered LAC spines, four full gestures, two half gestures, **80
-combination cards (S70–S109 and S118–S157: 70 pairs + 10 doubles)**, and **18
-multiple-stem cards (SM1–SM18)**.  The S35–S39, S41–S45 and S46–S50 groups pair
+combination cards (S70–S109 and S118–S157: 70 pairs + 10 doubles)**, and **22
+multiple-stem cards (SM1–SM22)**.  The S35–S39, S41–S45 and S46–S50 groups pair
 every two curves, once joined at their spiral ends and once at their straight
 ends; the second curve is reversed and placed so the join point and tangent
 match (G1).  In the S51–S55 group the spiral slot is a **double** of each of
@@ -215,7 +215,7 @@ normalised to the S52 frame (about 7.6× the generator frame) before **SM18**
 combines it with p = 1.5, 2, 3 (S53–S55), so the fractions are not tiny beside
 the recovered plates.  p = 1 is shared once.  The individual p = 0.5
 reference plates remain in the LAC group.  SM5–SM16 are coloured with a
-swatch→source-S table; SM17/SM18 use a p-colour legend.  SM1–SM4 stay ink.  The
+swatch→source-S table; SM17–SM22 use a p-colour legend.  SM1–SM4 stay ink.  The
 table is the way to name the one curve to drop.
 
 The page links back to `flowers.html`; to promote a card, add the

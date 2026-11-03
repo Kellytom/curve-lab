@@ -461,6 +461,41 @@ def build():
         plant(combined, "straight", same_angle=90.0),
         mark=[(0.0, 0.0)], colors=combined_colors, legend=combined_legend)
 
+    # 13. end-spacing studies: the same p range, different sequences.
+    #     The gaps are measured on the straight-root fan in the S52 frame.
+    def spaced_card(p):
+        return dict(branches=[[(x * scale, y * scale)
+                               for x, y in lac_p_branches(p)]])
+
+    spacing_palette = ["#1f5fa8", "#2f6f9f", "#2f6f4f",
+                       "#6f6a2f", "#8a5a2b", "#b23a2b",
+                       "#6f4a8c", "#8a3f6b", INK]
+    log_p = [0.25 * 12 ** (i / 8) for i in range(9)]
+    spacing = [
+        ("equal tip arc",
+         [0.25, 0.3657, 0.4887, 0.6306, 0.8063, 1.04, 1.378, 1.926, 3.0],
+         ["1/4", "0.366", "0.489", "0.631", "0.806", "1.04", "1.378", "1.926", "3"],
+         "equal tip arc · gaps 236.3–236.5 · CV 0.0%"),
+        ("simple fractions",
+         [0.25, 3/8, 0.5, 5/8, 0.8, 1.0, 11/8, 2.0, 3.0],
+         ["1/4", "3/8", "1/2", "5/8", "4/5", "1", "11/8", "2", "3"],
+         "simple fractions · gaps 207.5–270.0 · CV 9.8%"),
+        ("logarithmic p",
+         log_p,
+         [f"{p:.3g}" for p in log_p],
+         "log p_i = 1/4·12^(i/8) · gaps 156.8–297.9 · CV 20.3%"),
+        ("Fibonacci-like p",
+         [0.25, 1/3, 0.5, 2/3, 1.0, 1.5, 2.0, 3.0],
+         ["1/4", "1/3", "1/2", "2/3", "1", "3/2", "2", "3"],
+         "Fibonacci-like p · gaps 170.7–384.0 · CV 27.6%"),
+    ]
+    for name, seq, labels, note in spacing:
+        colors = spacing_palette[:len(seq)]
+        legend = [(colors[i], f"p = {labels[i]}") for i in range(len(seq))]
+        add("Plants · LAC spacing", name, "LAC spacing study", note,
+            plant([spaced_card(p) for p in seq], "straight", same_angle=90.0),
+            mark=[(0.0, 0.0)], colors=colors, legend=legend)
+
 
 def legend(card):
     if not card.get("legend"):
@@ -556,6 +591,17 @@ stems are removed from the same-angle multiples (SM5/SM6 lose S39; SM7/SM8
 lose S41; SM13/SM14 lose S50; SM15/SM16 lose S51) and from the two spiral fans
 SM9/SM11 (S50/S51), so the jump that prompted the series is gone from the
 multiples; the individual reference plates remain in the LAC group.</p>
+</div>
+<div class="panel">
+<p><strong>Equal end spacing (SM19–SM22).</strong> The gaps between the free
+ends are not linear in p. With the SM18 mix they run 114–336 in the S52 frame
+(CV 30%); a constant Δp is much worse (57–652, CV 83%). A log step
+p<sub>i</sub> = 1/4·12<sup>i/8</sup> brings the CV to 20%; the simple fractions
+1/4, 3/8, 1/2, 5/8, 4/5, 1, 11/8, 2, 3 reach 9.8%. The exact equal-tip-arc
+series is p = 1/4, 0.366, 0.489, 0.631, 0.806, 1.04, 1.378, 1.926, 3; all eight
+gaps are 236.3–236.5 (CV 0). Fibonacci-like p values are no better than the
+current mix (27.6%). Distances are in the S52 frame; the card auto-fit leaves
+the ratios unchanged.</p>
 </div>
 {''.join(sections)}
 </main></body></html>

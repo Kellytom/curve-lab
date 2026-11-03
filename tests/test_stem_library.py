@@ -19,6 +19,8 @@ class StemLibraryTest(unittest.TestCase):
         self.assertEqual(len(combos), 80)
         plants = [c for c in L.CARDS if c["group"] == "Plants"]
         self.assertEqual(len(plants), 16)
+        spacing = [c for c in L.CARDS if c["group"] == "Plants · LAC spacing"]
+        self.assertEqual(len(spacing), 4)
         self.assertEqual(sum(1 for c in plants if c["colors"]), 12)
         self.assertEqual(sum(1 for c in plants if c.get("legend")), 12)
 
@@ -32,6 +34,8 @@ class StemLibraryTest(unittest.TestCase):
         self.assertIn("SM18", page)
         self.assertIn("S46+S46", page)
         self.assertIn("S55+S55", page)
+        self.assertIn("SM22", page)
+        self.assertIn("equal tip arc", page)
         self.assertIn("p = 1/4", page)
         self.assertIn("½ catenary", page)
 
