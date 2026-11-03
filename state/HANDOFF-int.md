@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **266 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **268 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
@@ -95,6 +95,12 @@ remote MVP now exist.
   each with an ending).  Geometry in `curve_lab/plant.py`; generator
   `scripts/plant_forms.py`; tests `tests/test_plant.py` and
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
+- **Euler-section proof (2026-11-03):** `workbench/euler-sections.html` +
+  `curve_lab/euler_polygon.py` + `scripts/euler_sections.py` — six smooth C
+  sections (cycloid, astroid, semicubical, tractrix, heart, squircle) as exact
+  p-triple polygons, rational miter rails, and cubic seams.  The exact polygon
+  is A−; the ideal C curve stays C; the converted section is B.  Heart target
+  error is high (0.62); looped/cusped rationals and finer splits remain.
 - **C-family p-triple route (2026-11-03):** the p-triple spine is the solved
   plan route — exact rational Euler polygon, rational miter rails
   (`ribbon.rails`), cubic drawing with measured margin.  The C families

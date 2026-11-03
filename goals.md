@@ -167,15 +167,18 @@ is not PH), so this is a fitted rail, not an exact one.
 LAC/PH/integer rails, then terminals and branches. The source intake is not
 finished; Stage III and IV are deliberately not claimed as wired.
 
-**Status 2026-11-03:** the offset catalogue and the plant-form proof are built.
-OffS1–OffS12 are in `stem-library-offset.html`; `plant-forms.html` has the cone
-terminal, seagrass and flower endings, the pyramid growth marks, and the
-branches (lower bigger than upper).  The focused checklist is `TODO.md` with
-the generated twin `workbench/todo.html`; it holds the provisional A/B/C/D
-curve grades, the p-triple Euler workstream, and the Levien integer-snap
-question.  The p-triple spine is the solved route for the C families: an exact
-rational Euler polygon, rational miter rails, and a cubic drawing with measured
-margin.  **C is not a deletion:**
+**Status 2026-11-03:** the offset catalogue, the plant-form proof, and the
+first p-triple Euler proof are built.  OffS1–OffS12 are in
+`stem-library-offset.html`; `plant-forms.html` has the cone terminal, seagrass
+and flower endings, the pyramid growth marks, and the branches (lower bigger
+than upper); `workbench/euler-sections.html` shows the cycloid, astroid,
+semicubical, tractrix, heart and squircle as exact p-triple polygons with
+rational rails and cubic seams.  The looped/cusped rationals still need their
+split sections.  The focused checklist is `TODO.md` with the generated twin
+`workbench/todo.html`; it holds the provisional A/B/C/D curve grades, the
+p-triple workstream, and the Levien integer-snap question.  The p-triple spine
+is the solved route for the C families: an exact rational Euler polygon,
+rational miter rails, and a cubic drawing with measured margin.  **C is not a deletion:**
 the cycloid, astroid/hypocycloid, semicubical, tractrix, heart/squircle and
 looped/cusped rationals are kept as **ending/flower** material.  The ending /
 flower fit pass comes before ornament-forms.  **Advanced track:** Stage IV

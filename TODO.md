@@ -37,14 +37,14 @@ and the ideal C curve carry the measured margin. The spine bridge is
 `curve_lab/spine.py`; the turn lattice is `pythagorean_spiral.triples.for_angle`;
 the rails are `ribbon.rails`; the drawing is the cubic span seam.
 
-- [ ] **Generic turn-schedule converter:** sample a C curve, pick a p-triple angle with `for_angle`, quantize the heading changes, split at cusps, build a `Spiral`, and measure the lattice margin.
-- [ ] **Cycloid → Euler polygon:** split at the arch cusps; one or two smooth chains; rational rails; draw cubics.
-- [ ] **Astroid / hypocycloid → Euler polygon:** split at cusps; keep the cusp as a deliberate swap or a separate chain.
-- [ ] **Semicubical / Neile → Euler polygon:** split at the cusp; measure the near-cusp resolution.
-- [ ] **Tractrix → Euler polygon:** split at the cusp; compare with the catenary chain.
-- [ ] **Heart / squircle → Euler polygon:** smooth chains; no cusp split; keep the heart as an ending/flower too.
+- [x] **Generic turn-schedule converter:** sample a C curve, pick a p-triple angle with `for_angle`, quantize the heading changes, split at cusps, build a `Spiral`, and measure the lattice margin.
+- [x] **Cycloid → Euler polygon:** split at the arch cusps; one or two smooth chains; rational rails; draw cubics.
+- [x] **Astroid / hypocycloid → Euler polygon:** split at cusps; keep the cusp as a deliberate swap or a separate chain.
+- [x] **Semicubical / Neile → Euler polygon:** split at the cusp; measure the near-cusp resolution.
+- [x] **Tractrix → Euler polygon:** split at the cusp; compare with the catenary chain.
+- [x] **Heart / squircle → Euler polygon:** smooth chains; no cusp split; keep the heart as an ending/flower too.
 - [ ] **Cusped/looped rationals → Euler polygon:** bicorn, nodal, Tschirnhausen, piriform 2×; split at loops/cusps.
-- [ ] **Rail + canvas proof:** rational miter rails on the polygon, cubic drawing of the rails, and a comparison against the direct ideal; record the p-triple margin, the cubic error. Do not use the direct `build_rail` probe as the base plan.
+- [x] **Rail + canvas proof:** rational miter rails on the polygon, cubic drawing of the rails, and a comparison against the direct ideal; record the p-triple margin, the cubic error. Do not use the direct `build_rail` probe as the base plan.
 
 The direct `build_rail` probe hit an endpoint evaluation failure; that is an engine-path issue, not a reason to abandon the p-triple route. The spine layer is the exact plan; the engine rail is the display/clearance layer.
 
@@ -67,7 +67,7 @@ The direct `build_rail` probe hit an endpoint evaluation failure; that is an eng
 
 ## Curve grades (provisional)
 
-**Grade A** means all three are true for a **production stalk**: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **B** is usable but misses one; **C** means not a clean production stalk; **D** means not an offset source. **C is not a deletion.** The C families are explicitly kept and tried as **endings/flowers** on the stalk tips; the ending grade is a separate role. The p-triple Euler conversion is the other route: an exact rational polygon with rational rails, and a cubic drawing with measured error. The C grade applies to fitting the **ideal curve** directly, not to the p-triple polygon. Nothing is removed from the source/reference pages.
+**Grade A** means all three are true for a **production stalk**: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **A−** means the p-triple polygon and its rational rails are exact while the cubic drawing is approximate. **B** is usable but misses one; **C** means not a clean production stalk; **D** means not an offset source. **C is not a deletion.** The C families are kept as **endings/flowers** on the stalk tips, and the p-triple Euler conversion is the other route. The grades are different objects: **C** is the ideal C curve fitted directly; **B** is a usable converted section; **A−** is the exact p-triple polygon and its rational rails, with the cubic seam as the approximate drawing. The conversion does not make the ideal C curve exact. Nothing is removed from the source/reference pages.
 
 | curve / family | offset | integer / exact | Euler compound | grade | action |
 |---|---|---|---|---|---|
@@ -84,13 +84,13 @@ The direct `build_rail` probe hit an endpoint evaluation failure; that is an eng
 | ellipse | fitted | rational/integer special points | approximate | **B** | conic |
 | hyperbola | fitted | rational/integer special points | approximate | **B** | conic |
 | rational non-cusped named (bean, pear, bow, trifolium, quadrifolium, cardioid, cruciform, Gerono, piriform) | fitted | integer controls | approximate | **B** | catalogue |
-| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C** | keep as ending/flower/ornament, not a stalk |
-| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C** | keep as thorn/leaf/flower, not a stalk |
-| cycloid | fitted | no | poor at cusps | **C** | keep as loop/flower ending, not a stalk |
-| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C** | keep as petal/flower ending, not a stalk |
+| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C direct / A− p-triple** | keep as ending/flower; convert to a split p-triple polygon |
+| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C direct / A− p-triple** | keep as thorn/leaf/flower; one branch is converted |
+| cycloid | fitted | no | poor at cusps | **C direct / A− p-triple** | keep as loop/flower ending; half-arch section converted |
+| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C direct / A− p-triple** | keep as petal/flower; quadrant section converted |
 | catenary | fitted | no | approximate | **B** | named stem / leaf ending |
-| tractrix | fitted, cusp | no | poor | **C** | keep as curl/leaf ending, not a stalk |
-| heart / squircle | fitted numeric | no | poor | **C** | keep as flower/heart/vase, not a stalk |
+| tractrix | fitted, cusp | no | poor | **C direct / A− p-triple** | keep as curl/leaf; smooth section converted |
+| heart / squircle | fitted numeric | no | poor | **C direct / A− p-triple** | keep as flower/heart/vase; smooth sections converted |
 | general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | fitted option; exact integer route is PH/arcs |
 | Stage IV width modulation | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | separate width-modulation track; not an offset source; after the ornament proof |
 | Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | terminal, not a stalk |

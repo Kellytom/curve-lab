@@ -1,17 +1,16 @@
 ```text
-Read state/HANDOFF-int.md. Read docs/SPINE.md for the exact p-triple Euler
-polygon, pythagorean-spiral/docs/TRANSFER.md for the rational rails and the
-cubic seam, and goals.md for the C-family conversion and ending/flower rules.
+Read state/HANDOFF-int.md. Read docs/SPINE.md for the p-triple Euler polygon,
+pythagorean-spiral/docs/TRANSFER.md for the rational rails and cubic seam,
+workbench/euler-sections.html for the first proof, and goals.md for the C-family
+and ending/flower rules.
 
-You are converting the C families — cycloid, astroid/hypocycloid,
-semicubical/Neile, tractrix, heart/squircle, and the looped/cusped rationals —
-to exact p-triple Euler polygons.  Choose a triangle angle with for_angle,
-quantize the turn schedule, split at cusps/loops, build the rational Spiral,
-offset with ribbon.rails, and draw the cubic rails.  The polygon and its miter
-rails are exact; the ideal C curve and the drawn cubic carry the measured
-margin.  Do not use the direct build_rail probe as the base plan.  Grade them
-as Euler-polygon/ending material, not direct production stalks; then do the
-ending/flower fit pass and ornament-forms.
+You are finishing the C-family p-triple Euler proof: the six smooth sections are
+built; add the looped/cusped rationals (bicorn, nodal, Tschirnhausen, piriform
+2×) and split the heart/cusps/loops into clean sections.  Choose the triangle
+angle, quantize the turn schedule, build the rational Spiral, offset with
+ribbon.rails, draw the cubic seam, and record the polygon/cubic margin.  Then
+do the ending/flower fit pass and ornament-forms.  The exact polygon and rails
+are A−; the ideal C curve stays C; the converted section is B.
 ```
 
-Source: state/HANDOFF-int.md · 2026-11-03 · after the p-triple correction.
+Source: state/HANDOFF-int.md · 2026-11-03 · after the first Euler-section proof.

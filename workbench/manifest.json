@@ -245,6 +245,15 @@
       "outputs": "the plant-form proof: cone/seagrass/flower endings, pyramid marks, branches"
     },
     {
+      "key": "euler-sections",
+      "file": "euler-sections.html",
+      "group": "curve",
+      "title": "Euler sections",
+      "purpose": "C curves as exact p-triple Euler polygons with rational rails and a cubic seam.",
+      "inputs": "one smooth C-curve section, p-triple angle, chord count",
+      "outputs": "rational polygon, miter rails, cubic drawing, polygon/cubic margins"
+    },
+    {
       "key": "euler-square",
       "file": "euler-square.html",
       "group": "curve",
