@@ -67,34 +67,39 @@ The direct `build_rail` probe hit an endpoint evaluation failure; that is an eng
 
 ## Curve grades (provisional)
 
-**Grade A** means all three are true for a **production stalk**: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **A−** means the p-triple polygon and its rational rails are exact while the cubic drawing is approximate. **B** is usable but misses one; **C** means not a clean production stalk; **D** means not an offset source. **C is not a deletion.** The C families are kept as **endings/flowers** on the stalk tips, and the p-triple Euler conversion is the other route. The grades are different objects: **C** is the ideal C curve fitted directly; **B** is a usable converted section; **A−** is the exact p-triple polygon and its rational rails, with the cubic seam as the approximate drawing. The conversion does not make the ideal C curve exact. Nothing is removed from the source/reference pages.
+**Grade A** means all three are true for a **production stalk**: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **A−** means the p-triple polygon and its rational rails are exact while the cubic drawing is approximate. **B** is usable but misses one; **C** means not a clean production stalk; **D** means not an offset source. **C is not a deletion.**
 
-| curve / family | offset | integer / exact | Euler compound | grade | action |
-|---|---|---|---|---|---|
-| line, arc, circle | exact | exact | exact arc/line | **A** | production |
-| PH presets / integer PH | exact rational | integer controls and milestones | approximate clothoid chain | **A−** | production |
-| Pythagorean spiral / 3-4-5 | exact arcs + lines | exact integer lattice | arcs/lines, not Euler | **A−** | production spine |
-| p-triple Euler polygon (spine) | rational miter rails, exact on polygon | exact rational nodes/turns | cubic drawing approximate | **A−** | target for the C conversion; do not refit as a clothoid |
-| cone terminal | exact arcs, R = 2 × offset | exact | n/a | **A** | ending |
-| clothoid / Euler | fitted (offset is not a clothoid) | no | native | **B** | core Euler |
-| LAC | fitted chain rail | no | native via `design_from_spans` | **B** | core stalk |
-| log spiral | exact in family | no | native (LAC α = 1) | **B** | core/ending |
-| circle involute | exact in family | no | approximate | **B** | study/ending |
-| parabola | fitted | integer points on the curve | approximate | **B** | conic |
-| ellipse | fitted | rational/integer special points | approximate | **B** | conic |
-| hyperbola | fitted | rational/integer special points | approximate | **B** | conic |
-| rational non-cusped named (bean, pear, bow, trifolium, quadrifolium, cardioid, cruciform, Gerono, piriform) | fitted | integer controls | approximate | **B** | catalogue |
-| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C direct / A− p-triple** | keep as ending/flower; convert to a split p-triple polygon |
-| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C direct / A− p-triple** | keep as thorn/leaf/flower; one branch is converted |
-| cycloid | fitted | no | poor at cusps | **C direct / A− p-triple** | keep as loop/flower ending; half-arch section converted |
-| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C direct / A− p-triple** | keep as petal/flower; quadrant section converted |
-| catenary | fitted | no | approximate | **B** | named stem / leaf ending |
-| tractrix | fitted, cusp | no | poor | **C direct / A− p-triple** | keep as curl/leaf; smooth section converted |
-| heart / squircle | fitted numeric | no | poor | **C direct / A− p-triple** | keep as flower/heart/vase; smooth sections converted |
-| general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | fitted option; exact integer route is PH/arcs |
-| Stage IV width modulation | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | separate width-modulation track; not an offset source; after the ornament proof |
-| Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | terminal, not a stalk |
-| seagrass / flower endings | n/a | n/a | n/a | **A/B** | ending |
+**Pass/fail is role-based.** **PASS** = at least one usable role route with evidence (exact, p-triple, ending/flower, or advanced width). **INVESTIGATE** = plausible, but the named test is incomplete. **FAIL** = no viable route for that role. A curve can pass as an ending while failing as a stalk. Currently **no curve fails every role**; Stage IV fails only the parallel-offset role. The C families are kept as **endings/flowers** on the stalk tips, and the p-triple Euler conversion is the other route. The grades are different objects: **C** is the ideal C curve fitted directly; **B** is a usable converted section; **A−** is the exact p-triple polygon and its rational rails, with the cubic seam as the approximate drawing. The conversion does not make the ideal C curve exact. Nothing is removed from the source/reference pages.
+
+| curve / family | offset | integer / exact | Euler compound | grade | pass/fail | action |
+| --- | --- | --- | --- | --- | --- | --- |
+| line, arc, circle | exact | exact | exact arc/line | **A** | PASS | production |
+| PH presets / integer PH | exact rational | integer controls and milestones | approximate clothoid chain | **A−** | PASS | production |
+| Pythagorean spiral / 3-4-5 | exact arcs + lines | exact integer lattice | arcs/lines, not Euler | **A−** | PASS | production spine |
+| p-triple Euler polygon (spine) | rational miter rails, exact on polygon | exact rational nodes/turns | cubic drawing approximate | **A−** | PASS | target for the C conversion; do not refit as a clothoid |
+| cone terminal | exact arcs, R = 2 × offset | exact | n/a | **A** | PASS | ending |
+| clothoid / Euler | fitted (offset is not a clothoid) | no | native | **B** | PASS | core Euler |
+| LAC | fitted chain rail | no | native via `design_from_spans` | **B** | PASS | core stalk |
+| log spiral | exact in family | no | native (LAC α = 1) | **B** | PASS | core/ending |
+| circle involute | exact in family | no | approximate | **B** | PASS | study/ending |
+| parabola | fitted | integer points on the curve | approximate | **B** | PASS | conic |
+| ellipse | fitted | rational/integer special points | approximate | **B** | PASS | conic |
+| hyperbola | fitted | rational/integer special points | approximate | **B** | PASS | conic |
+| rational non-cusped named (bean, pear, bow, trifolium, quadrifolium, cardioid, cruciform, Gerono, piriform) | fitted | integer controls | approximate | **B** | PASS | catalogue |
+| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C direct / A− p-triple** | INVESTIGATE | keep as ending/flower; convert to a split p-triple polygon |
+| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C direct / A− p-triple** | PASS · split | keep as thorn/leaf/flower; one branch is converted |
+| cycloid | fitted | no | poor at cusps | **C direct / A− p-triple** | PASS · split | keep as loop/flower ending; half-arch section converted |
+| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C direct / A− p-triple** | PASS · split | keep as petal/flower; quadrant section converted |
+| catenary | fitted | no | approximate | **B** | PASS | named stem / leaf ending |
+| tractrix | fitted, cusp | no | poor | **C direct / A− p-triple** | PASS · split | keep as curl/leaf; smooth section converted |
+| heart | fitted numeric | no | poor | **C direct / A− p-triple** | INVESTIGATE | heart target margin 0.62; split/finer |
+| squircle | fitted numeric | no | poor | **C direct / A− p-triple** | PASS | smooth quadrant converted; keep as flower/vase |
+| general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | PASS · integer INVESTIGATE | fitted option; exact integer route is PH/arcs |
+| Stage IV width modulation | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | PASS width · FAIL offset | separate width-modulation track; not an offset source; after the ornament proof |
+| Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | PASS | terminal, not a stalk |
+| seagrass / flower endings | n/a | n/a | n/a | **A/B** | PASS | ending |
+
+**Pass/fail summary:** **PASS** — lines/arcs/circles, PH, Pythagorean, p-triple polygon, cone; clothoid/Euler, LAC, log spiral, involute, conics, rational non-cusped, catenary; squircle; Stage III and endings. **INVESTIGATE** — heart (margin 0.62), looped/cusped rationals (split proof), and Levien integer snapping. **FAIL** — none overall; Stage IV is **FAIL only in the parallel-offset role** (it is the advanced width track).
 
 ### Ending / flower track — keep these
 
