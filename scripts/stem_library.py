@@ -19,6 +19,7 @@ Groups:
 
 from __future__ import annotations
 
+import itertools
 import json
 import math
 import sys
@@ -111,6 +112,56 @@ def lac_branches(spans, per_span=24):
     return [pts]
 
 
+def _rate(p, q, r):
+    v1 = (q[0] - p[0], q[1] - p[1])
+    v2 = (r[0] - q[0], r[1] - q[1])
+    cross = v1[0] * v2[1] - v1[1] * v2[0]
+    dot = v1[0] * v2[0] + v1[1] * v2[1]
+    ang = abs(math.atan2(cross, dot))
+    return ang / max(math.hypot(*v2), 1e-12)
+
+
+def spiral_end(pts):
+    """Which end curls harder: 'start' or 'end'."""
+    rs = _rate(pts[0], pts[1], pts[2])
+    re = _rate(pts[-3], pts[-2], pts[-1])
+    return "start" if rs >= re else "end"
+
+
+def _arm_to(pts, join_end):
+    """Orient so the join is the last point; return (pts, join, tangent)."""
+    q = list(pts) if join_end == "end" else list(reversed(pts))
+    join = q[-1]
+    tan = (q[-1][0] - q[-2][0], q[-1][1] - q[-2][1])
+    return q, join, tan
+
+
+def _arm_from(pts, join_end):
+    """Orient so the join is the first point; return (pts, join, tangent)."""
+    q = list(pts) if join_end == "start" else list(reversed(pts))
+    join = q[0]
+    tan = (q[1][0] - q[0][0], q[1][1] - q[0][1])
+    return q, join, tan
+
+
+def join_pair(a, b, variant):
+    """Join two LAC cards at their spiral or straight ends, G1 at the join."""
+    a_se, b_se = spiral_end(a["branches"][0]), spiral_end(b["branches"][0])
+    a_join = a_se if variant == "spiral" else ("end" if a_se == "start" else "start")
+    b_join = b_se if variant == "spiral" else ("end" if b_se == "start" else "start")
+    a_pts, a_j, a_t = _arm_to(a["branches"][0], a_join)
+    b_pts, b_j, b_t = _arm_from(b["branches"][0], b_join)
+    ang = math.atan2(a_t[0] * b_t[1] - a_t[1] * b_t[0],
+                     a_t[0] * b_t[0] + a_t[1] * b_t[1])
+    ca, sa = math.cos(ang), math.sin(ang)
+    b_rot = [(b_j[0] + (x - b_j[0]) * ca - (y - b_j[1]) * sa,
+              b_j[1] + (x - b_j[0]) * sa + (y - b_j[1]) * ca)
+             for x, y in b_pts]
+    b_rot = [(x + a_j[0] - b_j[0], y + a_j[1] - b_j[1])
+             for x, y in b_rot]
+    return a_pts + b_rot[1:]
+
+
 def build():
     if CARDS:
         return
@@ -188,6 +239,17 @@ def build():
     cyc = [(t - math.sin(t), 1 - math.cos(t))
            for t in (2 * math.pi * i / 240 for i in range(241))]
     add("Gestures", "cycloid", "cycloid", "one arch", [cyc])
+
+    # 7. combinations of the first ten LAC cards: S35–S39 and S41–S45
+    lac_cards = [c for c in CARDS if c["group"] == "Log-aesthetic"]
+    for gname, start, s0 in (("S35–S39", 0, 35), ("S41–S45", 6, 41)):
+        group = lac_cards[start:start + 5]
+        for i, j in itertools.combinations(range(5), 2):
+            for variant in ("spiral", "straight"):
+                pts = join_pair(group[i], group[j], variant)
+                add(f"Combinations · {gname}", f"S{s0 + i}+S{s0 + j}",
+                    "combination",
+                    f"{variant} ends joined · G1 at the join", [pts])
 
 
 def main():

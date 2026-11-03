@@ -181,11 +181,14 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 
 ## Stem library
 
-`workbench/stem-library.html` is the catalogue, not a print sheet: **69 cards**,
-one curve per tight square, labelled **S01–S69**.  The groups are generator
+`workbench/stem-library.html` is the catalogue, not a print sheet: **109 cards**,
+one curve per tight square, labelled **S01–S109**.  The groups are generator
 presets (4), named curves (25), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
 the 31 recovered LAC spines, and four gestures (catenary, volute, involute,
-cycloid).  The page links back to `flowers.html`; to promote a card, add the
+cycloid), and **40 combinations (S70–S109)**.  The combinations pair every two
+curves in S35–S39 and again in S41–S45, once joined at their spiral ends and
+once at their straight ends; the second curve is reversed and placed so the
+join point and tangent match (G1).  The page links back to `flowers.html`; to promote a card, add the
 curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from
 the JSON).  The S-numbers are the labels to quote.
 
