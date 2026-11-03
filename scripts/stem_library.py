@@ -70,6 +70,11 @@ def figure(branches, size=SIZE):
             f'fill="#fffdf7" stroke="{GUIDE}"/>{body}</svg>')
 
 
+def rotate(points, deg):
+    c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
+    return [(x * c - y * s, x * s + y * c) for x, y in points]
+
+
 def preset_branches(spec):
     item = G.build_preset(spec)
     scale = item["scale"]
@@ -125,7 +130,8 @@ def build():
     # 3. Euler corners
     corner = E.corner()
     add("Euler", "Euler 45°", "euler-square corner",
-        "first half of the curvature tent", [corner[:len(corner) // 2 + 1]])
+        "first half of the curvature tent · rotated 90° CCW",
+        [rotate(corner[:len(corner) // 2 + 1], 90.0)])
     add("Euler", "Euler 90°", "euler-square corner",
         "full corner, 0→90°", [corner])
 
@@ -139,11 +145,21 @@ def build():
     # 5. log-aesthetic spines
     lac = json.loads((ROOT / "workbench" / "spirals" / "lac.json")
                      .read_text(encoding="utf-8"))
-    for fig in lac["figures"]:
+    for i, fig in enumerate(lac["figures"]):
         spine = fig["spines"][0]
+        branches = lac_branches(spine["spans"])
+        note = f"{fig['plate']} · {fig['family']}"
+        if i < 5:                      # S35–S39: rotate 90° CCW
+            branches = [rotate(br, 90.0) for br in branches]
+            note += " · rotated 90° CCW"
+        elif 11 <= i <= 15:            # S46–S50: rotate 180° CCW
+            branches = [rotate(br, 180.0) for br in branches]
+            note += " · rotated 180° CCW"
+        elif 21 <= i <= 25:            # S56–S60: rotate 180° CCW
+            branches = [rotate(br, 180.0) for br in branches]
+            note += " · rotated 180° CCW"
         add("Log-aesthetic", f"{fig['figure']} · {fig['title']}",
-            "LAC spine", f"{fig['plate']} · {fig['family']}",
-            lac_branches(spine["spans"]))
+            "LAC spine", note, branches)
 
     # 6. gestures
     cat = [(x, math.cosh(x)) for x in

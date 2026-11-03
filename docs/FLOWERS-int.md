@@ -189,6 +189,10 @@ cycloid).  The page links back to `flowers.html`; to promote a card, add the
 curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from
 the JSON).  The S-numbers are the labels to quote.
 
+Rotations requested so far: **S30** 90° CCW (Euler 45°), **S35–S39** 90° CCW,
+**S46–S50** 180° CCW, **S56–S60** 180° CCW.  Each card's note repeats its
+rotation.
+
 ## Reuse
 
 - **Change a stem:** edit its entry in `STEMS` in `scripts/stems_print.py`
