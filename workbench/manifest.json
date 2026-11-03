@@ -252,6 +252,15 @@
       "purpose": "A rounded square whose corners are clothoids, not arcs.",
       "inputs": "corner scale, straight-run length",
       "outputs": "eight arcs, curvature continuous everywhere"
+    },
+    {
+      "key": "todo",
+      "file": "todo.html",
+      "group": "sheet",
+      "title": "Todo",
+      "purpose": "The checked todo and the provisional curve grades.",
+      "inputs": "nothing — a mirror of TODO.md",
+      "outputs": "progress, tasks and the grade matrix"
     }
   ]
 }

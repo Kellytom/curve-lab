@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **264 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **266 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
@@ -95,6 +95,14 @@ remote MVP now exist.
   each with an ending).  Geometry in `curve_lab/plant.py`; generator
   `scripts/plant_forms.py`; tests `tests/test_plant.py` and
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
+- **Todo twin and grades (2026-11-03):** `TODO.md` is the focused checklist;
+  `workbench/todo.html` is its generated read-only twin (`scripts/todo.py`,
+  progress bar and grade matrix).  The provisional grades: **A** lines/arcs,
+  PH, Pythagorean, cone; **B** LAC/Euler/log spiral, conics, rational
+  non-cusped, catenary, general cubic/Levien; **C** cycloid/astroid/
+  semicubical/tractrix/heart/squircle/cusped-looped rational; **D** Stage IV as
+  an offset source.  The Levien integer probe found real-valued control points
+  on an integer cubic; exact integer routes remain PH/arcs/Pythagorean.
 - **Bring-up coverage (2026-11-03):** `goals.md` now carries the parallel/offset
   and integer inventory. First gaps: the offset catalogue and the parallel
   conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the

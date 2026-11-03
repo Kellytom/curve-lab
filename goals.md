@@ -165,7 +165,10 @@ finished; Stage III and IV are deliberately not claimed as wired.
 **Status 2026-11-03:** the offset catalogue and the plant-form proof are built.
 OffS1–OffS12 are in `stem-library-offset.html`; `plant-forms.html` has the cone
 terminal, seagrass and flower endings, the pyramid growth marks, and the
-branches (lower bigger than upper).  The next layer is ornament-forms.
+branches (lower bigger than upper).  The focused checklist is `TODO.md` with
+the generated twin `workbench/todo.html`; it holds the provisional A/B/C/D
+curve grades and the Levien integer-snap question.  The next layer is
+ornament-forms.
 
 ### Offset tiers — the option set
 
