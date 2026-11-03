@@ -203,10 +203,10 @@
       "key": "lac-parallel",
       "file": "lac-parallel.html",
       "group": "curve",
-      "title": "LAC parallel",
-      "purpose": "The LAC base, its evolute, and the parallel involutes.",
-      "inputs": "\u03b1 and the offset d",
-      "outputs": "a family of parallel curves via the shared evolute"
+      "title": "Evolute parallel",
+      "purpose": "Any of the classical curve families, its evolute, and the parallel involutes.",
+      "inputs": "a family (LAC \u03b1, roulette k, ellipse b) and the offset d",
+      "outputs": "the base, its evolute, and a family of parallel curves via the shared evolute"
     },
     {
       "key": "heart-forms",

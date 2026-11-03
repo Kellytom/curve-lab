@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LAC parallel involutes — one evolute, every offset</title>
+<title>Evolute parallel involutes — one evolute, every offset</title>
 <style>
 body{margin:0;background:#f6f1e4;color:#2e2413;font:16px/1.55 Georgia,serif}
 main{max-width:1080px;margin:0 auto;padding:34px 22px 70px}
@@ -16,9 +16,11 @@ label{font:12px/1.5 ui-monospace,Menlo,monospace;color:#7b6c4e;display:flex;
 gap:8px;align-items:center}
 select,input[type=range]{font:13px ui-monospace,Menlo,monospace}
 #dval{color:#b23a2b;min-width:70px}
-#note{font:11px/1.5 ui-monospace,Menlo,monospace;color:#a08a64;margin:0 0 8px}
+#note,#source{font:11px/1.5 ui-monospace,Menlo,monospace;color:#a08a64;margin:0 0 4px}
 .art{background:#fffdf7;border:1px solid #d8ccae;padding:8px}
 canvas{display:block;width:100%;height:620px}
+.inset{margin-top:10px}
+.inset canvas{height:190px}
 .legend{display:flex;gap:18px;flex-wrap:wrap;font:11px ui-monospace,Menlo,monospace;
 color:#7b6c4e;margin:8px 0 0}
 .legend span{display:inline-flex;gap:6px;align-items:center}
@@ -30,12 +32,21 @@ color:#7b6c4e;margin:8px 0 0}
 background:#fffdf7;border-left:3px solid #c9a441;padding:10px 14px;margin:0 0 14px;
 overflow-x:auto}
 .thumb{display:block;width:260px;height:76px;margin:0 0 14px}
+table.fam{width:100%;border-collapse:collapse;font:12px/1.45 ui-monospace,Menlo,monospace}
+table.fam th,table.fam td{text-align:left;padding:6px 8px;border-bottom:1px solid #e4dcc6;vertical-align:top}
+table.fam th{font:600 10px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.1em;
+text-transform:uppercase;color:#7b6c4e}
+table.fam td.st{color:#8c6a21;white-space:nowrap}
+table.fam a{color:#1f5fa8;text-decoration:none}
+table.fam a:hover{text-decoration:underline}
+code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 </style></head><body>
-<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> α and the offset d · <b>out</b> a family of parallel curves via the shared evolute</span></div><!-- /hub-bar --><main>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> a family (LAC α, roulette k, ellipse b) and the offset d · <b>out</b> the base, its evolute, and a family of parallel curves via the shared evolute</span></div><!-- /hub-bar --><main>
 
-<h1>LAC parallel involutes</h1>
-<p class="lead">One log-aesthetic evolute; every offset is an involute of it.
-Change α or the offset d.</p>
+<h1>Evolute parallel involutes</h1>
+<p class="lead">One evolute; every offset is an involute of it. Pick a family —
+LAC, cycloid, roulette, ellipse, astroid, circle involute, catenary, parabola,
+semicubical, or a PH cubic — then change d.</p>
 
 <svg class="thumb" viewBox="0 0 260 76" xmlns="http://www.w3.org/2000/svg">
   <rect x="0" y="0" width="260" height="76" fill="#fffdf7" stroke="#d8ccae"/>
@@ -50,45 +61,111 @@ Change α or the offset d.</p>
 </svg>
 
 <div class="controls">
-  <label>α <select id="alpha"></select></label>
+  <label>family <select id="family"></select></label>
+  <span id="paramwrap"></span>
   <label>offset d <input id="d" type="range" min="0" max="100" value="55" step="1"></label>
   <span id="dval" class="mono"></span>
 </div>
 <p id="note"></p>
+<p id="source"></p>
 <div class="art"><canvas id="curveCanvas"></canvas></div>
+<div class="art inset"><canvas id="evoluteCanvas"></canvas></div>
 <div class="legend">
-  <span><i class="sw"></i> LAC base</span>
-  <span><i class="sw ev"></i> evolute E(s)</span>
-  <span><i class="sw a"></i> +d involute</span>
-  <span><i class="sw b"></i> −d involute</span>
+  <span><i class="sw"></i> base C</span>
+  <span><i class="sw ev"></i> evolute E (main frame local, inset full)</span>
+  <span><i class="sw a"></i> +d parallel</span>
+  <span><i class="sw b"></i> −d parallel</span>
 </div>
 
 <h2>The construction</h2>
 <div class="panel">
-<p><strong>1. The LAC.</strong> Curvature is <code>κ(s) = s^−α</code>, so the tangent
-angle is <code>θ(s) = s^(1−α)/(1−α)</code> for α ≠ 1 and <code>ln s</code> at
-α = 1. The curve <code>C(s)</code> is integrated from that heading.</p>
-<p><strong>2. The evolute.</strong> <code>E(s) = C(s) + ρ(s)N(s)</code>,
-<code>ρ = s^α</code>, <code>N = (−sin θ, cos θ)</code>. Every normal of C is a
-radius of the evolute. The evolute is itself a LAC with
+<p><strong>1. The base.</strong> A family curve <code>C(t)</code>; the tangent and
+signed curvature are read off the samples. For the LAC, curvature is
+<code>κ(s) = s^−α</code> and the heading is <code>θ(s) = s^(1−α)/(1−α)</code>
+(α ≠ 1) or <code>ln s</code> at α = 1, then the curve is integrated from that
+heading.</p>
+<p><strong>2. The evolute.</strong> <code>E = C + ρN</code> with
+<code>ρ = 1/κ</code> and <code>N</code> the unit normal. Every normal of C is a
+radius of the evolute. For the LAC the evolute is itself a LAC with
 <strong><code>α_E = 2 − 1/α</code></strong>: α = −1 (Euler/clothoid) → 3,
-α = 1 (log spiral) → 1.</p>
-<p><strong>3. The involutes.</strong> <code>T_E = sign(α)N</code> and the base
-constant is <code>d₀ = sign(α)ρ(s₀)</code>. Every parallel is</p>
-<div class="formula">P<sub>d</sub>(s) = E(s) − (s<sub>E</sub>(s) + d₀ + d) T<sub>E</sub>(s)</div>
-<p>with <code>d = 0</code> reconstructing the LAC base and <code>d = ±</code> the
-two offsets. No normal step of the base is taken after the evolute.</p>
+α = 1 (log spiral) → 1. For the other families the same centre-of-curvature
+construction gives the classical evolutes: cycloid → congruent cycloid,
+ellipse → astroid, astroid → astroid, circle involute → circle,
+catenary → tractrix, parabola → semicubical.</p>
+<p><strong>3. The offsets.</strong> The exact two-sided offsets are</p>
+<div class="formula">P<sub>d</sub>(t) = C(t) + d·N(t)</div>
+<p>Every one is also an involute of the evolute. Between cusps of E, with
+<code>T_E = ±N</code> and <code>s_E</code> the arc length of E,</p>
+<div class="formula">P<sub>d</sub>(t) = E(t) − (s<sub>E</sub>(t) + d₀ + d) T<sub>E</sub>(t)</div>
+<p>and the string length <code>s_E + d₀</code> is the radius of curvature
+<code>ρ</code>. The canvas draws the exact normal form, so it stays correct
+through the evolute cusps of the ellipse, astroid, cycloid and roulettes; the
+involute-string form is read piecewise between those cusps.</p>
+</div>
+
+<h2>Families and where they are finished</h2>
+<div class="panel">
+<table class="fam">
+<thead><tr><th>family</th><th>evolute</th><th>status</th><th>source</th></tr></thead>
+<tbody>
+<tr><td><a href="#families">LAC</a> (α)</td><td>LAC, α<sub>E</sub> = 2 − 1/α</td><td class="st">done elsewhere + here</td><td><a href="stem-library.html">stem-library</a> S35–S65 · <a href="euler-match.html">euler-match</a> · <code>scripts/check-spirals.py</code></td></tr>
+<tr><td>log spiral (α = 1)</td><td>itself</td><td class="st">done elsewhere</td><td><a href="stem-library.html">stem-library</a> S67 (volute) · α = 1</td></tr>
+<tr><td>cycloid</td><td>congruent cycloid</td><td class="st">finished here</td><td><a href="stem-library.html">stem-library</a> S69</td></tr>
+<tr><td>epicycloid / hypocycloid (k)</td><td>same roulette family</td><td class="st">finished here</td><td><a href="generators.html">generators</a> · astroid S17</td></tr>
+<tr><td>ellipse (b)</td><td>astroid</td><td class="st">finished here</td><td>astroid S17 · ellipse new here</td></tr>
+<tr><td>astroid</td><td>astroid (scaled)</td><td class="st">finished here</td><td><a href="stem-library.html">stem-library</a> S17</td></tr>
+<tr><td>circle involute</td><td>the circle</td><td class="st">finished here</td><td><a href="stem-library.html">stem-library</a> S68</td></tr>
+<tr><td>catenary → tractrix</td><td>tractrix</td><td class="st">finished here</td><td><a href="stem-library.html">stem-library</a> S66 · tractrix new here</td></tr>
+<tr><td>parabola → semicubical</td><td>semicubical parabola</td><td class="st">finished here</td><td>new here</td></tr>
+<tr><td>semicubical (Neile)</td><td>a cusped curve (computed)</td><td class="st">finished here</td><td>new here · evolute of the parabola</td></tr>
+<tr><td>PH curves</td><td>exact rational offset (hodograph)</td><td class="st">sample here; presets referenced</td><td><a href="generators.html">generators</a> S01–S04 · sample u = 1, v = t here</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Semicubical parabola and the symmetric-X Bézier</h2>
+<div class="panel">
+<p><strong>Yes — the semicubical parabola is the cusp normal form, and the
+symmetric-X cubic Bézier is a cuspidal cubic, i.e. the semicubical up to an
+affine change of coordinates.</strong> The Neile parabola is
+<code>y² = x³</code>, equivalently <code>(t², t³)</code>; it is the evolute of
+the parabola. All ordinary cusps are locally <code>y² = x³</code>, and every
+cuspidal cubic is projectively — and, with the cusp and its tangent placed,
+affinely — the semicubical.</p>
+<p>The symmetric X <code>P₀ = (−1,−1)</code>, <code>P₁ = (1,1)</code>,
+<code>P₂ = (−1,1)</code>, <code>P₃ = (1,−1)</code> has
+<code>B′(½) = 0</code>: the velocity vanishes at the centre, so it is a
+<strong>cusp</strong>, not a self-crossing. Its local expansion is
+<code>y ∼ t², x ∼ t³</code> — the semicubical cusp. The canonical exact
+control points for <code>x = t², y = t³</code> on t ∈ [0,1] are</p>
+<div class="formula">P₀ = P₁ = (0,0) · P₂ = (1/3, 0) · P₃ = (1, 1)</div>
+<p>so the replication is exact, not an approximation. It is <em>not</em> the
+Tschirnhausen cubic: that one is a <strong>nodal</strong> cubic (a loop, the
+node angle 60°), the PH cubic. A symmetric-X control polygon whose arms cross
+with a non-zero velocity is a node; the zero-velocity case is the semicubical
+cusp. The page's <em>parabola → semicubical</em> family draws the cusp from the
+parabola's evolute.</p>
 </div>
 
 <h2>Notes</h2>
 <div class="panel">
-<p>The pasted <code>getEvolutePoint</code> was a placeholder spiral; this page
-uses the actual LAC heading and its evolute. The α selector switches between
-Euler/clothoid, a log spiral and intermediate LACs. α = 0 is excluded: its
-evolute is a point, so the involute construction has no tangent.</p>
-<p>The offset distance is a signed string-length difference; the canvas fits the
-base, evolute and the two ±d curves. A large d will fold where the offset
-reaches a centre of curvature; keep d below the smallest radius on the evolute.</p>
+<p>The α, k and b parameters are read from the family selector; the URL accepts
+<code>?family=</code>, <code>?alpha=</code> and <code>?d=</code>. The α selector
+switches between Euler/clothoid, a log spiral and intermediate LACs. α = 0 is
+excluded: its evolute is a point, so the involute construction has no tangent.</p>
+<p>The offset distance is a signed normal distance; the canvas fits the base and
+the two ±d curves, so the evolute can run off the frame when it is much larger
+than the base. A large d will fold where the offset
+reaches a centre of curvature; keep d below the smallest radius of curvature of the base.
+The roulettes, astroid and cycloid have cusps, so their curvature (and evolute
+radius) blows up at the cusp; the samples avoid the exact cusp point.</p>
+<p><strong>PH curves.</strong> A Pythagorean-hodograph curve has
+<code>P′ = (u² − v², 2uv)</code>, so its unit normal is rational and its offset
+is exact: <code>P_d = P + d·(−2uv, u² − v²)/(u² + v²)</code>. The selector
+includes a sample PH cubic, <code>u = 1, v = t</code>, whose two offsets are
+drawn by that exact normal. The four integer presets (S01–S04) and their
+controls live on the generators page; the full exact offset rail for the stem
+library belongs on <code>stem-library-offset.html</code>.</p>
 </div>
 
 <script src="lac-parallel.js"></script>
