@@ -41,12 +41,12 @@ N = 120
 CARDS = []
 
 
-def add(group, name, source, note, branches):
+def add(group, name, source, note, branches, mark=None, colors=None):
     CARDS.append(dict(group=group, name=name, source=source, note=note,
-                      branches=branches))
+                      branches=branches, mark=mark, colors=colors))
 
 
-def figure(branches, size=SIZE):
+def figure(branches, size=SIZE, mark=None, colors=None):
     pts = [p for br in branches for p in br]
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
@@ -63,12 +63,16 @@ def figure(branches, size=SIZE):
     body = "".join(
         '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
                                    for p in br) +
-        f'" fill="none" stroke="{INK}" stroke-width="1.5" '
-        f'stroke-linejoin="round"/>' for br in branches)
+        f'" fill="none" stroke="{colors[i] if colors and i < len(colors) else INK}" '
+        f'stroke-width="1.5" stroke-linejoin="round"/>'
+        for i, br in enumerate(branches))
+    dots = "".join(
+        f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="2.8" '
+        f'fill="#c9a441"/>' for p in (mark or []))
     return (f'<svg viewBox="0 0 {size:.0f} {size:.0f}" '
             f'xmlns="http://www.w3.org/2000/svg">'
             f'<rect x="0" y="0" width="{size:.0f}" height="{size:.0f}" '
-            f'fill="#fffdf7" stroke="{GUIDE}"/>{body}</svg>')
+            f'fill="#fffdf7" stroke="{GUIDE}"/>{body}{dots}</svg>')
 
 
 def rotate(points, deg):
@@ -162,6 +166,26 @@ def join_pair(a, b, variant):
     return a_pts + b_rot[1:]
 
 
+def plant(group, root_kind, spread=(60.0, 120.0), same_angle=None):
+    """One root, several stems: the chosen ends meet at (0,0) and fan out."""
+    branches = []
+    n = len(group)
+    for k, card in enumerate(group):
+        pts = card["branches"][0]
+        se = spiral_end(pts)
+        root_end = se if root_kind == "spiral" else ("end" if se == "start" else "start")
+        q, j, t = _arm_from(pts, root_end)
+        target = (math.radians(same_angle) if same_angle is not None else
+                  math.radians(spread[0] + (spread[1] - spread[0]) * k / max(n - 1, 1)))
+        cur = math.atan2(t[1], t[0])
+        ang = target - cur
+        ca, sa = math.cos(ang), math.sin(ang)
+        q_rot = [((x - j[0]) * ca - (y - j[1]) * sa,
+                  (x - j[0]) * sa + (y - j[1]) * ca) for x, y in q]
+        branches.append(q_rot)
+    return branches
+
+
 def build():
     if CARDS:
         return
@@ -251,6 +275,26 @@ def build():
                     "combination",
                     f"{variant} ends joined · G1 at the join", [pts])
 
+    # 8. plants: one root, five stems from a group, fanned 60–120°
+    for gname, start, s0 in (("S35–S39", 0, 35), ("S41–S45", 6, 41)):
+        group = lac_cards[start:start + 5]
+        for root_kind in ("spiral", "straight"):
+            branches = plant(group, root_kind)
+            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root", "plant",
+                f"{root_kind} ends at one root · fan 60–120°", branches,
+                mark=[(0.0, 0.0)])
+
+    # 9. same-angle overlays: all five leave at 90°, one colour each
+    palette = [INK, "#b23a2b", "#1f5fa8", "#2f6f4f", "#6f4a8c"]
+    for gname, start, s0 in (("S35–S39", 0, 35), ("S41–S45", 6, 41)):
+        group = lac_cards[start:start + 5]
+        for root_kind in ("spiral", "straight"):
+            branches = plant(group, root_kind, same_angle=90.0)
+            add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
+                "plant overlay",
+                "all five leave at 90° · colours show the overlap", branches,
+                mark=[(0.0, 0.0)], colors=palette)
+
 
 def main():
     build()
@@ -268,7 +312,7 @@ def main():
             idx += 1
             card["index"] = f"S{idx:02d}"
             rows.append(f"""<section class="card">
-  <div class="art">{figure(card['branches'])}</div>
+  <div class="art">{figure(card['branches'], mark=card.get('mark'), colors=card.get('colors'))}</div>
   <h3><span class="idx">{card['index']}</span> {card['name']}</h3>
   <p class="src">{card['source']}</p>
   <p class="note">{card['note']}</p>

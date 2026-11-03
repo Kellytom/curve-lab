@@ -17,6 +17,9 @@ class StemLibraryTest(unittest.TestCase):
         self.assertIn("Spiral turns", groups)
         combos = [c for c in L.CARDS if c["group"].startswith("Combinations")]
         self.assertEqual(len(combos), 40)
+        plants = [c for c in L.CARDS if c["group"] == "Plants"]
+        self.assertEqual(len(plants), 8)
+        self.assertEqual(sum(1 for c in plants if c["colors"]), 4)
 
     def test_page_has_all_cards(self):
         page = (ROOT / "workbench" / "stem-library.html").read_text(
@@ -24,6 +27,7 @@ class StemLibraryTest(unittest.TestCase):
         self.assertEqual(page.count("<svg"), len(L.CARDS))
         self.assertIn("S01", page)
         self.assertIn("Combinations · S35–S39", page)
+        self.assertIn("same angle", page)
         self.assertIn(f"S{len(L.CARDS)}", page)
 
 
