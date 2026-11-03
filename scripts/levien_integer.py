@@ -112,6 +112,13 @@ def families():
             "span": cubic_from_quadratic((0, 0), (1, 0), (2, 4 / k)),
             "source": source,
         }
+    # y = x^2 / 64 on [0, 24].  Degree elevation gives integer handles:
+    # (8, 0), (16, 3), and the integer points (0,0), (8,1), (16,4), (24,9).
+    out["sixtyfourth"] = {
+        "label": "sixty-fourth · y = x²/64 · x∈[0,24]",
+        "span": {"p0": (0, 0), "c1": (8, 0), "c2": (16, 3), "p3": (24, 9)},
+        "source": [(0, 0), (8, 1), (16, 4), (24, 9)],
+    }
     # A non-parabolic cubic with integer controls, for comparison.
     out["cubic"] = {
         "label": "cubic control · integer points",
@@ -216,7 +223,7 @@ th,td{{border:1px solid #d8ccae;padding:4px 9px;text-align:left}}
 code{{font:12px ui-monospace,Menlo,monospace}}
 </style></head><body><main>
 <h1>Levien integer sandbox</h1>
-<p class="lead">Simple conditions first: a parabola y = x², a half parabola y = x²/2, a quarter parabola, and one integer cubic.</p>
+<p class="lead">Simple conditions first: a parabola y = x², a half parabola y = x²/2, a quarter parabola, a sixty-fourth parabola y = x²/64, and one integer cubic.</p>
 <div class="panel">
 <p><strong>What you are seeing.</strong> Ink is the source, blue/red are the exact
 normal rails, gold-dash is Levien's fitted cubic rail, and the grid is the
@@ -349,7 +356,13 @@ x(u) = t(1 − 2d/√(1+4t²)),  y(u) = t² + d/√(1+4t²)
 cubic’s exact parallel is degree 10. Levien’s two handles are still cubic
 handles chosen by area and moment; there is no parabolic handle constraint.</p>
 
-<p><strong>The handles on a parabola.</strong> For y = kx² over x ∈ [a,b], the
+<p><strong>The handles on a parabola.</strong> The useful 64 example is
+y = x²/64 on x ∈ [0,24]: the cubic handles are (8,0) and (16,3), and the
+integer points are (0,0), (8,1), (16,4), (24,9). More generally, on [0,24n]
+the handles are (8n,0) and (16n,3n²), all integer. Note that the lattice is
+sparser in x — x must be a multiple of 8 — not denser; the gain is integer
+handles, not more points per unit x.</p>
+<p>For y = kx² over x ∈ [a,b], the
 quadratic control is the tangent intersection, and degree elevation gives:</p>
 <div class="formula">
 P₀ = (a, ka²),  P₁ = ((a+b)/2, kab),  P₂ = (b, kb²)<br>

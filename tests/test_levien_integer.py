@@ -14,11 +14,15 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertEqual(f["parabola"]["source"], [(0, 0), (1, 1), (2, 4)])
         self.assertEqual(f["half"]["source"], [(0, 0), (2, 2)])
         self.assertEqual(f["quarter"]["source"], [(0, 0), (2, 1)])
+        self.assertEqual(f["sixtyfourth"]["source"],
+                         [(0, 0), (8, 1), (16, 4), (24, 9)])
+        self.assertEqual(f["sixtyfourth"]["span"]["c1"], (8, 0))
+        self.assertEqual(f["sixtyfourth"]["span"]["c2"], (16, 3))
 
     def test_page(self):
         page = (ROOT / "workbench" / "levien-integer.html").read_text(
             encoding="utf-8")
-        self.assertEqual(page.count("<svg"), 20)
+        self.assertEqual(page.count("<svg"), 25)
         self.assertIn("Levien integer sandbox", page)
         self.assertIn("half parabola", page)
         self.assertIn("quarter parabola", page)
@@ -39,6 +43,8 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("raphlinus.github.io/issues/79", page)
         self.assertIn("pull/258", page)
         self.assertIn("EstParab", page)
+        self.assertIn("y = x²/64", page)
+        self.assertIn("integer points are (0,0), (8,1), (16,4), (24,9)", page)
         self.assertIn("not constrained to a", page)
 
 
