@@ -117,7 +117,7 @@ served; the readers are `scripts/extract-spirals.py` and
 | `LAC-log-asth-curve.html` | 31 | 31 spines / 31 outlines | **Wired.** `workbench/spirals/lac.json`, `workbench/terminals/lac.json`; LAC spines are S35–S65. The rails/terminals are not yet in the offset page. |
 | `stage-two.html` | 20 | 20 spines / 20 outlines | **Wired** to `stage-two.json` (spirals and terminals). Not yet in the stem catalogue or the offset page. |
 | `stage-three.html` | 4 | 4 straight spines / 4 serif outlines | **Not wired.** The spine is a straight `data-line` path, so the cubic-spine reader returns 0; the four outlines are serif/terminal studies and belong in the terminal intake. |
-| `stage-four.html` | 10 | 16 spines / 0 outlines | **Not wired yet — advanced track.** The reader can see the 16 cubics but tags them unknown. It is a **width-modulation** study: the rails are not equidistant, so it is **not** a parallel-offset source. It is an advanced variable-width target, not a side issue; schedule its own proof after the ornament grammar. |
+| `stage-four.html` | 10 | 16 spines / 0 outlines | **Modulated width (Stage IV source).** The reader can see the 16 cubics but tags them unknown. It is a **width-modulation** study: the rails are not equidistant, so it is **not** a parallel-offset source. The current page is `workbench/modulated-width.html`; the measured source remains the old page. It is an advanced variable-width target, not a side issue; schedule its own proof after the ornament grammar. |
 | `lattice-curves.html`, `curve-sandbox.html`, `etc.` | ? | ? | **Not inventoried.** Inspect before adding; classify spine / rail / terminal / integer first. |
 | `generators.html` + `scripts/generators.py` | 4 presets + 25 named | integer PH / exact curves | The integer curves are in the stem library; their **offset rails** are missing. |
 | `pythagorean-spiral/` | exact spine | integer 3-4-5 lattice | Exact integer source; offset/terminal not built. |
@@ -181,10 +181,10 @@ is the solved route for the C families: an exact rational Euler polygon,
 rational miter rails, and a cubic drawing with measured margin.  **C is not a deletion:**
 the cycloid, astroid/hypocycloid, semicubical, tractrix, heart/squircle and
 looped/cusped rationals are kept as **ending/flower** material.  The ending /
-flower fit pass comes before ornament-forms.  **Advanced track:** Stage IV
-width modulation is a variable-width family, not a parallel offset and not a
-side issue; it gets its own proof after the ornament grammar, outside the 2×
-parallel rule.
+flower fit pass comes before ornament-forms.  **Advanced track:** **Modulated width** (the former Stage IV)
+is a variable-width family, not a parallel offset and not a side issue; it has
+its own page and gets its measured proof after the ornament grammar, outside
+the 2× parallel rule.
 
 ### Offset tiers — the option set
 

@@ -29,7 +29,7 @@ class EulerPolygonTest(unittest.TestCase):
     def test_page(self):
         page = (ROOT / "workbench" / "euler-sections.html").read_text(
             encoding="utf-8")
-        self.assertEqual(page.count("<svg"), 6)
+        self.assertEqual(page.count("<svg"), 10)
         self.assertIn("p-triple", page)
         self.assertIn("rational", page)
         self.assertIn("Cycloid", page)

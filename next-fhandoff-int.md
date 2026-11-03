@@ -1,16 +1,16 @@
 ```text
-Read state/HANDOFF-int.md. Read docs/SPINE.md for the p-triple Euler polygon,
-pythagorean-spiral/docs/TRANSFER.md for the rational rails and cubic seam,
-workbench/euler-sections.html for the first proof, and goals.md for the C-family
-and ending/flower rules.
+Read state/HANDOFF-int.md. Read docs/FLOWERS-int.md for the offset catalogue,
+plant-form proof, Euler sections and endings, and goals.md for the ending/flower
+and ornament arc.
 
-You are finishing the C-family p-triple Euler proof: the six smooth sections are
-built; add the looped/cusped rationals (bicorn, nodal, Tschirnhausen, piriform
-2×) and split the heart/cusps/loops into clean sections.  Choose the triangle
-angle, quantize the turn schedule, build the rational Spiral, offset with
-ribbon.rails, draw the cubic seam, and record the polygon/cubic margin.  Then
-do the ending/flower fit pass and ornament-forms.  The exact polygon and rails
-are A−; the ideal C curve stays C; the converted section is B.
+You are starting the ending/flower fit pass and ornament-forms.  The C family
+p-triple proof is built: `workbench/euler-sections.html` has ten sections,
+including the refined heart and one branch section of each looped/cusped
+rational.  Use the C families as endings/flowers on the stalks, then carry the
+grammar — stalk, ±d rails, ending, lattice marks, branches — onto the fleur,
+scroll, cruciform and primal families.  Keep the 2× offset rule; no bare tip.
+Do not re-open the p-triple/Euler mechanism; it is proved.  Levien is PASS as a
+fitted option but FAIL as an exact integer route.
 ```
 
-Source: state/HANDOFF-int.md · 2026-11-03 · after the first Euler-section proof.
+Source: state/HANDOFF-int.md · 2026-11-03 · after the C-family investigations.

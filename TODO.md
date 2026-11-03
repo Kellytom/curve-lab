@@ -43,7 +43,7 @@ the rails are `ribbon.rails`; the drawing is the cubic span seam.
 - [x] **Semicubical / Neile → Euler polygon:** split at the cusp; measure the near-cusp resolution.
 - [x] **Tractrix → Euler polygon:** split at the cusp; compare with the catenary chain.
 - [x] **Heart / squircle → Euler polygon:** smooth chains; no cusp split; keep the heart as an ending/flower too.
-- [ ] **Cusped/looped rationals → Euler polygon:** bicorn, nodal, Tschirnhausen, piriform 2×; split at loops/cusps.
+- [x] **Cusped/looped rationals → Euler polygon:** bicorn, nodal, Tschirnhausen, piriform 2×; one branch section each, node/loop split.
 - [x] **Rail + canvas proof:** rational miter rails on the polygon, cubic drawing of the rails, and a comparison against the direct ideal; record the p-triple margin, the cubic error. Do not use the direct `build_rail` probe as the base plan.
 
 The direct `build_rail` probe hit an endpoint evaluation failure; that is an engine-path issue, not a reason to abandon the p-triple route. The spine layer is the exact plan; the engine rail is the display/clearance layer.
@@ -55,15 +55,15 @@ The direct `build_rail` probe hit an endpoint evaluation failure; that is an eng
 - [ ] Cruciform/primal proof; reuse the section and junction rules.
 - [ ] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals. Fit each to a stalk tip, measure scale/tangent/clearance, keep 2× offset, and grade it as an **ending**, not a stalk.
 - [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.
-- [ ] **Advanced width-modulation proof (Stage IV):** variable-width spine, no 2× parallel assumption; port the width laws and the fold report after the ornament proof. This is a target, not a side study.
+- [ ] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; port the width laws and the fold report after the ornament proof. This is a target, not a side study.
 
 ## Investigation
 
-- [ ] **Levien integer snap.** Run the fitted cubic rail on integer Bézier sources at a chosen integer scale; test rounding and constrained fitting of the control points. If no general exact integer rail exists, keep Levien at B and use exact PH/arcs for integer work.
+- [x] **Levien integer snap.** Probe: the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer work stays with lines/arcs, PH, and the Pythagorean spiral. Levien is PASS as a fitted option, FAIL as an exact integer option.
   *Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH and the Pythagorean spiral. The constrained/snapped fit is still open.
-- [ ] Grade review after the Levien experiment and the first ornament proof.
+- [ ] Grade review after the first ornament proof.
 - [ ] Confirm the integer-lattice rule: horizontal grid-line crossings (used in the proof) or full integer points (both coordinates).
-- [ ] Move the C-grade curves into an explicit **ending/flower track** rather than the stalk catalogue. Do not delete; decide the page grouping after the ending fit pass.
+- [x] Move the C-grade curves into an explicit **ending/flower track** and the p-triple Euler track; no deletions. Grouping still needs the ending fit pass.
 
 ## Curve grades (provisional)
 
@@ -94,12 +94,12 @@ The direct `build_rail` probe hit an endpoint evaluation failure; that is an eng
 | tractrix | fitted, cusp | no | poor | **C direct / A− p-triple** | PASS · split | keep as curl/leaf; smooth section converted |
 | heart | fitted numeric | no | poor | **C direct / A− p-triple** | INVESTIGATE | heart target margin 0.62; split/finer |
 | squircle | fitted numeric | no | poor | **C direct / A− p-triple** | PASS | smooth quadrant converted; keep as flower/vase |
-| general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | PASS · integer INVESTIGATE | fitted option; exact integer route is PH/arcs |
-| Stage IV width modulation | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | PASS width · FAIL offset | separate width-modulation track; not an offset source; after the ornament proof |
+| general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | PASS (fit) · FAIL (integer) | fitted option; exact integer route is PH/arcs |
+| Modulated width (Stage IV source) | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | PASS width · FAIL offset | separate width-modulation track; not an offset source; after the ornament proof |
 | Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | PASS | terminal, not a stalk |
 | seagrass / flower endings | n/a | n/a | n/a | **A/B** | PASS | ending |
 
-**Pass/fail summary:** **PASS** — lines/arcs/circles, PH, Pythagorean, p-triple polygon, cone; clothoid/Euler, LAC, log spiral, involute, conics, rational non-cusped, catenary; squircle; Stage III and endings. **INVESTIGATE** — heart (margin 0.62), looped/cusped rationals (split proof), and Levien integer snapping. **FAIL** — none overall; Stage IV is **FAIL only in the parallel-offset role** (it is the advanced width track).
+**Pass/fail summary:** **PASS** — lines/arcs/circles, PH, Pythagorean, p-triple polygon, cone; clothoid/Euler, LAC, log spiral, involute, conics, rational non-cusped, catenary, squircle, heart (split 0.076), looped/cusped branch sections, Stage III and endings. **FAIL** — none overall; **Modulated width** (the former Stage IV) is **FAIL only in the parallel-offset role**; **Levien integer** is **FAIL only as an exact integer route** (it remains PASS as a fitted option).
 
 ### Ending / flower track — keep these
 
@@ -124,15 +124,15 @@ The **C stalk grade is a production demotion only**; the ending track is where t
 - **Tractrix:** [catenary → tractrix](/workbench/lac-parallel.html?family=catenary) · [catenary study](/workbench/catenary.html) · stem S66.
 - **Heart / squircle:** [hearts](/workbench/hearts.html) · [heart forms](/workbench/heart-forms.html); the squircle is the vase form.
 - **Cusped/looped rationals:** [generators](/workbench/generators.html) · [stem library](/workbench/stem-library.html) S05–S29.
-- **Stage IV width modulation:** [the old Stage IV page](http://localhost:8001/stage-four.html). The ornaments repository must be served there:
+- **Modulated width:** [the new Modulated width page](/workbench/modulated-width.html) · [the old Stage IV source](http://localhost:8001/stage-four.html). The ornaments repository must be served there:
   `cd ../ornaments && python3 -m http.server 8001 --bind 127.0.0.1`.
   It is not in the hub because its rails are **not equidistant**; it is a width study, not a parallel-offset source.
 
-**Grade note.** Stage IV is not a parallel-offset source because its rails are not equidistant. That is why it is **Advanced / outside the A–D offset grade**, not because it is a side issue. It gets its own variable-width proof after the ornament grammar; never force it into the 2× parallel rule.
+**Grade note.** Modulated width (the former Stage IV) is not a parallel-offset source because its rails are not equidistant. That is why it is **Advanced / outside the A–D offset grade**, not because it is a side issue. It gets its own variable-width proof after the ornament grammar; never force it into the 2× parallel rule.
 
 ### What I would demote — not eliminate
 
-- **Not an elimination:** Stage IV width modulation is an **advanced track**. Keep the page; schedule a variable-width proof after ornament forms. It is not an offset source.
+- **Not an elimination:** Modulated width (the former Stage IV) is an **advanced track**. It now has its own page; schedule the measured width proof after ornament forms. It is not an offset source.
 - **C — demote from direct production stalks, not from the programme:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and cusped/looped rationals. Keep them as endings/flowers **and** convert them with the p-triple Euler route; do not delete the source pages.
 - **Catalogue move, not deletion:** present the looped/cusped named cards — bicorn, nodal, Tschirnhausen, piriform 2× — as **ending/flower/ornament** material, not as clean stalks. Keep every source card; the grouping is the change.
 - **Do not remove:** PH/arcs/Pythagorean (A), LAC/clothoid/Euler/log spiral (B), the three conics (B), catenary (B), or the rational non-cusped named curves (B). LAC/Euler are B only because they do not hit the integer lattice; they are still core production curves.

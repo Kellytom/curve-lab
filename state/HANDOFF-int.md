@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **268 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **269 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
@@ -97,10 +97,12 @@ remote MVP now exist.
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
 - **Euler-section proof (2026-11-03):** `workbench/euler-sections.html` +
   `curve_lab/euler_polygon.py` + `scripts/euler_sections.py` — six smooth C
-  sections (cycloid, astroid, semicubical, tractrix, heart, squircle) as exact
+  sections — cycloid, astroid, semicubical, tractrix, heart, squircle, and one
+  branch section each of bicorn, nodal, Tschirnhausen and piriform 2× — as exact
   p-triple polygons, rational miter rails, and cubic seams.  The exact polygon
-  is A−; the ideal C curve stays C; the converted section is B.  Heart target
-  error is high (0.62); looped/cusped rationals and finer splits remain.
+  is A−; the ideal C curve stays C; the converted section is B.  Heart is
+  refined to 0.076; the looped branch sections have node/loop splits.  Levien
+  integer snapping: PASS as fitted, FAIL as an exact integer route.
 - **C-family p-triple route (2026-11-03):** the p-triple spine is the solved
   plan route — exact rational Euler polygon, rational miter rails
   (`ribbon.rails`), cubic drawing with measured margin.  The C families
@@ -118,7 +120,7 @@ remote MVP now exist.
   semicubical/tractrix/heart/squircle/cusped-looped rational.  **C is not a
   deletion:** those families are kept as ending/flower material and are
   converted with the p-triple Euler route; the p-triple conversion is the next
-  action.  Stage IV width modulation is
+  action.  **Modulated width** (the former Stage IV) is
   **Advanced, not D**: variable width, not a parallel offset, and not a side
   issue; it gets its own proof after the ornament grammar.  The Levien integer probe found real-valued control points
   on an integer cubic; exact integer routes remain PH/arcs/Pythagorean.
@@ -126,9 +128,10 @@ remote MVP now exist.
   and integer inventory. First gaps: the offset catalogue and the parallel
   conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the
   evolute, not a parallel-parabola card/rail. LAC and Stage II are wired as
-  sources; Stage III is terminals/straight spines and Stage IV is explicitly
-  non-parallel.  Stage IV is the **advanced width-modulation track**, not a
-  side issue and not a parallel-offset source. PH offsets are exact but
+  sources; Stage III is terminals/straight spines and the former Stage IV is now **Modulated width**, explicitly
+  non-parallel.  **Modulated width** (the former Stage IV) is the **advanced
+  width-modulation track**, now at `workbench/modulated-width.html`; not a side
+  issue and not a parallel-offset source. PH offsets are exact but
   not yet catalogued. The offset tiers are: exact PH/arcs; exact-in-family log
   spiral and circle involute; **Levien's fitted cubic-Bézier parallel**
   (`reference/external/parallel-beziers.html`, O(n⁶), not exact); the LAC/chain

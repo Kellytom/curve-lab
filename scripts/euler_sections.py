@@ -12,12 +12,16 @@ from __future__ import annotations
 
 import math
 import sys
+from fractions import Fraction as F
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab.euler_polygon import convert  # noqa: E402
+
+sys.path.insert(0, str(ROOT / "scripts"))
+import generators as G  # noqa: E402
 
 INK = "#2e2413"
 GREY = "#9c8f75"
@@ -61,13 +65,28 @@ def squircle():
                   0.1, math.pi / 2 - 0.1)
 
 
+def named_section(key, branch=0, t0=0.2, t1=0.8, n=240):
+    spec = next(s for s in G.NAMED if s["key"] == key)
+    ctrl = G.named_data(spec)["ctrl"][branch]
+    out = []
+    for i in range(n + 1):
+        t = F(int((t0 + (t1 - t0) * i / n) * 1000), 1000)
+        out.append((float(G.homog_point(ctrl, t)[0]),
+                    float(G.homog_point(ctrl, t)[1])))
+    return out
+
+
 SECTIONS = [
-    ("Cycloid", "one half arch · split at the cusps", cycloid),
-    ("Astroid", "one quadrant · cusp at each end", astroid),
-    ("Semicubical / Neile", "one branch · cusp at the origin", semicubical),
-    ("Tractrix", "smooth section · cusp at the start", tractrix),
-    ("Heart", "one lobe · split at the cleft/bottom", heart),
-    ("Squircle", "one quadrant · smooth", squircle),
+    ("Cycloid", "one half arch · split at the cusps", cycloid, {}),
+    ("Astroid", "one quadrant · cusp at each end", astroid, {}),
+    ("Semicubical / Neile", "one branch · cusp at the origin", semicubical, {}),
+    ("Tractrix", "smooth section · cusp at the start", tractrix, {}),
+    ("Heart", "one lobe · refined split", heart, {"n": 200, "max_angle": 0.1}),
+    ("Squircle", "one quadrant · smooth", squircle, {}),
+    ("Bicorn", "one smooth branch section · node split", lambda: named_section("bicorn", 0), {"n": 120}),
+    ("Nodal", "one loop branch section · node split", lambda: named_section("nodal", 0), {"n": 120}),
+    ("Tschirnhausen", "one branch section · node split", lambda: named_section("tschirnhausen", 0), {"n": 120}),
+    ("Piriform 2×", "one branch section · node split", lambda: named_section("piriform 2x", 0), {"n": 120}),
 ]
 
 
@@ -105,8 +124,10 @@ def figure(card, w=520, h=310):
 
 def main():
     cards = []
-    for title, note, fn in SECTIONS:
-        result = convert(fn(), n=160, max_angle=0.2, width_factor=0.08)
+    for title, note, fn, opts in SECTIONS:
+        options = {"n": 160, "max_angle": 0.2, "width_factor": 0.08}
+        options.update(opts)
+        result = convert(fn(), **options)
         result["title"] = title
         result["note"] = note
         cards.append(result)

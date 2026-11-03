@@ -267,8 +267,10 @@ The grades are three objects: **C** is the ideal C curve fitted directly;
 **A−** is the exact polygon and rails; **B** is the usable converted section
 when the target/cubic approximation matters.  The polygon and its rails are
 exact; the target C curve and the cubic drawing carry the measured margin.
-Cycloid, astroid, semicubical, tractrix, heart and squircle have a smooth
-section; the looped/cusped rationals and the heart split remain.
+Ten sections are shown: cycloid, astroid, semicubical, tractrix, heart, squircle,
+and one branch section each of bicorn, nodal, Tschirnhausen and piriform 2×.
+The heart is refined (0.076 polygon error); the looped branch sections have
+node/loop splits.  The full closed curve still needs its node/loop split.
 
 ## Plant-form proof
 

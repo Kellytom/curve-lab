@@ -254,6 +254,15 @@
       "outputs": "rational polygon, miter rails, cubic drawing, polygon/cubic margins"
     },
     {
+      "key": "modulated-width",
+      "file": "modulated-width.html",
+      "group": "curve",
+      "title": "Modulated width",
+      "purpose": "Variable width along the spine — the former Stage IV; not a parallel offset.",
+      "inputs": "width law, a and w0",
+      "outputs": "plain, widening and narrowing ribbons; source link"
+    },
+    {
       "key": "euler-square",
       "file": "euler-square.html",
       "group": "curve",
