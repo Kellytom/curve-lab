@@ -128,6 +128,80 @@ def families():
     return out
 
 
+def success_cases():
+    """Curves where the degree-elevated cubic handles are all integers."""
+    return [
+        {
+            "label": "y = x² · [0,3]",
+            "span": {"p0": (0, 0), "c1": (1, 0), "c2": (2, 3), "p3": (3, 9)},
+            "points": [(x, x * x) for x in range(4)],
+            "caption": "handles (1,0), (2,3) · 4 integer points",
+        },
+        {
+            "label": "y = x²/24 · [0,12]",
+            "span": {"p0": (0, 0), "c1": (4, 0), "c2": (8, 2), "p3": (12, 6)},
+            "points": [(12 * m, 6 * m * m) for m in range(2)],
+            "caption": "handles (4,0), (8,2) · 2 integer points",
+        },
+        {
+            "label": "y = x²/64 · [0,24]",
+            "span": {"p0": (0, 0), "c1": (8, 0), "c2": (16, 3), "p3": (24, 9)},
+            "points": [(8 * m, m * m) for m in range(4)],
+            "caption": "handles (8,0), (16,3) · 4 integer points",
+        },
+        {
+            "label": "y = x²/64 · [0,48]",
+            "span": {"p0": (0, 0), "c1": (16, 0), "c2": (32, 12), "p3": (48, 36)},
+            "points": [(8 * m, m * m) for m in range(7)],
+            "caption": "handles (16,0), (32,12) · 7 integer points",
+        },
+    ]
+
+
+def success_figure(case, w=330, h=220):
+    span = case["span"]
+    source = [cubic_at(span, i / 240) for i in range(241)]
+    controls = [span["p0"], span["c1"], span["c2"], span["p3"]]
+    pts = source + controls + case["points"]
+    x0, y0 = min(p[0] for p in pts), min(p[1] for p in pts)
+    x1, y1 = max(p[0] for p in pts), max(p[1] for p in pts)
+    dx, dy = (x1 - x0) or 1, (y1 - y0) or 1
+    pad = 0.08
+    x0, x1 = x0 - pad * dx, x1 + pad * dx
+    y0, y1 = y0 - pad * dy, y1 + pad * dy
+    k = min((w - 18) / (x1 - x0), (h - 18) / (y1 - y0))
+    ox, oy = (w - (x1 - x0) * k) / 2, (h - (y1 - y0) * k) / 2
+
+    def put(p):
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+
+    body = []
+    for gx in range(math.floor(x0), math.ceil(x1) + 1):
+        a, b = put((gx, y0)), put((gx, y1))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
+    for gy in range(math.floor(y0), math.ceil(y1) + 1):
+        a, b = put((x0, gy)), put((x1, gy))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}" stroke-width="0.6"/>')
+    # control polygon
+    poly = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in controls)
+    body.append(f'<polyline points="{poly}" fill="none" stroke="{MUTED}" stroke-width="1" stroke-dasharray="4 4"/>')
+    # source
+    d_attr = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in source)
+    body.append(f'<path d="M {d_attr}" fill="none" stroke="{INK}" stroke-width="2.2" stroke-linejoin="round"/>')
+    # integer handles
+    for i, p in enumerate(controls[1:3], start=1):
+        q = put(p)
+        body.append(f'<rect x="{q[0]-3.4:.1f}" y="{q[1]-3.4:.1f}" width="6.8" height="6.8" fill="{GOLD}" stroke="{INK}" stroke-width="0.8"/>')
+        body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-5:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">P{i}</text>')
+    # integer source points
+    for p in case["points"]:
+        q = put(p)
+        body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.6" fill="{DOT}" stroke="{PAPER}" stroke-width="1"/>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
+            + "".join(body) + "</svg>")
+
+
 def figure(fam, d, w=420, h=260):
     span = fam["span"]
     source = [cubic_at(span, i / N) for i in range(N + 1)]
@@ -192,6 +266,11 @@ def main():
 <h3>{fams[c['fam']]['label']} · d = {c['d']}</h3>
 <p class="note">source integer points {c['source_hits']} · exact rail near-integer {c['exact_hits']} · Levien fit near-integer {c['fit_hits']} · fit error {c['fit_err']:.4f}</p>
 </section>''' for c in cards)
+    gallery_cases = success_cases()
+    gallery_html = "".join(
+        f'<figure class="success"><div class="success-art">{success_figure(c)}</div>'
+        f'<figcaption><strong>{c["label"]}</strong><br><span>{c["caption"]}</span></figcaption></figure>'
+        for c in gallery_cases)
     opts_fam = "".join(f'<option value="{k}">{v["label"]}</option>' for k, v in fams.items())
     opts_d = "".join(f'<option value="{d}">{d}</option>' for d in D_VALUES)
     page = f'''<!doctype html>
@@ -215,6 +294,11 @@ h3{{font:600 13px/1.35 Georgia,serif;margin:0 0 3px}}
 .note{{font:10px/1.4 ui-monospace,Menlo,monospace;color:{MUTED};margin:0}}
 .panel{{background:{PAPER};border:1px solid #d8ccae;padding:16px 18px;margin:0 0 18px}}
 .panel.quote p{{margin:0 0 10px}}
+.gallery{{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:0 0 20px}}
+.success{{margin:0;background:{PAPER};border:1px solid #d8ccae;padding:8px}}
+.success-art{{margin:0 0 7px}}
+.success figcaption{{font:10px/1.45 ui-monospace,Menlo,monospace;color:{MUTED}}}
+.success figcaption strong{{font:600 12px/1.35 Georgia,serif;color:{INK}}}
 .formula{{font:12px/1.75 ui-monospace,Menlo,monospace;background:#f8f3e6;
 border-left:3px solid #c9a441;padding:10px 12px;margin:10px 0 12px;overflow-x:auto}}
 table{{border-collapse:collapse;font:12px ui-monospace,Menlo,monospace;margin:8px 0 12px}}
@@ -240,6 +324,10 @@ clear denominators. Levien's rail is a real-valued fit, so it is not expected
 to land on integers either. Use the selects to look for the exceptions; the
 controls in the generator are the variables to reverse-engineer.</p>
 </div>
+<h2>Success gallery · integer handles</h2>
+<p class="lead">Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer.</p>
+<div class="gallery">{gallery_html}</div>
+
 <h2>Levien’s logic</h2>
 <div class="panel quote">
 <p><strong>Why fit at all.</strong> “The exact offset curve of a cubic Bézier can
