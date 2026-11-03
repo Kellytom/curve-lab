@@ -68,6 +68,12 @@ remote MVP now exist.
   that land exactly on n = 3125).  The boundary
   p=±0.5 stems are dropped from SM5/SM6, SM7/SM8, SM9, SM11, SM13–SM16; the
   p=±0.5 reference plates stay in the LAC group.  Doc: `docs/FLOWERS-int.md`.
+- **Plant-form / ornament-form arc (2026-11-03):** `goals.md` is the long arc:
+  stalk → two-sided offsets (2 × offset + breathing room) → flower, seagrass or
+  cone terminal (two arcs R = 2 × offset meeting at the centreline) → marks at
+  the integer-lattice hits (a pyramid on each rail) → branches with smaller
+  curves, lower bigger than upper → ornament-forms. No bare tip. The focused
+  next action remains the offset catalogue.
 - **Evolute parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
   `lac-parallel.js` — the LAC base and the classical families (cycloid,
   epi/hypocycloid, ellipse→astroid, astroid, circle involute, catenary→tractrix,
@@ -590,7 +596,9 @@ count.
 crosses at every corner under the engine's rail builder; the filled shape is the
 spine layer's miter job (`ribbon.outline`). Until that is wired, chain studies
 are centre lines. After the fill: the canonical fleur, W04, the turned
-terminals, and the primals in the order in `docs/SESSIONS-int.md`.
+terminals, and the primals in the order in `docs/SESSIONS-int.md`. The
+plant-form arc after the offset page is in `goals.md`: endings (flower, seagrass,
+cone terminal), lattice growth marks, then branches; no bare tip.
 
 **Parked: the veil.** The measured column in §2b is unwired, the v1 caption
 overstates what it is, and the three.js page is a study.
@@ -673,6 +681,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
 | `workbench/stem-library.html` | 177 labelled stems: S01–S109, S118–S157, S166–S167; SM1–SM26 |
+| `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
 | `workbench/lac-parallel.html` | evolute → parallel offsets sandbox (LAC and classical families) |
 | `workbench/lac-parallel.js` | the family/evolute/offset geometry |
 | `scripts/stem_library.py` | the stem-library generator |

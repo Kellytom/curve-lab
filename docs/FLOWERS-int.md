@@ -228,6 +228,17 @@ Rotations requested so far: **S01/S03** 45° CCW, **S04** 135° CW,
 **S46–S50** 180° CCW, **S56–S60** 180° CCW, **S68** 180° CCW.  Each card's note
 repeats its rotation.
 
+## Plant-forms (next)
+
+The stem library supplies the stalks.  The next layer is **`goals.md`**: take a
+stalk, build its two-sided offsets (separated by 2 × offset plus breathing
+room), give it a flower, a seagrass/leaf ending, or a **cone terminal** made of
+two arcs of radius **2 × offset** meeting at the centreline; then mark the
+**integer-lattice hits** with a small pyramid growth mark on each rail, and
+branch at selected hits with smaller curves, lower branches bigger than upper.
+No bare tip.  After the plant-form grammar is proved, the same construction
+extends to ornament-forms.
+
 ## Reuse
 
 - **Change a stem:** edit its entry in `STEMS` in `scripts/stems_print.py`

@@ -12,17 +12,22 @@ Focused handon for curve-lab. Work in
    `.venv/bin/python scripts/serve.py` → http://127.0.0.1:8003
 3. Read `LTMemory-int.md` first — the map, the invariants, and what is already
    settled — then `next-fhandoff-int.md`, and nothing else yet.
-4. `next-fhandoff-int.md`'s first line names the docs to read. Read them, in order,
+4. Read `goals.md` for the plant-form → ornament-form arc: stalk → two-sided
+   offsets → flower/seagrass/cone terminal → integer-lattice growth marks →
+   branches (lower bigger than upper) → ornament-forms. It is the long arc, not
+   the focused action; the focused action is still the second line of
+   `next-fhandoff-int.md`.
+5. `next-fhandoff-int.md`'s first line names the docs to read. Read them, in order,
    and stop reading when they tell you to.
-5. Its second line is the single focused action. Do that action, and only that
+6. Its second line is the single focused action. Do that action, and only that
    action.
-6. Keep `state/HANDOFF-int.md` current as you work, so a freeze costs one step and
+7. Keep `state/HANDOFF-int.md` current as you work, so a freeze costs one step and
    not the session.
-7. Where a browser check or a screenshot is needed, use **Playwright** via
+8. Where a browser check or a screenshot is needed, use **Playwright** via
    `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
    its own browser, so nothing has to be running first. Do not use the Review
    pane, Safari/safaridriver, or the old CDP-on-9223 daemon.
-8. Do the action and stop. The operator runs `/fhandoff` when they want the
+9. Do the action and stop. The operator runs `/fhandoff` when they want the
    focused handoff refreshed; it is not run automatically.
 
 If `next-fhandoff-int.md` is missing or empty, read `state/HANDOFF-int.md` and ask for the

@@ -27,7 +27,9 @@ the date it was last checked.
    - If something is genuinely ambiguous, write the uncertainty in one line
      rather than investigating it.
 3. **Update `state/HANDOFF-int.md`** to the current truth: local, remote, tests,
-   git state, risks, and the next move. Keep it to edits, not a rewrite.
+   git state, risks, and the next move. Keep it to edits, not a rewrite.  If the
+   long arc moved, update `goals.md` (plant-forms → ornament-forms) and include
+   it in the handoff commit.
 4. **Choose exactly one focused action.** If `$ARGUMENTS` is not empty, use it.
    Otherwise take the single next move from `state/HANDOFF-int.md`. Do not bundle
    multiple tasks.
@@ -42,7 +44,7 @@ the date it was last checked.
    Below the fence, add one line: the source doc, the date, and the commit that
    wrote it. Change nothing else in that file, and do not read it back.
 6. **Commit only the handoff files** — `state/HANDOFF-int.md`, `docs/HANDOVER.md`,
-   `docs/HANDOVER.html`, `next-fhandoff-int.md`. Never add `out/play-template.svg`.
-   Do not run the tests after committing.
+   `docs/HANDOVER.html`, `next-fhandoff-int.md`, and `goals.md` if it changed.
+   Never add `out/play-template.svg`. Do not run the tests after committing.
 7. **Reply with at most five bullets:** current state, the focused action, any
    blocker, the commit hash, and the next command (`/fhandon`).

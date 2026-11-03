@@ -9,7 +9,8 @@ minutes, and so the same ground is not dug twice.
 2. `state/ACHIEVEMENTS-int.md` — every result we have, with the command that
    re-derives it. Start a session with `.venv/bin/python scripts/recheck.py`.
 3. `state/HANDOFF-int.md` — current truth, what is in flight, what is next.
-4. `workbench/workbench.html` — the pages, chosen by intent.
+4. `goals.md` — the long arc: plant-forms → ornament-forms.
+5. `workbench/workbench.html` — the pages, chosen by intent.
 
 Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long.
 
@@ -22,6 +23,7 @@ Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long
 | `workbench/` | the input pages, one per idea; each has one generator |
 | `scripts/` | the generators, the doc builders, and the checkers |
 | `docs/` | prose that mkdocs builds; `docs/PH-INTEGER.md` and `docs/HUB.md` are generated |
+| `goals.md` | the long arc: plant-forms → ornament-forms; endings, lattice marks, branches |
 | `state/` | `HANDOFF-int.md`, `ACHIEVEMENTS-int.md`, `BACKLOG-int.md`, `monitor.log` |
 | `founder/` | screenshots and notes, tracked on purpose so they are backed up |
 | `tests/` | the suite; `scripts/test.py` runs a fast subset by default |
@@ -110,3 +112,6 @@ one, and ports 8000/8001/8002 belong to other projects.
   curves offset exactly, rational quartics need fitting, sampled curves can only
   be fitted from samples. Nothing has been pushed through `curve_lab/offsets.py`
   yet, so we do not know which of the twenty-one are safe to give a width.
+- **Plant-form arc.** `goals.md`: stalk → two-sided offsets → flower / seagrass
+  / cone terminal (R = 2 × offset) → integer-lattice growth marks → branches
+  (lower bigger than upper) → ornament-forms. No bare tip.

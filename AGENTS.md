@@ -6,11 +6,12 @@ Keep the context small. Read only what the current action names.
 
 0. `LTMemory-int.md` — the map, the invariants and what is already settled.
 1. `next-fhandoff-int.md` — the one action.
-2. `state/HANDOFF-int.md` — current truth. Stop there unless it points onward.
+2. `goals.md` — the long arc: plant-forms → ornament-forms.
+3. `state/HANDOFF-int.md` — current truth. Stop there unless it points onward.
    `state/ACHIEVEMENTS-int.md` is the list of what is proved, with the command that
    re-derives each one (`scripts/recheck.py`).
-3. `state/BACKLOG-int.md` — the W-label detail for the action, and nothing else.
-4. `workbench/ornament-board.html` — visual order and labels (generated; do not
+4. `state/BACKLOG-int.md` — the W-label detail for the action, and nothing else.
+5. `workbench/ornament-board.html` — visual order and labels (generated; do not
    edit by hand).
 
 Do **not** read `docs/HANDOVER.md` unless the action needs durable
@@ -22,8 +23,10 @@ repository unless the action is extraction or comparison.
 
 The DeepSeek order: **W01 piece model** → **W02 terminals** → **W03 fleur
 grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
-water, earth, air — see `docs/PRIMAL.md`), then the archetypal ornaments. Auth and
-render limits are live; accounts/roles are later. Keep the public URL private.
+water, earth, air — see `docs/PRIMAL.md`), then the archetypal ornaments. The
+plant-form → ornament-form arc is in `goals.md`; the focused next action is
+still the offset catalogue. Auth and render limits are live; accounts/roles are
+later. Keep the public URL private.
 
 ## Files that matter
 
@@ -46,6 +49,7 @@ render limits are live; accounts/roles are later. Keep the public URL private.
 | `tests/` | 215 tests; run the whole suite |
 | `docs/REVIEW.md` | architecture/print review — act after the current work |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
+| `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
 | `docs/PRIMAL.md` | primal ornaments (fire, water, earth, air) and their gate |
 | `reference/principles.json` | principle cards: gesture, 3 numbers, not-this |
 | `reference/` | attributed reference images + manifest (measurement only) |
