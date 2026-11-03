@@ -162,11 +162,10 @@ is not PH), so this is a fitted rail, not an exact one.
 LAC/PH/integer rails, then terminals and branches. The source intake is not
 finished; Stage III and IV are deliberately not claimed as wired.
 
-**Status 2026-11-03:** the first offset catalogue is built — OffS1–OffS12 in
-`stem-library-offset.html`, with the exact normal rail, Levien's fitted cubic
-Bézier, the LAC chain rail, the three parallel conics, and a two-stalk card.
-The next layer is endings: flower, seagrass/leaf, or the cone terminal at
-R = 2 × offset; then the lattice growth marks and branches.
+**Status 2026-11-03:** the offset catalogue and the plant-form proof are built.
+OffS1–OffS12 are in `stem-library-offset.html`; `plant-forms.html` has the cone
+terminal, seagrass and flower endings, the pyramid growth marks, and the
+branches (lower bigger than upper).  The next layer is ornament-forms.
 
 ### Offset tiers — the option set
 
@@ -192,17 +191,24 @@ exact PH where available, Levien's cubic fit, and the LAC/chain rail. The same
 
 ## Open decisions
 
-- The integer lattice is model-space integer; confirm whether it is the design
-  box or the page frame.
-- The exact cone-terminal construction: arc centres, tangency points, and
-  whether the two arcs meet at a true point or a tiny tangent join.
-- Growth-mark size: fixed model size, or proportional to the local offset /
-  branch scale.
-- Seagrass/leaf ending grammar: blade count, taper, and how it joins the rails.
-- Branch selection and scale law: which lattice hits branch, and the monotonic
-  lower-bigger rule as a formula.
-- Which flower forms are legal endings; the flowers page currently offers four.
-- Whether the offset page and the plant-form proof are one page or two.
-- Levien adapter: fit each source cubic separately or subdivide first; what
-  tolerance; how to handle cusps; and how its error compares with PH and the
-  LAC rail on the same stem.
+- The integer lattice is model-space integer; the proof marks the horizontal
+  grid-line crossings.  Confirm whether the intended rule is the full integer
+  lattice point (both coordinates) or a grid-line crossing.
+- **Cone terminal — resolved in the proof.** Rail ends are `point ± offset·N`,
+  the tip is `point + √3·offset·T`, and the arc centres are `A − R·N` and
+  `B + R·N` with `R = 2·offset`.  The only remaining question is whether the
+  two arcs meet at a true point or a tiny tangent join.
+- Growth-mark size: fixed in the proof; whether it should scale with the local
+  offset or branch remains open.
+- Seagrass/leaf ending grammar: the proof uses three tapered blades; blade
+  count, fill and the exact join remain open.
+- Branch selection and scale law: the proof branches every two units with a
+  fixed lower-bigger size list; the selection rule and the scale formula remain
+  open.
+- Which flower forms are legal endings; the proof uses a rosette, while the
+  flowers page offers four Euler-interpolated forms.
+- **Offset page / plant proof — resolved:** two pages, `stem-library-offset.html`
+  and `plant-forms.html`.
+- Levien adapter: the house implementation is in `curve_lab/parallel_bezier.py`;
+  a line-by-line area/moment port and a full error comparison with PH and the
+  LAC rail on the same stem remain open.

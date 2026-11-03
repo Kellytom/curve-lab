@@ -236,6 +236,15 @@
       "outputs": "base, +d/-d rails, fit error and fold report, 2× separation"
     },
     {
+      "key": "plant-forms",
+      "file": "plant-forms.html",
+      "group": "curve",
+      "title": "Plant forms",
+      "purpose": "A stalk with two rails, an ending, lattice growth marks and branches that get smaller upward.",
+      "inputs": "a stalk, its offset, the ending choice",
+      "outputs": "the plant-form proof: cone/seagrass/flower endings, pyramid marks, branches"
+    },
+    {
       "key": "euler-square",
       "file": "euler-square.html",
       "group": "curve",

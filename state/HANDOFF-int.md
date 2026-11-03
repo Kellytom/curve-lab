@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **260 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **264 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
@@ -88,6 +88,13 @@ remote MVP now exist.
   in `curve_lab/parallel_bezier.py` and shown beside exact PH and the LAC rail;
   it reports fit error, cusps and clamps and is never called exact.  Tests:
   `tests/test_stem_offset_library.py`.  The next layer is endings.
+- **Plant-form proof (2026-11-03):** `workbench/plant-forms.html` — one stalk
+  with two rails, the **cone terminal** (two arcs R = 2 × offset meeting at the
+  centreline), seagrass and flower detail endings, pyramid growth marks on both
+  rails at the integer-grid hits, and three branches (lower bigger than upper,
+  each with an ending).  Geometry in `curve_lab/plant.py`; generator
+  `scripts/plant_forms.py`; tests `tests/test_plant.py` and
+  `tests/test_plant_forms.py`.  The next layer is ornament-forms.
 - **Bring-up coverage (2026-11-03):** `goals.md` now carries the parallel/offset
   and integer inventory. First gaps: the offset catalogue and the parallel
   conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the
@@ -97,15 +104,15 @@ remote MVP now exist.
   not yet catalogued. The offset tiers are: exact PH/arcs; exact-in-family log
   spiral and circle involute; **Levien's fitted cubic-Bézier parallel**
   (`reference/external/parallel-beziers.html`, O(n⁶), not exact); the LAC/chain
-  rail; and sampled curves. The offset catalogue is now built; the focused next
-  action is the plant-form endings.
+  rail; and sampled curves. The offset catalogue and the plant-form proof are now built;
+  the focused next action is ornament-forms.
 - **Evolute parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
   `lac-parallel.js` — the LAC base and the classical families (cycloid,
   epi/hypocycloid, ellipse→astroid, astroid, circle involute, catenary→tractrix,
   parabola→semicubical, PH cubic), the evolute `E=C+ρN`, and the exact
   two-sided offsets `P_d=C+dN` (the same family as the involutes of E between
   evolute cusps); family/α/k/b selects and `?family=&alpha=&d=`; a full-evolute
-  inset sits under the fitted base/offset frame.  Hub now 24 pages.
+  inset sits under the fitted base/offset frame.  Hub now 26 pages.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
