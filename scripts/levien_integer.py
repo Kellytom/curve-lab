@@ -9,9 +9,11 @@ normal rail, Levien's fitted cubic rail, the integer lattice, and the
 near-integer hit counts.  Choose a family and offset distance with the two
 selects.
 
-The exact integer points on the source are known.  The exact parallel of a
-parabola is not rational, and Levien's rail is fitted, so integer rail hits are
-expected to be rare; the page is for finding the exceptions.
+The exact integer points on the source are known.  A parabola's exact parallel
+is a higher-degree rational curve (not a cubic); a general cubic's exact
+parallel is degree 10.  Levien's rail is fitted and real-valued, so integer rail
+hits are a Diophantine question rather than a consequence of the fit; the page
+is for finding the exceptions.
 """
 
 from __future__ import annotations
@@ -206,6 +208,10 @@ h3{{font:600 13px/1.35 Georgia,serif;margin:0 0 3px}}
 .note{{font:10px/1.4 ui-monospace,Menlo,monospace;color:{MUTED};margin:0}}
 .panel{{background:{PAPER};border:1px solid #d8ccae;padding:16px 18px;margin:0 0 18px}}
 .panel.quote p{{margin:0 0 10px}}
+.formula{{font:12px/1.75 ui-monospace,Menlo,monospace;background:#f8f3e6;
+border-left:3px solid #c9a441;padding:10px 12px;margin:10px 0 12px;overflow-x:auto}}
+table{{border-collapse:collapse;font:12px ui-monospace,Menlo,monospace;margin:8px 0 12px}}
+th,td{{border:1px solid #d8ccae;padding:4px 9px;text-align:left}}
 .cite{{font:10px/1.5 ui-monospace,Menlo,monospace;color:{MUTED};margin:12px 0 0}}
 code{{font:12px ui-monospace,Menlo,monospace}}
 </style></head><body><main>
@@ -218,12 +224,14 @@ integer lattice. The dots are the known integer points on the source. The note
 counts near-integer points on each rail (tolerance 0.01) and the Levien fit
 error.</p>
 <p><strong>The simple result.</strong> The source parabola has integer points
-(0,0), (1,1), (2,4); the half has fewer; the quarter fewer still. The exact
-parallel of a parabola is not rational, so an integer rail point is rare. The
-vertex at t=0 gives one when d is an integer; elsewhere the normal contains
-√(1+4t²), so it is not integer. Levien's rail is a real-valued fit, so it is
-not expected to land on integers either. Use the selects to look for the
-exceptions; the controls in the generator are the variables to reverse-engineer.</p>
+(0,0), (1,1), (2,4); the half has fewer; the quarter fewer still. A parabola's
+exact offset is a higher-degree <em>rational</em> curve, but not a cubic; for a
+general cubic the exact offset is degree 10. The vertex at t=0 gives an integer
+point when d is an integer. Elsewhere the normal contains √(1+4t²), so an
+exact integer point is a Diophantine question, not an automatic one; scaling can
+clear denominators. Levien's rail is a real-valued fit, so it is not expected
+to land on integers either. Use the selects to look for the exceptions; the
+controls in the generator are the variables to reverse-engineer.</p>
 </div>
 <h2>Levien’s logic</h2>
 <div class="panel quote">
@@ -260,6 +268,139 @@ spiral. The p-triple Euler polygon is the other integer-friendly route.</p>
 cubic Béziers” (2022-09-09), local copy:
 <a href="../reference/external/parallel-beziers.html">reference/external/parallel-beziers.html</a>.
 See the article for the full derivation and code.</p>
+</div>
+<h2>The mechanism, in formulas</h2>
+<div class="panel">
+<p><strong>1. The exact target.</strong> Write the source cubic as B(t), its
+derivative as B′(t), and the unit left normal as N(t). The exact parallel at
+signed distance d is:</p>
+<div class="formula">
+B(t) = (1−t)³P₀ + 3(1−t)²tP₁ + 3(1−t)t²P₂ + t³P₃<br>
+B′(t) = 3(1−t)²(P₁−P₀) + 6(1−t)t(P₂−P₁) + 3t²(P₃−P₂)<br>
+N(t) = (−B′<sub>y</sub>(t), B′<sub>x</sub>(t)) / |B′(t)|<br>
+O<sub>d</sub>(t) = B(t) + d N(t)
+</div>
+<p>For a general cubic this is an analytic curve of degree 10. It is not a
+cubic Bézier, so the fit replaces it with one.</p>
+
+<p><strong>2. Fix the free parameters.</strong> The endpoints and the tangent
+<em>directions</em> are taken directly from the exact offset. That leaves only
+the two handle lengths λ₀ and λ₁:</p>
+<div class="formula">
+Q₀ = B(0) + dN(0),   Q₃ = B(1) + dN(1)<br>
+T₀ = B′(0)/|B′(0)|,  T₁ = B′(1)/|B′(1)|<br>
+C₀ = Q₀,  C₁ = Q₀ + λ₀T₀,  C₂ = Q₃ − λ₁T₁,  C₃ = Q₃
+</div>
+<p>The handles lie on the two endpoint tangents. They are not constrained to a
+parabola; the two scalars are what the area/moment equations determine.</p>
+
+<p><strong>3. Measure area and moment.</strong> The target is reduced to two
+numbers. Green’s theorem turns the double integrals into line integrals; the
+code evaluates them with 32-point Gauss–Legendre quadrature:</p>
+<div class="formula">
+A* = ½∫₀¹ y(t) x′(t) dt,   M* = ½∫₀¹ x(t) y(t) x′(t) dt<br>
+∫₀¹ f(t) dt ≈ ½ Σ w<sub>i</sub> f((1+ξ<sub>i</sub>)/2)
+</div>
+<p>After rotating the chord to the x-axis and translating its start to the
+origin, normalize by the chord length L: A = A*/L² and M = M*/L³. The fit is
+then scale-free.</p>
+
+<p><strong>4. Solve for the handles.</strong> With the chord normalized to
+(0,0)–(1,0), let θ₀ and θ₁ be the tangent angles. The signed area of the
+candidate cubic is:</p>
+<div class="formula">
+A(λ₀,λ₁) = (3/20)[2λ₀ sinθ₀ − λ₀λ₁ sin(θ₀−θ₁) − 2λ₁ sinθ₁]
+</div>
+<p>Setting A(λ₀,λ₁) = A gives λ₁ linearly in λ₀:</p>
+<div class="formula">
+λ₁ = (2λ₀ sinθ₀ − 20A/3) / (λ₀ sin(θ₀−θ₁) + 2 sinθ₁)
+</div>
+<p>Substitute that into M(λ₀,λ₁) = M. Clearing the denominator gives a quartic
+in λ₀:</p>
+<div class="formula">
+a₄λ₀⁴ + a₃λ₀³ + a₂λ₀² + a₁λ₀ + a₀ = 0
+</div>
+<p>The coefficients are polynomials in A, M, sinθ₀, sinθ₁, cosθ₀, cosθ₁; the
+explicit expansion is in Levien’s <code>cubic_fit</code> (reference lines
+1452–1480). Each non-negative root is a candidate. A near-zero or negative
+length is clamped to the tangent intersection and still sent to the error test.</p>
+
+<p><strong>5. Pick the best candidate.</strong> Each candidate is transformed
+back to the original frame, then sampled against the exact offset. For each
+sample, the code intersects the normal ray with the candidate cubic and takes
+the maximum normal distance (Tiller–Hanson). If that error is above tolerance,
+the interval is split at t = ½ and the process repeats.</p>
+
+<p><strong>6. The parabola.</strong> For y = x² on x ∈ [0,2], the source
+quadratic has P₁ = (1,0); degree elevation gives the cubic handles:</p>
+<div class="formula">
+Q(t) = (1−t)²(0,0) + 2(1−t)t(1,0) + t²(2,4)<br>
+P₀ = (0,0), P₁ = (2/3,0), P₂ = (4/3,4/3), P₃ = (2,4)<br>
+O<sub>d</sub>(t) = (t − 2dt/√(1+4t²),  t² + d/√(1+4t²))
+</div>
+<p>The quadratic handle (1,0) is the intersection of the end tangents. It is not
+on the parabola; neither are the elevated cubic handles. The exact offset is a
+higher-degree rational curve: set u = √(1+4t²) − 2t, then</p>
+<div class="formula">
+t = (1−u²)/(4u),  √(1+4t²) = (1+u²)/(2u)<br>
+x(u) = t(1 − 2d/√(1+4t²)),  y(u) = t² + d/√(1+4t²)
+</div>
+<p>So a parabola’s parallel is rational, but it is not a cubic. A general
+cubic’s exact parallel is degree 10. Levien’s two handles are still cubic
+handles chosen by area and moment; there is no parabolic handle constraint.</p>
+
+<p><strong>The handles on a parabola.</strong> For y = kx² over x ∈ [a,b], the
+quadratic control is the tangent intersection, and degree elevation gives:</p>
+<div class="formula">
+P₀ = (a, ka²),  P₁ = ((a+b)/2, kab),  P₂ = (b, kb²)<br>
+P₁′ = ((2a+b)/3, k a(a+2b)/3)<br>
+P₂′ = ((a+2b)/3, k b(2a+b)/3)
+</div>
+<p>For a = 0 and b = 3n, these become (n,0) and (2n, 3kn²): integer handles
+for integer k. That is a real integer-friendly source. A cubic is a parabola
+exactly when C₃ − 3C₂ + 3C₁ − C₀ = 0; Levien does not impose that condition,
+so his fitted cubic is general, not a parabola.</p>
+
+<p><strong>Why 3ⁿ, 5ⁿ and 64 appear.</strong> Evaluate a cubic Bézier at a
+rational parameter t = p/q:</p>
+<div class="formula">
+B(p/q) = [(q−p)³P₀ + 3(q−p)²pP₁ + 3(q−p)p²P₂ + p³P₃] / q³
+</div>
+<p>With integer controls the denominator divides q³. So t = 1/3 gives 27,
+t = 1/4 gives 64, t = 1/5 gives 125; scaling by q³ clears the denominators.
+This is a Bézier-basis fact, and it is a different “64” from Levien’s error law:
+the error 64 is 2⁶, while the sample denominator 64 is 4³. Both can produce the
+same-looking integer hits, but only denominator clearing is exact.</p>
+
+<p><strong>7. Scaling: 64, 3⁶, 5⁶.</strong> The claimed error law is
+E(m) ≈ E(1)/m⁶. Halving gives 2⁶ = 64; three pieces give 3⁶ = 729; five pieces
+give 5⁶ = 15,625:</p>
+<table>
+<tr><th>subdivisions m</th><th>error factor</th><th>cubics</th></tr>
+<tr><td>2</td><td>1/64</td><td>2</td></tr>
+<tr><td>3</td><td>1/729</td><td>3</td></tr>
+<tr><td>5</td><td>1/15,625</td><td>5</td></tr>
+</table>
+<p>This is approximation error, not a count of integer hits. More segments mean
+more control handles, so there are more chances to <em>notice</em> a near-integer
+coordinate; it does not make the curve exact. Scaling the whole geometry by S
+multiplies every coordinate by S: a rational point whose denominator divides S
+can become integral (the q³ rule above), but an irrational fitted coordinate
+remains irrational. The error factor 3⁶ is 729; the sample denominator 3³ is
+27; do not conflate the two.</p>
+
+<p><strong>8. Hyperbolae and other sources.</strong> A hyperbola
+H(t) = (a cosh t, b sinh t) has tangent (a sinh t, b cosh t) and normal</p>
+<div class="formula">
+N(t) = (−b cosh t, a sinh t) / √(b²cosh²t + a²sinh²t)
+</div>
+<p>For a rectangular hyperbola the square root is √(cosh 2t), which is not
+generally rational in a rational parameter. The offset is therefore not an
+automatic rational/integer curve. Levien’s fit still applies — area, moment and
+normal distance can all be evaluated numerically — but exact integer hits are a
+Diophantine property of the source, not a consequence of the fitting method.
+The exact integer-friendly families remain lines, arcs, PH curves, the
+Pythagorean spiral, and the p-triple polygon.</p>
 </div>
 <div class="controls">
 <label>family <select id="family">{opts_fam}</select></label>

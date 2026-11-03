@@ -28,6 +28,14 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("curve fitting", page)
         self.assertIn("degree 10", page)
         self.assertIn("Raph Levien", page)
+        self.assertIn("The mechanism, in formulas", page)
+        self.assertIn("higher-degree", page)
+        self.assertIn("a₄λ₀⁴", page)
+        self.assertIn("1/15,625", page)
+        self.assertIn("handles on a parabola", page)
+        self.assertIn("B(p/q)", page)
+        self.assertIn("tangent intersection", page)
+        self.assertIn("not constrained to a", page)
 
 
 if __name__ == "__main__":
