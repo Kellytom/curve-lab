@@ -194,7 +194,10 @@ S158/S159 (S46–S50) and S160/S161 (S51–S55) fan five stems from 60° to 120�
 the root, the second the straight ends.  S114–S117 and S162–S165 repeat them with every
 stem leaving at **90°**, each stem in its own colour (ink, red, blue, green,
 violet), so the overlap is readable.  The straight-root plants read as plants;
-the spiral-root joins read as an eye/knot.
+the spiral-root joins read as an eye/knot.  S158–S165 carry the five colours
+with a swatch→S-number table (S46–S50 and S51–S55); S114–S117 also have the
+table.  The earlier S110–S113 fans stay ink.  The table is the way to name the
+one curve to drop.
 
 The page links back to `flowers.html`; to promote a card, add the
 curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from

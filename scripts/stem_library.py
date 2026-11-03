@@ -41,9 +41,11 @@ N = 120
 CARDS = []
 
 
-def add(group, name, source, note, branches, mark=None, colors=None):
+def add(group, name, source, note, branches, mark=None, colors=None,
+        legend=None):
     CARDS.append(dict(group=group, name=name, source=source, note=note,
-                      branches=branches, mark=mark, colors=colors))
+                      branches=branches, mark=mark, colors=colors,
+                      legend=legend))
 
 
 def figure(branches, size=SIZE, mark=None, colors=None):
@@ -288,12 +290,13 @@ def build():
     palette = [INK, "#b23a2b", "#1f5fa8", "#2f6f4f", "#6f4a8c"]
     for gname, start, s0 in (("S35–S39", 0, 35), ("S41–S45", 6, 41)):
         group = lac_cards[start:start + 5]
+        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind, same_angle=90.0)
             add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
                 "plant overlay",
                 "all five leave at 90° · colours show the overlap", branches,
-                mark=[(0.0, 0.0)], colors=palette)
+                mark=[(0.0, 0.0)], colors=palette, legend=legend)
 
     # 10. the same treatment for S46–S50 and S51–S55: scrolls and sprays
     new_groups = (("S46–S50", 11, 46), ("S51–S55", 16, 51))
@@ -307,19 +310,30 @@ def build():
                     f"{variant} ends joined · G1 at the join", [pts])
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
+        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind)
             add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root", "plant",
                 f"{root_kind} ends at one root · fan 60–120°", branches,
-                mark=[(0.0, 0.0)])
+                mark=[(0.0, 0.0)], colors=palette, legend=legend)
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
+        legend = [(palette[k], f"S{s0 + k}") for k in range(5)]
         for root_kind in ("spiral", "straight"):
             branches = plant(group, root_kind, same_angle=90.0)
             add("Plants", f"S{s0}–S{s0 + 4} · {root_kind} root · same angle",
                 "plant overlay",
                 "all five leave at 90° · colours show the overlap", branches,
-                mark=[(0.0, 0.0)], colors=palette)
+                mark=[(0.0, 0.0)], colors=palette, legend=legend)
+
+
+def legend(card):
+    if not card.get("legend"):
+        return ""
+    rows = "".join(
+        f'<tr><td><span class="sw" style="background:{c}"></span></td>'
+        f'<td>{label}</td></tr>' for c, label in card["legend"])
+    return f'<table class="legend">{rows}</table>'
 
 
 def main():
@@ -342,6 +356,7 @@ def main():
   <h3><span class="idx">{card['index']}</span> {card['name']}</h3>
   <p class="src">{card['source']}</p>
   <p class="note">{card['note']}</p>
+  {legend(card)}
 </section>""")
         sections.append(
             f'<h2 class="group">{group} <span>{len(cards)}</span></h2>'
@@ -366,6 +381,9 @@ h3{{font:600 12px/1.35 Georgia,serif;margin:0 0 3px}}
 .idx{{font:11px ui-monospace,Menlo,monospace;color:{DOT};margin-right:4px}}
 .src,.note{{font:10px/1.35 ui-monospace,Menlo,monospace;color:{MUTED};margin:0}}
 .note{{color:#a08a64}}
+.legend{{border-collapse:collapse;margin:6px 0 0;font:10px/1.4 ui-monospace,Menlo,monospace}}
+.legend td{{border:0;padding:1px 4px 1px 0}}
+.sw{{display:inline-block;width:9px;height:9px;border:1px solid #d8ccae;vertical-align:middle}}
 .panel{{background:#fffdf7;border:1px solid #d8ccae;padding:16px 18px;margin:0 0 20px}}
 a{{color:{DOT}}}
 </style></head><body><main>

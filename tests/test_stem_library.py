@@ -19,7 +19,8 @@ class StemLibraryTest(unittest.TestCase):
         self.assertEqual(len(combos), 80)
         plants = [c for c in L.CARDS if c["group"] == "Plants"]
         self.assertEqual(len(plants), 16)
-        self.assertEqual(sum(1 for c in plants if c["colors"]), 8)
+        self.assertEqual(sum(1 for c in plants if c["colors"]), 12)
+        self.assertEqual(sum(1 for c in plants if c.get("legend")), 12)
 
     def test_page_has_all_cards(self):
         page = (ROOT / "workbench" / "stem-library.html").read_text(
