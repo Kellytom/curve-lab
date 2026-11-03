@@ -173,8 +173,9 @@ def build():
 
     inv = [(math.cos(t) + t * math.sin(t), math.sin(t) - t * math.cos(t))
            for t in (2.5 * math.pi * i / 480 for i in range(481))]
-    add("Gestures", "involute", "circle involute", "x=cos t+t sin t, y=sin t−t cos t",
-        [inv])
+    add("Gestures", "involute", "circle involute",
+        "x=cos t+t sin t, y=sin t−t cos t · rotated 180° CCW",
+        [rotate(inv, 180.0)])
 
     cyc = [(t - math.sin(t), 1 - math.cos(t))
            for t in (2 * math.pi * i / 240 for i in range(241))]
