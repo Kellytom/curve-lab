@@ -97,6 +97,68 @@ is not a separate art project.
 - `docs/FLOWERS-int.md`, `docs/PHILOSOPHY.md`, `docs/CLEARANCE.md`,
   `docs/JUNCTION.md` — the durable prose.
 
+## Source intake
+
+The ornaments pages are the source material. They are not all parallel-offset
+sources: a rail is not a parallel offset unless the two rails are equidistant.
+The source pages live at `http://localhost:8001/` while `../ornaments` is
+served; the readers are `scripts/extract-spirals.py` and
+`scripts/extract-terminals.py`.
+
+| source | plates | spines / outlines | state |
+|---|---|---|---|
+| `LAC-log-asth-curve.html` | 31 | 31 spines / 31 outlines | **Wired.** `workbench/spirals/lac.json`, `workbench/terminals/lac.json`; LAC spines are S35–S65. The rails/terminals are not yet in the offset page. |
+| `stage-two.html` | 20 | 20 spines / 20 outlines | **Wired** to `stage-two.json` (spirals and terminals). Not yet in the stem catalogue or the offset page. |
+| `stage-three.html` | 4 | 4 straight spines / 4 serif outlines | **Not wired.** The spine is a straight `data-line` path, so the cubic-spine reader returns 0; the four outlines are serif/terminal studies and belong in the terminal intake. |
+| `stage-four.html` | 10 | 16 spines / 0 outlines | **Not wired.** The reader can see the 16 cubics but tags them unknown. It is a **width-modulation** study: the page explicitly says the rails are not equidistant, so it is **not** a parallel-offset source. |
+| `lattice-curves.html`, `curve-sandbox.html`, `etc.` | ? | ? | **Not inventoried.** Inspect before adding; classify spine / rail / terminal / integer first. |
+| `generators.html` + `scripts/generators.py` | 4 presets + 25 named | integer PH / exact curves | The integer curves are in the stem library; their **offset rails** are missing. |
+| `pythagorean-spiral/` | exact spine | integer 3-4-5 lattice | Exact integer source; offset/terminal not built. |
+| `workbench/stem-library.html` SM23–SM26 | 4 | integer **p spacing** | Not integer curve solutions; these are integer sequences for the p knob. |
+| `ornaments` 3125 lattice | all plates | integer **coordinates** | The coordinates are on the 3125 lattice; that is not the same as an integer solution to a curve. |
+
+**Rule.** Before adding a source, record: spine or rail; exact or fitted; the
+offset tier; the integer status; the plate count; and where the result lands.
+Do not call a page an offset source because it draws a width.
+
+## Bring up to speed
+
+A curve is **up to speed** when it has: (1) two-sided offsets, exact or fitted
+with the error stated; (2) a clearance check at **2 × offset plus breathing
+room**; (3) an integer/exact status, or an explicit “fitted, not exact” mark;
+(4) a page/card and an ending or terminal; (5) a test or recheck.
+
+The named example — **the parallel parabola** — is a useful boundary. The
+evolute page shows the parabola’s **evolute** (the semicubical parabola) and the
+normal offsets, but it does not yet show a **parallel-parabola** card or a rail
+catalogue. The offset of a parabola is algebraic but not rational (the parabola
+is not PH), so this is a fitted rail, not an exact one.
+
+| item | offset / parallel | integer / exact | where it is now | what is missing |
+|---|---|---|---|---|
+| **Parallel parabola** | fitted; algebraic, not rational | integer points on the parabola, not on its parallel | `lac-parallel.html` (evolute + normal offsets) | a parallel-parabola card/rail, 2× clearance, and a stated fit error |
+| **Parallel ellipse** | fitted | rational points on the ellipse; not an integer parallel | `lac-parallel.html` (astroid evolute) | parallel-ellipse card/rails |
+| **Parallel hyperbola** | fitted | rational points; not an integer parallel | none | the whole family |
+| **Parallel semicubical / Neile** | fitted; cusp | algebraic; cusp | `lac-parallel.html` | offset card and cusp/fold handling |
+| **Parallel cycloid** | fitted | transcendental | `lac-parallel.html`; stem S69 | offset catalogue and clearance |
+| **Parallel astroid / hypocycloid** | fitted; cusps/folds | algebraic | `lac-parallel.html`; S17 | offset catalogue with fold ranges |
+| **Parallel catenary / tractrix** | fitted | transcendental | `catenary.html`; S66 | tractrix and offset catalogue |
+| **Parallel log spiral** | exact: another log spiral | transcendental | `lac-parallel.html`; S67 | verify the exact factor; card |
+| **Parallel circle involute** | exact: another circle involute (same base circle, shifted parameter) | transcendental | `lac-parallel.html`; S68 | exact test/card |
+| **Parallel clothoid / Euler** | fitted: the offset is not a clothoid | transcendental | `lac-parallel.html`; S30/S31 | rail and error |
+| **Parallel LAC** | fitted via `design_from_spans` → `build_rail` | not exact | S35–S65; `lac-parallel.html` | `stem-library-offset.html` |
+| **Parallel PH** | exact rational | integer presets/named | `generators.html`; stem presets | exact offset rail page |
+| **Parallel rational named curves** | fitted in general | some PH, some not; classify | stem library S05–S29 | classification and rails |
+| **Parallel squircle / heart** | fitted numeric | non-rational | `hearts.html` | rails and error |
+| **Parallel Pythagorean spiral / 3-4-5** | exact arcs/lines; verify joins | exact integer lattice | `pythagorean-spiral/` | rails and terminals |
+| **Cone terminal** | R = 2 × offset | — | `curve_lab/terminals.py` | construction and test |
+| **Growth marks / branches** | from the rails | lattice hits | `goals.md` only | grammar and proof page |
+
+**Order.** The offset catalogue is first: formulaic curves, then parallel conics
+(parabola, ellipse, hyperbola), then the classical evolute families, then the
+LAC/PH/integer rails, then terminals and branches. The source intake is not
+finished; Stage III and IV are deliberately not claimed as wired.
+
 ## Open decisions
 
 - The integer lattice is model-space integer; confirm whether it is the design

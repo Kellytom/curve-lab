@@ -74,6 +74,13 @@ remote MVP now exist.
   the integer-lattice hits (a pyramid on each rail) → branches with smaller
   curves, lower bigger than upper → ornament-forms. No bare tip. The focused
   next action remains the offset catalogue.
+- **Bring-up coverage (2026-11-03):** `goals.md` now carries the parallel/offset
+  and integer inventory. First gaps: the offset catalogue and the parallel
+  conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the
+  evolute, not a parallel-parabola card/rail. LAC and Stage II are wired as
+  sources; Stage III is terminals/straight spines and Stage IV is explicitly
+  non-parallel, so neither is a parallel-offset source. PH offsets are exact but
+  not yet catalogued. The focused next action remains the offset catalogue.
 - **Evolute parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
   `lac-parallel.js` — the LAC base and the classical families (cycloid,
   epi/hypocycloid, ellipse→astroid, astroid, circle involute, catenary→tractrix,
