@@ -98,6 +98,11 @@ is not a separate art project.
   `docs/JUNCTION.md` — the durable prose.
 - `reference/external/parallel-beziers.html` — Raph Levien, “Parallel curves of
   cubic Béziers” (2022-09-09); the fitted cubic-Bézier offset reference.
+- `pythagorean-spiral/` — the exact p-triple Euler polygon, rational miter rails
+  (`ribbon.rails`), placement and lattice; `docs/SPINE.md`,
+  `pythagorean-spiral/docs/TRANSFER.md`.
+- `curve_lab/spine.py` — the bridge from a chain's cubic spans to a
+  `Design`/`Piece`; a cusp must be split first.
 
 ## Source intake
 
@@ -112,7 +117,7 @@ served; the readers are `scripts/extract-spirals.py` and
 | `LAC-log-asth-curve.html` | 31 | 31 spines / 31 outlines | **Wired.** `workbench/spirals/lac.json`, `workbench/terminals/lac.json`; LAC spines are S35–S65. The rails/terminals are not yet in the offset page. |
 | `stage-two.html` | 20 | 20 spines / 20 outlines | **Wired** to `stage-two.json` (spirals and terminals). Not yet in the stem catalogue or the offset page. |
 | `stage-three.html` | 4 | 4 straight spines / 4 serif outlines | **Not wired.** The spine is a straight `data-line` path, so the cubic-spine reader returns 0; the four outlines are serif/terminal studies and belong in the terminal intake. |
-| `stage-four.html` | 10 | 16 spines / 0 outlines | **Not wired.** The reader can see the 16 cubics but tags them unknown. It is a **width-modulation** study: the page explicitly says the rails are not equidistant, so it is **not** a parallel-offset source. |
+| `stage-four.html` | 10 | 16 spines / 0 outlines | **Not wired yet — advanced track.** The reader can see the 16 cubics but tags them unknown. It is a **width-modulation** study: the rails are not equidistant, so it is **not** a parallel-offset source. It is an advanced variable-width target, not a side issue; schedule its own proof after the ornament grammar. |
 | `lattice-curves.html`, `curve-sandbox.html`, `etc.` | ? | ? | **Not inventoried.** Inspect before adding; classify spine / rail / terminal / integer first. |
 | `generators.html` + `scripts/generators.py` | 4 presets + 25 named | integer PH / exact curves | The integer curves are in the stem library; their **offset rails** are missing. |
 | `pythagorean-spiral/` | exact spine | integer 3-4-5 lattice | Exact integer source; offset/terminal not built. |
@@ -167,8 +172,16 @@ OffS1–OffS12 are in `stem-library-offset.html`; `plant-forms.html` has the con
 terminal, seagrass and flower endings, the pyramid growth marks, and the
 branches (lower bigger than upper).  The focused checklist is `TODO.md` with
 the generated twin `workbench/todo.html`; it holds the provisional A/B/C/D
-curve grades and the Levien integer-snap question.  The next layer is
-ornament-forms.
+curve grades, the p-triple Euler workstream, and the Levien integer-snap
+question.  The p-triple spine is the solved route for the C families: an exact
+rational Euler polygon, rational miter rails, and a cubic drawing with measured
+margin.  **C is not a deletion:**
+the cycloid, astroid/hypocycloid, semicubical, tractrix, heart/squircle and
+looped/cusped rationals are kept as **ending/flower** material.  The ending /
+flower fit pass comes before ornament-forms.  **Advanced track:** Stage IV
+width modulation is a variable-width family, not a parallel offset and not a
+side issue; it gets its own proof after the ornament grammar, outside the 2×
+parallel rule.
 
 ### Offset tiers — the option set
 
@@ -208,8 +221,10 @@ exact PH where available, Levien's cubic fit, and the LAC/chain rail. The same
 - Branch selection and scale law: the proof branches every two units with a
   fixed lower-bigger size list; the selection rule and the scale formula remain
   open.
-- Which flower forms are legal endings; the proof uses a rosette, while the
-  flowers page offers four Euler-interpolated forms.
+- Which flower forms are legal endings; the proof uses a rosette, the flowers
+  page offers four Euler-interpolated forms, and the C families (cycloid,
+  astroid/hypocycloid, semicubical, tractrix, heart/squircle, looped/cusped
+  rationals) are explicitly in the ending/flower fit pass.
 - **Offset page / plant proof — resolved:** two pages, `stem-library-offset.html`
   and `plant-forms.html`.
 - Levien adapter: the house implementation is in `curve_lab/parallel_bezier.py`;

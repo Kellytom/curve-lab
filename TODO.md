@@ -27,12 +27,35 @@
 - [x] Three branches, lower bigger than upper, each with an ending.
 - [x] Tests: `tests/test_plant.py`, `tests/test_plant_forms.py`.
 
+## C-family p-triple Euler conversion — the major workstream
+
+The solved route is the **Pythagorean-spiral spine**, not a direct clothoid fit:
+choose a p-triple angle, quantize the C curve's turn schedule, build the exact
+rational **Euler polygon**, offset it with the rational miter rails, then draw
+the cubic canvas rails. The polygon and its rails are exact; the drawn cubics
+and the ideal C curve carry the measured margin. The spine bridge is
+`curve_lab/spine.py`; the turn lattice is `pythagorean_spiral.triples.for_angle`;
+the rails are `ribbon.rails`; the drawing is the cubic span seam.
+
+- [ ] **Generic turn-schedule converter:** sample a C curve, pick a p-triple angle with `for_angle`, quantize the heading changes, split at cusps, build a `Spiral`, and measure the lattice margin.
+- [ ] **Cycloid → Euler polygon:** split at the arch cusps; one or two smooth chains; rational rails; draw cubics.
+- [ ] **Astroid / hypocycloid → Euler polygon:** split at cusps; keep the cusp as a deliberate swap or a separate chain.
+- [ ] **Semicubical / Neile → Euler polygon:** split at the cusp; measure the near-cusp resolution.
+- [ ] **Tractrix → Euler polygon:** split at the cusp; compare with the catenary chain.
+- [ ] **Heart / squircle → Euler polygon:** smooth chains; no cusp split; keep the heart as an ending/flower too.
+- [ ] **Cusped/looped rationals → Euler polygon:** bicorn, nodal, Tschirnhausen, piriform 2×; split at loops/cusps.
+- [ ] **Rail + canvas proof:** rational miter rails on the polygon, cubic drawing of the rails, and a comparison against the direct ideal; record the p-triple margin, the cubic error. Do not use the direct `build_rail` probe as the base plan.
+
+The direct `build_rail` probe hit an endpoint evaluation failure; that is an engine-path issue, not a reason to abandon the p-triple route. The spine layer is the exact plan; the engine rail is the display/clearance layer.
+
 ## Next — ornament forms
 
 - [ ] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches.
 - [ ] Scroll/volute proof; keep the 2× offset rule and the ending rule.
 - [ ] Cruciform/primal proof; reuse the section and junction rules.
-- [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending.
+- [ ] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals. Fit each to a stalk tip, measure scale/tangent/clearance, keep 2× offset, and grade it as an **ending**, not a stalk.
+- [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.
+- [ ] **Advanced width-modulation proof (Stage IV):** variable-width spine, no 2× parallel assumption; port the width laws and the fold report after the ornament proof. This is a target, not a side study.
 
 ## Investigation
 
@@ -40,17 +63,18 @@
   *Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH and the Pythagorean spiral. The constrained/snapped fit is still open.
 - [ ] Grade review after the Levien experiment and the first ornament proof.
 - [ ] Confirm the integer-lattice rule: horizontal grid-line crossings (used in the proof) or full integer points (both coordinates).
-- [ ] Decide whether C-grade curves stay in the stem catalogue as references or move to a separate study list.
+- [ ] Move the C-grade curves into an explicit **ending/flower track** rather than the stalk catalogue. Do not delete; decide the page grouping after the ending fit pass.
 
 ## Curve grades (provisional)
 
-**Grade A** means all three are true: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **B** is usable but misses one; **C** is study/reference/ending only; **D** is not an offset source. Nothing is deleted from the source/reference pages; C/D is a production demotion.
+**Grade A** means all three are true for a **production stalk**: a controllable offset (exact or fitted with a stated tolerance), an integer or exact route, and a usable Euler/clothoid compound. **B** is usable but misses one; **C** means not a clean production stalk; **D** means not an offset source. **C is not a deletion.** The C families are explicitly kept and tried as **endings/flowers** on the stalk tips; the ending grade is a separate role. The p-triple Euler conversion is the other route: an exact rational polygon with rational rails, and a cubic drawing with measured error. The C grade applies to fitting the **ideal curve** directly, not to the p-triple polygon. Nothing is removed from the source/reference pages.
 
 | curve / family | offset | integer / exact | Euler compound | grade | action |
 |---|---|---|---|---|---|
 | line, arc, circle | exact | exact | exact arc/line | **A** | production |
 | PH presets / integer PH | exact rational | integer controls and milestones | approximate clothoid chain | **A−** | production |
 | Pythagorean spiral / 3-4-5 | exact arcs + lines | exact integer lattice | arcs/lines, not Euler | **A−** | production spine |
+| p-triple Euler polygon (spine) | rational miter rails, exact on polygon | exact rational nodes/turns | cubic drawing approximate | **A−** | target for the C conversion; do not refit as a clothoid |
 | cone terminal | exact arcs, R = 2 × offset | exact | n/a | **A** | ending |
 | clothoid / Euler | fitted (offset is not a clothoid) | no | native | **B** | core Euler |
 | LAC | fitted chain rail | no | native via `design_from_spans` | **B** | core stalk |
@@ -60,17 +84,32 @@
 | ellipse | fitted | rational/integer special points | approximate | **B** | conic |
 | hyperbola | fitted | rational/integer special points | approximate | **B** | conic |
 | rational non-cusped named (bean, pear, bow, trifolium, quadrifolium, cardioid, cruciform, Gerono, piriform) | fitted | integer controls | approximate | **B** | catalogue |
-| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C** | study only |
-| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C** | reference |
-| cycloid | fitted | no | poor at cusps | **C** | reference |
-| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C** | reference |
-| catenary | fitted | no | approximate | **B** | named stem |
-| tractrix | fitted, cusp | no | poor | **C** | reference |
-| heart / squircle | fitted numeric | no | poor | **C** | heart page only |
+| cusped/looped rational (bicorn, nodal, Tschirnhausen, piriform 2×) | fitted with folds | integer controls | poor at cusp/loop | **C** | keep as ending/flower/ornament, not a stalk |
+| semicubical / Neile | fitted, cusp | integer points | poor at cusp | **C** | keep as thorn/leaf/flower, not a stalk |
+| cycloid | fitted | no | poor at cusps | **C** | keep as loop/flower ending, not a stalk |
+| astroid / hypocycloid | fitted, cusps/folds | rational/integer special | poor at cusps | **C** | keep as petal/flower ending, not a stalk |
+| catenary | fitted | no | approximate | **B** | named stem / leaf ending |
+| tractrix | fitted, cusp | no | poor | **C** | keep as curl/leaf ending, not a stalk |
+| heart / squircle | fitted numeric | no | poor | **C** | keep as flower/heart/vase, not a stalk |
 | general cubic Bézier + Levien fit | fitted cubic, O(n⁶) | integer source; rail is real-valued | approximate | **B** | fitted option; exact integer route is PH/arcs |
-| Stage IV width modulation | **not parallel** (rails not equidistant) | integer coordinates | n/a | **D** | width study only; not an offset source |
+| Stage IV width modulation | **not parallel** (variable width) | integer coordinates | n/a | **Advanced** | separate width-modulation track; not an offset source; after the ornament proof |
 | Stage III serif / terminals | n/a | integer coordinates | n/a | **ending A/B** | terminal, not a stalk |
 | seagrass / flower endings | n/a | n/a | n/a | **A/B** | ending |
+
+### Ending / flower track — keep these
+
+These are the C families that matter as **flowers, petals, thorns, curls or ornaments** on the end of a stalk. They are not discarded; the stalk grade does not apply to this role.
+
+| curve | likely ending use | ending grade | route |
+|---|---|---|---|
+| astroid / hypocycloid | petal/flower head | **A** | flowers page; `lac-parallel?family=astroid` |
+| heart / squircle | heart flower, vase, leaf | **A/B** | `hearts.html`, `heart-forms.html` |
+| cycloid | loop/flower spiral | **B** | `lac-parallel?family=cycloid`, OffS4 |
+| semicubical / Neile | thorn, cusp leaf | **B** | `lac-parallel?family=semicubical` |
+| tractrix | curl/leaf | **B** | `lac-parallel?family=catenary` |
+| looped/cusped rationals | looped petal or ornament | **B** | `generators.html`, stem library S05–S29 |
+
+The **C stalk grade is a production demotion only**; the ending track is where these curves get their real use.
 
 ### Routes to the Cs (and the D)
 
@@ -84,18 +123,46 @@
   `cd ../ornaments && python3 -m http.server 8001 --bind 127.0.0.1`.
   It is not in the hub because its rails are **not equidistant**; it is a width study, not a parallel-offset source.
 
-### What I would eliminate
+**Grade note.** Stage IV is not a parallel-offset source because its rails are not equidistant. That is why it is **Advanced / outside the A–D offset grade**, not because it is a side issue. It gets its own variable-width proof after the ornament grammar; never force it into the 2× parallel rule.
 
-- **D — eliminate as an offset source:** Stage IV width modulation. Keep the page as a width study; do not put it in `stem-library-offset.html`.
-- **C — demote from production stalks:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and cusped/looped rationals (bicorn, nodal, Tschirnhausen, piriform 2×). Keep them as study/reference/ending material; do not delete the source pages.
-- **Candidates to remove from the stem catalogue only:** the looped/cusped named cards — bicorn, nodal, Tschirnhausen, piriform 2× — because they cannot be a clean stalk. Keep them on `generators.html` as studies. This is a catalogue change, not a page deletion.
+### What I would demote — not eliminate
+
+- **Not an elimination:** Stage IV width modulation is an **advanced track**. Keep the page; schedule a variable-width proof after ornament forms. It is not an offset source.
+- **C — demote from direct production stalks, not from the programme:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and cusped/looped rationals. Keep them as endings/flowers **and** convert them with the p-triple Euler route; do not delete the source pages.
+- **Catalogue move, not deletion:** present the looped/cusped named cards — bicorn, nodal, Tschirnhausen, piriform 2× — as **ending/flower/ornament** material, not as clean stalks. Keep every source card; the grouping is the change.
 - **Do not remove:** PH/arcs/Pythagorean (A), LAC/clothoid/Euler/log spiral (B), the three conics (B), catenary (B), or the rational non-cusped named curves (B). LAC/Euler are B only because they do not hit the integer lattice; they are still core production curves.
 
 ### The Levien integer question
 
 The fitted rail is a cubic-Bézier chain with real control points. A general cubic Bézier offset is an analytic degree-10 curve; Levien approximates it, so the fitted controls are not integers in general. A probe on an integer cubic at d=1 gave controls such as −0.824 and 1.631. The useful integer cases are the exact ones — lines/arcs, PH curves, and the Pythagorean spiral. A constrained/snapped fit could be investigated, but until it is measured Levien stays **B**, not A; exact integer work should use the exact routes.
 
+## Already proved — do not redo
+
+The full ledger is `state/ACHIEVEMENTS-int.md`, regenerated by
+`.venv/bin/python scripts/recheck.py --full`. These are the claims and the
+evidence; add to them, do not re-solve them.
+
+| claim | check says | evidence |
+|---|---|---|
+| `from_pairs` is the same fit as `from_hermite` | worst disagreement 1.6e-14 | `scripts/hodograph.py` |
+| degree lemma `n = deg h + 2 max(deg u, deg v) + 1` | 4/4 splits | `scripts/generators.py` |
+| every exact named curve is its own curve | OK | `tests/test_named_curves.py` |
+| 23 named curves, 19 exact, recorded scales | 23 total, 21 exact | `scripts/generators.py` + tests |
+| the two non-rational named curves are heart, squircle | heart/squircle; pear 2, cruciform unbounded | `tests/test_named_curves.py` |
+| a finer grid does not buy hits; factors do | 12/48/156/273 -> 4/4/4/16 | `workbench/generators.html` Fig. 1a/1b |
+| grids under 3125: 114 -> 843 hits | control 114, optimised 843 | `scripts/generators.py best_grid()` |
+| clothoid spans match smooth curves, not cusps | smooth 0.92%, cusped 15.2% | `scripts/euler_match.py` |
+| the 3-4-5 ladder is fine long before 3125 | 350 rungs, median 0.14° | `scripts/curve_families.py ladder()` |
+| the hub is built from the manifest | every page has its bar | `scripts/hub.py` |
+| the package is `curve_lab` | 0 stale imports | rename 2026-11-01 |
+| the catenary is solved | four PH cubics, 0.41% of a; integer chord walk | `scripts/catenary.py`, `catenary.html` |
+| clothoid per recovered span | 586/586 fits, median 0.00–0.03% of chord | `scripts/check-spirals.py` |
+| square-discriminant route is dead | 0 of 17,168 on the rung ladder | `state/HANDOFF-int.md` |
+| spine chain vs study 01 | 1.29% drift | `scripts/spine_study_probe.py` |
+| **p-triple Euler polygon + rational miter rails** | exact rational polygon; cubic drawing approx. 1.4% | `docs/SPINE.md`, `pythagorean-spiral/docs/GALLERY.md`, `TRANSFER.md`; `pythagorean-spiral` tests |
+
 ## Next action
 
-`next-fhandoff-int.md` carries the ornament-forms action. This todo is the
-visible checklist; `workbench/todo.html` is its twin.
+`next-fhandoff-int.md` carries the C-family p-triple Euler conversion first,
+then the ending/flower fit pass and ornament-forms. This todo is the visible
+checklist; `workbench/todo.html` is its twin.

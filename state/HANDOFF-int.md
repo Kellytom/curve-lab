@@ -95,20 +95,34 @@ remote MVP now exist.
   each with an ending).  Geometry in `curve_lab/plant.py`; generator
   `scripts/plant_forms.py`; tests `tests/test_plant.py` and
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
+- **C-family p-triple route (2026-11-03):** the p-triple spine is the solved
+  plan route — exact rational Euler polygon, rational miter rails
+  (`ribbon.rails`), cubic drawing with measured margin.  The C families
+  (cycloid, astroid/hypocycloid, semicubical, tractrix, heart/squircle,
+  looped/cusped rationals) are converted by choosing a triangle angle,
+  quantizing the turn schedule, splitting at cusps, building the `Spiral`,
+  offsetting, and drawing cubics.  The direct `build_rail` probe is a separate
+  engine path, not the base plan.  `TODO.md` now carries the achievement ledger
+  and this workstream.
 - **Todo twin and grades (2026-11-03):** `TODO.md` is the focused checklist;
   `workbench/todo.html` is its generated read-only twin (`scripts/todo.py`,
   progress bar and grade matrix).  The provisional grades: **A** lines/arcs,
   PH, Pythagorean, cone; **B** LAC/Euler/log spiral, conics, rational
   non-cusped, catenary, general cubic/Levien; **C** cycloid/astroid/
-  semicubical/tractrix/heart/squircle/cusped-looped rational; **D** Stage IV as
-  an offset source.  The Levien integer probe found real-valued control points
+  semicubical/tractrix/heart/squircle/cusped-looped rational.  **C is not a
+  deletion:** those families are kept as ending/flower material and are
+  converted with the p-triple Euler route; the p-triple conversion is the next
+  action.  Stage IV width modulation is
+  **Advanced, not D**: variable width, not a parallel offset, and not a side
+  issue; it gets its own proof after the ornament grammar.  The Levien integer probe found real-valued control points
   on an integer cubic; exact integer routes remain PH/arcs/Pythagorean.
 - **Bring-up coverage (2026-11-03):** `goals.md` now carries the parallel/offset
   and integer inventory. First gaps: the offset catalogue and the parallel
   conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the
   evolute, not a parallel-parabola card/rail. LAC and Stage II are wired as
   sources; Stage III is terminals/straight spines and Stage IV is explicitly
-  non-parallel, so neither is a parallel-offset source. PH offsets are exact but
+  non-parallel.  Stage IV is the **advanced width-modulation track**, not a
+  side issue and not a parallel-offset source. PH offsets are exact but
   not yet catalogued. The offset tiers are: exact PH/arcs; exact-in-family log
   spiral and circle involute; **Levien's fitted cubic-Bézier parallel**
   (`reference/external/parallel-beziers.html`, O(n⁶), not exact); the LAC/chain

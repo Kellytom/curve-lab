@@ -268,8 +268,17 @@ tests are `tests/test_plant.py` and `tests/test_plant_forms.py`.
 The cone construction is recorded: the rail ends are `point ± offset·N`, the
 tip is `point + √3·offset·T`, and the arc centres are `A − R·N` and `B + R·N`
 with `R = 2·offset`.  The integer lattice is model-space; the proof marks the
-horizontal grid-line crossings.  The next layer is ornament-forms: the same
-grammar on the fleur, scroll, cruciform and primal families.
+horizontal grid-line crossings.
+
+The C families — cycloid, astroid/hypocycloid, semicubical/Neile, tractrix,
+heart/squircle and the looped/cusped rationals — are **not discarded**.  They
+are poor direct stalks but strong **endings/flowers/petals/thorns/curls**.
+They also take the **p-triple Euler route**: choose a triangle angle with
+`for_angle`, quantize the turn schedule, split at cusps, build the exact
+rational `Spiral`, offset with `ribbon.rails`, and draw the cubic rails.  The
+polygon and its miter rails are exact; the ideal curve and the drawn cubic are
+the measured approximation.  The conversion comes before the ending/flower
+fit pass and ornament-forms.
 
 ## Reuse
 
