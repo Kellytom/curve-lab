@@ -61,7 +61,7 @@ remote MVP now exist.
   is the 169-card labelled catalogue (S01–S109 and S118–S157 single stems; halves
   S166–S167 rotated 150°/90° CW; SM1–SM18 multiple stems, internal S110–S117 and
   S158–S169; 4 presets, 25 named, Euler 45/90, 3 spiral-turns, 31 LAC spines,
-  4 full gestures + 2 halves, 80 pair combinations, 16 LAC plants + the SM17
+  4 full gestures + 2 halves, 80 combination cards (70 pairs + 10 doubles), 16 LAC plants + the SM17
   fractional p=1/4–1 series and the SM18 p=1/4–3 combined fan).  The boundary
   p=±0.5 stems are dropped from SM5/SM6, SM7/SM8, SM9, SM11, SM13–SM16; the
   p=±0.5 reference plates stay in the LAC group.  Doc: `docs/FLOWERS-int.md`.

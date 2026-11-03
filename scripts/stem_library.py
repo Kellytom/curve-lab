@@ -79,6 +79,12 @@ def figure(branches, size=SIZE, mark=None, colors=None):
             f'fill="#fffdf7" stroke="{GUIDE}"/>{body}{dots}</svg>')
 
 
+def bbox_size(points):
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    return math.hypot(max(xs) - min(xs), max(ys) - min(ys)) or 1.0
+
+
 def rotate(points, deg):
     c, s = math.cos(math.radians(deg)), math.sin(math.radians(deg))
     return [(x * c - y * s, x * s + y * c) for x, y in points]
@@ -358,16 +364,32 @@ def build():
                 "all stems leave at 90° · colours show the overlap", branches,
                 mark=[(0.0, 0.0)], colors=colors, legend=legend)
 
-    # 10. the same treatment for S46–S50 and S51–S55: scrolls and sprays
+    # 10. the same treatment for S46–S50 and S51–S55: scrolls and sprays.
+    #     In the S51–S55 group the spiral slot of each pair is a double of
+    #     S46…S55 (S138=S46+S46, S140=S47+S47, … S156=S55+S55); the straight
+    #     slot keeps the pair.
     new_groups = (("S46–S50", 11, 46), ("S51–S55", 16, 51))
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
-        for i, j in itertools.combinations(range(5), 2):
-            for variant in ("spiral", "straight"):
-                pts = join_pair(group[i], group[j], variant)
-                add(f"Combinations · {gname}", f"S{s0 + i}+S{s0 + j}",
+        if gname == "S51–S55":
+            doubles = lac_cards[11:21]      # S46–S55
+            for k, (i, j) in enumerate(itertools.combinations(range(5), 2)):
+                d = doubles[k]
+                add(f"Combinations · {gname}", f"S{46 + k}+S{46 + k}",
+                    "double",
+                    "spiral ends joined · G1 at the join",
+                    [join_pair(d, d, "spiral")])
+                add(f"Combinations · {gname}", f"S{51 + i}+S{51 + j}",
                     "combination",
-                    f"{variant} ends joined · G1 at the join", [pts])
+                    "straight ends joined · G1 at the join",
+                    [join_pair(group[i], group[j], "straight")])
+        else:
+            for i, j in itertools.combinations(range(5), 2):
+                for variant in ("spiral", "straight"):
+                    pts = join_pair(group[i], group[j], variant)
+                    add(f"Combinations · {gname}", f"S{s0 + i}+S{s0 + j}",
+                        "combination",
+                        f"{variant} ends joined · G1 at the join", [pts])
     for gname, start, s0 in new_groups:
         group = lac_cards[start:start + 5]
         for root_kind in ("spiral", "straight"):
@@ -406,12 +428,23 @@ def build():
     frac = [(0.25, "1/4"), (1/3, "1/3"), (0.5, "1/2"), (2/3, "2/3"),
             (3/4, "3/4"), (1.0, "1")]
     frac_group = [dict(branches=[lac_p_branches(p)]) for p, _ in frac]
+
+    # The recovered plates live in the extraction page frame, about 7.6× the
+    # frame of the generator.  p=1 is S52, so scale the whole generated family
+    # by that ratio before SM18 puts it in one figure with S53–S55.
+    ref = lac_cards[17]["branches"][0]        # S52, p = 1, turn 360
+    gen = frac_group[-1]["branches"][0]       # p = 1
+    scale = bbox_size(ref) / bbox_size(gen)
+    frac_group = [
+        dict(branches=[[(x * scale, y * scale) for x, y in card["branches"][0]]])
+        for card in frac_group]
+
     frac_colors = ["#1f5fa8", "#2f6f9f", "#2f6f4f",
                    "#6f6a2f", "#8a5a2b", "#b23a2b"]
     frac_legend = [(c, f"p = {lab}") for c, (_, lab) in zip(frac_colors, frac)]
     add("Plants · LAC fractions", "LAC p = 1/4 → 1 · fractional series",
         "LAC law κ = C(a+s)^p",
-        "same start, heading and k0/k1 = 8 · turn 360°",
+        "same law/start/k0/k1 · turn 360° · normalised to S52",
         plant(frac_group, "straight", same_angle=90.0),
         mark=[(0.0, 0.0)], colors=frac_colors, legend=frac_legend)
 
@@ -424,7 +457,7 @@ def build():
         for k, lab in enumerate(("3/2", "2", "3"))]
     add("Plants · LAC fractions", "SM16 + SM17 · p = 1/4 → 3 · shared p = 1",
         "frac + S53–S55",
-        "same law/start/k0/k1; p = 1 shared, old p = 0.5 replaced by p = 1/2",
+        "same law/start/k0/k1; fractions normalised to S52; p = 1 shared",
         plant(combined, "straight", same_angle=90.0),
         mark=[(0.0, 0.0)], colors=combined_colors, legend=combined_legend)
 

@@ -30,6 +30,8 @@ class StemLibraryTest(unittest.TestCase):
         self.assertIn("Combinations · S35–S39", page)
         self.assertIn("same angle", page)
         self.assertIn("SM18", page)
+        self.assertIn("S46+S46", page)
+        self.assertIn("S55+S55", page)
         self.assertIn("p = 1/4", page)
         self.assertIn("½ catenary", page)
 
