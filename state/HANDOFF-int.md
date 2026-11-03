@@ -74,6 +74,12 @@ remote MVP now exist.
   the integer-lattice hits (a pyramid on each rail) → branches with smaller
   curves, lower bigger than upper → ornament-forms. No bare tip. The focused
   next action remains the offset catalogue.
+- **Focused todo (2026-11-03):** `TODO.md` — the expanded heart-forms page is
+  already the 15-card set (`41f3d8c`); `hearts.html` now links to it so its five
+  clothoid-heart figures are not read as the whole list.  The clothoid cut
+  already has the full ± table contact Fig. 5 at 38.5° CW (`73b56a6`); a
+  regression test now guards it.  The measured table gap is **0.00002** at
+  40,000 chords; the request's 0.0003 is not reproduced.
 - **Bring-up coverage (2026-11-03):** `goals.md` now carries the parallel/offset
   and integer inventory. First gaps: the offset catalogue and the parallel
   conics — **parallel parabola**, ellipse, hyperbola; the evolute page shows the
@@ -688,6 +694,7 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
 | `workbench/stem-library.html` | 177 labelled stems: S01–S109, S118–S157, S166–S167; SM1–SM26 |
+| `TODO.md` | focused checklist: heart-forms link/test and clothoid-cut regression |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
 | `workbench/lac-parallel.html` | evolute → parallel offsets sandbox (LAC and classical families) |
 | `workbench/lac-parallel.js` | the family/evolute/offset geometry |

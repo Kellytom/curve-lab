@@ -447,6 +447,8 @@ th{{color:{MUTED};font-weight:600}}
 <h1>Hearts</h1>
 <p class="lead">One Euler arc, rotated until it kisses the y axis, then mirrored.
 The cleft is the kiss; the little extra is where it carries on past it.</p>
+<p class="lead">The expanded set — <a href="heart-forms.html">fifteen formulaic
+hearts</a> — is a separate page; this page is the clothoid-heart proof.</p>
 <div class="panel">
 <p><strong>What the mirror needs, and what is still open.</strong> For the join
 to be smooth the arc has to meet the y axis at two places <em>tangentially</em> —
