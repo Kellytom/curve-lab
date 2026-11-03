@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAC parallel involutes — one evolute, every offset</title>
+<style>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:16px/1.55 Georgia,serif}
+main{max-width:1080px;margin:0 auto;padding:34px 22px 70px}
+h1{font-size:28px;margin:0 0 4px}
+.lead{color:#8c6a21;margin:0 0 20px}
+h2{font:600 11px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;
+text-transform:uppercase;color:#7b6c4e;margin:28px 0 8px}
+.panel{background:#fffdf7;border:1px solid #d8ccae;padding:16px 18px;margin:0 0 20px}
+.controls{display:flex;gap:22px;flex-wrap:wrap;align-items:end;
+background:#fffdf7;border:1px solid #d8ccae;padding:14px 18px;margin:0 0 12px}
+label{font:12px/1.5 ui-monospace,Menlo,monospace;color:#7b6c4e;display:flex;
+gap:8px;align-items:center}
+select,input[type=range]{font:13px ui-monospace,Menlo,monospace}
+#dval{color:#b23a2b;min-width:70px}
+#note{font:11px/1.5 ui-monospace,Menlo,monospace;color:#a08a64;margin:0 0 8px}
+.art{background:#fffdf7;border:1px solid #d8ccae;padding:8px}
+canvas{display:block;width:100%;height:620px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font:11px ui-monospace,Menlo,monospace;
+color:#7b6c4e;margin:8px 0 0}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:22px;height:0;border-top:3px solid #2e2413}
+.sw.ev{border-top:2px dashed #c9a441}
+.sw.a{border-top:2px solid #1f5fa8}
+.sw.b{border-top:2px solid #b23a2b}
+.formula{font:13px/1.7 ui-monospace,Menlo,monospace;color:#2e2413;
+background:#fffdf7;border-left:3px solid #c9a441;padding:10px 14px;margin:0 0 14px;
+overflow-x:auto}
+.thumb{display:block;width:260px;height:76px;margin:0 0 14px}
+</style></head><body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> α and the offset d · <b>out</b> a family of parallel curves via the shared evolute</span></div><!-- /hub-bar --><main>
+
+<h1>LAC parallel involutes</h1>
+<p class="lead">One log-aesthetic evolute; every offset is an involute of it.
+Change α or the offset d.</p>
+
+<svg class="thumb" viewBox="0 0 260 76" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="260" height="76" fill="#fffdf7" stroke="#d8ccae"/>
+  <path d="M 18 58 C 38 20 84 8 122 18 C 166 30 198 48 240 56"
+        fill="none" stroke="#2e2413" stroke-width="2.6"/>
+  <path d="M 18 52 C 38 14 84 2 122 12 C 166 24 198 42 240 50"
+        fill="none" stroke="#1f5fa8" stroke-width="1.4"/>
+  <path d="M 18 64 C 38 26 84 14 122 24 C 166 36 198 54 240 62"
+        fill="none" stroke="#b23a2b" stroke-width="1.4"/>
+  <path d="M 34 70 C 80 62 158 64 232 70"
+        fill="none" stroke="#c9a441" stroke-width="1.4" stroke-dasharray="5 4"/>
+</svg>
+
+<div class="controls">
+  <label>α <select id="alpha"></select></label>
+  <label>offset d <input id="d" type="range" min="0" max="100" value="55" step="1"></label>
+  <span id="dval" class="mono"></span>
+</div>
+<p id="note"></p>
+<div class="art"><canvas id="curveCanvas"></canvas></div>
+<div class="legend">
+  <span><i class="sw"></i> LAC base</span>
+  <span><i class="sw ev"></i> evolute E(s)</span>
+  <span><i class="sw a"></i> +d involute</span>
+  <span><i class="sw b"></i> −d involute</span>
+</div>
+
+<h2>The construction</h2>
+<div class="panel">
+<p><strong>1. The LAC.</strong> Curvature is <code>κ(s) = s^−α</code>, so the tangent
+angle is <code>θ(s) = s^(1−α)/(1−α)</code> for α ≠ 1 and <code>ln s</code> at
+α = 1. The curve <code>C(s)</code> is integrated from that heading.</p>
+<p><strong>2. The evolute.</strong> <code>E(s) = C(s) + ρ(s)N(s)</code>,
+<code>ρ = s^α</code>, <code>N = (−sin θ, cos θ)</code>. Every normal of C is a
+radius of the evolute. The evolute is itself a LAC with
+<strong><code>α_E = 2 − 1/α</code></strong>: α = −1 (Euler/clothoid) → 3,
+α = 1 (log spiral) → 1.</p>
+<p><strong>3. The involutes.</strong> <code>T_E = sign(α)N</code> and the base
+constant is <code>d₀ = sign(α)ρ(s₀)</code>. Every parallel is</p>
+<div class="formula">P<sub>d</sub>(s) = E(s) − (s<sub>E</sub>(s) + d₀ + d) T<sub>E</sub>(s)</div>
+<p>with <code>d = 0</code> reconstructing the LAC base and <code>d = ±</code> the
+two offsets. No normal step of the base is taken after the evolute.</p>
+</div>
+
+<h2>Notes</h2>
+<div class="panel">
+<p>The pasted <code>getEvolutePoint</code> was a placeholder spiral; this page
+uses the actual LAC heading and its evolute. The α selector switches between
+Euler/clothoid, a log spiral and intermediate LACs. α = 0 is excluded: its
+evolute is a point, so the involute construction has no tangent.</p>
+<p>The offset distance is a signed string-length difference; the canvas fits the
+base, evolute and the two ±d curves. A large d will fold where the offset
+reaches a centre of curvature; keep d below the smallest radius on the evolute.</p>
+</div>
+
+<script src="lac-parallel.js"></script>
+</main></body></html>

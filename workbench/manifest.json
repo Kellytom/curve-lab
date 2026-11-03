@@ -200,6 +200,15 @@
       "outputs": "the minimum width of one half and of the full pair"
     },
     {
+      "key": "lac-parallel",
+      "file": "lac-parallel.html",
+      "group": "curve",
+      "title": "LAC parallel",
+      "purpose": "The LAC base, its evolute, and the parallel involutes.",
+      "inputs": "\u03b1 and the offset d",
+      "outputs": "a family of parallel curves via the shared evolute"
+    },
+    {
       "key": "heart-forms",
       "file": "heart-forms.html",
       "group": "curve",

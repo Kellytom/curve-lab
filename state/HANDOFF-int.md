@@ -62,6 +62,11 @@ remote MVP now exist.
   3 spiral-turns, 31 LAC spines, 4 gestures, 80 pair combinations S70–S109 and
   S118–S157, and 16 plants S110–S117 and S158–S165 — fan plants and same-angle
   coloured overlays).  Doc: `docs/FLOWERS-int.md`.
+- **LAC parallel sandbox (2026-11-03):** `workbench/lac-parallel.html` +
+  `lac-parallel.js` — the LAC base, its evolute `E=C+ρN`, and the parallel
+  involutes `P_d=E-(s_E+d₀+d)T_E`; α select (−1 Euler, 0.5, 1 log spiral, 2, 3)
+  and `?alpha=&d=`; the pasted placeholder spiral is replaced by the real LAC
+  heading.  Hub now 24 pages.
 - **Spine tests:** 143 pass at the 2026-10-30 run (139 plus four placement
   tests).
 - **Promotion gate 1–3 (2026-10-30, this session):** `curve_lab/spine.py`
@@ -660,6 +665,8 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
 | `workbench/stem-library.html` | 165 labelled stem candidates, S01–S165 |
+| `workbench/lac-parallel.html` | LAC → evolute → parallel involutes sandbox |
+| `workbench/lac-parallel.js` | the LAC/evolute/involute geometry |
 | `scripts/stem_library.py` | the stem-library generator |
 | `.opencode/commands/fhandoff.md` | write the focused handoff |
 | `.opencode/commands/fhandon.md` | resume from it |
