@@ -103,6 +103,8 @@ is not a separate art project.
   `pythagorean-spiral/docs/TRANSFER.md`.
 - `curve_lab/spine.py` — the bridge from a chain's cubic spans to a
   `Design`/`Piece`; a cusp must be split first.
+- `workbench/levien-integer.html` — the Levien integer sandbox (parabola, half,
+  quarter, cubic; exact rails vs fit; integer hits).
 
 ## Source intake
 

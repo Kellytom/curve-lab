@@ -254,6 +254,15 @@
       "outputs": "rational polygon, miter rails, cubic drawing, polygon/cubic margins"
     },
     {
+      "key": "levien-integer",
+      "file": "levien-integer.html",
+      "group": "curve",
+      "title": "Levien integer",
+      "purpose": "Parabola/half/quarter/cubic as exact rails and Levien fits over the integer lattice.",
+      "inputs": "family and offset d",
+      "outputs": "source, exact rails, Levien fit, integer-hit counts"
+    },
+    {
       "key": "modulated-width",
       "file": "modulated-width.html",
       "group": "curve",

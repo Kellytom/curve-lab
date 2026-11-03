@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **269 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **271 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
@@ -95,6 +95,12 @@ remote MVP now exist.
   each with an ending).  Geometry in `curve_lab/plant.py`; generator
   `scripts/plant_forms.py`; tests `tests/test_plant.py` and
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
+- **Levien integer sandbox (2026-11-03):** `workbench/levien-integer.html` +
+  `scripts/levien_integer.py` — parabola, y=x²/2, y=x²/4 and one integer cubic;
+  source, exact normal rails, Levien cubic fit, integer lattice and near-integer
+  hit counts.  Parabola sources have the known integer points; exact rails are
+  sparse; Levien remains PASS as fit / FAIL as exact integer.  The page is the
+  viewing tool for choosing the reverse-engineering variables.
 - **Euler-section proof (2026-11-03):** `workbench/euler-sections.html` +
   `curve_lab/euler_polygon.py` + `scripts/euler_sections.py` — six smooth C
   sections — cycloid, astroid, semicubical, tractrix, heart, squircle, and one

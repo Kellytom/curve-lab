@@ -48,6 +48,11 @@ the rails are `ribbon.rails`; the drawing is the cubic span seam.
 
 The direct `build_rail` probe hit an endpoint evaluation failure; that is an engine-path issue, not a reason to abandon the p-triple route. The spine layer is the exact plan; the engine rail is the display/clearance layer.
 
+**Levien integer sandbox:** `workbench/levien-integer.html` — parabola,
+y=x²/2, y=x²/4 and one integer cubic; source, exact rails, Levien fit, integer
+lattice, near-integer hit counts.  Select a family and d.  The controls in
+`scripts/levien_integer.py` are the variables to reverse-engineer.
+
 ## Next — ornament forms
 
 - [ ] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches.
