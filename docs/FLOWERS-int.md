@@ -1,14 +1,15 @@
-# The stems print sheet — 8.5 × 11, four stems in vases
+# The flowers print sheet — 8.5 × 11, four stems with flowers
 
 **Status:** working design, 2026-11-02. Reuse this page rather than rebuild it.
-The visual proof is `workbench/stems-abc.html`; the print file is
-`workbench/stems-abc.svg`.
+The visual proof is `workbench/flowers.html`; the print file is
+`workbench/flowers.svg`.
 
 ## What it is
 
 Three generator presets and one spiral-turns clothoid, standing in solid gold
 squircle vases at the 10-inch line. a/b/c rise to about the 3-inch mark; the d
-spiral is a 60 mm rose in its own vase at the right. The stems are separate groups (`stem-a`, `stem-b`, `stem-c`)
+spiral is a 60 mm rose in its own vase at the right.  Each tip carries an
+18 mm Euler-interpolated flower (cardioid, trifolium, quadrifolium, astroid). The stems are separate groups (`stem-a`, `stem-b`, `stem-c`)
 so they can be moved, mirrored or swapped. The top tips are the positions for
 the ornaments still to come: a leaf, flower, bean or heart.
 
@@ -20,9 +21,11 @@ The sheet has **no page border**. Its two rulers sit in the 0.5 in margins.
 |---|---|
 | `scripts/stems_print.py` | geometry: presets + spiral, rotations, scale, vase placement, 2,668 page samples |
 | `scripts/stems_print.mjs` | renderer: SVG and print wrapper from the JSON; no SVG library |
-| `workbench/stems-abc.json` | the contract between the two |
-| `workbench/stems-abc.svg` | the printable SVG |
-| `workbench/stems-abc.html` | on-screen / print wrapper with `@page 8.5in 11in` |
+| `scripts/stem_library.py` | the 69-card stem catalogue |
+| `workbench/stem-library.html` | the labelled stem library (hub page) |
+| `workbench/flowers.json` | the contract between the two |
+| `workbench/flowers.svg` | the printable SVG |
+| `workbench/flowers.html` | on-screen / print wrapper with `@page 8.5in 11in` |
 | `npm run stems` | `node scripts/stems_print.mjs` |
 
 Regenerate:
@@ -33,7 +36,7 @@ node scripts/stems_print.mjs                 # writes the SVG + HTML
 # or just: npm run stems
 ```
 
-Open <http://127.0.0.1:8003/workbench/stems-abc.html>.
+Open <http://127.0.0.1:8003/workbench/flowers.html>.
 
 The split is deliberate: Python owns the curve mathematics; Node owns the
 drawing. The JSON is enough to redraw the sheet without Python.
@@ -50,7 +53,7 @@ drawing. The JSON is enough to redraw the sheet without Python.
 - The previous version used 0.01 in units and inch rulers; this one is metric.
   Do not mix the two.
 
-## The three stems
+## The stems
 
 | label | preset | inputs | rotation | other |
 |---|---|---|---|---|
@@ -72,6 +75,25 @@ drawing. The JSON is enough to redraw the sheet without Python.
 - the d spiral is **60 mm** tall, not 177.8, so it stays a rose in its own vase
   at the right instead of covering the other stems.
 - Sampling: 667 points per stem, 2,668 total, in `points_page_mm`.
+
+## Flowers at the tips
+
+| stem | flower | source |
+|---|---|---|
+| a | cardioid | generators · named curve |
+| b | trifolium | generators · named curve |
+| c | quadrifolium | generators · named curve |
+| d | astroid | generators · named curve |
+
+All four are **symmetric named curves** from the generators page, replaced by
+their **Euler interpolation** with `euler_match.run` (the `poly`, not the exact
+curve).  Each flower is **18 mm** tall, its lowest point sits on the stem's
+topmost point, and its up direction is the outward tip tangent, so the flower
+turns with the stem.  Red `#b23a2b` outline, gold centre dot at the tip, drawn
+inside the `stem-a`/`b`/`c`/`d` group.
+
+The flower points are in the JSON under `flower`; the renderer only needs
+`tip_page_mm` and `points_page_mm`.
 
 ## Vases
 
@@ -143,6 +165,12 @@ Each stem:
   "scale_page_per_model": 0.1709,
   "start_page_mm": [19.05, 254.0],
   "end_page_mm": [73.6406, 76.2],
+  "flower": {
+    "name": "cardioid",
+    "tip_page_mm": [19.05, 76.2],
+    "angle_deg": 0.0,
+    "points_page_mm": [[19.05, 58.2], ...]
+  },
   "points_page_mm": [[19.05, 254.0], ...]
 }
 ```
@@ -150,6 +178,16 @@ Each stem:
 `natural_box` is in the rotated model units; `scale_page_per_model` maps it to
 page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
 `cell.x_mm + cell.side_mm/2`. The renderer does not need any other state.
+
+## Stem library
+
+`workbench/stem-library.html` is the catalogue, not a print sheet: **69 cards**,
+one curve per tight square, labelled **S01–S69**.  The groups are generator
+presets (4), named curves (25), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
+the 31 recovered LAC spines, and four gestures (catenary, volute, involute,
+cycloid).  The page links back to `flowers.html`; to promote a card, add the
+curve to `STEMS` in `scripts/stems_print.py` (or copy the sampled points from
+the JSON).  The S-numbers are the labels to quote.
 
 ## Reuse
 
@@ -168,6 +206,9 @@ page mm. `cell.x_mm` is the left edge of the vase; the stem’s base is at
   rulers and `@page` in the Node/HTML. The rulers are sized from the page
   constants, not hard-coded to 8.5 × 11 where possible.
 - **Restyle:** only `scripts/stems_print.mjs`; the Python emits geometry only.
+- **Promote a library card:** open `workbench/stem-library.html`, note the
+  S-number, then add that curve to `STEMS`; the flowers are added on the sheet,
+  not in the library.
 
 ## Decisions and open points
 

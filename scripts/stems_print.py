@@ -1,7 +1,7 @@
-"""Three generator stems as geometry for the 8.5 x 11 print sheet.
+"""The flowers sheet: stem geometry for the 8.5 x 11 print.
 
     .venv/bin/python scripts/stems_print.py
-    open workbench/stems-abc.svg
+    open workbench/flowers.svg
 
 The stems are the generator presets, sampled from their exact rational Bézier
 control data:
@@ -16,7 +16,7 @@ a is rotated clockwise until its first tangent is vertical; b and c are rotated
 bottoms aligned.  Model coordinates are +y up; the page is +y down, so the flip
 happens once in the stem mapping: page_y = cell_bottom - (model_y - y0).
 
-This script now writes only workbench/stems-abc.json.  The SVG and the print
+This script now writes only workbench/flowers.json.  The SVG and the print
 wrapper are rendered from that JSON by scripts/stems_print.mjs, so the Python
 side is geometry only: inputs, rotated boxes, page placement and 2,001 page-
 coordinate samples (667 per stem).
@@ -35,6 +35,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import generators as G  # noqa: E402
 import spiral_turns as S  # noqa: E402
+import euler_match as EM  # noqa: E402
 
 INK, MUTED, GUIDE = "#2e2413", "#7b6c4e", "#ece4cf"
 DOT = "#b23a2b"
@@ -42,6 +43,9 @@ PAGE_W, PAGE_H = 215.9, 279.4       # 8.5 x 11 in in millimetres
 MARGIN = 12.7                       # 0.5 in
 DRAW_W, DRAW_H = PAGE_W - 2 * MARGIN, PAGE_H - 2 * MARGIN
 CELL, PAD, GAP = 12.7, 0.5, 6.35    # 0.5 in vase, 0.25 in gap
+FLOWER_MM = 18.0                    # the Euler flower at each tip
+FLOWERS = {"a": "cardioid", "b": "trifolium",
+           "c": "quadrifolium", "d": "astroid"}
 CELL_TOP = 254.0                    # the 10 in line
 CELL_BOTTOM = CELL_TOP + CELL
 STEM_LIFT = 12.7     # 1/2 in: the stems start at the vase mouth
@@ -96,6 +100,16 @@ def stem_points(stem, n=N):
     return [(float(x) * scale, float(y) * scale) for x, y in pts], item
 
 
+def flower_poly(key):
+    """The Euler interpolation of one symmetric named curve."""
+    spec = next(s for s in G.NAMED if s["key"] == key)
+    item = EM.run(spec)
+    pts = []
+    for branch in item["branches"]:
+        pts += [(float(x), float(y)) for x, y in branch["poly"]]
+    return pts
+
+
 def main():
     raw = []
     for stem in STEMS:
@@ -148,6 +162,30 @@ def main():
         top = min(page, key=lambda p: p[1])
         base = max(page, key=lambda p: p[1])
         lean = "right" if top[0] > base[0] else "left"
+        # flower at the outward tip: lowest point of the flower at the tip
+        tip = min(page, key=lambda p: p[1])
+        below = min((p for p in page if p[1] > tip[1] + 1e-6),
+                    key=lambda p: p[1], default=page[0])
+        ox, oy = tip[0] - below[0], tip[1] - below[1]
+        norm = math.hypot(ox, oy) or 1.0
+        ox, oy = ox / norm, oy / norm
+        ang = math.atan2(ox, -oy)
+        fpts = flower_poly(FLOWERS[stem["label"]])
+        fx0 = min(p[0] for p in fpts)
+        fx1 = max(p[0] for p in fpts)
+        fy0 = min(p[1] for p in fpts)
+        fy1 = max(p[1] for p in fpts)
+        fscale = FLOWER_MM / (fy1 - fy0)
+        fcx = (fx0 + fx1) / 2
+        ca, sa = math.cos(ang), math.sin(ang)
+        fpage = []
+        for fx, fy in fpts:
+            lx = (fx - fcx) * fscale
+            ly = -(fy - fy0) * fscale
+            fpage.append((tip[0] + lx * ca - ly * sa,
+                          tip[1] + lx * sa + ly * ca))
+        flower = dict(name=FLOWERS[stem["label"]], tip=tip, angle=ang,
+                      points=fpage)
         cells.append(dict(stem=stem, pts=r["pts"], page=page, item=r["item"],
                           x0=r["x0"], y0=r["y0"], x1=r["x1"], y1=r["y1"],
                           dx=r["dx"], dy=r["dy"], side=max(r["dx"], r["dy"]),
@@ -155,7 +193,7 @@ def main():
                           rotate_deg=r["rotate_deg"],
                           direction=r["direction"], lean=lean,
                           mirror=bool(stem.get("mirror")),
-                          inflection_page=infl_page,
+                          inflection_page=infl_page, flower=flower,
                           start_page=start_page, end_page=end_page))
 
 
@@ -198,12 +236,18 @@ def main():
             "scale_page_per_model": round(c["scale"], 6),
             "inflection_page_mm": ([round(v, 4) for v in c["inflection_page"]]
                                    if c["inflection_page"] else None),
+            "flower": ({"name": c["flower"]["name"],
+                        "tip_page_mm": [round(v, 4) for v in c["flower"]["tip"]],
+                        "angle_deg": round(math.degrees(c["flower"]["angle"]), 4),
+                        "points_page_mm": [[round(x, 4), round(y, 4)]
+                                           for x, y in c["flower"]["points"]]}
+                       if c["flower"] else None),
             "start_page_mm": [round(v, 4) for v in c["start_page"]],
             "end_page_mm": [round(v, 4) for v in c["end_page"]],
             "points_page_mm": [[round(x, 4), round(y, 4)]
                                for x, y in c["page"]],
         })
-    json_path = ROOT / "workbench" / "stems-abc.json"
+    json_path = ROOT / "workbench" / "flowers.json"
     json_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
     print(json_path)
     for c in cells:

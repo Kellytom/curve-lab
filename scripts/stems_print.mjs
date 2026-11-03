@@ -11,15 +11,16 @@ import { fileURLToPath } from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
-const DATA = path.join(ROOT, "workbench", "stems-abc.json");
-const OUT = path.join(ROOT, "workbench", "stems-abc.svg");
-const HTML = path.join(ROOT, "workbench", "stems-abc.html");
+const DATA = path.join(ROOT, "workbench", "flowers.json");
+const OUT = path.join(ROOT, "workbench", "flowers.svg");
+const HTML = path.join(ROOT, "workbench", "flowers.html");
 
 const INK = "#2e2413";
 const MUTED = "#7b6c4e";
 const DOT = "#b23a2b";
 const VASE = "#c9a441";
 const VASE_EDGE = "#a8852f";
+const FLOWER = "#b23a2b";
 
 const STEM_STROKE = 0.46;   // ~1.3 pt
 const DOT_R = 0.6;
@@ -64,6 +65,16 @@ for (const stem of data.stems) {
     ? `<circle cx="${stem.inflection_page_mm[0].toFixed(2)}"
               cy="${stem.inflection_page_mm[1].toFixed(2)}" r="0.6"
               fill="#6f4a8c"/>` : "";
+  let flower = "";
+  if (stem.flower) {
+    const f = stem.flower;
+    const fd = "M " + f.points_page_mm
+      .map(([x, y]) => `${x.toFixed(2)} ${y.toFixed(2)}`).join(" L ");
+    flower = `<path d="${fd}" fill="none" stroke="${FLOWER}" stroke-width="0.35"
+              stroke-linejoin="round"/>
+      <circle cx="${f.tip_page_mm[0].toFixed(2)}"
+              cy="${f.tip_page_mm[1].toFixed(2)}" r="0.9" fill="${VASE}"/>`;
+  }
   groups.push(`<g id="stem-${stem.label}">
     <path d="${squirclePath(cellX + cellSide / 2, cellTop + cellSide / 2,
                             cellSide / 2)}"
@@ -75,6 +86,7 @@ for (const stem of data.stems) {
     <circle cx="${ex.toFixed(2)}" cy="${ey.toFixed(2)}" r="${DOT_R}"
             fill="none" stroke="${DOT}" stroke-width="0.25"/>
     ${infl}
+    ${flower}
     <text x="${(cellX + cellSide / 2).toFixed(1)}"
           y="${(cellBottom + 3).toFixed(1)}" text-anchor="middle"
           font-size="${LABEL_FONT}" font-family="Georgia,serif"
@@ -125,7 +137,7 @@ side.push(`<text x="3.2" y="${MARGIN - 1.2}" font-size="${RULER_FONT}"
       font-family="ui-monospace,Menlo,monospace"
       fill="${MUTED}">mm</text>`);
 
-const title = `four stems · ${data.stems
+const title = `flowers · ${data.stems
   .map((s) => `${s.label} ${s.preset}`)
   .join(" · ")}`;
 const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -142,7 +154,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 
 const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Stems a, b, c — 8.5 × 11</title>
+<title>Flowers — 8.5 × 11</title>
 <style>
 @page { size: 8.5in 11in; margin: 0; }
 html, body { margin: 0; background: #e6e0d2; }

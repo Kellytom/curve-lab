@@ -43,7 +43,7 @@
       "group": "curve",
       "title": "Practical curve",
       "purpose": "The same study as 34 cubics instead of 1,164.",
-      "inputs": "nothing — it is a comparison",
+      "inputs": "nothing \u2014 it is a comparison",
       "outputs": "a hand-off SVG at 0.42 mm worst deviation"
     },
     {
@@ -88,7 +88,7 @@
       "group": "terminal",
       "title": "Recovered terminals",
       "purpose": "150 real ends cut out of the ornaments pages.",
-      "inputs": "nothing — it is a corpus",
+      "inputs": "nothing \u2014 it is a corpus",
       "outputs": "measured taper fractions and gallery plates"
     },
     {
@@ -97,7 +97,7 @@
       "group": "strand",
       "title": "Recovered spirals",
       "purpose": "Every spine path from the Stage II and LAC pages.",
-      "inputs": "nothing — it is a corpus",
+      "inputs": "nothing \u2014 it is a corpus",
       "outputs": "cubics tagged line, arc, euler, logaesthetic, member"
     },
     {
@@ -114,7 +114,7 @@
       "file": "spine-sheet.html",
       "group": "strand",
       "title": "Spine on the sheet",
-      "purpose": "A recovered chain placed on the 200 × 250 sheet.",
+      "purpose": "A recovered chain placed on the 200 \u00d7 250 sheet.",
       "inputs": "a pythagorean spiral chain",
       "outputs": "a Piece with a declared contact at the fork"
     },
@@ -133,7 +133,7 @@
       "group": "sheet",
       "title": "Ornament board",
       "purpose": "85 plates, 26 work items, 11 decisions.",
-      "inputs": "nothing — it is the index of the work",
+      "inputs": "nothing \u2014 it is the index of the work",
       "outputs": "ordering, notes and a JSON export"
     },
     {
@@ -160,7 +160,7 @@
       "group": "sheet",
       "title": "Principle cards",
       "purpose": "Eight cards: four primals, four archetypes.",
-      "inputs": "nothing — it is reference",
+      "inputs": "nothing \u2014 it is reference",
       "outputs": "gesture, three numbers, and a not-this list"
     },
     {
@@ -168,7 +168,7 @@
       "file": "primal.html",
       "group": "sheet",
       "title": "Primal ornaments",
-      "purpose": "Earth, water, air, fire — one grammar each.",
+      "purpose": "Earth, water, air, fire \u2014 one grammar each.",
       "inputs": "nothing yet",
       "outputs": "four sketches, ahead of their gate on purpose"
     },
@@ -178,7 +178,7 @@
       "group": "curve",
       "title": "Euler match",
       "purpose": "Every exact curve rebuilt as a chain of chords and clothoid spans.",
-      "inputs": "nothing — it is a measurement",
+      "inputs": "nothing \u2014 it is a measurement",
       "outputs": "chord count, deviation as % of size, spans per curve, grid snap"
     },
     {
@@ -196,7 +196,7 @@
       "group": "curve",
       "title": "Clothoid cut",
       "purpose": "The eye, the equal-arc cut, and the minimum-width box.",
-      "inputs": "nothing — a measurement",
+      "inputs": "nothing \u2014 a measurement",
       "outputs": "the minimum width of one half and of the full pair"
     },
     {
@@ -205,8 +205,17 @@
       "group": "curve",
       "title": "Heart forms",
       "purpose": "Five heart curves, side by side.",
-      "inputs": "nothing — a catalogue",
+      "inputs": "nothing \u2014 a catalogue",
       "outputs": "the five shapes, each to its true extent"
+    },
+    {
+      "key": "stem-library",
+      "file": "stem-library.html",
+      "group": "curve",
+      "title": "Stem library",
+      "purpose": "Sixty-nine stem candidates, one per tight square.",
+      "inputs": "nothing \u2014 a catalogue",
+      "outputs": "labeled curves to promote to flowers.html"
     },
     {
       "key": "euler-square",
