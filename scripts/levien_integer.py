@@ -129,43 +129,52 @@ def families():
 
 
 def success_cases():
-    """Curves where the degree-elevated cubic handles are all integers."""
+    """Curves where the handles and a chosen offset rail are integral."""
     cases = [
-        {
-            "label": "y = x² · [0,12]",
-            "span": {"p0": (0, 0), "c1": (4, 0), "c2": (8, 48), "p3": (12, 144)},
-            "points": [(x, x * x) for x in range(13)],
-            "caption": "handles (4,0), (8,48) · 13 integer points",
-        },
         {
             "label": "y = x²/64 · [0,24]",
             "span": {"p0": (0, 0), "c1": (8, 0), "c2": (16, 3), "p3": (24, 9)},
             "points": [(8 * m, m * m) for m in range(4)],
-            "caption": "handles (8,0), (16,3) · 4 integer points",
+            "d": 5,
+            "hits_plus": [(21, 13)],
+            "hits_minus": [(27, 5)],
+            "caption": "d=5 · exact + rail (21,13) · − rail (27,5) · handles (8,0), (16,3)",
         },
         {
             "label": "y = x²/64 · [0,48]",
             "span": {"p0": (0, 0), "c1": (16, 0), "c2": (32, 12), "p3": (48, 36)},
             "points": [(8 * m, m * m) for m in range(7)],
-            "caption": "handles (16,0), (32,12) · 7 integer points",
+            "d": 10,
+            "hits_plus": [(18, 17)],
+            "hits_minus": [(30, 1)],
+            "caption": "d=10 · exact + rail (18,17) · − rail (30,1) · handles (16,0), (32,12)",
         },
         {
             "label": "y = x²/64 · [0,96]",
             "span": {"p0": (0, 0), "c1": (32, 0), "c2": (64, 48), "p3": (96, 144)},
             "points": [(8 * m, m * m) for m in range(13)],
-            "caption": "handles (32,0), (64,48) · 13 integer points",
+            "d": 20,
+            "hits_plus": [(12, 25)],
+            "hits_minus": [(36, -7)],
+            "caption": "d=20 · exact + rail (12,25) · − rail (36,−7) · handles (32,0), (64,48)",
         },
         {
             "label": "y = x²/64 · [0,144]",
             "span": {"p0": (0, 0), "c1": (48, 0), "c2": (96, 108), "p3": (144, 324)},
             "points": [(8 * m, m * m) for m in range(19)],
-            "caption": "handles (48,0), (96,108) · 19 integer points",
+            "d": 20,
+            "hits_plus": [(12, 25)],
+            "hits_minus": [(36, -7)],
+            "caption": "d=20 · exact + rail (12,25) · − rail (36,−7) · handles (48,0), (96,108)",
         },
         {
             "label": "y = x²/64 · [0,504]",
             "span": {"p0": (0, 0), "c1": (168, 0), "c2": (336, 1323), "p3": (504, 3969)},
             "points": [(8 * m, m * m) for m in range(64)],
-            "caption": "handles (168,0), (336,1323) · 64 integer points · endpoint y = 3969",
+            "d": 20,
+            "hits_plus": [(12, 25)],
+            "hits_minus": [(36, -7)],
+            "caption": "d=20 · exact + rail (12,25) · − rail (36,−7) · handles (168,0), (336,1323)",
         },
     ]
     for i, case in enumerate(cases, 1):
@@ -175,9 +184,12 @@ def success_cases():
 
 def success_figure(case, w=1000, h=320):
     span = case["span"]
+    d = case["d"]
     source = [cubic_at(span, i / 240) for i in range(241)]
+    plus = rail_points(span, d)
+    minus = rail_points(span, -d)
     controls = [span["p0"], span["c1"], span["c2"], span["p3"]]
-    pts = source + controls + case["points"]
+    pts = source + plus + minus + controls + case["points"]
     x0, y0 = min(p[0] for p in pts), min(p[1] for p in pts)
     x1, y1 = max(p[0] for p in pts), max(p[1] for p in pts)
     dx, dy = (x1 - x0) or 1, (y1 - y0) or 1
@@ -204,6 +216,10 @@ def success_figure(case, w=1000, h=320):
     # control polygon
     poly = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in controls)
     body.append(f'<polyline points="{poly}" fill="none" stroke="{MUTED}" stroke-width="1" stroke-dasharray="4 4"/>')
+    # exact offset rails
+    for rail, colour in ((plus, BLUE), (minus, RED)):
+        rail_d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in rail)
+        body.append(f'<path d="M {rail_d}" fill="none" stroke="{colour}" stroke-width="1.2"/>')
     # source
     d_attr = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in source)
     body.append(f'<path d="M {d_attr}" fill="none" stroke="{INK}" stroke-width="2.2" stroke-linejoin="round"/>')
@@ -216,8 +232,14 @@ def success_figure(case, w=1000, h=320):
     for p in case["points"]:
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.6" fill="{DOT}" stroke="{PAPER}" stroke-width="1"/>')
+    # exact integer offset hits
+    for hits, colour in ((case["hits_plus"], BLUE), (case["hits_minus"], RED)):
+        for p in hits:
+            q = put(p)
+            body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="4.2" fill="{colour}" stroke="{PAPER}" stroke-width="1.2"/>')
+            body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-6:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{colour}">({p[0]:g},{p[1]:g})</text>')
     # in-figure labels
-    body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">Fig. {case["fig"]} · {case["label"]}</text>')
+    body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">Fig. {case["fig"]} · {case["label"]} · d={d}</text>')
     end = span["p3"]
     q = put(end)
     body.append(f'<text x="{q[0]-4:.1f}" y="{q[1]-8:.1f}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">({end[0]:g}, {end[1]:g})</text>')
@@ -567,7 +589,7 @@ Radicle.</p>
 </div>
 {cards_html}
 <h2>Success gallery · integer handles</h2>
-<p class="lead">Figure IDs: C = selectable family/d card; G = gallery strip. Dashed line is the control polygon; gold squares are the two cubic handles; dots are integer source points. Each case has integer handles and a known number of integer points. These are source/handle successes, not claims that the fitted rail is integer. The gallery strips use independent x/y scales; the selectable cards keep equal scales.</p>
+<p class="lead">Figure IDs: C = selectable family/d card; G = gallery strip. Dashed line is the control polygon; gold squares are the two cubic handles; gold dots are integer source points; blue/red are the exact +d/−d rails; ringed points are exact integer offset hits. The chosen d values come from the integer normal at x=24: tangent (4,3), normal (−3,4), so d=5 gives (21,13) and d=10/20 scale it. Fitted Levien rails live on the selectable cards; they are not claimed to hit these points. The gallery strips use independent x/y scales; the selectable cards keep equal scales.</p>
 <p class="lead"><strong>Domain note.</strong> Each figure is the segment over the stated x-interval, not the whole parabola. At x=64, y=64; at y=64²=4096, x=512. The [0,512] segment reaches 64², but 512 is not a multiple of 24, so its cubic handles are not integers. The [0,504] success ends at y=3969, the nearest 24-multiple width. The point (64,64) is already inside [0,96] and [0,504]; (512,4096) is beyond [0,504].</p>
 <div class="gallery">{gallery_html}</div>
 
