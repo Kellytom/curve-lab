@@ -24,6 +24,10 @@ class LevienIntegerTest(unittest.TestCase):
         self.assertIn("quarter parabola", page)
         self.assertIn("integer lattice", page)
         self.assertIn("gold-dash", page)
+        self.assertIn("fundamental concept", page)
+        self.assertIn("curve fitting", page)
+        self.assertIn("degree 10", page)
+        self.assertIn("Raph Levien", page)
 
 
 if __name__ == "__main__":

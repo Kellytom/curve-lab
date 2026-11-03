@@ -205,6 +205,8 @@ svg{{display:block;width:100%;height:auto}}
 h3{{font:600 13px/1.35 Georgia,serif;margin:0 0 3px}}
 .note{{font:10px/1.4 ui-monospace,Menlo,monospace;color:{MUTED};margin:0}}
 .panel{{background:{PAPER};border:1px solid #d8ccae;padding:16px 18px;margin:0 0 18px}}
+.panel.quote p{{margin:0 0 10px}}
+.cite{{font:10px/1.5 ui-monospace,Menlo,monospace;color:{MUTED};margin:12px 0 0}}
 code{{font:12px ui-monospace,Menlo,monospace}}
 </style></head><body><main>
 <h1>Levien integer sandbox</h1>
@@ -222,6 +224,42 @@ vertex at t=0 gives one when d is an integer; elsewhere the normal contains
 √(1+4t²), so it is not integer. Levien's rail is a real-valued fit, so it is
 not expected to land on integers either. Use the selects to look for the
 exceptions; the controls in the generator are the variables to reverse-engineer.</p>
+</div>
+<h2>Levien’s logic</h2>
+<div class="panel quote">
+<p><strong>Why fit at all.</strong> “The exact offset curve of a cubic Bézier can
+be described (it is an analytic curve of degree 10) but it [is] not tractable to
+work with.” So the practical method is an approximation.</p>
+<p><strong>The method is curve fitting.</strong> “The fundamental concept is
+curve fitting, or finding the parameters for a cubic Bézier that most closely
+approximate the desired curve.” Levien then uses numerical support: cusp
+finding, area/moment fitting, quartic root finding, and an error measure.</p>
+<p><strong>One cubic may not be enough.</strong> “A single cubic Bézier might not
+be a good enough approximation to the parallel curve of the source cubic Bézier,
+so in those cases it is [subdivided] into multiple Bézier segments.”</p>
+<p><strong>The error is the judge.</strong> Candidates are thrown into the mix
+and “let the error measurement sort it out.” The error is measured by sampling
+the exact curve and projecting each sample onto the approximation along the
+normal — the Tiller–Hanson test — so subdivision is driven by measured distance,
+not by a fixed count.</p>
+<p><strong>Cusps are where the fold is.</strong> “These happen when the curvature
+of the source curve is equal to one over the offset distance.” Levien finds and
+subdivides at the cusps before fitting, because a cubic cannot carry the
+reversal.</p>
+<p><strong>Scaling.</strong> “If a curve is divided in half, the error of the
+approximation will decrease by a factor of 64” — the claimed
+<code>O(n⁶)</code> scaling. The earlier Euler-spiral approach was
+<code>O(n⁴)</code> (a factor of 16), which is why the cubic fit is attractive.</p>
+<p><strong>What it means for the integers.</strong> None of this constrains the
+fitted control points to integers. Levien chooses the cubic that best matches
+the exact parallel, so the rail is real-valued. That is why this sandbox
+searches families and <code>d</code> with a tolerance, rather than assuming an
+integer hit; exact integer routes remain lines/arcs, PH and the Pythagorean
+spiral. The p-triple Euler polygon is the other integer-friendly route.</p>
+<p class="cite">Quotes are short excerpts from Raph Levien, “Parallel curves of
+cubic Béziers” (2022-09-09), local copy:
+<a href="../reference/external/parallel-beziers.html">reference/external/parallel-beziers.html</a>.
+See the article for the full derivation and code.</p>
 </div>
 <div class="controls">
 <label>family <select id="family">{opts_fam}</select></label>
