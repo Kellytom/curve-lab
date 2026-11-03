@@ -115,10 +115,18 @@ def build():
     if CARDS:
         return
     # 1. generator presets
+    preset_rot = {"cubic": 45.0, "quintic": 45.0, "sextic": -135.0}
     for spec in G.PRESETS:
+        branches = preset_branches(spec)
+        note = (f"n={spec['n']} · h={spec['h']} · u={spec['u']} · v={spec['v']}"
+                f" · 1/{spec['m']}")
+        deg = preset_rot.get(spec["key"], 0.0)
+        if deg:
+            branches = [rotate(br, deg) for br in branches]
+            note += (f" · rotated {abs(deg):g}° " +
+                     ("CCW" if deg > 0 else "CW"))
         add("Generators presets", spec["key"], "generators preset",
-            f"n={spec['n']} · h={spec['h']} · u={spec['u']} · v={spec['v']}"
-            f" · 1/{spec['m']}", preset_branches(spec))
+            note, branches)
 
     # 2. named curves
     for spec in G.NAMED:
