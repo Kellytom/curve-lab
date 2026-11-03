@@ -496,6 +496,34 @@ def build():
             plant([spaced_card(p) for p in seq], "straight", same_angle=90.0),
             mark=[(0.0, 0.0)], colors=colors, legend=legend)
 
+    # 14. integer studies.  p = n / 3125, so n = 3125 is exactly p = 1.
+    integer_palette = ["#1f5fa8", "#2f6f9f", "#2f6f4f", "#6f6a2f",
+                       "#8a5a2b", "#b23a2b", "#6f4a8c", "#8a3f6b",
+                       INK, "#7b6c4e", "#2f6f6f"]
+    integers = [
+        ("integer log · n/3125",
+         [781, 1066, 1454, 1984, 2706, 3692, 5037, 6872, 9375],
+         "log integers · no 3125 · CV 20.3%"),
+        ("integer equal-tip · n/3125",
+         [781, 1143, 1527, 1971, 2520, 3250, 4306, 6019, 9375],
+         "equal-tip integers · no 3125 · CV 0.0%"),
+        ("3125 · 25-grid",
+         [775, 1150, 1525, 1975, 2525, 3125, 4300, 6025, 9375],
+         "all n ≡ 0 mod 25 · 3125 exact · CV 7.7%"),
+        ("3125 · 5-grid",
+         [780, 1070, 1370, 1695, 2070, 2520, 3125,
+          3830, 4880, 6500, 9375],
+         "all n ≡ 0 mod 5 · 3125 exact · CV 2.8%"),
+    ]
+    for name, ns, note in integers:
+        colors = integer_palette[:len(ns)]
+        legend = [(colors[i], str(ns[i])) for i in range(len(ns))]
+        add("Plants · LAC integers", name, "LAC integer study",
+            note + " · p = n/3125",
+            plant([spaced_card(n / 3125) for n in ns],
+                  "straight", same_angle=90.0),
+            mark=[(0.0, 0.0)], colors=colors, legend=legend)
+
 
 def legend(card):
     if not card.get("legend"):
@@ -602,6 +630,16 @@ series is p = 1/4, 0.366, 0.489, 0.631, 0.806, 1.04, 1.378, 1.926, 3; all eight
 gaps are 236.3–236.5 (CV 0). Fibonacci-like p values are no better than the
 current mix (27.6%). Distances are in the S52 frame; the card auto-fit leaves
 the ratios unchanged.</p>
+</div>
+<div class="panel">
+<p><strong>Integer numerators and 3125 (SM23–SM26).</strong> These four cards
+use p = n / 3125, so n = 3125 is exactly p = 1. The log numerators
+781, 1066, …, 9375 give CV 20.3%; the equal-tip numerators 781, 1143, …, 9375
+give CV 0 but do not contain 3125 (the nearest is 3250). On a 25 grid, forcing
+3125 gives 775, 1150, 1525, 1975, 2525, 3125, 4300, 6025, 9375 (CV 7.7%).
+On a 5 grid it gives 780, 1070, 1370, 1695, 2070, 2520, 3125, 3830, 4880,
+6500, 9375 (CV 2.8%). 3125 can therefore be hit exactly on either grid; the
+25 grid is the neater one, the 5 grid the closer one.</p>
 </div>
 {''.join(sections)}
 </main></body></html>
