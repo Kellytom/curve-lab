@@ -317,6 +317,20 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p>At <code>t=1/8, 1/4, 1/2</code> the curve hits <code>(−270,135), (−180,60), (0,0)</code>; the other quarter points mirror them. This is an exact elevated quadratic — one parabola — not the two-piece integer S. It is the simple demonstration version of the large-scale example.</p>
 </section>
 
+
+<section class="panel">
+  <h2>The 15625 grid · 25 cubic samples</h2>
+  <p>For a cubic, use <code>15625 = 25³</code>. At <code>t=k/25</code>, the de Casteljau point has denominator dividing <code>15625</code>; multiplying the whole curve by <code>15625</code> makes the sample integer. This is a <strong>scale factor</strong>, not a 15625-wide coordinate box; the scaled coordinates are larger.</p>
+  <p>Three integer-control curves with standard Pythagorean endpoint slopes:</p>
+  <div class="table-wrap"><table>
+    <tr><th>endpoint slopes</th><th>control points</th><th>25 samples at k=1..25</th></tr>
+    <tr><td>−3/4 → 4/3</td><td><code>(0,0), (4,−3), (7,−4), (10,0)</code></td><td>all integer ×15625</td></tr>
+    <tr><td>−7/24 → 24/7</td><td><code>(0,0), (24,−7), (43,−24), (50,0)</code></td><td>all integer ×15625</td></tr>
+    <tr><td>−4/3 → 7/24</td><td><code>(0,0), (3,−4), (6,−7), (30,0)</code></td><td>all integer ×15625</td></tr>
+  </table></div>
+  <p class="small">The 25 samples start at <code>t=1/25</code>; the start anchor at <code>t=0</code> is counted separately. Use <code>15625</code> for cubics; <code>11250=18×25²</code> is only the quadratic-degree scale.</p>
+</section>
+
 <section class="panel">
   <h2>The 3125 circle</h2>
   <p>The integer points on <code>x²+y²=3125</code> have these slopes:</p>

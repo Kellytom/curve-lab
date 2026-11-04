@@ -1,4 +1,5 @@
 import unittest
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +44,8 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn("Grid ledger", page)
         self.assertIn("canonical integer-cubic grid", page)
         self.assertIn("360,000", page)
+        self.assertIn("15625", page)
+        self.assertIn("−3/4 → 4/3", page)
         self.assertIn("9,720,000", page)
         self.assertIn("A simple 360-grid demo", page)
         self.assertIn("Fig. P3", page)
@@ -52,6 +55,23 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn("±9/8", page)
         self.assertIn("R1=(Q0+2Q1)/3", page)
         self.assertIn("two-parabola S probe", page)
+
+    def test_15625_grid_has_25_integer_cubic_samples(self):
+        curves = (
+            [(0, 0), (4, -3), (7, -4), (10, 0)],
+            [(0, 0), (24, -7), (43, -24), (50, 0)],
+            [(0, 0), (3, -4), (6, -7), (30, 0)],
+        )
+        for points in curves:
+            samples = []
+            for k in range(1, 26):
+                t = Fraction(k, 25)
+                u = 1 - t
+                x = u**3 * points[0][0] + 3*u*u*t*points[1][0] + 3*u*t*t*points[2][0] + t**3*points[3][0]
+                y = u**3 * points[0][1] + 3*u*u*t*points[1][1] + 3*u*t*t*points[2][1] + t**3*points[3][1]
+                samples.append((x * 15625, y * 15625))
+            self.assertEqual(len(set(samples)), 25)
+            self.assertTrue(all(v.denominator == 1 for p in samples for v in p))
 
     def test_euler_page_no_longer_carries_section_ii(self):
         page = (ROOT / "workbench" / "euler-parabola-fit.html").read_text(

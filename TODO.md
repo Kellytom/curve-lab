@@ -37,9 +37,9 @@ C-family p-triple conversion and the ornament-form proofs below.
   compare with the cubic family.
 - [ ] **Pythagorean triple catalogue for cubics:** enumerate arm pairs, chord
   choices, signs, and rotations; choose a canonical short list for production.
-- [ ] **11250 grid probe:** test 25 samples at Pythagorean slopes (3/4, 7/24,
-  and others); distinguish a 11250 coordinate box from a 11250 scale, and
-  compare with the 216,000 canonical grid.
+- [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
+  slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
+  quadratic-degree scale.
 - [ ] **Integrate one chain:** put a G2 integer chain into `Piece`/`Trace` or a
   stem card and measure it against the existing path.
 - [ ] **Full clearance:** run the real `piece_clearance` rules on the chosen

@@ -308,6 +308,25 @@ quarter points mirror them. This is an exact elevated quadratic — one
 parabola — not the two-piece integer S. It is the simple demonstration version
 of the large-scale example.
 
+## The 15625 grid · 25 cubic samples
+
+For a cubic, use `15625 = 25³`. At `t=k/25`, the de Casteljau point has
+denominator dividing `15625`; multiplying the whole curve by `15625` makes the
+sample integer. This is a **scale factor**, not a 15625-wide coordinate box;
+the scaled coordinates are larger.
+
+Three integer-control curves with standard Pythagorean endpoint slopes:
+
+| endpoint slopes | control points | 25 samples at k=1..25 |
+|---|---|---|
+| −3/4 → 4/3 | `(0,0), (4,−3), (7,−4), (10,0)` | all integer ×15625 |
+| −7/24 → 24/7 | `(0,0), (24,−7), (43,−24), (50,0)` | all integer ×15625 |
+| −4/3 → 7/24 | `(0,0), (3,−4), (6,−7), (30,0)` | all integer ×15625 |
+
+The 25 samples start at `t=1/25`; the start anchor at `t=0` is counted
+separately. Use `15625` for cubics; `11250 = 18 × 25²` is only the
+quadratic-degree scale.
+
 ## The 3125 circle
 
 The integer points on `x² + y² = 3125` give these slopes:
