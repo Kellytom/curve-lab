@@ -83,6 +83,24 @@ opencode processes (~700 MB RSS) and ~10 Chrome renderers (~1.5 GB); there were
 **no** orphaned Playwright browsers, because `scripts/shot.mjs` launches and
 closes one per shot.
 
+**Measured baseline, 2026-11-04 (the machine is 8 GB, not 16):**
+
+| reading | value |
+|---|---|
+| `PhysMem` | 8148M used, **43M unused** |
+| wired | 1654M |
+| compressor | 734,197 pages = **3.0 GB occupied**, 7.6 GB of logical pages stored |
+| swap | 1587M used of 3072M |
+| pressure level | **2 (warning)** |
+| disk | 92% full, 38 GiB free |
+
+At that reading the machine was genuinely full, not sticky. Two corrections that
+matter when reading Activity Monitor: the **"1.5 GB" is Swap Used**, not memory
+used — they are the same number to one decimal and are routinely confused — and
+**compressed memory is live**, held by processes still running, so it does not
+drain when the browser closes. On 8 GB, one browser session plus two opencode
+processes plus mkdocs is more than the machine has.
+
 **What to do:** quit the session at a handoff seam (the tree is committed and
 `next-fhandoff-int.md` carries the finish line, so nothing is lost); stop
 `mkdocs serve` between checks; do not keep a browser open "for screenshots".
