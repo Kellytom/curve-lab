@@ -39,7 +39,8 @@ def fmt(x: float) -> str:
     return f"{x:.6f}"
 
 
-def study_svg(kind: str, fig: str, n: int = 4, w: int = 470, h: int = 360):
+def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
+              label: str | None = None, w: int = 470, h: int = 360):
     data = euler_fit.study(kind)
     seg = data["segment"]
     fit = euler_fit.fit_segment(seg, n)
@@ -47,7 +48,12 @@ def study_svg(kind: str, fig: str, n: int = 4, w: int = 470, h: int = 360):
     cubic = []
     for span in fit["spans"]:
         cubic.extend(cubic_at(span, i / 30) for i in range(31))
-    pts = truth + cubic
+    other = []
+    if compare is not None:
+        other_fit = euler_fit.fit_segment(seg, compare)
+        for span in other_fit["spans"]:
+            other.extend(cubic_at(span, i / 30) for i in range(31))
+    pts = truth + cubic + other
     x0, y0 = min(p[0] for p in pts), min(p[1] for p in pts)
     x1, y1 = max(p[0] for p in pts), max(p[1] for p in pts)
     dx, dy = (x1 - x0) or 1, (y1 - y0) or 1
@@ -75,14 +81,20 @@ def study_svg(kind: str, fig: str, n: int = 4, w: int = 470, h: int = 360):
         da = f' stroke-dasharray="{dash}"' if dash else ""
         body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="{width}" stroke-linejoin="round"{da}/>')
     path(truth, INK, 2.4)
-    path(cubic, GOLD, 1.6, "5 4")
+    if other:
+        path(other, MUTED, 1.4, "6 4")
+    path(cubic, GOLD, 1.7, "5 4")
     for p in (truth[0], truth[-1]):
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.5" fill="{DOT}" stroke="{PAPER}"/>')
-    body.append(f'<text x="12" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">Fig. {fig} · {kind} Euler · n={n}</text>')
+    title = label or f"{kind} Euler"
+    body.append(f'<text x="12" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="{INK}">Fig. {fig} · {title} · n={n}</text>')
     body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">x →</text>')
     body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">y ↑</text>')
-    body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">— true Euler   --- current seam</text>')
+    legend = "— true Euler   --- current seam"
+    if other:
+        legend = "— true Euler   --- one span   — two spans"
+    body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">{legend}</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>")
@@ -119,11 +131,13 @@ def table_html(data: dict) -> str:
 
 
 def main():
-    studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric")}
+    studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s48")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
+    s48_svg = study_svg("s48", "E4", n=2, compare=1, label="S 48° · two spans")
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
+    s48_table = table_html(studies["s48"])
 
     template = r"""<!doctype html>
 <html lang="en">
@@ -178,7 +192,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <span>drag ○ ends · drag □ handles along the parabola</span>
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
-  <p class="small">The violet dotted curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. The parabola arms cover the full ±90° endpoint-tangent range; a single cubic is only a good Euler fit well inside that range, so near the extremes, split the Euler into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
+  <p class="small">The violet solid curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. A single cubic follows a C-shaped Euler to roughly 90° of endpoint tangent, but an S-shaped Euler needs a curvature reversal and starts to visibly degrade around 45°. Beyond those limits, split at the inflection or into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
 </section>
 
 <section class="panel">
@@ -201,6 +215,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     </figure>
   </div>
   <p class="small">The asymptotic slope is taken from n=4, 8, 16. The n=1 symmetric fit is accidentally good, so it is not used to estimate the exponent. A slope near 5 is the claimed n⁵ behavior; doubling n should reduce error by about 32×.</p>
+</section>
+
+<section class="panel">
+  <h2>Second example · S curve, two spans</h2>
+  <p>The same rule, split once at the inflection. The dashed grey line is the one-span result; the gold line is two spans. The table shows whether two spans is actually enough.</p>
+  <div class="grid">
+    <figure class="figure">
+      __S48_SVG__
+      __S48_TABLE__
+    </figure>
+  </div>
+  <p class="small">At 48° the one-span error is about 0.0047; two spans reduces it to about 0.0031. That is better, but not yet fine work. Three spans reaches about 0.00057, four about 0.00016, eight about 5.9e-6.</p>
 </section>
 
 <section class="panel">
@@ -436,11 +462,16 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
     const t0=wrap(Math.atan2(p1.y-P0.y,p1.x-P0.x)-chordAngle);
     const t1=wrap(Math.atan2(P3.y-p2.y,P3.x-p2.x)-chordAngle);
-    const comfort=Math.max(Math.abs(t0),Math.abs(t1)) > 75*Math.PI/180;
+    const maxAngle=Math.max(Math.abs(t0),Math.abs(t1))*180/Math.PI;
+    const sameSign=t0*t1>0;
+    const shape=sameSign?'S':'C';
+    const comfortLimit=sameSign?45:90;
+    const comfort=maxAngle>comfortLimit;
     document.getElementById('readout').textContent =
       `chord = ${f.L.toFixed(3)}   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
       `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})   d = ${Number(document.getElementById('offset-d').value).toFixed(2)}\n`+
-      `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°`+(comfort?'   ⚠ outside single-span comfort; split the Euler':'')+
+      `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°   ${shape}-shape single-span limit ≈ ${comfortLimit}°`+
+      (comfort?'   ⚠ split at the inflection / add spans':'')+
       (target && target.pts ? '   · Euler target shown' : '   · Euler target unavailable at these ends');
   }
   function toWorld(ev){
@@ -496,7 +527,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__SYM_SVG__", sym_svg)
             .replace("__SYM_TABLE__", sym_table)
             .replace("__ASYM_SVG__", asym_svg)
-            .replace("__ASYM_TABLE__", asym_table))
+            .replace("__ASYM_TABLE__", asym_table)
+            .replace("__S48_SVG__", s48_svg)
+            .replace("__S48_TABLE__", s48_table))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
