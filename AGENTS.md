@@ -4,15 +4,24 @@ Keep the context small. Read only what the current action names.
 
 ## Start cheap
 
-0. `LTMemory-int.md` — the map, the invariants and what is already settled.
-1. `next-fhandoff-int.md` — the one action.
-2. `goals.md` — the long arc: plant-forms → ornament-forms.
-3. `state/HANDOFF-int.md` — current truth. Stop there unless it points onward.
-   `state/ACHIEVEMENTS-int.md` is the list of what is proved, with the command that
-   re-derives each one (`scripts/recheck.py`).
-4. `state/BACKLOG-int.md` — the W-label detail for the action, and nothing else.
-5. `workbench/ornament-board.html` — visual order and labels (generated; do not
-   edit by hand).
+0. **`state/READING-int.md`** — the authoritative reading list: what to load, in
+   what order, at what cost, and what never to load. Follow it; do not invent a
+   reading order. If an action needs a file that is not on it, add the row.
+
+Tier 0 of that list, in short: `LTMemory-int.md` (map, invariants, settled),
+`next-fhandoff-int.md` (the one action), `state/HANDOFF-int.md` (**tail only** —
+current truth), `TODO.md` (checklist), `goals.md` (the arc),
+`state/ACHIEVEMENTS-int.md` (what is proved, and `scripts/recheck.py`).
+
+Tier 1 — **the scope anchor**, read when direction or a grade is in question:
+`SPEC.md`, `docs/PROJECT.md`, `goals.md`, `docs/PHILOSOPHY.md`. Scope in one
+line, so it is never absent: exact integer and rational curves on one grid; the
+deliverable is a grammar of plant-forms that becomes the ornament grammar, not a
+gallery of drawings.
+
+Then, per action only: `state/BACKLOG-int.md` (the W-label detail, and nothing
+else), `workbench/ornament-board.html` (visual order and labels; generated — do
+not edit by hand).
 
 Do **not** read `docs/HANDOVER.md` unless the action needs durable
 architecture/deploy/security detail. It is deliberately long. Do not read

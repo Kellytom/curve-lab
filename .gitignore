@@ -25,8 +25,16 @@ reference/*
 !reference/palmette/
 !reference/scroll/
 
+# personal photographs stay local until attributed and named in the manifest
+# (see commit 04870c0 — do not stage an unattributed IMG_*)
+IMG_*.JPG
+
 # local deploy notes (scrubbed from the public docs)
 LOCAL-DEPLOY.md
+
+# local server and monitor logs
+state/monitor.log
+*.log
 
 # mkdocs output
 site/
