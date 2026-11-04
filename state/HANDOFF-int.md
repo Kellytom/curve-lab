@@ -95,6 +95,12 @@ remote MVP now exist.
   each with an ending).  Geometry in `curve_lab/plant.py`; generator
   `scripts/plant_forms.py`; tests `tests/test_plant.py` and
   `tests/test_plant_forms.py`.  The next layer is ornament-forms.
+- **Backburner (2026-11-03):** `state/BACKBURNER-int.md` — B01 parks
+  bounding parabolas (curve/curve intersection, boolean path ops; artifact
+  `workbench/bounding-parabola.html`) until a real intersection need appears.
+  B02 records the 2021 Euler-spiral → cubic handle-parabola rule as a candidate
+  fitted option: chord-normalized left `x = 1/3 - (3/4)y²`, right
+  `x = 2/3 + (3/4)y²`, handles at the tangent intersections; `O(n^5)`.
 - **Levien integer sandbox (2026-11-03):** `workbench/levien-integer.html` +
   `scripts/levien_integer.py` — parabola, y=x²/2, y=x²/4 and one integer cubic;
   source, exact normal rails, Levien cubic fit, integer lattice and near-integer
