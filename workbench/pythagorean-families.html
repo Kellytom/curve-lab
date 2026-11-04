@@ -43,6 +43,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   </table>
 </section>
 <section class="panel">
+  <h2>Parabola census</h2>
+  <p>The y-axis crossings identify the family. The values around 400, 800, 1250, 1458 and 1922 are the fixed-Euclid-<code>n</code> curves, not the fixed-<code>m</code> ones:</p>
+  <table>
+    <tr><th>family</th><th>curve</th><th>crosses b-axis at</th><th>near the observed values</th></tr>
+    <tr><td>fixed Euclid n</td><td><code>a=(b/(2n))²−n²</code></td><td><code>2n²</code></td><td><code>n=14→392</code>, <code>20→800</code>, <code>25→1250</code>, <code>27→1458</code>, <code>31→1922</code></td></tr>
+    <tr><td>fixed Euclid m</td><td><code>b=m²−a²/(4m²)</code></td><td><code>m²</code></td><td><code>m=20→400</code>, <code>28→784</code>, <code>35→1225</code>, <code>39→1521</code>, <code>43→1849</code></td></tr>
+    <tr><td>Fässler fixed N</td><td><code>b=|N−a²/(4N)|</code></td><td><code>N</code></td><td><code>1440, 1444, 1445, 1452, 1458</code></td></tr>
+  </table>
+  <p class="small">A parabola catalogue is infinite: each parameter value is a curve. The useful catalogue is by family and intercept law. The fixed-n family is the green fan; fixed m is the gold fan; Fässler's cluster is the rust band.</p>
+</section>
+
+<section class="panel">
   <h2>Fässler's parabolas: a second slicing</h2>
   <p>There is a useful equivalent parameterization. Put <code>N=(b+c)/2</code> with the even leg as <code>a</code>. If <code>a²/(4N)</code> is an integer, then</p>
   <div class="formula">(a, |N − a²/(4N)|, N + a²/(4N))</div>

@@ -27,6 +27,21 @@ a = (b / (2n))² − n²
 
 which is a parabola in the `(a,b)` plane. The page draws `n=1,2,3`.
 
+## Parabola census
+
+The y-axis crossing identifies the family:
+
+| family | curve | crosses `b` axis at | examples |
+|---|---|---|---|
+| fixed Euclid `n` | `a=(b/(2n))²−n²` | `2n²` | 392, 800, 1250, 1458, 1922 |
+| fixed Euclid `m` | `b=m²−a²/(4m²)` | `m²` | 400, 784, 1225, 1521, 1849 |
+| Fässler fixed `N` | `b=|N−a²/(4N)|` | `N` | 1440–1458 cluster |
+
+The observed sequence around 400, 800, 1250, 1458 and 1922 is the fixed-`n`
+family at `n=14,20,25,27,31`. The fixed-`m` family also crosses near 400, 784,
+1225, 1521 and 1849. A catalogue is infinite by parameter value; the useful
+catalogue is by family and intercept law.
+
 ## Fässler's second slicing
 
 With the even leg as `a`, put `N=(b+c)/2`. If `a²/(4N)` is an integer, then

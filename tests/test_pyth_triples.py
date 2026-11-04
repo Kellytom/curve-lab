@@ -61,6 +61,10 @@ class PythagoreanFamiliesTest(unittest.TestCase):
         self.assertIn("Fässler N≈1450", page)
         self.assertIn("Euclid n=1..59", page)
         self.assertIn("Euclid m=2..59", page)
+        self.assertIn("Parabola census", page)
+        self.assertIn("2n²", page)
+        self.assertIn("n=14→392", page)
+        self.assertIn("m²", page)
 
 
 if __name__ == "__main__":
