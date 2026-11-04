@@ -116,3 +116,28 @@ force a shrink, and do not read swap as a leak — it is allocation history.
 
 **Revisit when:** a second consecutive reboot shows the same 6 GB with the same
 `ps` output — that is a leak worth bisecting by process, not a pager artefact.
+
+### Test result — post-reboot, 2026-11-04 17:33
+
+The reboot happened (`kern.boottime` 16:46:32). Only `/focus` and `/fhandon`
+were typed; no coding. At 17:33, 47 minutes in:
+
+| reading | value |
+|---|---|
+| swap | **1612M used** |
+| pressure level | **2 (warning)** |
+| `PhysMem` | 7913M used, **278M unused** |
+| compressor | 696,852 pages = 2.7 GB occupied |
+| Chrome | **32 processes, 3150 MB** — main pid 692 started **16:48:02**, two minutes after boot |
+| opencode | 2 processes, 645 MB, started 16:49 |
+
+**Conclusion: the reboot changes nothing, because Chrome restores the same tab
+set within two minutes of boot.** The 1.6 GB of swap was accrued in 45 minutes
+of browser restore, not carried over — so the earlier "residue" reading in this
+entry was wrong. The load is reproducible from cold, which is what the revisit
+condition asked for, and it names the process.
+
+**The fix is a Chrome setting, not a reboot ritual:** Settings → On startup →
+*Open the New Tab page*, plus Memory Saver on. Until that changes, every reboot
+re-creates the exact state it was meant to clear, and the `/fhandoff` → reboot →
+`/focus` → `/fhandon` cycle is buying nothing on 8 GB.
