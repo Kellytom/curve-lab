@@ -49,3 +49,48 @@ rational rails remain the exact route.
 **Source:** Raph Levien, *Cleaner parallel curves with Euler spirals*,
 2021-02-19, section “Euler spirals to cubic Béziers”:
 https://raphlinus.github.io/curves/2021/02/19/parallel-curves.html
+
+## B03 — machine refresh: swap growth forces a reboot
+
+**Status:** parked 2026-11-04. Machine work, not curve work. It does not block
+the n=2 chain.
+
+**Symptom:** swap climbs toward 6 GB with nothing in Activity Monitor, so the
+working rhythm becomes `/fhandoff` → quit → reboot → `/focus` → `/fhandon`.
+Compaction does not help, because compaction is model context, not memory.
+
+**Measure before blaming swap** (one call):
+
+```sh
+sysctl vm.swapusage
+memory_pressure | tail -3
+ps -Ao pid,rss,comm | sort -k2 -nr | head -15
+```
+
+**What the numbers mean:**
+- `used` high while `ps` shows no live owner → the dynamic pager is holding
+  already-allocated files in `/private/var/vm/swapfile*`. Those are released
+  **only at boot**; there is no supported runtime shrink.
+- `free percentage` high but `Pageouts` climbing → swap was written earlier by
+  something that has since exited; this is residue, not live pressure.
+- `Pageouts` low and `used` still high → the owner is still resident; find it in
+  `ps` and kill that PID, not the machine.
+
+**What actually feeds it here:** long-lived `opencode` sessions (node), Google
+Chrome renderer processes, `mkdocs serve` autoreloading over `node_modules`,
+and per-screenshot Chromium launches. On 2026-11-04 the footprint was two
+opencode processes (~700 MB RSS) and ~10 Chrome renderers (~1.5 GB); there were
+**no** orphaned Playwright browsers, because `scripts/shot.mjs` launches and
+closes one per shot.
+
+**What to do:** quit the session at a handoff seam (the tree is committed and
+`next-fhandoff-int.md` carries the finish line, so nothing is lost); stop
+`mkdocs serve` between checks; do not keep a browser open "for screenshots".
+Reboot only when `vm.swapusage used` is large *and* `ps` has no owner.
+
+**What not to do:** do not disable SIP or unload `com.apple.dynamic_pager` to
+force a shrink, and do not read swap as a leak — it is allocation history.
+`sudo purge` clears file cache and does nothing for swap.
+
+**Revisit when:** a second consecutive reboot shows the same 6 GB with the same
+`ps` output — that is a leak worth bisecting by process, not a pager artefact.

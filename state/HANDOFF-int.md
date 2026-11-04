@@ -164,6 +164,9 @@ remote MVP now exist.
   B02 records the 2021 Euler-spiral → cubic handle-parabola rule as a candidate
   fitted option: chord-normalized left `x = 1/3 - (3/4)y²`, right
   `x = 2/3 + (3/4)y²`, handles at the tangent intersections; `O(n^5)`.
+  B03 (2026-11-04) parks the machine-refresh problem: swap residue must be
+  measured (`sysctl vm.swapusage`, `memory_pressure`, `ps`) before blaming it,
+  and no browser is to be held open between screenshots.
 - **Levien integer sandbox (2026-11-03):** `workbench/levien-integer.html` +
   `scripts/levien_integer.py` — parabola, y=x²/2, y=x²/4 and one integer cubic;
   source, exact normal rails, Levien cubic fit, integer lattice and near-integer
