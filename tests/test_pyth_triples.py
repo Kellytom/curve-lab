@@ -39,6 +39,9 @@ class PythagoreanFamiliesTest(unittest.TestCase):
         self.assertIn("4.02", page)
         self.assertIn("n=2", page)
         self.assertIn("(20,21,29)", page)
+        self.assertIn("Fässler", page)
+        self.assertIn("N=(b+c)/2", page)
+        self.assertIn("1450", page)
 
 
 if __name__ == "__main__":

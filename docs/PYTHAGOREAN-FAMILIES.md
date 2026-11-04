@@ -27,6 +27,37 @@ a = (b / (2n))² − n²
 
 which is a parabola in the `(a,b)` plane. The page draws `n=1,2,3`.
 
+## Fässler's second slicing
+
+With the even leg as `a`, put `N=(b+c)/2`. If `a²/(4N)` is an integer, then
+
+```text
+(a, |N − a²/(4N)|, N + a²/(4N))
+```
+
+is a Pythagorean triple, and every triple can be written this way after
+possibly exchanging the legs. The triples lie on
+
+```text
+b = |N − a²/(4N)|
+```
+
+a parabola reflected in the `a` axis. This `N` is not Euclid's `n`: the
+fixed-Euclid-n curves and the fixed-N curves are two different slicings of the
+same field.
+
+At `a=2N` the parabola meets the axis with derivative `−1`, so the reflection
+is at 45°. Swapping the legs gives the perpendicular family; the axes carry
+the crossing pattern. Holding Euclid `m` instead of `n` gives another family; with
+`a=2mn`, `b=m²−a²/(4m²)`. That is the other set of smooth parabolic slices
+visible in the scatter. Near `N≈1450`, the values `38²=1444`, `2·27²=1458`,
+`3·22²=1452`, `5·17²=1445`, and `10·12²=1440` make the parabolas nearly
+coincide, producing the dense strip in the scatter.
+
+Source: [Wikipedia, “Pythagorean triple”](https://en.wikipedia.org/wiki/Pythagorean_triple),
+distribution section; the references there point to Albert Fässler and
+conformal-mapping treatments.
+
 ## The n=2 sweep
 
 The selected `n=2` sequence starts at:

@@ -72,7 +72,7 @@ def svg(points, families, chain, rays, w=1000, h=1000):
             body.append(f'<text x="{q[0]+dx:.1f}" y="{q[1]+dy:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">{label}</text>')
     body.append('<text x="12" y="20" font-family="Georgia,serif" font-size="15" font-weight="600" fill="#2e2413">Fig. T1 · Pythagorean triples, rays and fixed-n parabolas</text>')
     body.append(f'<text x="12" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">all triples c≤{LIMIT} · selected n=2: {len(chain)} points from {pyth_triples.angle_deg(chain[0]):.2f}° down to {pyth_triples.angle_deg(chain[-1]):.2f}°</text>')
-    body.append('<text x="12" y="52" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">· triple   --- scaling ray   — n=1   — n=2   — n=3   ● selected n=2</text>')
+    body.append('<text x="12" y="52" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">· triple   --- scaling ray   — Euclid n=1   — Euclid n=2   — Euclid n=3   ● selected n=2</text>')
     body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">a →</text>')
     body.append(f'<text x="{w-38}" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">b ↑</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
@@ -141,6 +141,19 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     {''.join(rows)}
   </table>
 </section>
+<section class="panel">
+  <h2>Fässler's parabolas: a second slicing</h2>
+  <p>There is a useful equivalent parameterization. Put <code>N=(b+c)/2</code> with the even leg as <code>a</code>. If <code>a²/(4N)</code> is an integer, then</p>
+  <div class="formula">(a, |N − a²/(4N)|, N + a²/(4N))</div>
+  <p>is a Pythagorean triple, and every triple can be written this way after possibly exchanging the legs. The triples therefore lie on</p>
+  <div class="formula">b = |N − a²/(4N)|</div>
+  <p>a parabola reflected in the a-axis. This <code>N</code> is <strong>not</strong> the same as Euclid's <code>n</code> above: the fixed-Euclid-n curves and the fixed-N curves are two different slicings of the same triple field. The plot above uses the Euclid slicing; both are valid.</p>
+  <p>At <code>a=2N</code> the parabola meets the axis with derivative <code>−1</code>, so the reflection is at 45°. Swapping <code>a</code> and <code>b</code> gives the perpendicular family, and the axes therefore carry the crossing pattern described in the source.</p>
+  <p>Holding Euclid <code>m</code> instead of <code>n</code> gives another family; with <code>a=2mn</code>, <code>b=m²−a²/(4m²)</code>. That is the other set of smooth parabolic slices visible in the scatter.</p>
+  <p>Near <code>N≈1450</code> several values are close together: <code>38²=1444</code>, <code>2·27²=1458</code>, <code>3·22²=1452</code>, <code>5·17²=1445</code>, and <code>10·12²=1440</code>. Their parabolas nearly coincide, which is why a dense parabolic strip appears in the scatter.</p>
+  <p class="small">Source: <a href="https://en.wikipedia.org/wiki/Pythagorean_triple">Wikipedia, “Pythagorean triple”</a>, distribution section; the references there point to Albert Fässler and conformal-mapping treatments.</p>
+</section>
+
 <section class="panel">
   <h2>Reading it as a curve sequence</h2>
   <p>The plot exposes candidate chains: choose a family/parabola, move along it, and use each triple as an arm vector or angle. The <code>n=2</code> sequence is the first candidate for a G2/G1 chain; it is a list of exact integer arm pairs, not a fitted approximation.</p>

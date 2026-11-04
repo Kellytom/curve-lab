@@ -44,6 +44,8 @@ C-family p-triple conversion and the ornament-form proofs below.
   fixed-n parabolas, and the n=2 43.60°→4.02° sweep; `pythagorean-families.html`.
 - [ ] **Pythagorean triple catalogue for cubics:** turn the family sweep into a
   canonical curve catalogue (arm pairs, chords, signs, rotations).
+- [ ] **n=2 family chain:** choose a join construction for the 43.6°→4.0° sweep
+  and turn it into a G1/G2 curve chain; measure the curvature jump and scale.
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
   slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
   quadratic-degree scale.
