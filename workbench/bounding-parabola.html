@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bounding parabola sandbox</title>
+<style>
+  :root{
+    --paper:#fbf7ec; --ink:#2e2413; --muted:#7b6c4e; --rule:#d8ccae;
+    --gold:#c9a441; --blue:#1f5fa8; --green:#3f7d4e; --red:#b23a2b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+  main{max-width:1100px;margin:0 auto;padding:32px 22px 70px}
+  .eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+  h1{font-size:30px;line-height:1.1;margin:0 0 6px}
+  .lede{max-width:850px;color:var(--muted);margin:0 0 20px}
+  .panel{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;margin:0 0 18px}
+  canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px solid var(--rule);touch-action:none;cursor:crosshair}
+  .controls{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;margin:12px 0 4px;font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+  .controls label{display:flex;gap:7px;align-items:center;cursor:pointer}
+  .controls button{font:12px ui-monospace,Menlo,monospace;background:var(--paper);border:1px solid var(--rule);padding:5px 10px;color:var(--ink);cursor:pointer}
+  .controls button:hover{background:#f4ecd7}
+  .readout{font:11px/1.65 ui-monospace,Menlo,monospace;color:var(--muted);margin:10px 0 0;white-space:pre-wrap}
+  h2{font-size:20px;margin:0 0 8px}
+  p{margin:0 0 10px}
+  ol,ul{margin:0 0 10px;padding-left:22px}
+  li{margin:0 0 6px}
+  code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+  .small{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> drag two ends and two handles · <b>out</b> fitted parabola, sampled bounds, strip, readout</span></div><!-- /hub-bar -->
+<main>
+  <p class="eyebrow">curve-lab · separate sandbox</p>
+  <h1>Bounding parabola</h1>
+  <p class="lede">A y-monotonic cubic, its area-fitted parabola, the two hybrid quadratics that bracket it, and the resulting strip. Drag the ends in x and the handles freely. Positive y is up in the math; the canvas is y-down and flipped once at draw.</p>
+
+  <section class="panel" aria-labelledby="plot-title">
+    <canvas id="plot" width="960" height="560" aria-label="Interactive cubic, control polygon, bounding parabola, hybrid quadratics, and error strip"></canvas>
+    <div class="controls">
+      <label><input type="checkbox" id="show-strip" checked> bounding strip</label>
+      <label><input type="checkbox" id="show-hybrid" checked> hybrid quadratics</label>
+      <button id="reset" type="button">reset</button>
+      <span>drag ○ ends · □ handles</span>
+    </div>
+    <p class="readout" id="readout" aria-live="polite"></p>
+  </section>
+
+  <section class="panel">
+    <h2>What is happening, in plain language</h2>
+    <ol>
+      <li><strong>Make the curve one-dimensional.</strong> The cubic is y-monotonic: one x for every y. Write it as <code>x = f(y)</code>.</li>
+      <li><strong>Replace it with a parabola.</strong> Fit <code>x = c₀ + c₁y + c₂y²</code> by matching the two ends and the signed area between the cubic and its chord. It is a stand-in, not the curve.</li>
+      <li><strong>Bracket the stand-in.</strong> Two hybrid quadratics are built from the handles. They sandwich the cubic. Sampling their distance to the fitted parabola gives a minimum and maximum, so the cubic must lie inside the strip between <code>p(y)+dmin</code> and <code>p(y)+dmax</code>.</li>
+      <li><strong>Use the strip for intersection.</strong> For two curves, compare their strips. If the strips do not overlap, the curves cannot intersect there. If they do overlap, subdivide the y-range and repeat. That is the “cubic scaling” claim.</li>
+    </ol>
+    <p class="small">The strip shown here is sampled for the demo. The production prototype uses cubic root solving/tangency for tighter bounds; it also handles cusps, near-coincident curves, and Fréchet-distance fallbacks.</p>
+  </section>
+
+  <section class="panel">
+    <h2>What it is not</h2>
+    <ul>
+      <li><strong>Not an offset builder.</strong> It brackets intersections of two curves; it does not construct a rail at distance d.</li>
+      <li><strong>Not an integer-lattice method.</strong> Integer endpoints/handles do not make the parabola bound or the cubic integer.</li>
+      <li><strong>Not the Levien fit.</strong> Levien fits an offset rail. This fits a sideways parabola to a cubic so an intersection can be bracketed.</li>
+      <li><strong>Not production-ready.</strong> The public prototype is a draft branch; it needs y-monotonic preprocessing, cusp handling, robust root finding, and a usable API.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Why it is not our next move</h2>
+    <p>Our current problem is offsets, endings, and ornament grammar. The bounding-parabola method solves a different primitive: robust curve/curve intersection for boolean path ops. It would add a large numerical subsystem without producing a rail, a terminal, or a lattice hit. Keep it in the “revisit if we need boolean ops or robust crossing/clearance” box.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Sources</h2>
+    <p><a href="https://raphlinus.github.io/curves/2022/09/09/parallel-beziers.html#cusp-finding">Levien, “Parallel curves of cubic Béziers” — cusp-finding aside</a> · <a href="https://github.com/raphlinus/raphlinus.github.io/issues/79">raphlinus.github.io#79 — full bounding-parabola design</a> · <a href="https://github.com/linebender/kurbo/pull/258">linebender/kurbo#258 — draft prototype</a></p>
+  </section>
+</main>
+
+<script>
+(() => {
+  const W = 960, H = 560, PAD = 42;
+  const DOM = {x0: 0, x1: 10, y0: 0, y1: 10};
+  const scale = Math.min((W - 2 * PAD) / (DOM.x1 - DOM.x0), (H - 2 * PAD) / (DOM.y1 - DOM.y0));
+  const ox = (W - (DOM.x1 - DOM.x0) * scale) / 2;
+  const oy = (H - (DOM.y1 - DOM.y0) * scale) / 2;
+  const SX = x => ox + (x - DOM.x0) * scale;
+  const SY = y => H - oy - (y - DOM.y0) * scale; // +y up, flipped once here
+
+  const canvas = document.getElementById('plot');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const START = {
+    p0: {x: 2, y: 1},
+    p1: {x: 2, y: 2},
+    p2: {x: 9, y: 8},
+    p3: {x: 8, y: 9},
+  };
+  let P = clone(START);
+  let drag = null;
+
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function lerp(a, b, t) { return {x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t}; }
+
+  function B(t) {
+    const u = 1 - t;
+    return {
+      x: u*u*u*P.p0.x + 3*u*u*t*P.p1.x + 3*u*t*t*P.p2.x + t*t*t*P.p3.x,
+      y: u*u*u*P.p0.y + 3*u*u*t*P.p1.y + 3*u*t*t*P.p2.y + t*t*t*P.p3.y,
+    };
+  }
+  function D(t) {
+    const u = 1 - t;
+    return {
+      x: 3*u*u*(P.p1.x-P.p0.x) + 6*u*t*(P.p2.x-P.p1.x) + 3*t*t*(P.p3.x-P.p2.x),
+      y: 3*u*u*(P.p1.y-P.p0.y) + 6*u*t*(P.p2.y-P.p1.y) + 3*t*t*(P.p3.y-P.p2.y),
+    };
+  }
+  function Q(q, t) {
+    const u = 1 - t;
+    return {
+      x: u*u*q[0].x + 2*u*t*q[1].x + t*t*q[2].x,
+      y: u*u*q[0].y + 2*u*t*q[1].y + t*t*q[2].y,
+    };
+  }
+
+  function fit() {
+    const dy = P.p3.y - P.p0.y;
+    let E = 0;
+    const N = 1200;
+    for (let i = 0; i < N; i++) {
+      const t = (i + 0.5) / N;
+      const b = B(t), d = D(t);
+      const xc = P.p0.x + (P.p3.x - P.p0.x) * (b.y - P.p0.y) / dy;
+      E += (b.x - xc) * d.y / N;
+    }
+    const c2 = -6 * E / (dy * dy * dy);
+    const c1 = (P.p3.x - P.p0.x - (P.p3.y * P.p3.y - P.p0.y * P.p0.y) * c2) / dy;
+    const c0 = P.p0.x - c1 * P.p0.y - c2 * P.p0.y * P.p0.y;
+    return {c0, c1, c2, E, dy};
+  }
+
+  function hybrid() {
+    return [
+      [P.p0, lerp(P.p0, P.p1, 1.5), P.p3],
+      [P.p0, lerp(P.p3, P.p2, 1.5), P.p3],
+    ];
+  }
+
+  function bounds(f) {
+    const p = y => f.c0 + f.c1 * y + f.c2 * y * y;
+    let lo = Infinity, hi = -Infinity;
+    for (const q of hybrid()) {
+      for (let i = 0; i <= 400; i++) {
+        const t = i / 400;
+        const qp = Q(q, t);
+        const e = qp.x - p(qp.y);
+        lo = Math.min(lo, e);
+        hi = Math.max(hi, e);
+      }
+    }
+    return {lo, hi, p};
+  }
+
+  function grid() {
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = '#e6deca';
+    for (let i = 0; i <= 10; i++) {
+      ctx.beginPath(); ctx.moveTo(SX(i), SY(0)); ctx.lineTo(SX(i), SY(10)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(SX(0), SY(i)); ctx.lineTo(SX(10), SY(i)); ctx.stroke();
+    }
+    ctx.strokeStyle = '#b9aa88';
+    ctx.strokeRect(SX(0), SY(10), SX(10) - SX(0), SY(0) - SY(10));
+  }
+
+  function path(points, stroke, width, dash) {
+    ctx.save();
+    ctx.beginPath();
+    points.forEach((p, i) => i ? ctx.lineTo(SX(p.x), SY(p.y)) : ctx.moveTo(SX(p.x), SY(p.y)));
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = width;
+    ctx.setLineDash(dash || []);
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function draw() {
+    const f = fit();
+    const {lo, hi, p} = bounds(f);
+    const showStrip = document.getElementById('show-strip').checked;
+    const showHybrid = document.getElementById('show-hybrid').checked;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#fbf7ec';
+    ctx.fillRect(0, 0, W, H);
+    grid();
+
+    // bounding strip
+    if (showStrip && hi > lo) {
+      ctx.save();
+      ctx.beginPath();
+      for (let i = 0; i <= 240; i++) {
+        const y = P.p0.y + (P.p3.y - P.p0.y) * i / 240;
+        const x = p(y) + lo;
+        i ? ctx.lineTo(SX(x), SY(y)) : ctx.moveTo(SX(x), SY(y));
+      }
+      for (let i = 240; i >= 0; i--) {
+        const y = P.p0.y + (P.p3.y - P.p0.y) * i / 240;
+        const x = p(y) + hi;
+        ctx.lineTo(SX(x), SY(y));
+      }
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(201,164,65,0.16)';
+      ctx.fill();
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(201,164,65,0.8)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // fitted parabola
+    const parab = [];
+    for (let i = 0; i <= 240; i++) {
+      const y = P.p0.y + (P.p3.y - P.p0.y) * i / 240;
+      parab.push({x: p(y), y});
+    }
+    path(parab, '#c9a441', 2.2, [7, 5]);
+
+    // hybrid quadratics
+    if (showHybrid) {
+      for (const q of hybrid()) {
+        const pts = [];
+        for (let i = 0; i <= 160; i++) pts.push(Q(q, i / 160));
+        path(pts, '#3f7d4e', 1.1, [3, 4]);
+      }
+    }
+
+    // control polygon
+    path([P.p0, P.p1, P.p2, P.p3], '#9b8b67', 1.1, [4, 4]);
+
+    // cubic
+    const cubicPts = [];
+    for (let i = 0; i <= 300; i++) cubicPts.push(B(i / 300));
+    path(cubicPts, '#2e2413', 2.6, null);
+
+    // handles and ends
+    const points = [
+      ['p0', P.p0, false, '○'],
+      ['p1', P.p1, true, '□'],
+      ['p2', P.p2, true, '□'],
+      ['p3', P.p3, false, '○'],
+    ];
+    for (const [key, pt, square, glyph] of points) {
+      const x = SX(pt.x), y = SY(pt.y);
+      ctx.save();
+      ctx.fillStyle = square ? '#c9a441' : '#fbf7ec';
+      ctx.strokeStyle = '#2e2413';
+      ctx.lineWidth = 1.5;
+      if (square) {
+        ctx.fillRect(x - 5, y - 5, 10, 10);
+        ctx.strokeRect(x - 5, y - 5, 10, 10);
+      } else {
+        ctx.beginPath(); ctx.arc(x, y, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      }
+      ctx.fillStyle = '#2e2413';
+      ctx.font = '11px ui-monospace, Menlo, monospace';
+      ctx.fillText(`${key.toUpperCase()} (${pt.x.toFixed(1)}, ${pt.y.toFixed(1)})`, x + 9, y - 7);
+      ctx.restore();
+    }
+
+    // in-figure labels and legend
+    ctx.fillStyle = '#2e2413';
+    ctx.font = '600 15px Georgia, serif';
+    ctx.fillText('Fig. B1 · y-monotonic cubic + bounding parabola', 16, 24);
+    ctx.font = '10px ui-monospace, Menlo, monospace';
+    ctx.fillStyle = '#7b6c4e';
+    ctx.fillText('x →', W - 34, H - 12);
+    ctx.fillText('y ↑', 16, 42);
+
+    const legendY = 56;
+    const items = [
+      ['#2e2413', '—', 'cubic'],
+      ['#c9a441', '--', 'fitted parabola'],
+      ['#3f7d4e', '··', 'hybrid quadratics'],
+      ['#c9a441', '▨', 'bounding strip'],
+    ];
+    let lx = 16;
+    for (const [colour, mark, label] of items) {
+      ctx.fillStyle = colour;
+      ctx.fillText(mark, lx, legendY);
+      lx += 24;
+      ctx.fillStyle = '#7b6c4e';
+      ctx.fillText(label, lx, legendY);
+      lx += ctx.measureText(label).width + 18;
+    }
+
+    const err = Math.max(Math.abs(lo), Math.abs(hi));
+    document.getElementById('readout').textContent =
+      `A = ${f.E.toFixed(5)}   dy = ${f.dy.toFixed(3)}   c₂ = ${f.c2.toFixed(6)}   c₁ = ${f.c1.toFixed(6)}   c₀ = ${f.c0.toFixed(6)}\n` +
+      `sampled bounds: dmin = ${lo.toFixed(5)}   dmax = ${hi.toFixed(5)}   max |e| = ${err.toFixed(5)}   (strip is sampled, not a proof bound)`;
+  }
+
+  function toWorld(ev) {
+    const r = canvas.getBoundingClientRect();
+    const sx = (ev.clientX - r.left) * W / r.width;
+    const sy = (ev.clientY - r.top) * H / r.height;
+    return {x: (sx - ox) / scale + DOM.x0, y: (H - oy - sy) / scale + DOM.y0};
+  }
+
+  function target(ev) {
+    const w = toWorld(ev);
+    let best = null, bestD = 18;
+    for (const key of ['p0', 'p1', 'p2', 'p3']) {
+      const d = Math.hypot(SX(P[key].x) - SX(w.x), SY(P[key].y) - SY(w.y));
+      if (d < bestD) { bestD = d; best = key; }
+    }
+    return best;
+  }
+
+  canvas.addEventListener('pointerdown', ev => {
+    const key = target(ev);
+    if (!key) return;
+    drag = key;
+    canvas.setPointerCapture(ev.pointerId);
+    ev.preventDefault();
+  });
+  canvas.addEventListener('pointermove', ev => {
+    if (!drag) {
+      canvas.style.cursor = target(ev) ? 'grab' : 'crosshair';
+      return;
+    }
+    const w = toWorld(ev);
+    if (drag === 'p0' || drag === 'p3') {
+      P[drag].x = clamp(w.x, 0.35, 9.65);
+    } else {
+      P[drag].x = clamp(w.x, 0.35, 9.65);
+      P[drag].y = clamp(w.y, P.p0.y + 0.15, P.p3.y - 0.15);
+    }
+    draw();
+  });
+  canvas.addEventListener('pointerup', ev => {
+    drag = null;
+    try { canvas.releasePointerCapture(ev.pointerId); } catch (_) {}
+  });
+  canvas.addEventListener('pointercancel', () => { drag = null; });
+
+  document.getElementById('show-strip').addEventListener('change', draw);
+  document.getElementById('show-hybrid').addEventListener('change', draw);
+  document.getElementById('reset').addEventListener('click', () => {
+    P = clone(START);
+    draw();
+  });
+
+  draw();
+})();
+</script>
+</body>
+</html>

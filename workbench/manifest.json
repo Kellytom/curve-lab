@@ -263,6 +263,15 @@
       "outputs": "source, exact rails, Levien fit, integer-hit counts"
     },
     {
+      "key": "bounding-parabola",
+      "file": "bounding-parabola.html",
+      "group": "curve",
+      "title": "Bounding parabola",
+      "purpose": "Interactive cubic, area-fitted parabola, hybrid-quadratic bounds, and strip. A separate intersection-bracket sandbox.",
+      "inputs": "drag two ends and two handles",
+      "outputs": "fitted parabola, sampled bounds, strip, readout"
+    },
+    {
       "key": "modulated-width",
       "file": "modulated-width.html",
       "group": "curve",
