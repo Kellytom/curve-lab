@@ -79,9 +79,11 @@ ps -Ao pid,rss,comm | sort -k2 -nr | head -15
 **What actually feeds it here:** long-lived `opencode` sessions (node), Google
 Chrome renderer processes, `mkdocs serve` autoreloading over `node_modules`,
 and per-screenshot Chromium launches. On 2026-11-04 the footprint was two
-opencode processes (~700 MB RSS) and ~10 Chrome renderers (~1.5 GB); there were
-**no** orphaned Playwright browsers, because `scripts/shot.mjs` launches and
-closes one per shot.
+opencode processes (~650 MB RSS) and **31 Chrome processes at 2940 MB** — 26
+renderers as Activity Monitor groups them. There were **no** orphaned Playwright
+browsers, because `scripts/shot.mjs` launches and closes one per shot. Chrome
+was ~37% of physical RAM and the reason the compressor sat at 3 GB; it is the
+lever, not the session.
 
 **Measured baseline, 2026-11-04 (the machine is 8 GB, not 16):**
 
@@ -89,6 +91,8 @@ closes one per shot.
 |---|---|
 | `PhysMem` | 8148M used, **43M unused** |
 | wired | 1654M |
+| Chrome | 31 processes, **2940M RSS**, ~26 renderers |
+| opencode | 2 processes, ~650M RSS |
 | compressor | 734,197 pages = **3.0 GB occupied**, 7.6 GB of logical pages stored |
 | swap | 1587M used of 3072M |
 | pressure level | **2 (warning)** |
