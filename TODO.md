@@ -28,8 +28,8 @@ C-family p-triple conversion and the ornament-form proofs below.
 
 - [x] **General asymmetric G2 search:** eight exact joins found; two at
   scale 1; `search_asymmetric()` and the table on `integer-g2.html`.
-- [ ] **G1 fallback policy:** define when a tangent-only join is acceptable,
-  and record the curvature jump rather than hiding it.
+- [x] **G1 fallback policy:** tangent-only joins are allowed only as glue,
+  with the curvature jump recorded; exact G2 remains the preferred case.
 - [x] **Interactive G2 drag probe:** `workbench/integer-g2-editor.html`; drag
   anchors/handles on the integer grid and watch G1/G2/tangent/curvature status.
 - [x] **Pair-level clearance:** `pair_clearance()` on the scale-1 pair; the
@@ -46,14 +46,16 @@ C-family p-triple conversion and the ornament-form proofs below.
   quadratic-degree scale.
 - [x] **Piece wrapper, scale-1 pair:** `Trace(spans=...)` carries both cubics
   through `Piece`, SVG and `piece_clearance`; `workbench/integer-g2-piece.html`.
-- [ ] **Three-piece chain wrapper:** repeat that for the C–A–B chain and run the
-  same clearance path across both joins.
+- [x] **Three-piece chain wrapper:** C–A–B now runs as a `Piece` with three
+  cubic-span traces and two declared joins; `integer-g2-piece.html`.
 - [x] **Group-level clearance:** `measure()` on the chain with both G2 joins
   declared; no violations or warnings, two allowed joins.
 - [x] **Piece wrapper, pair:** actual `Piece`/`Trace` with cubic spans; one
   declared G2 join, no violations or warnings.
-- [ ] **Piece wrapper, full chain:** the three-piece C–A–B chain still needs the
-  same object path and both contacts.
+- [x] **Piece wrapper, full chain:** three cubic spans, two contacts, clear
+  SVG/clearance report; no violations or warnings.
+- [ ] **Ribbon width for span traces:** cubic-span traces are hairlines today;
+  width/offset rails are not yet implemented.
 - [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
   fitted; do not claim an exact offset.
 

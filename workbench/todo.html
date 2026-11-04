@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:71.4%}
+.fill{height:100%;background:#8c6a21;width:76.0%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">35 / 49 done · 71% · read-only twin of
+<div class="count">38 / 50 done · 76% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -56,8 +56,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p><strong>Next</strong></p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>General asymmetric G2 search:</strong> eight exact joins found; two at</span></label>
 <p>scale 1; <code>search_asymmetric()</code> and the table on <code>integer-g2.html</code>.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>G1 fallback policy:</strong> define when a tangent-only join is acceptable,</span></label>
-<p>and record the curvature jump rather than hiding it.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>G1 fallback policy:</strong> tangent-only joins are allowed only as glue,</span></label>
+<p>with the curvature jump recorded; exact G2 remains the preferred case.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Interactive G2 drag probe:</strong> <code>workbench/integer-g2-editor.html</code>; drag</span></label>
 <p>anchors/handles on the integer grid and watch G1/G2/tangent/curvature status.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Pair-level clearance:</strong> <code>pair_clearance()</code> on the scale-1 pair; the</span></label>
@@ -72,14 +72,16 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>slope pairs; all integer after ×<code>15625</code>. <code>11250=18×25²</code> is only the quadratic-degree scale.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Piece wrapper, scale-1 pair:</strong> <code>Trace(spans=...)</code> carries both cubics</span></label>
 <p>through <code>Piece</code>, SVG and <code>piece_clearance</code>; <code>workbench/integer-g2-piece.html</code>.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Three-piece chain wrapper:</strong> repeat that for the C–A–B chain and run the</span></label>
-<p>same clearance path across both joins.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Three-piece chain wrapper:</strong> C–A–B now runs as a <code>Piece</code> with three</span></label>
+<p>cubic-span traces and two declared joins; <code>integer-g2-piece.html</code>.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Group-level clearance:</strong> <code>measure()</code> on the chain with both G2 joins</span></label>
 <p>declared; no violations or warnings, two allowed joins.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Piece wrapper, pair:</strong> actual <code>Piece</code>/<code>Trace</code> with cubic spans; one</span></label>
 <p>declared G2 join, no violations or warnings.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Piece wrapper, full chain:</strong> the three-piece C–A–B chain still needs the</span></label>
-<p>same object path and both contacts.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Piece wrapper, full chain:</strong> three cubic spans, two contacts, clear</span></label>
+<p>SVG/clearance report; no violations or warnings.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Ribbon width for span traces:</strong> cubic-span traces are hairlines today;</span></label>
+<p>width/offset rails are not yet implemented.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Offset comparison:</strong> one fitted offset on an integer cubic, labelled</span></label>
 <p>fitted; do not claim an exact offset.</p>
 <p><strong>Decision rules</strong></p>

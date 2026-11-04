@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Integer G2 piece</title>
+<title>Integer G2 pieces</title>
 <style>
 :root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441}
 *{box-sizing:border-box}
@@ -28,11 +28,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> exact integer chain spans · <b>out</b> rendered piece, clearance report, one declared G2 join</span></div><!-- /hub-bar -->
 <main>
 <p class="eyebrow">curve-lab · Piece / Trace integration</p>
-<h1>Integer G2 pair as a piece</h1>
-<p class="lede">The scale-1 asymmetric pair now travels through the actual <code>Piece</code>/<code>Trace</code> path. The traces carry cubic spans directly; no clothoid fit is pretending to be the exact curve.</p>
+<h1>Integer G2 pieces</h1>
+<p class="lede">The scale-1 pair and the three-piece C–A–B chain now travel through the actual <code>Piece</code>/<code>Trace</code> path. The traces carry cubic spans directly; no clothoid fit is pretending to be the exact curve.</p>
 <section class="panel">
-  <h2>Fig. G4 · the piece</h2>
-  <div class="figure"><h3>Fig. G4 · integer G2 piece · scale 1</h3><?xml version="1.0" encoding="UTF-8"?>
+  <h2>Fig. G4 · the asymmetric pair</h2>
+  <div class="figure"><h3>Fig. G4 · integer G2 pair · scale 1</h3><?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg"
      version="1.1"
      width="80mm" height="67mm"
@@ -143,9 +143,176 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p class="small">A ends at the declared join; B starts there. The join is a contact in the piece model, so the clearance rule allows it and still measures every other approach.</p>
 </section>
 <section class="panel">
-  <h2>Piece report</h2>
+  <h2>Pair report</h2>
   <table><tr><th>piece</th><td>integer G2 pair</td></tr><tr><th>traces</th><td>2</td></tr><tr><th>fit_ok</th><td>True</td></tr><tr><th>clearance ok</th><td>True</td></tr><tr><th>violations</th><td>0</td></tr><tr><th>warnings</th><td>0</td></tr><tr><th>allowed crossings</th><td>1</td></tr><tr><th>min distance</th><td>0.0</td></tr></table>
-  <p class="small">Cubic spans are exact; the SVG and clearance path are the same ones used by the rest of the workbench. This is a hairline trace, not a ribbon.</p>
+</section>
+<section class="panel">
+  <h2>Fig. G5 · the three-piece chain</h2>
+  <div class="figure"><h3>Fig. G5 · C–A–B integer G2 chain · scale 5</h3><?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="96mm" height="112mm"
+     viewBox="0 0 96 112">
+  <title>integer G2 chain</title>
+  <desc id="curve-lab-design">{
+  &quot;contacts&quot;: [
+    {
+      &quot;a&quot;: &quot;ink/C&quot;,
+      &quot;b&quot;: &quot;ink/A&quot;,
+      &quot;point&quot;: [
+        0.0,
+        0.0
+      ],
+      &quot;radius&quot;: 2.0,
+      &quot;waives_clearance&quot;: true
+    },
+    {
+      &quot;a&quot;: &quot;ink/A&quot;,
+      &quot;b&quot;: &quot;ink/B&quot;,
+      &quot;point&quot;: [
+        50.0,
+        0.0
+      ],
+      &quot;radius&quot;: 2.0,
+      &quot;waives_clearance&quot;: true
+    }
+  ],
+  &quot;mirror&quot;: false,
+  &quot;name&quot;: &quot;integer G2 chain&quot;,
+  &quot;stroke&quot;: 0.4,
+  &quot;traces&quot;: [
+    {
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;C&quot;,
+      &quot;spans&quot;: [
+        {
+          &quot;c1&quot;: [
+            29,
+            28
+          ],
+          &quot;c2&quot;: [
+            -15,
+            20
+          ],
+          &quot;p0&quot;: [
+            14,
+            48
+          ],
+          &quot;p3&quot;: [
+            0,
+            0
+          ]
+        }
+      ],
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    },
+    {
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;A&quot;,
+      &quot;spans&quot;: [
+        {
+          &quot;c1&quot;: [
+            15,
+            -20
+          ],
+          &quot;c2&quot;: [
+            35,
+            20
+          ],
+          &quot;p0&quot;: [
+            0,
+            0
+          ],
+          &quot;p3&quot;: [
+            50,
+            0
+          ]
+        }
+      ],
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    },
+    {
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;B&quot;,
+      &quot;spans&quot;: [
+        {
+          &quot;c1&quot;: [
+            65,
+            -20
+          ],
+          &quot;c2&quot;: [
+            21,
+            -28
+          ],
+          &quot;p0&quot;: [
+            50,
+            0
+          ],
+          &quot;p3&quot;: [
+            36,
+            -48
+          ]
+        }
+      ],
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    }
+  ]
+}</desc>
+  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="butt"
+     stroke-width="0.4">
+    <path id="ink-C" d="M 37,8 C 52 28, 8 36, 23 56"/>
+    <path id="ink-A" d="M 23,56 C 38 76, 58 36, 73 56"/>
+    <path id="ink-B" d="M 73,56 C 88 76, 44 84, 59 104"/>
+  </g>
+  <g id="annotations">
+    <text x="38.8" y="6.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">C0 (14, 48)</text>
+    <circle cx="37" cy="8" r="0.4" fill="#2e2413"/>
+    <text x="53.8" y="29.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">C1 (29, 28)</text>
+    <circle cx="52" cy="28" r="0.4" fill="#2e2413"/>
+    <text x="9.8" y="37.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">C2 (-15, 20)</text>
+    <circle cx="8" cy="36" r="0.4" fill="#2e2413"/>
+    <text x="24.8" y="54.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">C3 (0, 0)</text>
+    <circle cx="23" cy="56" r="0.4" fill="#2e2413"/>
+    <text x="24.8" y="54.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">A0 (0, 0)</text>
+    <circle cx="23" cy="56" r="0.4" fill="#2e2413"/>
+    <text x="39.8" y="77.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">A1 (15, -20)</text>
+    <circle cx="38" cy="76" r="0.4" fill="#2e2413"/>
+    <text x="59.8" y="37.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">A2 (35, 20)</text>
+    <circle cx="58" cy="36" r="0.4" fill="#2e2413"/>
+    <text x="74.8" y="54.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">A3 (50, 0)</text>
+    <circle cx="73" cy="56" r="0.4" fill="#2e2413"/>
+    <text x="74.8" y="54.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">B0 (50, 0)</text>
+    <circle cx="73" cy="56" r="0.4" fill="#2e2413"/>
+    <text x="76" y="77.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">B1 (65, -20)</text>
+    <circle cx="88" cy="76" r="0.4" fill="#2e2413"/>
+    <text x="45.8" y="85.4" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">B2 (21, -28)</text>
+    <circle cx="44" cy="84" r="0.4" fill="#2e2413"/>
+    <text x="60.8" y="102.8" font-family="Helvetica, Arial, sans-serif" font-size="0.92" fill="#2e2413" text-anchor="start">B3 (36, -48)</text>
+    <circle cx="59" cy="104" r="0.4" fill="#2e2413"/>
+  </g>
+</svg>
+</div>
+  <p class="small">C ends at A's start; A ends at B's start. Both joins are declared contacts. The chain is carried as three direct cubic spans, not as a clothoid fit.</p>
+</section>
+<section class="panel">
+  <h2>Chain report</h2>
+  <table><tr><th>piece</th><td>integer G2 chain</td></tr><tr><th>traces</th><td>3</td></tr><tr><th>fit_ok</th><td>True</td></tr><tr><th>clearance ok</th><td>True</td></tr><tr><th>violations</th><td>0</td></tr><tr><th>warnings</th><td>0</td></tr><tr><th>allowed crossings</th><td>2</td></tr><tr><th>min distance</th><td>0.0</td></tr></table>
+  <p class="small">Hairline traces only. The <code>Piece</code>/<code>Trace</code> path now supports cubic spans; ribbon width for span traces is intentionally not implemented yet.</p>
 </section>
 </main>
 </body>
