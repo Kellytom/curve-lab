@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two-parabola S probe</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1280px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:32px;line-height:1.1;margin:0 0 7px}
+h2{font-size:21px;margin:0 0 9px}
+.lede{max-width:900px;color:var(--muted);margin:0 0 20px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:17px 19px;margin:0 0 18px}
+.figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:10px}
+.figure svg{display:block;width:100%;height:auto}
+table{border-collapse:collapse;width:100%;font:11px/1.5 ui-monospace,Menlo,monospace;margin:10px 0}
+th,td{border:1px solid var(--rule);padding:5px 7px;text-align:left}
+th{width:30%;color:var(--muted);font-weight:400}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+.small{font:12px/1.55 ui-monospace,Menlo,monospace;color:var(--muted)}
+</style>
+</head>
+<body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> two quadratic controls · <b>out</b> elevated cubic controls, join tangent, signed curvatures, G1/G2 verdict</span></div><!-- /hub-bar -->
+<main>
+<p class="eyebrow">curve-lab · quadratic elevation probe</p>
+<h1>Two-parabola S probe</h1>
+<p class="lede">Two quadratics can make a clean S with a G1 join. They cannot make a <strong>G2</strong> S across a curvature reversal: a nondegenerate parabola has one curvature sign, and the two halves meet with opposite signed curvature.</p>
+<section class="panel">
+  <h2>Fig. Q1 · the two elevated quadratics</h2>
+  <div class="figure"><svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg"><rect width="1000" height="560" fill="#fbf7ec" stroke="#d8ccae"/><line x1="49.0" y1="430.3" x2="49.0" y2="123.7" stroke="#e4dcc6"/><line x1="161.8" y1="430.3" x2="161.8" y2="123.7" stroke="#e4dcc6"/><line x1="274.5" y1="430.3" x2="274.5" y2="123.7" stroke="#e4dcc6"/><line x1="387.3" y1="430.3" x2="387.3" y2="123.7" stroke="#e4dcc6"/><line x1="500.0" y1="430.3" x2="500.0" y2="123.7" stroke="#e4dcc6"/><line x1="612.7" y1="430.3" x2="612.7" y2="123.7" stroke="#e4dcc6"/><line x1="725.5" y1="430.3" x2="725.5" y2="123.7" stroke="#e4dcc6"/><line x1="838.2" y1="430.3" x2="838.2" y2="123.7" stroke="#e4dcc6"/><line x1="951.0" y1="430.3" x2="951.0" y2="123.7" stroke="#e4dcc6"/><line x1="40.0" y1="446.1" x2="960.0" y2="446.1" stroke="#e4dcc6"/><line x1="40.0" y1="389.7" x2="960.0" y2="389.7" stroke="#e4dcc6"/><line x1="40.0" y1="333.4" x2="960.0" y2="333.4" stroke="#e4dcc6"/><line x1="40.0" y1="277.0" x2="960.0" y2="277.0" stroke="#e4dcc6"/><line x1="40.0" y1="220.6" x2="960.0" y2="220.6" stroke="#e4dcc6"/><line x1="40.0" y1="164.3" x2="960.0" y2="164.3" stroke="#e4dcc6"/><line x1="40.0" y1="107.9" x2="960.0" y2="107.9" stroke="#e4dcc6"/><path d="M 161.8 277.0 165.1 273.7 168.5 270.4 171.9 267.2 175.3 264.0 178.7 260.9 182.1 257.9 185.4 255.0 188.8 252.1 192.2 249.3 195.6 246.6 199.0 243.9 202.4 241.3 205.7 238.7 209.1 236.3 212.5 233.9 215.9 231.5 219.3 229.3 222.6 227.1 226.0 224.9 229.4 222.9 232.8 220.9 236.2 219.0 239.6 217.1 242.9 215.3 246.3 213.6 249.7 211.9 253.1 210.3 256.5 208.8 259.9 207.4 263.2 206.0 266.6 204.7 270.0 203.4 273.4 202.2 276.8 201.1 280.1 200.1 283.5 199.1 286.9 198.2 290.3 197.3 293.7 196.5 297.1 195.8 300.4 195.2 303.8 194.6 307.2 194.1 310.6 193.7 314.0 193.3 317.4 193.0 320.7 192.7 324.1 192.6 327.5 192.5 330.9 192.4 334.3 192.5 337.6 192.6 341.0 192.7 344.4 193.0 347.8 193.3 351.2 193.7 354.6 194.1 357.9 194.6 361.3 195.2 364.7 195.8 368.1 196.5 371.5 197.3 374.9 198.2 378.2 199.1 381.6 200.1 385.0 201.1 388.4 202.2 391.8 203.4 395.1 204.7 398.5 206.0 401.9 207.4 405.3 208.8 408.7 210.3 412.1 211.9 415.4 213.6 418.8 215.3 422.2 217.1 425.6 219.0 429.0 220.9 432.4 222.9 435.7 224.9 439.1 227.1 442.5 229.3 445.9 231.5 449.3 233.9 452.6 236.3 456.0 238.7 459.4 241.3 462.8 243.9 466.2 246.6 469.6 249.3 472.9 252.1 476.3 255.0 479.7 257.9 483.1 260.9 486.5 264.0 489.9 267.2 493.2 270.4 496.6 273.7 500.0 277.0" fill="none" stroke="#c9a441" stroke-width="2.6" stroke-linejoin="round"/><path d="M 161.8 277.0 274.5 164.3 387.3 164.3 500.0 277.0" fill="none" stroke="#c9a441" stroke-width="1" stroke-dasharray="4 4" opacity=".85"/><path d="M 500.0 277.0 503.4 280.3 506.8 283.6 510.1 286.8 513.5 290.0 516.9 293.1 520.3 296.1 523.7 299.0 527.1 301.9 530.4 304.7 533.8 307.4 537.2 310.1 540.6 312.7 544.0 315.3 547.4 317.7 550.7 320.1 554.1 322.5 557.5 324.7 560.9 326.9 564.3 329.1 567.6 331.1 571.0 333.1 574.4 335.0 577.8 336.9 581.2 338.7 584.6 340.4 587.9 342.1 591.3 343.7 594.7 345.2 598.1 346.6 601.5 348.0 604.9 349.3 608.2 350.6 611.6 351.8 615.0 352.9 618.4 353.9 621.8 354.9 625.1 355.8 628.5 356.7 631.9 357.5 635.3 358.2 638.7 358.8 642.1 359.4 645.4 359.9 648.8 360.3 652.2 360.7 655.6 361.0 659.0 361.3 662.4 361.4 665.7 361.5 669.1 361.6 672.5 361.5 675.9 361.4 679.3 361.3 682.6 361.0 686.0 360.7 689.4 360.3 692.8 359.9 696.2 359.4 699.6 358.8 702.9 358.2 706.3 357.5 709.7 356.7 713.1 355.8 716.5 354.9 719.9 353.9 723.2 352.9 726.6 351.8 730.0 350.6 733.4 349.3 736.8 348.0 740.1 346.6 743.5 345.2 746.9 343.7 750.3 342.1 753.7 340.4 757.1 338.7 760.4 336.9 763.8 335.0 767.2 333.1 770.6 331.1 774.0 329.1 777.4 326.9 780.7 324.7 784.1 322.5 787.5 320.1 790.9 317.7 794.3 315.3 797.6 312.7 801.0 310.1 804.4 307.4 807.8 304.7 811.2 301.9 814.6 299.0 817.9 296.1 821.3 293.1 824.7 290.0 828.1 286.8 831.5 283.6 834.9 280.3 838.2 277.0" fill="none" stroke="#1f5fa8" stroke-width="2.6" stroke-linejoin="round"/><path d="M 500.0 277.0 612.7 389.7 725.5 389.7 838.2 277.0" fill="none" stroke="#1f5fa8" stroke-width="1" stroke-dasharray="4 4" opacity=".85"/><text x="163.8" y="275.8" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">L0 (−30,0)</text><text x="276.5" y="165.7" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">L1 (−20,10)</text><text x="370.3" y="165.7" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">L2 (−10,10)</text><text x="502.0" y="275.6" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">join (0,0)</text><text x="614.7" y="388.5" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">R1 (10,−10)</text><text x="727.5" y="388.5" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">R2 (20,−10)</text><text x="826.2" y="278.4" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">R3 (30,0)</text><circle cx="500.0" cy="277.0" r="4.5" fill="#2e2413" stroke="#fbf7ec"/><text x="12" y="19" font-family="Georgia,serif" font-size="14" font-weight="600" fill="#2e2413">Fig. Q1 · two elevated quadratics · G1 join</text><text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">join tangent (10,−10) · curvature left −0.023570 · right +0.023570 · G2 no</text><text x="12" y="526" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">— left parabola   — right parabola   -- control   • join</text><text x="12" y="552" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">x →</text><text x="962" y="552" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">y ↑</text></svg></div>
+  <table>
+    <tr><th>join tangent</th><td><code>(10,−10)</code></td></tr>
+    <tr><th>left end curvature</th><td><code>-0.023570</code></td></tr>
+    <tr><th>right start curvature</th><td><code>0.023570</code></td></tr>
+    <tr><th>G1</th><td>yes</td></tr>
+    <tr><th>G2</th><td>no — curvature sign reverses</td></tr>
+    <tr><th>elevated controls</th><td><code>L=(−30,0),(−20,10),(−10,10),(0,0)</code>; <code>R=(0,0),(10,−10),(20,−10),(30,0)</code></td></tr>
+  </table>
+</section>
+<section class="panel">
+  <h2>What this means</h2>
+  <p>Degree elevation is exact, but it does not add a curvature reversal. A single parabola has one curvature sign. Joining two parabolas across the middle can give a visual S with a tangent match; the curvature jumps from one sign to the other. That is a G1 joint, not a G2 joint.</p>
+  <p>The integer cubic family is the right home for an exact S with a genuine inflection. Keep quadratic elevation for a one-bend arc, or for a piecewise-parabolic S that accepts a measured G1 curvature jump.</p>
+</section>
+</main>
+</body>
+</html>

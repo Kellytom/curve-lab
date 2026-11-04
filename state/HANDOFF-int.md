@@ -53,7 +53,7 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **297 pass** (1 skipped), full run 2026-11-03.
+- **Local tests:** **299 pass** (1 skipped), full run 2026-11-03.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers

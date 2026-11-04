@@ -274,6 +274,15 @@ rational in general.
 | elevated quadratic | one parabola | `q²`, then ×3 for integer controls | one bend |
 | two elevated quadratics | a piecewise-parabolic S | `q²` per piece | two bends; join conditions |
 
+### Two-parabola S probe
+
+`workbench/quadratic-s.html` elevates two quadratic halves that meet at a G1
+join. The left end curvature is `−0.023570` and the right start curvature is
+`+0.023570`; the tangent `(10,−10)` matches, so the join is G1, not G2. A
+nondegenerate parabola has one curvature sign, so a two-parabola S cannot be
+G2 across a curvature reversal. Use the cubic family for a genuine G2 S, or
+accept the measured curvature jump for a G1 piecewise-parabolic S.
+
 ### Worked example, and a correction
 
 For `y=x²` on `x∈[−3,3]`, the quadratic controls are `(−3,9), (0,−9), (3,9)`.

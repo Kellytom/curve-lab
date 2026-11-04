@@ -37,8 +37,9 @@ C-family p-triple conversion and the ornament-form proofs below.
 - [x] **G2 chain validation, coarse:** outer pieces 47.78 apart on the 3-4-5
   mirror chain; no sampled self-intersections. Full piece-clearance rule still
   pending.
-- [ ] **Two-parabola S probe:** elevate two quadratics, solve the G2 join, and
-  compare with the cubic family.
+- [x] **Two-parabola S probe:** G1 only across a curvature reversal; a
+  nondegenerate parabola has one curvature sign, so a G2 S needs the cubic.
+  `workbench/quadratic-s.html`.
 - [ ] **Pythagorean triple catalogue for cubics:** enumerate arm pairs, chord
   choices, signs, and rotations; choose a canonical short list for production.
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean

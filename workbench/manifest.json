@@ -299,6 +299,15 @@
       "outputs": "rendered piece, clearance report, one declared G2 join"
     },
     {
+      "key": "quadratic-s",
+      "file": "quadratic-s.html",
+      "group": "curve",
+      "title": "Two-parabola S probe",
+      "purpose": "Two degree-elevated quadratics joined G1; curvature sign reversal makes G2 impossible for a nondegenerate parabola pair.",
+      "inputs": "two quadratic controls",
+      "outputs": "elevated cubic controls, join tangent, signed curvatures, G1/G2 verdict"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",

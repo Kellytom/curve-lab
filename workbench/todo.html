@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:76.0%}
+.fill{height:100%;background:#8c6a21;width:78.0%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">38 / 50 done · 76% · read-only twin of
+<div class="count">39 / 50 done · 78% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -64,8 +64,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>only crossing is the declared G2 join, with no violations or warnings.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>G2 chain validation, coarse:</strong> outer pieces 47.78 apart on the 3-4-5</span></label>
 <p>mirror chain; no sampled self-intersections. Full piece-clearance rule still pending.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Two-parabola S probe:</strong> elevate two quadratics, solve the G2 join, and</span></label>
-<p>compare with the cubic family.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Two-parabola S probe:</strong> G1 only across a curvature reversal; a</span></label>
+<p>nondegenerate parabola has one curvature sign, so a G2 S needs the cubic. <code>workbench/quadratic-s.html</code>.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Pythagorean triple catalogue for cubics:</strong> enumerate arm pairs, chord</span></label>
 <p>choices, signs, and rotations; choose a canonical short list for production.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>15625 grid probe:</strong> 25 cubic samples at <code>t=k/25</code>; three Pythagorean</span></label>
