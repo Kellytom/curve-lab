@@ -176,12 +176,38 @@ required integer scale may be large. The asymmetric shape also moves the
 inflection, so it needs a shape and clearance check, not only a curvature
 check.
 
+## G2 mirror probe
+
+A concrete probe is in `workbench/integer-g2.html` and `curve_lab/pyth_g2.py`.
+The symmetric cubic has opposite endpoint curvatures. Reflect it across an
+endpoint tangent, translate the copy onto the join, and scale both pieces by
+the hypotenuse. The reflection flips the curvature sign, so the copy's start
+curvature matches the original end curvature; the tangent matches by
+construction. All coordinates remain integer.
+
+For the 3-4-5 base the scale is `5`, the joins are at `(0,0)` and `(50,0)`,
+and both joins have tangent `(15,−20)`. The curvatures are `+16/375` at the
+first join and `−16/375` at the second; signs differ because the chain turns
+through an inflection between them. The same mirror construction passes for
+all ten triples in the catalogue, with scale equal to the hypotenuse `c`.
+
+This is narrower than the asymmetric search: it proves mirrored copies can
+make a G2 chain, not that arbitrary integer cubics can be joined. The outer
+ends are free, and the probe does not check self-intersection or clearance.
+
+Run it with:
+
+```sh
+.venv/bin/python scripts/integer_g2.py
+.venv/bin/python -m unittest tests.test_pyth_g2
+```
+
 ### What to add next
 
 - a split-and-scale helper with exact rational arithmetic and tests at `t=1/2`
   and `t=1/3`;
-- a G2 join probe that reports tangent mismatch, curvature mismatch, and the
-  final integer scale;
+- an asymmetric G2 join search that reports tangent mismatch, curvature
+  mismatch, and the final integer scale;
 - an asymmetric-arm search: which pairs of Pythagorean arms can match two
   chosen endpoint curvatures;
 - one offset comparison on this curve, labelled fitted rather than exact;
@@ -241,10 +267,12 @@ A claimed “3/4” version with `P0=(−48000,27000)` has slopes `±9/8`, not
 integer-control parabola, but it is not the 3-4-5 example it claims to be. The
 `72000` scale is one chosen scale, not a universal grid.
 
-**Grid choice:** use `360,000 = 72,000 × 5` as the default. It covers halves,
-quarters, eighths and twenty-fifths. Ninths need a further `×27`; if both
-`1/9` and `1/25` must stay exact, the common scale is `9,720,000`. We do not
-take the 27 multiplier unless a design actually needs ninths.
+**Grid ledger:** the canonical integer-cubic grid is `216,000 = 60³`. The
+`72,000` figure is only the width of the large parabola's coordinate box, not a
+required scale. Use `360,000 = 72,000 × 5` only when you specifically need
+`1/25` samples on that large parabola; it is optional. Ninths add `×27`; with
+`1/25` too, the common scale is `9,720,000`. Do not take the 27 multiplier by
+default.
 
 ## A simple 360-grid demo
 

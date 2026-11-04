@@ -40,6 +40,8 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn("Another route: elevate a quadratic", page)
         self.assertIn("What was done, in plain English", page)
         self.assertIn("Worked example, and a correction", page)
+        self.assertIn("Grid ledger", page)
+        self.assertIn("canonical integer-cubic grid", page)
         self.assertIn("360,000", page)
         self.assertIn("9,720,000", page)
         self.assertIn("A simple 360-grid demo", page)

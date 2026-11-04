@@ -171,6 +171,7 @@ evidence; add to them, do not re-solve them.
 | spine chain vs study 01 | 1.29% drift | `scripts/spine_study_probe.py` |
 | **p-triple Euler polygon + rational miter rails** | exact rational polygon; cubic drawing approx. 1.4% | `docs/SPINE.md`, `pythagorean-spiral/docs/GALLERY.md`, `TRANSFER.md`; `pythagorean-spiral` tests |
 | **Pythagorean integer cubic family** | 10 triples, integer controls, chord 2c, arms c | `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html`, `docs/INTEGER-CUBIC.md`; `tests/test_pyth_cubic.py` |
+| **Integer G2 mirror chain** | 10/10 triples pass both joins | `curve_lab/pyth_g2.py`, `workbench/integer-g2.html`; `tests/test_pyth_g2.py` |
 
 ## Next action
 

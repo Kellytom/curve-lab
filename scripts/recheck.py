@@ -194,6 +194,17 @@ def c_pyth_cubic():
     return ok, f"{len(all_cases)} triples, integer controls, chord 2c, arms c"
 
 
+@check("the integer G2 mirror chain is exact",
+       "curve_lab/pyth_g2.py; workbench/integer-g2.html Fig. G1",
+       "python -m unittest tests.test_pyth_g2")
+def c_pyth_g2():
+    from curve_lab.pyth_g2 import probe_all
+
+    reports = probe_all()
+    ok = all(r["g2"] for r in reports)
+    return ok, f"{sum(r['g2'] for r in reports)}/{len(reports)} triples pass both joins"
+
+
 @check("the hub is built from the manifest and every page carries its bar",
        "workbench/manifest.json + scripts/hub.py",
        "python scripts/hub.py")

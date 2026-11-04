@@ -16,7 +16,8 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | clothoid spans match smooth curves and cannot match a cusp | smooth 0.92%, cusped 15.2% | scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes |
 | ok | the 3-4-5 ladder is fine enough long before a 3125 grid | 350 rungs, median gap 0.14 degrees | scripts/curve_families.py ladder() — measured rung spacing |
 | ok | the Pythagorean integer cubic family | 10 triples, integer controls, chord 2c, arms c | curve_lab/pyth_cubic.py; workbench/integer-cubic.html Fig. P1 |
-| ok | the hub is built from the manifest and every page carries its bar | 33 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the integer G2 mirror chain is exact | 10/10 triples pass both joins | curve_lab/pyth_g2.py; workbench/integer-g2.html Fig. G1 |
+| ok | the hub is built from the manifest and every page carries its bar | 34 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 
 ## Recorded, re-derived elsewhere

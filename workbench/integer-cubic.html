@@ -107,11 +107,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <div class="formula">P0=(0,0), P1=(a0,−b0), P2=(L−a1,b1), P3=(L,0)</div>
   <p>with integer chord <code>L</code> and two Pythagorean arms <code>(a0,b0)</code> and <code>(a1,b1)</code>. The arm lengths can differ, and the two endpoint curvatures can be tuned independently. That is the natural way to give a piece a G2 match on both sides: rotate at a Pythagorean angle, translate on integers, choose or scale the arms for the two curvatures, then clear the common denominator.</p>
   <p>This is a direction, not yet a proved recipe. A zero-curvature endpoint cannot be scaled into a nonzero one, the sign of curvature must match, and the required integer scale may be large. The asymmetric shape also moves the inflection, so it needs a shape and clearance check, not only a curvature check.</p>
+  <p><a href="integer-g2.html">The mirror-join probe</a> tests a narrower version: every symmetric triple can be mirrored at both ends and scaled by its hypotenuse so both joins are exactly G2.</p>
 
   <h3>What to add next</h3>
   <ul>
     <li>a split-and-scale helper with exact rational arithmetic and tests at <code>t=1/2</code> and <code>t=1/3</code>;</li>
-    <li>a G2 join probe that reports tangent mismatch, curvature mismatch, and the final integer scale;</li>
+    <li>an asymmetric G2 join search that reports tangent mismatch, curvature mismatch, and the final integer scale;</li>
     <li>an asymmetric-arm search: which pairs of Pythagorean arms can match two chosen endpoint curvatures;</li>
     <li>one offset comparison on this curve, labelled fitted rather than exact;</li>
     <li>a small lattice census: which integer points appear at chosen scales, and how large the scales get;</li>
@@ -142,7 +143,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p>For <code>y=x²</code> on <code>x∈[−3,3]</code>, the quadratic controls are <code>(−3,9), (0,−9), (3,9)</code>. Elevation gives the cubic <code>(−3,9), (−1,−3), (1,−3), (3,9)</code>. The handle vectors are <code>(2,−12)</code> and <code>(−2,−12)</code>: slopes <code>±6</code> and length <code>√148</code>. The tangent intersection is <code>Q=(0,−9)</code>, and each handle is two-thirds of the way from its anchor to Q.</p>
   <p>A valid large integer parabola from the 3-4-5 family is <code>P0=(−36000,24000), P1=(−12000,−8000), P2=(12000,−8000), P3=(36000,24000)</code>. Its Q is <code>(0,−24000)</code>, its slopes are <code>±4/3</code>, and its handle length is <code>40000</code>. At <code>t=1/8, 1/4, 1/2</code> it hits integer points <code>(−27000,13500), (−18000,6000), (0,0)</code>.</p>
   <p>A claimed “3/4” version with <code>P0=(−48000,27000)</code> has slopes <code>±9/8</code>, not <code>±3/4</code>, and its handle length is not an integer. It is still a valid integer-control parabola, but it is not the 3-4-5 example it claims to be. The <code>72000</code> scale is one chosen scale, not a universal grid.</p>
-  <p><strong>Grid choice:</strong> use <code>360,000 = 72,000 × 5</code> as the default. It covers halves, quarters, eighths and twenty-fifths. Ninths need a further <code>×27</code>; if both <code>1/9</code> and <code>1/25</code> must stay exact, the common scale is <code>9,720,000</code>. We do not take the 27 multiplier unless a design actually needs ninths.</p>
+  <p><strong>Grid ledger:</strong> the canonical integer-cubic grid is <code>216,000 = 60³</code>. The <code>72,000</code> figure is only the width of the large parabola's coordinate box, not a required scale. Use <code>360,000 = 72,000 × 5</code> only when you specifically need <code>1/25</code> samples on that large parabola; it is optional. Ninths add <code>×27</code>; with <code>1/25</code> too, the common scale is <code>9,720,000</code>. Do not take the 27 multiplier by default.</p>
     <div class="table-wrap"><table>
     <tr><th>representation</th><th>exact for</th><th>point denominator</th><th>shape freedom</th></tr>
     <tr><td>single cubic</td><td>a cubic</td><td>q³</td><td>high; asymmetric arms</td></tr>

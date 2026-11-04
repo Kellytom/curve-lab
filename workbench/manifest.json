@@ -272,6 +272,15 @@
       "outputs": "integer control points, tangent, chord, arms, and rotated examples"
     },
     {
+      "key": "integer-g2",
+      "file": "integer-g2.html",
+      "group": "curve",
+      "title": "Integer G2 mirror chain",
+      "purpose": "Exact three-piece G2 chain made by mirroring the symmetric integer cubic at both endpoint tangents and scaling by the hypotenuse.",
+      "inputs": "Pythagorean triple (default 3-4-5)",
+      "outputs": "integer chain controls, join tangents, curvatures, and exact G2 checks"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",
