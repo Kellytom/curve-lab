@@ -24,6 +24,10 @@ class EulerParabolaFitPageTest(unittest.TestCase):
         self.assertIn('id="show-target"', page)
         self.assertIn('id="snap-int"', page)
         self.assertIn('id="preset-345"', page)
+        self.assertIn('id="preset-345-handles"', page)
+        self.assertIn('id="free-handles"', page)
+        self.assertIn('id="save-state"', page)
+        self.assertIn('id="save-json"', page)
         self.assertIn("6-8-10 chord", page)
         self.assertIn("true Euler segment through the current endpoints", page)
 
