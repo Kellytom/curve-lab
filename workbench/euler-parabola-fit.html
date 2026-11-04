@@ -8,7 +8,7 @@
 :root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--green:#3f7d4e;--blue:#1f5fa8}
 *{box-sizing:border-box}
 body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
-main{max-width:1100px;margin:0 auto;padding:32px 22px 70px}
+main{max-width:1480px;margin:0 auto;padding:32px 22px 70px}
 .eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
 h1{font-size:30px;line-height:1.1;margin:0 0 6px}
 .lede{max-width:880px;color:var(--muted);margin:0 0 20px}
@@ -42,7 +42,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <section class="panel">
   <h2>Fig. E1 · move the ends and the handles</h2>
-  <canvas id="editor" width="960" height="520" aria-label="Interactive cubic with endpoint-parabola handle constraints"></canvas>
+  <canvas id="editor" width="1440" height="780" aria-label="Interactive cubic with endpoint-parabola handle constraints"></canvas>
   <div class="controls">
     <button id="reset" type="button">reset</button>
     <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
@@ -103,7 +103,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <script>
 (() => {
-  const W = 960, H = 520, PAD = 42;
+  const W = 1440, H = 780, PAD = 52;
   const canvas = document.getElementById('editor');
   const ctx = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
@@ -227,8 +227,16 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   function draw(){
     ctx.clearRect(0,0,W,H);
     ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,W,H);
-    // grid
-    ctx.strokeStyle='#e6deca'; ctx.lineWidth=1;
+    // fine quarter-unit grid under the integer grid
+    ctx.lineWidth=1;
+    ctx.strokeStyle='#f0e9da';
+    for(let i=0;i<=40;i++){
+      if(i%4===0) continue;
+      const g=i*0.25;
+      ctx.beginPath(); ctx.moveTo(SX(g),SY(0)); ctx.lineTo(SX(g),SY(10)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(SX(0),SY(g)); ctx.lineTo(SX(10),SY(g)); ctx.stroke();
+    }
+    ctx.strokeStyle='#e2d8c0';
     for(let i=0;i<=10;i++){
       ctx.beginPath(); ctx.moveTo(SX(i),SY(0)); ctx.lineTo(SX(i),SY(10)); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(SX(0),SY(i)); ctx.lineTo(SX(10),SY(i)); ctx.stroke();
