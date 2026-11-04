@@ -339,7 +339,8 @@ def piece_clearance(piece: Piece, clearance: float = 5.0, tol: float = 0.05,
     if contacts is None:
         contacts = piece.contacts
     groups, info = build_piece(piece, **build)
-    result = measure(groups, clearance=clearance, tol=tol, contacts=contacts)
+    result = measure(groups, clearance=clearance, tol=tol, contacts=contacts,
+                     roles=roles)
     result["piece"] = info["piece"]
     result["fit_ok"] = info["fit_ok"]
     return result

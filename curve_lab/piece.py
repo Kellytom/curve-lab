@@ -33,12 +33,24 @@ def _terminals(value) -> tuple[str, str]:
     return check_terminal(pair[0]), check_terminal(pair[1])
 
 
+def _json_point(value):
+    if hasattr(value, "denominator"):
+        return int(value) if value.denominator == 1 else float(value)
+    return value
+
+
+def _json_spans(spans):
+    return [{key: [_json_point(v) for v in point]
+             for key, point in span.items()} for span in spans]
+
+
 @dataclass
 class Trace:
     """One named chain in a piece, optionally with a ribbon width."""
 
     name: str
-    design: Design
+    design: Design | None = None
+    spans: list[dict] | None = None
     width: float | None = None
     # None follows the piece; True/False overrides it. A centred band usually
     # sets False so the mirror does not draw it twice.
@@ -50,6 +62,16 @@ class Trace:
     def __post_init__(self):
         if not self.name.strip():
             raise ValueError("a trace needs a name")
+        if (self.design is None) == (self.spans is None):
+            raise ValueError("a trace needs one of design or spans, not both")
+        if self.spans is not None:
+            if not self.spans:
+                raise ValueError("a span trace needs at least one span")
+            needed = {"p0", "c1", "c2", "p3"}
+            if any(not needed <= set(span) for span in self.spans):
+                raise ValueError("every span needs p0, c1, c2, p3")
+            if self.width is not None:
+                raise ValueError("a cubic span trace is a hairline; width is not supported")
         if self.width is not None and self.width <= 0:
             raise ValueError("trace width must be positive")
         if not self.layer.strip():
@@ -59,20 +81,26 @@ class Trace:
             raise ValueError("a terminal needs a ribbon width")
 
     def to_dict(self) -> dict:
-        return {
+        out = {
             "name": self.name,
             "layer": self.layer,
             "width": self.width,
             "mirror": self.mirror,
             "terminals": list(self.terminals),
-            "design": self.design.to_dict(),
         }
+        if self.spans is not None:
+            out["spans"] = _json_spans(self.spans)
+        else:
+            out["design"] = self.design.to_dict()
+        return out
 
     @classmethod
     def from_dict(cls, data: dict) -> "Trace":
+        spans = data.get("spans")
         return cls(
             name=str(data["name"]),
-            design=Design.from_dict(data["design"]),
+            design=None if spans is not None else Design.from_dict(data["design"]),
+            spans=list(spans) if spans is not None else None,
             width=None if data.get("width") is None else float(data["width"]),
             mirror=data.get("mirror"),
             layer=str(data.get("layer", "ink")),
@@ -179,6 +207,24 @@ def build_piece(piece: Piece, tol: float = 0.02, max_spans: int = 64,
     report = []
 
     for trace in piece.traces:
+        base = f"{trace.layer}/{trace.name}"
+        if trace.spans is not None:
+            mirrored = piece.mirror if trace.mirror is None else bool(trace.mirror)
+            report.append({
+                "name": trace.name,
+                "layer": trace.layer,
+                "fit_error": 0.0,
+                "rails": 0,
+                "mirrored": mirrored,
+                "terminals": [{"end": end, "kind": "butt", "extension": 0.0,
+                               "fold": False} for end in ("start", "end")],
+            })
+            groups.append(Group(base, trace.spans, None, base, "spine"))
+            if mirrored:
+                mirrored_instance = f"{base} mirrored"
+                groups.append(Group(mirrored_instance, _mirror_spans(trace.spans),
+                                    None, mirrored_instance, "spine"))
+            continue
         chain = engine.build(trace.design, backend=backend)
         spine, fit = bezier.fit_chain(
             chain, tol=tol, max_spans_per_segment=max_spans, split=split,
@@ -191,7 +237,6 @@ def build_piece(piece: Piece, tol: float = 0.02, max_spans: int = 64,
             max_spans_per_segment=max_spans, split=split,
         )
 
-        base = f"{trace.layer}/{trace.name}"
         groups.append(Group(base, spine, None, base, "spine"))
         for rail in rails:
             groups.append(Group(

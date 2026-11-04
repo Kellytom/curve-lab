@@ -216,6 +216,10 @@ the exact scale-1 pair and shows live G1/G2, tangent, curvature and integer
 status. Dragging is a probe, not a solver; integer snapping does not preserve
 G2 by itself.
 
+The exact pair is also carried as an actual `Piece`/`Trace` with cubic spans in
+`workbench/integer-g2-piece.html`; `Trace(spans=...)` uses the existing SVG and
+`piece_clearance()` path without a clothoid fit.
+
 Run it with:
 
 ```sh

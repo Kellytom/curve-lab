@@ -290,6 +290,15 @@
       "outputs": "curve shape and live G1/G2 mismatch report"
     },
     {
+      "key": "integer-g2-piece",
+      "file": "integer-g2-piece.html",
+      "group": "curve",
+      "title": "Integer G2 piece",
+      "purpose": "The scale-1 asymmetric G2 pair as an actual Piece/Trace with cubic spans, SVG rendering, and real piece_clearance.",
+      "inputs": "exact integer chain spans",
+      "outputs": "rendered piece, clearance report, one declared G2 join"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",

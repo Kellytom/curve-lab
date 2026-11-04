@@ -128,7 +128,7 @@ def first_svg(page: Path, limit: int = 60000):
     svg = m.group(0)
     svg = re.sub(r'(<svg\b[^>]*?)\swidth="[^"]*"', r"\1", svg, count=1)
     svg = re.sub(r'(<svg\b[^>]*?)\sheight="[^"]*"', r"\1", svg, count=1)
-    return svg
+    return "\n".join(line.rstrip() for line in svg.splitlines())
 
 
 BAR_CSS = (

@@ -44,12 +44,16 @@ C-family p-triple conversion and the ornament-form proofs below.
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
   slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
   quadratic-degree scale.
-- [ ] **Integrate one chain:** put a G2 integer chain into `Piece`/`Trace` or a
-  stem card and measure it against the existing path.
+- [x] **Piece wrapper, scale-1 pair:** `Trace(spans=...)` carries both cubics
+  through `Piece`, SVG and `piece_clearance`; `workbench/integer-g2-piece.html`.
+- [ ] **Three-piece chain wrapper:** repeat that for the C–A–B chain and run the
+  same clearance path across both joins.
 - [x] **Group-level clearance:** `measure()` on the chain with both G2 joins
   declared; no violations or warnings, two allowed joins.
-- [ ] **Piece wrapper:** carry the same chain through an actual `Piece`/`Trace`
-  object; the Group-level probe does not yet do that.
+- [x] **Piece wrapper, pair:** actual `Piece`/`Trace` with cubic spans; one
+  declared G2 join, no violations or warnings.
+- [ ] **Piece wrapper, full chain:** the three-piece C–A–B chain still needs the
+  same object path and both contacts.
 - [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
   fitted; do not claim an exact offset.
 

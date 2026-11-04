@@ -210,6 +210,7 @@ a{{color:#1f5fa8}}
   <div class="figure">{asym_svg}</div>
   <p class="small">A ends at <code>(50,0)</code> with tangent <code>(4,−3)</code> and curvature <code>−6/5</code>. Reflected B starts there with the same tangent and curvature; all controls are integers.</p>
   <p class="small"><a href="integer-g2-editor.html">Open the drag probe</a> to move the anchors and handles yourself.</p>
+  <p class="small"><a href="integer-g2-piece.html">Open the Piece/Trace version</a>: cubic spans carried directly by the model, with the real clearance report.</p>
 </section>
 
 <section class="panel">
