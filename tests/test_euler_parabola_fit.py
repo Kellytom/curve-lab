@@ -15,6 +15,10 @@ class EulerParabolaFitPageTest(unittest.TestCase):
         self.assertIn("current cubic seam", page)
         self.assertIn("asymptotic slope", page)
         self.assertIn("kurbo PR #169", page)
+        self.assertIn('id="offset-d"', page)
+        self.assertIn("dense normal offsets", page)
+        self.assertIn('id="show-target"', page)
+        self.assertIn("true Euler segment through the current endpoints", page)
 
 
 if __name__ == "__main__":

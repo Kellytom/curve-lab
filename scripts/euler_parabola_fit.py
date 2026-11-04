@@ -173,11 +173,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <button id="reset" type="button">reset</button>
     <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
     <label><input type="checkbox" id="show-offset" checked> offsets</label>
+    <label><input type="checkbox" id="show-target" checked> Euler target</label>
     <label>d <input type="range" id="offset-d" min="0" max="1" step="0.05" value="0.55"></label>
     <span>drag ○ ends · drag □ handles along the parabola</span>
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
-  <p class="small">The parabola arms cover the full ±90° endpoint-tangent range. A single cubic is only a good Euler fit well inside that range; near the extremes, split the Euler into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
+  <p class="small">The violet dotted curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. The parabola arms cover the full ±90° endpoint-tangent range; a single cubic is only a good Euler fit well inside that range, so near the extremes, split the Euler into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
 </section>
 
 <section class="panel">
@@ -271,6 +272,63 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   function offsetPath(d){
     const out=[]; for(let i=0;i<=220;i++) out.push(offsetPoint(i/220,d)); return out;
   }
+  // Euler target: normalized by the chord, then transformed onto P0-P3.
+  function integEuler(k0,k1){
+    const N=160, ds=1/N; let sx=0, sy=0;
+    for(let i=0;i<=N;i++){
+      const s=-0.5+i*ds;
+      const w=(i===0||i===N)?1:(i%2?4:2);
+      const th=k0*s+0.5*k1*s*s;
+      sx+=w*Math.cos(th); sy+=w*Math.sin(th);
+    }
+    return {u:sx*ds/3, v:sy*ds/3};
+  }
+  function fitEuler(th0,th1){
+    let k1old=0;
+    const dth=th1-th0, k0=th0+th1;
+    let k1=(6-dth*dth/70-0.1*k0*k0)*dth;
+    let errorOld=dth;
+    for(let it=0;it<12;it++){
+      const iv=integEuler(k0,k1);
+      const chth=Math.atan2(iv.v,iv.u);
+      const error=dth-(0.25*k1-2*chth);
+      if(!Number.isFinite(error)) return null;
+      if(Math.abs(error)<1e-9){
+        const chord=Math.hypot(iv.u,iv.v);
+        if(!Number.isFinite(chord)||chord<1e-9) return null;
+        return {k0,k1,chord,chth};
+      }
+      const newK1=k1+(k1old-k1)*error/(error-errorOld);
+      k1old=k1; errorOld=error; k1=newK1;
+      if(!Number.isFinite(k1)||Math.abs(k1)>200) return null;
+    }
+    return null;
+  }
+  function eulerNorm(fit,t){
+    const u=t*0.5-0.5;
+    const thm=(0.5*fit.k1*u+fit.k0)*u-fit.chth;
+    const iv=integEuler((fit.k0+fit.k1*0.5*(t-1))*t, fit.k1*t*t);
+    const s=t/fit.chord*Math.sin(thm), c=t/fit.chord*Math.cos(thm);
+    return {x:iv.u*c-iv.v*s, y:-iv.v*c-iv.u*s};
+  }
+  function eulerTarget(){
+    const {p1,p2}=handles();
+    const d01={x:p1.x-P0.x,y:p1.y-P0.y};
+    const d23={x:P3.x-p2.x,y:P3.y-p2.y};
+    const d03={x:P3.x-P0.x,y:P3.y-P0.y};
+    const cross=(a,b)=>a.x*b.y-a.y*b.x;
+    const dot=(a,b)=>a.x*b.x+a.y*b.y;
+    const th0=Math.atan2(cross(d03,d01),dot(d03,d01));
+    const th1=Math.atan2(cross(d23,d03),dot(d23,d03));
+    const fit=fitEuler(th0,th1);
+    if(!fit) return {pts:null,th0,th1,fit:null};
+    const f=frame(), pts=[];
+    for(let i=0;i<=180;i++){
+      const q=eulerNorm(fit,i/180);
+      pts.push({x:P0.x+f.L*(q.x*f.e.x+q.y*f.n.x), y:P0.y+f.L*(q.x*f.e.y+q.y*f.n.y)});
+    }
+    return {pts,th0,th1,fit};
+  }
   function parab(side){
     const pts=[];
     for(let i=0;i<=80;i++){
@@ -316,10 +374,19 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
         }
       }
     }
+    // true Euler target through the current ends/tangents; draw it after
+    // the cubic so a close target remains visible.
+    let target=null;
+    if(document.getElementById('show-target').checked) target=eulerTarget();
+    if(target && target.pts){
+      ctx.save(); ctx.beginPath();
+      target.pts.forEach((p,i)=> i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y)));
+      ctx.strokeStyle='#6b4c9a'; ctx.lineWidth=2.6; ctx.lineCap='round'; ctx.stroke(); ctx.restore();
+    }
     // cubic
     ctx.beginPath();
     for(let i=0;i<=300;i++){const p=cubic(i/300); i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y));}
-    ctx.strokeStyle='#2e2413'; ctx.lineWidth=2.6; ctx.lineJoin='round'; ctx.stroke();
+    ctx.strokeStyle='#2e2413'; ctx.lineWidth=2.4; ctx.lineJoin='round'; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
     // points
     for(const [name,p,square] of [['P0',P0,false],['P1',p1,true],['P2',p2,true],['P3',P3,false]]){
       const x=SX(p.x), y=SY(p.y);
@@ -334,7 +401,36 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     ctx.fillText('Fig. E1 · cubic with endpoint-parabola handles',16,24);
     ctx.font='10px ui-monospace, Menlo, monospace'; ctx.fillStyle='#7b6c4e';
     ctx.fillText('x →',W-34,H-12); ctx.fillText('y ↑',16,42);
-    ctx.fillText('— cubic   --- control   ··· endpoint parabolas   □ handles   — ±d offsets',16,56);
+    // 2pt swatches so the actual colours are visible.
+    const legendY = 58;
+    const items = [
+      {kind:'line', color:'#2e2413', dash:[5,4], label:'cubic'},
+      {kind:'line', color:'#7b6c4e', dash:[4,4], label:'control'},
+      {kind:'line', color:'#3f7d4e', dash:[3,4], label:'parabolas'},
+      {kind:'square', color:'#c9a441', label:'handles'},
+      {kind:'line', color:'#1f5fa8', dash:[], label:'+d'},
+      {kind:'line', color:'#b23a2b', dash:[], label:'−d'},
+      {kind:'line', color:'#6b4c9a', dash:[], label:'Euler'},
+    ];
+    let lx = 16;
+    ctx.textBaseline = 'middle';
+    for (const item of items) {
+      ctx.save();
+      ctx.strokeStyle = item.color; ctx.fillStyle = item.color; ctx.lineWidth = 2;
+      if (item.kind === 'line') {
+        ctx.beginPath(); ctx.setLineDash(item.dash);
+        ctx.moveTo(lx, legendY); ctx.lineTo(lx + 18, legendY); ctx.stroke();
+        ctx.setLineDash([]);
+      } else {
+        ctx.fillRect(lx + 5, legendY - 3.5, 7, 7);
+        ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1; ctx.strokeRect(lx + 5, legendY - 3.5, 7, 7);
+      }
+      ctx.restore();
+      ctx.fillStyle = '#7b6c4e';
+      ctx.fillText(item.label, lx + 23, legendY + 1);
+      lx += 23 + ctx.measureText(item.label).width + 13;
+    }
+    ctx.textBaseline = 'alphabetic';
     const f=frame();
     const chordAngle=Math.atan2(P3.y-P0.y,P3.x-P0.x);
     const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
@@ -344,7 +440,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     document.getElementById('readout').textContent =
       `chord = ${f.L.toFixed(3)}   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
       `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})   d = ${Number(document.getElementById('offset-d').value).toFixed(2)}\n`+
-      `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°`+(comfort?'   ⚠ outside single-span comfort; split the Euler':'');
+      `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°`+(comfort?'   ⚠ outside single-span comfort; split the Euler':'')+
+      (target && target.pts ? '   · Euler target shown' : '   · Euler target unavailable at these ends');
   }
   function toWorld(ev){
     const r=canvas.getBoundingClientRect();
@@ -384,6 +481,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   canvas.addEventListener('pointercancel',()=>{drag=null;});
   document.getElementById('show-parab').addEventListener('change',draw);
   document.getElementById('show-offset').addEventListener('change',draw);
+  document.getElementById('show-target').addEventListener('change',draw);
   document.getElementById('offset-d').addEventListener('input',draw);
   document.getElementById('reset').addEventListener('click',()=>{
     P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1; draw();
