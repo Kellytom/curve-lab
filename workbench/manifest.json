@@ -254,6 +254,15 @@
       "outputs": "rational polygon, miter rails, cubic drawing, polygon/cubic margins"
     },
     {
+      "key": "euler-parabola-fit",
+      "file": "euler-parabola-fit.html",
+      "group": "curve",
+      "title": "Euler parabola fit",
+      "purpose": "Interactive endpoint-parabola handle editor plus n^5 error/arclength comparison against true Euler segments.",
+      "inputs": "drag ends and handles; symmetric/asymmetric studies",
+      "outputs": "cubic, endpoint parabolas, error and arclength tables"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",

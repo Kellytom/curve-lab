@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euler spiral to cubic · parabola handles</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--green:#3f7d4e;--blue:#1f5fa8}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1100px;margin:0 auto;padding:32px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:30px;line-height:1.1;margin:0 0 6px}
+.lede{max-width:880px;color:var(--muted);margin:0 0 20px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;margin:0 0 18px}
+h2{font-size:20px;margin:0 0 8px}
+p{margin:0 0 10px}
+canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px solid var(--rule);touch-action:none;cursor:crosshair}
+.controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:10px 0 2px;font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.controls button{font:12px ui-monospace,Menlo,monospace;background:var(--paper);border:1px solid var(--rule);padding:5px 10px;color:var(--ink);cursor:pointer}
+.controls button:hover{background:#f4ecd7}
+.readout{font:11px/1.6 ui-monospace,Menlo,monospace;color:var(--muted);margin:9px 0 0;white-space:pre-wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:10px}
+.figure svg{display:block;width:100%;height:auto}
+.meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);margin:8px 0}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font:10px/1.4 ui-monospace,Menlo,monospace}
+th,td{border:1px solid var(--rule);padding:4px 5px;text-align:right;white-space:nowrap}
+th{color:var(--muted);font-weight:400}
+.small{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted)}
+a{color:var(--blue)}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+</style>
+</head>
+<body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> drag ends and handles; symmetric/asymmetric studies · <b>out</b> cubic, endpoint parabolas, error and arclength tables</span></div><!-- /hub-bar -->
+<main>
+<p class="eyebrow">curve-lab · fitted option</p>
+<h1>Euler spiral → cubic Bézier</h1>
+<p class="lede">The current cubic seam already uses the 2021 endpoint-parabola rule: the handle sits where the endpoint tangent meets the parabola. The editor below is the handle construction made draggable; the panels measure the current seam against the true Euler spiral, not a second fit.</p>
+
+<section class="panel">
+  <h2>Fig. E1 · move the ends and the handles</h2>
+  <canvas id="editor" width="960" height="520" aria-label="Interactive cubic with endpoint-parabola handle constraints"></canvas>
+  <div class="controls">
+    <button id="reset" type="button">reset</button>
+    <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
+    <span>drag ○ ends · drag □ handles along the parabola</span>
+  </div>
+  <p class="readout" id="readout" aria-live="polite"></p>
+</section>
+
+<section class="panel">
+  <h2>What is being measured</h2>
+  <p>The current seam's arm is</p>
+  <p class="small"><code>arm = |chord| / (3 cos²(θ/2)) = 2|chord| / (3(1 + cos θ))</code></p>
+  <p>which is exactly the intersection of the endpoint tangent with <code>x = 1/3 − (3/4)y²</code> on the normalized chord. So there is <strong>no separate fitted option to switch to</strong>; the comparison is a validation of the existing seam. The error is the maximum sampled normal distance from the cubic to the true Euler spiral; arclength is the true arclength normalized to chord 1.</p>
+</section>
+
+<section class="panel">
+  <h2>Comparison</h2>
+  <div class="grid">
+    <figure class="figure">
+      <svg viewBox="0 0 470 360" xmlns="http://www.w3.org/2000/svg"><rect width="470" height="360" fill="#fffdf7" stroke="#e4dcc6"/><line x1="61.6" y1="189.3" x2="61.6" y2="160.7" stroke="#e4dcc6"/><line x1="96.2" y1="189.3" x2="96.2" y2="160.7" stroke="#e4dcc6"/><line x1="130.9" y1="189.3" x2="130.9" y2="160.7" stroke="#e4dcc6"/><line x1="165.6" y1="189.3" x2="165.6" y2="160.7" stroke="#e4dcc6"/><line x1="200.3" y1="189.3" x2="200.3" y2="160.7" stroke="#e4dcc6"/><line x1="235.0" y1="189.3" x2="235.0" y2="160.7" stroke="#e4dcc6"/><line x1="269.7" y1="189.3" x2="269.7" y2="160.7" stroke="#e4dcc6"/><line x1="304.4" y1="189.3" x2="304.4" y2="160.7" stroke="#e4dcc6"/><line x1="339.1" y1="189.3" x2="339.1" y2="160.7" stroke="#e4dcc6"/><line x1="373.7" y1="189.3" x2="373.7" y2="160.7" stroke="#e4dcc6"/><line x1="408.4" y1="189.3" x2="408.4" y2="160.7" stroke="#e4dcc6"/><line x1="13.0" y1="175.0" x2="457.0" y2="175.0" stroke="#e4dcc6"/><path d="M 61.6 175.0 62.9 174.5 64.3 174.1 65.7 173.6 67.1 173.2 68.5 172.7 69.9 172.3 71.3 171.9 72.7 171.5 74.1 171.1 75.6 170.8 77.0 170.4 78.4 170.1 79.8 169.7 81.2 169.4 82.7 169.1 84.1 168.8 85.5 168.5 86.9 168.2 88.4 167.9 89.8 167.6 91.3 167.4 92.7 167.1 94.1 166.9 95.6 166.7 97.0 166.4 98.5 166.2 99.9 166.0 101.4 165.8 102.8 165.7 104.3 165.5 105.7 165.3 107.2 165.2 108.6 165.0 110.1 164.9 111.5 164.8 113.0 164.6 114.5 164.5 115.9 164.4 117.4 164.3 118.8 164.3 120.3 164.2 121.8 164.1 123.2 164.0 124.7 164.0 126.1 163.9 127.6 163.9 129.1 163.9 130.5 163.8 132.0 163.8 133.4 163.8 134.9 163.8 136.4 163.8 137.8 163.8 139.3 163.9 140.7 163.9 142.2 163.9 143.7 164.0 145.1 164.0 146.6 164.0 148.1 164.1 149.5 164.2 151.0 164.2 152.4 164.3 153.9 164.4 155.3 164.5 156.8 164.6 158.3 164.7 159.7 164.8 161.2 164.9 162.6 165.0 164.1 165.1 165.6 165.2 167.0 165.4 168.5 165.5 169.9 165.6 171.4 165.8 172.8 165.9 174.3 166.1 175.7 166.2 177.2 166.4 178.6 166.6 180.1 166.7 181.5 166.9 183.0 167.1 184.4 167.2 185.9 167.4 187.3 167.6 188.8 167.8 190.2 168.0 191.7 168.2 193.1 168.4 194.6 168.6 196.0 168.8 197.5 169.0 198.9 169.2 200.4 169.4 201.8 169.6 203.3 169.9 204.7 170.1 206.2 170.3 207.6 170.5 209.0 170.7 210.5 171.0 211.9 171.2 213.4 171.4 214.8 171.7 216.3 171.9 217.7 172.1 219.1 172.4 220.6 172.6 222.0 172.8 223.5 173.1 224.9 173.3 226.4 173.6 227.8 173.8 229.2 174.0 230.7 174.3 232.1 174.5 233.6 174.8 235.0 175.0 236.4 175.2 237.9 175.5 239.3 175.7 240.8 176.0 242.2 176.2 243.6 176.4 245.1 176.7 246.5 176.9 248.0 177.2 249.4 177.4 250.9 177.6 252.3 177.9 253.7 178.1 255.2 178.3 256.6 178.6 258.1 178.8 259.5 179.0 261.0 179.3 262.4 179.5 263.8 179.7 265.3 179.9 266.7 180.1 268.2 180.4 269.6 180.6 271.1 180.8 272.5 181.0 274.0 181.2 275.4 181.4 276.9 181.6 278.3 181.8 279.8 182.0 281.2 182.2 282.7 182.4 284.1 182.6 285.6 182.8 287.0 182.9 288.5 183.1 289.9 183.3 291.4 183.4 292.8 183.6 294.3 183.8 295.7 183.9 297.2 184.1 298.6 184.2 300.1 184.4 301.5 184.5 303.0 184.6 304.4 184.8 305.9 184.9 307.4 185.0 308.8 185.1 310.3 185.2 311.7 185.3 313.2 185.4 314.7 185.5 316.1 185.6 317.6 185.7 319.0 185.8 320.5 185.8 321.9 185.9 323.4 186.0 324.9 186.0 326.3 186.0 327.8 186.1 329.3 186.1 330.7 186.1 332.2 186.2 333.6 186.2 335.1 186.2 336.6 186.2 338.0 186.2 339.5 186.2 340.9 186.1 342.4 186.1 343.9 186.1 345.3 186.0 346.8 186.0 348.2 185.9 349.7 185.8 351.2 185.7 352.6 185.7 354.1 185.6 355.5 185.5 357.0 185.4 358.5 185.2 359.9 185.1 361.4 185.0 362.8 184.8 364.3 184.7 365.7 184.5 367.2 184.3 368.6 184.2 370.1 184.0 371.5 183.8 373.0 183.6 374.4 183.3 375.9 183.1 377.3 182.9 378.7 182.6 380.2 182.4 381.6 182.1 383.1 181.8 384.5 181.5 385.9 181.2 387.3 180.9 388.8 180.6 390.2 180.3 391.6 179.9 393.0 179.6 394.4 179.2 395.9 178.9 397.3 178.5 398.7 178.1 400.1 177.7 401.5 177.3 402.9 176.8 404.3 176.4 405.7 175.9 407.1 175.5 408.4 175.0" fill="none" stroke="#2e2413" stroke-width="2.4" stroke-linejoin="round"/><path d="M 61.6 175.0 64.3 174.1 67.1 173.2 69.9 172.3 72.8 171.5 75.6 170.8 78.4 170.1 81.3 169.4 84.1 168.8 87.0 168.2 89.8 167.6 92.7 167.1 95.6 166.7 98.5 166.2 101.4 165.8 104.3 165.5 107.2 165.2 110.1 164.9 113.0 164.6 115.9 164.4 118.8 164.3 121.7 164.1 124.6 164.0 127.6 163.9 130.5 163.9 133.4 163.8 136.3 163.8 139.3 163.9 142.2 163.9 145.1 164.0 148.1 164.1 148.1 164.1 151.0 164.2 153.9 164.4 156.8 164.6 159.7 164.8 162.6 165.0 165.6 165.2 168.5 165.5 171.4 165.8 174.3 166.1 177.2 166.4 180.1 166.7 183.0 167.1 185.9 167.4 188.8 167.8 191.7 168.2 194.6 168.6 197.5 169.0 200.4 169.4 203.3 169.9 206.1 170.3 209.0 170.7 211.9 171.2 214.8 171.7 217.7 172.1 220.6 172.6 223.5 173.1 226.4 173.6 229.2 174.0 232.1 174.5 235.0 175.0 235.0 175.0 237.9 175.5 240.8 176.0 243.6 176.4 246.5 176.9 249.4 177.4 252.3 177.9 255.2 178.3 258.1 178.8 261.0 179.3 263.9 179.7 266.7 180.1 269.6 180.6 272.5 181.0 275.4 181.4 278.3 181.8 281.2 182.2 284.1 182.6 287.0 182.9 289.9 183.3 292.8 183.6 295.7 183.9 298.6 184.2 301.5 184.5 304.4 184.8 307.4 185.0 310.3 185.2 313.2 185.4 316.1 185.6 319.0 185.8 321.9 185.9 321.9 185.9 324.9 186.0 327.8 186.1 330.7 186.1 333.7 186.2 336.6 186.2 339.5 186.1 342.4 186.1 345.4 186.0 348.3 185.9 351.2 185.7 354.1 185.6 357.0 185.4 359.9 185.1 362.8 184.8 365.7 184.5 368.6 184.2 371.5 183.8 374.4 183.3 377.3 182.9 380.2 182.4 383.0 181.8 385.9 181.2 388.7 180.6 391.6 179.9 394.4 179.2 397.2 178.5 400.1 177.7 402.9 176.8 405.7 175.9 408.4 175.0" fill="none" stroke="#c9a441" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="5 4"/><circle cx="61.6" cy="175.0" r="3.5" fill="#8c6a21" stroke="#fffdf7"/><circle cx="408.4" cy="175.0" r="3.5" fill="#8c6a21" stroke="#fffdf7"/><text x="12" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="#2e2413">Fig. E2 · symmetric Euler · n=4</text><text x="12" y="352" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">x →</text><text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">y ↑</text><text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">— true Euler   --- current seam</text></svg>
+      <p class="meta">endpoint tangents: 19.12° / 19.12° · true arclength: 1.011191 · asymptotic slope n=4→16: <strong>4.78</strong></p><div class="table-wrap"><table><tr><th>n</th><th>max error</th><th>error ratio</th><th>cubic arc</th><th>arc error</th><th>relative arc error</th><th>clamped</th></tr><tr><td>1</td><td>2.627e-04</td><td>—</td><td>1.011300</td><td>1.091e-04</td><td>1.08e-04</td><td>0</td></tr><tr><td>2</td><td>1.659e-04</td><td>1.583675</td><td>1.011259</td><td>6.843e-05</td><td>6.77e-05</td><td>0</td></tr><tr><td>4</td><td>8.893e-06</td><td>18.653230</td><td>1.011192</td><td>1.304e-06</td><td>1.29e-06</td><td>0</td></tr><tr><td>8</td><td>3.441e-07</td><td>25.844713</td><td>1.011191</td><td>1.617e-08</td><td>1.60e-08</td><td>0</td></tr><tr><td>16</td><td>1.185e-08</td><td>29.032477</td><td>1.011191</td><td>-1.030e-09</td><td>1.02e-09</td><td>0</td></tr></table></div>
+    </figure>
+    <figure class="figure">
+      <svg viewBox="0 0 470 360" xmlns="http://www.w3.org/2000/svg"><rect width="470" height="360" fill="#fffdf7" stroke="#e4dcc6"/><line x1="61.6" y1="205.8" x2="61.6" y2="144.2" stroke="#e4dcc6"/><line x1="96.2" y1="205.8" x2="96.2" y2="144.2" stroke="#e4dcc6"/><line x1="130.9" y1="205.8" x2="130.9" y2="144.2" stroke="#e4dcc6"/><line x1="165.6" y1="205.8" x2="165.6" y2="144.2" stroke="#e4dcc6"/><line x1="200.3" y1="205.8" x2="200.3" y2="144.2" stroke="#e4dcc6"/><line x1="235.0" y1="205.8" x2="235.0" y2="144.2" stroke="#e4dcc6"/><line x1="269.7" y1="205.8" x2="269.7" y2="144.2" stroke="#e4dcc6"/><line x1="304.4" y1="205.8" x2="304.4" y2="144.2" stroke="#e4dcc6"/><line x1="339.1" y1="205.8" x2="339.1" y2="144.2" stroke="#e4dcc6"/><line x1="373.7" y1="205.8" x2="373.7" y2="144.2" stroke="#e4dcc6"/><line x1="408.4" y1="205.8" x2="408.4" y2="144.2" stroke="#e4dcc6"/><line x1="13.0" y1="203.0" x2="457.0" y2="203.0" stroke="#e4dcc6"/><line x1="13.0" y1="185.6" x2="457.0" y2="185.6" stroke="#e4dcc6"/><line x1="13.0" y1="168.3" x2="457.0" y2="168.3" stroke="#e4dcc6"/><line x1="13.0" y1="150.9" x2="457.0" y2="150.9" stroke="#e4dcc6"/><path d="M 61.6 150.9 63.1 151.2 64.6 151.4 66.1 151.7 67.6 152.0 69.1 152.2 70.6 152.5 72.1 152.8 73.6 153.1 75.1 153.4 76.6 153.7 78.0 154.0 79.5 154.3 81.0 154.6 82.5 154.9 84.0 155.2 85.5 155.6 87.0 155.9 88.5 156.2 90.0 156.6 91.4 156.9 92.9 157.3 94.4 157.6 95.9 158.0 97.4 158.3 98.8 158.7 100.3 159.1 101.8 159.4 103.3 159.8 104.8 160.2 106.2 160.6 107.7 161.0 109.2 161.4 110.6 161.7 112.1 162.1 113.6 162.5 115.1 162.9 116.5 163.3 118.0 163.7 119.5 164.1 120.9 164.5 122.4 165.0 123.9 165.4 125.3 165.8 126.8 166.2 128.3 166.6 129.7 167.0 131.2 167.5 132.7 167.9 134.1 168.3 135.6 168.7 137.1 169.1 138.5 169.6 140.0 170.0 141.4 170.4 142.9 170.9 144.4 171.3 145.8 171.7 147.3 172.1 148.8 172.6 150.2 173.0 151.7 173.4 153.1 173.9 154.6 174.3 156.1 174.7 157.5 175.1 159.0 175.6 160.5 176.0 161.9 176.4 163.4 176.9 164.8 177.3 166.3 177.7 167.8 178.1 169.2 178.5 170.7 179.0 172.2 179.4 173.6 179.8 175.1 180.2 176.6 180.6 178.0 181.0 179.5 181.4 181.0 181.9 182.4 182.3 183.9 182.7 185.4 183.1 186.8 183.5 188.3 183.9 189.8 184.3 191.3 184.6 192.7 185.0 194.2 185.4 195.7 185.8 197.2 186.2 198.6 186.6 200.1 186.9 201.6 187.3 203.1 187.7 204.6 188.0 206.0 188.4 207.5 188.7 209.0 189.1 210.5 189.4 212.0 189.8 213.5 190.1 214.9 190.4 216.4 190.8 217.9 191.1 219.4 191.4 220.9 191.7 222.4 192.0 223.9 192.3 225.4 192.6 226.9 192.9 228.4 193.2 229.9 193.5 231.4 193.8 232.9 194.0 234.4 194.3 235.9 194.6 237.4 194.8 238.9 195.1 240.4 195.3 241.9 195.5 243.4 195.8 244.9 196.0 246.4 196.2 247.9 196.4 249.4 196.6 250.9 196.8 252.5 197.0 254.0 197.2 255.5 197.3 257.0 197.5 258.5 197.7 260.0 197.8 261.5 198.0 263.1 198.1 264.6 198.2 266.1 198.3 267.6 198.4 269.1 198.5 270.7 198.6 272.2 198.7 273.7 198.8 275.2 198.9 276.8 198.9 278.3 199.0 279.8 199.0 281.3 199.0 282.8 199.1 284.4 199.1 285.9 199.1 287.4 199.1 288.9 199.0 290.5 199.0 292.0 199.0 293.5 198.9 295.0 198.9 296.6 198.8 298.1 198.7 299.6 198.6 301.1 198.5 302.6 198.4 304.2 198.3 305.7 198.2 307.2 198.0 308.7 197.9 310.2 197.7 311.7 197.5 313.2 197.4 314.8 197.2 316.3 196.9 317.8 196.7 319.3 196.5 320.8 196.2 322.3 196.0 323.8 195.7 325.3 195.4 326.8 195.1 328.3 194.8 329.8 194.5 331.3 194.2 332.7 193.8 334.2 193.5 335.7 193.1 337.2 192.7 338.6 192.3 340.1 191.9 341.6 191.5 343.0 191.1 344.5 190.6 345.9 190.2 347.4 189.7 348.8 189.2 350.3 188.7 351.7 188.2 353.1 187.7 354.6 187.2 356.0 186.6 357.4 186.0 358.8 185.5 360.2 184.9 361.6 184.3 363.0 183.6 364.4 183.0 365.8 182.4 367.1 181.7 368.5 181.0 369.9 180.3 371.2 179.6 372.6 178.9 373.9 178.2 375.2 177.4 376.6 176.7 377.9 175.9 379.2 175.1 380.5 174.3 381.8 173.5 383.0 172.7 384.3 171.8 385.6 171.0 386.8 170.1 388.0 169.2 389.3 168.3 390.5 167.4 391.7 166.5 392.9 165.5 394.1 164.6 395.3 163.6 396.4 162.6 397.6 161.6 398.7 160.6 399.9 159.6 401.0 158.6 402.1 157.5 403.2 156.4 404.3 155.4 405.3 154.3 406.4 153.2 407.4 152.1 408.4 150.9" fill="none" stroke="#2e2413" stroke-width="2.4" stroke-linejoin="round"/><path d="M 61.6 150.9 64.6 151.4 67.6 152.0 70.6 152.5 73.6 153.1 76.6 153.7 79.5 154.3 82.5 154.9 85.5 155.6 88.5 156.2 91.4 156.9 94.4 157.6 97.4 158.3 100.3 159.1 103.3 159.8 106.2 160.6 109.2 161.3 112.1 162.1 115.1 162.9 118.0 163.7 120.9 164.5 123.9 165.4 126.8 166.2 129.7 167.0 132.7 167.9 135.6 168.7 138.5 169.6 141.4 170.4 144.4 171.3 147.3 172.1 150.2 173.0 150.2 173.0 153.1 173.9 156.1 174.7 159.0 175.6 161.9 176.4 164.8 177.3 167.8 178.1 170.7 179.0 173.6 179.8 176.6 180.6 179.5 181.5 182.4 182.3 185.4 183.1 188.3 183.9 191.3 184.6 194.2 185.4 197.2 186.2 200.1 186.9 203.1 187.7 206.0 188.4 209.0 189.1 212.0 189.8 214.9 190.4 217.9 191.1 220.9 191.7 223.9 192.3 226.9 192.9 229.9 193.5 232.9 194.0 235.9 194.6 238.9 195.1 238.9 195.1 241.9 195.5 244.9 196.0 247.9 196.4 251.0 196.8 254.0 197.2 257.0 197.5 260.1 197.8 263.1 198.1 266.1 198.3 269.2 198.5 272.2 198.7 275.3 198.9 278.3 199.0 281.3 199.0 284.4 199.1 287.4 199.1 290.5 199.0 293.5 198.9 296.6 198.8 299.6 198.6 302.6 198.4 305.7 198.2 308.7 197.9 311.7 197.5 314.7 197.2 317.7 196.7 320.8 196.3 323.8 195.7 326.8 195.1 329.8 194.5 329.8 194.5 332.7 193.8 335.7 193.1 338.7 192.3 341.6 191.5 344.6 190.6 347.5 189.7 350.3 188.7 353.2 187.7 356.1 186.6 358.9 185.4 361.7 184.2 364.5 183.0 367.2 181.7 369.9 180.3 372.6 178.9 375.3 177.4 377.9 175.9 380.5 174.3 383.0 172.7 385.5 171.0 388.0 169.2 390.5 167.4 392.9 165.6 395.2 163.7 397.5 161.7 399.8 159.6 402.0 157.6 404.2 155.4 406.4 153.2 408.4 150.9" fill="none" stroke="#c9a441" stroke-width="1.6" stroke-linejoin="round" stroke-dasharray="5 4"/><circle cx="61.6" cy="150.9" r="3.5" fill="#8c6a21" stroke="#fffdf7"/><circle cx="408.4" cy="150.9" r="3.5" fill="#8c6a21" stroke="#fffdf7"/><text x="12" y="18" font-family="Georgia,serif" font-size="13" font-weight="600" fill="#2e2413">Fig. E3 · asymmetric Euler · n=4</text><text x="12" y="352" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">x →</text><text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">y ↑</text><text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">— true Euler   --- current seam</text></svg>
+      <p class="meta">endpoint tangents: -9.20° / 48.09° · true arclength: 1.054282 · asymptotic slope n=4→16: <strong>4.87</strong></p><div class="table-wrap"><table><tr><th>n</th><th>max error</th><th>error ratio</th><th>cubic arc</th><th>arc error</th><th>relative arc error</th><th>clamped</th></tr><tr><td>1</td><td>0.008181</td><td>—</td><td>1.059397</td><td>0.005115</td><td>4.85e-03</td><td>0</td></tr><tr><td>2</td><td>6.043e-04</td><td>13.538728</td><td>1.054438</td><td>1.560e-04</td><td>1.48e-04</td><td>0</td></tr><tr><td>4</td><td>2.487e-05</td><td>24.297080</td><td>1.054285</td><td>2.613e-06</td><td>2.48e-06</td><td>0</td></tr><tr><td>8</td><td>8.746e-07</td><td>28.437346</td><td>1.054282</td><td>3.216e-08</td><td>3.05e-08</td><td>0</td></tr><tr><td>16</td><td>2.889e-08</td><td>30.270662</td><td>1.054282</td><td>-1.841e-09</td><td>1.75e-09</td><td>0</td></tr></table></div>
+    </figure>
+  </div>
+  <p class="small">The asymptotic slope is taken from n=4, 8, 16. The n=1 symmetric fit is accidentally good, so it is not used to estimate the exponent. A slope near 5 is the claimed n⁵ behavior; doubling n should reduce error by about 32×.</p>
+</section>
+
+<section class="panel">
+  <h2>Verdict</h2>
+  <p>The rule is a good fitted seam and is already in use. The p-triple polygon and rational rails remain the exact route; this is a drawing approximation. It does not make handles integer, and it is not the bounding-parabola intersection method.</p>
+</section>
+
+<section class="panel">
+  <h2>Source</h2>
+  <p><a href="https://raphlinus.github.io/curves/2021/02/19/parallel-curves.html">Levien, “Cleaner parallel curves with Euler spirals” (2021)</a>, section “Euler spirals to cubic Béziers”; and <a href="https://raphlinus.github.io/curves/2018/12/08/euler-spiral.html">“Secrets of smooth Béziers revealed” (2018)</a>.</p>
+  <p class="small">Implementation reference: <a href="https://github.com/linebender/kurbo/pull/169">kurbo PR #169</a>, <code>src/euler.rs</code> (<code>EulerSeg::to_cubics</code>), Apache-2.0, © 2021 The kurbo Authors. The Python measurement here is an independent port of the published rule.</p>
+</section>
+</main>
+
+<script>
+(() => {
+  const W = 960, H = 520, PAD = 42;
+  const canvas = document.getElementById('editor');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const DOM = {x0: 0, x1: 10, y0: 0, y1: 10};
+  const scale = Math.min((W - 2*PAD)/(DOM.x1-DOM.x0), (H - 2*PAD)/(DOM.y1-DOM.y0));
+  const ox = (W - (DOM.x1-DOM.x0)*scale)/2, oy = (H - (DOM.y1-DOM.y0)*scale)/2;
+  const SX = x => ox + (x-DOM.x0)*scale;
+  const SY = y => H - oy - (y-DOM.y0)*scale;
+
+  const START = {p0:{x:2,y:2}, p3:{x:8,y:2}, v0:-0.25, v1:0.25};
+  let P0={...START.p0}, P3={...START.p3}, v0=START.v0, v1=START.v1;
+  let drag = null;
+
+  function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+  function frame(){
+    const dx=P3.x-P0.x, dy=P3.y-P0.y, L=Math.hypot(dx,dy)||1e-9;
+    const e={x:dx/L,y:dy/L}, n={x:-dy/L,y:dx/L};
+    return {L,e,n};
+  }
+  function local(u,v){
+    const {L,e,n}=frame();
+    return {x:P0.x+L*(u*e.x+v*n.x), y:P0.y+L*(u*e.y+v*n.y)};
+  }
+  function handles(){
+    return {
+      p1: local(1/3 - 0.75*v0*v0, v0),
+      p2: local(2/3 + 0.75*v1*v1, v1),
+    };
+  }
+  function cubic(t){
+    const {p1,p2}=handles();
+    const u=1-t;
+    return {
+      x:u*u*u*P0.x+3*u*u*t*p1.x+3*u*t*t*p2.x+t*t*t*P3.x,
+      y:u*u*u*P0.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*P3.y,
+    };
+  }
+  function parab(side){
+    const pts=[];
+    for(let i=0;i<=80;i++){
+      const v=-2/3 + (4/3)*i/80;
+      const u=side==='left' ? 1/3-0.75*v*v : 2/3+0.75*v*v;
+      pts.push(local(u,v));
+    }
+    return pts;
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,W,H);
+    // grid
+    ctx.strokeStyle='#e6deca'; ctx.lineWidth=1;
+    for(let i=0;i<=10;i++){
+      ctx.beginPath(); ctx.moveTo(SX(i),SY(0)); ctx.lineTo(SX(i),SY(10)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(SX(0),SY(i)); ctx.lineTo(SX(10),SY(i)); ctx.stroke();
+    }
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(SX(0),SY(10),SX(10)-SX(0),SY(0)-SY(10));
+    // endpoint parabolas
+    if(document.getElementById('show-parab').checked){
+      for(const side of ['left','right']){
+        const pts=parab(side);
+        ctx.save(); ctx.beginPath();
+        pts.forEach((p,i)=> i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y)));
+        ctx.strokeStyle='#3f7d4e'; ctx.lineWidth=1.2; ctx.setLineDash([4,4]); ctx.stroke(); ctx.restore();
+      }
+    }
+    const {p1,p2}=handles();
+    // control polygon
+    ctx.save(); ctx.beginPath();
+    [P0,p1,p2,P3].forEach((p,i)=> i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y)));
+    ctx.strokeStyle='#9b8b67'; ctx.lineWidth=1.1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.restore();
+    // cubic
+    ctx.beginPath();
+    for(let i=0;i<=300;i++){const p=cubic(i/300); i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y));}
+    ctx.strokeStyle='#2e2413'; ctx.lineWidth=2.6; ctx.lineJoin='round'; ctx.stroke();
+    // points
+    for(const [name,p,square] of [['P0',P0,false],['P1',p1,true],['P2',p2,true],['P3',P3,false]]){
+      const x=SX(p.x), y=SY(p.y);
+      ctx.save(); ctx.strokeStyle='#2e2413'; ctx.lineWidth=1.4;
+      if(square){ctx.fillStyle='#c9a441'; ctx.fillRect(x-5,y-5,10,10); ctx.strokeRect(x-5,y-5,10,10);}
+      else{ctx.fillStyle='#fbf7ec'; ctx.beginPath(); ctx.arc(x,y,5.5,0,7); ctx.fill(); ctx.stroke();}
+      ctx.fillStyle='#2e2413'; ctx.font='11px ui-monospace, Menlo, monospace';
+      ctx.fillText(name,x+8,y-7); ctx.restore();
+    }
+    // labels
+    ctx.fillStyle='#2e2413'; ctx.font='600 15px Georgia, serif';
+    ctx.fillText('Fig. E1 · cubic with endpoint-parabola handles',16,24);
+    ctx.font='10px ui-monospace, Menlo, monospace'; ctx.fillStyle='#7b6c4e';
+    ctx.fillText('x →',W-34,H-12); ctx.fillText('y ↑',16,42);
+    ctx.fillText('— cubic   --- control   ··· endpoint parabolas   □ handles',16,56);
+    const f=frame();
+    document.getElementById('readout').textContent =
+      `chord = ${f.L.toFixed(3)}   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
+      `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})`;
+  }
+  function toWorld(ev){
+    const r=canvas.getBoundingClientRect();
+    const sx=(ev.clientX-r.left)*W/r.width, sy=(ev.clientY-r.top)*H/r.height;
+    return {x:(sx-ox)/scale+DOM.x0, y:(H-oy-sy)/scale+DOM.y0};
+  }
+  function nearest(ev){
+    const w=toWorld(ev); const {p1,p2}=handles();
+    let best=null,bd=18;
+    for(const [k,p] of [['p0',P0],['p1',p1],['p2',p2],['p3',P3]]){
+      const d=Math.hypot(SX(p.x)-SX(w.x), SY(p.y)-SY(w.y));
+      if(d<bd){bd=d;best=k;}
+    }
+    return best;
+  }
+  canvas.addEventListener('pointerdown',ev=>{
+    const k=nearest(ev); if(!k)return; drag=k; canvas.setPointerCapture(ev.pointerId); ev.preventDefault();
+  });
+  canvas.addEventListener('pointermove',ev=>{
+    if(!drag){canvas.style.cursor=nearest(ev)?'grab':'crosshair';return;}
+    const w=toWorld(ev);
+    if(drag==='p0'||drag==='p3'){
+      const p=drag==='p0'?P0:P3;
+      p.x=clamp(w.x,0.35,9.65); p.y=clamp(w.y,0.35,9.65);
+      if(Math.hypot(P3.x-P0.x,P3.y-P0.y)<0.2){ // avoid collapsed frame
+        if(drag==='p0'){P0.x=P3.x-0.2;} else {P3.x=P0.x+0.2;}
+      }
+    } else {
+      const {L,e,n}=frame();
+      const dx=w.x-P0.x, dy=w.y-P0.y;
+      const v=(dx*n.x+dy*n.y)/L;
+      if(drag==='p1') v0=clamp(v,-2/3,2/3); else v1=clamp(v,-2/3,2/3);
+    }
+    draw();
+  });
+  canvas.addEventListener('pointerup',ev=>{drag=null;try{canvas.releasePointerCapture(ev.pointerId);}catch(_){}});
+  canvas.addEventListener('pointercancel',()=>{drag=null;});
+  document.getElementById('show-parab').addEventListener('change',draw);
+  document.getElementById('reset').addEventListener('click',()=>{
+    P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1; draw();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
