@@ -58,6 +58,11 @@ Source: [Wikipedia, “Pythagorean triple”](https://en.wikipedia.org/wiki/Pyth
 distribution section; the references there point to Albert Fässler and
 conformal-mapping treatments.
 
+The page overlays the `N≈1450` Fässler curves on the Euclid scatter, so the
+two slicings can be compared directly.
+ The page also draws every fixed-Euclid-`n` and fixed-Euclid-`m`
+family inside the `c≤3500` bound, with the selected `n=1,2,3` curves darker.
+
 ## The n=2 sweep
 
 The selected `n=2` sequence starts at:

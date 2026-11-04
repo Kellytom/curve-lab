@@ -31,6 +31,22 @@ class PythagoreanFamiliesTest(unittest.TestCase):
         self.assertLess(pyth_triples.angle_deg(chain[-1]),
                         pyth_triples.angle_deg(chain[0]))
 
+    def test_euclid_n_and_m_curves(self):
+        for n in (1, 2, 5):
+            for a, b in pyth_triples.euclid_n_curve(n, 1000):
+                self.assertAlmostEqual(a, (b / (2 * n)) ** 2 - n ** 2,
+                                       places=8)
+        for m in (2, 5, 10):
+            for a, b in pyth_triples.euclid_m_curve(m, 1000):
+                self.assertAlmostEqual(b, m * m - a * a / (4 * m * m),
+                                       places=8)
+
+    def test_fassler_curve_is_the_reflected_parabola(self):
+        curve = pyth_triples.fassler_curve(4, 10)
+        self.assertAlmostEqual(dict(curve)[4], 3.0, places=9)
+        self.assertAlmostEqual(dict(curve)[8], 0.0, places=9)
+        self.assertAlmostEqual(dict(curve)[10], 2.25, places=9)
+
     def test_page(self):
         page = (ROOT / "workbench" / "pythagorean-families.html").read_text(
             encoding="utf-8")
@@ -42,6 +58,9 @@ class PythagoreanFamiliesTest(unittest.TestCase):
         self.assertIn("Fässler", page)
         self.assertIn("N=(b+c)/2", page)
         self.assertIn("1450", page)
+        self.assertIn("Fässler N≈1450", page)
+        self.assertIn("Euclid n=1..59", page)
+        self.assertIn("Euclid m=2..59", page)
 
 
 if __name__ == "__main__":

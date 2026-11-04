@@ -57,6 +57,36 @@ def family(n: int, c_max: int):
     return out
 
 
+def euclid_n_curve(n: int, b_max: int, samples: int = 200):
+    """Holding Euclid n: a=(b/(2n))^2-n^2, clipped to the positive quadrant."""
+    out = []
+    for i in range(samples + 1):
+        b = b_max * i / samples
+        a = (b / (2.0 * n)) ** 2 - n * n
+        if a >= 0:
+            out.append((a, b))
+    return out
+
+
+def euclid_m_curve(m: int, a_max: int, samples: int = 200):
+    """Holding Euclid m: b=m^2-a^2/(4m^2), clipped to the positive quadrant."""
+    out = []
+    for i in range(samples + 1):
+        a = a_max * i / samples
+        b = m * m - a * a / (4.0 * m * m)
+        if b >= 0:
+            out.append((a, b))
+    return out
+
+
+def fassler_curve(N: int, a_max: int, samples: int = 240):
+    """The Fässler parabola b=|N - a^2/(4N)|, sampled in a."""
+    return [
+        (a, abs(N - a * a / (4.0 * N)))
+        for a in [a_max * i / samples for i in range(samples + 1)]
+    ]
+
+
 def angle_deg(point) -> float:
     return math.degrees(math.atan2(point["b"], point["a"]))
 

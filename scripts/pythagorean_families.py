@@ -23,7 +23,8 @@ CHAIN_ANGLE_MAX = 44.0
 CHAIN_ANGLE_MIN = 4.0
 
 
-def svg(points, families, chain, rays, w=1000, h=1000):
+def svg(points, all_n, all_m, families, chain, rays, w=1000, h=1000):
+    n_max = int(LIMIT ** 0.5)
     pad = 62
     scale = (w - 2 * pad) / LIMIT
     ox = oy = pad
@@ -48,6 +49,18 @@ def svg(points, families, chain, rays, w=1000, h=1000):
     for p in points:
         q = put((p["a"], p["b"]))
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="1.35" fill="#8c8a78"/>')
+    def curve_path(curve, colour, width, opacity):
+        if len(curve) < 2:
+            return
+        d = " ".join(f"{put(point)[0]:.1f} {put(point)[1]:.1f}" for point in curve)
+        body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="{width}" opacity="{opacity}"/>')
+
+    # every fixed-Euclid-n and fixed-Euclid-m family inside the plot bound
+    for n, curve in all_n.items():
+        curve_path(curve, "#3f7d4e", .7, .16)
+    for m, curve in all_m.items():
+        curve_path(curve, "#c9a441", .7, .13)
+
     # fixed-n families as curves and marked points
     colours = {1: "#3f7d4e", 2: "#c9a441", 3: "#1f5fa8"}
     for n, family in families.items():
@@ -58,6 +71,15 @@ def svg(points, families, chain, rays, w=1000, h=1000):
         for p in family:
             q = put((p['a'], p['b']))
             body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.1" fill="{colours[n]}" stroke="#fbf7ec" stroke-width=".5"/>')
+    # Fässler fixed-N parabolas near the dense 1450 cluster
+    for N in (1440, 1444, 1445, 1452, 1458):
+        curve = pyth_triples.fassler_curve(N, LIMIT, samples=160)
+        d = " ".join(
+            f"{put(point)[0]:.1f} {put(point)[1]:.1f}"
+            for point in curve if point[1] <= LIMIT
+        )
+        if d:
+            body.append(f'<path d="M {d}" fill="none" stroke="#a23b2a" stroke-width="1" opacity=".55" stroke-dasharray="5 5"/>')
     # selected n=2 chain
     for p in chain:
         q = put((p["a"], p["b"]))
@@ -70,9 +92,9 @@ def svg(points, families, chain, rays, w=1000, h=1000):
         ):
             q = put((p["a"], p["b"]))
             body.append(f'<text x="{q[0]+dx:.1f}" y="{q[1]+dy:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#2e2413" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">{label}</text>')
-    body.append('<text x="12" y="20" font-family="Georgia,serif" font-size="15" font-weight="600" fill="#2e2413">Fig. T1 · Pythagorean triples, rays and fixed-n parabolas</text>')
-    body.append(f'<text x="12" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">all triples c≤{LIMIT} · selected n=2: {len(chain)} points from {pyth_triples.angle_deg(chain[0]):.2f}° down to {pyth_triples.angle_deg(chain[-1]):.2f}°</text>')
-    body.append('<text x="12" y="52" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">· triple   --- scaling ray   — Euclid n=1   — Euclid n=2   — Euclid n=3   ● selected n=2</text>')
+    body.append('<text x="12" y="20" font-family="Georgia,serif" font-size="15" font-weight="600" fill="#2e2413">Fig. T1 · Pythagorean triples, rays and families</text>')
+    body.append(f'<text x="12" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">all triples c≤{LIMIT} · Euclid n=1..{n_max} · Euclid m=2..{n_max} · selected n=2: {len(chain)} points from {pyth_triples.angle_deg(chain[0]):.2f}° down to {pyth_triples.angle_deg(chain[-1]):.2f}°</text>')
+    body.append('<text x="12" y="52" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">· triple   --- ray   — Euclid n   — Euclid m   — Fässler N≈1450   ● selected n=2</text>')
     body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">a →</text>')
     body.append(f'<text x="{w-38}" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">b ↑</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
@@ -83,10 +105,15 @@ def svg(points, families, chain, rays, w=1000, h=1000):
 def main():
     points = pyth_triples.base_triples(LIMIT)
     families = {n: pyth_triples.family(n, LIMIT) for n in N_FAMILIES}
+    n_max = int(LIMIT ** 0.5)
+    all_n = {n: pyth_triples.euclid_n_curve(n, LIMIT)
+             for n in range(1, n_max + 1)}
+    all_m = {m: pyth_triples.euclid_m_curve(m, LIMIT)
+             for m in range(2, n_max + 1)}
     chain = pyth_triples.selected_chain(
         CHAIN_N, LIMIT, CHAIN_ANGLE_MAX, CHAIN_ANGLE_MIN)
     rays = pyth_triples.rays(points, LIMIT, count=12)
-    drawing = svg(points, families, chain, rays)
+    drawing = svg(points, all_n, all_m, families, chain, rays)
 
     picks = (5, 6, 8, 10, 15, 20, 25, 30, 40, 50, 57)
     rows = []
@@ -131,7 +158,7 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <section class="panel">
   <h2>Fig. T1 · the field</h2>
   <div class="figure">{drawing}</div>
-  <p class="small">Grey points are all triples with <code>c≤{LIMIT}</code>, including multiples. Dashed lines are scaling rays. Green, gold and blue are the fixed-<code>n=1,2,3</code> parabolas. Larger gold dots are the selected <code>n=2</code> sweep.</p>
+  <p class="small">Grey points are all triples with <code>c≤{LIMIT}</code>, including multiples. Dashed lines are scaling rays. Thin green and gold curves are all fixed-Euclid-<code>n</code> and fixed-Euclid-<code>m</code> families inside the bound; the dark green/gold/blue curves are the selected <code>n=1,2,3</code> families. Thin rust dashed curves are the Fässler <code>N≈1450</code> cluster. Larger gold dots are the selected <code>n=2</code> sweep.</p>
 </section>
 <section class="panel">
   <h2>The n=2 sweep</h2>
