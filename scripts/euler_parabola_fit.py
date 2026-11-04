@@ -112,7 +112,7 @@ def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
         legend = f"— true Euler   — {'one piece' if n == 1 else 'two pieces'}   -- control + handles"
     if show_handles and other:
         legend += "   -- control + handles"
-    body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">{legend}</text>')
+    body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}">{legend}</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>")
@@ -197,6 +197,35 @@ def _fast_error(seg, true_points, spans, samples: int = 17) -> float:
     return worst
 
 
+def _collinear_spans(spans, t: float):
+    """Keep the outer handles; put c2/c3 on the c1-c4 line, symmetrically."""
+    p = spans[0]["c1"]
+    q = spans[1]["c2"]
+    vx, vy = q[0] - p[0], q[1] - p[1]
+    out = [dict(sp) for sp in spans]
+    out[0]["c2"] = (p[0] + t * vx, p[1] + t * vy)
+    out[1]["c1"] = (p[0] + (1.0 - t) * vx, p[1] + (1.0 - t) * vy)
+    return out
+
+
+def _best_collinear(seg, spans, true_points, samples: int = 17):
+    """Golden-section t for the straight c1-c4 bar; returns (t, error, spans)."""
+    def err(t):
+        return _fast_error(seg, true_points, _collinear_spans(spans, t), samples)
+
+    lo, hi = 0.05, 0.95
+    g = (math.sqrt(5.0) - 1.0) / 2.0
+    for _ in range(45):
+        m1 = hi - g * (hi - lo)
+        m2 = lo + g * (hi - lo)
+        if err(m1) < err(m2):
+            hi = m2
+        else:
+            lo = m1
+    t = (lo + hi) / 2.0
+    return t, err(t), _collinear_spans(spans, t)
+
+
 def smooth_records():
     """True curves and 1/2-piece fits on a 0.5-degree grid + 3125 angles."""
     angles = sorted({round(i * 0.5, 6) for i in range(181)} |
@@ -208,11 +237,13 @@ def smooth_records():
         error_points = [seg.point(i / 400) for i in range(401)]
         one_spans = _fast_spans(seg, 1)
         two_spans = _fast_spans(seg, 2)
+        bar_t, _, _ = _best_collinear(seg, two_spans, true_points)
         records.append({
             "a": angle,
             "true": [[float(x), float(y)] for x, y in true_points],
             "one": [_span_json(sp) for sp in one_spans],
             "two": [_span_json(sp) for sp in two_spans],
+            "bar_t": bar_t,
             "e1": _fast_error(seg, error_points, one_spans),
             "e2": _fast_error(seg, error_points, two_spans),
         })
@@ -356,6 +387,20 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     </div>
     <canvas id="e5-canvas" width="1000" height="360"></canvas>
     <p class="meta" id="e5-meta"></p>
+  </div>
+  <div class="smooth-figure">
+    <h3>Fig. E6 · two pieces · collinear controls</h3>
+    <div class="angle-bar">
+      <label class="slider">angle <input type="range" id="e6-angle" min="0" max="__MAX__" step="1" value="__DEFAULT__"> <span id="e6-angle-value"></span></label>
+      <div class="angle-buttons" id="e6-buttons">__E6_BUTTONS__</div>
+    </div>
+    <div class="angle-bar" style="grid-template-columns:minmax(220px,1fr) 2fr">
+      <label class="slider">c2/c3 from join <input type="range" id="e6-t" min="0.01" max="0.49" step="0.001" value="0.398"> <span id="e6-t-value"></span></label>
+      <span class="small">slide the blue handles along the c1–c4 line</span>
+    </div>
+    <canvas id="e6-canvas" width="1000" height="470"></canvas>
+    <p class="meta" id="e6-meta"></p>
+    <p class="small">The blue handles <code>c1–c4</code> are collinear on the dashed line, but the cubic is not: only its join tangent follows that line. The endpoints and the outer handles stay put. At 90° the straight bar lowers the sampled max error from 0.0324 to about 0.0233 and moves the join tangent from −41.63° to −33.69°. At other angles the trade can go the other way; the readout reports the selected case.</p>
   </div>
   <p class="small">The 3125-circle angle set is 0°, 4.35°, 16.26°, 20.61°, 32.52°, 36.87°, 53.13°, 57.48°, 69.39°, 73.74°, 85.65°, 90°. The table below remains the 90° reference.</p>
   <div class="table-wrap">__S48_TABLE__</div>
@@ -860,11 +905,140 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     });
     ctx.fillStyle='#2e2413'; ctx.font='600 14px Georgia, serif';
     ctx.fillText(`Fig. ${prefix==='e4'?'E4':'E5'} · S ${rec.a.toFixed(2)}° · ${mode==='one'?'one piece':'two pieces'}`,12,18);
-    ctx.font='9px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
-    ctx.fillText('— true Euler   --- fit   -- control',12,32);
+    ctx.font='12px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
+    ctx.fillText('— true Euler   --- fit   -- control',12,34);
     ctx.fillText('x →',CANVAS_W-28,CANVAS_H-9); ctx.fillText('y ↑',12,CANVAS_H-9);
     document.getElementById(prefix+'-meta').textContent =
       `θ=${rec.a.toFixed(3)}° · sampled one-piece error ${rec.e1.toFixed(5)} · two-piece ${rec.e2.toFixed(5)}`;
+  }
+
+
+  function barSpans(rec,t){
+    const p=rec.two[0].c1, q=rec.two[1].c2;
+    const vx=q[0]-p[0], vy=q[1]-p[1];
+    const out=rec.two.map(sp=>({p0:[...sp.p0],c1:[...sp.c1],c2:[...sp.c2],p3:[...sp.p3]}));
+    out[0].c2=[p[0]+t*vx,p[1]+t*vy];
+    out[1].c1=[p[0]+(1-t)*vx,p[1]+(1-t)*vy];
+    return out;
+  }
+  function barError(rec,spans){
+    let worst=0;
+    for(const sp of spans) for(let i=0;i<17;i++){
+      const t=i/16,u=1-t;
+      const x=u*u*u*sp.p0[0]+3*u*u*t*sp.c1[0]+3*u*t*t*sp.c2[0]+t*t*t*sp.p3[0];
+      const y=u*u*u*sp.p0[1]+3*u*u*t*sp.c1[1]+3*u*t*t*sp.c2[1]+t*t*t*sp.p3[1];
+      let d=Infinity;
+      for(const p of rec.true) d=Math.min(d,Math.hypot(x-p[0],y-p[1]));
+      worst=Math.max(worst,d);
+    }
+    return worst;
+  }
+  function drawBar(){
+    const canvas=document.getElementById('e6-canvas');
+    const ctx=canvas.getContext('2d');
+    const dpr=window.devicePixelRatio||1;
+    const W=1000,H=470,PAD=52;
+    canvas.width=W*dpr; canvas.height=H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const slider=document.getElementById('e6-angle');
+    const rec=RECORDS[Number(slider.value)];
+    document.getElementById('e6-angle-value').textContent=rec.a.toFixed(2)+'°';
+    const tSlider=document.getElementById('e6-t');
+    const t=Number(tSlider.value);
+    const bar=barSpans(rec,t);
+    const barErr=barError(rec,bar);
+    const all=[...rec.true];
+    for(const set of [rec.two,bar]) for(const sp of set) all.push(sp.p0,sp.c1,sp.c2,sp.p3);
+    const x0=Math.min(...all.map(p=>p[0])), x1=Math.max(...all.map(p=>p[0]));
+    const y0=Math.min(...all.map(p=>p[1])), y1=Math.max(...all.map(p=>p[1]));
+    const dx=x1-x0||1, dy=y1-y0||1, pad=.10;
+    const xa=x0-pad*dx, xb=x1+pad*dx, ya=y0-pad*dy, yb=y1+pad*dy;
+    const k=Math.min((W-2*PAD)/(xb-xa),(H-2*PAD)/(yb-ya));
+    const ox=(W-(xb-xa)*k)/2, oy=(H-(yb-ya)*k)/2;
+    const px=x=>ox+(x-xa)*k, py=y=>H-oy-(y-ya)*k;
+    ctx.clearRect(0,0,W,H); ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='#e4dcc6'; ctx.lineWidth=1;
+    for(let gx=Math.ceil(xa*10)/10;gx<=xb;gx+=.1){
+      ctx.beginPath(); ctx.moveTo(px(gx),py(ya)); ctx.lineTo(px(gx),py(yb)); ctx.stroke();
+    }
+    for(let gy=Math.ceil(ya*20)/20;gy<=yb;gy+=.05){
+      ctx.beginPath(); ctx.moveTo(px(xa),py(gy)); ctx.lineTo(px(xb),py(gy)); ctx.stroke();
+    }
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(px(xa),py(yb),px(xb)-px(xa),py(ya)-py(yb));
+    const c1=bar[0].c1, c4=bar[1].c2;
+    ctx.beginPath(); ctx.moveTo(px(c1[0]),py(c1[1])); ctx.lineTo(px(c4[0]),py(c4[1]));
+    ctx.strokeStyle='#1f5fa8'; ctx.lineWidth=1; ctx.setLineDash([3,5]); ctx.stroke(); ctx.setLineDash([]);
+    function curve(spans){
+      const out=[];
+      for(const sp of spans) for(let i=0;i<=40;i++){
+        const t=i/40,u=1-t;
+        out.push([u*u*u*sp.p0[0]+3*u*u*t*sp.c1[0]+3*u*t*t*sp.c2[0]+t*t*t*sp.p3[0],
+                  u*u*u*sp.p0[1]+3*u*u*t*sp.c1[1]+3*u*t*t*sp.c2[1]+t*t*t*sp.p3[1]]);
+      }
+      return out;
+    }
+    function path(pts,colour,width,dash){
+      ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(px(p[0]),py(p[1])):ctx.moveTo(px(p[0]),py(p[1])));
+      ctx.strokeStyle=colour; ctx.lineWidth=width; ctx.setLineDash(dash||[]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    path(rec.true,'#2e2413',2.2);
+    path(curve(rec.two),'#c9a441',1.6,[6,4]);
+    path(curve(bar),'#1f5fa8',2.0);
+    for(const sp of rec.two) path([sp.p0,sp.c1,sp.c2,sp.p3],'#c9a441',.8,[2,4]);
+    for(const sp of bar) path([sp.p0,sp.c1,sp.c2,sp.p3],'#1f5fa8',.9,[2,3]);
+    const jx=px(rec.two[0].p3[0]), jy=py(rec.two[0].p3[1]);
+    ctx.fillStyle='#2e2413'; ctx.beginPath(); ctx.arc(jx,jy,3.2,0,7); ctx.fill();
+    ctx.font='10px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
+    ctx.fillText('join',jx+6,jy-5);
+    for(const sp of rec.two) for(const p of [sp.c1,sp.c2]){
+      const x=px(p[0]),y=py(p[1]);
+      ctx.fillStyle='#fbf7ec'; ctx.strokeStyle='#c9a441'; ctx.lineWidth=1.2;
+      ctx.fillRect(x-3,y-3,6,6); ctx.strokeRect(x-3,y-3,6,6);
+    }
+    bar.forEach((sp,i)=>{
+      for(const [tag,p] of [['c'+(2*i+1),sp.c1],['c'+(2*i+2),sp.c2]]){
+        const x=px(p[0]),y=py(p[1]);
+        ctx.fillStyle='#1f5fa8'; ctx.strokeStyle='#2e2413'; ctx.lineWidth=.8;
+        ctx.fillRect(x-3.5,y-3.5,7,7); ctx.strokeRect(x-3.5,y-3.5,7,7);
+        ctx.fillStyle='#1f5fa8'; ctx.font='10px ui-monospace,Menlo,monospace';
+        ctx.fillText(tag,x+5,y<82?y+12:y-4);
+      }
+    });
+    const exactTan=Math.atan2(rec.two[0].p3[1]-rec.two[0].c2[1],rec.two[0].p3[0]-rec.two[0].c2[0])*180/Math.PI;
+    const barTan=Math.atan2(c4[1]-c1[1],c4[0]-c1[0])*180/Math.PI;
+    ctx.fillStyle='#2e2413'; ctx.font='600 14px Georgia,serif';
+    ctx.fillText(`Fig. E6 · two pieces · collinear controls · S ${rec.a.toFixed(2)}°`,12,20);
+    ctx.font='11px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
+    const lineLen=Math.hypot(c4[0]-c1[0],c4[1]-c1[1]);
+    const joinDist=Math.abs(.5-t)*lineLen;
+    ctx.fillText(`max error: exact ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · t=${t.toFixed(3)} · gap ${joinDist.toFixed(3)}`,12,37);
+    ctx.fillText(`join tangent: exact ${exactTan.toFixed(2)}° · straight bar ${barTan.toFixed(2)}°`,12,52);
+    ctx.font='12px ui-monospace,Menlo,monospace';
+    ctx.fillText('— true Euler   --- exact two pieces   — straight bar   -- c1–c4   ■ bar handles   □ exact handles',12,H-25);
+    ctx.font='10px ui-monospace,Menlo,monospace';
+    ctx.fillText('x → chord units',12,H-8); ctx.fillText('y ↑',W-40,H-8);
+    document.getElementById('e6-t-value').textContent =
+      `t=${t.toFixed(3)} · gap ${joinDist.toFixed(3)}`;
+    document.getElementById('e6-meta').textContent =
+      `θ=${rec.a.toFixed(2)}° · exact two-piece ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · best t=${rec.bar_t.toFixed(3)} · join tangent exact ${exactTan.toFixed(2)}° / bar ${barTan.toFixed(2)}°`;
+  }
+
+  function wireBar(){
+    const slider=document.getElementById('e6-angle');
+    const tSlider=document.getElementById('e6-t');
+    const buttons=document.getElementById('e6-buttons');
+    function bestRec(){return RECORDS[Number(slider.value)];}
+    function syncT(){tSlider.value=bestRec().bar_t.toFixed(3);}
+    function show(){drawBar();}
+    slider.addEventListener('input',()=>{syncT();show();});
+    tSlider.addEventListener('input',show);
+    buttons.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      const target=Number(b.dataset.angle);
+      let best=0;
+      for(let i=0;i<RECORDS.length;i++) if(Math.abs(RECORDS[i].a-target)<Math.abs(RECORDS[best].a-target)) best=i;
+      slider.value=String(best); syncT(); show();
+    }));
+    syncT(); show();
   }
 
   function wireSmooth(prefix, mode){
@@ -880,7 +1054,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     }));
     show();
   }
-  wireSmooth('e4','one'); wireSmooth('e5','two');
+  wireSmooth('e4','one'); wireSmooth('e5','two'); wireBar();
   draw();
 })();
 </script>
@@ -898,7 +1072,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__MAX__", str(len(records)-1))
             .replace("__DEFAULT__", str(default_index))
             .replace("__EULER_RECORDS__", records_json)
-            )
+            .replace("__E6_BUTTONS__", button_html))
+
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
