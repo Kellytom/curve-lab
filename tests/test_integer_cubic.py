@@ -26,6 +26,13 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn('id="tri-canvas"', page)
         self.assertIn('id="tri-buttons"', page)
         self.assertIn("curve_lab/pyth_cubic.py", page)
+        self.assertIn("What this means for the curve system", page)
+        self.assertIn("Points along the curve", page)
+        self.assertIn("Offsets are a separate promise", page)
+        self.assertIn("G2 joins, symmetric and asymmetric", page)
+        self.assertIn("P1=(27,−36)", page)
+        self.assertIn("(88,−24)", page)
+        self.assertIn("asymmetric", page)
 
     def test_euler_page_no_longer_carries_section_ii(self):
         page = (ROOT / "workbench" / "euler-parabola-fit.html").read_text(
