@@ -8,9 +8,10 @@ class EulerParabolaFitPageTest(unittest.TestCase):
     def test_page(self):
         page = (ROOT / "workbench" / "euler-parabola-fit.html").read_text(
             encoding="utf-8")
-        self.assertIn('<canvas id="editor" width="1440" height="780"', page)
+        self.assertIn('<canvas id="editor" width="1440" height="1008"', page)
         self.assertIn("fine quarter-unit grid", page)
-        self.assertIn("const DOM = {x0: 0, x1: 20, y0: 0, y1: 10}", page)
+        self.assertIn("const DOM = {x0: 0, x1: 20, y0: 0, y1: 14}", page)
+        self.assertIn('width="1440" height="1008"', page)
         self.assertIn("Fig. E1", page)
         self.assertIn("Fig. E2", page)
         self.assertIn("Fig. E3", page)

@@ -222,7 +222,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <section class="panel">
   <h2>Fig. E1 · move the ends and the handles</h2>
-  <canvas id="editor" width="1440" height="780" aria-label="Interactive cubic with endpoint-parabola handle constraints"></canvas>
+  <canvas id="editor" width="1440" height="1008" aria-label="Interactive cubic with endpoint-parabola handle constraints"></canvas>
   <div class="controls">
     <button id="reset" type="button">reset</button>
     <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
@@ -299,13 +299,13 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <script>
 (() => {
-  const W = 1440, H = 780, PAD = 52;
+  const W = 1440, H = 1008, PAD = 52;
   const canvas = document.getElementById('editor');
   const ctx = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
   canvas.width = W * dpr; canvas.height = H * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const DOM = {x0: 0, x1: 20, y0: 0, y1: 10};
+  const DOM = {x0: 0, x1: 20, y0: 0, y1: 14};
   const scale = Math.min((W - 2*PAD)/(DOM.x1-DOM.x0), (H - 2*PAD)/(DOM.y1-DOM.y0));
   const ox = (W - (DOM.x1-DOM.x0)*scale)/2, oy = (H - (DOM.y1-DOM.y0)*scale)/2;
   const SX = x => ox + (x-DOM.x0)*scale;
@@ -514,19 +514,36 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     for(let i=0;i<=80;i++){
       if(i%4===0) continue;
       const g=i*0.25;
-      ctx.beginPath(); ctx.moveTo(SX(g),SY(0)); ctx.lineTo(SX(g),SY(10)); ctx.stroke();
-      if(i<=40){
+      ctx.beginPath(); ctx.moveTo(SX(g),SY(0)); ctx.lineTo(SX(g),SY(14)); ctx.stroke();
+      if(i<=56){
         ctx.beginPath(); ctx.moveTo(SX(0),SY(g)); ctx.lineTo(SX(20),SY(g)); ctx.stroke();
       }
     }
     ctx.strokeStyle='#e2d8c0';
     for(let i=0;i<=20;i++){
-      ctx.beginPath(); ctx.moveTo(SX(i),SY(0)); ctx.lineTo(SX(i),SY(10)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(SX(i),SY(0)); ctx.lineTo(SX(i),SY(14)); ctx.stroke();
     }
-    for(let i=0;i<=10;i++){
+    for(let i=0;i<=14;i++){
       ctx.beginPath(); ctx.moveTo(SX(0),SY(i)); ctx.lineTo(SX(20),SY(i)); ctx.stroke();
     }
-    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(SX(0),SY(10),SX(20)-SX(0),SY(0)-SY(10));
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(SX(0),SY(14),SX(20)-SX(0),SY(0)-SY(14));
+    // rulers just outside the grid
+    ctx.save();
+    ctx.strokeStyle='#b9aa88'; ctx.fillStyle='#7b6c4e';
+    ctx.font='10px ui-monospace, Menlo, monospace';
+    ctx.textAlign='center'; ctx.textBaseline='top';
+    for(let i=0;i<=20;i++){
+      const x=SX(i);
+      ctx.beginPath(); ctx.moveTo(x,SY(0)); ctx.lineTo(x,SY(0)+4); ctx.stroke();
+      ctx.fillText(String(i), x, SY(0)+7);
+    }
+    ctx.textAlign='right'; ctx.textBaseline='middle';
+    for(let i=0;i<=14;i++){
+      const y=SY(i);
+      ctx.beginPath(); ctx.moveTo(SX(0)-4,y); ctx.lineTo(SX(0),y); ctx.stroke();
+      ctx.fillText(String(i), SX(0)-7, y);
+    }
+    ctx.restore();
     // endpoint parabolas
     if(document.getElementById('show-parab').checked){
       for(const side of ['left','right']){
@@ -591,7 +608,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       {kind:'line', color:'#b23a2b', dash:[], label:'−d'},
       {kind:'line', color:'#6b4c9a', dash:[], label:'Euler'},
     ];
-    let lx = 16;
+    let lx = SX(0) + 8;
     ctx.textBaseline = 'middle';
     for (const item of items) {
       ctx.save();
@@ -657,17 +674,17 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     const w=toWorld(ev);
     if(drag==='p0'||drag==='p3'){
       const p=drag==='p0'?P0:P3;
-      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,9.65);
+      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,13.65);
       if(document.getElementById('snap-int').checked){
         p.x=Math.round(p.x); p.y=Math.round(p.y);
-        p.x=clamp(p.x,1,19); p.y=clamp(p.y,1,9);
+        p.x=clamp(p.x,1,19); p.y=clamp(p.y,1,13);
       }
       if(Math.hypot(P3.x-P0.x,P3.y-P0.y)<0.2){ // avoid collapsed frame
         if(drag==='p0'){P0.x=P3.x-0.2;} else {P3.x=P0.x+0.2;}
       }
     } else if(freeHandles){
       const p=drag==='p1'?H1:H2;
-      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,9.65);
+      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,13.65);
       if(document.getElementById('snap-int').checked){
         p.x=Math.round(p.x); p.y=Math.round(p.y);
       }
