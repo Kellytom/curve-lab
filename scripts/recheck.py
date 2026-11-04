@@ -205,6 +205,21 @@ def c_pyth_g2():
     return ok, f"{sum(r['g2'] for r in reports)}/{len(reports)} triples pass both joins"
 
 
+@check("an asymmetric integer G2 pair exists at scale 1",
+       "curve_lab/pyth_g2.py asymmetric_pair; workbench/integer-g2.html Fig. G2",
+       "python -m unittest tests.test_pyth_g2")
+def c_asym_g2():
+    from fractions import Fraction
+
+    from curve_lab.pyth_g2 import asymmetric_pair, g1_fallback
+
+    pair = asymmetric_pair()
+    fallback = g1_fallback()
+    ok = pair["g2"] and pair["curvature"] == Fraction(-6, 5)
+    ok = ok and fallback["g1"] and not fallback["g2"]
+    return ok, "scale 1 G2 pair; G1 fallback has a curvature jump"
+
+
 @check("the hub is built from the manifest and every page carries its bar",
        "workbench/manifest.json + scripts/hub.py",
        "python scripts/hub.py")

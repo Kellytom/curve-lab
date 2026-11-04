@@ -81,9 +81,63 @@ def g2_svg(chain_data, w=1000, h=560):
             + "".join(body) + "</svg>")
 
 
+
+def pair_svg(pair, w=1000, h=470):
+    """The asymmetric A→B pair, with the reflected B."""
+    pieces = [pair["a_points"], pair["b_points"]]
+    colours = ("#c9a441", "#1f5fa8")
+    coords = []
+    for piece in pieces:
+        coords.extend(piece)
+        coords.extend(cubic(piece, i / 80) for i in range(81))
+    x0, y0 = min(p[0] for p in coords), min(p[1] for p in coords)
+    x1, y1 = max(p[0] for p in coords), max(p[1] for p in coords)
+    dx, dy = x1 - x0 or 1, y1 - y0 or 1
+    pad = .12
+    xa, xb = x0 - pad*dx, x1 + pad*dx
+    ya, yb = y0 - pad*dy, y1 + pad*dy
+    k = min((w - 70)/(xb - xa), (h - 105)/(yb - ya))
+    ox = (w - (xb - xa)*k)/2
+    oy = 42 + (h - 82 - (yb - ya)*k)/2
+
+    def put(p):
+        return ox + (p[0] - xa)*k, h - (oy + (p[1] - ya)*k)
+
+    body = []
+    for gx in range(int(xa)//10*10, int(xb)+10, 10):
+        a, b = put((gx, ya)), put((gx, yb))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    for gy in range(int(ya)//10*10, int(yb)+10, 10):
+        a, b = put((xa, gy)), put((xb, gy))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    for idx, (piece, colour) in enumerate(zip(pieces, colours)):
+        d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in (cubic(piece, i/120) for i in range(121)))
+        body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="2.6" stroke-linejoin="round"/>')
+        d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in piece)
+        body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="1" stroke-dasharray="4 4" opacity=".8"/>')
+        q = put(cubic(piece, .5))
+        body.append(f'<text x="{q[0]:.1f}" y="{q[1]-9:.1f}" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="600" fill="{colour}">{"AB"[idx]}</text>')
+        for p in piece:
+            q = put(p)
+            body.append(f'<rect x="{q[0]-2.5:.1f}" y="{q[1]-2.5:.1f}" width="5" height="5" fill="#fbf7ec" stroke="#7b6c4e" stroke-width=".8"/>')
+    q = put(pair["join"])
+    body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="4.5" fill="#2e2413" stroke="#fbf7ec" stroke-width="1"/>')
+    body.append(f'<text x="{q[0]+8:.1f}" y="{q[1]-8:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#2e2413">G2 (50, 0)</text>')
+    body.append(f'<text x="12" y="19" font-family="Georgia,serif" font-size="14" font-weight="600" fill="#2e2413">Fig. G2 · asymmetric pair · scale 1</text>')
+    body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">arms 7-24-25 / 3-4-5 ↔ 3-4-5 / 7-24-25 · tangent (4,−3) · curvature −6/5</text>')
+    body.append(f'<text x="12" y="{h-36}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">— A   — reflected B   ■ control   • G2 join</text>')
+    body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">x →</text>')
+    body.append(f'<text x="{w-38}" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">y ↑</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>'
+            + "".join(body) + "</svg>")
+
 def main():
     reports = pyth_g2.probe_all()
     base = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
+    asym = pyth_g2.asymmetric_pair()
+    fallback = pyth_g2.g1_fallback()
+    asym_svg = pair_svg(asym)
     rows = []
     for r in reports:
         j0, j1 = r["joins"]
@@ -132,12 +186,24 @@ a{{color:#1f5fa8}}
 </section>
 
 <section class="panel">
+  <h2>Fig. G2 · asymmetric pair · scale 1</h2>
+  <p>This pair is genuinely asymmetric: A uses arms <code>7-24-25</code> then <code>3-4-5</code>; B uses the complementary arms. Reflect B across its start tangent, translate it to A's end, and the join has exactly matching tangent and curvature at <strong>scale 1</strong>.</p>
+  <div class="figure">{asym_svg}</div>
+  <p class="small">A ends at <code>(50,0)</code> with tangent <code>(4,−3)</code> and curvature <code>−6/5</code>. Reflected B starts there with the same tangent and curvature; all controls are integers.</p>
+</section>
+
+<section class="panel">
   <h2>Probe all ten triples</h2>
   <p>Result: <strong>{sum(r["g2"] for r in reports)}/{len(reports)}</strong> triples pass both joins. The construction works for every symmetric triple. The scale is the hypotenuse <code>c</code>; each pair of joins has exact tangent and curvature match.</p>
   <div class="table-wrap"><table>
     <tr><th>triple</th><th>scale</th><th>join tangent</th><th>curvature</th><th>G2 both joins?</th></tr>
     {''.join(rows)}
   </table></div>
+</section>
+
+<section class="panel">
+  <h2>G1 fallback</h2>
+  <p>If a curvature match is not available or not worth the scale, a G1 join is still useful glue. Take the 3-4-5 base and an unreflected copy of itself: the tangent at <code>(10,0)</code> is <code>(3,−4)</code> on both sides, but the curvatures are <code>−16/75</code> and <code>+16/75</code>. The join is G1, not G2. The shape is continuous; only the curvature jumps.</p>
 </section>
 
 <section class="panel">

@@ -191,9 +191,25 @@ first join and `−16/375` at the second; signs differ because the chain turns
 through an inflection between them. The same mirror construction passes for
 all ten triples in the catalogue, with scale equal to the hypotenuse `c`.
 
-This is narrower than the asymmetric search: it proves mirrored copies can
-make a G2 chain, not that arbitrary integer cubics can be joined. The outer
-ends are free, and the probe does not check self-intersection or clearance.
+### Asymmetric scale-1 join
+
+The probe also builds a genuinely asymmetric pair. A has arms `7-24-25` then
+`3-4-5`; B has the complementary arms. Reflect B across its start tangent,
+translate it to A's end, and the join at `(50,0)` has tangent `(4,−3)` and
+curvature `−6/5` on both sides. The scale is **1**, and every control point is
+an integer. This is a G2 join without the symmetric mirror chain.
+
+### G1 fallback
+
+If curvature matching is not worth the scale, a G1 join still glues two pieces.
+The base joined to an unreflected copy of itself has tangent `(3,−4)` on both
+sides at `(10,0)`, but curvatures `−16/75` and `+16/75`. It is continuous and
+tangent-continuous; only the curvature jumps.
+
+This is narrower than a general asymmetric search: it proves mirror and
+specific asymmetric joins can be built, not that every integer pair can. The
+outer ends are free, and the probe does not check self-intersection or
+clearance.
 
 Run it with:
 

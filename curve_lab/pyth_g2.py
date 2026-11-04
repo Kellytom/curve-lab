@@ -53,6 +53,11 @@ def _translate(points, dx, dy):
     return [(x + dx, y + dy) for x, y in points]
 
 
+def _start_direction(case):
+    a, b, c = case["a"], case["b"], case["c"]
+    return (Fraction(a, c), Fraction(-b, c))
+
+
 def _end_direction(case):
     a, b, c = case["a"], case["b"], case["c"]
     return (Fraction(a, c), Fraction(-b, c))
@@ -73,7 +78,7 @@ def mirror_at_start(case):
     points = _as_fraction(
         (case["p0"], case["p1"], case["p2"], case["p3"]))
     p0 = points[0]
-    reflected = [_reflect(point, p0, _end_direction(case)) for point in points]
+    reflected = [_reflect(point, p0, _start_direction(case)) for point in points]
     end = reflected[3]
     return _translate(reflected, p0[0] - end[0], p0[1] - end[1])
 
@@ -140,6 +145,60 @@ def join_report(chain_data):
             "g2": tv_left == tv_right and k_left == k_right,
         })
     return joins
+
+
+
+def _candidate(a0, b0, a1, b1, length):
+    return {
+        "a0": a0, "b0": b0, "a1": a1, "b1": b1, "L": length,
+        "points": [
+            (Fraction(0), Fraction(0)),
+            (Fraction(a0), Fraction(-b0)),
+            (Fraction(length - a1), Fraction(b1)),
+            (Fraction(length), Fraction(0)),
+        ],
+    }
+
+
+def asymmetric_pair():
+    """A scale-1 asymmetric G2 join: A ends where reflected B begins."""
+    # A has a 7-24-25 arm at the start and a 3-4-5 arm at the end.
+    a = _candidate(7, 24, 4, 3, 50)
+    # B has the complementary arms. Reflect it across its start tangent so
+    # its curvature sign matches A's end curvature; then translate it to A's
+    # end.
+    b = _candidate(4, 3, 7, 24, 50)
+    b_points = b["points"]
+    direction = _start_direction({"a": 4, "b": 3, "c": 5})
+    reflected = [_reflect(point, b_points[0], direction) for point in b_points]
+    q = a["points"][3]
+    b_join = _translate(reflected, q[0], q[1])
+    return {
+        "a": a, "b": b, "a_points": a["points"], "b_points": b_join,
+        "join": q,
+        "tangent": (a["points"][3][0] - a["points"][2][0],
+                    a["points"][3][1] - a["points"][2][1]),
+        "curvature": endpoint_curvature(a["points"], False),
+        "g2": (endpoint_curvature(a["points"], False)
+               == endpoint_curvature(b_join, True)),
+    }
+
+
+def g1_fallback():
+    """A tangent-only join: the base meets an unreflected copy of itself."""
+    base = _candidate(3, 4, 3, 4, 10)
+    left = base["points"]
+    q = left[3]
+    right = _translate(right := base["points"], q[0], q[1])
+    return {
+        "left": left, "right": right, "join": q,
+        "tangent": (left[3][0] - left[2][0], left[3][1] - left[2][1]),
+        "curvature_left": endpoint_curvature(left, False),
+        "curvature_right": endpoint_curvature(right, True),
+        "g1": (left[3][0] - left[2][0], left[3][1] - left[2][1])
+              == (right[1][0] - right[0][0], right[1][1] - right[0][1]),
+        "g2": endpoint_curvature(left, False) == endpoint_curvature(right, True),
+    }
 
 
 def probe_all():

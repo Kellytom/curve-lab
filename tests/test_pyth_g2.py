@@ -36,6 +36,20 @@ class PythG2Test(unittest.TestCase):
                 self.assertTrue(join["curvature_match"])
                 self.assertIsNotNone(join["curvature_left"])
 
+    def test_asymmetric_pair_and_g1_fallback(self):
+        pair = pyth_g2.asymmetric_pair()
+        self.assertEqual(pair["join"], (50, 0))
+        self.assertEqual(pair["tangent"], (4, -3))
+        self.assertEqual(pair["curvature"], Fraction(-6, 5))
+        self.assertTrue(pair["g2"])
+        for piece in (pair["a_points"], pair["b_points"]):
+            self.assertTrue(all(v.denominator == 1 for p in piece for v in p))
+        fallback = pyth_g2.g1_fallback()
+        self.assertTrue(fallback["g1"])
+        self.assertFalse(fallback["g2"])
+        self.assertEqual(fallback["curvature_left"], Fraction(-16, 75))
+        self.assertEqual(fallback["curvature_right"], Fraction(16, 75))
+
     def test_page(self):
         page = (ROOT / "workbench" / "integer-g2.html").read_text(
             encoding="utf-8")
@@ -46,6 +60,9 @@ class PythG2Test(unittest.TestCase):
         self.assertIn("10/10", page)
         self.assertIn("pass both joins", page)
         self.assertIn("Probe all ten triples", page)
+        self.assertIn("Fig. G2", page)
+        self.assertIn("asymmetric pair", page)
+        self.assertIn("G1 fallback", page)
 
 
 if __name__ == "__main__":
