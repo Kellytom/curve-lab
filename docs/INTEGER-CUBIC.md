@@ -211,10 +211,16 @@ specific asymmetric joins can be built, not that every integer pair can. The
 outer ends are free, and the probe does not check self-intersection or
 clearance.
 
+The interactive drag probe is `workbench/integer-g2-editor.html`: it starts at
+the exact scale-1 pair and shows live G1/G2, tangent, curvature and integer
+status. Dragging is a probe, not a solver; integer snapping does not preserve
+G2 by itself.
+
 Run it with:
 
 ```sh
 .venv/bin/python scripts/integer_g2.py
+.venv/bin/python scripts/integer_g2_editor.py
 .venv/bin/python -m unittest tests.test_pyth_g2
 ```
 

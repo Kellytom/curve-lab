@@ -297,6 +297,34 @@ def g1_fallback():
 
 
 
+def pair_groups(pair):
+    """The asymmetric pair as drawing Groups, without a clothoid Design."""
+    from .piece import Group
+
+    def span(points):
+        return {"p0": points[0], "c1": points[1],
+                "c2": points[2], "p3": points[3]}
+
+    return [
+        Group("A", [span(pair["a_points"])], instance="A", role="rail"),
+        Group("B", [span(pair["b_points"])], instance="B", role="rail"),
+    ]
+
+
+def pair_clearance(pair, clearance: float = 5.0, tol: float = 0.02):
+    """The real clearance rule on the scale-1 pair, with the G2 join declared."""
+    from .clearance import measure
+    from .contact import Contact
+
+    return measure(
+        pair_groups(pair),
+        clearance=clearance,
+        tol=tol,
+        contacts=[Contact(pair["join"], radius=2.0, a="A", b="B")],
+        roles=("rail",),
+    )
+
+
 def chain_clearance(chain_data, tol: float = 0.01):
     """A coarse clearance/self-intersection probe on a three-piece chain.
 

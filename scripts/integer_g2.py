@@ -199,6 +199,7 @@ a{{color:#1f5fa8}}
   <p>This pair is genuinely asymmetric: A uses arms <code>7-24-25</code> then <code>3-4-5</code>; B uses the complementary arms. Reflect B across its start tangent, translate it to A's end, and the join has exactly matching tangent and curvature at <strong>scale 1</strong>.</p>
   <div class="figure">{asym_svg}</div>
   <p class="small">A ends at <code>(50,0)</code> with tangent <code>(4,−3)</code> and curvature <code>−6/5</code>. Reflected B starts there with the same tangent and curvature; all controls are integers.</p>
+  <p class="small"><a href="integer-g2-editor.html">Open the drag probe</a> to move the anchors and handles yourself.</p>
 </section>
 
 <section class="panel">

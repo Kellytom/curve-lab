@@ -30,6 +30,8 @@ C-family p-triple conversion and the ornament-form proofs below.
   scale 1; `search_asymmetric()` and the table on `integer-g2.html`.
 - [ ] **G1 fallback policy:** define when a tangent-only join is acceptable,
   and record the curvature jump rather than hiding it.
+- [x] **Interactive G2 drag probe:** `workbench/integer-g2-editor.html`; drag
+  anchors/handles on the integer grid and watch G1/G2/tangent/curvature status.
 - [x] **G2 chain validation, coarse:** outer pieces 47.78 apart on the 3-4-5
   mirror chain; no sampled self-intersections. Full piece-clearance rule still
   pending.

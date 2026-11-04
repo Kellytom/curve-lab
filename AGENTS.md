@@ -46,7 +46,7 @@ later. Keep the public URL private.
 | `curve_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
-| `tests/` | 290 tests; run the whole suite |
+| `tests/` | 292 tests; run the whole suite |
 | `docs/REVIEW.md` | architecture/print review — act after the current work |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |

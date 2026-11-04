@@ -281,6 +281,15 @@
       "outputs": "integer chain controls, join tangents, curvatures, and exact G2 checks"
     },
     {
+      "key": "integer-g2-editor",
+      "file": "integer-g2-editor.html",
+      "group": "curve",
+      "title": "Integer G2 drag probe",
+      "purpose": "Drag the anchors and handles of the scale-1 asymmetric G2 pair; live tangent, curvature, integer and G2 diagnostics.",
+      "inputs": "drag points on an integer grid",
+      "outputs": "curve shape and live G1/G2 mismatch report"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",
