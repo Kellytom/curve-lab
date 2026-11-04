@@ -44,7 +44,8 @@ remote MVP now exist.
   `.venv/bin/python web/server.py`. Auth is unset locally; the deployment
   requires the token.
 - **Workbench server:** ONE process, `scripts/serve.py` on **8003** — probe
-  2026-11-02: **200** at `/workbench/workbench.html`. Redirects a bare page name
+  2026-11-04: **200** at `/workbench/workbench.html`; `/health` is **404** because
+  this is the static workbench server, not the app. Redirects a bare page name
   (`/catenary.html`) to `/workbench/catenary.html`. Starting it twice is safe.
 - **Docs book:** `http://127.0.0.1:8020`, `mkdocs serve`, strict clean. Neither
   the book nor the workbench is deployed.
@@ -70,7 +71,15 @@ remote MVP now exist.
   `<your-billing-account>` at 2026-10-25 23:45 UTC (carried).
 - **Parity:** carried — all seven comparisons passed at 2026-10-26 00:02 UTC
   (not re-run in the handoff).
-- **Local tests:** **305 pass** (1 skipped), full run 2026-11-04.
+- **Local tests:** **305 pass** (1 skipped), carried from the full run
+  2026-11-04; no code under `web/`, `curve_lab/`, `csrc/` or `tests/` differs
+  from HEAD, so this handoff did not rerun them.
+- **Git/probe (2026-11-04):** HEAD `d269afa`; the only worktree entries are four
+  untracked user files (`IMG_2832.JPG`, `IMG_4668.JPG`,
+  `reference/fire/IMG_4238.JPG`, `state/monitor.log`). Nothing tracked is dirty.
+- **Risks carried:** remote URL is redacted, so remote is carried from
+  2026-10-30 at **401 without token**, not probed; parity is its own check; the
+  n=2 chain is prepared but not rendered.
 - **Flowers sheet and stem library (2026-11-03):** `workbench/flowers.html` is
   the 8.5 × 11 print sheet — a sextic, b quintic, c cubic and d r5 clothoid in
   gold squircle vases, mm rulers, with 18 mm Euler-interpolated flowers
