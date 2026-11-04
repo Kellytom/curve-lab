@@ -135,9 +135,17 @@ def pair_svg(pair, w=1000, h=470):
 def main():
     reports = pyth_g2.probe_all()
     base = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
+    clearance = pyth_g2.chain_clearance(base)
     asym = pyth_g2.asymmetric_pair()
     fallback = pyth_g2.g1_fallback()
     asym_svg = pair_svg(asym)
+    search = pyth_g2.search_asymmetric(8)
+    search_rows = "".join(
+        f'<tr><td>{r["a"]["arms"]}</td><td>{r["b"]["arms"]}</td>'
+        f'<td>{r["scale"]}</td>'
+        f'<td>({r["tangent"][0]}, {r["tangent"][1]})</td>'
+        f'<td>{r["curvature"]}</td><td>yes</td></tr>'
+        for r in search)
     rows = []
     for r in reports:
         j0, j1 = r["joins"]
@@ -183,6 +191,7 @@ a{{color:#1f5fa8}}
   <p>The middle piece is the 3-4-5 base, scaled by 5. The pieces before and after are its mirrors at the start and end tangents. Both joins are C1 and G2; the outer ends are free.</p>
   <div class="figure">{g2_svg(base)}</div>
   <p class="small">Join data: tangent <code>(15,−20)</code>; curvature <code>+16/375</code> at the start join and <code>−16/375</code> at the end join. The signs differ because the chain has an inflection between the joins.</p>
+  <p class="small">Clearance probe: the two non-adjacent outer pieces stay <strong>{clearance["nonadjacent_clearance"]:.2f}</strong> units apart; sampled self-intersections: <strong>{clearance["self_intersections"]}</strong>. This is a coarse probe, not the full piece-clearance rule.</p>
 </section>
 
 <section class="panel">
@@ -204,6 +213,16 @@ a{{color:#1f5fa8}}
 <section class="panel">
   <h2>G1 fallback</h2>
   <p>If a curvature match is not available or not worth the scale, a G1 join is still useful glue. Take the 3-4-5 base and an unreflected copy of itself: the tangent at <code>(10,0)</code> is <code>(3,−4)</code> on both sides, but the curvatures are <code>−16/75</code> and <code>+16/75</code>. The join is G1, not G2. The shape is continuous; only the curvature jumps.</p>
+</section>
+
+<section class="panel">
+  <h2>General asymmetric search</h2>
+  <p>The search enumerates small Pythagorean arm pairs and chord lengths, matches endpoint tangent direction, reflects the second piece when the curvature sign needs it, and scales to clear the denominators. These are the first eight exact G2 joins by integer scale.</p>
+  <div class="table-wrap"><table>
+    <tr><th>A arms</th><th>B arms</th><th>scale</th><th>join tangent</th><th>curvature</th><th>G2</th></tr>
+    {search_rows}
+  </table></div>
+  <p class="small">Shape, self-intersection and clearance are not part of this ordering; the search ranks exact join arithmetic only. The two scale-1 pairs are the first candidates for a production probe.</p>
 </section>
 
 <section class="panel">

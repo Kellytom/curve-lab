@@ -26,19 +26,24 @@ C-family p-triple conversion and the ornament-form proofs below.
 
 **Next**
 
-- [ ] **General asymmetric G2 search:** enumerate integer arm pairs and chords;
-  report the smallest integer scale for chosen endpoint curvatures, not just
-  the two hand-built examples.
+- [x] **General asymmetric G2 search:** eight exact joins found; two at
+  scale 1; `search_asymmetric()` and the table on `integer-g2.html`.
 - [ ] **G1 fallback policy:** define when a tangent-only join is acceptable,
   and record the curvature jump rather than hiding it.
-- [ ] **G2 chain validation:** check self-intersection and clearance, not only
-  tangent/curvature equality; decide a scale budget.
+- [x] **G2 chain validation, coarse:** outer pieces 47.78 apart on the 3-4-5
+  mirror chain; no sampled self-intersections. Full piece-clearance rule still
+  pending.
 - [ ] **Two-parabola S probe:** elevate two quadratics, solve the G2 join, and
   compare with the cubic family.
 - [ ] **Pythagorean triple catalogue for cubics:** enumerate arm pairs, chord
   choices, signs, and rotations; choose a canonical short list for production.
+- [ ] **11250 grid probe:** test 25 samples at Pythagorean slopes (3/4, 7/24,
+  and others); distinguish a 11250 coordinate box from a 11250 scale, and
+  compare with the 216,000 canonical grid.
 - [ ] **Integrate one chain:** put a G2 integer chain into `Piece`/`Trace` or a
   stem card and measure it against the existing path.
+- [ ] **Full clearance:** run the real `piece_clearance` rules on the chosen
+  chain, including adjacent-piece crossings away from the declared join.
 - [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
   fitted; do not claim an exact offset.
 

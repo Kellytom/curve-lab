@@ -50,6 +50,20 @@ class PythG2Test(unittest.TestCase):
         self.assertEqual(fallback["curvature_left"], Fraction(-16, 75))
         self.assertEqual(fallback["curvature_right"], Fraction(16, 75))
 
+    def test_general_search(self):
+        found = pyth_g2.search_asymmetric(8)
+        self.assertEqual(len(found), 8)
+        self.assertEqual(found[0]["scale"], 1)
+        self.assertTrue(all(r["a_points"] == [(int(x), int(y)) for x, y in r["a_points"]]
+                            for r in found))
+        self.assertTrue(any("7-24-25" in r["a"]["arms"] for r in found))
+
+    def test_clearance_probe(self):
+        data = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
+        result = pyth_g2.chain_clearance(data)
+        self.assertGreater(result["nonadjacent_clearance"], 40)
+        self.assertEqual(result["self_intersections"], 0)
+
     def test_page(self):
         page = (ROOT / "workbench" / "integer-g2.html").read_text(
             encoding="utf-8")
@@ -63,6 +77,10 @@ class PythG2Test(unittest.TestCase):
         self.assertIn("Fig. G2", page)
         self.assertIn("asymmetric pair", page)
         self.assertIn("G1 fallback", page)
+        self.assertIn("General asymmetric search", page)
+        self.assertIn("7-24-25", page)
+        self.assertIn("Clearance probe", page)
+        self.assertIn("self-intersections", page)
 
 
 if __name__ == "__main__":

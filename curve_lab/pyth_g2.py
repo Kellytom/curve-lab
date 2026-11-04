@@ -296,6 +296,51 @@ def g1_fallback():
     }
 
 
+
+def chain_clearance(chain_data, tol: float = 0.01):
+    """A coarse clearance/self-intersection probe on a three-piece chain.
+
+    This is a probe, not the full piece clearance. It flattens each cubic and
+    reports the minimum distance between the two non-adjacent outer pieces,
+    plus a rough self-intersection count inside each flattened piece.
+    """
+    from .clearance import flatten, segment_distance
+
+    pieces = chain_data["pieces"]
+    spans = [
+        {"p0": p[0], "c1": p[1], "c2": p[2], "p3": p[3]}
+        for p in pieces
+    ]
+    polys = [flatten([span], tol=tol) for span in spans]
+
+    def cross(a, b, c, d):
+        def side(p, q, r):
+            return (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])
+        return side(a, b, c) * side(a, b, d) < 0 and side(c, d, a) * side(c, d, b) < 0
+
+    self_hits = 0
+    for poly in polys:
+        segs = list(zip(poly, poly[1:]))
+        for i, (a, b) in enumerate(segs):
+            for j, (c, d) in enumerate(segs):
+                if j <= i + 1:
+                    continue
+                if cross(a, b, c, d):
+                    self_hits += 1
+
+    def min_between(p, q):
+        best = float("inf")
+        for a, b in zip(p, p[1:]):
+            for c, d in zip(q, q[1:]):
+                best = min(best, segment_distance(a, b, c, d)[0])
+        return best
+
+    return {
+        "nonadjacent_clearance": min_between(polys[0], polys[2]),
+        "self_intersections": self_hits,
+    }
+
+
 def probe_all():
     out = []
     for case in pyth_cubic.cases():
