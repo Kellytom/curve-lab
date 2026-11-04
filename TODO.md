@@ -46,6 +46,8 @@ C-family p-triple conversion and the ornament-form proofs below.
   canonical curve catalogue (arm pairs, chords, signs, rotations).
 - [ ] **n=2 family chain:** choose a join construction for the 43.6°→4.0° sweep
   and turn it into a G1/G2 curve chain; measure the curvature jump and scale.
+  *Candidates:* triple tangent chain (C1 exact, larger grid), triangle strip
+  (integer polyline, smooth afterward), or a G2 alternative.
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
   slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
   quadratic-degree scale.

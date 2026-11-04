@@ -165,6 +165,9 @@ h2{{font-size:21px;margin:0 0 9px}}
 table{{border-collapse:collapse;width:100%;font:11px/1.5 ui-monospace,Menlo,monospace;margin:10px 0}}
 th,td{{border:1px solid var(--rule);padding:5px 7px;text-align:right}}
 th{{color:var(--muted);font-weight:400}}
+.legend{{font:15px/1.65 ui-monospace,Menlo,monospace;color:var(--ink)}}
+.legend td{{padding:5px 8px;text-align:left}}
+.sw{{font-weight:700}}
 code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}}
 .small{{font:12px/1.55 ui-monospace,Menlo,monospace;color:var(--muted)}}
 </style>
@@ -178,6 +181,17 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <h2>Fig. T1 · the field</h2>
   <div class="figure">{drawing}</div>
   <p class="small">Grey points are all triples with <code>c≤{LIMIT}</code>, including multiples. Dashed lines are scaling rays. Thin green and gold curves are all fixed-Euclid-<code>n</code> and fixed-Euclid-<code>m</code> families inside the bound; the dark green/gold/blue curves are the selected <code>n=1,2,3</code> families. Thin rust dashed curves are the Fässler <code>N≈1450</code> cluster. Larger gold dots are the selected <code>n=2</code> sweep.</p>
+</section>
+<section class="panel">
+  <h2>Legend and family names</h2>
+  <table class="legend">
+    <tr><td><span class="sw" style="color:#8c8a78">·</span></td><td><strong>triple</strong></td><td>one Pythagorean triple `(a,b,c)`, including multiples.</td></tr>
+    <tr><td><span class="sw" style="color:#b9aa88">---</span></td><td><strong>ray</strong></td><td>multiples of a primitive triple; same angle from the origin.</td></tr>
+    <tr><td><span class="sw" style="color:#3f7d4e">—</span></td><td><strong>Euclid n</strong></td><td>fixed <code>n</code>: <code>a=(b/(2n))²−n²</code>; right-opening; crosses the b-axis at <code>2n²</code>. Example: <code>n=20</code> crosses at 800.</td></tr>
+    <tr><td><span class="sw" style="color:#c9a441">—</span></td><td><strong>Euclid m</strong></td><td>fixed <code>m</code>: <code>b=m²−a²/(4m²)</code>; <strong>downward-opening</strong>; crosses the b-axis at <code>m²</code>. Example: <code>m=20</code> crosses at 400.</td></tr>
+    <tr><td><span class="sw" style="color:#a23b2a">---</span></td><td><strong>Fässler N≈1450</strong></td><td>fixed <code>N=(b+c)/2</code>: <code>b=|N−a²/(4N)|</code>; reflected at the a-axis; crosses the b-axis at <code>N</code>; the 1450 cluster is the near-coincident band.</td></tr>
+    <tr><td><span class="sw" style="color:#1f5fa8">●</span></td><td><strong>selected n=2</strong></td><td>the 43.60°→4.02° sweep, not the 800 band.</td></tr>
+  </table>
 </section>
 <section class="panel">
   <h2>The n=2 sweep</h2>
@@ -220,6 +234,13 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p>Holding Euclid <code>m</code> instead of <code>n</code> gives another family; with <code>a=2mn</code>, <code>b=m²−a²/(4m²)</code>. That is the other set of smooth parabolic slices visible in the scatter.</p>
   <p>Near <code>N≈1450</code> several values are close together: <code>38²=1444</code>, <code>2·27²=1458</code>, <code>3·22²=1452</code>, <code>5·17²=1445</code>, and <code>10·12²=1440</code>. Their parabolas nearly coincide, which is why a dense parabolic strip appears in the scatter.</p>
   <p class="small">Source: <a href="https://en.wikipedia.org/wiki/Pythagorean_triple">Wikipedia, “Pythagorean triple”</a>, distribution section; the references there point to Albert Fässler and conformal-mapping treatments.</p>
+</section>
+
+<section class="panel">
+  <h2>From triangles to curves</h2>
+  <p>The n=2 sweep gives 53 exact integer arm vectors. The first assembly rule is a <strong>triple tangent chain</strong>: use each triple as the endpoint tangent of a cubic, step along a large grid, and make every join by repeating the shared triple. That makes the chain <strong>C1 by construction</strong>; the curvature will generally jump.</p>
+  <p>With a step of <code>100000</code>, the x extent is <code>5,200,000</code> and every control point is an integer; a smaller step needs the triple vectors normalised first, which introduces a common denominator and an even larger grid. The other candidate is a <strong>triangle strip</strong>: share triangle vertices and smooth the resulting polyline afterward. The tangent chain is the cleaner first probe because the joins are exact.</p>
+  <p class="small">This is a prepared construction, not yet a rendered chain. The decision is in the TODO: tangent chain, triangle strip, or a G2 alternative.</p>
 </section>
 
 <section class="panel">

@@ -107,6 +107,16 @@ m=57: (3245,228,3253) ≈ 4.02°
 The points are exact integer triples but irregularly spaced along the curve.
 They are the first candidate arm/angle sequence for an integer cubic chain.
 
+## From triangles to curves
+
+The `n=2` sweep supplies 53 exact arm vectors. The first assembly candidate is
+a **triple tangent chain**: each triple is the endpoint tangent of a cubic, and
+the shared triple repeats at each join, so the chain is C1 by construction.
+With a step of `100000`, the x extent is `5,200,000`; every control point is an
+integer. The alternative is a **triangle strip** that shares triangle vertices
+and smooths the resulting polyline afterward. The chain is not rendered yet;
+the TODO records the choice.
+
 ## What the plot does and does not do
 
 - It maps **all** triples up to `c=3500`, including multiples.

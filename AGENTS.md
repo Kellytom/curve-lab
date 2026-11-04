@@ -116,7 +116,7 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - Label integer control points with their names and coordinates, and enlarge
   the figure until those labels are legible. An integer result is not visible
   if the reader cannot read the integers.
-- Legend type must stay readable at full width: at least 12px (about 9pt), which is 2pt larger than the old 9px. Do not shrink a legend to fit; move it or wrap it.
+- Legend type must stay readable at full width: at least 15px (about 11pt), which is 2pt larger than the 12px floor. Do not shrink a legend to fit; move it or wrap it.
 - This applies to generated workbench SVGs, docs figures, and board panels.
   If a figure deliberately suppresses axes, it still needs a title and a legend.
 - Check the rendered figure at full width before committing; labels must not
