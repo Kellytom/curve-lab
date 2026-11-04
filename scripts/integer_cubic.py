@@ -78,9 +78,70 @@ def grid_svg(w: int = 1000, h: int = 430):
             f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>'
             + "".join(body) + "</svg>")
 
+
+def simple_svg(w: int = 1000, h: int = 470):
+    """A compact exact-parabola demo on a [-360, 360] grid."""
+    P = ((-360.0, 240.0), (-120.0, -80.0), (120.0, -80.0), (360.0, 240.0))
+    Q = (0.0, -240.0)
+
+    def at(t):
+        u = 1.0 - t
+        return (u*u*u*P[0][0] + 3*u*u*t*P[1][0] + 3*u*t*t*P[2][0] + t*t*t*P[3][0],
+                u*u*u*P[0][1] + 3*u*u*t*P[1][1] + 3*u*t*t*P[2][1] + t*t*t*P[3][1])
+
+    curve = [at(i / 240) for i in range(241)]
+    dots = [at(k / 8) for k in range(9)]
+    x0, y0, x1, y1 = -420.0, -280.0, 420.0, 300.0
+    k = min((w - 80) / (x1 - x0), (h - 110) / (y1 - y0))
+    ox = (w - (x1 - x0) * k) / 2
+    oy = 44 + (h - 82 - (y1 - y0) * k) / 2
+
+    def put(p):
+        return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
+
+    body = []
+    for gx in range(-360, 361, 60):
+        a, b = put((gx, y0)), put((gx, y1))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    for gy in range(-240, 241, 60):
+        a, b = put((x0, gy)), put((x1, gy))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    for axis in ((x0, 0, x1, 0), (0, y0, 0, y1)):
+        a, b = put((axis[0], axis[1])), put((axis[2], axis[3]))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#b9aa88" stroke-width="1"/>')
+    d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in curve)
+    body.append(f'<path d="M {d}" fill="none" stroke="#2e2413" stroke-width="2.4" stroke-linejoin="round"/>')
+    d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in (P[0], Q, P[3]))
+    body.append(f'<path d="M {d}" fill="none" stroke="#7b6c4e" stroke-width="1" stroke-dasharray="4 4"/>')
+    for p in dots:
+        q = put(p)
+        body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3" fill="#c9a441" stroke="#fbf7ec" stroke-width=".6"/>')
+    for name, p in (("P0", P[0]), ("P1", P[1]), ("P2", P[2]), ("P3", P[3])):
+        q = put(p)
+        body.append(f'<rect x="{q[0]-3:.1f}" y="{q[1]-3:.1f}" width="6" height="6" fill="#fbf7ec" stroke="#2e2413" stroke-width="1"/>')
+        body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-6:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#2e2413">{name}</text>')
+    q = put(Q)
+    body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3" fill="#fbf7ec" stroke="#7b6c4e" stroke-width="1"/>')
+    body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-6:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">Q (0,−240)</text>')
+    for gx in (-360, -180, 0, 180, 360):
+        a = put((gx, 0))
+        body.append(f'<text x="{a[0]-12:.1f}" y="{h-26:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">{gx}</text>')
+    for gy in (-240, -120, 0, 120, 240):
+        a = put((0, gy))
+        body.append(f'<text x="{a[0]-26:.1f}" y="{a[1]+4:.1f}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">{gy}</text>')
+    body.append(f'<text x="12" y="49" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">y ↑</text>')
+    body.append(f'<text x="12" y="19" font-family="Georgia,serif" font-size="14" font-weight="600" fill="#2e2413">Fig. P3 · exact parabola on the 360 grid</text>')
+    body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">P0=(−360,240) · P3=(360,240) · Q=(0,−240) · slopes ±4/3 · handle 400</text>')
+    body.append(f'<text x="12" y="{h-44}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">— parabola   • t=k/8, all integer</text>')
+    body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">x →</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>'
+            + "".join(body) + "</svg>")
+
 def main():
     cases = pyth_cubic.cases()
     grid_svg_markup = grid_svg()
+    simple_svg_markup = simple_svg()
     data = json.dumps(cases, separators=(",", ":"))
     buttons = "".join(
         f'<button type="button" data-index="{i}">{c["label"]}</button>'
@@ -127,6 +188,21 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <p class="eyebrow">curve-lab · exact integer construction</p>
 <h1>Integer cubic Béziers</h1>
 <p class="lede">A Pythagorean triple gives a cubic Bézier with every control point an integer, a rational tangent, and a chord twice its hypotenuse. The 3-4-5 case is the base; every other triple is the same construction.</p>
+
+
+<section class="panel">
+  <h2>What was done, in plain English</h2>
+  <p>We found an exact cubic family, not a fit. A Pythagorean triple supplies four integer control points; the 3-4-5 triple gives the base curve. The page then asks what that construction does and does not buy us.</p>
+  <ul>
+    <li>It shows the family and ten triples, with every control point an integer.</li>
+    <li>It shows that Pythagorean rotations and a denominator scale keep the coordinates integer.</li>
+    <li>It records a 60³ sampling grid: 61 exact parameter samples after scaling, not integer points everywhere.</li>
+    <li>It separates the solid result from the open work: exact offsets do not follow, and a G2 join still has to be solved.</li>
+    <li>It records two alternatives for later: asymmetric integer arms and degree-elevated quadratics.</li>
+  </ul>
+  <p><strong>What is solid:</strong> integer control points, rational tangents, rational rotations at Pythagorean angles, and exact rational split points after scaling.</p>
+  <p><strong>What is not solid yet:</strong> exact offsets, a working G2 join recipe, and a practical small-scale lattice. This is a construction page, not a finished production system.</p>
+</section>
 
 <section class="panel">
   <h2>Fig. P1 · the family</h2>
@@ -217,12 +293,27 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p>That is exact, not a fit. If the quadratic controls are integers, the elevated controls may acquire a factor of 3; scale by 3 to clear it. Points at a rational <code>t=p/q</code> have denominators dividing <code>q²</code> for the quadratic, which is cheaper than the cubic’s <code>q³</code>.</p>
   <p>A single parabola cannot make an S: its curvature has one sign. An S needs two pieces, one on each side of the inflection. If you start with two quadratics and elevate them, the piecewise-parabolic S is exact for that design. If you start with the existing integer cubic S and split it at <code>1/2</code>, each half is still a cubic; replacing each half by a quadratic is an approximation, not an exact elevation.</p>
   <p>The trade is fewer shape controls. Two parabolas give a clean S and easy G1 joins, but G2 still requires a curvature match, and the family has fewer degrees of freedom than the asymmetric cubic. Parabola offsets are also not rational in general.</p>
-  <div class="table-wrap"><table>
+  <h3>Worked example, and a correction</h3>
+  <p>For <code>y=x²</code> on <code>x∈[−3,3]</code>, the quadratic controls are <code>(−3,9), (0,−9), (3,9)</code>. Elevation gives the cubic <code>(−3,9), (−1,−3), (1,−3), (3,9)</code>. The handle vectors are <code>(2,−12)</code> and <code>(−2,−12)</code>: slopes <code>±6</code> and length <code>√148</code>. The tangent intersection is <code>Q=(0,−9)</code>, and each handle is two-thirds of the way from its anchor to Q.</p>
+  <p>A valid large integer parabola from the 3-4-5 family is <code>P0=(−36000,24000), P1=(−12000,−8000), P2=(12000,−8000), P3=(36000,24000)</code>. Its Q is <code>(0,−24000)</code>, its slopes are <code>±4/3</code>, and its handle length is <code>40000</code>. At <code>t=1/8, 1/4, 1/2</code> it hits integer points <code>(−27000,13500), (−18000,6000), (0,0)</code>.</p>
+  <p>A claimed “3/4” version with <code>P0=(−48000,27000)</code> has slopes <code>±9/8</code>, not <code>±3/4</code>, and its handle length is not an integer. It is still a valid integer-control parabola, but it is not the 3-4-5 example it claims to be. The <code>72000</code> scale is one chosen scale, not a universal grid.</p>
+  <p><strong>Grid choice:</strong> use <code>360,000 = 72,000 × 5</code> as the default. It covers halves, quarters, eighths and twenty-fifths. Ninths need a further <code>×27</code>; if both <code>1/9</code> and <code>1/25</code> must stay exact, the common scale is <code>9,720,000</code>. We do not take the 27 multiplier unless a design actually needs ninths.</p>
+    <div class="table-wrap"><table>
     <tr><th>representation</th><th>exact for</th><th>point denominator</th><th>shape freedom</th></tr>
     <tr><td>single cubic</td><td>a cubic</td><td>q³</td><td>high; asymmetric arms</td></tr>
     <tr><td>elevated quadratic</td><td>one parabola</td><td>q², then ×3 for integer controls</td><td>one bend</td></tr>
     <tr><td>two elevated quadratics</td><td>a piecewise-parabolic S</td><td>q² per piece</td><td>two bends; join conditions</td></tr>
   </table></div>
+</section>
+
+
+<section class="panel">
+  <h2>A simple 360-grid demo</h2>
+  <p>The large example can be divided by 100 without losing the structure. On a <code>[−360,360]</code> grid, use</p>
+  <div class="formula">P0=(−360,240), P1=(−120,−80), P2=(120,−80), P3=(360,240)</div>
+  <p>The tangent intersection is <code>Q=(0,−240)</code>; each handle is two-thirds of the way from its anchor to Q. The terminal slopes are <code>±4/3</code>, the handle length is <code>400</code>, and the control points are integers.</p>
+  <div class="figure">__SIMPLE_SVG__</div>
+  <p>At <code>t=1/8, 1/4, 1/2</code> the curve hits <code>(−270,135), (−180,60), (0,0)</code>; the other quarter points mirror them. This is an exact elevated quadratic — one parabola — not the two-piece integer S. It is the simple demonstration version of the large-scale example.</p>
 </section>
 
 <section class="panel">
@@ -310,7 +401,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
                 .replace("__ROWS__", rows)
                 .replace("__ANGLES__", angles)
                 .replace("__DATA__", data)
-                .replace("__GRID_SVG__", grid_svg_markup))
+                .replace("__GRID_SVG__", grid_svg_markup)
+                .replace("__SIMPLE_SVG__", simple_svg_markup))
     out = ROOT / "workbench" / "integer-cubic.html"
     out.write_text(page, encoding="utf-8")
     print(out)

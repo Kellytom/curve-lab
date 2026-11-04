@@ -222,6 +222,48 @@ rational in general.
 | elevated quadratic | one parabola | `q²`, then ×3 for integer controls | one bend |
 | two elevated quadratics | a piecewise-parabolic S | `q²` per piece | two bends; join conditions |
 
+### Worked example, and a correction
+
+For `y=x²` on `x∈[−3,3]`, the quadratic controls are `(−3,9), (0,−9), (3,9)`.
+Elevation gives the cubic `(−3,9), (−1,−3), (1,−3), (3,9)`. The handle vectors
+are `(2,−12)` and `(−2,−12)`: slopes `±6` and length `√148`. The tangent
+intersection is `Q=(0,−9)`, and each handle is two-thirds of the way from its
+anchor to Q.
+
+A valid large integer parabola from the 3-4-5 family is
+`P0=(−36000,24000), P1=(−12000,−8000), P2=(12000,−8000),
+P3=(36000,24000)`. Its Q is `(0,−24000)`, its slopes are `±4/3`, and its handle
+length is `40000`. At `t=1/8, 1/4, 1/2` it hits integer points
+`(−27000,13500), (−18000,6000), (0,0)`.
+
+A claimed “3/4” version with `P0=(−48000,27000)` has slopes `±9/8`, not
+`±3/4`, and its handle length is not an integer. It is still a valid
+integer-control parabola, but it is not the 3-4-5 example it claims to be. The
+`72000` scale is one chosen scale, not a universal grid.
+
+**Grid choice:** use `360,000 = 72,000 × 5` as the default. It covers halves,
+quarters, eighths and twenty-fifths. Ninths need a further `×27`; if both
+`1/9` and `1/25` must stay exact, the common scale is `9,720,000`. We do not
+take the 27 multiplier unless a design actually needs ninths.
+
+## A simple 360-grid demo
+
+The large example can be divided by 100 without losing the structure. On a
+`[−360,360]` grid, use
+
+```text
+P0=(−360,240), P1=(−120,−80), P2=(120,−80), P3=(360,240)
+```
+
+The tangent intersection is `Q=(0,−240)`; each handle is two-thirds of the way
+from its anchor to Q. The terminal slopes are `±4/3`, the handle length is
+`400`, and the control points are integers.
+
+At `t=1/8, 1/4, 1/2` the curve hits `(−270,135), (−180,60), (0,0)`; the other
+quarter points mirror them. This is an exact elevated quadratic — one
+parabola — not the two-piece integer S. It is the simple demonstration version
+of the large-scale example.
+
 ## The 3125 circle
 
 The integer points on `x² + y² = 3125` give these slopes:
