@@ -33,6 +33,12 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn("P1=(27,−36)", page)
         self.assertIn("(88,−24)", page)
         self.assertIn("asymmetric", page)
+        self.assertIn("Fig. P2", page)
+        self.assertIn("The 60³ grid", page)
+        self.assertIn("216000", page)
+        self.assertIn("Another route: elevate a quadratic", page)
+        self.assertIn("R1=(Q0+2Q1)/3", page)
+        self.assertIn("two-parabola S probe", page)
 
     def test_euler_page_no_longer_carries_section_ii(self):
         page = (ROOT / "workbench" / "euler-parabola-fit.html").read_text(

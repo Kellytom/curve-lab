@@ -168,7 +168,41 @@ check.
   chosen endpoint curvatures;
 - one offset comparison on this curve, labelled fitted rather than exact;
 - a small lattice census: which integer points appear at chosen scales, and
-  how large the scales get.
+  how large the scales get;
+- a two-parabola S probe: elevate two quadratics, solve the G2 join, and compare
+  with the cubic.
+
+## Another route: elevate a quadratic
+
+A quadratic Bézier is a parabola. Degree elevation turns it into a cubic
+without changing the curve:
+
+```text
+R0=Q0, R1=(Q0+2Q1)/3, R2=(2Q1+Q2)/3, R3=Q2
+```
+
+That is exact, not a fit. If the quadratic controls are integers, the elevated
+controls may acquire a factor of 3; scale by 3 to clear it. Points at a rational
+`t=p/q` have denominators dividing `q²` for the quadratic, which is cheaper
+than the cubic's `q³`.
+
+A single parabola cannot make an S: its curvature has one sign. An S needs two
+pieces, one on each side of the inflection. If you start with two quadratics
+and elevate them, the piecewise-parabolic S is exact for that design. If you
+start with the existing integer cubic S and split it at `1/2`, each half is
+still a cubic; replacing each half by a quadratic is an approximation, not an
+exact elevation.
+
+The trade is fewer shape controls. Two parabolas give a clean S and easy G1
+joins, but G2 still requires a curvature match, and the family has fewer
+degrees of freedom than the asymmetric cubic. Parabola offsets are also not
+rational in general.
+
+| representation | exact for | point denominator | shape freedom |
+|---|---|---|---|
+| single cubic | a cubic | `q³` | high; asymmetric arms |
+| elevated quadratic | one parabola | `q²`, then ×3 for integer controls | one bend |
+| two elevated quadratics | a piecewise-parabolic S | `q²` per piece | two bends; join conditions |
 
 ## The 3125 circle
 

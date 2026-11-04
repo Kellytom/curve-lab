@@ -24,8 +24,63 @@ PYTH_3125 = (0.0, 4.34948822922, 16.260204708312, 20.609692937532,
              85.65051177078, 90.0)
 
 
+
+def grid_svg(w: int = 1000, h: int = 430):
+    """The quarter-turn integer cubic with its 61 points at t=k/60."""
+    P = ((0.0, 0.0), (4.0, -3.0), (7.0, -4.0), (10.0, 0.0))
+    Q = 60
+
+    def at(t):
+        u = 1.0 - t
+        return (u*u*u*P[0][0] + 3*u*u*t*P[1][0] + 3*u*t*t*P[2][0] + t*t*t*P[3][0],
+                u*u*u*P[0][1] + 3*u*u*t*P[1][1] + 3*u*t*t*P[2][1] + t*t*t*P[3][1])
+
+    curve = [at(i / 240) for i in range(241)]
+    dots = [at(k / Q) for k in range(Q + 1)]
+    pts = curve + list(P)
+    x0, y0 = min(p[0] for p in pts), min(p[1] for p in pts)
+    x1, y1 = max(p[0] for p in pts), max(p[1] for p in pts)
+    dx, dy = (x1 - x0) or 1, (y1 - y0) or 1
+    pad = .10
+    xa, xb = x0 - pad*dx, x1 + pad*dx
+    ya, yb = y0 - pad*dy, y1 + pad*dy
+    k = min((w - 54)/(xb - xa), (h - 90)/(yb - ya))
+    ox = (w - (xb - xa)*k)/2
+    oy = 34 + (h - 64 - (yb - ya)*k)/2
+
+    def put(p):
+        return ox + (p[0] - xa)*k, h - (oy + (p[1] - ya)*k)
+
+    body = []
+    for gx in range(0, 11):
+        a, b = put((gx, ya)), put((gx, yb))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    for gy in range(-4, 1):
+        a, b = put((xa, gy)), put((xb, gy))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e4dcc6"/>')
+    d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in curve)
+    body.append(f'<path d="M {d}" fill="none" stroke="#2e2413" stroke-width="2.4" stroke-linejoin="round"/>')
+    d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in P)
+    body.append(f'<path d="M {d}" fill="none" stroke="#7b6c4e" stroke-width="1" stroke-dasharray="4 4"/>')
+    for p in dots:
+        q = put(p)
+        body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.2" fill="#c9a441" stroke="#fbf7ec" stroke-width=".5"/>')
+    for name, p in zip(("P0", "P1", "P2", "P3"), P):
+        q = put(p)
+        body.append(f'<rect x="{q[0]-3:.1f}" y="{q[1]-3:.1f}" width="6" height="6" fill="#fbf7ec" stroke="#2e2413" stroke-width="1"/>')
+        body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-6:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#2e2413">{name} ({p[0]:.0f}, {p[1]:.0f})</text>')
+    body.append(f'<text x="12" y="19" font-family="Georgia,serif" font-size="14" font-weight="600" fill="#2e2413">Fig. P2 · quarter-turn · 61 points at t=k/60</text>')
+    body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">slopes −3/4 → 4/3 · scale by 60³ = 216000</text>')
+    body.append(f'<text x="12" y="{h-24}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">— cubic   • t=k/60, integer after ×60³</text>')
+    body.append(f'<text x="12" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">x →</text>')
+    body.append(f'<text x="{w-38}" y="{h-8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">y ↑</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>'
+            + "".join(body) + "</svg>")
+
 def main():
     cases = pyth_cubic.cases()
+    grid_svg_markup = grid_svg()
     data = json.dumps(cases, separators=(",", ":"))
     buttons = "".join(
         f'<button type="button" data-index="{i}">{c["label"]}</button>'
@@ -138,8 +193,35 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <li>a G2 join probe that reports tangent mismatch, curvature mismatch, and the final integer scale;</li>
     <li>an asymmetric-arm search: which pairs of Pythagorean arms can match two chosen endpoint curvatures;</li>
     <li>one offset comparison on this curve, labelled fitted rather than exact;</li>
-    <li>a small lattice census: which integer points appear at chosen scales, and how large the scales get.</li>
+    <li>a small lattice census: which integer points appear at chosen scales, and how large the scales get;</li>
+    <li>a two-parabola S probe: elevate two quadratics, solve the G2 join, and compare with the cubic.</li>
   </ul>
+</section>
+
+
+<section class="panel">
+  <h2>The 60³ grid</h2>
+  <p>A natural asymmetric example is the quarter-turn cubic</p>
+  <div class="formula">P0=(0,0), P1=(4,−3), P2=(7,−4), P3=(10,0)</div>
+  <p>It starts at slope <code>−3/4</code>, ends at slope <code>4/3</code>, and has integer controls. Take <code>Q=3·4·5=60</code>. Every point at <code>t=k/60</code> has a denominator dividing <code>60³</code>, so scaling by <code>60³ = 216000</code> puts all 61 sampled points on one integer grid.</p>
+  <div class="figure">__GRID_SVG__</div>
+  <p class="small">The 61 points are parameter samples, not arc-length points. The grid is a consequence of the integer controls and the chosen denominator; it does not make offsets or arbitrary curve points integer.</p>
+</section>
+
+
+<section class="panel">
+  <h2>Another route: elevate a quadratic</h2>
+  <p>A quadratic Bézier is a parabola. Degree elevation turns it into a cubic without changing the curve:</p>
+  <div class="formula">R0=Q0, R1=(Q0+2Q1)/3, R2=(2Q1+Q2)/3, R3=Q2</div>
+  <p>That is exact, not a fit. If the quadratic controls are integers, the elevated controls may acquire a factor of 3; scale by 3 to clear it. Points at a rational <code>t=p/q</code> have denominators dividing <code>q²</code> for the quadratic, which is cheaper than the cubic’s <code>q³</code>.</p>
+  <p>A single parabola cannot make an S: its curvature has one sign. An S needs two pieces, one on each side of the inflection. If you start with two quadratics and elevate them, the piecewise-parabolic S is exact for that design. If you start with the existing integer cubic S and split it at <code>1/2</code>, each half is still a cubic; replacing each half by a quadratic is an approximation, not an exact elevation.</p>
+  <p>The trade is fewer shape controls. Two parabolas give a clean S and easy G1 joins, but G2 still requires a curvature match, and the family has fewer degrees of freedom than the asymmetric cubic. Parabola offsets are also not rational in general.</p>
+  <div class="table-wrap"><table>
+    <tr><th>representation</th><th>exact for</th><th>point denominator</th><th>shape freedom</th></tr>
+    <tr><td>single cubic</td><td>a cubic</td><td>q³</td><td>high; asymmetric arms</td></tr>
+    <tr><td>elevated quadratic</td><td>one parabola</td><td>q², then ×3 for integer controls</td><td>one bend</td></tr>
+    <tr><td>two elevated quadratics</td><td>a piecewise-parabolic S</td><td>q² per piece</td><td>two bends; join conditions</td></tr>
+  </table></div>
 </section>
 
 <section class="panel">
@@ -226,7 +308,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     page = (page.replace("__BUTTONS__", buttons)
                 .replace("__ROWS__", rows)
                 .replace("__ANGLES__", angles)
-                .replace("__DATA__", data))
+                .replace("__DATA__", data)
+                .replace("__GRID_SVG__", grid_svg_markup))
     out = ROOT / "workbench" / "integer-cubic.html"
     out.write_text(page, encoding="utf-8")
     print(out)
