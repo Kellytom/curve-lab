@@ -32,6 +32,8 @@ C-family p-triple conversion and the ornament-form proofs below.
   and record the curvature jump rather than hiding it.
 - [x] **Interactive G2 drag probe:** `workbench/integer-g2-editor.html`; drag
   anchors/handles on the integer grid and watch G1/G2/tangent/curvature status.
+- [x] **Pair-level clearance:** `pair_clearance()` on the scale-1 pair; the
+  only crossing is the declared G2 join, with no violations or warnings.
 - [x] **G2 chain validation, coarse:** outer pieces 47.78 apart on the 3-4-5
   mirror chain; no sampled self-intersections. Full piece-clearance rule still
   pending.
@@ -44,8 +46,10 @@ C-family p-triple conversion and the ornament-form proofs below.
   quadratic-degree scale.
 - [ ] **Integrate one chain:** put a G2 integer chain into `Piece`/`Trace` or a
   stem card and measure it against the existing path.
-- [ ] **Full clearance:** run the real `piece_clearance` rules on the chosen
-  chain, including adjacent-piece crossings away from the declared join.
+- [x] **Group-level clearance:** `measure()` on the chain with both G2 joins
+  declared; no violations or warnings, two allowed joins.
+- [ ] **Piece wrapper:** carry the same chain through an actual `Piece`/`Trace`
+  object; the Group-level probe does not yet do that.
 - [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
   fitted; do not claim an exact offset.
 

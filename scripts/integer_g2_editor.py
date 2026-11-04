@@ -55,14 +55,14 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <p class="lede">The starting pair is exact: A ends where reflected B begins, with matching tangent and curvature. Drag an anchor or handle. Integer snapping keeps every point on the lattice, but G2 survives only when the tangent direction and curvature both still agree.</p>
 
 <section class="panel">
-  <h2>Drag the points</h2>
+  <h2>Fig. G3 · drag the points</h2>
   <div class="controls">
     <button id="reset" type="button">reset exact pair</button>
     <label><input type="checkbox" id="snap" checked> snap to integers</label>
     <label><input type="checkbox" id="tangents" checked> show join tangents</label>
     <span>○ anchors · ■ handles · black = G2 join</span>
   </div>
-  <canvas id="editor" width="1000" height="560" aria-label="Interactive two-piece integer cubic with G2 diagnostics"></canvas>
+  <canvas id="editor" width="1000" height="1000" aria-label="Interactive two-piece integer cubic with G2 diagnostics"></canvas>
   <p class="readout" id="readout" aria-live="polite"></p>
 </section>
 
@@ -83,8 +83,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   const readout = document.getElementById('readout');
   const snapBox = document.getElementById('snap');
   const tangentBox = document.getElementById('tangents');
-  const W = 1000, H = 560, PAD = 46;
-  const DOM = {x0:-10, x1:70, y0:-60, y1:32};
+  const W = 1000, H = 1000, PAD = 46;
+  const DOM = {x0:-20, x1:80, y0:-60, y1:32};
   const scale = Math.min((W-2*PAD)/(DOM.x1-DOM.x0), (H-2*PAD)/(DOM.y1-DOM.y0));
   const ox = (W-(DOM.x1-DOM.x0)*scale)/2, oy=(H-(DOM.y1-DOM.y0)*scale)/2;
   const SX = x => ox + (x-DOM.x0)*scale;
@@ -155,6 +155,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     for(let y=DOM.y0;y<=DOM.y1;y+=10){
       ctx.beginPath(); ctx.moveTo(SX(DOM.x0),SY(y)); ctx.lineTo(SX(DOM.x1),SY(y)); ctx.stroke();
     }
+    ctx.fillStyle='#2e2413'; ctx.font='600 15px Georgia,serif';
+    ctx.fillText('Fig. G3 · integer G2 drag probe',14,23);
     drawPolygon(A,'#c9a441'); drawPolygon(B,'#1f5fa8');
     drawPath(A,'#c9a441'); drawPath(B,'#1f5fa8');
 
@@ -175,7 +177,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       if(t.id==='join'){ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();}
       else {ctx.beginPath();ctx.arc(x,y,4,0,7);ctx.fill();}
       ctx.fillStyle='#2e2413'; ctx.font='10px ui-monospace,Menlo,monospace';
-      ctx.fillText(t.id,x+7,y-7);
+      ctx.fillText(`${t.id} (${t.p[0]}, ${t.p[1]})`,x+7,y-7);
     }
 
     const status = d.g2 ? 'G2 exact' : (d.g1 ? 'G1 only' : 'not G1');

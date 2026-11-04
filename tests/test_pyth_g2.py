@@ -58,6 +58,24 @@ class PythG2Test(unittest.TestCase):
                             for r in found))
         self.assertTrue(any("7-24-25" in r["a"]["arms"] for r in found))
 
+    def test_pair_clearance_declares_only_the_join(self):
+        pair = pyth_g2.asymmetric_pair()
+        result = pyth_g2.pair_clearance(pair)
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["violations"], [])
+        self.assertEqual(result["warnings"], [])
+        self.assertEqual(len(result["crossings"]), 1)
+        self.assertTrue(result["crossings"][0]["allowed"])
+
+    def test_chain_measure_rule(self):
+        data = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
+        result = pyth_g2.chain_measure(data)
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["violations"], [])
+        self.assertEqual(result["warnings"], [])
+        self.assertEqual(len(result["crossings"]), 2)
+        self.assertTrue(all(c.get("allowed") for c in result["crossings"]))
+
     def test_clearance_probe(self):
         data = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
         result = pyth_g2.chain_clearance(data)
@@ -75,11 +93,15 @@ class PythG2Test(unittest.TestCase):
         self.assertIn("pass both joins", page)
         self.assertIn("Probe all ten triples", page)
         self.assertIn("Fig. G2", page)
+        self.assertIn("A1 (7, −24)", page)
+        self.assertIn("B1 (54, −3)", page)
+        self.assertIn("G2 join (50, 0)", page)
         self.assertIn("asymmetric pair", page)
         self.assertIn("G1 fallback", page)
         self.assertIn("General asymmetric search", page)
         self.assertIn("7-24-25", page)
         self.assertIn("Clearance probe", page)
+        self.assertIn("Clearance rule at Group level", page)
         self.assertIn("self-intersections", page)
 
 

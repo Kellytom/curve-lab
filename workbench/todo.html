@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:68.9%}
+.fill{height:100%;background:#8c6a21;width:70.2%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">31 / 45 done · 69% · read-only twin of
+<div class="count">33 / 47 done · 70% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -60,6 +60,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>and record the curvature jump rather than hiding it.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Interactive G2 drag probe:</strong> <code>workbench/integer-g2-editor.html</code>; drag</span></label>
 <p>anchors/handles on the integer grid and watch G1/G2/tangent/curvature status.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Pair-level clearance:</strong> <code>pair_clearance()</code> on the scale-1 pair; the</span></label>
+<p>only crossing is the declared G2 join, with no violations or warnings.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>G2 chain validation, coarse:</strong> outer pieces 47.78 apart on the 3-4-5</span></label>
 <p>mirror chain; no sampled self-intersections. Full piece-clearance rule still pending.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Two-parabola S probe:</strong> elevate two quadratics, solve the G2 join, and</span></label>
@@ -70,8 +72,10 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>slope pairs; all integer after ×<code>15625</code>. <code>11250=18×25²</code> is only the quadratic-degree scale.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Integrate one chain:</strong> put a G2 integer chain into <code>Piece</code>/<code>Trace</code> or a</span></label>
 <p>stem card and measure it against the existing path.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Full clearance:</strong> run the real <code>piece_clearance</code> rules on the chosen</span></label>
-<p>chain, including adjacent-piece crossings away from the declared join.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Group-level clearance:</strong> <code>measure()</code> on the chain with both G2 joins</span></label>
+<p>declared; no violations or warnings, two allowed joins.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Piece wrapper:</strong> carry the same chain through an actual <code>Piece</code>/<code>Trace</code></span></label>
+<p>object; the Group-level probe does not yet do that.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Offset comparison:</strong> one fitted offset on an integer cubic, labelled</span></label>
 <p>fitted; do not claim an exact offset.</p>
 <p><strong>Decision rules</strong></p>

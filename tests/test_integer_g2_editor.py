@@ -9,6 +9,9 @@ class IntegerG2EditorTest(unittest.TestCase):
         page = (ROOT / "workbench" / "integer-g2-editor.html").read_text(
             encoding="utf-8")
         self.assertIn("Integer G2 pair · drag probe", page)
+        self.assertIn("Fig. G3", page)
+        self.assertIn('width="1000" height="1000"', page)
+        self.assertIn("A0", page)
         self.assertIn('id="editor"', page)
         self.assertIn('id="reset"', page)
         self.assertIn('id="snap"', page)

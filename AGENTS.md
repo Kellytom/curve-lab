@@ -46,7 +46,7 @@ later. Keep the public URL private.
 | `curve_lab/svg.py` | SVG writer; `document(..., groups=...)` |
 | `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
-| `tests/` | 292 tests; run the whole suite |
+| `tests/` | 294 tests; run the whole suite |
 | `docs/REVIEW.md` | architecture/print review — act after the current work |
 | `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
@@ -110,6 +110,12 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   marks (source, handles, points, rails), and the key endpoint or coordinate
   values.
 - A caption is an explanation, not a substitute for axis and series labels.
+- Use the full width of the figure box. Size the canvas/SVG from the data or
+  grid aspect instead of leaving large side margins; a narrow drawing in a wide
+  box is a layout error.
+- Label integer control points with their names and coordinates, and enlarge
+  the figure until those labels are legible. An integer result is not visible
+  if the reader cannot read the integers.
 - Legend type must stay readable at full width: at least 12px (about 9pt), which is 2pt larger than the old 9px. Do not shrink a legend to fit; move it or wrap it.
 - This applies to generated workbench SVGs, docs figures, and board panels.
   If a figure deliberately suppresses axes, it still needs a title and a legend.

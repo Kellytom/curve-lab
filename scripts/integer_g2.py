@@ -82,7 +82,7 @@ def g2_svg(chain_data, w=1000, h=560):
 
 
 
-def pair_svg(pair, w=1000, h=470):
+def pair_svg(pair, w=1000, h=850):
     """The asymmetric A→B pair, with the reflected B."""
     pieces = [pair["a_points"], pair["b_points"]]
     colours = ("#c9a441", "#1f5fa8")
@@ -115,14 +115,22 @@ def pair_svg(pair, w=1000, h=470):
         body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="2.6" stroke-linejoin="round"/>')
         d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in piece)
         body.append(f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="1" stroke-dasharray="4 4" opacity=".8"/>')
-        q = put(cubic(piece, .5))
-        body.append(f'<text x="{q[0]:.1f}" y="{q[1]-9:.1f}" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="600" fill="{colour}">{"AB"[idx]}</text>')
         for p in piece:
             q = put(p)
             body.append(f'<rect x="{q[0]-2.5:.1f}" y="{q[1]-2.5:.1f}" width="5" height="5" fill="#fbf7ec" stroke="#7b6c4e" stroke-width=".8"/>')
     q = put(pair["join"])
     body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="4.5" fill="#2e2413" stroke="#fbf7ec" stroke-width="1"/>')
-    body.append(f'<text x="{q[0]+8:.1f}" y="{q[1]-8:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#2e2413">G2 (50, 0)</text>')
+    def label(p, text, dx=8, dy=-8, anchor="start", fill="#2e2413"):
+        q = put(p)
+        body.append(f'<text x="{q[0]+dx:.1f}" y="{q[1]+dy:.1f}" text-anchor="{anchor}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{fill}" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">{text}</text>')
+    a, b = pair["a_points"], pair["b_points"]
+    label(a[0], "A0 (0, 0)")
+    label(a[1], "A1 (7, −24)", dx=-8, anchor="end")
+    label(a[2], "A2 (46, 3)", dx=-8, dy=-10, anchor="end")
+    label(pair["join"], "G2 join (50, 0)", dx=9, dy=17)
+    label(b[1], "B1 (54, −3)")
+    label(b[2], "B2 (39, −48)", dx=-8, anchor="end")
+    label(b[3], "B3 (64, −48)")
     body.append(f'<text x="12" y="19" font-family="Georgia,serif" font-size="14" font-weight="600" fill="#2e2413">Fig. G2 · asymmetric pair · scale 1</text>')
     body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#7b6c4e">arms 7-24-25 / 3-4-5 ↔ 3-4-5 / 7-24-25 · tangent (4,−3) · curvature −6/5</text>')
     body.append(f'<text x="12" y="{h-36}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">— A   — reflected B   ■ control   • G2 join</text>')
@@ -136,6 +144,7 @@ def main():
     reports = pyth_g2.probe_all()
     base = pyth_g2.chain(pyth_cubic.case(3, 4, 5))
     clearance = pyth_g2.chain_clearance(base)
+    chain_rule = pyth_g2.chain_measure(base)
     asym = pyth_g2.asymmetric_pair()
     fallback = pyth_g2.g1_fallback()
     asym_svg = pair_svg(asym)
@@ -191,7 +200,8 @@ a{{color:#1f5fa8}}
   <p>The middle piece is the 3-4-5 base, scaled by 5. The pieces before and after are its mirrors at the start and end tangents. Both joins are C1 and G2; the outer ends are free.</p>
   <div class="figure">{g2_svg(base)}</div>
   <p class="small">Join data: tangent <code>(15,−20)</code>; curvature <code>+16/375</code> at the start join and <code>−16/375</code> at the end join. The signs differ because the chain has an inflection between the joins.</p>
-  <p class="small">Clearance probe: the two non-adjacent outer pieces stay <strong>{clearance["nonadjacent_clearance"]:.2f}</strong> units apart; sampled self-intersections: <strong>{clearance["self_intersections"]}</strong>. This is a coarse probe, not the full piece-clearance rule.</p>
+  <p class="small">Clearance probe: the two non-adjacent outer pieces stay <strong>{clearance["nonadjacent_clearance"]:.2f}</strong> units apart; sampled self-intersections: <strong>{clearance["self_intersections"]}</strong>.</p>
+  <p class="small">Clearance rule at Group level: <strong>{"ok" if chain_rule["ok"] else "FAIL"}</strong>; violations <strong>{len(chain_rule["violations"])}</strong>; warnings <strong>{len(chain_rule["warnings"])}</strong>; allowed joins <strong>{sum(1 for c in chain_rule["crossings"] if c.get("allowed"))}</strong>. The declared joins are the two contacts; this is still a Group-level probe, not a `Piece` wrapper.</p>
 </section>
 
 <section class="panel">

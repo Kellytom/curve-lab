@@ -297,6 +297,38 @@ def g1_fallback():
 
 
 
+def chain_groups(chain_data):
+    """The three-piece chain as drawing Groups, without a clothoid Design."""
+    from .piece import Group
+
+    def span(points):
+        return {"p0": points[0], "c1": points[1],
+                "c2": points[2], "p3": points[3]}
+
+    return [
+        Group(name, [span(points)], instance=name, role="rail")
+        for name, points in zip("CAB", chain_data["pieces"])
+    ]
+
+
+def chain_measure(chain_data, clearance: float = 5.0, tol: float = 0.02):
+    """The real clearance rule on the chain, with both G2 joins declared."""
+    from .clearance import measure
+    from .contact import Contact
+
+    pieces = chain_data["pieces"]
+    return measure(
+        chain_groups(chain_data),
+        clearance=clearance,
+        tol=tol,
+        contacts=[
+            Contact(pieces[0][3], radius=2.0, a="C", b="A"),
+            Contact(pieces[1][3], radius=2.0, a="A", b="B"),
+        ],
+        roles=("rail",),
+    )
+
+
 def pair_groups(pair):
     """The asymmetric pair as drawing Groups, without a clothoid Design."""
     from .piece import Group
