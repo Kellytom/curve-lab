@@ -395,12 +395,16 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       <div class="angle-buttons" id="e6-buttons">__E6_BUTTONS__</div>
     </div>
     <div class="angle-bar" style="grid-template-columns:minmax(220px,1fr) 2fr">
-      <label class="slider">c2/c3 from join <input type="range" id="e6-t" min="0.01" max="0.49" step="0.001" value="0.398"> <span id="e6-t-value"></span></label>
-      <span class="small">slide the blue handles along the c1–c4 line</span>
+      <label class="slider">c1/c4 length <input type="range" id="e6-scale" min="0.5" max="1.5" step="0.01" value="1"> <span id="e6-scale-value"></span></label>
+      <span class="small">scale both outer handles along their endpoint tangents</span>
+    </div>
+    <div class="angle-bar" style="grid-template-columns:minmax(220px,1fr) 2fr">
+      <label class="slider">c2/c3 gap <input type="range" id="e6-gap" min="0.1" max="49" step="0.1" value="9.1"> <span id="e6-gap-value"></span></label>
+      <span class="small">distance from the join, as % of the c1–c4 bar</span>
     </div>
     <canvas id="e6-canvas" width="1000" height="470"></canvas>
     <p class="meta" id="e6-meta"></p>
-    <p class="small">The blue handles <code>c1–c4</code> are collinear on the dashed line, but the cubic is not: only its join tangent follows that line. The endpoints and the outer handles stay put. At 90° the straight bar lowers the sampled max error from 0.0324 to about 0.0233 and moves the join tangent from −41.63° to −33.69°. At other angles the trade can go the other way; the readout reports the selected case.</p>
+    <p class="small">The blue handles <code>c1–c4</code> are collinear on the dashed line, but the cubic is not: only its join tangent follows that line. The endpoints and the outer handles stay put. At 90°, with c1/c4 at 100% of the exact arm and the inner gap at 9.1% of the bar, the straight bar lowers the sampled max error from 0.0324 to about 0.0233 and moves the join tangent from −41.63° to −33.69°. At other angles or outer lengths the trade can go the other way; the readout reports the selected case.</p>
   </div>
   <p class="small">The 3125-circle angle set is 0°, 4.35°, 16.26°, 20.61°, 32.52°, 36.87°, 53.13°, 57.48°, 69.39°, 73.74°, 85.65°, 90°. The table below remains the 90° reference.</p>
   <div class="table-wrap">__S48_TABLE__</div>
@@ -913,12 +917,15 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   }
 
 
-  function barSpans(rec,t){
-    const p=rec.two[0].c1, q=rec.two[1].c2;
-    const vx=q[0]-p[0], vy=q[1]-p[1];
+  function barSpans(rec,t,scale){
+    const a=rec.two[0], b=rec.two[1];
+    const p0=a.p0, p3=b.p3;
+    const c1=[p0[0]+scale*(a.c1[0]-p0[0]),p0[1]+scale*(a.c1[1]-p0[1])];
+    const c4=[p3[0]+scale*(b.c2[0]-p3[0]),p3[1]+scale*(b.c2[1]-p3[1])];
+    const vx=c4[0]-c1[0], vy=c4[1]-c1[1];
     const out=rec.two.map(sp=>({p0:[...sp.p0],c1:[...sp.c1],c2:[...sp.c2],p3:[...sp.p3]}));
-    out[0].c2=[p[0]+t*vx,p[1]+t*vy];
-    out[1].c1=[p[0]+(1-t)*vx,p[1]+(1-t)*vy];
+    out[0].c1=c1; out[0].c2=[c1[0]+t*vx,c1[1]+t*vy];
+    out[1].c1=[c1[0]+(1-t)*vx,c1[1]+(1-t)*vy]; out[1].c2=c4;
     return out;
   }
   function barError(rec,spans){
@@ -943,9 +950,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     const slider=document.getElementById('e6-angle');
     const rec=RECORDS[Number(slider.value)];
     document.getElementById('e6-angle-value').textContent=rec.a.toFixed(2)+'°';
-    const tSlider=document.getElementById('e6-t');
-    const t=Number(tSlider.value);
-    const bar=barSpans(rec,t);
+    const scale=Number(document.getElementById('e6-scale').value);
+    const gapPct=Number(document.getElementById('e6-gap').value);
+    const gap=gapPct/100;
+    const t=.5-gap;
+    const bar=barSpans(rec,t,scale);
     const barErr=barError(rec,bar);
     const all=[...rec.true];
     for(const set of [rec.two,bar]) for(const sp of set) all.push(sp.p0,sp.c1,sp.c2,sp.p3);
@@ -1010,35 +1019,46 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     ctx.fillText(`Fig. E6 · two pieces · collinear controls · S ${rec.a.toFixed(2)}°`,12,20);
     ctx.font='11px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
     const lineLen=Math.hypot(c4[0]-c1[0],c4[1]-c1[1]);
-    const joinDist=Math.abs(.5-t)*lineLen;
-    ctx.fillText(`max error: exact ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · t=${t.toFixed(3)} · gap ${joinDist.toFixed(3)}`,12,37);
-    ctx.fillText(`join tangent: exact ${exactTan.toFixed(2)}° · straight bar ${barTan.toFixed(2)}°`,12,52);
+    const joinDist=gap*lineLen;
+    const arm1=Math.hypot(c1[0]-rec.two[0].p0[0],c1[1]-rec.two[0].p0[1]);
+    const arm0=Math.hypot(rec.two[0].c1[0]-rec.two[0].p0[0],rec.two[0].c1[1]-rec.two[0].p0[1]);
+    const arm4=Math.hypot(rec.two[1].c2[0]-rec.two[1].p3[0],rec.two[1].c2[1]-rec.two[1].p3[1]);
+    ctx.fillText(`max error: exact ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · c1/c4 ${(scale*100).toFixed(0)}%`,12,37);
+    ctx.fillText(`c1/c4 ${arm1.toFixed(3)} chord · gap ${gapPct.toFixed(1)}% of bar = ${joinDist.toFixed(3)} chord`,12,52);
+    ctx.fillText(`join tangent: exact ${exactTan.toFixed(2)}° · straight bar ${barTan.toFixed(2)}°`,12,67);
     ctx.font='12px ui-monospace,Menlo,monospace';
     ctx.fillText('— true Euler   --- exact two pieces   — straight bar   -- c1–c4   ■ bar handles   □ exact handles',12,H-25);
     ctx.font='10px ui-monospace,Menlo,monospace';
     ctx.fillText('x → chord units',12,H-8); ctx.fillText('y ↑',W-40,H-8);
-    document.getElementById('e6-t-value').textContent =
-      `t=${t.toFixed(3)} · gap ${joinDist.toFixed(3)}`;
+    document.getElementById('e6-scale-value').textContent =
+      `${(scale*100).toFixed(0)}% exact · ${arm1.toFixed(3)} chord`;
+    document.getElementById('e6-gap-value').textContent =
+      `${gapPct.toFixed(1)}% of bar · ${joinDist.toFixed(3)} chord`;
     document.getElementById('e6-meta').textContent =
-      `θ=${rec.a.toFixed(2)}° · exact two-piece ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · best t=${rec.bar_t.toFixed(3)} · join tangent exact ${exactTan.toFixed(2)}° / bar ${barTan.toFixed(2)}°`;
+      `θ=${rec.a.toFixed(2)}° · exact two-piece ${rec.e2.toFixed(5)} · straight bar ${barErr.toFixed(5)} · c1/c4 ${(scale*100).toFixed(0)}% of exact · gap ${gapPct.toFixed(1)}% (${joinDist.toFixed(3)} chord) · join tangent exact ${exactTan.toFixed(2)}° / bar ${barTan.toFixed(2)}°`;
   }
 
   function wireBar(){
     const slider=document.getElementById('e6-angle');
-    const tSlider=document.getElementById('e6-t');
+    const gapSlider=document.getElementById('e6-gap');
+    const scaleSlider=document.getElementById('e6-scale');
     const buttons=document.getElementById('e6-buttons');
     function bestRec(){return RECORDS[Number(slider.value)];}
-    function syncT(){tSlider.value=bestRec().bar_t.toFixed(3);}
+    function syncGap(){
+      const gap=Math.abs(.5-bestRec().bar_t)*100;
+      gapSlider.value=Math.max(.1,Math.min(49,gap)).toFixed(1);
+    }
     function show(){drawBar();}
-    slider.addEventListener('input',()=>{syncT();show();});
-    tSlider.addEventListener('input',show);
+    slider.addEventListener('input',()=>{syncGap();show();});
+    gapSlider.addEventListener('input',show);
+    scaleSlider.addEventListener('input',show);
     buttons.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
       const target=Number(b.dataset.angle);
       let best=0;
       for(let i=0;i<RECORDS.length;i++) if(Math.abs(RECORDS[i].a-target)<Math.abs(RECORDS[best].a-target)) best=i;
-      slider.value=String(best); syncT(); show();
+      slider.value=String(best); syncGap(); show();
     }));
-    syncT(); show();
+    syncGap(); show();
   }
 
   function wireSmooth(prefix, mode){
