@@ -57,9 +57,18 @@ def svg(points, all_n, all_m, families, chain, rays, w=1000, h=1000):
 
     # every fixed-Euclid-n and fixed-Euclid-m family inside the plot bound
     for n, curve in all_n.items():
-        curve_path(curve, "#3f7d4e", .7, .16)
+        curve_path(curve, "#3f7d4e", .9, .32)
     for m, curve in all_m.items():
-        curve_path(curve, "#c9a441", .7, .13)
+        curve_path(curve, "#c9a441", .9, .26)
+
+    # the 800 band: fixed n=20
+    if 20 in all_n:
+        curve_path(all_n[20], "#145a32", 2.6, .98)
+        for p in pyth_triples.family(20, LIMIT):
+            q = put((p["a"], p["b"]))
+            body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.2" fill="#145a32" stroke="#fbf7ec" stroke-width=".7"/>')
+        q = put((0, 800))
+        body.append(f'<text x="{q[0]+6:.1f}" y="{q[1]-8:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#145a32" stroke="#fbf7ec" stroke-width="3" paint-order="stroke">n=20 · 800</text>')
 
     # fixed-n families as curves and marked points
     colours = {1: "#3f7d4e", 2: "#c9a441", 3: "#1f5fa8"}
@@ -116,6 +125,16 @@ def main():
     drawing = svg(points, all_n, all_m, families, chain, rays)
 
     picks = (5, 6, 8, 10, 15, 20, 25, 30, 40, 50, 57)
+    n20 = pyth_triples.family(20, LIMIT)
+    n20_rows = "".join(
+        f'<tr><td>{p["m"]}</td><td>({p["a"]}, {p["b"]}, {p["c"]})</td>'
+        f'<td>{pyth_triples.angle_deg(p):.2f}°</td></tr>'
+        for p in n20[:6]
+    ) + "".join(
+        f'<tr><td>{p["m"]}</td><td>({p["a"]}, {p["b"]}, {p["c"]})</td>'
+        f'<td>{pyth_triples.angle_deg(p):.2f}°</td></tr>'
+        for p in n20[-2:]
+    )
     rows = []
     for m in picks:
         p = next((p for p in chain if p["m"] == m), None)
@@ -178,6 +197,16 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><td>Fässler fixed N</td><td><code>b=|N−a²/(4N)|</code></td><td><code>N</code></td><td><code>1440, 1444, 1445, 1452, 1458</code></td></tr>
   </table>
   <p class="small">A parabola catalogue is infinite: each parameter value is a curve. The useful catalogue is by family and intercept law. The fixed-n family is the green fan; fixed m is the gold fan; Fässler's cluster is the rust band.</p>
+</section>
+
+<section class="panel">
+  <h2>The 800 band: n=20</h2>
+  <p>The fixed-<code>n=20</code> curve is the strong dark-green curve. Its y-axis intercept is <code>2n²=800</code>, but that intercept is the degenerate <code>m=n=20</code> point, not a triple. The first actual triple is <code>(41,840,841)</code>, at <strong>87.21°</strong>. The family runs to <code>(2625,2200,3425)</code> at about <strong>39.97°</strong>; it is a high-angle band, not the 44°→4° sweep.</p>
+  <table>
+    <tr><th>m</th><th>triple</th><th>angle</th></tr>
+    {n20_rows}
+  </table>
+  <p>On this curve <code>b=40m</code>, so the points are evenly spaced vertically by 40. The horizontal gaps are <code>a</code> and <code>c</code> steps of <code>2m+1</code>: 43, 45, 47, … — regular in b, increasingly wide in a/c. That is the irregularity visible in the scatter.</p>
 </section>
 
 <section class="panel">

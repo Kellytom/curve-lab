@@ -42,6 +42,18 @@ family at `n=14,20,25,27,31`. The fixed-`m` family also crosses near 400, 784,
 1225, 1521 and 1849. A catalogue is infinite by parameter value; the useful
 catalogue is by family and intercept law.
 
+## The 800 band: n=20
+
+The fixed-`n=20` family is the strong dark-green curve on the page. Its
+y-intercept is `2n²=800`, but that is the degenerate `m=n=20` point, not a
+triple. The first actual triple is `(41,840,841)` at **87.21°**; the family
+continues to `(2625,2200,3425)` at about **39.97°**. It is a high-angle band,
+not the 44°→4° `n=2` sweep.
+
+For this family `b=40m`, so the points are evenly spaced vertically by 40. The
+`a` and `c` steps are `2m+1`: 43, 45, 47, …, so the horizontal gaps widen.
+Regular in `b`; increasingly wide in `a` and `c`.
+
 ## Fässler's second slicing
 
 With the even leg as `a`, put `N=(b+c)/2`. If `a²/(4N)` is an integer, then
