@@ -160,6 +160,101 @@ def _candidate(a0, b0, a1, b1, length):
     }
 
 
+
+_ARM_PAIRS = ((3, 4), (4, 3), (5, 12), (12, 5), (8, 15), (15, 8),
+              (7, 24), (24, 7), (20, 21), (21, 20))
+
+
+def _family_candidates():
+    out = []
+    for a0, b0 in _ARM_PAIRS:
+        for a1, b1 in _ARM_PAIRS:
+            c0 = isqrt(a0 * a0 + b0 * b0)
+            c1 = isqrt(a1 * a1 + b1 * b1)
+            lengths = {2 * max(c0, c1), c0 + c1, 2 * min(c0, c1),
+                       3 * max(c0, c1) // 2}
+            for length in sorted(lengths):
+                if length <= a0 or length <= a1:
+                    continue
+                points = [
+                    (Fraction(0), Fraction(0)),
+                    (Fraction(a0), Fraction(-b0)),
+                    (Fraction(length - a1), Fraction(b1)),
+                    (Fraction(length), Fraction(0)),
+                ]
+                k0 = endpoint_curvature(points, True)
+                k1 = endpoint_curvature(points, False)
+                if not k0 or not k1:
+                    continue
+                out.append({
+                    "arms": f"{a0}-{b0}-{c0} / {a1}-{b1}-{c1}",
+                    "a0": a0, "b0": b0, "a1": a1, "b1": b1,
+                    "length": length, "points": points,
+                    "k0": k0, "k1": k1,
+                    "s0": Fraction(b0, a0), "s1": Fraction(b1, a1),
+                })
+    return out
+
+
+def search_asymmetric(limit: int = 12):
+    """Search same-tangent arm pairs; reflect/scale B to match curvature."""
+    candidates = _family_candidates()
+    by_slope = {}
+    for candidate in candidates:
+        by_slope.setdefault(candidate["s0"], []).append(candidate)
+
+    found = []
+    for a in candidates:
+        for b in by_slope.get(a["s1"], []):
+            reflect_b = a["k1"] * b["k0"] < 0
+            k_b = -b["k0"] if reflect_b else b["k0"]
+            if k_b == 0:
+                continue
+            scale_b = a["k1"] / k_b
+            if scale_b <= 0:
+                continue
+            b_points = b["points"]
+            if reflect_b:
+                direction = (Fraction(b["a0"], isqrt(b["a0"]**2 + b["b0"]**2)),
+                             Fraction(-b["b0"], isqrt(b["a0"]**2 + b["b0"]**2)))
+                b_points = [_reflect(point, b_points[0], direction)
+                            for point in b_points]
+            b_scaled = [(scale_b * x, scale_b * y) for x, y in b_points]
+            factor = _denominator(b_scaled)
+            a_int = [(factor * x, factor * y) for x, y in a["points"]]
+            b_int = [(factor * x, factor * y) for x, y in b_scaled]
+            if not all(v.denominator == 1 for p in a_int + b_int for v in p):
+                continue
+            q = a_int[3]
+            b_int = _translate(b_int, q[0], q[1])
+            if endpoint_curvature(a_int, False) != endpoint_curvature(b_int, True):
+                continue
+            if (a_int[3][0] - a_int[2][0], a_int[3][1] - a_int[2][1]) != \
+                    (b_int[1][0] - b_int[0][0], b_int[1][1] - b_int[0][1]):
+                continue
+            found.append({
+                "a": a, "b": b, "reflect_b": reflect_b,
+                "scale": factor, "scale_b": scale_b,
+                "a_points": a_int, "b_points": b_int,
+                "join": q,
+                "tangent": (a_int[3][0] - a_int[2][0],
+                            a_int[3][1] - a_int[2][1]),
+                "curvature": endpoint_curvature(a_int, False),
+            })
+
+    # Keep the smallest, unique joins; do not call the same pair twice.
+    seen = set()
+    unique = []
+    for result in sorted(found, key=lambda r: (r["scale"], r["a"]["length"] + r["b"]["length"])):
+        key = (result["a"]["arms"], result["a"]["length"],
+               result["b"]["arms"], result["b"]["length"], result["reflect_b"])
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(result)
+    return unique[:limit]
+
+
 def asymmetric_pair():
     """A scale-1 asymmetric G2 join: A ends where reflected B begins."""
     # A has a 7-24-25 arm at the start and a 3-4-5 arm at the end.
