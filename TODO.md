@@ -40,8 +40,10 @@ C-family p-triple conversion and the ornament-form proofs below.
 - [x] **Two-parabola S probe:** G1 only across a curvature reversal; a
   nondegenerate parabola has one curvature sign, so a G2 S needs the cubic.
   `workbench/quadratic-s.html`.
-- [ ] **Pythagorean triple catalogue for cubics:** enumerate arm pairs, chord
-  choices, signs, and rotations; choose a canonical short list for production.
+- [x] **Pythagorean triple field plot:** all triples c≤3500, scaling rays,
+  fixed-n parabolas, and the n=2 43.60°→4.02° sweep; `pythagorean-families.html`.
+- [ ] **Pythagorean triple catalogue for cubics:** turn the family sweep into a
+  canonical curve catalogue (arm pairs, chords, signs, rotations).
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
   slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
   quadratic-degree scale.

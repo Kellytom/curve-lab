@@ -308,6 +308,15 @@
       "outputs": "elevated cubic controls, join tangent, signed curvatures, G1/G2 verdict"
     },
     {
+      "key": "pythagorean-families",
+      "file": "pythagorean-families.html",
+      "group": "curve",
+      "title": "Pythagorean families",
+      "purpose": "All triples up to c=3500 as points: scaling rays, fixed-n parabolas, and the n=2 43.6°→4° sweep.",
+      "inputs": "triple limit and family n",
+      "outputs": "points, rays, parabola families, selected integer sequence"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",
