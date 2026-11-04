@@ -81,6 +81,34 @@ and redirects bare page names (`/catenary.html`) to
 `/workbench/catenary.html`. Do not start a second `http.server` — 8003 is the
 one, and ports 8000/8001/8002 belong to other projects.
 
+## Browsers and links
+
+Two Chromes, one app. The default profile is the expensive one; the throwaway
+profile at `$TMPDIR/chrome-curve` is for workbench pages and has no extensions,
+no sync and no session restore.
+
+| want | do |
+|---|---|
+| workbench pages in the light browser | Dock app `Curve Lab Browser`, or `scripts/chrome-curve.command` |
+| one link in the light browser | `curve-open <url>` (`~/bin`, on PATH) — also takes `catenary.html` |
+| your real Chrome while the light one runs | `chrome-main [url]` (`~/bin`) |
+| a link in this chat | click it; it goes to the default browser (main Chrome) |
+
+- The Dock's Chrome tile activates **whichever instance is running**, because
+  macOS identifies the app by bundle, not by `--user-data-dir`. With the light
+  profile up, that tile brings the light window forward. `chrome-main` is the
+  way round it.
+- **Do not run both.** Memory is additive: 2026-11-04 measured main Chrome at
+  3362 MB/31 procs plus the light one at 667 MB/12 procs, 2.3 GB of swap on an
+  8 GB machine. Quit the light one when the work is done.
+- **`!command` works in the OpenCode prompt** — it runs as a shell command. Two
+  early attempts failed because text had been prefixed before the `!`
+  (`curve-open $ !curve-open …`), not because the prefix is unsupported; the
+  bare `!curve-open https://example.com` is the form that works.
+- Chrome settings that keep a stray launch cheap: `chrome://settings/onStartup`
+  → *Open the New Tab page*, `chrome://settings/performance` → Memory Saver on,
+  `chrome://settings/system` → background apps off.
+
 ## Invariants
 
 - **Exact means Fraction.** Anything claiming exactness is computed in

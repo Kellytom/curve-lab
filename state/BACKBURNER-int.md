@@ -69,8 +69,11 @@ ps -Ao pid,rss,comm | sort -k2 -nr | head -15
 
 **What the numbers mean:**
 - `used` high while `ps` shows no live owner → the dynamic pager is holding
-  already-allocated files in `/private/var/vm/swapfile*`. Those are released
-  **only at boot**; there is no supported runtime shrink.
+  already-allocated files in `/private/var/vm/swapfile*`. Those are normally
+  released at boot, but they **do** follow the owner down: on 2026-11-04,
+  quitting Chrome took `used` from 1612M to 188M and shrank the total from
+  3072M to 1024M inside a minute. So check `ps` first and quit the owner; the
+  pager reclaiming on its own is the common case, not the exception.
 - `free percentage` high but `Pageouts` climbing → swap was written earlier by
   something that has since exited; this is residue, not live pressure.
 - `Pageouts` low and `used` still high → the owner is still resident; find it in

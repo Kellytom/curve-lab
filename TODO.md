@@ -44,10 +44,12 @@ C-family p-triple conversion and the ornament-form proofs below.
   fixed-n parabolas, and the n=2 43.60°→4.02° sweep; `pythagorean-families.html`.
 - [ ] **Pythagorean triple catalogue for cubics:** turn the family sweep into a
   canonical curve catalogue (arm pairs, chords, signs, rotations).
-- [ ] **n=2 family chain:** choose a join construction for the 43.6°→4.0° sweep
-  and turn it into a G1/G2 curve chain; measure the curvature jump and scale.
-  *Candidates:* triple tangent chain (C1 exact, larger grid), triangle strip
-  (integer polyline, smooth afterward), or a G2 alternative.
+- [x] **n=2 family chain:** rendered as the triple tangent chain — 52 integer
+  cubic spans, C1 exact (shared derivative vector at every join), curvature
+  jump 6.2% median / 26.1% worst. Free per-node handles make the joins exactly
+  G2 by a two-step recurrence, but the common denominator has 84 digits, so
+  exact G2 does not meet the integer grid. `curve_lab/pyth_chain.py`,
+  `tests/test_pyth_chain.py`, Fig. C1/C2 on `pythagorean-families.html`.
 - [x] **15625 grid probe:** 25 cubic samples at `t=k/25`; three Pythagorean
   slope pairs; all integer after ×`15625`. `11250=18×25²` is only the
   quadratic-degree scale.

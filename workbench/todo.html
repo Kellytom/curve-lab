@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:76.9%}
+.fill{height:100%;background:#8c6a21;width:78.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">40 / 52 done · 77% · read-only twin of
+<div class="count">41 / 52 done · 79% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -70,8 +70,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>fixed-n parabolas, and the n=2 43.60°→4.02° sweep; <code>pythagorean-families.html</code>.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Pythagorean triple catalogue for cubics:</strong> turn the family sweep into a</span></label>
 <p>canonical curve catalogue (arm pairs, chords, signs, rotations).</p>
-<label class="task"><input type="checkbox" disabled><span><strong>n=2 family chain:</strong> choose a join construction for the 43.6°→4.0° sweep</span></label>
-<p>and turn it into a G1/G2 curve chain; measure the curvature jump and scale. *Candidates:* triple tangent chain (C1 exact, larger grid), triangle strip (integer polyline, smooth afterward), or a G2 alternative.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>n=2 family chain:</strong> rendered as the triple tangent chain — 52 integer</span></label>
+<p>cubic spans, C1 exact (shared derivative vector at every join), curvature jump 6.2% median / 26.1% worst. Free per-node handles make the joins exactly G2 by a two-step recurrence, but the common denominator has 84 digits, so exact G2 does not meet the integer grid. <code>curve_lab/pyth_chain.py</code>, <code>tests/test_pyth_chain.py</code>, Fig. C1/C2 on <code>pythagorean-families.html</code>.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>15625 grid probe:</strong> 25 cubic samples at <code>t=k/25</code>; three Pythagorean</span></label>
 <p>slope pairs; all integer after ×<code>15625</code>. <code>11250=18×25²</code> is only the quadratic-degree scale.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Piece wrapper, scale-1 pair:</strong> <code>Trace(spans=...)</code> carries both cubics</span></label>

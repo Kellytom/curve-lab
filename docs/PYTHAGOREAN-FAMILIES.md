@@ -113,13 +113,40 @@ They are the first candidate arm/angle sequence for an integer cubic chain.
 
 ## From triangles to curves
 
-The `n=2` sweep supplies 53 exact arm vectors. The first assembly candidate is
-a **triple tangent chain**: each triple is the endpoint tangent of a cubic, and
-the shared triple repeats at each join, so the chain is C1 by construction.
-With a step of `100000`, the x extent is `5,200,000`; every control point is an
-integer. The alternative is a **triangle strip** that shares triangle vertices
-and smooths the resulting polyline afterward. The chain is not rendered yet;
-the TODO records the choice.
+The `n=2` sweep supplies 53 exact arm vectors. The chain is now rendered
+(`workbench/pythagorean-families.html`, Fig. C1 and C2), built as a **triple
+tangent chain**:
+
+    T_k     = (a_k, -b_k)                  the arm as a tangent, +y up
+    D_k     = 2 (T_k + T_{k+1})            integer node step
+    P0..P3  = N_k, N_k + T_k, N_{k+1} - T_{k+1}, N_{k+1}
+
+At a join the incoming derivative is `3 T_k` and the outgoing derivative is
+`3 T_k` — the same vector, so the chain is **C1 exactly**, by construction, and
+every control point is an integer. The step factor is 2, not 1: at
+`D_k = T_k + T_{k+1}` the inner handles coincide and every span degenerates.
+
+**Curvature** is C1 but not G2. Measured in exact rationals over the full sweep,
+the jump at a join is 6.2% of the larger side at the median, 26.1% at worst.
+
+**G2 is reachable, but not integrally.** With a handle length `h_k` per node
+(C1 survives, since both sides of a join share `h_k`), the join condition
+reduces to `C_k (S - h_k) = C_{k+1} (S - h_{k+2})` with `C_k = T_k x T_{k+1}` —
+a two-step linear recurrence. It drives the curvature difference at all 51
+joins to exactly zero, but the common denominator of the resulting handles has
+84 digits, so clearing it produces an unusable grid. Integer C1 and exact G2
+are different currencies here.
+
+## What the sweep is
+
+The angle is algebraic, not logarithmic: with `a = m^2 - n^2` and `b = 2mn` the
+arm angle is `atan(2nm/(m^2-n^2))`, which falls like `2n/m` — for `n=2`, about
+`229/m` degrees (`theta*m -> 229.2 = 4 rad`). A power fit gives
+`theta ∝ m^-0.988` (`R^2 = 0.9999`).
+
+Along the chain, `|kappa| ∝ s^-1.238` (`R^2 = 0.993`) where `s` is arc length:
+a spiral, but not a clothoid (`s^+1`), a logarithmic spiral (`s^-1`) or a circle
+(`s^0`). The sweep bends hard at the start and nearly straightens by the end.
 
 ## What the plot does and does not do
 
