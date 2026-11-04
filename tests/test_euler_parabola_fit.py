@@ -22,6 +22,9 @@ class EulerParabolaFitPageTest(unittest.TestCase):
         self.assertIn('id="offset-d"', page)
         self.assertIn("dense normal offsets", page)
         self.assertIn('id="show-target"', page)
+        self.assertIn('id="snap-int"', page)
+        self.assertIn('id="preset-345"', page)
+        self.assertIn("6-8-10 chord", page)
         self.assertIn("true Euler segment through the current endpoints", page)
 
 

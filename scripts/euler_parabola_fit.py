@@ -188,11 +188,14 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
     <label><input type="checkbox" id="show-offset" checked> offsets</label>
     <label><input type="checkbox" id="show-target" checked> Euler target</label>
+    <label><input type="checkbox" id="snap-int" checked> snap ends to integers</label>
+    <button id="preset-345" type="button">6-8-10 chord</button>
     <label>d <input type="range" id="offset-d" min="0" max="1" step="0.05" value="0.55"></label>
     <span>drag ○ ends · drag □ handles along the parabola</span>
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
   <p class="small">The violet solid curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. A single cubic follows a C-shaped Euler to roughly 90° of endpoint tangent, but an S-shaped Euler needs a curvature reversal and starts to visibly degrade around 45°. Beyond those limits, split at the inflection or into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
+  <p class="small"><strong>3-4-5 note.</strong> The endpoints and the chord can sit on an integer Pythagorean vector such as (6,8,10). The handle guides themselves are parabolas, not integer-lattice curves, so a handle is not generally an integer point. The 3-4-5 offset hits come from the normal direction, not from placing a handle on the lattice.</p>
 </section>
 
 <section class="panel">
@@ -364,6 +367,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     }
     return pts;
   }
+  function setPreset345(){
+    P0={x:1,y:1}; P3={x:7,y:9}; v0=-0.22; v1=0.22; draw();
+  }
   function draw(){
     ctx.clearRect(0,0,W,H);
     ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,W,H);
@@ -476,7 +482,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     const comfortLimit=sameSign?45:90;
     const comfort=maxAngle>comfortLimit;
     document.getElementById('readout').textContent =
-      `chord = ${f.L.toFixed(3)}   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
+      `chord = ${f.L.toFixed(3)}   Δ = (${(P3.x-P0.x).toFixed(1)}, ${(P3.y-P0.y).toFixed(1)})   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
       `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})   d = ${Number(document.getElementById('offset-d').value).toFixed(2)}\n`+
       `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°   ${shape}-shape single-span limit ≈ ${comfortLimit}°`+
       (comfort?'   ⚠ split at the inflection / add spans':'')+
@@ -505,6 +511,10 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     if(drag==='p0'||drag==='p3'){
       const p=drag==='p0'?P0:P3;
       p.x=clamp(w.x,0.35,9.65); p.y=clamp(w.y,0.35,9.65);
+      if(document.getElementById('snap-int').checked){
+        p.x=Math.round(p.x); p.y=Math.round(p.y);
+        p.x=clamp(p.x,1,9); p.y=clamp(p.y,1,9);
+      }
       if(Math.hypot(P3.x-P0.x,P3.y-P0.y)<0.2){ // avoid collapsed frame
         if(drag==='p0'){P0.x=P3.x-0.2;} else {P3.x=P0.x+0.2;}
       }
@@ -522,6 +532,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   document.getElementById('show-offset').addEventListener('change',draw);
   document.getElementById('show-target').addEventListener('change',draw);
   document.getElementById('offset-d').addEventListener('input',draw);
+  document.getElementById('preset-345').addEventListener('click',setPreset345);
   document.getElementById('reset').addEventListener('click',()=>{
     P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1; draw();
   });
