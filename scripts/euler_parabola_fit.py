@@ -103,9 +103,11 @@ def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
     body.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">y ↑</text>')
     legend = "— true Euler   --- current seam"
     if other:
-        legend = "— true Euler   --- one span   — two spans"
-        if show_handles:
-            legend += "   -- control + handles"
+        legend = "— true Euler   --- one piece   — two pieces"
+    elif show_handles:
+        legend = f"— true Euler   — {'one piece' if n == 1 else 'two pieces'}   -- control + handles"
+    if show_handles and other:
+        legend += "   -- control + handles"
     body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">{legend}</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
@@ -142,16 +144,17 @@ def table_html(data: dict) -> str:
         + "".join(rows) + "</table></div>")
 
 
-def handle_table(kind: str) -> str:
+def handle_table(kind: str, n: int = 2) -> str:
     data = euler_fit.study(kind)
-    fit = euler_fit.fit_segment(data["segment"], 2)
+    fit = euler_fit.fit_segment(data["segment"], n)
     rows = []
     for i, span in enumerate(fit["spans"], start=1):
         def p(v):
             return f"({v[0]:.6f}, {v[1]:.6f})"
         rows.append(f"<tr><td>{i}</td><td>{p(span['p0'])}</td><td>{p(span['c1'])}</td>"
                     f"<td>{p(span['c2'])}</td><td>{p(span['p3'])}</td></tr>")
-    return ("<p class=\"meta\">two-piece control points, normalized to the chord</p>"
+    label = "one-piece" if n == 1 else "two-piece"
+    return (f"<p class=\"meta\">{label} control points, normalized to the chord</p>"
             "<div class=\"table-wrap\"><table><tr><th>piece</th><th>P0</th>"
             "<th>c1</th><th>c2</th><th>P3</th></tr>" + "".join(rows) + "</table></div>")
 
@@ -160,12 +163,15 @@ def main():
     studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s48")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
-    s48_svg = study_svg("s48", "E4", n=2, compare=1,
-                        label="S 48° · two spans", show_handles=True)
+    s48_one_svg = study_svg("s48", "E4", n=1,
+                            label="S 48° · one piece", show_handles=True)
+    s48_two_svg = study_svg("s48", "E5", n=2,
+                            label="S 48° · two pieces", show_handles=True)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s48"])
-    s48_handles = handle_table("s48")
+    s48_one_handles = handle_table("s48", 1)
+    s48_two_handles = handle_table("s48", 2)
 
     template = r"""<!doctype html>
 <html lang="en">
@@ -256,16 +262,20 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 </section>
 
 <section class="panel">
-  <h2>Second example · S curve, two spans</h2>
-  <p>The same rule, split once at the inflection. The dashed grey line is the one-span result; the gold line is two spans. The table shows whether two spans is actually enough.</p>
+  <h2>Second example · S curve, one piece vs two</h2>
+  <p>The same true Euler target, drawn once with one cubic and once with two cubics split at the inflection. Each figure shows its control polygon, handles, and control-point table.</p>
   <div class="grid">
     <figure class="figure">
-      __S48_SVG__
-      __S48_TABLE__
-      __S48_HANDLES__
+      __S48_ONE_SVG__
+      __S48_ONE_HANDLES__
+    </figure>
+    <figure class="figure">
+      __S48_TWO_SVG__
+      __S48_TWO_HANDLES__
     </figure>
   </div>
-  <p class="small">At 48° the one-span error is about 0.0047; two spans reduces it to about 0.0031. That is better, but not yet fine work. Three spans reaches about 0.00057, four about 0.00016, eight about 5.9e-6.</p>
+  <div class="table-wrap">__S48_TABLE__</div>
+  <p class="small">At 48° the one-piece error is about 0.0047; two pieces reduces it to about 0.0031. That is better, but not yet fine work. Three pieces reaches about 0.00057, four about 0.00016, eight about 5.9e-6.</p>
 </section>
 
 <section class="panel">
@@ -691,9 +701,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__SYM_TABLE__", sym_table)
             .replace("__ASYM_SVG__", asym_svg)
             .replace("__ASYM_TABLE__", asym_table)
-            .replace("__S48_SVG__", s48_svg)
+            .replace("__S48_ONE_SVG__", s48_one_svg)
+            .replace("__S48_TWO_SVG__", s48_two_svg)
             .replace("__S48_TABLE__", s48_table)
-            .replace("__S48_HANDLES__", s48_handles))
+            .replace("__S48_ONE_HANDLES__", s48_one_handles)
+            .replace("__S48_TWO_HANDLES__", s48_two_handles))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
