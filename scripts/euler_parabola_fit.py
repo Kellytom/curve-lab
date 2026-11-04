@@ -12,6 +12,7 @@ validation rather than a new optional fit.
 from __future__ import annotations
 
 import html
+import json
 import math
 import sys
 from pathlib import Path
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab import euler_fit
-from curve_lab.bezier import cubic_at
+from curve_lab.bezier import cubic_at, fit_span
 INK = "#2e2413"
 MUTED = "#7b6c4e"
 PAPER = "#fffdf7"
@@ -170,36 +171,65 @@ def angle_meta(data: dict) -> str:
             f"n=4 {rows[2]['error']:.5f}</p>")
 
 
+PYTH_ANGLES = (0.0, 4.34948822922, 16.260204708312, 20.609692937532,
+               32.520409416624, 36.869897645844, 53.130102354156,
+               57.479590583376, 69.390307062468, 73.739795291688,
+               85.65051177078, 90.0)
+
+
+def _fast_spans(seg, n: int):
+    return [fit_span(i / n, (i + 1) / n, seg.point, seg.tangent)
+            for i in range(n)]
+
+
+def _span_json(span: dict) -> dict:
+    return {key: [float(span[key][0]), float(span[key][1])]
+            for key in ("p0", "c1", "c2", "p3")}
+
+
+def _fast_error(seg, true_points, spans, samples: int = 17) -> float:
+    worst = 0.0
+    for span in spans:
+        for i in range(samples):
+            x, y = cubic_at(span, i / (samples - 1))
+            d = min(math.hypot(x - tx, y - ty) for tx, ty in true_points)
+            worst = max(worst, d)
+    return worst
+
+
+def smooth_records():
+    """True curves and 1/2-piece fits on a 0.5-degree grid + 3125 angles."""
+    angles = sorted({round(i * 0.5, 6) for i in range(181)} |
+                    {round(a, 6) for a in PYTH_ANGLES})
+    records = []
+    for angle in angles:
+        seg = euler_fit.s_angle(angle)
+        true_points = [seg.point(i / 60) for i in range(61)]
+        error_points = [seg.point(i / 400) for i in range(401)]
+        one_spans = _fast_spans(seg, 1)
+        two_spans = _fast_spans(seg, 2)
+        records.append({
+            "a": angle,
+            "true": [[float(x), float(y)] for x, y in true_points],
+            "one": [_span_json(sp) for sp in one_spans],
+            "two": [_span_json(sp) for sp in two_spans],
+            "e1": _fast_error(seg, error_points, one_spans),
+            "e2": _fast_error(seg, error_points, two_spans),
+        })
+    return records
+
+
 def main():
     studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s90")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
-    # The 3-4-5 triangle has inner angles 36.87°, 53.13°, and 90°.
-    angles = (math.degrees(math.atan2(3, 4)), math.degrees(math.atan2(4, 3)), 90.0)
-    labels = ", ".join(f"{a:.2f}°" for a in angles)
-    variants_one = []
-    variants_two = []
-    for index, theta in enumerate(angles):
-        data = euler_fit.study_segment(euler_fit.s_angle(theta), f"s{theta:.2f}")
-        hidden = "" if index == len(angles) - 1 else " hidden"
-        one_svg = study_svg("s90", "E4", n=1,
-                            label=f"S {theta:.2f}° · one piece", show_handles=True,
-                            w=1000, h=360, data=data)
-        two_svg = study_svg("s90", "E5", n=2,
-                            label=f"S {theta:.2f}° · two pieces", show_handles=True,
-                            w=1000, h=360, data=data)
-        variants_one.append(
-            f'''<div class="variant" data-index="{index}"{hidden}>
-{one_svg}
-{handle_table("s90", 1, data)}
-{angle_meta(data)}</div>''')
-        variants_two.append(
-            f'''<div class="variant" data-index="{index}"{hidden}>
-{two_svg}
-{handle_table("s90", 2, data)}
-{angle_meta(data)}</div>''')
-    s48_one_svg = "".join(variants_one)
-    s48_two_svg = "".join(variants_two)
+    records = smooth_records()
+    records_json = json.dumps(records, separators=(",", ":"))
+    default_index = min(range(len(records)),
+                        key=lambda i: abs(records[i]["a"] - 90.0))
+    button_html = "".join(
+        f'<button type="button" data-angle="{a:.12f}">{a:.2f}°</button>'
+        for a in PYTH_ANGLES)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s90"])
@@ -233,6 +263,13 @@ canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px s
 .slider input{flex:1;max-width:360px}
 .slider span{min-width:36px;color:var(--ink)}
 .figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:10px}
+.smooth-figure{background:var(--paper);border:1px solid var(--rule);padding:10px;margin:0 0 18px}
+.smooth-figure h3{font:600 14px/1.3 Georgia,serif;margin:0 0 9px}
+.angle-bar{display:grid;grid-template-columns:minmax(220px,1fr) 2fr;gap:10px 16px;align-items:start;margin:0 0 8px}
+.angle-buttons{display:flex;flex-wrap:wrap;gap:5px}
+.angle-buttons button{font:10px ui-monospace,Menlo,monospace;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:3px 5px;cursor:pointer}
+.angle-buttons button:hover{background:#f4ecd7}
+.smooth-figure canvas{border:1px solid var(--rule)}
 .figure svg{display:block;width:100%;height:auto}
 .meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);margin:8px 0}
 .table-wrap{overflow-x:auto}
@@ -300,21 +337,28 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 </section>
 
 <section class="panel">
-  <h2>Second example · S curve, 3-4-5 angles, one piece vs two</h2>
-  <p>Each slider moves both handle angles in that figure. The stops are the 3-4-5 inner angles: <strong>36.87°</strong>, <strong>53.13°</strong>, and <strong>90°</strong>. The true Euler target and the cubic(s) are recomputed at each stop.</p>
-  <div class="stack">
-    <figure class="figure">
-      <label class="slider">one-piece 3-4-5 angle <input type="range" id="e4-angle" min="0" max="2" step="1" value="2"> <span id="e4-angle-value">90.00°</span></label>
-      <div id="e4-variants" data-labels="__ANGLE_LABELS__">__S48_ONE_SVG__</div>
-    </figure>
-    <figure class="figure">
-      <label class="slider">two-piece 3-4-5 angle <input type="range" id="e5-angle" min="0" max="2" step="1" value="2"> <span id="e5-angle-value">90.00°</span></label>
-      <div id="e5-variants" data-labels="__ANGLE_LABELS__">__S48_TWO_SVG__</div>
-    </figure>
+  <h2>Second example · smooth S angle, one piece vs two</h2>
+  <p>The sliders move both handle angles continuously in 0.5° steps. The side buttons jump to the integer points on a <strong>3125-radius circle</strong> — the Pythagorean slopes.</p>
+  <div class="smooth-figure">
+    <h3>Fig. E4 · one piece</h3>
+    <div class="angle-bar">
+      <label class="slider">angle <input type="range" id="e4-angle" min="0" max="__MAX__" step="1" value="__DEFAULT__"> <span id="e4-angle-value"></span></label>
+      <div class="angle-buttons" id="e4-buttons">__E4_BUTTONS__</div>
+    </div>
+    <canvas id="e4-canvas" width="1000" height="360"></canvas>
+    <p class="meta" id="e4-meta"></p>
   </div>
-  <p class="small">The error table below is the 90° reference; each slider variant carries its own one- and two-piece error in the caption.</p>
+  <div class="smooth-figure">
+    <h3>Fig. E5 · two pieces</h3>
+    <div class="angle-bar">
+      <label class="slider">angle <input type="range" id="e5-angle" min="0" max="__MAX__" step="1" value="__DEFAULT__"> <span id="e5-angle-value"></span></label>
+      <div class="angle-buttons" id="e5-buttons">__E5_BUTTONS__</div>
+    </div>
+    <canvas id="e5-canvas" width="1000" height="360"></canvas>
+    <p class="meta" id="e5-meta"></p>
+  </div>
+  <p class="small">The 3125-circle angle set is 0°, 4.35°, 16.26°, 20.61°, 32.52°, 36.87°, 53.13°, 57.48°, 69.39°, 73.74°, 85.65°, 90°. The table below remains the 90° reference.</p>
   <div class="table-wrap">__S48_TABLE__</div>
-  <p class="small">At 90° the one-piece error is about 0.0455; two pieces reduces it to about 0.0324. Two pieces helps, but does <em>not</em> buy the full 90° for an S curve. Three pieces reaches about 0.0053, four about 0.00136, eight about 4.7e-5.</p>
 </section>
 
 <section class="panel">
@@ -757,18 +801,86 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1;
     freeHandles=false; H1=H2=null; document.getElementById('free-handles').checked=false; draw();
   });
-  function wireAngle(prefix){
+  const RECORDS = __EULER_RECORDS__;
+  const CANVAS_W = 1000, CANVAS_H = 360, CPAD = 38;
+  const X0 = -0.06, X1 = 1.06, Y0 = -0.23, Y1 = 0.23;
+  const CSCALE = Math.min((CANVAS_W - 2*CPAD)/(X1-X0),
+                          (CANVAS_H - 2*CPAD)/(Y1-Y0));
+  const COX = (CANVAS_W - (X1-X0)*CSCALE)/2;
+  const COY = (CANVAS_H - (Y1-Y0)*CSCALE)/2;
+  const CSX = x => COX + (x-X0)*CSCALE;
+  const CSY = y => CANVAS_H - COY - (y-Y0)*CSCALE;
+
+  function drawSmooth(prefix, mode){
+    const canvas=document.getElementById(prefix+'-canvas');
+    const ctx=canvas.getContext('2d');
+    const dpr=window.devicePixelRatio||1;
+    canvas.width=CANVAS_W*dpr; canvas.height=CANVAS_H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
     const slider=document.getElementById(prefix+'-angle');
-    const out=document.getElementById(prefix+'-angle-value');
-    const box=document.getElementById(prefix+'-variants');
-    const labels = box.dataset.labels.split(',');
-    function show(){
-      out.textContent=labels[Number(slider.value)];
-      box.querySelectorAll('.variant').forEach(v=>{v.hidden=v.dataset.index!==slider.value;});
+    const rec=RECORDS[Number(slider.value)];
+    document.getElementById(prefix+'-angle-value').textContent=rec.a.toFixed(2)+'°';
+    ctx.clearRect(0,0,CANVAS_W,CANVAS_H);
+    ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,CANVAS_W,CANVAS_H);
+    ctx.strokeStyle='#e4dcc6'; ctx.lineWidth=1;
+    for(const x of [0,0.25,0.5,0.75,1]){
+      ctx.beginPath(); ctx.moveTo(CSX(x),CSY(Y0)); ctx.lineTo(CSX(x),CSY(Y1)); ctx.stroke();
     }
-    slider.addEventListener('input',show); show();
+    for(const y of [-0.2,0,0.2]){
+      ctx.beginPath(); ctx.moveTo(CSX(X0),CSY(y)); ctx.lineTo(CSX(X1),CSY(y)); ctx.stroke();
+    }
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(CSX(X0),CSY(Y1),CSX(X1)-CSX(X0),CSY(Y0)-CSY(Y1));
+    // true curve
+    ctx.beginPath();
+    rec.true.forEach((p,i)=> i?ctx.lineTo(CSX(p[0]),CSY(p[1])):ctx.moveTo(CSX(p[0]),CSY(p[1])));
+    ctx.strokeStyle='#2e2413'; ctx.lineWidth=2.2; ctx.stroke();
+    // fit pieces
+    const colours= mode==='one' ? ['#c9a441'] : ['#c9a441','#1f5fa8'];
+    rec[mode].forEach((sp,piece)=>{
+      const colour=colours[piece%colours.length];
+      const pts=[];
+      for(let i=0;i<=40;i++){
+        const t=i/40,u=1-t;
+        pts.push([u*u*u*sp.p0[0]+3*u*u*t*sp.c1[0]+3*u*t*t*sp.c2[0]+t*t*t*sp.p3[0],
+                  u*u*u*sp.p0[1]+3*u*u*t*sp.c1[1]+3*u*t*t*sp.c2[1]+t*t*t*sp.p3[1]]);
+      }
+      ctx.beginPath(); pts.forEach((p,i)=> i?ctx.lineTo(CSX(p[0]),CSY(p[1])):ctx.moveTo(CSX(p[0]),CSY(p[1])));
+      ctx.strokeStyle=colour; ctx.lineWidth=1.6; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
+      // control polygon
+      ctx.beginPath();
+      [sp.p0,sp.c1,sp.c2,sp.p3].forEach((p,i)=> i?ctx.lineTo(CSX(p[0]),CSY(p[1])):ctx.moveTo(CSX(p[0]),CSY(p[1])));
+      ctx.strokeStyle='#7b6c4e'; ctx.lineWidth=1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+      for(const [q,tag] of [[sp.c1,'c'+(2*piece+1)],[sp.c2,'c'+(2*piece+2)]]){
+        const x=CSX(q[0]),y=CSY(q[1]);
+        ctx.fillStyle='#c9a441'; ctx.strokeStyle='#2e2413'; ctx.lineWidth=1;
+        ctx.fillRect(x-3,y-3,6,6); ctx.strokeRect(x-3,y-3,6,6);
+        ctx.fillStyle='#7b6c4e'; ctx.font='8px ui-monospace,Menlo,monospace';
+        ctx.fillText(tag,x+4,y-4);
+      }
+    });
+    ctx.fillStyle='#2e2413'; ctx.font='600 14px Georgia, serif';
+    ctx.fillText(`Fig. ${prefix==='e4'?'E4':'E5'} · S ${rec.a.toFixed(2)}° · ${mode==='one'?'one piece':'two pieces'}`,12,18);
+    ctx.font='9px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
+    ctx.fillText('— true Euler   --- fit   -- control',12,32);
+    ctx.fillText('x →',CANVAS_W-28,CANVAS_H-9); ctx.fillText('y ↑',12,CANVAS_H-9);
+    document.getElementById(prefix+'-meta').textContent =
+      `θ=${rec.a.toFixed(3)}° · sampled one-piece error ${rec.e1.toFixed(5)} · two-piece ${rec.e2.toFixed(5)}`;
   }
-  wireAngle('e4'); wireAngle('e5');
+
+  function wireSmooth(prefix, mode){
+    const slider=document.getElementById(prefix+'-angle');
+    const buttons=document.getElementById(prefix+'-buttons');
+    function show(){drawSmooth(prefix,mode);}
+    slider.addEventListener('input',show);
+    buttons.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      const target=Number(b.dataset.angle);
+      let best=0;
+      for(let i=0;i<RECORDS.length;i++) if(Math.abs(RECORDS[i].a-target)<Math.abs(RECORDS[best].a-target)) best=i;
+      slider.value=String(best); show();
+    }));
+    show();
+  }
+  wireSmooth('e4','one'); wireSmooth('e5','two');
   draw();
 })();
 </script>
@@ -780,10 +892,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__SYM_TABLE__", sym_table)
             .replace("__ASYM_SVG__", asym_svg)
             .replace("__ASYM_TABLE__", asym_table)
-            .replace("__S48_ONE_SVG__", s48_one_svg)
-            .replace("__S48_TWO_SVG__", s48_two_svg)
             .replace("__S48_TABLE__", s48_table)
-            .replace("__ANGLE_LABELS__", labels))
+            .replace("__E4_BUTTONS__", button_html)
+            .replace("__E5_BUTTONS__", button_html)
+            .replace("__MAX__", str(len(records)-1))
+            .replace("__DEFAULT__", str(default_index))
+            .replace("__EULER_RECORDS__", records_json))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
