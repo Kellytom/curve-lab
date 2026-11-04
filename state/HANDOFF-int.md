@@ -36,6 +36,12 @@ remote MVP now exist.
   fitted offset are the next model gaps; the full cubic catalogue is not built.
 - **Levien:** background only. The fitted parallel Bézier remains a fitted
   option; there is no active Levien exact-integer route.
+- **Process (2026-11-04):** `state/READING-int.md` is now the reading authority —
+  Tier 0 is ~750 lines and no source, Tier 1 is the scope anchor
+  (`SPEC.md`, `docs/PROJECT.md`, `goals.md`, `docs/PHILOSOPHY.md`). `/fhandoff`
+  requires a `Proves:` finish line, a rejected-path line and a `TODO.md` tick;
+  `/fhandon` commits its own work and backgrounds the server start. The next
+  block was written under the new contract.
 
 ## Current state
 

@@ -43,11 +43,16 @@ Focused handon for curve-lab. Work in
 8. Keep `state/HANDOFF-int.md` current as you work, so a freeze costs one step and
    not the session. One line of failure beats a silent retry: record what you
    rejected and why.
-9. Where a browser check or a screenshot is needed, use **Playwright** via
-   `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
-   its own browser, so nothing has to be running first. Do not use the Review
-   pane, Safari/safaridriver, or the old CDP-on-9223 daemon.
-10. Do the action and stop. The operator runs `/fhandoff` when they want the
+9. **Commit the action's own work** once `Proves:` is satisfied. Stage only the
+   paths the action touched — generator, page, module, test, doc — and write a
+   message that names the action. Do not bundle the handoff record; that is
+   `/fhandoff`'s job. A finished action left uncommitted is the one thing a
+   reboot, a crash or a `git checkout` can still destroy.
+10. Where a browser check or a screenshot is needed, use **Playwright** via
+    `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
+    its own browser, so nothing has to be running first. Do not use the Review
+    pane, Safari/safaridriver, or the old CDP-on-9223 daemon.
+11. Do the action and stop. The operator runs `/fhandoff` when they want the
     focused handoff refreshed; it is not run automatically.
 
 If `next-fhandoff-int.md` is missing or empty, read `state/HANDOFF-int.md` and ask for the
