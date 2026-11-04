@@ -55,6 +55,9 @@ def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
         for span in other_fit["spans"]:
             other.extend(cubic_at(span, i / 30) for i in range(31))
     pts = truth + cubic + other
+    if show_handles:
+        for span in fit["spans"]:
+            pts.extend([span["p0"], span["c1"], span["c2"], span["p3"]])
     x0, y0 = min(p[0] for p in pts), min(p[1] for p in pts)
     x1, y1 = max(p[0] for p in pts), max(p[1] for p in pts)
     dx, dy = (x1 - x0) or 1, (y1 - y0) or 1
@@ -164,9 +167,11 @@ def main():
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
     s48_one_svg = study_svg("s90", "E4", n=1,
-                            label="S 90° · one piece", show_handles=True)
+                            label="S 90° · one piece", show_handles=True,
+                            w=1000, h=360)
     s48_two_svg = study_svg("s90", "E5", n=2,
-                            label="S 90° · two pieces", show_handles=True)
+                            label="S 90° · two pieces", show_handles=True,
+                            w=1000, h=360)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s90"])
@@ -196,6 +201,7 @@ canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px s
 .controls button:hover{background:#f4ecd7}
 .readout{font:11px/1.6 ui-monospace,Menlo,monospace;color:var(--muted);margin:9px 0 0;white-space:pre-wrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.stack{display:grid;grid-template-columns:1fr;gap:18px}
 .figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:10px}
 .figure svg{display:block;width:100%;height:auto}
 .meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);margin:8px 0}
@@ -235,6 +241,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <span>drag ○ ends · drag □ handles</span>
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
+  <p class="small"><strong>Save state / save JSON apply to Fig. E1 only.</strong> Figs. E4 and E5 are static comparison plates.</p>
   <p class="small">The violet solid curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. A single cubic follows a C-shaped Euler to roughly 90° of endpoint tangent, but an S-shaped Euler needs a curvature reversal and starts to visibly degrade around 45°. Beyond those limits, split at the inflection or into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
   <p class="small"><strong>3-4-5 note.</strong> The endpoints and the chord can sit on an integer Pythagorean vector such as (6,8,10). The handle guides themselves are parabolas, and for a unit chord they have no integer local points: <code>12u = 4 − 9v²</code> (left) and <code>12u = 8 + 9v²</code> (right) are impossible for integers. “Snap handles” therefore rounds to the nearest integer and reports how far the handle left the guide. The 3-4-5 offset hits come from the normal direction, not from placing a handle on the lattice.</p>
 </section>
@@ -264,7 +271,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <section class="panel">
   <h2>Second example · S curve at 90°, one piece vs two</h2>
   <p>The same true Euler target at 90° endpoint tangent, drawn once with one cubic and once with two equal pieces split at the inflection. Each figure shows its control polygon, handles, and control-point table.</p>
-  <div class="grid">
+  <div class="stack">
     <figure class="figure">
       __S48_ONE_SVG__
       __S48_ONE_HANDLES__
@@ -298,13 +305,13 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   const dpr = window.devicePixelRatio || 1;
   canvas.width = W * dpr; canvas.height = H * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const DOM = {x0: 0, x1: 10, y0: 0, y1: 10};
+  const DOM = {x0: 0, x1: 20, y0: 0, y1: 10};
   const scale = Math.min((W - 2*PAD)/(DOM.x1-DOM.x0), (H - 2*PAD)/(DOM.y1-DOM.y0));
   const ox = (W - (DOM.x1-DOM.x0)*scale)/2, oy = (H - (DOM.y1-DOM.y0)*scale)/2;
   const SX = x => ox + (x-DOM.x0)*scale;
   const SY = y => H - oy - (y-DOM.y0)*scale;
 
-  const START = {p0:{x:2,y:2}, p3:{x:8,y:2}, v0:-0.25, v1:0.25};
+  const START = {p0:{x:4,y:2}, p3:{x:16,y:2}, v0:-0.25, v1:0.25};
   let P0={...START.p0}, P3={...START.p3}, v0=START.v0, v1=START.v1;
   let freeHandles = false;
   let H1 = null, H2 = null;
@@ -419,7 +426,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   function setPreset345(){
     freeHandles=false; H1=H2=null;
     document.getElementById('free-handles').checked=false;
-    P0={x:1,y:1}; P3={x:7,y:9}; v0=-0.22; v1=0.22; draw();
+    P0={x:6,y:1}; P3={x:12,y:9}; v0=-0.22; v1=0.22; draw();
   }
   function setPreset345Handles(){
     P0={x:0,y:0}; P3={x:8,y:6};
@@ -504,18 +511,22 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     // fine quarter-unit grid under the integer grid
     ctx.lineWidth=1;
     ctx.strokeStyle='#f0e9da';
-    for(let i=0;i<=40;i++){
+    for(let i=0;i<=80;i++){
       if(i%4===0) continue;
       const g=i*0.25;
       ctx.beginPath(); ctx.moveTo(SX(g),SY(0)); ctx.lineTo(SX(g),SY(10)); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(SX(0),SY(g)); ctx.lineTo(SX(10),SY(g)); ctx.stroke();
+      if(i<=40){
+        ctx.beginPath(); ctx.moveTo(SX(0),SY(g)); ctx.lineTo(SX(20),SY(g)); ctx.stroke();
+      }
     }
     ctx.strokeStyle='#e2d8c0';
-    for(let i=0;i<=10;i++){
+    for(let i=0;i<=20;i++){
       ctx.beginPath(); ctx.moveTo(SX(i),SY(0)); ctx.lineTo(SX(i),SY(10)); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(SX(0),SY(i)); ctx.lineTo(SX(10),SY(i)); ctx.stroke();
     }
-    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(SX(0),SY(10),SX(10)-SX(0),SY(0)-SY(10));
+    for(let i=0;i<=10;i++){
+      ctx.beginPath(); ctx.moveTo(SX(0),SY(i)); ctx.lineTo(SX(20),SY(i)); ctx.stroke();
+    }
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(SX(0),SY(10),SX(20)-SX(0),SY(0)-SY(10));
     // endpoint parabolas
     if(document.getElementById('show-parab').checked){
       for(const side of ['left','right']){
@@ -646,17 +657,17 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     const w=toWorld(ev);
     if(drag==='p0'||drag==='p3'){
       const p=drag==='p0'?P0:P3;
-      p.x=clamp(w.x,0.35,9.65); p.y=clamp(w.y,0.35,9.65);
+      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,9.65);
       if(document.getElementById('snap-int').checked){
         p.x=Math.round(p.x); p.y=Math.round(p.y);
-        p.x=clamp(p.x,1,9); p.y=clamp(p.y,1,9);
+        p.x=clamp(p.x,1,19); p.y=clamp(p.y,1,9);
       }
       if(Math.hypot(P3.x-P0.x,P3.y-P0.y)<0.2){ // avoid collapsed frame
         if(drag==='p0'){P0.x=P3.x-0.2;} else {P3.x=P0.x+0.2;}
       }
     } else if(freeHandles){
       const p=drag==='p1'?H1:H2;
-      p.x=clamp(w.x,0.35,9.65); p.y=clamp(w.y,0.35,9.65);
+      p.x=clamp(w.x,0.35,19.65); p.y=clamp(w.y,0.35,9.65);
       if(document.getElementById('snap-int').checked){
         p.x=Math.round(p.x); p.y=Math.round(p.y);
       }
