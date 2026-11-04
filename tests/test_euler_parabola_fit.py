@@ -33,6 +33,7 @@ class EulerParabolaFitPageTest(unittest.TestCase):
         self.assertIn('id="snap-int"', page)
         self.assertIn('id="preset-345"', page)
         self.assertIn('id="preset-345-handles"', page)
+        self.assertIn('id="preset-s53"', page)
         self.assertIn('id="free-handles"', page)
         self.assertIn('id="snap-handles"', page)
         self.assertIn("12u = 4", page)

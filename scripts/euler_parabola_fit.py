@@ -232,6 +232,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <label><input type="checkbox" id="free-handles"> integer handles (off-guide)</label>
     <button id="preset-345" type="button">6-8-10 chord</button>
     <button id="preset-345-handles" type="button">345 integer handles</button>
+    <button id="preset-s53" type="button">S 53° integer</button>
     <button id="snap-handles" type="button">snap handles</button>
     <label>d <input type="range" id="offset-d" min="0" max="1" step="0.05" value="0.55"></label>
     <button id="save-state" type="button">save state</button>
@@ -431,6 +432,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   function setPreset345Handles(){
     P0={x:0,y:0}; P3={x:8,y:6};
     H1={x:4,y:-1}; H2={x:4,y:8};
+    freeHandles=true; document.getElementById('free-handles').checked=true;
+    draw();
+  }
+  function setPresetS53(){
+    P0={x:2,y:5}; P3={x:12,y:5};
+    H1={x:5,y:1}; H2={x:9,y:9};
     freeHandles=true; document.getElementById('free-handles').checked=true;
     draw();
   }
@@ -704,6 +711,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   document.getElementById('offset-d').addEventListener('input',draw);
   document.getElementById('preset-345').addEventListener('click',setPreset345);
   document.getElementById('preset-345-handles').addEventListener('click',setPreset345Handles);
+  document.getElementById('preset-s53').addEventListener('click',setPresetS53);
   document.getElementById('snap-handles').addEventListener('click',snapHandles);
   document.getElementById('save-state').addEventListener('click',saveState);
   document.getElementById('restore-state').addEventListener('click',restoreState);
