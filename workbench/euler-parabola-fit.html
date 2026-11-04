@@ -34,7 +34,6 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 </style>
 </head>
 <body>
-<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> drag ends and handles; symmetric/asymmetric studies · <b>out</b> cubic, endpoint parabolas, error and arclength tables</span></div><!-- /hub-bar -->
 <main>
 <p class="eyebrow">curve-lab · fitted option</p>
 <h1>Euler spiral → cubic Bézier</h1>
@@ -46,9 +45,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <div class="controls">
     <button id="reset" type="button">reset</button>
     <label><input type="checkbox" id="show-parab" checked> endpoint parabolas</label>
+    <label><input type="checkbox" id="show-offset" checked> offsets</label>
+    <label>d <input type="range" id="offset-d" min="0" max="1" step="0.05" value="0.55"></label>
     <span>drag ○ ends · drag □ handles along the parabola</span>
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
+  <p class="small">The parabola arms cover the full ±90° endpoint-tangent range. A single cubic is only a good Euler fit well inside that range; near the extremes, split the Euler into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
 </section>
 
 <section class="panel">
@@ -127,6 +129,21 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       y:u*u*u*P0.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*P3.y,
     };
   }
+  function cubicDeriv(t){
+    const {p1,p2}=handles();
+    const u=1-t;
+    return {
+      x:3*u*u*(p1.x-P0.x)+6*u*t*(p2.x-p1.x)+3*t*t*(P3.x-p2.x),
+      y:3*u*u*(p1.y-P0.y)+6*u*t*(p2.y-p1.y)+3*t*t*(P3.y-p2.y),
+    };
+  }
+  function offsetPoint(t,d){
+    const p=cubic(t), v=cubicDeriv(t), l=Math.hypot(v.x,v.y)||1e-9;
+    return {x:p.x-d*v.y/l, y:p.y+d*v.x/l};
+  }
+  function offsetPath(d){
+    const out=[]; for(let i=0;i<=220;i++) out.push(offsetPoint(i/220,d)); return out;
+  }
   function parab(side){
     const pts=[];
     for(let i=0;i<=80;i++){
@@ -160,6 +177,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     ctx.save(); ctx.beginPath();
     [P0,p1,p2,P3].forEach((p,i)=> i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y)));
     ctx.strokeStyle='#9b8b67'; ctx.lineWidth=1.1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.restore();
+    // dense normal offsets of the cubic
+    if(document.getElementById('show-offset').checked){
+      const d=Number(document.getElementById('offset-d').value);
+      if(d>0){
+        for(const sign of [1,-1]){
+          const pts=offsetPath(sign*d);
+          ctx.save(); ctx.beginPath();
+          pts.forEach((p,i)=> i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y)));
+          ctx.strokeStyle=sign>0?'#1f5fa8':'#b23a2b'; ctx.lineWidth=1.3; ctx.stroke(); ctx.restore();
+        }
+      }
+    }
     // cubic
     ctx.beginPath();
     for(let i=0;i<=300;i++){const p=cubic(i/300); i?ctx.lineTo(SX(p.x),SY(p.y)):ctx.moveTo(SX(p.x),SY(p.y));}
@@ -178,11 +207,17 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     ctx.fillText('Fig. E1 · cubic with endpoint-parabola handles',16,24);
     ctx.font='10px ui-monospace, Menlo, monospace'; ctx.fillStyle='#7b6c4e';
     ctx.fillText('x →',W-34,H-12); ctx.fillText('y ↑',16,42);
-    ctx.fillText('— cubic   --- control   ··· endpoint parabolas   □ handles',16,56);
+    ctx.fillText('— cubic   --- control   ··· endpoint parabolas   □ handles   — ±d offsets',16,56);
     const f=frame();
+    const chordAngle=Math.atan2(P3.y-P0.y,P3.x-P0.x);
+    const wrap=a=>Math.atan2(Math.sin(a),Math.cos(a));
+    const t0=wrap(Math.atan2(p1.y-P0.y,p1.x-P0.x)-chordAngle);
+    const t1=wrap(Math.atan2(P3.y-p2.y,P3.x-p2.x)-chordAngle);
+    const comfort=Math.max(Math.abs(t0),Math.abs(t1)) > 75*Math.PI/180;
     document.getElementById('readout').textContent =
       `chord = ${f.L.toFixed(3)}   v0 = ${v0.toFixed(3)}   v1 = ${v1.toFixed(3)}\n`+
-      `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})`;
+      `P1 = (${p1.x.toFixed(3)}, ${p1.y.toFixed(3)})   P2 = (${p2.x.toFixed(3)}, ${p2.y.toFixed(3)})   d = ${Number(document.getElementById('offset-d').value).toFixed(2)}\n`+
+      `endpoint tangents: ${(t0*180/Math.PI).toFixed(1)}° / ${(t1*180/Math.PI).toFixed(1)}°`+(comfort?'   ⚠ outside single-span comfort; split the Euler':'');
   }
   function toWorld(ev){
     const r=canvas.getBoundingClientRect();
@@ -221,6 +256,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   canvas.addEventListener('pointerup',ev=>{drag=null;try{canvas.releasePointerCapture(ev.pointerId);}catch(_){}});
   canvas.addEventListener('pointercancel',()=>{drag=null;});
   document.getElementById('show-parab').addEventListener('change',draw);
+  document.getElementById('show-offset').addEventListener('change',draw);
+  document.getElementById('offset-d').addEventListener('input',draw);
   document.getElementById('reset').addEventListener('click',()=>{
     P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1; draw();
   });
