@@ -35,6 +35,7 @@ class IntegerCubicPageTest(unittest.TestCase):
         self.assertIn("asymmetric", page)
         self.assertIn("Fig. P2", page)
         self.assertIn("The 60³ grid", page)
+        self.assertIn("3³ · 4³ · 5³", page)
         self.assertIn("216000", page)
         self.assertIn("Another route: elevate a quadratic", page)
         self.assertIn("R1=(Q0+2Q1)/3", page)

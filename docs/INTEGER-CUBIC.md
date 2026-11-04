@@ -117,6 +117,24 @@ and the split point is `(88,−24)`. The shape is unchanged; the lattice is
 simply finer. The parameter is a fraction of the curve's parameter, not a
 distance along it, and the required scale can grow quickly.
 
+### The 60³ grid
+
+A natural asymmetric example is the quarter-turn cubic
+
+```text
+P0=(0,0), P1=(4,−3), P2=(7,−4), P3=(10,0)
+```
+
+It starts at slope `−3/4`, ends at slope `4/3`, and has integer controls. The
+combined grid is `3³ · 4³ · 5³ = 60³ = 216000`. The `2³` factor is already
+inside `4³`; multiplying by it again would make the grid eight times finer
+than needed.
+
+Every point at `t=k/60` has a denominator dividing `60³`, so scaling by
+`60³ = 216000` puts all 61 sampled points on one integer grid. Those are
+parameter samples, not arc-length points. The grid does not make offsets or
+arbitrary curve points integer.
+
 ### Offsets are a separate promise
 
 Integer controls do not make an offset curve integer. An offset point needs the

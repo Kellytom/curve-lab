@@ -203,7 +203,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <h2>The 60³ grid</h2>
   <p>A natural asymmetric example is the quarter-turn cubic</p>
   <div class="formula">P0=(0,0), P1=(4,−3), P2=(7,−4), P3=(10,0)</div>
-  <p>It starts at slope <code>−3/4</code>, ends at slope <code>4/3</code>, and has integer controls. Take <code>Q=3·4·5=60</code>. Every point at <code>t=k/60</code> has a denominator dividing <code>60³</code>, so scaling by <code>60³ = 216000</code> puts all 61 sampled points on one integer grid.</p>
+  <p>It starts at slope <code>−3/4</code>, ends at slope <code>4/3</code>, and has integer controls. The combined grid is <code>3³ · 4³ · 5³ = 60³ = 216000</code>. The <code>2³</code> factor is already inside <code>4³</code>; multiplying by it again would make the grid eight times finer than needed.</p>
+  <p>Every point at <code>t=k/60</code> has a denominator dividing <code>60³</code>, so scaling by <code>60³ = 216000</code> puts all 61 sampled points on one integer grid.</p>
   <div class="figure">__GRID_SVG__</div>
   <p class="small">The 61 points are parameter samples, not arc-length points. The grid is a consequence of the integer controls and the chosen denominator; it does not make offsets or arbitrary curve points integer.</p>
 </section>
