@@ -89,6 +89,10 @@ The page overlays the `N≈1450` Fässler curves on the Euclid scatter, so the
 two slicings can be compared directly.
  The page also draws every fixed-Euclid-`n` and fixed-Euclid-`m`
 family inside the `c≤3500` bound, with the selected `n=1,2,3` curves darker.
+ In a `500×500` box, the fixed-`n` family has `n=1..15` because
+`2n²≤500`, and the fixed-`m` family has `m=1..22` because `m²≤500`. The ~22
+downward curves are the fixed-`m` family; the right-opening curves are
+fixed-`n`.
 
 ## The n=2 sweep
 

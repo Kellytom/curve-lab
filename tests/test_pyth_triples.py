@@ -72,6 +72,8 @@ class PythagoreanFamiliesTest(unittest.TestCase):
         self.assertIn("2n²", page)
         self.assertIn("n=14→392", page)
         self.assertIn("m²", page)
+        self.assertIn("n=1..15", page)
+        self.assertIn("m=1..22", page)
 
 
 if __name__ == "__main__":

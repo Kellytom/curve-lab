@@ -211,6 +211,7 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><td>Fässler fixed N</td><td><code>b=|N−a²/(4N)|</code></td><td><code>N</code></td><td><code>1440, 1444, 1445, 1452, 1458</code></td></tr>
   </table>
   <p class="small">A parabola catalogue is infinite: each parameter value is a curve. The useful catalogue is by family and intercept law. The fixed-n family is the green fan; fixed m is the gold fan; Fässler's cluster is the rust band.</p>
+  <p><strong>In a 500×500 box:</strong> the fixed-Euclid-<code>n</code> family has <code>n=1..15</code> because <code>2n²≤500</code>; the fixed-Euclid-<code>m</code> family has <code>m=1..22</code> because <code>m²≤500</code>. The roughly 22 downward curves are the gold fixed-<code>m</code> family; the right-opening green fixed-<code>n</code> family is the other set.</p>
 </section>
 
 <section class="panel">

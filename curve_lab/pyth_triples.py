@@ -99,6 +99,23 @@ def selected_chain(n: int, c_max: int, angle_max: float, angle_min: float):
     ]
 
 
+def ranked_in_box(c_max: int, low: int, high: int, rank: int = 0):
+    """The rank-th fixed-n family point inside a coordinate box.
+
+    The families are ordered by Euclid n. This is a selection across families,
+    not a single geometric chain yet.
+    """
+    out = []
+    for n in range(1, int(math.isqrt(c_max)) + 1):
+        family_points = [
+            p for p in family(n, c_max)
+            if low <= p["a"] <= high and low <= p["b"] <= high
+        ]
+        if len(family_points) > rank:
+            out.append((n, family_points[rank]))
+    return out
+
+
 def rays(points, limit: int, count: int = 10):
     """A readable sample of primitive scaling rays from the origin."""
     picks = sorted(
