@@ -64,8 +64,8 @@ lattice, near-integer hit counts.  Select a family and d.  The controls in
 
 ## Investigation
 
-- [x] **Levien integer snap.** Probe: the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer work stays with lines/arcs, PH, and the Pythagorean spiral. Levien is PASS as a fitted option, FAIL as an exact integer option.
-  *Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH and the Pythagorean spiral. The constrained/snapped fit is still open.
+- [x] **Levien integer snap.** Probe: the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer work stays with lines/arcs, PH, the Pythagorean spiral, and the Pythagorean integer cubic family. Levien is PASS as a fitted option, FAIL as an exact integer option.
+  *Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH, the Pythagorean spiral and the Pythagorean integer cubic family. The constrained/snapped fit is still open.
 - [ ] Grade review after the first ornament proof.
 - [ ] Confirm the integer-lattice rule: horizontal grid-line crossings (used in the proof) or full integer points (both coordinates).
 - [x] Move the C-grade curves into an explicit **ending/flower track** and the p-triple Euler track; no deletions. Grouping still needs the ending fit pass.
@@ -144,7 +144,7 @@ The **C stalk grade is a production demotion only**; the ending track is where t
 
 ### The Levien integer question
 
-The fitted rail is a cubic-Bézier chain with real control points. A general cubic Bézier offset is an analytic degree-10 curve; Levien approximates it, so the fitted controls are not integers in general. A probe on an integer cubic at d=1 gave controls such as −0.824 and 1.631. The useful integer cases are the exact ones — lines/arcs, PH curves, and the Pythagorean spiral. A constrained/snapped fit could be investigated, but until it is measured Levien stays **B**, not A; exact integer work should use the exact routes.
+The fitted rail is a cubic-Bézier chain with real control points. A general cubic Bézier offset is an analytic degree-10 curve; Levien approximates it, so the fitted controls are not integers in general. A probe on an integer cubic at d=1 gave controls such as −0.824 and 1.631. The useful integer cases are the exact ones — lines/arcs, PH curves, the Pythagorean spiral, and the Pythagorean integer cubic family. A constrained/snapped fit could be investigated, but until it is measured Levien stays **B**, not A; exact integer work should use the exact routes.
 
 ## Already proved — do not redo
 
@@ -157,10 +157,10 @@ evidence; add to them, do not re-solve them.
 | `from_pairs` is the same fit as `from_hermite` | worst disagreement 1.6e-14 | `scripts/hodograph.py` |
 | degree lemma `n = deg h + 2 max(deg u, deg v) + 1` | 4/4 splits | `scripts/generators.py` |
 | every exact named curve is its own curve | OK | `tests/test_named_curves.py` |
-| 23 named curves, 19 exact, recorded scales | 23 total, 21 exact | `scripts/generators.py` + tests |
+| 25 named curves, 23 exact, recorded scales | 25 total, 23 exact | `scripts/generators.py` + tests |
 | the two non-rational named curves are heart, squircle | heart/squircle; pear 2, cruciform unbounded | `tests/test_named_curves.py` |
 | a finer grid does not buy hits; factors do | 12/48/156/273 -> 4/4/4/16 | `workbench/generators.html` Fig. 1a/1b |
-| grids under 3125: 114 -> 843 hits | control 114, optimised 843 | `scripts/generators.py best_grid()` |
+| grids under 3125: 120 -> 892 hits | control 120, optimised 892 | `scripts/generators.py best_grid()` |
 | clothoid spans match smooth curves, not cusps | smooth 0.92%, cusped 15.2% | `scripts/euler_match.py` |
 | the 3-4-5 ladder is fine long before 3125 | 350 rungs, median 0.14° | `scripts/curve_families.py ladder()` |
 | the hub is built from the manifest | every page has its bar | `scripts/hub.py` |
@@ -170,6 +170,7 @@ evidence; add to them, do not re-solve them.
 | square-discriminant route is dead | 0 of 17,168 on the rung ladder | `state/HANDOFF-int.md` |
 | spine chain vs study 01 | 1.29% drift | `scripts/spine_study_probe.py` |
 | **p-triple Euler polygon + rational miter rails** | exact rational polygon; cubic drawing approx. 1.4% | `docs/SPINE.md`, `pythagorean-spiral/docs/GALLERY.md`, `TRANSFER.md`; `pythagorean-spiral` tests |
+| **Pythagorean integer cubic family** | 10 triples, integer controls, chord 2c, arms c | `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html`, `docs/INTEGER-CUBIC.md`; `tests/test_pyth_cubic.py` |
 
 ## Next action
 

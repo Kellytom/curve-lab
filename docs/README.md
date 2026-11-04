@@ -13,6 +13,7 @@ What is in this folder, which pages are generated, and where new writing belongs
 | `ARCHITECTURE.md` | How the engine and the spine layer fit, and which gate conditions hold. |
 | `WEB-GUIDE.md` | The browser workbench: controls, the design recipe, the status line, the limits. |
 | `SPINE.md` | The spine layer step by step: turns, closure, cusps, rails, and a worked S-curve. |
+| `INTEGER-CUBIC.md` | The Pythagorean integer cubic family: exact controls, rotations, the 3125 slopes. |
 | `GLOSSARY.md` | Plain-English terms for both sides, and how the vocabularies map. |
 | `CURVE-MODEL.md` | Design/Segment, Piece/Trace, terminals, junctions, Section, Bundle, clearance, grades. |
 | `CORPUS.md` | The recovered plates, the terminal and spiral formats, units, regenerating. |

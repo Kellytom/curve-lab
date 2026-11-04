@@ -51,6 +51,7 @@ nav:
       - Architecture: ARCHITECTURE.md
       - Curve model: CURVE-MODEL.md
       - Integer PH curves: PH-INTEGER.md
+      - Integer cubic Béziers: INTEGER-CUBIC.md
       - The spine layer: SPINE.md
       - Glossary: GLOSSARY.md
       - The web workbench: WEB-GUIDE.md

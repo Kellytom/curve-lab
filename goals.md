@@ -101,6 +101,9 @@ is not a separate art project.
 - `pythagorean-spiral/` — the exact p-triple Euler polygon, rational miter rails
   (`ribbon.rails`), placement and lattice; `docs/SPINE.md`,
   `pythagorean-spiral/docs/TRANSFER.md`.
+- `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html` — the exact
+  Pythagorean integer cubic family: chord `2c`, arms `c`, rational tangents,
+  integer rotations; `docs/INTEGER-CUBIC.md`.
 - `curve_lab/spine.py` — the bridge from a chain's cubic spans to a
   `Design`/`Piece`; a cusp must be split first.
 - `workbench/levien-integer.html` — the Levien integer sandbox (parabola, half,

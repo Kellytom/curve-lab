@@ -263,6 +263,15 @@
       "outputs": "cubic, endpoint parabolas, error and arclength tables"
     },
     {
+      "key": "integer-cubic",
+      "file": "integer-cubic.html",
+      "group": "curve",
+      "title": "Integer cubic Béziers",
+      "purpose": "Exact integer-control cubic family from Pythagorean triples: chord 2c, arms c, rational tangents, and integer rotations.",
+      "inputs": "choose a Pythagorean triple",
+      "outputs": "integer control points, tangent, chord, arms, and rotated examples"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",

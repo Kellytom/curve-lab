@@ -87,7 +87,7 @@ def c_named_equations():
     return r.returncode == 0, tail[-1] if tail else "no output"
 
 
-@check("23 named curves, 19 exact, with the recorded scales",
+@check("25 named curves, 23 exact, with the recorded scales",
        "scripts/generators.py NAMED + tests/test_named_curves.py",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_counts():
@@ -102,7 +102,7 @@ def c_counts():
         d = G.named_data(spec)
         if (d["cscale"], d["mscale"]) != want:
             bad.append(f"{key} {(d['cscale'], d['mscale'])} != {want}")
-    return (len(G.NAMED) == 23 and len(exact) == 21 and not bad,
+    return (len(G.NAMED) == 25 and len(exact) == 23 and not bad,
             f"{len(G.NAMED)} total, {len(exact)} exact" + (f"; {bad[0]}" if bad else ""))
 
 
@@ -127,7 +127,7 @@ def c_granularity():
     return got == [4, 4, 4, 16], f"grids 12/48/156/273 -> {got} hits"
 
 
-@check("grids under 3125 take the exact curves from 114 hits to 843",
+@check("grids under 3125 take the exact curves from 120 hits to 892",
        "scripts/generators.py best_grid(); the table on the generators page",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_hit_totals():
@@ -139,7 +139,7 @@ def c_hit_totals():
             continue
         control += len(G.hit_points(s, d["cscale"]))
         best += G.best_grid(s)[1]
-    return (control, best) == (114, 843), f"control {control}, optimised {best}"
+    return (control, best) == (120, 892), f"control {control}, optimised {best}"
 
 
 @check("clothoid spans match smooth curves and cannot match a cusp",
@@ -174,6 +174,25 @@ def c_ladder():
 
 
 # -- the workbench -----------------------------------------------------------
+
+@check("the Pythagorean integer cubic family",
+       "curve_lab/pyth_cubic.py; workbench/integer-cubic.html Fig. P1",
+       "python -m unittest tests.test_pyth_cubic")
+def c_pyth_cubic():
+    from curve_lab.pyth_cubic import case, cases, checks, rotate_scale
+
+    all_cases = cases()
+    ok = all(checks(c) for c in all_cases)
+    base = case(3, 4, 5)
+    ok = ok and base["p1"] == (3, -4) and base["p2"] == (7, 4)
+    ok = ok and abs(base["angle"] + 53.13010235415598) < 1e-12
+    rotated = rotate_scale(
+        (base["p0"], base["p1"], base["p2"], base["p3"]), 3 / 5, 4 / 5, 5)
+    ok = ok and all(
+        abs(got[0] - want[0]) < 1e-9 and abs(got[1] - want[1]) < 1e-9
+        for got, want in zip(rotated, [(0.0, 0.0), (25.0, 0.0), (5.0, 40.0), (30.0, 40.0)]))
+    return ok, f"{len(all_cases)} triples, integer controls, chord 2c, arms c"
+
 
 @check("the hub is built from the manifest and every page carries its bar",
        "workbench/manifest.json + scripts/hub.py",
