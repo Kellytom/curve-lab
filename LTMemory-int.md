@@ -38,6 +38,12 @@ script; never the HTML.
 |---|---|
 | `workbench/generators.html` | `scripts/generators.py` |
 | `workbench/euler-match.html` | `scripts/euler_match.py` |
+| `workbench/integer-cubic.html` | `scripts/integer_cubic.py` |
+| `workbench/integer-g2.html` | `scripts/integer_g2.py` |
+| `workbench/integer-g2-editor.html` | `scripts/integer_g2_editor.py` |
+| `workbench/integer-g2-piece.html` | `scripts/integer_g2_piece.py` |
+| `workbench/quadratic-s.html` | `scripts/quadratic_s.py` |
+| `workbench/pythagorean-families.html` | `scripts/pythagorean_families.py` |
 | `workbench/euler-square.html` | `scripts/euler_square.py` |
 | `workbench/hearts.html` | `scripts/hearts.py` |
 | `workbench/catenary.html` | `scripts/catenary.py` |
@@ -58,7 +64,7 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 
 | command | what it proves |
 |---|---|
-| `scripts/recheck.py` | eleven claims re-derived from scratch; writes `state/ACHIEVEMENTS-int.md` |
+| `scripts/recheck.py` | fourteen claims re-derived from scratch; writes `state/ACHIEVEMENTS-int.md` |
 | `scripts/test.py` | the fast suite (~17 s); `--full` for everything (~42 s) |
 | `scripts/hub.py` | rebuilds the hub and every page's bar — **run after any page generator** |
 | `scripts/monitor.py` | tells a local failure from a network one |
@@ -102,6 +108,10 @@ one, and ports 8000/8001/8002 belong to other projects.
 - The 3-4-5 ladder is fine to 3125: 350 rungs, median gap 0.14°.
 
 ## Open
+
+- **Integer Bézier:** exact cubic and G2/Piece work is done; the n=2 triangle
+  chain, ribbon width and the full cubic catalogue are open. Levien is
+  background.
 
 - The heart half (Fig. 3/4 on `hearts.html`) drifts at 11.7% — the sample path
   has a 0.5-unit jump at the lobe tip, which is where the error comes from.

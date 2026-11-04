@@ -1,16 +1,15 @@
 ```text
-Read state/HANDOFF-int.md. Read docs/FLOWERS-int.md for the offset catalogue,
-plant-form proof, Euler sections and endings, and goals.md for the ending/flower
-and ornament arc.
+Read state/HANDOFF-int.md. The integer Bézier / Pythagorean workstream is the
+current focus.
 
-You are starting the ending/flower fit pass and ornament-forms.  The C family
-p-triple proof is built: `workbench/euler-sections.html` has ten sections,
-including the refined heart and one branch section of each looped/cusped
-rational.  Use the C families as endings/flowers on the stalks, then carry the
-grammar — stalk, ±d rails, ending, lattice marks, branches — onto the fleur,
-scroll, cruciform and primal families.  Keep the 2× offset rule; no bare tip.
-Do not re-open the p-triple/Euler mechanism; it is proved.  Levien is PASS as a
-fitted option but FAIL as an exact integer route.
+Next action: render the first 5 triples of the n=2 43.6°→4.0° sweep as a
+triple tangent chain on a large grid. Use the prepared C1 rule: each shared
+triple is the endpoint tangent at the join, so the joins are C1 by construction.
+Report the integer extent, curvature jumps and whether a 5-segment seed is
+clean enough to extend to the full 53-triple sweep.
+
+Do not reopen Levien; it is background. The quadratic-elevation and parabola
+plots are reference probes, not the main geometry.
+
+Source: state/HANDOFF-int.md · 2026-11-04
 ```
-
-Source: state/HANDOFF-int.md · 2026-11-03 · after the C-family investigations.
