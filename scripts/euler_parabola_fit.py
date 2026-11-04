@@ -40,7 +40,8 @@ def fmt(x: float) -> str:
 
 
 def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
-              label: str | None = None, w: int = 470, h: int = 360):
+              label: str | None = None, show_handles: bool = False,
+              w: int = 470, h: int = 360):
     data = euler_fit.study(kind)
     seg = data["segment"]
     fit = euler_fit.fit_segment(seg, n)
@@ -84,6 +85,15 @@ def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
     if other:
         path(other, MUTED, 1.4, "6 4")
     path(cubic, GOLD, 1.7, "5 4")
+    if show_handles:
+        for piece, span in enumerate(fit["spans"], start=1):
+            path([span["p0"], span["c1"], span["c2"], span["p3"]],
+                 MUTED, 1.0, [4, 4])
+            for point, tag in ((span["c1"], f"c{2*piece-1}"),
+                               (span["c2"], f"c{2*piece}")):
+                q = put(point)
+                body.append(f'<rect x="{q[0]-3:.1f}" y="{q[1]-3:.1f}" width="6" height="6" fill="{GOLD}" stroke="{INK}" stroke-width="0.8"/>')
+                body.append(f'<text x="{q[0]+4:.1f}" y="{q[1]-4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="8" fill="{MUTED}">{tag}</text>')
     for p in (truth[0], truth[-1]):
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="3.5" fill="{DOT}" stroke="{PAPER}"/>')
@@ -94,6 +104,8 @@ def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
     legend = "— true Euler   --- current seam"
     if other:
         legend = "— true Euler   --- one span   — two spans"
+        if show_handles:
+            legend += "   -- control + handles"
     body.append(f'<text x="12" y="48" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{MUTED}">{legend}</text>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
@@ -130,14 +142,30 @@ def table_html(data: dict) -> str:
         + "".join(rows) + "</table></div>")
 
 
+def handle_table(kind: str) -> str:
+    data = euler_fit.study(kind)
+    fit = euler_fit.fit_segment(data["segment"], 2)
+    rows = []
+    for i, span in enumerate(fit["spans"], start=1):
+        def p(v):
+            return f"({v[0]:.6f}, {v[1]:.6f})"
+        rows.append(f"<tr><td>{i}</td><td>{p(span['p0'])}</td><td>{p(span['c1'])}</td>"
+                    f"<td>{p(span['c2'])}</td><td>{p(span['p3'])}</td></tr>")
+    return ("<p class=\"meta\">two-piece control points, normalized to the chord</p>"
+            "<div class=\"table-wrap\"><table><tr><th>piece</th><th>P0</th>"
+            "<th>c1</th><th>c2</th><th>P3</th></tr>" + "".join(rows) + "</table></div>")
+
+
 def main():
     studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s48")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
-    s48_svg = study_svg("s48", "E4", n=2, compare=1, label="S 48° · two spans")
+    s48_svg = study_svg("s48", "E4", n=2, compare=1,
+                        label="S 48° · two spans", show_handles=True)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s48"])
+    s48_handles = handle_table("s48")
 
     template = r"""<!doctype html>
 <html lang="en">
@@ -189,9 +217,10 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <label><input type="checkbox" id="show-offset" checked> offsets</label>
     <label><input type="checkbox" id="show-target" checked> Euler target</label>
     <label><input type="checkbox" id="snap-int" checked> snap points to integers</label>
-    <label><input type="checkbox" id="free-handles"> free integer handles</label>
+    <label><input type="checkbox" id="free-handles"> integer handles (off-guide)</label>
     <button id="preset-345" type="button">6-8-10 chord</button>
     <button id="preset-345-handles" type="button">345 integer handles</button>
+    <button id="snap-handles" type="button">snap handles</button>
     <label>d <input type="range" id="offset-d" min="0" max="1" step="0.05" value="0.55"></label>
     <button id="save-state" type="button">save state</button>
     <button id="restore-state" type="button">restore state</button>
@@ -201,7 +230,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   </div>
   <p class="readout" id="readout" aria-live="polite"></p>
   <p class="small">The violet solid curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. A single cubic follows a C-shaped Euler to roughly 90° of endpoint tangent, but an S-shaped Euler needs a curvature reversal and starts to visibly degrade around 45°. Beyond those limits, split at the inflection or into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
-  <p class="small"><strong>3-4-5 note.</strong> The endpoints and the chord can sit on an integer Pythagorean vector such as (6,8,10). The handle guides themselves are parabolas, not integer-lattice curves, so a handle is not generally an integer point. The 3-4-5 offset hits come from the normal direction, not from placing a handle on the lattice.</p>
+  <p class="small"><strong>3-4-5 note.</strong> The endpoints and the chord can sit on an integer Pythagorean vector such as (6,8,10). The handle guides themselves are parabolas, and for a unit chord they have no integer local points: <code>12u = 4 − 9v²</code> (left) and <code>12u = 8 + 9v²</code> (right) are impossible for integers. “Snap handles” therefore rounds to the nearest integer and reports how far the handle left the guide. The 3-4-5 offset hits come from the normal direction, not from placing a handle on the lattice.</p>
 </section>
 
 <section class="panel">
@@ -233,6 +262,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <figure class="figure">
       __S48_SVG__
       __S48_TABLE__
+      __S48_HANDLES__
     </figure>
   </div>
   <p class="small">At 48° the one-span error is about 0.0047; two spans reduces it to about 0.0031. That is better, but not yet fine work. Three spans reaches about 0.00057, four about 0.00016, eight about 5.9e-6.</p>
@@ -384,6 +414,13 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   function setPreset345Handles(){
     P0={x:0,y:0}; P3={x:8,y:6};
     H1={x:4,y:-1}; H2={x:4,y:8};
+    freeHandles=true; document.getElementById('free-handles').checked=true;
+    draw();
+  }
+  function snapHandles(){
+    const h=handles();
+    H1={x:Math.round(h.p1.x), y:Math.round(h.p1.y)};
+    H2={x:Math.round(h.p2.x), y:Math.round(h.p2.y)};
     freeHandles=true; document.getElementById('free-handles').checked=true;
     draw();
   }
@@ -629,6 +666,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   document.getElementById('offset-d').addEventListener('input',draw);
   document.getElementById('preset-345').addEventListener('click',setPreset345);
   document.getElementById('preset-345-handles').addEventListener('click',setPreset345Handles);
+  document.getElementById('snap-handles').addEventListener('click',snapHandles);
   document.getElementById('save-state').addEventListener('click',saveState);
   document.getElementById('restore-state').addEventListener('click',restoreState);
   document.getElementById('save-json').addEventListener('click',saveJSON);
@@ -654,7 +692,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__ASYM_SVG__", asym_svg)
             .replace("__ASYM_TABLE__", asym_table)
             .replace("__S48_SVG__", s48_svg)
-            .replace("__S48_TABLE__", s48_table))
+            .replace("__S48_TABLE__", s48_table)
+            .replace("__S48_HANDLES__", s48_handles))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
