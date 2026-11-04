@@ -41,8 +41,8 @@ def fmt(x: float) -> str:
 
 def study_svg(kind: str, fig: str, n: int = 4, compare: int | None = None,
               label: str | None = None, show_handles: bool = False,
-              w: int = 470, h: int = 360):
-    data = euler_fit.study(kind)
+              w: int = 470, h: int = 360, data: dict | None = None):
+    data = data or euler_fit.study(kind)
     seg = data["segment"]
     fit = euler_fit.fit_segment(seg, n)
     truth = [seg.point(i / 240) for i in range(241)]
@@ -147,8 +147,8 @@ def table_html(data: dict) -> str:
         + "".join(rows) + "</table></div>")
 
 
-def handle_table(kind: str, n: int = 2) -> str:
-    data = euler_fit.study(kind)
+def handle_table(kind: str, n: int = 2, data: dict | None = None) -> str:
+    data = data or euler_fit.study(kind)
     fit = euler_fit.fit_segment(data["segment"], n)
     rows = []
     for i, span in enumerate(fit["spans"], start=1):
@@ -162,21 +162,47 @@ def handle_table(kind: str, n: int = 2) -> str:
             "<th>c1</th><th>c2</th><th>P3</th></tr>" + "".join(rows) + "</table></div>")
 
 
+def angle_meta(data: dict) -> str:
+    rows = data["rows"]
+    return (f"<p class=\"meta\">θ = {math.degrees(data['endpoint_tangents'][0]):.1f}° · "
+            f"one-piece error {rows[0]['error']:.5f} · "
+            f"two-piece error {rows[1]['error']:.5f} · "
+            f"n=4 {rows[2]['error']:.5f}</p>")
+
+
 def main():
     studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s90")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
-    s48_one_svg = study_svg("s90", "E4", n=1,
-                            label="S 90° · one piece", show_handles=True,
-                            w=1000, h=360)
-    s48_two_svg = study_svg("s90", "E5", n=2,
-                            label="S 90° · two pieces", show_handles=True,
-                            w=1000, h=360)
+    # The 3-4-5 triangle has inner angles 36.87°, 53.13°, and 90°.
+    angles = (math.degrees(math.atan2(3, 4)), math.degrees(math.atan2(4, 3)), 90.0)
+    labels = ", ".join(f"{a:.2f}°" for a in angles)
+    variants_one = []
+    variants_two = []
+    for index, theta in enumerate(angles):
+        data = euler_fit.study_segment(euler_fit.s_angle(theta), f"s{theta:.2f}")
+        hidden = "" if index == len(angles) - 1 else " hidden"
+        one_svg = study_svg("s90", "E4", n=1,
+                            label=f"S {theta:.2f}° · one piece", show_handles=True,
+                            w=1000, h=360, data=data)
+        two_svg = study_svg("s90", "E5", n=2,
+                            label=f"S {theta:.2f}° · two pieces", show_handles=True,
+                            w=1000, h=360, data=data)
+        variants_one.append(
+            f'''<div class="variant" data-index="{index}"{hidden}>
+{one_svg}
+{handle_table("s90", 1, data)}
+{angle_meta(data)}</div>''')
+        variants_two.append(
+            f'''<div class="variant" data-index="{index}"{hidden}>
+{two_svg}
+{handle_table("s90", 2, data)}
+{angle_meta(data)}</div>''')
+    s48_one_svg = "".join(variants_one)
+    s48_two_svg = "".join(variants_two)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s90"])
-    s48_one_handles = handle_table("s90", 1)
-    s48_two_handles = handle_table("s90", 2)
 
     template = r"""<!doctype html>
 <html lang="en">
@@ -202,6 +228,10 @@ canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px s
 .readout{font:11px/1.6 ui-monospace,Menlo,monospace;color:var(--muted);margin:9px 0 0;white-space:pre-wrap}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
 .stack{display:grid;grid-template-columns:1fr;gap:18px}
+.variant[hidden]{display:none}
+.slider{display:flex;gap:10px;align-items:center;font:11px ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 10px}
+.slider input{flex:1;max-width:360px}
+.slider span{min-width:36px;color:var(--ink)}
 .figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:10px}
 .figure svg{display:block;width:100%;height:auto}
 .meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);margin:8px 0}
@@ -270,18 +300,19 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 </section>
 
 <section class="panel">
-  <h2>Second example · S curve at 90°, one piece vs two</h2>
-  <p>The same true Euler target at 90° endpoint tangent, drawn once with one cubic and once with two equal pieces split at the inflection. Each figure shows its control polygon, handles, and control-point table.</p>
+  <h2>Second example · S curve, 3-4-5 angles, one piece vs two</h2>
+  <p>Each slider moves both handle angles in that figure. The stops are the 3-4-5 inner angles: <strong>36.87°</strong>, <strong>53.13°</strong>, and <strong>90°</strong>. The true Euler target and the cubic(s) are recomputed at each stop.</p>
   <div class="stack">
     <figure class="figure">
-      __S48_ONE_SVG__
-      __S48_ONE_HANDLES__
+      <label class="slider">one-piece 3-4-5 angle <input type="range" id="e4-angle" min="0" max="2" step="1" value="2"> <span id="e4-angle-value">90.00°</span></label>
+      <div id="e4-variants" data-labels="__ANGLE_LABELS__">__S48_ONE_SVG__</div>
     </figure>
     <figure class="figure">
-      __S48_TWO_SVG__
-      __S48_TWO_HANDLES__
+      <label class="slider">two-piece 3-4-5 angle <input type="range" id="e5-angle" min="0" max="2" step="1" value="2"> <span id="e5-angle-value">90.00°</span></label>
+      <div id="e5-variants" data-labels="__ANGLE_LABELS__">__S48_TWO_SVG__</div>
     </figure>
   </div>
+  <p class="small">The error table below is the 90° reference; each slider variant carries its own one- and two-piece error in the caption.</p>
   <div class="table-wrap">__S48_TABLE__</div>
   <p class="small">At 90° the one-piece error is about 0.0455; two pieces reduces it to about 0.0324. Two pieces helps, but does <em>not</em> buy the full 90° for an S curve. Three pieces reaches about 0.0053, four about 0.00136, eight about 4.7e-5.</p>
 </section>
@@ -726,6 +757,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     P0={...START.p0}; P3={...START.p3}; v0=START.v0; v1=START.v1;
     freeHandles=false; H1=H2=null; document.getElementById('free-handles').checked=false; draw();
   });
+  function wireAngle(prefix){
+    const slider=document.getElementById(prefix+'-angle');
+    const out=document.getElementById(prefix+'-angle-value');
+    const box=document.getElementById(prefix+'-variants');
+    const labels = box.dataset.labels.split(',');
+    function show(){
+      out.textContent=labels[Number(slider.value)];
+      box.querySelectorAll('.variant').forEach(v=>{v.hidden=v.dataset.index!==slider.value;});
+    }
+    slider.addEventListener('input',show); show();
+  }
+  wireAngle('e4'); wireAngle('e5');
   draw();
 })();
 </script>
@@ -740,8 +783,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__S48_ONE_SVG__", s48_one_svg)
             .replace("__S48_TWO_SVG__", s48_two_svg)
             .replace("__S48_TABLE__", s48_table)
-            .replace("__S48_ONE_HANDLES__", s48_one_handles)
-            .replace("__S48_TWO_HANDLES__", s48_two_handles))
+            .replace("__ANGLE_LABELS__", labels))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)

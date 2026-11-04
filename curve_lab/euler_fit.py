@@ -147,6 +147,23 @@ def fit_segment(segment: EulerSegment, n: int = 1) -> dict:
     }
 
 
+def s_angle(degrees: float) -> EulerSegment:
+    """Symmetric S family with both endpoint tangents at `degrees`."""
+    target = math.radians(abs(degrees))
+    lo, hi = 0.0, 20.0
+    for _ in range(60):
+        mid = 0.5 * (lo + hi)
+        seg = EulerSegment(-mid, 2.0 * mid, 1.0)
+        if abs(seg.endpoint_tangents[0]) < target:
+            lo = mid
+        else:
+            hi = mid
+    a = 0.5 * (lo + hi)
+    if degrees < 0:
+        return EulerSegment(a, -2.0 * a, 1.0)
+    return EulerSegment(-a, 2.0 * a, 1.0)
+
+
 def case(kind: str) -> EulerSegment:
     """Two representative segments: symmetric S and asymmetric bend."""
     if kind == "symmetric":
@@ -163,8 +180,8 @@ def case(kind: str) -> EulerSegment:
     raise ValueError(f"unknown case {kind!r}")
 
 
-def study(kind: str, counts=(1, 2, 4, 8, 16)) -> dict:
-    segment = case(kind)
+def study_segment(segment: EulerSegment, kind: str = "custom",
+                  counts=(1, 2, 4, 8, 16)) -> dict:
     rows = [fit_segment(segment, n) for n in counts]
     slopes = []
     for a, b in zip(rows, rows[1:]):
@@ -178,3 +195,7 @@ def study(kind: str, counts=(1, 2, 4, 8, 16)) -> dict:
         "endpoint_tangents": segment.endpoint_tangents,
         "true_arclength": segment.arclength,
     }
+
+
+def study(kind: str, counts=(1, 2, 4, 8, 16)) -> dict:
+    return study_segment(case(kind), kind, counts)
