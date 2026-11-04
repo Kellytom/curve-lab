@@ -219,6 +219,26 @@ def smooth_records():
     return records
 
 
+PYTH_TRIPLES = ((3, 4, 5), (4, 3, 5), (5, 12, 13), (12, 5, 13),
+                (8, 15, 17), (15, 8, 17), (7, 24, 25), (24, 7, 25),
+                (20, 21, 29), (21, 20, 29))
+
+
+def pyth_cases():
+    out = []
+    for a, b, c in PYTH_TRIPLES:
+        out.append({
+            "a": a, "b": b, "c": c,
+            "label": f"{a}-{b}-{c}",
+            "angle": -math.degrees(math.atan2(b, a)),
+            "p0": [0, 0],
+            "p1": [a, -b],
+            "p2": [2*c-a, b],
+            "p3": [2*c, 0],
+        })
+    return out
+
+
 def main():
     studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s90")}
     sym_svg = study_svg("symmetric", "E2")
@@ -230,6 +250,19 @@ def main():
     button_html = "".join(
         f'<button type="button" data-angle="{a:.12f}">{a:.2f}°</button>'
         for a in PYTH_ANGLES)
+    pyth = pyth_cases()
+    pyth_json = json.dumps(pyth, separators=(",", ":"))
+    pyth_buttons = "".join(
+        f'<button type="button" data-index="{i}">{c["label"]}</button>'
+        for i, c in enumerate(pyth))
+    pyth_rows = "".join(
+        f'<tr><td>{c["label"]}</td><td>{c["angle"]:.2f}°</td>'
+        f'<td>{2*c["c"]}</td><td>({c["p1"][0]}, {c["p1"][1]})</td>'
+        f'<td>({c["p2"][0]}, {c["p2"][1]})</td></tr>'
+        for c in pyth)
+    pyth_table = ("<div class=\"table-wrap\"><table><tr><th>triple</th><th>tangent</th>"
+                  "<th>chord</th><th>P1</th><th>P2</th></tr>" + pyth_rows +
+                  "</table></div>")
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
     s48_table = table_html(studies["s90"])
@@ -270,6 +303,10 @@ canvas{display:block;width:100%;height:auto;background:var(--paper);border:1px s
 .angle-buttons button{font:10px ui-monospace,Menlo,monospace;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:3px 5px;cursor:pointer}
 .angle-buttons button:hover{background:#f4ecd7}
 .smooth-figure canvas{border:1px solid var(--rule)}
+.pyth-buttons{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.pyth-buttons button{font:10px ui-monospace,Menlo,monospace;border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:4px 7px;cursor:pointer}
+.pyth-buttons button:hover{background:#f4ecd7}
+#pyth-canvas{border:1px solid var(--rule);margin:0 0 8px}
 .figure svg{display:block;width:100%;height:auto}
 .meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:var(--muted);margin:8px 0}
 .table-wrap{overflow-x:auto}
@@ -312,6 +349,20 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p class="small"><strong>Save state / save JSON apply to Fig. E1 only.</strong> Figs. E4 and E5 are static comparison plates.</p>
   <p class="small">The violet solid curve is the true Euler segment through the current endpoints and endpoint tangents — what the cubic is trying to copy. A single cubic follows a C-shaped Euler to roughly 90° of endpoint tangent, but an S-shaped Euler needs a curvature reversal and starts to visibly degrade around 45°. Beyond those limits, split at the inflection or into more spans. The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.</p>
   <p class="small"><strong>3-4-5 note.</strong> The endpoints and the chord can sit on an integer Pythagorean vector such as (6,8,10). The handle guides themselves are parabolas, and for a unit chord they have no integer local points: <code>12u = 4 − 9v²</code> (left) and <code>12u = 8 + 9v²</code> (right) are impossible for integers. “Snap handles” therefore rounds to the nearest integer and reports how far the handle left the guide. The 3-4-5 offset hits come from the normal direction, not from placing a handle on the lattice.</p>
+</section>
+
+<section class="panel" id="section-ii">
+  <h2>Section II · the integer cubic</h2>
+  <p>This is the part that is actually integer-friendly. For a Pythagorean triple \(a^2+b^2=c^2\), take</p>
+  <div class="formula">P0 = (0,0),  P1 = (a,−b),  P2 = (2c−a,b),  P3 = (2c,0)</div>
+  <p>The chord is <code>2c</code>, both handle arms have length <code>c</code>, and both endpoint tangents are at <code>−atan2(b,a)</code>. Every control point is an integer. This is a cubic construction; it is not claiming the handles are on the Euler guide parabolas.</p>
+  <p><strong>Base case.</strong> (3,4,5): P0=(0,0), P1=(3,−4), P2=(7,4), P3=(10,0). Chord 10, arms 5, tangents −53.13°, integer handles.</p>
+  <p><strong>Rotation.</strong> Rotate by a Pythagorean angle and scale by the denominator: (3,4,5) rotated by 53.13° and scaled by 5 becomes P0=(0,0), P1=(25,0), P2=(5,40), P3=(30,40). Rotated by 36.87° instead it becomes P0=(0,0), P1=(24,−7), P2=(16,37), P3=(40,30). The angle between each handle and the chord stays 53.13°.</p>
+  <p><strong>Other slopes.</strong> The same construction works for every Pythagorean triple. Select one:</p>
+  <div class="pyth-buttons" id="pyth-buttons">__PYTH_BUTTONS__</div>
+  <canvas id="pyth-canvas" width="1000" height="380"></canvas>
+  <p class="meta" id="pyth-meta"></p>
+  __PYTH_TABLE__
 </section>
 
 <section class="panel">
@@ -867,6 +918,70 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       `θ=${rec.a.toFixed(3)}° · sampled one-piece error ${rec.e1.toFixed(5)} · two-piece ${rec.e2.toFixed(5)}`;
   }
 
+  const PYTH = __PYTH_DATA__;
+  const PYTH_W = 1000, PYTH_H = 380, PPAD = 42;
+  function drawPyth(index){
+    const canvas=document.getElementById('pyth-canvas');
+    const ctx=canvas.getContext('2d');
+    const dpr=window.devicePixelRatio||1;
+    canvas.width=PYTH_W*dpr; canvas.height=PYTH_H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const c=PYTH[index];
+    const pts=[c.p0,c.p1,c.p2,c.p3];
+    const xs=pts.map(p=>p[0]), ys=pts.map(p=>p[1]);
+    const x0=Math.min(...xs), x1=Math.max(...xs);
+    const y0=Math.min(...ys), y1=Math.max(...ys);
+    const dx=x1-x0||1, dy=y1-y0||1, pad=.12;
+    const xa=x0-pad*dx, xb=x1+pad*dx, ya=y0-pad*dy, yb=y1+pad*dy;
+    const k=Math.min((PYTH_W-2*PPAD)/(xb-xa),(PYTH_H-2*PPAD)/(yb-ya));
+    const ox=(PYTH_W-(xb-xa)*k)/2, oy=(PYTH_H-(yb-ya)*k)/2;
+    const px=x=>ox+(x-xa)*k, py=y=>PYTH_H-oy-(y-ya)*k;
+    ctx.clearRect(0,0,PYTH_W,PYTH_H);
+    ctx.fillStyle='#fbf7ec'; ctx.fillRect(0,0,PYTH_W,PYTH_H);
+    // light integer grid, decimated for large triples
+    const step=Math.max(1,Math.ceil(Math.max(dx,dy)/24));
+    ctx.strokeStyle='#e4dcc6'; ctx.lineWidth=1;
+    for(let gx=Math.ceil(xa/step)*step;gx<=xb;gx+=step){
+      ctx.beginPath(); ctx.moveTo(px(gx),py(ya)); ctx.lineTo(px(gx),py(yb)); ctx.stroke();
+    }
+    for(let gy=Math.ceil(ya/step)*step;gy<=yb;gy+=step){
+      ctx.beginPath(); ctx.moveTo(px(xa),py(gy)); ctx.lineTo(px(xb),py(gy)); ctx.stroke();
+    }
+    ctx.strokeStyle='#b9aa88'; ctx.strokeRect(px(xa),py(yb),px(xb)-px(xa),py(ya)-py(yb));
+    // control polygon
+    ctx.beginPath(); pts.forEach((p,i)=>i?ctx.lineTo(px(p[0]),py(p[1])):ctx.moveTo(px(p[0]),py(p[1])));
+    ctx.strokeStyle='#7b6c4e'; ctx.lineWidth=1; ctx.setLineDash([4,4]); ctx.stroke(); ctx.setLineDash([]);
+    // cubic
+    ctx.beginPath();
+    for(let i=0;i<=120;i++){
+      const t=i/120,u=1-t;
+      const x=u*u*u*c.p0[0]+3*u*u*t*c.p1[0]+3*u*t*t*c.p2[0]+t*t*t*c.p3[0];
+      const y=u*u*u*c.p0[1]+3*u*u*t*c.p1[1]+3*u*t*t*c.p2[1]+t*t*t*c.p3[1];
+      i?ctx.lineTo(px(x),py(y)):ctx.moveTo(px(x),py(y));
+    }
+    ctx.strokeStyle='#2e2413'; ctx.lineWidth=2.4; ctx.stroke();
+    for(const [name,p] of [['P0',c.p0],['P1',c.p1],['P2',c.p2],['P3',c.p3]]){
+      const x=px(p[0]),y=py(p[1]);
+      ctx.fillStyle=name==='P1'||name==='P2'?'#c9a441':'#fbf7ec';
+      ctx.strokeStyle='#2e2413'; ctx.lineWidth=1.2;
+      if(name==='P1'||name==='P2'){ctx.fillRect(x-4,y-4,8,8);ctx.strokeRect(x-4,y-4,8,8);}
+      else{ctx.beginPath();ctx.arc(x,y,4.5,0,7);ctx.fill();ctx.stroke();}
+      ctx.fillStyle='#2e2413'; ctx.font='10px ui-monospace,Menlo,monospace';
+      ctx.fillText(`${name} (${p[0]}, ${p[1]})`,x+6,y-6);
+    }
+    ctx.fillStyle='#2e2413'; ctx.font='600 14px Georgia,serif';
+    ctx.fillText(`Fig. P1 · ${c.label} · integer S cubic`,12,20);
+    ctx.font='9px ui-monospace,Menlo,monospace'; ctx.fillStyle='#7b6c4e';
+    ctx.fillText(`chord ${2*c.c} · arm ${c.c} · tangent ${c.angle.toFixed(2)}°`,12,35);
+    document.getElementById('pyth-meta').textContent =
+      `${c.label} · P1=(${c.p1[0]}, ${c.p1[1]}) · P2=(${c.p2[0]}, ${c.p2[1]}) · chord ${2*c.c} · tangent ${c.angle.toFixed(3)}°`;
+  }
+  function wirePyth(){
+    const buttons=document.getElementById('pyth-buttons');
+    buttons.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>drawPyth(Number(b.dataset.index))));
+    drawPyth(0);
+  }
+
   function wireSmooth(prefix, mode){
     const slider=document.getElementById(prefix+'-angle');
     const buttons=document.getElementById(prefix+'-buttons');
@@ -881,6 +996,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     show();
   }
   wireSmooth('e4','one'); wireSmooth('e5','two');
+  wirePyth();
   draw();
 })();
 </script>
@@ -897,7 +1013,10 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
             .replace("__E5_BUTTONS__", button_html)
             .replace("__MAX__", str(len(records)-1))
             .replace("__DEFAULT__", str(default_index))
-            .replace("__EULER_RECORDS__", records_json))
+            .replace("__EULER_RECORDS__", records_json)
+            .replace("__PYTH_BUTTONS__", pyth_buttons)
+            .replace("__PYTH_DATA__", pyth_json)
+            .replace("__PYTH_TABLE__", pyth_table))
     out = ROOT / "workbench" / "euler-parabola-fit.html"
     out.write_text(page, encoding="utf-8")
     print(out)
