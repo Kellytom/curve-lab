@@ -18,6 +18,8 @@ class EulerParabolaFitPageTest(unittest.TestCase):
         self.assertIn("Second example", page)
         self.assertIn("one piece", page)
         self.assertIn("two pieces", page)
+        self.assertIn("S 90°", page)
+        self.assertIn("does <em>not</em> buy the full 90", page)
         self.assertIn("two-piece control points", page)
         self.assertIn("control + handles", page)
         self.assertIn("current cubic seam", page)

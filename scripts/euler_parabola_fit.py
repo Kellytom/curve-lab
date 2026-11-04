@@ -160,18 +160,18 @@ def handle_table(kind: str, n: int = 2) -> str:
 
 
 def main():
-    studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s48")}
+    studies = {kind: euler_fit.study(kind) for kind in ("symmetric", "asymmetric", "s90")}
     sym_svg = study_svg("symmetric", "E2")
     asym_svg = study_svg("asymmetric", "E3")
-    s48_one_svg = study_svg("s48", "E4", n=1,
-                            label="S 48° · one piece", show_handles=True)
-    s48_two_svg = study_svg("s48", "E5", n=2,
-                            label="S 48° · two pieces", show_handles=True)
+    s48_one_svg = study_svg("s90", "E4", n=1,
+                            label="S 90° · one piece", show_handles=True)
+    s48_two_svg = study_svg("s90", "E5", n=2,
+                            label="S 90° · two pieces", show_handles=True)
     sym_table = table_html(studies["symmetric"])
     asym_table = table_html(studies["asymmetric"])
-    s48_table = table_html(studies["s48"])
-    s48_one_handles = handle_table("s48", 1)
-    s48_two_handles = handle_table("s48", 2)
+    s48_table = table_html(studies["s90"])
+    s48_one_handles = handle_table("s90", 1)
+    s48_two_handles = handle_table("s90", 2)
 
     template = r"""<!doctype html>
 <html lang="en">
@@ -262,8 +262,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 </section>
 
 <section class="panel">
-  <h2>Second example · S curve, one piece vs two</h2>
-  <p>The same true Euler target, drawn once with one cubic and once with two cubics split at the inflection. Each figure shows its control polygon, handles, and control-point table.</p>
+  <h2>Second example · S curve at 90°, one piece vs two</h2>
+  <p>The same true Euler target at 90° endpoint tangent, drawn once with one cubic and once with two equal pieces split at the inflection. Each figure shows its control polygon, handles, and control-point table.</p>
   <div class="grid">
     <figure class="figure">
       __S48_ONE_SVG__
@@ -275,7 +275,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     </figure>
   </div>
   <div class="table-wrap">__S48_TABLE__</div>
-  <p class="small">At 48° the one-piece error is about 0.0047; two pieces reduces it to about 0.0031. That is better, but not yet fine work. Three pieces reaches about 0.00057, four about 0.00016, eight about 5.9e-6.</p>
+  <p class="small">At 90° the one-piece error is about 0.0455; two pieces reduces it to about 0.0324. Two pieces helps, but does <em>not</em> buy the full 90° for an S curve. Three pieces reaches about 0.0053, four about 0.00136, eight about 4.7e-5.</p>
 </section>
 
 <section class="panel">

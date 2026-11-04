@@ -156,6 +156,10 @@ def case(kind: str) -> EulerSegment:
     if kind == "asymmetric":
         # curvature -1 -> +3; a strong one-sided bend.
         return EulerSegment(-1.0, 4.0, 1.0)
+    if kind == "s90":
+        # curvature -9.189758... -> +9.189758..., endpoint tangents 90°;
+        # the two-piece limit case.
+        return EulerSegment(-9.189758294432544, 18.379516588865088, 1.0)
     raise ValueError(f"unknown case {kind!r}")
 
 
