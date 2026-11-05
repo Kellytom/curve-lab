@@ -112,12 +112,12 @@ class TestShowcaseNotes(unittest.TestCase):
     def test_every_figure_links_to_its_note(self):
         page = (PAGES / "showcase.html").read_text()
         notes = (PAGES / "showcase-notes.html").read_text()
-        ids = re.findall(r'id="fig-([0-9a-c]+)"', page)
-        self.assertEqual(len(ids), 39)
+        ids = re.findall(r'id="fig-([0-9a-d]+)"', page)
+        self.assertEqual(len(ids), 40)
         for key in ids:
             self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
             self.assertIn(f'id="fig-{key}"', notes)
-        self.assertEqual(len(set(ids)), 39)
+        self.assertEqual(len(set(ids)), 40)
         self.assertIn("fig-rays", page)
         self.assertIn('id="fig-rays"', notes)
 
