@@ -72,27 +72,27 @@ a{color:var(--ink)}
   <p class="back"><a href="showcase.html#fig-1c">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-2a">
-  <p class="eyebrow">Fig. 2a · exact plan</p>
-  <h2>A LAC spine: the schedule is the curve</h2>
-  <p>An LAC is sampled, its heading changes are rounded to whole numbers of triangle angles, and the result is a polygon. The curve you see is that slate of small integers.</p><p>31 recovered LAC spines from the ornament sources were converted this way. The schedule is editable: change a number and the curve changes, exactly.</p>
-  <ul class="nums"><li>31 recovered spines</li><li>turn counts are integers</li></ul>
-  <p class="meta"><strong>Where:</strong> docs/SPINE.md · workbench/spirals/<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="eyebrow">Fig. 2a · smooth</p>
+  <h2>LAC ribbon</h2>
+  <p>A log-aesthetic curve drawn as a stem: the centreline follows κ ∝ s^(α−1), and the two rails stand off it at a constant distance.</p><p>The law is exact and the rails are fitted — the same split as every other ribbon on this page, stated rather than hidden.</p>
+  <ul class="nums"><li>α = 1</li><li>two rails</li><li>smooth</li></ul>
+  <p class="meta"><strong>Where:</strong> docs/SPINE.md · workbench/spirals/<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-2a">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-2b">
-  <p class="eyebrow">Fig. 2b · mixed</p>
-  <h2>The rails, and where exactness stops</h2>
-  <p>On the polygon the rails are exact: a rational miter offset of rational points. On the drawn cubic they are not — the offset of a cubic is degree 10, so the rail shown over the smooth curve is a fit.</p><p>The page keeps the two claims apart: the plan is exact, the drawing carries a measured margin.</p>
-  <ul class="nums"><li>polygon rails exact</li><li>cubic rails fitted</li><li>~1.4% of the law</li></ul>
-  <p class="meta"><strong>Where:</strong> docs/CLEARANCE.md · curve_lab/offsets.py<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="eyebrow">Fig. 2b · grammar</p>
+  <h2>LAC ribbon with a cone ending</h2>
+  <p>The same stem, ended properly: two arcs of radius 2 × the offset, tangent to the rails, meeting at the centreline. No bare tip.</p><p>This is the plant grammar applied to an LAC rather than to an integer chain, which is the point — the ending does not care how the stem was made.</p>
+  <ul class="nums"><li>R = 2 × offset</li><li>tangent at the base</li><li>no bare tip</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py cone_terminal · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-2b">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-2c">
-  <p class="eyebrow">Fig. 2c · fitted</p>
-  <h2>The drawn cubic is an interpolation</h2>
-  <p>Each span is a cubic whose end tangents come from the chord headings. In the curl study the fit sits within about 1.4% of the ideal curvature law (rms 0.8%) — the chain's own resolution.</p><p>It is correct to call this a good drawing. It is not correct to call it an exact LAC.</p>
-  <ul class="nums"><li>1.4% of the law</li><li>rms 0.8%</li></ul>
-  <p class="meta"><strong>Where:</strong> docs/SPINE.md §2 and §5<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
+  <p class="eyebrow">Fig. 2c · smooth</p>
+  <h2>The same ribbon at another α</h2>
+  <p>α = 0.5: same construction, a different exponent, a different sweep. The grammar — centreline, rails, ending — is unchanged.</p><p>That is what makes the family useful: the curve varies, the rules do not.</p>
+  <ul class="nums"><li>α = 0.5</li><li>same rails and ending</li></ul>
+  <p class="meta"><strong>Where:</strong> docs/SPINE.md · goals.md (LAC tier)<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-2c">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-3a">

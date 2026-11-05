@@ -140,6 +140,31 @@ def chain_spans(m0, m1, n=1):
 
 
 def run() -> None:
+    from curve_lab import plant
+
+    def offset_polyline(pts, d):
+        out = []
+        for i, q in enumerate(pts):
+            a = pts[max(0, i - 1)]
+            b = pts[min(len(pts) - 1, i + 1)]
+            tx, ty = b[0] - a[0], b[1] - a[1]
+            L = math.hypot(tx, ty) or 1
+            out.append((q[0] - ty / L * d, q[1] + tx / L * d))
+        return out
+
+    def lac_curve(alpha, s0=0.6, s1=26.0, n=420, A=8.0):
+        pts = [(0.0, 0.0)]
+        x = y = th = 0.0
+        ds = (s1 - s0) / n
+        for i in range(n):
+            sm = s0 + (i + 0.5) * ds
+            k = (sm / A) ** (alpha - 1.0)
+            th += k * ds
+            x += math.cos(th) * ds
+            y += math.sin(th) * ds
+            pts.append((x, y))
+        return pts
+
     # ---- 0 · exact parallels ---------------------------------------------
     ls = LogSpiral(1.5, 0.32)
     lg_a = [ls.point(5.0 * i / 220) for i in range(221)]
@@ -189,18 +214,28 @@ def run() -> None:
         (ink1, INK, 1.8, None), (branch, GREEN, 1.6, None)],
         "a branch starts at a node, not at a fitted point", dots=[((bx, by), GOLD)], key="1c")
 
-    # 2a — a recovered-style LAC schedule
-    lac = turn_polygon([1, 2, 3, 4, 5, 4, 3, 2, 1], 4, 3, chord=1.0)
-    p2a = panel("Fig. 2a", "LAC spine · turn schedule", [
-        (lac, INK, 2.0, None)], "the schedule is the curve", dots=[(p, GOLD) for p in lac], key="2a")
-    # 2b — the same with rails
-    p2b = panel("Fig. 2b", "LAC spine · miter rails", [
-        (miter(lac, 0.2), BLUE, 1.2, None), (miter(lac, -0.2), BLUE, 1.2, None),
-        (smooth(lac), INK, 1.8, None)], "rails exact on the polygon, fitted on the cubic", key="2b")
-    # 2c — the cubic fit
-    p2c = panel("Fig. 2c", "the drawn cubic, not the polygon", [
-        (smooth(lac), RED, 1.6, None), (lac, MUTED, 1.0, "4 3")],
-        "the drawn curve is an interpolation · ~1.4% of the law", key="2c")
+    # ---- 2 · LAC ribbon ---------------------------------------------------
+    lac1 = lac_curve(1.0)
+    p2a = panel("Fig. 2a", "LAC ribbon · curve and rails", [
+        (offset_polyline(lac1, 0.2), BLUE, 1.3, None),
+        (offset_polyline(lac1, -0.2), BLUE, 1.3, None),
+        (lac1, INK, 2.0, None)],
+        "κ ∝ s^(α−1) · a smooth stem with two rails", key="2a")
+
+    tip = lac1[-1]
+    cone2 = plant.cone_terminal(tip, (lac1[-1][0] - lac1[-6][0], lac1[-1][1] - lac1[-6][1]), 0.2)
+    p2b = panel("Fig. 2b", "LAC ribbon · with a cone ending", [
+        (lac1, INK, 1.8, None), (cone2["left"], RED, 1.6, None),
+        (cone2["right"], RED, 1.6, None)],
+        "the stem ends in a cone, not a bare tip", key="2b")
+
+    lac2 = lac_curve(0.5)
+    p2c = panel("Fig. 2c", "LAC ribbon · a different α", [
+        (offset_polyline(lac2, 0.2), BLUE, 1.3, None),
+        (offset_polyline(lac2, -0.2), BLUE, 1.3, None),
+        (lac2, INK, 2.0, None)],
+        "α = 0.5 · same grammar, another curve", key="2c")
+
     # 3a — Euclid chain n=1
     _, poly_n1, nodes1 = chain_spans(2, 7, 1)
     p3a = panel("Fig. 3a", "Euclid family chain · n=1", [
