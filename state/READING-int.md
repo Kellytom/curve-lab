@@ -61,6 +61,11 @@ long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, the generated
 `state/monitor.log`, and the `ornaments` repository except for extraction or
 comparison.
 
+Never load an image: any `.png`, `.jpg`, `.pdf` or other raster/binary figure.
+The engine has no image input, so one image in the history fails every later
+turn with `image input is not available on this engine`. Use `file` / `sips` /
+a script for numbers and let the operator make the visual call.
+
 ## Cost rule
 
 Tier 0 is ~750 lines and no source code. Tier 1 adds ~650 when direction is in

@@ -51,7 +51,10 @@ Focused handon for curve-lab. Work in
 10. Where a browser check or a screenshot is needed, use **Playwright** via
     `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
     its own browser, so nothing has to be running first. Do not use the Review
-    pane, Safari/safaridriver, or the old CDP-on-9223 daemon.
+    pane, Safari/safaridriver, or the old CDP-on-9223 daemon. Never `read` the
+    PNG it writes: the engine has no image input, and one image in the history
+    fails every later turn with `image input is not available on this engine`.
+    Report the path and let the operator look.
 11. Do the action and stop. The operator runs `/fhandoff` when they want the
     focused handoff refreshed; it is not run automatically.
 
