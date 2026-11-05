@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:78.8%}
+.fill{height:100%;background:#8c6a21;width:79.3%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">41 / 52 done · 79% · read-only twin of
+<div class="count">46 / 58 done · 79% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -96,6 +96,19 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>join G2.</p>
 <li>Levien is not an active exact-integer route. The fitted parallel Bézier</li>
 <p>remains available as a fitted option; no new Levien integer probes.</p>
+<h2>Explorations — 2026-11-05</h2>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Log spiral width:</strong> a constant offset is not a log spiral (drift grows</span></label>
+<p>with d/r); the exact partner is scaled *and* rotated, width ∝ r. <code>curve_lab/taper.py</code>, <code>tests/test_taper.py</code>, <code>workbench/log-spiral.html</code>.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Tapered stem:</strong> exact rails, asymmetry 5.25%, terminal seam 2.63%.</span></label>
+<p><code>workbench/tapered-stem.html</code>.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>p-triple plane:</strong> fixed a and b are hyperbolae whose integer points are</span></label>
+<p>factorisations; fixed m is a parabola. The involute of a parabola&#x27;s evolute is exactly its parallel family, which is not parabolas. <code>workbench/pyth-plane.html</code>.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Multi-grid:</strong> parts compose by lcm (1, 1/5, 1/25 → 25); per-span grids</span></label>
+<p>cost 5^k. <code>workbench/multi-grid.html</code>.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Composed stem:</strong> integer stalk + link + second stalk across a declared</span></label>
+<p>1/5 step. Position exact, kink <strong>25.06°</strong> — the cost of the step. <code>workbench/composed-stem.html</code>.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Wire the taper into <code>plant-forms.html</code></strong> as a third stalk option, with</span></label>
+<p>the asymmetry and terminal seam stated on the page.</p>
 <h2>Done — heart forms</h2>
 <label class="task"><input type="checkbox" checked disabled><span><code>heart-forms.html</code> renders all 15 formulaic hearts; <code>tests/test_heart_forms.py</code> guards one card per form.</span></label>
 <label class="task"><input type="checkbox" checked disabled><span>Link the five-figure clothoid-heart page <code>hearts.html</code> to the expanded <code>heart-forms.html</code>.</span></label>
