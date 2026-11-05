@@ -116,6 +116,22 @@ def ranked_in_box(c_max: int, low: int, high: int, rank: int = 0):
     return out
 
 
+def primitives(count: int = 10):
+    """The first `count` primitive triples by hypotenuse, with their Euclid pair."""
+    out = []
+    m = 2
+    while len(out) < count:
+        for n in range(1, m):
+            if (m - n) % 2 == 0 or gcd(m, n) != 1:
+                continue
+            out.append({
+                "a": m * m - n * n, "b": 2 * m * n, "c": m * m + n * n,
+                "m": m, "n": n, "k": 1,
+            })
+        m += 1
+    return sorted(out, key=lambda t: (t["c"], t["a"]))[:count]
+
+
 def rays(points, limit: int, count: int = 10):
     """A readable sample of primitive scaling rays from the origin."""
     picks = sorted(

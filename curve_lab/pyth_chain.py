@@ -214,6 +214,65 @@ def report(points, span_scale: int = SPAN_SCALE) -> dict:
     }
 
 
+def bezier(c, t: float):
+    mt = 1.0 - t
+    w = (mt * mt * mt, 3 * mt * mt * t, 3 * mt * t * t, t * t * t)
+    return (sum(w[i] * c[i][0] for i in range(4)), sum(w[i] * c[i][1] for i in range(4)))
+
+
+def bezier_d1(c, t: float):
+    mt = 1.0 - t
+    w = (3 * mt * mt, 6 * mt * t, 3 * t * t)
+    return (sum(w[i] * (c[i + 1][0] - c[i][0]) for i in range(3)),
+            sum(w[i] * (c[i + 1][1] - c[i][1]) for i in range(3)))
+
+
+def bezier_d2(c, t: float):
+    mt = 1.0 - t
+    return (6 * mt * (c[2][0] - 2 * c[1][0] + c[0][0]) + 6 * t * (c[3][0] - 2 * c[2][0] + c[1][0]),
+            6 * mt * (c[2][1] - 2 * c[1][1] + c[0][1]) + 6 * t * (c[3][1] - 2 * c[2][1] + c[1][1]))
+
+
+def curvature(c, t: float) -> float:
+    u = bezier_d1(c, t)
+    w = bezier_d2(c, t)
+    n = math.hypot(*u)
+    if n == 0:
+        return 0.0
+    return (u[0] * w[1] - u[1] * w[0]) / n ** 3
+
+
+def min_radius(spans, samples: int = 32) -> float:
+    """Smallest radius of curvature on the chain, sampled.
+
+    The offset of a cubic is not a cubic, and the offset only exists while
+    d < 1/|kappa|; this is the number that decides whether a width is legal.
+    """
+    worst = 0.0
+    for c in spans:
+        for i in range(samples + 1):
+            k = abs(curvature(c, i / samples))
+            worst = max(worst, k)
+    return float("inf") if worst == 0 else 1.0 / worst
+
+
+def rails(spans, d: float, samples: int = 24):
+    """Two sampled polylines at distance d from the chain, normals in +y up."""
+    left, right = [], []
+    for c in spans:
+        for i in range(samples + 1):
+            t = i / samples
+            p = bezier(c, t)
+            v = bezier_d1(c, t)
+            n = math.hypot(*v)
+            if n == 0:
+                continue
+            nx, ny = -v[1] / n, v[0] / n
+            left.append((p[0] + d * nx, p[1] + d * ny))
+            right.append((p[0] - d * nx, p[1] - d * ny))
+    return left, right
+
+
 def g2_report(points, span_scale: int = SPAN_SCALE) -> dict:
     ts = tangents(points)
     hs = g2_handles(ts, span_scale)

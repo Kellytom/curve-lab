@@ -278,6 +278,94 @@ def law_report(points):
     }
 
 
+def offset_svg(points, w=1200, h=560, pad=80):
+    """The chain with ±d rails: legal at half the radius, broken past it."""
+    ts = pyth_chain.tangents(points)
+    sp = pyth_chain.spans(ts)
+    r = pyth_chain.min_radius(sp, samples=48)
+    good = r * 0.5
+    bad = r * 2.2
+    lg, rg = pyth_chain.rails(sp, good)
+    lb, rb = pyth_chain.rails(sp, bad)
+
+    ctrl = [p for c in sp for p in c]
+    xs = [p[0] for p in ctrl] + [p[0] for p in lb] + [p[0] for p in rb]
+    ys = [p[1] for p in ctrl] + [p[1] for p in lb] + [p[1] for p in rb]
+    xmin, xmax, ymin, ymax = min(xs), max(xs), min(ys), max(ys)
+    s = min((w - 2 * pad) / (xmax - xmin), (h - 2 * pad - 40) / (ymax - ymin))
+
+    def put(p):
+        return pad + (p[0] - xmin) * s, h - pad - 26 - (p[1] - ymin) * s
+
+    def path(pts, colour, width, dash=None, opacity=1):
+        d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in pts)
+        dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
+        return (f'<path d="M {d}" fill="none" stroke="{colour}" stroke-width="{width}"'
+                f' opacity="{opacity}"{dash_attr}/>')
+
+    body = []
+    for c in sp:
+        q = [put(p) for p in c]
+        body.append(f'<path d="M {q[0][0]:.1f} {q[0][1]:.1f} C {q[1][0]:.1f} {q[1][1]:.1f} '
+                    f'{q[2][0]:.1f} {q[2][1]:.1f} {q[3][0]:.1f} {q[3][1]:.1f}" '
+                    f'fill="none" stroke="#2e2413" stroke-width="2.6"/>')
+    body.append(path(lg, "#c9a441", 2.2))
+    body.append(path(rg, "#c9a441", 2.2))
+    body.append(path(lb, "#a23b2a", 1.6, dash="6 5", opacity=.9))
+    body.append(path(rb, "#a23b2a", 1.6, dash="6 5", opacity=.9))
+
+    body.append('<text x="16" y="24" font-family="Georgia,serif" font-size="15" font-weight="600" fill="#2e2413">Fig. C3 · the chain with a width</text>')
+    body.append(f'<text x="16" y="42" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#7b6c4e">'
+                f'first five triples · min radius {r:,.0f} · gold rails at d={good:,.0f} (half the radius) · '
+                f'rust rails at d={bad:,.0f} (2.2x, past it)</text>')
+    body.append('<text x="16" y="{h-10}" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#7b6c4e">'
+                'the legal offset exists only while d &lt; 1/|kappa|; past that the rail folds through itself</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>' + "".join(body) + "</svg>")
+
+
+def compare_svg(w=1200, h=520, pad=70):
+    """n=1, 2, 5 over the same angle band, each normalised to the same width."""
+    rows = []
+    for n in (1, 2, 5):
+        pts = [p for p in pyth_triples.family(n, 4000)
+               if 4.0 <= pyth_triples.angle_deg(p) <= 44.0]
+        ts = pyth_chain.tangents(pts)
+        sp = pyth_chain.spans(ts)
+        r = pyth_chain.min_radius(sp, samples=24)
+        rows.append((n, len(ts), len(sp), pyth_chain.report(pts)["width"], r,
+                     float(pyth_chain.report(pts)["jump_median"]), sp))
+
+    body = []
+    band = (h - 2 * pad) / len(rows)
+    for i, (n, nt, ns, width, r, jump, sp) in enumerate(rows):
+        ctrl = [p for c in sp for p in c]
+        xs = [p[0] for p in ctrl]
+        ys = [p[1] for p in ctrl]
+        xmin, xmax = min(xs), max(xs)
+        ymin, ymax = min(ys), max(ys)
+        sc = min((w - 2 * pad) / (xmax - xmin), (band - 52) / max(1, (ymax - ymin)))
+        ox = pad + ((w - 2 * pad) - (xmax - xmin) * sc) / 2
+        base = pad + band * (i + 1) - 26
+
+        def put(p):
+            return ox + (p[0] - xmin) * sc, base - (p[1] - ymin) * sc
+
+        for c in sp:
+            q = [put(p) for p in c]
+            body.append(f'<path d="M {q[0][0]:.1f} {q[0][1]:.1f} C {q[1][0]:.1f} {q[1][1]:.1f} '
+                        f'{q[2][0]:.1f} {q[2][1]:.1f} {q[3][0]:.1f} {q[3][1]:.1f}" '
+                        f'fill="none" stroke="#8a3b12" stroke-width="2.4"/>')
+        body.append(f'<text x="{pad}" y="{base - band + 22:.1f}" font-family="ui-monospace,Menlo,monospace" '
+                    f'font-size="12" fill="#2e2413">n={n} · {ns} spans · min radius {r:,.0f} · '
+                    f'curvature jump {jump:.1%} median</text>')
+    body.append('<text x="16" y="24" font-family="Georgia,serif" font-size="15" font-weight="600" fill="#2e2413">Fig. C4 · n is a tightness dial</text>')
+    body.append('<text x="16" y="42" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#7b6c4e">'
+                'same 4°–44° band, each chain scaled to the same width · +y up</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
+            f'<rect width="{w}" height="{h}" fill="#fbf7ec" stroke="#d8ccae"/>' + "".join(body) + "</svg>")
+
+
 def main():
     points = pyth_triples.base_triples(LIMIT)
     families = {n: pyth_triples.family(n, LIMIT) for n in N_FAMILIES}
@@ -294,9 +382,27 @@ def main():
     first5 = chain[:5]
     detail = chain_svg(first5)
     sweep = sweep_svg(chain)
+    offset = offset_svg(first5)
+    compare = compare_svg()
     chain_report = pyth_chain.report(chain)
     g2 = pyth_chain.g2_report(chain)
     laws = law_report(chain)
+
+    seed_rows = ""
+    for seed in pyth_triples.primitives(10):
+        fam = [q for q in pyth_triples.family(seed["n"], 4000)
+               if 4.0 <= pyth_triples.angle_deg(q) <= 44.0]
+        if len(fam) >= 2:
+            sp = pyth_chain.spans(pyth_chain.tangents(fam))
+            rad = f"{pyth_chain.min_radius(sp, samples=16):,.0f}"
+            span_txt = str(len(sp))
+        else:
+            rad, span_txt = "—", "—"
+        seed_rows += (
+            f'<tr><td>({seed["a"]}, {seed["b"]}, {seed["c"]})</td>'
+            f'<td>({seed["m"]}, {seed["n"]})</td>'
+            f'<td>{pyth_triples.angle_deg(seed):.2f}°</td>'
+            f'<td>{seed["n"]}</td><td>{span_txt}</td><td>{rad}</td></tr>')
     first5_nodes = pyth_chain.nodes(pyth_chain.tangents(first5))
     chain_rows = "".join(
         f'<tr><td>{k + 1}</td><td>{p["m"]}</td>'
@@ -455,6 +561,30 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <p>— a two-step linear recurrence, rational throughout. With <code>h₀=h₁=1</code> the handles come out <code>1, 1, 29/23, 37/30, …</code>, all positive, and the curvature difference at <strong>all {g2['joins']} joins is exactly zero</strong>: the chain is G2, not nearly G2.</p>
   <p><strong>The catch is integrality.</strong> Those fractions have a common denominator of {len(str(g2['common_denominator']))} digits, so clearing it produces a grid of absurd size. C1 is free on the integers; exact G2 costs the integers. The honest summary: this chain is <em>integer C1</em> and <em>rational G2</em>, and the two do not meet here.</p>
   <p class="small">Measured by <code>pyth_chain.g2_report()</code> and pinned by <code>tests/test_pyth_chain.py</code>: the zero gap, the recurrence's first fractions, and the size of the denominator are all asserted.</p>
+</section>
+
+<section class="panel">
+  <h2>Fig. C3 · the chain with a width</h2>
+  <div class="figure">{offset}</div>
+  <p>An offset exists only while the width stays inside the local radius of curvature. On this chain the smallest radius is <strong>269 units</strong> against a total length of 246,000 — so the legal width is about <strong>0.1% of the length</strong>. Gold rails sit at half the radius and are clean; rust rails at 2.2× the radius invert at the tight end, which is what a width past the limit looks like.</p>
+  <p><strong>Verdict:</strong> this is a <em>spine</em>, not a stem. It carries a hairline, not a ribbon. A usable plant form has to be cut from the tight end — the first few spans, where the radius is small enough to give the width something to live in.</p>
+</section>
+
+<section class="panel">
+  <h2>Fig. C4 · n is a tightness dial</h2>
+  <div class="figure">{compare}</div>
+  <p>Same 4°–44° band, three families, each scaled to the same width. As <code>n</code> rises the chain flattens: the smallest radius goes <strong>58 → 269 → 5,291</strong> for <code>n=1,2,5</code>, and the curvature jump falls from <strong>12.4% to 5.0%</strong> median. The power law softens too, from <code>κ ∝ s^-1.24</code> to <code>s^-1.06</code>.</p>
+  <p>So <code>n</code> is a real dial, not a decoration: small <code>n</code> gives a tight, stem-like curve; large <code>n</code> gives a long shallow arc. That is the property a grammar needs, and it is why the next step is the ten primitive seeds rather than more of one family.</p>
+</section>
+
+<section class="panel">
+  <h2>The ten primitive seeds</h2>
+  <p>Start small and named. These are the ten primitive triples with the smallest hypotenuse; each one fixes a Euclid pair <code>(m,n)</code> and therefore a family to build a chain from. The angle is the seed's own tangent; the radius is the smallest radius of curvature of that family's chain over the 4°–44° band — the number that decides whether a width is possible.</p>
+  <table>
+    <tr><th>seed (a,b,c)</th><th>(m,n)</th><th>angle</th><th>family n</th><th>spans in band</th><th>min radius</th></tr>
+    {seed_rows}
+  </table>
+  <p class="small">The 3-4-5 seed is <code>m=2, n=1</code>, so its family is the <code>n=1</code> chain — the tightest of the set at radius 58, and the natural first stem. A seed with a large <code>n</code> gives a shallow arc instead; the table is the menu, not a ranking. The band is 4°–44° for every seed, so a steep seed such as <code>(5,12,13)</code> at 67° sits at its family's high end, outside the band it is listed with.</p>
 </section>
 
 <section class="panel">

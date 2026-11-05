@@ -1,10 +1,10 @@
 ```text
 Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-You are giving the n=2 chain a width: run the rendered 52-span chain through the
-offset model and report what the three tiers actually do on it.
-Proves: workbench/pythagorean-families.html carries an offset figure beside
-Fig. C1/C2 with the ±d rails, the measured minimum gap, and a stated verdict on
-whether the chain offsets exactly, needs fitting, or only samples — plus one
-sentence naming which tier applies to an integer cubic chain.
+You are cutting the first stem from the 3-4-5 seed: build the n=1 chain over a
+band that includes 53.13°, take the tight end, and give it a width that fits
+its radius.
+Proves: workbench/pythagorean-families.html or the chain editor shows the n=1
+stem with ±d rails, a stated d < min radius, a measured rail-to-rail gap of 2d,
+and one sentence saying whether the result reads as a stem or still as a spine.
 ```
-Source: state/HANDOFF-int.md · 2026-11-04 · n=2 chain rendered (integer C1)
+Source: state/HANDOFF-int.md · 2026-11-04 · width measured, n is the dial
