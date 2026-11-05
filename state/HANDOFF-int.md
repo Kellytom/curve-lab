@@ -936,3 +936,35 @@ new species. Fig. Y on `workbench/pythagorean-chain-editor.html`.
   terminal seam **2.63%** of the offset. Exact rails, not offsets.
 - Correction: the first log-spiral page used the far normal intersection
   (1.60·r); the nearest distance is **0.3409·r**. Fixed and tested.
+
+## 2026-11-05 — the showcase, the catalogue rule, the meter
+
+- `workbench/showcase.html`: 18 families, 55 numbered panels plus an unnumbered
+  ray fan; every figure links to `showcase-notes.html` (its own section). The
+  top of the page is the structure: exact parallels (log spiral, circle
+  involute, the string construction), smooth Euler chains, the integer spine
+  drawn as ink with a cut and a branch, LAC ribbons.
+- `workbench/curves-all.html`: 25 named curves from `generators.NAMED` and 15
+  hearts from `heart_forms.FORMS`, rendered by the repo's own code — the answer
+  to the four invented silhouettes that had been standing in for them.
+- `scripts/ctx.py`: context meter (`input + cache.read` against the 1M window),
+  a tally in `state/sessions.jsonl`, and `--watch` that beeps at 70% and 85%.
+  Duration and turns are reported, not judged.
+- `recheck` now 21/21, including "every named curve and heart is rendered from
+  its own table" — the check that makes the enumeration rule enforceable.
+
+**Local:** 200 on :8003. **Remote:** no `.run.app` URL is recorded anywhere in
+the docs, so remote status is **not known** — carried, and a gap worth closing.
+**Tests:** 44 modules green, last run 2026-11-05 (this session). **Git:** clean
+at the commit below.
+
+**Next move:** the graded table has 23 PASS curves; three are drawn nowhere —
+the 3-4-5 Pythagorean spiral, the seagrass ending, the modulated-width study.
+The hyperbola is the fourth gap (family 9 shows parabola and ellipse only).
+Take the 3-4-5 spiral first: it is the exact spine and the signature result.
+
+Tried and rejected: drawing catalogue pages from memory — produced a limaçon
+labelled "bean" while the exact bean sat in `generators.NAMED`; replaced by
+table-driven rendering and a failing check. A 90-minute session timer — the
+store shows long sessions with the *lowest* error rate (0.12 vs 0.47 per 100
+turns), so duration is reported, not judged. (2026-11-05)

@@ -273,3 +273,4 @@ evidence; add to them, do not re-solve them.
 The current focused action is the integer Bézier/G2 workstream at the top of
 this file. The C-family p-triple Euler conversion and the ending/flower/ornament
 proofs remain after it. `workbench/todo.html` is the visible twin.
+- [ ] **Close the graded gap:** 3-4-5 spiral, seagrass, modulated width, hyperbola.
