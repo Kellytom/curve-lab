@@ -70,3 +70,23 @@ This is the opening command. `/fhandoff` is its twin at the other end of the
 same session, but the two are not linked: `/fhandon` picks up the focused work
 and stops; the operator calls `/fhandoff` to put it down and write the block
 `/fhandon` will read next time.
+
+## Session metrics
+
+The tally is `state/sessions.jsonl`; `scripts/ctx.py` writes it and reads the
+session store, so it needs no cooperation from the model.
+
+```sh
+.venv/bin/python scripts/ctx.py --log          # current context %, active min, turns
+.venv/bin/python scripts/ctx.py --tally        # the last record per session
+```
+
+If you want the warning while working, leave this running in a side terminal —
+it beeps at 70% and again at 85%:
+
+```sh
+.venv/bin/python scripts/ctx.py --watch 120 --log
+```
+
+Check it at task boundaries, not continuously. Context is measured; minutes and
+turns are reported, not judged.

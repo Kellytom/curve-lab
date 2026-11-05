@@ -108,7 +108,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - **Measure context, don't feel it:** `python scripts/ctx.py` (1M window). Warn
   at 70%, stop at 85% — then /fhandoff. It also prints active minutes and turns,
   but they are reported, not judged: the store shows no error-rate rise with
-  long sessions, so no time threshold is claimed. Never narrow the task
+  long sessions, so no time threshold is claimed. `--log` appends to
+  `state/sessions.jsonl`; `--tally` shows the last record per session; `--watch
+  N` beeps at 70% and 85%. Never narrow the task
   silently; "complete" needs a diff or a test.
 - **Catalogue pages are generated from the source tables**, never drawn from
   memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
