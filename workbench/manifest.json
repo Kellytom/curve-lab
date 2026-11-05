@@ -245,6 +245,15 @@
       "outputs": "the plant-form proof: cone/seagrass/flower endings, pyramid marks, branches"
     },
     {
+      "key": "fleur-proof",
+      "file": "fleur-proof.html",
+      "group": "curve",
+      "title": "Fleur proof 01",
+      "purpose": "The fleur study read through the plant-form grammar, not drawn as a special case.",
+      "inputs": "the study's width, its integer nodes, its petal as a branch",
+      "outputs": "rails, a cone terminal at the lance tip, a seagrass branch ending, pyramid marks"
+    },
+    {
       "key": "euler-sections",
       "file": "euler-sections.html",
       "group": "curve",
