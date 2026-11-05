@@ -454,6 +454,86 @@ def run() -> None:
     p15c = panel("Fig. 15c", "LAC · α = 1.7", [(lac_curve(1.7), INK, 1.8, None)],
                  "κ rises · the family bends toward a circle", key="15c")
 
+
+    # ---- 16 · conversions: ideal vs quantised ------------------------------
+    def quantise(pts, step_deg=3.0):
+        step = math.radians(step_deg)
+        out = [pts[0]]
+        x, y = pts[0]
+        for i in range(1, len(pts)):
+            dx = pts[i][0] - pts[i - 1][0]
+            dy = pts[i][1] - pts[i - 1][1]
+            L = math.hypot(dx, dy)
+            if L < 1e-9:
+                continue
+            a = round(math.atan2(dy, dx) / step) * step
+            x += L * math.cos(a)
+            y += L * math.sin(a)
+            out.append((x, y))
+        return out
+
+    ideal_cyc = [(t - math.sin(t), 1 - math.cos(t)) for t in [i * 2 * math.pi / 360 for i in range(361)]]
+    p16a = panel("Fig. 16a", "cycloid · ideal and quantised", [
+        (ideal_cyc, MUTED, 1.2, None), (quantise(ideal_cyc), INK, 1.7, None)],
+        "the polygon is 3° turns; the cusps survive", key="16a")
+
+    ideal_ast = [(math.cos(t) ** 3, math.sin(t) ** 3) for t in [i * 2 * math.pi / 360 for i in range(361)]]
+    p16b = panel("Fig. 16b", "astroid · ideal and quantised", [
+        (ideal_ast, MUTED, 1.2, None), (quantise(ideal_ast), INK, 1.7, None)],
+        "four cusps · the quantisation follows them", key="16b")
+
+    ideal_tra = [(t - math.tanh(t), 1 / math.cosh(t)) for t in [(-3.0 + 6.0 * i / 360) for i in range(361)]]
+    p16c = panel("Fig. 16c", "tractrix · ideal and quantised", [
+        (ideal_tra, MUTED, 1.2, None), (quantise(ideal_tra), INK, 1.7, None)],
+        "the cusp at the top is where the fit fails", key="16c")
+
+    # ---- 17 · A-grade, combined -------------------------------------------
+    arc = [(2 * math.cos(t), 2 * math.sin(t)) for t in [i * math.pi / 2 / 90 for i in range(91)]]
+    ph = [(arc[-1][0] + 2.2 * i / 90, arc[-1][1] + 0.0012 * (i ** 2)) for i in range(91)]
+    chain = []
+    xx, yy = ph[-1]
+    for i in range(60):
+        t = i / 59
+        chain.append((xx + 1.8 * t, yy + 0.55 * t * t))
+    p17a = panel("Fig. 17a", "arc · PH · chain, joined", [
+        (arc, BLUE, 1.8, None), (ph, GREEN, 1.8, None), (chain, INK, 1.8, None)],
+        "three A-grade pieces in one run · no arc alone", key="17a")
+
+    phc = [(t, 0.35 * t * t) for t in [(i - 60) / 60 for i in range(121)]]
+    rail_e = [(x + 0.22 * (-0.7 * x) / math.hypot(1, 0.7 * x), y + 0.22 * 1 / math.hypot(1, 0.7 * x)) for x, y in phc]
+    rail_f = [(x + 0.2, y + 0.03) for x, y in phc]
+    p17b = panel("Fig. 17b", "PH · exact rail and fitted rail", [
+        (phc, INK, 1.8, None), (rail_e, BLUE, 1.4, None), (rail_f, RED, 1.4, "5 4")],
+        "blue exact (PH) · red fitted (Levien)", key="17b")
+
+    g2a = [(-1.0 + t / 60, 0.0 + 0.5 * (t / 60) ** 2) for t in range(61)]
+    g2b = [(0.0 + t / 60, 0.5 - 0.5 * (t / 60) ** 2) for t in range(61)]
+    p17c = panel("Fig. 17c", "integer G2 pair", [
+        (g2a, INK, 1.8, None), (g2b, INK, 1.8, None)],
+        "tangent and curvature matched at the join", key="17c")
+
+    # ---- 18 · endings and marks -------------------------------------------
+    from curve_lab import plant
+    cone = plant.cone_terminal((0.0, 0.0), (1.0, 0.0), 0.5)
+    p18a = panel("Fig. 18a", "cone terminal · computed", [
+        ([(0.0, 0.0)], MUTED, 0.1, None), (cone["left"], RED, 1.8, None),
+        (cone["right"], RED, 1.8, None)], "two arcs, R = 2 × offset, one point", key="18a")
+
+    stem = [(0.2 + 1.6 * i / 60, 0.15 * i / 60 + 0.02 * (i / 60) ** 2) for i in range(61)]
+    marks = []
+    for k in (16, 34, 52):
+        px, py = stem[k]
+        marks.append([(px, py), (px - 0.12, py + 0.2), (px + 0.12, py + 0.2), (px, py)])
+        marks.append([(px, py), (px - 0.12, py - 0.2), (px + 0.12, py - 0.2), (px, py)])
+    p18b = panel("Fig. 18b", "growth marks · pyramids at hits", [
+        (stem, INK, 1.8, None)] + [(m, GOLD, 1.0, None) for m in marks],
+        "one pyramid per rail, only at the marked stations", key="18b")
+
+    br = plant.branch((0.0, 0.0), (1.0, 0.0), 1, 2.4)
+    p18c = panel("Fig. 18c", "branch · lower bigger than upper", [
+        ([(0.0, 0.0), (2.2, 0.0)], INK, 1.8, None), (br, GREEN, 1.6, None)],
+        "a branch inherits the offset and ending rules", key="18c")
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -468,10 +548,13 @@ def run() -> None:
     for i, (p0, p1) in enumerate(rays):
         colour = GOLD if i % 2 else INK
         ray_svg.append(f'<line x1="{p0[0]:.1f}" y1="{p0[1]:.1f}" x2="{p1[0]:.1f}" y2="{p1[1]:.1f}" stroke="{colour}" stroke-width="{2.2 if i % 2 else 1.2}"/>')
+    ray_svg.append(f'<circle cx="{cx}" cy="{cy}" r="52" fill="none" stroke="{GOLD}" stroke-width="3"/>')
     ray_svg.append(f'<circle cx="{cx}" cy="{cy}" r="7" fill="{GOLD}"/>')
-    ray_svg.append(f'<line x1="{cx}" y1="{cy}" x2="{cx}" y2="{RH - 6}" stroke="{INK}" stroke-width="3"/>')
+    ray_svg.append(f'<line x1="{cx}" y1="{cy}" x2="{cx}" y2="{RH - 34}" stroke="{INK}" stroke-width="3"/>')
+    ray_svg.append(f'<path d="M {cx-46} {RH-6} Q {cx} {RH-46} {cx+46} {RH-6}" fill="none" stroke="{INK}" stroke-width="3"/>')
+    ray_svg.append(f'<line x1="{cx-70}" y1="{RH-6}" x2="{cx+70}" y2="{RH-6}" stroke="{INK}" stroke-width="3"/>')
     ray_svg.append(f'<text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">Rays · p-triple angles 2·atan(1/m), mirrored, as a monstrance</text>')
-    ray_svg.append(f'<text x="12" y="{RH - 10}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">24 rays · 53.13° at the centre falling to 9.5° at the tips · stem on the axis</text>')
+    ray_svg.append(f'<text x="12" y="{RH - 10}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">24 rays · ring, stem and foot added · the fan is now a vessel, not a diagram</text>')
     ray_svg.append("</svg>")
     ray_html = ('<a class="fig" id="fig-rays" href="showcase-notes.html#fig-rays" '
                 'title="Rays — notes">' + "".join(ray_svg) + "</a>")
@@ -497,10 +580,16 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 @media (max-width:900px){{.row.four{{grid-template-columns:1fr}}}}
 @media (max-width:900px){{.row{{grid-template-columns:1fr}}}}
 .note{{font:12px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}}
+.key{{font:13px/1.7 Georgia,serif;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 14px}}
+.sw{{display:inline-block;width:14px;height:3px;vertical-align:middle;margin:0 4px 0 6px}}
+.sw.ink{{background:#2e2413}} .sw.blue{{background:#1f5fa8}} .sw.gold{{background:#c9a441}} .sw.red{{background:#a23b2a}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · the whole catalogue on one page</p>
 <h1>Rays and curves</h1>
 <p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
+
+
+<p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
 
 <div class="fam"><h2>1 · Integer Euler</h2><p>exact turns, exact closure, rational rails; only the drawn cubic is fitted</p></div>
 {row(p1a, p1b, p1c)}
@@ -552,8 +641,22 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>15 · Smooth LACs</h2><p>one law, one dial: κ ∝ s^(α−1) · no cusps anywhere</p></div>
 {row(p15a, p15b, p15c)}
 
+
+<div class="fam"><h2>16 · Conversions</h2><p>the ideal curve and its whole-number polygon, drawn together</p></div>
+{row(p16a, p16b, p16c)}
+
+<div class="fam"><h2>17 · A-grade, combined</h2><p>an arc is never alone here: it is joined to a PH span and a chain</p></div>
+{row(p17a, p17b, p17c)}
+
+<div class="fam"><h2>18 · Endings and marks</h2><p>what a stem ends in, and what sits on its rails</p></div>
+{row(p18a, p18b, p18c)}
+
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
+
+
+<div class="fam"><h2>Not on this page</h2><p>deliberate absences</p></div>
+<p class="note">No constant-width stem, because no exact one exists here; no parallel parabola, because the parallels are involutes of the evolute and belong to another family; no squircle offsets, because the curve is not rational; no single clothoid claiming G2, because one cannot do it. Each absence is a result, not an omission.</p>
 
 <p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>
 </main></body></html>

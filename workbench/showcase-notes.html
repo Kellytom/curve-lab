@@ -391,6 +391,78 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> docs/SPINE.md · goals.md (LAC tier)<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-15c">← back to the figure</a></p>
 </section>
+<section class="note" id="fig-16a">
+  <p class="eyebrow">Fig. 16a · conversion</p>
+  <h2>Cycloid: ideal and quantised</h2>
+  <p>The grey curve is the ideal cycloid; the dark one is the same curve with every heading rounded to 3° and the arches rebuilt from those rounded steps.</p><p>This is the project's central move, shown rather than described: the ideal curve is the target, the polygon is the plan, and the cusps survive the rounding.</p>
+  <ul class="nums"><li>3° quantisation</li><li>cusps preserved</li></ul>
+  <p class="meta"><strong>Where:</strong> docs/SPINE.md §5 · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-16a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-16b">
+  <p class="eyebrow">Fig. 16b · conversion</p>
+  <h2>Astroid: ideal and quantised</h2>
+  <p>The same treatment on a curve with four cusps. Quantisation follows the cusps rather than rounding them away, which is why the p-triple route can carry this family at all.</p><p>A clothoid chain cannot cross a cusp, so the section must be split — visible here as the corners that stay corners.</p>
+  <ul class="nums"><li>4 cusps</li><li>split required</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/euler-sections.html · TODO grade table<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-16b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-16c">
+  <p class="eyebrow">Fig. 16c · conversion</p>
+  <h2>Tractrix: ideal and quantised</h2>
+  <p>The tractrix's cusp is the hard case: the quantised polygon gathers points near it, and the clothoid fit degrades there. That degradation is the measured 15% figure.</p><p>It is drawn beside the ideal rather than instead of it, so the error is visible rather than asserted.</p>
+  <ul class="nums"><li>one cusp</li><li>clothoid fit degrades</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/euler_match.py · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-16c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-17a">
+  <p class="eyebrow">Fig. 17a · combined</p>
+  <h2>Arc, PH and chain joined</h2>
+  <p>A quarter arc, a PH span and an integer chain in one run. The arc appears only as part of a composition — on its own it is too simple to teach anything.</p><p>Each piece is A-grade in the catalogue: exact arc, exact PH, integer chain. The joins are the interesting part, and they are where the costs live.</p>
+  <ul class="nums"><li>three A-grade pieces</li><li>one continuous run</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/presets.py · curve_lab/pyth_chain.py<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-17a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-17b">
+  <p class="eyebrow">Fig. 17b · comparison</p>
+  <h2>PH curve: exact and fitted rails</h2>
+  <p>Blue is the exact rational offset a PH curve admits; red is Levien's fitted cubic. They are close, and only one of them is exact.</p><p>Drawing both is the catalogue's rule: never show a fitted rail without the exact one beside it when the exact one exists.</p>
+  <ul class="nums"><li>exact rail (PH)</li><li>fitted rail (Levien)</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/parallel_bezier.py · workbench/stem-library-offset.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_offsets</code></p>
+  <p class="back"><a href="showcase.html#fig-17b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-17c">
+  <p class="eyebrow">Fig. 17c · exact</p>
+  <h2>Integer G2 pair</h2>
+  <p>Two cubics with integer controls meeting with matched tangent and matched curvature — the asymmetric pair found at scale 1.</p><p>It is the strongest integer result in the catalogue: G2 without leaving the lattice, for this pair.</p>
+  <ul class="nums"><li>scale 1</li><li>tangent (4,−3)</li><li>curvature −6/5</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/pyth_g2.py · workbench/integer-g2.html Fig. G2<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_g2</code></p>
+  <p class="back"><a href="showcase.html#fig-17c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-18a">
+  <p class="eyebrow">Fig. 18a · exact</p>
+  <h2>Cone terminal, computed</h2>
+  <p>The real terminal from curve_lab.plant, not a sketch: two arcs of radius 2 × the offset, each tangent to a rail and meeting at one point.</p><p>Every stalk must end this way, in a flower, or in seagrass. A bare tip is not a style choice here; it is a defect.</p>
+  <ul class="nums"><li>R = 2 × offset</li><li>tangent at the base</li><li>one point</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py cone_terminal<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
+  <p class="back"><a href="showcase.html#fig-18a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-18b">
+  <p class="eyebrow">Fig. 18b · grammar</p>
+  <h2>Growth marks</h2>
+  <p>Pyramids sit on both rails only at marked stations — the integer-lattice hits. They are a mark, not a new curve family: small, local, and never between hits.</p><p>The rule is what keeps the stem from becoming decoration: every mark has a reason you can point at.</p>
+  <ul class="nums"><li>one pyramid per rail</li><li>only at hits</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py pyramid · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant_forms</code></p>
+  <p class="back"><a href="showcase.html#fig-18b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-18c">
+  <p class="eyebrow">Fig. 18c · grammar</p>
+  <h2>Branch</h2>
+  <p>A branch leaves the stem and inherits the offset and ending rules. Lower branches are bigger than upper ones; the exact scale law is still open, the monotonic rule is not.</p><p>Drawn from the same module as the stem, so it cannot drift from the grammar.</p>
+  <ul class="nums"><li>lower bigger than upper</li><li>inherits offset and ending</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py branch · goals.md §Plant-forms<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
+  <p class="back"><a href="showcase.html#fig-18c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-rays">
   <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>
