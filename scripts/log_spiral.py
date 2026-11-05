@@ -13,7 +13,11 @@ The evolute is exact too (a log spiral about the same origin).
 from __future__ import annotations
 
 import math
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 INK, GOLD, BLUE, RED = "#2e2413", "#c9a441", "#1f5fa8", "#a23b2a"
@@ -137,25 +141,10 @@ def run() -> None:
 
     bars = [bar(0.6), bar(3.0), bar(6.5)]
 
-    # width of the scaled copy along the normal (exact, proportional to r)
-    def tapered_width(th):
-        # solve for the intersection of the normal ray with the scaled spiral
-        p = point(th)
-        n = unit_normal(th)
-        lo, hi = 0.0, 30.0 * r(th)
-        for _ in range(80):
-            mid = (lo + hi) / 2
-            q = (p[0] + mid * n[0], p[1] + mid * n[1])
-            rr = math.hypot(*q)
-            # the boundary spiral has radius k*r at the same polar angle
-            ang = math.atan2(q[1], q[0])
-            if rr > k * r(ang):
-                hi = mid
-            else:
-                lo = mid
-        return lo
-
-    widths = [(th, tapered_width(th)) for th in (0.6, 1.8, 3.0, 4.5, 6.0)]
+    # width of the scaled copy: the exact nearest distance, w = omega * r
+    ls = LogSpiral(10.0, B)
+    ratio = width_ratio(k, B)
+    widths = [(th, ratio * ls.radius(th)) for th in (0.6, 1.8, 3.0, 4.5, 6.0)]
 
     # figure 2: drift against d/r
     gx0, gy0, gw, gh = 90, 100, 760, 300
