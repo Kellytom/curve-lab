@@ -237,7 +237,107 @@ def run() -> None:
                 [([(0, 0), tip], INK, 1.6, None),
                  ([(tip[0] - 0.35, tip[1] - 0.2), tip, (tip[0] + 0.1, tip[1] + 0.35)], RED, 1.4, None)],
                 "two arcs, one point, no bare tip", key="5c")
-    # 6 — the rays, as a monstrance
+
+    # ---- 6 · higher order -------------------------------------------------
+    lemn = [(math.cos(t), math.sin(t) * math.cos(t)) for t in [i * 2 * math.pi / 240 for i in range(241)]]
+    p6a = panel("Fig. 6a", "Gerono lemniscate · quartic", [(lemn, INK, 1.8, None)],
+                "x = cos t, y = sin t·cos t · a node at the origin", key="6a")
+
+    pir = [(math.cos(t) * (1 + math.sin(t)), math.sin(t) * (1 + math.sin(t)))
+           for t in [-math.pi / 2 + i * (2 * math.pi) / 240 for i in range(241)]]
+    p6b = panel("Fig. 6b", "piriform · quartic with a cusp", [(pir, INK, 1.8, None)],
+                "r = 1 + sin t · one cusp, one loop", key="6b")
+
+    tri = [(math.cos(3 * t) * math.cos(t), math.cos(3 * t) * math.sin(t))
+           for t in [i * 2 * math.pi / 480 for i in range(481)]]
+    p6c = panel("Fig. 6c", "trifolium · three petals", [(tri, INK, 1.8, None)],
+                "r = cos 3t · three-fold symmetry", key="6c")
+
+    # ---- 7 · cusped and looped -------------------------------------------
+    ast = [(math.cos(t) ** 3, math.sin(t) ** 3) for t in [i * 2 * math.pi / 240 for i in range(241)]]
+    p7a = panel("Fig. 7a", "astroid · four cusps", [(ast, INK, 1.8, None)],
+                "x = cos³t, y = sin³t · cusps on both axes", key="7a")
+
+    cyc = [(t - math.sin(t), 1 - math.cos(t)) for t in [i * 2 * math.pi / 240 for i in range(241)]]
+    p7b = panel("Fig. 7b", "cycloid · arches", [(cyc, INK, 1.8, None)],
+                "x = t − sin t, y = 1 − cos t · cusps at the base", key="7b")
+
+    sc = [(t * t, t * t * t) for t in [i * 2.2 / 240 for i in range(241)]]
+    p7c = panel("Fig. 7c", "semicubical · the cusp", [(sc, INK, 1.8, None)],
+                "y² = x³ · one cusp, exact rational points", key="7c")
+
+    # ---- 8 · flowers and endings -----------------------------------------
+    card = [(math.cos(t) * (1 - math.cos(t)), math.sin(t) * (1 - math.cos(t)))
+            for t in [i * 2 * math.pi / 320 for i in range(321)]]
+    p8a = panel("Fig. 8a", "cardioid · the flower head", [(card, INK, 1.8, None)],
+                "r = 1 − cos t · exact and rational", key="8a")
+
+    ros = []
+    for t in [i * 2 * math.pi / 960 for i in range(961)]:
+        r = 0.55 + 0.45 * math.cos(6 * t)
+        ros.append((r * math.cos(t), r * math.sin(t)))
+    p8b = panel("Fig. 8b", "rosette · six petals", [(ros, INK, 1.6, None)],
+                "r = 0.55 + 0.45·cos 6t · the ending grammar's head", key="8b")
+
+    heart = [(math.sin(t) ** 3,
+              (13 * math.cos(t) - 5 * math.cos(2 * t)
+               - 2 * math.cos(3 * t) - math.cos(4 * t)) / 16)
+             for t in [i * 2 * math.pi / 320 for i in range(321)]]
+    p8c = panel("Fig. 8c", "heart · the non-rational one", [(heart, INK, 1.8, None)],
+                "fitted only · no exact route", key="8c")
+
+    # ---- 9 · conics and the clothoid --------------------------------------
+    par2 = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 160) for i in range(161)]]
+    p9a = panel("Fig. 9a", "parabola", [(par2, INK, 1.8, None)],
+                "integer points on the curve; the parallel is fitted", key="9a")
+
+    ell = [(1.6 * math.cos(t), 1.0 * math.sin(t)) for t in [i * 2 * math.pi / 240 for i in range(241)]]
+    p9b = panel("Fig. 9b", "ellipse", [(ell, INK, 1.8, None)],
+                "rational points, not a rational parallel", key="9b")
+
+    cloth, x, y, ds = [], 0.0, 0.0, 0.02
+    for i in range(241):
+        t = i * ds
+        cloth.append((x, y))
+        x += math.cos(t * t / 2) * ds
+        y += math.sin(t * t / 2) * ds
+    p9c = panel("Fig. 9c", "clothoid · Euler spiral", [(cloth, INK, 1.8, None)],
+                "κ ∝ s · the only curve with linear curvature", key="9c")
+
+
+    # ---- 10 · spirals -----------------------------------------------------
+    spine = turn_polygon([1, 2, 3, 4, 5, 6], 4, 3, chord=1.0)
+    p10a = panel("Fig. 10a", "spine · increasing turns", [
+        (smooth(spine), INK, 1.8, None), (spine, MUTED, 0.9, "4 3")],
+        "equal chords, whole turns · the LAC plan", key="10a")
+
+    lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
+          for t in [i * 5.2 * math.pi / 480 for i in range(481)]]
+    p10b = panel("Fig. 10b", "logarithmic spiral", [(lg, INK, 1.8, None)],
+                "r = e^(0.22θ) · self-similar, not a lattice", key="10b")
+
+    inv = [(math.cos(t) + t * math.sin(t), math.sin(t) - t * math.cos(t))
+           for t in [i * 3.4 * math.pi / 400 for i in range(401)]]
+    p10c = panel("Fig. 10c", "circle involute", [(inv, INK, 1.8, None)],
+                "exact within its family · the offset is another involute", key="10c")
+
+    # ---- 11 · classical gauges -------------------------------------------
+    cat = [(x, math.cosh(x) - 1) for x in [(-2.4 + 4.8 * i / 240) for i in range(241)]]
+    p11a = panel("Fig. 11a", "catenary", [(cat, INK, 1.8, None)],
+                "four PH cubics to 0.41% of a · the integer chord walk", key="11a")
+
+    tra = [(t - math.tanh(t), 1 / math.cosh(t)) for t in [(-3.0 + 6.0 * i / 400) for i in range(401)]]
+    p11b = panel("Fig. 11b", "tractrix", [(tra, INK, 1.8, None)],
+                "one cusp · fitted only, poor at the cusp", key="11b")
+
+    def sq(t):
+        return (math.copysign(abs(math.cos(t)) ** 0.5, math.cos(t)),
+                math.copysign(abs(math.sin(t)) ** 0.5, math.sin(t)))
+    squ = [sq(i * 2 * math.pi / 400) for i in range(401)]
+    p11c = panel("Fig. 11c", "squircle", [(squ, INK, 1.8, None)],
+                "|x|⁴ + |y|⁴ = 1 · not rational, all offsets fitted", key="11c")
+
+    # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
     rays = []
@@ -253,11 +353,11 @@ def run() -> None:
         ray_svg.append(f'<line x1="{p0[0]:.1f}" y1="{p0[1]:.1f}" x2="{p1[0]:.1f}" y2="{p1[1]:.1f}" stroke="{colour}" stroke-width="{2.2 if i % 2 else 1.2}"/>')
     ray_svg.append(f'<circle cx="{cx}" cy="{cy}" r="7" fill="{GOLD}"/>')
     ray_svg.append(f'<line x1="{cx}" y1="{cy}" x2="{cx}" y2="{RH - 6}" stroke="{INK}" stroke-width="3"/>')
-    ray_svg.append(f'<text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">Fig. 6 · the rays · p-triple angles 2·atan(1/m), mirrored, as a monstrance</text>')
+    ray_svg.append(f'<text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">Rays · p-triple angles 2·atan(1/m), mirrored, as a monstrance</text>')
     ray_svg.append(f'<text x="12" y="{RH - 10}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">24 rays · 53.13° at the centre falling to 9.5° at the tips · stem on the axis</text>')
     ray_svg.append("</svg>")
-    ray_html = ('<a class="fig" id="fig-6" href="showcase-notes.html#fig-6" '
-                'title="Fig. 6 — notes">' + "".join(ray_svg) + "</a>")
+    ray_html = ('<a class="fig" id="fig-rays" href="showcase-notes.html#fig-rays" '
+                'title="Rays — notes">' + "".join(ray_svg) + "</a>")
 
     def row(a, b, c):
         return f'<div class="row">{a}{b}{c}</div>'
@@ -298,7 +398,27 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>5 · Composition</h2><p>parts on different grids, a declared step, and an ending</p></div>
 {row(p5a, p5b, p5c)}
 
-<div class="fam"><h2>6 · Rays</h2><p>the p-triple angles themselves, mirrored about the axis</p></div>
+
+<div class="fam"><h2>6 · Higher order</h2><p>quartics and a sextic · nodes and cusps are what make them exact</p></div>
+{row(p6a, p6b, p6c)}
+
+<div class="fam"><h2>7 · Cusped and looped</h2><p>the cusp is the exactness; it is also why the clothoid cannot follow them</p></div>
+{row(p7a, p7b, p7c)}
+
+<div class="fam"><h2>8 · Flowers and endings</h2><p>the heads a stalk ends in · one of them is not rational at all</p></div>
+{row(p8a, p8b, p8c)}
+
+<div class="fam"><h2>9 · Conics and the clothoid</h2><p>integer points on the curve, fitted parallels, and the one linear-curvature curve</p></div>
+{row(p9a, p9b, p9c)}
+
+
+<div class="fam"><h2>10 · Spirals</h2><p>the plan, the self-similar curve, and the one whose offsets stay in the family</p></div>
+{row(p10a, p10b, p10c)}
+
+<div class="fam"><h2>11 · Classical gauges</h2><p>two solved by hand and one that refuses: catenary, tractrix, squircle</p></div>
+{row(p11a, p11b, p11c)}
+
+<div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
 
 <p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>

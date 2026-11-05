@@ -143,12 +143,156 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-5c">← back to the figure</a></p>
 </section>
-<section class="note" id="fig-6">
-  <p class="eyebrow">Fig. 6 · composition</p>
+<section class="note" id="fig-6a">
+  <p class="eyebrow">Fig. 6a · exact quartic</p>
+  <h2>Gerono lemniscate</h2>
+  <p>A figure-eight with a node at the origin: x = cos t, y = sin t·cos t. The node is not a defect — it is what makes the curve rational and lets every point be written exactly.</p><p>A smooth curve of the same look would not be rational; the node is the price of exactness, and here it is welcome.</p>
+  <ul class="nums"><li>quartic</li><li>one node</li><li>rational</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py (named curves) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-6a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-6b">
+  <p class="eyebrow">Fig. 6b · exact quartic</p>
+  <h2>Piriform</h2>
+  <p>The pear: one loop and one cusp, r = 1 + sin t. Like the lemniscate it buys rationality with a singularity.</p><p>It belongs in the ending/flower track rather than the stalk catalogue, where its cusp would have to be split.</p>
+  <ul class="nums"><li>quartic</li><li>one cusp</li><li>rational</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-6b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-6c">
+  <p class="eyebrow">Fig. 6c · exact sextic</p>
+  <h2>Trifolium</h2>
+  <p>Three petals, r = cos 3t. The higher degree is what gives three-fold symmetry without a fitted blend.</p><p>It is in the flower grammar precisely because the symmetry is exact: a rosette that is not rational cannot promise it.</p>
+  <ul class="nums"><li>sextic</li><li>3-fold symmetry</li><li>rational</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py · docs/FLOWERS-int.md<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-6c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-7a">
+  <p class="eyebrow">Fig. 7a · exact · cusped</p>
+  <h2>Astroid</h2>
+  <p>x = cos³t, y = sin³t: four cusps on the axes. Every rational point is exact, and the cusps are why the p-triple Euler route can follow it at all.</p><p>A single clothoid cannot cross a cusp; this curve has four, so any chain must split there.</p>
+  <ul class="nums"><li>4 cusps</li><li>rational</li><li>split required for Euler</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=astroid · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-7a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-7b">
+  <p class="eyebrow">Fig. 7b · exact · cusped</p>
+  <h2>Cycloid</h2>
+  <p>The rolling-circle arch, x = t − sin t, y = 1 − cos t. Its cusps sit on the base line; between them it is a clean section.</p><p>Clothoid spans match it to about 0.9% on a smooth section and 15% at a cusp — the measured reason to split.</p>
+  <ul class="nums"><li>cusps on the base</li><li>0.92% smooth</li><li>15.2% cusped</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=cycloid · scripts/euler_match.py<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-7b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-7c">
+  <p class="eyebrow">Fig. 7c · exact · cusped</p>
+  <h2>Semicubical parabola</h2>
+  <p>y² = x³, the cusp curve. Its integer points are (t², t³): a lattice inside a cusp.</p><p>It is also the evolute of the parabola — the reason the parabola's parallels can be written exactly as involutes.</p>
+  <ul class="nums"><li>one cusp</li><li>integer points (t², t³)</li><li>evolute of the parabola</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=semicubical · Fig. P3<br><strong>Re-derive:</strong> <code>python scripts/pyth_plane.py</code></p>
+  <p class="back"><a href="showcase.html#fig-7c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-8a">
+  <p class="eyebrow">Fig. 8a · exact</p>
+  <h2>Cardioid</h2>
+  <p>r = 1 − cos t: the flower head with a cusp at the base. Exact, rational, and one of the four forms the flower grammar admits.</p><p>The cusp is where the head meets the stalk, which is convenient: the join is a singularity, not a fit.</p>
+  <ul class="nums"><li>r = 1 − cos t</li><li>one cusp</li><li>rational</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py flower · docs/FLOWERS-int.md<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import plant; print(len(plant.flower((0,0),(1,0),1.0)['left']))"</code></p>
+  <p class="back"><a href="showcase.html#fig-8a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-8b">
+  <p class="eyebrow">Fig. 8b · fitted head</p>
+  <h2>Rosette</h2>
+  <p>Six petals from r = 0.55 + 0.45·cos 6t. It is the head the plant proof uses: simple, symmetric, and cheap to place.</p><p>Unlike the cardioid it is not a named rational curve; the petals are drawn as a sampled polar curve, so no exactness is claimed.</p>
+  <ul class="nums"><li>6 petals</li><li>sampled</li><li>the ending grammar's head</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py flower · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
+  <p class="back"><a href="showcase.html#fig-8b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-8c">
+  <p class="eyebrow">Fig. 8c · not exact</p>
+  <h2>Heart</h2>
+  <p>The heart is on the page as a deliberate exception: it is not rational. Its genus is 4, so no polynomial parametrisation exists and everything about it is fitted.</p><p>It stays in the catalogue because it is a good shape, not because it is a good curve. The distinction is the point.</p>
+  <ul class="nums"><li>genus 4</li><li>no exact route</li><li>fitted only</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/hearts.html · workbench/heart-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_heart_forms</code></p>
+  <p class="back"><a href="showcase.html#fig-8c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-9a">
+  <p class="eyebrow">Fig. 9a · mixed</p>
+  <h2>Parabola</h2>
+  <p>Integer points on the curve, a fitted parallel, and an exact parallel family one level up: the involutes of its evolute.</p><p>The parabola itself is not PH, so its offset is algebraic but not rational. The exact route exists, but it is not a parabola.</p>
+  <ul class="nums"><li>integer points</li><li>parallel fitted</li><li>involute exact to 1e-15</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/pyth-plane.html · Fig. P3<br><strong>Re-derive:</strong> <code>python scripts/pyth_plane.py</code></p>
+  <p class="back"><a href="showcase.html#fig-9a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-9b">
+  <p class="eyebrow">Fig. 9b · mixed</p>
+  <h2>Ellipse</h2>
+  <p>Rational points at the 3-4-5 angles, but the parallel is fitted: an ellipse is not a PH curve, so its offset is not rational.</p><p>This is the case that keeps the offset catalogue honest — every conic is exact as a curve and approximate as a band.</p>
+  <ul class="nums"><li>rational points</li><li>parallel fitted</li><li>not PH</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/stem-library-offset.html OffS8 · lac-parallel.html<br><strong>Re-derive:</strong> <code>python scripts/stem_library.py</code></p>
+  <p class="back"><a href="showcase.html#fig-9b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-9c">
+  <p class="eyebrow">Fig. 9c · exact law, fitted drawing</p>
+  <h2>Clothoid (Euler spiral)</h2>
+  <p>κ ∝ s: the one curve whose curvature is linear in arc length. It cannot be written in elementary functions, so it is integrated.</p><p>It is the core of the Euler catalogue and the reason a chain of them, not one, is needed for G2.</p>
+  <ul class="nums"><li>κ ∝ s</li><li>no elementary form</li><li>one cannot do G2</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/euler-sections.html · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-9c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-10a">
+  <p class="eyebrow">Fig. 10a · exact plan</p>
+  <h2>The spine, with increasing turns</h2>
+  <p>Equal chords, whole-number turns that grow: 1,2,3,4,5,6. The dotted polygon is the exact object; the smooth line through it is the drawing.</p><p>This is the same construction as the LAC spines, shown without a target curve so the schedule itself is visible.</p>
+  <ul class="nums"><li>equal chords</li><li>turns 1,2,3,4,5,6</li><li>rail rational</li></ul>
+  <p class="meta"><strong>Where:</strong> pythagorean-spiral/ · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-10a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-10b">
+  <p class="eyebrow">Fig. 10b · exact, not a lattice</p>
+  <h2>Logarithmic spiral</h2>
+  <p>r = e^(0.22θ): the self-similar curve. Its exact property is that scaling it gives another spiral of the same pitch, so a band between two of them has a width proportional to the radius.</p><p>What it cannot do is hold a constant width — the offset drifts. And it has no lattice at all.</p>
+  <ul class="nums"><li>self-similar</li><li>width ∝ r</li><li>constant width drifts</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/log-spiral.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
+  <p class="back"><a href="showcase.html#fig-10b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-10c">
+  <p class="eyebrow">Fig. 10c · exact within family</p>
+  <h2>Circle involute</h2>
+  <p>The involute of a circle is another circle involute under offset: same base circle, shifted parameter. That is one of the few exact offset relations in the catalogue.</p><p>It is transcendental, so it is exact in the family and unavailable to the integer grid.</p>
+  <ul class="nums"><li>offset = same family</li><li>transcendental</li><li>no lattice</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=involute · goals.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-10c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-11a">
+  <p class="eyebrow">Fig. 11a · solved</p>
+  <h2>Catenary</h2>
+  <p>The hanging chain, solved here rather than fitted: four PH cubics take it to 0.41% of a, walking integer chords.</p><p>It is the worked example of the rule that a curve is only "solved" when its offset and its integer points are both stated.</p>
+  <ul class="nums"><li>four PH cubics</li><li>0.41% of a</li><li>integer chord walk</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/catenary.html · scripts/catenary.py<br><strong>Re-derive:</strong> <code>python scripts/catenary.py</code></p>
+  <p class="back"><a href="showcase.html#fig-11a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-11b">
+  <p class="eyebrow">Fig. 11b · fitted</p>
+  <h2>Tractrix</h2>
+  <p>The curve of constant tangent length, with a cusp at the top. Clothoid spans follow it poorly near that cusp, which is why it is split rather than fitted whole.</p><p>It survives in the catalogue as a curl and a leaf ending, not as a stalk.</p>
+  <ul class="nums"><li>one cusp</li><li>poor near the cusp</li><li>ending track</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=catenary · TODO grade table<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-11b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-11c">
+  <p class="eyebrow">Fig. 11c · not exact</p>
+  <h2>Squircle</h2>
+  <p>|x|⁴ + |y|⁴ = 1: smooth, pleasing, and not rational. There is no polynomial parametrisation, so every offset is a numeric fit.</p><p>It is the honest counterweight to the rational catalogue: the shape is good, the exactness is absent, and the page says which.</p>
+  <ul class="nums"><li>not rational</li><li>offsets fitted</li><li>kept as a form</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/hearts.html · TODO grade table<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_heart_forms</code></p>
+  <p class="back"><a href="showcase.html#fig-11c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-rays">
+  <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>
   <p>The rays are the p-triple angles themselves: 2·atan(1/m) for m = 2…12, mirrored about the vertical axis. Their lengths fall with m so the fan closes, and the stem sits on the axis.</p><p>Every ray is the same object as Fig. 1a — one triangle's angle — used here as ornament rather than as a plan. That is the whole project in one figure: the same exact turn, repeated, becomes a leaf, a stem or a ray.</p>
   <ul class="nums"><li>24 rays</li><li>53.13° at the centre</li><li>9.5° at the tips</li></ul>
   <p class="meta"><strong>Where:</strong> workbench/showcase.html · workbench/ornament-board.html<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
-  <p class="back"><a href="showcase.html#fig-6">← back to the figure</a></p>
+  <p class="back"><a href="showcase.html#fig-rays">← back to the figure</a></p>
 </section>
 </main></body></html>
