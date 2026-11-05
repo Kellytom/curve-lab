@@ -85,12 +85,28 @@ def _norm2(u: Pos) -> int:
     return u[0] * u[0] + u[1] * u[1]
 
 
+def _exact_sqrt(n2):
+    """Square root of an int or Fraction when it is exactly rational, else None."""
+    if isinstance(n2, Fraction):
+        num, den = n2.numerator, n2.denominator
+        rn, rd = math.isqrt(num), math.isqrt(den)
+        if rn * rn != num or rd * rd != den:
+            return None
+        return Fraction(rn, rd)
+    root = math.isqrt(n2)
+    return root if root * root == n2 else None
+
+
 def curvature_at(c: Cubic, t: int) -> Fraction:
     """Curvature of a cubic Bezier at t = 0 or 1, exactly.
 
     kappa = |B' x B''| / |B'|^3, with
         B'(0) = 3(P1-P0)   B''(0) = 6(P2-2P1+P0)
         B'(1) = 3(P3-P2)   B''(1) = 6(P3-2P2+P1)
+
+    Exact only when |B'| is an integer, which is the case for this module's
+    spans: the handle is h*T and |T| is the triple's hypotenuse. Anywhere else
+    the cube of an irrational length is not rational, so use `curvature()`.
     """
     p0, p1, p2, p3 = c
     if t == 0:
@@ -99,9 +115,14 @@ def curvature_at(c: Cubic, t: int) -> Fraction:
     else:
         u = (p3[0] - p2[0], p3[1] - p2[1])
         w = (p3[0] - 2 * p2[0] + p1[0], p3[1] - 2 * p2[1] + p1[1])
-    if _norm2(u) == 0:
+    n2 = _norm2(u)
+    if n2 == 0:
         return Fraction(0)
-    return Fraction(2, 3) * Fraction(_cross(u, w), _norm2(u) ** 3)
+    root = _exact_sqrt(n2)
+    if root is None:
+        raise ValueError("curvature_at is exact only when |B'| is rational "
+                         "(Pythagorean spans); use curvature() otherwise")
+    return Fraction(2, 3) * Fraction(_cross(u, w)) / root ** 3
 
 
 def joins(ts: list[Pos], span_scale: int = SPAN_SCALE) -> list[Fraction]:

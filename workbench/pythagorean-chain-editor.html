@@ -48,6 +48,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <label>m to <input id="m1" type="range" min="4" max="60" step="1" value="12"><span id="m1V">12</span></label>
     <label>step S <input id="S" type="range" min="1" max="6" step="1" value="2"><span id="SV">2</span></label>
     <label>handle h <input id="h" type="range" min="1" max="8" step="1" value="1"><span id="hV">1</span></label>
+    <label>width d/R <input id="wd" type="range" min="0" max="0.9" step="0.05" value="0"><span id="wdV">off</span></label>
     <button id="g2" type="button">handles: uniform</button>
     <button id="zoom" type="button">zoom: whole chain</button>
     <button id="handles" type="button">handles: on</button>
@@ -183,7 +184,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
 const out = document.getElementById('out'), gridOut = document.getElementById('grid');
 const tbl = document.getElementById('tbl');
-const st = { n: 2, m0: 5, m1: 12, S: 2, h: 1, g2: false, zoom: false, handles: true };
+const st = { n: 2, m0: 5, m1: 12, S: 2, h: 1, wd: 0, g2: false, zoom: false, handles: true };
 
 function tangents() {
   const t = [];
@@ -255,6 +256,61 @@ function stats(d) {
     max: jumps.length ? jumps[jumps.length - 1] : 0,
     integer: !st.g2,
   };
+}
+
+// ---- width on the E1 chain: formula rails vs triangle rails --------------
+let lastRail = null;
+function normalAt(T) { return T.map(t => { const c = Math.hypot(t.a, t.b); return [t.b / c, t.a / c]; }); }
+
+function kappaEnd(c, t) {
+  const [p0, p1, p2, p3] = c;
+  let u, w;
+  if (t === 0) { u = [p1[0] - p0[0], p1[1] - p0[1]]; w = [p2[0] - 2 * p1[0] + p0[0], p2[1] - 2 * p1[1] + p0[1]]; }
+  else { u = [p3[0] - p2[0], p3[1] - p2[1]]; w = [p3[0] - 2 * p2[0] + p1[0], p3[1] - 2 * p2[1] + p1[1]]; }
+  const n2 = u[0] * u[0] + u[1] * u[1];
+  if (!n2) return 0;
+  return (2 / 3) * (u[0] * w[1] - u[1] * w[0]) / Math.pow(n2, 1.5);
+}
+
+// triangle rail: exact normal at every node (|T| = c), offset handles h(1 - d*kappa)
+function triangleOffset(g, dd, sign) {
+  const N = normalAt(g.T), off = [], spans = [];
+  g.nodes.forEach((p, k) => off.push([p[0] + sign * dd * N[k][0], p[1] + sign * dd * N[k][1]]));
+  for (let k = 0; k + 1 < g.T.length; k++) {
+    const T0 = g.T[k], T1 = g.T[k + 1];
+    const k0 = kappaEnd(g.spans[k], 0), k1 = kappaEnd(g.spans[k], 1);
+    const h0 = g.h[k] * (1 - sign * dd * k0), h1 = g.h[k + 1] * (1 - sign * dd * k1);
+    spans.push([off[k], [off[k][0] + h0 * T0.a, off[k][1] - h0 * T0.b],
+                [off[k + 1][0] - h1 * T1.a, off[k + 1][1] + h1 * T1.b], off[k + 1]]);
+  }
+  return { off, spans };
+}
+
+// formula rail: sample the cubic, normal needs |B'|
+function formulaOffset(g, dd, sign) {
+  const out = [];
+  for (const c of g.spans) {
+    for (let i = 0; i <= 16; i++) {
+      const t = i / 16, p = bez3(c, t), v = dbez3(c, t);
+      const L = Math.hypot(v[0], v[1]) || 1;
+      out.push([p[0] - sign * dd * v[1] / L, p[1] + sign * dd * v[0] / L]);
+    }
+  }
+  return out;
+}
+
+function railResidual(g, dd, sign) {
+  const tri = triangleOffset(g, dd, sign);
+  let worst = 0;
+  g.spans.forEach((c, k) => {
+    for (let i = 1; i < 16; i++) {
+      const t = i / 16, a = bez3(tri.spans[k], t), p = bez3(c, t), v = dbez3(c, t);
+      const L = Math.hypot(v[0], v[1]) || 1;
+      const b = [p[0] - sign * dd * v[1] / L, p[1] + sign * dd * v[0] / L];
+      worst = Math.max(worst, Math.hypot(a[0] - b[0], a[1] - b[1]));
+    }
+  });
+  return worst;
 }
 
 function draw(d, s) {
@@ -331,6 +387,62 @@ function draw(d, s) {
   const first = d.nodes[0], last = d.nodes[d.nodes.length - 1];
   lab(first, 'N0 (' + first[0].toLocaleString() + ', ' + first[1].toLocaleString() + ')', 8, -8);
   lab(last, 'N' + (d.nodes.length - 1) + ' (' + Math.round(last[0]).toLocaleString() + ', ' + Math.round(last[1]).toLocaleString() + ')', -8, 16);
+
+  if (st.wd > 0) {
+    const R = tightest({ spans: d.spans }).R;
+    const dd = st.wd * R;
+    const sign = railResidual(d, dd, 1) <= railResidual(d, dd, -1) ? 1 : -1;
+
+    // formula rails: sampled from the cubic's own normal
+    ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 1.3; ctx.setLineDash([]);
+    for (const sg of [1, -1]) {
+      const rail = formulaOffset(d, dd, sg);
+      ctx.beginPath();
+      rail.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+      ctx.stroke();
+    }
+
+    // triangle rails: exact node normals, offset handles in gold dashes
+    ctx.strokeStyle = '#c9a441'; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+    for (const sg of [sign, -sign]) {
+      const tri = triangleOffset(d, dd, sg);
+      ctx.beginPath();
+      tri.spans.forEach((c, k) => {
+        const a = put(c[0]), b1 = put(c[1]), b2 = put(c[2]), e = put(c[3]);
+        if (k === 0) ctx.moveTo(a[0], a[1]);
+        ctx.bezierCurveTo(b1[0], b1[1], b2[0], b2[1], e[0], e[1]);
+      });
+      ctx.stroke();
+    }
+    // the offset handles: Q1 = Q0 + h(1 - d*kappa)*T, the exact rational handle
+    if (st.handles) {
+      ctx.strokeStyle = '#c9a441'; ctx.lineWidth = 1; ctx.setLineDash([3, 4]);
+      for (const sg of [sign, -sign]) {
+        for (const c of triangleOffset(d, dd, sg).spans) {
+          const a = put(c[0]), b1 = put(c[1]), e = put(c[3]), b2 = put(c[2]);
+          ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b1[0], b1[1]); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(e[0], e[1]); ctx.lineTo(b2[0], b2[1]); ctx.stroke();
+        }
+      }
+    }
+    ctx.setLineDash([]);
+    // exact node points on the triangle rails
+    const N = normalAt(d.T);
+    for (const sg of [sign, -sign]) {
+      for (let k = 0; k < d.nodes.length; k++) {
+        const q = put([d.nodes[k][0] + sg * dd * N[k][0], d.nodes[k][1] + sg * dd * N[k][1]]);
+        ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#c9a441'; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.arc(q[0], q[1], 3.2, 0, 7); ctx.fill(); ctx.stroke();
+      }
+    }
+
+    const res = railResidual(d, dd, sign);
+    lastRail = { R, dd, res, sign };
+    ctx.fillStyle = '#7b6c4e'; ctx.font = '12px ui-monospace,Menlo,monospace';
+    ctx.fillText('d ' + dd.toFixed(2) + ' · formula rails (blue) vs triangle rails (gold) · node gap ' + (2 * dd).toFixed(2), pad, H - 28);
+    ctx.fillText('the two agree at every node; between nodes the triangle rail misses by ' + res.toFixed(3) +
+      ' (' + (100 * res / dd).toFixed(1) + '% of d)', pad, H - 12);
+  }
 }
 
 function table(d) {
@@ -1014,7 +1126,10 @@ function update() {
     ' · largest coordinate <b>' + Math.round(s.maxAbs).toLocaleString() + '</b> (' + s.digits + ' digits)\n' +
     'control points: ' + (s.integer ? '<span class="good">integers</span>' : '<span class="bad">rational — scaled grid only</span>') + '\n' +
     'C1: <span class="good">exact</span> at all ' + Math.max(0, s.spans - 1) + ' joins' +
-    ' · curvature jump: median <b>' + pct(s.med) + '</b>, max <b>' + pct(s.max) + '</b>';
+    ' · curvature jump: median <b>' + pct(s.med) + '</b>, max <b>' + pct(s.max) + '</b>' +
+    (st.wd > 0 && lastRail ? '\nwidth d <b>' + lastRail.dd.toFixed(3) + '</b> = ' + st.wd.toFixed(2) + ' R_min (R_min ' + lastRail.R.toFixed(3) + ')' +
+      ' · node gap <b>' + (2 * lastRail.dd).toFixed(3) + '</b> · triangle rail misses the formula rail by <b>' +
+      lastRail.res.toFixed(3) + '</b> (' + (100 * lastRail.res / lastRail.dd).toFixed(1) + '% of d)' : '');
 
   const perUnit = s.w / st.S;
   gridOut.innerHTML =
@@ -1033,6 +1148,8 @@ function bind(id, key, fmt) {
   });
 }
 bind('n', 'n'); bind('m0', 'm0'); bind('m1', 'm1'); bind('S', 'S'); bind('h', 'h');
+const wd = document.getElementById('wd'), wdV = document.getElementById('wdV');
+wd.addEventListener('input', () => { st.wd = Number(wd.value); wdV.textContent = st.wd ? st.wd.toFixed(2) : 'off'; update(); });
 
 const e3m = document.getElementById('e3m'), e3mV = document.getElementById('e3mV');
 const e3k = document.getElementById('e3k'), e3kV = document.getElementById('e3kV');
@@ -1076,7 +1193,8 @@ document.getElementById('handles').addEventListener('click', e => {
   update();
 });
 document.getElementById('reset').addEventListener('click', () => {
-  Object.assign(st, { n: 2, m0: 5, m1: 12, S: 2, h: 1, g2: false, zoom: false, handles: true });
+  Object.assign(st, { n: 2, m0: 5, m1: 12, S: 2, h: 1, wd: 0, g2: false, zoom: false, handles: true });
+  wd.value = 0; wdV.textContent = 'off';
   for (const [id, key] of [['n', 'n'], ['m0', 'm0'], ['m1', 'm1'], ['S', 'S'], ['h', 'h']]) {
     document.getElementById(id).value = st[key];
     document.getElementById(id + 'V').textContent = st[key];
