@@ -147,6 +147,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><td>the points</td><td>exact fractions; the denominator grows every turn</td><td>exact integers at scale 1</td></tr>
     <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
     <tr><td>what is approximate</td><td>the drawn cubic fit (~1.4%)</td><td>the turn at each join (C1; curvature jumps)</td></tr>
+    <tr><td>is it an LAC?</td><td>it is built to one: turns quantized from a chosen LAC, error ~1.4%</td><td>no target: fitted α ≈ 0.10, R² 0.87, residuals up to 4×, curvature jumps at joins</td></tr>
     <tr><td>good for</td><td>loops that must close, mirrors, LAC, placement</td><td>stems that must sit on the integer lattice</td></tr>
     <tr><td>the cost</td><td>denominators: c^k grows with every chord (5⁶ = 15,625; a 761-triangle chain is 173 digits at 20 chords)</td><td>no closure guarantee; the width is not exact</td></tr>
   </table>
