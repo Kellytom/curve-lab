@@ -111,27 +111,33 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <h2>Fig. X · the two routes, side by side</h2>
   <p><strong>Where the names come from.</strong> Euclid's formula turns two whole numbers into a right triangle: <code>a = m² − n²</code>, <code>b = 2mn</code>, <code>c = m² + n²</code>. Fix <code>n</code> and let <code>m</code> run, and you get a <em>family</em> of them — for <code>n = 1</code>: 3-4-5, 8-6-10, 15-8-17. <strong>Euclid families</strong> is therefore the set of triangles (the field plot on <code>pythagorean-families.html</code>); <strong>Euclid family chains</strong> is the curve built <em>from</em> one of those families, using each triangle as a direction. <strong>Turn-exact</strong> is the other route (<code>pythagorean-spiral/</code>). Neither name claims a role: both routes can be a stem, a spine or a chain. They differ in what stays exact — turn-exact keeps the turns and the points exact and fits the ink; Euclid family chains keep the ink exact (integer control points at scale 1) and fit the turns.</p>
 
+  <div class="controls">
+    <label>triangle m <input id="xm" type="range" min="2" max="8" step="1" value="3"><span id="xmV">3</span></label>
+    <label>steps <input id="xk" type="range" min="3" max="20" step="1" value="6"><span id="xkV">6</span></label>
+    <button id="xreset" type="button">reset</button>
+  </div>
+
   <div class="pair">
     <div>
       <h3>Fig. X1a · turn-exact: the triangle is an angle</h3>
       <canvas id="x1a" width="560" height="360"></canvas>
-      <p class="small">The <code>m = 3</code> triangle of the <code>n = 1</code> family, drawn as an angle: 36.87°, and turning by it is multiplying by <code>(4/5, 3/5)</code>. Every turn divides by 5, so the point stays exact as a fraction.</p>
+      <p class="small">The <code>m</code> triangle of the <code>n = 1</code> family drawn as an angle (above 45° take the complement; the ladder itself holds angles under 45°): turning by it is multiplying by <code>(a/c, b/c)</code>. Every turn divides by <code>c</code>, so the point stays exact as a fraction.</p>
     </div>
     <div>
       <h3>Fig. X1b · Euclid family: the triangle is a vector</h3>
       <canvas id="x1b" width="560" height="360"></canvas>
-      <p class="small">The same triangle drawn as a vector: <code>a = 8</code>, <code>b = 6</code>, so the tangent is <code>T = (8, −6)</code>. Every step adds whole numbers, so the point stays an integer.</p>
+      <p class="small">The same triangle drawn as a vector: the tangent is <code>(a, −b)</code>. Every step adds whole numbers, so the point stays an integer.</p>
     </div>
   </div>
 
   <div class="pair">
     <div>
-      <h3>Fig. X2a · six chords, turn-exact</h3>
+      <h3>Fig. X2a · chords, turn-exact</h3>
       <canvas id="x2a" width="560" height="360"></canvas>
       <p class="small" id="x2aNote"></p>
     </div>
     <div>
-      <h3>Fig. X2b · six steps, Euclid family</h3>
+      <h3>Fig. X2b · steps, Euclid family</h3>
       <canvas id="x2b" width="560" height="360"></canvas>
       <p class="small" id="x2bNote"></p>
     </div>
@@ -157,7 +163,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
     <tr><td>what is approximate</td><td>the drawn cubic fit (~1.4%)</td><td>the turn at each join (C1; curvature jumps)</td></tr>
     <tr><td>good for</td><td>loops that must close, mirrors, LAC, placement</td><td>stems that must sit on the integer lattice</td></tr>
-    <tr><td>the cost</td><td>denominators: 5⁶ = 15,625; a 761-triangle chain is 173 digits at 20 chords</td><td>no closure guarantee; the width is not exact</td></tr>
+    <tr><td>the cost</td><td>denominators: c^k grows with every chord (5⁶ = 15,625; a 761-triangle chain is 173 digits at 20 chords)</td><td>no closure guarantee; the width is not exact</td></tr>
   </table>
 </section>
 <section class="panel">
@@ -693,8 +699,13 @@ function drawStem1() {
     'so the rails are a width laid on a spine, not a stem body. It becomes a stem only when a taper and a terminal are cut into this section.';
 }
 
-// ---- Fig. X: the two routes, drawn from the same triangle -----------------
+// ---- Fig. X: the two routes, drawn from one Euclid triangle --------------
 function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a || 1; }
+
+function euclid(m, n) {
+  const a = m * m - n * n, b = 2 * m * n, c = m * m + n * n, g = gcd(gcd(a, b), c);
+  return { a: a / g, b: b / g, c: c / g, m };
+}
 
 function frame(cv, pts, pad, aspect) {
   const dpr = window.devicePixelRatio || 1;
@@ -711,23 +722,23 @@ function frame(cv, pts, pad, aspect) {
   return { ctx, W, H, sc, put: p => [ox + (p[0] - x0) * sc, H - oy - (p[1] - y0) * sc] };
 }
 
-// turn-exact: chord `chord`, one +36.87° turn per chord, exact numerators over 5^k
-function spineChain(count, chord) {
+// turn-exact: chord c, one turn by this triangle per chord, exact numerators over c^k
+function spineChain(count, t) {
   const pts = [], fr = [];
   let den = 1, D = [1, 0], px = 0, py = 0;
   for (let k = 0; k < count; k++) {
-    const nd = [4 * D[0] - 3 * D[1], 3 * D[0] + 4 * D[1]], nden = den * 5;
-    px = px * 5 + chord * nd[0];
-    py = py * 5 + chord * nd[1];
+    const nd = [t.a * D[0] - t.b * D[1], t.b * D[0] + t.a * D[1]], nden = den * t.c;
+    px = px * t.c + t.c * nd[0];
+    py = py * t.c + t.c * nd[1];
     den = nden; D = nd;
     pts.push([px / den, py / den]); fr.push([px, py, den]);
   }
   return { pts, fr, den };
 }
 
-function chainNodes(count) {
+function chainNodes(count, m0) {
   const T = [];
-  for (let i = 0; i < count; i++) { const m = 2 + i; T.push({ m, a: m * m - 1, b: 2 * m }); }
+  for (let i = 0; i < count; i++) { const m = m0 + i; T.push({ m, a: m * m - 1, b: 2 * m }); }
   const nodes = [[0, 0]];
   for (let k = 0; k + 1 < T.length; k++)
     nodes.push([nodes[k][0] + 2 * (T[k].a + T[k + 1].a), nodes[k][1] - 2 * (T[k].b + T[k + 1].b)]);
@@ -740,47 +751,49 @@ function miterOffset(pts, d) {
     const p = pts[i];
     const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)];
     let e0 = [p[0] - a[0], p[1] - a[1]], e1 = [b[0] - p[0], b[1] - p[1]];
-    let l0 = Math.hypot(e0[0], e0[1]) || 1, l1 = Math.hypot(e1[0], e1[1]) || 1;
+    const l0 = Math.hypot(e0[0], e0[1]) || 1, l1 = Math.hypot(e1[0], e1[1]) || 1;
     e0 = [e0[0] / l0, e0[1] / l0]; e1 = [e1[0] / l1, e1[1] / l1];
     const n0 = [-e0[1], e0[0]], n1 = [-e1[1], e1[0]];
-    let m = [n0[0] + n1[0], n0[1] + n1[1]];
-    const l = Math.hypot(m[0], m[1]) || 1;
-    m = [m[0] / l, m[1] / l];
-    const k = d / Math.max(0.25, m[0] * n0[0] + m[1] * n0[1]);
-    out.push([p[0] + k * m[0], p[1] + k * m[1]]);
+    let mm = [n0[0] + n1[0], n0[1] + n1[1]];
+    const l = Math.hypot(mm[0], mm[1]) || 1;
+    mm = [mm[0] / l, mm[1] / l];
+    const k = d / Math.max(0.25, mm[0] * n0[0] + mm[1] * n0[1]);
+    out.push([p[0] + k * mm[0], p[1] + k * mm[1]]);
   }
   return out;
 }
 
 function drawCompare() {
+  const t = euclid(stx.m, 1);
+  const deg = Math.atan2(t.b, t.a) * 180 / Math.PI;
+
   // X1a — the triangle as an angle
   {
-    const tri = [[0, 0], [8, 0], [8, 6]];
-    const f = frame(document.getElementById('x1a'), tri, 46, 0.64);
+    const tri = [[0, 0], [t.a, 0], [t.a, t.b]];
+    const f = frame(document.getElementById('x1a'), tri, 50, 0.64);
     const { ctx, put } = f;
     ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 2;
     ctx.beginPath(); tri.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
     const o = put([0, 0]);
     ctx.strokeStyle = '#a23b2a'; ctx.lineWidth = 1.6;
-    ctx.beginPath(); ctx.arc(o[0], o[1], 46, -Math.atan2(6, 8), 0); ctx.stroke();
+    ctx.beginPath(); ctx.arc(o[0], o[1], 46, -Math.atan2(t.b, t.a), 0); ctx.stroke();
     ctx.fillStyle = '#a23b2a'; ctx.font = '13px ui-monospace,Menlo,monospace';
-    ctx.fillText('36.87°', o[0] + 44, o[1] - 16);
+    ctx.fillText(deg.toFixed(2) + '°', o[0] + 46, o[1] - 14);
     ctx.fillStyle = '#2e2413';
-    ctx.fillText('8', (put([4, 0])[0]), put([4, 0])[1] + 18);
-    ctx.fillText('6', put([8, 3])[0] + 8, put([8, 3])[1]);
-    ctx.fillText('10', put([4, 3])[0] - 18, put([4, 3])[1] - 8);
+    ctx.fillText(String(t.a), put([t.a / 2, 0])[0] - 6, put([t.a / 2, 0])[1] + 18);
+    ctx.fillText(String(t.b), put([t.a, t.b / 2])[0] + 8, put([t.a, t.b / 2])[1]);
+    ctx.fillText(String(t.c), put([t.a / 2, t.b / 2])[0] - 22, put([t.a / 2, t.b / 2])[1] - 8);
     ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#7b6c4e';
-    ctx.fillText('cos = 4/5 · sin = 3/5', 12, f.H - 12);
+    ctx.fillText('cos = ' + t.a + '/' + t.c + ' · sin = ' + t.b + '/' + t.c, 12, f.H - 12);
   }
 
   // X1b — the same triangle as a vector
   {
-    const f = frame(document.getElementById('x1b'), [[0, 0], [8, -6]], 56, 0.64);
+    const f = frame(document.getElementById('x1b'), [[0, 0], [t.a, -t.b]], 58, 0.64);
     const { ctx, put } = f;
-    const a = put([0, 0]), b = put([8, -6]);
+    const a = put([0, 0]), b = put([t.a, -t.b]);
     ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 2.4;
     ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
-    // arrow head
     const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
     ctx.beginPath(); ctx.moveTo(b[0], b[1]);
     ctx.lineTo(b[0] - 12 * Math.cos(ang - 0.4), b[1] - 12 * Math.sin(ang - 0.4));
@@ -788,31 +801,35 @@ function drawCompare() {
     ctx.closePath(); ctx.fillStyle = '#1f5fa8'; ctx.fill();
     ctx.fillStyle = '#2e2413'; ctx.beginPath(); ctx.arc(a[0], a[1], 4.5, 0, 7); ctx.fill();
     ctx.font = '13px ui-monospace,Menlo,monospace';
-    ctx.fillText('T = (8, −6)', b[0] - 70, b[1] + 22);
+    ctx.fillText('T = (' + t.a + ', −' + t.b + ')', b[0] - 76, b[1] + 22);
     ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#7b6c4e';
     ctx.fillText('add 2·(Tₖ + Tₖ₊₁) — no division', 12, f.H - 12);
   }
 
-  // X2a — six chords, turn-exact
+  // X2a — chords, turn-exact
   {
-    const s = spineChain(6, 5), pts = [[0, 0]].concat(s.pts);
+    const s = spineChain(stx.count, t), pts = [[0, 0]].concat(s.pts);
     const f = frame(document.getElementById('x2a'), pts, 40, 0.64);
     const { ctx, put } = f;
     ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 2; ctx.beginPath();
     pts.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
     ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.8;
     for (const p of pts) { const q = put(p); ctx.beginPath(); ctx.arc(q[0], q[1], 4, 0, 7); ctx.fill(); ctx.stroke(); }
+    const digits = Math.floor(stx.count * Math.log10(t.c)) + 1;
     ctx.fillStyle = '#7b6c4e'; ctx.font = '12px ui-monospace,Menlo,monospace';
-    ctx.fillText('denominator 5⁶ = 15,625', 12, f.H - 12);
+    ctx.fillText('denominator ' + t.c + '^' + stx.count + ' · ' + digits + ' digits', 12, f.H - 12);
+    const first = s.fr[0], g = gcd(first[0], first[2]);
     ctx.fillStyle = '#2e2413';
-    ctx.fillText('(4, 3)', put(pts[1])[0] + 8, put(pts[1])[1] - 6);
+    ctx.fillText('(' + first[0] / g + ', ' + first[1] / g + ')', put(pts[1])[0] + 8, put(pts[1])[1] - 6);
     document.getElementById('x2aNote').innerHTML =
-      'Node 1 is (4, 3) exactly; node 2 is (27/5, 39/5); after six chords every point sits on a grid of 1/15,625.';
+      'Node 1 is (' + first[0] / g + ', ' + first[1] / g + ') exactly; by chord ' + stx.count +
+      ' every point sits on a grid of 1/' + t.c + '^' + stx.count +
+      ' (' + digits + ' digits' + (digits <= 12 ? '; ' + Math.pow(t.c, stx.count).toLocaleString() : '') + ').';
   }
 
-  // X2b — six steps, Euclid family
+  // X2b — steps, Euclid family chain
   {
-    const { nodes } = chainNodes(6), pts = nodes;
+    const { nodes } = chainNodes(stx.count, stx.m), pts = nodes;
     const f = frame(document.getElementById('x2b'), pts, 40, 0.64);
     const { ctx, put } = f;
     ctx.strokeStyle = '#8a3b12'; ctx.lineWidth = 2; ctx.beginPath();
@@ -824,13 +841,15 @@ function drawCompare() {
     const last = pts[pts.length - 1];
     ctx.fillStyle = '#2e2413';
     ctx.fillText('(' + last[0] + ', ' + last[1] + ')', put(last)[0] - 78, put(last)[1] + 20);
+    const maxc = Math.max(...pts.map(p => Math.max(Math.abs(p[0]), Math.abs(p[1]))));
     document.getElementById('x2bNote').innerHTML =
-      'Nodes (' + pts.map(p => p[0] + ',' + p[1]).slice(0, 4).join(') (') + ') … — no scale needed, ever.';
+      'Nodes (' + pts.slice(0, 4).map(p => p[0] + ',' + p[1]).join(') (') + ') … · largest coordinate ' +
+      maxc.toLocaleString() + ' — no scale needed, ever.';
   }
 
   // X3a — width on the polygon
   {
-    const s = spineChain(5, 5), pts = [[0, 0]].concat(s.pts), d = 1.1;
+    const s = spineChain(Math.min(stx.count, 6), t), pts = [[0, 0]].concat(s.pts), d = 0.22 * t.c;
     const L = miterOffset(pts, d), R = miterOffset(pts, -d);
     const f = frame(document.getElementById('x3a'), L.concat(R), 44, 0.64);
     const { ctx, put } = f;
@@ -842,16 +861,15 @@ function drawCompare() {
     ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.4; ctx.beginPath();
     pts.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
     ctx.font = '15px Georgia,serif'; ctx.fillStyle = '#2e2413';
-    ctx.fillText('polygon + miter rails', 12, f.H - 14);
+    ctx.fillText('polygon + miter rails', 12, f.H - 30);
     ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#3f7d4e';
-    ctx.fillText('rational: one known chord length', 12, f.H - 34);
+    ctx.fillText('rational: every chord is c = ' + t.c, 12, f.H - 12);
   }
 
   // X3b — width on the curve
   {
-    const { nodes } = chainNodes(5);
+    const { nodes, T } = chainNodes(Math.min(stx.count, 6), stx.m);
     const g = { spans: [] };
-    const T = chainNodes(5).T;
     for (let k = 0; k + 1 < T.length; k++) {
       const p0 = nodes[k], p3 = nodes[k + 1];
       g.spans.push([p0, [p0[0] + T[k].a, p0[1] - T[k].b], [p3[0] - T[k + 1].a, p3[1] + T[k + 1].b], p3]);
@@ -866,9 +884,9 @@ function drawCompare() {
     ctx.strokeStyle = '#8a3b12'; ctx.lineWidth = 1.6; ctx.beginPath();
     off.forEach((o, i) => { const q = put(o.p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
     ctx.font = '15px Georgia,serif'; ctx.fillStyle = '#2e2413';
-    ctx.fillText('curve + offset rails', 12, f.H - 14);
+    ctx.fillText('curve + offset rails', 12, f.H - 30);
     ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#a23b2a';
-    ctx.fillText('floating point: √(x′² + y′²)', 12, f.H - 34);
+    ctx.fillText('floating point: √(x′² + y′²)', 12, f.H - 12);
   }
 }
 
@@ -925,6 +943,17 @@ const s1k = document.getElementById('s1k'), s1kV = document.getElementById('s1kV
 const s1d = document.getElementById('s1d'), s1dV = document.getElementById('s1dV');
 s1k.addEventListener('input', () => { st1.count = Number(s1k.value); s1kV.textContent = st1.count; update(); });
 s1d.addEventListener('input', () => { st1.frac = Number(s1d.value); s1dV.textContent = st1.frac.toFixed(2); update(); });
+
+const stx = { m: 3, count: 6 };
+const xm = document.getElementById('xm'), xmV = document.getElementById('xmV');
+const xk = document.getElementById('xk'), xkV = document.getElementById('xkV');
+xm.addEventListener('input', () => { stx.m = Number(xm.value); xmV.textContent = stx.m; update(); });
+xk.addEventListener('input', () => { stx.count = Number(xk.value); xkV.textContent = stx.count; update(); });
+document.getElementById('xreset').addEventListener('click', () => {
+  stx.m = 3; stx.count = 6;
+  xm.value = 3; xmV.textContent = 3; xk.value = 6; xkV.textContent = 6;
+  update();
+});
 
 document.getElementById('g2').addEventListener('click', e => {
   st.g2 = !st.g2;
