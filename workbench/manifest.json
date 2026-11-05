@@ -396,6 +396,15 @@
       "purpose": "Each part declares its own grid; the composite is the lcm and the cost is visible.",
       "inputs": "per-part grid denominators and declared seams",
       "outputs": "the composite grid and the cell count"
+    },
+    {
+      "key": "tapered-stem",
+      "file": "tapered-stem.html",
+      "group": "strand",
+      "title": "Tapered stem",
+      "purpose": "The exact variable width: two log spirals of the same pitch, with the asymmetry measured.",
+      "inputs": "a, b, the scale k between the rails",
+      "outputs": "exact rails, width \u221d r, and the terminal seam"
     }
   ]
 }

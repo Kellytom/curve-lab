@@ -925,3 +925,14 @@ new species. Fig. Y on `workbench/pythagorean-chain-editor.html`.
 - **Multi-grid** (`workbench/multi-grid.html`): parts may sit on different grids;
   the composite is the lcm (1, 1/5, 1/25 → 25). Per-span grids cost 5^k
   (15,625 at six spans, 244M at twelve).
+
+## 2026-11-05 — the exact taper, and the log-spiral width corrected
+
+- `curve_lab/taper.py`: the partner of `r = a e^(bθ)` is `k·P(θ+φ*)` — rotated as
+  well as scaled; width `= ω(k,b)·r`. `tests/test_taper.py` guards ratio
+  constancy (1e-9), the partner's being a log spiral, and the constant-offset
+  drift.
+- `workbench/tapered-stem.html`: rails ×1 and ×1.12, asymmetry **5.25%**,
+  terminal seam **2.63%** of the offset. Exact rails, not offsets.
+- Correction: the first log-spiral page used the far normal intersection
+  (1.60·r); the nearest distance is **0.3409·r**. Fixed and tested.

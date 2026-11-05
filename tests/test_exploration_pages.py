@@ -80,6 +80,14 @@ class TestParabolaFamily(unittest.TestCase):
         self.assertGreater(worst / d, 0.05)
 
 
+class TestTaperedStemPage(unittest.TestCase):
+    def test_page_states_the_asymmetry(self):
+        page = (PAGES / "tapered-stem.html").read_text()
+        self.assertIn("Fig. T1", page)
+        self.assertIn("asymmetric", page)
+        self.assertIn("5.25%", page)
+
+
 class TestMultiGrid(unittest.TestCase):
     def test_composite_is_the_lcm(self):
         comp = 1
