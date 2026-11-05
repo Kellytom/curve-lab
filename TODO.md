@@ -270,7 +270,10 @@ evidence; add to them, do not re-solve them.
 
 ## Next action
 
-The current focused action is the integer Bézier/G2 workstream at the top of
-this file. The C-family p-triple Euler conversion and the ending/flower/ornament
-proofs remain after it. `workbench/todo.html` is the visible twin.
-- [ ] **Close the graded gap:** 3-4-5 spiral, seagrass, modulated width, hyperbola.
+The four graded gaps are closed — the 3-4-5 spiral, the seagrass ending, the
+modulated-width study and the hyperbola are all on `showcase.html` as families
+20, 8d, 4d and 9d. The focused next action is the first ornament proof from
+`goals.md`: one fleur using the plant-form grammar (stalk, ±d rails, ending,
+lattice marks, branches). `workbench/todo.html` is the visible twin.
+
+- [x] **Close the graded gap:** 3-4-5 spiral, seagrass, modulated width, hyperbola — drawn on `showcase.html`.
