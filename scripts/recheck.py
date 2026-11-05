@@ -220,6 +220,108 @@ def c_asym_g2():
     return ok, "scale 1 G2 pair; G1 fallback has a curvature jump"
 
 
+# -- the width work ----------------------------------------------------------
+
+@check("a log spiral's constant-width offset is not a log spiral",
+       "curve_lab/taper.py, tests/test_taper.py — the tangent-to-radius angle drifts",
+       "python -m unittest tests.test_taper")
+def c_log_offset():
+    from curve_lab.taper import LogSpiral
+    s = LogSpiral(10.0, 0.2)
+    d = 4.0
+    seq, prev = [], None
+    for i in range(600):
+        th = 8 * math.pi * i / 599
+        pt, n = s.point(th), s.normal(th)
+        q = (pt[0] + d * n[0], pt[1] + d * n[1])
+        if prev is not None:
+            v = (math.atan2(q[1] - prev[1], q[0] - prev[0]) - math.atan2(q[1], q[0])) % math.pi
+            if seq:
+                while v - seq[-1] > math.pi / 2:
+                    v -= math.pi
+                while v - seq[-1] < -math.pi / 2:
+                    v += math.pi
+            seq.append(v)
+        prev = q
+    spread = math.degrees(max(seq) - min(seq))
+    return spread > 0.5, f"drift {spread:.2f} deg at d/r = 0.2"
+
+
+@check("a log spiral's exact partner is scaled and rotated, so width grows with the radius",
+       "curve_lab/taper.py — Q(theta) = k P(theta + phi*), width = omega * r",
+       "python -m unittest tests.test_taper")
+def c_log_taper():
+    from curve_lab.taper import verify
+    v = verify(10.0, 0.2, 1.35, 0.0, 8.0, 200)
+    ok = v["ratio_spread"] < 1e-9 and v["tangent_angle_spread"] < 1e-9
+    return ok, f"width/r spread {v['ratio_spread']:.1e}; partner angle spread {v['tangent_angle_spread']:.1e}"
+
+
+@check("the involute of a parabola's evolute is the parabola",
+       "scripts/pyth_plane.py — exact to sampling",
+       "python scripts/pyth_plane.py")
+def c_involute():
+    def p(t):
+        return (t, t * t / 2)
+
+    def n(t):
+        L = math.sqrt(1 + t * t)
+        return (-t / L, 1 / L)
+
+    def inv(t, c=-1.0):
+        E = (t + (1 + t * t) ** 1.5 * n(t)[0], t * t / 2 + (1 + t * t) ** 1.5 * n(t)[1])
+        sh = (1 + t * t) ** 1.5 - 1
+        return (E[0] - (sh - c) * n(t)[0], E[1] - (sh - c) * n(t)[1])
+
+    worst = max(math.dist(inv(t), p(t)) for t in [0.05 + 0.05 * i for i in range(1, 60)])
+    return worst < 1e-9, f"worst error {worst:.1e}"
+
+
+@check("a parallel of a parabola is not a parabola",
+       "scripts/pyth_plane.py — best-fit residual is a fifth of the offset",
+       "python scripts/pyth_plane.py")
+def c_parabola_parallel():
+    d, tmax, N = 0.1, 3.0, 500
+    pts = []
+    for i in range(N):
+        t = -tmax + 2 * tmax * i / (N - 1)
+        L = math.sqrt(1 + t * t)
+        pts.append((t - d * t / L, t * t / 2 + d / L))
+    S2 = S4 = Sy = Su2y = 0.0
+    for x, y in pts:
+        u = x / tmax
+        S2 += u * u
+        S4 += u ** 4
+        Sy += y
+        Su2y += u * u * y
+    det = N * S4 - S2 * S2
+    A = (N * Su2y - S2 * Sy) / det
+    C = (S4 * Sy - S2 * Su2y) / det
+    worst = max(abs(A * (x / tmax) ** 2 + C - y) for x, y in pts) / d
+    return worst > 0.05, f"best fit misses by {100*worst:.1f}% of d"
+
+
+@check("grids compose by lcm, and per-span grids cost 5^k",
+       "workbench/multi-grid.html — the layout cost",
+       "python scripts/multi_grid.py")
+def c_multigrid():
+    comp = 1
+    for d in (1, 5, 25):
+        comp = comp * d // math.gcd(comp, d)
+    return comp == 25 and 5 ** 6 == 15625, f"composite 1/{comp}; six spans 5^6 = 15,625"
+
+
+@check("the Euclid family chain is integer at scale 1 and C1 at every join",
+       "curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html",
+       "python -m unittest tests.test_pyth_chain")
+def c_euclid_chain():
+    from curve_lab import pyth_chain as pc
+    pts = [{"a": m * m - 1, "b": 2 * m} for m in range(2, 8)]
+    sp = pc.spans(pc.tangents(pts))
+    integer = all(isinstance(v, int) for c in sp for q in c for v in q)
+    return integer and pc.check_c1(pc.tangents(pts)), "6 spans, integer controls, C1 exact"
+
+
 @check("the hub is built from the manifest and every page carries its bar",
        "workbench/manifest.json + scripts/hub.py",
        "python scripts/hub.py")

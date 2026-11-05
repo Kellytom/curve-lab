@@ -134,6 +134,17 @@ no sync and no session restore.
 - The bean, pear, piriform, trifolium and cruciform are rational and exact; the
   heart and the squircle are not.
 - The 3-4-5 ladder is fine to 3125: 350 rungs, median gap 0.14°.
+- A log spiral's constant-width offset is **not** a log spiral; the angle drift
+  grows with d/r. Its exact partner is scaled *and* rotated, so the width grows
+  with the radius — the only exact variable-width stem we have.
+- A parabola's parallel is **not** a parabola; the involute of its evolute is
+  exactly the parallel family, which proves rather than denies it.
+- In the p-triple plane, fixed a and fixed b are hyperbolae whose integer points
+  are factorisations; fixed m is a parabola, not a hyperbola.
+- Several grids can share one design: they compose by lcm (1, 1/5, 1/25 → 25).
+  Per-span grids cost 5^k: fine to six spans, unusable by twelve.
+- The Euclid family chain is integer at scale 1 and C1 everywhere; its curvature
+  exponent drifts to -4/3, so it is a generalised Euler spiral in the limit.
 
 ## Open
 

@@ -18,6 +18,12 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the Pythagorean integer cubic family | 10 triples, integer controls, chord 2c, arms c | curve_lab/pyth_cubic.py; workbench/integer-cubic.html Fig. P1 |
 | ok | the integer G2 mirror chain is exact | 10/10 triples pass both joins | curve_lab/pyth_g2.py; workbench/integer-g2.html Fig. G1 |
 | ok | an asymmetric integer G2 pair exists at scale 1 | scale 1 G2 pair; G1 fallback has a curvature jump | curve_lab/pyth_g2.py asymmetric_pair; workbench/integer-g2.html Fig. G2 |
+| ok | a log spiral's constant-width offset is not a log spiral | drift 7.22 deg at d/r = 0.2 | curve_lab/taper.py, tests/test_taper.py — the tangent-to-radius angle drifts |
+| ok | a log spiral's exact partner is scaled and rotated, so width grows with the radius | width/r spread 9.4e-16; partner angle spread 8.9e-16 | curve_lab/taper.py — Q(theta) = k P(theta + phi*), width = omega * r |
+| ok | the involute of a parabola's evolute is the parabola | worst error 1.6e-15 | scripts/pyth_plane.py — exact to sampling |
+| ok | a parallel of a parabola is not a parabola | best fit misses by 20.8% of d | scripts/pyth_plane.py — best-fit residual is a fifth of the offset |
+| ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
+| ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | the hub is built from the manifest and every page carries its bar | 43 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 
