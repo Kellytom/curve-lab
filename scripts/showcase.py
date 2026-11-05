@@ -741,6 +741,15 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>
 </main></body></html>
 """
+
+    # Eulers belong at the top: move the whole family block up beside the parallels
+    start = html.index('<div class="fam"><h2>14 · Smooth Euler chains</h2>')
+    end = html.index('<div class="fam">', start + 10)
+    block = html[start:end]
+    html = html[:start] + html[end:]
+    target = html.index('<div class="fam"><h2>1 · Integer spine</h2>')
+    html = html[:target] + block + html[target:]
+
     out = ROOT / "workbench" / "showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)

@@ -14,6 +14,7 @@ h2{font-size:21px;margin:0 0 8px}
 .meta{font:12px/1.7 ui-monospace,Menlo,monospace;color:var(--muted);margin:0}
 code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .back{margin:10px 0 0;font:12px ui-monospace,Menlo,monospace}
+.tech{display:inline-block;width:calc(50% - 8px);margin:6px 8px 6px 0;vertical-align:top;border:1px solid var(--rule)}
 a{color:var(--ink)}
 .top{font:12px ui-monospace,Menlo,monospace;margin:0 0 18px}
 </style></head><body>
@@ -28,6 +29,7 @@ a{color:var(--ink)}
   <h2>Log spiral: the exact self-similar parallel</h2>
   <p>Two spirals of the same pitch are a parallel pair: the width between them is proportional to the radius. Not constant — self-similar, which is the only honest variable width here.</p><p>The partner is rotated as well as scaled, so the line between the curves is perpendicular to both. This is the taper in one picture.</p>
   <ul class="nums"><li>same pitch</li><li>width ∝ r</li><li>rotated partner</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/tapered-stem.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
   <p class="back"><a href="showcase.html#fig-0a">← back to the figure</a></p>
 </section>
@@ -36,6 +38,7 @@ a{color:var(--ink)}
   <h2>Circle involute: the exact parallel</h2>
   <p>Two involutes of the same circle, started at different angles, are exactly parallel: the gap is constant and equals the arc the start was shifted by.</p><p>It is one of the very few constant-width parallels in the catalogue, and it costs nothing but a shift.</p>
   <ul class="nums"><li>same circle</li><li>constant gap</li><li>shifted start</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=involute · goals.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-0b">← back to the figure</a></p>
 </section>
@@ -44,6 +47,7 @@ a{color:var(--ink)}
   <h2>How the parallel is made</h2>
   <p>A taut string unwinds from the circle; its free end traces the involute. Start the string a little further round and the whole trace shifts by a constant normal distance — that is the parallel.</p><p>The figure keeps the string, the tangent point and the traced curve, so the mechanism is visible rather than asserted.</p>
   <ul class="nums"><li>string unwinds</li><li>start shifted → parallel</li></ul>
+  
   <p class="meta"><strong>Where:</strong> classical involute construction · workbench/lac-parallel.html<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-0c">← back to the figure</a></p>
 </section>
@@ -52,6 +56,7 @@ a{color:var(--ink)}
   <h2>Integer spine: points joined by ink</h2>
   <p>The gold points are integers at scale 1; the dark curve is the bezier ink through them. This is the whole idea of the integer work: an exact lattice skeleton with a smooth drawing over it.</p><p>It is not a polygon pretending to be a curve, and not a curve pretending to be exact. Two objects, one drawing.</p>
   <ul class="nums"><li>integer nodes</li><li>bezier ink</li><li>scale 1</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · workbench/pythagorean-chain-editor.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-1a">← back to the figure</a></p>
 </section>
@@ -60,6 +65,7 @@ a{color:var(--ink)}
   <h2>Cut anywhere at an integer</h2>
   <p>The cut is made at a node, so it lands on an integer: no fitting, no seam, no rounding. That is why the lattice was worth the trouble.</p><p>Any node can be a cut, a join, or the start of a branch — the three operations a grammar needs.</p>
   <ul class="nums"><li>cut at a node</li><li>no seam</li><li>no rounding</li></ul>
+  <div class="tech"><svg viewBox="0 0 320 220" width="100%" role="img" aria-label="the 3-4-5 turn"><rect width="320" height="220" fill="#fbf7ec"/><path d="M53.3,190.0 L266.7,190.0 L266.7,30.0 L53.3,190.0" fill="none" stroke="#2e2413" stroke-width="1.6"/><path d="M112.0,190.0 L112.0,188.1 L111.9,186.2 L111.7,184.3 L111.5,182.5 L111.2,180.6 L110.9,178.7 L110.5,176.9 L110.1,175.1 L109.6,173.2 L109.0,171.4 L108.4,169.7 L107.7,167.9 L106.9,166.2 L106.1,164.5 L105.3,162.8 L104.4,161.1 L103.4,159.5 L102.4,157.9 L101.4,156.3 L100.3,154.8" fill="none" stroke="#a23b2a" stroke-width="1.3"/><circle cx="266.7" cy="30.0" r="2.5" fill="#c9a441"/><text x="8" y="16" font-family="Georgia,serif" font-size="11" fill="#2e2413">the 3-4-5 turn</text></svg></div><div class="tech"><svg viewBox="0 0 320 220" width="100%" role="img" aria-label="eight chords · rational rails"><rect width="320" height="220" fill="#fbf7ec"/><path d="M158.7,133.1 L204.6,132.0 L214.2,98.9 L202.1,66.7 L173.0,48.2 L138.7,50.8 L112.8,73.5 L105.7,107.2 L121.5,141.1" fill="none" stroke="#1f5fa8" stroke-width="1.2"/><path d="M201.3,190.0 L220.0,142.7 L232.9,98.2 L216.6,54.9 L177.6,30.0 L131.4,33.5 L96.6,64.0 L87.1,109.3 L105.3,148.6" fill="none" stroke="#1f5fa8" stroke-width="1.2"/><path d="M180.0,161.6 L212.3,137.3 L223.6,98.6 L209.4,60.8 L175.3,39.1 L135.1,42.1 L104.7,68.8 L96.4,108.3 L113.4,144.9" fill="none" stroke="#2e2413" stroke-width="1.8"/><circle cx="180.0" cy="161.6" r="2.5" fill="#c9a441"/><circle cx="212.3" cy="137.3" r="2.5" fill="#c9a441"/><circle cx="223.6" cy="98.6" r="2.5" fill="#c9a441"/><circle cx="209.4" cy="60.8" r="2.5" fill="#c9a441"/><circle cx="175.3" cy="39.1" r="2.5" fill="#c9a441"/><circle cx="135.1" cy="42.1" r="2.5" fill="#c9a441"/><circle cx="104.7" cy="68.8" r="2.5" fill="#c9a441"/><circle cx="96.4" cy="108.3" r="2.5" fill="#c9a441"/><circle cx="113.4" cy="144.9" r="2.5" fill="#c9a441"/><text x="8" y="16" font-family="Georgia,serif" font-size="11" fill="#2e2413">eight chords · rational rails</text></svg></div>
   <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · Fig. E1 in the chain editor<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-1b">← back to the figure</a></p>
 </section>
@@ -68,6 +74,7 @@ a{color:var(--ink)}
   <h2>Branch from an integer</h2>
   <p>A branch leaves from a node rather than from an arbitrary point on the ink, so both the stem and the branch are anchored on the same lattice.</p><p>That is the structural reason for integer points: cuts and branches have addresses.</p>
   <ul class="nums"><li>branch at a node</li><li>shared lattice</li></ul>
+  <div class="tech"><svg viewBox="0 0 320 220" width="100%" role="img" aria-label="turns sum to zero · ends east"><rect width="320" height="220" fill="#fbf7ec"/><path d="M119.7,98.2 L155.3,71.6 L139.6,30.0 L106.2,59.3 L125.0,99.5 L164.1,120.5 L182.9,160.7 L149.5,190.0 L133.8,148.4 L169.4,121.8 L213.8,121.8" fill="none" stroke="#2e2413" stroke-width="1.8"/><circle cx="119.7" cy="98.2" r="2.5" fill="#c9a441"/><circle cx="213.8" cy="121.8" r="2.5" fill="#c9a441"/><text x="8" y="16" font-family="Georgia,serif" font-size="11" fill="#2e2413">turns sum to zero · ends east</text></svg></div>
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py branch · goals.md §Plant-forms<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-1c">← back to the figure</a></p>
 </section>
@@ -76,6 +83,7 @@ a{color:var(--ink)}
   <h2>LAC ribbon</h2>
   <p>A log-aesthetic curve drawn as a stem: the centreline follows κ ∝ s^(α−1), and the two rails stand off it at a constant distance.</p><p>The law is exact and the rails are fitted — the same split as every other ribbon on this page, stated rather than hidden.</p>
   <ul class="nums"><li>α = 1</li><li>two rails</li><li>smooth</li></ul>
+  <div class="tech"><svg viewBox="0 0 320 220" width="100%" role="img" aria-label="the LAC schedule · the curve is the list"><rect width="320" height="220" fill="#fbf7ec"/><path d="M181.3,190.0 L255.3,134.5 L222.8,47.9 L153.2,108.9 L244.6,94.9 L154.5,115.8 L241.7,146.6 L239.9,54.1 L150.6,30.0 L64.7,64.3" fill="none" stroke="#2e2413" stroke-width="1.8"/><circle cx="181.3" cy="190.0" r="2.5" fill="#c9a441"/><circle cx="255.3" cy="134.5" r="2.5" fill="#c9a441"/><circle cx="222.8" cy="47.9" r="2.5" fill="#c9a441"/><circle cx="153.2" cy="108.9" r="2.5" fill="#c9a441"/><circle cx="244.6" cy="94.9" r="2.5" fill="#c9a441"/><circle cx="154.5" cy="115.8" r="2.5" fill="#c9a441"/><circle cx="241.7" cy="146.6" r="2.5" fill="#c9a441"/><circle cx="239.9" cy="54.1" r="2.5" fill="#c9a441"/><circle cx="150.6" cy="30.0" r="2.5" fill="#c9a441"/><circle cx="64.7" cy="64.3" r="2.5" fill="#c9a441"/><text x="8" y="16" font-family="Georgia,serif" font-size="11" fill="#2e2413">the LAC schedule · the curve is the list</text></svg></div>
   <p class="meta"><strong>Where:</strong> docs/SPINE.md · workbench/spirals/<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-2a">← back to the figure</a></p>
 </section>
@@ -84,6 +92,7 @@ a{color:var(--ink)}
   <h2>LAC ribbon with a cone ending</h2>
   <p>The same stem, ended properly: two arcs of radius 2 × the offset, tangent to the rails, meeting at the centreline. No bare tip.</p><p>This is the plant grammar applied to an LAC rather than to an integer chain, which is the point — the ending does not care how the stem was made.</p>
   <ul class="nums"><li>R = 2 × offset</li><li>tangent at the base</li><li>no bare tip</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py cone_terminal · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-2b">← back to the figure</a></p>
 </section>
@@ -92,6 +101,7 @@ a{color:var(--ink)}
   <h2>The same ribbon at another α</h2>
   <p>α = 0.5: same construction, a different exponent, a different sweep. The grammar — centreline, rails, ending — is unchanged.</p><p>That is what makes the family useful: the curve varies, the rules do not.</p>
   <ul class="nums"><li>α = 0.5</li><li>same rails and ending</li></ul>
+  
   <p class="meta"><strong>Where:</strong> docs/SPINE.md · goals.md (LAC tier)<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-2c">← back to the figure</a></p>
 </section>
@@ -100,6 +110,7 @@ a{color:var(--ink)}
   <h2>Euclid family chain, n = 1</h2>
   <p>Take the fixed-n family of Euclid's formula, use each triangle's legs as a tangent vector, and step by the sum of consecutive tangents. Every node and every control point is an integer at scale 1.</p><p>C1 is exact at every join because both sides share the same tangent vector. Curvature is not continuous: the jump is 6.2% of the larger side (median) and 26.1% at worst.</p>
   <ul class="nums"><li>integers at scale 1</li><li>C1 exact</li><li>6.2% median, 26.1% max curvature jump</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · workbench/pythagorean-chain-editor.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-3a">← back to the figure</a></p>
 </section>
@@ -108,6 +119,7 @@ a{color:var(--ink)}
   <h2>Euclid family chain, n = 2</h2>
   <p>The same construction on the n = 2 family, which is denser and turns more gently. The n = 2 sweep runs 52 spans with C1 exact throughout.</p><p>Nothing in the method changes with n; only the family's spacing does.</p>
   <ul class="nums"><li>52 spans</li><li>C1 exact</li><li>integer controls</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · Fig. C1 on pythagorean-families.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-3b">← back to the figure</a></p>
 </section>
@@ -116,6 +128,7 @@ a{color:var(--ink)}
   <h2>The exponent drifts to −4/3</h2>
   <p>A curve with κ ∝ sᵖ is a generalised Euler spiral: p = 1 is the clothoid, p = 0 a circle, p = −1 the logarithmic spiral. Fit p on the chain and it is not constant — it walks toward −4/3 as the band widens.</p><p>The algebra gives it: the turn is about 2n/m, the step grows like m², so the arc length grows like m³ and the curvature falls like s^(−4/3). n only scales the constant.</p>
   <ul class="nums"><li>measured −0.835 (m ≤ 6)</li><li>−1.325 (m ≤ 400)</li><li>asymptote −1.333</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/pythagorean-chain-editor.html · Fig. Y<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-3c">← back to the figure</a></p>
 </section>
@@ -124,6 +137,7 @@ a{color:var(--ink)}
   <h2>The exact taper</h2>
   <p>Two log spirals of the same pitch bound a band whose width is proportional to the radius. The partner is not merely scaled: it is rotated by a fixed angle, so the line between the two is perpendicular to the outer curve.</p><p>This is the only exact variable-width stem in the catalogue. It is also asymmetric: the outer half-width exceeds the inner by 5.25% at k = 1.12.</p>
   <ul class="nums"><li>width/r constant to 1e-9</li><li>asymmetry 5.25%</li><li>terminal seam 2.63%</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/tapered-stem.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
   <p class="back"><a href="showcase.html#fig-4a">← back to the figure</a></p>
 </section>
@@ -132,6 +146,7 @@ a{color:var(--ink)}
   <h2>A constant offset is not a log spiral</h2>
   <p>This is the most useful refusal on the page. Offset a log spiral by a constant distance and the result is not a log spiral: the angle between its tangent and its radius drifts, and the drift grows with d/r.</p><p>So "the log spiral has easy offsets" is true only in the sense of scaling — an offset whose width grows with the radius. A constant-width stem cannot be had this way.</p>
   <ul class="nums"><li>drift 0.21° at d/r = 0.02</li><li>2.59° at d/r = 0.20</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/log-spiral.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
   <p class="back"><a href="showcase.html#fig-4b">← back to the figure</a></p>
 </section>
@@ -140,6 +155,7 @@ a{color:var(--ink)}
   <h2>A parabola's parallel is not a parabola</h2>
   <p>The parallel family does exist exactly — as the involutes of the parabola's evolute, which is a semicubical parabola. Set the involute's arc-length shift to −1 and the original parabola comes back to 1e-15.</p><p>But those parallels are a different family. Fitting a parabola to the offset leaves a residual of about a fifth of d. There is no parallel parabola, and the construction proves it rather than denying it.</p>
   <ul class="nums"><li>involute error 1.6e-15</li><li>best-fit residual 20.8% of d</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/pyth-plane.html · Fig. P3<br><strong>Re-derive:</strong> <code>python scripts/pyth_plane.py</code></p>
   <p class="back"><a href="showcase.html#fig-4c">← back to the figure</a></p>
 </section>
@@ -148,6 +164,7 @@ a{color:var(--ink)}
   <h2>Three grids, one design</h2>
   <p>Nothing forces one ruling. The stalk can sit on integers, the connector on fifths, the flower on twenty-fifths, provided every join is a point that exists in both grids.</p><p>The composite is the lcm: here 25 cells per unit. The rule is exact; the cost is the cell count.</p>
   <ul class="nums"><li>grids 1, 1/5, 1/25</li><li>composite 1/25</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/multi-grid.html<br><strong>Re-derive:</strong> <code>python scripts/multi_grid.py</code></p>
   <p class="back"><a href="showcase.html#fig-5a">← back to the figure</a></p>
 </section>
@@ -156,6 +173,7 @@ a{color:var(--ink)}
   <h2>Two chains and a declared step</h2>
   <p>Two integer chains joined across a 1/5 step. The position is exact — the step is a fraction, not a rounding — and the composite grid is 1/5.</p><p>The cost is tangency: the seam turns the stem by 25.06°. Position is free, smoothness is not. That is the number to design with, or to spend a tangent connector on.</p>
   <ul class="nums"><li>step 0.200</li><li>kink 25.06°</li><li>grid 1/5</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/composed-stem.html<br><strong>Re-derive:</strong> <code>python scripts/composed_stem.py</code></p>
   <p class="back"><a href="showcase.html#fig-5b">← back to the figure</a></p>
 </section>
@@ -164,6 +182,7 @@ a{color:var(--ink)}
   <h2>The cone terminal</h2>
   <p>Two arcs of radius 2 × the offset, one from each rail, meeting at a point on the centreline. The arcs are tangent to the rails at their bases, so the end is a cone rather than a cap.</p><p>The rule exists to forbid a bare tip: every stalk must end in a flower, a seagrass blade, or this cone.</p>
   <ul class="nums"><li>R = 2 × offset</li><li>tangent at the base</li><li>one point</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-5c">← back to the figure</a></p>
 </section>
@@ -172,6 +191,7 @@ a{color:var(--ink)}
   <h2>Gerono lemniscate</h2>
   <p>A figure-eight with a node at the origin: x = cos t, y = sin t·cos t. The node is not a defect — it is what makes the curve rational and lets every point be written exactly.</p><p>A smooth curve of the same look would not be rational; the node is the price of exactness, and here it is welcome.</p>
   <ul class="nums"><li>quartic</li><li>one node</li><li>rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py (named curves) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-6a">← back to the figure</a></p>
 </section>
@@ -180,6 +200,7 @@ a{color:var(--ink)}
   <h2>Piriform</h2>
   <p>The pear: one loop and one cusp, r = 1 + sin t. Like the lemniscate it buys rationality with a singularity.</p><p>It belongs in the ending/flower track rather than the stalk catalogue, where its cusp would have to be split.</p>
   <ul class="nums"><li>quartic</li><li>one cusp</li><li>rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-6b">← back to the figure</a></p>
 </section>
@@ -188,6 +209,7 @@ a{color:var(--ink)}
   <h2>Trifolium</h2>
   <p>Three petals, r = cos 3t. The higher degree is what gives three-fold symmetry without a fitted blend.</p><p>It is in the flower grammar precisely because the symmetry is exact: a rosette that is not rational cannot promise it.</p>
   <ul class="nums"><li>sextic</li><li>3-fold symmetry</li><li>rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py · docs/FLOWERS-int.md<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-6c">← back to the figure</a></p>
 </section>
@@ -196,6 +218,7 @@ a{color:var(--ink)}
   <h2>Astroid</h2>
   <p>x = cos³t, y = sin³t: four cusps on the axes. Every rational point is exact, and the cusps are why the p-triple Euler route can follow it at all.</p><p>A single clothoid cannot cross a cusp; this curve has four, so any chain must split there.</p>
   <ul class="nums"><li>4 cusps</li><li>rational</li><li>split required for Euler</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=astroid · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-7a">← back to the figure</a></p>
 </section>
@@ -204,6 +227,7 @@ a{color:var(--ink)}
   <h2>Cycloid</h2>
   <p>The rolling-circle arch, x = t − sin t, y = 1 − cos t. Its cusps sit on the base line; between them it is a clean section.</p><p>Clothoid spans match it to about 0.9% on a smooth section and 15% at a cusp — the measured reason to split.</p>
   <ul class="nums"><li>cusps on the base</li><li>0.92% smooth</li><li>15.2% cusped</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=cycloid · scripts/euler_match.py<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-7b">← back to the figure</a></p>
 </section>
@@ -212,6 +236,7 @@ a{color:var(--ink)}
   <h2>Semicubical parabola</h2>
   <p>y² = x³, the cusp curve. Its integer points are (t², t³): a lattice inside a cusp.</p><p>It is also the evolute of the parabola — the reason the parabola's parallels can be written exactly as involutes.</p>
   <ul class="nums"><li>one cusp</li><li>integer points (t², t³)</li><li>evolute of the parabola</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=semicubical · Fig. P3<br><strong>Re-derive:</strong> <code>python scripts/pyth_plane.py</code></p>
   <p class="back"><a href="showcase.html#fig-7c">← back to the figure</a></p>
 </section>
@@ -220,6 +245,7 @@ a{color:var(--ink)}
   <h2>Cardioid</h2>
   <p>r = 1 − cos t: the flower head with a cusp at the base. Exact, rational, and one of the four forms the flower grammar admits.</p><p>The cusp is where the head meets the stalk, which is convenient: the join is a singularity, not a fit.</p>
   <ul class="nums"><li>r = 1 − cos t</li><li>one cusp</li><li>rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py flower · docs/FLOWERS-int.md<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import plant; print(len(plant.flower((0,0),(1,0),1.0)['left']))"</code></p>
   <p class="back"><a href="showcase.html#fig-8a">← back to the figure</a></p>
 </section>
@@ -228,6 +254,7 @@ a{color:var(--ink)}
   <h2>Rosette</h2>
   <p>Six petals from r = 0.55 + 0.45·cos 6t. It is the head the plant proof uses: simple, symmetric, and cheap to place.</p><p>Unlike the cardioid it is not a named rational curve; the petals are drawn as a sampled polar curve, so no exactness is claimed.</p>
   <ul class="nums"><li>6 petals</li><li>sampled</li><li>the ending grammar's head</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py flower · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-8b">← back to the figure</a></p>
 </section>
@@ -236,6 +263,7 @@ a{color:var(--ink)}
   <h2>Heart</h2>
   <p>The heart is on the page as a deliberate exception: it is not rational. Its genus is 4, so no polynomial parametrisation exists and everything about it is fitted.</p><p>It stays in the catalogue because it is a good shape, not because it is a good curve. The distinction is the point.</p>
   <ul class="nums"><li>genus 4</li><li>no exact route</li><li>fitted only</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/hearts.html · workbench/heart-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_heart_forms</code></p>
   <p class="back"><a href="showcase.html#fig-8c">← back to the figure</a></p>
 </section>
@@ -244,6 +272,7 @@ a{color:var(--ink)}
   <h2>Parabola</h2>
   <p>Integer points on the curve, a fitted parallel, and an exact parallel family one level up: the involutes of its evolute.</p><p>The parabola itself is not PH, so its offset is algebraic but not rational. The exact route exists, but it is not a parabola.</p>
   <ul class="nums"><li>integer points</li><li>parallel fitted</li><li>involute exact to 1e-15</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/pyth-plane.html · Fig. P3<br><strong>Re-derive:</strong> <code>python scripts/pyth_plane.py</code></p>
   <p class="back"><a href="showcase.html#fig-9a">← back to the figure</a></p>
 </section>
@@ -252,6 +281,7 @@ a{color:var(--ink)}
   <h2>Ellipse</h2>
   <p>Rational points at the 3-4-5 angles, but the parallel is fitted: an ellipse is not a PH curve, so its offset is not rational.</p><p>This is the case that keeps the offset catalogue honest — every conic is exact as a curve and approximate as a band.</p>
   <ul class="nums"><li>rational points</li><li>parallel fitted</li><li>not PH</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/stem-library-offset.html OffS8 · lac-parallel.html<br><strong>Re-derive:</strong> <code>python scripts/stem_library.py</code></p>
   <p class="back"><a href="showcase.html#fig-9b">← back to the figure</a></p>
 </section>
@@ -260,6 +290,7 @@ a{color:var(--ink)}
   <h2>Clothoid (Euler spiral)</h2>
   <p>κ ∝ s: the one curve whose curvature is linear in arc length. It cannot be written in elementary functions, so it is integrated.</p><p>It is the core of the Euler catalogue and the reason a chain of them, not one, is needed for G2.</p>
   <ul class="nums"><li>κ ∝ s</li><li>no elementary form</li><li>one cannot do G2</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/euler-sections.html · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-9c">← back to the figure</a></p>
 </section>
@@ -268,6 +299,7 @@ a{color:var(--ink)}
   <h2>The spine, with increasing turns</h2>
   <p>Equal chords, whole-number turns that grow: 1,2,3,4,5,6. The dotted polygon is the exact object; the smooth line through it is the drawing.</p><p>This is the same construction as the LAC spines, shown without a target curve so the schedule itself is visible.</p>
   <ul class="nums"><li>equal chords</li><li>turns 1,2,3,4,5,6</li><li>rail rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> pythagorean-spiral/ · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-10a">← back to the figure</a></p>
 </section>
@@ -276,6 +308,7 @@ a{color:var(--ink)}
   <h2>Logarithmic spiral</h2>
   <p>r = e^(0.22θ): the self-similar curve. Its exact property is that scaling it gives another spiral of the same pitch, so a band between two of them has a width proportional to the radius.</p><p>What it cannot do is hold a constant width — the offset drifts. And it has no lattice at all.</p>
   <ul class="nums"><li>self-similar</li><li>width ∝ r</li><li>constant width drifts</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/log-spiral.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
   <p class="back"><a href="showcase.html#fig-10b">← back to the figure</a></p>
 </section>
@@ -284,6 +317,7 @@ a{color:var(--ink)}
   <h2>Circle involute</h2>
   <p>The involute of a circle is another circle involute under offset: same base circle, shifted parameter. That is one of the few exact offset relations in the catalogue.</p><p>It is transcendental, so it is exact in the family and unavailable to the integer grid.</p>
   <ul class="nums"><li>offset = same family</li><li>transcendental</li><li>no lattice</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=involute · goals.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-10c">← back to the figure</a></p>
 </section>
@@ -292,6 +326,7 @@ a{color:var(--ink)}
   <h2>Catenary</h2>
   <p>The hanging chain, solved here rather than fitted: four PH cubics take it to 0.41% of a, walking integer chords.</p><p>It is the worked example of the rule that a curve is only "solved" when its offset and its integer points are both stated.</p>
   <ul class="nums"><li>four PH cubics</li><li>0.41% of a</li><li>integer chord walk</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/catenary.html · scripts/catenary.py<br><strong>Re-derive:</strong> <code>python scripts/catenary.py</code></p>
   <p class="back"><a href="showcase.html#fig-11a">← back to the figure</a></p>
 </section>
@@ -300,6 +335,7 @@ a{color:var(--ink)}
   <h2>Tractrix</h2>
   <p>The curve of constant tangent length, with a cusp at the top. Clothoid spans follow it poorly near that cusp, which is why it is split rather than fitted whole.</p><p>It survives in the catalogue as a curl and a leaf ending, not as a stalk.</p>
   <ul class="nums"><li>one cusp</li><li>poor near the cusp</li><li>ending track</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=catenary · TODO grade table<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-11b">← back to the figure</a></p>
 </section>
@@ -308,6 +344,7 @@ a{color:var(--ink)}
   <h2>Squircle</h2>
   <p>|x|⁴ + |y|⁴ = 1: smooth, pleasing, and not rational. There is no polynomial parametrisation, so every offset is a numeric fit.</p><p>It is the honest counterweight to the rational catalogue: the shape is good, the exactness is absent, and the page says which.</p>
   <ul class="nums"><li>not rational</li><li>offsets fitted</li><li>kept as a form</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/hearts.html · TODO grade table<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_heart_forms</code></p>
   <p class="back"><a href="showcase.html#fig-11c">← back to the figure</a></p>
 </section>
@@ -316,6 +353,7 @@ a{color:var(--ink)}
   <h2>Bean (limaçon form)</h2>
   <p>A limaçon with one dimple, drawn as r = 1 + 0.5·cos t. It is the bean's silhouette rather than the catalogue's exact bean, and is labelled as such.</p><p>Replace it with the named-curve generator's own bean when the page is next touched.</p>
   <ul class="nums"><li>r = 1 + 0.5·cos t</li><li>one dimple</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py (named bean) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-12a">← back to the figure</a></p>
 </section>
@@ -324,6 +362,7 @@ a{color:var(--ink)}
   <h2>Pear (ovoid form)</h2>
   <p>An ovoid with a shoulder, drawn parametrically. Like the bean, it is a silhouette, not the exact named pear.</p><p>It belongs in the stalk catalogue as a body shape, which is why the shoulder matters more than the exactness here.</p>
   <ul class="nums"><li>ovoid</li><li>shoulder at the top</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py (named pear) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-12b">← back to the figure</a></p>
 </section>
@@ -332,6 +371,7 @@ a{color:var(--ink)}
   <h2>Quadrifolium</h2>
   <p>r = cos 2t: four petals, exact, with a four-fold symmetry that is a polynomial fact rather than a drawn one.</p><p>It is the flower grammar's cleanest symmetry and the one that pairs with the cruciform opposite it.</p>
   <ul class="nums"><li>4 petals</li><li>r = cos 2t</li><li>rational</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-12c">← back to the figure</a></p>
 </section>
@@ -340,6 +380,7 @@ a{color:var(--ink)}
   <h2>Cruciform</h2>
   <p>The cross curve, x²y² = x² − y², drawn as four branches. It is exact and it is the primal shape: the crossing that becomes a fleur.</p><p>The four branches are why it is drawn as separate arms rather than one loop.</p>
   <ul class="nums"><li>4 branches</li><li>exact quartic</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
   <p class="back"><a href="showcase.html#fig-12d">← back to the figure</a></p>
 </section>
@@ -348,6 +389,7 @@ a{color:var(--ink)}
   <h2>Bracket preset</h2>
   <p>The app's corner: two clothoid spans meeting at 90°, sampled here from the design itself rather than redrawn.</p><p>The bracket and the ogee are the two shapes that make the case for the engine: a corner and a reversal, both as exact spans.</p>
   <ul class="nums"><li>90° corner</li><li>two spans</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('bracket').name)"</code></p>
   <p class="back"><a href="showcase.html#fig-13a">← back to the figure</a></p>
 </section>
@@ -356,6 +398,7 @@ a{color:var(--ink)}
   <h2>Ogee preset</h2>
   <p>Curvature rises, crosses zero, falls and returns to straight: the S that every scroll is built from.</p><p>Drawn from the preset's own segments, sampled at 260 points.</p>
   <ul class="nums"><li>60° reversal</li><li>curvature crosses zero</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('ogee').name)"</code></p>
   <p class="back"><a href="showcase.html#fig-13b">← back to the figure</a></p>
 </section>
@@ -364,6 +407,7 @@ a{color:var(--ink)}
   <h2>Petal preset</h2>
   <p>The leaf: a 100° turn with a corner at the point, used for endings and for the seagrass blades.</p><p>The corner is a declared tangent jump, not a fitting failure — which is why a petal can end in a point without a cusp being a defect.</p>
   <ul class="nums"><li>100°</li><li>declared corner at the point</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py · curve_lab/plant.py<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('petal').name)"</code></p>
   <p class="back"><a href="showcase.html#fig-13c">← back to the figure</a></p>
 </section>
@@ -372,6 +416,7 @@ a{color:var(--ink)}
   <h2>One long clothoid</h2>
   <p>A single span with κ = 0.028·s. It is the plainest smooth Euler: no cusp, no corner, curvature rising linearly along the arc.</p><p>It cannot be written in elementary functions, so it is integrated here — the law is exact, the drawing is numeric.</p>
   <ul class="nums"><li>κ = 0.028·s</li><li>one span</li><li>no cusp</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/engine.py · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-14a">← back to the figure</a></p>
 </section>
@@ -380,6 +425,7 @@ a{color:var(--ink)}
   <h2>Two clothoids, curvature matched</h2>
   <p>The second span starts with exactly the curvature the first one ends with — 0.6 — and unwinds it. That is what makes the join G2 rather than merely G1.</p><p>This is the smallest object that shows why one clothoid is not enough and two are.</p>
   <ul class="nums"><li>κ at the join 0.6</li><li>both sides</li><li>G2</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py (ogee) · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('ogee').segments)"</code></p>
   <p class="back"><a href="showcase.html#fig-14b">← back to the figure</a></p>
 </section>
@@ -388,6 +434,7 @@ a{color:var(--ink)}
   <h2>A five-span accelerating curl</h2>
   <p>Five spans, each starting at the previous curvature, with lengths growing: a volute that tightens as it turns.</p><p>It is the smooth counterpart of the cusped C families — a curl that an Euler chain can actually follow.</p>
   <ul class="nums"><li>5 spans</li><li>κ carried across</li><li>no cusp</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/engine.py · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-14c">← back to the figure</a></p>
 </section>
@@ -396,6 +443,7 @@ a{color:var(--ink)}
   <h2>LAC at α = 0.35</h2>
   <p>κ ∝ s^(α−1) with α below 1: the curvature falls slowly, so the curve tightens as it runs. It is the same law the clothoid uses, with a different exponent.</p><p>Nothing here is fitted: the law is the definition, and the drawing is its integral.</p>
   <ul class="nums"><li>α = 0.35</li><li>κ falls</li><li>smooth</li></ul>
+  
   <p class="meta"><strong>Where:</strong> docs/SPINE.md §5 (curl study) · workbench/spirals/<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-15a">← back to the figure</a></p>
 </section>
@@ -404,6 +452,7 @@ a{color:var(--ink)}
   <h2>LAC at α = 1</h2>
   <p>α = 1 gives κ ∝ 1/s — exactly the logarithmic spiral, which is why that curve keeps appearing in this catalogue.</p><p>The LAC family passes through the three curves we already have: clothoid at α = 0, log spiral at 1, circle at 2.</p>
   <ul class="nums"><li>α = 1</li><li>κ ∝ 1/s</li><li>the log spiral</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/log-spiral.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
   <p class="back"><a href="showcase.html#fig-15b">← back to the figure</a></p>
 </section>
@@ -412,6 +461,7 @@ a{color:var(--ink)}
   <h2>LAC at α = 1.7</h2>
   <p>α above 1: curvature rises with arc length, so the curve opens and then closes toward a circle as α approaches 2.</p><p>It is the family's other end, and the reason a single α is enough to describe every smooth 'aesthetic' curve the project uses.</p>
   <ul class="nums"><li>α = 1.7</li><li>κ rises</li><li>circle at α = 2</li></ul>
+  
   <p class="meta"><strong>Where:</strong> docs/SPINE.md · goals.md (LAC tier)<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
   <p class="back"><a href="showcase.html#fig-15c">← back to the figure</a></p>
 </section>
@@ -420,6 +470,7 @@ a{color:var(--ink)}
   <h2>Cycloid: ideal and quantised</h2>
   <p>The grey curve is the ideal cycloid; the dark one is the same curve with every heading rounded to 3° and the arches rebuilt from those rounded steps.</p><p>This is the project's central move, shown rather than described: the ideal curve is the target, the polygon is the plan, and the cusps survive the rounding.</p>
   <ul class="nums"><li>3° quantisation</li><li>cusps preserved</li></ul>
+  
   <p class="meta"><strong>Where:</strong> docs/SPINE.md §5 · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-16a">← back to the figure</a></p>
 </section>
@@ -428,6 +479,7 @@ a{color:var(--ink)}
   <h2>Astroid: ideal and quantised</h2>
   <p>The same treatment on a curve with four cusps. Quantisation follows the cusps rather than rounding them away, which is why the p-triple route can carry this family at all.</p><p>A clothoid chain cannot cross a cusp, so the section must be split — visible here as the corners that stay corners.</p>
   <ul class="nums"><li>4 cusps</li><li>split required</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/euler-sections.html · TODO grade table<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-16b">← back to the figure</a></p>
 </section>
@@ -436,6 +488,7 @@ a{color:var(--ink)}
   <h2>Tractrix: ideal and quantised</h2>
   <p>The tractrix's cusp is the hard case: the quantised polygon gathers points near it, and the clothoid fit degrades there. That degradation is the measured 15% figure.</p><p>It is drawn beside the ideal rather than instead of it, so the error is visible rather than asserted.</p>
   <ul class="nums"><li>one cusp</li><li>clothoid fit degrades</li></ul>
+  
   <p class="meta"><strong>Where:</strong> scripts/euler_match.py · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
   <p class="back"><a href="showcase.html#fig-16c">← back to the figure</a></p>
 </section>
@@ -444,6 +497,7 @@ a{color:var(--ink)}
   <h2>Arc, PH and chain joined</h2>
   <p>A quarter arc, a PH span and an integer chain in one run. The arc appears only as part of a composition — on its own it is too simple to teach anything.</p><p>Each piece is A-grade in the catalogue: exact arc, exact PH, integer chain. The joins are the interesting part, and they are where the costs live.</p>
   <ul class="nums"><li>three A-grade pieces</li><li>one continuous run</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py · curve_lab/pyth_chain.py<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-17a">← back to the figure</a></p>
 </section>
@@ -452,6 +506,7 @@ a{color:var(--ink)}
   <h2>PH curve: exact and fitted rails</h2>
   <p>Blue is the exact rational offset a PH curve admits; red is Levien's fitted cubic. They are close, and only one of them is exact.</p><p>Drawing both is the catalogue's rule: never show a fitted rail without the exact one beside it when the exact one exists.</p>
   <ul class="nums"><li>exact rail (PH)</li><li>fitted rail (Levien)</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/parallel_bezier.py · workbench/stem-library-offset.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_offsets</code></p>
   <p class="back"><a href="showcase.html#fig-17b">← back to the figure</a></p>
 </section>
@@ -460,6 +515,7 @@ a{color:var(--ink)}
   <h2>Integer G2 pair</h2>
   <p>Two cubics with integer controls meeting with matched tangent and matched curvature — the asymmetric pair found at scale 1.</p><p>It is the strongest integer result in the catalogue: G2 without leaving the lattice, for this pair.</p>
   <ul class="nums"><li>scale 1</li><li>tangent (4,−3)</li><li>curvature −6/5</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/pyth_g2.py · workbench/integer-g2.html Fig. G2<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_g2</code></p>
   <p class="back"><a href="showcase.html#fig-17c">← back to the figure</a></p>
 </section>
@@ -468,6 +524,7 @@ a{color:var(--ink)}
   <h2>Cone terminal, computed</h2>
   <p>The real terminal from curve_lab.plant, not a sketch: two arcs of radius 2 × the offset, each tangent to a rail and meeting at one point.</p><p>Every stalk must end this way, in a flower, or in seagrass. A bare tip is not a style choice here; it is a defect.</p>
   <ul class="nums"><li>R = 2 × offset</li><li>tangent at the base</li><li>one point</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py cone_terminal<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-18a">← back to the figure</a></p>
 </section>
@@ -476,6 +533,7 @@ a{color:var(--ink)}
   <h2>Growth marks</h2>
   <p>Pyramids sit on both rails only at marked stations — the integer-lattice hits. They are a mark, not a new curve family: small, local, and never between hits.</p><p>The rule is what keeps the stem from becoming decoration: every mark has a reason you can point at.</p>
   <ul class="nums"><li>one pyramid per rail</li><li>only at hits</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py pyramid · workbench/plant-forms.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant_forms</code></p>
   <p class="back"><a href="showcase.html#fig-18b">← back to the figure</a></p>
 </section>
@@ -484,6 +542,7 @@ a{color:var(--ink)}
   <h2>Branch</h2>
   <p>A branch leaves the stem and inherits the offset and ending rules. Lower branches are bigger than upper ones; the exact scale law is still open, the monotonic rule is not.</p><p>Drawn from the same module as the stem, so it cannot drift from the grammar.</p>
   <ul class="nums"><li>lower bigger than upper</li><li>inherits offset and ending</li></ul>
+  
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py branch · goals.md §Plant-forms<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-18c">← back to the figure</a></p>
 </section>
@@ -492,6 +551,7 @@ a{color:var(--ink)}
   <h2>The rays, as a monstrance</h2>
   <p>The rays are the p-triple angles themselves: 2·atan(1/m) for m = 2…12, mirrored about the vertical axis. Their lengths fall with m so the fan closes, and the stem sits on the axis.</p><p>Every ray is the same object as Fig. 1a — one triangle's angle — used here as ornament rather than as a plan. That is the whole project in one figure: the same exact turn, repeated, becomes a leaf, a stem or a ray.</p>
   <ul class="nums"><li>24 rays</li><li>53.13° at the centre</li><li>9.5° at the tips</li></ul>
+  
   <p class="meta"><strong>Where:</strong> workbench/showcase.html · workbench/ornament-board.html<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
   <p class="back"><a href="showcase.html#fig-rays">← back to the figure</a></p>
 </section>

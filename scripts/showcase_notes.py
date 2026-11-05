@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 INK, MUTED, RULE, PAPER = "#2e2413", "#7b6c4e", "#d8ccae", "#fbf7ec"
+GOLD, BLUE, RED, GREEN = "#c9a441", "#1f5fa8", "#a23b2a", "#3f7d4e"
 
 NOTES = [
     {
@@ -49,7 +50,7 @@ NOTES = [
     },
     {
         "id": "1b", "fig": "Fig. 1b", "title": "Cut anywhere at an integer", "kind": "the point of it",
-        "body": ["The cut is made at a node, so it lands on an integer: no fitting, no seam, no rounding. That is why the lattice was worth the trouble.",
+        "tech": ['turn', 'rails'], "body": ["The cut is made at a node, so it lands on an integer: no fitting, no seam, no rounding. That is why the lattice was worth the trouble.",
          "Any node can be a cut, a join, or the start of a branch — the three operations a grammar needs."],
         "numbers": ["cut at a node", "no seam", "no rounding"],
         "source": "curve_lab/pyth_chain.py · Fig. E1 in the chain editor",
@@ -57,7 +58,7 @@ NOTES = [
     },
     {
         "id": "1c", "fig": "Fig. 1c", "title": "Branch from an integer", "kind": "grammar",
-        "body": ["A branch leaves from a node rather than from an arbitrary point on the ink, so both the stem and the branch are anchored on the same lattice.",
+        "tech": ['closure'], "body": ["A branch leaves from a node rather than from an arbitrary point on the ink, so both the stem and the branch are anchored on the same lattice.",
          "That is the structural reason for integer points: cuts and branches have addresses."],
         "numbers": ["branch at a node", "shared lattice"],
         "source": "curve_lab/plant.py branch · goals.md §Plant-forms",
@@ -65,7 +66,7 @@ NOTES = [
     },
     {
         "id": "2a", "fig": "Fig. 2a", "title": "LAC ribbon", "kind": "smooth",
-        "body": ["A log-aesthetic curve drawn as a stem: the centreline follows κ ∝ s^(α−1), and the two rails stand off it at a constant distance.",
+        "tech": ['schedule'], "body": ["A log-aesthetic curve drawn as a stem: the centreline follows κ ∝ s^(α−1), and the two rails stand off it at a constant distance.",
          "The law is exact and the rails are fitted — the same split as every other ribbon on this page, stated rather than hidden."],
         "numbers": ["α = 1", "two rails", "smooth"],
         "source": "docs/SPINE.md · workbench/spirals/",
@@ -540,17 +541,96 @@ NOTES = [
 ]
 
 
+
+
+def _frame(pts, w=320, h=220, pad=30):
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    if x1 - x0 < 1e-9: x0, x1 = x0 - 1, x1 + 1
+    if y1 - y0 < 1e-9: y0, y1 = y0 - 1, y1 + 1
+    s = min((w - 2 * pad) / (x1 - x0), (h - 2 * pad) / (y1 - y0))
+    ox = (w - (x1 - x0) * s) / 2; oy = (h - (y1 - y0) * s) / 2
+    return lambda p: (ox + (p[0] - x0) * s, h - oy - (p[1] - y0) * s)
+
+
+def _svg(curves, title, dots=(), w=320, h=220):
+    put = _frame([p for pts, *_ in curves for p in pts], w, h)
+    out = [f'<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">',
+           f'<rect width="{w}" height="{h}" fill="{PAPER}"/>']
+    for pts, colour, width, dash in curves:
+        d = " ".join(("M" if i == 0 else "L") + f"{put(p)[0]:.1f},{put(p)[1]:.1f}"
+                     for i, p in enumerate(pts))
+        da = f' stroke-dasharray="{dash}"' if dash else ""
+        out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{da}/>')
+    for p in dots:
+        q = put(p); out.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.5" fill="{GOLD}"/>')
+    out.append(f'<text x="8" y="16" font-family="Georgia,serif" font-size="11" fill="{INK}">{title}</text>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def _turn_polygon(schedule, a=4.0, b=3.0, chord=1.0):
+    import math
+    c = math.hypot(a, b); ca, sa = a / c, b / c
+    x = y = 0.0; dx, dy = 1.0, 0.0; pts = [(0.0, 0.0)]
+    for k in schedule:
+        for _ in range(abs(k)):
+            if k > 0: dx, dy = ca * dx - sa * dy, sa * dx + ca * dy
+            else: dx, dy = ca * dx + sa * dy, -sa * dx + ca * dy
+        x += chord * dx; y += chord * dy; pts.append((x, y))
+    return pts
+
+
+def _miter(pts, d):
+    import math
+    out = []
+    for i, p in enumerate(pts):
+        a = pts[max(0, i - 1)]; b = pts[min(len(pts) - 1, i + 1)]
+        e0 = (p[0] - a[0], p[1] - a[1]); e1 = (b[0] - p[0], b[1] - p[1])
+        l0 = math.hypot(*e0) or 1; l1 = math.hypot(*e1) or 1
+        e0 = (e0[0] / l0, e0[1] / l0); e1 = (e1[0] / l1, e1[1] / l1)
+        n0 = (-e0[1], e0[0]); n1 = (-e1[1], e1[0])
+        mx, my = n0[0] + n1[0], n0[1] + n1[1]; L = math.hypot(mx, my) or 1
+        mx, my = mx / L, my / L
+        k = d / max(0.25, mx * n0[0] + my * n0[1])
+        out.append((p[0] + k * mx, p[1] + k * my))
+    return out
+
+
+def _tech(name):
+    if name == "turn":
+        import math
+        tri = [(0, 0), (4, 0), (4, 3), (0, 0)]
+        arc = [(1.1 * math.cos(t), 1.1 * math.sin(t)) for t in [math.atan2(3, 4) * i / 20 for i in range(21)]]
+        return _svg([(tri, INK, 1.6, None), (arc, RED, 1.3, None)], "the 3-4-5 turn", dots=[(4, 3)])
+    if name == "rails":
+        poly = _turn_polygon([1] * 8)
+        return _svg([(_miter(poly, 0.22), BLUE, 1.2, None), (_miter(poly, -0.22), BLUE, 1.2, None),
+                     (poly, INK, 1.8, None)], "eight chords · rational rails", dots=poly)
+    if name == "closure":
+        poly = _turn_polygon([1, 2, 3, 2, 1, -1, -2, -3, -2, -1])
+        return _svg([(poly, INK, 1.8, None)], "turns sum to zero · ends east",
+                    dots=[poly[0], poly[-1]])
+    if name == "schedule":
+        poly = _turn_polygon([1, 2, 3, 4, 5, 4, 3, 2, 1])
+        return _svg([(poly, INK, 1.8, None)], "the LAC schedule · the curve is the list",
+                    dots=poly)
+    return ""
+
+
 def build() -> Path:
     sections = []
     for n in NOTES:
         rows = "".join(f"<li>{x}</li>" for x in n["numbers"])
         paras = "".join(f"<p>{x}</p>" for x in n["body"])
+        tech = "".join(f'<div class="tech">{_tech(t)}</div>' for t in n.get("tech", []))
         sections.append(f"""
 <section class="note" id="fig-{n['id']}">
   <p class="eyebrow">{n['fig']} · {n['kind']}</p>
   <h2>{n['title']}</h2>
   {paras}
   <ul class="nums">{rows}</ul>
+  {tech}
   <p class="meta"><strong>Where:</strong> {n['source']}<br><strong>Re-derive:</strong> <code>{n['command']}</code></p>
   <p class="back"><a href="showcase.html#fig-{n['id']}">← back to the figure</a></p>
 </section>""")
@@ -571,6 +651,7 @@ h2{{font-size:21px;margin:0 0 8px}}
 .meta{{font:12px/1.7 ui-monospace,Menlo,monospace;color:var(--muted);margin:0}}
 code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}}
 .back{{margin:10px 0 0;font:12px ui-monospace,Menlo,monospace}}
+.tech{{display:inline-block;width:calc(50% - 8px);margin:6px 8px 6px 0;vertical-align:top;border:1px solid var(--rule)}}
 a{{color:var(--ink)}}
 .top{{font:12px ui-monospace,Menlo,monospace;margin:0 0 18px}}
 </style></head><body><main>
