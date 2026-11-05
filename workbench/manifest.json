@@ -423,6 +423,15 @@
       "purpose": "Every family of ray and curve on one page, three across, ending in a monstrance.",
       "inputs": "the catalogue",
       "outputs": "24 numbered panels and the ray fan"
+    },
+    {
+      "key": "showcase-notes",
+      "file": "showcase-notes.html",
+      "group": "curve",
+      "title": "Showcase notes",
+      "purpose": "One note per showcase figure: what is exact, what is fitted, the numbers, the command.",
+      "inputs": "the showcase figures",
+      "outputs": "16 linked note sections"
     }
   ]
 }

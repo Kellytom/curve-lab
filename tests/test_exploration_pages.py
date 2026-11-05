@@ -1,6 +1,7 @@
 """Guards the three exploration pages: their claims, not just their files."""
 
 import math
+import re
 import unittest
 from pathlib import Path
 
@@ -104,6 +105,18 @@ class TestShowcase(unittest.TestCase):
         self.assertIn("Fig. 6", page)
         self.assertLess(page.index("Fig. 3a"), page.index("Fig. 6"))
         self.assertIn("monstrance", page)
+
+
+class TestShowcaseNotes(unittest.TestCase):
+    def test_every_figure_links_to_its_note(self):
+        page = (PAGES / "showcase.html").read_text()
+        notes = (PAGES / "showcase-notes.html").read_text()
+        ids = re.findall(r'id="fig-([0-9a-c]+)"', page)
+        self.assertEqual(len(ids), 16)
+        for key in ids:
+            self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
+            self.assertIn(f'id="fig-{key}"', notes)
+        self.assertEqual(len(set(ids)), 16)
 
 
 class TestMultiGrid(unittest.TestCase):

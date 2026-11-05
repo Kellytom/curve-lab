@@ -41,7 +41,7 @@ def fit(pts, pad=34):
     return lambda p: (ox + (p[0] - x0) * s, H - oy - (p[1] - y0) * s)   # +y up, flipped here
 
 
-def panel(fig, title, curves, note="", legend=(), dots=()):
+def panel(fig, title, curves, note="", legend=(), dots=(), key=""):
     allpts = [p for pts, *_ in curves for p in pts]
     put = fit(allpts)
     out = [f'<svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{title}">',
@@ -59,7 +59,11 @@ def panel(fig, title, curves, note="", legend=(), dots=()):
     out.append(f'<text x="{W - 14}" y="{H - 24}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" text-anchor="end">x →</text>')
     out.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">y ↑</text>')
     out.append("</svg>")
-    return "".join(out)
+    body = "".join(out)
+    if not key:
+        return body
+    return (f'<a class="fig" id="fig-{key}" href="showcase-notes.html#fig-{key}" '
+            f'title="{fig} — notes">{body}</a>')
 
 
 # ---- geometry helpers ------------------------------------------------------
@@ -143,58 +147,49 @@ def run() -> None:
            [math.atan2(b, a) * i / 24 for i in range(25)]]
     p1a = panel("Fig. 1a", "the 3-4-5 turn", [
         (tri, INK, 1.8, None), (arc, RED, 1.4, None)],
-        "cos 4/5 · sin 3/5 · exact fractions", dots=[((a, b), RED)])
-
+        "cos 4/5 · sin 3/5 · exact fractions", dots=[((a, b), RED)], key="1a")
     # 1b — Euler polygon with rational rails
     poly = turn_polygon([1, 1, 1, 1, 1, 1, 1, 1], 4, 3, chord=1.0)
     p1b = panel("Fig. 1b", "integer Euler polygon · rational rails", [
         (miter(poly, 0.22), BLUE, 1.3, None),
         (miter(poly, -0.22), BLUE, 1.3, None),
         (poly, INK, 2.0, None)],
-        "eight equal chords · turns sum to 8", dots=[(p, GOLD) for p in poly])
-
+        "eight equal chords · turns sum to 8", dots=[(p, GOLD) for p in poly], key="1b")
     # 1c — closure: a balanced turn schedule
     sched = [1, 2, 3, 2, 1, -1, -2, -3, -2, -1]
     poly2 = turn_polygon(sched, 4, 3, chord=1.0)
     p1c = panel("Fig. 1c", "closure: turns sum to zero", [
         (smooth(poly2), INK, 2.0, None), (poly2, MUTED, 0.9, "4 3")],
-        "schedule 1,2,3,2,1,−1,−2,−3,−2,−1 · ends east", dots=[(poly2[0], GOLD), (poly2[-1], RED)])
-
+        "schedule 1,2,3,2,1,−1,−2,−3,−2,−1 · ends east", dots=[(poly2[0], GOLD), (poly2[-1], RED)], key="1c")
     # 2a — a recovered-style LAC schedule
     lac = turn_polygon([1, 2, 3, 4, 5, 4, 3, 2, 1], 4, 3, chord=1.0)
     p2a = panel("Fig. 2a", "LAC spine · turn schedule", [
-        (lac, INK, 2.0, None)], "the schedule is the curve", dots=[(p, GOLD) for p in lac])
-
+        (lac, INK, 2.0, None)], "the schedule is the curve", dots=[(p, GOLD) for p in lac], key="2a")
     # 2b — the same with rails
     p2b = panel("Fig. 2b", "LAC spine · miter rails", [
         (miter(lac, 0.2), BLUE, 1.2, None), (miter(lac, -0.2), BLUE, 1.2, None),
-        (smooth(lac), INK, 1.8, None)], "rails exact on the polygon, fitted on the cubic")
-
+        (smooth(lac), INK, 1.8, None)], "rails exact on the polygon, fitted on the cubic", key="2b")
     # 2c — the cubic fit
     p2c = panel("Fig. 2c", "the drawn cubic, not the polygon", [
         (smooth(lac), RED, 1.6, None), (lac, MUTED, 1.0, "4 3")],
-        "the drawn curve is an interpolation · ~1.4% of the law")
-
+        "the drawn curve is an interpolation · ~1.4% of the law", key="2c")
     # 3a — Euclid chain n=1
     _, poly_n1, nodes1 = chain_spans(2, 7, 1)
     p3a = panel("Fig. 3a", "Euclid family chain · n=1", [
         (poly_n1, INK, 2.0, None)], "integer control points at scale 1",
-        dots=[(p, GOLD) for p in nodes1])
-
+        dots=[(p, GOLD) for p in nodes1], key="3a")
     # 3b — n=2
     _, poly_n2, nodes2 = chain_spans(3, 10, 2)
     p3b = panel("Fig. 3b", "Euclid family chain · n=2", [
         (poly_n2, INK, 2.0, None)], "denser family · same construction",
-        dots=[(p, GOLD) for p in nodes2])
-
+        dots=[(p, GOLD) for p in nodes2], key="3b")
     # 3c — the exponent drift
     bands = [(6, -0.835), (12, -1.091), (25, -1.222), (50, -1.278), (100, -1.305), (400, -1.325)]
     drift = [(math.log10(m), p) for m, p in bands]
     line = [(x, -4 / 3) for x in (math.log10(6), math.log10(400))]
     p3c = panel("Fig. 3c", "the exponent drifts to −4/3", [
         (line, RED, 1.2, "5 4"), (drift, BLUE, 1.8, None)],
-        "measured p against band width", dots=[(q, BLUE) for q in drift])
-
+        "measured p against band width", dots=[(q, BLUE) for q in drift], key="3c")
     # 4a — the exact taper
     ls = LogSpiral(1.0, 0.5)
     out_ = ls.scaled(1.3)
@@ -202,8 +197,7 @@ def run() -> None:
     outer = [out_.point(3.3 * i / 80) for i in range(81)]
     p4a = panel("Fig. 4a", "exact taper · width ∝ r", [
         (inner, BLUE, 1.4, None), (outer, BLUE, 1.4, None)],
-        f"width/r = {width_ratio(1.3, 0.5):.4f}, constant")
-
+        f"width/r = {width_ratio(1.3, 0.5):.4f}, constant", key="4a")
     # 4b — the offset myth
     off = []
     for i in range(200):
@@ -213,8 +207,7 @@ def run() -> None:
         off.append((p[0] + 0.18 * n[0], p[1] + 0.18 * n[1]))
     p4b = panel("Fig. 4b", "constant offset is not a spiral", [
         (inner, MUTED, 1.0, None), (off, RED, 1.4, None)],
-        "drift grows with d/r — measured, not assumed")
-
+        "drift grows with d/r — measured, not assumed", key="4b")
     # 4c — parabola parallel
     par = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 120) for i in range(121)]]
     poff = []
@@ -223,31 +216,27 @@ def run() -> None:
         poff.append((x + 0.35 * (-x / L), y + 0.35 * (1 / L)))
     p4c = panel("Fig. 4c", "a parabola's parallel is not a parabola", [
         (par, INK, 1.6, None), (poff, RED, 1.4, None)],
-        "the best-fit parabola misses by 20.8% of d")
-
+        "the best-fit parabola misses by 20.8% of d", key="4c")
     # 5a — three grids
     g1 = [(0, 0), (0, 1), (1, 1), (1, 2)]
     g2 = [(1.4, 2), (1.6, 2.6), (1.9, 2.9)]
     g3 = [(2.3, 2.6), (2.6, 2.9), (2.9, 2.6)]
     p5a = panel("Fig. 5a", "three grids · lcm 25", [
         (g1, INK, 1.8, None), (g2, BLUE, 1.8, None), (g3, RED, 1.8, None)],
-        "1 · 1/5 · 1/25 → composite 1/25")
-
+        "1 · 1/5 · 1/25 → composite 1/25", key="5a")
     # 5b — the composed stem with a step
     _, poly_a, nodes_a = chain_spans(2, 4, 1)
     end = nodes_a[-1]
     p5b = panel("Fig. 5b", "two chains, one 1/5 step", [
         (poly_a, INK, 1.8, None),
         ([end, (end[0] + 2.2, end[1] + 0.4), (end[0] + 2.2, end[1] + 0.6)], GOLD, 1.6, None)],
-        "position exact · tangent kink 25.06°")
-
+        "position exact · tangent kink 25.06°", key="5b")
     # 5c — the cone terminal
     tip = (1.6, 1.2)
     p5c = panel("Fig. 5c", "cone terminal · R = 2 × offset",
                 [([(0, 0), tip], INK, 1.6, None),
                  ([(tip[0] - 0.35, tip[1] - 0.2), tip, (tip[0] + 0.1, tip[1] + 0.35)], RED, 1.4, None)],
-                "two arcs, one point, no bare tip")
-
+                "two arcs, one point, no bare tip", key="5c")
     # 6 — the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -267,6 +256,8 @@ def run() -> None:
     ray_svg.append(f'<text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">Fig. 6 · the rays · p-triple angles 2·atan(1/m), mirrored, as a monstrance</text>')
     ray_svg.append(f'<text x="12" y="{RH - 10}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">24 rays · 53.13° at the centre falling to 9.5° at the tips · stem on the axis</text>')
     ray_svg.append("</svg>")
+    ray_html = ('<a class="fig" id="fig-6" href="showcase-notes.html#fig-6" '
+                'title="Fig. 6 — notes">' + "".join(ray_svg) + "</a>")
 
     def row(a, b, c):
         return f'<div class="row">{a}{b}{c}</div>'
@@ -290,7 +281,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · the whole catalogue on one page</p>
 <h1>Rays and curves</h1>
-<p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c</code> inside each numbered figure.</p>
+<p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
 
 <div class="fam"><h2>1 · Integer Euler</h2><p>exact turns, exact closure, rational rails; only the drawn cubic is fitted</p></div>
 {row(p1a, p1b, p1c)}
@@ -308,7 +299,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p5a, p5b, p5c)}
 
 <div class="fam"><h2>6 · Rays</h2><p>the p-triple angles themselves, mirrored about the axis</p></div>
-{ray_svg}
+{ray_html}
 
 <p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>
 </main></body></html>
@@ -316,6 +307,9 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
     out = ROOT / "workbench" / "showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)
+
+    from showcase_notes import build as build_notes
+    print(build_notes())
 
 
 if __name__ == "__main__":
