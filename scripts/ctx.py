@@ -46,6 +46,19 @@ def main() -> int:
             return 1
         sid = row[0]
 
+    # active minutes: sum of gaps between turns, each capped at 5 min, so idle
+    # time between messages does not count as work
+    stamps = [r[0] for r in con.execute(
+        "select time_created from session_message where session_id=? and type in ('user','assistant') "
+        "order by time_created", (sid,)).fetchall()]
+    active_ms = 0
+    for a, b in zip(stamps, stamps[1:]):
+        gap = (a - b) if a > b else (b - a)
+        active_ms += min(gap, 5 * 60 * 1000)
+    active_min = active_ms / 60000.0
+    turns = con.execute("select count(*) from session_message where session_id=? and type='assistant'",
+                        (sid,)).fetchone()[0]
+
     rows = con.execute(
         "select data from session_message where session_id=? and type='assistant' "
         "order by seq desc limit 50", (sid,)).fetchall()
@@ -55,13 +68,19 @@ def main() -> int:
             continue
         used = int(tokens.get("input", 0)) + int(tokens.get("cache", {}).get("read", 0))
         pct = 100.0 * used / args.window
-        verdict = "ok" if pct < 70 else ("warn" if pct < 85 else "STOP")
+        if pct >= 85 or active_min >= 90 or turns >= 60:
+            verdict = "STOP"
+        elif pct >= 70 or active_min >= 60 or turns >= 40:
+            verdict = "warn"
+        else:
+            verdict = "ok"
         if args.json:
             print(json.dumps({"session": sid, "used": used, "window": args.window,
                               "percent": round(pct, 1), "verdict": verdict}))
         else:
             print(f"session {sid}")
             print(f"context {used:,} / {args.window:,} = {pct:.1f}%")
+            print(f"active  {active_min:.0f} min · turns {turns}")
             if verdict == "ok":
                 print("verdict ok — plenty left")
             elif verdict == "warn":

@@ -105,8 +105,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
-- **Measure context, don't feel it:** `python scripts/ctx.py` (1M window; 70% =
-  finish the step, 85% = handoff and new session). Never narrow the task
+- **Measure the session, don't feel it:** `python scripts/ctx.py` prints context
+  used against the 1M window, active minutes and turns. Warn at 70% / 60 min /
+  40 turns; stop at 85% / 90 min / 60 turns — then /fhandoff and a new session. Never narrow the task
   silently; "complete" needs a diff or a test.
 - **Catalogue pages are generated from the source tables**, never drawn from
   memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
