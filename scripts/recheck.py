@@ -442,6 +442,19 @@ def c_ending_fit():
     return ok, f"{len(rows)} sections, 0 crossings, min rail gap {worst:.2f}"
 
 
+@check("the modulated-width law meets the plain stroke at both seams",
+       "scripts/modulated_width_proof.py; workbench/modulated-width-proof.html",
+       "python -m unittest tests.test_modulated_width_proof")
+def c_modulated_width_proof():
+    import modulated_width_proof as M
+    d = M.proof_data()
+    ok = (abs(d["seam"][0] - 1.0) < 1e-12 and abs(d["seam"][1] - 1.0) < 1e-12
+          and d["hits_left"] == 0 and d["hits_right"] == 0
+          and d["ratio"] > 1.5)
+    return ok, (f"ratio {d['ratio']:.3f}, seam {d['seam'][0]:.6f}/"
+                f"{d['seam'][1]:.6f}, 0 crossings")
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

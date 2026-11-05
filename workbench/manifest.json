@@ -281,6 +281,15 @@
       "outputs": "scale, reach, rail clearance, cusp and crossing counts, ending grades"
     },
     {
+      "key": "modulated-width-proof",
+      "file": "modulated-width-proof.html",
+      "group": "curve",
+      "title": "Modulated width proof",
+      "purpose": "A declared width law measured against the constant 2 × band it is not.",
+      "inputs": "a spine, the width amplitude a, the base width",
+      "outputs": "width ratio, seam, deviation from the constant band, rail crossings"
+    },
+    {
       "key": "euler-sections",
       "file": "euler-sections.html",
       "group": "curve",
