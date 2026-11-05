@@ -104,3 +104,10 @@ the date it was last checked.
 7. **Reply with at most five bullets:** current state, the focused action and its
    `Proves:` line, any blocker, the commit hash, and the next command
    (`/fhandon`).
+
+## If context ran out
+
+When the session ends because context is exhausted, record it in the block: say
+"I am at the end of usable context" in one line, and list what remains as the
+next action. Do not silently narrow the work and call it complete — the next
+session starts from this block and will trust it.

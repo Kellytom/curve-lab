@@ -105,6 +105,8 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
+- **Say when context is low** — before starting anything new, and never
+  silently narrow the task. "Complete" needs a diff or a test.
 - **Catalogue pages are generated from the source tables**, never drawn from
   memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
   before claiming completeness; `recheck` fails when one is missing.
