@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT))
 from curve_lab import pyth_chain as pc  # noqa: E402
 from curve_lab import spine as spine_layer  # noqa: E402
 from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
+from modulated_width import cubic as width_cubic, rails as width_rails  # noqa: E402
 
 INK, GOLD, BLUE, RED, GREEN = "#2e2413", "#c9a441", "#1f5fa8", "#a23b2a", "#3f7d4e"
 MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
@@ -281,6 +282,13 @@ def run() -> None:
     p4c = panel("Fig. 4c", "a parabola's parallel is not a parabola", [
         (par, INK, 1.6, None), (poff, RED, 1.4, None)],
         "the best-fit parabola misses by 20.8% of d", key="4c")
+    # 4d — modulated width, drawn from its own width law
+    mw_spine = width_cubic((0.0, 0.0), (3.2, 2.6), (6.8, -2.6), (10.0, 0.0), 240)
+    mw_left, mw_right = width_rails(mw_spine, 0.6)
+    p4d = panel("Fig. 4d", "modulated width · not an offset", [
+        (mw_left, BLUE, 1.2, None), (mw_right, BLUE, 1.2, None),
+        (mw_spine, INK, 1.8, None)],
+        "w = w0(1 + 64a u^3 (1-u)^3) · rails not equidistant", key="4d")
     # 5a — three grids
     g1 = [(0, 0), (0, 1), (1, 1), (1, 2)]
     g2 = [(1.4, 2), (1.6, 2.6), (1.9, 2.9)]
@@ -350,6 +358,12 @@ def run() -> None:
     p8c = panel("Fig. 8c", "heart · the non-rational one", [(heart, INK, 1.8, None)],
                 "fitted only · no exact route", key="8c")
 
+    stalk8 = [(0.0, 0.0), (0.04, 0.55), (0.0, 1.15)]
+    blades8 = plant.seagrass((0.0, 1.15), (0.0, 1.0), 0.3)
+    p8d = panel("Fig. 8d", "seagrass · the blade ending", [
+        (stalk8, INK, 1.8, None)] + [(b, GREEN, 1.5, None) for b in blades8],
+        "three tapered blades · no bare tip", key="8d")
+
     # ---- 9 · conics and the clothoid --------------------------------------
     par2 = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 160) for i in range(161)]]
     p9a = panel("Fig. 9a", "parabola", [(par2, INK, 1.8, None)],
@@ -367,6 +381,14 @@ def run() -> None:
         y += math.sin(t * t / 2) * ds
     p9c = panel("Fig. 9c", "clothoid · Euler spiral", [(cloth, INK, 1.8, None)],
                 "κ ∝ s · the only curve with linear curvature", key="9c")
+
+    hyp_r = [(math.cosh(t), math.sinh(t)) for t in [(-1.9 + 3.8 * i / 160) for i in range(161)]]
+    hyp_l = [(-x, y) for x, y in hyp_r]
+    p9d = panel("Fig. 9d", "hyperbola · two branches", [
+        ([(x, x) for x in (-2.4, 2.4)], MUTED, 0.9, "4 3"),
+        ([(x, -x) for x in (-2.4, 2.4)], MUTED, 0.9, "4 3"),
+        (hyp_r, INK, 1.8, None), (hyp_l, INK, 1.8, None)],
+        "x^2 - y^2 = 1 · rational points, fitted parallel", key="9d")
 
 
     # ---- 10 · spirals -----------------------------------------------------
@@ -711,8 +733,8 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>3 · Integer Bézier · Euclid family chains</h2><p>integer control points at scale 1 · C1 exact · exponent −4/3 in the limit</p></div>
 {row(p3a, p3b, p3c)}
 
-<div class="fam"><h2>4 · Widths</h2><p>one exact taper, and two constructions that are provably not what they look like</p></div>
-{row(p4a, p4b, p4c)}
+<div class="fam"><h2>4 · Widths</h2><p>one exact taper, two constructions that are provably not what they look like, and one width that is declared not an offset</p></div>
+<div class="row four">{p4a}{p4b}{p4c}{p4d}</div>
 
 <div class="fam"><h2>5 · Composition</h2><p>parts on different grids, a declared step, and an ending</p></div>
 {row(p5a, p5b, p5c)}
@@ -725,10 +747,10 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p7a, p7b, p7c)}
 
 <div class="fam"><h2>8 · Flowers and endings</h2><p>the heads a stalk ends in · one of them is not rational at all</p></div>
-{row(p8a, p8b, p8c)}
+<div class="row four">{p8a}{p8b}{p8c}{p8d}</div>
 
 <div class="fam"><h2>9 · Conics and the clothoid</h2><p>integer points on the curve, fitted parallels, and the one linear-curvature curve</p></div>
-{row(p9a, p9b, p9c)}
+<div class="row four">{p9a}{p9b}{p9c}{p9d}</div>
 
 
 <div class="fam"><h2>10 · Spirals</h2><p>the plan, the self-similar curve, and the one whose offsets stay in the family</p></div>

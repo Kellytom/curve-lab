@@ -167,6 +167,14 @@ NOTES = [
         "command": "python scripts/pyth_plane.py",
     },
     {
+        "id": "4d", "fig": "Fig. 4d", "title": "Modulated width: declared, not an offset", "kind": "advanced width",
+        "body": ["The two rails are deliberately not equidistant. The width is a function of the parameter, w(u) = w0(1 + 64a u³(1−u)³), chosen so the width, its slope and its curvature all meet the plain stroke at both ends.",
+         "This is the former Stage IV: a width study, not a parallel offset. It is kept as its own track precisely because forcing it into the 2× parallel rule would make the rule false."],
+        "numbers": ["w = w0(1+64a u³(1−u)³)", "rails not equidistant", "not an offset source"],
+        "source": "workbench/modulated-width.html · scripts/modulated_width.py",
+        "command": "python scripts/modulated_width.py",
+    },
+    {
         "id": "5a",
         "fig": "Fig. 5a",
         "title": "Three grids, one design",
@@ -278,6 +286,14 @@ NOTES = [
         "command": "python -m unittest tests.test_heart_forms",
     },
     {
+        "id": "8d", "fig": "Fig. 8d", "title": "Seagrass: the blade ending", "kind": "grammar",
+        "body": ["Three tapered blades leave the stalk tip; the centre blade is the longest. The fan is deliberately asymmetric in length and symmetric in angle, so it reads as a leaf rather than a flower.",
+         "It is the third legal ending, beside the flower head and the cone terminal. The rule it serves is the same one: no bare tip."],
+        "numbers": ["3 tapered blades", "centre longest", "no bare tip"],
+        "source": "curve_lab/plant.py seagrass · workbench/plant-forms.html",
+        "command": "python -m unittest tests.test_plant",
+    },
+    {
         "id": "9a", "fig": "Fig. 9a", "title": "Parabola", "kind": "mixed",
         "body": ["Integer points on the curve, a fitted parallel, and an exact parallel family one level up: the involutes of its evolute.",
          "The parabola itself is not PH, so its offset is algebraic but not rational. The exact route exists, but it is not a parabola."],
@@ -300,6 +316,14 @@ NOTES = [
         "numbers": ["κ ∝ s", "no elementary form", "one cannot do G2"],
         "source": "workbench/euler-sections.html · docs/SPINE.md",
         "command": "python scripts/euler_match.py",
+    },
+    {
+        "id": "9d", "fig": "Fig. 9d", "title": "Hyperbola", "kind": "mixed",
+        "body": ["x² − y² = 1: two branches and two asymptotes. The branches through the 3-4-5 angles carry rational points — (5/3, 4/3) among them — but the curve is not PH.",
+         "So the hyperbola is exact as a curve and fitted as a band, exactly like the parabola and the ellipse. The conic row is now complete."],
+        "numbers": ["two branches", "rational points", "parallel fitted"],
+        "source": "workbench/stem-library-offset.html OffS9 · goals.md",
+        "command": "python scripts/stem_offset_library.py",
     },
     {
         "id": "10a", "fig": "Fig. 10a", "title": "The spine, with increasing turns", "kind": "exact plan",
