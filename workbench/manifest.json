@@ -254,6 +254,15 @@
       "outputs": "rails, a cone terminal at the lance tip, a seagrass branch ending, pyramid marks"
     },
     {
+      "key": "volute-proof",
+      "file": "volute-proof.html",
+      "group": "curve",
+      "title": "Volute proof 01",
+      "purpose": "The exact p-triple spiral under the plant grammar: rails, a cone terminal, a branch.",
+      "inputs": "chord count, offset, branch node",
+      "outputs": "an exact rational spine, fitted rails, 2 × offset cone, seagrass branch"
+    },
+    {
       "key": "euler-sections",
       "file": "euler-sections.html",
       "group": "curve",
