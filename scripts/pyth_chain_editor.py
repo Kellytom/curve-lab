@@ -44,6 +44,9 @@ th,td{border:1px solid var(--rule);padding:5px 7px;text-align:right}
 th{color:var(--muted);font-weight:400}
 .small{font:12px/1.55 ui-monospace,Menlo,monospace;color:var(--muted)}
 code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pair h3{font:13px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+@media (max-width:860px){.pair{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -91,6 +94,71 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
   <canvas id="cv3" width="1120" height="520"></canvas>
   <p class="readout" id="out3"></p>
   <table id="tbl3"></table>
+</section>
+
+<section class="panel">
+  <h2>Fig. S1 · the n=1 stem cut from the 3-4-5 seed</h2>
+  <p>The band starts at <code>m=2</code> — the 3-4-5 itself, 53.13° — which is the tight end. A width is only legal while <code>d &lt; R_min</code>, the smallest radius of curvature anywhere on the chain, and that radius sits at the seed, so it sets the width for the whole stem. The rails are the true offset at ±d; the gap between them is measured, not assumed. <strong>Verdict:</strong> see the line under the figure.</p>
+  <div class="controls">
+    <label>triangles <input id="s1k" type="range" min="3" max="8" step="1" value="6"><span id="s1kV">6</span></label>
+    <label>d / R_min <input id="s1d" type="range" min="0.2" max="0.9" step="0.05" value="0.6"><span id="s1dV">0.60</span></label>
+  </div>
+  <canvas id="cvs1" width="1120" height="560"></canvas>
+  <p class="readout" id="outs1"></p>
+</section>
+
+<section class="panel">
+  <h2>Fig. X · the two routes, side by side</h2>
+  <p>Both routes make a stem, a spine or a chain; the names say what each one keeps <em>exact</em>, not what it is for. <strong>Turn-exact</strong> (<code>pythagorean-spiral/</code>) decides the turns and the points exactly, and fits the ink. <strong>Ink-exact</strong> (<code>curve_lab/pyth_chain.py</code>) draws with whole-number control points, and fits the turns.</p>
+
+  <div class="pair">
+    <div>
+      <h3>Fig. X1a · turn-exact: the triangle is an angle</h3>
+      <canvas id="x1a" width="560" height="360"></canvas>
+      <p class="small">8-6-10: turn by <code>cos 4/5, sin 3/5</code>. Every turn divides by 5, so the point stays exact as a fraction.</p>
+    </div>
+    <div>
+      <h3>Fig. X1b · ink-exact: the triangle is a vector</h3>
+      <canvas id="x1b" width="560" height="360"></canvas>
+      <p class="small">The same triangle, used as <code>T = (8, −6)</code>. Every step adds whole numbers, so the point stays an integer.</p>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div>
+      <h3>Fig. X2a · six chords, turn-exact</h3>
+      <canvas id="x2a" width="560" height="360"></canvas>
+      <p class="small" id="x2aNote"></p>
+    </div>
+    <div>
+      <h3>Fig. X2b · six steps, ink-exact</h3>
+      <canvas id="x2b" width="560" height="360"></canvas>
+      <p class="small" id="x2bNote"></p>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div>
+      <h3>Fig. X3a · width, turn-exact</h3>
+      <canvas id="x3a" width="560" height="360"></canvas>
+      <p class="small">The rails offset the <em>polygon</em>. Equal chords mean one known length, so the offset is rational and joins with a miter.</p>
+    </div>
+    <div>
+      <h3>Fig. X3b · width, ink-exact</h3>
+      <canvas id="x3b" width="560" height="360"></canvas>
+      <p class="small">The rails offset the <em>curve</em>. A unit normal needs a square root, so the rails are floating point — smooth, but not exact.</p>
+    </div>
+  </div>
+
+  <table>
+    <tr><th></th><th>turn-exact</th><th>ink-exact</th></tr>
+    <tr><td>what you choose</td><td>chord length + whole-number turn counts</td><td>a list of integer tangent vectors</td></tr>
+    <tr><td>the points</td><td>exact fractions; the denominator grows every turn</td><td>exact integers at scale 1</td></tr>
+    <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
+    <tr><td>what is approximate</td><td>the drawn cubic fit (~1.4%)</td><td>the turn at each join (C1; curvature jumps)</td></tr>
+    <tr><td>good for</td><td>loops that must close, mirrors, LAC, placement</td><td>stems that must sit on the integer lattice</td></tr>
+    <tr><td>the cost</td><td>denominators: 5⁶ = 15,625; a 761-triangle chain is 173 digits at 20 chords</td><td>no closure guarantee; the width is not exact</td></tr>
+  </table>
 </section>
 <section class="panel">
   <h2>Grid guesstimate</h2>
@@ -467,11 +535,350 @@ function drawChain3(C) {
     'normalised: each b is drawn as its own x step, so the integers above are the family values, not the drawing widths';
 }
 
+// ---- Fig. S1: the n=1 stem, width fitted to the tight end ----------------
+const cvs1 = document.getElementById('cvs1'), ctxs1 = cvs1.getContext('2d');
+const outs1 = document.getElementById('outs1');
+const st1 = { count: 6, frac: 0.6 };
+
+function stem1() {
+  const T = [];
+  for (let i = 0; i < st1.count; i++) {
+    const m = 2 + i;
+    T.push({ m, a: m * m - 1, b: 2 * m, c: m * m + 1 });   // n = 1 family
+  }
+  const S = 2, h = 1;
+  const nodes = [[0, 0]];
+  for (let k = 0; k + 1 < T.length; k++)
+    nodes.push([nodes[k][0] + S * (T[k].a + T[k + 1].a), nodes[k][1] - S * (T[k].b + T[k + 1].b)]);
+  const spans = [];
+  for (let k = 0; k + 1 < T.length; k++) {
+    const p0 = nodes[k], p3 = nodes[k + 1];
+    spans.push([p0, [p0[0] + h * T[k].a, p0[1] - h * T[k].b],
+                [p3[0] - h * T[k + 1].a, p3[1] + h * T[k + 1].b], p3]);
+  }
+  return { T, nodes, spans };
+}
+
+function bez3(c, t) {
+  const mt = 1 - t;
+  return [mt * mt * mt * c[0][0] + 3 * mt * mt * t * c[1][0] + 3 * mt * t * t * c[2][0] + t * t * t * c[3][0],
+          mt * mt * mt * c[0][1] + 3 * mt * mt * t * c[1][1] + 3 * mt * t * t * c[2][1] + t * t * t * c[3][1]];
+}
+
+function dbez3(c, t) {
+  const mt = 1 - t;
+  return [3 * (mt * mt * (c[1][0] - c[0][0]) + 2 * mt * t * (c[2][0] - c[1][0]) + t * t * (c[3][0] - c[2][0])),
+          3 * (mt * mt * (c[1][1] - c[0][1]) + 2 * mt * t * (c[2][1] - c[1][1]) + t * t * (c[3][1] - c[2][1]))];
+}
+
+function kappaAt(c, t) {
+  const v = dbez3(c, t);
+  const mt = 1 - t;
+  const w = [6 * (mt * (c[2][0] - 2 * c[1][0] + c[0][0]) + t * (c[3][0] - 2 * c[2][0] + c[1][0])),
+             6 * (mt * (c[2][1] - 2 * c[1][1] + c[0][1]) + t * (c[3][1] - 2 * c[2][1] + c[1][1]))];
+  const n2 = v[0] * v[0] + v[1] * v[1];
+  if (!n2) return 0;
+  return (v[0] * w[1] - v[1] * w[0]) / Math.pow(n2, 1.5);
+}
+
+function tightest(g) {
+  let worst = 0, span = 0, at = 0;
+  g.spans.forEach((c, k) => {
+    for (let i = 0; i <= 240; i++) {
+      const t = i / 240, kk = Math.abs(kappaAt(c, t));
+      if (kk > worst) { worst = kk; span = k; at = t; }
+    }
+  });
+  return { R: worst ? 1 / worst : Infinity, span, t: at };
+}
+
+function offsets(g, d) {
+  const out = [];
+  for (const c of g.spans) {
+    for (let i = 0; i <= 32; i++) {
+      const t = i / 32, p = bez3(c, t), v = dbez3(c, t);
+      const L = Math.hypot(v[0], v[1]);
+      if (!L) continue;
+      const nx = -v[1] / L, ny = v[0] / L;
+      out.push({ p, l: [p[0] + d * nx, p[1] + d * ny], r: [p[0] - d * nx, p[1] - d * ny] });
+    }
+  }
+  return out;
+}
+
+function drawStem1() {
+  const dpr = window.devicePixelRatio || 1;
+  const W = cvs1.clientWidth, H = Math.round(W * 0.5);
+  cvs1.width = W * dpr; cvs1.height = H * dpr; cvs1.style.height = H + 'px';
+  ctxs1.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctxs1.clearRect(0, 0, W, H);
+
+  const g = stem1();
+  const tight = tightest(g);
+  const d = st1.frac * tight.R;
+  const off = offsets(g, d);
+
+  // measured gap: every rail-to-rail pair, and the closest pair overall
+  let gmin = Infinity, gmax = 0;
+  for (const o of off) {
+    const gap = Math.hypot(o.l[0] - o.r[0], o.l[1] - o.r[1]);
+    gmin = Math.min(gmin, gap); gmax = Math.max(gmax, gap);
+  }
+  let closest = Infinity;
+  for (const a of off) for (const b of off) {
+    const q = Math.hypot(a.l[0] - b.r[0], a.l[1] - b.r[1]);
+    if (q < closest) closest = q;
+  }
+
+  const all = off.flatMap(o => [o.p, o.l, o.r]);
+  const xs = all.map(q => q[0]), ys = all.map(q => q[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const padL = 46, padR = 30, padT = 40, padB = 62;
+  const sc = Math.min((W - padL - padR) / Math.max(1, x1 - x0), (H - padT - padB) / Math.max(1, y1 - y0));
+  const put = q => [padL + (q[0] - x0) * sc, H - padB - (q[1] - y0) * sc];   // +y up, flipped here
+
+  // measured gap ticks
+  ctxs1.strokeStyle = '#d8ccae'; ctxs1.lineWidth = 1;
+  off.forEach((o, i) => {
+    if (i % 6) return;
+    const a = put(o.l), b = put(o.r);
+    ctxs1.beginPath(); ctxs1.moveTo(a[0], a[1]); ctxs1.lineTo(b[0], b[1]); ctxs1.stroke();
+  });
+
+  // the two rails
+  for (const side of ['l', 'r']) {
+    ctxs1.strokeStyle = '#1f5fa8'; ctxs1.lineWidth = 1.8;
+    ctxs1.beginPath();
+    off.forEach((o, i) => { const q = put(o[side]); i ? ctxs1.lineTo(q[0], q[1]) : ctxs1.moveTo(q[0], q[1]); });
+    ctxs1.stroke();
+  }
+
+  // the centreline: the chain itself
+  ctxs1.strokeStyle = '#2e2413'; ctxs1.lineWidth = 2.6; ctxs1.lineJoin = 'round';
+  ctxs1.beginPath();
+  off.forEach((o, i) => { const q = put(o.p); i ? ctxs1.lineTo(q[0], q[1]) : ctxs1.moveTo(q[0], q[1]); });
+  ctxs1.stroke();
+
+  // tightest point on the centreline
+  const tc = g.spans[tight.span], tp = put(bez3(tc, tight.t));
+  ctxs1.fillStyle = '#a23b2a'; ctxs1.beginPath(); ctxs1.arc(tp[0], tp[1], 4.5, 0, 7); ctxs1.fill();
+  ctxs1.font = '12px ui-monospace,Menlo,monospace'; ctxs1.fillStyle = '#a23b2a';
+  ctxs1.fillText('tightest: R_min ' + tight.R.toFixed(2) + ' (m=' + g.T[tight.span].m + ', 53.13° seed)', tp[0] + 8, tp[1] - 6);
+
+  // title, axis, legend — inside the figure
+  ctxs1.font = '13px Georgia,serif'; ctxs1.fillStyle = '#2e2413';
+  ctxs1.fillText('Fig. S1 · n=1 stem · centreline with ±d rails, d = ' + d.toFixed(2), padL, 18);
+  ctxs1.fillStyle = '#7b6c4e'; ctxs1.font = '12px ui-monospace,Menlo,monospace';
+  ctxs1.fillText('d / R_min = ' + st1.frac.toFixed(2) + ' · gap measured ' + gmin.toFixed(2) + '–' + gmax.toFixed(2) + ' · 2d = ' + (2 * d).toFixed(2), padL, 34);
+  ctxs1.fillText('x →', W - 60, H - padB + 34);
+  ctxs1.fillText('y ↑', 12, padT - 6);
+
+  ctxs1.font = '15px Georgia,serif';
+  const ly = H - 14; let lx = padL;
+  const leg = (colour, txt, width) => {
+    ctxs1.fillStyle = colour; ctxs1.fillRect(lx, ly - 11, 18, width || 3);
+    ctxs1.fillStyle = '#2e2413'; ctxs1.fillText(txt, lx + 24, ly);
+    lx += ctxs1.measureText(txt).width + 54;
+  };
+  leg('#2e2413', 'centreline (chain)'); leg('#1f5fa8', '±d rails'); leg('#d8ccae', 'measured gap', 1);
+
+  const legal = d < tight.R;
+  outs1.innerHTML =
+    'R_min <b>' + tight.R.toFixed(3) + '</b> at span ' + (tight.span + 1) + ' (m=' + g.T[tight.span].m + ', 53.13°) · ' +
+    'd <b>' + d.toFixed(3) + '</b> = ' + st1.frac.toFixed(2) + ' R_min · ' +
+    (legal ? '<span class="good">d &lt; R_min, margin ' + (tight.R - d).toFixed(3) + '</span>' : '<span class="bad">d ≥ R_min — the rail folds</span>') + '\n' +
+    'rail-to-rail: paired <b>' + gmin.toFixed(4) + ' – ' + gmax.toFixed(4) + '</b> · closest pair <b>' + closest.toFixed(4) +
+    '</b> · 2d = <b>' + (2 * d).toFixed(4) + '</b> · error ' + Math.abs(closest - 2 * d).toExponential(1) + '\n' +
+    'verdict: <b>still a spine</b> — at constant width it reads as a ribbon: the section never tapers and nothing ends it, ' +
+    'so the rails are a width laid on a spine, not a stem body. It becomes a stem only when a taper and a terminal are cut into this section.';
+}
+
+// ---- Fig. X: the two routes, drawn from the same triangle -----------------
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a || 1; }
+
+function frame(cv, pts, pad, aspect) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth, H = Math.round(W * aspect);
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  if (x1 - x0 < 1e-9) { x0 -= 1; x1 += 1; }
+  if (y1 - y0 < 1e-9) { y0 -= 1; y1 += 1; }
+  const sc = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+  const ox = (W - (x1 - x0) * sc) / 2, oy = (H - (y1 - y0) * sc) / 2;
+  return { ctx, W, H, sc, put: p => [ox + (p[0] - x0) * sc, H - oy - (p[1] - y0) * sc] };
+}
+
+// turn-exact: chord `chord`, one +36.87° turn per chord, exact numerators over 5^k
+function spineChain(count, chord) {
+  const pts = [], fr = [];
+  let den = 1, D = [1, 0], px = 0, py = 0;
+  for (let k = 0; k < count; k++) {
+    const nd = [4 * D[0] - 3 * D[1], 3 * D[0] + 4 * D[1]], nden = den * 5;
+    px = px * 5 + chord * nd[0];
+    py = py * 5 + chord * nd[1];
+    den = nden; D = nd;
+    pts.push([px / den, py / den]); fr.push([px, py, den]);
+  }
+  return { pts, fr, den };
+}
+
+function chainNodes(count) {
+  const T = [];
+  for (let i = 0; i < count; i++) { const m = 2 + i; T.push({ m, a: m * m - 1, b: 2 * m }); }
+  const nodes = [[0, 0]];
+  for (let k = 0; k + 1 < T.length; k++)
+    nodes.push([nodes[k][0] + 2 * (T[k].a + T[k + 1].a), nodes[k][1] - 2 * (T[k].b + T[k + 1].b)]);
+  return { T, nodes };
+}
+
+function miterOffset(pts, d) {
+  const out = [];
+  for (let i = 0; i < pts.length; i++) {
+    const p = pts[i];
+    const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)];
+    let e0 = [p[0] - a[0], p[1] - a[1]], e1 = [b[0] - p[0], b[1] - p[1]];
+    let l0 = Math.hypot(e0[0], e0[1]) || 1, l1 = Math.hypot(e1[0], e1[1]) || 1;
+    e0 = [e0[0] / l0, e0[1] / l0]; e1 = [e1[0] / l1, e1[1] / l1];
+    const n0 = [-e0[1], e0[0]], n1 = [-e1[1], e1[0]];
+    let m = [n0[0] + n1[0], n0[1] + n1[1]];
+    const l = Math.hypot(m[0], m[1]) || 1;
+    m = [m[0] / l, m[1] / l];
+    const k = d / Math.max(0.25, m[0] * n0[0] + m[1] * n0[1]);
+    out.push([p[0] + k * m[0], p[1] + k * m[1]]);
+  }
+  return out;
+}
+
+function drawCompare() {
+  // X1a — the triangle as an angle
+  {
+    const tri = [[0, 0], [8, 0], [8, 6]];
+    const f = frame(document.getElementById('x1a'), tri, 46, 0.64);
+    const { ctx, put } = f;
+    ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 2;
+    ctx.beginPath(); tri.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    const o = put([0, 0]);
+    ctx.strokeStyle = '#a23b2a'; ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(o[0], o[1], 46, -Math.atan2(6, 8), 0); ctx.stroke();
+    ctx.fillStyle = '#a23b2a'; ctx.font = '13px ui-monospace,Menlo,monospace';
+    ctx.fillText('36.87°', o[0] + 44, o[1] - 16);
+    ctx.fillStyle = '#2e2413';
+    ctx.fillText('8', (put([4, 0])[0]), put([4, 0])[1] + 18);
+    ctx.fillText('6', put([8, 3])[0] + 8, put([8, 3])[1]);
+    ctx.fillText('10', put([4, 3])[0] - 18, put([4, 3])[1] - 8);
+    ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#7b6c4e';
+    ctx.fillText('cos = 4/5 · sin = 3/5', 12, f.H - 12);
+  }
+
+  // X1b — the same triangle as a vector
+  {
+    const f = frame(document.getElementById('x1b'), [[0, 0], [8, -6]], 56, 0.64);
+    const { ctx, put } = f;
+    const a = put([0, 0]), b = put([8, -6]);
+    ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    // arrow head
+    const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+    ctx.beginPath(); ctx.moveTo(b[0], b[1]);
+    ctx.lineTo(b[0] - 12 * Math.cos(ang - 0.4), b[1] - 12 * Math.sin(ang - 0.4));
+    ctx.lineTo(b[0] - 12 * Math.cos(ang + 0.4), b[1] - 12 * Math.sin(ang + 0.4));
+    ctx.closePath(); ctx.fillStyle = '#1f5fa8'; ctx.fill();
+    ctx.fillStyle = '#2e2413'; ctx.beginPath(); ctx.arc(a[0], a[1], 4.5, 0, 7); ctx.fill();
+    ctx.font = '13px ui-monospace,Menlo,monospace';
+    ctx.fillText('T = (8, −6)', b[0] - 70, b[1] + 22);
+    ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#7b6c4e';
+    ctx.fillText('add 2·(Tₖ + Tₖ₊₁) — no division', 12, f.H - 12);
+  }
+
+  // X2a — six chords, turn-exact
+  {
+    const s = spineChain(6, 5), pts = [[0, 0]].concat(s.pts);
+    const f = frame(document.getElementById('x2a'), pts, 40, 0.64);
+    const { ctx, put } = f;
+    ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 2; ctx.beginPath();
+    pts.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.8;
+    for (const p of pts) { const q = put(p); ctx.beginPath(); ctx.arc(q[0], q[1], 4, 0, 7); ctx.fill(); ctx.stroke(); }
+    ctx.fillStyle = '#7b6c4e'; ctx.font = '12px ui-monospace,Menlo,monospace';
+    ctx.fillText('denominator 5⁶ = 15,625', 12, f.H - 12);
+    ctx.fillStyle = '#2e2413';
+    ctx.fillText('(4, 3)', put(pts[1])[0] + 8, put(pts[1])[1] - 6);
+    document.getElementById('x2aNote').innerHTML =
+      'Node 1 is (4, 3) exactly; node 2 is (27/5, 39/5); after six chords every point sits on a grid of 1/15,625.';
+  }
+
+  // X2b — six steps, ink-exact
+  {
+    const { nodes } = chainNodes(6), pts = nodes;
+    const f = frame(document.getElementById('x2b'), pts, 40, 0.64);
+    const { ctx, put } = f;
+    ctx.strokeStyle = '#8a3b12'; ctx.lineWidth = 2; ctx.beginPath();
+    pts.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.8;
+    for (const p of pts) { const q = put(p); ctx.beginPath(); ctx.arc(q[0], q[1], 4, 0, 7); ctx.fill(); ctx.stroke(); }
+    ctx.fillStyle = '#7b6c4e'; ctx.font = '12px ui-monospace,Menlo,monospace';
+    ctx.fillText('integers at scale 1', 12, f.H - 12);
+    const last = pts[pts.length - 1];
+    ctx.fillStyle = '#2e2413';
+    ctx.fillText('(' + last[0] + ', ' + last[1] + ')', put(last)[0] - 78, put(last)[1] + 20);
+    document.getElementById('x2bNote').innerHTML =
+      'Nodes (' + pts.map(p => p[0] + ',' + p[1]).slice(0, 4).join(') (') + ') … — no scale needed, ever.';
+  }
+
+  // X3a — width on the polygon
+  {
+    const s = spineChain(5, 5), pts = [[0, 0]].concat(s.pts), d = 1.1;
+    const L = miterOffset(pts, d), R = miterOffset(pts, -d);
+    const f = frame(document.getElementById('x3a'), L.concat(R), 44, 0.64);
+    const { ctx, put } = f;
+    ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 1.8;
+    for (const side of [L, R]) {
+      ctx.beginPath();
+      side.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    }
+    ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.4; ctx.beginPath();
+    pts.forEach((p, i) => { const q = put(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    ctx.font = '15px Georgia,serif'; ctx.fillStyle = '#2e2413';
+    ctx.fillText('polygon + miter rails', 12, f.H - 14);
+    ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#3f7d4e';
+    ctx.fillText('rational: one known chord length', 12, f.H - 34);
+  }
+
+  // X3b — width on the curve
+  {
+    const { nodes } = chainNodes(5);
+    const g = { spans: [] };
+    const T = chainNodes(5).T;
+    for (let k = 0; k + 1 < T.length; k++) {
+      const p0 = nodes[k], p3 = nodes[k + 1];
+      g.spans.push([p0, [p0[0] + T[k].a, p0[1] - T[k].b], [p3[0] - T[k + 1].a, p3[1] + T[k + 1].b], p3]);
+    }
+    const tight = tightest(g), d = 0.6 * tight.R, off = offsets(g, d);
+    const f = frame(document.getElementById('x3b'), off.flatMap(o => [o.p, o.l, o.r]), 44, 0.64);
+    const { ctx, put } = f;
+    for (const side of ['l', 'r']) {
+      ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 1.8; ctx.beginPath();
+      off.forEach((o, i) => { const q = put(o[side]); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    }
+    ctx.strokeStyle = '#8a3b12'; ctx.lineWidth = 1.6; ctx.beginPath();
+    off.forEach((o, i) => { const q = put(o.p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
+    ctx.font = '15px Georgia,serif'; ctx.fillStyle = '#2e2413';
+    ctx.fillText('curve + offset rails', 12, f.H - 14);
+    ctx.font = '12px ui-monospace,Menlo,monospace'; ctx.fillStyle = '#a23b2a';
+    ctx.fillText('floating point: √(x′² + y′²)', 12, f.H - 34);
+  }
+}
+
 function update() {
   const d = build();
   if (!d) return;
   drawTri(tangents());
   drawChain3(chain3());
+  drawStem1();
+  drawCompare();
   const s = stats(d);
   draw(d, s);
   table(d);
@@ -514,6 +921,11 @@ document.getElementById('e3step').addEventListener('click', e => {
   update();
 });
 
+const s1k = document.getElementById('s1k'), s1kV = document.getElementById('s1kV');
+const s1d = document.getElementById('s1d'), s1dV = document.getElementById('s1dV');
+s1k.addEventListener('input', () => { st1.count = Number(s1k.value); s1kV.textContent = st1.count; update(); });
+s1d.addEventListener('input', () => { st1.frac = Number(s1d.value); s1dV.textContent = st1.frac.toFixed(2); update(); });
+
 document.getElementById('g2').addEventListener('click', e => {
   st.g2 = !st.g2;
   e.target.textContent = 'handles: ' + (st.g2 ? 'per-node (G2)' : 'uniform');
@@ -540,6 +952,9 @@ document.getElementById('reset').addEventListener('click', () => {
   document.getElementById('e3m').value = st3.m0; document.getElementById('e3mV').textContent = st3.m0;
   document.getElementById('e3k').value = st3.count; document.getElementById('e3kV').textContent = st3.count;
   document.getElementById('e3step').textContent = 'x step: one more each';
+  Object.assign(st1, { count: 6, frac: 0.6 });
+  document.getElementById('s1k').value = st1.count; document.getElementById('s1kV').textContent = st1.count;
+  document.getElementById('s1d').value = st1.frac; document.getElementById('s1dV').textContent = st1.frac.toFixed(2);
   document.getElementById('zoom').textContent = 'zoom: whole chain';
   document.getElementById('handles').textContent = 'handles: on';
   update();
