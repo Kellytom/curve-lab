@@ -43,7 +43,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 |---|---|
 | Pythagorean field / integer cubic and G2 | `docs/PYTHAGOREAN-FAMILIES.md`, `docs/INTEGER-CUBIC.md`, `curve_lab/pyth_triples.py`, `curve_lab/pyth_cubic.py`, `curve_lab/pyth_g2.py` |
 | the exact spine / pythagorean-spiral | `docs/SPINE.md`, `pythagorean-spiral/docs/AUDIT.md`, `pythagorean-spiral/pythagorean_spiral/{spiral,triples,closure,design}.py`, `curve_lab/spine.py` |
-| the showcase / a catalogue page | `scripts/showcase.py`, `scripts/showcase_notes.py`, `tests/test_exploration_pages.py` |
+| the showcase / a catalogue page | `scripts/showcase.py`, `scripts/showcase_notes.py`, `scripts/generators.py` (the `NAMED` table), `tests/test_exploration_pages.py` |
 | offsets, rails, clearance | `docs/CLEARANCE.md`, `curve_lab/offsets.py`, `curve_lab/parallel_bezier.py`, `curve_lab/piece.py` |
 | endings, terminals, flowers | `docs/JUNCTION.md`, `docs/FLOWERS-int.md`, `curve_lab/terminals.py`, `curve_lab/plant.py` |
 | primal ornaments | `docs/PRIMAL.md`, `curve_lab/primal.py` |
