@@ -147,10 +147,17 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><td>the points</td><td>exact fractions; the denominator grows every turn</td><td>exact integers at scale 1</td></tr>
     <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
     <tr><td>what is approximate</td><td>the drawn cubic fit (~1.4%)</td><td>the turn at each join (C1; curvature jumps)</td></tr>
-    <tr><td>is it an LAC?</td><td>it is built to one: turns quantized from a chosen LAC, error ~1.4%</td><td>no target: fitted α ≈ 0.10, R² 0.87, residuals up to 4×, curvature jumps at joins</td></tr>
+    <tr><td>is it an LAC?</td><td>it is built to one: turns quantized from a chosen LAC, error ~1.4%</td><td>not at a finite band; asymptotically a power-law spiral κ ∝ s^p with p → −4/3 (Fig. Y)</td></tr>
     <tr><td>good for</td><td>loops that must close, mirrors, LAC, placement</td><td>stems that must sit on the integer lattice</td></tr>
     <tr><td>the cost</td><td>denominators: c^k grows with every chord (5⁶ = 15,625; a 761-triangle chain is 173 digits at 20 chords)</td><td>no closure guarantee; the width is not exact</td></tr>
   </table>
+</section>
+
+<section class="panel">
+  <h2>Fig. Y · the exponent drifts to −4/3</h2>
+  <p>A curve with <code>κ ∝ s<sup>p</sup></code> is a generalised Euler spiral: <code>p = 1</code> is the clothoid, <code>p = 0</code> a circle, <code>p = −1</code> the logarithmic spiral. Fit <code>p</code> on the n=1 chain over a band <code>m = 2 … M</code> and it is not constant, but walks steadily toward <code>−4/3</code>: for large <code>m</code> the turn is <code>θ ≈ 2n/m</code> (so <code>dθ/dm ≈ −2n/m²</code>) and the arc length grows like <code>m³</code>, which puts the curvature at <code>s<sup>−4/3</sup></code>. The exponent does not depend on <code>n</code>; <code>n</code> only scales the constant. So the chain is not a new species — it is a member of the family, with a finite-band exponent that drifts.</p>
+  <canvas id="xy" width="1120" height="460"></canvas>
+  <p class="readout" id="xyNote"></p>
 </section>
 <section class="panel">
   <h2>Grid guesstimate</h2>
@@ -876,6 +883,117 @@ function drawCompare() {
   }
 }
 
+// ---- Fig. Y: the fitted exponent against band width -----------------------
+function spansUpTo(M) {
+  const T = [];
+  for (let m = 2; m <= M; m++) T.push({ a: m * m - 1, b: 2 * m });
+  const nodes = [[0, 0]];
+  for (let k = 0; k + 1 < T.length; k++)
+    nodes.push([nodes[k][0] + 2 * (T[k].a + T[k + 1].a), nodes[k][1] - 2 * (T[k].b + T[k + 1].b)]);
+  const spans = [];
+  for (let k = 0; k + 1 < T.length; k++) {
+    const p0 = nodes[k], p3 = nodes[k + 1];
+    spans.push([p0, [p0[0] + T[k].a, p0[1] - T[k].b], [p3[0] - T[k + 1].a, p3[1] + T[k + 1].b], p3]);
+  }
+  return spans;
+}
+
+function fitExponent(M) {
+  const spans = spansUpTo(M), per = 8;
+  let s = 0, prev = null;
+  const pts = [];
+  for (const c of spans) {
+    for (let i = 1; i < per; i++) {
+      const t = i / per, p = bez3(c, t), k = Math.abs(kappaAt(c, t));
+      if (!isFinite(k) || k < 1e-15) continue;
+      if (prev) s += Math.hypot(p[0] - prev[0], p[1] - prev[1]);
+      prev = p;
+      if (s > 0) pts.push([Math.log(s), Math.log(k)]);
+    }
+  }
+  const n = pts.length;
+  let mx = 0, my = 0;
+  for (const q of pts) { mx += q[0]; my += q[1]; }
+  mx /= n; my /= n;
+  let num = 0, den = 0;
+  for (const q of pts) { num += (q[0] - mx) * (q[1] - my); den += (q[0] - mx) * (q[0] - mx); }
+  return num / den;
+}
+
+let XPOS = null;
+
+function drawExponent() {
+  const cv = document.getElementById('xy'), note = document.getElementById('xyNote');
+  const bands = [6, 12, 25, 50, 100, 200, 400];
+  if (!XPOS) XPOS = bands.map(M => ({ M, p: fitExponent(M) }));
+
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth, H = Math.round(W * 0.4);
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+
+  const padL = 66, padR = 40, padT = 40, padB = 64;
+  const x0 = Math.log10(bands[0]), x1 = Math.log10(bands[bands.length - 1]);
+  const yP = -4 / 3, y0 = -1.45, y1 = -0.7;
+  const px = v => padL + (Math.log10(v) - x0) / (x1 - x0) * (W - padL - padR);
+  const py = v => H - padB - (v - y0) / (y1 - y0) * (H - padT - padB);
+
+  // axes
+  ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(padL, py(y0)); ctx.lineTo(W - padR, py(y0)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(padL, py(y0)); ctx.lineTo(padL, py(y1)); ctx.stroke();
+  ctx.fillStyle = '#7b6c4e'; ctx.font = '12px ui-monospace,Menlo,monospace';
+  for (const v of bands) {
+    const x = px(v);
+    ctx.beginPath(); ctx.moveTo(x, py(y0)); ctx.lineTo(x, py(y0) + 5); ctx.stroke();
+    ctx.fillText(String(v), x - 10, py(y0) + 20);
+  }
+  for (const v of [-0.8, -1.0, -1.2, -1.333]) {
+    const y = py(v);
+    ctx.fillText(v.toFixed(3), 10, y + 4);
+  }
+  ctx.fillText('band M (log)', W - padR - 150, H - 12);
+  ctx.fillText('fitted p', 10, padT - 18);
+
+  // asymptote
+  ctx.strokeStyle = '#a23b2a'; ctx.setLineDash([7, 5]); ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.moveTo(padL, py(yP)); ctx.lineTo(W - padR, py(yP)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#a23b2a';
+  ctx.fillText('−4/3', W - padR - 34, py(yP) - 8);
+
+  // measured
+  ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  XPOS.forEach((d, i) => { const q = [px(d.M), py(d.p)]; i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+  ctx.stroke();
+  for (const d of XPOS) {
+    const q = [px(d.M), py(d.p)];
+    ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#1f5fa8'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(q[0], q[1], 4.6, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#2e2413'; ctx.font = '11px ui-monospace,Menlo,monospace';
+    ctx.fillText(d.p.toFixed(3), q[0] - 14, q[1] - 10);
+  }
+
+  // legend, 15px
+  ctx.font = '15px Georgia,serif';
+  let lx = padL, ly = H - 16;
+  const leg = (colour, txt, dash) => {
+    ctx.strokeStyle = colour; ctx.lineWidth = 2.4; ctx.setLineDash(dash ? [7, 5] : []);
+    ctx.beginPath(); ctx.moveTo(lx, ly - 4); ctx.lineTo(lx + 20, ly - 4); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = '#2e2413'; ctx.fillText(txt, lx + 28, ly);
+    lx += ctx.measureText(txt).width + 60;
+  };
+  leg('#1f5fa8', 'measured p'); leg('#a23b2a', '−4/3 asymptote', true);
+
+  const last = XPOS[XPOS.length - 1];
+  note.innerHTML =
+    'p at the widest band (M = ' + last.M + '): <b>' + last.p.toFixed(3) + '</b> · still ' +
+    (Math.abs(last.p - yP)).toFixed(3) + ' short of <b>−1.333</b> — the drift is the prediction, not a failure. ' +
+    'Fit is taken over the whole chain with 8 samples per span; it converges slowly because the early, tight spans dominate.';
+}
+
 function update() {
   const d = build();
   if (!d) return;
@@ -883,6 +1001,7 @@ function update() {
   drawChain3(chain3());
   drawStem1();
   drawCompare();
+  drawExponent();
   const s = stats(d);
   draw(d, s);
   table(d);

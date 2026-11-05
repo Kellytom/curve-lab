@@ -901,3 +901,12 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 Neither name claims a role: either route can be a stem, a spine or a chain.
 `Euclid families` alone means the triple families (the field plot); the route is
 `Euclid family chains`.
+
+## 2026-11-04 — the chain's exponent is −4/3
+
+`κ ∝ s^p` is the generalised Euler-spiral family (p = 1 clothoid, 0 circle,
+−1 log spiral). The n=1 chain is not a power law at a finite band, but the
+fitted p drifts to **−4/3**: −0.835 (m ≤ 6) → −1.222 (25) → −1.305 (100) →
+−1.325 (400). The algebra gives it: θ ≈ 2n/m, dθ/dm ≈ −2n/m², s ∝ m³, so
+κ ∝ s^(−4/3); n only scales the constant. It is a member of the family, not a
+new species. Fig. Y on `workbench/pythagorean-chain-editor.html`.
