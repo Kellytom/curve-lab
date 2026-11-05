@@ -23,28 +23,52 @@ a{color:var(--ink)}
 <p class="lede">One section per panel, in the same order as the showcase: what is exact, what is fitted, the numbers, and the command that re-derives it.</p>
 <p class="top"><a href="showcase.html">← the showcase</a></p>
 
+<section class="note" id="fig-0a">
+  <p class="eyebrow">Fig. 0a · exact</p>
+  <h2>Log spiral: the exact self-similar parallel</h2>
+  <p>Two spirals of the same pitch are a parallel pair: the width between them is proportional to the radius. Not constant — self-similar, which is the only honest variable width here.</p><p>The partner is rotated as well as scaled, so the line between the curves is perpendicular to both. This is the taper in one picture.</p>
+  <ul class="nums"><li>same pitch</li><li>width ∝ r</li><li>rotated partner</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/tapered-stem.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
+  <p class="back"><a href="showcase.html#fig-0a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-0b">
+  <p class="eyebrow">Fig. 0b · exact</p>
+  <h2>Circle involute: the exact parallel</h2>
+  <p>Two involutes of the same circle, started at different angles, are exactly parallel: the gap is constant and equals the arc the start was shifted by.</p><p>It is one of the very few constant-width parallels in the catalogue, and it costs nothing but a shift.</p>
+  <ul class="nums"><li>same circle</li><li>constant gap</li><li>shifted start</li></ul>
+  <p class="meta"><strong>Where:</strong> workbench/lac-parallel.html?family=involute · goals.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-0b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-0c">
+  <p class="eyebrow">Fig. 0c · construction</p>
+  <h2>How the parallel is made</h2>
+  <p>A taut string unwinds from the circle; its free end traces the involute. Start the string a little further round and the whole trace shifts by a constant normal distance — that is the parallel.</p><p>The figure keeps the string, the tangent point and the traced curve, so the mechanism is visible rather than asserted.</p>
+  <ul class="nums"><li>string unwinds</li><li>start shifted → parallel</li></ul>
+  <p class="meta"><strong>Where:</strong> classical involute construction · workbench/lac-parallel.html<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-0c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-1a">
-  <p class="eyebrow">Fig. 1a · exact</p>
-  <h2>The 3-4-5 turn</h2>
-  <p>A Pythagorean triangle gives a rotation you can write as fractions: the 3-4-5 gives cos = 4/5 and sin = 3/5, so turning a point is a multiplication with no trigonometry and no rounding error.</p><p>The turn is taken from the angle under 45°; the larger angle is its complement. That convention is why the ladder in Fig. 1b is built from 36.87° and not 53.13°.</p>
-  <ul class="nums"><li>cos 4/5 = 0.8</li><li>sin 3/5 = 0.6</li><li>angle 36.87°</li></ul>
-  <p class="meta"><strong>Where:</strong> pythagorean-spiral/ · curve_lab/taper.py for the same angles<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="eyebrow">Fig. 1a · exact integers</p>
+  <h2>Integer spine: points joined by ink</h2>
+  <p>The gold points are integers at scale 1; the dark curve is the bezier ink through them. This is the whole idea of the integer work: an exact lattice skeleton with a smooth drawing over it.</p><p>It is not a polygon pretending to be a curve, and not a curve pretending to be exact. Two objects, one drawing.</p>
+  <ul class="nums"><li>integer nodes</li><li>bezier ink</li><li>scale 1</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · workbench/pythagorean-chain-editor.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-1a">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-1b">
-  <p class="eyebrow">Fig. 1b · exact</p>
-  <h2>The integer Euler polygon and its rails</h2>
-  <p>Eight equal chords, each turned by a whole number of triangle angles. Every node is an exact fraction, and a loop closes exactly when the turn numbers sum to zero.</p><p>The rails are a miter offset of the polygon. They are rational because every chord has the same length — one known number divides the perpendicular. This is the property that makes the polygon the exact object and the drawn curve the approximation.</p>
-  <ul class="nums"><li>8 chords</li><li>turns sum to 8</li><li>rails rational</li></ul>
-  <p class="meta"><strong>Where:</strong> pythagorean-spiral/ · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="eyebrow">Fig. 1b · the point of it</p>
+  <h2>Cut anywhere at an integer</h2>
+  <p>The cut is made at a node, so it lands on an integer: no fitting, no seam, no rounding. That is why the lattice was worth the trouble.</p><p>Any node can be a cut, a join, or the start of a branch — the three operations a grammar needs.</p>
+  <ul class="nums"><li>cut at a node</li><li>no seam</li><li>no rounding</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/pyth_chain.py · Fig. E1 in the chain editor<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_pyth_chain</code></p>
   <p class="back"><a href="showcase.html#fig-1b">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-1c">
-  <p class="eyebrow">Fig. 1c · exact</p>
-  <h2>Closure</h2>
-  <p>The schedule 1,2,3,2,1,−1,−2,−3,−2,−1 sums to zero, so the chain ends heading exactly east with no angle drift. That is not a tolerance: it is an integer fact about the turn counts.</p><p>Niven's theorem explains why nothing else lands exactly on an axis — the tangent of a rational multiple of π is 0 or ±1, and a triple angle is never one of those.</p>
-  <ul class="nums"><li>schedule sum 0</li><li>exit heading east</li><li>drift 0</li></ul>
-  <p class="meta"><strong>Where:</strong> docs/SPINE.md §2<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="eyebrow">Fig. 1c · grammar</p>
+  <h2>Branch from an integer</h2>
+  <p>A branch leaves from a node rather than from an arbitrary point on the ink, so both the stem and the branch are anchored on the same lattice.</p><p>That is the structural reason for integer points: cuts and branches have addresses.</p>
+  <ul class="nums"><li>branch at a node</li><li>shared lattice</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/plant.py branch · goals.md §Plant-forms<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-1c">← back to the figure</a></p>
 </section>
 <section class="note" id="fig-2a">

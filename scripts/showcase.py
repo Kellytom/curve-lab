@@ -140,27 +140,55 @@ def chain_spans(m0, m1, n=1):
 
 
 def run() -> None:
-    # 1a — the 3-4-5 turn
-    a, b = 4.0, 3.0
-    tri = [(0, 0), (a, 0), (a, b), (0, 0)]
-    arc = [(1.15 * math.cos(t), 1.15 * math.sin(t)) for t in
-           [math.atan2(b, a) * i / 24 for i in range(25)]]
-    p1a = panel("Fig. 1a", "the 3-4-5 turn", [
-        (tri, INK, 1.8, None), (arc, RED, 1.4, None)],
-        "cos 4/5 · sin 3/5 · exact fractions", dots=[((a, b), RED)], key="1a")
-    # 1b — Euler polygon with rational rails
-    poly = turn_polygon([1, 1, 1, 1, 1, 1, 1, 1], 4, 3, chord=1.0)
-    p1b = panel("Fig. 1b", "integer Euler polygon · rational rails", [
-        (miter(poly, 0.22), BLUE, 1.3, None),
-        (miter(poly, -0.22), BLUE, 1.3, None),
-        (poly, INK, 2.0, None)],
-        "eight equal chords · turns sum to 8", dots=[(p, GOLD) for p in poly], key="1b")
-    # 1c — closure: a balanced turn schedule
-    sched = [1, 2, 3, 2, 1, -1, -2, -3, -2, -1]
-    poly2 = turn_polygon(sched, 4, 3, chord=1.0)
-    p1c = panel("Fig. 1c", "closure: turns sum to zero", [
-        (smooth(poly2), INK, 2.0, None), (poly2, MUTED, 0.9, "4 3")],
-        "schedule 1,2,3,2,1,−1,−2,−3,−2,−1 · ends east", dots=[(poly2[0], GOLD), (poly2[-1], RED)], key="1c")
+    # ---- 0 · exact parallels ---------------------------------------------
+    ls = LogSpiral(1.5, 0.32)
+    lg_a = [ls.point(5.0 * i / 220) for i in range(221)]
+    lg_b = [ls.scaled(1.28).point(5.0 * i / 220) for i in range(221)]
+    bars = []
+    for th in (1.0, 2.4, 3.8):
+        pp = ls.point(th)
+        nn = ls.normal(th)
+        bars.append((pp, (pp[0] + 0.0 * nn[0], pp[1] + 0.0 * nn[1])))
+    p0a = panel("Fig. 0a", "log spiral · exact self-similar parallel", [
+        (lg_a, INK, 1.8, None), (lg_b, BLUE, 1.8, None)],
+        "two spirals, one pitch · width ∝ r", key="0a")
+
+    inv_base = [(math.cos(t), math.sin(t)) for t in [i * 2 * math.pi / 200 for i in range(201)]]
+    inv_a = [(math.cos(t) + t * math.sin(t), math.sin(t) - t * math.cos(t))
+             for t in [0.15 + i * 3.2 / 200 for i in range(201)]]
+    inv_b = [(math.cos(t + 0.55) + t * math.sin(t + 0.55),
+              math.sin(t + 0.55) - t * math.cos(t + 0.55))
+             for t in [0.15 + i * 3.2 / 200 for i in range(201)]]
+    p0b = panel("Fig. 0b", "circle involute · exact parallel", [
+        (inv_a, INK, 1.8, None), (inv_b, BLUE, 1.8, None)],
+        "same circle, shifted start · constant normal gap", key="0b")
+
+    t_mid = 2.6
+    tang = (math.cos(t_mid), math.sin(t_mid))
+    ip = (math.cos(t_mid) + t_mid * math.sin(t_mid), math.sin(t_mid) - t_mid * math.cos(t_mid))
+    p0c = panel("Fig. 0c", "how the parallel is made", [
+        (inv_base, MUTED, 1.0, None), ([(0, 0), tang], GOLD, 1.0, None),
+        ([tang, ip], RED, 1.4, None), (inv_a, INK, 1.4, None)],
+        "the string unwinds; a longer start is the parallel", key="0c")
+
+    # ---- 1 · integer spine: beautiful ink --------------------------------
+    spans1, ink1, nodes1 = chain_spans(2, 7, 1)
+    p1a = panel("Fig. 1a", "integer spine · points joined by ink", [
+        (ink1, INK, 2.0, None)],
+        "every node is an integer; the curve is a bezier", dots=[(q, GOLD) for q in nodes1], key="1a")
+
+    cut_at = len(ink1) // 2
+    p1b = panel("Fig. 1b", "cut anywhere at an integer", [
+        (ink1[:cut_at], INK, 2.0, None), (ink1[cut_at:], INK, 2.0, None)],
+        "the cut lands on a node — no fitting, no seam", dots=[(ink1[cut_at], RED)], key="1b")
+
+    br = plant_branch = None
+    bx, by = nodes1[-2]
+    branch = [(bx + 0.9 * i / 40, by + 1.1 * (i / 40) ** 2) for i in range(41)]
+    p1c = panel("Fig. 1c", "branch from an integer", [
+        (ink1, INK, 1.8, None), (branch, GREEN, 1.6, None)],
+        "a branch starts at a node, not at a fitted point", dots=[((bx, by), GOLD)], key="1c")
+
     # 2a — a recovered-style LAC schedule
     lac = turn_polygon([1, 2, 3, 4, 5, 4, 3, 2, 1], 4, 3, chord=1.0)
     p2a = panel("Fig. 2a", "LAC spine · turn schedule", [
@@ -591,7 +619,10 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
 
-<div class="fam"><h2>1 · Integer Euler</h2><p>exact turns, exact closure, rational rails; only the drawn cubic is fitted</p></div>
+<div class="fam"><h2>0 · Exact parallels</h2><p>the two curves whose parallels stay in the family — and how the involute makes one</p></div>
+{row(p0a, p0b, p0c)}
+
+<div class="fam"><h2>1 · Integer spine</h2><p>integer points, joined by ink · cut or branch at any node</p></div>
 {row(p1a, p1b, p1c)}
 
 <div class="fam"><h2>2 · LAC spines</h2><p>31 recovered spines; the turn schedule is the curve</p></div>
