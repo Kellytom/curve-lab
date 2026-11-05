@@ -165,10 +165,10 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 
 ## Next — ornament forms
 
-- [ ] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches.
-- [ ] Scroll/volute proof; keep the 2× offset rule and the ending rule.
-- [ ] Cruciform/primal proof; reuse the section and junction rules.
-- [ ] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals. Fit each to a stalk tip, measure scale/tangent/clearance, keep 2× offset, and grade it as an **ending**, not a stalk.
+- [x] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches. `workbench/fleur-proof.html`, `scripts/fleur_proof.py`, `tests/test_fleur_proof.py`.
+- [x] Scroll/volute proof; keep the 2× offset rule and the ending rule. `workbench/volute-proof.html`, `scripts/volute_proof.py`, `tests/test_volute_proof.py`.
+- [x] Cruciform/primal proof; reuse the section and junction rules. `workbench/cruciform-proof.html`, `scripts/cruciform_proof.py`, `tests/test_cruciform_proof.py`.
+- [x] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals, fitted to one stalk tip at 6 × offset. `workbench/ending-fit.html`, `scripts/ending_fit.py`. All ten clear the rails by ~0.5 and cross only at the tip; the ending grades stand.
 - [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.
 - [ ] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; port the width laws and the fold report after the ornament proof. This is a target, not a side study.
 
@@ -176,7 +176,10 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 
 - [x] **Levien integer snap.** Probe: the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer work stays with lines/arcs, PH, the Pythagorean spiral, and the Pythagorean integer cubic family. Levien is PASS as a fitted option, FAIL as an exact integer option.
   *Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH, the Pythagorean spiral and the Pythagorean integer cubic family. The constrained/snapped fit is still open.
-- [ ] Grade review after the first ornament proof.
+- [x] Grade review after the first ornament proof. **2026-11-05:** no grade
+  change. The fleur, volute and cruciform proofs exercise the ending and junction
+  rules; none of them adds a curve to the offset table, so the A–D rows and the
+  ending/flower track stand. The C families stay endings.
 - [ ] Confirm the integer-lattice rule: horizontal grid-line crossings (used in the proof) or full integer points (both coordinates).
 - [x] Move the C-grade curves into an explicit **ending/flower track** and the p-triple Euler track; no deletions. Grouping still needs the ending fit pass.
 
