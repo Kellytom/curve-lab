@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triple-tangent chain · integer editor</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--blue:#1f5fa8;--red:#8a3b12}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1180px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:32px;line-height:1.1;margin:0 0 7px}
+h2{font-size:21px;margin:0 0 9px}
+.lede{max-width:900px;color:var(--muted);margin:0 0 18px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:15px 18px;margin:0 0 18px}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:0 0 10px;font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.controls label{display:flex;gap:6px;align-items:center}
+.controls input[type=range]{width:110px}
+.controls button{border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:5px 9px;font:inherit;cursor:pointer}
+.controls button:hover{background:#f4ecd7}
+canvas{display:block;width:100%;height:auto;border:1px solid var(--rule);background:var(--paper);touch-action:none}
+.readout{font:12px/1.7 ui-monospace,Menlo,monospace;color:var(--muted);margin:10px 0 0;white-space:pre-wrap}
+.good{color:#3f7d4e;font-weight:600}
+.bad{color:#a23b2a;font-weight:600}
+table{border-collapse:collapse;width:100%;font:11px/1.5 ui-monospace,Menlo,monospace;margin:10px 0}
+th,td{border:1px solid var(--rule);padding:5px 7px;text-align:right}
+th{color:var(--muted);font-weight:400}
+.small{font:12px/1.55 ui-monospace,Menlo,monospace;color:var(--muted)}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">curve-lab · interactive chain probe</p>
+<h1>Triple-tangent chain · integer editor</h1>
+<p class="lede">The chain is built from arm vectors, not points: each triple becomes a tangent <code>Tₖ=(a,−b)</code>, the node step is <code>S·(Tₖ+Tₖ₊₁)</code>, and the handles are <code>Tₖ</code>. Because both sides of a join use the same vector, C1 is exact whatever you choose here. The two knobs that matter are <em>which</em> triples you take and <em>how long</em> the handles are.</p>
+
+<section class="panel">
+  <h2>Fig. E1 · drive it</h2>
+  <div class="controls">
+    <label>n <input id="n" type="range" min="1" max="8" step="1" value="2"><span id="nV">2</span></label>
+    <label>m from <input id="m0" type="range" min="3" max="60" step="1" value="5"><span id="m0V">5</span></label>
+    <label>m to <input id="m1" type="range" min="4" max="60" step="1" value="12"><span id="m1V">12</span></label>
+    <label>step S <input id="S" type="range" min="1" max="6" step="1" value="2"><span id="SV">2</span></label>
+    <label>handle h <input id="h" type="range" min="1" max="8" step="1" value="1"><span id="hV">1</span></label>
+    <button id="g2" type="button">handles: uniform</button>
+    <button id="zoom" type="button">zoom: whole chain</button>
+    <button id="handles" type="button">handles: on</button>
+    <button id="reset" type="button">reset</button>
+  </div>
+  <canvas id="cv" width="1120" height="620"></canvas>
+  <p class="readout" id="out"></p>
+</section>
+
+<section class="panel">
+  <h2>Grid guesstimate</h2>
+  <p>These curves are long. The extent below is computed <em>before</em> drawing, from the same rule, so you know the grid you are committing to:</p>
+  <p class="readout" id="grid"></p>
+  <p class="small">Extent grows linearly with the step <code>S</code> and quadratically with the <code>m</code> range, because the arm vectors grow like <code>m²</code>. To land a target width, set <code>S ≈ target / (extent at S=1)</code>; the readout prints that value.</p>
+</section>
+
+<section class="panel">
+  <h2>The tangents you selected</h2>
+  <table id="tbl">
+    <tr><th>#</th><th>m</th><th>triple (a,b,c)</th><th>angle</th><th>tangent Tₖ</th><th>node Nₖ</th></tr>
+  </table>
+</section>
+
+<section class="panel">
+  <h2>What the page is asserting</h2>
+  <p><strong>C1 is exact</strong> in every configuration, including the uniform-handle one: the derivative at a join is <code>3h·Tₖ</code> from both sides. <strong>G2 is not</strong> free — with a single handle length the curvature jumps; the <em>per-node</em> handles button solves <code>Cₖ(S−hₖ)=Cₖ₊₁(S−hₖ₊₂)</code>, which drives the measured gap to zero but makes the handles rational, so the control points stop being integers.</p>
+  <p class="small">Integer C1, rational G2 — the same trade the page <code>pythagorean-families.html</code> records in Fig. C1/C2. Model: <code>curve_lab/pyth_chain.py</code>. This page recomputes everything live in JavaScript; if the two ever disagree, the page is wrong.</p>
+</section>
+</main>
+<script>
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const out = document.getElementById('out'), gridOut = document.getElementById('grid');
+const tbl = document.getElementById('tbl');
+const st = { n: 2, m0: 5, m1: 12, S: 2, h: 1, g2: false, zoom: false, handles: true };
+
+function tangents() {
+  const t = [];
+  for (let m = Math.max(3, st.m0); m <= st.m1; m++) {
+    const a = m * m - st.n * st.n, b = 2 * m * st.n;
+    if (a <= 0) continue;
+    t.push({ a, b, c: m * m + st.n * st.n, m });   // b is the triple leg, +y up
+
+  }
+  return t;
+}
+
+function handles(T, S) {
+  const C = [];
+  for (let k = 0; k + 1 < T.length; k++) C.push(T[k].a * T[k + 1].b - T[k].b * T[k + 1].a);
+  if (!st.g2) return T.map(() => st.h);
+  const h = [1, 1];
+  for (let k = 0; k + 2 < T.length; k++) {
+    h.push(C[k] === 0 || C[k + 1] === 0 ? 1 : S - (C[k] / C[k + 1]) * (S - h[k]));
+  }
+  return h.slice(0, T.length);
+}
+
+function build() {
+  const T = tangents();
+  if (T.length < 2) return null;
+  const S = st.S, h = handles(T, S);
+  const nodes = [[0, 0]];
+  for (let k = 0; k + 1 < T.length; k++) {
+    const d = [S * (T[k].a + T[k + 1].a), -S * (T[k].b + T[k + 1].b)];
+    nodes.push([nodes[k][0] + d[0], nodes[k][1] + d[1]]);
+  }
+  const spans = [];
+  for (let k = 0; k + 1 < T.length; k++) {
+    const p0 = nodes[k], p3 = nodes[k + 1], h0 = h[k], h1 = h[k + 1];
+    spans.push([p0,
+      [p0[0] + h0 * T[k].a, p0[1] - h0 * T[k].b],
+      [p3[0] - h1 * T[k + 1].a, p3[1] + h1 * T[k + 1].b], p3]);
+  }
+  return { T, h, nodes, spans };
+}
+
+function kappa(c, t) {
+  const [p0, p1, p2, p3] = c;
+  let u, w;
+  if (t === 0) { u = [p1[0] - p0[0], p1[1] - p0[1]]; w = [p2[0] - 2 * p1[0] + p0[0], p2[1] - 2 * p1[1] + p0[1]]; }
+  else { u = [p3[0] - p2[0], p3[1] - p2[1]]; w = [p3[0] - 2 * p2[0] + p1[0], p3[1] - 2 * p2[1] + p1[1]]; }
+  const n2 = u[0] * u[0] + u[1] * u[1];
+  if (n2 === 0) return 0;
+  return (2 / 3) * (u[0] * w[1] - u[1] * w[0]) / Math.pow(n2, 3);
+}
+
+function stats(d) {
+  const jumps = [];
+  for (let k = 0; k + 1 < d.spans.length; k++) {
+    const l = kappa(d.spans[k], 1), r = kappa(d.spans[k + 1], 0);
+    const s = Math.max(Math.abs(l), Math.abs(r));
+    jumps.push(s === 0 ? 0 : Math.abs(l - r) / s);
+  }
+  jumps.sort((x, y) => x - y);
+  const pts = d.spans.flat();
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const w = Math.max(...xs) - Math.min(...xs), ht = Math.max(...ys) - Math.min(...ys);
+  const maxAbs = Math.max(...xs.map(Math.abs), ...ys.map(Math.abs));
+  return {
+    spans: d.spans.length, nodes: d.nodes.length, w, ht, maxAbs,
+    digits: Math.floor(Math.log10(maxAbs || 1)) + 1,
+    med: jumps.length ? jumps[Math.floor(jumps.length / 2)] : 0,
+    max: jumps.length ? jumps[jumps.length - 1] : 0,
+    integer: !st.g2,
+  };
+}
+
+function draw(d, s) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth, H = Math.round(W * 0.55);
+  cv.width = W * dpr; cv.height = H * dpr;
+  cv.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, W, H);
+
+  const view = st.zoom && d.spans.length > 4 ? d.spans.slice(0, 4) : d.spans;
+  const pts = view.flat();
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const pad = 46;
+  const sc = Math.min((W - 2 * pad) / Math.max(1, x1 - x0), (H - 2 * pad) / Math.max(1, y1 - y0));
+  const put = p => [pad + (p[0] - x0) * sc, H - pad - (p[1] - y0) * sc];  // +y up, flipped here
+
+  // grid: a round step near 1/8 of the view
+  const raw = Math.max(x1 - x0, y1 - y0) / 8;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw || 1)));
+  const step = [1, 2, 5, 10].map(k => k * mag).find(v => v >= raw) || mag;
+  ctx.strokeStyle = '#e8dfc9'; ctx.lineWidth = 1;
+  for (let gx = Math.ceil(x0 / step) * step; gx <= x1; gx += step) {
+    const a = put([gx, y0]), b = put([gx, y1]);
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+  }
+  for (let gy = Math.ceil(y0 / step) * step; gy <= y1; gy += step) {
+    const a = put([x0, gy]), b = put([x1, gy]);
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+  }
+  ctx.fillStyle = '#7b6c4e'; ctx.font = '11px ui-monospace,Menlo,monospace';
+  ctx.fillText('grid step ' + step.toLocaleString(), pad, 16);
+  ctx.fillText('x →', W - 34, H - 10);
+  ctx.fillText('y ↑', 12, 34);
+
+  // handles and control polygon
+  if (st.handles) {
+    ctx.strokeStyle = '#b9aa88'; ctx.setLineDash([4, 4]); ctx.lineWidth = 1;
+    for (const [p0, p1, p2, p3] of view) {
+      const a = put(p0), b = put(p1), c = put(p3), e = put(p2);
+      ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(c[0], c[1]); ctx.lineTo(e[0], e[1]); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+  }
+
+  // the chain
+  ctx.strokeStyle = '#8a3b12'; ctx.lineWidth = 3; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  for (const [p0, p1, p2, p3] of view) {
+    const a = put(p0), b = put(p1), c = put(p2), e = put(p3);
+    if (a === put(view[0][0])) ctx.moveTo(a[0], a[1]);
+    ctx.bezierCurveTo(b[0], b[1], c[0], c[1], e[0], e[1]);
+  }
+  ctx.stroke();
+
+  // nodes
+  for (const n of d.nodes) {
+    const q = put(n);
+    ctx.fillStyle = '#fbf7ec'; ctx.strokeStyle = '#2e2413'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(q[0], q[1], 4.6, 0, 7); ctx.fill(); ctx.stroke();
+  }
+  // first and last node labels
+  const lab = (p, txt, dx, dy) => {
+    const q = put(p);
+    ctx.font = '11px ui-monospace,Menlo,monospace';
+    const w = ctx.measureText(txt).width;
+    const x = Math.min(Math.max(q[0] + dx, 6), W - w - 6);
+    const y = Math.min(Math.max(q[1] + dy, 14), H - 8);
+    ctx.strokeStyle = '#fbf7ec'; ctx.lineWidth = 3; ctx.strokeText(txt, x, y);
+    ctx.fillStyle = '#2e2413'; ctx.fillText(txt, x, y);
+  };
+  const first = d.nodes[0], last = d.nodes[d.nodes.length - 1];
+  lab(first, 'N0 (' + first[0].toLocaleString() + ', ' + first[1].toLocaleString() + ')', 8, -8);
+  lab(last, 'N' + (d.nodes.length - 1) + ' (' + Math.round(last[0]).toLocaleString() + ', ' + Math.round(last[1]).toLocaleString() + ')', -8, 16);
+}
+
+function table(d) {
+  const rows = ['<tr><th>#</th><th>m</th><th>triple (a,b,c)</th><th>angle</th><th>tangent Tₖ</th><th>node Nₖ</th></tr>'];
+  const n = Math.min(d.T.length, 8);
+  for (let k = 0; k < n; k++) {
+    const t = d.T[k], nd = d.nodes[k];
+    const ang = (Math.atan2(t.b, t.a) * 180 / Math.PI).toFixed(2) + '°';
+    rows.push('<tr><td>' + (k + 1) + '</td><td>' + t.m + '</td><td>(' + t.a + ', ' + (-t.b) + ', ' + t.c + ')</td><td>' + ang +
+      '</td><td>(' + t.a + ', ' + (-t.b) + ')</td><td>(' + nd[0].toLocaleString() + ', ' + nd[1].toLocaleString() + ')</td></tr>');
+  }
+  if (d.T.length > n) rows.push('<tr><td colspan="6">… ' + (d.T.length - n) + ' more</td></tr>');
+  tbl.innerHTML = rows.join('');
+}
+
+function update() {
+  const d = build();
+  if (!d) return;
+  const s = stats(d);
+  draw(d, s);
+  table(d);
+
+  const pct = x => (100 * x).toFixed(1) + '%';
+  out.innerHTML =
+    'spans <b>' + s.spans + '</b> · nodes <b>' + s.nodes + '</b> · handles ' +
+    (st.g2 ? 'per-node (G2)' : 'uniform h=' + st.h) + '\n' +
+    'extent <b>' + Math.round(s.w).toLocaleString() + ' × ' + Math.round(s.ht).toLocaleString() + '</b>' +
+    ' · largest coordinate <b>' + Math.round(s.maxAbs).toLocaleString() + '</b> (' + s.digits + ' digits)\n' +
+    'control points: ' + (s.integer ? '<span class="good">integers</span>' : '<span class="bad">rational — scaled grid only</span>') + '\n' +
+    'C1: <span class="good">exact</span> at all ' + Math.max(0, s.spans - 1) + ' joins' +
+    ' · curvature jump: median <b>' + pct(s.med) + '</b>, max <b>' + pct(s.max) + '</b>';
+
+  const perUnit = s.w / st.S;
+  gridOut.innerHTML =
+    'extent at S=' + st.S + ': <b>' + Math.round(s.w).toLocaleString() + ' × ' + Math.round(s.ht).toLocaleString() + '</b>\n' +
+    'extent per unit step (S=1): <b>' + Math.round(perUnit).toLocaleString() + '</b> × ' + Math.round(s.ht / st.S).toLocaleString() + '\n' +
+    'S for a 200,000-wide sheet: <b>' + Math.max(1, Math.round(200000 / Math.max(1, perUnit))) + '</b>' +
+    ' · S for 1,000,000: <b>' + Math.max(1, Math.round(1000000 / Math.max(1, perUnit))) + '</b>';
+}
+
+function bind(id, key, fmt) {
+  const el = document.getElementById(id), val = document.getElementById(id + 'V');
+  el.addEventListener('input', () => {
+    st[key] = Number(el.value);
+    if (val) val.textContent = fmt ? fmt(st[key]) : st[key];
+    update();
+  });
+}
+bind('n', 'n'); bind('m0', 'm0'); bind('m1', 'm1'); bind('S', 'S'); bind('h', 'h');
+
+document.getElementById('g2').addEventListener('click', e => {
+  st.g2 = !st.g2;
+  e.target.textContent = 'handles: ' + (st.g2 ? 'per-node (G2)' : 'uniform');
+  update();
+});
+document.getElementById('zoom').addEventListener('click', e => {
+  st.zoom = !st.zoom;
+  e.target.textContent = 'zoom: ' + (st.zoom ? 'first 4 spans' : 'whole chain');
+  update();
+});
+document.getElementById('handles').addEventListener('click', e => {
+  st.handles = !st.handles;
+  e.target.textContent = 'handles: ' + (st.handles ? 'on' : 'off');
+  update();
+});
+document.getElementById('reset').addEventListener('click', () => {
+  Object.assign(st, { n: 2, m0: 5, m1: 12, S: 2, h: 1, g2: false, zoom: false, handles: true });
+  for (const [id, key] of [['n', 'n'], ['m0', 'm0'], ['m1', 'm1'], ['S', 'S'], ['h', 'h']]) {
+    document.getElementById(id).value = st[key];
+    document.getElementById(id + 'V').textContent = st[key];
+  }
+  document.getElementById('g2').textContent = 'handles: uniform';
+  document.getElementById('zoom').textContent = 'zoom: whole chain';
+  document.getElementById('handles').textContent = 'handles: on';
+  update();
+});
+
+window.addEventListener('resize', update);
+update();
+</script>
+</body>
+</html>

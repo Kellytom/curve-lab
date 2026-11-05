@@ -317,6 +317,15 @@
       "outputs": "points, rays, parabola families, selected integer sequence"
     },
     {
+      "key": "pythagorean-chain-editor",
+      "file": "pythagorean-chain-editor.html",
+      "group": "curve",
+      "title": "Triple-tangent chain editor",
+      "purpose": "Drive the integer chain live: family n, the m range, the node step and the handle rule, with the grid extent predicted before you draw.",
+      "inputs": "n, m range, step S, uniform handle h or per-node G2 handles",
+      "outputs": "integer cubic spans, C1 check, curvature jump, extent and a suggested S for a target sheet"
+    },
+    {
       "key": "levien-integer",
       "file": "levien-integer.html",
       "group": "curve",
