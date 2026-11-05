@@ -9,7 +9,7 @@ class PlantFormsPageTest(unittest.TestCase):
     def test_page_has_the_proof(self):
         page = (ROOT / "workbench" / "plant-forms.html").read_text(
             encoding="utf-8")
-        self.assertEqual(page.count("<svg"), 6)
+        self.assertEqual(page.count("<svg"), 7)  # one proof figure + six cards
         self.assertIn("Plant forms", page)
         self.assertIn("Cone terminal", page)
         self.assertIn("Seagrass", page)
