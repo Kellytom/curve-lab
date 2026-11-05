@@ -23,6 +23,24 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
 OUT = ROOT / "state" / "ACHIEVEMENTS-int.md"
+
+# Visual reads are not checks: nothing here can be re-derived. They are recorded
+# so a later session does not mistake "not exact" for "broken".
+JUDGEMENTS = [
+    ("pythagorean-chain-editor.html",
+     "The Euclid chain and its two rail sets read well. Where the triangle rails "
+     "part from the formula rails (1.2-6.4% of d) neither looks wrong; the "
+     "1.2% case is invisible at page scale."),
+    ("tapered-stem.html",
+     "The log-spiral band reads as a stem, not a ribbon. The 5.25% asymmetry is "
+     "not visible at the drawn scale, though it is real and measured."),
+    ("pyth-plane.html",
+     "The (m,n) hyperbolae and their integer points read clearly; the crowding "
+     "toward the origin is visible and matches the numbers."),
+    ("log-spiral.html",
+     "The drift figure reads cleanly: the offset line rises away from zero, and "
+     "the scaled copy sits at constant proportion."),
+]
 CHECKS = []
 
 
@@ -399,6 +417,13 @@ def main(argv):
              "| | claim | check says | evidence |", "|---|---|---|---|"]
     for ok, name, detail, evidence, _ in rows:
         lines.append(f"| {'ok' if ok else '**FAIL**'} | {name} | {detail} | {evidence} |")
+    lines += ["", "## Visual judgement (operator, 2026-11-05)", "",
+              "Not checks. These are the operator's reads of the rendered pages,",
+              "recorded so a later session does not treat a non-exact curve as a",
+              "broken one.", "",
+              "| page | judgement |", "|---|---|"]
+    for page, note in JUDGEMENTS:
+        lines.append(f"| `{page}` | {note} |")
     lines += ["", "## Recorded, re-derived elsewhere", "",
               "| claim | number | command | note |", "|---|---|---|---|"]
     for name, number, command, note in RECORDED:

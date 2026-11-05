@@ -78,6 +78,24 @@ C-family p-triple conversion and the ornament-form proofs below.
 - Levien is not an active exact-integer route. The fitted parallel Bézier
   remains available as a fitted option; no new Levien integer probes.
 
+## Explorations — 2026-11-05
+
+- [x] **Log spiral width:** a constant offset is not a log spiral (drift grows
+  with d/r); the exact partner is scaled *and* rotated, width ∝ r.
+  `curve_lab/taper.py`, `tests/test_taper.py`, `workbench/log-spiral.html`.
+- [x] **Tapered stem:** exact rails, asymmetry 5.25%, terminal seam 2.63%.
+  `workbench/tapered-stem.html`.
+- [x] **p-triple plane:** fixed a and b are hyperbolae whose integer points are
+  factorisations; fixed m is a parabola. The involute of a parabola's evolute is
+  exactly its parallel family, which is not parabolas. `workbench/pyth-plane.html`.
+- [x] **Multi-grid:** parts compose by lcm (1, 1/5, 1/25 → 25); per-span grids
+  cost 5^k. `workbench/multi-grid.html`.
+- [x] **Composed stem:** integer stalk + link + second stalk across a declared
+  1/5 step. Position exact, kink **25.06°** — the cost of the step.
+  `workbench/composed-stem.html`.
+- [ ] **Wire the taper into `plant-forms.html`** as a third stalk option, with
+  the asymmetry and terminal seam stated on the page.
+
 ## Done — heart forms
 
 - [x] `heart-forms.html` renders all 15 formulaic hearts; `tests/test_heart_forms.py` guards one card per form.

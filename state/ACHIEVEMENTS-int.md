@@ -24,8 +24,21 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | a parallel of a parabola is not a parabola | best fit misses by 20.8% of d | scripts/pyth_plane.py — best-fit residual is a fifth of the offset |
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
-| ok | the hub is built from the manifest and every page carries its bar | 43 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 44 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
+
+## Visual judgement (operator, 2026-11-05)
+
+Not checks. These are the operator's reads of the rendered pages,
+recorded so a later session does not treat a non-exact curve as a
+broken one.
+
+| page | judgement |
+|---|---|
+| `pythagorean-chain-editor.html` | The Euclid chain and its two rail sets read well. Where the triangle rails part from the formula rails (1.2-6.4% of d) neither looks wrong; the 1.2% case is invisible at page scale. |
+| `tapered-stem.html` | The log-spiral band reads as a stem, not a ribbon. The 5.25% asymmetry is not visible at the drawn scale, though it is real and measured. |
+| `pyth-plane.html` | The (m,n) hyperbolae and their integer points read clearly; the crowding toward the origin is visible and matches the numbers. |
+| `log-spiral.html` | The drift figure reads cleanly: the offset line rises away from zero, and the scaled copy sits at constant proportion. |
 
 ## Recorded, re-derived elsewhere
 

@@ -405,6 +405,15 @@
       "purpose": "The exact variable width: two log spirals of the same pitch, with the asymmetry measured.",
       "inputs": "a, b, the scale k between the rails",
       "outputs": "exact rails, width \u221d r, and the terminal seam"
+    },
+    {
+      "key": "composed-stem",
+      "file": "composed-stem.html",
+      "group": "strand",
+      "title": "Composed stem",
+      "purpose": "Two integer chains joined across a declared 1/5 step; the kink is measured.",
+      "inputs": "two chain ranges, the link length, the step",
+      "outputs": "the seam step, the tangent kink, the composite grid"
     }
   ]
 }

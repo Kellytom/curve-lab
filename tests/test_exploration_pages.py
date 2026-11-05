@@ -88,6 +88,14 @@ class TestTaperedStemPage(unittest.TestCase):
         self.assertIn("5.25%", page)
 
 
+class TestComposedStem(unittest.TestCase):
+    def test_page_states_the_kink(self):
+        page = (PAGES / "composed-stem.html").read_text()
+        self.assertIn("Fig. C1", page)
+        self.assertIn("25.06", page)
+        self.assertIn("1/5", page)
+
+
 class TestMultiGrid(unittest.TestCase):
     def test_composite_is_the_lcm(self):
         comp = 1
