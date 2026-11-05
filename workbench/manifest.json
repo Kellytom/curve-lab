@@ -414,6 +414,15 @@
       "purpose": "Two integer chains joined across a declared 1/5 step; the kink is measured.",
       "inputs": "two chain ranges, the link length, the step",
       "outputs": "the seam step, the tangent kink, the composite grid"
+    },
+    {
+      "key": "showcase",
+      "file": "showcase.html",
+      "group": "curve",
+      "title": "Showcase",
+      "purpose": "Every family of ray and curve on one page, three across, ending in a monstrance.",
+      "inputs": "the catalogue",
+      "outputs": "24 numbered panels and the ray fan"
     }
   ]
 }

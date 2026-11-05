@@ -96,6 +96,16 @@ class TestComposedStem(unittest.TestCase):
         self.assertIn("1/5", page)
 
 
+class TestShowcase(unittest.TestCase):
+    def test_three_across_and_rays_last(self):
+        page = (PAGES / "showcase.html").read_text()
+        self.assertEqual(page.count('class="row"'), 5)
+        self.assertIn("Fig. 1a", page)
+        self.assertIn("Fig. 6", page)
+        self.assertLess(page.index("Fig. 3a"), page.index("Fig. 6"))
+        self.assertIn("monstrance", page)
+
+
 class TestMultiGrid(unittest.TestCase):
     def test_composite_is_the_lcm(self):
         comp = 1
