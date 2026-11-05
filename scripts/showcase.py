@@ -4,8 +4,8 @@
     open workbench/showcase.html
 
 Figures are numbered by family and lettered by panel (Fig. 1a, 1b, 1c). Three
-panels across, a rule between families, and the rays last so the page can be
-read as a monstrance.
+panels across — four where a family has a fourth member — a rule between
+families, and the rays last so the page can be read as a monstrance.
 """
 
 from __future__ import annotations
@@ -850,7 +850,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · the whole catalogue on one page</p>
 <h1>Rays and curves</h1>
-<p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
+<p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c, d</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
 
 
 <p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
