@@ -145,7 +145,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><th></th><th>turn-exact</th><th>Euclid family chains</th></tr>
     <tr><td>what you choose</td><td>chord length + whole-number turn counts</td><td>a list of integer tangent vectors</td></tr>
     <tr><td>the points</td><td>exact fractions; the denominator grows every turn</td><td>exact integers at scale 1</td></tr>
-    <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
+    <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic needs a square root; the node chords are not Pythagorean either (29.73, 53.85 …), so a polygon through the nodes does not rescue it</td></tr>
     <tr><td>what is approximate</td><td>the drawn cubic fit (~1.4%)</td><td>the turn at each join (C1; curvature jumps)</td></tr>
     <tr><td>is it an LAC?</td><td>it is built to one: turns quantized from a chosen LAC, error ~1.4%</td><td>not at a finite band; asymptotically a power-law spiral κ ∝ s^p with p → −4/3 (Fig. Y)</td></tr>
     <tr><td>good for</td><td>loops that must close, mirrors, LAC, placement</td><td>stems that must sit on the integer lattice</td></tr>
