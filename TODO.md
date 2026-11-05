@@ -13,9 +13,12 @@ stops early and says so.
 - [x] `scripts/timer.js` + `scripts/notify.js` in this repo, copied from
   `ornaments/` (the `.timer.json` marker is already gitignored here).
 - [x] Start the clock in `/focus` and `/fhandon`; `timer --check` reports it.
-- [x] At `/fhandoff`, report elapsed wall clock, then `--stop`.
-- [x] Prove it with a real start/check/stop, and state the elapsed time in the
-  session report.
+- [x] Log start, floor, cap and stop to `state/timers.jsonl`; `--tally` prints
+  the last sessions plus median/mean/total elapsed.
+- [x] At `/fhandoff`, run check → stop → tally, report the wall clock, and
+  commit `state/timers.jsonl` with the handoff record.
+- [x] Prove it with a real start/check/stop and a scratch
+  `CURVE_LAB_TIMER_LOG` run; state the elapsed time in the session report.
 
 ## Current focus — integer Bézier workstream
 

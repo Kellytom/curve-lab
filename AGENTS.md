@@ -154,6 +154,10 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   time (not only `ctx.py`'s active minutes), then `--stop`. The clock is a
   budget, not a quota: a finished action stops early and says so; the cap is
   60 minutes unless the operator names another.
+- **Clock stats.** Start, floor, cap and stop append records to
+  `state/timers.jsonl`; `node scripts/timer.js --tally` prints the last
+  sessions, median/mean elapsed and the total. `/fhandoff` pastes the current
+  elapsed and the tally line into the block.
 - Probe once with a single shell call; grep before reading; do not re-read a
   file already in context.
 - Prefer `git diff --stat` and targeted `sed` over whole-file reads.

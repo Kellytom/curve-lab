@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:82.5%}
+.fill{height:100%;background:#8c6a21;width:82.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -33,7 +33,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">52 / 63 done · 83% · read-only twin of
+<div class="count">53 / 64 done · 83% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -43,9 +43,12 @@ tr:nth-child(even) td{background:#fcf8ee}
 <label class="task"><input type="checkbox" checked disabled><span><code>scripts/timer.js</code> + <code>scripts/notify.js</code> in this repo, copied from</span></label>
 <p><code>ornaments/</code> (the <code>.timer.json</code> marker is already gitignored here).</p>
 <label class="task"><input type="checkbox" checked disabled><span>Start the clock in <code>/focus</code> and <code>/fhandon</code>; <code>timer --check</code> reports it.</span></label>
-<label class="task"><input type="checkbox" checked disabled><span>At <code>/fhandoff</code>, report elapsed wall clock, then <code>--stop</code>.</span></label>
-<label class="task"><input type="checkbox" checked disabled><span>Prove it with a real start/check/stop, and state the elapsed time in the</span></label>
-<p>session report.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Log start, floor, cap and stop to <code>state/timers.jsonl</code>; <code>--tally</code> prints</span></label>
+<p>the last sessions plus median/mean/total elapsed.</p>
+<label class="task"><input type="checkbox" checked disabled><span>At <code>/fhandoff</code>, run check → stop → tally, report the wall clock, and</span></label>
+<p>commit <code>state/timers.jsonl</code> with the handoff record.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Prove it with a real start/check/stop and a scratch</span></label>
+<p><code>CURVE_LAB_TIMER_LOG</code> run; state the elapsed time in the session report.</p>
 <h2>Current focus — integer Bézier workstream</h2>
 <p>This is the active curve-construction thread. It is separate from the older C-family p-triple conversion and the ornament-form proofs below.</p>
 <p><strong>Done</strong></p>

@@ -124,13 +124,17 @@ Put the numbers in the `Context:` line of the block — percent used, active
 minutes, turns, verdict. The tally in `state/sessions.jsonl` is how the next
 session sees whether this pattern is working.
 
-Then read the session clock and clear it:
+Then read the session clock, close its record and show the stats:
 
 ```sh
 node scripts/timer.js --check
 node scripts/timer.js --stop
+node scripts/timer.js --tally
 ```
 
-Put the **wall-clock elapsed time** in the same `Context:` line, beside the
-`ctx.py` numbers. The two measure different things: `ctx.py` is tokens and
-active minutes, the timer is real elapsed time. Report both.
+`--stop` appends the session to `state/timers.jsonl`; `--tally` prints the last
+sessions plus median/mean/total. Put the **wall-clock elapsed time** and the
+tally line in the same `Context:` line, beside the `ctx.py` numbers. The two
+measure different things: `ctx.py` is tokens and active minutes, the timer is
+real elapsed time. Report both, and commit `state/timers.jsonl` with the
+handoff record so the statistics survive the session.
