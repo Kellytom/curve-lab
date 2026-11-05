@@ -455,6 +455,20 @@ def c_modulated_width_proof():
                 f"{d['seam'][1]:.6f}, 0 crossings")
 
 
+@check("the integer cubic catalogue counts every arm pair and sign",
+       "curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html",
+       "python -m unittest tests.test_pyth_cubic_catalogue")
+def c_pyth_cubic_catalogue():
+    from curve_lab.pyth_cubic import catalogue, checks as cubic_checks
+    rows = catalogue(1000)
+    ok = (len(rows) == 316
+          and all(cubic_checks(r) for r in rows)
+          and all(all(isinstance(v, int) for p in
+                      (r["p1"], r["p2"], r["mirror_p1"], r["rotation_points"][1])
+                      for v in p) for r in rows))
+    return ok, f"{len(rows)} curves, 632 sign variants, all integer"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

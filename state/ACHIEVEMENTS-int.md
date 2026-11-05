@@ -25,13 +25,14 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 25 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| ok | the hub is built from the manifest and every page carries its bar | 52 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 53 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |
 | ok | the cruciform proof declares both junctions | 2 junctions, 2 merges, G1, 4 cone ends | scripts/cruciform_proof.py; workbench/cruciform-proof.html |
 | ok | the ending fit pass attaches all ten sections without a fold | 10 sections, 0 crossings, min rail gap 0.50 | scripts/ending_fit.py; workbench/ending-fit.html |
 | ok | the modulated-width law meets the plain stroke at both seams | ratio 1.600, seam 1.000000/1.000000, 0 crossings | scripts/modulated_width_proof.py; workbench/modulated-width-proof.html |
+| ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
 
 ## Visual judgement (operator, 2026-11-05)
 

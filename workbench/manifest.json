@@ -317,6 +317,15 @@
       "outputs": "integer control points, tangent, chord, arms, and rotated examples"
     },
     {
+      "key": "integer-cubic-catalogue",
+      "file": "integer-cubic-catalogue.html",
+      "group": "curve",
+      "title": "Integer cubic catalogue",
+      "purpose": "Every primitive triple's ordered arm pairs, signs and exact integer rotation.",
+      "inputs": "the hypotenuse limit",
+      "outputs": "158 triples, 316 canonical curves, 632 sign variants, the full table"
+    },
+    {
       "key": "integer-g2",
       "file": "integer-g2.html",
       "group": "curve",
