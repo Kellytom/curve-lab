@@ -93,8 +93,8 @@ C-family p-triple conversion and the ornament-form proofs below.
 - [x] **Composed stem:** integer stalk + link + second stalk across a declared
   1/5 step. Position exact, kink **25.06°** — the cost of the step.
   `workbench/composed-stem.html`.
-- [ ] **Wire the taper into `plant-forms.html`** as a third stalk option, with
-  the asymmetry and terminal seam stated on the page.
+- [x] **Wire the taper into `plant-forms.html`** as a third stalk option, with
+  the asymmetry 5.25% and terminal seam 2.63% stated on its card.
 
 ## Done — heart forms
 

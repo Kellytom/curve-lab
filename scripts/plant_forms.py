@@ -159,6 +159,28 @@ def figure(items, w=980, h=620, pad=0.06):
             + "".join(body) + "</svg>")
 
 
+def tapered_stalk():
+    """A third stalk source: the exact log-spiral band (width grows with r)."""
+    from curve_lab.taper import LogSpiral, width_ratio
+
+    a, b, k = 1.4, 0.62, 1.12
+    inner = LogSpiral(a, b)
+    outer = inner.scaled(k)
+    mid = LogSpiral(a * math.sqrt(k), b)
+    th0, th1, n = 0.0, 3.0, 220
+    pi, po, pm = [], [], []
+    for i in range(n):
+        th = th0 + (th1 - th0) * i / (n - 1)
+        pi.append(inner.point(th))
+        po.append(outer.point(th))
+        pm.append(mid.point(th))
+    half = width_ratio(math.sqrt(k), b) * mid.radius((th0 + th1) / 2)
+    items = [(pi, BLUE, 1.0, None), (po, BLUE, 1.0, None),
+             (pm, INK, 2.0, None)]
+    add_ending(items, "cone", pm[-1], mid.tangent(th1), half)
+    return items
+
+
 def short_stalk(ending):
     pts = cubic((0, 0), (0.1, 0.8), (-0.1, 1.6), (0.0, 2.4), 120)
     return stalk_items(pts, 0.42, grid=False, marks=False, branches=False,
@@ -252,6 +274,8 @@ rail and its apex points outward.</p>
 <h3>Seagrass</h3><p>three tapered blades · no bare tip</p></section>
 <section class="card"><div class="art">{figure(short_stalk("flower"), 360, 260)}</div>
 <h3>Flower</h3><p>a rosette head · the flower sits beyond the stalk tip</p></section>
+<section class="card"><div class="art">{figure(tapered_stalk(), 360, 300)}</div>
+<h3>Tapered stem · log spiral</h3><p>two spirals of one pitch · width ∝ r · asymmetry 5.25% · terminal seam 2.63%</p></section>
 </div>
 <h2>Growth marks</h2>
 <div class="grid" style="grid-template-columns:1fr 1fr">
