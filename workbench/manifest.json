@@ -263,6 +263,15 @@
       "outputs": "an exact rational spine, fitted rails, 2 × offset cone, seagrass branch"
     },
     {
+      "key": "cruciform-proof",
+      "file": "cruciform-proof.html",
+      "group": "curve",
+      "title": "Cruciform proof 01",
+      "purpose": "A cross built as two declared junctions and one trunk with section stations.",
+      "inputs": "trunk and arm widths, fillet radius, section count",
+      "outputs": "two G1 junctions with measured merges, four cone terminals, section bars"
+    },
+    {
       "key": "euler-sections",
       "file": "euler-sections.html",
       "group": "curve",
