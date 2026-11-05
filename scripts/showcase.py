@@ -18,8 +18,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+import generators as G  # noqa: E402
 from curve_lab import pyth_chain as pc  # noqa: E402
 from curve_lab import spine as spine_layer  # noqa: E402
+from curve_lab import terminals as term  # noqa: E402
+from curve_lab.parallel_bezier import fit_chain as fit_parallel  # noqa: E402
 from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
 from modulated_width import cubic as width_cubic, rails as width_rails  # noqa: E402
 
@@ -109,6 +112,55 @@ def miter(pts, d):
         mx, my = mx / L, my / L
         k = d / max(0.25, mx * n0[0] + my * n0[1])
         out.append((p[0] + k * mx, p[1] + k * my))
+    return out
+
+
+def span_points(span, n=24):
+    """Sample one cubic span written as p0/c1/c2/p3."""
+    p0, c1, c2, p3 = span["p0"], span["c1"], span["c2"], span["p3"]
+    out = []
+    for i in range(n + 1):
+        t = i / n
+        mt = 1 - t
+        out.append((mt ** 3 * p0[0] + 3 * mt * mt * t * c1[0]
+                    + 3 * mt * t * t * c2[0] + t ** 3 * p3[0],
+                    mt ** 3 * p0[1] + 3 * mt * mt * t * c1[1]
+                    + 3 * mt * t * t * c2[1] + t ** 3 * p3[1]))
+    return out
+
+
+def line_span(p0, p1):
+    a = ((p1[0] - p0[0]) / 3.0, (p1[1] - p0[1]) / 3.0)
+    return {"p0": p0, "c1": (p0[0] + a[0], p0[1] + a[1]),
+            "c2": (p1[0] - a[0], p1[1] - a[1]), "p3": p1}
+
+
+def terminal_shape(kind, x0, length=1.0, half=0.2):
+    """One ribbon from x0 with `kind` closing its right end."""
+    pos = {"spans": [line_span((x0, half), (x0 + length, half))]}
+    neg = {"spans": [line_span((x0, -half), (x0 + length, -half))]}
+    spans = term.terminal_spans(pos, neg, kind)
+    if not spans:
+        return []
+    pts = [spans[0]["p0"]]
+    for s in spans:
+        pts.extend(span_points(s)[1:])
+    return pts
+
+
+def named_curve(key, n=240):
+    """The named curve's branches, sampled from generators.NAMED."""
+    spec = next(s for s in G.NAMED if s["key"] == key)
+    data = G.named_data(spec)
+    out = []
+    for ctrl in data["ctrl"]:
+        pts = []
+        for i in range(n + 1):
+            p = G.homog_point(ctrl, Fraction(i, n))
+            if p is not None:
+                pts.append((float(p[0]), float(p[1])))
+        if len(pts) > 1:
+            out.append(pts)
     return out
 
 
@@ -664,6 +716,88 @@ def run() -> None:
         (tri_pts, INK, 1.8, None), (arc, RED, 1.4, None)],
         "(4x-3y, 3x+4y)/5 · exact at every power", key="19c")
 
+    # ---- 20 · terminals ---------------------------------------------------
+    cap_curves = []
+    for i, kind in enumerate(("butt", "point", "arc", "round")):
+        x0 = i * 1.6
+        cap_curves.append(([(x0, 0.2), (x0 + 1.0, 0.2)], MUTED, 1.1, None))
+        cap_curves.append(([(x0, -0.2), (x0 + 1.0, -0.2)], MUTED, 1.1, None))
+        shape = terminal_shape(kind, x0)
+        if shape:
+            cap_curves.append((shape, INK, 1.8, None))
+    p20a = panel("Fig. 20a", "caps · butt, point, arc, round", cap_curves,
+                 "left to right · a cap closes the section, it does not turn it",
+                 key="20a")
+
+    taper_curves = []
+    for i, kind in enumerate(("taper", "bulb", "cone")):
+        x0 = i * 1.9
+        taper_curves.append(([(x0, 0.2), (x0 + 1.0, 0.2)], MUTED, 1.1, None))
+        taper_curves.append(([(x0, -0.2), (x0 + 1.0, -0.2)], MUTED, 1.1, None))
+        taper_curves.append((terminal_shape(kind, x0), INK, 1.8, None))
+    p20b = panel("Fig. 20b", "tapers · taper, bulb, cone", taper_curves,
+                 "left to right · the width laws from curve_lab/terminals.py",
+                 key="20b")
+
+    reach = [(float(i), term.terminal_extension(k, 1.0) / 0.5)
+             for i, k in enumerate(("butt", "point", "arc", "round",
+                                    "taper", "bulb", "cone"))]
+    p20c = panel("Fig. 20c", "how far each end reaches", [
+        (reach, BLUE, 1.8, None)],
+        "extension / half-width · butt 0, the tapers 4", dots=[(q, GOLD) for q in reach],
+        key="20c")
+
+    # ---- 21 · fitted parallels -------------------------------------------
+    src_span = {"p0": (0.0, 0.0), "c1": (1.2, 2.0),
+                "c2": (2.6, 2.0), "p3": (3.8, 0.0)}
+    src_pts = span_points(src_span, 160)
+    true_off = offset_polyline(src_pts, 0.4)
+    fit = fit_parallel([src_span], 0.4, tol=0.005)
+    fit_pts = []
+    for s in fit["spans"]:
+        fit_pts.extend(span_points(s, 20))
+    p21a = panel("Fig. 21a", "Levien fit · a fitted parallel", [
+        (src_pts, INK, 1.8, None), (true_off, MUTED, 1.0, "4 3"),
+        (fit_pts, BLUE, 1.6, None)],
+        f"max error {fit['error_max']:.1e} · fitted, never exact", key="21a")
+
+    big = fit_parallel([src_span], 1.4, tol=0.005)
+    big_pts = []
+    for s in big["spans"]:
+        big_pts.extend(span_points(s, 20))
+    p21b = panel("Fig. 21b", "a larger offset · cusp report", [
+        (src_pts, INK, 1.8, None), (offset_polyline(src_pts, 1.4), MUTED, 1.0, "4 3"),
+        (big_pts, RED, 1.5, None)],
+        f"d = 1.4 · {len(big['cusps'])} cusp interval(s) flagged", key="21b")
+
+    tols = [0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002, 0.001]
+    grid = []
+    for t in tols:
+        f = fit_parallel([src_span], 0.4, tol=t)
+        grid.append((math.log10(t), math.log10(max(f["error_max"], 1e-12))))
+    ref = [(math.log10(tols[-1]), math.log10(tols[-1])),
+           (math.log10(tols[0]), math.log10(tols[0]))]
+    p21c = panel("Fig. 21c", "the fit buys error with spans", [
+        (ref, MUTED, 0.9, "4 3"), (grid, BLUE, 1.6, None)],
+        "log10 error against log10 tolerance", dots=[(q, GOLD) for q in grid],
+        key="21c")
+
+    # ---- 22 · the rest of the named table --------------------------------
+    tsch = named_curve("tschirnhausen")
+    p22a = panel("Fig. 22a", "Tschirnhausen · a loop", [
+        (pts, INK, 1.8, None) for pts in tsch],
+        "27y^2 = (1-x)(8+x)^2 · the cubic PH curve", key="22a")
+
+    bic = named_curve("bicorn")
+    p22b = panel("Fig. 22b", "bicorn · a quartic loop", [
+        (pts, INK, 1.8, None) for pts in bic],
+        "one branch, one node · rational, fitted rail", key="22b")
+
+    nod = named_curve("nodal")
+    p22c = panel("Fig. 22c", "nodal cubic · a node", [
+        (pts, INK, 1.8, None) for pts in nod],
+        "y^2 = x^2(x+1) · the node is exact, the rail is fitted", key="22c")
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -786,6 +920,15 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <div class="fam"><h2>19 · 3-4-5 exact spine</h2><p>equal chords, whole-number turns, closure by cancellation — every node rational</p></div>
 {row(p19a, p19b, p19c)}
+
+<div class="fam"><h2>20 · Terminals</h2><p>how a stroke ends, computed: caps, tapers, and how far each one reaches</p></div>
+{row(p20a, p20b, p20c)}
+
+<div class="fam"><h2>21 · Fitted parallels</h2><p>Levien's cubic-Bézier fit: the honest approximate rail, with its error and its cusps</p></div>
+{row(p21a, p21b, p21c)}
+
+<div class="fam"><h2>22 · The rest of the named table</h2><p>three curves the catalogue page owns, drawn here from the same table</p></div>
+{row(p22a, p22b, p22c)}
 
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}

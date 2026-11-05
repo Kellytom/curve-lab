@@ -600,6 +600,87 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> pythagorean-spiral/pythagorean_spiral/triples.py · spiral.py<br><strong>Re-derive:</strong> <code>python -m unittest discover -s pythagorean-spiral/tests -t pythagorean-spiral</code></p>
   <p class="back"><a href="showcase.html#fig-19c">← back to the figure</a></p>
 </section>
+<section class="note" id="fig-20a">
+  <p class="eyebrow">Fig. 21a · geometry</p>
+  <h2>Caps: butt, point, arc, round</h2>
+  <p>A terminal is geometry, not a stroke hint: the rails stop and a few spans bridge them, so the end survives export to a tool that ignores stroke-linecap.</p><p>The four caps are ordered by what they do. Butt is the baseline — the rails simply stop. Point meets at a tip half a width out. Arc is a shallow 5 mm dome. Round is a semicircle of radius half the width. The 120° cap limit is a project choice, stated in docs/JUNCTION.md.</p>
+  <ul class="nums"><li>butt · point · arc · round</li><li>cap limit 120°</li><li>half-width reaches</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/terminals.py · docs/JUNCTION.md<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_terminals</code></p>
+  <p class="back"><a href="showcase.html#fig-20a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-20b">
+  <p class="eyebrow">Fig. 21b · geometry</p>
+  <h2>Tapers: taper, bulb, cone</h2>
+  <p>Tapers are not caps: they turn the stroke's width down over several half-widths rather than closing the section in place. The linear taper runs to a point; bulb and cone are the two width laws recovered from the Stage II ornaments.</p><p>Both recovered laws meet the full stroke with zero slope and zero curvature, so there is no step where the taper starts — which is why they read as drawn ends rather than applied ends.</p>
+  <ul class="nums"><li>taper · bulb · cone</li><li>4 half-widths</li><li>zero slope at the join</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/terminals.py width_law · Stage II intake<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_terminals</code></p>
+  <p class="back"><a href="showcase.html#fig-20b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-20c">
+  <p class="eyebrow">Fig. 21c · measurement</p>
+  <h2>How far each end reaches</h2>
+  <p>The extension is the only number a layout needs: how far past the rail end the terminal goes, in half-widths. Butt is zero, point and round are one, arc is small because a 5 mm dome over a 1 mm ribbon barely sags, and the three tapers are four.</p><p>This is why a terminal cannot be added after the fact by eye: the drawing and the clearance both need the same extension.</p>
+  <ul class="nums"><li>butt 0</li><li>point / round 1</li><li>taper / bulb / cone 4</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/terminals.py terminal_extension<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_terminals</code></p>
+  <p class="back"><a href="showcase.html#fig-20c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-21a">
+  <p class="eyebrow">Fig. 22a · fitted</p>
+  <h2>Levien fit: a fitted parallel</h2>
+  <p>The exact offset of a cubic Bézier is an analytic curve of degree ten. Levien's method samples the true normal offset and fits a cubic chain to it, subdividing until the error is acceptable. The dark curve is the source, the dashed curve the dense exact offset, the blue curve the fitted chain.</p><p>It is a fitted option, never an exact one. The panel prints the worst error so the approximation is stated rather than hidden.</p>
+  <ul class="nums"><li>degree-10 exact offset</li><li>cubic-Bézier fit</li><li>error printed on the panel</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/parallel_bezier.py · reference/external/parallel-beziers.html<br><strong>Re-derive:</strong> <code>python scripts/levien_integer.py</code></p>
+  <p class="back"><a href="showcase.html#fig-21a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-21b">
+  <p class="eyebrow">Fig. 22b · fitted, cusp-aware</p>
+  <h2>A larger offset, with the cusps flagged</h2>
+  <p>Push the offset far enough and the parallel folds: wherever |d·κ| reaches 1 the normal map stops being one-to-one. The fitter reports those intervals instead of smoothing over them.</p><p>The cusp count on the panel is the report. A rail that claims to be clean while crossing itself is the failure mode this check exists to prevent.</p>
+  <ul class="nums"><li>folds when |d·κ| ≥ 1</li><li>cusp intervals flagged</li><li>fitted, not exact</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/parallel_bezier.py cusp_ranges<br><strong>Re-derive:</strong> <code>python scripts/levien_integer.py</code></p>
+  <p class="back"><a href="showcase.html#fig-21b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-21c">
+  <p class="eyebrow">Fig. 22c · measurement</p>
+  <h2>The fit buys error with spans</h2>
+  <p>Tolerance is the dial: ask for less error and the fitter returns more cubic spans. The measured error tracks the requested tolerance down the diagonal — the method is doing what it says, and the cost is span count.</p><p>That is the whole trade of a fitted rail: exactness is not available, but a stated error is.</p>
+  <ul class="nums"><li>log error against log tolerance</li><li>more spans for less error</li><li>stated, not hidden</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> curve_lab/parallel_bezier.py fit_chain<br><strong>Re-derive:</strong> <code>python scripts/levien_integer.py</code></p>
+  <p class="back"><a href="showcase.html#fig-21c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-22a">
+  <p class="eyebrow">Fig. 23a · exact rational</p>
+  <h2>Tschirnhausen: a loop</h2>
+  <p>27y² = (1−x)(8+x)²: a cubic with a node and a loop, and one of the few cubics that is a Pythagorean-hodograph curve. It is drawn here from generators.NAMED, the same table the catalogue tests and curves-all.html use.</p><p>Exact as a curve; the loop is a node, which is what makes it cheap to parametrise. Its parallel is still fitted unless the PH structure is used.</p>
+  <ul class="nums"><li>cubic PH curve</li><li>node angle 60°</li><li>exact rational</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> scripts/generators.py NAMED · workbench/curves-all.html<br><strong>Re-derive:</strong> <code>python scripts/all_curves.py</code></p>
+  <p class="back"><a href="showcase.html#fig-22a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-22b">
+  <p class="eyebrow">Fig. 23b · exact rational</p>
+  <h2>Bicorn: a quartic loop</h2>
+  <p>The bicorn is a quartic with a single loop and a node. Drawn from the same named table, not from a remembered silhouette — the rule that caught the limaçon labelled bean.</p><p>Like the other rational named curves it is kept as an ending/flower form, not a production stalk: the loop is exact, the width is fitted.</p>
+  <ul class="nums"><li>quartic</li><li>one loop, one node</li><li>rational</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> scripts/generators.py NAMED · workbench/curves-all.html<br><strong>Re-derive:</strong> <code>python scripts/all_curves.py</code></p>
+  <p class="back"><a href="showcase.html#fig-22b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-22c">
+  <p class="eyebrow">Fig. 23c · exact rational</p>
+  <h2>Nodal cubic</h2>
+  <p>y² = x²(x+1): the node at the origin has a 90° corner and the curve is rational, but it is not the PH nodal cubic. That distinction is recorded in the table so the two are never confused.</p><p>The node is exact; the offset rail is fitted. The curve is a good looped petal, not a clean stalk.</p>
+  <ul class="nums"><li>nodal cubic</li><li>node angle 90°</li><li>not PH</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> scripts/generators.py NAMED · workbench/curves-all.html<br><strong>Re-derive:</strong> <code>python scripts/all_curves.py</code></p>
+  <p class="back"><a href="showcase.html#fig-22c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-rays">
   <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>
