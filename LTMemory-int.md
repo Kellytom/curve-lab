@@ -120,6 +120,11 @@ no sync and no session restore.
   made exact.
 - **One grid per curve** for now; the grid is a factorisation problem, not a
   size problem.
+- **Enumerate the source, do not recall it.** When a page claims a catalogue,
+  diff the page against the tables that own it (`generators.NAMED`,
+  `heart_forms.FORMS`, `curve_lab.presets`) and render from them. We once
+  shipped a limaçon labelled "bean" while the exact bean sat in the table.
+  A curve drawn from memory is a bug, even when it looks right.
 - **Say where a thing fails.** Three figures on `hearts.html` are recorded as
   broken rather than tuned to look acceptable.
 

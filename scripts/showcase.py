@@ -369,10 +369,10 @@ def run() -> None:
 
 
     # ---- 10 · spirals -----------------------------------------------------
-    spine = turn_polygon([1, 2, 3, 4, 5, 6], 4, 3, chord=1.0)
-    p10a = panel("Fig. 10a", "spine · increasing turns", [
+    spine = turn_polygon([1, 2, 2, 1, 1], 4, 3, chord=1.0)
+    p10a = panel("Fig. 10a", "spine · a clean sweep", [
         (smooth(spine), INK, 1.8, None), (spine, MUTED, 0.9, "4 3")],
-        "equal chords, whole turns · the LAC plan", key="10a")
+        "turns 1,2,2,1,1 · no self-crossing · the LAC plan", key="10a")
 
     lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
           for t in [i * 5.2 * math.pi / 480 for i in range(481)]]
@@ -742,20 +742,34 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 </main></body></html>
 """
 
-    # Eulers belong at the top: move the whole family block up beside the parallels
-    start = html.index('<div class="fam"><h2>14 · Smooth Euler chains</h2>')
-    end = html.index('<div class="fam">', start + 10)
-    block = html[start:end]
-    html = html[:start] + html[end:]
-    target = html.index('<div class="fam"><h2>1 · Integer spine</h2>')
-    html = html[:target] + block + html[target:]
+    # move the important families to the top, then renumber every figure
+    def move(marker, before):
+        nonlocal html
+        i = html.index(marker)
+        j = html.index('<div class="fam">', i + 10)
+        block = html[i:j]
+        html = html[:i] + html[j:]
+        k = html.index(before)
+        return html[:k] + block + html[k:]
+
+    html = move('<div class="fam"><h2>14 · Smooth Euler chains</h2>',
+                '<div class="fam"><h2>1 · Integer spine</h2>')
+    html = move('<div class="fam"><h2>15 · Smooth LACs</h2>',
+                '<div class="fam"><h2>3 · Integer Bézier')
+
+    order = [int(n) for n in __import__("re").findall(r'<div class="fam"><h2>(\d+) ·', html)]
+    mapping = {old: i + 1 for i, old in enumerate(order)}
+    html = __import__("re").sub(r'<h2>(\d+) ·',
+                                lambda m: f"<h2>{mapping.get(int(m.group(1)), int(m.group(1)))} ·", html)
+    html = __import__("re").sub(r'Fig\. (\d+)',
+                                lambda m: f"Fig. {mapping.get(int(m.group(1)), int(m.group(1)))}", html)
 
     out = ROOT / "workbench" / "showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)
 
     from showcase_notes import build as build_notes
-    print(build_notes())
+    print(build_notes(mapping))
 
 
 if __name__ == "__main__":

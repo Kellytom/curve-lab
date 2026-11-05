@@ -105,6 +105,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
+- **Catalogue pages are generated from the source tables**, never drawn from
+  memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
+  before claiming completeness; `recheck` fails when one is missing.
 - The auth token is at `~/.config/<app>/token` and in Secret Manager.
   Never print it, commit it, or put it in a URL.
 - Auth is HTTP Basic on everything except `/health`; `/healthz` is intercepted

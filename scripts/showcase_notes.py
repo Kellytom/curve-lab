@@ -303,9 +303,9 @@ NOTES = [
     },
     {
         "id": "10a", "fig": "Fig. 10a", "title": "The spine, with increasing turns", "kind": "exact plan",
-        "body": ["Equal chords, whole-number turns that grow: 1,2,3,4,5,6. The dotted polygon is the exact object; the smooth line through it is the drawing.",
+        "body": ["Equal chords, whole-number turns 1,2,2,1,1 — a sweep that tightens and eases without crossing itself. The dotted polygon is the exact object; the smooth line through it is the drawing.",
          "This is the same construction as the LAC spines, shown without a target curve so the schedule itself is visible."],
-        "numbers": ["equal chords", "turns 1,2,3,4,5,6", "rail rational"],
+        "numbers": ["equal chords", "turns 1,2,2,1,1", "no self-crossing"],
         "source": "pythagorean-spiral/ · docs/SPINE.md",
         "command": "python scripts/showcase.py",
     },
@@ -618,15 +618,22 @@ def _tech(name):
     return ""
 
 
-def build() -> Path:
+def build(mapping=None) -> Path:
+    import re
+
     sections = []
     for n in NOTES:
+        fig = n["fig"]
+        if mapping:
+            mm = re.match(r"Fig\. (\d+)([a-d]?)", fig)
+            if mm:
+                fig = "Fig. %d%s" % (mapping.get(int(mm.group(1)), int(mm.group(1))), mm.group(2))
         rows = "".join(f"<li>{x}</li>" for x in n["numbers"])
         paras = "".join(f"<p>{x}</p>" for x in n["body"])
         tech = "".join(f'<div class="tech">{_tech(t)}</div>' for t in n.get("tech", []))
         sections.append(f"""
 <section class="note" id="fig-{n['id']}">
-  <p class="eyebrow">{n['fig']} · {n['kind']}</p>
+  <p class="eyebrow">{fig} · {n['kind']}</p>
   <h2>{n['title']}</h2>
   {paras}
   <ul class="nums">{rows}</ul>

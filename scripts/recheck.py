@@ -340,6 +340,20 @@ def c_euclid_chain():
     return integer and pc.check_c1(pc.tangents(pts)), "6 spans, integer controls, C1 exact"
 
 
+@check("every named curve and heart is rendered from its own table",
+       "workbench/curves-all.html built by scripts/all_curves.py",
+       "python scripts/all_curves.py")
+def c_all_curves():
+    import generators as G
+    import heart_forms as H
+    page = (ROOT / "workbench" / "curves-all.html").read_text()
+    named = [s["key"] for s in G.NAMED]
+    hearts = [f["key"] for f in H.FORMS]
+    missing = [k for k in named + hearts if k not in page]
+    return (not missing,
+            f"{len(named)} named + {len(hearts)} hearts, {len(missing)} missing")
+
+
 @check("the hub is built from the manifest and every page carries its bar",
        "workbench/manifest.json + scripts/hub.py",
        "python scripts/hub.py")
