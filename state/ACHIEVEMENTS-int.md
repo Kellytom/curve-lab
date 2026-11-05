@@ -24,7 +24,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | a parallel of a parabola is not a parabola | best fit misses by 20.8% of d | scripts/pyth_plane.py — best-fit residual is a fifth of the offset |
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
-| ok | the hub is built from the manifest and every page carries its bar | 44 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 45 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 
 ## Visual judgement (operator, 2026-11-05)
