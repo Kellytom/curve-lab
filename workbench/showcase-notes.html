@@ -343,6 +343,54 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> curve_lab/presets.py · curve_lab/plant.py<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('petal').name)"</code></p>
   <p class="back"><a href="showcase.html#fig-13c">← back to the figure</a></p>
 </section>
+<section class="note" id="fig-14a">
+  <p class="eyebrow">Fig. 14a · exact law, integrated</p>
+  <h2>One long clothoid</h2>
+  <p>A single span with κ = 0.028·s. It is the plainest smooth Euler: no cusp, no corner, curvature rising linearly along the arc.</p><p>It cannot be written in elementary functions, so it is integrated here — the law is exact, the drawing is numeric.</p>
+  <ul class="nums"><li>κ = 0.028·s</li><li>one span</li><li>no cusp</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/engine.py · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-14a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-14b">
+  <p class="eyebrow">Fig. 14b · G2 by construction</p>
+  <h2>Two clothoids, curvature matched</h2>
+  <p>The second span starts with exactly the curvature the first one ends with — 0.6 — and unwinds it. That is what makes the join G2 rather than merely G1.</p><p>This is the smallest object that shows why one clothoid is not enough and two are.</p>
+  <ul class="nums"><li>κ at the join 0.6</li><li>both sides</li><li>G2</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/presets.py (ogee) · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('ogee').segments)"</code></p>
+  <p class="back"><a href="showcase.html#fig-14b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-14c">
+  <p class="eyebrow">Fig. 14c · chain</p>
+  <h2>A five-span accelerating curl</h2>
+  <p>Five spans, each starting at the previous curvature, with lengths growing: a volute that tightens as it turns.</p><p>It is the smooth counterpart of the cusped C families — a curl that an Euler chain can actually follow.</p>
+  <ul class="nums"><li>5 spans</li><li>κ carried across</li><li>no cusp</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/engine.py · workbench/euler-sections.html<br><strong>Re-derive:</strong> <code>python scripts/euler_match.py</code></p>
+  <p class="back"><a href="showcase.html#fig-14c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-15a">
+  <p class="eyebrow">Fig. 15a · smooth</p>
+  <h2>LAC at α = 0.35</h2>
+  <p>κ ∝ s^(α−1) with α below 1: the curvature falls slowly, so the curve tightens as it runs. It is the same law the clothoid uses, with a different exponent.</p><p>Nothing here is fitted: the law is the definition, and the drawing is its integral.</p>
+  <ul class="nums"><li>α = 0.35</li><li>κ falls</li><li>smooth</li></ul>
+  <p class="meta"><strong>Where:</strong> docs/SPINE.md §5 (curl study) · workbench/spirals/<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
+  <p class="back"><a href="showcase.html#fig-15a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-15b">
+  <p class="eyebrow">Fig. 15b · smooth</p>
+  <h2>LAC at α = 1</h2>
+  <p>α = 1 gives κ ∝ 1/s — exactly the logarithmic spiral, which is why that curve keeps appearing in this catalogue.</p><p>The LAC family passes through the three curves we already have: clothoid at α = 0, log spiral at 1, circle at 2.</p>
+  <ul class="nums"><li>α = 1</li><li>κ ∝ 1/s</li><li>the log spiral</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/taper.py · workbench/log-spiral.html<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_taper</code></p>
+  <p class="back"><a href="showcase.html#fig-15b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-15c">
+  <p class="eyebrow">Fig. 15c · smooth</p>
+  <h2>LAC at α = 1.7</h2>
+  <p>α above 1: curvature rises with arc length, so the curve opens and then closes toward a circle as α approaches 2.</p><p>It is the family's other end, and the reason a single α is enough to describe every smooth 'aesthetic' curve the project uses.</p>
+  <ul class="nums"><li>α = 1.7</li><li>κ rises</li><li>circle at α = 2</li></ul>
+  <p class="meta"><strong>Where:</strong> docs/SPINE.md · goals.md (LAC tier)<br><strong>Re-derive:</strong> <code>python scripts/check-spirals.py</code></p>
+  <p class="back"><a href="showcase.html#fig-15c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-rays">
   <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>

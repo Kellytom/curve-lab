@@ -100,7 +100,7 @@ class TestComposedStem(unittest.TestCase):
 class TestShowcase(unittest.TestCase):
     def test_three_across_and_rays_last(self):
         page = (PAGES / "showcase.html").read_text()
-        self.assertEqual(page.count('class="row"'), 12)
+        self.assertEqual(page.count('class="row"'), 14)
         self.assertEqual(page.count('class="row four"'), 1)
         self.assertIn("Fig. 1a", page)
         self.assertIn("Rays", page)
@@ -113,11 +113,11 @@ class TestShowcaseNotes(unittest.TestCase):
         page = (PAGES / "showcase.html").read_text()
         notes = (PAGES / "showcase-notes.html").read_text()
         ids = re.findall(r'id="fig-([0-9a-d]+)"', page)
-        self.assertEqual(len(ids), 40)
+        self.assertEqual(len(ids), 46)
         for key in ids:
             self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
             self.assertIn(f'id="fig-{key}"', notes)
-        self.assertEqual(len(set(ids)), 40)
+        self.assertEqual(len(set(ids)), 46)
         self.assertIn("fig-rays", page)
         self.assertIn('id="fig-rays"', notes)
 

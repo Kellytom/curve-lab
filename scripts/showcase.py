@@ -400,6 +400,60 @@ def run() -> None:
     p13c = panel("Fig. 13c", "petal · 100°", [(preset_pts("petal"), INK, 1.8, None)],
                  "the leaf preset · used for endings", key="13c")
 
+
+    # ---- 14 · smooth Euler chains ----------------------------------------
+    def euler_chain(segs, n=320):
+        x = y = th = 0.0
+        pts = [(0.0, 0.0)]
+        total = sum(L for _, L, _ in segs)
+        for kd, L, k0 in segs:
+            m = max(6, int(n * L / total))
+            ds = L / m
+            for i in range(m):
+                sm = (i + 0.5) * ds
+                t = th + k0 * sm + kd * sm * sm / 2
+                x += math.cos(t) * ds
+                y += math.sin(t) * ds
+                pts.append((x, y))
+            th += k0 * L + kd * L * L / 2
+        return pts
+
+    p14a = panel("Fig. 14a", "clothoid · one long span", [
+        (euler_chain([(0.028, 34.0, 0.0)]), INK, 1.8, None)],
+        "κ ∝ s · smooth, no cusp, one curvature rate", key="14a")
+
+    p14b = panel("Fig. 14b", "two clothoids · curvature matched", [
+        (euler_chain([(0.05, 12.0, 0.0), (-0.05, 12.0, 0.6)]), INK, 1.8, None)],
+        "κ continuous at the join · G2 by construction", key="14b")
+
+    p14c = panel("Fig. 14c", "five spans · an accelerating curl", [
+        (euler_chain([(0.012, 6.0, 0.0), (0.012, 8.0, 0.072), (0.012, 10.0, 0.168),
+                      (0.012, 12.0, 0.288), (0.012, 14.0, 0.432)]), INK, 1.8, None)],
+        "each span starts at the last curvature · a smooth volute", key="14c")
+
+
+    # ---- 15 · smooth LACs -------------------------------------------------
+    def lac_curve(alpha, s0=0.6, s1=26.0, n=420, A=8.0):
+        """kappa = (s/A)^(alpha-1): the log-aesthetic law, integrated."""
+        pts = [(0.0, 0.0)]
+        x = y = th = 0.0
+        ds = (s1 - s0) / n
+        for i in range(n):
+            sm = s0 + (i + 0.5) * ds
+            k = (sm / A) ** (alpha - 1.0)
+            th += k * ds
+            x += math.cos(th) * ds
+            y += math.sin(th) * ds
+            pts.append((x, y))
+        return pts
+
+    p15a = panel("Fig. 15a", "LAC · α = 0.35", [(lac_curve(0.35), INK, 1.8, None)],
+                 "κ falls almost as 1/s · a tightening sweep", key="15a")
+    p15b = panel("Fig. 15b", "LAC · α = 1", [(lac_curve(1.0), INK, 1.8, None)],
+                 "κ ∝ 1/s · the logarithmic spiral", key="15b")
+    p15c = panel("Fig. 15c", "LAC · α = 1.7", [(lac_curve(1.7), INK, 1.8, None)],
+                 "κ rises · the family bends toward a circle", key="15c")
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -489,6 +543,14 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <div class="fam"><h2>13 · Presets</h2><p>the three shapes the app actually serves, drawn from their own generator</p></div>
 {row(p13a, p13b, p13c)}
+
+
+<div class="fam"><h2>14 · Smooth Euler chains</h2><p>no cusps, no corners: curvature carried from span to span</p></div>
+{row(p14a, p14b, p14c)}
+
+
+<div class="fam"><h2>15 · Smooth LACs</h2><p>one law, one dial: κ ∝ s^(α−1) · no cusps anywhere</p></div>
+{row(p15a, p15b, p15c)}
 
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
