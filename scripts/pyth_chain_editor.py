@@ -53,7 +53,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <main>
 <p class="eyebrow">curve-lab · interactive chain probe</p>
 <h1>Euclid family chains · integer editor</h1>
-<p class="lede">The chain is built from arm vectors, not points: each triple becomes a tangent <code>Tₖ=(a,−b)</code>, the node step is <code>S·(Tₖ+Tₖ₊₁)</code>, and the handles are <code>Tₖ</code>. Because both sides of a join use the same vector, C1 is exact whatever you choose here. The two knobs that matter are <em>which</em> triples you take and <em>how long</em> the handles are.</p>
+<p class="lede">An <strong>Euclid family chain</strong> is built from arm vectors, not points: take the triangles of one fixed-<code>n</code> Euclid family, turn each into a tangent <code>Tₖ=(a,−b)</code>, and step <code>S·(Tₖ+Tₖ₊₁)</code>. The handles are <code>Tₖ</code>, so both sides of a join use the same vector and C1 is exact whatever you choose. The two knobs that matter are <em>which</em> triangles you take and <em>how long</em> the handles are.</p>
 
 <section class="panel">
   <h2>Fig. E1 · drive it</h2>
@@ -109,18 +109,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <section class="panel">
   <h2>Fig. X · the two routes, side by side</h2>
-  <p>Both routes make a stem, a spine or a chain; the names say what each one keeps <em>exact</em>, not what it is for. <strong>Turn-exact</strong> (<code>pythagorean-spiral/</code>) decides the turns and the points exactly, and fits the ink. <strong>Euclid family</strong> (<code>curve_lab/pyth_chain.py</code>) draws with whole-number control points, and fits the turns.</p>
+  <p><strong>Where the names come from.</strong> Euclid's formula turns two whole numbers into a right triangle: <code>a = m² − n²</code>, <code>b = 2mn</code>, <code>c = m² + n²</code>. Fix <code>n</code> and let <code>m</code> run, and you get a <em>family</em> of them — for <code>n = 1</code>: 3-4-5, 8-6-10, 15-8-17. <strong>Euclid families</strong> is therefore the set of triangles (the field plot on <code>pythagorean-families.html</code>); <strong>Euclid family chains</strong> is the curve built <em>from</em> one of those families, using each triangle as a direction. <strong>Turn-exact</strong> is the other route (<code>pythagorean-spiral/</code>). Neither name claims a role: both routes can be a stem, a spine or a chain. They differ in what stays exact — turn-exact keeps the turns and the points exact and fits the ink; Euclid family chains keep the ink exact (integer control points at scale 1) and fit the turns.</p>
 
   <div class="pair">
     <div>
       <h3>Fig. X1a · turn-exact: the triangle is an angle</h3>
       <canvas id="x1a" width="560" height="360"></canvas>
-      <p class="small">8-6-10: turn by <code>cos 4/5, sin 3/5</code>. Every turn divides by 5, so the point stays exact as a fraction.</p>
+      <p class="small">The <code>m = 3</code> triangle of the <code>n = 1</code> family, drawn as an angle: 36.87°, and turning by it is multiplying by <code>(4/5, 3/5)</code>. Every turn divides by 5, so the point stays exact as a fraction.</p>
     </div>
     <div>
       <h3>Fig. X1b · Euclid family: the triangle is a vector</h3>
       <canvas id="x1b" width="560" height="360"></canvas>
-      <p class="small">The same triangle, used as <code>T = (8, −6)</code>. Every step adds whole numbers, so the point stays an integer.</p>
+      <p class="small">The same triangle drawn as a vector: <code>a = 8</code>, <code>b = 6</code>, so the tangent is <code>T = (8, −6)</code>. Every step adds whole numbers, so the point stays an integer.</p>
     </div>
   </div>
 
