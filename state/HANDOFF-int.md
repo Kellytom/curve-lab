@@ -910,3 +910,18 @@ fitted p drifts to **−4/3**: −0.835 (m ≤ 6) → −1.222 (25) → −1.305
 −1.325 (400). The algebra gives it: θ ≈ 2n/m, dθ/dm ≈ −2n/m², s ∝ m³, so
 κ ∝ s^(−4/3); n only scales the constant. It is a member of the family, not a
 new species. Fig. Y on `workbench/pythagorean-chain-editor.html`.
+
+## 2026-11-05 — three explorations opened
+
+- **Log spiral** (`workbench/log-spiral.html`): a constant-width parallel is **not**
+  a log spiral — the tangent-to-radius spread grows with d/r (0.21° at 0.02, 2.6°
+  at 0.2). What is exact: scaling (width ∝ r, a self-similar taper) and the
+  evolute (spread 0.000000°).
+- **p-triple plane** (`workbench/pyth-plane.html`): in (m,n), a and b levels are
+  hyperbolae whose integer points are factorisations; vertex curvature radius is
+  √a. In (a,b), fixed m is a parabola opening sideways. The involute of a
+  parabola's evolute is exactly its parallel family (error 2e-15) — and those
+  parallels are not parabolas (fit residual ~21% of d).
+- **Multi-grid** (`workbench/multi-grid.html`): parts may sit on different grids;
+  the composite is the lcm (1, 1/5, 1/25 → 25). Per-span grids cost 5^k
+  (15,625 at six spans, 244M at twelve).
