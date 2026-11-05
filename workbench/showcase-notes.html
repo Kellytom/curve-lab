@@ -546,6 +546,33 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> curve_lab/plant.py branch · goals.md §Plant-forms<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_plant</code></p>
   <p class="back"><a href="showcase.html#fig-18c">← back to the figure</a></p>
 </section>
+<section class="note" id="fig-19a">
+  <p class="eyebrow">Fig. 20a · exact plan</p>
+  <h2>3-4-5 spiral: the exact spine</h2>
+  <p>Ten equal chords, each turned by a whole number of 3-4-5 angles. The gold dots are every node; the dark line is the polygon through them. Nothing here is fitted — the drawn object is the exact chain, not an approximation of it.</p><p>The turn schedule 1,2,3,4,5,−5,−4,−3,−2,−1 is the curve: it winds to a peak heading of 553.05°, then unwinds along the same integers and exits exactly east. Here is the closure rule: the turns must cancel, because no accumulation of a 3-4-5 angle can land on a rational right angle.</p>
+  <ul class="nums"><li>10 chords, 11 nodes</li><li>peak heading 553.05°</li><li>sum of turns = 0</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> pythagorean-spiral/ · docs/SPINE.md §2, §5<br><strong>Re-derive:</strong> <code>python scripts/showcase.py</code></p>
+  <p class="back"><a href="showcase.html#fig-19a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-19b">
+  <p class="eyebrow">Fig. 20b · exact, proved</p>
+  <h2>Closure: the turn counts cancel</h2>
+  <p>The heading after chord k is alpha·T(k), so tracking the cumulative turn coefficient is enough to decide closure. It climbs 1, 3, 6, 10, 15 and comes back through the same integers to 0. The exit is exactly east, with no angle drift at all.</p><p>The cancellation is not a tuning trick: with one triangle, Niven's theorem leaves total turn zero as the only exact axis landing. A vertical exit needs an explicit right-angle cusp, or a quarter turn of the finished design.</p>
+  <ul class="nums"><li>1+2+3+4+5−5−4−3−2−1 = 0</li><li>exit heading east</li><li>zero angle drift</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> pythagorean-spiral/pythagorean_spiral/closure.py · docs/SPINE.md<br><strong>Re-derive:</strong> <code>python -m unittest discover -s pythagorean-spiral/tests -t pythagorean-spiral</code></p>
+  <p class="back"><a href="showcase.html#fig-19b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-19c">
+  <p class="eyebrow">Fig. 20c · exact arithmetic</p>
+  <h2>The 3-4-5 rotation</h2>
+  <p>The rotation is the rational matrix (4x−3y, 3x+4y)/5, because the triangle's sine and cosine are exactly 3/5 and 4/5. No sine or cosine is evaluated, so repeated turns stay fractions rather than accumulating rounding.</p><p>Every node is therefore an exact rational point. `integer_form()` rescales the finished chain once; at ×5¹⁵ all eleven nodes are integers. That scale is a choice, not a property of the chain — node k's denominator is a power of the hypotenuse, which is why the exact route is cheap only on short chains.</p>
+  <ul class="nums"><li>(4x−3y, 3x+4y)/5</li><li>sine 3/5, cosine 4/5</li><li>11 integer nodes at ×5¹⁵</li></ul>
+  
+  <p class="meta"><strong>Where:</strong> pythagorean-spiral/pythagorean_spiral/triples.py · spiral.py<br><strong>Re-derive:</strong> <code>python -m unittest discover -s pythagorean-spiral/tests -t pythagorean-spiral</code></p>
+  <p class="back"><a href="showcase.html#fig-19c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-rays">
   <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>

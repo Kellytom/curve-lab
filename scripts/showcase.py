@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab import pyth_chain as pc  # noqa: E402
+from curve_lab import spine as spine_layer  # noqa: E402
 from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
 
 INK, GOLD, BLUE, RED, GREEN = "#2e2413", "#c9a441", "#1f5fa8", "#a23b2a", "#3f7d4e"
@@ -611,6 +612,36 @@ def run() -> None:
         ([(0.0, 0.0), (2.2, 0.0)], INK, 1.8, None), (br, GREEN, 1.6, None)],
         "a branch inherits the offset and ending rules", key="18c")
 
+    # ---- 19 · 3-4-5 exact spine ------------------------------------------
+    pkg = spine_layer.load()
+    tri345 = pkg.Triple(3, 4, 5)
+    schedule345 = [1, 2, 3, 4, 5, -5, -4, -3, -2, -1]
+    chain345 = pkg.Spiral(tri345, 1)
+    chain345.extend(schedule345)
+    assert chain345.coeff == 0 and chain345.heading.is_axis_aligned()
+    nodes345, scale345 = chain345.integer_form()
+    pts345 = chain345.floats()
+    turn_sum = sum(chain345.turns)
+
+    p19a = panel("Fig. 19a", "3-4-5 spiral · exact spine", [
+        (pts345, INK, 2.0, None)],
+        f"1+2+3+4+5-5-4-3-2-1 = {turn_sum} · {len(nodes345)} int nodes x5^15",
+        dots=[(q, GOLD) for q in pts345], key="19a")
+
+    cumulative = [0] + list(chain345.cumulative())
+    p19b = panel("Fig. 19b", "closure · the turns cancel", [
+        ([(float(i), float(c)) for i, c in enumerate(cumulative)], INK, 1.8, None)],
+        f"sum = {turn_sum} · exit heading {chain345.heading.axis_name()}",
+        dots=[((float(i), float(c)), GOLD) for i, c in enumerate(cumulative)], key="19b")
+
+    alpha = tri345.radians
+    tri_pts = [(0.0, 0.0), (float(tri345.b), 0.0),
+               (float(tri345.b), float(tri345.a)), (0.0, 0.0)]
+    arc = [(math.cos(alpha * i / 24), math.sin(alpha * i / 24)) for i in range(25)]
+    p19c = panel("Fig. 19c", "the 3-4-5 rotation · no trigonometry", [
+        (tri_pts, INK, 1.8, None), (arc, RED, 1.4, None)],
+        "(4x-3y, 3x+4y)/5 · exact at every power", key="19c")
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -730,6 +761,9 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <div class="fam"><h2>18 · Endings and marks</h2><p>what a stem ends in, and what sits on its rails</p></div>
 {row(p18a, p18b, p18c)}
+
+<div class="fam"><h2>19 · 3-4-5 exact spine</h2><p>equal chords, whole-number turns, closure by cancellation — every node rational</p></div>
+{row(p19a, p19b, p19c)}
 
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
