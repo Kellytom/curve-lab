@@ -79,6 +79,19 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
     <tr><th>m</th><th>a</th><th>b</th><th>c</th><th>Δb</th><th>b/a</th><th>angle</th></tr>
   </table>
 </section>
+
+<section class="panel">
+  <h2>Fig. E3 · triangles chained along b, b on the x axis</h2>
+  <p><code>b</code> is the x axis. Each triangle is normalised so that its <code>b</code> leg is the x step while its height keeps that triangle's own <code>a/b</code> shape; triangle <code>k</code> starts exactly where triangle <code>k−1</code> ends, so the apex chain is a rising stem. <em>One more step</em> makes the widths <code>1, 2, 3 …</code>; <em>equal</em> makes them all <code>1</code>. <code>n</code> comes from Fig. E1.</p>
+  <div class="controls">
+    <label>start m <input id="e3m" type="range" min="2" max="40" step="1" value="2"><span id="e3mV">2</span></label>
+    <label>triangles <input id="e3k" type="range" min="2" max="6" step="1" value="3"><span id="e3kV">3</span></label>
+    <button id="e3step" type="button">x step: one more each</button>
+  </div>
+  <canvas id="cv3" width="1120" height="520"></canvas>
+  <p class="readout" id="out3"></p>
+  <table id="tbl3"></table>
+</section>
 <section class="panel">
   <h2>Grid guesstimate</h2>
   <p>These curves are long. The extent below is computed <em>before</em> drawing, from the same rule, so you know the grid you are committing to:</p>
@@ -350,10 +363,115 @@ function drawTri(T) {
     (last.b / last.a).toFixed(2);
 }
 
+// ---- Fig. E3: triangles chained along b, b on the x axis ----------------
+const cv3 = document.getElementById('cv3'), ctx3 = cv3.getContext('2d');
+const out3 = document.getElementById('out3'), tbl3 = document.getElementById('tbl3');
+const st3 = { m0: 2, count: 3, more: true };
+
+function chain3() {
+  const out = [];
+  let x = 0, m = st3.m0;
+  while (out.length < st3.count && m <= st3.m0 + 40) {
+    const a = m * m - st.n * st.n;
+    const b = 2 * m * st.n;
+    if (a > 0) {
+      const k = out.length;                  // emitted index, so a skip cannot shift the steps
+      const w = st3.more ? k + 1 : 1;        // x steps: 1,2,3 … or all 1
+      const h = (a / b) * w;                 // keep this triangle's own shape
+      out.push({ m, a, b, c: m * m + st.n * st.n, w, h, x0: x, x1: x + w });
+      x += w;
+    }
+    m++;
+  }
+  return out;
+}
+
+function drawChain3(C) {
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv3.clientWidth, H = Math.round(W * 0.46);
+  cv3.width = W * dpr; cv3.height = H * dpr; cv3.style.height = H + 'px';
+  ctx3.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx3.clearRect(0, 0, W, H);
+  if (!C.length) return;
+
+  const xMax = C[C.length - 1].x1, hMax = Math.max(...C.map(t => t.h));
+  const padL = 64, padR = 44, padT = 44, padB = 62;
+  const sc = Math.min((W - padL - padR) / Math.max(1, xMax), (H - padT - padB) / Math.max(0.2, hMax));
+  const put = p => [padL + p[0] * sc, H - padB - p[1] * sc];   // +y up, flipped here
+
+  // the x axis is b
+  const o = put([0, 0]), e = put([xMax, 0]);
+  ctx3.strokeStyle = '#2e2413'; ctx3.lineWidth = 1.4;
+  ctx3.beginPath(); ctx3.moveTo(o[0], o[1]); ctx3.lineTo(e[0] + 18, e[1]); ctx3.stroke();
+  for (let t = 0; t <= xMax; t++) {                            // one tick per x step
+    const q = put([t, 0]);
+    ctx3.beginPath(); ctx3.moveTo(q[0], q[1]); ctx3.lineTo(q[0], q[1] + 5); ctx3.stroke();
+  }
+
+  for (const t of C) {
+    const p0 = put([t.x0, 0]), p1 = put([t.x1, 0]), p2 = put([t.x1, t.h]);
+    ctx3.strokeStyle = '#2e2413'; ctx3.lineWidth = 1.6;
+    ctx3.beginPath(); ctx3.moveTo(p0[0], p0[1]); ctx3.lineTo(p1[0], p1[1]); ctx3.lineTo(p2[0], p2[1]); ctx3.stroke();
+    ctx3.strokeStyle = '#1f5fa8'; ctx3.lineWidth = 1.2;
+    ctx3.beginPath(); ctx3.moveTo(p0[0], p0[1]); ctx3.lineTo(p2[0], p2[1]); ctx3.stroke();
+  }
+
+  // the apex chain: the stem the triangles describe
+  ctx3.strokeStyle = '#c9a441'; ctx3.lineWidth = 2.6;
+  ctx3.beginPath();
+  C.forEach((t, i) => { const q = put([t.x1, t.h]); i ? ctx3.lineTo(q[0], q[1]) : ctx3.moveTo(q[0], q[1]); });
+  ctx3.stroke();
+
+  // label every apex with its integers — the figure rule
+  ctx3.font = '12px ui-monospace,Menlo,monospace';
+  for (const t of C) {
+    const q = put([t.x1, t.h]);
+    const txt = 'm=' + t.m + ' a=' + t.a + ' b=' + t.b;
+    const w = ctx3.measureText(txt).width;
+    const x = Math.min(Math.max(q[0] - w / 2, 4), W - w - 4);
+    const y = Math.max(q[1] - 8, 16);
+    ctx3.strokeStyle = '#fbf7ec'; ctx3.lineWidth = 3; ctx3.strokeText(txt, x, y);
+    ctx3.fillStyle = '#2e2413'; ctx3.fillText(txt, x, y);
+  }
+
+  // legend, 15px as the figure rule requires
+  ctx3.font = '15px Georgia,serif';
+  const ly = H - 14; let lx = padL;
+  const leg = (colour, txt) => {
+    ctx3.fillStyle = colour; ctx3.fillRect(lx, ly - 11, 18, 3);
+    ctx3.fillStyle = '#2e2413'; ctx3.fillText(txt, lx + 24, ly);
+    lx += ctx3.measureText(txt).width + 54;
+  };
+  leg('#2e2413', 'base = b (x step)'); leg('#1f5fa8', 'hypotenuse c'); leg('#c9a441', 'apex chain');
+
+  ctx3.fillStyle = '#7b6c4e'; ctx3.font = '12px ui-monospace,Menlo,monospace';
+  ctx3.fillText('b →  (x step, one unit = one triangle width)', W - 400, H - padB + 30);
+  ctx3.fillText('a ↑', 12, padT - 16);
+  ctx3.font = '13px Georgia,serif'; ctx3.fillStyle = '#2e2413';
+  ctx3.fillText('Fig. E3 · triangles chained along b, b on the x axis', padL, 18);
+  ctx3.fillStyle = '#7b6c4e'; ctx3.font = '12px ui-monospace,Menlo,monospace';
+  ctx3.fillText('x steps 0 → ' + xMax + ' · apex height max ' + hMax.toFixed(2), padL, 34);
+
+  const rows = ['<tr><th>#</th><th>m</th><th>a</th><th>b</th><th>c</th><th>x from</th><th>x to</th><th>steps</th><th>height a/b·w</th></tr>'];
+  C.forEach((t, i) => rows.push('<tr><td>' + (i + 1) + '</td><td>' + t.m + '</td><td>' + t.a + '</td><td>' + t.b +
+    '</td><td>' + t.c + '</td><td>' + t.x0 + '</td><td>' + t.x1 + '</td><td>' + t.w +
+    '</td><td>' + t.h.toFixed(3) + '</td></tr>'));
+  rows.push('<tr><td colspan="5">total</td><td>0</td><td>' + xMax + '</td><td>' + xMax + '</td><td>—</td></tr>');
+  tbl3.innerHTML = rows.join('');
+
+  const first = C[0], last = C[C.length - 1];
+  const widths = C.map(t => t.w).join(', ');
+  out3.innerHTML = 'triangles <b>' + C.length + '</b> · widths <b>' + widths + '</b> x steps → total <b>' + xMax + '</b>\n' +
+    'm ' + first.m + ' → ' + last.m + ' · apex height ' + first.h.toFixed(2) + ' → ' + last.h.toFixed(2) +
+    ' · rise ' + (last.h / first.h).toFixed(2) + '× over ' + (last.x1 - first.x0) + ' steps\n' +
+    'normalised: each b is drawn as its own x step, so the integers above are the family values, not the drawing widths';
+}
+
 function update() {
   const d = build();
   if (!d) return;
   drawTri(tangents());
+  drawChain3(chain3());
   const s = stats(d);
   draw(d, s);
   table(d);
@@ -386,6 +504,16 @@ function bind(id, key, fmt) {
 }
 bind('n', 'n'); bind('m0', 'm0'); bind('m1', 'm1'); bind('S', 'S'); bind('h', 'h');
 
+const e3m = document.getElementById('e3m'), e3mV = document.getElementById('e3mV');
+const e3k = document.getElementById('e3k'), e3kV = document.getElementById('e3kV');
+e3m.addEventListener('input', () => { st3.m0 = Number(e3m.value); e3mV.textContent = st3.m0; update(); });
+e3k.addEventListener('input', () => { st3.count = Number(e3k.value); e3kV.textContent = st3.count; update(); });
+document.getElementById('e3step').addEventListener('click', e => {
+  st3.more = !st3.more;
+  e.target.textContent = 'x step: ' + (st3.more ? 'one more each' : 'equal');
+  update();
+});
+
 document.getElementById('g2').addEventListener('click', e => {
   st.g2 = !st.g2;
   e.target.textContent = 'handles: ' + (st.g2 ? 'per-node (G2)' : 'uniform');
@@ -408,6 +536,10 @@ document.getElementById('reset').addEventListener('click', () => {
     document.getElementById(id + 'V').textContent = st[key];
   }
   document.getElementById('g2').textContent = 'handles: uniform';
+  Object.assign(st3, { m0: 2, count: 3, more: true });
+  document.getElementById('e3m').value = st3.m0; document.getElementById('e3mV').textContent = st3.m0;
+  document.getElementById('e3k').value = st3.count; document.getElementById('e3kV').textContent = st3.count;
+  document.getElementById('e3step').textContent = 'x step: one more each';
   document.getElementById('zoom').textContent = 'zoom: whole chain';
   document.getElementById('handles').textContent = 'handles: on';
   update();
