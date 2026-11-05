@@ -385,6 +385,63 @@ def c_rename():
         f"{hits} stale imports"
 
 
+# -- the ornament proofs -----------------------------------------------------
+
+@check("the fleur proof states the grammar's own counts",
+       "scripts/fleur_proof.py; workbench/fleur-proof.html",
+       "python -m unittest tests.test_fleur_proof")
+def c_fleur_proof():
+    import fleur_proof as F
+    d = F.proof_data()
+    page = (ROOT / "workbench" / "fleur-proof.html").read_text()
+    ok = (d["spans"] == 26 and d["offset"] == 12.5
+          and d["radius"] == 25.0 and "R = 2 × offset" in page
+          and f"{d['integer_nodes']} (both halves" in page)
+    return ok, (f"{d['spans']} spans, {d['integer_nodes']} integer nodes, "
+                f"R = {d['radius']:g}")
+
+
+@check("the volute proof states the spine's own counts",
+       "scripts/volute_proof.py; workbench/volute-proof.html",
+       "python -m unittest tests.test_volute_proof")
+def c_volute_proof():
+    import volute_proof as V
+    d = V.proof_data()
+    page = (ROOT / "workbench" / "volute-proof.html").read_text()
+    ok = (d["chords"] == 33 and d["nodes"] == 34 and d["peak"] > 700
+          and d["triangle"] == "79-3120-3121"
+          and f"{d['peak']:.1f}°" in page and "R = 2 × offset" in page)
+    return ok, (f"{d['chords']} chords, {d['nodes']} nodes, "
+                f"peak {d['peak']:.1f}°")
+
+
+@check("the cruciform proof declares both junctions",
+       "scripts/cruciform_proof.py; workbench/cruciform-proof.html",
+       "python -m unittest tests.test_cruciform_proof")
+def c_cruciform_proof():
+    import cruciform_proof as C
+    d = C.proof_data()
+    page = (ROOT / "workbench" / "cruciform-proof.html").read_text()
+    ok = (d["junctions"] == 2 and d["merges"] == 2 and d["join"] == "G1"
+          and d["terminals"] == 4 and d["sections"] == 7
+          and "not as an undeclared X" in page)
+    return ok, (f"{d['junctions']} junctions, {d['merges']} merges, "
+                f"{d['join']}, {d['terminals']} cone ends")
+
+
+@check("the ending fit pass attaches all ten sections without a fold",
+       "scripts/ending_fit.py; workbench/ending-fit.html",
+       "python -m unittest tests.test_ending_fit")
+def c_ending_fit():
+    import ending_fit as E
+    rows = E.fit_data()
+    ok = (len(rows) == 10
+          and all(r["intersections"] == 0 for r in rows)
+          and all(r["clearance"] >= 0.45 for r in rows))
+    worst = min(r["clearance"] for r in rows)
+    return ok, f"{len(rows)} sections, 0 crossings, min rail gap {worst:.2f}"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

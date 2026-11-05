@@ -272,6 +272,15 @@
       "outputs": "two G1 junctions with measured merges, four cone terminals, section bars"
     },
     {
+      "key": "ending-fit",
+      "file": "ending-fit.html",
+      "group": "curve",
+      "title": "Ending fit pass",
+      "purpose": "The C families attached to one stalk tip at 6 × offset, measured as endings.",
+      "inputs": "a section from the C-curve table, a stalk offset",
+      "outputs": "scale, reach, rail clearance, cusp and crossing counts, ending grades"
+    },
+    {
       "key": "euler-sections",
       "file": "euler-sections.html",
       "group": "curve",
