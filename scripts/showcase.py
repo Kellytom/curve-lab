@@ -337,6 +337,69 @@ def run() -> None:
     p11c = panel("Fig. 11c", "squircle", [(squ, INK, 1.8, None)],
                 "|x|⁴ + |y|⁴ = 1 · not rational, all offsets fitted", key="11c")
 
+
+    # ---- 12 · named rational ---------------------------------------------
+    bean = []
+    for i in range(361):
+        t = i * 2 * math.pi / 360
+        r = 1 + 0.5 * math.cos(t)
+        bean.append((r * math.cos(t), r * math.sin(t)))
+    p12a = panel("Fig. 12a", "bean · limaçon form", [(bean, INK, 1.8, None)],
+                 "r = 1 + 0.5·cos t · rational, one dimple", key="12a")
+
+    pear = []
+    for i in range(361):
+        t = i * 2 * math.pi / 360
+        pear.append((0.8 * math.sin(t), math.cos(t) * (1 + 0.3 * math.sin(t))))
+    p12b = panel("Fig. 12b", "pear · ovoid form", [(pear, INK, 1.8, None)],
+                 "a stem body with a shoulder", key="12b")
+
+    quad = []
+    for i in range(721):
+        t = i * 2 * math.pi / 720
+        r = math.cos(2 * t)
+        quad.append((r * math.cos(t), r * math.sin(t)))
+    p12c = panel("Fig. 12c", "quadrifolium · four petals", [(quad, INK, 1.8, None)],
+                 "r = cos 2t · exact, four-fold", key="12c")
+
+    crux = []
+    for i in range(721):
+        t = i * 2 * math.pi / 720 + 1e-4
+        r = 1 / math.sqrt(abs(math.cos(2 * t)) + 1e-4)
+        if r > 2.4:
+            continue
+        crux.append((r * math.cos(t), r * math.sin(t)))
+    p12d = panel("Fig. 12d", "cruciform · the cross", [(crux, INK, 1.4, None)],
+                 "x²y² = x² − y² · four branches", key="12d")
+
+    # ---- 13 · presets -----------------------------------------------------
+    from curve_lab import presets
+
+    def preset_pts(name, n=260):
+        d = presets.get(name)
+        x, y, th = d.anchor["x"], d.anchor["y"], d.anchor["angle"]
+        pts = [(x, y)]
+        total = sum(seg.length for seg in d.segments) or 1.0
+        for seg in d.segments:
+            th += seg.corner
+            m = max(3, int(n * seg.length / total))
+            ds = seg.length / m
+            k0 = seg.kappa0 if seg.kappa0 is not None else 0.0
+            for i in range(m):
+                sm = (i + 0.5) * ds
+                theta = th + k0 * sm + seg.kd * sm * sm / 2
+                x += math.cos(theta) * ds
+                y += math.sin(theta) * ds
+                pts.append((x, y))
+            th += k0 * seg.length + seg.kd * seg.length ** 2 / 2
+        return pts
+    p13a = panel("Fig. 13a", "bracket · 90°", [(preset_pts("bracket"), INK, 1.8, None)],
+                 "the app's corner preset · exact spans", key="13a")
+    p13b = panel("Fig. 13b", "ogee · 60°", [(preset_pts("ogee"), INK, 1.8, None)],
+                 "curvature rises, crosses zero, falls", key="13b")
+    p13c = panel("Fig. 13c", "petal · 100°", [(preset_pts("petal"), INK, 1.8, None)],
+                 "the leaf preset · used for endings", key="13c")
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -376,6 +439,8 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 .fam h2{{font-size:21px;margin:0 0 4px}} .fam p{{margin:0 0 10px;color:var(--muted);font:13px/1.5 ui-monospace,Menlo,monospace}}
 .row{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 8px}}
 .row > svg{{background:var(--paper);border:1px solid var(--rule)}}
+.row.four{{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:900px){{.row.four{{grid-template-columns:1fr}}}}
 @media (max-width:900px){{.row{{grid-template-columns:1fr}}}}
 .note{{font:12px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}}
 </style></head><body><main>
@@ -417,6 +482,13 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <div class="fam"><h2>11 · Classical gauges</h2><p>two solved by hand and one that refuses: catenary, tractrix, squircle</p></div>
 {row(p11a, p11b, p11c)}
+
+
+<div class="fam"><h2>12 · Named rational</h2><p>the rest of the named table: bean, pear, quadrifolium, cruciform</p></div>
+<div class="row four">{p12a}{p12b}{p12c}{p12d}</div>
+
+<div class="fam"><h2>13 · Presets</h2><p>the three shapes the app actually serves, drawn from their own generator</p></div>
+{row(p13a, p13b, p13c)}
 
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}

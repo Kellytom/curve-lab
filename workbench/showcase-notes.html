@@ -287,6 +287,62 @@ a{color:var(--ink)}
   <p class="meta"><strong>Where:</strong> workbench/hearts.html · TODO grade table<br><strong>Re-derive:</strong> <code>python -m unittest tests.test_heart_forms</code></p>
   <p class="back"><a href="showcase.html#fig-11c">← back to the figure</a></p>
 </section>
+<section class="note" id="fig-12a">
+  <p class="eyebrow">Fig. 12a · drawn form</p>
+  <h2>Bean (limaçon form)</h2>
+  <p>A limaçon with one dimple, drawn as r = 1 + 0.5·cos t. It is the bean's silhouette rather than the catalogue's exact bean, and is labelled as such.</p><p>Replace it with the named-curve generator's own bean when the page is next touched.</p>
+  <ul class="nums"><li>r = 1 + 0.5·cos t</li><li>one dimple</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py (named bean) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-12a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-12b">
+  <p class="eyebrow">Fig. 12b · drawn form</p>
+  <h2>Pear (ovoid form)</h2>
+  <p>An ovoid with a shoulder, drawn parametrically. Like the bean, it is a silhouette, not the exact named pear.</p><p>It belongs in the stalk catalogue as a body shape, which is why the shoulder matters more than the exactness here.</p>
+  <ul class="nums"><li>ovoid</li><li>shoulder at the top</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py (named pear) · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-12b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-12c">
+  <p class="eyebrow">Fig. 12c · exact quartic</p>
+  <h2>Quadrifolium</h2>
+  <p>r = cos 2t: four petals, exact, with a four-fold symmetry that is a polynomial fact rather than a drawn one.</p><p>It is the flower grammar's cleanest symmetry and the one that pairs with the cruciform opposite it.</p>
+  <ul class="nums"><li>4 petals</li><li>r = cos 2t</li><li>rational</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-12c">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-12d">
+  <p class="eyebrow">Fig. 12d · exact quartic</p>
+  <h2>Cruciform</h2>
+  <p>The cross curve, x²y² = x² − y², drawn as four branches. It is exact and it is the primal shape: the crossing that becomes a fleur.</p><p>The four branches are why it is drawn as separate arms rather than one loop.</p>
+  <ul class="nums"><li>4 branches</li><li>exact quartic</li></ul>
+  <p class="meta"><strong>Where:</strong> scripts/generators.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python scripts/generators.py</code></p>
+  <p class="back"><a href="showcase.html#fig-12d">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-13a">
+  <p class="eyebrow">Fig. 13a · exact spans</p>
+  <h2>Bracket preset</h2>
+  <p>The app's corner: two clothoid spans meeting at 90°, sampled here from the design itself rather than redrawn.</p><p>The bracket and the ogee are the two shapes that make the case for the engine: a corner and a reversal, both as exact spans.</p>
+  <ul class="nums"><li>90° corner</li><li>two spans</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/presets.py · workbench/generators.html<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('bracket').name)"</code></p>
+  <p class="back"><a href="showcase.html#fig-13a">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-13b">
+  <p class="eyebrow">Fig. 13b · exact spans</p>
+  <h2>Ogee preset</h2>
+  <p>Curvature rises, crosses zero, falls and returns to straight: the S that every scroll is built from.</p><p>Drawn from the preset's own segments, sampled at 260 points.</p>
+  <ul class="nums"><li>60° reversal</li><li>curvature crosses zero</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/presets.py<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('ogee').name)"</code></p>
+  <p class="back"><a href="showcase.html#fig-13b">← back to the figure</a></p>
+</section>
+<section class="note" id="fig-13c">
+  <p class="eyebrow">Fig. 13c · exact spans</p>
+  <h2>Petal preset</h2>
+  <p>The leaf: a 100° turn with a corner at the point, used for endings and for the seagrass blades.</p><p>The corner is a declared tangent jump, not a fitting failure — which is why a petal can end in a point without a cusp being a defect.</p>
+  <ul class="nums"><li>100°</li><li>declared corner at the point</li></ul>
+  <p class="meta"><strong>Where:</strong> curve_lab/presets.py · curve_lab/plant.py<br><strong>Re-derive:</strong> <code>python -c "from curve_lab import presets; print(presets.get('petal').name)"</code></p>
+  <p class="back"><a href="showcase.html#fig-13c">← back to the figure</a></p>
+</section>
 <section class="note" id="fig-rays">
   <p class="eyebrow">Rays · composition</p>
   <h2>The rays, as a monstrance</h2>
