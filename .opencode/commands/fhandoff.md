@@ -123,3 +123,14 @@ Before writing the block, run and paste the last line of:
 Put the numbers in the `Context:` line of the block — percent used, active
 minutes, turns, verdict. The tally in `state/sessions.jsonl` is how the next
 session sees whether this pattern is working.
+
+Then read the session clock and clear it:
+
+```sh
+node scripts/timer.js --check
+node scripts/timer.js --stop
+```
+
+Put the **wall-clock elapsed time** in the same `Context:` line, beside the
+`ctx.py` numbers. The two measure different things: `ctx.py` is tokens and
+active minutes, the timer is real elapsed time. Report both.

@@ -148,6 +148,12 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Context discipline
 
+- **Session clock.** Start `node scripts/timer.js 20m 60m "<label>"`
+  in the background at session start, and `node scripts/timer.js --check` at
+  every task boundary. At the end run `--check`, report the wall-clock elapsed
+  time (not only `ctx.py`'s active minutes), then `--stop`. The clock is a
+  budget, not a quota: a finished action stops early and says so; the cap is
+  60 minutes unless the operator names another.
 - Probe once with a single shell call; grep before reading; do not re-read a
   file already in context.
 - Prefer `git diff --stat` and targeted `sed` over whole-file reads.
