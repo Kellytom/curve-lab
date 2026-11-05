@@ -430,6 +430,17 @@ def run() -> None:
 
 
     # ---- 14 · smooth Euler chains ----------------------------------------
+
+    def offset_polyline(pts, d):
+        out = []
+        for i, q in enumerate(pts):
+            a = pts[max(0, i - 1)]
+            b = pts[min(len(pts) - 1, i + 1)]
+            tx, ty = b[0] - a[0], b[1] - a[1]
+            L = math.hypot(tx, ty) or 1
+            out.append((q[0] - ty / L * d, q[1] + tx / L * d))
+        return out
+
     def euler_chain(segs, n=320):
         x = y = th = 0.0
         pts = [(0.0, 0.0)]
@@ -446,9 +457,12 @@ def run() -> None:
             th += k0 * L + kd * L * L / 2
         return pts
 
-    p14a = panel("Fig. 14a", "clothoid · one long span", [
-        (euler_chain([(0.028, 34.0, 0.0)]), INK, 1.8, None)],
-        "κ ∝ s · smooth, no cusp, one curvature rate", key="14a")
+    stem14 = euler_chain([(0.028, 34.0, 0.0)])
+    p14a = panel("Fig. 14a", "clothoid stem · with its offsets", [
+        (offset_polyline(stem14, 0.34), BLUE, 1.4, None),
+        (offset_polyline(stem14, -0.34), BLUE, 1.4, None),
+        (stem14, INK, 2.0, None)],
+        "κ ∝ s · smooth stem, two rails at ±d", key="14a")
 
     p14b = panel("Fig. 14b", "two clothoids · curvature matched", [
         (euler_chain([(0.05, 12.0, 0.0), (-0.05, 12.0, 0.6)]), INK, 1.8, None)],
