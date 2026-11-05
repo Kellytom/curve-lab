@@ -170,7 +170,7 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 - [x] Cruciform/primal proof; reuse the section and junction rules. `workbench/cruciform-proof.html`, `scripts/cruciform_proof.py`, `tests/test_cruciform_proof.py`.
 - [x] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals, fitted to one stalk tip at 6 × offset. `workbench/ending-fit.html`, `scripts/ending_fit.py`. All ten clear the rails by ~0.5 and cross only at the tip; the ending grades stand.
 - [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.
-- [ ] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; port the width laws and the fold report after the ornament proof. This is a target, not a side study.
+- [x] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; the width law against the constant band, seam and rail-crossing report. `workbench/modulated-width-proof.html`, `scripts/modulated_width_proof.py`.
 
 ## Investigation
 

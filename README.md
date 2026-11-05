@@ -273,6 +273,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 - `curve_lab/backend/` holds the ctypes surface and the wheel adapter.
 - `curve_lab/cli.py` runs one command and prints the report.
 - `curve_lab/watch.py` holds the two-window loop and its safety rules.
+- `scripts/fleur_proof.py`, `scripts/volute_proof.py`, `scripts/cruciform_proof.py` build the ornament proofs (`workbench/fleur-proof.html`, `-volute-proof.html`, `-cruciform-proof.html`).
 
 ## Tests
 
@@ -280,7 +281,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 .venv/bin/python -m unittest discover tests
 ```
 
-92 checks. The engine is held against an independent Simpson integral of the
+346 checks. The engine is held against an independent Simpson integral of the
 Fresnel form, every preset against G2, both spline methods against the points
 they were given, the G2 spline and the joined designs against their own
 curvature continuity, the fitter against its own tolerance, and the writer

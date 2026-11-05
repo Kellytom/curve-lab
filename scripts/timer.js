@@ -107,6 +107,9 @@ if (args[0] === "--stop") {
         at: new Date().toISOString(), reason: "stop"
     });
     fs.unlinkSync(MARK);
+    // stop the background process that owns this marker, so its floor/cap
+    // timers cannot fire later against a different session
+    if (done.pid) { try { process.kill(done.pid, "SIGTERM"); } catch (e) {} }
     console.log("timer: cleared after " + minutes + "m (" + done.label + ")");
     process.exit(0);
 }
@@ -127,9 +130,10 @@ if (max < min) { console.error("timer: the cap (" + max + "m) is under the floor
 
 var start = new Date(), floorAt = new Date(start.getTime() + min * 60000), capAt = new Date(start.getTime() + max * 60000);
 var before = cp.execSync("git status --short | wc -l", { cwd: ROOT }).toString().trim();
-fs.writeFileSync(MARK, JSON.stringify({ label: label, min: min, max: max, start: start.toISOString(), floor: floorAt.toISOString(), cap: capAt.toISOString() }));
+var ME = process.pid + "-" + start.getTime();
+fs.writeFileSync(MARK, JSON.stringify({ id: ME, pid: process.pid, label: label, min: min, max: max, start: start.toISOString(), floor: floorAt.toISOString(), cap: capAt.toISOString() }));
 log({
-    event: "start", label: label, floor: min, cap: max,
+    event: "start", id: ME, label: label, floor: min, cap: max,
     start: start.toISOString(), at: start.toISOString()
 });
 console.log("timer: " + label + " | floor " + min + "m (" + clock(floorAt) + "), cap " + max + "m (" + clock(capAt) + ")");
@@ -140,8 +144,8 @@ if (run) {
     child = cp.spawn(run, { cwd: ROOT, shell: true, stdio: "inherit" });
     console.log("timer: running: " + run);
     child.on("exit", function (code) {
-        if (fs.existsSync(MARK)) {
-            var m2 = readMark();
+        var m2 = readMark();
+        if (m2 && m2.id === ME) {
             log({
                 event: "stop", label: label, minutes: elapsed(m2 || { start: start.toISOString() }),
                 floor: min, cap: max, start: start.toISOString(),
@@ -156,7 +160,7 @@ if (run) {
 
 setTimeout(function () {
     var now = readMark();
-    if (!now) { return; }
+    if (!now || now.id !== ME) { process.exit(0); }
     log({
         event: "floor", label: label, minutes: elapsed(now),
         floor: min, cap: max, start: now.start, at: new Date().toISOString()
@@ -167,6 +171,7 @@ setTimeout(function () {
 
 setTimeout(function () {
     var now = readMark();
+    if (!now || now.id !== ME) { process.exit(0); }
     var after = cp.execSync("git status --short | wc -l", { cwd: ROOT }).toString().trim();
     var last = cp.execSync("git log --oneline -1", { cwd: ROOT }).toString().trim();
     if (now) {
