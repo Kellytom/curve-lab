@@ -889,3 +889,15 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   --min-instances 0 --max-instances 1 --timeout 60 --port 8080 \
   --set-env-vars HOST=0.0.0.0 --quiet
 ```
+
+## 2026-11-04 — names for the two routes
+
+- **turn-exact** — `pythagorean-spiral/`: exact rational turns and nodes, rational
+  miter rails; the drawn cubics are fitted (~1.4%).
+- **Euclid family chains** — `curve_lab/pyth_chain.py`: tangents taken from a
+  fixed-`n` family of Euclid's formula; integer nodes and control points at
+  scale 1; the turns are C1-fitted and the rails are floating point.
+
+Neither name claims a role: either route can be a stem, a spine or a chain.
+`Euclid families` alone means the triple families (the field plot); the route is
+`Euclid family chains`.

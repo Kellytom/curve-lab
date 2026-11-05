@@ -1,4 +1,4 @@
-"""Interactive triple-tangent chain editor.
+"""Interactive Euclid family chain editor.
 
     .venv/bin/python scripts/pyth_chain_editor.py
 
@@ -19,7 +19,7 @@ PAGE = r'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Triple-tangent chain · integer editor</title>
+<title>Euclid family chains · integer editor</title>
 <style>
 :root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--blue:#1f5fa8;--red:#8a3b12}
 *{box-sizing:border-box}
@@ -52,7 +52,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <body>
 <main>
 <p class="eyebrow">curve-lab · interactive chain probe</p>
-<h1>Triple-tangent chain · integer editor</h1>
+<h1>Euclid family chains · integer editor</h1>
 <p class="lede">The chain is built from arm vectors, not points: each triple becomes a tangent <code>Tₖ=(a,−b)</code>, the node step is <code>S·(Tₖ+Tₖ₊₁)</code>, and the handles are <code>Tₖ</code>. Because both sides of a join use the same vector, C1 is exact whatever you choose here. The two knobs that matter are <em>which</em> triples you take and <em>how long</em> the handles are.</p>
 
 <section class="panel">
@@ -109,7 +109,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 
 <section class="panel">
   <h2>Fig. X · the two routes, side by side</h2>
-  <p>Both routes make a stem, a spine or a chain; the names say what each one keeps <em>exact</em>, not what it is for. <strong>Turn-exact</strong> (<code>pythagorean-spiral/</code>) decides the turns and the points exactly, and fits the ink. <strong>Ink-exact</strong> (<code>curve_lab/pyth_chain.py</code>) draws with whole-number control points, and fits the turns.</p>
+  <p>Both routes make a stem, a spine or a chain; the names say what each one keeps <em>exact</em>, not what it is for. <strong>Turn-exact</strong> (<code>pythagorean-spiral/</code>) decides the turns and the points exactly, and fits the ink. <strong>Euclid family</strong> (<code>curve_lab/pyth_chain.py</code>) draws with whole-number control points, and fits the turns.</p>
 
   <div class="pair">
     <div>
@@ -118,7 +118,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       <p class="small">8-6-10: turn by <code>cos 4/5, sin 3/5</code>. Every turn divides by 5, so the point stays exact as a fraction.</p>
     </div>
     <div>
-      <h3>Fig. X1b · ink-exact: the triangle is a vector</h3>
+      <h3>Fig. X1b · Euclid family: the triangle is a vector</h3>
       <canvas id="x1b" width="560" height="360"></canvas>
       <p class="small">The same triangle, used as <code>T = (8, −6)</code>. Every step adds whole numbers, so the point stays an integer.</p>
     </div>
@@ -131,7 +131,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       <p class="small" id="x2aNote"></p>
     </div>
     <div>
-      <h3>Fig. X2b · six steps, ink-exact</h3>
+      <h3>Fig. X2b · six steps, Euclid family</h3>
       <canvas id="x2b" width="560" height="360"></canvas>
       <p class="small" id="x2bNote"></p>
     </div>
@@ -144,14 +144,14 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
       <p class="small">The rails offset the <em>polygon</em>. Equal chords mean one known length, so the offset is rational and joins with a miter.</p>
     </div>
     <div>
-      <h3>Fig. X3b · width, ink-exact</h3>
+      <h3>Fig. X3b · width, Euclid family</h3>
       <canvas id="x3b" width="560" height="360"></canvas>
       <p class="small">The rails offset the <em>curve</em>. A unit normal needs a square root, so the rails are floating point — smooth, but not exact.</p>
     </div>
   </div>
 
   <table>
-    <tr><th></th><th>turn-exact</th><th>ink-exact</th></tr>
+    <tr><th></th><th>turn-exact</th><th>Euclid family chains</th></tr>
     <tr><td>what you choose</td><td>chord length + whole-number turn counts</td><td>a list of integer tangent vectors</td></tr>
     <tr><td>the points</td><td>exact fractions; the denominator grows every turn</td><td>exact integers at scale 1</td></tr>
     <tr><td>the width</td><td>miter offset of the equal-chord polygon — rational</td><td>offset of the cubic — needs a square root, floating point</td></tr>
@@ -810,7 +810,7 @@ function drawCompare() {
       'Node 1 is (4, 3) exactly; node 2 is (27/5, 39/5); after six chords every point sits on a grid of 1/15,625.';
   }
 
-  // X2b — six steps, ink-exact
+  // X2b — six steps, Euclid family
   {
     const { nodes } = chainNodes(6), pts = nodes;
     const f = frame(document.getElementById('x2b'), pts, 40, 0.64);

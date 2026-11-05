@@ -1,4 +1,9 @@
-"""The n=2 triple-tangent chain: integer cubics, C1 at every join.
+"""Euclid family chains: integer cubic chains from Euclid's formula, C1 at every join.
+
+Named for the source of the tangents: each span takes its direction from one
+member of a fixed-`n` family of Euclid's formula (a = m^2 - n^2, b = 2mn,
+c = m^2 + n^2). The chain is "integer" because both the nodes and the control
+points stay whole numbers at scale 1 — no common denominator is ever needed.
 
 Construction
 ------------
