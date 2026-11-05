@@ -39,6 +39,9 @@ MUTED, PAPER, GRID, FILL = "#7b6c4e", "#fffdf7", "#e4dcc6", "#f8efd7"
 WIDTH = 25.0
 OFFSET = WIDTH / 2.0
 NODE_TOL = 1e-6
+BRANCH_NODE = 5
+BRANCH_LENGTH = 260.0
+BRANCH_WIDTH = 10.0
 
 
 def _design(right):
@@ -100,6 +103,9 @@ def proof_data() -> dict:
         "nodes": len(marks),
         "integer_nodes": len(marks),
         "petal_length": petal,
+        "branch_node": BRANCH_NODE,
+        "branch_length": BRANCH_LENGTH,
+        "branch_width": BRANCH_WIDTH,
         "length": chain.length,
         "marks": marks,
     }
@@ -158,6 +164,22 @@ def build_items() -> tuple[list, dict]:
         t = (petal_tan[0] * mirror, petal_tan[1])
         for blade in P.seagrass(p, t, OFFSET):
             items.append((blade, GREEN, 1.2, None))
+
+    # a real branch: leaves the band node, carries smaller rails and an ending
+    starts = [0.0]
+    for seg in right["spans"]:
+        starts.append(starts[-1] + seg.length)
+    bp = chain.point(starts[BRANCH_NODE])
+    ba = chain.tangent(starts[BRANCH_NODE])
+    branch = P.branch(bp, (math.cos(ba), math.sin(ba)), -1, BRANCH_LENGTH)
+    bplus, bminus = PF.normal_offsets(branch, BRANCH_WIDTH / 2.0)
+    items.append((bplus, BLUE, 0.9, None))
+    items.append((bminus, RED, 0.9, None))
+    items.append((branch, INK, 1.5, None))
+    btip = branch[-1]
+    btan = (branch[-1][0] - branch[-2][0], branch[-1][1] - branch[-2][1])
+    for blade in P.seagrass(btip, btan, BRANCH_WIDTH / 2.0):
+        items.append((blade, GREEN, 1.0, None))
     return items, data
 
 
@@ -210,8 +232,9 @@ rails, an ending, integer marks, and the petal as a branch.</p>
 <p><strong>The reading.</strong> The central lance is the stalk. The study's
 {data['width']:g}-unit width is the pair of rails at ±{data['offset']:g}. The
 lance tip is no longer a bare point: it ends in a <strong>cone terminal</strong>
-of radius <strong>2 × offset = {data['radius']:g}</strong>. The side petal is
-the branch, and it ends in seagrass, because a branch inherits the ending rule.
+of radius <strong>2 × offset = {data['radius']:g}</strong>. A branch leaves
+the band node, carries its own narrower rails, and ends in seagrass, because a
+branch inherits the ending rule.
 The gold dots are the integer nodes; two of them carry pyramid growth marks on
 the rails.</p>
 <p>Nothing is redrawn by eye: the half, the mirror and the band come from
@@ -235,8 +258,8 @@ from that module by <code>scripts/fleur_proof.py</code>.</p>
 <tr><th>width</th><td>{data['width']:g} · rails at ±{data['offset']:g}</td></tr>
 <tr><th>cone terminal</th><td>R = 2 × offset = {data['radius']:g}</td></tr>
 <tr><th>integer nodes</th><td>{data['integer_nodes']} (both halves plus the band corners, deduplicated)</td></tr>
-<tr><th>petal branch</th><td>{data['petal_length']:.1f} units of centreline, seagrass ending</td></tr>
-<tr><th>centreline</th><td>{data['length']:.1f} units from foot to lance tip (one half)</td></tr>
+<tr><th>branch</th><td>node {data['branch_node']} · {data['branch_length']:g} long · width {data['branch_width']:g} · seagrass ending</td></tr>
+<tr><th>centreline</th><td>{data['length']:.1f} units from foot to lance tip (one half) · petal {data['petal_length']:.1f}</td></tr>
 </table>
 </div>
 
