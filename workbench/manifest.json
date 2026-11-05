@@ -432,6 +432,15 @@
       "purpose": "One note per showcase figure: what is exact, what is fitted, the numbers, the command.",
       "inputs": "the showcase figures",
       "outputs": "16 linked note sections"
+    },
+    {
+      "key": "curves-all",
+      "file": "curves-all.html",
+      "group": "curve",
+      "title": "Every named curve",
+      "purpose": "Generated from NAMED: every named curve and every heart, drawn by the repo.",
+      "inputs": "generators.NAMED + heart_forms.FORMS",
+      "outputs": "25 named curves, 15 hearts"
     }
   ]
 }
