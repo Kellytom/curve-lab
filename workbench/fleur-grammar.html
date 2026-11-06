@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fleur grammar 01 — the W03 report</title>
+<style>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:16px/1.55 Georgia,serif}
+main{max-width:1000px;margin:0 auto;padding:34px 22px 70px}
+h1{font-size:28px;margin:0 0 4px}
+.lead{color:#8c6a21;margin:0 0 18px}
+h2{font:600 12px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.10em;text-transform:uppercase;color:#7b6c4e;margin:30px 0 8px}
+.panel{background:#fffdf7;border:1px solid #d8ccae;padding:16px 18px;margin:0 0 18px}
+.art{background:#fffdf7;border:1px solid #d8ccae;padding:8px;margin:0 0 8px}
+.art svg{display:block;width:100%;height:auto}
+table{border-collapse:collapse;width:100%;font:12px/1.5 ui-monospace,Menlo,monospace}
+td,th{border-bottom:1px solid #d8ccae;padding:5px 8px;text-align:left}
+th{color:#7b6c4e;font-weight:600}
+code{font:12px ui-monospace,Menlo,monospace}
+.note{font:11px/1.6 ui-monospace,Menlo,monospace;color:#7b6c4e}
+</style></head><body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> the study's parameters · <b>out</b> 26 spans, 9 corners, 2 declared seam contacts, the clearance report</span></div><!-- /hub-bar --><main>
+<h1>Fleur grammar 01</h1>
+<p class="lead">The ported study, with the report the grammar owes: spans,
+joins, folds and the declared seam.</p>
+
+<div class="panel">
+<p><strong>The object.</strong> The right half (11 spans) is mirrored
+(11 more) and closed with the band
+(4 spans): <strong>26 spans</strong> in all.
+No fill. The band is a hairline; the half is a 25-unit ribbon.</p>
+<p><strong>The joins.</strong> The port keeps the old grammar's corners rather
+than smoothing them away: <strong>9</strong> declared breaks,
+the largest <strong>170.08°</strong> at the foot-to-tail
+turn. They are G0 by construction, and the report says so instead of calling
+the piece G1.</p>
+<p><strong>The seam.</strong> The two halves meet at two places on the centre
+line, the foot crossover and the inner-bow crossover. Both are
+<strong>declared contacts</strong> (2 in the piece), not
+inferred from proximity. With them, the clearance report has
+2 crossing, 0 disallowed, and
+0 rail folds.</p>
+<p class="note">Copy error against the ornaments source is not measured: that
+source is not in this repository. The report is about the port's own geometry.</p>
+</div>
+
+<div class="art"><?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="640mm" height="820mm"
+     viewBox="0 0 640 820">
+  <title>Fleur study 01</title>
+  <desc id="curve-lab-design">{
+  &quot;contacts&quot;: [
+    {
+      &quot;a&quot;: &quot;ink/half&quot;,
+      &quot;b&quot;: &quot;ink/half mirrored&quot;,
+      &quot;point&quot;: [
+        0.0,
+        -270.02897642495145
+      ],
+      &quot;radius&quot;: 25.0,
+      &quot;waives_clearance&quot;: true
+    },
+    {
+      &quot;a&quot;: &quot;ink/half&quot;,
+      &quot;b&quot;: &quot;ink/half mirrored&quot;,
+      &quot;point&quot;: [
+        0.0,
+        1048.156105564195
+      ],
+      &quot;radius&quot;: 25.0,
+      &quot;waives_clearance&quot;: true
+    }
+  ],
+  &quot;mirror&quot;: true,
+  &quot;name&quot;: &quot;Fleur study 01&quot;,
+  &quot;stroke&quot;: 0.6,
+  &quot;traces&quot;: [
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 1.3608228139327332,
+          &quot;x&quot;: 0.0,
+          &quot;y&quot;: -330
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;fleur right&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 311.8493225902535
+          },
+          {
+            &quot;corner&quot;: -1.3608228139327332,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 55.0
+          },
+          {
+            &quot;corner&quot;: -0.2617993877991494,
+            &quot;kappa0&quot;: -0.0016,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 381.7907738737596
+          },
+          {
+            &quot;corner&quot;: 2.9684347686359622,
+            &quot;kappa0&quot;: 0.0016,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 277.52581748885484
+          },
+          {
+            &quot;corner&quot;: -0.9690151238260687,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 50.0
+          },
+          {
+            &quot;corner&quot;: -0.6108652381980153,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 7.333859777674538e-06,
+            &quot;length&quot;: 218.16615649929116
+          },
+          {
+            &quot;kappa0&quot;: 0.0016,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 272.70769562411397
+          },
+          {
+            &quot;corner&quot;: -0.0001188451517788458,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 525.4317230825168
+          },
+          {
+            &quot;corner&quot;: 2.7159514815177537,
+            &quot;kappa0&quot;: 0.00032,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 1014.2949138013182
+          },
+          {
+            &quot;corner&quot;: -1.4696106819875006,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 50.0
+          },
+          {
+            &quot;corner&quot;: -1.4758446204521403,
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 1160.2262710350942
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: null,
+      &quot;name&quot;: &quot;half&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: 25.0
+    },
+    {
+      &quot;design&quot;: {
+        &quot;anchor&quot;: {
+          &quot;angle&quot;: 0.0,
+          &quot;x&quot;: -250,
+          &quot;y&quot;: -25.0
+        },
+        &quot;g1&quot;: true,
+        &quot;name&quot;: &quot;band&quot;,
+        &quot;offsets&quot;: [],
+        &quot;segments&quot;: [
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 500.0
+          },
+          {
+            &quot;kappa0&quot;: 0.04,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 78.53981633974483
+          },
+          {
+            &quot;kappa0&quot;: 0.0,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 500.0
+          },
+          {
+            &quot;kappa0&quot;: 0.04,
+            &quot;kd&quot;: 0.0,
+            &quot;length&quot;: 78.53981633974483
+          }
+        ],
+        &quot;stroke&quot;: 1.0
+      },
+      &quot;layer&quot;: &quot;ink&quot;,
+      &quot;mirror&quot;: false,
+      &quot;name&quot;: &quot;band&quot;,
+      &quot;terminals&quot;: [
+        &quot;butt&quot;,
+        &quot;butt&quot;
+      ],
+      &quot;width&quot;: null
+    }
+  ]
+}</desc>
+  <g id="clothoid" fill="none" stroke="#000000" stroke-linecap="butt"
+     stroke-width="0.3092">
+    <path id="ink-half" d="M 320,798.6575 C 331.164 746.2725, 342.3281 693.8874, 353.4921 641.5024 C 362.9386 641.5024, 372.3851 641.5024, 381.8315 641.5024 C 445.6684 658.6074, 502.697 694.9386, 545.178 745.5656 C 521.1896 704.1479, 488.2706 668.5982, 448.8157 641.5024 C 448.8157 632.9146, 448.8157 624.3269, 448.8157 615.7392 C 470.2973 585.0604, 491.8833 554.2224, 507.7514 520.1931 C 527.6252 477.5736, 537.924 431.1188, 537.924 384.0934 C 537.9347 293.8482, 537.9455 203.6031, 537.9562 113.358 C 465.8471 272.364, 420.0782 442.0394, 402.4421 615.7392 C 393.8543 615.7392, 385.2666 615.7392, 376.6789 615.7392 C 357.7859 417.363, 338.893 218.9868, 320 20.6106"/>
+    <path id="ink-half-rail-12-5" d="M 313.7007,797.315 C 324.8647 744.93, 336.0287 692.545, 347.1928 640.1599 C 349.2925 640.6074, 351.3923 641.0549, 353.4921 641.5024 C 353.4921 639.3554, 353.4921 637.2085, 353.4921 635.0616 C 362.9386 635.0616, 372.385 635.0616, 381.8315 635.0616 C 381.8315 637.2085, 381.8315 639.3554, 381.8315 641.5024 C 382.3872 639.4286, 382.9429 637.3548, 383.4986 635.2811 C 448.6121 652.7282, 506.7813 689.786, 550.1119 741.4255 C 548.4673 742.8055, 546.8227 744.1855, 545.178 745.5656 C 543.3202 746.6416, 541.4624 747.7176, 539.6046 748.7936 C 516.0959 708.2043, 483.8353 673.3656, 445.1695 646.8117 C 446.3849 645.0419, 447.6003 643.2721, 448.8157 641.5024 C 446.6688 641.5023, 444.5219 641.5023, 442.3749 641.5023 C 442.3749 632.9146, 442.3749 624.3269, 442.3749 615.7393 C 444.5219 615.7393, 446.6688 615.7392, 448.8157 615.7392 C 447.0571 614.5078, 445.2984 613.2763, 443.5398 612.0449 C 464.8064 581.673, 486.2043 551.1608, 501.9141 517.4711 C 521.3904 475.704, 531.4832 430.1783, 531.4832 384.0934 C 533.6301 384.0934, 535.7771 384.0934, 537.924 384.0934 C 535.7771 384.0931, 533.6301 384.0928, 531.4832 384.0926 C 531.4939 293.8475, 531.5047 203.6024, 531.5154 113.3572 C 533.6623 113.3575, 535.8092 113.3577, 537.9562 113.358 C 539.9114 114.2447, 541.8667 115.1314, 543.8219 116.0181 C 472.0013 274.3882, 426.4155 443.3848, 408.8499 616.3898 C 406.714 616.1729, 404.578 615.9561, 402.4421 615.7392 C 402.442 617.8861, 402.442 620.0331, 402.442 622.18 C 393.8543 622.18, 385.2666 622.18, 376.679 622.18 C 376.6789 620.0331, 376.6789 617.8861, 376.6789 615.7392 C 374.5417 615.9427, 372.4044 616.1463, 370.2671 616.3498 C 351.3742 417.9736, 332.4812 219.5975, 313.5882 21.2213"/>
+    <path id="ink-half-rail--12-5" d="M 326.2993,800 C 337.4633 747.615, 348.6274 695.2299, 359.7914 642.8449 C 357.6916 642.3974, 355.5919 641.9499, 353.4921 641.5024 C 353.4921 643.6493, 353.4921 645.7962, 353.4921 647.9431 C 362.9386 647.9431, 372.385 647.9431, 381.8315 647.9431 C 381.8315 645.7962, 381.8315 643.6493, 381.8315 641.5024 C 381.2759 643.5761, 380.7202 645.6499, 380.1646 647.7237 C 442.7247 664.4866, 498.6127 700.0912, 540.2441 749.7056 C 541.8887 748.3256, 543.5334 746.9456, 545.178 745.5656 C 547.0358 744.4895, 548.8937 743.4135, 550.7515 742.3374 C 526.2832 700.0915, 492.7059 663.8308, 452.462 636.1931 C 451.2465 637.9628, 450.0311 639.7326, 448.8157 641.5024 C 450.9626 641.5023, 453.1096 641.5023, 455.2565 641.5023 C 455.2565 632.9146, 455.2565 624.3269, 455.2565 615.7393 C 453.1096 615.7393, 450.9626 615.7392, 448.8157 615.7392 C 450.5744 616.9706, 452.333 618.202, 454.0917 619.4335 C 475.7882 588.4477, 497.5623 557.284, 513.5888 522.9151 C 533.86 479.4432, 544.3648 432.0593, 544.3648 384.0934 C 542.2179 384.0934, 540.0709 384.0934, 537.924 384.0934 C 540.0709 384.0936, 542.2179 384.0939, 544.3648 384.0941 C 544.3755 293.849, 544.3862 203.6039, 544.397 113.3588 C 542.25 113.3585, 540.1031 113.3582, 537.9562 113.358 C 536.0009 112.4713, 534.0456 111.5846, 532.0904 110.6979 C 459.6928 270.34, 413.7409 440.694, 396.0342 615.0886 C 398.1702 615.3054, 400.3061 615.5223, 402.4421 615.7392 C 402.442 613.5923, 402.442 611.4454, 402.442 609.2984 C 393.8543 609.2984, 385.2666 609.2984, 376.679 609.2984 C 376.6789 611.4454, 376.6789 613.5923, 376.6789 615.7392 C 378.8162 615.5357, 380.9534 615.3321, 383.0907 615.1285 C 364.1977 416.7523, 345.3047 218.3762, 326.4118 20"/>
+    <path id="ink-half-mirrored" d="M 320,798.6575 C 308.836 746.2725, 297.6719 693.8874, 286.5079 641.5024 C 277.0614 641.5024, 267.6149 641.5024, 258.1685 641.5024 C 194.3316 658.6074, 137.303 694.9386, 94.822 745.5656 C 118.8104 704.1479, 151.7294 668.5982, 191.1843 641.5024 C 191.1843 632.9146, 191.1843 624.3269, 191.1843 615.7392 C 169.7027 585.0604, 148.1167 554.2224, 132.2486 520.1931 C 112.3748 477.5736, 102.076 431.1188, 102.076 384.0934 C 102.0653 293.8482, 102.0545 203.6031, 102.0438 113.358 C 174.1529 272.364, 219.9218 442.0394, 237.5579 615.7392 C 246.1457 615.7392, 254.7334 615.7392, 263.3211 615.7392 C 282.2141 417.363, 301.107 218.9868, 320 20.6106"/>
+    <path id="ink-half-mirrored-rail-12-5" d="M 326.2993,797.315 C 315.1353 744.93, 303.9713 692.545, 292.8072 640.1599 C 290.7075 640.6074, 288.6077 641.0549, 286.5079 641.5024 C 286.5079 639.3554, 286.5079 637.2085, 286.5079 635.0616 C 277.0614 635.0616, 267.615 635.0616, 258.1685 635.0616 C 258.1685 637.2085, 258.1685 639.3554, 258.1685 641.5024 C 257.6128 639.4286, 257.0571 637.3548, 256.5014 635.2811 C 191.3879 652.7282, 133.2187 689.786, 89.8881 741.4255 C 91.5327 742.8055, 93.1773 744.1855, 94.822 745.5656 C 96.6798 746.6416, 98.5376 747.7176, 100.3954 748.7936 C 123.9041 708.2043, 156.1647 673.3656, 194.8305 646.8117 C 193.6151 645.0419, 192.3997 643.2721, 191.1843 641.5024 C 193.3312 641.5023, 195.4781 641.5023, 197.6251 641.5023 C 197.6251 632.9146, 197.6251 624.3269, 197.6251 615.7393 C 195.4781 615.7393, 193.3312 615.7392, 191.1843 615.7392 C 192.9429 614.5078, 194.7016 613.2763, 196.4602 612.0449 C 175.1936 581.673, 153.7957 551.1608, 138.0859 517.4711 C 118.6096 475.704, 108.5168 430.1783, 108.5168 384.0934 C 106.3699 384.0934, 104.2229 384.0934, 102.076 384.0934 C 104.2229 384.0931, 106.3699 384.0928, 108.5168 384.0926 C 108.5061 293.8475, 108.4953 203.6024, 108.4846 113.3572 C 106.3377 113.3575, 104.1908 113.3577, 102.0438 113.358 C 100.0886 114.2447, 98.1333 115.1314, 96.1781 116.0181 C 167.9987 274.3882, 213.5845 443.3848, 231.1501 616.3898 C 233.286 616.1729, 235.422 615.9561, 237.5579 615.7392 C 237.558 617.8861, 237.558 620.0331, 237.558 622.18 C 246.1457 622.18, 254.7334 622.18, 263.321 622.18 C 263.3211 620.0331, 263.3211 617.8861, 263.3211 615.7392 C 265.4583 615.9427, 267.5956 616.1463, 269.7329 616.3498 C 288.6258 417.9736, 307.5188 219.5975, 326.4118 21.2213"/>
+    <path id="ink-half-mirrored-rail--12-5" d="M 313.7007,800 C 302.5367 747.615, 291.3726 695.2299, 280.2086 642.8449 C 282.3084 642.3974, 284.4081 641.9499, 286.5079 641.5024 C 286.5079 643.6493, 286.5079 645.7962, 286.5079 647.9431 C 277.0614 647.9431, 267.615 647.9431, 258.1685 647.9431 C 258.1685 645.7962, 258.1685 643.6493, 258.1685 641.5024 C 258.7241 643.5761, 259.2798 645.6499, 259.8354 647.7237 C 197.2753 664.4866, 141.3873 700.0912, 99.7559 749.7056 C 98.1113 748.3256, 96.4666 746.9456, 94.822 745.5656 C 92.9642 744.4895, 91.1063 743.4135, 89.2485 742.3374 C 113.7168 700.0915, 147.2941 663.8308, 187.538 636.1931 C 188.7535 637.9628, 189.9689 639.7326, 191.1843 641.5024 C 189.0374 641.5023, 186.8904 641.5023, 184.7435 641.5023 C 184.7435 632.9146, 184.7435 624.3269, 184.7435 615.7393 C 186.8904 615.7393, 189.0374 615.7392, 191.1843 615.7392 C 189.4256 616.9706, 187.667 618.202, 185.9083 619.4335 C 164.2118 588.4477, 142.4377 557.284, 126.4112 522.9151 C 106.14 479.4432, 95.6352 432.0593, 95.6352 384.0934 C 97.7821 384.0934, 99.9291 384.0934, 102.076 384.0934 C 99.9291 384.0936, 97.7821 384.0939, 95.6352 384.0941 C 95.6245 293.849, 95.6138 203.6039, 95.603 113.3588 C 97.75 113.3585, 99.8969 113.3582, 102.0438 113.358 C 103.9991 112.4713, 105.9544 111.5846, 107.9096 110.6979 C 180.3072 270.34, 226.2591 440.694, 243.9658 615.0886 C 241.8298 615.3054, 239.6939 615.5223, 237.5579 615.7392 C 237.558 613.5923, 237.558 611.4454, 237.558 609.2984 C 246.1457 609.2984, 254.7334 609.2984, 263.321 609.2984 C 263.3211 611.4454, 263.3211 613.5923, 263.3211 615.7392 C 261.1838 615.5357, 259.0466 615.3321, 256.9093 615.1285 C 275.8023 416.7523, 294.6953 218.3762, 313.5882 20"/>
+    <path id="ink-band" d="M 191.1843,641.5024 C 277.0614 641.5024, 362.9386 641.5024, 448.8157 641.5024 C 455.93 641.5024, 461.6973 635.7351, 461.6973 628.6208 C 461.6973 621.5065, 455.93 615.7392, 448.8157 615.7392 C 362.9386 615.7392, 277.0614 615.7392, 191.1843 615.7392 C 184.07 615.7392, 178.3027 621.5065, 178.3027 628.6208 C 178.3027 635.7351, 184.07 641.5024, 191.1843 641.5024"/>
+  </g>
+</svg>
+</div>
+
+<h2>The numbers</h2>
+<div class="panel">
+<table>
+<tr><th>spans</th><td>11 half + 11 mirrored + 4 band = 26</td></tr>
+<tr><th>corners</th><td>9 · max 170.08°</td></tr>
+<tr><th>seam contacts</th><td>2 declared</td></tr>
+<tr><th>crossings</th><td>2 total · 0 disallowed</td></tr>
+<tr><th>rail folds</th><td>0</td></tr>
+<tr><th>clearance</th><td>ok</td></tr>
+<tr><th>copy error</th><td>not measured (source absent)</td></tr>
+</table>
+</div>
+
+<h2>The corners</h2>
+<div class="panel">
+<table>
+<thead><tr><th>trace</th><th>segment</th><th>turn (°)</th></tr></thead>
+<tbody><tr><td>half</td><td>1</td><td>-77.97</td></tr><tr><td>half</td><td>2</td><td>-15.00</td></tr><tr><td>half</td><td>3</td><td>170.08</td></tr><tr><td>half</td><td>4</td><td>-55.52</td></tr><tr><td>half</td><td>5</td><td>-35.00</td></tr><tr><td>half</td><td>7</td><td>-0.01</td></tr><tr><td>half</td><td>8</td><td>155.61</td></tr><tr><td>half</td><td>9</td><td>-84.20</td></tr><tr><td>half</td><td>10</td><td>-84.56</td></tr></tbody>
+</table>
+</div>
+
+<div class="panel">
+<p><strong>What W03 still owes.</strong> A clothoid or fillet at the largest
+corner, and a copy-error measurement once the ornaments source is available.
+The port itself is complete: every span lands on its node, the mirror seam is
+declared, and the report is reproducible from the module.</p>
+<p class="note">Re-derive: <code>python scripts/fleur_grammar.py</code> ·
+<code>python -m unittest tests.test_fleur_grammar</code></p>
+</div>
+</main></body></html>

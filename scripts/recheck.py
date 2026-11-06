@@ -493,6 +493,18 @@ def c_integer_cubic_offset():
     return ok, f"3-4-5 cubic, d = {d['distance']:g}, error {d['error']:.1e}"
 
 
+@check("the fleur grammar declares its seam and reports its corners",
+       "curve_lab/grammar.py study_01_report; workbench/fleur-grammar.html",
+       "python -m unittest tests.test_fleur_grammar")
+def c_fleur_grammar():
+    from curve_lab.grammar import study_01_report
+    r = study_01_report()
+    ok = (r["spans"] == 26 and r["corners"] == 9 and r["contacts"] == 2
+          and r["folds"] == 0 and r["disallowed"] == 0 and r["clearance_ok"])
+    return ok, (f"{r['spans']} spans, {r['corners']} corners, "
+                f"{r['contacts']} seam contacts, 0 disallowed")
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

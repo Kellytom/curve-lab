@@ -254,6 +254,15 @@
       "outputs": "rails, a cone terminal at the lance tip, a seagrass branch ending, pyramid marks"
     },
     {
+      "key": "fleur-grammar",
+      "file": "fleur-grammar.html",
+      "group": "curve",
+      "title": "Fleur grammar 01",
+      "purpose": "The W03 report on the ported fleur: spans, corners, seam and clearance.",
+      "inputs": "the study's parameters",
+      "outputs": "26 spans, 9 corners, 2 declared seam contacts, the clearance report"
+    },
+    {
       "key": "volute-proof",
       "file": "volute-proof.html",
       "group": "curve",

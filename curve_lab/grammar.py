@@ -24,6 +24,7 @@ from __future__ import annotations
 import math
 
 from . import engine
+from .contact import Contact
 from .model import Design, Segment
 from .piece import Piece, Trace
 
@@ -171,4 +172,50 @@ def study_01() -> Piece:
                                  g1=True),
                   mirror=False),
         ],
+        # The two halves meet on the centre seam: the foot crossover and the
+        # inner-bow crossover. They are declared, not inferred from proximity.
+        contacts=[
+            Contact((0.0, -270.02897642495145), radius=25.0,
+                    a="ink/half", b="ink/half mirrored"),
+            Contact((0.0, 1048.156105564195), radius=25.0,
+                    a="ink/half", b="ink/half mirrored"),
+        ],
     )
+
+
+def study_01_report(tol: float = 0.02) -> dict:
+    """The W03 report: spans, corners, seam contacts, folds and clearance."""
+    import math
+
+    from . import engine
+    from .clearance import piece_clearance
+    from .offsets import build_rails
+    from .piece import build_piece
+
+    piece = study_01()
+    groups, info = build_piece(piece, tol=tol)
+    half = piece.traces[0].design
+    band = piece.traces[1].design
+    corners = []
+    for trace in piece.traces:
+        for index, segment in enumerate(trace.design.segments):
+            corner = math.degrees(getattr(segment, "corner", 0.0))
+            if abs(corner) > 1e-9:
+                corners.append({"trace": trace.name, "index": index,
+                                "degrees": corner})
+    chain = engine.build(half)
+    rails = build_rails(chain, [12.5, -12.5], tol=tol)
+    clearance = piece_clearance(piece, clearance=1.0, tol=tol)
+    return {
+        "spans_half": len(half.segments),
+        "spans_band": len(band.segments),
+        "spans": 2 * len(half.segments) + len(band.segments),
+        "corners": len(corners),
+        "max_corner": max(abs(c["degrees"]) for c in corners),
+        "contacts": len(piece.contacts),
+        "folds": sum(1 for r in rails if r["folds"]),
+        "crossings": len(clearance["crossings"]),
+        "disallowed": len(clearance["disallowed"]),
+        "clearance_ok": clearance["ok"],
+        "copy_error": None,
+    }
