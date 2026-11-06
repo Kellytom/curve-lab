@@ -480,6 +480,19 @@ def c_three_aspects():
     return ok, f"{len(pages)} design pages name all three aspects"
 
 
+@check("the integer cubic's offset is fitted and labelled, not exact",
+       "scripts/integer_cubic_offset.py; workbench/integer-cubic-offset.html",
+       "python -m unittest tests.test_integer_cubic_offset")
+def c_integer_cubic_offset():
+    import integer_cubic_offset as I
+    d = I.proof_data()
+    page = (ROOT / "workbench" / "integer-cubic-offset.html").read_text()
+    ok = (d["case"]["label"] == "3-4-5" and 0 < d["error"] < 0.01
+          and "fitted, not exact" in page.lower()
+          and "not a Pythagorean-hodograph" in page)
+    return ok, f"3-4-5 cubic, d = {d['distance']:g}, error {d['error']:.1e}"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

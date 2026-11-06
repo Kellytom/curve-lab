@@ -326,6 +326,15 @@
       "outputs": "158 triples, 316 canonical curves, 632 sign variants, the full table"
     },
     {
+      "key": "integer-cubic-offset",
+      "file": "integer-cubic-offset.html",
+      "group": "curve",
+      "title": "Integer cubic offset",
+      "purpose": "A fitted rail on exact integer controls, labelled fitted.",
+      "inputs": "the 3-4-5 cubic, the offset distance",
+      "outputs": "the exact offset for reference, the fitted chain, its error"
+    },
+    {
       "key": "integer-g2",
       "file": "integer-g2.html",
       "group": "curve",

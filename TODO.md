@@ -82,8 +82,8 @@ C-family p-triple conversion and the ornament-form proofs below.
 - [x] **Ribbon width for span traces:** `build_piece` now fits ±w/2 rails for a
   cubic-span trace through `parallel_bezier.fit_chain`, with caps and the fold
   guard; `workbench/spine-sheet.html` shows the ribbons. `tests/test_spine.py::TestSpanRibbon`.
-- [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
-  fitted; do not claim an exact offset.
+- [x] **Offset comparison:** the 3-4-5 integer cubic at d = 0.5, fitted with
+  Levien's chain (error 1.9e-3, 8 spans, 0 cusps). `workbench/integer-cubic-offset.html`, `scripts/integer_cubic_offset.py`.
 
 **Decision rules**
 
