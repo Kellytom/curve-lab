@@ -533,6 +533,15 @@
       "outputs": "24 numbered panels and the ray fan"
     },
     {
+      "key": "dot-solver",
+      "file": "dot-solver.html",
+      "group": "curve",
+      "title": "Dot solver",
+      "purpose": "One figure per class of dot failure: missing marks, or marks off the curve.",
+      "inputs": "the six failure classes from the showcase",
+      "outputs": "measured marks, a chain fit per case, and a PASS/FAIL verdict"
+    },
+    {
       "key": "showcase-effects",
       "file": "showcase-effects.html",
       "group": "sheet",

@@ -63,6 +63,17 @@ a reason.
 - [x] Rotating by another p-triple angle adds no hits: measured, kept as a
       negative result rather than a missing feature.
 
+## Dot solver (sub-focus)
+
+- [x] `scripts/dot_solver.py` → `workbench/dot-solver.html`: one figure per
+      failure class, marks measured against the ink, PASS/FAIL on the page.
+- [x] `scripts/check-dots.py`: the gate; 6/6 cases pass, non-zero on a
+      regression.
+- [x] Per-curve chains, solved resolution (24→384 chords), joins projected
+      onto the curve; the leftover distance is reported as chain fit.
+- [x] `state/DOT-SOLVER-int.md` records the rule, the check and the image
+      exception scoped to this sub-focus.
+
 ## Housekeeping
 
 - [x] Senior-dev consolidation pass recorded in `TODO.md`, to run after the

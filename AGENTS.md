@@ -68,6 +68,7 @@ later. Keep the public URL private.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/HANDOFF-int.md` | current truth |
+| `state/DOT-SOLVER-int.md` | the dot-solver sub-focus and its image exception |
 | `next-fhandoff-int.md` | one action |
 
 ## Commands
@@ -120,11 +121,18 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - Auth is HTTP Basic on everything except `/health`; `/healthz` is intercepted
   by Google's frontend.
 - Browser checks: headless Chrome on CDP port 9223, never the Review pane.
-- **Never `read` an image** (`.png`, `.jpg`, `.pdf`). The engine has no image
-  input: one image in the history fails every later turn with `image input is
-  not available on this engine`, and retrying cannot clear it. Get dimensions
-  with `file` / `sips -g pixelWidth -g pixelHeight`, extract numbers with a
-  script, and leave the visual call to the operator. SVG is text and is fine.
+- **Never `read` an image** (`.png`, `.jpg`, `.pdf`) outside the dot-solver
+  subproject. The engine has no image input: one image in the history fails
+  every later turn with `image input is not available on this engine`, and
+  retrying cannot clear it. Get dimensions with `file` / `sips -g pixelWidth
+  -g pixelHeight`, extract numbers with a script, and leave the visual call to
+  the operator. SVG is text and is fine.
+- **Exception — the dot-solver subproject only** (`state/DOT-SOLVER-int.md`):
+  images it generates may be sent back for diagnosis. The operator authorises
+  it per session and runs `/fhandoff` then `/fhandon` first, so a freeze costs
+  one step. Scope: only images the solver produced, only in this sub-focus.
+  If the engine rejects one, say so at once and start a fresh session instead
+  of retrying in place.
 
 ## Figures
 
