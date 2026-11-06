@@ -540,6 +540,20 @@ def c_grid_explained():
     return ok, "270° box 79 × 79, path 186, ruler 217 digits"
 
 
+@check("the monstrance is grounded and names its three aspects",
+       "scripts/storey_monstrance.py; workbench/storey-monstrance.html",
+       "python -m unittest tests.test_storey_monstrance")
+def c_monstrance():
+    import storey_monstrance as S
+    d = S.storey_data()
+    page = (ROOT / "workbench" / "storey-monstrance.html").read_text()
+    ok = (d["rays"] == 24 and d["head_radius"] == 24.0
+          and all(w in page for w in ("Linearity", "Curve", "Infinity",
+                                      "Grounded"))
+          and "baseline at y = 0" in page)
+    return ok, f"{d['rays']} rays, head R {d['head_radius']:g}, grounded"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

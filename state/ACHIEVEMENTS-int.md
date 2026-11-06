@@ -25,7 +25,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 25 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| ok | the hub is built from the manifest and every page carries its bar | 57 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 58 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |
@@ -38,6 +38,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the fleur grammar declares its seam and reports its corners | 26 spans, 9 corners, 2 seam contacts, 0 disallowed | curve_lab/grammar.py study_01_report; workbench/fleur-grammar.html |
 | ok | the twenty fleur sets build from one grammar function | 20 sets, 26 rendered spans and 9 corners each | curve_lab/fleur_sets.py; workbench/fleur-sets.html |
 | ok | the grid page separates the box, the ruler and the placement grid | 270° box 79 × 79, path 186, ruler 217 digits | scripts/grid_explained.py; workbench/grid-explained.html |
+| ok | the monstrance is grounded and names its three aspects | 24 rays, head R 24, grounded | scripts/storey_monstrance.py; workbench/storey-monstrance.html |
 
 ## Visual judgement (operator, 2026-11-05)
 
