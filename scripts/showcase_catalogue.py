@@ -32,6 +32,7 @@ import heart_forms as H  # noqa: E402
 from curve_lab import engine  # noqa: E402
 from curve_lab import presets  # noqa: E402
 from curve_lab.pyth_cubic import catalogue as cubic_catalogue  # noqa: E402
+from curve_lab.pyth_cubic import catalogue_c  # noqa: E402
 from curve_morphs import french_panels, leaf_panels  # noqa: E402
 
 INK, MUTED, GOLD, BLUE = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8"
@@ -201,6 +202,22 @@ def cubic_panels():
     return out
 
 
+def cubic_c_panels():
+    rows = sorted(catalogue_c(1000), key=lambda r: r["height"])
+    out = []
+    for row in rows:
+        curve = _cubic_bezier(row)
+        poly = [row["p0"], row["p1"], row["p2"], row["p3"]]
+        out.append(_entry(
+            len(out) + 1, f"{row['label']} · {row['order']}",
+            [(poly, MUTED, 0.9, "4 3"), (curve, INK, 1.6, None)],
+            f"chord {row['chord']} · arms ({row['a']}, {row['b']}) · "
+            f"height {row['height']}",
+            "curve_lab/pyth_cubic.py catalogue_c",
+            dots=[(p, GOLD) for p in poly]))
+    return out
+
+
 def stem_panels():
     import stem_library as SL
     SL.build()
@@ -340,6 +357,8 @@ FAMILIES = [
     ("cubics", "The integer cubics · 316",
      "every ordered arm pair, shallow to sharp by control-polygon interior angle",
      cubic_panels()),
+    ("cubics-c", "The integer C cubics · 316",
+     "C-shaped counterparts, ordered by height", cubic_c_panels()),
     ("stems", "The stem library · 177", "every card in the stem catalogue",
      stem_panels()),
     ("french", "French curves · 8",
