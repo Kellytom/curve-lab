@@ -20,6 +20,14 @@ stops early and says so.
 - [x] Prove it with a real start/check/stop and a scratch
   `CURVE_LAB_TIMER_LOG` run; state the elapsed time in the session report.
 
+## After the showcase with notes is finished
+
+- [ ] **Senior-dev consolidation pass.** When the showcase and its notes are
+  finished, go through the codebase and consolidate and simplify as necessary:
+  one figure renderer, one grid, one lattice-hit routine, no duplicated SVG
+  writers. Judge what to merge, what to delete, and what to leave alone, and
+  record the reasons.
+
 ## Current focus — integer Bézier workstream
 
 This is the active curve-construction thread. It is separate from the older

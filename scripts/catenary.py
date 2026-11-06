@@ -17,6 +17,8 @@ import math
 import sys
 from pathlib import Path
 
+from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from curve_families import ladder, offset_chain, path_d  # noqa: E402
@@ -532,12 +534,18 @@ def ph_figure(a: float, split: float, n: int, w=860.0, h=420.0) -> str:
     curves = "".join(
         f'<path d="{path_d([at(p) for p in path])}" fill="none" stroke="{INK}" '
         f'stroke-width="2.2"/>' for path in paths)
+    step = best_step(paths, max(x1 - x0, y1 - y0))
+    grid = "".join(grid_lines(at, x0, x1, y0, y1, step, "#efe7d2"))
+    hits = "".join(
+        f'<circle class="lattice" cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" '
+        f'r="2.2" fill="{GOLD}"/>' for p in crossings(paths, step))
     dots = "".join(
         f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="3.2" fill="{INK}"/>'
         for p in nodes)
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fff"
           stroke="{LINE}" stroke-width="1"/>
+    {grid}{hits}
     <path d="{path_d([at(p) for p in truth])}" fill="none" stroke="{GOLD}"
           stroke-width="1.3" stroke-dasharray="6 5"/>
     {tris}

@@ -34,7 +34,7 @@ MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
 
-from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 
 def fit(pts, pad=34):
@@ -59,7 +59,8 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
     xs = [p[0] for p in allpts]
     ys = [p[1] for p in allpts]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    step = nice_step(max(x1 - x0, y1 - y0))
+    solid = [c[0] for c in curves if not c[3]]
+    step = best_step(solid, max(x1 - x0, y1 - y0))
     out += grid_lines(put, x0, x1, y0, y1, step, RULE)
     for pts, colour, width, dash in curves:
         d = " ".join(("M" if i == 0 else "L") + f"{put(p)[0]:.1f},{put(p)[1]:.1f}"
@@ -67,10 +68,10 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
     auto = not dots
-    marks = list(dots) or [(p, GOLD) for p in
-                          crossings([c[0] for c in curves if not c[3]], step)]
+    marks = list(dots) or [(p, GOLD) for p in crossings(solid, step)]
     if not marks:
-        longest = max((c[0] for c in curves if not c[3]), key=len, default=None)
+        pool = solid or [c[0] for c in curves]
+        longest = max(pool, key=len, default=None)
         if longest:
             marks = [(longest[0], GOLD), (longest[-1], GOLD)]
     for p, colour in marks:
@@ -992,11 +993,6 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
 
-
-<div class="fam"><h2>Not on this showcase</h2><p>deliberate absences</p></div>
-<p class="note">No constant-width stem, because no exact one exists here; no parallel parabola, because the parallels are involutes of the evolute and belong to another family; no squircle offsets, because the curve is not rational; no single clothoid claiming G2, because one cannot do it. Each absence is a result, not an omission.</p>
-
-<p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>
 </main></body></html>
 """
 

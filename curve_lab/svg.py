@@ -23,6 +23,17 @@ import json
 import math
 from xml.sax.saxutils import escape as _xml_text
 
+def span_eval(span: dict, t: float) -> tuple[float, float]:
+    """A cubic Bézier span at parameter t, in design units."""
+    mt = 1.0 - t
+    a, b, c, d = span["p0"], span["c1"], span["c2"], span["p3"]
+    return (mt ** 3 * a[0] + 3 * mt * mt * t * b[0]
+            + 3 * mt * t * t * c[0] + t ** 3 * d[0],
+            mt ** 3 * a[1] + 3 * mt * mt * t * b[1]
+            + 3 * mt * t * t * c[1] + t ** 3 * d[1])
+
+
+
 def _grid_step(span: float, target: int = 10) -> float:
     """A round grid step (1, 2, 2.5, 5 x 10^k) giving about `target` lines."""
     if span <= 0:
@@ -268,18 +279,40 @@ def document(design, chain=None, spine=None, rails=None,
         out.append("  </g>")
     if marks:
         seen, nodes = set(), []
+
+        def mark(xv, yv):
+            q = (round(xv, 6), round(yv, 6))
+            if q not in seen:
+                seen.add(q)
+                nodes.append((xv, yv))
+
         for span in all_spans:
-            for key in ("p0", "p3"):
-                q = (round(span[key][0], 6), round(span[key][1], 6))
-                if q not in seen:
-                    seen.add(q)
-                    nodes.append(span[key])
+            pts = [span_eval(span, i / 24.0) for i in range(25)]
+            for (ax, ay), (bx, by) in zip(pts, pts[1:]):
+                if bx != ax:
+                    g = math.ceil(min(ax, bx) / gp) * gp
+                    while g <= max(ax, bx) + 1e-12:
+                        t = (g - ax) / (bx - ax)
+                        if 0.0 <= t <= 1.0:
+                            mark(g, ay + t * (by - ay))
+                        g += gp
+                if by != ay:
+                    g = math.ceil(min(ay, by) / gp) * gp
+                    while g <= max(ay, by) + 1e-12:
+                        t = (g - ay) / (by - ay)
+                        if 0.0 <= t <= 1.0:
+                            mark(ax + t * (bx - ax), g)
+                        g += gp
+        if not nodes:
+            for span in all_spans:
+                for key in ("p0", "p3"):
+                    mark(span[key][0], span[key][1])
         if len(nodes) > 24:
             stride = len(nodes) / 24
             nodes = [nodes[int(i * stride)] for i in range(24)]
         out.append('  <g id="lattice-marks">')
-        for node in nodes:
-            cx, cy = place(node[0], node[1])
+        for xv, yv in nodes:
+            cx, cy = place(xv, yv)
             out.append(f'    <circle class="lattice" cx="{num(cx, prec)}" '
                        f'cy="{num(cy, prec)}" r="{num(0.6, prec)}" '
                        f'fill="#c9a441"/>')

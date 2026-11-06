@@ -22,6 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 WB = ROOT / "workbench"
 MANIFEST = WB / "manifest.json"
+from overlay_lattice import overlay_html  # noqa: E402
 HUB = WB / "workbench.html"
 MARK_A, MARK_B = "<!-- hub-bar -->", "<!-- /hub-bar -->"
 
@@ -229,6 +230,16 @@ def main() -> int:
     for p in manifest["pages"]:
         st = inject(p)
         counts[st] = counts.get(st, 0) + 1
+    # one lattice pass over every page, then rebuild so the hub thumbnails
+    # are cut from the decorated figures rather than the bare ones.
+    for p in manifest["pages"]:
+        path = WB / p["file"]
+        if path.exists():
+            raw = path.read_text(encoding="utf-8")
+            new = overlay_html(raw)
+            if new != raw:
+                path.write_text(new, encoding="utf-8")
+    build(manifest)
     print(HUB)
     print("  pages:", len(manifest["pages"]), "·", ", ".join(
         f"{k} {v}" for k, v in sorted(counts.items())))

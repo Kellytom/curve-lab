@@ -818,6 +818,20 @@ a{{color:var(--ink)}}
 <p class="lede">One section per panel, in the same order as the showcase: what is exact, what is fitted, the numbers, and the command that re-derives it.</p>
 <p class="top"><a href="showcase.html">← the showcase</a></p>
 {''.join(sections)}
+
+<section class="note" id="not-on-this-showcase">
+  <p class="eyebrow">closing · deliberate absences</p>
+  <h2>Not on this showcase</h2>
+  <p>No constant-width stem, because no exact one exists here; no parallel
+  parabola, because the parallels are involutes of the evolute and belong to
+  another family; no squircle offsets, because the curve is not rational; no
+  single clothoid claiming G2, because one cannot do it. Each absence is a
+  result, not an omission.</p>
+  <p>Figures are drawn to their own extents; axes and units are inside each
+  panel. Red marks the approximate or the exceptional, blue the exact rail,
+  gold the integer construction.</p>
+  <p class="back"><a href="showcase.html">← back to the showcase</a></p>
+</section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "showcase-notes.html"

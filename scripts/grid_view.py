@@ -44,42 +44,57 @@ def grid_lines(put, x0: float, x1: float, y0: float, y1: float, step: float,
     return out
 
 
+def best_step(curves, span: float, target: int = TARGET_LINES) -> float:
+    """The readable step that puts the most lattice hits on these curves.
+
+    More hits is the point of the exercise: the grid is the field, and a curve
+    that touches it more often is a better-placed curve. The search is bounded
+    to 6–14 lines across, so the figure stays readable; a coarser step wins a
+    tie.
+    """
+    base = nice_step(span, target)
+    cands = [base * f for f in (1.5, 1.25, 1.0, 0.85, 0.75, 0.66, 0.6)]
+    cands = [c for c in cands if 6 <= span / c <= 14] or [base]
+    best, best_n = cands[0], -1
+    for step in sorted(cands, reverse=True):
+        n = len(crossings(curves, step, limit=10_000))
+        if n > best_n:
+            best, best_n = step, n
+    return best
+
 def crossings(curves, step: float, limit: int = MAX_MARKS,
               tol: float = 1e-3) -> list[tuple[float, float]]:
-    """Points where a solid curve crosses a grid intersection, interpolated.
+    """Where each solid curve crosses a grid line — the lattice's own marks.
 
-    `curves` is a sequence of point lists. `tol` is in grid steps: the chord
-    error of a sampled polyline is about 1e-5 of a step, so 1e-3 keeps true
-    hits and rejects arbitrary near-misses.
+    This is `plant.lattice_hits`' method, applied to both axes: walk each
+    segment, take the point where it meets x = k·step or y = k·step. One mark
+    per crossing, deduped, thinned to `limit` so a dense curve reads as an
+    ornament and not as a feather. `tol` is unused for exact crossings; it is
+    kept for callers that pass a sample tolerance.
     """
     seen, cand = set(), []
 
-    def add(kx, ky, x, y):
-        if (kx, ky) not in seen:
-            seen.add((kx, ky))
+    def add(axis, k, x, y, ci):
+        key = (ci, axis, k)
+        if key not in seen:
+            seen.add(key)
             cand.append((x, y))
 
-    for pts in curves:
+    for ci, pts in enumerate(curves):
         for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
             if x1 != x0:
                 g = math.ceil(min(x0, x1) / step) * step
                 while g <= max(x0, x1) + 1e-12:
                     t = (g - x0) / (x1 - x0)
                     if 0.0 <= t <= 1.0:
-                        y = y0 + t * (y1 - y0)
-                        ky = round(y / step)
-                        if abs(y - ky * step) <= tol * step:
-                            add(round(g / step), ky, g, ky * step)
+                        add("x", round(g / step), g, y0 + t * (y1 - y0), ci)
                     g += step
             if y1 != y0:
                 g = math.ceil(min(y0, y1) / step) * step
                 while g <= max(y0, y1) + 1e-12:
                     t = (g - y0) / (y1 - y0)
                     if 0.0 <= t <= 1.0:
-                        x = x0 + t * (x1 - x0)
-                        kx = round(x / step)
-                        if abs(x - kx * step) <= tol * step:
-                            add(kx, round(g / step), kx * step, g)
+                        add("y", round(g / step), x0 + t * (x1 - x0), g, ci)
                     g += step
     if len(cand) > limit:
         stride = len(cand) / limit
