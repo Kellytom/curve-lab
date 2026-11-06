@@ -469,15 +469,15 @@ def c_pyth_cubic_catalogue():
     return ok, f"{len(rows)} curves, 632 sign variants, all integer"
 
 
-@check("every design page names its infinity, linearity and curve",
+@check("every design page names its three aspects and its ground",
        "docs/PHILOSOPHY.md §Infinity, linearity, curve",
        "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")
 def c_three_aspects():
     pages = ["fleur-proof.html", "volute-proof.html", "cruciform-proof.html"]
     texts = [(ROOT / "workbench" / p).read_text() for p in pages]
     ok = all(all(f"<strong>{k}:</strong>" in t for k in
-                 ("Linearity", "Curve", "Infinity")) for t in texts)
-    return ok, f"{len(pages)} design pages name all three aspects"
+                 ("Linearity", "Curve", "Infinity", "Grounded")) for t in texts)
+    return ok, f"{len(pages)} design pages name three aspects and the ground"
 
 
 @check("the integer cubic's offset is fitted and labelled, not exact",
@@ -520,6 +520,24 @@ def c_fleur_sets():
                       if abs(math.degrees(getattr(s, "corner", 0.0))) > 1e-9)
         ok = ok and spans == 15 and corners == 9
     return ok, "20 sets, 26 rendered spans and 9 corners each"
+
+
+@check("the grid page separates the box, the ruler and the placement grid",
+       "scripts/grid_explained.py; workbench/grid-explained.html",
+       "python -m unittest tests.test_grid_explained")
+def c_grid_explained():
+    from curve_lab import spine
+    pkg = spine.load()
+    ch = pkg.Spiral(pkg.thinnest(3125), 1)
+    ch.extend([1] * 186)
+    xs = [p[0] for p in ch.floats()]
+    ys = [p[1] for p in ch.floats()]
+    page = (ROOT / "workbench" / "grid-explained.html").read_text()
+    ok = (abs((max(xs) - min(xs)) - 79) < 1.0
+          and abs((max(ys) - min(ys)) - 79) < 1.0
+          and "box 79 × 79" in page and "217" in page
+          and "denominator is the ruler" in page.lower())
+    return ok, "270° box 79 × 79, path 186, ruler 217 digits"
 
 
 # -- recorded, not re-derived here ------------------------------------------

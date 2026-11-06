@@ -272,6 +272,15 @@
       "outputs": "twenty cards, the parameter table, spans and corners per set"
     },
     {
+      "key": "grid-explained",
+      "file": "grid-explained.html",
+      "group": "curve",
+      "title": "Grid explained",
+      "purpose": "A denominator is a ruler, not the drawing; the grid is the box, not the path.",
+      "inputs": "a triangle chain, its turns",
+      "outputs": "position and heading, the ruler, the bounding box, the placement grid"
+    },
+    {
       "key": "volute-proof",
       "file": "volute-proof.html",
       "group": "curve",
