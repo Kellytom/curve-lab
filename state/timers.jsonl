@@ -6,3 +6,5 @@
 {"event":"start","id":"53612-1793926574101","label":"showcase named curves","floor":20,"cap":60,"start":"2026-11-06T00:56:14.101Z","at":"2026-11-06T00:56:14.101Z"}
 {"event":"start","id":"53910-1793926851886","label":"full showcase catalogue","floor":20,"cap":60,"start":"2026-11-06T01:00:51.886Z","at":"2026-11-06T01:00:51.886Z"}
 {"event":"stop","label":"full showcase catalogue","minutes":11.92,"floor":20,"cap":60,"start":"2026-11-06T01:00:51.886Z","at":"2026-11-06T01:12:47.228Z","reason":"stop"}
+{"event":"start","id":"55644-1793928299740","label":"cubics sorted + stem library","floor":20,"cap":60,"start":"2026-11-06T01:24:59.740Z","at":"2026-11-06T01:24:59.740Z"}
+{"event":"stop","label":"cubics sorted + stem library","minutes":19.17,"floor":20,"cap":60,"start":"2026-11-06T01:24:59.740Z","at":"2026-11-06T01:44:09.910Z","reason":"stop"}
