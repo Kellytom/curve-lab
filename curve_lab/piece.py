@@ -360,13 +360,14 @@ def render_piece(piece: Piece, tol: float = 0.02, prec: int = 4,
                  page: tuple[float, float] | None = None,
                  frame: tuple[float, float] | None = None,
                  view: str | None = None,
-                 annotations: list[dict] | None = None) -> tuple[str, dict]:
+                 annotations: list[dict] | None = None,
+                 grid: bool = False, marks: bool = False) -> tuple[str, dict]:
     """Build every trace, mirror where asked, and write one SVG."""
     groups, info = build_piece(piece, tol=tol, max_spans=max_spans, split=split,
                                backend=backend)
     text = svg.document(
         piece, groups=[(g.name, g.spans, g.distance) for g in groups],
         prec=prec, margin=margin, page=page, frame=frame, view=view,
-        annotations=annotations, linecap="butt",
+        annotations=annotations, linecap="butt", grid=grid, marks=marks,
     )
     return text, info

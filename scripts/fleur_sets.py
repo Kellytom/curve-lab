@@ -48,7 +48,7 @@ def main() -> int:
     for item in SETS:
         opts = item["opts"]
         piece = grammar.study(opts, name=item["name"])
-        svg, info = render_piece(piece, frame=(300, 360), margin=8)
+        svg, info = render_piece(piece, frame=(300, 360), margin=8, grid=True, marks=True)
         r = report(opts)
         cards.append(f'''<section class="card">
 <div class="art">{svg}</div>

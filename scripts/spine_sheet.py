@@ -62,7 +62,7 @@ def anchor_error(chain, name):
 
 def main() -> int:
     trunk, branch, piece, point, node = build()
-    svg, info = render_piece(piece, frame=PAGE, margin=12)
+    svg, info = render_piece(piece, frame=PAGE, margin=12, grid=True, marks=True)
     report = piece_clearance(piece)
     trunk_error, trunk_segments = anchor_error(trunk, "trunk")
     branch_error, branch_segments = anchor_error(branch, "branch")

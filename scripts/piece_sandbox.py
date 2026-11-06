@@ -52,7 +52,8 @@ def terminal_strip() -> tuple[str, dict]:
          "text": kind, "size": 4.0, "anchor": "end", "fill": "#7b6c4e"}
         for index, kind in enumerate(TERMINALS)
     ]
-    return render_piece(piece, tol=0.05, margin=34, annotations=annotations)
+    return render_piece(piece, tol=0.05, margin=34, annotations=annotations,
+                      grid=True, marks=True)
 
 
 def main() -> int:
@@ -65,7 +66,7 @@ def main() -> int:
             Trace("band", band(), mirror=False, layer="guide"),
         ],
     )
-    svg, info = render_piece(piece, tol=0.05, margin=8)
+    svg, info = render_piece(piece, tol=0.05, margin=8, grid=True, marks=True)
     strip, strip_info = terminal_strip()
 
     terminal_rows = "\n".join(

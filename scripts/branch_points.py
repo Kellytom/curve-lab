@@ -145,7 +145,7 @@ def main() -> int:
                             "y": item["point"][1], "dx": 3.0, "dy": -3.0,
                             "text": str(item["number"]), "size": 4.0,
                             "fill": "#7b6c4e"})
-    map_svg, _ = render_piece(practical_piece, tol=0.1, frame=PAGE,
+    map_svg, _ = render_piece(practical_piece, tol=0.1, frame=PAGE, grid=True, marks=True,
                               margin=12, annotations=annotations)
 
     # three open candidates, each drawn with its branch
@@ -165,7 +165,7 @@ def main() -> int:
             {"kind": "circle", "x": px, "y": py, "r": 2.4,
              "fill": "#8c6a21", "front": True},
         ]
-        svg, _ = render_piece(piece, tol=0.1, frame=PAGE, margin=12,
+        svg, _ = render_piece(piece, tol=0.1, frame=PAGE, margin=12, grid=True, marks=True,
                               annotations=marks)
         panels.append((item, svg))
 

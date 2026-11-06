@@ -108,10 +108,12 @@ def main():
                            "r": 0.45, "fill": "#2e2413", "front": True})
 
     pair_svg, pair_info = render_piece(
-        pair_piece, margin=8.0, annotations=pair_marks)
+        pair_piece, margin=8.0, annotations=pair_marks,
+        grid=True, marks=True)
     chain_svg, chain_info = render_piece(
         chain_piece, margin=8.0,
-        annotations=marks_for((("C", c), ("A", base), ("B", d))))
+        annotations=marks_for((("C", c), ("A", base), ("B", d))),
+        grid=True, marks=True)
     pair_result = piece_clearance(
         pair_piece, clearance=5.0, tol=0.02, roles=("spine",))
     chain_result = piece_clearance(

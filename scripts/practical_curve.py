@@ -64,7 +64,7 @@ def main() -> int:
     annotations = [{"kind": "circle", "x": pin[0], "y": pin[1], "r": 2.2,
                     "fill": "#8c6a21"}]
     svg, info = render_piece(pinned_piece, tol=0.1, frame=PAGE, margin=12,
-                             annotations=annotations)
+                             annotations=annotations, grid=True, marks=True)
     exact_svg, _ = render_piece(exact, tol=0.02, frame=PAGE, margin=12)
 
     def row(label, tol, segments, cubics, error, text, piece=None):

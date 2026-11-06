@@ -27,7 +27,7 @@ INK, MUTED, PAPER = "#2e2413", "#7b6c4e", "#fffdf7"
 def main() -> int:
     report = study_01_report()
     piece = study_01()
-    figure, info = render_piece(piece, frame=(640, 820), margin=20)
+    figure, info = render_piece(piece, frame=(640, 820), margin=20, grid=True, marks=True)
 
     corner_rows = "".join(
         f"<tr><td>{c['trace']}</td><td>{c['index']}</td>"

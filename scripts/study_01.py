@@ -31,7 +31,7 @@ FAMILIES = ["line", "line", "arc", "arc", "line", "euler",
 
 def main() -> int:
     piece = study_01()
-    svg, info = render_piece(piece, tol=0.05, margin=20)
+    svg, info = render_piece(piece, tol=0.05, margin=20, grid=True, marks=True)
     right = fleur_right(STUDY_01)
     worst = 0.0
     rows = []

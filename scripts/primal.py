@@ -19,7 +19,8 @@ NOTES = {
 panels = []
 for name, build in primal.PRIMAL.items():
     piece = build()
-    svg, info = render_piece(piece, tol=0.05, margin=10, annotations=[
+    svg, info = render_piece(piece, tol=0.05, margin=10, grid=True,
+                             marks=True, annotations=[
         {"kind": "text", "x": 0.0, "y": -12.0, "text": name, "size": 6.0,
          "fill": "#8c6a21"}])
     panels.append(f'<section><h2>{name}</h2><p>{NOTES[name]}</p>'

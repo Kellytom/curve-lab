@@ -23,6 +23,37 @@ import json
 import math
 from xml.sax.saxutils import escape as _xml_text
 
+def _grid_step(span: float, target: int = 10) -> float:
+    """A round grid step (1, 2, 2.5, 5 x 10^k) giving about `target` lines."""
+    if span <= 0:
+        return 1.0
+    raw = span / target
+    p = 10.0 ** math.floor(math.log10(raw))
+    for k in (1.0, 2.0, 2.5, 5.0, 10.0):
+        if raw <= k * p:
+            return k * p
+    return 10.0 * p
+
+
+def _grid_lines(place, x0, x1, y0, y1, step, colour="#ece4cf", width=0.25):
+    """Vertical and horizontal rules at every multiple of `step`."""
+    out = []
+    gx = math.floor(x0 / step) * step
+    while gx <= x1 + 1e-9:
+        a, b = place(gx, y0), place(gx, y1)
+        out.append(f'<line x1="{a[0]:.3f}" y1="{a[1]:.3f}" x2="{b[0]:.3f}" '
+                   f'y2="{b[1]:.3f}" stroke="{colour}" stroke-width="{width}"/>')
+        gx += step
+    gy = math.floor(y0 / step) * step
+    while gy <= y1 + 1e-9:
+        a, b = place(x0, gy), place(x1, gy)
+        out.append(f'<line x1="{a[0]:.3f}" y1="{a[1]:.3f}" x2="{b[0]:.3f}" '
+                   f'y2="{b[1]:.3f}" stroke="{colour}" stroke-width="{width}"/>')
+        gy += step
+    return out
+
+
+
 
 def num(value: float, prec: int = 4) -> str:
     """Fixed-point, trailing zeros trimmed, no exponent, no negative zero."""
@@ -100,7 +131,8 @@ def document(design, chain=None, spine=None, rails=None,
              view: str | None = None,
              annotations: list[dict] | None = None,
              groups: list[tuple[str, list[dict], float | None]] | None = None,
-             linecap: str = "round") -> str:
+             linecap: str = "round",
+             grid: bool = False, marks: bool = False) -> str:
     """One SVG: the spine, one path per rail, mm units, JSON in the metadata.
 
     `annotations` are optional standard SVG marks (lines, circles, text) placed
@@ -229,6 +261,29 @@ def document(design, chain=None, spine=None, rails=None,
         f"  <title>{_escape(design.name)}</title>",
         f'  <desc id="curve-lab-design">{_escape(design.to_json())}</desc>',
     ]
+    if grid:
+        gp = _grid_step(max(x1 - x0, y1 - y0))
+        out.append('  <g id="grid">')
+        out.extend("  " + ln for ln in _grid_lines(place, x0, x1, y0, y1, gp))
+        out.append("  </g>")
+    if marks:
+        seen, nodes = set(), []
+        for span in all_spans:
+            for key in ("p0", "p3"):
+                q = (round(span[key][0], 6), round(span[key][1], 6))
+                if q not in seen:
+                    seen.add(q)
+                    nodes.append(span[key])
+        if len(nodes) > 24:
+            stride = len(nodes) / 24
+            nodes = [nodes[int(i * stride)] for i in range(24)]
+        out.append('  <g id="lattice-marks">')
+        for node in nodes:
+            cx, cy = place(node[0], node[1])
+            out.append(f'    <circle class="lattice" cx="{num(cx, prec)}" '
+                       f'cy="{num(cy, prec)}" r="{num(0.6, prec)}" '
+                       f'fill="#c9a441"/>')
+        out.append("  </g>")
     behind = annotations_markup(False)
     if behind:
         out.append('  <g id="annotation-lines">')
