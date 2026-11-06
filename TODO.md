@@ -58,8 +58,10 @@ C-family p-triple conversion and the ornament-form proofs below.
   `workbench/quadratic-s.html`.
 - [x] **Pythagorean triple field plot:** all triples c≤3500, scaling rays,
   fixed-n parabolas, and the n=2 43.60°→4.02° sweep; `pythagorean-families.html`.
-- [ ] **Pythagorean triple catalogue for cubics:** turn the family sweep into a
-  canonical curve catalogue (arm pairs, chords, signs, rotations).
+- [x] **Pythagorean triple catalogue for cubics:** 158 primitive triples to
+  c = 1000 give 316 ordered arm-pair curves and 632 sign variants, with the
+  exact integer rotation. `curve_lab/pyth_cubic.catalogue`,
+  `workbench/integer-cubic-catalogue.html`, `tests/test_pyth_cubic_catalogue.py`.
 - [x] **n=2 family chain:** rendered as the triple tangent chain — 52 integer
   cubic spans, C1 exact (shared derivative vector at every join), curvature
   jump 6.2% median / 26.1% worst. Free per-node handles make the joins exactly
