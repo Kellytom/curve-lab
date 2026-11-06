@@ -51,7 +51,32 @@ def fit(pts, pad=34):
     return lambda p: (ox + (p[0] - x0) * s, H - oy - (p[1] - y0) * s)   # +y up, flipped here
 
 
-def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
+def triple_joins(curves):
+    """The p-triangle joins of the longest solid curve, in its own frame.
+
+    This is the "integer hit" this project means: the vertex where one
+    p-triple triangle meets the next, not any crossing of a display grid.
+    The converter works in a normalised frame, so the joins are mapped back
+    through the same rotation and translation it applied.
+    """
+    from curve_lab.euler_polygon import convert
+    pts = max((c[0] for c in curves if not c[3]), key=len, default=None)
+    if not pts or len(pts) < 8:
+        return {"joins": [], "chord": 0.0}
+    try:
+        d = convert(pts, n=24)
+    except Exception:                      # a cusp or a loop: no clean chain
+        return {"joins": [], "chord": 0.0}
+    x0, y0 = pts[0]
+    dx, dy = pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]
+    a = math.atan2(dy, dx)
+    c, s = math.cos(a), math.sin(a)
+    return {"joins": [(x0 + X * c - Y * s, y0 + X * s + Y * c) for X, Y in d["polygon"]],
+            "chord": d["chord"]}
+
+
+def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
+          joins=False):
     allpts = [p for pts, *_ in curves for p in pts]
     put = fit(allpts)
     out = [f'<svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{title}">',
@@ -60,7 +85,13 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
     ys = [p[1] for p in allpts]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
     solid = [c[0] for c in curves if not c[3]]
-    step = best_step(solid, max(x1 - x0, y1 - y0))
+    chain = triple_joins(curves) if joins else None
+    if chain and chain["chord"] > 0:
+        span = max(x1 - x0, y1 - y0)
+        k = max(1, round(span / (10.0 * chain["chord"])))
+        step = chain["chord"] * k          # the chain's own lattice, kept legible
+    else:
+        step = best_step(solid, max(x1 - x0, y1 - y0))
     out += grid_lines(put, x0, x1, y0, y1, step, RULE)
     for pts, colour, width, dash in curves:
         d = " ".join(("M" if i == 0 else "L") + f"{put(p)[0]:.1f},{put(p)[1]:.1f}"
@@ -68,7 +99,8 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
     auto = not dots
-    marks = list(dots) or [(p, MARK) for p in crossings(solid, step)]
+    marks = list(dots) or [(p, MARK) for p in
+                          (chain["joins"] if chain else crossings(solid, step))]
     if not marks:
         pool = solid or [c[0] for c in curves]
         longest = max(pool, key=len, default=None)
@@ -460,7 +492,7 @@ def run() -> None:
         r = 0.55 + 0.45 * math.cos(6 * t)
         ros.append((r * math.cos(t), r * math.sin(t)))
     p8b = panel("Fig. 8b", "rosette · six petals", [(ros, INK, 1.6, None)],
-                "r = 0.55 + 0.45·cos 6t · the ending grammar's head", key="8b")
+                "r = 0.55 + 0.45·cos 6t · the ending grammar's head", joins=True, key="8b")
 
     heart = [(math.sin(t) ** 3,
               (13 * math.cos(t) - 5 * math.cos(2 * t)
@@ -482,7 +514,7 @@ def run() -> None:
     bicorn = named_curve("bicorn")
     p8f = panel("Fig. 8f", "bicorn · one quartic", [
         (b, INK, 1.8, None) for b in bicorn],
-        "two halves joined at (±1, 0) · the node sits at (0, 1/3)", key="8f")
+        "two halves joined at (±1, 0) · the node sits at (0, 1/3)", joins=True, key="8f")
 
     bic_flower = []
     for k in range(4):
@@ -494,7 +526,7 @@ def run() -> None:
                                for x, y in moved])
     p8g = panel("Fig. 8g", "bicorn flower · four quartics", [
         (b, INK, 1.5, None) for b in bic_flower],
-        "four bicorns, moved to the origin and turned 90° apart", key="8g")
+        "four bicorns, moved to the origin and turned 90° apart", joins=True, key="8g")
 
     # ---- 9 · conics and the clothoid --------------------------------------
     par2 = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 160) for i in range(161)]]
@@ -662,12 +694,12 @@ def run() -> None:
 
     p14b = panel("Fig. 14b", "two clothoids · curvature matched", [
         (euler_chain([(0.05, 12.0, 0.0), (-0.05, 12.0, 0.6)]), INK, 1.8, None)],
-        "κ continuous at the join · G2 by construction", key="14b")
+        "κ continuous at the join · G2 by construction", joins=True, key="14b")
 
     p14c = panel("Fig. 14c", "five spans · an accelerating curl", [
         (euler_chain([(0.012, 6.0, 0.0), (0.012, 8.0, 0.072), (0.012, 10.0, 0.168),
                       (0.012, 12.0, 0.288), (0.012, 14.0, 0.432)]), INK, 1.8, None)],
-        "each span starts at the last curvature · a smooth volute", key="14c")
+        "each span starts at the last curvature · a smooth volute", joins=True, key="14c")
 
 
     # ---- 15 · smooth LACs -------------------------------------------------
@@ -688,9 +720,9 @@ def run() -> None:
     p15a = panel("Fig. 15a", "LAC · α = 0.35", [(lac_curve(0.35), INK, 1.8, None)],
                  "κ falls almost as 1/s · a tightening sweep", key="15a")
     p15b = panel("Fig. 15b", "LAC · α = 1", [(lac_curve(1.0), INK, 1.8, None)],
-                 "α = 1 is exactly a circle — the member, not a failure", key="15b")
+                 "α = 1 is exactly a circle — the member, not a failure", joins=True, key="15b")
     p15c = panel("Fig. 15c", "LAC · α = 1.7", [(lac_curve(1.7), INK, 1.8, None)],
-                 "κ rises · the family bends toward a circle", key="15c")
+                 "κ rises · the family bends toward a circle", joins=True, key="15c")
 
 
     # ---- 16 · conversions: ideal vs quantised ------------------------------

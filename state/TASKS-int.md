@@ -57,6 +57,9 @@ a reason.
 - [x] Hit ladder measured and published: 3 / 3 / 5 / 5 / 9 / 11 / 29 at
       q³ = 1, 8, 27, 64, 125, 1000, 15625 — a section on the catalogue page.
 - [x] The cubic panels now draw their own integer points and state the count.
+- [x] Integer hits mean the p-triangle joins, and the listed figures now mark
+      those joins (2b, 2c, 5b, 5c, 9a–c, 10a, 11a–c, 11f, 11g, 14c) with the
+      grid step anchored to the chain's own chord, not a fitted grid.
 - [x] Rotating by another p-triple angle adds no hits: measured, kept as a
       negative result rather than a missing feature.
 
