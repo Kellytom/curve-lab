@@ -299,7 +299,7 @@ def run() -> None:
         "a branch starts at a node, not at a fitted point", dots=[((bx, by), GOLD)], key="1c")
 
     # ---- 2 · LAC ribbon ---------------------------------------------------
-    lac1 = lac_curve(1.0)
+    lac1 = lac_curve(0.6)
     p2a = panel("Fig. 2a", "LAC ribbon · curve and rails", [
         (offset_polyline(lac1, 0.2), BLUE, 1.3, None),
         (offset_polyline(lac1, -0.2), BLUE, 1.3, None),
@@ -648,7 +648,7 @@ def run() -> None:
     p15a = panel("Fig. 15a", "LAC · α = 0.35", [(lac_curve(0.35), INK, 1.8, None)],
                  "κ falls almost as 1/s · a tightening sweep", key="15a")
     p15b = panel("Fig. 15b", "LAC · α = 1", [(lac_curve(1.0), INK, 1.8, None)],
-                 "κ ∝ 1/s · the logarithmic spiral", key="15b")
+                 "α = 1 is exactly a circle — the member, not a failure", key="15b")
     p15c = panel("Fig. 15c", "LAC · α = 1.7", [(lac_curve(1.7), INK, 1.8, None)],
                  "κ rises · the family bends toward a circle", key="15c")
 

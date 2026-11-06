@@ -294,7 +294,7 @@ NAMED = [
          eq="y²(1 − x²) = (x² + 2y − 1)²",
          tail="rational quartic · two branches, joined at (±1, 0) · closed",
          branches=[([0, 2, 0, 6], [1, 0, -2, 0, 1], [1, 0, 4, 0, 3]),
-                   ([0, 6, 0, 2], [1, 0, -2, 0, 1], [3, 0, 4, 0, 1])]),
+                   ([0, -2, 0, -6], [1, 0, -2, 0, 1], [1, 0, 4, 0, 3])]),
     dict(key="pear", deg=8, m=4,
          eq="x² = y³(1 − y)",
          tail="rational after all · y = sin² t, x = sin³ t cos t",
