@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from curve_lab.pyth_cubic import catalogue  # noqa: E402
+from curve_lab.pyth_cubic import catalogue, catalogue_c  # noqa: E402
 from curve_lab.pyth_triples import base_triples  # noqa: E402
 
 INK, BLUE, RED, GOLD = "#2e2413", "#1f5fa8", "#a23b2a", "#c9a441"
@@ -74,6 +74,19 @@ def main() -> int:
     prims = [t for t in base_triples(C_MAX) if t["k"] == 1]
     sign_variants = 2 * len(rows)
     sample = rows[:12]
+    c_rows = catalogue_c(C_MAX)
+    c_sample = c_rows[:12]
+    c_cards = "".join(
+        f'<figure class="card">{card(r, r["label"] + " · " + r["order"])}'
+        f'<figcaption>{r["label"]} · arms ({r["a"]}, {r["b"]}) · height {r["height"]}</figcaption></figure>'
+        for r in c_sample)
+    c_body = []
+    for i, r in enumerate(c_rows, 1):
+        c_body.append(
+            f'<tr><td>{i}</td><td>{r["label"]}</td><td>{r["m"]},{r["n"]}</td>'
+            f'<td>{r["order"]}</td><td>({r["a"]}, {r["b"]})</td>'
+            f'<td>{r["chord"]}</td><td>{r["height"]}</td>'
+            f'<td>{r["p1"]}</td><td>{r["p2"]}</td></tr>')
 
     cards = "".join(
         f'<figure class="card">{card(r, r["label"] + " · " + r["order"])}'
@@ -152,6 +165,22 @@ changes the tangent continuously between them. <strong>Infinity:</strong>
 absent — a cubic is a bounded arc. A design that uses one of these curves must
 supply the third aspect elsewhere, with a spiral tail or a ray to a point at
 infinity. The catalogue is a parts list, not a finished design.</p>
+</div>
+
+<h2>The C cubics · {len(c_rows)}</h2>
+<div class="panel">
+<p><strong>The other shape.</strong> Put both handles on the same side of the
+chord — P1 = (a, b), P2 = (2c − a, b) — and the same integer triple gives a
+C-shaped arch instead of an S. The controls stay integer; the height is b. The
+count is the same {len(c_rows)} ordered arm pairs.</p>
+</div>
+<div class="grid">{c_cards}</div>
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>triple</th><th>m,n</th><th>order</th><th>arms</th>
+<th>chord</th><th>height</th><th>P1</th><th>P2</th></tr></thead>
+<tbody>{''.join(c_body)}</tbody>
+</table>
 </div>
 
 <div class="panel">

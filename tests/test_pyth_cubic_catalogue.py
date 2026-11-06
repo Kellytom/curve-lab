@@ -3,7 +3,7 @@
 import unittest
 from pathlib import Path
 
-from curve_lab.pyth_cubic import catalogue, case, checks
+from curve_lab.pyth_cubic import catalogue, catalogue_c, case, checks
 from curve_lab.pyth_triples import base_triples
 
 
@@ -39,6 +39,18 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
                   if r["label"] == "4-3-5" and r["order"] == "ba")
         self.assertEqual(ba["p1"], (4, -3))
 
+    def test_the_c_cubics(self):
+        rows = catalogue_c(1000)
+        self.assertEqual(len(rows), 316)
+        base = next(r for r in rows if r["label"] == "3-4-5 C"
+                    and r["order"] == "ab")
+        self.assertEqual(base["p1"], (3, 4))
+        self.assertEqual(base["p2"], (7, 4))
+        self.assertEqual(base["height"], 4)
+        page = (Path(__file__).resolve().parents[1] / "workbench" /
+                "integer-cubic-catalogue.html").read_text(encoding="utf-8")
+        self.assertIn("The C cubics · 316", page)
+
     def test_the_page_states_the_counts(self):
         page = (Path(__file__).resolve().parents[1] / "workbench" /
                 "integer-cubic-catalogue.html").read_text(encoding="utf-8")
@@ -47,7 +59,7 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertIn("632", page)
         self.assertIn("3-4-5", page)
         self.assertIn("Infinity:", page)
-        self.assertEqual(page.count('<figure class="card">'), 12)
+        self.assertEqual(page.count('<figure class="card">'), 24)
 
 
 class ShowcaseOrderTest(unittest.TestCase):

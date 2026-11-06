@@ -103,3 +103,34 @@ def catalogue(c_max: int = 1000, primitive_only: bool = True) -> list[dict]:
             row["rotation_points"] = [(int(x), int(y)) for x, y in rotated]
             rows.append(row)
     return rows
+
+
+def case_c(a: int, b: int, c: int) -> dict:
+    """The C-shaped integer cubic: both handles on the same side of the chord."""
+    if a <= 0 or b <= 0 or c <= 0 or a * a + b * b != c * c:
+        raise ValueError(f"not a positive Pythagorean triple: {(a, b, c)}")
+    return {
+        "a": a, "b": b, "c": c,
+        "label": f"{a}-{b}-{c} C",
+        "angle": math.degrees(math.atan2(b, a)),
+        "p0": (0, 0), "p1": (a, b), "p2": (2 * c - a, b), "p3": (2 * c, 0),
+        "chord": 2 * c, "arm": c, "height": b,
+        "shape": "C",
+    }
+
+
+def catalogue_c(c_max: int = 1000) -> list[dict]:
+    """Every ordered arm pair as a C cubic, one row per order."""
+    from .pyth_triples import base_triples
+
+    rows = []
+    for t in base_triples(c_max):
+        if t["k"] != 1:
+            continue
+        a0, b0, c = t["a"], t["b"], t["c"]
+        for a, b in ((a0, b0), (b0, a0)):
+            row = case_c(a, b, c)
+            row.update({"m": t["m"], "n": t["n"],
+                        "order": "ab" if (a, b) == (a0, b0) else "ba"})
+            rows.append(row)
+    return rows

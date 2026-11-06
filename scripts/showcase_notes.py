@@ -294,6 +294,22 @@ NOTES = [
         "command": "python -m unittest tests.test_plant",
     },
     {
+        "id": "8e", "fig": "Fig. 8e", "title": "Squircle of eight Eulers", "kind": "grammar",
+        "body": ["The squircle section from 0 to 45 degrees, fitted with one clothoid through its two endpoints and two tangents. Rotate that span by 45 degrees at a time and the eight spans close the squircle.",
+         "Each span is an Euler curve in its own local frame; the 45-degree rotations place them. It is a flower head made of curvature, not a sampled outline."],
+        "numbers": ["8 Euler spans", "45° each", "endpoints and tangents fitted"],
+        "source": "curve_lab.interpolate.fit · scripts/curve_morphs.py",
+        "command": "python scripts/showcase.py",
+    },
+    {
+        "id": "8f", "fig": "Fig. 8f", "title": "Bicorn flower of four quartics", "kind": "exact rational",
+        "body": ["The bicorn is the rational quartic with two cusps; four copies, each turned 45 degrees, put its cusps at eight equally spaced directions and close a flower.",
+         "The petals are the same curve four times, not four new shapes. The rotation is the composition rule; the cusps are the petal tips."],
+        "numbers": ["4 quartic bicorns", "45° apart", "eight cusps"],
+        "source": "scripts/generators.py NAMED bicorn · scripts/showcase.py",
+        "command": "python scripts/showcase.py",
+    },
+    {
         "id": "9a", "fig": "Fig. 9a", "title": "Parabola", "kind": "mixed",
         "body": ["Integer points on the curve, a fitted parallel, and an exact parallel family one level up: the involutes of its evolute.",
          "The parabola itself is not PH, so its offset is algebraic but not rational. The exact route exists, but it is not a parabola."],

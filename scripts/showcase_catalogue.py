@@ -32,6 +32,7 @@ import heart_forms as H  # noqa: E402
 from curve_lab import engine  # noqa: E402
 from curve_lab import presets  # noqa: E402
 from curve_lab.pyth_cubic import catalogue as cubic_catalogue  # noqa: E402
+from curve_morphs import french_panels, leaf_panels  # noqa: E402
 
 INK, MUTED, GOLD, BLUE = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8"
 
@@ -231,6 +232,10 @@ FAMILIES = [
      cubic_panels()),
     ("stems", "The stem library · 177", "every card in the stem catalogue",
      stem_panels()),
+    ("french", "French curves · 8",
+     "drawing aids, each a chain of three Euler spans", french_panels()),
+    ("leaves", "Leaves · 8", "one section mirrored across its own chord",
+     leaf_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]

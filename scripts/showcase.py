@@ -20,9 +20,11 @@ sys.path.insert(0, str(ROOT))
 
 import generators as G  # noqa: E402
 from curve_lab import pyth_chain as pc  # noqa: E402
+from curve_lab import engine, interpolate  # noqa: E402
 from curve_lab import spine as spine_layer  # noqa: E402
 from curve_lab import terminals as term  # noqa: E402
 from curve_lab.parallel_bezier import fit_chain as fit_parallel  # noqa: E402
+from curve_lab.model import Design, Segment  # noqa: E402
 from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
 from showcase_catalogue import FAMILIES  # noqa: E402
 from modulated_width import cubic as width_cubic, rails as width_rails  # noqa: E402
@@ -148,6 +150,32 @@ def terminal_shape(kind, x0, length=1.0, half=0.2):
     for s in spans:
         pts.extend(span_points(s)[1:])
     return pts
+
+
+def squircle_point(t):
+    c, s = math.cos(t), math.sin(t)
+    return (math.copysign(abs(c) ** 0.5, c),
+            math.copysign(abs(s) ** 0.5, s))
+
+
+def squircle_euler():
+    """Eight Euler spans, one per 45 degree station of the squircle."""
+    out = []
+    for k in range(8):
+        t0, t1 = k * math.pi / 4.0, (k + 1) * math.pi / 4.0
+        p0, p1 = squircle_point(t0), squircle_point(t1)
+        a = squircle_point(t0 - 1e-6)
+        b = squircle_point(t0 + 1e-6)
+        c = squircle_point(t1 - 1e-6)
+        d = squircle_point(t1 + 1e-6)
+        th0 = math.atan2(b[1] - a[1], b[0] - a[0])
+        th1 = math.atan2(d[1] - c[1], d[0] - c[0])
+        k0, kd, length = interpolate.fit(p0, th0, p1, th1)
+        chain = engine.build(Design(
+            segments=[Segment(kappa0=k0, kd=kd, length=length)],
+            anchor={"x": p0[0], "y": p0[1], "angle": th0}))
+        out.append([chain.point(chain.length * i / 28.0) for i in range(29)])
+    return out
 
 
 def named_curve(key, n=240):
@@ -417,6 +445,22 @@ def run() -> None:
     p8d = panel("Fig. 8d", "seagrass · the blade ending", [
         (stalk8, INK, 1.8, None)] + [(b, GREEN, 1.5, None) for b in blades8],
         "three tapered blades · no bare tip", key="8d")
+
+    p8e = panel("Fig. 8e", "squircle · eight Eulers", [
+        (pts, INK, 1.8, None) for pts in squircle_euler()],
+        "eight 45° Euler spans · rotated into place", key="8e")
+
+    bicorn = named_curve("bicorn")
+    bic_flower = []
+    for k in range(4):
+        a = k * math.pi / 4.0
+        ca, sa = math.cos(a), math.sin(a)
+        for branch in bicorn:
+            bic_flower.append([(ca * x - sa * y, sa * x + ca * y)
+                               for x, y in branch])
+    p8f = panel("Fig. 8f", "bicorn flower · four quartics", [
+        (b, INK, 1.5, None) for b in bic_flower],
+        "four quartic bicorns · 45° apart · eight cusps", key="8f")
 
     # ---- 9 · conics and the clothoid --------------------------------------
     par2 = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 160) for i in range(161)]]
@@ -882,7 +926,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p7a, p7b, p7c)}
 
 <div class="fam"><h2>8 · Flowers and endings</h2><p>the heads a stalk ends in · one of them is not rational at all</p></div>
-{row(p8a, p8b, p8c)}{row(p8d)}
+{row(p8a, p8b, p8c)}{row(p8d, p8e, p8f)}
 
 <div class="fam"><h2>9 · Conics and the clothoid</h2><p>integer points on the curve, fitted parallels, and the one linear-curvature curve</p></div>
 {row(p9a, p9b, p9c)}{row(p9d)}
