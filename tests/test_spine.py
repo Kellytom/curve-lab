@@ -165,3 +165,30 @@ class TestSheetAndJoin(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSpanRibbon(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        package = spine.load()
+        cls.chain = package.design.spiral(package.thinnest(625), steps=7)
+
+    def test_width_builds_rails_for_span_traces(self):
+        piece = spine.piece_from_chain(self.chain, name="ribbon", width=2.0)
+        groups, info = build_piece(piece)
+        rails = [g for g in groups if g.role == "rail"]
+        self.assertEqual(len(rails), 2)
+        self.assertEqual(info["traces"][0]["rails"], 2)
+        self.assertTrue(info["fit_ok"])
+        text, _ = render_piece(piece)
+        self.assertIn("ink-ribbon-rail-1", text)
+        self.assertIn("ink-ribbon-rail--1", text)
+
+    def test_cone_terminal_closes_a_span_ribbon(self):
+        piece = spine.piece_from_chain(self.chain, name="ribbon", width=2.0,
+                                       terminals=("cone", "butt"))
+        groups, info = build_piece(piece)
+        caps = [g for g in groups if g.role == "cap"]
+        self.assertEqual(len(caps), 1)
+        self.assertEqual(info["traces"][0]["terminals"][0]["kind"], "cone")
+        self.assertGreater(info["traces"][0]["terminals"][0]["extension"], 0.0)

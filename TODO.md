@@ -79,8 +79,9 @@ C-family p-triple conversion and the ornament-form proofs below.
   declared G2 join, no violations or warnings.
 - [x] **Piece wrapper, full chain:** three cubic spans, two contacts, clear
   SVG/clearance report; no violations or warnings.
-- [ ] **Ribbon width for span traces:** cubic-span traces are hairlines today;
-  width/offset rails are not yet implemented.
+- [x] **Ribbon width for span traces:** `build_piece` now fits ±w/2 rails for a
+  cubic-span trace through `parallel_bezier.fit_chain`, with caps and the fold
+  guard; `workbench/spine-sheet.html` shows the ribbons. `tests/test_spine.py::TestSpanRibbon`.
 - [ ] **Offset comparison:** one fitted offset on an integer cubic, labelled
   fitted; do not claim an exact offset.
 

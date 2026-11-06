@@ -17,6 +17,7 @@ from . import bezier, engine, svg
 from .contact import Contact
 from .model import Design
 from .offsets import build_rails
+from .parallel_bezier import fit_chain
 from .terminals import check_terminal, terminal_extension, terminal_spans
 
 
@@ -210,20 +211,68 @@ def build_piece(piece: Piece, tol: float = 0.02, max_spans: int = 64,
         base = f"{trace.layer}/{trace.name}"
         if trace.spans is not None:
             mirrored = piece.mirror if trace.mirror is None else bool(trace.mirror)
+            rails = []
+            rail_error = 0.0
+            if trace.width:
+                for distance in (trace.width / 2.0, -trace.width / 2.0):
+                    fitted = fit_chain(trace.spans, distance, tol=tol)
+                    rails.append({"spans": fitted["spans"],
+                                  "distance": distance,
+                                  "folds": bool(fitted["cusps"])})
+                    rail_error = max(rail_error, fitted["error_max"])
+            terminals = []
+            caps = []
+            for index, end in enumerate(("start", "end")):
+                kind = trace.terminals[index]
+                extension = (0.0 if not trace.width
+                             else terminal_extension(kind, trace.width))
+                if kind != "butt":
+                    if not rails:
+                        raise ValueError(
+                            f"{base}: a {kind} terminal needs a ribbon width")
+                    rail_pos, rail_neg = rails[-2], rails[-1]
+                    if rail_pos["folds"] or rail_neg["folds"]:
+                        raise ValueError(
+                            f"{base}: the {kind} terminal needs a rail that "
+                            "does not fold")
+                    caps.append((f"{base} {end} {kind}",
+                                 terminal_spans(rail_pos, rail_neg, kind,
+                                                end=end)))
+                    groups.append(Group(caps[-1][0], caps[-1][1], None, base,
+                                        "cap"))
+                terminals.append({"end": end, "kind": kind,
+                                  "extension": extension,
+                                  "fold": bool(trace.width and kind != "butt"
+                                               and rails
+                                               and (rails[-2]["folds"]
+                                                    or rails[-1]["folds"]))})
             report.append({
                 "name": trace.name,
                 "layer": trace.layer,
-                "fit_error": 0.0,
-                "rails": 0,
+                "fit_error": rail_error,
+                "rails": len(rails),
                 "mirrored": mirrored,
-                "terminals": [{"end": end, "kind": "butt", "extension": 0.0,
-                               "fold": False} for end in ("start", "end")],
+                "terminals": terminals,
             })
             groups.append(Group(base, trace.spans, None, base, "spine"))
+            for rail in rails:
+                groups.append(Group(
+                    f"{base} rail {svg.num(rail['distance'], 3)}",
+                    rail["spans"], rail["distance"], base, "rail"))
             if mirrored:
                 mirrored_instance = f"{base} mirrored"
                 groups.append(Group(mirrored_instance, _mirror_spans(trace.spans),
                                     None, mirrored_instance, "spine"))
+                for rail in rails:
+                    groups.append(Group(
+                        f"{mirrored_instance} rail {svg.num(rail['distance'], 3)}",
+                        _mirror_spans(rail["spans"]), rail["distance"],
+                        mirrored_instance, "rail"))
+                for name, spans in caps:
+                    suffix = name[len(base):]
+                    groups.append(Group(f"{mirrored_instance}{suffix}",
+                                        _mirror_spans(spans), None,
+                                        mirrored_instance, "cap"))
             continue
         chain = engine.build(trace.design, backend=backend)
         spine, fit = bezier.fit_chain(
