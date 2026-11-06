@@ -978,6 +978,23 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <h1>Rays and curves</h1>
 <p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c, d</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
 
+<label class="capmarks"><input type="checkbox" id="capmarks">
+ limit hits to 24 per figure</label>
+<script>
+(() => {{
+  const box = document.getElementById("capmarks");
+  const apply = () => {{
+    document.querySelectorAll("svg").forEach((sv) => {{
+      sv.querySelectorAll("circle.lattice").forEach((c, i) => {{
+        c.style.display = box.checked && i >= 24 ? "none" : "";
+      }});
+    }});
+  }};
+  box.addEventListener("change", apply);
+  apply();
+}})();
+</script>
+
 
 <p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
 
@@ -1058,22 +1075,6 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
 
-<label class="capmarks"><input type="checkbox" id="capmarks">
- limit hits to 24 per figure</label>
-<script>
-(() => {{
-  const box = document.getElementById("capmarks");
-  const apply = () => {{
-    document.querySelectorAll("svg").forEach((sv) => {{
-      sv.querySelectorAll("circle.lattice").forEach((c, i) => {{
-        c.style.display = box.checked && i >= 24 ? "none" : "";
-      }});
-    }});
-  }};
-  box.addEventListener("change", apply);
-  apply();
-}})();
-</script>
 </main></body></html>
 """
 

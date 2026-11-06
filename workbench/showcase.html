@@ -26,6 +26,23 @@ h1{font-size:32px;line-height:1.1;margin:0 0 8px}
 <h1>Rays and curves</h1>
 <p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c, d</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
 
+<label class="capmarks"><input type="checkbox" id="capmarks">
+ limit hits to 24 per figure</label>
+<script>
+(() => {
+  const box = document.getElementById("capmarks");
+  const apply = () => {
+    document.querySelectorAll("svg").forEach((sv) => {
+      sv.querySelectorAll("circle.lattice").forEach((c, i) => {
+        c.style.display = box.checked && i >= 24 ? "none" : "";
+      });
+    });
+  };
+  box.addEventListener("change", apply);
+  apply();
+})();
+</script>
+
 
 <p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
 
@@ -106,20 +123,4 @@ h1{font-size:32px;line-height:1.1;margin:0 0 8px}
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 <a class="fig" id="fig-rays" href="showcase-notes.html#fig-rays" title="Rays — notes"><svg viewBox="0 0 980 420" width="100%" role="img" aria-label="rays as a monstrance"><rect width="980" height="420" fill="#fbf7ec"/><line x1="0" y1="0" x2="0" y2="420" stroke="#d8ccae"/><line x1="100" y1="0" x2="100" y2="420" stroke="#d8ccae"/><line x1="200" y1="0" x2="200" y2="420" stroke="#d8ccae"/><line x1="300" y1="0" x2="300" y2="420" stroke="#d8ccae"/><line x1="400" y1="0" x2="400" y2="420" stroke="#d8ccae"/><line x1="500" y1="0" x2="500" y2="420" stroke="#d8ccae"/><line x1="600" y1="0" x2="600" y2="420" stroke="#d8ccae"/><line x1="700" y1="0" x2="700" y2="420" stroke="#d8ccae"/><line x1="800" y1="0" x2="800" y2="420" stroke="#d8ccae"/><line x1="900" y1="0" x2="900" y2="420" stroke="#d8ccae"/><line x1="0" y1="0" x2="980" y2="0" stroke="#d8ccae"/><line x1="0" y1="100" x2="980" y2="100" stroke="#d8ccae"/><line x1="0" y1="200" x2="980" y2="200" stroke="#d8ccae"/><line x1="0" y1="300" x2="980" y2="300" stroke="#d8ccae"/><line x1="0" y1="400" x2="980" y2="400" stroke="#d8ccae"/><circle class="lattice" cx="500.0" cy="366.7" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="233.3" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="550.0" cy="300.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="355.0" cy="200.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="372.5" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="297.5" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="400.0" cy="312.5" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="374.7" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="640.0" cy="300.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="300.0" cy="278.7" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="340.0" cy="300.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="334.2" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="300.0" cy="300.8" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="298.0" cy="300.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="376.6" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="300.0" cy="314.9" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="377.1" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="400.0" cy="353.8" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="377.5" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="400.0" cy="357.1" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="355.2" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="378.0" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="357.8" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="500.0" cy="378.2" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="400.0" cy="363.5" r="2.2" fill="#b23a2b"/><circle class="lattice" cx="600.0" cy="361.5" r="2.2" fill="#b23a2b"/><line x1="490.0" y1="380.0" x2="630.4" y2="192.8" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="349.6" y2="192.8" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="670.8" y2="244.4" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="309.2" y2="244.4" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="682.4" y2="277.4" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="297.6" y2="277.4" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="683.8" y2="299.2" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="296.2" y2="299.2" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="681.1" y2="314.5" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="298.9" y2="314.5" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="676.2" y2="325.7" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="303.8" y2="325.7" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="670.3" y2="334.2" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="309.7" y2="334.2" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="663.7" y2="340.9" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="316.3" y2="340.9" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="656.6" y2="346.3" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="323.4" y2="346.3" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="649.3" y2="350.8" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="330.7" y2="350.8" stroke="#b23a2b" stroke-width="2.2"/><line x1="490.0" y1="380.0" x2="641.9" y2="354.5" stroke="#2e2413" stroke-width="1.2"/><line x1="490.0" y1="380.0" x2="338.1" y2="354.5" stroke="#b23a2b" stroke-width="2.2"/><circle cx="490.0" cy="380" r="52" fill="none" stroke="#b23a2b" stroke-width="3"/><circle cx="490.0" cy="380" r="7" fill="#b23a2b"/><line x1="490.0" y1="380" x2="490.0" y2="386" stroke="#2e2413" stroke-width="3"/><path d="M 444.0 414 Q 490.0 374 536.0 414" fill="none" stroke="#2e2413" stroke-width="3"/><line x1="420.0" y1="414" x2="560.0" y2="414" stroke="#2e2413" stroke-width="3"/><text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="#2e2413">Rays · p-triple angles 2·atan(1/m), mirrored, as a monstrance</text><text x="12" y="410" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#7b6c4e">24 rays · ring, stem and foot added · the fan is now a vessel, not a diagram</text></svg></a>
 
-<label class="capmarks"><input type="checkbox" id="capmarks">
- limit hits to 24 per figure</label>
-<script>
-(() => {
-  const box = document.getElementById("capmarks");
-  const apply = () => {
-    document.querySelectorAll("svg").forEach((sv) => {
-      sv.querySelectorAll("circle.lattice").forEach((c, i) => {
-        c.style.display = box.checked && i >= 24 ? "none" : "";
-      });
-    });
-  };
-  box.addEventListener("change", apply);
-  apply();
-})();
-</script>
 </main></body></html>
