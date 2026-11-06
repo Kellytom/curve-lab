@@ -195,3 +195,45 @@ def representatives(width_deg: float = 4.3495, height_step: float = 0.05,
         "s_range": s["range"], "c_range": c["range"],
         "counts": (len(s_rows), len(c_rows)),
     }
+
+def lattice_hits(row: dict, scale: int = 1, q_max: int = 12) -> list[dict]:
+    """Integer points on the curve at t = k/q, for q up to `q_max`.
+
+    The cubic at t = k/q has denominator dividing q³, so `scale` multiplies
+    that: at scale 1 only t = 0, ½, 1 are integer (every curve has exactly
+    three), at 27 the thirds join, at 64 the quarters, at 125 the fifths, at
+    3125 the twenty-fifths. This is the lattice-hit ledger behind the
+    catalogue's key-distance table.
+    """
+    p0, p1, p2, p3 = row["p0"], row["p1"], row["p2"], row["p3"]
+    out = []
+    for q in range(1, q_max + 1):
+        for k in range(q + 1):
+            t = Fraction(k, q)
+            mt = 1 - t
+            x = (mt ** 3 * p0[0] + 3 * mt * mt * t * p1[0]
+                 + 3 * mt * t * t * p2[0] + t ** 3 * p3[0]) * scale
+            y = (mt ** 3 * p0[1] + 3 * mt * mt * t * p1[1]
+                 + 3 * mt * t * t * p2[1] + t ** 3 * p3[1]) * scale
+            if x.denominator == 1 and y.denominator == 1:
+                out.append({"t": (k, q), "point": (int(x), int(y))})
+    return out
+
+
+def hit_table(c_max: int = 1000, q_max: int = 25) -> list[dict]:
+    """Hits per key distance for every S curve, and the same for C curves."""
+    keys = (1, 8, 27, 64, 125, 1000, 15625)
+    rows = catalogue(c_max)
+    c_rows = catalogue_c(c_max)
+    out = []
+    for scale in keys:
+        s_hits = [len({h["point"] for h in lattice_hits(r, scale, q_max)})
+                  for r in rows]
+        c_hits = [len({h["point"] for h in lattice_hits(r, scale, q_max)})
+                  for r in c_rows]
+        out.append({"scale": scale,
+                    "s_median": sorted(s_hits)[len(s_hits) // 2],
+                    "s_min": min(s_hits), "s_max": max(s_hits),
+                    "c_median": sorted(c_hits)[len(c_hits) // 2],
+                    "c_min": min(c_hits), "c_max": max(c_hits)})
+    return out

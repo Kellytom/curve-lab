@@ -29,7 +29,7 @@ from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
 from showcase_catalogue import FAMILIES  # noqa: E402
 from modulated_width import cubic as width_cubic, rails as width_rails  # noqa: E402
 
-INK, GOLD, BLUE, RED, GREEN = "#2e2413", "#c9a441", "#1f5fa8", "#a23b2a", "#3f7d4e"
+INK, GOLD, BLUE, RED, GREEN = "#2e2413", "#b23a2b", "#1f5fa8", "#a23b2a", "#3f7d4e"  # no gold: construction is red
 MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
@@ -467,16 +467,21 @@ def run() -> None:
         "eight 45° Euler spans · rotated into place", key="8e")
 
     bicorn = named_curve("bicorn")
+    p8f = panel("Fig. 8f", "bicorn · one quartic", [
+        (b, INK, 1.8, None) for b in bicorn],
+        "two halves joined at (±1, 0) · the node sits at (0, 1/3)", key="8f")
+
     bic_flower = []
     for k in range(4):
-        a = k * math.pi / 4.0
+        a = k * math.pi / 2.0                     # 90° apart
         ca, sa = math.cos(a), math.sin(a)
         for branch in bicorn:
+            moved = [(x, y - 1.0) for x, y in branch]   # top at the origin
             bic_flower.append([(ca * x - sa * y, sa * x + ca * y)
-                               for x, y in branch])
-    p8f = panel("Fig. 8f", "bicorn flower · four quartics", [
+                               for x, y in moved])
+    p8g = panel("Fig. 8g", "bicorn flower · four quartics", [
         (b, INK, 1.5, None) for b in bic_flower],
-        "four quartic bicorns · 45° apart · eight cusps", key="8f")
+        "four bicorns, moved to the origin and turned 90° apart", key="8g")
 
     # ---- 9 · conics and the clothoid --------------------------------------
     par2 = [(x, x * x / 2) for x in [(-2.6 + 5.2 * i / 160) for i in range(161)]]
@@ -507,9 +512,15 @@ def run() -> None:
 
     # ---- 10 · spirals -----------------------------------------------------
     spine = turn_polygon([1, 2, 2, 1, 1], 4, 3, chord=1.0)
+    fine = []
+    for a, b in zip(spine, spine[1:]):
+        for k in range(6):
+            t = k / 6.0
+            fine.append((a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])))
+    fine.append(spine[-1])
     p10a = panel("Fig. 10a", "spine · a clean sweep", [
-        (smooth(spine), INK, 1.8, None), (spine, MUTED, 0.9, "4 3")],
-        "turns 1,2,2,1,1 · no self-crossing · the LAC plan", key="10a")
+        (smooth(spine), INK, 1.8, None), (fine, MUTED, 0.8, "3 4")],
+        "six subdivisions per leg · the chord error falls with the square", key="10a")
 
     lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
           for t in [i * 5.2 * math.pi / 480 for i in range(481)]]
@@ -737,8 +748,16 @@ def run() -> None:
     marks = []
     for k in (16, 34, 52):
         px, py = stem[k]
-        marks.append([(px, py), (px - 0.12, py + 0.2), (px + 0.12, py + 0.2), (px, py)])
-        marks.append([(px, py), (px - 0.12, py - 0.2), (px + 0.12, py - 0.2), (px, py)])
+        dx, dy = stem[k + 1][0] - stem[k - 1][0], stem[k + 1][1] - stem[k - 1][1]
+        n = math.hypot(dx, dy) or 1.0
+        nx, ny = -dy / n, dx / n                      # the curve's normal
+        tx, ty = dx / n, dy / n                       # along the curve
+        for sgn in (1.0, -1.0):                       # both rails
+            base = (px + sgn * 0.02 * nx, py + sgn * 0.02 * ny)
+            tip = (base[0] + sgn * 0.2 * nx, base[1] + sgn * 0.2 * ny)
+            a = (base[0] + 0.06 * tx, base[1] + 0.06 * ty)
+            b = (base[0] - 0.06 * tx, base[1] - 0.06 * ty)
+            marks.append([a, tip, b, a])
     p18b = panel("Fig. 18b", "growth marks · pyramids at hits", [
         (stem, INK, 1.8, None)] + [(m, GOLD, 1.0, None) for m in marks],
         "one pyramid per rail, only at the marked stations", key="18b")
@@ -751,7 +770,7 @@ def run() -> None:
     # ---- 19 · 3-4-5 exact spine ------------------------------------------
     pkg = spine_layer.load()
     tri345 = pkg.Triple(3, 4, 5)
-    schedule345 = [1, 2, 3, 4, 5, -5, -4, -3, -2, -1]
+    schedule345 = [1, 1, 2, 3, 4, 5, 5, -5, -5, -4, -3, -2, -1, -1]
     chain345 = pkg.Spiral(tri345, 1)
     chain345.extend(schedule345)
     assert chain345.coeff == 0 and chain345.heading.is_axis_aligned()
@@ -855,6 +874,31 @@ def run() -> None:
         rays.append(((cx, cy), (cx - L * math.cos(ang), cy - L * math.sin(ang))))
     ray_svg = [f'<svg viewBox="0 0 {RW} {RH}" width="100%" role="img" aria-label="rays as a monstrance">',
                f'<rect width="{RW}" height="{RH}" fill="{PAPER}"/>']
+    rstep = nice_step(max(RW, RH))
+    for gx in range(0, int(RW) + 1, int(rstep)):
+        ray_svg.append(f'<line x1="{gx}" y1="0" x2="{gx}" y2="{RH}" stroke="{RULE}"/>')
+    for gy in range(0, int(RH) + 1, int(rstep)):
+        ray_svg.append(f'<line x1="0" y1="{gy}" x2="{RW}" y2="{gy}" stroke="{RULE}"/>')
+    ray_hits = []
+    for p0, p1 in rays:
+        for axis, level in (("x", None), ("y", None)):
+            lo = min(p0[0], p1[0]) if axis == "x" else min(p0[1], p1[1])
+            hi = max(p0[0], p1[0]) if axis == "x" else max(p0[1], p1[1])
+            g = math.ceil(lo / rstep) * rstep
+            while g <= hi + 1e-9:
+                a0, a1 = (p0[0], p1[0]) if axis == "x" else (p0[1], p1[1])
+                t = (g - a0) / ((a1 - a0) or 1e-9)
+                if 0.0 <= t <= 1.0:
+                    q = ((g, p0[1] + t * (p1[1] - p0[1])) if axis == "x"
+                         else (p0[0] + t * (p1[0] - p0[0]), g))
+                    ray_hits.append(q)
+                g += rstep
+    if len(ray_hits) > 26:
+        stride = len(ray_hits) / 26
+        ray_hits = [ray_hits[int(i * stride)] for i in range(26)]
+    for hx, hy in ray_hits:
+        ray_svg.append(f'<circle class="lattice" cx="{hx:.1f}" cy="{hy:.1f}" '
+                       f'r="2.2" fill="{MARK}"/>')
     for i, (p0, p1) in enumerate(rays):
         colour = GOLD if i % 2 else INK
         ray_svg.append(f'<line x1="{p0[0]:.1f}" y1="{p0[1]:.1f}" x2="{p1[0]:.1f}" y2="{p1[1]:.1f}" stroke="{colour}" stroke-width="{2.2 if i % 2 else 1.2}"/>')
@@ -883,9 +927,16 @@ def run() -> None:
 
     catalogue_html = ""
     for i, (_key, title, blurb, panels) in enumerate(FAMILIES):
+        if _key == "clouds":          # lives on showcase-effects.html, as 34
+            continue
         catalogue_html += (
             f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
             + catalogue_rows(panels))
+    catalogue_html += ('<div class="fam"><h2>34 · Cloud effects</h2>'
+                       '<p>the cloud layer has its own page</p></div>'
+                       '<p class="note">The clouds, and the composite curves that '
+                       'follow them, are on <a href="showcase-effects.html">'
+                       'showcase effects</a>.</p>')
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -942,7 +993,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p7a, p7b, p7c)}
 
 <div class="fam"><h2>8 · Flowers and endings</h2><p>the heads a stalk ends in · one of them is not rational at all</p></div>
-{row(p8a, p8b, p8c)}{row(p8d, p8e, p8f)}
+{row(p8a, p8b, p8c)}{row(p8d, p8e, p8f)}{row(p8g)}
 
 <div class="fam"><h2>9 · Conics and the clothoid</h2><p>integer points on the curve, fitted parallels, and the one linear-curvature curve</p></div>
 {row(p9a, p9b, p9c)}{row(p9d)}

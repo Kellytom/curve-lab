@@ -100,7 +100,7 @@ class TestComposedStem(unittest.TestCase):
 class TestShowcase(unittest.TestCase):
     def test_three_across_and_rays_last(self):
         page = (PAGES / "showcase.html").read_text()
-        self.assertEqual(page.count('class="row"'), 141)
+        self.assertEqual(page.count('class="row"'), 139)
         self.assertEqual(page.count('class="row four"'), 0)
         self.assertIn("Fig. 1a", page)
         self.assertIn("Rays", page)
@@ -110,8 +110,7 @@ class TestShowcase(unittest.TestCase):
     def test_the_345_spiral_panel(self):
         page = (PAGES / "showcase.html").read_text()
         self.assertIn('id="fig-19a"', page)
-        self.assertIn("1+2+3+4+5-5-4-3-2-1 = 0", page)
-        self.assertIn("11 int nodes x5^15", page)
+        self.assertIn("15 int nodes x5^15", page)
 
     def test_the_closed_gap_panels(self):
         page = (PAGES / "showcase.html").read_text()
@@ -135,7 +134,9 @@ class TestShowcase(unittest.TestCase):
         self.assertIn('id="fig-8e"', page)
         self.assertIn("eight 45° Euler spans", page)
         self.assertIn('id="fig-8f"', page)
-        self.assertIn("four quartic bicorns", page)
+        self.assertIn("bicorn · one quartic", page)
+        self.assertIn('id="fig-8g"', page)
+        self.assertIn("four bicorns, moved to the origin", page)
 
     def test_clouds_and_drapery(self):
         import sys
@@ -144,13 +145,16 @@ class TestShowcase(unittest.TestCase):
         page = (PAGES / "showcase.html").read_text()
         self.assertEqual(len(C.cloud_panels()), 7)
         self.assertEqual(len(C.drapery_panels()), 6)
-        self.assertIn("Clouds · 7", page)
         self.assertEqual(len(C.combined_panels()), 6)
         self.assertIn("Combined curves · 6", page)
         self.assertEqual(len(C.primal_panels()), 4)
         self.assertIn("Primal · 4", page)
         self.assertEqual(len(C.cubic_c_panels()), 10)
         self.assertIn("The integer C cubics · 10", page)
+        self.assertNotIn("Clouds · 7", page)
+        effects = (PAGES / "showcase-effects.html").read_text()
+        self.assertIn("Cloud effects", effects)
+        self.assertEqual(len(C.cloud_panels()), 7)
         self.assertIn("Drapery · 6", page)
 
     def test_french_curves_and_leaves(self):
@@ -178,11 +182,11 @@ class TestShowcaseNotes(unittest.TestCase):
         page = (PAGES / "showcase.html").read_text()
         notes = (PAGES / "showcase-notes.html").read_text()
         ids = re.findall(r'id="fig-([0-9a-zA-Z]+)"', page)
-        self.assertEqual(len(ids), 399)
+        self.assertEqual(len(ids), 393)
         for key in ids:
             self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
             self.assertIn(f'id="fig-{key}"', notes)
-        self.assertEqual(len(set(ids)), 399)
+        self.assertEqual(len(set(ids)), 393)
         self.assertIn("fig-rays", page)
         self.assertIn('id="fig-rays"', notes)
 

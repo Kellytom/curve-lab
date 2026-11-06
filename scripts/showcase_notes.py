@@ -302,10 +302,18 @@ NOTES = [
         "command": "python scripts/showcase.py",
     },
     {
-        "id": "8f", "fig": "Fig. 8f", "title": "Bicorn flower of four quartics", "kind": "exact rational",
-        "body": ["The bicorn is the rational quartic with two cusps; four copies, each turned 45 degrees, put its cusps at eight equally spaced directions and close a flower.",
-         "The petals are the same curve four times, not four new shapes. The rotation is the composition rule; the cusps are the petal tips."],
-        "numbers": ["4 quartic bicorns", "45° apart", "eight cusps"],
+        "id": "8f", "fig": "Fig. 8f", "title": "Bicorn: one quartic", "kind": "exact rational",
+        "body": ["The bicorn is the rational quartic with two cusps, one at each end of the chord; the two halves meet at the node.",
+         "This is one curve, drawn whole: the missing half was the bug."],
+        "numbers": ["2 cusps", "node at (0, 1/3)", "one closed curve"],
+        "source": "scripts/generators.py NAMED bicorn · scripts/showcase.py",
+        "command": "python scripts/showcase.py",
+    },
+    {
+        "id": "8g", "fig": "Fig. 8g", "title": "Bicorn flower: four quartics", "kind": "exact rational",
+        "body": ["The bicorn is the rational quartic with two cusps. Four copies are moved so the top of each sits at the origin and turned 90 degrees apart, which is a move and a rotation, not a new curve.",
+         "Each copy keeps its node at 1/3 from the top, and the eight cusps land on eight evenly spaced directions. The flower is a composition rule applied to one exact curve."],
+        "numbers": ["4 quartic bicorns", "moved, then 90° apart", "eight cusps"],
         "source": "scripts/generators.py NAMED bicorn · scripts/showcase.py",
         "command": "python scripts/showcase.py",
     },
@@ -828,8 +836,8 @@ a{{color:var(--ink)}}
   single clothoid claiming G2, because one cannot do it. Each absence is a
   result, not an omission.</p>
   <p>Figures are drawn to their own extents; axes and units are inside each
-  panel. Red marks the approximate or the exceptional, blue the exact rail,
-  gold the integer construction.</p>
+  panel. Red marks the integer construction and every lattice hit; blue marks the
+  exact rail; the grid is the field.</p>
   <p class="back"><a href="showcase.html">← back to the showcase</a></p>
 </section>
 </main></body></html>

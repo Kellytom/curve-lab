@@ -74,12 +74,13 @@ def crossings(curves, step: float, limit: int = MAX_MARKS,
     kept for callers that pass a sample tolerance.
     """
     seen, cand = set(), []
+    per_curve = {}
 
     def add(axis, k, x, y, ci):
         key = (ci, axis, k)
         if key not in seen:
             seen.add(key)
-            cand.append((x, y))
+            per_curve.setdefault(ci, []).append((x, y))
 
     for ci, pts in enumerate(curves):
         for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
@@ -97,7 +98,11 @@ def crossings(curves, step: float, limit: int = MAX_MARKS,
                     if 0.0 <= t <= 1.0:
                         add("y", round(g / step), x0 + t * (x1 - x0), g, ci)
                     g += step
-    if len(cand) > limit:
-        stride = len(cand) / limit
-        cand = [cand[int(i * stride)] for i in range(limit)]
+    # take one mark from each curve in turn, so no curve is starved by a
+    # longer neighbour and the marks do not stop at the first one.
+    queues = [list(per_curve.get(ci, [])) for ci in range(len(curves))]
+    while len(cand) < limit and any(queues):
+        for q in queues:
+            if q and len(cand) < limit:
+                cand.append(q.pop(0))
     return cand

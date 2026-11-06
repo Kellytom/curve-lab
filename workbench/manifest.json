@@ -533,6 +533,15 @@
       "outputs": "24 numbered panels and the ray fan"
     },
     {
+      "key": "showcase-effects",
+      "file": "showcase-effects.html",
+      "group": "sheet",
+      "title": "Showcase effects · clouds",
+      "purpose": "The effects layer: the cloud set, and the composite Euler clouds to come.",
+      "inputs": "the cloud panels from showcase_catalogue",
+      "outputs": "seven cloud figures, then the composite-curves section"
+    },
+    {
       "key": "showcase-notes",
       "file": "showcase-notes.html",
       "group": "curve",

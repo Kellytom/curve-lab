@@ -111,6 +111,12 @@ def main() -> int:
             f'<td>{r["mirror_p1"]}</td><td>{r["mirror_p2"]}</td>'
             f'<td>{r["rotation_points"][1]}</td></tr>')
 
+    from curve_lab.pyth_cubic import hit_table
+    hit_rows = "".join(
+        f'<tr><td>{r["scale"]}</td><td>{round(r["scale"] ** (1 / 3))}</td>'
+        f'<td>{r["s_min"]}–{r["s_max"]}</td><td>{r["c_min"]}–{r["c_max"]}</td></tr>'
+        for r in hit_table())
+
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -153,6 +159,20 @@ rotation column is one generator of a group, not a finite list.</p>
 
 <h2>The first six triples, both arm orders</h2>
 <div class="grid">{cards}</div>
+
+<h2>Lattice hits at the key distances</h2>
+<div class="panel">
+<p><strong>The arithmetic.</strong> At t = k/q the cubic's coordinates have
+denominator q³, so the drawing is integer at that fraction only when it is
+scaled by q³. At scale 1 an S cubic is integral at exactly three points:
+t = 0, ½ and 1 — the two ends and (c, 0). The table below is the hit count for
+every S and C curve at each key distance, unique points, t = k/q up to q = 25.
+This is why an unscaled cubic "has no lattice": it has three.</p>
+<table>
+<thead><tr><th>scale (q³)</th><th>q</th><th>S hits</th><th>C hits</th></tr></thead>
+<tbody>{hit_rows}</tbody>
+</table>
+</div>
 
 <h2>The catalogue · {len(rows)} rows</h2>
 <div class="scroll">
