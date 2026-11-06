@@ -175,7 +175,11 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 - [x] **W05 first storey — monstrance:** ground, foot, stem with rails, head,
   host, 24 p-triple rays and a cross; grounded, with its three aspects named.
   `workbench/storey-monstrance.html`, `scripts/storey_monstrance.py`.
-- [ ] W05 remaining seven: pillar, flower, crib, church, ship, crucifix, tree.
+- [x] **W05 storey 02 — pillar:** plinth, torus, entasised shaft (two mirrored
+  cubics with integer controls), capital and the axis drawn as a ray; grounded,
+  three aspects named. `workbench/storey-pillar.html`,
+  `scripts/storey_pillar.py`.
+- [ ] W05 remaining six: flower, crib, church, ship, crucifix, tree.
 
 
 - [x] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches. `workbench/fleur-proof.html`, `scripts/fleur_proof.py`, `tests/test_fleur_proof.py`.

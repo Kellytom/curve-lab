@@ -281,6 +281,15 @@
       "outputs": "one grounded vessel with 24 rays and its three aspects"
     },
     {
+      "key": "storey-pillar",
+      "file": "storey-pillar.html",
+      "group": "sheet",
+      "title": "Storey 02 · Pillar",
+      "purpose": "The second W05 storey: plinth, torus, entasised shaft, capital, axis.",
+      "inputs": "the part vocabulary and one mirrored integer cubic profile",
+      "outputs": "one grounded column with its entasis measured and its three aspects"
+    },
+    {
       "key": "grid-explained",
       "file": "grid-explained.html",
       "group": "curve",

@@ -554,6 +554,22 @@ def c_monstrance():
     return ok, f"{d['rays']} rays, head R {d['head_radius']:g}, grounded"
 
 
+@check("the pillar is grounded, entasised and names its three aspects",
+       "scripts/storey_pillar.py; workbench/storey-pillar.html",
+       "python -m unittest tests.test_storey_pillar")
+def c_pillar():
+    import storey_pillar as S
+    d = S.storey_data()
+    page = (ROOT / "workbench" / "storey-pillar.html").read_text()
+    ok = (d["height"] == 100.0 and d["plinth_half"] == 24.0
+          and d["waist_half"] > d["shaft_bottom_half"] > d["shaft_top_half"]
+          and all(w in page for w in ("Linearity", "Curve", "Infinity",
+                                      "Grounded"))
+          and "baseline at y = 0" in page and "axis at x = 0" in page)
+    return ok, (f"waist {d['waist_half']:.2f} at y {d['waist_y']:.0f}, "
+                f"height {d['height']:g}, grounded")
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [
