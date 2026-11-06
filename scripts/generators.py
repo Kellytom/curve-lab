@@ -24,6 +24,7 @@ coefficients, integer control points, integer milestones at t = k/M.
 from __future__ import annotations
 
 import math
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 import sys
 from fractions import Fraction as F
 from math import comb, gcd, lcm
@@ -794,16 +795,8 @@ def named_figure(item, w=430.0, h=300.0):
         # +y up in the model, y-down in SVG: the one flip
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
-    lines = []
-    for g in range(1, 4):
-        gx = x0 + (x1 - x0) * g / 4
-        a, b = put((gx, y0)), put((gx, y1))
-        lines.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" '
-                     f'x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}"/>')
-        gy = y0 + (y1 - y0) * g / 4
-        a, b = put((x0, gy)), put((x1, gy))
-        lines.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" '
-                     f'x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{GRID}"/>')
+    step = nice_step(max(x1 - x0, y1 - y0))
+    lines = grid_lines(put, x0, x1, y0, y1, step, GRID)
 
     paths = "".join(
         '<path d="' + "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
@@ -813,6 +806,11 @@ def named_figure(item, w=430.0, h=300.0):
     dots = "".join(
         f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="3.7" '
         f'fill="{DOT}" stroke="#fffdf7" stroke-width="1.2"/>' for p in marks)
+    if not marks:
+        dots = "".join(
+            f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
+            f'cy="{put(p)[1]:.1f}" r="2.4" fill="{DOT}"/>'
+            for p in crossings(curves, step, limit=16))
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7"
           stroke="{LINE}"/>

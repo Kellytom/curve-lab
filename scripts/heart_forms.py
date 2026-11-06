@@ -19,6 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 import generators as G  # noqa: E402
 
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
@@ -213,7 +214,12 @@ def figure(branches, w=300.0, h=300.0):
         # +y up in the model, y-down in SVG: the one flip
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
-    body = "".join(
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body = "".join(grid_lines(put, x0, x1, y0, y1, step, "#ece4cf"))
+    body += "".join(
+        f'<circle class="lattice" cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" '
+        f'r="2.0" fill="#c9a441"/>' for p in crossings(branches, step))
+    body += "".join(
         '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
                                    for p in br) +
         f'" fill="none" stroke="{INK}" stroke-width="2.2" '

@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 import generators as G  # noqa: E402
 
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
@@ -260,6 +261,12 @@ def figure(item, w=430.0, h=300.0, dot=2.4):
     def put(p):
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
+    step = nice_step(max(x1 - x0, y1 - y0))
+    grid = "".join(grid_lines(put, x0, x1, y0, y1, step, "#ece4cf"))
+    marks = "".join(
+        f'<circle class="lattice" cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" '
+        f'r="2.0" fill="{GOLD}"/>'
+        for p in crossings([b["pts"] for b in item["branches"]], step))
     curve = "".join(
         '<path d="' + "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
                                         for p in b["pts"]) +
@@ -275,7 +282,7 @@ def figure(item, w=430.0, h=300.0, dot=2.4):
         for b in item["branches"] for p in b["poly"])
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7" stroke="{LINE}"/>
-    {curve}{chain}{nodes}
+    {grid}{curve}{chain}{marks}{nodes}
   </svg>"""
 
 

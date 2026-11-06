@@ -1158,6 +1158,11 @@ the geometry, each with its counts recomputed in the generator:
 - **W05 storey 01, the monstrance** (`workbench/storey-monstrance.html`):
   baseline, foot, stem with rails, head, host, 24 p-triple rays, cross; grounded
   and naming its three aspects.
+- **W05 storey 02, the pillar** (`workbench/storey-pillar.html`): plinth,
+  torus, entasised shaft from two mirrored integer-controlled cubics (waist
+  16.39 at y = 27.4 on a 15 → 9 taper), capital and an axis drawn as a ray.
+  Width comes from the profile, so no parallel offset is claimed. **387 tests,
+  1 skipped; recheck 34/34.**
 - `c = 1000` = 158 primitive triples / 316 arm pairs. c = 500 gives 160 S
   curves and keeps the interior range within 1°; c = 200 gives 64.
 - **382 tests, 1 skipped; recheck 33/33.** Context hit the 70% warning after
@@ -1166,18 +1171,18 @@ the geometry, each with its counts recomputed in the generator:
 
 ## Current truth — 2026-11-05
 
-- **Previous action landed:** the 3-4-5 showcase panel is present (`fig-19a`)
-  and `showcase.html` is newer than the handoff that asked for it.
-- **Local:** 200 on `:8003` (checked). **Remote:** no `.run.app` URL is
+- **Previous action landed:** W05 storey 02, the pillar
+  (`workbench/storey-pillar.html`); `next-fhandoff-int.md` asked for it and it
+  is on disk and grounded.
+- **Local:** 200 on `:8003` (checked, including `/workbench/storey-pillar.html`). **Remote:** no `.run.app` URL is
   recorded; status unknown (carried 2026-11-05).
-- **Tests:** 382, 1 skipped (carried 2026-11-05; nothing under `web/`,
-  `curve_lab/`, `csrc/` or `tests/` differs from `19c519b`). **recheck 33/33**
-  (carried, same commit).
+- **Tests:** 387, 1 skipped. **recheck 34/34.**
 - **Git:** clean at `19c519b` except this handoff. Showcase **1010 panels /
   345 rows**, 4.9 MB.
 - **Risks:** the page is large; `c = 1000` is still the default pending a total;
   the last block ended at the 70% context warning.
-- **Next move:** W05 storey 02, the pillar.
+- **Next move:** none set — the pillar landed; `/fhandoff` chooses the next
+  storey (flower is the next in the W05 list).
 - **Tried and rejected:** spending the hour at 70% context — it crosses the 85%
   stop, so the block was committed and stopped. (2026-11-05)
 - **Context:** 72.5%, 183 active min, 502 turns, WARN; clock **16.99 min**,

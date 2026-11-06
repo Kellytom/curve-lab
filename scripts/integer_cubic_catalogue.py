@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 from curve_lab.pyth_cubic import catalogue, catalogue_c  # noqa: E402
 from curve_lab.pyth_triples import base_triples  # noqa: E402
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 
 INK, BLUE, RED, GOLD = "#2e2413", "#1f5fa8", "#a23b2a", "#c9a441"
 MUTED, PAPER, GRID = "#7b6c4e", "#fffdf7", "#e4dcc6"
@@ -53,6 +54,8 @@ def card(row, title) -> str:
         return pad + (p[0] - x0) * k, h - 2 * pad - (p[1] - y0) * k
 
     body = [f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>']
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body += grid_lines(put, x0, x1, y0, y1, step, "#efe7d2")
     poly = " ".join(f"{put(p)[0]:.1f},{put(p)[1]:.1f}" for p in ctrl)
     body.append(f'<polyline points="{poly}" fill="none" stroke="{MUTED}" '
                 f'stroke-width="1" stroke-dasharray="4 3"/>')
@@ -61,6 +64,10 @@ def card(row, title) -> str:
     for p in ctrl:
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.8" fill="{GOLD}"/>')
+    for p in crossings([pts], step, limit=16):
+        q = put(p)
+        body.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
+                    f'r="2.0" fill="{GOLD}"/>')
     body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" '
                 f'fill="{INK}">{title}</text>')
     body.append(f'<text x="10" y="{h-8}" font-family="ui-monospace,Menlo,monospace" '
