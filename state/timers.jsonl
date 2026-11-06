@@ -8,3 +8,5 @@
 {"event":"stop","label":"full showcase catalogue","minutes":11.92,"floor":20,"cap":60,"start":"2026-11-06T01:00:51.886Z","at":"2026-11-06T01:12:47.228Z","reason":"stop"}
 {"event":"start","id":"55644-1793928299740","label":"cubics sorted + stem library","floor":20,"cap":60,"start":"2026-11-06T01:24:59.740Z","at":"2026-11-06T01:24:59.740Z"}
 {"event":"stop","label":"cubics sorted + stem library","minutes":19.17,"floor":20,"cap":60,"start":"2026-11-06T01:24:59.740Z","at":"2026-11-06T01:44:09.910Z","reason":"stop"}
+{"event":"start","id":"57425-1793930429363","label":"clouds drapery and beyond","floor":20,"cap":60,"start":"2026-11-06T02:00:29.363Z","at":"2026-11-06T02:00:29.363Z"}
+{"event":"stop","label":"clouds drapery and beyond","minutes":16.99,"floor":20,"cap":60,"start":"2026-11-06T02:00:29.363Z","at":"2026-11-06T02:17:28.952Z","reason":"stop"}
