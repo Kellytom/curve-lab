@@ -968,3 +968,218 @@ labelled "bean" while the exact bean sat in `generators.NAMED`; replaced by
 table-driven rendering and a failing check. A 90-minute session timer — the
 store shows long sessions with the *lowest* error rate (0.12 vs 0.47 per 100
 turns), so duration is reported, not judged. (2026-11-05)
+
+## 2026-11-05 — the 3-4-5 exact spine on the showcase
+
+- `workbench/showcase.html` has family **20 · 3-4-5 exact spine** (ids
+  `fig-19a`–`19c`, because the page's renumbering runs after the build):
+  19a the 10-chord chain with all 11 integer nodes marked and
+  `1+2+3+4+5-5-4-3-2-1 = 0` printed; 19b the cumulative turn plot returning
+  to 0 and exiting east; 19c the rational rotation `(4x-3y, 3x+4y)/5`.
+- The chain is built from `pythagorean-spiral/` itself (`spiral.load()` →
+  `Spiral(Triple(3,4,5), 1)`), not re-derived in the script. Closure asserts
+  `coeff == 0` and an axis-aligned heading; `integer_form()` gives the 11
+  integer nodes at ×5¹⁵ = 30,517,578,125. The scale is a choice, not a
+  property — node denominators are powers of the hypotenuse (AUDIT §2).
+- Guards: `tests/test_exploration_pages.py::test_the_345_spiral_panel` plus
+  updated row/id counts (19 rows, 1 four-row, 61 figure ids). `recheck`
+  still **21/21**. Full suite: **1 pre-existing failure**, unrelated to this
+  action — `tests/test_plant_forms.py::test_page_has_the_proof` expects 6
+  `<svg>` in `workbench/plant-forms.html`; HEAD already has 7.
+- Screenshot for the operator (not read by the model):
+  `/tmp/curve-lab-345-spiral.png` (1120×900 viewport).
+- Reading-list gap found and fixed in `state/READING-int.md`: the showcase
+  generator/notes/test and the `pythagorean-spiral` package modules were not
+  named. Next session should load them from the new Tier 2 row rather than
+  search.
+
+## 2026-11-05 — the four graded gaps are closed
+
+- `workbench/showcase.html` now draws all four: the 3-4-5 exact spine
+  (family 20), the **seagrass ending** (8d, `plant.seagrass`), the
+  **modulated-width study** (4d, rails from `scripts/modulated_width.py`) and
+  the **hyperbola** (9d, two branches plus asymptotes). Families 4, 8 and 9
+  became four-across rows.
+- The pre-existing `test_plant_forms` failure is fixed: the page has one
+  full-width proof figure plus six cards, so the guard now counts 7, not 6.
+  **Full suite green: 336 tests, 1 skipped.**
+- `scripts/check-web.mjs` was tried and is not usable in this session: it
+  expects the docs on :8002 and the app on :8000, both down; it is about the
+  pythagorean-spiral docs pages, not the workbench.
+- Commits: `560f67b` (gaps), `67c5879` (tidy guard), admin follows.
+- **Next:** the first ornament proof from `goals.md` — one fleur using the
+  plant-form grammar. `TODO.md` says so; `/fhandoff` should carry it.
+
+## 2026-11-05 — catalogue completion after the gaps
+
+Three more families, so the layers that finish a stroke and the rest of the
+named table are drawn rather than only described:
+
+- **21 · Terminals** — caps (butt, point, arc, round), tapers (taper, bulb,
+  cone) built by `curve_lab/terminals.terminal_spans`, and a plot of
+  `terminal_extension` in half-widths.
+- **22 · Fitted parallels** — Levien's `fit_chain` on one cubic: fitted vs
+  dense exact offset with the max error printed (1.8e-3 at tol 5e-3), a large
+  offset with its cusp interval flagged, and error against tolerance. Always
+  labelled fitted, never exact.
+- **23 · The rest of the named table** — Tschirnhausen, bicorn and the nodal
+  cubic, sampled from `generators.NAMED` via `homog_point`, not redrawn from
+  memory.
+- Page text now says panels run `a–d`. `todo.html` carries its hub bar.
+- **Full suite green: 337 tests, 1 skipped. `recheck` 21/21.** Commits
+  `dd3e84a`, `ad92e43`; admin follows.
+
+## 2026-11-05 — the session clock is back
+
+The operator restored the wall-clock timer that had been rejected as a session
+limit. It is now a reporting device and a budget, not an error-rate argument:
+
+- `scripts/timer.js` and `scripts/notify.js` copied from `ornaments/`; the
+  `.timer.json` marker was already gitignored here. Start with
+  `node scripts/timer.js 20m 60m "<label>"` in the background; `--check`
+  reports elapsed/floor/cap; `--stop` clears it.
+- Wired into `/focus` (global `~/.config/opencode/commands/focus.md`),
+  `/fhandon` (step 0) and `/fhandoff` (report elapsed, then stop), and into
+  `AGENTS.md` as a session-clock rule. `/fhandoff` now carries the wall clock
+  beside the `ctx.py` numbers because they measure different things.
+- Proved with a real start/check/stop (`0m elapsed`, marker cleared). No test
+  suite entry: the tool is Node, guarded by the commands rather than unittest.
+- **Stats:** start, floor, cap and stop now append JSON lines to
+  `state/timers.jsonl` (override with `CURVE_LAB_TIMER_LOG` for scratch runs).
+  `--tally` prints the last ten sessions and median/mean/total elapsed. The
+  file is created empty here; the first real `/focus` or `/fhandon` writes the
+  first record. `/fhandoff` runs check → stop → tally, pastes both numbers into
+  the block, and commits the stats with the handoff.
+
+## 2026-11-05 — the ornament proof track opened
+
+The three named proofs in `TODO.md` are built, each from the module that owns
+the geometry, each with its counts recomputed in the generator:
+
+- **Fleur proof 01** (`workbench/fleur-proof.html`, `scripts/fleur_proof.py`):
+  the grammar's 26 spans, rails at ±12.5, cone terminal R = 25 at the lance
+  tip, a real branch off the band node with a seagrass ending, 16 integer
+  nodes and two pyramid pairs.
+- **Volute proof 01** (`workbench/volute-proof.html`): 33 chords on
+  79-3120-3121, exact rational nodes, peak 765.8°, numeric rails at ±0.26 and
+  a cone R = 0.52; seagrass branch off node 12.
+- **Cruciform proof 01** (`workbench/cruciform-proof.html`): two `Junction`s
+  (G1, r = 0.6, arc 0.9425, curvature step 1.667), two declared merges, seven
+  `Section` stations, four cone terminals.
+- **Ending fit pass** (`workbench/ending-fit.html`): all ten C sections from
+  `euler_sections.SECTIONS` attached at 6 × offset; every one clears the rails
+  by about the offset (min 0.50) and crosses only at the declared tip. The
+  ending grades stand; no promotion.
+- Guards: `tests/test_fleur_proof.py`, `test_volute_proof.py`,
+  `test_cruciform_proof.py`, `test_ending_fit.py`; `scripts/check-proofs.mjs`
+  is a Playwright layout gate for the four pages (4 × 3 viewports). `recheck`
+  is now **25/25**. Full suite **349 tests, 1 skipped**.
+- TODO review after the first proof: **no grade change**; the proofs exercise
+  the ending/junction rules and do not add offset-table rows.
+- Still open: the integer-lattice rule (grid-line crossings vs full integer
+  points) and the modulated-width proof. Both are operator decisions/targets,
+  not silently settled here.
+
+## 2026-11-05 — the width track's proof, and the proof gate
+
+- **Modulated width proof** (`workbench/modulated-width-proof.html`): the law
+  w(u) = w0(1+64a u³(1−u)³) at a = 0.6, measured against a constant 2 × band.
+  Ratio 1.600, seams exactly w0 at both ends, rail separation matches the law
+  to 8.9e-16, 0.300 half-width deviation from the constant band, no rail
+  self-intersection. This closes the Stage IV TODO item as a measurement, not
+  a promotion.
+- `scripts/check-proofs.mjs` is the layout gate for the five proof pages at
+  1000/390/320 px; 15/15 pass. `recheck` **26/26**. Full suite **352 tests,
+  1 skipped**.
+- The clock is now also logging: `state/timers.jsonl` has the start/stop for
+  this block, so the next `/fhandoff` can report wall time from data rather
+  than memory. The 90-minute cap is still rejected; the clock is a budget, not
+  an error-rate claim.
+
+## 2026-11-05 — the grid page, and the grounding rule
+
+- **`workbench/grid-explained.html`**: position and heading at every node are
+  exact; the fraction is a **ruler** (52/25 = 52 ticks of a 1/25 ruler), not a
+  drawing size; 1×62 and 2×31 sweep the same 90° with the same exact ruler; the
+  grid is the **box**, not the path — a 270° chain is 79 × 79 with a 186-chord
+  path, and the box stops growing after the vertical (90°) and horizontal
+  (180°) turning points. 360° keeps the same box.
+- The nuance: for a constant-radius circle the box is the **diameter** (the
+  far side is −R); for an inward spiral the first turning points bound it; for
+  an outward spiral the last turn sets it. "After vertical it curls in" is the
+  inward case.
+- **Grounding rule** added beside the three aspects: every design names a
+  horizontal datum and a vertical element, visible or declared. Pages and
+  recheck updated (32/32); the fleur, volute and cruciform state both.
+- Full suite **369 tests, 1 skipped** at the last run; gate 21/21; recheck
+  **32/32**.
+
+## 2026-11-05 — the showcase is the catalogue
+
+- `workbench/showcase.html` is now **476 panels in 165 rows of three**, with
+  no four-across row. Seven table-driven families were added:
+  25 named (`generators.NAMED`), 15 hearts (`heart_forms.FORMS`), 4 presets
+  (`presets.PRESETS`), 4 conics, 10 Euler sections (`euler_sections.SECTIONS`),
+  31 LAC spines (`workbench/spirals/lac.json`) and 316 integer cubics
+  (`pyth_cubic.catalogue`).
+- Every panel comes from its table; `scripts/showcase_catalogue.py` is the
+  single list, and `showcase_notes.py` generates one note per panel from it.
+- The duplicate hand-built named families were removed; the curated concept
+  families remain. Tests require all 25 named `data-curve` keys and 476 unique
+  ids; full suite **373 tests, 1 skipped**; recheck **32/32**.
+- Page size 1.6 MB; the remaining large source is `stem-library` (177), not on
+  the page.
+
+## 2026-11-05 — flowers, French curves, leaves, C cubics
+
+- Flowers family: **8e squircle of eight Euler spans** (45° each, fitted through
+  endpoints and tangents) and **8f bicorn flower** (four quartic bicorns, 45°
+  apart, eight cusps).
+- New families: **French curves · 8** (three Euler spans each, curvature
+  declared at the joins) and **Leaves · 8** (one section mirrored across its
+  chord; the Euler span solved through two tangents is one of them).
+- Integer **C** cubics: `case_c`/`catalogue_c` (P1=(a,b), P2=(2c−a,b)) — 316
+  rows on `workbench/integer-cubic-catalogue.html`, separate from the S family.
+- Showcase now **671 panels / 230 rows of three**. Cubic order is by
+  control-polygon interior angle, shallow (88.7°) to sharp (46.3°).
+- `c = 1000` is the hypotenuse limit: 158 primitive triples → 316 arm pairs.
+  At c = 500: 80 triples / 160 curves, interior 46.8–88.2° (loses under 1°);
+  at c = 200: 32 / 64, 48.0–87.0°.
+- Full suite **378 tests, 1 skipped**; recheck **32/32**.
+
+## 2026-11-05 — catalogue breadth, and the first W05 storey
+
+- Showcase now **1010 panels / 345 rows of three**: added the whole 306-billow
+  cloud and its six layers, the five drapery ribbons, the combined gallery
+  (catenary, volute, violin, acanthus, fleur), the four primal grammars, and
+  the 316 integer **C** cubics (by height) alongside the 316 S cubics.
+- Flowers: 8e eight-Euler squircle, 8f four-bicorn flower.  French curves (8),
+  leaves (8), stems (177).
+- **W05 storey 01, the monstrance** (`workbench/storey-monstrance.html`):
+  baseline, foot, stem with rails, head, host, 24 p-triple rays, cross; grounded
+  and naming its three aspects.
+- `c = 1000` = 158 primitive triples / 316 arm pairs. c = 500 gives 160 S
+  curves and keeps the interior range within 1°; c = 200 gives 64.
+- **382 tests, 1 skipped; recheck 33/33.** Context hit the 70% warning after
+  this block (71.7%), so the hour was not filled: the next block should start
+  from a fresh session.
+
+## Current truth — 2026-11-05
+
+- **Previous action landed:** the 3-4-5 showcase panel is present (`fig-19a`)
+  and `showcase.html` is newer than the handoff that asked for it.
+- **Local:** 200 on `:8003` (checked). **Remote:** no `.run.app` URL is
+  recorded; status unknown (carried 2026-11-05).
+- **Tests:** 382, 1 skipped (carried 2026-11-05; nothing under `web/`,
+  `curve_lab/`, `csrc/` or `tests/` differs from `19c519b`). **recheck 33/33**
+  (carried, same commit).
+- **Git:** clean at `19c519b` except this handoff. Showcase **1010 panels /
+  345 rows**, 4.9 MB.
+- **Risks:** the page is large; `c = 1000` is still the default pending a total;
+  the last block ended at the 70% context warning.
+- **Next move:** W05 storey 02, the pillar.
+- **Tried and rejected:** spending the hour at 70% context — it crosses the 85%
+  stop, so the block was committed and stopped. (2026-11-05)
+- **Context:** 72.5%, 183 active min, 502 turns, WARN; clock **16.99 min**,
+  median 17.5, mean 23.6, total **118.2 min** over 5 records.
+
