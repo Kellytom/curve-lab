@@ -50,5 +50,31 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertEqual(page.count('<figure class="card">'), 12)
 
 
+class ShowcaseOrderTest(unittest.TestCase):
+    def test_the_cubics_run_shallow_to_sharp(self):
+        import sys
+        sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "scripts"))
+        import showcase_catalogue as C
+        rows = C.cubic_rows()
+        self.assertEqual(len(rows), 316)
+        turns = [C._cubic_turn(r) for r in rows]
+        self.assertEqual(turns, sorted(turns))
+        self.assertAlmostEqual(turns[0], 91.3322, 3)
+        self.assertAlmostEqual(turns[-1], 133.6678, 3)
+        self.assertAlmostEqual(180.0 - turns[0], 88.6678, 3)
+
+    def test_the_stem_library_is_on_the_page(self):
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+        import showcase_catalogue as C
+        self.assertEqual(len(C.stem_panels()), 177)
+        page = (Path(__file__).resolve().parents[1] / "workbench" /
+                "showcase.html").read_text(encoding="utf-8")
+        self.assertIn("The stem library · 177", page)
+        self.assertIn("S01 ·", page)
+        self.assertIn("SM1 ·", page)
+
+
 if __name__ == "__main__":
     unittest.main()

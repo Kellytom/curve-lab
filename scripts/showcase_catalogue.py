@@ -170,17 +170,52 @@ def lac_panels():
     return out
 
 
+def _cubic_turn(row):
+    """Turn of the control polygon at P1 (= at P2), in degrees."""
+    a, b, c = row["a"], row["b"], row["c"]
+    v0 = (a, -b)
+    v1 = (c - a, b)
+    dot = v0[0] * v1[0] + v0[1] * v1[1]
+    return math.degrees(math.acos(max(-1.0, min(1.0,
+        dot / (math.hypot(*v0) * math.hypot(*v1))))))
+
+
+def cubic_rows():
+    """The catalogue ordered shallow to sharp by control-polygon turn."""
+    return sorted(cubic_catalogue(1000), key=_cubic_turn)
+
+
 def cubic_panels():
     out = []
-    for row in cubic_catalogue(1000):
+    for row in cubic_rows():
         curve = _cubic_bezier(row)
         poly = [row["p0"], row["p1"], row["p2"], row["p3"]]
         out.append(_entry(
             len(out) + 1, f"{row['label']} · {row['order']}",
             [(poly, MUTED, 0.9, "4 3"), (curve, INK, 1.6, None)],
-            f"chord {row['chord']} · arms ({row['a']}, {row['b']})",
+            f"chord {row['chord']} · arms ({row['a']}, {row['b']}) · "
+            f"interior {180.0 - _cubic_turn(row):.1f}°",
             "curve_lab/pyth_cubic.py catalogue",
             dots=[(p, GOLD) for p in poly]))
+    return out
+
+
+def stem_panels():
+    import stem_library as SL
+    SL.build()
+    out = []
+    idx = sm = 0
+    for card in SL.CARDS:
+        idx += 1
+        if card["group"].startswith("Plants"):
+            sm += 1
+            label = f"SM{sm}"
+        else:
+            label = f"S{idx:02d}"
+        out.append(_entry(
+            len(out) + 1, f"{label} · {card['name']}",
+            [(p, INK, 1.4, None) for p in card["branches"]],
+            card["note"][:54], "scripts/stem_library.py CARDS"))
     return out
 
 
@@ -191,8 +226,11 @@ FAMILIES = [
     ("conics", "The conics · 4", "circle, ellipse, parabola, hyperbola", conic_panels()),
     ("euler", "The Euler sections · 10", "the C-curve table, one section each", euler_panels()),
     ("lac", "The LAC spines · 31", "every recovered spine in lac.json", lac_panels()),
-    ("cubics", "The integer cubics · 316", "every ordered arm pair to c=1000",
+    ("cubics", "The integer cubics · 316",
+     "every ordered arm pair, shallow to sharp by control-polygon interior angle",
      cubic_panels()),
+    ("stems", "The stem library · 177", "every card in the stem catalogue",
+     stem_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]
