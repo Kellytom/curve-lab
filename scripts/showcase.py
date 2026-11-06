@@ -978,7 +978,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {ray_html}
 
 
-<div class="fam"><h2>Not on this page</h2><p>deliberate absences</p></div>
+<div class="fam"><h2>Not on this showcase</h2><p>deliberate absences</p></div>
 <p class="note">No constant-width stem, because no exact one exists here; no parallel parabola, because the parallels are involutes of the evolute and belong to another family; no squircle offsets, because the curve is not rational; no single clothoid claiming G2, because one cannot do it. Each absence is a result, not an omission.</p>
 
 <p class="note">Figures are drawn to their own extents; axes and units are inside each panel. Red marks the approximate or the exceptional, blue the exact rail, gold the integer construction.</p>
