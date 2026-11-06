@@ -48,6 +48,32 @@ the cubics sit within about 1.4% of the ideal curvature law (rms 0.8%), which is
 the chain's own resolution.
 Do not describe the drawn result as exact geometry.
 
+## 2b. What "a large grid" means — three different numbers
+
+Reports sometimes say a p-triple chain "needs a very large grid" without
+saying which grid. Three quantities are involved, and only one of them is
+large.
+
+1. **Drawing extent** — the chain's size in chord lengths. A 90° sweep on
+   79-3120-3121 (alpha 1.4504°) takes 62 turns and is 55.8 chords long. Group
+   the turns two at a time and it is 31 steps and 27.9 chords: the same arc,
+   fewer steps.
+2. **Exact integer denominator** — every triangle turn divides by c, so n
+   turns give a denominator c^n. For 62 turns of 3121 that is
+   3121^62 ≈ 10^216.6 (217 digits). At unit spacing the coordinates then span
+   about 10^218 cells. This is the genuinely large grid, and it grows with the
+   *number of turns* (90°/alpha), not with how the turns are grouped.
+3. **Placement grid** — the lattice a drawing is snapped to (the 3125 grid).
+   Snapping the same 62-turn chain to 1/3125 leaves a worst error of 2.1e-4 of
+   a chord. The drawing is 55.8 chords and the grid is 3125; neither is large.
+
+So "needs a very large grid" is accurate only for (2), the exact integer
+denominator at unit spacing. It is misleading for (1) and (3): the chain is a
+short drawing with a fine exact scale, and 217-digit integers are a
+representation cost, not a drawing size. The clothoid case is the expensive
+one: turns 0..n-1 grow, so the denominator is c^(n(n+1)/2), not c^n. A
+constant-turn chain is a circular arc, not an LAC, however it is grouped.
+
 ## 3. The words
 
 | Word | Means |
