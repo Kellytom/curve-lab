@@ -134,3 +134,64 @@ def catalogue_c(c_max: int = 1000) -> list[dict]:
                         "order": "ab" if (a, b) == (a0, b0) else "ba"})
             rows.append(row)
     return rows
+
+
+def interior_angle(row: dict) -> float:
+    """The control-polygon interior angle at P1, in degrees.
+
+    With equal arms c and chord 2c the angle depends only on a/c, and the
+    cosine is exact: cos θ = √((c − a) / 2c). It is the S family's one shape
+    parameter; the C family's is height/chord.
+    """
+    return math.degrees(math.acos(math.sqrt((row["c"] - row["a"])
+                                           / (2.0 * row["c"]))))
+
+
+def _smallest(rows: list[dict]) -> dict:
+    return min(rows, key=lambda r: (r["c"], r["a"], r["b"]))
+
+
+def representatives(width_deg: float = 4.3495, height_step: float = 0.05,
+                    c_max: int = 3125) -> dict:
+    """One curve per bin of each shape range — the smallest c in the bin.
+
+    The 316 S curves at c ≤ 1000 are not 316 shapes: arms equal and chord 2c
+    leave one degree of freedom, the interior angle at P1 (46.3°–88.7°). The C
+    curves are the same story with height/chord (0.023–0.499). This samples the
+    two ranges instead of keeping every triple: 11 S, 10 C.
+
+    Bins divide the observed range into ⌈span / width⌉ equal parts, so no bin
+    is wider than `width_deg` (S) or `height_step` (C) and the whole range is
+    covered. The full catalogue stays the table of record.
+    """
+    s_rows = catalogue(c_max)
+    c_rows = catalogue_c(c_max)
+    s_vals = [interior_angle(r) for r in s_rows]
+    c_vals = [r["height"] / r["chord"] for r in c_rows]
+
+    def ladder(vals, rows, width):
+        lo, hi = min(vals), max(vals)
+        n = max(1, math.ceil((hi - lo) / width))
+        step = (hi - lo) / n
+        bins = {}
+        for v, row in zip(vals, rows):
+            bins.setdefault(min(n - 1, int((v - lo) / step)), []).append(row)
+        keys = sorted(bins)
+        return {
+            "rows": [_smallest(bins[k]) for k in keys],
+            "bins": [(lo + k * step, lo + (k + 1) * step) for k in keys],
+            "step": step, "range": (lo, hi), "n": n,
+        }
+
+    s = ladder(s_vals, s_rows, width_deg)
+    c = ladder(c_vals, c_rows, height_step)
+    return {
+        "c_max": c_max,
+        "width_deg": width_deg,
+        "height_step": height_step,
+        "s": s["rows"], "c": c["rows"],
+        "s_bins": s["bins"], "c_bins": c["bins"],
+        "s_step": s["step"], "c_step": c["step"],
+        "s_range": s["range"], "c_range": c["range"],
+        "counts": (len(s_rows), len(c_rows)),
+    }

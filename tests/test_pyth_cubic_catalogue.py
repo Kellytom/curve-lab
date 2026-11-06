@@ -3,7 +3,8 @@
 import unittest
 from pathlib import Path
 
-from curve_lab.pyth_cubic import catalogue, catalogue_c, case, checks
+from curve_lab.pyth_cubic import (catalogue, catalogue_c, case, checks,
+                                  interior_angle, representatives)
 from curve_lab.pyth_triples import base_triples
 
 
@@ -62,18 +63,54 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertEqual(page.count('<figure class="card">'), 24)
 
 
+    def test_the_ladder_is_eleven_s_and_ten_c(self):
+        reps = representatives()
+        self.assertEqual(len(reps["s"]), 11)
+        self.assertEqual(len(reps["c"]), 10)
+        for rows, bins, val in (
+                (reps["s"], reps["s_bins"], interior_angle),
+                (reps["c"], reps["c_bins"],
+                 lambda r: r["height"] / r["chord"])):
+            for row, (lo, hi) in zip(rows, bins):
+                self.assertGreaterEqual(val(row), lo)
+                self.assertLessEqual(val(row), hi)
+            self.assertEqual([lo for lo, _ in bins], sorted(lo for lo, _ in bins))
+
+    def test_each_representative_is_the_smallest_c_in_its_bin(self):
+        reps = representatives()
+        families = (
+            (reps["s"], reps["s_bins"], catalogue(reps["c_max"]),
+             interior_angle),
+            (reps["c"], reps["c_bins"], catalogue_c(reps["c_max"]),
+             lambda r: r["height"] / r["chord"]),
+        )
+        for rows, bins, pool, val in families:
+            for row, (lo, hi) in zip(rows, bins):
+                inside = [r for r in pool if lo <= val(r) <= hi]
+                self.assertTrue(inside)
+                self.assertEqual(min(r["c"] for r in inside), row["c"])
+                self.assertIn(row, inside)
+
+    def test_the_showcase_is_the_ladder(self):
+        page = (Path(__file__).resolve().parents[1] / "workbench" /
+                "showcase.html").read_text(encoding="utf-8")
+        self.assertIn("The integer cubics · 11", page)
+        self.assertIn("The integer C cubics · 10", page)
+        self.assertNotIn("The integer cubics · 316", page)
+        self.assertEqual(page.count('class="fig"'), 399)
+
+
 class ShowcaseOrderTest(unittest.TestCase):
     def test_the_cubics_run_shallow_to_sharp(self):
         import sys
         sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[1] / "scripts"))
         import showcase_catalogue as C
         rows = C.cubic_rows()
-        self.assertEqual(len(rows), 316)
+        self.assertEqual(len(rows), 11)
         turns = [C._cubic_turn(r) for r in rows]
         self.assertEqual(turns, sorted(turns))
-        self.assertAlmostEqual(turns[0], 91.3322, 3)
-        self.assertAlmostEqual(turns[-1], 133.6678, 3)
-        self.assertAlmostEqual(180.0 - turns[0], 88.6678, 3)
+        self.assertAlmostEqual(180.0 - turns[0], 85.601, 3)
+        self.assertAlmostEqual(180.0 - turns[-1], 49.399, 3)
 
     def test_the_stem_library_is_on_the_page(self):
         import sys

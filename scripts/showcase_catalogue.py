@@ -8,7 +8,7 @@ Every panel here comes from a table, never from a remembered shape:
 - conics                        4 curves
 - `euler_sections.SECTIONS`    10 C-curve sections
 - `workbench/spirals/lac.json` 31 recovered LAC spines
-- `pyth_cubic.catalogue`      316 integer cubics (arm pairs)
+- `pyth_cubic.representatives`  11 S + 10 C integer cubics, one per bin
 
 The showcase renders these in rows of three; the notes page reads the same
 list, so the figures and their notes cannot disagree.
@@ -31,8 +31,9 @@ import generators as G  # noqa: E402
 import heart_forms as H  # noqa: E402
 from curve_lab import engine  # noqa: E402
 from curve_lab import presets  # noqa: E402
-from curve_lab.pyth_cubic import catalogue as cubic_catalogue  # noqa: E402
-from curve_lab.pyth_cubic import catalogue_c  # noqa: E402
+from curve_lab.pyth_cubic import representatives  # noqa: E402
+
+_REPS = None
 from curve_morphs import french_panels, leaf_panels  # noqa: E402
 
 INK, MUTED, GOLD, BLUE = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8"
@@ -182,9 +183,17 @@ def _cubic_turn(row):
         dot / (math.hypot(*v0) * math.hypot(*v1))))))
 
 
+def _cubic_reps():
+    """One sampling of each integer-cubic shape family, cached."""
+    global _REPS
+    if _REPS is None:
+        _REPS = representatives()
+    return _REPS
+
+
 def cubic_rows():
-    """The catalogue ordered shallow to sharp by control-polygon turn."""
-    return sorted(cubic_catalogue(1000), key=_cubic_turn)
+    """The 11 S representatives: one per interior-angle bin, shallow to sharp."""
+    return sorted(_cubic_reps()["s"], key=_cubic_turn)
 
 
 def cubic_panels():
@@ -203,7 +212,7 @@ def cubic_panels():
 
 
 def cubic_c_panels():
-    rows = sorted(catalogue_c(1000), key=lambda r: r["height"])
+    rows = sorted(_cubic_reps()["c"], key=lambda r: r["height"])
     out = []
     for row in rows:
         curve = _cubic_bezier(row)
@@ -354,11 +363,13 @@ FAMILIES = [
     ("conics", "The conics · 4", "circle, ellipse, parabola, hyperbola", conic_panels()),
     ("euler", "The Euler sections · 10", "the C-curve table, one section each", euler_panels()),
     ("lac", "The LAC spines · 31", "every recovered spine in lac.json", lac_panels()),
-    ("cubics", "The integer cubics · 316",
-     "every ordered arm pair, shallow to sharp by control-polygon interior angle",
+    ("cubics", "The integer cubics · 11",
+     "one per interior-angle bin, smallest c in each; the 632-row table of "
+     "record is integer-cubic-catalogue.html",
      cubic_panels()),
-    ("cubics-c", "The integer C cubics · 316",
-     "C-shaped counterparts, ordered by height", cubic_c_panels()),
+    ("cubics-c", "The integer C cubics · 10",
+     "C-shaped counterparts, one per height/chord bin, smallest c in each",
+     cubic_c_panels()),
     ("stems", "The stem library · 177", "every card in the stem catalogue",
      stem_panels()),
     ("french", "French curves · 8",

@@ -100,7 +100,7 @@ class TestComposedStem(unittest.TestCase):
 class TestShowcase(unittest.TestCase):
     def test_three_across_and_rays_last(self):
         page = (PAGES / "showcase.html").read_text()
-        self.assertEqual(page.count('class="row"'), 345)
+        self.assertEqual(page.count('class="row"'), 141)
         self.assertEqual(page.count('class="row four"'), 0)
         self.assertIn("Fig. 1a", page)
         self.assertIn("Rays", page)
@@ -149,8 +149,8 @@ class TestShowcase(unittest.TestCase):
         self.assertIn("Combined curves · 6", page)
         self.assertEqual(len(C.primal_panels()), 4)
         self.assertIn("Primal · 4", page)
-        self.assertEqual(len(C.cubic_c_panels()), 316)
-        self.assertIn("The integer C cubics · 316", page)
+        self.assertEqual(len(C.cubic_c_panels()), 10)
+        self.assertIn("The integer C cubics · 10", page)
         self.assertIn("Drapery · 6", page)
 
     def test_french_curves_and_leaves(self):
@@ -178,11 +178,11 @@ class TestShowcaseNotes(unittest.TestCase):
         page = (PAGES / "showcase.html").read_text()
         notes = (PAGES / "showcase-notes.html").read_text()
         ids = re.findall(r'id="fig-([0-9a-zA-Z]+)"', page)
-        self.assertEqual(len(ids), 1010)
+        self.assertEqual(len(ids), 399)
         for key in ids:
             self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
             self.assertIn(f'id="fig-{key}"', notes)
-        self.assertEqual(len(set(ids)), 1010)
+        self.assertEqual(len(set(ids)), 399)
         self.assertIn("fig-rays", page)
         self.assertIn('id="fig-rays"', notes)
 

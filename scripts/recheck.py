@@ -570,6 +570,20 @@ def c_pillar():
                 f"height {d['height']:g}, grounded")
 
 
+@check("the integer-cubic showcase samples the two shape families",
+       "curve_lab/pyth_cubic.py representatives; workbench/showcase.html",
+       "python -m unittest tests.test_pyth_cubic_catalogue")
+def c_cubic_ladder():
+    from curve_lab.pyth_cubic import representatives
+    r = representatives()
+    page = (ROOT / "workbench" / "showcase.html").read_text()
+    ok = (len(r["s"]) == 11 and len(r["c"]) == 10
+          and "The integer cubics · 11" in page
+          and "The integer C cubics · 10" in page)
+    return ok, (f"{len(r['s'])} S + {len(r['c'])} C from "
+                f"{r['counts'][0]} curves each")
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [
