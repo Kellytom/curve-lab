@@ -263,6 +263,15 @@
       "outputs": "26 spans, 9 corners, 2 declared seam contacts, the clearance report"
     },
     {
+      "key": "fleur-sets",
+      "file": "fleur-sets.html",
+      "group": "curve",
+      "title": "Fleur sets P01–P20",
+      "purpose": "The twenty parameter sets built by one grammar function, as a contact sheet.",
+      "inputs": "the transcribed set table",
+      "outputs": "twenty cards, the parameter table, spans and corners per set"
+    },
+    {
       "key": "volute-proof",
       "file": "volute-proof.html",
       "group": "curve",

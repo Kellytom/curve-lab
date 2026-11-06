@@ -176,6 +176,10 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 - [x] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals, fitted to one stalk tip at 6 × offset. `workbench/ending-fit.html`, `scripts/ending_fit.py`. All ten clear the rails by ~0.5 and cross only at the tip; the ending grades stand.
 - [x] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track. **2026-11-05:** no change; see the review above.
 - [x] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; the width law against the constant band, seam and rail-crossing report. `workbench/modulated-width-proof.html`, `scripts/modulated_width_proof.py`.
+- [x] **W04 — twenty parameter sets:** P01–P20 transcribed from
+  `ornaments/assets/ornament_set.js` into `curve_lab/fleur_sets.py`, all built
+  by one `grammar.study(opts)`. `workbench/fleur-sets.html` is the contact
+  sheet; each set measures and declares its own two seam contacts.
 - [ ] **Three-aspect audit:** tag every proof and catalogue page with infinity / linearity / curve, and add the missing aspect where it is absent. The integer cubics, the fleur and the cruciform have no infinity of their own; each needs a spiral tail or a ray in the design.
 
 ## Investigation

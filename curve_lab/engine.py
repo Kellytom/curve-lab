@@ -62,16 +62,22 @@ class Chain:
     # -- geometry, straight from the backend ------------------------------
 
     def point(self, s: float) -> tuple[float, float]:
-        return self.curve.point(s)
+        return self.curve.point(self._s(s))
 
     def tangent(self, s: float) -> float:
-        return self.curve.tangent(s)
+        return self.curve.tangent(self._s(s))
 
     def kappa(self, s: float) -> float:
-        return self.curve.kappa(s)
+        return self.curve.kappa(self._s(s))
 
     def offset_point(self, s: float, distance: float) -> tuple[float, float]:
-        return self.curve.offset_point(s, distance)
+        return self.curve.offset_point(self._s(s), distance)
+
+    def _s(self, s: float) -> float:
+        """Clamp to the chain: a sample multiplied by the length can land a
+        float epsilon past the end, where the compiled backend refuses to
+        evaluate."""
+        return min(max(s, 0.0), self.length)
 
     def normal(self, s: float) -> tuple[float, float]:
         a = self.tangent(s)

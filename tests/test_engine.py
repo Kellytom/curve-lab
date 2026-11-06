@@ -107,3 +107,13 @@ class TestRadius(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSamplingPastTheEnd(unittest.TestCase):
+    def test_a_length_multiplied_sample_is_clamped(self):
+        """A float product can land past the end; the chain answers at the end."""
+        chain = engine.build(presets.get("bracket"))
+        past = chain.length * (1.0 + 1e-12)
+        self.assertGreater(past, chain.length)
+        self.assertEqual(chain.point(past), chain.point(chain.length))
+        self.assertEqual(chain.tangent(past), chain.tangent(chain.length))

@@ -505,6 +505,23 @@ def c_fleur_grammar():
                 f"{r['contacts']} seam contacts, 0 disallowed")
 
 
+@check("the twenty fleur sets build from one grammar function",
+       "curve_lab/fleur_sets.py; workbench/fleur-sets.html",
+       "python -m unittest tests.test_fleur_sets")
+def c_fleur_sets():
+    import math
+    from curve_lab import grammar
+    from curve_lab.fleur_sets import SETS
+    ok = len(SETS) == 20 and SETS[0]["opts"] == grammar.STUDY_01
+    for item in SETS:
+        piece = grammar.study(item["opts"], contacts=False)
+        spans = sum(len(t.design.segments) for t in piece.traces)
+        corners = sum(1 for t in piece.traces for s in t.design.segments
+                      if abs(math.degrees(getattr(s, "corner", 0.0))) > 1e-9)
+        ok = ok and spans == 15 and corners == 9
+    return ok, "20 sets, 26 rendered spans and 9 corners each"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

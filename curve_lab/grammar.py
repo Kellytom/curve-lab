@@ -150,12 +150,20 @@ def band(o: dict) -> dict:
             "nodes": walk.nodes}
 
 
-def study_01() -> Piece:
-    o = STUDY_01
+def study(o: dict | None = None, contacts: bool = True,
+          name: str | None = None) -> Piece:
+    """The fleur from one parameter set, with optional declared seam contacts."""
+    o = dict(STUDY_01 if o is None else o)
     right = fleur_right(o)
     ring = band(o)
-    return Piece(
-        name="Fleur study 01",
+    seam = ([
+        Contact((0.0, -270.02897642495145), radius=25.0,
+                a="ink/half", b="ink/half mirrored"),
+        Contact((0.0, 1048.156105564195), radius=25.0,
+                a="ink/half", b="ink/half mirrored"),
+    ] if contacts and o == STUDY_01 else [])
+    piece = Piece(
+        name=name or "Fleur study 01",
         mirror=True,
         stroke=0.6,
         traces=[
@@ -174,13 +182,37 @@ def study_01() -> Piece:
         ],
         # The two halves meet on the centre seam: the foot crossover and the
         # inner-bow crossover. They are declared, not inferred from proximity.
-        contacts=[
-            Contact((0.0, -270.02897642495145), radius=25.0,
-                    a="ink/half", b="ink/half mirrored"),
-            Contact((0.0, 1048.156105564195), radius=25.0,
-                    a="ink/half", b="ink/half mirrored"),
-        ],
+        contacts=seam,
     )
+    if contacts and o != STUDY_01 and not piece.contacts:
+        piece.contacts = seam_contacts(piece)
+    return piece
+
+
+def seam_contacts(piece: Piece, radius: float = 25.0) -> list[Contact]:
+    """Declare where the two mirrored halves actually meet.
+
+    The crossings are measured on the built piece (rails included), not
+    inferred from the centre line: the foot crossover and the inner-bow
+    crossover are where the +rail of one half meets the -rail of the mirror.
+    """
+    from .clearance import piece_clearance
+
+    report = piece_clearance(piece, clearance=1.0)
+    out = []
+    for crossing in report["crossings"]:
+        if {crossing["a"], crossing["b"]} != {"ink/half", "ink/half mirrored"}:
+            continue
+        point = crossing["at"]
+        if any(math.dist(point, c.point) < 1.0 for c in out):
+            continue
+        out.append(Contact(point, radius=radius, a="ink/half",
+                           b="ink/half mirrored"))
+    return out
+
+
+def study_01() -> Piece:
+    return study()
 
 
 def study_01_report(tol: float = 0.02) -> dict:
