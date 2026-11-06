@@ -291,6 +291,28 @@ def combined_panels():
     return out
 
 
+def primal_panels():
+    from curve_lab import primal
+    from curve_lab.piece import build_piece
+
+    out = []
+    for key, fn in primal.PRIMAL.items():
+        groups, _info = build_piece(fn())
+        curves = []
+        for group in groups:
+            pts = []
+            for span in group.spans:
+                pts.extend(_span_points(span))
+            if len(pts) > 1:
+                curves.append(pts)
+        out.append(_entry(
+            len(out) + 1, f"primal · {key}",
+            [(p, INK, 1.4, None) for p in curves],
+            "one grammar, built from arcs, lines and Euler spans",
+            "curve_lab/primal.py PRIMAL"))
+    return out
+
+
 def drapery_panels():
     import sys
     sys.path.insert(0, str(ROOT / "pythagorean-spiral" / "scripts"))
@@ -331,6 +353,8 @@ FAMILIES = [
     ("combined", "Combined curves · 6",
      "the gallery objects: catenary, drapery, volute, violin, acanthus, fleur",
      combined_panels()),
+    ("primal", "Primal · 4", "earth, water, air and fire as whole grammars",
+     primal_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]
