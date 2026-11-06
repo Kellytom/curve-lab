@@ -24,6 +24,7 @@ from curve_lab import spine as spine_layer  # noqa: E402
 from curve_lab import terminals as term  # noqa: E402
 from curve_lab.parallel_bezier import fit_chain as fit_parallel  # noqa: E402
 from curve_lab.taper import LogSpiral, width_ratio  # noqa: E402
+from showcase_catalogue import FAMILIES  # noqa: E402
 from modulated_width import cubic as width_cubic, rails as width_rails  # noqa: E402
 
 INK, GOLD, BLUE, RED, GREEN = "#2e2413", "#c9a441", "#1f5fa8", "#a23b2a", "#3f7d4e"
@@ -46,7 +47,7 @@ def fit(pts, pad=34):
     return lambda p: (ox + (p[0] - x0) * s, H - oy - (p[1] - y0) * s)   # +y up, flipped here
 
 
-def panel(fig, title, curves, note="", legend=(), dots=(), key=""):
+def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
     allpts = [p for pts, *_ in curves for p in pts]
     put = fit(allpts)
     out = [f'<svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{title}">',
@@ -67,7 +68,8 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key=""):
     body = "".join(out)
     if not key:
         return body
-    return (f'<a class="fig" id="fig-{key}" href="showcase-notes.html#fig-{key}" '
+    return (f'<a class="fig" id="fig-{key}" data-curve="{curve}" '
+            f'href="showcase-notes.html#fig-{key}" '
             f'title="{fig} — notes">{body}</a>')
 
 
@@ -365,22 +367,22 @@ def run() -> None:
     # ---- 6 · higher order -------------------------------------------------
     lemn = [(math.cos(t), math.sin(t) * math.cos(t)) for t in [i * 2 * math.pi / 240 for i in range(241)]]
     p6a = panel("Fig. 6a", "Gerono lemniscate · quartic", [(lemn, INK, 1.8, None)],
-                "x = cos t, y = sin t·cos t · a node at the origin", key="6a")
+                "x = cos t, y = sin t·cos t · a node at the origin", key="6a", curve="gerono")
 
     pir = [(math.cos(t) * (1 + math.sin(t)), math.sin(t) * (1 + math.sin(t)))
            for t in [-math.pi / 2 + i * (2 * math.pi) / 240 for i in range(241)]]
     p6b = panel("Fig. 6b", "piriform · quartic with a cusp", [(pir, INK, 1.8, None)],
-                "r = 1 + sin t · one cusp, one loop", key="6b")
+                "r = 1 + sin t · one cusp, one loop", key="6b", curve="piriform")
 
     tri = [(math.cos(3 * t) * math.cos(t), math.cos(3 * t) * math.sin(t))
            for t in [i * 2 * math.pi / 480 for i in range(481)]]
     p6c = panel("Fig. 6c", "trifolium · three petals", [(tri, INK, 1.8, None)],
-                "r = cos 3t · three-fold symmetry", key="6c")
+                "r = cos 3t · three-fold symmetry", key="6c", curve="trifolium")
 
     # ---- 7 · cusped and looped -------------------------------------------
     ast = [(math.cos(t) ** 3, math.sin(t) ** 3) for t in [i * 2 * math.pi / 240 for i in range(241)]]
     p7a = panel("Fig. 7a", "astroid · four cusps", [(ast, INK, 1.8, None)],
-                "x = cos³t, y = sin³t · cusps on both axes", key="7a")
+                "x = cos³t, y = sin³t · cusps on both axes", key="7a", curve="astroid")
 
     cyc = [(t - math.sin(t), 1 - math.cos(t)) for t in [i * 2 * math.pi / 240 for i in range(241)]]
     p7b = panel("Fig. 7b", "cycloid · arches", [(cyc, INK, 1.8, None)],
@@ -394,7 +396,7 @@ def run() -> None:
     card = [(math.cos(t) * (1 - math.cos(t)), math.sin(t) * (1 - math.cos(t)))
             for t in [i * 2 * math.pi / 320 for i in range(321)]]
     p8a = panel("Fig. 8a", "cardioid · the flower head", [(card, INK, 1.8, None)],
-                "r = 1 − cos t · exact and rational", key="8a")
+                "r = 1 − cos t · exact and rational", key="8a", curve="cardioid")
 
     ros = []
     for t in [i * 2 * math.pi / 960 for i in range(961)]:
@@ -408,7 +410,7 @@ def run() -> None:
                - 2 * math.cos(3 * t) - math.cos(4 * t)) / 16)
              for t in [i * 2 * math.pi / 320 for i in range(321)]]
     p8c = panel("Fig. 8c", "heart · the non-rational one", [(heart, INK, 1.8, None)],
-                "fitted only · no exact route", key="8c")
+                "fitted only · no exact route", key="8c", curve="heart")
 
     stalk8 = [(0.0, 0.0), (0.04, 0.55), (0.0, 1.15)]
     blades8 = plant.seagrass((0.0, 1.15), (0.0, 1.0), 0.3)
@@ -473,7 +475,7 @@ def run() -> None:
                 math.copysign(abs(math.sin(t)) ** 0.5, math.sin(t)))
     squ = [sq(i * 2 * math.pi / 400) for i in range(401)]
     p11c = panel("Fig. 11c", "squircle", [(squ, INK, 1.8, None)],
-                "|x|⁴ + |y|⁴ = 1 · not rational, all offsets fitted", key="11c")
+                "|x|⁴ + |y|⁴ = 1 · not rational, all offsets fitted", key="11c", curve="squircle")
 
 
     # ---- 12 · named rational ---------------------------------------------
@@ -483,14 +485,14 @@ def run() -> None:
         r = 1 + 0.5 * math.cos(t)
         bean.append((r * math.cos(t), r * math.sin(t)))
     p12a = panel("Fig. 12a", "bean · limaçon form", [(bean, INK, 1.8, None)],
-                 "r = 1 + 0.5·cos t · rational, one dimple", key="12a")
+                 "r = 1 + 0.5·cos t · rational, one dimple", key="12a", curve="bean")
 
     pear = []
     for i in range(361):
         t = i * 2 * math.pi / 360
         pear.append((0.8 * math.sin(t), math.cos(t) * (1 + 0.3 * math.sin(t))))
     p12b = panel("Fig. 12b", "pear · ovoid form", [(pear, INK, 1.8, None)],
-                 "a stem body with a shoulder", key="12b")
+                 "a stem body with a shoulder", key="12b", curve="pear")
 
     quad = []
     for i in range(721):
@@ -498,7 +500,7 @@ def run() -> None:
         r = math.cos(2 * t)
         quad.append((r * math.cos(t), r * math.sin(t)))
     p12c = panel("Fig. 12c", "quadrifolium · four petals", [(quad, INK, 1.8, None)],
-                 "r = cos 2t · exact, four-fold", key="12c")
+                 "r = cos 2t · exact, four-fold", key="12c", curve="quadrifolium")
 
     crux = []
     for i in range(721):
@@ -508,7 +510,7 @@ def run() -> None:
             continue
         crux.append((r * math.cos(t), r * math.sin(t)))
     p12d = panel("Fig. 12d", "cruciform · the cross", [(crux, INK, 1.4, None)],
-                 "x²y² = x² − y² · four branches", key="12d")
+                 "x²y² = x² − y² · four branches", key="12d", curve="cruciform")
 
     # ---- 13 · presets -----------------------------------------------------
     from curve_lab import presets
@@ -782,22 +784,6 @@ def run() -> None:
         "log10 error against log10 tolerance", dots=[(q, GOLD) for q in grid],
         key="21c")
 
-    # ---- 22 · the rest of the named table --------------------------------
-    tsch = named_curve("tschirnhausen")
-    p22a = panel("Fig. 22a", "Tschirnhausen · a loop", [
-        (pts, INK, 1.8, None) for pts in tsch],
-        "27y^2 = (1-x)(8+x)^2 · the cubic PH curve", key="22a")
-
-    bic = named_curve("bicorn")
-    p22b = panel("Fig. 22b", "bicorn · a quartic loop", [
-        (pts, INK, 1.8, None) for pts in bic],
-        "one branch, one node · rational, fitted rail", key="22b")
-
-    nod = named_curve("nodal")
-    p22c = panel("Fig. 22c", "nodal cubic · a node", [
-        (pts, INK, 1.8, None) for pts in nod],
-        "y^2 = x^2(x+1) · the node is exact, the rail is fitted", key="22c")
-
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -823,8 +809,23 @@ def run() -> None:
     ray_html = ('<a class="fig" id="fig-rays" href="showcase-notes.html#fig-rays" '
                 'title="Rays — notes">' + "".join(ray_svg) + "</a>")
 
-    def row(a, b, c):
+    def row(a, b="", c=""):
         return f'<div class="row">{a}{b}{c}</div>'
+
+    def catalogue_rows(panels):
+        chunks = [panels[i:i + 3] for i in range(0, len(panels), 3)]
+        return "".join(
+            '<div class="row">' + "".join(
+                panel(p["fig"], p["title"], p["curves"], p["note"],
+                      dots=p["dots"], key=p["key"], curve=p["curve"])
+                for p in chunk) + "</div>"
+            for chunk in chunks)
+
+    catalogue_html = ""
+    for i, (_key, title, blurb, panels) in enumerate(FAMILIES):
+        catalogue_html += (
+            f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
+            + catalogue_rows(panels))
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -868,7 +869,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p3a, p3b, p3c)}
 
 <div class="fam"><h2>4 · Widths</h2><p>one exact taper, two constructions that are provably not what they look like, and one width that is declared not an offset</p></div>
-<div class="row four">{p4a}{p4b}{p4c}{p4d}</div>
+{row(p4a, p4b, p4c)}{row(p4d)}
 
 <div class="fam"><h2>5 · Composition</h2><p>parts on different grids, a declared step, and an ending</p></div>
 {row(p5a, p5b, p5c)}
@@ -881,10 +882,10 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p7a, p7b, p7c)}
 
 <div class="fam"><h2>8 · Flowers and endings</h2><p>the heads a stalk ends in · one of them is not rational at all</p></div>
-<div class="row four">{p8a}{p8b}{p8c}{p8d}</div>
+{row(p8a, p8b, p8c)}{row(p8d)}
 
 <div class="fam"><h2>9 · Conics and the clothoid</h2><p>integer points on the curve, fitted parallels, and the one linear-curvature curve</p></div>
-<div class="row four">{p9a}{p9b}{p9c}{p9d}</div>
+{row(p9a, p9b, p9c)}{row(p9d)}
 
 
 <div class="fam"><h2>10 · Spirals</h2><p>the plan, the self-similar curve, and the one whose offsets stay in the family</p></div>
@@ -895,7 +896,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 
 <div class="fam"><h2>12 · Named rational</h2><p>the rest of the named table: bean, pear, quadrifolium, cruciform</p></div>
-<div class="row four">{p12a}{p12b}{p12c}{p12d}</div>
+{row(p12a, p12b, p12c)}{row(p12d)}
 
 <div class="fam"><h2>13 · Presets</h2><p>the three shapes the app actually serves, drawn from their own generator</p></div>
 {row(p13a, p13b, p13c)}
@@ -927,8 +928,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>21 · Fitted parallels</h2><p>Levien's cubic-Bézier fit: the honest approximate rail, with its error and its cusps</p></div>
 {row(p21a, p21b, p21c)}
 
-<div class="fam"><h2>22 · The rest of the named table</h2><p>three curves the catalogue page owns, drawn here from the same table</p></div>
-{row(p22a, p22b, p22c)}
+{catalogue_html}
 
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}

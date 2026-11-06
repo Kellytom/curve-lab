@@ -738,6 +738,21 @@ def _tech(name):
     return ""
 
 
+from showcase_catalogue import CATALOGUE  # noqa: E402
+
+for _panel in CATALOGUE:
+    NOTES.append({
+        "id": _panel["key"],
+        "fig": _panel["fig"],
+        "title": _panel["title"],
+        "kind": "catalogue",
+        "body": [_panel["note"]],
+        "numbers": ["from its table"],
+        "source": _panel["source"],
+        "command": "python scripts/showcase.py",
+    })
+
+
 def build(mapping=None) -> Path:
     import re
 
