@@ -33,6 +33,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the ending fit pass attaches all ten sections without a fold | 10 sections, 0 crossings, min rail gap 0.50 | scripts/ending_fit.py; workbench/ending-fit.html |
 | ok | the modulated-width law meets the plain stroke at both seams | ratio 1.600, seam 1.000000/1.000000, 0 crossings | scripts/modulated_width_proof.py; workbench/modulated-width-proof.html |
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
+| ok | every design page names its infinity, linearity and curve | 3 design pages name all three aspects | docs/PHILOSOPHY.md §Infinity, linearity, curve |
 
 ## Visual judgement (operator, 2026-11-05)
 

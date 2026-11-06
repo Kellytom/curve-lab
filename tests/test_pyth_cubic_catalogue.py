@@ -46,6 +46,7 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertIn("316", page)
         self.assertIn("632", page)
         self.assertIn("3-4-5", page)
+        self.assertIn("Infinity:", page)
         self.assertEqual(page.count('<figure class="card">'), 12)
 
 

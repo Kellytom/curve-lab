@@ -29,6 +29,7 @@ class CruciformProofTest(unittest.TestCase):
         self.assertEqual(self.data["terminals"], 4)
         self.assertEqual(self.data["sections"], 7)
         self.assertIn("R = 2 × offset", self.page)
+        self.assertIn("Infinity:", self.page)
         self.assertIn("section", self.page.lower())
 
     def test_the_crossing_is_declared_not_hidden(self):

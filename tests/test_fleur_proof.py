@@ -35,6 +35,7 @@ class FleurProofTest(unittest.TestCase):
         self.assertIn("seagrass", self.page)
         self.assertIn("branch", self.page)
         self.assertIn("No bare tip".lower(), self.page.lower())
+        self.assertIn("Infinity:", self.page)
 
     def test_every_integer_node_is_on_the_page(self):
         data = F.proof_data()

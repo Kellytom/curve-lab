@@ -469,6 +469,17 @@ def c_pyth_cubic_catalogue():
     return ok, f"{len(rows)} curves, 632 sign variants, all integer"
 
 
+@check("every design page names its infinity, linearity and curve",
+       "docs/PHILOSOPHY.md §Infinity, linearity, curve",
+       "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")
+def c_three_aspects():
+    pages = ["fleur-proof.html", "volute-proof.html", "cruciform-proof.html"]
+    texts = [(ROOT / "workbench" / p).read_text() for p in pages]
+    ok = all(all(f"<strong>{k}:</strong>" in t for k in
+                 ("Linearity", "Curve", "Infinity")) for t in texts)
+    return ok, f"{len(pages)} design pages name all three aspects"
+
+
 # -- recorded, not re-derived here ------------------------------------------
 
 RECORDED = [

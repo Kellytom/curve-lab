@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:92.2%}
+.fill{height:100%;background:#8c6a21;width:92.3%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">59 / 64 done · 92% · read-only twin of
+<div class="count">60 / 65 done · 92% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -100,6 +100,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <label class="task"><input type="checkbox" disabled><span><strong>Offset comparison:</strong> one fitted offset on an integer cubic, labelled</span></label>
 <p>fitted; do not claim an exact offset.</p>
 <p><strong>Decision rules</strong></p>
+<li><strong>Every design names its three aspects: infinity, linearity, curve.</strong> A</li>
+<p>design with only two is incomplete. Parts may carry one each; an integer cubic or the fleur has no infinity of its own and must be paired with a spiral or a ray. See <code>docs/PHILOSOPHY.md</code> §Infinity, linearity, curve.</p>
 <li>Integer controls are a lattice result, not a promise of exact offsets.</li>
 <li><code>216,000</code> is the canonical grid. <code>360,000</code> is optional for <code>1/25</code>; <code>1/9</code></li>
 <p>costs <code>×27</code> and is not the default.</p>
@@ -153,8 +155,9 @@ tr:nth-child(even) td{background:#fcf8ee}
 <label class="task"><input type="checkbox" checked disabled><span>Scroll/volute proof; keep the 2× offset rule and the ending rule. <code>workbench/volute-proof.html</code>, <code>scripts/volute_proof.py</code>, <code>tests/test_volute_proof.py</code>.</span></label>
 <label class="task"><input type="checkbox" checked disabled><span>Cruciform/primal proof; reuse the section and junction rules. <code>workbench/cruciform-proof.html</code>, <code>scripts/cruciform_proof.py</code>, <code>tests/test_cruciform_proof.py</code>.</span></label>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Ending/flower fit pass:</strong> cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals, fitted to one stalk tip at 6 × offset. <code>workbench/ending-fit.html</code>, <code>scripts/ending_fit.py</code>. All ten clear the rails by ~0.5 and cross only at the tip; the ending grades stand.</span></label>
-<label class="task"><input type="checkbox" disabled><span>Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.</span></label>
+<label class="task"><input type="checkbox" checked disabled><span>Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track. <strong>2026-11-05:</strong> no change; see the review above.</span></label>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Modulated-width proof (Stage IV source):</strong> variable-width spine, no 2× parallel assumption; the width law against the constant band, seam and rail-crossing report. <code>workbench/modulated-width-proof.html</code>, <code>scripts/modulated_width_proof.py</code>.</span></label>
+<label class="task"><input type="checkbox" disabled><span><strong>Three-aspect audit:</strong> tag every proof and catalogue page with infinity / linearity / curve, and add the missing aspect where it is absent. The integer cubics, the fleur and the cruciform have no infinity of their own; each needs a spiral tail or a ray in the design.</span></label>
 <h2>Investigation</h2>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Levien integer snap.</strong> Probe: the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer work stays with lines/arcs, PH, the Pythagorean spiral, and the Pythagorean integer cubic family. Levien is PASS as a fitted option, FAIL as an exact integer option.</span></label>
 <p>*Probe 2026-11-03:* the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fits to real controls (e.g. −0.824, 1.631); no general integer cubic rail. Exact integer rails remain lines, arcs, PH, the Pythagorean spiral and the Pythagorean integer cubic family. The constrained/snapped fit is still open.</p>

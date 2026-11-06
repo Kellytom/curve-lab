@@ -22,6 +22,9 @@ edit.
 - Trim, reverse and G2-connect existing chains, so pieces can be spliced without
   refitting them.
 - A measured fit. Every cubic says how far it sits from the true curve.
+- Every design carries the three aspects — **infinity**, **linearity** and
+  **curve** — and names them (see `docs/PHILOSOPHY.md` §Infinity, linearity,
+  curve).
 - Plain absolute-cubic SVG, millimetre units, **positive y up**, no transform,
   no exponent notation, four decimals by default.
 - A JSON design that survives the round trip, carried inside the SVG.

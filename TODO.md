@@ -86,6 +86,10 @@ C-family p-triple conversion and the ornament-form proofs below.
 
 **Decision rules**
 
+- **Every design names its three aspects: infinity, linearity, curve.** A
+  design with only two is incomplete. Parts may carry one each; an integer
+  cubic or the fleur has no infinity of its own and must be paired with a
+  spiral or a ray. See `docs/PHILOSOPHY.md` §Infinity, linearity, curve.
 - Integer controls are a lattice result, not a promise of exact offsets.
 - `216,000` is the canonical grid. `360,000` is optional for `1/25`; `1/9`
   costs `×27` and is not the default.
@@ -169,8 +173,9 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 - [x] Scroll/volute proof; keep the 2× offset rule and the ending rule. `workbench/volute-proof.html`, `scripts/volute_proof.py`, `tests/test_volute_proof.py`.
 - [x] Cruciform/primal proof; reuse the section and junction rules. `workbench/cruciform-proof.html`, `scripts/cruciform_proof.py`, `tests/test_cruciform_proof.py`.
 - [x] **Ending/flower fit pass:** cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle, and the looped rationals, fitted to one stalk tip at 6 × offset. `workbench/ending-fit.html`, `scripts/ending_fit.py`. All ten clear the rails by ~0.5 and cross only at the tip; the ending grades stand.
-- [ ] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track.
+- [x] Review the grade table after each ornament proof; demote anything that folds or cannot carry an ending, but keep the C families in the ending/flower track. **2026-11-05:** no change; see the review above.
 - [x] **Modulated-width proof (Stage IV source):** variable-width spine, no 2× parallel assumption; the width law against the constant band, seam and rail-crossing report. `workbench/modulated-width-proof.html`, `scripts/modulated_width_proof.py`.
+- [ ] **Three-aspect audit:** tag every proof and catalogue page with infinity / linearity / curve, and add the missing aspect where it is absent. The integer cubics, the fleur and the cruciform have no infinity of their own; each needs a spiral tail or a ray in the design.
 
 ## Investigation
 

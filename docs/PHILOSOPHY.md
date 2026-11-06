@@ -51,6 +51,43 @@ fitted to cubics for SVG, so the output is three paths that no longer share a
 parameter. That is fine — the authoring model is section-locked, the output is
 path-locked. Measurements take the fitted paths and carry their error bound.
 
+## Infinity, linearity, curve
+
+Every design carries three aspects. They may live in different parts, but all
+three must be present:
+
+- **linearity** — a section with zero curvature: a straight run, a line, a
+  chord. It is the rest in the phrase.
+- **curve** — a section whose curvature *changes*: an Euler span, a LAC, a
+  petal. An arc is bent, but a circle has constant curvature, so it is one
+  limit case, not the whole of the aspect.
+- **infinity** — a tendency the stroke approaches and does not reach: a spiral
+  whose curvature tends to a circle's, a heading that tends to a limit, a line
+  whose direction is a point at infinity. Infinity is a tendency, not a
+  vanishing point and not a decorative taper.
+
+A design with only two is incomplete: a circle alone is all curve, a cross
+alone is all line, a plain spiral is curve plus infinity with no rest. The rule
+is about the whole design, not every part: a straight stem can supply
+linearity, a petal the curve, and a spiral tail the infinity.
+
+Examples:
+
+| object | linearity | curve | infinity |
+|---|---|---|---|
+| clothoid / Euler | κ → 0 at one end | κ grows | the heading limit |
+| LAC | the low-curvature start | the power-law bend | the limiting circle |
+| 3-4-5 exact chain | straight chords | triangular-number headings | the open spiral's limit |
+| integer cubic | straight end tangents | the S bend | **absent** — pair it with a spiral or a ray |
+| fleur | band and lance | petals | **absent** — needs a spiral tail or ray |
+
+The last two rows are recorded gaps, not rejections: the cubic and the fleur
+are legal parts, and a design that contains one must supply the missing aspect
+elsewhere. Name the three aspects on the page or in the notes. A missing aspect is a gap
+to fill, not a silent pass. The rule applies to **designs**; a measurement or
+catalogue page states the aspects of the objects it measures, but is not
+itself a design.
+
 ## Terminals
 
 - A **terminal** is any treatment of a full line's end.

@@ -153,6 +153,16 @@ The spine is exact; the band is the stated approximation.</p>
 <span><i class="sw e"></i> seagrass branch ending</span>
 </div>
 
+<h2>The three aspects</h2>
+<div class="panel">
+<p><strong>Linearity:</strong> every chord is straight; the chain is a polygon
+before it is a curve. <strong>Curve:</strong> the heading turns by a growing
+whole-number multiple, so the curvature changes from chord to chord.
+<strong>Infinity:</strong> the open spiral tends to a limit heading and a limit
+circle it never reaches. The volute is a complete design under the rule: all
+three aspects are present, and none of them is decorative.</p>
+</div>
+
 <h2>The numbers</h2>
 <div class="panel">
 <table>
