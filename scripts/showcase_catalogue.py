@@ -220,6 +220,94 @@ def stem_panels():
     return out
 
 
+def _billow(c, n=36):
+    cx, cy, rx, ry, tilt, layer, power, shape = c
+    a = math.radians(tilt)
+    ca, sa = math.cos(a), math.sin(a)
+    pts = []
+    for i in range(n + 1):
+        t = 2.0 * math.pi * i / n
+        x = rx * math.cos(t)
+        y = ry * math.sin(t)
+        pts.append((cx + ca * x - sa * y, cy + sa * x + ca * y))
+    return pts
+
+
+def cloud_panels():
+    from curve_lab import spine
+    pkg = spine.load()
+    from pythagorean_spiral import veil
+    layers = ["bank", "billow", "crown", "haze", "light", "shade"]
+    out = [_entry(1, "cloud · all billows",
+                  [(_billow(c), INK, 0.7, None) for c in veil.BILLOWS],
+                  f"{len(veil.BILLOWS)} billows · the whole veil",
+                  "pythagorean_spiral/veil.py BILLOWS")]
+    for layer in layers:
+        curves = [_billow(c) for c in veil.BILLOWS if c[5] == layer]
+        out.append(_entry(
+            len(out) + 1, f"cloud · {layer}",
+            [(p, INK, 0.8, None) for p in curves],
+            f"{len(curves)} billows · the {layer} layer",
+            "pythagorean_spiral/veil.py BILLOWS"))
+    return out
+
+
+def combined_panels():
+    import sys
+    sys.path.insert(0, str(ROOT / "pythagorean-spiral" / "scripts"))
+    import gallery
+
+    def nodes(spiral):
+        return [(float(x), float(y)) for x, y in spiral.nodes]
+
+    out = []
+    path, _ = gallery.catenary()
+    out.append(_entry(1, "catenary chain", [(nodes(path), INK, 1.6, None)],
+                      "the catenary as an exact chord walk",
+                      "pythagorean-spiral/scripts/gallery.py catenary()"))
+    out.append(_entry(2, "drapery, five ribbons",
+                      [(ch, INK, 1.0, None) for ch in gallery.drape()],
+                      "five catenary ribbons from one rail",
+                      "pythagorean-spiral/scripts/gallery.py drape()"))
+    pts, _ = gallery.volute()
+    out.append(_entry(3, "Corinthian volute", [(pts, INK, 1.4, None)],
+                      "arcs of shrinking chord, joined G1",
+                      "pythagorean-spiral/scripts/gallery.py volute()"))
+    pts, _ = gallery.violin_scroll()
+    out.append(_entry(4, "violin scroll", [(pts, INK, 1.4, None)],
+                      "neck, exact quarter cusp, then the scroll",
+                      "pythagorean-spiral/scripts/gallery.py violin_scroll()"))
+    spine, lobes, _ = gallery.acanthus()
+    out.append(_entry(5, "acanthus",
+                      [(nodes(spine), INK, 1.6, None)]
+                      + [(nodes(l), INK, 1.0, None) for l in lobes],
+                      "a spine with paired lobes on exact forks",
+                      "pythagorean-spiral/scripts/gallery.py acanthus()"))
+    half, base, _ = gallery.fleur()
+    out.append(_entry(6, "fleur-de-lis",
+                      [(nodes(p), INK, 1.2, None) for p in half + [base]],
+                      "three lobed petals and a band",
+                      "pythagorean-spiral/scripts/gallery.py fleur()"))
+    return out
+
+
+def drapery_panels():
+    import sys
+    sys.path.insert(0, str(ROOT / "pythagorean-spiral" / "scripts"))
+    import gallery
+    chains = gallery.drape()
+    out = [_entry(1, "drapery · one rail, five ribbons",
+                  [(ch, INK, 1.2, None) for ch in chains],
+                  "five catenary ribbons hung from one rail",
+                  "pythagorean-spiral/scripts/gallery.py drape()")]
+    for i, ch in enumerate(chains):
+        out.append(_entry(i + 2, f"drapery · ribbon {i + 1}",
+                          [(ch, INK, 1.4, None)],
+                          "exact offsets, no weft",
+                          "pythagorean-spiral/scripts/gallery.py drape()"))
+    return out
+
+
 FAMILIES = [
     ("named", "The named table · 25", "every curve in generators.NAMED", named_panels()),
     ("hearts", "The hearts · 15", "every form in heart_forms.FORMS", heart_panels()),
@@ -236,6 +324,13 @@ FAMILIES = [
      "drawing aids, each a chain of three Euler spans", french_panels()),
     ("leaves", "Leaves · 8", "one section mirrored across its own chord",
      leaf_panels()),
+    ("clouds", "Clouds · 7", "the whole veil and its six billow layers",
+     cloud_panels()),
+    ("drapery", "Drapery · 6", "one drape and its five catenary ribbons",
+     drapery_panels()),
+    ("combined", "Combined curves · 6",
+     "the gallery objects: catenary, drapery, volute, violin, acanthus, fleur",
+     combined_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]
