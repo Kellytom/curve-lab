@@ -145,7 +145,7 @@ def c_granularity():
     return got == [4, 4, 4, 16], f"grids 12/48/156/273 -> {got} hits"
 
 
-@check("grids under 3125 take the exact curves from 120 hits to 892",
+@check("grids under 3125 take the exact curves from 121 hits to 894",
        "scripts/generators.py best_grid(); the table on the generators page",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_hit_totals():
@@ -157,7 +157,7 @@ def c_hit_totals():
             continue
         control += len(G.hit_points(s, d["cscale"]))
         best += G.best_grid(s)[1]
-    return (control, best) == (120, 892), f"control {control}, optimised {best}"
+    return (control, best) == (121, 894), f"control {control}, optimised {best}"
 
 
 @check("clothoid spans match smooth curves and cannot match a cusp",

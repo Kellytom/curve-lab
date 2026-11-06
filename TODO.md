@@ -295,7 +295,7 @@ evidence; add to them, do not re-solve them.
 | 25 named curves, 23 exact, recorded scales | 25 total, 23 exact | `scripts/generators.py` + tests |
 | the two non-rational named curves are heart, squircle | heart/squircle; pear 2, cruciform unbounded | `tests/test_named_curves.py` |
 | a finer grid does not buy hits; factors do | 12/48/156/273 -> 4/4/4/16 | `workbench/generators.html` Fig. 1a/1b |
-| grids under 3125: 120 -> 892 hits | control 120, optimised 892 | `scripts/generators.py best_grid()` |
+| grids under 3125: 121 -> 894 hits | control 121, optimised 894 | `scripts/generators.py best_grid()` |
 | clothoid spans match smooth curves, not cusps | smooth 0.92%, cusped 15.2% | `scripts/euler_match.py` |
 | the 3-4-5 ladder is fine long before 3125 | 350 rungs, median 0.14° | `scripts/curve_families.py ladder()` |
 | the hub is built from the manifest | every page has its bar | `scripts/hub.py` |

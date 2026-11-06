@@ -12,7 +12,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | 25 named curves, 23 exact, with the recorded scales | 25 total, 23 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
 | ok | the two non-rational named curves are the ones we expect | heart, squircle | tests/test_named_curves.py — squircle genus 3, heart 4, pear 2; cruciform unbounded |
 | ok | a finer grid does not buy hits; the right factors do | grids 12/48/156/273 -> [4, 4, 4, 16] hits | workbench/generators.html Fig. 1a/1b — bean: 4 hits at grid 12, 48 and 156; 16 at 273 |
-| ok | grids under 3125 take the exact curves from 120 hits to 892 | control 120, optimised 892 | scripts/generators.py best_grid(); the table on the generators page |
+| ok | grids under 3125 take the exact curves from 121 hits to 894 | control 121, optimised 894 | scripts/generators.py best_grid(); the table on the generators page |
 | ok | clothoid spans match smooth curves and cannot match a cusp | smooth 0.92%, cusped 15.2% | scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes |
 | ok | the 3-4-5 ladder is fine enough long before a 3125 grid | 350 rungs, median gap 0.14 degrees | scripts/curve_families.py ladder() — measured rung spacing |
 | ok | the Pythagorean integer cubic family | 10 triples, integer controls, chord 2c, arms c | curve_lab/pyth_cubic.py; workbench/integer-cubic.html Fig. P1 |
@@ -25,7 +25,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 25 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| **FAIL** | the hub is built from the manifest and every page carries its bar | 59 pages, 2 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 59 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |

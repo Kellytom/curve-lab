@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab import plant as P  # noqa: E402
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 
 INK = "#2e2413"
 BLUE = "#1f5fa8"
@@ -132,7 +133,7 @@ def stalk_items(points, w, grid=True, marks=True, branches=True,
     return items
 
 
-def figure(items, w=980, h=620, pad=0.06):
+def figure(items, w=980, h=620, pad=0.06, grid=True, marks=True):
     pts = [p for it in items for p in it[0]]
     x0, y0, x1, y1 = min(p[0] for p in pts), min(p[1] for p in pts), \
         max(p[0] for p in pts), max(p[1] for p in pts)
@@ -145,7 +146,8 @@ def figure(items, w=980, h=620, pad=0.06):
     def put(p):
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
-    body = []
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body = list(grid_lines(put, x0, x1, y0, y1, step, GRID)) if grid else []
     for item in items:
         pts, colour, width, dash = item[0], item[1], item[2], item[3]
         fill = item[4] if len(item) > 4 else "none"
@@ -154,6 +156,12 @@ def figure(items, w=980, h=620, pad=0.06):
         body.append(f'<path d="M {d}" fill="{fill}" stroke="{colour}" '
                     f'stroke-width="{width}" stroke-linejoin="round" '
                     f'stroke-linecap="round"{dash_attr}/>')
+    if marks:
+        solid = [it[0] for it in items if not (len(it) > 3 and it[3])]
+        for p in crossings(solid, step):
+            q = put(p)
+            body.append(f'<circle class="lattice" cx="{q[0]:.1f}" '
+                        f'cy="{q[1]:.1f}" r="2.2" fill="{GOLD}"/>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>")
