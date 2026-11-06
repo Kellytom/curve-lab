@@ -29,6 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
 import generators as G  # noqa: E402
 from curve_lab import engine  # noqa: E402
 from curve_lab.interpolate import design_from_spans  # noqa: E402
@@ -275,7 +276,11 @@ def figure(card, w=300, h=200):
     def put(p):
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
-    body = []
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body = grid_lines(put, x0, x1, y0, y1, step, "#efe7d2")
+    body += [f'<circle class="lattice" cx="{put(q)[0]:.1f}" '
+             f'cy="{put(q)[1]:.1f}" r="2.0" fill="{GOLD}"/>'
+             for q in crossings([c[0] for c in curves if not c[2]], step)]
     for pts, colour, dash, width in curves:
         d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in pts)
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""

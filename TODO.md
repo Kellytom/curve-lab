@@ -192,6 +192,14 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
   `ornaments/assets/ornament_set.js` into `curve_lab/fleur_sets.py`, all built
   by one `grammar.study(opts)`. `workbench/fleur-sets.html` is the contact
   sheet; each set measures and declares its own two seam contacts.
+- [ ] **Grid + lattice marks, remaining pages:** `showcase` (399), the
+  catalogue cards (24), `generators` (31), `curves-all` (40), `hearts` (15),
+  `euler-match` (23), `euler-sections` (10), `plant-forms` (7), the fleur pages
+  (24), `primal` (4), `stem-library` (177) and `stem-library-offset` (12) now
+  carry a grid and decimated lattice marks. Still without: `ornament-board` (69,
+  node generator), `catenary` (23, physical-unit figures), `fleur-studies` (20)
+  and `stage-two` (10), which have no generator in the repo, and the hub
+  thumbnails. `scripts/grid_view.py` is the one implementation.
 - [ ] **Design audit:** tag every proof and catalogue page with infinity / linearity / curve **and** with its ground / vertical. Add the missing aspect where absent (the integer cubics, fleur and cruciform have no infinity of their own) and the grounding line where unstated.
 
 ## Investigation
