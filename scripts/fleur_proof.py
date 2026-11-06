@@ -281,6 +281,8 @@ the petals, built from an Euler span and an arc. <strong>Infinity:</strong>
 absent — the fleur is a bounded glyph. It is a legal ornament and not yet a
 complete design under the rule; it needs a spiral tail or a ray to supply the
 third aspect.</p>
+<p><strong>Grounded:</strong> the band and the foot are the horizontal datum;
+the lance is the vertical.</p>
 </div>
 
 <h2>What this proves</h2>

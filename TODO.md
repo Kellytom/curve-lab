@@ -182,7 +182,7 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
   `ornaments/assets/ornament_set.js` into `curve_lab/fleur_sets.py`, all built
   by one `grammar.study(opts)`. `workbench/fleur-sets.html` is the contact
   sheet; each set measures and declares its own two seam contacts.
-- [ ] **Three-aspect audit:** tag every proof and catalogue page with infinity / linearity / curve, and add the missing aspect where it is absent. The integer cubics, the fleur and the cruciform have no infinity of their own; each needs a spiral tail or a ray in the design.
+- [ ] **Design audit:** tag every proof and catalogue page with infinity / linearity / curve **and** with its ground / vertical. Add the missing aspect where absent (the integer cubics, fleur and cruciform have no infinity of their own) and the grounding line where unstated.
 
 ## Investigation
 

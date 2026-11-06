@@ -31,6 +31,7 @@ class VoluteProofTest(unittest.TestCase):
         self.assertIn("seagrass", self.page)
         self.assertIn("No bare tip", self.page)
         self.assertIn("Infinity:", self.page)
+        self.assertIn("Grounded:", self.page)
         self.assertIn("fitted", self.page)
 
     def test_nodes_are_exactly_rational(self):

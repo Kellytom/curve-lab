@@ -46,6 +46,10 @@ none may be skipped by drawing a pretty outline over a missing rule.
   limit circle, a heading limit, or a ray to a point at infinity). Parts may
   carry one aspect each; a design with fewer than three is incomplete. See
   `docs/PHILOSOPHY.md` §Infinity, linearity, curve.
+- **Every design is grounded.** A horizontal datum (ground line, baseline,
+  plinth, band or foot) and a vertical element (stem, lance, axis, trunk) must
+  be related; the relation may be visible or declared, never absent. See
+  `docs/PHILOSOPHY.md` §Grounded.
 - **mm internally; +y up.** Flip at SVG/page output and say where.
 - The **integer lattice** is in model space. The page grid is a ruler, not the
   lattice.

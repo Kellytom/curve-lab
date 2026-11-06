@@ -25,6 +25,8 @@ edit.
 - Every design carries the three aspects — **infinity**, **linearity** and
   **curve** — and names them (see `docs/PHILOSOPHY.md` §Infinity, linearity,
   curve).
+- Every design is **grounded**: a horizontal datum and a vertical element,
+  related visibly or by declaration (see `docs/PHILOSOPHY.md` §Grounded).
 - Plain absolute-cubic SVG, millimetre units, **positive y up**, no transform,
   no exponent notation, four decimals by default.
 - A JSON design that survives the round trip, carried inside the SVG.

@@ -92,6 +92,31 @@ to fill, not a silent pass. The rule applies to **designs**; a measurement or
 catalogue page states the aspects of the objects it measures, but is not
 itself a design.
 
+## Grounded
+
+Every design must be grounded: it has a horizontal datum — a ground line,
+baseline, plinth, band or foot — and a vertical element (stem, lance, axis,
+trunk) whose relation to that datum is stated. The relation may be visible
+(drawn) or invisible (declared in the construction), but it may not be absent.
+
+- **visible:** the fleur's band and foot; the cruciform's horizontal arms; a
+  plant stalk's ground line.
+- **invisible:** the volute's start tangent as the ground and its 90° heading
+  as the vertical; the integer cubic's horizontal chord and its vertical arm
+  tangents.
+
+A design that floats — a curve with no ground and no vertical — is incomplete.
+Name both on the page or in the notes: "ground: …; vertical: …".
+
+| design | ground | vertical |
+|---|---|---|
+| fleur | band + foot | lance |
+| cruciform | horizontal arms | trunk |
+| volute | start tangent (declared) | 90° heading (declared) |
+| integer cubic | chord P0–P3 | arm tangents |
+| plant stalk | baseline / grid | stalk |
+| modulated width | endpoint horizontals | spine |
+
 ## Lattice: points and stations
 
 Two different things are called "a lattice hit". Keep them apart:

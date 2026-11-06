@@ -184,6 +184,8 @@ because both merges are declared.</p>
 point. <strong>Infinity:</strong> absent — the cross is bounded. The proof is a
 legal component, not a complete design: pair it with a spiral tail or a ray to
 satisfy the third aspect.</p>
+<p><strong>Grounded:</strong> the horizontal arms are the datum; the trunk is
+the vertical. The cross stands on its arms.</p>
 </div>
 
 <h2>The numbers</h2>
