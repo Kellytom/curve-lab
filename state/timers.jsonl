@@ -3,3 +3,6 @@
 {"event":"start","id":"47843-1793922906698","label":"cubic catalogue","floor":20,"cap":60,"start":"2026-11-05T23:55:06.698Z","at":"2026-11-05T23:55:06.698Z"}
 {"event":"floor","label":"cubic catalogue","minutes":20,"floor":20,"cap":60,"start":"2026-11-05T23:55:06.698Z","at":"2026-11-06T00:15:06.912Z"}
 {"event":"stop","label":"cubic catalogue","minutes":52.57,"floor":20,"cap":60,"start":"2026-11-05T23:55:06.698Z","at":"2026-11-06T00:47:40.961Z","reason":"stop"}
+{"event":"start","id":"53612-1793926574101","label":"showcase named curves","floor":20,"cap":60,"start":"2026-11-06T00:56:14.101Z","at":"2026-11-06T00:56:14.101Z"}
+{"event":"start","id":"53910-1793926851886","label":"full showcase catalogue","floor":20,"cap":60,"start":"2026-11-06T01:00:51.886Z","at":"2026-11-06T01:00:51.886Z"}
+{"event":"stop","label":"full showcase catalogue","minutes":11.92,"floor":20,"cap":60,"start":"2026-11-06T01:00:51.886Z","at":"2026-11-06T01:12:47.228Z","reason":"stop"}
