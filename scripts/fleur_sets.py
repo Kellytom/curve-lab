@@ -54,7 +54,7 @@ def main() -> int:
 <div class="art">{svg}</div>
 <h3>{item['id']} · {item['name']}</h3>
 <p class="note">{item['note']}</p>
-<p class="meta">{r['spans']} spans · {r['corners']} corners · max {r['max_corner']:.1f}° · {len(piece.contacts)} seam contacts</p>
+<p class="meta">{r['spans']} spans · {r['corners']} corners · max {r['max_corner']:.1f}° · {len(piece.contacts)} seam contacts · rail error {info['traces'][0]['fit_error']:.1e}</p>
 </section>''')
         rows.append(
             f"<tr><td>{item['id']}</td><td>{opts['petalH']}</td>"
@@ -97,7 +97,8 @@ the set is data, not twenty programs.</p>
 the same right half, mirror, band and no fill, so {len(SETS)} studies make one
 hand rather than {len(SETS)} special cases. Each has
 26 spans and the port's nine corners; the parameter changes move the petals,
-the lance, the band and the foot, not the grammar.</p>
+the lance, the band and the foot, not the grammar. The rail error on each card
+is the fitted 25-unit rail, not a copy error.</p>
 <p><strong>The seam.</strong> Every set measures its own two centre-seam
 crossings on the built rails and declares them as contacts, so the halves are
 joined rather than merely touching. P01's measured pair matches the fixed pair

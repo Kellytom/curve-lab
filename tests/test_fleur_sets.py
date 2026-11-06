@@ -45,6 +45,7 @@ class FleurSetsTest(unittest.TestCase):
         self.assertIn("P01", page)
         self.assertIn("P20", page)
         self.assertIn("ornament_set.js", page)
+        self.assertIn("rail error", page)
 
 
 if __name__ == "__main__":

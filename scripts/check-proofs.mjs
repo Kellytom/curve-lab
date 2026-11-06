@@ -8,7 +8,7 @@
 import { chromium } from "playwright-core";
 
 const BASE = "http://127.0.0.1:8003/workbench/";
-const PAGES = ["fleur-proof.html", "volute-proof.html", "cruciform-proof.html", "ending-fit.html", "modulated-width-proof.html"];
+const PAGES = ["fleur-proof.html", "volute-proof.html", "cruciform-proof.html", "ending-fit.html", "modulated-width-proof.html", "fleur-grammar.html", "fleur-sets.html"];
 const VIEWPORTS = [[1000, 1200], [390, 844], [320, 844]];
 
 const browser = await chromium.launch({ channel: "chrome", headless: true });

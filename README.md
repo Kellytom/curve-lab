@@ -273,6 +273,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 - `curve_lab/backend/` holds the ctypes surface and the wheel adapter.
 - `curve_lab/cli.py` runs one command and prints the report.
 - `curve_lab/watch.py` holds the two-window loop and its safety rules.
+- `curve_lab/grammar.py` + `curve_lab/fleur_sets.py` build the fleur studies; `scripts/fleur_grammar.py` and `scripts/fleur_sets.py` write their reports.
 - `scripts/fleur_proof.py`, `scripts/volute_proof.py`, `scripts/cruciform_proof.py` build the ornament proofs (`workbench/fleur-proof.html`, `-volute-proof.html`, `-cruciform-proof.html`).
 
 ## Tests
