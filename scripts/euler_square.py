@@ -18,6 +18,8 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
 TAN, OVERLAY = "#b9a77f", "#1f5fa8"
@@ -92,7 +94,14 @@ def figure(paths, w=430.0, h=430.0, show_grid=True):
     def put(p):
         return ox + (p[0] - x0) * k, h - (oy + (p[1] - y0) * k)
 
-    body = "".join(
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body = "".join(grid_lines(put, x0, x1, y0, y1, step, LINE)) if show_grid else ""
+    if show_grid:
+        body += "".join(
+            f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
+            f'cy="{put(p)[1]:.1f}" r="2.2" fill="#c9a441"/>'
+            for p in crossings(paths, step, limit=40))
+    body += "".join(
         '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in seg) +
         f'" fill="none" stroke="{INK}" stroke-width="2.4" stroke-linejoin="round"/>'
         for seg in paths if len(seg) > 1)

@@ -18,6 +18,8 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
+from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 INK = "#2e2413"
 BLUE = "#1f5fa8"
@@ -80,7 +82,9 @@ def figure(a, w0=1.0, w=420, h=240):
     fill = ("M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in left)
             + " L " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"
                                  for p in reversed(right)) + " Z")
-    body = [
+    step = nice_step(max(x1 - x0, y1 - y0))
+    body = grid_lines(put, x0, x1, y0, y1, step, "#ece4cf")
+    body += [
         f'<path d="{fill}" fill="{FILL}" stroke="none"/>',
         '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in left)
         + f'" fill="none" stroke="{BLUE}" stroke-width="1.2"/>',
