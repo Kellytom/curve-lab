@@ -34,7 +34,7 @@ MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
 
-from dot_chain import solved_marks  # noqa: E402
+from dot_chain import audit_dots, dot_finder, solved_marks  # noqa: E402
 from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 
@@ -99,13 +99,7 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
                      for i, (x, y) in enumerate(seen))
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
-    raw = (chain["marks"] if chain else crossings(solid, step))
-    marks = [(p, MARK) for p in raw if _on_curve(p, solid)]
-    if not marks:
-        pool = solid or [c[0] for c in curves]
-        longest = max(pool, key=len, default=None)
-        if longest:
-            marks = [(longest[0], GOLD), (longest[-1], GOLD)]
+    marks = [(p, MARK) for p in dot_finder(solid, step)]
     for p, colour in marks:
         q = put(p)
         out.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '

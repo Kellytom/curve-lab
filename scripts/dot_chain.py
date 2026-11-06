@@ -106,3 +106,60 @@ def solved_marks(curves, tol_px=TOL_PX, cap=25):
         chords, chord = n, float(ch)
     return {"marks": marks, "fit": worst, "fit_px": worst * px_per_unit,
             "chords": chords, "chord": chord}
+
+def dot_finder(curves, step, cap=32):
+    """Every dot the figure should carry: even spacing, both ends, no dupes.
+
+    Guarantees, in order:
+    - one dot per `step` of arc length, capped at `cap`, so no part of a curve
+      is bare and no section is bunched;
+    - both endpoints of every open curve, whatever the spacing did;
+    - every dot lies on one of the input polylines;
+    - no two dots at the same place.
+    """
+    curves = [c for c in curves if c and len(c) > 1]
+    out = []
+    for pts in curves:
+        segs = [math.dist(a, b) for a, b in zip(pts, pts[1:])]
+        total = sum(segs)
+        if total <= 0:
+            out.append(pts[0])
+            continue
+        n = min(cap, max(2, int(round(total / (step or total))) + 1))
+        targets = [total * i / (n - 1) for i in range(n)]
+        acc, idx = 0.0, 0
+        for want in targets:
+            while idx < len(segs) and acc + segs[idx] < want:
+                acc += segs[idx]
+                idx += 1
+            if idx >= len(segs):
+                out.append(pts[-1])
+                continue
+            t = 0.0 if segs[idx] == 0 else (want - acc) / segs[idx]
+            a, b = pts[idx], pts[idx + 1]
+            out.append((a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])))
+        if math.dist(pts[0], pts[-1]) > 1e-9:      # open: pin both ends
+            out = [pts[0]] + out + [pts[-1]]
+    seen, clean = set(), []
+    for q in out:
+        sig = (round(q[0], 9), round(q[1], 9))
+        if sig not in seen:
+            seen.add(sig)
+            clean.append(q)
+    return clean
+
+
+def audit_dots(curves, marks, tol=1e-6):
+    """(off_curve, missing_ends, max_gap_ratio) — the three failures worth naming."""
+    curves = [c for c in curves if c and len(c) > 1]
+    off = sum(1 for m in marks if nearest_on([q for c in curves for q in c], m)[1] > tol)
+    missing = 0
+    for c in curves:
+        if math.dist(c[0], c[-1]) <= 1e-9:
+            continue                            # closed: no ends to pin
+        for end in (c[0], c[-1]):
+            if not marks or min(math.dist(end, m) for m in marks) > tol:
+                missing += 1
+    gaps = [math.dist(a, b) for a, b in zip(marks, marks[1:])] if len(marks) > 1 else [0]
+    med = sorted(gaps)[len(gaps) // 2] or 1.0
+    return off, missing, (max(gaps) / med if med else 0.0)
