@@ -221,8 +221,12 @@ exact PH where available, Levien's cubic fit, and the LAC/chain rail. The same
 ## Open decisions
 
 - The integer lattice is model-space integer; the proof marks the horizontal
-  grid-line crossings.  Confirm whether the intended rule is the full integer
-  lattice point (both coordinates) or a grid-line crossing.
+  grid-line crossings.  **Recommendation 2026-11-05:** marks sit at lattice
+  *stations* (one coordinate integer), while cuts, joins, branches and exact
+  nodes use lattice *points* (both coordinates). Measured: the plant stalk has
+  seven stations at y = 1…7, none with integer x, and one full point (0, 0);
+  the 3-4-5 lobe has 2 of 11 scale-1 integer nodes. The operator confirms;
+  `docs/PHILOSOPHY.md` §Lattice has the rule and the numbers.
 - **Cone terminal — resolved in the proof.** Rail ends are `point ± offset·N`,
   the tip is `point + √3·offset·T`, and the arc centres are `A − R·N` and
   `B + R·N` with `R = 2·offset`.  The only remaining question is whether the

@@ -186,7 +186,7 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
   change. The fleur, volute and cruciform proofs exercise the ending and junction
   rules; none of them adds a curve to the offset table, so the A–D rows and the
   ending/flower track stand. The C families stay endings.
-- [ ] Confirm the integer-lattice rule: horizontal grid-line crossings (used in the proof) or full integer points (both coordinates).
+- [ ] Confirm the integer-lattice rule. **Recommendation 2026-11-05:** marks at lattice *stations* (one coordinate integer), exact operations at lattice *points* (both). Plant stalk: 7 stations, 1 full point. See `docs/PHILOSOPHY.md` §Lattice; operator to confirm.
 - [x] Move the C-grade curves into an explicit **ending/flower track** and the p-triple Euler track; no deletions. Grouping still needs the ending fit pass.
 
 ## Curve grades (provisional)

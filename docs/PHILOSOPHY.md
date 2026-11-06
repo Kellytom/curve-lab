@@ -80,6 +80,10 @@ Examples:
 | 3-4-5 exact chain | straight chords | triangular-number headings | the open spiral's limit |
 | integer cubic | straight end tangents | the S bend | **absent** — pair it with a spiral or a ray |
 | fleur | band and lance | petals | **absent** — needs a spiral tail or ray |
+| volute proof | the straight chords | the growing headings | the open spiral's limit heading |
+| cruciform proof | the arms | the fillets | **absent** — needs a ray or a spiral tail |
+| ending-fit sheet | the stalk | the sections | n/a — a measurement, not a design |
+| modulated-width sheet | the spine | the width law | n/a — a measurement, not a design |
 
 The last two rows are recorded gaps, not rejections: the cubic and the fleur
 are legal parts, and a design that contains one must supply the missing aspect
@@ -87,6 +91,26 @@ elsewhere. Name the three aspects on the page or in the notes. A missing aspect 
 to fill, not a silent pass. The rule applies to **designs**; a measurement or
 catalogue page states the aspects of the objects it measures, but is not
 itself a design.
+
+## Lattice: points and stations
+
+Two different things are called "a lattice hit". Keep them apart:
+
+- a **lattice point** — both coordinates are integers. This is the strong
+  claim, and it is what cuts, joins, branches and exact nodes need.
+- a **lattice station** — one coordinate is an integer: the stalk crosses a
+  horizontal grid line. This is what a growth mark needs, because the mark sits
+  at a place on the stalk, not at a point that must be integer in both axes.
+
+Measured on the plant-form stalk (the proof's unit-scale curve, y from 0 to 8):
+**seven** horizontal crossings at y = 1…7, and **none** of them has an integer
+x; the only full lattice point on the whole stalk is its start (0, 0). On the
+3-4-5 lobe, 2 of 11 nodes are integer at scale 1, and all 11 are integer at
+×9,765,625. A rule that demanded full points for marks would put one mark on
+the proof stalk and none on most real stems.
+
+So: marks at **stations**, exact operations at **points**. Never call a
+station a lattice point in a page or a note.
 
 ## Terminals
 
