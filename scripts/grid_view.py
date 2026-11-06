@@ -98,11 +98,24 @@ def crossings(curves, step: float, limit: int = MAX_MARKS,
                     if 0.0 <= t <= 1.0:
                         add("y", round(g / step), x0 + t * (x1 - x0), g, ci)
                     g += step
-    # take one mark from each curve in turn, so no curve is starved by a
-    # longer neighbour and the marks do not stop at the first one.
-    queues = [list(per_curve.get(ci, [])) for ci in range(len(curves))]
-    while len(cand) < limit and any(queues):
-        for q in queues:
-            if q and len(cand) < limit:
-                cand.append(q.pop(0))
+    # Every curve keeps an even share of the budget, and within its share it
+    # keeps an evenly spaced sample -- first crossing to last. Taking from the
+    # front is what made the marks stop halfway along the ink.
+    total = sum(len(q) for q in per_curve.values())
+    if total <= limit:
+        cand = [m for ci in sorted(per_curve) for m in per_curve[ci]]
+    else:
+        kept = []
+        for ci in sorted(per_curve):
+            q = per_curve[ci]
+            quota = max(1, round(limit * len(q) / total))
+            if len(q) <= quota:
+                kept.extend(q)
+            else:
+                stride = (len(q) - 1) / (quota - 1) if quota > 1 else 0
+                kept.extend(q[int(i * stride)] for i in range(quota))
+        cand = kept
+        if len(cand) > limit:
+            stride = len(cand) / limit
+            cand = [cand[int(i * stride)] for i in range(limit)]
     return cand

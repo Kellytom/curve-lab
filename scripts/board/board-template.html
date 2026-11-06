@@ -452,6 +452,79 @@
     `).join("");
   }
 
+
+  // The design grid and its lattice hits, drawn only in the lightbox: the
+  // thumbnail is a silhouette to scan, the detail is where you can measure.
+  const niceStep = (span, target = 10) => {
+    if (!(span > 0)) return 1;
+    const raw = span / target;
+    const p = Math.pow(10, Math.floor(Math.log10(raw)));
+    for (const k of [1, 2, 2.5, 5, 10]) if (raw <= k * p) return k * p;
+    return 10 * p;
+  };
+
+  function decorate(svg) {
+    if (!svg || !svg.includes("<path") || (svg.match(/<line/g) || []).length >= 2) return svg;
+    const vb = svg.match(/viewBox="([-\d.\s]+)"/);
+    if (!vb) return svg;
+    const [x0, y0, vw, vh] = vb[1].trim().split(/\s+/).map(Number);
+    const step = niceStep(Math.max(vw, vh));
+    const grid = [];
+    for (let gx = Math.ceil(x0 / step) * step; gx <= x0 + vw + 1e-9; gx += step)
+      grid.push(`<line x1="${gx.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${gx.toFixed(1)}" y2="${(y0 + vh).toFixed(1)}" stroke="#e8dfc9"/>`);
+    for (let gy = Math.ceil(y0 / step) * step; gy <= y0 + vh + 1e-9; gy += step)
+      grid.push(`<line x1="${x0.toFixed(1)}" y1="${gy.toFixed(1)}" x2="${(x0 + vw).toFixed(1)}" y2="${gy.toFixed(1)}" stroke="#e8dfc9"/>`);
+
+    const per = [];
+    for (const m of svg.matchAll(/<path[^>]*\sd="([^"]+)"/g)) {
+      const nums = (m[1].match(/-?\d+\.?\d*/g) || []).map(Number);
+      const pts = [];
+      for (let i = 0; i + 1 < nums.length; i += 2) pts.push([nums[i], nums[i + 1]]);
+      const seen = new Set(), hits = [];
+      for (let i = 0; i + 1 < pts.length; i += 1) {
+        const [ax, ay] = pts[i], [bx, by] = pts[i + 1];
+        if (bx !== ax) {
+          for (let g = Math.ceil(Math.min(ax, bx) / step) * step; g <= Math.max(ax, bx) + 1e-9; g += step) {
+            const t = (g - ax) / (bx - ax);
+            if (t >= 0 && t <= 1) {
+              const k = "x" + g.toFixed(1) + Math.round((ay + t * (by - ay)) / step);
+              if (!seen.has(k)) { seen.add(k); hits.push([g, ay + t * (by - ay)]); }
+            }
+          }
+        }
+        if (by !== ay) {
+          for (let g = Math.ceil(Math.min(ay, by) / step) * step; g <= Math.max(ay, by) + 1e-9; g += step) {
+            const t = (g - ay) / (by - ay);
+            if (t >= 0 && t <= 1) {
+              const k = "y" + g.toFixed(1) + Math.round((ax + t * (bx - ax)) / step);
+              if (!seen.has(k)) { seen.add(k); hits.push([ax + t * (bx - ax), g]); }
+            }
+          }
+        }
+      }
+      if (hits.length) per.push(hits);
+    }
+    // one even share per curve, evenly spaced inside that share
+    const total = per.reduce((n, q) => n + q.length, 0);
+    const limit = 24, marks = [];
+    if (total) {
+      for (const q of per) {
+        const quota = Math.max(1, Math.round(limit * q.length / total));
+        if (q.length <= quota) marks.push(...q);
+        else {
+          const stride = (q.length - 1) / (quota - 1 || 1);
+          for (let i = 0; i < quota; i += 1) marks.push(q[Math.round(i * stride)]);
+        }
+      }
+    }
+    const dots = marks.slice(0, limit)
+      .map(([mx, my]) => `<circle class="lattice" cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="2.4" fill="#b23a2b"/>`)
+      .join("");
+    const insert = grid.join("") + dots;
+    if (/<rect[^>]*\/>/.test(svg)) return svg.replace(/(<rect[^>]*\/>)/, `$1${insert}`);
+    return svg.replace(/(<svg[^>]*>)/, `$1${insert}`);
+  }
+
   function thumbMarkup(item) {
     if (item.svg) return item.svg;
     return item.icon || `<div style="padding:40px;text-align:center;color:var(--muted);font:12px var(--mono)">no image</div>`;
@@ -653,7 +726,7 @@
     const stats = item.nums ? `<p class="stats" style="font-size:11px">${esc(item.nums).replace(/\n/g, "<br>")}</p>` : "";
     const prompt = item.prompt ? `<h3 style="margin-top:18px">Prompt</h3><pre>${esc(item.prompt)}</pre>` : "";
     $("#dlgbody").innerHTML = `
-      <div class="art">${thumbMarkup(item)}</div>
+      <div class="art">${decorate(thumbMarkup(item))}</div>
       <p class="note">${esc(note)}</p>
       ${stats}
       ${prompt}

@@ -10,3 +10,13 @@
 {"event":"stop","label":"cubics sorted + stem library","minutes":19.17,"floor":20,"cap":60,"start":"2026-11-06T01:24:59.740Z","at":"2026-11-06T01:44:09.910Z","reason":"stop"}
 {"event":"start","id":"57425-1793930429363","label":"clouds drapery and beyond","floor":20,"cap":60,"start":"2026-11-06T02:00:29.363Z","at":"2026-11-06T02:00:29.363Z"}
 {"event":"stop","label":"clouds drapery and beyond","minutes":16.99,"floor":20,"cap":60,"start":"2026-11-06T02:00:29.363Z","at":"2026-11-06T02:17:28.952Z","reason":"stop"}
+{"event":"start","id":"60538-1793940674960","label":"focus","floor":20,"cap":60,"start":"2026-11-06T04:51:14.960Z","at":"2026-11-06T04:51:14.960Z"}
+{"event":"floor","label":"focus","minutes":20.01,"floor":20,"cap":60,"start":"2026-11-06T04:51:14.960Z","at":"2026-11-06T05:11:15.303Z"}
+{"event":"stop","label":"focus","minutes":106.44,"floor":20,"cap":60,"start":"2026-11-06T04:51:14.960Z","at":"2026-11-06T06:37:41.323Z","reason":"stop"}
+{"event":"start","id":"65705-1793947061459","label":"grid+points","floor":60,"cap":60,"start":"2026-11-06T06:37:41.459Z","at":"2026-11-06T06:37:41.459Z"}
+{"event":"start","id":"65774-1793947189491","label":"grid+points","floor":60,"cap":60,"start":"2026-11-06T06:39:49.491Z","at":"2026-11-06T06:39:49.491Z"}
+{"event":"floor","label":"grid+points","minutes":60,"floor":60,"cap":60,"start":"2026-11-06T06:39:49.491Z","at":"2026-11-06T07:39:49.772Z"}
+{"event":"cap","label":"grid+points","minutes":60.05,"floor":60,"cap":60,"start":"2026-11-06T06:39:49.491Z","at":"2026-11-06T07:39:52.531Z","reason":"cap","before":"3","after":"3"}
+{"event":"start","id":"72226-1793972009856","label":"grid+points","floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T13:33:29.856Z"}
+{"event":"floor","label":"grid+points","minutes":60,"floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T14:33:30.148Z"}
+{"event":"cap","label":"grid+points","minutes":60.05,"floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T14:33:32.737Z","reason":"cap","before":"14","after":"2"}

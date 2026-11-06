@@ -210,6 +210,19 @@ def named_curve(key, n=240):
     return out
 
 
+def chaikin(pts, it=5):
+    """Corner cutting: a smooth curve that follows the polygon without
+    overshooting it. More iterations = more triangles, less wobble."""
+    for _ in range(it):
+        out = [pts[0]]
+        for a, b in zip(pts, pts[1:]):
+            out.append((0.75 * a[0] + 0.25 * b[0], 0.75 * a[1] + 0.25 * b[1]))
+            out.append((0.25 * a[0] + 0.75 * b[0], 0.25 * a[1] + 0.75 * b[1]))
+        out.append(pts[-1])
+        pts = out
+    return pts
+
+
 def smooth(pts, n=8):
     """Catmull-Rom through the points, for display only."""
     out = []
@@ -519,8 +532,8 @@ def run() -> None:
             fine.append((a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])))
     fine.append(spine[-1])
     p10a = panel("Fig. 10a", "spine · a clean sweep", [
-        (smooth(spine), INK, 1.8, None), (fine, MUTED, 0.8, "3 4")],
-        "six subdivisions per leg · the chord error falls with the square", key="10a")
+        (chaikin(spine, 5), INK, 1.8, None), (fine, MUTED, 0.8, "3 4")],
+        "corner cutting, five passes · the polygon's 26 triangles", key="10a")
 
     lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
           for t in [i * 5.2 * math.pi / 480 for i in range(481)]]

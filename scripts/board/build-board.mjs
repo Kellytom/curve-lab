@@ -46,68 +46,6 @@ const icon = (body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240
 </svg>`;
 
 
-// ---- the design lattice: a round grid, and the points where ink meets it ----
-const niceStep = (span, target = 10) => {
-  if (!(span > 0)) return 1;
-  const raw = span / target;
-  const p = Math.pow(10, Math.floor(Math.log10(raw)));
-  for (const k of [1, 2, 2.5, 5, 10]) if (raw <= k * p) return k * p;
-  return 10 * p;
-};
-
-const withLattice = (svg) => {
-  if ((svg.match(/<line/g) || []).length >= 2) return svg;
-  const vb = svg.match(/viewBox="([-\d.\s]+)"/);
-  if (!vb) return svg;
-  const [x0, y0, vw, vh] = vb[1].trim().split(/\s+/).map(Number);
-  const ds = [...svg.matchAll(/<path[^>]*\sd="([^"]+)"/g)].map((m) => m[1]);
-  if (!ds.length) return svg;
-  const step = niceStep(Math.max(vw, vh));
-  const grid = [];
-  for (let gx = Math.ceil(x0 / step) * step; gx <= x0 + vw + 1e-9; gx += step) {
-    grid.push(`<line x1="${gx.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${gx.toFixed(1)}" y2="${(y0 + vh).toFixed(1)}" stroke="#e8dfc9"/>`);
-  }
-  for (let gy = Math.ceil(y0 / step) * step; gy <= y0 + vh + 1e-9; gy += step) {
-    grid.push(`<line x1="${x0.toFixed(1)}" y1="${gy.toFixed(1)}" x2="${(x0 + vw).toFixed(1)}" y2="${gy.toFixed(1)}" stroke="#e8dfc9"/>`);
-  }
-  const marks = [];
-  const seen = new Set();
-  for (const d of ds) {
-    const nums = (d.match(/-?\d+\.?\d*/g) || []).map(Number);
-    const pts = [];
-    for (let i = 0; i + 1 < nums.length; i += 2) pts.push([nums[i], nums[i + 1]]);
-    for (let i = 0; i + 1 < pts.length; i += 1) {
-      const [ax, ay] = pts[i];
-      const [bx, by] = pts[i + 1];
-      if (bx !== ax) {
-        for (let g = Math.ceil(Math.min(ax, bx) / step) * step; g <= Math.max(ax, bx) + 1e-9; g += step) {
-          const t = (g - ax) / (bx - ax);
-          if (t >= 0 && t <= 1) {
-            const key = `x${g.toFixed(1)}${Math.round((ay + t * (by - ay)) / step)}`;
-            if (!seen.has(key)) { seen.add(key); marks.push([g, ay + t * (by - ay)]); }
-          }
-        }
-      }
-      if (by !== ay) {
-        for (let g = Math.ceil(Math.min(ay, by) / step) * step; g <= Math.max(ay, by) + 1e-9; g += step) {
-          const t = (g - ay) / (by - ay);
-          if (t >= 0 && t <= 1) {
-            const key = `y${g.toFixed(1)}${Math.round((ax + t * (bx - ax)) / step)}`;
-            if (!seen.has(key)) { seen.add(key); marks.push([ax + t * (bx - ax), g]); }
-          }
-        }
-      }
-    }
-  }
-  const kept = marks.length > 24
-    ? Array.from({ length: 24 }, (_, i) => marks[Math.floor((i * marks.length) / 24)])
-    : marks;
-  const dots = kept.map(([mx, my]) => `<circle class="lattice" cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="2" fill="#b23a2b"/>`);
-  const insert = grid.join("") + dots.join("");
-  if (/<rect[^>]*\/>/.test(svg)) return svg.replace(/(<rect[^>]*\/>)/, `$1${insert}`);
-  return svg.replace(/(<svg[^>]*>)/, `$1${insert}`);
-};
-
 const fleurPlates = fleurStudies.map((study, index) => ({
   id: `P${String(index + 1).padStart(2, "0")}`,
   kind: "plate",
@@ -331,10 +269,7 @@ for (const [name, meta] of Object.entries(presetMeta)) {
 
 const clothoidPlates = [...capPlates, ...leafPlates, ...presetPlates];
 
-const latticeGroups = new Set(["stage-5", "terminals", "caps", "leaves", "presets"]);
-for (const plate of [...cataloguePlates, ...clothoidPlates]) {
-  if (latticeGroups.has(plate.group)) plate.svg = withLattice(plate.svg);
-}
+
 
 const work = [
   {
@@ -904,7 +839,9 @@ function render(data, path) {
   return { path, bytes: html.length, items: data.items.length };
 }
 
-const a = render(boardData, path.join(ROOT, "sandbox/ornament-board.html"));
-const b = render(fleurData, path.join(ROOT, "sandbox/fleur-studies.html"));
+const OUT = path.join(ROOT, "workbench");
+fs.mkdirSync(OUT, { recursive: true });
+const a = render(boardData, path.join(OUT, "ornament-board.html"));
+const b = render(fleurData, path.join(OUT, "fleur-studies.html"));
 console.log(a);
 console.log(b);

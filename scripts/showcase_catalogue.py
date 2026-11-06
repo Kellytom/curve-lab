@@ -31,7 +31,7 @@ import generators as G  # noqa: E402
 import heart_forms as H  # noqa: E402
 from curve_lab import engine  # noqa: E402
 from curve_lab import presets  # noqa: E402
-from curve_lab.pyth_cubic import representatives  # noqa: E402
+from curve_lab.pyth_cubic import lattice_hits, representatives  # noqa: E402
 
 _REPS = None
 from curve_morphs import french_panels, leaf_panels  # noqa: E402
@@ -205,9 +205,11 @@ def cubic_panels():
             len(out) + 1, f"{row['label']} · {row['order']}",
             [(poly, MUTED, 0.9, "4 3"), (curve, INK, 1.6, None)],
             f"chord {row['chord']} · arms ({row['a']}, {row['b']}) · "
-            f"interior {180.0 - _cubic_turn(row):.1f}°",
+            f"interior {180.0 - _cubic_turn(row):.1f}° · "
+            f"{len({h['point'] for h in lattice_hits(row, 1)})} integer points",
             "curve_lab/pyth_cubic.py catalogue",
-            dots=[(p, GOLD) for p in poly]))
+            dots=[(p, GOLD) for p in poly] +
+                 [(h["point"], "#b23a2b") for h in lattice_hits(row, 1)]))
     return out
 
 
@@ -221,9 +223,11 @@ def cubic_c_panels():
             len(out) + 1, f"{row['label']} · {row['order']}",
             [(poly, MUTED, 0.9, "4 3"), (curve, INK, 1.6, None)],
             f"chord {row['chord']} · arms ({row['a']}, {row['b']}) · "
-            f"height {row['height']}",
+            f"height {row['height']} · "
+            f"{len({h['point'] for h in lattice_hits(row, 1)})} integer points",
             "curve_lab/pyth_cubic.py catalogue_c",
-            dots=[(p, GOLD) for p in poly]))
+            dots=[(p, GOLD) for p in poly] +
+                 [(h["point"], "#b23a2b") for h in lattice_hits(row, 1)]))
     return out
 
 
