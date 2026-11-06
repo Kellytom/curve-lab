@@ -64,7 +64,7 @@ def card(row, title) -> str:
     for p in ctrl:
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.8" fill="{GOLD}"/>')
-    for p in crossings([pts], step, limit=16):
+    for p in crossings([pts], step):
         q = put(p)
         body.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
                     f'r="2.0" fill="{MARK}"/>')

@@ -63,9 +63,12 @@ def best_step(curves, span: float, target: int = TARGET_LINES) -> float:
             best, best_n = step, n
     return best
 
-def crossings(curves, step: float, limit: int = MAX_MARKS,
+def crossings(curves, step: float, limit: int | None = None,
               tol: float = 1e-3) -> list[tuple[float, float]]:
     """Where each solid curve crosses a grid line — the lattice's own marks.
+
+    `limit=None` keeps every hit; that is the default, because most figures
+    want them all. Pass a limit (the page button does) to thin a busy figure.
 
     This is `plant.lattice_hits`' method, applied to both axes: walk each
     segment, take the point where it meets x = k·step or y = k·step. One mark
@@ -102,7 +105,7 @@ def crossings(curves, step: float, limit: int = MAX_MARKS,
     # keeps an evenly spaced sample -- first crossing to last. Taking from the
     # front is what made the marks stop halfway along the ink.
     total = sum(len(q) for q in per_curve.values())
-    if total <= limit:
+    if limit is None or total <= limit:
         cand = [m for ci in sorted(per_curve) for m in per_curve[ci]]
     else:
         kept = []

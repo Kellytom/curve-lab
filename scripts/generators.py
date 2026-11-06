@@ -810,7 +810,7 @@ def named_figure(item, w=430.0, h=300.0):
         dots = "".join(
             f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
             f'cy="{put(p)[1]:.1f}" r="2.4" fill="{DOT}"/>'
-            for p in crossings(curves, step, limit=16))
+            for p in crossings(curves, step))
     return f"""<svg viewBox="0 0 {w:.0f} {h:.0f}" xmlns="http://www.w3.org/2000/svg">
     <rect x="0" y="0" width="{w:.0f}" height="{h:.0f}" fill="#fffdf7"
           stroke="{LINE}"/>

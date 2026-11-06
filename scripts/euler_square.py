@@ -100,7 +100,7 @@ def figure(paths, w=430.0, h=430.0, show_grid=True):
         body += "".join(
             f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
             f'cy="{put(p)[1]:.1f}" r="2.2" fill="{MARK}"/>'
-            for p in crossings(paths, step, limit=40))
+            for p in crossings(paths, step))
     body += "".join(
         '<path d="M ' + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in seg) +
         f'" fill="none" stroke="{INK}" stroke-width="2.4" stroke-linejoin="round"/>'

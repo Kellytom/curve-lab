@@ -22,6 +22,9 @@ a reason.
 - [x] One mark colour, `#b23a2b`, everywhere: 15,146 marks, 0 non-red.
 - [x] No gold in any figure; the integer construction is red.
 - [x] Marks sampled evenly per curve, so they no longer stop halfway.
+- [x] The 24-mark cap is opt-in: every figure shows all its hits by default,
+      and the showcase carries a "limit hits to 24 per figure" checkbox for the
+      one or two busy figures (busiest panel: 176 marks).
 - [x] Ornament board: thumbnails left clean, lightbox decorated — verified in
       Chrome, 18 rules and 24 hits inside the dialog.
 - [x] fleur-studies page — left out of the grid work by instruction; the page

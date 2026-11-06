@@ -972,6 +972,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 .key{{font:13px/1.7 Georgia,serif;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:10px 14px}}
 .sw{{display:inline-block;width:14px;height:3px;vertical-align:middle;margin:0 4px 0 6px}}
 .sw.ink{{background:#2e2413}} .sw.blue{{background:#1f5fa8}} .sw.gold{{background:#c9a441}} .sw.red{{background:#a23b2a}}
+.capmarks{{display:inline-flex;gap:8px;align-items:center;font:12px/1.4 ui-monospace,Menlo,monospace;color:#7b6c4e;margin:0 0 18px}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · the whole catalogue on one page</p>
 <h1>Rays and curves</h1>
@@ -1057,6 +1058,22 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>Rays</h2><p>unnumbered · the p-triple angles themselves, mirrored about the axis</p></div>
 {ray_html}
 
+<label class="capmarks"><input type="checkbox" id="capmarks">
+ limit hits to 24 per figure</label>
+<script>
+(() => {{
+  const box = document.getElementById("capmarks");
+  const apply = () => {{
+    document.querySelectorAll("svg").forEach((sv) => {{
+      sv.querySelectorAll("circle.lattice").forEach((c, i) => {{
+        c.style.display = box.checked && i >= 24 ? "none" : "";
+      }});
+    }});
+  }};
+  box.addEventListener("change", apply);
+  apply();
+}})();
+</script>
 </main></body></html>
 """
 
