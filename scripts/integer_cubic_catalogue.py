@@ -40,7 +40,7 @@ def bezier(p0, p1, p2, p3, n=120):
     return out
 
 
-def card(row, title) -> str:
+def card(row, title, marks=()) -> str:
     pts = bezier(row["p0"], row["p1"], row["p2"], row["p3"])
     ctrl = [row["p0"], row["p1"], row["p2"], row["p3"]]
     allp = pts + ctrl
@@ -64,10 +64,10 @@ def card(row, title) -> str:
     for p in ctrl:
         q = put(p)
         body.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.8" fill="{GOLD}"/>')
-    for p in crossings([pts], step):
+    for p in (marks or crossings([pts], step)):
         q = put(p)
         body.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
-                    f'r="2.0" fill="{MARK}"/>')
+                    f'r="2.6" fill="{MARK}"/>')
     body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" '
                 f'fill="{INK}">{title}</text>')
     body.append(f'<text x="10" y="{h-8}" font-family="ui-monospace,Menlo,monospace" '
@@ -111,7 +111,21 @@ def main() -> int:
             f'<td>{r["mirror_p1"]}</td><td>{r["mirror_p2"]}</td>'
             f'<td>{r["rotation_points"][1]}</td></tr>')
 
-    from curve_lab.pyth_cubic import hit_table
+    from curve_lab.pyth_cubic import hit_table, lattice_hits
+    base = next(r for r in rows if r["label"] == "3-4-5")
+    scale_cards = ""
+    for k in (1, 125):
+        r = dict(base)
+        for key in ("p0", "p1", "p2", "p3"):
+            r[key] = (r[key][0] * k, r[key][1] * k)
+        r["chord"] = r["chord"] * k
+        r["arm"] = r["arm"] * k
+        r["c"] = r["c"] * k
+        hits = sorted({h["point"] for h in lattice_hits(r, 1)})
+        scale_cards += (
+            f'<figure class="card">{card(r, f"3-4-5 × {k}", marks=hits)}'
+            f'<figcaption>3-4-5 × {k} · {len(hits)} integer points</figcaption>'
+            f'</figure>')
     hit_rows = "".join(
         f'<tr><td>{r["scale"]}</td><td>{round(r["scale"] ** (1 / 3))}</td>'
         f'<td>{r["s_min"]}–{r["s_max"]}</td><td>{r["c_min"]}–{r["c_max"]}</td></tr>'
@@ -172,6 +186,15 @@ This is why an unscaled cubic "has no lattice": it has three.</p>
 <thead><tr><th>scale (q³)</th><th>q</th><th>S hits</th><th>C hits</th></tr></thead>
 <tbody>{hit_rows}</tbody>
 </table>
+</div>
+
+<h2>The same curve at two key distances</h2>
+<div class="panel">
+<p><strong>3 hits, then 9.</strong> The 3-4-5 S cubic drawn at scale 1 and at
+scale 125. At scale 1 the only integer points are t = 0, ½, 1; at 125 the
+fifths join them, because 125 = 5³ clears the denominator q³ at q = 5.
+Same curve, same construction — only the distance changes the hit count.</p>
+<div class="grid">{scale_cards}</div>
 </div>
 
 <h2>The catalogue · {len(rows)} rows</h2>

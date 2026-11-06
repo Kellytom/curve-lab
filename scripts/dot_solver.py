@@ -36,118 +36,27 @@ TOL_PX = 2.0          # a mark this close to the ink reads as on the curve
 SCALE_PX = 336.0      # the panel's long side, for converting model units
 
 
-def _dist_point_segment(p, a, b):
-    ax, ay = a
-    bx, by = b
-    dx, dy = bx - ax, by - ay
-    if dx == 0 and dy == 0:
-        return math.dist(p, a)
-    t = ((p[0] - ax) * dx + (p[1] - ay) * dy) / (dx * dx + dy * dy)
-    t = max(0.0, min(1.0, t))
-    return math.dist(p, (ax + t * dx, ay + t * dy))
-
-
-def nearest_on(points, p):
-    """The closest point of a polyline, and how far away it was."""
-    best, at = float("inf"), points[0]
-    for a, b in zip(points, points[1:]):
-        d = _dist_point_segment(p, a, b)
-        if d < best:
-            best = d
-            ax, ay = a
-            bx, by = b
-            dx, dy = bx - ax, by - ay
-            t = 0.0 if dx == 0 and dy == 0 else (
-                ((p[0] - ax) * dx + (p[1] - ay) * dy) / (dx * dx + dy * dy))
-            t = max(0.0, min(1.0, t))
-            at = (ax + t * dx, ay + t * dy)
-    return at, best
-
-
-def chain_of(points, n=24):
-    """The p-triple chain for one curve, in that curve's own frame."""
-    from curve_lab.euler_polygon import convert
-    d = convert(points, n=n)
-    x0, y0 = points[0]
-    dx, dy = points[1][0] - points[0][0], points[1][1] - points[0][1]
-    a = math.atan2(dy, dx)
-    c, s = math.cos(a), math.sin(a)
-    joins = [(x0 + X * c - Y * s, y0 + X * s + Y * c) for X, Y in d["polygon"]]
-    return joins, d["chord"]
-
-
-def solved_marks(curves, tol_px=TOL_PX):
-    """One mark per p-triangle join per curve, projected onto that curve.
-
-    Returns the marks, the worst fitted distance (model units), and the same
-    expressed in panel pixels so a verdict can be stated in the units the eye
-    uses.
-    """
-    marks, worst, worst_px = [], 0.0, 0.0
-    if not curves or not any(curves):
-        return marks, worst, worst_px, 0, 0.0
-    xs = [p[0] for pts in curves for p in pts]
-    if not xs:
-        return marks, worst, worst_px, 0, 0.0
-    ys = [p[1] for pts in curves for p in pts]
-    span = max(max(xs) - min(xs), max(ys) - min(ys)) or 1.0
-    px_per_unit = SCALE_PX / span
-    chords = 24
-    proj_worst = 0.0
-    for pts in curves:
-        if len(pts) < 8:
-            # an explicit construction polyline: its vertices are the joins
-            marks.extend(pts)
-            continue
-        # solve: raise the chain resolution until the joins sit on the ink
-        best = None
-        for n in (24, 48, 96, 192, 384):
-            try:
-                joins, _chord = chain_of(pts, n=n)
-            except Exception:
-                joins = []
-            if not joins:
-                continue
-            err = max(nearest_on(pts, j)[1] for j in joins)
-            if best is None or err < best[0]:
-                best = (err, joins, n)
-            if err * px_per_unit <= tol_px:
-                break
-        if best is None:
-            continue
-        err, joins, chords = best
-        if len(joins) > 25:                     # readable: 25 joins per curve
-            stride = len(joins) / 25
-            joins = [joins[int(i * stride)] for i in range(25)]
-        for j in joins:
-            at, moved = nearest_on(pts, j)
-            marks.append(at)
-            proj_worst = max(proj_worst, moved)
-        worst = max(worst, err)
-        worst_px = max(worst_px, err * px_per_unit)
-    return marks, worst, worst_px, chords, proj_worst
+from dot_chain import SCALE_PX, TOL_PX, solved_marks
 
 
 def case_curves():
     """One entry per failure class, named for what is wrong with it."""
-    import generators as G
-
     def named(key):
         return S.named_curve(key) or []
 
-    circle = [(math.cos(t), math.sin(t))
-              for t in [i * 2 * math.pi / 240 for i in range(241)]]
     def polar(fn, t0, t1, n=240):
-        return [[(fn(t0 + (t1 - t0) * i / n)[0], fn(t0 + (t1 - t0) * i / n)[1])
-                 for i in range(n + 1)]]
+        return [[fn(t0 + (t1 - t0) * i / n) for i in range(n + 1)]]
 
+    circle = [[(math.cos(t), math.sin(t))
+               for t in [i * 2 * math.pi / 240 for i in range(241)]]]
     piriform = named("piriform") or polar(
-        lambda t: ((1 + math.sin(t)) * math.cos(t), (1 + math.sin(t)) * math.sin(t)),
-        0.0, 2 * math.pi)
+        lambda t: ((1 + math.sin(t)) * math.cos(t),
+                   (1 + math.sin(t)) * math.sin(t)), 0.0, 2 * math.pi)
     gerono = named("gerono") or polar(
         lambda t: (math.cos(t), math.sin(t) * math.cos(t)), 0.0, 2 * math.pi)
     bicorn = named("bicorn") or polar(
-        lambda t: (math.sin(t), math.cos(t) ** 2 * (1 + math.sin(t)) / (1 - math.sin(t) + 1e-9)),
+        lambda t: (math.sin(t),
+                   math.cos(t) ** 2 * (1 + math.sin(t)) / (1 - math.sin(t) + 1e-9)),
         0.0, math.pi)
 
     def rotate(pts, deg):
@@ -164,8 +73,7 @@ def case_curves():
     cases = [
         ("closed-smooth", "9b-class · closed smooth curve, poor p-triple fit",
          "the circle member: a closed loop has no clean p-triple stop, so the "
-         "chain drifts and the joins land beside the ink",
-         [circle]),
+         "chain drifts and the joins land beside the ink", circle),
         ("cusped", "9b-class · cusped quartic",
          "a cusp breaks the converter; the joins must still sit on the two "
          "branches", piriform),
@@ -181,22 +89,19 @@ def case_curves():
          "a p-triple chain of whole-number turns: every join is a construction "
          "vertex", [S.turn_polygon([1, 2, 2, 1, 1], 4, 3, chord=1.0)]),
     ]
-    out = []
-    for key, title, why, curves in cases:
-        out.append({"key": key, "title": title, "why": why,
-                    "curves": [c for c in curves if len(c) > 3]})
-    return out
+    return [{"key": k, "title": t, "why": w,
+             "curves": [c for c in cs if len(c) > 3]}
+            for k, t, w, cs in cases]
 
 
 def measure(cases):
     rows = []
     for c in cases:
-        marks, worst, worst_px, chords, proj = solved_marks(c["curves"])
-        # every solid curve must carry at least two marks; the chain's own
-        # fit is reported beside the verdict, not hidden behind it
-        ok = len(marks) >= 2 * max(1, len([c for c in c["curves"] if len(c) > 3]))
-        rows.append({**c, "marks": marks, "worst": worst,
-                     "worst_px": worst_px, "chords": chords, "proj": proj,
+        got = solved_marks(c["curves"])
+        n_curves = max(1, len([x for x in c["curves"] if len(x) > 3]))
+        ok = len(got["marks"]) >= 2 * n_curves
+        rows.append({**c, "marks": got["marks"], "worst": got["fit"],
+                     "worst_px": got["fit_px"], "chords": got["chords"],
                      "ok": ok})
     return rows
 

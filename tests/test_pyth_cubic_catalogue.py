@@ -60,7 +60,7 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertIn("632", page)
         self.assertIn("3-4-5", page)
         self.assertIn("Infinity:", page)
-        self.assertEqual(page.count('<figure class="card">'), 24)
+        self.assertEqual(page.count('<figure class="card">'), 26)
 
 
     def test_the_ladder_is_eleven_s_and_ten_c(self):

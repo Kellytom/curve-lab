@@ -34,6 +34,7 @@ MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
 
+from dot_chain import solved_marks  # noqa: E402
 from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 
@@ -51,28 +52,22 @@ def fit(pts, pad=34):
     return lambda p: (ox + (p[0] - x0) * s, H - oy - (p[1] - y0) * s)   # +y up, flipped here
 
 
-def triple_joins(curves):
-    """The p-triangle joins of the longest solid curve, in its own frame.
-
-    This is the "integer hit" this project means: the vertex where one
-    p-triple triangle meets the next, not any crossing of a display grid.
-    The converter works in a normalised frame, so the joins are mapped back
-    through the same rotation and translation it applied.
-    """
-    from curve_lab.euler_polygon import convert
-    pts = max((c[0] for c in curves if not c[3]), key=len, default=None)
-    if not pts or len(pts) < 8:
-        return {"joins": [], "chord": 0.0}
-    try:
-        d = convert(pts, n=24)
-    except Exception:                      # a cusp or a loop: no clean chain
-        return {"joins": [], "chord": 0.0}
-    x0, y0 = pts[0]
-    dx, dy = pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]
-    a = math.atan2(dy, dx)
-    c, s = math.cos(a), math.sin(a)
-    return {"joins": [(x0 + X * c - Y * s, y0 + X * s + Y * c) for X, Y in d["polygon"]],
-            "chord": d["chord"]}
+def _on_curve(p, polylines, tol=1e-9):
+    """True when the point lies on one of the drawn polylines."""
+    for pts in polylines:
+        for a, b in zip(pts, pts[1:]):
+            ax, ay = a
+            bx, by = b
+            dx, dy = bx - ax, by - ay
+            if dx == 0 and dy == 0:
+                d = math.dist(p, a)
+            else:
+                t = ((p[0] - ax) * dx + (p[1] - ay) * dy) / (dx * dx + dy * dy)
+                t = max(0.0, min(1.0, t))
+                d = math.dist(p, (ax + t * dx, ay + t * dy))
+            if d <= tol:
+                return True
+    return False
 
 
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
@@ -85,7 +80,7 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
     ys = [p[1] for p in allpts]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
     solid = [c[0] for c in curves if not c[3]]
-    chain = triple_joins(curves) if joins else None
+    chain = solved_marks(solid) if joins else None
     if chain and chain["chord"] > 0:
         span = max(x1 - x0, y1 - y0)
         k = max(1, round(span / (10.0 * chain["chord"])))
@@ -94,13 +89,18 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
         step = best_step(solid, max(x1 - x0, y1 - y0))
     out += grid_lines(put, x0, x1, y0, y1, step, RULE)
     for pts, colour, width, dash in curves:
-        d = " ".join(("M" if i == 0 else "L") + f"{put(p)[0]:.1f},{put(p)[1]:.1f}"
-                     for i, p in enumerate(pts))
+        seen = []
+        for p in pts:
+            q = put(p)
+            r = (round(q[0], 1), round(q[1], 1))
+            if not seen or r != seen[-1]:
+                seen.append(r)
+        d = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
+                     for i, (x, y) in enumerate(seen))
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
-    auto = not dots
-    marks = list(dots) or [(p, MARK) for p in
-                          (chain["joins"] if chain else crossings(solid, step))]
+    raw = (chain["marks"] if chain else crossings(solid, step))
+    marks = [(p, MARK) for p in raw if _on_curve(p, solid)]
     if not marks:
         pool = solid or [c[0] for c in curves]
         longest = max(pool, key=len, default=None)
@@ -108,8 +108,12 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
             marks = [(longest[0], GOLD), (longest[-1], GOLD)]
     for p, colour in marks:
         q = put(p)
-        cls = ' class="lattice"' if auto else ''
-        out.append(f'<circle{cls} cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.2" fill="{colour}"/>')
+        out.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
+                   f'r="2.2" fill="{colour}"/>')
+    for p, colour in dots:
+        q = put(p)
+        out.append(f'<rect x="{q[0]-2:.1f}" y="{q[1]-2:.1f}" width="4" height="4" '
+                   f'fill="none" stroke="{colour}" stroke-width="1"/>')
     out.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{fig} · {title}</text>')
     out.append(f'<text x="10" y="{H - 8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{note}</text>')
     out.append(f'<text x="{W - 14}" y="{H - 24}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" text-anchor="end">x →</text>')
@@ -253,6 +257,37 @@ def chaikin(pts, it=5):
         out.append(pts[-1])
         pts = out
     return pts
+
+
+def euler_curve(points, n=120, sub=4):
+    """The house method: convert to an Euler polygon, then Béziers that follow
+    it. Dense polygon, C2 spline through its nodes, so the ink is smooth."""
+    from curve_lab.euler_polygon import convert
+    d = convert(points, n=n)
+    return bspline(d["polygon"], sub), d["polygon"]
+
+
+def bspline(pts, n=24):
+    """Uniform cubic B-spline through the polygon: C2, so curvature is
+    continuous at every join. This is the G2 version of the display curve."""
+    P = [pts[0]] * 3 + list(pts) + [pts[-1]] * 3
+    out = []
+    for i in range(len(P) - 3):
+        p0, p1, p2, p3 = P[i:i + 4]
+        for j in range(n):
+            t = j / n
+            t2, t3 = t * t, t * t * t
+            b0 = (1 - t) ** 3 / 6.0
+            b1 = (3 * t3 - 6 * t2 + 4) / 6.0
+            b2 = (-3 * t3 + 3 * t2 + 3 * t + 1) / 6.0
+            b3 = t3 / 6.0
+            q = (b0 * p0[0] + b1 * p1[0] + b2 * p2[0] + b3 * p3[0],
+                 b0 * p0[1] + b1 * p1[1] + b2 * p2[1] + b3 * p3[1])
+            if not out or math.dist(q, out[-1]) > 1e-12:
+                out.append(q)
+    if math.dist(pts[-1], out[-1]) > 1e-12:
+        out.append(pts[-1])
+    return out
 
 
 def smooth(pts, n=8):
@@ -563,9 +598,10 @@ def run() -> None:
             t = k / 6.0
             fine.append((a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])))
     fine.append(spine[-1])
+    euler_ink, euler_poly = euler_curve(spine)
     p10a = panel("Fig. 10a", "spine · a clean sweep", [
-        (chaikin(spine, 5), INK, 1.8, None), (fine, MUTED, 0.8, "3 4")],
-        "corner cutting, five passes · the polygon's 26 triangles", key="10a")
+        (euler_ink, INK, 1.8, None), (euler_poly, MUTED, 0.7, "3 4")],
+        "Euler polygon (120 chords) and the Bézier chain that follows it", key="10a")
 
     lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
           for t in [i * 5.2 * math.pi / 480 for i in range(481)]]
