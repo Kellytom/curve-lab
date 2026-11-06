@@ -34,6 +34,21 @@ MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
 
+MAX_POINTS = 24          # lattice marks per panel, before decimation
+GRID_LINES = 10          # aim for this many lines across the longer side
+
+
+def nice_step(span):
+    """A round grid step giving about GRID_LINES lines over `span`."""
+    if span <= 0:
+        return 1.0
+    raw = span / GRID_LINES
+    p = 10.0 ** math.floor(math.log10(raw))
+    for k in (1.0, 2.0, 2.5, 5.0, 10.0):
+        if raw <= k * p:
+            return k * p
+    return 10.0 * p
+
 
 def fit(pts, pad=34):
     xs = [p[0] for p in pts]
@@ -49,19 +64,85 @@ def fit(pts, pad=34):
     return lambda p: (ox + (p[0] - x0) * s, H - oy - (p[1] - y0) * s)   # +y up, flipped here
 
 
+def lattice_marks(curves, step, limit=MAX_POINTS, tol=1e-3):
+    """Points where a curve crosses a grid intersection, interpolated.
+
+    A dense curve can cross hundreds; an ornament needs a few anchors, not a
+    feather, so the list is thinned to `limit`. `tol` is in grid steps: the
+    polyline's chord error is about 1e-5 of a step, so 1e-3 keeps true hits
+    and rejects arbitrary near-misses.
+    """
+    seen, cand = set(), []
+
+    def add(kx, ky, x, y):
+        if (kx, ky) not in seen:
+            seen.add((kx, ky))
+            cand.append((x, y))
+
+    for pts, colour, width, dash in curves:
+        if dash:
+            continue
+        for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+            if x1 != x0:
+                g = math.ceil(min(x0, x1) / step) * step
+                while g <= max(x0, x1) + 1e-12:
+                    t = (g - x0) / (x1 - x0)
+                    if 0.0 <= t <= 1.0:
+                        y = y0 + t * (y1 - y0)
+                        ky = round(y / step)
+                        if abs(y - ky * step) <= tol * step:
+                            add(round(g / step), ky, g, ky * step)
+                    g += step
+            if y1 != y0:
+                g = math.ceil(min(y0, y1) / step) * step
+                while g <= max(y0, y1) + 1e-12:
+                    t = (g - y0) / (y1 - y0)
+                    if 0.0 <= t <= 1.0:
+                        x = x0 + t * (x1 - x0)
+                        kx = round(x / step)
+                        if abs(x - kx * step) <= tol * step:
+                            add(kx, round(g / step), kx * step, g)
+                    g += step
+    if len(cand) > limit:
+        stride = len(cand) / limit
+        cand = [cand[int(i * stride)] for i in range(limit)]
+    return cand
+
+
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
     allpts = [p for pts, *_ in curves for p in pts]
     put = fit(allpts)
     out = [f'<svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{title}">',
            f'<rect width="{W}" height="{H}" fill="{PAPER}"/>']
+    xs = [p[0] for p in allpts]
+    ys = [p[1] for p in allpts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    step = nice_step(max(x1 - x0, y1 - y0))
+    gx = math.floor(x0 / step) * step
+    while gx <= x1 + 1e-9:
+        a, b = put((gx, y0)), put((gx, y1))
+        out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                   f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.5"/>')
+        gx += step
+    gy = math.floor(y0 / step) * step
+    while gy <= y1 + 1e-9:
+        a, b = put((x0, gy)), put((x1, gy))
+        out.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                   f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.5"/>')
+        gy += step
     for pts, colour, width, dash in curves:
         d = " ".join(("M" if i == 0 else "L") + f"{put(p)[0]:.1f},{put(p)[1]:.1f}"
                      for i, p in enumerate(pts))
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
-    for p, colour in dots:
+    marks = list(dots) or [(p, GOLD) for p in lattice_marks(curves, step)]
+    if not marks:
+        longest = max((c[0] for c in curves if not c[3]), key=len, default=None)
+        if longest:
+            marks = [(longest[0], GOLD), (longest[-1], GOLD)]
+    for p, colour in marks:
         q = put(p)
-        out.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.6" fill="{colour}"/>')
+        out.append(f'<circle cx="{q[0]:.1f}" cy="{q[1]:.1f}" r="2.2" fill="{colour}"/>')
     out.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{fig} · {title}</text>')
     out.append(f'<text x="10" y="{H - 8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{note}</text>')
     out.append(f'<text x="{W - 14}" y="{H - 24}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" text-anchor="end">x →</text>')
