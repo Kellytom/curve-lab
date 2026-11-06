@@ -172,6 +172,12 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
 
 ## Next — ornament forms
 
+- [x] **W05 first storey — monstrance:** ground, foot, stem with rails, head,
+  host, 24 p-triple rays and a cross; grounded, with its three aspects named.
+  `workbench/storey-monstrance.html`, `scripts/storey_monstrance.py`.
+- [ ] W05 remaining seven: pillar, flower, crib, church, ship, crucifix, tree.
+
+
 - [x] One fleur proof using the plant-form grammar: stalk, ±d rails, ending, lattice marks, branches. `workbench/fleur-proof.html`, `scripts/fleur_proof.py`, `tests/test_fleur_proof.py`.
 - [x] Scroll/volute proof; keep the 2× offset rule and the ending rule. `workbench/volute-proof.html`, `scripts/volute_proof.py`, `tests/test_volute_proof.py`.
 - [x] Cruciform/primal proof; reuse the section and junction rules. `workbench/cruciform-proof.html`, `scripts/cruciform_proof.py`, `tests/test_cruciform_proof.py`.
