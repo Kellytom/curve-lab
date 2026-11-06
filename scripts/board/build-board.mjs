@@ -102,7 +102,7 @@ const withLattice = (svg) => {
   const kept = marks.length > 24
     ? Array.from({ length: 24 }, (_, i) => marks[Math.floor((i * marks.length) / 24)])
     : marks;
-  const dots = kept.map(([mx, my]) => `<circle class="lattice" cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="2" fill="#c9a441"/>`);
+  const dots = kept.map(([mx, my]) => `<circle class="lattice" cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="2" fill="#b23a2b"/>`);
   const insert = grid.join("") + dots.join("");
   if (/<rect[^>]*\/>/.test(svg)) return svg.replace(/(<rect[^>]*\/>)/, `$1${insert}`);
   return svg.replace(/(<svg[^>]*>)/, `$1${insert}`);

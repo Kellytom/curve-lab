@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab import plant as P  # noqa: E402
-from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 INK = "#2e2413"
 BLUE = "#1f5fa8"
@@ -162,7 +162,7 @@ def figure(items, w=980, h=620, pad=0.06, grid=True, marks=True):
         for p in crossings(solid, step):
             q = put(p)
             body.append(f'<circle class="lattice" cx="{q[0]:.1f}" '
-                        f'cy="{q[1]:.1f}" r="2.2" fill="{GOLD}"/>')
+                        f'cy="{q[1]:.1f}" r="2.2" fill="{MARK}"/>')
     return (f'<svg viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg">'
             f'<rect width="{w}" height="{h}" fill="{PAPER}" stroke="{GRID}"/>'
             + "".join(body) + "</svg>")

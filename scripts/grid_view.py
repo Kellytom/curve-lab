@@ -10,6 +10,7 @@ from __future__ import annotations
 import math
 
 TARGET_LINES = 10   # aim for this many lines across the longer side
+MARK = "#b23a2b"      # marks, not gold: must read against paper and ink
 MAX_MARKS = 24      # lattice marks per figure, before decimation
 
 

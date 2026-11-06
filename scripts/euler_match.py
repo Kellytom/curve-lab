@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, crossings, grid_lines, nice_step  # noqa: E402
 import generators as G  # noqa: E402
 
 INK, GOLD, DOT = "#2e2413", "#c9a441", "#b23a2b"
@@ -265,7 +265,7 @@ def figure(item, w=430.0, h=300.0, dot=2.4):
     grid = "".join(grid_lines(put, x0, x1, y0, y1, step, "#ece4cf"))
     marks = "".join(
         f'<circle class="lattice" cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" '
-        f'r="2.0" fill="{GOLD}"/>'
+        f'r="2.0" fill="{MARK}"/>'
         for p in crossings([b["pts"] for b in item["branches"]], step))
     curve = "".join(
         '<path d="' + "M " + " L ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}"

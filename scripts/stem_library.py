@@ -32,7 +32,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import euler_square as E  # noqa: E402
 import generators as G  # noqa: E402
 import spiral_turns as S  # noqa: E402
-from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 INK, MUTED, GUIDE = "#2e2413", "#7b6c4e", "#ece4cf"
 DOT = "#b23a2b"
@@ -75,7 +75,7 @@ def figure(branches, size=SIZE, mark=None, colors=None):
     grid = "".join(grid_lines(put, x0, x1, y0, y1, step, GUIDE))
     lattice = "".join(
         f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
-        f'cy="{put(p)[1]:.1f}" r="2.0" fill="#c9a441"/>'
+        f'cy="{put(p)[1]:.1f}" r="2.0" fill="{MARK}"/>'
         for p in crossings(branches, step))
     dots = "".join(
         f'<circle cx="{put(p)[0]:.1f}" cy="{put(p)[1]:.1f}" r="2.8" '

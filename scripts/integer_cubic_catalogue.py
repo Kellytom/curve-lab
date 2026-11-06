@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 from curve_lab.pyth_cubic import catalogue, catalogue_c  # noqa: E402
 from curve_lab.pyth_triples import base_triples  # noqa: E402
-from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, crossings, grid_lines, nice_step  # noqa: E402
 
 INK, BLUE, RED, GOLD = "#2e2413", "#1f5fa8", "#a23b2a", "#c9a441"
 MUTED, PAPER, GRID = "#7b6c4e", "#fffdf7", "#e4dcc6"
@@ -67,7 +67,7 @@ def card(row, title) -> str:
     for p in crossings([pts], step, limit=16):
         q = put(p)
         body.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
-                    f'r="2.0" fill="{GOLD}"/>')
+                    f'r="2.0" fill="{MARK}"/>')
     body.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" '
                 f'fill="{INK}">{title}</text>')
     body.append(f'<text x="10" y="{h-8}" font-family="ui-monospace,Menlo,monospace" '

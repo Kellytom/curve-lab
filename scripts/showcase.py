@@ -34,7 +34,7 @@ MUTED, RULE, PAPER = "#7b6c4e", "#d8ccae", "#fbf7ec"
 
 W, H = 336, 250
 
-from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 
 def fit(pts, pad=34):
@@ -68,7 +68,7 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve=""):
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
     auto = not dots
-    marks = list(dots) or [(p, GOLD) for p in crossings(solid, step)]
+    marks = list(dots) or [(p, MARK) for p in crossings(solid, step)]
     if not marks:
         pool = solid or [c[0] for c in curves]
         longest = max(pool, key=len, default=None)

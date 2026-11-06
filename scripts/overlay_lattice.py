@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 RULE = "#e8dfc9"
-MARK = "#c9a441"
+MARK = "#b23a2b"
 MAX_MARKS = 24
 
 

@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT))
 from curve_lab.euler_polygon import convert  # noqa: E402
 
 sys.path.insert(0, str(ROOT / "scripts"))
-from grid_view import crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, crossings, grid_lines, nice_step  # noqa: E402
 import generators as G  # noqa: E402
 
 INK = "#2e2413"
@@ -115,7 +115,7 @@ def figure(card, w=520, h=310):
     step = nice_step(max(x1 - x0, y1 - y0))
     body = grid_lines(put, x0, x1, y0, y1, step, GRID)
     body += [f'<circle class="lattice" cx="{put(p)[0]:.1f}" '
-             f'cy="{put(p)[1]:.1f}" r="2.0" fill="{GOLD}"/>'
+             f'cy="{put(p)[1]:.1f}" r="2.0" fill="{MARK}"/>'
              for p in crossings([c[0] for c in curves if not c[3]], step)]
     for pts, colour, width, dash in curves:
         d = " ".join(f"{put(p)[0]:.1f} {put(p)[1]:.1f}" for p in pts)

@@ -42,8 +42,7 @@ class FleurProofTest(unittest.TestCase):
         data = F.proof_data()
         self.assertEqual(self.page.count("<svg"), 2)
         # the marks are drawn as diamonds; one per integer node
-        self.assertEqual(self.page.count('fill="#c9a441"')
-                         - self.page.count('class="lattice"'),
+        self.assertEqual(self.page.count('fill="#c9a441"'),
                          data["integer_nodes"] + 2)
 
 

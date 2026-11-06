@@ -19,6 +19,7 @@ and `C`, and adding one would be a dependency earning nothing.
 
 from __future__ import annotations
 
+
 import json
 import math
 from xml.sax.saxutils import escape as _xml_text
@@ -315,7 +316,7 @@ def document(design, chain=None, spine=None, rails=None,
             cx, cy = place(xv, yv)
             out.append(f'    <circle class="lattice" cx="{num(cx, prec)}" '
                        f'cy="{num(cy, prec)}" r="{num(0.6, prec)}" '
-                       f'fill="#c9a441"/>')
+                       f'fill="#b23a2b"/>')
         out.append("  </g>")
     behind = annotations_markup(False)
     if behind:

@@ -17,7 +17,7 @@ import math
 import sys
 from pathlib import Path
 
-from grid_view import best_step, crossings, grid_lines, nice_step  # noqa: E402
+from grid_view import MARK, best_step, crossings, grid_lines, nice_step  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -538,7 +538,7 @@ def ph_figure(a: float, split: float, n: int, w=860.0, h=420.0) -> str:
     grid = "".join(grid_lines(at, x0, x1, y0, y1, step, "#efe7d2"))
     hits = "".join(
         f'<circle class="lattice" cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" '
-        f'r="2.2" fill="{GOLD}"/>' for p in crossings(paths, step))
+        f'r="2.2" fill="{MARK}"/>' for p in crossings(paths, step))
     dots = "".join(
         f'<circle cx="{at(p)[0]:.1f}" cy="{at(p)[1]:.1f}" r="3.2" fill="{INK}"/>'
         for p in nodes)
