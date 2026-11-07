@@ -70,16 +70,75 @@ def _on_curve(p, polylines, tol=1e-9):
     return False
 
 
+# A single-curve example gets a companion either side, as Fig. 0a does for the
+# log spiral. The rule says what that companion is: an exact parallel, a fitted
+# one, or a curve that is deliberately not an offset (it folds, or leaves the
+# family). Charts are not curves and carry no companions.
+NO_COMPANION = {"19b", "20c"}
+COMPANION_RULE = {
+    "10b": "not an offset",          # a constant-width curl is not a log spiral
+    "10c": "exact",                  # a shifted involute is the parallel
+    "13a": "exact", "13b": "exact", "13c": "exact",   # PH presets
+    "19a": "exact",                  # arcs and lines, exact 3-4-5 spine
+}
+
+
+def companion_rule(key, title, rule=None):
+    if rule:
+        return rule
+    if key in COMPANION_RULE:
+        return COMPANION_RULE[key]
+    low = title.lower()
+    if "log spiral" in low or "logarithmic spiral" in low:
+        return "not an offset"
+    if low.endswith("circle") or "circle, quarter" in low or "involute" in low:
+        return "exact"
+    return "fitted"
+# the catalogue's own provenance, one rule per family table
+FAMILY_RULE = {"presets": "exact"}
+
+
+def side_offsets(pts, d):
+    """The numeric parallels at +d and -d, one point per source point."""
+    left, right = [], []
+    last = len(pts) - 1
+    for i, p in enumerate(pts):
+        a, b = pts[max(0, i - 1)], pts[min(last, i + 1)]
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        length = math.hypot(dx, dy)
+        if length == 0:
+            left.append(p)
+            right.append(p)
+            continue
+        nx, ny = -dy / length, dx / length
+        left.append((p[0] + d * nx, p[1] + d * ny))
+        right.append((p[0] - d * nx, p[1] - d * ny))
+    return left, right
+
+
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
-          joins=False):
+          joins=False, rule=None):
+    solid = [c[0] for c in curves if not c[3]]
+    single = len(solid) == 1 and key not in NO_COMPANION
+    comp_curves = []
+    comp_label = ""
+    if single:
+        rule = companion_rule(key, title, rule)
+        xs = [p[0] for p in solid[0]]
+        ys = [p[1] for p in solid[0]]
+        d = 0.05 * max(max(xs) - min(xs), max(ys) - min(ys))
+        if d > 0:
+            left, right = side_offsets(solid[0], d)
+            comp_curves = [(left, BLUE, 1.0, None), (right, BLUE, 1.0, None)]
+            comp_label = f"±{d:.2f} {rule}"
     allpts = [p for pts, *_ in curves for p in pts]
+    allpts += [p for pts, *_ in comp_curves for p in pts]
     put = fit(allpts)
     out = [f'<svg viewBox="0 0 {W} {H}" width="100%" role="img" aria-label="{title}">',
            f'<rect width="{W}" height="{H}" fill="{PAPER}"/>']
     xs = [p[0] for p in allpts]
     ys = [p[1] for p in allpts]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    solid = [c[0] for c in curves if not c[3]]
     chain = solved_marks(solid) if joins else None
     if chain and chain["chord"] > 0:
         span = max(x1 - x0, y1 - y0)
@@ -88,6 +147,12 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
     else:
         step = best_step(solid, max(x1 - x0, y1 - y0))
     out += grid_lines(put, x0, x1, y0, y1, step, RULE)
+    for pts, colour, width, dash in comp_curves:
+        seen = [put(p) for p in pts]
+        path = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
+                        for i, (x, y) in enumerate(seen))
+        out.append(f'<path class="comp" d="{path}" fill="none" '
+                   f'stroke="{colour}" stroke-width="{width}"/>')
     for pts, colour, width, dash in curves:
         seen = []
         for p in pts:
@@ -127,12 +192,16 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
         out.append(f'<text x="10" y="{y}" font-family="ui-monospace,Menlo,monospace" '
                    f'font-size="10" fill="{MUTED}">{text}</text>')
     out.append(f'<text x="{W - 14}" y="{H - 24}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" text-anchor="end">x →</text>')
+    if comp_label:
+        out.append(f'<text x="10" y="{H - 32}" font-family="ui-monospace,Menlo,monospace" '
+                   f'font-size="10" fill="{BLUE}">{comp_label}</text>')
     out.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">y ↑</text>')
     out.append("</svg>")
     body = "".join(out)
     if not key:
         return body
-    return (f'<a class="fig" id="fig-{key}" data-curve="{curve}" '
+    attrs = f' data-companion="{rule}"' if single else ""
+    return (f'<a class="fig" id="fig-{key}" data-curve="{curve}"{attrs} '
             f'href="showcase-notes.html#fig-{key}" '
             f'title="{fig} — notes">{body}</a>')
 
@@ -1037,12 +1106,13 @@ def run() -> None:
     def row(a, b="", c=""):
         return f'<div class="row">{a}{b}{c}</div>'
 
-    def catalogue_rows(panels):
+    def catalogue_rows(panels, rule=None):
         chunks = [panels[i:i + 3] for i in range(0, len(panels), 3)]
         return "".join(
             '<div class="row">' + "".join(
                 panel(p["fig"], p["title"], p["curves"], p["note"],
-                      dots=p["dots"], key=p["key"], curve=p["curve"])
+                      dots=p["dots"], key=p["key"], curve=p["curve"],
+                      rule=rule)
                 for p in chunk) + "</div>"
             for chunk in chunks)
 
@@ -1052,7 +1122,7 @@ def run() -> None:
             continue
         catalogue_html += (
             f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
-            + catalogue_rows(panels))
+            + catalogue_rows(panels, rule=FAMILY_RULE.get(_key)))
     catalogue_html += ('<div class="fam"><h2>34 · Cloud effects</h2>'
                        '<p>the cloud layer has its own page</p></div>'
                        '<p class="note">The clouds, and the composite curves that '
