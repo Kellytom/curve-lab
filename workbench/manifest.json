@@ -29,6 +29,15 @@
       "outputs": "exact control points, the integer grid they need, the scale"
     },
     {
+      "key": "pell",
+      "file": "pell.html",
+      "group": "curve",
+      "title": "Pell and √2",
+      "purpose": "Integer points on x² − 2y² = 1, and the convergents of √2.",
+      "inputs": "none — two integer laws, and the point (3, 2)",
+      "outputs": "the doubling and addition chains, lattice points, the exact error law"
+    },
+    {
       "key": "catenary",
       "file": "catenary.html",
       "group": "curve",

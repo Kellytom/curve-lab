@@ -160,6 +160,25 @@ def c_hit_totals():
     return (control, best) == (126, 927), f"control {control}, optimised {best}"
 
 
+@check("Pell doubling keeps integer points on x² − 2y² = 1",
+       "tests/test_pell.py — 3/2 → 17/12 → 99/70, error 1/(2√2 y²)",
+       "python -m unittest tests.test_pell")
+def c_pell():
+    import math
+
+    import pell as P
+    pts = P.chain((3, 2), 6)
+    ok = all(x * x - 2 * y * y == 1 for x, y in pts)
+    ok = ok and P.multiply((3, 2), (17, 12)) == (99, 70)
+    ok = ok and P.double((3, 2)) == (17, 12)
+    x, y = pts[-1]
+    err = 1.0 / (y * y * (x / y + math.sqrt(2)))
+    law = 1.0 / (2 * math.sqrt(2) * y * y)
+    return (ok and abs(err / law - 1) < 0.01,
+            f"{len(pts)} points, error × y² → {err * y * y:.6f}, "
+            f"1/(2√2) = {1 / (2 * math.sqrt(2)):.6f}")
+
+
 @check("clothoid spans match smooth curves and cannot match a cusp",
        "scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes",
        "python scripts/euler_match.py")

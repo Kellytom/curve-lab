@@ -52,6 +52,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | primal ornaments | `docs/PRIMAL.md`, `curve_lab/primal.py` |
 | plant-form proof | `docs/PHILOSOPHY.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |
 | the page map / breadth | `workbench/workbench.html` + `workbench/manifest.json` (365; generated — index only, do not read through) |
+| the Pell / √2 hyperbola | `scripts/pell.py`, `tests/test_pell.py` |
 | source intake | `goals.md` §Source intake, `reference/manifest.json`, `docs/CORPUS.md` |
 | a W-label | `state/BACKLOG-int.md` — that label only |
 | what is parked | `state/BACKBURNER-int.md` |
