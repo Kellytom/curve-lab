@@ -250,6 +250,15 @@ def stem_panels():
     return out
 
 
+def stem_variant_panels():
+    """The cuts a stem is actually taken from — one curve each."""
+    import stem_variants as SV
+    out = []
+    for title, pts, note, source in SV.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def _billow(c, n=36):
     cx, cy, rx, ry, tilt, layer, power, shape = c
     a = math.radians(tilt)
@@ -389,6 +398,9 @@ FAMILIES = [
      combined_panels()),
     ("primal", "Primal · 4", "earth, water, air and fire as whole grammars",
      primal_panels()),
+    ("stem-variants", "Stems the catalogue lacked · 6",
+     "conic halves, partial LAC turns and Euler S spans — one curve each",
+     stem_variant_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]

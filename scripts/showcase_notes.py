@@ -574,6 +574,20 @@ NOTES = [
         "command": "python -m unittest tests.test_plant",
     },
     {
+        "id": "spine-345", "fig": "19 · 3-4-5 exact spine",
+        "title": "Equal chords, whole-number turns, closure by cancellation",
+        "kind": "explanation", "standalone": True,
+        "body": [
+            "This is the plan the rest of the spine work is measured against. Ten equal chords; every step is a rotation by a whole number of 3-4-5 angles, so every node stays rational and every turn is an integer count, not an angle typed in degrees.",
+            "The turn schedule 1,2,3,4,5,−5,−4,−3,−2,−1 is the curve. It winds to a peak heading of 553.05°, then unwinds along the same integers and leaves exactly east. Closure is not a fitting convenience: a 3-4-5 angle is irrational as a fraction of a turn, so no accumulation can land on a rational right angle by accident. The turns have to cancel, and they do: 1+2+3+4+5−5−4−3−2−1 = 0.",
+            "The three figures in the showcase are three views of that one object — the exact spine (19a), the closure count (19b), and the rotation built without trigonometry (19c). There is no spline in the chain: the drawing is the polygon itself."
+        ],
+        "numbers": ["10 equal chords, 11 nodes", "peak heading 553.05°",
+                    "sum of turns = 0", "350 rungs to 3125, median gap 0.14°"],
+        "source": "pythagorean-spiral/ · docs/SPINE.md §2, §5 · curve_lab/spine.py",
+        "command": "python scripts/showcase.py",
+    },
+    {
         "id": "19a", "fig": "Fig. 19a", "title": "3-4-5 spiral: the exact spine", "kind": "exact plan",
         "body": ["Ten equal chords, each turned by a whole number of 3-4-5 angles. The gold dots are every node; the dark line is the polygon through them. Nothing here is fitted — the drawn object is the exact chain, not an approximation of it.",
          "The turn schedule 1,2,3,4,5,−5,−4,−3,−2,−1 is the curve: it winds to a peak heading of 553.05°, then unwinds along the same integers and exits exactly east. Here is the closure rule: the turns must cancel, because no accumulation of a 3-4-5 angle can land on a rational right angle."],
@@ -790,6 +804,8 @@ def build(mapping=None) -> Path:
         rows = "".join(f"<li>{x}</li>" for x in n["numbers"])
         paras = "".join(f"<p>{x}</p>" for x in n["body"])
         tech = "".join(f'<div class="tech">{_tech(t)}</div>' for t in n.get("tech", []))
+        back = ("" if n.get("standalone") else
+                f'<p class="back"><a href="showcase.html#fig-{n["id"]}">← back to the figure</a></p>')
         sections.append(f"""
 <section class="note" id="fig-{n['id']}">
   <p class="eyebrow">{fig} · {n['kind']}</p>
@@ -798,12 +814,12 @@ def build(mapping=None) -> Path:
   <ul class="nums">{rows}</ul>
   {tech}
   <p class="meta"><strong>Where:</strong> {n['source']}<br><strong>Re-derive:</strong> <code>{n['command']}</code></p>
-  <p class="back"><a href="showcase.html#fig-{n['id']}">← back to the figure</a></p>
+  {back}
 </section>""")
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Showcase notes · one per figure</title>
+<title>Showcase notes · notes and explanations</title>
 <style>
 :root{{--paper:{PAPER};--ink:{INK};--muted:{MUTED};--rule:{RULE}}}
 *{{box-sizing:border-box}} body{{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.6 Georgia,serif}}
@@ -823,7 +839,7 @@ a{{color:var(--ink)}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · showcase notes</p>
 <h1>Notes for every figure</h1>
-<p class="lede">One section per panel, in the same order as the showcase: what is exact, what is fitted, the numbers, and the command that re-derives it.</p>
+<p class="lede">One section per figure, plus the prose that belongs between them: what is exact, what is fitted, the numbers, and the command that re-derives it.</p>
 <p class="top"><a href="showcase.html">← the showcase</a></p>
 {''.join(sections)}
 

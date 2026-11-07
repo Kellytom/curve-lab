@@ -1255,7 +1255,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>18 · Endings and marks</h2><p>what a stem ends in, and what sits on its rails</p></div>
 {row(p18a, p18b, p18c)}
 
-<div class="fam"><h2>19 · 3-4-5 exact spine</h2><p>equal chords, whole-number turns, closure by cancellation — every node rational</p></div>
+<div class="fam"><h2>19 · 3-4-5 exact spine</h2><p><a href="showcase-notes.html#fig-spine-345">the plan, the closure and the rotation · the note explains why the turns must cancel</a></p></div>
 {row(p19a, p19b, p19c)}
 
 <div class="fam"><h2>20 · Terminals</h2><p>how a stroke ends, computed: caps, tapers, and how far each one reaches</p></div>
