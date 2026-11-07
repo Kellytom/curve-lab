@@ -398,8 +398,8 @@ FAMILIES = [
      combined_panels()),
     ("primal", "Primal · 4", "earth, water, air and fire as whole grammars",
      primal_panels()),
-    ("stem-variants", "Stems the catalogue lacked · 6",
-     "conic halves, partial LAC turns and Euler S spans — one curve each",
+    ("stem-variants", "Stem cuts · 66",
+     "every LAC spine at 90° and 130° of turn, plus the conic halves and Euler S spans",
      stem_variant_panels()),
 ]
 

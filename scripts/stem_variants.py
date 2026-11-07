@@ -57,17 +57,21 @@ def heading_turn(pts):
     return math.degrees(total)
 
 
+_LAC_CARDS = None
+
+
 def lac_cut(degrees: float, card_name: str = "p = 0, turn 270"):
     """A recovered LAC spine, cut where its heading has turned `degrees`.
 
     The full spine turns 270°; a stem only wants the first part, which is how
     the 0–90° and 0–130° stems in the stem library were made.
     """
-    import stem_library as SL
-
-    SL.build()
-    card = next(c for c in SL.CARDS
-                if card_name in c["name"] and c["group"] == "Log-aesthetic")
+    global _LAC_CARDS
+    if _LAC_CARDS is None:
+        import stem_library as SL
+        SL.build()
+        _LAC_CARDS = [c for c in SL.CARDS if c["group"] == "Log-aesthetic"]
+    card = next(c for c in _LAC_CARDS if card_name in c["name"])
     pts = max(card["branches"], key=len)
     want = abs(math.radians(degrees))
     total = 0.0
@@ -125,13 +129,11 @@ def measured_swing(pts):
 
 def cases():
     """(title, points, note, source) — one curve each."""
-    lac90 = lac_cut(90)
-    lac130 = lac_cut(130)
     s30 = euler_swing(30)
     s75 = euler_swing(math.degrees(math.atan(0.75)))
     j30, p30, e30 = measured_swing(s30)
     j75, p75, e75 = measured_swing(s75)
-    return [
+    out = [
         ("parabola · half stem",
          parabola_half(),
          "y = x²/2 from the vertex · the other half is the mirror",
@@ -140,14 +142,6 @@ def cases():
          hyperbola_wing(),
          "x² − y² = 1, x > 0 · the other wing is its mirror",
          "curve_lab · conic"),
-        ("LAC · cut at 90° of turn",
-         lac90,
-         f"recovered spine · measured turn {abs(heading_turn(lac90)):.1f}°",
-         "workbench/spirals/lac.json · stem library"),
-        ("LAC · cut at 130° of turn",
-         lac130,
-         f"the same spine, longer · measured turn {abs(heading_turn(lac130)):.1f}°",
-         "workbench/spirals/lac.json · stem library"),
         ("Euler S · +30° to −30°",
          s30,
          f"two clothoid spans · join {j30:.1f}°, peak {p30:.1f}°, end {e30:.1f}°",
@@ -157,6 +151,20 @@ def cases():
          f"the same S at atan(3/4) = {math.degrees(math.atan(0.75)):.2f}° · join {j75:.1f}°, end {e75:.1f}°",
          "curve_lab.model.Design · two Segment(kd) spans"),
     ]
+    # every recovered spine, cut where a stem actually ends: 0–90° and 0–130°
+    import stem_library as SL
+    SL.build()
+    lac = [c for c in SL.CARDS if c["group"] == "Log-aesthetic"]
+    for i, card in enumerate(lac):
+        for degrees in (90, 130):
+            pts = lac_cut(degrees, card_name=card["name"])
+            out.append((
+                f"S{35 + i:02d} · cut at {degrees}°",
+                pts,
+                f"{card['name']} · measured turn {abs(heading_turn(pts)):.1f}°",
+                "workbench/spirals/lac.json · stem library",
+            ))
+    return out
 
 
 if __name__ == "__main__":
