@@ -268,6 +268,15 @@ def reuleaux_panels():
     return out
 
 
+def arch_panels():
+    """Parts of genus-1+ curves, used as arches."""
+    import arches as A
+    out = []
+    for title, pts, note, source in A.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def la_special_panels():
     """The two LA special cases the Gen-Arch dials name."""
     import gen_arch as GA
@@ -443,6 +452,9 @@ FAMILIES = [
     ("constant-width", "Constant width · 3",
      "Reuleaux at 60°: exact arcs, Bézier handles, and the Pell limit",
      reuleaux_panels()),
+    ("arches", "Arches · 4",
+     "elliptic and Fermat parts: exact at their integer endpoints, declared non-rational",
+     arch_panels()),
     ("la-specials", "LA specials · 2",
      "the two LA cases the dials name: α = 3, and Nielsen’s α = 0",
      la_special_panels()),

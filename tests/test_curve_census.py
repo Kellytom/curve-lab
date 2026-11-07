@@ -60,6 +60,11 @@ OUTSIDE = {
                 "drawn in the conics family, not the named table"),
     "hyperbola": ("showcase_catalogue.conic_panels · Fig. 11d",
                   "rational algebraic", "two branches; conics family"),
+    # genus 1 and higher: parts only, never a rational parametrisation
+    "elliptic curve": ("scripts/arches.py · y² = x³ + ax + b", "genus 1",
+                       "no rational parametrisation; used as arches between integer points"),
+    "Fermat curve": ("scripts/arches.py · xⁿ + yⁿ = 1", "genus 3 and up",
+                     "integer points only the trivial ones; used as arches"),
     # hearts: their own table, one of each form
     "Beutel sextic": ("heart_forms.FORMS", "algebraic sextic",
                       "a heart family member, not the named heart"),

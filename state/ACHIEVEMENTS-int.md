@@ -16,6 +16,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | Pell doubling keeps integer points on x² − 2y² = 1 | 7 points, error × y² → 0.353553, 1/(2√2) = 0.353553 | tests/test_pell.py — 3/2 → 17/12 → 99/70, error 1/(2√2 y²) |
 | ok | a PH quintic has integer controls at its scale and a rational arc length | 3 quintics, arcs 69/10, 16/5, 129/10 | scripts/ph_quintic.py — n = 5, arcs 69/10, 16/5, 129/10 |
 | ok | the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5 | width 1.000000..1.000000, Bézier error 2.4e-05, Pell gap 5.6e-04 | scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy |
+| ok | elliptic and Fermat arches are exact at their integer endpoints | y²=x³+1 ends at (−1,0)…(2,3); x³+y³=1 has only (0,1),(1,0) to 40 | scripts/arches.py — y²=x³+1 has (−1,0), (0,±1), (2,±3); FLT leaves ±1,0 |
 | ok | Nielsen's spiral is the inverse radial of the hyperbolic r = 1/φ | C'(t) matches (−sin t/t, cos t/t) to 1e-3 | scripts/gen_arch.py — C(t) = (−Si(t), Ci(t)) |
 | ok | the radial of a LA curve is a Gen-Arch spiral with c = α − 1 | 4 radials, exponents match 1/(α−1), max deviation 2.2e-16 | scripts/gen_arch.py — clothoid → lituus, involute → Archimedean |
 | ok | a p-triple turn schedule, quantised, still tracks a clothoid's κ ∝ s | slope 1.001, max error 0.31° of a 1.35° gap, 497 angles | scripts/discrete_clothoid.py — slope 1.001, error 0.31° of a 1.35° ladder |

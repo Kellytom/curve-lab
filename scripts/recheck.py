@@ -217,6 +217,23 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("elliptic and Fermat arches are exact at their integer endpoints",
+       "scripts/arches.py — y²=x³+1 has (−1,0), (0,±1), (2,±3); FLT leaves ±1,0",
+       "python -m unittest tests.test_arches")
+def c_arches():
+    import math
+
+    import arches as A
+    oval = A.elliptic_arch(0, 1, -1.0, 0.0)
+    branch = A.elliptic_arch(0, 1, 0.0, 2.0)
+    ok = (math.dist(oval[0], (-1.0, 0.0)) < 1e-8
+          and math.dist(branch[-1], (2.0, 3.0)) < 1e-8)
+    pts = A.integer_points_elliptic(0, 1, 60)
+    ok = ok and all(p in pts for p in ((-1, 0), (0, 1), (2, 3)))
+    ok = ok and A.fermat_integer_solutions(3, 40) == [(0, 1), (1, 0)]
+    return ok, "y²=x³+1 ends at (−1,0)…(2,3); x³+y³=1 has only (0,1),(1,0) to 40"
+
+
 @check("Nielsen's spiral is the inverse radial of the hyperbolic r = 1/φ",
        "scripts/gen_arch.py — C(t) = (−Si(t), Ci(t))",
        "python -m unittest tests.test_gen_arch")
