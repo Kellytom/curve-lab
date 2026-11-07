@@ -101,12 +101,14 @@ class TestShowcase(unittest.TestCase):
     def test_every_single_curve_panel_carries_companions(self):
         """Main curve plus a left and right companion, and the rule is named.
 
-        Fig. 1a (the log spiral) is the reference. Charts are not curves, and
-        the Rays panel is its own monstrance, so neither may claim companions.
+        Fig. 1a (the log spiral) is the reference. A curve is one curve even
+        when it is drawn in pieces — hyperbola branches, lemniscate loops,
+        cusp splits, an ideal plus its quantised twin — so each piece gets its
+        own pair. Charts are not curves, and the Rays panel is its own
+        monstrance, so neither may claim companions.
         """
         page = (PAGES / "showcase.html").read_text()
         charts = {"19b", "20c"}
-        skip = charts | {"rays"}                     # charts are not curves; rays is its own panel
         anchors = re.findall(
             r'<a class="fig" id="fig-([0-9a-zA-Z]+)"([^>]*)>(.*?)</a>', page, re.S)
         self.assertEqual(len(anchors), 393)          # 392 figures plus the rays
@@ -114,21 +116,28 @@ class TestShowcase(unittest.TestCase):
         for key, attrs, body in anchors:
             paths = re.findall(r'<path [^>]*>', body)
             comp = [p for p in paths if 'class="comp"' in p]
-            solid = [p for p in paths
-                     if 'class="comp"' not in p and 'stroke="#d8ccae"' not in p]
+            solid = [p for p in paths if 'class="comp"' not in p
+                     and 'stroke="#d8ccae"' not in p
+                     and 'stroke-dasharray' not in p]
+            ink = [p for p in solid if 'stroke="#2e2413"' in p]
+            mains = ink or solid
             rule = re.search(r'data-companion="([^"]+)"', attrs)
-            if len(solid) == 1 and key not in skip:
+            if 'data-single="1"' in attrs:
                 with_companions += 1
-                self.assertEqual(len(comp), 2, key)
+                self.assertEqual(len(comp), 2 * len(mains), key)
                 self.assertIsNotNone(rule, key)
                 self.assertIn(rule.group(1), ("exact", "fitted", "not an offset"), key)
                 self.assertIn(rule.group(1), body, key)   # named in the panel
-                # left and right: the two companions are different paths
-                self.assertNotEqual(comp[0], comp[1], key)
             elif key in charts:
                 self.assertEqual(len(comp), 0, key)
                 self.assertIsNone(rule, key)
-        self.assertGreaterEqual(with_companions, 250)
+        self.assertGreaterEqual(with_companions, 300)
+        # the pieces that made the first cut wrong: one curve, several paths
+        for key in ("16a", "16b", "16c", "9d", "8f", "c004", "c008", "c010",
+                    "c012", "c020", "c022", "c023", "c025", "c048"):
+            self.assertIn(f'id="fig-{key}"', page)
+            self.assertRegex(
+                page, rf'id="fig-{key}"[^>]*data-companion="(exact|fitted|not an offset)"')
 
     def test_three_across_and_rays_last(self):
         page = (PAGES / "showcase.html").read_text()

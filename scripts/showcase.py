@@ -74,7 +74,7 @@ def _on_curve(p, polylines, tol=1e-9):
 # log spiral. The rule says what that companion is: an exact parallel, a fitted
 # one, or a curve that is deliberately not an offset (it folds, or leaves the
 # family). Charts are not curves and carry no companions.
-NO_COMPANION = {"19b", "20c"}
+NO_COMPANION = {"19b", "20c", "3c"}
 COMPANION_RULE = {
     "10b": "not an offset",          # a constant-width curl is not a log spiral
     "10c": "exact",                  # a shifted involute is the parallel
@@ -96,6 +96,10 @@ def companion_rule(key, title, rule=None):
     return "fitted"
 # the catalogue's own provenance, one rule per family table
 FAMILY_RULE = {"presets": "exact"}
+# every entry in these tables is one curve, even when it is drawn in two or
+# more pieces (branches, loops, cusp splits); composites are not listed
+SINGLE_FAMILIES = {"named", "hearts", "presets", "conics", "euler", "lac",
+                   "cubics", "cubics-c", "french", "leaves"}
 
 
 def side_offsets(pts, d):
@@ -117,19 +121,28 @@ def side_offsets(pts, d):
 
 
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
-          joins=False, rule=None):
+          joins=False, rule=None, single_curve=None):
+    """One cue per figure. A *curve example* is one curve even when it is
+    drawn in pieces — two hyperbola branches, two lemniscate loops, a cusped
+    curve split at its cusps, or an ideal and its quantised twin. Those all
+    get the companion pair; constructions and composites do not."""
     solid = [c[0] for c in curves if not c[3]]
-    single = len(solid) == 1 and key not in NO_COMPANION
+    main = [c[0] for c in curves if not c[3] and c[1] == INK]
+    single = (len(solid) == 1 if single_curve is None else bool(single_curve))
+    single = single and key not in NO_COMPANION
     comp_curves = []
     comp_label = ""
     if single:
+        branches = main or solid
         rule = companion_rule(key, title, rule)
-        xs = [p[0] for p in solid[0]]
-        ys = [p[1] for p in solid[0]]
+        pts_all = [p for pts in branches for p in pts]
+        xs = [p[0] for p in pts_all]
+        ys = [p[1] for p in pts_all]
         d = 0.05 * max(max(xs) - min(xs), max(ys) - min(ys))
         if d > 0:
-            left, right = side_offsets(solid[0], d)
-            comp_curves = [(left, BLUE, 1.0, None), (right, BLUE, 1.0, None)]
+            for pts in branches:
+                left, right = side_offsets(pts, d)
+                comp_curves += [(left, BLUE, 1.0, None), (right, BLUE, 1.0, None)]
             comp_label = f"±{d:.2f} {rule}"
     allpts = [p for pts, *_ in curves for p in pts]
     allpts += [p for pts, *_ in comp_curves for p in pts]
@@ -200,7 +213,7 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
     body = "".join(out)
     if not key:
         return body
-    attrs = f' data-companion="{rule}"' if single else ""
+    attrs = f' data-companion="{rule}" data-single="1"' if single else ""
     return (f'<a class="fig" id="fig-{key}" data-curve="{curve}"{attrs} '
             f'href="showcase-notes.html#fig-{key}" '
             f'title="{fig} — notes">{body}</a>')
@@ -642,7 +655,8 @@ def run() -> None:
     bicorn = named_curve("bicorn")
     p8f = panel("Fig. 8f", "bicorn · one quartic", [
         (b, INK, 1.8, None) for b in bicorn],
-        "two halves joined at (±1, 0) · the node sits at (0, 1/3)", joins=True, key="8f")
+        "two halves joined at (±1, 0) · the node sits at (0, 1/3)", joins=True, key="8f",
+        single_curve=True)
 
     bic_flower = []
     for k in range(4):
@@ -680,7 +694,8 @@ def run() -> None:
         ([(x, x) for x in (-2.4, 2.4)], MUTED, 0.9, "4 3"),
         ([(x, -x) for x in (-2.4, 2.4)], MUTED, 0.9, "4 3"),
         (hyp_r, INK, 1.8, None), (hyp_l, INK, 1.8, None)],
-        "x^2 - y^2 = 1 · rational points, fitted parallel", key="9d")
+        "x^2 - y^2 = 1 · rational points, fitted parallel", key="9d",
+        single_curve=True)
 
 
     # ---- 10 · spirals -----------------------------------------------------
@@ -882,17 +897,17 @@ def run() -> None:
     ideal_cyc = [(t - math.sin(t), 1 - math.cos(t)) for t in [i * 2 * math.pi / 360 for i in range(361)]]
     p16a = panel("Fig. 16a", "cycloid · ideal and quantised", [
         (ideal_cyc, MUTED, 1.2, None), (quantise(ideal_cyc), INK, 1.7, None)],
-        "the polygon is 3° turns; the cusps survive", key="16a")
+        "the polygon is 3° turns; the cusps survive", key="16a", single_curve=True)
 
     ideal_ast = [(math.cos(t) ** 3, math.sin(t) ** 3) for t in [i * 2 * math.pi / 360 for i in range(361)]]
     p16b = panel("Fig. 16b", "astroid · ideal and quantised", [
         (ideal_ast, MUTED, 1.2, None), (quantise(ideal_ast), INK, 1.7, None)],
-        "four cusps · the quantisation follows them", key="16b")
+        "four cusps · the quantisation follows them", key="16b", single_curve=True)
 
     ideal_tra = [(t - math.tanh(t), 1 / math.cosh(t)) for t in [(-3.0 + 6.0 * i / 360) for i in range(361)]]
     p16c = panel("Fig. 16c", "tractrix · ideal and quantised", [
         (ideal_tra, MUTED, 1.2, None), (quantise(ideal_tra), INK, 1.7, None)],
-        "the cusp at the top is where the fit fails", key="16c")
+        "the cusp at the top is where the fit fails", key="16c", single_curve=True)
 
     # ---- 17 · A-grade, combined -------------------------------------------
     arc = [(2 * math.cos(t), 2 * math.sin(t)) for t in [i * math.pi / 2 / 90 for i in range(91)]]
@@ -1106,13 +1121,13 @@ def run() -> None:
     def row(a, b="", c=""):
         return f'<div class="row">{a}{b}{c}</div>'
 
-    def catalogue_rows(panels, rule=None):
+    def catalogue_rows(panels, rule=None, single=None):
         chunks = [panels[i:i + 3] for i in range(0, len(panels), 3)]
         return "".join(
             '<div class="row">' + "".join(
                 panel(p["fig"], p["title"], p["curves"], p["note"],
                       dots=p["dots"], key=p["key"], curve=p["curve"],
-                      rule=rule)
+                      rule=rule, single_curve=single)
                 for p in chunk) + "</div>"
             for chunk in chunks)
 
@@ -1122,7 +1137,8 @@ def run() -> None:
             continue
         catalogue_html += (
             f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
-            + catalogue_rows(panels, rule=FAMILY_RULE.get(_key)))
+            + catalogue_rows(panels, rule=FAMILY_RULE.get(_key),
+                             single=(True if _key in SINGLE_FAMILIES else None)))
     catalogue_html += ('<div class="fam"><h2>34 · Cloud effects</h2>'
                        '<p>the cloud layer has its own page</p></div>'
                        '<p class="note">The clouds, and the composite curves that '
