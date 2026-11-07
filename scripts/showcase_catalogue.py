@@ -268,6 +268,15 @@ def reuleaux_panels():
     return out
 
 
+def ph_quintic_panels():
+    """Degree-five PH curves: integer controls after one scale."""
+    import ph_quintic as PQ
+    out = []
+    for title, pts, note, source in PQ.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def gen_arch_panels():
     """Gen-Arch: the four classical generalized Archimedean spirals."""
     import gen_arch as GA
@@ -425,6 +434,9 @@ FAMILIES = [
     ("constant-width", "Constant width · 3",
      "Reuleaux at 60°: exact arcs, Bézier handles, and the Pell limit",
      reuleaux_panels()),
+    ("ph-quintics", "PH quintics · 3",
+     "degree five, integer controls after one scale, rational arc length",
+     ph_quintic_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]

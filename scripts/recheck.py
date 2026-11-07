@@ -184,6 +184,21 @@ def c_pell():
             f"1/(2√2) = {1 / (2 * math.sqrt(2)):.6f}")
 
 
+@check("a PH quintic has integer controls at its scale and a rational arc length",
+       "scripts/ph_quintic.py — n = 5, arcs 69/10, 16/5, 129/10",
+       "python -m unittest tests.test_ph_quintic")
+def c_ph_quintic():
+    import ph_quintic as PQ
+    ok = True
+    arcs = []
+    for title, h, u, v in PQ.CASES:
+        d = PQ.build_case(h, u, v)
+        arc = d["arc"]
+        ok = ok and d["pc"].check(PQ.M, d["scale"]) and arc.denominator > 0
+        arcs.append(f"{arc.numerator}/{arc.denominator}")
+    return ok, f"{len(PQ.CASES)} quintics, arcs " + ", ".join(arcs)
+
+
 @check("the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5",
        "scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy",
        "python -m unittest tests.test_reuleaux")
