@@ -427,6 +427,14 @@ NAMED = [
          eq="y² = x³",
          tail="Neile's parabola · the evolute of a parabola · cusp at the origin",
          branches=[([1, -4, 4], [-1, 6, -12, 8], [1])]),
+    dict(key="cissoid", deg=3, m=6, subst="affine",
+         eq="y²(2 − x) = x³",
+         tail="cissoid of Diocles · cusp at the origin · asymptote x = 2",
+         branches=[([0, 0, 8], [0, 0, 0, 16], [1, 0, 4])]),
+    dict(key="strophoid", deg=3, m=6, subst="affine",
+         eq="y²(1 + x) = x²(1 − x)",
+         tail="right strophoid · loop closes at the node t = ±1",
+         branches=[([0, 4, -4], [0, -4, 12, -8], [2, -4, 4])]),
 ]
 
 

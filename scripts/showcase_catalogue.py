@@ -397,7 +397,7 @@ def drapery_panels():
 
 
 FAMILIES = [
-    ("named", "The named table · 26", "every curve in generators.NAMED", named_panels()),
+    ("named", "The named table · 28", "every curve in generators.NAMED", named_panels()),
     ("hearts", "The hearts · 15", "every form in heart_forms.FORMS", heart_panels()),
     ("presets", "The presets · 4", "the four named clothoid designs", preset_panels()),
     ("conics", "The conics · 4", "circle, ellipse, parabola, hyperbola", conic_panels()),
@@ -410,7 +410,7 @@ FAMILIES = [
     ("cubics-c", "The integer C cubics · 10",
      "C-shaped counterparts, one per height/chord bin, smallest c in each",
      cubic_c_panels()),
-    ("stems", "The stem library · 178", "every card in the stem catalogue",
+    ("stems", "The stem library · 180", "every card in the stem catalogue",
      stem_panels()),
     ("french", "French curves · 8",
      "drawing aids, each a chain of three Euler spans", french_panels()),

@@ -97,7 +97,7 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertIn("The integer cubics · 11", page)
         self.assertIn("The integer C cubics · 10", page)
         self.assertNotIn("The integer cubics · 316", page)
-        self.assertEqual(page.count('class="fig"'), 466)
+        self.assertEqual(page.count('class="fig"'), 470)
 
 
 class ShowcaseOrderTest(unittest.TestCase):
@@ -117,10 +117,10 @@ class ShowcaseOrderTest(unittest.TestCase):
         from pathlib import Path
         sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
         import showcase_catalogue as C
-        self.assertEqual(len(C.stem_panels()), 178)
+        self.assertEqual(len(C.stem_panels()), 180)
         page = (Path(__file__).resolve().parents[1] / "workbench" /
                 "showcase.html").read_text(encoding="utf-8")
-        self.assertIn("The stem library · 178", page)
+        self.assertIn("The stem library · 180", page)
         self.assertIn("S01 ·", page)
         self.assertIn("SM1 ·", page)
 

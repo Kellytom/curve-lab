@@ -186,7 +186,7 @@ one curve per tight square.  Single stems keep S numbers (S01–S109, S118–S15
 and the two halves **S166 ½ catenary** and **S167 ½ cycloid**); the multiple-stem
 cards are **SM1–SM26**.  (The plants keep internal generator indices S110–S117
 and S158–S165; SM17–SM26 are S168–S177 internally.)  The groups are generator
-presets (4), named curves (26), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
+presets (4), named curves (28), Euler 45°/90° (2), spiral-turns r=5/17/28.3 (3),
 the 31 recovered LAC spines, four full gestures, two half gestures, **80
 combination cards (S70–S109 and S118–S157: 70 pairs + 10 doubles)**, and **26
 multiple-stem cards (SM1–SM26)**.  The S35–S39, S41–S45 and S46–S50 groups pair
