@@ -47,6 +47,15 @@
       "outputs": "the quantised schedule, its measured exponent and quantisation error"
     },
     {
+      "key": "gen-arch",
+      "file": "gen-arch.html",
+      "group": "curve",
+      "title": "Gen-Arch",
+      "purpose": "The generalized Archimedean spiral, and the radial of a LA curve.",
+      "inputs": "the dials a, b, c; the LA slope α maps to c = α − 1",
+      "outputs": "the four classical spirals, the radial identity, the dial conversions"
+    },
+    {
       "key": "catenary",
       "file": "catenary.html",
       "group": "curve",

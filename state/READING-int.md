@@ -54,6 +54,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the page map / breadth | `workbench/workbench.html` + `workbench/manifest.json` (365; generated — index only, do not read through) |
 | the Pell / √2 hyperbola | `scripts/pell.py`, `tests/test_pell.py` |
 | the discrete clothoid | `scripts/discrete_clothoid.py`, `tests/test_discrete_clothoid.py` |
+| Gen-Arch / LA radials | `scripts/gen_arch.py`, `tests/test_gen_arch.py` |
 | the parabola evolute / involute | `scripts/pyth_plane.py`, `tests/test_exploration_pages.py` |
 | source intake | `goals.md` §Source intake, `reference/manifest.json`, `docs/CORPUS.md` |
 | a W-label | `state/BACKLOG-int.md` — that label only |

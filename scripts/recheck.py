@@ -179,6 +179,19 @@ def c_pell():
             f"1/(2√2) = {1 / (2 * math.sqrt(2)):.6f}")
 
 
+@check("the radial of a LA curve is a Gen-Arch spiral with c = α − 1",
+       "scripts/gen_arch.py — clothoid → lituus, involute → Archimedean",
+       "python -m unittest tests.test_gen_arch")
+def c_gen_arch():
+    import gen_arch as GA
+    rows = GA.analysis()
+    ok = all(abs(r["slope"] - r["expect"]) < 1e-6 and r["dev"] < 1e-12
+             for r in rows)
+    worst = max(r["dev"] for r in rows)
+    return ok, (f"{len(rows)} radials, exponents match 1/(α−1), "
+                f"max deviation {worst:.1e}")
+
+
 @check("a p-triple turn schedule, quantised, still tracks a clothoid's κ ∝ s",
        "scripts/discrete_clothoid.py — slope 1.001, error 0.31° of a 1.35° ladder",
        "python -m unittest tests.test_discrete_clothoid")

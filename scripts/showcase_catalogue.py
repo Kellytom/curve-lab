@@ -259,6 +259,15 @@ def stem_variant_panels():
     return out
 
 
+def gen_arch_panels():
+    """Gen-Arch: the four classical generalized Archimedean spirals."""
+    import gen_arch as GA
+    out = []
+    for title, pts, note, source in GA.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def _billow(c, n=36):
     cx, cy, rx, ry, tilt, layer, power, shape = c
     a = math.radians(tilt)
@@ -401,6 +410,9 @@ FAMILIES = [
     ("stem-variants", "Stem cuts · 66",
      "every LAC spine at 90° and 130° of turn, plus the conic halves and Euler S spans",
      stem_variant_panels()),
+    ("gen-arch", "Gen-Arch · 4",
+     "the generalized Archimedean spiral: lituus, hyperbolic, Archimedean, Fermat",
+     gen_arch_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]

@@ -162,7 +162,7 @@ def cases():
             m = re.search(r"p = ([\-\d./]+)", card["name"])
             dial = m.group(1) if m else "?"
             out.append((
-                f"S{35 + i:02d} · α = {dial} · cut at {degrees}°",
+                f"S{35 + i:02d} · p = {dial} · cut at {degrees}°",
                 pts,
                 f"{card['name']} · measured turn {abs(heading_turn(pts)):.1f}°",
                 "workbench/spirals/lac.json · stem library",

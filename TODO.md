@@ -18,6 +18,9 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [x] Notes page carries prose, not only one-per-figure: section 19's
   explanation is a standalone note, and the showcase heading links to it.
 - [x] The hub links to the showcase near the top.
+- [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
+  LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
+  Clothoid → lituus (c = −2), involute → Archimedean (c = 1).
 - [x] Pell / √2 page: `scripts/pell.py`, `workbench/pell.html`, `tests/test_pell.py`; doubling (x,y) → (x²+2y², 2xy),
   convergents 3/2 → 17/12 → 577/408 (addition gives 99/70); claim added, recheck 37/37.
 - [x] Discrete clothoid: `scripts/discrete_clothoid.py`, `workbench/discrete-clothoid.html`;
