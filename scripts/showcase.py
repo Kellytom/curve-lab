@@ -109,7 +109,23 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
         out.append(f'<rect x="{q[0]-2:.1f}" y="{q[1]-2:.1f}" width="4" height="4" '
                    f'fill="none" stroke="{colour}" stroke-width="1"/>')
     out.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{fig} · {title}</text>')
-    out.append(f'<text x="10" y="{H - 8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{note}</text>')
+    # the note is wrapped to the panel width: 10px mono, ~52 characters a line
+    words, lines, line = str(note).split(), [], ""
+    for w in words:
+        if len(line) + len(w) + 1 <= 52:
+            line = (line + " " + w).strip()
+        else:
+            lines.append(line)
+            line = w
+    if line:
+        lines.append(line)
+    if len(lines) > 2:
+        lines = lines[:2]
+        lines[1] = lines[1][:49].rstrip() + "…"
+    for i, text in enumerate(reversed(lines)):        # last line sits lowest
+        y = H - 8 - 12 * i
+        out.append(f'<text x="10" y="{y}" font-family="ui-monospace,Menlo,monospace" '
+                   f'font-size="10" fill="{MUTED}">{text}</text>')
     out.append(f'<text x="{W - 14}" y="{H - 24}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" text-anchor="end">x →</text>')
     out.append(f'<text x="12" y="34" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">y ↑</text>')
     out.append("</svg>")
@@ -253,6 +269,16 @@ def chaikin(pts, it=5):
     return pts
 
 
+def fine_triple(target_deg=4.4, c_max=3125):
+    """The p-triple whose turn is closest to `target_deg`, with its turn angle."""
+    from curve_lab.pyth_triples import base_triples
+    pairs = [(abs(math.degrees(math.atan2(bb, aa)) - target_deg), aa, bb)
+             for t in base_triples(c_max)
+             for aa, bb in ((t["a"], t["b"]), (t["b"], t["a"]))]
+    _, a, b = min(pairs)
+    return a, b, math.atan2(b, a)
+
+
 def euler_curve(points, n=120, sub=4):
     """The house method: convert to an Euler polygon, then Béziers that follow
     it. Dense polygon, C2 spline through its nodes, so the ink is smooth."""
@@ -264,7 +290,11 @@ def euler_curve(points, n=120, sub=4):
 def bspline(pts, n=24):
     """Uniform cubic B-spline through the polygon: C2, so curvature is
     continuous at every join. This is the G2 version of the display curve."""
-    P = [pts[0]] * 3 + list(pts) + [pts[-1]] * 3
+    # natural ends: mirror one point past each end, which is far gentler than
+    # triplicating the ends (that pinches the curvature at the tips)
+    p_start = (2 * pts[0][0] - pts[1][0], 2 * pts[0][1] - pts[1][1])
+    p_end = (2 * pts[-1][0] - pts[-2][0], 2 * pts[-1][1] - pts[-2][1])
+    P = [p_start] + list(pts) + [p_end]
     out = []
     for i in range(len(P) - 3):
         p0, p1, p2, p3 = P[i:i + 4]
@@ -592,10 +622,18 @@ def run() -> None:
             t = k / 6.0
             fine.append((a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])))
     fine.append(spine[-1])
-    euler_ink, euler_poly = euler_curve(spine)
+    # the finest turn the 3125 ladder offers near 4.4°, not the 3-4-5's 36.87°
+    fa, fb, fine_alpha = fine_triple()
+    units = (1, 2, 2, 1, 1)
+    counts = [max(1, round(u * math.asin(3 / 5) / fine_alpha)) for u in units]
+    chord = 7.0 / sum(counts)                 # same total length as the 3-4-5 spine
+    spine_fine = turn_polygon(counts, fa, fb, chord=chord)
+    euler_ink, euler_poly = euler_curve(spine_fine)
     p10a = panel("Fig. 10a", "spine · a clean sweep", [
         (euler_ink, INK, 1.8, None), (euler_poly, MUTED, 0.7, "3 4")],
-        "Euler polygon (120 chords) and the Bézier chain that follows it", key="10a")
+        f"{sum(counts)} chords of {math.degrees(fine_alpha):.2f}° "
+        f"({fa}-{fb}-{int(math.hypot(fa, fb))}) · Euler polygon + Bézier chain",
+        key="10a")
 
     lg = [(math.exp(0.22 * t) * math.cos(t), math.exp(0.22 * t) * math.sin(t))
           for t in [i * 5.2 * math.pi / 480 for i in range(481)]]
@@ -844,8 +882,16 @@ def run() -> None:
 
     # ---- 19 · 3-4-5 exact spine ------------------------------------------
     pkg = spine_layer.load()
-    tri345 = pkg.Triple(3, 4, 5)
-    schedule345 = [1, 1, 2, 3, 4, 5, 5, -5, -5, -4, -3, -2, -1, -1]
+    sa, sb, s_alpha = fine_triple()
+    # the spiral package wants a <= b; its turn is atan2(a, b), the reverse of
+    # turn_polygon's convention, so the pair is ordered here explicitly
+    tri345 = pkg.Triple(min(sa, sb), max(sa, sb),
+                        int(round(math.hypot(sa, sb))))
+    # 20a on the same fine ladder: the 3-4-5 rungs scaled to ~4.4 degrees,
+    # mirrored so the turns still cancel exactly
+    sa, sb, s_alpha = fine_triple()
+    pos = [max(1, round(u * math.asin(3 / 5) / s_alpha)) for u in (1, 2, 3, 4, 5)]
+    schedule345 = pos + [-x for x in reversed(pos)]
     chain345 = pkg.Spiral(tri345, 1)
     chain345.extend(schedule345)
     assert chain345.coeff == 0 and chain345.heading.is_axis_aligned()

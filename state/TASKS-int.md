@@ -74,6 +74,15 @@ a reason.
 - [x] `state/DOT-SOLVER-int.md` records the rule, the check and the image
       exception scoped to this sub-focus.
 
+## Next: offsets and complementary curves
+
+- [ ] Add the offset / parallel family to either side of every single-curve
+      example, as fig 1a already does (the operator's "complementary curve":
+      the companion drawn alongside the main one).
+- [ ] Then move to the combined curves, excluding the ones not certain.
+- [x] Panel notes wrap to two lines at 52 characters, so nothing runs off the
+      right edge of an illustration.
+
 ## Housekeeping
 
 - [x] Senior-dev consolidation pass recorded in `TODO.md`, to run after the

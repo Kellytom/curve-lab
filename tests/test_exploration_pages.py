@@ -110,7 +110,7 @@ class TestShowcase(unittest.TestCase):
     def test_the_345_spiral_panel(self):
         page = (PAGES / "showcase.html").read_text()
         self.assertIn('id="fig-19a"', page)
-        self.assertIn("15 int nodes x5^15", page)
+        self.assertIn("int nodes x5^15", page)
 
     def test_the_closed_gap_panels(self):
         page = (PAGES / "showcase.html").read_text()
