@@ -52,7 +52,8 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | primal ornaments | `docs/PRIMAL.md`, `curve_lab/primal.py` |
 | plant-form proof | `docs/PHILOSOPHY.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |
 | the page map / breadth | `workbench/workbench.html` + `workbench/manifest.json` (365; generated — index only, do not read through) |
-| the Pell / √2 hyperbola | `scripts/pell.py`, `tests/test_pell.py` |
+| the Pell / √2 hyperbola (d as a dial) | `scripts/pell.py`, `tests/test_pell.py` |
+| constant width / Reuleaux | `scripts/reuleaux.py`, `tests/test_reuleaux.py` |
 | the discrete clothoid | `scripts/discrete_clothoid.py`, `tests/test_discrete_clothoid.py` |
 | Gen-Arch / LA radials | `scripts/gen_arch.py`, `tests/test_gen_arch.py` |
 | the parabola evolute / involute | `scripts/pyth_plane.py`, `tests/test_exploration_pages.py` |

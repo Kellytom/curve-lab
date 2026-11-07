@@ -82,6 +82,20 @@ Pell sequences; the addition law and the doubling law agree because 17/12 is alr
 </section>
 
 <section class="panel">
+<h2>Other d: the same two laws</h2>
+<p>Nothing in the doubling law is special to 2. For a square-free <code>d</code>, the units of
+Z[√d] have norm <code>x² − d y²</code>, and the same multiplication keeps the norm at 1. The first
+point above the unit differs with d; after that the chain is mechanical.</p>
+<table>
+<tr><th>d</th><th>first point</th><th>doubled</th><th>x² − d y²</th></tr>
+<tr><td>2</td><td>(3, 2)</td><td>(17, 12)</td><td>1</td></tr><tr><td>3</td><td>(2, 1)</td><td>(7, 4)</td><td>1</td></tr><tr><td>5</td><td>(9, 4)</td><td>(161, 72)</td><td>1</td></tr><tr><td>6</td><td>(5, 2)</td><td>(49, 20)</td><td>1</td></tr>
+</table>
+<p class="small">Squares are excluded: for <code>d = k²</code> the equation factors as
+(x−ky)(x+ky)=1, so its only integer points are the trivial ones. The non-square d are the interesting
+ones — and the larger d, the faster the convergents improve, because the error is 1/(2√d·y²).</p>
+</section>
+
+<section class="panel">
 <h2>Why it belongs beside the p-triple plane</h2>
 <p>The Pythagorean triples come from units in the Gaussian integers: (u+iv)² doubles an angle and
 produces the next triple. Pell comes from units in Z[√2]: (x+y√2)² doubles the “hyperbolic angle”

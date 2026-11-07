@@ -259,6 +259,15 @@ def stem_variant_panels():
     return out
 
 
+def reuleaux_panels():
+    """Constant width: the exact arcs, the Bézier handles, and the Pell limit."""
+    import reuleaux as R
+    out = []
+    for title, pts, note, source in R.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.6, None)], note, source))
+    return out
+
+
 def gen_arch_panels():
     """Gen-Arch: the four classical generalized Archimedean spirals."""
     import gen_arch as GA
@@ -413,6 +422,9 @@ FAMILIES = [
     ("gen-arch", "Gen-Arch · 4",
      "the generalized Archimedean spiral: lituus, hyperbolic, Archimedean, Fermat",
      gen_arch_panels()),
+    ("constant-width", "Constant width · 3",
+     "Reuleaux at 60°: exact arcs, Bézier handles, and the Pell limit",
+     reuleaux_panels()),
 ]
 
 CATALOGUE = [panel for _, _, _, panels in FAMILIES for panel in panels]

@@ -35,21 +35,25 @@ RULE = "#d8ccae"
 
 # -- exact algebra ----------------------------------------------------------
 
-def multiply(p, q):
-    """The addition law: multiplication of (x + y√2) units."""
+def multiply(p, q, d=2):
+    """The addition law: multiplication of (x + y√d) units."""
     x1, y1 = p
     x2, y2 = q
-    return (x1 * x2 + 2 * y1 * y2, x1 * y2 + x2 * y1)
+    return (x1 * x2 + d * y1 * y2, x1 * y2 + x2 * y1)
 
 
-def double(p):
-    return multiply(p, p)
+def double(p, d=2):
+    return multiply(p, p, d)
 
 
-def chain(start=(3, 2), n=5, law=double):
+# the first integer point above the unit for each d
+STARTS = {2: (3, 2), 3: (2, 1), 5: (9, 4), 6: (5, 2)}
+
+
+def chain(start=(3, 2), n=5, law=double, d=2):
     out = [start]
     for _ in range(n):
-        out.append(law(out[-1]))
+        out.append(law(out[-1], d))
     return out
 
 
@@ -186,6 +190,12 @@ def build():
                 f"<td>{float(frac):.9f}</td>"
                 f"<td>{1.0 / (y * y * (float(frac) + math.sqrt(2))):.3e}</td></tr>")
 
+    d_rows = "".join(
+        f"<tr><td>{d}</td><td>({STARTS[d][0]}, {STARTS[d][1]})</td>"
+        f"<td>({chain(STARTS[d], 1, d=d)[1][0]}, {chain(STARTS[d], 1, d=d)[1][1]})</td>"
+        f"<td>{chain(STARTS[d], 1, d=d)[1][0] ** 2 - d * chain(STARTS[d], 1, d=d)[1][1] ** 2}</td></tr>"
+        for d in (2, 3, 5, 6))
+
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -237,6 +247,20 @@ norm 1 and every product has norm 1.</p>
 </table>
 <p class="small">Doubling gives 3/2 → 17/12 → 577/408; adding (3,2) gives 3/2 → 17/12 → 99/70. Both are
 Pell sequences; the addition law and the doubling law agree because 17/12 is already (3,2)².</p>
+</section>
+
+<section class="panel">
+<h2>Other d: the same two laws</h2>
+<p>Nothing in the doubling law is special to 2. For a square-free <code>d</code>, the units of
+Z[√d] have norm <code>x² − d y²</code>, and the same multiplication keeps the norm at 1. The first
+point above the unit differs with d; after that the chain is mechanical.</p>
+<table>
+<tr><th>d</th><th>first point</th><th>doubled</th><th>x² − d y²</th></tr>
+{d_rows}
+</table>
+<p class="small">Squares are excluded: for <code>d = k²</code> the equation factors as
+(x−ky)(x+ky)=1, so its only integer points are the trivial ones. The non-square d are the interesting
+ones — and the larger d, the faster the convergents improve, because the error is 1/(2√d·y²).</p>
 </section>
 
 <section class="panel">

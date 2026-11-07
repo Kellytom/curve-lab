@@ -18,6 +18,9 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [x] Notes page carries prose, not only one-per-figure: section 19's
   explanation is a standalone note, and the showcase heading links to it.
 - [x] The hub links to the showcase near the top.
+- [x] Pell with d as a dial: d = 2, 3, 5, 6 in `pell.py`; square d excluded.
+- [x] Constant width: Reuleaux arcs at 60°, Bézier handles (error 2.4e-5), and
+  the Pell 13/15 copy (closure gap 5.6e-4).
 - [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
   LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
   Clothoid → lituus (c = −2), involute → Archimedean (c = 1).

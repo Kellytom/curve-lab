@@ -40,6 +40,18 @@ class TestPell(unittest.TestCase):
         # (3,2)·(17,12) = 99/70, and 17/12 is already (3,2)²
         self.assertEqual(P.multiply(a, b), (99, 70))
 
+    def test_each_square_free_d(self):
+        for d in (3, 5, 6):
+            with self.subTest(d=d):
+                p = P.STARTS[d]
+                for _ in range(4):
+                    p = P.double(p, d)
+                    self.assertEqual(p[0] ** 2 - d * p[1] ** 2, 1)
+
+    def test_the_addition_law_per_d(self):
+        self.assertEqual(P.multiply((2, 1), (2, 1), 3), (7, 4))
+        self.assertEqual(P.multiply((2, 1), (7, 4), 3), (26, 15))
+
     def test_the_error_is_the_law(self):
         pts = P.chain((3, 2), 6)
         for x, y in pts:

@@ -171,12 +171,33 @@ def c_pell():
     ok = all(x * x - 2 * y * y == 1 for x, y in pts)
     ok = ok and P.multiply((3, 2), (17, 12)) == (99, 70)
     ok = ok and P.double((3, 2)) == (17, 12)
+    for d in (3, 5, 6):
+        p = P.STARTS[d]
+        for _ in range(3):
+            p = P.double(p, d)
+            ok = ok and p[0] ** 2 - d * p[1] ** 2 == 1
     x, y = pts[-1]
     err = 1.0 / (y * y * (x / y + math.sqrt(2)))
     law = 1.0 / (2 * math.sqrt(2) * y * y)
     return (ok and abs(err / law - 1) < 0.01,
             f"{len(pts)} points, error × y² → {err * y * y:.6f}, "
             f"1/(2√2) = {1 / (2 * math.sqrt(2)):.6f}")
+
+
+@check("the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5",
+       "scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy",
+       "python -m unittest tests.test_reuleaux")
+def c_reuleaux():
+    import reuleaux as R
+    pts = R.reuleaux()
+    wmax, wmin, spread = R.width(pts)
+    bez, arcs = R.reuleaux_bezier()
+    centres = [(0.0, 0.0), (1.0, 0.0), (0.5, R.ROOT_SIN)]
+    err = max(R.arc_error(a, c, 1.0) for a, c in zip(arcs, centres))
+    gap = R.closure_gap(R.reuleaux(R.PELL_SIN))
+    ok = spread < 1e-4 and err < 5e-5 and 1e-5 < gap < 1e-3
+    return ok, (f"width {wmin:.6f}..{wmax:.6f}, Bézier error {err:.1e}, "
+                f"Pell gap {gap:.1e}")
 
 
 @check("the radial of a LA curve is a Gen-Arch spiral with c = α − 1",
