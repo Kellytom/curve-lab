@@ -15,6 +15,7 @@ Every case returns a polyline in model units, +y up.
 from __future__ import annotations
 
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -158,8 +159,10 @@ def cases():
     for i, card in enumerate(lac):
         for degrees in (90, 130):
             pts = lac_cut(degrees, card_name=card["name"])
+            m = re.search(r"p = ([\-\d./]+)", card["name"])
+            dial = m.group(1) if m else "?"
             out.append((
-                f"S{35 + i:02d} · cut at {degrees}°",
+                f"S{35 + i:02d} · α = {dial} · cut at {degrees}°",
                 pts,
                 f"{card['name']} · measured turn {abs(heading_turn(pts)):.1f}°",
                 "workbench/spirals/lac.json · stem library",
