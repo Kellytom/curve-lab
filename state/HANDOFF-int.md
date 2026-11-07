@@ -1169,22 +1169,34 @@ the geometry, each with its counts recomputed in the generator:
   this block (71.7%), so the hour was not filled: the next block should start
   from a fresh session.
 
-## Current truth — 2026-11-05
+## Current truth — 2026-11-06
 
-- **Previous action landed:** W05 storey 02, the pillar
-  (`workbench/storey-pillar.html`); `next-fhandoff-int.md` asked for it and it
-  is on disk and grounded.
-- **Local:** 200 on `:8003` (checked, including `/workbench/storey-pillar.html`). **Remote:** no `.run.app` URL is
-  recorded; status unknown (carried 2026-11-05).
-- **Tests:** 387, 1 skipped. **recheck 34/34.**
-- **Git:** clean at `19c519b` except this handoff. Showcase **1010 panels /
-  345 rows**, 4.9 MB.
-- **Risks:** the page is large; `c = 1000` is still the default pending a total;
-  the last block ended at the 70% context warning.
-- **Next move:** none set — the pillar landed; `/fhandoff` chooses the next
-  storey (flower is the next in the W05 list).
-- **Tried and rejected:** spending the hour at 70% context — it crosses the 85%
-  stop, so the block was committed and stopped. (2026-11-05)
-- **Context:** 72.5%, 183 active min, 502 turns, WARN; clock **16.99 min**,
-  median 17.5, mean 23.6, total **118.2 min** over 5 records.
-
+- **Previous action landed:** W05 storey 02, the pillar; and the session went on
+  to the showcase dot work. The pillar still holds (`workbench/storey-pillar.html`,
+  `tests/test_storey_pillar.py`).
+- **Local:** 200 on `:8003` (checked). **Remote:** no `.run.app` URL recorded;
+  status unknown (carried 2026-11-05).
+- **Tests:** 390, 1 skipped — run this session after the last code change.
+  **recheck 35/35.**
+- **Git:** clean at `73199e8`. Showcase **393 panels · 4.9 MB**; 37 sections,
+  numbers unique and sequential.
+- **Dots:** one finder, `scripts/dot_chain.dot_finder` — even spacing, both
+  ends of every open curve, no duplicates. Audited on the built page:
+  **13,409 dots, 0 off the ink, 0 unmarked open ends.** The 24-mark cap is a
+  checkbox on the showcase, off by default.
+- **Dot solver:** `workbench/dot-solver.html` + `scripts/check-dots.py`, 6/6
+  cases. Image exception scoped to that sub-focus in `AGENTS.md`.
+- **Integer cubics:** hits are the p-triangle joins; the q³ ladder (3/3/5/5/9/11/29)
+  is on the catalogue page, with a 1× / 125× pair showing 3 → 9.
+- **Risks:** 13a's sharpest step is still the p-triple turn at a node — its fix
+  is the spine's arcs, not a spline; the board lightbox grid is in page units,
+  not design units; the chord is fitted, not lattice-built, so a dot is a
+  projected join rather than an exact integer point.
+- **Next move:** offsets / complementary side curves either side of every
+  single-curve example, with fig 1a as the reference implementation.
+- **Tried and rejected:** 3-4-5 turns for 13a at display scale — 36.87° reads as
+  a kink; the 4.41° triple on the 3125 ladder is used instead. (2026-11-06)
+- **Tried and rejected:** projecting dots off arbitrary grid crossings — the
+  spacing was irregular by construction and left bare stretches. (2026-11-06)
+- **Context:** 530k of 1M, 282 active min, 490 turns, ok; clock 106.4 min on
+  the last record, tally median 35.9, mean 43.1, total 344.7 over 8.
