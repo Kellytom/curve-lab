@@ -29,6 +29,15 @@
       "outputs": "exact control points, the integer grid they need, the scale"
     },
     {
+      "key": "arches-pillars",
+      "file": "arches-pillars.html",
+      "group": "sheet",
+      "title": "Arches and pillars",
+      "purpose": "One section, mirrored: the join decides arch or capital.",
+      "inputs": "a section from the showcase, a placement, a mirror axis",
+      "outputs": "measured crown angle, outward divergence, and the use"
+    },
+    {
       "key": "pell",
       "file": "pell.html",
       "group": "curve",

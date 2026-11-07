@@ -217,6 +217,20 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("the join decides arch or capital: three of eight sections qualify for each",
+       "scripts/arches_pillars.py — cycloid 3.9° at the crown, log spiral 49.0° outward",
+       "python -m unittest tests.test_arches_pillars")
+def c_arches():
+    import arches_pillars as A
+    rows = A.classify()
+    arch = [r["title"] for r in rows if r["use"] == "arch"]
+    cap = [r["title"] for r in rows if r["use"] == "capital"]
+    ok = (len(arch) == 3 and len(cap) == 3
+          and "cycloid, half arch" in arch
+          and "log spiral" in cap)
+    return ok, f"{len(arch)} arches, {len(cap)} capitals of {len(rows)} sections"
+
+
 @check("elliptic and Fermat arches are exact at their integer endpoints",
        "scripts/arches.py — y²=x³+1 has (−1,0), (0,±1), (2,±3); FLT leaves ±1,0",
        "python -m unittest tests.test_arches")

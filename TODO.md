@@ -28,6 +28,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   Fermat n = 3, 4, exact at their integer endpoints, declared outside NAMED.
 - [x] Maclaurin trisectrix: the loop closes at t = ±√3 (irrational node), so
   the exact loop is declared and the Pell 71/41 copy shows the 1e-3 gap.
+- [x] Arches and pillars: `workbench/arches-pillars.html`; eight sections
+  placed both ways, the join decides (3 arches ≤20°, 3 capitals 10–90°).
 - [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
   LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
   Clothoid → lituus (c = −2), involute → Archimedean (c = 1).

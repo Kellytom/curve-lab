@@ -75,6 +75,18 @@ botanical: scrolls, volutes, fleur/cruciform, the recovered plates, the primal
 studies, and the archetypal ornaments. The plant-form is the first ornament; it
 is not a separate art project.
 
+## Arches and pillars
+
+The first non-botanical construction from the same grammar: **one section,
+mirrored**. If the halves meet inward at the crown it is an **arch**; if they
+branch outward from the stem it is a **capital**. The join, not the curve,
+decides — the same axis-flip rule the leaves use, read vertically.
+
+`workbench/arches-pillars.html` selects sections by the measured join (an arch
+must arrive within 20° of vertical; a capital must diverge 10–90°). The next
+step is a whole bay: two piers, a capital on each, one arch between them, with
+the springing and impost heights declared and the sections chosen for the span.
+
 ## Order of work
 
 1. **Offset catalogue.** `workbench/stem-library-offset.html`, OffS1…: the

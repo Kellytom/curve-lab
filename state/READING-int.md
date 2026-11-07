@@ -57,6 +57,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
 | arches from genus 1+ curves | `scripts/arches.py`, `tests/test_arches.py` |
 | Maclaurin trisectrix | `scripts/maclaurin.py`, `tests/test_maclaurin.py` |
+| arches and pillars | `scripts/arches_pillars.py`, `tests/test_arches_pillars.py` |
 | the discrete clothoid | `scripts/discrete_clothoid.py`, `tests/test_discrete_clothoid.py` |
 | Gen-Arch / LA radials | `scripts/gen_arch.py`, `tests/test_gen_arch.py` |
 | the parabola evolute / involute | `scripts/pyth_plane.py`, `tests/test_exploration_pages.py` |
