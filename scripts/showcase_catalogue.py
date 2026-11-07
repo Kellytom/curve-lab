@@ -268,6 +268,15 @@ def reuleaux_panels():
     return out
 
 
+def maclaurin_panels():
+    """The Maclaurin trisectrix: exact loop at √3, and the Pell copy."""
+    import maclaurin as M
+    out = []
+    for title, pts, note, source in M.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def arch_panels():
     """Parts of genus-1+ curves, used as arches."""
     import arches as A
@@ -452,6 +461,9 @@ FAMILIES = [
     ("constant-width", "Constant width · 3",
      "Reuleaux at 60°: exact arcs, Bézier handles, and the Pell limit",
      reuleaux_panels()),
+    ("maclaurin", "Maclaurin · 2",
+     "a rational curve whose node sits at t = ±√3: exact loop, and the Pell copy",
+     maclaurin_panels()),
     ("arches", "Arches · 4",
      "elliptic and Fermat parts: exact at their integer endpoints, declared non-rational",
      arch_panels()),

@@ -26,6 +26,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   page and in the showcase; Nielsen is the inverse radial of r = 1/φ.
 - [x] Arches from genus 1+ curves: elliptic y² = x³+1 (oval and branch) and
   Fermat n = 3, 4, exact at their integer endpoints, declared outside NAMED.
+- [x] Maclaurin trisectrix: the loop closes at t = ±√3 (irrational node), so
+  the exact loop is declared and the Pell 71/41 copy shows the 1e-3 gap.
 - [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
   LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
   Clothoid → lituus (c = −2), involute → Archimedean (c = 1).
