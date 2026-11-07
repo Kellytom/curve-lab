@@ -75,6 +75,77 @@ def analysis():
     return [radial_row(a) for a in (-1.0, -2.0, 2.0, 3.0)]
 
 
+# -- the two LA special cases -------------------------------------------------
+
+def la_curve(alpha, s0=0.2, s1=2.0, n=900):
+    """A log-aesthetic curve: κ = (s+1)^(−1/α), integrated from s0."""
+    def theta(s):
+        return (alpha / (alpha - 1)
+                * ((s + 1) ** ((alpha - 1) / alpha)
+                   - (s0 + 1) ** ((alpha - 1) / alpha)))
+    pts = []
+    x = y = 0.0
+    ds = (s1 - s0) / n
+    for i in range(n):
+        s = s0 + i * ds
+        pts.append((x, y))
+        th = theta(s)
+        x += math.cos(th) * ds
+        y += math.sin(th) * ds
+    return pts
+
+
+def _integral(fn, a, b, n=2000):
+    if n % 2:
+        n += 1
+    h = (b - a) / n
+    total = fn(a) + fn(b)
+    for i in range(1, n):
+        total += (4 if i % 2 else 2) * fn(a + i * h)
+    return total * h / 3
+
+
+def si(x):
+    """The sine integral, Si(x) = ∫0^x sin u / u du."""
+    if x == 0:
+        return 0.0
+    return _integral(lambda u: math.sin(u) / u if u else 1.0, 0.0, x)
+
+
+def ci(x):
+    """The cosine integral, Ci(x) = γ + ln x + ∫0^x (cos u − 1)/u du."""
+    gamma = 0.5772156649015329
+    return gamma + math.log(x) + _integral(
+        lambda u: (math.cos(u) - 1.0) / u if u else 0.0, 0.0, x)
+
+
+def nielsen(t0=1.5, t1=7.0, n=600):
+    """Nielsen's spiral: the inverse radial of the hyperbolic spiral.
+
+    C(t) = ∫ J R dt with R = (cos t, sin t)/t, so C(t) = (−Si, Ci) up to a
+    translation and C'(t) = (−sin t/t, cos t/t): the radial is r = 1/φ.
+    """
+    base = (-si(t0), ci(t0))
+    pts = []
+    for i in range(n + 1):
+        t = t0 + (t1 - t0) * i / n
+        pts.append((-si(t) - base[0], ci(t) - base[1]))
+    return pts
+
+
+def special_cases():
+    a3 = la_curve(3.0)
+    niel = nielsen()
+    return [
+        ("LA α = 3 · κ ∝ s^(−1/3)", a3,
+         "the curve whose Gen-Arch radial is the Fermat spiral (c = 2)",
+         "scripts/gen_arch.py · κ = (s+1)^(−1/α)"),
+        ("Nielsen's spiral · α = 0", niel,
+         "the inverse radial of r = 1/φ · C(t) = (−Si(t), Ci(t))",
+         "scripts/gen_arch.py · sine and cosine integrals"),
+    ]
+
+
 def cases():
     """The four classical Gen-Arch spirals, one curve each."""
     return [
@@ -248,6 +319,8 @@ def build():
         for r in rows)
     cards = "".join(
         f'<div>{mini_svg(pts, title, note)}</div>' for title, pts, note, _ in cases())
+    specials = "".join(
+        f'<div>{mini_svg(pts, title, note)}</div>' for title, pts, note, _ in special_cases())
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -292,6 +365,15 @@ radius of curvature used as a polar distance.</p>
 <p class="small">φ runs 0.55–18 for the two negative-c spirals (they need φ &gt; 0) and 0–18 for the
 positive ones. The lituus winds in from r = 1.35, the hyperbolic from 1.8; the Archimedean and Fermat
 wind out. Curvature is monotone where (t²+1)c² ≥ |c|√(c²+3).</p>
+</section>
+
+<section class="panel">
+<h2>Fig. GA3 · the two special cases the dials name</h2>
+<div class="grid">{specials}</div>
+<p class="small">α = 3 (repo p = −1/3) is drawn from κ = (s+1)^(−1/3); its radial is the Fermat
+spiral, c = 2. Nielsen’s spiral is α = 0: it has no κ(s) in the general formula, so it is built the
+other way round — as the curve whose radial is the hyperbolic spiral r = 1/φ, which makes it
+C(t) = (−Si(t), Ci(t)). Both are transcendental and live outside NAMED.</p>
 </section>
 
 <section class="panel">

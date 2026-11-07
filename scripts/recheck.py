@@ -217,6 +217,25 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("Nielsen's spiral is the inverse radial of the hyperbolic r = 1/φ",
+       "scripts/gen_arch.py — C(t) = (−Si(t), Ci(t))",
+       "python -m unittest tests.test_gen_arch")
+def c_nielsen():
+    import math
+
+    import gen_arch as GA
+    pts = GA.nielsen(t0=2.0, t1=6.0, n=400)
+    step = (6.0 - 2.0) / 400
+    ok = True
+    for i in (100, 200, 300):
+        t = 2.0 + i * step
+        dx = (pts[i + 1][0] - pts[i - 1][0]) / (2 * step)
+        dy = (pts[i + 1][1] - pts[i - 1][1]) / (2 * step)
+        ok = ok and abs(dx + math.sin(t) / t) < 1e-3
+        ok = ok and abs(dy - math.cos(t) / t) < 1e-3
+    return ok, "C'(t) matches (−sin t/t, cos t/t) to 1e-3"
+
+
 @check("the radial of a LA curve is a Gen-Arch spiral with c = α − 1",
        "scripts/gen_arch.py — clothoid → lituus, involute → Archimedean",
        "python -m unittest tests.test_gen_arch")

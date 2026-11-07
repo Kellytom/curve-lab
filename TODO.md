@@ -22,6 +22,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [x] Constant width: Reuleaux arcs at 60°, Bézier handles (error 2.4e-5), and
   the Pell 13/15 copy (closure gap 5.6e-4).
 - [x] PH quintics: n = 5, integer controls at scale, rational arc length.
+- [x] LA specials drawn: α = 3 (p = −1/3) and Nielsen's α = 0, on the Gen-Arch
+  page and in the showcase; Nielsen is the inverse radial of r = 1/φ.
 - [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
   LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
   Clothoid → lituus (c = −2), involute → Archimedean (c = 1).

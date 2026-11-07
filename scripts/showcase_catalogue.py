@@ -268,6 +268,15 @@ def reuleaux_panels():
     return out
 
 
+def la_special_panels():
+    """The two LA special cases the Gen-Arch dials name."""
+    import gen_arch as GA
+    out = []
+    for title, pts, note, source in GA.special_cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.8, None)], note, source))
+    return out
+
+
 def ph_quintic_panels():
     """Degree-five PH curves: integer controls after one scale."""
     import ph_quintic as PQ
@@ -434,6 +443,9 @@ FAMILIES = [
     ("constant-width", "Constant width · 3",
      "Reuleaux at 60°: exact arcs, Bézier handles, and the Pell limit",
      reuleaux_panels()),
+    ("la-specials", "LA specials · 2",
+     "the two LA cases the dials name: α = 3, and Nielsen’s α = 0",
+     la_special_panels()),
     ("ph-quintics", "PH quintics · 3",
      "degree five, integer controls after one scale, rational arc length",
      ph_quintic_panels()),

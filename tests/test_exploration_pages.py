@@ -122,7 +122,7 @@ class TestShowcase(unittest.TestCase):
         charts = {"19b", "20c"}
         anchors = re.findall(
             r'<a class="fig" id="fig-([0-9a-zA-Z]+)"([^>]*)>(.*?)</a>', page, re.S)
-        self.assertEqual(len(anchors), 470)          # 392 figures plus the rays
+        self.assertEqual(len(anchors), 472)          # 392 figures plus the rays
         with_companions = 0
         for key, attrs, body in anchors:
             paths = re.findall(r'<path [^>]*>', body)
@@ -152,7 +152,7 @@ class TestShowcase(unittest.TestCase):
 
     def test_three_across_and_rays_last(self):
         page = (PAGES / "showcase.html").read_text()
-        self.assertEqual(page.count('class="row"'), 166)
+        self.assertEqual(page.count('class="row"'), 167)
         self.assertEqual(page.count('class="row four"'), 0)
         self.assertIn("Fig. 1a", page)
         self.assertIn("Rays", page)
@@ -237,11 +237,11 @@ class TestShowcaseNotes(unittest.TestCase):
         page = (PAGES / "showcase.html").read_text()
         notes = (PAGES / "showcase-notes.html").read_text()
         ids = re.findall(r'id="fig-([0-9a-zA-Z]+)"', page)
-        self.assertEqual(len(ids), 470)
+        self.assertEqual(len(ids), 472)
         for key in ids:
             self.assertIn(f'href="showcase-notes.html#fig-{key}"', page)
             self.assertIn(f'id="fig-{key}"', notes)
-        self.assertEqual(len(set(ids)), 470)
+        self.assertEqual(len(set(ids)), 472)
         self.assertIn("fig-rays", page)
         self.assertIn('id="fig-rays"', notes)
 

@@ -49,6 +49,26 @@ class TestGenArch(unittest.TestCase):
                 # c = -1/p - 1, the form the page quotes
                 self.assertAlmostEqual(row["c"], -1 / row["p"] - 1)
 
+    def test_nielsen_is_the_inverse_radial_of_the_hyperbolic(self):
+        # C'(t) = (-sin t/t, cos t/t) means the radial is (cos t, sin t)/t,
+        # i.e. r = 1/phi with phi = t
+        pts = G.nielsen(t0=2.0, t1=6.0, n=400)
+        step = (6.0 - 2.0) / 400
+        for i in (100, 200, 300):
+            t = 2.0 + i * step
+            dx = (pts[i + 1][0] - pts[i - 1][0]) / (2 * step)
+            dy = (pts[i + 1][1] - pts[i - 1][1]) / (2 * step)
+            self.assertAlmostEqual(dx, -math.sin(t) / t, places=3)
+            self.assertAlmostEqual(dy, math.cos(t) / t, places=3)
+            # the radius of the radial curve is 1/t
+            self.assertAlmostEqual(math.hypot(-dy, dx) * t, 1.0, places=4)
+
+    def test_la_alpha_three_is_finite(self):
+        pts = G.la_curve(3.0)
+        self.assertGreater(len(pts), 100)
+        self.assertGreater(math.dist(pts[0], pts[-1]), 0.5)
+        self.assertTrue(all(math.isfinite(x) and math.isfinite(y) for x, y in pts))
+
     def test_the_classical_cases(self):
         # clothoid alpha=-1 -> c=-2 (lituus); involute alpha=2 -> c=1
         self.assertEqual(G.radial_row(-1.0)["c"], -2.0)
