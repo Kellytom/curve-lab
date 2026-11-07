@@ -1106,7 +1106,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 <p class="key"><strong>Key.</strong> <span class="sw ink"></span> exact construction · <span class="sw blue"></span> exact rail · <span class="sw gold"></span> integer or fitted mark · <span class="sw red"></span> approximate or exceptional. <strong>Kind</strong> (on each note): <em>exact</em>, <em>fitted</em>, <em>negative</em>, <em>asymptotic</em>, <em>drawn form</em>.</p>
 
-<div class="fam"><h2>0 · Exact parallels</h2><p>the two curves whose parallels stay in the family — and how the involute makes one</p></div>
+<div class="fam"><h2>0 · Exact parallels and complementary side curves</h2><p>the two curves whose parallels stay in the family — and how the involute makes one</p></div>
 {row(p0a, p0b, p0c)}
 
 <div class="fam"><h2>1 · Integer spine</h2><p>integer points, joined by ink · cut or branch at any node</p></div>
@@ -1200,11 +1200,20 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
                 '<div class="fam"><h2>1 · Integer spine</h2>')
     html = move('<div class="fam"><h2>15 · Smooth LACs</h2>',
                 '<div class="fam"><h2>3 · Integer Bézier')
+    html = move('<div class="fam"><h2>5 · Composition</h2>',
+                '<div class="fam"><h2>34 · Leaves · 8</h2>')
 
     order = [int(n) for n in __import__("re").findall(r'<div class="fam"><h2>(\d+) ·', html)]
     mapping = {old: i + 1 for i, old in enumerate(order)}
     html = __import__("re").sub(r'<h2>(\d+) ·',
                                 lambda m: f"<h2>{mapping.get(int(m.group(1)), int(m.group(1)))} ·", html)
+    # headings are renumbered by document order: two families once shared a
+    # number after the clouds moved, and a dict keyed by the old number cannot
+    # separate them.
+    import itertools
+    seq = itertools.count(1)
+    html = __import__("re").sub(r'<h2>(\d+) ·',
+                                lambda m: f"<h2>{next(seq)} ·", html)
     html = __import__("re").sub(r'Fig\. (\d+)',
                                 lambda m: f"Fig. {mapping.get(int(m.group(1)), int(m.group(1)))}", html)
 
