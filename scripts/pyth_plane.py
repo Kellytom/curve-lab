@@ -173,6 +173,16 @@ def run() -> None:
     inv_err = max(math.dist(involute_pts(-1.0, 0.05, 3.0, 300)[i], parabola_pts(0.05, 3.0, 300)[i])
                   for i in range(0, 300, 7))
 
+    # the evolute of y = x² (coefficient 1, not the page's ½), at integer t
+    f4 = Frame(980, 480, -120, 120, -2, 30)
+    evo1 = [(-4 * t ** 3, 3 * t ** 2 + 0.5)
+            for t in (i * 3.2 / 160 for i in range(-160, 161))]
+    evo_marks = [(-4 * t ** 3, 3 * t ** 2 + 0.5) for t in (1, 2, 3, -1, -2, -3)]
+    evo_rows = "".join(
+        f"<tr><td>{t}</td><td>({-4*t**3}, {3*t*t + 0.5:g})</td>"
+        f"<td>{27*(-4*t**3)**2 - 16*((3*t*t + 0.5) - 0.5)**3:.0f}</td></tr>"
+        for t in (1, 2, 3))
+
     counts = [(C, len(triples_upto(C))) for C in (100, 500, 1000, 5000)]
     rows = "".join(f"<tr><td>{C}</td><td>{n}</td><td>{C/(2*math.pi):.1f}</td></tr>" for C, n in counts)
     frows = "".join(
@@ -254,6 +264,30 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 <p>Take the evolute, then take its involute with a shift in arc length and you get the parabola back (shift <code>−1</code>, error <b>{inv_err:.1e}</b>) or, for any other shift, an exact parallel of it.</p>
 <p>But a parallel of a parabola is <em>not</em> a parabola. Fitting a parabola to the offset leaves a residual of <b>{resid_small*100:.1f}% of d</b> at <code>d = 0.1</code> and <b>{resid_big*100:.1f}% of d</b> at <code>d = 0.5</code> (the offset folds beyond <code>d = 1</code>, the vertex radius):</p>
 <p class="small">So the involute/evolute route gives the parallels <em>exactly</em> — and proves, rather than denies, that they are a different family. There is no parallel parabola.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. P4 · the evolute at integer t (y = x², not x²/2)</h2>
+<svg viewBox="0 0 980 480" width="100%" role="img" aria-label="evolute of y equals x squared at integer t">
+<rect width="980" height="480" fill="{PAPER}"/>
+{axes(f4, "x", "y", ticks=(-120,-80,-40,0,40,80,120), yticks=(0,10,20,30))}
+<path d="{poly(evo1, f4)}" fill="none" stroke="{RED}" stroke-width="2"/>
+{"".join(f'<circle cx="{f4(p)[0]:.1f}" cy="{f4(p)[1]:.1f}" r="4.5" fill="{GOLD}"/><text x="{f4(p)[0]+7:.1f}" y="{f4(p)[1]-7:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{INK}">t={n}</text>' for p, n in zip(evo_marks, (1,2,3,-1,-2,-3)))}
+<text x="16" y="24" font-family="Georgia,serif" font-size="13" fill="{INK}">Fig. P4 · evolute of y = x²: (−4t³, 3t² + ½) · 27x² = 16(y − ½)³ · integer t in gold · +y up</text>
+<g font-family="Georgia,serif" font-size="15">
+<line x1="16" y1="452" x2="52" y2="452" stroke="{RED}" stroke-width="3"/><text x="60" y="457" fill="{INK}">evolute</text>
+<circle cx="170" cy="452" r="4.5" fill="{GOLD}"/><text x="184" y="457" fill="{INK}">point at integer t</text>
+</g>
+</svg>
+<p>Two parabolas, two evolutes, and one correction. For <code>y = x²</code> the evolute is
+<code>(−4t³, 3t² + ½)</code>, i.e. <b>27x² = 16(y − ½)³</b>. For the page's <code>y = x²/2</code> it is
+<code>x² = (y − ½)³</code> (Fig. P3). The familiar <code>27x² = 4(y − 2)³</code> with
+<code>(2t³, 3t² + 2)</code> is <em>a</em> semicubical parabola, but it is not this evolute — it is the
+same curve with x doubled and y shifted by 1.5. The table checks the right one exactly:</p>
+<table>
+<tr><th>t</th><th>evolute point</th><th>27x² − 16(y − ½)³</th></tr>
+{evo_rows}
+</table>
 </section>
 
 <section class="panel">

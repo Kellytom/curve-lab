@@ -62,6 +62,17 @@ class TestParabolaFamily(unittest.TestCase):
         worst = max(math.dist(inv(t), p(t)) for t in [0.05 + 0.05 * i for i in range(1, 60)])
         self.assertLess(worst, 1e-9)
 
+    def test_evolute_at_integer_t(self):
+        # the evolute of y = x² is (−4t³, 3t² + ½), i.e. 27x² = 16(y − ½)³;
+        # the widely copied 27x² = 4(y − 2)³ is a different semicubical
+        for t in (1, 2, 3):
+            x, y = -4 * t ** 3, 3 * t * t + 0.5
+            self.assertAlmostEqual(27 * x * x, 16 * (y - 0.5) ** 3, places=6)
+        # the pasted form satisfies its own identity but not the evolute's
+        x, y = 2 * 1 ** 3, 3 * 1 ** 2 + 2
+        self.assertAlmostEqual(27 * x * x, 4 * (y - 2) ** 3)
+        self.assertNotAlmostEqual(y, 3 * 1 * 1 + 0.5)
+
     def test_offset_is_not_a_parabola(self):
         # the fit residual of the offset must be a non-trivial share of d
         d, tmax, N = 0.1, 3.0, 500

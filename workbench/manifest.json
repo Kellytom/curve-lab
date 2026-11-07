@@ -38,6 +38,15 @@
       "outputs": "the doubling and addition chains, lattice points, the exact error law"
     },
     {
+      "key": "discrete-clothoid",
+      "file": "discrete-clothoid.html",
+      "group": "curve",
+      "title": "Discrete clothoid",
+      "purpose": "A clothoid built from equal chords and p-triple turns.",
+      "inputs": "the turn step δ, the chord count, the triple ladder",
+      "outputs": "the quantised schedule, its measured exponent and quantisation error"
+    },
+    {
       "key": "catenary",
       "file": "catenary.html",
       "group": "curve",

@@ -179,6 +179,19 @@ def c_pell():
             f"1/(2√2) = {1 / (2 * math.sqrt(2)):.6f}")
 
 
+@check("a p-triple turn schedule, quantised, still tracks a clothoid's κ ∝ s",
+       "scripts/discrete_clothoid.py — slope 1.001, error 0.31° of a 1.35° ladder",
+       "python -m unittest tests.test_discrete_clothoid")
+def c_discrete_clothoid():
+    import discrete_clothoid as D
+    d = D.build()
+    ok = (abs(d["slope"] - 1.0) < 0.05
+          and d["max_err"] < d["gap"] / 2
+          and d["ladder_size"] > 400)
+    return ok, (f"slope {d['slope']:.3f}, max error {d['max_err']:.2f}° "
+                f"of a {d['gap']:.2f}° gap, {d['ladder_size']} angles")
+
+
 @check("clothoid spans match smooth curves and cannot match a cusp",
        "scripts/euler_match.py — 0.44-1.1% smooth, 9-63% at the cusped roulettes",
        "python scripts/euler_match.py")

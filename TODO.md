@@ -19,10 +19,10 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   explanation is a standalone note, and the showcase heading links to it.
 - [x] The hub links to the showcase near the top.
 - [x] Pell / √2 page: `scripts/pell.py`, `workbench/pell.html`, `tests/test_pell.py`; doubling (x,y) → (x²+2y², 2xy),
-  convergents 3/2 → 17/12 → 577/408 (addition gives 99/70); claim added, recheck 36/36.
-- [ ] Discrete clothoid: the curvature-step distribution of a chained polygon
-  against κ ∝ s; the Euclid chain's exponent drift (−4/3) is already recorded.
-- [ ] Parabola evolute at integer t: (−4t³, 3t² + ½), points at t = 1, 2, 3,
+  convergents 3/2 → 17/12 → 577/408 (addition gives 99/70); claim added, recheck 37/37.
+- [x] Discrete clothoid: `scripts/discrete_clothoid.py`, `workbench/discrete-clothoid.html`;
+  slope 1.001, max quantisation error 0.31° of a 1.35° ladder gap.
+- [x] Parabola evolute at integer t: Fig. P4 on `pyth-plane.html`, (−4t³, 3t² + ½),
   and the note that corrects 27x² = 4(y−2)³.
 - [ ] Integer-lattice conics with Pythagorean slopes, as stem cuts, from
   `pyth-plane`.
