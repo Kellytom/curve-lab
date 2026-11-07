@@ -83,6 +83,10 @@ background:radial-gradient(900px 440px at 12%% -8%%,#fcf9ef 0,transparent 60%%),
 main{max-width:980px;margin:0 auto;padding:34px 22px 80px}
 h1{font-size:30px;margin:0 0 6px}
 .lead{color:var(--gold);margin:0 0 26px;font-size:17px}
+.showcase{margin:0 0 18px;padding:12px 16px;border-left:4px solid var(--gold);background:#fffdf7;font:15px/1.5 Georgia,serif}
+.showcase a{font-size:18px;font-weight:600;color:var(--gold);text-decoration:none}
+.showcase a:hover{text-decoration:underline}
+.showcase span{color:var(--muted);font-size:13px}
 h2{font:600 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;
 color:var(--muted);margin:0 0 8px}
 .decision{background:var(--card);border:1px solid var(--line);border-radius:7px;
@@ -207,6 +211,9 @@ def build(manifest):
 <body>
 <main>
 <h1>The workbench</h1>
+<p class="showcase"><a href="showcase.html">→ The showcase: every curve on one page</a><br>
+<span>Every named curve, every stem cut, every family — the inventory to choose
+from before drawing anything in Inkscape.</span></p>
 <p class="lead">Pick the kind of decision you are making. Each one names the
 page that starts it; the full list is underneath.</p>
 {DECISIONS}
