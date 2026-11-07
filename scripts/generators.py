@@ -423,6 +423,10 @@ NAMED = [
          tail="a longer water drop · the piriform stretched 2× on x",
          branches=[([4, 0, 4], [0, 4], [1, 0, 2, 0, 1]),
                    ([4, 0, 4], [0, -4], [1, 0, 2, 0, 1])]),
+    dict(key="semicubical", deg=3, m=6, subst="affine",
+         eq="y² = x³",
+         tail="Neile's parabola · the evolute of a parabola · cusp at the origin",
+         branches=[([1, -4, 4], [-1, 6, -12, 8], [1])]),
 ]
 
 

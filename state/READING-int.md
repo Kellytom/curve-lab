@@ -43,7 +43,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 |---|---|
 | Pythagorean field / integer cubic and G2 | `docs/PYTHAGOREAN-FAMILIES.md`, `docs/INTEGER-CUBIC.md`, `curve_lab/pyth_triples.py`, `curve_lab/pyth_cubic.py`, `curve_lab/pyth_g2.py` |
 | the exact spine / pythagorean-spiral | `docs/SPINE.md`, `pythagorean-spiral/docs/AUDIT.md`, `pythagorean-spiral/pythagorean_spiral/{spiral,triples,closure,design}.py`, `curve_lab/spine.py` |
-| the showcase / a catalogue page | `scripts/showcase.py`, `scripts/showcase_notes.py`, `scripts/showcase_catalogue.py`, `scripts/curve_morphs.py`, `scripts/generators.py` (the `NAMED` table), `tests/test_exploration_pages.py` |
+| the showcase / a catalogue page | `scripts/showcase.py`, `scripts/showcase_notes.py`, `scripts/showcase_catalogue.py`, `scripts/curve_morphs.py`, `scripts/generators.py` (the `NAMED` table), `tests/test_exploration_pages.py`, `tests/test_curve_census.py` |
 | the fleur grammar / W04 sets | `curve_lab/grammar.py`, `curve_lab/fleur_sets.py`, `scripts/fleur_grammar.py`, `scripts/fleur_sets.py`, `tests/test_fleur_grammar.py`, `tests/test_fleur_sets.py` |
 | the integer cubic catalogue / offset | `scripts/integer_cubic_catalogue.py`, `scripts/integer_cubic_offset.py`, `tests/test_pyth_cubic_catalogue.py`, `tests/test_integer_cubic_offset.py` |
 | an ornament proof | `scripts/plant_forms.py`, `scripts/euler_sections.py`, `scripts/{fleur,volute,cruciform}_proof.py`, `scripts/ending_fit.py`, `scripts/modulated_width_proof.py`, `tests/test_{fleur,volute,cruciform}_proof.py`, `tests/test_ending_fit.py`, `tests/test_modulated_width_proof.py` |

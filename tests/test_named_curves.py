@@ -44,6 +44,7 @@ IMPLICIT = {
     "circle": lambda x, y: x * x + y * y - 1,
     "pear": lambda x, y: x * x - y ** 3 * (1 - y),
     "cruciform": lambda x, y: x * x * y * y - x * x - y * y,
+    "semicubical": lambda x, y: y * y - x * x * x,
 }
 
 # roulettes: checked against their trigonometric definition, which is what the
@@ -144,6 +145,7 @@ class TestNamedCurves(unittest.TestCase):
             "bernoulli": (4, 41), "trifolium": (12, 50), "astroid": (5, 1),
             "deltoid": (3, 1), "nephroid": (5, 1), "quadrifolium": (15, 125),
             "rounded square": (1, 425),
+            "semicubical": (3, 27),
         }
         for key, (cs, ms) in expect.items():
             with self.subTest(curve=key):
