@@ -464,7 +464,7 @@ FAMILIES = [
     ("maclaurin", "Maclaurin · 2",
      "a rational curve whose node sits at t = ±√3: exact loop, and the Pell copy",
      maclaurin_panels()),
-    ("arches", "Arches · 4",
+    ("arches", "Higher-genus sections · 4",
      "elliptic and Fermat parts: exact at their integer endpoints, declared non-rational",
      arch_panels()),
     ("la-specials", "LA specials · 2",
