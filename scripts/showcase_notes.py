@@ -776,6 +776,12 @@ def _tech(name):
     return ""
 
 
+for _n in NOTES:
+    if _n["id"] in ("19a", "19b", "19c", "20c", "21c"):
+        _n["standalone"] = True          # the figure lives on this page now
+    if _n["id"] in ("19a", "19b", "19c"):
+        _n["fig"] = f"19 · 3-4-5 spine · panel {_n['id'][-1]}"
+
 from showcase_catalogue import CATALOGUE  # noqa: E402
 
 for _panel in CATALOGUE:
@@ -791,9 +797,10 @@ for _panel in CATALOGUE:
     })
 
 
-def build(mapping=None) -> Path:
+def build(mapping=None, figures=None) -> Path:
     import re
 
+    figures = figures or {}
     sections = []
     for n in NOTES:
         fig = n["fig"]
@@ -804,12 +811,14 @@ def build(mapping=None) -> Path:
         rows = "".join(f"<li>{x}</li>" for x in n["numbers"])
         paras = "".join(f"<p>{x}</p>" for x in n["body"])
         tech = "".join(f'<div class="tech">{_tech(t)}</div>' for t in n.get("tech", []))
+        figure = figures.get(n["id"], "")
         back = ("" if n.get("standalone") else
                 f'<p class="back"><a href="showcase.html#fig-{n["id"]}">← back to the figure</a></p>')
         sections.append(f"""
 <section class="note" id="fig-{n['id']}">
   <p class="eyebrow">{fig} · {n['kind']}</p>
   <h2>{n['title']}</h2>
+  {figure}
   {paras}
   <ul class="nums">{rows}</ul>
   {tech}

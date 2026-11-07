@@ -1068,6 +1068,18 @@ def run() -> None:
         "log10 error against log10 tolerance", dots=[(q, GOLD) for q in grid],
         key="21c")
 
+    # These five panels move to the notes page: it is the page that explains,
+    # and the notes page can carry an illustration without a catalogue id.
+    def _svg_body(anchor):
+        import re as _re
+        return _re.search(r"<svg\b.*?</svg>", anchor, _re.S).group(0)
+
+    MOVED_TO_NOTES = {
+        "19a": _svg_body(p19a), "19b": _svg_body(p19b),
+        "19c": _svg_body(p19c), "20c": _svg_body(p20c),
+        "21c": _svg_body(p21c),
+    }
+
     # the rays, as a monstrance
     RW, RH = 980, 420
     cx, cy = RW / 2, RH - 40
@@ -1256,13 +1268,12 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 {row(p18a, p18b, p18c)}
 
 <div class="fam"><h2>19 · 3-4-5 exact spine</h2><p><a href="showcase-notes.html#fig-spine-345">the plan, the closure and the rotation · the note explains why the turns must cancel</a></p></div>
-{row(p19a, p19b, p19c)}
 
 <div class="fam"><h2>20 · Terminals</h2><p>how a stroke ends, computed: caps, tapers, and how far each one reaches</p></div>
-{row(p20a, p20b, p20c)}
+{row(p20a, p20b)}
 
 <div class="fam"><h2>21 · Fitted parallels</h2><p>Levien's cubic-Bézier fit: the honest approximate rail, with its error and its cusps</p></div>
-{row(p21a, p21b, p21c)}
+{row(p21a, p21b)}
 
 {catalogue_html}
 
@@ -1287,7 +1298,9 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
     html = move('<div class="fam"><h2>15 · Smooth LACs</h2>',
                 '<div class="fam"><h2>3 · Integer Bézier')
     html = move('<div class="fam"><h2>5 · Composition</h2>',
-                '<div class="fam"><h2>34 · Leaves · 8</h2>')
+                '<div class="fam"><h2>Rays</h2>')
+    html = move('<div class="fam"><h2>38 · Primal · 4</h2>',
+                '<div class="fam"><h2>Rays</h2>')
 
     order = [int(n) for n in __import__("re").findall(r'<div class="fam"><h2>(\d+) ·', html)]
     mapping = {old: i + 1 for i, old in enumerate(order)}
@@ -1308,7 +1321,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
     print(out)
 
     from showcase_notes import build as build_notes
-    print(build_notes(mapping))
+    print(build_notes(mapping, figures=MOVED_TO_NOTES))
 
 
 if __name__ == "__main__":
