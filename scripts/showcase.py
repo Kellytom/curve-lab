@@ -1151,11 +1151,6 @@ def run() -> None:
             f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
             + catalogue_rows(panels, rule=FAMILY_RULE.get(_key),
                              single=(True if _key in SINGLE_FAMILIES else None)))
-    catalogue_html += ('<div class="fam"><h2>34 · Cloud effects</h2>'
-                       '<p>the cloud layer has its own page</p></div>'
-                       '<p class="note">The clouds, and the composite curves that '
-                       'follow them, are on <a href="showcase-effects.html">'
-                       'showcase effects</a>.</p>')
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1167,6 +1162,8 @@ main{{max-width:1120px;margin:0 auto;padding:34px 22px 70px}}
 h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 .eyebrow{{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}}
 .lede{{max-width:940px;color:var(--muted);margin:0 0 18px}}
+.also{{max-width:940px;font:13px/1.6 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 20px;padding:10px 14px;border-left:3px solid var(--rule)}}
+.also a{{color:{GOLD};font-weight:600;text-decoration:none}}
 .fam{{margin:34px 0 10px;padding-top:12px;border-top:2px solid var(--ink)}}
 .fam h2{{font-size:21px;margin:0 0 4px}} .fam p{{margin:0 0 10px;color:var(--muted);font:13px/1.5 ui-monospace,Menlo,monospace}}
 .row{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 8px}}
@@ -1183,6 +1180,7 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <p class="eyebrow">curve-lab · the whole catalogue on one page</p>
 <h1>Rays and curves</h1>
 <p class="lede">Every family this project has built, in the order it was solved: the integer Euler polygon first, then the LACs, the integer chains, the widths, the composition — and the rays last, where they belong on a monstrance. Panels are lettered <code>a, b, c, d</code> inside each numbered figure, and <strong>every figure is a link to its notes</strong>.</p>
+<p class="also"><a href="showcase-notes.html">The notes →</a> one section per figure, plus the explanations that belong in prose — including the 3-4-5 spine and the two charts that used to sit here. <a href="showcase-effects.html">Cloud effects →</a> the veil and its six billow layers, on their own page.</p>
 
 <label class="capmarks"><input type="checkbox" id="capmarks">
  limit hits to 24 per figure</label>
@@ -1267,7 +1265,6 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 <div class="fam"><h2>18 · Endings and marks</h2><p>what a stem ends in, and what sits on its rails</p></div>
 {row(p18a, p18b, p18c)}
 
-<div class="fam"><h2>19 · 3-4-5 exact spine</h2><p><a href="showcase-notes.html#fig-spine-345">the plan, the closure and the rotation · the note explains why the turns must cancel</a></p></div>
 
 <div class="fam"><h2>20 · Terminals</h2><p>how a stroke ends, computed: caps, tapers, and how far each one reaches</p></div>
 {row(p20a, p20b)}
