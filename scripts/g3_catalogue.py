@@ -415,7 +415,7 @@ def heart_rows():
                 break
             fitted.append(r)
         if fitted is None:
-            rows.append({"key": name, "admitted": False,
+            rows.append({"key": name, "admitted": False, "source": "heart",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({
@@ -455,7 +455,7 @@ def preset_rows():
         r = fit_poly_best(pts_of(name))
         key = f"preset · {name}"
         if r is None:
-            rows.append({"key": key, "admitted": False,
+            rows.append({"key": key, "admitted": False, "source": "preset",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({"key": key, "admitted": True, "source": "preset",
@@ -481,7 +481,7 @@ def primal_rows():
             fitted.append(r)
         key = f"primal · {name}"
         if fitted is None:
-            rows.append({"key": key, "admitted": False,
+            rows.append({"key": key, "admitted": False, "source": "primal",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({"key": key, "admitted": True, "source": "primal",
@@ -502,7 +502,7 @@ def lac_rows():
         key = f"LAC · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
         r = fit_poly_best(pts[0])
         if r is None:
-            rows.append({"key": key, "admitted": False,
+            rows.append({"key": key, "admitted": False, "source": "lac",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({"key": key, "admitted": True, "source": "lac",
@@ -522,7 +522,7 @@ def stage_two_rows():
         key = f"Stage II · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
         r = fit_poly_best(pts[0])
         if r is None:
-            rows.append({"key": key, "admitted": False,
+            rows.append({"key": key, "admitted": False, "source": "stage-two",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({"key": key, "admitted": True, "source": "stage-two",
@@ -536,7 +536,7 @@ def catalogue():
     for spec in G.NAMED:
         fitted, why = attempted(spec)
         if fitted is None:
-            rows.append({"key": spec["key"], "admitted": False, "reason": why})
+            rows.append({"key": spec["key"], "admitted": False, "reason": why, "source": "named"})
         else:
             rows.append({
                 "key": spec["key"], "admitted": True,
@@ -625,17 +625,18 @@ def panel(row, w=520, h=330):
 def table(rows):
     body = []
     for row in rows:
+        src = row.get("source") or "named"
         if row["admitted"]:
             note = " · see notes" if row["key"] == "circle" else ""
             body.append(
-                f"<tr><td>{row['key']}</td><td>{len(row['branches'])}</td>"
+                f"<tr><td>{src}</td><td>{row['key']}</td><td>{len(row['branches'])}</td>"
                 f"<td>{row['spans']}</td><td>{row['error']:.1e}</td>"
                 f"<td>{row['g3']:.1e}</td><td class=\"ok\">admitted{note}</td></tr>")
         else:
             body.append(
-                f"<tr><td>{row['key']}</td><td>—</td><td>—</td><td>—</td>"
-                f"<td>—</td><td class=\"bad\">rejected: {row['reason']}</td></tr>")
-    return ("<table><tr><th>curve</th><th>branches</th><th>spans</th>"
+                f"<tr><td>{src}</td><td>{row['key']}</td><td>—</td><td>—</td>"
+                f"<td>—</td><td>—</td><td class=\"bad\">rejected: {row['reason']}</td></tr>")
+    return ("<table><tr><th>source</th><th>curve</th><th>branches</th><th>spans</th>"
             "<th>max deviation</th><th>worst Δ(dκ/ds)</th><th>status</th></tr>"
             + "".join(body) + "</table>")
 
@@ -666,7 +667,20 @@ def build():
     # The circle is G3 everywhere and is explained on the notes page; it is
     # deliberately not drawn as a catalogue panel.
     drawn = [r for r in admitted if r["key"] != "circle"]
-    panels = "".join(f'<section class="panel">{panel(r)}</section>' for r in drawn)
+    groups = [("named", "Named curves"), ("heart", "Heart forms"),
+              ("preset", "Presets"), ("primal", "Primals"),
+              ("lac", "LAC spines"), ("stage-two", "Stage II spines")]
+    sections, nav = [], []
+    for src, label in groups:
+        items = [r for r in drawn if (r.get("source") or "named") == src]
+        if not items:
+            continue
+        nav.append(f'<a href="#g3-{src}">{label}</a>')
+        cards = "".join(f'<section class="panel">{panel(r)}</section>' for r in items)
+        sections.append(f'<h2 id="g3-{src}" style="margin:26px 0 10px">{label} · '
+                        f'{len(items)}</h2><div class="grid">{cards}</div>')
+    panels = "".join(sections)
+    nav_line = " · ".join(nav)
 
     from collections import Counter
     fam = Counter((r.get("source") or "named") for r in admitted)
@@ -674,7 +688,7 @@ def build():
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 catalogue · the named curves as quintic interpolations</title>
+<title>G3 catalogue · every candidate as a quintic G3 interpolation</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 catalogue</p>
 <h1>Every candidate, as a G3 quintic interpolation</h1>
@@ -689,12 +703,14 @@ interpolated G3 — a cusp, a point at infinity, a singular handle solve, or a d
 
 <div class="rule"><strong>How admission works.</strong> The knots are placed at equal arc
 length on the curve. At each knot the tangent, curvature and curvature-rate are read from the
-exact homogeneous control polygon, or from a local cubic fit for the sampled hearts. The
+exact homogeneous control polygon, or from a local cubic fit for the sampled hearts, presets, primals and spines. The
 quintic span matches them at both ends, and the two handle lengths are chosen to minimise the
 deviation from the ideal. The table's <code>max deviation</code> is a geometric distance, not
 a parameter error. A curve is admitted only when the deviation is under 5% of its own size;
 the rejected reasons state the measured share. The G3 gate is computed from the Bézier
 derivatives, not from the drawn polyline.</p>
+
+<p class="small" style="margin:0 0 18px">{nav_line}</p>
 
 <section class="panel">
 <h2>The gate</h2>
@@ -704,8 +720,7 @@ derivatives, not from the drawn polyline.</p>
 re-derive: <code>python scripts/g3_catalogue.py</code></p>
 </section>
 
-<h2 style="margin:26px 0 10px">Admitted curves</h2>
-<div class="grid">{panels}</div>
+{panels}
 
 <section class="panel">
 <h2>Rejected, with the reason</h2>
