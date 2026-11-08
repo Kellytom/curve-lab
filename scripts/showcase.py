@@ -1093,10 +1093,16 @@ def run() -> None:
         import re as _re
         return _re.search(r"<svg\b.*?</svg>", anchor, _re.S).group(0)
 
+    circle_pts = [(math.cos(t), math.sin(t))
+                  for t in (2 * math.pi * i / 240 for i in range(241))]
     MOVED_TO_NOTES = {
         "19a": _svg_body(p19a), "19b": _svg_body(p19b),
         "19c": _svg_body(p19c), "20c": _svg_body(p20c),
         "21c": _svg_body(p21c),
+        "sin-circle": panel("Fig. n=1", "sinusoidal · n = 1 · the circle",
+                            [(circle_pts, INK, 1.6, None)],
+                            "r = cos θ · the definition, not an example",
+                            single_curve=False),
     }
 
     # the rays, as a monstrance

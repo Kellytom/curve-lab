@@ -782,6 +782,17 @@ for _n in NOTES:
     if _n["id"] in ("19a", "19b", "19c"):
         _n["fig"] = f"19 · 3-4-5 spine · panel {_n['id'][-1]}"
 
+NOTES.append({
+    "id": "sin-circle", "fig": "sinusoidal · n = 1",
+    "title": "The circle is the n = 1 sinusoidal spiral",
+    "kind": "explanation · moved here", "standalone": True,
+    "body": ["rⁿ = a·cos(nθ) at n = 1 is r = cos θ: a circle through the origin, not an example of the family but its definition. It was the first panel of the sinusoidal section; it is here so the panels that remain are the ones that show the dial.",
+             "Every other member is the same equation at another n — ½ the cardioid, −½ a parabola, 2 the lemniscate. The exponent is the dial, and the circle is where the dial is trivial."],
+    "numbers": ["r = cos θ", "diameter 1, through the origin"],
+    "source": "scripts/missing_families.py",
+    "command": "python scripts/showcase.py",
+})
+
 from showcase_catalogue import CATALOGUE  # noqa: E402
 
 for _panel in CATALOGUE:

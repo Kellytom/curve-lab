@@ -74,9 +74,9 @@ def polynomial_spiral(power, s_max=2.6, n=1200):
 
 # 3 — sinusoidal spirals ----------------------------------------------------
 
-def sinusoidal(n, a=1.0, k=1200):
+def sinusoidal(n, a=1.0, span=1.0, k=1200):
     """r^n = a^n cos(nθ); real for |θ| < π/(2|n|) with cos > 0."""
-    lim = math.pi / (2 * abs(n)) - 1e-4
+    lim = span * (math.pi / (2 * abs(n)) - 1e-4)
     out = []
     for i in range(k + 1):
         th = -lim + 2 * lim * i / k
@@ -191,7 +191,7 @@ def families():
          "the energy-minimising curves, m dial",
          [(f"elastica · m = {m}", elastica(m),
            "κ′ = ±½√(m⁴−κ⁴) · fitted (elliptic)")
-          for m in (1.2, 2.0, 2.8)]),
+          for m in (2.2, 3.0, 3.8)]),
         ("poly-spirals", "Polynomial spirals · 3",
          "κ(s) = s^p; p = 1 is the clothoid",
          [(f"polynomial spiral · p = {p}", polynomial_spiral(p),
@@ -199,9 +199,9 @@ def families():
           for p in (1, 2, 3)]),
         ("sinusoidal", "Sinusoidal spirals · 4",
          "r^n = a·cos(nθ): circle, cardioid, parabola, lemniscate",
-         [("sinusoidal · n = 1 · circle", sinusoidal(1), "r = cos θ"),
-          ("sinusoidal · n = ½ · cardioid", sinusoidal(0.5), "r^½ = cos(θ/2)"),
-          ("sinusoidal · n = −½ · parabola", sinusoidal(-0.5), "r^−½ = cos(θ/2)"),
+         [("sinusoidal · n = ½ · cardioid", sinusoidal(0.5), "r^½ = cos(θ/2)"),
+          ("sinusoidal · n = −½ · parabola", sinusoidal(-0.5, span=0.55),
+           "r^−½ = cos(θ/2) · shown on a finite arc"),
           ("sinusoidal · n = 2 · lemniscate", sinusoidal(2), "r² = cos 2θ")]),
         ("trochoids", "Trochoids · 3",
          "epi/hypotrochoid with k = R/r as the dial",
@@ -214,8 +214,9 @@ def families():
            rational_quadratic((1, 0), (1, 1), (0, 1), 1 / math.sqrt(2)),
            "w = 1/√2 · the unit circle"),
           ("quintic Hermite · G2",
-           quintic_hermite((0, 0), (2, 0), (1, 0), (1, 0), (0, 1.0), (0, -1.0)),
-           "p, p′, p″ at both ends")]),
+           quintic_hermite((0, 0), (2, 1), (2.0, 1.2), (1.2, -2.0),
+                           (0, 3.0), (-2.0, 0.0)),
+           "p, p′, p″ at both ends · an S, not an arch")]),
         ("rational-ph", "Rational and higher PH · 2",
          "rational PH and degree-7 PH",
          [("rational PH · the circle", rational_ph_circle(), "speed 2/(1+t²) rational"),
@@ -305,7 +306,8 @@ def build():
     cr = catmull_rom(ctrl)
     bs = bspline(ctrl)
     rq = rational_quadratic((1, 0), (1, 1), (0, 1), 1 / math.sqrt(2))
-    qh = quintic_hermite((0, 0), (2, 0), (1, 0), (1, 0), (0, 1.0), (0, -1.0))
+    qh = quintic_hermite((0, 0), (2, 1), (2.0, 1.2), (1.2, -2.0),
+                         (0, 3.0), (-2.0, 0.0))
     sp_series = [(RED, cr, "Catmull–Rom"), (BLUE, bs, "B-spline"),
                  (GOLD, rq, "rational quadratic"), (GREEN, qh, "quintic Hermite")]
 
