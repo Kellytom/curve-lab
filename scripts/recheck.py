@@ -217,6 +217,15 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("qAC at c = 0 is the LAC: q^α is linear in arc length",
+       "scripts/qac_dlac.py — worst deviation 5e-5 over α = 1.5, 2, 3",
+       "python -m unittest tests.test_qac_dlac")
+def c_qac():
+    import qac_dlac as Q
+    worst = max(Q.lac_check(a)[1] for a in (1.5, 2.0, 3.0))
+    return worst < 1e-4, f"worst deviation {worst:.1e} over three slopes"
+
+
 @check("the equal-radius biarc matches both ends and tangents and joins G1",
        "scripts/biarcs.py — three cases, join angle 0 to 1e-9",
        "python -m unittest tests.test_biarcs")

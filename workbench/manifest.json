@@ -29,6 +29,15 @@
       "outputs": "exact control points, the integer grid they need, the scale"
     },
     {
+      "key": "qac",
+      "file": "qac-dlac.html",
+      "group": "curve",
+      "title": "qAC and discrete LAC",
+      "purpose": "One constant past the log-aesthetic curve, and its discrete form.",
+      "inputs": "α and c for qAC; α and C for the discrete recurrence",
+      "outputs": "the two curve families, and the c = 0 check against the LAC"
+    },
+    {
       "key": "biarcs",
       "file": "biarcs.html",
       "group": "sheet",
