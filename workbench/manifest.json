@@ -101,6 +101,15 @@
       "outputs": "admitted interpolations with max deviation, and rejected curves with reasons"
     },
     {
+      "key": "g3-cut",
+      "file": "g3-cut.html",
+      "group": "curve",
+      "title": "G3 extend-and-cut",
+      "purpose": "Fit past a station, then cut the chain; report the cut's G3 and deviation.",
+      "inputs": "a smooth curve and a cut parameter on it",
+      "outputs": "the kept terminal, the discarded tail, and the cut's measured data"
+    },
+    {
       "key": "discrete-clothoid",
       "file": "discrete-clothoid.html",
       "group": "curve",

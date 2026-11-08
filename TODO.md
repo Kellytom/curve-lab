@@ -62,6 +62,10 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   `workbench/g3-catalogue.html`, `workbench/g3-notes.html`,
   `scripts/g3_showcase.py`, `scripts/g3_catalogue.py`,
   `tests/test_g3_showcase.py`, `tests/test_g3_catalogue.py`.
+- [x] **G3 extend-and-cut terminals.** Fit past the station, split the span with
+  de Casteljau, keep the left chain, discard the tail. The cut's deviation,
+  tangent/curvature/rate errors and G3 defect are measured; gate pass in
+  `workbench/g3-cut.html`, `scripts/g3_cut.py`, `tests/test_g3_cut.py`.
 - [ ] **Sequence curves.** Segment lengths from a number sequence — factorials
   (4! = 24, 3! = 6, 2! = 2, 1! = 1) and triangular sums (T₄ = 10, T₃ = 6 …) —
   joined with right-angle turns so the vertices stay integer. Also the closure

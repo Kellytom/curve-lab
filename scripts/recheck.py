@@ -681,6 +681,17 @@ def c_g3_catalogue():
                 f"worst Δ(dκ/ds) {worst:.1e}")
 
 
+@check("an extend-and-cut terminal inherits G3",
+       "scripts/g3_cut.py — two curves, cut inside a span, tail discarded",
+       "python -m unittest tests.test_g3_cut")
+def c_g3_cut():
+    import g3_cut as C
+    ok = (len(C.PANELS) == 2 and all(p["ok"] for p in C.PANELS)
+          and all(p["g3"] < 1e-9 for p in C.PANELS))
+    worst = max(p["g3"] for p in C.PANELS)
+    return ok, f"{len(C.PANELS)} cuts, worst G3 across the cut {worst:.1e}"
+
+
 @check("every design page names its three aspects and its ground",
        "docs/PHILOSOPHY.md §Infinity, linearity, curve",
        "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")

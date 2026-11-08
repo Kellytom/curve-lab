@@ -631,7 +631,7 @@ lattice statement about the handles, not a claim that the curve is integer betwe
 joins.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
-catalogue: <a href="g3-catalogue.html">G3 catalogue</a> · notes: <a href="g3-notes.html">G3 notes</a></p>
+catalogue: <a href="g3-catalogue.html">G3 catalogue</a> · terminals: <a href="g3-cut.html">extend-and-cut</a> · notes: <a href="g3-notes.html">G3 notes</a></p>
 </section>
 </main></body></html>
 """
@@ -724,7 +724,8 @@ not from a sampled polyline: the sampled drawing is for the eye, the table is th
 claim.</p>
 <p class="small">Back to the <a href="g3-showcase.html">showcase</a> ·
 re-derive: <code>python scripts/g3_showcase.py</code> ·
-test: <code>python -m unittest tests.test_g3_showcase</code></p>
+test: <code>python -m unittest tests.test_g3_showcase</code> ·
+terminals: <a href="g3-cut.html">extend-and-cut</a></p>
 </section>
 </main></body></html>
 """
