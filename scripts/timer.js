@@ -14,6 +14,7 @@
  *
  *   node scripts/timer.js --min 20m --max 45m
  *   node scripts/timer.js 1h 2h "the plates"        floor 1 hour, cap 2 hours
+ *   node scripts/timer.js --min 20m --no-cap "..."  floor only, no ceiling
  *   node scripts/timer.js --check                    the phase and the times
  *   node scripts/timer.js --stop                     log the elapsed time, clear
  *   node scripts/timer.js --tally                    the last sessions + summary
@@ -69,7 +70,8 @@ function tally() {
     var last = rows.slice(-10);
     last.forEach(function (r) {
         console.log("timer: " + (r.label || "session") + " | " + r.minutes + "m | " +
-            "floor " + r.floor + "m, cap " + r.cap + "m | " + (r.reason || r.event) +
+            "floor " + r.floor + "m, " + (r.cap == null ? "no cap" : "cap " + r.cap + "m") +
+            " | " + (r.reason || r.event) +
             " | " + String(r.at).slice(0, 16).replace("T", " "));
     });
     var all = rows.map(function (r) { return Number(r.minutes) || 0; }).sort(function (a, b) { return a - b; });
@@ -87,10 +89,13 @@ if (args[0] === "--check") {
     var now = Date.now();
     var el = elapsed(m);
     var toFloor = Math.round((new Date(m.floor) - now) / 60000);
-    var toCap = Math.round((new Date(m.cap) - now) / 60000);
-    var phase = now >= new Date(m.cap) ? "past the cap: stop" : (now >= new Date(m.floor) ? "in the window: you may stop" : "before the floor: keep going");
-    console.log("timer: " + m.label + " | floor " + m.min + "m, cap " + m.max + "m | " + el + "m elapsed | " +
-        (toFloor > 0 ? toFloor + "m to floor, " : "") + toCap + "m to cap | " + phase);
+    var toCap = m.cap ? Math.round((new Date(m.cap) - now) / 60000) : null;
+    var phase = (m.cap && now >= new Date(m.cap)) ? "past the cap: stop"
+        : (now >= new Date(m.floor) ? "in the window: you may stop" : "before the floor: keep going");
+    console.log("timer: " + m.label + " | floor " + m.min + "m, " +
+        (m.cap ? "cap " + m.max + "m" : "no cap") + " | " + el + "m elapsed | " +
+        (toFloor > 0 ? toFloor + "m to floor" : "past the floor") +
+        (toCap == null ? "" : ", " + toCap + "m to cap") + " | " + phase);
     process.exit(0);
 }
 if (args[0] === "--tally") {
@@ -114,29 +119,33 @@ if (args[0] === "--stop") {
     process.exit(0);
 }
 
-var min = null, max = null, run = null, rest = [], i;
+var min = null, max = null, run = null, rest = [], i, noCap = false;
 for (i = 0; i < args.length; i++) {
     if (args[i] === "--min") { min = mins(args[++i]); }
     else if (args[i] === "--max") { max = mins(args[++i]); }
+    else if (args[i] === "--no-cap") { noCap = true; }
     else if (args[i] === "--run") { run = args.slice(i + 1).join(" "); break; }
     else { rest.push(args[i]); }
 }
-if (min == null) { min = mins(rest.shift()); }
-if (max == null) { max = mins(rest.shift()); }
+if (min == null && !noCap) { min = mins(rest.shift()); }
+if (max == null && !noCap) { max = mins(rest.shift()); }
 var label = rest.join(" ") || "work block";
 if (min == null) { min = 20; }
-if (max == null) { max = min; }
-if (max < min) { console.error("timer: the cap (" + max + "m) is under the floor (" + min + "m)"); process.exit(1); }
+if (noCap) { max = null; }
+else if (max == null) { max = min; }
+if (max != null && max < min) { console.error("timer: the cap (" + max + "m) is under the floor (" + min + "m)"); process.exit(1); }
 
-var start = new Date(), floorAt = new Date(start.getTime() + min * 60000), capAt = new Date(start.getTime() + max * 60000);
+var start = new Date(), floorAt = new Date(start.getTime() + min * 60000);
+var capAt = max == null ? null : new Date(start.getTime() + max * 60000);
 var before = cp.execSync("git status --short | wc -l", { cwd: ROOT }).toString().trim();
 var ME = process.pid + "-" + start.getTime();
-fs.writeFileSync(MARK, JSON.stringify({ id: ME, pid: process.pid, label: label, min: min, max: max, start: start.toISOString(), floor: floorAt.toISOString(), cap: capAt.toISOString() }));
+fs.writeFileSync(MARK, JSON.stringify({ id: ME, pid: process.pid, label: label, min: min, max: max, start: start.toISOString(), floor: floorAt.toISOString(), cap: capAt ? capAt.toISOString() : null }));
 log({
     event: "start", id: ME, label: label, floor: min, cap: max,
     start: start.toISOString(), at: start.toISOString()
 });
-console.log("timer: " + label + " | floor " + min + "m (" + clock(floorAt) + "), cap " + max + "m (" + clock(capAt) + ")");
+console.log("timer: " + label + " | floor " + min + "m (" + clock(floorAt) + "), " +
+    (max == null ? "no cap" : "cap " + max + "m (" + clock(capAt) + ")"));
 
 /* with --run, the timer starts the command and the cap stops it: real start and stop */
 var child = null;
@@ -169,6 +178,7 @@ setTimeout(function () {
     chime("Timer floor: " + label + ", " + min + " min, you may stop");
 }, min * 60000);
 
+if (max != null) {
 setTimeout(function () {
     var now = readMark();
     if (!now || now.id !== ME) { process.exit(0); }
@@ -192,3 +202,4 @@ setTimeout(function () {
     chime("Timer cap: " + label + ", " + max + " min, stop now");
     setTimeout(function () { process.exit(0); }, child ? 5000 : 0);
 }, max * 60000);
+}

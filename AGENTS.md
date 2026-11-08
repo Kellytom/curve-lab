@@ -178,7 +178,8 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   every task boundary. At the end run `--check`, report the wall-clock elapsed
   time (not only `ctx.py`'s active minutes), then `--stop`. The clock is a
   budget, not a quota: a finished action stops early and says so; the cap is
-  60 minutes unless the operator names another.
+  60 minutes unless the operator names another. The operator may remove the cap
+  entirely with `--no-cap` (`--min 20m --no-cap "<label>"`); the floor remains.
 - **Clock stats.** Start, floor, cap and stop append records to
   `state/timers.jsonl`; `node scripts/timer.js --tally` prints the last
   sessions, median/mean elapsed and the total. `/fhandoff` pastes the current
