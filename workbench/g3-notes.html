@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3 notes · what the gate measures</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+*{box-sizing:border-box} body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1220px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 8px}
+.lede{max-width:920px;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;margin:0 0 18px}
+table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%}
+th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
+.ok{color:#2f6b3a} .bad{color:#a23b2a;font-weight:700}
+.small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
+.rule{background:#fffdf7;border-left:4px solid #c9a441;padding:12px 16px;margin:0 0 18px}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+</style></head><body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> none — the continuity ladder and the gate · <b>out</b> the measured thresholds and the circle's constant-curvature argument</span></div><!-- /hub-bar --><main>
+<p class="eyebrow">curve-lab · G3 notes</p>
+<h1>What G3 means, and why the circle is the easy case</h1>
+<p class="lede">These notes sit beside the <a href="g3-showcase.html">G3 showcase</a>.
+They explain the continuity ladder in ordinary language and record the curves that pass
+G3 trivially, or fail it when they are built as independent spans.</p>
+
+<section class="panel">
+<h2>The ladder, at magnification</h2>
+<p><strong>G0</strong>: the spans meet. <strong>G1</strong>: magnify the join and the
+direction matches — there is no corner. <strong>G2</strong>: the bend matches — there is
+no kick in the steering. <strong>G3</strong>: the rate at which the bend changes matches
+— the steering wheel accelerates smoothly, so the change of bend has no step either.</p>
+<p>G3 is the first order that reads as <em>smooth acceleration</em> rather than merely
+<em>smooth shape</em>. It is invisible in a small drawing and visible in a large one:
+magnify the join and a G2 curve still shows a small change in how the bend is changing,
+while a G3 curve does not.</p>
+</section>
+
+<section class="panel">
+<h2>The circle is G3 everywhere</h2>
+<svg viewBox="0 0 520 360" width="100%" role="img" aria-label="a circle, G3 at the marked join">
+  <rect width="520" height="360" fill="#fbf7ec"/><line x1="0.0" y1="0.0" x2="0.0" y2="360.0" stroke="#e8dfc9"/><line x1="100.0" y1="0.0" x2="100.0" y2="360.0" stroke="#e8dfc9"/><line x1="200.0" y1="0.0" x2="200.0" y2="360.0" stroke="#e8dfc9"/><line x1="300.0" y1="0.0" x2="300.0" y2="360.0" stroke="#e8dfc9"/><line x1="400.0" y1="0.0" x2="400.0" y2="360.0" stroke="#e8dfc9"/><line x1="500.0" y1="0.0" x2="500.0" y2="360.0" stroke="#e8dfc9"/><line x1="0.0" y1="0.0" x2="520.0" y2="0.0" stroke="#e8dfc9"/><line x1="0.0" y1="100.0" x2="520.0" y2="100.0" stroke="#e8dfc9"/><line x1="0.0" y1="200.0" x2="520.0" y2="200.0" stroke="#e8dfc9"/><line x1="0.0" y1="300.0" x2="520.0" y2="300.0" stroke="#e8dfc9"/><circle class="lattice" cx="331.4" cy="100.0" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="300.0" cy="80.6" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="200.0" cy="91.2" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="188.6" cy="100.0" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="154.7" cy="200.0" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="200.0" cy="268.8" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="300.0" cy="279.4" r="2.0" fill="#b23a2b"/><circle class="lattice" cx="365.3" cy="200.0" r="2.0" fill="#b23a2b"/>
+  <path d="M367.20,180.00 L367.16,177.19 L367.05,174.39 L366.87,171.59 L366.61,168.79 L366.28,166.01 L365.88,163.23 L365.40,160.46 L364.86,157.71 L364.24,154.97 L363.55,152.25 L362.79,149.55 L361.95,146.87 L361.05,144.22 L360.08,141.58 L359.04,138.98 L357.93,136.40 L356.76,133.85 L355.52,131.33 L354.21,128.85 L352.84,126.40 L351.40,123.99 L349.91,121.61 L348.35,119.28 L346.73,116.99 L345.05,114.74 L343.31,112.54 L341.52,110.38 L339.67,108.27 L337.76,106.21 L335.80,104.20 L333.79,102.24 L331.73,100.33 L329.62,98.48 L327.46,96.69 L325.26,94.95 L323.01,93.27 L320.72,91.65 L318.39,90.09 L316.01,88.60 L313.60,87.16 L311.15,85.79 L308.67,84.48 L306.15,83.24 L303.60,82.07 L301.02,80.96 L298.42,79.92 L295.78,78.95 L293.13,78.05 L290.45,77.21 L287.75,76.45 L285.03,75.76 L282.29,75.14 L279.54,74.60 L276.77,74.12 L273.99,73.72 L271.21,73.39 L268.41,73.13 L265.61,72.95 L262.81,72.84 L260.00,72.80 L257.19,72.84 L254.39,72.95 L251.59,73.13 L248.79,73.39 L246.01,73.72 L243.23,74.12 L240.46,74.60 L237.71,75.14 L234.97,75.76 L232.25,76.45 L229.55,77.21 L226.87,78.05 L224.22,78.95 L221.58,79.92 L218.98,80.96 L216.40,82.07 L213.85,83.24 L211.33,84.48 L208.85,85.79 L206.40,87.16 L203.99,88.60 L201.61,90.09 L199.28,91.65 L196.99,93.27 L194.74,94.95 L192.54,96.69 L190.38,98.48 L188.27,100.33 L186.21,102.24 L184.20,104.20 L182.24,106.21 L180.33,108.27 L178.48,110.38 L176.69,112.54 L174.95,114.74 L173.27,116.99 L171.65,119.28 L170.09,121.61 L168.60,123.99 L167.16,126.40 L165.79,128.85 L164.48,131.33 L163.24,133.85 L162.07,136.40 L160.96,138.98 L159.92,141.58 L158.95,144.22 L158.05,146.87 L157.21,149.55 L156.45,152.25 L155.76,154.97 L155.14,157.71 L154.60,160.46 L154.12,163.23 L153.72,166.01 L153.39,168.79 L153.13,171.59 L152.95,174.39 L152.84,177.19 L152.80,180.00 L152.84,182.81 L152.95,185.61 L153.13,188.41 L153.39,191.21 L153.72,193.99 L154.12,196.77 L154.60,199.54 L155.14,202.29 L155.76,205.03 L156.45,207.75 L157.21,210.45 L158.05,213.13 L158.95,215.78 L159.92,218.42 L160.96,221.02 L162.07,223.60 L163.24,226.15 L164.48,228.67 L165.79,231.15 L167.16,233.60 L168.60,236.01 L170.09,238.39 L171.65,240.72 L173.27,243.01 L174.95,245.26 L176.69,247.46 L178.48,249.62 L180.33,251.73 L182.24,253.79 L184.20,255.80 L186.21,257.76 L188.27,259.67 L190.38,261.52 L192.54,263.31 L194.74,265.05 L196.99,266.73 L199.28,268.35 L201.61,269.91 L203.99,271.40 L206.40,272.84 L208.85,274.21 L211.33,275.52 L213.85,276.76 L216.40,277.93 L218.98,279.04 L221.58,280.08 L224.22,281.05 L226.87,281.95 L229.55,282.79 L232.25,283.55 L234.97,284.24 L237.71,284.86 L240.46,285.40 L243.23,285.88 L246.01,286.28 L248.79,286.61 L251.59,286.87 L254.39,287.05 L257.19,287.16 L260.00,287.20 L262.81,287.16 L265.61,287.05 L268.41,286.87 L271.21,286.61 L273.99,286.28 L276.77,285.88 L279.54,285.40 L282.29,284.86 L285.03,284.24 L287.75,283.55 L290.45,282.79 L293.13,281.95 L295.78,281.05 L298.42,280.08 L301.02,279.04 L303.60,277.93 L306.15,276.76 L308.67,275.52 L311.15,274.21 L313.60,272.84 L316.01,271.40 L318.39,269.91 L320.72,268.35 L323.01,266.73 L325.26,265.05 L327.46,263.31 L329.62,261.52 L331.73,259.67 L333.79,257.76 L335.80,255.80 L337.76,253.79 L339.67,251.73 L341.52,249.62 L343.31,247.46 L345.05,245.26 L346.73,243.01 L348.35,240.72 L349.91,238.39 L351.40,236.01 L352.84,233.60 L354.21,231.15 L355.52,228.67 L356.76,226.15 L357.93,223.60 L359.04,221.02 L360.08,218.42 L361.05,215.78 L361.95,213.13 L362.79,210.45 L363.55,207.75 L364.24,205.03 L364.86,202.29 L365.40,199.54 L365.88,196.77 L366.28,193.99 L366.61,191.21 L366.87,188.41 L367.05,185.61 L367.16,182.81 L367.20,180.00" fill="none" stroke="#2e2413" stroke-width="2.4"/>
+  <circle cx="367.2" cy="180.0" r="6.5" fill="none" stroke="#2f6b3a" stroke-width="1.6"/>
+  <text x="379.2" y="184.0" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#2f6b3a">join</text>
+  <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="#2e2413">Fig. G3.N1 · the circle: κ = 1/R, dκ/ds = 0 on both sides</text>
+  <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="#7b6c4e">constant bend, zero acceleration of the bend · G3 at every point</text>
+  <text x="260" y="348" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e">x (model units)</text>
+  <text x="15" y="180" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#7b6c4e" transform="rotate(-90 15 180)">y (model units)</text>
+</svg>
+<p>A circle has curvature <code>κ = 1/R</code> at every point and curvature-rate
+<code>dκ/ds = 0</code> at every point. The bend is constant, so the acceleration of the
+bend is zero on both sides of any join. The circle therefore passes the G3 gate at every
+point without any construction. That is why it is not a showcase panel: it would be a
+true but trivial pass. The showcase uses curves whose G3 joins are not free.</p>
+</section>
+
+<section class="panel">
+<h2>Independent spans versus a collapsed cubic</h2>
+<p>G3 does not require the spans to be cuts of one polynomial. Two independent Béziers
+can be joined G3 if their control points are chosen so that the position, tangent,
+curvature and curvature-rate match. The showcase does exactly that.</p>
+<p>There is still a special case worth naming: if the underlying curve is a cubic, the
+five spans can collapse to cubics. Chopping a cubic into cubic pieces does not create a
+new curve at each knot, so all derivatives agree. Figs. G3.3 and G3.5 use that case.
+The bell, the log spiral and the sine wave are not cubics, so their independent spans are
+degree 7 instead.</p>
+</section>
+
+<section class="panel">
+<h2>Why independent cubics usually fail</h2>
+<p>A cubic Bézier has four control points. A generic G3 join fixes position, tangent,
+curvature and curvature-rate at both ends — more conditions than four points can carry.
+The four-cubic bell was measured and rejected: its curvature-rate defect at the
+inflection is about 1.9. Degree-7 spans carry the same data without that defect; the
+gate on the showcase page is the evidence.</p>
+</section>
+
+<section class="panel">
+<h2>The gate</h2>
+<p>At each join the page measures <code>|Δp|</code>, the tangent angle,
+<code>|Δκ|</code>, and <code>|Δ(dκ/ds)|</code>. The pass thresholds are
+<code>1e-9</code> and <code>1e-6°</code>. The gate is computed from Bézier derivatives,
+not from a sampled polyline: the sampled drawing is for the eye, the table is the
+claim.</p>
+<p class="small">Back to the <a href="g3-showcase.html">showcase</a> ·
+re-derive: <code>python scripts/g3_showcase.py</code> ·
+test: <code>python -m unittest tests.test_g3_showcase</code></p>
+</section>
+</main></body></html>

@@ -74,6 +74,33 @@
       "outputs": "the doubling and addition chains, lattice points, the exact error law"
     },
     {
+      "key": "g3-showcase",
+      "file": "g3-showcase.html",
+      "group": "curve",
+      "title": "G3 showcase",
+      "purpose": "Five independent Bézier spans per curve, every join measured G3.",
+      "inputs": "knots with position, tangent, curvature and curvature-rate data",
+      "outputs": "the curves, their control polygons, and the measured G3 gate"
+    },
+    {
+      "key": "g3-notes",
+      "file": "g3-notes.html",
+      "group": "curve",
+      "title": "G3 notes",
+      "purpose": "What G3 means, why the circle is the easy case, and the cubic collapse.",
+      "inputs": "none — the continuity ladder and the gate",
+      "outputs": "the measured thresholds and the circle's constant-curvature argument"
+    },
+    {
+      "key": "g3-catalogue",
+      "file": "g3-catalogue.html",
+      "group": "curve",
+      "title": "G3 catalogue",
+      "purpose": "Every named curve attempted as a quintic G3 interpolation.",
+      "inputs": "the exact homogeneous control polygon of each named curve",
+      "outputs": "admitted interpolations with max deviation, and rejected curves with reasons"
+    },
+    {
       "key": "discrete-clothoid",
       "file": "discrete-clothoid.html",
       "group": "curve",

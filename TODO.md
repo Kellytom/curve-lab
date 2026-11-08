@@ -54,6 +54,13 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
 - [x] One curve per figure for the six families; every note carries its panel
   SVG; c423 is the four-span G2 splice.
+- [x] **G3 showcase and catalogue.** Quintic Béziers, every join measured G3
+  (position, tangent, curvature, curvature-rate); the four-cubic bell is the
+  rejected case. The catalogue attempts all 29 named curves, admits the smooth
+  ones, and records cusped/sampled rejections. `workbench/g3-showcase.html`,
+  `workbench/g3-catalogue.html`, `workbench/g3-notes.html`,
+  `scripts/g3_showcase.py`, `scripts/g3_catalogue.py`,
+  `tests/test_g3_showcase.py`, `tests/test_g3_catalogue.py`.
 - [ ] **Sequence curves.** Segment lengths from a number sequence — factorials
   (4! = 24, 3! = 6, 2! = 2, 1! = 1) and triangular sums (T₄ = 10, T₃ = 6 …) —
   joined with right-angle turns so the vertices stay integer. Also the closure

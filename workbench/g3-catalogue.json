@@ -1,0 +1,459 @@
+{
+ "spans": 6,
+ "curves": [
+  {
+   "key": "bean",
+   "admitted": true,
+   "reason": null,
+   "error": 0.003598674292081163,
+   "g3": 3.97193389289896e-11,
+   "branches": [
+    {
+     "error": 0.003598674292081163,
+     "g3": 3.97193389289896e-11,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.003598674292081163,
+     "g3": 3.97193389289896e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "bicorn",
+   "admitted": true,
+   "reason": null,
+   "error": 0.009079822345698374,
+   "g3": 9.455398686242233e-10,
+   "branches": [
+    {
+     "error": 0.009079822345698374,
+     "g3": 9.455398686242233e-10,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.009079822345698374,
+     "g3": 9.455398686242233e-10,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "pear",
+   "admitted": false,
+   "reason": "cusp, point at infinity, or singular handle solve",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "heart",
+   "admitted": false,
+   "reason": "sampled curve; no exact control polygon to interpolate yet",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "nodal",
+   "admitted": false,
+   "reason": "G3 gate failed",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "tschirnhausen",
+   "admitted": true,
+   "reason": null,
+   "error": 0.06795339666665437,
+   "g3": 6.700232418381199e-15,
+   "branches": [
+    {
+     "error": 0.06795339666665437,
+     "g3": 6.700232418381199e-15,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "bow",
+   "admitted": false,
+   "reason": "G3 gate failed",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "epicycloid k=3",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03503315728209434,
+   "g3": 8.704148513061227e-14,
+   "branches": [
+    {
+     "error": 0.03503315728209434,
+     "g3": 8.704148513061227e-14,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.03503315728209434,
+     "g3": 8.704148513061227e-14,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "epicycloid k=5",
+   "admitted": true,
+   "reason": null,
+   "error": 0.13950746776312165,
+   "g3": 1.0108233694516855e-14,
+   "branches": [
+    {
+     "error": 0.13950746776312165,
+     "g3": 1.0108233694516855e-14,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.13950746776312165,
+     "g3": 1.0108233694516855e-14,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "deltoid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.018137909804089632,
+   "g3": 7.851497230149107e-13,
+   "branches": [
+    {
+     "error": 0.018137909804089632,
+     "g3": 7.851497230149107e-13,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.018137909804089632,
+     "g3": 7.851497230149107e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "hypocycloid k=5",
+   "admitted": true,
+   "reason": null,
+   "error": 0.056264891737486375,
+   "g3": 1.4517553825754703e-13,
+   "branches": [
+    {
+     "error": 0.056264891737486375,
+     "g3": 1.4517553825754703e-13,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.056264891737486375,
+     "g3": 1.4517553825754703e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "nephroid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.027512679458032274,
+   "g3": 3.4541813853650183e-13,
+   "branches": [
+    {
+     "error": 0.027512679458032274,
+     "g3": 3.4541813853650183e-13,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.027512679458032274,
+     "g3": 3.4541813853650183e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "astroid",
+   "admitted": false,
+   "reason": "cusp, point at infinity, or singular handle solve",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "trifolium",
+   "admitted": true,
+   "reason": null,
+   "error": 0.006757068916734296,
+   "g3": 4.590106073010247e-12,
+   "branches": [
+    {
+     "error": 0.006757068916734296,
+     "g3": 4.590106073010247e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.006757068916734296,
+     "g3": 4.590106073010247e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "quadrifolium",
+   "admitted": true,
+   "reason": null,
+   "error": 0.008199455120115424,
+   "g3": 3.212985433265203e-13,
+   "branches": [
+    {
+     "error": 0.008199455120115424,
+     "g3": 3.212985433265203e-13,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.008199455120115424,
+     "g3": 3.212985433265203e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "circle",
+   "admitted": true,
+   "reason": null,
+   "error": 0.004963229336376546,
+   "g3": 4.25384613262649e-12,
+   "branches": [
+    {
+     "error": 0.004963229336376546,
+     "g3": 4.25384613262649e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.004963229336376546,
+     "g3": 4.25384613262649e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "rounded square",
+   "admitted": false,
+   "reason": "cusp, point at infinity, or singular handle solve",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "squircle",
+   "admitted": false,
+   "reason": "sampled curve; no exact control polygon to interpolate yet",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "cardioid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.008168207813218488,
+   "g3": 5.372438605100172e-13,
+   "branches": [
+    {
+     "error": 0.008168207813218488,
+     "g3": 5.372438605100172e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "bernoulli",
+   "admitted": false,
+   "reason": "G3 gate failed",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "gerono",
+   "admitted": true,
+   "reason": null,
+   "error": 0.006621377472468364,
+   "g3": 3.5571545708990016e-12,
+   "branches": [
+    {
+     "error": 0.006621377472468364,
+     "g3": 3.5571545708990016e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "cruciform",
+   "admitted": true,
+   "reason": null,
+   "error": 0.010486643070329262,
+   "g3": 5.238028760734537e-12,
+   "branches": [
+    {
+     "error": 0.010486643070329262,
+     "g3": 5.238028760734537e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.010486643070329262,
+     "g3": 5.238028760734537e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.010486643070329262,
+     "g3": 5.238028760734537e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.010486643070329262,
+     "g3": 5.238028760734537e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "piriform",
+   "admitted": true,
+   "reason": null,
+   "error": 0.006797582197434731,
+   "g3": 4.3876013933186186e-13,
+   "branches": [
+    {
+     "error": 0.006797582197434731,
+     "g3": 4.3876013933186186e-13,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.006797582197434731,
+     "g3": 4.3876013933186186e-13,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "abs(x) gerono",
+   "admitted": false,
+   "reason": "G3 gate failed",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "piriform 2x",
+   "admitted": true,
+   "reason": null,
+   "error": 0.013285806611683946,
+   "g3": 1.7509327321363344e-12,
+   "branches": [
+    {
+     "error": 0.013285806611683946,
+     "g3": 1.7509327321363344e-12,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.013285806611683946,
+     "g3": 1.7509327321363344e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "semicubical",
+   "admitted": false,
+   "reason": "cusp, point at infinity, or singular handle solve",
+   "error": null,
+   "g3": null,
+   "branches": []
+  },
+  {
+   "key": "cissoid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.006098228871602032,
+   "g3": 2.4633628470382973e-12,
+   "branches": [
+    {
+     "error": 0.006098228871602032,
+     "g3": 2.4633628470382973e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "kappa",
+   "admitted": true,
+   "reason": null,
+   "error": 0.009963929707066605,
+   "g3": 1.2412681993367869e-11,
+   "branches": [
+    {
+     "error": 0.009963929707066605,
+     "g3": 1.2412681993367869e-11,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.009963929707066605,
+     "g3": 1.2412681993367869e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "strophoid",
+   "admitted": false,
+   "reason": "G3 gate failed",
+   "error": null,
+   "g3": null,
+   "branches": []
+  }
+ ]
+}

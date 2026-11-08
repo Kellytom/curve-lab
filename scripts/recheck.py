@@ -652,6 +652,35 @@ def c_pyth_cubic_catalogue():
     return ok, f"{len(rows)} curves, 632 sign variants, all integer"
 
 
+@check("the G3 showcase keeps every join G3",
+       "scripts/g3_showcase.py — quintic spans, all joins below 1e-9",
+       "python -m unittest tests.test_g3_showcase")
+def c_g3_showcase():
+    import g3_showcase as G
+    rows = [row for panel in G.PANELS for row in G.gate(panel["spans"])]
+    joins = sum(len(panel["spans"]) - 1 for panel in G.PANELS)
+    ok = (len(G.PANELS) == 5 and len(rows) == joins
+          and all(row["pass"] for row in rows))
+    worst = max(row["dks"] for row in rows)
+    return ok, f"{len(G.PANELS)} curves, {len(rows)} joins, worst Δ(dκ/ds) {worst:.1e}"
+
+
+@check("the G3 catalogue admits only curves whose joins pass G3",
+       "scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons",
+       "python -m unittest tests.test_g3_catalogue")
+def c_g3_catalogue():
+    import json
+    data = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
+    admitted = [row for row in data["curves"] if row["admitted"]]
+    rejected = [row for row in data["curves"] if not row["admitted"]]
+    ok = (len(data["curves"]) == 29 and len(admitted) >= 15
+          and all(row["g3"] < 1e-9 for row in admitted)
+          and all(row["reason"] for row in rejected))
+    worst = max(row["g3"] for row in admitted)
+    return ok, (f"{len(admitted)} admitted, {len(rejected)} rejected, "
+                f"worst Δ(dκ/ds) {worst:.1e}")
+
+
 @check("every design page names its three aspects and its ground",
        "docs/PHILOSOPHY.md §Infinity, linearity, curve",
        "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")
