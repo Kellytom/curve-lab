@@ -46,6 +46,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [ ] Integer-lattice conics with Pythagorean slopes, as stem cuts, from
   `pyth-plane`.
 - [ ] Lattice windows / RPTPGA: parked — a fabrication claim, not a curve.
+- [x] Kappa curve (Gutschoven) in NAMED; Lissajous and the yin-yang boundary
+  in **Drawn pairs · 2**; Beta-splines recorded in `docs/JUNCTION.md`.
 - [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
 
