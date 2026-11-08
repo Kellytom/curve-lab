@@ -108,6 +108,28 @@ through the gore, the bulb's maximum width, and any crossing not covered by a
 declared contact. That is the point where "leaf joins branch" stops being a
 drawing and becomes something the tests can hold.
 
+## Beta-splines as a join option (not built)
+
+A **Beta-spline** is the geometric-continuity alternative to solving a join.
+Instead of forcing the curvature to match, the join carries two shape
+parameters — conventionally β₁ (a tangential scale) and β₂ (a tension, or
+curvature ratio) — and the pieces are constructed so the join is G2 for any
+positive values of them. B-splines are the special case β₁ = 1, β₂ = 0.
+
+Why it matters here: the current G2 route is the fillet or the clothoid blend,
+both of which *solve* for the matching curvature. A beta-spline instead exposes
+the joint as two dials, which is closer to how a capital or a leaf-to-branch
+join is actually adjusted. The cost is the same as every spline: the result is
+a piecewise polynomial, not an exact named curve, so it cannot join `NAMED` and
+must be declared.
+
+It is recorded here, not implemented. If it is adopted it belongs beside
+`corner_fillet`, as a `join=` option with β₁, β₂ and the resulting G2 report —
+not as a curve family. Source: Barsky, *Computer graphics and geometric
+modeling using Beta-splines* (1988); the shape-parameter formulation is also in
+the geometric-continuity literature (e.g. the ACM survey on geometric
+continuity, shape parameters and constructions).
+
 ## Prior art, without copying
 
 - `focus-math/repos/kurbo/kurbo/src/stroke.rs` — how joins are built in general.
