@@ -1,4 +1,4 @@
-"""A G3-only showcase: five independent Bezier spans per curve.
+"""A G3-only showcase: quintic Bezier spans, every join G3.
 
     .venv/bin/python scripts/g3_showcase.py
     open workbench/g3-showcase.html
@@ -8,7 +8,7 @@ G3 at a join means position, tangent, curvature and curvature-rate all agree.
 The spans are independent: each has its own control points, and the join is a
 measured G3 join, not a shared polynomial. Where the curve itself is a cubic
 (the ogee and the lattice wave), the five spans collapse to cubics. Otherwise
-the spans are degree 7, because a generic chain of independent cubics cannot
+the spans are quintic, because a generic chain of independent cubics cannot
 carry G3: a cubic has four control points against five join conditions.
 
 Circles are G3 everywhere; they are explained on the notes page rather than
@@ -425,7 +425,7 @@ def wave_panel():
         "error": err, "error_name": "max |y − sin 2x|",
         "kind": "quintic",
         "note": ("The curvature changes sign inside the wave, so the "
-                 "curvature-rate is doing real work at the joins. The five "
+                 "curvature-rate is doing real work at the joins. The eight "
                  "spans are independent quintic Béziers; the G3 gate is what "
                  "makes them one curve rather than a chain of near-misses."),
     }
@@ -597,7 +597,7 @@ def build():
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 showcase · five spans, every join G3</title>
+<title>G3 showcase · quintic Béziers, every join G3</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
 <h1>Quintic Béziers, every join G3</h1>
@@ -611,9 +611,10 @@ would remove the curve from the page.</p>
 <div class="rule"><strong>Independent spans, not one cut-up cubic.</strong> G3 is the
 requirement; the spans do not have to be pieces of one polynomial. Where the curve
 itself is a cubic (Figs. G3.3 and G3.5), the spans <em>collapse to cubics</em>.
-Where it is not (the bell, the log spiral, the sine wave), the spans are degree 7,
+Where it is not (the bell, the log spiral, the sine wave), the spans are quintic,
 because a generic chain of independent cubics cannot carry G3: a cubic has four control
-points against the five join conditions. The four-cubic bell — four independent
+points against the five join conditions, while a quintic has six and leaves two handles
+free for the fit. The four-cubic bell — four independent
 cubics — is the rejected case on the <a href="g3-notes.html">G3 notes page</a>, together
 with the circle, which is G3 everywhere and therefore too easy for the showcase. The <a href="g3-catalogue.html">G3 catalogue</a> takes every named curve through the same quintic interpolation and records what is admitted and what is not.</div>
 
@@ -625,8 +626,9 @@ with the circle, which is G3 everywhere and therefore too easy for the showcase.
 polyline: position gap, tangent angle, curvature gap and curvature-rate gap. The pass
 threshold is <code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the
 tangent angle (floating-point noise). The integer cubic's controls are integers at
-<code>×210</code>; that is a lattice statement about the handles, not a claim that the
-curve is integer between the joins.</p>
+<code>×3125</code> (the ogee) and <code>×6250</code> (the lattice cubic); that is a
+lattice statement about the handles, not a claim that the curve is integer between the
+joins.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
 catalogue: <a href="g3-catalogue.html">G3 catalogue</a> · notes: <a href="g3-notes.html">G3 notes</a></p>
@@ -698,10 +700,10 @@ true but trivial pass. The showcase uses curves whose G3 joins are not free.</p>
 can be joined G3 if their control points are chosen so that the position, tangent,
 curvature and curvature-rate match. The showcase does exactly that.</p>
 <p>There is still a special case worth naming: if the underlying curve is a cubic, the
-five spans can collapse to cubics. Chopping a cubic into cubic pieces does not create a
+spans can collapse to cubics. Chopping a cubic into cubic pieces does not create a
 new curve at each knot, so all derivatives agree. Figs. G3.3 and G3.5 use that case.
 The bell, the log spiral and the sine wave are not cubics, so their independent spans are
-degree 7 instead.</p>
+quintic instead.</p>
 </section>
 
 <section class="panel">
