@@ -52,6 +52,13 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   in **Drawn pairs · 2**; Beta-splines recorded in `docs/JUNCTION.md`.
 - [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
+- [ ] **Sequence curves.** Segment lengths from a number sequence — factorials
+  (4! = 24, 3! = 6, 2! = 2, 1! = 1) and triangular sums (T₄ = 10, T₃ = 6 …) —
+  joined with right-angle turns so the vertices stay integer. Also the closure
+  schedule 1,2,…,n,−n,…,−1 with equal chords, which closes exactly. Not built:
+  context was 71% at the point of asking (2026-11-08), so nothing was started.
+  Note that triangular numbers already appear *implicitly*: the discrete
+  clothoid's heading is 1+2+…+k. What is missing is the length-sequence family.
 - [ ] Session-record audit (2026-11-07): Stage III serifs (4), the uncertain
   combined curves, B02 Euler-spiral cubic fit, spiro, the "full" cubic
   catalogue ambiguity, canonical fleur — all in the same register.
