@@ -50,6 +50,9 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   in **Drawn pairs · 2**; Beta-splines recorded in `docs/JUNCTION.md`.
 - [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
+- [ ] Session-record audit (2026-11-07): Stage III serifs (4), the uncertain
+  combined curves, B02 Euler-spiral cubic fit, spiro, the "full" cubic
+  catalogue ambiguity, canonical fleur — all in the same register.
 
 ## Session timer — restored 2026-11-05
 
