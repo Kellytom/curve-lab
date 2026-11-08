@@ -34,6 +34,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   measured; R = √2 − 1 for the first case.
 - [x] qAC and discrete LAC: `workbench/qac-dlac.html`; c = 0 reproduces the
   LAC to 5e-5; the discrete recurrence is drawn, normalised.
+- [x] Six missing families: elastica, polynomial spirals, sinusoidal spirals,
+  trochoids, interpolators, rational/higher PH — own page and showcase family.
 - [x] Gen-Arch: `workbench/gen-arch.html` + a showcase family. The radial of a
   LA curve is r = const·φ^(1/(α−1)); the repo's p = −1/α, so c = −1/p − 1.
   Clothoid → lituus (c = −2), involute → Archimedean (c = 1).

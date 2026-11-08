@@ -217,6 +217,27 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("the six missing families are drawn; the PH pair is exact at one scale",
+       "scripts/missing_families.py — degree-7 PH integer at 1,720,320",
+       "python -m unittest tests.test_missing_families")
+def c_missing_families():
+    import math
+
+    import missing_families as M
+    p0, p1 = (0.0, 0.0), (2.0, 0.0)
+    qh = M.quintic_hermite(p0, p1, (1.0, 0.3), (0.4, -1.0),
+                           (0.0, 1.0), (0.5, 0.0), n=800)
+    ok = math.dist(qh[0], p0) < 1e-12 and math.dist(qh[-1], p1) < 1e-12
+    _pts, scale, pc = M.degree_seven_ph()
+    ok = ok and len(pc.cp) == 8 and pc.check(4, scale)
+    # the rational PH circle has rational speed
+    t, h = 0.3, 1e-6
+    a = ((1 - (t + h) ** 2) / (1 + (t + h) ** 2), 2 * (t + h) / (1 + (t + h) ** 2))
+    b = ((1 - (t - h) ** 2) / (1 + (t - h) ** 2), 2 * (t - h) / (1 + (t - h) ** 2))
+    ok = ok and abs(math.dist(a, b) / (2 * h) - 2 / (1 + t * t)) < 1e-4
+    return ok, f"degree-7 PH integer at {scale:,}; quintic ends exact"
+
+
 @check("qAC at c = 0 is the LAC: q^α is linear in arc length",
        "scripts/qac_dlac.py — worst deviation 5e-5 over α = 1.5, 2, 3",
        "python -m unittest tests.test_qac_dlac")

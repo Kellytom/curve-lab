@@ -29,6 +29,15 @@
       "outputs": "exact control points, the integer grid they need, the scale"
     },
     {
+      "key": "missing-families",
+      "file": "missing-families.html",
+      "group": "curve",
+      "title": "The six missing families",
+      "purpose": "Elastica, polynomial and sinusoidal spirals, trochoids, interpolators, rational PH.",
+      "inputs": "one dial per family (m, p, n, k, weights, degree)",
+      "outputs": "each family drawn, with its exactness status"
+    },
+    {
       "key": "qac",
       "file": "qac-dlac.html",
       "group": "curve",

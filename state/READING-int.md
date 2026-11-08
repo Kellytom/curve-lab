@@ -60,6 +60,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | arches and pillars | `scripts/arches_pillars.py`, `tests/test_arches_pillars.py` |
 | biarcs | `scripts/biarcs.py`, `tests/test_biarcs.py` |
 | qAC and discrete LAC | `scripts/qac_dlac.py`, `tests/test_qac_dlac.py` |
+| the six missing families | `scripts/missing_families.py`, `tests/test_missing_families.py` |
 | the discrete clothoid | `scripts/discrete_clothoid.py`, `tests/test_discrete_clothoid.py` |
 | Gen-Arch / LA radials | `scripts/gen_arch.py`, `tests/test_gen_arch.py` |
 | the parabola evolute / involute | `scripts/pyth_plane.py`, `tests/test_exploration_pages.py` |
