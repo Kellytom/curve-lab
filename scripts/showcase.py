@@ -100,6 +100,11 @@ FAMILY_RULE = {"presets": "exact"}
 # more pieces (branches, loops, cusp splits); composites are not listed
 SINGLE_FAMILIES = {"named", "hearts", "presets", "conics", "euler", "lac",
                    "cubics", "cubics-c", "french", "leaves"}
+# stem cards that are one curve in several pieces, asked for by name
+FORCE_COMPANIONS = {
+    "c119", "c120", "c122", "c126", "c127", "c128", "c129", "c130", "c131",
+    "c132", "c133", "c134", "c135", "c138", "c140", "c141", "c143", "c146",
+}
 
 
 def side_offsets(pts, d):
@@ -121,7 +126,7 @@ def side_offsets(pts, d):
 
 
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
-          joins=False, rule=None, single_curve=None):
+          joins=False, rule=None, single_curve=None, composite=False):
     """One cue per figure. A *curve example* is one curve even when it is
     drawn in pieces — two hyperbola branches, two lemniscate loops, a cusped
     curve split at its cusps, or an ideal and its quantised twin. Those all
@@ -132,7 +137,19 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
     single = single and key not in NO_COMPANION
     comp_curves = []
     comp_label = ""
-    if single:
+    if composite and key not in NO_COMPANION:
+        chain = []
+        for pts in (main or solid):
+            chain.extend(pts)
+        rule = companion_rule(key, title, rule)
+        xs = [p[0] for p in chain]
+        ys = [p[1] for p in chain]
+        d = 0.05 * max(max(xs) - min(xs), max(ys) - min(ys))
+        if d > 0:
+            left, right = side_offsets(chain, d)
+            comp_curves = [(left, BLUE, 1.0, None), (right, BLUE, 1.0, None)]
+            comp_label = f"±{d:.2f} {rule}"
+    elif single:
         branches = main or solid
         rule = companion_rule(key, title, rule)
         pts_all = [p for pts in branches for p in pts]
@@ -213,7 +230,9 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
     body = "".join(out)
     if not key:
         return body
-    attrs = f' data-companion="{rule}" data-single="1"' if single else ""
+    attrs = ''
+    if comp_curves:
+        attrs = f' data-companion="{rule}"' + (' data-single="1"' if single else '')
     return (f'<a class="fig" id="fig-{key}" data-curve="{curve}"{attrs} '
             f'href="showcase-notes.html#fig-{key}" '
             f'title="{fig} — notes">{body}</a>')
@@ -650,7 +669,7 @@ def run() -> None:
 
     p8e = panel("Fig. 8e", "squircle · eight Eulers", [
         (pts, INK, 1.8, None) for pts in squircle_euler()],
-        "eight 45° Euler spans · rotated into place", key="8e")
+        "eight 45° Euler spans · rotated into place", key="8e", composite=True)
 
     bicorn = named_curve("bicorn")
     p8f = panel("Fig. 8f", "bicorn · one quartic", [
@@ -1133,13 +1152,14 @@ def run() -> None:
     def row(a, b="", c=""):
         return f'<div class="row">{a}{b}{c}</div>'
 
-    def catalogue_rows(panels, rule=None, single=None):
+    def catalogue_rows(panels, rule=None, single=None, force=frozenset()):
         chunks = [panels[i:i + 3] for i in range(0, len(panels), 3)]
         return "".join(
             '<div class="row">' + "".join(
                 panel(p["fig"], p["title"], p["curves"], p["note"],
                       dots=p["dots"], key=p["key"], curve=p["curve"],
-                      rule=rule, single_curve=single)
+                      rule=rule,
+                      single_curve=(True if p["key"] in force else single))
                 for p in chunk) + "</div>"
             for chunk in chunks)
 
@@ -1150,7 +1170,8 @@ def run() -> None:
         catalogue_html += (
             f'<div class="fam"><h2>{24 + i} · {title}</h2><p>{blurb}</p></div>'
             + catalogue_rows(panels, rule=FAMILY_RULE.get(_key),
-                             single=(True if _key in SINGLE_FAMILIES else None)))
+                             single=(True if _key in SINGLE_FAMILIES else None),
+                             force=FORCE_COMPANIONS))
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

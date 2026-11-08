@@ -143,6 +143,11 @@ class TestShowcase(unittest.TestCase):
                 self.assertEqual(len(comp), 0, key)
                 self.assertIsNone(rule, key)
         self.assertGreaterEqual(with_companions, 300)
+        # asked for by name: the cusped/closed stem cards, and the composite 8e
+        for key in ("8e", "c119", "c120", "c122", "c126", "c127", "c128",
+                    "c129", "c130", "c131", "c132", "c133", "c134", "c135",
+                    "c138", "c140", "c141", "c143", "c146"):
+            self.assertRegex(page, rf'id="fig-{key}"[^>]*data-companion=')
         # the pieces that made the first cut wrong: one curve, several paths
         for key in ("16a", "16b", "16c", "9d", "8f", "c004", "c008", "c010",
                     "c012", "c020", "c022", "c023", "c025", "c048"):
