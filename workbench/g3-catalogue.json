@@ -5,24 +5,26 @@
    "key": "bean",
    "admitted": true,
    "reason": null,
-   "error": 0.003598674292081163,
-   "g3": 3.97193389289896e-11,
-   "relative": 0.002159204575248698,
+   "error": 0.003887416161061703,
+   "g3": 4.923572660686659e-11,
+   "relative": 0.002332449696637022,
    "source": "named",
    "branches": [
     {
-     "error": 0.003598674292081163,
-     "g3": 3.97193389289896e-11,
+     "error": 0.003887416161061703,
+     "g3": 4.923572660686659e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.003598674292081163,
-     "g3": 3.97193389289896e-11,
+     "error": 0.003887416161061703,
+     "g3": 4.923572660686659e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -30,24 +32,26 @@
    "key": "bicorn",
    "admitted": true,
    "reason": null,
-   "error": 0.005432486290685163,
-   "g3": 7.441858240753163e-11,
-   "relative": 0.0024294817265615412,
+   "error": 0.004978700143560065,
+   "g3": 9.053913174739137e-11,
+   "relative": 0.002226542392117653,
    "source": "named",
    "branches": [
     {
-     "error": 0.005432486290685163,
-     "g3": 7.441858240753163e-11,
+     "error": 0.004978700143560065,
+     "g3": 9.053913174739137e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     },
     {
-     "error": 0.005432486290685163,
-     "g3": 7.441858240753163e-11,
+     "error": 0.004978700143560065,
+     "g3": 9.053913174739137e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -63,28 +67,13 @@
   },
   {
    "key": "heart",
-   "admitted": true,
-   "reason": null,
-   "error": 0.08801715989217354,
-   "g3": 1.601485610791542e-11,
-   "relative": 0.02757010265107645,
-   "source": "named",
-   "branches": [
-    {
-     "error": 0.08801715989217354,
-     "g3": 1.2874035171250853e-11,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    },
-    {
-     "error": 0.07419852614869844,
-     "g3": 1.601485610791542e-11,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 5.7% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "nodal",
@@ -100,17 +89,18 @@
    "key": "tschirnhausen",
    "admitted": true,
    "reason": null,
-   "error": 0.06795339666665437,
-   "g3": 6.700232418381199e-15,
-   "relative": 0.005372187705288038,
+   "error": 0.06544646034154782,
+   "g3": 4.9404924595819466e-15,
+   "relative": 0.005173996986879311,
    "source": "named",
    "branches": [
     {
-     "error": 0.06795339666665437,
-     "g3": 6.700232418381199e-15,
+     "error": 0.06544646034154782,
+     "g3": 4.9404924595819466e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -138,14 +128,16 @@
      "g3": 8.704148513061227e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     },
     {
      "error": 0.03503315728209434,
      "g3": 8.704148513061227e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     }
    ]
   },
@@ -163,14 +155,16 @@
      "g3": 2.078337502098293e-13,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     },
     {
      "error": 0.0629929201473056,
      "g3": 2.078337502098293e-13,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     }
    ]
   },
@@ -188,14 +182,16 @@
      "g3": 7.851497230149107e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     },
     {
      "error": 0.018137909804089632,
      "g3": 7.851497230149107e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     }
    ]
   },
@@ -213,14 +209,16 @@
      "g3": 2.873257187729905e-13,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     },
     {
      "error": 0.0419989566343551,
      "g3": 2.873257187729905e-13,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     }
    ]
   },
@@ -238,14 +236,16 @@
      "g3": 3.4541813853650183e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     },
     {
      "error": 0.027512679458032274,
      "g3": 3.4541813853650183e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     }
    ]
   },
@@ -263,24 +263,26 @@
    "key": "trifolium",
    "admitted": true,
    "reason": null,
-   "error": 0.006757068916734296,
-   "g3": 4.590106073010247e-12,
-   "relative": 0.0028709084322451266,
+   "error": 0.006530225652079031,
+   "g3": 6.696013567499492e-13,
+   "relative": 0.00277452844125762,
    "source": "named",
    "branches": [
     {
-     "error": 0.006757068916734296,
-     "g3": 4.590106073010247e-12,
+     "error": 0.006530225652079031,
+     "g3": 6.696013567499492e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.006757068916734296,
-     "g3": 4.590106073010247e-12,
+     "error": 0.006530225652079031,
+     "g3": 6.696013567499492e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -288,24 +290,26 @@
    "key": "quadrifolium",
    "admitted": true,
    "reason": null,
-   "error": 0.008199455120115424,
-   "g3": 3.212985433265203e-13,
-   "relative": 0.002898945158734187,
+   "error": 0.008509617628515431,
+   "g3": 3.5247938018830243e-12,
+   "relative": 0.003008604165213924,
    "source": "named",
    "branches": [
     {
-     "error": 0.008199455120115424,
-     "g3": 3.212985433265203e-13,
+     "error": 0.008509617628515431,
+     "g3": 3.5247938018830243e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.008199455120115424,
-     "g3": 3.212985433265203e-13,
+     "error": 0.008509617628515431,
+     "g3": 3.5247938018830243e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -313,24 +317,26 @@
    "key": "circle",
    "admitted": true,
    "reason": null,
-   "error": 0.004963229336376546,
-   "g3": 4.25384613262649e-12,
-   "relative": 0.0017547665601679318,
+   "error": 0.005028290709116065,
+   "g3": 3.886884912169294e-12,
+   "relative": 0.0017777692290966414,
    "source": "named",
    "branches": [
     {
-     "error": 0.004963229336376546,
-     "g3": 4.25384613262649e-12,
+     "error": 0.005028290709116065,
+     "g3": 3.886884912169294e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.004963229336376546,
-     "g3": 4.25384613262649e-12,
+     "error": 0.005028290709116065,
+     "g3": 3.886884912169294e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -368,7 +374,8 @@
      "g3": 1.5809686892964692e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     }
    ]
   },
@@ -386,17 +393,18 @@
    "key": "gerono",
    "admitted": true,
    "reason": null,
-   "error": 0.006621377472468364,
-   "g3": 3.5571545708990016e-12,
-   "relative": 0.002961181028542069,
+   "error": 0.006412096363520654,
+   "g3": 6.447731237813059e-11,
+   "relative": 0.0028675873236030294,
    "source": "named",
    "branches": [
     {
-     "error": 0.006621377472468364,
-     "g3": 3.5571545708990016e-12,
+     "error": 0.006412096363520654,
+     "g3": 6.447731237813059e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -404,38 +412,42 @@
    "key": "cruciform",
    "admitted": true,
    "reason": null,
-   "error": 0.010486643070329262,
-   "g3": 5.238028760734537e-12,
-   "relative": 0.0009996243681935112,
+   "error": 0.014770855661645897,
+   "g3": 5.093592214677756e-12,
+   "relative": 0.0014080108533708988,
    "source": "named",
    "branches": [
     {
-     "error": 0.010486643070329262,
-     "g3": 5.238028760734537e-12,
+     "error": 0.014770855661645897,
+     "g3": 5.093592214677756e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.010486643070329262,
-     "g3": 5.238028760734537e-12,
+     "error": 0.014770855661645897,
+     "g3": 5.093592214677756e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.010486643070329262,
-     "g3": 5.238028760734537e-12,
+     "error": 0.014770855661645897,
+     "g3": 5.093592214677756e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.010486643070329262,
-     "g3": 5.238028760734537e-12,
+     "error": 0.014770855661645897,
+     "g3": 5.093592214677756e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -453,14 +465,16 @@
      "g3": 4.3876013933186186e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     },
     {
      "error": 0.006797582197434731,
      "g3": 4.3876013933186186e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     }
    ]
   },
@@ -488,14 +502,16 @@
      "g3": 6.444844657949034e-12,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     },
     {
      "error": 0.010764698777920837,
      "g3": 6.444844657949034e-12,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": true
     }
    ]
   },
@@ -523,7 +539,8 @@
      "g3": 2.4633628470382973e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": true
     }
    ]
   },
@@ -531,24 +548,26 @@
    "key": "kappa",
    "admitted": true,
    "reason": null,
-   "error": 0.009963929707066605,
-   "g3": 1.2412681993367869e-11,
-   "relative": 0.004119132538420302,
+   "error": 0.007364784033047262,
+   "g3": 3.444938778685014e-11,
+   "relative": 0.003044634239786743,
    "source": "named",
    "branches": [
     {
-     "error": 0.009963929707066605,
-     "g3": 1.2412681993367869e-11,
+     "error": 0.007364784033047262,
+     "g3": 3.444938778685014e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     },
     {
-     "error": 0.009963929707066605,
-     "g3": 1.2412681993367869e-11,
+     "error": 0.007364784033047262,
+     "g3": 3.444938778685014e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -565,7 +584,7 @@
   {
    "key": "heart \u00b7 Beutel upper",
    "admitted": false,
-   "reason": "deviation 5.3% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 6.3% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -574,21 +593,13 @@
   },
   {
    "key": "heart \u00b7 Beutel lower",
-   "admitted": true,
-   "reason": null,
-   "error": 0.026633741499424005,
-   "g3": 3.740507903415846e-12,
-   "relative": 0.009675351030420923,
-   "source": "heart",
-   "branches": [
-    {
-     "error": 0.026633741499424005,
-     "g3": 3.740507903415846e-12,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 7.7% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "heart \u00b7 cardioid",
@@ -604,7 +615,8 @@
      "g3": 4.1178171983347056e-13,
      "pass": true,
      "closed": true,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -612,17 +624,18 @@
    "key": "heart \u00b7 |x|^(2/3) upper",
    "admitted": true,
    "reason": null,
-   "error": 0.03889566495758047,
-   "g3": 1.304952812475335e-10,
-   "relative": 0.018840912367502974,
+   "error": 0.04212673573785644,
+   "g3": 1.0158274221794272e-10,
+   "relative": 0.020406030780847254,
    "source": "heart",
    "branches": [
     {
-     "error": 0.03889566495758047,
-     "g3": 1.304952812475335e-10,
+     "error": 0.04212673573785644,
+     "g3": 1.0158274221794272e-10,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -630,17 +643,18 @@
    "key": "heart \u00b7 |x|^(2/3) lower",
    "admitted": true,
    "reason": null,
-   "error": 0.018245896779328554,
-   "g3": 4.2953750589791717e-11,
-   "relative": 0.0064508986707465035,
+   "error": 0.03772607110686998,
+   "g3": 2.0482132987469183e-11,
+   "relative": 0.01333818035359682,
    "source": "heart",
    "branches": [
     {
-     "error": 0.018245896779328554,
-     "g3": 4.2953750589791717e-11,
+     "error": 0.03772607110686998,
+     "g3": 2.0482132987469183e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -658,7 +672,8 @@
      "g3": 1.2916010658330763e-14,
      "pass": true,
      "closed": true,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -676,7 +691,8 @@
      "g3": 5.080380560684716e-13,
      "pass": true,
      "closed": true,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -684,17 +700,18 @@
    "key": "heart \u00b7 Kuriscak upper",
    "admitted": true,
    "reason": null,
-   "error": 0.2378395110278739,
-   "g3": 9.200973316580985e-14,
-   "relative": 0.018232708688653818,
+   "error": 0.2300370131810955,
+   "g3": 1.054989429150055e-13,
+   "relative": 0.01763457144194763,
    "source": "heart",
    "branches": [
     {
-     "error": 0.2378395110278739,
-     "g3": 9.200973316580985e-14,
+     "error": 0.2300370131810955,
+     "g3": 1.054989429150055e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -702,53 +719,47 @@
    "key": "heart \u00b7 Kuriscak lower",
    "admitted": true,
    "reason": null,
-   "error": 0.20122008228684385,
-   "g3": 5.473399511402022e-14,
-   "relative": 0.013658928968641338,
+   "error": 0.21670955758011423,
+   "g3": 6.006466069221052e-14,
+   "relative": 0.01471036300240099,
    "source": "heart",
    "branches": [
     {
-     "error": 0.20122008228684385,
-     "g3": 5.473399511402022e-14,
+     "error": 0.21670955758011423,
+     "g3": 6.006466069221052e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "heart \u00b7 Wu\u2013Nick upper",
-   "admitted": true,
-   "reason": null,
-   "error": 0.041237426027031066,
-   "g3": 2.713194113823647e-10,
-   "relative": 0.017323183914668968,
-   "source": "heart",
-   "branches": [
-    {
-     "error": 0.041237426027031066,
-     "g3": 2.713194113823647e-10,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 6.1% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "heart \u00b7 Wu\u2013Nick lower",
    "admitted": true,
    "reason": null,
-   "error": 0.027081559701636334,
-   "g3": 3.082922805930366e-12,
-   "relative": 0.009683499510324007,
+   "error": 0.03843965643868318,
+   "g3": 6.0783794664232e-11,
+   "relative": 0.013744791599965367,
    "source": "heart",
    "branches": [
     {
-     "error": 0.027081559701636334,
-     "g3": 3.082922805930366e-12,
+     "error": 0.03843965643868318,
+     "g3": 6.0783794664232e-11,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -766,50 +777,44 @@
      "g3": 1.6404877456466238e-11,
      "pass": true,
      "closed": true,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "heart \u00b7 half-ellipse upper",
-   "admitted": true,
-   "reason": null,
-   "error": 0.043521835612226445,
-   "g3": 3.5585065138151536e-11,
-   "relative": 0.02130872078332413,
-   "source": "heart",
-   "branches": [
-    {
-     "error": 0.043521835612226445,
-     "g3": 3.5585065138151536e-11,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 14.9% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "heart \u00b7 half-ellipse lower",
    "admitted": true,
    "reason": null,
-   "error": 0.025357652892760825,
-   "g3": 2.4958646260841988e-12,
-   "relative": 0.008965284157722925,
+   "error": 0.03732213181532638,
+   "g3": 3.3285122691400236e-12,
+   "relative": 0.013195366247477735,
    "source": "heart",
    "branches": [
     {
-     "error": 0.025357652892760825,
-     "g3": 2.4958646260841988e-12,
+     "error": 0.03732213181532638,
+     "g3": 3.3285122691400236e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "heart \u00b7 sqrt upper",
    "admitted": false,
-   "reason": "deviation 15.3% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 18.0% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -819,7 +824,7 @@
   {
    "key": "heart \u00b7 sqrt lower",
    "admitted": false,
-   "reason": "deviation 5.2% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 6.1% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -828,37 +833,30 @@
   },
   {
    "key": "heart \u00b7 Eisemann upper",
-   "admitted": true,
-   "reason": null,
-   "error": 0.04220809912157681,
-   "g3": 1.443267727552211e-11,
-   "relative": 0.020243870378952138,
-   "source": "heart",
-   "branches": [
-    {
-     "error": 0.04220809912157681,
-     "g3": 1.443267727552211e-11,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 10.9% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "heart \u00b7 Eisemann lower",
    "admitted": true,
    "reason": null,
-   "error": 0.025678544110467834,
-   "g3": 3.3869382854973e-11,
-   "relative": 0.009662536925770323,
+   "error": 0.03888432955899496,
+   "g3": 2.7282361345351338e-11,
+   "relative": 0.014631720107700686,
    "source": "heart",
    "branches": [
     {
-     "error": 0.025678544110467834,
-     "g3": 3.3869382854973e-11,
+     "error": 0.03888432955899496,
+     "g3": 2.7282361345351338e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -866,17 +864,18 @@
    "key": "heart \u00b7 Sio upper",
    "admitted": true,
    "reason": null,
-   "error": 0.019507090624696306,
-   "g3": 1.6158407944999453e-11,
-   "relative": 0.009570084117577182,
+   "error": 0.024880702890365113,
+   "g3": 1.307866014545558e-10,
+   "relative": 0.012206352251410982,
    "source": "heart",
    "branches": [
     {
-     "error": 0.019507090624696306,
-     "g3": 1.6158407944999453e-11,
+     "error": 0.024880702890365113,
+     "g3": 1.307866014545558e-10,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -884,24 +883,25 @@
    "key": "heart \u00b7 Sio lower",
    "admitted": true,
    "reason": null,
-   "error": 0.01591348039264,
-   "g3": 5.564683299563448e-11,
-   "relative": 0.006660442760395452,
+   "error": 0.027926003637637125,
+   "g3": 5.665597294531442e-11,
+   "relative": 0.011688175318398747,
    "source": "heart",
    "branches": [
     {
-     "error": 0.01591348039264,
-     "g3": 5.564683299563448e-11,
+     "error": 0.027926003637637125,
+     "g3": 5.665597294531442e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "heart \u00b7 Holzapfel upper",
    "admitted": false,
-   "reason": "deviation 21.1% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 24.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -911,7 +911,7 @@
   {
    "key": "heart \u00b7 Holzapfel lower",
    "admitted": false,
-   "reason": "deviation 8.8% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 10.2% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -921,7 +921,7 @@
   {
    "key": "heart \u00b7 Hechinger upper",
    "admitted": false,
-   "reason": "deviation 21.1% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 24.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -932,17 +932,18 @@
    "key": "heart \u00b7 Hechinger lower",
    "admitted": true,
    "reason": null,
-   "error": 0.07915674983793568,
-   "g3": 1.6179795649226204e-11,
-   "relative": 0.015831349967587137,
+   "error": 0.0953717337318036,
+   "g3": 5.6323996345944224e-11,
+   "relative": 0.019074346746360722,
    "source": "heart",
    "branches": [
     {
-     "error": 0.07915674983793568,
-     "g3": 1.6179795649226204e-11,
+     "error": 0.0953717337318036,
+     "g3": 5.6323996345944224e-11,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -960,7 +961,8 @@
      "g3": 1.1384122811097797e-17,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -978,7 +980,8 @@
      "g3": 5.273559366969494e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -996,7 +999,8 @@
      "g3": 8.465450562766819e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1014,7 +1018,8 @@
      "g3": 1.2385925618474403e-15,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1032,7 +1037,8 @@
      "g3": 1.8540724511240114e-14,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1050,7 +1056,8 @@
      "g3": 2.1120258320017626e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1068,7 +1075,8 @@
      "g3": 5.620504062164855e-15,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1086,7 +1094,8 @@
      "g3": 9.818534874028728e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1104,7 +1113,8 @@
      "g3": 2.282896094385478e-15,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1122,7 +1132,8 @@
      "g3": 3.946495907847236e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1140,7 +1151,8 @@
      "g3": 2.6861108823328372e-17,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1158,7 +1170,8 @@
      "g3": 1.0669227003615167e-17,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1176,7 +1189,8 @@
      "g3": 2.089257586379567e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1194,7 +1208,8 @@
      "g3": 4.0137164425413374e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1212,7 +1227,8 @@
      "g3": 1.7963061593739837e-15,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1230,7 +1246,8 @@
      "g3": 9.636388909051163e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1248,7 +1265,8 @@
      "g3": 1.141448047192739e-14,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1266,7 +1284,8 @@
      "g3": 7.892991815694472e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1284,7 +1303,8 @@
      "g3": 1.7659484985443896e-14,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1302,7 +1322,8 @@
      "g3": 2.0621525320674294e-16,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1320,7 +1341,8 @@
      "g3": 2.2961233608898013e-15,
      "pass": true,
      "closed": false,
-     "count": 5
+     "count": 5,
+     "trimmed": null
     }
    ]
   },
@@ -1388,17 +1410,18 @@
    "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the oval",
    "admitted": true,
    "reason": null,
-   "error": 0.03886585703694687,
-   "g3": 4.557654254000454e-10,
-   "relative": 0.02748231106745203,
+   "error": 0.042961279246020334,
+   "g3": 7.878253605042573e-11,
+   "relative": 0.030378211883309865,
    "source": "misc",
    "branches": [
     {
-     "error": 0.03886585703694687,
-     "g3": 4.557654254000454e-10,
+     "error": 0.042961279246020334,
+     "g3": 7.878253605042573e-11,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1406,24 +1429,25 @@
    "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the branch",
    "admitted": true,
    "reason": null,
-   "error": 0.0044853645945836015,
-   "g3": 2.386957298483594e-11,
-   "relative": 0.001585815860462057,
+   "error": 0.0045179478189338994,
+   "g3": 1.2014300665441624e-10,
+   "relative": 0.0015973357699075662,
    "source": "misc",
    "branches": [
     {
-     "error": 0.0044853645945836015,
-     "g3": 2.386957298483594e-11,
+     "error": 0.0045179478189338994,
+     "g3": 1.2014300665441624e-10,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "misc \u00b7 Fermat n = 3 \u00b7 x\u00b3+y\u00b3 = 1",
    "admitted": false,
-   "reason": "deviation 6.4% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 7.1% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -1433,7 +1457,7 @@
   {
    "key": "misc \u00b7 Fermat n = 4 \u00b7 x\u2074+y\u2074 = 1",
    "admitted": false,
-   "reason": "deviation 10.5% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 10.7% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -1454,7 +1478,8 @@
      "g3": 2.6736618820178166e-11,
      "pass": true,
      "closed": true,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -1462,17 +1487,18 @@
    "key": "misc \u00b7 Maclaurin trisectrix \u00b7 Pell 71/41",
    "admitted": true,
    "reason": null,
-   "error": 0.006793405213354374,
-   "g3": 3.8659137530581354e-13,
-   "relative": 0.001779909023006631,
+   "error": 0.007956680087640885,
+   "g3": 1.1859402349045922e-12,
+   "relative": 0.00208469335132982,
    "source": "misc",
    "branches": [
     {
-     "error": 0.006793405213354374,
-     "g3": 3.8659137530581354e-13,
+     "error": 0.007956680087640885,
+     "g3": 1.1859402349045922e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1480,24 +1506,25 @@
    "key": "misc \u00b7 c = \u22122 \u00b7 lituus",
    "admitted": true,
    "reason": null,
-   "error": 0.042716469057891795,
-   "g3": 4.022338018216942e-13,
-   "relative": 0.019726695330000193,
+   "error": 0.030520086834168115,
+   "g3": 1.3545831123451535e-12,
+   "relative": 0.014094340372722235,
    "source": "misc",
    "branches": [
     {
-     "error": 0.042716469057891795,
-     "g3": 4.022338018216942e-13,
+     "error": 0.030520086834168115,
+     "g3": 1.3545831123451535e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "misc \u00b7 c = \u22121 \u00b7 hyperbolic",
    "admitted": false,
-   "reason": "deviation 18.0% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 26.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -1508,17 +1535,18 @@
    "key": "misc \u00b7 c = 1 \u00b7 Archimedean",
    "admitted": true,
    "reason": null,
-   "error": 0.45142543159099596,
-   "g3": 1.8587562045091488e-15,
-   "relative": 0.010659774377767361,
+   "error": 1.083937235696079,
+   "g3": 1.5405472036933432e-13,
+   "relative": 0.025595647838134575,
    "source": "misc",
    "branches": [
     {
-     "error": 0.45142543159099596,
-     "g3": 1.8587562045091488e-15,
+     "error": 1.083937235696079,
+     "g3": 1.5405472036933432e-13,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1526,17 +1554,18 @@
    "key": "misc \u00b7 c = 2 \u00b7 Fermat",
    "admitted": true,
    "reason": null,
-   "error": 0.10086429666446385,
-   "g3": 7.608497165634276e-15,
-   "relative": 0.009239598441096552,
+   "error": 0.19713393434153895,
+   "g3": 4.5179138208339964e-14,
+   "relative": 0.018058306582839,
    "source": "misc",
    "branches": [
     {
-     "error": 0.10086429666446385,
-     "g3": 7.608497165634276e-15,
+     "error": 0.19713393434153895,
+     "g3": 4.5179138208339964e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1544,17 +1573,18 @@
    "key": "misc \u00b7 PH quintic \u00b7 u = 1+2t+t\u00b2, v = 1\u2212t+t\u00b2",
    "admitted": true,
    "reason": null,
-   "error": 0.06853339600096138,
-   "g3": 5.28577182024037e-13,
-   "relative": 0.010164535500922165,
+   "error": 0.07870213890222692,
+   "g3": 1.765022156208218e-12,
+   "relative": 0.011672713327367742,
    "source": "misc",
    "branches": [
     {
-     "error": 0.06853339600096138,
-     "g3": 5.28577182024037e-13,
+     "error": 0.07870213890222692,
+     "g3": 1.765022156208218e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1562,17 +1592,18 @@
    "key": "misc \u00b7 PH quintic \u00b7 u = 1+t\u00b2, v = 2t",
    "admitted": true,
    "reason": null,
-   "error": 0.03255318644952755,
-   "g3": 1.1028136737145644e-11,
-   "relative": 0.010683548962389681,
+   "error": 0.04663533903723478,
+   "g3": 4.565441774628809e-12,
+   "relative": 0.01530513545131529,
    "source": "misc",
    "branches": [
     {
-     "error": 0.03255318644952755,
-     "g3": 1.1028136737145644e-11,
+     "error": 0.04663533903723478,
+     "g3": 4.565441774628809e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1580,17 +1611,18 @@
    "key": "misc \u00b7 PH quintic \u00b7 h quadratic, u, v linear",
    "admitted": true,
    "reason": null,
-   "error": 0.06101353669960444,
-   "g3": 1.1010550110546191e-13,
-   "relative": 0.004870030767098876,
+   "error": 0.06462998966445836,
+   "g3": 2.649625310824355e-13,
+   "relative": 0.005158691909515797,
    "source": "misc",
    "branches": [
     {
-     "error": 0.06101353669960444,
-     "g3": 1.1010550110546191e-13,
+     "error": 0.06462998966445836,
+     "g3": 2.649625310824355e-13,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1606,29 +1638,39 @@
   },
   {
    "key": "misc \u00b7 biarc \u00b7 east to south-east",
-   "admitted": false,
-   "reason": "cusp or singular sample; no G3 interpolation",
-   "error": null,
-   "g3": null,
-   "relative": null,
+   "admitted": true,
+   "reason": null,
+   "error": 0.010278672731606651,
+   "g3": 5.008551351437518e-10,
+   "relative": 0.0032031583019377623,
    "source": "misc",
-   "branches": []
+   "branches": [
+    {
+     "error": 0.010278672731606651,
+     "g3": 5.008551351437518e-10,
+     "pass": true,
+     "closed": false,
+     "count": 10,
+     "trimmed": false
+    }
+   ]
   },
   {
    "key": "misc \u00b7 biarc \u00b7 a shallow S",
    "admitted": true,
    "reason": null,
-   "error": 0.010308868296447674,
-   "g3": 3.203876400292849e-12,
-   "relative": 0.002941380378336796,
+   "error": 0.010299276473137397,
+   "g3": 1.7035262089848402e-12,
+   "relative": 0.00293864358899523,
    "source": "misc",
    "branches": [
     {
-     "error": 0.010308868296447674,
-     "g3": 3.203876400292849e-12,
+     "error": 0.010299276473137397,
+     "g3": 1.7035262089848402e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1646,7 +1688,8 @@
      "g3": 1.6123880084827763e-10,
      "pass": true,
      "closed": true,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -1662,13 +1705,22 @@
   },
   {
    "key": "misc \u00b7 qAC \u00b7 \u03b1 = 2, c = \u22121",
-   "admitted": false,
-   "reason": "cusp or singular sample; no G3 interpolation",
-   "error": null,
-   "g3": null,
-   "relative": null,
+   "admitted": true,
+   "reason": null,
+   "error": 0.0018020064951359566,
+   "g3": 3.8614467179343137e-10,
+   "relative": 0.002180233170456581,
    "source": "misc",
-   "branches": []
+   "branches": [
+    {
+     "error": 0.0018020064951359566,
+     "g3": 3.8614467179343137e-10,
+     "pass": true,
+     "closed": false,
+     "count": 6,
+     "trimmed": false
+    }
+   ]
   },
   {
    "key": "misc \u00b7 qAC \u00b7 \u03b1 = 3, c = 0.5",
@@ -1684,17 +1736,18 @@
    "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 +",
    "admitted": true,
    "reason": null,
-   "error": 0.03086728410140627,
-   "g3": 4.166698986571111e-14,
-   "relative": 0.003093691734630513,
+   "error": 0.03174200159966188,
+   "g3": 1.1718651223013854e-12,
+   "relative": 0.003181360811236018,
    "source": "misc",
    "branches": [
     {
-     "error": 0.03086728410140627,
-     "g3": 4.166698986571111e-14,
+     "error": 0.03174200159966188,
+     "g3": 1.1718651223013854e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1702,17 +1755,18 @@
    "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 \u2212",
    "admitted": true,
    "reason": null,
-   "error": 0.03086728410140627,
-   "g3": 4.166698986571111e-14,
-   "relative": 0.003093691734630513,
+   "error": 0.03174200159966188,
+   "g3": 1.1718651223013854e-12,
+   "relative": 0.003181360811236018,
    "source": "misc",
    "branches": [
     {
-     "error": 0.03086728410140627,
-     "g3": 4.166698986571111e-14,
+     "error": 0.03174200159966188,
+     "g3": 1.1718651223013854e-12,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1720,17 +1774,18 @@
    "key": "misc \u00b7 catenary",
    "admitted": true,
    "reason": null,
-   "error": 0.10529495935317947,
-   "g3": 5.82116277923761e-15,
-   "relative": 0.0017704483471817503,
+   "error": 0.09820180550432556,
+   "g3": 1.8441736852892188e-15,
+   "relative": 0.0016511827851344056,
    "source": "misc",
    "branches": [
     {
-     "error": 0.10529495935317947,
-     "g3": 5.82116277923761e-15,
+     "error": 0.09820180550432556,
+     "g3": 1.8441736852892188e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1738,17 +1793,18 @@
    "key": "preset \u00b7 s-curve",
    "admitted": true,
    "reason": null,
-   "error": 0.13251004879753897,
-   "g3": 2.5121831698227126e-14,
-   "relative": 0.0019603241216643026,
+   "error": 0.1331209572318345,
+   "g3": 1.828528647940253e-14,
+   "relative": 0.001969361764852462,
    "source": "preset",
    "branches": [
     {
-     "error": 0.13251004879753897,
-     "g3": 2.5121831698227126e-14,
+     "error": 0.1331209572318345,
+     "g3": 1.828528647940253e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1756,17 +1812,18 @@
    "key": "preset \u00b7 ogee",
    "admitted": true,
    "reason": null,
-   "error": 0.2002387817007881,
-   "g3": 1.2069338584108635e-15,
-   "relative": 0.0022942709458149326,
+   "error": 0.2004926272224487,
+   "g3": 4.2448249776283475e-14,
+   "relative": 0.0022971794253818,
    "source": "preset",
    "branches": [
     {
-     "error": 0.2002387817007881,
-     "g3": 1.2069338584108635e-15,
+     "error": 0.2004926272224487,
+     "g3": 4.2448249776283475e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -1774,17 +1831,18 @@
    "key": "preset \u00b7 bracket",
    "admitted": true,
    "reason": null,
-   "error": 0.18880690045674328,
-   "g3": 1.4501631506822863e-15,
-   "relative": 0.0020198663880565916,
+   "error": 0.18861422936091674,
+   "g3": 3.0704605524789486e-16,
+   "relative": 0.002017805182298388,
    "source": "preset",
    "branches": [
     {
-     "error": 0.18880690045674328,
-     "g3": 1.4501631506822863e-15,
+     "error": 0.18861422936091674,
+     "g3": 3.0704605524789486e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1792,17 +1850,18 @@
    "key": "preset \u00b7 petal",
    "admitted": true,
    "reason": null,
-   "error": 0.1802427246883281,
-   "g3": 1.1497779347986763e-15,
-   "relative": 0.002660670186818586,
+   "error": 0.17908596374243013,
+   "g3": 2.6419838539126772e-15,
+   "relative": 0.0026435945496889944,
    "source": "preset",
    "branches": [
     {
-     "error": 0.1802427246883281,
-     "g3": 1.1497779347986763e-15,
+     "error": 0.17908596374243013,
+     "g3": 2.6419838539126772e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -1820,17 +1879,18 @@
    "key": "primal \u00b7 water",
    "admitted": true,
    "reason": null,
-   "error": 0.28972153603959216,
-   "g3": 9.978471635129285e-16,
-   "relative": 0.001957901189494833,
+   "error": 0.29132560097738674,
+   "g3": 6.612739169181081e-16,
+   "relative": 0.0019687412557621393,
    "source": "primal",
    "branches": [
     {
-     "error": 0.28972153603959216,
-     "g3": 9.978471635129285e-16,
+     "error": 0.29132560097738674,
+     "g3": 6.612739169181081e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -1838,17 +1898,18 @@
    "key": "primal \u00b7 air",
    "admitted": true,
    "reason": null,
-   "error": 0.22783980693139244,
-   "g3": 2.8206603719382883e-15,
-   "relative": 0.002788530128027418,
+   "error": 0.2181078387936094,
+   "g3": 4.427719042104927e-15,
+   "relative": 0.0026694206241935133,
    "source": "primal",
    "branches": [
     {
-     "error": 0.22783980693139244,
-     "g3": 2.8206603719382883e-15,
+     "error": 0.2181078387936094,
+     "g3": 4.427719042104927e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -1856,24 +1917,25 @@
    "key": "primal \u00b7 fire",
    "admitted": true,
    "reason": null,
-   "error": 0.5238203383170149,
-   "g3": 1.2839122126573344e-15,
-   "relative": 0.002565867071595478,
+   "error": 0.50523781597082,
+   "g3": 3.8228968601838886e-16,
+   "relative": 0.0024748429575863103,
    "source": "primal",
    "branches": [
     {
-     "error": 0.5238203383170149,
-     "g3": 1.2839122126573344e-15,
+     "error": 0.50523781597082,
+     "g3": 3.8228968601838886e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "LAC \u00b7 Fig. 1 \u00b7 p = -3, turn 270",
    "admitted": false,
-   "reason": "deviation 5.1% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 9.3% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -1882,183 +1944,112 @@
   },
   {
    "key": "LAC \u00b7 Fig. 2 \u00b7 p = -2, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 166.35780646016218,
-   "g3": 7.212453782134845e-16,
-   "relative": 0.04910961139164546,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 166.35780646016218,
-     "g3": 7.212453782134845e-16,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 8.9% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 3 \u00b7 p = -1.5, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 156.8060344794459,
-   "g3": 1.478287348159781e-15,
-   "relative": 0.046858837761995474,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 156.8060344794459,
-     "g3": 1.478287348159781e-15,
-     "pass": true,
-     "closed": false,
-     "count": 14
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 8.6% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 4 \u00b7 p = -1, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 136.29459568586938,
-   "g3": 1.183188030888418e-16,
-   "relative": 0.04176452464034166,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 136.29459568586938,
-     "g3": 1.183188030888418e-16,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 7.9% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 5 \u00b7 p = -0.5, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 78.73125241010291,
-   "g3": 1.6502867319319661e-16,
-   "relative": 0.02554036299077463,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 78.73125241010291,
-     "g3": 1.6502867319319661e-16,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 6.8% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 6 \u00b7 p = 0, turn 270",
    "admitted": true,
    "reason": null,
-   "error": 18.885883407611637,
-   "g3": 2.748337082468078e-16,
-   "relative": 0.005615784788149996,
+   "error": 16.896885037170552,
+   "g3": 2.713224969457264e-16,
+   "relative": 0.005024349028895209,
    "source": "lac",
    "branches": [
     {
-     "error": 18.885883407611637,
-     "g3": 2.748337082468078e-16,
+     "error": 16.896885037170552,
+     "g3": 2.713224969457264e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "LAC \u00b7 Fig. 7 \u00b7 p = 0.5, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 29.22890880471209,
-   "g3": 1.413274207796004e-16,
-   "relative": 0.009264424630665038,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 29.22890880471209,
-     "g3": 1.413274207796004e-16,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 10.6% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 8 \u00b7 p = 1, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 153.35527476788658,
-   "g3": 7.273789555427897e-17,
-   "relative": 0.04562098787621359,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 153.35527476788658,
-     "g3": 7.273789555427897e-17,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 10.3% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 9 \u00b7 p = 1.5, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 161.32549818444875,
-   "g3": 4.4387438111881524e-17,
-   "relative": 0.04713472226232019,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 161.32549818444875,
-     "g3": 4.4387438111881524e-17,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 10.0% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 10 \u00b7 p = 2, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 162.41823077744897,
-   "g3": 9.123450108391193e-17,
-   "relative": 0.04714157149483569,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 162.41823077744897,
-     "g3": 9.123450108391193e-17,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 9.7% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 11 \u00b7 p = 3, turn 270",
-   "admitted": true,
-   "reason": null,
-   "error": 162.67681375264564,
-   "g3": 4.232967744564561e-17,
-   "relative": 0.046996697744675686,
-   "source": "lac",
-   "branches": [
-    {
-     "error": 162.67681375264564,
-     "g3": 4.232967744564561e-17,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 9.4% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "LAC \u00b7 Fig. 12 \u00b7 p = -3, turn 360",
@@ -2114,7 +2105,8 @@
      "g3": 2.5733175927962904e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2132,7 +2124,8 @@
      "g3": 7.836077819083884e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2150,7 +2143,8 @@
      "g3": 2.667813117787572e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2168,7 +2162,8 @@
      "g3": 1.2267768757497164e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2186,7 +2181,8 @@
      "g3": 5.504337728613664e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2204,7 +2200,8 @@
      "g3": 2.601345648323139e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2212,17 +2209,18 @@
    "key": "LAC \u00b7 Fig. 22 \u00b7 p = -3, turn 720",
    "admitted": true,
    "reason": null,
-   "error": 33.429807711077636,
-   "g3": 4.599394197546771e-17,
-   "relative": 0.010557897361458027,
+   "error": 34.046613474363774,
+   "g3": 6.673169080441714e-17,
+   "relative": 0.010752698719485965,
    "source": "lac",
    "branches": [
     {
-     "error": 33.429807711077636,
-     "g3": 4.599394197546771e-17,
+     "error": 34.046613474363774,
+     "g3": 6.673169080441714e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2230,17 +2228,18 @@
    "key": "LAC \u00b7 Fig. 23 \u00b7 p = -2, turn 720",
    "admitted": true,
    "reason": null,
-   "error": 32.37373086941314,
-   "g3": 6.420799848972031e-16,
-   "relative": 0.01014003962570532,
+   "error": 32.17462291196052,
+   "g3": 8.920358077419213e-17,
+   "relative": 0.0100776754024866,
    "source": "lac",
    "branches": [
     {
-     "error": 32.37373086941314,
-     "g3": 6.420799848972031e-16,
+     "error": 32.17462291196052,
+     "g3": 8.920358077419213e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2248,17 +2247,18 @@
    "key": "LAC \u00b7 Fig. 24 \u00b7 p = -1.5, turn 720",
    "admitted": true,
    "reason": null,
-   "error": 30.230844798123243,
-   "g3": 7.745375148811729e-17,
-   "relative": 0.009379837375518379,
+   "error": 31.15877423910425,
+   "g3": 9.714387937999076e-17,
+   "relative": 0.009667749516594168,
    "source": "lac",
    "branches": [
     {
-     "error": 30.230844798123243,
-     "g3": 7.745375148811729e-17,
+     "error": 31.15877423910425,
+     "g3": 9.714387937999076e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2266,17 +2266,18 @@
    "key": "LAC \u00b7 Fig. 25 \u00b7 p = -1, turn 720",
    "admitted": true,
    "reason": null,
-   "error": 28.668110028655438,
-   "g3": 8.515071341003752e-17,
-   "relative": 0.008710320039624964,
+   "error": 29.959160278569303,
+   "g3": 2.9777048861008863e-16,
+   "relative": 0.009102583807719446,
    "source": "lac",
    "branches": [
     {
-     "error": 28.668110028655438,
-     "g3": 8.515071341003752e-17,
+     "error": 29.959160278569303,
+     "g3": 2.9777048861008863e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2284,17 +2285,18 @@
    "key": "LAC \u00b7 Fig. 26 \u00b7 p = -0.5, turn 720",
    "admitted": true,
    "reason": null,
-   "error": 25.935079749007453,
-   "g3": 1.0544268468071476e-16,
-   "relative": 0.0074784607442633265,
+   "error": 27.00911921203727,
+   "g3": 4.761750561200719e-17,
+   "relative": 0.007788163357087007,
    "source": "lac",
    "branches": [
     {
-     "error": 25.935079749007453,
-     "g3": 1.0544268468071476e-16,
+     "error": 27.00911921203727,
+     "g3": 4.761750561200719e-17,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2352,7 +2354,8 @@
      "g3": 1.4867545806681107e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": true
     }
    ]
   },
@@ -2370,17 +2373,18 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 8.479322742004477,
-   "g3": 4.4890022993552495e-15,
-   "relative": 0.007147934324951771,
+   "error": 8.74254490392033,
+   "g3": 1.454141694616452e-15,
+   "relative": 0.00736982642453254,
    "source": "stage-two",
    "branches": [
     {
-     "error": 8.479322742004477,
-     "g3": 4.4890022993552495e-15,
+     "error": 8.74254490392033,
+     "g3": 1.454141694616452e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2388,17 +2392,18 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 8.378807276847452,
-   "g3": 5.751059982006415e-14,
-   "relative": 0.007061815197408321,
+   "error": 8.645691480581347,
+   "g3": 2.0277585474859318e-15,
+   "relative": 0.0072867501867932725,
    "source": "stage-two",
    "branches": [
     {
-     "error": 8.378807276847452,
-     "g3": 5.751059982006415e-14,
+     "error": 8.645691480581347,
+     "g3": 2.0277585474859318e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2406,17 +2411,18 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 8.37880727675397,
-   "g3": 9.074741203473626e-14,
-   "relative": 0.007061815197329533,
+   "error": 8.645691480801021,
+   "g3": 2.9656057086636283e-15,
+   "relative": 0.007286750186978419,
    "source": "stage-two",
    "branches": [
     {
-     "error": 8.37880727675397,
-     "g3": 9.074741203473626e-14,
+     "error": 8.645691480801021,
+     "g3": 2.9656057086636283e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2424,17 +2430,18 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 8.479322741843212,
-   "g3": 3.779548466800492e-15,
-   "relative": 0.007147934324815828,
+   "error": 8.74254490107771,
+   "g3": 1.231732018491154e-15,
+   "relative": 0.007369826422136258,
    "source": "stage-two",
    "branches": [
     {
-     "error": 8.479322741843212,
-     "g3": 3.779548466800492e-15,
+     "error": 8.74254490107771,
+     "g3": 1.231732018491154e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2462,17 +2469,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 3.1543410859036505,
-   "g3": 3.77783470738996e-15,
-   "relative": 0.0068038140157517845,
+   "error": 3.006769830141909,
+   "g3": 1.3222685750144403e-14,
+   "relative": 0.006485507481699145,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.1543410859036505,
-     "g3": 3.77783470738996e-15,
+     "error": 3.006769830141909,
+     "g3": 1.3222685750144403e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2480,17 +2488,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 6.385559118193772,
-   "g3": 7.457372829437834e-16,
-   "relative": 0.009484840315595723,
+   "error": 6.28454322111202,
+   "g3": 2.778949928516645e-16,
+   "relative": 0.009334795560638057,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.385559118193772,
-     "g3": 7.457372829437834e-16,
+     "error": 6.28454322111202,
+     "g3": 2.778949928516645e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2508,17 +2517,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 3.1533538344494683,
-   "g3": 5.802975287794165e-15,
-   "relative": 0.006800365674435161,
+   "error": 3.0211932252994638,
+   "g3": 1.4176902246544262e-14,
+   "relative": 0.0065153546933782135,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.1533538344494683,
-     "g3": 5.802975287794165e-15,
+     "error": 3.0211932252994638,
+     "g3": 1.4176902246544262e-14,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2526,17 +2536,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 7",
    "admitted": true,
    "reason": null,
-   "error": 6.748791378128988,
-   "g3": 5.1139081089117205e-15,
-   "relative": 0.010024370201575856,
+   "error": 6.62120923181503,
+   "g3": 7.141410217172871e-16,
+   "relative": 0.009834865059972664,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.748791378128988,
-     "g3": 5.1139081089117205e-15,
+     "error": 6.62120923181503,
+     "g3": 7.141410217172871e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2554,17 +2565,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 9",
    "admitted": true,
    "reason": null,
-   "error": 3.153353834449463,
-   "g3": 3.1186668915730853e-15,
-   "relative": 0.006800365674435149,
+   "error": 3.021193221478668,
+   "g3": 2.5312969764972743e-15,
+   "relative": 0.006515354685138476,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.153353834449463,
-     "g3": 3.1186668915730853e-15,
+     "error": 3.021193221478668,
+     "g3": 2.5312969764972743e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2572,17 +2584,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 10",
    "admitted": true,
    "reason": null,
-   "error": 6.3855591183050455,
-   "g3": 5.609829329447083e-16,
-   "relative": 0.009484840315761004,
+   "error": 6.284543221031057,
+   "g3": 1.2992390620796641e-15,
+   "relative": 0.009334795560517799,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.3855591183050455,
-     "g3": 5.609829329447083e-16,
+     "error": 6.284543221031057,
+     "g3": 1.2992390620796641e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2600,17 +2613,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 12",
    "admitted": true,
    "reason": null,
-   "error": 3.154341085903878,
-   "g3": 2.9083553870334206e-15,
-   "relative": 0.0068038140157522745,
+   "error": 3.006769830142363,
+   "g3": 6.550000749032045e-15,
+   "relative": 0.006485507481700125,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.154341085903878,
-     "g3": 2.9083553870334206e-15,
+     "error": 3.006769830142363,
+     "g3": 6.550000749032045e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2618,17 +2632,18 @@
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 13",
    "admitted": true,
    "reason": null,
-   "error": 6.748791378496876,
-   "g3": 1.1380439329507984e-14,
-   "relative": 0.010024370202122301,
+   "error": 6.621209231740818,
+   "g3": 1.1052039838357604e-15,
+   "relative": 0.009834865059862433,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.748791378496876,
-     "g3": 1.1380439329507984e-14,
+     "error": 6.621209231740818,
+     "g3": 1.1052039838357604e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2646,17 +2661,18 @@
    "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 7.8595905126586585,
-   "g3": 4.716560029975722e-17,
-   "relative": 0.005838103831102329,
+   "error": 7.485405383442448,
+   "g3": 1.049862398012631e-16,
+   "relative": 0.0055601591172014875,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.8595905126586585,
-     "g3": 4.716560029975722e-17,
+     "error": 7.485405383442448,
+     "g3": 1.049862398012631e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2664,17 +2680,18 @@
    "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 7.8381506299600945,
-   "g3": 1.7149516094055236e-16,
-   "relative": 0.0058197785035748835,
+   "error": 7.481693892153725,
+   "g3": 5.826993754046508e-17,
+   "relative": 0.0055551115740812744,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.8381506299600945,
-     "g3": 1.7149516094055236e-16,
+     "error": 7.481693892153725,
+     "g3": 5.826993754046508e-17,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2682,17 +2699,18 @@
    "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 7.838150630211444,
-   "g3": 2.676323416627314e-16,
-   "relative": 0.005819778503761509,
+   "error": 7.481693892260093,
+   "g3": 7.028266467754398e-17,
+   "relative": 0.005555111574160252,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.838150630211444,
-     "g3": 2.676323416627314e-16,
+     "error": 7.481693892260093,
+     "g3": 7.028266467754398e-17,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2700,17 +2718,18 @@
    "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 7.859590512583092,
-   "g3": 2.520395238949638e-16,
-   "relative": 0.005838103831046199,
+   "error": 7.485405383553231,
+   "g3": 1.5456953683028012e-16,
+   "relative": 0.005560159117283778,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.859590512583092,
-     "g3": 2.520395238949638e-16,
+     "error": 7.485405383553231,
+     "g3": 1.5456953683028012e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2728,17 +2747,18 @@
    "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 6.515752696167911,
-   "g3": 1.3609320715182206e-16,
-   "relative": 0.004787314191747473,
+   "error": 6.3676142647182425,
+   "g3": 2.574107715717401e-16,
+   "relative": 0.004678472550836317,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.515752696167911,
-     "g3": 1.3609320715182206e-16,
+     "error": 6.3676142647182425,
+     "g3": 2.574107715717401e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2746,17 +2766,18 @@
    "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 6.504586785870825,
-   "g3": 4.913909177565318e-16,
-   "relative": 0.0047771958509064275,
+   "error": 6.3991306524556215,
+   "g3": 3.825946178794004e-16,
+   "relative": 0.004699745181157803,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.504586785870825,
-     "g3": 4.913909177565318e-16,
+     "error": 6.3991306524556215,
+     "g3": 3.825946178794004e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2764,17 +2785,18 @@
    "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 6.504586785934762,
-   "g3": 2.871721212064672e-16,
-   "relative": 0.004777195850953386,
+   "error": 6.399130653193195,
+   "g3": 4.00424026144393e-16,
+   "relative": 0.0046997451816995035,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.504586785934762,
-     "g3": 2.871721212064672e-16,
+     "error": 6.399130653193195,
+     "g3": 4.00424026144393e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2782,17 +2804,18 @@
    "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 6.515752696185,
-   "g3": 7.230842867419736e-16,
-   "relative": 0.004787314191760029,
+   "error": 6.367614264825451,
+   "g3": 3.2392403375488404e-16,
+   "relative": 0.004678472550915086,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.515752696185,
-     "g3": 7.230842867419736e-16,
+     "error": 6.367614264825451,
+     "g3": 3.2392403375488404e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2810,17 +2833,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 2.275605369646793,
-   "g3": 3.0294472171728953e-16,
-   "relative": 0.003092945875375807,
+   "error": 2.2744219117068636,
+   "g3": 4.150292034956621e-16,
+   "relative": 0.0030913373489578223,
    "source": "stage-two",
    "branches": [
     {
-     "error": 2.275605369646793,
-     "g3": 3.0294472171728953e-16,
+     "error": 2.2744219117068636,
+     "g3": 4.150292034956621e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2828,17 +2852,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 9.241157486280446,
-   "g3": 9.805979728168051e-15,
-   "relative": 0.005942786381533056,
+   "error": 9.236699411227407,
+   "g3": 1.301083095157484e-14,
+   "relative": 0.005939919490913306,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.241157486280446,
-     "g3": 9.805979728168051e-15,
+     "error": 9.236699411227407,
+     "g3": 1.301083095157484e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2846,17 +2871,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 2.331664978669904,
-   "g3": 3.914297009148548e-16,
-   "relative": 0.003168172212078506,
+   "error": 2.268218691858506,
+   "g3": 3.184227241690568e-15,
+   "relative": 0.003081963959746261,
    "source": "stage-two",
    "branches": [
     {
-     "error": 2.331664978669904,
-     "g3": 3.914297009148548e-16,
+     "error": 2.268218691858506,
+     "g3": 3.184227241690568e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -2864,17 +2890,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 9.241157486322532,
-   "g3": 4.626436571420812e-15,
-   "relative": 0.005942786381560121,
+   "error": 9.236699411227224,
+   "g3": 5.08636063870332e-15,
+   "relative": 0.005939919490913189,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.241157486322532,
-     "g3": 4.626436571420812e-15,
+     "error": 9.236699411227224,
+     "g3": 5.08636063870332e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2882,17 +2909,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 10.865596743995875,
-   "g3": 8.277992642418785e-16,
-   "relative": 0.007143396429625711,
+   "error": 10.96344044756426,
+   "g3": 8.27777431967663e-15,
+   "relative": 0.007207722060255981,
    "source": "stage-two",
    "branches": [
     {
-     "error": 10.865596743995875,
-     "g3": 8.277992642418785e-16,
+     "error": 10.96344044756426,
+     "g3": 8.27777431967663e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2900,17 +2928,18 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 7",
    "admitted": true,
    "reason": null,
-   "error": 10.861355385930198,
-   "g3": 7.049075949686068e-16,
-   "relative": 0.007142072920957897,
+   "error": 10.625076790009873,
+   "g3": 1.0727909446200945e-15,
+   "relative": 0.0069867038255031514,
    "source": "stage-two",
    "branches": [
     {
-     "error": 10.861355385930198,
-     "g3": 7.049075949686068e-16,
+     "error": 10.625076790009873,
+     "g3": 1.0727909446200945e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2928,17 +2957,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 10.573405030441764,
-   "g3": 6.929671832693997e-16,
-   "relative": 0.007185474457400366,
+   "error": 10.20884262423767,
+   "g3": 1.831433992125159e-15,
+   "relative": 0.006937725141984376,
    "source": "stage-two",
    "branches": [
     {
-     "error": 10.573405030441764,
-     "g3": 6.929671832693997e-16,
+     "error": 10.20884262423767,
+     "g3": 1.831433992125159e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -2946,17 +2976,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 10.581779229077041,
-   "g3": 5.188059861273644e-16,
-   "relative": 0.007190002962343079,
+   "error": 10.595940048684055,
+   "g3": 1.81831661755783e-14,
+   "relative": 0.007199624816354536,
    "source": "stage-two",
    "branches": [
     {
-     "error": 10.581779229077041,
-     "g3": 5.188059861273644e-16,
+     "error": 10.595940048684055,
+     "g3": 1.81831661755783e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2964,17 +2995,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 4.651795052456955,
-   "g3": 6.911426997120024e-14,
-   "relative": 0.0064516606282849906,
+   "error": 4.3202803378452,
+   "g3": 9.99750412664091e-14,
+   "relative": 0.00599187673672508,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.651795052456955,
-     "g3": 6.911426997120024e-14,
+     "error": 4.3202803378452,
+     "g3": 9.99750412664091e-14,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -2982,17 +3014,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 4.695878778727681,
-   "g3": 7.644414644850529e-16,
-   "relative": 0.003161267229371208,
+   "error": 4.825567993548878,
+   "g3": 2.926940136929127e-15,
+   "relative": 0.0032485740539584082,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.695878778727681,
-     "g3": 7.644414644850529e-16,
+     "error": 4.825567993548878,
+     "g3": 2.926940136929127e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3000,17 +3033,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 4.660644550686704,
-   "g3": 1.141141565261434e-13,
-   "relative": 0.006461907506096093,
+   "error": 4.195206076617617,
+   "g3": 3.174543961037557e-14,
+   "relative": 0.005816584667912735,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.660644550686704,
-     "g3": 1.141141565261434e-13,
+     "error": 4.195206076617617,
+     "g3": 3.174543961037557e-14,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3018,17 +3052,18 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 7",
    "admitted": true,
    "reason": null,
-   "error": 4.69587877872137,
-   "g3": 7.725784864928513e-16,
-   "relative": 0.0031612672293669596,
+   "error": 4.825567990351665,
+   "g3": 2.6116270401160303e-15,
+   "relative": 0.0032485740518060436,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.69587877872137,
-     "g3": 7.725784864928513e-16,
+     "error": 4.825567990351665,
+     "g3": 2.6116270401160303e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3036,17 +3071,18 @@
    "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 15.921198338619241,
-   "g3": 6.870579637919985e-16,
-   "relative": 0.00903717154612643,
+   "error": 15.345457939283616,
+   "g3": 5.146038556760359e-16,
+   "relative": 0.008710370469714325,
    "source": "stage-two",
    "branches": [
     {
-     "error": 15.921198338619241,
-     "g3": 6.870579637919985e-16,
+     "error": 15.345457939283616,
+     "g3": 5.146038556760359e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3054,17 +3090,18 @@
    "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 15.088011523692932,
-   "g3": 3.1619951679239845e-16,
-   "relative": 0.008571115267513576,
+   "error": 13.262558781261653,
+   "g3": 7.81303296426485e-16,
+   "relative": 0.007534122033103073,
    "source": "stage-two",
    "branches": [
     {
-     "error": 15.088011523692932,
-     "g3": 3.1619951679239845e-16,
+     "error": 13.262558781261653,
+     "g3": 7.81303296426485e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3072,17 +3109,18 @@
    "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 11.914325648290536,
-   "g3": 3.7587362320117435e-16,
-   "relative": 0.008798010639135285,
+   "error": 11.59774031951622,
+   "g3": 2.677344091328755e-16,
+   "relative": 0.008564231475045522,
    "source": "stage-two",
    "branches": [
     {
-     "error": 11.914325648290536,
-     "g3": 3.7587362320117435e-16,
+     "error": 11.59774031951622,
+     "g3": 2.677344091328755e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3100,17 +3138,18 @@
    "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 11.598804480077199,
-   "g3": 2.1378264555751286e-16,
-   "relative": 0.008565017293413564,
+   "error": 9.627260803141391,
+   "g3": 1.925466613610766e-15,
+   "relative": 0.007109151241297565,
    "source": "stage-two",
    "branches": [
     {
-     "error": 11.598804480077199,
-     "g3": 2.1378264555751286e-16,
+     "error": 9.627260803141391,
+     "g3": 1.925466613610766e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3118,17 +3157,18 @@
    "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 3.1406516191110283,
-   "g3": 7.323094496254623e-15,
-   "relative": 0.007163756460651845,
+   "error": 3.2200842260102123,
+   "g3": 1.8898041124874605e-14,
+   "relative": 0.007344940469536446,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.1406516191110283,
-     "g3": 7.323094496254623e-15,
+     "error": 3.2200842260102123,
+     "g3": 1.8898041124874605e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3136,17 +3176,18 @@
    "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 8.08373427745057,
-   "g3": 2.5289655183099568e-15,
-   "relative": 0.008219901295378626,
+   "error": 8.007315061289729,
+   "g3": 5.34042203024338e-16,
+   "relative": 0.008142194830476068,
    "source": "stage-two",
    "branches": [
     {
-     "error": 8.08373427745057,
-     "g3": 2.5289655183099568e-15,
+     "error": 8.007315061289729,
+     "g3": 5.34042203024338e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3154,17 +3195,18 @@
    "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 6.878531454366941,
-   "g3": 3.275145217150003e-15,
-   "relative": 0.007000588660553656,
+   "error": 6.683375178982479,
+   "g3": 2.6265255026252862e-15,
+   "relative": 0.006801969403295628,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.878531454366941,
-     "g3": 3.275145217150003e-15,
+     "error": 6.683375178982479,
+     "g3": 2.6265255026252862e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3172,17 +3214,18 @@
    "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 2.2772500483322795,
-   "g3": 5.972425922958283e-15,
-   "relative": 0.005194356689226719,
+   "error": 2.307424519993179,
+   "g3": 2.444911813151776e-14,
+   "relative": 0.00526318398767401,
    "source": "stage-two",
    "branches": [
     {
-     "error": 2.2772500483322795,
-     "g3": 5.972425922958283e-15,
+     "error": 2.307424519993179,
+     "g3": 2.444911813151776e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3190,17 +3233,18 @@
    "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 3.052154401289557,
-   "g3": 4.387921622594658e-15,
-   "relative": 0.005838934006303681,
+   "error": 2.9279444780050445,
+   "g3": 3.9828497149104435e-15,
+   "relative": 0.0056013138044292655,
    "source": "stage-two",
    "branches": [
     {
-     "error": 3.052154401289557,
-     "g3": 4.387921622594658e-15,
+     "error": 2.9279444780050445,
+     "g3": 3.9828497149104435e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3208,17 +3252,18 @@
    "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 7.34932952614803,
-   "g3": 7.968064345809621e-16,
-   "relative": 0.007866626651616696,
+   "error": 7.5958726244731665,
+   "g3": 7.595846305050559e-16,
+   "relative": 0.008130523174579274,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.34932952614803,
-     "g3": 7.968064345809621e-16,
+     "error": 7.5958726244731665,
+     "g3": 7.595846305050559e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3226,17 +3271,18 @@
    "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 6.43012016493771,
-   "g3": 2.6445230469303088e-15,
-   "relative": 0.006891246649958961,
+   "error": 6.337038807600509,
+   "g3": 1.3867238012456404e-15,
+   "relative": 0.006791490101796562,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.43012016493771,
-     "g3": 2.6445230469303088e-15,
+     "error": 6.337038807600509,
+     "g3": 1.3867238012456404e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3244,17 +3290,18 @@
    "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 2.492151258554962,
-   "g3": 1.9403373357909995e-15,
-   "relative": 0.004767618154009827,
+   "error": 2.6591413275425793,
+   "g3": 3.4689760016349408e-15,
+   "relative": 0.005087079054190641,
    "source": "stage-two",
    "branches": [
     {
-     "error": 2.492151258554962,
-     "g3": 1.9403373357909995e-15,
+     "error": 2.6591413275425793,
+     "g3": 3.4689760016349408e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3262,17 +3309,18 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 5.958621053691194,
-   "g3": 2.323659713790769e-15,
-   "relative": 0.020301739452203347,
+   "error": 5.155606103496755,
+   "g3": 9.545540390293403e-16,
+   "relative": 0.017565770819834528,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.958621053691194,
-     "g3": 2.323659713790769e-15,
+     "error": 5.155606103496755,
+     "g3": 9.545540390293403e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3280,17 +3328,18 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 9.632782923455675,
-   "g3": 7.111576393281594e-16,
-   "relative": 0.008500491249021398,
+   "error": 9.644821961198128,
+   "g3": 4.778635898306438e-16,
+   "relative": 0.008511115150316544,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.632782923455675,
-     "g3": 7.111576393281594e-16,
+     "error": 9.644821961198128,
+     "g3": 4.778635898306438e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3298,17 +3347,18 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 0.624726465355404,
-   "g3": 1.34222887253517e-13,
-   "relative": 0.0031912866917277296,
+   "error": 0.5930239027594185,
+   "g3": 6.264747835077467e-14,
+   "relative": 0.0030293406694014984,
    "source": "stage-two",
    "branches": [
     {
-     "error": 0.624726465355404,
-     "g3": 1.34222887253517e-13,
+     "error": 0.5930239027594185,
+     "g3": 6.264747835077467e-14,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3316,17 +3366,18 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 9.574774548468438,
-   "g3": 4.335097683388564e-16,
-   "relative": 0.00844875925405133,
+   "error": 8.039248802896179,
+   "g3": 1.80981167620148e-15,
+   "relative": 0.007093814833473523,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.574774548468438,
-     "g3": 4.335097683388564e-16,
+     "error": 8.039248802896179,
+     "g3": 1.80981167620148e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3334,24 +3385,25 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 5.958621053679468,
-   "g3": 1.6387152136692002e-14,
-   "relative": 0.020301739452163396,
+   "error": 5.155606099580764,
+   "g3": 3.0668964495951393e-15,
+   "relative": 0.017565770806492277,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.958621053679468,
-     "g3": 1.6387152136692002e-14,
+     "error": 5.155606099580764,
+     "g3": 3.0668964495951393e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "Stage II \u00b7 Fig. 12 \u00b7 Clothoid, one turn each way \u00b7 spine 1",
    "admitted": false,
-   "reason": "deviation 12.1% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 22.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -3361,7 +3413,7 @@
   {
    "key": "Stage II \u00b7 Fig. 12 \u00b7 Clothoid, one turn each way \u00b7 spine 2",
    "admitted": false,
-   "reason": "deviation 11.6% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 21.8% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -3371,7 +3423,7 @@
   {
    "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 1",
    "admitted": false,
-   "reason": "deviation 6.6% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 13.9% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -3382,17 +3434,18 @@
    "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 6.214376702672719,
-   "g3": 2.9485000900520645e-15,
-   "relative": 0.008295781756039174,
+   "error": 5.962252455211193,
+   "g3": 2.0174770498139222e-15,
+   "relative": 0.007959212566172252,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.214376702672719,
-     "g3": 2.9485000900520645e-15,
+     "error": 5.962252455211193,
+     "g3": 2.0174770498139222e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3400,71 +3453,57 @@
    "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 5.159496924648405,
-   "g3": 2.4263505260687084e-13,
-   "relative": 0.00689308009123554,
+   "error": 5.047597831395325,
+   "g3": 1.798220030318305e-15,
+   "relative": 0.0067435830718177645,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.159496924648405,
-     "g3": 2.4263505260687084e-13,
+     "error": 5.047597831395325,
+     "g3": 1.798220030318305e-15,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 4",
-   "admitted": true,
-   "reason": null,
-   "error": 8.896435580186957,
-   "g3": 1.2405390435602306e-16,
-   "relative": 0.008930863435746802,
-   "source": "stage-two",
-   "branches": [
-    {
-     "error": 8.896435580186957,
-     "g3": 1.2405390435602306e-16,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 12.8% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 1",
-   "admitted": true,
-   "reason": null,
-   "error": 10.390052401905358,
-   "g3": 4.2003262711509323e-16,
-   "relative": 0.008086875707793584,
-   "source": "stage-two",
-   "branches": [
-    {
-     "error": 10.390052401905358,
-     "g3": 4.2003262711509323e-16,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 13.8% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 5.652397934602231,
-   "g3": 6.929022158423453e-15,
-   "relative": 0.008012549487137356,
+   "error": 5.7144532951176865,
+   "g3": 1.1911892099873006e-15,
+   "relative": 0.008100515984334661,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.652397934602231,
-     "g3": 6.929022158423453e-15,
+     "error": 5.7144532951176865,
+     "g3": 1.1911892099873006e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3472,17 +3511,18 @@
    "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 5.014027275149789,
-   "g3": 4.002991734879677e-15,
-   "relative": 0.007113648496767369,
+   "error": 4.729685809722769,
+   "g3": 4.019841337782933e-15,
+   "relative": 0.006710239195799191,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.014027275149789,
-     "g3": 4.002991734879677e-15,
+     "error": 4.729685809722769,
+     "g3": 4.019841337782933e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3490,71 +3530,57 @@
    "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 9.250962075310337,
-   "g3": 2.0306852580769322e-16,
-   "relative": 0.00720310325076999,
+   "error": 9.041086803802516,
+   "g3": 6.33648407181997e-17,
+   "relative": 0.007039687463509452,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.250962075310337,
-     "g3": 2.0306852580769322e-16,
+     "error": 9.041086803802516,
+     "g3": 6.33648407181997e-17,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "Stage II \u00b7 Fig. 15 \u00b7 Clothoid, two turns each way \u00b7 spine 1",
-   "admitted": true,
-   "reason": null,
-   "error": 23.964874595484535,
-   "g3": 8.188288676931003e-17,
-   "relative": 0.013720799806223481,
-   "source": "stage-two",
-   "branches": [
-    {
-     "error": 23.964874595484535,
-     "g3": 8.188288676931003e-17,
-     "pass": true,
-     "closed": false,
-     "count": 6
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 25.0% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 15 \u00b7 Clothoid, two turns each way \u00b7 spine 2",
-   "admitted": true,
-   "reason": null,
-   "error": 20.696003150992905,
-   "g3": 2.225591774404883e-16,
-   "relative": 0.011849084446452796,
-   "source": "stage-two",
-   "branches": [
-    {
-     "error": 20.696003150992905,
-     "g3": 2.225591774404883e-16,
-     "pass": true,
-     "closed": false,
-     "count": 10
-    }
-   ]
+   "admitted": false,
+   "reason": "deviation 24.0% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 9.873606457452443,
-   "g3": 8.877039753705444e-16,
-   "relative": 0.007806005465100789,
+   "error": 10.387757317355973,
+   "g3": 6.0839411985961e-16,
+   "relative": 0.008212489604365214,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.873606457452443,
-     "g3": 8.877039753705444e-16,
+     "error": 10.387757317355973,
+     "g3": 6.0839411985961e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3562,17 +3588,18 @@
    "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 5.56040360407266,
-   "g3": 2.442050197042772e-15,
-   "relative": 0.007784092721285284,
+   "error": 5.720502432260114,
+   "g3": 2.081729157544371e-15,
+   "relative": 0.00800821748126988,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.56040360407266,
-     "g3": 2.442050197042772e-15,
+     "error": 5.720502432260114,
+     "g3": 2.081729157544371e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3580,17 +3607,18 @@
    "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 4.932644180415584,
-   "g3": 5.630522767864979e-15,
-   "relative": 0.006917698690056384,
+   "error": 4.849643691360534,
+   "g3": 8.110069419416804e-16,
+   "relative": 0.006801296137305907,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.932644180415584,
-     "g3": 5.630522767864979e-15,
+     "error": 4.849643691360534,
+     "g3": 8.110069419416804e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3598,17 +3626,18 @@
    "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 9.088536413550155,
-   "g3": 4.1978952865923125e-16,
-   "relative": 0.007185334479317002,
+   "error": 8.894923288122655,
+   "g3": 1.998862230248588e-16,
+   "relative": 0.007032265271858205,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.088536413550155,
-     "g3": 4.1978952865923125e-16,
+     "error": 8.894923288122655,
+     "g3": 1.998862230248588e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3616,17 +3645,18 @@
    "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 9.795682403537066,
-   "g3": 4.483439092836802e-16,
-   "relative": 0.006256259599740924,
+   "error": 10.542818525834958,
+   "g3": 4.3298820780158457e-16,
+   "relative": 0.006733436925922057,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.795682403537066,
-     "g3": 4.483439092836802e-16,
+     "error": 10.542818525834958,
+     "g3": 4.3298820780158457e-16,
      "pass": true,
      "closed": false,
-     "count": 14
+     "count": 14,
+     "trimmed": false
     }
    ]
   },
@@ -3634,17 +3664,18 @@
    "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 5.484167187946017,
-   "g3": 5.658756070062859e-16,
-   "relative": 0.007941424124102838,
+   "error": 5.537593115894559,
+   "g3": 5.831250094606461e-16,
+   "relative": 0.008018788277769721,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.484167187946017,
-     "g3": 5.658756070062859e-16,
+     "error": 5.537593115894559,
+     "g3": 5.831250094606461e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3652,17 +3683,18 @@
    "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 4.779423358524773,
-   "g3": 3.872959895498407e-15,
-   "relative": 0.0069268969372329,
+   "error": 4.754901643428348,
+   "g3": 2.6546419142764455e-15,
+   "relative": 0.006891357211944879,
    "source": "stage-two",
    "branches": [
     {
-     "error": 4.779423358524773,
-     "g3": 3.872959895498407e-15,
+     "error": 4.754901643428348,
+     "g3": 2.6546419142764455e-15,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3670,24 +3702,25 @@
    "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 9.611354712528446,
-   "g3": 9.737988393491949e-17,
-   "relative": 0.006138534071404648,
+   "error": 10.351386349800887,
+   "g3": 5.429692950136879e-17,
+   "relative": 0.0066111739390596,
    "source": "stage-two",
    "branches": [
     {
-     "error": 9.611354712528446,
-     "g3": 9.737988393491949e-17,
+     "error": 10.351386349800887,
+     "g3": 5.429692950136879e-17,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
   {
    "key": "Stage II \u00b7 Fig. 18 \u00b7 The complete clothoid \u00b7 spine 1",
    "admitted": false,
-   "reason": "deviation 5.5% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 8.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -3697,7 +3730,7 @@
   {
    "key": "Stage II \u00b7 Fig. 18 \u00b7 The complete clothoid \u00b7 spine 2",
    "admitted": false,
-   "reason": "deviation 5.1% of the curve size; the quintic G3 spans cannot follow it",
+   "reason": "deviation 7.7% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
    "relative": null,
@@ -3708,17 +3741,18 @@
    "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 31.118800672292743,
-   "g3": 1.754679995730592e-15,
-   "relative": 0.032864704514334486,
+   "error": 44.66095435883956,
+   "g3": 6.248117359597665e-16,
+   "relative": 0.047166633566257554,
    "source": "stage-two",
    "branches": [
     {
-     "error": 31.118800672292743,
-     "g3": 1.754679995730592e-15,
+     "error": 44.66095435883956,
+     "g3": 6.248117359597665e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3726,17 +3760,18 @@
    "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 6.989784381287769,
-   "g3": 1.998465818829273e-15,
-   "relative": 0.007773907076084002,
+   "error": 7.500762007019625,
+   "g3": 1.5171492991891472e-15,
+   "relative": 0.008342206806620988,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.989784381287769,
-     "g3": 1.998465818829273e-15,
+     "error": 7.500762007019625,
+     "g3": 1.5171492991891472e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3744,17 +3779,18 @@
    "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 6.254386153734259,
-   "g3": 6.450244831800959e-16,
-   "relative": 0.006958843478633398,
+   "error": 6.115155569905406,
+   "g3": 3.2518746809900856e-15,
+   "relative": 0.006803930779530985,
    "source": "stage-two",
    "branches": [
     {
-     "error": 6.254386153734259,
-     "g3": 6.450244831800959e-16,
+     "error": 6.115155569905406,
+     "g3": 3.2518746809900856e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 10,
+     "trimmed": false
     }
    ]
   },
@@ -3762,17 +3798,18 @@
    "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 25.683718382013318,
-   "g3": 6.558057302909854e-16,
-   "relative": 0.02713380286014728,
+   "error": 36.44383853735502,
+   "g3": 9.51150237130799e-16,
+   "relative": 0.038501431748766655,
    "source": "stage-two",
    "branches": [
     {
-     "error": 25.683718382013318,
-     "g3": 6.558057302909854e-16,
+     "error": 36.44383853735502,
+     "g3": 9.51150237130799e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3780,17 +3817,18 @@
    "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 1",
    "admitted": true,
    "reason": null,
-   "error": 24.83676436807769,
-   "g3": 6.329885685160859e-16,
-   "relative": 0.022025858214732942,
+   "error": 39.573408768473726,
+   "g3": 2.0959777340248458e-16,
+   "relative": 0.035094679713126194,
    "source": "stage-two",
    "branches": [
     {
-     "error": 24.83676436807769,
-     "g3": 6.329885685160859e-16,
+     "error": 39.573408768473726,
+     "g3": 2.0959777340248458e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3798,17 +3836,18 @@
    "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 5.853684275362762,
-   "g3": 3.607621742573314e-15,
-   "relative": 0.00791441754760003,
+   "error": 5.857675693375991,
+   "g3": 1.2627058957898757e-15,
+   "relative": 0.007919814105951606,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.853684275362762,
-     "g3": 3.607621742573314e-15,
+     "error": 5.857675693375991,
+     "g3": 1.2627058957898757e-15,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3816,17 +3855,18 @@
    "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 5.241008013843962,
-   "g3": 5.614527397689029e-15,
-   "relative": 0.007089567480832807,
+   "error": 5.079522883949346,
+   "g3": 8.011237615131173e-16,
+   "relative": 0.006871124821994121,
    "source": "stage-two",
    "branches": [
     {
-     "error": 5.241008013843962,
-     "g3": 5.614527397689029e-15,
+     "error": 5.079522883949346,
+     "g3": 8.011237615131173e-16,
      "pass": true,
      "closed": false,
-     "count": 10
+     "count": 6,
+     "trimmed": false
     }
    ]
   },
@@ -3834,17 +3874,18 @@
    "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 7.297037647203742,
-   "g3": 3.488462841619473e-16,
-   "relative": 0.006468712251939647,
+   "error": 34.23723405104757,
+   "g3": 5.348250732258378e-16,
+   "relative": 0.030350784261529103,
    "source": "stage-two",
    "branches": [
     {
-     "error": 7.297037647203742,
-     "g3": 3.488462841619473e-16,
+     "error": 34.23723405104757,
+     "g3": 5.348250732258378e-16,
      "pass": true,
      "closed": false,
-     "count": 6
+     "count": 6,
+     "trimmed": false
     }
    ]
   }

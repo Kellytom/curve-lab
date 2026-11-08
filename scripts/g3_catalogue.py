@@ -74,7 +74,7 @@ def der5(f, t, h=1e-4):
     )
 
 
-def fit_branch(ctrl, nspans=SPANS):
+def fit_branch(ctrl, nspans=SPANS, trim=0.0):
     """Fit one branch with quintic G3 spans; return None when it cannot fit."""
     pts, ts = branch_points(ctrl)
     if len(pts) < 30:
@@ -86,8 +86,8 @@ def fit_branch(ctrl, nspans=SPANS):
     if total <= 0.0:
         return None
     closed = math.dist(pts[0], pts[-1]) < 1e-6
-    lo = 0.0 if closed else 0.015 * total
-    hi = total if closed else 0.985 * total
+    lo = 0.0 if closed else trim * total
+    hi = total if closed else (1.0 - trim) * total
 
     knot_t, knot_p = [], []
     for i in range(nspans + 1):
@@ -171,6 +171,7 @@ def fit_branch(ctrl, nspans=SPANS):
     return {
         "spans": spans,
         "count": nspans,
+        "trimmed": trim > 0.0,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
@@ -242,7 +243,7 @@ def local_deriv(pts, s0, total, window_frac=0.06):
     return (x[0], y[0]), T, k, rho
 
 
-def fit_poly(pts, nspans=SPANS):
+def fit_poly(pts, nspans=SPANS, trim=0.0):
     """Fit a sampled polyline with quintic G3 spans."""
     if len(pts) < 20:
         return None
@@ -253,8 +254,8 @@ def fit_poly(pts, nspans=SPANS):
     if total <= 0.0:
         return None
     closed = math.dist(pts[0], pts[-1]) < 1e-6
-    lo = 0.0 if closed else 0.02 * total
-    hi = total if closed else 0.98 * total
+    lo = 0.0 if closed else trim * total
+    hi = total if closed else (1.0 - trim) * total
 
     knots, D = [], []
     for i in range(nspans + 1):
@@ -316,6 +317,7 @@ def fit_poly(pts, nspans=SPANS):
     return {
         "spans": spans,
         "count": nspans,
+        "trimmed": trim > 0.0,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
@@ -325,21 +327,27 @@ def fit_poly(pts, nspans=SPANS):
 
 
 def fit_branch_best(ctrl):
-    best = None
-    for n in (6, 10):
-        r = fit_branch(ctrl, n)
-        if r is not None and (best is None or r["error"] < best["error"]):
-            best = r
-    return best
+    for trim in (0.0, 0.015):
+        best = None
+        for n in (6, 10):
+            r = fit_branch(ctrl, n, trim=trim)
+            if r is not None and r["pass"] and (best is None or r["error"] < best["error"]):
+                best = r
+        if best is not None:
+            return best
+    return None
 
 
 def fit_poly_best(pts):
-    best = None
-    for n in (6, 10, 14):
-        r = fit_poly(pts, n)
-        if r is not None and (best is None or r["error"] < best["error"]):
-            best = r
-    return best
+    for trim in (0.0, 0.02):
+        best = None
+        for n in (6, 10, 14):
+            r = fit_poly(pts, n, trim=trim)
+            if r is not None and r["pass"] and (best is None or r["error"] < best["error"]):
+                best = r
+        if best is not None:
+            return best
+    return None
 
 
 def curve_size(fitted):
@@ -688,13 +696,15 @@ def panel(row, w=520, h=330):
             knots.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="3.0" '
                          f'fill="none" stroke="{GREEN}" stroke-width="1.3"/>')
 
+    trimmed = any(br.get("trimmed") for br in row["branches"])
+    trim_note = " · ends trimmed at a singular point" if trimmed else ""
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{row['key']} G3 interpolation">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(ideal)}
   {''.join(g3)}
   {''.join(knots)}
   <text x="12" y="22" font-family="Georgia,serif" font-size="14" fill="{INK}">Fig. G3.C · {row['key']}</text>
-  <text x="12" y="40" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="{MUTED}">{row['spans']} quintic spans · max deviation {row['error']:.1e} · worst Δ(dκ/ds) {row['g3']:.1e}</text>
+  <text x="12" y="40" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="{MUTED}">{row['spans']} quintic spans · max deviation {row['error']:.1e} · worst Δ(dκ/ds) {row['g3']:.1e}{trim_note}</text>
   <text x="{w / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="{MUTED}">x (model units)</text>
   <g font-family="Georgia,serif" font-size="11">
     <line x1="12" y1="{h - 24}" x2="38" y2="{h - 24}" stroke="{MUTED}" stroke-width="1.1" stroke-dasharray="4 4"/><text x="44" y="{h - 20}" fill="{INK}">ideal</text>
@@ -776,13 +786,15 @@ def build():
 <p class="eyebrow">curve-lab · G3 catalogue</p>
 <h1>Every candidate, as a G3 quintic interpolation</h1>
 <p class="lede">This page shows the <strong>interpolation</strong>, not the ideal curve. Each
-admitted curve is a chain of quintic Bézier spans, six to fourteen spans per branch, with
+admitted curve is a chain of quintic Bézier spans, five to fourteen spans per branch, with
 every join measured G3: position, direction, bend, and the smooth acceleration of the bend.
 The ideal curve is the faint dashed line underneath. The named curves are read from their
 exact homogeneous control polygons; the hearts, presets, primals and recovered LAC/Stage II
 spines are read from a local cubic fit of their sampled polylines. A branch that cannot be
 interpolated G3 — a cusp, a point at infinity, a singular handle solve, or a deviation over
-5% of its own size — is rejected and named in the table, not quietly dropped.</p>
+5% of its own size — is rejected and named in the table, not quietly dropped. The
+interpolation runs from end to end; only when an endpoint is singular (a cusp or a point
+at infinity) is the first or last span trimmed, and the panel says so.</p>
 
 <div class="rule"><strong>How admission works.</strong> The knots are placed at equal arc
 length on the curve. At each knot the tangent, curvature and curvature-rate are read from the
@@ -832,7 +844,7 @@ theory on the <a href="g3-notes.html">G3 notes page</a>.</p>
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"],
-                  "count": b.get("count")}
+                  "count": b.get("count"), "trimmed": b.get("trimmed")}
                  for b in r.get("branches", [])
              ]}
             for r in rows

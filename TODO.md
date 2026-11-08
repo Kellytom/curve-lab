@@ -58,7 +58,7 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   (position, tangent, curvature, curvature-rate); the four-cubic bell is the
   rejected case. The catalogue attempts 232 candidates (named, hearts, integer cubics,
   presets, primals, all 31 LAC and 90 Stage II spines, and the misc families),
-  admits 176 within 5% of their size, and records the rest with reasons. `workbench/g3-showcase.html`,
+  admits 160 within 5% of their size, and records the rest with reasons. `workbench/g3-showcase.html`,
   `workbench/g3-catalogue.html`, `workbench/g3-notes.html`,
   `scripts/g3_showcase.py`, `scripts/g3_catalogue.py`,
   `tests/test_g3_showcase.py`, `tests/test_g3_catalogue.py`.
