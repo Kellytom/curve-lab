@@ -35,17 +35,17 @@ RED, BLUE, GOLD, GREEN = "#a23b2a", "#1f5fa8", "#c9a441", "#3f7d4e"
 def elastica(m=2.0, s_max=9.0, n=4000):
     """κ' = ±½√(m⁴−κ⁴), starting at κ = m with κ' = 0."""
     ds = s_max / n
-    kappa = m
+    kappa = 0.0            # start at the inflection, not at the turning point
     heading = 0.0
     x = y = 0.0
     pts = [(x, y)]
-    sign = -1.0
+    sign = 1.0
     for _ in range(n):
         dk = sign * 0.5 * math.sqrt(max(0.0, m ** 4 - kappa ** 4))
         k2 = kappa + dk * ds
-        if abs(k2) > m:
+        if abs(k2) >= m * (1 - 1e-9):
             sign = -sign
-            k2 = max(-m, min(m, k2))
+            k2 = math.copysign(m * (1 - 1e-6), k2)
         heading += 0.5 * (kappa + k2) * ds
         x += math.cos(heading) * ds
         y += math.sin(heading) * ds
