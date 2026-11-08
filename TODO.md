@@ -52,6 +52,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   in **Drawn pairs · 2**; Beta-splines recorded in `docs/JUNCTION.md`.
 - [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
+- [x] One curve per figure for the six families; every note carries its panel
+  SVG; c423 is the four-span G2 splice.
 - [ ] **Sequence curves.** Segment lengths from a number sequence — factorials
   (4! = 24, 3! = 6, 2! = 2, 1! = 1) and triangular sums (T₄ = 10, T₃ = 6 …) —
   joined with right-angle turns so the vertices stay integer. Also the closure

@@ -20,3 +20,6 @@
 {"event":"start","id":"72226-1793972009856","label":"grid+points","floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T13:33:29.856Z"}
 {"event":"floor","label":"grid+points","minutes":60,"floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T14:33:30.148Z"}
 {"event":"cap","label":"grid+points","minutes":60.05,"floor":60,"cap":60,"start":"2026-11-06T13:33:29.856Z","at":"2026-11-06T14:33:32.737Z","reason":"cap","before":"14","after":"2"}
+{"event":"start","id":"89885-1794011722101","label":"focus","floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T00:35:22.101Z"}
+{"event":"floor","label":"focus","minutes":20.01,"floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T00:55:22.411Z"}
+{"event":"cap","label":"focus","minutes":60.01,"floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T01:35:22.848Z","reason":"cap","before":"0","after":"13"}

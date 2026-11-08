@@ -1192,8 +1192,120 @@ the geometry, each with its counts recomputed in the generator:
   is the spine's arcs, not a spline; the board lightbox grid is in page units,
   not design units; the chord is fitted, not lattice-built, so a dot is a
   projected join rather than an exact integer point.
+- **Current state (2026-11-08, handoff):** local server **200**; remote not
+  probed (no deploy this session — carried 2026-11-06). Tests: full suite
+  **72 modules OK**, 1 skipped, run this session after the last code change;
+  **recheck 46/46**. Git: clean before the handoff commits, branch level with
+  origin after the push; showcase **500 figures, 179 rows**; notes page ~11 MB
+  because every note now carries its figure's SVG. The elastica start-point fix
+  (κ = 0, not κ = m) is committed as `c7ec892`.
+- **Next move:** build the sequence-curve family (see `TODO.md`): segment
+  lengths from factorials and triangular sums with right-angle turns, and the
+  symmetric closure schedule. Not started: context hit 72% when it was asked.
+- **Tried and rejected:** starting the elastica at κ = m — κ′ = 0 there, so the
+  integrator never leaves the turning point and the "curve" is a circle; start
+  at the inflection. (2026-11-08)
+- **Context:** 72.2% of 1M, 321 active min, 490 turns, WARN; timer cleared at
+  the cap (this session's record: 60.01m, cap, 2026-11-07 01:35). Tally: 9
+  sessions, median 52.6m, mean 45.0m, total 404.7m. Wall clock beyond the cap:
+  the clock is a budget, not a quota; the work stopped on the context rule.
+- **Panels refined (2026-11-08):** elastica now m = 2.2, 3.0, 3.8 (the m = 1.2
+  member was a circle and is gone); the sinusoidal circle (n = 1) moved to the
+  notes as the family's definition; the n = −½ parabola is drawn on a finite
+  arc (0.55 of its range) so it no longer reads as a line; the quintic Hermite
+  panel is now an S with varied tangents and accelerations, still G2. 500
+  figures, 179 rows.
+- **Families split, SVGs in notes, c423 G2 (2026-11-08):** the six families are
+  now six sections, one curve per figure (19 panels; showcase 501 figures,
+  180 rows). Every note now carries its figure's SVG inline, so a panel can be
+  copied straight into Inkscape/Glyphs (notes page ~11 MB). c423 is the
+  yin-yang rebuilt as four quintic Hermite spans, G2 at the three interior
+  knots. GitHub: repo renamed **curve-lab**, remote over SSH/443 with a
+  repo-scoped deploy key; AGENTS.md now says commit per action, push at every
+  handoff, leave CI green.
+- **Offsets by name (2026-11-07):** companions on **8e** (the squircle-of-eight
+  Eulers, as one composite pair: 2 paths) and on the cusped/closed stem cards
+  **c119, c120, c122, c126–135, c138, c140, c141, c143, c146** (per piece: 4–16
+  paths each). The two-arc terminal is `curve_lab/plant.py::cone_terminal`
+  (R = 2×offset, tip at √3·offset) — the next thing to work with.
+- **Unresolved audit (2026-11-07):** swept HANDOFF/TASKS/BACKBURNER/goals. Added
+  to `state/UNRESOLVED-int.md`: Stage III's four serif outlines (not wired), the
+  uncertain combined curves, BACKBURNER B02 (Euler spiral → cubic fit), spiro
+  as a G2 alternative, the ambiguity in "full cubic catalogue" (316/632 exist),
+  and the canonical fleur (a form, not a curve). Features excluded on purpose.
+- **All-of-it pass (2026-11-07):** kappa in NAMED; biarcs page (equal-radius,
+  G1, R = √2−1); **Drawn pairs · 2** (Lissajous, yin-yang); qAC + discrete LAC
+  page (c = 0 check 5e-5); Beta-splines written up in `docs/JUNCTION.md` as a
+  join option, not built. `state/UNRESOLVED-int.md` holds σ/τ, quartic
+  Catmull–Rom and propeller for the operator's links. 482 figures; recheck
+  45/45; 71 modules.
+- **Research pass (2026-11-07):** kappa curve added to NAMED (29 named, 27
+  exact; milestone scale 6.7e9 — exact but a ten-digit grid); Lissajous and the
+  yin-yang boundary added as **Drawn pairs · 2**; `state/UNRESOLVED-int.md`
+  holds σ-curve, τ-curve, quartic Catmull–Rom and propeller curve, waiting on
+  the operator's links.
+- **Arches and pillars (2026-11-07):** `workbench/arches-pillars.html`. One
+  section mirrored about the centreline: if the halves meet inward it is an
+  arch, if they branch outward it is a capital. Eight showcase sections,
+  placed both ways and measured: three arches (cycloid 3.9° off vertical,
+  astroid 8.5°, integer cubic 16.2°) and three capitals (squircle 11.6°,
+  Euler steep 14.1°, log spiral 49.0°); two fit neither. Goals updated with
+  the architectural branch; the next step is a whole bay.
+- **Pell d, and constant width (2026-11-07):** `pell.py` now carries d = 2, 3,
+  5, 6 (squares excluded). `reuleaux.py` adds the Reuleaux triangle three ways:
+  exact 60° arcs (width 1), Bézier handles at 60° (radial error 2.4e-5), and the
+  Pell 13/15 copy (closure gap 5.6e-4) — the demonstration that √3 is not a
+  p-triple angle. recheck **39/39**.
+- **Page structure (2026-11-07):** section 19's three spine panels, the reach
+  chart (20c) and the fit-error chart (21c) moved to the notes page, where they
+  render as illustrations with no back-link; the 19 text stays as the intro
+  note. Composition and Primal moved to the end, before Rays. Showcase now 460
+  figures, 163 rows.
+- **Gen-Arch (2026-11-06/07):** `workbench/gen-arch.html` and a showcase family.
+  Gen-Arch is r = a + b·φ^(1/c): c = −2 lituus, −1 hyperbolic, 1 Archimedean,
+  2 Fermat. The radial of a LA curve is Gen-Arch with c = α − 1 (Salvi 2026),
+  measured to 2e-16 on α = −2, −1, 2, 3. Three dials, now kept apart:
+  α = LCH slope (κ ∝ s^(−1/α)), repo **p = −1/α**, c = α − 1 = −1/p − 1.
+  **Correction:** C70's `p = 3` is α = −1/3, not α = 3; the stem cuts are
+  relabelled `p = …`, never `α`. 465 showcase figures; recheck **38/38**.
+- **Two figures (2026-11-06):** `workbench/discrete-clothoid.html` — equal chords,
+  turns Δθ_k ∝ k quantised to p-triple angles; fitted exponent **1.001**, max
+  error **0.31°** against a **1.35°** ladder gap; rational nodes at a 44-digit
+  scale. `workbench/pyth-plane.html` — new **Fig. P4**: the evolute of y = x² is
+  (−4t³, 3t² + ½), i.e. 27x² = 16(y − ½)³, with integer-t points; the copied
+  27x² = 4(y − 2)³ is a different semicubical. recheck **37/37**.
+- **Pell / √2 (2026-11-06):** `workbench/pell.html` — x² − 2y² = 1, the
+  doubling law (x,y) → (x²+2y², 2xy), 3/2 → 17/12 → 577/408, and the addition
+  law giving 99/70 from (3,2)·(17,12). Error is exactly 1/(2√2 y²); the page
+  plots it log–log against the law. `scripts/pell.py`, `tests/test_pell.py`;
+  recheck now **36/36**. The hub has a showcase link at the top.
+- **Inventory, not sampler (2026-11-06):** the showcase gained a family of the
+  cuts a stem is actually taken from — half a parabola, one hyperbola wing,
+  **every one of the 31 recovered LAC spines cut at 90° and 130° of turn**
+  (62 panels), and two Euler S spans (+30°→−30°, and at the 3/4 slope). 66
+  panels; turns measured on the polylines: LAC 90.3–90.7° and 130.5–131.5°,
+  S join 30.0° / peak 37.5° / end −29.6°. Showcase now 461 figures. The notes
+  page carries a standalone explanation ("fig-spine-345") with no back-link,
+  so notes can be prose as well as one-per-figure. Still missing from the
+  inventory: the integer-lattice conics with Pythagorean slopes (pyth-plane),
+  and the Pell page is queued.
+- **Curve census (2026-11-06):** `semicubical` (Neile's parabola, y² = x³, the
+  evolute of a parabola) is now in `NAMED` — 26 named, 24 exact, scales (3, 27)
+  — so it also gained a stem card (178) and two showcase figures (395 total).
+  Hit totals moved with it: 126 → 927. `tests/test_curve_census.py` now
+  declares every curve outside `NAMED` (transcendental, conics, hearts) with
+  its home and reason, so none can sit silently outside again.
 - **Next move:** offsets / complementary side curves either side of every
-  single-curve example, with fig 1a as the reference implementation.
+  single-curve example — **done 2026-11-06**: `panel()` draws ±5% companions on
+  every curve example (308 panels, 692 companion paths), one pair per drawn
+  piece, and labels the rule (`fitted` 293, `exact` 13, `not an offset` 2). A
+  curve is one curve even in pieces: hyperbola branches, lemniscate loops, cusp
+  splits, and the Conversions ideal + quantised pair all qualify. Exempt: the
+  three charts (3c, 19b, 20c) and the Rays panel. Reference: displayed Fig. 1a =
+  key `0a`, the log spiral. The rule has its own line at y−32 so captions are
+  not truncated. Test:
+  `test_every_single_curve_panel_carries_companions`; `hub.py` must follow
+  `showcase.py` or the page loses its bar (recheck 34/35).
 - **Tried and rejected:** 3-4-5 turns for 13a at display scale — 36.87° reads as
   a kink; the 4.41° triple on the 3125 ladder is used instead. (2026-11-06)
 - **Tried and rejected:** projecting dots off arbitrary grid crossings — the
