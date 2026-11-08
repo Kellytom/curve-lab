@@ -47,6 +47,7 @@ IMPLICIT = {
     "semicubical": lambda x, y: y * y - x * x * x,
     "cissoid": lambda x, y: y * y * (2 - x) - x ** 3,
     "strophoid": lambda x, y: y * y * (1 + x) - x * x * (1 - x),
+    "kappa": lambda x, y: (x * x + y * y) * y * y - x * x,
 }
 
 # roulettes: checked against their trigonometric definition, which is what the
@@ -150,6 +151,7 @@ class TestNamedCurves(unittest.TestCase):
             "semicubical": (3, 27),
             "cissoid": (3, 16575),
             "strophoid": (3, 195),
+            "kappa": (1, 6718930400),
         }
         for key, (cs, ms) in expect.items():
             with self.subTest(curve=key):

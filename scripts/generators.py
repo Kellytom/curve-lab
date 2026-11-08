@@ -285,6 +285,39 @@ assert roulette(3, -1)[0] == [2, 0, 18, 0, -18, 0, -2]
 assert roulette(4, -1)[0] == [3, 0, 36, 0, -70, 0, 20, 0, -5]
 
 
+def _padd(a, b):
+    n = max(len(a), len(b))
+    return [(a[i] if i < len(a) else 0) + (b[i] if i < len(b) else 0)
+            for i in range(n)]
+
+
+def kappa_branches(t0=F(1, 4), t1=F(1)):
+    """The kappa curve (x²+y²)y² = x² over a rational parameter interval.
+
+    r = cot θ, x = r cos θ, y = r sin θ; t = tan(θ/2) gives
+    X = (1−t²)², Y = 2t(1−t²), W = 2t(1+t²). The interval maps to s ∈ [0,1].
+    """
+    a = F(t0)
+    b = F(t1 - t0)
+    T = [a, b]
+    T2 = mul(T, T)
+    T3 = mul(T2, T)
+    T4 = mul(T2, T2)
+    X = _padd(_padd([F(1)], [F(-2) * c for c in T2]),
+              [F(c) for c in T4])          # 1 − 2t² + t⁴
+    Y = _padd([F(2) * c for c in T], [F(-2) * c for c in T3])
+    W = _padd([F(2) * c for c in T], [F(2) * c for c in T3])
+
+    d = 1
+    for P in (X, Y, W):
+        for c in P:
+            d = lcm(d, F(c).denominator)
+    Xi = [int(F(c) * d) for c in X]
+    Yi = [int(F(c) * d) for c in Y]
+    Wi = [int(F(c) * d) for c in W]
+    return [(Xi, Yi, Wi), (Xi, [-c for c in Yi], Wi)]
+
+
 NAMED = [
     dict(key="bean", deg=4, m=4,
          eq="x⁴ + x²y² + y⁴ = x(x² + y²)",
@@ -431,6 +464,10 @@ NAMED = [
          eq="y²(2 − x) = x³",
          tail="cissoid of Diocles · cusp at the origin · asymptote x = 2",
          branches=[([0, 0, 8], [0, 0, 0, 16], [1, 0, 4])]),
+    dict(key="kappa", deg=4, m=4, subst="affine",
+         eq="(x² + y²)y² = x²",
+         tail="Gutschoven's kappa curve · r = cot θ · genus 0 · the radial of the tractrix",
+         branches=kappa_branches()),
     dict(key="strophoid", deg=3, m=6, subst="affine",
          eq="y²(1 + x) = x²(1 − x)",
          tail="right strophoid · loop closes at the node t = ±1",

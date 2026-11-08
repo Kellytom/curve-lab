@@ -105,7 +105,7 @@ def c_named_equations():
     return r.returncode == 0, tail[-1] if tail else "no output"
 
 
-@check("28 named curves, 26 exact, with the recorded scales",
+@check("29 named curves, 27 exact, with the recorded scales",
        "scripts/generators.py NAMED + tests/test_named_curves.py",
        "python -c 'import sys; sys.path.insert(0,\"scripts\"); import generators as g; ...'")
 def c_counts():
@@ -120,7 +120,7 @@ def c_counts():
         d = G.named_data(spec)
         if (d["cscale"], d["mscale"]) != want:
             bad.append(f"{key} {(d['cscale'], d['mscale'])} != {want}")
-    return (len(G.NAMED) == 28 and len(exact) == 26 and not bad,
+    return (len(G.NAMED) == 29 and len(exact) == 27 and not bad,
             f"{len(G.NAMED)} total, {len(exact)} exact" + (f"; {bad[0]}" if bad else ""))
 
 

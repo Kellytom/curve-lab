@@ -9,10 +9,10 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | from_pairs is the same fit as from_hermite | worst disagreement 1.6e-14 | scripts/hodograph.py — the frame rotates by the tangent, not its half |
 | ok | the degree lemma: n = deg h + 2 max(deg u, deg v) + 1 | 4/4 splits give the degree they claim | scripts/generators.py — Farouki & Sakkalis; why quartics and sextics need h |
 | ok | every exact named curve is its own curve | OK | tests/test_named_curves.py — checked against an independent equation |
-| ok | 28 named curves, 26 exact, with the recorded scales | 28 total, 26 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
+| ok | 29 named curves, 27 exact, with the recorded scales | 29 total, 27 exact | scripts/generators.py NAMED + tests/test_named_curves.py |
 | ok | the two non-rational named curves are the ones we expect | heart, squircle | tests/test_named_curves.py — squircle genus 3, heart 4, pear 2; cruciform unbounded |
 | ok | a finer grid does not buy hits; the right factors do | grids 12/48/156/273 -> [4, 4, 4, 16] hits | workbench/generators.html Fig. 1a/1b — bean: 4 hits at grid 12, 48 and 156; 16 at 273 |
-| ok | grids under 3125 multiply the exact-curve hits about sevenfold | control 131, optimised 964 | scripts/generators.py best_grid(); the table on the generators page |
+| ok | grids under 3125 multiply the exact-curve hits about sevenfold | control 132, optimised 981 | scripts/generators.py best_grid(); the table on the generators page |
 | ok | Pell doubling keeps integer points on x² − 2y² = 1 | 7 points, error × y² → 0.353553, 1/(2√2) = 0.353553 | tests/test_pell.py — 3/2 → 17/12 → 99/70, error 1/(2√2 y²) |
 | ok | a PH quintic has integer controls at its scale and a rational arc length | 3 quintics, arcs 69/10, 16/5, 129/10 | scripts/ph_quintic.py — n = 5, arcs 69/10, 16/5, 129/10 |
 | ok | the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5 | width 1.000000..1.000000, Bézier error 2.4e-05, Pell gap 5.6e-04 | scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy |
@@ -32,7 +32,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | a parallel of a parabola is not a parabola | best fit misses by 20.8% of d | scripts/pyth_plane.py — best-fit residual is a fifth of the offset |
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
-| ok | every named curve and heart is rendered from its own table | 28 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
+| ok | every named curve and heart is rendered from its own table | 29 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
 | ok | the hub is built from the manifest and every page carries its bar | 65 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
