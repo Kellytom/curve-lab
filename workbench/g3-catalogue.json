@@ -1947,7 +1947,7 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid",
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 1",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -1957,7 +1957,79 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2",
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 8.479322742004477,
+   "g3": 4.4890022993552495e-15,
+   "relative": 0.007147934324951771,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.479322742004477,
+     "g3": 4.4890022993552495e-15,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 8.378807276847452,
+   "g3": 5.751059982006415e-14,
+   "relative": 0.007061815197408321,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.378807276847452,
+     "g3": 5.751059982006415e-14,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 8.37880727675397,
+   "g3": 9.074741203473626e-14,
+   "relative": 0.007061815197329533,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.37880727675397,
+     "g3": 9.074741203473626e-14,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 8.479322741843212,
+   "g3": 3.779548466800492e-15,
+   "relative": 0.007147934324815828,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.479322741843212,
+     "g3": 3.779548466800492e-15,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 1",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -1967,7 +2039,7 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral",
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 2",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -1977,7 +2049,43 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute",
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 3.1543410859036505,
+   "g3": 3.77783470738996e-15,
+   "relative": 0.0068038140157517845,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 3.1543410859036505,
+     "g3": 3.77783470738996e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 6.385559118193772,
+   "g3": 7.457372829437834e-16,
+   "relative": 0.009484840315595723,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.385559118193772,
+     "g3": 7.457372829437834e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 5",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -1987,7 +2095,43 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch",
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 6",
+   "admitted": true,
+   "reason": null,
+   "error": 3.1533538344494683,
+   "g3": 5.802975287794165e-15,
+   "relative": 0.006800365674435161,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 3.1533538344494683,
+     "g3": 5.802975287794165e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 7",
+   "admitted": true,
+   "reason": null,
+   "error": 6.748791378128988,
+   "g3": 5.1139081089117205e-15,
+   "relative": 0.010024370201575856,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.748791378128988,
+     "g3": 5.1139081089117205e-15,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 8",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -1997,7 +2141,43 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root",
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 9",
+   "admitted": true,
+   "reason": null,
+   "error": 3.153353834449463,
+   "g3": 3.1186668915730853e-15,
+   "relative": 0.006800365674435149,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 3.153353834449463,
+     "g3": 3.1186668915730853e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 10",
+   "admitted": true,
+   "reason": null,
+   "error": 6.3855591183050455,
+   "g3": 5.609829329447083e-16,
+   "relative": 0.009484840315761004,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.3855591183050455,
+     "g3": 5.609829329447083e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 11",
    "admitted": false,
    "reason": "cusp or singular sample; no G3 interpolation",
    "error": null,
@@ -2007,7 +2187,443 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler",
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 12",
+   "admitted": true,
+   "reason": null,
+   "error": 3.154341085903878,
+   "g3": 2.9083553870334206e-15,
+   "relative": 0.0068038140157522745,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 3.154341085903878,
+     "g3": 2.9083553870334206e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 13",
+   "admitted": true,
+   "reason": null,
+   "error": 6.748791378496876,
+   "g3": 1.1380439329507984e-14,
+   "relative": 0.010024370202122301,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.748791378496876,
+     "g3": 1.1380439329507984e-14,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 1",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "stage-two",
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 7.8595905126586585,
+   "g3": 4.716560029975722e-17,
+   "relative": 0.005838103831102329,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.8595905126586585,
+     "g3": 4.716560029975722e-17,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 7.8381506299600945,
+   "g3": 1.7149516094055236e-16,
+   "relative": 0.0058197785035748835,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.8381506299600945,
+     "g3": 1.7149516094055236e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 7.838150630211444,
+   "g3": 2.676323416627314e-16,
+   "relative": 0.005819778503761509,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.838150630211444,
+     "g3": 2.676323416627314e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 7.859590512583092,
+   "g3": 2.520395238949638e-16,
+   "relative": 0.005838103831046199,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.859590512583092,
+     "g3": 2.520395238949638e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 1",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "stage-two",
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 6.515752696167911,
+   "g3": 1.3609320715182206e-16,
+   "relative": 0.004787314191747473,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.515752696167911,
+     "g3": 1.3609320715182206e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 6.504586785870825,
+   "g3": 4.913909177565318e-16,
+   "relative": 0.0047771958509064275,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.504586785870825,
+     "g3": 4.913909177565318e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 6.504586785934762,
+   "g3": 2.871721212064672e-16,
+   "relative": 0.004777195850953386,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.504586785934762,
+     "g3": 2.871721212064672e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 6.515752696185,
+   "g3": 7.230842867419736e-16,
+   "relative": 0.004787314191760029,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.515752696185,
+     "g3": 7.230842867419736e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 1",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "stage-two",
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 2.275605369646793,
+   "g3": 3.0294472171728953e-16,
+   "relative": 0.003092945875375807,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 2.275605369646793,
+     "g3": 3.0294472171728953e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 9.241157486280446,
+   "g3": 9.805979728168051e-15,
+   "relative": 0.005942786381533056,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.241157486280446,
+     "g3": 9.805979728168051e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 2.331664978669904,
+   "g3": 3.914297009148548e-16,
+   "relative": 0.003168172212078506,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 2.331664978669904,
+     "g3": 3.914297009148548e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 9.241157486322532,
+   "g3": 4.626436571420812e-15,
+   "relative": 0.005942786381560121,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.241157486322532,
+     "g3": 4.626436571420812e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 6",
+   "admitted": true,
+   "reason": null,
+   "error": 10.865596743995875,
+   "g3": 8.277992642418785e-16,
+   "relative": 0.007143396429625711,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 10.865596743995875,
+     "g3": 8.277992642418785e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 7",
+   "admitted": true,
+   "reason": null,
+   "error": 10.861355385930198,
+   "g3": 7.049075949686068e-16,
+   "relative": 0.007142072920957897,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 10.861355385930198,
+     "g3": 7.049075949686068e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 1",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "stage-two",
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 10.573405030441764,
+   "g3": 6.929671832693997e-16,
+   "relative": 0.007185474457400366,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 10.573405030441764,
+     "g3": 6.929671832693997e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 10.581779229077041,
+   "g3": 5.188059861273644e-16,
+   "relative": 0.007190002962343079,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 10.581779229077041,
+     "g3": 5.188059861273644e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 4.651795052456955,
+   "g3": 6.911426997120024e-14,
+   "relative": 0.0064516606282849906,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.651795052456955,
+     "g3": 6.911426997120024e-14,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 4.695878778727681,
+   "g3": 7.644414644850529e-16,
+   "relative": 0.003161267229371208,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.695878778727681,
+     "g3": 7.644414644850529e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 6",
+   "admitted": true,
+   "reason": null,
+   "error": 4.660644550686704,
+   "g3": 1.141141565261434e-13,
+   "relative": 0.006461907506096093,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.660644550686704,
+     "g3": 1.141141565261434e-13,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 7",
+   "admitted": true,
+   "reason": null,
+   "error": 4.69587877872137,
+   "g3": 7.725784864928513e-16,
+   "relative": 0.0031612672293669596,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.69587877872137,
+     "g3": 7.725784864928513e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 15.921198338619241,
@@ -2025,7 +2641,25 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler",
+   "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 15.088011523692932,
+   "g3": 3.1619951679239845e-16,
+   "relative": 0.008571115267513576,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 15.088011523692932,
+     "g3": 3.1619951679239845e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 11.914325648290536,
@@ -2043,7 +2677,35 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral",
+   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 2",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "stage-two",
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 11.598804480077199,
+   "g3": 2.1378264555751286e-16,
+   "relative": 0.008565017293413564,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 11.598804480077199,
+     "g3": 2.1378264555751286e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 3.1406516191110283,
@@ -2061,7 +2723,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute",
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 8.08373427745057,
+   "g3": 2.5289655183099568e-15,
+   "relative": 0.008219901295378626,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.08373427745057,
+     "g3": 2.5289655183099568e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 6.878531454366941,
+   "g3": 3.275145217150003e-15,
+   "relative": 0.007000588660553656,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.878531454366941,
+     "g3": 3.275145217150003e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 2.2772500483322795,
+   "g3": 5.972425922958283e-15,
+   "relative": 0.005194356689226719,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 2.2772500483322795,
+     "g3": 5.972425922958283e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 3.052154401289557,
@@ -2079,7 +2795,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc",
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 7.34932952614803,
+   "g3": 7.968064345809621e-16,
+   "relative": 0.007866626651616696,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.34932952614803,
+     "g3": 7.968064345809621e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 6.43012016493771,
+   "g3": 2.6445230469303088e-15,
+   "relative": 0.006891246649958961,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.43012016493771,
+     "g3": 2.6445230469303088e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 2.492151258554962,
+   "g3": 1.9403373357909995e-15,
+   "relative": 0.004767618154009827,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 2.492151258554962,
+     "g3": 1.9403373357909995e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 5.958621053691194,
@@ -2097,7 +2867,79 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 12 \u00b7 Clothoid, one turn each way",
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 9.632782923455675,
+   "g3": 7.111576393281594e-16,
+   "relative": 0.008500491249021398,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.632782923455675,
+     "g3": 7.111576393281594e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 0.624726465355404,
+   "g3": 1.34222887253517e-13,
+   "relative": 0.0031912866917277296,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 0.624726465355404,
+     "g3": 1.34222887253517e-13,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 9.574774548468438,
+   "g3": 4.335097683388564e-16,
+   "relative": 0.00844875925405133,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.574774548468438,
+     "g3": 4.335097683388564e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 5",
+   "admitted": true,
+   "reason": null,
+   "error": 5.958621053679468,
+   "g3": 1.6387152136692002e-14,
+   "relative": 0.020301739452163396,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.958621053679468,
+     "g3": 1.6387152136692002e-14,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 12 \u00b7 Clothoid, one turn each way \u00b7 spine 1",
    "admitted": false,
    "reason": "deviation 12.1% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
@@ -2107,7 +2949,17 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way",
+   "key": "Stage II \u00b7 Fig. 12 \u00b7 Clothoid, one turn each way \u00b7 spine 2",
+   "admitted": false,
+   "reason": "deviation 11.6% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 1",
    "admitted": false,
    "reason": "deviation 6.6% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
@@ -2117,7 +2969,61 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way",
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 6.214376702672719,
+   "g3": 2.9485000900520645e-15,
+   "relative": 0.008295781756039174,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.214376702672719,
+     "g3": 2.9485000900520645e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 5.159496924648405,
+   "g3": 2.4263505260687084e-13,
+   "relative": 0.00689308009123554,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.159496924648405,
+     "g3": 2.4263505260687084e-13,
+     "pass": true,
+     "closed": false,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 8.896435580186957,
+   "g3": 1.2405390435602306e-16,
+   "relative": 0.008930863435746802,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 8.896435580186957,
+     "g3": 1.2405390435602306e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 10.390052401905358,
@@ -2135,7 +3041,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 15 \u00b7 Clothoid, two turns each way",
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 5.652397934602231,
+   "g3": 6.929022158423453e-15,
+   "relative": 0.008012549487137356,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.652397934602231,
+     "g3": 6.929022158423453e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 5.014027275149789,
+   "g3": 4.002991734879677e-15,
+   "relative": 0.007113648496767369,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.014027275149789,
+     "g3": 4.002991734879677e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 9.250962075310337,
+   "g3": 2.0306852580769322e-16,
+   "relative": 0.00720310325076999,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.250962075310337,
+     "g3": 2.0306852580769322e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 15 \u00b7 Clothoid, two turns each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 23.964874595484535,
@@ -2153,7 +3113,25 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way",
+   "key": "Stage II \u00b7 Fig. 15 \u00b7 Clothoid, two turns each way \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 20.696003150992905,
+   "g3": 2.225591774404883e-16,
+   "relative": 0.011849084446452796,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 20.696003150992905,
+     "g3": 2.225591774404883e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 9.873606457452443,
@@ -2171,7 +3149,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way",
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 5.56040360407266,
+   "g3": 2.442050197042772e-15,
+   "relative": 0.007784092721285284,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.56040360407266,
+     "g3": 2.442050197042772e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 4.932644180415584,
+   "g3": 5.630522767864979e-15,
+   "relative": 0.006917698690056384,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.932644180415584,
+     "g3": 5.630522767864979e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 9.088536413550155,
+   "g3": 4.1978952865923125e-16,
+   "relative": 0.007185334479317002,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.088536413550155,
+     "g3": 4.1978952865923125e-16,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 9.795682403537066,
@@ -2189,7 +3221,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 18 \u00b7 The complete clothoid",
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 5.484167187946017,
+   "g3": 5.658756070062859e-16,
+   "relative": 0.007941424124102838,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.484167187946017,
+     "g3": 5.658756070062859e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 4.779423358524773,
+   "g3": 3.872959895498407e-15,
+   "relative": 0.0069268969372329,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 4.779423358524773,
+     "g3": 3.872959895498407e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 9.611354712528446,
+   "g3": 9.737988393491949e-17,
+   "relative": 0.006138534071404648,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 9.611354712528446,
+     "g3": 9.737988393491949e-17,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 18 \u00b7 The complete clothoid \u00b7 spine 1",
    "admitted": false,
    "reason": "deviation 5.5% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
@@ -2199,7 +3285,17 @@
    "branches": []
   },
   {
-   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends",
+   "key": "Stage II \u00b7 Fig. 18 \u00b7 The complete clothoid \u00b7 spine 2",
+   "admitted": false,
+   "reason": "deviation 5.1% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 31.118800672292743,
@@ -2217,7 +3313,61 @@
    ]
   },
   {
-   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends",
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 6.989784381287769,
+   "g3": 1.998465818829273e-15,
+   "relative": 0.007773907076084002,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.989784381287769,
+     "g3": 1.998465818829273e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 6.254386153734259,
+   "g3": 6.450244831800959e-16,
+   "relative": 0.006958843478633398,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 6.254386153734259,
+     "g3": 6.450244831800959e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 25.683718382013318,
+   "g3": 6.558057302909854e-16,
+   "relative": 0.02713380286014728,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 25.683718382013318,
+     "g3": 6.558057302909854e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 1",
    "admitted": true,
    "reason": null,
    "error": 24.83676436807769,
@@ -2228,6 +3378,60 @@
     {
      "error": 24.83676436807769,
      "g3": 6.329885685160859e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 2",
+   "admitted": true,
+   "reason": null,
+   "error": 5.853684275362762,
+   "g3": 3.607621742573314e-15,
+   "relative": 0.00791441754760003,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.853684275362762,
+     "g3": 3.607621742573314e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 3",
+   "admitted": true,
+   "reason": null,
+   "error": 5.241008013843962,
+   "g3": 5.614527397689029e-15,
+   "relative": 0.007089567480832807,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 5.241008013843962,
+     "g3": 5.614527397689029e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 4",
+   "admitted": true,
+   "reason": null,
+   "error": 7.297037647203742,
+   "g3": 3.488462841619473e-16,
+   "relative": 0.006468712251939647,
+   "source": "stage-two",
+   "branches": [
+    {
+     "error": 7.297037647203742,
+     "g3": 3.488462841619473e-16,
      "pass": true,
      "closed": false,
      "count": 6

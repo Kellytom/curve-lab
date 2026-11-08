@@ -543,17 +543,19 @@ def stage_two_rows():
     data = json.loads((ROOT / "workbench" / "spirals" / "stage-two.json").read_text())
     rows = []
     for fig in data["figures"]:
-        spine = fig["spines"][0]
-        pts = S.lac_branches(spine["spans"])
-        key = f"Stage II · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
-        r = fit_poly_best(pts[0])
-        if r is None:
-            rows.append({"key": key, "admitted": False, "source": "stage-two",
-                         "reason": "cusp or singular sample; no G3 interpolation"})
-        else:
-            rows.append({"key": key, "admitted": True, "source": "stage-two",
-                         "spans": r["count"], "branches": [r],
-                         "error": r["error"], "g3": r["g3"]})
+        for k, spine in enumerate(fig["spines"]):
+            pts = S.lac_branches(spine["spans"])
+            title = fig["title"].split(":")[-1].strip()
+            key = (f"Stage II · {fig['figure']} · {title}"
+                   + ("" if len(fig["spines"]) == 1 else f" · spine {k + 1}"))
+            r = fit_poly_best(pts[0])
+            if r is None:
+                rows.append({"key": key, "admitted": False, "source": "stage-two",
+                             "reason": "cusp or singular sample; no G3 interpolation"})
+            else:
+                rows.append({"key": key, "admitted": True, "source": "stage-two",
+                             "spans": r["count"], "branches": [r],
+                             "error": r["error"], "g3": r["g3"]})
     return rows
 
 
