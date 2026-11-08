@@ -7,6 +7,7 @@
    "reason": null,
    "error": 0.003598674292081163,
    "g3": 3.97193389289896e-11,
+   "relative": 0.002159204575248698,
    "branches": [
     {
      "error": 0.003598674292081163,
@@ -26,18 +27,19 @@
    "key": "bicorn",
    "admitted": true,
    "reason": null,
-   "error": 0.009079822345698374,
-   "g3": 9.455398686242233e-10,
+   "error": 0.005432486290685163,
+   "g3": 7.441858240753163e-11,
+   "relative": 0.0024294817265615412,
    "branches": [
     {
-     "error": 0.009079822345698374,
-     "g3": 9.455398686242233e-10,
+     "error": 0.005432486290685163,
+     "g3": 7.441858240753163e-11,
      "pass": true,
      "closed": false
     },
     {
-     "error": 0.009079822345698374,
-     "g3": 9.455398686242233e-10,
+     "error": 0.005432486290685163,
+     "g3": 7.441858240753163e-11,
      "pass": true,
      "closed": false
     }
@@ -49,15 +51,30 @@
    "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
    "key": "heart",
-   "admitted": false,
-   "reason": "sampled curve; no exact control polygon to interpolate yet",
-   "error": null,
-   "g3": null,
-   "branches": []
+   "admitted": true,
+   "reason": null,
+   "error": 0.08801715989217354,
+   "g3": 1.601485610791542e-11,
+   "relative": 0.02757010265107645,
+   "branches": [
+    {
+     "error": 0.08801715989217354,
+     "g3": 1.2874035171250853e-11,
+     "pass": true,
+     "closed": false
+    },
+    {
+     "error": 0.07419852614869844,
+     "g3": 1.601485610791542e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
   },
   {
    "key": "nodal",
@@ -65,6 +82,7 @@
    "reason": "G3 gate failed",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
@@ -73,6 +91,7 @@
    "reason": null,
    "error": 0.06795339666665437,
    "g3": 6.700232418381199e-15,
+   "relative": 0.005372187705288038,
    "branches": [
     {
      "error": 0.06795339666665437,
@@ -88,6 +107,7 @@
    "reason": "G3 gate failed",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
@@ -96,6 +116,7 @@
    "reason": null,
    "error": 0.03503315728209434,
    "g3": 8.704148513061227e-14,
+   "relative": 0.0026692476173262535,
    "branches": [
     {
      "error": 0.03503315728209434,
@@ -115,18 +136,19 @@
    "key": "epicycloid k=5",
    "admitted": true,
    "reason": null,
-   "error": 0.13950746776312165,
-   "g3": 1.0108233694516855e-14,
+   "error": 0.0629929201473056,
+   "g3": 2.078337502098293e-13,
+   "relative": 0.003304679557753842,
    "branches": [
     {
-     "error": 0.13950746776312165,
-     "g3": 1.0108233694516855e-14,
+     "error": 0.0629929201473056,
+     "g3": 2.078337502098293e-13,
      "pass": true,
      "closed": false
     },
     {
-     "error": 0.13950746776312165,
-     "g3": 1.0108233694516855e-14,
+     "error": 0.0629929201473056,
+     "g3": 2.078337502098293e-13,
      "pass": true,
      "closed": false
     }
@@ -138,6 +160,7 @@
    "reason": null,
    "error": 0.018137909804089632,
    "g3": 7.851497230149107e-13,
+   "relative": 0.0026387801369075013,
    "branches": [
     {
      "error": 0.018137909804089632,
@@ -157,18 +180,19 @@
    "key": "hypocycloid k=5",
    "admitted": true,
    "reason": null,
-   "error": 0.056264891737486375,
-   "g3": 1.4517553825754703e-13,
+   "error": 0.0419989566343551,
+   "g3": 2.873257187729905e-13,
+   "relative": 0.0031999860595989973,
    "branches": [
     {
-     "error": 0.056264891737486375,
-     "g3": 1.4517553825754703e-13,
+     "error": 0.0419989566343551,
+     "g3": 2.873257187729905e-13,
      "pass": true,
      "closed": false
     },
     {
-     "error": 0.056264891737486375,
-     "g3": 1.4517553825754703e-13,
+     "error": 0.0419989566343551,
+     "g3": 2.873257187729905e-13,
      "pass": true,
      "closed": false
     }
@@ -180,6 +204,7 @@
    "reason": null,
    "error": 0.027512679458032274,
    "g3": 3.4541813853650183e-13,
+   "relative": 0.0028080141032690974,
    "branches": [
     {
      "error": 0.027512679458032274,
@@ -201,6 +226,7 @@
    "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
@@ -209,6 +235,7 @@
    "reason": null,
    "error": 0.006757068916734296,
    "g3": 4.590106073010247e-12,
+   "relative": 0.0028709084322451266,
    "branches": [
     {
      "error": 0.006757068916734296,
@@ -230,6 +257,7 @@
    "reason": null,
    "error": 0.008199455120115424,
    "g3": 3.212985433265203e-13,
+   "relative": 0.002898945158734187,
    "branches": [
     {
      "error": 0.008199455120115424,
@@ -251,6 +279,7 @@
    "reason": null,
    "error": 0.004963229336376546,
    "g3": 4.25384613262649e-12,
+   "relative": 0.0017547665601679318,
    "branches": [
     {
      "error": 0.004963229336376546,
@@ -272,26 +301,29 @@
    "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
    "key": "squircle",
    "admitted": false,
-   "reason": "sampled curve; no exact control polygon to interpolate yet",
+   "reason": "deviation 31.2% of the curve size; the quintic G3 spans cannot follow it",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
    "key": "cardioid",
    "admitted": true,
    "reason": null,
-   "error": 0.008168207813218488,
-   "g3": 5.372438605100172e-13,
+   "error": 0.008146730497074742,
+   "g3": 1.5809686892964692e-11,
+   "relative": 0.003135763463652308,
    "branches": [
     {
-     "error": 0.008168207813218488,
-     "g3": 5.372438605100172e-13,
+     "error": 0.008146730497074742,
+     "g3": 1.5809686892964692e-11,
      "pass": true,
      "closed": false
     }
@@ -303,6 +335,7 @@
    "reason": "G3 gate failed",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
@@ -311,6 +344,7 @@
    "reason": null,
    "error": 0.006621377472468364,
    "g3": 3.5571545708990016e-12,
+   "relative": 0.002961181028542069,
    "branches": [
     {
      "error": 0.006621377472468364,
@@ -326,6 +360,7 @@
    "reason": null,
    "error": 0.010486643070329262,
    "g3": 5.238028760734537e-12,
+   "relative": 0.0009996243681935112,
    "branches": [
     {
      "error": 0.010486643070329262,
@@ -359,6 +394,7 @@
    "reason": null,
    "error": 0.006797582197434731,
    "g3": 4.3876013933186186e-13,
+   "relative": 0.0020733138693828194,
    "branches": [
     {
      "error": 0.006797582197434731,
@@ -380,24 +416,26 @@
    "reason": "G3 gate failed",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
    "key": "piriform 2x",
    "admitted": true,
    "reason": null,
-   "error": 0.013285806611683946,
-   "g3": 1.7509327321363344e-12,
+   "error": 0.010764698777920837,
+   "g3": 6.444844657949034e-12,
+   "relative": 0.0022569304845461483,
    "branches": [
     {
-     "error": 0.013285806611683946,
-     "g3": 1.7509327321363344e-12,
+     "error": 0.010764698777920837,
+     "g3": 6.444844657949034e-12,
      "pass": true,
      "closed": false
     },
     {
-     "error": 0.013285806611683946,
-     "g3": 1.7509327321363344e-12,
+     "error": 0.010764698777920837,
+     "g3": 6.444844657949034e-12,
      "pass": true,
      "closed": false
     }
@@ -409,6 +447,7 @@
    "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
+   "relative": null,
    "branches": []
   },
   {
@@ -417,6 +456,7 @@
    "reason": null,
    "error": 0.006098228871602032,
    "g3": 2.4633628470382973e-12,
+   "relative": 0.0017045067874067474,
    "branches": [
     {
      "error": 0.006098228871602032,
@@ -432,6 +472,7 @@
    "reason": null,
    "error": 0.009963929707066605,
    "g3": 1.2412681993367869e-11,
+   "relative": 0.004119132538420302,
    "branches": [
     {
      "error": 0.009963929707066605,
@@ -453,6 +494,342 @@
    "reason": "G3 gate failed",
    "error": null,
    "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Beutel upper",
+   "admitted": false,
+   "reason": "deviation 5.3% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Beutel lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.026633741499424005,
+   "g3": 3.740507903415846e-12,
+   "relative": 0.009675351030420923,
+   "branches": [
+    {
+     "error": 0.026633741499424005,
+     "g3": 3.740507903415846e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 cardioid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.02304895577990419,
+   "g3": 4.1178171983347056e-13,
+   "relative": 0.0067062593365778325,
+   "branches": [
+    {
+     "error": 0.02304895577990419,
+     "g3": 4.1178171983347056e-13,
+     "pass": true,
+     "closed": true
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 |x|^(2/3) upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03889566495758047,
+   "g3": 1.304952812475335e-10,
+   "relative": 0.018840912367502974,
+   "branches": [
+    {
+     "error": 0.03889566495758047,
+     "g3": 1.304952812475335e-10,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 |x|^(2/3) lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.018245896779328554,
+   "g3": 4.2953750589791717e-11,
+   "relative": 0.0064508986707465035,
+   "branches": [
+    {
+     "error": 0.018245896779328554,
+     "g3": 4.2953750589791717e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Valentine",
+   "admitted": true,
+   "reason": null,
+   "error": 0.803973371266797,
+   "g3": 7.859893834156406e-15,
+   "relative": 0.018639335065051964,
+   "branches": [
+    {
+     "error": 0.803973371266797,
+     "g3": 7.859893834156406e-15,
+     "pass": true,
+     "closed": true
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Wolfram",
+   "admitted": true,
+   "reason": null,
+   "error": 0.06966539887845337,
+   "g3": 5.080380560684716e-13,
+   "relative": 0.01082783893497423,
+   "branches": [
+    {
+     "error": 0.06966539887845337,
+     "g3": 5.080380560684716e-13,
+     "pass": true,
+     "closed": true
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Kuriscak upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.2378395110278739,
+   "g3": 9.200973316580985e-14,
+   "relative": 0.018232708688653818,
+   "branches": [
+    {
+     "error": 0.2378395110278739,
+     "g3": 9.200973316580985e-14,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Kuriscak lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.20122008228684385,
+   "g3": 5.473399511402022e-14,
+   "relative": 0.013658928968641338,
+   "branches": [
+    {
+     "error": 0.20122008228684385,
+     "g3": 5.473399511402022e-14,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Wu\u2013Nick upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.041237426027031066,
+   "g3": 2.713194113823647e-10,
+   "relative": 0.017323183914668968,
+   "branches": [
+    {
+     "error": 0.041237426027031066,
+     "g3": 2.713194113823647e-10,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Wu\u2013Nick lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.027081559701636334,
+   "g3": 3.082922805930366e-12,
+   "relative": 0.009683499510324007,
+   "branches": [
+    {
+     "error": 0.027081559701636334,
+     "g3": 3.082922805930366e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Mangaldan",
+   "admitted": true,
+   "reason": null,
+   "error": 0.05229444013180674,
+   "g3": 9.943981555621277e-14,
+   "relative": 0.013537324105076114,
+   "branches": [
+    {
+     "error": 0.05229444013180674,
+     "g3": 9.943981555621277e-14,
+     "pass": true,
+     "closed": true
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 half-ellipse upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.043521835612226445,
+   "g3": 3.5585065138151536e-11,
+   "relative": 0.02130872078332413,
+   "branches": [
+    {
+     "error": 0.043521835612226445,
+     "g3": 3.5585065138151536e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 half-ellipse lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.025357652892760825,
+   "g3": 2.4958646260841988e-12,
+   "relative": 0.008965284157722925,
+   "branches": [
+    {
+     "error": 0.025357652892760825,
+     "g3": 2.4958646260841988e-12,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 sqrt upper",
+   "admitted": false,
+   "reason": "deviation 50.0% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 sqrt lower",
+   "admitted": false,
+   "reason": "deviation 11.7% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Eisemann upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.04220809912157681,
+   "g3": 1.443267727552211e-11,
+   "relative": 0.020243870378952138,
+   "branches": [
+    {
+     "error": 0.04220809912157681,
+     "g3": 1.443267727552211e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Eisemann lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.025678544110467834,
+   "g3": 3.3869382854973e-11,
+   "relative": 0.009662536925770323,
+   "branches": [
+    {
+     "error": 0.025678544110467834,
+     "g3": 3.3869382854973e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Sio upper",
+   "admitted": true,
+   "reason": null,
+   "error": 0.019507090624696306,
+   "g3": 1.6158407944999453e-11,
+   "relative": 0.009570084117577182,
+   "branches": [
+    {
+     "error": 0.019507090624696306,
+     "g3": 1.6158407944999453e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Sio lower",
+   "admitted": true,
+   "reason": null,
+   "error": 0.01591348039264,
+   "g3": 5.564683299563448e-11,
+   "relative": 0.006660442760395452,
+   "branches": [
+    {
+     "error": 0.01591348039264,
+     "g3": 5.564683299563448e-11,
+     "pass": true,
+     "closed": false
+    }
+   ]
+  },
+  {
+   "key": "heart \u00b7 Holzapfel upper",
+   "admitted": false,
+   "reason": "deviation 62.1% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Holzapfel lower",
+   "admitted": false,
+   "reason": "deviation 22.9% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Hechinger upper",
+   "admitted": false,
+   "reason": "deviation 62.1% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "branches": []
+  },
+  {
+   "key": "heart \u00b7 Hechinger lower",
+   "admitted": false,
+   "reason": "deviation 6.2% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
    "branches": []
   }
  ]

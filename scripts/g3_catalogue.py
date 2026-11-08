@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import generators as G  # noqa: E402
 import g3_showcase as G3  # noqa: E402
+import heart_forms as H  # noqa: E402
 
 PAPER = "#fbf7ec"
 INK, MUTED, GOLD, BLUE, RED = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8", "#a23b2a"
@@ -176,17 +177,195 @@ def fit_branch(ctrl, nspans=SPANS):
     }
 
 
+# -- sampled curves: a local cubic read of the polyline ---------------------
+
+def solve4(A, b):
+    n = 4
+    for i in range(n):
+        p = max(range(i, n), key=lambda r: abs(A[r][i]))
+        if abs(A[p][i]) < 1e-14:
+            return None
+        A[i], A[p] = A[p], A[i]
+        b[i], b[p] = b[p], b[i]
+        for r in range(i + 1, n):
+            f = A[r][i] / A[i][i]
+            for c in range(i, n):
+                A[r][c] -= f * A[i][c]
+            b[r] -= f * b[i]
+    x = [0.0] * n
+    for i in reversed(range(n)):
+        x[i] = (b[i] - sum(A[i][j] * x[j] for j in range(i + 1, n))) / A[i][i]
+    return x
+
+
+def local_deriv(pts, s0, total, window_frac=0.06):
+    """Read position, tangent, curvature and curvature-rate at one station.
+
+    The polyline is only the source; the derivatives come from a local cubic
+    least-squares fit over a window, so the result is smooth rather than the
+    finite-difference noise of the sampled points.
+    """
+    win = max(window_frac * total, 1e-9)
+    ss = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        ss.append(ss[-1] + math.dist(a, b))
+    idx = [i for i, s in enumerate(ss) if abs(s - s0) <= win]
+    if len(idx) < 8:
+        idx = list(range(len(pts)))
+    rows, bx, by = [], [], []
+    for i in idx:
+        u = (ss[i] - s0) / win
+        rows.append([1.0, u, u * u, u * u * u])
+        bx.append(pts[i][0])
+        by.append(pts[i][1])
+    A = [[sum(r[i] * r[j] for r in rows) for j in range(4)] for i in range(4)]
+    cx = solve4([row[:] for row in A],
+                [sum(r[i] * bx[k] for k, r in enumerate(rows)) for i in range(4)])
+    cy = solve4([row[:] for row in A],
+                [sum(r[i] * by[k] for k, r in enumerate(rows)) for i in range(4)])
+    if cx is None or cy is None:
+        return None
+    h = 1.0 / win
+    x = (cx[0], cx[1] * h, 2.0 * cx[2] * h * h, 6.0 * cx[3] * h ** 3)
+    y = (cy[0], cy[1] * h, 2.0 * cy[2] * h * h, 6.0 * cy[3] * h ** 3)
+    d1, d2, d3 = (x[1], y[1]), (x[2], y[2]), (x[3], y[3])
+    sp = math.hypot(*d1)
+    if sp < 1e-12:
+        return None
+    T = (d1[0] / sp, d1[1] / sp)
+    N = d1[0] * d2[1] - d1[1] * d2[0]
+    Np = d1[0] * d3[1] - d1[1] * d3[0]
+    k = N / sp ** 3
+    rho = (Np / sp ** 3 - 3 * N * (d1[0] * d2[0] + d1[1] * d2[1]) / sp ** 5) / sp
+    return (x[0], y[0]), T, k, rho
+
+
+def fit_poly(pts, nspans=SPANS):
+    """Fit a sampled polyline with quintic G3 spans."""
+    if len(pts) < 20:
+        return None
+    ss = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        ss.append(ss[-1] + math.dist(a, b))
+    total = ss[-1]
+    if total <= 0.0:
+        return None
+    closed = math.dist(pts[0], pts[-1]) < 1e-6
+    lo = 0.0 if closed else 0.02 * total
+    hi = total if closed else 0.98 * total
+
+    knots, D = [], []
+    for i in range(nspans + 1):
+        s0 = lo + (hi - lo) * i / nspans
+        d = local_deriv(pts, s0, total)
+        if d is None:
+            return None
+        knots.append(d[0])
+        D.append(d[1:])
+    if closed:
+        knots[-1] = knots[0]
+        D[-1] = D[0]
+
+    dense = pts[::max(1, len(pts) // 300)]
+
+    def near(p):
+        return min(math.dist(p, q) for q in dense)
+
+    spans, errs = [], []
+    for i in range(nspans):
+        p0, p5 = knots[i], knots[i + 1]
+        T0, k0, r0 = D[i]
+        T1, k1, r1 = D[i + 1]
+        chord = math.dist(p0, p5)
+        if chord < 1e-12:
+            return None
+        best = None
+        for fa in HGRID:
+            for fb in HGRID:
+                P = G3.quintic_g3(p0, p5, T0, T1, k0, k1, r0, r1,
+                                  fa * chord, fb * chord)
+                if P is None:
+                    continue
+                e = max(near(G3.bezier(P, j / 20)) for j in range(21))
+                if best is None or e < best[0]:
+                    best = (e, P)
+        if best is None:
+            return None
+        spans.append(best[1])
+        errs.append(best[0])
+
+    joins = G3.gate(spans)
+    if closed:
+        A, B = spans[-1], spans[0]
+        d1a, d1b = G3.derivative(A, 1.0, 1), G3.derivative(B, 0.0, 1)
+        row = {
+            "join": "seam",
+            "dp": math.dist(G3.bezier(A, 1.0), G3.bezier(B, 0.0)),
+            "angle": abs(math.degrees(math.atan2(
+                d1a[0] * d1b[1] - d1a[1] * d1b[0],
+                d1a[0] * d1b[0] + d1a[1] * d1b[1]))),
+            "dk": abs(G3.curvature(A, 1.0) - G3.curvature(B, 0.0)),
+            "dks": abs(G3.curvature_rate(A, 1.0) - G3.curvature_rate(B, 0.0)),
+        }
+        row["pass"] = (row["dp"] < 1e-9 and row["angle"] < 1e-6
+                       and row["dk"] < 1e-9 and row["dks"] < 1e-9)
+        joins.append(row)
+
+    return {
+        "spans": spans,
+        "ideal": pts[::max(1, len(pts) // 240)],
+        "error": max(errs),
+        "g3": max(row["dks"] for row in joins),
+        "pass": all(row["pass"] for row in joins),
+        "closed": closed,
+    }
+
+
+def fit_branch_best(ctrl):
+    best = None
+    for n in (6, 10):
+        r = fit_branch(ctrl, n)
+        if r is not None and (best is None or r["error"] < best["error"]):
+            best = r
+    return best
+
+
+def fit_poly_best(pts):
+    best = None
+    for n in (6, 10):
+        r = fit_poly(pts, n)
+        if r is not None and (best is None or r["error"] < best["error"]):
+            best = r
+    return best
+
+
+def curve_size(fitted):
+    pts = [p for br in fitted for p in br["ideal"]]
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    return math.hypot(max(xs) - min(xs), max(ys) - min(ys))
+
+
 # -- the catalogue ----------------------------------------------------------
 
 def attempted(spec):
-    if spec["branches"] is None:
-        return None, "sampled curve; no exact control polygon to interpolate yet"
     data = G.named_data(spec)
+    if spec["branches"] is None:
+        paths = data.get("paths")
+        if not paths:
+            return None, "sampled curve with no polyline"
+        fitted = []
+        for pts in paths:
+            r = fit_poly_best([(float(x), float(y)) for x, y in pts])
+            if r is None:
+                return None, "cusp or singular sample; no G3 interpolation"
+            fitted.append(r)
+        return fitted, None
     if not data["ctrl"]:
         return None, "no exact control polygon"
     fitted = []
     for ctrl in data["ctrl"]:
-        r = fit_branch(ctrl)
+        r = fit_branch_best(ctrl)
         if r is None:
             return None, "cusp, point at infinity, or singular handle solve"
         fitted.append(r)
@@ -194,6 +373,56 @@ def attempted(spec):
     if bad:
         return None, "G3 gate failed"
     return fitted, None
+
+
+def heart_rows():
+    forms = [
+        ("heart · Beutel upper", [H.beutel()[0]]),
+        ("heart · Beutel lower", [H.beutel()[1]]),
+        ("heart · cardioid", H.cardioid()),
+        ("heart · |x|^(2/3) upper", [H.abs_heart()[0]]),
+        ("heart · |x|^(2/3) lower", [H.abs_heart()[1]]),
+        ("heart · Valentine", H.valentine()),
+        ("heart · Wolfram", H.wolfram()),
+        ("heart · Kuriscak upper", [H.kuriscak()[0]]),
+        ("heart · Kuriscak lower", [H.kuriscak()[1]]),
+        ("heart · Wu–Nick upper", [H.wu_nick()[0]]),
+        ("heart · Wu–Nick lower", [H.wu_nick()[1]]),
+        ("heart · Mangaldan", H.mangaldan()),
+        ("heart · half-ellipse upper", [H.half_ellipses()[0]]),
+        ("heart · half-ellipse lower", [H.half_ellipses()[1]]),
+        ("heart · sqrt upper", [H.sqrt_heart()[0]]),
+        ("heart · sqrt lower", [H.sqrt_heart()[1]]),
+        ("heart · Eisemann upper", [H.eisemann()[0]]),
+        ("heart · Eisemann lower", [H.eisemann()[1]]),
+        ("heart · Sio upper", [H.sio()[0]]),
+        ("heart · Sio lower", [H.sio()[1]]),
+        ("heart · Holzapfel upper", [H.holzapfel()[0]]),
+        ("heart · Holzapfel lower", [H.holzapfel()[1]]),
+        ("heart · Hechinger upper", [H.hechinger()[0]]),
+        ("heart · Hechinger lower", [H.hechinger()[1]]),
+    ]
+    rows = []
+    for name, branches in forms:
+        fitted = []
+        for pts in branches:
+            r = fit_poly_best(pts)
+            if r is None:
+                fitted = None
+                break
+            fitted.append(r)
+        if fitted is None:
+            rows.append({"key": name, "admitted": False,
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({
+                "key": name, "admitted": True,
+                "source": "heart", "spans": SPANS,
+                "branches": fitted,
+                "error": max(r["error"] for r in fitted),
+                "g3": max(r["g3"] for r in fitted),
+            })
+    return rows
 
 
 def catalogue():
@@ -205,11 +434,23 @@ def catalogue():
         else:
             rows.append({
                 "key": spec["key"], "admitted": True,
-                "spans": SPANS,
+                "source": "named", "spans": SPANS,
                 "branches": fitted,
                 "error": max(r["error"] for r in fitted),
                 "g3": max(r["g3"] for r in fitted),
             })
+    rows.extend(heart_rows())
+    for row in rows:
+        if not row["admitted"]:
+            continue
+        size = abs(curve_size(row["branches"]))
+        row["relative"] = row["error"] / size if size > 0 else 0.0
+        if row["relative"] > 0.05:
+            row["admitted"] = False
+            row["reason"] = (f"deviation {row['relative']:.1%} of the curve "
+                             "size; the quintic G3 spans cannot follow it")
+            for key in ("branches", "error", "g3", "relative", "spans", "source"):
+                row.pop(key, None)
     return rows
 
 
@@ -323,25 +564,28 @@ def build():
 <title>G3 catalogue · the named curves as quintic interpolations</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 catalogue</p>
-<h1>The named curves, as G3 quintic interpolations</h1>
+<h1>The named curves and heart forms, as G3 quintic interpolations</h1>
 <p class="lede">This page shows the <strong>interpolation</strong>, not the ideal curve. Each
-admitted curve is a chain of quintic Bézier spans, {SPANS} spans per branch, with every
+admitted curve is a chain of quintic Bézier spans, six or ten spans per branch, with every
 join measured G3: position, direction, bend, and the smooth acceleration of the bend. The
-ideal curve is the faint dashed line underneath. A branch that cannot be interpolated G3 —
-a cusp, a point at infinity, a singular handle solve — is rejected and named in the table,
-not quietly dropped.</p>
+ideal curve is the faint dashed line underneath. The named curves are read from their exact
+homogeneous control polygons; the heart forms are read from a local cubic fit of their
+sampled polylines. A branch that cannot be interpolated G3 — a cusp, a point at infinity, a
+singular handle solve — is rejected and named in the table, not quietly dropped.</p>
 
 <div class="rule"><strong>How admission works.</strong> The knots are placed at equal arc
-length on the exact curve. At each knot the tangent, curvature and curvature-rate are read
-from the exact homogeneous control polygon; the quintic span matches them at both ends, and
-the two handle lengths are chosen to minimise the deviation from the ideal. The table's
-<code>max deviation</code> is a geometric distance, not a parameter error. The G3 gate is
-computed from the Bézier derivatives, not from the drawn polyline.</p>
+length on the curve. At each knot the tangent, curvature and curvature-rate are read from the
+exact homogeneous control polygon, or from a local cubic fit for the sampled hearts. The
+quintic span matches them at both ends, and the two handle lengths are chosen to minimise the
+deviation from the ideal. The table's <code>max deviation</code> is a geometric distance, not
+a parameter error. A curve is admitted only when the deviation is under 5% of its own size;
+the rejected reasons state the measured share. The G3 gate is computed from the Bézier
+derivatives, not from the drawn polyline.</p>
 
 <section class="panel">
 <h2>The gate</h2>
 {table(rows)}
-<p class="small">{len(admitted)} admitted of {len(rows)} named curves ·
+<p class="small">{len(admitted)} admitted of {len(rows)} curves (named table + heart forms) ·
 {len(rejected)} rejected · {SPANS} quintic spans per branch ·
 re-derive: <code>python scripts/g3_catalogue.py</code></p>
 </section>
@@ -353,8 +597,10 @@ re-derive: <code>python scripts/g3_catalogue.py</code></p>
 <h2>Rejected, with the reason</h2>
 <p class="small">A cusp has no tangent direction, so G3 is undefined there; a point at
 infinity has no finite position. These are not failures of the interpolation — they are
-curves outside the G3 domain. The sampled curves (heart, squircle) are not yet fitted; they
-need a smooth polyline spline first. The next pass adds those, and more span counts.</p>
+curves outside the G3 domain. A few hearts are rejected because the quintic G3 spans cannot
+follow their sharp features within 5% of the curve size; the reason gives the measured share.
+The squircle is still sampled only and needs the same polyline treatment. The next pass adds
+it and tightens the high-error cases with more spans.</p>
 <p class="small">Back to the <a href="g3-showcase.html">G3 showcase</a> ·
 theory on the <a href="g3-notes.html">G3 notes page</a>.</p>
 </section>
@@ -369,6 +615,7 @@ theory on the <a href="g3-notes.html">G3 notes page</a>.</p>
             {"key": r["key"], "admitted": r["admitted"],
              "reason": r.get("reason"),
              "error": r.get("error"), "g3": r.get("g3"),
+             "relative": r.get("relative"),
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"]}

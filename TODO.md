@@ -56,8 +56,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   SVG; c423 is the four-span G2 splice.
 - [x] **G3 showcase and catalogue.** Quintic Béziers, every join measured G3
   (position, tangent, curvature, curvature-rate); the four-cubic bell is the
-  rejected case. The catalogue attempts all 29 named curves, admits the smooth
-  ones, and records cusped/sampled rejections. `workbench/g3-showcase.html`,
+  rejected case. The catalogue attempts the 29 named curves and 24 heart forms, admits
+  the smooth ones within 5% of their size, and records the rest with reasons. `workbench/g3-showcase.html`,
   `workbench/g3-catalogue.html`, `workbench/g3-notes.html`,
   `scripts/g3_showcase.py`, `scripts/g3_catalogue.py`,
   `tests/test_g3_showcase.py`, `tests/test_g3_catalogue.py`.
