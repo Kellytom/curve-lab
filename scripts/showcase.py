@@ -1339,7 +1339,18 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
     print(out)
 
     from showcase_notes import build as build_notes
-    print(build_notes(mapping, figures=MOVED_TO_NOTES))
+    # every figure carries its own SVG into its note, so it can be copied
+    # straight into Inkscape or Glyphs
+    import re as _re
+    page_figures = {}
+    for _m in _re.finditer(r'<a class="fig" id="fig-([0-9a-zA-Z]+)"[^>]*>(.*?)</a>',
+                           html, _re.S):
+        _svg = _re.search(r"<svg\b.*?</svg>", _m.group(2), _re.S)
+        if _svg:
+            page_figures[_m.group(1)] = _svg.group(0)
+    figures = dict(page_figures)
+    figures.update(MOVED_TO_NOTES)
+    print(build_notes(mapping, figures=figures))
 
 
 if __name__ == "__main__":

@@ -295,12 +295,15 @@ def la_special_panels():
     return out
 
 
-def missing_family_panels():
-    """The six families the catalogue was missing."""
+def missing_family_entries():
+    """The six missing families, one curve per panel."""
     import missing_families as MF
     out = []
-    for title, curves, note, source in MF.cases():
-        out.append(_entry(len(out) + 1, title, curves, note, source))
+    for key, title, blurb, cases in MF.families():
+        panels = [_entry(i + 1, t, [(p, INK, 1.7, None)], n,
+                         "scripts/missing_families.py")
+                  for i, (t, p, n) in enumerate(cases)]
+        out.append((key, title, blurb, panels))
     return out
 
 
@@ -488,9 +491,7 @@ FAMILIES = [
     ("la-specials", "LA specials · 2",
      "the two LA cases the dials name: α = 3, and Nielsen’s α = 0",
      la_special_panels()),
-    ("missing-families", "Missing families · 6",
-     "elastica, polynomial spirals, sinusoidal spirals, trochoids, interpolators, rational/higher PH",
-     missing_family_panels()),
+    *missing_family_entries(),
     ("drawn-pairs", "Drawn pairs · 2",
      "Lissajous 3:2, and the yin-yang boundary as two exact semicircles",
      drawn_pair_panels()),

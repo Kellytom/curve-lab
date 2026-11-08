@@ -842,6 +842,7 @@ h2{{font-size:21px;margin:0 0 8px}}
 .meta{{font:12px/1.7 ui-monospace,Menlo,monospace;color:var(--muted);margin:0}}
 code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}}
 .back{{margin:10px 0 0;font:12px ui-monospace,Menlo,monospace}}
+.note svg{{width:100%;height:auto;display:block;margin:0 0 10px;border:1px solid var(--rule)}}
 .tech{{display:inline-block;width:calc(50% - 8px);margin:6px 8px 6px 0;vertical-align:top;border:1px solid var(--rule)}}
 a{{color:var(--ink)}}
 .top{{font:12px ui-monospace,Menlo,monospace;margin:0 0 18px}}

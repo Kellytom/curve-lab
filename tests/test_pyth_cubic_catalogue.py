@@ -97,7 +97,7 @@ class IntegerCubicCatalogueTest(unittest.TestCase):
         self.assertIn("The integer cubics · 11", page)
         self.assertIn("The integer C cubics · 10", page)
         self.assertNotIn("The integer cubics · 316", page)
-        self.assertEqual(page.count('class="fig"'), 488)
+        self.assertEqual(page.count('class="fig"'), 501)
 
 
 class ShowcaseOrderTest(unittest.TestCase):

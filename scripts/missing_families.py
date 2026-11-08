@@ -182,6 +182,47 @@ def degree_seven_ph():
     return pts, scale, pc
 
 
+def families():
+    """Six families, one curve per panel: (key, title, blurb, [(title, pts, note)])."""
+    ctrl = [(-1.0, 0.0), (0.0, 1.2), (1.2, 0.9), (2.0, 0.0)]
+    ph7, scale7, _pc = degree_seven_ph()
+    return [
+        ("elastica", "Elastica · 3",
+         "the energy-minimising curves, m dial",
+         [(f"elastica · m = {m}", elastica(m),
+           "κ′ = ±½√(m⁴−κ⁴) · fitted (elliptic)")
+          for m in (1.2, 2.0, 2.8)]),
+        ("poly-spirals", "Polynomial spirals · 3",
+         "κ(s) = s^p; p = 1 is the clothoid",
+         [(f"polynomial spiral · p = {p}", polynomial_spiral(p),
+           "κ = s^p · fitted")
+          for p in (1, 2, 3)]),
+        ("sinusoidal", "Sinusoidal spirals · 4",
+         "r^n = a·cos(nθ): circle, cardioid, parabola, lemniscate",
+         [("sinusoidal · n = 1 · circle", sinusoidal(1), "r = cos θ"),
+          ("sinusoidal · n = ½ · cardioid", sinusoidal(0.5), "r^½ = cos(θ/2)"),
+          ("sinusoidal · n = −½ · parabola", sinusoidal(-0.5), "r^−½ = cos(θ/2)"),
+          ("sinusoidal · n = 2 · lemniscate", sinusoidal(2), "r² = cos 2θ")]),
+        ("trochoids", "Trochoids · 3",
+         "epi/hypotrochoid with k = R/r as the dial",
+         [(f"trochoid · k = {k}", trochoid(k), "d = r · fitted") for k in (3, 4, 5)]),
+        ("interpolators", "Interpolators · 4",
+         "the four spline constructions on one control polygon",
+         [("Catmull–Rom · C1", catmull_rom(ctrl), "interpolates its controls"),
+          ("uniform B-spline · C2", bspline(ctrl), "approximates its controls"),
+          ("rational quadratic · exact arc",
+           rational_quadratic((1, 0), (1, 1), (0, 1), 1 / math.sqrt(2)),
+           "w = 1/√2 · the unit circle"),
+          ("quintic Hermite · G2",
+           quintic_hermite((0, 0), (2, 0), (1, 0), (1, 0), (0, 1.0), (0, -1.0)),
+           "p, p′, p″ at both ends")]),
+        ("rational-ph", "Rational and higher PH · 2",
+         "rational PH and degree-7 PH",
+         [("rational PH · the circle", rational_ph_circle(), "speed 2/(1+t²) rational"),
+          ("degree-7 PH", ph7, f"integer controls at scale {scale7:,}")]),
+    ]
+
+
 def cases():
     """One entry per family for the showcase: (title, curves, note, source)."""
     pal = (RED, BLUE, GOLD, GREEN)
