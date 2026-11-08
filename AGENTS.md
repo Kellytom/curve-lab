@@ -99,6 +99,23 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   --set-secrets CLOTHOID_TOKEN=clothoid-token:latest --quiet
 ```
 
+## GitHub — run it like a normal developer
+
+- **Commit per action** when its `Proves:` line is satisfied and the suite is
+  green. A finished action left uncommitted is the one thing a crash or a
+  `git checkout` can destroy.
+- **Push `main` at every handoff.** Do not end a session with green local
+  commits GitHub has not seen. Before pushing: `scripts/test.py --full` and
+  `scripts/recheck.py` must pass; then `git push origin main`; then
+  `gh run list -L 1` and confirm the `native` workflow is green. Leave the
+  remote green — fix or revert a red build immediately.
+- **Never force-push `main`.** Stage the paths the action touched; never commit
+  `.timer.json`; commit `state/timers.jsonl` only with the handoff record.
+- **The remote is `Kellytom/curve-lab` (private).** The old `clothoid-lab`
+  name redirects; do not use it in links or commands.
+- **Auth is the `gh` keyring.** Never print, paste or commit a token.
+- **A push is not a deploy.** Cloud Run deploys stay explicit and separate.
+
 ## Guardrails
 
 - One focused action at a time; verify, commit, stop.
