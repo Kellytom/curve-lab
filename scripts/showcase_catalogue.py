@@ -295,6 +295,15 @@ def la_special_panels():
     return out
 
 
+def drawn_pair_panels():
+    """Lissajous, and the yin-yang boundary."""
+    import drawn_pairs as D
+    out = []
+    for title, pts, note, source in D.cases():
+        out.append(_entry(len(out) + 1, title, [(pts, INK, 1.6, None)], note, source))
+    return out
+
+
 def ph_quintic_panels():
     """Degree-five PH curves: integer controls after one scale."""
     import ph_quintic as PQ
@@ -470,6 +479,9 @@ FAMILIES = [
     ("la-specials", "LA specials · 2",
      "the two LA cases the dials name: α = 3, and Nielsen’s α = 0",
      la_special_panels()),
+    ("drawn-pairs", "Drawn pairs · 2",
+     "Lissajous 3:2, and the yin-yang boundary as two exact semicircles",
+     drawn_pair_panels()),
     ("ph-quintics", "PH quintics · 3",
      "degree five, integer controls after one scale, rational arc length",
      ph_quintic_panels()),

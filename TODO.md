@@ -42,6 +42,8 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [ ] Integer-lattice conics with Pythagorean slopes, as stem cuts, from
   `pyth-plane`.
 - [ ] Lattice windows / RPTPGA: parked — a fabrication claim, not a curve.
+- [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
+  Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
 
 ## Session timer — restored 2026-11-05
 

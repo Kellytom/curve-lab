@@ -64,6 +64,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | source intake | `goals.md` §Source intake, `reference/manifest.json`, `docs/CORPUS.md` |
 | a W-label | `state/BACKLOG-int.md` — that label only |
 | what is parked | `state/BACKBURNER-int.md` |
+| unresolved curves (need a link) | `state/UNRESOLVED-int.md` |
 | verification | `scripts/recheck.py`, `scripts/test.py` |
 | architecture / print review | `docs/ARCHITECTURE.md`, `docs/REVIEW.md` — after the current work, not before |
 
