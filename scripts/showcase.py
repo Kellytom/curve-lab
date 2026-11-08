@@ -1099,6 +1099,19 @@ def run() -> None:
         "19a": _svg_body(p19a), "19b": _svg_body(p19b),
         "19c": _svg_body(p19c), "20c": _svg_body(p20c),
         "21c": _svg_body(p21c),
+        "elastica-setup": panel(
+            "Fig. E*", "elastica · m = 1.2, correctly started at the inflection",
+            [([(x, y) for x, y in __import__("missing_families").elastica(1.2)],
+              INK, 1.6, None)],
+            "κ starts at 0, not at m · this is a shallow wave, not a circle",
+            single_curve=False),
+        "quintic-hermite-setup": panel(
+            "Fig. H*", "quintic Hermite · the G2 S",
+            [([(x, y) for x, y in __import__("missing_families").quintic_hermite(
+                (0.0, 0.0), (2.0, 1.0), (2.0, 1.2), (1.2, -2.0),
+                (0.0, 3.0), (-2.0, 0.0))], INK, 1.6, None)],
+            "p, p′, p″ at both ends · four spans make the S",
+            single_curve=False),
         "sin-circle": panel("Fig. n=1", "sinusoidal · n = 1 · the circle",
                             [(circle_pts, INK, 1.6, None)],
                             "r = cos θ · the definition, not an example",

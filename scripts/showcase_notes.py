@@ -783,6 +783,33 @@ for _n in NOTES:
         _n["fig"] = f"19 · 3-4-5 spine · panel {_n['id'][-1]}"
 
 NOTES.append({
+    "id": "elastica-setup", "fig": "setup · elastica",
+    "title": "How to set up an elastica correctly",
+    "kind": "explanation · method", "standalone": True,
+    "body": [
+        "The free elastica minimises ∫κ²ds with no length constraint. Its Euler–Lagrange equation is κ″ + ½κ³ = 0, whose first integral is κ′² + κ⁴/4 = C. If m is the maximum curvature, then at the turning point κ = m and κ′ = 0, so C = m⁴/4 and κ′ = ±½√(m⁴ − κ⁴).",
+        "The practical rule follows from that: integrate κ from a point where κ′ ≠ 0 — the inflection, κ = 0, is the convenient one — and let it run to ±m, flipping the sign at the turning points. Starting *at* κ = m is the trap: there κ′ = 0, so the integrator never leaves it and the curve is a circle of radius 1/m. That is exactly what the first version of this page did for m = 1.2; the corrected curve is the shallow wave in the figure above.",
+        "m is a curvature amplitude, not a radius. Small m is nearly a straight line; large m loops. A circle is constant κ, which is a solution of the *constrained* elastica (κ″ + ½κ³ = λκ with λ = κ²/2), not of the free family drawn here.",
+        "For G2 interpolation the data are (P₀, T₀, κ₀) and (P₁, T₁, κ₁); one solves for the elastica parameters (m, λ, rotation, scale) so both ends are met. That solve is elliptic and is not implemented on this page — the page draws the family, it does not fit it."],
+    "numbers": ["κ′ = ±½√(m⁴ − κ⁴)", "start at κ = 0", "turning points at ±m"],
+    "source": "scripts/missing_families.py",
+    "command": "python scripts/showcase.py",
+})
+
+NOTES.append({
+    "id": "quintic-hermite-setup", "fig": "setup · quintic Hermite",
+    "title": "How to set up a G2 quintic Hermite span",
+    "kind": "explanation · method", "standalone": True,
+    "body": [
+        "A quintic Hermite span carries six data — position, first and second derivative at each end — so it matches position, tangent and curvature at both ends by construction. With h₀…h₅ as the standard basis, p(t) = h₀p₀ + h₁p₁ + h₂v₀ + h₃v₁ + h₄a₀ + h₅a₁, and the basis is built so that p(0)=p₀, p(1)=p₁, p′(0)=v₀, p′(1)=v₁, p″(0)=a₀, p″(1)=a₁.",
+        "Two spans join G2 when they share p, the tangent direction and the curvature at the joint. Sharing p′ and p″ in the *same parameter scale* gives that directly. If the spans have different parameter lengths h, write v = h·dP and a = h²·d²P from a common curve, or rescale one side: matching p′ and p″ up to a common positive factor preserves the direction and the curvature κ = |p′×p″|/|p′|³.",
+        "The pitfall is parametric versus geometric. C2 (equal p″ as vectors) is stronger than G2 (equal curvature), and unequal speeds at the joint can make a C2 join look right while a G2 join with different speeds still looks wrong if p″ is copied without the h² factor. The S in the figure is four spans of the analytic curve (0.7·sin 2πt, 1 − 2t), each with h = ¼, so the data are consistent and all three interior joins are G2."],
+    "numbers": ["six data per span", "p′(0)=v₀, p″(0)=a₀", "v = h·dP, a = h²·d²P"],
+    "source": "scripts/missing_families.py",
+    "command": "python scripts/showcase.py",
+})
+
+NOTES.append({
     "id": "sin-circle", "fig": "sinusoidal · n = 1",
     "title": "The circle is the n = 1 sinusoidal spiral",
     "kind": "explanation · moved here", "standalone": True,
