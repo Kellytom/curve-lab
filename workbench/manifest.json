@@ -29,6 +29,15 @@
       "outputs": "exact control points, the integer grid they need, the scale"
     },
     {
+      "key": "biarcs",
+      "file": "biarcs.html",
+      "group": "sheet",
+      "title": "Biarcs",
+      "purpose": "Two arcs that match two points and two tangents, joined G1.",
+      "inputs": "two points, two tangents",
+      "outputs": "the equal-radius pair, its centres, the joint, the measured join"
+    },
+    {
       "key": "arches-pillars",
       "file": "arches-pillars.html",
       "group": "sheet",

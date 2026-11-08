@@ -16,6 +16,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | Pell doubling keeps integer points on x² − 2y² = 1 | 7 points, error × y² → 0.353553, 1/(2√2) = 0.353553 | tests/test_pell.py — 3/2 → 17/12 → 99/70, error 1/(2√2 y²) |
 | ok | a PH quintic has integer controls at its scale and a rational arc length | 3 quintics, arcs 69/10, 16/5, 129/10 | scripts/ph_quintic.py — n = 5, arcs 69/10, 16/5, 129/10 |
 | ok | the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5 | width 1.000000..1.000000, Bézier error 2.4e-05, Pell gap 5.6e-04 | scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy |
+| ok | the equal-radius biarc matches both ends and tangents and joins G1 | 3 biarcs, worst join 6.4e-15° | scripts/biarcs.py — three cases, join angle 0 to 1e-9 |
 | ok | the join decides arch or capital: three of eight sections qualify for each | 3 arches, 3 capitals of 8 sections | scripts/arches_pillars.py — cycloid 3.9° at the crown, log spiral 49.0° outward |
 | ok | elliptic and Fermat arches are exact at their integer endpoints | y²=x³+1 ends at (−1,0)…(2,3); x³+y³=1 has only (0,1),(1,0) to 40 | scripts/arches.py — y²=x³+1 has (−1,0), (0,±1), (2,±3); FLT leaves ±1,0 |
 | ok | Nielsen's spiral is the inverse radial of the hyperbolic r = 1/φ | C'(t) matches (−sin t/t, cos t/t) to 1e-3 | scripts/gen_arch.py — C(t) = (−Si(t), Ci(t)) |
@@ -33,7 +34,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 29 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| ok | the hub is built from the manifest and every page carries its bar | 65 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 66 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |

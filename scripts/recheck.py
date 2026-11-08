@@ -217,6 +217,26 @@ def c_reuleaux():
                 f"Pell gap {gap:.1e}")
 
 
+@check("the equal-radius biarc matches both ends and tangents and joins G1",
+       "scripts/biarcs.py — three cases, join angle 0 to 1e-9",
+       "python -m unittest tests.test_biarcs")
+def c_biarcs():
+    import math
+
+    import biarcs as B
+    ok = True
+    worst = 0.0
+    for case in B.CASES:
+        b, ang = B.measure(case)
+        _t, p0, _t0, p1, _t1 = case
+        ok = ok and math.dist(b["first"][0], p0) < 1e-12
+        ok = ok and math.dist(b["second"][-1], p1) < 1e-12
+        ok = ok and abs(math.dist(b["c0"], b["c1"]) - 2 * b["R"]) < 1e-9
+        worst = max(worst, ang)
+    ok = ok and worst < 1e-9
+    return ok, f"{len(B.CASES)} biarcs, worst join {worst:.1e}°"
+
+
 @check("the join decides arch or capital: three of eight sections qualify for each",
        "scripts/arches_pillars.py — cycloid 3.9° at the crown, log spiral 49.0° outward",
        "python -m unittest tests.test_arches_pillars")
