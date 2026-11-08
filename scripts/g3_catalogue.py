@@ -21,6 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT))
 
 import generators as G  # noqa: E402
 import g3_showcase as G3  # noqa: E402
@@ -169,6 +170,7 @@ def fit_branch(ctrl, nspans=SPANS):
 
     return {
         "spans": spans,
+        "count": nspans,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
@@ -313,6 +315,7 @@ def fit_poly(pts, nspans=SPANS):
 
     return {
         "spans": spans,
+        "count": nspans,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
@@ -332,7 +335,7 @@ def fit_branch_best(ctrl):
 
 def fit_poly_best(pts):
     best = None
-    for n in (6, 10):
+    for n in (6, 10, 14):
         r = fit_poly(pts, n)
         if r is not None and (best is None or r["error"] < best["error"]):
             best = r
@@ -417,11 +420,114 @@ def heart_rows():
         else:
             rows.append({
                 "key": name, "admitted": True,
-                "source": "heart", "spans": SPANS,
+                "source": "heart", "spans": max(r["count"] for r in fitted),
                 "branches": fitted,
                 "error": max(r["error"] for r in fitted),
                 "g3": max(r["g3"] for r in fitted),
             })
+    return rows
+
+
+def preset_rows():
+    from curve_lab import presets
+
+    def pts_of(name, n=260):
+        d = presets.get(name)
+        x, y, th = d.anchor["x"], d.anchor["y"], d.anchor["angle"]
+        pts = [(x, y)]
+        total = sum(seg.length for seg in d.segments) or 1.0
+        for seg in d.segments:
+            th += seg.corner
+            m = max(3, int(n * seg.length / total))
+            ds = seg.length / m
+            k0 = seg.kappa0 if seg.kappa0 is not None else 0.0
+            for i in range(m):
+                sm = (i + 0.5) * ds
+                theta = th + k0 * sm + seg.kd * sm * sm / 2
+                x += math.cos(theta) * ds
+                y += math.sin(theta) * ds
+                pts.append((x, y))
+            th += k0 * seg.length + seg.kd * seg.length ** 2 / 2
+        return pts
+
+    rows = []
+    for name in ("s-curve", "ogee", "bracket", "petal"):
+        r = fit_poly_best(pts_of(name))
+        key = f"preset · {name}"
+        if r is None:
+            rows.append({"key": key, "admitted": False,
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({"key": key, "admitted": True, "source": "preset",
+                         "spans": r["count"], "branches": [r],
+                         "error": r["error"], "g3": r["g3"]})
+    return rows
+
+
+def primal_rows():
+    from curve_lab import engine, primal
+
+    rows = []
+    for name in ("earth", "water", "air", "fire"):
+        piece = primal.PRIMAL[name]()
+        fitted = []
+        for trace in piece.traces:
+            chain = engine.build(trace.design)
+            pts = [chain.point(chain.length * i / 240.0) for i in range(241)]
+            r = fit_poly_best(pts)
+            if r is None:
+                fitted = None
+                break
+            fitted.append(r)
+        key = f"primal · {name}"
+        if fitted is None:
+            rows.append({"key": key, "admitted": False,
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({"key": key, "admitted": True, "source": "primal",
+                         "spans": max(r["count"] for r in fitted), "branches": fitted,
+                         "error": max(r["error"] for r in fitted),
+                         "g3": max(r["g3"] for r in fitted)})
+    return rows
+
+
+def lac_rows():
+    import stem_library as S
+
+    data = json.loads((ROOT / "workbench" / "spirals" / "lac.json").read_text())
+    rows = []
+    for fig in data["figures"]:
+        spine = fig["spines"][0]
+        pts = S.lac_branches(spine["spans"])
+        key = f"LAC · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
+        r = fit_poly_best(pts[0])
+        if r is None:
+            rows.append({"key": key, "admitted": False,
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({"key": key, "admitted": True, "source": "lac",
+                         "spans": r["count"], "branches": [r],
+                         "error": r["error"], "g3": r["g3"]})
+    return rows
+
+
+def stage_two_rows():
+    import stem_library as S
+
+    data = json.loads((ROOT / "workbench" / "spirals" / "stage-two.json").read_text())
+    rows = []
+    for fig in data["figures"]:
+        spine = fig["spines"][0]
+        pts = S.lac_branches(spine["spans"])
+        key = f"Stage II · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
+        r = fit_poly_best(pts[0])
+        if r is None:
+            rows.append({"key": key, "admitted": False,
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({"key": key, "admitted": True, "source": "stage-two",
+                         "spans": r["count"], "branches": [r],
+                         "error": r["error"], "g3": r["g3"]})
     return rows
 
 
@@ -434,12 +540,16 @@ def catalogue():
         else:
             rows.append({
                 "key": spec["key"], "admitted": True,
-                "source": "named", "spans": SPANS,
+                "source": "named", "spans": max(r["count"] for r in fitted),
                 "branches": fitted,
                 "error": max(r["error"] for r in fitted),
                 "g3": max(r["g3"] for r in fitted),
             })
     rows.extend(heart_rows())
+    rows.extend(preset_rows())
+    rows.extend(primal_rows())
+    rows.extend(lac_rows())
+    rows.extend(stage_two_rows())
     for row in rows:
         if not row["admitted"]:
             continue
@@ -558,20 +668,24 @@ def build():
     drawn = [r for r in admitted if r["key"] != "circle"]
     panels = "".join(f'<section class="panel">{panel(r)}</section>' for r in drawn)
 
+    from collections import Counter
+    fam = Counter((r.get("source") or "named") for r in admitted)
+    family_line = ", ".join(f"{k} {v}" for k, v in sorted(fam.items()))
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>G3 catalogue · the named curves as quintic interpolations</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 catalogue</p>
-<h1>The named curves and heart forms, as G3 quintic interpolations</h1>
+<h1>Every candidate, as a G3 quintic interpolation</h1>
 <p class="lede">This page shows the <strong>interpolation</strong>, not the ideal curve. Each
-admitted curve is a chain of quintic Bézier spans, six or ten spans per branch, with every
-join measured G3: position, direction, bend, and the smooth acceleration of the bend. The
-ideal curve is the faint dashed line underneath. The named curves are read from their exact
-homogeneous control polygons; the heart forms are read from a local cubic fit of their
-sampled polylines. A branch that cannot be interpolated G3 — a cusp, a point at infinity, a
-singular handle solve — is rejected and named in the table, not quietly dropped.</p>
+admitted curve is a chain of quintic Bézier spans, six to fourteen spans per branch, with
+every join measured G3: position, direction, bend, and the smooth acceleration of the bend.
+The ideal curve is the faint dashed line underneath. The named curves are read from their
+exact homogeneous control polygons; the hearts, presets, primals and recovered LAC/Stage II
+spines are read from a local cubic fit of their sampled polylines. A branch that cannot be
+interpolated G3 — a cusp, a point at infinity, a singular handle solve, or a deviation over
+5% of its own size — is rejected and named in the table, not quietly dropped.</p>
 
 <div class="rule"><strong>How admission works.</strong> The knots are placed at equal arc
 length on the curve. At each knot the tangent, curvature and curvature-rate are read from the
@@ -585,7 +699,7 @@ derivatives, not from the drawn polyline.</p>
 <section class="panel">
 <h2>The gate</h2>
 {table(rows)}
-<p class="small">{len(admitted)} admitted of {len(rows)} curves (named table + heart forms) ·
+<p class="small">By source: {family_line} · {len(admitted)} admitted of {len(rows)} candidates ·
 {len(rejected)} rejected · {SPANS} quintic spans per branch ·
 re-derive: <code>python scripts/g3_catalogue.py</code></p>
 </section>
@@ -616,9 +730,11 @@ theory on the <a href="g3-notes.html">G3 notes page</a>.</p>
              "reason": r.get("reason"),
              "error": r.get("error"), "g3": r.get("g3"),
              "relative": r.get("relative"),
+             "source": r.get("source"),
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
-                  "pass": b["pass"], "closed": b["closed"]}
+                  "pass": b["pass"], "closed": b["closed"],
+                  "count": b.get("count")}
                  for b in r.get("branches", [])
              ]}
             for r in rows

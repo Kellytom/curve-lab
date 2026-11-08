@@ -673,7 +673,7 @@ def c_g3_catalogue():
     data = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
     admitted = [row for row in data["curves"] if row["admitted"]]
     rejected = [row for row in data["curves"] if not row["admitted"]]
-    ok = (len(data["curves"]) >= 29 and len(admitted) >= 30
+    ok = (len(data["curves"]) >= 100 and len(admitted) >= 70
           and all(row["g3"] < 1e-9 for row in admitted)
           and all(row["reason"] for row in rejected))
     worst = max(row["g3"] for row in admitted)

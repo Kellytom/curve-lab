@@ -25,7 +25,7 @@ class TestCatalogue(unittest.TestCase):
         cls.rejected = [r for r in cls.rows if not r["admitted"]]
 
     def test_every_named_curve_is_attempted(self):
-        self.assertGreaterEqual(len(self.rows), 29)
+        self.assertGreaterEqual(len(self.rows), 100)
         self.assertEqual(len({r["key"] for r in self.rows}), len(self.rows))
 
     def test_an_admitted_curve_passes_g3(self):
@@ -52,6 +52,9 @@ class TestCatalogue(unittest.TestCase):
 
     def test_the_catalogue_spans_are_quintic(self):
         self.assertEqual(self.data["spans"], 6)
+        for row in self.admitted:
+            for branch in row["branches"]:
+                self.assertIn(branch["count"], (6, 10, 14))
 
     def test_the_page_draws_each_admitted_curve_except_the_circle(self):
         page = PAGE.read_text(encoding="utf-8")
