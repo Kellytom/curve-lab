@@ -89,7 +89,7 @@
   {
    "key": "nodal",
    "admitted": false,
-   "reason": "G3 gate failed",
+   "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
    "relative": null,
@@ -117,7 +117,7 @@
   {
    "key": "bow",
    "admitted": false,
-   "reason": "G3 gate failed",
+   "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
    "relative": null,
@@ -375,7 +375,7 @@
   {
    "key": "bernoulli",
    "admitted": false,
-   "reason": "G3 gate failed",
+   "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
    "relative": null,
@@ -467,7 +467,7 @@
   {
    "key": "abs(x) gerono",
    "admitted": false,
-   "reason": "G3 gate failed",
+   "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
    "relative": null,
@@ -555,7 +555,7 @@
   {
    "key": "strophoid",
    "admitted": false,
-   "reason": "G3 gate failed",
+   "reason": "cusp, point at infinity, or singular handle solve",
    "error": null,
    "g3": null,
    "relative": null,
@@ -1321,6 +1321,416 @@
      "pass": true,
      "closed": false,
      "count": 5
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 elastica \u00b7 m dial",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 polynomial spirals \u00b7 p = 1, 2, 3",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 sinusoidal spirals \u00b7 n dial",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 trochoids \u00b7 k = 3, 4, 5",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 spline interpolators",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 rational PH and degree-7 PH",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the oval",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03886585703694687,
+   "g3": 4.557654254000454e-10,
+   "relative": 0.02748231106745203,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.03886585703694687,
+     "g3": 4.557654254000454e-10,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the branch",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0044853645945836015,
+   "g3": 2.386957298483594e-11,
+   "relative": 0.001585815860462057,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.0044853645945836015,
+     "g3": 2.386957298483594e-11,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 Fermat n = 3 \u00b7 x\u00b3+y\u00b3 = 1",
+   "admitted": false,
+   "reason": "deviation 6.4% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 Fermat n = 4 \u00b7 x\u2074+y\u2074 = 1",
+   "admitted": false,
+   "reason": "deviation 10.5% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 Maclaurin trisectrix \u00b7 exact loop",
+   "admitted": true,
+   "reason": null,
+   "error": 0.021695955414993126,
+   "g3": 2.6736618820178166e-11,
+   "relative": 0.005684107195374175,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.021695955414993126,
+     "g3": 2.6736618820178166e-11,
+     "pass": true,
+     "closed": true,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 Maclaurin trisectrix \u00b7 Pell 71/41",
+   "admitted": true,
+   "reason": null,
+   "error": 0.006793405213354374,
+   "g3": 3.8659137530581354e-13,
+   "relative": 0.001779909023006631,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.006793405213354374,
+     "g3": 3.8659137530581354e-13,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 c = \u22122 \u00b7 lituus",
+   "admitted": true,
+   "reason": null,
+   "error": 0.042716469057891795,
+   "g3": 4.022338018216942e-13,
+   "relative": 0.019726695330000193,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.042716469057891795,
+     "g3": 4.022338018216942e-13,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 c = \u22121 \u00b7 hyperbolic",
+   "admitted": false,
+   "reason": "deviation 18.0% of the curve size; the quintic G3 spans cannot follow it",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": null,
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 c = 1 \u00b7 Archimedean",
+   "admitted": true,
+   "reason": null,
+   "error": 0.45142543159099596,
+   "g3": 1.8587562045091488e-15,
+   "relative": 0.010659774377767361,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.45142543159099596,
+     "g3": 1.8587562045091488e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 c = 2 \u00b7 Fermat",
+   "admitted": true,
+   "reason": null,
+   "error": 0.10086429666446385,
+   "g3": 7.608497165634276e-15,
+   "relative": 0.009239598441096552,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.10086429666446385,
+     "g3": 7.608497165634276e-15,
+     "pass": true,
+     "closed": false,
+     "count": 10
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 u = 1+2t+t\u00b2, v = 1\u2212t+t\u00b2",
+   "admitted": true,
+   "reason": null,
+   "error": 0.06853339600096138,
+   "g3": 5.28577182024037e-13,
+   "relative": 0.010164535500922165,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.06853339600096138,
+     "g3": 5.28577182024037e-13,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 u = 1+t\u00b2, v = 2t",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03255318644952755,
+   "g3": 1.1028136737145644e-11,
+   "relative": 0.010683548962389681,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.03255318644952755,
+     "g3": 1.1028136737145644e-11,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 h quadratic, u, v linear",
+   "admitted": true,
+   "reason": null,
+   "error": 0.06101353669960444,
+   "g3": 1.1010550110546191e-13,
+   "relative": 0.004870030767098876,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.06101353669960444,
+     "g3": 1.1010550110546191e-13,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 biarc \u00b7 east to north",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 biarc \u00b7 east to south-east",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 biarc \u00b7 a shallow S",
+   "admitted": true,
+   "reason": null,
+   "error": 0.010308868296447674,
+   "g3": 3.203876400292849e-12,
+   "relative": 0.002941380378336796,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.010308868296447674,
+     "g3": 3.203876400292849e-12,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 Reuleaux triangle",
+   "admitted": true,
+   "reason": null,
+   "error": 0.009935368509904466,
+   "g3": 1.6123880084827763e-10,
+   "relative": 0.00702536644694073,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.009935368509904466,
+     "g3": 1.6123880084827763e-10,
+     "pass": true,
+     "closed": true,
+     "count": 14
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 qAC \u00b7 \u03b1 = 2, c = +1",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 qAC \u00b7 \u03b1 = 2, c = \u22121",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 qAC \u00b7 \u03b1 = 3, c = 0.5",
+   "admitted": false,
+   "reason": "cusp or singular sample; no G3 interpolation",
+   "error": null,
+   "g3": null,
+   "relative": null,
+   "source": "misc",
+   "branches": []
+  },
+  {
+   "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 +",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03086728410140627,
+   "g3": 4.166698986571111e-14,
+   "relative": 0.003093691734630513,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.03086728410140627,
+     "g3": 4.166698986571111e-14,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 \u2212",
+   "admitted": true,
+   "reason": null,
+   "error": 0.03086728410140627,
+   "g3": 4.166698986571111e-14,
+   "relative": 0.003093691734630513,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.03086728410140627,
+     "g3": 4.166698986571111e-14,
+     "pass": true,
+     "closed": false,
+     "count": 6
+    }
+   ]
+  },
+  {
+   "key": "misc \u00b7 catenary",
+   "admitted": true,
+   "reason": null,
+   "error": 0.10529495935317947,
+   "g3": 5.82116277923761e-15,
+   "relative": 0.0017704483471817503,
+   "source": "misc",
+   "branches": [
+    {
+     "error": 0.10529495935317947,
+     "g3": 5.82116277923761e-15,
+     "pass": true,
+     "closed": false,
+     "count": 6
     }
    ]
   },

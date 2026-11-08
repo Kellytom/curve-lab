@@ -360,7 +360,7 @@ def attempted(spec):
         fitted = []
         for pts in paths:
             r = fit_poly_best([(float(x), float(y)) for x, y in pts])
-            if r is None:
+            if r is None or not r["pass"]:
                 return None, "cusp or singular sample; no G3 interpolation"
             fitted.append(r)
         return fitted, None
@@ -369,7 +369,7 @@ def attempted(spec):
     fitted = []
     for ctrl in data["ctrl"]:
         r = fit_branch_best(ctrl)
-        if r is None:
+        if r is None or not r["pass"]:
             return None, "cusp, point at infinity, or singular handle solve"
         fitted.append(r)
     bad = [r for r in fitted if not r["pass"]]
@@ -410,7 +410,7 @@ def heart_rows():
         fitted = []
         for pts in branches:
             r = fit_poly_best(pts)
-            if r is None:
+            if r is None or not r["pass"]:
                 fitted = None
                 break
             fitted.append(r)
@@ -425,6 +425,57 @@ def heart_rows():
                 "error": max(r["error"] for r in fitted),
                 "g3": max(r["g3"] for r in fitted),
             })
+    return rows
+
+
+def misc_rows():
+    import arches as A
+    import biarcs as B
+    import catenary as C
+    import gen_arch as GA
+    import maclaurin as Mac
+    import missing_families as M
+    import ph_quintic as P
+    import qac_dlac as Q
+    import reuleaux as R
+
+    rows = []
+
+    def add(name, pts, note=""):
+        r = fit_poly_best(pts)
+        key = f"misc · {name}"
+        if r is None or not r["pass"]:
+            rows.append({"key": key, "admitted": False, "source": "misc",
+                         "reason": "cusp or singular sample; no G3 interpolation"})
+        else:
+            rows.append({"key": key, "admitted": True, "source": "misc",
+                         "spans": r["count"], "branches": [r],
+                         "error": r["error"], "g3": r["g3"]})
+
+    for name, pts, note, src in M.cases():
+        add(name, pts)
+    for name, pts, note, src in A.cases():
+        add(name, pts)
+    for name, pts, note, src in Mac.cases():
+        add(name, pts)
+    for name, pts, note, src in GA.cases():
+        add(name, pts)
+    for name, pts, note, src in P.cases():
+        add(name, pts)
+    for case in B.CASES:
+        b, _ang = B.measure(case)
+        add(f"biarc · {case[0]}", b["first"] + b["second"])
+    add("Reuleaux triangle", R.reuleaux())
+    for name, alpha, c in Q.CASES:
+        add(name, Q.qac(alpha, c))
+    # Pell: two exact hyperbolic branches
+    for sign in (1, -1):
+        pts = []
+        for i in range(401):
+            t = -2.5 + 5.0 * i / 400.0
+            pts.append((sign * math.cosh(t), math.sinh(t) / math.sqrt(2.0)))
+        add("Pell · x² − 2y² = 1" + (" · +" if sign > 0 else " · −"), pts)
+    add("catenary", C.branch(120.0, 60.0, 240))
     return rows
 
 
@@ -480,7 +531,7 @@ def preset_rows():
     for name in ("s-curve", "ogee", "bracket", "petal"):
         r = fit_poly_best(pts_of(name))
         key = f"preset · {name}"
-        if r is None:
+        if r is None or not r["pass"]:
             rows.append({"key": key, "admitted": False, "source": "preset",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
@@ -501,7 +552,7 @@ def primal_rows():
             chain = engine.build(trace.design)
             pts = [chain.point(chain.length * i / 240.0) for i in range(241)]
             r = fit_poly_best(pts)
-            if r is None:
+            if r is None or not r["pass"]:
                 fitted = None
                 break
             fitted.append(r)
@@ -527,7 +578,7 @@ def lac_rows():
         pts = S.lac_branches(spine["spans"])
         key = f"LAC · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
         r = fit_poly_best(pts[0])
-        if r is None:
+        if r is None or not r["pass"]:
             rows.append({"key": key, "admitted": False, "source": "lac",
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
@@ -549,7 +600,7 @@ def stage_two_rows():
             key = (f"Stage II · {fig['figure']} · {title}"
                    + ("" if len(fig["spines"]) == 1 else f" · spine {k + 1}"))
             r = fit_poly_best(pts[0])
-            if r is None:
+            if r is None or not r["pass"]:
                 rows.append({"key": key, "admitted": False, "source": "stage-two",
                              "reason": "cusp or singular sample; no G3 interpolation"})
             else:
@@ -575,6 +626,7 @@ def catalogue():
             })
     rows.extend(heart_rows())
     rows.extend(integer_cubic_rows())
+    rows.extend(misc_rows())
     rows.extend(preset_rows())
     rows.extend(primal_rows())
     rows.extend(lac_rows())
@@ -699,7 +751,8 @@ def build():
     groups = [("named", "Named curves"), ("heart", "Heart forms"),
               ("integer-cubic", "Integer cubics"),
               ("preset", "Presets"), ("primal", "Primals"),
-              ("lac", "LAC spines"), ("stage-two", "Stage II spines")]
+              ("lac", "LAC spines"), ("stage-two", "Stage II spines"),
+              ("misc", "Other families")]
     sections, nav = [], []
     for src, label in groups:
         items = [r for r in drawn if (r.get("source") or "named") == src]
