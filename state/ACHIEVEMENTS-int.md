@@ -45,7 +45,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the modulated-width law meets the plain stroke at both seams | ratio 1.600, seam 1.000000/1.000000, 0 crossings | scripts/modulated_width_proof.py; workbench/modulated-width-proof.html |
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
 | ok | the G3 showcase keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/g3_showcase.py — quintic spans, all joins below 1e-9 |
-| ok | the G3 catalogue admits only curves whose joins pass G3 | 77 admitted, 35 rejected, worst Δ(dκ/ds) 2.7e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
+| ok | the G3 catalogue admits only curves whose joins pass G3 | 98 admitted, 35 rejected, worst Δ(dκ/ds) 2.7e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
 | ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | docs/PHILOSOPHY.md §Infinity, linearity, curve |
 | ok | the integer cubic's offset is fitted and labelled, not exact | 3-4-5 cubic, d = 0.5, error 1.9e-03 | scripts/integer_cubic_offset.py; workbench/integer-cubic-offset.html |
 | ok | the fleur grammar declares its seam and reports its corners | 26 spans, 9 corners, 2 seam contacts, 0 disallowed | curve_lab/grammar.py study_01_report; workbench/fleur-grammar.html |

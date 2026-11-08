@@ -947,6 +947,384 @@
    ]
   },
   {
+   "key": "integer cubic \u00b7 13-84-85",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.1384122811097797e-17,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.1384122811097797e-17,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 7-24-25",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 5.273559366969494e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 5.273559366969494e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 5-12-13",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 8.465450562766819e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 8.465450562766819e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 8-15-17",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.2385925618474403e-15,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.2385925618474403e-15,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 3-4-5",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.8540724511240114e-14,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.8540724511240114e-14,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 20-21-29",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.1120258320017626e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.1120258320017626e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 4-3-5",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 5.620504062164855e-15,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 5.620504062164855e-15,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 15-8-17",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 9.818534874028728e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 9.818534874028728e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 12-5-13",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.282896094385478e-15,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.282896094385478e-15,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 24-7-25",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 3.946495907847236e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 3.946495907847236e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 84-13-85",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.6861108823328372e-17,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.6861108823328372e-17,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 144-17-145 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.0669227003615167e-17,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.0669227003615167e-17,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 40-9-41 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.089257586379567e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.089257586379567e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 24-7-25 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 4.0137164425413374e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 4.0137164425413374e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 12-5-13 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.7963061593739837e-15,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.7963061593739837e-15,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 15-8-17 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 9.636388909051163e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 9.636388909051163e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 4-3-5 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.141448047192739e-14,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.141448047192739e-14,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 21-20-29 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 7.892991815694472e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 7.892991815694472e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 3-4-5 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 1.7659484985443896e-14,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 1.7659484985443896e-14,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 8-15-17 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.0621525320674294e-16,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.0621525320674294e-16,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
+   "key": "integer cubic \u00b7 5-12-13 C",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0,
+   "g3": 2.2961233608898013e-15,
+   "relative": 0.0,
+   "source": "integer-cubic",
+   "branches": [
+    {
+     "error": 0.0,
+     "g3": 2.2961233608898013e-15,
+     "pass": true,
+     "closed": false,
+     "count": 5
+    }
+   ]
+  },
+  {
    "key": "preset \u00b7 s-curve",
    "admitted": true,
    "reason": null,

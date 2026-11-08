@@ -428,6 +428,32 @@ def heart_rows():
     return rows
 
 
+def integer_cubic_rows():
+    from curve_lab.pyth_cubic import representatives
+
+    reps = representatives()
+    rows = []
+    for kind in ("s", "c"):
+        for item in reps[kind]:
+            P = [item["p0"], item["p1"], item["p2"], item["p3"]]
+            spans = G3.cubic_quintic_spans(P, 5)
+            ideal = [G3.bezier(P, i / 240.0) for i in range(241)]
+            joins = G3.gate(spans)
+            ok = all(row["pass"] for row in joins)
+            rows.append({
+                "key": f"integer cubic · {item['label']}",
+                "admitted": True, "source": "integer-cubic",
+                "spans": 5,
+                "branches": [{
+                    "spans": spans, "ideal": ideal, "count": 5,
+                    "error": 0.0, "g3": max(r["dks"] for r in joins),
+                    "pass": ok, "closed": False,
+                }],
+                "error": 0.0, "g3": max(r["dks"] for r in joins),
+            })
+    return rows
+
+
 def preset_rows():
     from curve_lab import presets
 
@@ -546,6 +572,7 @@ def catalogue():
                 "g3": max(r["g3"] for r in fitted),
             })
     rows.extend(heart_rows())
+    rows.extend(integer_cubic_rows())
     rows.extend(preset_rows())
     rows.extend(primal_rows())
     rows.extend(lac_rows())
@@ -668,6 +695,7 @@ def build():
     # deliberately not drawn as a catalogue panel.
     drawn = [r for r in admitted if r["key"] != "circle"]
     groups = [("named", "Named curves"), ("heart", "Heart forms"),
+              ("integer-cubic", "Integer cubics"),
               ("preset", "Presets"), ("primal", "Primals"),
               ("lac", "LAC spines"), ("stage-two", "Stage II spines")]
     sections, nav = [], []

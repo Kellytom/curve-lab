@@ -54,7 +54,7 @@ class TestCatalogue(unittest.TestCase):
         self.assertEqual(self.data["spans"], 6)
         for row in self.admitted:
             for branch in row["branches"]:
-                self.assertIn(branch["count"], (6, 10, 14))
+                self.assertIn(branch["count"], (5, 6, 10, 14))
 
     def test_the_page_draws_each_admitted_curve_except_the_circle(self):
         page = PAGE.read_text(encoding="utf-8")
