@@ -302,16 +302,6 @@
    ]
   },
   {
-   "key": "astroid",
-   "admitted": false,
-   "reason": "cusp, point at infinity, or singular handle solve",
-   "error": null,
-   "g3": null,
-   "relative": null,
-   "source": "named",
-   "branches": []
-  },
-  {
    "key": "trifolium",
    "admitted": true,
    "reason": null,
@@ -4297,6 +4287,57 @@
     {
      "error": 34.23723405104757,
      "g3": 5.348250732258378e-16,
+     "pass": true,
+     "closed": false,
+     "count": 6,
+     "trimmed": false,
+     "seam_pass": true,
+     "g3_seam": 0.0
+    }
+   ]
+  },
+  {
+   "key": "astroid",
+   "admitted": true,
+   "reason": null,
+   "error": 0.0073838230303886416,
+   "g3": 7.153588832409241e-11,
+   "relative": 0.0026203878023499465,
+   "source": "cusp",
+   "branches": [
+    {
+     "error": 0.007383823030380716,
+     "g3": 3.249800428761773e-11,
+     "pass": true,
+     "closed": false,
+     "count": 6,
+     "trimmed": false,
+     "seam_pass": true,
+     "g3_seam": 0.0
+    },
+    {
+     "error": 0.0073838230303886416,
+     "g3": 4.002331799313197e-11,
+     "pass": true,
+     "closed": false,
+     "count": 6,
+     "trimmed": false,
+     "seam_pass": true,
+     "g3_seam": 0.0
+    },
+    {
+     "error": 0.007383823030376809,
+     "g3": 4.7884141096687927e-11,
+     "pass": true,
+     "closed": false,
+     "count": 6,
+     "trimmed": false,
+     "seam_pass": true,
+     "g3_seam": 0.0
+    },
+    {
+     "error": 0.007383823030373489,
+     "g3": 7.153588832409241e-11,
      "pass": true,
      "closed": false,
      "count": 6,

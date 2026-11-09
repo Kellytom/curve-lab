@@ -639,6 +639,81 @@ def stage_two_rows():
     return rows
 
 
+def astroid_rows():
+    """The astroid, split into four smooth arcs between its cusps.
+
+    A cusp is a declared feature, not a G3 join: the arcs are fitted, the
+    cusps are left as the gaps between them.
+    """
+    cusps = [0.0, math.pi / 2, math.pi, 3 * math.pi / 2, 2 * math.pi]
+    branches = []
+    for a, b in zip(cusps, cusps[1:]):
+        pad = 0.05
+        pts = [(math.cos(a + pad + (b - a - 2 * pad) * i / 120) ** 3,
+                math.sin(a + pad + (b - a - 2 * pad) * i / 120) ** 3)
+               for i in range(121)]
+        r = fit_poly_best(pts)
+        if r is None:
+            return [{"key": "astroid", "admitted": False, "source": "cusp",
+                     "reason": "cusp arcs do not fit"}]
+        branches.append(r)
+    return [{
+        "key": "astroid", "admitted": True, "source": "cusp",
+        "spans": max(r["count"] for r in branches), "branches": branches,
+        "error": max(r["error"] for r in branches),
+        "g3": max(r["g3"] for r in branches),
+    }]
+
+
+def cusp_ideal(key):
+    if key == "astroid":
+        return [(math.cos(t) ** 3, math.sin(t) ** 3) for t in
+                [2 * math.pi * i / 240 for i in range(241)]]
+    spec = next(s for s in G.NAMED if s["key"] == key)
+    data = G.named_data(spec)
+    if data.get("ctrl"):
+        pts, _ = branch_points(data["ctrl"][0])
+        return pts
+    return [(float(x), float(y)) for x, y in (data.get("paths") or [[]])[0]]
+
+
+def cusp_examples(admitted_keys):
+    names = ["astroid", "deltoid", "nephroid", "epicycloid k=3",
+             "epicycloid k=5", "hypocycloid k=5", "cardioid"]
+    out = []
+    for name in names:
+        pts = cusp_ideal(name)
+        if pts:
+            status = ("admitted · cusp allowed" if name in admitted_keys
+                      else "not admitted")
+            out.append({"name": name, "pts": pts, "reason": status})
+    return out
+
+
+def deviation_examples():
+    out = []
+    spec = next(s for s in G.NAMED if s["key"] == "squircle")
+    data = G.named_data(spec)
+    if data.get("paths"):
+        out.append({"name": "squircle",
+                    "pts": [(float(x), float(y)) for x, y in data["paths"][0]],
+                    "reason": "deviation 31.2% · too coarse for 5%"})
+    import heart_forms as H
+    out.append({"name": "heart · Beutel upper",
+                "pts": [(float(x), float(y)) for x, y in H.beutel()[0]],
+                "reason": "deviation 6.3% · too coarse for 5%"})
+    out.append({"name": "LAC · Fig. 1 · p = -3, turn 270",
+                "pts": lac_ideal(), "reason": "deviation 9.3% · too coarse for 5%"})
+    return out
+
+
+def lac_ideal():
+    import stem_library as S
+    data = json.loads((ROOT / "workbench" / "spirals" / "lac.json").read_text())
+    return [(float(x), float(y))
+            for x, y in S.lac_branches(data["figures"][0]["spines"][0]["spans"])[0]]
+
+
 def failing_examples():
     """Three original showcase curves that still fail, and why."""
     out = []
@@ -675,7 +750,7 @@ def ideal_svg(ex, w=360, h=240):
   <path d="{_path(pts, f)}" fill="none" stroke="{INK}" stroke-width="2"/>
   <line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>
   <text x="10" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">{ex['name']}</text>
-  <text x="10" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{RED}">{ex['reason']}</text>
+  <text x="10" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{GREEN if ex['reason'].startswith('admitted') else RED}">{ex['reason']}</text>
   <text x="10" y="52" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">original showcase · not admitted</text>
 </svg>"""
 
@@ -701,6 +776,8 @@ def catalogue():
     rows.extend(primal_rows())
     rows.extend(lac_rows())
     rows.extend(stage_two_rows())
+    rows.extend(astroid_rows())
+    rows = [r for r in rows if not (r["key"] == "astroid" and not r["admitted"])]
     for row in rows:
         if not row["admitted"]:
             continue
@@ -856,9 +933,15 @@ def build():
     from collections import Counter
     fam = Counter((r.get("source") or "named") for r in admitted)
     family_line = ", ".join(f"{k} {v}" for k, v in sorted(fam.items()))
-    failed = "".join(
+    admitted_keys = {r["key"] for r in admitted}
+    cusp_cards = "".join(
         f'<section class="panel">{ideal_svg(ex)}</section>'
-        for ex in failing_examples())
+        for ex in cusp_examples(admitted_keys))
+    dev_cards = "".join(
+        f'<section class="panel">{ideal_svg(ex)}</section>'
+        for ex in deviation_examples())
+    cusped_hearts = [r["key"] for r in admitted if r.get("source") == "heart"]
+    heart_line = ", ".join(cusped_hearts[:8]) + (" …" if len(cusped_hearts) > 8 else "")
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -884,10 +967,10 @@ quintic span matches them at both ends, and the two handle lengths are chosen to
 deviation from the ideal. The table's <code>max deviation</code> is a geometric distance, not
 a parameter error. A curve is admitted only when the deviation is under 5% of its own size;
 the rejected reasons state the measured share. The G3 gate is computed from the Bézier
-derivatives, not from the drawn polyline. The one exemption is the
-<strong>closure seam</strong> — the point where a closed shape starts and ends. It is a
-point on the shape, not a body join; a body join at an acute angle, a curvature jump or a
-curvature-rate jump still fails.</p>
+derivatives, not from the drawn polyline. Two exemptions are declared: the
+<strong>closure seam</strong> — the point where a closed shape starts and ends — and a
+<strong>cusp</strong>, which is split into smooth arcs. Neither is a body join; a body join
+at an acute angle, a curvature jump or a curvature-rate jump still fails.</p>
 
 <p class="small" style="margin:0 0 18px">{nav_line}</p>
 
@@ -914,12 +997,24 @@ theory on the <a href="g3-notes.html">G3 notes page</a> ·
 terminals on the <a href="g3-cut.html">extend-and-cut page</a>.</p>
 </section>
 
+<hr class="bottom-rule">
 <section class="panel">
-<h2>Still failing · examples from the original showcase</h2>
-<p class="small">These are not invented chains. Each is a source curve that still misses
-G3 for a reason other than the closure seam: a cusp, or a deviation over 5% of its own
-size. They stay visible instead of being quietly dropped.</p>
-<div class="grid">{failed}</div>
+<h2>Cusp curves · allowed with a declared cusp</h2>
+<p class="small">A cusp is a declared feature, not a G3 join. The curve is split into
+smooth arcs between cusps; G3 applies to the arcs, not to the cusp itself. The astroid is
+admitted as four such arcs (max deviation 0.0074). The other -oids and the cardioid were
+already admitted.</p>
+<div class="grid">{cusp_cards}</div>
+<p class="small">Cusped hearts already admitted: {heart_line}. See the Heart forms group.</p>
+</section>
+
+<hr class="bottom-rule">
+<section class="panel">
+<h2>Still failing · deviation</h2>
+<p class="small">These are not cusp failures. They are source curves whose best quintic
+interpolation still misses by more than 5% of the curve size; they stay visible instead of
+being quietly dropped. The squircle is the clearest case.</p>
+<div class="grid">{dev_cards}</div>
 </section>
 </main></body></html>
 """

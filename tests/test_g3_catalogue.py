@@ -75,16 +75,27 @@ class TestCatalogue(unittest.TestCase):
         for row in self.admitted:
             if row["key"] == "circle":
                 self.assertNotIn("Fig. G3.C · circle", page)
+            elif row.get("source") == "cusp":
+                self.assertIn(row["key"], page)   # shown in the cusp section
             else:
                 self.assertIn(f"Fig. G3.C · {row['key']}", page)
         for row in self.rejected:
             self.assertIn(row["key"], page)
 
-    def test_the_bottom_shows_the_still_failing_examples(self):
+    def test_the_bottom_has_cusp_and_deviation_sections(self):
         page = PAGE.read_text(encoding="utf-8")
-        self.assertIn("Still failing · examples from the original showcase", page)
-        for key in ("astroid", "squircle", "heart · Beutel upper"):
+        self.assertIn("Cusp curves · allowed with a declared cusp", page)
+        self.assertIn("Still failing · deviation", page)
+        for key in ("astroid", "deltoid", "nephroid"):
             self.assertIn(key, page)
+        for key in ("squircle", "heart · Beutel upper"):
+            self.assertIn(key, page)
+
+    def test_the_astroid_is_admitted_as_cusp_arcs(self):
+        astroid = next(r for r in self.admitted if r["key"] == "astroid")
+        self.assertEqual(astroid["source"], "cusp")
+        self.assertEqual(len(astroid["branches"]), 4)
+        self.assertLess(astroid["g3"], 1e-9)
 
     def test_the_circle_is_not_drawn(self):
         page = PAGE.read_text(encoding="utf-8")
