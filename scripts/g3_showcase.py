@@ -669,7 +669,7 @@ def construction_block(panel):
     return f"""<div class="how">
 <figure class="mini"><figcaption>ideal</figcaption>{mini_svg(panel, 'ideal')}</figure>
 <figure class="mini"><figcaption>G3 interpolation</figcaption>{mini_svg(panel, 'interp')}</figure>
-<figure class="mini"><figcaption>{'integer cubics ×625' if panel.get('ints') else 'cubic controls'}</figcaption>{mini_svg(panel, 'integer')}</figure>
+<figure class="mini"><figcaption>{panel.get('controls_label') or ('integer cubics ×625' if panel.get('ints') else 'cubic controls')}</figcaption>{mini_svg(panel, 'integer')}</figure>
 </div>"""
 
 
@@ -786,6 +786,66 @@ still fails. The goal is 80% or more of the original showcase admitted to G3.</p
 </section>"""
 
 
+def comparison_panel(name, pts, status, branches=None):
+    import g3_catalogue as C
+    if branches is None:
+        r = C.fit_poly_best(pts)
+        if r is None:
+            r = C.fit_poly(pts, 6) or C.fit_poly(pts, 10, trim=0.02)
+        if r is None:
+            return None
+        branches = [r]
+    spans = [P for br in branches for P in br["spans"]]
+    knots = [br["spans"][0][0] for br in branches] + [branches[-1]["spans"][-1][-1]]
+    return {
+        "name": name, "source_pts": pts, "spans": spans, "knots": knots,
+        "error": max(br["error"] for br in branches),
+        "g3": max(br["g3"] for br in branches),
+        "jump": True, "status": status, "controls_label": "quintic spans",
+    }
+
+
+def comparison_curve_svg(panel, w=520, h=300):
+    pts = [p for P in panel["spans"] for p in (bezier(P, i / 30.0) for i in range(31))]
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
+    f = Frame(w, h, min(xs) - pad, max(xs) + pad,
+              min(ys) - pad, max(ys) + pad)
+    ground_y = min(ys) - 0.35 * pad
+    ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
+    body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
+            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+    for P in panel["spans"]:
+        body.append(f'<path d="{_path([bezier(P, i / 30.0) for i in range(31)], f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
+        cp = [f(p) for p in P]
+        body.append(f'<path d="{" ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}" for i, (x, y) in enumerate(cp))}" fill="none" stroke="{GOLD}" stroke-width="0.8" stroke-dasharray="3 3"/>')
+    for p in panel["knots"][1:-1]:
+        x, y = f(p)
+        body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.0" fill="none" stroke="{GREEN}" stroke-width="1.2"/>')
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  {''.join(body)}
+  <text x="10" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">{panel['name']}</text>
+  <text x="10" y="{h - 8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{panel['status']} · max deviation {panel['error']:.1e} · dκ/ds {panel['g3']:.1e}</text>
+</svg>"""
+
+
+def comparison_card(panel):
+    return f"""<div class="compare-item">
+<h3>{panel['name']}</h3>
+<div class="panel-grid">
+<div class="main">{comparison_curve_svg(panel)}</div>
+<div class="side">
+<div class="side-head">1 · G3 acceleration</div>
+{acceleration_svg(panel)}
+<div class="side-head">2 · how it is made</div>
+{construction_block(panel)}
+</div>
+</div>
+</div>"""
+
+
 def gate_table(panel):
     rows = []
     for row in gate(panel["spans"]):
@@ -854,26 +914,33 @@ def build():
     except Exception:
         admitted_keys = set()
     import g3_catalogue as C
-    cusp_cards = "".join(
-        f'<div class="cusp-card">{C.ideal_svg(ex)}</div>'
-        for ex in C.cusp_examples(admitted_keys))
     import heart_forms as H
-    heart_cases = [
-        ("heart · Beutel lower", H.beutel()[1]),
-        ("heart · Wu–Nick upper", H.wu_nick()[0]),
-        ("heart · Sio lower", H.sio()[1]),
+    astroid_branches = C.astroid_rows()[0]["branches"]
+    cusp_cases = [
+        ("astroid", C.cusp_ideal("astroid"), "admitted · cusp allowed",
+         astroid_branches),
+        ("deltoid", C.cusp_ideal("deltoid"), "admitted · cusp allowed", None),
+        ("nephroid", C.cusp_ideal("nephroid"), "admitted · cusp allowed", None),
+        ("heart · Beutel lower",
+         [(float(x), float(y)) for x, y in H.beutel()[1]],
+         "admitted · cusp allowed", None),
     ]
-    for name, pts in heart_cases:
-        status = ("admitted · cusp allowed" if name in admitted_keys
-                  else "not admitted · deviation")
-        cusp_cards += ('<div class="cusp-card">'
-                       + C.ideal_svg({"name": name,
-                                      "pts": [(float(x), float(y)) for x, y in pts],
-                                      "reason": status})
-                       + '</div>')
-    dev_cards = "".join(
-        f'<div class="cusp-card">{C.ideal_svg(ex)}</div>'
-        for ex in C.deviation_examples())
+    cusp_panels = []
+    for name, pts, status, branches in cusp_cases:
+        p = comparison_panel(name, pts, status, branches=branches)
+        if p is not None:
+            cusp_panels.append(p)
+    cusp_cards = "".join(comparison_card(p) for p in cusp_panels)
+
+    dev_cases = [("squircle", "not admitted · deviation 31.2%"),
+                 ("heart · Beutel upper", "not admitted · deviation 6.3%")]
+    dev_panels = []
+    for name, status in dev_cases:
+        ex = next(e for e in C.deviation_examples() if e["name"] == name)
+        p = comparison_panel(name, ex["pts"], status)
+        if p is not None:
+            dev_panels.append(p)
+    dev_cards = "".join(comparison_card(p) for p in dev_panels)
     heart_line = ", ".join(sorted(k for k in admitted_keys if k.startswith("heart")))
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -935,7 +1002,7 @@ notes: <a href="g3-notes.html">G3 notes</a></p>
 smooth arcs between cusps, and G3 applies to the arcs. The astroid is admitted as four such
 arcs; the other -oids and the cardioid are already admitted. Cusped hearts: {heart_line}.
 These are quintic cases, not cubic panels.</p>
-<div class="catalogue-grid">{cusp_cards}</div>
+{cusp_cards}
 </section>
 
 <hr class="bottom-rule">
@@ -943,7 +1010,7 @@ These are quintic cases, not cubic panels.</p>
 <h2>Still failing · deviation</h2>
 <p class="small">Not cusp failures: the best quintic interpolation misses by more than 5%
 of the curve size. The squircle is the clearest case.</p>
-<div class="catalogue-grid">{dev_cards}</div>
+{dev_cards}
 </section>
 </main></body></html>
 """
