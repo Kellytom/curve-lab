@@ -44,8 +44,8 @@ class TestDiagnostics(unittest.TestCase):
             svgs = block.split("<svg")[1:]
             self.assertEqual(len(svgs), 2)
             with self.subTest(panel=block.split("<h2>")[1].split(" <span")[0]):
-                self.assertGreaterEqual(svgs[0].count("#a23b2a"), 1)
-                self.assertGreaterEqual(svgs[1].count("#a23b2a"), 1)
+                self.assertGreaterEqual(svgs[0].count("#e01b1b"), 1)
+                self.assertGreaterEqual(svgs[1].count("#e01b1b"), 1)
 
     def test_each_panel_has_a_zoom_button(self):
         self.assertEqual(self.page.count('class="zoom-btn"'), len(self.curves))

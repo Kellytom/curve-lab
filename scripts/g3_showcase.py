@@ -18,12 +18,14 @@ from __future__ import annotations
 
 import math
 import sys
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 PAPER = "#fbf7ec"
 INK, MUTED, GOLD, BLUE, RED = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8", "#a23b2a"
+RED_MARK = "#e01b1b"   # diagnostic rings and jump marks: brighter than text red
 RULE = "#d8ccae"
 GREEN = "#2f6b3a"
 
@@ -479,6 +481,65 @@ def _nice_step(span):
     return 20.0
 
 
+def _point_text(p, scale):
+    if scale:
+        return f"({round(p[0] * scale)}, {round(p[1] * scale)})"
+    return f"({p[0]:.4f}, {p[1]:.4f})"
+
+
+def _slope_text(dx, dy, scale):
+    if scale:
+        dx_i, dy_i = round(dx * scale), round(dy * scale)
+        if dx_i == 0:
+            return "vertical" if dy_i else "0"
+        f = Fraction(dy_i, dx_i)
+    else:
+        if abs(dx) < 1e-12:
+            return "vertical" if abs(dy) > 1e-12 else "0"
+        f = Fraction(dy / dx).limit_denominator(100000)
+    return (str(f.numerator) if f.denominator == 1
+            else f"{f.numerator}/{f.denominator}")
+
+
+def _handle_text(p, q, scale):
+    dx, dy = q[0] - p[0], q[1] - p[1]
+    if scale:
+        dx_i, dy_i = round(dx * scale), round(dy * scale)
+        n = dx_i * dx_i + dy_i * dy_i
+        r = math.isqrt(n)
+        length = str(r) if r * r == n else f"√{n}"
+    else:
+        length = f"{math.hypot(dx, dy):.4f}"
+    return length, _slope_text(dx, dy, scale)
+
+
+def control_table(panel):
+    """The handoff table: integer control points, handle lengths and slopes."""
+    scale = panel.get("scale") if panel.get("ints") else None
+    rows = []
+    for i, P in enumerate(panel["spans"]):
+        pts = "".join(f"<td>{_point_text(p, scale)}</td>" for p in P)
+        l1, s1 = _handle_text(P[0], P[1], scale)
+        l2, s2 = _handle_text(P[3], P[2], scale)
+        rows.append(f"<tr><td>{i + 1}</td>{pts}<td>{l1}</td><td>{l2}</td>"
+                    f"<td>{s1}</td><td>{s2}</td></tr>")
+    head = ("<tr><th>span</th>" + "".join(f"<th>P{i}</th>" for i in range(4))
+            + "<th>|P0P1|</th><th>|P3P2|</th><th>slope P0P1</th>"
+            "<th>slope P3P2</th></tr>")
+    if scale:
+        note = (f"Control points and handle vectors are integers at "
+                f"<code>×{scale}</code>. A handle length is an integer when the "
+                f"squared length is a perfect square; otherwise it is "
+                f"<code>√n</code>. Slopes are reduced fractions of the integer "
+                f"handle vector.")
+    else:
+        note = ("Control points are real, not integer. Lengths are shown to four "
+                "decimals; slopes are rational approximations of the real handle "
+                "vector.")
+    return (f'<table class="ctl">{head}{"".join(rows)}</table>'
+            f'<p class="small">{note}</p>')
+
+
 def fig_panel(panel, w=560, h=390):
     x0, x1, y0, y1 = _bbox(panel)
     pad = 0.10 * max(x1 - x0, y1 - y0)
@@ -577,7 +638,7 @@ def acceleration_svg(panel, w=360, h=220):
         joins.append(s)
     total = s or 1.0
     jump = panel.get("jump", False)
-    col = RED if jump else GREEN
+    col = RED_MARK if jump else GREEN
     lo, hi = min(vals), max(vals)
     if hi - lo < 1e-12:
         lo, hi = lo - 1.0, hi + 1.0
@@ -605,12 +666,41 @@ def acceleration_svg(panel, w=360, h=220):
                     f'y2="{gy(0):.1f}" stroke="{BLUE}" stroke-width="1" '
                     f'stroke-dasharray="3 3"/>')
 
+    rows = panel.get("rows") or gate(panel["spans"])
     marks = []
-    for j in joins[:-1]:
+    for j, row in zip(joins[:-1], rows):
         x = gx(j)
+        bad = jump and not row["pass"]
         marks.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
-                     f'y2="{h - bottom}" stroke="{GREEN}" stroke-width="0.8" '
+                     f'y2="{h - bottom}" stroke="{RED_MARK if bad else GREEN}" '
+                     f'stroke-width="{2.4 if bad else 0.8}" '
                      f'stroke-dasharray="2 3"/>')
+
+    red = []
+    if jump:
+        for idx in panel.get("breaks", []):
+            if 0 <= idx < len(joins):
+                x = gx(joins[idx])
+                red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
+                           f'y2="{h - bottom}" stroke="{RED_MARK}" '
+                           f'stroke-width="2.6"/>')
+                red.append(f'<circle cx="{x:.1f}" cy="{top + 8}" r="4" '
+                           f'fill="{RED_MARK}"/>')
+                red.append(f'<text x="{x + 6:.1f}" y="{top + 12}" '
+                           f'font-family="ui-monospace,Menlo,monospace" '
+                           f'font-size="9" fill="{RED_MARK}">cusp</text>')
+        if not panel.get("breaks") and vals:
+            idx = max(range(len(vals)), key=lambda i: abs(vals[i]))
+            x = gx(xs[idx])
+            y = min(max(gy(vals[idx]), top), h - bottom)
+            red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
+                       f'y2="{h - bottom}" stroke="{RED_MARK}" '
+                       f'stroke-width="2.6"/>')
+            red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="none" '
+                       f'stroke="{RED_MARK}" stroke-width="2.6"/>')
+            red.append(f'<text x="{min(x + 7, w - 62):.1f}" y="{top + 12}" '
+                       f'font-family="ui-monospace,Menlo,monospace" '
+                       f'font-size="9" fill="{RED_MARK}">cusp</text>')
 
     d = " ".join(("M" if i == 0 else "L") + f"{gx(x):.1f},{gy(y):.1f}"
                  for i, (x, y) in enumerate(zip(xs, vals)))
@@ -620,11 +710,12 @@ def acceleration_svg(panel, w=360, h=220):
   <line x1="{left}" y1="{top}" x2="{left}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
   <line x1="{left}" y1="{h - bottom}" x2="{w - right}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
   {''.join(marks)}
+  {''.join(red)}
   <path d="{d}" fill="none" stroke="{INK}" stroke-width="2"/>
-  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{'dκ/ds · non-G3 joins' if jump else 'G3 acceleration · dκ/ds'}</text>
+  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{'dκ/ds · cusp / failing join' if jump else 'G3 acceleration · dκ/ds'}</text>
   <text x="{left + (w - left - right) / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
   <text x="12" y="{top + (h - top - bottom) / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 12 {top + (h - top - bottom) / 2:.0f})">dκ/ds</text>
-  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{'red: jumps' if jump else 'green: joins'}</text>
+  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{'red: cusp / failing join' if jump else 'green: joins'}</text>
 </svg>"""
 
 
@@ -789,7 +880,7 @@ still fails. The goal is 80% or more of the original showcase admitted to G3.</p
 </section>"""
 
 
-def comparison_panel(name, pts, status, branches=None):
+def comparison_panel(name, pts, status, branches=None, jump=False):
     import g3_catalogue as C
     if branches is None:
         r = C.fit_poly_best(pts)
@@ -800,11 +891,22 @@ def comparison_panel(name, pts, status, branches=None):
         branches = [r]
     spans = [P for br in branches for P in br["spans"]]
     knots = [br["spans"][0][0] for br in branches] + [branches[-1]["spans"][-1][-1]]
+    breaks, cusp_s, cusp_pt = [], None, None
+    if jump and len(branches) > 1:
+        count = 0
+        for br in branches[:-1]:
+            count += len(br["spans"])
+            breaks.append(count - 1)
+    elif jump:
+        problem = C.problem_of_spans(spans)
+        cusp_s = problem["s"]
+        cusp_pt = problem["point"]
     return {
         "name": name, "source_pts": pts, "spans": spans, "knots": knots,
         "error": max(br["error"] for br in branches),
         "g3": max(br["g3"] for br in branches),
-        "jump": True, "status": status, "controls_label": "quintic spans",
+        "jump": jump, "breaks": breaks, "cusp_s": cusp_s, "cusp_pt": cusp_pt,
+        "status": status, "controls_label": "quintic spans",
     }
 
 
@@ -826,6 +928,13 @@ def comparison_curve_svg(panel, w=520, h=300):
     for p in panel["knots"][1:-1]:
         x, y = f(p)
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.0" fill="none" stroke="{GREEN}" stroke-width="1.2"/>')
+    if panel.get("jump") and panel.get("cusp_pt"):
+        X, Y = f(panel["cusp_pt"])
+        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="9" fill="none" '
+                    f'stroke="{RED_MARK}" stroke-width="2.6"/>')
+        body.append(f'<text x="{min(max(X + 12, 8), w - 52):.1f}" '
+                    f'y="{max(Y - 10, 40):.1f}" font-family="ui-monospace,Menlo,monospace" '
+                    f'font-size="9" fill="{RED_MARK}">cusp</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(body)}
@@ -872,6 +981,7 @@ h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 
 .panel{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;margin:0 0 18px}
 table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%%}
 th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
+.ctl{font-size:10.5px}.ctl td,.ctl th{padding:3px 5px;white-space:nowrap}
 .ok{color:%(green)s} .bad{color:%(red)s;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid %(gold)s;padding:12px 16px;margin:0 0 18px}
@@ -992,7 +1102,7 @@ def build():
 {construction_block(p)}
 </div>
 </div>
-{gate_table(p)}
+{control_table(p)}
 <p class="small">{p['note']}</p>
 </section>""" for p in PANELS)
 
@@ -1016,7 +1126,7 @@ def build():
     ]
     cusp_panels = []
     for name, pts, status, branches in cusp_cases:
-        p = comparison_panel(name, pts, status, branches=branches)
+        p = comparison_panel(name, pts, status, branches=branches, jump=True)
         if p is not None:
             cusp_panels.append(p)
     cusp_cards = "".join(comparison_card(p) for p in cusp_panels)
@@ -1038,20 +1148,22 @@ def build():
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
 <h1>Cubic Béziers, every join G3</h1>
-<p class="lede">Cubic Béziers only. Every span has four control points; every join is
-<strong>G3</strong> in position, tangent, curvature and curvature-rate. These are the
-cubic solutions: the curve is a cubic (or one cubic polynomial cut into pieces), so the
-quintic G3 representation <em>collapses to a cubic</em>. The bell is the exception: it is
-not a cubic, so it is carried as an independent eight-span cubic chain, solved for G3;
-its control points are real, not integer. Inkscape and the glyph pipeline need four-point
-spans, so this is the page they read; the other non-cubic curves — the log spiral and the
-sine wave — stay on
-<a href="quintic-showcase.html">Quintic Béziers every join G3</a>.</p>
-<p class="small">Each panel reads left to right: the curve; its G3 acceleration
-<code>dκ/ds</code> with the cuts marked; then the construction pipeline — ideal, G3
-interpolation, integer cubic spans at ×625.</p>
+<p class="lede"><strong>Cubic Béziers, every join G3</strong> is the lead: every span
+has four control points; every join is <strong>G3</strong> in position, tangent,
+curvature and curvature-rate. These are the cubic solutions: the curve is a cubic (or
+one cubic polynomial cut into pieces), so the quintic G3 representation
+<em>collapses to a cubic</em>. The bell is the exception: it is not a cubic, so it is
+carried as an independent eight-span cubic chain, solved for G3; its control points are
+real, not integer. Inkscape and the glyph pipeline need four-point spans, so this is the
+lead they read. Every other complete curve — quintic, cusp, node or sampled — follows in
+the gallery below.</p>
+<p class="small">Each panel: the curve; its G3 acceleration <code>dκ/ds</code> with the
+cuts marked; the construction pipeline (ideal, G3 interpolation, integer cubic spans at
+×625); then the <strong>handoff table</strong> — every control point, the two handle
+lengths, and the rational slope of each handle. The join error tables are on the
+<a href="g3-notes.html">G3 notes page</a>.</p>
 
-<div class="rule"><strong>Why cubic only.</strong> A generic cubic cannot carry a G3
+<div class="rule"><strong>Why this cubic lead.</strong> A generic cubic cannot carry a G3
 join: four control points against the five join conditions. The cases here are the ones
 where it can — the whole curve is one cubic polynomial, cut at the fifths, so every cut
 is the same polynomial and all derivatives agree. The quintic G3 span is a degree
@@ -1060,8 +1172,8 @@ cubic, so it cannot collapse: eight independent four-point spans, solved for G3,
 at a peak error of 7.5e-6. The four-cubic bell is the rejected case; the eight-span chain
 is the passing one. The circle is G3 everywhere and is explained on the
 <a href="g3-notes.html">G3 notes page</a>. The <a href="g3-catalogue.html">G3 catalogue</a>
-records which other curves admit a quintic interpolation; this page only carries the
-cubic ones.</div>
+records which other curves admit a quintic interpolation; the gallery below carries
+every G3-complete curve, not only the cubics.</div>
 
 {panels}
 
@@ -1074,10 +1186,11 @@ a near-cusp inside: the ends match, but the span nearly stops and <code>dκ/ds</
 spikes. Every span here is also required to keep a speed above <strong>10% of its
 chord</strong>, and each panel reports its speed floor (59–92% on this page). The
 interior-speed check is what keeps the acceleration graphs readable.</p>
-<p>Each table is computed from the Bézier derivatives at the join, not from a sampled
-polyline: position gap, tangent angle, curvature gap and curvature-rate gap. The pass
-threshold is <code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the
-tangent angle (floating-point noise). The integer cubic's controls are integers at
+<p>The join error tables are on the <a href="g3-notes.html">G3 notes page</a>, one per
+curve, computed from the Bézier derivatives at the join, not from a sampled polyline:
+position gap, tangent angle, curvature gap and curvature-rate gap. The pass threshold is
+<code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the tangent angle
+(floating-point noise). The integer cubic's controls are integers at
 <code>×625</code> on the five integer panels; that is a lattice statement about the
 handles, not a claim that the curve is integer between the cuts. The bell's controls are
 real; only its span count and G3 data are fixed.</p>
@@ -1110,6 +1223,29 @@ of the curve size. The squircle is the clearest case.</p>
 </section>
 </main></body></html>
 """
+    # The main showcase is the cubic lead plus every G3-complete curve. The
+    # gallery is rendered by g3_handover.gallery_payload() so both pages share
+    # one fit and one set of badges.
+    import g3_handover as H
+    payload = H.gallery_payload()
+    gallery = (
+        '<hr class="bottom-rule">'
+        f'<h2 id="every-curve" class="group">Every complete curve · '
+        f'{len(payload["complete"])}</h2>'
+        '<p class="small">Every G3-complete curve, grouped by source, in the same '
+        'panel format: curve left, <code>dκ/ds</code> right. A red ring marks the '
+        'tightest span below 25% of the chord; the 10% floor is the admission '
+        'line. <a href="g3-diagnostics.html">Tightest-span diagnostics</a>.</p>'
+        + "".join(payload["sections"]))
+    html = html.replace(
+        "<title>G3 showcase · cubic Béziers, every join G3</title>",
+        "<title>G3 showcase · cubic lead and every complete curve</title>")
+    html = html.replace(
+        "<h1>Cubic Béziers, every join G3</h1>",
+        "<h1>G3 showcase · cubic lead and every complete curve</h1>")
+    html = html.replace("</style>", H.EXTRA_CSS + "</style>", 1)
+    html = html.replace("</main>", gallery + "</main>", 1)
+
     out = ROOT / "workbench" / "g3-showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)
@@ -1133,6 +1269,16 @@ def notes_circle():
   <text x="{w / 2:.0f}" y="{h - 12}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}">x (model units)</text>
   <text x="15" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}" transform="rotate(-90 15 {h / 2:.0f})">y (model units)</text>
 </svg>"""
+
+
+def notes_panels():
+    return "".join(
+        f"""<section class="panel">
+<h2>Fig. {p['key']} · {p['title']}</h2>
+<div class="main">{fig_panel(p)}</div>
+{gate_table(p)}
+<p class="small">{p['note']}</p>
+</section>""" for p in PANELS)
 
 
 def notes_html():
@@ -1181,6 +1327,15 @@ new curve at each knot, so all derivatives agree. Figs. G3.3 and G3.5 use that c
 The bell, the log spiral and the sine wave are not cubics, so their independent spans are
 quintic instead.</p>
 </section>
+
+<section class="panel">
+<h2>The six panels, with their error tables</h2>
+<p>Each showcase curve is repeated here with the join measurement the showcase no longer
+carries: position gap <code>|Δp|</code>, tangent angle, curvature gap
+<code>|Δκ|</code> and curvature-rate gap <code>|Δ(dκ/ds)|</code>, with the pass or fail
+on every body join.</p>
+</section>
+{notes_panels()}
 
 <section class="panel">
 <h2>Why independent cubics usually fail</h2>

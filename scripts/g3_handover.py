@@ -28,6 +28,7 @@ import g3_showcase as S  # noqa: E402
 
 PAPER, INK, MUTED, GOLD = S.PAPER, S.INK, S.MUTED, S.GOLD
 BLUE, RED, RULE, GREEN = S.BLUE, S.RED, S.RULE, S.GREEN
+RED_MARK = "#e01b1b"   # brighter than the text red, for the diagnostic marks
 
 EXTRA_CSS = """
 .grid{display:grid;grid-template-columns:1fr;gap:0}
@@ -120,17 +121,17 @@ def curve_svg(row, w=560, h=360, mark=False):
         if wp:
             _, p = wp
             X, Y = f(p["point"])
-            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="10" '
-                        f'fill="none" stroke="{RED}" stroke-width="2.4"/>')
-            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="2.2" fill="{RED}"/>')
-            lx = min(max(X + 14, 8), w - 190)
-            ly = min(max(Y - 12, 58), h - 46)
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="11" '
+                        f'fill="none" stroke="{RED_MARK}" stroke-width="3.4"/>')
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="3.0" fill="{RED_MARK}"/>')
+            lx = min(max(X + 15, 8), w - 200)
+            ly = min(max(Y - 13, 58), h - 46)
             body.append(f'<text x="{lx:.1f}" y="{ly:.1f}" '
-                        f'font-family="ui-monospace,Menlo,monospace" font-size="10" '
-                        f'fill="{RED}">tightest · {p["ratio"]:.1%} of chord speed</text>')
+                        f'font-family="ui-monospace,Menlo,monospace" font-size="11" '
+                        f'fill="{RED_MARK}">tightest · {p["ratio"]:.1%} of chord speed</text>')
 
     if mark:
-        badge, col = f"tightest {row.get('min_speed', 0):.1%}", RED
+        badge, col = f"tightest {row.get('min_speed', 0):.1%}", RED_MARK
     elif row.get("smooth"):
         badge, col = "smooth handover", GREEN
     else:
@@ -268,10 +269,10 @@ def accel_svg(row, w=380, h=240, mark=False):
         X = gx(px)
         Y = min(max(gy(pv), top), h - bottom)
         red.append(f'<line x1="{X:.1f}" y1="{top}" x2="{X:.1f}" '
-                   f'y2="{h - bottom}" stroke="{RED}" stroke-width="1.2" '
+                   f'y2="{h - bottom}" stroke="{RED_MARK}" stroke-width="2.0" '
                    f'stroke-dasharray="4 3"/>')
-        red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="8" '
-                   f'fill="none" stroke="{RED}" stroke-width="2.2"/>')
+        red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="10" '
+                   f'fill="none" stroke="{RED_MARK}" stroke-width="3.0"/>')
 
     broke = " · declared breaks marked" if len(segs) > 1 else ""
     if clipped:
@@ -346,7 +347,8 @@ def row_problem(row):
             "s": p["s"], "ratio": p["ratio"]}
 
 
-def build():
+def gallery_payload():
+    """The grouped gallery sections and counts, shared by both pages."""
     rows = C.catalogue()
     complete = [r for r in rows if r.get("g3_complete")]
     smooth = [r for r in complete if r.get("smooth")]
@@ -365,6 +367,20 @@ def build():
         cards = "".join(panel(r, ring=is_tight(r)) for r in items)
         sections.append(f'<h2 id="g-{src}" class="group">{label} · {len(items)}</h2>'
                         f'<div class="grid">{cards}</div>')
+    return {"rows": rows, "complete": complete, "smooth": smooth,
+            "declared": declared, "problems": problems,
+            "nav": nav, "sections": sections}
+
+
+def build():
+    payload = gallery_payload()
+    rows = payload["rows"]
+    complete = payload["complete"]
+    smooth = payload["smooth"]
+    declared = payload["declared"]
+    problems = payload["problems"]
+    nav = payload["nav"]
+    sections = payload["sections"]
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -389,7 +405,7 @@ curve, the solid line the delivered G3 chain, the green circles the joins. On th
 right, <code>dκ/ds</code> is plotted against arc length; green lines are G3 joins, gold
 dashed lines are declared breaks between paths (a cusp or node), and the blue dashed
 line is zero. A smooth curve has one path and no gold line. A <span
-style="color:{RED}">red ring</span> marks the tightest span when the speed floor is
+style="color:{RED_MARK}">red ring</span> marks the tightest span when the speed floor is
 below 25% of the chord; those curves are also collected on the
 <a href="g3-diagnostics.html">tightest-span diagnostics page</a>, where the same point
 is ringed on both figures. The record gives the deviation as a share of the curve

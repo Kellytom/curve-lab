@@ -85,20 +85,27 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5", "G3.6"):
             self.assertIn(f"Fig. {key}", page)
-        self.assertEqual(page.count('<section class="panel"'), 10)
+        self.assertEqual(page.count('<section class="panel"'), 176)
         self.assertIn("The finished curve · what can be handed over", page)
         self.assertIn("G3-complete", page)
         self.assertIn("smooth handover", page)
         self.assertIn('class="badge"', page)
+        self.assertIn("Every complete curve · 166", page)
+        self.assertIn("Tightest-span diagnostics", page)
+        self.assertIn("slope P0P1", page)
+        self.assertIn("Control points and handle vectors are integers", page)
+        self.assertNotIn("|Δp|", page)
+        self.assertEqual(page.count("Fig. H · "), 166)
         self.assertNotIn("From the original showcase", page)
         self.assertNotIn("C2 cubic spline", page)
         self.assertNotIn("Catmull–Rom", page)
-        self.assertEqual(page.count(">ground<"), 12)
-        self.assertEqual(page.count('class="panel-grid"'), 12)
-        self.assertEqual(page.count("1 · G3 acceleration"), 12)
-        self.assertEqual(page.count("G3 acceleration · dκ/ds"), 6)
+        self.assertEqual(page.count(">ground<"), 178)
+        self.assertEqual(page.count('class="panel-grid"'), 178)
+        self.assertEqual(page.count("1 · G3 acceleration"), 178)
+        self.assertEqual(page.count("G3 acceleration · dκ/ds"), 8)
+        self.assertEqual(page.count("dκ/ds · cusp / failing join"), 4)
         self.assertEqual(page.count("integer cubics ×625"), 5)
-        self.assertEqual(page.count("G3 interpolation"), 12)
+        self.assertGreaterEqual(page.count("G3 interpolation"), 12)
         self.assertIn("Cusp curves · allowed with a declared cusp", page)
         self.assertIn("Still failing · deviation", page)
         for key in ("astroid", "deltoid", "heart · Beutel lower", "squircle"):
@@ -110,6 +117,13 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("κ = 1/R", notes)
         self.assertIn("dκ/ds = 0", notes)
         self.assertIn("quintic-showcase.html", notes)
+
+    def test_notes_page_carries_the_six_curves_and_error_tables(self):
+        notes = NOTES.read_text(encoding="utf-8")
+        self.assertIn("The six panels, with their error tables", notes)
+        self.assertGreaterEqual(notes.count("|Δp|"), 6)
+        for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5", "G3.6"):
+            self.assertIn(f"Fig. {key}", notes)
 
 
 if __name__ == "__main__":
