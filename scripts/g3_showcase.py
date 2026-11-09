@@ -640,98 +640,37 @@ def construction_block(panel):
 </div>"""
 
 
-def _solve_linear(A, b):
-    n = len(b)
-    A = [row[:] for row in A]
-    b = b[:]
-    for i in range(n):
-        p = max(range(i, n), key=lambda r: abs(A[r][i]))
-        if abs(A[p][i]) < 1e-14:
-            return None
-        A[i], A[p] = A[p], A[i]
-        b[i], b[p] = b[p], b[i]
-        for r in range(i + 1, n):
-            f = A[r][i] / A[i][i]
-            for c in range(i, n):
-                A[r][c] -= f * A[i][c]
-            b[r] -= f * b[i]
-    x = [0.0] * n
-    for i in reversed(range(n)):
-        x[i] = (b[i] - sum(A[i][j] * x[j] for j in range(i + 1, n))) / A[i][i]
-    return x
+def showcase_comparison_panels():
+    """Three curves from the original showcase that are still outside G3.
 
-
-def natural_spline_spans(xs, ys):
-    """A natural cubic spline through the stations, as cubic Bezier spans.
-
-    The spline is C2, not G3: curvature is continuous, curvature-rate jumps
-    because the third derivative changes at each station. That is the point of
-    the comparison, and it is a curve, not an arc.
+    These are not invented comparison splines. Each is the best quintic G3 fit
+    the conveyor can make now; the failing join is the one we still have to fix.
     """
-    n = len(xs) - 1
-    h = [xs[i + 1] - xs[i] for i in range(n)]
-    A = [[0.0] * (n + 1) for _ in range(n + 1)]
-    b = [0.0] * (n + 1)
-    A[0][0] = 1.0
-    A[n][n] = 1.0
-    for i in range(1, n):
-        A[i][i - 1] = h[i - 1]
-        A[i][i] = 2.0 * (h[i - 1] + h[i])
-        A[i][i + 1] = h[i]
-        b[i] = 6.0 * ((ys[i + 1] - ys[i]) / h[i]
-                      - (ys[i] - ys[i - 1]) / h[i - 1])
-    M = _solve_linear(A, b)
-    if M is None:
-        return None
-    spans = []
-    for i in range(n):
-        d0 = (-M[i] * h[i] / 2.0 + (ys[i + 1] - ys[i]) / h[i]
-              - (M[i + 1] - M[i]) * h[i] / 6.0)
-        d1 = (M[i + 1] * h[i] / 2.0 + (ys[i + 1] - ys[i]) / h[i]
-              - (M[i + 1] - M[i]) * h[i] / 6.0)
-        P0 = (xs[i], ys[i])
-        P3 = (xs[i + 1], ys[i + 1])
-        P1 = (xs[i] + h[i] / 3.0, ys[i] + h[i] * d0 / 3.0)
-        P2 = (xs[i + 1] - h[i] / 3.0, ys[i + 1] - h[i] * d1 / 3.0)
-        spans.append([P0, P1, P2, P3])
-    return spans
+    import generators as G
+    import g3_catalogue as C
 
-
-def catmull_spans(points):
-    """A Catmull-Rom chain: C1 (tangent continuous), curvature jumps."""
-    n = len(points) - 1
-    T = []
-    for i in range(n + 1):
-        if i == 0:
-            T.append((points[1][0] - points[0][0], points[1][1] - points[0][1]))
-        elif i == n:
-            T.append((points[n][0] - points[n - 1][0],
-                      points[n][1] - points[n - 1][1]))
-        else:
-            T.append(((points[i + 1][0] - points[i - 1][0]) / 2.0,
-                      (points[i + 1][1] - points[i - 1][1]) / 2.0))
-    spans = []
-    for i in range(n):
-        P0, P3 = points[i], points[i + 1]
-        P1 = (P0[0] + T[i][0] / 3.0, P0[1] + T[i][1] / 3.0)
-        P2 = (P3[0] - T[i + 1][0] / 3.0, P3[1] - T[i + 1][1] / 3.0)
-        spans.append([P0, P1, P2, P3])
-    return spans
-
-
-def comparison_panels():
-    xs = [math.pi * i / 5.0 for i in range(6)]
-    pts = [(x, math.sin(2.0 * x)) for x in xs]
     out = []
-    for name, spans, kind in (
-            ("C2 cubic spline", natural_spline_spans(xs, [p[1] for p in pts]),
-             "curvature continuous · curvature-rate jumps"),
-            ("C1 Catmull–Rom", catmull_spans(pts),
-             "tangent continuous · curvature jumps")):
-        rows = gate(spans)
+    for key in ("bow", "strophoid", "bernoulli"):
+        spec = next((s for s in G.NAMED if s["key"] == key), None)
+        if spec is None:
+            continue
+        data = G.named_data(spec)
+        best = None
+        for bi, ctrl in enumerate(data["ctrl"] or []):
+            r = C.fit_branch_any(ctrl)
+            if r is None:
+                continue
+            if best is None or r["g3"] > best[0]["g3"]:
+                best = (r, bi, len(data["ctrl"]))
+        if best is None:
+            continue
+        r, bi, count = best
+        name = key + (f" · branch {bi + 1}/{count}" if count > 1 else "")
         out.append({
-            "name": name, "kind": kind, "spans": spans, "jump": True,
-            "rows": rows, "g3": max(r["dks"] for r in rows),
+            "name": name, "kind": "from the original showcase · not yet G3",
+            "spans": r["spans"], "rows": r["rows"],
+            "seam": any(row["join"] == "seam" for row in r["rows"]),
+            "jump": True, "g3": r["g3"],
         })
     return out
 
@@ -753,8 +692,12 @@ def comparison_curve(panel, w=520, h=260):
         q = [bezier(P, i / 40.0) for i in range(41)]
         body.append(f'<path d="{_path(q, f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
     for row in panel["rows"]:
-        i = int(row["join"].split("–")[0])
-        x, y = f(bezier(panel["spans"][i], 1.0))
+        if row["join"] == "seam":
+            p0 = bezier(panel["spans"][0], 0.0)
+        else:
+            i = int(row["join"].split("–")[0])
+            p0 = bezier(panel["spans"][i], 1.0)
+        x, y = f(p0)
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5.5" fill="none" stroke="{RED}" stroke-width="1.5"/>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']} · not G3">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
@@ -768,7 +711,8 @@ def comparison_table(panel):
     rows = "".join(
         f"<tr><td>{r['join']}</td><td>{r['dp']:.1e}</td>"
         f"<td>{r['angle']:.1e}°</td><td>{r['dk']:.1e}</td>"
-        f"<td>{r['dks']:.1e}</td><td class=\"bad\">not G3</td></tr>"
+        f"<td>{r['dks']:.1e}</td><td class=\"{'ok' if r['pass'] else 'bad'}\">"
+        f"{'G3' if r['pass'] else 'fails'}</td></tr>"
         for r in panel["rows"])
     return ("<table><tr><th>join</th><th>|Δp|</th><th>angle</th>"
             "<th>|Δκ|</th><th>|Δ(dκ/ds)|</th><th>gate</th></tr>"
@@ -776,6 +720,8 @@ def comparison_table(panel):
 
 
 def comparison_section():
+    import json
+    panels = showcase_comparison_panels()
     cards = "".join(
         f"""<div class="compare-item">
 <h3>{p['name']}</h3>
@@ -784,14 +730,25 @@ def comparison_section():
 <div class="side">{acceleration_svg(p)}</div>
 </div>
 {comparison_table(p)}
-</div>""" for p in comparison_panels())
+</div>""" for p in panels)
+    progress = ""
+    try:
+        data = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
+        total = len(data["curves"])
+        admitted = sum(1 for r in data["curves"] if r["admitted"])
+        pct = 100.0 * admitted / total if total else 0.0
+        target = math.ceil(0.8 * total)
+        progress = (f"<p><strong>Catalogue progress:</strong> {admitted} of {total} "
+                    f"({pct:.0f}%) admitted; the 80% target is {target}.</p>")
+    except Exception:
+        pass
     return f"""<hr class="bottom-rule">
 <section class="panel">
-<h2>For comparison · not G3</h2>
-<p>Two cubic chains through the same six stations, not arcs. The C2 spline is
-curvature-continuous; the C1 Catmull–Rom is only tangent-continuous. Their
-<code>dκ/ds</code> jumps at the joins are marked red, against the continuous green-marked
-G3 panels above. The line at the bottom of each drawing is the ground datum.</p>
+<h2>From the original showcase · still outside G3</h2>
+{progress}
+<p>These are original showcase curves, not invented comparison splines. Each is
+the best quintic G3 fit the conveyor can make now; the red join is the one that
+still fails. The goal is 80% or more of the original showcase admitted to G3.</p>
 {cards}
 </section>"""
 

@@ -175,6 +175,7 @@ def fit_branch(ctrl, nspans=SPANS, trim=0.0):
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
+        "rows": joins,
         "pass": all(row["pass"] for row in joins),
         "closed": closed,
     }
@@ -321,6 +322,7 @@ def fit_poly(pts, nspans=SPANS, trim=0.0):
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max(row["dks"] for row in joins),
+        "rows": joins,
         "pass": all(row["pass"] for row in joins),
         "closed": closed,
     }
@@ -336,6 +338,17 @@ def fit_branch_best(ctrl):
         if best is not None:
             return best
     return None
+
+
+def fit_branch_any(ctrl):
+    """The best fit even when the G3 gate fails — for the comparison panel."""
+    best = None
+    for trim in (0.0, 0.015):
+        for n in (6, 10):
+            r = fit_branch(ctrl, n, trim=trim)
+            if r is not None and (best is None or r["error"] < best["error"]):
+                best = r
+    return best
 
 
 def fit_poly_best(pts):
