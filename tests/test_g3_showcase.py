@@ -63,6 +63,10 @@ class TestCubicPages(unittest.TestCase):
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5"):
             self.assertIn(f"Fig. {key}", page)
         self.assertEqual(page.count('<section class="panel">'), 6)
+        self.assertEqual(page.count('class="panel-grid"'), 5)
+        self.assertEqual(page.count("G3 acceleration · dκ/ds"), 5)
+        self.assertEqual(page.count("integer cubics ×625"), 5)
+        self.assertEqual(page.count("G3 interpolation"), 5)
 
     def test_notes_page_still_explains_the_circle(self):
         notes = NOTES.read_text(encoding="utf-8")

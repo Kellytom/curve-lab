@@ -351,7 +351,7 @@ def _cubic_panel(key, title, P, note, scale=625):
     ints = all(abs(round(v * scale) - v * scale) < 1e-6
                for S in spans for p in S for v in p)
     return {
-        "key": key, "title": title, "spans": spans, "knots": knots,
+        "key": key, "title": title, "source": P, "spans": spans, "knots": knots,
         "error": 0.0, "error_name": "exact cubic pieces",
         "kind": "cubic · collapsed quintic", "ints": ints, "scale": scale,
         "note": note,
@@ -513,6 +513,109 @@ def fig_panel(panel, w=560, h=390):
 </svg>"""
 
 
+def acceleration_svg(panel, w=360, h=220):
+    """The G3 acceleration curve: d(kappa)/ds along the chain, joins marked."""
+    xs, vals, joins = [], [], []
+    s = 0.0
+    prev = None
+    for P in panel["spans"]:
+        for i in range(41):
+            t = i / 40.0
+            q = bezier(P, t)
+            if prev is not None:
+                s += math.dist(prev, q)
+            xs.append(s)
+            vals.append(curvature_rate(P, t))
+            prev = q
+        joins.append(s)
+    total = s or 1.0
+    lo, hi = min(vals), max(vals)
+    if hi - lo < 1e-12:
+        lo, hi = lo - 1.0, hi + 1.0
+    pad = 0.12 * (hi - lo)
+    f = Frame(w, h, 0.0, 1.0, lo - pad, hi + pad, pad=34)
+
+    grid = []
+    for k in range(6):
+        y = lo - pad + (hi - lo + 2 * pad) * k / 5
+        a, b = f((0.0, y)), f((1.0, y))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.6"/>')
+    if lo < 0 < hi:
+        a, b = f((0.0, 0.0)), f((1.0, 0.0))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="3 3"/>')
+
+    pts = [(f((x / total, y))) for x, y in zip(xs, vals)]
+    path = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
+                    for i, (x, y) in enumerate(pts))
+    marks = []
+    for j in joins[:-1]:
+        x = f((j / total, lo - pad))[0]
+        marks.append(f'<line x1="{x:.1f}" y1="{f((0.0, lo - pad))[1]:.1f}" '
+                     f'x2="{x:.1f}" y2="{f((0.0, hi + pad))[1]:.1f}" '
+                     f'stroke="{GREEN}" stroke-width="0.8" stroke-dasharray="2 3"/>')
+    a, b = f((0.0, 0.0)), f((1.0, 0.0))
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="curvature-rate along the curve">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  {''.join(grid)}
+  <line x1="{a[0]:.1f}" y1="{f((0.0, lo - pad))[1]:.1f}" x2="{a[0]:.1f}" y2="{f((0.0, hi + pad))[1]:.1f}" stroke="{INK}" stroke-width="1"/>
+  <line x1="{a[0]:.1f}" y1="{b[1]:.1f}" x2="{f((1.0, 0.0))[0]:.1f}" y2="{b[1]:.1f}" stroke="{INK}" stroke-width="1"/>
+  {''.join(marks)}
+  <path d="{path}" fill="none" stroke="{INK}" stroke-width="2"/>
+  <text x="12" y="20" font-family="Georgia,serif" font-size="12" fill="{INK}">G3 acceleration · dκ/ds</text>
+  <text x="{w / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
+  <text x="10" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 10 {h / 2:.0f})">dκ/ds</text>
+  <text x="{w - 10}" y="{h - 24}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">green: joins</text>
+</svg>"""
+
+
+def mini_svg(panel, mode, w=150, h=110):
+    """A small diagram: the ideal, the G3 spans, or the integer controls."""
+    pts = [bezier(panel["source"], i / 120.0) for i in range(121)]
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
+    f = Frame(w, h, min(xs) - pad, max(xs) + pad,
+              min(ys) - pad, max(ys) + pad, pad=10)
+    if mode == "ideal":
+        return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="ideal curve">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  <path d="{' '.join(('M' if i == 0 else 'L') + f'{x:.1f},{y:.1f}' for i, (x, y) in enumerate(f(p) for p in pts))}" fill="none" stroke="{MUTED}" stroke-width="1.2" stroke-dasharray="3 3"/>
+</svg>"""
+    body = []
+    for P in panel["spans"]:
+        q = [bezier(P, i / 30.0) for i in range(31)]
+        d = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
+                     for i, (x, y) in enumerate(f(p) for p in q))
+        body.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="1.4"/>')
+    if mode == "integer":
+        for P in panel["spans"]:
+            cp = [f(p) for p in P]
+            d = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
+                         for i, (x, y) in enumerate(cp))
+            body.append(f'<path d="{d}" fill="none" stroke="{GOLD}" stroke-width="0.8" stroke-dasharray="2 2"/>')
+            body.extend(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="1.6" fill="{GOLD}"/>'
+                        for x, y in cp)
+    else:
+        for p in panel["knots"][1:-1]:
+            x, y = f(p)
+            body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.2" fill="none" stroke="{GREEN}" stroke-width="1.1"/>')
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{mode}">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  {''.join(body)}
+</svg>"""
+
+
+def construction_block(panel):
+    return f"""<div class="how">
+<figure class="mini"><figcaption>ideal</figcaption>{mini_svg(panel, 'ideal')}</figure>
+<figure class="mini"><figcaption>G3 interpolation</figcaption>{mini_svg(panel, 'interp')}</figure>
+<figure class="mini"><figcaption>integer cubics ×625</figcaption>{mini_svg(panel, 'integer')}</figure>
+</div>"""
+
+
 def gate_table(panel):
     rows = []
     for row in gate(panel["spans"]):
@@ -540,6 +643,14 @@ th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:va
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid %(gold)s;padding:12px 16px;margin:0 0 18px}
 code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+.panel-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,1fr);gap:16px;align-items:start}
+.main{min-width:0}
+.side{display:grid;gap:7px;min-width:0}
+.side-head{font:11px/1.3 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:2px 0 0}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.mini{margin:0;background:#fffdf7;border:1px solid var(--rule);padding:3px}
+.mini figcaption{font:10px/1.3 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:980px){.panel-grid{grid-template-columns:1fr}}
 """ % {"paper": PAPER, "ink": INK, "muted": MUTED, "rule": RULE,
        "green": GREEN, "red": RED, "gold": GOLD}
 
@@ -548,7 +659,15 @@ def build():
     panels = "".join(
         f"""<section class="panel">
 <h2>Fig. {p['key']} · {p['title']}</h2>
-{fig_panel(p)}
+<div class="panel-grid">
+<div class="main">{fig_panel(p)}</div>
+<div class="side">
+<div class="side-head">1 · G3 acceleration</div>
+{acceleration_svg(p)}
+<div class="side-head">2 · how it is made</div>
+{construction_block(p)}
+</div>
+</div>
 {gate_table(p)}
 <p class="small">{p['note']}</p>
 </section>""" for p in PANELS)
@@ -567,6 +686,9 @@ quintic G3 representation <em>collapses to a cubic</em>. Inkscape and the glyph 
 need four-point spans, so this is the page they read; the non-cubic curves — the bell,
 the log spiral, the sine wave — stay on
 <a href="quintic-showcase.html">Quintic Béziers every join G3</a>.</p>
+<p class="small">Each panel reads left to right: the curve; its G3 acceleration
+<code>dκ/ds</code> with the cuts marked; then the construction pipeline — ideal, G3
+interpolation, integer cubic spans at ×625.</p>
 
 <div class="rule"><strong>Why cubic only.</strong> A generic cubic cannot carry a G3
 join: four control points against the five join conditions. The cases here are the ones
