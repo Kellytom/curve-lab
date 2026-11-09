@@ -673,7 +673,7 @@ def acceleration_svg(panel, w=360, h=220):
         bad = jump and not row["pass"]
         marks.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
                      f'y2="{h - bottom}" stroke="{RED_MARK if bad else GREEN}" '
-                     f'stroke-width="{2.4 if bad else 0.8}" '
+                     f'stroke-width="{3.2 if bad else 0.8}" '
                      f'stroke-dasharray="2 3"/>')
 
     red = []
@@ -683,24 +683,24 @@ def acceleration_svg(panel, w=360, h=220):
                 x = gx(joins[idx])
                 red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
                            f'y2="{h - bottom}" stroke="{RED_MARK}" '
-                           f'stroke-width="2.6"/>')
-                red.append(f'<circle cx="{x:.1f}" cy="{top + 8}" r="4" '
+                           f'stroke-width="3.2"/>')
+                red.append(f'<circle cx="{x:.1f}" cy="{top + 11}" r="7" '
                            f'fill="{RED_MARK}"/>')
-                red.append(f'<text x="{x + 6:.1f}" y="{top + 12}" '
+                red.append(f'<text x="{x + 8:.1f}" y="{top + 16}" '
                            f'font-family="ui-monospace,Menlo,monospace" '
-                           f'font-size="9" fill="{RED_MARK}">cusp</text>')
+                           f'font-size="11" fill="{RED_MARK}">cusp</text>')
         if not panel.get("breaks") and vals:
             idx = max(range(len(vals)), key=lambda i: abs(vals[i]))
             x = gx(xs[idx])
-            y = min(max(gy(vals[idx]), top), h - bottom)
+            y = min(max(gy(vals[idx]), top + 13), h - bottom - 13)
             red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
                        f'y2="{h - bottom}" stroke="{RED_MARK}" '
-                       f'stroke-width="2.6"/>')
-            red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="6" fill="none" '
-                       f'stroke="{RED_MARK}" stroke-width="2.6"/>')
-            red.append(f'<text x="{min(x + 7, w - 62):.1f}" y="{top + 12}" '
+                       f'stroke-width="3.2"/>')
+            red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="none" '
+                       f'stroke="{RED_MARK}" stroke-width="4.0"/>')
+            red.append(f'<text x="{min(x + 8, w - 64):.1f}" y="{top + 16}" '
                        f'font-family="ui-monospace,Menlo,monospace" '
-                       f'font-size="9" fill="{RED_MARK}">cusp</text>')
+                       f'font-size="11" fill="{RED_MARK}">cusp</text>')
 
     d = " ".join(("M" if i == 0 else "L") + f"{gx(x):.1f},{gy(y):.1f}"
                  for i, (x, y) in enumerate(zip(xs, vals)))
@@ -930,11 +930,13 @@ def comparison_curve_svg(panel, w=520, h=300):
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.0" fill="none" stroke="{GREEN}" stroke-width="1.2"/>')
     if panel.get("jump") and panel.get("cusp_pt"):
         X, Y = f(panel["cusp_pt"])
-        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="9" fill="none" '
-                    f'stroke="{RED_MARK}" stroke-width="2.6"/>')
-        body.append(f'<text x="{min(max(X + 12, 8), w - 52):.1f}" '
-                    f'y="{max(Y - 10, 40):.1f}" font-family="ui-monospace,Menlo,monospace" '
-                    f'font-size="9" fill="{RED_MARK}">cusp</text>')
+        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="15" fill="none" '
+                    f'stroke="{RED_MARK}" stroke-width="4.2"/>')
+        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" '
+                    f'fill="{RED_MARK}"/>')
+        body.append(f'<text x="{min(max(X + 18, 8), w - 56):.1f}" '
+                    f'y="{max(Y - 12, 40):.1f}" font-family="ui-monospace,Menlo,monospace" '
+                    f'font-size="11" fill="{RED_MARK}">cusp</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(body)}
@@ -1148,22 +1150,23 @@ def build():
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
 <h1>Cubic Béziers, every join G3</h1>
-<p class="lede"><strong>Cubic Béziers, every join G3</strong> is the lead: every span
-has four control points; every join is <strong>G3</strong> in position, tangent,
-curvature and curvature-rate. These are the cubic solutions: the curve is a cubic (or
-one cubic polynomial cut into pieces), so the quintic G3 representation
-<em>collapses to a cubic</em>. The bell is the exception: it is not a cubic, so it is
-carried as an independent eight-span cubic chain, solved for G3; its control points are
-real, not integer. Inkscape and the glyph pipeline need four-point spans, so this is the
-lead they read. Every other complete curve — quintic, cusp, node or sampled — follows in
-the gallery below.</p>
+<p class="lede"><strong>Cubic Béziers only.</strong> Every span has four control
+points; every join is <strong>G3</strong> in position, tangent, curvature and
+curvature-rate. These are the cubic solutions: the curve is a cubic (or one cubic
+polynomial cut into pieces), so the quintic G3 representation <em>collapses to a
+cubic</em>. The bell is the exception: it is not a cubic, so it is carried as an
+independent eight-span cubic chain, solved for G3; its control points are real, not
+integer. Inkscape and the glyph pipeline need four-point spans, so this is the page
+they read. A curve that cannot be carried by a cubic chain is a declared quintic
+fallback on the <a href="g3-handover.html">G3 handover page</a>; it is not shown
+here.</p>
 <p class="small">Each panel: the curve; its G3 acceleration <code>dκ/ds</code> with the
 cuts marked; the construction pipeline (ideal, G3 interpolation, integer cubic spans at
 ×625); then the <strong>handoff table</strong> — every control point, the two handle
 lengths, and the rational slope of each handle. The join error tables are on the
 <a href="g3-notes.html">G3 notes page</a>.</p>
 
-<div class="rule"><strong>Why this cubic lead.</strong> A generic cubic cannot carry a G3
+<div class="rule"><strong>Why cubic only.</strong> A generic cubic cannot carry a G3
 join: four control points against the five join conditions. The cases here are the ones
 where it can — the whole curve is one cubic polynomial, cut at the fifths, so every cut
 is the same polynomial and all derivatives agree. The quintic G3 span is a degree
@@ -1172,8 +1175,9 @@ cubic, so it cannot collapse: eight independent four-point spans, solved for G3,
 at a peak error of 7.5e-6. The four-cubic bell is the rejected case; the eight-span chain
 is the passing one. The circle is G3 everywhere and is explained on the
 <a href="g3-notes.html">G3 notes page</a>. The <a href="g3-catalogue.html">G3 catalogue</a>
-records which other curves admit a quintic interpolation; the gallery below carries
-every G3-complete curve, not only the cubics.</div>
+records which other curves admit a quintic interpolation; a curve that cannot be
+carried by a cubic chain is a declared fallback on the
+<a href="g3-handover.html">G3 handover page</a>, not on this one.</div>
 
 {panels}
 
@@ -1223,29 +1227,6 @@ of the curve size. The squircle is the clearest case.</p>
 </section>
 </main></body></html>
 """
-    # The main showcase is the cubic lead plus every G3-complete curve. The
-    # gallery is rendered by g3_handover.gallery_payload() so both pages share
-    # one fit and one set of badges.
-    import g3_handover as H
-    payload = H.gallery_payload()
-    gallery = (
-        '<hr class="bottom-rule">'
-        f'<h2 id="every-curve" class="group">Every complete curve · '
-        f'{len(payload["complete"])}</h2>'
-        '<p class="small">Every G3-complete curve, grouped by source, in the same '
-        'panel format: curve left, <code>dκ/ds</code> right. A red ring marks the '
-        'tightest span below 25% of the chord; the 10% floor is the admission '
-        'line. <a href="g3-diagnostics.html">Tightest-span diagnostics</a>.</p>'
-        + "".join(payload["sections"]))
-    html = html.replace(
-        "<title>G3 showcase · cubic Béziers, every join G3</title>",
-        "<title>G3 showcase · cubic lead and every complete curve</title>")
-    html = html.replace(
-        "<h1>Cubic Béziers, every join G3</h1>",
-        "<h1>G3 showcase · cubic lead and every complete curve</h1>")
-    html = html.replace("</style>", H.EXTRA_CSS + "</style>", 1)
-    html = html.replace("</main>", gallery + "</main>", 1)
-
     out = ROOT / "workbench" / "g3-showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)

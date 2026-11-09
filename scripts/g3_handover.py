@@ -121,13 +121,13 @@ def curve_svg(row, w=560, h=360, mark=False):
         if wp:
             _, p = wp
             X, Y = f(p["point"])
-            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="11" '
-                        f'fill="none" stroke="{RED_MARK}" stroke-width="3.4"/>')
-            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="3.0" fill="{RED_MARK}"/>')
-            lx = min(max(X + 15, 8), w - 200)
-            ly = min(max(Y - 13, 58), h - 46)
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="15" '
+                        f'fill="none" stroke="{RED_MARK}" stroke-width="4.2"/>')
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" fill="{RED_MARK}"/>')
+            lx = min(max(X + 17, 8), w - 205)
+            ly = min(max(Y - 15, 58), h - 46)
             body.append(f'<text x="{lx:.1f}" y="{ly:.1f}" '
-                        f'font-family="ui-monospace,Menlo,monospace" font-size="11" '
+                        f'font-family="ui-monospace,Menlo,monospace" font-size="12" '
                         f'fill="{RED_MARK}">tightest · {p["ratio"]:.1%} of chord speed</text>')
 
     if mark:
@@ -204,6 +204,8 @@ def accel_svg(row, w=380, h=240, mark=False):
             problem_marks.append((xs[idx], vals[idx], p))
         offset += length + gap
 
+    if problem_marks:
+        problem_marks = [min(problem_marks, key=lambda item: item[2]["ratio"])]
     total = offset - gap if segs else 1.0
     finite = sorted(v for _o, _l, _xs, vs in segs for v in vs
                     if math.isfinite(v))
@@ -267,12 +269,12 @@ def accel_svg(row, w=380, h=240, mark=False):
     red = []
     for px, pv, p in problem_marks:
         X = gx(px)
-        Y = min(max(gy(pv), top), h - bottom)
+        Y = min(max(gy(pv), top + 13), h - bottom - 13)
         red.append(f'<line x1="{X:.1f}" y1="{top}" x2="{X:.1f}" '
-                   f'y2="{h - bottom}" stroke="{RED_MARK}" stroke-width="2.0" '
+                   f'y2="{h - bottom}" stroke="{RED_MARK}" stroke-width="3.0" '
                    f'stroke-dasharray="4 3"/>')
-        red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="10" '
-                   f'fill="none" stroke="{RED_MARK}" stroke-width="3.0"/>')
+        red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="12" '
+                   f'fill="none" stroke="{RED_MARK}" stroke-width="3.8"/>')
 
     broke = " · declared breaks marked" if len(segs) > 1 else ""
     if clipped:
