@@ -77,10 +77,19 @@
       "key": "g3-showcase",
       "file": "g3-showcase.html",
       "group": "curve",
-      "title": "G3 showcase",
-      "purpose": "Five independent Bézier spans per curve, every join measured G3.",
+      "title": "G3 showcase · cubic Béziers",
+      "purpose": "Cubic Béziers only: five cubic spans per curve, every join G3; collapsed quintics.",
+      "inputs": "one cubic per curve, cut at the fifths",
+      "outputs": "the four-point spans, integer at ×625, and the measured G3 gate"
+    },
+    {
+      "key": "quintic-showcase",
+      "file": "quintic-showcase.html",
+      "group": "curve",
+      "title": "Quintic Béziers every join G3",
+      "purpose": "The non-cubic curves as quintic G3 spans: bell, log spiral, sine, ogee, lattice.",
       "inputs": "knots with position, tangent, curvature and curvature-rate data",
-      "outputs": "the curves, their control polygons, and the measured G3 gate"
+      "outputs": "six-point spans and the measured G3 gate"
     },
     {
       "key": "g3-notes",

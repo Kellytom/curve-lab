@@ -36,7 +36,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 29 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| ok | the hub is built from the manifest and every page carries its bar | 72 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 73 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |
@@ -44,7 +44,8 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the ending fit pass attaches all ten sections without a fold | 10 sections, 0 crossings, min rail gap 0.50 | scripts/ending_fit.py; workbench/ending-fit.html |
 | ok | the modulated-width law meets the plain stroke at both seams | ratio 1.600, seam 1.000000/1.000000, 0 crossings | scripts/modulated_width_proof.py; workbench/modulated-width-proof.html |
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
-| ok | the G3 showcase keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/g3_showcase.py — quintic spans, all joins below 1e-9 |
+| ok | the cubic G3 showcase keeps every join G3 | 5 curves, 20 joins, worst Δ(dκ/ds) 1.1e-14 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
+| ok | the quintic page keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/quintic_showcase.py — six-point spans, all joins below 1e-9 |
 | ok | the G3 catalogue admits only curves whose joins pass G3 | 160 admitted, 72 rejected, worst Δ(dκ/ds) 5.0e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
 | ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | docs/PHILOSOPHY.md §Infinity, linearity, curve |

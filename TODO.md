@@ -54,7 +54,10 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
 - [x] One curve per figure for the six families; every note carries its panel
   SVG; c423 is the four-span G2 splice.
-- [x] **G3 showcase and catalogue.** Quintic Béziers, every join measured G3
+- [x] **Cubic G3 showcase, quintic preserved.** The G3 showcase now carries
+  four-point cubic spans only (collapsed quintics) for Inkscape/glyph work; the
+  original quintic page is preserved as `quintic-showcase.html` / “Quintic
+  Béziers every join G3”. The catalogue uses both. Quintic Béziers, every join G3
   (position, tangent, curvature, curvature-rate); the four-cubic bell is the
   rejected case. The catalogue attempts 232 candidates (named, hearts, integer cubics,
   presets, primals, all 31 LAC and 90 Stage II spines, and the misc families),

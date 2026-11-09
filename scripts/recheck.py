@@ -652,8 +652,8 @@ def c_pyth_cubic_catalogue():
     return ok, f"{len(rows)} curves, 632 sign variants, all integer"
 
 
-@check("the G3 showcase keeps every join G3",
-       "scripts/g3_showcase.py — quintic spans, all joins below 1e-9",
+@check("the cubic G3 showcase keeps every join G3",
+       "scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9",
        "python -m unittest tests.test_g3_showcase")
 def c_g3_showcase():
     import g3_showcase as G
@@ -663,6 +663,19 @@ def c_g3_showcase():
           and all(row["pass"] for row in rows))
     worst = max(row["dks"] for row in rows)
     return ok, f"{len(G.PANELS)} curves, {len(rows)} joins, worst Δ(dκ/ds) {worst:.1e}"
+
+
+@check("the quintic page keeps every join G3",
+       "scripts/quintic_showcase.py — six-point spans, all joins below 1e-9",
+       "python -m unittest tests.test_quintic_showcase")
+def c_quintic_showcase():
+    import quintic_showcase as Q
+    rows = [row for panel in Q.PANELS for row in Q.gate(panel["spans"])]
+    joins = sum(len(panel["spans"]) - 1 for panel in Q.PANELS)
+    ok = (len(Q.PANELS) == 5 and len(rows) == joins
+          and all(row["pass"] for row in rows))
+    worst = max(row["dks"] for row in rows)
+    return ok, f"{len(Q.PANELS)} curves, {len(rows)} joins, worst Δ(dκ/ds) {worst:.1e}"
 
 
 @check("the G3 catalogue admits only curves whose joins pass G3",

@@ -1,15 +1,14 @@
-"""A G3-only showcase: quintic Bezier spans, every join G3.
+"""A cubic-only G3 showcase: cubic Bezier spans, every join G3.
 
     .venv/bin/python scripts/g3_showcase.py
     open workbench/g3-showcase.html
     open workbench/g3-notes.html
 
 G3 at a join means position, tangent, curvature and curvature-rate all agree.
-The spans are independent: each has its own control points, and the join is a
-measured G3 join, not a shared polynomial. Where the curve itself is a cubic
-(the ogee and the lattice wave), the five spans collapse to cubics. Otherwise
-the spans are quintic, because a generic chain of independent cubics cannot
-carry G3: a cubic has four control points against five join conditions.
+Every span has four control points, because Inkscape and the glyph pipeline
+need cubics. The curves here are cubic (or one cubic cut into pieces), so the
+quintic G3 representation collapses to a cubic; the page shows the collapsed
+four-point form. The non-cubic curves live on the Quintic Beziers page.
 
 Circles are G3 everywhere; they are explained on the notes page rather than
 used as a showcase panel, because they pass the gate trivially.
@@ -18,9 +17,11 @@ used as a showcase panel, because they pass the gate trivially.
 from __future__ import annotations
 
 import math
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 PAPER = "#fbf7ec"
 INK, MUTED, GOLD, BLUE, RED = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8", "#a23b2a"
 RULE = "#d8ccae"
@@ -331,126 +332,84 @@ def cubic_spans_from(xs, f, df):
     return spans
 
 
-# -- the five showcase curves ----------------------------------------------
+# -- the cubic-only showcase ------------------------------------------------
 
-def bell_panel():
-    f = lambda x: math.exp(-x * x)
-    df = lambda x: -2.0 * x * math.exp(-x * x)
-    ddf = lambda x: (4.0 * x * x - 2.0) * math.exp(-x * x)
-    dddf = lambda x: (12.0 * x - 8.0 * x ** 3) * math.exp(-x * x)
-    xs = [-1.5 + 3.0 * i / 8.0 for i in range(9)]
-    spans, err = quintic_graph_spans(xs, f, df, ddf, dddf)
+def cubic_pieces(P, n=5):
+    """Cut one cubic into n exact cubic pieces (four control points each)."""
+    pieces = []
+    Q = list(P)
+    for k in range(n - 1):
+        left, Q = split_cubic(Q, 1.0 / (n - k))
+        pieces.append(left)
+    pieces.append(Q)
+    return pieces
+
+
+def _cubic_panel(key, title, P, note, scale=625):
+    spans = cubic_pieces(P, 5)
+    knots = [bezier(P, k / 5.0) for k in range(6)]
+    ints = all(abs(round(v * scale) - v * scale) < 1e-6
+               for S in spans for p in S for v in p)
     return {
-        "key": "G3.1", "title": "the Gaussian bell · eight quintic spans",
-        "spans": spans, "knots": [(x, f(x)) for x in xs],
-        "error": err, "error_name": "max |y − e^(−x²)|",
-        "kind": "quintic",
-        "note": ("This is the bell interpolation the four-cubic attempt could "
-                 "not make G3. With quintic spans it is G3: each span has "
-                 "six control points, and the join is measured. Magnify any "
-                 "join and the two spans still agree in position, direction, "
-                 "bend, and the smooth acceleration of the bend."),
-    }
-
-
-def log_panel():
-    b = 0.2
-    r = lambda t: (math.exp(b * t) * math.cos(t), math.exp(b * t) * math.sin(t))
-
-    def rd(t, order):
-        z = complex(b, 1.0) ** order * complex(math.cos(t), math.sin(t)) * math.exp(b * t)
-        return (z.real, z.imag)
-
-    def tangent(t):
-        d = rd(t, 1)
-        s = math.hypot(*d)
-        return (d[0] / s, d[1] / s)
-
-    def kappa(t):
-        d, dd = rd(t, 1), rd(t, 2)
-        return cross(d, dd) / math.hypot(*d) ** 3
-
-    def rho(t):
-        d, dd, ddd = rd(t, 1), rd(t, 2), rd(t, 3)
-        sp = math.hypot(*d)
-        N = cross(d, dd)
-        Np = cross(d, ddd)
-        return (Np / sp ** 3 - 3 * N * (d[0] * dd[0] + d[1] * dd[1]) / sp ** 5) / sp
-
-    ths = [2.0 * math.pi * i / 16.0 for i in range(17)]
-    spans, err = quintic_param_spans(ths, r, tangent, kappa, rho, r)
-    return {
-        "key": "G3.2", "title": "the log spiral · sixteen quintic spans",
-        "spans": spans, "knots": [r(t) for t in ths[:-1]],
-        "error": err, "error_name": "max distance to e^(0.2θ)(cos θ, sin θ)",
-        "kind": "quintic",
-        "note": ("A log spiral has curvature and curvature-rate defined "
-                 "everywhere, so its quintic spans can be G3-joined "
-                 "without a special case. The rate of change of curvature is "
-                 "the 'smooth acceleration' of the bend; it matches through "
-                 "every join, not just the curvature itself."),
+        "key": key, "title": title, "spans": spans, "knots": knots,
+        "error": 0.0, "error_name": "exact cubic pieces",
+        "kind": "cubic · collapsed quintic", "ints": ints, "scale": scale,
+        "note": note,
     }
 
 
 def ogee_panel():
     P = [(-2.0, -2.0), (-2.0, 2.0), (2.0, -2.0), (2.0, 2.0)]
-    spans = cubic_quintic_spans(P, 5)
-    scale = 3125
-    ints = all(abs(round(v * scale) - v * scale) < 1e-6
-               for S in spans for p in S for v in p)
-    knots = [bezier(P, k / 5.0) for k in range(6)]
-    return {
-        "key": "G3.3", "title": "the cubic ogee · quintic spans collapse to a cubic",
-        "spans": spans, "knots": knots,
-        "error": 0.0, "error_name": "exact cubic pieces",
-        "kind": "quintic (cubic collapse)", "ints": ints, "scale": scale,
-        "note": ("The curve is one cubic, so the five spans collapse to "
-                 "cubics: they are degree-elevated to quintics, six control "
-                 "points each, but only four are independent. Because the same "
-                 "polynomial runs through every knot, the curvature-rate "
-                 "matches too — the acceleration of the bend is smooth."),
-    }
-
-
-def wave_panel():
-    f = lambda x: math.sin(2.0 * x)
-    df = lambda x: 2.0 * math.cos(2.0 * x)
-    ddf = lambda x: -4.0 * math.sin(2.0 * x)
-    dddf = lambda x: -8.0 * math.cos(2.0 * x)
-    xs = [math.pi * i / 8.0 for i in range(9)]
-    spans, err = quintic_graph_spans(xs, f, df, ddf, dddf)
-    return {
-        "key": "G3.4", "title": "the sine wave · eight quintic spans",
-        "spans": spans, "knots": [(x, f(x)) for x in xs],
-        "error": err, "error_name": "max |y − sin 2x|",
-        "kind": "quintic",
-        "note": ("The curvature changes sign inside the wave, so the "
-                 "curvature-rate is doing real work at the joins. The eight "
-                 "spans are independent quintic Béziers; the G3 gate is what "
-                 "makes them one curve rather than a chain of near-misses."),
-    }
+    return _cubic_panel(
+        "G3.1", "the cubic ogee · five cubic spans", P,
+        "The whole curve is one cubic, cut into five. Every cut is the same "
+        "polynomial, so the quintic G3 span collapses to a cubic: four control "
+        "points per span, not six. The joins are G3 by identity.")
 
 
 def lattice_panel():
     P = [(0.0, 0.0), (3.0, 9.0), (9.0, -3.0), (12.0, 0.0)]
-    spans = cubic_quintic_spans(P, 5)
-    scale = 6250
-    ints = all(abs(round(v * scale) - v * scale) < 1e-6
-               for S in spans for p in S for v in p)
-    knots = [bezier(P, k / 5.0) for k in range(6)]
-    return {
-        "key": "G3.5", "title": "the lattice cubic · quintic spans, integer at ×3125",
-        "spans": spans, "knots": knots,
-        "error": 0.0, "error_name": "exact cubic pieces",
-        "kind": "quintic (cubic collapse)", "ints": ints, "scale": scale,
-        "note": ("A second cubic, so the five spans collapse to a cubic again. "
-                 "Every quintic control point is an integer after ×6250. The "
-                 "integer controls are a lattice statement about the handles, "
-                 "not a claim that the curve is integer between the knots."),
-    }
+    return _cubic_panel(
+        "G3.2", "the lattice cubic · five cubic spans, integer at ×625", P,
+        "The same construction with integer controls. Cut at the fifths, the "
+        "five cubic control polygons are integers after ×625 (5⁴); the six cut "
+        "points are integers at the same scale. This is the cubic the glyph "
+        "work can actually carry.")
 
 
-PANELS = [bell_panel(), log_panel(), ogee_panel(), wave_panel(), lattice_panel()]
+def integer_s_panel():
+    from curve_lab.pyth_cubic import representatives
+    row = representatives()["s"][0]
+    P = [row["p0"], row["p1"], row["p2"], row["p3"]]
+    return _cubic_panel(
+        "G3.3", f"integer cubic S · {row['label']}", P,
+        "One representative of the Pythagorean integer-cubic S family. The "
+        "quintic G3 representation is a degree elevation; the shown spans are "
+        "the collapsed cubic form, four control points each.")
+
+
+def integer_c_panel():
+    from curve_lab.pyth_cubic import representatives
+    row = representatives()["c"][0]
+    P = [row["p0"], row["p1"], row["p2"], row["p3"]]
+    return _cubic_panel(
+        "G3.4", f"integer cubic C · {row['label']}", P,
+        "One representative of the integer-cubic C family. Again the quintic "
+        "span collapses: the same cubic is carried as five cubic pieces, so "
+        "Inkscape and the glyph pipeline get four-point spans.")
+
+
+def wave_panel():
+    P = [(0.0, 0.0), (1.0, 4.0), (3.0, -4.0), (4.0, 0.0)]
+    return _cubic_panel(
+        "G3.5", "the cubic wave · five cubic spans", P,
+        "A steeper cubic. The curvature changes sign inside the curve, so the "
+        "curvature-rate is doing real work at the cuts; it still matches "
+        "because both sides are the same cubic.")
+
+
+PANELS = [ogee_panel(), lattice_panel(), integer_s_panel(),
+          integer_c_panel(), wave_panel()]
 
 
 # -- drawing ----------------------------------------------------------------
@@ -597,26 +556,28 @@ def build():
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 showcase · quintic Béziers, every join G3</title>
+<title>G3 showcase · cubic Béziers, every join G3</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
-<h1>Quintic Béziers, every join G3</h1>
-<p class="lede">A join is <strong>G3</strong> when position, tangent, curvature and
-curvature-rate agree. Magnify a join and the two spans stay indistinguishable in where
-they are, where they head, how hard they bend, and how smoothly that bend is
-accelerating. The spans here are independent Béziers: each has its own control points,
-and every join passes the measured gate. The tables are the gate — a row that failed
-would remove the curve from the page.</p>
+<h1>Cubic Béziers, every join G3</h1>
+<p class="lede">Cubic Béziers only. Every span has four control points; every join is
+<strong>G3</strong> in position, tangent, curvature and curvature-rate. These are the
+cubic solutions: the curve is a cubic (or one cubic polynomial cut into pieces), so the
+quintic G3 representation <em>collapses to a cubic</em>. Inkscape and the glyph pipeline
+need four-point spans, so this is the page they read; the non-cubic curves — the bell,
+the log spiral, the sine wave — stay on
+<a href="quintic-showcase.html">Quintic Béziers every join G3</a>.</p>
 
-<div class="rule"><strong>Independent spans, not one cut-up cubic.</strong> G3 is the
-requirement; the spans do not have to be pieces of one polynomial. Where the curve
-itself is a cubic (Figs. G3.3 and G3.5), the spans <em>collapse to cubics</em>.
-Where it is not (the bell, the log spiral, the sine wave), the spans are quintic,
-because a generic chain of independent cubics cannot carry G3: a cubic has four control
-points against the five join conditions, while a quintic has six and leaves two handles
-free for the fit. The four-cubic bell — four independent
-cubics — is the rejected case on the <a href="g3-notes.html">G3 notes page</a>, together
-with the circle, which is G3 everywhere and therefore too easy for the showcase. The <a href="g3-catalogue.html">G3 catalogue</a> takes the named curves, hearts, presets, primals and recovered spines through the same quintic interpolation and records what is admitted and what is not.</div>
+<div class="rule"><strong>Why cubic only.</strong> A generic cubic cannot carry a G3
+join: four control points against the five join conditions. The cases here are the ones
+where it can — the whole curve is one cubic polynomial, cut at the fifths, so every cut
+is the same polynomial and all derivatives agree. The quintic G3 span is a degree
+elevation of each piece; the page shows the collapsed four-point form. The four-cubic
+bell — four <em>independent</em> cubics — is the rejected case on the
+<a href="g3-notes.html">G3 notes page</a>, together with the circle, which is G3
+everywhere and therefore too easy. The <a href="g3-catalogue.html">G3 catalogue</a>
+records which other curves admit a quintic interpolation; this page only carries the
+cubic ones.</div>
 
 {panels}
 
@@ -626,12 +587,14 @@ with the circle, which is G3 everywhere and therefore too easy for the showcase.
 polyline: position gap, tangent angle, curvature gap and curvature-rate gap. The pass
 threshold is <code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the
 tangent angle (floating-point noise). The integer cubic's controls are integers at
-<code>×3125</code> (the ogee) and <code>×6250</code> (the lattice cubic); that is a
-lattice statement about the handles, not a claim that the curve is integer between the
-joins.</p>
+<code>×625</code> on every panel; that is a lattice statement about the handles, not a
+claim that the curve is integer between the cuts.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
-catalogue: <a href="g3-catalogue.html">G3 catalogue</a> · terminals: <a href="g3-cut.html">extend-and-cut</a> · notes: <a href="g3-notes.html">G3 notes</a></p>
+quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·
+catalogue: <a href="g3-catalogue.html">G3 catalogue</a> ·
+terminals: <a href="g3-cut.html">extend-and-cut</a> ·
+notes: <a href="g3-notes.html">G3 notes</a></p>
 </section>
 </main></body></html>
 """
@@ -668,7 +631,8 @@ def notes_html():
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 notes</p>
 <h1>What G3 means, and why the circle is the easy case</h1>
-<p class="lede">These notes sit beside the <a href="g3-showcase.html">G3 showcase</a>.
+<p class="lede">These notes sit beside the <a href="g3-showcase.html">cubic G3 showcase</a>
+and <a href="quintic-showcase.html">Quintic Béziers every join G3</a>.
 They explain the continuity ladder in ordinary language and record the curves that pass
 G3 trivially, or fail it when they are built as independent spans.</p>
 
@@ -722,7 +686,8 @@ gate on the showcase page is the evidence.</p>
 <code>1e-9</code> and <code>1e-6°</code>. The gate is computed from Bézier derivatives,
 not from a sampled polyline: the sampled drawing is for the eye, the table is the
 claim.</p>
-<p class="small">Back to the <a href="g3-showcase.html">showcase</a> ·
+<p class="small">Back to the <a href="g3-showcase.html">cubic showcase</a> ·
+<a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·
 re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
 terminals: <a href="g3-cut.html">extend-and-cut</a></p>
