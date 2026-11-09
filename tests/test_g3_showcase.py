@@ -5,6 +5,7 @@ representation collapses to a cubic, which is what Inkscape and the glyph
 pipeline need. The tests pin the four-point spans and the integer scale.
 """
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -79,13 +80,18 @@ class TestCubicGeometry(unittest.TestCase):
 class TestCubicPages(unittest.TestCase):
     def test_showcase_page(self):
         page = PAGE.read_text(encoding="utf-8")
+        complete = json.loads(
+            (ROOT / "workbench" / "g3-handover.json").read_text(
+                encoding="utf-8"))["counts"]["complete"]
+        lead = 23          # 6 cubic + 5 quintic + 10 cusp + 2 deviation
+        figures = lead + complete
         self.assertIn("Cubic Béziers, every join G3", page)
         self.assertIn("collapses to a cubic", page)
         self.assertIn("quintic-showcase.html", page)
         self.assertIn("g3-catalogue.html", page)
         for n in range(1, 7):
             self.assertIn(f"Fig. {n} ·", page)
-        self.assertEqual(page.count('<section class="panel"'), 182)
+        self.assertEqual(page.count('<section class="panel"'), 16 + complete)
         self.assertIn("The finished curve · what can be handed over", page)
         self.assertIn("G3-complete", page)
         self.assertIn("smooth handover", page)
@@ -93,20 +99,20 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-handover.html", page)
         self.assertIn("Quintic-required · 5", page)
         self.assertGreaterEqual(page.count("quintic-required"), 5)
-        self.assertIn("Every complete curve · 166", page)
+        self.assertIn(f"Every complete curve · {complete}", page)
         self.assertIn("Tightest-span diagnostics", page)
         self.assertIn("slope P0P1", page)
         self.assertIn("Control points and handle vectors are integers", page)
         self.assertNotIn("|Δp|", page)
         self.assertEqual(page.count("Fig. H · "), 0)
-        self.assertIn("Fig. 24 ·", page)
-        self.assertIn("Fig. 189 ·", page)
+        self.assertIn(f"Fig. {lead + 1} ·", page)
+        self.assertIn(f"Fig. {figures} ·", page)
         self.assertNotIn("From the original showcase", page)
         self.assertNotIn("C2 cubic spline", page)
         self.assertNotIn("Catmull–Rom", page)
-        self.assertEqual(page.count(">ground<"), 189)
-        self.assertEqual(page.count('class="panel-grid"'), 189)
-        self.assertEqual(page.count("1 · G3 acceleration"), 189)
+        self.assertEqual(page.count(">ground<"), figures)
+        self.assertEqual(page.count('class="panel-grid"'), figures)
+        self.assertEqual(page.count("1 · G3 acceleration"), figures)
         self.assertEqual(page.count("G3 acceleration · dκ/ds"), 13)
         self.assertEqual(page.count("dκ/ds · cusp / failing join"), 10)
         self.assertEqual(page.count("integer cubics ×625"), 5)

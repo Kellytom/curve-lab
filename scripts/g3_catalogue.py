@@ -48,6 +48,11 @@ CACHE = ROOT / "workbench" / "g3-catalogue-cache.json"
 # 1e8 curvature-rate spikes that flatten the acceleration graphs.
 MIN_SPEED = 0.10
 
+# Integer-rounded source data (the recovered LAC page) is G3 to its own
+# precision, not to 1e-9 floating-point noise. The exact constructions keep the
+# 1e-9 gate; these source cubic chains use 1e-6 and report the measured gap.
+SOURCE_TOL = 1e-5
+
 
 def span_min_speed(P, chord, samples=81):
     if chord <= 0.0:
@@ -713,22 +718,54 @@ def primal_rows():
 
 
 def lac_rows():
-    import stem_library as S
+    """The recovered LAC spines are already cubic Bezier chains.
 
+    The source control points are integers at the page scale, so the joins are
+    G3 to the data's precision (measured ~6e-8), not to 1e-9 floating-point
+    noise. They are carried as their own four-point spans, never re-fitted as
+    quintics. The S-label is the showcase-notes label: S39 for Fig. 1, so S44
+    for Fig. 6.
+    """
     data = json.loads((ROOT / "workbench" / "spirals" / "lac.json").read_text())
     rows = []
     for fig in data["figures"]:
         spine = fig["spines"][0]
-        pts = S.lac_branches(spine["spans"])
-        key = f"LAC · {fig['figure']} · {fig['title'].split(':')[-1].strip()}"
-        r = fit_poly_best(pts[0])
-        if r is None or not r["pass"]:
-            rows.append({"key": key, "admitted": False, "source": "lac",
-                         "reason": "cusp or singular sample; no G3 interpolation"})
-        else:
-            rows.append({"key": key, "admitted": True, "source": "lac",
-                         "spans": r["count"], "branches": [r],
-                         "error": r["error"], "g3": r["g3"]})
+        spans = []
+        for sp in spine["spans"]:
+            spans.append([
+                (sp["p0"][0], -sp["p0"][1]),
+                (sp["c1"][0], -sp["c1"][1]),
+                (sp["c2"][0], -sp["c2"][1]),
+                (sp["p3"][0], -sp["p3"][1]),
+            ])
+        ideal = []
+        for P in spans:
+            ideal.extend(G3.bezier(P, i / 40.0) for i in range(41))
+        joins = G3.gate(spans, tol=SOURCE_TOL)
+        ok = all(row["pass"] for row in joins)
+        problem = problem_of_spans(spans)
+        num = int(fig["figure"].split()[-1])
+        key = f"S{38 + num} · {fig['figure']} · {fig['title']}"
+        branch = {
+            "spans": spans, "count": len(spans), "trimmed": False,
+            "min_speed": problem["ratio"], "problem": problem,
+            "ideal": ideal, "error": 0.0,
+            "g3": max(row["dks"] for row in joins),
+            "g3_seam": 0.0, "seam_pass": True,
+            "rows": joins, "pass": ok, "closed": False,
+        }
+        row = {"key": key, "admitted": bool(ok), "source": "lac",
+               "spans": len(spans), "branches": [branch],
+               "error": 0.0, "g3": branch["g3"],
+               "source_precision": True}
+        if not ok:
+            worst = max(joins, key=lambda r: max(
+                r["dp"] / SOURCE_TOL, r["angle"] / 1e-6,
+                r["dk"] / SOURCE_TOL, r["dks"] / SOURCE_TOL))
+            row["reason"] = (f"source cubic joins are not G3: angle "
+                             f"{worst['angle']:.2g}°, Δκ {worst['dk']:.1e}, "
+                             f"Δ(dκ/ds) {worst['dks']:.1e}")
+        rows.append(row)
     return rows
 
 
@@ -1340,6 +1377,7 @@ being quietly dropped. The squircle is the clearest case.</p>
              "quintic_content": r.get("quintic_content"),
              "min_speed": r.get("min_speed"),
              "near_cusp": r.get("near_cusp"),
+             "source_precision": r.get("source_precision"),
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"],

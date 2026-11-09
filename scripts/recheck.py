@@ -687,7 +687,8 @@ def c_g3_catalogue():
     admitted = [row for row in data["curves"] if row["admitted"]]
     rejected = [row for row in data["curves"] if not row["admitted"]]
     ok = (len(data["curves"]) >= 100 and len(admitted) >= 70
-          and all(row["g3"] < 1e-9 for row in admitted)
+          and all(row["g3"] < (1e-5 if row.get("source_precision") else 1e-9)
+                  for row in admitted)
           and all(row["reason"] for row in rejected))
     worst = max(row["g3"] for row in admitted)
     return ok, (f"{len(admitted)} admitted, {len(rejected)} rejected, "

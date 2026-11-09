@@ -30,12 +30,27 @@ RED_MARK = "#e01b1b"   # diagnostic rings and jump marks: brighter than text red
 # The small main-panel set that genuinely needs six-point spans. The rest of
 # the quintic fallback lives on workbench/g3-handover.html.
 QUINTIC_KEYS = (
-    "LAC · Fig. 6 · p = 0, turn 270",
     "Stage II · Fig. 1 · The clothoid · spine 2",
     "heart · Wolfram",
+    "heart · Mangaldan",
     "primal · fire",
     "misc · Reuleaux triangle",
 )
+
+QUINTIC_REASONS = {
+    "Stage II · Fig. 1 · The clothoid · spine 2":
+        "a clothoid's curvature grows linearly; a four-point cubic span cannot "
+        "carry that G3 data",
+    "heart · Wolfram":
+        "a sampled heart; no four-point cubic chain carries its G3 data",
+    "heart · Mangaldan":
+        "a sampled heart; no four-point cubic chain carries its G3 data",
+    "primal · fire":
+        "a grammar-built sampled curve; no four-point cubic chain carries its "
+        "G3 data",
+    "misc · Reuleaux triangle":
+        "constant-width arcs with corners; the joins need six points",
+}
 RULE = "#d8ccae"
 GREEN = "#2f6b3a"
 
@@ -117,7 +132,7 @@ def curvature_rate(P, t):
     return kappa_d / speed
 
 
-def gate(spans):
+def gate(spans, tol=TOL):
     """Measure every join. A join passes only if all four gaps are below tol."""
     joins = []
     for i in range(len(spans) - 1):
@@ -136,8 +151,8 @@ def gate(spans):
             "dk": abs(curvature(A, 1.0) - curvature(B, 0.0)),
             "dks": abs(curvature_rate(A, 1.0) - curvature_rate(B, 0.0)),
         }
-        row["pass"] = (row["dp"] < TOL and row["angle"] < ANGLE_TOL
-                       and row["dk"] < TOL and row["dks"] < TOL)
+        row["pass"] = (row["dp"] < tol and row["angle"] < ANGLE_TOL
+                       and row["dk"] < tol and row["dks"] < tol)
         joins.append(row)
     return joins
 
@@ -1111,8 +1126,9 @@ def _quintic_panel(row, idx):
     if feature and "cusp" in feature:
         why = f"the {feature} is a declared break; each smooth arc still needs six points"
     else:
-        why = ("the curve is not a single cubic, so independent four-point spans "
-               "cannot meet G3 at these joins")
+        why = QUINTIC_REASONS.get(
+            row["key"],
+            "the source has no four-point cubic chain at these joins")
     breaks = []
     if len(branches) > 1:
         count = 0
@@ -1126,7 +1142,7 @@ def _quintic_panel(row, idx):
         "kind": "quintic · six-point spans", "ints": False, "scale": None,
         "badge": "quintic-required", "controls_label": "quintic spans",
         "jump": bool(feature), "breaks": breaks,
-        "note": (f"<strong>Why quintic:</strong> {why}. The side construction "
+        "note": (f"<strong>Cubic-first result:</strong> {why}. The side construction "
                  f"shows the six-point spans as the working view; the full fallback "
                  f"list is on the <a href=\"g3-handover.html\">G3 handover page</a>."),
     }
@@ -1296,7 +1312,8 @@ test: <code>python -m unittest tests.test_g3_showcase</code> ·
 quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·
 catalogue: <a href="g3-catalogue.html">G3 catalogue</a> ·
 terminals: <a href="g3-cut.html">extend-and-cut</a> ·
-notes: <a href="g3-notes.html">G3 notes</a></p>
+notes: <a href="g3-notes.html">G3 notes</a> ·
+how it is built: <a href="../docs/G3-SHOWCASE.html">G3-SHOWCASE</a></p>
 </section>
 
 <hr class="bottom-rule">

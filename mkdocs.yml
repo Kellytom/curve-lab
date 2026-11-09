@@ -52,6 +52,7 @@ nav:
       - Curve model: CURVE-MODEL.md
       - Integer PH curves: PH-INTEGER.md
       - Integer cubic Béziers: INTEGER-CUBIC.md
+      - The G3 showcase: G3-SHOWCASE.md
       - Pythagorean families: PYTHAGOREAN-FAMILIES.md
       - The spine layer: SPINE.md
       - Glossary: GLOSSARY.md

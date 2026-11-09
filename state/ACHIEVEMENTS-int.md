@@ -46,9 +46,9 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
 | ok | the cubic G3 showcase keeps every join G3 | 6 curves, 27 joins, worst Δ(dκ/ds) 4.0e-10 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
 | ok | the quintic page keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/quintic_showcase.py — six-point spans, all joins below 1e-9 |
-| ok | the G3 catalogue admits only curves whose joins pass G3 | 166 admitted, 66 rejected, worst Δ(dκ/ds) 9.4e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
-| ok | the G3 handover list is complete, featureless and faithful | 135 smooth handover, 166 G3-complete of 232 candidates | workbench/g3-catalogue.html — smooth handover rows |
-| ok | the handover gallery draws every G3-complete curve | 166 panels, 135 smooth, 31 declared | workbench/g3-handover.html — one panel per complete curve |
+| ok | the G3 catalogue admits only curves whose joins pass G3 | 154 admitted, 78 rejected, worst Δ(dκ/ds) 5.6e-08 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
+| ok | the G3 handover list is complete, featureless and faithful | 130 smooth handover, 154 G3-complete of 232 candidates | workbench/g3-catalogue.html — smooth handover rows |
+| ok | the handover gallery draws every G3-complete curve | 154 panels, 130 smooth, 24 declared | workbench/g3-handover.html — one panel per complete curve |
 | ok | the tightest-span diagnostics mark every row below 25% | 27 tightest spans, 10% floor to 25% display band | workbench/g3-diagnostics.html — red rings on curve and dκ/ds |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
 | ok | the sequence-curve family closes on the integer lattice | 5 panels, closure gap 0 | scripts/sequence_curves.py — five panels, exact closure |

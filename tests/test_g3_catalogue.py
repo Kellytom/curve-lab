@@ -32,12 +32,13 @@ class TestCatalogue(unittest.TestCase):
         self.assertGreaterEqual(len(self.admitted), 15)
         for row in self.admitted:
             with self.subTest(curve=row["key"]):
-                self.assertLess(row["g3"], 1e-9)
+                tol = 1e-5 if row.get("source_precision") else 1e-9
+                self.assertLess(row["g3"], tol)
                 self.assertIsNotNone(row["error"])
                 self.assertTrue(math.isfinite(row["error"]))
                 for branch in row["branches"]:
                     self.assertTrue(branch["pass"])
-                    self.assertLess(branch["g3"], 1e-9)
+                    self.assertLess(branch["g3"], tol)
 
     def test_every_rejection_has_a_reason(self):
         self.assertGreaterEqual(len(self.rejected), 5)

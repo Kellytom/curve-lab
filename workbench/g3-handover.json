@@ -1,9 +1,9 @@
 {
  "counts": {
   "candidates": 232,
-  "complete": 166,
-  "smooth": 135,
-  "declared": 31
+  "complete": 154,
+  "smooth": 130,
+  "declared": 24
  },
  "curves": [
   {
@@ -827,134 +827,14 @@
    "spans": 10
   },
   {
-   "key": "LAC \u00b7 Fig. 6 \u00b7 p = 0, turn 270",
+   "key": "S44 \u00b7 Fig. 6 \u00b7 LAC: p = 0, turn 270",
    "source": "lac",
    "smooth": true,
    "feature": null,
-   "native": "quintic",
-   "relative": 0.005024349028895209,
-   "g3": 2.713224969457264e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 16 \u00b7 p = -0.5, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.008991855076808778,
-   "g3": 2.5733175927962904e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 17 \u00b7 p = 0.5, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.00952169194291718,
-   "g3": 7.836077819083884e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 18 \u00b7 p = 1, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.0102845147226238,
-   "g3": 2.667813117787572e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 19 \u00b7 p = 1.5, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.00925233065594678,
-   "g3": 1.2267768757497164e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 20 \u00b7 p = 2, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.00991708925030583,
-   "g3": 5.504337728613664e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 21 \u00b7 p = 3, turn 360",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.010083357203990246,
-   "g3": 2.601345648323139e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 22 \u00b7 p = -3, turn 720",
-   "source": "lac",
-   "smooth": true,
-   "feature": null,
-   "native": "quintic",
-   "relative": 0.010752698719485965,
-   "g3": 6.673169080441714e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 23 \u00b7 p = -2, turn 720",
-   "source": "lac",
-   "smooth": true,
-   "feature": null,
-   "native": "quintic",
-   "relative": 0.0100776754024866,
-   "g3": 8.920358077419213e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 24 \u00b7 p = -1.5, turn 720",
-   "source": "lac",
-   "smooth": true,
-   "feature": null,
-   "native": "quintic",
-   "relative": 0.009667749516594168,
-   "g3": 9.714387937999076e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 25 \u00b7 p = -1, turn 720",
-   "source": "lac",
-   "smooth": true,
-   "feature": null,
-   "native": "quintic",
-   "relative": 0.009102583807719446,
-   "g3": 2.9777048861008863e-16,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 26 \u00b7 p = -0.5, turn 720",
-   "source": "lac",
-   "smooth": true,
-   "feature": null,
-   "native": "quintic",
-   "relative": 0.007788163357087007,
-   "g3": 4.761750561200719e-17,
-   "spans": 14
-  },
-  {
-   "key": "LAC \u00b7 Fig. 31 \u00b7 p = 3, turn 720",
-   "source": "lac",
-   "smooth": false,
-   "feature": "singular endpoint (trimmed)",
-   "native": "quintic",
-   "relative": 0.008890514678235715,
-   "g3": 1.4867545806681107e-16,
-   "spans": 14
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 5.6297499970693036e-08,
+   "spans": 6
   },
   {
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 2",
