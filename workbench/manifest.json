@@ -119,6 +119,15 @@
       "outputs": "the kept terminal, the discarded tail, and the cut's measured data"
     },
     {
+      "key": "sequence-curves",
+      "file": "sequence-curves.html",
+      "group": "curve",
+      "title": "Sequence curves",
+      "purpose": "Factorial, triangular and symmetric-closure walks on the integer lattice.",
+      "inputs": "a number sequence and right-angle turns",
+      "outputs": "integer vertices, five panels, exact closure"
+    },
+    {
       "key": "discrete-clothoid",
       "file": "discrete-clothoid.html",
       "group": "curve",

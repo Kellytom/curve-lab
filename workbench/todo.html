@@ -22,19 +22,18 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:89.9%}
+.fill{height:100%;background:#8c6a21;width:90.9%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
 th,td{border-bottom:1px solid #d8ccae;padding:6px 8px;text-align:left;vertical-align:top}
 th{color:#7b6c4e;font:600 10px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
 tr:nth-child(even) td{background:#fcf8ee}
-</style></head><body>
-<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">sheet</span><span><b>in</b> nothing — a mirror of TODO.md · <b>out</b> progress, tasks and the grade matrix</span></div><!-- /hub-bar --><main>
+</style></head><body><main>
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">89 / 99 done · 90% · read-only twin of
+<div class="count">90 / 99 done · 91% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -86,11 +85,11 @@ tr:nth-child(even) td{background:#fcf8ee}
 <label class="task"><input type="checkbox" checked disabled><span>One curve per figure for the six families; every note carries its panel</span></label>
 <p>SVG; c423 is the four-span G2 splice.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Cubic G3 showcase, quintic preserved.</strong> The G3 showcase carries</span></label>
-<p>four-point cubic spans only for Inkscape/glyph work; five panels are collapsed quintics, and the bell is an independent eight-span cubic G3 chain (peak error 7.5e-6). The original quintic page is preserved as <code>quintic-showcase.html</code> / “Quintic Béziers every join G3”. The catalogue uses both. Quintic Béziers, every join G3 (position, tangent, curvature, curvature-rate); the four-cubic bell is the rejected case. The catalogue attempts 232 candidates (named, hearts, integer cubics, presets, primals, all 31 LAC and 90 Stage II spines, and the misc families), admits 160 within 5% of their size, and records the rest with reasons. <code>workbench/g3-showcase.html</code>, <code>workbench/g3-catalogue.html</code>, <code>workbench/g3-notes.html</code>, <code>scripts/g3_showcase.py</code>, <code>scripts/g3_catalogue.py</code>, <code>tests/test_g3_showcase.py</code>, <code>tests/test_g3_catalogue.py</code>.</p>
+<p>four-point cubic spans only for Inkscape/glyph work; five panels are collapsed quintics, and the bell is an independent eight-span cubic G3 chain (peak error 7.5e-6). The original quintic page is preserved as <code>quintic-showcase.html</code> / “Quintic Béziers every join G3”. The catalogue uses both. Quintic Béziers, every join G3 (position, tangent, curvature, curvature-rate); the four-cubic bell is the rejected case. The catalogue attempts 232 candidates (named, hearts, integer cubics, presets, primals, all 31 LAC and 90 Stage II spines, and the misc families), admits 166 within 5% of their size (the astroid is four cusp arcs; bow, strophoid, bernoulli, nodal and abs-Gerono are seam-allowed), and records the rest with reasons. <code>workbench/g3-showcase.html</code>, <code>workbench/g3-catalogue.html</code>, <code>workbench/g3-notes.html</code>, <code>scripts/g3_showcase.py</code>, <code>scripts/g3_catalogue.py</code>, <code>tests/test_g3_showcase.py</code>, <code>tests/test_g3_catalogue.py</code>.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>G3 extend-and-cut terminals.</strong> Fit past the station, split the span with</span></label>
 <p>de Casteljau, keep the left chain, discard the tail. The cut&#x27;s deviation, tangent/curvature/rate errors and G3 defect are measured; gate pass in <code>workbench/g3-cut.html</code>, <code>scripts/g3_cut.py</code>, <code>tests/test_g3_cut.py</code>.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Sequence curves.</strong> Segment lengths from a number sequence — factorials</span></label>
-<p>(4! = 24, 3! = 6, 2! = 2, 1! = 1) and triangular sums (T₄ = 10, T₃ = 6 …) — joined with right-angle turns so the vertices stay integer. Also the closure schedule 1,2,…,n,−n,…,−1 with equal chords, which closes exactly. Not built: context was 71% at the point of asking (2026-11-08), so nothing was started. Note that triangular numbers already appear *implicitly*: the discrete clothoid&#x27;s heading is 1+2+…+k. What is missing is the length-sequence family.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Sequence curves.</strong> Factorial lengths 4!, 3!, 2!, 1! and triangular sums</span></label>
+<p>T₄…T₁ on right-angle turns, with integer vertices. The symmetric schedule 1,2,…,n,−n,…,−1 returns to the origin exactly: the return repeats each chord in reverse with the opposite sign, so the displacement cancels pairwise. <code>workbench/sequence-curves.html</code>, <code>scripts/sequence_curves.py</code>, <code>tests/test_sequence_curves.py</code>.</p>
 <label class="task"><input type="checkbox" disabled><span>Session-record audit (2026-11-07): Stage III serifs (4), the uncertain</span></label>
 <p>combined curves, B02 Euler-spiral cubic fit, spiro, the &quot;full&quot; cubic catalogue ambiguity, canonical fleur — all in the same register.</p>
 <h2>Session timer — restored 2026-11-05</h2>

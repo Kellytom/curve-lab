@@ -705,6 +705,20 @@ def c_g3_cut():
     return ok, f"{len(C.PANELS)} cuts, worst G3 across the cut {worst:.1e}"
 
 
+@check("the sequence-curve family closes on the integer lattice",
+       "scripts/sequence_curves.py — five panels, exact closure",
+       "python -m unittest tests.test_sequence_curves")
+def c_sequence_curves():
+    import sequence_curves as S
+    ok = True
+    for panel in S.PANELS:
+        for x, y in panel["pts"] + (panel["back"] or []):
+            ok = ok and float(x).is_integer() and float(y).is_integer()
+    worst = max((math.hypot(panel["back"][-1][0], panel["back"][-1][1])
+                 for panel in S.PANELS if panel["back"]), default=0.0)
+    return ok and worst < 1e-12, f"{len(S.PANELS)} panels, closure gap {worst:.0f}"
+
+
 @check("every design page names its three aspects and its ground",
        "docs/PHILOSOPHY.md §Infinity, linearity, curve",
        "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")
