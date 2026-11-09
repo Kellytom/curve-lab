@@ -659,7 +659,7 @@ def c_g3_showcase():
     import g3_showcase as G
     rows = [row for panel in G.PANELS for row in G.gate(panel["spans"])]
     joins = sum(len(panel["spans"]) - 1 for panel in G.PANELS)
-    ok = (len(G.PANELS) == 5 and len(rows) == joins
+    ok = (len(G.PANELS) == 6 and len(rows) == joins
           and all(row["pass"] for row in rows))
     worst = max(row["dks"] for row in rows)
     return ok, f"{len(G.PANELS)} curves, {len(rows)} joins, worst Δ(dκ/ds) {worst:.1e}"

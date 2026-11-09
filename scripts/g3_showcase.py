@@ -408,8 +408,38 @@ def wave_panel():
         "because both sides are the same cubic.")
 
 
+def bell_cubic_panel():
+    spans = [
+        [(-1.500000000000, 0.105399224562), (-1.362729301749, 0.148788587074), (-1.241596515853, 0.208063366589), (-1.125000000000, 0.282063929505)],
+        [(-1.125000000000, 0.282063929505), (-0.989494439505, 0.368065536685), (-0.867940114762, 0.468990657961), (-0.750000000000, 0.569783742940)],
+        [(-0.750000000000, 0.569783742940), (-0.620439888957, 0.680507420871), (-0.498188198337, 0.788553262992), (-0.375000000000, 0.868811127975)],
+        [(-0.375000000000, 0.868811127975), (-0.249284905823, 0.950715281057), (-0.128253823604, 0.999992673378), (0.000000000000, 0.999992673379)],
+        [(0.000000000000, 0.999992673379), (0.128253823656, 0.999992673377), (0.249284905889, 0.950715281015), (0.375000000000, 0.868811127975)],
+        [(0.375000000000, 0.868811127975), (0.498188198348, 0.788553262983), (0.620439888996, 0.680507420839), (0.750000000000, 0.569783742939)],
+        [(0.750000000000, 0.569783742939), (0.867940114705, 0.468990658009), (0.989494439484, 0.368065536699), (1.125000000000, 0.282063929505)],
+        [(1.125000000000, 0.282063929505), (1.241596515488, 0.208063366820), (1.362729301412, 0.148788587178), (1.500000000000, 0.105399224562)],
+    ]
+    knots = [S[0] for S in spans] + [spans[-1][-1]]
+    source = [( -1.5 + 3.0 * i / 240.0,
+                math.exp(-(-1.5 + 3.0 * i / 240.0) ** 2))
+              for i in range(241)]
+    return {
+        "key": "G3.6", "title": "the Gaussian bell · eight independent cubic spans",
+        "source_pts": source, "spans": spans, "knots": knots,
+        "error": 7.470588372471276e-06,
+        "error_name": "max |y − e^(−x²)|",
+        "kind": "cubic · independent G3 chain",
+        "ints": False, "scale": None,
+        "note": ("The bell is not a cubic, so it cannot collapse to one. Eight "
+                 "independent four-point spans, solved for G3 at every join, carry "
+                 "it with a worst Δ(dκ/ds) of 6e-13 and a peak error of 7.5e-6. "
+                 "The four-cubic attempt is the rejected case; eight spans are "
+                 "what it takes. The control points are real, not integer."),
+    }
+
+
 PANELS = [ogee_panel(), lattice_panel(), integer_s_panel(),
-          integer_c_panel(), wave_panel()]
+          integer_c_panel(), wave_panel(), bell_cubic_panel()]
 
 
 # -- drawing ----------------------------------------------------------------
@@ -597,7 +627,10 @@ def acceleration_svg(panel, w=360, h=220):
 
 def mini_svg(panel, mode, w=150, h=110):
     """A small diagram: the ideal, the G3 spans, or the integer controls."""
-    pts = [bezier(panel["source"], i / 120.0) for i in range(121)]
+    if panel.get("source_pts"):
+        pts = list(panel["source_pts"])
+    else:
+        pts = [bezier(panel["source"], i / 120.0) for i in range(121)]
     xs = [p[0] for p in pts]
     ys = [p[1] for p in pts]
     pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
@@ -636,7 +669,7 @@ def construction_block(panel):
     return f"""<div class="how">
 <figure class="mini"><figcaption>ideal</figcaption>{mini_svg(panel, 'ideal')}</figure>
 <figure class="mini"><figcaption>G3 interpolation</figcaption>{mini_svg(panel, 'interp')}</figure>
-<figure class="mini"><figcaption>integer cubics ×625</figcaption>{mini_svg(panel, 'integer')}</figure>
+<figure class="mini"><figcaption>{'integer cubics ×625' if panel.get('ints') else 'cubic controls'}</figcaption>{mini_svg(panel, 'integer')}</figure>
 </div>"""
 
 
@@ -822,9 +855,11 @@ def build():
 <p class="lede">Cubic Béziers only. Every span has four control points; every join is
 <strong>G3</strong> in position, tangent, curvature and curvature-rate. These are the
 cubic solutions: the curve is a cubic (or one cubic polynomial cut into pieces), so the
-quintic G3 representation <em>collapses to a cubic</em>. Inkscape and the glyph pipeline
-need four-point spans, so this is the page they read; the non-cubic curves — the bell,
-the log spiral, the sine wave — stay on
+quintic G3 representation <em>collapses to a cubic</em>. The bell is the exception: it is
+not a cubic, so it is carried as an independent eight-span cubic chain, solved for G3;
+its control points are real, not integer. Inkscape and the glyph pipeline need four-point
+spans, so this is the page they read; the other non-cubic curves — the log spiral and the
+sine wave — stay on
 <a href="quintic-showcase.html">Quintic Béziers every join G3</a>.</p>
 <p class="small">Each panel reads left to right: the curve; its G3 acceleration
 <code>dκ/ds</code> with the cuts marked; then the construction pipeline — ideal, G3
@@ -834,10 +869,11 @@ interpolation, integer cubic spans at ×625.</p>
 join: four control points against the five join conditions. The cases here are the ones
 where it can — the whole curve is one cubic polynomial, cut at the fifths, so every cut
 is the same polynomial and all derivatives agree. The quintic G3 span is a degree
-elevation of each piece; the page shows the collapsed four-point form. The four-cubic
-bell — four <em>independent</em> cubics — is the rejected case on the
-<a href="g3-notes.html">G3 notes page</a>, together with the circle, which is G3
-everywhere and therefore too easy. The <a href="g3-catalogue.html">G3 catalogue</a>
+elevation of each piece; the page shows the collapsed four-point form. The bell is not a
+cubic, so it cannot collapse: eight independent four-point spans, solved for G3, carry it
+at a peak error of 7.5e-6. The four-cubic bell is the rejected case; the eight-span chain
+is the passing one. The circle is G3 everywhere and is explained on the
+<a href="g3-notes.html">G3 notes page</a>. The <a href="g3-catalogue.html">G3 catalogue</a>
 records which other curves admit a quintic interpolation; this page only carries the
 cubic ones.</div>
 
@@ -851,8 +887,9 @@ cubic ones.</div>
 polyline: position gap, tangent angle, curvature gap and curvature-rate gap. The pass
 threshold is <code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the
 tangent angle (floating-point noise). The integer cubic's controls are integers at
-<code>×625</code> on every panel; that is a lattice statement about the handles, not a
-claim that the curve is integer between the cuts.</p>
+<code>×625</code> on the five integer panels; that is a lattice statement about the
+handles, not a claim that the curve is integer between the cuts. The bell's controls are
+real; only its span count and G3 data are fixed.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
 quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·

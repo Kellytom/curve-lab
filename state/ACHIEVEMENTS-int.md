@@ -44,7 +44,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the ending fit pass attaches all ten sections without a fold | 10 sections, 0 crossings, min rail gap 0.50 | scripts/ending_fit.py; workbench/ending-fit.html |
 | ok | the modulated-width law meets the plain stroke at both seams | ratio 1.600, seam 1.000000/1.000000, 0 crossings | scripts/modulated_width_proof.py; workbench/modulated-width-proof.html |
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
-| ok | the cubic G3 showcase keeps every join G3 | 5 curves, 20 joins, worst Δ(dκ/ds) 1.1e-14 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
+| ok | the cubic G3 showcase keeps every join G3 | 6 curves, 27 joins, worst Δ(dκ/ds) 4.0e-10 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
 | ok | the quintic page keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/quintic_showcase.py — six-point spans, all joins below 1e-9 |
 | ok | the G3 catalogue admits only curves whose joins pass G3 | 160 admitted, 72 rejected, worst Δ(dκ/ds) 5.0e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
