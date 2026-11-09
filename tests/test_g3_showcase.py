@@ -47,6 +47,14 @@ class TestCubicGeometry(unittest.TestCase):
                     for v in p:
                         self.assertAlmostEqual(v * 625, round(v * 625), places=6)
 
+    def test_the_acceleration_graph_fills_its_box(self):
+        import re
+        panel = next(p for p in G.PANELS if p["key"] == "G3.5")
+        svg = G.acceleration_svg(panel)
+        d = re.search(r'<path d="([^"]+)"', svg).group(1)
+        xs = [float(m[0]) for m in re.findall(r'([\d.]+),([\d.]+)', d)]
+        self.assertGreater(max(xs) - min(xs), 250)
+
     def test_the_spans_are_cubics_not_quintics(self):
         for panel in G.PANELS:
             for P in panel["spans"]:

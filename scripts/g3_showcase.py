@@ -514,7 +514,12 @@ def fig_panel(panel, w=560, h=390):
 
 
 def acceleration_svg(panel, w=360, h=220):
-    """The G3 acceleration curve: d(kappa)/ds along the chain, joins marked."""
+    """The G3 acceleration curve: d(kappa)/ds along the chain, joins marked.
+
+    This is a graph, not a plan drawing: x and y are scaled independently so
+    the shape of d(kappa)/ds fills the box. The curve figure uses the
+    equal-aspect Frame; this one must not.
+    """
     xs, vals, joins = [], [], []
     s = 0.0
     prev = None
@@ -533,41 +538,49 @@ def acceleration_svg(panel, w=360, h=220):
     if hi - lo < 1e-12:
         lo, hi = lo - 1.0, hi + 1.0
     pad = 0.12 * (hi - lo)
-    f = Frame(w, h, 0.0, 1.0, lo - pad, hi + pad, pad=34)
+    y0, y1 = lo - pad, hi + pad
+    left, right, top, bottom = 42, 14, 30, 30
+
+    def gx(x):
+        return left + (x / total) * (w - left - right)
+
+    def gy(y):
+        return (h - bottom) - (y - y0) / (y1 - y0) * (h - top - bottom)
 
     grid = []
     for k in range(6):
-        y = lo - pad + (hi - lo + 2 * pad) * k / 5
-        a, b = f((0.0, y)), f((1.0, y))
-        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
-                    f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.6"/>')
-    if lo < 0 < hi:
-        a, b = f((0.0, 0.0)), f((1.0, 0.0))
-        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
-                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+        y = y0 + (y1 - y0) * k / 5
+        grid.append(f'<line x1="{left}" y1="{gy(y):.1f}" x2="{w - right}" '
+                    f'y2="{gy(y):.1f}" stroke="{RULE}" stroke-width="0.6"/>')
+        label = f"{y:.1f}"
+        grid.append(f'<text x="{left - 4}" y="{gy(y) + 3:.1f}" text-anchor="end" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{MUTED}">{label}</text>')
+    if y0 < 0 < y1:
+        grid.append(f'<line x1="{left}" y1="{gy(0):.1f}" x2="{w - right}" '
+                    f'y2="{gy(0):.1f}" stroke="{BLUE}" stroke-width="1" '
                     f'stroke-dasharray="3 3"/>')
 
-    pts = [(f((x / total, y))) for x, y in zip(xs, vals)]
-    path = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
-                    for i, (x, y) in enumerate(pts))
     marks = []
     for j in joins[:-1]:
-        x = f((j / total, lo - pad))[0]
-        marks.append(f'<line x1="{x:.1f}" y1="{f((0.0, lo - pad))[1]:.1f}" '
-                     f'x2="{x:.1f}" y2="{f((0.0, hi + pad))[1]:.1f}" '
-                     f'stroke="{GREEN}" stroke-width="0.8" stroke-dasharray="2 3"/>')
-    a, b = f((0.0, 0.0)), f((1.0, 0.0))
+        x = gx(j)
+        marks.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
+                     f'y2="{h - bottom}" stroke="{GREEN}" stroke-width="0.8" '
+                     f'stroke-dasharray="2 3"/>')
+
+    d = " ".join(("M" if i == 0 else "L") + f"{gx(x):.1f},{gy(y):.1f}"
+                 for i, (x, y) in enumerate(zip(xs, vals)))
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="curvature-rate along the curve">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(grid)}
-  <line x1="{a[0]:.1f}" y1="{f((0.0, lo - pad))[1]:.1f}" x2="{a[0]:.1f}" y2="{f((0.0, hi + pad))[1]:.1f}" stroke="{INK}" stroke-width="1"/>
-  <line x1="{a[0]:.1f}" y1="{b[1]:.1f}" x2="{f((1.0, 0.0))[0]:.1f}" y2="{b[1]:.1f}" stroke="{INK}" stroke-width="1"/>
+  <line x1="{left}" y1="{top}" x2="{left}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
+  <line x1="{left}" y1="{h - bottom}" x2="{w - right}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
   {''.join(marks)}
-  <path d="{path}" fill="none" stroke="{INK}" stroke-width="2"/>
-  <text x="12" y="20" font-family="Georgia,serif" font-size="12" fill="{INK}">G3 acceleration · dκ/ds</text>
-  <text x="{w / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
-  <text x="10" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 10 {h / 2:.0f})">dκ/ds</text>
-  <text x="{w - 10}" y="{h - 24}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">green: joins</text>
+  <path d="{d}" fill="none" stroke="{INK}" stroke-width="2"/>
+  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">G3 acceleration · dκ/ds</text>
+  <text x="{left + (w - left - right) / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
+  <text x="12" y="{top + (h - top - bottom) / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 12 {top + (h - top - bottom) / 2:.0f})">dκ/ds</text>
+  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{GREEN}">green: joins</text>
 </svg>"""
 
 
