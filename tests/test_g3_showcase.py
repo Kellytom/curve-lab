@@ -78,7 +78,7 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5", "G3.6"):
             self.assertIn(f"Fig. {key}", page)
-        self.assertEqual(page.count('<section class="panel">'), 7)
+        self.assertEqual(page.count('<section class="panel">'), 9)
         self.assertNotIn("From the original showcase", page)
         self.assertNotIn("C2 cubic spline", page)
         self.assertNotIn("Catmull–Rom", page)
@@ -87,6 +87,10 @@ class TestCubicPages(unittest.TestCase):
         self.assertEqual(page.count("G3 acceleration · dκ/ds"), 6)
         self.assertEqual(page.count("integer cubics ×625"), 5)
         self.assertEqual(page.count("G3 interpolation"), 6)
+        self.assertIn("Cusp curves · allowed with a declared cusp", page)
+        self.assertIn("Still failing · deviation", page)
+        for key in ("astroid", "deltoid", "heart · Beutel lower", "squircle"):
+            self.assertIn(key, page)
 
     def test_notes_page_still_explains_the_circle(self):
         notes = NOTES.read_text(encoding="utf-8")

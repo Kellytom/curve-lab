@@ -822,6 +822,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .mini figcaption{font:10px/1.3 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:980px){.panel-grid{grid-template-columns:1fr}}
 .bottom-rule{border:0;border-top:1px solid var(--rule);margin:26px 0}
+.catalogue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.cusp-card{background:var(--paper);border:1px solid var(--rule);padding:5px}
 .compare-item{margin:0 0 18px}
 .compare-item h3{font-size:16px;margin:0 0 8px}
 """ % {"paper": PAPER, "ink": INK, "muted": MUTED, "rule": RULE,
@@ -845,6 +847,34 @@ def build():
 <p class="small">{p['note']}</p>
 </section>""" for p in PANELS)
 
+    import json
+    try:
+        cat = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
+        admitted_keys = {r["key"] for r in cat["curves"] if r["admitted"]}
+    except Exception:
+        admitted_keys = set()
+    import g3_catalogue as C
+    cusp_cards = "".join(
+        f'<div class="cusp-card">{C.ideal_svg(ex)}</div>'
+        for ex in C.cusp_examples(admitted_keys))
+    import heart_forms as H
+    heart_cases = [
+        ("heart · Beutel lower", H.beutel()[1]),
+        ("heart · Wu–Nick upper", H.wu_nick()[0]),
+        ("heart · Sio lower", H.sio()[1]),
+    ]
+    for name, pts in heart_cases:
+        status = ("admitted · cusp allowed" if name in admitted_keys
+                  else "not admitted · deviation")
+        cusp_cards += ('<div class="cusp-card">'
+                       + C.ideal_svg({"name": name,
+                                      "pts": [(float(x), float(y)) for x, y in pts],
+                                      "reason": status})
+                       + '</div>')
+    dev_cards = "".join(
+        f'<div class="cusp-card">{C.ideal_svg(ex)}</div>'
+        for ex in C.deviation_examples())
+    heart_line = ", ".join(sorted(k for k in admitted_keys if k.startswith("heart")))
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -888,14 +918,32 @@ tangent angle (floating-point noise). The integer cubic's controls are integers 
 <code>×625</code> on the five integer panels; that is a lattice statement about the
 handles, not a claim that the curve is integer between the cuts. The bell's controls are
 real; only its span count and G3 data are fixed.</p>
-<p class="small">The examples that still fail are at the bottom of the
-<a href="g3-catalogue.html">G3 catalogue</a>.</p>
+<p class="small">The sections below show the cusp and deviation cases; the main panels
+remain cubic-only.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
 quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·
 catalogue: <a href="g3-catalogue.html">G3 catalogue</a> ·
 terminals: <a href="g3-cut.html">extend-and-cut</a> ·
 notes: <a href="g3-notes.html">G3 notes</a></p>
+</section>
+
+<hr class="bottom-rule">
+<section class="panel">
+<h2>Cusp curves · allowed with a declared cusp</h2>
+<p class="small">A cusp is a declared feature, not a G3 join: the curve is split into
+smooth arcs between cusps, and G3 applies to the arcs. The astroid is admitted as four such
+arcs; the other -oids and the cardioid are already admitted. Cusped hearts: {heart_line}.
+These are quintic cases, not cubic panels.</p>
+<div class="catalogue-grid">{cusp_cards}</div>
+</section>
+
+<hr class="bottom-rule">
+<section class="panel">
+<h2>Still failing · deviation</h2>
+<p class="small">Not cusp failures: the best quintic interpolation misses by more than 5%
+of the curve size. The squircle is the clearest case.</p>
+<div class="catalogue-grid">{dev_cards}</div>
 </section>
 </main></body></html>
 """
