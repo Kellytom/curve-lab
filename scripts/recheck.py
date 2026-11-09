@@ -694,6 +694,23 @@ def c_g3_catalogue():
                 f"worst Δ(dκ/ds) {worst:.1e}")
 
 
+@check("the G3 handover list is complete, featureless and faithful",
+       "workbench/g3-catalogue.html — smooth handover rows",
+       "python -m unittest tests.test_g3_catalogue")
+def c_g3_handover():
+    import json
+    data = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
+    rows = data["curves"]
+    smooth = [row for row in rows if row.get("smooth")]
+    complete = [row for row in rows if row.get("g3_complete")]
+    ok = (len(smooth) >= 20
+          and all(row.get("g3_complete") and row.get("feature") is None
+                  and row.get("relative") is not None
+                  and row["relative"] <= 0.0501 for row in smooth))
+    return ok, (f"{len(smooth)} smooth handover, {len(complete)} G3-complete "
+                f"of {len(rows)} candidates")
+
+
 @check("an extend-and-cut terminal inherits G3",
        "scripts/g3_cut.py — two curves, cut inside a span, tail discarded",
        "python -m unittest tests.test_g3_cut")

@@ -354,7 +354,7 @@ def _cubic_panel(key, title, P, note, scale=625):
         "key": key, "title": title, "source": P, "spans": spans, "knots": knots,
         "error": 0.0, "error_name": "exact cubic pieces",
         "kind": "cubic · collapsed quintic", "ints": ints, "scale": scale,
-        "note": note,
+        "badge": "cubic-native", "note": note,
     }
 
 
@@ -429,6 +429,7 @@ def bell_cubic_panel():
         "error": 7.470588372471276e-06,
         "error_name": "max |y − e^(−x²)|",
         "kind": "cubic · independent G3 chain",
+        "badge": "cubic chain (not an elevation)",
         "ints": False, "scale": None,
         "note": ("The bell is not a cubic, so it cannot collapse to one. Eight "
                  "independent four-point spans, solved for G3 at every join, carry "
@@ -886,14 +887,93 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .cusp-card{background:var(--paper);border:1px solid var(--rule);padding:5px}
 .compare-item{margin:0 0 18px}
 .compare-item h3{font-size:16px;margin:0 0 8px}
+.badge{display:inline-block;font:10px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:%(green)s;border:1px solid %(green)s;padding:1px 6px;border-radius:2px;vertical-align:middle;margin-left:6px}
 """ % {"paper": PAPER, "ink": INK, "muted": MUTED, "rule": RULE,
        "green": GREEN, "red": RED, "gold": GOLD}
+
+
+def handover_html():
+    """The finished-curve claim, read from the catalogue's own JSON."""
+    import json
+    try:
+        cat = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
+    except Exception:
+        return ""
+    rows = cat.get("curves", [])
+    smooth = [r for r in rows if r.get("smooth")]
+    declared = [r for r in rows if r.get("g3_complete") and not r.get("smooth")]
+    complete = [r for r in rows if r.get("g3_complete")]
+    cubic = [r for r in rows if r.get("native") == "cubic-native"]
+
+    def table(items, feature=False):
+        body = []
+        for r in items:
+            rel = r.get("relative")
+            rel = f"{rel:.1%}" if isinstance(rel, (int, float)) else "—"
+            body.append(
+                f"<tr><td>{r['key']}</td><td>{r.get('source') or 'named'}</td>"
+                f"<td>{r.get('spans', '—')}</td><td>{rel}</td>"
+                f"<td>{r.get('native') or '—'}</td>"
+                + (f"<td>{r.get('feature') or '—'}</td>" if feature else "")
+                + "</tr>")
+        head = ("<tr><th>curve</th><th>source</th><th>spans</th><th>deviation</th>"
+                "<th>native</th>" + ("<th>declared feature</th>" if feature else "")
+                + "</tr>")
+        return "<table>" + head + "".join(body) + "</table>"
+
+    return f"""<section class="panel" id="handover">
+<h2>The finished curve · what can be handed over</h2>
+<p><strong>The unit is the finished curve, not the span.</strong> A curve is
+<strong>G3-complete</strong> when every interior join — including the closure seam of a
+closed form and every mirror seam — matches position, tangent, curvature and
+curvature-rate, and every break is declared by the source (a cusp, a node, or a
+singular endpoint), not created by the fit. A <strong>smooth handover</strong> is a
+G3-complete curve that is one path with no declared feature and whose deviation is
+under 5% of its size. That is the list to give Inkscape or a glyph editor without a
+smoothness caveat; a curve with a declared cusp or node is still complete, but the
+feature is what the editor must know about.</p>
+<p><strong>The quintic is the carrier, not the goal.</strong> Fixing both endpoints, a
+G3 join asks for six conditions — tangent direction, curvature and curvature-rate at
+each end — against eight unknowns in a quintic span; the two left over are the handle
+lengths used to follow the source. A quartic has no freedom left; a cubic is
+over-determined. So a quintic span is the least span that can meet G3 at both ends. How
+many spans there are is a property of the assembly — mirror seams, cusps, nodes and
+fidelity knots — not of the degree.</p>
+<p><strong>Mirror seams are benign, and testable.</strong> If a curve crosses a mirror
+axis orthogonally, reflection preserves curvature (κ is a scalar invariant), so κ is
+continuous; κ is even about the seam, so dκ/ds is odd and must vanish there. A true
+mirror of a smooth half is therefore G3 at the seam automatically, and
+<code>dκ/ds = 0</code> is the test that the mirror is true. An oblique crossing fails
+even G1; a mirror <em>tangent</em> — the two arcs meeting with opposite tangents — is a
+cusp, not a smooth seam, and is declared as one.</p>
+<p><strong>The closure seam is not an exemption.</strong> Where a closed curve starts
+is an artifact of the parameterisation, so the seam must pass like any other join. If
+it fails, re-knot the decomposition or place the seam at a declared node or cusp. The
+nodal loops (bow, strophoid, bernoulli, nodal, abs-Gerono) declare a node at the seam:
+complete <em>with that feature</em>, not smooth.</p>
+<p><strong>Native degree.</strong> A quintic span is a pure degree elevation of a cubic
+when its fifth divided difference vanishes:
+<code>P0 − 5P1 + 10P2 − 10P3 + 5P4 − P5 = 0</code>. The fifth-degree freedom then did no
+work, and the row is badged <strong>cubic-native</strong> — a simple curve collapsing to
+a cubic is a selector signal, not an accident. The badge is derived from the control
+polygon, never asserted. {len(cubic)} catalogue rows are cubic-native; all five cubic
+panels on this page are, by construction.</p>
+<p class="small"><strong>{len(complete)} G3-complete</strong> of {len(rows)} candidates ·
+<strong>{len(smooth)} smooth handover</strong> · {len(declared)} complete with a
+declared feature. A source corner smoothed inside the 5% tolerance is delivered smooth;
+the fit flags a singular endpoint only when it had to trim. Re-derive:
+<code>python scripts/g3_catalogue.py</code>.</p>
+<h3>Smooth handover · {len(smooth)}</h3>
+{table(smooth)}
+<h3>G3-complete with a declared feature · {len(declared)}</h3>
+{table(declared, feature=True)}
+</section>"""
 
 
 def build():
     panels = "".join(
         f"""<section class="panel">
-<h2>Fig. {p['key']} · {p['title']}</h2>
+<h2>Fig. {p['key']} · {p['title']} <span class="badge">{p.get('badge', '')}</span></h2>
 <div class="panel-grid">
 <div class="main">{fig_panel(p)}</div>
 <div class="side">
@@ -975,6 +1055,8 @@ records which other curves admit a quintic interpolation; this page only carries
 cubic ones.</div>
 
 {panels}
+
+{handover_html()}
 
 <section class="panel">
 <h2>The gate, and what it refuses</h2>
@@ -1093,6 +1175,30 @@ curvature and curvature-rate at both ends — more conditions than four points c
 The four-cubic bell was measured and rejected: its curvature-rate defect at the
 inflection is about 1.9. Degree-7 spans carry the same data without that defect; the
 gate on the showcase page is the evidence.</p>
+</section>
+
+<section class="panel">
+<h2>The finished curve, not the span</h2>
+<p><strong>G3-complete</strong> is the claim that matters for a finished drawing: a
+finite partition into arcs such that every interior join — the closure seam of a closed
+form and every mirror seam included — matches position, tangent, curvature and
+curvature-rate, and every break is declared by the source (a cusp, a node, a singular
+endpoint), not created by the fit. A <strong>smooth handover</strong> adds one path with
+no declared feature and a deviation under 5% of the curve size.</p>
+<p><strong>Mirror.</strong> A curve crossing a mirror axis orthogonally is automatically
+G3 at the seam: reflection preserves κ, so κ is continuous; κ is even about the seam, so
+dκ/ds is odd and must vanish there. A true mirror of a smooth half therefore passes, and
+<code>dκ/ds = 0</code> is the test that the mirror is true. An oblique crossing fails G1;
+a mirror <em>tangent</em> (opposite tangents) is a cusp, declared as one.</p>
+<p><strong>Closure seam.</strong> The start point of a closed curve is an artifact of the
+parameterisation, so the seam must pass like any other join. If it fails, re-knot, or put
+the seam at a declared node or cusp. A nodal loop is complete <em>with that node</em>,
+not smooth.</p>
+<p><strong>Native degree.</strong> A quintic span is a pure degree elevation of a cubic
+when the fifth divided difference is zero:
+<code>P0 − 5P1 + 10P2 − 10P3 + 5P4 − P5 = 0</code>. The badge <strong>cubic-native</strong>
+means the fifth-degree freedom did no work — a selector signal derived from the control
+polygon, never asserted.</p>
 </section>
 
 <section class="panel">

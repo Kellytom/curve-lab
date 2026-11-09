@@ -29,6 +29,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .cusp-card{background:var(--paper);border:1px solid var(--rule);padding:5px}
 .compare-item{margin:0 0 18px}
 .compare-item h3{font-size:16px;margin:0 0 8px}
+.badge{display:inline-block;font:10px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:#2f6b3a;border:1px solid #2f6b3a;padding:1px 6px;border-radius:2px;vertical-align:middle;margin-left:6px}
 </style></head><body>
 <!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> none — the continuity ladder and the gate · <b>out</b> the measured thresholds and the circle's constant-curvature argument</span></div><!-- /hub-bar --><main>
 <p class="eyebrow">curve-lab · G3 notes</p>
@@ -88,6 +89,30 @@ curvature and curvature-rate at both ends — more conditions than four points c
 The four-cubic bell was measured and rejected: its curvature-rate defect at the
 inflection is about 1.9. Degree-7 spans carry the same data without that defect; the
 gate on the showcase page is the evidence.</p>
+</section>
+
+<section class="panel">
+<h2>The finished curve, not the span</h2>
+<p><strong>G3-complete</strong> is the claim that matters for a finished drawing: a
+finite partition into arcs such that every interior join — the closure seam of a closed
+form and every mirror seam included — matches position, tangent, curvature and
+curvature-rate, and every break is declared by the source (a cusp, a node, a singular
+endpoint), not created by the fit. A <strong>smooth handover</strong> adds one path with
+no declared feature and a deviation under 5% of the curve size.</p>
+<p><strong>Mirror.</strong> A curve crossing a mirror axis orthogonally is automatically
+G3 at the seam: reflection preserves κ, so κ is continuous; κ is even about the seam, so
+dκ/ds is odd and must vanish there. A true mirror of a smooth half therefore passes, and
+<code>dκ/ds = 0</code> is the test that the mirror is true. An oblique crossing fails G1;
+a mirror <em>tangent</em> (opposite tangents) is a cusp, declared as one.</p>
+<p><strong>Closure seam.</strong> The start point of a closed curve is an artifact of the
+parameterisation, so the seam must pass like any other join. If it fails, re-knot, or put
+the seam at a declared node or cusp. A nodal loop is complete <em>with that node</em>,
+not smooth.</p>
+<p><strong>Native degree.</strong> A quintic span is a pure degree elevation of a cubic
+when the fifth divided difference is zero:
+<code>P0 − 5P1 + 10P2 − 10P3 + 5P4 − P5 = 0</code>. The badge <strong>cubic-native</strong>
+means the fifth-degree freedom did no work — a selector signal derived from the control
+polygon, never asserted.</p>
 </section>
 
 <section class="panel">

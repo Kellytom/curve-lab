@@ -36,6 +36,60 @@ SPANS = 6
 HGRID = (0.15, 0.2, 0.25, 0.3, 0.35, 0.4)
 ERR_LIMIT = 0.06
 
+# Declared features: points where the source is not a smooth curve and G3 is
+# therefore not defined. They are listed, never counted as failed joins.
+FEATURES = {
+    "astroid": "cusp ×4",
+    "deltoid": "cusp ×3",
+    "nephroid": "cusp ×2",
+    "epicycloid k=3": "cusp ×4",
+    "epicycloid k=5": "cusp ×6",
+    "hypocycloid k=5": "cusp ×5",
+    "cardioid": "cusp ×1",
+    "nodal": "node at the seam",
+    "bow": "node at the seam",
+    "strophoid": "node at the seam",
+    "bernoulli": "node at the seam",
+    "abs(x) gerono": "node at the seam",
+    "bean": "node between the two branches",
+    "bicorn": "node between the two branches",
+    "trifolium": "node where the leaves meet",
+    "quadrifolium": "node where the leaves meet",
+    "kappa": "node between the two branches",
+    "cruciform": "four arms meet at the centre",
+    "heart · cardioid": "cusp ×1",
+    "heart · |x|^(2/3) upper": "cusp ×1",
+    "heart · |x|^(2/3) lower": "cusp ×1",
+}
+
+
+def degree_content(P, chord):
+    """How much of a span is genuinely above cubic degree.
+
+    A quintic control polygon that is a degree elevation of a cubic has zero
+    fourth and fifth differences:
+        d4 = P0 - 4P1 + 6P2 - 4P3 + P4
+        d5 = P0 - 5P1 + 10P2 - 10P3 + 5P4 - P5
+    A nonzero d5 means the span uses the fifth-degree freedom (quartic or
+    quintic content); zero d5 with nonzero d4 is quartic. The number is
+    returned as a share of the span chord, so it is comparable across curves.
+    """
+    if len(P) == 4:
+        return 0.0
+    if len(P) != 6 or chord <= 0.0:
+        return None
+    def norm(v):
+        return math.hypot(*v)
+    d4a = norm((P[0][0] - 4 * P[1][0] + 6 * P[2][0] - 4 * P[3][0] + P[4][0],
+                P[0][1] - 4 * P[1][1] + 6 * P[2][1] - 4 * P[3][1] + P[4][1]))
+    d4b = norm((P[1][0] - 4 * P[2][0] + 6 * P[3][0] - 4 * P[4][0] + P[5][0],
+                P[1][1] - 4 * P[2][1] + 6 * P[3][1] - 4 * P[4][1] + P[5][1]))
+    d5 = norm((P[0][0] - 5 * P[1][0] + 10 * P[2][0] - 10 * P[3][0]
+               + 5 * P[4][0] - P[5][0],
+               P[0][1] - 5 * P[1][1] + 10 * P[2][1] - 10 * P[3][1]
+               + 5 * P[4][1] - P[5][1]))
+    return max(d4a, d4b, d5) / chord
+
 
 # -- exact evaluation of a homogeneous branch ------------------------------
 
@@ -789,6 +843,46 @@ def catalogue():
                              "size; the quintic G3 spans cannot follow it")
             for key in ("branches", "error", "g3", "relative", "spans", "source"):
                 row.pop(key, None)
+
+    # Classify the finished curve, not the span. A curve is G3-complete when
+    # every body join passes and the closure seam either passes or is a
+    # declared feature (a node, a cusp, a singular endpoint). It is "smooth"
+    # for handover when it is one path with no declared feature (the circle is
+    # the analytic exception: G3 everywhere by construction).
+    for row in rows:
+        if not row["admitted"]:
+            row["g3_complete"] = False
+            row["smooth"] = False
+            row["feature"] = None
+            row["native"] = None
+            row["quintic_content"] = None
+            continue
+        branches = row["branches"]
+        seams = all(b.get("seam_pass", True) for b in branches)
+        trimmed = any(b.get("trimmed") for b in branches)
+        feature = FEATURES.get(row["key"])
+        if trimmed and feature is None:
+            feature = "singular endpoint (trimmed)"
+        row["feature"] = feature
+        row["single_path"] = len(branches) == 1
+        row["seam_pass"] = seams
+        row["g3_complete"] = bool(seams or feature is not None)
+        # Quantify how much fifth-degree freedom the spans use.
+        size = abs(curve_size(branches)) or 1.0
+        qc = 0.0
+        for br in branches:
+            for P in br["spans"]:
+                chord = math.dist(P[0], P[-1]) or 1.0
+                c = degree_content(P, chord)
+                if c is None:
+                    continue
+                qc = max(qc, c * chord / size)
+        row["quintic_content"] = qc
+        row["cubic_native"] = qc < 1e-9
+        row["native"] = "cubic-native" if row["cubic_native"] else "quintic"
+        row["smooth"] = bool(
+            row["g3_complete"] and feature is None
+            and (row["single_path"] or row["key"] == "circle"))
     return rows
 
 
@@ -867,13 +961,18 @@ def table(rows):
             body.append(
                 f"<tr><td>{src}</td><td>{row['key']}</td><td>{len(row['branches'])}</td>"
                 f"<td>{row['spans']}</td><td>{row['error']:.1e}</td>"
-                f"<td>{row['g3']:.1e}</td><td class=\"ok\">admitted{note}</td></tr>")
+                f"<td>{row['g3']:.1e}</td>"
+                f"<td>{'yes' if row.get('g3_complete') else 'no'}</td>"
+                f"<td>{native_label(row)}</td>"
+                f"<td class=\"ok\">admitted{note}</td></tr>")
         else:
             body.append(
                 f"<tr><td>{src}</td><td>{row['key']}</td><td>—</td><td>—</td>"
-                f"<td>—</td><td>—</td><td class=\"bad\">rejected: {row['reason']}</td></tr>")
+                f"<td>—</td><td>—</td><td>—</td><td>—</td>"
+                f"<td class=\"bad\">rejected: {row['reason']}</td></tr>")
     return ("<table><tr><th>source</th><th>curve</th><th>branches</th><th>spans</th>"
-            "<th>max deviation</th><th>worst Δ(dκ/ds)</th><th>status</th></tr>"
+            "<th>max deviation</th><th>worst Δ(dκ/ds)</th><th>complete</th>"
+            "<th>native</th><th>status</th></tr>"
             + "".join(body) + "</table>")
 
 
@@ -896,6 +995,84 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
        "green": GREEN, "red": RED, "gold": GOLD}
 
 
+def native_label(row):
+    return row.get("native") or "—"
+
+
+def handover_section(rows):
+    smooth = [r for r in rows if r.get("smooth")]
+    declared = [r for r in rows if r.get("g3_complete") and not r.get("smooth")]
+    admitted = [r for r in rows if r.get("admitted")]
+    complete = [r for r in rows if r.get("g3_complete")]
+    failed = [r for r in admitted if not r.get("g3_complete")]
+
+    def body(items, with_feature):
+        out = []
+        for r in items:
+            out.append(
+                f"<tr><td>{r['key']}</td><td>{r.get('source') or 'named'}</td>"
+                f"<td>{r.get('spans', '—')}</td><td>{r['relative']:.1%}</td>"
+                f"<td>{native_label(r)}</td>"
+                + (f"<td>{r.get('feature') or '—'}</td>" if with_feature else "")
+                + "</tr>")
+        return "".join(out)
+
+    smooth_table = (
+        "<table><tr><th>curve</th><th>source</th><th>spans</th>"
+        "<th>deviation</th><th>native</th></tr>"
+        + body(smooth, False) + "</table>")
+    declared_table = (
+        "<table><tr><th>curve</th><th>source</th><th>spans</th>"
+        "<th>deviation</th><th>native</th><th>declared feature</th></tr>"
+        + body(declared, True) + "</table>")
+    return f"""<section class="panel" id="g3-handover">
+<h2>Handover to Inkscape and the glyph pipeline</h2>
+<p><strong>The unit is the finished curve, not the span.</strong> A curve is
+<strong>G3-complete</strong> when every interior join — including the closure seam of a
+closed form and every mirror seam — matches position, tangent, curvature and
+curvature-rate, and every break is declared by the source (a cusp, a node, or a
+singular endpoint), not created by the fit. A <strong>smooth handover</strong> is a
+G3-complete curve that is one path with no declared feature and whose deviation is
+under 5% of its size. That is the list to give Inkscape or a glyph editor without a
+smoothness caveat.</p>
+<p><strong>Why a quintic is the carrier.</strong> Fixing both endpoints, a G3 join asks
+for six conditions (tangent direction, curvature and curvature-rate at each end) against
+eight unknowns in a quintic span; the two left over are the handle lengths used to
+follow the source. A quartic has no freedom left; a cubic is over-determined. So a
+quintic span is the least span that can meet G3 at both ends. The number of spans is a
+property of the assembly — mirror seams, cusps, nodes and fidelity knots — not of the
+degree.</p>
+<p><strong>Mirror seams are benign, and testable.</strong> If a curve crosses a mirror
+axis orthogonally, reflection preserves curvature (κ is a scalar invariant), so κ is
+continuous; κ is even about the seam, so dκ/ds is odd and must vanish there. A true
+mirror of a smooth half is therefore G3 at the seam automatically, and
+<code>dκ/ds = 0</code> is the test that the mirror is true. An oblique crossing fails
+even G1; a mirror <em>tangent</em> (the two arcs meeting with opposite tangents) is a
+cusp, not a smooth seam, and is declared as one.</p>
+<p><strong>The closure seam is not an exemption.</strong> Where a closed curve starts is
+an artifact of the parameterisation, so the seam must pass like any other join. If it
+fails, either re-knot the span decomposition or place the seam at a declared node or
+cusp. The nodal loops in this catalogue (bow, strophoid, bernoulli, nodal, abs-Gerono)
+declare a node at the seam; they are complete <em>with that feature</em>, not smooth.</p>
+<p><strong>Native degree.</strong> A quintic span is a pure degree elevation of a cubic
+when its fifth divided difference vanishes:
+<code>P0 − 5P1 + 10P2 − 10P3 + 5P4 − P5 = 0</code>. Then the fifth-degree freedom did
+no work, and the row is badged <strong>cubic-native</strong>: a simple curve collapsing
+to a cubic is a selector signal, not an accident. A nonzero fifth difference with a zero
+fourth difference is quartic-native; everything else genuinely uses the quintic. The
+badge is derived from the control polygon, never asserted.</p>
+<p class="small">Counts: <strong>{len(complete)} G3-complete</strong> of {len(rows)} candidates ·
+<strong>{len(smooth)} smooth handover</strong> · {len(declared)} complete with a declared
+feature · {len(failed)} admitted but not complete · {len(rows) - len(admitted)} rejected
+before completeness. A source corner smoothed inside the 5% tolerance is delivered
+smooth; the fit flags a singular endpoint only when it had to trim.</p>
+<h3>Smooth handover · {len(smooth)}</h3>
+{smooth_table}
+<h3>G3-complete with a declared feature · {len(declared)}</h3>
+{declared_table}
+</section>"""
+
+
 def build():
     rows = catalogue()
     admitted = [r for r in rows if r["admitted"]]
@@ -911,7 +1088,7 @@ def build():
     seam_rows = [r for r in drawn
                  if any(not b.get("seam_pass", True) for b in r["branches"])]
     rest = [r for r in drawn if r not in seam_rows]
-    sections, nav = [], []
+    sections, nav = [], ['<a href="#g3-handover">Handover</a>']
     if seam_rows:
         nav.append('<a href="#g3-seam">Closure seam allowed</a>')
         cards = "".join(f'<section class="panel">{panel(r)}</section>'
@@ -978,9 +1155,13 @@ at an acute angle, a curvature jump or a curvature-rate jump still fails.</p>
 <h2>The gate</h2>
 {table(rows)}
 <p class="small">By source: {family_line} · {len(admitted)} admitted of {len(rows)} candidates ·
+{len([r for r in rows if r.get('g3_complete')])} G3-complete ·
+{len([r for r in rows if r.get('smooth')])} smooth handover ·
 {len(rejected)} rejected · {SPANS} quintic spans per branch ·
 re-derive: <code>python scripts/g3_catalogue.py</code></p>
 </section>
+
+{handover_section(rows)}
 
 {panels}
 
@@ -1029,6 +1210,11 @@ being quietly dropped. The squircle is the clearest case.</p>
              "error": r.get("error"), "g3": r.get("g3"),
              "relative": r.get("relative"),
              "source": r.get("source"),
+             "g3_complete": r.get("g3_complete"),
+             "smooth": r.get("smooth"),
+             "feature": r.get("feature"),
+             "native": r.get("native"),
+             "quintic_content": r.get("quintic_content"),
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"],

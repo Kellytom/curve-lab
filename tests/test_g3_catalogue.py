@@ -97,6 +97,37 @@ class TestCatalogue(unittest.TestCase):
         self.assertEqual(len(astroid["branches"]), 4)
         self.assertLess(astroid["g3"], 1e-9)
 
+    def test_every_admitted_row_is_classified(self):
+        for row in self.admitted:
+            with self.subTest(curve=row["key"]):
+                self.assertIn("g3_complete", row)
+                self.assertIn("smooth", row)
+                self.assertIsNotNone(row.get("native"))
+                self.assertIsNotNone(row.get("quintic_content"))
+
+    def test_smooth_rows_are_complete_and_featureless(self):
+        smooth = [r for r in self.rows if r.get("smooth")]
+        self.assertGreaterEqual(len(smooth), 20)
+        for row in smooth:
+            with self.subTest(curve=row["key"]):
+                self.assertTrue(row["g3_complete"])
+                self.assertIsNone(row.get("feature"))
+                self.assertLessEqual(row["relative"], 0.0501)
+
+    def test_cubic_native_rows_include_the_integer_cubics(self):
+        native = [r for r in self.rows if r.get("native") == "cubic-native"]
+        keys = {r["key"] for r in native}
+        self.assertTrue(any(k.startswith("integer cubic ·") for k in keys))
+        for row in native:
+            self.assertLess(row["quintic_content"], 1e-9)
+
+    def test_the_page_has_a_handover_section(self):
+        page = PAGE.read_text(encoding="utf-8")
+        self.assertIn("Handover to Inkscape and the glyph pipeline", page)
+        self.assertIn("G3-complete", page)
+        self.assertIn("smooth handover", page)
+        self.assertIn("cubic-native", page)
+
     def test_the_circle_is_not_drawn(self):
         page = PAGE.read_text(encoding="utf-8")
         self.assertNotIn("Fig. G3.C · circle", page)

@@ -47,6 +47,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the cubic G3 showcase keeps every join G3 | 6 curves, 27 joins, worst Δ(dκ/ds) 4.0e-10 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
 | ok | the quintic page keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/quintic_showcase.py — six-point spans, all joins below 1e-9 |
 | ok | the G3 catalogue admits only curves whose joins pass G3 | 166 admitted, 66 rejected, worst Δ(dκ/ds) 5.0e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
+| ok | the G3 handover list is complete, featureless and faithful | 135 smooth handover, 166 G3-complete of 232 candidates | workbench/g3-catalogue.html — smooth handover rows |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
 | ok | the sequence-curve family closes on the integer lattice | 5 panels, closure gap 0 | scripts/sequence_curves.py — five panels, exact closure |
 | ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | docs/PHILOSOPHY.md §Infinity, linearity, curve |

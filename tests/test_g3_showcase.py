@@ -78,7 +78,11 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5", "G3.6"):
             self.assertIn(f"Fig. {key}", page)
-        self.assertEqual(page.count('<section class="panel">'), 9)
+        self.assertEqual(page.count('<section class="panel"'), 10)
+        self.assertIn("The finished curve · what can be handed over", page)
+        self.assertIn("G3-complete", page)
+        self.assertIn("smooth handover", page)
+        self.assertIn('class="badge"', page)
         self.assertNotIn("From the original showcase", page)
         self.assertNotIn("C2 cubic spline", page)
         self.assertNotIn("Catmull–Rom", page)
