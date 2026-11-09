@@ -88,7 +88,7 @@ def worst_problem(row):
     return min(probs, key=lambda item: item[1]["ratio"])
 
 
-def curve_svg(row, w=560, h=360, mark=False):
+def curve_svg(row, w=560, h=360, mark=False, fig=None):
     """The curve: ideal dashed, G3 spans solid, joins circled, axis labels."""
     branches = row["branches"]
     pts = [p for br in branches for p in br["ideal"]]
@@ -150,7 +150,7 @@ def curve_svg(row, w=560, h=360, mark=False):
   {''.join(body)}
   <line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>
   <text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>
-  <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. H · {row['key']}</text>
+  <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. {fig if fig is not None else 'H'} · {row['key']}</text>
   <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="{MUTED}">{sub}</text>
   <text x="{w - 14}" y="24" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{badge}</text>
   <text x="{w / 2:.0f}" y="{h - 10}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">x (model units)</text>
@@ -315,7 +315,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>"""
 
 
-def panel(row, ring=False, diagnostic=False):
+def panel(row, ring=False, diagnostic=False, fig=None):
     zoom = ("<button class=\"zoom-btn\" "
             "onclick=\"this.closest('.panel').classList.toggle('zoom')\">"
             "zoom</button>")
@@ -325,10 +325,11 @@ def panel(row, ring=False, diagnostic=False):
         badge = "smooth"
     else:
         badge = row.get("feature") or "declared"
+    label = f"Fig. {fig} · " if fig is not None else ""
     return f"""<section class="panel">
-<h2>{row['key']} <span class="badge">{badge}</span> {zoom}</h2>
+<h2>{label}{row['key']} <span class="badge">{badge}</span> {zoom}</h2>
 <div class="panel-grid">
-<div class="main">{curve_svg(row, mark=ring)}</div>
+<div class="main">{curve_svg(row, mark=ring, fig=fig)}</div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
 {accel_svg(row, mark=ring)}
@@ -349,9 +350,13 @@ def row_problem(row):
             "s": p["s"], "ratio": p["ratio"]}
 
 
-def gallery_payload():
-    """The grouped gallery sections and counts, shared by both pages."""
-    rows = C.catalogue()
+def gallery_payload(fig_start=None):
+    """The grouped gallery sections and counts, shared by both pages.
+
+    fig_start numbers the panels consecutively on the combined showcase; the
+    standalone handover page leaves them as Fig. H.
+    """
+    rows = C.catalogue_cached()
     complete = [r for r in rows if r.get("g3_complete")]
     smooth = [r for r in complete if r.get("smooth")]
     declared = [r for r in complete if not r.get("smooth")]
@@ -360,15 +365,20 @@ def gallery_payload():
                 and r["min_speed"] < TIGHT_SPEED]
 
     nav, sections = [], []
+    counter = fig_start
     for src, label in GROUPS:
         items = [r for r in complete if (r.get("source") or "named") == src]
         if not items:
             continue
         items.sort(key=lambda r: (not r.get("smooth"), r["key"]))
         nav.append(f'<a href="#g-{src}">{label} · {len(items)}</a>')
-        cards = "".join(panel(r, ring=is_tight(r)) for r in items)
+        cards = []
+        for r in items:
+            cards.append(panel(r, ring=is_tight(r), fig=counter))
+            if counter is not None:
+                counter += 1
         sections.append(f'<h2 id="g-{src}" class="group">{label} · {len(items)}</h2>'
-                        f'<div class="grid">{cards}</div>')
+                        f'<div class="grid">{"".join(cards)}</div>')
     return {"rows": rows, "complete": complete, "smooth": smooth,
             "declared": declared, "problems": problems,
             "nav": nav, "sections": sections}

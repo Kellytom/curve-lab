@@ -26,6 +26,16 @@ sys.path.insert(0, str(ROOT))
 PAPER = "#fbf7ec"
 INK, MUTED, GOLD, BLUE, RED = "#2e2413", "#7b6c4e", "#c9a441", "#1f5fa8", "#a23b2a"
 RED_MARK = "#e01b1b"   # diagnostic rings and jump marks: brighter than text red
+
+# The small main-panel set that genuinely needs six-point spans. The rest of
+# the quintic fallback lives on workbench/g3-handover.html.
+QUINTIC_KEYS = (
+    "LAC · Fig. 6 · p = 0, turn 270",
+    "Stage II · Fig. 1 · The clothoid · spine 2",
+    "heart · Wolfram",
+    "primal · fire",
+    "misc · Reuleaux triangle",
+)
 RULE = "#d8ccae"
 GREEN = "#2f6b3a"
 
@@ -603,7 +613,7 @@ def fig_panel(panel, w=560, h=390):
   <path d="{curve}" fill="none" stroke="{INK}" stroke-width="2.4"/>
   {''.join(knots)}
   {''.join(ends)}
-  <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. {panel['key']} · {panel['title']}</text>
+  <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. {panel.get('fig', panel['key'])} · {panel['title']}</text>
   <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">{panel['kind']} · {len(panel['spans'])} spans · {len(panel['spans']) - 1} joins · Δ(dκ/ds) ≤ {worst:.1e} · speed ≥ {floor:.0%}</text>
   <text x="{w / 2:.0f}" y="{h - 12}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}">x (model units)</text>
   <text x="15" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}" transform="rotate(-90 15 {h / 2:.0f})">y (model units)</text>
@@ -940,14 +950,14 @@ def comparison_curve_svg(panel, w=520, h=300):
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(body)}
-  <text x="10" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">{panel['name']}</text>
+  <text x="10" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">Fig. {panel.get('fig', '')} · {panel['name']}</text>
   <text x="10" y="{h - 8}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{panel['status']} · max deviation {panel['error']:.1e} · dκ/ds {panel['g3']:.1e}</text>
 </svg>"""
 
 
 def comparison_card(panel):
     return f"""<div class="compare-item">
-<h3>{panel['name']}</h3>
+<h3>Fig. {panel.get('fig', '')} · {panel['name']}</h3>
 <div class="panel-grid">
 <div class="main">{comparison_curve_svg(panel)}</div>
 <div class="side">
@@ -1091,10 +1101,76 @@ curve</a>. Re-derive: <code>python scripts/g3_catalogue.py</code>.</p>
 </section>"""
 
 
+def _quintic_panel(row, idx):
+    branches = row["branches"]
+    spans = [P for br in branches for P in br["spans"]]
+    knots = ([br["spans"][0][0] for br in branches]
+             + [branches[-1]["spans"][-1][-1]])
+    source = [p for br in branches for p in br["ideal"]]
+    feature = row.get("feature")
+    if feature and "cusp" in feature:
+        why = f"the {feature} is a declared break; each smooth arc still needs six points"
+    else:
+        why = ("the curve is not a single cubic, so independent four-point spans "
+               "cannot meet G3 at these joins")
+    breaks = []
+    if len(branches) > 1:
+        count = 0
+        for br in branches[:-1]:
+            count += len(br["spans"])
+            breaks.append(count - 1)
+    return {
+        "key": f"Q.{idx}", "fig": 6 + idx, "title": row["key"], "spans": spans,
+        "knots": knots, "source_pts": source,
+        "error": row["error"], "error_name": "max deviation",
+        "kind": "quintic · six-point spans", "ints": False, "scale": None,
+        "badge": "quintic-required", "controls_label": "quintic spans",
+        "jump": bool(feature), "breaks": breaks,
+        "note": (f"<strong>Why quintic:</strong> {why}. The side construction "
+                 f"shows the six-point spans as the working view; the full fallback "
+                 f"list is on the <a href=\"g3-handover.html\">G3 handover page</a>."),
+    }
+
+
+def quintic_required_section():
+    import g3_catalogue as C
+    rows = {r["key"]: r for r in C.catalogue() if r.get("g3_complete")}
+    selected = [rows[k] for k in QUINTIC_KEYS if k in rows][:8]
+    if not selected:
+        return ""
+    cards = []
+    for i, row in enumerate(selected, 1):
+        p = _quintic_panel(row, i)
+        cards.append(f"""<section class="panel">
+<h2>Fig. {p['fig']} · {p['title']} <span class="badge">{p['badge']}</span></h2>
+<div class="panel-grid">
+<div class="main">{fig_panel(p)}</div>
+<div class="side">
+<div class="side-head">1 · G3 acceleration</div>
+{acceleration_svg(p)}
+<div class="side-head">2 · how it is made</div>
+{construction_block(p)}
+</div>
+</div>
+<p class="small">{p['note']}</p>
+</section>""")
+    return f"""<hr class="bottom-rule">
+<section class="panel">
+<h2>Quintic-required · {len(selected)}</h2>
+<p class="small">These are the few curves where a four-point cubic chain does not meet
+the G3 gate. The main panel carries the quintic result; the side construction shows the
+six-point spans as the working view. The full fallback list is on the
+<a href="g3-handover.html">G3 handover page</a>.</p>
+</section>
+{''.join(cards)}"""
+
+
 def build():
+    for i, p in enumerate(PANELS, 1):
+        p["fig"] = i
     panels = "".join(
         f"""<section class="panel">
-<h2>Fig. {p['key']} · {p['title']} <span class="badge">{p.get('badge', '')}</span></h2>
+<h2>Fig. {p.get('fig', p['key'])} · {p['title']} <span class="badge">{p.get('badge', '')}</span></h2>
 <div class="panel-grid">
 <div class="main">{fig_panel(p)}</div>
 <div class="side">
@@ -1127,46 +1203,46 @@ def build():
          "admitted · cusp allowed", None),
     ]
     cusp_panels = []
-    for name, pts, status, branches in cusp_cases:
+    for i, (name, pts, status, branches) in enumerate(cusp_cases, 12):
         p = comparison_panel(name, pts, status, branches=branches, jump=True)
         if p is not None:
+            p["fig"] = i
             cusp_panels.append(p)
     cusp_cards = "".join(comparison_card(p) for p in cusp_panels)
 
     dev_cases = [("squircle", "not admitted · deviation 31.2%"),
                  ("heart · Beutel upper", "not admitted · deviation 6.3%")]
     dev_panels = []
-    for name, status in dev_cases:
+    for i, (name, status) in enumerate(dev_cases, 16):
         ex = next(e for e in C.deviation_examples() if e["name"] == name)
         p = comparison_panel(name, ex["pts"], status)
         if p is not None:
+            p["fig"] = i
             dev_panels.append(p)
     dev_cards = "".join(comparison_card(p) for p in dev_panels)
     heart_line = ", ".join(sorted(k for k in admitted_keys if k.startswith("heart")))
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 showcase · cubic Béziers, every join G3</title>
+<title>G3 showcase · every curve, cubic first</title>
 <style>{CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
-<h1>Cubic Béziers, every join G3</h1>
-<p class="lede"><strong>Cubic Béziers only.</strong> Every span has four control
-points; every join is <strong>G3</strong> in position, tangent, curvature and
-curvature-rate. These are the cubic solutions: the curve is a cubic (or one cubic
-polynomial cut into pieces), so the quintic G3 representation <em>collapses to a
-cubic</em>. The bell is the exception: it is not a cubic, so it is carried as an
-independent eight-span cubic chain, solved for G3; its control points are real, not
-integer. Inkscape and the glyph pipeline need four-point spans, so this is the page
-they read. A curve that cannot be carried by a cubic chain is a declared quintic
-fallback on the <a href="g3-handover.html">G3 handover page</a>; it is not shown
-here.</p>
+<h1>G3 showcase · every curve</h1>
+<p class="lede"><strong>Cubic Béziers, every join G3</strong> is the lead: six cubic
+panels, every span four control points. Then the five curves that genuinely need
+six-point spans. Then <strong>every complete curve</strong> in one gallery below,
+grouped by source, so this page gives the overall view. The bell is the cubic
+exception: eight independent four-point spans, solved for G3; its controls are
+real, not integer. Inkscape and the glyph pipeline read the four-point spans; a row
+that cannot be carried by a cubic chain is labelled <em>quintic-required</em>, with
+the same full fallback on the <a href="g3-handover.html">G3 handover page</a>.</p>
 <p class="small">Each panel: the curve; its G3 acceleration <code>dκ/ds</code> with the
 cuts marked; the construction pipeline (ideal, G3 interpolation, integer cubic spans at
 ×625); then the <strong>handoff table</strong> — every control point, the two handle
 lengths, and the rational slope of each handle. The join error tables are on the
 <a href="g3-notes.html">G3 notes page</a>.</p>
 
-<div class="rule"><strong>Why cubic only.</strong> A generic cubic cannot carry a G3
+<div class="rule"><strong>Why cubic first.</strong> A generic cubic cannot carry a G3
 join: four control points against the five join conditions. The cases here are the ones
 where it can — the whole curve is one cubic polynomial, cut at the fifths, so every cut
 is the same polynomial and all derivatives agree. The quintic G3 span is a degree
@@ -1175,11 +1251,13 @@ cubic, so it cannot collapse: eight independent four-point spans, solved for G3,
 at a peak error of 7.5e-6. The four-cubic bell is the rejected case; the eight-span chain
 is the passing one. The circle is G3 everywhere and is explained on the
 <a href="g3-notes.html">G3 notes page</a>. The <a href="g3-catalogue.html">G3 catalogue</a>
-records which other curves admit a quintic interpolation; a curve that cannot be
-carried by a cubic chain is a declared fallback on the
-<a href="g3-handover.html">G3 handover page</a>, not on this one.</div>
+records which other curves admit a quintic interpolation. The gallery below
+carries every complete curve, with the quintic-required rows labelled; the same
+set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 
 {panels}
+
+{quintic_required_section()}
 
 {handover_html()}
 
@@ -1227,6 +1305,21 @@ of the curve size. The squircle is the clearest case.</p>
 </section>
 </main></body></html>
 """
+    # One page: the lead, then every complete curve in the gallery below.
+    import g3_handover as H
+    payload = H.gallery_payload(fig_start=18)
+    gallery = (
+        '<hr class="bottom-rule">'
+        f'<h2 id="every-curve" class="group">Every complete curve · '
+        f'{len(payload["complete"])}</h2>'
+        '<p class="small">The overall view: every G3-complete curve, grouped by '
+        'source, curve left and <code>dκ/ds</code> right. A red ring marks the '
+        'tightest span below 25% of the chord; the 10% floor is the admission '
+        'line. <a href="g3-diagnostics.html">Tightest-span diagnostics</a>.</p>'
+        + "".join(payload["sections"]))
+    html = html.replace("</style>", H.EXTRA_CSS + "</style>", 1)
+    html = html.replace("</main>", gallery + "</main>", 1)
+
     out = ROOT / "workbench" / "g3-showcase.html"
     out.write_text(html, encoding="utf-8")
     print(out)
@@ -1253,9 +1346,11 @@ def notes_circle():
 
 
 def notes_panels():
+    for i, p in enumerate(PANELS, 1):
+        p["fig"] = i
     return "".join(
         f"""<section class="panel">
-<h2>Fig. {p['key']} · {p['title']}</h2>
+<h2>Fig. {p.get('fig', p['key'])} · {p['title']}</h2>
 <div class="main">{fig_panel(p)}</div>
 {gate_table(p)}
 <p class="small">{p['note']}</p>
@@ -1304,7 +1399,7 @@ can be joined G3 if their control points are chosen so that the position, tangen
 curvature and curvature-rate match. The showcase does exactly that.</p>
 <p>There is still a special case worth naming: if the underlying curve is a cubic, the
 spans can collapse to cubics. Chopping a cubic into cubic pieces does not create a
-new curve at each knot, so all derivatives agree. Figs. G3.3 and G3.5 use that case.
+new curve at each knot, so all derivatives agree. Figs. 3 and 5 use that case.
 The bell, the log spiral and the sine wave are not cubics, so their independent spans are
 quintic instead.</p>
 </section>

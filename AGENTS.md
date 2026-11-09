@@ -37,14 +37,16 @@ plant-form → ornament-form arc is in `goals.md`; the focused next action is
 still the offset catalogue. Auth and render limits are live; accounts/roles are
 later. Keep the public URL private.
 
-## Degree: cubic first — quintic only when there is no other way
+## Degree: cubic first — quintic only when the curve needs it
 
 A curve goes to Inkscape or a glyph editor as **four-point cubic spans**. Try a
 cubic chain first. A quintic (six-point) span is allowed only when no cubic chain
-can meet the G3 gate and the deviation tolerance, and the row must record why the
-cubic attempt failed. The showcase is cubic-only; the quintic fallback lives on
-`workbench/g3-handover.html` and is labelled as fallback. Never present a quintic
-fit as the main showcase.
+can meet the G3 gate and the deviation tolerance. The **lead** carries only the
+few curves that need it — about **five to ten**, and each one says why the cubic
+attempt failed. The same showcase page also carries the **full gallery** below, so
+one page gives the overall view. Quintic spans may appear in the side construction
+panels as the working view. The full fallback index may also exist on
+`workbench/g3-handover.html`.
 
 ## Files that matter
 

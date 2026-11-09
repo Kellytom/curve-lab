@@ -14,6 +14,7 @@ The JSON beside the page is the machine-readable form of the same result.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import sys
@@ -35,6 +36,11 @@ GREEN = "#2f6b3a"
 SPANS = 6
 HGRID = (0.15, 0.2, 0.25, 0.3, 0.35, 0.4)
 ERR_LIMIT = 0.06
+
+# A fit cache makes the pages cheap to rebuild. Bump FIT_VERSION whenever the
+# span solve or the speed gate changes; the source hash catches table changes.
+FIT_VERSION = 1
+CACHE = ROOT / "workbench" / "g3-catalogue-cache.json"
 
 # A G3 join can match two spans that each pass through a near-cusp: the join
 # gate sees only the ends. A span is regular only when its speed never falls
@@ -962,6 +968,39 @@ def catalogue():
     return rows
 
 
+def _fit_signature():
+    h = hashlib.sha1(str(FIT_VERSION).encode())
+    for name in ("scripts/g3_catalogue.py", "scripts/generators.py",
+                 "scripts/heart_forms.py", "scripts/stem_library.py",
+                 "workbench/spirals/lac.json",
+                 "workbench/spirals/stage-two.json"):
+        p = ROOT / name
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()
+
+
+def catalogue_cached(refresh=False):
+    """The catalogue rows, from the fit cache when it is current.
+
+    The page generators call this instead of `catalogue()`; the catalogue page
+    calls it with refresh=True so its own rebuild also writes the cache.
+    """
+    sig = _fit_signature()
+    if not refresh and CACHE.exists():
+        try:
+            data = json.loads(CACHE.read_text(encoding="utf-8"))
+            if data.get("signature") == sig:
+                return data["rows"]
+        except Exception:
+            pass
+    print("g3_catalogue: fitting 232 curves (cache miss)…", file=sys.stderr)
+    rows = catalogue()
+    CACHE.write_text(json.dumps({"signature": sig, "rows": rows},
+                                separators=(",", ":")), encoding="utf-8")
+    return rows
+
+
 # -- drawing ----------------------------------------------------------------
 
 class Frame:
@@ -1158,7 +1197,7 @@ smooth; the fit flags a singular endpoint only when it had to trim.</p>
 
 
 def build():
-    rows = catalogue()
+    rows = catalogue_cached(refresh=True)
     admitted = [r for r in rows if r["admitted"]]
     rejected = [r for r in rows if not r["admitted"]]
     # The circle is G3 everywhere and is explained on the notes page; it is
