@@ -1134,7 +1134,7 @@ def _quintic_panel(row, idx):
 
 def quintic_required_section():
     import g3_catalogue as C
-    rows = {r["key"]: r for r in C.catalogue() if r.get("g3_complete")}
+    rows = {r["key"]: r for r in C.catalogue_cached() if r.get("g3_complete")}
     selected = [rows[k] for k in QUINTIC_KEYS if k in rows][:8]
     if not selected:
         return ""
@@ -1198,27 +1198,40 @@ def build():
          astroid_branches),
         ("deltoid", C.cusp_ideal("deltoid"), "admitted · cusp allowed", None),
         ("nephroid", C.cusp_ideal("nephroid"), "admitted · cusp allowed", None),
+        ("epicycloid k=3", C.cusp_ideal("epicycloid k=3"),
+         "admitted · cusp allowed", None),
+        ("epicycloid k=5", C.cusp_ideal("epicycloid k=5"),
+         "admitted · cusp allowed", None),
+        ("hypocycloid k=5", C.cusp_ideal("hypocycloid k=5"),
+         "admitted · cusp allowed", None),
+        ("cardioid", C.cusp_ideal("cardioid"), "admitted · cusp allowed", None),
         ("heart · Beutel lower",
          [(float(x), float(y)) for x, y in H.beutel()[1]],
          "admitted · cusp allowed", None),
+        ("semicubical", C.cusp_ideal("semicubical"),
+         "rejected · cusp / singular", None),
+        ("pear", C.cusp_ideal("pear"), "rejected · cusp / singular", None),
     ]
+    cusp_start = 6 + len(QUINTIC_KEYS) + 1
     cusp_panels = []
-    for i, (name, pts, status, branches) in enumerate(cusp_cases, 12):
+    for name, pts, status, branches in cusp_cases:
         p = comparison_panel(name, pts, status, branches=branches, jump=True)
         if p is not None:
-            p["fig"] = i
+            p["fig"] = cusp_start + len(cusp_panels)
             cusp_panels.append(p)
     cusp_cards = "".join(comparison_card(p) for p in cusp_panels)
 
     dev_cases = [("squircle", "not admitted · deviation 31.2%"),
                  ("heart · Beutel upper", "not admitted · deviation 6.3%")]
+    dev_start = cusp_start + len(cusp_panels)
     dev_panels = []
-    for i, (name, status) in enumerate(dev_cases, 16):
+    for name, status in dev_cases:
         ex = next(e for e in C.deviation_examples() if e["name"] == name)
         p = comparison_panel(name, ex["pts"], status)
         if p is not None:
-            p["fig"] = i
+            p["fig"] = dev_start + len(dev_panels)
             dev_panels.append(p)
+    gallery_start = dev_start + len(dev_panels)
     dev_cards = "".join(comparison_card(p) for p in dev_panels)
     heart_line = ", ".join(sorted(k for k in admitted_keys if k.startswith("heart")))
     html = f"""<!doctype html>
@@ -1288,10 +1301,12 @@ notes: <a href="g3-notes.html">G3 notes</a></p>
 
 <hr class="bottom-rule">
 <section class="panel">
-<h2>Cusp curves · allowed with a declared cusp</h2>
+<h2>Cusp curves · admitted and rejected</h2>
 <p class="small">A cusp is a declared feature, not a G3 join: the curve is split into
-smooth arcs between cusps, and G3 applies to the arcs. The astroid is admitted as four such
-arcs; the other -oids and the cardioid are already admitted. Cusped hearts: {heart_line}.
+smooth arcs between cusps, and G3 applies to the arcs. The admitted family is complete
+here — astroid, deltoid, nephroid, the epicycloids, the hypocycloid, the cardioid and the
+cusped heart. Semicubical and pear are rejected cases kept beside them for comparison:
+their cusp defeats the fit, and the card says so. Cusped hearts: {heart_line}.
 These are quintic cases, not cubic panels.</p>
 {cusp_cards}
 </section>
@@ -1307,7 +1322,7 @@ of the curve size. The squircle is the clearest case.</p>
 """
     # One page: the lead, then every complete curve in the gallery below.
     import g3_handover as H
-    payload = H.gallery_payload(fig_start=18)
+    payload = H.gallery_payload(fig_start=gallery_start)
     gallery = (
         '<hr class="bottom-rule">'
         f'<h2 id="every-curve" class="group">Every complete curve · '
