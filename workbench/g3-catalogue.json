@@ -14,6 +14,8 @@
    "feature": "node between the two branches",
    "native": "quintic",
    "quintic_content": 0.26632049454991774,
+   "min_speed": 0.6698652274201178,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.003887416161061703,
@@ -42,18 +44,20 @@
    "admitted": true,
    "reason": null,
    "error": 0.004978700143560065,
-   "g3": 9.053913174739137e-11,
+   "g3": 9.367120412662189e-10,
    "relative": 0.002226542392117653,
    "source": "named",
    "g3_complete": true,
    "smooth": false,
    "feature": "node between the two branches",
    "native": "quintic",
-   "quintic_content": 0.15210028168733192,
+   "quintic_content": 0.14405132592806688,
+   "min_speed": 0.10192893684104626,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.004978700143560065,
-     "g3": 9.053913174739137e-11,
+     "g3": 9.367120412662189e-10,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -63,7 +67,7 @@
     },
     {
      "error": 0.004978700143560065,
-     "g3": 9.053913174739137e-11,
+     "g3": 9.367120412662189e-10,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -86,6 +90,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -101,6 +107,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -116,6 +124,8 @@
    "feature": "node at the seam",
    "native": "quintic",
    "quintic_content": 0.20187194870262962,
+   "min_speed": 0.7465200584828966,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.00599656626538631,
@@ -142,6 +152,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3582838839632889,
+   "min_speed": 0.6908575333489183,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.06544646034154782,
@@ -168,6 +180,8 @@
    "feature": "node at the seam",
    "native": "quintic",
    "quintic_content": 0.35605083145404165,
+   "min_speed": 0.42424956394233887,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.006210521920029422,
@@ -185,32 +199,34 @@
    "key": "epicycloid k=3",
    "admitted": true,
    "reason": null,
-   "error": 0.03503315728209434,
-   "g3": 8.704148513061227e-14,
-   "relative": 0.0026692476173262535,
+   "error": 0.037673116677449825,
+   "g3": 4.593880831293973e-12,
+   "relative": 0.002870391501365854,
    "source": "named",
    "g3_complete": true,
    "smooth": false,
    "feature": "cusp \u00d74",
    "native": "quintic",
-   "quintic_content": 0.30845669294156564,
+   "quintic_content": 0.7566901248084512,
+   "min_speed": 0.1581132648961707,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.03503315728209434,
-     "g3": 8.704148513061227e-14,
+     "error": 0.037673116677449825,
+     "g3": 4.593880831293973e-12,
      "pass": true,
      "closed": false,
-     "count": 6,
+     "count": 10,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
     },
     {
-     "error": 0.03503315728209434,
-     "g3": 8.704148513061227e-14,
+     "error": 0.037673116677449825,
+     "g3": 4.593880831293973e-12,
      "pass": true,
      "closed": false,
-     "count": 6,
+     "count": 10,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -221,19 +237,21 @@
    "key": "epicycloid k=5",
    "admitted": true,
    "reason": null,
-   "error": 0.0629929201473056,
-   "g3": 2.078337502098293e-13,
-   "relative": 0.003304679557753842,
+   "error": 0.07577764417622082,
+   "g3": 2.1076890233118206e-13,
+   "relative": 0.003975380583378347,
    "source": "named",
    "g3_complete": true,
    "smooth": false,
    "feature": "cusp \u00d76",
    "native": "quintic",
-   "quintic_content": 0.17665437257179128,
+   "quintic_content": 0.6065597391936364,
+   "min_speed": 0.10962346910704093,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.0629929201473056,
-     "g3": 2.078337502098293e-13,
+     "error": 0.07577764417622082,
+     "g3": 2.1076890233118206e-13,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -242,8 +260,8 @@
      "g3_seam": 0.0
     },
     {
-     "error": 0.0629929201473056,
-     "g3": 2.078337502098293e-13,
+     "error": 0.07577764417622082,
+     "g3": 2.1076890233118206e-13,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -257,32 +275,34 @@
    "key": "deltoid",
    "admitted": true,
    "reason": null,
-   "error": 0.018137909804089632,
-   "g3": 7.851497230149107e-13,
-   "relative": 0.0026387801369075013,
+   "error": 0.019656450678911926,
+   "g3": 1.895473361601674e-12,
+   "relative": 0.002859703911523456,
    "source": "named",
    "g3_complete": true,
    "smooth": false,
    "feature": "cusp \u00d73",
    "native": "quintic",
-   "quintic_content": 0.13411947111085828,
+   "quintic_content": 0.11064012165047414,
+   "min_speed": 0.10057218562585567,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.018137909804089632,
-     "g3": 7.851497230149107e-13,
+     "error": 0.019656450678911926,
+     "g3": 1.895473361601674e-12,
      "pass": true,
      "closed": false,
-     "count": 6,
+     "count": 10,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
     },
     {
-     "error": 0.018137909804089632,
-     "g3": 7.851497230149107e-13,
+     "error": 0.019656450678911926,
+     "g3": 1.895473361601674e-12,
      "pass": true,
      "closed": false,
-     "count": 6,
+     "count": 10,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -293,32 +313,34 @@
    "key": "hypocycloid k=5",
    "admitted": true,
    "reason": null,
-   "error": 0.0419989566343551,
-   "g3": 2.873257187729905e-13,
-   "relative": 0.0031999860595989973,
+   "error": 0.056264891737486375,
+   "g3": 1.4517553825754703e-13,
+   "relative": 0.00428693671541176,
    "source": "named",
    "g3_complete": true,
    "smooth": false,
    "feature": "cusp \u00d75",
    "native": "quintic",
-   "quintic_content": 0.10153624328715609,
+   "quintic_content": 0.746396120877673,
+   "min_speed": 0.10396391913304431,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.0419989566343551,
-     "g3": 2.873257187729905e-13,
+     "error": 0.056264891737486375,
+     "g3": 1.4517553825754703e-13,
      "pass": true,
      "closed": false,
-     "count": 10,
+     "count": 6,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
     },
     {
-     "error": 0.0419989566343551,
-     "g3": 2.873257187729905e-13,
+     "error": 0.056264891737486375,
+     "g3": 1.4517553825754703e-13,
      "pass": true,
      "closed": false,
-     "count": 10,
+     "count": 6,
      "trimmed": true,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -338,6 +360,8 @@
    "feature": "cusp \u00d72",
    "native": "quintic",
    "quintic_content": 0.29610386558162605,
+   "min_speed": 0.5228301530677127,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.027512679458032274,
@@ -374,6 +398,8 @@
    "feature": "node where the leaves meet",
    "native": "quintic",
    "quintic_content": 0.3466694900342738,
+   "min_speed": 0.49015114916039443,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.006530225652079031,
@@ -410,6 +436,8 @@
    "feature": "node where the leaves meet",
    "native": "quintic",
    "quintic_content": 0.5716976801213447,
+   "min_speed": 0.5120710437074789,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.008509617628515431,
@@ -446,6 +474,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.11480096878094202,
+   "min_speed": 0.678931814712342,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.005028290709116065,
@@ -482,6 +512,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -497,6 +529,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -512,6 +546,8 @@
    "feature": "cusp \u00d71",
    "native": "quintic",
    "quintic_content": 0.1711665650226166,
+   "min_speed": 0.4999632233993663,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.008146730497074742,
@@ -538,6 +574,8 @@
    "feature": "node at the seam",
    "native": "quintic",
    "quintic_content": 0.1342419218982869,
+   "min_speed": 0.3766308667173532,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.004970810315171827,
@@ -574,6 +612,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.38850053553460395,
+   "min_speed": 0.3781008240542954,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.006412096363520654,
@@ -600,6 +640,8 @@
    "feature": "four arms meet at the centre",
    "native": "quintic",
    "quintic_content": 0.4250006818144529,
+   "min_speed": 0.3556685739774732,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.014770855661645897,
@@ -656,6 +698,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.43367403499683066,
+   "min_speed": 0.5553446837867747,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.006797582197434731,
@@ -692,6 +736,8 @@
    "feature": "node at the seam",
    "native": "quintic",
    "quintic_content": 0.39769151107610573,
+   "min_speed": 0.4223391222739551,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0042327417251621004,
@@ -718,6 +764,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.12201706723624194,
+   "min_speed": 0.3737643834061127,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.010764698777920837,
@@ -754,6 +802,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -769,6 +819,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.20577665919248586,
+   "min_speed": 0.5756668442700443,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.006098228871602032,
@@ -795,6 +847,8 @@
    "feature": "node between the two branches",
    "native": "quintic",
    "quintic_content": 0.13934057378579073,
+   "min_speed": 0.6074678970860923,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.007364784033047262,
@@ -831,6 +885,8 @@
    "feature": "node at the seam",
    "native": "quintic",
    "quintic_content": 0.41382155763486345,
+   "min_speed": 0.5533276101709883,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.003629869736318076,
@@ -857,6 +913,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -872,6 +930,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -887,6 +947,8 @@
    "feature": "cusp \u00d71",
    "native": "quintic",
    "quintic_content": 0.8960948832801966,
+   "min_speed": 0.316586116222564,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.02304895577990419,
@@ -912,7 +974,9 @@
    "smooth": false,
    "feature": "cusp \u00d71",
    "native": "quintic",
-   "quintic_content": 0.7117569648244525,
+   "quintic_content": 0.7183203890611914,
+   "min_speed": 0.14273604466385523,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.04212673573785644,
@@ -931,18 +995,20 @@
    "admitted": true,
    "reason": null,
    "error": 0.03772607110686998,
-   "g3": 2.0482132987469183e-11,
+   "g3": 2.127150525270633e-11,
    "relative": 0.01333818035359682,
    "source": "heart",
    "g3_complete": true,
    "smooth": false,
    "feature": "cusp \u00d71",
    "native": "quintic",
-   "quintic_content": 2.418617901882937,
+   "quintic_content": 1.8882637732536032,
+   "min_speed": 0.10038892352503219,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03772607110686998,
-     "g3": 2.0482132987469183e-11,
+     "g3": 2.127150525270633e-11,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -956,25 +1022,27 @@
    "key": "heart \u00b7 Valentine",
    "admitted": true,
    "reason": null,
-   "error": 0.3314261572303296,
+   "error": 1.0377786381660763,
    "g3": 1.2916010658330763e-14,
-   "relative": 0.007683790800440199,
+   "relative": 0.024059881149610506,
    "source": "heart",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.7543335043956134,
+   "quintic_content": 0.7611207797615392,
+   "min_speed": 0.12045788348864546,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.3314261572303296,
+     "error": 1.0377786381660763,
      "g3": 1.2916010658330763e-14,
      "pass": true,
      "closed": true,
      "count": 14,
      "trimmed": false,
      "seam_pass": true,
-     "g3_seam": 2.220446049250313e-16
+     "g3_seam": 1.2073675392798577e-15
     }
    ]
   },
@@ -991,6 +1059,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 1.0168545050238833,
+   "min_speed": 0.31474549381183015,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.06966539887845337,
@@ -1017,6 +1087,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.4463113471675847,
+   "min_speed": 0.5615382328046089,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.2300370131810955,
@@ -1043,6 +1115,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.43071868284469556,
+   "min_speed": 0.598704082202288,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.21670955758011423,
@@ -1069,6 +1143,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1084,6 +1160,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.5293567723427516,
+   "min_speed": 0.3387649596124371,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03843965643868318,
@@ -1101,25 +1179,27 @@
    "key": "heart \u00b7 Mangaldan",
    "admitted": true,
    "reason": null,
-   "error": 0.0226223189916426,
-   "g3": 1.6404877456466238e-11,
-   "relative": 0.0058561801871556615,
+   "error": 0.09140903242330403,
+   "g3": 3.7461700408414345e-12,
+   "relative": 0.023662815682255308,
    "source": "heart",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.5391093827665052,
+   "quintic_content": 3.267914700992949,
+   "min_speed": 0.10715420059984855,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.0226223189916426,
-     "g3": 1.6404877456466238e-11,
+     "error": 0.09140903242330403,
+     "g3": 3.7461700408414345e-12,
      "pass": true,
      "closed": true,
      "count": 14,
      "trimmed": false,
      "seam_pass": true,
-     "g3_seam": 2.3292479056635784e-13
+     "g3_seam": 5.235811784132238e-13
     }
    ]
   },
@@ -1136,6 +1216,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1151,6 +1233,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.5358993378433405,
+   "min_speed": 0.6040647983402925,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03732213181532638,
@@ -1177,6 +1261,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1192,6 +1278,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1207,6 +1295,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1214,18 +1304,20 @@
    "admitted": true,
    "reason": null,
    "error": 0.03888432955899496,
-   "g3": 2.7282361345351338e-11,
+   "g3": 1.4294746798838816e-11,
    "relative": 0.014631720107700686,
    "source": "heart",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.0817697492004281,
+   "quintic_content": 4.8024099212754745,
+   "min_speed": 0.17995717162580308,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03888432955899496,
-     "g3": 2.7282361345351338e-11,
+     "g3": 1.4294746798838816e-11,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -1248,6 +1340,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.1033290621585191,
+   "min_speed": 0.6187251081584556,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.024880702890365113,
@@ -1274,6 +1368,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.21507728926672032,
+   "min_speed": 0.40946618268337687,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.027926003637637125,
@@ -1300,6 +1396,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1315,6 +1413,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1330,6 +1430,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1345,6 +1447,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.8732823050591805,
+   "min_speed": 0.1480902411826867,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0953717337318036,
@@ -1371,6 +1475,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.308594347239253e-15,
+   "min_speed": 0.7848299905229787,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1397,6 +1503,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.6437240836842923e-15,
+   "min_speed": 0.8219424094314407,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1423,6 +1531,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 6.610036151673223e-16,
+   "min_speed": 0.85577957648303,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1449,6 +1559,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 8.163727819225894e-16,
+   "min_speed": 0.8862151874632728,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1475,6 +1587,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 6.93672399467932e-16,
+   "min_speed": 0.8956198928222578,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1501,6 +1615,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.450184229025107e-15,
+   "min_speed": 0.8773364930154118,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1527,6 +1643,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 2.100471149927341e-15,
+   "min_speed": 0.8561850275937288,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1553,6 +1671,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 4.173855081339075e-16,
+   "min_speed": 0.8416720213017143,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1579,6 +1699,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.0865994654932468e-15,
+   "min_speed": 0.8348565427577646,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1605,6 +1727,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 9.207136125490386e-16,
+   "min_speed": 0.8288697654542726,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1631,6 +1755,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.0024827198328133e-15,
+   "min_speed": 0.8244097450035212,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1657,6 +1783,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.566580969930377e-15,
+   "min_speed": 0.8246287262656884,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1683,6 +1811,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.384447413773387e-15,
+   "min_speed": 0.8296854233001026,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1709,6 +1839,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 9.186553503441071e-16,
+   "min_speed": 0.8340394006405358,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1735,6 +1867,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 1.0883993530677925e-15,
+   "min_speed": 0.8438010979304592,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1761,6 +1895,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 4.3959578016251566e-16,
+   "min_speed": 0.853798892777719,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1787,6 +1923,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 2.1158776319452225e-15,
+   "min_speed": 0.8720318457432179,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1813,6 +1951,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 7.335322193685697e-16,
+   "min_speed": 0.887025099147766,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1839,6 +1979,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 6.826503042160753e-16,
+   "min_speed": 0.9090161457746185,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1865,6 +2007,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 7.970968790575145e-16,
+   "min_speed": 0.929900222608718,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1891,6 +2035,8 @@
    "feature": null,
    "native": "cubic-native",
    "quintic_content": 8.686034702975589e-16,
+   "min_speed": 0.9432206765844354,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0,
@@ -1917,6 +2063,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1932,6 +2080,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1947,6 +2097,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1962,6 +2114,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1977,6 +2131,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -1992,6 +2148,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2007,6 +2165,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3564197922878322,
+   "min_speed": 0.41863445782069236,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.042961279246020334,
@@ -2033,6 +2193,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.08356729663794289,
+   "min_speed": 0.5737226479507169,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0045179478189338994,
@@ -2059,6 +2221,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2074,31 +2238,35 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "misc \u00b7 Maclaurin trisectrix \u00b7 exact loop",
    "admitted": true,
    "reason": null,
-   "error": 0.021695955414993126,
+   "error": 0.030469498546571466,
    "g3": 2.6736618820178166e-11,
-   "relative": 0.005684107195374175,
+   "relative": 0.007982681224000142,
    "source": "misc",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.4064183602360176,
+   "quintic_content": 0.509319059446312,
+   "min_speed": 0.10563693769289016,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.021695955414993126,
+     "error": 0.030469498546571466,
      "g3": 2.6736618820178166e-11,
      "pass": true,
      "closed": true,
      "count": 14,
      "trimmed": false,
      "seam_pass": true,
-     "g3_seam": 4.2205128281125326e-13
+     "g3_seam": 4.118927421359331e-14
     }
    ]
   },
@@ -2115,6 +2283,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.1173401146560382,
+   "min_speed": 0.7122483528998342,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.007956680087640885,
@@ -2141,6 +2311,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 6.405718207566621,
+   "min_speed": 0.3679787555357421,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.030520086834168115,
@@ -2167,6 +2339,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2182,6 +2356,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 5.82029003296565,
+   "min_speed": 0.552625039425361,
+   "near_cusp": false,
    "branches": [
     {
      "error": 1.083937235696079,
@@ -2208,6 +2384,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 4.788082041940915,
+   "min_speed": 0.5755655722301001,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.19713393434153895,
@@ -2234,6 +2412,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.21646836498595518,
+   "min_speed": 0.5917685381310542,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.07870213890222692,
@@ -2260,6 +2440,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16599531930237255,
+   "min_speed": 0.5081142594505635,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.04663533903723478,
@@ -2286,6 +2468,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.19356451177558945,
+   "min_speed": 0.4969939104229179,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.06462998966445836,
@@ -2312,6 +2496,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2327,6 +2513,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15486578539840887,
+   "min_speed": 0.2501347012311718,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.010278672731606651,
@@ -2353,6 +2541,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.09628209828437911,
+   "min_speed": 0.7296102261005486,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.010299276473137397,
@@ -2370,25 +2560,27 @@
    "key": "misc \u00b7 Reuleaux triangle",
    "admitted": true,
    "reason": null,
-   "error": 0.009935368509904466,
+   "error": 0.012212150952277815,
    "g3": 1.6123880084827763e-10,
-   "relative": 0.00702536644694073,
+   "relative": 0.008635294751229395,
    "source": "misc",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.4465926617611724,
+   "quintic_content": 0.5415164493915557,
+   "min_speed": 0.11624218104004011,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.009935368509904466,
+     "error": 0.012212150952277815,
      "g3": 1.6123880084827763e-10,
      "pass": true,
      "closed": true,
      "count": 14,
      "trimmed": false,
      "seam_pass": true,
-     "g3_seam": 6.219254278239106e-11
+     "g3_seam": 3.532706072117975e-11
     }
    ]
   },
@@ -2405,6 +2597,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2420,6 +2614,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.11095899864418729,
+   "min_speed": 0.6364022049939706,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.0018020064951359566,
@@ -2446,6 +2642,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2461,6 +2659,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 1.5253054041855363,
+   "min_speed": 0.13287853636985816,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03174200159966188,
@@ -2487,6 +2687,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 1.5253054041855363,
+   "min_speed": 0.13287853636985816,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.03174200159966188,
@@ -2513,6 +2715,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.36244816366304383,
+   "min_speed": 0.20724750501436326,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.09820180550432556,
@@ -2539,6 +2743,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.10521409911249427,
+   "min_speed": 0.5909680704931857,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.1331209572318345,
@@ -2565,6 +2771,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.08887452054060758,
+   "min_speed": 0.34429402244500934,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.2004926272224487,
@@ -2582,19 +2790,21 @@
    "key": "preset \u00b7 bracket",
    "admitted": true,
    "reason": null,
-   "error": 0.18861422936091674,
-   "g3": 3.0704605524789486e-16,
-   "relative": 0.002017805182298388,
+   "error": 0.19016161073906507,
+   "g3": 2.690772951674525e-15,
+   "relative": 0.002034359151606001,
    "source": "preset",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.1403397761828618,
+   "quintic_content": 0.1610581178389119,
+   "min_speed": 0.48935993629301705,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 0.18861422936091674,
-     "g3": 3.0704605524789486e-16,
+     "error": 0.19016161073906507,
+     "g3": 2.690772951674525e-15,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -2617,6 +2827,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.14788838364546938,
+   "min_speed": 0.42136362522364373,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.17908596374243013,
@@ -2643,6 +2855,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2658,6 +2872,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.19053309598480714,
+   "min_speed": 0.6592147436626471,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.29132560097738674,
@@ -2684,6 +2900,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.24030653012015935,
+   "min_speed": 0.5313246174107347,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.2181078387936094,
@@ -2710,6 +2928,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.2999194447970235,
+   "min_speed": 0.38332273232204445,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.50523781597082,
@@ -2736,6 +2956,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2751,6 +2973,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2766,6 +2990,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2781,6 +3007,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2796,6 +3024,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2811,6 +3041,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.08819263750098374,
+   "min_speed": 0.6329516558912353,
+   "near_cusp": false,
    "branches": [
     {
      "error": 16.896885037170552,
@@ -2837,6 +3069,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2852,6 +3086,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2867,6 +3103,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2882,6 +3120,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2897,6 +3137,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2912,6 +3154,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2927,6 +3171,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2942,6 +3188,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2957,6 +3205,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -2972,6 +3222,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.12366223221601112,
+   "min_speed": 0.5735999196826048,
+   "near_cusp": false,
    "branches": [
     {
      "error": 28.885525155954934,
@@ -2998,6 +3250,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.118688889815591,
+   "min_speed": 0.6718443693703936,
+   "near_cusp": false,
    "branches": [
     {
      "error": 30.759165220410704,
@@ -3024,6 +3278,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.08284181929578861,
+   "min_speed": 0.663472999436971,
+   "near_cusp": false,
    "branches": [
     {
      "error": 34.9602136903995,
@@ -3050,6 +3306,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.06940186167733825,
+   "min_speed": 0.7499999999999988,
+   "near_cusp": false,
    "branches": [
     {
      "error": 31.699432731390335,
@@ -3076,6 +3334,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.053689473074658677,
+   "min_speed": 0.6792534229714831,
+   "near_cusp": false,
    "branches": [
     {
      "error": 33.96409788071432,
@@ -3102,6 +3362,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.17519081475936774,
+   "min_speed": 0.5245167753289907,
+   "near_cusp": false,
    "branches": [
     {
      "error": 34.42912667964256,
@@ -3128,6 +3390,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.19771449443307618,
+   "min_speed": 0.5922511219691096,
+   "near_cusp": false,
    "branches": [
     {
      "error": 34.046613474363774,
@@ -3154,6 +3418,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.20711431857809356,
+   "min_speed": 0.6926886427108364,
+   "near_cusp": false,
    "branches": [
     {
      "error": 32.17462291196052,
@@ -3180,6 +3446,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.22343825056051192,
+   "min_speed": 0.6156278928770116,
+   "near_cusp": false,
    "branches": [
     {
      "error": 31.15877423910425,
@@ -3206,6 +3474,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15810142762233237,
+   "min_speed": 0.6986117313338633,
+   "near_cusp": false,
    "branches": [
     {
      "error": 29.959160278569303,
@@ -3232,6 +3502,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.11156091873414148,
+   "min_speed": 0.7499999999999987,
+   "near_cusp": false,
    "branches": [
     {
      "error": 27.00911921203727,
@@ -3258,6 +3530,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3273,6 +3547,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3288,6 +3564,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3303,6 +3581,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3318,6 +3598,8 @@
    "feature": "singular endpoint (trimmed)",
    "native": "quintic",
    "quintic_content": 0.44451552475083894,
+   "min_speed": 0.6288497242579888,
+   "near_cusp": false,
    "branches": [
     {
      "error": 28.790295222646687,
@@ -3344,28 +3626,32 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 8.74254490392033,
-   "g3": 1.454141694616452e-15,
-   "relative": 0.00736982642453254,
+   "error": 8.898672134578476,
+   "g3": 1.921816113366337e-16,
+   "relative": 0.007501439198929333,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.27564112131191915,
+   "quintic_content": 0.18414581056663273,
+   "min_speed": 0.6588290164842971,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 8.74254490392033,
-     "g3": 1.454141694616452e-15,
+     "error": 8.898672134578476,
+     "g3": 1.921816113366337e-16,
      "pass": true,
      "closed": false,
-     "count": 10,
+     "count": 6,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -3376,19 +3662,21 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 8.645691480581347,
-   "g3": 2.0277585474859318e-15,
-   "relative": 0.0072867501867932725,
+   "error": 8.689058141250465,
+   "g3": 1.1608883003651725e-15,
+   "relative": 0.007323300418020128,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.6631375151251958,
+   "quintic_content": 0.09272892998147182,
+   "min_speed": 0.4120529952728665,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 8.645691480581347,
-     "g3": 2.0277585474859318e-15,
+     "error": 8.689058141250465,
+     "g3": 1.1608883003651725e-15,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -3402,19 +3690,21 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 8.645691480801021,
-   "g3": 2.9656057086636283e-15,
-   "relative": 0.007286750186978419,
+   "error": 8.689058141046038,
+   "g3": 1.1091606335510628e-15,
+   "relative": 0.007323300417847833,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.6631375151280415,
+   "quintic_content": 0.0927289299808866,
+   "min_speed": 0.41205299527720834,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 8.645691480801021,
-     "g3": 2.9656057086636283e-15,
+     "error": 8.689058141046038,
+     "g3": 1.1091606335510628e-15,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -3428,22 +3718,24 @@
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 8.74254490107771,
-   "g3": 1.231732018491154e-15,
-   "relative": 0.007369826422136258,
+   "error": 8.89867213471766,
+   "g3": 1.6901314264686045e-16,
+   "relative": 0.007501439199046663,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.27564112126642726,
+   "quintic_content": 0.18414581056668447,
+   "min_speed": 0.6588290164843545,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 8.74254490107771,
-     "g3": 1.231732018491154e-15,
+     "error": 8.89867213471766,
+     "g3": 1.6901314264686045e-16,
      "pass": true,
      "closed": false,
-     "count": 10,
+     "count": 6,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -3463,6 +3755,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3478,25 +3772,29 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 3.006769830141909,
-   "g3": 1.3222685750144403e-14,
-   "relative": 0.006485507481699145,
+   "error": 3.0869277044167944,
+   "g3": 3.641398028378026e-15,
+   "relative": 0.006658405482775048,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.5797777962721016,
+   "quintic_content": 0.9957766203929568,
+   "min_speed": 0.36091955790921726,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 3.006769830141909,
-     "g3": 1.3222685750144403e-14,
+     "error": 3.0869277044167944,
+     "g3": 3.641398028378026e-15,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -3519,6 +3817,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.04938144103495341,
+   "min_speed": 0.7597555007898013,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.28454322111202,
@@ -3545,25 +3845,29 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 3.0211932252994638,
-   "g3": 1.4176902246544262e-14,
-   "relative": 0.0065153546933782135,
+   "error": 3.0648469692539564,
+   "g3": 1.3168143604604804e-15,
+   "relative": 0.00660949618130944,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.579767543029475,
+   "quintic_content": 0.9960528366893598,
+   "min_speed": 0.3624958921239347,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 3.0211932252994638,
-     "g3": 1.4176902246544262e-14,
+     "error": 3.0648469692539564,
+     "g3": 1.3168143604604804e-15,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -3586,6 +3890,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15224207036631995,
+   "min_speed": 0.5675183787522796,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.62120923181503,
@@ -3612,25 +3918,29 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 9",
    "admitted": true,
    "reason": null,
-   "error": 3.021193221478668,
-   "g3": 2.5312969764972743e-15,
-   "relative": 0.006515354685138476,
+   "error": 3.0648469690861306,
+   "g3": 1.1933135686190144e-15,
+   "relative": 0.006609496180947515,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.5797675430250648,
+   "quintic_content": 0.9960528366835126,
+   "min_speed": 0.3624958921108876,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 3.021193221478668,
-     "g3": 2.5312969764972743e-15,
+     "error": 3.0648469690861306,
+     "g3": 1.1933135686190144e-15,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -3653,6 +3963,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.04938144103322655,
+   "min_speed": 0.7597555007844511,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.284543221031057,
@@ -3679,25 +3991,29 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 12",
    "admitted": true,
    "reason": null,
-   "error": 3.006769830142363,
-   "g3": 6.550000749032045e-15,
-   "relative": 0.006485507481700125,
+   "error": 3.0869277040318477,
+   "g3": 1.1286917310070893e-15,
+   "relative": 0.006658405481944731,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 1.5797777962677595,
+   "quintic_content": 0.995776620388008,
+   "min_speed": 0.36091955791092023,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 3.006769830142363,
-     "g3": 6.550000749032045e-15,
+     "error": 3.0869277040318477,
+     "g3": 1.1286917310070893e-15,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -3720,6 +4036,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15224207036532025,
+   "min_speed": 0.5675183787521781,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.621209231740818,
@@ -3746,6 +4064,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3761,6 +4081,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.13530839307148024,
+   "min_speed": 0.5017409396135765,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.485405383442448,
@@ -3787,6 +4109,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.22233063252950533,
+   "min_speed": 0.5017504583168714,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.481693892153725,
@@ -3813,6 +4137,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.22233063253430227,
+   "min_speed": 0.5017504583174587,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.481693892260093,
@@ -3839,6 +4165,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.13530839307385462,
+   "min_speed": 0.50174093961436,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.485405383553231,
@@ -3865,6 +4193,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3880,6 +4210,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16120515607191302,
+   "min_speed": 0.42247966864858477,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.3676142647182425,
@@ -3906,6 +4238,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16140911629239693,
+   "min_speed": 0.4211325665442372,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.3991306524556215,
@@ -3932,6 +4266,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16140911629349186,
+   "min_speed": 0.42113256653962916,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.399130653193195,
@@ -3958,6 +4294,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16120515607313282,
+   "min_speed": 0.42247966864386144,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.367614264825451,
@@ -3984,6 +4322,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -3999,6 +4339,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.6673404074250493,
+   "min_speed": 0.44947670363682257,
+   "near_cusp": false,
    "branches": [
     {
      "error": 2.2744219117068636,
@@ -4016,19 +4358,21 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 9.236699411227407,
-   "g3": 1.301083095157484e-14,
-   "relative": 0.005939919490913306,
+   "error": 9.273836023534187,
+   "g3": 2.542605480442006e-14,
+   "relative": 0.005963801234536942,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 3.637025876324798,
+   "quintic_content": 4.5826130041436235,
+   "min_speed": 0.1263285086353453,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 9.236699411227407,
-     "g3": 1.301083095157484e-14,
+     "error": 9.273836023534187,
+     "g3": 2.542605480442006e-14,
      "pass": true,
      "closed": false,
      "count": 14,
@@ -4051,6 +4395,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.6390112183813474,
+   "min_speed": 0.33608361315995783,
+   "near_cusp": false,
    "branches": [
     {
      "error": 2.268218691858506,
@@ -4068,19 +4414,21 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 5",
    "admitted": true,
    "reason": null,
-   "error": 9.236699411227224,
-   "g3": 5.08636063870332e-15,
-   "relative": 0.005939919490913189,
+   "error": 9.2738360235592,
+   "g3": 1.1270613196385669e-14,
+   "relative": 0.005963801234553029,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 3.637025876329701,
+   "quintic_content": 4.582613004150866,
+   "min_speed": 0.12632850863648312,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 9.236699411227224,
-     "g3": 5.08636063870332e-15,
+     "error": 9.2738360235592,
+     "g3": 1.1270613196385669e-14,
      "pass": true,
      "closed": false,
      "count": 14,
@@ -4094,22 +4442,24 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 10.96344044756426,
-   "g3": 8.27777431967663e-15,
-   "relative": 0.007207722060255981,
+   "error": 11.222170061118263,
+   "g3": 6.123241409766332e-16,
+   "relative": 0.007377819316876645,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.6220612558324986,
+   "quintic_content": 0.14404807839476794,
+   "min_speed": 0.3192624645494572,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 10.96344044756426,
-     "g3": 8.27777431967663e-15,
+     "error": 11.222170061118263,
+     "g3": 6.123241409766332e-16,
      "pass": true,
      "closed": false,
-     "count": 14,
+     "count": 10,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -4120,18 +4470,20 @@
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 7",
    "admitted": true,
    "reason": null,
-   "error": 10.625076790009873,
+   "error": 11.124432352746233,
    "g3": 1.0727909446200945e-15,
-   "relative": 0.0069867038255031514,
+   "relative": 0.007315063750744987,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.25662154651684216,
+   "quintic_content": 0.14407338125621041,
+   "min_speed": 0.41613066245965147,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 10.625076790009873,
+     "error": 11.124432352746233,
      "g3": 1.0727909446200945e-15,
      "pass": true,
      "closed": false,
@@ -4155,24 +4507,28 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 10.20884262423767,
+   "error": 10.907189090953441,
    "g3": 1.831433992125159e-15,
-   "relative": 0.006937725141984376,
+   "relative": 0.007412307425038401,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.23717251610544746,
+   "quintic_content": 0.17784148273531866,
+   "min_speed": 0.2508468440454336,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 10.20884262423767,
+     "error": 10.907189090953441,
      "g3": 1.831433992125159e-15,
      "pass": true,
      "closed": false,
@@ -4187,22 +4543,24 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 3",
    "admitted": true,
    "reason": null,
-   "error": 10.595940048684055,
-   "g3": 1.81831661755783e-14,
-   "relative": 0.007199624816354536,
+   "error": 10.832794991445391,
+   "g3": 1.100734614489573e-15,
+   "relative": 0.007360560676310872,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.946140442775909,
+   "quintic_content": 0.17781082878299742,
+   "min_speed": 0.38995924033379026,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 10.595940048684055,
-     "g3": 1.81831661755783e-14,
+     "error": 10.832794991445391,
+     "g3": 1.100734614489573e-15,
      "pass": true,
      "closed": false,
-     "count": 14,
+     "count": 10,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -4221,7 +4579,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 6.663948286142583,
+   "quintic_content": 9.813997480373072,
+   "min_speed": 0.10197910466428411,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.3202803378452,
@@ -4248,6 +4608,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.05165735298923683,
+   "min_speed": 0.6083072055880933,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.825567993548878,
@@ -4265,19 +4627,21 @@
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 6",
    "admitted": true,
    "reason": null,
-   "error": 4.195206076617617,
-   "g3": 3.174543961037557e-14,
-   "relative": 0.005816584667912735,
+   "error": 4.481524998933085,
+   "g3": 1.0391760373853775e-13,
+   "relative": 0.006213561174729816,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 6.630698420810179,
+   "quintic_content": 4.354019332240708,
+   "min_speed": 0.10032985925660486,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 4.195206076617617,
-     "g3": 3.174543961037557e-14,
+     "error": 4.481524998933085,
+     "g3": 1.0391760373853775e-13,
      "pass": true,
      "closed": false,
      "count": 14,
@@ -4300,6 +4664,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.05165735299046349,
+   "min_speed": 0.6083072055880624,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.825567990351665,
@@ -4318,18 +4684,20 @@
    "admitted": true,
    "reason": null,
    "error": 15.345457939283616,
-   "g3": 5.146038556760359e-16,
+   "g3": 3.7280037591029894e-16,
    "relative": 0.008710370469714325,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.1827547756929321,
+   "quintic_content": 0.21574970562200252,
+   "min_speed": 0.5621042231070624,
+   "near_cusp": false,
    "branches": [
     {
      "error": 15.345457939283616,
-     "g3": 5.146038556760359e-16,
+     "g3": 3.7280037591029894e-16,
      "pass": true,
      "closed": false,
      "count": 10,
@@ -4343,22 +4711,24 @@
    "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 2",
    "admitted": true,
    "reason": null,
-   "error": 13.262558781261653,
-   "g3": 7.81303296426485e-16,
-   "relative": 0.007534122033103073,
+   "error": 13.301733833202436,
+   "g3": 8.346769600153466e-16,
+   "relative": 0.0075563763828739505,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.9090842096401033,
+   "quintic_content": 0.13296680635299926,
+   "min_speed": 0.4580071874898706,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 13.262558781261653,
-     "g3": 7.81303296426485e-16,
+     "error": 13.301733833202436,
+     "g3": 8.346769600153466e-16,
      "pass": true,
      "closed": false,
-     "count": 14,
+     "count": 10,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -4378,6 +4748,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.12142055913735558,
+   "min_speed": 0.640768982156929,
+   "near_cusp": false,
    "branches": [
     {
      "error": 11.59774031951622,
@@ -4404,6 +4776,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4419,6 +4793,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.4587471932720514,
+   "min_speed": 0.3083779869631058,
+   "near_cusp": false,
    "branches": [
     {
      "error": 9.627260803141391,
@@ -4444,7 +4820,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.1891230230270483,
+   "quintic_content": 0.11423523909389725,
+   "min_speed": 0.42288112045020126,
+   "near_cusp": false,
    "branches": [
     {
      "error": 3.2200842260102123,
@@ -4471,6 +4849,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.1658647041084414,
+   "min_speed": 0.25965099290468785,
+   "near_cusp": false,
    "branches": [
     {
      "error": 8.007315061289729,
@@ -4497,6 +4877,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.09986975403940143,
+   "min_speed": 0.4441527430598991,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.683375178982479,
@@ -4514,22 +4896,24 @@
    "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 2.307424519993179,
-   "g3": 2.444911813151776e-14,
-   "relative": 0.00526318398767401,
+   "error": 2.3112106532682457,
+   "g3": 9.922387889625683e-15,
+   "relative": 0.005271820073429305,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.1742062622631037,
+   "quintic_content": 0.09861501135271819,
+   "min_speed": 0.5347013370213871,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 2.307424519993179,
-     "g3": 2.444911813151776e-14,
+     "error": 2.3112106532682457,
+     "g3": 9.922387889625683e-15,
      "pass": true,
      "closed": false,
-     "count": 14,
+     "count": 10,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -4549,6 +4933,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.41609567169773615,
+   "min_speed": 0.36668565615561816,
+   "near_cusp": false,
    "branches": [
     {
      "error": 2.9279444780050445,
@@ -4574,7 +4960,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.6529174848163789,
+   "quintic_content": 0.3255670155367943,
+   "min_speed": 0.3659290090074481,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.5958726244731665,
@@ -4601,6 +4989,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.160984432448214,
+   "min_speed": 0.502831181870942,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.337038807600509,
@@ -4627,6 +5017,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3691590737226301,
+   "min_speed": 0.5600023041691722,
+   "near_cusp": false,
    "branches": [
     {
      "error": 2.6591413275425793,
@@ -4653,6 +5045,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 4.000638880022901e-06,
+   "min_speed": 0.9999999999999896,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.155606103496755,
@@ -4679,6 +5073,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.09899659215252186,
+   "min_speed": 0.6575572048961047,
+   "near_cusp": false,
    "branches": [
     {
      "error": 9.644821961198128,
@@ -4704,7 +5100,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.7771022571219799,
+   "quintic_content": 0.8194682359164137,
+   "min_speed": 0.10413937971250399,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.5930239027594185,
@@ -4722,22 +5120,24 @@
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 4",
    "admitted": true,
    "reason": null,
-   "error": 8.039248802896179,
-   "g3": 1.80981167620148e-15,
-   "relative": 0.007093814833473523,
+   "error": 8.268193695771451,
+   "g3": 2.4043834889113207e-16,
+   "relative": 0.00729583528550152,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.1819980261559986,
+   "quintic_content": 0.1794207399342614,
+   "min_speed": 0.17546612393883784,
+   "near_cusp": false,
    "branches": [
     {
-     "error": 8.039248802896179,
-     "g3": 1.80981167620148e-15,
+     "error": 8.268193695771451,
+     "g3": 2.4043834889113207e-16,
      "pass": true,
      "closed": false,
-     "count": 10,
+     "count": 6,
      "trimmed": false,
      "seam_pass": true,
      "g3_seam": 0.0
@@ -4757,6 +5157,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 4.000558185416267e-06,
+   "min_speed": 0.999999999999994,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.155606099580764,
@@ -4783,6 +5185,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4798,6 +5202,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4813,6 +5219,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4827,7 +5235,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.4303994514330389,
+   "quintic_content": 0.2793369836700478,
+   "min_speed": 0.5024452317674449,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.962252455211193,
@@ -4854,6 +5264,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.14095643166987773,
+   "min_speed": 0.17545929518044953,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.047597831395325,
@@ -4880,6 +5292,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4895,6 +5309,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -4909,7 +5325,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.6950684783355503,
+   "quintic_content": 0.2965912077275305,
+   "min_speed": 0.36242892104112157,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.7144532951176865,
@@ -4928,7 +5346,7 @@
    "admitted": true,
    "reason": null,
    "error": 4.729685809722769,
-   "g3": 4.019841337782933e-15,
+   "g3": 3.7284569217297704e-16,
    "relative": 0.006710239195799191,
    "source": "stage-two",
    "g3_complete": true,
@@ -4936,10 +5354,12 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.5281740621115393,
+   "min_speed": 0.21623022428464814,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.729685809722769,
-     "g3": 4.019841337782933e-15,
+     "g3": 3.7284569217297704e-16,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -4962,6 +5382,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3192944632712096,
+   "min_speed": 0.5959788456646027,
+   "near_cusp": false,
    "branches": [
     {
      "error": 9.041086803802516,
@@ -4988,6 +5410,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -5003,6 +5427,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -5018,6 +5444,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3346040681387247,
+   "min_speed": 0.5823058791784826,
+   "near_cusp": false,
    "branches": [
     {
      "error": 10.387757317355973,
@@ -5036,18 +5464,20 @@
    "admitted": true,
    "reason": null,
    "error": 5.720502432260114,
-   "g3": 2.081729157544371e-15,
+   "g3": 9.691615457212144e-16,
    "relative": 0.00800821748126988,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.43017240398114515,
+   "quintic_content": 0.21523055463649926,
+   "min_speed": 0.10905991516190525,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.720502432260114,
-     "g3": 2.081729157544371e-15,
+     "g3": 9.691615457212144e-16,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -5070,6 +5500,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.11100205391049323,
+   "min_speed": 0.33153241383937854,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.849643691360534,
@@ -5096,6 +5528,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.8192331705671256,
+   "min_speed": 0.670220423163899,
+   "near_cusp": false,
    "branches": [
     {
      "error": 8.894923288122655,
@@ -5122,6 +5556,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.38178251271796126,
+   "min_speed": 0.3796148734693376,
+   "near_cusp": false,
    "branches": [
     {
      "error": 10.542818525834958,
@@ -5148,6 +5584,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.31113995093266733,
+   "min_speed": 0.33149151606799687,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.537593115894559,
@@ -5166,18 +5604,20 @@
    "admitted": true,
    "reason": null,
    "error": 4.754901643428348,
-   "g3": 2.6546419142764455e-15,
+   "g3": 9.621303252260564e-16,
    "relative": 0.006891357211944879,
    "source": "stage-two",
    "g3_complete": true,
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "quintic_content": 0.5384788736531853,
+   "quintic_content": 0.17207388917081903,
+   "min_speed": 0.5338999311110588,
+   "near_cusp": false,
    "branches": [
     {
      "error": 4.754901643428348,
-     "g3": 2.6546419142764455e-15,
+     "g3": 9.621303252260564e-16,
      "pass": true,
      "closed": false,
      "count": 6,
@@ -5200,6 +5640,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.3296323745525652,
+   "min_speed": 0.6299649344123797,
+   "near_cusp": false,
    "branches": [
     {
      "error": 10.351386349800887,
@@ -5226,6 +5668,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -5241,6 +5685,8 @@
    "feature": null,
    "native": null,
    "quintic_content": null,
+   "min_speed": null,
+   "near_cusp": null,
    "branches": []
   },
   {
@@ -5256,6 +5702,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.1856116309930539,
+   "min_speed": 0.6560739757614792,
+   "near_cusp": false,
    "branches": [
     {
      "error": 44.66095435883956,
@@ -5282,6 +5730,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.37803174631885156,
+   "min_speed": 0.5535851344068524,
+   "near_cusp": false,
    "branches": [
     {
      "error": 7.500762007019625,
@@ -5308,6 +5758,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.1552986964237418,
+   "min_speed": 0.242711436135428,
+   "near_cusp": false,
    "branches": [
     {
      "error": 6.115155569905406,
@@ -5334,6 +5786,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.2484441281575469,
+   "min_speed": 0.6840574342557252,
+   "near_cusp": false,
    "branches": [
     {
      "error": 36.44383853735502,
@@ -5360,6 +5814,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15991907039393516,
+   "min_speed": 0.6419196445194283,
+   "near_cusp": false,
    "branches": [
     {
      "error": 39.573408768473726,
@@ -5386,6 +5842,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.16961585862720968,
+   "min_speed": 0.4796165465549154,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.857675693375991,
@@ -5412,6 +5870,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.2515859227482977,
+   "min_speed": 0.2198434270020774,
+   "near_cusp": false,
    "branches": [
     {
      "error": 5.079522883949346,
@@ -5438,6 +5898,8 @@
    "feature": null,
    "native": "quintic",
    "quintic_content": 0.15324951460838365,
+   "min_speed": 0.6675794806013692,
+   "near_cusp": false,
    "branches": [
     {
      "error": 34.23723405104757,
@@ -5464,6 +5926,8 @@
    "feature": "cusp \u00d74",
    "native": "quintic",
    "quintic_content": 0.0639612748866735,
+   "min_speed": 0.7356534684829683,
+   "near_cusp": false,
    "branches": [
     {
      "error": 0.007383823030380716,

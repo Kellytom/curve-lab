@@ -23,7 +23,7 @@
    "feature": "node between the two branches",
    "native": "quintic",
    "relative": 0.002226542392117653,
-   "g3": 9.053913174739137e-11,
+   "g3": 9.367120412662189e-10,
    "spans": 10
   },
   {
@@ -62,9 +62,9 @@
    "smooth": false,
    "feature": "cusp \u00d74",
    "native": "quintic",
-   "relative": 0.0026692476173262535,
-   "g3": 8.704148513061227e-14,
-   "spans": 6
+   "relative": 0.002870391501365854,
+   "g3": 4.593880831293973e-12,
+   "spans": 10
   },
   {
    "key": "epicycloid k=5",
@@ -72,8 +72,8 @@
    "smooth": false,
    "feature": "cusp \u00d76",
    "native": "quintic",
-   "relative": 0.003304679557753842,
-   "g3": 2.078337502098293e-13,
+   "relative": 0.003975380583378347,
+   "g3": 2.1076890233118206e-13,
    "spans": 10
   },
   {
@@ -82,9 +82,9 @@
    "smooth": false,
    "feature": "cusp \u00d73",
    "native": "quintic",
-   "relative": 0.0026387801369075013,
-   "g3": 7.851497230149107e-13,
-   "spans": 6
+   "relative": 0.002859703911523456,
+   "g3": 1.895473361601674e-12,
+   "spans": 10
   },
   {
    "key": "hypocycloid k=5",
@@ -92,9 +92,9 @@
    "smooth": false,
    "feature": "cusp \u00d75",
    "native": "quintic",
-   "relative": 0.0031999860595989973,
-   "g3": 2.873257187729905e-13,
-   "spans": 10
+   "relative": 0.00428693671541176,
+   "g3": 1.4517553825754703e-13,
+   "spans": 6
   },
   {
    "key": "nephroid",
@@ -263,7 +263,7 @@
    "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.01333818035359682,
-   "g3": 2.0482132987469183e-11,
+   "g3": 2.127150525270633e-11,
    "spans": 10
   },
   {
@@ -272,7 +272,7 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007683790800440199,
+   "relative": 0.024059881149610506,
    "g3": 1.2916010658330763e-14,
    "spans": 14
   },
@@ -322,8 +322,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.0058561801871556615,
-   "g3": 1.6404877456466238e-11,
+   "relative": 0.023662815682255308,
+   "g3": 3.7461700408414345e-12,
    "spans": 14
   },
   {
@@ -343,7 +343,7 @@
    "feature": null,
    "native": "quintic",
    "relative": 0.014631720107700686,
-   "g3": 2.7282361345351338e-11,
+   "g3": 1.4294746798838816e-11,
    "spans": 10
   },
   {
@@ -612,7 +612,7 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.005684107195374175,
+   "relative": 0.007982681224000142,
    "g3": 2.6736618820178166e-11,
    "spans": 14
   },
@@ -712,7 +712,7 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.00702536644694073,
+   "relative": 0.008635294751229395,
    "g3": 1.6123880084827763e-10,
    "spans": 14
   },
@@ -782,8 +782,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.002017805182298388,
-   "g3": 3.0704605524789486e-16,
+   "relative": 0.002034359151606001,
+   "g3": 2.690772951674525e-15,
    "spans": 6
   },
   {
@@ -962,9 +962,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.00736982642453254,
-   "g3": 1.454141694616452e-15,
-   "spans": 10
+   "relative": 0.007501439198929333,
+   "g3": 1.921816113366337e-16,
+   "spans": 6
   },
   {
    "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 3",
@@ -972,8 +972,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.0072867501867932725,
-   "g3": 2.0277585474859318e-15,
+   "relative": 0.007323300418020128,
+   "g3": 1.1608883003651725e-15,
    "spans": 10
   },
   {
@@ -982,8 +982,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007286750186978419,
-   "g3": 2.9656057086636283e-15,
+   "relative": 0.007323300417847833,
+   "g3": 1.1091606335510628e-15,
    "spans": 10
   },
   {
@@ -992,9 +992,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007369826422136258,
-   "g3": 1.231732018491154e-15,
-   "spans": 10
+   "relative": 0.007501439199046663,
+   "g3": 1.6901314264686045e-16,
+   "spans": 6
   },
   {
    "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 3",
@@ -1002,8 +1002,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.006485507481699145,
-   "g3": 1.3222685750144403e-14,
+   "relative": 0.006658405482775048,
+   "g3": 3.641398028378026e-15,
    "spans": 6
   },
   {
@@ -1022,8 +1022,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.0065153546933782135,
-   "g3": 1.4176902246544262e-14,
+   "relative": 0.00660949618130944,
+   "g3": 1.3168143604604804e-15,
    "spans": 6
   },
   {
@@ -1042,8 +1042,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.006515354685138476,
-   "g3": 2.5312969764972743e-15,
+   "relative": 0.006609496180947515,
+   "g3": 1.1933135686190144e-15,
    "spans": 6
   },
   {
@@ -1062,8 +1062,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.006485507481700125,
-   "g3": 6.550000749032045e-15,
+   "relative": 0.006658405481944731,
+   "g3": 1.1286917310070893e-15,
    "spans": 6
   },
   {
@@ -1172,8 +1172,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.005939919490913306,
-   "g3": 1.301083095157484e-14,
+   "relative": 0.005963801234536942,
+   "g3": 2.542605480442006e-14,
    "spans": 14
   },
   {
@@ -1192,8 +1192,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.005939919490913189,
-   "g3": 5.08636063870332e-15,
+   "relative": 0.005963801234553029,
+   "g3": 1.1270613196385669e-14,
    "spans": 14
   },
   {
@@ -1202,9 +1202,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007207722060255981,
-   "g3": 8.27777431967663e-15,
-   "spans": 14
+   "relative": 0.007377819316876645,
+   "g3": 6.123241409766332e-16,
+   "spans": 10
   },
   {
    "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 7",
@@ -1212,7 +1212,7 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.0069867038255031514,
+   "relative": 0.007315063750744987,
    "g3": 1.0727909446200945e-15,
    "spans": 10
   },
@@ -1222,7 +1222,7 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.006937725141984376,
+   "relative": 0.007412307425038401,
    "g3": 1.831433992125159e-15,
    "spans": 10
   },
@@ -1232,9 +1232,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007199624816354536,
-   "g3": 1.81831661755783e-14,
-   "spans": 14
+   "relative": 0.007360560676310872,
+   "g3": 1.100734614489573e-15,
+   "spans": 10
   },
   {
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 4",
@@ -1262,8 +1262,8 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.005816584667912735,
-   "g3": 3.174543961037557e-14,
+   "relative": 0.006213561174729816,
+   "g3": 1.0391760373853775e-13,
    "spans": 14
   },
   {
@@ -1283,7 +1283,7 @@
    "feature": null,
    "native": "quintic",
    "relative": 0.008710370469714325,
-   "g3": 5.146038556760359e-16,
+   "g3": 3.7280037591029894e-16,
    "spans": 10
   },
   {
@@ -1292,9 +1292,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007534122033103073,
-   "g3": 7.81303296426485e-16,
-   "spans": 14
+   "relative": 0.0075563763828739505,
+   "g3": 8.346769600153466e-16,
+   "spans": 10
   },
   {
    "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 1",
@@ -1352,9 +1352,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.00526318398767401,
-   "g3": 2.444911813151776e-14,
-   "spans": 14
+   "relative": 0.005271820073429305,
+   "g3": 9.922387889625683e-15,
+   "spans": 10
   },
   {
    "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 1",
@@ -1432,9 +1432,9 @@
    "smooth": true,
    "feature": null,
    "native": "quintic",
-   "relative": 0.007093814833473523,
-   "g3": 1.80981167620148e-15,
-   "spans": 10
+   "relative": 0.00729583528550152,
+   "g3": 2.4043834889113207e-16,
+   "spans": 6
   },
   {
    "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 5",
@@ -1483,7 +1483,7 @@
    "feature": null,
    "native": "quintic",
    "relative": 0.006710239195799191,
-   "g3": 4.019841337782933e-15,
+   "g3": 3.7284569217297704e-16,
    "spans": 6
   },
   {
@@ -1513,7 +1513,7 @@
    "feature": null,
    "native": "quintic",
    "relative": 0.00800821748126988,
-   "g3": 2.081729157544371e-15,
+   "g3": 9.691615457212144e-16,
    "spans": 6
   },
   {
@@ -1563,7 +1563,7 @@
    "feature": null,
    "native": "quintic",
    "relative": 0.006891357211944879,
-   "g3": 2.6546419142764455e-15,
+   "g3": 9.621303252260564e-16,
    "spans": 6
   },
   {

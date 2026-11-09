@@ -499,11 +499,11 @@ def fig_panel(panel, w=560, h=390):
                     f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.6"/>')
         gy += step
 
-    ground_y = y0 - 0.35 * pad
+    ground_y = y0 - 0.45 * pad
     ga, gb = f((x0 - pad, ground_y)), f((x1 + pad, ground_y))
     ground = (f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" '
               f'y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>'
-              f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" '
+              f'<text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" '
               f'font-family="ui-monospace,Menlo,monospace" font-size="10" '
               f'fill="{MUTED}">ground</text>')
 
@@ -718,10 +718,10 @@ def comparison_curve(panel, w=520, h=260):
     pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
     f = Frame(w, h, min(xs) - pad, max(xs) + pad,
               min(ys) - pad, max(ys) + pad)
-    ground_y = min(ys) - 0.35 * pad
+    ground_y = min(ys) - 0.45 * pad
     ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
     body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
-            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
     for P in panel["spans"]:
         q = [bezier(P, i / 40.0) for i in range(41)]
         body.append(f'<path d="{_path(q, f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
@@ -813,10 +813,10 @@ def comparison_curve_svg(panel, w=520, h=300):
     pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
     f = Frame(w, h, min(xs) - pad, max(xs) + pad,
               min(ys) - pad, max(ys) + pad)
-    ground_y = min(ys) - 0.35 * pad
+    ground_y = min(ys) - 0.45 * pad
     ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
     body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
-            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
     for P in panel["spans"]:
         body.append(f'<path d="{_path([bezier(P, i / 30.0) for i in range(31)], f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
         cp = [f(p) for p in P]
@@ -928,10 +928,16 @@ def handover_html():
 closed form and every mirror seam — matches position, tangent, curvature and
 curvature-rate, and every break is declared by the source (a cusp, a node, or a
 singular endpoint), not created by the fit. A <strong>smooth handover</strong> is a
-G3-complete curve that is one path with no declared feature and whose deviation is
-under 5% of its size. That is the list to give Inkscape or a glyph editor without a
-smoothness caveat; a curve with a declared cusp or node is still complete, but the
-feature is what the editor must know about.</p>
+G3-complete curve that is one path with no declared feature, whose deviation is
+under 5% of its size, and whose spans keep a speed above 10% of their chord. That is
+the list to give Inkscape or a glyph editor without a smoothness caveat; a curve with
+a declared cusp or node is still complete, but the feature is what the editor must
+know about.</p>
+<p><strong>The interior-speed gate.</strong> A join-only test can pass two spans that
+each graze a near-cusp in their interior: the ends match, but the span's speed falls
+toward zero and <code>dκ/ds</code> spikes by many orders of magnitude, flattening the
+acceleration graph. A span is admitted only when its speed never falls below 10% of
+its chord. A row that fails is rejected with the measured floor, not drawn flat.</p>
 <p><strong>The quintic is the carrier, not the goal.</strong> Fixing both endpoints, a
 G3 join asks for six conditions — tangent direction, curvature and curvature-rate at
 each end — against eight unknowns in a quintic span; the two left over are the handle

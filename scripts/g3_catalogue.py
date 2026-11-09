@@ -36,6 +36,53 @@ SPANS = 6
 HGRID = (0.15, 0.2, 0.25, 0.3, 0.35, 0.4)
 ERR_LIMIT = 0.06
 
+# A G3 join can match two spans that each pass through a near-cusp: the join
+# gate sees only the ends. A span is regular only when its speed never falls
+# below this share of its chord. The interior near-cusp is what produces the
+# 1e8 curvature-rate spikes that flatten the acceleration graphs.
+MIN_SPEED = 0.10
+
+
+def span_min_speed(P, chord, samples=81):
+    if chord <= 0.0:
+        return 0.0
+    m = float("inf")
+    for i in range(samples):
+        t = i / (samples - 1)
+        d = G3.derivative(P, t, 1)
+        m = min(m, math.hypot(*d))
+    return m / chord
+
+
+def span_is_regular(P, chord):
+    return span_min_speed(P, chord) >= MIN_SPEED
+
+
+def problem_of_spans(spans, samples=81):
+    """The worst interior point of a chain: lowest speed share and where it is.
+
+    Returns the speed minimum as a share of the span chord, the span index,
+    the parameter, the cumulative arc length along the branch, and the model
+    point. This is what the red diagnostic ring is drawn on.
+    """
+    worst = None
+    s = 0.0
+    for si, P in enumerate(spans):
+        chord = math.dist(P[0], P[-1]) or 1.0
+        prev = None
+        for i in range(samples):
+            t = i / (samples - 1)
+            q = G3.bezier(P, t)
+            if prev is not None:
+                s += math.dist(prev, q)
+            prev = q
+            d = G3.derivative(P, t, 1)
+            ratio = math.hypot(*d) / chord
+            if worst is None or ratio < worst["ratio"]:
+                worst = {"ratio": ratio, "span": si, "t": t,
+                         "s": s, "point": q}
+    return worst
+
 # Declared features: points where the source is not a smooth curve and G3 is
 # therefore not defined. They are listed, never counted as failed joins.
 FEATURES = {
@@ -193,7 +240,7 @@ def fit_branch(ctrl, nspans=SPANS, trim=0.0):
             for fb in HGRID:
                 P = G3.quintic_g3(p0, p5, T0, T1, k0, k1, r0, r1,
                                   fa * chord, fb * chord)
-                if P is None:
+                if P is None or not span_is_regular(P, chord):
                     continue
                 e = max(near(G3.bezier(P, j / 20)) for j in range(21))
                 if best is None or e < best[0]:
@@ -222,10 +269,13 @@ def fit_branch(ctrl, nspans=SPANS, trim=0.0):
                        and row["dk"] < 1e-9 and row["dks"] < 1e-9)
         joins.append(row)
 
+    problem = problem_of_spans(spans)
     return {
         "spans": spans,
         "count": nspans,
         "trimmed": trim > 0.0,
+        "min_speed": problem["ratio"],
+        "problem": problem,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max((row["dks"] for row in joins if row["join"] != "seam"),
@@ -346,7 +396,7 @@ def fit_poly(pts, nspans=SPANS, trim=0.0):
             for fb in HGRID:
                 P = G3.quintic_g3(p0, p5, T0, T1, k0, k1, r0, r1,
                                   fa * chord, fb * chord)
-                if P is None:
+                if P is None or not span_is_regular(P, chord):
                     continue
                 e = max(near(G3.bezier(P, j / 20)) for j in range(21))
                 if best is None or e < best[0]:
@@ -373,10 +423,13 @@ def fit_poly(pts, nspans=SPANS, trim=0.0):
                        and row["dk"] < 1e-9 and row["dks"] < 1e-9)
         joins.append(row)
 
+    problem = problem_of_spans(spans)
     return {
         "spans": spans,
         "count": nspans,
         "trimmed": trim > 0.0,
+        "min_speed": problem["ratio"],
+        "problem": problem,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
         "g3": max((row["dks"] for row in joins if row["join"] != "seam"),
@@ -574,12 +627,14 @@ def integer_cubic_rows():
             ideal = [G3.bezier(P, i / 240.0) for i in range(241)]
             joins = G3.gate(spans)
             ok = all(row["pass"] for row in joins)
+            problem = problem_of_spans(spans)
             rows.append({
                 "key": f"integer cubic · {item['label']}",
                 "admitted": True, "source": "integer-cubic",
                 "spans": 5,
                 "branches": [{
                     "spans": spans, "ideal": ideal, "count": 5,
+                    "min_speed": problem["ratio"], "problem": problem,
                     "error": 0.0, "g3": max(r["dks"] for r in joins),
                     "pass": ok, "closed": False,
                 }],
@@ -844,6 +899,23 @@ def catalogue():
             for key in ("branches", "error", "g3", "relative", "spans", "source"):
                 row.pop(key, None)
 
+    # A join-only gate can pass two spans that each graze a near-cusp in their
+    # interior. The speed floor rejects those spans outright.
+    for row in rows:
+        if not row["admitted"]:
+            continue
+        ms = min(b.get("min_speed", 1.0) for b in row["branches"])
+        if ms < MIN_SPEED:
+            row["admitted"] = False
+            row["near_cusp"] = True
+            row["min_speed"] = ms
+            row["reason"] = (f"interior near-cusp: the speed floor is {ms:.0%} "
+                             "of the chord; the join gate cannot see it")
+            # keep the branches: the diagnostics page draws the red rings on
+            # the curve and on dκ/ds.
+            for key in ("error", "g3", "relative", "spans"):
+                row.pop(key, None)
+
     # Classify the finished curve, not the span. A curve is G3-complete when
     # every body join passes and the closure seam either passes or is a
     # declared feature (a node, a cusp, a singular endpoint). It is "smooth"
@@ -856,6 +928,8 @@ def catalogue():
             row["feature"] = None
             row["native"] = None
             row["quintic_content"] = None
+            if not row.get("near_cusp"):
+                row["min_speed"] = None
             continue
         branches = row["branches"]
         seams = all(b.get("seam_pass", True) for b in branches)
@@ -864,8 +938,10 @@ def catalogue():
         if trimmed and feature is None:
             feature = "singular endpoint (trimmed)"
         row["feature"] = feature
+        row["near_cusp"] = False
         row["single_path"] = len(branches) == 1
         row["seam_pass"] = seams
+        row["min_speed"] = min(b.get("min_speed", 1.0) for b in branches)
         row["g3_complete"] = bool(seams or feature is not None)
         # Quantify how much fifth-degree freedom the spans use.
         size = abs(curve_size(branches)) or 1.0
@@ -1032,9 +1108,15 @@ def handover_section(rows):
 closed form and every mirror seam — matches position, tangent, curvature and
 curvature-rate, and every break is declared by the source (a cusp, a node, or a
 singular endpoint), not created by the fit. A <strong>smooth handover</strong> is a
-G3-complete curve that is one path with no declared feature and whose deviation is
-under 5% of its size. That is the list to give Inkscape or a glyph editor without a
-smoothness caveat.</p>
+G3-complete curve that is one path with no declared feature, whose deviation is
+under 5% of its size, and whose spans keep a speed above 10% of their chord. That is
+the list to give Inkscape or a glyph editor without a smoothness caveat.</p>
+<p><strong>The interior-speed gate.</strong> A join-only test can pass two spans that
+each graze a near-cusp in their interior: the ends match, but the span's speed falls
+toward zero and <code>dκ/ds</code> spikes by many orders of magnitude. A span is
+admitted only when its speed never falls below 10% of its chord. This is what makes
+the acceleration graphs readable and the smooth badge honest; a row that fails it is
+rejected with the measured speed floor, not quietly drawn flat.</p>
 <p><strong>Why a quintic is the carrier.</strong> Fixing both endpoints, a G3 join asks
 for six conditions (tangent direction, curvature and curvature-rate at each end) against
 eight unknowns in a quintic span; the two left over are the handle lengths used to
@@ -1217,6 +1299,8 @@ being quietly dropped. The squircle is the clearest case.</p>
              "feature": r.get("feature"),
              "native": r.get("native"),
              "quintic_content": r.get("quintic_content"),
+             "min_speed": r.get("min_speed"),
+             "near_cusp": r.get("near_cusp"),
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"],

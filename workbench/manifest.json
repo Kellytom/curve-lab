@@ -119,6 +119,15 @@
       "outputs": "the 135 smooth handover curves and every curve complete with a declared cusp or node"
     },
     {
+      "key": "g3-diagnostics",
+      "file": "g3-diagnostics.html",
+      "group": "curve",
+      "title": "G3 diagnostics · tightest spans",
+      "purpose": "The working curves whose tightest span is below 25% of its chord, with red rings on the curve and on dκ/ds.",
+      "inputs": "the catalogue's speed floor and tightest-span point",
+      "outputs": "red problem rings on both figures, a per-panel zoom, and the 10% admission floor"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",

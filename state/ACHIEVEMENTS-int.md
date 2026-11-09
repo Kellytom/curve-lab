@@ -36,7 +36,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids compose by lcm, and per-span grids cost 5^k | composite 1/25; six spans 5^6 = 15,625 | workbench/multi-grid.html — the layout cost |
 | ok | the Euclid family chain is integer at scale 1 and C1 at every join | 6 spans, integer controls, C1 exact | curve_lab/pyth_chain.py, workbench/pythagorean-chain-editor.html |
 | ok | every named curve and heart is rendered from its own table | 29 named + 15 hearts, 0 missing | workbench/curves-all.html built by scripts/all_curves.py |
-| ok | the hub is built from the manifest and every page carries its bar | 75 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
+| ok | the hub is built from the manifest and every page carries its bar | 76 pages, 0 without a bar | workbench/manifest.json + scripts/hub.py |
 | ok | the package is curve_lab and nothing imports the old name | 0 stale imports | the rename of 2026-11-01 |
 | ok | the fleur proof states the grammar's own counts | 26 spans, 16 integer nodes, R = 25 | scripts/fleur_proof.py; workbench/fleur-proof.html |
 | ok | the volute proof states the spine's own counts | 33 chords, 34 nodes, peak 765.8° | scripts/volute_proof.py; workbench/volute-proof.html |
@@ -46,9 +46,10 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the integer cubic catalogue counts every arm pair and sign | 316 curves, 632 sign variants, all integer | curve_lab/pyth_cubic.py catalogue; workbench/integer-cubic-catalogue.html |
 | ok | the cubic G3 showcase keeps every join G3 | 6 curves, 27 joins, worst Δ(dκ/ds) 4.0e-10 | scripts/g3_showcase.py — four-point cubic spans, all joins below 1e-9 |
 | ok | the quintic page keeps every join G3 | 5 curves, 37 joins, worst Δ(dκ/ds) 8.7e-12 | scripts/quintic_showcase.py — six-point spans, all joins below 1e-9 |
-| ok | the G3 catalogue admits only curves whose joins pass G3 | 166 admitted, 66 rejected, worst Δ(dκ/ds) 5.0e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
+| ok | the G3 catalogue admits only curves whose joins pass G3 | 166 admitted, 66 rejected, worst Δ(dκ/ds) 9.4e-10 | scripts/g3_catalogue.py — named curves, quintic spans, rejected with reasons |
 | ok | the G3 handover list is complete, featureless and faithful | 135 smooth handover, 166 G3-complete of 232 candidates | workbench/g3-catalogue.html — smooth handover rows |
 | ok | the handover gallery draws every G3-complete curve | 166 panels, 135 smooth, 31 declared | workbench/g3-handover.html — one panel per complete curve |
+| ok | the tightest-span diagnostics mark every row below 25% | 27 tightest spans, 10% floor to 25% display band | workbench/g3-diagnostics.html — red rings on curve and dκ/ds |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
 | ok | the sequence-curve family closes on the integer lattice | 5 panels, closure gap 0 | scripts/sequence_curves.py — five panels, exact closure |
 | ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | docs/PHILOSOPHY.md §Infinity, linearity, curve |

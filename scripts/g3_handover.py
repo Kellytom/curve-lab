@@ -29,6 +29,21 @@ import g3_showcase as S  # noqa: E402
 PAPER, INK, MUTED, GOLD = S.PAPER, S.INK, S.MUTED, S.GOLD
 BLUE, RED, RULE, GREEN = S.BLUE, S.RED, S.RULE, S.GREEN
 
+EXTRA_CSS = """
+.grid{display:grid;grid-template-columns:1fr;gap:0}
+.group{margin:30px 0 10px;padding-top:10px;border-top:1px solid var(--rule)}
+.zoom-btn{float:right;font:10px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);background:transparent;
+  border:1px solid var(--rule);padding:1px 8px;border-radius:2px;cursor:pointer}
+.zoom-btn:hover{color:var(--ink);border-color:var(--ink)}
+.panel.zoom .panel-grid{grid-template-columns:1fr}
+.panel.zoom .main,.panel.zoom .side{overflow:auto}
+.panel.zoom .main svg{width:240%;max-width:none}
+.panel.zoom .side svg{width:200%;max-width:none}
+"""
+
+TIGHT_SPEED = 0.25   # display threshold for the tightest-span diagnostics
+
 GROUPS = [
     ("named", "Named curves"),
     ("heart", "Heart forms"),
@@ -59,7 +74,20 @@ def _grid(f, x0, x1, y0, y1, step):
     return "".join(out)
 
 
-def curve_svg(row, w=560, h=360):
+def is_tight(row):
+    ms = row.get("min_speed")
+    return isinstance(ms, (int, float)) and ms < TIGHT_SPEED
+
+
+def worst_problem(row):
+    probs = [(i, b["problem"]) for i, b in enumerate(row.get("branches", []))
+             if b.get("problem")]
+    if not probs:
+        return None
+    return min(probs, key=lambda item: item[1]["ratio"])
+
+
+def curve_svg(row, w=560, h=360, mark=False):
     """The curve: ideal dashed, G3 spans solid, joins circled, axis labels."""
     branches = row["branches"]
     pts = [p for br in branches for p in br["ideal"]]
@@ -70,7 +98,7 @@ def curve_svg(row, w=560, h=360):
     f = S.Frame(w, h, x0 - pad, x1 + pad, y0 - pad, y1 + pad, pad=46)
     step = S._nice_step(max(x1 - x0, y1 - y0))
 
-    ground_y = y0 - 0.30 * pad
+    ground_y = y0 - 0.45 * pad
     ga, gb = f((x0 - pad, ground_y)), f((x1 + pad, ground_y))
 
     body = []
@@ -87,19 +115,40 @@ def curve_svg(row, w=560, h=360):
             body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="3.0" '
                         f'fill="none" stroke="{GREEN}" stroke-width="1.3"/>')
 
-    if row.get("smooth"):
+    if mark:
+        wp = worst_problem(row)
+        if wp:
+            _, p = wp
+            X, Y = f(p["point"])
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="10" '
+                        f'fill="none" stroke="{RED}" stroke-width="2.4"/>')
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="2.2" fill="{RED}"/>')
+            lx = min(max(X + 14, 8), w - 190)
+            ly = min(max(Y - 12, 58), h - 46)
+            body.append(f'<text x="{lx:.1f}" y="{ly:.1f}" '
+                        f'font-family="ui-monospace,Menlo,monospace" font-size="10" '
+                        f'fill="{RED}">tightest · {p["ratio"]:.1%} of chord speed</text>')
+
+    if mark:
+        badge, col = f"tightest {row.get('min_speed', 0):.1%}", RED
+    elif row.get("smooth"):
         badge, col = "smooth handover", GREEN
     else:
         badge, col = f"declared: {row.get('feature') or 'feature'}", GOLD
-    sub = (f"{row['spans']} spans · {len(branches)} path"
+    nspans = row.get("spans") or sum(len(b["spans"]) for b in branches)
+    rel = row.get("relative")
+    rel_s = f"{rel:.1%}" if isinstance(rel, (int, float)) else "—"
+    g3v = row.get("g3")
+    g3_s = f"{g3v:.1e}" if isinstance(g3v, (int, float)) else "—"
+    sub = (f"{nspans} spans · {len(branches)} path"
            f"{'s' if len(branches) != 1 else ''} · deviation "
-           f"{row['relative']:.1%} · worst Δ(dκ/ds) {row['g3']:.1e}")
+           f"{rel_s} · worst Δ(dκ/ds) {g3_s}")
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{row['key']} · G3 interpolation">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {_grid(f, x0 - pad, x1 + pad, y0 - pad, y1 + pad, step)}
   {''.join(body)}
   <line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>
-  <text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>
+  <text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>
   <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. H · {row['key']}</text>
   <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="{MUTED}">{sub}</text>
   <text x="{w - 14}" y="24" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{badge}</text>
@@ -113,7 +162,7 @@ def curve_svg(row, w=560, h=360):
 </svg>"""
 
 
-def accel_svg(row, w=380, h=240):
+def accel_svg(row, w=380, h=240, mark=False):
     """d(kappa)/ds along each path; branch breaks are declared, not joins."""
     branches = row["branches"]
     segs = []            # (offset, length, xs, vals)
@@ -132,6 +181,7 @@ def accel_svg(row, w=380, h=240):
                 prev = q
         lengths.append(s)
     gap = 0.03 * (sum(lengths) or 1.0)
+    problem_marks = []
     offset = 0.0
     for br, length in zip(branches, lengths):
         xs, vals = [], []
@@ -146,15 +196,29 @@ def accel_svg(row, w=380, h=240):
                 vals.append(S.curvature_rate(P, i / 40.0))
                 prev = q
         segs.append((offset, length, xs, vals))
+        if mark and br.get("problem"):
+            p = br["problem"]
+            idx = min(range(len(xs)),
+                      key=lambda i: abs((xs[i] - offset) - p["s"]))
+            problem_marks.append((xs[idx], vals[idx], p))
         offset += length + gap
 
     total = offset - gap if segs else 1.0
-    finite = [v for _o, _l, _xs, vs in segs for v in vs if math.isfinite(v)]
-    lo, hi = min(finite), max(finite)
+    finite = sorted(v for _o, _l, _xs, vs in segs for v in vs
+                    if math.isfinite(v))
+
+    def pct(q):
+        return finite[min(len(finite) - 1, max(0, int(q * (len(finite) - 1))))]
+
+    # A declared cusp or a trimmed singular endpoint can spike dκ/ds by many
+    # orders of magnitude. The body is read on the 2–98% band; spikes are
+    # clipped and the title says so.
+    lo, hi = pct(0.02), pct(0.98)
     if hi - lo < 1e-12:
         lo, hi = lo - 1.0, hi + 1.0
     pad = 0.12 * (hi - lo)
     y0, y1 = lo - pad, hi + pad
+    clipped = any(v < y0 or v > y1 for v in finite)
     left, right, top, bottom = 44, 14, 30, 30
 
     def gx(x):
@@ -191,14 +255,29 @@ def accel_svg(row, w=380, h=240):
 
     paths = []
     for offset_, length, xs, vals in segs:
-        pts = [(gx(x), gy(v)) for x, v in zip(xs, vals) if math.isfinite(v)]
+        pts = [(gx(x), min(max(gy(v), top), h - bottom))
+               for x, v in zip(xs, vals) if math.isfinite(v)]
         if len(pts) < 2:
             continue
         d = " ".join(("M" if i == 0 else "L") + f"{x:.1f},{y:.1f}"
                      for i, (x, y) in enumerate(pts))
         paths.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="2"/>')
 
+    red = []
+    for px, pv, p in problem_marks:
+        X = gx(px)
+        Y = min(max(gy(pv), top), h - bottom)
+        red.append(f'<line x1="{X:.1f}" y1="{top}" x2="{X:.1f}" '
+                   f'y2="{h - bottom}" stroke="{RED}" stroke-width="1.2" '
+                   f'stroke-dasharray="4 3"/>')
+        red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="8" '
+                   f'fill="none" stroke="{RED}" stroke-width="2.2"/>')
+
     broke = " · declared breaks marked" if len(segs) > 1 else ""
+    if clipped:
+        broke += " · 2–98% band, spikes clipped"
+    if problem_marks:
+        broke += f" · tightest {problem_marks[0][2]['ratio']:.1%} circled"
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="dκ/ds along {row['key']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(grid)}
@@ -206,6 +285,7 @@ def accel_svg(row, w=380, h=240):
   <line x1="{left}" y1="{h - bottom}" x2="{w - right}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
   {''.join(marks)}
   {''.join(break_marks)}
+  {''.join(red)}
   {''.join(paths)}
   <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">dκ/ds · G3 joins{broke}</text>
   <text x="{left + (w - left - right) / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s (model units, paths abut)</text>
@@ -213,30 +293,57 @@ def accel_svg(row, w=380, h=240):
 </svg>"""
 
 
-def record(row):
+def record(row, diagnostic=False):
+    if diagnostic:
+        return f"""<p class="small">branches {len(row['branches'])} · tightest span
+{row.get('min_speed', 0):.1%} of the chord<br>
+below the 25% display threshold; the 10% floor is the admission line.<br>
+Red ring: the speed minimum on the curve. Red line and ring: the same point on
+<code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>"""
     state = "smooth handover" if row.get("smooth") else f"declared: {row.get('feature') or 'feature'}"
     seam = ("seam passes" if row.get("seam_pass")
             else "seam declared")
+    speed = row.get("min_speed")
+    speed_s = f"{speed:.1%}" if isinstance(speed, (int, float)) else "—"
     return f"""<p class="small">branches {len(row['branches'])} · spans {row['spans']} ·
 max deviation {row['relative']:.1%} · worst Δ(dκ/ds) {row['g3']:.1e}<br>
-native: {row.get('native')} · {state} · {seam}<br>
+native: {row.get('native')} · {state} · {seam} · speed floor {speed_s}<br>
 G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>"""
 
 
-def panel(row):
+def panel(row, ring=False, diagnostic=False):
+    zoom = ("<button class=\"zoom-btn\" "
+            "onclick=\"this.closest('.panel').classList.toggle('zoom')\">"
+            "zoom</button>")
+    if diagnostic:
+        badge = f"tightest {row.get('min_speed', 0):.1%}"
+    elif row.get("smooth"):
+        badge = "smooth"
+    else:
+        badge = row.get("feature") or "declared"
     return f"""<section class="panel">
-<h2>{row['key']} <span class="badge">{'smooth' if row.get('smooth') else (row.get('feature') or 'declared')}</span></h2>
+<h2>{row['key']} <span class="badge">{badge}</span> {zoom}</h2>
 <div class="panel-grid">
-<div class="main">{curve_svg(row)}</div>
+<div class="main">{curve_svg(row, mark=ring)}</div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
-{accel_svg(row)}
+{accel_svg(row, mark=ring)}
 <div class="side-head">2 · the record</div>
-{record(row)}
+{record(row, diagnostic=diagnostic)}
 </div>
 </div>
 </section>"""
+
+
+def row_problem(row):
+    wp = worst_problem(row)
+    if not wp:
+        return None
+    bi, p = wp
+    return {"branch": bi, "span": p["span"], "t": p["t"],
+            "point": [p["point"][0], p["point"][1]],
+            "s": p["s"], "ratio": p["ratio"]}
 
 
 def build():
@@ -244,6 +351,9 @@ def build():
     complete = [r for r in rows if r.get("g3_complete")]
     smooth = [r for r in complete if r.get("smooth")]
     declared = [r for r in complete if not r.get("smooth")]
+    problems = [r for r in rows if r.get("g3_complete")
+                and isinstance(r.get("min_speed"), (int, float))
+                and r["min_speed"] < TIGHT_SPEED]
 
     nav, sections = [], []
     for src, label in GROUPS:
@@ -252,7 +362,7 @@ def build():
             continue
         items.sort(key=lambda r: (not r.get("smooth"), r["key"]))
         nav.append(f'<a href="#g-{src}">{label} · {len(items)}</a>')
-        cards = "".join(panel(r) for r in items)
+        cards = "".join(panel(r, ring=is_tight(r)) for r in items)
         sections.append(f'<h2 id="g-{src}" class="group">{label} · {len(items)}</h2>'
                         f'<div class="grid">{cards}</div>')
 
@@ -260,10 +370,7 @@ def build():
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>G3 handover · every complete curve, with its acceleration</title>
-<style>{S.CSS}
-.grid{{display:grid;grid-template-columns:1fr;gap:0}}
-.group{{margin:30px 0 10px;padding-top:10px;border-top:1px solid var(--rule)}}
-</style></head><body><main>
+<style>{S.CSS}{EXTRA_CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · G3 handover</p>
 <h1>Every working curve, with its G3 acceleration</h1>
 <p class="lede">The curves below are the <strong>{len(complete)} G3-complete</strong>
@@ -281,13 +388,18 @@ the left and <code>dκ/ds</code> on the right, in the same format as the
 curve, the solid line the delivered G3 chain, the green circles the joins. On the
 right, <code>dκ/ds</code> is plotted against arc length; green lines are G3 joins, gold
 dashed lines are declared breaks between paths (a cusp or node), and the blue dashed
-line is zero. A smooth curve has one path and no gold line. The record gives the
-deviation as a share of the curve size, the worst curvature-rate gap, the native degree
-(<em>cubic-native</em> means the fifth divided difference vanished), and the declared
-feature if any.</p>
+line is zero. A smooth curve has one path and no gold line. A <span
+style="color:{RED}">red ring</span> marks the tightest span when the speed floor is
+below 25% of the chord; those curves are also collected on the
+<a href="g3-diagnostics.html">tightest-span diagnostics page</a>, where the same point
+is ringed on both figures. The record gives the deviation as a share of the curve
+size, the worst curvature-rate gap, the native degree (<em>cubic-native</em> means the
+fifth divided difference vanished), the speed floor, and the declared feature if
+any.</p>
 
 <p class="small">Counts: {len(complete)} G3-complete · {len(smooth)} smooth handover ·
-{len(declared)} with a declared feature · built from
+{len(declared)} with a declared feature · <a href="g3-diagnostics.html">tightest
+spans · {len(problems)}</a> · built from
 <code>g3_catalogue.catalogue()</code>; re-derive:
 <code>python scripts/g3_handover.py</code>. Back to the
 <a href="g3-catalogue.html">catalogue</a> ·
@@ -318,7 +430,41 @@ feature if any.</p>
     }
     (ROOT / "workbench" / "g3-handover.json").write_text(
         json.dumps(data, indent=1), encoding="utf-8")
-    print(out)
+
+    problems.sort(key=lambda r: (r.get("min_speed") or 1.0, r["key"]))
+    diag_cards = "".join(panel(r, ring=True, diagnostic=True) for r in problems)
+    diag = f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G3 diagnostics · the tightest spans</title>
+<style>{S.CSS}{EXTRA_CSS}</style></head><body><main>
+<p class="eyebrow">curve-lab · tightest-span diagnostics</p>
+<h1>Tightest spans · where the curve comes closest to a near-cusp</h1>
+<p class="lede">A join-only test can pass two spans that each graze a near-cusp
+inside: the ends match, but the span nearly stops and <code>dκ/ds</code> spikes by
+orders of magnitude. The fit now rejects any span below <strong>10% of its chord
+speed</strong>. These <strong>{len(problems)}</strong> working curves keep a span
+below 25%: none is rejected, but they are the closest approaches that remain. The
+red ring is the speed minimum on the curve; the red line and ring on the right are
+the same point on <code>dκ/ds</code>. <strong>Zoom</strong> enlarges the panel and
+lets you scroll to the mark.</p>
+<p class="small">Worst first · back to the
+<a href="g3-handover.html">handover gallery</a> ·
+<a href="g3-catalogue.html">catalogue</a> ·
+<a href="g3-showcase.html">showcase</a> · re-derive:
+<code>python scripts/g3_handover.py</code>.</p>
+{diag_cards or '<p class="small">No near-cusp rows in this build.</p>'}
+</main></body></html>
+"""
+    dout = ROOT / "workbench" / "g3-diagnostics.html"
+    dout.write_text(diag, encoding="utf-8")
+    ddata = {"count": len(problems), "curves": [
+        {"key": r["key"], "source": r.get("source") or "named",
+         "min_speed": r.get("min_speed"), "reason": r.get("reason"),
+         "problem": row_problem(r)} for r in problems]}
+    (ROOT / "workbench" / "g3-diagnostics.json").write_text(
+        json.dumps(ddata, indent=1), encoding="utf-8")
+    print(dout)
     return out
 
 

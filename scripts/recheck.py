@@ -727,6 +727,21 @@ def c_g3_handover_gallery():
                 f"{counts['declared']} declared")
 
 
+@check("the tightest-span diagnostics mark every row below 25%",
+       "workbench/g3-diagnostics.html — red rings on curve and dκ/ds",
+       "python -m unittest tests.test_g3_diagnostics")
+def c_g3_diagnostics():
+    import json
+    data = json.loads((ROOT / "workbench" / "g3-diagnostics.json").read_text())
+    page = (ROOT / "workbench" / "g3-diagnostics.html").read_text()
+    curves = data["curves"]
+    ok = (data["count"] == len(curves)
+          and all(0.10 <= row["min_speed"] < 0.25 for row in curves)
+          and all(f"Fig. H · {row['key']}" in page for row in curves)
+          and page.count("zoom-btn") >= len(curves))
+    return ok, f"{len(curves)} tightest spans, 10% floor to 25% display band"
+
+
 @check("an extend-and-cut terminal inherits G3",
        "scripts/g3_cut.py — two curves, cut inside a span, tail discarded",
        "python -m unittest tests.test_g3_cut")
