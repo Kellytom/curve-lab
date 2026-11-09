@@ -468,6 +468,14 @@ def fig_panel(panel, w=560, h=390):
                     f'y2="{b[1]:.1f}" stroke="{RULE}" stroke-width="0.6"/>')
         gy += step
 
+    ground_y = y0 - 0.35 * pad
+    ga, gb = f((x0 - pad, ground_y)), f((x1 + pad, ground_y))
+    ground = (f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" '
+              f'y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>'
+              f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" '
+              f'font-family="ui-monospace,Menlo,monospace" font-size="10" '
+              f'fill="{MUTED}">ground</text>')
+
     polys = []
     for P in panel["spans"]:
         pts = [f(p) for p in P]
@@ -496,6 +504,7 @@ def fig_panel(panel, w=560, h=390):
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['title']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(grid)}
+  {ground}
   {''.join(polys)}
   <path d="{curve}" fill="none" stroke="{INK}" stroke-width="2.4"/>
   {''.join(knots)}
@@ -534,6 +543,8 @@ def acceleration_svg(panel, w=360, h=220):
             prev = q
         joins.append(s)
     total = s or 1.0
+    jump = panel.get("jump", False)
+    col = RED if jump else GREEN
     lo, hi = min(vals), max(vals)
     if hi - lo < 1e-12:
         lo, hi = lo - 1.0, hi + 1.0
@@ -577,10 +588,10 @@ def acceleration_svg(panel, w=360, h=220):
   <line x1="{left}" y1="{h - bottom}" x2="{w - right}" y2="{h - bottom}" stroke="{INK}" stroke-width="1"/>
   {''.join(marks)}
   <path d="{d}" fill="none" stroke="{INK}" stroke-width="2"/>
-  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">G3 acceleration · dκ/ds</text>
+  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{'dκ/ds · non-G3 joins' if jump else 'G3 acceleration · dκ/ds'}</text>
   <text x="{left + (w - left - right) / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
   <text x="12" y="{top + (h - top - bottom) / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 12 {top + (h - top - bottom) / 2:.0f})">dκ/ds</text>
-  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{GREEN}">green: joins</text>
+  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{'red: jumps' if jump else 'green: joins'}</text>
 </svg>"""
 
 
@@ -629,6 +640,162 @@ def construction_block(panel):
 </div>"""
 
 
+def _solve_linear(A, b):
+    n = len(b)
+    A = [row[:] for row in A]
+    b = b[:]
+    for i in range(n):
+        p = max(range(i, n), key=lambda r: abs(A[r][i]))
+        if abs(A[p][i]) < 1e-14:
+            return None
+        A[i], A[p] = A[p], A[i]
+        b[i], b[p] = b[p], b[i]
+        for r in range(i + 1, n):
+            f = A[r][i] / A[i][i]
+            for c in range(i, n):
+                A[r][c] -= f * A[i][c]
+            b[r] -= f * b[i]
+    x = [0.0] * n
+    for i in reversed(range(n)):
+        x[i] = (b[i] - sum(A[i][j] * x[j] for j in range(i + 1, n))) / A[i][i]
+    return x
+
+
+def natural_spline_spans(xs, ys):
+    """A natural cubic spline through the stations, as cubic Bezier spans.
+
+    The spline is C2, not G3: curvature is continuous, curvature-rate jumps
+    because the third derivative changes at each station. That is the point of
+    the comparison, and it is a curve, not an arc.
+    """
+    n = len(xs) - 1
+    h = [xs[i + 1] - xs[i] for i in range(n)]
+    A = [[0.0] * (n + 1) for _ in range(n + 1)]
+    b = [0.0] * (n + 1)
+    A[0][0] = 1.0
+    A[n][n] = 1.0
+    for i in range(1, n):
+        A[i][i - 1] = h[i - 1]
+        A[i][i] = 2.0 * (h[i - 1] + h[i])
+        A[i][i + 1] = h[i]
+        b[i] = 6.0 * ((ys[i + 1] - ys[i]) / h[i]
+                      - (ys[i] - ys[i - 1]) / h[i - 1])
+    M = _solve_linear(A, b)
+    if M is None:
+        return None
+    spans = []
+    for i in range(n):
+        d0 = (-M[i] * h[i] / 2.0 + (ys[i + 1] - ys[i]) / h[i]
+              - (M[i + 1] - M[i]) * h[i] / 6.0)
+        d1 = (M[i + 1] * h[i] / 2.0 + (ys[i + 1] - ys[i]) / h[i]
+              - (M[i + 1] - M[i]) * h[i] / 6.0)
+        P0 = (xs[i], ys[i])
+        P3 = (xs[i + 1], ys[i + 1])
+        P1 = (xs[i] + h[i] / 3.0, ys[i] + h[i] * d0 / 3.0)
+        P2 = (xs[i + 1] - h[i] / 3.0, ys[i + 1] - h[i] * d1 / 3.0)
+        spans.append([P0, P1, P2, P3])
+    return spans
+
+
+def catmull_spans(points):
+    """A Catmull-Rom chain: C1 (tangent continuous), curvature jumps."""
+    n = len(points) - 1
+    T = []
+    for i in range(n + 1):
+        if i == 0:
+            T.append((points[1][0] - points[0][0], points[1][1] - points[0][1]))
+        elif i == n:
+            T.append((points[n][0] - points[n - 1][0],
+                      points[n][1] - points[n - 1][1]))
+        else:
+            T.append(((points[i + 1][0] - points[i - 1][0]) / 2.0,
+                      (points[i + 1][1] - points[i - 1][1]) / 2.0))
+    spans = []
+    for i in range(n):
+        P0, P3 = points[i], points[i + 1]
+        P1 = (P0[0] + T[i][0] / 3.0, P0[1] + T[i][1] / 3.0)
+        P2 = (P3[0] - T[i + 1][0] / 3.0, P3[1] - T[i + 1][1] / 3.0)
+        spans.append([P0, P1, P2, P3])
+    return spans
+
+
+def comparison_panels():
+    xs = [math.pi * i / 5.0 for i in range(6)]
+    pts = [(x, math.sin(2.0 * x)) for x in xs]
+    out = []
+    for name, spans, kind in (
+            ("C2 cubic spline", natural_spline_spans(xs, [p[1] for p in pts]),
+             "curvature continuous · curvature-rate jumps"),
+            ("C1 Catmull–Rom", catmull_spans(pts),
+             "tangent continuous · curvature jumps")):
+        rows = gate(spans)
+        out.append({
+            "name": name, "kind": kind, "spans": spans, "jump": True,
+            "rows": rows, "g3": max(r["dks"] for r in rows),
+        })
+    return out
+
+
+def comparison_curve(panel, w=520, h=260):
+    pts = []
+    for P in panel["spans"]:
+        pts.extend(bezier(P, i / 40.0) for i in range(41))
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
+    f = Frame(w, h, min(xs) - pad, max(xs) + pad,
+              min(ys) - pad, max(ys) + pad)
+    ground_y = min(ys) - 0.35 * pad
+    ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
+    body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
+            f'<text x="{ga[0] + 4:.1f}" y="{ga[1] - 4:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+    for P in panel["spans"]:
+        q = [bezier(P, i / 40.0) for i in range(41)]
+        body.append(f'<path d="{_path(q, f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
+    for row in panel["rows"]:
+        i = int(row["join"].split("–")[0])
+        x, y = f(bezier(panel["spans"][i], 1.0))
+        body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5.5" fill="none" stroke="{RED}" stroke-width="1.5"/>')
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']} · not G3">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  {''.join(body)}
+  <text x="12" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">{panel['name']}</text>
+  <text x="12" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">{panel['kind']}</text>
+</svg>"""
+
+
+def comparison_table(panel):
+    rows = "".join(
+        f"<tr><td>{r['join']}</td><td>{r['dp']:.1e}</td>"
+        f"<td>{r['angle']:.1e}°</td><td>{r['dk']:.1e}</td>"
+        f"<td>{r['dks']:.1e}</td><td class=\"bad\">not G3</td></tr>"
+        for r in panel["rows"])
+    return ("<table><tr><th>join</th><th>|Δp|</th><th>angle</th>"
+            "<th>|Δκ|</th><th>|Δ(dκ/ds)|</th><th>gate</th></tr>"
+            + rows + "</table>")
+
+
+def comparison_section():
+    cards = "".join(
+        f"""<div class="compare-item">
+<h3>{p['name']}</h3>
+<div class="panel-grid">
+<div class="main">{comparison_curve(p)}</div>
+<div class="side">{acceleration_svg(p)}</div>
+</div>
+{comparison_table(p)}
+</div>""" for p in comparison_panels())
+    return f"""<hr class="bottom-rule">
+<section class="panel">
+<h2>For comparison · not G3</h2>
+<p>Two cubic chains through the same six stations, not arcs. The C2 spline is
+curvature-continuous; the C1 Catmull–Rom is only tangent-continuous. Their
+<code>dκ/ds</code> jumps at the joins are marked red, against the continuous green-marked
+G3 panels above. The line at the bottom of each drawing is the ground datum.</p>
+{cards}
+</section>"""
+
+
 def gate_table(panel):
     rows = []
     for row in gate(panel["spans"]):
@@ -664,6 +831,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .mini{margin:0;background:#fffdf7;border:1px solid var(--rule);padding:3px}
 .mini figcaption{font:10px/1.3 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:980px){.panel-grid{grid-template-columns:1fr}}
+.bottom-rule{border:0;border-top:1px solid var(--rule);margin:26px 0}
+.compare-item{margin:0 0 18px}
+.compare-item h3{font-size:16px;margin:0 0 8px}
 """ % {"paper": PAPER, "ink": INK, "muted": MUTED, "rule": RULE,
        "green": GREEN, "red": RED, "gold": GOLD}
 
@@ -715,6 +885,8 @@ records which other curves admit a quintic interpolation; this page only carries
 cubic ones.</div>
 
 {panels}
+
+{comparison_section()}
 
 <section class="panel">
 <h2>The gate, and what it refuses</h2>

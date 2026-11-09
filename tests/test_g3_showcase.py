@@ -47,6 +47,15 @@ class TestCubicGeometry(unittest.TestCase):
                     for v in p:
                         self.assertAlmostEqual(v * 625, round(v * 625), places=6)
 
+    def test_the_comparison_curves_are_not_g3(self):
+        c2, c1 = G.comparison_panels()
+        self.assertEqual(c2["name"], "C2 cubic spline")
+        self.assertEqual(c1["name"], "C1 Catmull–Rom")
+        self.assertGreater(c2["g3"], 1.0)
+        self.assertGreater(c1["g3"], 1.0)
+        self.assertLess(max(r["dk"] for r in c2["rows"]), 1e-9)
+        self.assertGreater(max(r["dk"] for r in c1["rows"]), 0.5)
+
     def test_the_acceleration_graph_fills_its_box(self):
         import re
         panel = next(p for p in G.PANELS if p["key"] == "G3.5")
@@ -70,8 +79,12 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5"):
             self.assertIn(f"Fig. {key}", page)
-        self.assertEqual(page.count('<section class="panel">'), 6)
-        self.assertEqual(page.count('class="panel-grid"'), 5)
+        self.assertEqual(page.count('<section class="panel">'), 7)
+        self.assertEqual(page.count("For comparison · not G3"), 1)
+        self.assertIn("C2 cubic spline", page)
+        self.assertIn("C1 Catmull–Rom", page)
+        self.assertEqual(page.count(">ground<"), 7)
+        self.assertEqual(page.count('class="panel-grid"'), 7)
         self.assertEqual(page.count("G3 acceleration · dκ/ds"), 5)
         self.assertEqual(page.count("integer cubics ×625"), 5)
         self.assertEqual(page.count("G3 interpolation"), 5)
