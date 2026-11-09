@@ -1,7 +1,8 @@
 ```text
 Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-You are adding the sequence-curve family: segment lengths from factorials (4!, 3!, 2!, 1!) and triangular sums (T₄, T₃, …) with right-angle turns so the vertices stay integer, plus the symmetric closure schedule 1,2,…,n,−n,…,−1 with equal chords.
-Proves: workbench/sequence-curves.html exists with five panels; the right-angle panels have integer vertices and the symmetric schedule returns to the origin, checked by tests/test_sequence_curves.py; scripts/recheck.py reports 47/47; the full suite is green.
+You are raising the G3 catalogue from 166 to the 80% target (186 of 232) by splitting the remaining cusp/singular curves into smooth arcs and tightening the deviation cases, without relaxing the body-join gate.
+Proves: workbench/g3-catalogue.html reports at least 186 admitted of 232; scripts/recheck.py passes its G3 catalogue claim; the full suite is green.
 ```
 
-Source: state/HANDOFF-int.md · 2026-11-08 · 3e52583
+Source: state/HANDOFF-int.md · 2026-11-09 · 0fe6e2a
+Context: 75.5% used, 261 active min, 393 turns, WARN; wall clock 1375.85m; timer tally: 12 sessions · median 60.0m · mean 208.9m · total 2506.9m.
