@@ -1312,3 +1312,56 @@ the geometry, each with its counts recomputed in the generator:
   spacing was irregular by construction and left bare stretches. (2026-11-06)
 - **Context:** 530k of 1M, 282 active min, 490 turns, ok; clock 106.4 min on
   the last record, tally median 35.9, mean 43.1, total 344.7 over 8.
+
+## G3 work — 2026-11-08, updated 2026-11-09
+
+The G3 showcase is now cubic-only: `workbench/g3-showcase.html` carries five
+four-point spans per curve (the quintic G3 representation collapsed to cubics),
+which is what Inkscape and the glyph pipeline need. The original quintic page
+is preserved as `workbench/quintic-showcase.html`, titled “Quintic Béziers
+every join G3”. The catalogue and the extend-and-cut page are unchanged and
+still use the quintic conveyor; the cubic page is the glyph-facing view.
+
+
+`workbench/g3-showcase.html` now uses quintic Bézier spans; every join is
+measured G3 (position, tangent, curvature, curvature-rate). The bell is the
+five-span interpolation the four-cubic attempt could not make G3. The cubic
+curves collapse to cubics, carried as elevated quintics; the lattice cubic is
+integer at ×6250. `workbench/g3-catalogue.html` attempts 232 candidates: the 29 named
+curves, 24 heart forms, 21 integer cubics, 4 presets, 4 primals, 31 LAC spines,
+90 Stage II spines and 19 other families. 160 are admitted (the circle is admitted but left to the notes page),
+35 rejected with measured reasons (cusp, singular, or over 5% of the curve size). The curvature-rate formula was
+corrected to `cross(r', r''')`; the old extra term is gone.
+
+Next: fit the sampled hearts/squircle through a smooth polyline; then bring the
+45° integer frame from the early bell notes onto the quintic bell and search for
+integer points on the quintic controls. The extend-and-cut terminal is built:
+`workbench/g3-cut.html` fits past a station, splits the span, keeps the left
+chain and reports the cut deviation and G3 defect.
+
+## 2026-11-09 — sequence curves landed; G3 catalogue at 166/232
+
+- `workbench/sequence-curves.html`: five right-angle panels — factorials
+  (4!…1!), triangular sums (T₄…T₁), the symmetric closure for n=4 and n=6, and
+  the factorial closure. Every vertex is an integer.
+- The closure `1,2,…,n,−n,…,−1` returns to the origin exactly: the return
+  repeats each chord in reverse with the opposite sign, so the displacement
+  cancels pairwise. `scripts/sequence_curves.py`,
+  `tests/test_sequence_curves.py`, recheck 51/51.
+- G3 status: the catalogue admits **166 of 232 (71.6%)**; target 186. The
+  astroid is admitted as four smooth arcs, and the cubic showcase has cusp and
+  deviation sections at the bottom. The remaining failures are 66: cusp/singular
+  arcs still unsplit, and deviation over 5%.
+- **Local:** 200 on `:8003`. **Remote:** unknown — only the placeholder
+  `<your-service>.run.app` is recorded. **Tests:** 493 pass, 1 skipped
+  (2026-11-09). **Git:** action committed; handoff commits follow.
+- **Next move:** raise the G3 catalogue to the 80% target, 186 of 232, by
+  splitting the remaining cusp/singular curves into smooth arcs and tightening
+  the deviation cases, without relaxing the body-join gate.
+
+Tried and rejected: the plain square-turn `1..n,-n..-1` schedule for general n
+— only n=3 and n=4 close, so the page uses the signed reverse-chord return
+instead. Invented C2/Catmull–Rom comparison curves — not from the original
+showcase, replaced by astroid/oids/hearts. The equal-aspect `Frame` on the
+acceleration graph — collapsed a 0–1 x-range against ±7 y into a strip; fixed
+with independent x/y scales. (2026-11-09)

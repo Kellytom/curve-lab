@@ -23,3 +23,11 @@
 {"event":"start","id":"89885-1794011722101","label":"focus","floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T00:35:22.101Z"}
 {"event":"floor","label":"focus","minutes":20.01,"floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T00:55:22.411Z"}
 {"event":"cap","label":"focus","minutes":60.01,"floor":20,"cap":60,"start":"2026-11-07T00:35:22.101Z","at":"2026-11-07T01:35:22.848Z","reason":"cap","before":"0","after":"13"}
+{"event":"start","id":"26228-1794113837895","label":"focus","floor":20,"cap":60,"start":"2026-11-08T04:57:17.895Z","at":"2026-11-08T04:57:17.895Z"}
+{"event":"floor","label":"focus","minutes":81.12,"floor":20,"cap":60,"start":"2026-11-08T04:57:17.895Z","at":"2026-11-08T06:18:24.859Z"}
+{"event":"cap","label":"focus","minutes":81.16,"floor":20,"cap":60,"start":"2026-11-08T04:57:17.895Z","at":"2026-11-08T06:18:27.564Z","reason":"cap","before":"0","after":"2"}
+{"event":"start","id":"28888-1794119690631","label":"work block","floor":20,"cap":20,"start":"2026-11-08T06:34:50.631Z","at":"2026-11-08T06:34:50.631Z"}
+{"event":"stop","label":"work block","minutes":645.17,"floor":20,"cap":20,"start":"2026-11-08T06:34:50.631Z","at":"2026-11-08T17:20:00.727Z","reason":"stop"}
+{"event":"start","id":"1821-1794158462108","label":"G3 catalogue","floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-08T17:21:02.108Z"}
+{"event":"floor","label":"G3 catalogue","minutes":20,"floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-08T17:41:02.328Z"}
+{"event":"stop","label":"G3 catalogue","minutes":1375.85,"floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-09T16:16:52.982Z","reason":"stop"}
