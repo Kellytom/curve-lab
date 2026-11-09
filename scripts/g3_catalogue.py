@@ -1061,6 +1061,8 @@ no work, and the row is badged <strong>cubic-native</strong>: a simple curve col
 to a cubic is a selector signal, not an accident. A nonzero fifth difference with a zero
 fourth difference is quartic-native; everything else genuinely uses the quintic. The
 badge is derived from the control polygon, never asserted.</p>
+<p class="small">Every G3-complete curve as a panel, curve left and <code>dκ/ds</code>
+right: <a href="g3-handover.html">G3 handover · every complete curve</a>.</p>
 <p class="small">Counts: <strong>{len(complete)} G3-complete</strong> of {len(rows)} candidates ·
 <strong>{len(smooth)} smooth handover</strong> · {len(declared)} complete with a declared
 feature · {len(failed)} admitted but not complete · {len(rows) - len(admitted)} rejected

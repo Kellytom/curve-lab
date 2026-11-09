@@ -961,8 +961,9 @@ panels on this page are, by construction.</p>
 <p class="small"><strong>{len(complete)} G3-complete</strong> of {len(rows)} candidates ·
 <strong>{len(smooth)} smooth handover</strong> · {len(declared)} complete with a
 declared feature. A source corner smoothed inside the 5% tolerance is delivered smooth;
-the fit flags a singular endpoint only when it had to trim. Re-derive:
-<code>python scripts/g3_catalogue.py</code>.</p>
+the fit flags a singular endpoint only when it had to trim. Every panel, curve left and
+<code>dκ/ds</code> right: <a href="g3-handover.html">G3 handover · every complete
+curve</a>. Re-derive: <code>python scripts/g3_catalogue.py</code>.</p>
 <h3>Smooth handover · {len(smooth)}</h3>
 {table(smooth)}
 <h3>G3-complete with a declared feature · {len(declared)}</h3>

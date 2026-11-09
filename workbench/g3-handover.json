@@ -1,0 +1,1670 @@
+{
+ "counts": {
+  "candidates": 232,
+  "complete": 166,
+  "smooth": 135,
+  "declared": 31
+ },
+ "curves": [
+  {
+   "key": "bean",
+   "source": "named",
+   "smooth": false,
+   "feature": "node between the two branches",
+   "native": "quintic",
+   "relative": 0.002332449696637022,
+   "g3": 4.923572660686659e-11,
+   "spans": 6
+  },
+  {
+   "key": "bicorn",
+   "source": "named",
+   "smooth": false,
+   "feature": "node between the two branches",
+   "native": "quintic",
+   "relative": 0.002226542392117653,
+   "g3": 9.053913174739137e-11,
+   "spans": 10
+  },
+  {
+   "key": "nodal",
+   "source": "named",
+   "smooth": false,
+   "feature": "node at the seam",
+   "native": "quintic",
+   "relative": 0.004751728477825438,
+   "g3": 1.220090695142062e-11,
+   "spans": 6
+  },
+  {
+   "key": "tschirnhausen",
+   "source": "named",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005173996986879311,
+   "g3": 4.9404924595819466e-15,
+   "spans": 6
+  },
+  {
+   "key": "bow",
+   "source": "named",
+   "smooth": false,
+   "feature": "node at the seam",
+   "native": "quintic",
+   "relative": 0.007673317362781362,
+   "g3": 3.603828346854243e-11,
+   "spans": 10
+  },
+  {
+   "key": "epicycloid k=3",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d74",
+   "native": "quintic",
+   "relative": 0.0026692476173262535,
+   "g3": 8.704148513061227e-14,
+   "spans": 6
+  },
+  {
+   "key": "epicycloid k=5",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d76",
+   "native": "quintic",
+   "relative": 0.003304679557753842,
+   "g3": 2.078337502098293e-13,
+   "spans": 10
+  },
+  {
+   "key": "deltoid",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d73",
+   "native": "quintic",
+   "relative": 0.0026387801369075013,
+   "g3": 7.851497230149107e-13,
+   "spans": 6
+  },
+  {
+   "key": "hypocycloid k=5",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d75",
+   "native": "quintic",
+   "relative": 0.0031999860595989973,
+   "g3": 2.873257187729905e-13,
+   "spans": 10
+  },
+  {
+   "key": "nephroid",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d72",
+   "native": "quintic",
+   "relative": 0.0028080141032690974,
+   "g3": 3.4541813853650183e-13,
+   "spans": 6
+  },
+  {
+   "key": "trifolium",
+   "source": "named",
+   "smooth": false,
+   "feature": "node where the leaves meet",
+   "native": "quintic",
+   "relative": 0.00277452844125762,
+   "g3": 6.696013567499492e-13,
+   "spans": 6
+  },
+  {
+   "key": "quadrifolium",
+   "source": "named",
+   "smooth": false,
+   "feature": "node where the leaves meet",
+   "native": "quintic",
+   "relative": 0.003008604165213924,
+   "g3": 3.5247938018830243e-12,
+   "spans": 6
+  },
+  {
+   "key": "circle",
+   "source": "named",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0017777692290966414,
+   "g3": 3.886884912169294e-12,
+   "spans": 6
+  },
+  {
+   "key": "cardioid",
+   "source": "named",
+   "smooth": false,
+   "feature": "cusp \u00d71",
+   "native": "quintic",
+   "relative": 0.003135763463652308,
+   "g3": 1.5809686892964692e-11,
+   "spans": 10
+  },
+  {
+   "key": "bernoulli",
+   "source": "named",
+   "smooth": false,
+   "feature": "node at the seam",
+   "native": "quintic",
+   "relative": 0.002343271459666313,
+   "g3": 1.1896640284017276e-11,
+   "spans": 6
+  },
+  {
+   "key": "gerono",
+   "source": "named",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0028675873236030294,
+   "g3": 6.447731237813059e-11,
+   "spans": 10
+  },
+  {
+   "key": "cruciform",
+   "source": "named",
+   "smooth": false,
+   "feature": "four arms meet at the centre",
+   "native": "quintic",
+   "relative": 0.0014080108533708988,
+   "g3": 5.093592214677756e-12,
+   "spans": 6
+  },
+  {
+   "key": "piriform",
+   "source": "named",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.0020733138693828194,
+   "g3": 4.3876013933186186e-13,
+   "spans": 6
+  },
+  {
+   "key": "abs(x) gerono",
+   "source": "named",
+   "smooth": false,
+   "feature": "node at the seam",
+   "native": "quintic",
+   "relative": 0.0029930281775542725,
+   "g3": 7.455369654962851e-12,
+   "spans": 6
+  },
+  {
+   "key": "piriform 2x",
+   "source": "named",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.0022569304845461483,
+   "g3": 6.444844657949034e-12,
+   "spans": 10
+  },
+  {
+   "key": "cissoid",
+   "source": "named",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.0017045067874067474,
+   "g3": 2.4633628470382973e-12,
+   "spans": 6
+  },
+  {
+   "key": "kappa",
+   "source": "named",
+   "smooth": false,
+   "feature": "node between the two branches",
+   "native": "quintic",
+   "relative": 0.003044634239786743,
+   "g3": 3.444938778685014e-11,
+   "spans": 6
+  },
+  {
+   "key": "strophoid",
+   "source": "named",
+   "smooth": false,
+   "feature": "node at the seam",
+   "native": "quintic",
+   "relative": 0.003111827766442186,
+   "g3": 8.5105256175666e-12,
+   "spans": 6
+  },
+  {
+   "key": "heart \u00b7 cardioid",
+   "source": "heart",
+   "smooth": false,
+   "feature": "cusp \u00d71",
+   "native": "quintic",
+   "relative": 0.0067062593365778325,
+   "g3": 4.1178171983347056e-13,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 |x|^(2/3) upper",
+   "source": "heart",
+   "smooth": false,
+   "feature": "cusp \u00d71",
+   "native": "quintic",
+   "relative": 0.020406030780847254,
+   "g3": 1.0158274221794272e-10,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 |x|^(2/3) lower",
+   "source": "heart",
+   "smooth": false,
+   "feature": "cusp \u00d71",
+   "native": "quintic",
+   "relative": 0.01333818035359682,
+   "g3": 2.0482132987469183e-11,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Valentine",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007683790800440199,
+   "g3": 1.2916010658330763e-14,
+   "spans": 14
+  },
+  {
+   "key": "heart \u00b7 Wolfram",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.01082783893497423,
+   "g3": 5.080380560684716e-13,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Kuriscak upper",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.01763457144194763,
+   "g3": 1.054989429150055e-13,
+   "spans": 6
+  },
+  {
+   "key": "heart \u00b7 Kuriscak lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.01471036300240099,
+   "g3": 6.006466069221052e-14,
+   "spans": 6
+  },
+  {
+   "key": "heart \u00b7 Wu\u2013Nick lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.013744791599965367,
+   "g3": 6.0783794664232e-11,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Mangaldan",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0058561801871556615,
+   "g3": 1.6404877456466238e-11,
+   "spans": 14
+  },
+  {
+   "key": "heart \u00b7 half-ellipse lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.013195366247477735,
+   "g3": 3.3285122691400236e-12,
+   "spans": 6
+  },
+  {
+   "key": "heart \u00b7 Eisemann lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.014631720107700686,
+   "g3": 2.7282361345351338e-11,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Sio upper",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.012206352251410982,
+   "g3": 1.307866014545558e-10,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Sio lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.011688175318398747,
+   "g3": 5.665597294531442e-11,
+   "spans": 10
+  },
+  {
+   "key": "heart \u00b7 Hechinger lower",
+   "source": "heart",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.019074346746360722,
+   "g3": 5.6323996345944224e-11,
+   "spans": 14
+  },
+  {
+   "key": "integer cubic \u00b7 13-84-85",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.1384122811097797e-17,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 7-24-25",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 5.273559366969494e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 5-12-13",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 8.465450562766819e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 8-15-17",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.2385925618474403e-15,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 3-4-5",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.8540724511240114e-14,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 20-21-29",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.1120258320017626e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 4-3-5",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 5.620504062164855e-15,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 15-8-17",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 9.818534874028728e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 12-5-13",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.282896094385478e-15,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 24-7-25",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 3.946495907847236e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 84-13-85",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.6861108823328372e-17,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 144-17-145 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.0669227003615167e-17,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 40-9-41 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.089257586379567e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 24-7-25 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 4.0137164425413374e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 12-5-13 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.7963061593739837e-15,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 15-8-17 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 9.636388909051163e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 4-3-5 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.141448047192739e-14,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 21-20-29 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 7.892991815694472e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 3-4-5 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 1.7659484985443896e-14,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 8-15-17 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.0621525320674294e-16,
+   "spans": 5
+  },
+  {
+   "key": "integer cubic \u00b7 5-12-13 C",
+   "source": "integer-cubic",
+   "smooth": true,
+   "feature": null,
+   "native": "cubic-native",
+   "relative": 0.0,
+   "g3": 2.2961233608898013e-15,
+   "spans": 5
+  },
+  {
+   "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the oval",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.030378211883309865,
+   "g3": 7.878253605042573e-11,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 elliptic \u00b7 y\u00b2 = x\u00b3+1 \u00b7 the branch",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0015973357699075662,
+   "g3": 1.2014300665441624e-10,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 Maclaurin trisectrix \u00b7 exact loop",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005684107195374175,
+   "g3": 2.6736618820178166e-11,
+   "spans": 14
+  },
+  {
+   "key": "misc \u00b7 Maclaurin trisectrix \u00b7 Pell 71/41",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00208469335132982,
+   "g3": 1.1859402349045922e-12,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 c = \u22122 \u00b7 lituus",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.014094340372722235,
+   "g3": 1.3545831123451535e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 c = 1 \u00b7 Archimedean",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.025595647838134575,
+   "g3": 1.5405472036933432e-13,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 c = 2 \u00b7 Fermat",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.018058306582839,
+   "g3": 4.5179138208339964e-14,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 u = 1+2t+t\u00b2, v = 1\u2212t+t\u00b2",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.011672713327367742,
+   "g3": 1.765022156208218e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 u = 1+t\u00b2, v = 2t",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.01530513545131529,
+   "g3": 4.565441774628809e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 PH quintic \u00b7 h quadratic, u, v linear",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005158691909515797,
+   "g3": 2.649625310824355e-13,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 biarc \u00b7 east to south-east",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0032031583019377623,
+   "g3": 5.008551351437518e-10,
+   "spans": 10
+  },
+  {
+   "key": "misc \u00b7 biarc \u00b7 a shallow S",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00293864358899523,
+   "g3": 1.7035262089848402e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 Reuleaux triangle",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00702536644694073,
+   "g3": 1.6123880084827763e-10,
+   "spans": 14
+  },
+  {
+   "key": "misc \u00b7 qAC \u00b7 \u03b1 = 2, c = \u22121",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.002180233170456581,
+   "g3": 3.8614467179343137e-10,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 +",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.003181360811236018,
+   "g3": 1.1718651223013854e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 Pell \u00b7 x\u00b2 \u2212 2y\u00b2 = 1 \u00b7 \u2212",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.003181360811236018,
+   "g3": 1.1718651223013854e-12,
+   "spans": 6
+  },
+  {
+   "key": "misc \u00b7 catenary",
+   "source": "misc",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0016511827851344056,
+   "g3": 1.8441736852892188e-15,
+   "spans": 10
+  },
+  {
+   "key": "preset \u00b7 s-curve",
+   "source": "preset",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.001969361764852462,
+   "g3": 1.828528647940253e-14,
+   "spans": 10
+  },
+  {
+   "key": "preset \u00b7 ogee",
+   "source": "preset",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0022971794253818,
+   "g3": 4.2448249776283475e-14,
+   "spans": 14
+  },
+  {
+   "key": "preset \u00b7 bracket",
+   "source": "preset",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.002017805182298388,
+   "g3": 3.0704605524789486e-16,
+   "spans": 6
+  },
+  {
+   "key": "preset \u00b7 petal",
+   "source": "preset",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0026435945496889944,
+   "g3": 2.6419838539126772e-15,
+   "spans": 10
+  },
+  {
+   "key": "primal \u00b7 water",
+   "source": "primal",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0019687412557621393,
+   "g3": 6.612739169181081e-16,
+   "spans": 6
+  },
+  {
+   "key": "primal \u00b7 air",
+   "source": "primal",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0026694206241935133,
+   "g3": 4.427719042104927e-15,
+   "spans": 14
+  },
+  {
+   "key": "primal \u00b7 fire",
+   "source": "primal",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0024748429575863103,
+   "g3": 3.8228968601838886e-16,
+   "spans": 10
+  },
+  {
+   "key": "LAC \u00b7 Fig. 6 \u00b7 p = 0, turn 270",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005024349028895209,
+   "g3": 2.713224969457264e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 16 \u00b7 p = -0.5, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.008991855076808778,
+   "g3": 2.5733175927962904e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 17 \u00b7 p = 0.5, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.00952169194291718,
+   "g3": 7.836077819083884e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 18 \u00b7 p = 1, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.0102845147226238,
+   "g3": 2.667813117787572e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 19 \u00b7 p = 1.5, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.00925233065594678,
+   "g3": 1.2267768757497164e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 20 \u00b7 p = 2, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.00991708925030583,
+   "g3": 5.504337728613664e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 21 \u00b7 p = 3, turn 360",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.010083357203990246,
+   "g3": 2.601345648323139e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 22 \u00b7 p = -3, turn 720",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.010752698719485965,
+   "g3": 6.673169080441714e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 23 \u00b7 p = -2, turn 720",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0100776754024866,
+   "g3": 8.920358077419213e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 24 \u00b7 p = -1.5, turn 720",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009667749516594168,
+   "g3": 9.714387937999076e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 25 \u00b7 p = -1, turn 720",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009102583807719446,
+   "g3": 2.9777048861008863e-16,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 26 \u00b7 p = -0.5, turn 720",
+   "source": "lac",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007788163357087007,
+   "g3": 4.761750561200719e-17,
+   "spans": 14
+  },
+  {
+   "key": "LAC \u00b7 Fig. 31 \u00b7 p = 3, turn 720",
+   "source": "lac",
+   "smooth": false,
+   "feature": "singular endpoint (trimmed)",
+   "native": "quintic",
+   "relative": 0.008890514678235715,
+   "g3": 1.4867545806681107e-16,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00736982642453254,
+   "g3": 1.454141694616452e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0072867501867932725,
+   "g3": 2.0277585474859318e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007286750186978419,
+   "g3": 2.9656057086636283e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 1 \u00b7 The clothoid \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007369826422136258,
+   "g3": 1.231732018491154e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006485507481699145,
+   "g3": 1.3222685750144403e-14,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009334795560638057,
+   "g3": 2.778949928516645e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 6",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0065153546933782135,
+   "g3": 1.4176902246544262e-14,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 7",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009834865059972664,
+   "g3": 7.141410217172871e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 9",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006515354685138476,
+   "g3": 2.5312969764972743e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 10",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009334795560517799,
+   "g3": 1.2992390620796641e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 12",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006485507481700125,
+   "g3": 6.550000749032045e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 2 \u00b7 The circle, reached at G2 \u00b7 spine 13",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.009834865059862433,
+   "g3": 1.1052039838357604e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0055601591172014875,
+   "g3": 1.049862398012631e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0055551115740812744,
+   "g3": 5.826993754046508e-17,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005555111574160252,
+   "g3": 7.028266467754398e-17,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 3 \u00b7 The log spiral \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005560159117283778,
+   "g3": 1.5456953683028012e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.004678472550836317,
+   "g3": 2.574107715717401e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.004699745181157803,
+   "g3": 3.825946178794004e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0046997451816995035,
+   "g3": 4.00424026144393e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 4 \u00b7 The involute \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.004678472550915086,
+   "g3": 3.2392403375488404e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0030913373489578223,
+   "g3": 4.150292034956621e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005939919490913306,
+   "g3": 1.301083095157484e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.003081963959746261,
+   "g3": 3.184227241690568e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005939919490913189,
+   "g3": 5.08636063870332e-15,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 6",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007207722060255981,
+   "g3": 8.27777431967663e-15,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 5 \u00b7 The S branch \u00b7 spine 7",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0069867038255031514,
+   "g3": 1.0727909446200945e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006937725141984376,
+   "g3": 1.831433992125159e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007199624816354536,
+   "g3": 1.81831661755783e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00599187673672508,
+   "g3": 9.99750412664091e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0032485740539584082,
+   "g3": 2.926940136929127e-15,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 6",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005816584667912735,
+   "g3": 3.174543961037557e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 7",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0032485740518060436,
+   "g3": 2.6116270401160303e-15,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008710370469714325,
+   "g3": 5.146038556760359e-16,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 7 \u00b7 Euler to Euler \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007534122033103073,
+   "g3": 7.81303296426485e-16,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008564231475045522,
+   "g3": 2.677344091328755e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 8 \u00b7 Euler to line to Euler \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007109151241297565,
+   "g3": 1.925466613610766e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007344940469536446,
+   "g3": 1.8898041124874605e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008142194830476068,
+   "g3": 5.34042203024338e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006801969403295628,
+   "g3": 2.6265255026252862e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 9 \u00b7 Log spiral to log spiral \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00526318398767401,
+   "g3": 2.444911813151776e-14,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0056013138044292655,
+   "g3": 3.9828497149104435e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008130523174579274,
+   "g3": 7.595846305050559e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006791490101796562,
+   "g3": 1.3867238012456404e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 10 \u00b7 Involute to involute \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.005087079054190641,
+   "g3": 3.4689760016349408e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.017565770819834528,
+   "g3": 9.545540390293403e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008511115150316544,
+   "g3": 4.778635898306438e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0030293406694014984,
+   "g3": 6.264747835077467e-14,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007093814833473523,
+   "g3": 1.80981167620148e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 11 \u00b7 Arc, Euler, line, Euler, arc \u00b7 spine 5",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.017565770806492277,
+   "g3": 3.0668964495951393e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007959212566172252,
+   "g3": 2.0174770498139222e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0067435830718177645,
+   "g3": 1.798220030318305e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008100515984334661,
+   "g3": 1.1911892099873006e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006710239195799191,
+   "g3": 4.019841337782933e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 14 \u00b7 Involute, one turn each way \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007039687463509452,
+   "g3": 6.33648407181997e-17,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008212489604365214,
+   "g3": 6.0839411985961e-16,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.00800821748126988,
+   "g3": 2.081729157544371e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006801296137305907,
+   "g3": 8.110069419416804e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007032265271858205,
+   "g3": 1.998862230248588e-16,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006733436925922057,
+   "g3": 4.3298820780158457e-16,
+   "spans": 14
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008018788277769721,
+   "g3": 5.831250094606461e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006891357211944879,
+   "g3": 2.6546419142764455e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 17 \u00b7 Involute, two turns each way \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.0066111739390596,
+   "g3": 5.429692950136879e-17,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.047166633566257554,
+   "g3": 6.248117359597665e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.008342206806620988,
+   "g3": 1.5171492991891472e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006803930779530985,
+   "g3": 3.2518746809900856e-15,
+   "spans": 10
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 19 \u00b7 Log spiral, both ends \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.038501431748766655,
+   "g3": 9.51150237130799e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 1",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.035094679713126194,
+   "g3": 2.0959777340248458e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 2",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.007919814105951606,
+   "g3": 1.2627058957898757e-15,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 3",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.006871124821994121,
+   "g3": 8.011237615131173e-16,
+   "spans": 6
+  },
+  {
+   "key": "Stage II \u00b7 Fig. 20 \u00b7 Involute, both ends \u00b7 spine 4",
+   "source": "stage-two",
+   "smooth": true,
+   "feature": null,
+   "native": "quintic",
+   "relative": 0.030350784261529103,
+   "g3": 5.348250732258378e-16,
+   "spans": 6
+  },
+  {
+   "key": "astroid",
+   "source": "cusp",
+   "smooth": false,
+   "feature": "cusp \u00d74",
+   "native": "quintic",
+   "relative": 0.0026203878023499465,
+   "g3": 7.153588832409241e-11,
+   "spans": 6
+  }
+ ]
+}

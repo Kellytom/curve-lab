@@ -711,6 +711,22 @@ def c_g3_handover():
                 f"of {len(rows)} candidates")
 
 
+@check("the handover gallery draws every G3-complete curve",
+       "workbench/g3-handover.html — one panel per complete curve",
+       "python -m unittest tests.test_g3_handover")
+def c_g3_handover_gallery():
+    import json
+    data = json.loads((ROOT / "workbench" / "g3-handover.json").read_text())
+    page = (ROOT / "workbench" / "g3-handover.html").read_text()
+    counts = data["counts"]
+    curves = data["curves"]
+    ok = (counts["complete"] == len(curves)
+          and counts["smooth"] + counts["declared"] == counts["complete"]
+          and all(f"Fig. H · {row['key']}" in page for row in curves))
+    return ok, (f"{counts['complete']} panels, {counts['smooth']} smooth, "
+                f"{counts['declared']} declared")
+
+
 @check("an extend-and-cut terminal inherits G3",
        "scripts/g3_cut.py — two curves, cut inside a span, tail discarded",
        "python -m unittest tests.test_g3_cut")

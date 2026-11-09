@@ -110,6 +110,15 @@
       "outputs": "admitted interpolations with max deviation, and rejected curves with reasons"
     },
     {
+      "key": "g3-handover",
+      "file": "g3-handover.html",
+      "group": "curve",
+      "title": "G3 handover · every complete curve",
+      "purpose": "Every G3-complete curve, with its dκ/ds graph: smooth-handover list and declared features.",
+      "inputs": "the catalogue's fitted spans, grouped by source",
+      "outputs": "the 135 smooth handover curves and every curve complete with a declared cusp or node"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",
