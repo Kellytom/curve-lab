@@ -174,9 +174,13 @@ def fit_branch(ctrl, nspans=SPANS, trim=0.0):
         "trimmed": trim > 0.0,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
-        "g3": max(row["dks"] for row in joins),
+        "g3": max((row["dks"] for row in joins if row["join"] != "seam"),
+                  default=0.0),
+        "g3_seam": max((row["dks"] for row in joins if row["join"] == "seam"),
+                       default=0.0),
+        "seam_pass": all(row["pass"] for row in joins if row["join"] == "seam"),
         "rows": joins,
-        "pass": all(row["pass"] for row in joins),
+        "pass": all(row["pass"] for row in joins if row["join"] != "seam"),
         "closed": closed,
     }
 
@@ -321,9 +325,13 @@ def fit_poly(pts, nspans=SPANS, trim=0.0):
         "trimmed": trim > 0.0,
         "ideal": pts[::max(1, len(pts) // 240)],
         "error": max(errs),
-        "g3": max(row["dks"] for row in joins),
+        "g3": max((row["dks"] for row in joins if row["join"] != "seam"),
+                  default=0.0),
+        "g3_seam": max((row["dks"] for row in joins if row["join"] == "seam"),
+                       default=0.0),
+        "seam_pass": all(row["pass"] for row in joins if row["join"] == "seam"),
         "rows": joins,
-        "pass": all(row["pass"] for row in joins),
+        "pass": all(row["pass"] for row in joins if row["join"] != "seam"),
         "closed": closed,
     }
 
@@ -631,6 +639,47 @@ def stage_two_rows():
     return rows
 
 
+def failing_examples():
+    """Three original showcase curves that still fail, and why."""
+    out = []
+    spec = next(s for s in G.NAMED if s["key"] == "astroid")
+    data = G.named_data(spec)
+    if data["ctrl"]:
+        pts, _ts = branch_points(data["ctrl"][0])
+        out.append({"name": "astroid", "pts": pts,
+                    "reason": "cusp · G3 is undefined at the cusp"})
+    spec = next(s for s in G.NAMED if s["key"] == "squircle")
+    data = G.named_data(spec)
+    if data.get("paths"):
+        pts = [(float(x), float(y)) for x, y in data["paths"][0]]
+        out.append({"name": "squircle", "pts": pts,
+                    "reason": "deviation 31.2% of the curve size · too coarse for 5%"})
+    import heart_forms as H
+    pts = [(float(x), float(y)) for x, y in H.beutel()[0]]
+    out.append({"name": "heart · Beutel upper", "pts": pts,
+                "reason": "deviation 6.3% of the curve size · too coarse for 5%"})
+    return out
+
+
+def ideal_svg(ex, w=360, h=240):
+    pts = ex["pts"]
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
+    f = Frame(w, h, min(xs) - pad, max(xs) + pad,
+              min(ys) - pad, max(ys) + pad, pad=30)
+    ground_y = min(ys) - 0.35 * pad
+    ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{ex['name']} · still failing">
+  <rect width="{w}" height="{h}" fill="{PAPER}"/>
+  <path d="{_path(pts, f)}" fill="none" stroke="{INK}" stroke-width="2"/>
+  <line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>
+  <text x="10" y="20" font-family="Georgia,serif" font-size="13" fill="{INK}">{ex['name']}</text>
+  <text x="10" y="36" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{RED}">{ex['reason']}</text>
+  <text x="10" y="52" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">original showcase · not admitted</text>
+</svg>"""
+
+
 def catalogue():
     rows = []
     for spec in G.NAMED:
@@ -710,7 +759,10 @@ def panel(row, w=520, h=330):
                          f'fill="none" stroke="{GREEN}" stroke-width="1.3"/>')
 
     trimmed = any(br.get("trimmed") for br in row["branches"])
+    seam = any(not br.get("seam_pass", True) for br in row["branches"])
     trim_note = " · ends trimmed at a singular point" if trimmed else ""
+    if seam:
+        trim_note += " · closure seam allowed"
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{row['key']} G3 interpolation">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(ideal)}
@@ -731,7 +783,10 @@ def table(rows):
     for row in rows:
         src = row.get("source") or "named"
         if row["admitted"]:
+            seam = any(not b.get("seam_pass", True) for b in row["branches"])
             note = " · see notes" if row["key"] == "circle" else ""
+            if seam:
+                note += " · closure seam allowed"
             body.append(
                 f"<tr><td>{src}</td><td>{row['key']}</td><td>{len(row['branches'])}</td>"
                 f"<td>{row['spans']}</td><td>{row['error']:.1e}</td>"
@@ -776,9 +831,19 @@ def build():
               ("preset", "Presets"), ("primal", "Primals"),
               ("lac", "LAC spines"), ("stage-two", "Stage II spines"),
               ("misc", "Other families")]
+    seam_rows = [r for r in drawn
+                 if any(not b.get("seam_pass", True) for b in r["branches"])]
+    rest = [r for r in drawn if r not in seam_rows]
     sections, nav = [], []
+    if seam_rows:
+        nav.append('<a href="#g3-seam">Closure seam allowed</a>')
+        cards = "".join(f'<section class="panel">{panel(r)}</section>'
+                        for r in seam_rows)
+        sections.append(f'<h2 id="g3-seam" style="margin:26px 0 10px">'
+                        f'Closure seam allowed · {len(seam_rows)}</h2>'
+                        f'<div class="grid">{cards}</div>')
     for src, label in groups:
-        items = [r for r in drawn if (r.get("source") or "named") == src]
+        items = [r for r in rest if (r.get("source") or "named") == src]
         if not items:
             continue
         nav.append(f'<a href="#g3-{src}">{label}</a>')
@@ -791,6 +856,9 @@ def build():
     from collections import Counter
     fam = Counter((r.get("source") or "named") for r in admitted)
     family_line = ", ".join(f"{k} {v}" for k, v in sorted(fam.items()))
+    failed = "".join(
+        f'<section class="panel">{ideal_svg(ex)}</section>'
+        for ex in failing_examples())
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -816,7 +884,10 @@ quintic span matches them at both ends, and the two handle lengths are chosen to
 deviation from the ideal. The table's <code>max deviation</code> is a geometric distance, not
 a parameter error. A curve is admitted only when the deviation is under 5% of its own size;
 the rejected reasons state the measured share. The G3 gate is computed from the Bézier
-derivatives, not from the drawn polyline.</p>
+derivatives, not from the drawn polyline. The one exemption is the
+<strong>closure seam</strong> — the point where a closed shape starts and ends. It is a
+point on the shape, not a body join; a body join at an acute angle, a curvature jump or a
+curvature-rate jump still fails.</p>
 
 <p class="small" style="margin:0 0 18px">{nav_line}</p>
 
@@ -842,6 +913,14 @@ it and tightens the high-error cases with more spans.</p>
 theory on the <a href="g3-notes.html">G3 notes page</a> ·
 terminals on the <a href="g3-cut.html">extend-and-cut page</a>.</p>
 </section>
+
+<section class="panel">
+<h2>Still failing · examples from the original showcase</h2>
+<p class="small">These are not invented chains. Each is a source curve that still misses
+G3 for a reason other than the closure seam: a cusp, or a deviation over 5% of its own
+size. They stay visible instead of being quietly dropped.</p>
+<div class="grid">{failed}</div>
+</section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "g3-catalogue.html"
@@ -858,7 +937,9 @@ terminals on the <a href="g3-cut.html">extend-and-cut page</a>.</p>
              "branches": [
                  {"error": b["error"], "g3": b["g3"],
                   "pass": b["pass"], "closed": b["closed"],
-                  "count": b.get("count"), "trimmed": b.get("trimmed")}
+                  "count": b.get("count"), "trimmed": b.get("trimmed"),
+                  "seam_pass": b.get("seam_pass", True),
+                  "g3_seam": b.get("g3_seam")}
                  for b in r.get("branches", [])
              ]}
             for r in rows

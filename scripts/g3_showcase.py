@@ -879,8 +879,6 @@ cubic ones.</div>
 
 {panels}
 
-{comparison_section()}
-
 <section class="panel">
 <h2>The gate, and what it refuses</h2>
 <p>Each table is computed from the Bézier derivatives at the join, not from a sampled
@@ -890,6 +888,8 @@ tangent angle (floating-point noise). The integer cubic's controls are integers 
 <code>×625</code> on the five integer panels; that is a lattice statement about the
 handles, not a claim that the curve is integer between the cuts. The bell's controls are
 real; only its span count and G3 data are fixed.</p>
+<p class="small">The examples that still fail are at the bottom of the
+<a href="g3-catalogue.html">G3 catalogue</a>.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
 test: <code>python -m unittest tests.test_g3_showcase</code> ·
 quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·

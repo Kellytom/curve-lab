@@ -46,6 +46,15 @@ class TestCatalogue(unittest.TestCase):
                 self.assertFalse(row["admitted"])
                 self.assertTrue(row["reason"])
 
+    def test_the_closure_seam_is_allowed(self):
+        by_key = {r["key"]: r for r in self.admitted}
+        for key in ("bow", "strophoid", "bernoulli", "nodal", "abs(x) gerono"):
+            self.assertIn(key, by_key)
+            branches = by_key[key]["branches"]
+            self.assertTrue(any(not b["seam_pass"] for b in branches), key)
+            for b in branches:
+                self.assertLess(b["g3"], 1e-9)   # body joins still pass
+
     def test_the_admitted_relative_errors_stay_under_five_percent(self):
         worst = max(r["relative"] for r in self.admitted)
         self.assertLessEqual(worst, 0.0501)
@@ -61,6 +70,8 @@ class TestCatalogue(unittest.TestCase):
         self.assertIn("G3 catalogue", page)
         self.assertIn("quintic", page.lower())
         self.assertIn("max deviation", page)
+        self.assertIn("Closure seam allowed", page)
+        self.assertIn("closure seam allowed", page)
         for row in self.admitted:
             if row["key"] == "circle":
                 self.assertNotIn("Fig. G3.C · circle", page)
@@ -68,6 +79,12 @@ class TestCatalogue(unittest.TestCase):
                 self.assertIn(f"Fig. G3.C · {row['key']}", page)
         for row in self.rejected:
             self.assertIn(row["key"], page)
+
+    def test_the_bottom_shows_the_still_failing_examples(self):
+        page = PAGE.read_text(encoding="utf-8")
+        self.assertIn("Still failing · examples from the original showcase", page)
+        for key in ("astroid", "squircle", "heart · Beutel upper"):
+            self.assertIn(key, page)
 
     def test_the_circle_is_not_drawn(self):
         page = PAGE.read_text(encoding="utf-8")

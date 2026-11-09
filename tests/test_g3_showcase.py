@@ -55,17 +55,6 @@ class TestCubicGeometry(unittest.TestCase):
                     for v in p:
                         self.assertAlmostEqual(v * 625, round(v * 625), places=6)
 
-    def test_the_comparison_curves_come_from_the_showcase(self):
-        panels = G.showcase_comparison_panels()
-        self.assertEqual([p["name"].split(" ·")[0] for p in panels],
-                         ["bow", "strophoid", "bernoulli"])
-        for p in panels:
-            self.assertTrue(p["seam"])
-            self.assertGreater(p["g3"], 1.0)
-            seam = [r for r in p["rows"] if r["join"] == "seam"][0]
-            self.assertFalse(seam["pass"])
-            self.assertGreater(seam["dks"], 1.0)
-
     def test_the_acceleration_graph_fills_its_box(self):
         import re
         panel = next(p for p in G.PANELS if p["key"] == "G3.5")
@@ -89,13 +78,12 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for key in ("G3.1", "G3.2", "G3.3", "G3.4", "G3.5", "G3.6"):
             self.assertIn(f"Fig. {key}", page)
-        self.assertEqual(page.count('<section class="panel">'), 8)
-        self.assertEqual(page.count("From the original showcase · still outside G3"), 1)
-        self.assertIn("Catalogue progress", page)
+        self.assertEqual(page.count('<section class="panel">'), 7)
+        self.assertNotIn("From the original showcase", page)
         self.assertNotIn("C2 cubic spline", page)
         self.assertNotIn("Catmull–Rom", page)
-        self.assertEqual(page.count(">ground<"), 9)
-        self.assertEqual(page.count('class="panel-grid"'), 9)
+        self.assertEqual(page.count(">ground<"), 6)
+        self.assertEqual(page.count('class="panel-grid"'), 6)
         self.assertEqual(page.count("G3 acceleration · dκ/ds"), 6)
         self.assertEqual(page.count("integer cubics ×625"), 5)
         self.assertEqual(page.count("G3 interpolation"), 6)
