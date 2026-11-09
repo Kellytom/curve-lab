@@ -162,6 +162,7 @@ def inject(entry: dict) -> str:
     if not path.exists() or path == HUB:
         return "missing"
     raw = path.read_text(encoding="utf-8")
+    before = raw
     tag = bar(entry)
     if MARK_A in raw:
         raw = re.sub(re.escape(MARK_A) + r".*?" + re.escape(MARK_B), tag,
@@ -173,6 +174,8 @@ def inject(entry: dict) -> str:
             return "no-body"
         raw = raw[:m.end()] + "\n" + tag + raw[m.end():]
         state = "added"
+    if raw == before:
+        return "unchanged"
     path.write_text(raw, encoding="utf-8")
     return state
 
