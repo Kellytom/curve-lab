@@ -532,6 +532,8 @@ def fig_panel(panel, w=560, h=390):
                     f'fill="{PAPER}" stroke="{INK}" stroke-width="1.4"/>')
 
     worst = max((row["dks"] for row in gate(panel["spans"])), default=0.0)
+    import g3_catalogue as _C
+    floor = _C.problem_of_spans(panel["spans"])["ratio"]
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['title']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(grid)}
@@ -541,7 +543,7 @@ def fig_panel(panel, w=560, h=390):
   {''.join(knots)}
   {''.join(ends)}
   <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. {panel['key']} · {panel['title']}</text>
-  <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">{panel['kind']} · {len(panel['spans'])} spans · {len(panel['spans']) - 1} joins · worst Δ(dκ/ds) = {worst:.1e}</text>
+  <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">{panel['kind']} · {len(panel['spans'])} spans · {len(panel['spans']) - 1} joins · Δ(dκ/ds) ≤ {worst:.1e} · speed ≥ {floor:.0%}</text>
   <text x="{w / 2:.0f}" y="{h - 12}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}">x (model units)</text>
   <text x="15" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}" transform="rotate(-90 15 {h / 2:.0f})">y (model units)</text>
   <g font-family="Georgia,serif" font-size="13">
@@ -1067,6 +1069,11 @@ cubic ones.</div>
 
 <section class="panel">
 <h2>The gate, and what it refuses</h2>
+<p><strong>Interior speed.</strong> A join-only gate can pass two spans that each graze
+a near-cusp inside: the ends match, but the span nearly stops and <code>dκ/ds</code>
+spikes. Every span here is also required to keep a speed above <strong>10% of its
+chord</strong>, and each panel reports its speed floor (59–92% on this page). The
+interior-speed check is what keeps the acceleration graphs readable.</p>
 <p>Each table is computed from the Bézier derivatives at the join, not from a sampled
 polyline: position gap, tangent angle, curvature gap and curvature-rate gap. The pass
 threshold is <code>1e-9</code> for the three scalar gaps and <code>1e-6°</code> for the

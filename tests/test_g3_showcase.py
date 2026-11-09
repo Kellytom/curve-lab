@@ -43,6 +43,13 @@ class TestCubicGeometry(unittest.TestCase):
             else:
                 self.assertLess(panel["error"], 1e-9)
 
+    def test_every_span_keeps_the_interior_speed_floor(self):
+        import g3_catalogue as C
+        for panel in G.PANELS:
+            prob = C.problem_of_spans(panel["spans"])
+            with self.subTest(panel=panel["key"]):
+                self.assertGreaterEqual(prob["ratio"], 0.10)
+
     def test_the_integer_panels_are_integer_at_625(self):
         for panel in G.PANELS:
             if panel["key"] == "G3.6":
