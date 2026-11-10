@@ -52,6 +52,12 @@ class TestG3Fixes(unittest.TestCase):
         self.assertIn('href="#every-curve"', self.page)
         self.assertIn("Every complete curve ·", self.page)
 
+    def test_the_page_carries_the_fix_status_and_notes(self):
+        for phrase in ("Fix status", "Red means a real defect",
+                       "verified", "fixed", "needs fix", "needs your eye"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, self.page)
+
     def test_every_reported_curve_is_present_and_logged(self):
         for key in KEYS:
             with self.subTest(curve=key):

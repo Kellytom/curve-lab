@@ -41,9 +41,84 @@ EXTRA_CSS = """
 .panel.zoom .main,.panel.zoom .side{overflow:auto}
 .panel.zoom .main svg{width:240%;max-width:none}
 .panel.zoom .side svg{width:200%;max-width:none}
+.fix{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--rule);
+  font:12px/1.55 ui-monospace,Menlo,monospace}
+.fix strong{font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+.fix.verified,.fix.fixed{border-left-color:#2f6b3a;color:#2f6b3a}
+.fix.needs-fix,.fix.needs-eye{border-left-color:#8a5a00;color:#8a5a00}
 """
 
-TIGHT_SPEED = 0.25   # display threshold for the tightest-span diagnostics
+TIGHT_SPEED = 0.25   # advisory only; never a red defect mark
+
+# Visible status on the affected figures. Status is one of:
+#   verified  — no rendering defect; the measurements pass
+#   fixed     — a concrete correction has been made
+#   needs-fix — a concrete correction is still to be made (I can do it)
+#   needs-eye — needs the operator's description/decision
+FIX_NOTES = {
+    "S44 · Fig. 6 · LAC: p = 0, turn 270":
+        ("fixed", "Source cubic chain, 5.63e-8; S44 label; no quintic."),
+    "Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.30%. The old red was a "
+                     "speed heuristic. If it still looks wrong, describe the point."),
+    "Stage II · Fig. 13 · Log spiral, one turn each way · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.74%; no defect."),
+    "Stage II · Fig. 14 · Involute, one turn each way · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.67%; no defect."),
+    "Stage II · Fig. 16 · Log spiral, two turns each way · spine 2":
+        ("verified", "G3 joins below 1e-12; deviation 0.80%; no defect."),
+    "Stage II · Fig. 19 · Log spiral, both ends · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.68%; no defect."),
+    "Stage II · Fig. 20 · Involute, both ends · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.69%; no defect."),
+    "Stage II · Fig. 5 · The S branch · spine 3":
+        ("verified", "G3 joins below 1e-12; deviation 0.60%; no defect."),
+    "Stage II · Fig. 5 · The S branch · spine 5":
+        ("verified", "G3 joins below 1e-12; deviation 0.60%; no defect."),
+    "Stage II · Fig. 6 · The S root · spine 4":
+        ("verified", "G3 joins below 1e-12; deviation 0.60%; no defect."),
+    "Stage II · Fig. 6 · The S root · spine 6":
+        ("verified", "G3 joins below 1e-12; deviation 0.62%; no defect."),
+    "misc · Maclaurin trisectrix · exact loop":
+        ("verified", "G3 joins below 1e-10; deviation 0.80%; no defect."),
+    "misc · Pell · x² − 2y² = 1 · +":
+        ("verified", "G3 joins below 1e-11; deviation 0.32%; no defect."),
+    "misc · Pell · x² − 2y² = 1 · −":
+        ("verified", "G3 joins below 1e-11; deviation 0.32%; no defect."),
+    "misc · Reuleaux triangle":
+        ("verified", "G3 joins below 1e-9; deviation 0.86%; no defect."),
+    "misc · catenary":
+        ("verified", "G3 joins below 1e-14; deviation 0.17%; no defect."),
+    "bicorn":
+        ("fixed", "cusp ×2 (was recorded as a node); admitted cusp, green."),
+    "deltoid":
+        ("fixed", "cusp ×3; admitted cusp, green."),
+    "epicycloid k=3":
+        ("fixed", "cusp ×4; admitted cusp, green."),
+    "epicycloid k=5":
+        ("fixed", "cusp ×6; admitted cusp, green."),
+    "hypocycloid k=5":
+        ("fixed", "cusp ×5; admitted cusp, green."),
+    "heart · Eisemann lower":
+        ("needs-eye", "Cusp-aware fit restored; cusp declared. The cusp is the "
+                      "junction with the upper half; say if the sibling should be drawn."),
+    "heart · Hechinger lower":
+        ("needs-eye", "Cusp-aware fit restored; cusp declared. Same half-heart "
+                      "junction question."),
+    "heart · Kuriscak lower":
+        ("needs-eye", "Cusp-aware fit restored; the cusp is at the end. Confirm the "
+                      "expected tangent or draw the sibling."),
+    "heart · Mangaldan":
+        ("needs-eye", "cusp ×2; the better 0.0226 fit is restored. The cusp "
+                      "locations need your eye."),
+    "heart · Valentine":
+        ("needs-eye", "cusp ×2; the better 0.331 fit is restored. The cusp "
+                      "locations need your eye."),
+    "heart · |x|^(2/3) upper":
+        ("needs-fix", "Interior cusp at x=0 is smoothed; split into two arcs."),
+    "heart · |x|^(2/3) lower":
+        ("needs-fix", "Interior cusp at x=0 is smoothed; split into two arcs."),
+}
 
 GROUPS = [
     ("named", "Named curves"),
@@ -328,6 +403,14 @@ def panel(row, ring=False, diagnostic=False, fig=None):
     else:
         badge = row.get("feature") or "declared"
     label = f"Fig. {fig} · " if fig is not None else ""
+    fix = FIX_NOTES.get(row["key"])
+    fix_html = ""
+    if fix:
+        status, note = fix
+        text = {"verified": "verified", "fixed": "fixed",
+                "needs-fix": "needs fix", "needs-eye": "needs your eye"}[status]
+        fix_html = (f'<p class="fix {status}"><strong>{text}</strong> · '
+                    f'{note}</p>')
     return f"""<section class="panel">
 <h2>{label}{row['key']} <span class="badge">{badge}</span> {zoom}</h2>
 <div class="panel-grid">
@@ -339,6 +422,7 @@ def panel(row, ring=False, diagnostic=False, fig=None):
 {record(row, diagnostic=diagnostic)}
 </div>
 </div>
+{fix_html}
 </section>"""
 
 

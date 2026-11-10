@@ -13,6 +13,8 @@ h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 
 table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%}
 th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
 .ctl{font-size:10.5px}.ctl td,.ctl th{padding:3px 5px;white-space:nowrap}
+.fix-table{font-size:11.5px}.fix-table td{white-space:normal;vertical-align:top}
+.fix-table .ok{color:#2f6b3a}.fix-table .needs{color:#8a5a00;font-weight:700}
 .ok{color:#2f6b3a} .bad{color:#a23b2a;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid #c9a441;padding:12px 16px;margin:0 0 18px}
@@ -46,6 +48,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .panel.zoom .main,.panel.zoom .side{overflow:auto}
 .panel.zoom .main svg{width:240%;max-width:none}
 .panel.zoom .side svg{width:200%;max-width:none}
+.fix{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--rule);
+  font:12px/1.55 ui-monospace,Menlo,monospace}
+.fix strong{font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+.fix.verified,.fix.fixed{border-left-color:#2f6b3a;color:#2f6b3a}
+.fix.needs-fix,.fix.needs-eye{border-left-color:#8a5a00;color:#8a5a00}
 </style></head><body>
 <!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> one cubic per curve, cut at the fifths · <b>out</b> the four-point spans, integer at ×625, and the measured G3 gate</span></div><!-- /hub-bar --><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
@@ -79,6 +86,7 @@ set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 
 <nav class="toc" aria-label="Contents">
 <strong>Contents</strong> ·
+<a href="#fix-status">Fix status</a> ·
 <a href="#cubic-lead">Cubic lead · 6</a> ·
 <a href="#quintic-required">Quintic-required · 5</a> ·
 <a href="#handover-summary">The finished curve</a> ·
@@ -87,6 +95,30 @@ set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 <a href="#deviation">Still failing · deviation</a> ·
 <a href="#every-curve">Every complete curve · 154</a>
 </nav>
+
+<section class="panel" id="fix-status">
+<h2>Fix status · verified, fixed, and still open</h2>
+<p class="small"><strong>Red means a real defect</strong>: a failing G3 join, a
+deviation over 5%, a rejected cusp, or a span below 1% speed. It never means a
+tight but smooth span. The old red speed rings at 10–24% were a false positive:
+the Stage II and misc curves listed as verified are G3 to 1e-14 and within 1%
+deviation. If one still looks wrong, describe the point and it can be targeted.</p>
+<table class="ctl fix-table">
+<tr><th>status</th><th>figures</th><th>why / next</th></tr>
+<tr><td class="ok">verified</td><td>Stage II Fig. 11, 13, 14, 16, 19, 20, 5, 6 ·
+Maclaurin · Pell +/− · Reuleaux · catenary</td><td>G3 joins below 1e-12,
+deviation under 1%; no rendering defect.</td></tr>
+<tr><td class="ok">fixed</td><td>LAC S44 · bicorn ×2 · deltoid ×3 · epicycloid
+k=3 ×4, k=5 ×6 · hypocycloid ×5 · the cusp-aware heart fits</td><td>source cubic
+LAC; cusp counts; the old heart fits are restored.</td></tr>
+<tr><td class="needs">needs fix</td><td>|x|^(2/3) upper and lower</td><td>the
+interior cusp at x=0 is smoothed; split into two arcs.</td></tr>
+<tr><td class="needs">needs your eye</td><td>Fig. 100 if it still looks wrong ·
+Eisemann / Hechinger / Kuriscak lower · Mangaldan · Valentine</td><td>describe the
+wrong point or coordinate; decide whether a half-heart draws the sibling faintly
+to show the junction.</td></tr>
+</table>
+</section>
 
 <h2 id="cubic-lead" class="group">Cubic lead · 6</h2>
 
@@ -491,6 +523,7 @@ six-point spans as the working view. The full fallback list is on the
 </div>
 </div>
 <p class="small"><strong>Cubic-first result:</strong> a clothoid's curvature grows linearly; a four-point cubic span cannot carry that G3 data. The side construction shows the six-point spans as the working view; the full fallback list is on the <a href="g3-handover.html">G3 handover page</a>.</p>
+
 </section><section class="panel">
 <h2>Fig. 8 · heart · Wolfram <span class="badge">quintic-required</span></h2>
 <div class="panel-grid">
@@ -546,6 +579,7 @@ six-point spans as the working view. The full fallback list is on the
 </div>
 </div>
 <p class="small"><strong>Cubic-first result:</strong> a sampled heart; no four-point cubic chain carries its G3 data. The side construction shows the six-point spans as the working view; the full fallback list is on the <a href="g3-handover.html">G3 handover page</a>.</p>
+
 </section><section class="panel">
 <h2>Fig. 9 · heart · Mangaldan <span class="badge">quintic-required</span></h2>
 <div class="panel-grid">
@@ -601,6 +635,7 @@ six-point spans as the working view. The full fallback list is on the
 </div>
 </div>
 <p class="small"><strong>Cubic-first result:</strong> the cusp ×2 is a declared break; each smooth arc still needs six points. The side construction shows the six-point spans as the working view; the full fallback list is on the <a href="g3-handover.html">G3 handover page</a>.</p>
+<p class="fix needs-eye"><strong>needs your eye</strong> · cusp ×2; the better 0.0226 fit is restored. The cusp locations need your eye.</p>
 </section><section class="panel">
 <h2>Fig. 10 · primal · fire <span class="badge">quintic-required</span></h2>
 <div class="panel-grid">
@@ -656,6 +691,7 @@ six-point spans as the working view. The full fallback list is on the
 </div>
 </div>
 <p class="small"><strong>Cubic-first result:</strong> a grammar-built sampled curve; no four-point cubic chain carries its G3 data. The side construction shows the six-point spans as the working view; the full fallback list is on the <a href="g3-handover.html">G3 handover page</a>.</p>
+
 </section><section class="panel">
 <h2>Fig. 11 · misc · Reuleaux triangle <span class="badge">quintic-required</span></h2>
 <div class="panel-grid">
@@ -711,6 +747,7 @@ six-point spans as the working view. The full fallback list is on the
 </div>
 </div>
 <p class="small"><strong>Cubic-first result:</strong> constant-width arcs with corners; the joins need six points. The side construction shows the six-point spans as the working view; the full fallback list is on the <a href="g3-handover.html">G3 handover page</a>.</p>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-9; deviation 0.86%; no defect.</p>
 </section>
 
 <section class="panel" id="handover">
@@ -1354,6 +1391,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 25 · gerono <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1397,6 +1435,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 26 · tschirnhausen <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1440,6 +1479,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 27 · abs(x) gerono <span class="badge">node at the seam</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1483,6 +1523,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 28 · bean <span class="badge">node between the two branches</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1526,6 +1567,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 29 · bernoulli <span class="badge">node at the seam</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1569,6 +1611,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 30 · bicorn <span class="badge">cusp ×2</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1612,6 +1655,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · cusp ×2 (was recorded as a node); admitted cusp, green.</p>
 </section><section class="panel">
 <h2>Fig. 31 · bow <span class="badge">node at the seam</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1655,6 +1699,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 32 · cardioid <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1698,6 +1743,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 33 · cissoid <span class="badge">singular endpoint (trimmed)</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1741,6 +1787,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 34 · cruciform <span class="badge">four arms meet at the centre</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1784,6 +1831,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 35 · deltoid <span class="badge">cusp ×3</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1827,6 +1875,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · cusp ×3; admitted cusp, green.</p>
 </section><section class="panel">
 <h2>Fig. 36 · epicycloid k=3 <span class="badge">cusp ×4</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1870,6 +1919,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · cusp ×4; admitted cusp, green.</p>
 </section><section class="panel">
 <h2>Fig. 37 · epicycloid k=5 <span class="badge">cusp ×6</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1913,6 +1963,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · cusp ×6; admitted cusp, green.</p>
 </section><section class="panel">
 <h2>Fig. 38 · hypocycloid k=5 <span class="badge">cusp ×5</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1956,6 +2007,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · cusp ×5; admitted cusp, green.</p>
 </section><section class="panel">
 <h2>Fig. 39 · kappa <span class="badge">node between the two branches</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -1999,6 +2051,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 40 · nephroid <span class="badge">cusp ×2</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2042,6 +2095,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 41 · nodal <span class="badge">node at the seam</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2085,6 +2139,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 42 · piriform <span class="badge">singular endpoint (trimmed)</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2128,6 +2183,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 43 · piriform 2x <span class="badge">singular endpoint (trimmed)</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2171,6 +2227,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 44 · quadrifolium <span class="badge">node where the leaves meet</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2214,6 +2271,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 45 · strophoid <span class="badge">node at the seam</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2257,6 +2315,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 46 · trifolium <span class="badge">node where the leaves meet</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2300,6 +2359,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-heart" class="group">Heart forms · 14</h2><div class="grid"><section class="panel">
 <h2>Fig. 47 · heart · Sio lower <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2343,6 +2403,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 48 · heart · Sio upper <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2386,6 +2447,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 49 · heart · Wolfram <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2429,6 +2491,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 50 · heart · Wu–Nick lower <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2472,6 +2535,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 51 · heart · half-ellipse lower <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2515,6 +2579,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 52 · heart · Eisemann lower <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2558,6 +2623,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-eye"><strong>needs your eye</strong> · Cusp-aware fit restored; cusp declared. The cusp is the junction with the upper half; say if the sibling should be drawn.</p>
 </section><section class="panel">
 <h2>Fig. 53 · heart · Hechinger lower <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2601,6 +2667,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-eye"><strong>needs your eye</strong> · Cusp-aware fit restored; cusp declared. Same half-heart junction question.</p>
 </section><section class="panel">
 <h2>Fig. 54 · heart · Kuriscak lower <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2644,6 +2711,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-eye"><strong>needs your eye</strong> · Cusp-aware fit restored; the cusp is at the end. Confirm the expected tangent or draw the sibling.</p>
 </section><section class="panel">
 <h2>Fig. 55 · heart · Kuriscak upper <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2687,6 +2755,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 56 · heart · Mangaldan <span class="badge">cusp ×2</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2730,6 +2799,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-eye"><strong>needs your eye</strong> · cusp ×2; the better 0.0226 fit is restored. The cusp locations need your eye.</p>
 </section><section class="panel">
 <h2>Fig. 57 · heart · Valentine <span class="badge">cusp ×2</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2773,6 +2843,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-eye"><strong>needs your eye</strong> · cusp ×2; the better 0.331 fit is restored. The cusp locations need your eye.</p>
 </section><section class="panel">
 <h2>Fig. 58 · heart · cardioid <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2816,6 +2887,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 59 · heart · |x|^(2/3) lower <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2859,6 +2931,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-fix"><strong>needs fix</strong> · Interior cusp at x=0 is smoothed; split into two arcs.</p>
 </section><section class="panel">
 <h2>Fig. 60 · heart · |x|^(2/3) upper <span class="badge">cusp ×1</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2902,6 +2975,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix needs-fix"><strong>needs fix</strong> · Interior cusp at x=0 is smoothed; split into two arcs.</p>
 </section></div><h2 id="g-integer-cubic" class="group">Integer cubics · 21</h2><div class="grid"><section class="panel">
 <h2>Fig. 61 · integer cubic · 12-5-13 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2945,6 +3019,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 62 · integer cubic · 12-5-13 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -2988,6 +3063,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 63 · integer cubic · 13-84-85 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3031,6 +3107,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 64 · integer cubic · 144-17-145 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3074,6 +3151,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 65 · integer cubic · 15-8-17 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3117,6 +3195,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 66 · integer cubic · 15-8-17 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3160,6 +3239,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 67 · integer cubic · 20-21-29 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3203,6 +3283,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 68 · integer cubic · 21-20-29 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3246,6 +3327,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 69 · integer cubic · 24-7-25 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3289,6 +3371,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 70 · integer cubic · 24-7-25 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3332,6 +3415,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 71 · integer cubic · 3-4-5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3375,6 +3459,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 72 · integer cubic · 3-4-5 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3418,6 +3503,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 73 · integer cubic · 4-3-5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3461,6 +3547,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 74 · integer cubic · 4-3-5 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3504,6 +3591,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 75 · integer cubic · 40-9-41 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3547,6 +3635,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 76 · integer cubic · 5-12-13 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3590,6 +3679,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 77 · integer cubic · 5-12-13 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3633,6 +3723,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 78 · integer cubic · 7-24-25 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3676,6 +3767,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 79 · integer cubic · 8-15-17 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3719,6 +3811,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 80 · integer cubic · 8-15-17 C <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3762,6 +3855,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 81 · integer cubic · 84-13-85 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3805,6 +3899,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-preset" class="group">Presets · 4</h2><div class="grid"><section class="panel">
 <h2>Fig. 82 · preset · bracket <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3848,6 +3943,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 83 · preset · ogee <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3891,6 +3987,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 84 · preset · petal <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3934,6 +4031,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 85 · preset · s-curve <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -3977,6 +4075,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-primal" class="group">Primals · 3</h2><div class="grid"><section class="panel">
 <h2>Fig. 86 · primal · air <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4020,6 +4119,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 87 · primal · fire <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4063,6 +4163,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 88 · primal · water <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4106,6 +4207,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-lac" class="group">LAC spines · 1</h2><div class="grid"><section class="panel">
 <h2>Fig. 89 · S44 · Fig. 6 · LAC: p = 0, turn 270 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4149,6 +4251,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix fixed"><strong>fixed</strong> · Source cubic chain, 5.63e-8; S44 label; no quintic.</p>
 </section></div><h2 id="g-stage-two" class="group">Stage II spines · 70</h2><div class="grid"><section class="panel">
 <h2>Fig. 90 · Stage II · Fig. 1 · The clothoid · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4192,6 +4295,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 91 · Stage II · Fig. 1 · The clothoid · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4235,6 +4339,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 92 · Stage II · Fig. 1 · The clothoid · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4278,6 +4383,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 93 · Stage II · Fig. 1 · The clothoid · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4321,6 +4427,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 94 · Stage II · Fig. 10 · Involute to involute · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4364,6 +4471,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 95 · Stage II · Fig. 10 · Involute to involute · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4407,6 +4515,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 96 · Stage II · Fig. 10 · Involute to involute · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4450,6 +4559,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 97 · Stage II · Fig. 10 · Involute to involute · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4493,6 +4603,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 98 · Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4536,6 +4647,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 99 · Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4579,6 +4691,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 100 · Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4622,6 +4735,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.30%. The old red was a speed heuristic. If it still looks wrong, describe the point.</p>
 </section><section class="panel">
 <h2>Fig. 101 · Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4665,6 +4779,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 102 · Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4708,6 +4823,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 103 · Stage II · Fig. 13 · Log spiral, one turn each way · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4751,6 +4867,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 104 · Stage II · Fig. 13 · Log spiral, one turn each way · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4794,6 +4911,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.74%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 105 · Stage II · Fig. 14 · Involute, one turn each way · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4837,6 +4955,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 106 · Stage II · Fig. 14 · Involute, one turn each way · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4880,6 +4999,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.67%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 107 · Stage II · Fig. 14 · Involute, one turn each way · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4923,6 +5043,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 108 · Stage II · Fig. 16 · Log spiral, two turns each way · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -4966,6 +5087,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 109 · Stage II · Fig. 16 · Log spiral, two turns each way · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5009,6 +5131,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.80%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 110 · Stage II · Fig. 16 · Log spiral, two turns each way · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5052,6 +5175,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 111 · Stage II · Fig. 16 · Log spiral, two turns each way · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5095,6 +5219,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 112 · Stage II · Fig. 17 · Involute, two turns each way · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5138,6 +5263,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 113 · Stage II · Fig. 17 · Involute, two turns each way · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5181,6 +5307,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 114 · Stage II · Fig. 17 · Involute, two turns each way · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5224,6 +5351,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 115 · Stage II · Fig. 17 · Involute, two turns each way · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5267,6 +5395,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 116 · Stage II · Fig. 19 · Log spiral, both ends · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5310,6 +5439,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 117 · Stage II · Fig. 19 · Log spiral, both ends · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5353,6 +5483,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 118 · Stage II · Fig. 19 · Log spiral, both ends · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5396,6 +5527,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.68%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 119 · Stage II · Fig. 19 · Log spiral, both ends · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5439,6 +5571,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 120 · Stage II · Fig. 2 · The circle, reached at G2 · spine 10 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5482,6 +5615,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 121 · Stage II · Fig. 2 · The circle, reached at G2 · spine 12 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5525,6 +5659,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 122 · Stage II · Fig. 2 · The circle, reached at G2 · spine 13 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5568,6 +5703,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 123 · Stage II · Fig. 2 · The circle, reached at G2 · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5611,6 +5747,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 124 · Stage II · Fig. 2 · The circle, reached at G2 · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5654,6 +5791,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 125 · Stage II · Fig. 2 · The circle, reached at G2 · spine 6 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5697,6 +5835,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 126 · Stage II · Fig. 2 · The circle, reached at G2 · spine 7 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5740,6 +5879,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 127 · Stage II · Fig. 2 · The circle, reached at G2 · spine 9 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5783,6 +5923,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 128 · Stage II · Fig. 20 · Involute, both ends · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5826,6 +5967,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 129 · Stage II · Fig. 20 · Involute, both ends · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5869,6 +6011,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 130 · Stage II · Fig. 20 · Involute, both ends · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5912,6 +6055,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.69%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 131 · Stage II · Fig. 20 · Involute, both ends · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5955,6 +6099,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 132 · Stage II · Fig. 3 · The log spiral · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -5998,6 +6143,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 133 · Stage II · Fig. 3 · The log spiral · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6041,6 +6187,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 134 · Stage II · Fig. 3 · The log spiral · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6084,6 +6231,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 135 · Stage II · Fig. 3 · The log spiral · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6127,6 +6275,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 136 · Stage II · Fig. 4 · The involute · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6170,6 +6319,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 137 · Stage II · Fig. 4 · The involute · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6213,6 +6363,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 138 · Stage II · Fig. 4 · The involute · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6256,6 +6407,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 139 · Stage II · Fig. 4 · The involute · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6299,6 +6451,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 140 · Stage II · Fig. 5 · The S branch · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6342,6 +6495,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 141 · Stage II · Fig. 5 · The S branch · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6385,6 +6539,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 142 · Stage II · Fig. 5 · The S branch · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6428,6 +6583,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 143 · Stage II · Fig. 5 · The S branch · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6471,6 +6627,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 144 · Stage II · Fig. 5 · The S branch · spine 6 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6514,6 +6671,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 145 · Stage II · Fig. 5 · The S branch · spine 7 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6557,6 +6715,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 146 · Stage II · Fig. 6 · The S root · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6600,6 +6759,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 147 · Stage II · Fig. 6 · The S root · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6643,6 +6803,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 148 · Stage II · Fig. 6 · The S root · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6686,6 +6847,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 149 · Stage II · Fig. 6 · The S root · spine 5 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6729,6 +6891,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 150 · Stage II · Fig. 6 · The S root · spine 6 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6772,6 +6935,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.62%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 151 · Stage II · Fig. 6 · The S root · spine 7 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6815,6 +6979,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 152 · Stage II · Fig. 7 · Euler to Euler · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6858,6 +7023,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 153 · Stage II · Fig. 7 · Euler to Euler · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6901,6 +7067,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 154 · Stage II · Fig. 8 · Euler to line to Euler · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6944,6 +7111,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 155 · Stage II · Fig. 8 · Euler to line to Euler · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -6987,6 +7155,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 156 · Stage II · Fig. 9 · Log spiral to log spiral · spine 1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7030,6 +7199,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 157 · Stage II · Fig. 9 · Log spiral to log spiral · spine 2 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7073,6 +7243,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 158 · Stage II · Fig. 9 · Log spiral to log spiral · spine 3 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7116,6 +7287,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 159 · Stage II · Fig. 9 · Log spiral to log spiral · spine 4 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7159,6 +7331,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-misc" class="group">Other families · 17</h2><div class="grid"><section class="panel">
 <h2>Fig. 160 · misc · Maclaurin trisectrix · Pell 71/41 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7202,6 +7375,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 161 · misc · Maclaurin trisectrix · exact loop <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7245,6 +7419,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-10; deviation 0.80%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 162 · misc · PH quintic · h quadratic, u, v linear <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7288,6 +7463,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 163 · misc · PH quintic · u = 1+2t+t², v = 1−t+t² <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7331,6 +7507,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 164 · misc · PH quintic · u = 1+t², v = 2t <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7374,6 +7551,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 165 · misc · Pell · x² − 2y² = 1 · + <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7417,6 +7595,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-11; deviation 0.32%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 166 · misc · Pell · x² − 2y² = 1 · − <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7460,6 +7639,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-11; deviation 0.32%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 167 · misc · Reuleaux triangle <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7503,6 +7683,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-9; deviation 0.86%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 168 · misc · biarc · a shallow S <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7546,6 +7727,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 169 · misc · biarc · east to south-east <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7589,6 +7771,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 170 · misc · c = 1 · Archimedean <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7632,6 +7815,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 171 · misc · c = 2 · Fermat <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7675,6 +7859,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 172 · misc · c = −2 · lituus <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7718,6 +7903,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 173 · misc · catenary <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7761,6 +7947,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-14; deviation 0.17%; no defect.</p>
 </section><section class="panel">
 <h2>Fig. 174 · misc · elliptic · y² = x³+1 · the branch <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7804,6 +7991,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 175 · misc · elliptic · y² = x³+1 · the oval <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7847,6 +8035,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>Fig. 176 · misc · qAC · α = 2, c = −1 <span class="badge">smooth</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7890,6 +8079,7 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div><h2 id="g-cusp" class="group">Cusp-arc curves · 1</h2><div class="grid"><section class="panel">
 <h2>Fig. 177 · astroid <span class="badge">cusp ×4</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -7933,4 +8123,5 @@ G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>
 </div>
 </div>
+
 </section></div></main></body></html>

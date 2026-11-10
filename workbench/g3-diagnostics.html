@@ -13,6 +13,8 @@ h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 
 table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%}
 th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
 .ctl{font-size:10.5px}.ctl td,.ctl th{padding:3px 5px;white-space:nowrap}
+.fix-table{font-size:11.5px}.fix-table td{white-space:normal;vertical-align:top}
+.fix-table .ok{color:#2f6b3a}.fix-table .needs{color:#8a5a00;font-weight:700}
 .ok{color:#2f6b3a} .bad{color:#a23b2a;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid #c9a441;padding:12px 16px;margin:0 0 18px}
@@ -46,6 +48,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .panel.zoom .main,.panel.zoom .side{overflow:auto}
 .panel.zoom .main svg{width:240%;max-width:none}
 .panel.zoom .side svg{width:200%;max-width:none}
+.fix{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--rule);
+  font:12px/1.55 ui-monospace,Menlo,monospace}
+.fix strong{font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+.fix.verified,.fix.fixed{border-left-color:#2f6b3a;color:#2f6b3a}
+.fix.needs-fix,.fix.needs-eye{border-left-color:#8a5a00;color:#8a5a00}
 </style></head><body>
 <!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> the catalogue's speed floor and tightest-span point · <b>out</b> red problem rings on both figures, a per-panel zoom, and the 10% admission floor</span></div><!-- /hub-bar --><main>
 <p class="eyebrow">curve-lab · tightest-span diagnostics</p>
@@ -106,6 +113,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.62%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 6 · The S root · spine 4 <span class="badge">tightest 10.2%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -149,6 +157,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 3 <span class="badge">tightest 10.4%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -192,6 +201,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.30%. The old red was a speed heuristic. If it still looks wrong, describe the point.</p>
 </section><section class="panel">
 <h2>misc · Maclaurin trisectrix · exact loop <span class="badge">tightest 10.6%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -235,6 +245,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-10; deviation 0.80%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 16 · Log spiral, two turns each way · spine 2 <span class="badge">tightest 10.9%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -278,6 +289,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.80%; no defect.</p>
 </section><section class="panel">
 <h2>misc · Reuleaux triangle <span class="badge">tightest 11.6%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -321,6 +333,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-9; deviation 0.86%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 5 · The S branch · spine 3 <span class="badge">tightest 12.6%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -364,6 +377,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 5 · The S branch · spine 5 <span class="badge">tightest 12.6%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -407,6 +421,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.60%; no defect.</p>
 </section><section class="panel">
 <h2>misc · Pell · x² − 2y² = 1 · + <span class="badge">tightest 13.3%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -450,6 +465,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-11; deviation 0.32%; no defect.</p>
 </section><section class="panel">
 <h2>misc · Pell · x² − 2y² = 1 · − <span class="badge">tightest 13.3%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -493,6 +509,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-11; deviation 0.32%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 13 · Log spiral, one turn each way · spine 3 <span class="badge">tightest 17.5%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -536,6 +553,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.74%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 11 · Arc, Euler, line, Euler, arc · spine 4 <span class="badge">tightest 17.5%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -579,6 +597,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+
 </section><section class="panel">
 <h2>misc · catenary <span class="badge">tightest 20.7%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -622,6 +641,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-14; deviation 0.17%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 14 · Involute, one turn each way · spine 3 <span class="badge">tightest 21.6%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -665,6 +685,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.67%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 20 · Involute, both ends · spine 3 <span class="badge">tightest 22.0%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -708,6 +729,7 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.69%; no defect.</p>
 </section><section class="panel">
 <h2>Stage II · Fig. 19 · Log spiral, both ends · spine 3 <span class="badge">tightest 24.3%</span> <button class="zoom-btn" onclick="this.closest('.panel').classList.toggle('zoom')">zoom</button></h2>
 <div class="panel-grid">
@@ -751,5 +773,6 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>
 </div>
 </div>
+<p class="fix verified"><strong>verified</strong> · G3 joins below 1e-12; deviation 0.68%; no defect.</p>
 </section>
 </main></body></html>

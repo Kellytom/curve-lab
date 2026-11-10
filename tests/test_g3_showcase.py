@@ -91,7 +91,7 @@ class TestCubicPages(unittest.TestCase):
         self.assertIn("g3-catalogue.html", page)
         for n in range(1, 7):
             self.assertIn(f"Fig. {n} ·", page)
-        self.assertEqual(page.count('<section class="panel"'), 16 + complete)
+        self.assertEqual(page.count('<section class="panel"'), 17 + complete)
         self.assertIn("The finished curve · what can be handed over", page)
         self.assertIn("G3-complete", page)
         self.assertIn("smooth handover", page)

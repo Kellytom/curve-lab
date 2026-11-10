@@ -1016,6 +1016,8 @@ h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 
 table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%%}
 th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
 .ctl{font-size:10.5px}.ctl td,.ctl th{padding:3px 5px;white-space:nowrap}
+.fix-table{font-size:11.5px}.fix-table td{white-space:normal;vertical-align:top}
+.fix-table .ok{color:%(green)s}.fix-table .needs{color:#8a5a00;font-weight:700}
 .ok{color:%(green)s} .bad{color:%(red)s;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid %(gold)s;padding:12px 16px;margin:0 0 18px}
@@ -1146,6 +1148,7 @@ def _quintic_panel(row, idx):
         for br in branches[:-1]:
             count += len(br["spans"])
             breaks.append(count - 1)
+    import g3_handover as H
     return {
         "key": f"Q.{idx}", "fig": 6 + idx, "title": row["key"], "spans": spans,
         "knots": knots, "source_pts": source,
@@ -1153,6 +1156,7 @@ def _quintic_panel(row, idx):
         "kind": "quintic · six-point spans", "ints": False, "scale": None,
         "badge": "quintic-required", "controls_label": "quintic spans",
         "jump": bool(feature), "breaks": breaks,
+        "fix": H.FIX_NOTES.get(row["key"]),
         "note": (f"<strong>Cubic-first result:</strong> {why}. The side construction "
                  f"shows the six-point spans as the working view; the full fallback "
                  f"list is on the <a href=\"g3-handover.html\">G3 handover page</a>."),
@@ -1168,6 +1172,15 @@ def quintic_required_section():
     cards = []
     for i, row in enumerate(selected, 1):
         p = _quintic_panel(row, i)
+        fix = p.get("fix")
+        fix_html = ""
+        if fix:
+            status, note = fix
+            text = {"verified": "verified", "fixed": "fixed",
+                    "needs-fix": "needs fix",
+                    "needs-eye": "needs your eye"}[status]
+            fix_html = (f'<p class="fix {status}"><strong>{text}</strong> · '
+                        f'{note}</p>')
         cards.append(f"""<section class="panel">
 <h2>Fig. {p['fig']} · {p['title']} <span class="badge">{p['badge']}</span></h2>
 <div class="panel-grid">
@@ -1180,6 +1193,7 @@ def quintic_required_section():
 </div>
 </div>
 <p class="small">{p['note']}</p>
+{fix_html}
 </section>""")
     return f"""<hr class="bottom-rule">
 <section class="panel">
@@ -1297,6 +1311,7 @@ set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 
 <nav class="toc" aria-label="Contents">
 <strong>Contents</strong> ·
+<a href="#fix-status">Fix status</a> ·
 <a href="#cubic-lead">Cubic lead · 6</a> ·
 <a href="#quintic-required">Quintic-required · 5</a> ·
 <a href="#handover-summary">The finished curve</a> ·
@@ -1305,6 +1320,30 @@ set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 <a href="#deviation">Still failing · deviation</a> ·
 <a href="#every-curve">Every complete curve · {len(admitted_keys)}</a>
 </nav>
+
+<section class="panel" id="fix-status">
+<h2>Fix status · verified, fixed, and still open</h2>
+<p class="small"><strong>Red means a real defect</strong>: a failing G3 join, a
+deviation over 5%, a rejected cusp, or a span below 1% speed. It never means a
+tight but smooth span. The old red speed rings at 10–24% were a false positive:
+the Stage II and misc curves listed as verified are G3 to 1e-14 and within 1%
+deviation. If one still looks wrong, describe the point and it can be targeted.</p>
+<table class="ctl fix-table">
+<tr><th>status</th><th>figures</th><th>why / next</th></tr>
+<tr><td class="ok">verified</td><td>Stage II Fig. 11, 13, 14, 16, 19, 20, 5, 6 ·
+Maclaurin · Pell +/− · Reuleaux · catenary</td><td>G3 joins below 1e-12,
+deviation under 1%; no rendering defect.</td></tr>
+<tr><td class="ok">fixed</td><td>LAC S44 · bicorn ×2 · deltoid ×3 · epicycloid
+k=3 ×4, k=5 ×6 · hypocycloid ×5 · the cusp-aware heart fits</td><td>source cubic
+LAC; cusp counts; the old heart fits are restored.</td></tr>
+<tr><td class="needs">needs fix</td><td>|x|^(2/3) upper and lower</td><td>the
+interior cusp at x=0 is smoothed; split into two arcs.</td></tr>
+<tr><td class="needs">needs your eye</td><td>Fig. 100 if it still looks wrong ·
+Eisemann / Hechinger / Kuriscak lower · Mangaldan · Valentine</td><td>describe the
+wrong point or coordinate; decide whether a half-heart draws the sibling faintly
+to show the junction.</td></tr>
+</table>
+</section>
 
 <h2 id="cubic-lead" class="group">Cubic lead · 6</h2>
 
