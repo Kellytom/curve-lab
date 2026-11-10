@@ -34,7 +34,7 @@ pre code{background:none;padding:0}
 genuinely needs it. Everything on the page is a measurement, not a drawing.</p>
 </blockquote>
 <!-- updated:start -->
-<p>Updated 2026-11-09 · commit <code>62f6be1</code></p>
+<p>Updated 2026-11-09 · commit <code>7dd6804</code></p>
 <!-- updated:end -->
 
 <p>The live pages are:</p>
@@ -207,14 +207,18 @@ counts are generated below.</p>
 <p>Each gallery panel shows:</p>
 <ul>
 <li>the ideal curve dashed, the delivered G3 chain solid, the joins circled;</li>
-<li><code>dκ/ds</code> against arc length, with green joins, gold declared breaks, and a
-  red ring on the tightest span;</li>
+<li><code>dκ/ds</code> against arc length, with green joins and gold declared breaks. The
+  gallery carries <strong>no tight ring</strong>; a tight span is ringed in <strong>gold</strong> on the
+  diagnostics page only;</li>
 <li>a <strong>record</strong>: branches, spans, deviation as a share of size, worst
   <code>Δ(dκ/ds)</code>, native degree, speed floor, and any declared feature;</li>
 <li>a <strong>zoom</strong> button that enlarges the panel and lets you scroll to the mark.</li>
 </ul>
-<p>A tight span is ringed at <strong>below 25% of the chord speed</strong>; the 10% floor is
-the admission line. The diagnostics page collects those rings in one place.</p>
+<p>A tight span is below <strong>25% of the chord speed</strong>; the 10% floor is the
+admission line. The diagnostics page collects the advisory rings in gold. Red
+is reserved for a rejected cusp or a failing join: a declared cusp is never a
+red ring. The figure-by-figure fixes and their proofs are tracked in
+<code>state/G3-FIXES-int.md</code>.</p>
 <h2 id="the-handoff-table">The handoff table</h2>
 <p>The six cubic lead panels carry the data the editor needs, in a table under
 the figure:</p>
@@ -303,11 +307,11 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </tr>
 <tr>
 <td>smooth handover</td>
-<td>130</td>
+<td>124</td>
 </tr>
 <tr>
 <td>complete with a declared feature</td>
-<td>24</td>
+<td>30</td>
 </tr>
 <tr>
 <td>cubic-native rows</td>
@@ -378,5 +382,5 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </ol>
 <p>When the showcase changes, run the page generators first, then the doc
 generator, then the hub. Do not edit <code>docs/G3-showcase-docs.html</code> by hand.</p>
-<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 3e0cbb8a49acbd70ee5e8dd90fcf23691febc794 · commit: 62f6be1 · 2026-11-09 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: fe599f944d5569b35713f98ab857a06b2673f898 · commit: 7dd6804 · 2026-11-09 · do not edit this HTML by hand.</p>
 </main></body></html>

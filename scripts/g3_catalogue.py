@@ -65,8 +65,10 @@ def span_min_speed(P, chord, samples=81):
     return m / chord
 
 
-def span_is_regular(P, chord):
-    return span_min_speed(P, chord) >= MIN_SPEED
+def span_is_regular(P, chord, allow_cusp=False):
+    # A declared cusp is allowed to stop the pen; the floor is for a smooth
+    # span that grazes a near-cusp where none is declared.
+    return allow_cusp or span_min_speed(P, chord) >= MIN_SPEED
 
 
 def problem_of_spans(spans, samples=81):
@@ -110,7 +112,7 @@ FEATURES = {
     "bernoulli": "node at the seam",
     "abs(x) gerono": "node at the seam",
     "bean": "node between the two branches",
-    "bicorn": "node between the two branches",
+    "bicorn": "cusp ×2",
     "trifolium": "node where the leaves meet",
     "quadrifolium": "node where the leaves meet",
     "kappa": "node between the two branches",
@@ -118,6 +120,14 @@ FEATURES = {
     "heart · cardioid": "cusp ×1",
     "heart · |x|^(2/3) upper": "cusp ×1",
     "heart · |x|^(2/3) lower": "cusp ×1",
+    "heart · Eisemann upper": "cusp ×1",
+    "heart · Eisemann lower": "cusp ×1",
+    "heart · Hechinger upper": "cusp ×1",
+    "heart · Hechinger lower": "cusp ×1",
+    "heart · Kuriscak upper": "cusp ×1",
+    "heart · Kuriscak lower": "cusp ×1",
+    "heart · Mangaldan": "cusp ×2",
+    "heart · Valentine": "cusp ×2",
 }
 
 
@@ -186,7 +196,7 @@ def der5(f, t, h=1e-4):
     )
 
 
-def fit_branch(ctrl, nspans=SPANS, trim=0.0):
+def fit_branch(ctrl, nspans=SPANS, trim=0.0, allow_cusp=False):
     """Fit one branch with quintic G3 spans; return None when it cannot fit."""
     pts, ts = branch_points(ctrl)
     if len(pts) < 30:
@@ -251,7 +261,7 @@ def fit_branch(ctrl, nspans=SPANS, trim=0.0):
             for fb in HGRID:
                 P = G3.quintic_g3(p0, p5, T0, T1, k0, k1, r0, r1,
                                   fa * chord, fb * chord)
-                if P is None or not span_is_regular(P, chord):
+                if P is None or not span_is_regular(P, chord, allow_cusp):
                     continue
                 e = max(near(G3.bezier(P, j / 20)) for j in range(21))
                 if best is None or e < best[0]:
@@ -363,7 +373,7 @@ def local_deriv(pts, s0, total, window_frac=0.06):
     return (x[0], y[0]), T, k, rho
 
 
-def fit_poly(pts, nspans=SPANS, trim=0.0):
+def fit_poly(pts, nspans=SPANS, trim=0.0, allow_cusp=False):
     """Fit a sampled polyline with quintic G3 spans."""
     if len(pts) < 20:
         return None
@@ -407,7 +417,7 @@ def fit_poly(pts, nspans=SPANS, trim=0.0):
             for fb in HGRID:
                 P = G3.quintic_g3(p0, p5, T0, T1, k0, k1, r0, r1,
                                   fa * chord, fb * chord)
-                if P is None or not span_is_regular(P, chord):
+                if P is None or not span_is_regular(P, chord, allow_cusp):
                     continue
                 e = max(near(G3.bezier(P, j / 20)) for j in range(21))
                 if best is None or e < best[0]:
@@ -477,11 +487,11 @@ def fit_branch_any(ctrl):
     return best
 
 
-def fit_poly_best(pts):
+def fit_poly_best(pts, allow_cusp=False):
     for trim in (0.0, 0.02):
         best = None
         for n in (6, 10, 14):
-            r = fit_poly(pts, n, trim=trim)
+            r = fit_poly(pts, n, trim=trim, allow_cusp=allow_cusp)
             if r is not None and r["pass"] and (best is None or r["error"] < best["error"]):
                 best = r
         if best is not None:
@@ -556,7 +566,7 @@ def heart_rows():
     for name, branches in forms:
         fitted = []
         for pts in branches:
-            r = fit_poly_best(pts)
+            r = fit_poly_best(pts, allow_cusp=True)
             if r is None or not r["pass"]:
                 fitted = None
                 break
@@ -566,7 +576,7 @@ def heart_rows():
                          "reason": "cusp or singular sample; no G3 interpolation"})
         else:
             rows.append({
-                "key": name, "admitted": True,
+                "key": name, "admitted": True, "allow_cusp": True,
                 "source": "heart", "spans": max(r["count"] for r in fitted),
                 "branches": fitted,
                 "error": max(r["error"] for r in fitted),
@@ -948,7 +958,7 @@ def catalogue():
         if not row["admitted"]:
             continue
         ms = min(b.get("min_speed", 1.0) for b in row["branches"])
-        if ms < MIN_SPEED:
+        if ms < MIN_SPEED and not row.get("allow_cusp"):
             row["admitted"] = False
             row["near_cusp"] = True
             row["min_speed"] = ms

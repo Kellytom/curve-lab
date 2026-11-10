@@ -49,10 +49,10 @@ def _counts():
     figures = len(re.findall(r"<h[23]>Fig\.\s*\d+", page))
     complete = hand["counts"]["complete"]
     try:
-        cusp_part = page.split("Cusp curves · admitted and rejected")[1]
-        cusp_part = cusp_part.split("Still failing · deviation")[0]
+        cusp_part = page.split('id="cusp-family"')[1]
+        cusp_part = cusp_part.split('id="deviation"')[0]
         cusp = len(re.findall(r"<h3>Fig\.", cusp_part))
-        dev_part = page.split("Still failing · deviation")[1]
+        dev_part = page.split('id="deviation"')[1]
         dev = len(re.findall(r"<h3>Fig\.", dev_part))
     except Exception:
         cusp = dev = "—"

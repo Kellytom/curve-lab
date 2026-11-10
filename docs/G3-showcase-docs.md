@@ -4,7 +4,7 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-09 · commit `62f6be1`
+Updated 2026-11-09 · commit `7dd6804`
 <!-- updated:end -->
 
 The live pages are:
@@ -139,14 +139,18 @@ counts are generated below.
 Each gallery panel shows:
 
 - the ideal curve dashed, the delivered G3 chain solid, the joins circled;
-- `dκ/ds` against arc length, with green joins, gold declared breaks, and a
-  red ring on the tightest span;
+- `dκ/ds` against arc length, with green joins and gold declared breaks. The
+  gallery carries **no tight ring**; a tight span is ringed in **gold** on the
+  diagnostics page only;
 - a **record**: branches, spans, deviation as a share of size, worst
   `Δ(dκ/ds)`, native degree, speed floor, and any declared feature;
 - a **zoom** button that enlarges the panel and lets you scroll to the mark.
 
-A tight span is ringed at **below 25% of the chord speed**; the 10% floor is
-the admission line. The diagnostics page collects those rings in one place.
+A tight span is below **25% of the chord speed**; the 10% floor is the
+admission line. The diagnostics page collects the advisory rings in gold. Red
+is reserved for a rejected cusp or a failing join: a declared cusp is never a
+red ring. The figure-by-figure fixes and their proofs are tracked in
+`state/G3-FIXES-int.md`.
 
 ## The handoff table
 
@@ -232,8 +236,8 @@ error tables; `workbench/g3-handover.html` is the standalone fallback copy;
 | candidates attempted | 232 |
 | admitted | 154 |
 | G3-complete | 154 |
-| smooth handover | 130 |
-| complete with a declared feature | 24 |
+| smooth handover | 124 |
+| complete with a declared feature | 30 |
 | cubic-native rows | 22 |
 | figures on the showcase | 177 |
 | lead figures (cubic + quintic + cusp + deviation) | 23 |

@@ -663,7 +663,9 @@ def acceleration_svg(panel, w=360, h=220):
         joins.append(s)
     total = s or 1.0
     jump = panel.get("jump", False)
-    col = RED_MARK if jump else GREEN
+    cusp_ok = panel.get("cusp_ok", False)
+    cusp_col = GREEN if (jump and cusp_ok) else RED_MARK
+    col = cusp_col if jump else GREEN
     lo, hi = min(vals), max(vals)
     if hi - lo < 1e-12:
         lo, hi = lo - 1.0, hi + 1.0
@@ -692,12 +694,15 @@ def acceleration_svg(panel, w=360, h=220):
                     f'stroke-dasharray="3 3"/>')
 
     rows = panel.get("rows") or gate(panel["spans"])
+    breaks = set(panel.get("breaks", []))
     marks = []
-    for j, row in zip(joins[:-1], rows):
+    for i, (j, row) in enumerate(zip(joins[:-1], rows)):
         x = gx(j)
-        bad = jump and not row["pass"]
+        is_break = i in breaks
+        bad = jump and not row["pass"] and not is_break
+        col = cusp_col if (jump and is_break) else (RED_MARK if bad else GREEN)
         marks.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
-                     f'y2="{h - bottom}" stroke="{RED_MARK if bad else GREEN}" '
+                     f'y2="{h - bottom}" stroke="{col}" '
                      f'stroke-width="{3.2 if bad else 0.8}" '
                      f'stroke-dasharray="2 3"/>')
 
@@ -707,25 +712,25 @@ def acceleration_svg(panel, w=360, h=220):
             if 0 <= idx < len(joins):
                 x = gx(joins[idx])
                 red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
-                           f'y2="{h - bottom}" stroke="{RED_MARK}" '
+                           f'y2="{h - bottom}" stroke="{cusp_col}" '
                            f'stroke-width="3.2"/>')
                 red.append(f'<circle cx="{x:.1f}" cy="{top + 11}" r="7" '
-                           f'fill="{RED_MARK}"/>')
+                           f'fill="{cusp_col}"/>')
                 red.append(f'<text x="{x + 8:.1f}" y="{top + 16}" '
                            f'font-family="ui-monospace,Menlo,monospace" '
-                           f'font-size="11" fill="{RED_MARK}">cusp</text>')
+                           f'font-size="11" fill="{cusp_col}">cusp</text>')
         if not panel.get("breaks") and vals:
             idx = max(range(len(vals)), key=lambda i: abs(vals[i]))
             x = gx(xs[idx])
             y = min(max(gy(vals[idx]), top + 13), h - bottom - 13)
             red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
-                       f'y2="{h - bottom}" stroke="{RED_MARK}" '
+                       f'y2="{h - bottom}" stroke="{cusp_col}" '
                        f'stroke-width="3.2"/>')
             red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="none" '
-                       f'stroke="{RED_MARK}" stroke-width="4.0"/>')
+                       f'stroke="{cusp_col}" stroke-width="4.0"/>')
             red.append(f'<text x="{min(x + 8, w - 64):.1f}" y="{top + 16}" '
                        f'font-family="ui-monospace,Menlo,monospace" '
-                       f'font-size="11" fill="{RED_MARK}">cusp</text>')
+                       f'font-size="11" fill="{cusp_col}">cusp</text>')
 
     d = " ".join(("M" if i == 0 else "L") + f"{gx(x):.1f},{gy(y):.1f}"
                  for i, (x, y) in enumerate(zip(xs, vals)))
@@ -737,10 +742,10 @@ def acceleration_svg(panel, w=360, h=220):
   {''.join(marks)}
   {''.join(red)}
   <path d="{d}" fill="none" stroke="{INK}" stroke-width="2"/>
-  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{'dκ/ds · cusp / failing join' if jump else 'G3 acceleration · dκ/ds'}</text>
+  <text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{'dκ/ds · cusp (declared)' if (jump and cusp_ok) else 'dκ/ds · cusp (rejected)' if jump else 'G3 acceleration · dκ/ds'}</text>
   <text x="{left + (w - left - right) / 2:.0f}" y="{h - 8}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">arc length s / L</text>
   <text x="12" y="{top + (h - top - bottom) / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}" transform="rotate(-90 12 {top + (h - top - bottom) / 2:.0f})">dκ/ds</text>
-  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{'red: cusp / failing join' if jump else 'green: joins'}</text>
+  <text x="{w - right}" y="18" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{col}">{'green: cusp (declared)' if (jump and cusp_ok) else 'red: cusp (rejected)' if jump else 'green: joins'}</text>
 </svg>"""
 
 
@@ -930,7 +935,8 @@ def comparison_panel(name, pts, status, branches=None, jump=False):
         "name": name, "source_pts": pts, "spans": spans, "knots": knots,
         "error": max(br["error"] for br in branches),
         "g3": max(br["g3"] for br in branches),
-        "jump": jump, "breaks": breaks, "cusp_s": cusp_s, "cusp_pt": cusp_pt,
+        "jump": jump, "cusp_ok": status.startswith("admitted"),
+        "breaks": breaks, "cusp_s": cusp_s, "cusp_pt": cusp_pt,
         "status": status, "controls_label": "quintic spans",
     }
 
@@ -954,14 +960,15 @@ def comparison_curve_svg(panel, w=520, h=300):
         x, y = f(p)
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.0" fill="none" stroke="{GREEN}" stroke-width="1.2"/>')
     if panel.get("jump") and panel.get("cusp_pt"):
+        cusp_col = GREEN if panel.get("cusp_ok") else RED_MARK
         X, Y = f(panel["cusp_pt"])
         body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="15" fill="none" '
-                    f'stroke="{RED_MARK}" stroke-width="4.2"/>')
+                    f'stroke="{cusp_col}" stroke-width="4.2"/>')
         body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" '
-                    f'fill="{RED_MARK}"/>')
+                    f'fill="{cusp_col}"/>')
         body.append(f'<text x="{min(max(X + 18, 8), w - 56):.1f}" '
                     f'y="{max(Y - 12, 40):.1f}" font-family="ui-monospace,Menlo,monospace" '
-                    f'font-size="11" fill="{RED_MARK}">cusp</text>')
+                    f'font-size="11" fill="{cusp_col}">cusp</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(body)}
@@ -1012,6 +1019,10 @@ th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:va
 .ok{color:%(green)s} .bad{color:%(red)s;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
 .rule{background:#fffdf7;border-left:4px solid %(gold)s;padding:12px 16px;margin:0 0 18px}
+.toc{background:#fffdf7;border:1px solid var(--rule);padding:9px 12px;margin:0 0 18px;font:12px/1.8 ui-monospace,Menlo,monospace;color:var(--muted)}
+.toc strong{color:var(--ink);font-weight:400}
+.toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--rule)}
+.toc a:hover{border-bottom-color:var(--ink)}
 code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .panel-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,1fr);gap:16px;align-items:start}
 .main{min-width:0}
@@ -1061,7 +1072,7 @@ def handover_html():
         return "<table>" + head + "".join(body) + "</table>"
 
     return f"""<section class="panel" id="handover">
-<h2>The finished curve · what can be handed over</h2>
+<h2 id="handover-summary">The finished curve · what can be handed over</h2>
 <p><strong>The unit is the finished curve, not the span.</strong> A curve is
 <strong>G3-complete</strong> when every interior join — including the closure seam of a
 closed form and every mirror seam — matches position, tangent, curvature and
@@ -1172,7 +1183,7 @@ def quintic_required_section():
 </section>""")
     return f"""<hr class="bottom-rule">
 <section class="panel">
-<h2>Quintic-required · {len(selected)}</h2>
+<h2 id="quintic-required">Quintic-required · {len(selected)}</h2>
 <p class="small">These are the few curves where a four-point cubic chain does not meet
 the G3 gate. The main panel carries the quintic result; the side construction shows the
 six-point spans as the working view. The full fallback list is on the
@@ -1210,23 +1221,23 @@ def build():
     import heart_forms as H
     astroid_branches = C.astroid_rows()[0]["branches"]
     cusp_cases = [
-        ("astroid", C.cusp_ideal("astroid"), "admitted · cusp allowed",
+        ("astroid", C.cusp_ideal("astroid"), "admitted · cusp ×4",
          astroid_branches),
-        ("deltoid", C.cusp_ideal("deltoid"), "admitted · cusp allowed", None),
-        ("nephroid", C.cusp_ideal("nephroid"), "admitted · cusp allowed", None),
+        ("deltoid", C.cusp_ideal("deltoid"), "admitted · cusp ×3", None),
+        ("nephroid", C.cusp_ideal("nephroid"), "admitted · cusp ×2", None),
         ("epicycloid k=3", C.cusp_ideal("epicycloid k=3"),
-         "admitted · cusp allowed", None),
+         "admitted · cusp ×4", None),
         ("epicycloid k=5", C.cusp_ideal("epicycloid k=5"),
-         "admitted · cusp allowed", None),
+         "admitted · cusp ×6", None),
         ("hypocycloid k=5", C.cusp_ideal("hypocycloid k=5"),
-         "admitted · cusp allowed", None),
-        ("cardioid", C.cusp_ideal("cardioid"), "admitted · cusp allowed", None),
+         "admitted · cusp ×5", None),
+        ("cardioid", C.cusp_ideal("cardioid"), "admitted · cusp ×1", None),
         ("heart · Beutel lower",
          [(float(x), float(y)) for x, y in H.beutel()[1]],
-         "admitted · cusp allowed", None),
+         "admitted · cusp ×1", None),
         ("semicubical", C.cusp_ideal("semicubical"),
-         "rejected · cusp / singular", None),
-        ("pear", C.cusp_ideal("pear"), "rejected · cusp / singular", None),
+         "rejected · cusp ×1", None),
+        ("pear", C.cusp_ideal("pear"), "rejected · cusp ×1", None),
     ]
     cusp_start = 6 + len(QUINTIC_KEYS) + 1
     cusp_panels = []
@@ -1284,6 +1295,19 @@ records which other curves admit a quintic interpolation. The gallery below
 carries every complete curve, with the quintic-required rows labelled; the same
 set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 
+<nav class="toc" aria-label="Contents">
+<strong>Contents</strong> ·
+<a href="#cubic-lead">Cubic lead · 6</a> ·
+<a href="#quintic-required">Quintic-required · 5</a> ·
+<a href="#handover-summary">The finished curve</a> ·
+<a href="#gate">The gate</a> ·
+<a href="#cusp-family">Cusp curves · 10</a> ·
+<a href="#deviation">Still failing · deviation</a> ·
+<a href="#every-curve">Every complete curve · {len(admitted_keys)}</a>
+</nav>
+
+<h2 id="cubic-lead" class="group">Cubic lead · 6</h2>
+
 {panels}
 
 {quintic_required_section()}
@@ -1291,7 +1315,7 @@ set is also on the <a href="g3-handover.html">G3 handover page</a>.</div>
 {handover_html()}
 
 <section class="panel">
-<h2>The gate, and what it refuses</h2>
+<h2 id="gate">The gate, and what it refuses</h2>
 <p><strong>Interior speed.</strong> A join-only gate can pass two spans that each graze
 a near-cusp inside: the ends match, but the span nearly stops and <code>dκ/ds</code>
 spikes. Every span here is also required to keep a speed above <strong>10% of its
@@ -1318,19 +1342,25 @@ how it is built: <a href="../docs/G3-showcase-docs.html">G3 showcase docs</a></p
 
 <hr class="bottom-rule">
 <section class="panel">
-<h2>Cusp curves · admitted and rejected</h2>
+<h2 id="cusp-family">Cusp curves · admitted and rejected</h2>
 <p class="small">A cusp is a declared feature, not a G3 join: the curve is split into
 smooth arcs between cusps, and G3 applies to the arcs. The admitted family is complete
 here — astroid, deltoid, nephroid, the epicycloids, the hypocycloid, the cardioid and the
 cusped heart. Semicubical and pear are rejected cases kept beside them for comparison:
 their cusp defeats the fit, and the card says so. Cusped hearts: {heart_line}.
 These are quintic cases, not cubic panels.</p>
+<p class="small"><strong>Cusp rule.</strong> A cusp is a declared feature, not a G3 join.
+Admitted cusps are counted and marked <strong>green</strong>; rejected cusps are
+<strong>red</strong>. A <strong>red mark</strong> is a rejected cusp or a failing join.
+A tight smooth span is advisory: it is ringed in <strong>gold</strong> on the
+diagnostics page, never in red in the gallery. A <strong>gold break</strong> on
+<code>dκ/ds</code> is a declared break between paths.</p>
 {cusp_cards}
 </section>
 
 <hr class="bottom-rule">
 <section class="panel">
-<h2>Still failing · deviation</h2>
+<h2 id="deviation">Still failing · deviation</h2>
 <p class="small">Not cusp failures: the best quintic interpolation misses by more than 5%
 of the curve size. The squircle is the clearest case.</p>
 {dev_cards}
@@ -1345,8 +1375,9 @@ of the curve size. The squircle is the clearest case.</p>
         f'<h2 id="every-curve" class="group">Every complete curve · '
         f'{len(payload["complete"])}</h2>'
         '<p class="small">The overall view: every G3-complete curve, grouped by '
-        'source, curve left and <code>dκ/ds</code> right. A red ring marks the '
-        'tightest span below 25% of the chord; the 10% floor is the admission '
+        'source, curve left and <code>dκ/ds</code> right. A tight span is '
+        'collected on the diagnostics page in gold; the gallery carries no ring. '
+        'The 10% floor is the admission '
         'line. <a href="g3-diagnostics.html">Tightest-span diagnostics</a>.</p>'
         + "".join(payload["sections"]))
     html = html.replace("</style>", H.EXTRA_CSS + "</style>", 1)

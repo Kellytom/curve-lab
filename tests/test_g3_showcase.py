@@ -113,8 +113,10 @@ class TestCubicPages(unittest.TestCase):
         self.assertEqual(page.count(">ground<"), figures)
         self.assertEqual(page.count('class="panel-grid"'), figures)
         self.assertEqual(page.count("1 · G3 acceleration"), figures)
-        self.assertEqual(page.count("G3 acceleration · dκ/ds"), 13)
-        self.assertEqual(page.count("dκ/ds · cusp / failing join"), 10)
+        # 6 cubic + 4 smooth quintic-required + 2 deviation = 12;
+        # the cusped Mangaldan panel joins the 10 cusp cards.
+        self.assertEqual(page.count("G3 acceleration · dκ/ds"), 12)
+        self.assertEqual(page.count("dκ/ds · cusp"), 11)
         self.assertEqual(page.count("integer cubics ×625"), 5)
         self.assertGreaterEqual(page.count("G3 interpolation"), 12)
         self.assertIn("Cusp curves · admitted and rejected", page)

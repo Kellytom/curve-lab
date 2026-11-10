@@ -76,8 +76,10 @@ def _grid(f, x0, x1, y0, y1, step):
 
 
 def is_tight(row):
+    """A red ring is only for a tight smooth span, never a declared feature."""
     ms = row.get("min_speed")
-    return isinstance(ms, (int, float)) and ms < TIGHT_SPEED
+    return (isinstance(ms, (int, float)) and ms < TIGHT_SPEED
+            and not row.get("feature"))
 
 
 def worst_problem(row):
@@ -122,16 +124,16 @@ def curve_svg(row, w=560, h=360, mark=False, fig=None):
             _, p = wp
             X, Y = f(p["point"])
             body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="15" '
-                        f'fill="none" stroke="{RED_MARK}" stroke-width="4.2"/>')
-            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" fill="{RED_MARK}"/>')
+                        f'fill="none" stroke="{GOLD}" stroke-width="4.2"/>')
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" fill="{GOLD}"/>')
             lx = min(max(X + 17, 8), w - 205)
             ly = min(max(Y - 15, 58), h - 46)
             body.append(f'<text x="{lx:.1f}" y="{ly:.1f}" '
                         f'font-family="ui-monospace,Menlo,monospace" font-size="12" '
-                        f'fill="{RED_MARK}">tightest · {p["ratio"]:.1%} of chord speed</text>')
+                        f'fill="{GOLD}">tightest · {p["ratio"]:.1%} of chord speed</text>')
 
     if mark:
-        badge, col = f"tightest {row.get('min_speed', 0):.1%}", RED_MARK
+        badge, col = f"tightest {row.get('min_speed', 0):.1%}", GOLD
     elif row.get("smooth"):
         badge, col = "smooth handover", GREEN
     else:
@@ -271,10 +273,10 @@ def accel_svg(row, w=380, h=240, mark=False):
         X = gx(px)
         Y = min(max(gy(pv), top + 13), h - bottom - 13)
         red.append(f'<line x1="{X:.1f}" y1="{top}" x2="{X:.1f}" '
-                   f'y2="{h - bottom}" stroke="{RED_MARK}" stroke-width="3.0" '
+                   f'y2="{h - bottom}" stroke="{GOLD}" stroke-width="3.0" '
                    f'stroke-dasharray="4 3"/>')
         red.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="12" '
-                   f'fill="none" stroke="{RED_MARK}" stroke-width="3.8"/>')
+                   f'fill="none" stroke="{GOLD}" stroke-width="3.8"/>')
 
     broke = " · declared breaks marked" if len(segs) > 1 else ""
     if clipped:
@@ -301,7 +303,7 @@ def record(row, diagnostic=False):
         return f"""<p class="small">branches {len(row['branches'])} · tightest span
 {row.get('min_speed', 0):.1%} of the chord<br>
 below the 25% display threshold; the 10% floor is the admission line.<br>
-Red ring: the speed minimum on the curve. Red line and ring: the same point on
+Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
 <code>dκ/ds</code>. Use <strong>zoom</strong> to enlarge.</p>"""
     state = "smooth handover" if row.get("smooth") else f"declared: {row.get('feature') or 'feature'}"
     seam = ("seam passes" if row.get("seam_pass")
@@ -360,9 +362,7 @@ def gallery_payload(fig_start=None):
     complete = [r for r in rows if r.get("g3_complete")]
     smooth = [r for r in complete if r.get("smooth")]
     declared = [r for r in complete if not r.get("smooth")]
-    problems = [r for r in rows if r.get("g3_complete")
-                and isinstance(r.get("min_speed"), (int, float))
-                and r["min_speed"] < TIGHT_SPEED]
+    problems = [r for r in rows if is_tight(r)]
 
     nav, sections = [], []
     counter = fig_start
@@ -374,7 +374,7 @@ def gallery_payload(fig_start=None):
         nav.append(f'<a href="#g-{src}">{label} · {len(items)}</a>')
         cards = []
         for r in items:
-            cards.append(panel(r, ring=is_tight(r), fig=counter))
+            cards.append(panel(r, fig=counter))
             if counter is not None:
                 counter += 1
         sections.append(f'<h2 id="g-{src}" class="group">{label} · {len(items)}</h2>'
@@ -416,11 +416,11 @@ the left and <code>dκ/ds</code> on the right, in the same format as the
 curve, the solid line the delivered G3 chain, the green circles the joins. On the
 right, <code>dκ/ds</code> is plotted against arc length; green lines are G3 joins, gold
 dashed lines are declared breaks between paths (a cusp or node), and the blue dashed
-line is zero. A smooth curve has one path and no gold line. A <span
-style="color:{RED_MARK}">red ring</span> marks the tightest span when the speed floor is
-below 25% of the chord; those curves are also collected on the
-<a href="g3-diagnostics.html">tightest-span diagnostics page</a>, where the same point
-is ringed on both figures. The record gives the deviation as a share of the curve
+line is zero. A smooth curve has one path and no gold line. A tight span is collected
+on the <a href="g3-diagnostics.html">tightest-span diagnostics page</a>, where it is
+ringed in <span style="color:{GOLD}">gold</span>. The gallery itself carries no ring:
+red is reserved for a rejected cusp or a failing join. The record gives the deviation
+as a share of the curve
 size, the worst curvature-rate gap, the native degree (<em>cubic-native</em> means the
 fifth divided difference vanished), the speed floor, and the declared feature if
 any.</p>
@@ -467,13 +467,13 @@ spans · {len(problems)}</a> · built from
 <title>G3 diagnostics · the tightest spans</title>
 <style>{S.CSS}{EXTRA_CSS}</style></head><body><main>
 <p class="eyebrow">curve-lab · tightest-span diagnostics</p>
-<h1>Tightest spans · where the curve comes closest to a near-cusp</h1>
+<h1>Tightest spans · the closest approaches, in gold</h1>
 <p class="lede">A join-only test can pass two spans that each graze a near-cusp
 inside: the ends match, but the span nearly stops and <code>dκ/ds</code> spikes by
 orders of magnitude. The fit now rejects any span below <strong>10% of its chord
 speed</strong>. These <strong>{len(problems)}</strong> working curves keep a span
 below 25%: none is rejected, but they are the closest approaches that remain. The
-red ring is the speed minimum on the curve; the red line and ring on the right are
+gold ring is the speed minimum on the curve; the gold line and ring on the right are
 the same point on <code>dκ/ds</code>. <strong>Zoom</strong> enlarges the panel and
 lets you scroll to the mark.</p>
 <p class="small">Worst first · back to the

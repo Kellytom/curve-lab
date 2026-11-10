@@ -2,8 +2,8 @@
  "counts": {
   "candidates": 232,
   "complete": 154,
-  "smooth": 130,
-  "declared": 24
+  "smooth": 124,
+  "declared": 30
  },
  "curves": [
   {
@@ -20,7 +20,7 @@
    "key": "bicorn",
    "source": "named",
    "smooth": false,
-   "feature": "node between the two branches",
+   "feature": "cusp \u00d72",
    "native": "quintic",
    "relative": 0.002226542392117653,
    "g3": 9.367120412662189e-10,
@@ -263,16 +263,16 @@
    "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.01333818035359682,
-   "g3": 2.127150525270633e-11,
+   "g3": 2.0482132987469183e-11,
    "spans": 10
   },
   {
    "key": "heart \u00b7 Valentine",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d72",
    "native": "quintic",
-   "relative": 0.024059881149610506,
+   "relative": 0.007683790800440199,
    "g3": 1.2916010658330763e-14,
    "spans": 14
   },
@@ -289,8 +289,8 @@
   {
    "key": "heart \u00b7 Kuriscak upper",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.01763457144194763,
    "g3": 1.054989429150055e-13,
@@ -299,8 +299,8 @@
   {
    "key": "heart \u00b7 Kuriscak lower",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.01471036300240099,
    "g3": 6.006466069221052e-14,
@@ -319,11 +319,11 @@
   {
    "key": "heart \u00b7 Mangaldan",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d72",
    "native": "quintic",
-   "relative": 0.023662815682255308,
-   "g3": 3.7461700408414345e-12,
+   "relative": 0.0058561801871556615,
+   "g3": 1.6404877456466238e-11,
    "spans": 14
   },
   {
@@ -339,11 +339,11 @@
   {
    "key": "heart \u00b7 Eisemann lower",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.014631720107700686,
-   "g3": 1.4294746798838816e-11,
+   "g3": 2.7282361345351338e-11,
    "spans": 10
   },
   {
@@ -369,8 +369,8 @@
   {
    "key": "heart \u00b7 Hechinger lower",
    "source": "heart",
-   "smooth": true,
-   "feature": null,
+   "smooth": false,
+   "feature": "cusp \u00d71",
    "native": "quintic",
    "relative": 0.019074346746360722,
    "g3": 5.6323996345944224e-11,

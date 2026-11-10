@@ -1,5 +1,5 @@
 {
- "count": 27,
+ "count": 16,
  "curves": [
   {
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 6",
@@ -19,57 +19,6 @@
    }
   },
   {
-   "key": "heart \u00b7 |x|^(2/3) lower",
-   "source": "heart",
-   "min_speed": 0.10038892352503219,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 4,
-    "t": 0.35,
-    "point": [
-     -0.2688734125376603,
-     -0.5342502618846328
-    ],
-    "s": 1.9409934541744596,
-    "ratio": 0.10038892352503219
-   }
-  },
-  {
-   "key": "deltoid",
-   "source": "named",
-   "min_speed": 0.10057218562585567,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 6,
-    "t": 0.6875,
-    "point": [
-     -1.4515232020711861,
-     2.5069182071197225
-    ],
-    "s": 5.1117284363280415,
-    "ratio": 0.10057218562585567
-   }
-  },
-  {
-   "key": "bicorn",
-   "source": "named",
-   "min_speed": 0.10192893684104626,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 5,
-    "t": 0.675,
-    "point": [
-     0.9704925065359096,
-     0.027320245251593846
-    ],
-    "s": 1.4131258565427218,
-    "ratio": 0.10192893684104626
-   }
-  },
-  {
    "key": "Stage II \u00b7 Fig. 6 \u00b7 The S root \u00b7 spine 4",
    "source": "stage-two",
    "min_speed": 0.10197910466428411,
@@ -84,23 +33,6 @@
     ],
     "s": 781.4290217765445,
     "ratio": 0.10197910466428411
-   }
-  },
-  {
-   "key": "hypocycloid k=5",
-   "source": "named",
-   "min_speed": 0.10396391913304431,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 4,
-    "t": 0.8625,
-    "point": [
-     -3.9166189251481818,
-     2.8254322081965166
-    ],
-    "s": 11.80568617092345,
-    "ratio": 0.10396391913304431
    }
   },
   {
@@ -138,23 +70,6 @@
    }
   },
   {
-   "key": "heart \u00b7 Mangaldan",
-   "source": "heart",
-   "min_speed": 0.10715420059984855,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 7,
-    "t": 0.55,
-    "point": [
-     0.018557040127092594,
-     -1.9361563140678597
-    ],
-    "s": 5.1192721545618625,
-    "ratio": 0.10715420059984855
-   }
-  },
-  {
    "key": "Stage II \u00b7 Fig. 16 \u00b7 Log spiral, two turns each way \u00b7 spine 2",
    "source": "stage-two",
    "min_speed": 0.10905991516190525,
@@ -172,23 +87,6 @@
    }
   },
   {
-   "key": "epicycloid k=5",
-   "source": "named",
-   "min_speed": 0.10962346910704093,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 8,
-    "t": 0.225,
-    "point": [
-     -4.020095706186864,
-     2.936228553126745
-    ],
-    "s": 19.050546111931443,
-    "ratio": 0.10962346910704093
-   }
-  },
-  {
    "key": "misc \u00b7 Reuleaux triangle",
    "source": "misc",
    "min_speed": 0.11624218104004011,
@@ -203,23 +101,6 @@
     ],
     "s": 3.117503725630923,
     "ratio": 0.11624218104004011
-   }
-  },
-  {
-   "key": "heart \u00b7 Valentine",
-   "source": "heart",
-   "min_speed": 0.12045788348864546,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 13,
-    "t": 0.7375,
-    "point": [
-     0.03407253379859533,
-     3.960408442760965
-    ],
-    "s": 102.05795831904223,
-    "ratio": 0.12045788348864546
    }
   },
   {
@@ -291,57 +172,6 @@
    }
   },
   {
-   "key": "heart \u00b7 |x|^(2/3) upper",
-   "source": "heart",
-   "min_speed": 0.14273604466385523,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 4,
-    "t": 0.2125,
-    "point": [
-     -0.11928075015456902,
-     1.2392113229353183
-    ],
-    "s": 1.3024291840245206,
-    "ratio": 0.14273604466385523
-   }
-  },
-  {
-   "key": "heart \u00b7 Hechinger lower",
-   "source": "heart",
-   "min_speed": 0.1480902411826867,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 7,
-    "t": 0.9375,
-    "point": [
-     0.16641096038709108,
-     -2.5295653117911803
-    ],
-    "s": 4.949436207350637,
-    "ratio": 0.1480902411826867
-   }
-  },
-  {
-   "key": "epicycloid k=3",
-   "source": "named",
-   "min_speed": 0.1581132648961707,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 6,
-    "t": 0.6125,
-    "point": [
-     -1.5492084312532712,
-     2.683131231001409
-    ],
-    "s": 10.340570685558268,
-    "ratio": 0.1581132648961707
-   }
-  },
-  {
    "key": "Stage II \u00b7 Fig. 13 \u00b7 Log spiral, one turn each way \u00b7 spine 3",
    "source": "stage-two",
    "min_speed": 0.17545929518044953,
@@ -373,23 +203,6 @@
     ],
     "s": 577.2351790680826,
     "ratio": 0.17546612393883784
-   }
-  },
-  {
-   "key": "heart \u00b7 Eisemann lower",
-   "source": "heart",
-   "min_speed": 0.17995717162580308,
-   "reason": null,
-   "problem": {
-    "branch": 0,
-    "span": 5,
-    "t": 0.6125,
-    "point": [
-     0.5010258885488276,
-     -0.4067421436159105
-    ],
-    "s": 3.5122652582574014,
-    "ratio": 0.17995717162580308
    }
   },
   {

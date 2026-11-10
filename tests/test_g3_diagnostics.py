@@ -37,15 +37,15 @@ class TestDiagnostics(unittest.TestCase):
             with self.subTest(curve=row["key"]):
                 self.assertIn(f"Fig. H · {row['key']}", self.page)
 
-    def test_red_rings_are_in_both_figures(self):
+    def test_gold_rings_are_in_both_figures(self):
         blocks = self.page.split('<section class="panel">')[1:]
         self.assertEqual(len(blocks), len(self.curves))
         for block in blocks:
             svgs = block.split("<svg")[1:]
             self.assertEqual(len(svgs), 2)
             with self.subTest(panel=block.split("<h2>")[1].split(" <span")[0]):
-                self.assertGreaterEqual(svgs[0].count("#e01b1b"), 1)
-                self.assertGreaterEqual(svgs[1].count("#e01b1b"), 1)
+                self.assertGreaterEqual(svgs[0].count("#c9a441"), 1)
+                self.assertGreaterEqual(svgs[1].count("#c9a441"), 1)
 
     def test_each_panel_has_a_zoom_button(self):
         self.assertEqual(self.page.count('class="zoom-btn"'), len(self.curves))
