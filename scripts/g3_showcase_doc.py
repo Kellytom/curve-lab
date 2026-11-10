@@ -1,4 +1,4 @@
-"""Build docs/G3-SHOWCASE.html from docs/G3-SHOWCASE.md.
+"""Build docs/G3-showcase-docs.html from docs/G3-showcase-docs.md.
 
     .venv/bin/python scripts/g3_showcase_doc.py
     .venv/bin/python scripts/g3_showcase_doc.py --check
@@ -28,8 +28,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import g3_showcase as S  # noqa: E402
 
-MD = ROOT / "docs" / "G3-SHOWCASE.md"
-HTML = ROOT / "docs" / "G3-SHOWCASE.html"
+MD = ROOT / "docs" / "G3-showcase-docs.md"
+HTML = ROOT / "docs" / "G3-showcase-docs.html"
 
 
 def _git(*args):
@@ -136,7 +136,7 @@ pre code{{background:none;padding:0}}
 <a href="../workbench/g3-handover.html">G3 handover</a> ·
 <a href="../workbench/g3-diagnostics.html">tightest-span diagnostics</a></p>
 {body}
-<p class="footer">Generated from <code>docs/G3-SHOWCASE.md</code> · source-sha: {sha} · commit: {commit or '—'} · {date.today().isoformat()} · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: {sha} · commit: {commit or '—'} · {date.today().isoformat()} · do not edit this HTML by hand.</p>
 </main></body></html>
 """
 
@@ -146,7 +146,7 @@ def _check():
     html = HTML.read_text(encoding="utf-8")
     sha = hashlib.sha1(md.encode("utf-8")).hexdigest()
     if f"source-sha: {sha}" not in html:
-        print("stale: docs/G3-SHOWCASE.html does not match the Markdown.\n"
+        print("stale: docs/G3-showcase-docs.html does not match the Markdown.\n"
               "Run .venv/bin/python scripts/g3_showcase_doc.py")
         return 1
     expected = _counts_table(_counts())

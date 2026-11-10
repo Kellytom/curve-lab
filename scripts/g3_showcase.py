@@ -1313,7 +1313,7 @@ quintic: <a href="quintic-showcase.html">Quintic Béziers every join G3</a> ·
 catalogue: <a href="g3-catalogue.html">G3 catalogue</a> ·
 terminals: <a href="g3-cut.html">extend-and-cut</a> ·
 notes: <a href="g3-notes.html">G3 notes</a> ·
-how it is built: <a href="../docs/G3-SHOWCASE.html">G3-SHOWCASE</a></p>
+how it is built: <a href="../docs/G3-showcase-docs.html">G3 showcase docs</a></p>
 </section>
 
 <hr class="bottom-rule">

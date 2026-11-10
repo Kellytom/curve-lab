@@ -34,7 +34,7 @@ pre code{background:none;padding:0}
 genuinely needs it. Everything on the page is a measurement, not a drawing.</p>
 </blockquote>
 <!-- updated:start -->
-<p>Updated 2026-11-09 · commit <code>66f26c0</code></p>
+<p>Updated 2026-11-09 · commit <code>62f6be1</code></p>
 <!-- updated:end -->
 
 <p>The live pages are:</p>
@@ -367,16 +367,16 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 <h2 id="keeping-this-document-current">Keeping this document current</h2>
 <p>The Markdown is the source; the HTML twin is generated, never hand-edited.</p>
 <ol>
-<li>Edit <code>docs/G3-SHOWCASE.md</code> (prose and structure).</li>
+<li>Edit <code>docs/G3-showcase-docs.md</code> (prose and structure).</li>
 <li>Run <code>.venv/bin/python scripts/g3_showcase_doc.py</code>.
    - It fills the <strong>counts</strong> block from the catalogue JSON and the showcase
      page.
    - It stamps the updated line with the date and commit.
-   - It writes <code>docs/G3-SHOWCASE.html</code> and embeds the Markdown's SHA.</li>
+   - It writes <code>docs/G3-showcase-docs.html</code> and embeds the Markdown's SHA.</li>
 <li>Run <code>python -m unittest tests.test_g3_showcase_doc</code>; it fails if the HTML
    twin or the counts are stale.</li>
 </ol>
 <p>When the showcase changes, run the page generators first, then the doc
-generator, then the hub. Do not edit <code>docs/G3-SHOWCASE.html</code> by hand.</p>
-<p class="footer">Generated from <code>docs/G3-SHOWCASE.md</code> · source-sha: 47f9eebd762721657937e5a2b47d4544f091b864 · commit: 66f26c0 · 2026-11-09 · do not edit this HTML by hand.</p>
+generator, then the hub. Do not edit <code>docs/G3-showcase-docs.html</code> by hand.</p>
+<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 3e0cbb8a49acbd70ee5e8dd90fcf23691febc794 · commit: 62f6be1 · 2026-11-09 · do not edit this HTML by hand.</p>
 </main></body></html>

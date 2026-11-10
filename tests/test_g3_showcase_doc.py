@@ -11,8 +11,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MD = ROOT / "docs" / "G3-SHOWCASE.md"
-HTML = ROOT / "docs" / "G3-SHOWCASE.html"
+MD = ROOT / "docs" / "G3-showcase-docs.md"
+HTML = ROOT / "docs" / "G3-showcase-docs.html"
 
 
 class TestG3ShowcaseDoc(unittest.TestCase):

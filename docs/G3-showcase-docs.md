@@ -4,7 +4,7 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-09 · commit `66f26c0`
+Updated 2026-11-09 · commit `62f6be1`
 <!-- updated:end -->
 
 The live pages are:
@@ -270,14 +270,14 @@ error tables; `workbench/g3-handover.html` is the standalone fallback copy;
 
 The Markdown is the source; the HTML twin is generated, never hand-edited.
 
-1. Edit `docs/G3-SHOWCASE.md` (prose and structure).
+1. Edit `docs/G3-showcase-docs.md` (prose and structure).
 2. Run `.venv/bin/python scripts/g3_showcase_doc.py`.
    - It fills the **counts** block from the catalogue JSON and the showcase
      page.
    - It stamps the updated line with the date and commit.
-   - It writes `docs/G3-SHOWCASE.html` and embeds the Markdown's SHA.
+   - It writes `docs/G3-showcase-docs.html` and embeds the Markdown's SHA.
 3. Run `python -m unittest tests.test_g3_showcase_doc`; it fails if the HTML
    twin or the counts are stale.
 
 When the showcase changes, run the page generators first, then the doc
-generator, then the hub. Do not edit `docs/G3-SHOWCASE.html` by hand.
+generator, then the hub. Do not edit `docs/G3-showcase-docs.html` by hand.
