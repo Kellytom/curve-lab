@@ -137,6 +137,15 @@
       "outputs": "the qualifying curves, links to their figures and notes, and the rejected cubic-source LACs"
     },
     {
+      "key": "g3-gate",
+      "file": "g3-gate.html",
+      "group": "curve",
+      "title": "G3 gate tiers · strict, source, near-G3",
+      "purpose": "What strict G3, source precision and a near-G3 relaxation each admit, with the measured joins.",
+      "inputs": "the catalogue rows and the recovered LAC source spans",
+      "outputs": "the tier counts and the near-G3 list, which is not counted as G3"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",

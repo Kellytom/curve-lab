@@ -133,7 +133,7 @@ def curvature_rate(P, t):
     return kappa_d / speed
 
 
-def gate(spans, tol=TOL):
+def gate(spans, tol=TOL, angle_tol=ANGLE_TOL):
     """Measure every join. A join passes only if all four gaps are below tol."""
     joins = []
     for i in range(len(spans) - 1):
@@ -152,7 +152,7 @@ def gate(spans, tol=TOL):
             "dk": abs(curvature(A, 1.0) - curvature(B, 0.0)),
             "dks": abs(curvature_rate(A, 1.0) - curvature_rate(B, 0.0)),
         }
-        row["pass"] = (row["dp"] < tol and row["angle"] < ANGLE_TOL
+        row["pass"] = (row["dp"] < tol and row["angle"] < angle_tol
                        and row["dk"] < tol and row["dks"] < tol)
         joins.append(row)
     return joins
@@ -1520,6 +1520,9 @@ position gap, tangent angle, curvature gap and curvature-rate gap. The pass thre
 <code>×625</code> on the five integer panels; that is a lattice statement about the
 handles, not a claim that the curve is integer between the cuts. The bell's controls are
 real; only its span count and G3 data are fixed.</p>
+<p class="small">How the gate relaxes: <a href="g3-gate.html">gate tiers</a> —
+strict G3, source precision, and the near-G3 band. The strict count is unchanged;
+the near-G3 rows are listed separately.</p>
 <p class="small">The sections below show the cusp and deviation cases; the main panels
 remain cubic-only.</p>
 <p class="small">Re-derive: <code>python scripts/g3_showcase.py</code> ·
