@@ -34,7 +34,7 @@ pre code{background:none;padding:0}
 genuinely needs it. Everything on the page is a measurement, not a drawing.</p>
 </blockquote>
 <!-- updated:start -->
-<p>Updated 2026-11-09 · commit <code>90e7071</code></p>
+<p>Updated 2026-11-10 · commit <code>27c62f7</code></p>
 <!-- updated:end -->
 
 <p>The live pages are:</p>
@@ -243,6 +243,10 @@ notes page repeats each of the six cubic curves with:</p>
 <p>The showcase therefore carries the editable data, and the notes carry the
 measurement. The gate is computed from Bézier derivatives, never from the
 sampled polyline.</p>
+<p>Every figure links to its own entry on the notes page
+(<code>g3-notes.html#note-&lt;curve&gt;</code>). The entry carries the measurement, the fix
+note, the join table and a back-link to <code>g3-showcase.html#fig-&lt;n&gt;</code>. A curve
+that appears both in the lead and in the gallery shares one note entry.</p>
 <h2 id="the-fit-and-the-cache">The fit and the cache</h2>
 <p>The catalogue attempts every candidate in <code>scripts/g3_catalogue.py</code>:</p>
 <ul>
@@ -319,11 +323,11 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </tr>
 <tr>
 <td>figures on the showcase</td>
-<td>177</td>
+<td>0</td>
 </tr>
 <tr>
 <td>lead figures (cubic + quintic + cusp + deviation)</td>
-<td>23</td>
+<td>-154</td>
 </tr>
 <tr>
 <td>gallery figures</td>
@@ -335,11 +339,11 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </tr>
 <tr>
 <td>cusp cards</td>
-<td>10</td>
+<td>0</td>
 </tr>
 <tr>
 <td>deviation cards</td>
-<td>2</td>
+<td>0</td>
 </tr>
 </tbody>
 </table>
@@ -382,5 +386,5 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </ol>
 <p>When the showcase changes, run the page generators first, then the doc
 generator, then the hub. Do not edit <code>docs/G3-showcase-docs.html</code> by hand.</p>
-<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 7e31e40ddc24450fc171977179613ae4706e30a4 · commit: 90e7071 · 2026-11-09 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 7d4e4c49a30cc9cdc0d2c3f07ee59b751e6e0ff2 · commit: 27c62f7 · 2026-11-10 · do not edit this HTML by hand.</p>
 </main></body></html>

@@ -426,6 +426,9 @@ def panel(row, ring=False, diagnostic=False, fig=None):
     else:
         badge = row.get("feature") or "declared"
     label = f"Fig. {fig} · " if fig is not None else ""
+    href = f"g3-notes.html#{S.note_id(row['key'])}"
+    anchor = f' id="{S.fig_anchor(fig)}"' if fig is not None else ""
+    title = f'<a href="{href}">{label}{row["key"]}</a>'
     fix = FIX_NOTES.get(row["key"])
     fix_html = ""
     if fix:
@@ -435,9 +438,9 @@ def panel(row, ring=False, diagnostic=False, fig=None):
         fix_html = (f'<p class="fix {status}"><strong>{text}</strong> · '
                     f'{note}</p>')
     return f"""<section class="panel">
-<h2>{label}{row['key']} <span class="badge">{badge}</span> {zoom}</h2>
+<h2{anchor}>{title} <span class="badge">{badge}</span> {zoom}</h2>
 <div class="panel-grid">
-<div class="main">{curve_svg(row, mark=ring, fig=fig)}</div>
+<div class="main"><a class="fig-link" href="{href}">{curve_svg(row, mark=ring, fig=fig)}</a></div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
 {accel_svg(row, mark=ring)}
@@ -471,7 +474,7 @@ def gallery_payload(fig_start=None):
     declared = [r for r in complete if not r.get("smooth")]
     problems = [r for r in rows if is_tight(r)]
 
-    nav, sections = [], []
+    nav, sections, figures = [], [], []
     counter = fig_start
     for src, label in GROUPS:
         items = [r for r in complete if (r.get("source") or "named") == src]
@@ -482,13 +485,14 @@ def gallery_payload(fig_start=None):
         cards = []
         for r in items:
             cards.append(panel(r, fig=counter))
+            figures.append({"fig": counter, "row": r})
             if counter is not None:
                 counter += 1
         sections.append(f'<h2 id="g-{src}" class="group">{label} · {len(items)}</h2>'
                         f'<div class="grid">{"".join(cards)}</div>')
     return {"rows": rows, "complete": complete, "smooth": smooth,
             "declared": declared, "problems": problems,
-            "nav": nav, "sections": sections}
+            "nav": nav, "sections": sections, "figures": figures}
 
 
 def build():

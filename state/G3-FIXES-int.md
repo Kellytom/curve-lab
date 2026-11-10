@@ -19,6 +19,15 @@ Every figure uses **model coordinates, +y up**. The blue dashed lines are
 the x/y extent; every cusp label carries its `(x, y)`. The nephroid's two true
 cusps are `(0, −4)` and `(0, 4)`; it has two, so both are green.
 
+## Per-figure notes
+
+Every figure on the showcase links to `g3-notes.html#note-<curve>`. The entry
+carries the measurement, the fix note, the join table and a back-link to
+`g3-showcase.html#fig-<n>`. A curve that appears both in the lead and in the
+gallery shares one note. `tests/test_g3_notes_links.py` checks that every
+figure link resolves, that the notes link back, and that the nephroid note
+names its two true cusps.
+
 ## 2026-11-09
 
 | Fig. | curve | issue | fix | proof |

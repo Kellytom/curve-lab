@@ -4,7 +4,7 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-09 · commit `90e7071`
+Updated 2026-11-10 · commit `27c62f7`
 <!-- updated:end -->
 
 The live pages are:
@@ -180,6 +180,11 @@ The showcase therefore carries the editable data, and the notes carry the
 measurement. The gate is computed from Bézier derivatives, never from the
 sampled polyline.
 
+Every figure links to its own entry on the notes page
+(`g3-notes.html#note-<curve>`). The entry carries the measurement, the fix
+note, the join table and a back-link to `g3-showcase.html#fig-<n>`. A curve
+that appears both in the lead and in the gallery shares one note entry.
+
 ## The fit and the cache
 
 The catalogue attempts every candidate in `scripts/g3_catalogue.py`:
@@ -239,12 +244,12 @@ error tables; `workbench/g3-handover.html` is the standalone fallback copy;
 | smooth handover | 124 |
 | complete with a declared feature | 30 |
 | cubic-native rows | 22 |
-| figures on the showcase | 177 |
-| lead figures (cubic + quintic + cusp + deviation) | 23 |
+| figures on the showcase | 0 |
+| lead figures (cubic + quintic + cusp + deviation) | -154 |
 | gallery figures | 154 |
 | quintic-required lead | 5 |
-| cusp cards | 10 |
-| deviation cards | 2 |
+| cusp cards | 0 |
+| deviation cards | 0 |
 <!-- counts:end -->
 
 ## What is still open

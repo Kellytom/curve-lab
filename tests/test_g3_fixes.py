@@ -59,7 +59,7 @@ class TestG3Fixes(unittest.TestCase):
                 self.assertIn(phrase, self.page)
 
     def test_the_nephroid_cusps_are_labelled_and_green(self):
-        block = self.page.split("<h3>Fig. 14 · nephroid</h3>")[1]
+        block = self.page.split("Fig. 14 · nephroid")[1]
         block = block.split('<div class="compare-item">')[0]
         self.assertIn("cusp 1 (", block)
         self.assertIn("cusp 2 (", block)

@@ -966,6 +966,21 @@ still fails. The goal is 80% or more of the original showcase admitted to G3.</p
 </section>"""
 
 
+FIGURES = []   # filled by build(): fig, key, kind, panel, row
+
+
+def fig_slug(key):
+    return re.sub(r"[^a-z0-9]+", "-", key.lower()).strip("-")
+
+
+def note_id(key):
+    return "note-" + fig_slug(key)
+
+
+def fig_anchor(fig):
+    return f"fig-{fig}"
+
+
 def find_cusps(pts, count):
     """The sharpest turns of the source polyline: the declared cusps."""
     if count <= 0 or len(pts) < 5:
@@ -1097,9 +1112,9 @@ def comparison_curve_svg(panel, w=520, h=300):
 
 def comparison_card(panel):
     return f"""<div class="compare-item">
-<h3>Fig. {panel.get('fig', '')} · {panel['name']}</h3>
+<h3 id="{fig_anchor(panel.get('fig'))}"><a href="g3-notes.html#{note_id(panel['name'])}">Fig. {panel.get('fig', '')} · {panel['name']}</a></h3>
 <div class="panel-grid">
-<div class="main">{comparison_curve_svg(panel)}</div>
+<div class="main"><a class="fig-link" href="g3-notes.html#{note_id(panel['name'])}">{comparison_curve_svg(panel)}</a></div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
 {acceleration_svg(panel)}
@@ -1138,6 +1153,11 @@ th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:va
 .fix-table .ok{color:%(green)s}.fix-table .needs{color:#8a5a00;font-weight:700}
 .ok{color:%(green)s} .bad{color:%(red)s;font-weight:700}
 .small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
+.fix{margin:8px 0 0;padding:7px 10px;border-left:3px solid var(--rule);font:12px/1.55 ui-monospace,Menlo,monospace}
+.fix strong{font-weight:400;text-transform:uppercase;letter-spacing:.06em}
+.fix.verified,.fix.fixed{border-left-color:%(green)s;color:%(green)s}
+.fix.needs-fix,.fix.needs-eye{border-left-color:#8a5a00;color:#8a5a00}
+.fig-link{display:block;color:inherit;text-decoration:none}
 .rule{background:#fffdf7;border-left:4px solid %(gold)s;padding:12px 16px;margin:0 0 18px}
 .toc{background:#fffdf7;border:1px solid var(--rule);padding:9px 12px;margin:0 0 18px;font:12px/1.8 ui-monospace,Menlo,monospace;color:var(--muted)}
 .toc strong{color:var(--ink);font-weight:400}
@@ -1290,6 +1310,8 @@ def quintic_required_section():
     cards = []
     for i, row in enumerate(selected, 1):
         p = _quintic_panel(row, i)
+        FIGURES.append({"fig": p["fig"], "key": row["key"],
+                        "kind": "quintic", "panel": p, "row": row})
         fix = p.get("fix")
         fix_html = ""
         if fix:
@@ -1300,9 +1322,9 @@ def quintic_required_section():
             fix_html = (f'<p class="fix {status}"><strong>{text}</strong> · '
                         f'{note}</p>')
         cards.append(f"""<section class="panel">
-<h2>Fig. {p['fig']} · {p['title']} <span class="badge">{p['badge']}</span></h2>
+<h2 id="{fig_anchor(p['fig'])}"><a href="g3-notes.html#{note_id(p['title'])}">Fig. {p['fig']} · {p['title']}</a> <span class="badge">{p['badge']}</span></h2>
 <div class="panel-grid">
-<div class="main">{fig_panel(p)}</div>
+<div class="main"><a class="fig-link" href="g3-notes.html#{note_id(p['title'])}">{fig_panel(p)}</a></div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
 {acceleration_svg(p)}
@@ -1325,13 +1347,16 @@ six-point spans as the working view. The full fallback list is on the
 
 
 def build():
+    FIGURES.clear()
     for i, p in enumerate(PANELS, 1):
         p["fig"] = i
+        FIGURES.append({"fig": i, "key": p["title"], "kind": "cubic",
+                        "panel": p, "row": None})
     panels = "".join(
         f"""<section class="panel">
-<h2>Fig. {p.get('fig', p['key'])} · {p['title']} <span class="badge">{p.get('badge', '')}</span></h2>
+<h2 id="{fig_anchor(p.get('fig'))}"><a href="g3-notes.html#{note_id(p['title'])}">Fig. {p.get('fig', p['key'])} · {p['title']}</a> <span class="badge">{p.get('badge', '')}</span></h2>
 <div class="panel-grid">
-<div class="main">{fig_panel(p)}</div>
+<div class="main"><a class="fig-link" href="g3-notes.html#{note_id(p['title'])}">{fig_panel(p)}</a></div>
 <div class="side">
 <div class="side-head">1 · G3 acceleration</div>
 {acceleration_svg(p)}
@@ -1381,6 +1406,8 @@ def build():
         if p is not None:
             p["fig"] = cusp_start + len(cusp_panels)
             cusp_panels.append(p)
+            FIGURES.append({"fig": p["fig"], "key": name, "kind": "cusp",
+                            "panel": p, "row": None})
     cusp_cards = "".join(comparison_card(p) for p in cusp_panels)
 
     dev_cases = [("squircle", "not admitted · deviation 31.2%"),
@@ -1393,6 +1420,8 @@ def build():
         if p is not None:
             p["fig"] = dev_start + len(dev_panels)
             dev_panels.append(p)
+            FIGURES.append({"fig": p["fig"], "key": name, "kind": "deviation",
+                            "panel": p, "row": None})
     gallery_start = dev_start + len(dev_panels)
     dev_cards = "".join(comparison_card(p) for p in dev_panels)
     heart_line = ", ".join(sorted(k for k in admitted_keys if k.startswith("heart")))
@@ -1534,6 +1563,10 @@ of the curve size. The squircle is the clearest case.</p>
     # One page: the lead, then every complete curve in the gallery below.
     import g3_handover as H
     payload = H.gallery_payload(fig_start=gallery_start)
+    for entry in payload.get("figures", []):
+        row = entry["row"]
+        FIGURES.append({"fig": entry["fig"], "key": row["key"],
+                        "kind": "gallery", "panel": None, "row": row})
     gallery = (
         '<hr class="bottom-rule">'
         f'<h2 id="every-curve" class="group">Every complete curve · '
@@ -1577,11 +1610,78 @@ def notes_panels():
         p["fig"] = i
     return "".join(
         f"""<section class="panel">
-<h2>Fig. {p.get('fig', p['key'])} · {p['title']}</h2>
+<h2 id="{note_id(p['title'])}"><a href="g3-showcase.html#{fig_anchor(p.get('fig'))}">Fig. {p.get('fig', p['key'])} · {p['title']}</a></h2>
 <div class="main">{fig_panel(p)}</div>
 {gate_table(p)}
 <p class="small">{p['note']}</p>
 </section>""" for p in PANELS)
+
+
+def join_rows_table(rows):
+    body = "".join(
+        f"<tr><td>{r['join']}</td><td>{r['dp']:.1e}</td>"
+        f"<td>{r['angle']:.1e}°</td><td>{r['dk']:.1e}</td>"
+        f"<td>{r['dks']:.1e}</td>"
+        f"<td class=\"{'ok' if r['pass'] else 'bad'}\">"
+        f"{'pass' if r['pass'] else 'FAIL'}</td></tr>"
+        for r in rows)
+    return ("<table><tr><th>join</th><th>|Δp|</th><th>angle</th>"
+            "<th>|Δκ|</th><th>|Δ(dκ/ds)|</th><th>gate</th></tr>"
+            + body + "</table>")
+
+
+def figure_note_html(entry):
+    import g3_handover as H
+    fig, key, kind = entry["fig"], entry["key"], entry["kind"]
+    row, panel = entry.get("row"), entry.get("panel")
+    parts = [f'<section class="panel" id="{note_id(key)}">',
+             f'<h3><a href="g3-showcase.html#{fig_anchor(fig)}">'
+             f'Fig. {fig} · {key}</a></h3>']
+    if row is not None:
+        parts.append(
+            f'<p class="small">source: {row.get("source") or "named"} · '
+            f'spans: {row.get("spans")} · deviation: '
+            f'{row.get("relative", 0):.1%} · worst Δ(dκ/ds): '
+            f'{row.get("g3", 0):.1e} · speed floor: '
+            f'{row.get("min_speed", 0):.1%} · native: {row.get("native")} · '
+            f'declared: {row.get("feature") or "—"}</p>')
+        rows = [r for br in row.get("branches", [])
+                for r in br.get("rows", [])]
+        if rows:
+            parts.append(join_rows_table(rows))
+    elif panel is not None:
+        parts.append(
+            f'<p class="small">{panel.get("status", "")} · max deviation: '
+            f'{panel.get("error", 0):.1e} · worst Δ(dκ/ds): '
+            f'{panel.get("g3", 0):.1e}</p>')
+        if panel.get("cusp_pts"):
+            coords = ", ".join(f"({x:.2f}, {y:.2f})"
+                               for x, y in panel["cusp_pts"])
+            parts.append(f'<p class="small">cusps: {coords}</p>')
+        parts.append(join_rows_table(gate(panel["spans"])))
+    fix = H.FIX_NOTES.get(key)
+    if fix:
+        status, note = fix
+        text = {"verified": "verified", "fixed": "fixed",
+                "needs-fix": "needs fix",
+                "needs-eye": "needs your eye"}[status]
+        parts.append(f'<p class="fix {status}"><strong>{text}</strong> · '
+                     f'{note}</p>')
+    parts.append("</section>")
+    return "".join(parts)
+
+
+def figure_notes():
+    seen, out = set(), []
+    for entry in FIGURES:
+        if entry["kind"] == "cubic":
+            continue
+        nid = note_id(entry["key"])
+        if nid in seen:
+            continue          # the lead and the gallery share one note
+        seen.add(nid)
+        out.append(figure_note_html(entry))
+    return "".join(out)
 
 
 def notes_html():
@@ -1639,6 +1739,13 @@ carries: position gap <code>|Δp|</code>, tangent angle, curvature gap
 on every body join.</p>
 </section>
 {notes_panels()}
+
+<section class="panel">
+<h2>Figure notes · every other figure</h2>
+<p class="small">Each entry is linked from its figure; every entry links back.
+It carries the measurement, the fix note and the join table.</p>
+</section>
+{figure_notes()}
 
 <section class="panel">
 <h2>Why independent cubics usually fail</h2>
