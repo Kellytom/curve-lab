@@ -123,9 +123,18 @@
       "file": "g3-diagnostics.html",
       "group": "curve",
       "title": "G3 diagnostics · tightest spans",
-      "purpose": "The working curves whose tightest span is below 25% of its chord, with red rings on the curve and on dκ/ds.",
+      "purpose": "The tightest spans below 25% of the chord, with gold advisory rings and a zoom.",
       "inputs": "the catalogue's speed floor and tightest-span point",
-      "outputs": "red problem rings on both figures, a per-panel zoom, and the 10% admission floor"
+      "outputs": "gold advisory rings on both figures, a per-panel zoom, and the 10% admission floor"
+    },
+    {
+      "key": "g3-cubic-native",
+      "file": "g3-cubic-native.html",
+      "group": "curve",
+      "title": "G3 cubic-native · the collapse list",
+      "purpose": "Curves whose Bezier representation is cubic: exact quintic elevations and cubic source spans.",
+      "inputs": "the catalogue native field and the showcase figure map",
+      "outputs": "the qualifying curves, links to their figures and notes, and the rejected cubic-source LACs"
     },
     {
       "key": "g3-cut",
