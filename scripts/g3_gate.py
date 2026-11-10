@@ -10,7 +10,9 @@ have a small tangent/curvature gap, but those rows are **not** counted as G3.
 
 from __future__ import annotations
 
+import html
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -57,6 +59,42 @@ def _classify(spans):
     return "fail", worst
 
 
+def _source_anchors():
+    h = (ROOT / "workbench" / "showcase-notes.html").read_text(encoding="utf-8")
+    out = {}
+    for m in re.finditer(
+            r'<section class="note" id="([^"]+)">(.*?)</section>', h, re.S):
+        t = re.search(r"<h2>(.*?)</h2>", m.group(2), re.S)
+        if not t:
+            continue
+        sm = re.search(r"(S\d+)\s*·", t.group(1))
+        if sm:
+            out.setdefault(sm.group(1), m.group(1))
+    return out
+
+
+def _g3_map():
+    h = (ROOT / "workbench" / "g3-showcase.html").read_text(encoding="utf-8")
+    out = {}
+    for m in re.finditer(
+            r'<h2 id="fig-(\d+)"><a href="g3-notes\.html#([^"]+)">'
+            r'Fig\. \d+ · (.*?)</a>', h, re.S):
+        out[html.unescape(m.group(3))] = (int(m.group(1)), m.group(2))
+    return out
+
+
+def _links(key, src, g3):
+    parts = []
+    sm = re.match(r"(S\d+)", key)
+    if sm and sm.group(1) in src:
+        parts.append(f'<a href="showcase-notes.html#{src[sm.group(1)]}">'
+                     f'illustration</a>')
+    if key in g3:
+        parts.append(f'<a href="g3-showcase.html#fig-{g3[key][0]}">G3 figure</a>')
+        parts.append(f'<a href="g3-notes.html#{g3[key][1]}">notes</a>')
+    return " · ".join(parts) or "—"
+
+
 def build():
     cat = json.loads((ROOT / "workbench" / "g3-catalogue.json").read_text())
     rows = cat["curves"]
@@ -79,15 +117,19 @@ def build():
     tier_rows = "".join(
         f"<tr><td>{name}</td><td>{tol:.0e}</td><td>{angle:g}°</td>"
         f"<td>{why}</td></tr>" for name, tol, angle, why in TIERS)
+    src = _source_anchors()
+    g3 = _g3_map()
     near_rows = "".join(
         f"<tr><td>{r['key']}</td><td>{r['angle']:.3f}°</td>"
-        f"<td>{r['dk']:.1e}</td><td>{r['dks']:.1e}</td></tr>" for r in near)
+        f"<td>{r['dk']:.1e}</td><td>{r['dks']:.1e}</td>"
+        f"<td>{_links(r['key'], src, g3)}</td></tr>" for r in near)
     source_rows = "".join(
-        f"<tr><td>{r['key']}</td><td>{r['g3']:.1e}</td></tr>"
-        for r in source)
+        f"<tr><td>{r['key']}</td><td>{r['g3']:.1e}</td>"
+        f"<td>{_links(r['key'], src, g3)}</td></tr>" for r in source)
     fail_rows = "".join(
         f"<tr><td>{r['key']}</td><td>{r['angle']:.3f}°</td>"
-        f"<td>{r['dk']:.1e}</td><td>{r['dks']:.1e}</td></tr>" for r in fail)
+        f"<td>{r['dk']:.1e}</td><td>{r['dks']:.1e}</td>"
+        f"<td>{_links(r['key'], src, g3)}</td></tr>" for r in fail)
 
     page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -117,7 +159,10 @@ source-precision (S44). <strong>{len(near)}</strong> LAC chains are near-G3;
 <h2>Admitted by strict G3 · {len(admitted)}</h2>
 <p class="small">Exact: {len(exact)} · source-precision: {len(source)}.
 The latter is the recovered LAC Fig. 6:</p>
-<table><tr><th>curve</th><th>worst Δ(dκ/ds)</th></tr>{source_rows}</table>
+<table><tr><th>curve</th><th>worst Δ(dκ/ds)</th><th>where</th></tr>{source_rows}</table>
+<p class="small">All 154 admitted curves are in the
+<a href="g3-showcase.html#every-curve">showcase gallery</a> and the
+<a href="g3-notes.html">notes</a>.</p>
 </section>
 
 <section class="panel">
@@ -127,13 +172,13 @@ of a few hundredths of a degree and a curvature gap up to 1.3e-4. The eye may
 accept them in a drawing; the page does not call them G3. Accepting them would
 take the catalogue from {len(admitted)} to {len(admitted) + len(near)}.</p>
 <table><tr><th>curve</th><th>worst angle</th><th>worst |Δκ|</th>
-<th>worst |Δ(dκ/ds)|</th></tr>{near_rows}</table>
+<th>worst |Δ(dκ/ds)|</th><th>illustration</th></tr>{near_rows}</table>
 </section>
 
 <section class="panel">
 <h2>Fail even near-G3 · {len(fail)}</h2>
 <table><tr><th>curve</th><th>worst angle</th><th>worst |Δκ|</th>
-<th>worst |Δ(dκ/ds)|</th></tr>{fail_rows}</table>
+<th>worst |Δ(dκ/ds)|</th><th>illustration</th></tr>{fail_rows}</table>
 <p class="small">Back to the <a href="g3-showcase.html">showcase</a> ·
 <a href="g3-notes.html">notes</a> ·
 <a href="g3-cubic-native.html">cubic-native side list</a>.</p>
