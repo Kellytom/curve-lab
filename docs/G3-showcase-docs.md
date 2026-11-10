@@ -4,7 +4,7 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-09 · commit `d2eef92`
+Updated 2026-11-09 · commit `90e7071`
 <!-- updated:end -->
 
 The live pages are:

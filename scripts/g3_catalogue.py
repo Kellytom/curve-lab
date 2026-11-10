@@ -834,7 +834,10 @@ def cusp_ideal(key):
     spec = next(s for s in G.NAMED if s["key"] == key)
     data = G.named_data(spec)
     if data.get("ctrl"):
-        pts, _ = branch_points(data["ctrl"][0])
+        pts = []
+        for ctrl in data["ctrl"]:
+            branch, _ = branch_points(ctrl)
+            pts.extend(branch)
         return pts
     return [(float(x), float(y)) for x, y in (data.get("paths") or [[]])[0]]
 

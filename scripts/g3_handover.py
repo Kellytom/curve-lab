@@ -221,9 +221,27 @@ def curve_svg(row, w=560, h=360, mark=False, fig=None):
     sub = (f"{nspans} spans · {len(branches)} path"
            f"{'s' if len(branches) != 1 else ''} · deviation "
            f"{rel_s} · worst Δ(dκ/ds) {g3_s}")
+    zero = []
+    if x0 - pad <= 0.0 <= x1 + pad:
+        a, b = f((0.0, y0 - pad)), f((0.0, y1 + pad))
+        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">x=0</text>')
+    if y0 - pad <= 0.0 <= y1 + pad:
+        a, b = f((x0 - pad, 0.0)), f((x1 + pad, 0.0))
+        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">y=0</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{row['key']} · G3 interpolation">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {_grid(f, x0 - pad, x1 + pad, y0 - pad, y1 + pad, step)}
+  {''.join(zero)}
   {''.join(body)}
   <line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>
   <text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>
@@ -385,9 +403,14 @@ Gold ring: the speed minimum on the curve. Gold line and ring: the same point on
             else "seam declared")
     speed = row.get("min_speed")
     speed_s = f"{speed:.1%}" if isinstance(speed, (int, float)) else "—"
+    xs = [p[0] for br in row["branches"] for p in br["ideal"]]
+    ys = [p[1] for br in row["branches"] for p in br["ideal"]]
+    bbox = (f"x [{min(xs):.2f}, {max(xs):.2f}] · y [{min(ys):.2f}, {max(ys):.2f}]"
+            if xs else "—")
     return f"""<p class="small">branches {len(row['branches'])} · spans {row['spans']} ·
 max deviation {row['relative']:.1%} · worst Δ(dκ/ds) {row['g3']:.1e}<br>
 native: {row.get('native')} · {state} · {seam} · speed floor {speed_s}<br>
+{bbox}<br>
 G3 at every body join; the closure seam is checked, and a declared node or
 cusp is named rather than counted as a failed join.</p>"""
 

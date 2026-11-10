@@ -12,6 +12,13 @@ a renumbering does not lose the entry.
 - The **gallery carries no red tight rings**. A declared cusp is never a red
   ring. A red mark in the gallery is a rejected cusp or a failing join.
 
+## Coordinates
+
+Every figure uses **model coordinates, +y up**. The blue dashed lines are
+`x = 0` and `y = 0` (where they fall inside the frame); the bottom-right gives
+the x/y extent; every cusp label carries its `(x, y)`. The nephroid's two true
+cusps are `(0, −4)` and `(0, 4)`; it has two, so both are green.
+
 ## 2026-11-09
 
 | Fig. | curve | issue | fix | proof |
@@ -41,6 +48,7 @@ a renumbering does not lose the entry.
 | 60 | `heart · |x|^(2/3) upper` | Same interior cusp. | Same split. | `test_g3_fixes` needs-fix note. |
 | 30 | `bicorn` | Described as a node; the curve has two cusps. | `cusp ×2`; admitted cusp, green; no red ring. | `test_g3_fixes` "cusp ×2". |
 | 35 | `deltoid` | Cusp count and red mark. | `cusp ×3`; admitted, green; no red ring. | `test_g3_fixes` "cusp ×3". |
+| 14 | `nephroid` | The card showed only the first control branch, so the marker landed on a fake cusp. | Full control branches; the two true cusps `(0, −4)` and `(0, 4)` are green and coordinate-labelled. | `test_g3_fixes` nephroid labels. |
 | 36 | `epicycloid k=3` | Cusp count and red mark. | `cusp ×4`; admitted, green; no red ring. | `test_g3_fixes` "cusp ×4". |
 | 37 | `epicycloid k=5` | Cusp count and red mark. | `cusp ×6`; admitted, green; no red ring. | `test_g3_fixes` "cusp ×6". |
 | 38 | `hypocycloid k=5` | Cusp count and red mark. | `cusp ×5`; admitted, green; no red ring. | `test_g3_fixes` "cusp ×5". |

@@ -58,6 +58,19 @@ class TestG3Fixes(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, self.page)
 
+    def test_the_nephroid_cusps_are_labelled_and_green(self):
+        block = self.page.split("<h3>Fig. 14 · nephroid</h3>")[1]
+        block = block.split('<div class="compare-item">')[0]
+        self.assertIn("cusp 1 (", block)
+        self.assertIn("cusp 2 (", block)
+        self.assertNotIn("#e01b1b", block)   # admitted cusps are green
+
+    def test_figures_carry_the_central_axes(self):
+        self.assertIn("x=0", self.page)
+        self.assertIn("y=0", self.page)
+        self.assertGreaterEqual(self.page.count("x=0"), 10)
+        self.assertGreaterEqual(self.page.count("y=0"), 10)
+
     def test_every_reported_curve_is_present_and_logged(self):
         for key in KEYS:
             with self.subTest(curve=key):

@@ -17,6 +17,7 @@ used as a showcase panel, because they pass the gate trivially.
 from __future__ import annotations
 
 import math
+import re
 import sys
 from fractions import Fraction
 from pathlib import Path
@@ -620,9 +621,27 @@ def fig_panel(panel, w=560, h=390):
     worst = max((row["dks"] for row in gate(panel["spans"])), default=0.0)
     import g3_catalogue as _C
     floor = _C.problem_of_spans(panel["spans"])["ratio"]
+    zero = []
+    if x0 - pad <= 0.0 <= x1 + pad:
+        a, b = f((0.0, y0 - pad)), f((0.0, y1 + pad))
+        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">x=0</text>')
+    if y0 - pad <= 0.0 <= y1 + pad:
+        a, b = f((x0 - pad, 0.0)), f((x1 + pad, 0.0))
+        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">y=0</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['title']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(grid)}
+  {''.join(zero)}
   {ground}
   {''.join(polys)}
   <path d="{curve}" fill="none" stroke="{INK}" stroke-width="2.4"/>
@@ -631,6 +650,7 @@ def fig_panel(panel, w=560, h=390):
   <text x="14" y="24" font-family="Georgia,serif" font-size="15" fill="{INK}">Fig. {panel.get('fig', panel['key'])} · {panel['title']}</text>
   <text x="14" y="43" font-family="ui-monospace,Menlo,monospace" font-size="11" fill="{MUTED}">{panel['kind']} · {len(panel['spans'])} spans · {len(panel['spans']) - 1} joins · Δ(dκ/ds) ≤ {worst:.1e} · speed ≥ {floor:.0%}</text>
   <text x="{w / 2:.0f}" y="{h - 12}" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}">x (model units)</text>
+  <text x="{w - 14}" y="{h - 12}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="9.5" fill="{MUTED}">x {x0:.2f}…{x1:.2f} · y {y0:.2f}…{y1:.2f}</text>
   <text x="15" y="{h / 2:.0f}" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="{MUTED}" transform="rotate(-90 15 {h / 2:.0f})">y (model units)</text>
   <g font-family="Georgia,serif" font-size="13">
     <line x1="14" y1="{h - 40}" x2="46" y2="{h - 40}" stroke="{INK}" stroke-width="2.4"/><text x="52" y="{h - 35}" fill="{INK}">curve</text>
@@ -708,7 +728,7 @@ def acceleration_svg(panel, w=360, h=220):
 
     red = []
     if jump:
-        for idx in panel.get("breaks", []):
+        for i, idx in enumerate(panel.get("breaks", [])):
             if 0 <= idx < len(joins):
                 x = gx(joins[idx])
                 red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
@@ -718,19 +738,35 @@ def acceleration_svg(panel, w=360, h=220):
                            f'fill="{cusp_col}"/>')
                 red.append(f'<text x="{x + 8:.1f}" y="{top + 16}" '
                            f'font-family="ui-monospace,Menlo,monospace" '
-                           f'font-size="11" fill="{cusp_col}">cusp</text>')
-        if not panel.get("breaks") and vals:
-            idx = max(range(len(vals)), key=lambda i: abs(vals[i]))
-            x = gx(xs[idx])
-            y = min(max(gy(vals[idx]), top + 13), h - bottom - 13)
-            red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
-                       f'y2="{h - bottom}" stroke="{cusp_col}" '
-                       f'stroke-width="3.2"/>')
-            red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="none" '
-                       f'stroke="{cusp_col}" stroke-width="4.0"/>')
-            red.append(f'<text x="{min(x + 8, w - 64):.1f}" y="{top + 16}" '
-                       f'font-family="ui-monospace,Menlo,monospace" '
-                       f'font-size="11" fill="{cusp_col}">cusp</text>')
+                           f'font-size="10" fill="{cusp_col}">cusp {i + 1}</text>')
+        if not panel.get("breaks"):
+            cs = panel.get("cusp_s", [])
+            if cs:
+                for i, s in enumerate(cs):
+                    idx = min(range(len(xs)), key=lambda j: abs(xs[j] - s))
+                    x = gx(xs[idx])
+                    y = min(max(gy(vals[idx]), top + 13), h - bottom - 13)
+                    red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
+                               f'y2="{h - bottom}" stroke="{cusp_col}" '
+                               f'stroke-width="3.2"/>')
+                    red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" '
+                               f'fill="none" stroke="{cusp_col}" '
+                               f'stroke-width="4.0"/>')
+                    red.append(f'<text x="{min(x + 8, w - 64):.1f}" '
+                               f'y="{top + 16}" font-family="ui-monospace,Menlo,monospace" '
+                               f'font-size="10" fill="{cusp_col}">cusp {i + 1}</text>')
+            elif vals:
+                idx = max(range(len(vals)), key=lambda i: abs(vals[i]))
+                x = gx(xs[idx])
+                y = min(max(gy(vals[idx]), top + 13), h - bottom - 13)
+                red.append(f'<line x1="{x:.1f}" y1="{top}" x2="{x:.1f}" '
+                           f'y2="{h - bottom}" stroke="{cusp_col}" '
+                           f'stroke-width="3.2"/>')
+                red.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="10" fill="none" '
+                           f'stroke="{cusp_col}" stroke-width="4.0"/>')
+                red.append(f'<text x="{min(x + 8, w - 64):.1f}" y="{top + 16}" '
+                           f'font-family="ui-monospace,Menlo,monospace" '
+                           f'font-size="10" fill="{cusp_col}">cusp</text>')
 
     d = " ".join(("M" if i == 0 else "L") + f"{gx(x):.1f},{gy(y):.1f}"
                  for i, (x, y) in enumerate(zip(xs, vals)))
@@ -845,6 +881,26 @@ def comparison_curve(panel, w=520, h=260):
     ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
     body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
             f'<text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+    if min(xs) - pad <= 0.0 <= max(xs) + pad:
+        a, b = f((0.0, min(ys) - pad)), f((0.0, max(ys) + pad))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        body.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">x=0</text>')
+    if min(ys) - pad <= 0.0 <= max(ys) + pad:
+        a, b = f((min(xs) - pad, 0.0)), f((max(xs) + pad, 0.0))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        body.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">y=0</text>')
+    body.append(f'<text x="{w - 10}" y="{h - 22}" text-anchor="end" '
+                f'font-family="ui-monospace,Menlo,monospace" font-size="9.5" '
+                f'fill="{MUTED}">x {min(xs):.2f}…{max(xs):.2f} · '
+                f'y {min(ys):.2f}…{max(ys):.2f}</text>')
     for P in panel["spans"]:
         q = [bezier(P, i / 40.0) for i in range(41)]
         body.append(f'<path d="{_path(q, f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
@@ -910,33 +966,70 @@ still fails. The goal is 80% or more of the original showcase admitted to G3.</p
 </section>"""
 
 
-def comparison_panel(name, pts, status, branches=None, jump=False):
+def find_cusps(pts, count):
+    """The sharpest turns of the source polyline: the declared cusps."""
+    if count <= 0 or len(pts) < 5:
+        return []
+    scores = []
+    for i in range(1, len(pts) - 1):
+        ax, ay = pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]
+        bx, by = pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]
+        la, lb = math.hypot(ax, ay), math.hypot(bx, by)
+        if la < 1e-12 or lb < 1e-12:
+            continue
+        cos = max(-1.0, min(1.0, (ax * bx + ay * by) / (la * lb)))
+        scores.append((math.acos(cos), i))
+    scores.sort(reverse=True)
+    sep = max(2, len(pts) // (count * 4))
+    picked = []
+    for ang, i in scores:
+        if all(abs(i - j) >= sep for _, j in picked):
+            picked.append((ang, i))
+            if len(picked) == count:
+                break
+    return [pts[i] for _, i in picked]
+
+
+def comparison_panel(name, pts, status, branches=None, jump=False,
+                     cusp_count=1):
     import g3_catalogue as C
     if branches is None:
-        r = C.fit_poly_best(pts)
+        r = C.fit_poly_best(pts, allow_cusp=jump)
         if r is None:
-            r = C.fit_poly(pts, 6) or C.fit_poly(pts, 10, trim=0.02)
+            r = (C.fit_poly(pts, 6, allow_cusp=jump)
+                 or C.fit_poly(pts, 10, trim=0.02, allow_cusp=jump))
         if r is None:
             return None
         branches = [r]
     spans = [P for br in branches for P in br["spans"]]
     knots = [br["spans"][0][0] for br in branches] + [branches[-1]["spans"][-1][-1]]
-    breaks, cusp_s, cusp_pt = [], None, None
+    breaks, cusp_pts, cusp_s = [], [], []
     if jump and len(branches) > 1:
         count = 0
         for br in branches[:-1]:
             count += len(br["spans"])
             breaks.append(count - 1)
-    elif jump:
-        problem = C.problem_of_spans(spans)
-        cusp_s = problem["s"]
-        cusp_pt = problem["point"]
+    if jump:
+        cusp_pts = find_cusps([(float(x), float(y)) for x, y in pts],
+                              cusp_count)
+        if cusp_pts:
+            samples, s, prev = [], 0.0, None
+            for P in spans:
+                for i in range(41):
+                    q = bezier(P, i / 40.0)
+                    if prev is not None:
+                        s += math.dist(prev, q)
+                    samples.append((q, s))
+                    prev = q
+            for cp in cusp_pts:
+                cusp_s.append(min(
+                    samples, key=lambda qs: math.dist(qs[0], cp))[1])
     return {
         "name": name, "source_pts": pts, "spans": spans, "knots": knots,
         "error": max(br["error"] for br in branches),
         "g3": max(br["g3"] for br in branches),
         "jump": jump, "cusp_ok": status.startswith("admitted"),
-        "breaks": breaks, "cusp_s": cusp_s, "cusp_pt": cusp_pt,
+        "breaks": breaks, "cusp_s": cusp_s, "cusp_pts": cusp_pts,
         "status": status, "controls_label": "quintic spans",
     }
 
@@ -952,6 +1045,26 @@ def comparison_curve_svg(panel, w=520, h=300):
     ga, gb = f((min(xs) - pad, ground_y)), f((max(xs) + pad, ground_y))
     body = [f'<line x1="{ga[0]:.1f}" y1="{ga[1]:.1f}" x2="{gb[0]:.1f}" y2="{gb[1]:.1f}" stroke="{INK}" stroke-width="1"/>',
             f'<text x="{ga[0] + 4:.1f}" y="{ga[1] + 12:.1f}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="{MUTED}">ground</text>']
+    if min(xs) - pad <= 0.0 <= max(xs) + pad:
+        a, b = f((0.0, min(ys) - pad)), f((0.0, max(ys) + pad))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        body.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">x=0</text>')
+    if min(ys) - pad <= 0.0 <= max(ys) + pad:
+        a, b = f((min(xs) - pad, 0.0)), f((max(xs) + pad, 0.0))
+        body.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{BLUE}" stroke-width="1" '
+                    f'stroke-dasharray="4 3"/>')
+        body.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
+                    f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                    f'fill="{BLUE}">y=0</text>')
+    body.append(f'<text x="{w - 10}" y="{h - 22}" text-anchor="end" '
+                f'font-family="ui-monospace,Menlo,monospace" font-size="9.5" '
+                f'fill="{MUTED}">x {min(xs):.2f}…{max(xs):.2f} · '
+                f'y {min(ys):.2f}…{max(ys):.2f}</text>')
     for P in panel["spans"]:
         body.append(f'<path d="{_path([bezier(P, i / 30.0) for i in range(31)], f)}" fill="none" stroke="{INK}" stroke-width="2"/>')
         cp = [f(p) for p in P]
@@ -959,16 +1072,21 @@ def comparison_curve_svg(panel, w=520, h=300):
     for p in panel["knots"][1:-1]:
         x, y = f(p)
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.0" fill="none" stroke="{GREEN}" stroke-width="1.2"/>')
-    if panel.get("jump") and panel.get("cusp_pt"):
+    if panel.get("jump"):
         cusp_col = GREEN if panel.get("cusp_ok") else RED_MARK
-        X, Y = f(panel["cusp_pt"])
-        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="15" fill="none" '
-                    f'stroke="{cusp_col}" stroke-width="4.2"/>')
-        body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="5.5" '
-                    f'fill="{cusp_col}"/>')
-        body.append(f'<text x="{min(max(X + 18, 8), w - 56):.1f}" '
-                    f'y="{max(Y - 12, 40):.1f}" font-family="ui-monospace,Menlo,monospace" '
-                    f'font-size="11" fill="{cusp_col}">cusp</text>')
+        for i, cp in enumerate(panel.get("cusp_pts", [])):
+            X, Y = f(cp)
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="13" fill="none" '
+                        f'stroke="{cusp_col}" stroke-width="4.0"/>')
+            body.append(f'<circle cx="{X:.1f}" cy="{Y:.1f}" r="4.5" '
+                        f'fill="{cusp_col}"/>')
+            lx = min(max(X + 12, 8), w - 150)
+            ly = (Y - 12) if i % 2 == 0 else (Y + 18)
+            ly = min(max(ly, 42), h - 40)
+            body.append(f'<text x="{lx:.1f}" y="{ly:.1f}" '
+                        f'font-family="ui-monospace,Menlo,monospace" '
+                        f'font-size="10" fill="{cusp_col}">cusp {i + 1} '
+                        f'({cp[0]:.2f}, {cp[1]:.2f})</text>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{panel['name']}">
   <rect width="{w}" height="{h}" fill="{PAPER}"/>
   {''.join(body)}
@@ -1256,7 +1374,10 @@ def build():
     cusp_start = 6 + len(QUINTIC_KEYS) + 1
     cusp_panels = []
     for name, pts, status, branches in cusp_cases:
-        p = comparison_panel(name, pts, status, branches=branches, jump=True)
+        m = re.search(r"×(\d+)", status)
+        cusp_count = int(m.group(1)) if m else 1
+        p = comparison_panel(name, pts, status, branches=branches,
+                             jump=True, cusp_count=cusp_count)
         if p is not None:
             p["fig"] = cusp_start + len(cusp_panels)
             cusp_panels.append(p)
@@ -1393,7 +1514,11 @@ Admitted cusps are counted and marked <strong>green</strong>; rejected cusps are
 <strong>red</strong>. A <strong>red mark</strong> is a rejected cusp or a failing join.
 A tight smooth span is advisory: it is ringed in <strong>gold</strong> on the
 diagnostics page, never in red in the gallery. A <strong>gold break</strong> on
-<code>dκ/ds</code> is a declared break between paths.</p>
+<code>dκ/ds</code> is a declared break between paths. All figures use model
+coordinates, <strong>+y up</strong>; the blue dashed lines are <code>x=0</code>
+and <code>y=0</code>, and the bottom-right gives the x/y extent. Cusp labels
+carry their <code>(x, y)</code>. The nephroid has two admitted cusps, so both
+are green.</p>
 {cusp_cards}
 </section>
 
