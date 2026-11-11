@@ -451,7 +451,8 @@
       marks.push({ p: g.p, int: false, scaled: g.scaled });
     });
     $("stage").innerHTML = draw({
-      title: p.name + " · scale " + exact.scale.toString() + " at m=" + state.m,
+      title: "Fig. 20 · " + p.name + " · scale " + rangeScale.toString() +
+             " at m=" + state.m,
       sub: sub, quad: quad, marks: marks, m: state.m,
       zoom: state.zoom, cx: state.cx, cy: state.cy
     });
@@ -530,7 +531,10 @@
     ["m", "d", "u0", "u1", "u2", "u3", "v0", "v1", "v2", "v3"].forEach(function (k) {
       var el = $(k);
       if (el) el.addEventListener("input", function () {
-        if (k === "m") state.m = Number(el.value);
+        if (k === "m") {
+          state.m = Math.max(2, Math.min(2000, Math.round(Number(el.value))));
+          if ($("mnum")) $("mnum").value = String(state.m);
+        }
         else if (k === "d") state.d = Number(el.value);
         else state.dirty = true;
         syncLabels(); update();
@@ -574,6 +578,14 @@
       if ($("zoomv")) $("zoomv").textContent = state.zoom.toFixed(1) + "×";
       update();
     }, { passive: false });
+    if ($("mnum")) $("mnum").addEventListener("input", function () {
+      var v = Math.round(Number(this.value));
+      if (!isFinite(v) || v < 2) return;
+      state.m = Math.min(2000, v);
+      if ($("m")) $("m").value = String(Math.min(120, state.m));
+      if ($("mv")) $("mv").textContent = String(state.m);
+      update();
+    });
     if ($("span01")) $("span01").addEventListener("change", function () {
       state.span01 = this.checked; update();
     });

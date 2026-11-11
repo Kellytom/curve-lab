@@ -250,7 +250,7 @@ def _fmt_q(v):
 
 
 def span_figure(bands, title, sub, legend, w=560, h=380, context=None,
-                handles=None):
+                handles=None, num=None):
     """Alternating two-colour cubic spans, every join labelled with exact x, y."""
     SPAN = (S.INK, S.BLUE)          # two colours only: neighbours always differ
     allp = [p for _, cp in bands for p in _float_cp(cp)]
@@ -333,13 +333,13 @@ def span_figure(bands, title, sub, legend, w=560, h=380, context=None,
   {axes}
   {''.join(paths)}
   {''.join(labels)}
-  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{f"Fig. {num} · " if num else ""}{title}</text>
   <text x="10" y="31" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{S.MUTED}">{sub}</text>
   <text x="10" y="{h - 18}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" fill="{S.MUTED}">{legend}</text>
 </svg>"""
 
 
-def rails_figure(cp, distance, title, sub, legend, w=520, h=360):
+def rails_figure(cp, distance, title, sub, legend, w=520, h=360, num=None):
     """Source cubic with its two fitted (Levien) rails at ±distance."""
     src = [{"p0": (float(cp[0][0]), float(cp[0][1])),
             "c1": (float(cp[1][0]), float(cp[1][1])),
@@ -387,7 +387,7 @@ def rails_figure(cp, distance, title, sub, legend, w=520, h=360):
   <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
   {''.join(grid)}
   {''.join(paths)}
-  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{f"Fig. {num} · " if num else ""}{title}</text>
   <text x="10" y="31" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{S.MUTED}">{sub}</text>
   <text x="10" y="{h - 18}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" fill="{S.MUTED}">{legend} · {span_count} fitted spans both sides · max error {err:.2e}</text>
 </svg>"""
@@ -401,7 +401,7 @@ def mirrored(pts, sx, sy):
 
 
 def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
-           hits=None, milestones=None, controls=None):
+           hits=None, milestones=None, controls=None, num=None):
     """Title, axes with labels, the four mirrors, integer points, segment."""
     quad = [mirrored(pts, sx, sy) for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1))]
     allp = [p for q in quad for p in q]
@@ -519,7 +519,7 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
   {''.join(grid)}
   {''.join(marks)}
   {''.join(paths)}
-  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="{S.INK}">{f"Fig. {num} · " if num else ""}{title}</text>
   <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="{S.MUTED}">{sub}</text>
   <text x="10" y="{h - 20}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="{S.MUTED}">{legend}</text>
   <text x="10" y="{h - 8}" font-family="ui-monospace,Menlo,monospace" font-size="8.4" fill="{S.MUTED}">x {min(xs):.2f} … {max(xs):.2f} · y {min(ys):.2f} … {max(ys):.2f} · +y up</text>
@@ -546,7 +546,7 @@ def ladder_cards():
         return [S.bezier(_float_cp(alpha_segment(a, b)), i / n) for i in range(n + 1)]
 
     cards = []
-    for a, b in ((0, 3), (3, 6), (6, 9)):
+    for fig_no, (a, b) in enumerate(((0, 3), (3, 6), (6, 9)), start=17):
         seg = alpha_segment(a, b)
         cp = seg[0]
         end = seg[-1]
@@ -555,7 +555,7 @@ def ladder_cards():
             f"t {a} … {b}",
             f"({_fmt_q(cp[0])}, {_fmt_q(cp[1])}) → ({_fmt_q(end[0])}, {_fmt_q(end[1])})",
             "one cubic span between two integer points · deviation 0",
-            w=330, h=300, context=family(a, b))
+            w=330, h=300, context=family(a, b), num=fig_no)
         cards.append(f'<div class="ph-card">{fig}</div>')
     return "".join(cards)
 
@@ -853,11 +853,12 @@ def build():
     notes = {e[0]: e[5] for e in EXAMPLES}
 
     cards = []
-    for e in examples:
+    for fig_no, e in enumerate(examples, start=1):
         t = e["table"]
         sub = (f"n={e['pc'].n} · h={e['h']} · u={e['u']} · v={e['v']} · "
                f"scale {t['scale']:,} at m={t['m']} · arc {float(e['arc']):.3f}")
         svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
+                     num=fig_no,
                      w=560 if len(e["hits"]) > 5 else 430, h=360,
                      seg=e["seg"], hits=list(e["hits"]),
                      milestones=e["miles"],
@@ -872,7 +873,8 @@ def build():
         figure([S.bezier(P, i / 200) for i in range(201)],
                "n = 3 — exact integer cubic, not PH",
                "control triple (a,−b), (2c−a,b) · hodograph not Pythagorean",
-               legend="black: integer controls at scale 1 · no rational offset"),
+               legend="black: integer controls at scale 1 · no rational offset",
+               num=15),
         "An exact integer-control cubic, <strong>not</strong> a PH curve. The "
         "control triple is Pythagorean; the hodograph is not, so the 3-4-5 base "
         "has no rational offset. See <a href='integer-cubic.html'>integer "
@@ -882,7 +884,8 @@ def build():
         "rational rung · the circle",
         figure(MF.rational_ph_circle(), "rational rung — the circle",
                "x = (1−t²)/(1+t²) · y = 2t/(1+t²) · speed 2/(1+t²) rational",
-               legend="black: rational PH · no polynomial n = 2 exists"),
+               legend="black: rational PH · no polynomial n = 2 exists",
+               num=16),
         "There is no polynomial PH quadratic. The rational circle is the n = 2 "
         "rung: the speed is rational, so the arc length and the offset are "
         "rational — but not polynomial."))
@@ -1169,6 +1172,8 @@ such. The alpha is the one rung where the complete set is proved.</p>
 
 <section class="panel">
 <h2>The interactive explainer</h2>
+<p class="small"><strong>Fig. 20</strong> · the live figure; its caption is drawn
+inside it and names the rung and scale.</p>
 <p>The sliders move only PH-valid generators: any polynomials <code>u, v, h</code>
 give a PH curve, so no slider setting can leave the family. The grid
 <code>m</code> recomputes the exact hit count and scale in the browser; the
@@ -1224,7 +1229,9 @@ becomes at the scale the readout names.</p>
 
 <div class="lab">
   <div><label for="preset">rung</label><select id="preset"></select></div>
-  <div><label for="m">grid m · <span id="mv">4</span></label><input id="m" type="range" min="2" max="40" step="1" value="4"></div>
+  <div><label for="m">grid m · <span id="mv">4</span></label><input id="m" type="range" min="2" max="120" step="1" value="4">
+    <input id="mnum" type="number" min="2" max="2000" step="1" value="4"
+           style="width:5.5em" title="any m: type it"></div>
   <div><label for="d">offset d · <span id="dv">0.25</span></label><input id="d" type="range" min="0" max="0.8" step="0.05" value="0.25"></div>
   <div><label for="u0">u₀ · <span id="u0v"></span></label><input id="u0" type="range" min="-3" max="3" step="1"></div>
   <div><label for="u1">u₁ · <span id="u1v"></span></label><input id="u1" type="range" min="-3" max="3" step="1"></div>
@@ -1354,6 +1361,14 @@ Re-derive: <code>python scripts/ph_families.py</code> rebuilds this page and
 prints the span numbers; <code>python scripts/g3_showcase.py</code>,
 <code>python scripts/showcase.py</code> rebuild the twins it compares against.
 The rail figures use <code>curve_lab/parallel_bezier.py</code>.</p>
+</section>
+<section class="panel">
+<h2 id="reserved">Reserved section</h2>
+<p class="small">This section is held open. The operator will specify its
+contents; nothing here is generated yet, and no figure number is assigned to
+it. Numbers <strong>21–25</strong> are free; the interpolation figure keeps the
+number it was given (<strong>26</strong>), and the PHH figure keeps
+<strong>H1</strong>.</p>
 </section>
 </main>
 <script>window.PH_PRESETS = {json.dumps(presets)};</script>
