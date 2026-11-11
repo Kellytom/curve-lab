@@ -237,6 +237,31 @@ class TestShowcase(unittest.TestCase):
         self.assertIn("Tschirnhausen", page)
 
 
+class TestShowcaseLatticeClaim(unittest.TestCase):
+    """A lattice mark is a claim: it must be integral in model coordinates."""
+
+    def setUp(self):
+        page = (PAGES / "showcase.html").read_text(encoding="utf-8")
+        self.page = page
+        self.marks = re.findall(
+            r'<circle class="lattice" data-x="(-?\d+)" data-y="(-?\d+)"', page)
+
+    def test_every_lattice_mark_carries_integer_model_coordinates(self):
+        self.assertGreater(len(self.marks), 100)
+        for x, y in self.marks:
+            with self.subTest(point=(x, y)):
+                self.assertIsInstance(int(x), int)
+                self.assertIsInstance(int(y), int)
+
+    def test_no_lattice_mark_is_an_arc_length_station(self):
+        # every lattice class in the page carries its model coordinates
+        self.assertEqual(self.page.count('class="lattice"'), len(self.marks))
+
+    def test_the_station_marks_are_gone(self):
+        self.assertNotIn("dot_finder", (PAGES / "showcase.html").read_text(
+            encoding="utf-8"))
+
+
 class TestShowcaseNotes(unittest.TestCase):
     def test_every_figure_links_to_its_note(self):
         page = (PAGES / "showcase.html").read_text()

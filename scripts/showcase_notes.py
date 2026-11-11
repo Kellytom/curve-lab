@@ -900,8 +900,11 @@ a{{color:var(--ink)}}
   single clothoid claiming G2, because one cannot do it. Each absence is a
   result, not an omission.</p>
   <p>Figures are drawn to their own extents; axes and units are inside each
-  panel. Red marks the integer construction and every lattice hit; blue marks the
-  exact rail; the grid is the field.</p>
+  panel. A red circle is an <strong>integer point</strong> — every one carries its
+  model coordinates and is integral to within rounding; a square is a declared
+  point of the construction that is <strong>not</strong> integral, and a panel
+  with no red circle has no exact lattice point in view. It is not decorated:
+  the old evenly spaced "lattice" dots were arc-length stations, not hits.</p>
   <p class="back"><a href="showcase.html">← back to the showcase</a></p>
 </section>
 </main></body></html>

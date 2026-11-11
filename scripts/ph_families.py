@@ -221,8 +221,14 @@ def _float_cp(cp):
     return [(float(x), float(y)) for x, y in cp]
 
 
+def _fmt_q(v):
+    v = F(v)
+    return str(v.numerator) if v.denominator == 1 else f"{v.numerator}/{v.denominator}"
+
+
 def span_figure(bands, title, sub, legend, w=560, h=380):
-    """Banded cubic spans, lattice endpoints labelled, one path."""
+    """Alternating two-colour cubic spans, every join labelled with exact x, y."""
+    SPAN = (S.INK, S.BLUE)          # two colours only: neighbours always differ
     allp = [p for _, cp in bands for p in _float_cp(cp)]
     xs = [p[0] for p in allp]
     ys = [p[1] for p in allp]
@@ -246,35 +252,47 @@ def span_figure(bands, title, sub, legend, w=560, h=380):
 
     paths, labels = [], []
     for k, (t_range, cp) in enumerate(bands):
-        pts = [p for p in _float_cp(cp)]
-        # a cubic drawn from its control points
-        samples = [S.bezier(pts, i / 40) for i in range(41)]
-        paths.append(f'<path d="{S._path(samples, f)}" fill="none" '
-                     f'stroke="{BAND[k % len(BAND)]}" stroke-width="2.6"/>')
-        mid = S.bezier(pts, 0.5)
+        pts = [S.bezier(_float_cp(cp), i / 40) for i in range(41)]
+        paths.append(f'<path d="{S._path(pts, f)}" fill="none" '
+                     f'stroke="{SPAN[k % 2]}" stroke-width="3"/>')
+        mid = S.bezier(_float_cp(cp), 0.5)
         mx, my = f(mid)
-        labels.append(f'<text x="{mx:.1f}" y="{my - 7:.1f}" text-anchor="middle" '
-                      f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
-                      f'fill="{BAND[k % len(BAND)]}">{k + 1}</text>')
-    # lattice endpoints of the whole path
-    ends = []
-    for t in (bands[0][0][0], bands[-1][0][1]):
-        x, y = alpha_at(F(t) if not isinstance(t, F) else t)
-        if x.denominator == 1 and y.denominator == 1:
-            ends.append((int(x), int(y)))
-    for x, y in ends:
+        labels.append(f'<text x="{mx:.1f}" y="{my - 8:.1f}" text-anchor="middle" '
+                      f'font-family="ui-monospace,Menlo,monospace" font-size="10" '
+                      f'font-weight="700" fill="{SPAN[k % 2]}" '
+                      f'paint-order="stroke" stroke="{S.PAPER}" stroke-width="3">'
+                      f'{k + 1}</text>')
+
+    # every join, exactly, once: the seven endpoints of the six spans
+    joins = []
+    for _, cp in bands:
+        for p in (cp[0], cp[-1]):
+            if not joins or joins[-1] != p:
+                joins.append(p)
+    for (xq, yq) in joins:
+        x, y = float(xq), float(yq)
         px, py = f((x, y))
-        paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.4" fill="{S.RED}"/>')
-        labels.append(f'<text x="{px + 5:.1f}" y="{py - 6:.1f}" '
-                      f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
-                      f'fill="{S.RED}">({x},{y})</text>')
+        integer = F(xq).denominator == 1 and F(yq).denominator == 1
+        if integer:
+            paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.4" '
+                         f'fill="{S.RED}"/>')
+        else:
+            paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.0" '
+                         f'fill="{S.PAPER}" stroke="{S.RED}" stroke-width="1.4"/>')
+        dy = -7 if y > 0 else (12 if y < 0 else 4)
+        labels.append(
+            f'<text x="{px + 6:.1f}" y="{py + dy:.1f}" '
+            f'font-family="ui-monospace,Menlo,monospace" font-size="9.4" '
+            f'fill="{S.RED}" paint-order="stroke" stroke="{S.PAPER}" '
+            f'stroke-width="3">({_fmt_q(xq)}, {_fmt_q(yq)})</text>')
 
     a0 = f((min(xs) - pad, 0.0)) if min(ys) - pad <= 0 <= max(ys) + pad else None
     axes = ""
     if a0:
         a1 = f((max(xs) + pad, 0.0))
         axes += (f'<line x1="{a0[0]:.1f}" y1="{a0[1]:.1f}" x2="{a1[0]:.1f}" '
-                 f'y2="{a1[1]:.1f}" stroke="{S.BLUE}" stroke-width="0.9"/>')
+                 f'y2="{a1[1]:.1f}" stroke="{S.MUTED}" stroke-width="0.9" '
+                 f'stroke-dasharray="4 3"/>')
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
   <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
   {''.join(grid)}
@@ -618,8 +636,10 @@ def build():
     bands = [((a, b), alpha_segment(a, b)) for a, b in zip(ts, ts[1:])]
     fig26 = span_figure(
         bands, "Fig. 26 · tschirnhausen · 6 spans (exact re-split)",
-        "t = −3 … 3 · cubic spans 1–6 · lattice endpoints labelled",
-        "6 spans · 1 path · deviation 0 (a split, not a fit) · worst Δ(dκ/ds) 0")
+        "t = −3 … 3 · cubic spans 1–6 · every join labelled (x, y) · "
+        "filled red = integer, hollow = 4/3",
+        "spans alternate ink / blue · 6 spans · 1 path · deviation 0 "
+        "(a split, not a fit) · worst Δ(dκ/ds) 0")
     fig_c6 = rails_figure(
         ALPHA_CP, 0.60, "Fig. C6 · tschirnhausen ±0.60 fitted",
         "27y² = (1 − x)(8 + x)² · the same curve under x → (2 − 2x)/3, y → 2y/3",
@@ -636,6 +656,32 @@ def build():
             f"| t {a} … {b} | {cp[0][0]}, {cp[0][1]} | {cp[1][0]}, {cp[1][1]} | "
             f"{cp[2][0]}, {cp[2][1]} | {cp[3][0]}, {cp[3][1]} |")
     lattice_table = "\n".join(lattice_rows)
+
+    # the polygon route: exact rational nodes, and what their common integer
+    # scale costs.  Measured here, not remembered.
+    poly_note = ""
+    try:
+        from curve_lab.euler_polygon import convert as _convert
+        _sec = [(float(G.homog_point(G.named_data(
+            next(sp for sp in G.NAMED if sp["key"] == "tschirnhausen"))["ctrl"][0],
+            F(int((0.2 + 0.6 * i / 120) * 1000), 1000))[0]),
+                 float(G.homog_point(G.named_data(
+            next(sp for sp in G.NAMED if sp["key"] == "tschirnhausen"))["ctrl"][0],
+            F(int((0.2 + 0.6 * i / 120) * 1000), 1000))[1])) for i in range(121)]
+        _small = _convert(_sec, n=6, max_angle=0.2, width_factor=0.08)
+        poly_note = (
+            "The p-triple Euler polygon is the other middleman, and it makes many "
+            "exact <em>rational</em> nodes — 121 of them at 120 chords, 7 at 6. "
+            "Their common integer scale is the catch: on this section the 6-chord "
+            f"polygon needs a {_small['node_scale_digits']:,}-digit scale, and more "
+            "chords do not help (the digits are dominated by the triple's "
+            "hypotenuse, not by the chord count). That is why the page "
+            "quotes 5⁶ = 15,625 for six 3-4-5 spans and nothing larger: the "
+            "polygon gives exact nodes, but integer nodes cost an exponential "
+            "scale. For six spans or fewer it is the best lattice route there is; "
+            "for a whole curve it is not.")
+    except Exception as exc:
+        poly_note = f"(the polygon measurement did not run: {exc})"
 
     # the interpolated alternative, measured, for comparison
     fit_note = ""
@@ -907,6 +953,7 @@ Deviation <strong>0</strong> and worst Δ(dκ/ds) <strong>0</strong> are not
 roundings: de Casteljau on one cubic reproduces it exactly, and the joins are
 the same curve. The full curve needs no interpolation at all.</p>
 <p class="small">{fit_note}</p>
+<p class="small">{poly_note}</p>
 
 <div class="ph-grid">
 <div class="ph-card">{fig_c6}

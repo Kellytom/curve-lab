@@ -125,6 +125,11 @@ def side_offsets(pts, d):
     return left, right
 
 
+def _is_integer_point(p, tol=1e-9):
+    """True when a model-space point is integral to within rounding."""
+    return (abs(p[0] - round(p[0])) < tol and abs(p[1] - round(p[1])) < tol)
+
+
 def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
           joins=False, rule=None, single_curve=None, composite=False):
     """One cue per figure. A *curve example* is one curve even when it is
@@ -194,15 +199,20 @@ def panel(fig, title, curves, note="", legend=(), dots=(), key="", curve="",
                      for i, (x, y) in enumerate(seen))
         dash_attr = f' stroke-dasharray="{dash}"' if dash else ""
         out.append(f'<path d="{d}" fill="none" stroke="{colour}" stroke-width="{width}"{dash_attr}/>')
-    marks = [(p, MARK) for p in dot_finder(solid, step)]
-    for p, colour in marks:
-        q = put(p)
-        out.append(f'<circle class="lattice" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
-                   f'r="2.2" fill="{colour}"/>')
+    # A lattice mark is a claim: the point must be integral in model
+    # coordinates.  Everything else is a declared point of the construction and
+    # is drawn as a square.  data-x/data-y carry the model coordinates so the
+    # claim is machine-checkable from the built page.
     for p, colour in dots:
         q = put(p)
-        out.append(f'<rect x="{q[0]-2:.1f}" y="{q[1]-2:.1f}" width="4" height="4" '
-                   f'fill="none" stroke="{colour}" stroke-width="1"/>')
+        if _is_integer_point(p):
+            out.append(f'<circle class="lattice" data-x="{round(p[0])}" '
+                       f'data-y="{round(p[1])}" cx="{q[0]:.1f}" cy="{q[1]:.1f}" '
+                       f'r="2.6" fill="{colour}"/>')
+        else:
+            out.append(f'<rect class="point" x="{q[0]-2:.1f}" '
+                       f'y="{q[1]-2:.1f}" width="4" height="4" '
+                       f'fill="none" stroke="{colour}" stroke-width="1"/>')
     out.append(f'<text x="10" y="18" font-family="Georgia,serif" font-size="12" fill="{INK}">{fig} · {title}</text>')
     # the note is wrapped to the panel width: 10px mono, ~52 characters a line
     words, lines, line = str(note).split(), [], ""
@@ -1152,7 +1162,12 @@ def run() -> None:
         stride = len(ray_hits) / 26
         ray_hits = [ray_hits[int(i * stride)] for i in range(26)]
     for hx, hy in ray_hits:
-        ray_svg.append(f'<circle class="lattice" cx="{hx:.1f}" cy="{hy:.1f}" '
+        # the same rule as the panels: only an exactly integral point is a
+        # lattice mark; a grid crossing that is not integer stays unmarked
+        if not _is_integer_point((hx, hy)):
+            continue
+        ray_svg.append(f'<circle class="lattice" data-x="{round(hx)}" '
+                       f'data-y="{round(hy)}" cx="{hx:.1f}" cy="{hy:.1f}" '
                        f'r="2.2" fill="{MARK}"/>')
     for i, (p0, p1) in enumerate(rays):
         colour = GOLD if i % 2 else INK

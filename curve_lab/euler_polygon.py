@@ -121,6 +121,13 @@ def convert(points, n=160, max_angle=0.6, width_factor=0.08):
     right = [(float(x), float(y)) for x, y in right]
 
     cubic = cubic_points(span_module.spans(chain))
+    # the exact nodes, and the one scale that puts every one of them on the
+    # integer lattice: this is the many-hit route for a curve that is not integer
+    nodes = list(chain.nodes)
+    node_scale = 1
+    for x, y in nodes:
+        node_scale = math.lcm(node_scale, x.denominator, y.denominator)
+    node_hits = [(int(x * node_scale), int(y * node_scale)) for x, y in nodes]
     poly_err = [_dist(a, b) for a, b in zip(target, chain_points)]
     cubic_err = [_nearest_to_polyline(p, target) for p in cubic]
     return {
@@ -140,4 +147,9 @@ def convert(points, n=160, max_angle=0.6, width_factor=0.08):
         "cubic_max": max(cubic_err),
         "cubic_rms": math.sqrt(sum(e * e for e in cubic_err) / len(cubic_err)),
         "size": size,
+        "nodes": [(float(x), float(y)) for x, y in nodes],
+        "node_scale": node_scale,
+        # digits, without ever formatting a 4,000-digit integer to text
+        "node_scale_digits": int(node_scale.bit_length() * 0.3010299956639812) + 1,
+        "node_hits": node_hits,
     }
