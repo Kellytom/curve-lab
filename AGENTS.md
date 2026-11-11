@@ -102,6 +102,7 @@ node scripts/board/build-board.mjs              # regenerate both board pages
 .venv/bin/python scripts/g3_showcase_doc.py      # refresh the G3 showcase doc + HTML twin
 .venv/bin/python scripts/g3_cubic_native.py      # the cubic-native side list
 .venv/bin/python scripts/g3_gate.py              # strict / source / near-G3 tiers
+.venv/bin/python scripts/ph_families.py           # PH family gallery, degree by degree
 node scripts/check-web.mjs                      # when it exists: layout gate
 ```
 

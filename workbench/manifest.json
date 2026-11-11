@@ -146,6 +146,15 @@
       "outputs": "the tier counts and the near-G3 list, which is not counted as G3"
     },
     {
+      "key": "ph-families",
+      "file": "ph-families.html",
+      "group": "curve",
+      "title": "PH families · degree ladder",
+      "purpose": "One illustration per PH degree/construction, the non-PH integer cubic, and the not-built rungs.",
+      "inputs": "the PHCurve generators, the ph_quintic cases, the septic and the rational circle",
+      "outputs": "the built PH families with generators and scales, the contrast, and what is not built yet"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",
