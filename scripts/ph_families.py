@@ -101,6 +101,47 @@ def hit_table(pc, m=M):
             "m": m}
 
 
+ALPHA_NODE_T = math.sqrt(3.0)
+
+
+def integer_points(pc, t0, t1, qmax=60):
+    """Every point of the curve that is integral in model coordinates, found by
+    evaluating the exact polynomials at t = p/q with q <= qmax."""
+    found = {}
+    lo, hi = Fraction(t0), Fraction(t1)
+    for q in range(1, qmax + 1):
+        p_lo = math.floor(lo * q)
+        p_hi = math.ceil(hi * q)
+        for p in range(p_lo, p_hi + 1):
+            t = Fraction(p, q)
+            if not (lo <= t <= hi):
+                continue
+            x, y = G.at(pc.x, t), G.at(pc.y, t)
+            if x.denominator == 1 and y.denominator == 1:
+                found.setdefault((int(x), int(y)), t)
+    return found
+
+
+def alpha_family(kmax=4):
+    """18y² = x(x−6)²: the complete set of integer points.
+
+    x = 2t² and y = t(6−x)/3.  If x ≠ 6 then t = 3y/(6−x) is rational; writing
+    t = a/b in lowest terms, x = 2a²/b² integral forces b = 1, so t is an
+    integer, and 3 | t follows from y.  Hence every integer point off the node
+    is (18k², ±6k(3k²−1)); the node (6, 0) sits at t = ±√3.
+    """
+    out = [(6, 0, "node, t = ±√3")]
+    for k in range(0, kmax + 1):
+        x = 18 * k * k
+        y = 6 * k * (3 * k * k - 1)
+        if k == 0:
+            out.append((x, y, "t = 0"))
+        else:
+            out.append((x, y, f"t = {3 * k}"))
+            out.append((x, -y, f"t = −{3 * k}"))
+    return out
+
+
 def build_example(key, title, h, u, v):
     n = len(h) - 1 + 2 * (max(len(u), len(v)) - 1) + 1
     pc = G.PHCurve(n, u=u, v=v, h=h)
@@ -110,8 +151,13 @@ def build_example(key, title, h, u, v):
     else:
         pts = [pc.bezier(i / 160) for i in range(161)]
         seg = None
+    t0, t1 = (-4.0, 4.0) if key == "alpha" else (0.0, 1.0)
+    hits = integer_points(pc, t0, t1)
+    if key == "alpha":
+        hits[(6, 0)] = "irrational t"
     return {"key": key, "title": title, "pc": pc, "pts": pts, "seg": seg,
             "table": hit_table(pc), "arc": arc_of(h, u, v),
+            "hits": hits, "t0": t0, "t1": t1,
             "h": h, "u": u, "v": v}
 
 
@@ -122,8 +168,9 @@ def mirrored(pts, sx, sy):
     return [(sx * x, sy * y) for x, y in pts]
 
 
-def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None):
-    """Title, axes with labels, the four mirrors, optional node and segment."""
+def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
+           hits=None):
+    """Title, axes with labels, the four mirrors, integer points, segment."""
     quad = [mirrored(pts, sx, sy) for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1))]
     allp = [p for q in quad for p in q]
     xs = [p[0] for p in allp]
@@ -172,12 +219,24 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None):
     if seg:
         paths.append(f'<path d="{S._path(seg, f)}" fill="none" '
                      f'stroke="{S.GOLD}" stroke-width="3.6"/>')
+    if hits:
+        for (hx, hy) in hits:
+            for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+                px, py = f((sx * hx, sy * hy))
+                paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.2" '
+                             f'fill="{S.RED}"/>')
+            px, py = f((hx, hy))
+            paths.append(f'<text x="{px + 5:.1f}" y="{py - 5:.1f}" '
+                         f'font-family="ui-monospace,Menlo,monospace" '
+                         f'font-size="8.4" fill="{S.RED}">({hx},{hy})</text>')
     if node:
         nx, ny = f(node)
         paths.append(f'<circle cx="{nx:.1f}" cy="{ny:.1f}" r="3.8" fill="none" '
                      f'stroke="{S.RED}" stroke-width="1.7"/>')
 
-    legend = legend or "black: source PH · grey: x, y, xy mirrors · red ring: node"
+    legend = legend or ("black: source PH · grey: x, y, xy mirrors · "
+                        "red dots: integer points (labelled in Q I) · "
+                        "red ring: node")
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
   <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
   {''.join(grid)}
@@ -311,7 +370,8 @@ def build():
         sub = (f"n={e['pc'].n} · h={e['h']} · u={e['u']} · v={e['v']} · "
                f"scale {t['scale']:,} at m={t['m']} · arc {float(e['arc']):.3f}")
         svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
-                     seg=e["seg"], node=ALPHA_NODE if e["key"] == "alpha" else None)
+                     seg=e["seg"], hits=list(e["hits"]),
+                     node=ALPHA_NODE if e["key"] == "alpha" else None)
         cards.append(card(e["title"], svg, notes[e["key"]]))
 
     from curve_lab.pyth_cubic import representatives
@@ -346,6 +406,24 @@ def build():
             f"`h={e['h']}` `u={e['u']}` `v={e['v']}` | {t['scale']:,} | "
             f"{t['m']} | {len(t['hits'])} | {coords} |")
     hit_table_html = "\n".join(hit_rows)
+
+    # integer points in model coordinates, per rung
+    point_rows = []
+    for e in examples:
+        pts = sorted(e["hits"])
+        shown = " ".join(f"({x},{y})" for x, y in pts[:6])
+        name = e["title"].split(" · ")[-1]
+        point_rows.append(
+            f"| {name} | {e['pc'].n} | {e['t0']:g} … {e['t1']:g} | "
+            f"{len(pts)} | {shown} |")
+    point_table = "\n".join(point_rows)
+
+    fam = alpha_family(5)
+    fam_rows = "\n".join(
+        (f"| {k} | {18 * k * k:,} | 0 | 0 |" if k == 0 else
+         f"| {k} | {18 * k * k:,} | ±{6 * k * (3 * k * k - 1):,} | ±{3 * k} |")
+        for k in range(6))
+    alpha_pts = [x for x in fam]
 
     s1, s2, p1, p2, defects = phh_pair()
     miss = abs(PH.point_at(s1, 1.0) - complex(4.0, 1.5))
@@ -459,6 +537,53 @@ At <code>m = {M}</code>:</p>
 control points. PH never improves that: a plain integer Bézier pays the same
 <code>mⁿ</code> and already has integer controls at scale 1. What PH buys is the
 polynomial arc length, the rational frame and the rational offset.</p>
+</section>
+
+<section class="panel">
+<h2>Integer points on the curve itself — the real numbers</h2>
+<p>Two different things carry the word “hit”, and they must not be confused.
+A <strong>milestone</strong> is integral <em>after</em> the scale above is
+applied: it exists by construction, and its coordinates are large. An
+<strong>integer point of the curve</strong> is integral in model coordinates,
+with no scale at all. The figures draw the second kind (red dots) and the table
+above lists the first.</p>
+
+<p><strong>The alpha, completely.</strong> The curve this page draws is
+<code>18y² = x(x−6)²</code>, from <code>x = 2t²</code>,
+<code>y = t(6−x)/3</code>. Every integer point follows: if <code>x ≠ 6</code>
+then <code>t = 3y/(6−x)</code> is rational, and writing it in lowest terms makes
+<code>x = 2a²/b²</code> integral force <code>b = 1</code>, so <code>t</code> is
+an integer and <code>3 | t</code>. That gives <code>(18k², ±6k(3k²−1))</code>.
+The node at <code>(6, 0)</code> is the one point at an irrational parameter,
+<code>t = ±√3</code>. So the set is exact, not a sample:
+
+| k | x | y | t |
+|---|---|---|---|
+{fam_rows}
+
+<p>In the drawn window <code>t ∈ [−4, 4]</code> that is <strong>four</strong>
+distinct points — <code>(0,0)</code>, the node <code>(6,0)</code> at
+<code>t = ±√3</code>, and <code>(18,−12)</code>, <code>(18,12)</code> at
+<code>t = ±3</code>. There are more along the arms (<code>(72,±132)</code> at
+<code>t = ±6</code>, <code>(162,±468)</code> at <code>t = ±9</code>), which is
+why a fixed count is a statement about the window, not about the curve. Note
+also <code>x = 2</code> gives <code>y = ±4/3</code> — on the curve, but not a
+lattice point.</p>
+
+<p><strong>The other rungs.</strong> Searched exactly at
+<code>t = p/q</code>, <code>q ≤ 60</code>, over each drawn range; the points
+found are listed. Only the start point is integral, which is the honest reason
+the page uses the scaled milestones for the catalogue:</p>
+
+<table class="small">
+<thead><tr><th>curve</th><th>n</th><th>drawn t</th><th>integer points</th>
+<th>coordinates</th></tr></thead>
+<tbody>
+{point_table}
+</tbody></table>
+<p class="small">That search cannot see a point at an irrational parameter — the
+alpha's node is exactly one — so it is a lower bound for those rungs, stated as
+such. The alpha is the one rung where the complete set is proved.</p>
 </section>
 
 <section class="panel">

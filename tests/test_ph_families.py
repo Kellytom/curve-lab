@@ -91,6 +91,19 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn("|Δκ|", self.page)
         self.assertIn("C² by construction", self.flat)
 
+    def test_the_integer_points_are_real_numbers(self):
+        self.assertIn("Integer points on the curve itself", self.page)
+        self.assertIn("18y² = x(x−6)²", self.flat)
+        self.assertIn("(18k², ±6k(3k²−1))", self.flat)
+        for point in ("(0,0)", "(6,0)", "(18,-12)", "(18,12)"):
+            with self.subTest(point=point):
+                self.assertIn(point, self.page)
+        self.assertIn("(72,±132)", self.flat)
+        self.assertIn("four", self.flat)
+        self.assertIn("q ≤ 60", self.flat)
+        # the dots are drawn in all four quadrants
+        self.assertGreaterEqual(self.page.count('fill="#a23b2a"/>'), 60)
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
                        "PH quintic transition curve", "degree-8",
