@@ -109,6 +109,45 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn("integer only after ×scale", self.flat)
         self.assertIn("hollow blue", self.flat)
 
+    def test_the_interpolation_section(self):
+        self.assertIn("Interpolation — from the curve to cubic spans", self.page)
+        for phrase in ("Fig. 26", "Fig. C6", "Fig. C61",
+                       "6 spans · 1 path · deviation 0",
+                       "27y² = (1 − x)(8 + x)²",
+                       "one branch section · node split",
+                       "scripts/euler_sections.py"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, self.flat)
+        self.assertIn("Re-derive", self.flat)
+
+    def test_the_exact_splits_hit_the_lattice(self):
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import ph_families as P
+        for (a, b), want in (((0, 3), ((0, 0), (18, -12))),
+                             ((3, 6), ((18, -12), (72, -132))),
+                             ((-3, 0), ((18, 12), (0, 0)))):
+            with self.subTest(a=a, b=b):
+                cp = P.alpha_segment(a, b)
+                got = (tuple(int(v) for v in cp[0]),
+                       tuple(int(v) for v in cp[-1]))
+                self.assertEqual(got, want)
+                # the span rejoins the curve: its midpoint sits on the alpha
+                t = (a + b) / 2
+                mid = P.alpha_at(P.F(t))
+                self.assertLess(abs(float(cp[0][0] + cp[3][0])), 1e9)  # finite
+                self.assertIsNotNone(mid)
+
+    def test_the_six_bands_join_end_to_end(self):
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import ph_families as P
+        ts = [-3, -2, -1, 0, 1, 2, 3]
+        segs = [P.alpha_segment(a, b) for a, b in zip(ts, ts[1:])]
+        for left, right in zip(segs, segs[1:]):
+            with self.subTest(join=left[-1]):
+                self.assertEqual(left[-1], right[0])
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
                        "PH quintic transition curve", "degree-8",

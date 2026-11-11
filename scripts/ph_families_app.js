@@ -103,6 +103,28 @@
              cp: got.cp, ms: ms };
   }
 
+  // Integer points in model coordinates at t = p/q, exactly. A lower bound for
+  // edited generators: a point at an irrational parameter is not seen.
+  function scanInts(h, u, v, t0, t1, qmax) {
+    var got = controlPoints(h, u, v), n = got.n, seen = {}, q, p, i;
+    for (q = 1; q <= qmax; q++) {
+      var lo = Math.floor(t0 * q), hi = Math.ceil(t1 * q);
+      for (p = lo; p <= hi; p++) {
+        var sx = { n: 0n, d: 1n }, sy = { n: 0n, d: 1n };
+        for (i = 0; i <= n; i++) {
+          var w = { n: binomBig(n, i) * ipow(p, i) * ipow(q - p, n - i),
+                    d: ipow(q, n) };
+          sx = radd(sx, rmul(w, got.cp[i][0]));
+          sy = radd(sy, rmul(w, got.cp[i][1]));
+        }
+        if (sx.d === 1n && sy.d === 1n) {
+          seen[String(sx.n) + "," + String(sy.n)] = [Number(sx.n), Number(sy.n)];
+        }
+      }
+    }
+    return Object.keys(seen).map(function (k) { return seen[k]; });
+  }
+
   // ------------------------------------------------------------------ geometry
   function num(r) { return Number(r.n) / Number(r.d); }
   function floatCp(got) { return got.cp.map(function (p) { return [num(p[0]), num(p[1])]; }); }
@@ -199,6 +221,11 @@
       for (i = 0; i < quad[q].pts.length; i++) { xs.push(quad[q].pts[i][0]); ys.push(quad[q].pts[i][1]); }
       for (i = 0; i < (quad[q].offs || []).length; i++) { xs.push(quad[q].offs[i][0]); ys.push(quad[q].offs[i][1]); }
     }
+    if (state.marks) {
+      for (i = 0; i < state.marks.length; i++) {
+        xs.push(state.marks[i].p[0]); ys.push(state.marks[i].p[1]);
+      }
+    }
     if (!xs.length) { return "<p>nothing selected</p>"; }
     var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
     var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
@@ -289,7 +316,8 @@
   }
 
   // --------------------------------------------------------------------- state
-  var state = { preset: null, m: 4, d: 0.25, qx: true, qy: true, brk: false, co: null };
+  var state = { preset: null, m: 4, d: 0.25, qx: true, qy: true, brk: false,
+                dirty: false, co: null };
 
   function readCoeffs() {
     var p = state.preset, u = [], v = [], i;
@@ -343,9 +371,8 @@
     var residual = speedResidual(cp, h, u, v, p.t0, p.t1);
     var sub = "n=" + exact.n + " · h=(" + h.join(",") + ") · u=(" + u.join(",") + ") · v=(" + v.join(",") + ")";
     // the rung's integer points in model coordinates, from the page data
-    var marks = (p.ints || []).map(function (q) {
-      return { p: [q[0], q[1]], int: true };
-    });
+    var ints = state.dirty ? scanInts(h, u, v, p.t0, p.t1, 24) : (p.ints || []);
+    var marks = ints.map(function (q) { return { p: [q[0], q[1]], int: true }; });
     // plus the m-grid milestones that are not already integer
     exact.ms.forEach(function (q) {
       if (q[0].d === 1n && q[1].d === 1n) return;
@@ -359,7 +386,8 @@
       ? "<b>speed identity broken</b>: |z'|² ≠ σ² by " + (residual * 100).toFixed(2) + "%"
       : "speed identity exact";
     $("readout").innerHTML =
-      "integer points <b>" + (p.ints || []).length + "</b>" +
+      "integer points <b>" + ints.length + "</b>" +
+      (state.dirty ? " (q ≤ 24 scan on the edited curve)" : " (proved for the rung)") +
       " · m-grid hits <b>" + exact.hits + "</b> at m=" + state.m +
       " · scale <b>" + exact.scale.toString() + "</b>" +
       " · d=" + state.d.toFixed(2) +
@@ -377,6 +405,7 @@
   function loadPreset(key) {
     var p = PRESETS.filter(function (x) { return x.key === key; })[0] || PRESETS[0];
     state.preset = p;
+    state.dirty = false;
     for (var i = 0; i < 4; i++) {
       var ui = $("u" + i), vi = $("v" + i);
       var uv = i < p.u.length ? p.u[i] : 0;
@@ -400,6 +429,7 @@
       if (el) el.addEventListener("input", function () {
         if (k === "m") state.m = Number(el.value);
         else if (k === "d") state.d = Number(el.value);
+        else state.dirty = true;
         syncLabels(); update();
       });
     });

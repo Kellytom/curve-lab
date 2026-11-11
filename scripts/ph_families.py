@@ -25,6 +25,7 @@ import json
 import math
 import sys
 from fractions import Fraction
+from fractions import Fraction as F
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +37,7 @@ import g3_showcase as S  # noqa: E402
 import missing_families as MF  # noqa: E402
 
 from curve_lab import ph_hermite as PH  # noqa: E402
+from curve_lab.parallel_bezier import fit_chain  # noqa: E402
 
 M = 4          # the grid the printed hit tables use
 ALPHA_NODE = (6.0, 0.0)
@@ -164,6 +166,179 @@ def build_example(key, title, h, u, v):
             "table": hit_table(pc), "arc": arc_of(h, u, v),
             "hits": hits, "miles": miles, "t0": t0, "t1": t1,
             "h": h, "u": u, "v": v}
+
+
+# --------------------------------------------------------------------------
+# interpolation: exact cubic spans and fitted rails
+# --------------------------------------------------------------------------
+# The alpha as one cubic Bezier: z(t) = (2t², 2t − 2t³/3), control points exact.
+ALPHA_CP = ((F(0), F(0)), (F(0), F(2, 3)), (F(2, 3), F(4, 3)), (F(2), F(4, 3)))
+BAND = ("#2e2413", "#a23b2a", "#1f5fa8", "#8c6a21", "#4a7c59", "#7b4a9e")
+
+
+def alpha_at(t):
+    u = 1 - t
+    return (sum(F(math.comb(3, i)) * u ** (3 - i) * t ** i * ALPHA_CP[i][0]
+                for i in range(4)),
+            sum(F(math.comb(3, i)) * u ** (3 - i) * t ** i * ALPHA_CP[i][1]
+                for i in range(4)))
+
+
+def split_cubic(cp, t):
+    """de Casteljau at t; exact in Fraction, valid for t outside [0, 1] too."""
+    pts = [tuple(p) for p in cp]
+    levels = [pts]
+    while len(pts) > 1:
+        pts = [((1 - t) * a[0] + t * b[0], (1 - t) * a[1] + t * b[1])
+               for a, b in zip(pts, pts[1:])]
+        levels.append(pts)
+    left = [level[0] for level in levels]
+    right = [level[-1] for level in levels][::-1]
+    return left, right
+
+
+def alpha_segment(a, b):
+    """Exact control points of z on [a, b] (a, b may be any rationals)."""
+    A, B = F(a), F(b)
+    c = B - A
+    coords = []
+    for coord in (0, 1):
+        power = [F(0)] * 4
+        for i in range(4):
+            bi = ALPHA_CP[i][coord]
+            for k in range(4 - i):
+                power[i + k] += bi * math.comb(3, i) * math.comb(3 - i, k) * (-1) ** k
+        q = [F(0)] * 4
+        for m in range(4):
+            for j in range(m + 1):
+                q[j] += power[m] * math.comb(m, j) * A ** (m - j) * c ** j
+        coords.append([sum(q[j] * F(math.comb(i, j), math.comb(3, j))
+                             for j in range(i + 1)) for i in range(4)])
+    return list(zip(coords[0], coords[1]))
+
+
+def _float_cp(cp):
+    return [(float(x), float(y)) for x, y in cp]
+
+
+def span_figure(bands, title, sub, legend, w=560, h=380):
+    """Banded cubic spans, lattice endpoints labelled, one path."""
+    allp = [p for _, cp in bands for p in _float_cp(cp)]
+    xs = [p[0] for p in allp]
+    ys = [p[1] for p in allp]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-9)
+    f = S.Frame(w, h, min(xs) - pad, max(xs) + pad,
+                min(ys) - pad, max(ys) + pad, pad=46)
+    step = S._nice_step(max(xs) - min(xs))
+    grid = []
+    g = math.floor((min(xs) - pad) / step) * step
+    while g <= max(xs) + pad:
+        a, b = f((g, min(ys) - pad)), f((g, max(ys) + pad))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    g = math.floor((min(ys) - pad) / step) * step
+    while g <= max(ys) + pad:
+        a, b = f((min(xs) - pad, g)), f((max(xs) + pad, g))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+
+    paths, labels = [], []
+    for k, (t_range, cp) in enumerate(bands):
+        pts = [p for p in _float_cp(cp)]
+        # a cubic drawn from its control points
+        samples = [S.bezier(pts, i / 40) for i in range(41)]
+        paths.append(f'<path d="{S._path(samples, f)}" fill="none" '
+                     f'stroke="{BAND[k % len(BAND)]}" stroke-width="2.6"/>')
+        mid = S.bezier(pts, 0.5)
+        mx, my = f(mid)
+        labels.append(f'<text x="{mx:.1f}" y="{my - 7:.1f}" text-anchor="middle" '
+                      f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                      f'fill="{BAND[k % len(BAND)]}">{k + 1}</text>')
+    # lattice endpoints of the whole path
+    ends = []
+    for t in (bands[0][0][0], bands[-1][0][1]):
+        x, y = alpha_at(F(t) if not isinstance(t, F) else t)
+        if x.denominator == 1 and y.denominator == 1:
+            ends.append((int(x), int(y)))
+    for x, y in ends:
+        px, py = f((x, y))
+        paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.4" fill="{S.RED}"/>')
+        labels.append(f'<text x="{px + 5:.1f}" y="{py - 6:.1f}" '
+                      f'font-family="ui-monospace,Menlo,monospace" font-size="9" '
+                      f'fill="{S.RED}">({x},{y})</text>')
+
+    a0 = f((min(xs) - pad, 0.0)) if min(ys) - pad <= 0 <= max(ys) + pad else None
+    axes = ""
+    if a0:
+        a1 = f((max(xs) + pad, 0.0))
+        axes += (f'<line x1="{a0[0]:.1f}" y1="{a0[1]:.1f}" x2="{a1[0]:.1f}" '
+                 f'y2="{a1[1]:.1f}" stroke="{S.BLUE}" stroke-width="0.9"/>')
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
+  <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
+  {''.join(grid)}
+  {axes}
+  {''.join(paths)}
+  {''.join(labels)}
+  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="31" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{S.MUTED}">{sub}</text>
+  <text x="10" y="{h - 18}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" fill="{S.MUTED}">{legend}</text>
+</svg>"""
+
+
+def rails_figure(cp, distance, title, sub, legend, w=520, h=360):
+    """Source cubic with its two fitted (Levien) rails at ±distance."""
+    src = [{"p0": (float(cp[0][0]), float(cp[0][1])),
+            "c1": (float(cp[1][0]), float(cp[1][1])),
+            "c2": (float(cp[2][0]), float(cp[2][1])),
+            "p3": (float(cp[3][0]), float(cp[3][1]))}]
+    out = []
+    for d in (distance, -distance):
+        r = fit_chain([dict(s) for s in src], d)
+        out.append(r)
+    spans_source = [[(float(x), float(y)) for x, y in cp]]
+    src_pts = [S.bezier(spans_source[0], i / 120) for i in range(121)]
+    rail_pts = []
+    for r in out:
+        for sp in r["spans"]:
+            P = [sp["p0"], sp["c1"], sp["c2"], sp["p3"]]
+            rail_pts.append([S.bezier(P, i / 24) for i in range(25)])
+    allp = src_pts + [p for r in rail_pts for p in r]
+    xs = [p[0] for p in allp]
+    ys = [p[1] for p in allp]
+    pad = 0.12 * max(max(xs) - min(xs), max(ys) - min(ys))
+    f = S.Frame(w, h, min(xs) - pad, max(xs) + pad, min(ys) - pad, max(ys) + pad, pad=44)
+    step = S._nice_step(max(xs) - min(xs))
+    grid = []
+    g = math.floor((min(xs) - pad) / step) * step
+    while g <= max(xs) + pad:
+        a, b = f((g, min(ys) - pad)), f((g, max(ys) + pad))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    g = math.floor((min(ys) - pad) / step) * step
+    while g <= max(ys) + pad:
+        a, b = f((min(xs) - pad, g)), f((max(xs) + pad, g))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    paths = [f'<path d="{S._path(src_pts, f)}" fill="none" stroke="{S.INK}" '
+             f'stroke-width="2.4"/>']
+    for k, r in enumerate(rail_pts):
+        col = S.GOLD if k == 0 else S.BLUE
+        paths.append(f'<path d="{S._path(r, f)}" fill="none" stroke="{col}" '
+                     f'stroke-width="1.8" stroke-dasharray="6 4"/>')
+    span_count = sum(len(r["spans"]) for r in out)
+    err = max(r["error_max"] for r in out)
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
+  <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
+  {''.join(grid)}
+  {''.join(paths)}
+  <text x="10" y="17" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="31" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="{S.MUTED}">{sub}</text>
+  <text x="10" y="{h - 18}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" fill="{S.MUTED}">{legend} · {span_count} fitted spans both sides · max error {err:.2e}</text>
+</svg>"""
 
 
 # --------------------------------------------------------------------------
@@ -438,6 +613,49 @@ def build():
         for k in range(6))
     alpha_pts = [x for x in fam]
 
+    # ---- interpolation: exact cubic splits and fitted rails
+    ts = [-3, -2, -1, 0, 1, 2, 3]
+    bands = [((a, b), alpha_segment(a, b)) for a, b in zip(ts, ts[1:])]
+    fig26 = span_figure(
+        bands, "Fig. 26 · tschirnhausen · 6 spans (exact re-split)",
+        "t = −3 … 3 · cubic spans 1–6 · lattice endpoints labelled",
+        "6 spans · 1 path · deviation 0 (a split, not a fit) · worst Δ(dκ/ds) 0")
+    fig_c6 = rails_figure(
+        ALPHA_CP, 0.60, "Fig. C6 · tschirnhausen ±0.60 fitted",
+        "27y² = (1 − x)(8 + x)² · the same curve under x → (2 − 2x)/3, y → 2y/3",
+        "black source · gold +d · blue −d · Levien cubic fit")
+    fig_c61 = rails_figure(
+        alpha_segment(0, 1.5), 0.22, "Fig. C61 · tschirnhausen ±0.22 fitted",
+        "one branch section · node split (t = 0 … 1.5, node at t = ±√3)",
+        "black branch section · gold +d · blue −d · Levien cubic fit")
+
+    lattice_rows = []
+    for a, b in ((0, 3), (3, 6)):
+        cp = alpha_segment(a, b)
+        lattice_rows.append(
+            f"| t {a} … {b} | {cp[0][0]}, {cp[0][1]} | {cp[1][0]}, {cp[1][1]} | "
+            f"{cp[2][0]}, {cp[2][1]} | {cp[3][0]}, {cp[3][1]} |")
+    lattice_table = "\n".join(lattice_rows)
+
+    # the interpolated alternative, measured, for comparison
+    fit_note = ""
+    try:
+        import g3_catalogue as C3
+        pts = [(float(alpha_at(F(-3) + F(6 * i, 600))[0]),
+                float(alpha_at(F(-3) + F(6 * i, 600))[1])) for i in range(601)]
+        r = C3.fit_poly(pts, 6)
+        if r:
+            xs = [p[0] for p in pts]
+            ys = [p[1] for p in pts]
+            size = math.hypot(max(xs) - min(xs), max(ys) - min(ys))
+            fit_note = (f"A six-span <strong>quintic</strong> G3 interpolation of the same "
+                        f"curve measures {r['error']:.3f} units — "
+                        f"{100 * r['error'] / size:.2f}% of its size — with worst "
+                        f"Δ(dκ/ds) {r['g3']:.1e}. That is what the interpolation "
+                        f"buys when the curve is not cubic; here it is not needed.")
+    except Exception as exc:  # the page must build even if g3 is unavailable
+        fit_note = f"(the interpolation comparison did not run: {exc})"
+
     s1, s2, p1, p2, defects = phh_pair()
     miss = abs(PH.point_at(s1, 1.0) - complex(4.0, 1.5))
     phh_note = (f"endpoint miss {miss:.1e} · |Δz| {defects['position']:.1e} · "
@@ -448,8 +666,8 @@ def build():
     presets = [
         {"key": e["key"], "name": e["title"].split(" · ")[1], "n": e["pc"].n,
          "h": list(e["h"]), "u": list(e["u"]), "v": list(e["v"]),
-         "t0": -2.0 if e["key"] == "alpha" else 0.0,
-         "t1": 2.0 if e["key"] == "alpha" else 1.0,
+         "t0": -4.0 if e["key"] == "alpha" else 0.0,
+         "t1": 4.0 if e["key"] == "alpha" else 1.0,
          "ints": [list(q) for q in sorted(e["hits"])]}
         for e in examples
     ]
@@ -672,6 +890,57 @@ notes</a>, generated by <code>scripts/ph_doc.py</code>. The rational circle and
 the septic also live on <a href="missing-families.html">the missing families</a>;
 <a href="catenary.html">the catenary</a> is four PH cubics. This page is built by
 <code>scripts/ph_families.py</code>; do not hand-edit it.</p>
+</section>
+
+<section class="panel">
+<h2>Interpolation — from the curve to cubic spans for Inkscape</h2>
+<p>The blue-sky question: use an interpolated Euler/clothoid chain as the
+middleman, and hand Inkscape a <em>few</em> cubic Béziers that start and end on
+integer lattice points. For the Tschirnhausen the middleman is not needed: the
+alpha <strong>is</strong> a cubic, so splitting it is exact. A split is not a
+fit — the spans are the curve, not an approximation of it.</p>
+
+{fig26}
+<p class="small"><strong>Fig. 26</strong> · the alpha cut at
+<code>t = −3, −2, −1, 0, 1, 2, 3</code> into six cubic spans, one path.
+Deviation <strong>0</strong> and worst Δ(dκ/ds) <strong>0</strong> are not
+roundings: de Casteljau on one cubic reproduces it exactly, and the joins are
+the same curve. The full curve needs no interpolation at all.</p>
+<p class="small">{fit_note}</p>
+
+<div class="ph-grid">
+<div class="ph-card">{fig_c6}
+<p class="small">Two fitted rails at <code>±0.60</code>. Levien's cubic fit, not
+an exact offset: the alpha's offset is rational, but a cubic-Bézier rail is a
+fit, and the error is printed on the figure.</p></div>
+<div class="ph-card">{fig_c61}
+<p class="small">One branch section, node split: the branch
+<code>t ∈ [0, 1.5]</code> stops short of the node at <code>t = ±√3</code>, so
+the rail never has to cross itself. Rails at <code>±0.22</code>.</p></div>
+</div>
+
+<h3>The spans that land on the lattice</h3>
+<p>Cut only at the integer points, and each span ends where the next begins.
+The control points are exact — thirds, no rounding — and the endpoints are
+whole numbers:</p>
+<table class="small">
+<thead><tr><th>parameter</th><th>start</th><th>c1</th><th>c2</th>
+<th>end</th></tr></thead>
+<tbody>
+{lattice_table}
+</tbody></table>
+<p>So the arm <code>(0,0) → (18,−12) → (72,−132)</code> is <strong>two cubic
+spans</strong>, exact, with lattice endpoints; the mirrored arm is two more.
+That is the whole Inkscape payload for this curve: no per-lattice-point spans,
+no interpolation error, and no curve between each pair of hits — just the two
+spans that join the hits.</p>
+<p class="small">Where: <code>scripts/euler_sections.py</code> <code>SECTIONS</code>
+(the branch sections), <code>scripts/showcase.py</code> and
+<code>scripts/g3_showcase.py</code> (the catalogue and the G3 panels).
+Re-derive: <code>python scripts/ph_families.py</code> rebuilds this page and
+prints the span numbers; <code>python scripts/g3_showcase.py</code>,
+<code>python scripts/showcase.py</code> rebuild the twins it compares against.
+The rail figures use <code>curve_lab/parallel_bezier.py</code>.</p>
 </section>
 </main>
 <script>window.PH_PRESETS = {json.dumps(presets)};</script>
