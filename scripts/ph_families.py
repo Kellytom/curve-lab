@@ -153,11 +153,16 @@ def build_example(key, title, h, u, v):
         seg = None
     t0, t1 = (-4.0, 4.0) if key == "alpha" else (0.0, 1.0)
     hits = integer_points(pc, t0, t1)
+    miles = []
+    for k in range(M + 1):
+        x, y = G.at(pc.x, Fraction(k, M)), G.at(pc.y, Fraction(k, M))
+        if (x.denominator != 1 or y.denominator != 1):
+            miles.append((float(x), float(y)))
     if key == "alpha":
         hits[(6, 0)] = "irrational t"
     return {"key": key, "title": title, "pc": pc, "pts": pts, "seg": seg,
             "table": hit_table(pc), "arc": arc_of(h, u, v),
-            "hits": hits, "t0": t0, "t1": t1,
+            "hits": hits, "miles": miles, "t0": t0, "t1": t1,
             "h": h, "u": u, "v": v}
 
 
@@ -169,7 +174,7 @@ def mirrored(pts, sx, sy):
 
 
 def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
-           hits=None):
+           hits=None, milestones=None):
     """Title, axes with labels, the four mirrors, integer points, segment."""
     quad = [mirrored(pts, sx, sy) for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1))]
     allp = [p for q in quad for p in q]
@@ -219,6 +224,13 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
     if seg:
         paths.append(f'<path d="{S._path(seg, f)}" fill="none" '
                      f'stroke="{S.GOLD}" stroke-width="3.6"/>')
+    if milestones:
+        for (mx, my) in milestones:
+            for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+                px, py = f((sx * mx, sy * my))
+                paths.append(f'<rect x="{px - 2.6:.1f}" y="{py - 2.6:.1f}" '
+                             f'width="5.2" height="5.2" fill="none" '
+                             f'stroke="{S.BLUE}" stroke-width="1.2"/>')
     if hits:
         for (hx, hy) in hits:
             for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
@@ -234,9 +246,9 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
         paths.append(f'<circle cx="{nx:.1f}" cy="{ny:.1f}" r="3.8" fill="none" '
                      f'stroke="{S.RED}" stroke-width="1.7"/>')
 
-    legend = legend or ("black: source PH · grey: x, y, xy mirrors · "
-                        "red dots: integer points (labelled in Q I) · "
-                        "red ring: node")
+    legend = legend or ("black: source PH · grey: mirrors · filled red: integer "
+                        "point in model coords (labelled, Q I) · hollow blue: "
+                        "integer only after ×scale (t = k/m) · red ring: node")
     return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
   <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
   {''.join(grid)}
@@ -371,6 +383,7 @@ def build():
                f"scale {t['scale']:,} at m={t['m']} · arc {float(e['arc']):.3f}")
         svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
                      seg=e["seg"], hits=list(e["hits"]),
+                     milestones=e["miles"],
                      node=ALPHA_NODE if e["key"] == "alpha" else None)
         cards.append(card(e["title"], svg, notes[e["key"]]))
 
@@ -436,7 +449,8 @@ def build():
         {"key": e["key"], "name": e["title"].split(" · ")[1], "n": e["pc"].n,
          "h": list(e["h"]), "u": list(e["u"]), "v": list(e["v"]),
          "t0": -2.0 if e["key"] == "alpha" else 0.0,
-         "t1": 2.0 if e["key"] == "alpha" else 1.0}
+         "t1": 2.0 if e["key"] == "alpha" else 1.0,
+         "ints": [list(q) for q in sorted(e["hits"])]}
         for e in examples
     ]
 
@@ -541,12 +555,14 @@ polynomial arc length, the rational frame and the rational offset.</p>
 
 <section class="panel">
 <h2>Integer points on the curve itself — the real numbers</h2>
-<p>Two different things carry the word “hit”, and they must not be confused.
-A <strong>milestone</strong> is integral <em>after</em> the scale above is
-applied: it exists by construction, and its coordinates are large. An
+<p>Two different things carry the word “hit”, and they are now drawn
+differently. A <strong>milestone</strong> is integral <em>after</em> the scale
+above is applied: it exists by construction, and its coordinates are large. An
 <strong>integer point of the curve</strong> is integral in model coordinates,
-with no scale at all. The figures draw the second kind (red dots) and the table
-above lists the first.</p>
+with no scale at all. <strong>Filled red circles</strong> are the second kind,
+labelled with their coordinates; <strong>hollow blue squares</strong> are the
+first, drawn at <code>t = k/m</code> and unlabelled because their value is
+<code>coordinate × scale</code>. The table above lists those scaled values.</p>
 
 <p><strong>The alpha, completely.</strong> The curve this page draws is
 <code>18y² = x(x−6)²</code>, from <code>x = 2t²</code>,

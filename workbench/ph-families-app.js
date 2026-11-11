@@ -99,7 +99,8 @@
       seen[String(ms[k][0].n * scale / ms[k][0].d) + "," +
            String(ms[k][1].n * scale / ms[k][1].d)] = true;
     }
-    return { n: got.n, scale: scale, hits: Object.keys(seen).length, cp: got.cp };
+    return { n: got.n, scale: scale, hits: Object.keys(seen).length,
+             cp: got.cp, ms: ms };
   }
 
   // ------------------------------------------------------------------ geometry
@@ -256,11 +257,19 @@
     }
 
     var dots = "";
-    if (state.dots && state.dots.length) {
-      for (var k = 0; k < state.dots.length; k++) {
-        var dp = F(state.dots[k]);
-        dots += '<circle cx="' + dp[0].toFixed(1) + '" cy="' + dp[1].toFixed(1) +
-                '" r="2.6" fill="#1f5fa8"/>';
+    if (state.marks && state.marks.length) {
+      for (var k = 0; k < state.marks.length; k++) {
+        var mk = state.marks[k], dp = F(mk.p);
+        if (mk.int) {
+          dots += '<circle cx="' + dp[0].toFixed(1) + '" cy="' + dp[1].toFixed(1) +
+                  '" r="3.1" fill="#a23b2a"/>' +
+                  '<text x="' + (dp[0] + 5).toFixed(1) + '" y="' + (dp[1] - 5).toFixed(1) +
+                  '" font-family="ui-monospace,Menlo,monospace" font-size="8.4" ' +
+                  'fill="#a23b2a">(' + mk.p[0].toFixed(0) + ',' + mk.p[1].toFixed(0) + ')</text>';
+        } else {
+          dots += '<rect x="' + (dp[0] - 2.6).toFixed(1) + '" y="' + (dp[1] - 2.6).toFixed(1) +
+                  '" width="5.2" height="5.2" fill="none" stroke="#1f5fa8" stroke-width="1.2"/>';
+        }
       }
     }
 
@@ -269,7 +278,8 @@
       '<text x="10" y="31" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="#7b6c4e">' +
       state.sub + '</text>' +
       '<text x="10" y="' + (H - 20) + '" font-family="ui-sans-serif,system-ui,sans-serif" font-size="9" fill="#7b6c4e">' +
-      'legend: black PH curve · gold dashed exact PH offset · red dotted fitted offset</text>' +
+      'legend: black PH curve · gold dashed exact offset · red dotted fitted offset · '
+      'filled red: integer in model coords · hollow blue: integer only after ×scale</text>' +
       '<text x="10" y="' + (H - 8) + '" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="#7b6c4e">' +
       'x ' + x0.toFixed(2) + '…' + x1.toFixed(2) + ' · y ' + y0.toFixed(2) + '…' + y1.toFixed(2) + ' · +y up</text>';
 
@@ -332,20 +342,25 @@
     }
     var residual = speedResidual(cp, h, u, v, p.t0, p.t1);
     var sub = "n=" + exact.n + " · h=(" + h.join(",") + ") · u=(" + u.join(",") + ") · v=(" + v.join(",") + ")";
-    var dots = [];
-    for (var m = 0; m <= state.m; m++) {
-      var t = p.t0 + (p.t1 - p.t0) * m / state.m;
-      dots.push(evalCp(cp, t));
-    }
+    // the rung's integer points in model coordinates, from the page data
+    var marks = (p.ints || []).map(function (q) {
+      return { p: [q[0], q[1]], int: true };
+    });
+    // plus the m-grid milestones that are not already integer
+    exact.ms.forEach(function (q) {
+      if (q[0].d === 1n && q[1].d === 1n) return;
+      marks.push({ p: [num(q[0]), num(q[1])], int: false });
+    });
     $("stage").innerHTML = draw({
       title: p.name + " · scale " + exact.scale.toString() + " at m=" + state.m,
-      sub: sub, quad: quad, dots: dots
+      sub: sub, quad: quad, marks: marks
     });
     var ident = state.brk
       ? "<b>speed identity broken</b>: |z'|² ≠ σ² by " + (residual * 100).toFixed(2) + "%"
       : "speed identity exact";
     $("readout").innerHTML =
-      "hits <b>" + exact.hits + "</b> at m=" + state.m +
+      "integer points <b>" + (p.ints || []).length + "</b>" +
+      " · m-grid hits <b>" + exact.hits + "</b> at m=" + state.m +
       " · scale <b>" + exact.scale.toString() + "</b>" +
       " · d=" + state.d.toFixed(2) +
       " · " + ident +

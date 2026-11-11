@@ -39,7 +39,7 @@ class TestPHFamilies(unittest.TestCase):
 
     def test_all_four_quadrants_appear_in_every_figure(self):
         # each gallery figure draws the source plus three mirrors
-        self.assertIn("grey: x, y, xy mirrors", self.page)
+        self.assertIn("grey: mirrors", self.page)
 
     def test_the_occurrence_audit_is_recorded(self):
         self.assertIn("The occurrence audit", self.page)
@@ -69,6 +69,8 @@ class TestPHFamilies(unittest.TestCase):
                 self.assertIn(f'id="{control}"', self.page)
         self.assertIn("ph-families-app.js", self.page)
         self.assertIn("window.PH_PRESETS", self.page)
+        self.assertIn("p.ints", self.app)
+        self.assertIn("integer points <b>", self.app)
         for fn in ("controlPoints", "scaleAndHits", "exactOffset",
                    "fittedOffset", "speedResidual"):
             with self.subTest(fn=fn):
@@ -101,8 +103,11 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn("(72,±132)", self.flat)
         self.assertIn("four", self.flat)
         self.assertIn("q ≤ 60", self.flat)
-        # the dots are drawn in all four quadrants
+        # the two kinds of hit are drawn with different shapes and colours
         self.assertGreaterEqual(self.page.count('fill="#a23b2a"/>'), 60)
+        self.assertGreaterEqual(self.page.count('stroke="#1f5fa8" stroke-width="1.2"'), 150)
+        self.assertIn("integer only after ×scale", self.flat)
+        self.assertIn("hollow blue", self.flat)
 
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
