@@ -27,7 +27,7 @@ class TestPHFamilies(unittest.TestCase):
                 self.assertIn(row, self.page)
 
     def test_every_rung_has_more_than_one_example(self):
-        for degree, count in (("n = 3", 2), ("n = 4", 2), ("n = 5", 3),
+        for degree, count in (("n = 3", 3), ("n = 4", 2), ("n = 5", 3),
                               ("n = 6", 2), ("n = 7", 2), ("n = 8", 2)):
             with self.subTest(degree=degree):
                 self.assertGreaterEqual(self.page.count(degree + " ·"), count)
@@ -82,7 +82,7 @@ class TestPHFamilies(unittest.TestCase):
         start = self.page.index("window.PH_PRESETS = ")
         end = self.page.index(";</script>", start)
         presets = json.loads(self.page[start + len("window.PH_PRESETS = "):end])
-        self.assertEqual(len(presets), 13)
+        self.assertEqual(len(presets), 14)
         for p in presets:
             self.assertEqual(p["n"], len(p["h"]) - 1
                              + 2 * (max(len(p["u"]), len(p["v"])) - 1) + 1)

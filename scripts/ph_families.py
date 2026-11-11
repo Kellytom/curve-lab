@@ -41,6 +41,7 @@ from curve_lab.parallel_bezier import fit_chain  # noqa: E402
 
 M = 4          # the grid the printed hit tables use
 ALPHA_NODE = (6.0, 0.0)
+NODES = {"alpha": (6.0, 0.0), "alpha3": (18.0, 0.0)}
 
 # --------------------------------------------------------------------------
 # the rungs: (key, title, h, u, v, note)
@@ -50,6 +51,15 @@ EXAMPLES = [
      "The whole alpha, not a segment. The node sits at t = ±√3 and the two "
      "endings run to the right. Up to similarity this is every cubic PH curve. "
      "The heavy gold arc is the C-segment t ∈ [−1, 1] that `hodograph.py` draws."),
+    ("alpha3", "n = 3 · the alpha at ×3 — integer controls", (3,), (1, 1), (1, -1),
+     "The same alpha with <code>h = 3</code>: the control points become "
+     "<code>(0,0), (0,2), (2,4), (6,4)</code>, all integers, and ten lattice "
+     "points fall in the same window — <code>(0,0)</code>, "
+     "<code>(6,±4)</code>, the node <code>(18,0)</code>, <code>(24,±4)</code>, "
+     "<code>(54,±36)</code>, <code>(96,±104)</code>. Every integer point is "
+     "<code>(6k², ±2k(3−k²))</code> plus the node; the family is complete by "
+     "the same argument as the alpha's. Scale changes the count; the shape "
+     "cannot."),
     ("cubic-b", "n = 3 · a second cubic (same shape)", (1,), (2, -2), (1, -2),
      "A different generator pair, a scaled and rotated copy of the same "
      "Tschirnhausen curve: the cubic rung has one shape, not a family."),
@@ -147,21 +157,23 @@ def alpha_family(kmax=4):
 def build_example(key, title, h, u, v):
     n = len(h) - 1 + 2 * (max(len(u), len(v)) - 1) + 1
     pc = G.PHCurve(n, u=u, v=v, h=h)
-    if key == "alpha":
+    wide = key in ("alpha", "alpha3")
+    if wide:
         pts = [pc.bezier(i / 60) for i in range(-240, 241)]
-        seg = [pc.bezier(i / 60) for i in range(-60, 61)]
+        seg = [pc.bezier(i / 60) for i in range(-60, 61)] if key == "alpha" else None
     else:
         pts = [pc.bezier(i / 160) for i in range(161)]
         seg = None
-    t0, t1 = (-4.0, 4.0) if key == "alpha" else (0.0, 1.0)
+    t0, t1 = (-4.0, 4.0) if wide else (0.0, 1.0)
     hits = integer_points(pc, t0, t1)
     miles = []
     for k in range(M + 1):
         x, y = G.at(pc.x, Fraction(k, M)), G.at(pc.y, Fraction(k, M))
         if (x.denominator != 1 or y.denominator != 1):
             miles.append((float(x), float(y)))
-    if key == "alpha":
-        hits[(6, 0)] = "irrational t"
+    if key in NODES:
+        nx, ny = NODES[key]
+        hits[(int(nx), int(ny))] = "irrational t"
     return {"key": key, "title": title, "pc": pc, "pts": pts, "seg": seg,
             "table": hit_table(pc), "arc": arc_of(h, u, v),
             "hits": hits, "miles": miles, "t0": t0, "t1": t1,
@@ -429,15 +441,29 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
                              f'width="5.2" height="5.2" fill="none" '
                              f'stroke="{S.BLUE}" stroke-width="1.2"/>')
     if hits:
-        for (hx, hy) in hits:
+        dense = len(hits) > 5
+        ordered = sorted(hits, key=lambda q: (-q[1], q[0]))
+        for index, (hx, hy) in enumerate(ordered):
             for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
                 px, py = f((sx * hx, sy * hy))
                 paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.2" '
                              f'fill="{S.RED}"/>')
-            px, py = f((hx, hy))
-            paths.append(f'<text x="{px + 5:.1f}" y="{py - 5:.1f}" '
-                         f'font-family="ui-monospace,Menlo,monospace" '
-                         f'font-size="8.4" fill="{S.RED}">({hx},{hy})</text>')
+            if dense:
+                # a numbered callout down the right margin, with a leader line
+                ly = 54 + index * (h - 110) / max(1, len(ordered) - 1)
+                px, py = f((hx, hy))
+                paths.append(f'<line x1="{px:.1f}" y1="{py:.1f}" '
+                             f'x2="{w - 96:.1f}" y2="{ly:.1f}" '
+                             f'stroke="{S.RED}" stroke-width="0.5" '
+                             f'opacity="0.65"/>')
+                paths.append(f'<text x="{w - 92:.1f}" y="{ly + 3:.1f}" '
+                             f'font-family="ui-monospace,Menlo,monospace" '
+                             f'font-size="8.8" fill="{S.RED}">({hx},{hy})</text>')
+            else:
+                px, py = f((hx, hy))
+                paths.append(f'<text x="{px + 5:.1f}" y="{py - 5:.1f}" '
+                             f'font-family="ui-monospace,Menlo,monospace" '
+                             f'font-size="8.4" fill="{S.RED}">({hx},{hy})</text>')
     if node:
         nx, ny = f(node)
         paths.append(f'<circle cx="{nx:.1f}" cy="{ny:.1f}" r="3.8" fill="none" '
@@ -601,9 +627,10 @@ def build():
         sub = (f"n={e['pc'].n} · h={e['h']} · u={e['u']} · v={e['v']} · "
                f"scale {t['scale']:,} at m={t['m']} · arc {float(e['arc']):.3f}")
         svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
+                     w=560 if len(e["hits"]) > 5 else 430, h=360,
                      seg=e["seg"], hits=list(e["hits"]),
                      milestones=e["miles"],
-                     node=ALPHA_NODE if e["key"] == "alpha" else None)
+                     node=NODES.get(e["key"]))
         cards.append(card(e["title"], svg, notes[e["key"]]))
 
     from curve_lab.pyth_cubic import representatives
