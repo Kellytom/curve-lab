@@ -89,11 +89,7 @@
     for (i = 0; i < got.cp.length; i++) { vals.push(got.cp[i][0], got.cp[i][1]); }
     var ms = milestones(got.cp, got.n, m);
     for (k = 0; k < ms.length; k++) { vals.push(ms[k][0], ms[k][1]); }
-    var L = 1n;
-    for (i = 0; i < vals.length; i++) L = L / gcd(L, vals[i].d) * vals[i].d;
-    var g = 0n;
-    for (i = 0; i < vals.length; i++) g = gcd(g, vals[i].n * (L / vals[i].d));
-    var scale = L / (g || 1n);
+    var scale = scaleOf(got.cp, ms);
     var seen = {};
     for (k = 0; k < ms.length; k++) {
       seen[String(ms[k][0].n * scale / ms[k][0].d) + "," +
@@ -123,6 +119,47 @@
       }
     }
     return Object.keys(seen).map(function (k) { return seen[k]; });
+  }
+
+  function evalRational(cp, n, p, q) {
+    // z(p/q) exactly, for p possibly negative
+    var sx = { n: 0n, d: 1n }, sy = { n: 0n, d: 1n }, i;
+    var qn = ipow(q, n);
+    for (i = 0; i <= n; i++) {
+      var w = { n: binomBig(n, i) * ipow(p, i) * ipow(q - p, n - i), d: qn };
+      sx = radd(sx, rmul(w, cp[i][0]));
+      sy = radd(sy, rmul(w, cp[i][1]));
+    }
+    return [sx, sy];
+  }
+
+  function scaleOf(cp, vals) {
+    var S = 1n, i;
+    function bump(r) { S = S / gcd(S, r.d) * r.d; }
+    for (i = 0; i < cp.length; i++) { bump(cp[i][0]); bump(cp[i][1]); }
+    for (i = 0; i < vals.length; i++) { bump(vals[i][0]); bump(vals[i][1]); }
+    return S;
+  }
+
+  // the m-grid across the whole drawn range, t = t0 + (t1 - t0) k / m
+  function gridPoints(h, u, v, m, t0, t1) {
+    var got = controlPoints(h, u, v), n = got.n, pts = [], k;
+    var T0 = { n: B(Math.round(t0 * 1e6)), d: 1000000n };
+    var T1 = { n: B(Math.round(t1 * 1e6)), d: 1000000n };
+    for (k = 0; k <= m; k++) {
+      // t = (T0 (m-k) + T1 k) / m, as a rational p/q
+      var tr = radd(rmul(T0, { n: B(m - k), d: 1n }), rmul(T1, { n: B(k), d: 1n }));
+      var p = tr.n, q = tr.d * B(m);
+      var g = gcd(p, q) || 1n;
+      p = p / g; q = q / g;
+      pts.push(evalRational(got.cp, n, p, q));
+    }
+    var scale = scaleOf(got.cp, pts);
+    return pts.map(function (r) {
+      return { p: [num(r[0]), num(r[1])],
+               scaled: [String(r[0].n * scale / r[0].d),
+                        String(r[1].n * scale / r[1].d)] };
+    }).concat([{ scale: scale }]);
   }
 
   // ------------------------------------------------------------------ geometry
@@ -231,10 +268,23 @@
     var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
     var pad = 0.08 * Math.max(x1 - x0, y1 - y0, 1e-6);
     x0 -= pad; x1 += pad; y0 -= pad; y1 += pad;
+    if (state.zoom > 1.0001) {
+      // keep the aspect, centre the zoomed window on (cx, cy)
+      var cx = state.cx === null ? (x0 + x1) / 2 : state.cx;
+      var cy = state.cy === null ? (y0 + y1) / 2 : state.cy;
+      var halfW = (x1 - x0) / (2 * state.zoom);
+      var halfH = (y1 - y0) / (2 * state.zoom);
+      var half = Math.max(halfW, halfH);
+      var aspect = (W - PADL - PADR) / (H - PADT - PADB);
+      if (halfW / halfH > aspect) { halfH = halfW / aspect; } else { halfW = halfH * aspect; }
+      x0 = cx - halfW; x1 = cx + halfW;
+      y0 = cy - halfH; y1 = cy + halfH;
+    }
     var s = Math.min((W - PADL - PADR) / (x1 - x0), (H - PADT - PADB) / (y1 - y0));
     var ox = (W - (x1 - x0) * s) / 2 - x0 * s;
     var oy = (H - (y1 - y0) * s) / 2 + y1 * s;   // +y up in model, flipped here
     var F = function (p) { return [ox + p[0] * s, oy - p[1] * s]; };
+    lastFrame = { s: s, ox: ox, oy: oy };
 
     var step = niceStep(Math.max(x1 - x0, y1 - y0));
     var grid = [], g;
@@ -287,6 +337,7 @@
     if (state.marks && state.marks.length) {
       for (var k = 0; k < state.marks.length; k++) {
         var mk = state.marks[k], dp = F(mk.p);
+        if (dp[0] < -20 || dp[0] > W + 20 || dp[1] < -20 || dp[1] > H + 20) continue;
         if (mk.int) {
           dots += '<circle cx="' + dp[0].toFixed(1) + '" cy="' + dp[1].toFixed(1) +
                   '" r="3.1" fill="#a23b2a"/>' +
@@ -324,7 +375,8 @@
 
   // --------------------------------------------------------------------- state
   var state = { preset: null, m: 4, d: 0.25, qx: true, qy: true, brk: false,
-                dirty: false, co: null };
+                dirty: false, co: null, zoom: 1, cx: null, cy: null };
+  var lastFrame = { s: 1, ox: 0, oy: 0 };
 
   function readCoeffs() {
     var p = state.preset, u = [], v = [], i;
@@ -378,18 +430,22 @@
     var residual = speedResidual(cp, h, u, v, p.t0, p.t1);
     var sub = "n=" + exact.n + " · h=(" + h.join(",") + ") · u=(" + u.join(",") + ") · v=(" + v.join(",") + ")";
     // the rung's integer points in model coordinates, from the page data
+    var grid = gridPoints(h, u, v, state.m, p.t0, p.t1);
+    var rangeScale = grid.pop().scale;
     var ints = state.dirty ? scanInts(h, u, v, p.t0, p.t1, 24) : (p.ints || []);
     var marks = ints.map(function (q) { return { p: [q[0], q[1]], int: true }; });
-    // plus the m-grid milestones that are not already integer
-    exact.ms.forEach(function (q) {
-      if (q[0].d === 1n && q[1].d === 1n) return;
-      marks.push({ p: [num(q[0]), num(q[1])], int: false,
-                   scaled: [String(q[0].n * exact.scale / q[0].d),
-                            String(q[1].n * exact.scale / q[1].d)] });
+    // plus every m-grid point of the drawn range that is not already integer
+    grid.forEach(function (g) {
+      var dup = ints.some(function (q) {
+        return Math.abs(q[0] - g.p[0]) < 1e-9 && Math.abs(q[1] - g.p[1]) < 1e-9;
+      });
+      if (dup) return;
+      marks.push({ p: g.p, int: false, scaled: g.scaled });
     });
     $("stage").innerHTML = draw({
       title: p.name + " · scale " + exact.scale.toString() + " at m=" + state.m,
-      sub: sub, quad: quad, marks: marks, m: state.m
+      sub: sub, quad: quad, marks: marks, m: state.m,
+      zoom: state.zoom, cx: state.cx, cy: state.cy
     });
     var ident = state.brk
       ? "<b>speed identity broken</b>: |z'|² ≠ σ² by " + (residual * 100).toFixed(2) + "%"
@@ -397,8 +453,9 @@
     $("readout").innerHTML =
       "integer points <b>" + ints.length + "</b>" +
       (state.dirty ? " (q ≤ 24 scan on the edited curve)" : " (proved for the rung)") +
-      " · m-grid hits <b>" + exact.hits + "</b> at m=" + state.m +
-      " · scale <b>" + exact.scale.toString() + "</b>" +
+      " · m-grid hits <b>" + (state.m + 1) + "</b> at m=" + state.m +
+      " · scale <b>" + rangeScale.toString() + "</b>" +
+      (rangeScale === exact.scale ? "" : " (on [0,1]: " + exact.scale.toString() + ")") +
       " · d=" + state.d.toFixed(2) +
       " · " + ident +
       (state.d > 0 && !state.brk ? " · exact offset: gold dashed, fitted: red dotted" : "");
@@ -411,10 +468,22 @@
     });
   }
 
+  function centreOnData() {
+    var svg = $("stage").querySelector("svg");
+    if (!svg) { state.cx = null; state.cy = null; return; }
+    var vb = svg.viewBox.baseVal;
+    var cx = vb.x + vb.width / 2, cy = vb.y + vb.height / 2;
+    state.cx = (cx - lastFrame.ox) / lastFrame.s;
+    state.cy = (lastFrame.oy - cy) / lastFrame.s;
+  }
+
   function loadPreset(key) {
     var p = PRESETS.filter(function (x) { return x.key === key; })[0] || PRESETS[0];
     state.preset = p;
     state.dirty = false;
+    state.zoom = 1; state.cx = null; state.cy = null;
+    if ($("zoom")) $("zoom").value = "1";
+    if ($("zoomv")) $("zoomv").textContent = "1.0×";
     for (var i = 0; i < 4; i++) {
       var ui = $("u" + i), vi = $("v" + i);
       var uv = i < p.u.length ? p.u[i] : 0;
@@ -442,6 +511,44 @@
         syncLabels(); update();
       });
     });
+    var zoomEl = $("zoom"), resetEl = $("reset");
+    if (zoomEl) zoomEl.addEventListener("input", function () {
+      state.zoom = Number(zoomEl.value);
+      if (state.cx === null) centreOnData();
+      $("zoomv").textContent = state.zoom.toFixed(1) + "×";
+      update();
+    });
+    if (resetEl) resetEl.addEventListener("click", function () {
+      state.zoom = 1; state.cx = null; state.cy = null;
+      if (zoomEl) zoomEl.value = "1";
+      if ($("zoomv")) $("zoomv").textContent = "1.0×";
+      update();
+    });
+    var stageEl = $("stage");
+    stageEl.addEventListener("click", function (ev) {
+      var box = stageEl.getBoundingClientRect();
+      var svg = stageEl.querySelector("svg");
+      if (!svg) return;
+      var vb = svg.viewBox.baseVal;
+      var px = (ev.clientX - box.left) * (vb.width / box.width) + vb.x;
+      var py = (ev.clientY - box.top) * (vb.height / box.height) + vb.y;
+      state.cx = (px - lastFrame.ox) / lastFrame.s;
+      state.cy = (lastFrame.oy - py) / lastFrame.s;
+      if (state.zoom <= 1.0001) {
+        state.zoom = 6;
+        if (zoomEl) zoomEl.value = "6";
+        if ($("zoomv")) $("zoomv").textContent = "6.0×";
+      }
+      update();
+    });
+    stageEl.addEventListener("wheel", function (ev) {
+      ev.preventDefault();
+      if (state.cx === null) centreOnData();
+      state.zoom = Math.min(60, Math.max(1, state.zoom * Math.pow(1.2, -ev.deltaY / 120)));
+      if (zoomEl) zoomEl.value = String(state.zoom);
+      if ($("zoomv")) $("zoomv").textContent = state.zoom.toFixed(1) + "×";
+      update();
+    }, { passive: false });
     $("qx").addEventListener("change", function () { state.qx = this.checked; update(); });
     $("qy").addEventListener("change", function () { state.qy = this.checked; update(); });
     $("brk").addEventListener("change", function () { state.brk = this.checked; update(); });

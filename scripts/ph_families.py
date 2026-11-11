@@ -996,6 +996,16 @@ def build():
                 f"|Δz″| {defects['acceleration']:.1e} · "
                 f"|Δκ| {defects['curvature']:.1e}")
 
+    # worked numbers for the explanation box: alpha, m = 4, t in [-4, 4]
+    _m = 4
+    _pts = [alpha_at(F(-4) + F(8) * k / _m) for k in range(_m + 1)]
+    _den = 1
+    for _x, _y in list(_pts) + list(ALPHA_CP):
+        _den = math.lcm(_den, F(_x).denominator, F(_y).denominator)
+    sol_scale = _den
+    sol_html = " ".join(
+        f"<code>({int(_x * _den)},{int(_y * _den)})</code>" for _x, _y in _pts)
+
     presets = [
         {"key": e["key"], "name": e["title"].split(" · ")[1], "n": e["pc"].n,
          "h": list(e["h"]), "u": list(e["u"]), "v": list(e["v"]),
@@ -1025,6 +1035,10 @@ letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}}
 .lab input[type=range]{{width:100%}}
 .lab .inline{{display:inline-block;margin-right:12px;text-transform:none}}
 #readout{{font:13px/1.7 ui-monospace,Menlo,monospace;margin:8px 0 0}}
+.solution{{border:2px solid #8c6a21;background:#fdf8ea;padding:12px 16px;margin:14px 0}}
+.solution h3{{margin:0 0 8px;font-size:16px}}
+.solution ol{{margin:0 0 8px;padding-left:20px}}
+.solution li{{margin:0 0 7px}}
 table.small td,table.small th{{font-size:12.5px}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · PH families</p>
@@ -1162,6 +1176,52 @@ quadrant boxes mirror; the offset slider shows the <strong>exact</strong> PH
 offset beside a <strong>fitted</strong> normal offset; and “break PH” shifts a
 control point, after which the drawn speed is no longer the polynomial σ and the
 identity fails — the readout says by how much.</p>
+<p class="small"><strong>The blue labels are exact, not rounded.</strong> A blue
+square sits at a fractional point of the drawing — at <code>m = 4</code> the
+alpha's <code>t = 3/4</code> point is <code>(9/8, 39/32)</code> — and the label
+gives the integer it becomes after multiplying by the scale:
+<code>(108, 117)</code>. That multiplication is done in <code>BigInt</code>
+rationals, and a test checks the browser's scale against
+<code>generators.PHCurve.scale</code>, so the pair on the label is the exact
+integer, not an approximation of it. <strong>Zoom</strong> (slider, wheel, or
+click) separates points that overlap at full view.</p>
+<div class="solution">
+<h3>This is the solution, in one box</h3>
+<ol>
+<li><strong>Pick a grid on the parameter, not on the page.</strong> <code>m</code>
+is a count: you agree to look at <code>t = k/m</code> for <code>k = 0 … m</code>.
+That is all <code>m</code> means — how finely the curve's own parameter is
+divided. A bigger <code>m</code> means more points and a bigger cost, never a
+different curve.</li>
+<li><strong>Each of those points is a fraction.</strong> On the alpha,
+<code>t = 3/4</code> gives <code>(9/8, 39/32)</code> — not integers, and no
+rounding will make them exact.</li>
+<li><strong>Multiply the whole curve by one number.</strong> Take the least
+common multiple <code>S</code> of every denominator actually present — the four
+control points and the <code>m + 1</code> chosen points. Multiplying by
+<code>S</code> clears them all at once, and only then are the coordinates whole
+numbers. For the alpha on <code>t ∈ [−4, 4]</code> at <code>m = 4</code>,
+<code>S = {sol_scale}</code> and the five points become {sol_html}. On
+<code>t ∈ [0, 1]</code> at the same <code>m</code> the quarter points cost
+<code>S = 96</code> instead — the scale is a fact about <em>which</em> points you
+chose, not about the curve.</li>
+<li><strong>That is the grid they fit.</strong> The integers are measured in
+units of <code>1/S</code> of the model: <code>S</code> points per unit. Nothing
+was moved or fitted; the curve was never changed, only the unit it is written
+in.</li>
+<li><strong>The bound is the degree.</strong> <code>S</code> is at most
+<code>mⁿ</code> times the control denominators — <code>n</code> is the degree —
+and cancellation can make it much smaller, as it does above. The bound is what
+makes a whole <code>m = 12</code> grid on an octic cost tens of millions before
+any cancellation. More <code>m</code> buys more points and risks more
+digits.</li>
+</ol>
+<p>The interactive below applies exactly this rule, and the grid points are now
+drawn <strong>across the whole range of the curve</strong>, not just
+<code>t ∈ [0, 1]</code>: every blue square is labelled with the integer it
+becomes at the scale the readout names.</p>
+</div>
+
 <div class="lab">
   <div><label for="preset">rung</label><select id="preset"></select></div>
   <div><label for="m">grid m · <span id="mv">4</span></label><input id="m" type="range" min="2" max="12" step="1" value="4"></div>
@@ -1177,6 +1237,8 @@ identity fails — the readout says by how much.</p>
   <div><label>quadrants</label><span>
     <label class="inline"><input id="qx" type="checkbox" checked> x</label>
     <label class="inline"><input id="qy" type="checkbox" checked> y</label></span></div>
+  <div><label for="zoom">zoom · <span id="zoomv">1.0×</span></label><input id="zoom" type="range" min="1" max="40" step="0.5" value="1"></div>
+  <div><label>&nbsp;</label><button id="reset" type="button">reset view</button></div>
   <div><label for="brk">break PH</label><input id="brk" type="checkbox"></div>
 </div>
 <div id="stage"></div>

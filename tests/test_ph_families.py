@@ -161,6 +161,31 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn("mk.scaled", self.app)
         self.assertIn("m: state.m", self.app)
 
+    def test_the_lattice_stem_has_21_integer_anchors(self):
+        import re
+        i = self.page.index("The lattice stem")
+        j = self.page.index("</table>", i)
+        rows = re.findall(r"\| (\d+) \| (-?\d+) \| \((-?\d+), (-?\d+)\) \|",
+                          self.page[i:j])
+        self.assertEqual(len(rows), 21)
+        for n, t, x, y in rows:
+            with self.subTest(anchor=n):
+                self.assertIsInstance(int(x), int)
+                self.assertIsInstance(int(y), int)
+        self.assertIn("tschirnhausen-stem.svg", self.page)
+        self.assertIn("integer-curves.svg", self.page)
+
+    def test_the_exported_svgs_are_all_integer(self):
+        import re
+        for name in ("tschirnhausen-stem.svg", "integer-curves.svg"):
+            with self.subTest(file=name):
+                text = (ROOT / "workbench" / name).read_text(encoding="utf-8")
+                d = re.search(r'd="([^"]+)"', text).group(1)
+                nums = re.findall(r"-?\d+(?:\.\d+)?", d)
+                self.assertTrue(nums)
+                self.assertTrue(all("." not in n for n in nums),
+                                "a non-integer coordinate was exported")
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
                        "PH quintic transition curve", "degree-8",
