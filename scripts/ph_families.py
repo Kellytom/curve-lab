@@ -185,6 +185,9 @@ def build_example(key, title, h, u, v):
 # --------------------------------------------------------------------------
 # The alpha as one cubic Bezier: z(t) = (2t², 2t − 2t³/3), control points exact.
 ALPHA_CP = ((F(0), F(0)), (F(0), F(2, 3)), (F(2, 3), F(4, 3)), (F(2), F(4, 3)))
+# the same curve at h = 3: integer control points, and every split at an
+# integer parameter keeps all four handles integer (de Casteljau over integers)
+ALPHA3_CP = ((F(0), F(0)), (F(0), F(2)), (F(2), F(4)), (F(6), F(4)))
 BAND = ("#2e2413", "#a23b2a", "#1f5fa8", "#8c6a21", "#4a7c59", "#7b4a9e")
 
 
@@ -209,15 +212,15 @@ def split_cubic(cp, t):
     return left, right
 
 
-def alpha_segment(a, b):
-    """Exact control points of z on [a, b] (a, b may be any rationals)."""
+def seg_cp(cp, a, b):
+    """Exact control points of the cubic `cp` on [a, b]; a, b any rationals."""
     A, B = F(a), F(b)
     c = B - A
     coords = []
     for coord in (0, 1):
         power = [F(0)] * 4
         for i in range(4):
-            bi = ALPHA_CP[i][coord]
+            bi = cp[i][coord]
             for k in range(4 - i):
                 power[i + k] += bi * math.comb(3, i) * math.comb(3 - i, k) * (-1) ** k
         q = [F(0)] * 4
@@ -229,6 +232,14 @@ def alpha_segment(a, b):
     return list(zip(coords[0], coords[1]))
 
 
+def alpha_segment(a, b):
+    return seg_cp(ALPHA_CP, a, b)
+
+
+def alpha3_segment(a, b):
+    return seg_cp(ALPHA3_CP, a, b)
+
+
 def _float_cp(cp):
     return [(float(x), float(y)) for x, y in cp]
 
@@ -238,7 +249,8 @@ def _fmt_q(v):
     return str(v.numerator) if v.denominator == 1 else f"{v.numerator}/{v.denominator}"
 
 
-def span_figure(bands, title, sub, legend, w=560, h=380, context=None):
+def span_figure(bands, title, sub, legend, w=560, h=380, context=None,
+                handles=None):
     """Alternating two-colour cubic spans, every join labelled with exact x, y."""
     SPAN = (S.INK, S.BLUE)          # two colours only: neighbours always differ
     allp = [p for _, cp in bands for p in _float_cp(cp)]
@@ -285,6 +297,12 @@ def span_figure(bands, title, sub, legend, w=560, h=380, context=None):
         for p in (cp[0], cp[-1]):
             if not joins or joins[-1] != p:
                 joins.append(p)
+    if handles:
+        for (hx, hy) in handles:
+            px, py = f((float(hx), float(hy)))
+            paths.append(f'<rect x="{px - 2.2:.1f}" y="{py - 2.2:.1f}" '
+                         f'width="4.4" height="4.4" fill="none" '
+                         f'stroke="{S.RED}" stroke-width="1.3"/>')
     for (xq, yq) in joins:
         x, y = float(xq), float(yq)
         px, py = f((x, y))
@@ -383,7 +401,7 @@ def mirrored(pts, sx, sy):
 
 
 def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
-           hits=None, milestones=None):
+           hits=None, milestones=None, controls=None):
     """Title, axes with labels, the four mirrors, integer points, segment."""
     quad = [mirrored(pts, sx, sy) for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1))]
     allp = [p for q in quad for p in q]
@@ -440,6 +458,30 @@ def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None,
                 paths.append(f'<rect x="{px - 2.6:.1f}" y="{py - 2.6:.1f}" '
                              f'width="5.2" height="5.2" fill="none" '
                              f'stroke="{S.BLUE}" stroke-width="1.2"/>')
+    if controls:
+        # gold is the house colour for scaffolding: the control polygon and the
+        # two handles, drawn once, in the primary quadrant
+        cq = [f((float(x), float(y))) for x, y in controls]
+        for a, b in zip(cq, cq[1:]):
+            paths.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" '
+                         f'x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{S.GOLD}" '
+                         f'stroke-width="1.1" stroke-dasharray="4 3"/>')
+        for idx in (0, 3):
+            paths.append(f'<circle cx="{cq[idx][0]:.1f}" cy="{cq[idx][1]:.1f}" '
+                         f'r="3.4" fill="{S.RED}"/>')
+        for idx in (1, 2):
+            paths.append(f'<rect x="{cq[idx][0] - 2.8:.1f}" '
+                         f'y="{cq[idx][1] - 2.8:.1f}" width="5.6" height="5.6" '
+                         f'fill="{S.PAPER}" stroke="{S.GOLD}" stroke-width="1.5"/>')
+        for idx, (cx, cy) in enumerate(controls):
+            px, py = cq[idx]
+            tag = "handle " if idx in (1, 2) else ""
+            paths.append(f'<text x="{px + 5:.1f}" y="{py - 5:.1f}" '
+                         f'font-family="ui-monospace,Menlo,monospace" '
+                         f'font-size="8.2" fill="{S.GOLD}" '
+                         f'paint-order="stroke" stroke="{S.PAPER}" '
+                         f'stroke-width="2.5">{tag}({int(cx)},{int(cy)})</text>')
+
     if hits:
         dense = len(hits) > 5
         ordered = sorted(hits, key=lambda q: (-q[1], q[0]))
@@ -516,6 +558,195 @@ def ladder_cards():
             w=330, h=300, context=family(a, b))
         cards.append(f'<div class="ph-card">{fig}</div>')
     return "".join(cards)
+
+
+def inkscape_section():
+    """Integer curves, their control points, and the SVG files to hand over."""
+    from curve_lab.pyth_cubic import representatives as _reps
+    reps = _reps()
+    picks = list(reps["s"][:4]) + list(reps["c"][:4])
+    cards, rows, paths = [], [], []
+    offset_x = 0.0
+    for r in picks:
+        pts = [r["p0"], r["p1"], r["p2"], r["p3"]]
+        xs = [q[0] for q in pts]
+        ys = [q[1] for q in pts]
+        title = f"{r['label']} · integer cubic"
+        sub = " ".join(f"({q[0]},{q[1]})" for q in pts)
+        cards.append(card(
+            title,
+            figure([S.bezier([(float(a), float(b)) for a, b in pts], i / 120)
+                    for i in range(121)], title, sub,
+                   controls=[(q[0], q[1]) for q in pts]),
+            "Two anchors and two handles, all integers: <code>" + "</code> <code>".join(
+                f"({q[0]},{q[1]})" for q in pts) + "</code>. This is the "
+            "Pythagorean triple <code>" + str(r["label"]) + "</code> made into "
+            "a cubic: the handles are the lattice, so nothing has to be fitted "
+            "or scaled."))
+        rows.append("| " + str(r["label"]) + " | " + " | ".join(
+            f"({q[0]},{q[1]})" for q in pts) + " |")
+        # place each curve side by side, keeping every number an integer
+        dx = int(offset_x) - int(min(xs))
+        dy = 0
+        p0, p1, p2, p3 = [(int(x) + dx, int(y) + dy) for x, y in pts]
+        paths.append(f'M {p0[0]} {-p0[1]} C {p1[0]} {-p1[1]} '
+                     f'{p2[0]} {-p2[1]} {p3[0]} {-p3[1]}')
+        offset_x += (max(xs) - min(xs)) + 40
+
+    # the alpha at h = 3, five cubic spans, every handle an integer
+    chain = [alpha3_segment(a, b) for a, b in zip(range(0, 6), range(1, 6))]
+    chain_pts = []
+    for cp in chain:
+        chain_pts.extend(cp)
+    dx = int(offset_x) + 40
+    d_chain = "M " + f"{int(chain[0][0][0]) + dx} {-int(chain[0][0][1])}"
+    for cp in chain:
+        d_chain += (f" C {int(cp[1][0]) + dx} {-int(cp[1][1])} "
+                    f"{int(cp[2][0]) + dx} {-int(cp[2][1])} "
+                    f"{int(cp[3][0]) + dx} {-int(cp[3][1])}")
+    paths.append(d_chain)
+
+    allx = [int(q[0]) + dx for q in chain_pts]
+    ally = [-int(q[1]) for q in chain_pts]
+    for r in picks:
+        for q in (r["p0"], r["p1"], r["p2"], r["p3"]):
+            allx.append(int(q[0]))
+            ally.append(-int(q[1]))
+    x0, x1 = min(allx) - 20, max(allx) + 20
+    y0, y1 = min(ally) - 20, max(ally) + 20
+    body = "\n".join(
+        f'    <path d="{d}" fill="none" stroke="#2e2413" stroke-width="2"/>'
+        for d in paths)
+    svg = "\n".join([
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"',
+        f'     width="{x1 - x0}" height="{y1 - y0}"',
+        f'     viewBox="{x0} {y0} {x1 - x0} {y1 - y0}">',
+        "  <title>Integer cubics: every anchor and handle a whole number</title>",
+        "  <!-- model +y is up; y is negated here, at output only -->",
+        body,
+        "</svg>",
+        "",
+    ])
+    (ROOT / "workbench" / "integer-curves.svg").write_text(svg, encoding="utf-8")
+
+    example = paths[2] if len(paths) > 2 else paths[0]
+    return (f"""
+<h3>Integer curves from the triangles — nothing to fit</h3>
+<p>A cubic Bézier is four points: two <strong>anchors</strong> where the span
+starts and ends, and two <strong>handles</strong> that pull the curve without
+lying on it — the two round dots you drag in Inkscape. Every curve below is
+built from a Pythagorean triple, and <strong>all four of those points are whole
+numbers</strong> (gold: the control polygon and its handles; red: the anchors).
+That is the difference between a curve that happens to pass through lattice
+points and a curve whose handles <em>are</em> the lattice: open it in Inkscape,
+and both handles sit on the grid, so dragging one cannot take it off.</p>
+<div class="ph-grid">{''.join(cards)}</div>
+<table class="small">
+<thead><tr><th>triple</th><th>P0</th><th>C1</th><th>C2</th><th>P3</th></tr></thead>
+<tbody>
+{chr(10).join(rows)}
+</tbody></table>
+<p>The path data is in <a href="integer-curves.svg">integer-curves.svg</a>
+(eight triple curves side by side, plus the five-span Tschirnhausen chain, all
+integer). One of them, ready to paste (y negated for Inkscape):</p>
+<pre><code>{example}</code></pre>
+<p class="small">Every coordinate in that file is an integer. The y values are
+negated at output so the drawing is upright in SVG's y-down frame; the model
+stays +y up. No scaling is applied, so the integers survive the handover.</p>
+""")
+
+
+def stem_section():
+    """The lattice stem: many integer anchors on one curve, all handles integral."""
+    spans = [alpha3_segment(k, k + 1) for k in range(-10, 10)]
+    anchors = [spans[0][0]] + [cp[-1] for cp in spans]
+    rows = "\n".join(
+        f"| {i + 1} | {k} | ({int(a[0])}, {int(a[1])}) |"
+        for i, (k, a) in enumerate(zip(range(-10, 11), anchors)))
+    fig_spans = [cp for cp in spans if -4 <= spans.index(cp) - 10 < 4]
+    # draw t in [-4, 4]: eight spans, nine anchors
+    view = [alpha3_segment(k, k + 1) for k in range(-4, 4)]
+    view_anchor = [view[0][0]] + [cp[-1] for cp in view]
+    f = _stem_figure(view, view_anchor)
+
+    d = "M " + f"{int(spans[0][0][0])} {-int(spans[0][0][1])}"
+    for cp in spans:
+        d += (f" C {int(cp[1][0])} {-int(cp[1][1])} "
+              f"{int(cp[2][0])} {-int(cp[2][1])} "
+              f"{int(cp[3][0])} {-int(cp[3][1])}")
+    (ROOT / "workbench" / "tschirnhausen-stem.svg").write_text(
+        "\n".join([
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"',
+            '     width="640" height="1960" viewBox="-20 -1980 640 1960">',
+            "  <title>Tschirnhausen stem: 21 integer anchors, 20 integer spans</title>",
+            "  <!-- model +y up; y negated here, at output only. All integers. -->",
+            f'  <path d="{d}" fill="none" stroke="#2e2413" stroke-width="1.5"/>',
+            "</svg>", ""]),
+        encoding="utf-8")
+
+    return f"""
+<h3>The lattice stem — 21 anchors, 20 spans, every handle an integer</h3>
+<p>One curve, cut at integer parameters: <strong>21 anchor points</strong> on
+<code>t ∈ [−10, 10]</code>, all integers, and every span between neighbouring
+anchors has four integer handles. Branch where you like: the anchors are the
+lattice, and the spans between them are the curve.</p>
+{f}
+<table class="small">
+<thead><tr><th>#</th><th>t</th><th>anchor (x, y)</th></tr></thead>
+<tbody>
+{rows}
+</tbody></table>
+<p class="small">The file <a href="tschirnhausen-stem.svg">tschirnhausen-stem.svg</a>
+holds all 20 spans as one path, every coordinate an integer. Mirror it in y for
+a second arm of 21 anchors: <strong>42 stations</strong> from one curve. Extend
+to <code>t = ±25</code> and it is 51 per arm, 102 in all.</p>
+"""
+
+
+def _stem_figure(spans, anchors, w=430, h=430):
+    BAND2 = (S.INK, S.BLUE)
+    allp = [p for cp in spans for p in _float_cp(cp)]
+    xs = [p[0] for p in allp]
+    ys = [p[1] for p in allp]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-9)
+    f = S.Frame(w, h, min(xs) - pad, max(xs) + pad, min(ys) - pad, max(ys) + pad, pad=40)
+    step = S._nice_step(max(xs) - min(xs))
+    grid = []
+    g = math.floor((min(xs) - pad) / step) * step
+    while g <= max(xs) + pad:
+        a, b = f((g, min(ys) - pad)), f((g, max(ys) + pad))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    g = math.floor((min(ys) - pad) / step) * step
+    while g <= max(ys) + pad:
+        a, b = f((min(xs) - pad, g)), f((max(xs) + pad, g))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    paths, marks = [], []
+    for k, cp in enumerate(spans):
+        pts = [S.bezier(_float_cp(cp), i / 24) for i in range(25)]
+        paths.append(f'<path d="{S._path(pts, f)}" fill="none" '
+                     f'stroke="{BAND2[k % 2]}" stroke-width="2.6"/>')
+    for i, (ax, ay) in enumerate(anchors):
+        px, py = f((float(ax), float(ay)))
+        paths.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="3.4" fill="{S.RED}"/>')
+        marks.append(f'<text x="{px + 5:.1f}" y="{py - 4:.1f}" '
+                     f'font-family="ui-monospace,Menlo,monospace" font-size="8" '
+                     f'fill="{S.RED}" paint-order="stroke" stroke="{S.PAPER}" '
+                     f'stroke-width="2.5">{i + 1}</text>')
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="lattice stem">
+  <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
+  {''.join(grid)}
+  {''.join(paths)}
+  {''.join(marks)}
+  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="{S.INK}">Lattice stem · t −4 … 4 · nine integer anchors</text>
+  <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="{S.MUTED}">each span: integer anchors and integer handles · y values in the table</text>
+  <text x="10" y="{h - 10}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="{S.MUTED}">black / blue: alternating spans · red: anchor points</text>
+</svg>"""
 
 
 def phh_pair():
@@ -703,6 +934,8 @@ def build():
         "black branch section · gold +d · blue −d · Levien cubic fit")
 
     ladder = ladder_cards()
+    inkscape = inkscape_section()
+    stem = stem_section()
     lattice_rows = []
     for a, b in ((0, 3), (3, 6)):
         cp = alpha_segment(a, b)
@@ -1030,6 +1263,8 @@ whole numbers:</p>
 <tbody>
 {lattice_table}
 </tbody></table>
+{inkscape}
+{stem}
 <p>So the arm <code>(0,0) → (18,−12) → (72,−132)</code> is <strong>two cubic
 spans</strong>, exact, with lattice endpoints; the mirrored arm is two more.
 That is the whole Inkscape payload for this curve: no per-lattice-point spans,
