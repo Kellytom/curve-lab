@@ -632,7 +632,7 @@ def build():
     hit_rows = []
     for e in examples:
         t = e["table"]
-        coords = " ".join(f"({x},{y})" for x, y in t["hits"][:4])
+        coords = " ".join(f"({x:,},{y:,})" for x, y in t["hits"])
         hit_rows.append(
             f"| {e['title'].split(' · ')[0]} | {e['pc'].n} | "
             f"`h={e['h']}` `u={e['u']}` `v={e['v']}` | {t['scale']:,} | "
