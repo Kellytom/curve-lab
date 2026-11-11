@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+     width="640" height="1960" viewBox="-20 -1980 640 1960">
+  <title>Tschirnhausen stem: 21 integer anchors, 20 integer spans</title>
+  <!-- model +y up; y negated here, at output only. All integers. -->
+  <path d="M 600 -1940 C 560 -1742 522 -1564 486 -1404 C 450 -1244 416 -1102 384 -976 C 352 -850 322 -740 294 -644 C 266 -548 240 -466 216 -396 C 192 -326 170 -268 150 -220 C 130 -172 112 -134 96 -104 C 80 -74 66 -52 54 -36 C 42 -20 32 -10 24 -4 C 16 2 10 4 6 4 C 2 4 0 2 0 0 C 0 -2 2 -4 6 -4 C 10 -4 16 -2 24 4 C 32 10 42 20 54 36 C 66 52 80 74 96 104 C 112 134 130 172 150 220 C 170 268 192 326 216 396 C 240 466 266 548 294 644 C 322 740 352 850 384 976 C 416 1102 450 1244 486 1404 C 522 1564 560 1742 600 1940" fill="none" stroke="#2e2413" stroke-width="1.5"/>
+</svg>

@@ -1,6 +1,11 @@
-"""PHH and PPH in 2D: the PH quintic Hermite interpolant and a C² PH spline.
+"""The PH quintic Hermite interpolant and a C² PH spline, in 2D.
 
-PHH — **PH Hermite**: a PH quintic through two points with prescribed endpoint
+The interpolant has no standard acronym; the CAGD literature uses *PHH* for a
+**PHH-Bézier** curve, a PH approximation of a hyperbolic H-Bézier curve, which
+this is not. Here it is spelled **PH–Hermite**. **PPH** is
+**Piecewise Pythagorean-Hodograph**, as in the literature.
+
+PH–Hermite: a PH quintic through two points with prescribed endpoint
 tangents.  With ``w(t) = a(1−t)² + 2b t(1−t) + c t²`` and ``z'(t) = w(t)²``,
 the condition ``z(1) = z(0) + Δ`` is one quadratic in ``b``:
 
@@ -10,7 +15,7 @@ so for *any* endpoint generators ``a``, ``c`` on the prescribed tangent lines th
 endpoint is hit exactly.  The two speeds ``|a|²``, ``|c|²`` are free; this module
 declares one rule for them (``s0 = s2 = √|Δ|``) and lets the caller override.
 
-PPH — **piecewise PH**: PH spans joined with C² continuity.  Each join asks for
+PPH — **Piecewise Pythagorean-Hodograph**: PH spans joined with C² continuity.  Each join asks for
 ``z``, ``z'`` and ``z''`` to agree.  Since ``z' = w²`` and ``z'' = 2 w w'``, a
 join is set by taking the next span's ``a`` equal to the previous span's ``c``
 and solving ``2 a w'(0) = 2 c w'(1)`` for its ``b`` — exactly, with no fitting.
@@ -109,7 +114,7 @@ def hermite(p0, p1, theta0, theta1, s0=None, s2=None, root=1):
     delta = p1 - p0
     d = abs(delta)
     if d == 0.0:
-        raise ValueError("PHH needs two distinct points")
+        raise ValueError("the Hermite interpolant needs two distinct points")
     s0 = math.sqrt(d) if s0 is None else float(s0)
     s2 = math.sqrt(d) if s2 is None else float(s2)
     a = s0 * cmath.exp(0.5j * theta0)

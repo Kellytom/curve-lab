@@ -1,4 +1,4 @@
-"""PHH and PPH: the endpoint, the tangents, the polynomial speed, the C² join."""
+"""The PH quintic Hermite interpolant and PPH: endpoint, tangents, C² join."""
 
 import cmath
 import math

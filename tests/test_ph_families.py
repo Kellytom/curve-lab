@@ -50,7 +50,8 @@ class TestPHFamilies(unittest.TestCase):
 
     def test_the_definitions_are_centralised(self):
         for phrase in ("PH · polynomial Pythagorean-hodograph curve",
-                       "PHH · PH Hermite", "PPH · piecewise PH",
+                       "PH–Hermite · the PH quintic Hermite interpolant",
+                       "PPH · Piecewise Pythagorean-Hodograph",
                        "2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0",
                        "two-parameter family", "C² continuity", "2D only"):
             with self.subTest(phrase=phrase):
@@ -63,7 +64,7 @@ class TestPHFamilies(unittest.TestCase):
 
     def test_the_interactive_controls_exist_and_are_wired(self):
         for control in ("preset", "m", "d", "u0", "u1", "u2", "u3",
-                        "v0", "v1", "v2", "v3", "qx", "qy", "brk", "span01",
+                        "v0", "v1", "v2", "v3", "qx", "qy", "brk", "span01", "mnum",
                         "stage", "readout"):
             with self.subTest(control=control):
                 self.assertIn(f'id="{control}"', self.page)
@@ -88,7 +89,7 @@ class TestPHFamilies(unittest.TestCase):
                              + 2 * (max(len(p["u"]), len(p["v"])) - 1) + 1)
 
     def test_the_phh_and_pph_panel(self):
-        self.assertIn("PHH and PPH, pinned", self.page)
+        self.assertIn("PH–Hermite and PPH, pinned", self.page)
         self.assertIn("endpoint miss", self.flat)
         self.assertIn("|Δκ|", self.page)
         self.assertIn("C² by construction", self.flat)
@@ -190,6 +191,17 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn('id="gridtable"', self.page)
         self.assertIn("__lastGrid", self.app)
         self.assertIn("model (x, y)", self.app)
+
+    def test_the_literature_section_spells_out_the_names(self):
+        self.assertIn("What the literature calls these", self.flat)
+        self.assertIn("PHH-Bézier", self.flat)
+        self.assertIn("H-Bézier", self.flat)
+        self.assertIn("Piecewise Pythagorean-Hodograph", self.flat)
+        self.assertIn("PH–Hermite", self.flat)
+        self.assertIn("b = (−a ± √(3(4Δ − a²)))/2", self.flat)
+        self.assertIn("2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0", self.flat)
+        # the acronym is not used as a name for the interpolant
+        self.assertNotIn("PHH · PH Hermite", self.page)
 
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",

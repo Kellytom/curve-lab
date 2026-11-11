@@ -60,13 +60,17 @@ letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
 #readout{font:13px/1.7 ui-monospace,Menlo,monospace;margin:8px 0 0}
 .solution{border:2px solid #8c6a21;background:#fdf8ea;padding:12px 16px;margin:14px 0}
 .solution h3{margin:0 0 8px;font-size:16px}
+blockquote{margin:10px 0;padding:8px 14px;border-left:3px solid var(--rule,#d8ccae);
+background:#fbf7ec;font-size:14.5px;color:#3a3226}
+blockquote p{margin:0 0 8px}
+.tag{font:600 12px/1 ui-monospace,Menlo,monospace;background:#f0e6cc;
+padding:2px 6px;border-radius:3px}
 .solution ol{margin:0 0 8px;padding-left:20px}
 .solution li{margin:0 0 7px}
 table.small td,table.small th{font-size:12.5px}
-</style></head><body>
-<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> the PHCurve generators, the ph_quintic cases, the septic, the octic, the rational circle, curve_lab/ph_hermite.py · <b>out</b> the built rungs with generators, scales and arcs; the four-quadrant figures; the live slider readout; the PHH interpolant and the C² PPH join; what is not built</span></div><!-- /hub-bar --><main>
+</style></head><body><main>
 <p class="eyebrow">curve-lab · PH families</p>
-<h1>PH families · degree ladder, integer hits, PHH and PPH</h1>
+<h1>PH families · degree ladder, integer hits, Hermite and piecewise</h1>
 <p class="lede">2D only. Every planar PH curve is
 <code>z'(t) = h(t)·(u²−v², 2uv)</code> with
 <code>n = deg h + 2·max(deg u, deg v) + 1</code>. With <code>h=1</code> only odd
@@ -83,17 +87,24 @@ output. Blue lines are the axes; every figure shows all four quadrants.</p>
 frame is rational, and the <strong>offset is rational</strong> instead of
 refitted. If the speed is only <em>rational</em> the curve is <em>rational</em>
 PH — the circle is the example.</p></div>
-<div class="def"><h3>PHH · PH Hermite</h3>
+<div class="def"><h3>PH–Hermite · the PH quintic Hermite interpolant</h3>
 <p>The PH <strong>quintic</strong> through two points with prescribed endpoint
-tangents: <code>z(0)=P₀</code>, <code>z(1)=P₁</code>,
+tangent directions: <code>z(0)=P₀</code>, <code>z(1)=P₁</code>,
 <code>arg z'(0)=θ₀</code>, <code>arg z'(1)=θ₁</code>. With
 <code>w = a(1−t)² + 2bt(1−t) + ct²</code> and <code>z' = w²</code>, the endpoint
 condition is one quadratic in <code>b</code>:
 <code>2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0</code>. The speeds
-<code>|a|²</code> and <code>|c|²</code> are free, so PHH is a
+<code>|a|²</code> and <code>|c|²</code> are free, so this is a
 <strong>two-parameter family</strong> per endpoint pair — not one curve. This
-page's declared rule is <code>|a| = |c| = √|Δ|</code>.</p></div>
-<div class="def"><h3>PPH · piecewise PH</h3>
+page's declared rule is <code>|a| = |c| = √|Δ|</code>.</p>
+<p class="small"><strong>Not called PHH here.</strong> In the CAGD literature
+<em>PHH</em> means a <strong>PHH-Bézier</strong> curve — a PH curve built to
+approximate a <strong>hyperbolic H-Bézier</strong> curve (see the box below). The
+Hermite interpolant is not that, so this page spells it out as
+<strong>PH–Hermite</strong> and keeps <strong>PPH</strong> for
+<strong>piecewise PH</strong>, which is what the literature means by it too.</p>
+</div>
+<div class="def"><h3>PPH · Piecewise Pythagorean-Hodograph</h3>
 <p>PH spans joined with <strong>C² continuity</strong>: at each join
 <code>z</code>, <code>z'</code> and <code>z''</code> agree. With
 <code>z' = w²</code> and <code>z'' = 2ww'</code>, that means the next span's
@@ -102,8 +113,90 @@ fixed by the previous end slope. The join is exact by construction, with no
 fitting. A <em>general</em> C² spline solve — five conditions per join, both ends
 free — is not built.</p></div>
 </div>
-<p class="small">The spatial/helix reading of PHH and PPH is out of scope: the
-operator's only self-imposed limitation is to stay in the plane.</p>
+<p class="small">The spatial/helix reading of the interpolant and PPH is out of
+scope: the operator's only self-imposed limitation is to stay in the plane.</p>
+</section>
+
+<section class="panel">
+<h2>What the literature calls these — and what this page calls them</h2>
+<p>The names collide, so here are the sources in their own words before this
+page uses them.</p>
+
+<blockquote cite="operator-supplied summary, refs [1–5]">
+<p>“In Computer-Aided Geometric Design (CAGD) PPH curves most commonly refer to
+<strong>Piecewise Pythagorean-Hodograph</strong> curves (or occasionally Planar
+Pythagorean-Hodograph curves). A Pythagorean-Hodograph (PH) curve is a special
+type of polynomial parametric curve whose derivative (its hodograph) satisfies a
+Pythagorean condition. Connecting multiple PH segments together forms a
+Piecewise PH (PPH) curve, which extends these exact geometric properties to
+complex, long-span paths and splines.”</p>
+<p>“For a standard 2D parametric curve <code>r(t) = (x(t), y(t))</code>,
+calculating its speed or arc length requires taking the square root of the sum of
+squared derivatives <code>√(x'² + y'²)</code>. A PH curve avoids this by
+requiring <code>x'(t)² + y'(t)² = σ(t)²</code> — the square root cancels, so the
+speed <code>‖r'(t)‖ = σ(t)</code> is a pure polynomial.”</p>
+<p>“Single polynomial PH curves have fewer degrees of freedom than ordinary
+Bézier curves of the same degree. Designers therefore join lower-degree PH
+segments (most commonly PH cubics or PH quintics) into a Piecewise PH spline:
+cubic PPH splines can achieve C¹ or C² continuity, and quintic PPH curves allow
+positions, tangent directions and curvatures to be matched (G² or C² Hermite
+interpolation) at every waypoint. Arc length is then a polynomial integral, and
+parallel offsets <code>r_d(t) = r(t) + d·n(t)</code> stay exact rational
+curves.”</p>
+</blockquote>
+
+<blockquote cite="https://www.sciencedirect.com/science/article/abs/pii/S0096300314005669">
+<p>“There is considerable interest in the properties of PH curves in geometric
+modeling and CAGD because PH curves can be computed at speeds comparable to
+polynomial curves and used to calculate curve arc lengths and isometric lines.
+The purpose of this paper is to develop a general approximation of the H-Bézier
+curve based on PH curves. We call the resulting approximations <strong>PHH-Bézier
+curves</strong> for convenience. … It is demonstrated that cubic PHH-Bézier
+curves can accurately approximate H-Bézier curves but that the selection of the
+middle two control points of the PHH-Bézier curve has a profound impact on the
+quality of the approximation.”</p>
+</blockquote>
+
+<p><strong>In plain language.</strong> <strong>PH</strong> is a curve whose speed
+is a polynomial, which makes arc length exact and offsets rational.
+<strong>PPH</strong> is several PH pieces joined end to end so their tangents —
+and, with quintics, their curvatures — agree at the joins; that is how you follow
+a long path without a monstrous single polynomial. <strong>PHH</strong>, in the
+literature, is something else again: a PH curve chosen to imitate a
+<em>hyperbolic</em> Bézier curve (the H-Bézier family, used for catenaries and
+hyperbolas), with the middle control points blended to keep the error small. It
+is an approximation technique, not an interpolation problem.</p>
+
+<p><strong>So this page says:</strong> <span class="tag">PH</span> for the
+family; <span class="tag">PH–Hermite</span> for the quintic through two points
+with prescribed tangent directions (the two free speeds above); and
+<span class="tag">PPH</span> for piecewise PH, as the literature does. It does
+not use the acronym PHH at all, because the literature has already spent it on
+the H-Bézier approximation, and a second meaning would be a trap.</p>
+
+<p><strong>The construction, degree by degree.</strong> Write the hodograph as
+<code>z' = w²</code> and expand <code>w</code> in the Bernstein basis. The
+endpoint condition <code>∫₀¹ w² = Δ</code> is then one polynomial equation in the
+middle coefficient.</p>
+<ul>
+<li><strong>Cubic</strong> (<code>w = a(1−t) + bt</code>, four real parameters;
+similarity uses two, so two shape parameters):
+<code>(a² + ab + b²)/3 = Δ</code>, hence
+<code>b = (−a ± √(3(4Δ − a²)))/2</code>. The control points follow by
+integrating <code>w²</code>: <code>P₀</code>, <code>P₀ + a²/3</code>,
+<code>P₀ + (a² + ab)/3</code>, <code>P₀ + Δ</code>. Four integer parameters in,
+integer control points out — which is the triangle construction on
+<a href="integer-cubic.html">the integer-cubic page</a>.</li>
+<li><strong>Quintic</strong> (<code>w = a(1−t)² + 2bt(1−t) + ct²</code>, six real
+parameters; four shape parameters, two after the endpoints and tangent
+directions are fixed):
+<code>2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0</code>, solved on this page and
+in <code>curve_lab/ph_hermite.py</code>. With <code>b</code> chosen, the endpoint
+is hit exactly.</li>
+</ul>
+<p class="small">Both formulas are checked numerically: the cubic one to
+<code>1.8e-15</code> over 500 random real and complex <code>(a, Δ)</code>, the
+quintic one by <code>tests/test_ph_hermite.py</code>.</p>
 </section>
 
 <section class="panel">
@@ -537,8 +630,8 @@ becomes at the scale the readout names.</p>
 </section>
 
 <section class="panel">
-<h2>PHH and PPH, pinned</h2>
-<svg viewBox="0 0 560 330" width="100%" role="img" aria-label="PHH and PPH">
+<h2>PH–Hermite and PPH, pinned</h2>
+<svg viewBox="0 0 560 330" width="100%" role="img" aria-label="PH-Hermite and PPH">
   <rect width="560" height="330" fill="#fbf7ec"/>
   <line x1="179.5" y1="288.0" x2="179.5" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="201.7" y1="288.0" x2="201.7" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="223.9" y1="288.0" x2="223.9" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="246.2" y1="288.0" x2="246.2" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="268.4" y1="288.0" x2="268.4" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="290.6" y1="288.0" x2="290.6" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="312.8" y1="288.0" x2="312.8" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="335.0" y1="288.0" x2="335.0" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="357.3" y1="288.0" x2="357.3" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="379.5" y1="288.0" x2="379.5" y2="42.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="291.7" x2="397.5" y2="291.7" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="269.5" x2="397.5" y2="269.5" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="247.2" x2="397.5" y2="247.2" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="225.0" x2="397.5" y2="225.0" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="202.8" x2="397.5" y2="202.8" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="180.6" x2="397.5" y2="180.6" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="158.3" x2="397.5" y2="158.3" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="136.1" x2="397.5" y2="136.1" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="113.9" x2="397.5" y2="113.9" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="91.7" x2="397.5" y2="91.7" stroke="#d8ccae" stroke-width="0.6"/><line x1="162.5" y1="69.5" x2="397.5" y2="69.5" stroke="#d8ccae" stroke-width="0.6"/>
   <line x1="162.5" y1="136.1" x2="397.5" y2="136.1" stroke="#1f5fa8" stroke-width="0.9"/>
@@ -546,7 +639,7 @@ becomes at the scale the readout names.</p>
   <path d="M357.27,69.46 L358.86,70.87 L360.41,72.36 L361.90,73.94 L363.34,75.61 L364.73,77.36 L366.06,79.19 L367.34,81.10 L368.56,83.09 L369.72,85.14 L370.83,87.26 L371.87,89.45 L372.86,91.71 L373.78,94.02 L374.64,96.40 L375.45,98.82 L376.19,101.30 L376.87,103.83 L377.49,106.41 L378.05,109.03 L378.55,111.70 L378.99,114.40 L379.38,117.14 L379.70,119.91 L379.97,122.71 L380.18,125.55 L380.34,128.40 L380.45,131.28 L380.50,134.19 L380.50,137.11 L380.45,140.04 L380.35,142.99 L380.20,145.95 L380.01,148.92 L379.77,151.89 L379.49,154.87 L379.17,157.85 L378.80,160.82 L378.41,163.80 L377.97,166.76 L377.50,169.72 L377.00,172.67 L376.47,175.61 L375.91,178.53 L375.32,181.44 L374.71,184.33 L374.07,187.19 L373.42,190.04 L372.74,192.86 L372.05,195.65 L371.35,198.42 L370.63,201.15 L369.90,203.85 L369.16,206.52 L368.41,209.16 L367.66,211.76 L366.91,214.32 L366.15,216.84 L365.40,219.31 L364.65,221.75 L363.90,224.14 L363.16,226.49 L362.43,228.79 L361.71,231.04 L360.99,233.24 L360.29,235.39 L359.61,237.49 L358.94,239.54 L358.29,241.54 L357.66,243.48 L357.04,245.37 L356.45,247.20 L355.88,248.98 L355.34,250.69 L354.82,252.36 L354.32,253.96 L353.85,255.51 L353.41,257.00 L352.99,258.43 L352.61,259.80 L352.25,261.11 L351.92,262.36 L351.62,263.56 L351.34,264.70 L351.10,265.77 L350.89,266.79 L350.70,267.75 L350.55,268.66 L350.42,269.51 L350.32,270.30 L350.24,271.03" fill="none" stroke="#1f5fa8" stroke-width="2.2"/>
   <circle cx="357.3" cy="69.5" r="4.2" fill="none" stroke="#a23b2a" stroke-width="1.7"/>
   <line x1="357.3" y1="69.5" x2="388.5" y2="94.4" stroke="#c9a441" stroke-width="1.2"/><line x1="357.3" y1="69.5" x2="332.3" y2="100.7" stroke="#c9a441" stroke-width="1.2"/>
-  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="#2e2413">Fig. H1 · one PHH span (black) and the C² PPH continuation (blue)</text>
+  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="#2e2413">Fig. H1 · one PH–Hermite span (black) and the C² PPH continuation (blue)</text>
   <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="#7b6c4e">P0 = (0, 0) → P1 = (4, 1.5) · tangents +10° / −40° · second span leaves at −95°</text>
   <text x="10" y="308" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="#7b6c4e">legend: black PH quintic · blue continued span · red ring: the C² join · gold ticks: the prescribed end tangents</text>
   <text x="10" y="321" font-family="ui-monospace,Menlo,monospace" font-size="8.4" fill="#7b6c4e">join at (4.000, 1.500) · x 0.00…4.52 · y -3.04…1.74 · +y up</text>
@@ -568,7 +661,8 @@ and one two-span chain.</p>
 <p><strong>Made:</strong> the full nodal Tschirnhausen alpha and the C-segment
 inside it; two cubics; two quartics; three quintics; two sextics; a septic; an
 octic; the rational circle; the integer scales and milestones for every rung; the
-four-quadrant renders; the PHH interpolant; one C² PPH pair; the sliders.</p>
+four-quadrant renders; the PH–Hermite interpolant; one C² PPH pair; the
+sliders.</p>
 <p><strong>Not made yet:</strong></p>
 <ul>
 <li>the <strong>whole</strong> PH quintic family — the page shows three
@@ -576,12 +670,13 @@ members. The family is continuous: <code>w = a + bt + ct²</code> has six real
 coefficients, and a similarity of the plane uses two of them, so the shapes form
 a <strong>four-parameter</strong> family; fixing both endpoints (two conditions)
 and both tangent directions (two more) leaves <strong>two</strong> free — the
-two speeds, which is exactly why PHH is not a single curve. Examples can only
+two speeds, which is exactly why the Hermite interpolant is not a single
+curve. Examples can only
 sample it; the sliders in Fig. 20 walk it;</li>
-<li>the classical PHH magnitude rule — this page declares <code>√|Δ|</code>; the
+<li>the classical Hermite magnitude rule — this page declares <code>√|Δ|</code>; the
 bending-energy-optimal choice is not implemented;</li>
 <li>a general C² PPH solve with five conditions per join;</li>
-<li>integer lattice hits for PHH/PPH: their coefficients carry <code>√</code>, so
+<li>integer lattice hits for PH–Hermite and PPH: their coefficients carry <code>√</code>, so
 no common scale puts them on the lattice;</li>
 <li>the PH quintic transition curve (straight line to circular arc);</li>
 <li>the general degree-7 and degree-8 families — one example each;</li>
@@ -1041,8 +1136,8 @@ at the printed scale.</p>
   <text x="10" y="352" font-family="ui-monospace,Menlo,monospace" font-size="8.4" fill="#7b6c4e">x -1.03 … 1.03 · y -10.25 … 10.25 · +y up</text>
 </svg><p class="small">a second octic · 11 milestones, every one an integer at ×16,800,000,000.</p></div></div>
 <p class="small">Numbers 21–25 and 27–35 are these figures; 26 is the
-interpolation figure, which keeps the number it was given, and H1 is the PHH
-figure.</p>
+interpolation figure, which keeps the number it was given, and H1 is the
+Hermite/PPH figure.</p>
 </section>
 </main>
 <script>window.PH_PRESETS = [{"key": "alpha", "name": "the full nodal Tschirnhausen alpha", "n": 3, "h": [1], "u": [1, 1], "v": [1, -1], "t0": -4.0, "t1": 4.0, "ints": [[0, 0], [6, 0], [18, -12], [18, 12]]}, {"key": "alpha3", "name": "the alpha at \u00d73 \u2014 integer controls", "n": 3, "h": [3], "u": [1, 1], "v": [1, -1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0], [6, -4], [6, 4], [18, 0], [24, -4], [24, 4], [54, -36], [54, 36], [96, -104], [96, 104]]}, {"key": "cubic-b", "name": "a second cubic (same shape)", "n": 3, "h": [1], "u": [2, -2], "v": [1, -2], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "quartic-a", "name": "PH quartic", "n": 4, "h": [1, 2], "u": [1, -1], "v": [1, -2], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "quartic-b", "name": "a second quartic", "n": 4, "h": [2, 1], "u": [1, 2], "v": [2, -1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "quintic-a", "name": "PH quintic, u, v quadratic", "n": 5, "h": [1], "u": [1, 2, 1], "v": [1, -1, 1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "quintic-b", "name": "PH quintic, h quadratic", "n": 5, "h": [1, 1, 1], "u": [2, 1], "v": [1, -1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "quintic-c", "name": "PH quintic, u = 1+t\u00b2, v = 2t", "n": 5, "h": [1], "u": [1, 0, 1], "v": [0, 2], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "sextic", "name": "PH sextic", "n": 6, "h": [1, 2], "u": [-1, 1, 0], "v": [2, -1, 0], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "sextic-b", "name": "a second sextic", "n": 6, "h": [1, 1], "u": [1, 1, 1], "v": [1, -2, 1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "septic", "name": "PH septic", "n": 7, "h": [1], "u": [1, 2, 1, 1], "v": [1, -1, 1, 0], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "septic-b", "name": "a second septic", "n": 7, "h": [1], "u": [1, 0, 1, 1], "v": [2, 1, 0, 1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "octic", "name": "PH octic", "n": 8, "h": [1, 2], "u": [1, 2, 1, 0], "v": [1, -1, 1, 1], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}, {"key": "octic-b", "name": "a second octic", "n": 8, "h": [1, 1], "u": [1, 1, 0, 1], "v": [2, -1, 1, 0], "t0": 0.0, "t1": 1.0, "ints": [[0, 0]]}];</script>
