@@ -194,6 +194,46 @@ circle and the septic; <a href="catenary.html">the catenary</a> is four PH
 cubics; <a href="quintic-showcase.html">the quintic G3 page</a> is a different
 (interpolation) story.</p>
 </section>
+
+<section class="panel">
+<h2>Plain English</h2>
+<p>A <strong>PH curve</strong> is a curve whose <strong>speed is a
+polynomial</strong>. That one condition is the whole subject. It makes the arc
+length exact (a polynomial integrates to a polynomial), the tangent direction
+come from a rational formula, and the offset curve stay rational instead of
+being refitted point by point.</p>
+<p>The <strong>degree ladder</strong> is bookkeeping. The hodograph has an extra
+factor <code>h</code> and two polynomial parts <code>u</code> and
+<code>v</code>. With <code>h = 1</code> and linear <code>u, v</code> the curve
+is cubic; a linear <code>h</code> gives a quartic; quadratic <code>u, v</code>
+give a quintic; and so on. Odd degrees come from <code>h = 1</code>; the
+<code>h</code> factor is the only route to an even degree.</p>
+<p><strong>The integer lattice hits.</strong> A hit is a point at a chosen
+rational parameter that lands on integer coordinates after one common scale.
+The point is not a new curve: it is a choice of parameter value and unit. A
+larger grid (a larger <code>m</code>) gives more hits, but the common scale
+grows too. That trade is the whole story of the integer tables. This page does
+not draw the dots yet; the next version overlays them.</p>
+<p><strong>PHH and PPH (2D only).</strong> The only self-imposed limitation is
+to stay in the plane. <strong>PHH</strong> means <strong>PH Hermite</strong>: a
+PH curve through two points with prescribed tangents, the PH quintic Hermite
+interpolant. <strong>PPH</strong> means <strong>piecewise PH</strong>: PH spans
+joined with continuity, the C² PH spline. The spatial/helix reading is out.
+Neither should be assumed to be plain PH.</p>
+<p><strong>The trap.</strong> The <code>pyth_cubic</code> integer cubic is
+exact but <strong>not PH</strong>: its name is the control triple, not the
+hodograph. Every proper cubic PH curve is the Tschirnhausen cubic, up to scale
+and rotation. The familiar nodal alpha has a self-crossing and its endings on
+the right; the cubic card here currently shows one C-shaped arc of that same
+alpha, and the next version adds the full nodal curve.</p>
+<p><strong>What sliders would add.</strong> Sliders help only if they expose the
+constraints. The useful set is the PH-valid generators, the grid
+<code>m</code> with a live hit count and common scale, the four quadrants and
+mirror, and the offset <code>d</code> showing the exact PH offset beside a
+fitted non-PH offset. A “break PH” toggle makes the difference visible. The PH
+Hermite and piecewise modes need their own controls (endpoint tangents, join
+continuity), not the same row.</p>
+</section>
 </main></body></html>
 """
     out = ROOT / "workbench" / "ph-families.html"

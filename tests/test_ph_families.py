@@ -38,6 +38,15 @@ class TestPHFamilies(unittest.TestCase):
         self.assertIn("not PH", self.page)
         self.assertIn("no rational offset", self.page)
 
+    def test_the_plain_english_panel(self):
+        flat = " ".join(self.page.split())
+        for phrase in ("Plain English", "speed is a polynomial",
+                       "degree ladder", "integer lattice hits",
+                       "PHH and PPH", "PH Hermite", "piecewise PH",
+                       "2D only", "sliders"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, flat)
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "PH quintic Hermite",
                        "C² PH spline", "n=8+", "rational PH beyond the circle"):
