@@ -186,6 +186,11 @@ class TestPHFamilies(unittest.TestCase):
                 self.assertTrue(all("." not in n for n in nums),
                                 "a non-integer coordinate was exported")
 
+    def test_the_live_grid_table_exists(self):
+        self.assertIn('id="gridtable"', self.page)
+        self.assertIn("__lastGrid", self.app)
+        self.assertIn("model (x, y)", self.app)
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
                        "PH quintic transition curve", "degree-8",

@@ -1243,6 +1243,7 @@ becomes at the scale the readout names.</p>
 </div>
 <div id="stage"></div>
 <p id="readout"></p>
+<div id="gridtable"></div>
 </section>
 
 <section class="panel">

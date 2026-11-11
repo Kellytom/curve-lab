@@ -152,11 +152,16 @@
       var p = tr.n, q = tr.d * B(m);
       var g = gcd(p, q) || 1n;
       p = p / g; q = q / g;
-      pts.push(evalRational(got.cp, n, p, q));
+      var val = evalRational(got.cp, n, p, q);
+      val.t = (q === 1n ? String(p) : String(p) + "/" + String(q));
+      pts.push(val);
     }
     var scale = scaleOf(got.cp, pts);
     return pts.map(function (r) {
       return { p: [num(r[0]), num(r[1])],
+               t: r.t,
+               frac: [r[0].d === 1n ? String(r[0].n) : r[0].n + "/" + r[0].d,
+                      r[1].d === 1n ? String(r[1].n) : r[1].n + "/" + r[1].d],
                scaled: [String(r[0].n * scale / r[0].d),
                         String(r[1].n * scale / r[1].d)] };
     }).concat([{ scale: scale }]);
@@ -432,6 +437,7 @@
     // the rung's integer points in model coordinates, from the page data
     var grid = gridPoints(h, u, v, state.m, p.t0, p.t1);
     var rangeScale = grid.pop().scale;
+    window.__lastGrid = grid;
     var ints = state.dirty ? scanInts(h, u, v, p.t0, p.t1, 24) : (p.ints || []);
     var marks = ints.map(function (q) { return { p: [q[0], q[1]], int: true }; });
     // plus every m-grid point of the drawn range that is not already integer
@@ -450,6 +456,18 @@
     var ident = state.brk
       ? "<b>speed identity broken</b>: |z'|² ≠ σ² by " + (residual * 100).toFixed(2) + "%"
       : "speed identity exact";
+    var tbl = $("gridtable");
+    if (tbl) {
+      var head = '<table class="small"><thead><tr><th>t</th><th>model (x, y)</th>' +
+                 '<th>× ' + rangeScale.toString() + '</th></tr></thead><tbody>';
+      var body = "";
+      // the grid array is rebuilt below by update(); reuse the marks' data
+      window.__lastGrid.forEach(function (g) {
+        body += '<tr><td>' + g.t + '</td><td>(' + g.frac[0] + ', ' + g.frac[1] +
+                ')</td><td>(' + g.scaled[0] + ', ' + g.scaled[1] + ')</td></tr>';
+      });
+      tbl.innerHTML = head + body + '</tbody></table>';
+    }
     $("readout").innerHTML =
       "integer points <b>" + ints.length + "</b>" +
       (state.dirty ? " (q ≤ 24 scan on the edited curve)" : " (proved for the rung)") +
