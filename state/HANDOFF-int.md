@@ -1365,3 +1365,32 @@ instead. Invented C2/Catmull–Rom comparison curves — not from the original
 showcase, replaced by astroid/oids/hearts. The equal-aspect `Frame` on the
 acceleration graph — collapsed a 0–1 x-range against ±7 y into a strip; fixed
 with independent x/y scales. (2026-11-09)
+
+## 2026-11-11 — PH gallery; PHH/PPH pinned to 2D
+
+- **Previous action did not land.** The 2026-11-09 handoff targeted the G3
+  catalogue at 186/232 (80%). It was not done; the next-fhandoff was stale.
+  `recheck` now reports **154 admitted, 78 rejected** of 232. The focus has
+  moved to PH; the G3 80% target is not current.
+- `workbench/ph-families.html` is the nine-card static PH gallery, generated
+  by `scripts/ph_families.py`. It now has a **Plain English** panel at the
+  bottom and a test (`tests/test_ph_families.py`). The cubic card is still the
+  C-shaped arc; the full nodal Tschirnhausen alpha is the next fix.
+- **Definitions are 2D only**: PH = polynomial Pythagorean-hodograph curve;
+  **PHH = PH Hermite** (PH quintic interpolant through two points with
+  prescribed tangents); **PPH = piecewise PH** (PH spans joined with
+  continuity). The spatial/helix reading is out.
+- **The 116 count did not reproduce.** Current `\bPH\b`: 32 docs-only; 18 in
+  `PH-INTEGER.md`/`INTEGER-CUBIC.md`/`FLOWERS-int.md`; 196 docs+scripts. The
+  generated `docs/PH-INTEGER.md` was created at `b2e56cf` with 12 and never
+  116. Reconcile the note's pattern/snapshot or mark it stale.
+- **Local:** `:8003/health` returns **404** (server not serving that route or
+  not up). **Remote:** Cloud Run unknown; no URL recorded. **GitHub:** `main`
+  pushed to `561bbf8`; CI run `42972105138` was not confirmed green; the watch
+  was abandoned. **Tests:** 542 pass, 1 skipped (run 2026-11-11 on the
+  `561bbf8` tree; carried after commit). **Recheck:** 54/54 at `561bbf8`.
+- **Next move:** complete the 2D PH/PHH/PPH examination in
+  `workbench/ph-families.html`; see `next-fhandoff-int.md`.
+- **Tried and rejected:** the G3 80% target — stale and not attempted in this
+  session; current 154/232. The 116 PH count — not reproducible with `\bPH\b`;
+  reconcile or mark stale. (2026-11-11)

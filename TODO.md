@@ -22,6 +22,10 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
 - [x] Constant width: Reuleaux arcs at 60°, Bézier handles (error 2.4e-5), and
   the Pell 13/15 copy (closure gap 5.6e-4).
 - [x] PH quintics: n = 5, integer controls at scale, rational arc length.
+- [x] PH/PHH/PPH definitions pinned to 2D: PHH = PH Hermite, PPH = piecewise
+  PH; plain-English panel on `workbench/ph-families.html`.
+- [ ] Complete the 2D PH/PHH/PPH examination: every rung/all quadrants, full
+  nodal alpha, lattice hits and scale, sliders.
 - [x] LA specials drawn: α = 3 (p = −1/3) and Nielsen's α = 0, on the Gen-Arch
   page and in the showcase; Nielsen is the inverse radial of r = 1/φ.
 - [x] Arches from genus 1+ curves: elliptic y² = x³+1 (oval and branch) and

@@ -31,3 +31,14 @@
 {"event":"start","id":"1821-1794158462108","label":"G3 catalogue","floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-08T17:21:02.108Z"}
 {"event":"floor","label":"G3 catalogue","minutes":20,"floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-08T17:41:02.328Z"}
 {"event":"stop","label":"G3 catalogue","minutes":1375.85,"floor":20,"cap":null,"start":"2026-11-08T17:21:02.108Z","at":"2026-11-09T16:16:52.982Z","reason":"stop"}
+{"event":"start","id":"26307-1794241344395","label":"focus","floor":20,"cap":60,"start":"2026-11-09T16:22:24.395Z","at":"2026-11-09T16:22:24.395Z"}
+{"event":"floor","label":"focus","minutes":20.01,"floor":20,"cap":60,"start":"2026-11-09T16:22:24.395Z","at":"2026-11-09T16:42:24.896Z"}
+{"event":"cap","label":"focus","minutes":60.02,"floor":20,"cap":60,"start":"2026-11-09T16:22:24.395Z","at":"2026-11-09T17:22:25.804Z","reason":"cap","before":"1","after":"3"}
+{"event":"start","id":"27674-1794245325322","label":"work block","floor":20,"cap":20,"start":"2026-11-09T17:28:45.322Z","at":"2026-11-09T17:28:45.322Z"}
+{"event":"stop","label":"work block","minutes":20.39,"floor":20,"cap":20,"start":"2026-11-09T17:28:45.322Z","at":"2026-11-09T17:49:08.992Z","reason":"stop"}
+{"event":"start","id":"29416-1794247189922","label":"handover gallery","floor":20,"cap":60,"start":"2026-11-09T17:59:49.922Z","at":"2026-11-09T17:59:49.922Z"}
+{"event":"floor","label":"handover gallery","minutes":20.01,"floor":20,"cap":60,"start":"2026-11-09T17:59:49.922Z","at":"2026-11-09T18:19:50.367Z"}
+{"event":"cap","label":"handover gallery","minutes":60.02,"floor":20,"cap":60,"start":"2026-11-09T17:59:49.922Z","at":"2026-11-09T18:59:51.082Z","reason":"cap","before":"3","after":"6"}
+{"event":"start","id":"79750-1794378493948","label":"focus","floor":20,"cap":60,"start":"2026-11-11T06:28:13.948Z","at":"2026-11-11T06:28:13.948Z"}
+{"event":"stop","label":"focus","minutes":1.38,"floor":20,"cap":60,"start":"2026-11-11T06:28:13.948Z","at":"2026-11-11T06:29:36.474Z","reason":"stop"}
+{"event":"start","id":"80397-1794378576565","label":"fhandon","floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T06:29:36.565Z"}
