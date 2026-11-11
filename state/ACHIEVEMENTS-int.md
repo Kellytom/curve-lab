@@ -15,6 +15,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | grids under 3125 multiply the exact-curve hits about sevenfold | control 132, optimised 981 | scripts/generators.py best_grid(); the table on the generators page |
 | ok | Pell doubling keeps integer points on x² − 2y² = 1 | 7 points, error × y² → 0.353553, 1/(2√2) = 0.353553 | tests/test_pell.py — 3/2 → 17/12 → 99/70, error 1/(2√2 y²) |
 | ok | a PH quintic has integer controls at its scale and a rational arc length | 3 quintics, arcs 69/10, 16/5, 129/10 | scripts/ph_quintic.py — n = 5, arcs 69/10, 16/5, 129/10 |
+| ok | the PH quintic Hermite hits its endpoint and the C² join is exact | endpoint miss 0.0e+00, worst join defect 0.0e+00, arc 4.5363 | curve_lab/ph_hermite.py — the quadratic in b, and the C² continuation |
 | ok | the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5 | width 1.000000..1.000000, Bézier error 2.4e-05, Pell gap 5.6e-04 | scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy |
 | ok | the six missing families are drawn; the PH pair is exact at one scale | degree-7 PH integer at 1,720,320; quintic ends exact | scripts/missing_families.py — degree-7 PH integer at 1,720,320 |
 | ok | qAC at c = 0 is the LAC: q^α is linear in arc length | worst deviation 4.8e-05 over three slopes | scripts/qac_dlac.py — worst deviation 5e-5 over α = 1.5, 2, 3 |
@@ -60,6 +61,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the monstrance is grounded and names its three aspects | 24 rays, head R 24, grounded | scripts/storey_monstrance.py; workbench/storey-monstrance.html |
 | ok | the pillar is grounded, entasised and names its three aspects | waist 16.39 at y 27, height 100, grounded | scripts/storey_pillar.py; workbench/storey-pillar.html |
 | ok | the integer-cubic showcase samples the two shape families | 11 S + 10 C from 992 curves each | curve_lab/pyth_cubic.py representatives; workbench/showcase.html |
+| ok | the whole test suite | OK (skipped=1) | tests/ |
 
 ## Visual judgement (operator, 2026-11-05)
 

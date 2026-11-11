@@ -1,61 +1,112 @@
-"""The PH family gallery: one illustration per rung, plus the not-built list."""
+"""The PH family page: every rung, the audit, the hits, the sliders, PHH/PPH."""
 
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "workbench" / "ph-families.html"
+APP = ROOT / "workbench" / "ph-families-app.js"
+
+LADDER = ("h=1, u,v linear → 3", "h linear, u,v linear → 4",
+          "h=1, u,v quadratic → 5", "h quadratic, u,v linear → 5",
+          "h linear, u,v quadratic → 6", "h=1, u,v cubic → 7",
+          "h linear, u,v cubic → 8")
 
 
 class TestPHFamilies(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.page = PAGE.read_text(encoding="utf-8")
+        cls.app = APP.read_text(encoding="utf-8")
+        cls.flat = " ".join(cls.page.split())
 
-    def test_the_degree_ladder(self):
+    def test_the_degree_ladder_has_every_rung(self):
         self.assertIn("n = deg h + 2·max(deg u, deg v) + 1", self.page)
-        self.assertIn("h=1, u,v linear → 3", self.page)
-        self.assertIn("h linear, u,v linear → 4", self.page)
-        self.assertIn("h=1, u,v quadratic → 5", self.page)
-        self.assertIn("h quadratic, u,v linear → 5", self.page)
-        self.assertIn("h linear, u,v quadratic → 6", self.page)
-        self.assertIn("h=1, u,v cubic → 7", self.page)
+        for row in LADDER:
+            with self.subTest(row=row):
+                self.assertIn(row, self.page)
 
-    def test_every_built_family_is_illustrated(self):
-        for title in ("n = 3 · Tschirnhausen PH cubic",
-                      "n = 4 · PH quartic",
-                      "n = 5 · PH quintic 1",
-                      "n = 5 · PH quintic 2",
-                      "n = 5 · PH quintic 3",
-                      "n = 6 · PH sextic",
-                      "n = 7 · PH septic",
-                      "n = 2 rational · the circle"):
-            with self.subTest(title=title):
-                self.assertIn(title, self.page)
+    def test_every_rung_has_more_than_one_example(self):
+        for degree, count in (("n = 3", 2), ("n = 4", 2), ("n = 5", 3),
+                              ("n = 6", 2), ("n = 7", 2), ("n = 8", 2)):
+            with self.subTest(degree=degree):
+                self.assertGreaterEqual(self.page.count(degree + " ·"), count)
 
-    def test_the_non_ph_integer_cubic_is_shown_for_contrast(self):
-        self.assertIn("n = 3 · integer cubic 3-4-5", self.page)
-        self.assertIn("not PH", self.page)
-        self.assertIn("no rational offset", self.page)
+    def test_the_full_alpha_is_drawn_with_the_c_segment(self):
+        self.assertIn("the full nodal Tschirnhausen alpha", self.page)
+        self.assertIn("C-segment t ∈ [−1, 1]", self.page)
+        self.assertIn("node sits at t = ±√3", self.flat)
 
-    def test_the_plain_english_panel(self):
-        flat = " ".join(self.page.split())
-        for phrase in ("Plain English", "speed is a polynomial",
-                       "degree ladder", "integer lattice hits",
-                       "PHH and PPH", "PH Hermite", "piecewise PH",
-                       "2D only", "sliders"):
+    def test_all_four_quadrants_appear_in_every_figure(self):
+        # each gallery figure draws the source plus three mirrors
+        self.assertIn("grey: x, y, xy mirrors", self.page)
+
+    def test_the_occurrence_audit_is_recorded(self):
+        self.assertIn("The occurrence audit", self.page)
+        self.assertIn("116", self.page)
+        self.assertIn("8f26aa7", self.page)
+        self.assertIn("\\bPH\\b", self.page)
+        self.assertIn("not stale", self.flat)
+
+    def test_the_definitions_are_centralised(self):
+        for phrase in ("PH · polynomial Pythagorean-hodograph curve",
+                       "PHH · PH Hermite", "PPH · piecewise PH",
+                       "2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0",
+                       "two-parameter family", "C² continuity", "2D only"):
             with self.subTest(phrase=phrase):
-                self.assertIn(phrase, flat)
+                self.assertIn(phrase, self.flat)
+
+    def test_the_integer_hits_and_scales_table(self):
+        self.assertIn("Integer lattice hits and the scale", self.page)
+        self.assertIn("fractions.Fraction", self.flat)
+        self.assertIn("scale", self.page)
+
+    def test_the_interactive_controls_exist_and_are_wired(self):
+        for control in ("preset", "m", "d", "u0", "u1", "u2", "u3",
+                        "v0", "v1", "v2", "v3", "qx", "qy", "brk",
+                        "stage", "readout"):
+            with self.subTest(control=control):
+                self.assertIn(f'id="{control}"', self.page)
+        self.assertIn("ph-families-app.js", self.page)
+        self.assertIn("window.PH_PRESETS", self.page)
+        for fn in ("controlPoints", "scaleAndHits", "exactOffset",
+                   "fittedOffset", "speedResidual"):
+            with self.subTest(fn=fn):
+                self.assertIn(fn, self.app)
+        self.assertIn("document.getElementById", self.app)
+
+    def test_every_preset_is_in_the_slider_list(self):
+        import json
+        start = self.page.index("window.PH_PRESETS = ")
+        end = self.page.index(";</script>", start)
+        presets = json.loads(self.page[start + len("window.PH_PRESETS = "):end])
+        self.assertEqual(len(presets), 13)
+        for p in presets:
+            self.assertEqual(p["n"], len(p["h"]) - 1
+                             + 2 * (max(len(p["u"]), len(p["v"])) - 1) + 1)
+
+    def test_the_phh_and_pph_panel(self):
+        self.assertIn("PHH and PPH, pinned", self.page)
+        self.assertIn("endpoint miss", self.flat)
+        self.assertIn("|Δκ|", self.page)
+        self.assertIn("C² by construction", self.flat)
 
     def test_the_not_built_list(self):
-        for phrase in ("Not made yet", "general", "PH quintic Hermite",
-                       "C² PH spline", "n=8+", "rational PH beyond the circle"):
+        for phrase in ("Not made yet", "general", "five conditions per join",
+                       "PH quintic transition curve", "degree-8",
+                       "rational PH beyond the circle", "3D"):
             with self.subTest(phrase=phrase):
-                self.assertIn(phrase, self.page)
+                self.assertIn(phrase, self.flat)
 
-    def test_the_illustrations_are_present(self):
-        self.assertEqual(self.page.count('<div class="ph-card'), 9)
-        self.assertEqual(self.page.count("<svg "), 9)
+    def test_the_non_ph_integer_cubic_is_still_the_contrast(self):
+        self.assertIn("not PH", self.page)
+        self.assertIn("no rational offset", self.flat)
+        self.assertIn("n = 3 · integer cubic 3-4-5", self.page)
+
+    def test_the_gallery_and_the_join_figure_are_present(self):
+        self.assertGreaterEqual(self.page.count('<div class="ph-card'), 15)
+        self.assertIn("Fig. H1", self.page)
+        self.assertGreaterEqual(self.page.count("<svg "), 16)
 
 
 if __name__ == "__main__":

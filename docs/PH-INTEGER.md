@@ -32,6 +32,14 @@ That identity is the load-bearing one, and the survey omitted it — which is wh
 its quartics and sextics had no construction. With `h = 1` only odd degrees
 appear; the `h` factor is the only way to reach an even degree:
 
+**The three names, once.** **PH** is a planar curve whose speed is a polynomial.
+**PHH** is the PH quintic Hermite interpolant through two points with prescribed
+endpoint tangents. **PPH** is piecewise PH: PH spans joined with C² continuity.
+All three are 2D here, and their definitions, the full ladder, the integer hits
+and the interpolant/spline constructions live in one place:
+`workbench/ph-families.html`, built by `scripts/ph_families.py`; the geometry is
+`curve_lab/ph_hermite.py`. This page keeps the arithmetic that page quotes.
+
 | `deg h` | `max(deg u, deg v)` | degree |
 |---|---|---|
 | 0 | 1 | 3 |
@@ -39,6 +47,8 @@ appear; the `h` factor is the only way to reach an even degree:
 | 0 | 2 | 5 |
 | 2 | 1 | 5 |
 | 1 | 2 | 6 |
+| 0 | 3 | 7 |
+| 1 | 3 | 8 |
 
 ## What comes free
 
@@ -155,8 +165,14 @@ with a cusp does not, and sampling is the honest fallback.
 | cardioid | `(x² + y²)² + 2x(x² + y²) − y² = 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
 | bernoulli | `(x² + y²)² = x² − y²` | 4 | rational · exact Bézier | control 4, milestones 41 |
 | gerono | `x⁴ − x² + y² = 0` | 4 | rational · exact Bézier | control 6, milestones 25 |
-| cruciform | `x²y² − b²x² − a²y² = 0` | 4 | rational · exact Bézier | control 1250, milestones 98280 |
+| cruciform | `x²y² − b²x² − a²y² = 0` | 4 | rational · exact Bézier | control 1250, milestones 1081080 |
 | piriform | `x⁴ − 2x³ + y² = 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
+| abs(x) gerono | `x⁴ − x² + y² = 0, x ≥ 0` | 4 | rational · exact Bézier | control 3, milestones 25 |
+| piriform 2x | `x⁴ − 2x³ + y² = 0, x → 2x` | 4 | rational · exact Bézier | control 3, milestones 25 |
+| semicubical | `y² = x³` | 3 | rational · exact Bézier | control 3, milestones 27 |
+| cissoid | `y²(2 − x) = x³` | 3 | rational · exact Bézier | control 3, milestones 16575 |
+| kappa | `(x² + y²)y² = x²` | 4 | rational · exact Bézier | control 1, milestones 6718930400 |
+| strophoid | `y²(1 + x) = x²(1 − x)` | 3 | rational · exact Bézier | control 3, milestones 195 |
 
 The bean is worth spelling out. In polar form it is `r = cosθ / (1 − ¼sin²2θ)`,
 a ratio of polynomials; with `t = tan(θ/2)` and `t = s/(1−s)` it becomes an

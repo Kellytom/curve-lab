@@ -91,6 +91,14 @@ That identity is the load-bearing one, and the survey omitted it — which is wh
 its quartics and sextics had no construction. With `h = 1` only odd degrees
 appear; the `h` factor is the only way to reach an even degree:
 
+**The three names, once.** **PH** is a planar curve whose speed is a polynomial.
+**PHH** is the PH quintic Hermite interpolant through two points with prescribed
+endpoint tangents. **PPH** is piecewise PH: PH spans joined with C² continuity.
+All three are 2D here, and their definitions, the full ladder, the integer hits
+and the interpolant/spline constructions live in one place:
+`workbench/ph-families.html`, built by `scripts/ph_families.py`; the geometry is
+`curve_lab/ph_hermite.py`. This page keeps the arithmetic that page quotes.
+
 | `deg h` | `max(deg u, deg v)` | degree |
 |---|---|---|
 | 0 | 1 | 3 |
@@ -98,6 +106,8 @@ appear; the `h` factor is the only way to reach an even degree:
 | 0 | 2 | 5 |
 | 2 | 1 | 5 |
 | 1 | 2 | 6 |
+| 0 | 3 | 7 |
+| 1 | 3 | 8 |
 
 ## What comes free
 

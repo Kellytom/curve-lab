@@ -56,6 +56,13 @@ sigma = h(t) · ( u(t)^2 + v(t)^2 )
 <p>That identity is the load-bearing one, and the survey omitted it — which is why
 its quartics and sextics had no construction. With <code>h = 1</code> only odd degrees
 appear; the <code>h</code> factor is the only way to reach an even degree:</p>
+<p><strong>The three names, once.</strong> <strong>PH</strong> is a planar curve whose speed is a polynomial.
+<strong>PHH</strong> is the PH quintic Hermite interpolant through two points with prescribed
+endpoint tangents. <strong>PPH</strong> is piecewise PH: PH spans joined with C² continuity.
+All three are 2D here, and their definitions, the full ladder, the integer hits
+and the interpolant/spline constructions live in one place:
+<code>workbench/ph-families.html</code>, built by <code>scripts/ph_families.py</code>; the geometry is
+<code>curve_lab/ph_hermite.py</code>. This page keeps the arithmetic that page quotes.</p>
 <table>
 <thead>
 <tr>
@@ -89,6 +96,16 @@ appear; the <code>h</code> factor is the only way to reach an even degree:</p>
 <td>1</td>
 <td>2</td>
 <td>6</td>
+</tr>
+<tr>
+<td>0</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3</td>
+<td>8</td>
 </tr>
 </tbody>
 </table>
@@ -405,7 +422,7 @@ with a cusp does not, and sampling is the honest fallback.</p>
 <td><code>x²y² − b²x² − a²y² = 0</code></td>
 <td>4</td>
 <td>rational · exact Bézier</td>
-<td>control 1250, milestones 98280</td>
+<td>control 1250, milestones 1081080</td>
 </tr>
 <tr>
 <td>piriform</td>
@@ -413,6 +430,48 @@ with a cusp does not, and sampling is the honest fallback.</p>
 <td>4</td>
 <td>rational · exact Bézier</td>
 <td>control 3, milestones 25</td>
+</tr>
+<tr>
+<td>abs(x) gerono</td>
+<td><code>x⁴ − x² + y² = 0, x ≥ 0</code></td>
+<td>4</td>
+<td>rational · exact Bézier</td>
+<td>control 3, milestones 25</td>
+</tr>
+<tr>
+<td>piriform 2x</td>
+<td><code>x⁴ − 2x³ + y² = 0, x → 2x</code></td>
+<td>4</td>
+<td>rational · exact Bézier</td>
+<td>control 3, milestones 25</td>
+</tr>
+<tr>
+<td>semicubical</td>
+<td><code>y² = x³</code></td>
+<td>3</td>
+<td>rational · exact Bézier</td>
+<td>control 3, milestones 27</td>
+</tr>
+<tr>
+<td>cissoid</td>
+<td><code>y²(2 − x) = x³</code></td>
+<td>3</td>
+<td>rational · exact Bézier</td>
+<td>control 3, milestones 16575</td>
+</tr>
+<tr>
+<td>kappa</td>
+<td><code>(x² + y²)y² = x²</code></td>
+<td>4</td>
+<td>rational · exact Bézier</td>
+<td>control 1, milestones 6718930400</td>
+</tr>
+<tr>
+<td>strophoid</td>
+<td><code>y²(1 + x) = x²(1 − x)</code></td>
+<td>3</td>
+<td>rational · exact Bézier</td>
+<td>control 3, milestones 195</td>
 </tr>
 </tbody>
 </table>

@@ -1,17 +1,30 @@
-"""The PH family gallery: one illustration per degree/construction.
+"""The PH family gallery: degree ladder, integer hits, sliders, PHH/PPH.
 
     .venv/bin/python scripts/ph_families.py
     open workbench/ph-families.html
 
 Every PH curve is z'(t) = h (u² − v², 2uv), with
-n = deg h + 2 max(deg u, deg v) + 1. The page shows the built rungs of that
-ladder, the non-PH integer cubic for contrast, and what is not built yet.
+n = deg h + 2 max(deg u, deg v) + 1.  The page carries:
+
+* the definitions (PH, PHH, PPH) in one place, 2D only;
+* the occurrence audit for the word "PH" in the prose;
+* every rung of the ladder, n = 3 … 8 plus the rational rung, each with more
+  than one example and all four quadrants;
+* the integer lattice hits and the scale that clears them, in Fraction;
+* the interactive explainer (generators, grid m, quadrants, offset, break PH);
+* the PHH and PPH constructions from `curve_lab/ph_hermite.py`;
+* the not-built list.
+
+Two outputs, both generated: `workbench/ph-families.html` and the app script it
+loads, `workbench/ph-families-app.js` (source: `scripts/ph_families_app.js`).
 """
 
 from __future__ import annotations
 
+import json
 import math
 import sys
+from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,224 +34,516 @@ sys.path.insert(0, str(ROOT))
 import generators as G  # noqa: E402
 import g3_showcase as S  # noqa: E402
 import missing_families as MF  # noqa: E402
-import ph_quintic as PQ  # noqa: E402
+
+from curve_lab import ph_hermite as PH  # noqa: E402
+
+M = 4          # the grid the printed hit tables use
+ALPHA_NODE = (6.0, 0.0)
+
+# --------------------------------------------------------------------------
+# the rungs: (key, title, h, u, v, note)
+# --------------------------------------------------------------------------
+EXAMPLES = [
+    ("alpha", "n = 3 · the full nodal Tschirnhausen alpha", (1,), (1, 1), (1, -1),
+     "The whole alpha, not a segment. The node sits at t = ±√3 and the two "
+     "endings run to the right. Up to similarity this is every cubic PH curve. "
+     "The heavy gold arc is the C-segment t ∈ [−1, 1] that `hodograph.py` draws."),
+    ("cubic-b", "n = 3 · a second cubic (same shape)", (1,), (2, -2), (1, -2),
+     "A different generator pair, a scaled and rotated copy of the same "
+     "Tschirnhausen curve: the cubic rung has one shape, not a family."),
+    ("quartic-a", "n = 4 · PH quartic", (1, 2), (1, -1), (1, -2),
+     "The even degree needs deg h = 1. It inflects, which the cubic cannot."),
+    ("quartic-b", "n = 4 · a second quartic", (2, 1), (1, 2), (2, -1),
+     "Another h, another shape: the quartic rung is a family, not one curve."),
+    ("quintic-a", "n = 5 · PH quintic, u, v quadratic", (1,), (1, 2, 1), (1, -1, 1),
+     "The workhorse: C and S shapes, one-segment Hermite interpolation, the "
+     "lowest degree that carries a C² spline."),
+    ("quintic-b", "n = 5 · PH quintic, h quadratic", (1, 1, 1), (2, 1), (1, -1),
+     "A quintic reached the other way: 2 + 2·1 + 1 = 5. Same degree, different "
+     "generator split, different shape."),
+    ("quintic-c", "n = 5 · PH quintic, u = 1+t², v = 2t", (1,), (1, 0, 1), (0, 2),
+     "A symmetric member: u − v = (1−t)² and u + v = (1+t)², so both ends meet "
+     "the same side."),
+    ("sextic", "n = 6 · PH sextic", (1, 2), (-1, 1, 0), (2, -1, 0),
+     "Even degree from h linear with quadratic generators: the multiple-cusp "
+     "shapes live here."),
+    ("sextic-b", "n = 6 · a second sextic", (1, 1), (1, 1, 1), (1, -2, 1),
+     "A second h and generator pair at n = 6; one card is not the family."),
+    ("septic", "n = 7 · PH septic", (1,), (1, 2, 1, 1), (1, -1, 1, 0),
+     "h = 1 with cubic generators: 0 + 6 + 1 = 7."),
+    ("septic-b", "n = 7 · a second septic", (1,), (1, 0, 1, 1), (2, 1, 0, 1),
+     "A second cubic generator pair at n = 7: the odd rung is a family too."),
+    ("octic", "n = 8 · PH octic", (1, 2), (1, 2, 1, 0), (1, -1, 1, 1),
+     "The n = 8 rung: deg h = 1 with cubic generators, 1 + 6 + 1 = 8. The "
+     "general n = 8+ ladder is not enumerated; this is one member."),
+    ("octic-b", "n = 8 · a second octic", (1, 1), (1, 1, 0, 1), (2, -1, 1, 0),
+     "A second h and generator pair at n = 8; the ladder stops being a single "
+     "example as soon as one more h is chosen."),
+]
 
 
-def curve_svg(pts, w=340, h=250):
-    xs = [p[0] for p in pts]
-    ys = [p[1] for p in pts]
-    pad = 0.09 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-6)
-    f = S.Frame(w, h, min(xs) - pad, max(xs) + pad,
-                min(ys) - pad, max(ys) + pad, pad=34)
-    step = S._nice_step(max(max(xs) - min(xs), max(ys) - min(ys)))
+def arc_of(h, u, v):
+    """Exact arc length over [0, 1]: the integral of σ = h (u² + v²)."""
+    uu = G.mul(list(u), list(u))
+    vv = G.mul(list(v), list(v))
+    width = max(len(uu), len(vv))
+    sig = [a + b for a, b in zip(uu + [0] * (width - len(uu)),
+                                vv + [0] * (width - len(vv)))]
+    return sum((Fraction(c, k + 1) for k, c in enumerate(G.mul(list(h), sig))),
+               Fraction(0))
+
+
+def hit_table(pc, m=M):
+    scale = pc.scale(m)
+    return {"scale": scale,
+            "control": pc.integer_control(scale),
+            "hits": pc.integer_milestones(m, scale),
+            "m": m}
+
+
+def build_example(key, title, h, u, v):
+    n = len(h) - 1 + 2 * (max(len(u), len(v)) - 1) + 1
+    pc = G.PHCurve(n, u=u, v=v, h=h)
+    if key == "alpha":
+        pts = [pc.bezier(i / 60) for i in range(-240, 241)]
+        seg = [pc.bezier(i / 60) for i in range(-60, 61)]
+    else:
+        pts = [pc.bezier(i / 160) for i in range(161)]
+        seg = None
+    return {"key": key, "title": title, "pc": pc, "pts": pts, "seg": seg,
+            "table": hit_table(pc), "arc": arc_of(h, u, v),
+            "h": h, "u": u, "v": v}
+
+
+# --------------------------------------------------------------------------
+# figures
+# --------------------------------------------------------------------------
+def mirrored(pts, sx, sy):
+    return [(sx * x, sy * y) for x, y in pts]
+
+
+def figure(pts, title, sub, seg=None, node=None, w=430, h=330, legend=None):
+    """Title, axes with labels, the four mirrors, optional node and segment."""
+    quad = [mirrored(pts, sx, sy) for sx, sy in ((1, 1), (-1, 1), (1, -1), (-1, -1))]
+    allp = [p for q in quad for p in q]
+    xs = [p[0] for p in allp]
+    ys = [p[1] for p in allp]
+    pad = 0.10 * max(max(xs) - min(xs), max(ys) - min(ys), 1e-9)
+    x0, x1 = min(xs) - pad, max(xs) + pad
+    y0, y1 = min(ys) - pad, max(ys) + pad
+    f = S.Frame(w, h, x0, x1, y0, y1, pad=44)
+    step = S._nice_step(max(x1 - x0, y1 - y0))
     grid = []
-    gx = math.floor((min(xs) - pad) / step) * step
-    while gx <= max(xs) + pad:
-        a, b = f((gx, min(ys) - pad)), f((gx, max(ys) + pad))
-        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" '
-                    f'x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{S.RULE}" '
-                    f'stroke-width="0.6"/>')
+    gx = math.floor(x0 / step) * step
+    while gx <= x1:
+        a, b = f((gx, y0)), f((gx, y1))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
         gx += step
-    gy = math.floor((min(ys) - pad) / step) * step
-    while gy <= max(ys) + pad:
-        a, b = f((min(xs) - pad, gy)), f((max(xs) + pad, gy))
-        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" '
-                    f'x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{S.RULE}" '
-                    f'stroke-width="0.6"/>')
+    gy = math.floor(y0 / step) * step
+    while gy <= y1:
+        a, b = f((x0, gy)), f((x1, gy))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
         gy += step
-    zero = []
-    if min(xs) - pad <= 0.0 <= max(xs) + pad:
-        a, b = f((0.0, min(ys) - pad)), f((0.0, max(ys) + pad))
-        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
-                    f'y2="{b[1]:.1f}" stroke="{S.BLUE}" stroke-width="1" '
-                    f'stroke-dasharray="4 3"/>')
-        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
-                    f'font-family="ui-monospace,Menlo,monospace" font-size="8.5" '
-                    f'fill="{S.BLUE}">x=0</text>')
-    if min(ys) - pad <= 0.0 <= max(ys) + pad:
-        a, b = f((min(xs) - pad, 0.0)), f((max(xs) + pad, 0.0))
-        zero.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
-                    f'y2="{b[1]:.1f}" stroke="{S.BLUE}" stroke-width="1" '
-                    f'stroke-dasharray="4 3"/>')
-        zero.append(f'<text x="{a[0] + 4:.1f}" y="{a[1] - 4:.1f}" '
-                    f'font-family="ui-monospace,Menlo,monospace" font-size="8.5" '
-                    f'fill="{S.BLUE}">y=0</text>')
-    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="PH curve">
+
+    # the axes, labelled at their ends
+    marks = []
+    ym = 0.0 if y0 <= 0.0 <= y1 else y0
+    a, _ = f((x0, ym)), None
+    b = f((x1, ym))
+    marks.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                 f'y2="{b[1]:.1f}" stroke="{S.BLUE}" stroke-width="0.9"/>')
+    marks.append(f'<text x="{b[0] - 8:.1f}" y="{b[1] - 4:.1f}" font-size="9.5" '
+                 f'fill="{S.BLUE}">x</text>')
+    xm = 0.0 if x0 <= 0.0 <= x1 else x0
+    c = f((xm, y0))
+    d = f((xm, y1))
+    marks.append(f'<line x1="{c[0]:.1f}" y1="{c[1]:.1f}" x2="{d[0]:.1f}" '
+                 f'y2="{d[1]:.1f}" stroke="{S.BLUE}" stroke-width="0.9"/>')
+    marks.append(f'<text x="{d[0] + 4:.1f}" y="{d[1] + 8:.1f}" font-size="9.5" '
+                 f'fill="{S.BLUE}">y</text>')
+
+    paths = []
+    for i, q in enumerate(quad):
+        fade = 1.0 if i == 0 else 0.4
+        paths.append(f'<path d="{S._path(q, f)}" fill="none" stroke="{S.INK}" '
+                     f'stroke-width="{2.2 if i == 0 else 1.1}" opacity="{fade}"/>')
+    if seg:
+        paths.append(f'<path d="{S._path(seg, f)}" fill="none" '
+                     f'stroke="{S.GOLD}" stroke-width="3.6"/>')
+    if node:
+        nx, ny = f(node)
+        paths.append(f'<circle cx="{nx:.1f}" cy="{ny:.1f}" r="3.8" fill="none" '
+                     f'stroke="{S.RED}" stroke-width="1.7"/>')
+
+    legend = legend or "black: source PH · grey: x, y, xy mirrors · red ring: node"
+    return f"""<svg viewBox="0 0 {w} {h}" width="100%" role="img" aria-label="{title}">
   <rect width="{w}" height="{h}" fill="{S.PAPER}"/>
   {''.join(grid)}
-  {''.join(zero)}
-  <path d="{S._path(pts, f)}" fill="none" stroke="{S.INK}" stroke-width="2.2"/>
-  <text x="{w - 10}" y="{h - 10}" text-anchor="end" font-family="ui-monospace,Menlo,monospace" font-size="8.5" fill="{S.MUTED}">x {min(xs):.1f}…{max(xs):.1f} · y {min(ys):.1f}…{max(ys):.1f}</text>
+  {''.join(marks)}
+  {''.join(paths)}
+  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="{S.INK}">{title}</text>
+  <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="{S.MUTED}">{sub}</text>
+  <text x="10" y="{h - 20}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="{S.MUTED}">{legend}</text>
+  <text x="10" y="{h - 8}" font-family="ui-monospace,Menlo,monospace" font-size="8.4" fill="{S.MUTED}">x {min(xs):.2f} … {max(xs):.2f} · y {min(ys):.2f} … {max(ys):.2f} · +y up</text>
 </svg>"""
 
 
-def card(title, pts, note, badge="PH", bad=False):
+def card(title, svg, note, badge="PH", bad=False):
     cls = "ph-card bad" if bad else "ph-card"
     return f"""<div class="{cls}">
 <h3>{title} <span class="badge {'badge-bad' if bad else ''}">{badge}</span></h3>
-{curve_svg(pts)}
+{svg}
 <p class="small">{note}</p>
 </div>"""
 
 
-def build():
-    cards = []
+# --------------------------------------------------------------------------
+# PHH / PPH
+# --------------------------------------------------------------------------
+def phh_pair():
+    s1 = PH.hermite((0.0, 0.0), (4.0, 1.5), math.radians(10), math.radians(-40))
+    s2 = PH.continue_span(s1, math.radians(-95), 1.2)
+    pts1 = [(PH.point_at(s1, i / 90).real, PH.point_at(s1, i / 90).imag)
+            for i in range(91)]
+    pts2 = [(PH.point_at(s2, i / 90).real, PH.point_at(s2, i / 90).imag)
+            for i in range(91)]
+    return s1, s2, pts1, pts2, PH.join_defects(s1, s2)
 
-    pc3 = G.PHCurve(3, u=(2, -2), v=(1, -2), h=(1,))
-    cards.append(card(
-        "n = 3 · Tschirnhausen PH cubic",
-        [pc3.bezier(i / 300) for i in range(301)],
-        "h=(1) · u=(2,−2) · v=(1,−2) · scale 24. Every proper cubic PH curve "
-        "is the Tschirnhausen cubic up to scale/rotation: one shape, no "
-        "inflection, a C-curve. The cubic interpolant in <code>hodograph.py</code> "
-        "is a segment of this shape."))
+
+def phh_svg(pts1, pts2):
+    allp = pts1 + pts2
+    xs = [p[0] for p in allp]
+    ys = [p[1] for p in allp]
+    pad = 0.08 * max(max(xs) - min(xs), max(ys) - min(ys))
+    f = S.Frame(560, 330, min(xs) - pad, max(xs) + pad,
+                min(ys) - pad, max(ys) + pad, pad=42)
+    step = S._nice_step(max(xs) - min(xs))
+    grid = []
+    g = math.floor(min(xs) / step) * step
+    while g <= max(xs):
+        a, b = f((g, min(ys) - pad)), f((g, max(ys) + pad))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    g = math.floor(min(ys) / step) * step
+    while g <= max(ys):
+        a, b = f((min(xs) - pad, g)), f((max(xs) + pad, g))
+        grid.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                    f'y2="{b[1]:.1f}" stroke="{S.RULE}" stroke-width="0.6"/>')
+        g += step
+    j = f(pts1[-1])
+    ax = f((min(xs) - pad, 0.0)) if min(ys) - pad <= 0 <= max(ys) + pad else None
+    axl = f'<line x1="{ax[0]:.1f}" y1="{ax[1]:.1f}" x2="{f((max(xs) + pad, 0.0))[0]:.1f}" y2="{ax[1]:.1f}" stroke="{S.BLUE}" stroke-width="0.9"/>' if ax else ""
+    # tangent ticks at both ends of the first span, so the data is visible
+    ticks = []
+    for span, sign in ((pts1, 1), (pts1, -1)):
+        (px, py), (qx, qy) = span[-1], span[-2]
+        dx, dy = (px - qx) * sign, (py - qy) * sign
+        n = math.hypot(dx, dy) or 1.0
+        dx, dy = dx / n, dy / n
+        if sign < 0:
+            dx, dy = -dy, dx
+        a = f((px, py))
+        b = f((px + 0.9 * dx, py + 0.9 * dy))
+        ticks.append(f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" '
+                     f'y2="{b[1]:.1f}" stroke="{S.GOLD}" stroke-width="1.2"/>')
+    return f"""<svg viewBox="0 0 560 330" width="100%" role="img" aria-label="PHH and PPH">
+  <rect width="560" height="330" fill="{S.PAPER}"/>
+  {''.join(grid)}
+  {axl}
+  <path d="{S._path(pts1, f)}" fill="none" stroke="{S.INK}" stroke-width="2.2"/>
+  <path d="{S._path(pts2, f)}" fill="none" stroke="{S.BLUE}" stroke-width="2.2"/>
+  <circle cx="{j[0]:.1f}" cy="{j[1]:.1f}" r="4.2" fill="none" stroke="{S.RED}" stroke-width="1.7"/>
+  {''.join(ticks)}
+  <text x="10" y="16" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11.5" font-weight="600" fill="{S.INK}">Fig. H1 · one PHH span (black) and the C² PPH continuation (blue)</text>
+  <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="{S.MUTED}">P0 = (0, 0) → P1 = (4, 1.5) · tangents +10° / −40° · second span leaves at −95°</text>
+  <text x="10" y="308" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="{S.MUTED}">legend: black PH quintic · blue continued span · red ring: the C² join · gold ticks: the prescribed end tangents</text>
+  <text x="10" y="321" font-family="ui-monospace,Menlo,monospace" font-size="8.4" fill="{S.MUTED}">join at ({pts1[-1][0]:.3f}, {pts1[-1][1]:.3f}) · x {min(xs):.2f}…{max(xs):.2f} · y {min(ys):.2f}…{max(ys):.2f} · +y up</text>
+</svg>"""
+
+
+# --------------------------------------------------------------------------
+# the occurrence audit
+# --------------------------------------------------------------------------
+AUDIT_ROWS = [
+    ("<code>\\bPH</code> · every <code>*.md</code>", "116", "the operator's number"),
+    ("<code>\\bPH\\b</code> · every <code>*.md</code>", "90", "exact token only"),
+    ("<code>\\bPH\\b</code> · <code>docs/</code>", "32", "prose plus the generated HTML twin"),
+    ("<code>\\bPH\\b</code> · <code>docs/*.md</code>", "18", "the hand-edited docs only"),
+]
+
+
+def audit_panel():
+    rows = "\n".join(f"| {a} | {b} | {c} |" for a, b, c in AUDIT_ROWS)
+    return f"""<section class="panel">
+<h2>The occurrence audit</h2>
+<p>The operator's note said <strong>116 standalone PH</strong> occurrences. It is
+reproducible, but only under a wider pattern than the exact token:
+<code>\\bPH</code> (a word starting with PH) over every tracked
+<code>*.md</code> file, at commit <code>8f26aa7</code>, gives
+<strong>116</strong>. That count includes <code>PHH</code>, <code>PPH</code> and
+hyphenated forms such as <code>PH-families</code>. The exact token
+<code>\\bPH\\b</code> gives 90 over the same files, 32 over <code>docs/</code>
+(which includes the generated HTML twin) and 18 over <code>docs/*.md</code>.</p>
+<p>So the note is <strong>not stale</strong>: it is a prefix count, and any claim
+built on it must name the pattern. Re-derive at the commit:</p>
+<pre><code>git grep -o -E '\\bPH'  HEAD -- '*.md' | wc -l   # 116
+git grep -o -E '\\bPH\\b' HEAD -- '*.md' | wc -l   # 90</code></pre>
+
+| pattern · scope | occurrences | meaning |
+|---|---|---|
+{rows}
+</section>"""
+
+
+# --------------------------------------------------------------------------
+# the page
+# --------------------------------------------------------------------------
+def build():
+    examples = [build_example(*e[:5]) for e in EXAMPLES]
+    notes = {e[0]: e[5] for e in EXAMPLES}
+
+    cards = []
+    for e in examples:
+        t = e["table"]
+        sub = (f"n={e['pc'].n} · h={e['h']} · u={e['u']} · v={e['v']} · "
+               f"scale {t['scale']:,} at m={t['m']} · arc {float(e['arc']):.3f}")
+        svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
+                     seg=e["seg"], node=ALPHA_NODE if e["key"] == "alpha" else None)
+        cards.append(card(e["title"], svg, notes[e["key"]]))
 
     from curve_lab.pyth_cubic import representatives
     rep = representatives()["s"][0]
     P = [rep["p0"], rep["p1"], rep["p2"], rep["p3"]]
     cards.append(card(
         "n = 3 · integer cubic 3-4-5",
-        [S.bezier(P, i / 200) for i in range(201)],
+        figure([S.bezier(P, i / 200) for i in range(201)],
+               "n = 3 — exact integer cubic, not PH",
+               "control triple (a,−b), (2c−a,b) · hodograph not Pythagorean",
+               legend="black: integer controls at scale 1 · no rational offset"),
         "An exact integer-control cubic, <strong>not</strong> a PH curve. The "
-        "control triple is Pythagorean, but the hodograph is not: the 3-4-5 "
-        "base has no rational offset. This is the <code>pyth_cubic</code> "
-        "family; see <a href='integer-cubic.html'>integer cubics</a>.",
-        badge="not PH", bad=True))
-
-    pc4 = G.PHCurve(4, u=(1, -1), v=(1, -2), h=(1, 2))
-    cards.append(card(
-        "n = 4 · PH quartic",
-        [pc4.bezier(i / 300) for i in range(301)],
-        "h=(1,2) · u=(1,−1) · v=(1,−2) · scale 1536. The even degree needs "
-        "deg h = 1. It can inflect, which the cubic cannot."))
-
-    for k, (title, h, u, v) in enumerate(PQ.CASES, 1):
-        d = PQ.build_case(h, u, v)
-        kind = ("u, v quadratic" if max(len(u), len(v)) - 1 == 2
-                else "h quadratic, u, v linear")
-        cards.append(card(
-            f"n = 5 · PH quintic {k} · {kind}",
-            d["pts"],
-            f"h={h} · u={u} · v={v} · scale {d['scale']:,} · arc {d['arc']} "
-            f"rational. One of three representative cases in "
-            f"<code>ph_quintic.py</code>; the general quintic family is not "
-            f"enumerated."))
-
-    pc6 = G.PHCurve(6, u=(-1, 1, 0), v=(2, -1, 0), h=(1, 2))
-    cards.append(card(
-        "n = 6 · PH sextic",
-        [pc6.bezier(i / 300) for i in range(301)],
-        "h=(1,2) · u=(−1,1,0) · v=(2,−1,0) · scale 240. Even degree, with "
-        "quadratic generators: the multiple-cusp shapes live here."))
-
-    pts7, scale7, _pc7 = MF.degree_seven_ph()
-    cards.append(card(
-        "n = 7 · PH septic",
-        pts7,
-        f"u=(1,2,1,1) · v=(1,−1,1,0) · h=(1) · scale {scale7:,}. The "
-        "degree-7 integer example; the general septic family is not built."))
+        "control triple is Pythagorean; the hodograph is not, so the 3-4-5 base "
+        "has no rational offset. See <a href='integer-cubic.html'>integer "
+        "cubics</a>.", badge="not PH", bad=True))
 
     cards.append(card(
-        "n = 2 rational · the circle",
-        MF.rational_ph_circle(),
-        "x=(1−t²)/(1+t²), y=2t/(1+t²); speed 2/(1+t²) is rational, so the "
-        "arc length and offset are rational. There is no polynomial PH n=2; "
-        "the rational circle is the n=2 rung."))
+        "rational rung · the circle",
+        figure(MF.rational_ph_circle(), "rational rung — the circle",
+               "x = (1−t²)/(1+t²) · y = 2t/(1+t²) · speed 2/(1+t²) rational",
+               legend="black: rational PH · no polynomial n = 2 exists"),
+        "There is no polynomial PH quadratic. The rational circle is the n = 2 "
+        "rung: the speed is rational, so the arc length and the offset are "
+        "rational — but not polynomial."))
+
+    hit_rows = []
+    for e in examples:
+        t = e["table"]
+        coords = " ".join(f"({x},{y})" for x, y in t["hits"][:4])
+        hit_rows.append(
+            f"| {e['title'].split(' · ')[0]} | {e['pc'].n} | "
+            f"`h={e['h']}` `u={e['u']}` `v={e['v']}` | {t['scale']:,} | "
+            f"{t['m']} | {len(t['hits'])} | {coords} |")
+    hit_table_html = "\n".join(hit_rows)
+
+    s1, s2, p1, p2, defects = phh_pair()
+    miss = abs(PH.point_at(s1, 1.0) - complex(4.0, 1.5))
+    phh_note = (f"endpoint miss {miss:.1e} · |Δz| {defects['position']:.1e} · "
+                f"|Δz′| {defects['velocity']:.1e} · "
+                f"|Δz″| {defects['acceleration']:.1e} · "
+                f"|Δκ| {defects['curvature']:.1e}")
+
+    presets = [
+        {"key": e["key"], "name": e["title"].split(" · ")[1], "n": e["pc"].n,
+         "h": list(e["h"]), "u": list(e["u"]), "v": list(e["v"]),
+         "t0": -2.0 if e["key"] == "alpha" else 0.0,
+         "t1": 2.0 if e["key"] == "alpha" else 1.0}
+        for e in examples
+    ]
 
     html = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PH families · degree by degree</title>
+<title>PH families · degree ladder</title>
 <style>{S.CSS}
-.ph-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}}
+.ph-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px}}
 .ph-card{{background:var(--paper);border:1px solid var(--rule);padding:8px 10px}}
 .ph-card.bad{{border-color:#a23b2a;background:#fff8f6}}
 .ph-card h3{{font-size:15px;margin:0 0 6px}}
 .badge-bad{{color:#a23b2a;border-color:#a23b2a}}
 .lede{{max-width:960px;color:var(--muted)}}
+.defs{{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}}
+.def{{border:1px solid var(--rule);padding:10px 12px;background:var(--paper)}}
+.def h3{{margin:0 0 6px;font-size:14.5px}}
+.lab{{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;margin:10px 0 4px}}
+.lab label{{display:block;font:600 11px/1.5 ui-monospace,Menlo,monospace;
+letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}}
+.lab input[type=range]{{width:100%}}
+.lab .inline{{display:inline-block;margin-right:12px;text-transform:none}}
+#readout{{font:13px/1.7 ui-monospace,Menlo,monospace;margin:8px 0 0}}
+table.small td,table.small th{{font-size:12.5px}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · PH families</p>
-<h1>PH families · degree by degree</h1>
-<p class="lede">Every planar PH curve is
-<code>z'(t) = h(t)·(u²−v², 2uv)</code>, and Farouki–Sakkalis fixes the degree:
+<h1>PH families · degree ladder, integer hits, PHH and PPH</h1>
+<p class="lede">2D only. Every planar PH curve is
+<code>z'(t) = h(t)·(u²−v², 2uv)</code> with
 <code>n = deg h + 2·max(deg u, deg v) + 1</code>. With <code>h=1</code> only odd
 degrees appear; the <code>h</code> factor is the only route to an even degree.
-Below are the built rungs, the non-PH integer cubic for contrast, and what is
-not built yet. Model coordinates, +y up; blue dashed lines are x=0/y=0.</p>
+Model coordinates, +y up — the flip to screen y happens in the SVG frame at
+output. Blue lines are the axes; every figure shows all four quadrants.</p>
 
-<div class="rule"><strong>Degree ladder.</strong>
+<section class="panel">
+<h2>Definitions, in one place</h2>
+<div class="defs">
+<div class="def"><h3>PH · polynomial Pythagorean-hodograph curve</h3>
+<p>A planar curve whose <strong>speed is a polynomial</strong>:
+<code>x'² + y'² = σ²</code>. Then the arc length is a polynomial, the tangent
+frame is rational, and the <strong>offset is rational</strong> instead of
+refitted. If the speed is only <em>rational</em> the curve is <em>rational</em>
+PH — the circle is the example.</p></div>
+<div class="def"><h3>PHH · PH Hermite</h3>
+<p>The PH <strong>quintic</strong> through two points with prescribed endpoint
+tangents: <code>z(0)=P₀</code>, <code>z(1)=P₁</code>,
+<code>arg z'(0)=θ₀</code>, <code>arg z'(1)=θ₁</code>. With
+<code>w = a(1−t)² + 2bt(1−t) + ct²</code> and <code>z' = w²</code>, the endpoint
+condition is one quadratic in <code>b</code>:
+<code>2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0</code>. The speeds
+<code>|a|²</code> and <code>|c|²</code> are free, so PHH is a
+<strong>two-parameter family</strong> per endpoint pair — not one curve. This
+page's declared rule is <code>|a| = |c| = √|Δ|</code>.</p></div>
+<div class="def"><h3>PPH · piecewise PH</h3>
+<p>PH spans joined with <strong>C² continuity</strong>: at each join
+<code>z</code>, <code>z'</code> and <code>z''</code> agree. With
+<code>z' = w²</code> and <code>z'' = 2ww'</code>, that means the next span's
+<code>a</code> is the previous span's <code>c</code>, and its <code>b</code> is
+fixed by the previous end slope. The join is exact by construction, with no
+fitting. A <em>general</em> C² spline solve — five conditions per join, both ends
+free — is not built.</p></div>
+</div>
+<p class="small">The spatial/helix reading of PHH and PPH is out of scope: the
+operator's only self-imposed limitation is to stay in the plane.</p>
+</section>
+
+{audit_panel()}
+
+<section class="panel">
+<h2>The degree ladder</h2>
+<p><strong>n = deg h + 2·max(deg u, deg v) + 1.</strong>
 <code>h=1, u,v linear → 3</code> · <code>h linear, u,v linear → 4</code> ·
 <code>h=1, u,v quadratic → 5</code> · <code>h quadratic, u,v linear → 5</code> ·
-<code>h linear, u,v quadratic → 6</code> · <code>h=1, u,v cubic → 7</code>.
-The rational <code>h</code> gives the rational PH family (the circle).</div>
+<code>h linear, u,v quadratic → 6</code> · <code>h=1, u,v cubic → 7</code> ·
+<code>h linear, u,v cubic → 8</code>. A rational <code>h</code> gives rational
+PH (the circle). n = 2 exists only rationally.</p>
+<p class="small"><strong>The trap.</strong> <code>pyth_cubic</code> is exact but
+<strong>not PH</strong>: its name is the control triple, not the hodograph. The
+cubic PH family is the Tschirnhausen alpha — one shape up to similarity.</p>
+</section>
 
 <div class="ph-grid">{''.join(cards)}</div>
 
 <section class="panel">
-<h2>What is made, and what is not</h2>
-<p><strong>Made:</strong> the Tschirnhausen cubic; the quartic and sextic
-examples with <code>h</code>; three representative PH quintics; the degree-7
-integer PH; the rational circle; PH cubic interpolation (<code>hodograph.py</code>,
-<code>catenary.html</code>); the integer scalings of each.</p>
-<p><strong>Not made yet:</strong> the <strong>general</strong> PH quintic
-family — <code>ph_quintic.py</code> has three examples, not the five-parameter
-family; the PH quintic Hermite interpolant and C² PH spline; the PH quintic
-transition curve (line to arc); the general degree-7 family (one example); the
-n=8+ ladder; and rational PH beyond the circle.</p>
-<p class="small">The <code>pyth_cubic</code> integer family is exact but
-<strong>not PH</strong>: its name is the control triple, not the hodograph. The
-cubic PH family is the Tschirnhausen, one shape. The
-<a href="../docs/PH-INTEGER.html">PH-INTEGER notes</a> have the arithmetic;
-<a href="missing-families.html">the missing families</a> have the rational
-circle and the septic; <a href="catenary.html">the catenary</a> is four PH
-cubics; <a href="quintic-showcase.html">the quintic G3 page</a> is a different
-(interpolation) story.</p>
+<h2>Integer lattice hits and the scale</h2>
+<p>A hit is a point at a chosen rational parameter <code>t = k/m</code> that
+lands on integer coordinates after one common scale. The scale clears the
+control points and the milestones together, in <code>fractions.Fraction</code>.
+It is not a property of the curve: it is arithmetic about one generator set.
+At <code>m = {M}</code>:</p>
+<table class="small">
+<thead><tr><th>curve</th><th>n</th><th>generators</th><th>scale</th>
+<th>m</th><th>hits</th><th>first integer milestones</th></tr></thead>
+<tbody>
+{hit_table_html}
+</tbody></table>
+<p class="small">The scale grows as <code>mⁿ</code> times the denominators of the
+control points. PH never improves that: a plain integer Bézier pays the same
+<code>mⁿ</code> and already has integer controls at scale 1. What PH buys is the
+polynomial arc length, the rational frame and the rational offset.</p>
 </section>
 
 <section class="panel">
-<h2>Plain English</h2>
-<p>A <strong>PH curve</strong> is a curve whose <strong>speed is a
-polynomial</strong>. That one condition is the whole subject. It makes the arc
-length exact (a polynomial integrates to a polynomial), the tangent direction
-come from a rational formula, and the offset curve stay rational instead of
-being refitted point by point.</p>
-<p>The <strong>degree ladder</strong> is bookkeeping. The hodograph has an extra
-factor <code>h</code> and two polynomial parts <code>u</code> and
-<code>v</code>. With <code>h = 1</code> and linear <code>u, v</code> the curve
-is cubic; a linear <code>h</code> gives a quartic; quadratic <code>u, v</code>
-give a quintic; and so on. Odd degrees come from <code>h = 1</code>; the
-<code>h</code> factor is the only route to an even degree.</p>
-<p><strong>The integer lattice hits.</strong> A hit is a point at a chosen
-rational parameter that lands on integer coordinates after one common scale.
-The point is not a new curve: it is a choice of parameter value and unit. A
-larger grid (a larger <code>m</code>) gives more hits, but the common scale
-grows too. That trade is the whole story of the integer tables. This page does
-not draw the dots yet; the next version overlays them.</p>
-<p><strong>PHH and PPH (2D only).</strong> The only self-imposed limitation is
-to stay in the plane. <strong>PHH</strong> means <strong>PH Hermite</strong>: a
-PH curve through two points with prescribed tangents, the PH quintic Hermite
-interpolant. <strong>PPH</strong> means <strong>piecewise PH</strong>: PH spans
-joined with continuity, the C² PH spline. The spatial/helix reading is out.
-Neither should be assumed to be plain PH.</p>
-<p><strong>The trap.</strong> The <code>pyth_cubic</code> integer cubic is
-exact but <strong>not PH</strong>: its name is the control triple, not the
-hodograph. Every proper cubic PH curve is the Tschirnhausen cubic, up to scale
-and rotation. The familiar nodal alpha has a self-crossing and its endings on
-the right; the cubic card here currently shows one C-shaped arc of that same
-alpha, and the next version adds the full nodal curve.</p>
-<p><strong>What sliders would add.</strong> Sliders help only if they expose the
-constraints. The useful set is the PH-valid generators, the grid
-<code>m</code> with a live hit count and common scale, the four quadrants and
-mirror, and the offset <code>d</code> showing the exact PH offset beside a
-fitted non-PH offset. A “break PH” toggle makes the difference visible. The PH
-Hermite and piecewise modes need their own controls (endpoint tangents, join
-continuity), not the same row.</p>
+<h2>The interactive explainer</h2>
+<p>The sliders move only PH-valid generators: any polynomials <code>u, v, h</code>
+give a PH curve, so no slider setting can leave the family. The grid
+<code>m</code> recomputes the exact hit count and scale in the browser; the
+quadrant boxes mirror; the offset slider shows the <strong>exact</strong> PH
+offset beside a <strong>fitted</strong> normal offset; and “break PH” shifts a
+control point, after which the drawn speed is no longer the polynomial σ and the
+identity fails — the readout says by how much.</p>
+<div class="lab">
+  <div><label for="preset">rung</label><select id="preset"></select></div>
+  <div><label for="m">grid m · <span id="mv">4</span></label><input id="m" type="range" min="2" max="12" step="1" value="4"></div>
+  <div><label for="d">offset d · <span id="dv">0.25</span></label><input id="d" type="range" min="0" max="0.8" step="0.05" value="0.25"></div>
+  <div><label for="u0">u₀ · <span id="u0v"></span></label><input id="u0" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="u1">u₁ · <span id="u1v"></span></label><input id="u1" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="u2">u₂ · <span id="u2v"></span></label><input id="u2" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="u3">u₃ · <span id="u3v"></span></label><input id="u3" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="v0">v₀ · <span id="v0v"></span></label><input id="v0" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="v1">v₁ · <span id="v1v"></span></label><input id="v1" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="v2">v₂ · <span id="v2v"></span></label><input id="v2" type="range" min="-3" max="3" step="1"></div>
+  <div><label for="v3">v₃ · <span id="v3v"></span></label><input id="v3" type="range" min="-3" max="3" step="1"></div>
+  <div><label>quadrants</label><span>
+    <label class="inline"><input id="qx" type="checkbox" checked> x</label>
+    <label class="inline"><input id="qy" type="checkbox" checked> y</label></span></div>
+  <div><label for="brk">break PH</label><input id="brk" type="checkbox"></div>
+</div>
+<div id="stage"></div>
+<p id="readout"></p>
 </section>
-</main></body></html>
+
+<section class="panel">
+<h2>PHH and PPH, pinned</h2>
+{phh_svg(p1, p2)}
+<p><strong>The exact Hermite data.</strong> Two points and two tangent
+<em>directions</em>; the tangent <em>magnitudes</em> are the free parameters, and
+the shape moves with them. The endpoint is hit exactly because the quadratic in
+<code>b</code> is solved for it.</p>
+<p><strong>The join.</strong> {phh_note}. The blue span is not fitted: its
+<code>a</code> is the black span's <code>c</code> and its <code>b</code> is set by
+the black span's end slope, so the join is C² by construction.</p>
+<p class="small">A general C² PPH — five conditions per join, both end tangents
+free — is <strong>not built</strong>. What is proved here is the one-sided rule
+and one two-span chain.</p>
+</section>
+
+<section class="panel">
+<h2>What is made, and what is not</h2>
+<p><strong>Made:</strong> the full nodal Tschirnhausen alpha and the C-segment
+inside it; two cubics; two quartics; three quintics; two sextics; a septic; an
+octic; the rational circle; the integer scales and milestones for every rung; the
+four-quadrant renders; the PHH interpolant; one C² PPH pair; the sliders.</p>
+<p><strong>Not made yet:</strong></p>
+<ul>
+<li>the <strong>general</strong> PH quintic family — three examples, not the
+five-parameter family;</li>
+<li>the classical PHH magnitude rule — this page declares <code>√|Δ|</code>; the
+bending-energy-optimal choice is not implemented;</li>
+<li>a general C² PPH solve with five conditions per join;</li>
+<li>integer lattice hits for PHH/PPH: their coefficients carry <code>√</code>, so
+no common scale puts them on the lattice;</li>
+<li>the PH quintic transition curve (straight line to circular arc);</li>
+<li>the general degree-7 and degree-8 families — one example each;</li>
+<li>rational PH beyond the circle;</li>
+<li>anything in 3D — deliberately out of scope.</li>
+</ul>
+<p class="small">Arithmetic: <a href="../docs/PH-INTEGER.html">the PH-INTEGER
+notes</a>, generated by <code>scripts/ph_doc.py</code>. The rational circle and
+the septic also live on <a href="missing-families.html">the missing families</a>;
+<a href="catenary.html">the catenary</a> is four PH cubics. This page is built by
+<code>scripts/ph_families.py</code>; do not hand-edit it.</p>
+</section>
+</main>
+<script>window.PH_PRESETS = {json.dumps(presets)};</script>
+<script src="ph-families-app.js"></script>
+</body></html>
 """
     out = ROOT / "workbench" / "ph-families.html"
     out.write_text(html, encoding="utf-8")
+    app = ROOT / "workbench" / "ph-families-app.js"
+    app.write_text((ROOT / "scripts" / "ph_families_app.js").read_text(encoding="utf-8"),
+                   encoding="utf-8")
     print(out)
+    print(app)
     return out
 
 

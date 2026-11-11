@@ -201,6 +201,23 @@ def c_ph_quintic():
     return ok, f"{len(PQ.CASES)} quintics, arcs " + ", ".join(arcs)
 
 
+@check("the PH quintic Hermite hits its endpoint and the C² join is exact",
+       "curve_lab/ph_hermite.py — the quadratic in b, and the C² continuation",
+       "python -m unittest tests.test_ph_hermite")
+def c_ph_hermite():
+    from curve_lab.ph_hermite import (hermite, continue_span, point_at,
+                                      join_defects, arc_length)
+    p1 = complex(4.0, 1.5)
+    s1 = hermite((0.0, 0.0), p1, math.radians(10), math.radians(-40))
+    s2 = continue_span(s1, math.radians(-95), 1.2)
+    d = join_defects(s1, s2)
+    miss = abs(point_at(s1, 1.0) - p1)
+    worst = max(d.values())
+    return (miss < 1e-12 and worst < 1e-12,
+            f"endpoint miss {miss:.1e}, worst join defect {worst:.1e}, "
+            f"arc {arc_length(s1):.4f}")
+
+
 @check("the Reuleaux keeps width 1, and its Bézier handles stay within 2.4e-5",
        "scripts/reuleaux.py — arcs, handles at 60°, and the Pell copy",
        "python -m unittest tests.test_reuleaux")

@@ -150,9 +150,9 @@
       "file": "ph-families.html",
       "group": "curve",
       "title": "PH families · degree ladder",
-      "purpose": "One illustration per PH degree/construction, the non-PH integer cubic, and the not-built rungs.",
-      "inputs": "the PHCurve generators, the ph_quintic cases, the septic and the rational circle",
-      "outputs": "the built PH families with generators and scales, the contrast, and what is not built yet"
+      "purpose": "Every rung of the PH ladder with examples and all four quadrants, the occurrence audit, the integer hits and scales, the interactive explainer, and the pinned PHH/PPH constructions; 2D only.",
+      "inputs": "the PHCurve generators, the ph_quintic cases, the septic, the octic, the rational circle, curve_lab/ph_hermite.py",
+      "outputs": "the built rungs with generators, scales and arcs; the four-quadrant figures; the live slider readout; the PHH interpolant and the C² PPH join; what is not built"
     },
     {
       "key": "g3-cut",
