@@ -296,6 +296,13 @@
         } else {
           dots += '<rect x="' + (dp[0] - 2.6).toFixed(1) + '" y="' + (dp[1] - 2.6).toFixed(1) +
                   '" width="5.2" height="5.2" fill="none" stroke="#1f5fa8" stroke-width="1.2"/>';
+          // the same point at the stated scale: the integer it becomes
+          if (state.m <= 8 && mk.scaled) {
+            dots += '<text x="' + (dp[0] + 5).toFixed(1) + '" y="' + (dp[1] - 5).toFixed(1) +
+                    '" font-family="ui-monospace,Menlo,monospace" font-size="8" ' +
+                    'fill="#1f5fa8" paint-order="stroke" stroke="#fbf7ec" stroke-width="2.5">' +
+                    '(' + mk.scaled[0] + ',' + mk.scaled[1] + ')</text>';
+          }
         }
       }
     }
@@ -376,11 +383,13 @@
     // plus the m-grid milestones that are not already integer
     exact.ms.forEach(function (q) {
       if (q[0].d === 1n && q[1].d === 1n) return;
-      marks.push({ p: [num(q[0]), num(q[1])], int: false });
+      marks.push({ p: [num(q[0]), num(q[1])], int: false,
+                   scaled: [String(q[0].n * exact.scale / q[0].d),
+                            String(q[1].n * exact.scale / q[1].d)] });
     });
     $("stage").innerHTML = draw({
       title: p.name + " · scale " + exact.scale.toString() + " at m=" + state.m,
-      sub: sub, quad: quad, marks: marks
+      sub: sub, quad: quad, marks: marks, m: state.m
     });
     var ident = state.brk
       ? "<b>speed identity broken</b>: |z'|² ≠ σ² by " + (residual * 100).toFixed(2) + "%"

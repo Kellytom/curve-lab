@@ -148,6 +148,19 @@ class TestPHFamilies(unittest.TestCase):
             with self.subTest(join=left[-1]):
                 self.assertEqual(left[-1], right[0])
 
+    def test_the_lattice_ladder(self):
+        self.assertIn("The ladder — every integer point of the alpha", self.flat)
+        self.assertEqual(self.page.count(
+            "one cubic span between two integer points"), 3)
+        for point in ("(18, -12)", "(72, -132)", "(162, -468)"):
+            with self.subTest(point=point):
+                self.assertIn(point, self.page)
+        self.assertIn("eight lattice points", self.flat)
+
+    def test_the_scaled_hits_are_labelled_by_their_integers(self):
+        self.assertIn("mk.scaled", self.app)
+        self.assertIn("m: state.m", self.app)
+
     def test_the_not_built_list(self):
         for phrase in ("Not made yet", "general", "five conditions per join",
                        "PH quintic transition curve", "degree-8",

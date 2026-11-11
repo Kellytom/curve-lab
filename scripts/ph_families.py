@@ -226,7 +226,7 @@ def _fmt_q(v):
     return str(v.numerator) if v.denominator == 1 else f"{v.numerator}/{v.denominator}"
 
 
-def span_figure(bands, title, sub, legend, w=560, h=380):
+def span_figure(bands, title, sub, legend, w=560, h=380, context=None):
     """Alternating two-colour cubic spans, every join labelled with exact x, y."""
     SPAN = (S.INK, S.BLUE)          # two colours only: neighbours always differ
     allp = [p for _, cp in bands for p in _float_cp(cp)]
@@ -251,6 +251,10 @@ def span_figure(bands, title, sub, legend, w=560, h=380):
         g += step
 
     paths, labels = [], []
+    if context:
+        cpts = [S.bezier(context, i / 60) for i in range(61)]
+        paths.append(f'<path d="{S._path(cpts, f)}" fill="none" '
+                     f'stroke="{S.RULE}" stroke-width="1.4"/>')
     for k, (t_range, cp) in enumerate(bands):
         pts = [S.bezier(_float_cp(cp), i / 40) for i in range(41)]
         paths.append(f'<path d="{S._path(pts, f)}" fill="none" '
@@ -466,6 +470,28 @@ def card(title, svg, note, badge="PH", bad=False):
 # --------------------------------------------------------------------------
 # PHH / PPH
 # --------------------------------------------------------------------------
+def ladder_cards():
+    """The alpha's integer points, segment by segment, each hit labelled."""
+    whole = [S.bezier(_float_cp(ALPHA_CP), i / 240) for i in range(241)]  # t in [0,1]
+    # the drawn family segment for each range, as a polyline for context
+    def family(a, b, n=120):
+        return [S.bezier(_float_cp(alpha_segment(a, b)), i / n) for i in range(n + 1)]
+
+    cards = []
+    for a, b in ((0, 3), (3, 6), (6, 9)):
+        seg = alpha_segment(a, b)
+        cp = seg[0]
+        end = seg[-1]
+        fig = span_figure(
+            [((a, b), seg)],
+            f"t {a} … {b}",
+            f"({_fmt_q(cp[0])}, {_fmt_q(cp[1])}) → ({_fmt_q(end[0])}, {_fmt_q(end[1])})",
+            "one cubic span between two integer points · deviation 0",
+            w=330, h=300, context=family(a, b))
+        cards.append(f'<div class="ph-card">{fig}</div>')
+    return "".join(cards)
+
+
 def phh_pair():
     s1 = PH.hermite((0.0, 0.0), (4.0, 1.5), math.radians(10), math.radians(-40))
     s2 = PH.continue_span(s1, math.radians(-95), 1.2)
@@ -649,6 +675,7 @@ def build():
         "one branch section · node split (t = 0 … 1.5, node at t = ±√3)",
         "black branch section · gold +d · blue −d · Levien cubic fit")
 
+    ladder = ladder_cards()
     lattice_rows = []
     for a, b in ((0, 3), (3, 6)):
         cp = alpha_segment(a, b)
@@ -981,6 +1008,18 @@ spans</strong>, exact, with lattice endpoints; the mirrored arm is two more.
 That is the whole Inkscape payload for this curve: no per-lattice-point spans,
 no interpolation error, and no curve between each pair of hits — just the two
 spans that join the hits.</p>
+
+<h3>The ladder — every integer point of the alpha, in order</h3>
+<p>Walk further out and the hits continue, each one exactly
+<code>(18k², ±6k(3k²−1))</code>. Eight of them lie inside
+<code>t ∈ [−9, 9]</code>, and every one is labelled on its span:</p>
+<div class="ph-grid">{ladder}</div>
+<p class="small">The full list to <code>t = 9</code>:
+<code>(0,0)</code>, the node <code>(6,0)</code> at <code>t = ±√3</code>,
+<code>(18,±12)</code>, <code>(72,±132)</code>, <code>(162,±468)</code>.
+That is <strong>eight lattice points</strong> on one cubic — not because the
+curve was fitted to them, but because the curve passes through them exactly, and
+a cubic can be cut at any two of them with no error.</p>
 <p class="small">Where: <code>scripts/euler_sections.py</code> <code>SECTIONS</code>
 (the branch sections), <code>scripts/showcase.py</code> and
 <code>scripts/g3_showcase.py</code> (the catalogue and the G3 panels).
