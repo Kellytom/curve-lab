@@ -1394,3 +1394,81 @@ with independent x/y scales. (2026-11-09)
 - **Tried and rejected:** the G3 80% target — stale and not attempted in this
   session; current 154/232. The 116 PH count — not reproducible with `\bPH\b`;
   reconcile or mark stale. (2026-11-11)
+
+## 2026-11-11 — the PH ladder page, PHH/PPH pinned
+
+**The occurrence audit is settled.** The operator's 116 is reproducible as
+`git grep -o -E '\bPH' HEAD -- '*.md' | wc -l` at commit `8f26aa7`: it is a
+*prefix* count (PH, PHH, PPH, PH-families). The exact token `\bPH\b` gives 90
+over `*.md`, 32 over `docs/` (with the generated HTML twin) and 18 over
+`docs/*.md`. The note is not stale; the pattern is now written on the page.
+
+**`workbench/ph-families.html` rebuilt** by `scripts/ph_families.py`:
+definitions of PH / PHH / PPH in one block (2D only); the audit; thirteen rungs
+from the cubic to n = 8 plus the rational circle, each with more than one
+example and all four quadrants; the full nodal Tschirnhausen alpha with the
+C-segment marked; the integer scale/hit table at m = 4; a live explainer
+(generators, grid m, quadrants, d, break PH) in
+`workbench/ph-families-app.js`, whose BigInt scale is tested against
+`generators.PHCurve.scale`; and the PHH/PPH panel.
+
+**New geometry:** `curve_lab/ph_hermite.py`. PHH is the PH quintic through two
+points with prescribed tangents — endpoint hit exactly by the quadratic in `b`,
+`2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0`, with the declared speed rule
+`|a| = |c| = √|Δ|`. PPH is the C² continuation: the next span's `a` is the
+previous `c` and its `b` is set by the previous end slope, so the join is exact
+by construction; the page reports |Δz|, |Δz′|, |Δz″|, |Δκ| all zero.
+
+**Tests:** `tests/test_ph_hermite.py` (14) and `tests/test_ph_families_app.py`
+(JS scale vs Python). Recheck carries the claim. Suite green; 55/55.
+
+**Not built (on the page):** the general five-parameter PH quintic family, the
+classical PHH magnitude rule, a general C² PPH solve (five conditions per join),
+the PH quintic transition curve, rational PH beyond the circle, the general
+n = 7/8 families, and anything in 3D.
+
+## 2026-11-11 (later) — the page finished, the names corrected, iteration cut
+
+**The page is complete.** `workbench/ph-families.html` carries Figs 1–16 (the
+rungs, the integer cubic, the rational circle), 17–19 (the ladder), 20 (the live
+figure), the m = 10 section (Figs 21–25, 27–35 — 154 milestones over the same
+fourteen rungs), Fig. 26 (the six-span split), C6 and C61 (fitted rails) and H1
+(PH–Hermite/PPH). Exports: `workbench/integer-curves.svg` and
+`workbench/tschirnhausen-stem.svg`, every coordinate an integer, guarded by
+`tests/test_ph_families.py`.
+
+**Vocabulary, corrected against the literature.** The interpolant is
+**PH–Hermite**, not PHH: in CAGD *PHH* is the **PHH-Bézier** approximation of a
+hyperbolic **H-Bézier**. **PPH** is Piecewise Pythagorean-Hodograph, as the
+literature has it. The page quotes both sources and gives the construction per
+degree: cubic `b = (−a ± √(3(4Δ − a²)))/2` (checked 1.8e-15), quintic
+`2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0`. *Milestone* is the word for
+`t = k/m`; *station* already means one-coordinate-integer in
+`docs/PHILOSOPHY.md`, so it is not used for these.
+
+**Numbers that can be quoted.** The alpha `18y² = x(x−6)²` has integer points
+`(18k², ±6k(3k²−1))` plus the node `(6,0)` — four in `t ∈ [−4,4]`. At `h = 3`
+its controls are integers and ten points fall in the same window. The showcase's
+lattice marks are now only true integer points (699 of them, carrying
+`data-x`/`data-y`, checked by `tests/test_exploration_pages.py`); the old
+evenly spaced arc-length dots are gone.
+
+**Iteration.** `scripts/test.py` runs one module per process: default set
+86.6 s → 42.6 s, `--full` ~110 s → ~95 s, whose floor is `test_fleur_sets`
+alone. `scripts/pagecache.py` skips a page whose inputs are unchanged:
+ph-families 4.4 s → 0.23 s, showcase 67 s → 0.19 s, g3 pages 35 s → 0.47 s
+(`--force` rebuilds; cache in `state/build-cache.json`, gitignored).
+
+**Green at this commit:** suite 577 tests OK, 1 skipped (parallel runner,
+2026-11-11); recheck 55/55 (2026-11-11); remote not checked (no deploy).
+
+**Tried and rejected:** the per-import dependency walk in `pagecache.py` — 0.7 s
+per call and it can still miss a dependency, so it was replaced by hashing
+`curve_lab/` and `scripts/` whole; the ten-module SERIAL list in `test.py` —
+it made the parallel run slower than serial, since only the two modules that
+rewrite `stem-library.html` actually compete.
+
+**Next:** the operator's alternative route to integer points on the Tschirnhausen
+by Pythagorean-triangle construction. They asked for it eventually to live in
+its own directory and said **not to set the directory up yet**, so the first step
+is the rule in prose, not code.

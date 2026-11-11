@@ -42,3 +42,5 @@
 {"event":"start","id":"79750-1794378493948","label":"focus","floor":20,"cap":60,"start":"2026-11-11T06:28:13.948Z","at":"2026-11-11T06:28:13.948Z"}
 {"event":"stop","label":"focus","minutes":1.38,"floor":20,"cap":60,"start":"2026-11-11T06:28:13.948Z","at":"2026-11-11T06:29:36.474Z","reason":"stop"}
 {"event":"start","id":"80397-1794378576565","label":"fhandon","floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T06:29:36.565Z"}
+{"event":"floor","label":"fhandon","minutes":20,"floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T06:49:36.790Z"}
+{"event":"cap","label":"fhandon","minutes":120.02,"floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T08:29:37.648Z","reason":"cap","before":"6","after":"3"}

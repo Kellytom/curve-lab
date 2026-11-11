@@ -61,7 +61,6 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the monstrance is grounded and names its three aspects | 24 rays, head R 24, grounded | scripts/storey_monstrance.py; workbench/storey-monstrance.html |
 | ok | the pillar is grounded, entasised and names its three aspects | waist 16.39 at y 27, height 100, grounded | scripts/storey_pillar.py; workbench/storey-pillar.html |
 | ok | the integer-cubic showcase samples the two shape families | 11 S + 10 C from 992 curves each | curve_lab/pyth_cubic.py representatives; workbench/showcase.html |
-| ok | the whole test suite | OK (skipped=1) | tests/ |
 
 ## Visual judgement (operator, 2026-11-05)
 
