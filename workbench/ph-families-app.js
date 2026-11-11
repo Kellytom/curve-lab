@@ -380,7 +380,8 @@
 
   // --------------------------------------------------------------------- state
   var state = { preset: null, m: 4, d: 0.25, qx: true, qy: true, brk: false,
-                dirty: false, co: null, zoom: 1, cx: null, cy: null };
+                dirty: false, co: null, zoom: 1, cx: null, cy: null,
+                span01: false };
   var lastFrame = { s: 1, ox: 0, oy: 0 };
 
   function readCoeffs() {
@@ -435,7 +436,8 @@
     var residual = speedResidual(cp, h, u, v, p.t0, p.t1);
     var sub = "n=" + exact.n + " · h=(" + h.join(",") + ") · u=(" + u.join(",") + ") · v=(" + v.join(",") + ")";
     // the rung's integer points in model coordinates, from the page data
-    var grid = gridPoints(h, u, v, state.m, p.t0, p.t1);
+    var g0 = state.span01 ? 0 : p.t0, g1 = state.span01 ? 1 : p.t1;
+    var grid = gridPoints(h, u, v, state.m, g0, g1);
     var rangeScale = grid.pop().scale;
     window.__lastGrid = grid;
     var ints = state.dirty ? scanInts(h, u, v, p.t0, p.t1, 24) : (p.ints || []);
@@ -462,10 +464,15 @@
                  '<th>× ' + rangeScale.toString() + '</th></tr></thead><tbody>';
       var body = "";
       // the grid array is rebuilt below by update(); reuse the marks' data
-      window.__lastGrid.forEach(function (g) {
+      var shown = window.__lastGrid.slice(0, 25);
+      shown.forEach(function (g) {
         body += '<tr><td>' + g.t + '</td><td>(' + g.frac[0] + ', ' + g.frac[1] +
                 ')</td><td>(' + g.scaled[0] + ', ' + g.scaled[1] + ')</td></tr>';
       });
+      if (window.__lastGrid.length > shown.length) {
+        body += '<tr><td colspan="3">… ' + (window.__lastGrid.length - shown.length) +
+                ' more rows</td></tr>';
+      }
       tbl.innerHTML = head + body + '</tbody></table>';
     }
     $("readout").innerHTML =
@@ -567,6 +574,9 @@
       if ($("zoomv")) $("zoomv").textContent = state.zoom.toFixed(1) + "×";
       update();
     }, { passive: false });
+    if ($("span01")) $("span01").addEventListener("change", function () {
+      state.span01 = this.checked; update();
+    });
     $("qx").addEventListener("change", function () { state.qx = this.checked; update(); });
     $("qy").addEventListener("change", function () { state.qy = this.checked; update(); });
     $("brk").addEventListener("change", function () { state.brk = this.checked; update(); });

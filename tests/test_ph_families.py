@@ -63,7 +63,7 @@ class TestPHFamilies(unittest.TestCase):
 
     def test_the_interactive_controls_exist_and_are_wired(self):
         for control in ("preset", "m", "d", "u0", "u1", "u2", "u3",
-                        "v0", "v1", "v2", "v3", "qx", "qy", "brk",
+                        "v0", "v1", "v2", "v3", "qx", "qy", "brk", "span01",
                         "stage", "readout"):
             with self.subTest(control=control):
                 self.assertIn(f'id="{control}"', self.page)
