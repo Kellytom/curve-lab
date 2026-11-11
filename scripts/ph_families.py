@@ -700,7 +700,7 @@ lattice, and the spans between them are the curve.</p>
 </tbody></table>
 <p class="small">The file <a href="tschirnhausen-stem.svg">tschirnhausen-stem.svg</a>
 holds all 20 spans as one path, every coordinate an integer. Mirror it in y for
-a second arm of 21 anchors: <strong>42 stations</strong> from one curve. Extend
+a second arm of 21 anchors: <strong>42 anchors</strong> from one curve. Extend
 to <code>t = ±25</code> and it is 51 per arm, 102 in all.</p>
 """
 
@@ -747,6 +747,40 @@ def _stem_figure(spans, anchors, w=430, h=430):
   <text x="10" y="29" font-family="ui-monospace,Menlo,monospace" font-size="8.6" fill="{S.MUTED}">each span: integer anchors and integer handles · y values in the table</text>
   <text x="10" y="{h - 10}" font-family="ui-sans-serif,system-ui,sans-serif" font-size="8.6" fill="{S.MUTED}">black / blue: alternating spans · red: anchor points</text>
 </svg>"""
+
+
+def milestone_scale(pc, ts):
+    """The one scale that clears the control points and every milestone."""
+    dens = [F(c).denominator for pair in pc.cp for c in pair]
+    for t in ts:
+        x, y = G.at(pc.x, F(t)), G.at(pc.y, F(t))
+        dens += [x.denominator, y.denominator]
+    out = 1
+    for d in dens:
+        out = math.lcm(out, d)
+    return out
+
+
+def m10_section(examples):
+    """Figs 21-25, 27-35: the same rungs with the m = 10 milestones marked."""
+    cards = []
+    numbers = [n for n in range(21, 36) if n != 26][:len(examples)]
+    for fig_no, e in zip(numbers, examples):
+        pc = e["pc"]
+        t0, t1 = e["t0"], e["t1"]
+        ts = [F(t0) + (F(t1) - F(t0)) * k / 10 for k in range(11)]
+        pts = [(float(G.at(pc.x, t)), float(G.at(pc.y, t))) for t in ts]
+        scale = milestone_scale(pc, ts)
+        sub = (f"m = 10 · 11 milestones on t {t0:g} … {t1:g} · "
+               f"all integral at ×{scale:,}")
+        svg = figure(e["pts"], e["title"].replace(" · ", " — "), sub,
+                     num=fig_no, w=560 if len(e["hits"]) > 5 else 430, h=360,
+                     seg=e["seg"], hits=list(e["hits"]), milestones=pts,
+                     node=NODES.get(e["key"]))
+        cards.append(f'<div class="ph-card">{svg}<p class="small">'
+                     f'{e["title"].split(" · ")[-1]} · {len(pts)} milestones, '
+                     f'every one an integer at ×{scale:,}.</p></div>')
+    return "".join(cards)
 
 
 def phh_pair():
@@ -939,6 +973,7 @@ def build():
     ladder = ladder_cards()
     inkscape = inkscape_section()
     stem = stem_section()
+    m10 = m10_section(examples)
     lattice_rows = []
     for a, b in ((0, 3), (3, 6)):
         cp = alpha_segment(a, b)
@@ -1363,12 +1398,33 @@ prints the span numbers; <code>python scripts/g3_showcase.py</code>,
 The rail figures use <code>curve_lab/parallel_bezier.py</code>.</p>
 </section>
 <section class="panel">
-<h2 id="reserved">Reserved section</h2>
-<p class="small">This section is held open. The operator will specify its
-contents; nothing here is generated yet, and no figure number is assigned to
-it. Numbers <strong>21–25</strong> are free; the interpolation figure keeps the
-number it was given (<strong>26</strong>), and the PHH figure keeps
-<strong>H1</strong>.</p>
+<h2 id="m10">The m = 10 milestones — the same fourteen rungs, marked</h2>
+<p>Figures 1–14 above are the rungs as they are. Below are <strong>the same
+fourteen curves</strong>, unchanged, with the <strong>m = 10 milestones</strong>
+marked on each: the points you get by cutting the curve's own parameter into ten
+equal steps. Eleven per curve — the two ends and nine between them — so
+<strong>154 milestones</strong> across the fourteen. (The PH-INTEGER notes call
+these milestones; a <em>lattice station</em> is a different thing — a point where
+one coordinate is an integer — so this page says milestone.)</p>
+<p><strong>In plain words, what setting m = 10 does.</strong> The curve is not
+touched. You take its parameter — the dial that runs along the curve from its
+start to its end — and turn it to eleven fixed positions: 0, 1/10, 2/10 … 10/10.
+Those eleven positions are eleven real points on the curve, and in ordinary
+coordinates most of them are fractions. Then you multiply the <em>whole curve</em>
+by one number, the <code>×S</code> printed on each figure, and every one of the
+eleven becomes a whole number at the same time. So the eleven hollow squares are
+eleven exact lattice points, all of them, once the unit is <code>1/S</code>.
+Nothing is fitted and nothing is rounded — the scale is chosen, not searched
+for.</p>
+<p class="small">Why ten? It is a readable density, not a special number. Raise
+it and you get more milestones and a larger `S`; lower it and you get fewer. The
+limit is the digits in `S`, not the geometry. Red circles are the curve's own
+integer points at scale 1; hollow blue squares are the m = 10 milestones, integral
+at the printed scale.</p>
+<div class="ph-grid">{m10}</div>
+<p class="small">Numbers 21–25 and 27–35 are these figures; 26 is the
+interpolation figure, which keeps the number it was given, and H1 is the PHH
+figure.</p>
 </section>
 </main>
 <script>window.PH_PRESETS = {json.dumps(presets)};</script>
