@@ -32,6 +32,15 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT))
 
+if __name__ == "__main__":
+    import pagecache as _pc
+    if "--force" not in sys.argv and not _pc.should_build(
+            Path(__file__), ["workbench/ph-families.html",
+                             "workbench/integer-curves.svg",
+                             "workbench/tschirnhausen-stem.svg"]):
+        print("ph-families.html is up to date (inputs unchanged; --force to rebuild)")
+        raise SystemExit(0)
+
 import generators as G  # noqa: E402
 import g3_showcase as S  # noqa: E402
 import missing_families as MF  # noqa: E402
@@ -1544,3 +1553,5 @@ Hermite/PPH figure.</p>
 
 if __name__ == "__main__":
     build()
+    import pagecache as _pc
+    _pc.record(Path(__file__))

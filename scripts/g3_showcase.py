@@ -1810,5 +1810,15 @@ def build_all():
     return out
 
 
+if __name__ == "__main__" and not __import__("os").environ.get("PAGECACHE_OFF"):
+    import sys as _s
+    _s.path.insert(0, str(Path(__file__).resolve().parent))
+    import pagecache as _pc
+    if "--force" not in _s.argv and not _pc.should_build(Path(__file__), ['workbench/g3-showcase.html', 'workbench/g3-notes.html']):
+        print('g3 pages are up to date (--force to rebuild)')
+        raise SystemExit(0)
+
 if __name__ == "__main__":
     build_all()
+    import pagecache as _pc2
+    _pc2.record(Path(__file__))

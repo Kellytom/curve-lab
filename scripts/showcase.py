@@ -17,6 +17,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "scripts"))
+
+if __name__ == "__main__":
+    import pagecache as _pc
+    if "--force" not in sys.argv and not _pc.should_build(
+            Path(__file__), ["workbench/showcase.html"]):
+        print("showcase.html is up to date (--force to rebuild)")
+        raise SystemExit(0)
 
 import generators as G  # noqa: E402
 from curve_lab import pyth_chain as pc  # noqa: E402
@@ -1389,3 +1397,5 @@ h1{{font-size:32px;line-height:1.1;margin:0 0 8px}}
 
 if __name__ == "__main__":
     run()
+    import pagecache as _pc2
+    _pc2.record(Path(__file__))
