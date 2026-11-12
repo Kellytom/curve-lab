@@ -453,10 +453,7 @@ other, so balanced loops arrive in pairs. A single loop would break the symmetry
 middle is possible in principle but not in the exact family: <code>W = b(2t−1)</code> has a simple
 zero at 1/2, and a cusp needs a double zero. The λ slider shows the other end: Q6's curve 15 is a
 nearly balanced loop, and its W is a general quadratic, not a line.</p>
-</section>
-
-<section class="panel">
-<h2>Moving the root inside</h2>"""
+</section>"""
 
 
 def build():
