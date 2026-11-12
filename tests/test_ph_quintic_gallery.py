@@ -108,16 +108,18 @@ class TestGallery(unittest.TestCase):
 
     def test_the_slider_panel_is_wired(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
-        self.assertIn('id="qb"', page)
-        self.assertIn('id="qa"', page)
-        self.assertIn('id="qpanel"', page)
-        self.assertIn('id="ql"', page)
+        self.assertIn('id="q7-scale-b"', page)
+        self.assertIn('id="q7-shift-a"', page)
+        self.assertIn('id="q7-plot"', page)
+        self.assertIn('id="q7-morph-lambda"', page)
         self.assertIn("bend", page)
         self.assertIn("Math.atan2", page)
 
     def test_q8_playground_is_wired_and_its_defaults_are_the_target(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
-        for id_ in ("u0", "u1", "u2", "v0", "v1", "v2", "q8panel", "q8read"):
+        for id_ in ("q8-speed-x0", "q8-speed-x1", "q8-speed-x2",
+                    "q8-speed-y0", "q8-speed-y1", "q8-speed-y2",
+                    "q8-plot", "q8-readout", "q8-closed-form"):
             self.assertIn(f'id="{id_}"', page)
         self.assertIn("pitch", page)
         # the default recipe is the simplified curve 15, pitch 1500
@@ -131,10 +133,14 @@ class TestGallery(unittest.TestCase):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         for tag in ("Fig. Q9", "Fig. Q10", "Fig. Q11"):
             self.assertIn(tag, page)
-        for host in ("q9ctl", "q9svg", "q9read", "q10ctl", "q10svg", "q10read",
-                     "q11ctl", "q11svg", "q11read"):
+        for host in ("q9-controls", "q9-plot", "q9-readout",
+                     "q10-controls", "q10-plot", "q10-readout",
+                     "q11-controls", "q11-plot", "q11-readout"):
             self.assertIn(f'id="{host}"', page)
-        self.assertIn("phPanel(", page)
+        self.assertIn("buildRecipePanel(", page)
+        self.assertIn("lineSlope", page)
+        self.assertIn("lineIntercept", page)
+        self.assertIn("closedFormOf", page)
 
         def bend(u, v):
             pts = G.uv_samples(u, v, 400)

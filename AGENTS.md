@@ -50,6 +50,22 @@ one page gives the overall view. Quintic spans may appear in the side constructi
 panels as the working view. The full fallback index may also exist on
 `workbench/g3-handover.html`.
 
+## Naming — descriptive, unique, one meaning per name
+
+A reader should never have to ask which `c`. The rule applies to code, page text
+and documentation alike.
+
+- **JavaScript/TypeScript:** `camelCase`. Nouns for values (`bendRatio`,
+  `lineIntercept`, `speedYLinear`), verbs for functions (`buildRecipePanel`,
+  `drawCurve`). Single letters only as loop indices (`i`, `j`, `k`).
+- **DOM ids and CSS classes:** `kebab-case`, prefixed by the figure
+  (`q9-plot`, `q9-controls`, `q9-readout`). A number/slider pair is `<id>` and
+  `<id>-slider`.
+- **Python:** `snake_case`, already the house style.
+- **Math symbols stay on the page** (`λ`, `u₀`, `k`, `c`), but every one gets a
+  descriptive code name, and the page says both when they could be confused —
+  Q9's `c` is `lineIntercept`, Q7's is the constant term of `v`.
+
 ## Files that matter
 
 | Path | Purpose |

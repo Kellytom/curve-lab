@@ -338,39 +338,47 @@ def table():
 
 
 EXTRA = r"""<script>
-window.phClosed = (function () {
-  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-  const dec = q => { const s = String(q); const i = s.indexOf("."); return i < 0 ? 0 : s.length - i - 1; };
-  return function (u, v) {
-    const k = Math.max(...u.concat(v).map(dec));
-    const S = Math.pow(10, k), S2 = S * S;
-    const A = u.map(q => Math.round(q * S)), B = v.map(q => Math.round(q * S));
-    const mul = (a, b) => {
-      const o = new Array(a.length + b.length - 1).fill(0);
-      a.forEach((x, i) => b.forEach((y, j) => { o[i + j] += x * y; }));
-      return o;
+window.closedFormOf = (function () {
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
+  return function (speedX, speedY) {
+    const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+    const decimalScale = Math.pow(10, maxDecimals);
+    const decimalScaleSquared = decimalScale * decimalScale;
+    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
+    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
+    const multiplyPolynomials = (left, right) => {
+      const product = new Array(left.length + right.length - 1).fill(0);
+      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
+      return product;
     };
-    const uu = mul(A, A), vv = mul(B, B), uv = mul(A, B);
-    const red = (n, d) => { const g = gcd(Math.abs(n), d) || 1; return [n / g, d / g]; };
-    const xs = [], ys = [];
-    for (let j = 0; j < uu.length; j++) {
-      xs.push(red(uu[j] - (vv[j] || 0), S2 * (j + 1)));
-      ys.push(red(2 * uv[j], S2 * (j + 1)));
+    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
+    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
+    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
+    const reduceFraction = (numerator, denominator) => {
+      const divisor = greatestCommonDivisor(Math.abs(numerator), denominator) || 1;
+      return [numerator / divisor, denominator / divisor];
+    };
+    const xTerms = [], yTerms = [];
+    for (let j = 0; j < speedXSquared.length; j++) {
+      const denominator = decimalScaleSquared * (j + 1);   // the coefficient of t^(j+1) in r
+      xTerms.push(reduceFraction(speedXSquared[j] - (speedYSquared[j] || 0), denominator));
+      yTerms.push(reduceFraction(2 * speedXTimesY[j], denominator));
     }
-    return { xs, ys };
+    return { xTerms, yTerms };
   };
 })();
-window.phPoly = function (terms) {
-  const sup = ["", "t", "t²", "t³", "t⁴", "t⁵"];
-  let s = "";
-  terms.forEach((t, j) => {
-    const n = t[0], d = t[1];
-    if (!n) return;
-    const mag = d === 1 ? String(Math.abs(n)) : `${Math.abs(n)}/${d}`;
-    const coef = (d === 1 && Math.abs(n) === 1) ? "" : mag;
-    s += (n < 0 ? (s ? " − " : "−") : (s ? " + " : "")) + coef + sup[j + 1];
+window.formatPolynomial = function (terms) {
+  const powers = ["", "t", "t²", "t³", "t⁴", "t⁵"];
+  let text = "";
+  terms.forEach((term, j) => {
+    const numerator = term[0], denominator = term[1];
+    if (!numerator) return;
+    const magnitude = denominator === 1 ? String(Math.abs(numerator)) : `${Math.abs(numerator)}/${denominator}`;
+    const coefficient = (denominator === 1 && Math.abs(numerator) === 1) ? "" : magnitude;
+    text += (numerator < 0 ? (text ? " − " : "−") : (text ? " + " : "")) + coefficient + powers[j + 1];
   });
-  return s || "0";
+  return text || "0";
 };
 </script>
 
@@ -386,101 +394,108 @@ ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; the ta
 λ does not scale the curve — it changes its shape, pulling the ends round into the two lobes. The
 target is the simplified curve 15: <code>u = 0.2 − 2t + 2t²</code>,
 <code>v = 0.4 − 1.5t + 1.6t²</code>, the clearest S of the six candidates tested.</p>
+<p class="code-names">In the code: <code>b</code> is <code>scaleB</code>, <code>a</code> is
+<code>shiftA</code>, <code>λ</code> is <code>morphLambda</code>, the two recipes are
+<code>speedX</code> and <code>speedY</code>, and their far ends are <code>targetSpeedX</code> and
+<code>targetSpeedY</code>.</p>
 <div class="slider-row">
-  <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
-  <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
-  <label>λ <input id="ql" type="range" min="0" max="1" step="0.01" value="0"></label>
-  <span id="qread" class="small"></span>
+  <label>b <input id="q7-scale-b" type="range" min="0.5" max="8" step="0.1" value="4"></label>
+  <label>a <input id="q7-shift-a" type="range" min="-1" max="3" step="0.1" value="0"></label>
+  <label>λ <input id="q7-morph-lambda" type="range" min="0" max="1" step="0.01" value="0"></label>
+  <span id="q7-readout" class="small"></span>
 </div>
-<svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
+<svg id="q7-plot" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
 <script>
 (function () {
-  const svg = document.getElementById("qpanel");
-  const W = 900, H = 420, m = 46, N = 800;
-  const UT = [0.2, -2, 2], VT = [0.4, -1.5, 1.6];
-  const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
-  const dv = (p, t) => p[1] + 2 * p[2] * t;
-  function draw() {
-    const a = +document.getElementById("qa").value;
-    const b = +document.getElementById("qb").value;
-    const lam = +document.getElementById("ql").value;
-    const U = [1, -a, a].map((c, i) => c + lam * (UT[i] - c));
-    const V = [1, -b, b].map((c, i) => c + lam * (VT[i] - c));
-    const pts = [];
-    let x = 0, y = 0;
-    pts.push([0, 0]);
-    for (let i = 1; i <= N; i++) {
-      const t = (i - 0.5) / N, u = ev(U, t), v = ev(V, t);
-      x += (u * u - v * v) / N;
-      y += 2 * u * v / N;
-      pts.push([x, y]);
+  const plotElement = document.getElementById("q7-plot");
+  const canvasWidth = 900, canvasHeight = 420, plotMargin = 46, sampleCount = 800;
+  const targetSpeedX = [0.2, -2, 2], targetSpeedY = [0.4, -1.5, 1.6];
+  const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
+  const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+  function redraw() {
+    const shiftA = +document.getElementById("q7-shift-a").value;
+    const scaleB = +document.getElementById("q7-scale-b").value;
+    const morphLambda = +document.getElementById("q7-morph-lambda").value;
+    const speedX = [1, -shiftA, shiftA].map((startCoefficient, i) => startCoefficient + morphLambda * (targetSpeedX[i] - startCoefficient));
+    const speedY = [1, -scaleB, scaleB].map((startCoefficient, i) => startCoefficient + morphLambda * (targetSpeedY[i] - startCoefficient));
+    const curvePoints = [];
+    let pointX = 0, pointY = 0;
+    curvePoints.push([0, 0]);
+    for (let i = 1; i <= sampleCount; i++) {
+      const t = (i - 0.5) / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      pointX += (speedXValue * speedXValue - speedYValue * speedYValue) / sampleCount;
+      pointY += 2 * speedXValue * speedYValue / sampleCount;
+      curvePoints.push([pointX, pointY]);
     }
-    const th = [];
-    for (let i = 0; i <= N; i++) {
-      const t = i / N, u = ev(U, t), v = ev(V, t);
-      th.push(Math.atan2(2 * u * v, u * u - v * v));
+    const headingAngles = [];
+    for (let i = 0; i <= sampleCount; i++) {
+      const t = i / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      headingAngles.push(Math.atan2(2 * speedXValue * speedYValue, speedXValue * speedXValue - speedYValue * speedYValue));
     }
-    const un = [th[0]];
-    for (let i = 1; i <= N; i++) {
-      let q = th[i];
-      while (q - un[i - 1] > Math.PI) q -= 2 * Math.PI;
-      while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
-      un.push(q);
+    const unwrappedAngles = [headingAngles[0]];
+    for (let i = 1; i <= sampleCount; i++) {
+      let angle = headingAngles[i];
+      while (angle - unwrappedAngles[i - 1] > Math.PI) angle -= 2 * Math.PI;
+      while (angle - unwrappedAngles[i - 1] < -Math.PI) angle += 2 * Math.PI;
+      unwrappedAngles.push(angle);
     }
-    const Wf = t => {
-      const u = ev(U, t), v = ev(V, t);
-      return u * dv(V, t) - v * dv(U, t);
+    const wronskianAt = t => {
+      const speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      return speedXValue * derivativeQuadratic(speedY, t) - speedYValue * derivativeQuadratic(speedX, t);
     };
-    let root = null;
-    for (let i = 0; i < N; i++) {
-      const t0 = i / N, t1 = (i + 1) / N;
-      if (Wf(t0) * Wf(t1) <= 0) {
-        let lo = t0, hi = t1;
+    let inflectionParameter = null;
+    for (let i = 0; i < sampleCount; i++) {
+      const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+      if (wronskianAt(lowT) * wronskianAt(highT) <= 0) {
+        let low = lowT, high = highT;
         for (let k = 0; k < 40; k++) {
-          const mid = (lo + hi) / 2;
-          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
+          const middle = (low + high) / 2;
+          if (wronskianAt(low) * wronskianAt(middle) <= 0) high = middle; else low = middle;
         }
-        root = (lo + hi) / 2;
+        inflectionParameter = (low + high) / 2;
         break;
       }
     }
-    const mid = root === null ? N / 2 : Math.round(root * N);
-    const s0 = Math.abs(un[mid] - un[0]) * 180 / Math.PI;
-    const s1 = Math.abs(un[N] - un[mid]) * 180 / Math.PI;
-    const bal = 100 * Math.min(s0, s1) / Math.max(s0, s1);
-    let arc = 0;
-    for (let i = 1; i < pts.length; i++) arc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-    const chord = Math.hypot(pts[N][0] - pts[0][0], pts[N][1] - pts[0][1]);
-    const bend = chord > 1e-9 ? arc / chord : Infinity;
-    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-    const x0 = Math.min(...xs), x1 = Math.max(...xs);
-    const y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const sc = Math.min((W - 2 * m) / Math.max(1e-6, x1 - x0),
-                        (H - 2 * m) / Math.max(1e-6, y1 - y0));
-    const ox = m + (W - 2 * m - (x1 - x0) * sc) / 2;
-    const oy = m + (H - 2 * m - (y1 - y0) * sc) / 2;
-    const fx = v => ox + (v - x0) * sc;
-    const fy = v => oy + (y1 - v) * sc;
-    const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const compass = (px, py, u, v, sgn) => {
-      const dx = u * u - v * v, dy = 2 * u * v, n = Math.hypot(dx, dy) || 1;
-      const sx = sgn * dx / n, sy = -sgn * dy / n, rr = 17;
-      const gx = fx(px) + sx * (5 + rr), gy = fy(py) + sy * (5 + rr);
-      return `<circle cx="${gx}" cy="${gy}" r="${rr}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
-        `<line x1="${gx - sx * rr * 0.62}" y1="${gy - sy * rr * 0.62}" x2="${gx + sx * rr * 0.62}" y2="${gy + sy * rr * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
+    const inflectionIndex = inflectionParameter === null ? sampleCount / 2 : Math.round(inflectionParameter * sampleCount);
+    const turnBefore = Math.abs(unwrappedAngles[inflectionIndex] - unwrappedAngles[0]) * 180 / Math.PI;
+    const turnAfter = Math.abs(unwrappedAngles[sampleCount] - unwrappedAngles[inflectionIndex]) * 180 / Math.PI;
+    const balancePercent = 100 * Math.min(turnBefore, turnAfter) / Math.max(turnBefore, turnAfter);
+    let arcLength = 0;
+    for (let i = 1; i < curvePoints.length; i++) arcLength += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
+    const chordLength = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0], curvePoints[sampleCount][1] - curvePoints[0][1]);
+    const bendRatio = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
+    const coordinateXs = curvePoints.map(point => point[0]), coordinateYs = curvePoints.map(point => point[1]);
+    const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
+    const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
+    const plotScale = Math.min((canvasWidth - 2 * plotMargin) / Math.max(1e-6, maxX - minX),
+                               (canvasHeight - 2 * plotMargin) / Math.max(1e-6, maxY - minY));
+    const offsetX = plotMargin + (canvasWidth - 2 * plotMargin - (maxX - minX) * plotScale) / 2;
+    const offsetY = plotMargin + (canvasHeight - 2 * plotMargin - (maxY - minY) * plotScale) / 2;
+    const toPixelX = value => offsetX + (value - minX) * plotScale;
+    const toPixelY = value => offsetY + (maxY - value) * plotScale;
+    const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
+    const headingMarker = (markerX, markerY, speedXValue, speedYValue, directionSign) => {
+      const tangentX = speedXValue * speedXValue - speedYValue * speedYValue;
+      const tangentY = 2 * speedXValue * speedYValue;
+      const tangentLength = Math.hypot(tangentX, tangentY) || 1;
+      const unitX = directionSign * tangentX / tangentLength, unitY = -directionSign * tangentY / tangentLength, markerRadius = 17;
+      const markerCenterX = toPixelX(markerX) + unitX * (5 + markerRadius);
+      const markerCenterY = toPixelY(markerY) + unitY * (5 + markerRadius);
+      return `<circle cx="${markerCenterX}" cy="${markerCenterY}" r="${markerRadius}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
+        `<line x1="${markerCenterX - unitX * markerRadius * 0.62}" y1="${markerCenterY - unitY * markerRadius * 0.62}" x2="${markerCenterX + unitX * markerRadius * 0.62}" y2="${markerCenterY + unitY * markerRadius * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
     };
-    svg.innerHTML =
-      `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
-      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
-      `<circle cx="${fx(pts[mid][0])}" cy="${fy(pts[mid][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
-      compass(pts[0][0], pts[0][1], ev(U, 0), ev(V, 0), -1) +
-      compass(pts[N][0], pts[N][1], ev(U, 1), ev(V, 1), 1) +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">bend ${bend.toFixed(2)} (arc ÷ chord) · inflection ${root === null ? "—" : root.toFixed(2)} · turn ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
-    document.getElementById("qread").textContent =
-      `bend ${bend.toFixed(2)} · inflection ${root === null ? "—" : root.toFixed(2)}`;
+    plotElement.innerHTML =
+      `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
+      `<path d="${pathData}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
+      `<circle cx="${toPixelX(curvePoints[inflectionIndex][0])}" cy="${toPixelY(curvePoints[inflectionIndex][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
+      headingMarker(curvePoints[0][0], curvePoints[0][1], evalQuadratic(speedX, 0), evalQuadratic(speedY, 0), -1) +
+      headingMarker(curvePoints[sampleCount][0], curvePoints[sampleCount][1], evalQuadratic(speedX, 1), evalQuadratic(speedY, 1), 1) +
+      `<text x="${plotMargin}" y="${canvasHeight - 12}" font-size="12" fill="#7b6c4e">bend ${bendRatio.toFixed(2)} (arc ÷ chord) · inflection ${inflectionParameter === null ? "—" : inflectionParameter.toFixed(2)} · turn ${turnBefore.toFixed(0)}° / ${turnAfter.toFixed(0)}° · b = ${scaleB.toFixed(1)} · a = ${shiftA.toFixed(1)} · λ = ${morphLambda.toFixed(2)}</text>`;
+    document.getElementById("q7-readout").textContent =
+      `bend ${bendRatio.toFixed(2)} · inflection ${inflectionParameter === null ? "—" : inflectionParameter.toFixed(2)}`;
   }
-  for (const id of ["qa", "qb", "ql"]) document.getElementById(id).addEventListener("input", draw);
-  draw();
+  for (const controlId of ["q7-shift-a", "q7-scale-b", "q7-morph-lambda"]) document.getElementById(controlId).addEventListener("input", redraw);
+  redraw();
 })();
 </script>
 </section>
@@ -496,172 +511,183 @@ denominators, so a decimal like 1.5 costs more than 2 — try it.</p>
 straight segment) or <code>u = 3 − 9t + 9t²</code>, <code>v = 1 − 15t + 15t²</code> (pitch 5). The
 round decimal recipe <code>u = 0.5 − 0.5t + 0.5t²</code>, <code>v = 0.7 − 4t + 4t²</code> is a
 stronger S at bend 2.69 — and at ×10 its pitch drops to 2, the cheapest grid in the gallery.</p>
-<div class="ctl-grid">
-  <label class="ctl"><span>u₀</span><input id="u0" type="number" step="0.05" value="0.2"><input id="u0s" type="range" min="-2" max="4" step="0.05" value="0.2"></label>
-  <label class="ctl"><span>u₁</span><input id="u1" type="number" step="0.05" value="-2"><input id="u1s" type="range" min="-16" max="4" step="0.05" value="-2"></label>
-  <label class="ctl"><span>u₂</span><input id="u2" type="number" step="0.05" value="2"><input id="u2s" type="range" min="0" max="16" step="0.05" value="2"></label>
-  <label class="ctl"><span>v₀</span><input id="v0" type="number" step="0.05" value="0.4"><input id="v0s" type="range" min="-2" max="4" step="0.05" value="0.4"></label>
-  <label class="ctl"><span>v₁</span><input id="v1" type="number" step="0.05" value="-1.5"><input id="v1s" type="range" min="-16" max="4" step="0.05" value="-1.5"></label>
-  <label class="ctl"><span>v₂</span><input id="v2" type="number" step="0.05" value="1.6"><input id="v2s" type="range" min="0" max="16" step="0.05" value="1.6"></label>
+<div class="control-grid">
+  <label class="control-row"><span>u₀</span><input id="q8-speed-x0" type="number" step="0.05" value="0.2"><input id="q8-speed-x0-slider" type="range" min="-2" max="4" step="0.05" value="0.2"></label>
+  <label class="control-row"><span>u₁</span><input id="q8-speed-x1" type="number" step="0.05" value="-2"><input id="q8-speed-x1-slider" type="range" min="-16" max="4" step="0.05" value="-2"></label>
+  <label class="control-row"><span>u₂</span><input id="q8-speed-x2" type="number" step="0.05" value="2"><input id="q8-speed-x2-slider" type="range" min="0" max="16" step="0.05" value="2"></label>
+  <label class="control-row"><span>v₀</span><input id="q8-speed-y0" type="number" step="0.05" value="0.4"><input id="q8-speed-y0-slider" type="range" min="-2" max="4" step="0.05" value="0.4"></label>
+  <label class="control-row"><span>v₁</span><input id="q8-speed-y1" type="number" step="0.05" value="-1.5"><input id="q8-speed-y1-slider" type="range" min="-16" max="4" step="0.05" value="-1.5"></label>
+  <label class="control-row"><span>v₂</span><input id="q8-speed-y2" type="number" step="0.05" value="1.6"><input id="q8-speed-y2-slider" type="range" min="0" max="16" step="0.05" value="1.6"></label>
 </div>
 <div class="preset-row">
-  <button type="button" data-p="0.2,-2,2,0.4,-1.5,1.6">the target</button>
-  <button type="button" data-p="0.25,-2,2,0.4,-1.5,1.6">u₀ = 0.25</button>
-  <button type="button" data-p="0.2,-2,2,0.5,-1.5,1.6">v₀ = 0.5</button>
-  <button type="button" data-p="0.25,-2,2,0.5,-1.5,1.6">u₀ = 0.25, v₀ = 0.5</button>
-  <button type="button" data-p="0.2,-2,2,0.4,-1.4,1.6">v₁ = −1.4</button>
-  <button type="button" data-p="0.2,-2,2,0.4,-1.6,1.6">v₁ = −1.6</button>
-  <button type="button" data-p="2,-20,20,4,-15,16">×10: integers, pitch 15</button>
-  <button type="button" data-p="2,-3,3,2,-12,12">bend 2.00 · v = 4u − 6 (pitch 10)</button>
-  <button type="button" data-p="3,-9,9,1,-15,15">bend 2.00 · pitch 5</button>
-  <button type="button" data-p="0.5,-0.5,0.5,0.7,-4,4">yours · bend 2.69</button>
+  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.5,1.6">the target</button>
+  <button type="button" data-preset-values="0.25,-2,2,0.4,-1.5,1.6">u₀ = 0.25</button>
+  <button type="button" data-preset-values="0.2,-2,2,0.5,-1.5,1.6">v₀ = 0.5</button>
+  <button type="button" data-preset-values="0.25,-2,2,0.5,-1.5,1.6">u₀ = 0.25, v₀ = 0.5</button>
+  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.4,1.6">v₁ = −1.4</button>
+  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.6,1.6">v₁ = −1.6</button>
+  <button type="button" data-preset-values="2,-20,20,4,-15,16">×10: integers, pitch 15</button>
+  <button type="button" data-preset-values="2,-3,3,2,-12,12">bend 2.00 · v = 4u − 6 (pitch 10)</button>
+  <button type="button" data-preset-values="3,-9,9,1,-15,15">bend 2.00 · pitch 5</button>
+  <button type="button" data-preset-values="0.5,-0.5,0.5,0.7,-4,4">yours · bend 2.69</button>
 </div>
-<svg id="q8panel" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
-<p class="small" id="q8read"></p>
-<p class="small" id="q8form"></p>
-<p class="small mono" id="q8closed"></p>
+<svg id="q8-plot" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
+<p class="small" id="q8-readout"></p>
+<p class="small" id="q8-centered-form"></p>
+<p class="small mono" id="q8-closed-form"></p>
 <dl class="roles">
-  <dt>u₀</dt><dd>the horizontal speed at the two ends (when u₁ = −u₂). The middle of u is
-    u₀ − u₂/4, so u₀ decides how close the path comes to the origin: lower u₀, closer, more bend.</dd>
-  <dt>u₁</dt><dd>the tilt of u. With u₁ = −u₂ the recipe is even about t = ½, so u(0) = u(1).</dd>
-  <dt>u₂</dt><dd>the curvature of u: how far the horizontal speed swings below u₀.</dd>
-  <dt>v₀</dt><dd>the vertical speed at the ends. The middle of v is v₀ + v₁/2 + v₂/4.</dd>
-  <dt>v₁</dt><dd>the asymmetry of v. The centred linear term is v₁ + v₂; set it to zero and u and v
-    are both even, the path retraces itself, and the curve doubles back along its own arc.</dd>
-  <dt>v₂</dt><dd>the curvature of v: the size of the vertical parabola.</dd>
+  <dt>u₀ <code>speedXAtEnds</code></dt><dd>the horizontal speed at the two ends (when u₁ = −u₂). The
+    middle of u is u₀ − u₂/4, so u₀ decides how close the path comes to the origin: lower u₀, closer,
+    more bend.</dd>
+  <dt>u₁ <code>speedXLinear</code></dt><dd>the tilt of u. With u₁ = −u₂ the recipe is even about
+    t = ½, so u(0) = u(1).</dd>
+  <dt>u₂ <code>speedXCurvature</code></dt><dd>the curvature of u: how far the horizontal speed swings
+    below u₀.</dd>
+  <dt>v₀ <code>speedYAtEnds</code></dt><dd>the vertical speed at the ends. The middle of v is
+    v₀ + v₁/2 + v₂/4.</dd>
+  <dt>v₁ <code>speedYLinear</code></dt><dd>the asymmetry of v. The centred linear term is v₁ + v₂; set
+    it to zero and u and v are both even, the path retraces itself, and the curve doubles back along
+    its own arc.</dd>
+  <dt>v₂ <code>speedYCurvature</code></dt><dd>the curvature of v: the size of the vertical
+    parabola.</dd>
 </dl>
 <script>
 (function () {
-  const svg = document.getElementById("q8panel");
-  const W = 900, H = 470, m = 46, mTop = 88, N = 800;
-  const ids = ["u0", "u1", "u2", "v0", "v1", "v2"];
-  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-  const lcm = (a, b) => a / gcd(a, b) * b;
-  function pitch(U, V, S) {
-    const mul = (a, b) => {
-      const o = new Array(a.length + b.length - 1).fill(0);
-      a.forEach((x, i) => b.forEach((y, j) => { o[i + j] += x * y; }));
-      return o;
+  const plotElement = document.getElementById("q8-plot");
+  const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
+  const controlIds = ["q8-speed-x0", "q8-speed-x1", "q8-speed-x2", "q8-speed-y0", "q8-speed-y1", "q8-speed-y2"];
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
+  function pitchFromScaledRecipes(scaledSpeedX, scaledSpeedY, decimalScale) {
+    const multiplyPolynomials = (left, right) => {
+      const product = new Array(left.length + right.length - 1).fill(0);
+      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
+      return product;
     };
-    const uu = mul(U, U), vv = mul(V, V), uv = mul(U, V);
-    const S2 = S * S;
-    let p = 1;
-    for (let j = 0; j < uu.length; j++) {
-      const xp = uu[j] - (vv[j] || 0);   // numerator over S²
-      const yp = 2 * uv[j];              // numerator over S²
-      for (const c of [xp, yp]) {
-        if (!c) continue;
-        const d = S2 * (j + 1);          // coefficient of t^j in r is c / d
-        p = lcm(p, d / gcd(Math.abs(c), d));
+    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
+    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
+    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
+    const decimalScaleSquared = decimalScale * decimalScale;
+    let pitchCells = 1;
+    for (let j = 0; j < speedXSquared.length; j++) {
+      const xNumerator = speedXSquared[j] - (speedYSquared[j] || 0);   // numerator over decimalScaleSquared
+      const yNumerator = 2 * speedXTimesY[j];                          // numerator over decimalScaleSquared
+      for (const numerator of [xNumerator, yNumerator]) {
+        if (!numerator) continue;
+        const denominator = decimalScaleSquared * (j + 1);   // coefficient of t^j in r is numerator / denominator
+        pitchCells = leastCommonMultiple(pitchCells, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
       }
     }
-    return p;
+    return pitchCells;
   }
-  function draw() {
-    const vals = ids.map(id => +document.getElementById(id).value);
-    const u = vals.slice(0, 3), v = vals.slice(3, 6);
-    const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
-    const dv = (p, t) => p[1] + 2 * p[2] * t;
-    const pts = [];
-    let x = 0, y = 0;
-    pts.push([0, 0]);
-    for (let i = 1; i <= N; i++) {
-      const t = (i - 0.5) / N, a = ev(u, t), b = ev(v, t);
-      x += (a * a - b * b) / N;
-      y += 2 * a * b / N;
-      pts.push([x, y]);
+  function redraw() {
+    const controlValues = controlIds.map(controlId => +document.getElementById(controlId).value);
+    const speedX = controlValues.slice(0, 3), speedY = controlValues.slice(3, 6);
+    const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
+    const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+    const curvePoints = [];
+    let pointX = 0, pointY = 0;
+    curvePoints.push([0, 0]);
+    for (let i = 1; i <= sampleCount; i++) {
+      const t = (i - 0.5) / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      pointX += (speedXValue * speedXValue - speedYValue * speedYValue) / sampleCount;
+      pointY += 2 * speedXValue * speedYValue / sampleCount;
+      curvePoints.push([pointX, pointY]);
     }
-    const th = [];
-    for (let i = 0; i <= N; i++) {
-      const t = i / N, a = ev(u, t), b = ev(v, t);
-      th.push(Math.atan2(2 * a * b, a * a - b * b));
+    const headingAngles = [];
+    for (let i = 0; i <= sampleCount; i++) {
+      const t = i / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      headingAngles.push(Math.atan2(2 * speedXValue * speedYValue, speedXValue * speedXValue - speedYValue * speedYValue));
     }
-    const un = [th[0]];
-    for (let i = 1; i <= N; i++) {
-      let q = th[i];
-      while (q - un[i - 1] > Math.PI) q -= 2 * Math.PI;
-      while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
-      un.push(q);
+    const unwrappedAngles = [headingAngles[0]];
+    for (let i = 1; i <= sampleCount; i++) {
+      let angle = headingAngles[i];
+      while (angle - unwrappedAngles[i - 1] > Math.PI) angle -= 2 * Math.PI;
+      while (angle - unwrappedAngles[i - 1] < -Math.PI) angle += 2 * Math.PI;
+      unwrappedAngles.push(angle);
     }
-    const Wf = t => { const a = ev(u, t), b = ev(v, t); return a * dv(v, t) - b * dv(u, t); };
-    let root = null;
-    for (let i = 0; i < N; i++) {
-      const t0 = i / N, t1 = (i + 1) / N;
-      if (Wf(t0) * Wf(t1) <= 0) {
-        let lo = t0, hi = t1;
+    const wronskianAt = t => {
+      const speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      return speedXValue * derivativeQuadratic(speedY, t) - speedYValue * derivativeQuadratic(speedX, t);
+    };
+    let inflectionParameter = null;
+    for (let i = 0; i < sampleCount; i++) {
+      const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+      if (wronskianAt(lowT) * wronskianAt(highT) <= 0) {
+        let low = lowT, high = highT;
         for (let k = 0; k < 40; k++) {
-          const mid = (lo + hi) / 2;
-          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
+          const middle = (low + high) / 2;
+          if (wronskianAt(low) * wronskianAt(middle) <= 0) high = middle; else low = middle;
         }
-        root = (lo + hi) / 2;
+        inflectionParameter = (low + high) / 2;
         break;
       }
     }
-    let arc = 0;
-    for (let i = 1; i < pts.length; i++) arc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-    const chord = Math.hypot(pts[N][0] - pts[0][0], pts[N][1] - pts[0][1]);
-    const bend = chord > 1e-9 ? arc / chord : Infinity;
-    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-    const x0 = Math.min(...xs), x1 = Math.max(...xs);
-    const y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const sc = Math.min((W - 2 * m) / Math.max(1e-6, x1 - x0),
-                        (H - m - mTop) / Math.max(1e-6, y1 - y0));
-    const ox = m + (W - 2 * m - (x1 - x0) * sc) / 2;
-    const oy = mTop + (H - m - mTop - (y1 - y0) * sc) / 2;
-    const fx = q => ox + (q - x0) * sc;
-    const fy = q => oy + (y1 - q) * sc;
-    const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const dec = q => { const s = String(q); const i = s.indexOf("."); return i < 0 ? 0 : s.length - i - 1; };
-    const k = Math.max(...vals.map(dec));
-    const scale = Math.pow(10, k);
-    const U = u.map(q => Math.round(q * scale));
-    const V = v.map(q => Math.round(q * scale));
-    const p = pitch(U, V, scale);
-    const closest = (() => {
-      let c = Infinity;
-      for (let i = 0; i <= N; i++) {
-        const t = i / N, a = ev(u, t), b = ev(v, t);
-        c = Math.min(c, Math.hypot(a, b));
+    let arcLength = 0;
+    for (let i = 1; i < curvePoints.length; i++) arcLength += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
+    const chordLength = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0], curvePoints[sampleCount][1] - curvePoints[0][1]);
+    const bendRatio = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
+    const coordinateXs = curvePoints.map(point => point[0]), coordinateYs = curvePoints.map(point => point[1]);
+    const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
+    const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
+    const plotScale = Math.min((canvasWidth - 2 * plotMargin) / Math.max(1e-6, maxX - minX),
+                               (canvasHeight - plotMargin - plotTopMargin) / Math.max(1e-6, maxY - minY));
+    const offsetX = plotMargin + (canvasWidth - 2 * plotMargin - (maxX - minX) * plotScale) / 2;
+    const offsetY = plotTopMargin + (canvasHeight - plotMargin - plotTopMargin - (maxY - minY) * plotScale) / 2;
+    const toPixelX = value => offsetX + (value - minX) * plotScale;
+    const toPixelY = value => offsetY + (maxY - value) * plotScale;
+    const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
+    const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
+    const maxDecimals = Math.max(...controlValues.map(decimalPlaces));
+    const decimalScale = Math.pow(10, maxDecimals);
+    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
+    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
+    const pitchCells = pitchFromScaledRecipes(scaledSpeedX, scaledSpeedY, decimalScale);
+    const closestApproach = (() => {
+      let closest = Infinity;
+      for (let i = 0; i <= sampleCount; i++) {
+        const t = i / sampleCount;
+        closest = Math.min(closest, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
       }
-      return c;
+      return closest;
     })();
-    const mid = p => p[0] + p[1] / 2 + p[2] / 4;
-    const lin = p => p[1] + p[2];
-    const f2 = q => (Math.abs(q) < 5e-9 ? "0" : q.toFixed(2));
-    const bits = `bend ${bend.toFixed(2)} · pitch ${p.toLocaleString()} · ` +
-      `inflection ${root === null ? "—" : root.toFixed(2)} · closest ${closest.toFixed(2)}`;
-    const ring = root === null ? "" :
-      `<circle cx="${fx(pts[Math.round(root * N)][0])}" cy="${fy(pts[Math.round(root * N)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
-    svg.innerHTML =
-      `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
-      `<text x="${m}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. Q8 · the recipe playground</text>` +
-      `<text x="${m}" y="48" font-size="12" fill="#7b6c4e">curve: the quintic built from your six numbers · red ring: the inflection (the tangent turns the other way)</text>` +
-      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + ring +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">${bits}</text>`;
-    const term = (c, sym) => (Math.abs(c) < 5e-9 ? "" : (c < 0 ? ` − ${f2(-c)}${sym}` : ` + ${f2(c)}${sym}`));
-    const form = p => `${f2(p[2])} h²${term(lin(p), " h")}${term(mid(p), "")}`;
-    document.getElementById("q8read").textContent = bits;
-    document.getElementById("q8form").textContent =
-      `u = ${form(u)} · v = ${form(v)}   (h = t − ½)`;
-    const cf = window.phClosed(u, v);
-    document.getElementById("q8closed").textContent =
-      `r(t) = (${window.phPoly(cf.xs)}) + i (${window.phPoly(cf.ys)})`;
+    const centeredConstant = coefficients => coefficients[0] + coefficients[1] / 2 + coefficients[2] / 4;
+    const centeredLinear = coefficients => coefficients[1] + coefficients[2];
+    const formatTwoDecimals = value => (Math.abs(value) < 5e-9 ? "0" : value.toFixed(2));
+    const readoutText = `bend ${bendRatio.toFixed(2)} · pitch ${pitchCells.toLocaleString()} · ` +
+      `inflection ${inflectionParameter === null ? "—" : inflectionParameter.toFixed(2)} · closest ${closestApproach.toFixed(2)}`;
+    const inflectionMarker = inflectionParameter === null ? "" :
+      `<circle cx="${toPixelX(curvePoints[Math.round(inflectionParameter * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(inflectionParameter * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
+    plotElement.innerHTML =
+      `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
+      `<text x="${plotMargin}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. Q8 · the recipe playground</text>` +
+      `<text x="${plotMargin}" y="48" font-size="12" fill="#7b6c4e">curve: the quintic built from your six numbers · red ring: the inflection (the tangent turns the other way)</text>` +
+      `<path d="${pathData}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + inflectionMarker +
+      `<text x="${plotMargin}" y="${canvasHeight - 12}" font-size="12" fill="#7b6c4e">${readoutText}</text>`;
+    const formatTerm = (coefficient, symbol) => (Math.abs(coefficient) < 5e-9 ? "" : (coefficient < 0 ? ` − ${formatTwoDecimals(-coefficient)}${symbol}` : ` + ${formatTwoDecimals(coefficient)}${symbol}`));
+    const formatCenteredRecipe = coefficients => `${formatTwoDecimals(coefficients[2])} h²${formatTerm(centeredLinear(coefficients), " h")}${formatTerm(centeredConstant(coefficients), "")}`;
+    document.getElementById("q8-readout").textContent = readoutText;
+    document.getElementById("q8-centered-form").textContent =
+      `u = ${formatCenteredRecipe(speedX)} · v = ${formatCenteredRecipe(speedY)}   (h = t − ½)`;
+    const closedForm = window.closedFormOf(speedX, speedY);
+    document.getElementById("q8-closed-form").textContent =
+      `r(t) = (${window.formatPolynomial(closedForm.xTerms)}) + i (${window.formatPolynomial(closedForm.yTerms)})`;
   }
-  document.querySelectorAll(".preset-row button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      btn.dataset.p.split(",").forEach((val, i) => {
-        document.getElementById(ids[i]).value = val;
-        document.getElementById(ids[i] + "s").value = val;
+  document.querySelectorAll(".preset-row button").forEach(presetButton => {
+    presetButton.addEventListener("click", () => {
+      presetButton.dataset.presetValues.split(",").forEach((presetValue, i) => {
+        document.getElementById(controlIds[i]).value = presetValue;
+        document.getElementById(controlIds[i] + "-slider").value = presetValue;
       });
-      draw();
+      redraw();
     });
   });
-  ids.forEach(id => {
-    const num = document.getElementById(id), rng = document.getElementById(id + "s");
-    num.addEventListener("input", () => { rng.value = num.value; draw(); });
-    rng.addEventListener("input", () => { num.value = rng.value; draw(); });
+  controlIds.forEach(controlId => {
+    const numberInput = document.getElementById(controlId), rangeInput = document.getElementById(controlId + "-slider");
+    numberInput.addEventListener("input", () => { rangeInput.value = numberInput.value; redraw(); });
+    rangeInput.addEventListener("input", () => { numberInput.value = rangeInput.value; redraw(); });
   });
-  draw();
+  redraw();
 })();
 </script>
 </section>
@@ -681,9 +707,11 @@ readout follows both. <strong>This <code>c</code> is not Q7's <code>c</code>.</s
 intercept of the line between the two recipes; in Q7 it is the constant term of <code>v</code>'s own
 recipe, <code>v = b(t² − t) + c</code>, which was set to 1 to keep the pitch free. The pick's own
 constant term is <code>v(0) = 2</code>.</p>
-<div id="q9ctl"></div>
-<svg id="q9svg" viewBox="0 0 900 470" role="img" aria-label="proposal 1, the straight speed path"></svg>
-<p class="small" id="q9read"></p>
+<p class="code-names">In the code: <code>k</code> is <code>lineSlope</code>, <code>c</code> is
+<code>lineIntercept</code>; Q7's constant term is <code>constantTermC</code>.</p>
+<div id="q9-controls"></div>
+<svg id="q9-plot" viewBox="0 0 900 470" role="img" aria-label="the bend-2 curve"></svg>
+<p class="small" id="q9-readout"></p>
 </section>
 
 <section class="panel">
@@ -693,9 +721,11 @@ constant term is <code>v(0) = 2</code>.</p>
 the four numbers are the whole recipe. <code>u₀, v₀</code> set how close the speed path comes to the
 origin; <code>u₂, v₂</code> set the size of each parabola. Three landmarks: (0.6, 0.5, 0.7, 4) is
 bend 1.91; (0.5, 0.5, 0.78, 4) is bend 2.01; (0.5, 0.5, 0.7, 4) is bend 2.69.</p>
-<div id="q10ctl"></div>
-<svg id="q10svg" viewBox="0 0 900 470" role="img" aria-label="proposal 2, the even pair"></svg>
-<p class="small" id="q10read"></p>
+<p class="code-names">In the code: <code>speedXAtEnds</code>, <code>speedXCurvature</code>,
+<code>speedYAtEnds</code>, <code>speedYCurvature</code>.</p>
+<div id="q10-controls"></div>
+<svg id="q10-plot" viewBox="0 0 900 470" role="img" aria-label="the even pair"></svg>
+<p class="small" id="q10-readout"></p>
 </section>
 
 <section class="panel">
@@ -706,169 +736,181 @@ longer forced to <code>−v₂</code>. That tilt is what the 2.04 find in Q7 act
 15 million). At ×10 — <code>u = 5 − 5t + 5t²</code>, <code>v = 7 − 40t + 40t²</code> — the same
 shape has pitch <strong>2</strong>. Slide <code>v₁</code> toward <code>−v₂</code> to see the tilt
 vanish.</p>
-<div id="q11ctl"></div>
-<svg id="q11svg" viewBox="0 0 900 470" role="img" aria-label="proposal 3, the tilted pair"></svg>
-<p class="small" id="q11read"></p>
+<p class="code-names">In the code: <code>v₁</code> is <code>speedYLinear</code>, the one number the
+even pair does not have.</p>
+<div id="q11-controls"></div>
+<svg id="q11-plot" viewBox="0 0 900 470" role="img" aria-label="the tilted pair"></svg>
+<p class="small" id="q11-readout"></p>
 </section>
 
 <script>
 (function () {
-  const W = 900, H = 470, m = 46, mTop = 88, N = 800;
-  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-  const lcm = (a, b) => a / gcd(a, b) * b;
-  function pitchOf(u, v) {
-    const dec = q => { const s = String(q); const i = s.indexOf("."); return i < 0 ? 0 : s.length - i - 1; };
-    const k = Math.max(...u.concat(v).map(dec));
-    const S = Math.pow(10, k);
-    const A = u.map(q => Math.round(q * S)), B = v.map(q => Math.round(q * S));
-    const mul = (a, b) => {
-      const o = new Array(a.length + b.length - 1).fill(0);
-      a.forEach((x, i) => b.forEach((y, j) => { o[i + j] += x * y; }));
-      return o;
+  const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
+  function pitchFromRecipe(speedX, speedY) {
+    const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
+    const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+    const decimalScale = Math.pow(10, maxDecimals);
+    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
+    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
+    const multiplyPolynomials = (left, right) => {
+      const product = new Array(left.length + right.length - 1).fill(0);
+      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
+      return product;
     };
-    const uu = mul(A, A), vv = mul(B, B), uv = mul(A, B), S2 = S * S;
-    let p = 1;
-    for (let j = 0; j < uu.length; j++) {
-      const xp = uu[j] - (vv[j] || 0), yp = 2 * uv[j];
-      for (const c of [xp, yp]) {
-        if (!c) continue;
-        const d = S2 * (j + 1);
-        p = lcm(p, d / gcd(Math.abs(c), d));
+    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
+    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
+    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
+    const decimalScaleSquared = decimalScale * decimalScale;
+    let pitchCells = 1;
+    for (let j = 0; j < speedXSquared.length; j++) {
+      const xNumerator = speedXSquared[j] - (speedYSquared[j] || 0);
+      const yNumerator = 2 * speedXTimesY[j];
+      for (const numerator of [xNumerator, yNumerator]) {
+        if (!numerator) continue;
+        const denominator = decimalScaleSquared * (j + 1);
+        pitchCells = leastCommonMultiple(pitchCells, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
       }
     }
-    return p;
+    return pitchCells;
   }
-  function render(svg, u, v, title) {
-    const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
-    const dv = (p, t) => p[1] + 2 * p[2] * t;
-    const pts = [[0, 0]];
-    let x = 0, y = 0, closest = Infinity;
-    for (let i = 1; i <= N; i++) {
-      const t = (i - 0.5) / N, a = ev(u, t), b = ev(v, t);
-      x += (a * a - b * b) / N; y += 2 * a * b / N;
-      pts.push([x, y]);
+  function drawCurve(plotElement, speedX, speedY, figureTitle) {
+    const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
+    const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+    const curvePoints = [[0, 0]];
+    let pointX = 0, pointY = 0, closestApproach = Infinity;
+    for (let i = 1; i <= sampleCount; i++) {
+      const t = (i - 0.5) / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
+      pointX += (speedXValue * speedXValue - speedYValue * speedYValue) / sampleCount;
+      pointY += 2 * speedXValue * speedYValue / sampleCount;
+      curvePoints.push([pointX, pointY]);
     }
-    for (let i = 0; i <= N; i++) {
-      const t = i / N;
-      closest = Math.min(closest, Math.hypot(ev(u, t), ev(v, t)));
+    for (let i = 0; i <= sampleCount; i++) {
+      const t = i / sampleCount;
+      closestApproach = Math.min(closestApproach, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
     }
-    const Wf = t => ev(u, t) * dv(v, t) - ev(v, t) * dv(u, t);
-    let root = null;
-    for (let i = 0; i < N && root === null; i++) {
-      const t0 = i / N, t1 = (i + 1) / N;
-      if (Wf(t0) * Wf(t1) <= 0) {
-        let lo = t0, hi = t1;
+    const wronskianAt = t => evalQuadratic(speedX, t) * derivativeQuadratic(speedY, t) - evalQuadratic(speedY, t) * derivativeQuadratic(speedX, t);
+    let inflectionParameter = null;
+    for (let i = 0; i < sampleCount && inflectionParameter === null; i++) {
+      const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+      if (wronskianAt(lowT) * wronskianAt(highT) <= 0) {
+        let low = lowT, high = highT;
         for (let k = 0; k < 40; k++) {
-          const mid = (lo + hi) / 2;
-          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
+          const middle = (low + high) / 2;
+          if (wronskianAt(low) * wronskianAt(middle) <= 0) high = middle; else low = middle;
         }
-        root = (lo + hi) / 2;
+        inflectionParameter = (low + high) / 2;
       }
     }
-    let arc = 0;
-    for (let i = 1; i < pts.length; i++) arc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-    const chord = Math.hypot(pts[N][0] - pts[0][0], pts[N][1] - pts[0][1]);
-    const bend = chord > 1e-9 ? arc / chord : Infinity;
-    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
-    const x0 = Math.min(...xs), x1 = Math.max(...xs);
-    const y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const sc = Math.min((W - 2 * m) / Math.max(1e-6, x1 - x0),
-                        (H - m - mTop) / Math.max(1e-6, y1 - y0));
-    const ox = m + (W - 2 * m - (x1 - x0) * sc) / 2;
-    const oy = mTop + (H - m - mTop - (y1 - y0) * sc) / 2;
-    const fx = q => ox + (q - x0) * sc, fy = q => oy + (y1 - q) * sc;
-    const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const p = pitchOf(u, v);
-    const bits = `bend ${bend.toFixed(2)} · pitch ${p.toLocaleString()} · inflection ${root === null ? "—" : root.toFixed(2)} · closest ${closest.toFixed(2)}`;
-    const ring = root === null ? "" :
-      `<circle cx="${fx(pts[Math.round(root * N)][0])}" cy="${fy(pts[Math.round(root * N)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
-    svg.innerHTML =
-      `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
-      `<text x="${m}" y="28" font-size="15" font-weight="600" fill="#2e2413">${title}</text>` +
-      `<text x="${m}" y="48" font-size="12" fill="#7b6c4e">curve: the quintic from the sliders · red ring: the inflection</text>` +
-      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + ring +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">${bits}</text>`;
-    return bits;
+    let arcLength = 0;
+    for (let i = 1; i < curvePoints.length; i++) arcLength += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
+    const chordLength = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0], curvePoints[sampleCount][1] - curvePoints[0][1]);
+    const bendRatio = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
+    const coordinateXs = curvePoints.map(point => point[0]), coordinateYs = curvePoints.map(point => point[1]);
+    const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
+    const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
+    const plotScale = Math.min((canvasWidth - 2 * plotMargin) / Math.max(1e-6, maxX - minX),
+                               (canvasHeight - plotMargin - plotTopMargin) / Math.max(1e-6, maxY - minY));
+    const offsetX = plotMargin + (canvasWidth - 2 * plotMargin - (maxX - minX) * plotScale) / 2;
+    const offsetY = plotTopMargin + (canvasHeight - plotMargin - plotTopMargin - (maxY - minY) * plotScale) / 2;
+    const toPixelX = value => offsetX + (value - minX) * plotScale;
+    const toPixelY = value => offsetY + (maxY - value) * plotScale;
+    const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
+    const pitchCells = pitchFromRecipe(speedX, speedY);
+    const readoutText = `bend ${bendRatio.toFixed(2)} · pitch ${pitchCells.toLocaleString()} · inflection ${inflectionParameter === null ? "—" : inflectionParameter.toFixed(2)} · closest ${closestApproach.toFixed(2)}`;
+    const inflectionMarker = inflectionParameter === null ? "" :
+      `<circle cx="${toPixelX(curvePoints[Math.round(inflectionParameter * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(inflectionParameter * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
+    plotElement.innerHTML =
+      `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
+      `<text x="${plotMargin}" y="28" font-size="15" font-weight="600" fill="#2e2413">${figureTitle}</text>` +
+      `<text x="${plotMargin}" y="48" font-size="12" fill="#7b6c4e">curve: the quintic from the sliders · red ring: the inflection</text>` +
+      `<path d="${pathData}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + inflectionMarker +
+      `<text x="${plotMargin}" y="${canvasHeight - 12}" font-size="12" fill="#7b6c4e">${readoutText}</text>`;
+    return readoutText;
   }
-  function phPanel(hostId, svgId, readId, title, specs, recipe, presets, cols) {
-    const host = document.getElementById(hostId);
-    const svg = document.getElementById(svgId);
-    const read = document.getElementById(readId);
-    const form = document.createElement("p");
-    form.className = "small mono";
-    read.after(form);
-    const state = {};
-    const grid = document.createElement("div");
-    grid.className = "ctl-grid";
-    if (cols) grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-    specs.forEach(sp => {
-      state[sp.k] = sp.value;
-      const lab = document.createElement("label");
-      lab.className = "ctl";
-      const span = document.createElement("span");
-      span.textContent = sp.label;
-      const num = document.createElement("input");
-      num.type = "number"; num.step = sp.step; num.value = sp.value;
-      const rng = document.createElement("input");
-      rng.type = "range"; rng.min = sp.min; rng.max = sp.max;
-      rng.step = sp.step; rng.value = sp.value;
-      num.addEventListener("input", () => { rng.value = num.value; state[sp.k] = +num.value; draw(); });
-      rng.addEventListener("input", () => { num.value = rng.value; state[sp.k] = +rng.value; draw(); });
-      lab.append(span, num, rng);
-      grid.append(lab);
+  function buildRecipePanel(controlsId, plotId, readoutId, figureTitle, controlSpecs, recipeFromControls, presets, columnCount) {
+    const controlsHost = document.getElementById(controlsId);
+    const plotElement = document.getElementById(plotId);
+    const readoutElement = document.getElementById(readoutId);
+    const closedFormElement = document.createElement("p");
+    closedFormElement.className = "small mono";
+    readoutElement.after(closedFormElement);
+    const controlValues = {};
+    const controlGrid = document.createElement("div");
+    controlGrid.className = "control-grid";
+    if (columnCount) controlGrid.style.gridTemplateColumns = `repeat(${columnCount}, minmax(0, 1fr))`;
+    controlSpecs.forEach(controlSpec => {
+      controlValues[controlSpec.key] = controlSpec.value;
+      const rowLabel = document.createElement("label");
+      rowLabel.className = "control-row";
+      const symbolLabel = document.createElement("span");
+      symbolLabel.textContent = controlSpec.label;
+      const numberInput = document.createElement("input");
+      numberInput.type = "number"; numberInput.step = controlSpec.step; numberInput.value = controlSpec.value;
+      const rangeInput = document.createElement("input");
+      rangeInput.type = "range"; rangeInput.min = controlSpec.min; rangeInput.max = controlSpec.max;
+      rangeInput.step = controlSpec.step; rangeInput.value = controlSpec.value;
+      numberInput.addEventListener("input", () => { rangeInput.value = numberInput.value; controlValues[controlSpec.key] = +numberInput.value; redraw(); });
+      rangeInput.addEventListener("input", () => { numberInput.value = rangeInput.value; controlValues[controlSpec.key] = +rangeInput.value; redraw(); });
+      rowLabel.append(symbolLabel, numberInput, rangeInput);
+      controlGrid.append(rowLabel);
     });
-    host.append(grid);
+    controlsHost.append(controlGrid);
     if (presets && presets.length) {
-      const row = document.createElement("div");
-      row.className = "preset-row";
-      presets.forEach(pr => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.textContent = pr.label;
-        btn.addEventListener("click", () => {
-          pr.vals.forEach((val, i) => {
-            state[specs[i].k] = val;
-            const lab = grid.children[i];
-            lab.querySelector("input[type=number]").value = val;
-            lab.querySelector("input[type=range]").value = val;
+      const presetRow = document.createElement("div");
+      presetRow.className = "preset-row";
+      presets.forEach(preset => {
+        const presetButton = document.createElement("button");
+        presetButton.type = "button";
+        presetButton.textContent = preset.label;
+        presetButton.addEventListener("click", () => {
+          preset.values.forEach((presetValue, i) => {
+            controlValues[controlSpecs[i].key] = presetValue;
+            const controlRow = controlGrid.children[i];
+            controlRow.querySelector("input[type=number]").value = presetValue;
+            controlRow.querySelector("input[type=range]").value = presetValue;
           });
-          draw();
+          redraw();
         });
-        row.append(btn);
+        presetRow.append(presetButton);
       });
-      host.append(row);
+      controlsHost.append(presetRow);
     }
-    function draw() {
-      const uv = recipe(state);
-      read.textContent = render(svg, uv.u, uv.v, title);
-      const cf = window.phClosed(uv.u, uv.v);
-      form.textContent = `r(t) = (${window.phPoly(cf.xs)}) + i (${window.phPoly(cf.ys)})`;
+    function redraw() {
+      const recipe = recipeFromControls(controlValues);
+      readoutElement.textContent = drawCurve(plotElement, recipe.speedX, recipe.speedY, figureTitle);
+      const closedForm = window.closedFormOf(recipe.speedX, recipe.speedY);
+      closedFormElement.textContent =
+        `r(t) = (${window.formatPolynomial(closedForm.xTerms)}) + i (${window.formatPolynomial(closedForm.yTerms)})`;
     }
-    draw();
+    redraw();
   }
-  phPanel("q9ctl", "q9svg", "q9read", "Fig. Q9 · the bend-2 curve (recommended)",
-    [{ k: "k", label: "k", min: 2, max: 6, step: 0.1, value: 4 },
-     { k: "c", label: "c", min: -10, max: -2, step: 0.1, value: -6 }],
-    s => ({ u: [2, -3, 3], v: [2 * s.k + s.c, -3 * s.k, 3 * s.k] }),
-    [{ label: "bend 2.00 (k = 4, c = −6)", vals: [4, -6] }], 2);
-  phPanel("q10ctl", "q10svg", "q10read", "Fig. Q10 · proposal 2: the even pair",
-    [{ k: "u0", label: "u₀", min: -1, max: 2, step: 0.05, value: 0.6 },
-     { k: "u2", label: "u₂", min: 0, max: 4, step: 0.05, value: 0.5 },
-     { k: "v0", label: "v₀", min: -1, max: 2, step: 0.05, value: 0.7 },
-     { k: "v2", label: "v₂", min: 0, max: 8, step: 0.05, value: 4 }],
-    s => ({ u: [s.u0, -s.u2, s.u2], v: [s.v0, -s.v2, s.v2] }),
-    [{ label: "bend 1.91 · 0.6 / 0.5 / 0.7 / 4", vals: [0.6, 0.5, 0.7, 4] },
-     { label: "bend 2.01 · 0.5 / 0.5 / 0.78 / 4", vals: [0.5, 0.5, 0.78, 4] },
-     { label: "bend 2.69 · 0.5 / 0.5 / 0.7 / 4", vals: [0.5, 0.5, 0.7, 4] }], 2);
-  phPanel("q11ctl", "q11svg", "q11read", "Fig. Q11 · proposal 3: the tilted pair",
-    [{ k: "u0", label: "u₀", min: -1, max: 2, step: 0.01, value: 0.592 },
-     { k: "u2", label: "u₂", min: 0, max: 4, step: 0.01, value: 0.53 },
-     { k: "v0", label: "v₀", min: -1, max: 2, step: 0.01, value: 0.694 },
-     { k: "v1", label: "v₁", min: -60, max: 0, step: 0.05, value: -4.048 },
-     { k: "v2", label: "v₂", min: 0, max: 60, step: 0.05, value: 4.099 }],
-    s => ({ u: [s.u0, -s.u2, s.u2], v: [s.v0, s.v1, s.v2] }),
-    [{ label: "the 2.04 find", vals: [0.592, 0.53, 0.694, -4.048, 4.099] },
-     { label: "×10 · 5 / 5 / 7 / −40 / 40 · pitch 2", vals: [5, 5, 7, -40, 40] }]);
+  buildRecipePanel("q9-controls", "q9-plot", "q9-readout", "Fig. Q9 · the bend-2 curve (recommended)",
+    [{ key: "lineSlope", label: "k", min: 2, max: 6, step: 0.1, value: 4 },
+     { key: "lineIntercept", label: "c", min: -10, max: -2, step: 0.1, value: -6 }],
+    values => ({ speedX: [2, -3, 3], speedY: [2 * values.lineSlope + values.lineIntercept, -3 * values.lineSlope, 3 * values.lineSlope] }),
+    [{ label: "bend 2.00 (k = 4, c = −6)", values: [4, -6] }], 2);
+  buildRecipePanel("q10-controls", "q10-plot", "q10-readout", "Fig. Q10 · proposal 2: the even pair",
+    [{ key: "speedXAtEnds", label: "u₀", min: -1, max: 2, step: 0.05, value: 0.6 },
+     { key: "speedXCurvature", label: "u₂", min: 0, max: 4, step: 0.05, value: 0.5 },
+     { key: "speedYAtEnds", label: "v₀", min: -1, max: 2, step: 0.05, value: 0.7 },
+     { key: "speedYCurvature", label: "v₂", min: 0, max: 8, step: 0.05, value: 4 }],
+    values => ({ speedX: [values.speedXAtEnds, -values.speedXCurvature, values.speedXCurvature],
+                 speedY: [values.speedYAtEnds, -values.speedYCurvature, values.speedYCurvature] }),
+    [{ label: "bend 1.91 · 0.6 / 0.5 / 0.7 / 4", values: [0.6, 0.5, 0.7, 4] },
+     { label: "bend 2.01 · 0.5 / 0.5 / 0.78 / 4", values: [0.5, 0.5, 0.78, 4] },
+     { label: "bend 2.69 · 0.5 / 0.5 / 0.7 / 4", values: [0.5, 0.5, 0.7, 4] }], 2);
+  buildRecipePanel("q11-controls", "q11-plot", "q11-readout", "Fig. Q11 · proposal 3: the tilted pair",
+    [{ key: "speedXAtEnds", label: "u₀", min: -1, max: 2, step: 0.01, value: 0.592 },
+     { key: "speedXCurvature", label: "u₂", min: 0, max: 4, step: 0.01, value: 0.53 },
+     { key: "speedYAtEnds", label: "v₀", min: -1, max: 2, step: 0.01, value: 0.694 },
+     { key: "speedYLinear", label: "v₁", min: -60, max: 0, step: 0.05, value: -4.048 },
+     { key: "speedYCurvature", label: "v₂", min: 0, max: 60, step: 0.05, value: 4.099 }],
+    values => ({ speedX: [values.speedXAtEnds, -values.speedXCurvature, values.speedXCurvature],
+                 speedY: [values.speedYAtEnds, values.speedYLinear, values.speedYCurvature] }),
+    [{ label: "the 2.04 find", values: [0.592, 0.53, 0.694, -4.048, 4.099] },
+     { label: "×10 · 5 / 5 / 7 / −40 / 40 · pitch 2", values: [5, 5, 7, -40, 40] }]);
 })();
 </script>
 
@@ -909,11 +951,13 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .g8 svg,.g2 svg{{width:100%;height:auto;display:block}}
 .slider-row{{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin:8px 0 10px}}
 .slider-row input{{vertical-align:middle}}
-.ctl-grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 22px;margin:10px 0 12px}}
-.ctl{{display:flex;align-items:center;gap:8px;font:13px ui-monospace,Menlo,monospace}}
-.ctl span{{width:22px;color:#8a3b2a}}
-.ctl input[type=number]{{width:66px;font:12px ui-monospace,Menlo,monospace}}
-.ctl input[type=range]{{flex:1;min-width:80px;vertical-align:middle}}
+.control-grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 22px;margin:10px 0 12px}}
+.control-row{{display:flex;align-items:center;gap:8px;font:13px ui-monospace,Menlo,monospace}}
+.control-row span{{min-width:22px;color:#8a3b2a}}
+.control-row input[type=number]{{width:66px;font:12px ui-monospace,Menlo,monospace}}
+.control-row input[type=range]{{flex:1;min-width:80px;vertical-align:middle}}
+.code-names{{font-size:14px;color:var(--muted);margin:6px 0 10px}}
+.mono{{font:12px/1.5 ui-monospace,Menlo,monospace}}
 .preset-row{{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}}
 .preset-row button{{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}}
 .preset-row button:hover{{background:#efe6d2}}
