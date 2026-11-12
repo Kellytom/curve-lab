@@ -392,6 +392,10 @@ S_CASES = [
     ((0, -4, 5), (-5, -4, -3)),     # 350 deg
     ((-6, 1, 6), (-2, 2, -3)),      # 180 deg
     ((3, 0, -3), (1,)),             # TQ(3): the inflection at the start
+    ((1, F(1, 5), 1), (0, 1, 0)),                    # operator case 1
+    ((F(3, 5), F(-1, 5), F(3, 5)), (F(2, 5), F(6, 5), F(2, 5))),   # operator case 2
+    ((F(6, 5), F(2, 5), F(6, 5)), (0, F(4, 5), 0)),  # operator case 3
+    ((F(7, 5), F(1, 5), F(4, 5)), (0, 1, F(1, 5))),  # operator case 4
 ]
 
 
@@ -483,13 +487,8 @@ def s_info(u, v):
             infl = r
     pitch = 1
     for poly in (x, y):
-        for j, c in enumerate(poly):
-            if j == 0:
-                continue
-            num = int(c * j)          # the integrand coefficient at t^(j-1)
-            if num == 0:
-                continue
-            pitch = lcm(pitch, j // __import__("math").gcd(abs(num), j))
+        for c in poly:
+            pitch = lcm(pitch, c.denominator)
     u0, v0 = float(U[0]), float(V[0])
     u1, v1 = float(sum(U)), float(sum(V))
     a0 = math.degrees(math.atan2(2 * u0 * v0, u0 * u0 - v0 * v0))
@@ -498,10 +497,17 @@ def s_info(u, v):
     return infl, pitch, (sum(x), sum(y)), swing
 
 
+def _fmt(t):
+    def one(c):
+        c = F(c)
+        return str(c.numerator) if c.denominator == 1 else f"{c.numerator}/{c.denominator}"
+    return "(" + ", ".join(one(c) for c in t) + ")"
+
+
 def fig_gallery():
-    W, H = 940, 700
-    cols, rows = 4, 2
+    cols, rows = 4, 3
     pw, ph, gapx, gapy = 196, 250, 18, 24
+    W, H = 940, 60 + rows * (ph + gapy) + 10
     x0, y0 = 26, 60
     out = [f'<text x="26" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q8 · eight S curves, variable v, every one on a small pitch</text>',
            f'<text x="26" y="43" font-size="12" fill="{MUTED}">each panel: the curve, the endpoints, and the inflection ring · u and v are the two speed recipes</text>']
@@ -515,8 +521,15 @@ def fig_gallery():
         yr = max(1e-9, max(abs(min(ys)), abs(max(ys)))) * 1.15
         f = Frame(W, H, (-xr, xr), (-yr, yr), (cx, cy + 34, pw, 170))
         infl, pitch, end, swing = s_info(u, v)
-        out.append(f'<text x="{cx}" y="{cy+12}" font-size="11" font-weight="600" fill="{INK}">u={u}  v={v}</text>')
-        where = f"inflection {infl:.2f}" if infl is not None else "inflection at the start"
+        out.append(f'<text x="{cx}" y="{cy+12}" font-size="10.5" font-weight="600" fill="{INK}">u={_fmt(u)}  v={_fmt(v)}</text>')
+        if infl is None:
+            where = "no interior inflection"
+        elif infl <= 0.001:
+            where = "inflection at the start"
+        elif infl >= 0.999:
+            where = "inflection at the end"
+        else:
+            where = f"inflection {infl:.2f}"
         out.append(f'<text x="{cx}" y="{cy+26}" font-size="10" fill="{MUTED}">{where} · pitch {pitch}</text>')
         out.append(f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>')
         out.append(f.axes())
