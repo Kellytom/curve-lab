@@ -135,15 +135,16 @@ def svg(nodes, g, path):
         o.append(f'<circle cx="{fx(float(nd["x"] * g)):.0f}" '
                  f'cy="{fy(float(nd["y"] * g)):.0f}" r="9" fill="{INK}"/>')
 
-    hits = [(0, 0, "nose (0, 0)", 22, 56, "start"),
-            (0, 768, "waist (0, 768)", 22, -22, "start"),
-            (1536, 2304, "hit (1536, 2304)", -22, -26, "end"),
-            (-1536, 2304, "hit (&#8722;1536, 2304)", 22, -26, "start")]
-    for X, Y, lab, dx, dy, anchor in hits:
+    hits = [(0, 0, "A", 0, 0, "start"),
+            (0, 768, "B", 0, 0, "start"),
+            (1536, 2304, "C", 0, 0, "start"),
+            (-1536, 2304, "D", 0, 0, "start")]
+    for X, Y, letter, _, _, _ in hits:
         o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="26" fill="none" '
                  f'stroke="{RED}" stroke-width="6"/>')
-        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="56" '
-                 f'fill="{RED}" text-anchor="{anchor}">{lab}</text>')
+        dx, dy, anchor = (34, -22, "start") if X >= 0 else (-34, -22, "end")
+        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="66" '
+                 f'font-weight="600" fill="{RED}" text-anchor="{anchor}">{letter}</text>')
 
     tipX = float(nodes[-1]["x"] * g)
     o.append(f'<text x="{fx(tipX)+18:.0f}" y="{fy(2304)+64:.0f}" font-size="50" '
@@ -152,22 +153,40 @@ def svg(nodes, g, path):
     o.append(f'<text x="48" y="86" font-size="86" font-weight="600" fill="{INK}">'
              f'Fig. T1 &#8212; 24 triangles on the integer grid</text>')
     for k, line in enumerate([
-            "coordinates are grid cells, not units: pitch 256, so one unit is 256 cells",
+            "coordinates are grid cells, not units: pitch 256, so one unit is 256 cells; A to D below",
             "curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number points at t = 0, 3 and the waist",
             "the chain stops at &#8722;1532 in x, four cells short of &#8722;1536"]):
         o.append(f'<text x="48" y="{140 + k*68}" font-size="52" fill="{MUTED}">{line}</text>')
 
-    lx, ly = 60, H - 420
-    o.append(f'<rect x="{lx-16}" y="{ly-70}" width="2560" height="420" fill="{PAPER}" '
+    lx, ly = 60, H - 430
+    o.append(f'<rect x="{lx-16}" y="{ly-74}" width="1180" height="430" fill="{PAPER}" '
              f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
     rows = [(GREY, 7, "smooth curve"), (INK, 6, "chain, 24 hypotenuses"),
             (BLUE, 3, "step legs"), (RED, 5, "whole-number point"),
             (RULE, 3, "grid: unit lines, pale every 1/4 unit")]
     for k, (col, wd, lab) in enumerate(rows):
-        yy = ly - 30 + k * 76
+        yy = ly - 34 + k * 82
         o.append(f'<line x1="{lx}" y1="{yy}" x2="{lx+120}" y2="{yy}" stroke="{col}" '
                  f'stroke-width="{wd}"/>')
-        o.append(f'<text x="{lx+150}" y="{yy+20}" font-size="56" fill="{INK}">{lab}</text>')
+        o.append(f'<text x="{lx+150}" y="{yy+20}" font-size="54" fill="{INK}">{lab}</text>')
+
+    tx, ty = 1400, H - 500
+    o.append(f'<rect x="{tx-24}" y="{ty-70}" width="1360" height="430" fill="{PAPER}" '
+             f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
+    o.append(f'<text x="{tx}" y="{ty-18}" font-size="54" font-weight="600" fill="{INK}">'
+             f'points where the curve hits the lattice</text>')
+    table = [("A", "(0, 0)", "(0, 0)"), ("B", "(0, 768)", "(0, 3)"),
+             ("C", "(&#8722;1536, 2304)", "(&#8722;6, 9)"),
+             ("D", "(1536, 2304)", "(6, 9)")]
+    o.append(f'<text x="{tx}" y="{ty+34}" font-size="44" fill="{MUTED}">point</text>')
+    o.append(f'<text x="{tx+150}" y="{ty+34}" font-size="44" fill="{MUTED}">cells</text>')
+    o.append(f'<text x="{tx+780}" y="{ty+34}" font-size="44" fill="{MUTED}">units</text>')
+    for k, (letter, cells, units) in enumerate(table):
+        yy = ty + 96 + k * 82
+        o.append(f'<text x="{tx}" y="{yy}" font-size="54" font-weight="600" '
+                 f'fill="{RED}">{letter}</text>')
+        o.append(f'<text x="{tx+150}" y="{yy}" font-size="54" fill="{INK}">{cells}</text>')
+        o.append(f'<text x="{tx+780}" y="{yy}" font-size="54" fill="{INK}">{units}</text>')
 
     o.append("</svg>")
     with open(path, "w") as fh:

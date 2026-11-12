@@ -240,8 +240,9 @@ def build():
              'units. Pitch 256, so one unit is 256 cells: the tip at 6 units across '
              'is 1536 cells, and the waist at 3 units up is 768. Every coordinate in '
              'the file is an integer, which is what an SVG going to Inkscape needs. '
-             'The rings are the curve&rsquo;s whole-number points; the chain&rsquo;s '
-             'last vertex falls four cells short, at &minus;1532.</figcaption>'
+             'The four points where the curve hits the lattice are marked A to D and '
+             'listed under the drawing both in cells and in units. The chain&rsquo;s '
+             'last vertex falls four cells short of C, at &minus;1532.</figcaption>'
              '</figure>')
 
     # 7 -------------------------------------------------------------
