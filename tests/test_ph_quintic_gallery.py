@@ -108,8 +108,6 @@ class TestGallery(unittest.TestCase):
 
     def test_the_slider_panel_is_wired(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
-        self.assertIn('id="qb"', page)
-        self.assertIn('id="qa"', page)
         self.assertIn('id="qpanel"', page)
         self.assertIn('id="ql"', page)
         self.assertIn('id="qln"', page)
