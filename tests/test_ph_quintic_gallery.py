@@ -112,8 +112,8 @@ class TestGallery(unittest.TestCase):
         self.assertIn('id="qa"', page)
         self.assertIn('id="qpanel"', page)
         self.assertIn('id="ql"', page)
-        self.assertIn("U15", page)
-        self.assertIn("Math.atan2", page)
+        self.assertIn('id="qln"', page)
+        self.assertIn("total swing", page)
 
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()

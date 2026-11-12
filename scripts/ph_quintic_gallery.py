@@ -338,92 +338,66 @@ def table():
 
 
 EXTRA = r"""<section class="panel">
-<h2>Fig. Q7 · the sliders: b sets the swing, λ adds more swing</h2>
-<p><strong>b</strong> sets the swing — <code>2·atan(b/(4−a))</code> per side. <strong>a</strong>
-shifts where the bend sits and never moves the inflection. <strong>λ</strong> adds swing only: it
-multiplies the swing parameter by <code>1 + 3λ</code>, so the curve stays exactly balanced and the
-inflection stays at t = ½. At λ = 0 you get the family as set; at λ = 1 you get four times the
-bend.</p>
-<p>In plain words: b and λ both make the S sharper, but λ does it without changing anything else —
-the two sides stay equal and the turn stays in the middle. Nothing about the shape changes except
-the amount of bend.</p>
+<h2>Fig. Q7 · λ is the swing, in degrees, 0 to 360</h2>
+<p>This panel is a shape view, not the exact lattice family (that is Q6b). λ sets the
+<strong>total swing</strong> of the heading: it starts at +λ/2, passes through zero at the middle,
+and comes back to +λ/2. Because the two halves are mirror images, the bend is equal on both sides
+and the inflection is exactly at t = ½ for every setting. λ = 180° is a U-turn; λ = 360° is a full
+loop; λ = 0 is a straight line.</p>
 <div class="slider-row">
-  <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
-  <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
-  <label>λ <input id="ql" type="range" min="0" max="1" step="0.01" value="0"></label>
+  <label>λ° <input id="ql" type="range" min="0" max="360" step="1" value="90"></label>
+  <label>exact <input id="qln" type="number" min="0" max="360" step="1" value="90"></label>
   <span id="qread" class="small"></span>
 </div>
-<svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
+<svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the swing, live"></svg>
 <script>
 (function () {
   const svg = document.getElementById("qpanel");
-  const W = 900, H = 420, m = 46, N = 600;
-  const ev = (a, b, t) => {
-    const s = t * t - t;
-    return [a * s + 1, b * s];
-  };
+  const W = 900, H = 420, m = 46, N = 900;
+  const slider = document.getElementById("ql");
+  const box = document.getElementById("qln");
   function draw() {
-    const a = +document.getElementById("qa").value;
-    const b = +document.getElementById("qb").value;
-    const lam = +document.getElementById("ql").value;
-    const beff = b * (1 + 3 * lam);
+    const lam = Math.max(0, Math.min(360, +box.value));
+    slider.value = lam;
+    const th = t => (lam / 2) * Math.cos(Math.PI * t) * Math.PI / 180;
     const pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
     for (let i = 1; i <= N; i++) {
-      const [u, v] = ev(a, beff, (i - 0.5) / N);
-      x += (u * u - v * v) / N;
-      y += 2 * u * v / N;
+      const tm = (i - 0.5) / N;
+      x += Math.cos(th(tm)) / N;
+      y += Math.sin(th(tm)) / N;
       pts.push([x, y]);
     }
-    const th = [];
-    for (let i = 0; i <= N; i++) {
-      const [u, v] = ev(a, beff, i / N);
-      th.push(Math.atan2(2 * u * v, u * u - v * v));
-    }
-    const un = [th[0]];
-    for (let i = 1; i <= N; i++) {
-      let q = th[i];
-      while (q - un[i - 1] > Math.PI) q -= 2 * Math.PI;
-      while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
-      un.push(q);
-    }
-    const mid = N / 2;
-    const s0 = Math.abs(un[mid] - un[0]) * 180 / Math.PI;
-    const s1 = Math.abs(un[N] - un[mid]) * 180 / Math.PI;
-    const bal = 100 * Math.min(s0, s1) / Math.max(s0, s1);
     const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
     const y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const sc = Math.min((W - 2 * m) / Math.max(1e-9, x1 - x0),
-                        (H - 2 * m) / Math.max(1e-9, y1 - y0));
+    const sc = Math.min((W - 2 * m) / Math.max(1e-6, x1 - x0),
+                        (H - 2 * m) / Math.max(1e-6, y1 - y0));
     const ox = m + (W - 2 * m - (x1 - x0) * sc) / 2;
     const oy = m + (H - 2 * m - (y1 - y0) * sc) / 2;
     const fx = v => ox + (v - x0) * sc;
     const fy = v => oy + (y1 - v) * sc;
     const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const compass = (px, py, u, v, sgn) => {
-      const dx = u * u - v * v, dy = 2 * u * v, n = Math.hypot(dx, dy) || 1;
-      const sx = sgn * dx / n, sy = -sgn * dy / n, rr = 17;
+    const compass = (px, py, a, sgn) => {
+      const sx = sgn * Math.cos(a), sy = -sgn * Math.sin(a), rr = 17;
       const gx = fx(px) + sx * (5 + rr), gy = fy(py) + sy * (5 + rr);
       return `<circle cx="${gx}" cy="${gy}" r="${rr}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
         `<line x1="${gx - sx * rr * 0.62}" y1="${gy - sy * rr * 0.62}" x2="${gx + sx * rr * 0.62}" y2="${gy + sy * rr * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
     };
-    const [u0, v0] = ev(a, beff, 0);
-    const [u1, v1] = ev(a, beff, 1);
+    const mid = N / 2;
     svg.innerHTML =
       `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
-      `<line x1="${fx(0)}" y1="0" x2="${fx(0)}" y2="${H}" stroke="#d8ccae"/>` +
-      `<line x1="0" y1="${fy(0)}" x2="${W}" y2="${fy(0)}" stroke="#d8ccae"/>` +
       `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
       `<circle cx="${fx(pts[mid][0])}" cy="${fy(pts[mid][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
-      compass(pts[0][0], pts[0][1], u0, v0, -1) +
-      compass(pts[N][0], pts[N][1], u1, v1, 1) +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50 · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
+      compass(pts[0][0], pts[0][1], th(0), -1) +
+      compass(pts[N][0], pts[N][1], th(1), 1) +
+      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">total swing ${lam.toFixed(0)}° · ${(lam / 2).toFixed(0)}° per side · balance 100% · inflection 0.50</text>`;
     document.getElementById("qread").textContent =
-      `swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50`;
+      `total ${lam.toFixed(0)}° · ${(lam / 2).toFixed(0)}° per side · balance 100% · inflection 0.50`;
   }
-  for (const id of ["qa", "qb", "ql"]) document.getElementById(id).addEventListener("input", draw);
+  slider.addEventListener("input", () => { box.value = slider.value; draw(); });
+  box.addEventListener("input", draw);
   draw();
 })();
 </script>
@@ -439,8 +413,8 @@ visible bend on both sides — a C with a flat tail fails it.</p>
 <p><strong>Loops.</strong> Point symmetry means a loop on one side comes with a mirror loop on the
 other, so balanced loops arrive in pairs. A single loop would break the symmetry. A cusp at the
 middle is possible in principle but not in the exact family: <code>W = b(2t−1)</code> has a simple
-zero at 1/2, and a cusp needs a double zero. The λ slider shows the other end: Q6's curve 15 is a
-nearly balanced loop, and its W is a general quadratic, not a line.</p>
+zero at 1/2, and a cusp needs a double zero. The λ panel is the shape view: 90° is an ordinary S,
+180° a U-turn, 360° a full loop, and the balance and the inflection do not move.</p>
 </section>"""
 
 
