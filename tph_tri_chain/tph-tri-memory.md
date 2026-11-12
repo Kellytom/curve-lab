@@ -143,6 +143,15 @@ At T = 3, N = 120 the tip x is 1/6400 = 1.56e−4 short of −6. Only y lands
 exactly. So the nodes live on the pitch-1/G lattice; the integer lattice belongs
 to the curve, not to the chain.
 
+## Words
+
+- t is the knob along the curve: not a length, not a distance.
+- step width is a slice of t: stopping point / triangle count.
+- pitch is grid cells per unit of the drawing, across and up. It is unrelated to t
+  and unrelated to distance along the curve.
+- total grid = pitch x how many units the curve spans. A pitch alone says nothing
+  about size. 3125 is a pitch, not a total.
+
 ## Principles
 
 - Every step is asserted as an equality of `Fraction`s, never a tolerance.

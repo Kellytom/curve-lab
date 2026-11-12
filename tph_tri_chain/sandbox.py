@@ -72,6 +72,33 @@ def build():
              'decimal, because a decimal cannot tell you whether a point is on the '
              'lattice. Every comparison is at twelve triangles per side.</p>')
 
+    # 0 -------------------------------------------------------------
+    h.append("<h2>What the words mean</h2>")
+    h.append("<ul><li><strong>t</strong> &mdash; the knob that runs along the curve. "
+             "It is not a length and not a distance; t = 3 means the third unit of the "
+             "knob, nothing more.</li>"
+             "<li><strong>step width</strong> &mdash; a slice of t: the stopping point "
+             "divided by the number of triangles. At twelve triangles out to t = 3 it "
+             "is 1/4.</li>"
+             "<li><strong>pitch</strong> &mdash; how many grid cells fit in one unit of "
+             "the drawing, one across and one up. It has nothing to do with t, and "
+             "nothing to do with distance along the curve.</li>"
+             "<li><strong>total grid</strong> &mdash; the pitch times how many units the "
+             "curve spans. A pitch on its own never says how big the drawing is.</li>"
+             "</ul>")
+    rows = []
+    for T, g in ((F(3), 1), (F(3), 256), (F(12, 5), 500), (F(24, 5), 125),
+                 (F(24, 5), 3125)):
+        x, y, _ = integral(T)
+        rows.append([fmt(T), f"{fmt(2 * abs(x))} &times; {fmt(y)}",
+                     str(g), f"{fmt(2 * abs(x) * g)} &times; {fmt(y * g)}"])
+    h.append(table(["stopping point", "curve spans, units", "pitch",
+                    "total grid, cells"], rows))
+    h.append('<p class="note">So 3125 is a pitch, not a total. A round total needs the '
+             'stopping point to make the span round, and t = 3 is the only stop here '
+             'that does: it spans exactly 12 by 9 units, which is a 12 &times; 9 grid at '
+             'pitch 1 and 3072 &times; 2304 cells at pitch 256.</p>')
+
     # 1 -------------------------------------------------------------
     h.append('<div class="key"><strong>The rule, in whole units.</strong> y = t&sup2; is a whole '
              'number only if t is a whole number. Once t is whole, '
