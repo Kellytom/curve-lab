@@ -211,32 +211,30 @@ def fig_full():
 
 
 def fig_zoom():
+    """Only the part that makes the S: t = -1 .. 1, no outliers."""
     W, H = 940, 400
-    f = Frame(W, H, (-8200, 8200), (-160, 160), (96, 70, 800, 250))
-    pts = [(x, y) for _, x, y in samples(K, -1.6, 1.6, 600)]
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S at the origin, and the turn near t = ±1</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −1.6 … 1.6 · inflection at (0, 0) · dashed rings: y = 0 at t = ±√3 · x and y at different scales (about 51:1)</text>',
+    f = Frame(W, H, (-3300, 3300), (-130, 130), (96, 70, 800, 250))
+    pts = [(x, y) for _, x, y in samples(K, -1, 1, 600)]
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S: t = −1 … 1, nothing beyond ±3,000</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">inflection at (0, 0) · the curve bends one way before it, the other way after · scales about 25:1</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
-    for v in (-8000, -4000, 0, 4000, 8000):
+    for v in (-3000, -1500, 0, 1500, 3000):
         out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+20}" text-anchor="middle" font-size="12" fill="{MUTED}">{v:,}</text>')
-    for v in (-150, 0, 150):
+    for v in (-100, 0, 100):
         out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="12" fill="{MUTED}">{v}</text>')
-    out.append(f'<path d="{f.path(pts)}" fill="none" stroke="{INK}" stroke-width="2.4"/>')
+    out.append(f'<path d="{f.path(pts)}" fill="none" stroke="{INK}" stroke-width="2.6"/>')
     for t in (-1, 0, 1):
         x, y = curve(K, t)
         px, py = f.fx(float(x)), f.fy(float(y))
-        out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5" fill="{PAPER}" stroke="{RED}" stroke-width="2.2"/>')
+        out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5.5" fill="{PAPER}" stroke="{RED}" stroke-width="2.4"/>')
         if t == 0:
             out.append(f'<text x="{px+10:.1f}" y="{py+18:.1f}" font-size="12" fill="{RED}">inflection, (0, 0)</text>')
         elif t == -1:
-            out.append(f'<text x="{px:.1f}" y="{py-10:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
+            out.append(f'<text x="{px:.1f}" y="{py-12:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
         else:
-            out.append(f'<text x="{px:.1f}" y="{py+20:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
-    for t in (F(177, 100), F(-177, 100)):
-        x, y = curve(K, t)
-        out.append(f'<circle cx="{f.fx(float(x)):.1f}" cy="{f.fy(float(y)):.1f}" r="6" fill="none" '
-                   f'stroke="{GOLD}" stroke-width="2" stroke-dasharray="4 3"/>')
+            out.append(f'<text x="{px:.1f}" y="{py+22:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
+    out.append(f'<text x="{f.fx(0)+10:.1f}" y="{f.top+18}" font-size="12" fill="{MUTED}">the turn is just past t = 1, at x ≈ 3,007</text>')
     out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="13" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">y, units</text>')
     out.append(f'<text x="{f.left+f.pw/2:.0f}" y="{H-18}" text-anchor="middle" font-size="13" fill="{INK}">x, units</text>')
     return svg(W, H, ("the S at the origin", "".join(out)))
@@ -448,11 +446,12 @@ copies of one shape. The stops at t = ±2, ±3 are ringed; the origin and its S 
 </section>
 
 <section class="panel">
-<h2>Fig. Q3 · the S, the inflection, the turn</h2>
+<h2>Fig. Q3 · the S, with the outliers left out</h2>
 {fig_zoom()}
-<p class="small">At t = 0 the curvature is zero: the origin is an inflection. Near t = ±1 the
-x-speed nearly vanishes, so the curve turns back on itself — the small wiggle. The dashed rings
-are the points where y = 0, at t = ±√3, which are not rational stops.</p>
+<p class="small">At t = 0 the curvature is zero: the origin is an inflection. Before it the
+curve bends one way, after it the other. The S is shallow because x grows about 25 times faster
+than y over this window — but the sign change is real. The turn itself is just past t = 1, at
+x ≈ 3,007, outside this plot.</p>
 </section>
 
 <section class="panel">
