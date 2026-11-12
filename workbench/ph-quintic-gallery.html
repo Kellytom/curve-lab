@@ -160,11 +160,14 @@ slider, and the top half is the bottom half turned through 180°.</p>
 <h2>Fig. Q7 · the sliders: b sets the size, λ sets the bend</h2>
 <p><strong>b</strong> sets the scale of the exact S. <strong>a</strong> shifts where the bend sits.
 <strong>λ</strong> is the bend: it takes the exact family's speed recipes and adds a growing share
-of curve 15's, the strong S at the top of Q6. λ = 0 is the exact S; λ = 1 is curve 15.</p>
+of the simplified curve 15's, the two-lobe S. λ = 0 is the exact S; λ = 1 is the target. The
+starting recipe carries <code>c = 1</code> — a free nudge: it adds nothing to the pitch and takes the
+bend from 1.09 to 1.15.</p>
 <p>In plain words: <strong>bend is the arc length divided by the straight-line distance between the
-ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; curve 15 is about 4.7.
-λ does not scale the curve — it changes its shape, pulling the ends round into the big lobes. The
-heading-turn numbers are on the gallery labels; this panel reports the bend.</p>
+ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; the target is about 5.6.
+λ does not scale the curve — it changes its shape, pulling the ends round into the two lobes. The
+target is the simplified curve 15: <code>u = 0.2 − 2t + 2t²</code>,
+<code>v = 0.4 − 1.5t + 1.6t²</code>, the clearest S of the six candidates tested.</p>
 <div class="slider-row">
   <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
   <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
@@ -176,15 +179,15 @@ heading-turn numbers are on the gallery labels; this panel reports the bend.</p>
 (function () {
   const svg = document.getElementById("qpanel");
   const W = 900, H = 420, m = 46, N = 800;
-  const U15 = [0.2, -1.9, 1.9], V15 = [0.4, -1.5, 1.6];
+  const UT = [0.2, -2, 2], VT = [0.4, -1.5, 1.6];
   const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
   const dv = (p, t) => p[1] + 2 * p[2] * t;
   function draw() {
     const a = +document.getElementById("qa").value;
     const b = +document.getElementById("qb").value;
     const lam = +document.getElementById("ql").value;
-    const U = [1, -a, a].map((c, i) => c + lam * (U15[i] - c));
-    const V = [0, -b, b].map((c, i) => c + lam * (V15[i] - c));
+    const U = [1, -a, a].map((c, i) => c + lam * (UT[i] - c));
+    const V = [1, -b, b].map((c, i) => c + lam * (VT[i] - c));
     const pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
