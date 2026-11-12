@@ -26,7 +26,7 @@ from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_DB = os.path.expanduser("~/.local/share/opencode/opencode.db")
-DEFAULT_WINDOW = 1_000_000          # DeepSeek V4.1 Flash
+DEFAULT_WINDOW = 156_000          # this engine (was 1_000_000, which under-reported 6.4x)
 TALLY = os.path.join(ROOT, "state", "sessions.jsonl")
 CAP_MS = 5 * 60 * 1000              # a gap longer than this is idle, not work
 LEVELS = {"ok": 0, "warn": 1, "STOP": 2}
