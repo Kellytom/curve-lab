@@ -126,8 +126,7 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   `scripts/recheck.py` must pass; then `git push origin main`; then
   `gh run list -L 1` and confirm the `native` workflow is green. Leave the
   remote green — fix or revert a red build immediately.
-- **Never force-push `main`.** Stage the paths the action touched; never commit
-  `.timer.json`; commit `state/timers.jsonl` only with the handoff record.
+- **Never force-push `main`.** Stage the paths the action touched.
 - **The remote is `Kellytom/curve-lab` (private).** The old `clothoid-lab`
   name redirects; do not use it in links or commands.
 - **Auth is the `gh` keyring.** Never print, paste or commit a token.
@@ -190,17 +189,6 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Context discipline
 
-- **Session clock.** Start `node scripts/timer.js 20m 60m "<label>"`
-  in the background at session start, and `node scripts/timer.js --check` at
-  every task boundary. At the end run `--check`, report the wall-clock elapsed
-  time (not only `ctx.py`'s active minutes), then `--stop`. The clock is a
-  budget, not a quota: a finished action stops early and says so; the cap is
-  60 minutes unless the operator names another. The operator may remove the cap
-  entirely with `--no-cap` (`--min 20m --no-cap "<label>"`); the floor remains.
-- **Clock stats.** Start, floor, cap and stop append records to
-  `state/timers.jsonl`; `node scripts/timer.js --tally` prints the last
-  sessions, median/mean elapsed and the total. `/fhandoff` pastes the current
-  elapsed and the tally line into the block.
 - Probe once with a single shell call; grep before reading; do not re-read a
   file already in context.
 - Prefer `git diff --stat` and targeted `sed` over whole-file reads.

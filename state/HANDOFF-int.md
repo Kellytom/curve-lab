@@ -1472,3 +1472,12 @@ rewrite `stem-library.html` actually compete.
 by Pythagorean-triangle construction. They asked for it eventually to live in
 its own directory and said **not to set the directory up yet**, so the first step
 is the rule in prose, not code.
+
+**2026-11-11 — session clock retired.** The wall clock came out of the workflow:
+the memory pressure behind it was Chrome, not OpenCode's context, so it measured
+the wrong thing. `scripts/timer.js` and `scripts/notify.js` moved to
+`legacy/timer/` (`ROOT` and the chime path fixed after the move; `--check` still
+answers). `AGENTS.md`, `/fhandon` and `/fhandoff` no longer start or report a
+clock. `state/timers.jsonl` stays as history. `scripts/ctx.py` is the only
+measurement now. Superseded: the "Session timer" section of TODO.md, and the
+elapsed/tally fields in earlier handoff blocks.

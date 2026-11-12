@@ -5,15 +5,6 @@ description: Focused handon — read next-fhandoff-int.md and carry out its one 
 Focused handon for curve-lab. Work in
 `/Users/thomaskelly/developer/curve-lab`.
 
-0. Start the session clock in the background, unless `timer --check` says one
-   is already running. Do not poll it; `--check` is for task boundaries.
-
-   ```sh
-   [ -f .timer.json ] || \
-     ( node scripts/timer.js 20m 60m "fhandon" >"$TMPDIR/curve-lab-timer.log" 2>&1 & )
-   node scripts/timer.js --check
-   ```
-
 1. Before any tool call, write one sentence naming the focused action you are
    about to carry out, so the operator can see you are on the right thing.
 2. Bring up the single server — but **never run it in the foreground**. It

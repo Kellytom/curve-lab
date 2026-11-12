@@ -25,7 +25,7 @@
 var fs = require("fs");
 var path = require("path");
 var cp = require("child_process");
-var ROOT = path.resolve(__dirname, "..");
+var ROOT = path.resolve(__dirname, "..", "..");
 var MARK = path.join(ROOT, ".timer.json");
 var LOG = process.env.CURVE_LAB_TIMER_LOG || path.join(ROOT, "state", "timers.jsonl");
 
@@ -37,7 +37,7 @@ function mins(s) {
     return m[2].toLowerCase() === "h" ? v * 60 : v;
 }
 function clock(d) { return d.toTimeString().slice(0, 5); }
-function chime(msg) { try { cp.execSync('node scripts/notify.js -m ' + JSON.stringify(msg), { cwd: ROOT, stdio: "ignore" }); } catch (e) {} }
+function chime(msg) { try { cp.execSync('node legacy/timer/notify.js -m ' + JSON.stringify(msg), { cwd: ROOT, stdio: "ignore" }); } catch (e) {} }
 
 function elapsed(m) { return Math.max(0, Math.round((Date.now() - new Date(m.start)) / 600) / 100); }
 

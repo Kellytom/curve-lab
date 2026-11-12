@@ -84,21 +84,18 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   combined curves, B02 Euler-spiral cubic fit, spiro, the "full" cubic
   catalogue ambiguity, canonical fleur — all in the same register.
 
-## Session timer — restored 2026-11-05
+## Session timer — retired 2026-11-11
 
-The wall clock is now part of every session, alongside `ctx.py`'s active
-minutes. It is a budget with a floor and a cap, not a quota: a finished action
-stops early and says so.
+The wall clock is out of the workflow. The pressure it was meant to manage came
+from Chrome holding memory, not from OpenCode's context, so the clock was
+measuring the wrong thing and imposing a budget nobody could see.
 
-- [x] `scripts/timer.js` + `scripts/notify.js` in this repo, copied from
-  `ornaments/` (the `.timer.json` marker is already gitignored here).
-- [x] Start the clock in `/focus` and `/fhandon`; `timer --check` reports it.
-- [x] Log start, floor, cap and stop to `state/timers.jsonl`; `--tally` prints
-  the last sessions plus median/mean/total elapsed.
-- [x] At `/fhandoff`, run check → stop → tally, report the wall clock, and
-  commit `state/timers.jsonl` with the handoff record.
-- [x] Prove it with a real start/check/stop and a scratch
-  `CURVE_LAB_TIMER_LOG` run; state the elapsed time in the session report.
+- [x] `scripts/timer.js` and `scripts/notify.js` moved to `legacy/timer/` with
+  a README saying why. Nothing imports them.
+- [x] Removed from `AGENTS.md` and from `/fhandon` and `/fhandoff`: those no
+  longer start or report a clock.
+- [x] `state/timers.jsonl` kept as history, not as a live log. `ctx.py` is the
+  only measurement now.
 
 ## After the showcase with notes is finished
 
