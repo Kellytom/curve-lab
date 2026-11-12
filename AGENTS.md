@@ -156,10 +156,10 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - Auth is HTTP Basic on everything except `/health`; `/healthz` is intercepted
   by Google's frontend.
 - Browser checks: headless Chrome on CDP port 9223, never the Review pane.
-- **This engine has no image input.** One image in the history fails every
-  later turn with `image input is not available on this engine` and cannot be
-  cleared by retrying. SVG is text and is fine; raster sizes come from `file`
-  or `sips -g pixelWidth -g pixelHeight`.
+- **Images, if any: 150 KB and 1000 px per file.** A raster to be looked at
+  goes in under both limits, checked with `file` or `sips -g pixelWidth
+  -g pixelHeight` first. SVG is text and has no limit. Generated figures are
+  made to fit: export under 150 KB and 1000 px on the long side.
 - **Exception — the dot-solver subproject only** (`state/DOT-SOLVER-int.md`):
   images it generates may be sent back for diagnosis. The operator authorises
   it per session and runs `/fhandoff` then `/fhandon` first, so a freeze costs
@@ -186,6 +186,7 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   If a figure deliberately suppresses axes, it still needs a title and a legend.
 - Check the rendered figure at full width before committing; labels must not
   overlap the curve or each other.
+- Exports stay under 150 KB and 1000 px on the long side, so they can be looked at.
 
 ## Context discipline
 
