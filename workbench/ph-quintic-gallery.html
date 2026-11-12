@@ -180,7 +180,202 @@ side, and every one is exactly balanced. This is the panel a slider would drive 
 slider, and the top half is the bottom half turned through 180 deg.</p>
 </section>
 
+
+
+<section class="panel">
+<h2>Fig. Q7 | the sliders: b sets the size, morphLambda sets the bend</h2>
+<p><strong>b</strong> sets the scale of the exact S. <strong>a</strong> shifts where the bend sits.
+<strong>morphLambda</strong> is the bend: it takes the exact family's speed recipes and adds a growing share
+of the simplified curve 15's, the two-lobe S. morphLambda = 0 is the exact S; morphLambda = 1 is the target. The
+starting recipe carries <code>c = 1</code>  -  a free nudge: it adds nothing to the pitch and takes the
+bend from 1.09 to 1.15.</p>
+<p>In plain words: <strong>bend is the arc length divided by the straight-line distance between the
+ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; the target is about 5.6.
+morphLambda does not scale the curve  -  it changes its shape, pulling the ends round into the two lobes. The
+target is the simplified curve 15: <code>u = 0.2 - 2t + 2t^2</code>,
+<code>v = 0.4 - 1.5t + 1.6t^2</code>, the clearest S of the six candidates tested.</p>
+<p class="code-names">In the code: <code>b</code> is <code>scaleB</code>, <code>a</code> is
+<code>shiftA</code>, <code>morphLambda</code> is <code>morphLambda</code>, the two recipes are
+<code>speedX</code> and <code>speedY</code>, and their far ends are <code>targetSpeedX</code> and
+<code>targetSpeedY</code>.</p>
+<div class="slider-row">
+  <label>b <input id="q7-scale-b" type="range" min="0.5" max="8" step="0.1" value="4"></label>
+  <label>a <input id="q7-shift-a" type="range" min="-1" max="3" step="0.1" value="0"></label>
+  <label>morphLambda <input id="q7-morph-lambda" type="range" min="0" max="1" step="0.01" value="0"></label>
+  <span id="q7-readout" class="small"></span>
+</div>
+<svg id="q7-plot" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q7">save this curve</button></p>
+
+</section>
+
+<section class="panel">
+<h2>Fig. Q8 | the recipe playground</h2>
+<p>Six numbers, one curve  -  type them or drag the sliders. <code>u</code> and <code>v</code> are
+the two speed recipes; <code>r(t) = integral of (u + i v)^2 dt</code>. The readout gives the bend (arc / chord)
+and the exact pitch for the numbers you type. The pitch is the lcm of the integrated coefficients'
+denominators, so a decimal like 1.5 costs more than 2  -  try it.</p>
+<p>Two ways to a <strong>bend of 2.00</strong> with small integers: <code>u = 2 - 3t + 3t^2</code>,
+<code>v = 2 - 12t + 12t^2</code> (pitch 10, and <code>v = 4u - 6</code>, so the speed path is a
+straight segment) or <code>u = 3 - 9t + 9t^2</code>, <code>v = 1 - 15t + 15t^2</code> (pitch 5). The
+round decimal recipe <code>u = 0.5 - 0.5t + 0.5t^2</code>, <code>v = 0.7 - 4t + 4t^2</code> is a
+stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid in the gallery.</p>
+<div class="control-grid">
+  <label class="control-row"><span>speedXAtEnds</span><input id="q8-speed-x0" type="number" step="0.05" value="0.2"><input id="q8-speed-x0-slider" type="range" min="-2" max="4" step="0.05" value="0.2"></label>
+  <label class="control-row"><span>speedXLinear</span><input id="q8-speed-x1" type="number" step="0.05" value="-2"><input id="q8-speed-x1-slider" type="range" min="-16" max="4" step="0.05" value="-2"></label>
+  <label class="control-row"><span>speedXCurvature</span><input id="q8-speed-x2" type="number" step="0.05" value="2"><input id="q8-speed-x2-slider" type="range" min="0" max="16" step="0.05" value="2"></label>
+  <label class="control-row"><span>speedYAtEnds</span><input id="q8-speed-y0" type="number" step="0.05" value="0.4"><input id="q8-speed-y0-slider" type="range" min="-2" max="4" step="0.05" value="0.4"></label>
+  <label class="control-row"><span>speedYLinear</span><input id="q8-speed-y1" type="number" step="0.05" value="-1.5"><input id="q8-speed-y1-slider" type="range" min="-16" max="4" step="0.05" value="-1.5"></label>
+  <label class="control-row"><span>speedYCurvature</span><input id="q8-speed-y2" type="number" step="0.05" value="1.6"><input id="q8-speed-y2-slider" type="range" min="0" max="16" step="0.05" value="1.6"></label>
+</div>
+<div class="preset-row" id="q8-presets"></div><script>window.phPresets = [{"id":"the-target","label":"the target","source":"Q8","note":"the two-lobe S that Q7 morphs toward","u":["1/5","-2","2"],"v":["2/5","-3/2","8/5"],"bend":5.58,"pitch":1500,"inflection":0.47,"closest_approach":0.2,"endpoint":["-13/1500","-1/75"],"endpoint_at_pitch":["-13","-20"]},{"id":"u0-025","label":"speedXAtEnds = 0.25","source":"Q8","note":"raising speedXAtEnds straightens the middle","u":["1/4","-2","2"],"v":["2/5","-3/2","8/5"],"bend":3.87,"pitch":2000,"inflection":0.47,"closest_approach":0.17,"endpoint":["-39/2000","1/200"],"endpoint_at_pitch":["-39","10"]},{"id":"v0-05","label":"speedYAtEnds = 0.5","source":"Q8","note":"raising speedYAtEnds moves the speed path off the origin","u":["1/5","-2","2"],"v":["1/2","-3/2","8/5"],"bend":1.98,"pitch":1500,"inflection":0.48,"closest_approach":0.28,"endpoint":["-83/1500","-1/25"],"endpoint_at_pitch":["-83","-60"]},{"id":"u0-025-v0-05","label":"speedXAtEnds = 0.25, speedYAtEnds = 0.5","source":"Q8","note":"both offsets at once: the bend collapses to 1.85","u":["1/4","-2","2"],"v":["1/2","-3/2","8/5"],"bend":1.85,"pitch":6000,"inflection":0.48,"closest_approach":0.26,"endpoint":["-397/6000","-7/600"],"endpoint_at_pitch":["-397","-70"]},{"id":"v1-14","label":"speedYLinear = -1.4","source":"Q8","note":"a smaller tilt: bend 2.69","u":["1/5","-2","2"],"v":["2/5","-7/5","8/5"],"bend":2.69,"pitch":375,"inflection":0.46,"closest_approach":0.22,"endpoint":["-4/125","-2/75"],"endpoint_at_pitch":["-12","-10"]},{"id":"v1-16","label":"speedYLinear = -1.6","source":"Q8","note":"the tilt vanishes and the curve doubles back: bend 9.00","u":["1/5","-2","2"],"v":["2/5","-8/5","8/5"],"bend":9.0,"pitch":125,"inflection":0.5,"closest_approach":0.19,"endpoint":["1/125","0"],"endpoint_at_pitch":["1","0"]},{"id":"target-x10","label":"the target x10","source":"Q8","note":"same shape as the target, pitch 15 instead of 1500","u":["2","-20","20"],"v":["4","-15","16"],"bend":5.58,"pitch":15,"inflection":0.47,"closest_approach":2.03,"endpoint":["-13/15","-4/3"],"endpoint_at_pitch":["-13","-20"]},{"id":"bend-2-pick","label":"bend 2.00 | v = 4u - 6","source":"Q9","note":"the recommended curve: integers, pitch 10, endpoint (15, 4)","u":["2","-3","3"],"v":["2","-12","12"],"bend":2.0,"pitch":10,"inflection":0.5,"closest_approach":1.46,"endpoint":["3/2","2/5"],"endpoint_at_pitch":["15","4"]},{"id":"bend-2-pitch-5","label":"bend 2.00 | pitch 5","source":"Q8","note":"the cheapest bend-2 grid","u":["3","-9","9"],"v":["1","-15","15"],"bend":2.0,"pitch":5,"inflection":0.5,"closest_approach":2.06,"endpoint":["-4/5","-3"],"endpoint_at_pitch":["-4","-15"]},{"id":"round-269","label":"yours | bend 2.69","source":"Q8","note":"the round decimal S; at x10 its pitch is 2","u":["1/2","-1/2","1/2"],"v":["7/10","-4","4"],"bend":2.69,"pitch":200,"inflection":0.5,"closest_approach":0.41,"endpoint":["17/200","1/20"],"endpoint_at_pitch":["17","10"]},{"id":"round-269-x10","label":"yours x10","source":"Q8","note":"the same shape as yours, pitch 2","u":["5","-5","5"],"v":["7","-40","40"],"bend":2.69,"pitch":2,"inflection":0.5,"closest_approach":4.09,"endpoint":["17/2","5"],"endpoint_at_pitch":["17","10"]},{"id":"round-224","label":"yours | speedYAtEnds = 0.5 | bend 2.24","source":"Q8","note":"the speedYAtEnds = 0.5 variant: same turn, cheaper pitch than 0.7","u":["1/2","-1/2","1/2"],"v":["1/2","-4","4"],"bend":2.24,"pitch":120,"inflection":0.5,"closest_approach":0.43,"endpoint":["7/120","-7/60"],"endpoint_at_pitch":["7","-14"]},{"id":"round-224-x2","label":"speedYAtEnds = 0.5 x2 | bend 2.24","source":"Q8","note":"the integer form: bend 2.24, pitch 30, endpoint (7, -14)","u":["1","-1","1"],"v":["1","-8","8"],"bend":2.24,"pitch":30,"inflection":0.5,"closest_approach":0.87,"endpoint":["7/30","-7/15"],"endpoint_at_pitch":["7","-14"]},{"id":"triangle-overshoot","label":"the triangle with the green overshoot","source":"Q13","note":"the three chord terms form a triangle, the green term overshoots, and the chord closes the gap; bend 3.34 at pitch 15","u":["45","-176","252"],"v":["-3","-400","540"],"bend":3.34,"pitch":15,"inflection":0.36,"closest_approach":42.42,"endpoint":["-6336/5","4198/3"],"endpoint_at_pitch":["-19008","20990"]},{"id":"find-318","label":"the interesting curve","source":"Q8","note":"bend 3.18 at pitch 600; u and v share the leading 16, so x(t) is quartic","u":["-19/20","-63/5","16"],"v":["59/20","-141/10","16"],"bend":3.18,"pitch":600,"inflection":0.44,"closest_approach":1.96,"endpoint":["563/200","-121/150"],"endpoint_at_pitch":["1689","-484"]},{"id":"find-204","label":"the earlier 2.04 find","source":"Q7","note":"b = 6.7, a = -1, morphLambda = 0.51; decimals make the pitch 15 million","u":["74/125","-53/100","53/100"],"v":["347/500","-506/125","4099/1000"],"bend":2.04,"pitch":15000000,"inflection":0.49,"closest_approach":0.49,"endpoint":["2405407/15000000","36443/600000"],"endpoint_at_pitch":["2405407","911075"]}];</script>
+<svg id="q8-plot" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
+<p class="small" id="q8-readout"></p>
+<p class="small" id="q8-centered-form"></p>
+<p class="small mono" id="q8-closed-form"></p>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q8">save this curve</button></p>
+<dl class="roles">
+  <dt>speedXAtEnds <code>speedXAtEnds</code></dt><dd>the horizontal speed at the two ends (when speedXLinear = -speedXCurvature). The
+    middle of u is speedXAtEnds - speedXCurvature/4, so speedXAtEnds decides how close the path comes to the origin: lower speedXAtEnds, closer,
+    more bend.</dd>
+  <dt>speedXLinear <code>speedXLinear</code></dt><dd>the tilt of u. With speedXLinear = -speedXCurvature the recipe is even about
+    t = 1/2, so u(0) = u(1).</dd>
+  <dt>speedXCurvature <code>speedXCurvature</code></dt><dd>the curvature of u: how far the horizontal speed swings
+    below speedXAtEnds.</dd>
+  <dt>speedYAtEnds <code>speedYAtEnds</code></dt><dd>the vertical speed at the ends. The middle of v is
+    speedYAtEnds + speedYLinear/2 + speedYCurvature/4.</dd>
+  <dt>speedYLinear <code>speedYLinear</code></dt><dd>the asymmetry of v. The centred linear term is speedYLinear + speedYCurvature; set
+    it to zero and u and v are both even, the path retraces itself, and the curve doubles back along
+    its own arc.</dd>
+  <dt>speedYCurvature <code>speedYCurvature</code></dt><dd>the curvature of v: the size of the vertical
+    parabola.</dd>
+</dl>
+
+</section>
+
+<section class="panel">
+<h2>Fig. Q9 | the bend-2 curve (recommended)</h2>
+<div class="pick">
+<p><strong>The pick:</strong> <code>u = 2 - 3t + 3t^2</code>, <code>v = 2 - 12t + 12t^2</code>,
+which is just <code>v = 4u - 6</code>. All integers, <strong>bend 2.00</strong>, inflection at the
+middle, <strong>pitch 10</strong>, and the endpoint is <strong>(15, 4)</strong> at that pitch. The
+speed path is the straight segment from (2, 2) to (1.25, -1) and back; squared and integrated it
+gives this S, and it is the simplest recipe in the gallery that reaches bend 2.</p>
+</div>
+<p>Tune it: <code>v = k*u + c</code>, with <code>k = 4</code>, <code>c = -6</code> at the pick.
+<code>k</code> tilts the segment, <code>c</code> slides it toward or away from the origin; the
+readout follows both. <strong>This <code>c</code> is not Q7's <code>c</code>.</strong> Here it is the
+intercept of the line between the two recipes; in Q7 it is the constant term of <code>v</code>'s own
+recipe, <code>v = b(t^2 - t) + c</code>, which was set to 1 to keep the pitch free. The pick's own
+constant term is <code>v(0) = 2</code>.</p>
+<p class="code-names">In the code: <code>k</code> is <code>lineSlope</code>, <code>c</code> is
+<code>lineIntercept</code>; Q7's constant term is <code>constantTermC</code>.</p>
+<div id="q9-controls"></div>
+<svg id="q9-plot" viewBox="0 0 900 470" role="img" aria-label="the bend-2 curve"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q9">save this curve</button></p>
+<p class="small" id="q9-readout"></p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q10 | proposal 2: the even pair</h2>
+<p>Both recipes even about <code>t = 1/2</code>: <code>u = speedXAtEnds - speedXCurvaturet + speedXCurvaturet^2</code>,
+<code>v = speedYAtEnds - speedYCurvaturet + speedYCurvaturet^2</code>. The curve is point-symmetric, so it is an S with equal lobes, and
+the four numbers are the whole recipe. <code>speedXAtEnds, speedYAtEnds</code> set how close the speed path comes to the
+origin; <code>speedXCurvature, speedYCurvature</code> set the size of each parabola. Three landmarks: (0.6, 0.5, 0.7, 4) is
+bend 1.91; (0.5, 0.5, 0.78, 4) is bend 2.01; (0.5, 0.5, 0.7, 4) is bend 2.69.</p>
+<p class="code-names">In the code: <code>speedXAtEnds</code>, <code>speedXCurvature</code>,
+<code>speedYAtEnds</code>, <code>speedYCurvature</code>.</p>
+<div id="q10-controls"></div>
+<svg id="q10-plot" viewBox="0 0 900 470" role="img" aria-label="the even pair"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q10">save this curve</button></p>
+<p class="small" id="q10-readout"></p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q11 | proposal 3: the tilted pair</h2>
+<p>The even pair plus one free number: <code>v = speedYAtEnds + speedYLineart + speedYCurvaturet^2</code> with <code>speedYLinear</code> no
+longer forced to <code>-speedYCurvature</code>. That tilt is what the 2.04 find in Q7 actually used:
+<code>u = 0.592 - 0.53t + 0.53t^2</code>, <code>v = 0.694 - 4.048t + 4.099t^2</code> (bend 2.04, pitch
+15 million). Its nearest round neighbour, <code>u = 0.6 - 0.5t + 0.5t^2</code>,
+<code>v = 0.7 - 4t + 4t^2</code>, is bend 1.91; at x10  -  <code>u = 6 - 5t + 5t^2</code>,
+<code>v = 7 - 40t + 40t^2</code>  -  its pitch is <strong>6</strong>. Slide <code>speedYLinear</code> toward
+<code>-speedYCurvature</code> to see the tilt vanish.</p>
+<p class="code-names">In the code: <code>speedYLinear</code> is <code>speedYLinear</code>, the one number the
+even pair does not have.</p>
+<div id="q11-controls"></div>
+<svg id="q11-plot" viewBox="0 0 900 470" role="img" aria-label="the tilted pair"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q11">save this curve</button></p>
+<p class="small" id="q11-readout"></p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q12 | the exact bend formula</h2>
+<p>No sampling is needed. Write the speed recipe in the centred frame <code>h = t - 1/2</code> as
+<code>w(h) = speedMid + slopeMid*h + curvatureMid*h^2</code>, with <code>speedMid = w(1/2)</code>,
+<code>slopeMid = w'(1/2)</code> and <code>curvatureMid = w''(1/2)/2</code>. Then, exactly:</p>
+<pre>arc   = |speedMid|^2 + (|slopeMid|^2 + 2 speedMid.curvatureMid)/12 + |curvatureMid|^2/80
+chord = speedMid^2 + (2 speedMid*curvatureMid + slopeMid^2)/12 + curvatureMid^2/80
+bend  = arc / |chord|</pre>
+<p><code>speedMid.curvatureMid</code> is the dot product and <code>speedMid*curvatureMid</code> the
+complex product. These three lines reproduce every entry in
+<a href="ph-quintic-presets.json">the preset JSON</a> to within 1e-4. The weights
+<code>1, 1/12, 1/80</code> are the integrals of <code>1, h^2, h^4</code> over [-1/2, 1/2] - they are
+the irregular ratios in the recipe, and nothing like Fibonacci is involved.</p>
+<p><strong>Why it bends.</strong> The chord is a sum of three complex vectors -
+<code>speedMid^2</code>, <code>(2 speedMid*curvatureMid + slopeMid^2)/12</code>,
+<code>curvatureMid^2/80</code> - while the arc is a positive number, so the bend is large exactly when
+those three cancel. For the even pair (<code>slopeMid = 0</code>) the chord is
+<code>speedMid^2 (1 + ratio/6 + ratio^2/80)</code> with <code>ratio = curvatureMid/speedMid</code>,
+which vanishes at <code>ratio = -20/3 +/- (8*sqrt(5)/3) i</code>:
+<code>|ratio| = 4*sqrt(5) ~ 8.94</code> at <code>curvatureAngle = 138.19 deg</code>. There the curve
+closes and the bend runs to infinity.</p>
+<p><strong>The method.</strong> Choose <code>curvatureRatio = |curvatureMid|/|speedMid|</code> and
+<code>curvatureAngle = angle(speedMid, curvatureMid)</code>, read the bend off the chart, then pick
+integer vectors and clear the denominators. For bend 2 the level set is curvatureRatio ~ 6.2-7.0 for
+curvatureAngle between 115 deg and 150 deg; below about 113 deg no ratio reaches bend 2. The pick
+sits at curvatureRatio = 7.7, curvatureAngle = 114.6 deg. Because the formula is exact, the integer
+search is instant: over small integers the smallest bend-2 even pair is the pick itself, pitch 10,
+unique up to signs.</p>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-label="bend against the ratio of the speed-path vectors"><rect width="900" height="400" fill="#fbf7ec"/><text x="74" y="24" font-size="15" font-weight="600" fill="#2e2413">Fig. Q12 | bend against the speed-path ratio</text><text x="74" y="40" font-size="12" fill="#7b6c4e">|speedMid| = 1, slopeMid = 0 (the even pair); the bend depends only on curvatureRatio and curvatureAngle</text><line x1="74" y1="338" x2="640" y2="338" stroke="#8a7a58"/><line x1="74" y1="62" x2="74" y2="338" stroke="#8a7a58"/><line x1="74.0" y1="338" x2="74.0" y2="343" stroke="#8a7a58"/><text x="74.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">0</text><line x1="168.3" y1="338" x2="168.3" y2="343" stroke="#8a7a58"/><text x="168.3" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">2</text><line x1="262.7" y1="338" x2="262.7" y2="343" stroke="#8a7a58"/><text x="262.7" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">4</text><line x1="357.0" y1="338" x2="357.0" y2="343" stroke="#8a7a58"/><text x="357.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">6</text><line x1="451.3" y1="338" x2="451.3" y2="343" stroke="#8a7a58"/><text x="451.3" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">8</text><line x1="545.7" y1="338" x2="545.7" y2="343" stroke="#8a7a58"/><text x="545.7" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">10</text><line x1="640.0" y1="338" x2="640.0" y2="343" stroke="#8a7a58"/><text x="640.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">12</text><line x1="69" y1="303.5" x2="74" y2="303.5" stroke="#8a7a58"/><text x="64" y="307.5" font-size="12" text-anchor="end" fill="#7b6c4e">1</text><line x1="69" y1="269.0" x2="74" y2="269.0" stroke="#8a7a58"/><text x="64" y="273.0" font-size="12" text-anchor="end" fill="#7b6c4e">2</text><line x1="69" y1="234.5" x2="74" y2="234.5" stroke="#8a7a58"/><text x="64" y="238.5" font-size="12" text-anchor="end" fill="#7b6c4e">3</text><line x1="69" y1="200.0" x2="74" y2="200.0" stroke="#8a7a58"/><text x="64" y="204.0" font-size="12" text-anchor="end" fill="#7b6c4e">4</text><line x1="69" y1="165.5" x2="74" y2="165.5" stroke="#8a7a58"/><text x="64" y="169.5" font-size="12" text-anchor="end" fill="#7b6c4e">5</text><line x1="69" y1="131.0" x2="74" y2="131.0" stroke="#8a7a58"/><text x="64" y="135.0" font-size="12" text-anchor="end" fill="#7b6c4e">6</text><line x1="69" y1="96.5" x2="74" y2="96.5" stroke="#8a7a58"/><text x="64" y="100.5" font-size="12" text-anchor="end" fill="#7b6c4e">7</text><line x1="69" y1="62.0" x2="74" y2="62.0" stroke="#8a7a58"/><text x="64" y="66.0" font-size="12" text-anchor="end" fill="#7b6c4e">8</text><text x="357.0" y="384" font-size="13" text-anchor="middle" fill="#2e2413">curvatureRatio = |Q| / |P|</text><text x="20" y="200.0" font-size="13" text-anchor="middle" fill="#2e2413" transform="rotate(-90 20 200.0)">bend</text><line x1="495.9" y1="62" x2="495.9" y2="338" stroke="#a23b2a" stroke-dasharray="4 4"/><text x="501.9" y="76" font-size="11" fill="#a23b2a">closure: 4sqrt5</text><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.4 L95.2,303.4 L97.6,303.4 L99.9,303.4 L102.3,303.4 L104.7,303.3 L107.0,303.3 L109.4,303.3 L111.7,303.3 L114.1,303.2 L116.5,303.2 L118.8,303.2 L121.2,303.1 L123.5,303.1 L125.9,303.0 L128.2,303.0 L130.6,302.9 L133.0,302.9 L135.3,302.8 L137.7,302.8 L140.0,302.7 L142.4,302.7 L144.8,302.6 L147.1,302.5 L149.5,302.5 L151.8,302.4 L154.2,302.3 L156.5,302.3 L158.9,302.2 L161.3,302.1 L163.6,302.0 L166.0,301.9 L168.3,301.8 L170.7,301.8 L173.1,301.7 L175.4,301.6 L177.8,301.5 L180.1,301.4 L182.5,301.2 L184.8,301.1 L187.2,301.0 L189.6,300.9 L191.9,300.8 L194.3,300.7 L196.6,300.6 L199.0,300.4 L201.3,300.3 L203.7,300.2 L206.1,300.0 L208.4,299.9 L210.8,299.7 L213.1,299.6 L215.5,299.4 L217.9,299.3 L220.2,299.1 L222.6,299.0 L224.9,298.8 L227.3,298.7 L229.6,298.5 L232.0,298.3 L234.4,298.1 L236.7,298.0 L239.1,297.8 L241.4,297.6 L243.8,297.4 L246.2,297.2 L248.5,297.0 L250.9,296.8 L253.2,296.6 L255.6,296.4 L257.9,296.2 L260.3,296.0 L262.7,295.8 L265.0,295.6 L267.4,295.3 L269.7,295.1 L272.1,294.9 L274.5,294.7 L276.8,294.4 L279.2,294.2 L281.5,293.9 L283.9,293.7 L286.2,293.5 L288.6,293.2 L291.0,293.0 L293.3,292.7 L295.7,292.4 L298.0,292.2 L300.4,291.9 L302.8,291.7 L305.1,291.4 L307.5,291.1 L309.8,290.8 L312.2,290.6 L314.5,290.3 L316.9,290.0 L319.3,289.7 L321.6,289.5 L324.0,289.2 L326.3,288.9 L328.7,288.6 L331.1,288.3 L333.4,288.0 L335.8,287.7 L338.1,287.4 L340.5,287.1 L342.8,286.8 L345.2,286.5 L347.6,286.2 L349.9,285.9 L352.3,285.6 L354.6,285.3 L357.0,285.1 L359.4,284.8 L361.7,284.5 L364.1,284.2 L366.4,283.9 L368.8,283.6 L371.1,283.3 L373.5,283.0 L375.9,282.7 L378.2,282.4 L380.6,282.1 L382.9,281.8 L385.3,281.6 L387.7,281.3 L390.0,281.0 L392.4,280.7 L394.7,280.5 L397.1,280.2 L399.4,279.9 L401.8,279.7 L404.2,279.4 L406.5,279.2 L408.9,278.9 L411.2,278.7 L413.6,278.5 L416.0,278.2 L418.3,278.0 L420.7,277.8 L423.0,277.6 L425.4,277.4 L427.7,277.2 L430.1,277.0 L432.5,276.8 L434.8,276.6 L437.2,276.4 L439.5,276.3 L441.9,276.1 L444.3,275.9 L446.6,275.8 L449.0,275.6 L451.3,275.5 L453.7,275.4 L456.0,275.3 L458.4,275.1 L460.8,275.0 L463.1,274.9 L465.5,274.8 L467.8,274.7 L470.2,274.7 L472.6,274.6 L474.9,274.5 L477.3,274.5 L479.6,274.4 L482.0,274.4 L484.3,274.3 L486.7,274.3 L489.1,274.3 L491.4,274.3 L493.8,274.3 L496.1,274.3 L498.5,274.3 L500.9,274.3 L503.2,274.3 L505.6,274.3 L507.9,274.4 L510.3,274.4 L512.6,274.4 L515.0,274.5 L517.4,274.5 L519.7,274.6 L522.1,274.6 L524.4,274.7 L526.8,274.8 L529.2,274.9 L531.5,274.9 L533.9,275.0 L536.2,275.1 L538.6,275.2 L541.0,275.3 L543.3,275.4 L545.7,275.5 L548.0,275.6 L550.4,275.7 L552.7,275.8 L555.1,276.0 L557.5,276.1 L559.8,276.2 L562.2,276.3 L564.5,276.4 L566.9,276.6 L569.3,276.7 L571.6,276.8 L574.0,277.0 L576.3,277.1 L578.7,277.3 L581.0,277.4 L583.4,277.5 L585.8,277.7 L588.1,277.8 L590.5,278.0 L592.8,278.1 L595.2,278.3 L597.6,278.4 L599.9,278.6 L602.3,278.7 L604.6,278.9 L607.0,279.0 L609.3,279.2 L611.7,279.3 L614.1,279.5 L616.4,279.7 L618.8,279.8 L621.1,280.0 L623.5,280.1 L625.9,280.3 L628.2,280.4 L630.6,280.6 L632.9,280.7 L635.3,280.9 L637.6,281.0" fill="none" stroke="#8a8f98" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.4 L97.6,303.4 L99.9,303.4 L102.3,303.4 L104.7,303.4 L107.0,303.3 L109.4,303.3 L111.7,303.3 L114.1,303.3 L116.5,303.2 L118.8,303.2 L121.2,303.2 L123.5,303.1 L125.9,303.1 L128.2,303.0 L130.6,303.0 L133.0,303.0 L135.3,302.9 L137.7,302.8 L140.0,302.8 L142.4,302.7 L144.8,302.7 L147.1,302.6 L149.5,302.6 L151.8,302.5 L154.2,302.4 L156.5,302.3 L158.9,302.3 L161.3,302.2 L163.6,302.1 L166.0,302.0 L168.3,301.9 L170.7,301.8 L173.1,301.7 L175.4,301.6 L177.8,301.5 L180.1,301.4 L182.5,301.3 L184.8,301.2 L187.2,301.1 L189.6,301.0 L191.9,300.8 L194.3,300.7 L196.6,300.6 L199.0,300.5 L201.3,300.3 L203.7,300.2 L206.1,300.0 L208.4,299.9 L210.8,299.7 L213.1,299.6 L215.5,299.4 L217.9,299.2 L220.2,299.0 L222.6,298.9 L224.9,298.7 L227.3,298.5 L229.6,298.3 L232.0,298.1 L234.4,297.9 L236.7,297.7 L239.1,297.5 L241.4,297.3 L243.8,297.0 L246.2,296.8 L248.5,296.6 L250.9,296.3 L253.2,296.1 L255.6,295.8 L257.9,295.6 L260.3,295.3 L262.7,295.0 L265.0,294.8 L267.4,294.5 L269.7,294.2 L272.1,293.9 L274.5,293.6 L276.8,293.3 L279.2,293.0 L281.5,292.7 L283.9,292.3 L286.2,292.0 L288.6,291.7 L291.0,291.3 L293.3,290.9 L295.7,290.6 L298.0,290.2 L300.4,289.8 L302.8,289.4 L305.1,289.1 L307.5,288.7 L309.8,288.2 L312.2,287.8 L314.5,287.4 L316.9,287.0 L319.3,286.5 L321.6,286.1 L324.0,285.6 L326.3,285.2 L328.7,284.7 L331.1,284.2 L333.4,283.7 L335.8,283.2 L338.1,282.7 L340.5,282.2 L342.8,281.7 L345.2,281.2 L347.6,280.6 L349.9,280.1 L352.3,279.5 L354.6,279.0 L357.0,278.4 L359.4,277.8 L361.7,277.3 L364.1,276.7 L366.4,276.1 L368.8,275.5 L371.1,274.9 L373.5,274.2 L375.9,273.6 L378.2,273.0 L380.6,272.4 L382.9,271.7 L385.3,271.1 L387.7,270.5 L390.0,269.8 L392.4,269.2 L394.7,268.5 L397.1,267.9 L399.4,267.2 L401.8,266.6 L404.2,265.9 L406.5,265.2 L408.9,264.6 L411.2,263.9 L413.6,263.3 L416.0,262.7 L418.3,262.0 L420.7,261.4 L423.0,260.8 L425.4,260.2 L427.7,259.6 L430.1,259.0 L432.5,258.4 L434.8,257.8 L437.2,257.2 L439.5,256.7 L441.9,256.2 L444.3,255.7 L446.6,255.2 L449.0,254.7 L451.3,254.2 L453.7,253.8 L456.0,253.3 L458.4,252.9 L460.8,252.6 L463.1,252.2 L465.5,251.9 L467.8,251.6 L470.2,251.3 L472.6,251.0 L474.9,250.8 L477.3,250.6 L479.6,250.4 L482.0,250.2 L484.3,250.1 L486.7,250.0 L489.1,249.9 L491.4,249.8 L493.8,249.8 L496.1,249.8 L498.5,249.8 L500.9,249.8 L503.2,249.9 L505.6,250.0 L507.9,250.1 L510.3,250.2 L512.6,250.4 L515.0,250.5 L517.4,250.7 L519.7,250.9 L522.1,251.2 L524.4,251.4 L526.8,251.7 L529.2,251.9 L531.5,252.2 L533.9,252.5 L536.2,252.8 L538.6,253.2 L541.0,253.5 L543.3,253.9 L545.7,254.2 L548.0,254.6 L550.4,255.0 L552.7,255.3 L555.1,255.7 L557.5,256.1 L559.8,256.5 L562.2,256.9 L564.5,257.3 L566.9,257.7 L569.3,258.2 L571.6,258.6 L574.0,259.0 L576.3,259.4 L578.7,259.8 L581.0,260.3 L583.4,260.7 L585.8,261.1 L588.1,261.5 L590.5,262.0 L592.8,262.4 L595.2,262.8 L597.6,263.2 L599.9,263.6 L602.3,264.0 L604.6,264.5 L607.0,264.9 L609.3,265.3 L611.7,265.7 L614.1,266.1 L616.4,266.5 L618.8,266.9 L621.1,267.3 L623.5,267.6 L625.9,268.0 L628.2,268.4 L630.6,268.8 L632.9,269.2 L635.3,269.5 L637.6,269.9" fill="none" stroke="#1f5fa8" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.5 L97.6,303.5 L99.9,303.4 L102.3,303.4 L104.7,303.4 L107.0,303.4 L109.4,303.4 L111.7,303.4 L114.1,303.3 L116.5,303.3 L118.8,303.3 L121.2,303.3 L123.5,303.3 L125.9,303.2 L128.2,303.2 L130.6,303.2 L133.0,303.1 L135.3,303.1 L137.7,303.1 L140.0,303.0 L142.4,303.0 L144.8,302.9 L147.1,302.9 L149.5,302.9 L151.8,302.8 L154.2,302.8 L156.5,302.7 L158.9,302.6 L161.3,302.6 L163.6,302.5 L166.0,302.5 L168.3,302.4 L170.7,302.3 L173.1,302.2 L175.4,302.2 L177.8,302.1 L180.1,302.0 L182.5,301.9 L184.8,301.8 L187.2,301.7 L189.6,301.6 L191.9,301.5 L194.3,301.4 L196.6,301.3 L199.0,301.2 L201.3,301.1 L203.7,301.0 L206.1,300.8 L208.4,300.7 L210.8,300.6 L213.1,300.4 L215.5,300.3 L217.9,300.2 L220.2,300.0 L222.6,299.8 L224.9,299.7 L227.3,299.5 L229.6,299.3 L232.0,299.2 L234.4,299.0 L236.7,298.8 L239.1,298.6 L241.4,298.4 L243.8,298.1 L246.2,297.9 L248.5,297.7 L250.9,297.5 L253.2,297.2 L255.6,297.0 L257.9,296.7 L260.3,296.4 L262.7,296.2 L265.0,295.9 L267.4,295.6 L269.7,295.3 L272.1,295.0 L274.5,294.7 L276.8,294.3 L279.2,294.0 L281.5,293.6 L283.9,293.3 L286.2,292.9 L288.6,292.5 L291.0,292.1 L293.3,291.7 L295.7,291.3 L298.0,290.8 L300.4,290.4 L302.8,289.9 L305.1,289.4 L307.5,288.9 L309.8,288.4 L312.2,287.8 L314.5,287.3 L316.9,286.7 L319.3,286.1 L321.6,285.5 L324.0,284.9 L326.3,284.2 L328.7,283.6 L331.1,282.9 L333.4,282.1 L335.8,281.4 L338.1,280.6 L340.5,279.8 L342.8,279.0 L345.2,278.1 L347.6,277.2 L349.9,276.3 L352.3,275.3 L354.6,274.3 L357.0,273.3 L359.4,272.2 L361.7,271.0 L364.1,269.9 L366.4,268.7 L368.8,267.4 L371.1,266.1 L373.5,264.7 L375.9,263.2 L378.2,261.7 L380.6,260.2 L382.9,258.5 L385.3,256.8 L387.7,255.0 L390.0,253.1 L392.4,251.2 L394.7,249.1 L397.1,246.9 L399.4,244.6 L401.8,242.2 L404.2,239.7 L406.5,237.0 L408.9,234.2 L411.2,231.2 L413.6,228.0 L416.0,224.6 L418.3,221.1 L420.7,217.2 L423.0,213.2 L425.4,208.8 L427.7,204.2 L430.1,199.2 L432.5,193.8 L434.8,188.0 L437.2,181.7 L439.5,174.9 L441.9,167.5 L444.3,159.4 L446.6,150.5 L449.0,140.7 L451.3,129.8 L453.7,117.7 L456.0,104.2 L458.4,89.0 L460.8,71.7 L463.1,62.0" fill="none" stroke="#a23b2a" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.5 L97.6,303.5 L99.9,303.5 L102.3,303.5 L104.7,303.5 L107.0,303.4 L109.4,303.4 L111.7,303.4 L114.1,303.4 L116.5,303.4 L118.8,303.4 L121.2,303.4 L123.5,303.4 L125.9,303.3 L128.2,303.3 L130.6,303.3 L133.0,303.3 L135.3,303.3 L137.7,303.2 L140.0,303.2 L142.4,303.2 L144.8,303.2 L147.1,303.1 L149.5,303.1 L151.8,303.1 L154.2,303.0 L156.5,303.0 L158.9,303.0 L161.3,302.9 L163.6,302.9 L166.0,302.9 L168.3,302.8 L170.7,302.8 L173.1,302.7 L175.4,302.7 L177.8,302.6 L180.1,302.6 L182.5,302.5 L184.8,302.5 L187.2,302.4 L189.6,302.3 L191.9,302.3 L194.3,302.2 L196.6,302.1 L199.0,302.1 L201.3,302.0 L203.7,301.9 L206.1,301.8 L208.4,301.7 L210.8,301.7 L213.1,301.6 L215.5,301.5 L217.9,301.4 L220.2,301.3 L222.6,301.2 L224.9,301.1 L227.3,300.9 L229.6,300.8 L232.0,300.7 L234.4,300.6 L236.7,300.4 L239.1,300.3 L241.4,300.2 L243.8,300.0 L246.2,299.9 L248.5,299.7 L250.9,299.6 L253.2,299.4 L255.6,299.2 L257.9,299.1 L260.3,298.9 L262.7,298.7 L265.0,298.5 L267.4,298.3 L269.7,298.1 L272.1,297.9 L274.5,297.7 L276.8,297.5 L279.2,297.2 L281.5,297.0 L283.9,296.8 L286.2,296.5 L288.6,296.2 L291.0,296.0 L293.3,295.7 L295.7,295.4 L298.0,295.1 L300.4,294.8 L302.8,294.5 L305.1,294.2 L307.5,293.9 L309.8,293.5 L312.2,293.2 L314.5,292.8 L316.9,292.5 L319.3,292.1 L321.6,291.7 L324.0,291.3 L326.3,290.9 L328.7,290.5 L331.1,290.0 L333.4,289.6 L335.8,289.1 L338.1,288.6 L340.5,288.2 L342.8,287.7 L345.2,287.1 L347.6,286.6 L349.9,286.1 L352.3,285.5 L354.6,284.9 L357.0,284.4 L359.4,283.7 L361.7,283.1 L364.1,282.5 L366.4,281.8 L368.8,281.2 L371.1,280.5 L373.5,279.8 L375.9,279.0 L378.2,278.3 L380.6,277.5 L382.9,276.8 L385.3,276.0 L387.7,275.1 L390.0,274.3 L392.4,273.4 L394.7,272.6 L397.1,271.7 L399.4,270.8 L401.8,269.8 L404.2,268.9 L406.5,267.9 L408.9,266.9 L411.2,265.9 L413.6,264.9 L416.0,263.9 L418.3,262.8 L420.7,261.8 L423.0,260.7 L425.4,259.6 L427.7,258.6 L430.1,257.5 L432.5,256.4 L434.8,255.3 L437.2,254.2 L439.5,253.1 L441.9,252.0 L444.3,250.9 L446.6,249.8 L449.0,248.8 L451.3,247.8 L453.7,246.7 L456.0,245.8 L458.4,244.8 L460.8,243.9 L463.1,243.0 L465.5,242.2 L467.8,241.4 L470.2,240.7 L472.6,240.0 L474.9,239.4 L477.3,238.8 L479.6,238.3 L482.0,237.8 L484.3,237.5 L486.7,237.2 L489.1,236.9 L491.4,236.8 L493.8,236.7 L496.1,236.6 L498.5,236.7 L500.9,236.8 L503.2,237.0 L505.6,237.2 L507.9,237.5 L510.3,237.9 L512.6,238.3 L515.0,238.7 L517.4,239.2 L519.7,239.8 L522.1,240.4 L524.4,241.0 L526.8,241.7 L529.2,242.3 L531.5,243.1 L533.9,243.8 L536.2,244.6 L538.6,245.3 L541.0,246.1 L543.3,246.9 L545.7,247.8 L548.0,248.6 L550.4,249.4 L552.7,250.2 L555.1,251.1 L557.5,251.9 L559.8,252.7 L562.2,253.5 L564.5,254.3 L566.9,255.1 L569.3,255.9 L571.6,256.7 L574.0,257.5 L576.3,258.3 L578.7,259.1 L581.0,259.8 L583.4,260.6 L585.8,261.3 L588.1,262.0 L590.5,262.7 L592.8,263.4 L595.2,264.1 L597.6,264.8 L599.9,265.4 L602.3,266.1 L604.6,266.7 L607.0,267.3 L609.3,268.0 L611.7,268.6 L614.1,269.1 L616.4,269.7 L618.8,270.3 L621.1,270.8 L623.5,271.4 L625.9,271.9 L628.2,272.4 L630.6,272.9 L632.9,273.4 L635.3,273.9 L637.6,274.4" fill="none" stroke="#5b7f3a" stroke-width="2"/><line x1="74" y1="269.0" x2="640" y2="269.0" stroke="#b9a97f" stroke-dasharray="2 5"/><text x="80" y="263.0" font-size="11" fill="#8a7a58">bend 2.00</text><text x="656" y="66" font-size="12" font-weight="600" fill="#2e2413">curvatureAngle</text><line x1="656" y1="88" x2="680" y2="88" stroke="#8a8f98" stroke-width="2.4"/><text x="686" y="92" font-size="12" fill="#2e2413">110 deg | no bend 2</text><line x1="656" y1="108" x2="680" y2="108" stroke="#1f5fa8" stroke-width="2.4"/><text x="686" y="112" font-size="12" fill="#2e2413">120 deg</text><line x1="656" y1="128" x2="680" y2="128" stroke="#a23b2a" stroke-width="2.4"/><text x="686" y="132" font-size="12" fill="#2e2413">138.19 deg | closure</text><line x1="656" y1="148" x2="680" y2="148" stroke="#5b7f3a" stroke-width="2.4"/><text x="686" y="152" font-size="12" fill="#2e2413">150 deg</text><text x="656" y="178" font-size="11" fill="#7b6c4e">at the closing angle the chord</text><text x="656" y="194" font-size="11" fill="#7b6c4e">vanishes and the bend runs away</text></svg>
+<p class="small">Above: bend against curvatureRatio for four curvatureAngle values, with the closing
+angle marked. The flat grey curve is 110 deg, where bend 2 cannot be reached at any ratio.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q13 | the exact bend formula, live</h2>
+<p>Six numbers: the real and imaginary parts of <code>speedMid</code>, <code>slopeMid</code> and
+<code>curvatureMid</code>. The three lines give arc, chord and bend with no sampling; the curve is
+drawn beside them so you can check. The diagram on the right adds the three chord vectors head to
+tail - the bend is large exactly when they cancel. Drag toward the closure preset and watch the bend
+run away.</p>
+<p><strong>The inverse.</strong> To build a curve from a diagram, type the three chord terms and
+press <em>solve for the recipe</em>. The formula inverts in closed form:
+<code>speedMid = sqrt(T1)</code>, <code>curvatureMid = sqrt(80*T3)</code>,
+<code>slopeMid = sqrt(12*T2 - 2*speedMid*curvatureMid)</code>. Each square root has two signs, so one
+diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
+<div id="q13-controls"></div>
+<div class="inverse-row" id="q13-inverse"></div>
+<svg id="q13-plot" viewBox="0 0 900 520" role="img" aria-label="the exact bend formula, live"></svg>
+<p class="small mono" id="q13-exact"></p>
+<p class="small mono" id="q13-terms"></p>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q13">save this curve</button></p>
+
+</section>
+
+<section class="panel">
+<h2>Saved curves</h2>
+<p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
+and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
+JSON</a>: exact recipe, bend, pitch, inflection, closest approach, endpoint and the closed form.</p>
+<p><strong id="saved-count">0</strong> saved
+<button type="button" id="saved-download">download JSON</button>
+<button type="button" id="saved-clear">clear</button></p>
+</section>
+
 <script>
+// The gallery's panels. Loaded at the end of the page by
+// scripts/ph_quintic_gallery.py; edit here, not in the generated HTML.
+
 window.closedFormOf = (function () {
   const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
   const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
@@ -311,33 +506,7 @@ window.curveSaver = (function () {
     }
   };
 })();
-</script>
 
-<section class="panel">
-<h2>Fig. Q7 | the sliders: b sets the size, morphLambda sets the bend</h2>
-<p><strong>b</strong> sets the scale of the exact S. <strong>a</strong> shifts where the bend sits.
-<strong>morphLambda</strong> is the bend: it takes the exact family's speed recipes and adds a growing share
-of the simplified curve 15's, the two-lobe S. morphLambda = 0 is the exact S; morphLambda = 1 is the target. The
-starting recipe carries <code>c = 1</code>  -  a free nudge: it adds nothing to the pitch and takes the
-bend from 1.09 to 1.15.</p>
-<p>In plain words: <strong>bend is the arc length divided by the straight-line distance between the
-ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; the target is about 5.6.
-morphLambda does not scale the curve  -  it changes its shape, pulling the ends round into the two lobes. The
-target is the simplified curve 15: <code>u = 0.2 - 2t + 2t^2</code>,
-<code>v = 0.4 - 1.5t + 1.6t^2</code>, the clearest S of the six candidates tested.</p>
-<p class="code-names">In the code: <code>b</code> is <code>scaleB</code>, <code>a</code> is
-<code>shiftA</code>, <code>morphLambda</code> is <code>morphLambda</code>, the two recipes are
-<code>speedX</code> and <code>speedY</code>, and their far ends are <code>targetSpeedX</code> and
-<code>targetSpeedY</code>.</p>
-<div class="slider-row">
-  <label>b <input id="q7-scale-b" type="range" min="0.5" max="8" step="0.1" value="4"></label>
-  <label>a <input id="q7-shift-a" type="range" min="-1" max="3" step="0.1" value="0"></label>
-  <label>morphLambda <input id="q7-morph-lambda" type="range" min="0" max="1" step="0.01" value="0"></label>
-  <span id="q7-readout" class="small"></span>
-</div>
-<svg id="q7-plot" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q7">save this curve</button></p>
-<script>
 (function () {
   const plotElement = document.getElementById("q7-plot");
   const canvasWidth = 900, canvasHeight = 420, plotMargin = 46, sampleCount = 800;
@@ -430,51 +599,7 @@ target is the simplified curve 15: <code>u = 0.2 - 2t + 2t^2</code>,
   for (const controlId of ["q7-shift-a", "q7-scale-b", "q7-morph-lambda"]) document.getElementById(controlId).addEventListener("input", redraw);
   redraw();
 })();
-</script>
-</section>
 
-<section class="panel">
-<h2>Fig. Q8 | the recipe playground</h2>
-<p>Six numbers, one curve  -  type them or drag the sliders. <code>u</code> and <code>v</code> are
-the two speed recipes; <code>r(t) = integral of (u + i v)^2 dt</code>. The readout gives the bend (arc / chord)
-and the exact pitch for the numbers you type. The pitch is the lcm of the integrated coefficients'
-denominators, so a decimal like 1.5 costs more than 2  -  try it.</p>
-<p>Two ways to a <strong>bend of 2.00</strong> with small integers: <code>u = 2 - 3t + 3t^2</code>,
-<code>v = 2 - 12t + 12t^2</code> (pitch 10, and <code>v = 4u - 6</code>, so the speed path is a
-straight segment) or <code>u = 3 - 9t + 9t^2</code>, <code>v = 1 - 15t + 15t^2</code> (pitch 5). The
-round decimal recipe <code>u = 0.5 - 0.5t + 0.5t^2</code>, <code>v = 0.7 - 4t + 4t^2</code> is a
-stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid in the gallery.</p>
-<div class="control-grid">
-  <label class="control-row"><span>speedXAtEnds</span><input id="q8-speed-x0" type="number" step="0.05" value="0.2"><input id="q8-speed-x0-slider" type="range" min="-2" max="4" step="0.05" value="0.2"></label>
-  <label class="control-row"><span>speedXLinear</span><input id="q8-speed-x1" type="number" step="0.05" value="-2"><input id="q8-speed-x1-slider" type="range" min="-16" max="4" step="0.05" value="-2"></label>
-  <label class="control-row"><span>speedXCurvature</span><input id="q8-speed-x2" type="number" step="0.05" value="2"><input id="q8-speed-x2-slider" type="range" min="0" max="16" step="0.05" value="2"></label>
-  <label class="control-row"><span>speedYAtEnds</span><input id="q8-speed-y0" type="number" step="0.05" value="0.4"><input id="q8-speed-y0-slider" type="range" min="-2" max="4" step="0.05" value="0.4"></label>
-  <label class="control-row"><span>speedYLinear</span><input id="q8-speed-y1" type="number" step="0.05" value="-1.5"><input id="q8-speed-y1-slider" type="range" min="-16" max="4" step="0.05" value="-1.5"></label>
-  <label class="control-row"><span>speedYCurvature</span><input id="q8-speed-y2" type="number" step="0.05" value="1.6"><input id="q8-speed-y2-slider" type="range" min="0" max="16" step="0.05" value="1.6"></label>
-</div>
-<div class="preset-row" id="q8-presets"></div><script>window.phPresets = [{"id":"the-target","label":"the target","source":"Q8","note":"the two-lobe S that Q7 morphs toward","u":["1/5","-2","2"],"v":["2/5","-3/2","8/5"],"bend":5.58,"pitch":1500,"inflection":0.47,"closest_approach":0.2,"endpoint":["-13/1500","-1/75"],"endpoint_at_pitch":["-13","-20"]},{"id":"u0-025","label":"speedXAtEnds = 0.25","source":"Q8","note":"raising speedXAtEnds straightens the middle","u":["1/4","-2","2"],"v":["2/5","-3/2","8/5"],"bend":3.87,"pitch":2000,"inflection":0.47,"closest_approach":0.17,"endpoint":["-39/2000","1/200"],"endpoint_at_pitch":["-39","10"]},{"id":"v0-05","label":"speedYAtEnds = 0.5","source":"Q8","note":"raising speedYAtEnds moves the speed path off the origin","u":["1/5","-2","2"],"v":["1/2","-3/2","8/5"],"bend":1.98,"pitch":1500,"inflection":0.48,"closest_approach":0.28,"endpoint":["-83/1500","-1/25"],"endpoint_at_pitch":["-83","-60"]},{"id":"u0-025-v0-05","label":"speedXAtEnds = 0.25, speedYAtEnds = 0.5","source":"Q8","note":"both offsets at once: the bend collapses to 1.85","u":["1/4","-2","2"],"v":["1/2","-3/2","8/5"],"bend":1.85,"pitch":6000,"inflection":0.48,"closest_approach":0.26,"endpoint":["-397/6000","-7/600"],"endpoint_at_pitch":["-397","-70"]},{"id":"v1-14","label":"speedYLinear = -1.4","source":"Q8","note":"a smaller tilt: bend 2.69","u":["1/5","-2","2"],"v":["2/5","-7/5","8/5"],"bend":2.69,"pitch":375,"inflection":0.46,"closest_approach":0.22,"endpoint":["-4/125","-2/75"],"endpoint_at_pitch":["-12","-10"]},{"id":"v1-16","label":"speedYLinear = -1.6","source":"Q8","note":"the tilt vanishes and the curve doubles back: bend 9.00","u":["1/5","-2","2"],"v":["2/5","-8/5","8/5"],"bend":9.0,"pitch":125,"inflection":0.5,"closest_approach":0.19,"endpoint":["1/125","0"],"endpoint_at_pitch":["1","0"]},{"id":"target-x10","label":"the target x10","source":"Q8","note":"same shape as the target, pitch 15 instead of 1500","u":["2","-20","20"],"v":["4","-15","16"],"bend":5.58,"pitch":15,"inflection":0.47,"closest_approach":2.03,"endpoint":["-13/15","-4/3"],"endpoint_at_pitch":["-13","-20"]},{"id":"bend-2-pick","label":"bend 2.00 | v = 4u - 6","source":"Q9","note":"the recommended curve: integers, pitch 10, endpoint (15, 4)","u":["2","-3","3"],"v":["2","-12","12"],"bend":2.0,"pitch":10,"inflection":0.5,"closest_approach":1.46,"endpoint":["3/2","2/5"],"endpoint_at_pitch":["15","4"]},{"id":"bend-2-pitch-5","label":"bend 2.00 | pitch 5","source":"Q8","note":"the cheapest bend-2 grid","u":["3","-9","9"],"v":["1","-15","15"],"bend":2.0,"pitch":5,"inflection":0.5,"closest_approach":2.06,"endpoint":["-4/5","-3"],"endpoint_at_pitch":["-4","-15"]},{"id":"round-269","label":"yours | bend 2.69","source":"Q8","note":"the round decimal S; at x10 its pitch is 2","u":["1/2","-1/2","1/2"],"v":["7/10","-4","4"],"bend":2.69,"pitch":200,"inflection":0.5,"closest_approach":0.41,"endpoint":["17/200","1/20"],"endpoint_at_pitch":["17","10"]},{"id":"round-269-x10","label":"yours x10","source":"Q8","note":"the same shape as yours, pitch 2","u":["5","-5","5"],"v":["7","-40","40"],"bend":2.69,"pitch":2,"inflection":0.5,"closest_approach":4.09,"endpoint":["17/2","5"],"endpoint_at_pitch":["17","10"]},{"id":"round-224","label":"yours | speedYAtEnds = 0.5 | bend 2.24","source":"Q8","note":"the speedYAtEnds = 0.5 variant: same turn, cheaper pitch than 0.7","u":["1/2","-1/2","1/2"],"v":["1/2","-4","4"],"bend":2.24,"pitch":120,"inflection":0.5,"closest_approach":0.43,"endpoint":["7/120","-7/60"],"endpoint_at_pitch":["7","-14"]},{"id":"round-224-x2","label":"speedYAtEnds = 0.5 x2 | bend 2.24","source":"Q8","note":"the integer form: bend 2.24, pitch 30, endpoint (7, -14)","u":["1","-1","1"],"v":["1","-8","8"],"bend":2.24,"pitch":30,"inflection":0.5,"closest_approach":0.87,"endpoint":["7/30","-7/15"],"endpoint_at_pitch":["7","-14"]},{"id":"triangle-overshoot","label":"the triangle with the green overshoot","source":"Q13","note":"the three chord terms form a triangle, the green term overshoots, and the chord closes the gap; bend 3.34 at pitch 15","u":["45","-176","252"],"v":["-3","-400","540"],"bend":3.34,"pitch":15,"inflection":0.36,"closest_approach":42.42,"endpoint":["-6336/5","4198/3"],"endpoint_at_pitch":["-19008","20990"]},{"id":"find-318","label":"the interesting curve","source":"Q8","note":"bend 3.18 at pitch 600; u and v share the leading 16, so x(t) is quartic","u":["-19/20","-63/5","16"],"v":["59/20","-141/10","16"],"bend":3.18,"pitch":600,"inflection":0.44,"closest_approach":1.96,"endpoint":["563/200","-121/150"],"endpoint_at_pitch":["1689","-484"]},{"id":"find-204","label":"the earlier 2.04 find","source":"Q7","note":"b = 6.7, a = -1, morphLambda = 0.51; decimals make the pitch 15 million","u":["74/125","-53/100","53/100"],"v":["347/500","-506/125","4099/1000"],"bend":2.04,"pitch":15000000,"inflection":0.49,"closest_approach":0.49,"endpoint":["2405407/15000000","36443/600000"],"endpoint_at_pitch":["2405407","911075"]}];</script>
-<svg id="q8-plot" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
-<p class="small" id="q8-readout"></p>
-<p class="small" id="q8-centered-form"></p>
-<p class="small mono" id="q8-closed-form"></p>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q8">save this curve</button></p>
-<dl class="roles">
-  <dt>speedXAtEnds <code>speedXAtEnds</code></dt><dd>the horizontal speed at the two ends (when speedXLinear = -speedXCurvature). The
-    middle of u is speedXAtEnds - speedXCurvature/4, so speedXAtEnds decides how close the path comes to the origin: lower speedXAtEnds, closer,
-    more bend.</dd>
-  <dt>speedXLinear <code>speedXLinear</code></dt><dd>the tilt of u. With speedXLinear = -speedXCurvature the recipe is even about
-    t = 1/2, so u(0) = u(1).</dd>
-  <dt>speedXCurvature <code>speedXCurvature</code></dt><dd>the curvature of u: how far the horizontal speed swings
-    below speedXAtEnds.</dd>
-  <dt>speedYAtEnds <code>speedYAtEnds</code></dt><dd>the vertical speed at the ends. The middle of v is
-    speedYAtEnds + speedYLinear/2 + speedYCurvature/4.</dd>
-  <dt>speedYLinear <code>speedYLinear</code></dt><dd>the asymmetry of v. The centred linear term is speedYLinear + speedYCurvature; set
-    it to zero and u and v are both even, the path retraces itself, and the curve doubles back along
-    its own arc.</dd>
-  <dt>speedYCurvature <code>speedYCurvature</code></dt><dd>the curvature of v: the size of the vertical
-    parabola.</dd>
-</dl>
-<script>
 (function () {
   const plotElement = document.getElementById("q8-plot");
   const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
@@ -551,65 +676,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
   });
   redraw();
 })();
-</script>
-</section>
 
-<section class="panel">
-<h2>Fig. Q9 | the bend-2 curve (recommended)</h2>
-<div class="pick">
-<p><strong>The pick:</strong> <code>u = 2 - 3t + 3t^2</code>, <code>v = 2 - 12t + 12t^2</code>,
-which is just <code>v = 4u - 6</code>. All integers, <strong>bend 2.00</strong>, inflection at the
-middle, <strong>pitch 10</strong>, and the endpoint is <strong>(15, 4)</strong> at that pitch. The
-speed path is the straight segment from (2, 2) to (1.25, -1) and back; squared and integrated it
-gives this S, and it is the simplest recipe in the gallery that reaches bend 2.</p>
-</div>
-<p>Tune it: <code>v = k*u + c</code>, with <code>k = 4</code>, <code>c = -6</code> at the pick.
-<code>k</code> tilts the segment, <code>c</code> slides it toward or away from the origin; the
-readout follows both. <strong>This <code>c</code> is not Q7's <code>c</code>.</strong> Here it is the
-intercept of the line between the two recipes; in Q7 it is the constant term of <code>v</code>'s own
-recipe, <code>v = b(t^2 - t) + c</code>, which was set to 1 to keep the pitch free. The pick's own
-constant term is <code>v(0) = 2</code>.</p>
-<p class="code-names">In the code: <code>k</code> is <code>lineSlope</code>, <code>c</code> is
-<code>lineIntercept</code>; Q7's constant term is <code>constantTermC</code>.</p>
-<div id="q9-controls"></div>
-<svg id="q9-plot" viewBox="0 0 900 470" role="img" aria-label="the bend-2 curve"></svg>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q9">save this curve</button></p>
-<p class="small" id="q9-readout"></p>
-</section>
-
-<section class="panel">
-<h2>Fig. Q10 | proposal 2: the even pair</h2>
-<p>Both recipes even about <code>t = 1/2</code>: <code>u = speedXAtEnds - speedXCurvaturet + speedXCurvaturet^2</code>,
-<code>v = speedYAtEnds - speedYCurvaturet + speedYCurvaturet^2</code>. The curve is point-symmetric, so it is an S with equal lobes, and
-the four numbers are the whole recipe. <code>speedXAtEnds, speedYAtEnds</code> set how close the speed path comes to the
-origin; <code>speedXCurvature, speedYCurvature</code> set the size of each parabola. Three landmarks: (0.6, 0.5, 0.7, 4) is
-bend 1.91; (0.5, 0.5, 0.78, 4) is bend 2.01; (0.5, 0.5, 0.7, 4) is bend 2.69.</p>
-<p class="code-names">In the code: <code>speedXAtEnds</code>, <code>speedXCurvature</code>,
-<code>speedYAtEnds</code>, <code>speedYCurvature</code>.</p>
-<div id="q10-controls"></div>
-<svg id="q10-plot" viewBox="0 0 900 470" role="img" aria-label="the even pair"></svg>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q10">save this curve</button></p>
-<p class="small" id="q10-readout"></p>
-</section>
-
-<section class="panel">
-<h2>Fig. Q11 | proposal 3: the tilted pair</h2>
-<p>The even pair plus one free number: <code>v = speedYAtEnds + speedYLineart + speedYCurvaturet^2</code> with <code>speedYLinear</code> no
-longer forced to <code>-speedYCurvature</code>. That tilt is what the 2.04 find in Q7 actually used:
-<code>u = 0.592 - 0.53t + 0.53t^2</code>, <code>v = 0.694 - 4.048t + 4.099t^2</code> (bend 2.04, pitch
-15 million). Its nearest round neighbour, <code>u = 0.6 - 0.5t + 0.5t^2</code>,
-<code>v = 0.7 - 4t + 4t^2</code>, is bend 1.91; at x10  -  <code>u = 6 - 5t + 5t^2</code>,
-<code>v = 7 - 40t + 40t^2</code>  -  its pitch is <strong>6</strong>. Slide <code>speedYLinear</code> toward
-<code>-speedYCurvature</code> to see the tilt vanish.</p>
-<p class="code-names">In the code: <code>speedYLinear</code> is <code>speedYLinear</code>, the one number the
-even pair does not have.</p>
-<div id="q11-controls"></div>
-<svg id="q11-plot" viewBox="0 0 900 470" role="img" aria-label="the tilted pair"></svg>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q11">save this curve</button></p>
-<p class="small" id="q11-readout"></p>
-</section>
-
-<script>
 (function () {
   const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
   function drawCurve(plotElement, speedX, speedY, figureTitle) {
@@ -729,60 +796,7 @@ even pair does not have.</p>
      { label: "x10 of 0.6 / 0.7 | pitch 6", values: [6, 5, 7, -40, 40] },
      { label: "x10 of 0.5 / 0.7 | pitch 2", values: [5, 5, 7, -40, 40] }]);
 })();
-</script>
 
-<section class="panel">
-<h2>Fig. Q12 | the exact bend formula</h2>
-<p>No sampling is needed. Write the speed recipe in the centred frame <code>h = t - 1/2</code> as
-<code>w(h) = speedMid + slopeMid*h + curvatureMid*h^2</code>, with <code>speedMid = w(1/2)</code>,
-<code>slopeMid = w'(1/2)</code> and <code>curvatureMid = w''(1/2)/2</code>. Then, exactly:</p>
-<pre>arc   = |speedMid|^2 + (|slopeMid|^2 + 2 speedMid.curvatureMid)/12 + |curvatureMid|^2/80
-chord = speedMid^2 + (2 speedMid*curvatureMid + slopeMid^2)/12 + curvatureMid^2/80
-bend  = arc / |chord|</pre>
-<p><code>speedMid.curvatureMid</code> is the dot product and <code>speedMid*curvatureMid</code> the
-complex product. These three lines reproduce every entry in
-<a href="ph-quintic-presets.json">the preset JSON</a> to within 1e-4. The weights
-<code>1, 1/12, 1/80</code> are the integrals of <code>1, h^2, h^4</code> over [-1/2, 1/2] - they are
-the irregular ratios in the recipe, and nothing like Fibonacci is involved.</p>
-<p><strong>Why it bends.</strong> The chord is a sum of three complex vectors -
-<code>speedMid^2</code>, <code>(2 speedMid*curvatureMid + slopeMid^2)/12</code>,
-<code>curvatureMid^2/80</code> - while the arc is a positive number, so the bend is large exactly when
-those three cancel. For the even pair (<code>slopeMid = 0</code>) the chord is
-<code>speedMid^2 (1 + ratio/6 + ratio^2/80)</code> with <code>ratio = curvatureMid/speedMid</code>,
-which vanishes at <code>ratio = -20/3 +/- (8*sqrt(5)/3) i</code>:
-<code>|ratio| = 4*sqrt(5) ~ 8.94</code> at <code>curvatureAngle = 138.19 deg</code>. There the curve
-closes and the bend runs to infinity.</p>
-<p><strong>The method.</strong> Choose <code>curvatureRatio = |curvatureMid|/|speedMid|</code> and
-<code>curvatureAngle = angle(speedMid, curvatureMid)</code>, read the bend off the chart, then pick
-integer vectors and clear the denominators. For bend 2 the level set is curvatureRatio ~ 6.2-7.0 for
-curvatureAngle between 115 deg and 150 deg; below about 113 deg no ratio reaches bend 2. The pick
-sits at curvatureRatio = 7.7, curvatureAngle = 114.6 deg. Because the formula is exact, the integer
-search is instant: over small integers the smallest bend-2 even pair is the pick itself, pitch 10,
-unique up to signs.</p>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" role="img" aria-label="bend against the ratio of the speed-path vectors"><rect width="900" height="400" fill="#fbf7ec"/><text x="74" y="24" font-size="15" font-weight="600" fill="#2e2413">Fig. Q12 | bend against the speed-path ratio</text><text x="74" y="40" font-size="12" fill="#7b6c4e">|speedMid| = 1, slopeMid = 0 (the even pair); the bend depends only on curvatureRatio and curvatureAngle</text><line x1="74" y1="338" x2="640" y2="338" stroke="#8a7a58"/><line x1="74" y1="62" x2="74" y2="338" stroke="#8a7a58"/><line x1="74.0" y1="338" x2="74.0" y2="343" stroke="#8a7a58"/><text x="74.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">0</text><line x1="168.3" y1="338" x2="168.3" y2="343" stroke="#8a7a58"/><text x="168.3" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">2</text><line x1="262.7" y1="338" x2="262.7" y2="343" stroke="#8a7a58"/><text x="262.7" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">4</text><line x1="357.0" y1="338" x2="357.0" y2="343" stroke="#8a7a58"/><text x="357.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">6</text><line x1="451.3" y1="338" x2="451.3" y2="343" stroke="#8a7a58"/><text x="451.3" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">8</text><line x1="545.7" y1="338" x2="545.7" y2="343" stroke="#8a7a58"/><text x="545.7" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">10</text><line x1="640.0" y1="338" x2="640.0" y2="343" stroke="#8a7a58"/><text x="640.0" y="357" font-size="12" text-anchor="middle" fill="#7b6c4e">12</text><line x1="69" y1="303.5" x2="74" y2="303.5" stroke="#8a7a58"/><text x="64" y="307.5" font-size="12" text-anchor="end" fill="#7b6c4e">1</text><line x1="69" y1="269.0" x2="74" y2="269.0" stroke="#8a7a58"/><text x="64" y="273.0" font-size="12" text-anchor="end" fill="#7b6c4e">2</text><line x1="69" y1="234.5" x2="74" y2="234.5" stroke="#8a7a58"/><text x="64" y="238.5" font-size="12" text-anchor="end" fill="#7b6c4e">3</text><line x1="69" y1="200.0" x2="74" y2="200.0" stroke="#8a7a58"/><text x="64" y="204.0" font-size="12" text-anchor="end" fill="#7b6c4e">4</text><line x1="69" y1="165.5" x2="74" y2="165.5" stroke="#8a7a58"/><text x="64" y="169.5" font-size="12" text-anchor="end" fill="#7b6c4e">5</text><line x1="69" y1="131.0" x2="74" y2="131.0" stroke="#8a7a58"/><text x="64" y="135.0" font-size="12" text-anchor="end" fill="#7b6c4e">6</text><line x1="69" y1="96.5" x2="74" y2="96.5" stroke="#8a7a58"/><text x="64" y="100.5" font-size="12" text-anchor="end" fill="#7b6c4e">7</text><line x1="69" y1="62.0" x2="74" y2="62.0" stroke="#8a7a58"/><text x="64" y="66.0" font-size="12" text-anchor="end" fill="#7b6c4e">8</text><text x="357.0" y="384" font-size="13" text-anchor="middle" fill="#2e2413">curvatureRatio = |Q| / |P|</text><text x="20" y="200.0" font-size="13" text-anchor="middle" fill="#2e2413" transform="rotate(-90 20 200.0)">bend</text><line x1="495.9" y1="62" x2="495.9" y2="338" stroke="#a23b2a" stroke-dasharray="4 4"/><text x="501.9" y="76" font-size="11" fill="#a23b2a">closure: 4sqrt5</text><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.4 L95.2,303.4 L97.6,303.4 L99.9,303.4 L102.3,303.4 L104.7,303.3 L107.0,303.3 L109.4,303.3 L111.7,303.3 L114.1,303.2 L116.5,303.2 L118.8,303.2 L121.2,303.1 L123.5,303.1 L125.9,303.0 L128.2,303.0 L130.6,302.9 L133.0,302.9 L135.3,302.8 L137.7,302.8 L140.0,302.7 L142.4,302.7 L144.8,302.6 L147.1,302.5 L149.5,302.5 L151.8,302.4 L154.2,302.3 L156.5,302.3 L158.9,302.2 L161.3,302.1 L163.6,302.0 L166.0,301.9 L168.3,301.8 L170.7,301.8 L173.1,301.7 L175.4,301.6 L177.8,301.5 L180.1,301.4 L182.5,301.2 L184.8,301.1 L187.2,301.0 L189.6,300.9 L191.9,300.8 L194.3,300.7 L196.6,300.6 L199.0,300.4 L201.3,300.3 L203.7,300.2 L206.1,300.0 L208.4,299.9 L210.8,299.7 L213.1,299.6 L215.5,299.4 L217.9,299.3 L220.2,299.1 L222.6,299.0 L224.9,298.8 L227.3,298.7 L229.6,298.5 L232.0,298.3 L234.4,298.1 L236.7,298.0 L239.1,297.8 L241.4,297.6 L243.8,297.4 L246.2,297.2 L248.5,297.0 L250.9,296.8 L253.2,296.6 L255.6,296.4 L257.9,296.2 L260.3,296.0 L262.7,295.8 L265.0,295.6 L267.4,295.3 L269.7,295.1 L272.1,294.9 L274.5,294.7 L276.8,294.4 L279.2,294.2 L281.5,293.9 L283.9,293.7 L286.2,293.5 L288.6,293.2 L291.0,293.0 L293.3,292.7 L295.7,292.4 L298.0,292.2 L300.4,291.9 L302.8,291.7 L305.1,291.4 L307.5,291.1 L309.8,290.8 L312.2,290.6 L314.5,290.3 L316.9,290.0 L319.3,289.7 L321.6,289.5 L324.0,289.2 L326.3,288.9 L328.7,288.6 L331.1,288.3 L333.4,288.0 L335.8,287.7 L338.1,287.4 L340.5,287.1 L342.8,286.8 L345.2,286.5 L347.6,286.2 L349.9,285.9 L352.3,285.6 L354.6,285.3 L357.0,285.1 L359.4,284.8 L361.7,284.5 L364.1,284.2 L366.4,283.9 L368.8,283.6 L371.1,283.3 L373.5,283.0 L375.9,282.7 L378.2,282.4 L380.6,282.1 L382.9,281.8 L385.3,281.6 L387.7,281.3 L390.0,281.0 L392.4,280.7 L394.7,280.5 L397.1,280.2 L399.4,279.9 L401.8,279.7 L404.2,279.4 L406.5,279.2 L408.9,278.9 L411.2,278.7 L413.6,278.5 L416.0,278.2 L418.3,278.0 L420.7,277.8 L423.0,277.6 L425.4,277.4 L427.7,277.2 L430.1,277.0 L432.5,276.8 L434.8,276.6 L437.2,276.4 L439.5,276.3 L441.9,276.1 L444.3,275.9 L446.6,275.8 L449.0,275.6 L451.3,275.5 L453.7,275.4 L456.0,275.3 L458.4,275.1 L460.8,275.0 L463.1,274.9 L465.5,274.8 L467.8,274.7 L470.2,274.7 L472.6,274.6 L474.9,274.5 L477.3,274.5 L479.6,274.4 L482.0,274.4 L484.3,274.3 L486.7,274.3 L489.1,274.3 L491.4,274.3 L493.8,274.3 L496.1,274.3 L498.5,274.3 L500.9,274.3 L503.2,274.3 L505.6,274.3 L507.9,274.4 L510.3,274.4 L512.6,274.4 L515.0,274.5 L517.4,274.5 L519.7,274.6 L522.1,274.6 L524.4,274.7 L526.8,274.8 L529.2,274.9 L531.5,274.9 L533.9,275.0 L536.2,275.1 L538.6,275.2 L541.0,275.3 L543.3,275.4 L545.7,275.5 L548.0,275.6 L550.4,275.7 L552.7,275.8 L555.1,276.0 L557.5,276.1 L559.8,276.2 L562.2,276.3 L564.5,276.4 L566.9,276.6 L569.3,276.7 L571.6,276.8 L574.0,277.0 L576.3,277.1 L578.7,277.3 L581.0,277.4 L583.4,277.5 L585.8,277.7 L588.1,277.8 L590.5,278.0 L592.8,278.1 L595.2,278.3 L597.6,278.4 L599.9,278.6 L602.3,278.7 L604.6,278.9 L607.0,279.0 L609.3,279.2 L611.7,279.3 L614.1,279.5 L616.4,279.7 L618.8,279.8 L621.1,280.0 L623.5,280.1 L625.9,280.3 L628.2,280.4 L630.6,280.6 L632.9,280.7 L635.3,280.9 L637.6,281.0" fill="none" stroke="#8a8f98" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.4 L97.6,303.4 L99.9,303.4 L102.3,303.4 L104.7,303.4 L107.0,303.3 L109.4,303.3 L111.7,303.3 L114.1,303.3 L116.5,303.2 L118.8,303.2 L121.2,303.2 L123.5,303.1 L125.9,303.1 L128.2,303.0 L130.6,303.0 L133.0,303.0 L135.3,302.9 L137.7,302.8 L140.0,302.8 L142.4,302.7 L144.8,302.7 L147.1,302.6 L149.5,302.6 L151.8,302.5 L154.2,302.4 L156.5,302.3 L158.9,302.3 L161.3,302.2 L163.6,302.1 L166.0,302.0 L168.3,301.9 L170.7,301.8 L173.1,301.7 L175.4,301.6 L177.8,301.5 L180.1,301.4 L182.5,301.3 L184.8,301.2 L187.2,301.1 L189.6,301.0 L191.9,300.8 L194.3,300.7 L196.6,300.6 L199.0,300.5 L201.3,300.3 L203.7,300.2 L206.1,300.0 L208.4,299.9 L210.8,299.7 L213.1,299.6 L215.5,299.4 L217.9,299.2 L220.2,299.0 L222.6,298.9 L224.9,298.7 L227.3,298.5 L229.6,298.3 L232.0,298.1 L234.4,297.9 L236.7,297.7 L239.1,297.5 L241.4,297.3 L243.8,297.0 L246.2,296.8 L248.5,296.6 L250.9,296.3 L253.2,296.1 L255.6,295.8 L257.9,295.6 L260.3,295.3 L262.7,295.0 L265.0,294.8 L267.4,294.5 L269.7,294.2 L272.1,293.9 L274.5,293.6 L276.8,293.3 L279.2,293.0 L281.5,292.7 L283.9,292.3 L286.2,292.0 L288.6,291.7 L291.0,291.3 L293.3,290.9 L295.7,290.6 L298.0,290.2 L300.4,289.8 L302.8,289.4 L305.1,289.1 L307.5,288.7 L309.8,288.2 L312.2,287.8 L314.5,287.4 L316.9,287.0 L319.3,286.5 L321.6,286.1 L324.0,285.6 L326.3,285.2 L328.7,284.7 L331.1,284.2 L333.4,283.7 L335.8,283.2 L338.1,282.7 L340.5,282.2 L342.8,281.7 L345.2,281.2 L347.6,280.6 L349.9,280.1 L352.3,279.5 L354.6,279.0 L357.0,278.4 L359.4,277.8 L361.7,277.3 L364.1,276.7 L366.4,276.1 L368.8,275.5 L371.1,274.9 L373.5,274.2 L375.9,273.6 L378.2,273.0 L380.6,272.4 L382.9,271.7 L385.3,271.1 L387.7,270.5 L390.0,269.8 L392.4,269.2 L394.7,268.5 L397.1,267.9 L399.4,267.2 L401.8,266.6 L404.2,265.9 L406.5,265.2 L408.9,264.6 L411.2,263.9 L413.6,263.3 L416.0,262.7 L418.3,262.0 L420.7,261.4 L423.0,260.8 L425.4,260.2 L427.7,259.6 L430.1,259.0 L432.5,258.4 L434.8,257.8 L437.2,257.2 L439.5,256.7 L441.9,256.2 L444.3,255.7 L446.6,255.2 L449.0,254.7 L451.3,254.2 L453.7,253.8 L456.0,253.3 L458.4,252.9 L460.8,252.6 L463.1,252.2 L465.5,251.9 L467.8,251.6 L470.2,251.3 L472.6,251.0 L474.9,250.8 L477.3,250.6 L479.6,250.4 L482.0,250.2 L484.3,250.1 L486.7,250.0 L489.1,249.9 L491.4,249.8 L493.8,249.8 L496.1,249.8 L498.5,249.8 L500.9,249.8 L503.2,249.9 L505.6,250.0 L507.9,250.1 L510.3,250.2 L512.6,250.4 L515.0,250.5 L517.4,250.7 L519.7,250.9 L522.1,251.2 L524.4,251.4 L526.8,251.7 L529.2,251.9 L531.5,252.2 L533.9,252.5 L536.2,252.8 L538.6,253.2 L541.0,253.5 L543.3,253.9 L545.7,254.2 L548.0,254.6 L550.4,255.0 L552.7,255.3 L555.1,255.7 L557.5,256.1 L559.8,256.5 L562.2,256.9 L564.5,257.3 L566.9,257.7 L569.3,258.2 L571.6,258.6 L574.0,259.0 L576.3,259.4 L578.7,259.8 L581.0,260.3 L583.4,260.7 L585.8,261.1 L588.1,261.5 L590.5,262.0 L592.8,262.4 L595.2,262.8 L597.6,263.2 L599.9,263.6 L602.3,264.0 L604.6,264.5 L607.0,264.9 L609.3,265.3 L611.7,265.7 L614.1,266.1 L616.4,266.5 L618.8,266.9 L621.1,267.3 L623.5,267.6 L625.9,268.0 L628.2,268.4 L630.6,268.8 L632.9,269.2 L635.3,269.5 L637.6,269.9" fill="none" stroke="#1f5fa8" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.5 L97.6,303.5 L99.9,303.4 L102.3,303.4 L104.7,303.4 L107.0,303.4 L109.4,303.4 L111.7,303.4 L114.1,303.3 L116.5,303.3 L118.8,303.3 L121.2,303.3 L123.5,303.3 L125.9,303.2 L128.2,303.2 L130.6,303.2 L133.0,303.1 L135.3,303.1 L137.7,303.1 L140.0,303.0 L142.4,303.0 L144.8,302.9 L147.1,302.9 L149.5,302.9 L151.8,302.8 L154.2,302.8 L156.5,302.7 L158.9,302.6 L161.3,302.6 L163.6,302.5 L166.0,302.5 L168.3,302.4 L170.7,302.3 L173.1,302.2 L175.4,302.2 L177.8,302.1 L180.1,302.0 L182.5,301.9 L184.8,301.8 L187.2,301.7 L189.6,301.6 L191.9,301.5 L194.3,301.4 L196.6,301.3 L199.0,301.2 L201.3,301.1 L203.7,301.0 L206.1,300.8 L208.4,300.7 L210.8,300.6 L213.1,300.4 L215.5,300.3 L217.9,300.2 L220.2,300.0 L222.6,299.8 L224.9,299.7 L227.3,299.5 L229.6,299.3 L232.0,299.2 L234.4,299.0 L236.7,298.8 L239.1,298.6 L241.4,298.4 L243.8,298.1 L246.2,297.9 L248.5,297.7 L250.9,297.5 L253.2,297.2 L255.6,297.0 L257.9,296.7 L260.3,296.4 L262.7,296.2 L265.0,295.9 L267.4,295.6 L269.7,295.3 L272.1,295.0 L274.5,294.7 L276.8,294.3 L279.2,294.0 L281.5,293.6 L283.9,293.3 L286.2,292.9 L288.6,292.5 L291.0,292.1 L293.3,291.7 L295.7,291.3 L298.0,290.8 L300.4,290.4 L302.8,289.9 L305.1,289.4 L307.5,288.9 L309.8,288.4 L312.2,287.8 L314.5,287.3 L316.9,286.7 L319.3,286.1 L321.6,285.5 L324.0,284.9 L326.3,284.2 L328.7,283.6 L331.1,282.9 L333.4,282.1 L335.8,281.4 L338.1,280.6 L340.5,279.8 L342.8,279.0 L345.2,278.1 L347.6,277.2 L349.9,276.3 L352.3,275.3 L354.6,274.3 L357.0,273.3 L359.4,272.2 L361.7,271.0 L364.1,269.9 L366.4,268.7 L368.8,267.4 L371.1,266.1 L373.5,264.7 L375.9,263.2 L378.2,261.7 L380.6,260.2 L382.9,258.5 L385.3,256.8 L387.7,255.0 L390.0,253.1 L392.4,251.2 L394.7,249.1 L397.1,246.9 L399.4,244.6 L401.8,242.2 L404.2,239.7 L406.5,237.0 L408.9,234.2 L411.2,231.2 L413.6,228.0 L416.0,224.6 L418.3,221.1 L420.7,217.2 L423.0,213.2 L425.4,208.8 L427.7,204.2 L430.1,199.2 L432.5,193.8 L434.8,188.0 L437.2,181.7 L439.5,174.9 L441.9,167.5 L444.3,159.4 L446.6,150.5 L449.0,140.7 L451.3,129.8 L453.7,117.7 L456.0,104.2 L458.4,89.0 L460.8,71.7 L463.1,62.0" fill="none" stroke="#a23b2a" stroke-width="2"/><path d="M76.4,303.5 L78.7,303.5 L81.1,303.5 L83.4,303.5 L85.8,303.5 L88.2,303.5 L90.5,303.5 L92.9,303.5 L95.2,303.5 L97.6,303.5 L99.9,303.5 L102.3,303.5 L104.7,303.5 L107.0,303.4 L109.4,303.4 L111.7,303.4 L114.1,303.4 L116.5,303.4 L118.8,303.4 L121.2,303.4 L123.5,303.4 L125.9,303.3 L128.2,303.3 L130.6,303.3 L133.0,303.3 L135.3,303.3 L137.7,303.2 L140.0,303.2 L142.4,303.2 L144.8,303.2 L147.1,303.1 L149.5,303.1 L151.8,303.1 L154.2,303.0 L156.5,303.0 L158.9,303.0 L161.3,302.9 L163.6,302.9 L166.0,302.9 L168.3,302.8 L170.7,302.8 L173.1,302.7 L175.4,302.7 L177.8,302.6 L180.1,302.6 L182.5,302.5 L184.8,302.5 L187.2,302.4 L189.6,302.3 L191.9,302.3 L194.3,302.2 L196.6,302.1 L199.0,302.1 L201.3,302.0 L203.7,301.9 L206.1,301.8 L208.4,301.7 L210.8,301.7 L213.1,301.6 L215.5,301.5 L217.9,301.4 L220.2,301.3 L222.6,301.2 L224.9,301.1 L227.3,300.9 L229.6,300.8 L232.0,300.7 L234.4,300.6 L236.7,300.4 L239.1,300.3 L241.4,300.2 L243.8,300.0 L246.2,299.9 L248.5,299.7 L250.9,299.6 L253.2,299.4 L255.6,299.2 L257.9,299.1 L260.3,298.9 L262.7,298.7 L265.0,298.5 L267.4,298.3 L269.7,298.1 L272.1,297.9 L274.5,297.7 L276.8,297.5 L279.2,297.2 L281.5,297.0 L283.9,296.8 L286.2,296.5 L288.6,296.2 L291.0,296.0 L293.3,295.7 L295.7,295.4 L298.0,295.1 L300.4,294.8 L302.8,294.5 L305.1,294.2 L307.5,293.9 L309.8,293.5 L312.2,293.2 L314.5,292.8 L316.9,292.5 L319.3,292.1 L321.6,291.7 L324.0,291.3 L326.3,290.9 L328.7,290.5 L331.1,290.0 L333.4,289.6 L335.8,289.1 L338.1,288.6 L340.5,288.2 L342.8,287.7 L345.2,287.1 L347.6,286.6 L349.9,286.1 L352.3,285.5 L354.6,284.9 L357.0,284.4 L359.4,283.7 L361.7,283.1 L364.1,282.5 L366.4,281.8 L368.8,281.2 L371.1,280.5 L373.5,279.8 L375.9,279.0 L378.2,278.3 L380.6,277.5 L382.9,276.8 L385.3,276.0 L387.7,275.1 L390.0,274.3 L392.4,273.4 L394.7,272.6 L397.1,271.7 L399.4,270.8 L401.8,269.8 L404.2,268.9 L406.5,267.9 L408.9,266.9 L411.2,265.9 L413.6,264.9 L416.0,263.9 L418.3,262.8 L420.7,261.8 L423.0,260.7 L425.4,259.6 L427.7,258.6 L430.1,257.5 L432.5,256.4 L434.8,255.3 L437.2,254.2 L439.5,253.1 L441.9,252.0 L444.3,250.9 L446.6,249.8 L449.0,248.8 L451.3,247.8 L453.7,246.7 L456.0,245.8 L458.4,244.8 L460.8,243.9 L463.1,243.0 L465.5,242.2 L467.8,241.4 L470.2,240.7 L472.6,240.0 L474.9,239.4 L477.3,238.8 L479.6,238.3 L482.0,237.8 L484.3,237.5 L486.7,237.2 L489.1,236.9 L491.4,236.8 L493.8,236.7 L496.1,236.6 L498.5,236.7 L500.9,236.8 L503.2,237.0 L505.6,237.2 L507.9,237.5 L510.3,237.9 L512.6,238.3 L515.0,238.7 L517.4,239.2 L519.7,239.8 L522.1,240.4 L524.4,241.0 L526.8,241.7 L529.2,242.3 L531.5,243.1 L533.9,243.8 L536.2,244.6 L538.6,245.3 L541.0,246.1 L543.3,246.9 L545.7,247.8 L548.0,248.6 L550.4,249.4 L552.7,250.2 L555.1,251.1 L557.5,251.9 L559.8,252.7 L562.2,253.5 L564.5,254.3 L566.9,255.1 L569.3,255.9 L571.6,256.7 L574.0,257.5 L576.3,258.3 L578.7,259.1 L581.0,259.8 L583.4,260.6 L585.8,261.3 L588.1,262.0 L590.5,262.7 L592.8,263.4 L595.2,264.1 L597.6,264.8 L599.9,265.4 L602.3,266.1 L604.6,266.7 L607.0,267.3 L609.3,268.0 L611.7,268.6 L614.1,269.1 L616.4,269.7 L618.8,270.3 L621.1,270.8 L623.5,271.4 L625.9,271.9 L628.2,272.4 L630.6,272.9 L632.9,273.4 L635.3,273.9 L637.6,274.4" fill="none" stroke="#5b7f3a" stroke-width="2"/><line x1="74" y1="269.0" x2="640" y2="269.0" stroke="#b9a97f" stroke-dasharray="2 5"/><text x="80" y="263.0" font-size="11" fill="#8a7a58">bend 2.00</text><text x="656" y="66" font-size="12" font-weight="600" fill="#2e2413">curvatureAngle</text><line x1="656" y1="88" x2="680" y2="88" stroke="#8a8f98" stroke-width="2.4"/><text x="686" y="92" font-size="12" fill="#2e2413">110 deg | no bend 2</text><line x1="656" y1="108" x2="680" y2="108" stroke="#1f5fa8" stroke-width="2.4"/><text x="686" y="112" font-size="12" fill="#2e2413">120 deg</text><line x1="656" y1="128" x2="680" y2="128" stroke="#a23b2a" stroke-width="2.4"/><text x="686" y="132" font-size="12" fill="#2e2413">138.19 deg | closure</text><line x1="656" y1="148" x2="680" y2="148" stroke="#5b7f3a" stroke-width="2.4"/><text x="686" y="152" font-size="12" fill="#2e2413">150 deg</text><text x="656" y="178" font-size="11" fill="#7b6c4e">at the closing angle the chord</text><text x="656" y="194" font-size="11" fill="#7b6c4e">vanishes and the bend runs away</text></svg>
-<p class="small">Above: bend against curvatureRatio for four curvatureAngle values, with the closing
-angle marked. The flat grey curve is 110 deg, where bend 2 cannot be reached at any ratio.</p>
-</section>
-
-<section class="panel">
-<h2>Fig. Q13 | the exact bend formula, live</h2>
-<p>Six numbers: the real and imaginary parts of <code>speedMid</code>, <code>slopeMid</code> and
-<code>curvatureMid</code>. The three lines give arc, chord and bend with no sampling; the curve is
-drawn beside them so you can check. The diagram on the right adds the three chord vectors head to
-tail - the bend is large exactly when they cancel. Drag toward the closure preset and watch the bend
-run away.</p>
-<p><strong>The inverse.</strong> To build a curve from a diagram, type the three chord terms and
-press <em>solve for the recipe</em>. The formula inverts in closed form:
-<code>speedMid = sqrt(T1)</code>, <code>curvatureMid = sqrt(80*T3)</code>,
-<code>slopeMid = sqrt(12*T2 - 2*speedMid*curvatureMid)</code>. Each square root has two signs, so one
-diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
-<div id="q13-controls"></div>
-<div class="inverse-row" id="q13-inverse"></div>
-<svg id="q13-plot" viewBox="0 0 900 520" role="img" aria-label="the exact bend formula, live"></svg>
-<p class="small mono" id="q13-exact"></p>
-<p class="small mono" id="q13-terms"></p>
-<p class="save-row"><button type="button" class="save-curve" data-panel="q13">save this curve</button></p>
-<script>
 (function () {
   const plotElement = document.getElementById("q13-plot");
   const exactElement = document.getElementById("q13-exact");
@@ -1012,20 +1026,7 @@ diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
   }
   redraw();
 })();
-</script>
-</section>
 
-<section class="panel">
-<h2>Saved curves</h2>
-<p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
-and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
-JSON</a>: exact recipe, bend, pitch, inflection, closest approach, endpoint and the closed form.</p>
-<p><strong id="saved-count">0</strong> saved
-<button type="button" id="saved-download">download JSON</button>
-<button type="button" id="saved-clear">clear</button></p>
-</section>
-
-<script>
 (function () {
   const counter = document.getElementById("saved-count");
   counter.textContent = String(window.curveSaver.count());
