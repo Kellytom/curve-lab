@@ -1,13 +1,8 @@
 ```text
 Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-Build tph_tri_chain/tph-tri-sandbox.html: the midpoint chain of the Tschirnhausen
-cubic at twelve triangles per side. Every number exact — a fraction where it is
-rational, a square root where it is not. State the grid and how it was chosen, and
-give every vertex its (x, y) pair in cells.
-Proves: sandbox.py regenerates the page; no decimal stands in for an exact value;
-the 25 vertex pairs on the page match chain.py; the figure draws with the d3 copy
-in tph_tri_chain/vendor/.
+You are fixing Fig. T1 so no two labels touch: stagger the 25 vertex labels, move the A-D letters off the rings, and re-render to a PNG under 150 KB and 1000 px to check it by eye.
+Proves: a label audit over the 25 placed boxes prints 0 overlaps, `tph_tri_chain/out/t1.png` is under 150 KB and 1000 px, and the 25 vertex pairs still match `chain.py`.
 ```
 
-Source: state/HANDOFF-int.md · 2026-11-11 · 3046f01
-Context: 54.5% used, 236 active min, 363 turns, ok; wall clock: timer capped at 120m and cleared at 08:29, so not reported as elapsed; tally: 17 sessions · median 60.0m · mean 162.9m · total 2768.7m.
+Source: state/HANDOFF-int.md · 2026-11-11 · 5094ef8
+Context: 35.4% used, 156 active min, 203 turns, ok.
