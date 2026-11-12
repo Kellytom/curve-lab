@@ -65,32 +65,31 @@ const expected = JSON.parse(
 );
 
 // ---------------------------------------------------------------- browser
-const candidates = [
-  process.env.CHROME_PATH,
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  `${process.env.HOME}/.cache/puppeteer/chrome-headless-shell/mac-133.0.6943.98/chrome-headless-shell-mac-x64/chrome-headless-shell`,
-].filter(Boolean);
+// Keep one headless browser open on :9223 and attach to it. It is the
+// headless-only binary, so no window or Dock icon appears; a check never
+// launches a second Chrome. Falls back to launching the same shell once.
+const CDP = "http://127.0.0.1:9223";
+const SHELL = `${process.env.HOME}/.cache/puppeteer/chrome-headless-shell/mac-133.0.6943.98/chrome-headless-shell-mac-x64/chrome-headless-shell`;
 
 let browser = null;
-let lastError = null;
-for (const executablePath of candidates) {
-  if (!fs.existsSync(executablePath)) continue;
-  try {
-    browser = await chromium.launch({ executablePath, headless: true });
-    break;
-  } catch (error) {
-    lastError = error;
-  }
-}
+let launched = false;
+try {
+  const r = await fetch(`${CDP}/json/version`, { signal: AbortSignal.timeout(1200) });
+  if (r.ok) browser = await chromium.connectOverCDP(CDP);
+} catch {}
 if (!browser) {
-  console.error("no Chrome could be launched:", lastError?.message ?? "none found");
-  process.exit(1);
+  const exe = [process.env.CHROME_PATH, SHELL].filter(Boolean).find((f) => fs.existsSync(f));
+  if (!exe) {
+    console.error("no headless Chrome found");
+    process.exit(1);
+  }
+  browser = await chromium.launch({ executablePath: exe, headless: true });
+  launched = true;
 }
+const context = browser.contexts()[0] || (await browser.newContext());
 
-const page = await browser.newPage({
-  viewport: { width: width + 80, height: 1200 },
-  deviceScaleFactor: 1,
-});
+const page = await context.newPage();
+await page.setViewportSize({ width: width + 80, height: 1200 });
 await page.goto(pageUrl, { waitUntil: "load", timeout: 20000 });
 await page.waitForSelector("#t1 svg");
 
@@ -222,5 +221,6 @@ if (png) {
   console.log(`png: ${png} ${shot.size[0]}x${shot.size[1]} ${(bytes / 1024).toFixed(1)} KB`);
 }
 
-await browser.close();
+await page.close();
+if (launched) await browser.close();
 process.exit(bad.length === 0 && same ? 0 : 1);

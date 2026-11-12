@@ -26,9 +26,9 @@ class TestQuinticLattice(unittest.TestCase):
                 with self.subTest(k=k, t=t):
                     self.assertEqual(dx * dx + dy * dy, ds * ds)
 
-    def test_tq15_hits_every_integer(self):
+    def test_tq75_hits_every_integer(self):
         for t in range(0, 11):
-            x, y = Q.curve(15, t)
+            x, y = Q.curve(75, t)
             with self.subTest(t=t):
                 self.assertEqual(x.denominator, 1)
                 self.assertEqual(y.denominator, 1)
@@ -39,21 +39,21 @@ class TestQuinticLattice(unittest.TestCase):
         self.assertEqual(hits, [0, 5, 10, 15, 20])
 
     def test_the_cut_piece_has_integer_controls_at_scale_five(self):
-        x = Q.piece_controls(15, 0, 0)
-        y = Q.piece_controls(15, 0, 1)
+        x = Q.piece_controls(75, 0, 0)
+        y = Q.piece_controls(75, 0, 1)
         self.assertEqual([v * 5 for v in x],
-                         [0, 224, 448, 597, 596, 595])
+                         [0, 5624, 11248, 14997, 14996, 14995])
         self.assertEqual([v * 5 for v in y],
-                         [0, -30, -60, -85, -100, -100])
+                         [0, -150, -300, -425, -500, -500])
 
     def test_every_unit_piece_keeps_the_scale(self):
         for m in range(0, 6):
             with self.subTest(m=m):
-                self.assertEqual(Q.piece_scale(15, m), 5)
+                self.assertEqual(Q.piece_scale(75, m), 5)
 
     def test_the_arc_lengths_are_integers(self):
-        self.assertEqual(Q.arc(15, 1), 121)
-        self.assertEqual(Q.arc(15, 5), 123005)
+        self.assertEqual(Q.arc(75, 1), 3001)
+        self.assertEqual(Q.arc(75, 5), 3075005)
         self.assertEqual(Q.arc(3, 5), 4925)
 
     def test_the_chain_is_the_wrong_tool_at_degree_five(self):
@@ -72,7 +72,7 @@ class TestQuinticLattice(unittest.TestCase):
     def test_the_page_links_to_ph_families(self):
         page = (ROOT / "workbench" / "ph-quintic-lattice.html").read_text()
         self.assertIn("ph-families.html", page)
-        self.assertIn("TQ(15)", page)
+        self.assertIn("TQ(75)", page)
         self.assertIn("primitive", page)
 
 
