@@ -31,7 +31,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .inverse-row .control-row span{min-width:34px}
 .inverse-row input[type=number]{width:74px;font:12px ui-monospace,Menlo,monospace}
 .term-dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:middle;border:1px solid rgba(0,0,0,.15)}
-.save-curve,.save-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.save-curve,.action-button,.save-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .save-curve:hover{background:#efe6d2}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .preset-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
@@ -1000,7 +1000,7 @@ diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
   });
   const solveButton = document.createElement("button");
   solveButton.type = "button";
-  solveButton.className = "save-curve";
+  solveButton.className = "action-button";
   solveButton.textContent = "solve for the recipe";
   solveButton.addEventListener("click", () => {
     const complexSqrt = (re, im) => {
