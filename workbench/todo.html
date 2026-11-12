@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:88.1%}
+.fill{height:100%;background:#8c6a21;width:89.1%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">89 / 101 done · 88% · read-only twin of
+<div class="count">90 / 101 done · 89% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -266,8 +266,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <label class="task"><input type="checkbox" checked disabled><span><strong>Close the graded gap:</strong> 3-4-5 spiral, seagrass, modulated width, hyperbola — drawn on <code>showcase.html</code>.</span></label>
 <h2>tph triangle chain — 2026-11-11</h2>
 <p>The discrete midpoint chain at twelve triangles per side, exact throughout.</p>
-<label class="task"><input type="checkbox" disabled><span>Fix the label collisions in Fig. T1: stagger the 25 vertex labels, move the</span></label>
-<p>A–D letters off the rings, then re-render to a PNG under 150 KB and 1000 px and look at it.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Fix the label collisions in Fig. T1: stagger the 25 vertex labels, move the</span></label>
+<p>A–D letters off the rings, then re-render to a PNG under 150 KB and 1000 px and look at it. <code>node tph_tri_chain/audit_t1.mjs</code> prints 0 overlaps and 25/25 pairs against <code>chain.py</code>; <code>out/t1.png</code> is 980 × 822, 85.5 KB.</p>
 <label class="task"><input type="checkbox" disabled><span>Retire or convert <code>RESULTS.md</code> / <code>results.html</code>: they still carry decimals</span></label>
 <p>and duplicate the sandbox page.</p>
 </main></body></html>

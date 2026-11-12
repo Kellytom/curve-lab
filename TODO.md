@@ -416,8 +416,9 @@ lattice marks, branches). `workbench/todo.html` is the visible twin.
 
 The discrete midpoint chain at twelve triangles per side, exact throughout.
 
-- [ ] Fix the label collisions in Fig. T1: stagger the 25 vertex labels, move the
+- [x] Fix the label collisions in Fig. T1: stagger the 25 vertex labels, move the
   A–D letters off the rings, then re-render to a PNG under 150 KB and 1000 px and
-  look at it.
+  look at it. `node tph_tri_chain/audit_t1.mjs` prints 0 overlaps and 25/25 pairs
+  against `chain.py`; `out/t1.png` is 980 × 822, 85.5 KB.
 - [ ] Retire or convert `RESULTS.md` / `results.html`: they still carry decimals
   and duplicate the sandbox page.
