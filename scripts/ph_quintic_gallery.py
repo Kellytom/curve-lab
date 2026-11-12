@@ -155,19 +155,20 @@ def panel_svg(u, v, idx, w, h, label, off_scale=1.0):
     U0, V0 = float(u[0]), float(v[0])
     U1, V1 = float(sum(u)), float(sum(v))
     off = (8.0 if w < 300 else 14.0) * off_scale
-    for (px, py, U, V) in ((0.0, 0.0, U0, V0),
-                           (float(sum(uv_curve(u, v)[0])), float(sum(uv_curve(u, v)[1])), U1, V1)):
+    for (px, py, U, V, sgn) in ((0.0, 0.0, U0, V0, -1),
+                                (float(sum(uv_curve(u, v)[0])), float(sum(uv_curve(u, v)[1])), U1, V1, 1)):
         dx, dy = U * U - V * V, 2 * U * V
         n = max(1e-9, (dx * dx + dy * dy) ** .5)
-        sx, sy = dx / n, -dy / n
+        sx, sy = sgn * dx / n, -sgn * dy / n     # outward from the curve's end
         nx, ny = -sy, sx
         ex, ey = fx(px), fy(py)
         pcx, pcy = w / 2, (h - 20) / 2
         if ((ex + nx * off - pcx) ** 2 + (ey + ny * off - pcy) ** 2 >
                 (ex - nx * off - pcx) ** 2 + (ey - ny * off - pcy) ** 2):
             nx, ny = -nx, -ny
-        bx, by = ex + nx * off, ey + ny * off
-        L = 0.16 * max(x1 - x0, y1 - y0) * sc
+        gap = 4.0
+        bx, by = ex + sx * gap + nx * off, ey + sy * gap + ny * off
+        L = 0.14 * max(x1 - x0, y1 - y0) * sc
         ex2, ey2 = bx + sx * L, by + sy * L
         lo_x, hi_x = 5, w - 5
         lo_y, hi_y = 5, h - 25
