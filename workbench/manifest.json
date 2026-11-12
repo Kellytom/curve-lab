@@ -164,6 +164,15 @@
       "outputs": "the member table, the TQ(15) hits and arc lengths, the integer controls of every unit piece, and the chain's cost at degree 5"
     },
     {
+      "key": "ph-quintic-gallery",
+      "file": "ph-quintic-gallery.html",
+      "group": "curve",
+      "title": "PH quintic gallery · S and C",
+      "purpose": "48 PH quintics with u and v on a 1/5 grid in ±2, classified as S (inflection inside) or C (at the start), with the exact pitch and endpoint of each.",
+      "inputs": "the uv_curve and s_info helpers, the 1/5 grid, the Wronskian test",
+      "outputs": "the thumbnail grid, the 48-row table, and the worked example of moving the W root inside"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",

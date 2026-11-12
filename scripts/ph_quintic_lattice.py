@@ -738,7 +738,8 @@ start. Every panel is exact; the pitch is the graph paper, not an approximation.
 
 <section class="panel">
 <h2>See also</h2>
-<p><a href="ph-families.html">PH families, degree by degree</a> — the three quintics used as the
+<p><a href="ph-quintic-gallery.html">The 48-curve gallery</a> — S and C shapes on a 1/5 grid,
+with the inflection and the pitch of each. <a href="ph-families.html">PH families, degree by degree</a> — the three quintics used as the
 comparison, with the PH–Hermite interpolant and the milestone table.
 <a href="ph-families.html#ph-integer">PH integer milestones</a> — the t = k/m lattice.
 The discrete chain on the Tschirnhausen cubic is
