@@ -46,6 +46,39 @@ def curve(k, t):
             F(2 * k, 3) * t**3 - F(2 * k) * t)
 
 
+def samples(k, t0, t1, n=600):
+    """Points equally spaced along the curve, not equally spaced in t.
+
+    The speed grows like t^4, so a uniform grid in t leaves long straight
+    jumps near the ends. s(t) is a polynomial and strictly increasing, so a
+    bisection on it gives a smooth polyline with far fewer points.
+    """
+    k2 = k * k
+
+    def s(t):
+        return k2 * t**5 / 5 - 2 * k2 * t**3 / 3 + (k2 + 1) * t
+
+    def p(t):
+        return (k2 * t**5 / 5 - 2 * k2 * t**3 / 3 + (k2 - 1) * t,
+                2 * k * (t**3 / 3 - t))
+
+    s0, s1 = s(t0), s(t1)
+    out = []
+    for i in range(n + 1):
+        target = s0 + (s1 - s0) * i / n
+        a, b = t0, t1
+        for _ in range(50):
+            m = (a + b) / 2
+            if s(m) < target:
+                a = m
+            else:
+                b = m
+        t = (a + b) / 2
+        x, y = p(t)
+        out.append((t, x, y))
+    return out
+
+
 def speed(k, t):
     u = k * (t * t - 1)
     return (u * u - 1, 2 * u, u * u + 1)
@@ -138,8 +171,8 @@ def fig_family():
            f'<text x="60" y="43" font-size="12" fill="{MUTED}">t = −3 … 3 in each panel · axes at x = 0, y = 0 · each panel has its own scale</text>']
     for x0, name, xr, yr in panels:
         f = Frame(W, H, (-xr, xr), (-yr, yr), (x0, 70, 240, 180))
-        pts = [curve(3 if name == "TQ(3)" else 15 if name == "TQ(15)" else 75, F(3 * i, 100) - 3) for i in range(201)]
         k = 3 if name == "TQ(3)" else 15 if name == "TQ(15)" else 75
+        pts = [(x, y) for _, x, y in samples(k, -3, 3, 500)]
         out.append(f'<text x="{x0}" y="{64}" font-size="13" font-weight="600" fill="{INK}">{name}</text>')
         out.append(f'<text x="{x0}" y="{H-16}" font-size="11" fill="{MUTED}">x ±{xr:,} · y ±{yr:,}</text>')
         out.append(f.axes())
@@ -154,7 +187,7 @@ def fig_family():
 def fig_full():
     W, H = 940, 400
     f = Frame(W, H, (-195000, 195000), (-1000, 1000), (96, 70, 800, 250))
-    pts = [curve(K, F(3 * i, 100) - 3) for i in range(201)]
+    pts = [(x, y) for _, x, y in samples(K, -3, 3, 700)]
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q2 · TQ(75) in the plane: all four quadrants</text>',
            f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −3 … 3 · the curve is odd in both coordinates, so it is point-symmetric about the origin</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
@@ -180,7 +213,7 @@ def fig_full():
 def fig_zoom():
     W, H = 940, 400
     f = Frame(W, H, (-8200, 8200), (-160, 160), (96, 70, 800, 250))
-    pts = [curve(K, F(-8, 5) + F(16 * i, 1000)) for i in range(201)]
+    pts = [(x, y) for _, x, y in samples(K, -1.6, 1.6, 600)]
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S at the origin, and the turn near t = ±1</text>',
            f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −1.6 … 1.6 · the inflection is at (0, 0) · dashed rings: y = 0 at t = ±√3</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
@@ -222,7 +255,7 @@ def fig_cut():
         out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="12" fill="{MUTED}">{v}</text>')
     cols = (BLUE, GOLD, RED)
     for i, col in enumerate(cols):
-        pts = [curve(K, F(i) + F(j, 60)) for j in range(61)]
+        pts = [(x, y) for _, x, y in samples(K, i, i + 1, 220)]
         out.append(f'<path d="{f.path(pts)}" fill="none" stroke="{col}" stroke-width="3"/>')
     for t in range(0, 4):
         x, y = curve(K, t)
@@ -271,8 +304,14 @@ def fig_coords():
         for t in range(-3, 4):
             out.append(f'<text x="{f.fx(t):.1f}" y="{f.top+f.ph+16}" text-anchor="middle" font-size="11" fill="{MUTED}">{t}</text>')
         out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="12" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">{lab}</text>')
-    out.append(f'<path d="{fa.path([(F(3*i,100)-3, curve(K, F(3*i,100)-3)[0]) for i in range(201)])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
-    out.append(f'<path d="{fb.path([(F(3*i,100)-3, curve(K, F(3*i,100)-3)[1]) for i in range(201)])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
+    # this figure plots against t, so the samples are uniform in t
+    def f(t):
+        k2 = K * K
+        return (k2 * t**5 / 5 - 2 * k2 * t**3 / 3 + (k2 - 1) * t,
+                2 * K * (t**3 / 3 - t))
+    pts = [(t, *f(t)) for t in (-3 + 6 * i / 400 for i in range(401))]
+    out.append(f'<path d="{fa.path([(t, x) for t, x, _ in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
+    out.append(f'<path d="{fb.path([(t, y) for t, _, y in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
     for t in range(-3, 4):
         x, y = curve(K, t)
         out.append(f'<circle cx="{fa.fx(t):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
