@@ -31,33 +31,36 @@ SVG_PATH = ROOT / "workbench" / "ph-quintic-presets.svg"
 CASES = [
     ("the-target", "the target", (F(1, 5), -2, 2), (F(2, 5), F(-3, 2), F(8, 5)),
      "Q8", "the two-lobe S that Q7 morphs toward"),
-    ("u0-025", "u₀ = 0.25", (F(1, 4), -2, 2), (F(2, 5), F(-3, 2), F(8, 5)),
-     "Q8", "raising u₀ straightens the middle"),
-    ("v0-05", "v₀ = 0.5", (F(1, 5), -2, 2), (F(1, 2), F(-3, 2), F(8, 5)),
-     "Q8", "raising v₀ moves the speed path off the origin"),
-    ("u0-025-v0-05", "u₀ = 0.25, v₀ = 0.5", (F(1, 4), -2, 2), (F(1, 2), F(-3, 2), F(8, 5)),
+    ("u0-025", "speedXAtEnds = 0.25", (F(1, 4), -2, 2), (F(2, 5), F(-3, 2), F(8, 5)),
+     "Q8", "raising speedXAtEnds straightens the middle"),
+    ("v0-05", "speedYAtEnds = 0.5", (F(1, 5), -2, 2), (F(1, 2), F(-3, 2), F(8, 5)),
+     "Q8", "raising speedYAtEnds moves the speed path off the origin"),
+    ("u0-025-v0-05", "speedXAtEnds = 0.25, speedYAtEnds = 0.5", (F(1, 4), -2, 2), (F(1, 2), F(-3, 2), F(8, 5)),
      "Q8", "both offsets at once: the bend collapses to 1.85"),
-    ("v1-14", "v₁ = −1.4", (F(1, 5), -2, 2), (F(2, 5), F(-7, 5), F(8, 5)),
+    ("v1-14", "speedYLinear = -1.4", (F(1, 5), -2, 2), (F(2, 5), F(-7, 5), F(8, 5)),
      "Q8", "a smaller tilt: bend 2.69"),
-    ("v1-16", "v₁ = −1.6", (F(1, 5), -2, 2), (F(2, 5), F(-8, 5), F(8, 5)),
+    ("v1-16", "speedYLinear = -1.6", (F(1, 5), -2, 2), (F(2, 5), F(-8, 5), F(8, 5)),
      "Q8", "the tilt vanishes and the curve doubles back: bend 9.00"),
-    ("target-x10", "the target ×10", (2, -20, 20), (4, -15, 16),
+    ("target-x10", "the target x10", (2, -20, 20), (4, -15, 16),
      "Q8", "same shape as the target, pitch 15 instead of 1500"),
-    ("bend-2-pick", "bend 2.00 · v = 4u − 6", (2, -3, 3), (2, -12, 12),
+    ("bend-2-pick", "bend 2.00 | v = 4u - 6", (2, -3, 3), (2, -12, 12),
      "Q9", "the recommended curve: integers, pitch 10, endpoint (15, 4)"),
-    ("bend-2-pitch-5", "bend 2.00 · pitch 5", (3, -9, 9), (1, -15, 15),
+    ("bend-2-pitch-5", "bend 2.00 | pitch 5", (3, -9, 9), (1, -15, 15),
      "Q8", "the cheapest bend-2 grid"),
-    ("round-269", "yours · bend 2.69", (F(1, 2), F(-1, 2), F(1, 2)), (F(7, 10), -4, 4),
-     "Q8", "the round decimal S; at ×10 its pitch is 2"),
-    ("round-269-x10", "yours ×10", (5, -5, 5), (7, -40, 40),
+    ("round-269", "yours | bend 2.69", (F(1, 2), F(-1, 2), F(1, 2)), (F(7, 10), -4, 4),
+     "Q8", "the round decimal S; at x10 its pitch is 2"),
+    ("round-269-x10", "yours x10", (5, -5, 5), (7, -40, 40),
      "Q8", "the same shape as yours, pitch 2"),
-    ("round-224", "yours · v₀ = 0.5 · bend 2.24", (F(1, 2), F(-1, 2), F(1, 2)),
-     (F(1, 2), -4, 4), "Q8", "the v₀ = 0.5 variant: same turn, cheaper pitch than 0.7"),
-    ("round-224-x2", "v₀ = 0.5 ×2 · bend 2.24", (1, -1, 1), (1, -8, 8),
-     "Q8", "the integer form: bend 2.24, pitch 30, endpoint (7, −14)"),
-    ("find-204", "the 2.04 find", (F(74, 125), F(-53, 100), F(53, 100)),
+    ("round-224", "yours | speedYAtEnds = 0.5 | bend 2.24", (F(1, 2), F(-1, 2), F(1, 2)),
+     (F(1, 2), -4, 4), "Q8", "the speedYAtEnds = 0.5 variant: same turn, cheaper pitch than 0.7"),
+    ("round-224-x2", "speedYAtEnds = 0.5 x2 | bend 2.24", (1, -1, 1), (1, -8, 8),
+     "Q8", "the integer form: bend 2.24, pitch 30, endpoint (7, -14)"),
+    ("find-318", "the interesting curve", (F(-19, 20), F(-63, 5), 16),
+     (F(59, 20), F(-141, 10), 16),
+     "Q8", "bend 3.18 at pitch 600; u and v share the leading 16, so x(t) is quartic"),
+    ("find-204", "the earlier 2.04 find", (F(74, 125), F(-53, 100), F(53, 100)),
      (F(347, 500), F(-506, 125), F(4099, 1000)),
-     "Q7", "b = 6.7, a = −1, λ = 0.51; decimals make the pitch 15 million"),
+     "Q7", "b = 6.7, a = -1, morphLambda = 0.51; decimals make the pitch 15 million"),
 ]
 
 
@@ -142,7 +145,7 @@ def panel_svg(u, v, label, bend, pitch, width=290, height=250):
         f'<g><rect x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" '
         f'fill="#fbf7ec" stroke="#d8ccae"/>'
         f'<text x="{side}" y="20" font-size="12" font-weight="600" fill="#2e2413">{label}</text>'
-        f'<text x="{side}" y="34" font-size="10" fill="#7b6c4e">bend {bend:.2f} · pitch {pitch:,}</text>'
+        f'<text x="{side}" y="34" font-size="10" fill="#7b6c4e">bend {bend:.2f} | pitch {pitch:,}</text>'
         f'<path d="{path}" fill="none" stroke="#2e2413" stroke-width="2"/>'
         f"</g>"
     )
@@ -174,14 +177,14 @@ def build_svg(records):
         f'<text x="{gap}" y="30" font-size="18" font-weight="600" fill="#2e2413">'
         f"PH quintic preset recipes</text>"
         f'<text x="{gap}" y="50" font-size="12" fill="#7b6c4e">'
-        f"curve: r(t) = ∫ (u + i v)² dt · bend: arc ÷ chord · pitch: lcm of the "
+        f"curve: r(t) = integral of (u + i v)^2 dt | bend: arc / chord | pitch: lcm of the "
         f"integrated coefficients' denominators</text>"
         f'<text x="{gap}" y="64" font-size="11" fill="#8a7a58">'
-        f"exact recipes and their metrics: workbench/ph-quintic-presets.json · "
+        f"exact recipes and their metrics: workbench/ph-quintic-presets.json | "
         f"generated by scripts/ph_quintic_presets.py</text>"
         + "".join(panels)
         + f'<text x="{gap}" y="{height - 14}" font-size="11" fill="#8a7a58">'
-        f"{len(records)} presets · integer recipes are written without a denominator; "
+        f"{len(records)} presets | integer recipes are written without a denominator; "
         f"decimals cost pitch</text>"
         f"</svg>"
     )

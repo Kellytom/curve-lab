@@ -164,6 +164,24 @@ class TestGallery(unittest.TestCase):
         self.assertEqual(pitch, 2)
         self.assertAlmostEqual(bend((5, -5, 5), (7, -40, 40)), 2.69, delta=0.02)
 
+    def test_the_page_and_data_are_keyboard_ascii(self):
+        """Every variable is searchable: no Greek, no typographic glyphs."""
+        for name in ("workbench/ph-quintic-gallery.html",
+                     "workbench/ph-quintic-presets.json",
+                     "workbench/ph-quintic-presets.svg"):
+            text = (ROOT / name).read_text()
+            bad = sorted({ch for ch in text if ord(ch) > 127})
+            with self.subTest(file=name):
+                self.assertEqual(bad, [], f"{name} has non-ASCII: {bad}")
+
+    def test_the_variable_names_are_on_the_page(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        for name in ("curvatureAngle", "curvatureRatio", "morphLambda",
+                     "speedMid", "slopeMid", "curvatureMid",
+                     "speedXAtEnds", "lineSlope", "lineIntercept"):
+            with self.subTest(name=name):
+                self.assertIn(name, page)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)

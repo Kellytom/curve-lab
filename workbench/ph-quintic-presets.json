@@ -40,9 +40,9 @@
     },
     {
       "id": "u0-025",
-      "label": "u\u2080 = 0.25",
+      "label": "speedXAtEnds = 0.25",
       "source": "Q8",
-      "note": "raising u\u2080 straightens the middle",
+      "note": "raising speedXAtEnds straightens the middle",
       "u": [
         "1/4",
         "-2",
@@ -68,9 +68,9 @@
     },
     {
       "id": "v0-05",
-      "label": "v\u2080 = 0.5",
+      "label": "speedYAtEnds = 0.5",
       "source": "Q8",
-      "note": "raising v\u2080 moves the speed path off the origin",
+      "note": "raising speedYAtEnds moves the speed path off the origin",
       "u": [
         "1/5",
         "-2",
@@ -96,7 +96,7 @@
     },
     {
       "id": "u0-025-v0-05",
-      "label": "u\u2080 = 0.25, v\u2080 = 0.5",
+      "label": "speedXAtEnds = 0.25, speedYAtEnds = 0.5",
       "source": "Q8",
       "note": "both offsets at once: the bend collapses to 1.85",
       "u": [
@@ -124,7 +124,7 @@
     },
     {
       "id": "v1-14",
-      "label": "v\u2081 = \u22121.4",
+      "label": "speedYLinear = -1.4",
       "source": "Q8",
       "note": "a smaller tilt: bend 2.69",
       "u": [
@@ -152,7 +152,7 @@
     },
     {
       "id": "v1-16",
-      "label": "v\u2081 = \u22121.6",
+      "label": "speedYLinear = -1.6",
       "source": "Q8",
       "note": "the tilt vanishes and the curve doubles back: bend 9.00",
       "u": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "target-x10",
-      "label": "the target \u00d710",
+      "label": "the target x10",
       "source": "Q8",
       "note": "same shape as the target, pitch 15 instead of 1500",
       "u": [
@@ -208,7 +208,7 @@
     },
     {
       "id": "bend-2-pick",
-      "label": "bend 2.00 \u00b7 v = 4u \u2212 6",
+      "label": "bend 2.00 | v = 4u - 6",
       "source": "Q9",
       "note": "the recommended curve: integers, pitch 10, endpoint (15, 4)",
       "u": [
@@ -236,7 +236,7 @@
     },
     {
       "id": "bend-2-pitch-5",
-      "label": "bend 2.00 \u00b7 pitch 5",
+      "label": "bend 2.00 | pitch 5",
       "source": "Q8",
       "note": "the cheapest bend-2 grid",
       "u": [
@@ -264,9 +264,9 @@
     },
     {
       "id": "round-269",
-      "label": "yours \u00b7 bend 2.69",
+      "label": "yours | bend 2.69",
       "source": "Q8",
-      "note": "the round decimal S; at \u00d710 its pitch is 2",
+      "note": "the round decimal S; at x10 its pitch is 2",
       "u": [
         "1/2",
         "-1/2",
@@ -292,7 +292,7 @@
     },
     {
       "id": "round-269-x10",
-      "label": "yours \u00d710",
+      "label": "yours x10",
       "source": "Q8",
       "note": "the same shape as yours, pitch 2",
       "u": [
@@ -320,9 +320,9 @@
     },
     {
       "id": "round-224",
-      "label": "yours \u00b7 v\u2080 = 0.5 \u00b7 bend 2.24",
+      "label": "yours | speedYAtEnds = 0.5 | bend 2.24",
       "source": "Q8",
-      "note": "the v\u2080 = 0.5 variant: same turn, cheaper pitch than 0.7",
+      "note": "the speedYAtEnds = 0.5 variant: same turn, cheaper pitch than 0.7",
       "u": [
         "1/2",
         "-1/2",
@@ -348,9 +348,9 @@
     },
     {
       "id": "round-224-x2",
-      "label": "v\u2080 = 0.5 \u00d72 \u00b7 bend 2.24",
+      "label": "speedYAtEnds = 0.5 x2 | bend 2.24",
       "source": "Q8",
-      "note": "the integer form: bend 2.24, pitch 30, endpoint (7, \u221214)",
+      "note": "the integer form: bend 2.24, pitch 30, endpoint (7, -14)",
       "u": [
         "1",
         "-1",
@@ -375,10 +375,38 @@
       ]
     },
     {
+      "id": "find-318",
+      "label": "the interesting curve",
+      "source": "Q8",
+      "note": "bend 3.18 at pitch 600; u and v share the leading 16, so x(t) is quartic",
+      "u": [
+        "-19/20",
+        "-63/5",
+        "16"
+      ],
+      "v": [
+        "59/20",
+        "-141/10",
+        "16"
+      ],
+      "bend": 3.18,
+      "pitch": 600,
+      "inflection": 0.44,
+      "closest_approach": 1.96,
+      "endpoint": [
+        "563/200",
+        "-121/150"
+      ],
+      "endpoint_at_pitch": [
+        "1689",
+        "-484"
+      ]
+    },
+    {
       "id": "find-204",
-      "label": "the 2.04 find",
+      "label": "the earlier 2.04 find",
       "source": "Q7",
-      "note": "b = 6.7, a = \u22121, \u03bb = 0.51; decimals make the pitch 15 million",
+      "note": "b = 6.7, a = -1, morphLambda = 0.51; decimals make the pitch 15 million",
       "u": [
         "74/125",
         "-53/100",
