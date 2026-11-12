@@ -159,7 +159,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - **Images, if any: 150 KB and 1000 px per file.** A raster to be looked at
   goes in under both limits, checked with `file` or `sips -g pixelWidth
   -g pixelHeight` first. SVG is text and has no limit. Generated figures are
-  made to fit: export under 150 KB and 1000 px on the long side.
+  made to fit: export under 150 KB and 1000 px on the long side. Verified
+  2026-11-11: an 880 x 620, 93 KB PNG of Fig. T1 read back without error, so the
+  limit is the real constraint, not the format.
 - **Exception — the dot-solver subproject only** (`state/DOT-SOLVER-int.md`):
   images it generates may be sent back for diagnosis. The operator authorises
   it per session and runs `/fhandoff` then `/fhandon` first, so a freeze costs
