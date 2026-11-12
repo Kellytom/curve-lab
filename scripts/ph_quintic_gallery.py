@@ -133,6 +133,25 @@ def _k(u, v, t):
     return (xp * ypp - yp * xpp) / ((xp * xp + yp * yp) ** 1.5)
 
 
+def heading_range(u, v):
+    """How far the heading swings over the span, in degrees."""
+    import math
+    ang = []
+    for i in range(201):
+        t = i / 200
+        U = sum(float(c) * t ** k for k, c in enumerate(u))
+        V = sum(float(c) * t ** k for k, c in enumerate(v))
+        ang.append(math.degrees(math.atan2(2 * U * V, U * U - V * V)))
+    out = [ang[0]]
+    for a in ang[1:]:
+        while a - out[-1] > 180:
+            a -= 360
+        while a - out[-1] < -180:
+            a += 360
+        out.append(a)
+    return max(out) - min(out)
+
+
 def s_quality(u, v):
     """Lower is a cleaner S: middle inflection, balanced bend, square aspect."""
     import math
@@ -147,7 +166,10 @@ def s_quality(u, v):
     xs = [q[1] for q in pts]
     ys = [q[2] for q in pts]
     asp = (max(xs) - min(xs)) / max(1e-9, max(ys) - min(ys))
-    return abs(infl - 0.5) + 0.3 * abs(math.log(k0 / k1)) + 0.3 * abs(math.log(asp))
+    hr = heading_range(u, v)
+    if hr < 35 or not (0.5 < asp < 2.0):
+        return 1e9
+    return abs(infl - 0.5) + 0.005 * abs(hr - 80) + 0.2 * abs(math.log(asp))
 
 
 def fig_s_set():
@@ -158,7 +180,7 @@ def fig_s_set():
     H = 76 + rows * (ph + 30) + 16
     out = [f'<text x="22" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. G2 · the S curves, enlarged: the heading turns around at the ring</text>',
            f'<text x="22" y="43" font-size="12" fill="{MUTED}">one scale for x and y · short bars: the tangent at each end · the ring is the inflection, where the curvature is zero</text>',
-           f'<text x="22" y="60" font-size="11" fill="{MUTED}">chosen from the 40 by: inflection near the middle, similar bend at both ends, square box</text>']
+           f'<text x="22" y="60" font-size="11" fill="{MUTED}">chosen from the 40 by: a heading swing of 35° to 108°, the inflection inside, a box near square</text>']
     for idx, (u, v) in enumerate(best):
         cx = 22 + (idx % cols) * (pw + gap)
         cy = 76 + (idx // cols) * (ph + 30)
@@ -179,7 +201,9 @@ def fig_s_set():
 
         infl, pitch, end, swing = s_info(u, v)
         out.append(f'<rect x="{cx}" y="{cy}" width="{pw}" height="{ph}" fill="none" stroke="{RULE}"/>')
-        out.append(f'<path d="{" ".join(f"{fx(q[1]):.1f},{fy(q[2]):.1f}" for q in pts)}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
+        d = " ".join(("M" if i == 0 else "L") + f"{fx(q[1]):.1f},{fy(q[2]):.1f}"
+                     for i, q in enumerate(pts))
+        out.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
         # end tangents, short bars
         U0 = float(u[0])
         V0 = float(v[0])
@@ -259,9 +283,9 @@ the boundary.</p>
 <section class="panel">
 <h2>Fig. G2 · the S curves, enlarged</h2>
 {fig_s_set()}
-<p class="small">Twelve of the 40, chosen for the cleanest S: the inflection near the middle, a
-similar bend at both ends, and a square box. The blue bars are the tangents at t = 0 and t = 1 —
-their directions differ, and the ring between them is where the curvature passes through zero.</p>
+<p class="small">Twelve of the 40, chosen for a visible swing: the heading turns through 35° to
+108°, the inflection sits inside, and the box is near square. The blue bars are the tangents at t = 0
+and t = 1; the ring between them is where the curvature passes through zero.</p>
 </section>
 
 <section class="panel">
