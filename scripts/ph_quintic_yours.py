@@ -83,6 +83,21 @@ def record(label, saved_at, u_decimal, v_decimal):
     }
 
 
+def merge_saved(saved_document, existing_records=None):
+    """Append curves from a browser save, skipping ones already here."""
+    records = list(existing_records if existing_records is not None else build_records())
+    known = {(tuple(item["u_decimal"]), tuple(item["v_decimal"])) for item in records}
+    for preset in saved_document.get("presets", []):
+        u_decimal = [str(value) for value in preset["u"]]
+        v_decimal = [str(value) for value in preset["v"]]
+        if (tuple(u_decimal), tuple(v_decimal)) in known:
+            continue
+        label = preset.get("label") or preset.get("panel", "saved")
+        records.append(record(label, preset.get("saved", ""), u_decimal, v_decimal))
+        known.add((tuple(u_decimal), tuple(v_decimal)))
+    return records
+
+
 def build_records():
     return [record(*case) for case in RAW]
 
@@ -101,8 +116,13 @@ def build_document(records):
     }
 
 
-def main():
+def main(argv=None):
+    import sys
+    argv = sys.argv[1:] if argv is None else argv
     records = build_records()
+    if "--from" in argv:
+        source = Path(argv[argv.index("--from") + 1])
+        records = merge_saved(json.loads(source.read_text()), records)
     JSON_PATH.write_text(json.dumps(build_document(records), indent=2) + "\n")
     sheet = []
     for item in records:

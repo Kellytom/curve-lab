@@ -45,6 +45,19 @@ class TestSavedCurves(unittest.TestCase):
                 self.assertLess(item["pitch"], item["pitch_decimal"])
                 self.assertGreater(item["pitch"], 0)
 
+    def test_a_browser_save_merges_and_skips_duplicates(self):
+        saved = {"presets": [
+            {"panel": "q13", "saved": "2026-11-12T19:00:00Z",
+             "u": ["1.65", "-5.5", "5.4"], "v": ["1.825", "-11.65", "11.8"]},
+            {"panel": "q13", "saved": "2026-11-12T19:00:01Z",
+             "u": ["0.5", "-0.5", "0.5"], "v": ["0.7", "-4", "4"]},
+        ]}
+        merged = Y.merge_saved(saved, [])
+        self.assertEqual(len(merged), 2)
+        self.assertEqual(merged[0]["pitch"], 15)
+        again = Y.merge_saved(saved, merged)
+        self.assertEqual(len(again), 2)
+
     def test_the_files_match_the_generator(self):
         expected = json.loads(json.dumps(Y.build_document(Y.build_records())))
         self.assertEqual(json.loads(Y.JSON_PATH.read_text()), expected)
