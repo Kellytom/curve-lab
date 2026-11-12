@@ -650,30 +650,6 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
   const plotElement = document.getElementById("q8-plot");
   const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
   const controlIds = ["q8-speed-x0", "q8-speed-x1", "q8-speed-x2", "q8-speed-y0", "q8-speed-y1", "q8-speed-y2"];
-  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
-  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
-  function pitchFromScaledRecipes(scaledSpeedX, scaledSpeedY, decimalScale) {
-    const multiplyPolynomials = (left, right) => {
-      const product = new Array(left.length + right.length - 1).fill(0);
-      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
-      return product;
-    };
-    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
-    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
-    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
-    const decimalScaleSquared = decimalScale * decimalScale;
-    let pitchCells = 1;
-    for (let j = 0; j < speedXSquared.length; j++) {
-      const xNumerator = speedXSquared[j] - (speedYSquared[j] || 0);   // numerator over decimalScaleSquared
-      const yNumerator = 2 * speedXTimesY[j];                          // numerator over decimalScaleSquared
-      for (const numerator of [xNumerator, yNumerator]) {
-        if (!numerator) continue;
-        const denominator = decimalScaleSquared * (j + 1);   // coefficient of t^j in r is numerator / denominator
-        pitchCells = leastCommonMultiple(pitchCells, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
-      }
-    }
-    return pitchCells;
-  }
   function redraw() {
     const controlValues = controlIds.map(controlId => +document.getElementById(controlId).value);
     const speedX = controlValues.slice(0, 3), speedY = controlValues.slice(3, 6);
@@ -732,12 +708,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
     const toPixelX = value => offsetX + (value - minX) * plotScale;
     const toPixelY = value => offsetY + (maxY - value) * plotScale;
     const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
-    const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
-    const maxDecimals = Math.max(...controlValues.map(decimalPlaces));
-    const decimalScale = Math.pow(10, maxDecimals);
-    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
-    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
-    const pitchCells = pitchFromScaledRecipes(scaledSpeedX, scaledSpeedY, decimalScale);
+    const pitchCells = window.recipeMetrics(speedX, speedY).pitch;
     const closestApproach = (() => {
       let closest = Infinity;
       for (let i = 0; i <= sampleCount; i++) {
@@ -845,35 +816,6 @@ even pair does not have.</p>
 <script>
 (function () {
   const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
-  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
-  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
-  function pitchFromRecipe(speedX, speedY) {
-    const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
-    const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
-    const decimalScale = Math.pow(10, maxDecimals);
-    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
-    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
-    const multiplyPolynomials = (left, right) => {
-      const product = new Array(left.length + right.length - 1).fill(0);
-      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
-      return product;
-    };
-    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
-    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
-    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
-    const decimalScaleSquared = decimalScale * decimalScale;
-    let pitchCells = 1;
-    for (let j = 0; j < speedXSquared.length; j++) {
-      const xNumerator = speedXSquared[j] - (speedYSquared[j] || 0);
-      const yNumerator = 2 * speedXTimesY[j];
-      for (const numerator of [xNumerator, yNumerator]) {
-        if (!numerator) continue;
-        const denominator = decimalScaleSquared * (j + 1);
-        pitchCells = leastCommonMultiple(pitchCells, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
-      }
-    }
-    return pitchCells;
-  }
   function drawCurve(plotElement, speedX, speedY, figureTitle) {
     const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
     const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
@@ -916,7 +858,7 @@ even pair does not have.</p>
     const toPixelX = value => offsetX + (value - minX) * plotScale;
     const toPixelY = value => offsetY + (maxY - value) * plotScale;
     const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
-    const pitchCells = pitchFromRecipe(speedX, speedY);
+    const pitchCells = window.recipeMetrics(speedX, speedY).pitch;
     const readoutText = `bend ${bendRatio.toFixed(2)} | pitch ${pitchCells.toLocaleString()} | inflection ${inflectionParameter === null ? " - " : inflectionParameter.toFixed(2)} | closest ${closestApproach.toFixed(2)}`;
     const inflectionMarker = inflectionParameter === null ? "" :
       `<circle cx="${toPixelX(curvePoints[Math.round(inflectionParameter * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(inflectionParameter * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
