@@ -95,61 +95,6 @@ S2_CASES = [
 CASES = S_CASES + C_CASES
 
 
-def gallery():
-    cols, rows = 8, 6
-    pw, ph, gap = 105, 105, 8
-    W = 22 + cols * pw + (cols - 1) * gap + 22
-    H = 70 + rows * (ph + 26) + 14
-    out = [f'<text x="22" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. G1 · 48 PH quintics: 24 S curves, 24 C curves</text>',
-           f'<text x="22" y="43" font-size="12" fill="{MUTED}">u and v on a 1/5 grid in ±2 · red ring: the inflection · the number matches the table below</text>']
-    for idx, (u, v) in enumerate(CASES):
-        cx = 22 + (idx % cols) * (pw + gap)
-        cy = 70 + (idx // cols) * (ph + 26)
-        pts = uv_samples(u, v, 160)
-        xs = [q[1] for q in pts]
-        ys = [q[2] for q in pts]
-        x0, x1 = min(xs), max(xs)
-        y0, y1 = min(ys), max(ys)
-        sc = min(pw / max(1e-9, x1 - x0), ph / max(1e-9, y1 - y0))
-        ox = cx + (pw - (x1 - x0) * sc) / 2
-        oy = cy + (ph - (y1 - y0) * sc) / 2
-
-        def fx(val):
-            return ox + (val - x0) * sc
-
-        def fy(val):
-            return oy + (y1 - val) * sc
-
-        out.append(f'<rect x="{cx}" y="{cy}" width="{pw}" height="{ph}" fill="none" stroke="{RULE}"/>')
-        out.append(f'<line x1="{fx(0):.1f}" y1="{cy}" x2="{fx(0):.1f}" y2="{cy+ph}" stroke="{RULE}"/>')
-        out.append(f'<line x1="{cx}" y1="{fy(0):.1f}" x2="{cx+pw}" y2="{fy(0):.1f}" stroke="{RULE}"/>')
-        d = " ".join(("M" if i == 0 else "L") + f"{fx(q[1]):.1f},{fy(q[2]):.1f}"
-                     for i, q in enumerate(pts))
-        out.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="1.6"/>')
-        infl, pitch, end, swing = s_info(u, v)
-        if infl is not None and 0 < infl < 1:
-            x, y = uv_curve(u, v)
-            tx = sum(c * F(str(infl)).limit_denominator(1000) ** k for k, c in enumerate(x))
-            ty = sum(c * F(str(infl)).limit_denominator(1000) ** k for k, c in enumerate(y))
-            out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="3.4" fill="{PAPER}" stroke="{RED}" stroke-width="1.8"/>')
-        out.append(f'<text x="{cx+4}" y="{cy+ph+13}" font-size="10" font-weight="600" fill="{INK}">{idx+1}</text>')
-        tag = shape(u, v)
-        out.append(f'<text x="{cx+18}" y="{cy+ph+13}" font-size="10" fill="{MUTED}">{tag} · pitch {pitch}</text>')
-    return svg(W, H, ("48 PH quintics", "".join(out)))
-
-
-def _k(u, v, t):
-    U = sum(c * F(t) ** k for k, c in enumerate(u))
-    V = sum(c * F(t) ** k for k, c in enumerate(v))
-    dU = sum(k * c * F(t) ** (k - 1) for k, c in enumerate(u) if k)
-    dV = sum(k * c * F(t) ** (k - 1) for k, c in enumerate(v) if k)
-    xp = U * U - V * V
-    yp = 2 * U * V
-    xpp = 2 * (U * dU - V * dV)
-    ypp = 2 * (dU * V + U * dV)
-    return (xp * ypp - yp * xpp) / ((xp * xp + yp * yp) ** 1.5)
-
-
 def theta_curve(u, v, n=200):
     import math
     ang = []
@@ -182,111 +127,80 @@ def shape(u, v):
     return "S" if min(s0, s1) >= 15 else "C"
 
 
-def heading_range(u, v):
-    """How far the heading swings over the span, in degrees."""
-    import math
-    ang = []
-    for i in range(201):
-        t = i / 200
-        U = sum(float(c) * t ** k for k, c in enumerate(u))
-        V = sum(float(c) * t ** k for k, c in enumerate(v))
-        ang.append(math.degrees(math.atan2(2 * U * V, U * U - V * V)))
-    out = [ang[0]]
-    for a in ang[1:]:
-        while a - out[-1] > 180:
-            a -= 360
-        while a - out[-1] < -180:
-            a += 360
-        out.append(a)
-    return max(out) - min(out)
-
-
-def s_quality(u, v):
-    """Lower is a cleaner S: middle inflection, balanced bend, square aspect."""
-    import math
-    infl, pitch, end, swing = s_info(u, v)
-    if infl is None:
-        return 1e9
-    k0 = abs(float(_k(u, v, 0.0)))
-    k1 = abs(float(_k(u, v, 1.0)))
-    if min(k0, k1) <= 0:
-        return 1e9
-    pts = uv_samples(u, v, 60)
+def panel_svg(u, v, idx, w, h, label, off_scale=1.0):
+    """One self-contained SVG for one curve; CSS lays them out."""
+    m = 0.11 * w
+    cw, ch = w - 2 * m, h - 2 * m - 20
+    pts = uv_samples(u, v, 260)
     xs = [q[1] for q in pts]
     ys = [q[2] for q in pts]
-    asp = (max(xs) - min(xs)) / max(1e-9, max(ys) - min(ys))
-    hr = heading_range(u, v)
-    if hr < 35 or not (0.5 < asp < 2.0):
-        return 1e9
-    return abs(infl - 0.5) + 0.005 * abs(hr - 80) + 0.2 * abs(math.log(asp))
+    x0, x1 = min(xs), max(xs)
+    y0, y1 = min(ys), max(ys)
+    sc = min(cw / max(1e-9, x1 - x0), ch / max(1e-9, y1 - y0))
+    ox = m + (cw - (x1 - x0) * sc) / 2
+    oy = m + (ch - (y1 - y0) * sc) / 2
+
+    def fx(val):
+        return ox + (val - x0) * sc
+
+    def fy(val):
+        return oy + (y1 - val) * sc
+
+    infl, pitch, end, swing = s_info(u, v)
+    tag = shape(u, v)
+    out = [f'<rect x="1" y="1" width="{w-2}" height="{h-2}" fill="{PAPER}" stroke="{RULE}"/>']
+    d = " ".join(("M" if i == 0 else "L") + f"{fx(q[1]):.1f},{fy(q[2]):.1f}"
+                 for i, q in enumerate(pts))
+    out.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="{1.8 if w < 300 else 2.4}"/>')
+    U0, V0 = float(u[0]), float(v[0])
+    U1, V1 = float(sum(u)), float(sum(v))
+    off = (8.0 if w < 300 else 14.0) * off_scale
+    for (px, py, U, V) in ((0.0, 0.0, U0, V0),
+                           (float(sum(uv_curve(u, v)[0])), float(sum(uv_curve(u, v)[1])), U1, V1)):
+        dx, dy = U * U - V * V, 2 * U * V
+        n = max(1e-9, (dx * dx + dy * dy) ** .5)
+        sx, sy = dx / n, -dy / n
+        nx, ny = -sy, sx
+        ex, ey = fx(px), fy(py)
+        pcx, pcy = w / 2, (h - 20) / 2
+        if ((ex + nx * off - pcx) ** 2 + (ey + ny * off - pcy) ** 2 >
+                (ex - nx * off - pcx) ** 2 + (ey - ny * off - pcy) ** 2):
+            nx, ny = -nx, -ny
+        bx, by = ex + nx * off, ey + ny * off
+        L = 0.16 * max(x1 - x0, y1 - y0) * sc
+        ex2, ey2 = bx + sx * L, by + sy * L
+        lo_x, hi_x = 5, w - 5
+        lo_y, hi_y = 5, h - 25
+        bx, by = min(max(bx, lo_x), hi_x), min(max(by, lo_y), hi_y)
+        ex2, ey2 = min(max(ex2, lo_x), hi_x), min(max(ey2, lo_y), hi_y)
+        out.append(f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{ex2:.1f}" y2="{ey2:.1f}" '
+                   f'stroke="{BLUE}" stroke-width="{1.6 if w < 300 else 2.2}" stroke-linecap="round"/>')
+    x, y = uv_curve(u, v)
+    ti = F(str(infl)).limit_denominator(400)
+    tx = sum(c * ti ** k for k, c in enumerate(x))
+    ty = sum(c * ti ** k for k, c in enumerate(y))
+    out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="{3 if w < 300 else 5}" '
+               f'fill="{PAPER}" stroke="{RED}" stroke-width="{1.6 if w < 300 else 2.2}"/>')
+    out.append(f'<text x="{m}" y="{h-8}" font-size="{9 if w < 300 else 12}" font-weight="600" fill="{INK}">{idx+1}</text>')
+    out.append(f'<text x="{m+16 if w < 300 else m+34}" y="{h-8}" font-size="{8.5 if w < 300 else 11}" fill="{MUTED}">{label}</text>')
+    return (f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{tag} curve {idx+1}">'
+            + "".join(out) + "</svg>")
 
 
-def fig_s_set(cases, tag, sub):
-    """Four S curves at a time, 2 by 2, with room for the tangent bars."""
-    cols = 2
-    rows = (len(cases) + 1) // 2
-    pw, ph, gapx, gapy = 430, 300, 20, 26
-    W = 22 + cols * pw + (cols - 1) * gapx + 22
-    H = 84 + rows * (ph + 34) + 14
-    out = [f'<text x="22" y="24" font-size="14" font-weight="600" fill="{INK}">{tag} · {sub}</text>',
-           f'<text x="22" y="43" font-size="12" fill="{MUTED}">one scale for x and y · the curve sits inside a margin so the blue pen strokes never touch it</text>',
-           f'<text x="22" y="60" font-size="11" fill="{MUTED}">red ring: the inflection · blue: the tangent at each end, drawn to the side</text>']
-    for idx, (u, v) in enumerate(cases):
-        cx = 22 + (idx % cols) * (pw + gapx)
-        cy = 84 + (idx // cols) * (ph + gapy + 8)
-        pts = uv_samples(u, v, 300)
-        xs = [q[1] for q in pts]
-        ys = [q[2] for q in pts]
-        x0, x1 = min(xs), max(xs)
-        y0, y1 = min(ys), max(ys)
-        m = 44
-        iw, ih = pw - 2 * m, ph - 2 * m
-        sc = min(iw / max(1e-9, x1 - x0), ih / max(1e-9, y1 - y0))
-        ox = cx + m + (iw - (x1 - x0) * sc) / 2
-        oy = cy + m + (ih - (y1 - y0) * sc) / 2
+def grid_svgs(cases, w, h, cls, labeler):
+    return f'<div class="{cls}">' + "".join(
+        panel_svg(u, v, i, w, h, labeler(u, v)) for i, (u, v) in enumerate(cases)
+    ) + "</div>"
 
-        def fx(val):
-            return ox + (val - x0) * sc
 
-        def fy(val):
-            return oy + (y1 - val) * sc
+def gallery():
+    return grid_svgs(CASES, 200, 220, "g8",
+                     lambda u, v: f"{shape(u, v)} · pitch {s_info(u, v)[1]}")
 
-        infl, pitch, end, swing = s_info(u, v)
-        out.append(f'<rect x="{cx}" y="{cy}" width="{pw}" height="{ph}" fill="none" stroke="{RULE}"/>')
-        d = " ".join(("M" if i == 0 else "L") + f"{fx(q[1]):.1f},{fy(q[2]):.1f}"
-                     for i, q in enumerate(pts))
-        out.append(f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="2.4"/>')
-        # end tangents, drawn to the side
-        U0, V0 = float(u[0]), float(v[0])
-        U1, V1 = float(sum(u)), float(sum(v))
-        for (px, py, U, V) in ((0.0, 0.0, U0, V0),
-                               (float(sum(uv_curve(u, v)[0])), float(sum(uv_curve(u, v)[1])), U1, V1)):
-            dx, dy = U * U - V * V, 2 * U * V
-            n = max(1e-9, (dx * dx + dy * dy) ** .5)
-            sx, sy = dx / n, -dy / n
-            nx, ny = -sy, sx
-            ex, ey = fx(px), fy(py)
-            pcx, pcy = cx + pw / 2, cy + ph / 2
-            if ((ex + nx * 14 - pcx) ** 2 + (ey + ny * 14 - pcy) ** 2 >
-                    (ex - nx * 14 - pcx) ** 2 + (ey - ny * 14 - pcy) ** 2):
-                nx, ny = -nx, -ny
-            bx, by = ex + nx * 14, ey + ny * 14
-            L = 0.16 * max(x1 - x0, y1 - y0) * sc
-            ex2, ey2 = bx + sx * L, by + sy * L
-            lo_x, hi_x = cx + 6, cx + pw - 6
-            lo_y, hi_y = cy + 6, cy + ph - 6
-            bx, by = min(max(bx, lo_x), hi_x), min(max(by, lo_y), hi_y)
-            ex2, ey2 = min(max(ex2, lo_x), hi_x), min(max(ey2, lo_y), hi_y)
-            out.append(f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{ex2:.1f}" y2="{ey2:.1f}" '
-                       f'stroke="{BLUE}" stroke-width="2.2" stroke-linecap="round"/>')
-        x, y = uv_curve(u, v)
-        ti = F(str(infl)).limit_denominator(400)
-        tx = sum(c * ti ** k for k, c in enumerate(x))
-        ty = sum(c * ti ** k for k, c in enumerate(y))
-        out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="5" fill="{PAPER}" stroke="{RED}" stroke-width="2.2"/>')
-        out.append(f'<text x="{cx}" y="{cy+ph+18}" font-size="12" font-weight="600" fill="{INK}">{idx+1}</text>')
-        out.append(f'<text x="{cx+34}" y="{cy+ph+18}" font-size="11" fill="{MUTED}">inflection {infl:.2f} · pitch {pitch}</text>')
-    return svg(W, H, (tag, "".join(out)))
+
+def fig_s_set():
+    return grid_svgs(S2_CASES, 430, 340, "g2",
+                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
 
 
 def table():
@@ -318,6 +232,9 @@ table{{border-collapse:collapse;font:11px/1.45 ui-monospace,Menlo,monospace;marg
 th,td{{border:1px solid var(--rule);padding:3px 6px;text-align:right}} th{{color:var(--muted);font-weight:400}}
 .small{{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}}
 code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}}
+.g8{{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}}
+.g2{{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}}
+.g8 svg,.g2 svg{{width:100%;height:auto;display:block}}
 </style></head><body><main>
 <p class="eyebrow">curve-lab · PH quintics · gallery</p>
 <h1>48 PH quintics: 24 S and 24 C, on a 1/5 grid</h1>
@@ -347,7 +264,7 @@ bends one way. A dash means the Wronskian has no root in [0,1].</p>
 
 <section class="panel">
 <h2>Fig. G2 · the S curves, enlarged</h2>
-{fig_s_set(S2_CASES, "Fig. G2", "twelve S curves, two beside each other, six rows")}
+{fig_s_set()}
 <p class="small">Twelve curves chosen for balance: the heading swings at least 23° on each side of
 the inflection. The blue strokes are the end tangents, drawn to the side; the ring is where the
 curvature passes through zero.</p>
