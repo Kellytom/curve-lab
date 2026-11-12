@@ -319,33 +319,30 @@ def fig_grid():
 
 
 def fig_coords():
-    """x(t) and y(t) over the same window."""
-    W, H = 940, 480
-    tw = float(ZOOM_T)
-    xm = abs(float(curve(K, ZOOM_T)[0]))
-    ym = abs(float(curve(K, ZOOM_T)[1]))
-    fa = Frame(W, H, (-tw * 1.1, tw * 1.1), (-xm * 1.15, xm * 1.15), (96, 70, 800, 150))
-    fb = Frame(W, H, (-tw * 1.1, tw * 1.1), (-ym * 1.2, ym * 1.2), (96, 280, 800, 150))
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · x(t) and y(t) over the same window, t = ±{f"{ZOOM_T.numerator}/{ZOOM_T.denominator}"}</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">both are almost exactly straight lines at this scale — the same statement as Fig. Q3</text>']
-    for f, lab in ((fa, "x, units"), (fb, "y, units")):
+    """x(t) and y(t) side by side, on the SAME vertical scale."""
+    W, H = 940, 430
+    ymax = 200000
+    fa = Frame(W, H, (-3, 3), (-ymax, ymax), (74, 78, 356, 240))
+    fb = Frame(W, H, (-3, 3), (-ymax, ymax), (548, 78, 356, 240))
+    out = [f'<text x="74" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · x(t) and y(t) side by side, at the same vertical scale</text>',
+           f'<text x="74" y="43" font-size="12" fill="{MUTED}">t = −3 … 3 · both panels share the ticks: x reaches ±189,000, y only ±900 — so y is flat here</text>']
+    for f, lab, col in ((fa, "x(t)", INK), (fb, "y(t)", BLUE)):
+        out.append(f'<text x="{f.left}" y="{f.top-10}" font-size="13" font-weight="600" fill="{col}">{lab}</text>')
         out.append(f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>')
         out.append(f.axes())
-        for v in nice_ticks(f.x0, f.x1, 3):
-            out.append(f'<line x1="{f.fx(v):.1f}" y1="{f.top}" x2="{f.fx(v):.1f}" y2="{f.top+f.ph}" stroke="{RULE}" stroke-width="0.7"/>')
-            out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+16}" text-anchor="middle" font-size="11" fill="{MUTED}">{v:.4g}</text>')
-        for v in nice_ticks(f.y0, f.y1):
-            out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="11" fill="{MUTED}">{v:.4g}</text>')
-        out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="12" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">{lab}</text>')
-    pts = samples(K, -tw, tw, 300)
-    out.append(f'<path d="{fa.path([(t, x) for t, x, _ in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
-    out.append(f'<path d="{fb.path([(t, y) for t, _, y in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
-    for t in (-ZOOM_T, F(0), ZOOM_T):
+        for v in (-100000, 0, 100000):
+            out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="11" fill="{MUTED}">{v:,}</text>')
+        for v in (-3, -1, 0, 1, 3):
+            out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+18}" text-anchor="middle" font-size="11" fill="{MUTED}">{v}</text>')
+        out.append(f'<text x="{f.left+f.pw/2:.0f}" y="{H-16}" text-anchor="middle" font-size="12" fill="{INK}">t</text>')
+    pts = samples(K, -3, 3, 500)
+    out.append(f'<path d="{fa.path([(t, x) for t, x, _ in pts])}" fill="none" stroke="{INK}" stroke-width="2.4"/>')
+    out.append(f'<path d="{fb.path([(t, y) for t, _, y in pts])}" fill="none" stroke="{BLUE}" stroke-width="2.4"/>')
+    for t in (-3, 0, 3):
         x, y = curve(K, t)
-        out.append(f'<circle cx="{fa.fx(float(t)):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
-        out.append(f'<circle cx="{fb.fx(float(t)):.1f}" cy="{fb.fy(float(y)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
-    out.append(f'<text x="{fa.left+fa.pw/2:.0f}" y="{H-14}" text-anchor="middle" font-size="13" fill="{INK}">t — the parameter, ±{f"{ZOOM_T.numerator}/{ZOOM_T.denominator}"}</text>')
-    return svg(W, H, ("x and y over the S window", "".join(out)))
+        out.append(f'<circle cx="{fa.fx(t):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+        out.append(f'<circle cx="{fb.fx(t):.1f}" cy="{fb.fy(float(y)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+    return svg(W, H, ("x and y at the same vertical scale", "".join(out)))
 
 
 def fig_points():
@@ -539,9 +536,10 @@ points whole: a grid of 5.</p>
 <section class="panel">
 <h2>Fig. Q6 · coordinate by coordinate</h2>
 {fig_coords()}
-<p class="small">Over the same ±1/2 window both coordinates are still gentle, and the plane
-curve is gentle too — it is the <em>ratio</em> of the two speeds that makes the shape. Here x runs
-about 35 times faster than y, which is why the S is shallow and the sweep is long.</p>
+<p class="small">The earlier version scaled each panel to its own values, which made the two look
+comparable. On the same ticks they are not: x does all the work, and y is flat. That is the
+200:1 ratio that makes the plane curve a long shallow sweep, and it is why "gentle x and y" was
+a misleading reading of the autoscaled panels.</p>
 </section>
 
 <section class="panel">
