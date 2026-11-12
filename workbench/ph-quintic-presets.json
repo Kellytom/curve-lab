@@ -1,0 +1,343 @@
+{
+  "title": "PH quintic preset recipes",
+  "generator": "scripts/ph_quintic_presets.py",
+  "convention": "u and v are exact fractions as strings; the curve is r(t) = integral of (u + i v)^2 dt; pitch is the lcm of the integrated coefficients' denominators; bend is arc / chord",
+  "presets": [
+    {
+      "id": "the-target",
+      "label": "the target",
+      "source": "Q8",
+      "note": "the two-lobe S that Q7 morphs toward",
+      "u": [
+        "1/5",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "2/5",
+        "-3/2",
+        "8/5"
+      ],
+      "bend": 5.58,
+      "pitch": 1500,
+      "inflection": 0.47,
+      "closest_approach": 0.2,
+      "endpoint": [
+        "-13/1500",
+        "-1/75"
+      ],
+      "endpoint_at_pitch": [
+        "-13",
+        "-20"
+      ]
+    },
+    {
+      "id": "u0-025",
+      "label": "u\u2080 = 0.25",
+      "source": "Q8",
+      "note": "raising u\u2080 straightens the middle",
+      "u": [
+        "1/4",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "2/5",
+        "-3/2",
+        "8/5"
+      ],
+      "bend": 3.87,
+      "pitch": 2000,
+      "inflection": 0.47,
+      "closest_approach": 0.17,
+      "endpoint": [
+        "-39/2000",
+        "1/200"
+      ],
+      "endpoint_at_pitch": [
+        "-39",
+        "10"
+      ]
+    },
+    {
+      "id": "v0-05",
+      "label": "v\u2080 = 0.5",
+      "source": "Q8",
+      "note": "raising v\u2080 moves the speed path off the origin",
+      "u": [
+        "1/5",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "1/2",
+        "-3/2",
+        "8/5"
+      ],
+      "bend": 1.98,
+      "pitch": 1500,
+      "inflection": 0.48,
+      "closest_approach": 0.28,
+      "endpoint": [
+        "-83/1500",
+        "-1/25"
+      ],
+      "endpoint_at_pitch": [
+        "-83",
+        "-60"
+      ]
+    },
+    {
+      "id": "u0-025-v0-05",
+      "label": "u\u2080 = 0.25, v\u2080 = 0.5",
+      "source": "Q8",
+      "note": "both offsets at once: the bend collapses to 1.85",
+      "u": [
+        "1/4",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "1/2",
+        "-3/2",
+        "8/5"
+      ],
+      "bend": 1.85,
+      "pitch": 6000,
+      "inflection": 0.48,
+      "closest_approach": 0.26,
+      "endpoint": [
+        "-397/6000",
+        "-7/600"
+      ],
+      "endpoint_at_pitch": [
+        "-397",
+        "-70"
+      ]
+    },
+    {
+      "id": "v1-14",
+      "label": "v\u2081 = \u22121.4",
+      "source": "Q8",
+      "note": "a smaller tilt: bend 2.69",
+      "u": [
+        "1/5",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "2/5",
+        "-7/5",
+        "8/5"
+      ],
+      "bend": 2.69,
+      "pitch": 375,
+      "inflection": 0.46,
+      "closest_approach": 0.22,
+      "endpoint": [
+        "-4/125",
+        "-2/75"
+      ],
+      "endpoint_at_pitch": [
+        "-12",
+        "-10"
+      ]
+    },
+    {
+      "id": "v1-16",
+      "label": "v\u2081 = \u22121.6",
+      "source": "Q8",
+      "note": "the tilt vanishes and the curve doubles back: bend 9.00",
+      "u": [
+        "1/5",
+        "-2",
+        "2"
+      ],
+      "v": [
+        "2/5",
+        "-8/5",
+        "8/5"
+      ],
+      "bend": 9.0,
+      "pitch": 125,
+      "inflection": 0.5,
+      "closest_approach": 0.19,
+      "endpoint": [
+        "1/125",
+        "0"
+      ],
+      "endpoint_at_pitch": [
+        "1",
+        "0"
+      ]
+    },
+    {
+      "id": "target-x10",
+      "label": "the target \u00d710",
+      "source": "Q8",
+      "note": "same shape as the target, pitch 15 instead of 1500",
+      "u": [
+        "2",
+        "-20",
+        "20"
+      ],
+      "v": [
+        "4",
+        "-15",
+        "16"
+      ],
+      "bend": 5.58,
+      "pitch": 15,
+      "inflection": 0.47,
+      "closest_approach": 2.03,
+      "endpoint": [
+        "-13/15",
+        "-4/3"
+      ],
+      "endpoint_at_pitch": [
+        "-13",
+        "-20"
+      ]
+    },
+    {
+      "id": "bend-2-pick",
+      "label": "bend 2.00 \u00b7 v = 4u \u2212 6",
+      "source": "Q9",
+      "note": "the recommended curve: integers, pitch 10, endpoint (15, 4)",
+      "u": [
+        "2",
+        "-3",
+        "3"
+      ],
+      "v": [
+        "2",
+        "-12",
+        "12"
+      ],
+      "bend": 2.0,
+      "pitch": 10,
+      "inflection": 0.5,
+      "closest_approach": 1.46,
+      "endpoint": [
+        "3/2",
+        "2/5"
+      ],
+      "endpoint_at_pitch": [
+        "15",
+        "4"
+      ]
+    },
+    {
+      "id": "bend-2-pitch-5",
+      "label": "bend 2.00 \u00b7 pitch 5",
+      "source": "Q8",
+      "note": "the cheapest bend-2 grid",
+      "u": [
+        "3",
+        "-9",
+        "9"
+      ],
+      "v": [
+        "1",
+        "-15",
+        "15"
+      ],
+      "bend": 2.0,
+      "pitch": 5,
+      "inflection": 0.5,
+      "closest_approach": 2.06,
+      "endpoint": [
+        "-4/5",
+        "-3"
+      ],
+      "endpoint_at_pitch": [
+        "-4",
+        "-15"
+      ]
+    },
+    {
+      "id": "round-269",
+      "label": "yours \u00b7 bend 2.69",
+      "source": "Q8",
+      "note": "the round decimal S; at \u00d710 its pitch is 2",
+      "u": [
+        "1/2",
+        "-1/2",
+        "1/2"
+      ],
+      "v": [
+        "7/10",
+        "-4",
+        "4"
+      ],
+      "bend": 2.69,
+      "pitch": 200,
+      "inflection": 0.5,
+      "closest_approach": 0.41,
+      "endpoint": [
+        "17/200",
+        "1/20"
+      ],
+      "endpoint_at_pitch": [
+        "17",
+        "10"
+      ]
+    },
+    {
+      "id": "round-269-x10",
+      "label": "yours \u00d710",
+      "source": "Q8",
+      "note": "the same shape as yours, pitch 2",
+      "u": [
+        "5",
+        "-5",
+        "5"
+      ],
+      "v": [
+        "7",
+        "-40",
+        "40"
+      ],
+      "bend": 2.69,
+      "pitch": 2,
+      "inflection": 0.5,
+      "closest_approach": 4.09,
+      "endpoint": [
+        "17/2",
+        "5"
+      ],
+      "endpoint_at_pitch": [
+        "17",
+        "10"
+      ]
+    },
+    {
+      "id": "find-204",
+      "label": "the 2.04 find",
+      "source": "Q7",
+      "note": "b = 6.7, a = \u22121, \u03bb = 0.51; decimals make the pitch 15 million",
+      "u": [
+        "74/125",
+        "-53/100",
+        "53/100"
+      ],
+      "v": [
+        "347/500",
+        "-506/125",
+        "4099/1000"
+      ],
+      "bend": 2.04,
+      "pitch": 15000000,
+      "inflection": 0.49,
+      "closest_approach": 0.49,
+      "endpoint": [
+        "2405407/15000000",
+        "36443/600000"
+      ],
+      "endpoint_at_pitch": [
+        "2405407",
+        "911075"
+      ]
+    }
+  ]
+}

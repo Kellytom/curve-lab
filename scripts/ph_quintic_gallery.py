@@ -733,9 +733,10 @@ bend 1.91; (0.5, 0.5, 0.78, 4) is bend 2.01; (0.5, 0.5, 0.7, 4) is bend 2.69.</p
 <p>The even pair plus one free number: <code>v = v₀ + v₁t + v₂t²</code> with <code>v₁</code> no
 longer forced to <code>−v₂</code>. That tilt is what the 2.04 find in Q7 actually used:
 <code>u = 0.592 − 0.53t + 0.53t²</code>, <code>v = 0.694 − 4.048t + 4.099t²</code> (bend 2.04, pitch
-15 million). At ×10 — <code>u = 5 − 5t + 5t²</code>, <code>v = 7 − 40t + 40t²</code> — the same
-shape has pitch <strong>2</strong>. Slide <code>v₁</code> toward <code>−v₂</code> to see the tilt
-vanish.</p>
+15 million). Its nearest round neighbour, <code>u = 0.6 − 0.5t + 0.5t²</code>,
+<code>v = 0.7 − 4t + 4t²</code>, is bend 1.91; at ×10 — <code>u = 6 − 5t + 5t²</code>,
+<code>v = 7 − 40t + 40t²</code> — its pitch is <strong>6</strong>. Slide <code>v₁</code> toward
+<code>−v₂</code> to see the tilt vanish.</p>
 <p class="code-names">In the code: <code>v₁</code> is <code>speedYLinear</code>, the one number the
 even pair does not have.</p>
 <div id="q11-controls"></div>
@@ -902,15 +903,16 @@ even pair does not have.</p>
      { label: "bend 2.01 · 0.5 / 0.5 / 0.78 / 4", values: [0.5, 0.5, 0.78, 4] },
      { label: "bend 2.69 · 0.5 / 0.5 / 0.7 / 4", values: [0.5, 0.5, 0.7, 4] }], 2);
   buildRecipePanel("q11-controls", "q11-plot", "q11-readout", "Fig. Q11 · proposal 3: the tilted pair",
-    [{ key: "speedXAtEnds", label: "u₀", min: -1, max: 2, step: 0.01, value: 0.592 },
-     { key: "speedXCurvature", label: "u₂", min: 0, max: 4, step: 0.01, value: 0.53 },
-     { key: "speedYAtEnds", label: "v₀", min: -1, max: 2, step: 0.01, value: 0.694 },
+    [{ key: "speedXAtEnds", label: "u₀", min: -1, max: 8, step: 0.01, value: 0.592 },
+     { key: "speedXCurvature", label: "u₂", min: 0, max: 8, step: 0.01, value: 0.53 },
+     { key: "speedYAtEnds", label: "v₀", min: -1, max: 8, step: 0.01, value: 0.694 },
      { key: "speedYLinear", label: "v₁", min: -60, max: 0, step: 0.05, value: -4.048 },
      { key: "speedYCurvature", label: "v₂", min: 0, max: 60, step: 0.05, value: 4.099 }],
     values => ({ speedX: [values.speedXAtEnds, -values.speedXCurvature, values.speedXCurvature],
                  speedY: [values.speedYAtEnds, values.speedYLinear, values.speedYCurvature] }),
     [{ label: "the 2.04 find", values: [0.592, 0.53, 0.694, -4.048, 4.099] },
-     { label: "×10 · 5 / 5 / 7 / −40 / 40 · pitch 2", values: [5, 5, 7, -40, 40] }]);
+     { label: "×10 of 0.6 / 0.7 · pitch 6", values: [6, 5, 7, -40, 40] },
+     { label: "×10 of 0.5 / 0.7 · pitch 2", values: [5, 5, 7, -40, 40] }]);
 })();
 </script>
 
@@ -1075,8 +1077,12 @@ choose v so that <code>u v′ − v u′</code> vanishes there.</p>
 integer-t stops, the cut pieces and the grid-cost comparison.
 <a href="ph-families.html">PH families, degree by degree</a> — the ladder and the PH–Hermite
 interpolant.</p>
+<p><a href="ph-quintic-presets.svg">The preset sheet</a> — every named recipe drawn and
+labelled — and <a href="ph-quintic-presets.json">the same presets as JSON</a>, with exact fractions,
+bend, pitch and the endpoint at that pitch. Regenerate both with
+<code>python scripts/ph_quintic_presets.py</code>.</p>
 <p class="small">Re-derive: <code>python scripts/ph_quintic_gallery.py</code> · test:
-<code>python -m unittest tests.test_ph_quintic_gallery</code></p>
+<code>python -m unittest tests.test_ph_quintic_gallery tests.test_ph_quintic_presets</code></p>
 </section>
 </main></body></html>
 """
