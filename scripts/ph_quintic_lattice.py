@@ -36,7 +36,7 @@ RULE = "#d8ccae"
 
 K = 75          # the headline member: every integer t, grid 5
 K_SMALL = 3     # the small-numbers member: every 5th t, grid 5
-ZOOM_T = F(1, 128)   # half-width of the Q3 / Q6 window; change it and re-run
+ZOOM_T = F(1, 2)     # half-width of the Q3 / Q6 window; change it and re-run
 
 
 # -- exact algebra ----------------------------------------------------------
@@ -165,6 +165,17 @@ def svg(w, h, body):
             + body[1] + "</svg>")
 
 
+def curv(k, t):
+    t = float(t)
+    k2 = k * k
+    xp = k2 * (t * t - 1) ** 2 - 1
+    yp = 2 * k * (t * t - 1)
+    xpp = 4 * k2 * t * (t * t - 1)
+    ypp = 4 * k * t
+    den = (xp * xp + yp * yp) ** 1.5
+    return (xp * ypp - yp * xpp) / den
+
+
 def nice_ticks(lo, hi, n=2):
     span = hi - lo
     if span <= 0:
@@ -235,8 +246,9 @@ def fig_zoom():
     ym = abs(float(curve(K, ZOOM_T)[1]))
     f = Frame(W, H, (-xm * 1.12, xm * 1.12), (-ym * 1.15, ym * 1.15), (96, 70, 800, 250))
     pts = [(x, y) for _, x, y in samples(K, -tw, tw, 600)]
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S window t = −1/128 … 1/128</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">inflection at (0, 0) · curvature at the edge about 4×10⁻⁷, against 1.5×10⁻⁵ at t = ½ — the S flattens, it does not sharpen</text>',
+    lab = f"{ZOOM_T.numerator}/{ZOOM_T.denominator}"
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S window t = ±{lab}</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">inflection at (0, 0) · curvature at the edge {curv(K, ZOOM_T):+.2e} (zero at the origin, growing outward) · x and y at different scales</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
     for v in nice_ticks(f.x0, f.x1):
@@ -251,11 +263,11 @@ def fig_zoom():
         anchor = "start" if t < 0 else ("end" if t > 0 else "start")
         dx = 9 if t <= 0 else -9
         dy = -9 if t < 0 else (14 if t > 0 else -9)
-        label = "±1/128" if t != 0 else "inflection, (0, 0)"
+        label = f"±{lab}" if t != 0 else "inflection, (0, 0)"
         out.append(f'<text x="{px+dx:.1f}" y="{py+dy:.1f}" text-anchor="{anchor}" font-size="12" fill="{RED}">{label}</text>')
     out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="13" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">y, units</text>')
     out.append(f'<text x="{f.left+f.pw/2:.0f}" y="{H-18}" text-anchor="middle" font-size="13" fill="{INK}">x, units</text>')
-    return svg(W, H, ("the S window at t = 1/128", "".join(out)))
+    return svg(W, H, (f"the S window at t = {lab}", "".join(out)))
 
 
 def fig_cut():
@@ -314,7 +326,7 @@ def fig_coords():
     ym = abs(float(curve(K, ZOOM_T)[1]))
     fa = Frame(W, H, (-tw * 1.1, tw * 1.1), (-xm * 1.15, xm * 1.15), (96, 70, 800, 150))
     fb = Frame(W, H, (-tw * 1.1, tw * 1.1), (-ym * 1.2, ym * 1.2), (96, 280, 800, 150))
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · x(t) and y(t) over the same window, t = ±1/128</text>',
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · x(t) and y(t) over the same window, t = ±{f"{ZOOM_T.numerator}/{ZOOM_T.denominator}"}</text>',
            f'<text x="96" y="43" font-size="12" fill="{MUTED}">both are almost exactly straight lines at this scale — the same statement as Fig. Q3</text>']
     for f, lab in ((fa, "x, units"), (fb, "y, units")):
         out.append(f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>')
@@ -332,7 +344,7 @@ def fig_coords():
         x, y = curve(K, t)
         out.append(f'<circle cx="{fa.fx(float(t)):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
         out.append(f'<circle cx="{fb.fx(float(t)):.1f}" cy="{fb.fy(float(y)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
-    out.append(f'<text x="{fa.left+fa.pw/2:.0f}" y="{H-14}" text-anchor="middle" font-size="13" fill="{INK}">t — the parameter, ±1/128</text>')
+    out.append(f'<text x="{fa.left+fa.pw/2:.0f}" y="{H-14}" text-anchor="middle" font-size="13" fill="{INK}">t — the parameter, ±{f"{ZOOM_T.numerator}/{ZOOM_T.denominator}"}</text>')
     return svg(W, H, ("x and y over the S window", "".join(out)))
 
 
@@ -482,11 +494,10 @@ copies of one shape. The stops at t = ±2, ±3 are ringed; the origin and its S 
 <section class="panel">
 <h2>Fig. Q3 · the S, with the outliers left out</h2>
 {fig_zoom()}
-<p class="small">This is the window t = ±1/128. It does not sharpen the S: the curvature at the
-edge is about 4×10⁻⁷, against 1.5×10⁻⁵ at t = ½, because the curvature is zero at the origin and
-grows outward. The S is most visible over t ≈ ±1, not near 0. The pitch that would make t = 1/128
-a whole cell is 128⁵ ≈ 3.4×10¹⁰, so this window is a shape view, not a lattice view. Change
-<code>ZOOM_T</code> in the generator and re-run to move it.</p>
+<p class="small">This is the window t = ±1/2. The curvature is zero at the origin and grows
+outward, so the S is most visible at the edge of the window: about 1.5×10⁻⁵ there. The curve is
+regular everywhere — the speed is <code>k²(t²−1)² + 1</code>, never zero — so there are no cusps.
+Change <code>ZOOM_T</code> in the generator and re-run to move the window.</p>
 </section>
 
 <section class="panel">
@@ -528,9 +539,9 @@ points whole: a grid of 5.</p>
 <section class="panel">
 <h2>Fig. Q6 · coordinate by coordinate</h2>
 {fig_coords()}
-<p class="small">Over the same ±1/128 window both coordinates are almost exactly straight
-lines — which is Fig. Q3's flat S seen from another side. Over the full range they are the curves
-you saw before; here the linear terms 5624t and −150t dominate completely.</p>
+<p class="small">Over the same ±1/2 window both coordinates are still gentle, and the plane
+curve is gentle too — it is the <em>ratio</em> of the two speeds that makes the shape. Here x runs
+about 35 times faster than y, which is why the S is shallow and the sweep is long.</p>
 </section>
 
 <section class="panel">
