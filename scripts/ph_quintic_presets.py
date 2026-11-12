@@ -22,6 +22,7 @@ from fractions import Fraction as F
 from pathlib import Path
 
 import ph_quintic_lattice as Q
+import ph_quintic_metrics as M
 
 ROOT = Path(__file__).resolve().parents[1]
 JSON_PATH = ROOT / "workbench" / "ph-quintic-presets.json"
@@ -68,11 +69,11 @@ CASES = [
 
 
 def bend_ratio(u, v, samples=800):
-    """Arc length divided by the straight-line distance between the ends."""
-    points = Q.uv_samples(u, v, samples)
-    arc = sum(math.hypot(b[1] - a[1], b[2] - a[2]) for a, b in zip(points, points[1:]))
-    chord = math.hypot(points[-1][1] - points[0][1], points[-1][2] - points[0][2])
-    return arc / chord if chord > 1e-9 else float("inf")
+    """Arc length divided by the straight-line distance between the ends.
+
+    Exact, at any degree: the integrals are finite sums, not samples.
+    """
+    return M.metrics(u, v)["bend"]
 
 
 def closest_approach(u, v, samples=800):
