@@ -203,6 +203,13 @@ class TestGallery(unittest.TestCase):
             cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_q14_takes_any_degree(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        for name in ("Fig. Q14", "q14-u", "q14-v", "q14-plot", "q14-readout", "q14-hits"):
+            self.assertIn(name, page)
+        self.assertIn("window.exactBend", page)
+        self.assertIn("window.polynomialValue", page)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)

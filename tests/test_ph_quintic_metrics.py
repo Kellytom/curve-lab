@@ -66,12 +66,13 @@ class TestMetrics(unittest.TestCase):
         self.assertEqual(short["pitch"], long["pitch"])
         self.assertAlmostEqual(short["inflection"], long["inflection"], places=6)
 
-    def test_a_mixed_degree_recipe_runs(self):
+    def test_a_mixed_degree_recipe_pads_to_the_longer_list(self):
         """Degree 2 in u, degree 6 in v - the blend case."""
-        m = M.metrics((2, -3, 3), (1, 0, 0, 0, 0, 0, F(1, 4)))
-        self.assertGreater(m["bend"], 0)
-        self.assertGreater(m["pitch"], 0)
-        self.assertIsNotNone(m["inflection"])
+        mixed = M.metrics((2, -3, 3), (1, 0, 0, 0, 0, 0, F(1, 4)))
+        padded = M.metrics((2, -3, 3, 0, 0, 0), (1, 0, 0, 0, 0, 0, F(1, 4)))
+        self.assertAlmostEqual(mixed["bend"], padded["bend"], places=12)
+        self.assertEqual(mixed["pitch"], padded["pitch"])
+        self.assertAlmostEqual(mixed["inflection"], padded["inflection"], places=9)
 
     def test_every_preset_matches_its_saved_bend(self):
         document = json.loads((ROOT / "workbench" / "ph-quintic-presets.json").read_text())

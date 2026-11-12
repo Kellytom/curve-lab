@@ -507,6 +507,21 @@ diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
 </section>
 
 <section class="panel">
+<h2>Fig. Q14 | any degree: paste a recipe</h2>
+<p>Two coefficient lists, comma separated, any length: <code>u</code> and <code>v</code>. A degree-3
+speed gives a septic curve. Fractions are read exactly (<code>1/5</code>), and the metrics are the
+same three lines as Q12 - no sampling.</p>
+<div class="paste-row">
+  <label>u <input id="q14-u" type="text" value="2, -3, 3"></label>
+  <label>v <input id="q14-v" type="text" value="2, -12, 12"></label>
+  <button type="button" id="q14-draw" class="action-button">draw</button>
+</div>
+<svg id="q14-plot" viewBox="0 0 900 470" role="img" aria-label="a recipe at any degree"></svg>
+<p class="small" id="q14-readout"></p>
+<p class="small mono" id="q14-hits"></p>
+</section>
+
+<section class="panel">
 <h2>Saved curves</h2>
 <p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
 and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
@@ -672,6 +687,9 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .code-names{{font-size:14px;color:var(--muted);margin:6px 0 10px}}
 .save-row{{margin:8px 0 0}}
 #q13-exact{{white-space:pre-line}}
+.paste-row{{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}}
+.paste-row label{{display:flex;gap:8px;align-items:center;font:13px ui-monospace,Menlo,monospace}}
+.paste-row input{{width:320px;font:12px ui-monospace,Menlo,monospace;padding:4px 6px}}
 .inverse-row{{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}}
 .inverse-row .control-row span{{min-width:34px}}
 .inverse-row input[type=number]{{width:74px;font:12px ui-monospace,Menlo,monospace}}

@@ -27,6 +27,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .code-names{font-size:14px;color:var(--muted);margin:6px 0 10px}
 .save-row{margin:8px 0 0}
 #q13-exact{white-space:pre-line}
+.paste-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.paste-row label{display:flex;gap:8px;align-items:center;font:13px ui-monospace,Menlo,monospace}
+.paste-row input{width:320px;font:12px ui-monospace,Menlo,monospace;padding:4px 6px}
 .inverse-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
 .inverse-row .control-row span{min-width:34px}
 .inverse-row input[type=number]{width:74px;font:12px ui-monospace,Menlo,monospace}
@@ -363,6 +366,21 @@ diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
 </section>
 
 <section class="panel">
+<h2>Fig. Q14 | any degree: paste a recipe</h2>
+<p>Two coefficient lists, comma separated, any length: <code>u</code> and <code>v</code>. A degree-3
+speed gives a septic curve. Fractions are read exactly (<code>1/5</code>), and the metrics are the
+same three lines as Q12 - no sampling.</p>
+<div class="paste-row">
+  <label>u <input id="q14-u" type="text" value="2, -3, 3"></label>
+  <label>v <input id="q14-v" type="text" value="2, -12, 12"></label>
+  <button type="button" id="q14-draw" class="action-button">draw</button>
+</div>
+<svg id="q14-plot" viewBox="0 0 900 470" role="img" aria-label="a recipe at any degree"></svg>
+<p class="small" id="q14-readout"></p>
+<p class="small mono" id="q14-hits"></p>
+</section>
+
+<section class="panel">
 <h2>Saved curves</h2>
 <p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
 and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
@@ -420,31 +438,56 @@ window.formatPolynomial = function (terms) {
 };
 
 window.panelRecipes = {};
+window.polynomialValue = function (coefficients, t) {
+  let total = 0;
+  for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+  return total;
+};
+window.polynomialDerivative = function (coefficients) {
+  return coefficients.slice(1).map((coefficient, i) => coefficient * (i + 1));
+};
+window.exactBend = function (speedX, speedY) {
+  const centred = coefficients => {
+    const out = new Array(coefficients.length).fill(0);
+    coefficients.forEach((coefficient, j) => {
+      let binomial = 1;
+      for (let k = 0; k <= j; k++) {
+        out[k] += coefficient * binomial * Math.pow(0.5, j - k);
+        binomial = binomial * (j - k) / (k + 1);
+      }
+    });
+    return out;
+  };
+  const weight = power => (power % 2 ? 0 : 1 / (Math.pow(2, power) * (power + 1)));
+  let cx = centred(speedX), cy = centred(speedY);
+  const size = Math.max(cx.length, cy.length);
+  cx = cx.concat(new Array(size - cx.length).fill(0));
+  cy = cy.concat(new Array(size - cy.length).fill(0));
+  let arc = 0, chordRe = 0, chordIm = 0;
+  for (let k = 0; k < cx.length; k++) {
+    for (let l = 0; l < cx.length; l++) {
+      const w = weight(k + l);
+      if (!w) continue;
+      arc += (cx[k] * cx[l] + cy[k] * cy[l]) * w;
+      chordRe += (cx[k] * cx[l] - cy[k] * cy[l]) * w;
+      chordIm += (cx[k] * cy[l] + cy[k] * cx[l]) * w;
+    }
+  }
+  const chord = Math.hypot(chordRe, chordIm);
+  return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
+};
 window.recipeMetrics = function (speedX, speedY) {
   const sampleCount = 600;
-  const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
-  const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
-  const points = [[0, 0]];
-  let pointX = 0, pointY = 0, closest = Infinity;
-  for (let i = 1; i <= sampleCount; i++) {
-    const t = (i - 0.5) / sampleCount;
-    const a = evalQuadratic(speedX, t), b = evalQuadratic(speedY, t);
-    pointX += (a * a - b * b) / sampleCount;
-    pointY += 2 * a * b / sampleCount;
-    points.push([pointX, pointY]);
-  }
+  const value = window.polynomialValue;
+  const derivativeX = window.polynomialDerivative(speedX);
+  const derivativeY = window.polynomialDerivative(speedY);
+  const exact = window.exactBend(speedX, speedY);
+  let closest = Infinity;
   for (let i = 0; i <= sampleCount; i++) {
     const t = i / sampleCount;
-    closest = Math.min(closest, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
+    closest = Math.min(closest, Math.hypot(value(speedX, t), value(speedY, t)));
   }
-  let arcLength = 0;
-  for (let i = 1; i < points.length; i++) {
-    arcLength += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
-  }
-  const chordLength = Math.hypot(points[sampleCount][0] - points[0][0], points[sampleCount][1] - points[0][1]);
-  const bend = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
-  const wronskian = t => evalQuadratic(speedX, t) * derivativeQuadratic(speedY, t)
-    - evalQuadratic(speedY, t) * derivativeQuadratic(speedX, t);
+  const wronskian = t => value(speedX, t) * value(derivativeY, t) - value(speedY, t) * value(derivativeX, t);
   let inflection = null;
   for (let i = 0; i < sampleCount && inflection === null; i++) {
     const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
@@ -483,7 +526,7 @@ window.recipeMetrics = function (speedX, speedY) {
   const closed = window.closedFormOf(speedX, speedY);
   const endpoint = [closed.xTerms.reduce((sum, term) => sum + term[0] / term[1], 0),
                     closed.yTerms.reduce((sum, term) => sum + term[0] / term[1], 0)];
-  return { bend, pitch, inflection, closest, endpoint };
+  return { bend: exact.bend, arc: exact.arc, chord: exact.chord, pitch, inflection, closest, endpoint };
 };
 window.curveSaver = (function () {
   const key = "curve-lab-saved-curves";
@@ -1059,6 +1102,72 @@ window.curveSaver = (function () {
     window.curveSaver.clear();
     counter.textContent = "0";
   });
+})();
+
+// Fig. Q14 - any degree: two coefficient lists in, curve and metrics out.
+(function () {
+  const plotElement = document.getElementById("q14-plot");
+  if (!plotElement) return;
+  const readout = document.getElementById("q14-readout");
+  const hitsOut = document.getElementById("q14-hits");
+  const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 900;
+  const parseToken = text => {
+    const parts = String(text).split("/");
+    return parts.length === 2 ? Number(parts[0]) / Number(parts[1]) : Number(parts[0]);
+  };
+  const parseList = text => String(text).split(/[\s,]+/).filter(Boolean).map(parseToken);
+  const curveValue = (terms, t) => terms.reduce((sum, term, j) => sum + (term[0] / term[1]) * Math.pow(t, j + 1), 0);
+
+  function redraw() {
+    const speedX = parseList(document.getElementById("q14-u").value);
+    const speedY = parseList(document.getElementById("q14-v").value);
+    if (!speedX.length || !speedY.length || speedX.concat(speedY).some(Number.isNaN)) {
+      readout.textContent = "two lists of numbers, please";
+      return;
+    }
+    const metrics = window.recipeMetrics(speedX, speedY);
+    const closed = window.closedFormOf(speedX, speedY);
+    const points = [];
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (let i = 0; i <= sampleCount; i++) {
+      const t = i / sampleCount;
+      const x = curveValue(closed.xTerms, t), y = curveValue(closed.yTerms, t);
+      points.push([x, y]);
+      minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+    }
+    const plotScale = Math.min((canvasWidth - 2 * plotMargin) / Math.max(1e-6, maxX - minX),
+                               (canvasHeight - plotMargin - plotTopMargin) / Math.max(1e-6, maxY - minY));
+    const offsetX = plotMargin + (canvasWidth - 2 * plotMargin - (maxX - minX) * plotScale) / 2;
+    const offsetY = plotTopMargin + (canvasHeight - plotMargin - plotTopMargin - (maxY - minY) * plotScale) / 2;
+    const toPixelX = value => offsetX + (value - minX) * plotScale;
+    const toPixelY = value => offsetY + (maxY - value) * plotScale;
+    const pathData = "M" + points.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
+    const heading = `Fig. Q14 | any degree | speed degree ${speedX.length - 1} / ${speedY.length - 1}`;
+    plotElement.innerHTML =
+      `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
+      `<text x="${plotMargin}" y="28" font-size="15" font-weight="600" fill="#2e2413">${heading}</text>` +
+      `<text x="${plotMargin}" y="48" font-size="12" fill="#7b6c4e">curve: r(t) = integral of (u + i v)^2 | bend, pitch and the rest are exact for these coefficients</text>` +
+      `<path d="${pathData}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    readout.textContent = `bend ${metrics.bend.toFixed(3)} | pitch ${metrics.pitch.toLocaleString()} | ` +
+      `inflection ${metrics.inflection === null ? " - " : metrics.inflection.toFixed(3)} | closest ${metrics.closest.toFixed(3)}`;
+    const grid = metrics.pitch;
+    const stops = [];
+    if (grid <= 20000) {
+      for (let m = 0; m <= grid; m++) {
+        const t = m / grid;
+        const x = curveValue(closed.xTerms, t) * grid, y = curveValue(closed.yTerms, t) * grid;
+        if (Math.abs(x - Math.round(x)) < 1e-6 && Math.abs(y - Math.round(y)) < 1e-6) {
+          stops.push(`(${Math.round(x)}, ${Math.round(y)})`);
+        }
+      }
+    }
+    hitsOut.textContent = `hits at the stops (t = m/pitch, numeric): ${stops.length ? stops.join(" ") : "none"}`;
+  }
+
+  document.getElementById("q14-draw").addEventListener("click", redraw);
+  ["q14-u", "q14-v"].forEach(id => document.getElementById(id).addEventListener("change", redraw));
+  redraw();
 })();
 </script>
 
