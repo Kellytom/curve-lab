@@ -64,10 +64,28 @@ class TestGallery(unittest.TestCase):
             with self.subTest(u=u, v=v):
                 self.assertGreaterEqual(min(s0, s1), 45)
 
+    def test_q4_curls_or_turns(self):
+        self.assertEqual(len(G.Q4_CASES), 12)
+        for u, v in G.Q4_CASES:
+            th = G.theta_curve(u, v)
+            with self.subTest(u=u, v=v):
+                self.assertGreaterEqual(max(th) - min(th), 120)
+
+    def test_q5_has_the_inflection_in_the_middle(self):
+        self.assertEqual(len(G.Q5_CASES), 12)
+        for u, v in G.Q5_CASES:
+            infl, pitch, end, swing = G.s_info(u, v)
+            with self.subTest(u=u, v=v):
+                self.assertIsNotNone(infl)
+                self.assertGreater(infl, 0.46)
+                self.assertLess(infl, 0.54)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)
         self.assertIn("24 S", page)
+        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5"):
+            self.assertIn(tag, page)
         self.assertIn("Moving the root inside", page)
         self.assertIn("ph-quintic-lattice.html", page)
         self.assertEqual(page.count("<tr>"), 49)   # header + 48 rows

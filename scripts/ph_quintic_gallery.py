@@ -107,6 +107,36 @@ Q3_CASES = [
     ((0, F(-8,5), F(8,5)), (F(6,5), F(-8,5), F(9,5))),
 ]
 
+Q4_CASES = [
+    ((-1, F(2,5), 2), (F(-1,10), 2, -1)),
+    ((F(-2,5), F(6,5), F(1,5)), (F(-1,2), F(11,10), 2)),
+    ((F(9,10), F(-9,5), F(-6,5)), (F(3,10), F(9,10), F(-9,10))),
+    ((F(-1,2), F(3,2), -1), (F(17,10), F(-3,5), -2)),
+    ((0, 0, F(-4,5)), (F(-3,10), F(3,10), 1)),
+    ((F(-1,5), F(13,10), F(1,2)), (F(-3,5), F(9,5), F(-1,2))),
+    ((F(4,5), F(1,2), -2), (F(17,10), F(1,10), -2)),
+    ((F(-11,10), F(19,10), F(7,10)), (F(-13,10), F(1,5), F(1,2))),
+    ((F(-3,2), F(6,5), F(19,10)), (F(-6,5), F(9,5), F(-19,10))),
+    ((F(3,10), F(7,10), F(-4,5)), (F(1,10), F(-8,5), F(3,10))),
+    ((F(11,10), F(-9,10), F(-4,5)), (F(6,5), F(2,5), F(-9,10))),
+    ((F(-11,10), -1, F(-1,10)), (F(4,5), F(-6,5), F(-8,5))),
+]
+
+Q5_CASES = [
+    ((0, F(8,5), F(-6,5)), (1, -1, F(8,5))),
+    ((F(-9,10), F(-11,10), 2), (F(7,10), F(-9,5), F(3,2))),
+    ((-1, F(19,10), -2), (F(8,5), F(17,10), -2)),
+    ((F(3,5), F(2,5), F(-1,2)), (0, -2, 2)),
+    ((F(-1,2), F(3,10), F(-2,5)), (F(-3,5), F(-19,10), F(9,5))),
+    ((F(1,5), F(3,2), F(-17,10)), (F(9,10), F(-1,10), F(-3,10))),
+    ((F(2,5), F(1,2), -1), (F(7,5), -2, 1)),
+    ((F(-9,10), F(13,10), F(-3,2)), (F(-4,5), -2, F(3,2))),
+    ((F(11,10), F(-9,10), 1), (F(-3,5), 2, -2)),
+    ((F(1,2), F(-8,5), 2), (F(1,5), F(1,5), F(4,5))),
+    ((F(4,5), F(-9,5), F(17,10)), (F(-7,5), F(-2,5), F(1,2))),
+    ((F(-6,5), F(-11,10), 1), (F(7,10), F(-3,2), F(3,2))),
+]
+
 CASES = S_CASES + C_CASES
 
 
@@ -193,12 +223,13 @@ def panel_svg(u, v, idx, w, h, label, off_scale=1.0):
         out.append(f'<line x1="{cxb - sx * r * 0.62:.1f}" y1="{cyb - sy * r * 0.62:.1f}" '
                    f'x2="{cxb + sx * r * 0.62:.1f}" y2="{cyb + sy * r * 0.62:.1f}" '
                    f'stroke="{BLUE}" stroke-width="{1.6 if w < 300 else 2.4}" stroke-linecap="round"/>')
-    x, y = uv_curve(u, v)
-    ti = F(str(infl)).limit_denominator(400)
-    tx = sum(c * ti ** k for k, c in enumerate(x))
-    ty = sum(c * ti ** k for k, c in enumerate(y))
-    out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="{3 if w < 300 else 5}" '
-               f'fill="{PAPER}" stroke="{RED}" stroke-width="{1.6 if w < 300 else 2.2}"/>')
+    if infl is not None:
+        x, y = uv_curve(u, v)
+        ti = F(str(infl)).limit_denominator(400)
+        tx = sum(c * ti ** k for k, c in enumerate(x))
+        ty = sum(c * ti ** k for k, c in enumerate(y))
+        out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="{3 if w < 300 else 5}" '
+                   f'fill="{PAPER}" stroke="{RED}" stroke-width="{1.6 if w < 300 else 2.2}"/>')
     out.append(f'<text x="{m}" y="{h-8}" font-size="{9 if w < 300 else 12}" font-weight="600" fill="{INK}">{idx+1}</text>')
     out.append(f'<text x="{m+16 if w < 300 else m+34}" y="{h-8}" font-size="{8.5 if w < 300 else 11}" fill="{MUTED}">{label}</text>')
     return (f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="{tag} curve {idx+1}">'
@@ -223,6 +254,20 @@ def fig_s_set():
 
 def fig_q3():
     return grid_svgs(Q3_CASES, 430, 340, "g2",
+                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
+
+
+def fig_q4():
+    def label(u, v):
+        infl, pitch, end, swing = s_info(u, v)
+        th = theta_curve(u, v)
+        return f"swing {max(th) - min(th):.0f}° · pitch {pitch}"
+
+    return grid_svgs(Q4_CASES, 430, 340, "g2", label)
+
+
+def fig_q5():
+    return grid_svgs(Q5_CASES, 430, 340, "g2",
                      lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
 
 
@@ -299,6 +344,22 @@ design. The red ring is where the curvature passes through zero.</p>
 <p class="small">The same balance test, but requiring a swing of at least 45° on <em>each</em> side
 of the inflection — up to 147°. Same construction, same exactness; the difference is that
 <code>v/u</code> turns much faster, so the bend is unmistakable.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q4 · curls and U-turns</h2>
+{fig_q4()}
+<p class="small">Found on a 1/10 grid, and allowed to curl: the heading swings 120°–390° across
+the span. Same construction and exactness; these are the shapes where <code>v/u</code> turns
+almost all the way round.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q5 · the inflection in the middle</h2>
+{fig_q5()}
+<p class="small">A 1/10 grid, with the inflection required to sit between t = 0.46 and 0.54 — so
+the curve bends one way for the first half and the other way for the second, with the ring at the
+turn.</p>
 </section>
 
 <section class="panel">
