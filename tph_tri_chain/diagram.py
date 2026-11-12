@@ -186,9 +186,16 @@ def main():
              '1/12 per step, all in the same direction.</text>')
     o.append("</svg>")
 
+    named = {"&mdash;": "&#8212;", "&minus;": "&#8722;", "&sup2;": "&#178;",
+             "&sup3;": "&#179;", "&times;": "&#215;", "&prime;": "&#8242;",
+             "&rsquo;": "&#8217;", "&middot;": "&#183;", "&radic;": "&#8730;",
+             "&hellip;": "&#8230;", "&nbsp;": "&#160;"}
+    body = "\n".join(o)
+    for k, v in named.items():
+        body = body.replace(k, v)
     path = os.path.join(OUT, "midpoint.svg")
     with open(path, "w") as fh:
-        fh.write("\n".join(o) + "\n")
+        fh.write(body + "\n")
     print(f"wrote {path}  ({W}x{H})")
 
 

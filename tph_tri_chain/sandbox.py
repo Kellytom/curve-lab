@@ -209,9 +209,11 @@ def build():
     ]))
     h.append('<figure><img src="out/lattice-t3.svg" alt="the curve, the twelve '
              'triangles, and the whole-number points"><figcaption class="note">'
-             'Fig. T1 &mdash; the 24 triangles at t = 3, pitch 256 cells per unit. '
-             'The rings are the curve&rsquo;s whole-number points; the chain&rsquo;s '
-             'last vertex falls just inside the left one, by 1/64.</figcaption>'
+             'Fig. T1 &mdash; the 24 triangles at t = 3 on a grid of 256 cells per '
+             'unit, the pitch the 1/4 step width forces. Unit lines are solid, '
+             'quarter-unit lines pale. The rings are the curve&rsquo;s whole-number '
+             'points; the chain&rsquo;s last vertex falls just inside the left one, '
+             'by 1/64.</figcaption>'
              '</figure>')
 
     # 7 -------------------------------------------------------------

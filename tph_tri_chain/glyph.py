@@ -65,7 +65,7 @@ def svg(nodes, g, path):
     xmin, xmax = min(xs + [-6.0]) - 0.30, max(xs + [6.0]) + 0.30
     ymin, ymax = -0.55, max(ys + [9.0]) + 0.55
 
-    ml, mr, mt, mb = 92, 54, 128, 78
+    ml, mr, mt, mb = 92, 54, 128, 200
     avail_w, avail_h = 680, 780
     sc = min(avail_w / (xmax - xmin), avail_h / (ymax - ymin))
     W = ml + sc * (xmax - xmin) + mr
@@ -81,14 +81,20 @@ def svg(nodes, g, path):
          f'viewBox="0 0 {W:.0f} {H:.0f}" font-family="Helvetica, Arial, sans-serif">',
          f'<rect width="{W:.0f}" height="{H:.0f}" fill="#fff"/>']
 
+    for k in range(-28, 29):
+        o.append(f'<line x1="{fx(k/4):.1f}" y1="{fy(ymin):.1f}" x2="{fx(k/4):.1f}" '
+                 f'y2="{fy(ymax):.1f}" stroke="#f4efe2" stroke-width="1"/>')
+    for k in range(0, 41):
+        o.append(f'<line x1="{fx(xmin):.1f}" y1="{fy(k/4):.1f}" x2="{fx(xmax):.1f}" '
+                 f'y2="{fy(k/4):.1f}" stroke="#f4efe2" stroke-width="1"/>')
     for k in range(-6, 7):
         o.append(f'<line x1="{fx(k):.1f}" y1="{fy(ymin):.1f}" x2="{fx(k):.1f}" '
-                 f'y2="{fy(ymax):.1f}" stroke="#ededed" stroke-width="1"/>')
+                 f'y2="{fy(ymax):.1f}" stroke="#ddd3b8" stroke-width="1.2"/>')
         o.append(f'<text x="{fx(k):.1f}" y="{fy(0)+17:.1f}" font-size="12" '
                  f'text-anchor="middle" fill="#666">{k}</text>')
     for k in range(0, 10):
         o.append(f'<line x1="{fx(xmin):.1f}" y1="{fy(k):.1f}" x2="{fx(xmax):.1f}" '
-                 f'y2="{fy(k):.1f}" stroke="#ededed" stroke-width="1"/>')
+                 f'y2="{fy(k):.1f}" stroke="#ddd3b8" stroke-width="1.2"/>')
         o.append(f'<text x="{fx(0)-9:.1f}" y="{fy(k)+4:.1f}" font-size="12" '
                  f'text-anchor="end" fill="#666">{k}</text>')
 
@@ -139,11 +145,12 @@ def svg(nodes, g, path):
             "midpoint chain: step 1/4, pitch 256 cells per unit, y exact, x 1/64 short"]):
         o.append(f'<text x="{ml-24:.1f}" y="{62 + k*22}" font-size="14" fill="#444">{line}</text>')
 
-    lx, ly = fx(xmin) + 14, fy(ymin) - 104
-    o.append(f'<rect x="{lx-9:.1f}" y="{ly-22:.1f}" width="392" height="96" fill="#fff" '
-             f'fill-opacity="0.93" stroke="#bbb"/>')
+    lx, ly = fx(xmin) + 14, fy(ymin) + 34
+    o.append(f'<rect x="{lx-9:.1f}" y="{ly-22:.1f}" width="452" height="122" fill="#fff" '
+             f'fill-opacity="0.97" stroke="#d8ccae"/>')
     rows = [("#7a7a7a", 2.2, "smooth curve"), ("#111", 2.5, "chain, 24 hypotenuses"),
-            ("#9bb7d4", 1.0, "step legs"), ("#c00", 2.0, "whole-number hit")]
+            ("#9bb7d4", 1.0, "step legs"), ("#c00", 2.0, "whole-number hit"),
+            ("#ddd3b8", 1.2, "grid: unit lines; pale every 1/4; pitch 256")]
     for k, (col, wdt, lab) in enumerate(rows):
         yy = ly + k * 22
         o.append(f'<line x1="{lx:.1f}" y1="{yy:.1f}" x2="{lx+30:.1f}" y2="{yy:.1f}" '
