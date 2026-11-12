@@ -1,6 +1,8 @@
 # curve-lab — agent notes
 
-Keep the context small. Read only what the current action names.
+Instructions accumulate. The operator's latest message is authoritative, and a
+new emphasis adds to the work rather than replacing what came before. Read what
+the work needs, not only what the handoff names.
 
 ## Start cheap
 
@@ -134,7 +136,7 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
-- One focused action at a time; verify, commit, stop.
+- One task at a time, at the scope the operator set; verify, commit, stop.
 - Never edit `docs/ornament-board.html` or `docs/fleur-studies.html` by hand.
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
@@ -154,12 +156,10 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - Auth is HTTP Basic on everything except `/health`; `/healthz` is intercepted
   by Google's frontend.
 - Browser checks: headless Chrome on CDP port 9223, never the Review pane.
-- **Never `read` an image** (`.png`, `.jpg`, `.pdf`) outside the dot-solver
-  subproject. The engine has no image input: one image in the history fails
-  every later turn with `image input is not available on this engine`, and
-  retrying cannot clear it. Get dimensions with `file` / `sips -g pixelWidth
-  -g pixelHeight`, extract numbers with a script, and leave the visual call to
-  the operator. SVG is text and is fine.
+- **This engine has no image input.** One image in the history fails every
+  later turn with `image input is not available on this engine` and cannot be
+  cleared by retrying. SVG is text and is fine; raster sizes come from `file`
+  or `sips -g pixelWidth -g pixelHeight`.
 - **Exception — the dot-solver subproject only** (`state/DOT-SOLVER-int.md`):
   images it generates may be sent back for diagnosis. The operator authorises
   it per session and runs `/fhandoff` then `/fhandon` first, so a freeze costs

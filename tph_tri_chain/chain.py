@@ -1,7 +1,7 @@
 """Exact midpoint-rule Pythagorean chain for the T-PH curve (u=1, v=t).
 
-Everything is Fractions. Nothing here imports curve_lab: this is the
-discrete-method holding pen and must stay separable from ph_hermite.
+Everything is Fractions. Nothing here imports curve_lab: this is the discrete
+triangle chain, a separate method from ph_hermite.
 
 Curve:  x'(t) = 1 - t^2,  y'(t) = 2t,  sigma(t) = 1 + t^2
         x(t)  = t - t^3/3,  y(t) = t^2,  s(t) = t + t^3/3

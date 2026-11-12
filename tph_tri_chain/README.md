@@ -29,23 +29,12 @@ Alternatives considered and rejected:
 - `triangles/` — too generic, and it collides with the excluded name from the
   current handoff action.
 
-## Status: HELD — do not wire in
+## Status
 
-This is a holding pen, not live work. Until the operator supplies the
-background and the analysis is done:
-
-- **No imports.** Nothing in `curve_lab/`, `workbench/`, `scripts/` or `web/`
-  may import from `tph_tri_chain`, and `tph_tri_chain` imports nothing from
-  them.
-- **No code.** No modules here until the rule is written and checked.
-- **Committed, not merged.** The directory is tracked so a mistake cannot
-  erase it, but it is a holding pen: nothing imports it, and it is not part of
-  the focus action until the operator promotes it.
-- **Not the same method as `ph_hermite`.** Do not reconcile the two, or let one
-  stand in for the other, before that analysis.
-
-The rule and its worked example belong in `docs/PH-TRIANGLES-int.md` and must
-be written and verified in Fractions before anything is added here.
+Working code for the discrete triangle chain. It is a separate method from
+`ph_hermite` — do not let one stand in for the other — and nothing in
+`curve_lab/` imports it yet. Nothing here is provisional: build it, run it,
+use it.
 
 ## Results
 

@@ -224,11 +224,12 @@ Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
 1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.
 
 Rules: write "t is a multiple of 3", "whole-number point", "integer lattice" --
-never set notation. Do not quote N other than the one asked for. No decimals
-anywhere: exact fractions, and sqrt(...) for anything irrational. A grid is a
-single round number (125, 625, 3125, 256), never a width-times-height. A grid
-exists to clear fractions, so ask which pitch clears them, never whether a
-coordinate is whole.
+never set notation. Keep exact forms: a fraction where the value is rational,
+sqrt(...) where it is not. A decimal is never a substitute for an exact
+expression, but it is fine as a hint beside one. Use fractions generously: they
+are the point, not a constraint to work around. Prefer a round grid number
+(125, 625, 3125, 256) where one is available. A grid exists to clear fractions,
+so ask which pitch clears them, never whether a coordinate is whole.
 
 ## Context meter
 

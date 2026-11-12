@@ -1,7 +1,12 @@
 ```text
 Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-You are writing docs/PH-TRIANGLES-int.md: the operator's alternative route to integer points on the Tschirnhausen cubic by Pythagorean-triangle construction, stated as one exact rule with one worked example. Do not create a triangles/ directory, do not edit workbench/ph-families.html or curve_lab/ph_hermite.py, and add no code until the rule is written and checked.
-Proves: docs/PH-TRIANGLES-int.md exists and its worked example, carried out in Fractions, produces (18, ±12) and the node (6, 0) exactly, with each triangle step shown; no file under workbench/ or curve_lab/ changes and the suite stays at its recorded count.
+Build tph_tri_chain/tph-tri-sandbox.html: the midpoint chain of the Tschirnhausen
+cubic at twelve triangles per side. Every number exact — a fraction where it is
+rational, a square root where it is not. State the grid and how it was chosen, and
+give every vertex its (x, y) pair in cells.
+Proves: sandbox.py regenerates the page; no decimal stands in for an exact value;
+the 25 vertex pairs on the page match chain.py; the figure draws with the d3 copy
+in tph_tri_chain/vendor/.
 ```
 
 Source: state/HANDOFF-int.md · 2026-11-11 · 3046f01

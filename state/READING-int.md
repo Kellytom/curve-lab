@@ -12,7 +12,7 @@ needs — no higher.
 | # | file | lines | why |
 |---|---|---|---|
 | 1 | `LTMemory-int.md` | 127 | the map, the invariants, what is settled and what is open |
-| 2 | `next-fhandoff-int.md` | 5 | the one action; nothing else decides priority |
+| 2 | `next-fhandoff-int.md` | 5 | the default next action, when the operator has not set one |
 | 3 | `state/HANDOFF-int.md` | 846 | current truth — **read the tail (~80 lines), not the whole file** |
 | 4 | `TODO.md` | 254 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 5 | `goals.md` | 240 | the long arc and the offset tiers (also Tier 1) |
