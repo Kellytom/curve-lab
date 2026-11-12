@@ -30,6 +30,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .roles{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:10px 0 0;font-size:14px}
 .roles dt{font:13px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .roles dd{margin:0;color:var(--muted)}
+.pick{border-left:4px solid #a23b2a;background:#fbf7ec;padding:10px 14px;margin:10px 0 12px}
+.pick p{margin:0}
 #q8panel{width:100%;height:auto;display:block;border:1px solid var(--rule)}
 #qpanel{width:100%;height:auto;display:block;border:1px solid var(--rule)}
 </style></head><body>
@@ -457,13 +459,17 @@ stronger S at bend 2.69 — and at ×10 its pitch drops to 2, the cheapest grid 
 </section>
 
 <section class="panel">
-<h2>Fig. Q9 · proposal 1: the straight speed path</h2>
-<p>The simplest algebra that reaches bend 2.00. Take <code>u = 2 − 3t + 3t²</code> and make
-<code>v</code> an affine function of <code>u</code>: <code>v = k·u + c</code>. At <code>k = 4</code>,
-<code>c = −6</code> the speed path is the straight segment from (2, 2) to (1.25, −1), the bend is
-<strong>2.00</strong> and the pitch is <strong>10</strong> — all integers. Tune <code>k</code> and
-<code>c</code>: <code>k</code> tilts the segment, <code>c</code> slides it toward or away from the
-origin.</p>
+<h2>Fig. Q9 · the bend-2 curve (recommended)</h2>
+<div class="pick">
+<p><strong>The pick:</strong> <code>u = 2 − 3t + 3t²</code>, <code>v = 2 − 12t + 12t²</code>,
+which is just <code>v = 4u − 6</code>. All integers, <strong>bend 2.00</strong>, inflection at the
+middle, <strong>pitch 10</strong>, and the endpoint is <strong>(15, 4)</strong> at that pitch. The
+speed path is the straight segment from (2, 2) to (1.25, −1) and back; squared and integrated it
+gives this S, and it is the simplest recipe in the gallery that reaches bend 2.</p>
+</div>
+<p>Tune it: <code>v = k·u + c</code>, with <code>k = 4</code>, <code>c = −6</code> at the pick.
+<code>k</code> tilts the segment, <code>c</code> slides it toward or away from the origin; the
+readout follows both.</p>
 <div id="q9ctl"></div>
 <svg id="q9svg" viewBox="0 0 900 470" role="img" aria-label="proposal 1, the straight speed path"></svg>
 <p class="small" id="q9read"></p>
@@ -624,7 +630,7 @@ vanish.</p>
     }
     draw();
   }
-  phPanel("q9ctl", "q9svg", "q9read", "Fig. Q9 · proposal 1: the straight speed path",
+  phPanel("q9ctl", "q9svg", "q9read", "Fig. Q9 · the bend-2 curve (recommended)",
     [{ k: "k", label: "k", min: 2, max: 6, step: 0.1, value: 4 },
      { k: "c", label: "c", min: -10, max: -2, step: 0.1, value: -6 }],
     s => ({ u: [2, -3, 3], v: [2 * s.k + s.c, -3 * s.k, 3 * s.k] }),
