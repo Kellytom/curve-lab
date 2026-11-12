@@ -189,7 +189,7 @@ def fig_full():
     f = Frame(W, H, (-195000, 195000), (-1000, 1000), (96, 70, 800, 250))
     pts = [(x, y) for _, x, y in samples(K, -3, 3, 700)]
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q2 · TQ(75) in the plane: all four quadrants</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −3 … 3 · the curve is odd in both coordinates, so it is point-symmetric about the origin</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −3 … 3 · odd in both coordinates, so point-symmetric about the origin · x and y at different scales (about 195:1)</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
     for v in (-100000, 0, 100000):
@@ -215,7 +215,7 @@ def fig_zoom():
     f = Frame(W, H, (-8200, 8200), (-160, 160), (96, 70, 800, 250))
     pts = [(x, y) for _, x, y in samples(K, -1.6, 1.6, 600)]
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S at the origin, and the turn near t = ±1</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −1.6 … 1.6 · the inflection is at (0, 0) · dashed rings: y = 0 at t = ±√3</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t = −1.6 … 1.6 · inflection at (0, 0) · dashed rings: y = 0 at t = ±√3 · x and y at different scales (about 51:1)</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
     for v in (-8000, -4000, 0, 4000, 8000):
@@ -246,7 +246,7 @@ def fig_cut():
     W, H = 940, 400
     f = Frame(W, H, (-8000, 195000), (-250, 1050), (96, 70, 800, 250))
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q4 · cutting at the lattice stops: three exact pieces</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t ∈ [0,1], [1,2], [2,3] · each piece is a PH quintic with integer controls on the grid of 5</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">t ∈ [0,1], [1,2], [2,3] · each piece is a PH quintic with integer controls on the grid of 5 · x and y at different scales (about 156:1)</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
     for v in (0, 50000, 100000, 150000):
@@ -327,7 +327,7 @@ def fig_points():
     real = [(x, y) for _, x, y in samples(K, -3, 3, 700)]
     calc = [curve(K, t) for t in range(-3, 4)]
     out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q7 · the calculated points, joined, against the real curve</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">(x, y) at t = −3 … 3 · pale: the real quintic · blue: the straight joins · rings: the calculated points</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">(x, y) at t = −3 … 3 · pale: the real quintic · blue: the straight joins · rings: the calculated points · scales about 195:1</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
     for v in (-100000, 0, 100000):
