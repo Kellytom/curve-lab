@@ -146,6 +146,12 @@ def svg(nodes, g, path):
         o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="66" '
                  f'font-weight="600" fill="{RED}" text-anchor="{anchor}">{letter}</text>')
 
+    # the vertex one step from the nose, as an example of an integer vertex
+    n1 = min(nodes[1:], key=lambda n: abs(n["x"]) + abs(n["y"]))
+    o.append(f'<text x="{fx(float(n1["x"] * g)) + 20:.0f}" '
+             f'y="{fy(float(n1["y"] * g)) + 60:.0f}" font-size="48" fill="{INK}">'
+             f'({int(n1["x"] * g)}, {int(n1["y"] * g)})</text>')
+
     tipX = float(nodes[-1]["x"] * g)
     o.append(f'<text x="{fx(tipX)+18:.0f}" y="{fy(2304)+64:.0f}" font-size="50" '
              f'fill="{INK}">chain tip ({tipX:.0f}, 2304)</text>')
@@ -155,13 +161,14 @@ def svg(nodes, g, path):
     for k, line in enumerate([
             "coordinates are grid cells, not units: pitch 256, so one unit is 256 cells; A to D below",
             "curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number points at t = 0, 3 and the waist",
+            "every one of the 25 vertices is an integer point, and every side is whole: 65, 73, 89 cells &#8230;",
             "the chain stops at &#8722;1532 in x, four cells short of &#8722;1536"]):
         o.append(f'<text x="48" y="{140 + k*68}" font-size="52" fill="{MUTED}">{line}</text>')
 
     lx, ly = 60, H - 430
     o.append(f'<rect x="{lx-16}" y="{ly-74}" width="1180" height="430" fill="{PAPER}" '
              f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
-    rows = [(GREY, 7, "smooth curve"), (INK, 6, "chain, 24 hypotenuses"),
+    rows = [(GREY, 7, "smooth curve"), (INK, 6, "chain: 24 hypotenuses, 25 integer vertices"),
             (BLUE, 3, "step legs"), (RED, 5, "whole-number point"),
             (RULE, 3, "grid: unit lines, pale every 1/4 unit")]
     for k, (col, wd, lab) in enumerate(rows):

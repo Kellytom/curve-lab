@@ -192,16 +192,18 @@
 <text x="3434" y="630" font-size="66" font-weight="600" fill="#a23b2a" text-anchor="start">C</text>
 <circle cx="328" cy="652" r="26" fill="none" stroke="#a23b2a" stroke-width="6"/>
 <text x="294" y="630" font-size="66" font-weight="600" fill="#a23b2a" text-anchor="end">D</text>
+<text x="1821" y="3000" font-size="48" fill="#2e2413">(-63, 16)</text>
 <text x="350" y="716" font-size="50" fill="#2e2413">chain tip (-1532, 2304)</text>
 <text x="48" y="86" font-size="86" font-weight="600" fill="#2e2413">Fig. T1 &#8212; 24 triangles on the integer grid</text>
 <text x="48" y="140" font-size="52" fill="#7b6c4e">coordinates are grid cells, not units: pitch 256, so one unit is 256 cells; A to D below</text>
 <text x="48" y="208" font-size="52" fill="#7b6c4e">curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number points at t = 0, 3 and the waist</text>
-<text x="48" y="276" font-size="52" fill="#7b6c4e">the chain stops at &#8722;1532 in x, four cells short of &#8722;1536</text>
+<text x="48" y="276" font-size="52" fill="#7b6c4e">every one of the 25 vertices is an integer point, and every side is whole: 65, 73, 89 cells &#8230;</text>
+<text x="48" y="344" font-size="52" fill="#7b6c4e">the chain stops at &#8722;1532 in x, four cells short of &#8722;1536</text>
 <rect x="44" y="3164" width="1180" height="430" fill="#fbf7ec" fill-opacity="0.97" stroke="#d8ccae" stroke-width="3"/>
 <line x1="60" y1="3204" x2="180" y2="3204" stroke="#7a6a4a" stroke-width="7"/>
 <text x="210" y="3224" font-size="54" fill="#2e2413">smooth curve</text>
 <line x1="60" y1="3286" x2="180" y2="3286" stroke="#2e2413" stroke-width="6"/>
-<text x="210" y="3306" font-size="54" fill="#2e2413">chain, 24 hypotenuses</text>
+<text x="210" y="3306" font-size="54" fill="#2e2413">chain: 24 hypotenuses, 25 integer vertices</text>
 <line x1="60" y1="3368" x2="180" y2="3368" stroke="#5b8fc9" stroke-width="3"/>
 <text x="210" y="3388" font-size="54" fill="#2e2413">step legs</text>
 <line x1="60" y1="3450" x2="180" y2="3450" stroke="#a23b2a" stroke-width="5"/>
