@@ -92,6 +92,21 @@ S2_CASES = [
     ((F(6,5), F(-8,5), F(7,5)), (F(4,5), -2, 2)),
 ]
 
+Q3_CASES = [
+    ((0, F(8,5), F(-7,5)), (F(1,5), F(-4,5), F(8,5))),
+    ((F(-3,5), F(-3,5), F(6,5)), (F(3,5), F(-9,5), F(8,5))),
+    ((0, F(6,5), F(-8,5)), (F(1,5), F(4,5), F(-3,5))),
+    ((F(1,5), F(8,5), F(-8,5)), (F(1,5), F(-4,5), F(7,5))),
+    ((0, F(-7,5), F(8,5)), (F(-3,5), F(1,5), 0)),
+    ((F(2,5), -1, F(8,5)), (F(-2,5), -2, 2)),
+    ((F(-1,5), F(1,5), -1), (F(-1,5), F(7,5), -2)),
+    ((F(1,5), F(9,5), -2), (1, F(-6,5), 1)),
+    ((F(-1,5), F(-1,5), F(-1,5)), (F(-1,5), 1, F(-7,5))),
+    ((F(2,5), F(-9,5), 2), (F(-4,5), 1, -1)),
+    ((F(-7,5), 2, F(-7,5)), (0, F(8,5), F(-8,5))),
+    ((0, F(-8,5), F(8,5)), (F(6,5), F(-8,5), F(9,5))),
+]
+
 CASES = S_CASES + C_CASES
 
 
@@ -206,6 +221,11 @@ def fig_s_set():
                      lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
 
 
+def fig_q3():
+    return grid_svgs(Q3_CASES, 430, 340, "g2",
+                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
+
+
 def table():
     rows = []
     for idx, (u, v) in enumerate(CASES):
@@ -247,7 +267,7 @@ heading swings at least 15° on each side of the inflection. A <strong>C</strong
 throughout. All are PH, so the offsets are exact and a span is G3-capable.</p>
 
 <section class="panel">
-<h2>Fig. G1 · the grid, 8 by 6</h2>
+<h2>Fig. Q1 · the grid, 8 by 6</h2>
 {gallery()}
 <p class="small">Each thumbnail is its own SVG; CSS lays them out. The red ring is the inflection,
 the blue compass rings are the end tangents (annotations, not design). The pitch under each panel
@@ -266,11 +286,19 @@ bends one way. A dash means the Wronskian has no root in [0,1].</p>
 </section>
 
 <section class="panel">
-<h2>Fig. G2 · the S curves, enlarged</h2>
+<h2>Fig. Q2 · the S curves, enlarged</h2>
 {fig_s_set()}
 <p class="small">Twelve curves chosen for balance: the heading swings at least 23° on each side of
 the inflection. The blue compass rings are the end tangents — an annotation, not part of the
 design. The red ring is where the curvature passes through zero.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q3 · the dramatic S curves</h2>
+{fig_q3()}
+<p class="small">The same balance test, but requiring a swing of at least 45° on <em>each</em> side
+of the inflection — up to 147°. Same construction, same exactness; the difference is that
+<code>v/u</code> turns much faster, so the bend is unmistakable.</p>
 </section>
 
 <section class="panel">
