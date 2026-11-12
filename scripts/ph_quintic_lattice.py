@@ -381,6 +381,155 @@ def fig_points():
     return svg(W, H, ("the calculated points against the real curve", "".join(out)))
 
 
+# -- the general PH quintic: u, v any polynomials ---------------------------
+
+S_CASES = [
+    ((-6, -5, 6), (-2, 4, -6)),     # gentle S, 40 deg
+    ((-6, -1, -6), (-4, -4, 6)),    # 50 deg, inflection early
+    ((-6, -1, 6), (-3, 4, -3)),     # 74 deg, inflection near the middle
+    ((1, 2, -1), (1, -1, 1)),       # the repo's case 1, 37 deg, pitch 30
+    ((0, -3, 2), (3, 3, 4)),        # 349 deg, nearly a loop
+    ((0, -4, 5), (-5, -4, -3)),     # 350 deg
+    ((-6, 1, 6), (-2, 2, -3)),      # 180 deg
+    ((3, 0, -3), (1,)),             # TQ(3): the inflection at the start
+]
+
+
+def _mul(a, b):
+    out = [F(0)] * (len(a) + len(b) - 1)
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            out[i + j] += x * y
+    return out
+
+
+def _pad(a, n):
+    return list(a) + [F(0)] * (n - len(a))
+
+
+def _integ(p):
+    return [F(0)] + [c / (k + 1) for k, c in enumerate(p)]
+
+
+def uv_curve(u, v):
+    """Power coefficients of x and y for r' = (u²−v², 2uv), r(0) = 0."""
+    n = max(len(u), len(v))
+    u = _pad([F(c) for c in u], n)
+    v = _pad([F(c) for c in v], n)
+    uu = _mul(u, u)
+    vv = _mul(v, v)
+    m = max(len(uu), len(vv))
+    xp = [a - b for a, b in zip(_pad(uu, m), _pad(vv, m))]
+    yp = [2 * c for c in _mul(u, v)]
+    return _integ(xp), _integ(yp)
+
+
+def _ev(p, t):
+    return sum(c * t ** k for k, c in enumerate(p))
+
+
+def uv_samples(u, v, n=260):
+    """Equal-arc-length samples of the uv curve over t in [0, 1]."""
+    x, y = uv_curve(u, v)
+    n_ = max(len(u), len(v))
+    uu = _mul(_pad([F(c) for c in u], n_), _pad([F(c) for c in u], n_))
+    vv = _mul(_pad([F(c) for c in v], n_), _pad([F(c) for c in v], n_))
+    sig = [a + b for a, b in zip(_pad(uu, max(len(uu), len(vv))),
+                                 _pad(vv, max(len(uu), len(vv))))]
+    arc = _integ(sig)
+    s1 = float(_ev(arc, 1))
+    out = []
+    for i in range(n + 1):
+        target = s1 * i / n
+        a, b = 0.0, 1.0
+        for _ in range(45):
+            m = (a + b) / 2
+            if float(_ev(arc, m)) < target:
+                a = m
+            else:
+                b = m
+        t = (a + b) / 2
+        out.append((t, float(_ev(x, t)), float(_ev(y, t))))
+    return out
+
+
+def s_info(u, v):
+    """Inflection t, pitch, endpoint in cells, tangent swing in degrees."""
+    import math
+    x, y = uv_curve(u, v)
+    n = max(len(u), len(v))
+    U = _pad([F(c) for c in u], n)
+    V = _pad([F(c) for c in v], n)
+    du = [U[1], 2 * U[2]] if n > 2 else [U[1]]
+    dv = [V[1], 2 * V[2]] if n > 2 else [V[1]]
+    a = _mul(U, dv)
+    b = _mul(V, du)
+    m = max(len(a), len(b))
+    W = [p - q for p, q in zip(_pad(a, m), _pad(b, m))]
+    while len(W) > 1 and W[-1] == 0:
+        W.pop()
+    infl = None
+    if len(W) == 3:
+        A, B, C = W[2], W[1], W[0]
+        d = float(B * B - 4 * A * C)
+        if d > 0:
+            for r in ((-float(B) + d ** .5) / (2 * float(A)),
+                      (-float(B) - d ** .5) / (2 * float(A))):
+                if 0 <= r <= 1:
+                    infl = r
+    elif len(W) == 2 and W[1]:
+        r = -float(W[0]) / float(W[1])
+        if 0 <= r <= 1:
+            infl = r
+    pitch = 1
+    for poly in (x, y):
+        for j, c in enumerate(poly):
+            if j == 0:
+                continue
+            num = int(c * j)          # the integrand coefficient at t^(j-1)
+            if num == 0:
+                continue
+            pitch = lcm(pitch, j // __import__("math").gcd(abs(num), j))
+    u0, v0 = float(U[0]), float(V[0])
+    u1, v1 = float(sum(U)), float(sum(V))
+    a0 = math.degrees(math.atan2(2 * u0 * v0, u0 * u0 - v0 * v0))
+    a1 = math.degrees(math.atan2(2 * u1 * v1, u1 * u1 - v1 * v1))
+    swing = abs((a1 - a0 + 180) % 360 - 180)
+    return infl, pitch, (sum(x), sum(y)), swing
+
+
+def fig_gallery():
+    W, H = 940, 700
+    cols, rows = 4, 2
+    pw, ph, gapx, gapy = 196, 250, 18, 24
+    x0, y0 = 26, 60
+    out = [f'<text x="26" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q8 · eight S curves, variable v, every one on a small pitch</text>',
+           f'<text x="26" y="43" font-size="12" fill="{MUTED}">each panel: the curve, the endpoints, and the inflection ring · u and v are the two speed recipes</text>']
+    for idx, (u, v) in enumerate(S_CASES):
+        cx = x0 + (idx % cols) * (pw + gapx)
+        cy = y0 + (idx // cols) * (ph + gapy)
+        pts = uv_samples(u, v)
+        xs = [q[1] for q in pts]
+        ys = [q[2] for q in pts]
+        xr = max(1e-9, max(abs(min(xs)), abs(max(xs)))) * 1.15
+        yr = max(1e-9, max(abs(min(ys)), abs(max(ys)))) * 1.15
+        f = Frame(W, H, (-xr, xr), (-yr, yr), (cx, cy + 34, pw, 170))
+        infl, pitch, end, swing = s_info(u, v)
+        out.append(f'<text x="{cx}" y="{cy+12}" font-size="11" font-weight="600" fill="{INK}">u={u}  v={v}</text>')
+        where = f"inflection {infl:.2f}" if infl is not None else "inflection at the start"
+        out.append(f'<text x="{cx}" y="{cy+26}" font-size="10" fill="{MUTED}">{where} · pitch {pitch}</text>')
+        out.append(f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>')
+        out.append(f.axes())
+        out.append(f'<path d="{f.path([(q[1], q[2]) for q in pts])}" fill="none" stroke="{INK}" stroke-width="2"/>')
+        for t, x, y in (pts[0], pts[-1]):
+            out.append(f'<circle cx="{f.fx(x):.1f}" cy="{f.fy(y):.1f}" r="3.2" fill="{PAPER}" stroke="{MUTED}" stroke-width="1.6"/>')
+        if infl is not None and 0 < infl < 1:
+            tx, ty = _ev(uv_curve(u, v)[0], infl), _ev(uv_curve(u, v)[1], infl)
+            out.append(f'<circle cx="{f.fx(float(tx)):.1f}" cy="{f.fy(float(ty)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+        out.append(f'<text x="{cx}" y="{cy+ph-4}" font-size="10" fill="{MUTED}">end ({end[0] * pitch:.0f}, {end[1] * pitch:.0f}) in cells</text>')
+    return svg(W, H, ("eight S curves", "".join(out)))
+
+
 def member_rows():
     rows = []
     for k in (3, 5, 15, 25, 75):
@@ -548,6 +697,30 @@ a misleading reading of the autoscaled panels.</p>
 <p class="small">The pale line is the real quintic; the blue dashes join the calculated points.
 The points are exact — whole-number coordinates sitting on the curve. The joins between them are
 the only approximation, and at this scale they are almost indistinguishable from the curve.</p>
+</section>
+
+<section class="panel">
+<h2>The S, in plain words</h2>
+<p>Two recipes decide everything: <code>u(t)</code> is the sideways speed and <code>v(t)</code> the
+up speed. The curve's heading is twice the angle whose tangent is <code>v/u</code>. When that
+heading turns around — when <code>u·v′ − v·u′</code> changes sign — the curve stops bending one way
+and starts bending the other. That place is the inflection, and that is the S.</p>
+<p>With <code>v</code> constant, <code>u·v′ − v·u′</code> is just <code>−u′</code>, which is zero
+only at the start: the turn is stuck at the endpoint. With <code>v</code> free, the expression is a
+quadratic, so its zero can be placed anywhere in the span. That is the knob.</p>
+<p>Integer points: if the <em>integrated</em> coefficients are integers, every integer t is a
+whole-number point. Integration divides by 2, 3, 4 and 5, so the pitch is the smallest number that
+clears those divisions. Every curve below is on a pitch-5 or pitch-30 grid, and the inflection, the
+turn and the endpoint are all exact.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q8 · eight S curves, one page</h2>
+{fig_gallery()}
+<p class="small">The red ring is the inflection. Left to right, top to bottom: a gentle 40° S, a
+50° S with an early inflection, a 74° S with the inflection near the middle, the repo's case 1 on a
+pitch-30 grid, then four strong turns — 349°, 350°, 180°, and TQ(3) with its inflection at the very
+start. Every panel is exact; the pitch is the graph paper, not an approximation.</p>
 </section>
 
 <section class="panel">
