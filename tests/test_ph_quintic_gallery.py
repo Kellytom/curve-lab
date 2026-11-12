@@ -48,6 +48,12 @@ class TestGallery(unittest.TestCase):
                 want = lcm(want, c.denominator)
             self.assertEqual(pitch, want)
 
+    def test_the_s_set_is_on_the_page_below_g1(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        self.assertIn("Fig. G2", page)
+        self.assertIn("the S curves, enlarged", page)
+        self.assertGreater(page.index("Fig. G2"), page.index("Fig. G1"))
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. G1", page)

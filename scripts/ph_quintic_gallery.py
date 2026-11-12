@@ -121,6 +121,85 @@ def gallery():
     return svg(W, H, ("48 PH quintics", "".join(out)))
 
 
+def _k(u, v, t):
+    U = sum(c * F(t) ** k for k, c in enumerate(u))
+    V = sum(c * F(t) ** k for k, c in enumerate(v))
+    dU = sum(k * c * F(t) ** (k - 1) for k, c in enumerate(u) if k)
+    dV = sum(k * c * F(t) ** (k - 1) for k, c in enumerate(v) if k)
+    xp = U * U - V * V
+    yp = 2 * U * V
+    xpp = 2 * (U * dU - V * dV)
+    ypp = 2 * (dU * V + U * dV)
+    return (xp * ypp - yp * xpp) / ((xp * xp + yp * yp) ** 1.5)
+
+
+def s_quality(u, v):
+    """Lower is a cleaner S: middle inflection, balanced bend, square aspect."""
+    import math
+    infl, pitch, end, swing = s_info(u, v)
+    if infl is None:
+        return 1e9
+    k0 = abs(float(_k(u, v, 0.0)))
+    k1 = abs(float(_k(u, v, 1.0)))
+    if min(k0, k1) <= 0:
+        return 1e9
+    pts = uv_samples(u, v, 60)
+    xs = [q[1] for q in pts]
+    ys = [q[2] for q in pts]
+    asp = (max(xs) - min(xs)) / max(1e-9, max(ys) - min(ys))
+    return abs(infl - 0.5) + 0.3 * abs(math.log(k0 / k1)) + 0.3 * abs(math.log(asp))
+
+
+def fig_s_set():
+    best = sorted(S_CASES, key=lambda uv: s_quality(*uv))[:12]
+    cols, rows = 4, 3
+    pw, ph, gap = 210, 210, 12
+    W = 22 + cols * pw + (cols - 1) * gap + 22
+    H = 76 + rows * (ph + 30) + 16
+    out = [f'<text x="22" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. G2 · the S curves, enlarged: the heading turns around at the ring</text>',
+           f'<text x="22" y="43" font-size="12" fill="{MUTED}">one scale for x and y · short bars: the tangent at each end · the ring is the inflection, where the curvature is zero</text>',
+           f'<text x="22" y="60" font-size="11" fill="{MUTED}">chosen from the 40 by: inflection near the middle, similar bend at both ends, square box</text>']
+    for idx, (u, v) in enumerate(best):
+        cx = 22 + (idx % cols) * (pw + gap)
+        cy = 76 + (idx // cols) * (ph + 30)
+        pts = uv_samples(u, v, 240)
+        xs = [q[1] for q in pts]
+        ys = [q[2] for q in pts]
+        x0, x1 = min(xs), max(xs)
+        y0, y1 = min(ys), max(ys)
+        sc = min((pw - 16) / max(1e-9, x1 - x0), (ph - 16) / max(1e-9, y1 - y0))
+        ox = cx + (pw - (x1 - x0) * sc) / 2
+        oy = cy + (ph - (y1 - y0) * sc) / 2
+
+        def fx(val):
+            return ox + (val - x0) * sc
+
+        def fy(val):
+            return oy + (y1 - val) * sc
+
+        infl, pitch, end, swing = s_info(u, v)
+        out.append(f'<rect x="{cx}" y="{cy}" width="{pw}" height="{ph}" fill="none" stroke="{RULE}"/>')
+        out.append(f'<path d="{" ".join(f"{fx(q[1]):.1f},{fy(q[2]):.1f}" for q in pts)}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
+        # end tangents, short bars
+        U0 = float(u[0])
+        V0 = float(v[0])
+        U1 = float(sum(u))
+        V1 = float(sum(v))
+        for (px, py, U, V) in ((0.0, 0.0, U0, V0), (float(sum(uv_curve(u, v)[0])), float(sum(uv_curve(u, v)[1])), U1, V1)):
+            dx, dy = U * U - V * V, 2 * U * V
+            n = max(1e-9, (dx * dx + dy * dy) ** .5)
+            L = 0.18 * max(x1 - x0, y1 - y0)
+            out.append(f'<line x1="{fx(px):.1f}" y1="{fy(py):.1f}" x2="{fx(px + dx / n * L):.1f}" y2="{fy(py + dy / n * L):.1f}" stroke="{BLUE}" stroke-width="2"/>')
+        x, y = uv_curve(u, v)
+        ti = F(str(infl)).limit_denominator(200)
+        tx = sum(c * ti ** k for k, c in enumerate(x))
+        ty = sum(c * ti ** k for k, c in enumerate(y))
+        out.append(f'<circle cx="{fx(float(tx)):.1f}" cy="{fy(float(ty)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+        out.append(f'<text x="{cx}" y="{cy+ph+14}" font-size="11" font-weight="600" fill="{INK}">{idx+1}</text>')
+        out.append(f'<text x="{cx+20}" y="{cy+ph+14}" font-size="10" fill="{MUTED}">inflection {infl:.2f} · pitch {pitch}</text>')
+    return svg(W, H, ("the S curves, enlarged", "".join(out)))
+
+
 def table():
     rows = []
     for idx, (u, v) in enumerate(CASES):
@@ -175,6 +254,14 @@ coordinates whole at integer t — the price of the fractions.</p>
 <p class="small">The endpoints are exact integers at the stated pitch. A dash in the inflection
 column means the Wronskian has no root in [0,1]; "start" and "end" mean the root sits exactly on
 the boundary.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. G2 · the S curves, enlarged</h2>
+{fig_s_set()}
+<p class="small">Twelve of the 40, chosen for the cleanest S: the inflection near the middle, a
+similar bend at both ends, and a square box. The blue bars are the tangents at t = 0 and t = 1 —
+their directions differ, and the ring between them is where the curvature passes through zero.</p>
 </section>
 
 <section class="panel">
