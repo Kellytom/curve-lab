@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>T-PH fish glyph as a Pythagorean triangle chain</title><style>
+<title>Integer hits on the Tschirnhausen cubic</title><style>
 body{font:16px/1.55 -apple-system,Helvetica,Arial,sans-serif;max-width:1080px;margin:2.2rem auto;padding:0 1.4rem;color:#1a1a1a}
 h1{font-size:1.9rem;margin:0 0 .2rem}h2{font-size:1.25rem;margin:2rem 0 .6rem;border-bottom:1px solid #e4e4e4;padding-bottom:.25rem}
 p{margin:.7rem 0}pre{background:#f7f7f7;border:1px solid #e2e2e2;padding:.8rem 1rem;overflow-x:auto;font-size:.9rem;line-height:1.45}
@@ -7,259 +7,97 @@ table{border-collapse:collapse;margin:.9rem 0;font-size:.88rem;font-variant-nume
 ul{padding-left:1.3rem}li{margin:.2rem 0}
 .status{background:#fff8e1;border-left:4px solid #e0a800;padding:.7rem 1rem;margin:1rem 0;font-size:.95rem}
 </style></head><body>
-<h1>T-PH fish glyph as a Pythagorean triangle chain</h1>
-<div class="status">Working result, not yet documentation. Held in tph_tri_chain/ so it stays separable from curve_lab/ph_hermite. Promote to docs/ only after the operator accepts the grid correction in section 10.</div>
-<h2>1. What this is and is not</h2>
-<p>This is the discrete midpoint chain of the Tschirnhausen cubic Pythagorean-hodograph curve. It is not a Bezier curve, not a spline, and not a generic cubic: no control polygon, basis function, knot vector or de Casteljau step appears in it. The curve is defined only by its two generator polynomials.</p>
-<h2>2. The curve, exactly</h2>
-<p>Generators u(t) = 1, v(t) = t. Everything below follows from those two polynomials.</p>
-<table><thead><tr><th>quantity</th><th>exact expression</th><th>value at t = 12/5</th></tr></thead><tbody>
-<tr><td>x'(t)</td><td>1 - t^2</td><td>-4.760000</td></tr>
-<tr><td>y'(t)</td><td>2t</td><td>4.800000</td></tr>
-<tr><td>sigma(t), the speed</td><td>1 + t^2</td><td>6.760000</td></tr>
-<tr><td>x(t)</td><td>t - t^3/3</td><td>-2.208000</td></tr>
-<tr><td>y(t)</td><td>t^2</td><td>5.760000</td></tr>
-<tr><td>s(t)</td><td>t + t^3/3</td><td>7.008000</td></tr>
+<h1>Integer hits on the Tschirnhausen cubic</h1>
+<div class="status">Every comparison here is at twelve triangles per side, the same count for both methods. The constraint is where the curve meets whole-number points, not how fine the drawing is.</div>
+<h2>1. Where the curve hits whole numbers</h2>
+<p>The curve is x = t - t^3/3 and y = t^2. For a point to sit on the integer lattice, both coordinates must be whole numbers.</p>
+<p>Take t as a fraction in lowest terms. Then y = t^2 is a whole number only if t is itself a whole number, because squaring a fraction in lowest terms cannot clear its denominator. Once t is whole, x = t - t^3/3 is whole exactly when 3 divides t. So the hits are the multiples of 3, and nothing else at rational t.</p>
+<table><thead><tr><th>t</th><th>x</th><th>y</th><th>arc length s</th><th>note</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>nose</td></tr>
+<tr><td>3</td><td>-6</td><td>9</td><td>12</td><td>first hit</td></tr>
+<tr><td>6</td><td>-66</td><td>36</td><td>78</td><td></td></tr>
+<tr><td>9</td><td>-234</td><td>81</td><td>252</td><td></td></tr>
+<tr><td>12</td><td>-564</td><td>144</td><td>588</td><td></td></tr>
+<tr><td>15</td><td>-1110</td><td>225</td><td>1140</td><td></td></tr>
 </tbody></table>
-<h2>3. Midpoint quadrature, and why the triple is exact</h2>
-<p>[t0, t1] is split into N equal steps of width dt = (t1 - t0)/N. Each step is sampled at its midpoint t_i = t0 + (i + 1/2)dt, never at an endpoint.</p>
-<pre>dx_i = (1 - t_i^2) * dt
-dy_i = (2 * t_i)   * dt
-ds_i = (1 + t_i^2) * dt</pre>
-<p>With u = 1 and v = t_i those three values are (u^2 - v^2)dt, (2uv)dt and (u^2 + v^2)dt. Expanding gives (u^2 - v^2)^2 + (2uv)^2 = (u^2 + v^2)^2 identically, so every step is a right triangle with an exact rational hypotenuse. The identity is tested as equality of Fractions in chain.py, not to a tolerance.</p>
-<p>Midpoint sampling also makes the y coordinates exact for any N: sum of 2t_i dt telescopes to t_max^2. Only x carries quadrature error.</p>
-<h2>4. Worked example: [0, 2] in four steps</h2>
-<p>The whole four-triangle chain is exact on the integer grid 32. Legs, hypotenuses and nodes:</p>
-<table><thead><tr><th>i</th><th>midpoint t</th><th>dx</th><th>dy</th><th>ds</th><th>node x</th><th>node y</th></tr></thead><tbody>
-<tr><td>0</td><td>0.250000</td><td>15</td><td>8</td><td>17</td><td>0.468750</td><td>0.250000</td></tr>
-<tr><td>1</td><td>0.750000</td><td>7</td><td>24</td><td>25</td><td>0.687500</td><td>1.000000</td></tr>
-<tr><td>2</td><td>1.250000</td><td>-9</td><td>40</td><td>41</td><td>0.406250</td><td>2.250000</td></tr>
-<tr><td>3</td><td>1.750000</td><td>-33</td><td>56</td><td>65</td><td>-0.625000</td><td>4.000000</td></tr>
+<p>The curve is odd in x and even in y, so each hit (x, y) has a mirror (-x, y). One more whole-number point exists: the waist. x = 0 at t = plus or minus the square root of 3, which gives (0, 3). That parameter is not a fraction, so no chain built at fractional steps can land on it.</p>
+<h2>2. What that rules out</h2>
+<p>Every other stopping point considered so far fails the first test: its height is not a whole number.</p>
+<table><thead><tr><th>stopping t</th><th>x</th><th>y exact</th><th>y</th><th>whole-number height?</th></tr></thead><tbody>
+<tr><td>21/10</td><td>-0.987000</td><td>441/100</td><td>4.4100</td><td>no</td></tr>
+<tr><td>12/5</td><td>-2.208000</td><td>144/25</td><td>5.7600</td><td>no</td></tr>
+<tr><td>5/2</td><td>-2.708333</td><td>25/4</td><td>6.2500</td><td>no</td></tr>
+<tr><td>3</td><td>-6.000000</td><td>9</td><td>9.0000</td><td>yes</td></tr>
+<tr><td>4</td><td>-17.333333</td><td>16</td><td>16.0000</td><td>yes</td></tr>
 </tbody></table>
-<p>Primitive triples, in order: (15, 8, 17), (7, 24, 25), (-9, 40, 41), (-33, 56, 65).</p>
-<p>End point (-0.625, 4.000) against exact (-0.666667, 4.000); chain length 37/8 = 4.625000 against exact 14/3 = 4.666667. Length error -0.89 percent at four triangles.</p>
-<h2>5. Domain, symmetry, and where the loop closes</h2>
-<p>x(-t) = -x(t) and y(-t) = y(t), so the branch over [0, t_max] is half the glyph; the other half is the reflection x -> -x with y unchanged. The self-intersection is where x(t) = 0, i.e. t = sqrt(3) = 1.732051, at the point (0, 3). The closed loop has exact length 4*sqrt(3) = 6.928203.</p>
-<p>A discrete chain does not hit (0, 3) exactly; it passes near it. At the step count used below the nearest node is about 0.028 away in y.</p>
-<h2>6. Coordinate table, [0, 2], N = 25</h2>
-<p>Exact integer grid 15625. dx, dy, ds are counts of 1/15625; x, y are the cumulative node.</p>
-<table><thead><tr><th>i</th><th>midpoint t</th><th>dx</th><th>dy</th><th>ds</th><th>node x</th><th>node y</th></tr></thead><tbody>
-<tr><td>0</td><td>0.040000</td><td>1248</td><td>100</td><td>1252</td><td>0.079872</td><td>0.006400</td></tr>
-<tr><td>1</td><td>0.120000</td><td>1232</td><td>300</td><td>1268</td><td>0.158720</td><td>0.025600</td></tr>
-<tr><td>2</td><td>0.200000</td><td>1200</td><td>500</td><td>1300</td><td>0.235520</td><td>0.057600</td></tr>
-<tr><td>3</td><td>0.280000</td><td>1152</td><td>700</td><td>1348</td><td>0.309248</td><td>0.102400</td></tr>
-<tr><td>4</td><td>0.360000</td><td>1088</td><td>900</td><td>1412</td><td>0.378880</td><td>0.160000</td></tr>
-<tr><td>5</td><td>0.440000</td><td>1008</td><td>1100</td><td>1492</td><td>0.443392</td><td>0.230400</td></tr>
-<tr><td>6</td><td>0.520000</td><td>912</td><td>1300</td><td>1588</td><td>0.501760</td><td>0.313600</td></tr>
-<tr><td>7</td><td>0.600000</td><td>800</td><td>1500</td><td>1700</td><td>0.552960</td><td>0.409600</td></tr>
-<tr><td>8</td><td>0.680000</td><td>672</td><td>1700</td><td>1828</td><td>0.595968</td><td>0.518400</td></tr>
-<tr><td>9</td><td>0.760000</td><td>528</td><td>1900</td><td>1972</td><td>0.629760</td><td>0.640000</td></tr>
-<tr><td>10</td><td>0.840000</td><td>368</td><td>2100</td><td>2132</td><td>0.653312</td><td>0.774400</td></tr>
-<tr><td>11</td><td>0.920000</td><td>192</td><td>2300</td><td>2308</td><td>0.665600</td><td>0.921600</td></tr>
-<tr><td>12</td><td>1.000000</td><td>0</td><td>2500</td><td>2500</td><td>0.665600</td><td>1.081600</td></tr>
-<tr><td>13</td><td>1.080000</td><td>-208</td><td>2700</td><td>2708</td><td>0.652288</td><td>1.254400</td></tr>
-<tr><td>14</td><td>1.160000</td><td>-432</td><td>2900</td><td>2932</td><td>0.624640</td><td>1.440000</td></tr>
-<tr><td>15</td><td>1.240000</td><td>-672</td><td>3100</td><td>3172</td><td>0.581632</td><td>1.638400</td></tr>
-<tr><td>16</td><td>1.320000</td><td>-928</td><td>3300</td><td>3428</td><td>0.522240</td><td>1.849600</td></tr>
-<tr><td>17</td><td>1.400000</td><td>-1200</td><td>3500</td><td>3700</td><td>0.445440</td><td>2.073600</td></tr>
-<tr><td>18</td><td>1.480000</td><td>-1488</td><td>3700</td><td>3988</td><td>0.350208</td><td>2.310400</td></tr>
-<tr><td>19</td><td>1.560000</td><td>-1792</td><td>3900</td><td>4292</td><td>0.235520</td><td>2.560000</td></tr>
-<tr><td>20</td><td>1.640000</td><td>-2112</td><td>4100</td><td>4612</td><td>0.100352</td><td>2.822400</td></tr>
-<tr><td>21</td><td>1.720000</td><td>-2448</td><td>4300</td><td>4948</td><td>-0.056320</td><td>3.097600</td></tr>
-<tr><td>22</td><td>1.800000</td><td>-2800</td><td>4500</td><td>5300</td><td>-0.235520</td><td>3.385600</td></tr>
-<tr><td>23</td><td>1.880000</td><td>-3168</td><td>4700</td><td>5668</td><td>-0.438272</td><td>3.686400</td></tr>
-<tr><td>24</td><td>1.960000</td><td>-3552</td><td>4900</td><td>6052</td><td>-0.665600</td><td>4.000000</td></tr>
+<p>Scaling the drawing does not rescue a stop. A fraction stays a fraction when multiplied by any whole number, so a stop with height 144/25 never becomes a whole-number point at any pitch.</p>
+<h2>3. Twelve triangles, both methods</h2>
+<p>Midpoint chain: each step is evaluated at the middle of the step, which is what makes the step sides exact whole numbers after scaling. Chordal: the nodes sit exactly on the curve and the segments are straight joins, so the node positions are exact but the side lengths are square roots.</p>
+<table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>midpoint tip x</th><th>gap</th><th>y exact?</th><th>chordal tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>
+<tr><td>2</td><td>1/6</td><td>864</td><td>-0.662037</td><td>0.004630</td><td>yes</td><td>(-0.667, 4.000)</td><td>4.662037</td><td>4.661542</td><td>4.666667</td></tr>
+<tr><td>12/5</td><td>1/5</td><td>500</td><td>-2.200000</td><td>0.008000</td><td>yes</td><td>(-2.208, 5.760)</td><td>7.000000</td><td>7.000163</td><td>7.008000</td></tr>
+<tr><td>5/2</td><td>5/24</td><td>55296</td><td>-2.699291</td><td>0.009042</td><td>yes</td><td>(-2.708, 6.250)</td><td>7.699291</td><td>7.699726</td><td>7.708333</td></tr>
+<tr><td>3</td><td>1/4</td><td>256</td><td>-5.984375</td><td>0.015625</td><td>yes</td><td>(-6.000, 9.000)</td><td>11.984375</td><td>11.986998</td><td>12.000000</td></tr>
+<tr><td>4</td><td>1/3</td><td>108</td><td>-17.296296</td><td>0.037037</td><td>yes</td><td>(-17.333, 16.000)</td><td>25.296296</td><td>25.308812</td><td>25.333333</td></tr>
 </tbody></table>
-<p>End (-0.665600, 4.000000), length 4.665600. The first five primitive triples are (312, 25, 313), (308, 75, 317), (12, 5, 13), (288, 175, 337), (272, 225, 353).</p>
-<h2>7. The fish glyph: [0, 12/5], N = 120 per branch</h2>
-<p>Branch table. Step width dt = 1/50, exact grid 500000 = 160/1 x 3125. The mirrored branch reuses these triples with dx negated, giving 240 triangles in total.</p>
-<table><thead><tr><th>i</th><th>midpoint t</th><th>dx</th><th>dy</th><th>ds</th><th>node x</th><th>node y</th></tr></thead><tbody>
-<tr><td>0</td><td>0.010000</td><td>9999</td><td>200</td><td>10001</td><td>0.019998</td><td>0.000400</td></tr>
-<tr><td>1</td><td>0.030000</td><td>9991</td><td>600</td><td>10009</td><td>0.039980</td><td>0.001600</td></tr>
-<tr><td>2</td><td>0.050000</td><td>9975</td><td>1000</td><td>10025</td><td>0.059930</td><td>0.003600</td></tr>
-<tr><td>3</td><td>0.070000</td><td>9951</td><td>1400</td><td>10049</td><td>0.079832</td><td>0.006400</td></tr>
-<tr><td>4</td><td>0.090000</td><td>9919</td><td>1800</td><td>10081</td><td>0.099670</td><td>0.010000</td></tr>
-<tr><td>5</td><td>0.110000</td><td>9879</td><td>2200</td><td>10121</td><td>0.119428</td><td>0.014400</td></tr>
-<tr><td>6</td><td>0.130000</td><td>9831</td><td>2600</td><td>10169</td><td>0.139090</td><td>0.019600</td></tr>
-<tr><td>7</td><td>0.150000</td><td>9775</td><td>3000</td><td>10225</td><td>0.158640</td><td>0.025600</td></tr>
-<tr><td>8</td><td>0.170000</td><td>9711</td><td>3400</td><td>10289</td><td>0.178062</td><td>0.032400</td></tr>
-<tr><td>9</td><td>0.190000</td><td>9639</td><td>3800</td><td>10361</td><td>0.197340</td><td>0.040000</td></tr>
-<tr><td>10</td><td>0.210000</td><td>9559</td><td>4200</td><td>10441</td><td>0.216458</td><td>0.048400</td></tr>
-<tr><td>11</td><td>0.230000</td><td>9471</td><td>4600</td><td>10529</td><td>0.235400</td><td>0.057600</td></tr>
-<tr><td>12</td><td>0.250000</td><td>9375</td><td>5000</td><td>10625</td><td>0.254150</td><td>0.067600</td></tr>
-<tr><td>13</td><td>0.270000</td><td>9271</td><td>5400</td><td>10729</td><td>0.272692</td><td>0.078400</td></tr>
-<tr><td>14</td><td>0.290000</td><td>9159</td><td>5800</td><td>10841</td><td>0.291010</td><td>0.090000</td></tr>
-<tr><td>15</td><td>0.310000</td><td>9039</td><td>6200</td><td>10961</td><td>0.309088</td><td>0.102400</td></tr>
-<tr><td>16</td><td>0.330000</td><td>8911</td><td>6600</td><td>11089</td><td>0.326910</td><td>0.115600</td></tr>
-<tr><td>17</td><td>0.350000</td><td>8775</td><td>7000</td><td>11225</td><td>0.344460</td><td>0.129600</td></tr>
-<tr><td>18</td><td>0.370000</td><td>8631</td><td>7400</td><td>11369</td><td>0.361722</td><td>0.144400</td></tr>
-<tr><td>19</td><td>0.390000</td><td>8479</td><td>7800</td><td>11521</td><td>0.378680</td><td>0.160000</td></tr>
-<tr><td>20</td><td>0.410000</td><td>8319</td><td>8200</td><td>11681</td><td>0.395318</td><td>0.176400</td></tr>
-<tr><td>21</td><td>0.430000</td><td>8151</td><td>8600</td><td>11849</td><td>0.411620</td><td>0.193600</td></tr>
-<tr><td>22</td><td>0.450000</td><td>7975</td><td>9000</td><td>12025</td><td>0.427570</td><td>0.211600</td></tr>
-<tr><td>23</td><td>0.470000</td><td>7791</td><td>9400</td><td>12209</td><td>0.443152</td><td>0.230400</td></tr>
-<tr><td>24</td><td>0.490000</td><td>7599</td><td>9800</td><td>12401</td><td>0.458350</td><td>0.250000</td></tr>
-<tr><td>25</td><td>0.510000</td><td>7399</td><td>10200</td><td>12601</td><td>0.473148</td><td>0.270400</td></tr>
-<tr><td>26</td><td>0.530000</td><td>7191</td><td>10600</td><td>12809</td><td>0.487530</td><td>0.291600</td></tr>
-<tr><td>27</td><td>0.550000</td><td>6975</td><td>11000</td><td>13025</td><td>0.501480</td><td>0.313600</td></tr>
-<tr><td>28</td><td>0.570000</td><td>6751</td><td>11400</td><td>13249</td><td>0.514982</td><td>0.336400</td></tr>
-<tr><td>29</td><td>0.590000</td><td>6519</td><td>11800</td><td>13481</td><td>0.528020</td><td>0.360000</td></tr>
-<tr><td>30</td><td>0.610000</td><td>6279</td><td>12200</td><td>13721</td><td>0.540578</td><td>0.384400</td></tr>
-<tr><td>31</td><td>0.630000</td><td>6031</td><td>12600</td><td>13969</td><td>0.552640</td><td>0.409600</td></tr>
-<tr><td>32</td><td>0.650000</td><td>5775</td><td>13000</td><td>14225</td><td>0.564190</td><td>0.435600</td></tr>
-<tr><td>33</td><td>0.670000</td><td>5511</td><td>13400</td><td>14489</td><td>0.575212</td><td>0.462400</td></tr>
-<tr><td>34</td><td>0.690000</td><td>5239</td><td>13800</td><td>14761</td><td>0.585690</td><td>0.490000</td></tr>
-<tr><td>35</td><td>0.710000</td><td>4959</td><td>14200</td><td>15041</td><td>0.595608</td><td>0.518400</td></tr>
-<tr><td>36</td><td>0.730000</td><td>4671</td><td>14600</td><td>15329</td><td>0.604950</td><td>0.547600</td></tr>
-<tr><td>37</td><td>0.750000</td><td>4375</td><td>15000</td><td>15625</td><td>0.613700</td><td>0.577600</td></tr>
-<tr><td>38</td><td>0.770000</td><td>4071</td><td>15400</td><td>15929</td><td>0.621842</td><td>0.608400</td></tr>
-<tr><td>39</td><td>0.790000</td><td>3759</td><td>15800</td><td>16241</td><td>0.629360</td><td>0.640000</td></tr>
-<tr><td>40</td><td>0.810000</td><td>3439</td><td>16200</td><td>16561</td><td>0.636238</td><td>0.672400</td></tr>
-<tr><td>41</td><td>0.830000</td><td>3111</td><td>16600</td><td>16889</td><td>0.642460</td><td>0.705600</td></tr>
-<tr><td>42</td><td>0.850000</td><td>2775</td><td>17000</td><td>17225</td><td>0.648010</td><td>0.739600</td></tr>
-<tr><td>43</td><td>0.870000</td><td>2431</td><td>17400</td><td>17569</td><td>0.652872</td><td>0.774400</td></tr>
-<tr><td>44</td><td>0.890000</td><td>2079</td><td>17800</td><td>17921</td><td>0.657030</td><td>0.810000</td></tr>
-<tr><td>45</td><td>0.910000</td><td>1719</td><td>18200</td><td>18281</td><td>0.660468</td><td>0.846400</td></tr>
-<tr><td>46</td><td>0.930000</td><td>1351</td><td>18600</td><td>18649</td><td>0.663170</td><td>0.883600</td></tr>
-<tr><td>47</td><td>0.950000</td><td>975</td><td>19000</td><td>19025</td><td>0.665120</td><td>0.921600</td></tr>
-<tr><td>48</td><td>0.970000</td><td>591</td><td>19400</td><td>19409</td><td>0.666302</td><td>0.960400</td></tr>
-<tr><td>49</td><td>0.990000</td><td>199</td><td>19800</td><td>19801</td><td>0.666700</td><td>1.000000</td></tr>
-<tr><td>50</td><td>1.010000</td><td>-201</td><td>20200</td><td>20201</td><td>0.666298</td><td>1.040400</td></tr>
-<tr><td>51</td><td>1.030000</td><td>-609</td><td>20600</td><td>20609</td><td>0.665080</td><td>1.081600</td></tr>
-<tr><td>52</td><td>1.050000</td><td>-1025</td><td>21000</td><td>21025</td><td>0.663030</td><td>1.123600</td></tr>
-<tr><td>53</td><td>1.070000</td><td>-1449</td><td>21400</td><td>21449</td><td>0.660132</td><td>1.166400</td></tr>
-<tr><td>54</td><td>1.090000</td><td>-1881</td><td>21800</td><td>21881</td><td>0.656370</td><td>1.210000</td></tr>
-<tr><td>55</td><td>1.110000</td><td>-2321</td><td>22200</td><td>22321</td><td>0.651728</td><td>1.254400</td></tr>
-<tr><td>56</td><td>1.130000</td><td>-2769</td><td>22600</td><td>22769</td><td>0.646190</td><td>1.299600</td></tr>
-<tr><td>57</td><td>1.150000</td><td>-3225</td><td>23000</td><td>23225</td><td>0.639740</td><td>1.345600</td></tr>
-<tr><td>58</td><td>1.170000</td><td>-3689</td><td>23400</td><td>23689</td><td>0.632362</td><td>1.392400</td></tr>
-<tr><td>59</td><td>1.190000</td><td>-4161</td><td>23800</td><td>24161</td><td>0.624040</td><td>1.440000</td></tr>
-<tr><td>60</td><td>1.210000</td><td>-4641</td><td>24200</td><td>24641</td><td>0.614758</td><td>1.488400</td></tr>
-<tr><td>61</td><td>1.230000</td><td>-5129</td><td>24600</td><td>25129</td><td>0.604500</td><td>1.537600</td></tr>
-<tr><td>62</td><td>1.250000</td><td>-5625</td><td>25000</td><td>25625</td><td>0.593250</td><td>1.587600</td></tr>
-<tr><td>63</td><td>1.270000</td><td>-6129</td><td>25400</td><td>26129</td><td>0.580992</td><td>1.638400</td></tr>
-<tr><td>64</td><td>1.290000</td><td>-6641</td><td>25800</td><td>26641</td><td>0.567710</td><td>1.690000</td></tr>
-<tr><td>65</td><td>1.310000</td><td>-7161</td><td>26200</td><td>27161</td><td>0.553388</td><td>1.742400</td></tr>
-<tr><td>66</td><td>1.330000</td><td>-7689</td><td>26600</td><td>27689</td><td>0.538010</td><td>1.795600</td></tr>
-<tr><td>67</td><td>1.350000</td><td>-8225</td><td>27000</td><td>28225</td><td>0.521560</td><td>1.849600</td></tr>
-<tr><td>68</td><td>1.370000</td><td>-8769</td><td>27400</td><td>28769</td><td>0.504022</td><td>1.904400</td></tr>
-<tr><td>69</td><td>1.390000</td><td>-9321</td><td>27800</td><td>29321</td><td>0.485380</td><td>1.960000</td></tr>
-<tr><td>70</td><td>1.410000</td><td>-9881</td><td>28200</td><td>29881</td><td>0.465618</td><td>2.016400</td></tr>
-<tr><td>71</td><td>1.430000</td><td>-10449</td><td>28600</td><td>30449</td><td>0.444720</td><td>2.073600</td></tr>
-<tr><td>72</td><td>1.450000</td><td>-11025</td><td>29000</td><td>31025</td><td>0.422670</td><td>2.131600</td></tr>
-<tr><td>73</td><td>1.470000</td><td>-11609</td><td>29400</td><td>31609</td><td>0.399452</td><td>2.190400</td></tr>
-<tr><td>74</td><td>1.490000</td><td>-12201</td><td>29800</td><td>32201</td><td>0.375050</td><td>2.250000</td></tr>
-<tr><td>75</td><td>1.510000</td><td>-12801</td><td>30200</td><td>32801</td><td>0.349448</td><td>2.310400</td></tr>
-<tr><td>76</td><td>1.530000</td><td>-13409</td><td>30600</td><td>33409</td><td>0.322630</td><td>2.371600</td></tr>
-<tr><td>77</td><td>1.550000</td><td>-14025</td><td>31000</td><td>34025</td><td>0.294580</td><td>2.433600</td></tr>
-<tr><td>78</td><td>1.570000</td><td>-14649</td><td>31400</td><td>34649</td><td>0.265282</td><td>2.496400</td></tr>
-<tr><td>79</td><td>1.590000</td><td>-15281</td><td>31800</td><td>35281</td><td>0.234720</td><td>2.560000</td></tr>
-<tr><td>80</td><td>1.610000</td><td>-15921</td><td>32200</td><td>35921</td><td>0.202878</td><td>2.624400</td></tr>
-<tr><td>81</td><td>1.630000</td><td>-16569</td><td>32600</td><td>36569</td><td>0.169740</td><td>2.689600</td></tr>
-<tr><td>82</td><td>1.650000</td><td>-17225</td><td>33000</td><td>37225</td><td>0.135290</td><td>2.755600</td></tr>
-<tr><td>83</td><td>1.670000</td><td>-17889</td><td>33400</td><td>37889</td><td>0.099512</td><td>2.822400</td></tr>
-<tr><td>84</td><td>1.690000</td><td>-18561</td><td>33800</td><td>38561</td><td>0.062390</td><td>2.890000</td></tr>
-<tr><td>85</td><td>1.710000</td><td>-19241</td><td>34200</td><td>39241</td><td>0.023908</td><td>2.958400</td></tr>
-<tr><td>86</td><td>1.730000</td><td>-19929</td><td>34600</td><td>39929</td><td>-0.015950</td><td>3.027600</td></tr>
-<tr><td>87</td><td>1.750000</td><td>-20625</td><td>35000</td><td>40625</td><td>-0.057200</td><td>3.097600</td></tr>
-<tr><td>88</td><td>1.770000</td><td>-21329</td><td>35400</td><td>41329</td><td>-0.099858</td><td>3.168400</td></tr>
-<tr><td>89</td><td>1.790000</td><td>-22041</td><td>35800</td><td>42041</td><td>-0.143940</td><td>3.240000</td></tr>
-<tr><td>90</td><td>1.810000</td><td>-22761</td><td>36200</td><td>42761</td><td>-0.189462</td><td>3.312400</td></tr>
-<tr><td>91</td><td>1.830000</td><td>-23489</td><td>36600</td><td>43489</td><td>-0.236440</td><td>3.385600</td></tr>
-<tr><td>92</td><td>1.850000</td><td>-24225</td><td>37000</td><td>44225</td><td>-0.284890</td><td>3.459600</td></tr>
-<tr><td>93</td><td>1.870000</td><td>-24969</td><td>37400</td><td>44969</td><td>-0.334828</td><td>3.534400</td></tr>
-<tr><td>94</td><td>1.890000</td><td>-25721</td><td>37800</td><td>45721</td><td>-0.386270</td><td>3.610000</td></tr>
-<tr><td>95</td><td>1.910000</td><td>-26481</td><td>38200</td><td>46481</td><td>-0.439232</td><td>3.686400</td></tr>
-<tr><td>96</td><td>1.930000</td><td>-27249</td><td>38600</td><td>47249</td><td>-0.493730</td><td>3.763600</td></tr>
-<tr><td>97</td><td>1.950000</td><td>-28025</td><td>39000</td><td>48025</td><td>-0.549780</td><td>3.841600</td></tr>
-<tr><td>98</td><td>1.970000</td><td>-28809</td><td>39400</td><td>48809</td><td>-0.607398</td><td>3.920400</td></tr>
-<tr><td>99</td><td>1.990000</td><td>-29601</td><td>39800</td><td>49601</td><td>-0.666600</td><td>4.000000</td></tr>
-<tr><td>100</td><td>2.010000</td><td>-30401</td><td>40200</td><td>50401</td><td>-0.727402</td><td>4.080400</td></tr>
-<tr><td>101</td><td>2.030000</td><td>-31209</td><td>40600</td><td>51209</td><td>-0.789820</td><td>4.161600</td></tr>
-<tr><td>102</td><td>2.050000</td><td>-32025</td><td>41000</td><td>52025</td><td>-0.853870</td><td>4.243600</td></tr>
-<tr><td>103</td><td>2.070000</td><td>-32849</td><td>41400</td><td>52849</td><td>-0.919568</td><td>4.326400</td></tr>
-<tr><td>104</td><td>2.090000</td><td>-33681</td><td>41800</td><td>53681</td><td>-0.986930</td><td>4.410000</td></tr>
-<tr><td>105</td><td>2.110000</td><td>-34521</td><td>42200</td><td>54521</td><td>-1.055972</td><td>4.494400</td></tr>
-<tr><td>106</td><td>2.130000</td><td>-35369</td><td>42600</td><td>55369</td><td>-1.126710</td><td>4.579600</td></tr>
-<tr><td>107</td><td>2.150000</td><td>-36225</td><td>43000</td><td>56225</td><td>-1.199160</td><td>4.665600</td></tr>
-<tr><td>108</td><td>2.170000</td><td>-37089</td><td>43400</td><td>57089</td><td>-1.273338</td><td>4.752400</td></tr>
-<tr><td>109</td><td>2.190000</td><td>-37961</td><td>43800</td><td>57961</td><td>-1.349260</td><td>4.840000</td></tr>
-<tr><td>110</td><td>2.210000</td><td>-38841</td><td>44200</td><td>58841</td><td>-1.426942</td><td>4.928400</td></tr>
-<tr><td>111</td><td>2.230000</td><td>-39729</td><td>44600</td><td>59729</td><td>-1.506400</td><td>5.017600</td></tr>
-<tr><td>112</td><td>2.250000</td><td>-40625</td><td>45000</td><td>60625</td><td>-1.587650</td><td>5.107600</td></tr>
-<tr><td>113</td><td>2.270000</td><td>-41529</td><td>45400</td><td>61529</td><td>-1.670708</td><td>5.198400</td></tr>
-<tr><td>114</td><td>2.290000</td><td>-42441</td><td>45800</td><td>62441</td><td>-1.755590</td><td>5.290000</td></tr>
-<tr><td>115</td><td>2.310000</td><td>-43361</td><td>46200</td><td>63361</td><td>-1.842312</td><td>5.382400</td></tr>
-<tr><td>116</td><td>2.330000</td><td>-44289</td><td>46600</td><td>64289</td><td>-1.930890</td><td>5.475600</td></tr>
-<tr><td>117</td><td>2.350000</td><td>-45225</td><td>47000</td><td>65225</td><td>-2.021340</td><td>5.569600</td></tr>
-<tr><td>118</td><td>2.370000</td><td>-46169</td><td>47400</td><td>66169</td><td>-2.113678</td><td>5.664400</td></tr>
-<tr><td>119</td><td>2.390000</td><td>-47121</td><td>47800</td><td>67121</td><td>-2.207920</td><td>5.760000</td></tr>
+<p>At twelve triangles the chordal path lands on the whole-number point exactly, at t = 3 giving (-6, 9). The midpoint chain stops 1/64 short of it. At that same stop chordal is also the closer of the two on total length, 11.986998 against 11.984375 and an exact 12; further in, at t = 2.4, the two swap and the midpoint chain is closer by a hair. The midpoint chain's steady advantage is a different one: every side is an exact whole-number triple, so the path can be laid out with no square roots anywhere.</p>
+<h2>4. The twelve triangles at t = 3</h2>
+<p>Step width 1/4, pitch 256 cells per unit. The sides, in cells and as reduced triples:</p>
+<table><thead><tr><th>step</th><th>middle t</th><th>dx</th><th>dy</th><th>ds</th><th>reduced triple</th></tr></thead><tbody>
+<tr><td>1</td><td>0.12</td><td>63</td><td>16</td><td>65</td><td>(63, 16, 65)</td></tr>
+<tr><td>2</td><td>0.38</td><td>55</td><td>48</td><td>73</td><td>(55, 48, 73)</td></tr>
+<tr><td>3</td><td>0.62</td><td>39</td><td>80</td><td>89</td><td>(39, 80, 89)</td></tr>
+<tr><td>4</td><td>0.88</td><td>15</td><td>112</td><td>113</td><td>(15, 112, 113)</td></tr>
+<tr><td>5</td><td>1.12</td><td>-17</td><td>144</td><td>145</td><td>(-17, 144, 145)</td></tr>
+<tr><td>6</td><td>1.38</td><td>-57</td><td>176</td><td>185</td><td>(-57, 176, 185)</td></tr>
+<tr><td>7</td><td>1.62</td><td>-105</td><td>208</td><td>233</td><td>(-105, 208, 233)</td></tr>
+<tr><td>8</td><td>1.88</td><td>-161</td><td>240</td><td>289</td><td>(-161, 240, 289)</td></tr>
+<tr><td>9</td><td>2.12</td><td>-225</td><td>272</td><td>353</td><td>(-225, 272, 353)</td></tr>
+<tr><td>10</td><td>2.38</td><td>-297</td><td>304</td><td>425</td><td>(-297, 304, 425)</td></tr>
+<tr><td>11</td><td>2.62</td><td>-377</td><td>336</td><td>505</td><td>(-377, 336, 505)</td></tr>
+<tr><td>12</td><td>2.88</td><td>-465</td><td>368</td><td>593</td><td>(-465, 368, 593)</td></tr>
 </tbody></table>
-<table><thead><tr><th>measure</th><th>value</th></tr></thead><tbody>
-<tr><td>triangles, both branches</td><td>240</td></tr>
-<tr><td>tail tip, exact</td><td>(-2.208000, 5.760000)</td></tr>
-<tr><td>tail tip, chain</td><td>(--2.207920, 5.760000)</td></tr>
-<tr><td>chain length</td><td>87599/6250 = 14.015840</td></tr>
-<tr><td>exact length</td><td>1752/125 = 14.016000</td></tr>
-<tr><td>length error</td><td>-1.600e-04</td></tr>
-<tr><td>ratio to inner loop</td><td>2.023</td></tr>
-<tr><td>far tip on grid (t = 12/5)</td><td>-1103960 / 2880000</td></tr>
+<p>The last vertex is (-383/64, 9), against the curve's (-6, 9): short by 1/64 in x, exact in y. The y coordinate is exact for every count, because the vertical speed is linear and the midpoint rule integrates a linear function exactly.</p>
+<h2>5. How the pitch was chosen</h2>
+<p>The pitch depends only on the step width, which is the stopping point divided by the triangle count. At twelve triangles the step width is t/12, so the stopping point alone decides the pitch:</p>
+<table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>why</th></tr></thead><tbody>
+<tr><td>2</td><td>1/6</td><td>864</td><td>denominator 6</td></tr>
+<tr><td>2.1</td><td>7/40</td><td>256000</td><td>denominator 40, ugly</td></tr>
+<tr><td>2.4</td><td>1/5</td><td>500</td><td>denominator 5</td></tr>
+<tr><td>2.5</td><td>5/24</td><td>55296</td><td>denominator 24, numerator odd</td></tr>
+<tr><td>3</td><td>1/4</td><td>256</td><td>denominator 4</td></tr>
+<tr><td>4</td><td>1/3</td><td>108</td><td>denominator 3</td></tr>
 </tbody></table>
-<figure style="margin:1.4rem 0"><img src="out/fish-t24.svg" alt="Fig. T1 -- the fish glyph as a 240-triangle Pythagorean chain against the smooth T-PH curve" style="max-width:100%;border:1px solid #e6e6e6"><figcaption style="font-size:.9rem;color:#555;margin-top:.4rem">Fig. T1 -- the fish glyph as a 240-triangle Pythagorean chain against the smooth T-PH curve</figcaption></figure>
-<p>The tail height 144/25 = 5.76 is exact for every N, because midpoint quadrature is exact on the linear y'(t). The tail is 2.02 times the inner loop length, so the glyph is close to double the inner shape, as intended.</p>
-<p>Artifacts: out/fish-t24.csv holds all 240 steps as integers, out/fish-t24.svg is the labelled figure.</p>
-<h2>8. Where to stop</h2>
-<p>The loop closes at t = sqrt(3). Past it there are three natural stops:</p>
-<table><thead><tr><th>t_max</th><th>tail tip</th><th>full length</th><th>ratio</th><th>exact grid</th></tr></thead><tbody>
-<tr><td>5/2</td><td>(-2.7083, 6.2500)</td><td>15.416500</td><td>2.225</td><td>500000</td></tr>
-<tr><td>12/5</td><td>(-2.2080, 5.7600)</td><td>14.015840</td><td>2.023</td><td>500000</td></tr>
-<tr><td>sqrt6</td><td>(-2.4495, 6.0000)</td><td>14.696938</td><td>2.121</td><td>none, t irrational</td></tr>
+<p>That table is a single rule. Write the step width as a fraction in lowest terms and look at its bottom number, call it q, and its top number:</p>
+<pre>pitch = q cubed
+pitch = 4 times q cubed    when the top number is odd</pre>
+<p>So the smallest pitch comes from the smallest denominator, and the factor of 4 disappears when the top number is even. Checked as an exact equality on twelve hundred combinations of stopping point and count.</p>
+<p>The worked example that started this: twelve triangles per side out to t = 4. The step width is 4/12 = 1/3, the denominator is 3, so the pitch is 4 x 27 = 108. It is small because the step is coarse: twelve triangles across four units is a big step, and a big step has a small denominator. At t = 3 the same count gives a step width of 1/4 and a pitch of 256; at t = 2.4 it gives 1/5 and 500. The count is fixed at twelve, so the stopping point is the only lever you have.</p>
+<h2>6. The glyph at t = 3, in whole units</h2>
+<table><thead><tr><th>feature</th><th>value</th></tr></thead><tbody>
+<tr><td>nose</td><td>(0, 0)</td></tr>
+<tr><td>waist</td><td>(0, 3), reached at t = plus or minus the square root of 3</td></tr>
+<tr><td>tips</td><td>(-6, 9) and (6, 9)</td></tr>
+<tr><td>body height</td><td>3</td></tr>
+<tr><td>tail height</td><td>6, exactly twice the body</td></tr>
+<tr><td>arc length, one side</td><td>12</td></tr>
+<tr><td>full length, both sides</td><td>24</td></tr>
 </tbody></table>
-<p>12/5 is the grid-exact choice: 2.023 times the loop length with every step on one integer grid. sqrt(6) is the geometric choice, tail height exactly double the loop height, but t is irrational so no rational chain ends there. 5/2 is the cleanest division but overshoots to 2.22 times.</p>
-<h2>9. Accuracy and grid cost</h2>
-<p>Error falls as 1/N^2, as midpoint quadrature predicts. The exact integer grid grows as N^3, so doubling the triangle count multiplies the grid by eight. The grid is not a fixed canvas you can keep adding triangles to.</p>
-<table><thead><tr><th>t_max</th><th>N</th><th>dt</th><th>grid</th><th>fits 3125</th><th>half-length error</th></tr></thead><tbody>
-<tr><td>12/5</td><td>6</td><td>2/5</td><td>125</td><td>yes</td><td>-3.200e-02</td></tr>
-<tr><td>12/5</td><td>12</td><td>1/5</td><td>500</td><td>no</td><td>-8.000e-03</td></tr>
-<tr><td>12/5</td><td>24</td><td>1/10</td><td>4000</td><td>no</td><td>-2.000e-03</td></tr>
-<tr><td>12/5</td><td>30</td><td>2/25</td><td>15625</td><td>no</td><td>-1.280e-03</td></tr>
-<tr><td>12/5</td><td>60</td><td>1/25</td><td>62500</td><td>no</td><td>-3.200e-04</td></tr>
-<tr><td>12/5</td><td>120</td><td>1/50</td><td>500000</td><td>no</td><td>-8.000e-05</td></tr>
-<tr><td>12/5</td><td>240</td><td>1/100</td><td>4000000</td><td>no</td><td>-2.000e-05</td></tr>
-<tr><td>5/2</td><td>5</td><td>1/2</td><td>32</td><td>no</td><td>-5.208e-02</td></tr>
-<tr><td>5/2</td><td>10</td><td>1/4</td><td>256</td><td>no</td><td>-1.302e-02</td></tr>
-<tr><td>5/2</td><td>25</td><td>1/10</td><td>4000</td><td>no</td><td>-2.083e-03</td></tr>
-<tr><td>5/2</td><td>50</td><td>1/20</td><td>32000</td><td>no</td><td>-5.208e-04</td></tr>
-<tr><td>5/2</td><td>125</td><td>1/50</td><td>500000</td><td>no</td><td>-8.333e-05</td></tr>
-</tbody></table>
-<h2>10. The 3125 grid: correction</h2>
-<p>The exact integer grid depends only on the step width dt = (t1 - t0)/N, not on t_max or N separately. Write dt = c/q in lowest terms and let p = 2i + 1, always odd; then t_i = p c / (2q) and</p>
-<pre>grid = q^3        when c is even
-grid = 4 * q^3    when c is odd</pre>
-<p>Verified as exact equality on 1200 (t_max, N) pairs across ten rational t_max. The 4 is the midpoint half-step: when c is odd, 4q^2 - p^2 c^2 is odd, so the factor 4 can never cancel. An even numerator cancels it completely, and that is the only route to an odd grid.</p>
-<table><thead><tr><th>dt</th><th>grid</th><th>triangles per branch at t = 12/5</th><th>note</th></tr></thead><tbody>
-<tr><td>2/5</td><td>125</td><td>6</td><td>only exact option on 3125</td></tr>
-<tr><td>4/5</td><td>125</td><td>3</td><td>coarser, still on 3125</td></tr>
-<tr><td>1/5</td><td>500</td><td>12</td><td>odd numerator, factor 4 returns</td></tr>
-<tr><td>2/25</td><td>15625</td><td>30</td><td>5 x 3125, even numerator</td></tr>
-<tr><td>1/25</td><td>62500</td><td>60</td><td>odd numerator</td></tr>
-<tr><td>1/50</td><td>500000</td><td>120</td><td>current figure, 160 x 3125</td></tr>
-</tbody></table>
-<p>Because 3125 = 5^5 is odd, it can only appear when c is even and q^3 divides it: q = 5, so dt = 2/5 or 4/5, i.e. N = 5 t_max / 2. At dt = 2/5 the fish gets 6 triangles per branch. That is the trade: the 3125 canvas buys six triangles, not a hundred and twenty. The nearest dense option on the same base is dt = 2/25, grid 15625 = 5 x 3125, 30 triangles per branch.</p>
-<p>The /3 in x = t - t^3/3 and s = t + t^3/3 does not enter the step grid: the chain is built from the hodograph, which has no cubic term. It affects only the exact reference values. A t_max that is a multiple of 3 gives integers there: t = 3 gives x = -6, y = 9, s = 12.</p>
-<p>A longer curve is cheaper per triangle. At fixed N, larger t_max makes dt coarser and the grid smaller: t = 3 at N = 120 needs 256000 against 500000 at t = 12/5. The price is proportion, since tail over loop is 3.46 at t = 3 against 2.02 at 12/5.</p>
-<p>Checks against the draft this method arrived in. Each is an equality test run at generation time; a FAIL means the document is wrong, not the numbers.</p>
-<li>PASS -- [0, 2], N = 25 needs grid 15625, not 3125</li>
-<li>PASS -- [0, 2], N = 25 first step is (1248, 100, 1252), not (1248, 200, 1252)</li>
-<li>PASS -- [0, 2], N = 25 tail y is 4 exactly</li>
-<li>PASS -- [0, 1], N = 25 needs grid 62500, not 3125; first step (2499, 100, 2501)</li>
-<li>PASS -- [0, 2], N = 4 triples are (15,8,17) (7,24,25) (-9,40,41) (-33,56,65) on grid 32</li>
-<li>PASS -- [0, 2], N = 4 ends at (-5/8, 4) with length 37/8 = 4.625</li>
-<li>PASS -- [0, 12/5], N = 120 needs grid 500000</li>
-<li>PASS -- 3125 is exact only at N = 5 over [0, 2], grid 125</li>
-<h2>11. Reproduce</h2>
+<p>This is the 'double the inner shape' proportion, measured in height, and it needs no scaling and no irrational number. The arc-length ratio is larger, 3.46, because the tail is thin and long. The figure shows the two sides at twelve triangles, with the whole-number points ringed.</p>
+<figure style="margin:1.4rem 0"><img src="out/lattice-t3.svg" alt="Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3" style="max-width:100%;border:1px solid #e6e6e6"><figcaption style="font-size:.9rem;color:#555;margin-top:.4rem">Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3</figcaption></figure>
+<p>A caution about the figure: the chain's last vertex sits at (-5.984375, 9), just inside the ring at (-6, 9). That gap is the 1/64, and it is the whole story of this document.</p>
+<h2>7. Checks and reproduce</h2>
+<p>Equality tests run whenever this document is generated. A failure means the document is wrong, not the numbers.</p>
+<li>PASS -- t = 3 gives (-6, 9) and length 12 exactly</li>
+<li>PASS -- 2.4, 2.5, 12/5 and 2.1 all have non-whole heights</li>
+<li>PASS -- twelve triangles at t = 4 gives pitch 108</li>
+<li>PASS -- twelve triangles at t = 3 gives pitch 256</li>
+<li>PASS -- twelve triangles at t = 2.5 gives pitch 55296</li>
+<li>PASS -- midpoint gap is 1/64 at t = 3</li>
+<li>PASS -- chordal lands on (-6, 9) at t = 3</li>
+<li>PASS -- first triangle at t = 3 is (63, 16, 65)</li>
 <pre>.venv/bin/python tph_tri_chain/chain.py        # every table, exact
-.venv/bin/python tph_tri_chain/glyph.py        # fish CSV and SVG
+.venv/bin/python tph_tri_chain/glyph.py        # figure and csv
 .venv/bin/python tph_tri_chain/make_results.py # this document</pre>
-<p>Figure convention: the model has +y up, as the curve does. The SVG writer flips y once at output; the flip lives in one function, fy(), in glyph.py.</p>
+<p>y is up, as the curve is. The SVG writer flips y once, in fy().</p>
 </body></html>

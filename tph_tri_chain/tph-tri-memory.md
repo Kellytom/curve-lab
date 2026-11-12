@@ -20,8 +20,8 @@ achievable for the fish) and the stopping point before this moves.
 | `glyph.py` | fish CSV + labelled SVG, one y flip in `fy()` |
 | `make_results.py` | emits `RESULTS.md` and `results.html` from one block list |
 | `RESULTS.md` / `results.html` | the result document and its mirror |
-| `out/fish-t24.csv` | 240 steps, every value an integer on grid 500000 |
-| `out/fish-t24.svg` | Fig. T1, 240 triangles against the smooth curve |
+| `out/lattice-t3.csv` | 24 steps at t = 3, every value an integer on pitch 256 |
+| `out/lattice-t3.svg` | Fig. T1, the whole-number hits at 12 triangles per side |
 
 ## Commands
 
@@ -170,13 +170,16 @@ to the curve, not to the chain.
 
 ## Next decisions (in order)
 
-1. Accept the grid: 15625 (30/branch, 5x3125) or 500000 (120/branch)? 
-2. Confirm the stop at `t = 12/5`.
-3. Operator eyeballs `out/fish-t24.svg` — legible, chain inside the curve,
-   tail reads as a fish. Only the operator can judge this.
-4. Only then: promote to `docs/PH-TRIANGLES-int.md` and decide about tracking.
+1. Operator looks at `out/lattice-t3.svg`: are the rings readable, is the
+   1/64 gap visible without being ugly? Only the operator can judge that.
+2. Confirm t = 3 as the stop, at 12 triangles per side.
+3. Only then: promote to `docs/PH-TRIANGLES-int.md` and decide about tracking.
 
 ## Changelog
+
+- 2026-11-11: results rewritten around integer hits at N = 12 per side.
+  Figure retargeted to t = 3, pitch 256; the old 12/5 at N = 120 artifacts
+  removed. Plain words throughout: no set notation.
 
 - 2026-11-11: directory created, held untracked; method verified exactly;
   grid law found (G = q^3 or 4q^3); RESULTS.md + results.html generated;
