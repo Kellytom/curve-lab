@@ -124,11 +124,13 @@ integer; then `x = t − t³/3` is an integer only when `3 | t`. For irrational 
 write `y = k`; then `t = √k` and `x = √k(1 − k/3)`, which is an integer only at
 `k = 3`, giving (0,3).
 
-Consequence: **2.4, 2.5, 12/5 and 2.1 can never hit the lattice** — their y is
-144/25, 25/4, 144/25 and 441/100. A glyph that must land on whole units
-therefore stops at **t = 3**: nose (0,0), waist (0,3), tips (±6, 9), height 9 =
-body 3 + tail 6, i.e. the tail is exactly twice the body height. `s(3) = 12`,
-full length 24. This supersedes 12/5 whenever lattice hits are required.
+Consequence. In whole units, at pitch 1, only t in 3Z hits. But the pitch exists
+to clear fractions, and that is the point of it: at pitch G a point is a whole
+cell once G is a multiple of its denominators. Minimum pitch for the curve point:
+1 at t=3, 3 at t=2 and t=4, 24 at 5/2, 125 at 12/5, 1000 at 21/10. All exact.
+The chain needs a larger pitch at every stop, because every side must be whole
+too: 108, 864, 55296, 500, 256000, 256 at N=12 respectively. So t=3 is singled
+out only because it needs no scaling at all -- not because other stops fail.
 
 The chain cannot reproduce the hit. Closed form, exact:
 
@@ -177,6 +179,11 @@ to the curve, not to the chain.
 
 ## Changelog
 
+- 2026-11-11: tph-tri-sandbox.html is the live page (CSS lifted from
+  workbench/showcase.html, built by sandbox.py). Fractions only, no decimals.
+  Four-panel Fig. T2 (out/midpoint.svg) explains the midpoint step, the exact
+  height, the 1/12 drift, and both ends. 3125 at N=12 needs t = 24/5, grid 125.
+
 - 2026-11-11: results rewritten around integer hits at N = 12 per side.
   Figure retargeted to t = 3, pitch 256; the old 12/5 at N = 120 artifacts
   removed. Plain words throughout: no set notation.
@@ -208,7 +215,11 @@ Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
 1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.
 
 Rules: write "t is a multiple of 3", "whole-number point", "integer lattice" --
-never set notation. Do not quote N other than the one asked for.
+never set notation. Do not quote N other than the one asked for. No decimals
+anywhere: exact fractions, and sqrt(...) for anything irrational. A grid is a
+single round number (125, 625, 3125, 256), never a width-times-height. A grid
+exists to clear fractions, so ask which pitch clears them, never whether a
+coordinate is whole.
 
 ## Context meter
 
@@ -253,7 +264,11 @@ Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
 1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.
 
 Rules: write "t is a multiple of 3", "whole-number point", "integer lattice" --
-never set notation. Do not quote N other than the one asked for.
+never set notation. Do not quote N other than the one asked for. No decimals
+anywhere: exact fractions, and sqrt(...) for anything irrational. A grid is a
+single round number (125, 625, 3125, 256), never a width-times-height. A grid
+exists to clear fractions, so ask which pitch clears them, never whether a
+coordinate is whole.
 
 ## Context meter
 

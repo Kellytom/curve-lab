@@ -22,19 +22,21 @@ Take t as a fraction in lowest terms. Then y = t^2 is a whole number only if t i
 The curve is odd in x and even in y, so each hit (x, y) has a mirror (-x, y). One more whole-number point exists: the waist. x = 0 at t = plus or minus the square root of 3, which gives (0, 3). That parameter is not a fraction, so no chain built at fractional steps can land on it.
 
 
-## 2. What that rules out
+## 2. The grid exists to clear fractions
 
-Every other stopping point considered so far fails the first test: its height is not a whole number.
+A fractional coordinate is not a failure. Pick a pitch that is a multiple of the denominators and the point lands on a whole cell: that is what the pitch is for. 144/25 of a unit is 2880 cells at pitch 500.
 
-| stopping t | x | y exact | y | whole-number height? |
-|---|---|---|---|---|
-| 21/10 | -0.987000 | 441/100 | 4.4100 | no |
-| 12/5 | -2.208000 | 144/25 | 5.7600 | no |
-| 5/2 | -2.708333 | 25/4 | 6.2500 | no |
-| 3 | -6.000000 | 9 | 9.0000 | yes |
-| 4 | -17.333333 | 16 | 16.0000 | yes |
+| stop t | x | y | the point, in cells | smallest pitch for the curve | smallest pitch for every chain side |
+|---|---|---|---|---|---|
+| 2 | -2/3 | 4 | (-2, 12) | 3 | 864 |
+| 21/10 | -987/1000 | 441/100 | (-987, 4410) | 1000 | 256000 |
+| 12/5 | -276/125 | 144/25 | (-276, 720) | 125 | 500 |
+| 5/2 | -65/24 | 25/4 | (-65, 150) | 24 | 55296 |
+| 3 | -6 | 9 | (-6, 9) | 1 | 256 |
+| 24/5 | -4008/125 | 576/25 | (-4008, 2880) | 125 | 125 |
+| 4 | -52/3 | 16 | (-52, 48) | 3 | 108 |
 
-Scaling the drawing does not rescue a stop. A fraction stays a fraction when multiplied by any whole number, so a stop with height 144/25 never becomes a whole-number point at any pitch.
+All of these are exact. t = 3 is singled out only because it needs no scaling at all, not because the others fail. The chain needs a larger pitch than the curve at every stop, because each side has to be whole as well as each vertex.
 
 
 ## 3. Twelve triangles, both methods

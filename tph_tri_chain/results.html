@@ -21,16 +21,18 @@ ul{padding-left:1.3rem}li{margin:.2rem 0}
 <tr><td>15</td><td>-1110</td><td>225</td><td>1140</td><td></td></tr>
 </tbody></table>
 <p>The curve is odd in x and even in y, so each hit (x, y) has a mirror (-x, y). One more whole-number point exists: the waist. x = 0 at t = plus or minus the square root of 3, which gives (0, 3). That parameter is not a fraction, so no chain built at fractional steps can land on it.</p>
-<h2>2. What that rules out</h2>
-<p>Every other stopping point considered so far fails the first test: its height is not a whole number.</p>
-<table><thead><tr><th>stopping t</th><th>x</th><th>y exact</th><th>y</th><th>whole-number height?</th></tr></thead><tbody>
-<tr><td>21/10</td><td>-0.987000</td><td>441/100</td><td>4.4100</td><td>no</td></tr>
-<tr><td>12/5</td><td>-2.208000</td><td>144/25</td><td>5.7600</td><td>no</td></tr>
-<tr><td>5/2</td><td>-2.708333</td><td>25/4</td><td>6.2500</td><td>no</td></tr>
-<tr><td>3</td><td>-6.000000</td><td>9</td><td>9.0000</td><td>yes</td></tr>
-<tr><td>4</td><td>-17.333333</td><td>16</td><td>16.0000</td><td>yes</td></tr>
+<h2>2. The grid exists to clear fractions</h2>
+<p>A fractional coordinate is not a failure. Pick a pitch that is a multiple of the denominators and the point lands on a whole cell: that is what the pitch is for. 144/25 of a unit is 2880 cells at pitch 500.</p>
+<table><thead><tr><th>stop t</th><th>x</th><th>y</th><th>the point, in cells</th><th>smallest pitch for the curve</th><th>smallest pitch for every chain side</th></tr></thead><tbody>
+<tr><td>2</td><td>-2/3</td><td>4</td><td>(-2, 12)</td><td>3</td><td>864</td></tr>
+<tr><td>21/10</td><td>-987/1000</td><td>441/100</td><td>(-987, 4410)</td><td>1000</td><td>256000</td></tr>
+<tr><td>12/5</td><td>-276/125</td><td>144/25</td><td>(-276, 720)</td><td>125</td><td>500</td></tr>
+<tr><td>5/2</td><td>-65/24</td><td>25/4</td><td>(-65, 150)</td><td>24</td><td>55296</td></tr>
+<tr><td>3</td><td>-6</td><td>9</td><td>(-6, 9)</td><td>1</td><td>256</td></tr>
+<tr><td>24/5</td><td>-4008/125</td><td>576/25</td><td>(-4008, 2880)</td><td>125</td><td>125</td></tr>
+<tr><td>4</td><td>-52/3</td><td>16</td><td>(-52, 48)</td><td>3</td><td>108</td></tr>
 </tbody></table>
-<p>Scaling the drawing does not rescue a stop. A fraction stays a fraction when multiplied by any whole number, so a stop with height 144/25 never becomes a whole-number point at any pitch.</p>
+<p>All of these are exact. t = 3 is singled out only because it needs no scaling at all, not because the others fail. The chain needs a larger pitch than the curve at every stop, because each side has to be whole as well as each vertex.</p>
 <h2>3. Twelve triangles, both methods</h2>
 <p>Midpoint chain: each step is evaluated at the middle of the step, which is what makes the step sides exact whole numbers after scaling. Chordal: the nodes sit exactly on the curve and the segments are straight joins, so the node positions are exact but the side lengths are square roots.</p>
 <table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>midpoint tip x</th><th>gap</th><th>y exact?</th><th>chordal tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>

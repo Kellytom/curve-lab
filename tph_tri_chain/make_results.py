@@ -6,6 +6,7 @@ Run:  .venv/bin/python tph_tri_chain/make_results.py
 """
 
 import os
+import math
 from fractions import Fraction as F
 
 from chain import chain, grid, integral, primitive
@@ -58,18 +59,26 @@ def build_blocks():
                    "fractional steps can land on it."))
 
     # ------------------------------------------------------------ 2
-    b.append(("h2", "2. What that rules out"))
-    b.append(("p", "Every other stopping point considered so far fails the first "
-                   "test: its height is not a whole number."))
+    b.append(("h2", "2. The grid exists to clear fractions"))
+    b.append(("p", "A fractional coordinate is not a failure. Pick a pitch that is a "
+                   "multiple of the denominators and the point lands on a whole cell: "
+                   "that is what the pitch is for. 144/25 of a unit is 2880 cells at "
+                   "pitch 500."))
     rows = []
-    for T in (F(21, 10), F(12, 5), F(5, 2), F(3), F(4)):
+    for T in (F(2), F(21, 10), F(12, 5), F(5, 2), F(3), F(24, 5), F(4)):
         x, y, s = integral(T)
-        rows.append([str(T), fx(x, 6), str(y), fx(y, 4),
-                     "yes" if y.denominator == 1 else "no"])
-    b.append(("table", ["stopping t", "x", "y exact", "y", "whole-number height?"], rows, []))
-    b.append(("p", "Scaling the drawing does not rescue a stop. A fraction stays a "
-                   "fraction when multiplied by any whole number, so a stop with "
-                   "height 144/25 never becomes a whole-number point at any pitch."))
+        g = 1
+        for v in (x, y, s):
+            g = g * v.denominator // math.gcd(g, v.denominator)
+        rows.append([str(T), str(x), str(y), f"({x * g}, {y * g})", str(g),
+                     str(grid(chain(F(0), T, N)[0]))])
+    b.append(("table", ["stop t", "x", "y", "the point, in cells",
+                        "smallest pitch for the curve",
+                        "smallest pitch for every chain side"], rows))
+    b.append(("p", "All of these are exact. t = 3 is singled out only because it needs "
+                   "no scaling at all, not because the others fail. The chain needs a "
+                   "larger pitch than the curve at every stop, because each side has to "
+                   "be whole as well as each vertex."))
 
     # ------------------------------------------------------------ 3
     b.append(("h2", "3. Twelve triangles, both methods"))
