@@ -5,8 +5,9 @@ Last updated: 2026-11-11.
 
 ## Where we are
 
-Verified method, working generator, docs draft. Not accepted, not in `docs/`,
-not wired into `curve_lab/`. Directory is untracked on purpose.
+Verified method, working generator, docs draft. Committed on `main` so it
+cannot be lost, but not accepted and not in `docs/`, and not wired into
+`curve_lab/`.
 
 Open gate: the operator has to accept the grid correction (3125 is not
 achievable for the fish) and the stopping point before this moves.
