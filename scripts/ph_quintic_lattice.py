@@ -347,7 +347,9 @@ Because <code>v</code> is constant, <code>y</code> is a cubic; only <code>x</cod
 fifth-degree work.</p>
 {fig_family()}
 <p class="small">k stretches the same shape: x grows like k², y like k. TQ(3) is compact enough
-to read; TQ(75) is the same curve on a much longer leash.</p>
+to read; TQ(75) is the same curve on a much longer leash. k is taken positive: a negative k is
+the same curve mirrored in the x-axis — the hits, the grid and the lengths do not change — and
+k = 0 degenerates to a straight line.</p>
 </section>
 
 <section class="panel">
