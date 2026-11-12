@@ -36,6 +36,7 @@ RULE = "#d8ccae"
 
 K = 75          # the headline member: every integer t, grid 5
 K_SMALL = 3     # the small-numbers member: every 5th t, grid 5
+ZOOM_T = F(1, 128)   # half-width of the Q3 / Q6 window; change it and re-run
 
 
 # -- exact algebra ----------------------------------------------------------
@@ -164,6 +165,22 @@ def svg(w, h, body):
             + body[1] + "</svg>")
 
 
+def nice_ticks(lo, hi, n=2):
+    span = hi - lo
+    if span <= 0:
+        return [lo]
+    raw = span / n
+    mag = 10 ** __import__("math").floor(__import__("math").log10(raw))
+    step = next(m * mag for m in (1, 2, 2.5, 5, 10) if raw <= m * mag)
+    first = __import__("math").ceil(lo / step) * step
+    out = []
+    v = first
+    while v <= hi + 1e-9:
+        out.append(round(v, 10))
+        v += step
+    return out
+
+
 def fig_family():
     W, H = 940, 320
     panels = [(60, "TQ(3)", 320, 40), (350, "TQ(15)", 7600, 190), (640, "TQ(75)", 190000, 950)]
@@ -211,33 +228,34 @@ def fig_full():
 
 
 def fig_zoom():
-    """Only the part that makes the S: t = -1 .. 1, no outliers."""
+    """The S window, half-width ZOOM_T."""
     W, H = 940, 400
-    f = Frame(W, H, (-3300, 3300), (-130, 130), (96, 70, 800, 250))
-    pts = [(x, y) for _, x, y in samples(K, -1, 1, 600)]
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S: t = −1 … 1, nothing beyond ±3,000</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">inflection at (0, 0) · the curve bends one way before it, the other way after · scales about 25:1</text>',
+    tw = float(ZOOM_T)
+    xm = abs(float(curve(K, ZOOM_T)[0]))
+    ym = abs(float(curve(K, ZOOM_T)[1]))
+    f = Frame(W, H, (-xm * 1.12, xm * 1.12), (-ym * 1.15, ym * 1.15), (96, 70, 800, 250))
+    pts = [(x, y) for _, x, y in samples(K, -tw, tw, 600)]
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q3 · the S window t = −1/128 … 1/128</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">inflection at (0, 0) · curvature at the edge about 4×10⁻⁷, against 1.5×10⁻⁵ at t = ½ — the S flattens, it does not sharpen</text>',
            f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
            f.axes()]
-    for v in (-3000, -1500, 0, 1500, 3000):
-        out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+20}" text-anchor="middle" font-size="12" fill="{MUTED}">{v:,}</text>')
-    for v in (-100, 0, 100):
-        out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="12" fill="{MUTED}">{v}</text>')
+    for v in nice_ticks(f.x0, f.x1):
+        out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+20}" text-anchor="middle" font-size="12" fill="{MUTED}">{v:g}</text>')
+    for v in nice_ticks(f.y0, f.y1):
+        out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="12" fill="{MUTED}">{v:g}</text>')
     out.append(f'<path d="{f.path(pts)}" fill="none" stroke="{INK}" stroke-width="2.6"/>')
-    for t in (-1, 0, 1):
+    for t in (-ZOOM_T, F(0), ZOOM_T):
         x, y = curve(K, t)
         px, py = f.fx(float(x)), f.fy(float(y))
-        out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5.5" fill="{PAPER}" stroke="{RED}" stroke-width="2.4"/>')
-        if t == 0:
-            out.append(f'<text x="{px+10:.1f}" y="{py+18:.1f}" font-size="12" fill="{RED}">inflection, (0, 0)</text>')
-        elif t == -1:
-            out.append(f'<text x="{px:.1f}" y="{py-12:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
-        else:
-            out.append(f'<text x="{px:.1f}" y="{py+22:.1f}" text-anchor="middle" font-size="12" fill="{RED}">({x}, {y})</text>')
-    out.append(f'<text x="{f.fx(0)+10:.1f}" y="{f.top+18}" font-size="12" fill="{MUTED}">the turn is just past t = 1, at x ≈ 3,007</text>')
+        out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5" fill="{PAPER}" stroke="{RED}" stroke-width="2.2"/>')
+        anchor = "start" if t < 0 else ("end" if t > 0 else "start")
+        dx = 9 if t <= 0 else -9
+        dy = -9 if t < 0 else (14 if t > 0 else -9)
+        label = "±1/128" if t != 0 else "inflection, (0, 0)"
+        out.append(f'<text x="{px+dx:.1f}" y="{py+dy:.1f}" text-anchor="{anchor}" font-size="12" fill="{RED}">{label}</text>')
     out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="13" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">y, units</text>')
     out.append(f'<text x="{f.left+f.pw/2:.0f}" y="{H-18}" text-anchor="middle" font-size="13" fill="{INK}">x, units</text>')
-    return svg(W, H, ("the S at the origin", "".join(out)))
+    return svg(W, H, ("the S window at t = 1/128", "".join(out)))
 
 
 def fig_cut():
@@ -289,33 +307,33 @@ def fig_grid():
 
 
 def fig_coords():
+    """x(t) and y(t) over the same window."""
     W, H = 940, 480
-    fa = Frame(W, H, (-3, 3), (-200000, 200000), (96, 70, 800, 150))
-    fb = Frame(W, H, (-3, 3), (-1000, 1000), (96, 280, 800, 150))
-    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · TQ(75) coordinate by coordinate: whole at every integer t</text>',
-           f'<text x="96" y="43" font-size="12" fill="{MUTED}">x(t) and y(t) against t · rings: the stops t = −3 … 3, where both are integers</text>']
+    tw = float(ZOOM_T)
+    xm = abs(float(curve(K, ZOOM_T)[0]))
+    ym = abs(float(curve(K, ZOOM_T)[1]))
+    fa = Frame(W, H, (-tw * 1.1, tw * 1.1), (-xm * 1.15, xm * 1.15), (96, 70, 800, 150))
+    fb = Frame(W, H, (-tw * 1.1, tw * 1.1), (-ym * 1.2, ym * 1.2), (96, 280, 800, 150))
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q6 · x(t) and y(t) over the same window, t = ±1/128</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">both are almost exactly straight lines at this scale — the same statement as Fig. Q3</text>']
     for f, lab in ((fa, "x, units"), (fb, "y, units")):
         out.append(f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>')
         out.append(f.axes())
-        for t in range(-3, 4):
-            out.append(f'<line x1="{f.fx(t):.1f}" y1="{f.top}" x2="{f.fx(t):.1f}" y2="{f.top+f.ph}" stroke="{RULE}" stroke-width="0.7"/>')
-        for t in range(-3, 4):
-            out.append(f'<text x="{f.fx(t):.1f}" y="{f.top+f.ph+16}" text-anchor="middle" font-size="11" fill="{MUTED}">{t}</text>')
+        for v in nice_ticks(f.x0, f.x1, 3):
+            out.append(f'<line x1="{f.fx(v):.1f}" y1="{f.top}" x2="{f.fx(v):.1f}" y2="{f.top+f.ph}" stroke="{RULE}" stroke-width="0.7"/>')
+            out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+16}" text-anchor="middle" font-size="11" fill="{MUTED}">{v:.4g}</text>')
+        for v in nice_ticks(f.y0, f.y1):
+            out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="11" fill="{MUTED}">{v:.4g}</text>')
         out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="12" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">{lab}</text>')
-    # this figure plots against t, so the samples are uniform in t
-    def f(t):
-        k2 = K * K
-        return (k2 * t**5 / 5 - 2 * k2 * t**3 / 3 + (k2 - 1) * t,
-                2 * K * (t**3 / 3 - t))
-    pts = [(t, *f(t)) for t in (-3 + 6 * i / 400 for i in range(401))]
+    pts = samples(K, -tw, tw, 300)
     out.append(f'<path d="{fa.path([(t, x) for t, x, _ in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
     out.append(f'<path d="{fb.path([(t, y) for t, _, y in pts])}" fill="none" stroke="{INK}" stroke-width="2.2"/>')
-    for t in range(-3, 4):
+    for t in (-ZOOM_T, F(0), ZOOM_T):
         x, y = curve(K, t)
-        out.append(f'<circle cx="{fa.fx(t):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
-        out.append(f'<circle cx="{fb.fx(t):.1f}" cy="{fb.fy(float(y)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
-    out.append(f'<text x="{fa.left+fa.pw/2:.0f}" y="{H-14}" text-anchor="middle" font-size="13" fill="{INK}">t — the parameter</text>')
-    return svg(W, H, ("x and y against t", "".join(out)))
+        out.append(f'<circle cx="{fa.fx(float(t)):.1f}" cy="{fa.fy(float(x)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+        out.append(f'<circle cx="{fb.fx(float(t)):.1f}" cy="{fb.fy(float(y)):.1f}" r="4" fill="{PAPER}" stroke="{RED}" stroke-width="2"/>')
+    out.append(f'<text x="{fa.left+fa.pw/2:.0f}" y="{H-14}" text-anchor="middle" font-size="13" fill="{INK}">t — the parameter, ±1/128</text>')
+    return svg(W, H, ("x and y over the S window", "".join(out)))
 
 
 def fig_points():
@@ -464,10 +482,11 @@ copies of one shape. The stops at t = ±2, ±3 are ringed; the origin and its S 
 <section class="panel">
 <h2>Fig. Q3 · the S, with the outliers left out</h2>
 {fig_zoom()}
-<p class="small">At t = 0 the curvature is zero: the origin is an inflection. Before it the
-curve bends one way, after it the other. The S is shallow because x grows about 25 times faster
-than y over this window — but the sign change is real. The turn itself is just past t = 1, at
-x ≈ 3,007, outside this plot.</p>
+<p class="small">This is the window t = ±1/128. It does not sharpen the S: the curvature at the
+edge is about 4×10⁻⁷, against 1.5×10⁻⁵ at t = ½, because the curvature is zero at the origin and
+grows outward. The S is most visible over t ≈ ±1, not near 0. The pitch that would make t = 1/128
+a whole cell is 128⁵ ≈ 3.4×10¹⁰, so this window is a shape view, not a lattice view. Change
+<code>ZOOM_T</code> in the generator and re-run to move it.</p>
 </section>
 
 <section class="panel">
@@ -509,8 +528,9 @@ points whole: a grid of 5.</p>
 <section class="panel">
 <h2>Fig. Q6 · coordinate by coordinate</h2>
 {fig_coords()}
-<p class="small">Both coordinates are integers at every integer t. That is the whole claim of the
-page, and it is what makes the stops usable.</p>
+<p class="small">Over the same ±1/128 window both coordinates are almost exactly straight
+lines — which is Fig. Q3's flat S seen from another side. Over the full range they are the curves
+you saw before; here the linear terms 5624t and −150t dominate completely.</p>
 </section>
 
 <section class="panel">
