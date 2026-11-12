@@ -655,7 +655,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
     const speedX = controlValues.slice(0, 3), speedY = controlValues.slice(3, 6);
     window.panelRecipes.q8 = { u: speedX, v: speedY };
     const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
-    const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+    const metrics = window.recipeMetrics(speedX, speedY);
     const curvePoints = [];
     let pointX = 0, pointY = 0;
     curvePoints.push([0, 0]);
@@ -665,39 +665,6 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
       pointY += 2 * speedXValue * speedYValue / sampleCount;
       curvePoints.push([pointX, pointY]);
     }
-    const headingAngles = [];
-    for (let i = 0; i <= sampleCount; i++) {
-      const t = i / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
-      headingAngles.push(Math.atan2(2 * speedXValue * speedYValue, speedXValue * speedXValue - speedYValue * speedYValue));
-    }
-    const unwrappedAngles = [headingAngles[0]];
-    for (let i = 1; i <= sampleCount; i++) {
-      let angle = headingAngles[i];
-      while (angle - unwrappedAngles[i - 1] > Math.PI) angle -= 2 * Math.PI;
-      while (angle - unwrappedAngles[i - 1] < -Math.PI) angle += 2 * Math.PI;
-      unwrappedAngles.push(angle);
-    }
-    const wronskianAt = t => {
-      const speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
-      return speedXValue * derivativeQuadratic(speedY, t) - speedYValue * derivativeQuadratic(speedX, t);
-    };
-    let inflectionParameter = null;
-    for (let i = 0; i < sampleCount; i++) {
-      const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
-      if (wronskianAt(lowT) * wronskianAt(highT) <= 0) {
-        let low = lowT, high = highT;
-        for (let k = 0; k < 40; k++) {
-          const middle = (low + high) / 2;
-          if (wronskianAt(low) * wronskianAt(middle) <= 0) high = middle; else low = middle;
-        }
-        inflectionParameter = (low + high) / 2;
-        break;
-      }
-    }
-    let arcLength = 0;
-    for (let i = 1; i < curvePoints.length; i++) arcLength += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
-    const chordLength = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0], curvePoints[sampleCount][1] - curvePoints[0][1]);
-    const bendRatio = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
     const coordinateXs = curvePoints.map(point => point[0]), coordinateYs = curvePoints.map(point => point[1]);
     const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
     const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
@@ -708,22 +675,13 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
     const toPixelX = value => offsetX + (value - minX) * plotScale;
     const toPixelY = value => offsetY + (maxY - value) * plotScale;
     const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
-    const pitchCells = window.recipeMetrics(speedX, speedY).pitch;
-    const closestApproach = (() => {
-      let closest = Infinity;
-      for (let i = 0; i <= sampleCount; i++) {
-        const t = i / sampleCount;
-        closest = Math.min(closest, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
-      }
-      return closest;
-    })();
     const centeredConstant = coefficients => coefficients[0] + coefficients[1] / 2 + coefficients[2] / 4;
     const centeredLinear = coefficients => coefficients[1] + coefficients[2];
     const formatTwoDecimals = value => (Math.abs(value) < 5e-9 ? "0" : value.toFixed(2));
-    const readoutText = `bend ${bendRatio.toFixed(2)} | pitch ${pitchCells.toLocaleString()} | ` +
-      `inflection ${inflectionParameter === null ? " - " : inflectionParameter.toFixed(2)} | closest ${closestApproach.toFixed(2)}`;
-    const inflectionMarker = inflectionParameter === null ? "" :
-      `<circle cx="${toPixelX(curvePoints[Math.round(inflectionParameter * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(inflectionParameter * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
+    const readoutText = `bend ${metrics.bend.toFixed(2)} | pitch ${metrics.pitch.toLocaleString()} | ` +
+      `inflection ${metrics.inflection === null ? " - " : metrics.inflection.toFixed(2)} | closest ${metrics.closest.toFixed(2)}`;
+    const inflectionMarker = metrics.inflection === null ? "" :
+      `<circle cx="${toPixelX(curvePoints[Math.round(metrics.inflection * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(metrics.inflection * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
     plotElement.innerHTML =
       `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
       `<text x="${plotMargin}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. Q8 | the recipe playground</text>` +
@@ -818,36 +776,15 @@ even pair does not have.</p>
   const canvasWidth = 900, canvasHeight = 470, plotMargin = 46, plotTopMargin = 88, sampleCount = 800;
   function drawCurve(plotElement, speedX, speedY, figureTitle) {
     const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
-    const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+    const metrics = window.recipeMetrics(speedX, speedY);
     const curvePoints = [[0, 0]];
-    let pointX = 0, pointY = 0, closestApproach = Infinity;
+    let pointX = 0, pointY = 0;
     for (let i = 1; i <= sampleCount; i++) {
       const t = (i - 0.5) / sampleCount, speedXValue = evalQuadratic(speedX, t), speedYValue = evalQuadratic(speedY, t);
       pointX += (speedXValue * speedXValue - speedYValue * speedYValue) / sampleCount;
       pointY += 2 * speedXValue * speedYValue / sampleCount;
       curvePoints.push([pointX, pointY]);
     }
-    for (let i = 0; i <= sampleCount; i++) {
-      const t = i / sampleCount;
-      closestApproach = Math.min(closestApproach, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
-    }
-    const wronskianAt = t => evalQuadratic(speedX, t) * derivativeQuadratic(speedY, t) - evalQuadratic(speedY, t) * derivativeQuadratic(speedX, t);
-    let inflectionParameter = null;
-    for (let i = 0; i < sampleCount && inflectionParameter === null; i++) {
-      const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
-      if (wronskianAt(lowT) * wronskianAt(highT) <= 0) {
-        let low = lowT, high = highT;
-        for (let k = 0; k < 40; k++) {
-          const middle = (low + high) / 2;
-          if (wronskianAt(low) * wronskianAt(middle) <= 0) high = middle; else low = middle;
-        }
-        inflectionParameter = (low + high) / 2;
-      }
-    }
-    let arcLength = 0;
-    for (let i = 1; i < curvePoints.length; i++) arcLength += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
-    const chordLength = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0], curvePoints[sampleCount][1] - curvePoints[0][1]);
-    const bendRatio = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
     const coordinateXs = curvePoints.map(point => point[0]), coordinateYs = curvePoints.map(point => point[1]);
     const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
     const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
@@ -858,10 +795,9 @@ even pair does not have.</p>
     const toPixelX = value => offsetX + (value - minX) * plotScale;
     const toPixelY = value => offsetY + (maxY - value) * plotScale;
     const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
-    const pitchCells = window.recipeMetrics(speedX, speedY).pitch;
-    const readoutText = `bend ${bendRatio.toFixed(2)} | pitch ${pitchCells.toLocaleString()} | inflection ${inflectionParameter === null ? " - " : inflectionParameter.toFixed(2)} | closest ${closestApproach.toFixed(2)}`;
-    const inflectionMarker = inflectionParameter === null ? "" :
-      `<circle cx="${toPixelX(curvePoints[Math.round(inflectionParameter * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(inflectionParameter * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
+    const readoutText = `bend ${metrics.bend.toFixed(2)} | pitch ${metrics.pitch.toLocaleString()} | inflection ${metrics.inflection === null ? " - " : metrics.inflection.toFixed(2)} | closest ${metrics.closest.toFixed(2)}`;
+    const inflectionMarker = metrics.inflection === null ? "" :
+      `<circle cx="${toPixelX(curvePoints[Math.round(metrics.inflection * sampleCount)][0])}" cy="${toPixelY(curvePoints[Math.round(metrics.inflection * sampleCount)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
     plotElement.innerHTML =
       `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
       `<text x="${plotMargin}" y="28" font-size="15" font-weight="600" fill="#2e2413">${figureTitle}</text>` +
