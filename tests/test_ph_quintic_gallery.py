@@ -115,11 +115,55 @@ class TestGallery(unittest.TestCase):
         self.assertIn("bend", page)
         self.assertIn("Math.atan2", page)
 
+    def test_q8_playground_is_wired_and_its_defaults_are_the_target(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        for id_ in ("u0", "u1", "u2", "v0", "v1", "v2", "q8panel", "q8read"):
+            self.assertIn(f'id="{id_}"', page)
+        self.assertIn("pitch", page)
+        # the default recipe is the simplified curve 15, pitch 1500
+        infl, pitch, end, swing = G.s_info((F(1, 5), -2, 2), (F(2, 5), F(-3, 2), F(8, 5)))
+        self.assertEqual(pitch, 1500)
+        # the Q7 starting recipe, c = 1, is free on the grid
+        infl, pitch, end, swing = G.s_info((1, 0, 0), (1, -4, 4))
+        self.assertEqual(pitch, 15)
+
+    def test_the_bend_two_proposals_are_wired(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        for tag in ("Fig. Q9", "Fig. Q10", "Fig. Q11"):
+            self.assertIn(tag, page)
+        for host in ("q9ctl", "q9svg", "q9read", "q10ctl", "q10svg", "q10read",
+                     "q11ctl", "q11svg", "q11read"):
+            self.assertIn(f'id="{host}"', page)
+        self.assertIn("phPanel(", page)
+
+        def bend(u, v):
+            pts = G.uv_samples(u, v, 400)
+            arc = sum(((b[1] - a[1]) ** 2 + (b[2] - a[2]) ** 2) ** 0.5
+                      for a, b in zip(pts, pts[1:]))
+            chord = ((pts[-1][1] - pts[0][1]) ** 2 + (pts[-1][2] - pts[0][2]) ** 2) ** 0.5
+            return arc / chord
+
+        # Q9: v = 4u - 6
+        infl, pitch, end, swing = G.s_info((2, -3, 3), (2, -12, 12))
+        self.assertEqual(pitch, 10)
+        self.assertAlmostEqual(bend((2, -3, 3), (2, -12, 12)), 2.0, delta=0.02)
+        # Q10 landmarks
+        infl, pitch, end, swing = G.s_info((F(1, 2), F(-1, 2), F(1, 2)),
+                                           (F(39, 50), -4, 4))
+        self.assertEqual(pitch, 15000)
+        self.assertAlmostEqual(bend((F(1, 2), F(-1, 2), F(1, 2)),
+                                    (F(39, 50), -4, 4)), 2.01, delta=0.02)
+        # Q11: the 2.04 find, and its x10 form at pitch 2
+        infl, pitch, end, swing = G.s_info((5, -5, 5), (7, -40, 40))
+        self.assertEqual(pitch, 2)
+        self.assertAlmostEqual(bend((5, -5, 5), (7, -40, 40)), 2.69, delta=0.02)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)
         self.assertIn("24 S", page)
-        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6", "Fig. Q6b", "Fig. Q7"):
+        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6", "Fig. Q6b", "Fig. Q7",
+                    "Fig. Q8", "Fig. Q9", "Fig. Q10", "Fig. Q11"):
             self.assertIn(tag, page)
         self.assertIn("Moving the root inside", page)
         self.assertIn("ph-quintic-lattice.html", page)

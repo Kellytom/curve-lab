@@ -54,6 +54,13 @@ class Workbench(SimpleHTTPRequestHandler):
                 return
         super().do_GET()
 
+    def end_headers(self):
+        # A page is regenerated on disk; the browser must not keep an old copy.
+        path = self.path.split("?", 1)[0]
+        if path in ("", "/") or path.endswith((".html", ".htm")):
+            self.send_header("Cache-Control", "no-store, max-age=0")
+        super().end_headers()
+
     def log_message(self, fmt, *args):
         if " 302 " in (fmt % args):
             print("  redirect", self.path, "->", f"/workbench{self.path}")
