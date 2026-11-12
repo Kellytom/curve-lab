@@ -2,6 +2,13 @@
   "title": "PH quintic preset recipes",
   "generator": "scripts/ph_quintic_presets.py",
   "convention": "u and v are exact fractions as strings; the curve is r(t) = integral of (u + i v)^2 dt; pitch is the lcm of the integrated coefficients' denominators; bend is arc / chord",
+  "how_to_find": [
+    "never let v be a multiple of u: arg(w) is then constant and the curve is straight",
+    "choose the heading turn first: 167 deg gives bend 2.00, 215 deg gives 5.58, past 230 deg it loops",
+    "use the even pair u0 - u2 t + u2 t^2, v0 - v2 t + v2 t^2 for an inflection at t = 1/2",
+    "move the speed path nearer the origin to add bend; keep the closest approach above zero",
+    "clear the denominators last: the pitch is the lcm, and scaling the recipe by n divides it by n^2"
+  ],
   "presets": [
     {
       "id": "the-target",
@@ -309,6 +316,62 @@
       "endpoint_at_pitch": [
         "17",
         "10"
+      ]
+    },
+    {
+      "id": "round-224",
+      "label": "yours \u00b7 v\u2080 = 0.5 \u00b7 bend 2.24",
+      "source": "Q8",
+      "note": "the v\u2080 = 0.5 variant: same turn, cheaper pitch than 0.7",
+      "u": [
+        "1/2",
+        "-1/2",
+        "1/2"
+      ],
+      "v": [
+        "1/2",
+        "-4",
+        "4"
+      ],
+      "bend": 2.24,
+      "pitch": 120,
+      "inflection": 0.5,
+      "closest_approach": 0.43,
+      "endpoint": [
+        "7/120",
+        "-7/60"
+      ],
+      "endpoint_at_pitch": [
+        "7",
+        "-14"
+      ]
+    },
+    {
+      "id": "round-224-x2",
+      "label": "v\u2080 = 0.5 \u00d72 \u00b7 bend 2.24",
+      "source": "Q8",
+      "note": "the integer form: bend 2.24, pitch 30, endpoint (7, \u221214)",
+      "u": [
+        "1",
+        "-1",
+        "1"
+      ],
+      "v": [
+        "1",
+        "-8",
+        "8"
+      ],
+      "bend": 2.24,
+      "pitch": 30,
+      "inflection": 0.5,
+      "closest_approach": 0.87,
+      "endpoint": [
+        "7/30",
+        "-7/15"
+      ],
+      "endpoint_at_pitch": [
+        "7",
+        "-14"
       ]
     },
     {

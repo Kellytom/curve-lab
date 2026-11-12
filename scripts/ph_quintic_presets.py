@@ -51,6 +51,10 @@ CASES = [
      "Q8", "the round decimal S; at ×10 its pitch is 2"),
     ("round-269-x10", "yours ×10", (5, -5, 5), (7, -40, 40),
      "Q8", "the same shape as yours, pitch 2"),
+    ("round-224", "yours · v₀ = 0.5 · bend 2.24", (F(1, 2), F(-1, 2), F(1, 2)),
+     (F(1, 2), -4, 4), "Q8", "the v₀ = 0.5 variant: same turn, cheaper pitch than 0.7"),
+    ("round-224-x2", "v₀ = 0.5 ×2 · bend 2.24", (1, -1, 1), (1, -8, 8),
+     "Q8", "the integer form: bend 2.24, pitch 30, endpoint (7, −14)"),
     ("find-204", "the 2.04 find", (F(74, 125), F(-53, 100), F(53, 100)),
      (F(347, 500), F(-506, 125), F(4099, 1000)),
      "Q7", "b = 6.7, a = −1, λ = 0.51; decimals make the pitch 15 million"),
@@ -109,6 +113,13 @@ def build_document(records):
             "r(t) = integral of (u + i v)^2 dt; pitch is the lcm of the "
             "integrated coefficients' denominators; bend is arc / chord"
         ),
+        "how_to_find": [
+            "never let v be a multiple of u: arg(w) is then constant and the curve is straight",
+            "choose the heading turn first: 167 deg gives bend 2.00, 215 deg gives 5.58, past 230 deg it loops",
+            "use the even pair u0 - u2 t + u2 t^2, v0 - v2 t + v2 t^2 for an inflection at t = 1/2",
+            "move the speed path nearer the origin to add bend; keep the closest approach above zero",
+            "clear the denominators last: the pitch is the lcm, and scaling the recipe by n divides it by n^2",
+        ],
         "presets": records,
     }
 

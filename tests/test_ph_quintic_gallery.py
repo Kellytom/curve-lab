@@ -172,6 +172,7 @@ class TestGallery(unittest.TestCase):
                     "Fig. Q8", "Fig. Q9", "Fig. Q10", "Fig. Q11"):
             self.assertIn(tag, page)
         self.assertIn("Moving the root inside", page)
+        self.assertIn("How to find a preset", page)
         self.assertIn("ph-quintic-lattice.html", page)
         self.assertEqual(page.count("<tr>"), 49)   # header + 48 rows
 

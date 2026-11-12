@@ -365,6 +365,8 @@ stronger S at bend 2.69 — and at ×10 its pitch drops to 2, the cheapest grid 
   <button type="button" data-preset-values="2,-3,3,2,-12,12">bend 2.00 · v = 4u − 6 (pitch 10)</button>
   <button type="button" data-preset-values="3,-9,9,1,-15,15">bend 2.00 · pitch 5</button>
   <button type="button" data-preset-values="0.5,-0.5,0.5,0.7,-4,4">yours · bend 2.69</button>
+  <button type="button" data-preset-values="0.5,-0.5,0.5,0.5,-4,4">v₀ = 0.5 · bend 2.24 (pitch 120)</button>
+  <button type="button" data-preset-values="1,-1,1,1,-8,8">v₀ = 0.5 ×2 · bend 2.24 (pitch 30)</button>
 </div>
 <svg id="q8-plot" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
 <p class="small" id="q8-readout"></p>
@@ -750,6 +752,40 @@ even pair does not have.</p>
      { label: "×10 of 0.5 / 0.7 · pitch 2", values: [5, 5, 7, -40, 40] }]);
 })();
 </script>
+
+<section class="panel">
+<h2>How to find a preset</h2>
+<p>Work with the speed path <code>w(t) = u + i v</code>, not with the curve. The curve is
+<code>r = ∫w²</code>, so its heading is <code>2·arg(w)</code>: the bend is decided by how far the
+direction of <code>w</code> sweeps, and by how close <code>w</code> passes to the origin.</p>
+<ol>
+  <li><strong>Never let <code>v</code> be a multiple of <code>u</code>.</strong> If <code>v = k·u</code>
+    then <code>arg(w)</code> is constant, the curve is a straight line (bend 1.00), and if that line
+    passes the origin the speed vanishes and you get a cusp instead. Bend needs <code>v/u</code> to
+    change with <code>t</code>.</li>
+  <li><strong>Choose the heading turn first.</strong> The heading is twice <code>arg(w)</code>, so the
+    turn is twice the sweep of the speed path. Measured on this page: turn 167° gives bend 2.00; 186°
+    gives 2.0–2.7; 215° gives 5.58; past about 230° the curve loops and the bend runs away.</li>
+  <li><strong>Use the even pair</strong> <code>u = u₀ − u₂t + u₂t²</code>,
+    <code>v = v₀ − v₂t + v₂t²</code>. Point symmetry puts the inflection exactly at t = ½ and makes
+    the two lobes equal, so the turn is shared evenly.</li>
+  <li><strong>Fine-tune with the closest approach.</strong> Move the speed path nearer the origin to
+    add bend at the same turn — but keep the closest approach strictly above zero, or the speed
+    vanishes and the curve cusps.</li>
+  <li><strong>Clear the denominators last.</strong> The pitch is the lcm of the integrated
+    coefficients' denominators; scaling the whole recipe by <code>n</code> divides the pitch by
+    <code>n²</code>. Decimals cost pitch — 1.5 is dearer than 2.</li>
+  <li><strong>Read three numbers before keeping it:</strong> bend, an inflection strictly inside
+    (0, 1), and a closest approach above zero. No inflection means a C, not an S; closest 0 means a
+    cusp.</li>
+</ol>
+<p class="small">Worked example: the even pair with <code>u₂ = v₂ = 4</code>, <code>v₀ = 0.7</code> is
+bend 2.69 at pitch 200. Drop <code>v₀</code> to 0.5 and the same turn gives bend 2.24 at pitch 120;
+double the recipe to <code>u = 1 − t + t²</code>, <code>v = 1 − 8t + 8t²</code> and the pitch is 30,
+endpoint (7, −14). All fourteen saved recipes are in
+<a href="ph-quintic-presets.json">the preset JSON</a> and on
+<a href="ph-quintic-presets.svg">the preset sheet</a>.</p>
+</section>
 
 <section class="panel">
 <h2>How the tests read</h2>
