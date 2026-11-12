@@ -439,6 +439,22 @@ largest number in the six control points of the first piece.</p>
 </section>
 
 <section class="panel">
+<h2>Stops at a pitch: t does not have to be an integer</h2>
+<p>The integer t are the stops of the <em>unit</em> lattice. At a pitch, any rational t is a stop:
+the point is rational, and the pitch that clears its denominators makes it an integer cell. The
+price is the pitch, and it grows fast.</p>
+<table>
+<tr><th>t</th><th>the point</th><th>pitch that makes it whole</th><th>the point in cells</th></tr>
+<tr><td>1/2</td><td>(76109/32, −275/4)</td><td>32</td><td>(76109, −2200)</td></tr>
+<tr><td>1/5</td><td>(27379/25, −148/5)</td><td>25</td><td>(27379, −740)</td></tr>
+<tr><td>1/4</td><td>(1380869/1024, −1175/32)</td><td>1024</td><td>(1380869, −37600)</td></tr>
+</table>
+<p class="small">So the answer to "how many hits" depends on the pitch: pitch 1 gives the integers,
+pitch 32 adds the halves, pitch 1024 adds the quarters. The grid of 5 in the table above is the
+control grid, not the hit grid — those are different numbers.</p>
+</section>
+
+<section class="panel">
 <h2>Fig. Q2 · all four quadrants</h2>
 {fig_full()}
 <p class="small">The curve is odd in both coordinates, so the four quadrants hold two mirror
