@@ -338,12 +338,15 @@ def table():
 
 
 EXTRA = r"""<section class="panel">
-<h2>Fig. Q7 · the slider: one number sets the swing</h2>
-<p>The family above, live. <code>b</code> sets the swing — <code>2·atan(b/(4−a))</code> per side —
-and <code>a</code> shifts where the bend sits. The inflection stays at t = 1/2 for every setting,
-because <code>W = b(2t−1)</code> does not depend on <code>a</code> at all. The third slider
-<code>λ</code> walks from that exact family (λ = 0) to Q6's curve 15 (λ = 1), which is a nearly
-balanced loop: 204° on each side, inflection at 0.47.</p>
+<h2>Fig. Q7 · the sliders: b sets the swing, λ adds more swing</h2>
+<p><strong>b</strong> sets the swing — <code>2·atan(b/(4−a))</code> per side. <strong>a</strong>
+shifts where the bend sits and never moves the inflection. <strong>λ</strong> adds swing only: it
+multiplies the swing parameter by <code>1 + 3λ</code>, so the curve stays exactly balanced and the
+inflection stays at t = ½. At λ = 0 you get the family as set; at λ = 1 you get four times the
+bend.</p>
+<p>In plain words: b and λ both make the S sharper, but λ does it without changing anything else —
+the two sides stay equal and the turn stays in the middle. Nothing about the shape changes except
+the amount of bend.</p>
 <div class="slider-row">
   <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
   <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
@@ -354,28 +357,28 @@ balanced loop: 204° on each side, inflection at 0.47.</p>
 <script>
 (function () {
   const svg = document.getElementById("qpanel");
-  const W = 900, H = 420, m = 46;
-  const U15 = [0.2, -1.9, 1.9], V15 = [0.4, -1.5, 1.6];
-  const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
-  const dv = (p, t) => p[1] + 2 * p[2] * t;
+  const W = 900, H = 420, m = 46, N = 600;
+  const ev = (a, b, t) => {
+    const s = t * t - t;
+    return [a * s + 1, b * s];
+  };
   function draw() {
     const a = +document.getElementById("qa").value;
     const b = +document.getElementById("qb").value;
     const lam = +document.getElementById("ql").value;
-    const U = [1, -a, a].map((c, i) => (1 - lam) * c + lam * U15[i]);
-    const V = [0, -b, b].map((c, i) => (1 - lam) * c + lam * V15[i]);
-    const N = 700, pts = [];
+    const beff = b * (1 + 3 * lam);
+    const pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
     for (let i = 1; i <= N; i++) {
-      const t = (i - 0.5) / N, u = ev(U, t), v = ev(V, t), dt = 1 / N;
-      x += (u * u - v * v) * dt;
-      y += 2 * u * v * dt;
+      const [u, v] = ev(a, beff, (i - 0.5) / N);
+      x += (u * u - v * v) / N;
+      y += 2 * u * v / N;
       pts.push([x, y]);
     }
     const th = [];
     for (let i = 0; i <= N; i++) {
-      const t = i / N, u = ev(U, t), v = ev(V, t);
+      const [u, v] = ev(a, beff, i / N);
       th.push(Math.atan2(2 * u * v, u * u - v * v));
     }
     const un = [th[0]];
@@ -385,26 +388,10 @@ balanced loop: 204° on each side, inflection at 0.47.</p>
       while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
       un.push(q);
     }
-    const Wf = t => { const u = ev(U, t), v = ev(V, t); return u * dv(V, t) - v * dv(U, t); };
-    let root = null;
-    for (let i = 0; i < N; i++) {
-      const t0 = i / N, t1 = (i + 1) / N;
-      if (Wf(t0) * Wf(t1) <= 0) {
-        let lo = t0, hi = t1;
-        for (let k = 0; k < 40; k++) {
-          const mid = (lo + hi) / 2;
-          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
-        }
-        root = (lo + hi) / 2;
-        break;
-      }
-    }
-    let s0 = 0, s1 = 0;
-    if (root !== null) {
-      const k = Math.round(root * N);
-      s0 = Math.abs(un[k] - un[0]) * 180 / Math.PI;
-      s1 = Math.abs(un[N] - un[k]) * 180 / Math.PI;
-    }
+    const mid = N / 2;
+    const s0 = Math.abs(un[mid] - un[0]) * 180 / Math.PI;
+    const s1 = Math.abs(un[N] - un[mid]) * 180 / Math.PI;
+    const bal = 100 * Math.min(s0, s1) / Math.max(s0, s1);
     const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
     const y0 = Math.min(...ys), y1 = Math.max(...ys);
@@ -417,23 +404,24 @@ balanced loop: 204° on each side, inflection at 0.47.</p>
     const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     const compass = (px, py, u, v, sgn) => {
       const dx = u * u - v * v, dy = 2 * u * v, n = Math.hypot(dx, dy) || 1;
-      const sx = sgn * dx / n, sy = -sgn * dy / n, r = 17;
-      const gx = fx(px) + sx * (5 + r), gy = fy(py) + sy * (5 + r);
-      return `<circle cx="${gx}" cy="${gy}" r="${r}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
-        `<line x1="${gx - sx * r * 0.62}" y1="${gy - sy * r * 0.62}" x2="${gx + sx * r * 0.62}" y2="${gy + sy * r * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
+      const sx = sgn * dx / n, sy = -sgn * dy / n, rr = 17;
+      const gx = fx(px) + sx * (5 + rr), gy = fy(py) + sy * (5 + rr);
+      return `<circle cx="${gx}" cy="${gy}" r="${rr}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
+        `<line x1="${gx - sx * rr * 0.62}" y1="${gy - sy * rr * 0.62}" x2="${gx + sx * rr * 0.62}" y2="${gy + sy * rr * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
     };
-    const ring = root === null ? "" :
-      `<circle cx="${fx(pts[Math.round(root * N)][0])}" cy="${fy(pts[Math.round(root * N)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
+    const [u0, v0] = ev(a, beff, 0);
+    const [u1, v1] = ev(a, beff, 1);
     svg.innerHTML =
       `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
       `<line x1="${fx(0)}" y1="0" x2="${fx(0)}" y2="${H}" stroke="#d8ccae"/>` +
       `<line x1="0" y1="${fy(0)}" x2="${W}" y2="${fy(0)}" stroke="#d8ccae"/>` +
-      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + ring +
-      compass(pts[0][0], pts[0][1], ev(U, 0), ev(V, 0), -1) +
-      compass(pts[N][0], pts[N][1], ev(U, 1), ev(V, 1), 1) +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · inflection ${root === null ? "—" : root.toFixed(2)} · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
+      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
+      `<circle cx="${fx(pts[mid][0])}" cy="${fy(pts[mid][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
+      compass(pts[0][0], pts[0][1], u0, v0, -1) +
+      compass(pts[N][0], pts[N][1], u1, v1, 1) +
+      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50 · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
     document.getElementById("qread").textContent =
-      `swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · inflection ${root === null ? "—" : root.toFixed(2)}`;
+      `swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50`;
   }
   for (const id of ["qa", "qb", "ql"]) document.getElementById(id).addEventListener("input", draw);
   draw();
