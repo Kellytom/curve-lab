@@ -160,16 +160,17 @@ slider, and the top half is the bottom half turned through 180°.</p>
 <h2>Fig. Q7 · the sliders: b sets the swing, λ adds more swing</h2>
 <p><strong>b</strong> sets the swing — <code>2·atan(b/(4−a))</code> per side. <strong>a</strong>
 shifts where the bend sits and never moves the inflection. <strong>λ</strong> adds swing only: it
-multiplies the swing parameter by <code>1 + 3λ</code>, so the curve stays exactly balanced and the
-inflection stays at t = ½. At λ = 0 you get the family as set; at λ = 1 you get four times the
-bend.</p>
+multiplies the swing parameter by <code>1 + 4λ</code>, so the curve stays exactly balanced and the
+inflection stays at t = ½. λ runs from 0 to 5, which takes the swing from the b setting up to
+about 177° per side.</p>
 <p>In plain words: b and λ both make the S sharper, but λ does it without changing anything else —
 the two sides stay equal and the turn stays in the middle. Nothing about the shape changes except
-the amount of bend.</p>
+the amount of bend. It stops short of 180° because the exact family is point-symmetric: the heading
+has to come back to where it started, and that caps the turn at a half-turn.</p>
 <div class="slider-row">
   <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
   <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
-  <label>λ <input id="ql" type="range" min="0" max="1" step="0.01" value="0"></label>
+  <label>λ <input id="ql" type="range" min="0" max="5" step="0.1" value="0"></label>
   <span id="qread" class="small"></span>
 </div>
 <svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
@@ -185,7 +186,7 @@ the amount of bend.</p>
     const a = +document.getElementById("qa").value;
     const b = +document.getElementById("qb").value;
     const lam = +document.getElementById("ql").value;
-    const beff = b * (1 + 3 * lam);
+    const beff = b * (1 + 4 * lam);
     const pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
