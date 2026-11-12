@@ -1,7 +1,11 @@
-"""Figure: the curve's whole-number hits, with the twelve-triangle chain.
+"""Figure T1 in grid cells, not units: every coordinate an integer.
 
-Curve t in [-3, 3]; step width 1/4, so the pitch is 256 cells per unit.
-y is up in the model. SVG y is down, so the flip happens once, in fy().
+Pitch 256 cells per unit, so one unit is 256 cells and the whole-number points
+sit at integer cells: nose (0, 0), waist (0, 768), tips (+-1536, 2304).
+The SVG is drawn in cell coordinates with width/height set to display size, so
+Inkscape opens it on the integer grid.
+
+y is up in the model; the flip happens once, in fy().
 
 Run:  .venv/bin/python tph_tri_chain/glyph.py
 """
@@ -12,17 +16,19 @@ from fractions import Fraction as F
 
 from chain import chain, grid, integral
 
-T_MAX = F(3)        # the first lattice stop
-N_HALF = 12         # twelve triangles per branch, as asked
+T_MAX = F(3)
+N_HALF = 12
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
+
+INK, MUTED, RULE, PAPER = "#2e2413", "#7b6c4e", "#d8ccae", "#fbf7ec"
+GREY, BLUE, RED = "#7a6a4a", "#5b8fc9", "#a23b2a"
 
 
 def build():
     pos, dt = chain(F(0), T_MAX, N_HALF)
     g = grid(pos)
-    left = []
-    x = y = F(0)
-    for r in pos:                       # mirror, travelling out from the nose
+    left, x, y = [], F(0), F(0)
+    for r in pos:
         x -= r["dx"]
         y += r["dy"]
         left.append(dict(t=-r["t"], dx=-r["dx"], dy=r["dy"], ds=r["ds"], x=x, y=y))
@@ -42,120 +48,126 @@ def write_csv(nodes, g):
     path = os.path.join(OUT, "lattice-t3.csv")
     with open(path, "w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["step", "t_mid", "dx_cells", "dy_cells", "ds_cells",
-                    "X_cells", "Y_cells", "dx", "dy", "ds", "x", "y"])
+        w.writerow(["step", "t_mid", "X_cells", "Y_cells", "dx_cells", "dy_cells",
+                    "ds_cells", "x_unit", "y_unit"])
         for nd in nodes[1:]:
-            w.writerow([nd["i"], f"{float(nd['t']):+.2f}", int(nd["dx"] * g),
-                        int(nd["dy"] * g), int(nd["ds"] * g),
-                        int(nd["x"] * g), int(nd["y"] * g),
-                        f"{float(nd['dx']):.6f}", f"{float(nd['dy']):.6f}",
-                        f"{float(nd['ds']):.6f}", f"{float(nd['x']):.6f}",
+            w.writerow([nd["i"], f"{float(nd['t']):+.2f}", int(nd["x"] * g),
+                        int(nd["y"] * g), int(nd["dx"] * g), int(nd["dy"] * g),
+                        int(nd["ds"] * g), f"{float(nd['x']):.6f}",
                         f"{float(nd['y']):.6f}"])
     return path
 
 
-def smooth(n=360):
-    return [(float(t - t**3 / 3), float(t**2))
-            for t in (-T_MAX + 2 * T_MAX * F(k, n) for k in range(n + 1))]
+def smooth_cells(g, n=240):
+    out = []
+    for k in range(n + 1):
+        t = -T_MAX + 2 * T_MAX * F(k, n)
+        out.append(((t - t ** 3 / 3) * g, t * t * g))
+    return out
 
 
 def svg(nodes, g, path):
-    xs = [float(n["x"]) for n in nodes]
-    ys = [float(n["y"]) for n in nodes]
-    xmin, xmax = min(xs + [-6.0]) - 0.30, max(xs + [6.0]) + 0.30
-    ymin, ymax = -0.55, max(ys + [9.0]) + 0.55
+    # canvas in cells
+    xmin, xmax = -1664, 1664
+    ymin, ymax = -192, 2496
+    ml, mr, mt, mb = 200, 90, 460, 520
+    W = ml + (xmax - xmin) + mr
+    H = mt + (ymax - ymin) + mb
 
-    ml, mr, mt, mb = 92, 54, 128, 200
-    avail_w, avail_h = 680, 780
-    sc = min(avail_w / (xmax - xmin), avail_h / (ymax - ymin))
-    W = ml + sc * (xmax - xmin) + mr
-    H = mt + sc * (ymax - ymin) + mb
+    def fx(X):
+        return ml + (float(X) - xmin)
 
-    def fx(x):
-        return ml + (x - xmin) * sc
+    def fy(Y):                      # the one flip: model y up -> SVG y down
+        return mt + (ymax - float(Y))
 
-    def fy(y):                      # the one y flip: model y up -> SVG y down
-        return mt + (ymax - y) * sc
+    step = 256 * 2                  # a labelled tick every two units
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="{900*H/W:.0f}" '
+         f'viewBox="0 0 {W} {H}" font-family="Georgia, serif">',
+         f'<rect width="{W}" height="{H}" fill="{PAPER}"/>']
 
-    o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W:.0f}" height="{H:.0f}" '
-         f'viewBox="0 0 {W:.0f} {H:.0f}" font-family="Helvetica, Arial, sans-serif">',
-         f'<rect width="{W:.0f}" height="{H:.0f}" fill="#fff"/>']
-
-    for k in range(-28, 29):
-        o.append(f'<line x1="{fx(k/4):.1f}" y1="{fy(ymin):.1f}" x2="{fx(k/4):.1f}" '
-                 f'y2="{fy(ymax):.1f}" stroke="#f4efe2" stroke-width="1"/>')
+    # pale lines every quarter unit (64 cells), solid every unit (256 cells)
+    for k in range(-26, 27):
+        X = k * 64
+        o.append(f'<line x1="{fx(X):.0f}" y1="{fy(ymin):.0f}" x2="{fx(X):.0f}" '
+                 f'y2="{fy(ymax):.0f}" stroke="#f4efe2" stroke-width="2"/>')
     for k in range(0, 41):
-        o.append(f'<line x1="{fx(xmin):.1f}" y1="{fy(k/4):.1f}" x2="{fx(xmax):.1f}" '
-                 f'y2="{fy(k/4):.1f}" stroke="#f4efe2" stroke-width="1"/>')
-    for k in range(-6, 7):
-        o.append(f'<line x1="{fx(k):.1f}" y1="{fy(ymin):.1f}" x2="{fx(k):.1f}" '
-                 f'y2="{fy(ymax):.1f}" stroke="#ddd3b8" stroke-width="1.2"/>')
-        o.append(f'<text x="{fx(k):.1f}" y="{fy(0)+17:.1f}" font-size="12" '
-                 f'text-anchor="middle" fill="#666">{k}</text>')
-    for k in range(0, 10):
-        o.append(f'<line x1="{fx(xmin):.1f}" y1="{fy(k):.1f}" x2="{fx(xmax):.1f}" '
-                 f'y2="{fy(k):.1f}" stroke="#ddd3b8" stroke-width="1.2"/>')
-        o.append(f'<text x="{fx(0)-9:.1f}" y="{fy(k)+4:.1f}" font-size="12" '
-                 f'text-anchor="end" fill="#666">{k}</text>')
+        Y = k * 64
+        o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(Y):.0f}" x2="{fx(xmax):.0f}" '
+                 f'y2="{fy(Y):.0f}" stroke="#f4efe2" stroke-width="2"/>')
+    for X in range(-1536, 1537, 256):
+        o.append(f'<line x1="{fx(X):.0f}" y1="{fy(ymin):.0f}" x2="{fx(X):.0f}" '
+                 f'y2="{fy(ymax):.0f}" stroke="{RULE}" stroke-width="3"/>')
+    for Y in range(0, 2305, 256):
+        o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(Y):.0f}" x2="{fx(xmax):.0f}" '
+                 f'y2="{fy(Y):.0f}" stroke="{RULE}" stroke-width="3"/>')
 
-    o.append(f'<line x1="{fx(xmin):.1f}" y1="{fy(0):.1f}" x2="{fx(xmax):.1f}" '
-             f'y2="{fy(0):.1f}" stroke="#3a3a3a" stroke-width="2.4"/>')
-    o.append(f'<line x1="{fx(0):.1f}" y1="{fy(ymin):.1f}" x2="{fx(0):.1f}" '
-             f'y2="{fy(ymax):.1f}" stroke="#3a3a3a" stroke-width="2.4"/>')
-    o.append(f'<text x="{fx(xmax)+8:.1f}" y="{fy(0)+5:.1f}" font-size="15" fill="#222">x</text>')
-    o.append(f'<text x="{fx(0)+9:.1f}" y="{fy(ymax)-6:.1f}" font-size="15" fill="#222">y</text>')
+    for X in range(-1536, 1537, step):
+        o.append(f'<text x="{fx(X):.0f}" y="{fy(0)+52:.0f}" font-size="52" '
+                 f'text-anchor="middle" fill="{MUTED}">{X}</text>')
+    for Y in range(0, 2305, step):
+        o.append(f'<text x="{fx(0)-18:.0f}" y="{fy(Y)+18:.0f}" font-size="52" '
+                 f'text-anchor="end" fill="{MUTED}">{Y}</text>')
 
-    # chain legs
+    o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(0):.0f}" x2="{fx(xmax):.0f}" '
+             f'y2="{fy(0):.0f}" stroke="{INK}" stroke-width="6"/>')
+    o.append(f'<line x1="{fx(0):.0f}" y1="{fy(ymin):.0f}" x2="{fx(0):.0f}" '
+             f'y2="{fy(ymax):.0f}" stroke="{INK}" stroke-width="6"/>')
+    o.append(f'<text x="{fx(xmax)+24:.0f}" y="{fy(0)+16:.0f}" font-size="56" '
+             f'fill="{INK}">x</text>')
+    o.append(f'<text x="{fx(0)+20:.0f}" y="{fy(ymax)-24:.0f}" font-size="56" '
+             f'fill="{INK}">y</text>')
+
+    # right triangles: legs in cell space
     for nd in nodes[1:]:
-        x0, y0 = float(nd["x"]) - float(nd["dx"]), float(nd["y"]) - float(nd["dy"])
-        x1, y1 = float(nd["x"]), float(nd["y"])
-        o.append(f'<polyline points="{fx(x0):.1f},{fy(y0):.1f} {fx(x1):.1f},{fy(y0):.1f} '
-                 f'{fx(x1):.1f},{fy(y1):.1f}" fill="none" stroke="#9bb7d4" stroke-width="1"/>')
+        x0, y0 = float(nd["x"] * g), float(nd["y"] * g)
+        x1, y1 = x0 + float(nd["dx"] * g), y0 + float(nd["dy"] * g)
+        o.append(f'<polyline points="{fx(x0):.0f},{fy(y0):.0f} {fx(x1):.0f},{fy(y0):.0f} '
+                 f'{fx(x1):.0f},{fy(y1):.0f}" fill="none" stroke="{BLUE}" '
+                 f'stroke-width="3"/>')
 
-    pts = " ".join(f"{fx(x):.1f},{fy(y):.1f}" for x, y in smooth())
-    o.append(f'<polyline points="{pts}" fill="none" stroke="#7a7a7a" stroke-width="2.2"/>')
+    pts = " ".join(f"{fx(X):.0f},{fy(Y):.0f}" for X, Y in smooth_cells(g))
+    o.append(f'<polyline points="{pts}" fill="none" stroke="{GREY}" stroke-width="7"/>')
 
-    pts = " ".join(f"{fx(float(n['x'])):.1f},{fy(float(n['y'])):.1f}" for n in nodes)
-    o.append(f'<polyline points="{pts}" fill="none" stroke="#111" stroke-width="2.5"/>')
-
+    pts = " ".join(f"{fx(float(n['x'] * g)):.0f},{fy(float(n['y'] * g)):.0f}"
+                   for n in nodes)
+    o.append(f'<polyline points="{pts}" fill="none" stroke="{INK}" stroke-width="6"/>')
     for nd in nodes:
-        o.append(f'<circle cx="{fx(float(nd["x"])):.1f}" cy="{fy(float(nd["y"])):.1f}" '
-                 f'r="3" fill="#111"/>')
+        o.append(f'<circle cx="{fx(float(nd["x"] * g)):.0f}" '
+                 f'cy="{fy(float(nd["y"] * g)):.0f}" r="9" fill="{INK}"/>')
 
-    # the whole-number hits
-    hits = [(0.0, 0.0, "nose (0, 0)", 12, 20, "start"),
-            (0.0, 3.0, "waist (0, 3) at t = &#177;&#8730;3", 12, -12, "start"),
-            (6.0, 9.0, "hit (6, 9)", -11, -12, "end"),
-            (-6.0, 9.0, "hit (&#8722;6, 9)", -10, -12, "end")]
-    for hx, hy, lab, dx, dy, anchor in hits:
-        o.append(f'<circle cx="{fx(hx):.1f}" cy="{fy(hy):.1f}" r="6.5" fill="none" '
-                 f'stroke="#c00" stroke-width="2"/>')
-        o.append(f'<text x="{fx(hx)+dx:.1f}" y="{fy(hy)+dy:.1f}" font-size="15" '
-                 f'fill="#c00" text-anchor="{anchor}">{lab}</text>')
+    hits = [(0, 0, "nose (0, 0)", 22, 56, "start"),
+            (0, 768, "waist (0, 768)", 22, -22, "start"),
+            (1536, 2304, "hit (1536, 2304)", -22, -26, "end"),
+            (-1536, 2304, "hit (&#8722;1536, 2304)", 22, -26, "start")]
+    for X, Y, lab, dx, dy, anchor in hits:
+        o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="26" fill="none" '
+                 f'stroke="{RED}" stroke-width="6"/>')
+        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="56" '
+                 f'fill="{RED}" text-anchor="{anchor}">{lab}</text>')
 
-    tip = nodes[-1]
-    o.append(f'<text x="{fx(float(tip["x"]))+12:.1f}" y="{fy(float(tip["y"]))+26:.1f}" '
-             f'font-size="14" fill="#111" text-anchor="start">chain tip '
-             f'{float(tip["x"]):.5f}</text>')
+    tipX = float(nodes[-1]["x"] * g)
+    o.append(f'<text x="{fx(tipX)+18:.0f}" y="{fy(2304)+64:.0f}" font-size="50" '
+             f'fill="{INK}">chain tip ({tipX:.0f}, 2304)</text>')
 
-    o.append(f'<text x="{ml-24:.1f}" y="34" font-size="20" font-weight="600" fill="#111">'
-             f'Fig. T1 &#8212; whole-number hits, 12 triangles per side</text>')
+    o.append(f'<text x="48" y="86" font-size="86" font-weight="600" fill="{INK}">'
+             f'Fig. T1 &#8212; 24 triangles on the integer grid</text>')
     for k, line in enumerate([
-            "curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number hits at t = 0, 3, 6&#8230; and the waist",
-            "midpoint chain: step 1/4, pitch 256 cells per unit, y exact, x 1/64 short"]):
-        o.append(f'<text x="{ml-24:.1f}" y="{62 + k*22}" font-size="14" fill="#444">{line}</text>')
+            "coordinates are grid cells, not units: pitch 256, so one unit is 256 cells",
+            "curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number points at t = 0, 3 and the waist",
+            "the chain stops at &#8722;1532 in x, four cells short of &#8722;1536"]):
+        o.append(f'<text x="48" y="{140 + k*68}" font-size="52" fill="{MUTED}">{line}</text>')
 
-    lx, ly = fx(xmin) + 14, fy(ymin) + 34
-    o.append(f'<rect x="{lx-9:.1f}" y="{ly-22:.1f}" width="452" height="122" fill="#fff" '
-             f'fill-opacity="0.97" stroke="#d8ccae"/>')
-    rows = [("#7a7a7a", 2.2, "smooth curve"), ("#111", 2.5, "chain, 24 hypotenuses"),
-            ("#9bb7d4", 1.0, "step legs"), ("#c00", 2.0, "whole-number hit"),
-            ("#ddd3b8", 1.2, "grid: unit lines; pale every 1/4; pitch 256")]
-    for k, (col, wdt, lab) in enumerate(rows):
-        yy = ly + k * 22
-        o.append(f'<line x1="{lx:.1f}" y1="{yy:.1f}" x2="{lx+30:.1f}" y2="{yy:.1f}" '
-                 f'stroke="{col}" stroke-width="{wdt}"/>')
-        o.append(f'<text x="{lx+40:.1f}" y="{yy+5:.1f}" font-size="15" fill="#222">{lab}</text>')
+    lx, ly = 60, H - 420
+    o.append(f'<rect x="{lx-16}" y="{ly-70}" width="2560" height="420" fill="{PAPER}" '
+             f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
+    rows = [(GREY, 7, "smooth curve"), (INK, 6, "chain, 24 hypotenuses"),
+            (BLUE, 3, "step legs"), (RED, 5, "whole-number point"),
+            (RULE, 3, "grid: unit lines, pale every 1/4 unit")]
+    for k, (col, wd, lab) in enumerate(rows):
+        yy = ly - 30 + k * 76
+        o.append(f'<line x1="{lx}" y1="{yy}" x2="{lx+120}" y2="{yy}" stroke="{col}" '
+                 f'stroke-width="{wd}"/>')
+        o.append(f'<text x="{lx+150}" y="{yy+20}" font-size="56" fill="{INK}">{lab}</text>')
 
     o.append("</svg>")
     with open(path, "w") as fh:
@@ -168,15 +180,11 @@ def main():
     nodes, g, dt = build()
     csv_path = write_csv(nodes, g)
     svg_path, W, H = svg(nodes, g, os.path.join(OUT, "lattice-t3.svg"))
-    xt, yt, st = integral(T_MAX)
-    total = sum(n["ds"] for n in nodes[1:])
-    print(f"t_max {T_MAX}  N {N_HALF}/branch  step width {dt}  pitch {g}")
-    print(f"triangles {len(nodes)-1}")
-    print(f"chain tip ({nodes[-1]['x']}, {nodes[-1]['y']})  exact ({xt}, {yt})")
-    print(f"gap {nodes[-1]['x'] - xt} = {float(nodes[-1]['x'] - xt):.6f}")
-    print(f"chain length {total} = {float(total):.6f}   exact {2*st}")
+    print(f"pitch {g}  triangles {len(nodes)-1}  step width {dt}")
+    print(f"tip cells ({nodes[-1]['x']*g}, {nodes[-1]['y']*g})  "
+          f"curve tip cells ({-6*g}, {9*g})")
     print(f"csv {csv_path}")
-    print(f"svg {svg_path}  {W:.0f} x {H:.0f}")
+    print(f"svg {svg_path}  viewBox {W} x {H}")
 
 
 if __name__ == "__main__":
