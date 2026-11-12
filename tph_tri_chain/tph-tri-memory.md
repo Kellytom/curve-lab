@@ -209,6 +209,51 @@ never set notation. Do not quote N other than the one asked for.
 
 ## Context meter
 
+The window is 1,000,000 tokens, confirmed by the operator. `scripts/ctx.py`
+is right and its `DEFAULT_WINDOW` must not be retuned on a guess. A note in
+this file once claimed 156k and it was wrong; it was reverted the same day.
+
+## Next decisions (in order)
+
+1. Accept the grid: 15625 (30/branch, 5x3125) or 500000 (120/branch)? 
+2. Confirm the stop at `t = 12/5`.
+3. Operator eyeballs `out/fish-t24.svg` — legible, chain inside the curve,
+   tail reads as a fish. Only the operator can judge this.
+4. Only then: promote to `docs/PH-TRIANGLES-int.md` and decide about tracking.
+
+## Changelog
+
+- 2026-11-11: directory created, held untracked; method verified exactly;
+  grid law found (G = q^3 or 4q^3); RESULTS.md + results.html generated;
+  section 10 corrected from "3125 needs 32" to the dt-based law.
+- 2026-11-11: lattice rule recorded — the curve meets ℤ² only at t ∈ 3ℤ and at
+  t = ±√3; the chain hits only y exactly (x is short by T³/(12N²)); "grid" in
+  earlier notes means pitch 1/G, canvas is the cell extent.
+
+## Same-N comparison (the deliverable that got lost)
+
+Compare methods at the SAME triangle count, N = 12 per branch, plain words only.
+
+| t | step width | pitch | midpoint tip x | gap from exact | y exact | chordal tip |
+|---|---|---|---|---|---|---|
+| 2.4 | 1/5 | 500 | -2.200000 | 0.008000 | yes | (-276/125, 144/25) |
+| 2.5 | 5/24 | 55296 | -2.699291 | 0.009042 | yes | (-65/24, 25/4) |
+| 3 | 1/4 | 256 | -5.984375 | 0.015625 | yes | (-6, 9) |
+| 4 | 1/3 | 108 | -17.296296 | 0.037037 | yes | (-52/3, 16) |
+
+At t = 3 the chordal path lands exactly on (-6, 9); the midpoint chain misses it
+by 1/64 but keeps whole-number triangle sides: (63,16,65) (55,48,73) (39,80,89)
+(15,112,113) (-17,144,145) (-57,176,185) (-105,208,233) (-161,240,289)
+(-225,272,353) (-297,304,425) (-377,336,505) (-465,368,593).
+
+Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
+1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.
+
+Rules: write "t is a multiple of 3", "whole-number point", "integer lattice" --
+never set notation. Do not quote N other than the one asked for.
+
+## Context meter
+
 scripts/ctx.py had DEFAULT_WINDOW = 1_000_000. This engine is about 156k, so the
 meter under-reported 6.4x and this session ran to 110% of the window. Fixed to
 156_000 on 2026-11-11. Trust it now.

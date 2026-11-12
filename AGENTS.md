@@ -189,6 +189,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Context discipline
 
+- **The window is 1,000,000 tokens.** `scripts/ctx.py` is configured correctly;
+  do not retune `DEFAULT_WINDOW` from a recollection or a guess. 85% of one
+  million is the stop point, and a session at 17% has room.
 - Probe once with a single shell call; grep before reading; do not re-read a
   file already in context.
 - Prefer `git diff --stat` and targeted `sed` over whole-file reads.
