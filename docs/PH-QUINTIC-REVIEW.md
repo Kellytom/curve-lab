@@ -165,12 +165,18 @@ stops must find it; a curve with none must return none.
 
 ## 5. Plan
 
-1. `exact_bend` in the library, and the presets use it (3.1).
-2. One JS module; the page loads it; the preset rows come from the JSON (3.2).
-3. A headless page check with the six known readouts (3.3).
-4. `to_fraction` and its test (3.4).
-5. `ph_hits.py` with the three methods and their tests (4.4).
-6. Close the save loop (3.5), then split the generator (3.3).
+1. **Done.** `exact_bend` in the library, at any degree; the presets use it
+   (`scripts/ph_quintic_metrics.py`, nine tests).
+2. **Done.** A headless page check with the six readouts
+   (`scripts/check-ph-page.mjs`); it caught a class collision on its first run.
+3. **Done.** `to_fraction` and its test, in the metrics module.
+4. **Done.** `scripts/ph_quintic_hits.py` - the stops, the exact gcd method and
+   the near misses, with nine tests.
+5. **Partly done.** The pitch is now computed once, in `recipeMetrics`; the
+   bend, inflection and closest are still duplicated between Q8 and the Q9-Q11
+   panels.
+6. **Open.** One JS module for the whole page; the preset rows from the JSON;
+   the save loop closed; the generator split.
 
-Items 1-2 come first because the hit finder needs both: the exact formula to
-choose a curve, and one place to compute.
+The first four were the ones the degree-7 work depends on: exact metrics,
+integer hits, a fraction guard and a check that notices a broken panel.

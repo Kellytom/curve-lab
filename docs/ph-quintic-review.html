@@ -179,14 +179,20 @@ near_misses(u, v, box)     # midpoint: distance to the nearest lattice point
 stops must find it; a curve with none must return none.</p>
 <h2 id="5-plan">5. Plan</h2>
 <ol>
-<li><code>exact_bend</code> in the library, and the presets use it (3.1).</li>
-<li>One JS module; the page loads it; the preset rows come from the JSON (3.2).</li>
-<li>A headless page check with the six known readouts (3.3).</li>
-<li><code>to_fraction</code> and its test (3.4).</li>
-<li><code>ph_hits.py</code> with the three methods and their tests (4.4).</li>
-<li>Close the save loop (3.5), then split the generator (3.3).</li>
+<li><strong>Done.</strong> <code>exact_bend</code> in the library, at any degree; the presets use it
+   (<code>scripts/ph_quintic_metrics.py</code>, nine tests).</li>
+<li><strong>Done.</strong> A headless page check with the six readouts
+   (<code>scripts/check-ph-page.mjs</code>); it caught a class collision on its first run.</li>
+<li><strong>Done.</strong> <code>to_fraction</code> and its test, in the metrics module.</li>
+<li><strong>Done.</strong> <code>scripts/ph_quintic_hits.py</code> - the stops, the exact gcd method and
+   the near misses, with nine tests.</li>
+<li><strong>Partly done.</strong> The pitch is now computed once, in <code>recipeMetrics</code>; the
+   bend, inflection and closest are still duplicated between Q8 and the Q9-Q11
+   panels.</li>
+<li><strong>Open.</strong> One JS module for the whole page; the preset rows from the JSON;
+   the save loop closed; the generator split.</li>
 </ol>
-<p>Items 1-2 come first because the hit finder needs both: the exact formula to
-choose a curve, and one place to compute.</p>
-<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: 0c38a025faf999bfec55a03c2cad572bc2c36e03 · do not edit this HTML by hand.</p>
+<p>The first four were the ones the degree-7 work depends on: exact metrics,
+integer hits, a fraction guard and a check that notices a broken panel.</p>
+<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: f35313f74a7c3b681cf03afd427ca3a5dc8cca2d · do not edit this HTML by hand.</p>
 </main></body></html>
