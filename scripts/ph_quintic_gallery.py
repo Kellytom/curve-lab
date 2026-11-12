@@ -166,16 +166,18 @@ def panel_svg(u, v, idx, w, h, label, off_scale=1.0):
         if ((ex + nx * off - pcx) ** 2 + (ey + ny * off - pcy) ** 2 >
                 (ex - nx * off - pcx) ** 2 + (ey - ny * off - pcy) ** 2):
             nx, ny = -nx, -ny
-        gap = 4.0
-        bx, by = ex + sx * gap + nx * off, ey + sy * gap + ny * off
-        L = 0.14 * max(x1 - x0, y1 - y0) * sc
-        ex2, ey2 = bx + sx * L, by + sy * L
-        lo_x, hi_x = 5, w - 5
-        lo_y, hi_y = 5, h - 25
-        bx, by = min(max(bx, lo_x), hi_x), min(max(by, lo_y), hi_y)
-        ex2, ey2 = min(max(ex2, lo_x), hi_x), min(max(ey2, lo_y), hi_y)
-        out.append(f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{ex2:.1f}" y2="{ey2:.1f}" '
-                   f'stroke="{BLUE}" stroke-width="{1.6 if w < 300 else 2.2}" stroke-linecap="round"/>')
+        r = 9.0 if w < 300 else 17.0
+        gap = 5.0
+        cxb, cyb = ex + sx * (gap + r) + nx * off * 0.6, ey + sy * (gap + r) + ny * off * 0.6
+        lo_x, hi_x = r + 4, w - r - 4
+        lo_y, hi_y = r + 4, h - 25 - r
+        cxb, cyb = min(max(cxb, lo_x), hi_x), min(max(cyb, lo_y), hi_y)
+        # the compass: a blue ring with the tangent drawn as a diameter
+        out.append(f'<circle cx="{cxb:.1f}" cy="{cyb:.1f}" r="{r}" fill="{BLUE}" fill-opacity="0.07" '
+                   f'stroke="{BLUE}" stroke-width="{1.2 if w < 300 else 1.8}"/>')
+        out.append(f'<line x1="{cxb - sx * r * 0.62:.1f}" y1="{cyb - sy * r * 0.62:.1f}" '
+                   f'x2="{cxb + sx * r * 0.62:.1f}" y2="{cyb + sy * r * 0.62:.1f}" '
+                   f'stroke="{BLUE}" stroke-width="{1.6 if w < 300 else 2.4}" stroke-linecap="round"/>')
     x, y = uv_curve(u, v)
     ti = F(str(infl)).limit_denominator(400)
     tx = sum(c * ti ** k for k, c in enumerate(x))
@@ -247,9 +249,9 @@ throughout. All are PH, so the offsets are exact and a span is G3-capable.</p>
 <section class="panel">
 <h2>Fig. G1 · the grid, 8 by 6</h2>
 {gallery()}
-<p class="small">Each thumbnail is drawn in its own box; the axes are the curve's own x = 0 and
-y = 0. The red ring is the inflection. The pitch under each panel is the grid that makes the
-coordinates whole at integer t — the price of the fractions.</p>
+<p class="small">Each thumbnail is its own SVG; CSS lays them out. The red ring is the inflection,
+the blue compass rings are the end tangents (annotations, not design). The pitch under each panel
+is the grid that makes the coordinates whole at integer t.</p>
 </section>
 
 <section class="panel">
@@ -267,8 +269,8 @@ bends one way. A dash means the Wronskian has no root in [0,1].</p>
 <h2>Fig. G2 · the S curves, enlarged</h2>
 {fig_s_set()}
 <p class="small">Twelve curves chosen for balance: the heading swings at least 23° on each side of
-the inflection. The blue strokes are the end tangents, drawn to the side; the ring is where the
-curvature passes through zero.</p>
+the inflection. The blue compass rings are the end tangents — an annotation, not part of the
+design. The red ring is where the curvature passes through zero.</p>
 </section>
 
 <section class="panel">
