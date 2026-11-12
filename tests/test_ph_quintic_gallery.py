@@ -112,7 +112,7 @@ class TestGallery(unittest.TestCase):
         self.assertIn('id="qa"', page)
         self.assertIn('id="qpanel"', page)
         self.assertIn('id="ql"', page)
-        self.assertIn("balance", page)
+        self.assertIn("bend", page)
         self.assertIn("Math.atan2", page)
 
     def test_the_page_has_the_figures_and_the_table(self):

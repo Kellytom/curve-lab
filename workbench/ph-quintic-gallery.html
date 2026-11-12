@@ -157,48 +157,46 @@ slider, and the top half is the bottom half turned through 180°.</p>
 </section>
 
 <section class="panel">
-<h2>Fig. Q7 · the sliders: b sets the swing, λ adds more swing</h2>
-<p><strong>b</strong> sets the swing — <code>2·atan(b/(4−a))</code> per side. <strong>a</strong>
-shifts where the bend sits and never moves the inflection. <strong>λ</strong> adds swing only: it
-multiplies the swing parameter by <code>1 + 4λ</code>, so the curve stays exactly balanced and the
-inflection stays at t = ½. λ runs from 0 to 5, which takes the swing from the b setting up to
-about 177° per side.</p>
-<p>In plain words: b and λ both make the S sharper, but λ does it without changing anything else —
-the two sides stay equal and the turn stays in the middle. Nothing about the shape changes except
-the amount of bend. It stops short of 180° because the exact family is point-symmetric: the heading
-has to come back to where it started, and that caps the turn at a half-turn.</p>
+<h2>Fig. Q7 · the sliders: b sets the size, λ sets the bend</h2>
+<p><strong>b</strong> sets the scale of the exact S. <strong>a</strong> shifts where the bend sits.
+<strong>λ</strong> is the bend: it takes the exact family's speed recipes and adds a growing share
+of curve 15's, the strong S at the top of Q6. λ = 0 is the exact S; λ = 1 is curve 15.</p>
+<p>In plain words: <strong>bend is the arc length divided by the straight-line distance between the
+ends</strong>. A straight line is 1.00; the gentle exact S is about 1.09; curve 15 is about 4.7.
+λ does not scale the curve — it changes its shape, pulling the ends round into the big lobes. The
+heading-turn numbers are on the gallery labels; this panel reports the bend.</p>
 <div class="slider-row">
   <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
   <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
-  <label>λ <input id="ql" type="range" min="0" max="5" step="0.1" value="0"></label>
+  <label>λ <input id="ql" type="range" min="0" max="1" step="0.01" value="0"></label>
   <span id="qread" class="small"></span>
 </div>
 <svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
 <script>
 (function () {
   const svg = document.getElementById("qpanel");
-  const W = 900, H = 420, m = 46, N = 600;
-  const ev = (a, b, t) => {
-    const s = t * t - t;
-    return [a * s + 1, b * s];
-  };
+  const W = 900, H = 420, m = 46, N = 800;
+  const U15 = [0.2, -1.9, 1.9], V15 = [0.4, -1.5, 1.6];
+  const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
+  const dv = (p, t) => p[1] + 2 * p[2] * t;
   function draw() {
     const a = +document.getElementById("qa").value;
     const b = +document.getElementById("qb").value;
     const lam = +document.getElementById("ql").value;
-    const beff = b * (1 + 4 * lam);
+    const U = [1, -a, a].map((c, i) => c + lam * (U15[i] - c));
+    const V = [0, -b, b].map((c, i) => c + lam * (V15[i] - c));
     const pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
     for (let i = 1; i <= N; i++) {
-      const [u, v] = ev(a, beff, (i - 0.5) / N);
+      const t = (i - 0.5) / N, u = ev(U, t), v = ev(V, t);
       x += (u * u - v * v) / N;
       y += 2 * u * v / N;
       pts.push([x, y]);
     }
     const th = [];
     for (let i = 0; i <= N; i++) {
-      const [u, v] = ev(a, beff, i / N);
+      const t = i / N, u = ev(U, t), v = ev(V, t);
       th.push(Math.atan2(2 * u * v, u * u - v * v));
     }
     const un = [th[0]];
@@ -208,15 +206,36 @@ has to come back to where it started, and that caps the turn at a half-turn.</p>
       while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
       un.push(q);
     }
-    const mid = N / 2;
+    const Wf = t => {
+      const u = ev(U, t), v = ev(V, t);
+      return u * dv(V, t) - v * dv(U, t);
+    };
+    let root = null;
+    for (let i = 0; i < N; i++) {
+      const t0 = i / N, t1 = (i + 1) / N;
+      if (Wf(t0) * Wf(t1) <= 0) {
+        let lo = t0, hi = t1;
+        for (let k = 0; k < 40; k++) {
+          const mid = (lo + hi) / 2;
+          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
+        }
+        root = (lo + hi) / 2;
+        break;
+      }
+    }
+    const mid = root === null ? N / 2 : Math.round(root * N);
     const s0 = Math.abs(un[mid] - un[0]) * 180 / Math.PI;
     const s1 = Math.abs(un[N] - un[mid]) * 180 / Math.PI;
     const bal = 100 * Math.min(s0, s1) / Math.max(s0, s1);
+    let arc = 0;
+    for (let i = 1; i < pts.length; i++) arc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    const chord = Math.hypot(pts[N][0] - pts[0][0], pts[N][1] - pts[0][1]);
+    const bend = chord > 1e-9 ? arc / chord : Infinity;
     const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
     const y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const sc = Math.min((W - 2 * m) / Math.max(1e-9, x1 - x0),
-                        (H - 2 * m) / Math.max(1e-9, y1 - y0));
+    const sc = Math.min((W - 2 * m) / Math.max(1e-6, x1 - x0),
+                        (H - 2 * m) / Math.max(1e-6, y1 - y0));
     const ox = m + (W - 2 * m - (x1 - x0) * sc) / 2;
     const oy = m + (H - 2 * m - (y1 - y0) * sc) / 2;
     const fx = v => ox + (v - x0) * sc;
@@ -229,19 +248,15 @@ has to come back to where it started, and that caps the turn at a half-turn.</p>
       return `<circle cx="${gx}" cy="${gy}" r="${rr}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
         `<line x1="${gx - sx * rr * 0.62}" y1="${gy - sy * rr * 0.62}" x2="${gx + sx * rr * 0.62}" y2="${gy + sy * rr * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
     };
-    const [u0, v0] = ev(a, beff, 0);
-    const [u1, v1] = ev(a, beff, 1);
     svg.innerHTML =
       `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
-      `<line x1="${fx(0)}" y1="0" x2="${fx(0)}" y2="${H}" stroke="#d8ccae"/>` +
-      `<line x1="0" y1="${fy(0)}" x2="${W}" y2="${fy(0)}" stroke="#d8ccae"/>` +
       `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
       `<circle cx="${fx(pts[mid][0])}" cy="${fy(pts[mid][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
-      compass(pts[0][0], pts[0][1], u0, v0, -1) +
-      compass(pts[N][0], pts[N][1], u1, v1, 1) +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50 · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
+      compass(pts[0][0], pts[0][1], ev(U, 0), ev(V, 0), -1) +
+      compass(pts[N][0], pts[N][1], ev(U, 1), ev(V, 1), 1) +
+      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">bend ${bend.toFixed(2)} (arc ÷ chord) · inflection ${root === null ? "—" : root.toFixed(2)} · turn ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
     document.getElementById("qread").textContent =
-      `swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · balance ${bal.toFixed(0)}% · inflection 0.50`;
+      `bend ${bend.toFixed(2)} · inflection ${root === null ? "—" : root.toFixed(2)}`;
   }
   for (const id of ["qa", "qb", "ql"]) document.getElementById(id).addEventListener("input", draw);
   draw();
