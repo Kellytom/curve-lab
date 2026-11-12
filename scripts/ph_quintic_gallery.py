@@ -153,6 +153,25 @@ Q5_CASES = [
     ((F(4,5), F(-9,5), F(3,2)), (F(1,10), F(6,5), F(-3,2))),  # infl 0.508 sides 85/143 pitch 100
 ]
 
+Q6_CASES = [
+    ((F(-4,5), F(17,10), F(-9,5)), (F(-4,5), F(-19,10), F(17,10))),
+    ((F(3,2), F(-19,10), F(19,10)), (F(1,5), F(17,10), F(-17,10))),
+    ((F(7,10), F(-7,10), F(7,10)), (0, F(-9,5), F(9,5))),
+    ((F(1,2), F(4,5), F(-4,5)), (F(-1,2), F(13,10), F(-13,10))),
+    ((F(2,5), F(-3,2), F(3,2)), (F(-7,10), F(7,10), F(-4,5))),
+    ((F(1,5), F(1,5), F(-1,5)), (F(3,10), -1, 1)),
+    ((F(4,5), F(-17,10), F(17,10)), (-1, -1, 1)),
+    ((F(1,10), F(-8,5), F(8,5)), (F(4,5), F(-4,5), F(4,5))),
+    ((F(7,10), F(3,2), F(-3,2)), (F(4,5), F(-9,5), F(17,10))),
+    ((F(-7,10), F(-13,10), F(6,5)), (F(-1,2), F(11,10), F(-6,5))),
+    ((F(3,10), F(1,10), F(-1,10)), (F(-1,10), F(11,10), F(-11,10))),
+    ((F(4,5), F(9,5), -2), (F(-9,10), F(17,10), F(-3,2))),
+    ((F(-1,5), F(7,5), F(-7,5)), (F(-2,5), F(8,5), F(-8,5))),
+    ((F(-3,10), F(9,5), F(-9,5)), (F(-1,5), 2, F(-19,10))),
+    ((F(1,5), F(-19,10), F(19,10)), (F(2,5), F(-3,2), F(8,5))),
+    ((F(-3,10), F(19,10), -2), (F(-1,2), F(17,10), F(-9,5))),
+]
+
 CASES = S_CASES + C_CASES
 
 
@@ -292,6 +311,10 @@ def fig_q5():
     return grid_svgs(Q5_CASES, 430, 340, "g2", s_label)
 
 
+def fig_q6():
+    return grid_svgs(Q6_CASES, 430, 340, "g2", s_label)
+
+
 def table():
     rows = []
     for idx, (u, v) in enumerate(CASES):
@@ -381,6 +404,15 @@ almost all the way round.</p>
 <p class="small">A 1/10 grid, with the inflection required to sit between t = 0.46 and 0.54 — so
 the curve bends one way for the first half and the other way for the second, with the ring at the
 turn.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q6 · balanced: the inflection in the middle, equal swing both sides</h2>
+{fig_q6()}
+<p class="small">The strictest test: the inflection between t = 0.47 and 0.53, at least 40° of
+swing on each side, and the two sides within 12% of each other. The first twelve are ordinary
+S shapes; the last four are balanced loops, included because they pass the same test — not the
+focus.</p>
 </section>
 
 <section class="panel">
