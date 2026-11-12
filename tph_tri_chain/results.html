@@ -10,56 +10,56 @@ ul{padding-left:1.3rem}li{margin:.2rem 0}
 <h1>Integer hits on the Tschirnhausen cubic</h1>
 <div class="status">Every comparison here is at twelve triangles per side, the same count for both methods. The constraint is where the curve meets whole-number points, not how fine the drawing is.</div>
 <h2>1. Where the curve hits whole numbers</h2>
-<p>The curve is x = t - t^3/3 and y = t^2. For a point to sit on the integer lattice, both coordinates must be whole numbers.</p>
-<p>Take t as a fraction in lowest terms. Then y = t^2 is a whole number only if t is itself a whole number, because squaring a fraction in lowest terms cannot clear its denominator. Once t is whole, x = t - t^3/3 is whole exactly when 3 divides t. So the hits are the multiples of 3, and nothing else at rational t.</p>
+<p>The curve is x = t^2 and y = t - t^3/3. For a point to sit on the integer lattice, both coordinates must be whole numbers.</p>
+<p>Take t as a fraction in lowest terms. Then x = t^2 is a whole number only if t is itself a whole number, because squaring a fraction in lowest terms cannot clear its denominator. Once t is whole, y = t - t^3/3 is whole exactly when 3 divides t. So the hits are the multiples of 3, and nothing else at rational t.</p>
 <table><thead><tr><th>t</th><th>x</th><th>y</th><th>arc length s</th><th>note</th></tr></thead><tbody>
 <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>nose</td></tr>
-<tr><td>3</td><td>-6</td><td>9</td><td>12</td><td>first hit</td></tr>
-<tr><td>6</td><td>-66</td><td>36</td><td>78</td><td></td></tr>
-<tr><td>9</td><td>-234</td><td>81</td><td>252</td><td></td></tr>
-<tr><td>12</td><td>-564</td><td>144</td><td>588</td><td></td></tr>
-<tr><td>15</td><td>-1110</td><td>225</td><td>1140</td><td></td></tr>
+<tr><td>3</td><td>9</td><td>-6</td><td>12</td><td>first hit</td></tr>
+<tr><td>6</td><td>36</td><td>-66</td><td>78</td><td></td></tr>
+<tr><td>9</td><td>81</td><td>-234</td><td>252</td><td></td></tr>
+<tr><td>12</td><td>144</td><td>-564</td><td>588</td><td></td></tr>
+<tr><td>15</td><td>225</td><td>-1110</td><td>1140</td><td></td></tr>
 </tbody></table>
-<p>The curve is odd in x and even in y, so each hit (x, y) has a mirror (-x, y). One more whole-number point exists: the waist. x = 0 at t = plus or minus the square root of 3, which gives (0, 3). That parameter is not a fraction, so no chain built at fractional steps can land on it.</p>
+<p>The curve is even in x and odd in y, so each hit (x, y) has a mirror (x, -y). One more whole-number point exists: the waist. y = 0 at t = plus or minus the square root of 3, which gives (3, 0). That parameter is not a fraction, so no chain built at fractional steps can land on it.</p>
 <h2>2. The grid exists to clear fractions</h2>
 <p>A fractional coordinate is not a failure. Pick a pitch that is a multiple of the denominators and the point lands on a whole cell: that is what the pitch is for. 144/25 of a unit is 2880 cells at pitch 500.</p>
 <table><thead><tr><th>stop t</th><th>x</th><th>y</th><th>the point, in cells</th><th>smallest pitch for the curve</th><th>smallest pitch for every chain side</th></tr></thead><tbody>
-<tr><td>2</td><td>-2/3</td><td>4</td><td>(-2, 12)</td><td>3</td><td>864</td></tr>
-<tr><td>21/10</td><td>-987/1000</td><td>441/100</td><td>(-987, 4410)</td><td>1000</td><td>256000</td></tr>
-<tr><td>12/5</td><td>-276/125</td><td>144/25</td><td>(-276, 720)</td><td>125</td><td>500</td></tr>
-<tr><td>5/2</td><td>-65/24</td><td>25/4</td><td>(-65, 150)</td><td>24</td><td>55296</td></tr>
-<tr><td>3</td><td>-6</td><td>9</td><td>(-6, 9)</td><td>1</td><td>256</td></tr>
-<tr><td>24/5</td><td>-4008/125</td><td>576/25</td><td>(-4008, 2880)</td><td>125</td><td>125</td></tr>
-<tr><td>4</td><td>-52/3</td><td>16</td><td>(-52, 48)</td><td>3</td><td>108</td></tr>
+<tr><td>2</td><td>4</td><td>-2/3</td><td>(12, -2)</td><td>3</td><td>864</td></tr>
+<tr><td>21/10</td><td>441/100</td><td>-987/1000</td><td>(4410, -987)</td><td>1000</td><td>256000</td></tr>
+<tr><td>12/5</td><td>144/25</td><td>-276/125</td><td>(720, -276)</td><td>125</td><td>500</td></tr>
+<tr><td>5/2</td><td>25/4</td><td>-65/24</td><td>(150, -65)</td><td>24</td><td>55296</td></tr>
+<tr><td>3</td><td>9</td><td>-6</td><td>(9, -6)</td><td>1</td><td>256</td></tr>
+<tr><td>24/5</td><td>576/25</td><td>-4008/125</td><td>(2880, -4008)</td><td>125</td><td>125</td></tr>
+<tr><td>4</td><td>16</td><td>-52/3</td><td>(48, -52)</td><td>3</td><td>108</td></tr>
 </tbody></table>
 <p>All of these are exact. t = 3 is singled out only because it needs no scaling at all, not because the others fail. The chain needs a larger pitch than the curve at every stop, because each side has to be whole as well as each vertex.</p>
 <h2>3. Twelve triangles, both methods</h2>
 <p>Midpoint chain: each step is evaluated at the middle of the step, which is what makes the step sides exact whole numbers after scaling. Chordal: the nodes sit exactly on the curve and the segments are straight joins, so the node positions are exact but the side lengths are square roots.</p>
-<table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>midpoint tip x</th><th>gap</th><th>y exact?</th><th>chordal tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>
-<tr><td>2</td><td>1/6</td><td>864</td><td>-0.662037</td><td>0.004630</td><td>yes</td><td>(-0.667, 4.000)</td><td>4.662037</td><td>4.661542</td><td>4.666667</td></tr>
-<tr><td>12/5</td><td>1/5</td><td>500</td><td>-2.200000</td><td>0.008000</td><td>yes</td><td>(-2.208, 5.760)</td><td>7.000000</td><td>7.000163</td><td>7.008000</td></tr>
-<tr><td>5/2</td><td>5/24</td><td>55296</td><td>-2.699291</td><td>0.009042</td><td>yes</td><td>(-2.708, 6.250)</td><td>7.699291</td><td>7.699726</td><td>7.708333</td></tr>
-<tr><td>3</td><td>1/4</td><td>256</td><td>-5.984375</td><td>0.015625</td><td>yes</td><td>(-6.000, 9.000)</td><td>11.984375</td><td>11.986998</td><td>12.000000</td></tr>
-<tr><td>4</td><td>1/3</td><td>108</td><td>-17.296296</td><td>0.037037</td><td>yes</td><td>(-17.333, 16.000)</td><td>25.296296</td><td>25.308812</td><td>25.333333</td></tr>
+<table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>midpoint tip y</th><th>gap</th><th>x exact?</th><th>chordal tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>
+<tr><td>2</td><td>1/6</td><td>864</td><td>-0.662037</td><td>0.004630</td><td>yes</td><td>(4.000, -0.667)</td><td>4.662037</td><td>4.661542</td><td>4.666667</td></tr>
+<tr><td>12/5</td><td>1/5</td><td>500</td><td>-2.200000</td><td>0.008000</td><td>yes</td><td>(5.760, -2.208)</td><td>7.000000</td><td>7.000163</td><td>7.008000</td></tr>
+<tr><td>5/2</td><td>5/24</td><td>55296</td><td>-2.699291</td><td>0.009042</td><td>yes</td><td>(6.250, -2.708)</td><td>7.699291</td><td>7.699726</td><td>7.708333</td></tr>
+<tr><td>3</td><td>1/4</td><td>256</td><td>-5.984375</td><td>0.015625</td><td>yes</td><td>(9.000, -6.000)</td><td>11.984375</td><td>11.986998</td><td>12.000000</td></tr>
+<tr><td>4</td><td>1/3</td><td>108</td><td>-17.296296</td><td>0.037037</td><td>yes</td><td>(16.000, -17.333)</td><td>25.296296</td><td>25.308812</td><td>25.333333</td></tr>
 </tbody></table>
-<p>At twelve triangles the chordal path lands on the whole-number point exactly, at t = 3 giving (-6, 9). The midpoint chain stops 1/64 short of it. At that same stop chordal is also the closer of the two on total length, 11.986998 against 11.984375 and an exact 12; further in, at t = 2.4, the two swap and the midpoint chain is closer by a hair. The midpoint chain's steady advantage is a different one: every side is an exact whole-number triple, so the path can be laid out with no square roots anywhere.</p>
+<p>At twelve triangles the chordal path lands on the whole-number point exactly, at t = 3 giving (9, -6). The midpoint chain stops 1/64 short of it in y. At that same stop chordal is also the closer of the two on total length, 11.986998 against 11.984375 and an exact 12; further in, at t = 2.4, the two swap and the midpoint chain is closer by a hair. The midpoint chain's steady advantage is a different one: every side is an exact whole-number triple, so the path can be laid out with no square roots anywhere.</p>
 <h2>4. The twelve triangles at t = 3</h2>
 <p>Step width 1/4, pitch 256 cells per unit. The sides, in cells and as reduced triples:</p>
 <table><thead><tr><th>step</th><th>middle t</th><th>dx</th><th>dy</th><th>ds</th><th>reduced triple</th></tr></thead><tbody>
-<tr><td>1</td><td>0.12</td><td>63</td><td>16</td><td>65</td><td>(63, 16, 65)</td></tr>
-<tr><td>2</td><td>0.38</td><td>55</td><td>48</td><td>73</td><td>(55, 48, 73)</td></tr>
-<tr><td>3</td><td>0.62</td><td>39</td><td>80</td><td>89</td><td>(39, 80, 89)</td></tr>
-<tr><td>4</td><td>0.88</td><td>15</td><td>112</td><td>113</td><td>(15, 112, 113)</td></tr>
-<tr><td>5</td><td>1.12</td><td>-17</td><td>144</td><td>145</td><td>(-17, 144, 145)</td></tr>
-<tr><td>6</td><td>1.38</td><td>-57</td><td>176</td><td>185</td><td>(-57, 176, 185)</td></tr>
-<tr><td>7</td><td>1.62</td><td>-105</td><td>208</td><td>233</td><td>(-105, 208, 233)</td></tr>
-<tr><td>8</td><td>1.88</td><td>-161</td><td>240</td><td>289</td><td>(-161, 240, 289)</td></tr>
-<tr><td>9</td><td>2.12</td><td>-225</td><td>272</td><td>353</td><td>(-225, 272, 353)</td></tr>
-<tr><td>10</td><td>2.38</td><td>-297</td><td>304</td><td>425</td><td>(-297, 304, 425)</td></tr>
-<tr><td>11</td><td>2.62</td><td>-377</td><td>336</td><td>505</td><td>(-377, 336, 505)</td></tr>
-<tr><td>12</td><td>2.88</td><td>-465</td><td>368</td><td>593</td><td>(-465, 368, 593)</td></tr>
+<tr><td>1</td><td>0.12</td><td>16</td><td>63</td><td>65</td><td>(16, 63, 65)</td></tr>
+<tr><td>2</td><td>0.38</td><td>48</td><td>55</td><td>73</td><td>(48, 55, 73)</td></tr>
+<tr><td>3</td><td>0.62</td><td>80</td><td>39</td><td>89</td><td>(80, 39, 89)</td></tr>
+<tr><td>4</td><td>0.88</td><td>112</td><td>15</td><td>113</td><td>(112, 15, 113)</td></tr>
+<tr><td>5</td><td>1.12</td><td>144</td><td>-17</td><td>145</td><td>(144, -17, 145)</td></tr>
+<tr><td>6</td><td>1.38</td><td>176</td><td>-57</td><td>185</td><td>(176, -57, 185)</td></tr>
+<tr><td>7</td><td>1.62</td><td>208</td><td>-105</td><td>233</td><td>(208, -105, 233)</td></tr>
+<tr><td>8</td><td>1.88</td><td>240</td><td>-161</td><td>289</td><td>(240, -161, 289)</td></tr>
+<tr><td>9</td><td>2.12</td><td>272</td><td>-225</td><td>353</td><td>(272, -225, 353)</td></tr>
+<tr><td>10</td><td>2.38</td><td>304</td><td>-297</td><td>425</td><td>(304, -297, 425)</td></tr>
+<tr><td>11</td><td>2.62</td><td>336</td><td>-377</td><td>505</td><td>(336, -377, 505)</td></tr>
+<tr><td>12</td><td>2.88</td><td>368</td><td>-465</td><td>593</td><td>(368, -465, 593)</td></tr>
 </tbody></table>
-<p>The last vertex is (-383/64, 9), against the curve's (-6, 9): short by 1/64 in x, exact in y. The y coordinate is exact for every count, because the vertical speed is linear and the midpoint rule integrates a linear function exactly.</p>
+<p>The last vertex is (9, -383/64), against the curve's (9, -6): short by 1/64 in y, exact in x. The x coordinate is exact for every count, because the along speed is linear and the midpoint rule integrates a linear function exactly.</p>
 <h2>5. How the pitch was chosen</h2>
 <p>The pitch depends only on the step width, which is the stopping point divided by the triangle count. At twelve triangles the step width is t/12, so the stopping point alone decides the pitch:</p>
 <table><thead><tr><th>stopping t</th><th>step width</th><th>pitch</th><th>why</th></tr></thead><tbody>
@@ -78,26 +78,26 @@ pitch = 4 times q cubed    when the top number is odd</pre>
 <h2>6. The glyph at t = 3, in whole units</h2>
 <table><thead><tr><th>feature</th><th>value</th></tr></thead><tbody>
 <tr><td>nose</td><td>(0, 0)</td></tr>
-<tr><td>waist</td><td>(0, 3), reached at t = plus or minus the square root of 3</td></tr>
-<tr><td>tips</td><td>(-6, 9) and (6, 9)</td></tr>
-<tr><td>body height</td><td>3</td></tr>
-<tr><td>tail height</td><td>6, exactly twice the body</td></tr>
+<tr><td>waist</td><td>(3, 0), reached at t = plus or minus the square root of 3</td></tr>
+<tr><td>tips</td><td>(9, -6) and (9, 6)</td></tr>
+<tr><td>body length</td><td>3</td></tr>
+<tr><td>tail span</td><td>6, exactly twice the body</td></tr>
 <tr><td>arc length, one side</td><td>12</td></tr>
 <tr><td>full length, both sides</td><td>24</td></tr>
 </tbody></table>
-<p>This is the 'double the inner shape' proportion, measured in height, and it needs no scaling and no irrational number. The arc-length ratio is larger, 3.46, because the tail is thin and long. The figure shows the two sides at twelve triangles, with the whole-number points ringed.</p>
+<p>This is the 'double the inner shape' proportion, measured along the axis, and it needs no scaling and no irrational number. The arc-length ratio is larger, 3.46, because the tail is thin and long. The figure shows the two sides at twelve triangles, with the whole-number points ringed.</p>
 <figure style="margin:1.4rem 0"><img src="out/lattice-t3.svg" alt="Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3" style="max-width:100%;border:1px solid #e6e6e6"><figcaption style="font-size:.9rem;color:#555;margin-top:.4rem">Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3</figcaption></figure>
-<p>A caution about the figure: the chain's last vertex sits at (-5.984375, 9), just inside the ring at (-6, 9). That gap is the 1/64, and it is the whole story of this document.</p>
+<p>A caution about the figure: the chain's last vertex sits at (9, -5.984375), just inside the ring at (9, -6). That gap is the 1/64, and it is the whole story of this document.</p>
 <h2>7. Checks and reproduce</h2>
 <p>Equality tests run whenever this document is generated. A failure means the document is wrong, not the numbers.</p>
-<li>PASS -- t = 3 gives (-6, 9) and length 12 exactly</li>
-<li>PASS -- 2.4, 2.5, 12/5 and 2.1 all have non-whole heights</li>
+<li>PASS -- t = 3 gives (9, -6) and length 12 exactly</li>
+<li>PASS -- 2.4, 2.5, 12/5 and 2.1 all have non-whole rises</li>
 <li>PASS -- twelve triangles at t = 4 gives pitch 108</li>
 <li>PASS -- twelve triangles at t = 3 gives pitch 256</li>
 <li>PASS -- twelve triangles at t = 2.5 gives pitch 55296</li>
 <li>PASS -- midpoint gap is 1/64 at t = 3</li>
-<li>PASS -- chordal lands on (-6, 9) at t = 3</li>
-<li>PASS -- first triangle at t = 3 is (63, 16, 65)</li>
+<li>PASS -- chordal lands on (9, -6) at t = 3</li>
+<li>PASS -- first triangle at t = 3 is (16, 63, 65)</li>
 <pre>.venv/bin/python tph_tri_chain/chain.py        # every table, exact
 .venv/bin/python tph_tri_chain/glyph.py        # figure and csv
 .venv/bin/python tph_tri_chain/make_results.py # this document</pre>

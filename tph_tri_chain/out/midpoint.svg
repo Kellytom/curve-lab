@@ -1,22 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="800" viewBox="0 0 880 800" font-family="Georgia, serif">
 <rect width="880" height="800" fill="#fbf7ec"/>
 <text x="46" y="38" font-size="19" font-weight="600" fill="#2e2413">Fig. T2 &#8212; why the midpoint rule holds, and what the ends do</text>
-<text x="46" y="60" font-size="13" fill="#7b6c4e">x = t &#8722; t&#179;/3, y = t&#178; &#183; three steps over t = 0 to 3, step width 1 &#183; y is up</text>
-<line x1="60.00" y1="321.01" x2="248.41" y2="321.01" stroke="#d8ccae" stroke-width="1"/>
-<line x1="81.74" y1="350.00" x2="81.74" y2="100.00" stroke="#d8ccae" stroke-width="1"/>
-<polyline points="81.74,321.01 89.28,320.70 96.80,319.76 104.27,318.18 111.65,315.98 118.93,313.15 126.09,309.69 133.08,305.60 139.89,300.89 146.49,295.54 152.85,289.56 158.96,282.96 164.77,275.72 170.27,267.86 175.43,259.37 180.22,250.25 184.62,240.50 188.60,230.12 192.13,219.11 195.20,207.48 197.76,195.21 199.80,182.31 201.29,168.79 202.20,154.64 202.51,139.86" fill="none" stroke="#7a6a4a" stroke-width="2.4"/>
-<line x1="81.74" y1="321.01" x2="217.61" y2="139.86" stroke="#2e2413" stroke-width="2.6"/>
-<line x1="81.74" y1="321.01" x2="217.61" y2="321.01" stroke="#1f5fa8" stroke-width="1.6"/>
-<line x1="217.61" y1="321.01" x2="217.61" y2="139.86" stroke="#1f5fa8" stroke-width="1.6"/>
-<line x1="81.74" y1="321.01" x2="202.51" y2="139.86" stroke="#a23b2a" stroke-width="1.4" stroke-dasharray="6 4"/>
-<circle cx="164.77" cy="275.72" r="5" fill="#1f5fa8"/>
-<line x1="110.42" y1="348.19" x2="219.12" y2="203.26" stroke="#1f5fa8" stroke-width="1.6" stroke-dasharray="5 4"/>
-<text x="227.61" y="137.86" font-size="13" text-anchor="end" fill="#2e2413">step end (3/4, 1)</text>
-<text x="196.51" y="159.86" font-size="13" text-anchor="end" fill="#2e2413">chord end (2/3, 1)</text>
-<text x="176.77" y="269.72" font-size="13" text-anchor="start" fill="#1f5fa8">middle t = 1/2</text>
-<text x="176.77" y="285.72" font-size="13" text-anchor="start" fill="#1f5fa8">tangent there</text>
-<text x="91.36" y="266.67" font-size="12" text-anchor="start" fill="#2e2413">step sides</text>
-<text x="91.36" y="281.16" font-size="12" text-anchor="start" fill="#2e2413">3/4, 1, 5/4</text>
+<text x="46" y="60" font-size="13" fill="#7b6c4e">x = t&#178;, y = t &#8722; t&#179;/3 &#183; three steps over t = 0 to 3, step width 1 &#183; y is up</text>
+<line x1="60.00" y1="321.15" x2="391.73" y2="321.15" stroke="#d8ccae" stroke-width="1"/>
+<line x1="98.46" y1="350.00" x2="98.46" y2="100.00" stroke="#d8ccae" stroke-width="1"/>
+<polyline points="98.46,321.15 98.88,311.14 100.13,301.17 102.22,291.26 105.14,281.46 108.89,271.80 113.49,262.31 118.91,253.03 125.17,243.99 132.27,235.24 140.19,226.79 148.96,218.69 158.56,210.98 168.99,203.68 180.26,196.83 192.36,190.48 205.30,184.64 219.07,179.36 233.68,174.67 249.12,170.61 265.40,167.20 282.51,164.50 300.45,162.52 319.23,161.31 338.85,160.90" fill="none" stroke="#7a6a4a" stroke-width="2.4"/>
+<line x1="98.46" y1="321.15" x2="338.85" y2="140.87" stroke="#2e2413" stroke-width="2.6"/>
+<line x1="98.46" y1="321.15" x2="338.85" y2="321.15" stroke="#1f5fa8" stroke-width="1.6"/>
+<line x1="338.85" y1="321.15" x2="338.85" y2="140.87" stroke="#1f5fa8" stroke-width="1.6"/>
+<line x1="98.46" y1="321.15" x2="338.85" y2="160.90" stroke="#a23b2a" stroke-width="1.4" stroke-dasharray="6 4"/>
+<circle cx="158.56" cy="210.98" r="5" fill="#1f5fa8"/>
+<line x1="62.40" y1="283.09" x2="254.71" y2="138.86" stroke="#1f5fa8" stroke-width="1.6" stroke-dasharray="5 4"/>
+<text x="330.85" y="132.87" font-size="13" text-anchor="end" fill="#2e2413">step end (1, 3/4)</text>
+<text x="330.85" y="180.90" font-size="13" text-anchor="end" fill="#2e2413">chord end (1, 2/3)</text>
+<text x="170.56" y="204.98" font-size="13" text-anchor="start" fill="#1f5fa8">middle t = 1/2</text>
+<text x="170.56" y="220.98" font-size="13" text-anchor="start" fill="#1f5fa8">tangent there</text>
+<text x="109.27" y="297.12" font-size="12" text-anchor="start" fill="#2e2413">step sides</text>
+<text x="109.27" y="273.08" font-size="12" text-anchor="start" fill="#2e2413">1, 3/4, 5/4</text>
 <text x="60" y="86" font-size="15" font-weight="600" fill="#2e2413">A. one step, sampled at its middle</text>
 <text x="60" y="105" font-size="12" fill="#7b6c4e">the step is not the curve&#8217;s chord: 1/12 apart at the end</text>
 <line x1="480.00" y1="335.00" x2="600.00" y2="335.00" stroke="#d8ccae" stroke-width="1"/>
@@ -29,8 +29,8 @@
 <text x="518.00" y="317.00" font-size="12" text-anchor="start" fill="#1f5fa8">rectangle 1</text>
 <text x="550.00" y="280.00" font-size="12" text-anchor="start" fill="#2e2413">triangle 1</text>
 <text x="492.00" y="120.00" font-size="12" text-anchor="start" fill="#7b6c4e">equal &#8212; no error</text>
-<text x="480" y="86" font-size="15" font-weight="600" fill="#2e2413">B. y is exact</text>
-<text x="480" y="105" font-size="12" fill="#7b6c4e">y&#8242; = 2t is a straight line; midpoint equals the area</text>
+<text x="480" y="86" font-size="15" font-weight="600" fill="#2e2413">B. x is exact</text>
+<text x="480" y="105" font-size="12" fill="#7b6c4e">x&#8242; = 2t is a straight line; midpoint equals the area</text>
 <line x1="60.00" y1="658.57" x2="274.29" y2="658.57" stroke="#d8ccae" stroke-width="1"/>
 <line x1="74.29" y1="680.00" x2="74.29" y2="430.00" stroke="#d8ccae" stroke-width="1"/>
 <rect x="74.29" y="524.64" width="178.57" height="133.93" fill="#1f5fa8" fill-opacity="0.18" stroke="#1f5fa8" stroke-width="1"/>
@@ -41,25 +41,25 @@
 <text x="95.71" y="640.71" font-size="12" text-anchor="start" fill="#2e2413">true area 2/3</text>
 <text x="167.14" y="590.71" font-size="12" text-anchor="start" fill="#1f5fa8">rectangle 3/4</text>
 <text x="79.86" y="455.00" font-size="12" text-anchor="start" fill="#7b6c4e">3/4 &#8722; 2/3 = 1/12 too long</text>
-<text x="60" y="416" font-size="15" font-weight="600" fill="#2e2413">C. x drifts</text>
-<text x="60" y="435" font-size="12" fill="#7b6c4e">x&#8242; = 1 &#8722; t&#178; bends; each step is 1/12 too long</text>
-<line x1="480.00" y1="663.49" x2="666.32" y2="663.49" stroke="#d8ccae" stroke-width="1"/>
-<line x1="633.30" y1="680.00" x2="633.30" y2="430.00" stroke="#d8ccae" stroke-width="1"/>
-<line x1="480.00" y1="592.74" x2="666.32" y2="592.74" stroke="#efe7d2" stroke-width="1"/>
-<line x1="480.00" y1="451.23" x2="666.32" y2="451.23" stroke="#efe7d2" stroke-width="1"/>
-<polyline points="633.30,663.49 634.48,663.43 635.65,663.25 636.81,662.96 637.96,662.55 639.08,662.02 640.17,661.37 641.22,660.60 642.23,659.72 643.20,658.71 644.11,657.59 644.97,656.36 645.75,655.00 646.47,653.53 647.11,651.93 647.67,650.22 648.14,648.40 648.52,646.45 648.80,644.39 648.97,642.21 649.03,639.91 648.97,637.49 648.78,634.95 648.47,632.30 648.02,629.53 647.43,626.64 646.69,623.63 645.80,620.51 644.75,617.26 643.53,613.90 642.15,610.42 640.58,606.83 638.84,603.11 636.90,599.28 634.77,595.33 632.44,591.26 629.91,587.08 627.16,582.77 624.19,578.35 621.00,573.81 617.58,569.15 613.92,564.38 610.02,559.48 605.88,554.47 601.48,549.34 596.82,544.09 591.89,538.73 586.70,533.24 581.23,527.64 575.47,521.92 569.43,516.08 563.09,510.13 556.45,504.06 549.50,497.87 542.24,491.56 534.66,485.13 526.76,478.58 518.53,471.92 509.96,465.14 501.05,458.24 491.79,451.23" fill="none" stroke="#7a6a4a" stroke-width="2.4"/>
-<polyline points="633.30,663.49 650.99,639.91 621.51,569.15 497.69,451.23" fill="none" stroke="#2e2413" stroke-width="2.6"/>
-<circle cx="633.30" cy="663.49" r="4" fill="#2e2413"/>
-<circle cx="650.99" cy="639.91" r="4" fill="#2e2413"/>
-<circle cx="621.51" cy="569.15" r="4" fill="#2e2413"/>
-<circle cx="497.69" cy="451.23" r="4" fill="#2e2413"/>
-<circle cx="491.79" cy="451.23" r="8.5" fill="none" stroke="#a23b2a" stroke-width="2"/>
-<text x="479.79" y="445.23" font-size="13" text-anchor="end" fill="#a23b2a">curve tip (&#8722;6, 9)</text>
-<text x="506.69" y="465.23" font-size="12" text-anchor="start" fill="#2e2413">chain tip (&#8722;23/4, 9)</text>
-<text x="643.66" y="678.49" font-size="12" text-anchor="start" fill="#2e2413">nose</text>
-<text x="593.77" y="586.74" font-size="12" text-anchor="start" fill="#7b6c4e">waist (0, 3)</text>
-<text x="487.08" y="470.09" font-size="12" text-anchor="start" fill="#a23b2a">gap 1/4 = 3 &#215; 1/12</text>
-<text x="487.08" y="500.75" font-size="12" text-anchor="start" fill="#7b6c4e">y exact at every node</text>
+<text x="60" y="416" font-size="15" font-weight="600" fill="#2e2413">C. y drifts</text>
+<text x="60" y="435" font-size="12" fill="#7b6c4e">y&#8242; = 1 &#8722; t&#178; bends; each step is 1/12 too long</text>
+<line x1="480.00" y1="478.78" x2="797.07" y2="478.78" stroke="#d8ccae" stroke-width="1"/>
+<line x1="498.29" y1="680.00" x2="498.29" y2="430.00" stroke="#d8ccae" stroke-width="1"/>
+<line x1="589.76" y1="680.00" x2="589.76" y2="430.00" stroke="#efe7d2" stroke-width="1"/>
+<line x1="772.68" y1="680.00" x2="772.68" y2="430.00" stroke="#efe7d2" stroke-width="1"/>
+<polyline points="498.29,478.78 498.37,477.26 498.60,475.74 498.98,474.24 499.51,472.76 500.20,471.32 501.04,469.91 502.03,468.55 503.17,467.24 504.47,465.99 505.91,464.81 507.52,463.70 509.27,462.68 511.17,461.75 513.23,460.92 515.44,460.20 517.80,459.59 520.32,459.11 522.99,458.75 525.81,458.53 528.78,458.46 531.91,458.53 535.18,458.77 538.61,459.18 542.20,459.76 545.93,460.52 549.82,461.47 553.86,462.63 558.05,463.98 562.39,465.56 566.89,467.35 571.54,469.37 576.34,471.63 581.30,474.13 586.40,476.88 591.66,479.89 597.07,483.17 602.64,486.72 608.35,490.56 614.22,494.68 620.24,499.11 626.42,503.83 632.74,508.87 639.22,514.23 645.85,519.92 652.64,525.94 659.57,532.31 666.66,539.02 673.90,546.10 681.30,553.54 688.84,561.35 696.54,569.55 704.39,578.13 712.39,587.11 720.55,596.49 728.86,606.29 737.32,616.50 745.93,627.15 754.70,638.22 763.61,649.74 772.68,661.71" fill="none" stroke="#7a6a4a" stroke-width="2.4"/>
+<polyline points="498.29,478.78 528.78,455.91 620.24,494.02 772.68,654.09" fill="none" stroke="#2e2413" stroke-width="2.6"/>
+<circle cx="498.29" cy="478.78" r="4" fill="#2e2413"/>
+<circle cx="528.78" cy="455.91" r="4" fill="#2e2413"/>
+<circle cx="620.24" cy="494.02" r="4" fill="#2e2413"/>
+<circle cx="772.68" cy="654.09" r="4" fill="#2e2413"/>
+<circle cx="772.68" cy="661.71" r="8.5" fill="none" stroke="#a23b2a" stroke-width="2"/>
+<text x="764.68" y="651.71" font-size="13" text-anchor="end" fill="#a23b2a">curve tip (9, &#8722;6)</text>
+<text x="764.68" y="670.09" font-size="12" text-anchor="end" fill="#2e2413">chain tip (9, &#8722;23/4)</text>
+<text x="506.29" y="470.78" font-size="12" text-anchor="start" fill="#2e2413">nose</text>
+<text x="589.76" y="496.78" font-size="12" text-anchor="middle" fill="#7b6c4e">waist (3, 0)</text>
+<text x="717.80" y="612.93" font-size="12" text-anchor="end" fill="#a23b2a">gap 1/4 = 3 &#215; 1/12</text>
+<text x="632.44" y="465.06" font-size="12" text-anchor="middle" fill="#7b6c4e">x exact at every node</text>
 <text x="480" y="416" font-size="15" font-weight="600" fill="#2e2413">D. the ends</text>
 <text x="480" y="435" font-size="12" fill="#7b6c4e">three steps of 1/12 make the gap at the far tip</text>
 <text x="60" y="770" font-size="13" fill="#2e2413">At t = 0 the first step is centred on t = 1/2, so the chain leaves the nose on the tangent there, not on the tangent at 0.</text>

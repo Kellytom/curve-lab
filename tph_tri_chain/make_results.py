@@ -38,24 +38,23 @@ def build_blocks():
 
     # ------------------------------------------------------------ 1
     b.append(("h2", "1. Where the curve hits whole numbers"))
-    b.append(("p", "The curve is x = t - t^3/3 and y = t^2. For a point to sit on "
+    b.append(("p", "The curve is x = t^2 and y = t - t^3/3. For a point to sit on "
                    "the integer lattice, both coordinates must be whole numbers."))
-    b.append(("p", "Take t as a fraction in lowest terms. Then y = t^2 is a whole "
+    b.append(("p", "Take t as a fraction in lowest terms. Then x = t^2 is a whole "
                    "number only if t is itself a whole number, because squaring a "
                    "fraction in lowest terms cannot clear its denominator. Once t "
-                   "is whole, x = t - t^3/3 is whole exactly when 3 divides t. So "
+                   "is whole, y = t - t^3/3 is whole exactly when 3 divides t. So "
                    "the hits are the multiples of 3, and nothing else at rational t."))
-    b.append(("table", ["t", "x", "y", "arc length s", "note"],
-              [["0", "0", "0", "0", "nose"],
-               ["3", "-6", "9", "12", "first hit"],
-               ["6", "-66", "36", "78", ""],
-               ["9", "-234", "81", "252", ""],
-               ["12", "-564", "144", "588", ""],
-               ["15", "-1110", "225", "1140", ""]], []))
-    b.append(("p", "The curve is odd in x and even in y, so each hit (x, y) has a "
-                   "mirror (-x, y). One more whole-number point exists: the waist. "
-                   "x = 0 at t = plus or minus the square root of 3, which gives "
-                   "(0, 3). That parameter is not a fraction, so no chain built at "
+    hit_rows = []
+    for u in (0, 3, 6, 9, 12, 15):
+        x, y, s = integral(F(u))
+        hit_rows.append([str(u), str(x), str(y), str(s),
+                         {0: "nose", 3: "first hit"}.get(u, "")])
+    b.append(("table", ["t", "x", "y", "arc length s", "note"], hit_rows, []))
+    b.append(("p", "The curve is even in x and odd in y, so each hit (x, y) has a "
+                   "mirror (x, -y). One more whole-number point exists: the waist. "
+                   "y = 0 at t = plus or minus the square root of 3, which gives "
+                   "(3, 0). That parameter is not a fraction, so no chain built at "
                    "fractional steps can land on it."))
 
     # ------------------------------------------------------------ 2
@@ -93,16 +92,16 @@ def build_blocks():
         g = grid(r)
         xt, yt, st = integral(T)
         pts, clen = chordal(T, N)
-        rows.append([str(T), str(dt), str(g), fx(r[-1]["x"]),
-                     fx(r[-1]["x"] - xt), "yes" if r[-1]["y"] == yt else "no",
+        rows.append([str(T), str(dt), str(g), fx(r[-1]["y"]),
+                     fx(r[-1]["y"] - yt), "yes" if r[-1]["x"] == xt else "no",
                      f"({fx(pts[-1][0], 3)}, {fx(pts[-1][1], 3)})",
                      fx(r[-1]["s"]), fx(clen), fx(st)])
-    b.append(("table", ["stopping t", "step width", "pitch", "midpoint tip x",
-                        "gap", "y exact?", "chordal tip", "midpoint length",
+    b.append(("table", ["stopping t", "step width", "pitch", "midpoint tip y",
+                        "gap", "x exact?", "chordal tip", "midpoint length",
                         "chordal length", "exact length"], rows, []))
     b.append(("p", "At twelve triangles the chordal path lands on the whole-number "
-                   "point exactly, at t = 3 giving (-6, 9). The midpoint chain stops "
-                   "1/64 short of it. At that same stop chordal is also the closer of "
+                   "point exactly, at t = 3 giving (9, -6). The midpoint chain stops "
+                   "1/64 short of it in y. At that same stop chordal is also the closer of "
                    "the two on total length, 11.986998 against 11.984375 and an exact "
                    "12; further in, at t = 2.4, the two swap and the midpoint chain "
                    "is closer by a hair. The midpoint chain's steady advantage is a "
@@ -123,8 +122,8 @@ def build_blocks():
                      f"({p[0]}, {p[1]}, {p[2]})"])
     b.append(("table", ["step", "middle t", "dx", "dy", "ds", "reduced triple"], rows, []))
     b.append(("p", f"The last vertex is ({r[-1]['x']}, {r[-1]['y']}), against the "
-                   f"curve's (-6, 9): short by 1/64 in x, exact in y. The y "
-                   f"coordinate is exact for every count, because the vertical speed "
+                   f"curve's (9, -6): short by 1/64 in y, exact in x. The x "
+                   f"coordinate is exact for every count, because the along speed "
                    f"is linear and the midpoint rule integrates a linear function "
                    f"exactly."))
 
@@ -163,35 +162,35 @@ def build_blocks():
     b.append(("h2", "6. The glyph at t = 3, in whole units"))
     b.append(("table", ["feature", "value"],
               [["nose", "(0, 0)"],
-               ["waist", "(0, 3), reached at t = plus or minus the square root of 3"],
-               ["tips", "(-6, 9) and (6, 9)"],
-               ["body height", "3"],
-               ["tail height", "6, exactly twice the body"],
+               ["waist", "(3, 0), reached at t = plus or minus the square root of 3"],
+               ["tips", "(9, -6) and (9, 6)"],
+               ["body length", "3"],
+               ["tail span", "6, exactly twice the body"],
                ["arc length, one side", "12"],
                ["full length, both sides", "24"]], []))
-    b.append(("p", "This is the 'double the inner shape' proportion, measured in "
-                   "height, and it needs no scaling and no irrational number. The "
+    b.append(("p", "This is the 'double the inner shape' proportion, measured along "
+                   "the axis, and it needs no scaling and no irrational number. The "
                    "arc-length ratio is larger, 3.46, because the tail is thin and "
                    "long. The figure shows the two sides at twelve triangles, with "
                    "the whole-number points ringed."))
     b.append(("img", "out/lattice-t3.svg",
               "Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3"))
     b.append(("p", "A caution about the figure: the chain's last vertex sits at "
-                   "(-5.984375, 9), just inside the ring at (-6, 9). That gap is the "
+                   "(9, -5.984375), just inside the ring at (9, -6). That gap is the "
                    "1/64, and it is the whole story of this document."))
 
     # ------------------------------------------------------------ 7
     b.append(("h2", "7. Checks and reproduce"))
     corr = [
-        ("t = 3 gives (-6, 9) and length 12 exactly", integral(F(3)) == (-6, 9, 12)),
-        ("2.4, 2.5, 12/5 and 2.1 all have non-whole heights",
+        ("t = 3 gives (9, -6) and length 12 exactly", integral(F(3)) == (9, -6, 12)),
+        ("2.4, 2.5, 12/5 and 2.1 all have non-whole rises",
          all(integral(T)[1].denominator != 1 for T in (F(12, 5), F(5, 2), F(21, 10)))),
         ("twelve triangles at t = 4 gives pitch 108", grid(chain(F(0), F(4), N)[0]) == 108),
         ("twelve triangles at t = 3 gives pitch 256", grid(chain(F(0), F(3), N)[0]) == 256),
         ("twelve triangles at t = 2.5 gives pitch 55296", grid(chain(F(0), F(5, 2), N)[0]) == 55296),
-        ("midpoint gap is 1/64 at t = 3", chain(F(0), F(3), N)[0][-1]["x"] - integral(F(3))[0] == F(1, 64)),
-        ("chordal lands on (-6, 9) at t = 3", chordal(F(3), N)[0][-1] == (-6, 9)),
-        ("first triangle at t = 3 is (63, 16, 65)", primitive((int(r[0]["dx"] * g), int(r[0]["dy"] * g), int(r[0]["ds"] * g))) == (63, 16, 65)),
+        ("midpoint gap is 1/64 at t = 3", chain(F(0), F(3), N)[0][-1]["y"] - integral(F(3))[1] == F(1, 64)),
+        ("chordal lands on (9, -6) at t = 3", chordal(F(3), N)[0][-1] == (9, -6)),
+        ("first triangle at t = 3 is (16, 63, 65)", primitive((int(r[0]["dx"] * g), int(r[0]["dy"] * g), int(r[0]["ds"] * g))) == (16, 63, 65)),
     ]
     b.append(("p", "Equality tests run whenever this document is generated. A "
                    "failure means the document is wrong, not the numbers."))

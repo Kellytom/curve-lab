@@ -3,12 +3,12 @@
 Four panels, all exact at three steps over t in [0, 3], so the step width is 1:
 
   A  one step: the sampled tangent, the walked step, the curve's own chord
-  B  y is exact, because y' = 2t is a straight line and the midpoint rule is
+  B  x is exact, because x' = 2t is a straight line and the midpoint rule is
      exact on a straight line (the rectangle equals the triangle)
-  C  x drifts, because x' = 1 - t^2 bends: the midpoint rectangle is 3/4,
-     the true area is 2/3, so each step runs 1/12 too long in x
+  C  y drifts, because y' = 1 - t^2 bends: the midpoint rectangle is 3/4,
+     the true area is 2/3, so each step runs 1/12 too long in y
   D  the ends: three steps of 1/12 make the 1/4 gap at the far tip, while every
-     node's y sits exactly on the curve
+     node's x sits exactly on the curve
 
 y is up in the model. Each panel flips once, in its own fy().
 
@@ -27,7 +27,7 @@ BLUE, RED, GREY = "#1f5fa8", "#a23b2a", "#7a6a4a"
 
 def curve(t):
     t = float(t)
-    return (t - t ** 3 / 3, t ** 2)
+    return (t ** 2, t - t ** 3 / 3)
 
 
 class Panel:
@@ -79,22 +79,22 @@ def title(o, x, y, text, sub):
 
 
 def panel_a(box):
-    p = Panel(box, (-0.12, 0.92), (-0.16, 1.22))
+    p = Panel(box, (-0.16, 1.22), (-0.12, 0.92))
     o = p.axes()
     o.append(p.poly([curve(F(k, 24)) for k in range(25)], GREY, 2.4))
-    o.append(p.line((0, 0), (3 / 4, 1), INK, 2.6))
-    o.append(p.line((0, 0), (3 / 4, 0), BLUE, 1.6))
-    o.append(p.line((3 / 4, 0), (3 / 4, 1), BLUE, 1.6))
+    o.append(p.line((0, 0), (1, 3 / 4), INK, 2.6))
+    o.append(p.line((0, 0), (1, 0), BLUE, 1.6))
+    o.append(p.line((1, 0), (1, 3 / 4), BLUE, 1.6))
     o.append(p.line((0, 0), curve(F(1)), RED, 1.4, "6 4"))
     mx, my = curve(F(1, 2))
     o.append(p.dot(mx, my, 5, BLUE))
-    o.append(p.line((mx - 0.30, my - 0.40), (mx + 0.30, my + 0.40), BLUE, 1.6, "5 4"))
-    o.append(p.text(0.75, 1.0, "step end (3/4, 1)", anchor="end", dx=10, dy=-2))
-    o.append(p.text(*curve(F(1)), "chord end (2/3, 1)", anchor="end", dx=-6, dy=20))
+    o.append(p.line((mx - 0.40, my - 0.30), (mx + 0.40, my + 0.30), BLUE, 1.6, "5 4"))
+    o.append(p.text(1.0, 0.75, "step end (1, 3/4)", anchor="end", dx=-8, dy=-8))
+    o.append(p.text(*curve(F(1)), "chord end (1, 2/3)", anchor="end", dx=-8, dy=20))
     o.append(p.text(mx, my, "middle t = 1/2", dx=12, dy=-6, col=BLUE))
     o.append(p.text(mx, my, "tangent there", dx=12, dy=10, col=BLUE))
-    o.append(p.text(0.02, 0.30, "step sides", dx=6, dy=0, size=12))
-    o.append(p.text(0.02, 0.22, "3/4, 1, 5/4", dx=6, dy=0, size=12))
+    o.append(p.text(0.02, 0.10, "step sides", dx=6, dy=0, size=12))
+    o.append(p.text(0.02, 0.20, "1, 3/4, 5/4", dx=6, dy=0, size=12))
     return o
 
 
@@ -127,10 +127,10 @@ def panel_c(box):
 
 
 def panel_d(box):
-    p = Panel(box, (-6.5, 1.4), (-0.7, 9.9))
+    p = Panel(box, (-0.6, 9.8), (-6.6, 1.6))
     o = p.axes()
-    for gy in (3, 9):
-        o.append(p.line((p.x0, gy), (p.x1, gy), "#efe7d2", 1))
+    for gx in (3, 9):
+        o.append(p.line((gx, p.y0), (gx, p.y1), "#efe7d2", 1))
     o.append(p.poly([curve(F(k, 60) * 3) for k in range(61)], GREY, 2.4))
     rows, _ = chain(F(0), F(3), 3)
     x = y = F(0)
@@ -142,15 +142,15 @@ def panel_d(box):
     o.append(p.poly(nodes, INK, 2.6))
     for a, b in nodes:
         o.append(p.dot(a, b, 4))
-    o.append(f'<circle cx="{p.fx(-6):.2f}" cy="{p.fy(9):.2f}" r="8.5" fill="none" '
+    o.append(f'<circle cx="{p.fx(9):.2f}" cy="{p.fy(-6):.2f}" r="8.5" fill="none" '
              f'stroke="{RED}" stroke-width="2"/>')
-    o.append(p.text(-6, 9, "curve tip (&minus;6, 9)", anchor="end", dx=-12, dy=-6, col=RED))
-    o.append(p.text(nodes[-1][0], nodes[-1][1], "chain tip (&minus;23/4, 9)",
-                    dx=9, dy=14, size=12))
-    o.append(p.text(0.1, 0.0, "nose", dx=8, dy=15, size=12))
-    o.append(p.text(-2.1, 3.0, "waist (0, 3)", dx=10, dy=-6, size=12, col=MUTED))
-    o.append(p.text(-6.2, 8.2, "gap 1/4 = 3 &times; 1/12", size=12, col=RED))
-    o.append(p.text(-6.2, 6.9, "y exact at every node", size=12, col=MUTED))
+    o.append(p.text(9, -6, "curve tip (9, &minus;6)", anchor="end", dx=-8, dy=-10, col=RED))
+    o.append(p.text(nodes[-1][0], nodes[-1][1], "chain tip (9, &minus;23/4)",
+                    anchor="end", dx=-8, dy=16, size=12))
+    o.append(p.text(0.0, 0.0, "nose", dx=8, dy=-8, size=12))
+    o.append(p.text(3, 0, "waist (3, 0)", anchor="middle", dy=18, size=12, col=MUTED))
+    o.append(p.text(7.2, -4.4, "gap 1/4 = 3 &times; 1/12", anchor="end", size=12, col=RED))
+    o.append(p.text(4.4, 0.45, "x exact at every node", anchor="middle", size=12, col=MUTED))
     return o
 
 
@@ -163,15 +163,15 @@ def main():
          f'<text x="46" y="38" font-size="19" font-weight="600" fill="{INK}">'
          f'Fig. T2 &mdash; why the midpoint rule holds, and what the ends do</text>',
          f'<text x="46" y="60" font-size="13" fill="{MUTED}">'
-         f'x = t &minus; t&sup3;/3, y = t&sup2; &middot; three steps over t = 0 to 3, '
+         f'x = t&sup2;, y = t &minus; t&sup3;/3 &middot; three steps over t = 0 to 3, '
          f'step width 1 &middot; y is up</text>']
 
     boxes = [((60, 100, 360, 250), "A. one step, sampled at its middle",
               "the step is not the curve&rsquo;s chord: 1/12 apart at the end"),
-             ((480, 100, 360, 250), "B. y is exact",
-              "y&prime; = 2t is a straight line; midpoint equals the area"),
-             ((60, 430, 360, 250), "C. x drifts",
-              "x&prime; = 1 &minus; t&sup2; bends; each step is 1/12 too long"),
+             ((480, 100, 360, 250), "B. x is exact",
+              "x&prime; = 2t is a straight line; midpoint equals the area"),
+             ((60, 430, 360, 250), "C. y drifts",
+              "y&prime; = 1 &minus; t&sup2; bends; each step is 1/12 too long"),
              ((480, 430, 360, 250), "D. the ends",
               "three steps of 1/12 make the gap at the far tip")]
     for (box, head, sub), fn in zip(boxes, (panel_a, panel_b, panel_c, panel_d)):

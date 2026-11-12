@@ -36,100 +36,100 @@ ul.note{padding-left:20px}
 <h2>What the words mean</h2>
 <ul><li><strong>t</strong> &mdash; the knob that runs along the curve. It is not a length and not a distance; t = 3 means the third unit of the knob, nothing more.</li><li><strong>step width</strong> &mdash; a slice of t: the stopping point divided by the number of triangles. At twelve triangles out to t = 3 it is 1/4.</li><li><strong>pitch</strong> &mdash; how many grid cells fit in one unit of the drawing, one across and one up. It has nothing to do with t, and nothing to do with distance along the curve.</li><li><strong>total grid</strong> &mdash; the pitch times how many units the curve spans. A pitch on its own never says how big the drawing is.</li></ul>
 <table class="tbl"><thead><tr><th>stopping point</th><th>curve spans, units</th><th>pitch</th><th>total grid, cells</th></tr></thead><tbody>
-<tr><td>3</td><td>12 &times; 9</td><td>1</td><td>12 &times; 9</td></tr>
-<tr><td>3</td><td>12 &times; 9</td><td>256</td><td>3072 &times; 2304</td></tr>
-<tr><td>12/5</td><td>552/125 &times; 144/25</td><td>500</td><td>2208 &times; 2880</td></tr>
-<tr><td>24/5</td><td>8016/125 &times; 576/25</td><td>125</td><td>8016 &times; 2880</td></tr>
-<tr><td>24/5</td><td>8016/125 &times; 576/25</td><td>3125</td><td>200400 &times; 72000</td></tr>
+<tr><td>3</td><td>9 &times; 12</td><td>1</td><td>9 &times; 12</td></tr>
+<tr><td>3</td><td>9 &times; 12</td><td>256</td><td>2304 &times; 3072</td></tr>
+<tr><td>12/5</td><td>144/25 &times; 552/125</td><td>500</td><td>2880 &times; 2208</td></tr>
+<tr><td>24/5</td><td>576/25 &times; 8016/125</td><td>125</td><td>2880 &times; 8016</td></tr>
+<tr><td>24/5</td><td>576/25 &times; 8016/125</td><td>3125</td><td>72000 &times; 200400</td></tr>
 </tbody></table>
-<p class="note">So 3125 is a pitch, not a total. A round total needs the stopping point to make the span round, and t = 3 is the only stop here that does: it spans exactly 12 by 9 units, which is a 12 &times; 9 grid at pitch 1 and 3072 &times; 2304 cells at pitch 256.</p>
-<div class="key"><strong>The rule, in whole units.</strong> y = t&sup2; is a whole number only if t is a whole number. Once t is whole, x = t &minus; t&sup3;/3 is whole exactly when 3 divides t. So the curve meets whole-number points only at t = 0, 3, 6, 9 &hellip;, plus the waist (0,&nbsp;3), which is reached at t = &plusmn;&radic;3 and so by no fractional chain.</div>
+<p class="note">So 3125 is a pitch, not a total. A round total needs the stopping point to make the span round, and t = 3 is the only stop here that does: it spans exactly 9 by 12 units, which is a 9 &times; 12 grid at pitch 1 and 2304 &times; 3072 cells at pitch 256.</p>
+<div class="key"><strong>The rule, in whole units.</strong> x = t&sup2; is a whole number only if t is a whole number. Once t is whole, y = t &minus; t&sup3;/3 is whole exactly when 3 divides t. So the curve meets whole-number points only at t = 0, 3, 6, 9 &hellip;, plus the waist (3,&nbsp;0), which is reached at t = &plusmn;&radic;3 and so by no fractional chain.</div>
 <h2>The hits, exactly</h2>
 <table class="tbl"><thead><tr><th>t</th><th>x</th><th>y</th><th>arc length</th><th>note</th></tr></thead><tbody>
 <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>nose</td></tr>
-<tr><td>3</td><td>-6</td><td>9</td><td>12</td><td>first hit</td></tr>
-<tr><td>6</td><td>-66</td><td>36</td><td>78</td><td></td></tr>
-<tr><td>9</td><td>-234</td><td>81</td><td>252</td><td></td></tr>
-<tr><td>12</td><td>-564</td><td>144</td><td>588</td><td></td></tr>
-<tr><td>15</td><td>-1110</td><td>225</td><td>1140</td><td></td></tr>
+<tr><td>3</td><td>9</td><td>-6</td><td>12</td><td>first hit</td></tr>
+<tr><td>6</td><td>36</td><td>-66</td><td>78</td><td></td></tr>
+<tr><td>9</td><td>81</td><td>-234</td><td>252</td><td></td></tr>
+<tr><td>12</td><td>144</td><td>-564</td><td>588</td><td></td></tr>
+<tr><td>15</td><td>225</td><td>-1110</td><td>1140</td><td></td></tr>
 </tbody></table>
 <h2>The grid exists to clear fractions</h2>
 <p>A fractional coordinate is not a problem to be ruled out. Choose a pitch that is a multiple of the denominators and the point lands on a whole cell. That is the entire purpose of the pitch: 144/25 of a unit is 2880 cells at pitch 500.</p>
-<p>So the useful question is not whether the height is a whole number, but how coarse a pitch makes the point whole, and whether the chain's own sides are whole at that same pitch.</p>
+<p>So the useful question is not whether the reach is a whole number, but how coarse a pitch makes the point whole, and whether the chain's own sides are whole at that same pitch.</p>
 <table class="tbl"><thead><tr><th>stop t</th><th>x</th><th>y</th><th>the point, in cells</th><th>smallest pitch for the curve</th><th>smallest pitch for every chain side</th></tr></thead><tbody>
-<tr><td>2</td><td>-2/3</td><td>4</td><td>(-2, 12)</td><td>3</td><td>864</td></tr>
-<tr><td>21/10</td><td>-987/1000</td><td>441/100</td><td>(-987, 4410)</td><td>1000</td><td>256000</td></tr>
-<tr><td>12/5</td><td>-276/125</td><td>144/25</td><td>(-276, 720)</td><td>125</td><td>500</td></tr>
-<tr><td>5/2</td><td>-65/24</td><td>25/4</td><td>(-65, 150)</td><td>24</td><td>55296</td></tr>
-<tr><td>3</td><td>-6</td><td>9</td><td>(-6, 9)</td><td>1</td><td>256</td></tr>
-<tr><td>24/5</td><td>-4008/125</td><td>576/25</td><td>(-4008, 2880)</td><td>125</td><td>125</td></tr>
-<tr><td>4</td><td>-52/3</td><td>16</td><td>(-52, 48)</td><td>3</td><td>108</td></tr>
+<tr><td>2</td><td>4</td><td>-2/3</td><td>(12, -2)</td><td>3</td><td>864</td></tr>
+<tr><td>21/10</td><td>441/100</td><td>-987/1000</td><td>(4410, -987)</td><td>1000</td><td>256000</td></tr>
+<tr><td>12/5</td><td>144/25</td><td>-276/125</td><td>(720, -276)</td><td>125</td><td>500</td></tr>
+<tr><td>5/2</td><td>25/4</td><td>-65/24</td><td>(150, -65)</td><td>24</td><td>55296</td></tr>
+<tr><td>3</td><td>9</td><td>-6</td><td>(9, -6)</td><td>1</td><td>256</td></tr>
+<tr><td>24/5</td><td>576/25</td><td>-4008/125</td><td>(2880, -4008)</td><td>125</td><td>125</td></tr>
+<tr><td>4</td><td>16</td><td>-52/3</td><td>(48, -52)</td><td>3</td><td>108</td></tr>
 </tbody></table>
 <p class="note">t = 3 needs no scaling at all. Every other stop is exact too, at a pitch equal to its denominators: 3 at t = 2 and t = 4, 24 at 5/2, 125 at 12/5, 1000 at 21/10. What singles out t = 3 is that it is the only stop exact in whole units. The chain needs a larger pitch than the curve at every stop, because each side has to be whole as well as each vertex.</p>
 <h2>Twelve triangles per side, both methods</h2>
-<table class="tbl"><thead><tr><th>stop t</th><th>step width</th><th>pitch</th><th>midpoint chain tip x</th><th>gap</th><th>y exact?</th><th>straight joins tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>
-<tr><td>2</td><td>1/6</td><td>864</td><td>-143/216</td><td>1/216</td><td>yes</td><td>(-2/3, 4)</td><td>1007/216</td><td>(&#931;&#8730;)/648</td><td>14/3</td></tr>
-<tr><td>21/10</td><td>7/40</td><td>256000</td><td>-2513/2560</td><td>343/64000</td><td>yes</td><td>(-987/1000, 441/100)</td><td>2653/512</td><td>(&#931;&#8730;)/192000</td><td>5187/1000</td></tr>
-<tr><td>12/5</td><td>1/5</td><td>500</td><td>-11/5</td><td>1/125</td><td>yes</td><td>(-276/125, 144/25)</td><td>7</td><td>(&#931;&#8730;)/375</td><td>876/125</td></tr>
-<tr><td>5/2</td><td>5/24</td><td>55296</td><td>-37315/13824</td><td>125/13824</td><td>yes</td><td>(-65/24, 25/4)</td><td>106435/13824</td><td>(&#931;&#8730;)/41472</td><td>185/24</td></tr>
-<tr><td>3</td><td>1/4</td><td>256</td><td>-383/64</td><td>1/64</td><td>yes</td><td>(-6, 9)</td><td>767/64</td><td>(&#931;&#8730;)/192</td><td>12</td></tr>
-<tr><td>24/5</td><td>2/5</td><td>125</td><td>-32</td><td>8/125</td><td>yes</td><td>(-4008/125, 576/25)</td><td>208/5</td><td>(&#931;&#8730;)/375</td><td>5208/125</td></tr>
-<tr><td>4</td><td>1/3</td><td>108</td><td>-467/27</td><td>1/27</td><td>yes</td><td>(-52/3, 16)</td><td>683/27</td><td>(&#931;&#8730;)/81</td><td>76/3</td></tr>
+<table class="tbl"><thead><tr><th>stop t</th><th>step width</th><th>pitch</th><th>midpoint chain tip y</th><th>gap</th><th>x exact?</th><th>straight joins tip</th><th>midpoint length</th><th>chordal length</th><th>exact length</th></tr></thead><tbody>
+<tr><td>2</td><td>1/6</td><td>864</td><td>-143/216</td><td>1/216</td><td>yes</td><td>(4, -2/3)</td><td>1007/216</td><td>(&#931;&#8730;)/648</td><td>14/3</td></tr>
+<tr><td>21/10</td><td>7/40</td><td>256000</td><td>-2513/2560</td><td>343/64000</td><td>yes</td><td>(441/100, -987/1000)</td><td>2653/512</td><td>(&#931;&#8730;)/192000</td><td>5187/1000</td></tr>
+<tr><td>12/5</td><td>1/5</td><td>500</td><td>-11/5</td><td>1/125</td><td>yes</td><td>(144/25, -276/125)</td><td>7</td><td>(&#931;&#8730;)/375</td><td>876/125</td></tr>
+<tr><td>5/2</td><td>5/24</td><td>55296</td><td>-37315/13824</td><td>125/13824</td><td>yes</td><td>(25/4, -65/24)</td><td>106435/13824</td><td>(&#931;&#8730;)/41472</td><td>185/24</td></tr>
+<tr><td>3</td><td>1/4</td><td>256</td><td>-383/64</td><td>1/64</td><td>yes</td><td>(9, -6)</td><td>767/64</td><td>(&#931;&#8730;)/192</td><td>12</td></tr>
+<tr><td>24/5</td><td>2/5</td><td>125</td><td>-32</td><td>8/125</td><td>yes</td><td>(576/25, -4008/125)</td><td>208/5</td><td>(&#931;&#8730;)/375</td><td>5208/125</td></tr>
+<tr><td>4</td><td>1/3</td><td>108</td><td>-467/27</td><td>1/27</td><td>yes</td><td>(16, -52/3)</td><td>683/27</td><td>(&#931;&#8730;)/81</td><td>76/3</td></tr>
 </tbody></table>
 <p class="note">The chordal length is irrational, so it is written as an expression. At t = 3 it is (&radic;2353 + &radic;2977 + &hellip; + &radic;197977)/192, twelve terms, denominator 192. The midpoint total at the same count is the fraction 767/64, because every side there is a whole-number triple.</p>
-<p>At t = 3 the path of straight joins lands on the whole-number point exactly. The midpoint chain stops 1/64 short of it. The exchange is set out at the end of the page: exact positions, or exact lengths.</p>
+<p>At t = 3 the path of straight joins lands on the whole-number point exactly. The midpoint chain stops 1/64 short of it in y. The exchange is set out at the end of the page: exact positions, or exact lengths.</p>
 <h2>The twelve triangles at t = 3</h2>
 <p class="note">Step width 1/4, pitch 256 cells per unit. Sides given both in cells and as reduced triples.</p>
 <table class="tbl"><thead><tr><th>step</th><th>middle t</th><th>dx</th><th>dy</th><th>ds</th><th>reduced triple</th></tr></thead><tbody>
-<tr><td>1</td><td>1/8</td><td>63</td><td>16</td><td>65</td><td>(63, 16, 65)</td></tr>
-<tr><td>2</td><td>3/8</td><td>55</td><td>48</td><td>73</td><td>(55, 48, 73)</td></tr>
-<tr><td>3</td><td>5/8</td><td>39</td><td>80</td><td>89</td><td>(39, 80, 89)</td></tr>
-<tr><td>4</td><td>7/8</td><td>15</td><td>112</td><td>113</td><td>(15, 112, 113)</td></tr>
-<tr><td>5</td><td>9/8</td><td>-17</td><td>144</td><td>145</td><td>(-17, 144, 145)</td></tr>
-<tr><td>6</td><td>11/8</td><td>-57</td><td>176</td><td>185</td><td>(-57, 176, 185)</td></tr>
-<tr><td>7</td><td>13/8</td><td>-105</td><td>208</td><td>233</td><td>(-105, 208, 233)</td></tr>
-<tr><td>8</td><td>15/8</td><td>-161</td><td>240</td><td>289</td><td>(-161, 240, 289)</td></tr>
-<tr><td>9</td><td>17/8</td><td>-225</td><td>272</td><td>353</td><td>(-225, 272, 353)</td></tr>
-<tr><td>10</td><td>19/8</td><td>-297</td><td>304</td><td>425</td><td>(-297, 304, 425)</td></tr>
-<tr><td>11</td><td>21/8</td><td>-377</td><td>336</td><td>505</td><td>(-377, 336, 505)</td></tr>
-<tr><td>12</td><td>23/8</td><td>-465</td><td>368</td><td>593</td><td>(-465, 368, 593)</td></tr>
+<tr><td>1</td><td>1/8</td><td>16</td><td>63</td><td>65</td><td>(16, 63, 65)</td></tr>
+<tr><td>2</td><td>3/8</td><td>48</td><td>55</td><td>73</td><td>(48, 55, 73)</td></tr>
+<tr><td>3</td><td>5/8</td><td>80</td><td>39</td><td>89</td><td>(80, 39, 89)</td></tr>
+<tr><td>4</td><td>7/8</td><td>112</td><td>15</td><td>113</td><td>(112, 15, 113)</td></tr>
+<tr><td>5</td><td>9/8</td><td>144</td><td>-17</td><td>145</td><td>(144, -17, 145)</td></tr>
+<tr><td>6</td><td>11/8</td><td>176</td><td>-57</td><td>185</td><td>(176, -57, 185)</td></tr>
+<tr><td>7</td><td>13/8</td><td>208</td><td>-105</td><td>233</td><td>(208, -105, 233)</td></tr>
+<tr><td>8</td><td>15/8</td><td>240</td><td>-161</td><td>289</td><td>(240, -161, 289)</td></tr>
+<tr><td>9</td><td>17/8</td><td>272</td><td>-225</td><td>353</td><td>(272, -225, 353)</td></tr>
+<tr><td>10</td><td>19/8</td><td>304</td><td>-297</td><td>425</td><td>(304, -297, 425)</td></tr>
+<tr><td>11</td><td>21/8</td><td>336</td><td>-377</td><td>505</td><td>(336, -377, 505)</td></tr>
+<tr><td>12</td><td>23/8</td><td>368</td><td>-465</td><td>593</td><td>(368, -465, 593)</td></tr>
 </tbody></table>
-<p>The last vertex is (-383/64, 9) against the curve&rsquo;s (&minus;6,&nbsp;9): short by 1/64 in x, exact in y.</p>
+<p>The last vertex is (9, -383/64) against the curve&rsquo;s (9,&nbsp;&minus;6): short by 1/64 in y, exact in x.</p>
 <h2>The pitch, and where it comes from</h2>
 <p>The pitch is the number of cells per unit, and the grid is the whole integer lattice at that pitch — not a box fitted round the curve. It depends on the step width and nothing else. Write the step width as a fraction in lowest terms, call the bottom number q:</p>
 <pre class="note">pitch = q&sup3;
 pitch = 4 &times; q&sup3;    when the top number is odd</pre>
 <p>With the count fixed at twelve, the step width is t/12, so the stopping point alone decides the pitch. That is the whole of it.</p>
 <table class="tbl"><thead><tr><th>stop t</th><th>step width</th><th>pitch</th><th>curve tip, in cells</th><th>first step, in cells</th></tr></thead><tbody>
-<tr><td>2</td><td>1/6</td><td>864</td><td>(-576, 3456)</td><td>(143, 24, 145)</td></tr>
-<tr><td>21/10</td><td>7/40</td><td>256000</td><td>(-252672, 1128960)</td><td>(44457, 7840, 45143)</td></tr>
-<tr><td>12/5</td><td>1/5</td><td>500</td><td>(-1104, 2880)</td><td>(99, 20, 101)</td></tr>
-<tr><td>5/2</td><td>5/24</td><td>55296</td><td>(-149760, 345600)</td><td>(11395, 2400, 11645)</td></tr>
-<tr><td>3</td><td>1/4</td><td>256</td><td>(-1536, 2304)</td><td>(63, 16, 65)</td></tr>
-<tr><td>24/5</td><td>2/5</td><td>125</td><td>(-4008, 2880)</td><td>(48, 20, 52)</td></tr>
-<tr><td>4</td><td>1/3</td><td>108</td><td>(-1872, 1728)</td><td>(35, 12, 37)</td></tr>
+<tr><td>2</td><td>1/6</td><td>864</td><td>(3456, -576)</td><td>(24, 143, 145)</td></tr>
+<tr><td>21/10</td><td>7/40</td><td>256000</td><td>(1128960, -252672)</td><td>(7840, 44457, 45143)</td></tr>
+<tr><td>12/5</td><td>1/5</td><td>500</td><td>(2880, -1104)</td><td>(20, 99, 101)</td></tr>
+<tr><td>5/2</td><td>5/24</td><td>55296</td><td>(345600, -149760)</td><td>(2400, 11395, 11645)</td></tr>
+<tr><td>3</td><td>1/4</td><td>256</td><td>(2304, -1536)</td><td>(16, 63, 65)</td></tr>
+<tr><td>24/5</td><td>2/5</td><td>125</td><td>(2880, -4008)</td><td>(20, 48, 52)</td></tr>
+<tr><td>4</td><td>1/3</td><td>108</td><td>(1728, -1872)</td><td>(12, 35, 37)</td></tr>
 </tbody></table>
 <p><strong>Worked example, twelve triangles out to t = 4.</strong> The step width is 4/12 = 1/3. The bottom number is 3, the top number is odd, so the pitch is 4 &times; 27 = 108. It is small because the step is coarse: twelve triangles across four units is a big step, and a big step has a small bottom number.</p>
-<p><strong>If the grid must be 3125.</strong> A power of five only arrives when the step width is 2/5 or 4/5, since 3125 is odd. At twelve triangles that means t = 24/5: the grid is 125, and 3125 is twenty-five of those, with 625 being five. The curve then runs to height 576/25 and fills only part of the grid.</p>
-<p><strong>Same count, t = 3.</strong> Step width 1/4, bottom number 4, pitch 4 &times; 64 = 256. The very first step is evaluated at t = 1/8, so its sides are (1 &minus; 1/64)/4 &times; 256 = 63, then 2(1/8)/4 &times; 256 = 16, and (1 + 1/64)/4 &times; 256 = 65: the triple (63,&nbsp;16,&nbsp;65).</p>
+<p><strong>If the grid must be 3125.</strong> A power of five only arrives when the step width is 2/5 or 4/5, since 3125 is odd. At twelve triangles that means t = 24/5: the grid is 125, and 3125 is twenty-five of those, with 625 being five. The curve then reaches 576/25 and fills only part of the grid.</p>
+<p><strong>Same count, t = 3.</strong> Step width 1/4, bottom number 4, pitch 4 &times; 64 = 256. The very first step is evaluated at t = 1/8, so its sides are 2(1/8)/4 &times; 256 = 16 across, then (1 &minus; 1/64)/4 &times; 256 = 63 up, and (1 + 1/64)/4 &times; 256 = 65: the triple (16,&nbsp;63,&nbsp;65).</p>
 <h2>The glyph at t = 3, in whole units</h2>
 <table class="tbl"><thead><tr><th>feature</th><th>value</th></tr></thead><tbody>
 <tr><td>nose</td><td>(0, 0)</td></tr>
-<tr><td>waist</td><td>(0, 3), at t = &plusmn;&radic;3</td></tr>
-<tr><td>tips</td><td>(&minus;6, 9) and (6, 9)</td></tr>
-<tr><td>body height</td><td>3</td></tr>
-<tr><td>tail height</td><td>6, exactly twice the body</td></tr>
+<tr><td>waist</td><td>(3, 0), at t = &plusmn;&radic;3</td></tr>
+<tr><td>tips</td><td>(9, &minus;6) and (9, 6)</td></tr>
+<tr><td>body length</td><td>3</td></tr>
+<tr><td>tail span</td><td>6, exactly twice the body</td></tr>
 <tr><td>arc length, one side</td><td>12</td></tr>
 <tr><td>full length, both sides</td><td>24</td></tr>
 </tbody></table>
-<figure><div id="t1"></div><figcaption class="note">Fig. T1 &mdash; 24 triangles and all 25 vertices, labelled with their (x, y) pairs in cells. Ringed and lettered: the four parameters where the curve itself meets the lattice. Pitch 256 cells per unit; drawn with d3.</figcaption></figure><script src="vendor/d3.v7.min.js"></script><script>const T1={"verts": [[1532, 2304], [1067, 1936], [690, 1600], [393, 1296], [168, 1024], [7, 784], [-98, 576], [-155, 400], [-172, 256], [-157, 144], [-118, 64], [-63, 16], [0, 0], [63, 16], [118, 64], [157, 144], [172, 256], [155, 400], [98, 576], [-7, 784], [-168, 1024], [-393, 1296], [-690, 1600], [-1067, 1936], [-1532, 2304]], "steps": [[-465, -368], [-377, -336], [-297, -304], [-225, -272], [-161, -240], [-105, -208], [-57, -176], [-17, -144], [15, -112], [39, -80], [55, -48], [63, -16], [63, 16], [55, 48], [39, 80], [15, 112], [-17, 144], [-57, 176], [-105, 208], [-161, 240], [-225, 272], [-297, 304], [-377, 336], [-465, 368]], "curve": [[1536, 2304], [1485, 2265], [1435, 2227], [1386, 2190], [1338, 2152], [1291, 2116], [1245, 2079], [1200, 2043], [1156, 2007], [1113, 1971], [1070, 1936], [1029, 1900], [988, 1866], [948, 1831], [909, 1797], [871, 1764], [834, 1730], [797, 1697], [762, 1664], [727, 1632], [693, 1600], [660, 1568], [627, 1536], [596, 1505], [565, 1474], [535, 1444], [505, 1413], [477, 1383], [449, 1354], [422, 1324], [396, 1296], [370, 1267], [345, 1239], [321, 1211], [297, 1183], [274, 1156], [252, 1128], [231, 1102], [210, 1075], [190, 1049], [170, 1024], [151, 998], [133, 973], [115, 948], [98, 924], [82, 900], [66, 876], [51, 852], [36, 829], [22, 806], [9, 784], [-3, 761], [-15, 739], [-27, 718], [-39, 696], [-49, 676], [-60, 655], [-69, 635], [-79, 615], [-87, 595], [-96, 576], [-103, 556], [-111, 538], [-117, 519], [-124, 501], [-130, 484], [-135, 466], [-140, 449], [-145, 432], [-149, 416], [-153, 400], [-156, 384], [-159, 368], [-162, 353], [-164, 338], [-166, 324], [-168, 309], [-169, 295], [-170, 282], [-170, 268], [-170, 256], [-170, 243], [-170, 231], [-169, 219], [-168, 207], [-166, 196], [-165, 184], [-163, 174], [-161, 163], [-158, 153], [-156, 144], [-153, 134], [-149, 125], [-146, 116], [-142, 108], [-139, 100], [-135, 92], [-130, 84], [-126, 77], [-122, 70], [-117, 64], [-112, 57], [-107, 51], [-102, 46], [-96, 40], [-91, 36], [-85, 31], [-80, 27], [-74, 23], [-68, 19], [-62, 16], [-56, 12], [-50, 10], [-44, 7], [-38, 5], [-31, 4], [-25, 2], [-19, 1], [-12, 0], [-6, 0], [0, 0], [6, 0], [12, 0], [19, 1], [25, 2], [31, 4], [38, 5], [44, 7], [50, 10], [56, 12], [62, 16], [68, 19], [74, 23], [80, 27], [85, 31], [91, 36], [96, 40], [102, 46], [107, 51], [112, 57], [117, 64], [122, 70], [126, 77], [130, 84], [135, 92], [139, 100], [142, 108], [146, 116], [149, 125], [153, 134], [156, 144], [158, 153], [161, 163], [163, 174], [165, 184], [166, 196], [168, 207], [169, 219], [170, 231], [170, 243], [170, 256], [170, 268], [170, 282], [169, 295], [168, 309], [166, 324], [164, 338], [162, 353], [159, 368], [156, 384], [153, 400], [149, 416], [145, 432], [140, 449], [135, 466], [130, 484], [124, 501], [117, 519], [111, 538], [103, 556], [96, 576], [87, 595], [79, 615], [69, 635], [60, 655], [49, 676], [39, 696], [27, 718], [15, 739], [3, 761], [-9, 784], [-22, 806], [-36, 829], [-51, 852], [-66, 876], [-82, 900], [-98, 924], [-115, 948], [-133, 973], [-151, 998], [-170, 1024], [-190, 1049], [-210, 1075], [-231, 1102], [-252, 1128], [-274, 1156], [-297, 1183], [-321, 1211], [-345, 1239], [-370, 1267], [-396, 1296], [-422, 1324], [-449, 1354], [-477, 1383], [-505, 1413], [-535, 1444], [-565, 1474], [-596, 1505], [-627, 1536], [-660, 1568], [-693, 1600], [-727, 1632], [-762, 1664], [-797, 1697], [-834, 1730], [-871, 1764], [-909, 1797], [-948, 1831], [-988, 1866], [-1029, 1900], [-1070, 1936], [-1113, 1971], [-1156, 2007], [-1200, 2043], [-1245, 2079], [-1291, 2116], [-1338, 2152], [-1386, 2190], [-1435, 2227], [-1485, 2265], [-1536, 2304]], "hits": [[0, 0, "A"], [0, 768, "B"], [-1536, 2304, "C"], [1536, 2304, "D"]], "pitch": 256};</script><script src="t1.js"></script>
+<figure><div id="t1"></div><figcaption class="note">Fig. T1 &mdash; 24 triangles and all 25 vertices, labelled with their (x, y) pairs in cells. Ringed and lettered: the four parameters where the curve itself meets the lattice. Pitch 256 cells per unit; drawn with d3.</figcaption></figure><script src="vendor/d3.v7.min.js"></script><script>const T1={"verts": [[2304, 1532], [1936, 1067], [1600, 690], [1296, 393], [1024, 168], [784, 7], [576, -98], [400, -155], [256, -172], [144, -157], [64, -118], [16, -63], [0, 0], [16, 63], [64, 118], [144, 157], [256, 172], [400, 155], [576, 98], [784, -7], [1024, -168], [1296, -393], [1600, -690], [1936, -1067], [2304, -1532]], "steps": [[-368, -465], [-336, -377], [-304, -297], [-272, -225], [-240, -161], [-208, -105], [-176, -57], [-144, -17], [-112, 15], [-80, 39], [-48, 55], [-16, 63], [16, 63], [48, 55], [80, 39], [112, 15], [144, -17], [176, -57], [208, -105], [240, -161], [272, -225], [304, -297], [336, -377], [368, -465]], "curve": [[2304, 1536], [2265, 1485], [2227, 1435], [2190, 1386], [2152, 1338], [2116, 1291], [2079, 1245], [2043, 1200], [2007, 1156], [1971, 1113], [1936, 1070], [1900, 1029], [1866, 988], [1831, 948], [1797, 909], [1764, 871], [1730, 834], [1697, 797], [1664, 762], [1632, 727], [1600, 693], [1568, 660], [1536, 627], [1505, 596], [1474, 565], [1444, 535], [1413, 505], [1383, 477], [1354, 449], [1324, 422], [1296, 396], [1267, 370], [1239, 345], [1211, 321], [1183, 297], [1156, 274], [1128, 252], [1102, 231], [1075, 210], [1049, 190], [1024, 170], [998, 151], [973, 133], [948, 115], [924, 98], [900, 82], [876, 66], [852, 51], [829, 36], [806, 22], [784, 9], [761, -3], [739, -15], [718, -27], [696, -39], [676, -49], [655, -60], [635, -69], [615, -79], [595, -87], [576, -96], [556, -103], [538, -111], [519, -117], [501, -124], [484, -130], [466, -135], [449, -140], [432, -145], [416, -149], [400, -153], [384, -156], [368, -159], [353, -162], [338, -164], [324, -166], [309, -168], [295, -169], [282, -170], [268, -170], [256, -170], [243, -170], [231, -170], [219, -169], [207, -168], [196, -166], [184, -165], [174, -163], [163, -161], [153, -158], [144, -156], [134, -153], [125, -149], [116, -146], [108, -142], [100, -139], [92, -135], [84, -130], [77, -126], [70, -122], [64, -117], [57, -112], [51, -107], [46, -102], [40, -96], [36, -91], [31, -85], [27, -80], [23, -74], [19, -68], [16, -62], [12, -56], [10, -50], [7, -44], [5, -38], [4, -31], [2, -25], [1, -19], [0, -12], [0, -6], [0, 0], [0, 6], [0, 12], [1, 19], [2, 25], [4, 31], [5, 38], [7, 44], [10, 50], [12, 56], [16, 62], [19, 68], [23, 74], [27, 80], [31, 85], [36, 91], [40, 96], [46, 102], [51, 107], [57, 112], [64, 117], [70, 122], [77, 126], [84, 130], [92, 135], [100, 139], [108, 142], [116, 146], [125, 149], [134, 153], [144, 156], [153, 158], [163, 161], [174, 163], [184, 165], [196, 166], [207, 168], [219, 169], [231, 170], [243, 170], [256, 170], [268, 170], [282, 170], [295, 169], [309, 168], [324, 166], [338, 164], [353, 162], [368, 159], [384, 156], [400, 153], [416, 149], [432, 145], [449, 140], [466, 135], [484, 130], [501, 124], [519, 117], [538, 111], [556, 103], [576, 96], [595, 87], [615, 79], [635, 69], [655, 60], [676, 49], [696, 39], [718, 27], [739, 15], [761, 3], [784, -9], [806, -22], [829, -36], [852, -51], [876, -66], [900, -82], [924, -98], [948, -115], [973, -133], [998, -151], [1024, -170], [1049, -190], [1075, -210], [1102, -231], [1128, -252], [1156, -274], [1183, -297], [1211, -321], [1239, -345], [1267, -370], [1296, -396], [1324, -422], [1354, -449], [1383, -477], [1413, -505], [1444, -535], [1474, -565], [1505, -596], [1536, -627], [1568, -660], [1600, -693], [1632, -727], [1664, -762], [1697, -797], [1730, -834], [1764, -871], [1797, -909], [1831, -948], [1866, -988], [1900, -1029], [1936, -1070], [1971, -1113], [2007, -1156], [2043, -1200], [2079, -1245], [2116, -1291], [2152, -1338], [2190, -1386], [2227, -1435], [2265, -1485], [2304, -1536]], "hits": [[0, 0, "A"], [768, 0, "B"], [2304, -1536, "C"], [2304, 1536, "D"]], "pitch": 256};</script><script src="t1.js"></script>
 <h2>Why the method works, and what the ends do</h2>
-<figure><img src="out/midpoint.svg" alt="four panels: one step, the exact height, the drifting sideways part, and the two ends"><figcaption class="note">Fig. T2 &mdash; three steps over t = 0 to 3, step width 1. Panel A is one step; B shows why the height is exact; C shows the 1/12 that every step adds sideways; D shows where it ends up.</figcaption></figure>
-<p><strong>One step.</strong> Cut the run into equal slices. In each slice, read the speed at the middle of the slice and multiply by the width of the slice. That gives one straight move, and its across and up parts come out as whole numbers of cells.</p>
-<p><strong>The height is exact.</strong> The upward speed is 2t, a straight line. Reading a straight line at the middle of a slice gives exactly its average over that slice, so every node lands on the curve's height exactly &mdash; panel B, where the rectangle and the triangle have the same area.</p>
-<p><strong>The sideways part drifts.</strong> The sideways speed is 1 &minus; t&sup2;, which bends. At the middle of the first slice it reads 3/4, while the true average over that slice is 2/3. So the move is 1/12 too long sideways, in every slice, always the same way &mdash; panel C. Three slices make 1/4.</p>
-<p><strong>The two ends.</strong> The first slice is read at its middle, t = 1/2, so the chain leaves the nose along the line there rather than along the line at the nose itself: it starts a hair off the curve. At the far end the 1/12s have added up, and the chain stops 1/4 short of &minus;6, while the height is still exactly 9 &mdash; panel D. Nothing corrects it, because every step is wrong in the same direction.</p>
-<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first pair are (63, 16) and (&minus;63, 16) in cells, the last is (&minus;1532, 2304). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>
-<p><strong>What that buys.</strong> Every side is a whole number of cells: 63 across, 16 up, 65 along, and 63&times;63 + 16&times;16 = 65&times;65. A pen or a cutter can walk the path cell by cell and finish each move on a corner, and the lengths can be added up exactly on paper: 767/64 for one side, against 12 for the curve. Joining points on the curve instead puts the nodes exactly on it, but every join has a length like the square root of a number that is not a square, so the total is a sum of square roots and cannot be added up exactly. That is the steady advantage: no square roots anywhere in the chain.</p>
+<figure><img src="out/midpoint.svg" alt="four panels: one step, the exact reach, the drifting across part, and the two ends"><figcaption class="note">Fig. T2 &mdash; three steps over t = 0 to 3, step width 1. Panel A is one step; B shows why the reach is exact; C shows the 1/12 that every step adds across; D shows where it ends up.</figcaption></figure>
+<p><strong>One step.</strong> Cut the run into equal slices. In each slice, read the speed at the middle of the slice and multiply by the width of the slice. That gives one straight move, and its along and across parts come out as whole numbers of cells.</p>
+<p><strong>The reach is exact.</strong> The along speed is 2t, a straight line. Reading a straight line at the middle of a slice gives exactly its average over that slice, so every node lands on the curve's reach exactly &mdash; panel B, where the rectangle and the triangle have the same area.</p>
+<p><strong>The across part drifts.</strong> The across speed is 1 &minus; t&sup2;, which bends. At the middle of the first slice it reads 3/4, while the true average over that slice is 2/3. So the move is 1/12 too long across, in every slice, always the same way &mdash; panel C. Three slices make 1/4.</p>
+<p><strong>The two ends.</strong> The first slice is read at its middle, t = 1/2, so the chain leaves the nose along the line there rather than along the line at the nose itself: it starts a hair off the curve. At the far end the 1/12s have added up, and the chain stops 1/4 short of &minus;6 across, while the reach is still exactly 9 &mdash; panel D. Nothing corrects it, because every step is wrong in the same direction.</p>
+<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first pair are (16, &minus;63) and (16, 63) in cells, the last is (2304, &minus;1532). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>
+<p><strong>What that buys.</strong> Every side is a whole number of cells: 16 across, 63 up, 65 along, and 16&times;16 + 63&times;63 = 65&times;65. A pen or a cutter can walk the path cell by cell and finish each move on a corner, and the lengths can be added up exactly on paper: 767/64 for one side, against 12 for the curve. Joining points on the curve instead puts the nodes exactly on it, but every join has a length like the square root of a number that is not a square, so the total is a sum of square roots and cannot be added up exactly. That is the steady advantage: no square roots anywhere in the chain.</p>
 <h2>Open questions</h2>
-<ul class="note"><li>Is the 1/64 visible in the figure at working size, and is that acceptable for an ornament line?</li><li>Should the chain be snapped so its last vertex sits exactly on (&minus;6,&nbsp;9)? That breaks the pure midpoint rule.</li></ul></main></body></html>
+<ul class="note"><li>Is the 1/64 visible in the figure at working size, and is that acceptable for an ornament line?</li><li>Should the chain be snapped so its last vertex sits exactly on (9,&nbsp;&minus;6)? That breaks the pure midpoint rule.</li></ul></main></body></html>

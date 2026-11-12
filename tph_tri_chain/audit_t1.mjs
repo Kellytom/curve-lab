@@ -54,7 +54,7 @@ right = [[0, 0]]
 for r in rows:
     x += r["dx"]; y += r["dy"]
     right.append([int(x * g), int(y * g)])
-mirror = [[-X, Y] for X, Y in right]
+mirror = [[X, -Y] for X, Y in right]
 print(json.dumps(list(reversed(mirror)) + right[1:]))
 `;
 const expected = JSON.parse(
@@ -98,7 +98,9 @@ const shot = await page.evaluate((targetWidth) => {
   const svg = document.querySelector("#t1 svg");
   const box = (el) => {
     const b = el.getBBox();
-    const m = el.getCTM();
+    // getScreenCTM is in CSS px; the difference gives user units, so the count
+    // does not move when the page is resized or the PNG width changes.
+    const m = svg.getScreenCTM().inverse().multiply(el.getScreenCTM());
     const pts = [
       [b.x, b.y],
       [b.x + b.width, b.y],

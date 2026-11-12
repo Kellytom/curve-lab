@@ -6,20 +6,20 @@
 
 ## 1. Where the curve hits whole numbers
 
-The curve is x = t - t^3/3 and y = t^2. For a point to sit on the integer lattice, both coordinates must be whole numbers.
+The curve is x = t^2 and y = t - t^3/3. For a point to sit on the integer lattice, both coordinates must be whole numbers.
 
-Take t as a fraction in lowest terms. Then y = t^2 is a whole number only if t is itself a whole number, because squaring a fraction in lowest terms cannot clear its denominator. Once t is whole, x = t - t^3/3 is whole exactly when 3 divides t. So the hits are the multiples of 3, and nothing else at rational t.
+Take t as a fraction in lowest terms. Then x = t^2 is a whole number only if t is itself a whole number, because squaring a fraction in lowest terms cannot clear its denominator. Once t is whole, y = t - t^3/3 is whole exactly when 3 divides t. So the hits are the multiples of 3, and nothing else at rational t.
 
 | t | x | y | arc length s | note |
 |---|---|---|---|---|
 | 0 | 0 | 0 | 0 | nose |
-| 3 | -6 | 9 | 12 | first hit |
-| 6 | -66 | 36 | 78 |  |
-| 9 | -234 | 81 | 252 |  |
-| 12 | -564 | 144 | 588 |  |
-| 15 | -1110 | 225 | 1140 |  |
+| 3 | 9 | -6 | 12 | first hit |
+| 6 | 36 | -66 | 78 |  |
+| 9 | 81 | -234 | 252 |  |
+| 12 | 144 | -564 | 588 |  |
+| 15 | 225 | -1110 | 1140 |  |
 
-The curve is odd in x and even in y, so each hit (x, y) has a mirror (-x, y). One more whole-number point exists: the waist. x = 0 at t = plus or minus the square root of 3, which gives (0, 3). That parameter is not a fraction, so no chain built at fractional steps can land on it.
+The curve is even in x and odd in y, so each hit (x, y) has a mirror (x, -y). One more whole-number point exists: the waist. y = 0 at t = plus or minus the square root of 3, which gives (3, 0). That parameter is not a fraction, so no chain built at fractional steps can land on it.
 
 
 ## 2. The grid exists to clear fractions
@@ -28,13 +28,13 @@ A fractional coordinate is not a failure. Pick a pitch that is a multiple of the
 
 | stop t | x | y | the point, in cells | smallest pitch for the curve | smallest pitch for every chain side |
 |---|---|---|---|---|---|
-| 2 | -2/3 | 4 | (-2, 12) | 3 | 864 |
-| 21/10 | -987/1000 | 441/100 | (-987, 4410) | 1000 | 256000 |
-| 12/5 | -276/125 | 144/25 | (-276, 720) | 125 | 500 |
-| 5/2 | -65/24 | 25/4 | (-65, 150) | 24 | 55296 |
-| 3 | -6 | 9 | (-6, 9) | 1 | 256 |
-| 24/5 | -4008/125 | 576/25 | (-4008, 2880) | 125 | 125 |
-| 4 | -52/3 | 16 | (-52, 48) | 3 | 108 |
+| 2 | 4 | -2/3 | (12, -2) | 3 | 864 |
+| 21/10 | 441/100 | -987/1000 | (4410, -987) | 1000 | 256000 |
+| 12/5 | 144/25 | -276/125 | (720, -276) | 125 | 500 |
+| 5/2 | 25/4 | -65/24 | (150, -65) | 24 | 55296 |
+| 3 | 9 | -6 | (9, -6) | 1 | 256 |
+| 24/5 | 576/25 | -4008/125 | (2880, -4008) | 125 | 125 |
+| 4 | 16 | -52/3 | (48, -52) | 3 | 108 |
 
 All of these are exact. t = 3 is singled out only because it needs no scaling at all, not because the others fail. The chain needs a larger pitch than the curve at every stop, because each side has to be whole as well as each vertex.
 
@@ -43,15 +43,15 @@ All of these are exact. t = 3 is singled out only because it needs no scaling at
 
 Midpoint chain: each step is evaluated at the middle of the step, which is what makes the step sides exact whole numbers after scaling. Chordal: the nodes sit exactly on the curve and the segments are straight joins, so the node positions are exact but the side lengths are square roots.
 
-| stopping t | step width | pitch | midpoint tip x | gap | y exact? | chordal tip | midpoint length | chordal length | exact length |
+| stopping t | step width | pitch | midpoint tip y | gap | x exact? | chordal tip | midpoint length | chordal length | exact length |
 |---|---|---|---|---|---|---|---|---|---|
-| 2 | 1/6 | 864 | -0.662037 | 0.004630 | yes | (-0.667, 4.000) | 4.662037 | 4.661542 | 4.666667 |
-| 12/5 | 1/5 | 500 | -2.200000 | 0.008000 | yes | (-2.208, 5.760) | 7.000000 | 7.000163 | 7.008000 |
-| 5/2 | 5/24 | 55296 | -2.699291 | 0.009042 | yes | (-2.708, 6.250) | 7.699291 | 7.699726 | 7.708333 |
-| 3 | 1/4 | 256 | -5.984375 | 0.015625 | yes | (-6.000, 9.000) | 11.984375 | 11.986998 | 12.000000 |
-| 4 | 1/3 | 108 | -17.296296 | 0.037037 | yes | (-17.333, 16.000) | 25.296296 | 25.308812 | 25.333333 |
+| 2 | 1/6 | 864 | -0.662037 | 0.004630 | yes | (4.000, -0.667) | 4.662037 | 4.661542 | 4.666667 |
+| 12/5 | 1/5 | 500 | -2.200000 | 0.008000 | yes | (5.760, -2.208) | 7.000000 | 7.000163 | 7.008000 |
+| 5/2 | 5/24 | 55296 | -2.699291 | 0.009042 | yes | (6.250, -2.708) | 7.699291 | 7.699726 | 7.708333 |
+| 3 | 1/4 | 256 | -5.984375 | 0.015625 | yes | (9.000, -6.000) | 11.984375 | 11.986998 | 12.000000 |
+| 4 | 1/3 | 108 | -17.296296 | 0.037037 | yes | (16.000, -17.333) | 25.296296 | 25.308812 | 25.333333 |
 
-At twelve triangles the chordal path lands on the whole-number point exactly, at t = 3 giving (-6, 9). The midpoint chain stops 1/64 short of it. At that same stop chordal is also the closer of the two on total length, 11.986998 against 11.984375 and an exact 12; further in, at t = 2.4, the two swap and the midpoint chain is closer by a hair. The midpoint chain's steady advantage is a different one: every side is an exact whole-number triple, so the path can be laid out with no square roots anywhere.
+At twelve triangles the chordal path lands on the whole-number point exactly, at t = 3 giving (9, -6). The midpoint chain stops 1/64 short of it in y. At that same stop chordal is also the closer of the two on total length, 11.986998 against 11.984375 and an exact 12; further in, at t = 2.4, the two swap and the midpoint chain is closer by a hair. The midpoint chain's steady advantage is a different one: every side is an exact whole-number triple, so the path can be laid out with no square roots anywhere.
 
 
 ## 4. The twelve triangles at t = 3
@@ -60,20 +60,20 @@ Step width 1/4, pitch 256 cells per unit. The sides, in cells and as reduced tri
 
 | step | middle t | dx | dy | ds | reduced triple |
 |---|---|---|---|---|---|
-| 1 | 0.12 | 63 | 16 | 65 | (63, 16, 65) |
-| 2 | 0.38 | 55 | 48 | 73 | (55, 48, 73) |
-| 3 | 0.62 | 39 | 80 | 89 | (39, 80, 89) |
-| 4 | 0.88 | 15 | 112 | 113 | (15, 112, 113) |
-| 5 | 1.12 | -17 | 144 | 145 | (-17, 144, 145) |
-| 6 | 1.38 | -57 | 176 | 185 | (-57, 176, 185) |
-| 7 | 1.62 | -105 | 208 | 233 | (-105, 208, 233) |
-| 8 | 1.88 | -161 | 240 | 289 | (-161, 240, 289) |
-| 9 | 2.12 | -225 | 272 | 353 | (-225, 272, 353) |
-| 10 | 2.38 | -297 | 304 | 425 | (-297, 304, 425) |
-| 11 | 2.62 | -377 | 336 | 505 | (-377, 336, 505) |
-| 12 | 2.88 | -465 | 368 | 593 | (-465, 368, 593) |
+| 1 | 0.12 | 16 | 63 | 65 | (16, 63, 65) |
+| 2 | 0.38 | 48 | 55 | 73 | (48, 55, 73) |
+| 3 | 0.62 | 80 | 39 | 89 | (80, 39, 89) |
+| 4 | 0.88 | 112 | 15 | 113 | (112, 15, 113) |
+| 5 | 1.12 | 144 | -17 | 145 | (144, -17, 145) |
+| 6 | 1.38 | 176 | -57 | 185 | (176, -57, 185) |
+| 7 | 1.62 | 208 | -105 | 233 | (208, -105, 233) |
+| 8 | 1.88 | 240 | -161 | 289 | (240, -161, 289) |
+| 9 | 2.12 | 272 | -225 | 353 | (272, -225, 353) |
+| 10 | 2.38 | 304 | -297 | 425 | (304, -297, 425) |
+| 11 | 2.62 | 336 | -377 | 505 | (336, -377, 505) |
+| 12 | 2.88 | 368 | -465 | 593 | (368, -465, 593) |
 
-The last vertex is (-383/64, 9), against the curve's (-6, 9): short by 1/64 in x, exact in y. The y coordinate is exact for every count, because the vertical speed is linear and the midpoint rule integrates a linear function exactly.
+The last vertex is (9, -383/64), against the curve's (9, -6): short by 1/64 in y, exact in x. The x coordinate is exact for every count, because the along speed is linear and the midpoint rule integrates a linear function exactly.
 
 
 ## 5. How the pitch was chosen
@@ -106,32 +106,32 @@ The worked example that started this: twelve triangles per side out to t = 4. Th
 | feature | value |
 |---|---|
 | nose | (0, 0) |
-| waist | (0, 3), reached at t = plus or minus the square root of 3 |
-| tips | (-6, 9) and (6, 9) |
-| body height | 3 |
-| tail height | 6, exactly twice the body |
+| waist | (3, 0), reached at t = plus or minus the square root of 3 |
+| tips | (9, -6) and (9, 6) |
+| body length | 3 |
+| tail span | 6, exactly twice the body |
 | arc length, one side | 12 |
 | full length, both sides | 24 |
 
-This is the 'double the inner shape' proportion, measured in height, and it needs no scaling and no irrational number. The arc-length ratio is larger, 3.46, because the tail is thin and long. The figure shows the two sides at twelve triangles, with the whole-number points ringed.
+This is the 'double the inner shape' proportion, measured along the axis, and it needs no scaling and no irrational number. The arc-length ratio is larger, 3.46, because the tail is thin and long. The figure shows the two sides at twelve triangles, with the whole-number points ringed.
 
 ![Fig. T1 -- the six whole-number points and the 24-triangle chain at t = 3](out/lattice-t3.svg)
 
-A caution about the figure: the chain's last vertex sits at (-5.984375, 9), just inside the ring at (-6, 9). That gap is the 1/64, and it is the whole story of this document.
+A caution about the figure: the chain's last vertex sits at (9, -5.984375), just inside the ring at (9, -6). That gap is the 1/64, and it is the whole story of this document.
 
 
 ## 7. Checks and reproduce
 
 Equality tests run whenever this document is generated. A failure means the document is wrong, not the numbers.
 
-- PASS -- t = 3 gives (-6, 9) and length 12 exactly
-- PASS -- 2.4, 2.5, 12/5 and 2.1 all have non-whole heights
+- PASS -- t = 3 gives (9, -6) and length 12 exactly
+- PASS -- 2.4, 2.5, 12/5 and 2.1 all have non-whole rises
 - PASS -- twelve triangles at t = 4 gives pitch 108
 - PASS -- twelve triangles at t = 3 gives pitch 256
 - PASS -- twelve triangles at t = 2.5 gives pitch 55296
 - PASS -- midpoint gap is 1/64 at t = 3
-- PASS -- chordal lands on (-6, 9) at t = 3
-- PASS -- first triangle at t = 3 is (63, 16, 65)
+- PASS -- chordal lands on (9, -6) at t = 3
+- PASS -- first triangle at t = 3 is (16, 63, 65)
 ```text
 .venv/bin/python tph_tri_chain/chain.py        # every table, exact
 .venv/bin/python tph_tri_chain/glyph.py        # figure and csv

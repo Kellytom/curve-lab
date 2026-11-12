@@ -60,9 +60,9 @@ STOPS = [F(2), F(21, 10), F(12, 5), F(5, 2), F(3), F(24, 5), F(4)]
 def t1_block():
     """The T1 figure, drawn with d3. Cells throughout, all integers.
 
-    The glyph is the right half mirrored, so the nose sits on (0, 0) and the two
-    tips are symmetric. Concatenating two raw half-chains instead would put the
-    nose 1/64 off and make the tips unequal.
+    The glyph is the lower half mirrored across y = 0, so the nose sits on
+    (0, 0) and the two tips are symmetric. The curve is symmetric about the
+    x-axis, so the mirror is in y, not in x.
     """
     rows, _ = chain(F(0), F(3), N)
     g = grid(rows)
@@ -72,17 +72,17 @@ def t1_block():
         x += r["dx"]
         y += r["dy"]
         right.append([int(x * g), int(y * g)])
-    mirror = [[-X, Y] for X, Y in right]
+    mirror = [[X, -Y] for X, Y in right]
     verts = list(reversed(mirror)) + right[1:]        # 13 + 12 = 25
     steps = [[verts[k + 1][0] - verts[k][0], verts[k + 1][1] - verts[k][1]]
              for k in range(len(verts) - 1)]
     curve = []
     for k in range(241):
         t = F(-3) + 6 * F(k, 240)
-        curve.append([int((t - t ** 3 / 3) * g), int(t * t * g)])
+        curve.append([int(t * t * g), int((t - t ** 3 / 3) * g)])
     data = {"verts": verts, "steps": steps, "curve": curve,
-            "hits": [[0, 0, "A"], [0, 768, "B"], [-1536, 2304, "C"],
-                     [1536, 2304, "D"]], "pitch": g}
+            "hits": [[0, 0, "A"], [768, 0, "B"], [2304, -1536, "C"],
+                     [2304, 1536, "D"]], "pitch": g}
     return ('<figure><div id="t1"></div>'
             '<figcaption class="note">Fig. T1 &mdash; 24 triangles and all 25 '
             'vertices, labelled with their (x, y) pairs in cells. Ringed and '
@@ -129,21 +129,21 @@ def build():
     for T, g in ((F(3), 1), (F(3), 256), (F(12, 5), 500), (F(24, 5), 125),
                  (F(24, 5), 3125)):
         x, y, _ = integral(T)
-        rows.append([fmt(T), f"{fmt(2 * abs(x))} &times; {fmt(y)}",
-                     str(g), f"{fmt(2 * abs(x) * g)} &times; {fmt(y * g)}"])
+        rows.append([fmt(T), f"{fmt(x)} &times; {fmt(2 * abs(y))}",
+                     str(g), f"{fmt(x * g)} &times; {fmt(2 * abs(y) * g)}"])
     h.append(table(["stopping point", "curve spans, units", "pitch",
                     "total grid, cells"], rows))
     h.append('<p class="note">So 3125 is a pitch, not a total. A round total needs the '
              'stopping point to make the span round, and t = 3 is the only stop here '
-             'that does: it spans exactly 12 by 9 units, which is a 12 &times; 9 grid at '
-             'pitch 1 and 3072 &times; 2304 cells at pitch 256.</p>')
+             'that does: it spans exactly 9 by 12 units, which is a 9 &times; 12 grid at '
+             'pitch 1 and 2304 &times; 3072 cells at pitch 256.</p>')
 
     # 1 -------------------------------------------------------------
-    h.append('<div class="key"><strong>The rule, in whole units.</strong> y = t&sup2; is a whole '
+    h.append('<div class="key"><strong>The rule, in whole units.</strong> x = t&sup2; is a whole '
              'number only if t is a whole number. Once t is whole, '
-             'x = t &minus; t&sup3;/3 is whole exactly when 3 divides t. So the curve '
+             'y = t &minus; t&sup3;/3 is whole exactly when 3 divides t. So the curve '
              'meets whole-number points only at t = 0, 3, 6, 9 &hellip;, plus the '
-             'waist (0,&nbsp;3), which is reached at t = &plusmn;&radic;3 and so by '
+             'waist (3,&nbsp;0), which is reached at t = &plusmn;&radic;3 and so by '
              'no fractional chain.</div>')
 
     rows = []
@@ -160,7 +160,7 @@ def build():
              "pitch that is a multiple of the denominators and the point lands on a "
              "whole cell. That is the entire purpose of the pitch: 144/25 of a unit "
              "is 2880 cells at pitch 500.</p>")
-    h.append("<p>So the useful question is not whether the height is a whole number, "
+    h.append("<p>So the useful question is not whether the reach is a whole number, "
              "but how coarse a pitch makes the point whole, and whether the chain's "
              "own sides are whole at that same pitch.</p>")
     rows = []
@@ -190,12 +190,12 @@ def build():
         xt, yt, st = integral(T)
         ct = chordal(T, N)[-1]
         m, rads = chordal_exact(T, N)
-        rows.append([fmt(T), fmt(w), str(g), fmt(r[-1]["x"]),
-                     fmt(r[-1]["x"] - xt), "yes" if r[-1]["y"] == yt else "no",
+        rows.append([fmt(T), fmt(w), str(g), fmt(r[-1]["y"]),
+                     fmt(r[-1]["y"] - yt), "yes" if r[-1]["x"] == xt else "no",
                      pt(ct[0], ct[1]), fmt(r[-1]["s"]),
                      f"(&#931;&#8730;)/{m}", fmt(st)])
-    h.append(table(["stop t", "step width", "pitch", "midpoint chain tip x",
-                    "gap", "y exact?", "straight joins tip", "midpoint length",
+    h.append(table(["stop t", "step width", "pitch", "midpoint chain tip y",
+                    "gap", "x exact?", "straight joins tip", "midpoint length",
                     "chordal length", "exact length"], rows))
     m3, rads3 = chordal_exact(F(3), N)
     h.append('<p class="note">The chordal length is irrational, so it is written as '
@@ -205,7 +205,7 @@ def build():
              f'count is the fraction {fmt(chain(F(0), F(3), N)[0][-1]["s"])}, because '
              'every side there is a whole-number triple.</p>')
     h.append('<p>At t = 3 the path of straight joins lands on the whole-number point '
-             'exactly. The midpoint chain stops 1/64 short of it. The exchange is set '
+             'exactly. The midpoint chain stops 1/64 short of it in y. The exchange is set '
              'out at the end of the page: exact positions, or exact lengths.</p>')
 
     # 4 -------------------------------------------------------------
@@ -222,7 +222,7 @@ def build():
                      str(cells[2]), f"({p[0]}, {p[1]}, {p[2]})"])
     h.append(table(["step", "middle t", "dx", "dy", "ds", "reduced triple"], rows))
     h.append(f'<p>The last vertex is {pt(r[-1]["x"], r[-1]["y"])} against the curve&rsquo;s '
-             f'(&minus;6,&nbsp;9): short by 1/64 in x, exact in y.</p>')
+             f'(9,&nbsp;&minus;6): short by 1/64 in y, exact in x.</p>')
 
     # 5 -------------------------------------------------------------
     h.append("<h2>The pitch, and where it comes from</h2>")
@@ -254,22 +254,23 @@ def build():
     h.append('<p><strong>If the grid must be 3125.</strong> A power of five only '
              'arrives when the step width is 2/5 or 4/5, since 3125 is odd. At twelve '
              'triangles that means t = 24/5: the grid is 125, and 3125 is twenty-five '
-             'of those, with 625 being five. The curve then runs to height 576/25 and '
+             'of those, with 625 being five. The curve then reaches 576/25 and '
              'fills only part of the grid.</p>')
     h.append('<p><strong>Same count, t = 3.</strong> Step width 1/4, bottom number 4, '
              'pitch 4 &times; 64 = 256. The very first '
              'step is evaluated at t = 1/8, so its sides are '
-             '(1 &minus; 1/64)/4 &times; 256 = 63, then 2(1/8)/4 &times; 256 = 16, and '
-             '(1 + 1/64)/4 &times; 256 = 65: the triple (63,&nbsp;16,&nbsp;65).</p>')
+             '2(1/8)/4 &times; 256 = 16 across, then '
+             '(1 &minus; 1/64)/4 &times; 256 = 63 up, and '
+             '(1 + 1/64)/4 &times; 256 = 65: the triple (16,&nbsp;63,&nbsp;65).</p>')
 
     # 6 -------------------------------------------------------------
     h.append("<h2>The glyph at t = 3, in whole units</h2>")
     h.append(table(["feature", "value"], [
         ["nose", "(0, 0)"],
-        ["waist", "(0, 3), at t = &plusmn;&radic;3"],
-        ["tips", "(&minus;6, 9) and (6, 9)"],
-        ["body height", "3"],
-        ["tail height", "6, exactly twice the body"],
+        ["waist", "(3, 0), at t = &plusmn;&radic;3"],
+        ["tips", "(9, &minus;6) and (9, 6)"],
+        ["body length", "3"],
+        ["tail span", "6, exactly twice the body"],
         ["arc length, one side", "12"],
         ["full length, both sides", "24"],
     ]))
@@ -278,34 +279,34 @@ def build():
     # 7 -------------------------------------------------------------
     h.append("<h2>Why the method works, and what the ends do</h2>")
     h.append('<figure><img src="out/midpoint.svg" alt="four panels: one step, the exact '
-             'height, the drifting sideways part, and the two ends"><figcaption '
+             'reach, the drifting across part, and the two ends"><figcaption '
              'class="note">Fig. T2 &mdash; three steps over t = 0 to 3, step width 1. '
-             'Panel A is one step; B shows why the height is exact; C shows the 1/12 '
-             'that every step adds sideways; D shows where it ends up.</figcaption>'
+             'Panel A is one step; B shows why the reach is exact; C shows the 1/12 '
+             'that every step adds across; D shows where it ends up.</figcaption>'
              '</figure>')
     h.append("<p><strong>One step.</strong> Cut the run into equal slices. In each "
              "slice, read the speed at the middle of the slice and multiply by the "
-             "width of the slice. That gives one straight move, and its across and up "
+             "width of the slice. That gives one straight move, and its along and across "
              "parts come out as whole numbers of cells.</p>")
-    h.append("<p><strong>The height is exact.</strong> The upward speed is 2t, a "
+    h.append("<p><strong>The reach is exact.</strong> The along speed is 2t, a "
              "straight line. Reading a straight line at the middle of a slice gives "
              "exactly its average over that slice, so every node lands on the curve's "
-             "height exactly &mdash; panel B, where the rectangle and the triangle "
+             "reach exactly &mdash; panel B, where the rectangle and the triangle "
              "have the same area.</p>")
-    h.append("<p><strong>The sideways part drifts.</strong> The sideways speed is "
+    h.append("<p><strong>The across part drifts.</strong> The across speed is "
              "1 &minus; t&sup2;, which bends. At the middle of the first slice it reads "
              "3/4, while the true average over that slice is 2/3. So the move is 1/12 "
-             "too long sideways, in every slice, always the same way &mdash; panel C. "
+             "too long across, in every slice, always the same way &mdash; panel C. "
              "Three slices make 1/4.</p>")
     h.append("<p><strong>The two ends.</strong> The first slice is read at its middle, "
              "t = 1/2, so the chain leaves the nose along the line there rather than "
              "along the line at the nose itself: it starts a hair off the curve. At the "
              "far end the 1/12s have added up, and the chain stops 1/4 short of "
-             "&minus;6, while the height is still exactly 9 &mdash; panel D. Nothing "
+             "&minus;6 across, while the reach is still exactly 9 &mdash; panel D. Nothing "
              "corrects it, because every step is wrong in the same direction.</p>")
-    h.append("<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first pair are (63, 16) and (&minus;63, 16) in cells, the last is (&minus;1532, 2304). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>")
+    h.append("<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first pair are (16, &minus;63) and (16, 63) in cells, the last is (2304, &minus;1532). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>")
     h.append("<p><strong>What that buys.</strong> Every side is a whole number of "
-             "cells: 63 across, 16 up, 65 along, and 63&times;63 + 16&times;16 = "
+             "cells: 16 across, 63 up, 65 along, and 16&times;16 + 63&times;63 = "
              "65&times;65. A pen or a cutter can walk the path cell by cell and finish "
              "each move on a corner, and the lengths can be added up exactly on paper: "
              "767/64 for one side, against 12 for the curve. Joining points on the "
@@ -318,7 +319,7 @@ def build():
     h.append('<ul class="note"><li>Is the 1/64 visible in the figure at working size, '
              'and is that acceptable for an ornament line?</li>'
              '<li>Should the chain be snapped so its last vertex sits exactly on '
-             '(&minus;6,&nbsp;9)? That breaks the pure midpoint rule.</li></ul>')
+             '(9,&nbsp;&minus;6)? That breaks the pure midpoint rule.</li></ul>')
     return "\n".join(h)
 
 

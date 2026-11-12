@@ -49,22 +49,22 @@ x, y, s = integral(F(12, 5))             # exact curve point + arc length
 ## Formulae
 
 ```text
-u(t) = 1, v(t) = t                      generators, linear
-x'(t) = 1 - t^2
-y'(t) = 2t
+u(t) = t, v(t) = 1                      generators, linear
+x'(t) = 2t
+y'(t) = 1 - t^2
 sigma(t) = 1 + t^2
-x(t) = t - t^3/3      y(t) = t^2      s(t) = t + t^3/3
+x(t) = t^2      y(t) = t - t^3/3      s(t) = t + t^3/3
 ```
 
 Midpoint rule, N steps over [t0, t1], dt = (t1-t0)/N, t_i = t0 + (i+1/2)dt:
 
 ```text
-dx_i = (1 - t_i^2) dt     dy_i = 2 t_i dt     ds_i = (1 + t_i^2) dt
+dx_i = 2 t_i dt             dy_i = (1 - t_i^2) dt    ds_i = (1 + t_i^2) dt
 dx^2 + dy^2 = ds^2        exactly, because (u^2-v^2)^2 + (2uv)^2 = (u^2+v^2)^2
 ```
 
-Symmetry: `x(-t) = -x(t)`, `y(-t) = y(t)`. Loop closes at `t = sqrt(3)`,
-point `(0, 3)`, loop length `4 sqrt(3)`.
+Symmetry: `x(-t) = x(t)`, `y(-t) = -y(t)`. Loop closes at `t = sqrt(3)`,
+point `(3, 0)`, loop length `4 sqrt(3)`.
 
 ## Grid law (the load-bearing result)
 
@@ -115,14 +115,14 @@ crossing (0,3) by about 0.028 in y at N=120.
 
 The smooth curve meets the integer lattice (both x and y integers) only at:
 
-- **t ∈ 3ℤ**: `(3u(1 − 3u²), 9u²)` → (0,0), (−6,9), (−66,36), (−234,81),
-  (−564,144), … and their mirrors (−x, y).
-- **t = ±√3**: (0, 3), the self-intersection, but at an irrational parameter.
+- **t ∈ 3ℤ**: `(9u², 3u(1 − 3u²))` → (0,0), (9,−6), (36,−66), (81,−234),
+  (144,−564), … and their mirrors (x, −y).
+- **t = ±√3**: (3, 0), the self-intersection, but at an irrational parameter.
 
-Proof: `y = t²` integer with `t = a/b` in lowest terms forces `b = 1`, so t is an
-integer; then `x = t − t³/3` is an integer only when `3 | t`. For irrational t,
-write `y = k`; then `t = √k` and `x = √k(1 − k/3)`, which is an integer only at
-`k = 3`, giving (0,3).
+Proof: `x = t²` integer with `t = a/b` in lowest terms forces `b = 1`, so t is an
+integer; then `y = t − t³/3` is an integer only when `3 | t`. For irrational t,
+write `x = k`; then `t = √k` and `y = √k(1 − k/3)`, which is an integer only at
+`k = 3`, giving (3,0).
 
 Consequence. In whole units, at pitch 1, only t in 3Z hits. But the pitch exists
 to clear fractions, and that is the point of it: at pitch G a point is a whole
@@ -191,7 +191,7 @@ to the curve, not to the chain.
 - 2026-11-11: tph-tri-sandbox.html is the live page (CSS lifted from
   workbench/showcase.html, built by sandbox.py). Fractions only, no decimals.
   Four-panel Fig. T2 (out/midpoint.svg) explains the midpoint step, the exact
-  height, the 1/12 drift, and both ends. 3125 at N=12 needs t = 24/5, grid 125.
+  reach, the 1/12 drift, and both ends. 3125 at N=12 needs t = 24/5, grid 125.
 
 - 2026-11-11: results rewritten around integer hits at N = 12 per side.
   Figure retargeted to t = 3, pitch 256; the old 12/5 at N = 120 artifacts
@@ -201,24 +201,24 @@ to the curve, not to the chain.
   grid law found (G = q^3 or 4q^3); RESULTS.md + results.html generated;
   section 10 corrected from "3125 needs 32" to the dt-based law.
 - 2026-11-11: lattice rule recorded — the curve meets ℤ² only at t ∈ 3ℤ and at
-  t = ±√3; the chain hits only y exactly (x is short by T³/(12N²)); "grid" in
+  t = ±√3; the chain hits only x exactly (y is short by T³/(12N²)); "grid" in
   earlier notes means pitch 1/G, canvas is the cell extent.
 
 ## Same-N comparison (the deliverable that got lost)
 
 Compare methods at the SAME triangle count, N = 12 per branch, plain words only.
 
-| t | step width | pitch | midpoint tip x | gap from exact | y exact | chordal tip |
+| t | step width | pitch | midpoint tip y | gap from exact | x exact | chordal tip |
 |---|---|---|---|---|---|---|
-| 2.4 | 1/5 | 500 | -2.200000 | 0.008000 | yes | (-276/125, 144/25) |
-| 2.5 | 5/24 | 55296 | -2.699291 | 0.009042 | yes | (-65/24, 25/4) |
-| 3 | 1/4 | 256 | -5.984375 | 0.015625 | yes | (-6, 9) |
-| 4 | 1/3 | 108 | -17.296296 | 0.037037 | yes | (-52/3, 16) |
+| 2.4 | 1/5 | 500 | -11/5 | 0.008000 | yes | (144/25, -276/125) |
+| 2.5 | 5/24 | 55296 | -37315/13824 | 0.009042 | yes | (25/4, -65/24) |
+| 3 | 1/4 | 256 | -383/64 | 0.015625 | yes | (9, -6) |
+| 4 | 1/3 | 108 | -467/27 | 0.037037 | yes | (16, -52/3) |
 
-At t = 3 the chordal path lands exactly on (-6, 9); the midpoint chain misses it
-by 1/64 but keeps whole-number triangle sides: (63,16,65) (55,48,73) (39,80,89)
-(15,112,113) (-17,144,145) (-57,176,185) (-105,208,233) (-161,240,289)
-(-225,272,353) (-297,304,425) (-377,336,505) (-465,368,593).
+At t = 3 the chordal path lands exactly on (9, -6); the midpoint chain misses it
+by 1/64 but keeps whole-number triangle sides: (16,63,65) (48,55,73) (80,39,89)
+(112,15,113) (144,-17,145) (176,-57,185) (208,-105,233) (240,-161,289)
+(272,-225,353) (304,-297,425) (336,-377,505) (368,-465,593).
 
 Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
 1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.
@@ -251,24 +251,24 @@ this file once claimed 156k and it was wrong; it was reverted the same day.
   grid law found (G = q^3 or 4q^3); RESULTS.md + results.html generated;
   section 10 corrected from "3125 needs 32" to the dt-based law.
 - 2026-11-11: lattice rule recorded — the curve meets ℤ² only at t ∈ 3ℤ and at
-  t = ±√3; the chain hits only y exactly (x is short by T³/(12N²)); "grid" in
+  t = ±√3; the chain hits only x exactly (y is short by T³/(12N²)); "grid" in
   earlier notes means pitch 1/G, canvas is the cell extent.
 
 ## Same-N comparison (the deliverable that got lost)
 
 Compare methods at the SAME triangle count, N = 12 per branch, plain words only.
 
-| t | step width | pitch | midpoint tip x | gap from exact | y exact | chordal tip |
+| t | step width | pitch | midpoint tip y | gap from exact | x exact | chordal tip |
 |---|---|---|---|---|---|---|
-| 2.4 | 1/5 | 500 | -2.200000 | 0.008000 | yes | (-276/125, 144/25) |
-| 2.5 | 5/24 | 55296 | -2.699291 | 0.009042 | yes | (-65/24, 25/4) |
-| 3 | 1/4 | 256 | -5.984375 | 0.015625 | yes | (-6, 9) |
-| 4 | 1/3 | 108 | -17.296296 | 0.037037 | yes | (-52/3, 16) |
+| 2.4 | 1/5 | 500 | -11/5 | 0.008000 | yes | (144/25, -276/125) |
+| 2.5 | 5/24 | 55296 | -37315/13824 | 0.009042 | yes | (25/4, -65/24) |
+| 3 | 1/4 | 256 | -383/64 | 0.015625 | yes | (9, -6) |
+| 4 | 1/3 | 108 | -467/27 | 0.037037 | yes | (16, -52/3) |
 
-At t = 3 the chordal path lands exactly on (-6, 9); the midpoint chain misses it
-by 1/64 but keeps whole-number triangle sides: (63,16,65) (55,48,73) (39,80,89)
-(15,112,113) (-17,144,145) (-57,176,185) (-105,208,233) (-161,240,289)
-(-225,272,353) (-297,304,425) (-377,336,505) (-465,368,593).
+At t = 3 the chordal path lands exactly on (9, -6); the midpoint chain misses it
+by 1/64 but keeps whole-number triangle sides: (16,63,65) (48,55,73) (80,39,89)
+(112,15,113) (144,-17,145) (176,-57,185) (208,-105,233) (240,-161,289)
+(272,-225,353) (304,-297,425) (336,-377,505) (368,-465,593).
 
 Pitch at fixed N is set by the step width t/12: t=4 gives 1/3 -> 108, t=3 gives
 1/4 -> 256, t=2.4 gives 1/5 -> 500, t=2.5 gives 5/24 -> 55296.

@@ -1,10 +1,15 @@
-"""Exact midpoint-rule Pythagorean chain for the T-PH curve (u=1, v=t).
+"""Exact midpoint-rule Pythagorean chain for the T-PH curve (u=t, v=1).
 
 Everything is Fractions. Nothing here imports curve_lab: this is the discrete
 triangle chain, a separate method from ph_hermite.
 
-Curve:  x'(t) = 1 - t^2,  y'(t) = 2t,  sigma(t) = 1 + t^2
-        x(t)  = t - t^3/3,  y(t) = t^2,  s(t) = t + t^3/3
+The curve is in the algebraic orientation: the node at the origin, the loop
+opening along +x, the arms to the right. That is 9y^2 = x(x-3)^2, half of the
+alpha curve 18y^2 = x(x-6)^2. It is the PH form rotated 90 degrees from
+(t - t^3/3, t^2), which stands the loop up.
+
+Curve:  x'(t) = 2t,      y'(t) = 1 - t^2,  sigma(t) = 1 + t^2
+        x(t)  = t^2,     y(t)  = t - t^3/3,  s(t) = t + t^3/3
 
 Run:  .venv/bin/python tph_tri_chain/chain.py
 """
@@ -17,11 +22,11 @@ from math import lcm, sqrt
 
 def integral(t):
     """Exact curve point and exact arc length at parameter t."""
-    return (t - t**3 / 3, t**2, t + t**3 / 3)
+    return (t * t, t - t**3 / 3, t + t**3 / 3)
 
 
 def speed(t):
-    return (1 - t**2, 2 * t, 1 + t**2)
+    return (2 * t, 1 - t * t, 1 + t * t)
 
 
 def chain(t0, t1, n_steps):
@@ -143,7 +148,7 @@ def main():
     print("5. STOPPING POINTS: geometry vs exact grid")
     print("=" * 78)
     inner = 4 * sqrt(3)  # exact inner-loop length, t = -sqrt3 .. +sqrt3
-    print(f"inner loop closes at (0,3) at t = +-sqrt(3); arc length 4*sqrt(3) = {inner:.6f}")
+    print(f"inner loop closes at (3,0) at t = +-sqrt(3); arc length 4*sqrt(3) = {inner:.6f}")
     print(f"{'t_max':>8} {'tail tip (x,y)':>26} {'full len':>12} {'ratio':>7} {'grid':>10} {'N':>5}")
     for label, tmax, N in [("5/2", F(5, 2), 125), ("12/5", F(12, 5), 120)]:
         r, _ = chain(F(0), tmax, N)
@@ -153,8 +158,8 @@ def main():
         print(f"{label:>8} ({float(tip[0]):>9.4f}, {float(tip[1]):>7.4f})"
               f" {float(full):>12.6f} {float(full)/inner:>7.3f} {gg:>10} {N:>5}")
     tip6 = integral(F(12, 5))  # stand-in: sqrt6 is irrational, no rational chain ends there
-    print(f"{'sqrt6':>8} ({-sqrt(6):>9.4f}, {6.0:>7.4f})  irrational t: no exact rational chain;"
-          f" nearest grid stop 12/5 gives y={float(integral(F(12,5))[1]):.4f}, gap {6.0-5.76:.2f}")
+    print(f"{'sqrt6':>8} ({6.0:>9.4f}, {sqrt(6):>7.4f})  irrational t: no exact rational chain;"
+          f" nearest grid stop 12/5 gives x={float(integral(F(12,5))[0]):.4f}, gap {6.0-5.76:.2f}")
 
     print()
     print("=" * 78)
@@ -185,14 +190,14 @@ def main():
     r4, _ = chain(F(0), F(2), 4)
     rest = r4[-1]["s"] * 2  # symmetric-ish check is not used here
     checks = [
-        ("4-step end y exactly 4", r4[-1]["y"] == 4),
-        ("4-step end x = -0.625", r4[-1]["x"] == F(-5, 8)),
+        ("4-step end x exactly 4", r4[-1]["x"] == 4),
+        ("4-step end y = -0.625", r4[-1]["y"] == F(-5, 8)),
         ("4-step length 37/8", r4[-1]["s"] == F(37, 8)),
-        ("step1 triple is (15,8,17)/32 at grid 32", integers(r4, 32)[0] == (15, 8, 17)),
+        ("step1 triple is (8,15,17)/32 at grid 32", integers(r4, 32)[0] == (8, 15, 17)),
         ("[0,2] N=25 grid is 15625 not 3125", grid(chain(F(0), F(2), 25)[0]) == 15625),
-        ("[0,2] N=25 step0 = (1248,100,1252) not 200", integers(chain(F(0), F(2), 25)[0], 15625)[0] == (1248, 100, 1252)),
+        ("[0,2] N=25 step0 = (100,1248,1252) not 200", integers(chain(F(0), F(2), 25)[0], 15625)[0] == (100, 1248, 1252)),
         ("[0,1] N=25 grid is 62500 not 3125", grid(chain(F(0), F(1), 25)[0]) == 62500),
-        ("[0,1] N=25 step0 = (2499,100,2501)", integers(chain(F(0), F(1), 25)[0], 62500)[0] == (2499, 100, 2501)),
+        ("[0,1] N=25 step0 = (100,2499,2501)", integers(chain(F(0), F(1), 25)[0], 62500)[0] == (100, 2499, 2501)),
         ("[0,2.4] N=120 grid is 500000", grid(half) == 500000),
         ("3125 works only at N=5 over [0,2]", grid(chain(F(0), F(2), 5)[0]) == 125),
     ]

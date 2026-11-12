@@ -25,7 +25,7 @@ GREY, BLUE, RED = "#7a6a4a", "#5b8fc9", "#a23b2a"
 
 
 def build():
-    """Right half mirrored, so the nose is (0, 0) and the tips are symmetric."""
+    """Lower half mirrored across y = 0, so the nose is (0, 0) and the tips are symmetric."""
     rows, _ = chain(F(0), T_MAX, N_HALF)
     g = grid(rows)
     x = y = F(0)
@@ -34,7 +34,7 @@ def build():
         x += r["dx"]
         y += r["dy"]
         right.append((int(x * g), int(y * g)))
-    mirror = [(-X, Y) for X, Y in right]
+    mirror = [(X, -Y) for X, Y in right]
     pts = list(reversed(mirror)) + right[1:]
     return pts, g
 
@@ -54,13 +54,13 @@ def smooth_cells(g, n=240):
     out = []
     for k in range(n + 1):
         t = -T_MAX + 2 * T_MAX * F(k, n)
-        out.append(((t - t ** 3 / 3) * g, t * t * g))
+        out.append((t * t * g, (t - t ** 3 / 3) * g))
     return out
 
 
 def svg(pts, g, path):
-    xmin, xmax = -1664, 1664
-    ymin, ymax = -192, 2496
+    xmin, xmax = -192, 2496
+    ymin, ymax = -1664, 1664
     ml, mr, mt, mb = 200, 90, 470, 480
     plot_w = ml + (xmax - xmin) + mr
     H = mt + (ymax - ymin) + mb
@@ -78,24 +78,24 @@ def svg(pts, g, path):
          f'viewBox="0 0 {W} {H}" font-family="Georgia, serif">',
          f'<rect width="{W}" height="{H}" fill="{PAPER}"/>']
 
-    for k in range(-26, 27):
+    for k in range(0, 40):
         X = k * 64
         o.append(f'<line x1="{fx(X):.0f}" y1="{fy(ymin):.0f}" x2="{fx(X):.0f}" '
                  f'y2="{fy(ymax):.0f}" stroke="#f4efe2" stroke-width="2"/>')
-    for k in range(0, 41):
+    for k in range(-26, 27):
         Y = k * 64
         o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(Y):.0f}" x2="{fx(xmax):.0f}" '
                  f'y2="{fy(Y):.0f}" stroke="#f4efe2" stroke-width="2"/>')
-    for X in range(-1536, 1537, 256):
+    for X in range(0, 2305, 256):
         o.append(f'<line x1="{fx(X):.0f}" y1="{fy(ymin):.0f}" x2="{fx(X):.0f}" '
                  f'y2="{fy(ymax):.0f}" stroke="{RULE}" stroke-width="3"/>')
-    for Y in range(0, 2305, 256):
+    for Y in range(-1536, 1537, 256):
         o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(Y):.0f}" x2="{fx(xmax):.0f}" '
                  f'y2="{fy(Y):.0f}" stroke="{RULE}" stroke-width="3"/>')
-    for X in range(-1536, 1537, 512):
-        o.append(f'<text x="{fx(X):.0f}" y="{fy(0)+52:.0f}" font-size="52" '
+    for X in range(0, 2305, 512):
+        o.append(f'<text x="{fx(X):.0f}" y="{fy(ymin)-16:.0f}" font-size="52" '
                  f'text-anchor="middle" fill="{MUTED}">{X}</text>')
-    for Y in range(0, 2305, 512):
+    for Y in range(-1536, 1537, 512):
         o.append(f'<text x="{fx(0)-18:.0f}" y="{fy(Y)+18:.0f}" font-size="52" '
                  f'text-anchor="end" fill="{MUTED}">{Y}</text>')
 
@@ -117,30 +117,30 @@ def svg(pts, g, path):
 
     for k, (X, Y) in enumerate(pts, 1):
         o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="8" fill="{INK}"/>')
-        dx = 22 if X > 0 else -22
-        anchor = "start" if X > 0 else "end"
-        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)-16:.0f}" font-size="54" '
+        dy = -22 if Y > 0 else 40
+        dx = 0 if Y != 0 else -22
+        anchor = "middle" if Y != 0 else "end"
+        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="54" '
                  f'fill="{MUTED}" text-anchor="{anchor}">{k}</text>')
 
-    for X, Y, letter in ((0, 0, "A"), (0, 768, "B"), (-1536, 2304, "C"),
-                         (1536, 2304, "D")):
+    for X, Y, letter in ((0, 0, "A"), (768, 0, "B"), (2304, -1536, "C"),
+                         (2304, 1536, "D")):
         o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="26" fill="none" '
                  f'stroke="{RED}" stroke-width="6"/>')
-        dx = 30 if X >= 0 else -30
-        anchor = "start" if X >= 0 else "end"
-        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+64:.0f}" font-size="62" '
-                 f'font-weight="600" fill="{RED}" text-anchor="{anchor}">{letter}</text>')
+        dy = -44 if Y >= 0 else 84
+        o.append(f'<text x="{fx(X):.0f}" y="{fy(Y)+dy:.0f}" font-size="62" '
+                 f'font-weight="600" fill="{RED}" text-anchor="middle">{letter}</text>')
 
     o.append(f'<text x="48" y="92" font-size="86" font-weight="600" fill="{INK}">'
              f'Fig. T1 &#8212; 25 vertices, every one an integer point</text>')
     for k, line in enumerate([
-            "pitch 256 cells per unit; the numbers 1 to 25 run along the path from the right tip",
-            "curve x = t &#8722; t&#179;/3, y = t&#178;; A to D are the four parameters where the curve itself hits the lattice",
+            "pitch 256 cells per unit; the numbers 1 to 25 run along the path from the upper tip",
+            "curve x = t&#178;, y = t &#8722; t&#179;/3; A to D are the four parameters where the curve itself hits the lattice",
             "the sides are whole as well: 65, 73, 89, 113, 145 cells &#8230;"]):
         o.append(f'<text x="48" y="{146 + k*64}" font-size="50" fill="{MUTED}">{line}</text>')
 
     # legend
-    lx, ly = 60, H - 420
+    lx, ly = 60, H - 400
     o.append(f'<rect x="{lx-16}" y="{ly-74}" width="1160" height="420" fill="{PAPER}" '
              f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
     for k, (col, wd, lab) in enumerate([
