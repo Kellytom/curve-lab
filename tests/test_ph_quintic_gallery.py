@@ -106,11 +106,18 @@ class TestGallery(unittest.TestCase):
                 self.assertAlmostEqual(infl, 0.5, places=9)
                 self.assertAlmostEqual(s0, s1, places=6)
 
+    def test_the_slider_panel_is_wired(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        self.assertIn('id="qb"', page)
+        self.assertIn('id="qa"', page)
+        self.assertIn('id="qpanel"', page)
+        self.assertIn("2 * Math.atan(b / (4 - a))", page)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)
         self.assertIn("24 S", page)
-        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6", "Fig. Q6b"):
+        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6", "Fig. Q6b", "Fig. Q7"):
             self.assertIn(tag, page)
         self.assertIn("Moving the root inside", page)
         self.assertIn("ph-quintic-lattice.html", page)
