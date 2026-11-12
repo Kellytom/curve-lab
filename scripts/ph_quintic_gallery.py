@@ -341,10 +341,13 @@ EXTRA = r"""<section class="panel">
 <h2>Fig. Q7 · the slider: one number sets the swing</h2>
 <p>The family above, live. <code>b</code> sets the swing — <code>2·atan(b/(4−a))</code> per side —
 and <code>a</code> shifts where the bend sits. The inflection stays at t = 1/2 for every setting,
-because <code>W = b(2t−1)</code> does not depend on <code>a</code> at all.</p>
+because <code>W = b(2t−1)</code> does not depend on <code>a</code> at all. The third slider
+<code>λ</code> walks from that exact family (λ = 0) to Q6's curve 15 (λ = 1), which is a nearly
+balanced loop: 204° on each side, inflection at 0.47.</p>
 <div class="slider-row">
   <label>b <input id="qb" type="range" min="0.5" max="8" step="0.1" value="4"></label>
   <label>a <input id="qa" type="range" min="-1" max="3" step="0.1" value="0"></label>
+  <label>λ <input id="ql" type="range" min="0" max="1" step="0.01" value="0"></label>
   <span id="qread" class="small"></span>
 </div>
 <svg id="qpanel" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
@@ -352,18 +355,55 @@ because <code>W = b(2t−1)</code> does not depend on <code>a</code> at all.</p>
 (function () {
   const svg = document.getElementById("qpanel");
   const W = 900, H = 420, m = 46;
+  const U15 = [0.2, -1.9, 1.9], V15 = [0.4, -1.5, 1.6];
+  const ev = (p, t) => p[0] + p[1] * t + p[2] * t * t;
+  const dv = (p, t) => p[1] + 2 * p[2] * t;
   function draw() {
     const a = +document.getElementById("qa").value;
     const b = +document.getElementById("qb").value;
+    const lam = +document.getElementById("ql").value;
+    const U = [1, -a, a].map((c, i) => (1 - lam) * c + lam * U15[i]);
+    const V = [0, -b, b].map((c, i) => (1 - lam) * c + lam * V15[i]);
     const N = 700, pts = [];
     let x = 0, y = 0;
     pts.push([0, 0]);
     for (let i = 1; i <= N; i++) {
-      const t = (i - 0.5) / N, s = t * t - t;
-      const u = a * s + 1, v = b * s, dt = 1 / N;
+      const t = (i - 0.5) / N, u = ev(U, t), v = ev(V, t), dt = 1 / N;
       x += (u * u - v * v) * dt;
       y += 2 * u * v * dt;
       pts.push([x, y]);
+    }
+    const th = [];
+    for (let i = 0; i <= N; i++) {
+      const t = i / N, u = ev(U, t), v = ev(V, t);
+      th.push(Math.atan2(2 * u * v, u * u - v * v));
+    }
+    const un = [th[0]];
+    for (let i = 1; i <= N; i++) {
+      let q = th[i];
+      while (q - un[i - 1] > Math.PI) q -= 2 * Math.PI;
+      while (q - un[i - 1] < -Math.PI) q += 2 * Math.PI;
+      un.push(q);
+    }
+    const Wf = t => { const u = ev(U, t), v = ev(V, t); return u * dv(V, t) - v * dv(U, t); };
+    let root = null;
+    for (let i = 0; i < N; i++) {
+      const t0 = i / N, t1 = (i + 1) / N;
+      if (Wf(t0) * Wf(t1) <= 0) {
+        let lo = t0, hi = t1;
+        for (let k = 0; k < 40; k++) {
+          const mid = (lo + hi) / 2;
+          if (Wf(lo) * Wf(mid) <= 0) hi = mid; else lo = mid;
+        }
+        root = (lo + hi) / 2;
+        break;
+      }
+    }
+    let s0 = 0, s1 = 0;
+    if (root !== null) {
+      const k = Math.round(root * N);
+      s0 = Math.abs(un[k] - un[0]) * 180 / Math.PI;
+      s1 = Math.abs(un[N] - un[k]) * 180 / Math.PI;
     }
     const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs);
@@ -375,31 +415,27 @@ because <code>W = b(2t−1)</code> does not depend on <code>a</code> at all.</p>
     const fx = v => ox + (v - x0) * sc;
     const fy = v => oy + (y1 - v) * sc;
     const d = "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const mid = pts[Math.floor(N / 2)];
-    const t0 = [a * (0 * 0 - 0) + 1, b * 0];
-    const t1 = [a * (1 - 1) + 1, b * 0];
-    const tang = (u, v) => { const dx = u * u - v * v, dy = 2 * u * v;
-      const n = Math.hypot(dx, dy) || 1; return [dx / n, -dy / n]; };
-    const compass = (px, py, sgn) => {
-      const [sx, sy] = tang(...(sgn > 0 ? t1 : t0));
-      const r = 17, gx = fx(px) + sx * (5 + r) * sgn, gy = fy(py) + sy * (5 + r) * sgn;
+    const compass = (px, py, u, v, sgn) => {
+      const dx = u * u - v * v, dy = 2 * u * v, n = Math.hypot(dx, dy) || 1;
+      const sx = sgn * dx / n, sy = -sgn * dy / n, r = 17;
+      const gx = fx(px) + sx * (5 + r), gy = fy(py) + sy * (5 + r);
       return `<circle cx="${gx}" cy="${gy}" r="${r}" fill="#1f5fa8" fill-opacity="0.07" stroke="#1f5fa8" stroke-width="1.8"/>` +
-        `<line x1="${gx - sx * r * 0.62 * sgn}" y1="${gy - sy * r * 0.62 * sgn}" ` +
-        `x2="${gx + sx * r * 0.62 * sgn}" y2="${gy + sy * r * 0.62 * sgn}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
+        `<line x1="${gx - sx * r * 0.62}" y1="${gy - sy * r * 0.62}" x2="${gx + sx * r * 0.62}" y2="${gy + sy * r * 0.62}" stroke="#1f5fa8" stroke-width="2.4" stroke-linecap="round"/>`;
     };
+    const ring = root === null ? "" :
+      `<circle cx="${fx(pts[Math.round(root * N)][0])}" cy="${fy(pts[Math.round(root * N)][1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>`;
     svg.innerHTML =
       `<rect width="${W}" height="${H}" fill="#fbf7ec"/>` +
       `<line x1="${fx(0)}" y1="0" x2="${fx(0)}" y2="${H}" stroke="#d8ccae"/>` +
       `<line x1="0" y1="${fy(0)}" x2="${W}" y2="${fy(0)}" stroke="#d8ccae"/>` +
-      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
-      `<circle cx="${fx(mid[0])}" cy="${fy(mid[1])}" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.2"/>` +
-      compass(pts[0][0], pts[0][1], -1) + compass(pts[N][0], pts[N][1], 1) +
-      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${(2 * Math.atan(b / (4 - a)) * 180 / Math.PI).toFixed(1)}° per side · b = ${b.toFixed(1)} · a = ${a.toFixed(1)}</text>`;
+      `<path d="${d}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` + ring +
+      compass(pts[0][0], pts[0][1], ev(U, 0), ev(V, 0), -1) +
+      compass(pts[N][0], pts[N][1], ev(U, 1), ev(V, 1), 1) +
+      `<text x="${m}" y="${H - 12}" font-size="12" fill="#7b6c4e">swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · inflection ${root === null ? "—" : root.toFixed(2)} · b = ${b.toFixed(1)} · a = ${a.toFixed(1)} · λ = ${lam.toFixed(2)}</text>`;
     document.getElementById("qread").textContent =
-      `swing ${(2 * Math.atan(b / (4 - a)) * 180 / Math.PI).toFixed(1)}° per side`;
+      `swing ${s0.toFixed(0)}° / ${s1.toFixed(0)}° · inflection ${root === null ? "—" : root.toFixed(2)}`;
   }
-  document.getElementById("qb").addEventListener("input", draw);
-  document.getElementById("qa").addEventListener("input", draw);
+  for (const id of ["qa", "qb", "ql"]) document.getElementById(id).addEventListener("input", draw);
   draw();
 })();
 </script>
@@ -414,9 +450,13 @@ inflection: s0 from t = 0 to the inflection, s1 from there to t = 1. Taking the 
 visible bend on both sides — a C with a flat tail fails it.</p>
 <p><strong>Loops.</strong> Point symmetry means a loop on one side comes with a mirror loop on the
 other, so balanced loops arrive in pairs. A single loop would break the symmetry. A cusp at the
-middle is possible in principle but not in this family: <code>W = b(2t−1)</code> has a simple zero
-at 1/2, and a cusp needs a double zero.</p>
-</section>"""
+middle is possible in principle but not in the exact family: <code>W = b(2t−1)</code> has a simple
+zero at 1/2, and a cusp needs a double zero. The λ slider shows the other end: Q6's curve 15 is a
+nearly balanced loop, and its W is a general quadratic, not a line.</p>
+</section>
+
+<section class="panel">
+<h2>Moving the root inside</h2>"""
 
 
 def build():
