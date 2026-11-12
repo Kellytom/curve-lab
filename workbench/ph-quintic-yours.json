@@ -1,0 +1,387 @@
+{
+  "title": "curves saved from the ph-quintic gallery, cleaned",
+  "generator": "scripts/ph_quintic_yours.py",
+  "note": "u_decimal and v_decimal are what the sliders held; u and v are the same curve as integers, scaled by the lcm of the denominators. The pitch is read from the integer form - the decimal form's pitch is meaningless because the decimals are binary approximations.",
+  "curves": [
+    {
+      "label": "saved 1",
+      "saved": "2026-11-12T18:58:48Z",
+      "u_decimal": [
+        "1.65",
+        "-5.5",
+        "5.4"
+      ],
+      "v_decimal": [
+        "1.825",
+        "-11.65",
+        "11.8"
+      ],
+      "u": [
+        "66",
+        "-220",
+        "216"
+      ],
+      "v": [
+        "73",
+        "-466",
+        "472"
+      ],
+      "scale": 40,
+      "bend": 2.29,
+      "pitch_decimal": 24000,
+      "pitch": 15,
+      "inflection": 0.5,
+      "closest_approach": 0.63,
+      "endpoint": [
+        "-3049/24000",
+        "3673/6000"
+      ],
+      "endpoint_at_pitch": [
+        "-3049",
+        "14692"
+      ]
+    },
+    {
+      "label": "saved 2",
+      "saved": "2026-11-12T19:03:18Z",
+      "u_decimal": [
+        "2.625",
+        "-8.65",
+        "7.8"
+      ],
+      "v_decimal": [
+        "1.775",
+        "-11.45",
+        "11.6"
+      ],
+      "u": [
+        "105",
+        "-346",
+        "312"
+      ],
+      "v": [
+        "71",
+        "-458",
+        "464"
+      ],
+      "scale": 40,
+      "bend": 2.07,
+      "pitch_decimal": 12000,
+      "pitch": 15,
+      "inflection": 0.54,
+      "closest_approach": 0.6,
+      "endpoint": [
+        "2711/6000",
+        "10009/12000"
+      ],
+      "endpoint_at_pitch": [
+        "10844",
+        "20018"
+      ]
+    },
+    {
+      "label": "saved 3",
+      "saved": "2026-11-12T19:03:54Z",
+      "u_decimal": [
+        "2.725",
+        "-8.65",
+        "7.8"
+      ],
+      "v_decimal": [
+        "1.75",
+        "-11.4",
+        "11.6"
+      ],
+      "u": [
+        "109",
+        "-346",
+        "312"
+      ],
+      "v": [
+        "70",
+        "-456",
+        "464"
+      ],
+      "scale": 40,
+      "bend": 2.09,
+      "pitch_decimal": 24000,
+      "pitch": 15,
+      "inflection": 0.53,
+      "closest_approach": 0.68,
+      "endpoint": [
+        "5123/8000",
+        "2431/3000"
+      ],
+      "endpoint_at_pitch": [
+        "15369",
+        "19448"
+      ]
+    },
+    {
+      "label": "saved 4",
+      "saved": "2026-11-12T19:04:57Z",
+      "u_decimal": [
+        "-0.8825",
+        "6.33",
+        "-6.33"
+      ],
+      "v_decimal": [
+        "1.415",
+        "-5.66",
+        "5.66"
+      ],
+      "u": [
+        "-353",
+        "2532",
+        "-2532"
+      ],
+      "v": [
+        "566",
+        "-2264",
+        "2264"
+      ],
+      "scale": 400,
+      "bend": 2.35,
+      "pitch_decimal": 2400000,
+      "pitch": 15,
+      "inflection": 0.5,
+      "closest_approach": 0.47,
+      "endpoint": [
+        "-118467/800000",
+        "-141217/600000"
+      ],
+      "endpoint_at_pitch": [
+        "-355401",
+        "-564868"
+      ]
+    },
+    {
+      "label": "saved 5",
+      "saved": "2026-11-12T19:05:44Z",
+      "u_decimal": [
+        "0.3625",
+        "2.35",
+        "-3.35"
+      ],
+      "v_decimal": [
+        "1.15",
+        "-4.6",
+        "4.6"
+      ],
+      "u": [
+        "29",
+        "188",
+        "-268"
+      ],
+      "v": [
+        "92",
+        "-368",
+        "368"
+      ],
+      "scale": 80,
+      "bend": 3.62,
+      "pitch_decimal": 96000,
+      "pitch": 15,
+      "inflection": 0.5,
+      "closest_approach": 0.37,
+      "endpoint": [
+        "373/6400",
+        "1817/12000"
+      ],
+      "endpoint_at_pitch": [
+        "5595",
+        "14536"
+      ]
+    },
+    {
+      "label": "saved 6",
+      "saved": "2026-11-12T19:07:04Z",
+      "u_decimal": [
+        "0.1375",
+        "2.45",
+        "-3.45"
+      ],
+      "v_decimal": [
+        "1.5",
+        "-4.6",
+        "4.6"
+      ],
+      "u": [
+        "11",
+        "196",
+        "-276"
+      ],
+      "v": [
+        "120",
+        "-368",
+        "368"
+      ],
+      "scale": 80,
+      "bend": 1.77,
+      "pitch_decimal": 96000,
+      "pitch": 15,
+      "inflection": 0.45,
+      "closest_approach": 0.53,
+      "endpoint": [
+        "-14743/32000",
+        "203/1500"
+      ],
+      "endpoint_at_pitch": [
+        "-44229",
+        "12992"
+      ]
+    },
+    {
+      "label": "saved 7",
+      "saved": "2026-11-12T19:09:40Z",
+      "u_decimal": [
+        "-0.425",
+        "5.4",
+        "-7.1"
+      ],
+      "v_decimal": [
+        "1.925",
+        "-4.55",
+        "4.6"
+      ],
+      "u": [
+        "-17",
+        "216",
+        "-284"
+      ],
+      "v": [
+        "77",
+        "-182",
+        "184"
+      ],
+      "scale": 40,
+      "bend": 1.77,
+      "pitch_decimal": 4000,
+      "pitch": 5,
+      "inflection": 0.42,
+      "closest_approach": 0.89,
+      "endpoint": [
+        "-791/800",
+        "-297/500"
+      ],
+      "endpoint_at_pitch": [
+        "-7910",
+        "-4752"
+      ]
+    },
+    {
+      "label": "saved 8",
+      "saved": "2026-11-12T19:17:03Z",
+      "u_decimal": [
+        "-0.3",
+        "4.9",
+        "-6.6"
+      ],
+      "v_decimal": [
+        "0.5125",
+        "1.1",
+        "-1.05"
+      ],
+      "u": [
+        "-24",
+        "392",
+        "-528"
+      ],
+      "v": [
+        "41",
+        "88",
+        "-84"
+      ],
+      "scale": 80,
+      "bend": 33.46,
+      "pitch_decimal": 96000,
+      "pitch": 15,
+      "inflection": 0.35,
+      "closest_approach": 0.57,
+      "endpoint": [
+        "-917/32000",
+        "-101/12000"
+      ],
+      "endpoint_at_pitch": [
+        "-2751",
+        "-808"
+      ]
+    },
+    {
+      "label": "saved 9",
+      "saved": "2026-11-12T19:18:41Z",
+      "u_decimal": [
+        "-1.775",
+        "7.2",
+        "-7.5"
+      ],
+      "v_decimal": [
+        "0.0375",
+        "1.8",
+        "-0.55"
+      ],
+      "u": [
+        "-142",
+        "576",
+        "-600"
+      ],
+      "v": [
+        "3",
+        "144",
+        "-44"
+      ],
+      "scale": 80,
+      "bend": 1.42,
+      "pitch_decimal": 96000,
+      "pitch": 15,
+      "inflection": 0.49,
+      "closest_approach": 0.6,
+      "endpoint": [
+        "2399/32000",
+        "-4967/4800"
+      ],
+      "endpoint_at_pitch": [
+        "7197",
+        "-99340"
+      ]
+    },
+    {
+      "label": "saved 10",
+      "saved": "2026-11-12T19:22:22Z",
+      "u_decimal": [
+        "-1.6",
+        "6.35",
+        "-7.3"
+      ],
+      "v_decimal": [
+        "-0.0125",
+        "5",
+        "-6.75"
+      ],
+      "u": [
+        "-128",
+        "508",
+        "-584"
+      ],
+      "v": [
+        "-1",
+        "400",
+        "-540"
+      ],
+      "scale": 80,
+      "bend": 2.44,
+      "pitch_decimal": 96000,
+      "pitch": 15,
+      "inflection": 0.42,
+      "closest_approach": 0.67,
+      "endpoint": [
+        "52153/96000",
+        "667/1600"
+      ],
+      "endpoint_at_pitch": [
+        "52153",
+        "40020"
+      ]
+    }
+  ]
+}

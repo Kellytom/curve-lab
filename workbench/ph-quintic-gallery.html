@@ -27,6 +27,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .code-names{font-size:14px;color:var(--muted);margin:6px 0 10px}
 .save-row{margin:8px 0 0}
 #q13-exact{white-space:pre-line}
+.term-dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:middle;border:1px solid rgba(0,0,0,.15)}
 .save-curve,.save-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .save-curve:hover{background:#efe6d2}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
@@ -258,7 +259,7 @@ window.recipeMetrics = function (speedX, speedY) {
       inflection = (low + high) / 2;
     }
   }
-  const decimalPlaces = value => { const text = String(value); const dot = text.indexOf("."); return dot < 0 ? 0 : text.length - dot - 1; };
+  const decimalPlaces = value => { const text = String(+value.toFixed(6)); const dot = text.indexOf("."); return dot < 0 ? 0 : text.length - dot - 1; };
   const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
   const decimalScale = Math.pow(10, maxDecimals), decimalScaleSquared = decimalScale * decimalScale;
   const scaledX = speedX.map(value => Math.round(value * decimalScale));
@@ -909,12 +910,12 @@ run away.</p>
   const diagramLeft = 630, diagramRight = 872, diagramTop = 150, diagramBottom = 392;
   const sampleCount = 700;
   const specs = [
-    { key: "speedMidX", label: "speedMid.x", min: -4, max: 4, step: 0.05, value: 1.25 },
-    { key: "speedMidY", label: "speedMid.y", min: -4, max: 4, step: 0.05, value: -1 },
-    { key: "slopeMidX", label: "slopeMid.x", min: -4, max: 4, step: 0.05, value: 0 },
-    { key: "slopeMidY", label: "slopeMid.y", min: -4, max: 4, step: 0.05, value: 0 },
-    { key: "curvatureMidX", label: "curvatureMid.x", min: -16, max: 16, step: 0.05, value: 3 },
-    { key: "curvatureMidY", label: "curvatureMid.y", min: -16, max: 16, step: 0.05, value: 12 }
+    { key: "speedMidX", label: "speedMid.x", min: -4, max: 4, step: 0.05, value: 1.25, terms: ["#1f5fa8", "#a23b2a"] },
+    { key: "speedMidY", label: "speedMid.y", min: -4, max: 4, step: 0.05, value: -1, terms: ["#1f5fa8", "#a23b2a"] },
+    { key: "slopeMidX", label: "slopeMid.x", min: -4, max: 4, step: 0.05, value: 0, terms: ["#a23b2a"] },
+    { key: "slopeMidY", label: "slopeMid.y", min: -4, max: 4, step: 0.05, value: 0, terms: ["#a23b2a"] },
+    { key: "curvatureMidX", label: "curvatureMid.x", min: -16, max: 16, step: 0.05, value: 3, terms: ["#a23b2a", "#5b7f3a"] },
+    { key: "curvatureMidY", label: "curvatureMid.y", min: -16, max: 16, step: 0.05, value: 12, terms: ["#a23b2a", "#5b7f3a"] }
   ];
   const presets = [
     { label: "bend 2 pick", values: [1.25, -1, 0, 0, 3, 12] },
@@ -930,7 +931,13 @@ run away.</p>
     const row = document.createElement("label");
     row.className = "control-row";
     const name = document.createElement("span");
-    name.textContent = spec.label;
+    (spec.terms || []).forEach(colour => {
+      const dot = document.createElement("span");
+      dot.className = "term-dot";
+      dot.style.background = colour;
+      name.append(dot);
+    });
+    name.append(spec.label);
     const numberInput = document.createElement("input");
     numberInput.type = "number"; numberInput.step = spec.step; numberInput.value = spec.value;
     const rangeInput = document.createElement("input");
@@ -1185,6 +1192,8 @@ choose v so that <code>u v' - v u'</code> vanishes there.</p>
 integer-t stops, the cut pieces and the grid-cost comparison.
 <a href="ph-families.html">PH families, degree by degree</a>  -  the ladder and the PH-Hermite
 interpolant.</p>
+<p><a href="ph-quintic-yours.svg">Curves saved from the gallery</a> - cleaned to integer recipes -
+and <a href="ph-quintic-yours.json">the same curves as JSON</a>, with the scale each needed.</p>
 <p><a href="ph-quintic-presets.svg">The preset sheet</a> - every named recipe drawn and
 labelled - and <a href="ph-quintic-presets.json">the same presets as JSON</a>, with exact fractions,
 bend, pitch and the endpoint at that pitch. Regenerate both with

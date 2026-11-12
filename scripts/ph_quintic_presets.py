@@ -151,7 +151,7 @@ def panel_svg(u, v, label, bend, pitch, width=290, height=250):
     )
 
 
-def build_svg(records):
+def build_svg(records, title="PH quintic preset recipes"):
     columns, panel_width, panel_height, gap = 4, 290, 250, 14
     header, footer = 74, 40
     rows = (len(records) + columns - 1) // columns
@@ -175,7 +175,7 @@ def build_svg(records):
         f'aria-label="PH quintic preset recipes, one panel each">'
         f'<rect width="{width}" height="{height}" fill="#f3eddf"/>'
         f'<text x="{gap}" y="30" font-size="18" font-weight="600" fill="#2e2413">'
-        f"PH quintic preset recipes</text>"
+        f"{title}</text>"
         f'<text x="{gap}" y="50" font-size="12" fill="#7b6c4e">'
         f"curve: r(t) = integral of (u + i v)^2 dt | bend: arc / chord | pitch: lcm of the "
         f"integrated coefficients' denominators</text>"
