@@ -191,8 +191,12 @@ stops must find it; a curve with none must return none.</p>
 <li><strong>Done.</strong> The panel JavaScript is <code>scripts/ph_panels.js</code>, the preset rows
    come from the JSON, a browser save merges with <code>--from</code>, and the generator
    is down from 1647 to 823 lines.</li>
+<li><strong>Done.</strong> Q14 takes any degree: two coefficient lists in, curve, exact
+   metrics and the numeric hits out. The metrics are degree-agnostic in the
+   page too (one Horner evaluator and <code>exactBend</code>). Mixed-degree lists pad to
+   the longer one - a bug that both languages had.</li>
 </ol>
 <p>The first four were the ones the degree-7 work depends on: exact metrics,
 integer hits, a fraction guard and a check that notices a broken panel.</p>
-<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: 1ba149a721cf2a4c2c9a28ec1ced433382874872 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: 2f4faa99e7db6b92a26f1a814b5aa806373cf25c · do not edit this HTML by hand.</p>
 </main></body></html>

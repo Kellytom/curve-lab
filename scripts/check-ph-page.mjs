@@ -17,6 +17,7 @@ const expected = {
   "q10-readout": "bend 1.91",
   "q11-readout": "bend 2.04",
   "q13-exact": "arc",
+  "q14-readout": "bend 1.997",
 };
 
 const browser = await chromium.connectOverCDP("http://127.0.0.1:9223");
