@@ -411,3 +411,13 @@ modulated-width study and the hyperbola are all on `showcase.html` as families
 lattice marks, branches). `workbench/todo.html` is the visible twin.
 
 - [x] **Close the graded gap:** 3-4-5 spiral, seagrass, modulated width, hyperbola — drawn on `showcase.html`.
+
+## tph triangle chain — 2026-11-11
+
+The discrete midpoint chain at twelve triangles per side, exact throughout.
+
+- [ ] Fix the label collisions in Fig. T1: stagger the 25 vertex labels, move the
+  A–D letters off the rings, then re-render to a PNG under 150 KB and 1000 px and
+  look at it.
+- [ ] Retire or convert `RESULTS.md` / `results.html`: they still carry decimals
+  and duplicate the sandbox page.

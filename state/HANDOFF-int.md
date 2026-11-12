@@ -1481,3 +1481,31 @@ answers). `AGENTS.md`, `/fhandon` and `/fhandoff` no longer start or report a
 clock. `state/timers.jsonl` stays as history. `scripts/ctx.py` is the only
 measurement now. Superseded: the "Session timer" section of TODO.md, and the
 elapsed/tally fields in earlier handoff blocks.
+
+**2026-11-11 — integer-hit chain: verified, and the focus rules loosened.** The
+discrete triangle chain is built and checked, in `tph_tri_chain/` and not in
+`curve_lab/`: `chain.py` (exact Fractions), `glyph.py` (SVG in cells),
+`sandbox.py` (page), `t1.js` (d3 figure), vendored d3 7.9.2, `RESULTS.md` and
+`results.html`. Verified: the curve meets the integer lattice only at t in 3Z
+plus the waist at t = ±√3; pitch is q³, or 4q³ when the step width's top number
+is odd; at twelve triangles the pitch is 108 at t=4, 256 at t=3, 500 at 12/5;
+every vertex is an integer point, and the curve misses by T³/(12N²).
+
+Rules changed this session, all recorded in `legacy/agent-rules-retired.md`:
+instructions accumulate (AGENTS.md); the handoff file is a default, not the
+priority of record; "add no code until the rule is written" retired; "held / do
+not wire in" retired; the image ban replaced by a 150 KB / 1000 px limit, and
+verified by reading back a 93 KB PNG.
+
+Recheck 55/55. The single failure found was `workbench/todo.html` missing its hub
+bar after regeneration — re-run `scripts/todo.py` then `scripts/hub.py`, in that
+order, whenever TODO.md changes. Tests: 577 OK, carried from earlier today; the
+suite was not touched this session. Local probe: `/health` returned 404, not
+investigated. Remote: not checked, and no Cloud Run URL is recorded here.
+
+Tried and rejected: two raw half-chains concatenated for the glyph — the nose
+lands 1/64 off and the tips disagree (+1536 against −1528), so the right half is
+mirrored instead. Also rejected: named HTML entities in SVG (XML refuses them and
+the image goes blank); 3125 as a grid at twelve triangles (it needs step width
+2/5, so t = 24/5); decimals in tables (they hide whether a point is rational);
+and a 156k context window (it is 1M).
