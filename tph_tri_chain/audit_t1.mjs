@@ -12,7 +12,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { chromium } from "playwright-core";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -23,9 +23,23 @@ const opt = (name, fallback = null) => {
   const i = args.indexOf(name);
   return i === -1 ? fallback : args[i + 1];
 };
-const url = opt("--url", "http://127.0.0.1:8003/tph_tri_chain/tph-tri-sandbox.html");
+const url = opt("--url");
 const png = opt("--png");
 const width = Number(opt("--width", "980"));
+
+// The page is plain HTML with relative scripts, so the file on disk renders the
+// same as the served copy. Prefer the server when it is up; fall back to the
+// file so the audit never depends on :8003 being started first.
+const served = "http://127.0.0.1:8003/tph_tri_chain/tph-tri-sandbox.html";
+let pageUrl = url;
+if (!pageUrl) {
+  try {
+    const r = await fetch(served, { signal: AbortSignal.timeout(1500) });
+    pageUrl = r.ok ? served : pathToFileURL(path.join(HERE, "tph-tri-sandbox.html")).href;
+  } catch {
+    pageUrl = pathToFileURL(path.join(HERE, "tph-tri-sandbox.html")).href;
+  }
+}
 
 // ---------------------------------------------------------------- chain.py
 const snippet = `
@@ -77,7 +91,7 @@ const page = await browser.newPage({
   viewport: { width: width + 80, height: 1200 },
   deviceScaleFactor: 1,
 });
-await page.goto(url, { waitUntil: "load", timeout: 20000 });
+await page.goto(pageUrl, { waitUntil: "load", timeout: 20000 });
 await page.waitForSelector("#t1 svg");
 
 const shot = await page.evaluate((targetWidth) => {

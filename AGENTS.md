@@ -97,6 +97,10 @@ Start the one server if it is not already up (this is idempotent — it says
 
 ```sh
 .venv/bin/python -m unittest discover tests
+.venv/bin/python scripts/test.py --slim          # tight loop: engine only, ~3 s
+.venv/bin/python scripts/test.py                 # commit gate, ~40 s
+.venv/bin/python scripts/test.py --full          # before a push
+node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
 .venv/bin/mkdocs serve                          # the docs book, live on :8000
 .venv/bin/mkdocs build                          # static output into site/
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1

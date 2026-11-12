@@ -1,6 +1,7 @@
 """Run the tests, fast by default, in parallel by module.
 
     .venv/bin/python scripts/test.py           # the quick set
+    .venv/bin/python scripts/test.py --slim    # the iteration gate, engine only
     .venv/bin/python scripts/test.py --full    # everything
     .venv/bin/python scripts/test.py --slow    # only the slow modules
     .venv/bin/python scripts/test.py --jobs 1  # serial, for a clean traceback
@@ -14,6 +15,11 @@ Three modules carry about two thirds of the runtime and are all numerical
 sweeps rather than behaviour checks: they are worth running before a commit and
 before a deploy, not on every look at the workbench.  Everything else is fast
 enough to run constantly, which is the point of a default.
+
+--slim is for the tight loop: the engine's own behaviour (model, piece,
+clearance, fillet, junction, section, grammar) and the exact-triple core, with
+no page built. It is a smoke gate, not the commit gate; run the default before
+a commit and --full before a push.
 """
 
 from __future__ import annotations
@@ -28,6 +34,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 SLOW = {"test_svg", "test_practical", "test_fit", "test_fleur_sets"}
+
+# The tight-loop gate: the engine's own behaviour, no page built. Everything
+# here runs in about a second per module. Deliberately not a substitute for the
+# default set; it answers "is the model still sound", not "does every page
+# still build".
+SLIM = {
+    "test_engine",
+    "test_piece",
+    "test_clearance",
+    "test_fillet",
+    "test_junction",
+    "test_section",
+    "test_grammar",
+    "test_pyth_triples",
+    "test_pyth_cubic",
+    "test_todo",
+}
 
 # Only the two modules that write the same page compete for it:
 # test_curve_census and test_stem_library both rebuild stem-library.html.
@@ -74,6 +97,8 @@ def main(argv):
         chosen = everything
     elif "--slow" in argv:
         chosen = [n for n in everything if n in SLOW]
+    elif "--slim" in argv:
+        chosen = [n for n in everything if n in SLIM]
     else:
         chosen = [n for n in everything if n not in SLOW]
     jobs = max(2, min(8, (os.cpu_count() or 2)))
@@ -84,8 +109,13 @@ def main(argv):
     if done:
         slow = sorted(done, key=lambda d: -d[2])[:5]
         print("\n  slowest: " + " · ".join(f"{n} {s:.1f}s" for n, _, s, _ in slow))
-    print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}"
-          + (f" · skipped {', '.join(skipped)} (--full for those)" if skipped else ""))
+    if "--slim" in argv:
+        tail = f" · skipped {len(skipped)} more (--full for those)"
+    elif skipped:
+        tail = f" · skipped {', '.join(skipped)} (--full for those)"
+    else:
+        tail = ""
+    print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}" + tail)
     return code
 
 
