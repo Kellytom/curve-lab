@@ -120,6 +120,7 @@ node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
 .venv/bin/mkdocs serve                          # the docs book, live on :8000
 .venv/bin/mkdocs build                          # static output into site/
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
+node scripts/check-ph-page.mjs                  # gallery readouts in a headless browser
 node scripts/board/build-board.mjs              # regenerate both board pages
 .venv/bin/python scripts/g3_showcase_doc.py      # refresh the G3 showcase doc + HTML twin
 .venv/bin/python scripts/g3_cubic_native.py      # the cubic-native side list

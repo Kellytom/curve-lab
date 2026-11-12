@@ -172,11 +172,11 @@ stops must find it; a curve with none must return none.
 3. **Done.** `to_fraction` and its test, in the metrics module.
 4. **Done.** `scripts/ph_quintic_hits.py` - the stops, the exact gcd method and
    the near misses, with nine tests.
-5. **Partly done.** The pitch is now computed once, in `recipeMetrics`; the
-   bend, inflection and closest are still duplicated between Q8 and the Q9-Q11
-   panels.
-6. **Open.** One JS module for the whole page; the preset rows from the JSON;
-   the save loop closed; the generator split.
+5. **Done.** One implementation of the pitch, bend, inflection and closest
+   (`recipeMetrics`); the panels read it.
+6. **Done.** The panel JavaScript is `scripts/ph_panels.js`, the preset rows
+   come from the JSON, a browser save merges with `--from`, and the generator
+   is down from 1647 to 823 lines.
 
 The first four were the ones the degree-7 work depends on: exact metrics,
 integer hits, a fraction guard and a check that notices a broken panel.

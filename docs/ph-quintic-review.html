@@ -186,13 +186,13 @@ stops must find it; a curve with none must return none.</p>
 <li><strong>Done.</strong> <code>to_fraction</code> and its test, in the metrics module.</li>
 <li><strong>Done.</strong> <code>scripts/ph_quintic_hits.py</code> - the stops, the exact gcd method and
    the near misses, with nine tests.</li>
-<li><strong>Partly done.</strong> The pitch is now computed once, in <code>recipeMetrics</code>; the
-   bend, inflection and closest are still duplicated between Q8 and the Q9-Q11
-   panels.</li>
-<li><strong>Open.</strong> One JS module for the whole page; the preset rows from the JSON;
-   the save loop closed; the generator split.</li>
+<li><strong>Done.</strong> One implementation of the pitch, bend, inflection and closest
+   (<code>recipeMetrics</code>); the panels read it.</li>
+<li><strong>Done.</strong> The panel JavaScript is <code>scripts/ph_panels.js</code>, the preset rows
+   come from the JSON, a browser save merges with <code>--from</code>, and the generator
+   is down from 1647 to 823 lines.</li>
 </ol>
 <p>The first four were the ones the degree-7 work depends on: exact metrics,
 integer hits, a fraction guard and a check that notices a broken panel.</p>
-<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: f35313f74a7c3b681cf03afd427ca3a5dc8cca2d · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/PH-QUINTIC-REVIEW.md</code> · source-sha: 1ba149a721cf2a4c2c9a28ec1ced433382874872 · do not edit this HTML by hand.</p>
 </main></body></html>
