@@ -12,6 +12,7 @@ that makes the coordinates whole at integer t.
 from __future__ import annotations
 
 import sys
+import json
 from fractions import Fraction as F
 from pathlib import Path
 
@@ -609,21 +610,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
   <label class="control-row"><span>speedYLinear</span><input id="q8-speed-y1" type="number" step="0.05" value="-1.5"><input id="q8-speed-y1-slider" type="range" min="-16" max="4" step="0.05" value="-1.5"></label>
   <label class="control-row"><span>speedYCurvature</span><input id="q8-speed-y2" type="number" step="0.05" value="1.6"><input id="q8-speed-y2-slider" type="range" min="0" max="16" step="0.05" value="1.6"></label>
 </div>
-<div class="preset-row">
-  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.5,1.6">the target</button>
-  <button type="button" data-preset-values="0.25,-2,2,0.4,-1.5,1.6">speedXAtEnds = 0.25</button>
-  <button type="button" data-preset-values="0.2,-2,2,0.5,-1.5,1.6">speedYAtEnds = 0.5</button>
-  <button type="button" data-preset-values="0.25,-2,2,0.5,-1.5,1.6">speedXAtEnds = 0.25, speedYAtEnds = 0.5</button>
-  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.4,1.6">speedYLinear = -1.4</button>
-  <button type="button" data-preset-values="0.2,-2,2,0.4,-1.6,1.6">speedYLinear = -1.6</button>
-  <button type="button" data-preset-values="2,-20,20,4,-15,16">x10: integers, pitch 15</button>
-  <button type="button" data-preset-values="2,-3,3,2,-12,12">bend 2.00 | v = 4u - 6 (pitch 10)</button>
-  <button type="button" data-preset-values="3,-9,9,1,-15,15">bend 2.00 | pitch 5</button>
-  <button type="button" data-preset-values="0.5,-0.5,0.5,0.7,-4,4">yours | bend 2.69</button>
-  <button type="button" data-preset-values="0.5,-0.5,0.5,0.5,-4,4">speedYAtEnds = 0.5 | bend 2.24 (pitch 120)</button>
-  <button type="button" data-preset-values="1,-1,1,1,-8,8">speedYAtEnds = 0.5 x2 | bend 2.24 (pitch 30)</button>
-  <button type="button" data-preset-values="-0.95,-12.6,16,2.95,-14.1,16">the interesting curve | bend 3.18 (pitch 600)</button>
-</div>
+<div class="preset-row" id="q8-presets"></div><!--PRESETS-->
 <svg id="q8-plot" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
 <p class="small" id="q8-readout"></p>
 <p class="small" id="q8-centered-form"></p>
@@ -697,14 +684,23 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
     document.getElementById("q8-closed-form").textContent =
       `r(t) = (${window.formatPolynomial(closedForm.xTerms)}) + i (${window.formatPolynomial(closedForm.yTerms)})`;
   }
-  document.querySelectorAll(".preset-row button").forEach(presetButton => {
+  const parseRecipeValue = text => {
+    const parts = String(text).split("/");
+    return parts.length === 2 ? Number(parts[0]) / Number(parts[1]) : Number(parts[0]);
+  };
+  const presetRow = document.getElementById("q8-presets");
+  (window.phPresets || []).forEach(preset => {
+    const presetButton = document.createElement("button");
+    presetButton.type = "button";
+    presetButton.textContent = preset.label;
     presetButton.addEventListener("click", () => {
-      presetButton.dataset.presetValues.split(",").forEach((presetValue, i) => {
-        document.getElementById(controlIds[i]).value = presetValue;
-        document.getElementById(controlIds[i] + "-slider").value = presetValue;
+      preset.u.concat(preset.v).map(parseRecipeValue).forEach((value, i) => {
+        document.getElementById(controlIds[i]).value = value;
+        document.getElementById(controlIds[i] + "-slider").value = value;
       });
       redraw();
     });
+    presetRow.append(presetButton);
   });
   controlIds.forEach(controlId => {
     const numberInput = document.getElementById(controlId), rangeInput = document.getElementById(controlId + "-slider");
@@ -1515,6 +1511,10 @@ bend, pitch and the endpoint at that pitch. Regenerate both with
 </main></body></html>
 """
     html = html.replace("<!--Q12-->", fig_q12_svg())
+    presets = json.loads((ROOT / "workbench" / "ph-quintic-presets.json").read_text())["presets"]
+    html = html.replace("<!--PRESETS-->",
+                        "<script>window.phPresets = "
+                        + json.dumps(presets, separators=(",", ":")) + ";</script>")
     out = ROOT / "workbench" / "ph-quintic-gallery.html"
     out.write_text(html, encoding="utf-8")
     print(out)
