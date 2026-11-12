@@ -6,6 +6,7 @@ the rest of the workbench. No value is written as a decimal.
 Run:  .venv/bin/python tph_tri_chain/sandbox.py
 """
 
+import json
 import re
 from fractions import Fraction as F
 from math import gcd
@@ -53,6 +54,44 @@ def chordal_exact(T, n):
 
 
 STOPS = [F(2), F(21, 10), F(12, 5), F(5, 2), F(3), F(24, 5), F(4)]
+
+
+
+def t1_block():
+    """The T1 figure, drawn with d3. Cells throughout, all integers.
+
+    The glyph is the right half mirrored, so the nose sits on (0, 0) and the two
+    tips are symmetric. Concatenating two raw half-chains instead would put the
+    nose 1/64 off and make the tips unequal.
+    """
+    rows, _ = chain(F(0), F(3), N)
+    g = grid(rows)
+    x = y = F(0)
+    right = [[0, 0]]
+    for r in rows:
+        x += r["dx"]
+        y += r["dy"]
+        right.append([int(x * g), int(y * g)])
+    mirror = [[-X, Y] for X, Y in right]
+    verts = list(reversed(mirror)) + right[1:]        # 13 + 12 = 25
+    steps = [[verts[k + 1][0] - verts[k][0], verts[k + 1][1] - verts[k][1]]
+             for k in range(len(verts) - 1)]
+    curve = []
+    for k in range(241):
+        t = F(-3) + 6 * F(k, 240)
+        curve.append([int((t - t ** 3 / 3) * g), int(t * t * g)])
+    data = {"verts": verts, "steps": steps, "curve": curve,
+            "hits": [[0, 0, "A"], [0, 768, "B"], [-1536, 2304, "C"],
+                     [1536, 2304, "D"]], "pitch": g}
+    return ('<figure><div id="t1"></div>'
+            '<figcaption class="note">Fig. T1 &mdash; 24 triangles and all 25 '
+            'vertices, labelled with their (x, y) pairs in cells. Ringed and '
+            'lettered: the four parameters where the curve itself meets the '
+            'lattice. Pitch 256 cells per unit; drawn with d3.</figcaption>'
+            '</figure>'
+            '<script src="vendor/d3.v7.min.js"></script>'
+            "<script>const T1=" + json.dumps(data) + ";</script>"
+            '<script src="t1.js"></script>')
 
 
 def table(headers, rows, cls="tbl"):
@@ -234,16 +273,7 @@ def build():
         ["arc length, one side", "12"],
         ["full length, both sides", "24"],
     ]))
-    h.append('<figure><img src="out/lattice-t3.svg" alt="the curve, the twelve '
-             'triangles, and the whole-number points"><figcaption class="note">'
-             'Fig. T1 &mdash; the 24 triangles at t = 3, drawn in grid cells, not '
-             'units. Pitch 256, so one unit is 256 cells: the tip at 6 units across '
-             'is 1536 cells, and the waist at 3 units up is 768. Every coordinate in '
-             'the file is an integer, which is what an SVG going to Inkscape needs. '
-             'The four points where the curve hits the lattice are marked A to D and '
-             'listed under the drawing both in cells and in units. The chain&rsquo;s '
-             'last vertex falls four cells short of C, at &minus;1532.</figcaption>'
-             '</figure>')
+    h.append(t1_block())
 
     # 7 -------------------------------------------------------------
     h.append("<h2>Why the method works, and what the ends do</h2>")

@@ -1,9 +1,9 @@
-"""Figure T1 in grid cells, not units: every coordinate an integer.
+"""Figure T1 in grid cells, with every vertex labelled and tabulated.
 
-Pitch 256 cells per unit, so one unit is 256 cells and the whole-number points
-sit at integer cells: nose (0, 0), waist (0, 768), tips (+-1536, 2304).
-The SVG is drawn in cell coordinates with width/height set to display size, so
-Inkscape opens it on the integer grid.
+Pitch 256 cells per unit. The chain has 25 vertices, all integer points; the
+plot numbers them 1 to 25 along the path and the panel on the right gives every
+(x, y) pair in cells. The four points where the *curve* meets the lattice are
+ringed and lettered A to D.
 
 y is up in the model; the flip happens once, in fy().
 
@@ -25,36 +25,28 @@ GREY, BLUE, RED = "#7a6a4a", "#5b8fc9", "#a23b2a"
 
 
 def build():
-    pos, dt = chain(F(0), T_MAX, N_HALF)
-    g = grid(pos)
-    left, x, y = [], F(0), F(0)
-    for r in pos:
-        x -= r["dx"]
+    """Right half mirrored, so the nose is (0, 0) and the tips are symmetric."""
+    rows, _ = chain(F(0), T_MAX, N_HALF)
+    g = grid(rows)
+    x = y = F(0)
+    right = [(0, 0)]
+    for r in rows:
+        x += r["dx"]
         y += r["dy"]
-        left.append(dict(t=-r["t"], dx=-r["dx"], dy=r["dy"], ds=r["ds"], x=x, y=y))
-    nodes = [dict(i=0, t=F(0), dx=F(0), dy=F(0), ds=F(0), x=F(0), y=F(0))]
-    nodes += [dict(i=0, **nd) for nd in reversed(left)]
-    cx = cy = F(0)
-    for r in pos:
-        cx += r["dx"]
-        cy += r["dy"]
-        nodes.append(dict(i=0, t=r["t"], dx=r["dx"], dy=r["dy"], ds=r["ds"], x=cx, y=cy))
-    for k, nd in enumerate(nodes):
-        nd["i"] = k
-    return nodes, g, dt
+        right.append((int(x * g), int(y * g)))
+    mirror = [(-X, Y) for X, Y in right]
+    pts = list(reversed(mirror)) + right[1:]
+    return pts, g
 
 
-def write_csv(nodes, g):
+def write_csv(pts, g):
     path = os.path.join(OUT, "lattice-t3.csv")
     with open(path, "w", newline="") as fh:
         w = csv.writer(fh)
-        w.writerow(["step", "t_mid", "X_cells", "Y_cells", "dx_cells", "dy_cells",
-                    "ds_cells", "x_unit", "y_unit"])
-        for nd in nodes[1:]:
-            w.writerow([nd["i"], f"{float(nd['t']):+.2f}", int(nd["x"] * g),
-                        int(nd["y"] * g), int(nd["dx"] * g), int(nd["dy"] * g),
-                        int(nd["ds"] * g), f"{float(nd['x']):.6f}",
-                        f"{float(nd['y']):.6f}"])
+        w.writerow(["index", "X_cells", "Y_cells", "step_dx", "step_dy"])
+        for k, (X, Y) in enumerate(pts, 1):
+            px, py = pts[k - 2] if k > 1 else (X, Y)
+            w.writerow([k, X, Y, X - px, Y - py])
     return path
 
 
@@ -66,13 +58,15 @@ def smooth_cells(g, n=240):
     return out
 
 
-def svg(nodes, g, path):
-    # canvas in cells
+def svg(pts, g, path):
     xmin, xmax = -1664, 1664
     ymin, ymax = -192, 2496
-    ml, mr, mt, mb = 200, 90, 460, 520
-    W = ml + (xmax - xmin) + mr
+    ml, mr, mt, mb = 200, 90, 470, 480
+    plot_w = ml + (xmax - xmin) + mr
     H = mt + (ymax - ymin) + mb
+    tw = 1780                                  # table panel width
+    W = plot_w + tw
+    tx = plot_w + 40
 
     def fx(X):
         return ml + (float(X) - xmin)
@@ -80,12 +74,10 @@ def svg(nodes, g, path):
     def fy(Y):                      # the one flip: model y up -> SVG y down
         return mt + (ymax - float(Y))
 
-    step = 256 * 2                  # a labelled tick every two units
-    o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="{900*H/W:.0f}" '
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="{1240*H/W:.0f}" '
          f'viewBox="0 0 {W} {H}" font-family="Georgia, serif">',
          f'<rect width="{W}" height="{H}" fill="{PAPER}"/>']
 
-    # pale lines every quarter unit (64 cells), solid every unit (256 cells)
     for k in range(-26, 27):
         X = k * 64
         o.append(f'<line x1="{fx(X):.0f}" y1="{fy(ymin):.0f}" x2="{fx(X):.0f}" '
@@ -100,11 +92,10 @@ def svg(nodes, g, path):
     for Y in range(0, 2305, 256):
         o.append(f'<line x1="{fx(xmin):.0f}" y1="{fy(Y):.0f}" x2="{fx(xmax):.0f}" '
                  f'y2="{fy(Y):.0f}" stroke="{RULE}" stroke-width="3"/>')
-
-    for X in range(-1536, 1537, step):
+    for X in range(-1536, 1537, 512):
         o.append(f'<text x="{fx(X):.0f}" y="{fy(0)+52:.0f}" font-size="52" '
                  f'text-anchor="middle" fill="{MUTED}">{X}</text>')
-    for Y in range(0, 2305, step):
+    for Y in range(0, 2305, 512):
         o.append(f'<text x="{fx(0)-18:.0f}" y="{fy(Y)+18:.0f}" font-size="52" '
                  f'text-anchor="end" fill="{MUTED}">{Y}</text>')
 
@@ -112,88 +103,70 @@ def svg(nodes, g, path):
              f'y2="{fy(0):.0f}" stroke="{INK}" stroke-width="6"/>')
     o.append(f'<line x1="{fx(0):.0f}" y1="{fy(ymin):.0f}" x2="{fx(0):.0f}" '
              f'y2="{fy(ymax):.0f}" stroke="{INK}" stroke-width="6"/>')
-    o.append(f'<text x="{fx(xmax)+24:.0f}" y="{fy(0)+16:.0f}" font-size="56" '
-             f'fill="{INK}">x</text>')
-    o.append(f'<text x="{fx(0)+20:.0f}" y="{fy(ymax)-24:.0f}" font-size="56" '
-             f'fill="{INK}">y</text>')
 
-    # right triangles: legs in cell space
-    for nd in nodes[1:]:
-        x0, y0 = float(nd["x"] * g), float(nd["y"] * g)
-        x1, y1 = x0 + float(nd["dx"] * g), y0 + float(nd["dy"] * g)
+    for k in range(1, len(pts)):
+        x0, y0 = float(pts[k - 1][0]), float(pts[k - 1][1])
+        x1, y1 = float(pts[k][0]), float(pts[k][1])
         o.append(f'<polyline points="{fx(x0):.0f},{fy(y0):.0f} {fx(x1):.0f},{fy(y0):.0f} '
-                 f'{fx(x1):.0f},{fy(y1):.0f}" fill="none" stroke="{BLUE}" '
-                 f'stroke-width="3"/>')
+                 f'{fx(x1):.0f},{fy(y1):.0f}" fill="none" stroke="{BLUE}" stroke-width="3"/>')
 
-    pts = " ".join(f"{fx(X):.0f},{fy(Y):.0f}" for X, Y in smooth_cells(g))
-    o.append(f'<polyline points="{pts}" fill="none" stroke="{GREY}" stroke-width="7"/>')
+    pts_s = " ".join(f"{fx(X):.0f},{fy(Y):.0f}" for X, Y in smooth_cells(g))
+    o.append(f'<polyline points="{pts_s}" fill="none" stroke="{GREY}" stroke-width="7"/>')
+    pts_s = " ".join(f"{fx(X):.0f},{fy(Y):.0f}" for X, Y in pts)
+    o.append(f'<polyline points="{pts_s}" fill="none" stroke="{INK}" stroke-width="6"/>')
 
-    pts = " ".join(f"{fx(float(n['x'] * g)):.0f},{fy(float(n['y'] * g)):.0f}"
-                   for n in nodes)
-    o.append(f'<polyline points="{pts}" fill="none" stroke="{INK}" stroke-width="6"/>')
-    for nd in nodes:
-        o.append(f'<circle cx="{fx(float(nd["x"] * g)):.0f}" '
-                 f'cy="{fy(float(nd["y"] * g)):.0f}" r="9" fill="{INK}"/>')
+    for k, (X, Y) in enumerate(pts, 1):
+        o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="8" fill="{INK}"/>')
+        dx = 22 if X > 0 else -22
+        anchor = "start" if X > 0 else "end"
+        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)-16:.0f}" font-size="54" '
+                 f'fill="{MUTED}" text-anchor="{anchor}">{k}</text>')
 
-    hits = [(0, 0, "A", 0, 0, "start"),
-            (0, 768, "B", 0, 0, "start"),
-            (1536, 2304, "C", 0, 0, "start"),
-            (-1536, 2304, "D", 0, 0, "start")]
-    for X, Y, letter, _, _, _ in hits:
+    for X, Y, letter in ((0, 0, "A"), (0, 768, "B"), (-1536, 2304, "C"),
+                         (1536, 2304, "D")):
         o.append(f'<circle cx="{fx(X):.0f}" cy="{fy(Y):.0f}" r="26" fill="none" '
                  f'stroke="{RED}" stroke-width="6"/>')
-        dx, dy, anchor = (34, -22, "start") if X >= 0 else (-34, -22, "end")
-        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+dy:.0f}" font-size="66" '
+        dx = 30 if X >= 0 else -30
+        anchor = "start" if X >= 0 else "end"
+        o.append(f'<text x="{fx(X)+dx:.0f}" y="{fy(Y)+64:.0f}" font-size="62" '
                  f'font-weight="600" fill="{RED}" text-anchor="{anchor}">{letter}</text>')
 
-    # the vertex one step from the nose, as an example of an integer vertex
-    n1 = min(nodes[1:], key=lambda n: abs(n["x"]) + abs(n["y"]))
-    o.append(f'<text x="{fx(float(n1["x"] * g)) + 20:.0f}" '
-             f'y="{fy(float(n1["y"] * g)) + 60:.0f}" font-size="48" fill="{INK}">'
-             f'({int(n1["x"] * g)}, {int(n1["y"] * g)})</text>')
-
-    tipX = float(nodes[-1]["x"] * g)
-    o.append(f'<text x="{fx(tipX)+18:.0f}" y="{fy(2304)+64:.0f}" font-size="50" '
-             f'fill="{INK}">chain tip ({tipX:.0f}, 2304)</text>')
-
-    o.append(f'<text x="48" y="86" font-size="86" font-weight="600" fill="{INK}">'
-             f'Fig. T1 &#8212; 24 triangles on the integer grid</text>')
+    o.append(f'<text x="48" y="92" font-size="86" font-weight="600" fill="{INK}">'
+             f'Fig. T1 &#8212; 25 vertices, every one an integer point</text>')
     for k, line in enumerate([
-            "coordinates are grid cells, not units: pitch 256, so one unit is 256 cells; A to D below",
-            "curve x = t &#8722; t&#179;/3, y = t&#178;; whole-number points at t = 0, 3 and the waist",
-            "every one of the 25 vertices is an integer point, and every side is whole: 65, 73, 89 cells &#8230;",
-            "the chain stops at &#8722;1532 in x, four cells short of &#8722;1536"]):
-        o.append(f'<text x="48" y="{140 + k*68}" font-size="52" fill="{MUTED}">{line}</text>')
+            "pitch 256 cells per unit; the numbers 1 to 25 run along the path from the right tip",
+            "curve x = t &#8722; t&#179;/3, y = t&#178;; A to D are the four parameters where the curve itself hits the lattice",
+            "the sides are whole as well: 65, 73, 89, 113, 145 cells &#8230;"]):
+        o.append(f'<text x="48" y="{146 + k*64}" font-size="50" fill="{MUTED}">{line}</text>')
 
-    lx, ly = 60, H - 430
-    o.append(f'<rect x="{lx-16}" y="{ly-74}" width="1180" height="430" fill="{PAPER}" '
+    # legend
+    lx, ly = 60, H - 420
+    o.append(f'<rect x="{lx-16}" y="{ly-74}" width="1160" height="420" fill="{PAPER}" '
              f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
-    rows = [(GREY, 7, "smooth curve"), (INK, 6, "chain: 24 hypotenuses, 25 integer vertices"),
-            (BLUE, 3, "step legs"), (RED, 5, "whole-number point"),
-            (RULE, 3, "grid: unit lines, pale every 1/4 unit")]
-    for k, (col, wd, lab) in enumerate(rows):
-        yy = ly - 34 + k * 82
-        o.append(f'<line x1="{lx}" y1="{yy}" x2="{lx+120}" y2="{yy}" stroke="{col}" '
+    for k, (col, wd, lab) in enumerate([
+            (GREY, 7, "smooth curve"), (INK, 6, "chain, 24 sides"),
+            (BLUE, 3, "step legs"), (RED, 5, "curve meets the lattice"),
+            (RULE, 3, "grid: unit lines, pale every 1/4")]):
+        yy = ly - 34 + k * 78
+        o.append(f'<line x1="{lx}" y1="{yy}" x2="{lx+110}" y2="{yy}" stroke="{col}" '
                  f'stroke-width="{wd}"/>')
-        o.append(f'<text x="{lx+150}" y="{yy+20}" font-size="54" fill="{INK}">{lab}</text>')
+        o.append(f'<text x="{lx+140}" y="{yy+20}" font-size="54" fill="{INK}">{lab}</text>')
 
-    tx, ty = 1400, H - 500
-    o.append(f'<rect x="{tx-24}" y="{ty-70}" width="1360" height="430" fill="{PAPER}" '
-             f'fill-opacity="0.97" stroke="{RULE}" stroke-width="3"/>')
-    o.append(f'<text x="{tx}" y="{ty-18}" font-size="54" font-weight="600" fill="{INK}">'
-             f'points where the curve hits the lattice</text>')
-    table = [("A", "(0, 0)", "(0, 0)"), ("B", "(0, 768)", "(0, 3)"),
-             ("C", "(&#8722;1536, 2304)", "(&#8722;6, 9)"),
-             ("D", "(1536, 2304)", "(6, 9)")]
-    o.append(f'<text x="{tx}" y="{ty+34}" font-size="44" fill="{MUTED}">point</text>')
-    o.append(f'<text x="{tx+150}" y="{ty+34}" font-size="44" fill="{MUTED}">cells</text>')
-    o.append(f'<text x="{tx+780}" y="{ty+34}" font-size="44" fill="{MUTED}">units</text>')
-    for k, (letter, cells, units) in enumerate(table):
-        yy = ty + 96 + k * 82
-        o.append(f'<text x="{tx}" y="{yy}" font-size="54" font-weight="600" '
-                 f'fill="{RED}">{letter}</text>')
-        o.append(f'<text x="{tx+150}" y="{yy}" font-size="54" fill="{INK}">{cells}</text>')
-        o.append(f'<text x="{tx+780}" y="{yy}" font-size="54" fill="{INK}">{units}</text>')
+    # the 25 pairs
+    o.append(f'<text x="{tx}" y="{mt-10}" font-size="62" font-weight="600" fill="{INK}">'
+             f'all 25 vertices, cells</text>')
+    o.append(f'<line x1="{tx}" y1="{mt+10}" x2="{tx+tw-120}" y2="{mt+10}" '
+             f'stroke="{RULE}" stroke-width="3"/>')
+    half = 13
+    for k, (X, Y) in enumerate(pts, 1):
+        col = 0 if k <= half else 1
+        row = (k - 1) % half
+        cx = tx + col * 850
+        cy = mt + 90 + row * 88
+        o.append(f'<text x="{cx}" y="{cy}" font-size="58" fill="{MUTED}" '
+                 f'text-anchor="end">{k}</text>')
+        o.append(f'<text x="{cx+24}" y="{cy}" font-size="58" fill="{INK}">'
+                 f'({X}, {Y})</text>')
 
     o.append("</svg>")
     with open(path, "w") as fh:
@@ -203,12 +176,11 @@ def svg(nodes, g, path):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    nodes, g, dt = build()
-    csv_path = write_csv(nodes, g)
-    svg_path, W, H = svg(nodes, g, os.path.join(OUT, "lattice-t3.svg"))
-    print(f"pitch {g}  triangles {len(nodes)-1}  step width {dt}")
-    print(f"tip cells ({nodes[-1]['x']*g}, {nodes[-1]['y']*g})  "
-          f"curve tip cells ({-6*g}, {9*g})")
+    pts, g = build()
+    csv_path = write_csv(pts, g)
+    svg_path, W, H = svg(pts, g, os.path.join(OUT, "lattice-t3.svg"))
+    print(f"pitch {g}  vertices {len(pts)}")
+    print("first, middle, last:", pts[0], pts[len(pts)//2], pts[-1])
     print(f"csv {csv_path}")
     print(f"svg {svg_path}  viewBox {W} x {H}")
 
