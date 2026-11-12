@@ -19,7 +19,7 @@ class TestPresets(unittest.TestCase):
 
     def test_one_record_per_case(self):
         self.assertEqual(len(self.records), len(P.CASES))
-        self.assertEqual(len(self.records), 15)
+        self.assertEqual(len(self.records), 16)
 
     def test_every_record_carries_the_fields(self):
         for item in self.records:

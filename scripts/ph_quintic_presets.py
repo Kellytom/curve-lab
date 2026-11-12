@@ -55,6 +55,9 @@ CASES = [
      (F(1, 2), -4, 4), "Q8", "the speedYAtEnds = 0.5 variant: same turn, cheaper pitch than 0.7"),
     ("round-224-x2", "speedYAtEnds = 0.5 x2 | bend 2.24", (1, -1, 1), (1, -8, 8),
      "Q8", "the integer form: bend 2.24, pitch 30, endpoint (7, -14)"),
+    ("triangle-overshoot", "the triangle with the green overshoot", (45, -176, 252), (-3, -400, 540),
+     "Q13", "the three chord terms form a triangle, the green term overshoots, and the chord closes "
+            "the gap; bend 3.34 at pitch 15"),
     ("find-318", "the interesting curve", (F(-19, 20), F(-63, 5), 16),
      (F(59, 20), F(-141, 10), 16),
      "Q8", "bend 3.18 at pitch 600; u and v share the leading 16, so x(t) is quartic"),

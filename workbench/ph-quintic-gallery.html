@@ -27,6 +27,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .code-names{font-size:14px;color:var(--muted);margin:6px 0 10px}
 .save-row{margin:8px 0 0}
 #q13-exact{white-space:pre-line}
+.inverse-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.inverse-row .control-row span{min-width:34px}
+.inverse-row input[type=number]{width:74px;font:12px ui-monospace,Menlo,monospace}
 .term-dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:middle;border:1px solid rgba(0,0,0,.15)}
 .save-curve,.save-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .save-curve:hover{background:#efe6d2}
@@ -895,7 +898,13 @@ angle marked. The flat grey curve is 110 deg, where bend 2 cannot be reached at 
 drawn beside them so you can check. The diagram on the right adds the three chord vectors head to
 tail - the bend is large exactly when they cancel. Drag toward the closure preset and watch the bend
 run away.</p>
+<p><strong>The inverse.</strong> To build a curve from a diagram, type the three chord terms and
+press <em>solve for the recipe</em>. The formula inverts in closed form:
+<code>speedMid = sqrt(T1)</code>, <code>curvatureMid = sqrt(80*T3)</code>,
+<code>slopeMid = sqrt(12*T2 - 2*speedMid*curvatureMid)</code>. Each square root has two signs, so one
+diagram gives up to eight curves - mirrors and rotations of the same shape.</p>
 <div id="q13-controls"></div>
+<div class="inverse-row" id="q13-inverse"></div>
 <svg id="q13-plot" viewBox="0 0 900 520" role="img" aria-label="the exact bend formula, live"></svg>
 <p class="small mono" id="q13-exact"></p>
 <p class="small mono" id="q13-terms"></p>
@@ -921,7 +930,8 @@ run away.</p>
     { label: "bend 2 pick", values: [1.25, -1, 0, 0, 3, 12] },
     { label: "the target", values: [-0.3, 0.05, 0, 0.1, 2, 1.6] },
     { label: "near closure", values: [1, 0, 0, 0, -6.33, 5.66] },
-    { label: "closure", values: [1, 0, 0, 0, -6.6667, 5.9628] }
+    { label: "closure", values: [1, 0, 0, 0, -6.6667, 5.9628] },
+    { label: "the triangle (3.34)", values: [0.25, -0.85, 0.95, 1.75, 3.15, 6.75] }
   ];
   const state = {};
   const grid = document.createElement("div");
@@ -967,6 +977,57 @@ run away.</p>
     presetRow.append(button);
   });
   document.getElementById("q13-controls").append(presetRow);
+
+  // the inverse: three chord terms -> speedMid, slopeMid, curvatureMid
+  const inverseSpecs = [
+    { key: "t1x", label: "T1.x", value: -0.66 }, { key: "t1y", label: "T1.y", value: -0.425 },
+    { key: "t2x", label: "T2.x", value: 0.907 }, { key: "t2y", label: "T2.y", value: 0.112 },
+    { key: "t3x", label: "T3.x", value: -0.446 }, { key: "t3y", label: "T3.y", value: 0.532 }
+  ];
+  const inverseState = {};
+  const inverseRow = document.getElementById("q13-inverse");
+  inverseSpecs.forEach(spec => {
+    inverseState[spec.key] = spec.value;
+    const label = document.createElement("label");
+    label.className = "control-row";
+    const name = document.createElement("span");
+    name.textContent = spec.label;
+    const input = document.createElement("input");
+    input.type = "number"; input.step = 0.001; input.value = spec.value;
+    input.addEventListener("input", () => { inverseState[spec.key] = +input.value; });
+    label.append(name, input);
+    inverseRow.append(label);
+  });
+  const solveButton = document.createElement("button");
+  solveButton.type = "button";
+  solveButton.className = "save-curve";
+  solveButton.textContent = "solve for the recipe";
+  solveButton.addEventListener("click", () => {
+    const complexSqrt = (re, im) => {
+      const magnitude = Math.hypot(re, im), angle = Math.atan2(im, re) / 2;
+      return [Math.sqrt(magnitude) * Math.cos(angle), Math.sqrt(magnitude) * Math.sin(angle)];
+    };
+    const t1 = [inverseState.t1x, inverseState.t1y];
+    const t2 = [inverseState.t2x, inverseState.t2y];
+    const t3 = [inverseState.t3x, inverseState.t3y];
+    const speedMid = complexSqrt(t1[0], t1[1]);
+    const curvatureMid = complexSqrt(80 * t3[0], 80 * t3[1]);
+    const product = complexProduct(speedMid, curvatureMid);
+    const slopeSquare = [12 * t2[0] - 2 * product[0], 12 * t2[1] - 2 * product[1]];
+    const slopeMid = complexSqrt(slopeSquare[0], slopeSquare[1]);
+    const recovered = { speedMidX: speedMid[0], speedMidY: speedMid[1],
+                        slopeMidX: slopeMid[0], slopeMidY: slopeMid[1],
+                        curvatureMidX: curvatureMid[0], curvatureMidY: curvatureMid[1] };
+    Object.keys(recovered).forEach((key, index) => {
+      const value = +recovered[key].toFixed(4);
+      state[key] = value;
+      const row = grid.children[index];
+      row.querySelector("input[type=number]").value = value;
+      row.querySelector("input[type=range]").value = value;
+    });
+    redraw();
+  });
+  inverseRow.append(solveButton);
 
   const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
   const complexProduct = (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];

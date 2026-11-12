@@ -375,6 +375,34 @@
       ]
     },
     {
+      "id": "triangle-overshoot",
+      "label": "the triangle with the green overshoot",
+      "source": "Q13",
+      "note": "the three chord terms form a triangle, the green term overshoots, and the chord closes the gap; bend 3.34 at pitch 15",
+      "u": [
+        "45",
+        "-176",
+        "252"
+      ],
+      "v": [
+        "-3",
+        "-400",
+        "540"
+      ],
+      "bend": 3.34,
+      "pitch": 15,
+      "inflection": 0.36,
+      "closest_approach": 42.42,
+      "endpoint": [
+        "-6336/5",
+        "4198/3"
+      ],
+      "endpoint_at_pitch": [
+        "-19008",
+        "20990"
+      ]
+    },
+    {
       "id": "find-318",
       "label": "the interesting curve",
       "source": "Q8",
