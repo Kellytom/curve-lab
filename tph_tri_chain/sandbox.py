@@ -273,7 +273,7 @@ def build():
              "far end the 1/12s have added up, and the chain stops 1/4 short of "
              "&minus;6, while the height is still exactly 9 &mdash; panel D. Nothing "
              "corrects it, because every step is wrong in the same direction.</p>")
-    h.append("<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first is (63, 16) in cells, the last is (&minus;1532, 2304). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>")
+    h.append("<p><strong>Every vertex is already on the lattice.</strong> All 25 of them, at pitch 256: the first pair are (63, 16) and (&minus;63, 16) in cells, the last is (&minus;1532, 2304). The sides are whole too &mdash; 65, 73, 89, 113, 145 cells and so on. That is what the pitch is for: the chain sits on the integer lattice everywhere, while the curve itself only touches it at the four parameters marked A to D.</p>")
     h.append("<p><strong>What that buys.</strong> Every side is a whole number of "
              "cells: 63 across, 16 up, 65 along, and 63&times;63 + 16&times;16 = "
              "65&times;65. A pen or a cutter can walk the path cell by cell and finish "
