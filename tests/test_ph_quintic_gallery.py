@@ -182,6 +182,20 @@ class TestGallery(unittest.TestCase):
             with self.subTest(name=name):
                 self.assertIn(name, page)
 
+    def test_every_illustration_can_save_its_curve(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        self.assertIn("curveSaver", page)
+        self.assertIn("save-curve", page)
+        self.assertIn("saved-download", page)
+        for panel in ("q7", "q8", "q9", "q10", "q11", "q13"):
+            self.assertIn(f'data-panel="{panel}"', page)
+
+    def test_q13_is_the_live_formula(self):
+        page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
+        self.assertIn("Fig. Q13", page)
+        for name in ("speedMid", "slopeMid", "curvatureMid", "q13-exact", "q13-terms"):
+            self.assertIn(name, page)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)

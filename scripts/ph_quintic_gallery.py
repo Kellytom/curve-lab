@@ -380,6 +380,94 @@ window.formatPolynomial = function (terms) {
   });
   return text || "0";
 };
+
+window.panelRecipes = {};
+window.recipeMetrics = function (speedX, speedY) {
+  const sampleCount = 600;
+  const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
+  const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
+  const points = [[0, 0]];
+  let pointX = 0, pointY = 0, closest = Infinity;
+  for (let i = 1; i <= sampleCount; i++) {
+    const t = (i - 0.5) / sampleCount;
+    const a = evalQuadratic(speedX, t), b = evalQuadratic(speedY, t);
+    pointX += (a * a - b * b) / sampleCount;
+    pointY += 2 * a * b / sampleCount;
+    points.push([pointX, pointY]);
+  }
+  for (let i = 0; i <= sampleCount; i++) {
+    const t = i / sampleCount;
+    closest = Math.min(closest, Math.hypot(evalQuadratic(speedX, t), evalQuadratic(speedY, t)));
+  }
+  let arcLength = 0;
+  for (let i = 1; i < points.length; i++) {
+    arcLength += Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
+  }
+  const chordLength = Math.hypot(points[sampleCount][0] - points[0][0], points[sampleCount][1] - points[0][1]);
+  const bend = chordLength > 1e-9 ? arcLength / chordLength : Infinity;
+  const wronskian = t => evalQuadratic(speedX, t) * derivativeQuadratic(speedY, t)
+    - evalQuadratic(speedY, t) * derivativeQuadratic(speedX, t);
+  let inflection = null;
+  for (let i = 0; i < sampleCount && inflection === null; i++) {
+    const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+    if (wronskian(lowT) * wronskian(highT) <= 0) {
+      let low = lowT, high = highT;
+      for (let k = 0; k < 40; k++) {
+        const middle = (low + high) / 2;
+        if (wronskian(low) * wronskian(middle) <= 0) high = middle; else low = middle;
+      }
+      inflection = (low + high) / 2;
+    }
+  }
+  const decimalPlaces = value => { const text = String(value); const dot = text.indexOf("."); return dot < 0 ? 0 : text.length - dot - 1; };
+  const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+  const decimalScale = Math.pow(10, maxDecimals), decimalScaleSquared = decimalScale * decimalScale;
+  const scaledX = speedX.map(value => Math.round(value * decimalScale));
+  const scaledY = speedY.map(value => Math.round(value * decimalScale));
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
+  const xSquared = multiply(scaledX, scaledX), ySquared = multiply(scaledY, scaledY);
+  const xTimesY = multiply(scaledX, scaledY);
+  let pitch = 1;
+  for (let j = 0; j < xSquared.length; j++) {
+    const numerators = [xSquared[j] - (ySquared[j] || 0), 2 * xTimesY[j]];
+    for (const numerator of numerators) {
+      if (!numerator) continue;
+      const denominator = decimalScaleSquared * (j + 1);
+      pitch = leastCommonMultiple(pitch, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
+    }
+  }
+  const closed = window.closedFormOf(speedX, speedY);
+  const endpoint = [closed.xTerms.reduce((sum, term) => sum + term[0] / term[1], 0),
+                    closed.yTerms.reduce((sum, term) => sum + term[0] / term[1], 0)];
+  return { bend, pitch, inflection, closest, endpoint };
+};
+window.curveSaver = (function () {
+  const key = "curve-lab-saved-curves";
+  const load = () => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (error) { return []; } };
+  const store = items => localStorage.setItem(key, JSON.stringify(items));
+  return {
+    add(record) { const items = load(); items.push(record); store(items); return items.length; },
+    count() { return load().length; },
+    clear() { store([]); },
+    download() {
+      const blob = new Blob([JSON.stringify({ title: "curves saved from the ph-quintic gallery", presets: load() }, null, 2)],
+                            { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "ph-quintic-saved.json";
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+  };
+})();
 </script>
 
 <section class="panel">
@@ -405,6 +493,7 @@ target is the simplified curve 15: <code>u = 0.2 - 2t + 2t^2</code>,
   <span id="q7-readout" class="small"></span>
 </div>
 <svg id="q7-plot" viewBox="0 0 900 420" role="img" aria-label="the balanced family, live"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q7">save this curve</button></p>
 <script>
 (function () {
   const plotElement = document.getElementById("q7-plot");
@@ -418,6 +507,7 @@ target is the simplified curve 15: <code>u = 0.2 - 2t + 2t^2</code>,
     const morphLambda = +document.getElementById("q7-morph-lambda").value;
     const speedX = [1, -shiftA, shiftA].map((startCoefficient, i) => startCoefficient + morphLambda * (targetSpeedX[i] - startCoefficient));
     const speedY = [1, -scaleB, scaleB].map((startCoefficient, i) => startCoefficient + morphLambda * (targetSpeedY[i] - startCoefficient));
+    window.panelRecipes.q7 = { u: speedX, v: speedY };
     const curvePoints = [];
     let pointX = 0, pointY = 0;
     curvePoints.push([0, 0]);
@@ -538,6 +628,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
 <p class="small" id="q8-readout"></p>
 <p class="small" id="q8-centered-form"></p>
 <p class="small mono" id="q8-closed-form"></p>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q8">save this curve</button></p>
 <dl class="roles">
   <dt>speedXAtEnds <code>speedXAtEnds</code></dt><dd>the horizontal speed at the two ends (when speedXLinear = -speedXCurvature). The
     middle of u is speedXAtEnds - speedXCurvature/4, so speedXAtEnds decides how close the path comes to the origin: lower speedXAtEnds, closer,
@@ -586,6 +677,7 @@ stronger S at bend 2.69  -  and at x10 its pitch drops to 2, the cheapest grid i
   function redraw() {
     const controlValues = controlIds.map(controlId => +document.getElementById(controlId).value);
     const speedX = controlValues.slice(0, 3), speedY = controlValues.slice(3, 6);
+    window.panelRecipes.q8 = { u: speedX, v: speedY };
     const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
     const derivativeQuadratic = (coefficients, t) => coefficients[1] + 2 * coefficients[2] * t;
     const curvePoints = [];
@@ -714,6 +806,7 @@ constant term is <code>v(0) = 2</code>.</p>
 <code>lineIntercept</code>; Q7's constant term is <code>constantTermC</code>.</p>
 <div id="q9-controls"></div>
 <svg id="q9-plot" viewBox="0 0 900 470" role="img" aria-label="the bend-2 curve"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q9">save this curve</button></p>
 <p class="small" id="q9-readout"></p>
 </section>
 
@@ -728,6 +821,7 @@ bend 1.91; (0.5, 0.5, 0.78, 4) is bend 2.01; (0.5, 0.5, 0.7, 4) is bend 2.69.</p
 <code>speedYAtEnds</code>, <code>speedYCurvature</code>.</p>
 <div id="q10-controls"></div>
 <svg id="q10-plot" viewBox="0 0 900 470" role="img" aria-label="the even pair"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q10">save this curve</button></p>
 <p class="small" id="q10-readout"></p>
 </section>
 
@@ -744,6 +838,7 @@ longer forced to <code>-speedYCurvature</code>. That tilt is what the 2.04 find 
 even pair does not have.</p>
 <div id="q11-controls"></div>
 <svg id="q11-plot" viewBox="0 0 900 470" role="img" aria-label="the tilted pair"></svg>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q11">save this curve</button></p>
 <p class="small" id="q11-readout"></p>
 </section>
 
@@ -883,6 +978,7 @@ even pair does not have.</p>
     }
     function redraw() {
       const recipe = recipeFromControls(controlValues);
+      window.panelRecipes[controlsId] = { u: recipe.speedX, v: recipe.speedY };
       readoutElement.textContent = drawCurve(plotElement, recipe.speedX, recipe.speedY, figureTitle);
       const closedForm = window.closedFormOf(recipe.speedX, recipe.speedY);
       closedFormElement.textContent =
@@ -951,6 +1047,239 @@ unique up to signs.</p>
 <p class="small">Above: bend against curvatureRatio for four curvatureAngle values, with the closing
 angle marked. The flat grey curve is 110 deg, where bend 2 cannot be reached at any ratio.</p>
 </section>
+
+<section class="panel">
+<h2>Fig. Q13 | the exact bend formula, live</h2>
+<p>Six numbers: the real and imaginary parts of <code>speedMid</code>, <code>slopeMid</code> and
+<code>curvatureMid</code>. The three lines give arc, chord and bend with no sampling; the curve is
+drawn beside them so you can check. The diagram on the right adds the three chord vectors head to
+tail - the bend is large exactly when they cancel. Drag toward the closure preset and watch the bend
+run away.</p>
+<div id="q13-controls"></div>
+<svg id="q13-plot" viewBox="0 0 900 520" role="img" aria-label="the exact bend formula, live"></svg>
+<p class="small mono" id="q13-exact"></p>
+<p class="small mono" id="q13-terms"></p>
+<p class="save-row"><button type="button" class="save-curve" data-panel="q13">save this curve</button></p>
+<script>
+(function () {
+  const plotElement = document.getElementById("q13-plot");
+  const exactElement = document.getElementById("q13-exact");
+  const termsElement = document.getElementById("q13-terms");
+  const canvasWidth = 900, canvasHeight = 520;
+  const plotLeft = 46, plotRight = 606, plotTop = 96, plotBottom = 470;
+  const diagramLeft = 630, diagramRight = 872, diagramTop = 150, diagramBottom = 392;
+  const sampleCount = 700;
+  const specs = [
+    { key: "speedMidX", label: "speedMid.x", min: -4, max: 4, step: 0.05, value: 1.25 },
+    { key: "speedMidY", label: "speedMid.y", min: -4, max: 4, step: 0.05, value: -1 },
+    { key: "slopeMidX", label: "slopeMid.x", min: -4, max: 4, step: 0.05, value: 0 },
+    { key: "slopeMidY", label: "slopeMid.y", min: -4, max: 4, step: 0.05, value: 0 },
+    { key: "curvatureMidX", label: "curvatureMid.x", min: -16, max: 16, step: 0.05, value: 3 },
+    { key: "curvatureMidY", label: "curvatureMid.y", min: -16, max: 16, step: 0.05, value: 12 }
+  ];
+  const presets = [
+    { label: "bend 2 pick", values: [1.25, -1, 0, 0, 3, 12] },
+    { label: "the target", values: [-0.3, 0.05, 0, 0.1, 2, 1.6] },
+    { label: "near closure", values: [1, 0, 0, 0, -6.33, 5.66] },
+    { label: "closure", values: [1, 0, 0, 0, -6.6667, 5.9628] }
+  ];
+  const state = {};
+  const grid = document.createElement("div");
+  grid.className = "control-grid";
+  specs.forEach(spec => {
+    state[spec.key] = spec.value;
+    const row = document.createElement("label");
+    row.className = "control-row";
+    const name = document.createElement("span");
+    name.textContent = spec.label;
+    const numberInput = document.createElement("input");
+    numberInput.type = "number"; numberInput.step = spec.step; numberInput.value = spec.value;
+    const rangeInput = document.createElement("input");
+    rangeInput.type = "range"; rangeInput.min = spec.min; rangeInput.max = spec.max;
+    rangeInput.step = spec.step; rangeInput.value = spec.value;
+    numberInput.addEventListener("input", () => { rangeInput.value = numberInput.value; state[spec.key] = +numberInput.value; redraw(); });
+    rangeInput.addEventListener("input", () => { numberInput.value = rangeInput.value; state[spec.key] = +rangeInput.value; redraw(); });
+    row.append(name, numberInput, rangeInput);
+    grid.append(row);
+  });
+  document.getElementById("q13-controls").append(grid);
+  const presetRow = document.createElement("div");
+  presetRow.className = "preset-row";
+  presets.forEach(preset => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = preset.label;
+    button.addEventListener("click", () => {
+      preset.values.forEach((value, i) => {
+        state[specs[i].key] = value;
+        const row = grid.children[i];
+        row.querySelector("input[type=number]").value = value;
+        row.querySelector("input[type=range]").value = value;
+      });
+      redraw();
+    });
+    presetRow.append(button);
+  });
+  document.getElementById("q13-controls").append(presetRow);
+
+  const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
+  const complexProduct = (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];
+  const fmt = value => (Math.abs(value) < 5e-9 ? "0" : value.toFixed(3));
+  const complexText = z => `${fmt(z[0])} ${z[1] < 0 ? "-" : "+"} ${fmt(Math.abs(z[1]))}i`;
+
+  function redraw() {
+    const speedMid = [state.speedMidX, state.speedMidY];
+    const slopeMid = [state.slopeMidX, state.slopeMidY];
+    const curvatureMid = [state.curvatureMidX, state.curvatureMidY];
+    const speedX = [speedMid[0] - slopeMid[0] / 2 + curvatureMid[0] / 4,
+                    slopeMid[0] - curvatureMid[0], curvatureMid[0]];
+    const speedY = [speedMid[1] - slopeMid[1] / 2 + curvatureMid[1] / 4,
+                    slopeMid[1] - curvatureMid[1], curvatureMid[1]];
+    window.panelRecipes.q13 = { u: speedX, v: speedY };
+
+    const arc = dot(speedMid, speedMid)
+      + (dot(slopeMid, slopeMid) + 2 * dot(speedMid, curvatureMid)) / 12
+      + dot(curvatureMid, curvatureMid) / 80;
+    const firstTerm = complexProduct(speedMid, speedMid);
+    const middleProduct = complexProduct(speedMid, curvatureMid).map(value => 2 * value);
+    const slopeSquare = complexProduct(slopeMid, slopeMid);
+    const secondTerm = [(middleProduct[0] + slopeSquare[0]) / 12, (middleProduct[1] + slopeSquare[1]) / 12];
+    const thirdTerm = complexProduct(curvatureMid, curvatureMid).map(value => value / 80);
+    const chord = [firstTerm[0] + secondTerm[0] + thirdTerm[0],
+                   firstTerm[1] + secondTerm[1] + thirdTerm[1]];
+    const chordLength = Math.hypot(chord[0], chord[1]);
+    const bend = chordLength > 1e-12 ? arc / chordLength : Infinity;
+
+    const evalQuadratic = (coefficients, t) => coefficients[0] + coefficients[1] * t + coefficients[2] * t * t;
+    const curvePoints = [[0, 0]];
+    let pointX = 0, pointY = 0;
+    for (let i = 1; i <= sampleCount; i++) {
+      const t = (i - 0.5) / sampleCount;
+      const a = evalQuadratic(speedX, t), b = evalQuadratic(speedY, t);
+      pointX += (a * a - b * b) / sampleCount;
+      pointY += 2 * a * b / sampleCount;
+      curvePoints.push([pointX, pointY]);
+    }
+    let arcSampled = 0;
+    for (let i = 1; i < curvePoints.length; i++) {
+      arcSampled += Math.hypot(curvePoints[i][0] - curvePoints[i - 1][0], curvePoints[i][1] - curvePoints[i - 1][1]);
+    }
+    const chordSampled = Math.hypot(curvePoints[sampleCount][0] - curvePoints[0][0],
+                                    curvePoints[sampleCount][1] - curvePoints[0][1]);
+    const bendSampled = chordSampled > 1e-9 ? arcSampled / chordSampled : Infinity;
+
+    const coordinateXs = curvePoints.map(point => point[0]);
+    const coordinateYs = curvePoints.map(point => point[1]);
+    const minX = Math.min(...coordinateXs), maxX = Math.max(...coordinateXs);
+    const minY = Math.min(...coordinateYs), maxY = Math.max(...coordinateYs);
+    const plotWidth = plotRight - plotLeft, plotHeight = plotBottom - plotTop;
+    const plotScale = Math.min(plotWidth / Math.max(1e-6, maxX - minX),
+                               plotHeight / Math.max(1e-6, maxY - minY));
+    const offsetX = plotLeft + (plotWidth - (maxX - minX) * plotScale) / 2;
+    const offsetY = plotTop + (plotHeight - (maxY - minY) * plotScale) / 2;
+    const toPixelX = value => offsetX + (value - minX) * plotScale;
+    const toPixelY = value => offsetY + (maxY - value) * plotScale;
+    const pathData = "M" + curvePoints.map(point => toPixelX(point[0]).toFixed(1) + "," + toPixelY(point[1]).toFixed(1)).join("L");
+
+    // the chord diagram: the three terms head to tail
+    const terms = [firstTerm, secondTerm, thirdTerm];
+    let cumulativeX = 0, cumulativeY = 0;
+    const heads = [[0, 0]];
+    terms.forEach(termValue => {
+      cumulativeX += termValue[0];
+      cumulativeY += termValue[1];
+      heads.push([cumulativeX, cumulativeY]);
+    });
+    const extent = Math.max(1e-6, ...heads.map(head => Math.max(Math.abs(head[0]), Math.abs(head[1]))));
+    const diagramCenterX = (diagramLeft + diagramRight) / 2;
+    const diagramCenterY = (diagramTop + diagramBottom) / 2;
+    const diagramScale = Math.min(diagramRight - diagramLeft, diagramBottom - diagramTop) / 2 / extent * 0.9;
+    const diagramX = value => diagramCenterX + value * diagramScale;
+    const diagramY = value => diagramCenterY - value * diagramScale;
+    const colours = ["#1f5fa8", "#a23b2a", "#5b7f3a"];
+    let diagram = "";
+    for (let i = 0; i < terms.length; i++) {
+      diagram += `<line x1="${diagramX(heads[i][0]).toFixed(1)}" y1="${diagramY(heads[i][1]).toFixed(1)}" ` +
+        `x2="${diagramX(heads[i + 1][0]).toFixed(1)}" y2="${diagramY(heads[i + 1][1]).toFixed(1)}" ` +
+        `stroke="${colours[i]}" stroke-width="2.4"/>`;
+    }
+    diagram += `<line x1="${diagramX(0).toFixed(1)}" y1="${diagramY(0).toFixed(1)}" ` +
+      `x2="${diagramX(chord[0]).toFixed(1)}" y2="${diagramY(chord[1]).toFixed(1)}" ` +
+      `stroke="#2e2413" stroke-width="2" stroke-dasharray="5 4"/>`;
+    diagram += `<circle cx="${diagramX(chord[0]).toFixed(1)}" cy="${diagramY(chord[1]).toFixed(1)}" r="3.5" fill="#2e2413"/>`;
+
+    plotElement.innerHTML =
+      `<rect width="${canvasWidth}" height="${canvasHeight}" fill="#fbf7ec"/>` +
+      `<text x="${plotLeft}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. Q13 | the exact bend formula, live</text>` +
+      `<text x="${plotLeft}" y="48" font-size="12" fill="#7b6c4e">left: the curve from speedMid, slopeMid and curvatureMid | right: the three chord vectors head to tail, and their sum</text>` +
+      `<path d="${pathData}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
+      `<text x="${plotLeft}" y="${canvasHeight - 16}" font-size="12" fill="#7b6c4e">bend ${bend.toFixed(3)} exact | ${bendSampled.toFixed(3)} sampled</text>` +
+      diagram +
+      `<text x="${diagramLeft}" y="${diagramTop - 14}" font-size="12" font-weight="600" fill="#2e2413">chord terms</text>` +
+      `<text x="${diagramLeft}" y="${diagramBottom + 20}" font-size="11" fill="#1f5fa8">speedMid^2</text>` +
+      `<text x="${diagramLeft}" y="${diagramBottom + 36}" font-size="11" fill="#a23b2a">+ (2 speedMid*curvatureMid + slopeMid^2)/12</text>` +
+      `<text x="${diagramLeft}" y="${diagramBottom + 52}" font-size="11" fill="#5b7f3a">+ curvatureMid^2/80</text>` +
+      `<text x="${diagramLeft}" y="${diagramBottom + 68}" font-size="11" fill="#2e2413">dashed: the chord, |chord| = ${chordLength.toFixed(3)}</text>`;
+
+    exactElement.textContent =
+      `arc   = ${arc.toFixed(4)}\n` +
+      `chord = ${complexText(chord)}   |chord| = ${chordLength.toFixed(4)}\n` +
+      `bend  = ${chordLength < 1e-9 ? "unbounded (closure)" : bend.toFixed(4)}`;
+    termsElement.textContent =
+      `speedMid^2 = ${complexText(firstTerm)}  |  ` +
+      `(2 speedMid*curvatureMid + slopeMid^2)/12 = ${complexText(secondTerm)}  |  ` +
+      `curvatureMid^2/80 = ${complexText(thirdTerm)}`;
+  }
+  redraw();
+})();
+</script>
+</section>
+
+<section class="panel">
+<h2>Saved curves</h2>
+<p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
+and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
+JSON</a>: exact recipe, bend, pitch, inflection, closest approach, endpoint and the closed form.</p>
+<p><strong id="saved-count">0</strong> saved
+<button type="button" id="saved-download">download JSON</button>
+<button type="button" id="saved-clear">clear</button></p>
+</section>
+
+<script>
+(function () {
+  const counter = document.getElementById("saved-count");
+  counter.textContent = String(window.curveSaver.count());
+  document.querySelectorAll(".save-curve").forEach(button => {
+    button.addEventListener("click", () => {
+      const key = button.dataset.panel;
+      const recipe = window.panelRecipes[key];
+      if (!recipe) return;
+      const metrics = window.recipeMetrics(recipe.u, recipe.v);
+      const closed = window.closedFormOf(recipe.u, recipe.v);
+      window.curveSaver.add({
+        saved: new Date().toISOString(),
+        panel: key,
+        u: recipe.u.map(value => String(value)),
+        v: recipe.v.map(value => String(value)),
+        bend: +metrics.bend.toFixed(2),
+        pitch: metrics.pitch,
+        inflection: metrics.inflection === null ? null : +metrics.inflection.toFixed(2),
+        closest: +metrics.closest.toFixed(2),
+        endpoint: metrics.endpoint.map(value => String(+value.toFixed(6))),
+        closedForm: `(${window.formatPolynomial(closed.xTerms)}) + i (${window.formatPolynomial(closed.yTerms)})`
+      });
+      counter.textContent = String(window.curveSaver.count());
+      button.textContent = "saved";
+      setTimeout(() => { button.textContent = "save this curve"; }, 900);
+    });
+  });
+  document.getElementById("saved-download").addEventListener("click", () => window.curveSaver.download());
+  document.getElementById("saved-clear").addEventListener("click", () => {
+    window.curveSaver.clear();
+    counter.textContent = "0";
+  });
+})();
+</script>
 
 <section class="panel">
 <h2>How to find a preset</h2>
@@ -1106,6 +1435,10 @@ code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .control-row input[type=number]{{width:66px;font:12px ui-monospace,Menlo,monospace}}
 .control-row input[type=range]{{flex:1;min-width:80px;vertical-align:middle}}
 .code-names{{font-size:14px;color:var(--muted);margin:6px 0 10px}}
+.save-row{{margin:8px 0 0}}
+#q13-exact{{white-space:pre-line}}
+.save-curve,.save-row button{{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}}
+.save-curve:hover{{background:#efe6d2}}
 .mono{{font:12px/1.5 ui-monospace,Menlo,monospace}}
 .preset-row{{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}}
 .preset-row button{{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}}
