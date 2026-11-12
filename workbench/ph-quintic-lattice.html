@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tschirnhausen quintic: a PH quintic on a coarse lattice</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+*{box-sizing:border-box} body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:31px;line-height:1.12;margin:0 0 8px} h2{font-size:20px;margin:0 0 8px}
+.lede{max-width:900px;color:var(--muted)}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:16px 18px;margin:0 0 18px}
+table{border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:10px 0;width:100%}
+th,td{border:1px solid var(--rule);padding:5px 8px;text-align:right} th{color:var(--muted);font-weight:400}
+.small{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--muted)}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+</style></head><body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">curve</span><span><b>in</b> the TQ(k) hodograph family, k mod 15, the degree-5 chain grid · <b>out</b> the member table, the TQ(15) hits and arc lengths, the integer controls of every unit piece, and the chain's cost at degree 5</span></div><!-- /hub-bar --><main>
+<p class="eyebrow">curve-lab · PH quintics · Tschirnhausen type</p>
+<h1>A PH quintic that lands on a coarse lattice</h1>
+<p class="lede">TQ(15) is a primitive, polynomial Pythagorean-hodograph quintic with a constant
+second hodograph component. Both coordinates are whole numbers at every integer parameter, the
+control points are integers on a scale-5 grid, and the length between stops is rational. So the
+curve can be cut at its lattice points without losing exactness.</p>
+
+<section class="panel">
+<h2>The family</h2>
+<p>Write the hodograph as <code>w = k(t²−1) + i</code>. Then
+<code>x′ = k²(t²−1)² − 1</code> and <code>y′ = 2k(t²−1)</code>, and the speed is
+<code>σ = k²(t²−1)² + 1</code> — a polynomial, so the curve is PH and its length is exact.
+The degree is <code>2·2 + 1 = 5</code>. <code>h = 1</code> makes it polynomial;
+<code>gcd(u, v) = 1</code> makes it primitive; <code>v</code> constant makes it
+Tschirnhausen type — the degree-3 member of exactly this family is the Tschirnhausen cubic.</p>
+<p>Because <code>v</code> is constant, <code>y′</code> is quadratic and <code>y</code> is a cubic —
+the lowest degree a quintic allows. Only <code>x</code> carries the fifth-degree work.</p>
+</section>
+
+<section class="panel">
+<h2>Where it hits whole numbers</h2>
+<p>The ÷5 in <code>x</code> comes from integrating <code>t⁴</code>; the ÷3 in <code>y</code> comes
+from integrating <code>t²</code>. Whichever divides <code>k</code> disappears, and the hit period
+follows. The scale never exceeds 15, so there is no ceiling on <code>k</code> — only the control
+numbers grow, like <code>k²</code>.</p>
+<table>
+<tr><th>member</th><th>lattice hits at</th><th>control scale</th><th>largest control</th></tr>
+<tr><td>TQ(3)</td><td>5</td><td>5</td><td>4</td></tr><tr><td>TQ(5)</td><td>3</td><td>15</td><td>13</td></tr><tr><td>TQ(6)</td><td>5</td><td>5</td><td>19</td></tr><tr><td>TQ(10)</td><td>3</td><td>15</td><td>53</td></tr><tr><td>TQ(15)</td><td>1</td><td>5</td><td>119</td></tr><tr><td>TQ(25)</td><td>3</td><td>15</td><td>333</td></tr><tr><td>TQ(30)</td><td>1</td><td>5</td><td>479</td></tr>
+</table>
+<p class="small">TQ(25) is a downgrade: 25 ≡ 10 (mod 15), so it hits only every third t and needs
+scale 15. TQ(15) hits every integer t at scale 5.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q1 · TQ(15), coordinate by coordinate</h2>
+<svg viewBox="0 0 940 500" width="100%" role="img" aria-label="TQ(15): x and y against t, whole at every integer t">
+  <rect width="940" height="500" fill="#fbf7ec"/>
+  <text x="86" y="22" font-size="14" font-weight="600" fill="#2e2413">Fig. Q1 · TQ(15): both coordinates are whole at every integer t</text>
+  <text x="86" y="40" font-size="12" fill="#7b6c4e">x = 45t⁵ − 150t³ + 224t · y = 10t³ − 30t · rings: the lattice points, labelled with their value</text>
+  <rect x="86" y="58" width="820" height="150" fill="none" stroke="#d8ccae"/><rect x="86" y="264" width="820" height="150" fill="none" stroke="#d8ccae"/><line x1="86.0" y1="58" x2="86.0" y2="208" stroke="#d8ccae" stroke-width="0.8"/><line x1="86.0" y1="264" x2="86.0" y2="414" stroke="#d8ccae" stroke-width="0.8"/><text x="86.0" y="432" text-anchor="middle" font-size="12" fill="#7b6c4e">0</text><line x1="359.3" y1="58" x2="359.3" y2="208" stroke="#d8ccae" stroke-width="0.8"/><line x1="359.3" y1="264" x2="359.3" y2="414" stroke="#d8ccae" stroke-width="0.8"/><text x="359.3" y="432" text-anchor="middle" font-size="12" fill="#7b6c4e">1</text><line x1="632.7" y1="58" x2="632.7" y2="208" stroke="#d8ccae" stroke-width="0.8"/><line x1="632.7" y1="264" x2="632.7" y2="414" stroke="#d8ccae" stroke-width="0.8"/><text x="632.7" y="432" text-anchor="middle" font-size="12" fill="#7b6c4e">2</text><line x1="906.0" y1="58" x2="906.0" y2="208" stroke="#d8ccae" stroke-width="0.8"/><line x1="906.0" y1="264" x2="906.0" y2="414" stroke="#d8ccae" stroke-width="0.8"/><text x="906.0" y="432" text-anchor="middle" font-size="12" fill="#7b6c4e">3</text><text x="78" y="212.0" text-anchor="end" font-size="12" fill="#7b6c4e">0</text><text x="78" y="172.5" text-anchor="end" font-size="12" fill="#7b6c4e">2,000</text><text x="78" y="133.1" text-anchor="end" font-size="12" fill="#7b6c4e">4,000</text><text x="78" y="93.6" text-anchor="end" font-size="12" fill="#7b6c4e">6,000</text><text x="78" y="418.0" text-anchor="end" font-size="12" fill="#7b6c4e">-30</text><text x="78" y="397.5" text-anchor="end" font-size="12" fill="#7b6c4e">0</text><text x="78" y="356.6" text-anchor="end" font-size="12" fill="#7b6c4e">60</text><text x="78" y="315.7" text-anchor="end" font-size="12" fill="#7b6c4e">120</text><text x="78" y="274.8" text-anchor="end" font-size="12" fill="#7b6c4e">180</text>
+  <path d="M86.0,208.0 L99.7,207.8 L113.3,207.6 L127.0,207.3 L140.7,207.1 L154.3,206.9 L168.0,206.8 L181.7,206.6 L195.3,206.4 L209.0,206.3 L222.7,206.1 L236.3,206.0 L250.0,205.9 L263.7,205.8 L277.3,205.8 L291.0,205.7 L304.7,205.7 L318.3,205.7 L332.0,205.7 L345.7,205.7 L359.3,205.7 L373.0,205.7 L386.7,205.6 L400.3,205.6 L414.0,205.6 L427.7,205.5 L441.3,205.5 L455.0,205.3 L468.7,205.2 L482.3,204.9 L496.0,204.6 L509.7,204.2 L523.3,203.7 L537.0,203.1 L550.7,202.4 L564.3,201.6 L578.0,200.5 L591.7,199.3 L605.3,197.9 L619.0,196.3 L632.7,194.4 L646.3,192.3 L660.0,189.9 L673.7,187.1 L687.3,184.0 L701.0,180.6 L714.7,176.7 L728.3,172.4 L742.0,167.6 L755.7,162.3 L769.3,156.5 L783.0,150.1 L796.7,143.0 L810.3,135.3 L824.0,126.9 L837.7,117.7 L851.3,107.8 L865.0,96.9 L878.7,85.2 L892.3,72.5 L906.0,58.8" fill="none" stroke="#2e2413" stroke-width="2.2"/>
+  <path d="M86.0,393.5 L99.7,394.6 L113.3,395.6 L127.0,396.6 L140.7,397.6 L154.3,398.6 L168.0,399.5 L181.7,400.4 L195.3,401.3 L209.0,402.1 L222.7,402.9 L236.3,403.7 L250.0,404.3 L263.7,405.0 L277.3,405.5 L291.0,406.0 L304.7,406.4 L318.3,406.7 L332.0,407.0 L345.7,407.1 L359.3,407.2 L373.0,407.1 L386.7,407.0 L400.3,406.7 L414.0,406.3 L427.7,405.8 L441.3,405.2 L455.0,404.4 L468.7,403.5 L482.3,402.4 L496.0,401.2 L509.7,399.9 L523.3,398.3 L537.0,396.7 L550.7,394.8 L564.3,392.8 L578.0,390.6 L591.7,388.2 L605.3,385.6 L619.0,382.9 L632.7,379.9 L646.3,376.7 L660.0,373.4 L673.7,369.8 L687.3,365.9 L701.0,361.9 L714.7,357.6 L728.3,353.1 L742.0,348.4 L755.7,343.4 L769.3,338.1 L783.0,332.6 L796.7,326.9 L810.3,320.9 L824.0,314.6 L837.7,308.0 L851.3,301.1 L865.0,294.0 L878.7,286.6 L892.3,278.8 L906.0,270.8" fill="none" stroke="#2e2413" stroke-width="2.2"/>
+  <circle cx="86.0" cy="208.0" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="86.0" y="198.0" text-anchor="middle" font-size="12" fill="#a23b2a">0</text><circle cx="86.0" cy="393.5" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="86.0" y="383.5" text-anchor="middle" font-size="12" fill="#a23b2a">0</text><circle cx="359.3" cy="205.7" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="359.3" y="195.7" text-anchor="middle" font-size="12" fill="#a23b2a">119</text><circle cx="359.3" cy="407.2" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="359.3" y="397.2" text-anchor="middle" font-size="12" fill="#a23b2a">-20</text><circle cx="632.7" cy="194.4" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="632.7" y="184.4" text-anchor="middle" font-size="12" fill="#a23b2a">688</text><circle cx="632.7" cy="379.9" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="632.7" y="369.9" text-anchor="middle" font-size="12" fill="#a23b2a">20</text><circle cx="906.0" cy="58.8" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="900.0" y="48.8" text-anchor="end" font-size="12" fill="#a23b2a">7557</text><circle cx="906.0" cy="270.8" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="900.0" y="260.8" text-anchor="end" font-size="12" fill="#a23b2a">180</text>
+  <text x="20" y="133" font-size="13" fill="#2e2413" transform="rotate(-90 20 133)">x, units</text>
+  <text x="20" y="339" font-size="13" fill="#2e2413" transform="rotate(-90 20 339)">y, units</text>
+  <text x="496" y="484" text-anchor="middle" font-size="13" fill="#2e2413">t — the parameter; the grid lines are the integer stops</text>
+  <g font-size="12">
+    <line x1="86" y1="458" x2="108" y2="458" stroke="#2e2413" stroke-width="2.2"/><text x="116" y="462" fill="#2e2413">curve</text>
+    <circle cx="196" cy="458" r="5" fill="#fbf7ec" stroke="#a23b2a" stroke-width="2.4"/><text x="210" y="462" fill="#2e2413">lattice point (t integer)</text>
+  </g>
+</svg>
+<p class="small">The rings are the lattice points. At t = 1 the curve is at (119, −20); at t = 2,
+(688, 20); at t = 3, (7557, 180). The parameter is not a length — the curve grows like
+<code>t⁵</code>, so the stops are far apart in space even though they are adjacent in t.</p>
+</section>
+
+<section class="panel">
+<h2>The stops, exactly</h2>
+<table>
+<tr><th>t</th><th>x</th><th>y</th><th>arc length s(t)</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>119</td><td>-20</td><td>121</td></tr><tr><td>2</td><td>688</td><td>20</td><td>692</td></tr><tr><td>3</td><td>7557</td><td>180</td><td>7563</td></tr><tr><td>4</td><td>37376</td><td>520</td><td>37384</td></tr><tr><td>5</td><td>122995</td><td>1100</td><td>123005</td></tr>
+</table>
+<p class="small">s(t) = 45t⁵ − 150t³ + 226t. Every value in the table is an integer, and so is
+every length — no square roots anywhere.</p>
+</section>
+
+<section class="panel">
+<h2>Cutting at a stop</h2>
+<p>Take the piece <code>t ∈ [0, 1]</code>. Reparametrised to <code>u ∈ [0, 1]</code> it is a
+quintic Bézier with integer controls at scale 5:</p>
+<p class="small">x: (0, 224, 448, 597, 596, 595) · y: (0, −30, −60, −85, −100, −100)</p>
+<p>The same holds for every unit piece <code>t ∈ [m, m+1]</code>: shifting <code>t = u + m</code>
+keeps integer coefficients, so the controls stay integers at scale 5, and the piece is still PH.
+Cut at t = 1, 2, 3 … and each piece has an exact endpoint and an exact length. That is the
+difference from the Tschirnhausen cubic: there, exact lattice nodes meant irrational chord sides;
+here the cut points and the lengths are both exact.</p>
+</section>
+
+<section class="panel">
+<h2>Why not the midpoint chain</h2>
+<p>The triangle chain still produces whole-number steps on any PH curve, but a quintic's speed is
+quartic, so the chain's grid grows like the fourth power of the step denominator. On TQ(3) over
+<code>t ∈ [0, 5]</code> with twelve steps the chain needs a grid of 442,368 and still misses the
+endpoint by 31 units in x; the cubic's 256 and 1/64 were a degree-3 accident. For a quintic, cut
+at the exact stops instead.</p>
+</section>
+
+<section class="panel">
+<h2>See also</h2>
+<p><a href="ph-families.html">PH families, degree by degree</a> — the three quintics used as the
+comparison, with the PH–Hermite interpolant and the milestone table.
+<a href="ph-families.html#ph-integer">PH integer milestones</a> — the t = k/m lattice.
+The discrete chain on the Tschirnhausen cubic is
+<a href="../tph_tri_chain/tph-tri-sandbox.html">the tph_tri_chain sandbox</a>; the sandbox's
+two-method table is the degree-3 version of the comparison on this page.</p>
+<p class="small">Re-derive: <code>python scripts/ph_quintic_lattice.py</code> · test:
+<code>python -m unittest tests.test_ph_quintic_lattice</code></p>
+</section>
+</main></body></html>

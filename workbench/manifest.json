@@ -155,6 +155,15 @@
       "outputs": "the built rungs with generators, scales and arcs; the four-quadrant figures; the live slider readout; the PHH interpolant and the C² PPH join; what is not built"
     },
     {
+      "key": "ph-quintic-lattice",
+      "file": "ph-quintic-lattice.html",
+      "group": "curve",
+      "title": "Tschirnhausen quintic · coarse lattice",
+      "purpose": "A primitive polynomial PH quintic with a constant second hodograph component: whole-number points at every integer t on a scale-5 grid, exact cut pieces and rational lengths.",
+      "inputs": "the TQ(k) hodograph family, k mod 15, the degree-5 chain grid",
+      "outputs": "the member table, the TQ(15) hits and arc lengths, the integer controls of every unit piece, and the chain's cost at degree 5"
+    },
+    {
       "key": "g3-cut",
       "file": "g3-cut.html",
       "group": "curve",
