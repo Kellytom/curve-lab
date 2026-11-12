@@ -170,6 +170,43 @@ side, and every one is exactly balanced. This is the panel a slider would drive 
 slider, and the top half is the bottom half turned through 180°.</p>
 </section>
 
+<script>
+window.phClosed = (function () {
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  const dec = q => { const s = String(q); const i = s.indexOf("."); return i < 0 ? 0 : s.length - i - 1; };
+  return function (u, v) {
+    const k = Math.max(...u.concat(v).map(dec));
+    const S = Math.pow(10, k), S2 = S * S;
+    const A = u.map(q => Math.round(q * S)), B = v.map(q => Math.round(q * S));
+    const mul = (a, b) => {
+      const o = new Array(a.length + b.length - 1).fill(0);
+      a.forEach((x, i) => b.forEach((y, j) => { o[i + j] += x * y; }));
+      return o;
+    };
+    const uu = mul(A, A), vv = mul(B, B), uv = mul(A, B);
+    const red = (n, d) => { const g = gcd(Math.abs(n), d) || 1; return [n / g, d / g]; };
+    const xs = [], ys = [];
+    for (let j = 0; j < uu.length; j++) {
+      xs.push(red(uu[j] - (vv[j] || 0), S2 * (j + 1)));
+      ys.push(red(2 * uv[j], S2 * (j + 1)));
+    }
+    return { xs, ys };
+  };
+})();
+window.phPoly = function (terms) {
+  const sup = ["", "t", "t²", "t³", "t⁴", "t⁵"];
+  let s = "";
+  terms.forEach((t, j) => {
+    const n = t[0], d = t[1];
+    if (!n) return;
+    const mag = d === 1 ? String(Math.abs(n)) : `${Math.abs(n)}/${d}`;
+    const coef = (d === 1 && Math.abs(n) === 1) ? "" : mag;
+    s += (n < 0 ? (s ? " − " : "−") : (s ? " + " : "")) + coef + sup[j + 1];
+  });
+  return s || "0";
+};
+</script>
+
 <section class="panel">
 <h2>Fig. Q7 · the sliders: b sets the size, λ sets the bend</h2>
 <p><strong>b</strong> sets the scale of the exact S. <strong>a</strong> shifts where the bend sits.
@@ -315,6 +352,7 @@ stronger S at bend 2.69 — and at ×10 its pitch drops to 2, the cheapest grid 
 <svg id="q8panel" viewBox="0 0 900 470" role="img" aria-label="the recipe playground"></svg>
 <p class="small" id="q8read"></p>
 <p class="small" id="q8form"></p>
+<p class="small mono" id="q8closed"></p>
 <dl class="roles">
   <dt>u₀</dt><dd>the horizontal speed at the two ends (when u₁ = −u₂). The middle of u is
     u₀ − u₂/4, so u₀ decides how close the path comes to the origin: lower u₀, closer, more bend.</dd>
@@ -438,6 +476,9 @@ stronger S at bend 2.69 — and at ×10 its pitch drops to 2, the cheapest grid 
     document.getElementById("q8read").textContent = bits;
     document.getElementById("q8form").textContent =
       `u = ${form(u)} · v = ${form(v)}   (h = t − ½)`;
+    const cf = window.phClosed(u, v);
+    document.getElementById("q8closed").textContent =
+      `r(t) = (${window.phPoly(cf.xs)}) + i (${window.phPoly(cf.ys)})`;
   }
   document.querySelectorAll(".preset-row button").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -583,6 +624,9 @@ vanish.</p>
     const host = document.getElementById(hostId);
     const svg = document.getElementById(svgId);
     const read = document.getElementById(readId);
+    const form = document.createElement("p");
+    form.className = "small mono";
+    read.after(form);
     const state = {};
     const grid = document.createElement("div");
     grid.className = "ctl-grid";
@@ -627,6 +671,8 @@ vanish.</p>
     function draw() {
       const uv = recipe(state);
       read.textContent = render(svg, uv.u, uv.v, title);
+      const cf = window.phClosed(uv.u, uv.v);
+      form.textContent = `r(t) = (${window.phPoly(cf.xs)}) + i (${window.phPoly(cf.ys)})`;
     }
     draw();
   }
