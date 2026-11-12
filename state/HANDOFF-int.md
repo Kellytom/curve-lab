@@ -1509,3 +1509,18 @@ mirrored instead. Also rejected: named HTML entities in SVG (XML refuses them an
 the image goes blank); 3125 as a grid at twelve triangles (it needs step width
 2/5, so t = 24/5); decimals in tables (they hide whether a point is rational);
 and a 156k context window (it is 1M).
+
+**Scope, next few sessions: `tph_tri_chain/` only.** Nothing outside it is in
+play — not W01–W04, not `curve_lab/`, not the quintic pass. The thread runs until
+the comparison below is fair, one action per session:
+
+1. Fig. T1 labels, so the figure can be read (the current block).
+2. One source of truth: either retire `RESULTS.md` / `results.html` or convert
+   them to exact fractions. Two documents that disagree is the failure mode.
+3. The like-for-like table on the sandbox page: midpoint against straight joins,
+   same triangle count, exact values, with the length comparison written as
+   fractions and square roots rather than decimals.
+4. Stop. At that point the method can be compared on its merits.
+
+"Finished" for this thread means: one page, exact throughout, legible figure, and
+an SVG export in integer cells that Inkscape opens without rescaling.
