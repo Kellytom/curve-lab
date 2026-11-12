@@ -172,6 +172,12 @@ Q6_CASES = [
     ((F(-3,10), F(19,10), -2), (F(-1,2), F(17,10), F(-9,5))),
 ]
 
+BALANCED = [(0, 2), (0, 3), (0, 4), (0, 8),
+            (1, 2), (1, 3), (1, 6), (1, 8),
+            (2, 2), (2, 4), (2, 6), (2, 8)]
+
+Q6B_CASES = [((F(1), F(-a), F(a)), (F(0), F(-b), F(b))) for a, b in BALANCED]
+
 CASES = S_CASES + C_CASES
 
 
@@ -315,6 +321,10 @@ def fig_q6():
     return grid_svgs(Q6_CASES, 430, 340, "g2", s_label)
 
 
+def fig_q6b():
+    return grid_svgs(Q6B_CASES, 430, 340, "g2", s_label)
+
+
 def table():
     rows = []
     for idx, (u, v) in enumerate(CASES):
@@ -413,6 +423,26 @@ turn.</p>
 swing on each side, and the two sides within 12% of each other. The first twelve are ordinary
 S shapes; the last four are balanced loops, included because they pass the same test — not the
 focus.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q6b · the exact balanced family</h2>
+<p>Balance is not a search result here — it is forced by the choice of the two speed recipes:</p>
+<pre class="small">u = a(t² − t) + 1        v = b(t² − t)
+
+W = u v′ − v u′ = b(2t − 1)      zero at t = 1/2, and nowhere else
+
+r(1/2 + h) + r(1/2 − h) = 2 r(1/2)      the curve is point-symmetric about its middle</pre>
+<p>The Wronskian is a straight line through t = 1/2, so the inflection is exactly there. The
+point symmetry means the tangent at t = 0 and at t = 1 are the same, and the swing on each side is
+exactly</p>
+<pre class="small">swing per side = 2 · atan( b / (4 − a) )</pre>
+<p>So one number, b, sets the swing and a shifts where the bend sits. The whole family is a PH
+quintic, so the offsets are exact and the endpoints land on a small pitch (5 to 30 below).</p>
+{fig_q6b()}
+<p class="small">Twelve members, a = 0, 1, 2 and b = 2…8: the swing runs from 53° to 152° per
+side, and every one is exactly balanced. This is the panel a slider would drive — b is the
+slider, and the top half is the bottom half turned through 180°.</p>
 </section>
 
 <section class="panel">

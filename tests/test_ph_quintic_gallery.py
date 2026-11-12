@@ -94,11 +94,23 @@ class TestGallery(unittest.TestCase):
                 self.assertGreaterEqual(min(s0, s1), 40)
                 self.assertLessEqual(abs(s0 - s1), max(4.0, 0.12 * max(s0, s1)))
 
+    def test_q6b_is_exactly_balanced(self):
+        self.assertEqual(len(G.Q6B_CASES), 12)
+        for u, v in G.Q6B_CASES:
+            infl, pitch, end, swing = G.s_info(u, v)
+            th = G.theta_curve(u, v)
+            k = len(th) // 2
+            s0 = abs(th[k] - th[0])
+            s1 = abs(th[-1] - th[k])
+            with self.subTest(u=u, v=v):
+                self.assertAlmostEqual(infl, 0.5, places=9)
+                self.assertAlmostEqual(s0, s1, places=6)
+
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         self.assertIn("Fig. Q1", page)
         self.assertIn("24 S", page)
-        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6"):
+        for tag in ("Fig. Q3", "Fig. Q4", "Fig. Q5", "Fig. Q6", "Fig. Q6b"):
             self.assertIn(tag, page)
         self.assertIn("Moving the root inside", page)
         self.assertIn("ph-quintic-lattice.html", page)
