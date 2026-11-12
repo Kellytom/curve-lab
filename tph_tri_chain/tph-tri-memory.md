@@ -111,6 +111,36 @@ so no rational chain ends there.
 is exact on the linear `y'`. Only x carries error. The chain misses the
 crossing (0,3) by about 0.028 in y at N=120.
 
+## Lattice hits — the hard constraint
+
+The smooth curve meets the integer lattice (both x and y integers) only at:
+
+- **t ∈ 3ℤ**: `(3u(1 − 3u²), 9u²)` → (0,0), (−6,9), (−66,36), (−234,81),
+  (−564,144), … and their mirrors (−x, y).
+- **t = ±√3**: (0, 3), the self-intersection, but at an irrational parameter.
+
+Proof: `y = t²` integer with `t = a/b` in lowest terms forces `b = 1`, so t is an
+integer; then `x = t − t³/3` is an integer only when `3 | t`. For irrational t,
+write `y = k`; then `t = √k` and `x = √k(1 − k/3)`, which is an integer only at
+`k = 3`, giving (0,3).
+
+Consequence: **2.4, 2.5, 12/5 and 2.1 can never hit the lattice** — their y is
+144/25, 25/4, 144/25 and 441/100. A glyph that must land on whole units
+therefore stops at **t = 3**: nose (0,0), waist (0,3), tips (±6, 9), height 9 =
+body 3 + tail 6, i.e. the tail is exactly twice the body height. `s(3) = 12`,
+full length 24. This supersedes 12/5 whenever lattice hits are required.
+
+The chain cannot reproduce the hit. Closed form, exact:
+
+```text
+x_chain = x(T) + T^3/(12N^2)      y_chain = y(T) exactly
+s_chain = s(T) - T^3/(12N^2)
+```
+
+At T = 3, N = 120 the tip x is 1/6400 = 1.56e−4 short of −6. Only y lands
+exactly. So the nodes live on the pitch-1/G lattice; the integer lattice belongs
+to the curve, not to the chain.
+
 ## Principles
 
 - Every step is asserted as an equality of `Fraction`s, never a tolerance.
@@ -151,3 +181,6 @@ crossing (0,3) by about 0.028 in y at N=120.
 - 2026-11-11: directory created, held untracked; method verified exactly;
   grid law found (G = q^3 or 4q^3); RESULTS.md + results.html generated;
   section 10 corrected from "3125 needs 32" to the dt-based law.
+- 2026-11-11: lattice rule recorded — the curve meets ℤ² only at t ∈ 3ℤ and at
+  t = ±√3; the chain hits only y exactly (x is short by T³/(12N²)); "grid" in
+  earlier notes means pitch 1/G, canvas is the cell extent.
