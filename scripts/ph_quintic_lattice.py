@@ -320,6 +320,42 @@ def fig_coords():
     return svg(W, H, ("x and y against t", "".join(out)))
 
 
+def fig_points():
+    """The calculated points, joined, against the real curve."""
+    W, H = 940, 400
+    f = Frame(W, H, (-195000, 195000), (-1000, 1000), (96, 70, 800, 250))
+    real = [(x, y) for _, x, y in samples(K, -3, 3, 700)]
+    calc = [curve(K, t) for t in range(-3, 4)]
+    out = [f'<text x="96" y="24" font-size="14" font-weight="600" fill="{INK}">Fig. Q7 · the calculated points, joined, against the real curve</text>',
+           f'<text x="96" y="43" font-size="12" fill="{MUTED}">(x, y) at t = −3 … 3 · pale: the real quintic · blue: the straight joins · rings: the calculated points</text>',
+           f'<rect x="{f.left}" y="{f.top}" width="{f.pw}" height="{f.ph}" fill="none" stroke="{RULE}"/>',
+           f.axes()]
+    for v in (-100000, 0, 100000):
+        out.append(f'<text x="{f.fx(v):.1f}" y="{f.top+f.ph+20}" text-anchor="middle" font-size="12" fill="{MUTED}">{v:,}</text>')
+    for v in (-1000, 0, 1000):
+        out.append(f'<text x="{f.left-8}" y="{f.fy(v)+4:.1f}" text-anchor="end" font-size="12" fill="{MUTED}">{v:,}</text>')
+    out.append(f'<path d="{f.path(real)}" fill="none" stroke="{MUTED}" stroke-width="1.6" opacity="0.55"/>')
+    out.append(f'<path d="{f.path(calc)}" fill="none" stroke="{BLUE}" stroke-width="1.8" stroke-dasharray="6 4"/>')
+    for i, (x, y) in enumerate(calc):
+        t = i - 3
+        px, py = f.fx(float(x)), f.fy(float(y))
+        out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="5" fill="{PAPER}" stroke="{RED}" stroke-width="2.2"/>')
+        if abs(t) >= 2:
+            if t == 3:
+                anchor, dx, dy = "end", -8, 18
+            elif t == -3:
+                anchor, dx, dy = "start", 8, -10
+            elif t == 2:
+                anchor, dx, dy = "start", 8, -10
+            else:
+                anchor, dx, dy = "end", -8, 18
+            out.append(f'<text x="{px+dx:.1f}" y="{py+dy:.1f}" text-anchor="{anchor}" font-size="12" fill="{RED}">({x}, {y})</text>')
+    out.append(f'<text x="{f.fx(0)+10:.1f}" y="{f.fy(0)+20:.1f}" font-size="12" fill="{MUTED}">t = −1, 0, 1 sit within 3 px of the origin here — see Fig. Q3</text>')
+    out.append(f'<text x="26" y="{f.top+f.ph/2:.0f}" font-size="13" fill="{INK}" transform="rotate(-90 26 {f.top+f.ph/2:.0f})">y, units</text>')
+    out.append(f'<text x="{f.left+f.pw/2:.0f}" y="{H-18}" text-anchor="middle" font-size="13" fill="{INK}">x, units</text>')
+    return svg(W, H, ("the calculated points against the real curve", "".join(out)))
+
+
 def member_rows():
     rows = []
     for k in (3, 5, 15, 25, 75):
@@ -460,6 +496,14 @@ points whole: a grid of 5.</p>
 {fig_coords()}
 <p class="small">Both coordinates are integers at every integer t. That is the whole claim of the
 page, and it is what makes the stops usable.</p>
+</section>
+
+<section class="panel">
+<h2>Fig. Q7 · the calculated points, joined</h2>
+{fig_points()}
+<p class="small">The pale line is the real quintic; the blue dashes join the calculated points.
+The points are exact — whole-number coordinates sitting on the curve. The joins between them are
+the only approximation, and at this scale they are almost indistinguishable from the curve.</p>
 </section>
 
 <section class="panel">
