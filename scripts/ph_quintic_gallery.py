@@ -135,6 +135,22 @@ Q5_CASES = [
     ((F(1,2), F(-8,5), 2), (F(1,5), F(1,5), F(4,5))),
     ((F(4,5), F(-9,5), F(17,10)), (F(-7,5), F(-2,5), F(1,2))),
     ((F(-6,5), F(-11,10), 1), (F(7,10), F(-3,2), F(3,2))),
+((F(-3,5), F(19,10), F(-9,5)), (F(1,10), F(3,10), F(-2,5))),  # infl 0.508 sides 94/113 pitch 500
+    ((F(4,5), F(-11,10), 1), (F(-1,5), F(-13,10), F(3,2))),  # infl 0.479 sides 59/87 pitch 600
+    ((F(3,10), F(-11,10), 1), (F(-1,2), F(2,5), 0)),  # infl 0.552 sides 63/128 pitch 300
+    ((F(-1,5), F(-8,5), F(8,5)), (-1, F(9,5), -2)),  # infl 0.472 sides 68/71 pitch 375
+    ((F(-1,2), F(3,2), F(-7,5)), (F(-2,5), F(1,10), F(-1,5))),  # infl 0.546 sides 75/50 pitch 500
+    ((F(1,5), F(-13,10), F(4,5)), (F(2,5), F(-11,10), F(8,5))),  # infl 0.5 sides 143/53 pitch 250
+    ((F(-13,10), F(9,5), -2), (0, -2, 2)),  # infl 0.482 sides 58/58 pitch 300
+    ((F(1,10), F(4,5), F(-7,10)), (F(-1,5), F(2,5), F(-2,5))),  # infl 0.525 sides 93/56 pitch 500
+    ((F(-1,5), F(7,5), -1), (F(3,5), F(-17,10), 2)),  # infl 0.516 sides 127/65 pitch 300
+    ((0, F(9,5), -2), (F(-9,10), F(1,10), F(1,2))),  # infl 0.539 sides 58/125 pitch 600
+    ((F(3,5), F(-9,5), F(19,10)), (0, F(9,5), F(-3,2))),  # infl 0.5 sides 143/97 pitch 250
+    ((F(1,2), F(11,10), F(-7,5)), (F(7,10), F(-19,10), 2)),  # infl 0.459 sides 70/113 pitch 500
+    ((F(7,10), F(4,5), F(-4,5)), (F(-3,5), F(9,5), F(-9,5))),  # infl 0.5 sides 62/62 pitch 500
+    ((F(3,5), F(-17,10), 2), (F(2,5), 1, F(-3,5))),  # infl 0.462 sides 76/60 pitch 500
+    ((F(-4,5), F(-9,5), 2), (F(3,5), F(-8,5), F(3,2))),  # infl 0.52 sides 57/63 pitch 100
+    ((F(4,5), F(-9,5), F(3,2)), (F(1,10), F(6,5), F(-3,2))),  # infl 0.508 sides 85/143 pitch 100
 ]
 
 CASES = S_CASES + C_CASES
@@ -248,13 +264,11 @@ def gallery():
 
 
 def fig_s_set():
-    return grid_svgs(S2_CASES, 430, 340, "g2",
-                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
+    return grid_svgs(S2_CASES, 430, 340, "g2", s_label)
 
 
 def fig_q3():
-    return grid_svgs(Q3_CASES, 430, 340, "g2",
-                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
+    return grid_svgs(Q3_CASES, 430, 340, "g2", s_label)
 
 
 def fig_q4():
@@ -266,9 +280,16 @@ def fig_q4():
     return grid_svgs(Q4_CASES, 430, 340, "g2", label)
 
 
+def s_label(u, v):
+    infl, pitch, end, swing = s_info(u, v)
+    th = theta_curve(u, v)
+    k = min(len(th) - 1, max(0, round(infl * (len(th) - 1))))
+    mn = min(abs(th[k] - th[0]), abs(th[-1] - th[k]))
+    return f"infl {infl:.2f} · swing {mn:.0f}° · pitch {pitch}"
+
+
 def fig_q5():
-    return grid_svgs(Q5_CASES, 430, 340, "g2",
-                     lambda u, v: f"inflection {s_info(u, v)[0]:.2f} · pitch {s_info(u, v)[1]}")
+    return grid_svgs(Q5_CASES, 430, 340, "g2", s_label)
 
 
 def table():

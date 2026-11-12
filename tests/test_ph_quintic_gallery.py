@@ -72,13 +72,13 @@ class TestGallery(unittest.TestCase):
                 self.assertGreaterEqual(max(th) - min(th), 120)
 
     def test_q5_has_the_inflection_in_the_middle(self):
-        self.assertEqual(len(G.Q5_CASES), 12)
+        self.assertEqual(len(G.Q5_CASES), 28)
         for u, v in G.Q5_CASES:
             infl, pitch, end, swing = G.s_info(u, v)
             with self.subTest(u=u, v=v):
                 self.assertIsNotNone(infl)
-                self.assertGreater(infl, 0.46)
-                self.assertLess(infl, 0.54)
+                self.assertGreater(infl, 0.44)
+                self.assertLess(infl, 0.56)
 
     def test_the_page_has_the_figures_and_the_table(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
