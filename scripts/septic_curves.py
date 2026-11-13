@@ -10,12 +10,46 @@ else - bend, pitch, inflection, closest, degree - is computed here.
 from __future__ import annotations
 
 import json
+from fractions import Fraction
 from pathlib import Path
 
 import ph_quintic_metrics as M
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "septic-curves.json"
+
+# The low-pitch form. Scaling all eight speeds by one number leaves bend and
+# inflection alone (both are ratios) and scales `closest` with the size, so the
+# same shape can be written on a coarser grid. Pitch is the lcm of the
+# integrated coefficients' denominators, so the scale that minimises it is a
+# question of decimals, not of shape. Candidates are terminating decimals only,
+# so every low speed is exactly the number written in the file.
+SCALES = [Fraction(1, 10), Fraction(1, 5), Fraction(1, 4), Fraction(1, 2),
+          Fraction(1), Fraction(2), Fraction(3), Fraction(4),
+          Fraction(5), Fraction(8), Fraction(10), Fraction(20)]
+
+# The heart is a recognised figure, not a raw w: its decimals are the accepted
+# statement of it, so it keeps no low-pitch form. (The operator's call.)
+LOW_EXEMPT = {"half-heart"}
+
+
+def low_form(speed_x, speed_y):
+    """The same shape at the coarsest pitch among the candidate scales."""
+    best = None
+    for scale in SCALES:
+        tx = [round(float(Fraction(v) * scale), 6) for v in speed_x]
+        ty = [round(float(Fraction(v) * scale), 6) for v in speed_y]
+        pitch = M.pitch(tx, ty)
+        key = (pitch, max(abs(v) for v in tx + ty), abs(float(scale) - 1))
+        if best is None or key < best[0]:
+            best = (key, tx, ty, pitch)
+    _, tx, ty, pitch = best
+    return {
+        "speedXLow": tx,
+        "speedYLow": ty,
+        "pitchLow": pitch,
+        "closestLow": round(M.closest(tx, ty), 3),
+    }
 
 # name, speed x (four), speed y (four)
 #
@@ -93,6 +127,9 @@ CURVES = [
     # extent in the set (1040 by 1468, arc 2786); the inflection is exactly at
     # t = 0, so the curve leaves the origin straight; pitch 21.
     ("cap-T", (50, -50, 50, -50), (50, -50, 0, -100)),
+    # lower-pitch-h2: the operator's name. The sibling of H at a tenth of its
+    # pitch (42 against 420); two crossings at (-0.51, 0.90) and (-1.35, 0.17).
+    ("lower-pitch-h2", (2, -5, 5, 0.5), (4, -25, 25, -0.5)),
 ]
 
 
@@ -110,6 +147,7 @@ def record(name, speed_x, speed_y):
         "inflection": None if metrics["inflection"] is None else round(metrics["inflection"], 3),
         "closest": round(metrics["closest"], 3),
         "degree": [degree_x, degree_y],
+        **({} if name in LOW_EXEMPT else low_form(speed_x, speed_y)),
     }
 
 
@@ -122,8 +160,9 @@ def main():
     document = build()
     OUT.write_text(json.dumps(document, indent=2) + "\n")
     for curve in document["curves"]:
-        print(f"{curve['name']:12s} bend {curve['bend']:.3f}  pitch {curve['pitch']:,}  "
-              f"degree {curve['degree']}")
+        low = f"  low pitch {curve['pitchLow']:,}" if "pitchLow" in curve else "  no low form"
+        print(f"{curve['name']:16s} bend {curve['bend']:.3f}  pitch {curve['pitch']:,}"
+              f"{low}  degree {curve['degree']}")
 
 
 if __name__ == "__main__":

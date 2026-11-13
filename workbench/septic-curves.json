@@ -45,7 +45,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        39.0,
+        88.0,
+        129.0,
+        -320.0
+      ],
+      "speedYLow": [
+        40.0,
+        -160.0,
+        99.0,
+        104.0
+      ],
+      "pitchLow": 105,
+      "closestLow": 39.104
     },
     {
       "name": "flourish-b",
@@ -68,7 +82,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        41.0,
+        88.0,
+        115.0,
+        -320.0
+      ],
+      "speedYLow": [
+        35.0,
+        -157.0,
+        103.0,
+        170.0
+      ],
+      "pitchLow": 210,
+      "closestLow": 53.213
     },
     {
       "name": "lazy-s-2",
@@ -91,7 +119,21 @@
       "degree": [
         6,
         7
-      ]
+      ],
+      "speedXLow": [
+        20.0,
+        -30.0,
+        30.0,
+        5.0
+      ],
+      "speedYLow": [
+        20.0,
+        -120.0,
+        120.0,
+        -5.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 14.664
     },
     {
       "name": "small-loop",
@@ -114,7 +156,21 @@
       "degree": [
         7,
         5
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -10.0,
+        0.0,
+        0.0
+      ],
+      "speedYLow": [
+        0.0,
+        -10.0,
+        10.0,
+        10.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 3.274
     },
     {
       "name": "tight-loop",
@@ -137,7 +193,21 @@
       "degree": [
         6,
         7
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -10.0,
+        -10.0,
+        10.0
+      ],
+      "speedYLow": [
+        0.0,
+        -10.0,
+        10.0,
+        10.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 1.974
     },
     {
       "name": "shallow-turn",
@@ -160,7 +230,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        0.0,
+        -10.0,
+        0.0
+      ],
+      "speedYLow": [
+        0.0,
+        -10.0,
+        10.0,
+        10.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 4.937
     },
     {
       "name": "narrow-arch",
@@ -183,7 +267,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -20.0,
+        20.0,
+        0.0
+      ],
+      "speedYLow": [
+        10.0,
+        -10.0,
+        20.0,
+        -30.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 6.284
     },
     {
       "name": "vertical-s",
@@ -206,7 +304,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        0.0,
+        20.0,
+        0.0
+      ],
+      "speedYLow": [
+        -10.0,
+        -10.0,
+        30.0,
+        20.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 14.142
     },
     {
       "name": "tight-hook",
@@ -229,7 +341,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -20.0,
+        20.0,
+        10.0
+      ],
+      "speedYLow": [
+        10.0,
+        0.0,
+        -20.0,
+        0.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 7.779
     },
     {
       "name": "straight-start",
@@ -252,7 +378,21 @@
       "degree": [
         7,
         4
-      ]
+      ],
+      "speedXLow": [
+        3.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "speedYLow": [
+        0.0,
+        3.0,
+        -6.0,
+        -6.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 3.0
     },
     {
       "name": "long-sweep",
@@ -275,7 +415,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        15.0,
+        -5.0,
+        5.0,
+        -5.0
+      ],
+      "speedYLow": [
+        10.0,
+        0.0,
+        -15.0,
+        -15.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 12.449
     },
     {
       "name": "integer-105",
@@ -298,7 +452,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -25.0,
+        30.0,
+        0.0
+      ],
+      "speedYLow": [
+        20.0,
+        -100.0,
+        100.0,
+        -10.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 5.338
     },
     {
       "name": "integer-70",
@@ -321,7 +489,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        20.0,
+        -30.0,
+        30.0,
+        30.0
+      ],
+      "speedYLow": [
+        20.0,
+        -120.0,
+        120.0,
+        10.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 15.028
     },
     {
       "name": "double-loop",
@@ -344,7 +526,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        20.0,
+        -50.0,
+        60.0,
+        10.0
+      ],
+      "speedYLow": [
+        30.0,
+        -260.0,
+        230.0,
+        50.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 14.298
     },
     {
       "name": "loop-105",
@@ -367,7 +563,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -25.0,
+        30.0,
+        5.0
+      ],
+      "speedYLow": [
+        20.0,
+        -110.0,
+        110.0,
+        -10.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 5.755
     },
     {
       "name": "H",
@@ -390,7 +600,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        25.0,
+        -50.0,
+        50.0,
+        10.0
+      ],
+      "speedYLow": [
+        50.0,
+        -280.0,
+        220.0,
+        60.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 16.388
     },
     {
       "name": "G",
@@ -413,7 +637,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        25.0,
+        -80.0,
+        150.0,
+        10.0
+      ],
+      "speedYLow": [
+        100.0,
+        -550.0,
+        510.0,
+        20.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 14.63
     },
     {
       "name": "G-clef",
@@ -436,7 +674,21 @@
       "degree": [
         6,
         7
-      ]
+      ],
+      "speedXLow": [
+        10.0,
+        -25.0,
+        30.0,
+        5.0
+      ],
+      "speedYLow": [
+        20.0,
+        -110.0,
+        110.0,
+        -5.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 5.742
     },
     {
       "name": "drop",
@@ -459,7 +711,21 @@
       "degree": [
         7,
         6
-      ]
+      ],
+      "speedXLow": [
+        20.0,
+        -50.0,
+        80.0,
+        5.0
+      ],
+      "speedYLow": [
+        20.0,
+        -250.0,
+        280.0,
+        0.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 15.948
     },
     {
       "name": "Cap-C",
@@ -482,7 +748,21 @@
       "degree": [
         4,
         7
-      ]
+      ],
+      "speedXLow": [
+        0.0,
+        -30.0,
+        30.0,
+        -30.0
+      ],
+      "speedYLow": [
+        30.0,
+        -30.0,
+        30.0,
+        -30.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 21.213
     },
     {
       "name": "drop-2",
@@ -505,7 +785,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        0.0,
+        -150.0,
+        125.0,
+        -150.0
+      ],
+      "speedYLow": [
+        150.0,
+        -200.0,
+        140.0,
+        -200.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 85.145
     },
     {
       "name": "double-knot",
@@ -528,7 +822,21 @@
       "degree": [
         6,
         7
-      ]
+      ],
+      "speedXLow": [
+        40.0,
+        -120.0,
+        60.0,
+        5.0
+      ],
+      "speedYLow": [
+        40.0,
+        -240.0,
+        240.0,
+        5.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 13.916
     },
     {
       "name": "heart-2",
@@ -551,7 +859,21 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        20.0,
+        50.0,
+        60.0,
+        -150.0
+      ],
+      "speedYLow": [
+        20.0,
+        -50.0,
+        50.0,
+        50.0
+      ],
+      "pitchLow": 21,
+      "closestLow": 28.284
     },
     {
       "name": "fish-1",
@@ -574,7 +896,21 @@
       "degree": [
         4,
         7
-      ]
+      ],
+      "speedXLow": [
+        45.0,
+        -150.0,
+        45.0,
+        -150.0
+      ],
+      "speedYLow": [
+        150.0,
+        -150.0,
+        45.0,
+        -150.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 74.246
     },
     {
       "name": "cap-T",
@@ -597,7 +933,58 @@
       "degree": [
         7,
         7
-      ]
+      ],
+      "speedXLow": [
+        150.0,
+        -150.0,
+        150.0,
+        -150.0
+      ],
+      "speedYLow": [
+        150.0,
+        -150.0,
+        0.0,
+        -300.0
+      ],
+      "pitchLow": 7,
+      "closestLow": 79.927
+    },
+    {
+      "name": "lower-pitch-h2",
+      "speedX": [
+        2,
+        -5,
+        5,
+        0.5
+      ],
+      "speedY": [
+        4,
+        -25,
+        25,
+        -0.5
+      ],
+      "bend": 3.113,
+      "pitch": 42,
+      "inflection": 0.491,
+      "closest": 1.183,
+      "degree": [
+        6,
+        7
+      ],
+      "speedXLow": [
+        6.0,
+        -15.0,
+        15.0,
+        1.5
+      ],
+      "speedYLow": [
+        12.0,
+        -75.0,
+        75.0,
+        -1.5
+      ],
+      "pitchLow": 14,
+      "closestLow": 3.548
     }
   ]
 }
