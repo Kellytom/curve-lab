@@ -92,9 +92,10 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p>An offset that flares is just <code>r &plusmn; d(t) n(t)</code> with <code>d</code> a function, and for
 a PH curve the normal is rational, so a polynomial width law keeps the rail rational &mdash; the flare is
 exact, not fitted. The terminal follows the house rule: radius <code>2 d(1)</code>, two arcs tangent to
-the rails, meeting at the tip. The serif foot leaves each rail end tangent to it and lands on a foot of
-half width <code>f</code>; its arc radius is fixed by the height and the foot, so the foot cannot
-disagree with the flare.</p>
+the rails, meeting at the tip. The serif foot is a PH span of the same degree: in the frame of the rail end it leaves along the
+rail's tangent and arrives along the base, landing on a foot of half width <code>f</code>. Four
+conditions on a degree-5 speed, solved in the page; the residual is printed beside the width. A
+circular arc is kept as the fallback when the solve misses by more than 0.05.</p>
 <svg id="n-detail" viewBox="0 0 720 420" role="img" aria-label="the terminal and the serif foot, enlarged"></svg>
 </section>
 

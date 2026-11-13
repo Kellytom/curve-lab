@@ -157,10 +157,88 @@
     const arcRadius = (h * h + reach * reach) / (2 * Math.max(1e-9, reach));
     const footA = [end.x + h * end.tx + f * end.nx, end.y + h * end.ty + f * end.ny];
     const footB = [end.x + h * end.tx - f * end.nx, end.y + h * end.ty - f * end.ny];
-    const serifLeft = arcPoints(A[0] + arcRadius * end.nx, A[1] + arcRadius * end.ny, A, footA);
-    const serifRight = arcPoints(B[0] - arcRadius * end.nx, B[1] - arcRadius * end.ny, B, footB);
+    const arcLeft = arcPoints(A[0] + arcRadius * end.nx, A[1] + arcRadius * end.ny, A, footA);
+    const arcRight = arcPoints(B[0] - arcRadius * end.nx, B[1] - arcRadius * end.ny, B, footB);
+    // the appendix, placed in the world frame: local (u, n) at the rail end
+    const appendix = appendixOf(h, reach);
+    const place = points => points.map(([u, v]) => [end.x + u * end.tx + v * end.nx,
+                                                   end.y + u * end.ty + v * end.ny]);
+    let serifLeft = arcLeft, serifRight = arcRight;
+    if (appendix && appendix.residual < 0.05) {
+      serifLeft = place(appendix.points);
+      serifRight = appendix.points.map(([u, v]) => [end.x + u * end.tx - v * end.nx,
+                                                    end.y + u * end.ty - v * end.ny]);
+    }
     return { end, d1, radius, A, B, tip, coneLeft, coneRight, h, f, arcRadius,
-             footA, footB, serifLeft, serifRight };
+             footA, footB, serifLeft, serifRight, arcLeft, arcRight,
+             appendixResidual: appendix ? appendix.residual : null };
+  }
+
+  // ---------- the serif as an appendix span of degree 11 ----------
+  // In the frame of the rail end (u = the rail tangent, n = the outward
+  // normal), the foot wants a curve from (0,0) to (h, reach) that leaves along
+  // u and arrives along the base -n. That is four conditions on a speed of
+  // degree 5, solved here by the same line search as the main solver.
+  function appendixOf(h, reach) {
+    if (reach <= 1e-9) return null;
+    const target = [h, reach];
+    const build = p => ({ x: [1].concat(p.slice(0, 5)), y: p.slice(5, 11) });
+    const tangentAt = (speed, t) => {
+      const a = value(speed.x, t), b = value(speed.y, t);
+      const s2 = a * a + b * b || 1;
+      return [(a * a - b * b) / s2, 2 * a * b / s2];
+    };
+    const endpointOf = speed => {
+      let x = 0, y = 0;
+      const steps = 300;
+      for (let i = 0; i < steps; i++) {
+        const t = (i + 0.5) / steps;
+        const a = value(speed.x, t), b = value(speed.y, t);
+        x += (a * a - b * b) / steps;
+        y += 2 * a * b / steps;
+      }
+      return [x, y];
+    };
+    const residual = p => {
+      const speed = build(p);
+      const end = endpointOf(speed);
+      const t0 = tangentAt(speed, 0), t1 = tangentAt(speed, 1);
+      return [end[0] - target[0], end[1] - target[1], -t0[1], -t1[0]];
+    };
+    const cost = p => residual(p).reduce((sum, r) => sum + r * r, 0);
+    // seed: a straight-ish span with a small turn, which is where a serif foot
+    // starts; the search is on a common grid for each of the ten numbers
+    let params = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+    let best = cost(params);
+    for (let pass = 0; pass < 4; pass++) {
+      let reachStep = 0.5 / Math.pow(4, pass);
+      let moved = true;
+      while (moved && reachStep > 1e-7) {
+        moved = false;
+        for (let i = 0; i < params.length; i++) {
+          for (const direction of [1, -1]) {
+            const trial = params.slice();
+            trial[i] += direction * reachStep * Math.max(1, Math.abs(params[i]));
+            const v = cost(trial);
+            if (v < best) { params = trial; best = v; moved = true; break; }
+          }
+        }
+        if (!moved) reachStep /= 2;
+      }
+    }
+    const speed = build(params);
+    const points = [];
+    let x = 0, y = 0;
+    const steps = 160;
+    points.push([x, y]);
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(speed.x, t), b = value(speed.y, t);
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      points.push([x, y]);
+    }
+    return { points, residual: Math.sqrt(best), speed };
   }
 
   // ---------- the drawing ----------
@@ -214,8 +292,10 @@
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
     document.getElementById("n-width-readout").textContent =
       `d0 ${width.d0.toFixed(3)} | d(1) ${geometry.d1.toFixed(3)} | flare ${(geometry.d1 / width.d0).toFixed(2)}x | ` +
-      `terminal R ${geometry.radius.toFixed(3)} (= 2 d(1)) | foot half width ${geometry.f.toFixed(3)}, ` +
-      `arc radius ${geometry.arcRadius.toFixed(3)}`;
+      `terminal R ${geometry.radius.toFixed(3)} (= 2 d(1)) | foot half width ${geometry.f.toFixed(3)} | ` +
+      (geometry.appendixResidual !== null && geometry.appendixResidual < 0.05
+        ? `serif: PH span, residual ${geometry.appendixResidual.toFixed(4)}`
+        : `serif: arc fallback, residual ${geometry.appendixResidual === null ? "-" : geometry.appendixResidual.toFixed(3)}`);
     document.getElementById("n-grade").textContent =
       `degree ${Math.max(degreeOf(curve.x), degreeOf(curve.y))} (x ${degreeOf(curve.x)}, y ${degreeOf(curve.y)})` +
       (m.inflection === null ? " | no inflection: a C, not an S" : "");
