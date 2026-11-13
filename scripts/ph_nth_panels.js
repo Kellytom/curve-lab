@@ -32,9 +32,35 @@
   const grid = document.getElementById("n-controls");
   const complementGrid = document.getElementById("n-complement-controls");
   // The complementary curve: a second speed pair drawn under the spine. It
-  // starts as the mirror of the spine (the y row negated), so the two cross
-  // once per root of that row. Its numbers are its own.
-  const complement = { x: defaults.x.slice(), y: defaults.y.map(v => -v) };
+  // starts as the spine flipped across the origin, which is the pair that
+  // interleaves; its numbers are its own from then on.
+  const complement = { x: defaults.x.slice(), y: defaults.y.slice() };
+
+  // Placement is a 3x3 affine matrix, row major, applied to the drawn points:
+  // [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f).
+  // Flips, the half turn and the move are all this one object, so the speed
+  // numbers stay the curve and the matrix says where the curve sits.
+  const identity = () => [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  const FLIP_ACROSS = [-1, 0, 0, 0, 1, 0, 0, 0, 1];   // x -> -x
+  const UPSIDE_DOWN = [1, 0, 0, 0, -1, 0, 0, 0, 1];   // y -> -y
+  state.transform = identity();
+  complement.transform = identity();
+  const placed = (matrix, points) => points.map(([x, y]) => [
+    matrix[0] * x + matrix[1] * y + matrix[2],
+    matrix[3] * x + matrix[4] * y + matrix[5],
+  ]);
+  const compose = (left, right) => {
+    const out = new Array(9).fill(0);
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 3; column++) {
+        out[row * 3 + column] =
+          left[row * 3] * right[column] +
+          left[row * 3 + 1] * right[3 + column] +
+          left[row * 3 + 2] * right[6 + column];
+      }
+    }
+    return out;
+  };
 
   function decode(number) {
     if (!number) return { mantissa: 0, decade: 0 };
@@ -380,8 +406,10 @@
     const characterRight = view.character ? characterRail(-1, speed) : null;
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
     const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
-    const all = spine.map(s => [s.x, s.y]);
-    all.push(...complementSpine);
+    const spinePoints = placed(state.transform, spine.map(s => [s.x, s.y]));
+    const complementShown = placed(complement.transform, complementSpine);
+    const all = spinePoints.slice();
+    all.push(...complementShown);
     if (view.rails) all.push(...leftRail, ...rightRail);
     if (characterLeft) all.push(...characterLeft, ...characterRight);
     if (startEnd) all.push(...startEnd.arc, startEnd.tip);
@@ -416,12 +444,12 @@
     }
     // the complementary curve sits under the spine: 40% grey (#666), so the dark
     // stroke stays the one you read first
-    art += `<path d="${path(complementSpine)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
-    art += `<path d="${path(spine.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
+    art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     // the meetings of the two curves, counted and marked
-    const meets = crossingsOf(spine.map(s => [s.x, s.y]), complementSpine,
+    const meets = crossingsOf(spinePoints, complementShown,
                               1e-4 * Math.max(1e-9, maxX - minX));
     meets.forEach(([x, y]) => {
       art += `<circle cx="${fx(x).toFixed(1)}" cy="${fy(y).toFixed(1)}" r="3.6" ` +
@@ -478,20 +506,7 @@
       `speed, the twelve boxes: x ${state.x.join(", ")} | y ${state.y.join(", ")}`;
     const box = document.getElementById("n-json");
     if (box) {
-      box.value = JSON.stringify({
-        name: currentName,
-        speedX: state.x.map(v => +v),
-        speedY: state.y.map(v => +v),
-        bend: +m.bend.toFixed(3),
-        pitch: m.pitch,
-        inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
-        closest: +m.closest.toFixed(3),
-        degree: [degreeOf(curve.x), degreeOf(curve.y)],
-        width: { percent: width.percent },
-        character: { plus: character.plus, minus: character.minus, profile: character.profile },
-        shear: shear.delta,
-        hook: { dx: hook.dx, dy: hook.dy },
-      }, null, 2);
+      box.value = JSON.stringify(pairRecord(currentName), null, 2);
     }
     drawBars();
   }
@@ -805,12 +820,69 @@
     if (field) field.value = String(percent);
   };
 
-  // A loaded curve brings its mirror with it, so the pair always starts as a
-  // balanced set: one meeting per root of the y row.
-  function mirrorComplement() {
+  // A loaded curve brings its flip with it: the two rows swapped draws the same
+  // curve across the origin, so the pair interleaves instead of sitting on top
+  // of itself.
+  function flipComplement() {
     complement.x = state.x.slice();
-    complement.y = state.y.map(v => -v);
+    complement.y = state.y.slice();
+    complement.transform = compose(FLIP_ACROSS, state.transform);
+    writeMoves();
   }
+
+  // The move boxes write straight into the matrix's translation column.
+  const moveFields = [];
+  function writeMoves() {
+    moveFields.forEach(({ field, target, index }) => {
+      field.value = String(+target.transform[index].toFixed(4));
+    });
+  }
+  [["n-move-x", state, 2], ["n-move-y", state, 5],
+   ["n-comp-move-x", complement, 2], ["n-comp-move-y", complement, 5]]
+    .forEach(([id, target, index]) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+      moveFields.push({ field, target, index });
+      field.addEventListener("input", () => {
+        const v = Number(field.value);
+        if (!Number.isFinite(v)) return;
+        target.transform[index] = v;
+        draw();
+      });
+    });
+
+  // p(1 - t), so the same curve is drawn from its other end
+  function reverseRow(row) {
+    const choose = (n, k) => {
+      let value = 1;
+      for (let i = 1; i <= k; i++) value = value * (n - k + i) / i;
+      return value;
+    };
+    const out = row.map(() => 0);
+    row.forEach((coefficient, k) => {
+      for (let j = 0; j <= k; j++) out[j] += coefficient * choose(k, j) * Math.pow(-1, k - j);
+    });
+    return out;
+  }
+
+  const complementActions = {
+    "n-comp-flip": () => {
+      complement.transform = compose(FLIP_ACROSS, complement.transform);
+    },
+    "n-comp-upside": () => {
+      complement.transform = compose(UPSIDE_DOWN, complement.transform);
+    },
+    "n-comp-reverse": () => {
+      complement.x = reverseRow(complement.x);
+      complement.y = reverseRow(complement.y);
+    },
+    "n-comp-reset": flipComplement,
+  };
+  Object.entries(complementActions).forEach(([id, action]) => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.addEventListener("click", () => { action(); writeCells(); writeMoves(); draw(); });
+  });
 
   const SEED = [
     { name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] },
@@ -889,6 +961,13 @@
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
+    { name: "gumdrop",
+      speedX: [2, 1, -1, 1, -1, 1, -1, 1, -1, 0],
+      speedY: [-10, 137, -675, 1530, -1620, 648, 0, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
     { name: "w-arch",
       speedX: [1, 0, 0, 0, 0, 0],
       speedY: [-3, 16, -16, 0, 0, 0],
@@ -897,6 +976,73 @@
       shear: 0,
       hook: { dx: 0, dy: 0 } },
   ];
+
+  // The saved shape. One category, one name, two curves; each curve carries its
+  // own speed rows and its own 3x3 placement matrix, row major:
+  //   [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f)
+  // so a flip, a turn and a move are one object and the numbers stay the curve.
+  // Old flat records ({name, speedX, speedY}) still load: pairOf fills them in.
+  const category = () => {
+    const field = document.getElementById("n-category");
+    const typed = field ? field.value.trim() : "";
+    return typed || "double knot curves";
+  };
+  function pairRecord(name) {
+    const m = metrics(state.x, state.y);
+    return {
+      format: "curve-lab.double-knot/1",
+      category: category(),
+      name,
+      primary: {
+        speedX: state.x.map(v => +v),
+        speedY: state.y.map(v => +v),
+        transform: state.transform.map(v => +v),
+      },
+      complementary: {
+        speedX: complement.x.map(v => +v),
+        speedY: complement.y.map(v => +v),
+        transform: complement.transform.map(v => +v),
+      },
+      bend: +m.bend.toFixed(3),
+      pitch: m.pitch,
+      inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+      closest: +m.closest.toFixed(3),
+      width: { percent: width.percent },
+      character: { plus: character.plus, minus: character.minus, profile: character.profile },
+      shear: shear.delta,
+      hook: { dx: hook.dx, dy: hook.dy },
+    };
+  }
+  function pairOf(item) {
+    if (item && item.primary) return item;
+    if (item && Array.isArray(item.speedX) && Array.isArray(item.speedY)) {
+      return { ...item, format: "curve-lab.double-knot/1",
+               category: item.category || "double knot curves",
+               primary: { speedX: item.speedX, speedY: item.speedY, transform: identity() },
+               complementary: null };
+    }
+    return null;
+  }
+  function loadPair(item) {
+    const pair = pairOf(item);
+    if (!pair) return;
+    const fit = row => row.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+    state.x = fit(pair.primary.speedX);
+    state.y = fit(pair.primary.speedY);
+    state.transform = (pair.primary.transform || identity()).slice();
+    if (pair.complementary && Array.isArray(pair.complementary.speedX)) {
+      complement.x = fit(pair.complementary.speedX);
+      complement.y = fit(pair.complementary.speedY);
+      complement.transform = (pair.complementary.transform || identity()).slice();
+    } else {
+      flipComplement();
+    }
+    currentName = pair.name || "curve";
+    applyWidth(pair);
+    writeCells();
+    writeMoves();
+    draw();
+  }
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
   const uniqueName = (base, taken) => {
@@ -933,16 +1079,11 @@
       group.className = "saved-item";
       const button = document.createElement("button");
       button.type = "button";
-      button.textContent = item.name;
-      button.title = JSON.stringify(item.speedX) + " / " + JSON.stringify(item.speedY);
-      button.addEventListener("click", () => {
-        state.x = item.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-        state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-        currentName = item.name;
-        applyWidth(item);
-        mirrorComplement();
-        writeCells(); draw();
-      });
+      const pair = pairOf(item);
+      const primary = pair ? pair.primary : item;
+      button.textContent = (pair && pair.category ? pair.category + " · " : "") + item.name;
+      button.title = JSON.stringify(primary.speedX) + " / " + JSON.stringify(primary.speedY);
+      button.addEventListener("click", () => loadPair(item));
       group.append(button);
       if (!SEED.some(seed => seed.name === item.name)) {
         const remove = document.createElement("button");
@@ -971,13 +1112,7 @@
     const speed = hookedSpeed();
     const m = metrics(speed.x, speed.y);
     const items = saved().filter(item => item.name !== name);
-    items.push({ name, speedX: state.x.map(v => +v), speedY: state.y.map(v => +v),
-                 bend: +m.bend.toFixed(3), pitch: m.pitch,
-                 inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
-                 closest: +m.closest.toFixed(3),
-                 width: { percent: width.percent },
-                 character: { plus: character.plus, minus: character.minus, profile: character.profile },
-                 shear: shear.delta, hook: { dx: hook.dx, dy: hook.dy } });
+    items.push(pairRecord(name));
     store(items);
     currentName = name;
     nameField.value = "";
@@ -1023,8 +1158,9 @@
       const usedHere = takenNames();
       let loaded = 0;
       list.forEach(item => {
-        if (!item || !Array.isArray(item.speedX) || !Array.isArray(item.speedY)) return;
-        const base = item.name || `pasted ${items.length + 1}`;
+        const pair = pairOf(item);
+        if (!pair) return;
+        const base = pair.name || `pasted ${items.length + 1}`;
         let name = base;
         if (usedHere.has(base)) {
           const fresh = uniqueName(base, usedHere);
@@ -1035,21 +1171,11 @@
           name = rename ? fresh : base;
         }
         usedHere.add(name);
-        const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
-                         width: item.width && Number.isFinite(Number(item.width.percent))
-                                ? { percent: Number(item.width.percent) } : undefined,
-                         character: item.character, shear: item.shear, hook: item.hook };
+        const record = { ...pair, name };
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;
-        if (loaded === 1) {
-          state.x = record.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-          state.y = record.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-          currentName = name;
-          applyWidth(record);
-          mirrorComplement();
-          writeCells(); draw();
-        }
+        if (loaded === 1) loadPair(record);
       });
       store(items);
       renderSaved();
@@ -1062,17 +1188,12 @@
 
   // the gallery opens a curve into this sandbox
   window.phNthLoad = item => {
-    state.x = item.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-    state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
-    currentName = item.name;
-    applyWidth(item);
-    mirrorComplement();
-    writeCells();
-    draw();
+    loadPair(item);
     const controls = document.getElementById("n-controls");
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  flipComplement();        // the pair starts flipped, so it crosses
   writeCells();
   renderSaved();
   draw();

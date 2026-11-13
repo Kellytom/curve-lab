@@ -50,9 +50,13 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .spine-grid .cell-inputs input[type=range]{flex:1;min-width:36px}
 .cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .cell-inputs .sign:hover{background:#efe7d3}
-.complement{margin:14px 0 0;padding:10px 12px;border:1px dashed var(--rule);background:#f7f1e2}
-.complement h3{font-size:15px;margin:0 0 4px}
-.complement h3 .small{font-weight:400;color:var(--muted)}
+.pair-boxes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 0}
+@media(max-width:900px){.pair-boxes{grid-template-columns:1fr}}
+.curve-box{padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
+.curve-box.complement{border-style:dashed}
+.curve-box h3{font-size:14px;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
+.curve-box h3 .small{font-weight:400;color:var(--muted)}
+.pair-boxes .spine-row{grid-template-columns:1fr}
 .scales,.steppers{display:inline-flex;gap:2px}
 .scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
   background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
@@ -123,9 +127,60 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" class="rung" data-speed-degree="8">degree 17 &middot; 18 numbers</button>
   <button type="button" class="rung" data-speed-degree="9">degree 19 &middot; 20 numbers</button>
 </div>
-<div class="spine-grid" id="n-controls"></div>
 <svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve"></svg>
 <p class="small mono" id="n-readout"></p>
+<div class="pair-boxes">
+  <div class="curve-box">
+    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
+    <div class="spine-grid" id="n-controls"></div>
+    <div class="solver-row">
+      <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
+      <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
+    </div>
+  </div>
+  <div class="curve-box complement">
+    <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
+    <div class="spine-grid" id="n-complement-controls"></div>
+    <div class="solver-row">
+      <label class="dial" for="n-comp-move-x">move x <input id="n-comp-move-x" type="number" step="0.1" value="0"></label>
+      <label class="dial" for="n-comp-move-y">move y <input id="n-comp-move-y" type="number" step="0.1" value="0"></label>
+    </div>
+
+    <div class="solver-row">
+      <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
+      <button type="button" id="n-comp-upside" title="negate the y row: the same curve upside down">upside down</button>
+      <button type="button" id="n-comp-reverse" title="run the same curve from its other end">reverse</button>
+      <button type="button" id="n-comp-reset" title="the complementary curve becomes the spine, flipped across">reset to the spine</button>
+    </div>
+  </div>
+</div>
+<p class="small mono" id="n-grade"></p>
+<p class="small mono" id="n-formula" style="white-space:pre-line"></p>
+<div class="solver-row">
+  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
+  <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-char-r">character &minus; <input id="n-char-r" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-prof">profile
+    <select id="n-prof"><option value="bow">bow</option><option value="s">S</option><option value="taper">taper</option></select>
+  </label>
+</div>
+<div class="solver-row">
+  <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook">hook x <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
+</div>
+<div class="solver-row">
+  <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
+  <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
+  <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
+  <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
+  <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
+  <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
+</div>
+<p class="small mono" id="n-width-readout"></p>
+<p class="small">A second curve from the same construction, drawn in 40% grey under the spine and counted where it meets it. <strong>flip across</strong> swaps the two rows, which draws the same curve across the origin; <strong>upside down</strong> negates the y row; <strong>reverse</strong> runs it from the other end. Change its roots or powers and the crossings move; an even, balanced set is what a knot needs.</p>
+  </div>
+</div>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
 <div class="solver-row">
@@ -157,6 +212,12 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   two cross once per root of that row. Change its roots or its powers and the crossings move; an even,
   balanced set is what a knot needs.</p>
   <div class="spine-grid" id="n-complement-controls"></div>
+  <div class="solver-row">
+    <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
+    <button type="button" id="n-comp-upside" title="negate the y row: the same curve upside down">upside down</button>
+    <button type="button" id="n-comp-reverse" title="run the same curve from its other end">reverse</button>
+    <button type="button" id="n-comp-reset" title="the complementary curve becomes the spine, flipped across">reset to the spine</button>
+  </div>
 </div>
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
 <strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
@@ -192,6 +253,7 @@ The numbers are in the panel above and in the JSON box below.</p>
   <button type="button" id="n-zero-top" title="set x t^5 and y t^5 to zero: back to a septic">zero the top pair</button>
 </div>
 <div class="save-row">
+  <input id="n-category" type="text" placeholder="category" value="double knot curves">
   <input id="n-name" type="text" placeholder="name this curve">
   <button type="button" id="n-save">save this curve</button>
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
