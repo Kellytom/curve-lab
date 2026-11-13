@@ -252,6 +252,16 @@
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | closest ${m.closest.toFixed(3)}`;
     const curve = curveOf(speedX, speedY);
+    const degreeOf = terms => {
+      let degree = 0;
+      terms.forEach((coefficient, k) => { if (Math.abs(coefficient) > 1e-9) degree = k; });
+      return degree;
+    };
+    const degreeX = degreeOf(curve.x), degreeY = degreeOf(curve.y);
+    const degree = Math.max(degreeX, degreeY);
+    const grade = degree === 7 ? `degree 7 (x ${degreeX}, y ${degreeY})`
+      : `degree ${degree} (x ${degreeX}, y ${degreeY}) - no t^7 term anywhere`;
+    document.getElementById("b-grade").textContent = grade;
     document.getElementById("b-formula").textContent =
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}`;
     drawChordTerms(speedX, speedY);

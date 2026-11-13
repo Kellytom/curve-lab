@@ -85,6 +85,7 @@ same machinery as the quintic, one degree up.</p>
 <svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
 </div>
 <p class="small mono" id="b-readout"></p>
+<p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
 <p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
 vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
