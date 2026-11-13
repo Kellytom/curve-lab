@@ -31,7 +31,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .control-row span{min-width:120px;color:#8a3b2a}
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .control-row input[type=range]{flex:1;min-width:90px}
-#c-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#e-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:10px 0 0}
 .samples svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 @media(max-width:900px){.samples{grid-template-columns:1fr}}
@@ -81,11 +81,7 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
-<div class="trio">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<svg id="b-chord-b1" viewBox="0 0 400 460" role="img" aria-label="chord terms B1, chained in two shapes"></svg>
-<svg id="b-chord-b2" viewBox="0 0 400 460" role="img" aria-label="chord terms B2, the same terms as a fan"></svg>
-</div>
 <p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
@@ -108,25 +104,39 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p class="small">The two boxes beside the curve are the same seven chord terms, drawn two ways: <strong>B1</strong>
-chains them head to tail and rings where the quintic ends, <strong>B2</strong> fans each term from the
-origin so its own size and direction show. All three use the same scale, so a vector is the same
-length in any box. The dashed arrows are the sums: quintic-only, and all seven.</p>
 </section>
 
 <section class="panel">
-<h2>C | G2 Hermite interpolation at degree 7</h2>
+<h2>C | the chord terms, chained</h2>
+<p>The seven vectors <code>T_m = (w^2)_m / (m+1)</code>, head to tail, drawn as two shapes: the first
+five are what a quintic can hold, the last two are septic-only. A ring marks where the quintic ends.
+The dashed arrows are the two sums, quintic-only and all seven. Read the sum off
+<code>#b-terms-values</code>; this panel follows whatever curve panel B holds.</p>
+<svg id="c-chord-chain" viewBox="0 0 720 460" role="img" aria-label="the chord terms chained in two shapes"></svg>
+</section>
+
+<section class="panel">
+<h2>D | the chord terms, as signed bars</h2>
+<p>The same seven terms, one row each, with the <code>x</code> and <code>y</code> components as bars
+from a shared zero line, so a sign flip mirrors the bar. Rows <code>t^6</code> and <code>t^7</code>
+sit on a tint: those are the septic-only terms. Signed sizes belong on a common baseline, not on an
+angle, which is why this panel does not use a compass.</p>
+<svg id="d-chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+</section>
+
+<section class="panel">
+<h2>E | G2 Hermite interpolation at degree 7</h2>
 <p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
 six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
 conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
 curvatures and watch the curve follow; the curvature circles are dashed.</p>
-<div id="c-controls"></div>
-<svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
-<p class="small mono" id="c-readout"></p>
+<div id="e-controls"></div>
+<svg id="e-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="e-readout"></p>
 </section>
 
 <section class="panel">
-<h2>D | small integer speeds</h2>
+<h2>F | small integer speeds</h2>
 <p>Forty curves found by scanning small integer speeds - every coefficient in
 <code>[-2, 2]</code> exhaustively, then a random sweep of <code>[-4, 4]</code> - with the
 inflection strictly inside, the speed path away from the origin, and the pitch read exactly. The
@@ -582,7 +592,7 @@ window.curveSaver = (function () {
   // compared: B1 chains them head to tail in two shapes, B2 fans them from one
   // origin. Both use one scale, so a term is the same length in either box.
   const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
-                       width: 400, height: 460, pad: 34 };
+                       width: 720, height: 460, pad: 64 };
   const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
@@ -625,7 +635,7 @@ window.curveSaver = (function () {
   }
 
   function drawChordChain(terms) {
-    const plot = document.getElementById("b-chord-b1");
+    const plot = document.getElementById("c-chord-chain");
     if (!plot) return;
     const { quintic, septic, ink } = chordStyle;
     const quinticCount = 5;
@@ -633,7 +643,7 @@ window.curveSaver = (function () {
     const quinticEnd = heads[quinticCount];
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
-    let art = chordHead("", "B1", "chained, in two shapes");
+    let art = chordHead("", "C", "the chord terms, chained in two shapes");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
@@ -656,7 +666,7 @@ window.curveSaver = (function () {
   }
 
   function drawChordBars(terms) {
-    const plot = document.getElementById("b-chord-b2");
+    const plot = document.getElementById("d-chord-bars");
     if (!plot) return;
     const { ink, width, height, pad } = chordStyle;
     // A signed coefficient belongs on a common baseline: bars from zero read
@@ -669,7 +679,7 @@ window.curveSaver = (function () {
     const zero = (left + right) / 2;
     const xOf = value => zero + value / biggest * (right - left) / 2;
     const xColour = ink, yColour = "#8a6a3a";
-    let art = chordHead("", "B2", "the same terms as signed bars");
+    let art = chordHead("", "D", "the same terms as signed bars");
     // the septic-only rows sit on a tinted band
     art += `<rect x="${pad}" y="${(top + rowHeight * 5).toFixed(1)}" width="${width - 2 * pad}" height="${(rowHeight * 2).toFixed(1)}" fill="#f2ead6"/>`;
     art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="${ink}" stroke-width="1.5"/>`;
@@ -904,9 +914,9 @@ window.curveSaver = (function () {
 // septic r' = w^2 with w cubic, eight real unknowns; six conditions plus two
 // fairness terms, solved by Gauss-Newton.
 (function () {
-  const plot = document.getElementById("c-plot");
+  const plot = document.getElementById("e-plot");
   if (!plot) return;
-  const readout = document.getElementById("c-readout");
+  const readout = document.getElementById("e-readout");
   const width = 720, height = 520, left = 70, right = 50, top = 92, bottom = 64;
   const specs = [
     { key: "theta0", label: "angle 0 (deg)", min: -180, max: 180, step: 1, value: 60 },
@@ -935,7 +945,7 @@ window.curveSaver = (function () {
     row.append(name, numberInput, rangeInput);
     grid.append(row);
   });
-  document.getElementById("c-controls").append(grid);
+  document.getElementById("e-controls").append(grid);
 
   const cx = z => [z[0], z[1]];
   const add = (a, b) => [a[0] + b[0], a[1] + b[1]];

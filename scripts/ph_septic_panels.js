@@ -271,7 +271,7 @@
   // compared: B1 chains them head to tail in two shapes, B2 fans them from one
   // origin. Both use one scale, so a term is the same length in either box.
   const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
-                       width: 400, height: 460, pad: 34 };
+                       width: 720, height: 460, pad: 64 };
   const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
@@ -314,7 +314,7 @@
   }
 
   function drawChordChain(terms) {
-    const plot = document.getElementById("b-chord-b1");
+    const plot = document.getElementById("c-chord-chain");
     if (!plot) return;
     const { quintic, septic, ink } = chordStyle;
     const quinticCount = 5;
@@ -322,7 +322,7 @@
     const quinticEnd = heads[quinticCount];
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
-    let art = chordHead("", "B1", "chained, in two shapes");
+    let art = chordHead("", "C", "the chord terms, chained in two shapes");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
@@ -345,7 +345,7 @@
   }
 
   function drawChordBars(terms) {
-    const plot = document.getElementById("b-chord-b2");
+    const plot = document.getElementById("d-chord-bars");
     if (!plot) return;
     const { ink, width, height, pad } = chordStyle;
     // A signed coefficient belongs on a common baseline: bars from zero read
@@ -358,7 +358,7 @@
     const zero = (left + right) / 2;
     const xOf = value => zero + value / biggest * (right - left) / 2;
     const xColour = ink, yColour = "#8a6a3a";
-    let art = chordHead("", "B2", "the same terms as signed bars");
+    let art = chordHead("", "D", "the same terms as signed bars");
     // the septic-only rows sit on a tinted band
     art += `<rect x="${pad}" y="${(top + rowHeight * 5).toFixed(1)}" width="${width - 2 * pad}" height="${(rowHeight * 2).toFixed(1)}" fill="#f2ead6"/>`;
     art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="${ink}" stroke-width="1.5"/>`;
@@ -593,9 +593,9 @@
 // septic r' = w^2 with w cubic, eight real unknowns; six conditions plus two
 // fairness terms, solved by Gauss-Newton.
 (function () {
-  const plot = document.getElementById("c-plot");
+  const plot = document.getElementById("e-plot");
   if (!plot) return;
-  const readout = document.getElementById("c-readout");
+  const readout = document.getElementById("e-readout");
   const width = 720, height = 520, left = 70, right = 50, top = 92, bottom = 64;
   const specs = [
     { key: "theta0", label: "angle 0 (deg)", min: -180, max: 180, step: 1, value: 60 },
@@ -624,7 +624,7 @@
     row.append(name, numberInput, rangeInput);
     grid.append(row);
   });
-  document.getElementById("c-controls").append(grid);
+  document.getElementById("e-controls").append(grid);
 
   const cx = z => [z[0], z[1]];
   const add = (a, b) => [a[0] + b[0], a[1] + b[1]];

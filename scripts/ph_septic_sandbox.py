@@ -54,7 +54,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .control-row span{min-width:120px;color:#8a3b2a}
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .control-row input[type=range]{flex:1;min-width:90px}
-#c-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#e-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:10px 0 0}
 .samples svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 @media(max-width:900px){.samples{grid-template-columns:1fr}}
@@ -103,11 +103,7 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
-<div class="trio">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<svg id="b-chord-b1" viewBox="0 0 400 460" role="img" aria-label="chord terms B1, chained in two shapes"></svg>
-<svg id="b-chord-b2" viewBox="0 0 400 460" role="img" aria-label="chord terms B2, the same terms as a fan"></svg>
-</div>
 <p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
@@ -130,25 +126,39 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p class="small">The two boxes beside the curve are the same seven chord terms, drawn two ways: <strong>B1</strong>
-chains them head to tail and rings where the quintic ends, <strong>B2</strong> fans each term from the
-origin so its own size and direction show. All three use the same scale, so a vector is the same
-length in any box. The dashed arrows are the sums: quintic-only, and all seven.</p>
 </section>
 
 <section class="panel">
-<h2>C | G2 Hermite interpolation at degree 7</h2>
+<h2>C | the chord terms, chained</h2>
+<p>The seven vectors <code>T_m = (w^2)_m / (m+1)</code>, head to tail, drawn as two shapes: the first
+five are what a quintic can hold, the last two are septic-only. A ring marks where the quintic ends.
+The dashed arrows are the two sums, quintic-only and all seven. Read the sum off
+<code>#b-terms-values</code>; this panel follows whatever curve panel B holds.</p>
+<svg id="c-chord-chain" viewBox="0 0 720 460" role="img" aria-label="the chord terms chained in two shapes"></svg>
+</section>
+
+<section class="panel">
+<h2>D | the chord terms, as signed bars</h2>
+<p>The same seven terms, one row each, with the <code>x</code> and <code>y</code> components as bars
+from a shared zero line, so a sign flip mirrors the bar. Rows <code>t^6</code> and <code>t^7</code>
+sit on a tint: those are the septic-only terms. Signed sizes belong on a common baseline, not on an
+angle, which is why this panel does not use a compass.</p>
+<svg id="d-chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+</section>
+
+<section class="panel">
+<h2>E | G2 Hermite interpolation at degree 7</h2>
 <p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
 six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
 conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
 curvatures and watch the curve follow; the curvature circles are dashed.</p>
-<div id="c-controls"></div>
-<svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
-<p class="small mono" id="c-readout"></p>
+<div id="e-controls"></div>
+<svg id="e-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="e-readout"></p>
 </section>
 
 <section class="panel">
-<h2>D | small integer speeds</h2>
+<h2>F | small integer speeds</h2>
 <p>Forty curves found by scanning small integer speeds - every coefficient in
 <code>[-2, 2]</code> exhaustively, then a random sweep of <code>[-4, 4]</code> - with the
 inflection strictly inside, the speed path away from the origin, and the pitch read exactly. The
