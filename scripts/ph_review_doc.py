@@ -61,7 +61,6 @@ pre code{{background:none;padding:0}}
 def main():
     import sys
     markdown_text = MD.read_text()
-    twin = _html(markdown_text)
     if "--check" in sys.argv:
         # no markdown import here: CI may not have it, and the SHA is enough
         if not HTML.exists():
@@ -73,7 +72,7 @@ def main():
             return 1
         print("twin is current")
         return 0
-    HTML.write_text(twin)
+    HTML.write_text(_html(markdown_text))
     print(f"{HTML.relative_to(ROOT)}  {HTML.stat().st_size} bytes")
     return 0
 
