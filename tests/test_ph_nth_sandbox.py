@@ -15,7 +15,7 @@ class TestNthSandbox(unittest.TestCase):
         page = PAGE.read_text()
         for marker in ("n-controls", "n-plot", "n-bars", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
-                       "n-rails", "n-character", "n-terminal-start", "n-terminal-end", "n-d",
+                       "n-rails", "n-character", "n-char", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
                        "ph-nth-serif-notes.html",
                        "The eleventh power", "degree 11"):
             with self.subTest(marker=marker):

@@ -99,33 +99,54 @@
   // ---------- the offsets, the terminal ----------
   // Parallel for now: r + d*n with d a constant half-width. The flare law moved
   // to workbench/ph-nth-serif-notes.html, where it is studied on its own.
-  const width = { d: 0.35 };
+  // d is a percentage of the curve's own size, not an absolute number: a 0.3
+  // curve and a 1400 curve should both show their offsets. The size is the
+  // diagonal of the spine's bounding box.
+  const width = { percent: 1.5 };
+  let curveSize = 1;
+  const halfWidth = () => Math.max(1e-9, width.percent / 100 * curveSize);
 
   // what the page draws: the spine alone by default
   const view = { rails: false, character: false, startTerminal: false, endTerminal: false };
 
-  // A character offset is the same formula, modified: the rail is a PH curve in
-  // its own right, integrated from a speed perturbed by a small multiple of its
-  // own next coefficient. It starts on the spine's start section at +/- d and
-  // drifts by construction, which is the character.
-  function characterRail(sign) {
-    const eps = 0.35;
-    const next = (list, k) => (k + 1 < list.length ? list[k + 1] : 0);
-    const gx = state.x.map((v, k) => v + sign * eps * next(state.x, k));
-    const gy = state.y.map((v, k) => v + sign * eps * next(state.y, k));
-    const start = spineSamples(1)[0];
-    let x = start.x + sign * width.d * start.nx;
-    let y = start.y + sign * width.d * start.ny;
+  // A character offset: the parallel rail, bowed. The bow is the difference
+  // between integrating the speed turned a little at each station
+  // (g = w (1 + i eps b(t))) and integrating it untouched, both from the same
+  // start. That difference is pinned to zero at both ends, so the rail meets
+  // the parallel at +/- d at the start and the end and bows in between. It is
+  // the character, not a drift: at character 0 the rail is the parallel rail.
+  const character = { strength: 2 };
+  function integrateFrom(startX, startY, speedAt, steps) {
+    let x = startX, y = startY;
     const points = [[x, y]];
-    const steps = 700;
     for (let i = 0; i < steps; i++) {
       const t = (i + 0.5) / steps;
-      const a = value(gx, t), b = value(gy, t);
-      x += (a * a - b * b) / steps;
-      y += 2 * a * b / steps;
+      const [gr, gi] = speedAt(t);
+      x += (gr * gr - gi * gi) / steps;
+      y += 2 * gr * gi / steps;
       points.push([x, y]);
     }
     return points;
+  }
+  function characterRail(sign) {
+    const steps = 700;
+    const spine = spineSamples(steps);
+    const start = spine[0];
+    const d = halfWidth();
+    const from = [start.x + sign * d * start.nx, start.y + sign * d * start.ny];
+    const flat = integrateFrom(from[0], from[1], t => [value(state.x, t), value(state.y, t)], steps);
+    const eps = 0.08 * character.strength;
+    const turned = integrateFrom(from[0], from[1], t => {
+      const p = value(state.x, t), q = value(state.y, t);
+      const a = sign * eps * 4 * t * (1 - t);
+      return [p - a * q, q + a * p];
+    }, steps);
+    return spine.map((s, i) => {
+      const parallel = [s.x + sign * d * s.nx, s.y + sign * d * s.ny];
+      const weight = 4 * (i / steps) * (1 - i / steps);
+      return [parallel[0] + weight * (turned[i][0] - flat[i][0]),
+              parallel[1] + weight * (turned[i][1] - flat[i][1])];
+    });
   }
 
   function spineSamples(n = 700) {
@@ -170,7 +191,7 @@
   // bulging along the tangent (forward at the end, backward at the start)
   function terminalArc(spine, atStart) {
     const s = atStart ? spine[0] : spine[spine.length - 1];
-    const d = width.d;
+    const d = halfWidth();
     const sign = atStart ? -1 : 1;
     const A = [s.x + d * s.nx, s.y + d * s.ny];
     const B = [s.x - d * s.nx, s.y - d * s.ny];
@@ -183,8 +204,14 @@
   function draw() {
     const plot = document.getElementById("n-plot");
     const spine = spineSamples();
-    const leftRail = spine.map(s => [s.x + width.d * s.nx, s.y + width.d * s.ny]);
-    const rightRail = spine.map(s => [s.x - width.d * s.nx, s.y - width.d * s.ny]);
+    const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
+    const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
+                                Math.max(...spineYs) - Math.min(...spineYs));
+    const measured = metrics(state.x, state.y);
+    curveSize = Math.max(1e-9, Math.max(Math.hypot(measured.chord[0], measured.chord[1]), 0.25 * diagonal));
+    const d = halfWidth();
+    const leftRail = spine.map(s => [s.x + d * s.nx, s.y + d * s.ny]);
+    const rightRail = spine.map(s => [s.x - d * s.nx, s.y - d * s.ny]);
     const characterLeft = view.character ? characterRail(1) : null;
     const characterRight = view.character ? characterRail(-1) : null;
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
@@ -246,11 +273,11 @@
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
-    const showing = [view.rails ? `parallel rails, d ${width.d.toFixed(3)}` : view.character ? `character offsets, d ${width.d.toFixed(3)}` : "spine only"];
-    if (view.startTerminal) showing.push(`start terminal, radius ${width.d.toFixed(3)}`);
-    if (view.endTerminal) showing.push(`end terminal, radius ${width.d.toFixed(3)}`);
+    const showing = [view.rails ? "parallel rails" : view.character ? "character offsets" : "spine only"];
+    if (view.startTerminal) showing.push("start terminal");
+    if (view.endTerminal) showing.push("end terminal");
     document.getElementById("n-width-readout").textContent =
-      `d ${width.d.toFixed(3)} | showing ${showing.join(", ")}`;
+      `d ${width.percent.toFixed(2)}% of the curve = ${halfWidth().toFixed(3)} units | showing ${showing.join(", ")}`;
     document.getElementById("n-grade").textContent =
       `degree ${Math.max(degreeOf(curve.x), degreeOf(curve.y))} (x ${degreeOf(curve.x)}, y ${degreeOf(curve.y)})` +
       (m.inflection === null ? " | no inflection: a C, not an S" : "");
@@ -268,7 +295,7 @@
         inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
         closest: +m.closest.toFixed(3),
         degree: [degreeOf(curve.x), degreeOf(curve.y)],
-        width: { d0: width.d0, k: width.k, p: width.p },
+        width: { percent: width.percent },
       }, null, 2);
     }
     drawBars();
@@ -446,11 +473,18 @@
     if (Number.isFinite(v)) slider.value = String(Math.min(1, Math.max(0.02, v)));
   });
   // the width law's three dials
+  const strengthField = document.getElementById("n-char");
+  if (strengthField) strengthField.addEventListener("input", () => {
+    const v = Number(strengthField.value);
+    if (!Number.isFinite(v)) return;
+    character.strength = Math.min(3, Math.max(0, v));
+    draw();
+  });
   const widthField = document.getElementById("n-d");
   if (widthField) widthField.addEventListener("input", () => {
     const v = Number(widthField.value);
     if (!Number.isFinite(v)) return;
-    width.d = Math.min(4, Math.max(0.02, v));
+    width.percent = Math.min(20, Math.max(0, v));
     draw();
   });
   [["n-rails", "rails"], ["n-character", "character"],
@@ -478,14 +512,14 @@
   // ---------- saved curves ----------
   const applyWidth = item => {
     if (!item || !item.width) return;
-    ["d0", "k", "p"].forEach(key => {
-      const v = Number(item.width[key]);
-      if (!Number.isFinite(v)) return;
-      width[key] = v;
-      const field = document.getElementById("n-" + key);
-      if (field) field.value = String(v);
-    });
+    const percent = Number(item.width.percent);
+    if (!Number.isFinite(percent)) return;
+    width.percent = percent;
+    const field = document.getElementById("n-d");
+    if (field) field.value = String(percent);
   };
+
+  const SEED = [{ name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] }];
 
   const storageKey = "ph-nth-curves";
   const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
@@ -493,7 +527,7 @@
   function renderSaved() {
     const row = document.getElementById("n-saved");
     row.textContent = "";
-    saved().forEach(item => {
+    SEED.concat(saved()).forEach(item => {
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = item.name;
@@ -521,6 +555,22 @@
     nameField.value = "";
     renderSaved();
   });
+  const renameButton = document.getElementById("n-rename");
+  if (renameButton) renameButton.addEventListener("click", () => {
+    const field = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
+    const name = (field.value || "").trim();
+    if (!name) { if (status) status.textContent = "type a name, then press rename"; return; }
+    const items = saved();
+    const index = items.findIndex(item => item.name === currentName);
+    if (index >= 0) { items[index].name = name; store(items); }
+    currentName = name;
+    field.value = "";
+    if (status) status.textContent = index >= 0 ? `renamed to ${name}` : `named ${name} (press save to keep it)`;
+    renderSaved();
+    draw();
+  });
+
   document.getElementById("n-load").addEventListener("click", () => {
     const status = document.getElementById("n-paste-status");
     const text = document.getElementById("n-paste").value.trim();
@@ -534,8 +584,8 @@
         if (!item || !Array.isArray(item.speedX) || !Array.isArray(item.speedY)) return;
         const name = item.name || `pasted ${items.length + 1}`;
         const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
-                         width: item.width ? { d0: Number(item.width.d0), k: Number(item.width.k),
-                                               p: Number(item.width.p) } : undefined };
+                         width: item.width && Number.isFinite(Number(item.width.percent))
+                                ? { percent: Number(item.width.percent) } : undefined };
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;

@@ -81,6 +81,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
 <div class="solver-row">
   <label class="dial" for="n-d">d <input id="n-d" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
+  <label class="dial" for="n-char">character <input id="n-char" type="number" min="0" max="3" step="0.1" value="2"></label>
 </div>
 <div class="solver-row">
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
@@ -90,9 +91,10 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 </div>
 <p class="small mono" id="n-width-readout"></p>
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
-<strong>Character offsets</strong> keeps the same construction but perturbs the speed by a small multiple
-of its own next coefficient, so each rail is a PH curve in its own right and drifts away from the
-parallel. The flare law and the serif foot are parked in
+<strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
+station &mdash; <code>g = w (1 + i &epsilon; b(t))</code> &mdash; and blends back to the parallel at both
+ends, so the rail leaves and arrives at exactly <code>&plusmn; d</code> and bows in between. The
+<strong>character</strong> dial sets how far it bows; <code>d</code> sets the distance. The flare law and the serif foot are parked in
 <a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a>.</p>
 </section>
 
@@ -120,6 +122,7 @@ The numbers are in the panel above and in the JSON box below.</p>
 <div class="save-row">
   <input id="n-name" type="text" placeholder="name this curve">
   <button type="button" id="n-save">save this curve</button>
+  <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>
 <div class="paste-row">

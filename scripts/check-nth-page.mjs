@@ -61,17 +61,32 @@ const boxesAfter = await page.$$eval("#n-controls input[type=number]", els => el
 if (boxesBefore[1] === boxesAfter[1]) failures.push("a slider moved the curve but not the number box");
 
 // the readout must quote the half-width the dial holds
-await page.fill("#n-d", "0.6");
+await page.fill("#n-d", "3");
 await page.dispatchEvent("#n-d", "input");
 const widthText = await page.textContent("#n-width-readout");
-const quoted = Number((widthText.match(/d ([0-9.]+)/) || [])[1]);
-if (!Number.isFinite(quoted) || Math.abs(quoted - 0.6) > 0.002) failures.push(`width readout: ${widthText}`);
+const quoted = Number((widthText.match(/d ([0-9.]+)%/) || [])[1]);
+if (!Number.isFinite(quoted) || Math.abs(quoted - 3) > 0.002) failures.push(`width readout: ${widthText}`);
 
-// character offsets: the same construction perturbed, two rails and the spine
+// character offsets: two rails and the spine, and at character 0 the rails must
+// be exactly the parallel rails
+await page.click("#n-rails");
+await page.waitForTimeout(150);
+const railsBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
+  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
+}));
 await page.click("#n-character");
-const characterPaths = await paths();
-if (characterPaths !== 3) failures.push(`character offsets: ${characterPaths} paths, expected 3`);
+await page.fill("#n-char", "0");
+await page.dispatchEvent("#n-char", "input");
+await page.waitForTimeout(250);
+const zeroBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
+  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
+}));
+if (JSON.stringify(zeroBox) !== JSON.stringify(railsBox))
+  failures.push(`character 0 is not the parallel rail: ${JSON.stringify(zeroBox)} vs ${JSON.stringify(railsBox)}`);
+await page.fill("#n-char", "2");
+await page.dispatchEvent("#n-char", "input");
 await page.click("#n-character");
+await page.click("#n-rails");
 
 const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
 if (!notes) failures.push("the serif notes link is missing");
