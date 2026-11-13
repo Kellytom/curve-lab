@@ -1,10 +1,7 @@
-# Next action
+```text
+Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
+You are promoting the interesting curves from workbench/septic-samples.json (gallery D) into scripts/septic_curves.py as named curves.
+Proves: septic-curves.json lists the new names; tests/test_ph_septic_sandbox.py passes; node scripts/check-ph-page.mjs prints OK.
+```
 
-Take the 40 sample curves in `workbench/septic-samples.json` (gallery D) and
-promote the interesting ones: add each to `scripts/septic_curves.py` as a named
-curve with its eight-speed recipe, regenerate, and check the JSON against the
-metrics. `lazy-s-2` is the model of what "interesting" means: small integers,
-pitch under a few hundred, inflection inside (0, 1), closest above 0.1.
-
-Then check `gh run list -L 1` - the last push (84ff0b7) was still running at
-handoff.
+Source: state/HANDOFF-int.md, 2026-11-13, ea13b33.
