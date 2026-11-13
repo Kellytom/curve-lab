@@ -416,11 +416,16 @@ window.curveSaver = (function () {
     const decade = Math.max(-2, Math.min(6, Math.floor(Math.log10(Math.abs(value)))));
     return { mantissa: value / Math.pow(10, decade), decade: decade };
   };
-  function syncBCell(cell, value) {
-    const parts = decode(value);
-    cell.number.value = +value.toFixed(6);
-    cell.fine.value = parts.mantissa;
-    cell.decade.value = parts.decade;
+  // Never write a field back while it is the source of the change: a partial
+  // entry ("-" or "0.") reads as an empty value in a number input, and writing
+  // "0" over it eats the sign or the decimal point.
+  function syncBCell(cell, value, { number = true, sliders = true } = {}) {
+    if (number) cell.number.value = +value.toFixed(6);
+    if (sliders) {
+      const parts = decode(value);
+      cell.fine.value = parts.mantissa;
+      cell.decade.value = parts.decade;
+    }
   }
   const bRow = axis => {
     const row = document.createElement("div");
@@ -444,14 +449,27 @@ window.curveSaver = (function () {
       decade.title = "x 10^n";
       const elements = { number: input, fine: slider, decade: decade };
       bCells.push(elements);
-      const setValue = value => {
-        bState[`b${axis}${k}`] = value;
-        syncBCell(elements, value);
+      const stateKey = `b${axis}${k}`;
+      const setValue = (value, sync) => {
+        bState[stateKey] = value;
+        syncBCell(elements, value, sync);
         drawB();
       };
-      input.addEventListener("input", () => setValue(+input.value));
-      slider.addEventListener("input", () => setValue(slider.value * Math.pow(10, +decade.value)));
-      decade.addEventListener("input", () => setValue(slider.value * Math.pow(10, +decade.value)));
+      input.addEventListener("input", () => {
+        const text = input.value.trim();
+        if (text === "") return;                 // mid-entry: "-", "0.", "1e"
+        const value = Number(text);
+        if (!Number.isFinite(value)) return;
+        setValue(value, { number: false });      // the field is the source
+      });
+      slider.addEventListener("input", () => {
+        setValue(slider.value * Math.pow(10, +decade.value), { sliders: false });
+      });
+      decade.addEventListener("input", () => {
+        // scale what the state holds, not the snapped slider value
+        const mantissa = decode(bState[stateKey]).mantissa;
+        setValue(mantissa * Math.pow(10, +decade.value), { sliders: false });
+      });
       const pair = document.createElement("div");
       pair.className = "cell-inputs";
       pair.append(input, slider, decade);

@@ -49,6 +49,30 @@ if (!septic.startsWith("bend 1.850 | pitch 700 | inflection 0.494 | closest 1.46
   failures.push(`septic readout: "${septic}"`);
 }
 
+// Typing a curve's own numbers back must give the same curve. A partial entry
+// ("-", "0.") reads as empty in a number input, so a handler that writes the
+// field back on every keystroke eats the sign and the decimal point.
+const septicBefore = await page.evaluate(() => ({
+  readout: document.getElementById("b-readout").textContent,
+  values: [...document.querySelectorAll("#b-controls input[type=number]")].map(input => input.value),
+}));
+const septicInputs = await page.$$("#b-controls input[type=number]");
+for (let i = 0; i < septicInputs.length; i++) {
+  await septicInputs[i].click();
+  await page.keyboard.press("Meta+A");          // select all, so typing replaces
+  await page.keyboard.type(septicBefore.values[i], { delay: 20 });
+}
+const septicAfter = await page.evaluate(() => ({
+  readout: document.getElementById("b-readout").textContent,
+  values: [...document.querySelectorAll("#b-controls input[type=number]")].map(input => input.value),
+}));
+if (septicAfter.values.join() !== septicBefore.values.join()) {
+  failures.push(`retyped speeds: ${septicBefore.values.join()} -> ${septicAfter.values.join()}`);
+}
+if (septicAfter.readout !== septicBefore.readout) {
+  failures.push(`retyped septic readout: "${septicBefore.readout}" -> "${septicAfter.readout}"`);
+}
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();
