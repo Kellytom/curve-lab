@@ -40,11 +40,11 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .small{font-size:13px;color:var(--muted)}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
-.spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
+.spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
 #b-controls .spine-row{flex-direction:column;align-items:stretch;gap:6px}
 #b-controls .spine-cell{width:100%}
-.spine-cell{display:flex;flex-direction:column;gap:2px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
-.cell-inputs{display:flex;gap:4px;align-items:center}
+.spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
 .control-row{display:flex;align-items:center;gap:8px;margin:4px 0;font:12px ui-monospace,Menlo,monospace}
