@@ -43,7 +43,7 @@
       "group": "curve",
       "title": "qAC and discrete LAC",
       "purpose": "One constant past the log-aesthetic curve, and its discrete form.",
-      "inputs": "α and c for qAC; α and C for the discrete recurrence",
+      "inputs": "\u03b1 and c for qAC; \u03b1 and C for the discrete recurrence",
       "outputs": "the two curve families, and the c = 0 check against the LAC"
     },
     {
@@ -68,25 +68,25 @@
       "key": "pell",
       "file": "pell.html",
       "group": "curve",
-      "title": "Pell and √2",
-      "purpose": "Integer points on x² − 2y² = 1, and the convergents of √2.",
-      "inputs": "none — two integer laws, and the point (3, 2)",
+      "title": "Pell and \u221a2",
+      "purpose": "Integer points on x\u00b2 \u2212 2y\u00b2 = 1, and the convergents of \u221a2.",
+      "inputs": "none \u2014 two integer laws, and the point (3, 2)",
       "outputs": "the doubling and addition chains, lattice points, the exact error law"
     },
     {
       "key": "g3-showcase",
       "file": "g3-showcase.html",
       "group": "curve",
-      "title": "G3 showcase · cubic Béziers",
-      "purpose": "Cubic Béziers only: five cubic spans per curve, every join G3; collapsed quintics.",
+      "title": "G3 showcase \u00b7 cubic B\u00e9ziers",
+      "purpose": "Cubic B\u00e9ziers only: five cubic spans per curve, every join G3; collapsed quintics.",
       "inputs": "one cubic per curve, cut at the fifths",
-      "outputs": "the four-point spans, integer at ×625, and the measured G3 gate"
+      "outputs": "the four-point spans, integer at \u00d7625, and the measured G3 gate"
     },
     {
       "key": "quintic-showcase",
       "file": "quintic-showcase.html",
       "group": "curve",
-      "title": "Quintic Béziers every join G3",
+      "title": "Quintic B\u00e9ziers every join G3",
       "purpose": "The non-cubic curves as quintic G3 spans: bell, log spiral, sine, ogee, lattice.",
       "inputs": "knots with position, tangent, curvature and curvature-rate data",
       "outputs": "six-point spans and the measured G3 gate"
@@ -97,7 +97,7 @@
       "group": "curve",
       "title": "G3 notes",
       "purpose": "What G3 means, why the circle is the easy case, and the cubic collapse.",
-      "inputs": "none — the continuity ladder and the gate",
+      "inputs": "none \u2014 the continuity ladder and the gate",
       "outputs": "the measured thresholds and the circle's constant-curvature argument"
     },
     {
@@ -113,8 +113,8 @@
       "key": "g3-handover",
       "file": "g3-handover.html",
       "group": "curve",
-      "title": "G3 handover · every complete curve",
-      "purpose": "Every G3-complete curve, with its dκ/ds graph: smooth-handover list and declared features.",
+      "title": "G3 handover \u00b7 every complete curve",
+      "purpose": "Every G3-complete curve, with its d\u03ba/ds graph: smooth-handover list and declared features.",
       "inputs": "the catalogue's fitted spans, grouped by source",
       "outputs": "the 135 smooth handover curves and every curve complete with a declared cusp or node"
     },
@@ -122,7 +122,7 @@
       "key": "g3-diagnostics",
       "file": "g3-diagnostics.html",
       "group": "curve",
-      "title": "G3 diagnostics · tightest spans",
+      "title": "G3 diagnostics \u00b7 tightest spans",
       "purpose": "The tightest spans below 25% of the chord, with gold advisory rings and a zoom.",
       "inputs": "the catalogue's speed floor and tightest-span point",
       "outputs": "gold advisory rings on both figures, a per-panel zoom, and the 10% admission floor"
@@ -131,7 +131,7 @@
       "key": "g3-cubic-native",
       "file": "g3-cubic-native.html",
       "group": "curve",
-      "title": "G3 cubic-native · the collapse list",
+      "title": "G3 cubic-native \u00b7 the collapse list",
       "purpose": "Curves whose Bezier representation is cubic: exact quintic elevations and cubic source spans.",
       "inputs": "the catalogue native field and the showcase figure map",
       "outputs": "the qualifying curves, links to their figures and notes, and the rejected cubic-source LACs"
@@ -140,7 +140,7 @@
       "key": "g3-gate",
       "file": "g3-gate.html",
       "group": "curve",
-      "title": "G3 gate tiers · strict, source, near-G3",
+      "title": "G3 gate tiers \u00b7 strict, source, near-G3",
       "purpose": "What strict G3, source precision and a near-G3 relaxation each admit, with the measured joins.",
       "inputs": "the catalogue rows and the recovered LAC source spans",
       "outputs": "the tier counts and the near-G3 list, which is not counted as G3"
@@ -149,16 +149,16 @@
       "key": "ph-families",
       "file": "ph-families.html",
       "group": "curve",
-      "title": "PH families · degree ladder",
+      "title": "PH families \u00b7 degree ladder",
       "purpose": "Every rung of the PH ladder with examples and all four quadrants, the occurrence audit, the integer hits and scales, the interactive explainer, and the pinned PHH/PPH constructions; 2D only.",
       "inputs": "the PHCurve generators, the ph_quintic cases, the septic, the octic, the rational circle, curve_lab/ph_hermite.py",
-      "outputs": "the built rungs with generators, scales and arcs; the four-quadrant figures; the live slider readout; the PHH interpolant and the C² PPH join; what is not built"
+      "outputs": "the built rungs with generators, scales and arcs; the four-quadrant figures; the live slider readout; the PHH interpolant and the C\u00b2 PPH join; what is not built"
     },
     {
       "key": "ph-quintic-lattice",
       "file": "ph-quintic-lattice.html",
       "group": "curve",
-      "title": "Tschirnhausen quintic · coarse lattice",
+      "title": "Tschirnhausen quintic \u00b7 coarse lattice",
       "purpose": "A primitive polynomial PH quintic with a constant second hodograph component: whole-number points at every integer t on a scale-5 grid, exact cut pieces and rational lengths.",
       "inputs": "the TQ(k) hodograph family, k mod 15, the degree-5 chain grid",
       "outputs": "the member table, the TQ(15) hits and arc lengths, the integer controls of every unit piece, and the chain's cost at degree 5"
@@ -167,8 +167,8 @@
       "key": "ph-quintic-gallery",
       "file": "ph-quintic-gallery.html",
       "group": "curve",
-      "title": "PH quintic gallery · S and C",
-      "purpose": "48 PH quintics with u and v on a 1/5 grid in ±2, classified as S (inflection inside) or C (at the start), with the exact pitch and endpoint of each.",
+      "title": "PH quintic gallery \u00b7 S and C",
+      "purpose": "48 PH quintics with u and v on a 1/5 grid in \u00b12, classified as S (inflection inside) or C (at the start), with the exact pitch and endpoint of each.",
       "inputs": "the uv_curve and s_info helpers, the 1/5 grid, the Wronskian test",
       "outputs": "the thumbnail grid, the 48-row table, and the worked example of moving the W root inside"
     },
@@ -196,7 +196,7 @@
       "group": "curve",
       "title": "Discrete clothoid",
       "purpose": "A clothoid built from equal chords and p-triple turns.",
-      "inputs": "the turn step δ, the chord count, the triple ladder",
+      "inputs": "the turn step \u03b4, the chord count, the triple ladder",
       "outputs": "the quantised schedule, its measured exponent and quantisation error"
     },
     {
@@ -205,7 +205,7 @@
       "group": "curve",
       "title": "Gen-Arch",
       "purpose": "The generalized Archimedean spiral, and the radial of a LA curve.",
-      "inputs": "the dials a, b, c; the LA slope α maps to c = α − 1",
+      "inputs": "the dials a, b, c; the LA slope \u03b1 maps to c = \u03b1 \u2212 1",
       "outputs": "the four classical spirals, the radial identity, the dial conversions"
     },
     {
@@ -446,7 +446,7 @@
       "key": "fleur-sets",
       "file": "fleur-sets.html",
       "group": "curve",
-      "title": "Fleur sets P01–P20",
+      "title": "Fleur sets P01\u2013P20",
       "purpose": "The twenty parameter sets built by one grammar function, as a contact sheet.",
       "inputs": "the transcribed set table",
       "outputs": "twenty cards, the parameter table, spans and corners per set"
@@ -455,7 +455,7 @@
       "key": "storey-monstrance",
       "file": "storey-monstrance.html",
       "group": "sheet",
-      "title": "Storey 01 · Monstrance",
+      "title": "Storey 01 \u00b7 Monstrance",
       "purpose": "The first W05 storey: ground, foot, stem, head, host, rays, cross.",
       "inputs": "the part vocabulary and the p-triple ray fan",
       "outputs": "one grounded vessel with 24 rays and its three aspects"
@@ -464,7 +464,7 @@
       "key": "storey-pillar",
       "file": "storey-pillar.html",
       "group": "sheet",
-      "title": "Storey 02 · Pillar",
+      "title": "Storey 02 \u00b7 Pillar",
       "purpose": "The second W05 storey: plinth, torus, entasised shaft, capital, axis.",
       "inputs": "the part vocabulary and one mirrored integer cubic profile",
       "outputs": "one grounded column with its entasis measured and its three aspects"
@@ -485,7 +485,7 @@
       "title": "Volute proof 01",
       "purpose": "The exact p-triple spiral under the plant grammar: rails, a cone terminal, a branch.",
       "inputs": "chord count, offset, branch node",
-      "outputs": "an exact rational spine, fitted rails, 2 × offset cone, seagrass branch"
+      "outputs": "an exact rational spine, fitted rails, 2 \u00d7 offset cone, seagrass branch"
     },
     {
       "key": "cruciform-proof",
@@ -501,7 +501,7 @@
       "file": "ending-fit.html",
       "group": "curve",
       "title": "Ending fit pass",
-      "purpose": "The C families attached to one stalk tip at 6 × offset, measured as endings.",
+      "purpose": "The C families attached to one stalk tip at 6 \u00d7 offset, measured as endings.",
       "inputs": "a section from the C-curve table, a stalk offset",
       "outputs": "scale, reach, rail clearance, cusp and crossing counts, ending grades"
     },
@@ -510,7 +510,7 @@
       "file": "modulated-width-proof.html",
       "group": "curve",
       "title": "Modulated width proof",
-      "purpose": "A declared width law measured against the constant 2 × band it is not.",
+      "purpose": "A declared width law measured against the constant 2 \u00d7 band it is not.",
       "inputs": "a spine, the width amplitude a, the base width",
       "outputs": "width ratio, seam, deviation from the constant band, rail crossings"
     },
@@ -725,7 +725,7 @@
       "key": "showcase-effects",
       "file": "showcase-effects.html",
       "group": "sheet",
-      "title": "Showcase effects · clouds",
+      "title": "Showcase effects \u00b7 clouds",
       "purpose": "The effects layer: the cloud set, and the composite Euler clouds to come.",
       "inputs": "the cloud panels from showcase_catalogue",
       "outputs": "seven cloud figures, then the composite-curves section"
@@ -747,6 +747,15 @@
       "purpose": "Generated from NAMED: every named curve and every heart, drawn by the repo.",
       "inputs": "generators.NAMED + heart_forms.FORMS",
       "outputs": "25 named curves, 15 hearts"
+    },
+    {
+      "key": "septic-sandbox",
+      "file": "ph-septic-sandbox.html",
+      "group": "curve",
+      "title": "The septic sandbox",
+      "purpose": "A general degree-7 polynomial and a PH septic, side by side.",
+      "inputs": "seven n values per axis (A); a cubic speed per axis (B)",
+      "outputs": "the curve, its endpoint and exit slope (A); bend, pitch, inflection, closest (B)"
     }
   ]
 }

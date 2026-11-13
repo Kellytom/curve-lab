@@ -1,0 +1,103 @@
+"""The septic sandbox: a general polynomial and a PH septic, side by side.
+
+    .venv/bin/python scripts/ph_septic_sandbox.py
+    open workbench/ph-septic-sandbox.html
+
+A polynomial PH curve has odd degree: `r' = w^2` with `w` of degree n gives a
+position of degree `2n + 1`.  So degree 6 is not a polynomial PH curve at all;
+degree 7 is `w` cubic.  Panel A is the general degree-7 polynomial (both axes
+free, no PH promise); panel B is the PH septic, which keeps rational offsets
+and integer hits.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "workbench" / "ph-septic-sandbox.html"
+PANELS = ROOT / "scripts" / "ph_septic_panels.js"
+
+PAGE = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The septic sandbox: a general degree-7 curve and a PH septic</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:30px;line-height:1.12;margin:0 0 8px}
+h2{font-size:20px;margin:0 0 8px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:18px 20px;margin:0 0 22px}
+p{margin:0 0 12px}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:auto}
+.small{font-size:13px;color:var(--muted)}
+.mono{font:12px/1.5 ui-monospace,Menlo,monospace}
+.spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
+.spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
+.spine-cell{display:flex;flex-direction:column;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.spine-cell input{width:74px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+#a-controls,#b-controls{margin:6px 0 12px}
+svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+</style></head><body><main>
+<p class="eyebrow">curve-lab | PH curves | degrees 6 and 7</p>
+<h1>Demand 6 and 7: the two curves</h1>
+<p>A polynomial PH curve has odd degree. With <code>r' = w^2</code>, a speed of degree <code>n</code>
+gives a position of degree <code>2n + 1</code>: 5 for a quadratic speed, <strong>7 for a cubic
+speed</strong>. Degree 6 is therefore not a polynomial PH curve at all - which is why this page
+shows two different things, side by side.</p>
+<p><strong>A</strong> is the general degree-7 polynomial: both axes free, seven <code>n_k</code> each,
+no PH promise. <strong>B</strong> is the PH septic: a cubic speed, so the curve keeps rational
+offsets and exact integer hits.</p>
+
+<section class="panel">
+<h2>A | the general polynomial</h2>
+<p><code>x(t) = span * sum n_k t^k</code> and the same for <code>y</code>, <code>k = 1..7</code>.
+Positive low orders lift, negative high orders brake, and the mix is what makes an arch or an S
+rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are the derivatives at
+<code>t = 0</code>.</p>
+<div id="a-controls"></div>
+<svg id="a-plot" viewBox="0 0 720 700" role="img" aria-label="the general degree-7 polynomial"></svg>
+<p class="small mono" id="a-readout"></p>
+</section>
+
+<section class="panel">
+<h2>B | the PH septic</h2>
+<p><code>w = (b_x0 + b_x1 t + b_x2 t^2 + b_x3 t^3) + i (b_y0 + ... + b_y3 t^3)</code>, and
+<code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
+same machinery as the quintic, one degree up.</p>
+<div id="b-controls"></div>
+<svg id="b-plot" viewBox="0 0 720 700" role="img" aria-label="the PH septic"></svg>
+<p class="small mono" id="b-readout"></p>
+</section>
+
+<section class="panel">
+<h2>What the difference costs</h2>
+<p><strong>Panel A</strong> can make any degree-7 shape, including the even/odd split that a sextic
+or septic control pair wants: the <code>t^6</code> term lifts the middle without skewing the ends,
+the <code>t^7</code> term tilts one end against the other. What it cannot do is promise a rational
+offset or an integer lattice.</p>
+<p><strong>Panel B</strong> keeps those promises but has fewer knobs: a cubic speed is eight real
+numbers, and the position degree-7 terms are not free - they are the square of the speed. The
+trade is exactness for control.</p>
+<p class="small">Generate: <code>.venv/bin/python scripts/ph_septic_sandbox.py</code> - page and
+JavaScript both checked into scripts.</p>
+</section>
+</main>
+<script>
+__PANELS__
+</script>
+</body></html>
+"""
+
+
+def build():
+    OUT.write_text(PAGE.replace("__PANELS__", PANELS.read_text()))
+    print(OUT.relative_to(ROOT))
+
+
+if __name__ == "__main__":
+    build()
