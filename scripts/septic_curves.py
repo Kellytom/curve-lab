@@ -71,6 +71,9 @@ CURVES = [
     # drop: the operator's name. Nearly closed (open 0.070), so bend 14.24, the
     # second highest in the set; no crossing; controls integer at 420.
     ("drop", (2, -5, 8, 0.5), (2, -25, 28, 0)),
+    # C: the operator's name. A wide open sweep, no crossing, no inflection;
+    # bend 1.692, pitch 7 (the smallest in the set); x starts at speed 0.
+    ("C", (0, -30, 30, -30), (30, -30, 30, -30)),
 ]
 
 
