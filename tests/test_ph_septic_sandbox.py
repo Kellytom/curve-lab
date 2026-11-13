@@ -41,6 +41,26 @@ class TestSepticSandbox(unittest.TestCase):
         self.assertAlmostEqual(flourish["inflection"], 0.466, places=3)
         self.assertAlmostEqual(flourish["closest"], 1.955, places=3)
 
+    def test_the_promoted_curves_keep_their_gallery_numbers(self):
+        """A promoted curve is gallery D's curve, renamed; not a new one."""
+        import json
+        gallery = json.loads((ROOT / "workbench" / "septic-samples.json").read_text())["curves"]
+        by_speed = {(tuple(curve["speedX"]), tuple(curve["speedY"])): curve
+                    for curve in gallery}
+        named = json.loads((ROOT / "workbench" / "septic-curves.json").read_text())["curves"]
+        by_name = {curve["name"]: curve for curve in named}
+        promoted = {"small-loop", "tight-loop", "shallow-turn", "narrow-arch",
+                    "vertical-s", "tight-hook", "straight-start", "long-sweep"}
+        self.assertEqual(promoted - set(by_name), set())
+        for name in sorted(promoted):
+            curve = by_name[name]
+            speeds = (tuple(curve["speedX"]), tuple(curve["speedY"]))
+            self.assertIn(speeds, by_speed, f"{name} is not a gallery D curve")
+            sample = by_speed[speeds]
+            for key in ("bend", "pitch", "inflection", "closest"):
+                with self.subTest(name=name, key=key):
+                    self.assertEqual(curve[key], sample[key])
+
     def test_the_septic_curve_json_is_current(self):
         import json
         import septic_curves

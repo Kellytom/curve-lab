@@ -56,6 +56,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the Pell / √2 hyperbola (d as a dial) | `scripts/pell.py`, `tests/test_pell.py` |
 | constant width / Reuleaux | `scripts/reuleaux.py`, `tests/test_reuleaux.py` |
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
+| the septic sandbox / degrees 6 and 7 | `scripts/ph_septic_sandbox.py`, `scripts/ph_septic_panels.js`, `scripts/septic_curves.py`, `scripts/septic_samples.py`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_septic_sandbox.py`, `scripts/check-ph-page.mjs`, `workbench/septic-samples.json`, `workbench/septic-curves.json` |
 | PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `docs/PH-INTEGER.md` |
 | arches from genus 1+ curves | `scripts/arches.py`, `tests/test_arches.py` |
 | Maclaurin trisectrix | `scripts/maclaurin.py`, `tests/test_maclaurin.py` |

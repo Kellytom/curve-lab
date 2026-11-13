@@ -18,11 +18,35 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "septic-curves.json"
 
 # name, speed x (four), speed y (four)
+#
+# The first four were shaped by hand in panel B.  The rest are promoted from
+# gallery D (`workbench/septic-samples.json`), one per measured signature, so
+# the gallery has a stable name to click instead of eight numbers to retype:
+#
+#   small-loop     the smallest speeds in the gallery that close a loop
+#   tight-loop     the tightest self-approach in the gallery (closest 0.197)
+#   shallow-turn   the smallest bend in the gallery (1.498), a 180 degree turn
+#   narrow-arch    heading +90 to -90 with x returning to its start: an arch
+#   vertical-s     heading -90 to +90: the S read as a vertical stroke
+#   tight-hook     the largest bend in the gallery (2.575)
+#   straight-start x'(t) = (1, 0, 0, 0), so x is exactly t, then y dives
+#   long-sweep     the widest reach in the gallery (4.35 by 5.00)
+#
+# Every promoted curve keeps its gallery speed numbers unchanged; the test
+# `test_the_promoted_curves_keep_their_gallery_numbers` holds that.
 CURVES = [
     ("half-heart", (1.95, 4.85, 6.45, -16), (2.0, -4.95, 5.05, 5.25)),
     ("flourish-a", (1.95, 4.4, 6.45, -16), (2.0, -8.0, 4.95, 5.2)),
     ("flourish-b", (2.05, 4.4, 5.75, -16), (1.75, -7.85, 5.15, 8.5)),
     ("lazy-s-2", (2, -3, 3, 0.5), (2, -12, 12, -0.5)),
+    ("small-loop", (1, -1, 0, 0), (0, -1, 1, 1)),
+    ("tight-loop", (1, -1, -1, 1), (0, -1, 1, 1)),
+    ("shallow-turn", (1, 0, -1, 0), (0, -1, 1, 1)),
+    ("narrow-arch", (1, -2, 2, 0), (1, -1, 2, -3)),
+    ("vertical-s", (1, 0, 2, 0), (-1, -1, 3, 2)),
+    ("tight-hook", (1, -2, 2, 1), (1, 0, -2, 0)),
+    ("straight-start", (1, 0, 0, 0), (0, 1, -2, -2)),
+    ("long-sweep", (3, -1, 1, -1), (2, 0, -3, -3)),
 ]
 
 
