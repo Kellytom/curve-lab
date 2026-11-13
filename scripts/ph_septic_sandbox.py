@@ -72,6 +72,10 @@ same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
 <svg id="b-plot" viewBox="0 0 720 700" role="img" aria-label="the PH septic"></svg>
 <p class="small mono" id="b-readout"></p>
+<svg id="b-vectors" viewBox="0 0 720 420" role="img" aria-label="the chord terms of the septic"></svg>
+<p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
+vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
+polygon into a triangle or a rectangle and the curve follows.</p>
 </section>
 
 <section class="panel">
