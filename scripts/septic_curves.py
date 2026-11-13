@@ -47,6 +47,12 @@ CURVES = [
     ("tight-hook", (1, -2, 2, 1), (1, 0, -2, 0)),
     ("straight-start", (1, 0, 0, 0), (0, 1, -2, -2)),
     ("long-sweep", (3, -1, 1, -1), (2, 0, -3, -3)),
+    # the classic: all eight speeds integers, and the position controls are
+    # integers at 105 (170.333 -> 17885, 0.571 -> 60). bend 3.011, pitch 105.
+    ("integer-105", (2, -5, 6, 0), (4, -20, 20, -2)),
+    # its sibling: integer speeds, integer controls at 70, bend 1.290 (the
+    # shallowest S in the set). 1.143 -> 80 at 70.
+    ("integer-70", (2, -3, 3, 3), (2, -12, 12, 1)),
 ]
 
 
