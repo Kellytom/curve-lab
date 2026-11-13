@@ -191,7 +191,7 @@
       art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
              `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>`;
     }
-    art += `<path d="${path(spine)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    art += `<path d="${path(spine.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;

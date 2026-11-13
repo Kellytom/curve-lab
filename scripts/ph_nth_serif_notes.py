@@ -219,7 +219,7 @@ __MATH__
       ? appendix.points.map(([u, v]) => [end.x + u * end.tx + v * end.nx, end.y + u * end.ty + v * end.ny])
       : arcThrough(A[0] + (h * h + reach * reach) / (2 * reach) * end.nx,
                    A[1] + (h * h + reach * reach) / (2 * reach) * end.ny, A, foot, foot, 40);
-    const all = sp.map(s => [s.x, s.y]).concat(railLeft, railRight, left, [foot], [end]);
+    const all = sp.map(s => [s.x, s.y]).concat(railLeft, railRight, left, [foot], [[end.x, end.y]]);
     const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
     const pad = 0.15 * Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
     const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
@@ -236,7 +236,7 @@ __MATH__
       `<text x="${l}" y="46" font-size="12" fill="#7b6c4e">grey: spine | blue: rail | purple: the foot | the foot must leave tangent and arrive on the base</text>` +
       `<path d="${path(railLeft)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
       `<path d="${path(railRight)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
-      `<path d="${path(sp)}" fill="none" stroke="#2e2413" stroke-width="2.6"/>` +
+      `<path d="${path(sp.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.6"/>` +
       `<path d="${path(left)}" fill="none" stroke="#8a5a9e" stroke-width="2.8"/>` +
       `<line x1="${fx(foot[0]).toFixed(1)}" y1="${fy(foot[1]).toFixed(1)}" x2="${fx(foot[0] - 2 * f * end.nx).toFixed(1)}" y2="${fy(foot[1] - 2 * f * end.ny).toFixed(1)}" stroke="#8a5a9e" stroke-width="1.6" stroke-dasharray="4 3"/>` +
       `<circle cx="${fx(end.x).toFixed(1)}" cy="${fy(end.y).toFixed(1)}" r="4" fill="#2e2413"/>` +

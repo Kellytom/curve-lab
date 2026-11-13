@@ -34,6 +34,13 @@ if (boxes !== 12) failures.push(`speed boxes: ${boxes}, expected 12`);
 // the view: spine only by default, then rails, then the two terminals
 const paths = () => page.evaluate(() => document.querySelectorAll("#n-plot path").length);
 if (await paths() !== 1) failures.push("default view is not the spine alone");
+const spinePath = await page.evaluate(() => {
+  const path = document.querySelector("#n-plot path");
+  return { d: path.getAttribute("d"), length: Math.round(path.getTotalLength()) };
+});
+if (/NaN|undefined/.test(spinePath.d) || spinePath.length < 2) {
+  failures.push(`the spine is not drawn: length ${spinePath.length}`);
+}
 await page.click("#n-rails");
 if (await paths() !== 3) failures.push("rails toggle did not add two paths");
 await page.click("#n-terminal-end");
@@ -62,6 +69,18 @@ if (!Number.isFinite(d1) || Math.abs(flare - d1 / d0) > 0.02) failures.push(`fla
 
 const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
 if (!notes) failures.push("the serif notes link is missing");
+
+// the notes page must draw all four strokes, the spine included
+await page.goto("http://127.0.0.1:8003/workbench/ph-nth-serif-notes.html?v=" + Date.now(), { waitUntil: "load" });
+await page.waitForTimeout(400);
+const notesPaths = await page.evaluate(() =>
+  [...document.querySelectorAll("#plot path")].map(path => ({
+    d: path.getAttribute("d"), length: Math.round(path.getTotalLength()),
+  })));
+if (notesPaths.length !== 4) failures.push(`notes paths: ${notesPaths.length}, expected 4`);
+notesPaths.forEach((path, i) => {
+  if (/NaN|undefined/.test(path.d) || path.length < 2) failures.push(`notes path ${i} is not drawn`);
+});
 
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
