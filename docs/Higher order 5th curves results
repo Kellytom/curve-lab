@@ -1,0 +1,1796 @@
+Higher order 5th curves results
+
+add from http://localhost:8001/LAC-log-asth-curve.html
+
+http://localhost:8001/stage-two.html
+
+http://localhost:8001/stage-four.html
+
+http://localhost:8001/stage-three.html
+
+
+I'm here. Both local servers are up.
+Start here
+- Workbench hub: http://127.0.0.1:8003/workbench/workbench.html
+- Docs book: http://127.0.0.1:8020/
+Changed this session
+- Hearts — Fig. 5 and the double-tangent table: http://127.0.0.1:8003/workbench/hearts.html
+- Clothoid cut — new page: http://127.0.0.1:8003/workbench/clothoid-cut.html
+- Heart forms — new page, five forms: http://127.0.0.1:8003/workbench/heart-forms.html
+- Generators — Fig. 27 cruciform: http://127.0.0.1:8003/workbench/generators.html
+- Euler match — Fig. 20 cruciform: http://127.0.0.1:8003/workbench/euler-match.html
+All 22 pages, by intent
+I want a curve
+- Generators: http://127.0.0.1:8003/workbench/generators.html
+- Catenary: http://127.0.0.1:8003/workbench/catenary.html
+- Practical curve: http://127.0.0.1:8003/workbench/practical-curve.html
+- Curve families: http://127.0.0.1:8003/workbench/curve-families.html
+- Spiral turns: http://127.0.0.1:8003/workbench/spiral-turns.html
+- Branch points: http://127.0.0.1:8003/workbench/branch-points.html
+- Euler match: http://127.0.0.1:8003/workbench/euler-match.html
+- Hearts: http://127.0.0.1:8003/workbench/hearts.html
+- Clothoid cut: http://127.0.0.1:8003/workbench/clothoid-cut.html
+- Heart forms: http://127.0.0.1:8003/workbench/heart-forms.html
+- Euler square: http://127.0.0.1:8003/workbench/euler-square.html
+I want a terminal
+- Piece model and terminals: http://127.0.0.1:8003/workbench/piece-model.html
+- Recovered terminals: http://127.0.0.1:8003/workbench/terminals/index.html
+I want a strand
+- Recovered spirals: http://127.0.0.1:8003/workbench/spirals/index.html
+- Stage II plates: http://127.0.0.1:8003/workbench/stage-two.html
+- Spine on the sheet: http://127.0.0.1:8003/workbench/spine-sheet.html
+- Spine study 01: http://127.0.0.1:8003/workbench/spine-study-01.html
+I want a sheet
+- Ornament board: http://127.0.0.1:8003/workbench/ornament-board.html
+- Fleur studies: http://127.0.0.1:8003/workbench/fleur-studies.html
+- Fleur study 01: http://127.0.0.1:8003/workbench/fleur-study-01.html
+- Principle cards: http://127.0.0.1:8003/workbench/principles.html
+- Primal ornaments: http://127.0.0.1:8003/workbench/primal.html
+If you prefer local files, the same pages open as file:///Users/thomaskelly/developer/curve-lab/workbench/<file>.html.
+I'm here. Yes — all 22 pages are live and responding. The hub is the overview:
+http://127.0.0.1:8003/workbench/workbench.html
+Changed or new this session
+- Hearts — Fig. 5 whole heart + double-tangent table: http://127.0.0.1:8003/workbench/hearts.html
+- Clothoid cut — new: http://127.0.0.1:8003/workbench/clothoid-cut.html
+- Heart forms — new (currently 5 forms): http://127.0.0.1:8003/workbench/heart-forms.html
+- Generators — Fig. 27 cruciform, Fig. 29 abs(x) Gerono, Fig. 30 piriform 2×: http://127.0.0.1:8003/workbench/generators.html
+- Euler match — Fig. 20 cruciform: http://127.0.0.1:8003/workbench/euler-match.html
+All 22, by intent
+I want a curve
+- Generators: http://127.0.0.1:8003/workbench/generators.html
+- Catenary: http://127.0.0.1:8003/workbench/catenary.html
+- Practical curve: http://127.0.0.1:8003/workbench/practical-curve.html
+- Curve families: http://127.0.0.1:8003/workbench/curve-families.html
+- Spiral turns: http://127.0.0.1:8003/workbench/spiral-turns.html
+- Branch points: http://127.0.0.1:8003/workbench/branch-points.html
+- Euler match: http://127.0.0.1:8003/workbench/euler-match.html
+- Hearts: http://127.0.0.1:8003/workbench/hearts.html
+- Clothoid cut: http://127.0.0.1:8003/workbench/clothoid-cut.html
+- Heart forms: http://127.0.0.1:8003/workbench/heart-forms.html
+- Euler square: http://127.0.0.1:8003/workbench/euler-square.html
+I want a terminal
+- Piece model and terminals: http://127.0.0.1:8003/workbench/piece-model.html
+- Recovered terminals: http://127.0.0.1:8003/workbench/terminals/index.html
+I want a strand
+- Recovered spirals: http://127.0.0.1:8003/workbench/spirals/index.html
+- Stage II plates: http://127.0.0.1:8003/workbench/stage-two.html
+- Spine on the sheet: http://127.0.0.1:8003/workbench/spine-sheet.html
+- Spine study 01: http://127.0.0.1:8003/workbench/spine-study-01.html
+I want a sheet
+- Ornament board: http://127.0.0.1:8003/workbench/ornament-board.html
+- Fleur studies: http://127.0.0.1:8003/workbench/fleur-studies.html
+- Fleur study 01: http://127.0.0.1:8003/workbench/fleur-study-01.html
+- Principle cards: http://127.0.0.1:8003/workbench/principles.html
+- Primal ornaments: http://127.0.0.1:8003/workbench/primal.html
+Docs book: http://127.0.0.1:8020/
+Still queued / in progress
+- Heart forms: the expanded “every formulaic heart” set (the generator has the new formulas; the page still shows 5 until I finish the list).
+- Clothoid cut: add the full ± table contact figure at 38.5° CW (gap 0.0003) and correct the half-only wording.
+- Euler square Fig. 3: light-grey/tan Euler square and the n=3 deviation.
+***
+Short answer: worth pursuing as a bounded experiment, not as the main line. The interesting part is real — exact integer offset hits from Pythagorean normals — but it is a side channel, not the core ornament system.
+The mile-high map
+Thread	What it actually solves	Maturity	Value to curve-lab	Verdict
+Integer-handle parabolas	Exact lattice points and integer cubic handles	Working sandbox	Clean, inspectable geometry; possible “lattice mode” for ornaments/plotting	Pursue briefly
+Integer offset hits	Exact rails through lattice points via Pythagorean normals	Just found; sparse but real	Beautiful exact examples; needs a family search to be more than a curiosity	Time-box it
+Levien parallel Béziers	Given (d), fit a cubic rail to the exact offset	Mature, published	Production-quality offset drawing	Use it; don’t reverse-engineer it
+Bounding parabolas	Cubic/cubic intersection, cusps, boolean path ops	Draft PR/research	Useful only if you need robust intersection/topology	Defer
+Main ornament arc	Stem, two rails, endings, flowers, ornament grammar	The actual goal	Creates the artifact	Stay on it
+Why the integer thing is genuinely interesting
+The \(d=5\) hit is not a coincidence:
+\[
+\text{tangent}=(4,3),\qquad \text{normal}=(-3,4),\qquad |(-3,4)|=5
+\]
+At source \(x=24\), the normal is an integer vector, so the offset lands exactly on \((21,13)\) and \((27,5)\). Multiples \(d=10,20\) give more exact hits. That is a general mechanism: choose a source point with a Pythagorean tangent, then use the normal length as the offset distance. It can generate exact integer rails, not just isolated luck.
+Why it is not the main line
+- Integer handles are easy only at special widths: \(24n\) for \(x^2/64\), \(12n\) for \(x^2/24\), etc.
+- Integer offset hits are much rarer than integer source points.
+- The constraint can distort the ornament. Most attractive curves do not need integer coordinates.
+- Levien’s fitted rail is real-valued; it does not preserve interior integer hits. The exact rail is the ground truth.
+- The bounding-parabola work solves intersection, not integer construction. Porting it would be a large detour unless you need boolean path ops.
+What I would do
+Yes, but with an exit condition.
+1. Spend a short, fixed pass on a Pythagorean-normal search:
+- enumerate integer-handle parabolas,
+- find integer tangents/normals,
+- catalog the exact offset distances and hits.
+2. If it produces a reusable family — not just \(d=5\) — add one or two to the offset catalogue as a lattice mode.
+3. If it produces only a handful of curiosities, keep the sandbox page and stop.
+Use Levien as the renderer for fitted rails. Use the exact rails when integer hits matter. Do not port the bounding-parabola prototype yet.
+The honest verdict
+This is worth a short, documented exploration because it is exact, visual, and fits the “integer grid” aesthetic. It is not worth becoming the next major architecture. The main arc — stem, rails, endings, ornament grammar — is still where the value is.
+A good rule: if the integer work gives you a new family of ornament vocabulary, continue. If it only gives prettier diagrams of parabolas, stop after the sandbox.
+Build · DeepSeek V4.1 Flash · 33.1s · 73.7 tok/s
+before we get started, tell me again why the bounding parabolas are not workign for us, and show me a interactive graph canvas with the 2 ends and the handles and the relationship to the bounding parabola. use a separate sandbox so we dont get this one dirty. explain in plain language what is goind on with the technique, and The bounding-parabola work solves intersection,
+
+***
+
+ Yes — kurbo has it, and the attribution is now in the page and module.
+The implementation is in kurbo PR #169, src/euler.rs, EulerSeg::to_cubics (Apache-2.0, © 2021 The kurbo Authors). It uses
+\[
+c_1=c0+\frac{2}{3(1+\cos\theta)}v0
+\]
+which is exactly the endpoint-parabola intersection.
+The important finding
+The current cubic seam already is the 2021 parabola rule.
+curve_lab/bezier.py and pythagorean-spiral/spans.py both use
+\[
+\text{arm}=\frac{|chord|}{3\cos^2(\theta/2)}
+=\frac{2|chord|}{3(1+\cos\theta)}
+\]
+So there is no separate fitted option to switch to. The comparison is a validation of the existing seam, not a replacement.
+Measurements
+Against true Euler segments, normalized to chord 1:
+Symmetric — curvature \(-2\to+2\), parallel end tangents:
+n	max error	cubic arc	relative arc error
+4	(8.89\times10^{-6})	1.011192	(1.3\times10^{-6})
+8	(3.44\times10^{-7})	1.011191	(1.6\times10^{-8})
+16	(1.19\times10^{-8})	1.011191	(1.0\times10^{-9})
+Asymptotic slope \(n=4\to16\): 4.78
+Asymmetric — curvature \(-1\to+3\):
+n	max error	cubic arc	relative arc error
+4	(2.49\times10^{-5})	1.054285	(2.5\times10^{-6})
+8	(8.75\times10^{-7})	1.054282	(3.1\times10^{-8})
+16	(2.89\times10^{-8})	1.054282	(1.8\times10^{-9})
+Asymptotic slope \(n=4\to16\): 4.87
+That is consistent with \(n^5\): doubling \(n\) reduces the error by roughly \(2^5=32\). The \(n=1\) symmetric case is accidentally good, so the table and the slope use \(n\ge4\).
+The sandbox
+workbench/euler-parabola-fit.html:
+Fig. E1: interactive cubic editor.
+Drag the two ends \(P0,P3\).
+Drag the two handles; they stay on the endpoint parabolas.
+Toggle the parabolas.
+Fig. E2/E3: true Euler vs current seam at \(n=4\), with full error and arclength tables.
+Source attribution to the 2021 post, the 2018 post, and kurbo PR #169.
+The fitted rule is already in use; the page confirms it rather than proposing a new code path. 277 tests pass; committed as da09ca2.
+
+***
+
+what i was thinking is we could use this a glue between two more common curves, so it would be an asymmetric curve that met other curves. does this seem reassonable?
++Thought · 30.6s
+I'm here. Yes — that is a very reasonable use of an Euler spiral. It is the natural “transition curve” role: asymmetric, tangent-continuous, and able to meet lines, arcs, or cubics at different angles.
+But keep the two jobs separate:
+1. The glue
+The glue should be a clothoid/Euler segment in the model, solved from:
+- the two endpoint positions,
+- the two endpoint tangents,
+- optionally the endpoint curvatures.
+That is already close to the existing architecture:
+- Segment already carries kappa0, kd, and length.
+- interpolate.fit() solves a G1 clothoid through two points and two directions.
+- The engine can host the glue as an ordinary segment.
+So the glue is not the cubic parabola fit. The glue is the Euler segment.
+2. The drawing
+The 2021 endpoint-parabola rule is the cubic seam used to draw each Euler span:
+\[
+\text{arm}=\frac{|chord|}{3\cos^2(\theta/2)}
+\]
+That is already the current cubic seam. The two endpoint parabolas simply make the handle choice visible and draggable.
+The G2 caveat
+A single Euler segment has three intrinsic parameters:
+\[
+\kappa0,\quad \kappa1,\quad L
+\]
+Once you fix both endpoint positions and both endpoint tangents, the endpoint curvatures are generally determined. So a single segment can give you G1, but it cannot generally match both endpoint curvatures at the same time.
+That matters for:
+- line ↔ arc: often workable, because the line has zero curvature and the arc can be trimmed/positioned.
+- arc ↔ arc, cubic ↔ cubic: a single segment may leave a curvature jump at one end.
+For both-end G2, you need one of:
+- two Euler segments joined with matching curvature,
+- the existing G2 backend / clothoid spline,
+- or a more flexible curve family.
+Why it is a good direction
+- The asymmetry is natural: different tangents give different endpoint handles.
+- It fits the ornament language: a calm transition between a stem and a petal, or a line and an arc.
+- It is more useful to curve-lab than the bounding-parabola intersection branch.
+- The 2021 rule is already the cubic seam, so the drawing side is done.
+Verdict: yes, pursue it as a glue experiment, not as a new offset method. The first test should be a small sandbox with a line↔arc, arc↔arc, and cubic↔cubic glue; report G1, curvature jumps, and whether a single Euler is acceptable or a two-segment G2 glue is needed. The bounding-parabola work stays parked.
+
+ No — the offset curves in euler-parabola-fit.html are not using Levien’s 2022 parallel-Bézier method.
+There are three different things in play:
+Thing
+Euler spiral → cubic
+Cubic offset → fitted cubic rail
+Offset curves on the new page
+So the new page’s blue/red offset curves are simply:
+\[
+O_\pm(t)=C(t)\pm d\,\frac{(-C_y'(t),C_x'(t))}{|C'(t)|}
+\]
+sampled densely. They are not Levien-fitted offset cubics, and they are not the exact Euler-spiral parallel either.
+The page now says this directly:
+The blue/red offset curves are dense normal offsets of the current cubic, drawn for comparison; they are not the exact Euler parallel.
+If you want, the next step is to overlay Levien 2022 fitted offsets on the editor’s cubic — likely by precomputing them with fit_chain and drawing the resulting cubic spans, or porting the fit into JS. That would make the comparison more meaningful for the two-rail work.
+Build · DeepSeek V4.1 Flash · 2m 9s · 62.1 tok/s
+explain in plain english what is going on. is a cubic bezier curve being fitted by euler curves?  is the seam the spine? dont say "2021 endpoint-parabola rule:" that doesnt mean much... 
+
+Two opposite jobs
+1. Draw a known Euler spiral with cubics
+This is what euler-parabola-fit.html does.
+- The Euler spiral is the true curve.
+- A cubic Bézier is fitted to it.
+- The cubic is the drawing approximation.
+So: not “an Euler curve fits a cubic.” The cubic fits the Euler curve.
+2. Import a cubic into the engine
+This also exists in the project, in spine.py / interpolate.design_from_spans.
+- The cubic span is the input.
+- A clothoid/Euler segment is fitted to it, matching endpoints and tangents.
+- The result is a normal engine segment with curvature.
+So the reverse direction exists, but it is a different operation.
+What the page’s handle construction means
+For each Euler segment, normalize the chord to a straight line of length 1.
+At each end, draw a parabola:
+- its vertex is one-third of the way along the chord;
+- its arms open two-thirds of the chord sideways at the endpoint.
+Then draw the tangent line from the endpoint. Where that tangent crosses the parabola is where the cubic’s handle goes.
+That is the entire rule. The parabola is not approximating the curve. It is only a guide for placing the handle.
+The page’s comparison says:
+- this handle placement already is what the current cubic drawing uses;
+- subdividing the Euler segment into \(n\) pieces and fitting one cubic per piece gives about \(n^5\) error reduction;
+- measured slope is 4.78 symmetric, 4.87 asymmetric;
+- arclength also converges.
+So the page is validating the existing cubic drawing, not introducing a new fit.
+Is the “seam” the “spine”?
+No.
+- Spine = the structural centerline. The exact path that carries the design: the p-triple chain, its nodes, headings, and rails. It is the thing.
+- Seam = the handoff to drawing. The cubic Bézier spans and their joins that let the SVG writer draw the spine. It is the approximation/ink.
+A useful picture:
+spine:   exact centerline / chain / rails
+seam:    cubic spans used to draw that centerline
+The seam is called a seam because it is where two representations meet: curvature-based geometry on one side, cubic Bézier ink on the other.
+The phrase “current cubic seam” just means: “the cubics we already use to draw each spine segment.” It is not a second spine, and it is not the exact geometry.
+What the editor is doing
+The editor is a free cubic toy:
+- move the two endpoints;
+- drag the two handles, which stay on the two guide parabolas;
+- see the cubic and the endpoint parabolas.
+It is not fitting an Euler spiral. It is showing the handle geometry behind the cubic drawing rule.
+The offset curves on the page
+They are just the current cubic shifted along its normal:
+\[
+O_\pm(t)=C(t)\pm d\,N(t)
+\]
+They are not Levien’s fitted offset cubics and not the exact Euler parallel. They are sampled normal offsets for visual comparison.
+So, in one sentence:
+The page shows an Euler spiral being drawn by a cubic, using the existing handle-on-a-parabola rule; the “seam” is the cubic drawing layer, while the “spine” is the exact centerline the design is built on.
+
+***
+
+ You’re right — at the extremes it is not an Euler spiral, and it isn’t supposed to be.
+The green parabolas are not the Euler curve. They are the locus of possible handle positions as the endpoint tangent angle changes.
+At the vertex, the handle is the familiar one-third point.
+As the endpoint tangent turns, the handle slides along the parabola.
+At the far ends, \(v=\pm 2/3\), the endpoint tangent is 90° to the chord.
+A single cubic with 90° end tangents can loop, cusp, or bow wildly. That is outside the range where one cubic is a good Euler fit. The real Euler segment would need to be split into several spans there.
+The editor is a free cubic toy: it constrains the handles to the guide parabolas, but it does not enforce “this cubic is an Euler fit.” The comparison panels use moderate endpoint tangents—about \(19^\circ/19^\circ\) symmetric and \(-9^\circ/48^\circ\) asymmetric—and subdivide; that is where the \(n^5\) measurements apply.
+I added the endpoint tangent angles to the readout, and the page now warns above 75°:
+outside single-span comfort; split the Euler
+I left the extremes draggable because they are useful for seeing the boundary, but the page no longer implies they are a valid single-span Euler approximation.
+The offset curves suffer for the same reason: they are normal offsets of that free cubic, so at the extremes they can fold or cusp. They are not exact Euler parallels and not Levien’s fitted offsets.
+Committed as 42cfc35.
+***
+You’re asking for a different snap than endpoint snapping. The exact answer is geometric: the guide parabolas have no integer lattice points for a unit chord, so a handle cannot be both an integer point and exactly on the guide. I’ll add a “snap handles” action that rounds to the nearest integers and shows the residual, plus the proof in the note.
+***
+Got it — the state/JSON controls are for E1, the interactive editor. E4 and E5 are static comparison plates; they don’t have editable state.
+That is now explicit on the page:
+Save state / save JSON apply to Fig. E1 only. Figs. E4 and E5 are static comparison plates.
+E1 is now double-wide in x:
+x range 0–20
+y range 0–10
+finer quarter-unit grid
+the 3-4-5 chord preset, integer endpoint snap, free integer handles, handle snap, offset slider, and Euler target all save/restore with E1
+The saved JSON includes:
+p0, p3
+guide or free-handle mode
+handles and v0/v1
+chord length
+endpoint tangent angles
+guide residuals
+offset distance
+checkbox states
+E4 and E5 are now full-width stacked plates showing the 90° S curve as one piece and two pieces, with control polygons and control-point tables.
+
+***
+I'm here. Yes — the handles are still on the endpoint parabolas, but E4 and E5 have different numbers of them.
+- E4, one piece: two handles, one on each endpoint parabola of the full chord.
+- E5, two pieces: four handles. Each of the two cubics has its own pair of endpoint parabolas, based on its own half-chord. They are not all on the same two parabolas.
+The curve is not a parabola. The parabola is only the path the handle is allowed to slide along for a given endpoint tangent.
+The E4/E5 numbers show this:
+\[
+c1=(0,\tfrac23),\quad c2=(1,-\tfrac23)
+\]
+For the 90° one-piece case, those are exactly the vertex/arm positions of the two guide parabolas.
+For the two-piece case, each half has its own pair, e.g. the first half has handles at
+\[
+(0,\tfrac13),\quad(0.357425,0.126733)
+\]
+which satisfy that half’s parabola, not the full curve’s parabola.
+So: the handles travel on parabolas; the Bézier curve itself does not. E4/E5 are not using the free integer-handle mode; they are the real-valued fitted handles. The page currently shows their control polygons, not the guide parabolas themselves — if you want, I can add the guide parabolas to E4/E5 so that relationship is visible.
+
+make e1 14 high so i can fit a 12 unit curve...
+
+ I checked: there is no exact \(-52.8°/-52.9°\) hit in the saved sandbox state. The nearest clean integer-handle S is:
+\[
+P0=(0,0),\quad P1=(3,-4),\quad P2=(7,4),\quad P3=(10,0)
+\]
+chord: 10
+both endpoint tangents: −53.13°
+both handle arms: 5 units — a clean 3-4-5 construction
+handles are integer
+guide-parabola residual: 0.8667 world units per handle, so this is a free integer cubic, not an exactly guide-constrained fit
+I added it as the “S 53° integer” preset in E1, shifted into the visible frame as:
+\[
+P0=(2,5),\quad P1=(5,1),\quad P2=(9,9),\quad P3=(12,5)
+\]
+The true Euler S at 52.85° measures:
+pieces
+1
+2
+3
+4
+8
+So two pieces is still not enough at 53°; three or four is where it starts to settle. The integer-handle version is a near miss — close in tangent angle, but off the guide parabolas by about 0.87 units.
+
+
+***
+
+I'm here. 53.13° is the 3-4-5 triangle angle:
+\[
+53.1301\ldots^\circ=\arctan\!\left(\frac43\right)
+\]
+and its complement is
+\[
+36.8699\ldots^\circ=\arctan\!\left(\frac34\right).
+\]
+The horizontal integer S is
+\[
+P0=(0,0),\quad P1=(3,-4),\quad P2=(7,4),\quad P3=(10,0).
+\]
+Its two control arms are
+\[
+(3,-4)\quad\text{and}\quad(3,-4),
+\]
+each of length \(5\). The chord is \(10=2\cdot5\). So each end is a 3-4-5 triangle: horizontal 3, vertical 4, arm 5. The tangent is a rational slope, which is why the handles land on integer coordinates.
+What is actually working
+It is not the Euler fit becoming exact. The integer curve is a cubic whose handles are integer because its tangent direction is a Pythagorean slope. The guide parabolas are a separate constraint; the integer handles sit off them by about \(0.8667\) units.
+So the useful thing is:
+integer handle direction = rational tangent slope = Pythagorean triangle.
+The 53.13° value is not magic by itself; it is the angle where the control arms are integer 3-4-5 vectors.
+Rotating it
+Yes, you can rotate it and keep integers, but the rotation has to cooperate.
+Rotate the horizontal S by 53.13° and scale by 5:
+\[
+P0=(0,0),\quad
+P1=(25,0),\quad
+P2=(5,40),\quad
+P3=(30,40).
+\]
+Now the chord is \((30,40)\), length 50, on the 3-4-5 angle. The handles are still integers. The endpoint tangents are horizontal, so relative to the chord they are still \(-53.13°\).
+Rotate by 36.87° instead and scale by 5:
+\[
+P0=(0,0),\quad
+P1=(24,-7),\quad
+P2=(16,37),\quad
+P3=(40,30).
+\]
+The chord is \((40,30)\), also a 3-4-5 direction, and the handles are integers again. The absolute tangent angles change; the angle between handle and chord stays \(53.13°\).
+In general:
+- Rotate by 90°: integer lattice preserved.
+- Rotate by a 3-4-5 angle: coordinates become rational with denominator 5; scaling by 5 makes them integer.
+- Rotate by an arbitrary angle: coordinates generally become irrational, so no integer representation.
+- Rotate by a 3125-circle angle: denominator 3125; scaling by 3125 clears it.
+That is what the 3125 buttons represent: the twelve integer points on the radius-3125 circle give the rational lattice-friendly rotations.
+The honest summary
+At 53.13°:
+- the handle arms are exact integer 3-4-5 vectors;
+- the cubic is a valid integer-control approximation;
+- the Euler guide is still approximate, with a real-valued residual;
+- the measured one-piece error is about \(0.00657\), two-piece \(0.00430\).
+So the thing that “works” is the integer lattice geometry of the handle arms, not the Euler fit becoming exact. The 53.13° case is a particularly clean lattice coincidence; the 3125 circle gives the larger set of rotations with the same kind of rational denominator.
+
+ Short answer: the 3-4-5 rotation is old; the specific integer cubic handles are new.
+Already in the project
+The 3-4-5 angle and exact rotation are established in the spine layer:
+docs/SPINE.md — 3-4-5, with sine \(3/5\), cosine \(4/5\), and the exact rotation
+\[
+(x,y)\mapsto\left(\frac{4x-3y}{5},\frac{3x+4y}{5}\right).
+\]
+docs/ARCHITECTURE.md — the same rational-triangle spine.
+docs/PH-INTEGER.md — the 3-4-5 ladder and integer chord walk.
+scripts/curve_families.py — the 3-4-5 ladder, measured at 350 rungs with a median gap of about \(0.14^\circ\).
+pythagorean-spiral/pythagorean_spiral/spans.py — cubic drawing uses the parabola arm rule. Its arms are real-valued, not selected to be integer.
+So the angle \(53.13^\circ=\arctan(4/3)\) and its complement \(36.87^\circ\) were already known as exact rational-triangle directions.
+What I do not find previously recorded
+The exact cubic handle set
+\[
+P0=(0,0),\quad P1=(3,-4),\quad P2=(7,4),\quad P3=(10,0)
+\]
+does not appear in those spine notes as a cubic-handle construction. The spine work uses Pythagorean triangles for headings and nodes, then fits cubics with the parabola arm rule. It does not choose cubic handles as integer 3-4-5 arms.
+Also, the 3125 in the project is historically a clothoid parameter \(A=3125\) (scripts/grid_3125.py, docs/clothoid-grid-3125.md), not a radius for Pythagorean angle buttons. The radius-3125 Pythagorean circle is a new page construction.
+What is actually working
+At 53.13°:
+the tangent direction is a rational slope, \(4/3\);
+the handle arms are \((3,-4)\), length 5;
+the chord is \(10=2\cdot5\);
+both handles are integer;
+rotating by a Pythagorean angle and scaling by its denominator keeps them integer;
+arbitrary rotations generally do not.
+The Euler guide is still an approximation. The integer handles are off the guide parabolas by about \(0.8667\) units; this is an integer cubic construction, not an exact Euler fit.
+I added Section II · the integer cubic to workbench/euler-parabola-fit.html, with the general recipe
+\[
+P0=(0,0),\quad P1=(a,-b),\quad P2=(2c-a,b),\quad P3=(2c,0),
+\qquad a^2+b^2=c^2,
+\]
+the 3-4-5 case, the rotation/scaling examples, and selectable examples for \(5\!-\!12\!-\!13\), \(8\!-\!15\!-\!17\), \(7\!-\!24\!-\!25\), \(20\!-\!21\!-\!29\), and their complements.
+277 tests pass; committed as ba1ffe3
+
+this integer case did not come from satisfying the Euler parabola rule. It came from turning the guide constraint off and choosing integer handles directly.
+2. A cubic that really is a parabola
+A cubic Bézier is a parabola only when its control points are a degree-elevated quadratic, i.e.
+\[
+P3-3P2+3P1-P0=0.
+\]
+For the 3-4-5 S:
+\[
+(10,0)-3(7,4)+3(3,-4)-(0,0)=(-2,-24)\ne0.
+\]
+So it is a genuine cubic, not a parabola.
+What actually produced the 53.13° result
+We deliberately chose:
+a Pythagorean tangent direction: \((3,-4)\), length 5;
+a symmetric chord: \(10=2\cdot5\);
+symmetric integer handles at \(P1=(3,-4)\) and \(P2=(7,4)\).
+That gives both endpoint tangents the same rational slope \(-4/3\), hence \(-53.13^\circ\).
+The useful rule is:
+\[
+a^2+b^2=c^2
+\;\Longrightarrow\;
+P0=(0,0),\ P1=(a,-b),\ P2=(2c-a,b),\ P3=(2c,0)
+\]
+which is exactly the Section II recipe.
+So: accident or mechanism?
+It is a deliberate lattice construction:
+the angle is from the 3-4-5 triangle;
+the arm length is the hypotenuse \(c=5\);
+the chord is \(2c=10\);
+integer coordinates are chosen, not fitted.
+We found it while exploring the parabola guide, but the thing that works is rational tangent slope + integer arm lengths, not the cubic being parabolic or the Euler fit becoming exact.
+The other Pythagorean slopes are the same mechanism with different \((a,b,c)\). They give integer cubics; they do not automatically satisfy the Euler guide.
+
+***
+
+Objective
+- Make the integer cubic Bézier useful: document its construction in Section II on the Euler sandbox page and extend it to other Pythagorean slopes; Euler fitting is deprioritized for now.
+Requirements
+- Focus on 3-4-5 / Pythagorean integer handle lengths and angles; add other Pythagorean slopes.
+- Put the explanation in a visible Section II on workbench/euler-parabola-fit.html.
+- Keep Euler fit secondary while working on the cubic.
+- Preserve E1 save state/JSON, 3-4-5 presets, labeled figures, and full-width illustrations.
+- Keep smooth E4/E5 sliders and buttons for the 3125-radius Pythagorean angles.
+- Save state/JSON applies to Fig. E1 only; E4/E5 are static/dynamic comparison plates, not saved design state.
+Decisions
+- 53.1301° = atan(4/3), the 3-4-5 angle; complement 36.8699° = atan(3/4).
+- Base integer S cubic: P0=(0,0), P1=(3,-4), P2=(7,4), P3=(10,0); chord 10, arms 5, tangent −53.13°.
+- General integer family: P0=(0,0), P1=(a,-b), P2=(2c-a,b), P3=(2c,0) for a²+b²=c².
+- Rotation by a Pythagorean angle plus scaling by its denominator keeps handles integer; arbitrary rotation generally does not.
+- The integer handles are off the Euler guide parabolas: residual ~0.8667 for the 3-4-5 base; this is an integer cubic construction, not an exact Euler fit.
+- The 3-4-5 rational rotation is prior art in pythagorean-spiral; the exact integer cubic handle set is not previously recorded.
+- The 3125-radius Pythagorean circle is new; historically 3125 is a clothoid parameter (A=3125).
+- Bounding parabolas remain backburnered.
+Work State
+Completed
+- Section II · the integer cubic added to workbench/euler-parabola-fit.html.
+- Base 3-4-5 case, general (a,b,c) formula, rotation/scaling examples, and guide-residual caveat documented.
+- Gallery added for 3-4-5, 4-3-5, 5-12-13, 12-5-13, 8-15-17, 15-8-17, 7-24-25, 24-7-25, 20-21-29, 21-20-29.
+- E4/E5 now have smooth 0.5° sliders and 3125-circle jump buttons: 0°, 4.35°, 16.26°, 20.61°, 32.52°, 36.87°, 53.13°, 57.48°, 69.39°, 73.74°, 85.65°, 90°.
+- E1 has a 20×18 frame, quarter-unit grid, outside rulers, integer snapping, free integer handles, save state/JSON, and presets including 6-8-10 chord, 345 integer handles, and S 53° integer.
+- Prior-art check completed: 3-4-5 rotations exist in pythagorean-spiral; exact integer cubic handles are new/not recorded.
+- 277 tests pass (1 skipped); latest commit ba1ffe3; no relevant uncommitted changes.
+Active
+- Decide which integer cubic family/angle should be adopted as the canonical construction.
+- Decide whether Section II stays a sandbox or feeds the stem/offset catalogue.
+Blocked
+- (none)
+Next Move
+1. Open Section II and the Pythagorean gallery; choose a canonical slope/family.
+2. Decide whether to promote the integer cubic construction into the stem/offset catalogue or keep it as a sandbox.
+3. Record the prior-art distinction cleanly: 3-4-5 rotations are old; integer cubic handles are the new result.
+4. Re-run tests and commit any promotion/documentation change.
+Relevant Files
+- workbench/euler-parabola-fit.html: Section II, E1 editor, E4/E5 sliders, 3125-angle gallery.
+- scripts/euler_parabola_fit.py: generator for the page, Pythagorean cases, dynamic canvas/scripts.
+- curve_lab/euler_fit.py: Euler segment evaluation, s_angle, study_segment.
+- pythagorean-spiral/pythagorean_spiral/spans.py: existing 3-4-5/spine cubic arm rule.
+- pythagorean-spiral/pythagorean_spiral/triples.py: Pythagorean triple utilities.
+- docs/SPINE.md: prior 3-4-5 rational rotation and exact spine notes.
+- docs/ARCHITECTURE.md: rational-triangle spine overview.
+- docs/PH-INTEGER.md: 3-4-5 ladder and integer chord-walk context.
+- docs/clothoid-grid-3125.md: historical A=3125 meaning, distinct from the radius-3125 circle.
+- scripts/curve_families.py: 3-4-5 ladder implementation.
+- tests/test_euler_fit.py: Euler fit and s_angle tests.
+- tests/test_euler_parabola_fit.py: page/Section II/slider tests.
+- curve_lab/bezier.py: house cubic arm/parabola rule.
+- workbench/levien-integer.html: earlier integer-lattice offset sandbox.
+- state/HANDOFF-int.md: current project truth.
+Important Context
+- Base integer cubic: (0,0) → (3,-4) → (7,4) → (10,0); two 5-unit arms; tangent −53.13°; chord 10.
+- At 53.13°, measured one-piece error is about 0.00657 and two-piece about 0.00430; two pieces still insufficient at 90°.
+- E4/E5 sliders are smooth at 0.5°; buttons jump to Pythagorean angles; the error table is a fixed 90° reference.
+- E4/E5 sampled-error readout uses the selected angle; the 90° table is the precise reference.
+- The integer cubic is not the Euler guide solution; it deliberately leaves the guide parabolas.
+- The 3125 circle has 12 integer points; their angles are the button set.
+- E1 save/restore stores p0, p3, mode, handles, v0/v1, chord, tangent angles, guide residuals, offset distance, and display flags.
+- Latest committed state: ba1ffe3; tests green at 277.
+
+***
+
+The integer cubic is now its own page.
+New page: workbench/integer-cubic.html — generated by scripts/integer_cubic.py.
+It covers:
+the exact family: P0=(0,0), P1=(a,−b), P2=(2c−a,b), P3=(2c,0) for a²+b²=c²;
+the 3-4-5 base: (0,0) → (3,−4) → (7,4) → (10,0), chord 10, arms 5, tangent −53.13°;
+ten Pythagorean triples with an interactive Fig. P1;
+integer-preserving rotations at 53.13° and 36.87°;
+the 3125-circle slopes;
+verification via tests/test_pyth_cubic.py.
+Section II is gone from workbench/euler-parabola-fit.html, with a regression test that it stays gone. The result is also in:
+curve_lab/pyth_cubic.py
+docs/INTEGER-CUBIC.md
+state/ACHIEVEMENTS-int.md
+state/HANDOFF-int.md
+TODO.md and goals.md
+Checks: 283 tests pass (1 skipped), recheck 12/12. I also refreshed two stale recheck counts — 25 named curves / 23 exact, and 120→892 integer hits — so the ledger is green.
+Committed as 109b7e2.
+***
+
+Added both to TODO.md, then checked them — and both were already landed:
+- Heart forms — heart-forms.html already renders 15 formulaic hearts from scripts/heart_forms.py (41f3d8c), and tests/test_heart_forms.py already guards one card per form. The five-figure page you were seeing is hearts.html (the clothoid-heart proof); it now has a prominent link to the expanded heart-forms.html.
+- Clothoid cut — the full ± table-contact Fig. 5 at 38.5° CW and the corrected wording are already in clothoid-cut.html (73b56a6). I added tests/test_clothoid_cut.py to guard the figure, the 38.5° label, and the table-contact text.
+One discrepancy: the measured table gap at the page’s 40,000-chord sampling is 0.00002, not 0.0003. I did not change the geometry or round it up; TODO.md records the measured value. If 0.0003 is the intended gap, it needs a different sampling or rotation, not a wording change.
+253 tests pass; committed as d619456. The focused next real work is still the offset catalogue, with the heart/clothoid items now verified.
+***
+I'm here — and the focused todo is finished.
+Built: workbench/stem-library-offset.html
+- OffS1–OffS6: PH cubic, log spiral, circle involute, cycloid, ½ catenary, ½ cycloid.
+- OffS7–OffS9: the parallel conics — parallel parabola, ellipse, hyperbola.
+- OffS10–OffS11: two LAC chain rails via design_from_spans → build_rail.
+- OffS12: two stalks with their envelopes separated by 2d + breathing room.
+- Every card shows the base, ±d rails, the 2d separation, and the card gutter as breathing room. Exactness is labelled by tier; fitted rails are not called exact.
+Levien’s parallel Béziers are now an option
+- Implemented in curve_lab/parallel_bezier.py as a fitted cubic-Bézier rail: exact normal samples, adaptive cubic fit, error vs the dense offset, cusp and clamp reporting.
+- Shown beside exact PH (OffS1) and the LAC chain rail (OffS10/11).
+- This is a house implementation of the option, not a line-by-line port of Levien’s area/moment solver; the page says so and cites reference/external/parallel-beziers.html.
+- Tests: tests/test_parallel_bezier.py, tests/test_stem_offset_library.py.
+Interesting things from the audit
+- The heart page was already 15. The “5” page is hearts.html (the clothoid-heart proof); it now links to the expanded heart-forms.html.
+- Clothoid gap discrepancy: the page’s measured table gap is 0.00002 at 40,000 chords, not 0.0003. The figure and wording were already correct.
+- The old backlog is stale: it says 96 tests and leaves W02–W04/W11–W12 as if open; the suite is now 260. I added an audit note so it is not mistaken for the current order.
+- Source intake is partial: LAC and Stage II are wired; Stage III is serially/terminally different, and Stage IV is explicitly non-parallel, so it is not an offset source. I did not pretend otherwise.
+- The parallel parabola was genuinely missing as a parallel-curve card; it is now OffS7, fitted not exact.
+- The offset catalogue is the real base; the next layer is endings — flower, seagrass/leaf, or the cone terminal at R = 2 × offset — then lattice growth marks and branches. next-fhandoff-int.md now carries that action.
+260 tests pass. Committed as 47de607. Hub is now 25 pages.
+
+***
+I'm here. Both additions are done, and the next open work is visible.
+2) Todo: Markdown + twin HTML
+- TODO.md is the source; workbench/todo.html is the generated read-only twin from scripts/todo.py.
+- It has checkboxes, a 11 / 19 done progress bar, the next tasks, and the grade table.
+- The hub now has a Todo page (27 pages).
+- Edit TODO.md, rerun python scripts/todo.py, and the twin reflects the new checks.
+3) Curve grades (provisional)
+Strict A means all three: a controllable offset, an integer/exact route, and a usable Euler/clothoid compound. B is usable with one gap; C is study/reference/ending only; D is not an offset source. Nothing is deleted from the source pages — C/D are production demotions.
+- A: lines, arcs, circles; PH presets/integer PH; Pythagorean spiral/3-4-5; cone terminal.
+- A−: PH and Pythagorean are A for offset/integer but not native Euler (they need a clothoid approximation).
+- B: clothoid/Euler; LAC; log spiral; circle involute; parabola, ellipse, hyperbola; rational non-cusped named curves (bean, pear, bow, trifolium, quadrifolium, cardioid, cruciform, Gerono, piriform); catenary; general cubic Bézier with Levien fit.
+- C: cycloid; astroid/hypocycloid; semicubical/Neile; tractrix; heart/squircle; cusped or looped rationals (bicorn, nodal, Tschirnhausen, piriform 2×).
+- D: Stage IV width modulation — its rails are not equidistant, so it is a width study, not an offset source.
+So the things to demote are the cusp/transcendental/loop families and the non-parallel Stage IV. LAC, log spiral and Euler are B, not A, because they have no integer-lattice route — but they remain core production curves when integer hits are not required.
+Levien integer question: a probe on the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 fitted real controls such as −0.824 and 1.631. A general cubic offset is degree 10 and Levien’s rail is an approximation, so there is no general integer cubic rail. The exact integer routes are lines/arcs, PH, and the Pythagorean spiral. A constrained or snapped fit is still an open investigation; Levien stays B, not A.
+266 tests pass. Committed as 929cc64. The next open task is ornament-forms, starting with the fleur proof, then scroll and cruciform/primal; next-fhandoff-int.md carries it.
+
+***
+I'm here. Stage IV is not in the hub because it is explicitly non-parallel; the route is the old ornaments page on port 8001. I’m adding direct links to every C row and a concrete elimination recommendation to the todo/twin.
+
+the Pythagorean-spiral spine layer, not a new clothoid fit: p-triples give an exact rational Euler polygon, its rails are rational miter offsets, and the drawn cubics are the approximation. I’m checking that bridge now.
+
+I'm here — and you’re right. The solved route in the notes is the p-triple spine, not the direct clothoid offset probe.
+What is already solved
+- pythagorean_spiral.Spiral builds an exact rational Euler polygon from p-triple turns: rational nodes, rational headings, integer turn schedules.
+- ribbon.rails gives the two rails as rational miter offsets of that polygon. The offset is exact on the polygon, not on the smooth ideal curve.
+- curve_lab/spine.py bridges a chain to an ordinary Design/Piece; it refuses a chain that carries a cusp, so cusped families must be split first.
+- The drawn curve is the cubic seam across the chain, an approximation. docs/SPINE.md records the curl-study fit at about 1.4% (rms 0.8%); the p-triple angle is the lattice margin.
+- So the correct statement is: exact rational Euler polygon + exact rational rails, with cubic drawing on the canvas. The smooth C curve is not made exact by this.
+What that means for the C families
+- Cycloid, astroid/hypocycloid, semicubical/Neile, tractrix, heart/squircle and the looped/cusped rationals are not eliminated. Their direct-stalk grade stays C, but they get a second role:
+- p-triple Euler polygon → rational rails → cubic canvas; and
+- ending/flower material on the stalk tips.
+- The workstream is now in TODO.md: choose a triangle angle with for_angle, quantize the turn schedule, split at cusps/loops, build the Spiral, offset with ribbon.rails, draw the cubic rails, and record the lattice + cubic margin.
+- The direct build_rail probe’s endpoint failure is a separate engine-path issue; it is not the base plan.
+What I added
+- TODO.md now includes the full achievement ledger (“already proved — do not redo”) and the C-family p-triple conversion workstream.
+- workbench/todo.html is the twin: 11 / 29 done, with the C conversions open.
+- goals.md, HANDOFF, docs/FLOWERS-int.md, and next-fhandoff-int.md now all point at the p-triple conversion as the next action.
+- Stage IV remains the separate advanced width-modulation track.
+266 tests pass. Committed as c283256. The next focused action is the C-family p-triple Euler conversion, starting with the generic turn-schedule converter and the cycloid/astroid split-at-cusp proofs.
+
+***
+I'm here. The grade is not “C → B” for one object; it is three different objects:
+- C — the ideal C curve. The cycloid/astroid/semicubical/tractrix/heart/squircle as mathematical curves, fitted directly. They fail the strict A test because their exact parallels are not rational and their integer/Euler route is not native.
+- A− — the p-triple polygon and its rational miter rails. This is exact: rational nodes, rational headings, exact rational rails. It is not A because the polygon is a quantization of the C curve, and the cubic seam that draws it is approximate.
+- B — the usable converted section. The polygon approximates the target with a measured lattice margin; the cubic seam adds drawing error; cusps/loops must be split. That is the practical design object when you need the C family.
+So the conversion does not turn the ideal C curve into A. The exact thing is the polygon, not the ideal curve. The p-triple angle is the margin; the cubic drawing is a second approximation. The heart card shows this clearly — its target margin is still high (0.62), so it stays B/C as a target and A− only as a polygon/rail plan.
+If we define A as “the exact plan object we will cut or plot,” then the p-triple polygon/rails can be promoted to A, with the cubic seam labelled as the renderer (A−). If A must mean the ideal C curve itself, it cannot be A; the exact route is PH/arcs/Pythagorean, not a quantized C curve.
+Built
+- workbench/euler-sections.html — the first p-triple proof: cycloid, astroid, semicubical, tractrix, heart, squircle. Grey target, ink exact polygon, blue/red rational rails, gold cubic seam; each card reports α, triangle, chords, polygon error and cubic error.
+- curve_lab/euler_polygon.py — resample → for_angle → quantized turn schedule → exact Spiral → ribbon.rails → spans.spans.
+- tests/test_euler_sections.py; the achievement ledger is now in TODO.md; the direct build_rail probe is a separate engine path, not the plan.
+268 tests pass. Committed as d910176. The next piece is the looped/cusped rationals and the heart/cusp/loop splits; then the ending/flower fit pass and ornament-forms.
+***
+Added a pass / fail / investigate column to the existing grade table in both TODO.md and the twin workbench/todo.html.
+How it reads
+PASS — at least one usable role route is proved: exact, p-triple, ending/flower, or advanced width.
+INVESTIGATE — plausible, but a named test is still open.
+FAIL — no viable route for that role. A curve can fail as a stalk and still pass as an ending.
+Current result
+No curve fails every role. Nothing is outright unusable.
+INVESTIGATE: the heart (target margin 0.62 — needs a finer split), the looped/cusped rationals (bicorn, nodal, Tschirnhausen, piriform 2× — split proof), and Levien integer snapping (fit passes; integer route open).
+PASS with a split still open: cycloid, astroid, semicubical, tractrix. Their smooth sections are converted; the full cusp splits remain.
+PASS: lines/arcs/circles, PH, Pythagorean, the p-triple polygon, cone, clothoid/Euler, LAC, log spiral, circle involute, conics, rational non-cusped, catenary, squircle, Stage III and the endings.
+FAIL only in the parallel-offset role: Stage IV width modulation. It passes as the advanced width track; it is not a side issue and not an overall fail.
+So: the only “unusable” thing is Stage IV as a parallel offset, not as a project. The C families are C as ideal direct stalks, A− as exact p-triple polygons/rails, and B as converted sections; the pass/fail column tracks the role.
+268 tests pass. Committed as edf977b. The todo twin is at 18 / 29 done; the next open work is the looped/cusped splits and the heart refinement, then the ending/flower pass and ornament-forms.
+***
+I'm here. The three investigations are closed with evidence.
+1. Heart
+- Refined to α = 0.1°, 200 chords.
+- Polygon max error dropped from 0.62 → 0.076; cubic max 0.093.
+- Status: PASS (split).
+2. Looped / cusped rationals
+- Added one smooth branch section each to euler-sections.html:
+- Bicorn: polygon 0.009
+- Nodal: 0.006
+- Tschirnhausen: polygon 0.016, cubic 0.024
+- Piriform 2×: polygon 0.008, cubic 0.031
+- These are clean branch split proofs. The full closed curve still needs its node/loop split, but the sections are viable.
+- Status: PASS (branch).
+3. Levien integer snapping
+- Probe on the integer cubic (0,0)-(0,3)-(3,3)-(3,0) at d=1 gave real controls such as −0.824 and 1.631.
+- A general cubic offset is degree 10; Levien’s rail is a fit, so there is no general integer cubic rail.
+- Exact integer routes remain lines/arcs, PH, and the Pythagorean spiral.
+- Status: PASS as a fitted option · FAIL as an exact integer route.
+Overall pass/fail
+- No curve fails every role.
+- FAIL only in the parallel-offset role: Modulated width (formerly Stage IV).
+- FAIL only as an exact integer route: Levien.
+- Everything else is PASS with its stated role: stalk, p-triple polygon, branch section, or ending/flower.
+- The pass/fail column is in TODO.md and the twin workbench/todo.html (21 / 29 done).
+Also renamed
+- Stage IV is now Modulated width with its own page: workbench/modulated-width.html.
+- It shows plain, widening and narrowing ribbons, the width law w(u) = w0(1 + a·64u³(1−u)³), and links to the old Stage IV source. “Stage IV” remains only as provenance.
+workbench/euler-sections.html now has 10 cards. 269 tests pass; committed as 3b3cc99. The next handoff is the ending/flower fit pass a
+***
+The Levien sandbox is built: workbench/levien-integer.html.
+What it shows
+Four families: parabola y = x², half parabola y = x²/2, quarter parabola y = x²/4, and one integer cubic.
+Selectors for family and offset d = 0.25, 0.5, 1, 1.5, 2.
+Each card draws the source, the exact normal rails, Levien’s fitted cubic rail, the integer lattice, the known source integer points, and the near-integer hit counts at tolerance 0.01.
+The generator is scripts/levien_integer.py; the control points and family definitions are the variables to reverse-engineer.
+What the simple cases show
+Parabola source integer points: (0,0), (1,1), (2,4).
+Half parabola: (0,0), (2,2).
+Quarter parabola: (0,0), (2,1).
+Integer cubic: (0,0), (3,9).
+The exact parabola parallel is not rational; apart from the vertex, its normal contains a square root. The near-integer rail hits are sparse:
+parabola at d = 0.25: near (2,3)
+parabola at d = 1.5: near (3,2)
+at d = 1 and 2 the vertex gives (0,±1) and (0,±2).
+Levien’s fit lands on those vertex integers at d = 1 and 2, but otherwise the fitted controls are real-valued. It remains PASS as a fitted option, FAIL as an exact integer route.
+Exact integer routes stay with lines/arcs, PH, and the Pythagorean spiral.
+The sandbox is in the hub (30 pages). 271 tests pass; committed as b0ed8c7. The natural next step is to add numeric control-point inputs and a search over integer control/d sets rather than just the four fixed families.
+Build · DeepSeek V4.1 Flash · 4m 58s · 98.7 tok/s
+quote or paraphrase some of the logic and thinkings from leviens page in the sandbox so i can get a handle on it
+Thought · 4.7s
+I'm here. I’ll pull the exact logic from the local Levien article and put short quotes plus paraphrases directly into the sandbox, with attribution.
+***
+
+ The mechanism is an area + first-moment fit, not a parabola constraint. Levien fixes the offset endpoints and tangent directions, leaving two handle lengths, then solves for them. Here is the chain.
+1. The target
+For a source cubic \(B(t)\),
+\[
+B'(t)=3(1-t)^2(P1-P0)+6(1-t)t(P2-P1)+3t^2(P3-P2)
+\]
+\[
+N(t)=\frac{(-B'_y(t),B'_x(t))}{|B'(t)|}
+\]
+\[
+O_d(t)=B(t)+dN(t)
+\]
+For a general cubic this is an algebraic curve of degree 10, not a cubic Bézier.
+2. The free handles
+The fit pins the offset endpoints and their tangent directions:
+\[
+Q0=B(0)+dN(0),\qquad Q3=B(1)+dN(1)
+\]
+\[
+T0=\frac{B'(0)}{|B'(0)|},\qquad T1=\frac{B'(1)}{|B'(1)|}
+\]
+The candidate cubic is
+\[
+C0=Q0,\quad C1=Q0+\lambda0T0,\quad
+C2=Q3-\lambda1T1,\quad C3=Q3
+\]
+So only \(\lambda0,\lambda1\) are free. The handles lie on the two endpoint tangent lines. Levien does not put them on a parabola.
+3. Area and first moment
+The target is reduced to two numbers:
+\[
+A_=\frac12\int0^1 y(t)x'(t)\,dt,\qquad
+M=\frac12\int_0^1 x(t)y(t)x'(t)\,dt
+\]
+These come from Green’s theorem, evaluated with 32-point Gauss–Legendre quadrature. After rotating the chord to the \(x\)-axis and normalizing its length to 1:
+\[
+A=\frac{A_}{L^2},\qquad M=\frac{M_}{L^3}
+\]
+For the normalized cubic, with tangent angles \(\theta0,\theta1\), the signed area is
+\[
+A(\lambda0,\lambda1)=
+\frac{3}{20}\left
+2\lambda0\sin\theta0
+-\lambda0\lambda1\sin(\theta0-\theta1)
+-2\lambda1\sin\theta1
+\right
+\]
+Setting \(A(\lambda_0,\lambda1)=A\) gives \(\lambda1\) linearly:
+\[
+\lambda_1=
+\frac{2\lambda0\sin\theta0-\frac{20}{3}A}
+{\lambda0\sin(\theta0-\theta1)+2\sin\theta1}
+\]
+Substitute that into \(M(\lambda_0,\lambda1)=M\), clear the denominator, and you get a quartic in \(\lambda0\):
+\[
+a_4\lambda0^4+a3\lambda0^3+a2\lambda0^2+a1\lambda0+a0=0
+\]
+The coefficients are polynomials in \(A,M,\sin\theta0,\sin\theta1,\cos\theta0,\cos\theta1\). That is the a0..a4 block in Levien’s cubic_fit. Each non-negative root is a candidate. Negative or near-zero handles are clamped to the tangent intersection and still tested.
+4. Why 64 — and why it is not “more hits”
+The approximation error obeys approximately
+\[
+E(m)\approx \frac{E(1)}{m^6}
+\]
+so:
+subdivisions (m)
+2
+3
+5
+That is an error law. More segments mean more cubic handles, so there are more chances to notice a near-integer coordinate, but it does not make the curve exact or force integer control points.
+There is a separate, genuinely useful “64” in Bézier arithmetic. For a cubic with integer controls, at rational parameter \(t=p/q\),
+\[
+B(p/q)=
+\frac{(q-p)^3P0+3(q-p)^2pP1+3(q-p)p^2P2+p^3P3}{q^3}
+\]
+So the denominator divides \(q^3\):
+\(t=1/3\): denominator 27
+\(t=1/4\): denominator 64
+\(t=1/5\): denominator 125
+\(t=1/3^n\): denominator \(27^n\)
+\(t=1/5^n\): denominator \(125^n\)
+Scaling by \(q^3\) clears those denominators. That is why \(3^n\), \(5^n\), and 64 can look like “more hits.” It is denominator clearing, not Levien’s \(2^6\) error factor. The two 64s are different: \(2^6\) is error, \(4^3\) is a cubic sample denominator.
+Scaling the whole geometry by \(S\) multiplies every coordinate by \(S\). A rational point whose denominator divides \(S\) becomes integral; an irrational fitted coordinate stays irrational.
+5. The parabola handles
+For \(y=kx^2\) over \(x\ina,b\), the quadratic control is the tangent intersection:
+\[
+P_0=(a,ka^2),\qquad
+P1=\left(\frac{a+b}{2},kab\right),\qquad
+P2=(b,kb^2)
+\]
+Degree elevation gives the cubic handles:
+\[
+P_1'=\left(\frac{2a+b}{3},\frac{ka(a+2b)}{3}\right)
+\]
+\[
+P_2'=\left(\frac{a+2b}{3},\frac{kb(2a+b)}{3}\right)
+\]
+For \(a=0\), \(b=3n\):
+\[
+P1'=(n,0),\qquad P2'=(2n,3kn^2)
+\]
+So for integer \(k\), \(0,3n\) gives an integer-handled parabola. That is a real integer-friendly source. For \(k=1/2\) or \(1/4\), the \(b\)-scale must also clear the denominator of \(k\).
+A cubic represents a parabola exactly only when
+\[
+C3-3C2+3C1-C0=0
+\]
+Levien does not impose that condition. His fitted cubic is general. The “parabola” in the simple case is the source, not the fitted rail.
+The exact offset of \(y=x^2\) is
+\[
+O_d(t)=
+\left(
+t-\frac{2dt}{\sqrt{1+4t^2}},
+\ t^2+\frac{d}{\sqrt{1+4t^2}}
+\right)
+\]
+It is a higher-degree rational curve: set \(u=\sqrt{1+4t^2}-2t\), then \(t=(1-u^2)/(4u)\), and the square root becomes rational. But it is not a cubic. A general cubic’s exact offset is degree 10. So a parabola’s offset can have rational integer hits, but the fit still only approximates it with cubics.
+6. Hyperbolae and other matches
+For \(H(t)=(a\cosh t,b\sinh t)\),
+\[
+N(t)=
+\frac{(-b\cosh t,\ a\sinh t)}
+{\sqrt{b^2\cosh^2 t+a^2\sinh^2 t}}
+\]
+For a rectangular hyperbola the square root is \(\sqrt{\cosh 2t}\), not generally rational in a rational parameter. The offset is therefore not an automatic rational/integer curve. Levien’s fit still works — area, moment, and normal distance can all be evaluated numerically — but exact integer hits are a Diophantine property of the source, not a by-product of the fit.
+The reliable exact integer routes remain lines, arcs, PH curves, the Pythagorean spiral, and the p-triple polygon. The parabola is special because its offset is rational; the hyperbola is not generally in that club.
+I put all of this into the sandbox as “The mechanism, in formulas”: workbench/levien-integer.html. Generator: scripts/levien_integer.py. The old “not rational” statement is corrected to “rational but not cubic.” 271 tests pass; committed as a9b7f12
+
+***
+
+Exactly — kurbo is where the prototype lives.
+Design math: raphlinus/raphlinus.github.io#79 — the cubic/cubic intersection outline, including the parabola estimate, hybrid-quadratic bounds, and the “cubic scaling” claim.
+Code: linebender/kurbo#258, draft branch cubic_intersect, commit 1f86c26, file examples/cubic_fun.rs — EstParab, from_cubic, intersect_cubics_rec.
+Status: draft/unmerged, not wired into kurbo’s main API.
+Blog: the “bounding parabolas … cubic convergence” sentence is in the cusp-finding section of the 2022 parallel-Béziers post — related idea, not the same code path.
+Later use: jneem/linesweeper, based on #258, now archived and moved to Radicle.
+The sandbox now has this trail in “Where the bounding-parabola idea lives”. Committed as cfe9a1f.
+***
+
+You’re right about the useful construction, but the word “more hits” needs splitting into two different things.
+1. Integer points on \(y=x^2/64\)
+Integer points require
+\[
+64 \mid x^2 \quad\Longrightarrow\quad 8 \mid x
+\]
+so
+\[
+x=8m,\qquad y=m^2
+\]
+On \(0,24\) the points are
+\[
+(0,0),\ (8,1),\ (16,4),\ (24,9)
+\]
+That is four points, not more than \(y=x^2\) on the same width, which has 25. The lattice is sparser in x, not denser. Scaling the whole geometry by 64 can clear denominators, but that is just scaling; it does not increase point density.
+2. Integer handles — the useful part
+For \(y=x^2/64\) on \(x\in0,b\), the quadratic control is \((b/2,0)\), and degree elevation gives
+\[
+P0=(0,0),\quad
+P1'=\left(\frac b3,0\right),\quad
+P2'=\left(\frac{2b}{3},\frac{b^2}{192}\right),\quad
+P3=\left(b,\frac{b^2}{64}\right)
+\]
+For \(b=24n\):
+\[
+P0=(0,0),\quad
+P1'=(8n,0),\quad
+P2'=(16n,3n^2),\quad
+P3=(24n,9n^2)
+\]
+All integer. For \(n=1\):
+\[
+(0,0),\ (8,0),\ (16,3),\ (24,9)
+\]
+So 24 is the scale that matters, not 64. The 64 comes from the \(x^2/64\) denominator; the 3 comes from degree elevation. Their lcm is 24. If you choose \(b=64\), the handles are \((64/3,0)\) and \((128/3,64/3)\) — not integer.
+3. What this does not do
+The parallel curve of this parabola is still not a cubic. Its exact offset is rational, but the Levien fit produces real-valued handles.
+Levien’s fit does not use a fixed parabola. It fixes endpoints/tangents and solves for the two cubic handles by matching area and first moment. The 64 in the error law is unrelated to the 64 denominator.
+In the newer bounding-parabola method, the parabola is an estimate/bound of the form
+\[
+x=ay^2+by+c
+\]
+determined by the cubic’s endpoints and area/moment. It is not a free \(y=x^2/64\) shape, and integer coefficients on the bound do not make the actual cubic or offset integer. It brackets the curve; it does not create lattice hits on the curve.
+So: yes for integer cubic handles with \(b=24n\); no for more lattice points per unit x; and no for making the Levien rail integer. The gain is a clean integer-handled source parabola, not more hits on the offset.
+I added the \(y=x^2/64\) family to the sandbox: workbench/levien-integer.html now has 25 family/d cards, including the integer points and handles. 271 tests pass; committed as b3123d8.
+
+Two corrections first: 24 is a width, not a magic coefficient, and widening adds points by count, not density.
+The general integer-handle condition
+For
+\[
+y=\frac{x^2}{k}
+\]
+on \(x\in0,b\), the degree-elevated cubic handles are
+\[
+P1'=\left(\frac b3,0\right),\qquad
+P2'=\left(\frac{2b}{3},\frac{b^2}{3k}\right)
+\]
+So the handles are integers when
+\[
+3\mid b
+\quad\text{and}\quad
+3k\mid b^2
+\]
+- \(k=64\): \(b=24n\)
+- \(k=24\): \(b=12n\)
+- \(k=1\): \(b=3n\)
+So 24 was the width for \(k=64\), not a universal number. For \(k=24\), the natural integer-handle width is 12, not 24.
+Does \(x^2/24\) work better?
+Not automatically. On its own integer-handle interval \(0,12\):
+\[
+P_1'=(4,0),\quad P2'=(8,2),\quad P3=(12,6)
+\]
+and its integer points are only
+\[
+(0,0),\ (12,6)
+\]
+Compare, with \(n=1\):
+curve	width	integer handles	integer points
+(y=x^2)	([0,3])	((1,0),(2,3))	4
+(y=x^2/24)	([0,12])	((4,0),(8,2))	2
+(y=x^2/64)	([0,24])	((8,0),(16,3))	4
+\(x^2/24\) is shallower, so it fits a smaller y-range, but it gives fewer lattice points. \(x^2/64\) on \(0,24\) gives the same number of integer points as \(x^2\) on \(0,3\), just stretched 8× horizontally. If you want more points per unit width, \(k=1\) wins.
+Widening
+For \(y=x^2/64\), integer points occur at
+\[
+x=8m,\qquad y=m^2
+\]
+Widening from \(0,24\) to \(0,24n\) gives
+\[
+3n+1
+\]
+points. That is more points in total, but the spacing is still 8 in x; the density is the same. And the handles stay integer only when the width is a multiple of 24. Widening to 32 or 64 gives more lattice points but breaks the integer handles.
+So the useful statement is:
+Use \(y=x^2/64\) on a width of \(24n\) when you want a shallow parabola with integer cubic handles. Use \(y=x^2\) when you want the most integer points. Use \(x^2/24\) only if its shallower shape matters; its natural width is \(12n\), and it has fewer lattice points.
+The offset is still separate
+None of this makes the parallel curve integer. The exact offset of a parabola is rational, but not a cubic; Levien’s fitted rail is real-valued. Integer source handles do not imply integer fitted handles.
+The newer bounding-parabola method is also separate: its parabola is
+\[
+x=ay^2+by+c,\qquad a=-\frac{6A}{\Delta y^3}
+\]
+a bound chosen from the cubic’s endpoints and area, not a free \(y=x^2/64\) source. It brackets intersections; it does not create integer points on the curve.
+Next
+Yes, the parabolic-boundary primitive is the right next track — but as a numerical intersection/cusp tool, not an integer-curve generator. First step would be a small port of EstParab from kurbo PR #258: fit the parabola by area, compute the hybrid-quadratic bounds, merge the left/in/right intervals, and check the claimed \(O(\Delta y^3)\) scaling. That is a clean standalone primitive and does not disturb the integer-parabola work.
+Build · DeepSeek V4.1 Flash · 52.7s · 147.5 tok/s
+add some more illustrations to he integer levien page for successes
++Thought · 20.6s
+I'll add a visible success gallery of integer-handle parabolas — \(x^2\) on 0,3, \(x^2/24\) on 0,12, and \(x^2/64\) on 0,24 and 0,48 — each showing the control polygon, handles, and integer points together.
+
+***
+
+Yes — the rule is now in AGENTS.md under Figures:
+Label every figure inside the figure, not only in a caption: a title naming the curve/case, x and y axis labels, units when they matter, a legend for the marks, and the key endpoint or coordinate values.
+The page now follows that: each success strip has an in-figure title, x →, y ↑, labeled P1/P2 handles, and the endpoint coordinate.
+Why \(0,24\) does not extend to \(64^2\)
+Because 24 is the chosen x-width, not the end of the parabola. It is the smallest width where the degree-elevated handles are integers:
+\[
+P_1'=(8,0),\quad P2'=(16,3),\quad P3=(24,9)
+\]
+The curve itself continues. The relevant numbers are:
+At \(x=64\): \(y=64^2/64=64\) → point \((64,64)\)
+At \(y=64^2=4096\): \(x=\sqrt{64\cdot4096}=512\) → point \((512,4096)\)
+The \(0,24\) strip stops at \((24,9)\) only because it was cut there.
+If you draw \(0,512\), the curve does reach \((512,4096)\), but its cubic handles are
+\[
+\left(\frac{512}{3},0\right),\quad
+\left(\frac{1024}{3},\frac{512^2}{192}\right)
+=
+(170.67,0),\ (341.33,1365.33)
+\]
+— not integers. Width \(512\) is not a multiple of 24.
+The success strips now go out to \(504\), the nearest integer-handle width:
+\[
+0,504:\quad \text{handles }(168,0),(336,1323),\quad 64\text{ integer points},\quad \text{end }(504,3969)
+\]
+\((512,4096)\) lies just beyond it. The next multiple of 24 is 528, ending at \(y=4356\). So:
+Want integer cubic handles: widths \(24n\); \(0,504\) is the closest success to \(64^2\).
+Want the exact point \((512,4096)\): use \(0,512\), accept fractional handles.
+Want more points: keep widening in 24-unit steps; the point count grows as \(3n+1\).
+If \(d=2\)
+At \(d=2\), the exact offset rails pass through
+\[
+(0,2)\quad\text{and}\quad(0,-2)
+\]
+at the vertex. Levien’s fitted rail also passes through those points because its endpoints are fixed. For the tested families and small rational parameters, I found no other exact integer rail points; the source integer points are not automatically on the offset. The page’s \(d=2\) card shows the vertex hits, and the note now says so.
+The gallery is at the bottom, full-width, with the \(1/24\) case removed and the \(1/64\) cases extended through \(0,504\). 272 tests pass; committed as 4ebc800.
+
+***
+
+I'm here. Partially — Levien solves the offset, not the integer-hit selection.
+What Levien already solves
+Given a source curve and a distance \(d\), his method computes a fitted cubic offset rail:
+- endpoint positions and tangents fixed
+- area and first moment matched
+- quartic candidates tested by Tiller–Hanson error
+- subdivide if needed
+That is already implemented in the page’s selectable cards through fit_chain. So we do not need a new offset algorithm.
+What he does not solve
+Levien takes \(d\) as an input. He does not:
+- search for a \(d\) that makes the rail hit integer points,
+- snap control points or rail points to integers,
+- guarantee that the fitted cubic passes through an interior integer point.
+The clean hit I found comes from the exact offset, not from the fit:
+At source point \(x=24\) on \(y=x^2/64\):
+\[
+\text{tangent}=(4,3),\qquad \text{normal}=(-3,4)
+\]
+So a distance of 5 is exactly the integer normal length:
+\[
+(24,9)+(-3,4)=(21,13)
+\]
+and on the other rail:
+\[
+(24,9)+(3,-4)=(27,5)
+\]
+That is a \(3\!-\!4\!-\!5\) hit. Distances \(10\) and \(20\) scale it:
+- \(d=10\): \((18,17)\) and \((30,1)\)
+- \(d=20\): \((12,25)\) and \((36,-7)\)
+For \(d=2\), the clean hit is only the vertex \((0,\pm2)\). That is why the gallery now uses \(5/10/20\), not 2.
+The Levien fit can share a hit when it is an endpoint of the fitted segment — as in \(0,24\) at \(d=5\), where the endpoint must match. For interior points in the longer strips, it is an approximation, not a guarantee.
+What I added
+The five \(1/64\) success figures now show:
+- exact \(+d\) and \(-d\) rails in blue/red
+- ringed exact integer hits
+- coordinates \( (21,13)\), \( (27,5)\), etc.
+- figure IDs Fig. G1…Fig. G5
+- captions with \(d\), handles, and hits
+The page also has Fig. C1…C25 for the selectable family/d cards, and AGENTS.md now requires a figure ID inside every figure.
+
+
+***
+I'm here. No — the inventory is not complete, and “has a width” is not the same as “has a parallel offset.” I added the full list to goals.md and corrected the source status.
+Source intake
+- LAC-log-asth-curve.html — wired; 31 LAC spines are S35–S65; rails/terminals not yet in the offset page.
+- stage-two.html — wired for extraction; not yet in the stem catalogue or offset page.
+- stage-three.html — not wired; 4 straight spines and 4 serif/terminal outlines.
+- stage-four.html — not wired; 16 spines, no outlines, and it is explicitly non-parallel (the rails are not equidistant), so it is not an offset source.
+- lattice-curves.html, curve-sandbox.html, etc. — not inventoried yet.
+Bring up to speed
+1. Offset catalogue — stem-library-offset.html, formulaic curves first, then LACs via design_from_spans → build_rail; 2×offset + breathing room.
+2. Parallel conics — parallel parabola first, then ellipse, then hyperbola. This is the named gap: the evolute page shows the parabola’s evolute (semicubical) and normal offsets, but not a parallel-parabola card/rail. It is algebraic but not rational, so it is a fitted rail, not an exact one.
+3. Classical parallel families — semicubical/Neile, cycloid, astroid/hypocycloid, catenary/tractrix, log spiral (exact), circle involute (exact), clothoid (fitted), LAC (fitted), PH (exact rational).
+4. Rational and non-rational named curves — bean, bicorn, pear, nodal, Tschirnhausen, bow, trifolium, quadrifolium, cardioid, cruciform, piriform, squircle, heart; classify PH vs fitted before claiming anything.
+5. Integer/exact inventory — PH integer presets/named; the Pythagorean spiral and 3-4-5 ladder; lattice-curves if it holds integer solutions. The 3125 lattice is integer coordinates, not an integer curve solution; SM23–SM26 are integer p-spacing, not curve solutions.
+6. Terminals and plant grammar — cone terminal (R = 2×offset), seagrass/leaf endings, lattice growth marks, branches.
+7. Source intake — Stage III terminals, Stage IV spines (with the non-parallel label), and the other ornaments pages.
+The full table with offset tier, integer status, current location, and missing piece is in goals.md under “Bring up to speed”; state/HANDOFF-int.md points to it. Committed as a65595e.
+***
+the sandbox is now the full family page: workbench/lac-parallel.html (kept the URL), titled Evolute parallel involutes.
+Added: LAC/log spiral, cycloid, epicycloid/hypocycloid, ellipse → astroid, astroid, circle involute, catenary → tractrix, parabola → semicubical, semicubical (Neile), and a PH cubic sample.
+The main canvas fits the base and its exact two-sided offsets; a smaller inset shows the full evolute when it runs far outside the base frame.
+The sources table points at what was already complete: stem-library S17/S35–S69, generators S01–S19, euler-match, check-spirals.py. The ellipse, tractrix, parabola/semicubical and the evolute families are finished here.
+The PH exact-offset idea is shown on a sample PH cubic (u=1, v=t); the four integer presets stay linked to generators, and the full offset rail remains for stem-library-offset.html.
+Semicubical vs cubic Bézier cusp: yes, they are the same cusp family. The Neile parabola is y² = x³, the evolute of the parabola, and every ordinary cusp is locally y² = x³. The symmetric X
+P₀=(−1,−1), P₁=(1,1), P₂=(−1,1), P₃=(1,−1) has B′(½)=0, so it is a cusp, not a loop, and is a cuspidal cubic — the semicubical up to an affine change of coordinates. The canonical exact control points for x=t², y=t³ are P₀=P₁=(0,0), P₂=(1/3,0), P₃=(1,1). The Tschirnhausen cubic is the different, nodal PH cubic (node angle 60°); a symmetric-X Bézier with non-zero velocity at the crossing is a node, not the semicubical cusp.
+***
+Created goals.md at the repo root with the plant-form → ornament-form arc:
+- stalk → two-sided offsets, separated by 2 × offset + breathing room
+- ending = flower, seagrass/leaf, or cone terminal — two arcs of radius 2 × offset meeting at the centreline
+- mark the integer-lattice hits
+- add a pyramid growth mark on each rail at those hits
+- branch at selected hits with smaller curves; lower branches bigger than upper
+- no bare tip; then the same grammar extends to ornament-forms
+Wired it into the working memory:
+- .opencode/commands/fhandon.md — reads goals.md after LTMemory and next-fhandoff; it is the long arc, not the focused action.
+- .opencode/commands/fhandoff.md — keeps goals.md current if the arc moves, and allows it in the handoff commit.
+- AGENTS.md — added to Start cheap, the Focus paragraph, and the files table.
+- LTMemory-int.md — read order, map, and Open.
+- state/HANDOFF-int.md — roadmap bullet, file table, and the note beside the next move.
+- docs/FLOWERS-int.md — a “Plant-forms (next)” section.
+The open geometry questions are recorded in goals.md too: exact cone-terminal arc centres, whether the integer lattice is model-space or page-frame, growth-mark size, seagrass grammar, and the branch scale law.
+Committed as 6c8118d. The focused next action is still the offset catalogue; endings and growth marks follow it.
+***
+stem-library.html
+
+Current state of the library: 165 cards, S01–S165; no SM labels yet; no ½-catenary or ½-cycloid; stem-library-offset.html does not exist.
+Still on the list, in order:
+1. SM naming pass — SM1…SM16 for the 16 multiple-stem cards (S110–S117 and S158–S165), generated from scripts/stem_library.py. Decide whether the 80 pair combinations (S70–S109, S118–S157) also become SM cards or stay S.
+2. ½-catenary and ½-cycloid stems — add to the library, then mirror them on the offset page.
+3. stem-library-offset.html — OffS1…, formulaic offsets first (PH, log spiral, circle involute, cycloid), LACs after via design_from_spans → build_rail; two-sided offsets. Multiple stems only after the base is settled.
+4. Plant-root decision — the S158–S165 set still has “spiral root” and “straight root” variants; choose relabel as eye/knot, drop, or reorient the straight-root plants to bottom-centre.
+5. Later sandboxes — the evolute page now absorbs most of the cycloid/roulette/astroid/ellipse/catenary/tractrix comparison, so separate pages for those are optional now.
+The small, safe next step is the SM rename. Want me to start there?
+1) use sm. 2 add. 3) will keep offsets separate because we have to separate the curves from each other by 2*offset, plus a little breathing room 4) rename "straight root " as straight stalk. rename spiral root  as spiral ending...5) what do you mean "later sandboxes"... we still have to connect the stalks with flowers, or endings like seagrass, etc. and if there is nothing on the end to add a terminal...
+
+- SM naming: the 16 plant/fan cards are now SM1–SM16. Single stems keep their S numbers (S01–S109, S118–S167). I left the 80 pair combinations as S — each is one joined stem, not a multi-stem plant. Say if you want those under SM too.
+- Labels: “spiral root” → spiral ending, “straight root” → straight stalk. Both plant variants are kept; the spiral-ending joins still read as an eye/knot, the straight-stalk ones as plants.
+- Half stems: S166 ½ catenary (x∈0,2) and S167 ½ cycloid (t∈0,π) in a “Gestures · halves” group at the end, deliberately after the existing cards so no S number shifted.
+- The library is now 167 cards; full suite 251 tests pass.
+On 3: the offset page stays separate, and the rule is recorded: every pair of curves is separated by 2×offset plus breathing room. The plan is formulaic offsets first (PH, log spiral, circle involute, cycloid, the halves), then the LACs via design_from_spans → build_rail; multiple stems only after the base is settled.
+On 5: you're right — “later sandboxes” was the wrong phrase. The real remaining chain is endings: every stalk must connect to a flower, a seagrass/leaf ending, or a terminal; no bare tip. That is the design layer after the offset page, not optional comparison work.
+next-fhandoff-int.md now points at stem-library-offset.html, with the 2×offset rule and the endings layer named.
+
+Doubles added exactly as listed:
+- S138 = S46+S46
+- S140 = S47+S47
+- S142 = S48+S48
+- S144 = S49+S49
+- S146 = S50+S50
+- S148 = S51+S51
+- S150 = S52+S52
+- S152 = S53+S53
+- S154 = S54+S54
+- S156 = S55+S55
+Those even slots are joined at the spiral ends; the odd slots S139–S157 keep the straight-joined pairs. S118–S137 is untouched.
+The tiny fractional curves were a frame-scale problem, not a math error. The recovered LAC plates live in the extraction page frame, about 7.6× larger than the generator frame the fractions were built in. SM17 auto-fits, so it looked fine; SM18 mixed the two frames and the fractions shrank. I now scale the whole generated p=1/4…1 family to the S52 frame before combining it with S53–S55, so the p=1 curve still matches S52 in shape and the fractions sit at the same scale as the regular curves. No shape interpolation was introduced — it is one uniform frame normalization.
+The page notes now say this, and the docs record both the doubles and the S52 normalization. 
+
+I'm here. Yes — but it is not a constant fractional or integer step. The tips lie on a curved locus, so equal end gaps are an arc-length problem on that locus, not a spacing problem in p.
+Added after SM18, in Plants · LAC spacing:
+- SM19 — equal tip arc: p = 1/4, 0.366, 0.489, 0.631, 0.806, 1.04, 1.378, 1.926, 3. All eight tip gaps are 236.3–236.5 in the S52 frame — CV 0%.
+- SM20 — simple fractions: 1/4, 3/8, 1/2, 5/8, 4/5, 1, 11/8, 2, 3 — CV 9.8%.
+- SM21 — logarithmic: p = 1/4·12^(i/8) — CV 20.3%.
+- SM22 — Fibonacci-like: 1/4, 1/3, 1/2, 2/3, 1, 3/2, 2, 3 — CV 27.6%.
+For comparison, the current SM18 mix is CV 30% (gaps 114–336), and a constant Δp = 0.344 is much worse: CV 83% (gaps 57–652).
+So: log spacing is a good simple rule, Fibonacci-like is not better, and the exact equal-spacing series is the SM19 list. Its p increments grow from about 0.116 at the low end to 1.07 at the high end, which is why no single fraction or integer step does it. The cards and notes show the measured gaps; distances are in the S52 frame and the auto-fit leaves the ratios unchanged.
+251 tests pass; committed as 6cbdf15.
+
+
+***
+The new series starts at S70.
+40 combination cards: every pair within S35–S39 (S70–S89) and within S41–S45 (S90–S109).
+Each pair appears twice:
+one joined at the spiral ends (S70, S72, …),
+one joined at the straight ends (S71, S73, …).
+The second curve is reversed and placed so both the join point and the tangent match — G1 at the join.
+Labels are the ingredient S-numbers, e.g. S70 · S35+S36 (spiral) and S71 · S35+S36 (straight); each card note states the join type.
+The library is now 109 cards. The test guards the 40 combinations; 251 tests pass.
+Library: http://127.0.0.1:8003/workbench/stem-library.html
+Doc: docs/FLOWERS-int.md (combinations section)
+Commit: 8fb8b65
+
+I'm here. Yes to all three — but they play different roles. A quick menu grounded in what is already in the repo:
+candidate	what it adds to the vase	source / how	effort
+Euler 45°	the purest “stem from rest”: half a corner, gentle and exact	euler_square.corner() first half, or the unit clothoid to s=√(π/2)	trivial, exact
+Euler 90°	a stem that ends in a deliberate hook	euler_square.corner() full tent	trivial, exact
+Log-aesthetic (LAC)	a soft, tunable S; a different curvature law from the PH presets	workbench/spirals/lac.json (31 recovered LAC spines)	low, sampled
+Catenary	a droop — a hanging stem rather than a rising one	scripts/catenary.py / the rational catenary chain	low, exact plan
+Volute	a coiled terminal, not a whole stem: the scroll/bud at the tip	the Corinthian volute in pythagorean-spiral/docs/GALLERY.md; a logarithmic spiral, eight quarter-arcs with chords ×13/16	medium, sampled
+French-curve S	the target the matching work is actually for	reference/ French curves; the curve-families page	low–medium, sampled
+Quartic preset	completes the cubic/quintic/sextic set already on the sheet	Fig. 3 on generators.html	trivial
+Bean / Gerono half / piriform	a loop or tendril at the top; the stem becomes an ornament carrier	generators.html; exact or one-lobe	low
+Cycloid / roulette	a looped tendril; a more decorative curve	generators.roulette; exact	low
+Involute	a spiral-like stem with a cusp; the string-unwinding gesture	the catenary page, Fig. W	medium
+Spiral-turns r=17 / r=28.3	the other two true-scale spirals (7.5 turns / 9.4 turns)	same outward_path as d	trivial
+Composite G2	catenary base → clothoid transition → volute tip; the full engine	Junction, fillet, the spine layer	advanced
+On your three specifically
+- Volute: best as the first terminal at a stem tip, not as the stem. The gallery volute is a logarithmic spiral (not rational), so it is sampled; it would read as a scroll or bud.
+- Log-aesthetic: a good whole stem; the LAC spines are already recovered, and a soft S contrasts with the a/b/c presets.
+- First 45° of Euler: the exact, cheap one; a young shoot. The 90° corner is the natural second half.
+My next three, in order
+1. Euler 45° — exact, tiny change, and it proves the “from rest” stem.
+2. LAC — the soft-S contrast; uses existing data.
+3. Catenary — the first drooping stem; a different gesture.
+Then the volute as the first terminal, and the quartic as the nearly-free fourth preset.
+The sheet is getting busy; I’d put these on a separate stem library page (one curve per tight square, with names and angles) and promote selected ones onto the print sheet, rather than keep adding vases to the same row. Say which ones and I’ll add them.
+****
+The design doc is written and committed:
+docs/STEMS-SVG-int.md — the durable description of the sheet:
+- page and units (215.9 × 279.4 mm, 1 unit = 1 mm, 12.7 mm margins)
+- the three presets, rotations, order a,b,c, lean rules
+- the 0.5″ gold squircle vases and the 5 mm box row
+- drawing style, rulers, JSON contract
+- the Python-geometry → JSON → Node-renderer pipeline
+- regeneration commands, reuse directions, and the open points (a is 143.1° CW, not 120°; the stems are PH presets, not clothoids)
+Current sheet:
+- boxes at 12.7, 30.4, 48.1 mm — 5 mm between boxes
+- a first and start-vertical, b second at 30° CCW, c third at 35° CCW, unmirrored/right-leaning
+- stems 177.8 mm tall from the vase mouths; solid gold squircles; mm rulers
+Links
+- Sheet: http://127.0.0.1:8003/workbench/stems-abc.html
+- SVG: http://127.0.0.1:8003/workbench/stems-abc.svg
+- JSON: http://127.0.0.1:8003/workbench/stems-abc.json
+One note: the 5 mm row puts b’s box at 30.4 mm (centre 36.75 mm), not on the 10 mm ruler tick. If “center b on 10 mm” meant the tick rather than the 5 mm spacing, say so and I’ll move just b without disturbing the row.
+Build · DeepSeek V4.1 Flash · 13m 32s · 52.7 tok/s
+now add r 5 · 2.5 turns · edge gap 942 pt · inflection from http://127.0.0.1:8003/workbench/spiral-turns.html with its own vase.
+***
+I'm here. The print sheet is updated.
+- Vase boxes: 0.5 × 0.5 in, on the 10-inch line, centred on each stem’s base (not the bbox). They sit at roughly 0.8, 2.4 and 7.05 in across the page.
+- Stems: rise 7 in from the boxes to the 3-inch ruler mark; a/b lean left, c is mirrored and leans right.
+- Labels: a, b, c under their boxes; the tips at mark 3 are the ornament positions.
+- Rulers: bottom 0–7.5 in and side 0–10 in, in the 0.5″ margins; no page border.
+- JSON: 2,001 page-coordinate samples; Python writes geometry, scripts/stems_print.mjs renders the SVG/HTML with plain Node (no SVG library).
+Links
+- http://127.0.0.1:8003/workbench/stems-abc.html
+- http://127.0.0.1:8003/workbench/stems-abc.svg
+- http://127.0.0.1:8003/workbench/stems-abc.json
+npm run stems re-renders from the JSON. The a stem is at 143.1° CW (the exact vertical start), not 120°; say if you want the literal 120°.
+The boxes are at the stems’ bases, so they are spread rather than clustered side by side. If you want them as one tight vase cluster, that’s the next layout change.
+***
+as a way of showing off the finished product, make a svg that will print on 8.5 x 11 using for stems curves from http://127.0.0.1:8003/workbench/generators.html... a)the Fig. 5 · sextic · n = 6
+h = (1,2) · u = (-1,1,0) · v = (2,-1,0) · t by 1/2 rotated about cw 120 degrees until it starts vertically, b) Fig. 4 · quintic · n = 5
+h = (1) · u = (-2,-1,1) · v = (-1,-1,2) · t by 1/2 rotated ccw about 30 degrees, c) Fig. 2 · cubic · n = 3
+h = (1) · u = (2,-2) · v = (1,-2) · t by 1/4 rotated about 35 degrees ccw, arranged close to each other and labeled a, b, c so we can rearrange them... also the curve sampled from The join stays G2; only the inner turns get tighter than the pen. Save JSON writes the inputs, the results, the clothoid constants and about 2,000 sampled points in page coordinates — enough to redraw or continue the same spiral. 6. Try your own numbers http://127.0.0.1:8003/workbench/spiral-turns.html rotated 180 degrees or so. once we have them in place, we will find the endpoints, and put a rotated leaf or flower or bean or heart there... name it appropriately. Give the dimensions outside the svg as 2 rulers, one on the bottom and one one the side so i can see roughly what we are talking about.
+
+
+Fig. 5 is correct: the full ± curve sits on the table line at both outer-turn contacts. The measured gap is actually 0.00002 at this sample, not 0.0003, so I’ll print the real value and stop hardcoding the coarse one.
+
+I'm here. Yes — and the seam is already there: stems-abc.json is pure geometry, so the SVG can be rendered by Node without touching the Python math.
+Closest JS equivalents
+Need	Library	Notes
+DOM-like SVG builder	@svgdotjs/svg.js	Groups, transforms, paths. In Node use it with svgdom. Closest to the Python svg.py writer.
+Print layout, rulers, axes	D3 (d3-shape, d3-scale, d3-axis)	d3-shape gives path strings; d3-scale gives the inch rulers. Pure modules work in Node.
+Full vector geometry	Paper.js	Bézier intersections, offsets, booleans, transforms, exportSVG(). Node needs paper-jsdom. Best fit for the offset/fillet/bitangent work.
+Bézier math only	bezier-js	Length, split, intersections, offset; pairs with plain path strings.
+Polygon booleans	flatten-js or js-angusj-clipper	For filled outlines and offset regions.
+JSON ↔ SVG	svgson	If you want an object tree rather than strings.
+Recommendation
+- For this print sheet: plain Node template strings are enough — the paths are already sampled L segments. No dependency needed. A scripts/stems_print.mjs reading stems-abc.json would replace the Python renderer and keep the exact same output.
+- For the workbench pages: d3-shape + a small layout helper is the lightweight step; @svgdotjs/svg.js if you want a more DOM-like API.
+- For the engine work (offsets, fillets, bitangent joins): Paper.js is the one worth adding; it can do the curve geometry and export SVG.
+- The real fix for the errors you saw wasn't a library — it was stale variable names from my refactor. A builder helps, but typed/checked JS and a quick render test help more.
+Current print sheet
+- http://127.0.0.1:8003/workbench/stems-abc.html
+- http://127.0.0.1:8003/workbench/stems-abc.svg
+- http://127.0.0.1:8003/workbench/stems-abc.json
+- a and b lean left on the left; c is mirrored and leans right; 2,001 page points.
+- a is at 143.1° CW (the exact start-vertical angle), not 120° — the 120° was the approximate request; say if you want the literal 120° instead.
+I can p stems renderer to Node next and leave Python only producing the JSON.
+***
+You’re right to push. My earlier scan was the half curve; the full ± curve is a different object. At about 321.5° CCW — i.e. 38.5° clockwise — the two lowest points are almost exactly level. Let me refine that root and get the exact contact points.
+
+ I was measuring the wrong pair. The full ± curve on a table is a different problem from one half mirrored about the axis.
+Corrected result for the full ± curve
+Rotate about 38.5° clockwise (321.5° CCW).
+The two outer-turn points are nearly level:
+(1.107, 0.251) at s ≈ 1.158
+(-0.701, -1.185) at s ≈ -2.761
+The height gap is 0.0003 units — about 0.01% of the curve’s size. Visually the table touches both; it is a genuine near-bitangent, not the 0.079 gap I quoted for the half.
+Those contacts are on the outer turns, not near the eye.
+The 0.079 figure was for the same half having both contacts on one vertical mirror axis. That is the mirror join, a different constraint. I should not have generalized it to the whole curve.
+This is classical — the names
+A line touching a curve at two points is a bitangent or double tangent; if the curve lies on one side, it is a double supporting line.
+Counting them: Fabricius–Bjerre for closed curves.
+Rotating the curve/box to find them: rotating calipers, antipodal pairs, minimum-width / minimum-area enclosing rectangle.
+The physical “rests on two points” version: stable support, supporting segment, resting pose.
+References
+Bitangent: https://en.wikipedia.org/wiki/Bitangent
+Rotating calipers / antipodal pairs: https://en.wikipedia.org/wiki/Rotating_calipers
+Fabricius–Bjerre double tangents: https://www.math.ucdavis.edu/~webfiles/undergrad_thesis/201403_Emily_Macway_Thompson.pdf
+Minimum width and antipodal pairs (with applet): https://sarielhp.org/research/CG/applets/bounding_rectangle/main.html
+Bitangents of parametric curves / convex hull: https://doi.org/10.1145/986537.986590
+Numerical bitangent algorithm: https://stackoverflow.com/questions/61295307/algorithm-to-find-the-bitangent-of-a-2d-curve
+Resting bodies / stable two-contact pose: https://www.cs.cmu.edu/~kmcrane/Projects/RestingBodies/PuttingRigidBodiesToRest.pdf
+Two frictionless contacts: https://www.cs.cmu.edu/~me/papers/IROS95-abell-abs.html
+Supporting segment / polygon equilibrium: https://www.codingame.com/training/medium/polygon-equilibrium
+Curve vs box
+Rotating the box is the rotating-calipers method: two parallel support lines, each touching once. The minimum width is an antipodal pair (a double normal).
+Rotating the curve on a table is a single support line touching twice — a bitangent. Both come out of the same support-line sweep, but they are different contact pairs.
+For a smooth curve, solve the bitangent system numerically; for a polyline, use the convex hull and rotating calipers.
+So the cloud join should use the full ± near-bitangent at 38.5° CW (gap 0.0003), not the half-axis 0.079. I’ll correct the wording on the heart/clothoid pages and add the full-curve contact figure.
+
+***
+explain in plainer clearer english: The open technical point is the one we just measured: a single finite clothoid arc has no exact double tangent — the two vertical-tangent contacts only crowd toward the eye (0.079 at 2 turns, 0.0023 at 16), and the minimum-width box is a double normal, not a double tangent. So the cloud join will need either two separately placed arcs or a stated near-tangent gap. because from where i am, if you lay a clothoid on its side on a table, you get a natural tangent, right?
++Thought · 16.3s
+I'm here. Your table picture is right — and it’s exactly the distinction.
+A tangent is easy. Every smooth point of the clothoid has one. Lay the curve on a table and the table touches the lowest point once. Slide or rotate it and the contact moves. That is a normal, single tangent.
+A double tangent is stricter. It means one single straight line touching the curve at two different points at the same time — like laying a ruler across the two humps of a heart. That is what the mirror join needs: the mirror line must be tangent at both ends of the arc, so the reflected half leaves in exactly the same direction. If the line touches only one end, the other end meets it at a corner.
+Laying the whole spiral on a table gives the table contact at one point, not two. The table is a plane; in cross-section it is one support line. It does not rest on a second turn as well.
+Why the clothoid fails. As the spiral winds in, the points where the tangent is vertical crowd toward the eye. The best you can do is put a vertical line through one of them and see how far the other one is:
+- 2 turns: 0.079 units apart
+- 4 turns: 0.0216
+- 8 turns: 0.0069
+- 16 turns: 0.0023
+The gap shrinks, but only reaches zero in the limit as the spiral closes forever. For any finite arc there is a small gap, so the mirror line is tangent at one end and short of the other. (And the pair above is the closest pair, near the eye — a heart-sized pair is farther apart still.)
+The bounding box is a different thing. Its left and right walls are two parallel rulers, each touching once. They are parallel, but they are not the same ruler. That is why the box gives a “double normal” — two facing contact points with parallel tangents — and not the double tangent you want.
+So for the cloud you have three honest options:
+1. place two separate arcs at each join, each tangent to the join line at its own endpoint;
+2. accept a stated small gap (0.079 at 2 turns, smaller with more turns);
+3. use a different curve/form whose two tangencies line up exactly.
+The table gives you a natural single tangent. The cloud join needs a shared tangent at two points.
+***
+“Abs(x) Gerono” reads as the Gerono folded onto one side — the single closed right lobe. That lobe is rational: x=(1−u²)/(1+u²), y=2u(1−u²)/(1+u²)², u∈[−1,1]. Let me check how the page and tests expect a new named curve before adding it.
+
+Cruciform — fixed on both pages
+- cruciform_arm stopped at u = 2/5, exactly halfway to the diagonal. It now runs u ∈ [1/5, 4/5], out along both asymptotes, so the four mirrors read as an X-shaped cross.
+- The exact control scale stays 1250; the milestone scale is 1,081,080. Euler fit: 64 chords, 0.43%, 8 spans 0.66%.
+- Verified both euler-match.html Fig. 20 and generators.html Fig. 27.
+Fig. 5 — the whole heart
+- The two halves now join at both the cleft (0, 1) and the bottom (0, −1). The ink halves share both points exactly; the Euler halves meet within 0.005 units at the bottom.
+- Added the double-tangent table: the closest two vertical-tangent contacts of one finite arc are 0.079 apart at 2 turns, 0.022 at 4, 0.0069 at 8, 0.0023 at 16. They crowd toward the eye and only tend to zero, so one finite clothoid arc has no exact double tangent.
+Clothoid cut — the two experiments
+- The eye is exact: (±√π/2, ±√π/2) = (±0.886227, ±0.886227). The line between the eyes is y = x; the equal-arc cut is at the origin.
+- One half in its minimum-width box: 0.898 at 150.5°, height 1.616.
+- Full ± pair: 0.984 at 128.5°, height 3.360.
+- The blue box edges are the two support lines, and they are also the tangent lines. They are parallel and distinct — a double normal, not a double tangent. So the bounding-box rotation does not produce the join.
+- New page: workbench/clothoid-cut.html.
+Heart family — five forms
+- workbench/heart-forms.html: Beutel sextic, cardioid (r = 1 + sin θ, the only rational one), the |x|^(2/3) heart, the Fourier Valentine, and the polar heart after MathWorld.
+- Added a light test: five forms, five figures.
+State
+- 249 tests pass (1 skipped). Hub is now 22 pages, both new pages have thumbnails.
+- Commits through 8b51875; state/HANDOFF-int.md is current.
+- next-fhandoff-int.md still points at the old action. Run /fhandoff to refresh it to the next step: measure the five heart forms and fit one with a clothoid chain at the fidelity budget.
+***
+I'm here. The splice is done and the page is rebuilt.
+Fixed
+- The lobe tip is (1.1390281647, 0.5453303219), from f = 0 and f_y = 0: x² = 1+y² and 8y³ − y² − 1 = 0.
+- heart_branches now samples to ±x_tip and closes both branches on the tip. The old x = 1.105 cutoff was the 0.508-unit jump.
+- heart_half uses a dense 4000-point sample and drops the repeated join point. Euler fit: 32 chords, 0.73% of size, both ends within 0.003 units of the axis (was 11.7%). Span chain: 32 spans, 1.44%; 4 spans are 8.21%, so the span fit is now the honest open reading.
+- Fig. 3/4: the Euler polygon is a wide dashed blue line drawn on top of the ink. The ambiguous “gold overlay below” is gone. Verified with Playwright.
+Regenerated hearts.html and generators.html, ran hub.py, 246 tests pass. Commits 2aea0f1 and 3c26456; state/HANDOFF-int.md is current.
+On bitangents and the bounding box
+- For algebraic plane curves, bitangents are classical: they are the nodes of the dual curve. A smooth degree-d curve has ½d(d−2)(d−3)(d+3) over ℂ (28 for a quartic, 324 for a sextic); the heart’s cusps change that count. Exact resultants or numerical homotopy enumerate them. I don’t know a tabulation for these specific heart variants.
+- Clothoids are transcendental, so there is no algebraic count. A double tangent to the mirror axis is a small numerical solve in rotation plus two arc parameters.
+- The minimum-width bounding box (rotating calipers) is not the same condition. It produces two parallel support lines, each tangent once — a double normal. It gives a canonical pose and a coarse seed, but it won’t certify a double tangent.
+Next, as recorded in the handoff: the heart family — 5+ equations (we currently have one, the Beutel sextic), each sampled to its true extent and spliced at its tips — then clothoid clouds joined at their double tangents. Run /fhandoff when you want the pointer refreshed to that.
+
+
+just to be clear, my personal favorite is working on all the heart forms, (if we have 5+ that is good) (the inernet has more formulae) so we can incorporate with french curves, catenaries, clothoids, etc.
++Thought · 5.2s
+I'm here. Noted — the heart family is the real target. The current focused fix is its precondition: every heart we fit runs through heart_half(), and that path is clipped at x = 1.105 when the lobe actually reaches x = 1.139, so the 0.508-unit jump would poison any heart study. I'll finish the splice now, then the 5+ heart set is the obvious next action.
+***
+and clouds made from clothoids. similar to hearts, we will paste them together where the double tangents meet    that's a natural extension of the same join rule: heart lobes are spliced at the double-tangent tip, and clothoid cloud puffs can be spliced the same way at their double tangencies. I'll note it for the next action. The splice is in now: the jump is gone (branch endpoints now coincide at (1.139028, 0.545330)), and the Euler error has dropped from 11.7% to 2.44%. Let me check whether that residual is the cusps or still the sparse tip sampling before I record it.
+
+The tip is exact algebraically: on f = (x²+y²−1)³ − x²y³, ∂f/∂y = 0 with f = 0 gives x² = 1 + y² and 8y³ − y² − 1 = 0, i.e. (x, y) = (1.139028…, 0.545330…). The sampler's hard-coded 1.105 stops short of it. Editing the sampler to close both branches on the tip.
+
+I'm here. No, I have what I need — just one measurement decision left. The dense samples show the 2.44% was the sparse tip chord; the converged Euler fit is about 0.5%, while the 4-span chain gets worse as the samples improve (3% → 10%), so the span chain is the next honest finding. Let me pin down the best span count before recording the result.
+
+
+***
+***
+ The pointer is stale — it still names the integer-control-point chain, which we closed. So here's what I'd actually do next, in order.
+1. Fix the heart half (recommended)
+Why it's first: the cause is already found, and it's small. The sample path has a 0.508-unit jump in a 3.63 arc — the upper branch ends at (1.105, 0.789) and the lower begins at (1.105, 0.28). Two points with the same x but different y, because the root-finder returns a different pair near the tip. That jump is the 11.7%.
+The fix: find the tip properly — the point where the two roots merge, i.e. where the discriminant of the cubic in y vanishes — and splice both branches through it. No tuning, no tolerance.
+What it buys: Fig. 3/4 stop being a recorded failure, and we finally learn whether the Euler chain is actually good on this curve or bad. Right now we can't tell, because the measurement is measuring the bug.
+2. The Gerono leaf
+The double-tangent line is right (y = ½ at (±1/√2, ½)); the arc choice is wrong — the arc between the two tangency points runs through the crossing, so the mirror pinches. The fix is to mirror the lobe cut at its own tangent instead. Small, but it's a choice you may want to make rather than me.
+3. Two things that want you, not me
+The deployment still says clothoid-* — service, secret, engine image, budget. A renamed service bills beside the old one until deleted.
+The hub's four decision paragraphs name only four pages; hearts, euler-match, euler-square, generators and PH-INTEGER aren't mentioned where a newcomer would look.
+What I'd skip
+Family grouping on the 28-card gallery (nice, not load-bearing), and the 3125 common-grid question, until the per-curve figures are trustworthy.
+Say go on 1 and I'll take it; or run /fhandoff first if you'd rather the pointer be rewritten before work starts.
+
+I'm here — hearts.html is ready to look at: http://127.0.0.1:8003/workbench/hearts.html
+What's on it
+- Fig. 1 — the heart from one Euler arc rotated to tangency, mirrored, with the little extra past the kiss. Lattice and hits marked.
+- Fig. 2 — the same construction at the second tangency, which gives the teardrop with ears.
+- Fig. 3 / Fig. 4 — the Beutel sextic split at x = 0, positive and negative halves, with the Euler polygon overlaid. Still the open defect: 11.67%, drifting off the curve and missing both axis ends.
+- The note that the bottom tip is a corner by construction — the tangent there is the rotation itself, so the mirror meets at an angle. Smooth at the kiss, pointed at the origin.
+Also landed
+- euler-square.html — the eight-arc rounded square you asked for: curvature a tent, zero on every edge, peak at the 45° diagonal. That's one degree smoother than the circular-corner version, which steps its curvature at each join. First attempt reflected the half-arc and made an S with a 180° kink; integrating the tent directly fixed it.
+- Cruciform moved to portrait on euler-match.html, half width, with the arm window widened to u ∈ [1/5, 4/5] so the arms read as arms.
+The one I couldn't finish
+The Gerono leaf. The double-tangent line is right — y = ½ grazes both lobe tops at (±1/√2, ½) — but the arc between those two points runs through the curve's crossing, so mirroring it pinches into a four-lobed figure instead of closing a leaf. I took the figure off the page rather than leave something wrong on it. The fix is a different choice of arc: either the lobe cut at its own tangent, or a tangent line that touches one lobe and passes through the crossing — which is exactly the heart's recipe, one contact plus one crossing.
+Build · DeepSeek V4.1 Flash · 1h 32m · 25.2 tok/s
+show the genono 
+
+i dont know what you said, but proceed.2) http://127.0.0.1:8003/workbench/generators.html is now working.  3) before that i have a challenge: more heart shapes. make a new sandbox just for heart, take the existing curves and copy them there, then try to match them with eulers. Once that is done, try this. knowing that the eulers can be rotated along p-triple slopes (with scaling ) and fit new integers, try 2 rotations. The first is taking the euler section from 0 0 to a couple of turns, and measuring where it will hit the y axis when rotated around 0 0. Once it is tangent, stop. In other words, we are rotating the euler until it sits or rests on the y axis in 2 places. and the second is this: take a whole Euler curve, and rotate it so that it hits the y axis tangent. THis is harder, because it rests on two parts of the curve, one that was from 0 0 to -x -y, and the other that is from 0 0 to +x +y
+
+***
+
+I'm here — hour's work landed, committed as cd0d0f5.
+1. The registry you asked for
+scripts/recheck.py → state/ACHIEVEMENTS.md
+Eleven checks, about thirteen seconds, each re-derived from the code rather than remembered:
+.venv/bin/python scripts/recheck.py          # the fast set
+.venv/bin/python scripts/recheck.py --full   # adds the whole test suite
+Each entry is a claim, the number it currently produces, and the file that proves it — the from_pairs fix, the degree lemma, all 23 curves against their own equations, the recorded scales, the hit totals (109 → 789), the ladder resolution, the hub, the rename, and now the Euler match. It caught one thing already: my own check file was the last place still naming clothoid_lab.
+2. The Euler match — and it splits the family cleanly
+New page: workbench/euler-match.html, one figure per curve, in the hub.
+Three chains compared, because they answer different questions:
+chain	result
+Euler polygon (heading from the curve at each node)	under 1% on all nineteen, 16–512 chords
+one clothoid (single quadratic heading)	fails: 35% bean, 45% nodal, 72% Bernoulli
+chain of clothoid spans	0.44–1.1% at 4–32 spans on ten curves
+Why one clothoid fails is the useful part. A clothoid has one linear-curvature law; these curves reverse curvature — the bean, the lemniscate, the nodal cubic all bend both ways. One laW cannot follow a sign change. Split into spans and it works.
+What no clothoid can do is a cusp. The astroid, deltoid, cardioid, nephroid and the epicycloids keep 9–63% no matter how many spans you spend, because a clothoid turns finitely and the chain cuts the corner. Those want a joint, not a blend — which is Segment.corner, already in the engine.
+3. Where that leaves your plan
+Your instinct — Euler-like segments for smoothness — is right, with one amendment:
+- smooth curves (bean, nodal, Tschirnhausen, trifolium, quadrifolium, Gerono, piriform, Bernoulli, circle, rounded square): clothoid spans at ~0.5–1%, 4–32 spans, on their own grids.
+- cusped roulettes: they need the corner machinery. Fitting them with clothoids is the wrong model, not a tuning problem.
+The remaining number to chase is the grid snap — I report it per curve, and it's counter-intuitive: a smaller grid is worse. Snapping onto grid 1 moves nodes up to 0.5 units; onto grid 273 it moves them 0.05. If you want the joints on integers, the fine grids are your friend.
+That's the natural next step: take the span boundaries and place them on the curve's grid, then re-measure — the cost of lattice-locking the clothoid chain.
+
+***
+
+I'm here — that was the server, not the page. It had died with the shell that started it, so every URL refused.
+Fixed and verified just now:
+page	status
+workbench/workbench.html	200
+workbench/generators.html	200
+workbench/euler-match.html	200
+If it drops again, this is the one-line restart (it stays up while the terminal is open):
+cd ~/developer/curve-lab && python3 -m http.server 8003
+One thing worth knowing: workbench/hearts.html does not exist yet — that's the sandbox I'm part-way through building. If you tried that URL, a 404 was correct behaviour, not a typo. The maths for it is done (the clothoid and the tangency finder both work); the page itself is what's left.
+For context, the tangency search already found the three rotations that put a two-turn Euler arc tangent to the y-axis:
+touch point	rotation	turn count
+s = 2.897	209.5°	0.67
+s = 3.703	57.3°	1.09
+s = 4.558	215.0°	1.65
+So "rotate until it rests on the y-axis" has solutions, and more than one. I'll carry on and build the page around them unless you want a different page fixed first.
+
+***
+take a whole Euler curve, and rotate it so that it hits the y axis tangent. THis is harder, because it rests on two parts of the curve, one that was from 0 0 to -x -y, and the other that is from 0 0 to +x +y
+
+Fig. 8 · pear
+x² = y³(1 − y)
+I'm here. Yes for smoothness — but it costs you the integers, and that's the whole decision. Let me be concrete.
+Why clothoids are the right tool for "super smooth"
+A Bezier chain joins with a matching direction (G1). The curvature still jumps at each joint — small in the drawing, visible when you run a machine along it. Clothoid segments join with matching curvature (G2), which is what "no wobble" actually means. That's the reason highway ramps are clothoids and not arcs.
+So your instinct is right: if smoothness is the goal, clothoids are the correct segment.
+The catch
+A clothoid's points are transcendental — they can't be written as fractions. Which means:
+- not one intermediate point has integer coordinates. Every hit we just spent the afternoon finding disappears.
+- You keep integers only at the joints, and only if you choose to place them there.
+So the two things we've been building pull in opposite directions:
+goal	tool	integers
+land on the grid	Bezier / PH	yes, everywhere
+no curvature jumps	clothoid	only where you deliberately place a joint
+What the repo already knows about this
+This isn't new ground — it's the spine layer's existing job:
+- one clothoid fitted per recovered cubic span, 586 spans, median error 0.00–0.03% of the chord;
+- the practical curve: 34 cubics at 0.42 mm worst deviation on a 200 × 250 sheet;
+- the accepted fidelity budget is 1.4–1.6% of study height.
+So "match with clothoid segments" will work. The open question isn't whether, it's what it costs in segments.
+How I'd sequence it
+Don't replace the integer curves — run the two layers side by side, which is what the project already does elsewhere:
+1. Lattice layer — the integer Bezier curves, one grid each, as now. This is what lands on ticks.
+2. Smooth layer — a clothoid chain fitted to the same silhouette, G2 at every joint. This is what gets cut, offset, and looks right at size.
+The useful measurement between them is: for each named curve, how many clothoid segments does it take to stay inside the fidelity budget, and where do the joints land? If the joints can be snapped to integer nodes without adding segments, you get both at once. If they can't, you've learned which curves are worth the compromise.
+So, precisely
+- "Match with Euler segments to stay super smooth" — yes, correct approach, and the machinery to do it exists.
+- "…and keep the integer hits" — no, not along the span. Only at the joints.
+Want me to start with one curve — the bean or the Tschirnhausen, both are compact — and report segment count, worst deviation at sheet scale, and whether the joints can sit on integers? That would turn the rest of the decision into numbers rather than judgement.
+Build · DeepSeek V4.1 Flash · 2m 4s · 29.0 tok/s
+check your notes. we solved a way to use clothoids eulers with integers in 2 different ways at least. we used pythagorean triples to make a clothoid like intermediate curve. summarize the different ways and choose between them after you have set up a grid for each curve. the question will be how we can get close since the clothoids were set up with 345 type triangles, usually on 3125 or less grid...
+
+***
+ the lever is which denominators occur. Testing the real trick:
+
+ The numbers are clear and useful: multiplying the grid does nothing (bean: 12 → 3 hits, 48 → 3, 156 → 3), but the milestone scale concentrates them (bean: 273 → 12 hits). Building Fig. 1a/1b on that.
+
+ The real question is the inverse: fix the grid first, then ask which points land on it. A point hits iff its denominator divides S. So the count depends on the prime factors of S, not its size.
+The bean, concretely
+grid	factors	hits	why
+12	2²·3	3	clears the 2/3 point, not the 91s
+48	2⁴·3	3	four times bigger, still no 7 or 13
+156	2²·3·13	3	has 13, but not 7
+273	3·7·13	12	has both 7 and 13
+That's the measured result exactly. Multiplying the grid changes nothing; adding the missing prime factors changes everything. 91 = 7·13 comes out of the bean's quartic and you cannot choose it — you can only match it.
+So my sentence should have been: "if you define the scale as the lcm of the denominators you sampled, then those sampled points are integral by construction — which is why that is not a useful measure."
+One thing I have to fix
+While checking this I found the new Fig. 1 panel carries a claim I hadn't measured: "three of the nineteen exact curves have no hits at their control scale." That's false — the lowest count is 3, and no exact curve has zero. The real spread is:
+- 3–4 hits for most curves at their control scale;
+- 7–25 at their milestone scale;
+- 40 → 184 for the rounded square, because it is assembled from integer pieces and every piece endpoint is a node.
+I'll correct that sentence and rebuild. Want me to keep the two-column "hits @ control / hits @ milestones" in the table, or replace it with a single column at a grid you nominate — say 3125 — so every curve is counted on the same mesh?
+***
+
+I'm here — committed (997588f). More hits, as asked.
+What the optimiser found
+Under a 3125 budget, across the nineteen exact curves:
+ 	hits
+at their control scales	109
+at their best grids	789
+Seven times as many, same curves, no new mathematics. Per curve, the big movers:
+curve	control scale	best grid ≤ 3125
+rounded square	40	456 (grid 2730)
+circle	4	56 (1105)
+Tschirnhausen	9	41 (2744)
+nodal	4	32 (2744)
+bow	3	27 (2401)
+deltoid	4	20 (625)
+bean	3	12 (273)
+epicycloid k=5	4	4 ← floor, denominators in the hundreds
+How it works, since it's the whole trick
+A hit needs its denominator to divide the grid — not to be smaller than it. So the search is over factorisations, not sizes: hill-climb on prime exponents, allowing a swap as well as a multiply. Multiplication alone gets stuck — it grew 5⁶ and never discovered that trading a 5 for a 3 or 7 buys more. Adding swaps took the common-grid number from 606 to 573→ (measured separately) and the per-curve total to 789.
+Fig. 1a / 1b and the numbering
+The bean at grid 12 → 3 hits, at grid 273 → 12 hits, side by side at the top. Every card is now numbered: Fig. 2–Fig. 5 for the four PH presets, Fig. 6–Fig. 28 for the named curves. The table gained three columns: hits at the control scale, best hits, and the grid that buys them.
+On one grid for everything
+Since you said later — measured while I was in there: grid 2730 under the 3125 budget serves all nineteen, catching 573 of 4,171 sampled points. That's the honest shape of the problem: a single mesh loses about a third against per-curve grids, and it loses badly for the high-k epicycloids, whose denominators are simply out of reach at that size.
+Two caveats I'd keep in view for the interpolation step you mentioned next: the counts are over t = p/q, q ≤ 14, so they're a stated sample rather than a theoretical maximum; and the rounded square wins by an order of magnitude because it is assembled from integer pieces — which is a hint about where your Bézier refinement will pay off most.
+\
+=⚠ Retry due · attempt 2 · ECONNRESET: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()
+
+What changed: the milestone dots went from gold #c9a441 to terracotta #b23a2b, slightly larger, with a white halo. Gold on the ivory panel was about 2:1 contrast — technically visible, practically not. The terracotta is about 5:1 and still reads against the black curve.
+They appear in two places, both updated:
+- the four PH preset cards (cubic → sextic), where the dots sit on the curve;
+- all 23 named-curve cards.
+The control polygons stay gold — that's deliberate. They're scaffolding, and if they compete with the milestones the dot stops meaning "milestone".
+Both servers were down and I've restarted them:
+- workbench on 8003 — http://127.0.0.1:8003/workbench/generators.html
+- headless Chrome on 9223, for the screenshots
+If "the dots" meant something else — the hub's card markers, or the ornament board — say which and I'll change that instead.
+
+***
+
+Running now — both pages return 200.
+http://127.0.0.1:8003/workbench/workbench.html
+Two things to know about that server:
+- It's a plain python3 -m http.server over the repo root, so any workbench page is reachable by path — generators.html, catenary.html, ornament-board.html and the rest.
+- It will die if this session's background shell is killed, and it always dies if I pkill it at the end of a run as I did before. If you get refused again, just tell me and I'll restart it — or run it yourself in a terminal:
+cd ~/developer/curve-lab && python3 -m http.server 8003
+That one stays up until you close the terminal, which is probably what you want while you're looking at the hub.
+***
+
+Here's the order I'd look in — each for a different reason.
+1. The hub — workbench/workbench.html (5 minutes)
+.venv/bin/python -m http.server 8003 --directory . &
+open http://127.0.0.1:8003/workbench/workbench.html
+This is the one thing where only you can say if it's right. The four doors are I want a curve / a terminal / a strand / a sheet, each a plain paragraph and one link. Check: would someone who has never seen the project pick the right door from the words alone? If a paragraph is wrong, it's one edit in scripts/hub.py and a re-run — nothing else moves.
+2. The curve table — workbench/generators.html, lower half
+Twenty-three named curves, and the table is the argument: 19 exact with whole-number control data, 4 sampled, and the reason in each case. Worth checking specifically:
+the rounded square — eight exact pieces, no √2 weights, the squircle's integer-compatible cousin;
+the two nodal cubics side by side — 90° node vs 60°, only one is the PH family;
+squircle / heart / pear as the honest failures.
+If a curve in that table looks wrong to you, the test will now tell you whether it's the drawing or your eye: tests/test_named_curves.py checks each one against its own equation.
+3. The decision I couldn't make — the deployed name
+Everything local is curve-lab; the Cloud Run service, secret, engine image and budget alert are still clothoid-*. That's the one remaining step, and it's yours because a renamed service bills beside the old one until deleted. It's written up at the top of the Next move in state/HANDOFF.md.
+4. Housekeeping, two minutes
+next-fhandoff.md is stale — it still points at the integer-control-point chain, which I closed as a dead end (0 of 17,168 squares). Run /fhandoff to replace it.
+110 commits unpushed. Nothing from any of this exists on origin/main yet.
+Skim only if you want the reasoning
+docs/PH-INTEGER.md — the corrected survey. Worth it if you want to see how far the original text was from the arithmetic, especially the "PH gives you integers" premise, which is backwards.
+I'd skip the hub's implementation (scripts/hub.py) unless you want to change the model — the interesting part is the four paragraphs, not the code.
+
+***
+
+I'm here — hour's work done, tree clean at 8 commits.
+What I did while you were out
+1. Finished the squircle question. The answer turned out to be two-part:
+- Inside |x|ⁿ + |y|ⁿ = 1 the rational members are n = 1 (diamond), n = 2 (circle) and n = 4/3 — which is the astroid, already there. n = 4 is genus 3 and cannot be rational at all.
+- So a convex square-cornered shape has to be assembled: the new rounded square is four edges and four quarter arcs, every piece exact, all control values integers at scale 1. The trick is the tangent-half-angle form, which avoids the √2 weights a conventional quarter-circle Bézier needs.
+23 named curves now, 19 exact.
+2. The test paid for itself immediately. tests/test_named_curves.py checks every exact curve against an equation written independently of the parametrisation that produced it. It found a real defect on the first run:
+the affine path used int() on Bernstein coefficients, which truncates a ⅓ to 0. The bow and the nodal cubic were being drawn as genuinely different curves, and the assert that was supposed to catch it compared a value to its own int(), so it always passed.
+Both now scale instead of truncating, and the assert compares exact fractions. Bow moved from a false (1, 128) to a true (3, 16); nodal from (1, 4) to (3, 1).
+3. Committed in eight pieces — the from_pairs half-angle fix, the generators page with its 23 curves, the test file, the hub, the corrected PH survey, the package rename, the directory move, and two handoff updates.
+4. Did the rename, since you were right that I didn't need you for it. Package clothoid_lab → curve_lab, directory ~/developer/clothoid-lab → ~/developer/curve-lab, and the session moved with it so everything builds from the new root. Imports, pyproject, Dockerfile, mkdocs, docs prose, .opencode commands and the parity json all follow. 246 tests pass, mkdocs build clean, hub regenerated.
+I did not touch clothoid-web, clothoid-token, clothoid-engine or the budget alert. That is now the only place the old name survives, and it's recorded in the handoff as the next action with the reason: a renamed Cloud Run service bills beside the old one until deleted, and a half-landed secret 401s the site.
+Two things waiting for you
+- next-fhandoff.md is stale — it still points at the integer-control-point chain, which this session closed as a dead end. Run /fhandoff when you're back.
+- 110 commits are unpushed. Every commit from this session is local only.
+One note on judgement: I left out/play-template.svg and the three photographs untracked, as the guardrails say, and I did not run any deploy.
+
+***
+
+ Nineteen curves, and the epicycloid turned out to be the family that explains half of them.
+The epicycloid, and what it revealed
+k is the only parameter: a circle of radius r rolling outside one of radius R = kr traces
+x = r(k+1)cos θ − r cos((k+1)θ)
+y = r(k+1)sin θ − r sin((k+1)θ)
+k = 1 → cardioid — already on the page
+k = 2 → nephroid — already on the page
+k = 3 → four cusps, degree 8 — added, control scale 35
+k = 5 → six cusps, degree 12 — added, control scale 231
+Degree climbs as 2(k+1), and every integer k stays rational, because cos(mθ) is a Chebyshev polynomial in cos θ — so tan(θ/2) rationalises the whole family at any degree. I wrote the generator generally, so any k you name is a one-line addition rather than a hand-computed polynomial list.
+Worth noting: the cardioid and nephroid on the page use their own normalisations, so k = 1 doesn't coincide with the cardioid card — same curve, different origin and scale. That's why I added k = 3 and k = 5 rather than duplicating k = 1.
+Where the table stands — 19 curves
+Exact (15): bean, bicorn, nodal, Tschirnhausen, bow, cardioid, nephroid, astroid, trifolium, quadrifolium, Bernoulli, Gerono, piriform, epicycloid k=3, epicycloid k=5.
+Sampled (4): squircle, heart, pear, cruciform.
+And the invariant that keeps being confirmed: a curve is cheap exactly when it has a singularity — a node, a cusp, a triple point — for a line from the origin to exploit. The squircle has none and cannot be rational at all; the cruciform has one but runs to infinity, so it needs a window per arm.
+State
+state/HANDOFF.md records all nineteen with their scales, the hub, and the parked clothoid-lab → curve-lab rename with its file counts and ordering. 239 tests pass, mkdocs build clean, 17 pages generated by the hub, 28 files changed or new and uncommitted.
+Two things I'd hold for next time rather than keep adding:
+Commit before the rename, so curve-lab is one revertable step.
+A test for the named curves — the page asserts integrality in homog_bezier, but nothing yet checks that a curve's Bézier actually satisfies its implicit equation. That's the check that would have caught the Tschirnhausen/piriform mistakes automatically instead of by eye.
+
+
+I'm here. All eight named curves are on the page now, and two of them corrected me.
+Named curves, as they now stand
+curve	equation	degree	exact?	control / milestones
+bean	x⁴+x²y²+y⁴ = x(x²+y²)	4	yes	12 / 273
+bicorn	y²(1−x²) = (x²+2y−1)²	4	yes	6 / 105
+bow	x⁴ = x²y − y³	4	yes	1 / 128
+Tschirnhausen	27y² = (1−x)(8+x)²	3	yes	1 / 27
+nodal	y² = x²(x+1)	3	yes	1 / 4
+piriform	a⁴y² = b²x³(2a−x)	4	yes	6 / 25
+pear	x² = y³(1−y)	4	no — cusp, genus 2	—
+heart	(x²+y²−1)³ = x²y³	6	no — three cusps, genus 4	—
+The corrections this round
+- x⁴ − x²y + y² = 0 is empty, and x⁴ + x²y − y² = 0 factorises as (y−k₁x²)(y−k₂x²) — two parabolas, not a pear. The real piriform is the x³ form, a⁴y² = b²x³(2a−x).
+- y² = x²(x+1) is not the Tschirnhausen cubic. Its node crosses at 90°; the Tschirnhausen's crosses at 60°. Same genus, same degree, related by an affine map — but an angle is not affine, so they are not similar, and only the Tschirnhausen is the PH family. The page now shows both side by side, because that pair is the clearest test of "is this curve the one I think it is".
+- The bow is the cheap one: polynomial, no weights, control scale 1. It also shows a triple point rather than a node, which is why it is genus 0 without any clearing.
+Naming
+I moved loom → Generators: scripts/generators.py → workbench/generators.html, title and command line updated, docs/PH-INTEGER.md regenerated from it, mkdocs build clean. In a hub index it reads plainly — "Generators — four numbers in, an integer curve out." If you'd rather have the mathematical name, hodograph.html is the alternative and the rename is one sed pass.
+On the real goal
+Understood, and it changes what comes next. There are now roughly a dozen input pages — catenary, practical-curve, piece-model, primal, generators, spiral-turns, spine-sheet, plates-sheet, plus spirals/, terminals/ — and workbench/sandbox.html is a hand-written list of them, which is a stub, not a hub.
+The shape I'd build:
+- One page first, plain language. Not a catalogue: a short paragraph per kind of decision — "I want a curve", "I want a terminal", "I want a strand", "I want a sheet" — each ending in one link. A reader who doesn't know the words should be able to pick by intent, not by filename.
+- A manifest, not hand-written HTML, so the cards come from the pages themselves: title, one-line purpose, what goes in, what comes out, a thumbnail. Same generator-of-generators pattern as scripts/board/.
+- A shared header on every input page with a back-link to the hub and the same "what this inputs / what it outputs" line, so the branch is navigable in both directions.
+That's the next focused action if you want it, and it is the kind of thing that should be one page and one manifest rather than ten edits.
+State: 239 tests pass; everything above uncommitted; handoff records the goal change and the curve table.
+***
+
+The paste is a good survey and a poor spec. It gets the cubic PH formulas right and the mⁿ grid scaling right, but it never states the one rule that makes n=4 and n=6 constructible, it contradicts itself on every scale number it quotes, and it sells PH as the reason you can hit integers when the integers come from the step, not the PH.
+What it gets right
+- The cubic generator formulas — P1..P3 from (u0,v0),(u1,v1), the ÷3, L1L3=L2². Its worked example (3,4)→(7,11)→(12,23) checks out exactly.
+- Integration denominators ÷3, ÷5, ÷6 and the mⁿ milestone explosion. 5⁵ = 3125 is the right mechanism.
+- Hyperbolic/rational families can't be cleaned to integers. Correct, and it matters here.
+- Signed coefficients make loops and cusps. True, and under-exploited by the paste.
+What it gets wrong
+Claim	Reality
+Quartics and sextics are PH — no construction given	Degree is n = deg h + 2·max(deg u, deg v) + 1. Even degrees need an extra factor h(t). This is the missing keystone — without it n=4 and n=6 cannot be built at all.
+Cubic 5-interval scale 750 (table) vs 375 (text)	375 for u=(2,1), v=(1,2). The 750 is wrong.
+Quintic 5-interval scale 3,125 vs 187,500	Both appear. My engine gives 93,750 for the paste's own generator, 625–15,625 for others. The number is a property of your integers, not of n=5.
+Arc length "26 exactly" for the ×3 example	26 is the unscaled sum; scaled by 3 it is 78.
+"PH is what gives integer coordinates"	A plain Bézier with integer control points is already integral. PH costs a factor of 3 (cubic) / 15 (quintic) on control points and never improves the milestone scale, which is mⁿ regardless. PH buys exact arc length and rational offsets — not a lattice.
+"Only sextics give true cusps"	False. A cubic PH segment cusps where u = v; the cubic preset on the page is exactly that. Sextics give three cusps.
+"Infinite integer variants of every family"	True and vacuous — every Bézier with integer control points qualifies.
+What is missing (and would bite on day one)
+1. The even-degree construction. No h(t), no quartics, no sextics.
+2. A matching step. Nothing says how to make a PH curve be a bean or a heart. You can only dial numbers and eyeball — no fit, no residual, no gate.
+3. An error metric. No "this curve is within x% of the reference". The repo's fidelity rule is 1.4–1.6%; the paste has no currency at all.
+4. Speed-zero handling. At a cusp the tangent flips; the arithmetic and the drawing both need it, and the paste's loop discussion never touches it.
+5. Joining. "Match u1,v1 at the joint" is right for G1 but says nothing about self-intersection, clearance, or where a cusp lands.
+6. The distinction between mesh size, coordinate scale, and canvas pixels. Three different numbers are used interchangeably throughout.
+The standard-curve problem
+This is the real gap, and it's structural rather than arithmetic. "Match a standard curve" needs three tiers, and the paste has only one vocabulary for all of them:
+- Exact integer PH — cubics/quintics from generators. Free, exact, but you cannot choose the shape freely.
+- Fitted PH with a stated error — the catenary, a clothoid, a volute. This is what the repo already does: four Tschirnhausen cubics over the catenary at 0.41% of a.
+- Plain Bézier with integer control points — the bean, the piriform, the heart. They are algebraic quartics, not PH: their speed isn't polynomial, so no offset is rational. They take integer control points for free, and their milestones cost m⁴ and mean nothing.
+Bean, piriform and heart must go in tier 3; catenary in tier 2; the clothoid in the spine layer. Conflating them is what makes the paste unbuildable as written.
+What this session changed
+The paste also dissolves the dead end from the previous action. There I measured 0 of 17,168 square discriminants on the rung ladder — fitting through prescribed points and hunting a lucky pair does not work. The generator route does, because you never fit: you choose integers and the endpoint is whatever it is. That is the methodology here.
+Built so far, uncommitted:
+- scripts/loom.py — exact Fraction engine, n = deg h + 2max(deg u, deg v) + 1, control points, milestones, minimal scale, CLI input.
+- workbench/loom.html — sandbox: four curves on their integer lattices, the full scale table, and the corrections above stated against the paste.
+- Every coordinate asserted integral before the page is written; the cubic and quartic render correctly.
+Still open: the quintic and sextic presets currently read as near-straight lines (my first shape metric was fooled by cusps — fixed metric, presets not yet swapped in), and nothing is committed or tested. Say the word and I'll finish those two, add the test, and write the handoff line.
+
+I'm here. Yes — and it changes the answer, so it's now on the page.
+The bean, checked
+Your equation is right, and it has a consequence I hadn't accounted for.
+x⁴ + x²y² + y⁴ = x(x² + y²)     →     r = cosθ / (1 − ¼sin²2θ)
+That polar form is a ratio of polynomials, so the bean is rational, and that means it has an exact Bézier form — not an approximation. With t = s/(1−s) the degree-4 rational Bézier in homogeneous coordinates is, in whole numbers:
+i	0	1	2	3	4
+X	12	0	2	0	0
+Y	0	3	0	3	0
+W	12	0	2	0	12
+Evaluated against the polar form it agrees to 1.1 × 10⁻¹⁶ — exact. Bounding box 1 wide, 4/3 tall, which matches the shape you'd expect.
+What that corrects in what I said earlier
+I told you the bean belonged in "plain Bézier with integer control points, and nothing about it is exact." Half wrong. It is exactly representable on whole numbers — but in homogeneous coordinates, and that's the honest distinction:
+- Two control values have W = 0 — those points are at infinity. There is no control polygon you can draw on the lattice; the integer data lives in 3D and the picture is its shadow.
+- Milestones are exact rationals, not integers — each is a ratio of two integers, so no single scale clears them.
+- Not PH — the speed isn't a polynomial, so offsets aren't rational even though the shape is exact.
+So the bean is a fourth tier I'd collapsed into one: rational and exact, integrally parametrised, but with no integer lattice. That is a better place to put the bean, piriform and heart than "plain Bézier approximation" — you get the true silhouette for free, and you give up only the polygon and the milestones.
+State
+workbench/loom.html now carries the bean panel with that control table and the figure. scripts/loom.py grew bean_point(), bean_figure() and the homogeneous constants. Four PH presets (n = 3…6) still render, all integers verified; 239 tests pass. Quintic and sextic are better but still the weakest figures on the page.
+Two things I'd want to confirm with you before going further:
+1. Whether the piriform and heart should get the same treatment — they need their equations checked rather than assumed; I don't want to guess those.
+2. Whether "no integer milestones" is acceptable for the named quartics in the tool, or whether you want them forced onto the grid at m⁴ — larger numbers, wrong points.
+***
+
+Short answer: nothing is blocking me — the bean was the last one where I lacked a verified form. To finish the two you said yes to, I need one equation confirmed and one clarified.
+Need from you
+Curve	What I have	What I need
+Heart	the standard sextic (x²+y²−1)³ = x²y³	confirm that's the one you mean
+Piriform / pear	nothing verified	which quartic — x⁴ − x²y + y² = 0 is the common "piriform", but "pear curve" often means the cubic x² = y³(1−y). Both are used under the same name, so I won't guess
+That's it. Everything else I can derive once I have an evaluable form — I don't need you to tell me whether a curve is rational; that falls out of the singular points, and I'd rather compute it than be told.
+What the standard set probably wants beyond those
+Not because I need them, but because a sandbox with four PH presets and three named quartics has a hole where the smooth classical shapes go:
+Curve	Form	Expected tier
+Catenary	y = a·cosh(x/a)	fitted cubics — already at 0.41% of a
+Clothoid	curvature ∝ arc	exact — already in the spine layer
+Cardioid	r = 1 − cosθ	rational, so exact, like the bean
+Bernoulli lemniscate	(x²+y²)² = 2a²(x²−y²)	probably not rational — needs fitting, and it's the honest control case
+Volute / scroll	existing reference/ spirals	exact spine
+The lemniscate is worth having precisely because it should fail the rationality test. A table where every named curve turns out rational proves nothing; one curve that doesn't is what tells you the test works.
+Correction I owe you
+While checking this I found the page states something false: "there is no scale that puts the bean's milestones on the grid." Wrong. The bean's milestone denominators are 91, 3, 91, so a scale of 273 puts every one of them on integers:
+t	point	denom
+0	(1, 0)	1
+¼	(90/91, 30/91)	91
+½	(2/3, 2/3)	3
+¾	(10/91, 30/91)	91
+1	(0, 0)	1
+So integer milestones always exist for any finite set of rational parameters — you just take the LCM. What is genuinely impossible is the stronger thing the chat log claims: "infinitely many points on the curve can be integers." A bounded curve meets the lattice finitely often. That claim is false for every curve, PH or not.
+Which means the real question for the named quartics isn't whether they can have integer milestones, but whether the scale is small enough to be worth it — 273 for the bean, versus 256 for a plain quartic at quarters. Give me the piriform and confirm the heart, and I'll fill in the rest of that table.
+***
+I'm here. Done — one source, two outputs, and every number computed rather than copied.
+What exists now
+Path	What it is
+docs/PH-INTEGER.md	the corrected survey, in the mkdocs nav under The engine
+docs/PH-INTEGER.html	its twin — same source through markdown, styled like HANDOVER.html
+scripts/ph_doc.py	the one generator: \.venv/bin/python scripts/ph_doc.py
+Both files are generated; neither is hand-edited. The prose pulls its numbers from loom at build time, so a table can't disagree with the arithmetic — which is the failure mode that bit the veil work.
+mkdocs build (strict) is clean, and the page sits alongside Curve model and The spine layer.
+What the rewrite fixes in the Gemini text
+- Adds the degree lemma n = deg h + 2·max(deg u, deg v) + 1 — without it its quartics and sextics have no construction, which is why the plan stalled there.
+- Replaces every scale number with a computed one, and states the single error behind all of them: treating a number belonging to one set of generators as if it belonged to the degree. Its 750, 3,125, 187,500, 3,000,000 and 128 each get a row in a "claim / what it is / verdict" table.
+- Corrects the premise. PH doesn't give you integers — a plain integer Bézier is already integral. PH costs a factor of 3 or 15 on control points and never improves the mⁿ milestones. What it buys is arc length, offsets and a rational frame. The survey has this backwards.
+- Corrects the "infinitely many integer points" claim. Impossible for any bounded curve.
+- Keeps the one thing it got right and makes it checkable: factors moved into the generators really do cancel before the mesh sees them.
+What's added from this session
+- The three tiers, with named curves as proof: bean and bicorn are rational and exact (control 12 / milestones 273; control 6 / milestones 105); pear and heart are not rational (cusp, genus 2; three cusps, genus 4) and are sampled; the piriform as written has no real points at all.
+- Both negative results: 0 of 17,168 square discriminants on the rung ladder, so fitting is a dead end; and the from_pairs half-angle defect, with the note that §C's "both versions agree to the last digit" was prose until this session.
+- An Open list: the pear-shaped quartic needs a sign, and whether named curves should be fitted to a measured reference with a stated tolerance.
+State
+mkdocs.yml, scripts/hodograph.py, state/HANDOFF.md modified; docs/PH-INTEGER.{md,html}, scripts/loom.py, scripts/ph_doc.py, workbench/loom.html new. 239 tests pass. Nothing committed — the handoff block in state/HANDOFF.md has the detail for when you run /fhandoff.
+***
+
+OLD HANDOFF
+State: HEAD 0518aab before this commit, tree clean apart from three untracked photographs. Local 8000, workbench 8003 and the mkdocs book on 8020 all returned 200 (probe, 2026-11-01). Remote carried from 2026-10-30 — the URL is redacted in the handoff, so there was nothing to curl. Tests carried at 239 pass, 1 skipped, because nothing under web/, clothoid_lab/, csrc/ or tests/ differs from HEAD.
+Recorded, because it changes where everything lives: generated pages are in workbench/ (16), state files in state/, and docs/ is prose plus a strict mkdocs build. This handoff is state/HANDOFF.md, not docs/HANDOFF.md.
+Focused action: build the integer-control-point chain — choose direction triples whose PH discriminant is a rational square, instead of snapping control points after the fit, and measure the drift against the catenary.
+Blocker: none. One deviation worth flagging: next-fhandoff.md points at state/HANDOFF.md, since docs/HANDOFF.md no longer exists after the move.
+Commit: 690a6f8 — handoff files only. Next command: /fhandon.
+
+ADMIN:
+yes, now it's automatic and stated in all three places.
+What a session now does
+1. Start the one server. scripts/serve.py is idempotent, so this is safe unconditionally at the top of a session:
+.venv/bin/python scripts/serve.py     # → already serving on :8003 — nothing to do
+Verified just now: it prints that and exits 0 when the port is already taken, instead of dying with "address in use".
+2. Read LTMemory.md before anything else — the map, the invariants, what's settled, what's open.
+3. Use Playwright for any browser check, via node scripts/shot.mjs. No daemon, no fixed port, no CDP.
+Where it's written
+file
+AGENTS.md
+LTMemory.md
+.opencode/commands/fhandon.md
+.opencode/commands/fhandoff.md
+Two stale things I found while doing it
+fhandon said to drive headless Chrome over CDP on port 9223 — the old instruction, now replaced by Playwright.
+fhandoff still pointed at docs/HANDOFF.md, which moved to state/HANDOFF.md long ago. Five references fixed.
+Both commands are now consistent with the one-server, one-screenshot-tool world, and all of it is committed as d6ac893.
+
+I'm here — renamed, links adjusted, everything still green.
+What moved
+was	now
+LTMemory.md	LTMemory-int.md
+next-fhandoff.md	next-fhandoff-int.md
+state/HANDOFF.md	state/HANDOFF-int.md
+state/ACHIEVEMENTS.md	state/ACHIEVEMENTS-int.md
+state/BACKLOG.md	state/BACKLOG-int.md
+state/SESSIONS.md	state/SESSIONS-int.md
+state/STATUS.md	state/STATUS-int.md
+state/WORK.md	state/WORK-int.md
+Moved with git mv, so history follows each file rather than showing a delete and an add.
+24 files had references updated — AGENTS.md, both .opencode/commands, the docs, scripts/recheck.py (which now writes state/ACHIEVEMENTS-int.md), and the page generators. A guard on the substitution means nothing became -int-int.
+The convention, written down
+LTMemory-int.md now opens by explaining what the suffix means: internal — working truth, with paths and open failures in it; a sanitised -ext twin can be produced from it later, and the internal file stays the source. state/README.md carries the same table so the set is legible from inside that directory.
+Verified after the move
+- scripts/recheck.py → 11/11 pass, writing the new path.
+- scripts/test.py → 20 modules, 16 s, OK.
+- mkdocs build → 0 errors.
+- One sweep confirmed no stale references to the old names remain outside -int files.
+One judgement call worth flagging: I renamed all of state/, not just the two you named, because a half-renamed directory is worse than either state — you'd have to remember which files are internal. state/monitor.log and state/README.md stayed as they are: one is a log, the other describes the directory rather than being part of it.
+***
+I'm here — no, /focus doesn't begin work. It moves the session, reads the pointer and restates the action, then stops by design. You still type /fhandon to start.
+The split, and why
+command	scope	what it does
+/focus	global	move here from anywhere, say what the focus is, stop
+/fhandon	this repo only	read LTMemory-int.md, bring the server up, carry out the action
+/fhandoff	this repo only	square the record, write the next pointer
+The reason /focus stops is that typing it from grid-8 or ornaments shouldn't silently start work in a repo you were only glancing at. Orientation and commitment are separate.
+If you're already in curve-lab, skip /focus entirely and type /fhandon. That's the one-command path.
+If you want one command
+I can make /focus end by carrying out the action — move, read, and work — which collapses the two. The cost is that a stray /focus from another project would start editing this one. My preference is to keep them separate; yours may differ, and it's a two-line change.
+One stale thing I found while checking
+.opencode/commands/morsel.md points at docs/HANDOFF-int.md, which doesn't exist — it's state/HANDOFF-int.md. That command would send a session to a missing file. Want me to fix it now?
+
+I'm here — done, and the only thing left untracked is the monitor log, which is a log and shouldn't be committed.
+Everything that was stale, now fixed
+file	was	now
+.opencode/commands/morsel.md	pointed at docs/HANDOFF-int.md — a file that doesn't exist	state/HANDOFF-int.md
+docs/VERIFY.md	"screenshots need the long-running browser on 9223"	Playwright launches its own
+docs/README.md	python -m http.server 8003 --directory sandbox	scripts/serve.py
+docs/index.md	http.server 8003 --directory .	scripts/serve.py
+scripts/check-web.mjs	comment about connectOverCDP hanging	says what it actually does
+/focus was the worst of them — it still moved to clothoid-lab, which no longer exists, and read next-fhandoff.md. Rewritten: it now moves to curve-lab and reads next-fhandoff-int.md, falling back to state/HANDOFF-int.md.
+Admin done
+- Verified: recheck 11/11, fast suite 20 modules OK, mkdocs 0 errors, server up and idempotent.
+- Queued with a reason, not just a note: offsets — the page claims "rational, exact" in a table and draws nothing, and every stroke, ribbon and Bundle is an offset. Recorded in both LTMemory-int.md (Open) and HANDOFF-int.md (Queued after the heart fix), with the tier statement so the next session doesn't have to re-derive why PH differs.
+- The pointer still names the heart-half fix, with the diagnosis embedded: the two branches end at (1.105, 0.789) and (1.105, 0.28), a 0.508 jump in a 3.63 arc, and that jump is the 11.7%.
+Your three commands, as they stand
+- /focus — global, from anywhere: moves here, states the focus, stops.
+- /fhandon — this repo: starts the server, reads LTMemory-int.md, does the action.
+- /fhandoff — this repo: squares the record, writes the next pointer.
+If you're already in curve-lab, /fhandon alone is the one-command path. All three now agree on the file names.
+
+State — HEAD 3a354f1 → handoff commit 98bd65b; tree clean but for three photos and state/monitor.log. Workbench 200 on 8003 (scripts/serve.py, idempotent); app responds 404 at / on 8000; remote URL redacted, carried 2026-10-30. Tests 246 pass / 1 skipped — carried, nothing under web/, curve_lab/, csrc/, tests/ differs from HEAD.
+Focused action — fix the heart half's sample path: the two branches end at (1.105, 0.789) and (1.105, 0.28), a 0.508 jump in a 3.63 arc, and that jump is the whole 11.7% on Fig. 3/4. Find the tip where the two roots merge and splice both through it.
+Blocker — none. Two known unknowns carried, not investigated: the app's 404 at /, and whether scripts/serve.py should also route to the app.
+Commit — 98bd65b.
+Next — /fhandon.
+
+
+
+***
+ headless Chrome with a debug port never exits, so running it foreground blocks. Starting it as a background daemon, then using the existing shot.mjs.
+

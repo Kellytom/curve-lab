@@ -1,0 +1,15 @@
+sub todo Nov 6 friday
+
+
+
+
+Deep dive answer, exactly: an S cubic hits the lattice only at t = 0, ½, 1 at scale 1. The fraction t = k/q becomes integer when the drawing is scaled by q³ — so 27 (thirds), 64 (quarters), 125 (fifths), 3125 (twenty-fifths). Scaling to 125 takes a curve from 3 hits to 9.
+
+13a is not g2 smooth.make it so, or close. 
+
+ fix 13a and 20a with a finer triangle pattern so there is less error 19b turn the pyramids so they are flush with the curve; more like a thorn or growth mark. 
+
+ 2) make points and grids for stage-two html and catenary if they dont already have them. also do ornament board (just stage V, terminals, caps, presets,  forget fleur-studies for now. also do hub thumbnails (9), plus 1–4 figure tails on grid-explained, showcase-notes, pythagorean-families, curve-families, spiral-turns, euler-square, lac-parallel, modulated-width-proof, spine-study-01. 
+
+ back propogate the dot solver routines if necessary to the original pages... i thought we solved most of these problems on the individual pages.. (not all)
+

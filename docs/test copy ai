@@ -1,0 +1,29 @@
+test
+Here is a complete example of a 7th-order mixed \(\pm n\) master guide curve spanning a 625 × 625 unit canvas, with six discrete anchor points marked along the spine where repeatable units (like small crosses, diamonds, or fleurons) sit.
+
+1. The Mixed \(\pm n\) Spine Equation
+
+To keep the horizontal spacing uniform across a 625-unit grid while letting the vertical profile arch smoothly and decelerate without a runaway tail, we drive X with a pure linear span (\(x(t) = 625t\)) and drive Y with alternating positive and negative \(n\) values scaled to \(625\):
+\(y(t)=625\left(1.0t-0.5t^{2}+0.5t^{3}-0.5t^{4}+0.3t^{5}-0.2t^{6}+0.1t^{7}\right)\)
+• Why It Stays Graceful: The positive lower-order terms (\(t, t^3, t^5, t^7\)) lift the spine steadily upward, while the negative even-order terms (\(-0.5t^2, -0.5t^4, -0.2t^6\)) gently dampen the acceleration so the slope flattens from a near-diagonal \(1/1\) start down to a calm \(0.5/1\) glide at the tip.
+• Exact Factorial Multipliers: In raw control-vector form (\(\mathbf{u}_k = n_k \cdot 625 \cdot k!\)), the 5th-, 6th-, and 7th-order vertical inputs are \(+22,500\), \(-90,000\), and \(+315,000\).
+
+2. Sampled Anchor Coordinates for Your Repeatable Units
+
+Evaluating the spine at \(1/5\)th parameter intervals (\(t = 0.0, 0.2, 0.4, 0.6, 0.8, 1.0\)) snaps every X coordinate to an exact 125-unit grid step and gives clean integer Y positions for placing small cross or diamond motifs:
+
+Step (\(t\))	Grid Coordinates \((X, Y)\)	Vertical Step (\(\Delta Y\))	Visual Role Along the Spine
+\(0.0\)	(0, 0)	—	Root anchor; launches at a crisp \(1/1\) diagonal angle.
+\(0.2\)	(125, 115)	\(+115\)	First marker; slight downward bow begins.
+\(0.4\)	(250, 214)	\(+99\)	Second marker; smooth mid-span transition.
+\(0.6\)	(375, 300)	\(+86\)	Third marker; lands on an exact \(300\) integer height.
+\(0.8\)	(500, 374)	\(+74\)	Fourth marker; acceleration continues to soften.
+\(1.0\)	(625, 438)	\(+64\)	Terminal marker; arrives smoothly without a sharp whip.
+
+
+3. How to Place Shapes & Bridge with Quintic PH Curves
+
+• Placing the Crosses or Stars: Center a small, fixed-size repeatable vector ornament (such as a diamond glyph or four-point cross) directly on each of the six \((X, Y)\) coordinates. Because the step intervals \(\Delta Y\) narrow gradually from 115 down to 64, the chain of ornaments naturally conveys perspective and deceleration.
+• Connecting with Quintic PH Segments: Bridge each consecutive pair of markers—such as \((0, 0) \to (125, 115)\)—with a standalone quintic PH curve. Because each bridge is only 125 units wide and stays strictly inside the first quadrant, you can lock all quadratic weights \(u_i, v_i > 0\) to guarantee zero cusps and zero flipping tails across the entire composition.
+Would you like to rotate each cross/star marker so it aligns perpendicular to the curve's tangent slope at each of the six points, or generate the exact quintic PH control weights that bridge the first two segments?
+Show Code

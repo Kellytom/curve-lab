@@ -1,0 +1,328 @@
+hodograph PH is Pythagorean Hodograph.
+- Hodograph = the derivative curve: plot (x′(t), y′(t)) instead of (x(t), y(t)).
+- Pythagorean = at every t, those two derivative components plus a third polynomial form a Pythagorean triple:
+x′(t)² + y′(t)² = σ(t)²
+So a PH curve is a curve whose velocity obeys the Pythagorean theorem exactly, with σ a polynomial rather than a square root.
+The name comes from the construction: feed two polynomials u(t), v(t) through Euclid's triple formula,
+x′ = u² − v²,   y′ = 2uv,   σ = u² + v²
+and (u²−v², 2uv, u²+v²) is a triple for every t. Example, u=t, v=1: x′=t²−1, y′=2t, σ=t²+1.
+What it buys: speed |r′| = |σ| is a polynomial, so arc length is polynomial and the unit tangent/normal are rational — hence exact offsets. What it costs: only a restricted family of curves, and integer coordinates/arc lengths only after a scale.
+
+
+There are 116 standalone PH occurrences, mostly in the generated docs/PH-INTEGER.md (produced by scripts/ph_doc.py, not hand-edited) and in docs/INTEGER-CUBIC.md, docs/FLOWERS-int.md.
+So, three levels — pick one:
+1. Glossary only (recommended, 1 edit): a line in docs/PHILOSOPHY.md — "Pyth-hodo (Pythagorean-hodograph; PH in code and file names)" — and I use Pyth-hodo in all new prose. No churn, no broken links.
+2. Prose rename: all 116 → "Pyth-hodo (PH)" on first use per document; identifiers, tests and file names stay PH.
+3. Full rename including docs/PH-INTEGER.md → its generator and every inbound link. That is a separate action with a link check, not a find-and-replace.
+I'd take 1 now and 2 as its own action. Which? (Clock is 45.6 min, inside the window; /fhandoff available if you'd rather queue this.)
+
+
+
+Already built here — do not redo
+Your item	Where it already lives	Status
+Discrete Pythagorean spiral	pythagorean-spiral/, showcase Fig. 19a, turn_polygon/chain_spans, curve_lab/spine.py	Exact rational turns; 350 rungs, median gap 0.14°; 11 integer nodes
+PH curves, integer controls	curve_lab/pyth_cubic.py, pyth_g2.py, parallel_bezier.py	Chord 2c, arms c; G2 chain 10/10; fitted Levien rail; exact PH offsets
+Tschirnhausen cubic	NAMED["tschirnhausen"], panels C6/C57/S10	Exact quartic-family catalogue, genus 0
+Genus-0 ⇒ rational	23 of 25 named curves exact; genus tested (tests/test_named_curves.py)	Squircle genus 3, heart 4 — the two exceptions, already recorded
+Parabola evolute/involute	scripts/pyth_plane.py, showcase Fig. 7c	Involute of the evolute is the parallel family; a parallel is not a parabola (20.8% of d)
+Bernoulli lemniscate	NAMED["bernoulli"], C20/C134	Exact, rational
+Doubling rule for triples	the (u+iv)² identity; pyth-plane.html fixed-a/b hyperbolae	Already the engine of the p-triple field
+Two of your phrases are already settled rules here: "PH buys integer arc length" is false as stated — the repo's line is PH does not buy integer milestones; mⁿ is the floor, PH costs 3 or 15. For Tschirnhausen, s = t³/3 + t is rational, integer only when 3 | t. And "Common Multiple Matrix": the repo composes grids by lcm (1, 1/5, 1/25 → 25); Berggren's tree generates triples, it does not scale them.
+Corrections to the pasted text
+1. The evolute formula is wrong. The evolute of y = x² is (−4t³, 3t² + ½), i.e. 27x² = 16(y − ½)³. The pasted 27x² = 4(y − 2)³ with (2t³, 3t² + 2) is a scaled, shifted, mirrored copy — I verified numerically: it satisfies its own identity, but it is not the evolute (y differs by 1.5 at t = 0.7).
+2. Tschirnhausen is not new — it is the same curve already in NAMED; the pasted x = t³/3 − t, y = t² is the a = 3 normalisation of it.
+3. No folium exists in the repo; the names are trifolium and quadrifolium (both now carry companions).
+Genuinely new — ranked
+1. Pell / √2 page (strongest). Nothing in the repo mentions Pell, √2 or convergents. x² − 2y² = 1 with doubling (x, y) → (x² + 2y², 2xy) is the same algebra as the triple doubling, gives 3/2 → 17/12 → 577/408 (addition gives 99/70), and sits naturally beside pyth-plane.html. Small, exact, one claim → recheck 36/36. Cost: one focused action.
+2. A measured "discrete clothoid". The spine already quantises a turn schedule; what is missing is the statement of how the chained polygon tracks κ ∝ s (the Euclid chain's exponent drifts to −4/3, already recorded). A figure with the curvature-step distribution, not a new curve.
+3. Parabola evolute at integer t. One figure and a correction note: evolute (−4t³, 3t² + ½), integer points at t = 1, 2, 3; ties the wrong coefficient to the right one.
+4. Lattice windows / RPTPGA. Out of scope: the lemniscate and petal curves are already catalogue; the new part is a fabrication claim, not geometry. Park it.
+On "add to explanation notes": the notes page is generated per figure from the table in showcase_notes.py, so a background paragraph with no figure would mean hand-editing generated HTML — against the guardrail. The right home is a section in docs/PYTHAGOREAN-FAMILIES.md (or a new doc) if this stays prose; if it becomes the Pell figure above, it gets a real note entry.
+Which do you want? I'd take (1) Pell — it is absent, exact, and cheap. Clock is 39.8 min, in the window; /fhandoff is available if you'd rather park it there.
+
+
+***
+
+Short answer: yes for construction and classification, no for conversion. PH gives you a degree certificate and a rational-offset construction. It does not turn a quintic into a cubic. A cubic PH curve and a quintic PH curve are different families; the only “both” case is degree elevation, where the quintic is not a genuine PH quintic.
+
+The degree bookkeeping. For a planar polynomial PH curve,
+(x'(t), y'(t)) = (u(t)² − v(t)², 2 u(t) v(t))
+degree n = 2 · max(deg u, deg v) + 1
+- u, v linear → cubic PH;
+- u, v quadratic → quintic PH;
+- constant → line/point.
+
+There is no proper PH family in between. The PH condition is what makes the arc length rational (σ = u² + v²) and the offset rational; it is independent of whether the Bézier span is cubic or quintic.
+
+Why elevation is not a PH quintic. Every cubic Bézier can be written as a quintic by degree elevation. But the elevated curve’s derivative is still quadratic, so its PH factorization is still u, v linear. A PH-degree test reports cubic, not quintic. A genuine quintic PH curve has a quartic derivative; it cannot be a cubic Bézier unless its quadratic u, v degenerate to linear — and then it is the cubic PH family, not a new object. So the intersection of the proper cubic-PH and quintic-PH families is the cubic family (plus degenerate lines).
+The two questions are separate:
+question	test	what it tells you
+Is the Bézier span cubic or quintic?	d4 = 0 and d5 = 0 on the control polygon	the representation degree — the side list uses this
+Is the curve PH, and at what degree?	factor the hodograph into u² − v², 2uv; take max(deg u, deg v)	rational offset / rational arc length, and the PH degree
+A cubic Bézier is not automatically PH. The integer-cubic family in curve_lab/pyth_cubic.py is the PH cubics; a generic G3 cubic fit is just a cubic Bézier. Likewise, the ph_quintic integer examples are genuine quintic PH curves; the catalogue’s fitted quintics are not PH in general.
+What PH is genuinely good for here: finding structured curves with rational offsets and exact arc length — the stem/rail problem. Parameterize u, v (linear for cubic, quadratic for quintic), integrate the hodograph, and use Pythagorean triples for integer controls. That is what pyth_cubic and ph_quintic do. It reduces the search from arbitrary Bézier controls to a small Pythagorean parameter space.
+Practical recommendation:
+- To classify cubic vs quintic spans, keep using d4/d5 — it is exact, direct, and already on the cubic-native side list.
+- To classify PH and get rational offsets, factor the hodograph; the PH degree is 2 max(deg u, deg v) + 1.
+- Do not search for a separate “both cubic and quintic” family. The cubic is the minimal representation; the quintic is its elevation. A genuine quintic PH curve will not collapse to a cubic.
+- If you want a curve that is both PH and cubic (for a rational-offset rail), use the cubic PH construction; if you want PH and quintic, use the quintic one. They are different curves, not two views of the same one — except for the cubic’s trivial quintic elevation, whose PH degree remains cubic.
+
+***
+The PH family gallery is generated at workbench/ph-families.html — nine illustrated panels, curve next to generators:
+- n = 3 Tschirnhausen PH cubic — the one cubic PH shape up to similarity.
+- n = 3 integer cubic 3-4-5 — shown in red as not PH, for contrast; its offsets are not rational.
+- n = 4 PH quartic — the h-linear rung.
+- n = 5 three PH quintics — two with u,v quadratic, one with h quadratic/u,v linear.
+- n = 6 PH sextic — even degree via h, multiple-cusp territory.
+- n = 7 PH septic — the degree-7 integer example.
+- n = 2 rational circle — rational PH, the only n=2 rung.
+Each card carries the degree lemma, the generators, the scale, and the arc length where available. The page also lists what is not built yet: the general PH quintic family (only three examples), the PH quintic Hermite interpolant, C² PH spline and transition curve, the general septic, n=8+, and rational PH beyond the circle.
+The targeted ph-family test passes. The full suite and recheck are running in the background; I will report their numbers and commit once they finish.
+
+ I'll add the integer-lattice overlays to the PH gallery: the integer control points and the milestone hits at a stated grid, with the hit count and scale, plus a note on what a larger grid buys. First let me check the PHCurve milestone API and the integer-cubic hit table.
+
+The PH curves have 9 integer milestones at m=8 (17 at m=16) and the integer cubic has 3 at scale 1 (more at scale 27+). I'll overlay the control polygon, the lattice hits, and the count/scale on each panel — green hits, gold controls, no red.
+
+the familiar Tschirnhausen is the nodal alpha, not the C-shaped single span. The C is one arc of it. Let me pull the exact named nodal curve and its integer milestones, then use that for the n=3 panel.
+
+The named Tschirnhausen is the nodal alpha: control (-11,2),(5,-10),(5,10),(-11,-2), with 4 integer milestones at scale 27 and 5 at scale 64. I'll use that for the n=3 panel and put the lattice overlays on every card.
+
+Make a complete examination of PH and PHH/PPH curves. First reproduce the operator's note of 116 standalone PH occurrences: the current tree gives 32 docs-only `\bPH\b` and 18 in the three named files, so state the pattern and snapshot that give 116 before editing. The generated docs/PH-INTEGER.md and .html come from scripts/ph_doc.py and must not be hand-edited; docs/INTEGER-CUBIC.md and docs/FLOWERS-int.md are hand-edited. Then centralise the definitions (PH, PHH, PPH), enumerate every rung of the degree ladder (n=3,4,5,6,7,rational,n=8+) with several examples and all four quadrants, add the integer lattice hits with their scale, and build the interactive explainer: sliders for the PH-valid generators, the grid m with a live hit count and scale, the quadrants, and the offset (exact PH versus fitted non-PH).
+Proves: the PH/PHH/PPH page covers the definitions, the occurrence audit, several examples per rung/all quadrants, the integer hits and scales, and the not-built list; the sliders work; tests and recheck are green.
+
+Objective
+- Build a visual, complete examination of PH, PHH and PPH curves in workbench/ph-families.html.
+- Explain the families in plain English at the bottom of the page/handoff.
+Requirements
+- Show several examples of each family, both/all parts, and all four quadrants.
+- Explicit example: n = 5 · PH quintic 1 · u,v quadratic in all quadrants.
+- Add the integer lattice hits; if few, show what a larger grid buys.
+- Tschirnhausen must be the familiar nodal alpha — self-crossing, endings on the right — not a C-shaped segment.
+- Next session focus is the complete PH/PHH/PPH examination; include a plain-English explanation at the bottom.
+- No relaxing of the accepted G3 claim merely to raise counts.
+Decisions
+- All proper cubic PH curves are the Tschirnhausen cubic, up to scale/rotation; the integer pyth_cubic family is not PH.
+- No polynomial PH n=2; the circle is the rational n=2 rung.
+- Use the named Tschirnhausen alpha: control [(-11,2,1),(5,-10,1),(5,10,1),(-11,-2,1)].
+- Keep the PH gallery as a side page, generated from one source; expand it rather than changing the G3 pages.
+- PHH/PPH are not defined in the repo. Natural readings are PHH = helix/spatial PH and PPH = piecewise/spline PH; pin the meaning before enumerating.
+Work State
+Completed
+- G3 showcase one-page gallery, cusp rule, coordinate axes, per-figure notes, fix-status table.
+- G3 gate tiers page: strict 154, source S44, near-G3 9 of 30, 21 fail even 0.2°.
+- G3 cubic-native side list: 21 exact integer elevations + S44, 26 distinct.
+- G3 docs docs/G3-showcase-docs.md + generated HTML twin.
+- PH family gallery with nine rungs, manifest/hub entry, test; committed as 31fa200.
+Active
+- next-fhandoff-int.md still contains the old G3 80% target and must be rewritten to the PH/PHH/PPH focus.
+- Add the plain-English section at the bottom of the PH gallery and/or handoff.
+- Rework the PH gallery: several examples per rung, all quadrants, lattice overlays, alpha Tschirnhausen.
+- The uncommitted variant/hits work was reverted with git checkout -- scripts/ph_families.py; tree is clean except state/sessions.jsonl, state/timers.jsonl, workbench/todo.html.
+Blocked
+- PHH/PPH definitions are unresolved; the user’s "phh or pph" needs a concrete meaning (helix vs piecewise).
+- Visual judgments on the alpha shape and cusp positions need the operator; the engine cannot view images.
+Next Move
+1. Rewrite next-fhandoff-int.md with the complete PH/PHH/PPH examination action and a Proves: line.
+2. Add "Plain English" at the bottom of workbench/ph-families.html via scripts/ph_families.py.
+3. Fix the n=3 card to the named nodal Tschirnhausen alpha; show the C span as one arc of it.
+4. Expand each rung to four quadrant variants; show both S and C for the non-PH integer cubic.
+5. Overlay integer control polygons and lattice milestones with counts/scales; note m=8 → 9, m=16 → 17, and the scale growth.
+6. Pin PHH/PPH definitions, add their sections/not-built list, regenerate, run tests/recheck, commit.
+Relevant Files
+- next-fhandoff-int.md: current next-session focus; stale, needs rewriting.
+- scripts/ph_families.py: PH gallery generator; cards currently one example each.
+- workbench/ph-families.html: generated gallery page to extend.
+- tests/test_ph_families.py: nine-panel/degree-ladder test.
+- scripts/generators.py: PHCurve, degree lemma, named tschirnhausen.
+- curve_lab/pyth_cubic.py: non-PH integer cubic; lattice_hits, S/C tables.
+- scripts/ph_quintic.py: three PH quintic cases, scales and arcs.
+- scripts/missing_families.py: rational PH circle and degree_seven_ph.
+- scripts/hodograph.py: PH cubic interpolation construction.
+- docs/PH-INTEGER.md + docs/PH-INTEGER.html: PH arithmetic and degree table.
+- workbench/manifest.json: page registration; ph-families entry.
+- workbench/integer-cubic.html: non-PH integer-cubic explanation.
+- workbench/missing-families.html: rational circle and degree-7 PH.
+- workbench/catenary.html: four PH cubics over the catenary.
+- state/HANDOFF-int.md + state/ACHIEVEMENTS-int.md: current truth and proved results.
+Important Context
+- Tschirnhausen alpha milestones: t=k/3 gives integers at scale 27 [(-297,54),(-9,-46),(-9,46),(-297,-54)]; t=k/4 at scale 64 gives 5 points.
+- PH gallery currently has nine cards: n=3 C-shaped PHCurve (wrong for the user), n=3 non-PH 3-4-5, n=4, three n=5, n=6, n=7, rational circle.
+- PH quintic cases/scales: 81920 arc 69/10; 491520 arc 16/5; 81920 arc 129/10 (M=8).
+- m=8 lattice hits: cubic scale 192 (m16 1536), quartic 24576 (393216), sextic 61440 (983040), septic 220200960 (28185722880); 9 milestones at m=8, 17 at m=16.
+- Non-PH integer cubic: 3 hits at scale 1; more at 27/64/125; offsets are not rational.
+- Current G3 counts: 154 complete, 124 smooth, 30 declared, 177 figures; near-G3 9, fail 21.
+- Last commit 31fa200 Add the PH family gallery; full suite 85 modules, recheck 54/54 at last verification; no push/deploy performed.
+- The page’s plain-English explanation should distinguish PH (polynomial speed), PHH/PPH (helix/spatial vs piecewise/spline), and the lattice hits (chosen rational parameters at one integer scale; larger grid = more hits + larger scale).
++Thought · 28.7s
+I'm here. Before touching the page, let me pin down that 116 number — my earlier count didn't match, and the pattern matters for the audit.
+
+***
+Done — one action, stopped at its Proves: line.
+The audit is settled. 116 is reproducible: git grep -o -E '\bPH' HEAD -- '*.md' | wc -l at 8f26aa7 gives exactly 116. It is a prefix count (catches PHH, PPH, PH-families). The exact token \bPH\b gives 90 over *.md, 32 over docs/, 18 over docs/*.md. The note is not stale — the pattern just had to be named. Both the pattern and the snapshot are now written on the page.
+workbench/ph-families.html (built by scripts/ph_families.py):
+- PH / PHH / PPH defined in one block, 2D only, with the Hermite quadratic stated explicitly.
+- Thirteen rungs: two cubics, two quartics, three quintics, two sextics, two septics, two octics, plus the rational circle — each with all four quadrants in the figure.
+- The full nodal Tschirnhausen alpha with the node ringed and the C-segment marked in gold (it is one segment, not the card).
+- The integer scale/hit table at m = 4, all computed in Fraction.
+- A live explainer: generators, grid m, quadrants, offset d, break PH, with exact BigInt scale recomputed per move.
+- References updated: docs/PH-INTEGER.md (generated) now has the n = 7 and n = 8 rows and points at the page; manifest entry refreshed.
+PHH/PPH pinned in curve_lab/ph_hermite.py: the PH quintic through two points with prescribed tangents, endpoint hit exactly by 2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0; and the C² continuation where the next span's a is the previous c. Join defects |Δz|, |Δz′|, |Δz″|, |Δκ| all report 0.
+Proofs: 564 tests OK (skipped 1); recheck 56/56 with a new PHH/PPH claim; tests/test_ph_families_app.py pins the browser's BigInt scale to PHCurve.scale. Browser check: readout went from hits 5 · scale 96 to hits 8 · scale 514 at m = 7, octic 691,776,120, break-PH 14.87%.
+Commit 5bda0bb, local only — nothing pushed; /fhandoff is the other end and will stage state/HANDOFF-int.md (my progress note is there, uncommitted).
+Clock: fhandon, 32.2 min of 120, past the floor, you may stop. Context 15.1%.
+One honesty note: every figure was checked by numbers and the DOM, not by eye — the visual call is yours.
+The count is four, not five — and it is a window count, not a curve count. Here are the real numbers.
+The curve this page draws is 18y² = x(x−6)², from x = 2t², y = t(6−x)/3. Its integer points are fully determined, not sampled:
+k	x	y	t
+0	0	0	0
+1	18	±12	±3
+2	72	±132	±6
+3	162	±468	±9
+4	288	±1,128	±12
+5	450	±2,220	±15
+plus the node (6, 0) at t = ±√3. The proof is short: off the node, t = 3y/(6−x) is rational, and lowest terms force t to be an integer with 3 | t — hence (18k², ±6k(3k²−1)).
+In the drawn window t ∈ [−4, 4] that is four distinct points: (0,0), (6,0), (18,−12), (18,12). Your five is the parameter count — t = −3, 0, +3, ±√3 — and the node is one point reached twice. And there are hits past the ends: (72,±132) at t = ±6 is already off the drawn range. For contrast, x = 2 gives y = ±4/3: on the curve, not on the lattice.
+Now on the page: every gallery figure plots the integer points as red dots with their coordinates labelled in quadrant I (mirrors carry the same points). A new panel, “Integer points on the curve itself — the real numbers”, carries the family table, the proof, and the search for the other twelve rungs: exact at t = p/q, q ≤ 60, and only (0,0) is integral — stated as a lower bound, because a node-type point at irrational t is invisible to that search.
+
+***
+Wednesday
+Fig. 26 · tschirnhausen smoothzoom
+x=0
+y=0
+ground
+Fig. 26 · tschirnhausen
+6 spans · 1 path · deviation 0.5% · worst Δ(dκ/ds) 4.9e-15
+
+and Fig. C6 · tschirnhausen ±0.60 fitted 
+27y² = (1 − x)(8 + x)²
+
+Fig. C61 · Tschirnhausen ±0.22 fitted one branch section · node split from its table
+Where: scripts/euler_sections.py SECTIONS
+Re-derive: python scripts/showcase.py
+
+***
+No — those red dots are not integer hits. I checked the generator: dot_finder in scripts/dot_chain.py:110 places one dot per step of arc length, capped at 32, both ends, no duplicates. Fig. C61's 32 dots are exactly that cap. showcase.py:197 calls it with a display step (chain["chord"] × k, "kept legible"), and the G3 panels do the same. They are evenly spaced stations along the curve, chosen so no part is bare — they have no relation to integer coordinates.
+So showing "the integer hits from the originals" would put a false label on them. What the originals genuinely show as integer is the chain (5 cubic spans ×625 in the G3 lattice panel), not the dots.
+What the real hits are, and what is now on the page (committed as 92e357d):
+- 
+- 
+- 
+- 
+- 
+On your plan: yes, the Euler/clothoid middleman is the right general tool — but only where the curve is not already cubic. For the alpha it buys nothing, and for the PH quintics and above it is exactly the 0.5 % route.
+Clock: the 120-minute cap fired at 08:29 and the timer cleared itself. The session budget is spent, so I'm stopping here rather than starting the next piece. state/HANDOFF-int.md carries the running note; /fhandoff will write the block.
+Build · DeepSeek V4.1 Flash 1017 · 10m 53s · 113.5 tok/s
+put the exact points x,y on Fig. 26 · tschirnhausen · 6 spans (exact re-split)
+t = −3 … 3 · cubic spans 1–6 · lattice endpoints labelled, " and change the colors because they need to contrast one next to the other.; you only need 2 colors, right?
+
+***
+
+Every figure now carries a number inside it, and the new section is open at the foot.
+number
+Fig. 1–14
+Fig. 15
+Fig. 16
+Fig. 17–19
+Fig. 20
+Fig. 26
+Fig. C6, Fig. C61
+Fig. H1
+Numbers 21–25 are free — I left them for you rather than closing the gap and renaming 26.
+The new section is at the bottom, titled Reserved section, with one line saying it is held open and that 21–25 are free. No figure, no number, nothing generated inside it — tell me what goes there and I will fill it and number its figures from 21.
+
+***
+
+***
+before i go, please add these two in the appropriate place as a quote, and then explain in plain language: "In Computer-Aided Geometric Design (CAGD)  PPH curves most commonly refer to Piecewise Pythagorean-Hodograph curves (or occasionally Planar Pythagorean-Hodograph curves). [1, 2, 3]
+A Pythagorean-Hodograph (PH) curve is a special type of polynomial parametric curve whose derivative (its hodograph) satisfies a Pythagorean condition. Connecting multiple PH segments together forms a Piecewise PH (PPH) curve, which extends these exact geometric properties to complex, long-span paths and splines. [1, 2, 3, 4, 5]
+1. The Core Mathematical Property
+For a standard 2D parametric curve \(\mathbf{r}(t) = (x(t), y(t))\), calculating its speed or arc length requires taking the square root of the sum of squared derivatives: \(\sqrt{x^{\prime }(t)^{2}+y^{\prime }(t)^{2}}\). Because of that square root, general curves rarely have exact, closed-form arc lengths or rational parallel offsets. [1, 2, 3]
+A PH curve avoids this problem by requiring its derivative components to satisfy the Pythagorean condition:
+\(x^{\prime }(t)^{2}+y^{\prime }(t)^{2}=\sigma (t)^{2}\)
+(In 3D space, this extends to x'(t)² + y'(t)² + z'(t)² = σ(t)².) [1, 2, 3]
+Because the sum of squares equals the square of another polynomial σ(t), the square root cancels out cleanly, making the parametric speed \(\Vert{}\mathbf{r}'(t)\Vert{} = \sigma(t)\) a pure polynomial. [1, 2]
+2. Why Use "Piecewise" PH (PPH) Curves?
+Single polynomial PH curves have fewer degrees of freedom than ordinary Bézier curves of the same degree. To trace complex shapes or interpolate many waypoints without using unwieldy high-degree polynomials, designers join multiple lower-degree PH segments (most commonly PH cubics or PH quintics) into a Piecewise PH (PPH) spline: [1, 2, 3, 4]
+Cubic PPH splines can achieve C¹ or C² continuity (smooth tangents and curvature) across joined segments.
+Quintic PPH curves allow you to match exact positions, tangent directions, and curvatures (G² or C² Hermite interpolation) at every waypoint. [1, 2, 3, 4]
+3. Key Practical Advantages
+Exact Arc-Length Computation: The arc length \(s(t) = \int \sigma(t)\,dt\) is simply a polynomial. This allows CNC machines and robots to calculate exact feed rates and travel distances in real time without numerical approximation errors. [1, 2, 3]
+Exact Rational Offsets: Parallel offset curves—defined as \(\mathbf{r}_d(t) = \mathbf{r}(t) + d\,\mathbf{n}(t)\)—are exact rational curves 
+
+
+
+see construction formulas for a specific degree (such as cubic or quintic)
+
+#2:
+
+"There is considerable interest in the properties of PH curves in geometric modeling and CAGD because PH curves can be computed at speeds comparable to polynomial curves and used to calculate curve arc lengths and isometric lines. The purpose of this paper is to develop a general approximation of the H-Bézier curve based on PH curves. We call the resulting approximations PHH-Bézier curves for convenience. First, a necessary and sufficient condition for a cubic plane H-Bézier curve to be a PH curve is obtained. Second, based on the H-Bézier curve, the control polygon of the cubic PHH-Bézier curve is constructed from an orderly triangle. The cubic PHH-Bézier curve is then introduced and a new algorithm for their construction is proposed. According to geometric modeling, the error analysis between H-Bézier curve and PHH-Bézier curve is estimated. Finally, the proposed algorithm is verified experimentally. It is demonstrated that cubic PHH-Bézier curves can accurately approximate H-Bézier curves but that the selection of the middle two control points of the PHH-Bézier curve has a profound impact on the quality of the approximation. Error analyses demonstrate that when the middle two control points of the PHH-Bézier curve are mixed with the corresponding original control points, a good approximation is achieved. The new algorithm may thus have considerable potential for use in geometry modeling."  https://www.sciencedirect.com/science/article/abs/pii/S0096300314005669
+
+
+#3 PHH curves (most commonly referred to as PHH-Bézier curves) are specialized geometric approximations of H-Bézier curves (hyperbolic Bézier curves) constructed using Pythagorean-Hodograph (PH) curves. They combine the shape-modeling flexibility of hyperbolic splines with the exact computational advantages of PH curves. [1, 2, 3]
+Core Concepts
+To understand PHH curves, it helps to look at their two parent curve families:
+Pythagorean-Hodograph (PH) Curves. Introduced by Rida Farouki and Takis Sakkalis in 1990, a PH curve is a polynomial parametric curve whose derivative (hodograph) components satisfy a Pythagorean condition. In 2D, this means x'(t)² + y'(t)² = σ(t)² for some polynomial σ(t). Because the speed function σ(t) is a simple polynomial rather than a square root, PH curves allow for exact, closed-form arc length calculations and rational offset curves. [1, 2, 3]
+H-Bézier Curves. These are generalized Bézier curves defined over a space of hyperbolic functions (such as  and ) rather than purely algebraic polynomials. They are widely used in Computer-Aided Geometric Design (CAGD) because they can represent transcendental curves—like catenaries and hyperbolas—precisely while offering shape parameters to adjust the curve without moving control points.
+How PHH Curves Work
+While H-Bézier curves offer great geometric flexibility, computing their arc lengths and parallel offsets requires difficult numerical approximations. Conversely, PH curves compute these properties exactly, but they are more restrictive to manipulate directly via control polygons. [1, 2]
+Researchers developed PHH-Bézier curves to bridge this gap: [1, 2]
+Geometric Construction. A cubic PHH-Bézier curve is constructed directly from the control polygon of a given cubic H-Bézier curve using geometric relationships (such as orderly triangles). [1]
+Control Point Blending. To minimize the geometric error between the original H-Bézier curve and its PH approximation, algorithms blend the middle control points of the PH curve with those of the original H-Bézier curve. [1]
+Spline Extensions. Beyond single curve segments, this method extends to PHH splines, allowing designers to stitch multiple segments together smoothly for complex paths. [1]
+Key Applications
+Because they preserve the mathematical benefits of standard Pythagorean hodograph curves while approximating hyperbolic shapes, PHH curves are primarily studied for use in: [1, 2]
+CAD/CAGD Modeling. Modeling complex industrial surfaces and sweep paths that require both hyperbolic shape control and exact metric properties. [1, 2, 3, 4]
+consider
+The mathematical equations and control-point construction algorithms for cubic PHH-Bézier curves
+Standard PH curves (such as quintic Hermite interpolation or spatial quaternion PH curves)
+Code implementations for evaluating or plotting PH curves ""
+
+***
+
+You're right on both counts.
+"Stations" was my mistake, and worse than a style choice. This repo already defines the word: docs/PHILOSOPHY.md §Lattice says a lattice station is a point where one coordinate is an integer, and adds “never call a station a lattice point.” I used it for the opposite kind of object — points at chosen t, integral only after scaling. Two meanings, one page. Renamed to milestone (commit 5ea57ea), which is what docs/PH-INTEGER.md already calls them: “milestones at t = k/m”, “the milestone scale is mⁿ”.
+Pro / con, briefly:
+word
+station
+t-point / TVal point
+milestone
+grid point / lattice point
+If you want “TVal” as the house word, that is a fair call — but then it belongs in GLOSSARY.md so the next session does not re-invent “station”. Otherwise: milestone.
+On numbers 21–25: they are gone now. The m = 10 copies took 21–25 and 27–35 (26 stays the interpolation figure, H1 the join). Fourteen copies, 154 milestones.
+Are we missing PH curves like the Tschirnhausen? By degree, no: the ladder runs 3, 4, 5, 6, 7, 8 and the rational rung, each with examples. What is missing is families, and it is already listed on the page:
+the general PH quintic family — three examples, not the five-parameter family;
+rational PH beyond the circle — Pottmann's rational PH curves;
+the classical PHH magnitude rule (bending-energy choice — we declare √|Δ|);
+a general C² PPH solve, five conditions per join;
+the PH quintic transition curve (line to arc, monotone curvature) — the clothoid's replacement;
+the general n = 7 and n = 8 families (one example each), and n ≥ 9 (none);
+unit-speed PH — degenerate, lines only;
+AHPH (hyperbolic) — it exists, on the catenary page, not here.
+So nothing is silently absent: the page's “not made yet” list is that list. 576 tests OK, recheck 56/56.
+***
+ I was imprecise, and the number was one I had not derived. Here is the arithmetic, which is now also on the page (5ebddbd).
+Where the family comes from. A PH quintic is built from w = a + bt + ct², a complex polynomial with six real numbers in it (three coefficients, each with a real and imaginary part). The curve is the integral of w².
+Two of those six are not shape. Rotating the plane and scaling it amount to multiplying w by one complex number — two real numbers. They change where the curve points and how big it is, not what it looks like. So the shapes form a four-parameter family.
+Fix the ends and you have two knobs left. Pin both endpoints: two conditions. Pin both tangent directions: two more. Four conditions out of six leaves two free numbers — the two speeds at the ends. That is exactly the parameter we called s0 and s2, and it is why PHH is a family rather than one curve, and why your √|Δ| rule is a choice among infinitely many.
+So should there be more examples? No — not as a fix. Three examples and thirty examples are both just samples of a continuous family; the fourth parameter is invisible either way. What shows a family is a sweep: one coefficient stepped across nine values, drawn together. The interactive already does this by hand — the u/v sliders walk the family, and each position is a different member. If you want it as a static figure, say so and I'll add a Fig. 36 with a nine-member sweep.
+The page's "not made" line now reads: the whole family, three members shown, four parameters of shape, two once the endpoints and tangents are fixed, examples can only sample it, the sliders walk it. 576 tests OK, recheck 56/56.
+***
+i am going to do / fhandoff, so i can start fresh with an alternate method for t-ph integer points using pythagorean triangles. when i come back in to opencode, should i just type / focus only? i dont want the 2 methods confused. the new method should be in its own directory 
+
+State: tree clean, ph-families.html complete — Figs 1–20, the m = 10 copies (154 milestones), Fig. 26/C6/C61/H1, both integer SVGs exported and test-guarded. Suite 577 OK (parallel runner, today); recheck 55/55 (today); local server 200; remote not checked (no deploy). Previous action landed — the page exists, newer than the old handoff, and its Proves: is satisfied on every clause.
+Next action: write docs/PH-TRIANGLES-int.md — the triangle route stated as one exact rule with one worked example. No triangles/ directory yet, no page or module edits, no code before the rule.
+Proves: the doc's worked example, in Fractions, reproduces (18, ±12) and the node (6, 0) with each triangle step shown; nothing under workbench/ or curve_lab/ changes.
+Commit: 3046f01 (handoff), f1da790 (block).
+Next command: open a fresh session and type /focus, then /fhandon — /focus only orients (moves the session, starts the clock, restates the block); /fhandon is what actually does the action.
+
+To avoid naming conflicts with standard curve generators (like standard cubic splines, Bézier curves, or smooth analytical PH curves), name the subdirectory after both the mathematical curve and your discrete Pythagorean chain approximation.
+
+Top Recommended Names
+
+• tph_tri_chain/ (Short, descriptive, and clearly separates the discrete triangle chain from smooth tph_curve/ modules).
+• tph_pyth_chain/ (Highlights the exact Pythagorean-triple stepping property).
+• tph_discrete_ph/ (Follows standard scientific/CAD naming conventions for discretized Pythagorean-hodograph methods).
+
+Naming Tips to Prevent Collisions
+
+• Include the discretization method midpoint

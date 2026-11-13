@@ -1,0 +1,766 @@
+{
+  "title": "septic samples from small integer speeds",
+  "searched": "speed coefficients in [-2, 2], first x coefficient positive, gcd 1",
+  "curves": [
+    {
+      "speedX": [
+        1,
+        -1,
+        1,
+        0
+      ],
+      "speedY": [
+        -1,
+        0,
+        1,
+        1
+      ],
+      "bend": 1.744,
+      "pitch": 21,
+      "inflection": 0.229,
+      "closest": 0.806,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "speedY": [
+        0,
+        1,
+        -2,
+        -2
+      ],
+      "bend": 1.652,
+      "pitch": 21,
+      "inflection": 0.194,
+      "closest": 1.0,
+      "size": 2
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "speedY": [
+        0,
+        -2,
+        3,
+        1
+      ],
+      "bend": 2.039,
+      "pitch": 42,
+      "inflection": 0.291,
+      "closest": 1.0,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        3,
+        0,
+        -3
+      ],
+      "speedY": [
+        0,
+        -2,
+        3,
+        3
+      ],
+      "bend": 1.932,
+      "pitch": 42,
+      "inflection": 0.201,
+      "closest": 1.0,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -3,
+        2,
+        -3
+      ],
+      "speedY": [
+        2,
+        -3,
+        0,
+        3
+      ],
+      "bend": 2.265,
+      "pitch": 42,
+      "inflection": 0.912,
+      "closest": 0.944,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -2,
+        2,
+        0
+      ],
+      "speedY": [
+        1,
+        -1,
+        2,
+        -3
+      ],
+      "bend": 1.837,
+      "pitch": 70,
+      "inflection": 0.368,
+      "closest": 0.628,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        1,
+        -3,
+        -3
+      ],
+      "speedY": [
+        -3,
+        2,
+        -2,
+        0
+      ],
+      "bend": 1.82,
+      "pitch": 70,
+      "inflection": 0.192,
+      "closest": 2.509,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -3,
+        0,
+        1
+      ],
+      "speedY": [
+        -1,
+        3,
+        -3,
+        -2
+      ],
+      "bend": 2.183,
+      "pitch": 70,
+      "inflection": 0.26,
+      "closest": 0.783,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        0,
+        2
+      ],
+      "speedY": [
+        -2,
+        3,
+        3,
+        -3
+      ],
+      "bend": 2.228,
+      "pitch": 70,
+      "inflection": 0.842,
+      "closest": 1.223,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        0,
+        1
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 1.397,
+      "pitch": 105,
+      "inflection": 0.372,
+      "closest": 0.616,
+      "size": 1
+    },
+    {
+      "speedX": [
+        3,
+        0,
+        -2,
+        -2
+      ],
+      "speedY": [
+        -1,
+        1,
+        -2,
+        -2
+      ],
+      "bend": 1.965,
+      "pitch": 105,
+      "inflection": 0.155,
+      "closest": 2.366,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        0,
+        3
+      ],
+      "speedY": [
+        1,
+        0,
+        -2,
+        -1
+      ],
+      "bend": 1.94,
+      "pitch": 105,
+      "inflection": 0.176,
+      "closest": 0.952,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -1,
+        -2,
+        -3
+      ],
+      "speedY": [
+        -2,
+        2,
+        -2,
+        -3
+      ],
+      "bend": 2.108,
+      "pitch": 105,
+      "inflection": 0.105,
+      "closest": 1.972,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -2,
+        -2,
+        3
+      ],
+      "speedY": [
+        0,
+        1,
+        -2,
+        -1
+      ],
+      "bend": 1.891,
+      "pitch": 105,
+      "inflection": 0.25,
+      "closest": 0.802,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        0,
+        -1
+      ],
+      "speedY": [
+        1,
+        1,
+        -2,
+        -3
+      ],
+      "bend": 1.87,
+      "pitch": 105,
+      "inflection": 0.196,
+      "closest": 0.71,
+      "size": 3
+    },
+    {
+      "speedX": [
+        3,
+        -2,
+        1,
+        -3
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        3
+      ],
+      "bend": 1.861,
+      "pitch": 105,
+      "inflection": 0.258,
+      "closest": 1.327,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        2,
+        -3,
+        -3
+      ],
+      "speedY": [
+        -2,
+        1,
+        -3,
+        3
+      ],
+      "bend": 2.156,
+      "pitch": 105,
+      "inflection": 0.248,
+      "closest": 1.729,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -2,
+        -3,
+        3
+      ],
+      "speedY": [
+        0,
+        -2,
+        -3,
+        3
+      ],
+      "bend": 2.19,
+      "pitch": 105,
+      "inflection": 0.911,
+      "closest": 1.414,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -3,
+        -1,
+        3
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        2
+      ],
+      "bend": 2.193,
+      "pitch": 105,
+      "inflection": 0.343,
+      "closest": 0.524,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        3,
+        2
+      ],
+      "speedY": [
+        -3,
+        2,
+        -1,
+        3
+      ],
+      "bend": 2.218,
+      "pitch": 105,
+      "inflection": 0.058,
+      "closest": 2.396,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        -1,
+        -3
+      ],
+      "speedY": [
+        -2,
+        1,
+        -1,
+        3
+      ],
+      "bend": 1.775,
+      "pitch": 105,
+      "inflection": 0.142,
+      "closest": 0.921,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        -1,
+        -1
+      ],
+      "speedY": [
+        1,
+        -2,
+        3,
+        0
+      ],
+      "bend": 2.258,
+      "pitch": 105,
+      "inflection": 0.13,
+      "closest": 0.751,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -1,
+        -3,
+        -3
+      ],
+      "speedY": [
+        -3,
+        3,
+        0,
+        1
+      ],
+      "bend": 1.714,
+      "pitch": 105,
+      "inflection": 0.154,
+      "closest": 1.025,
+      "size": 3
+    },
+    {
+      "speedX": [
+        3,
+        -1,
+        1,
+        -1
+      ],
+      "speedY": [
+        2,
+        0,
+        -3,
+        -3
+      ],
+      "bend": 2.306,
+      "pitch": 105,
+      "inflection": 0.085,
+      "closest": 2.49,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 2.082,
+      "pitch": 210,
+      "inflection": 0.441,
+      "closest": 0.197,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        0,
+        0
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 1.896,
+      "pitch": 210,
+      "inflection": 0.403,
+      "closest": 0.327,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        1,
+        1
+      ],
+      "speedY": [
+        -1,
+        0,
+        1,
+        1
+      ],
+      "bend": 1.895,
+      "pitch": 210,
+      "inflection": 0.203,
+      "closest": 1.06,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        0,
+        1
+      ],
+      "speedY": [
+        -1,
+        0,
+        1,
+        1
+      ],
+      "bend": 1.757,
+      "pitch": 210,
+      "inflection": 0.303,
+      "closest": 0.662,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        1,
+        -1
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 1.704,
+      "pitch": 210,
+      "inflection": 0.375,
+      "closest": 0.455,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        -1,
+        0
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 1.498,
+      "pitch": 210,
+      "inflection": 0.372,
+      "closest": 0.494,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        0,
+        -1
+      ],
+      "speedY": [
+        0,
+        -1,
+        1,
+        1
+      ],
+      "bend": 1.404,
+      "pitch": 210,
+      "inflection": 0.351,
+      "closest": 0.602,
+      "size": 1
+    },
+    {
+      "speedX": [
+        1,
+        -1,
+        2,
+        0
+      ],
+      "speedY": [
+        -1,
+        0,
+        1,
+        1
+      ],
+      "bend": 1.749,
+      "pitch": 210,
+      "inflection": 0.159,
+      "closest": 1.179,
+      "size": 2
+    },
+    {
+      "speedX": [
+        2,
+        0,
+        -2,
+        -1
+      ],
+      "speedY": [
+        1,
+        -1,
+        0,
+        2
+      ],
+      "bend": 1.637,
+      "pitch": 210,
+      "inflection": 0.273,
+      "closest": 1.181,
+      "size": 2
+    },
+    {
+      "speedX": [
+        2,
+        -2,
+        -1,
+        2
+      ],
+      "speedY": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "bend": 1.551,
+      "pitch": 210,
+      "inflection": 0.94,
+      "closest": 1.25,
+      "size": 2
+    },
+    {
+      "speedX": [
+        1,
+        -2,
+        2,
+        1
+      ],
+      "speedY": [
+        1,
+        0,
+        -2,
+        0
+      ],
+      "bend": 2.575,
+      "pitch": 210,
+      "inflection": 0.26,
+      "closest": 0.778,
+      "size": 2
+    },
+    {
+      "speedX": [
+        2,
+        -1,
+        1,
+        -3
+      ],
+      "speedY": [
+        -1,
+        0,
+        2,
+        2
+      ],
+      "bend": 1.989,
+      "pitch": 210,
+      "inflection": 0.099,
+      "closest": 1.005,
+      "size": 3
+    },
+    {
+      "speedX": [
+        2,
+        -2,
+        2,
+        -2
+      ],
+      "speedY": [
+        2,
+        -1,
+        -3,
+        -3
+      ],
+      "bend": 1.981,
+      "pitch": 210,
+      "inflection": 0.101,
+      "closest": 1.133,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        -2,
+        3,
+        -3
+      ],
+      "speedY": [
+        0,
+        1,
+        -3,
+        0
+      ],
+      "bend": 1.972,
+      "pitch": 210,
+      "inflection": 0.189,
+      "closest": 0.451,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        2,
+        -1,
+        -1
+      ],
+      "speedY": [
+        0,
+        2,
+        -3,
+        -2
+      ],
+      "bend": 1.968,
+      "pitch": 210,
+      "inflection": 0.233,
+      "closest": 1.0,
+      "size": 3
+    },
+    {
+      "speedX": [
+        1,
+        0,
+        2,
+        0
+      ],
+      "speedY": [
+        -1,
+        -1,
+        3,
+        2
+      ],
+      "bend": 2.04,
+      "pitch": 210,
+      "inflection": 0.093,
+      "closest": 1.414,
+      "size": 3
+    }
+  ]
+}

@@ -1,0 +1,821 @@
+triplet spine framework
+In priority order, five, then the rest can wait.
+1. docs/STATUS.md — the page readers will trust most and the one that ages fastest. Check every "works" claim against what you actually see; I marked the spine layer as not connected, the terminals as unconsumed, and cloud figures as partly withheld.
+2. docs/CREDITS.md — attribution is the one place a wrong sentence matters legally. Check the engine credit (Bertolazzi and Frego), the CC BY-SA/GFDL note for the reference images, and that the split (CC BY 4.0 prose, MIT code) is what you intend.
+***
+
+
+ The chain figure is not built yet; what I did was get the arithmetic right underneath it, and the arithmetic came back negative.
+1. A real defect, found and fixed. from_pairs rotated the chord by half the tangent angle (c0, s0 = u0/h0, v0/h0) instead of the full one, so the fit only closed when a segment started at θ₀ = 0 — which is exactly the vertex case every card in §C happens to use. That is why nothing caught it. It now doubles via Euclid; it agrees with from_hermite to 1e-14 on five catenary spans where it previously missed by up to 4.0 units. It has no callers, so no page output moves — workbench/catenary.html regenerates byte-identical. 239 tests pass.
+This also means §C's sentence "run both versions and they agree to the last digit" was prose, not a check. It is true now; if it stays, it should become a test.
+2. The discriminant, exactly. With integer direction triples, the closure quadratic's discriminant is N/(h₀⁴h₁²) with N = Y² − 4Xb, all integers — so "rational square" is a perfect-square test on N, no floats. That is now closure_integers() and discriminant_state() in scripts/hodograph.py.
+3. The measurement is a negative result, and it is the finding. Over the full 92-rung pythagorean ladder, on the four catenary chords of Fig. N: 0 of 17,168 non-negative discriminants are squares. Freeing the node does find squares, but k then carries denominators like 3401, 32399, 615581 — rational, not lattice. So the square test buys exactness, not integers. That is why Fig. K snaps, and the §C table row ("when the quadratic's discriminant is a square") and the 158/960 figure both need rewording before a chain is drawn on top of them.
+State: scripts/hodograph.py and state/HANDOFF.md modified, uncommitted; the rest clean. Handoff has an "In flight" block with the formulas and the measurement so a freeze costs one step.
+The next move is to decide the claim before drawing the figure — either the chain is exact (rational control points, one stated scale) or it is integral (and then only the mod-3 hodograph-scaled family qualifies, per the spine layer). Those are different figures; I did not want to pick one on your behalf.
+
+***
+A–M are now hodograph chains, with the letters back in reading order: A–P, Q–V (catalogue walk), W (involute), X (bouncing ball).
+ 	was	now
+A	fitted chain, float chords	4 cubics a side, 0.0033% of a
+B–D	three splits, fitted	the same three splits, solved
+E–J	catalogue walk	six drapes by segments-per-side
+K	walked chain, integer nodes	the exact fit with control points snapped to integers — 0.49% drift
+Two things I changed beyond the mechanical swap, because the old text had become false:
+1. 
+2. 
+L and M stayed put, and I'd defend that: they aren't chain figures. L is the drapery as rows of catenaries, M is the three.js mesh — both are about the surface, where the hodograph fit has nothing to replace. If you want them rebuilt as PH chains too, that's a different job (each row would become its own chain), and worth doing deliberately rather than folding into this pass.
+The page now tells one story from A to K: here is the catenary, here is the closed-form fit at three splits, here are six densities of it, and here is what happens when you insist every control point be a whole number.
+***
+
+Your eye was right, and the answer is that nothing was off. Two different things were both being drawn as gold triangles:
+where	the triangle is…	its corners
+Q–V (catalogue walk)	the chord itself — the curve is the chain	on the curve
+E–J, N, O, P (hodograph)	the control leg — scaffolding	off the curve, on purpose
+Measured on a segment: the curve passes through its own nodes to 1e-14, while the interior control points p₁ and p₂ sit 1.75 and 1.87 units off the curve. That's not error — a Bézier doesn't pass through its interior control points, that's what makes it a curve rather than a polygon.
+So the cards looked loose because they had nothing to check against. They now show:
+- the catenary dashed underneath, and
+- a dot at every node where the cubics meet it.
+Which makes the error legible at a glance: in Fig. E (one cubic a side) you can see the dashed catenary dip below the ink at the vertex — that's the 0.41%. In Fig. G (four a side) the dashed disappears entirely under the ink — that's the 0.0033%. Fig. N always looked exact because it always had its dots.
+The page now says this in words too, so the next reader doesn't have to measure it: "a card can look loose and still be exact; the dashed catenary underneath is the honest check."
+Worth keeping in mind for the other figures: any figure that shows control polygons needs the reference curve under it, otherwise the scaffolding reads as error. That's the same trap as the offset plates earlier — the drawn thing isn't the computed thing.
+
+***
+Two different answers, because they're different kinds of curve.
+Circle involute — yes, and the fit is better suited than the catenary
+The involute has a property that makes it a natural PH target: its speed is a polynomial.
+P(t) = a(cos t + t·sin t,  sin t − t·cos t)
+P′(t) = a·t·(cos t, sin t)          speed = a·t     tangent angle = t
+Speed linear in t, tangent angle equal to the parameter. So a chain of PH cubics fitted through points and tangents converges exactly as it does for the catenary:
+cubics	worst error (a = 1, t ≤ 3)
+1	0.73
+2	0.040
+4	0.0057
+8	0.0004
+Nothing in the machinery was catenary-specific — from_hermite only ever wanted two points and two tangents. It'll fit any curve you can sample, and for the involute it's fitting a curve whose own speed law is already polynomial, so there's no square root to chase even in principle.
+Bouncing ball — no PH needed, and that's the more interesting answer
+A parabola is exactly a quadratic Bézier — not an approximation:
+(x₀, x₀²) · ((x₀+x₁)/2, x₀x₁) · (x₁, x₁²)      error 1.8e-15
+So a bouncing ball isn't a PH job at all; it's a chain of degree-2 curves meeting at corners, not tangents. Every bounce is G0: the ball's direction reverses instantly, so the join has no tangent to match. PH cubics would be overkill and slightly wrong — you'd be smoothing a corner that must stay sharp.
+Where it does get interesting for your work is the heights. With elasticity e, the apexes are H, e²H, e⁴H, … — a geometric progression, the same shape as the doubling stacks. So a bouncing ball is:
+- arcs: exact quadratics, integer control points if you choose the bounce points on the lattice
+- heights: a geometric sequence, one ratio, like the p-triple doubling
+- joins: corners, which is precisely what the cusp/corner machinery in the spine layer already handles
+In other words, the ball is closer to your chain work than to the PH work: a sequence of exact integer triangles (the parabolas' control polygons) with deliberate corners between them.
+What I'd build
+Two new figures, both short:
+1. Involute — a 4-cubic PH chain over the true involute, with the tangent-equals-parameter property drawn (the string unrolling), and the error printed.
+2. Bouncing ball — parabolic arcs with integer control points, apexes in a geometric progression, corners marked at the floor. Include the "why corners are right here" note.
+Which first? The involute proves the toolkit generalises; the ball proves it doesn't overreach. I'd do the involute first, since it's five lines of code now that from_hermite exists.
+***
+The triangles are drawn
+Fig. O panel (ii) now shows the three control legs as filled right triangles on p₀…p₃. And they're not arbitrary — they're the two directions squared and multiplied:
+(24,7)²       = (527, 336, 625)
+(24,7)×(4,3)  = ( 75, 100, 125)
+(4,3)²        = (  7,  24,  25)
+Every leg is a pythagorean triple, and the middle one is the product of the two direction pairs. That's why the interior angles come out equal and the legs come out in geometric progression — it's complex multiplication, done in integers.
+And the thing this actually unlocks
+You're right that it's an unexplored vein. A PH curve hands you, with no approximation:
+operation	usual cost	here
+length	numerical integration	a polynomial, exact
+offset / parallel plate	degree 10, refit	rational, exact — Fig. P
+curvature	second derivative, noisy	a fraction, exact
+tangent	atan2	Euclid doubling, dot and cross
+split a segment	refit both halves	subdivide, still PH, still triples
+control points on the lattice	—	when the discriminant is a perfect square
+Fig. P is the one I'd point at: the chain with two exact offsets at ±7.5% of a. That's the Stage II plate — the parallel curve — computed instead of re-fitted, which is the whole thing we were fighting with offsets two sessions ago.
+Two others worth naming even without their own figure:
+- Splitting is exact. Cut at any t and both halves are PH cubics with integer pairs again. A curve can be refined forever without leaving the family — which is what a chain needs as you zoom in to place a branch.
+- Integer control polygons are ordinary. In 960 endpoint-and-direction cases, 158 had an exact rational square discriminant. It's a number-theoretic property of the pair of directions, not a lucky accident.
+If we keep going here, the natural next figure is the lattice chain: nodes snapped to integers, every direction a triple, every discriminant printed as square or not, with the drift from the catenary measured. That's the version where "p-triple" and "catenary" are the same object with no asterisk.
+***
+
+The fix also corrects the exact spine on the Stage II page, which was laying chords 90° off by the same bug. Committing it:
+$ cd /Users/thomaskelly/developer/clothoid-lab && git add scripts/curve_families.py scripts/catenary.py scripts/stage_two.py workbench/catenary.html workbench/stage-two.html && git commit -q -F - <<'MSG' && git …
+3b62e9e fix: the rung ladder measured its angle from the wrong axis
+Committed — 3b62e9e.
+So: keep the walk code, not A–D. A–D are the fitted method — it snaps the angle to a triple but keeps the chord a float, so the nodes are irrational and nothing lands on the lattice. E–J are the same law with integer chords: m·(u,v), every node exact. That's the principle you set, and it now looks the same as the fit.
+Where that leaves the page:
+ 	method	nodes	looks right
+A	fitted, float chords	irrational	yes — the reference
+B–D	fitted, three splits	irrational	yes
+E–J	walked, integer chords	exact	now yes
+K	walked, the working one	exact	now yes
+N–S	copies of E–J	exact	now yes
+Two things this exposed that are worth deciding before the next step:
+1. 
+2. 
+Want me to densify the low-angle end of the catalogue first, or move A–D into Check Mark as the reference set?
+Build · DeepSeek V4.1 Flash · 2m 27s · 81.2 tok/s
+
+***
+And mkdocs is live: http://127.0.0.1:8020/
+The documentation book (mkdocs.yml at the repo root, material theme, the workbench's paper palette):
+http://127.0.0.1:8020/ — clothoid-lab
+Nav is reference-only: Start here · Truth and state · The engine · Design · Record · Reviews
+mkdocs and mkdocs-material pinned in requirements-dev.txt; site/ is gitignored
+.venv/bin/mkdocs serve (I have it on :8020 since :8000 is the app) and .venv/bin/mkdocs build
+state/ — created at top level with the five:
+state/HANDOFF.md    current truth, written by /fhandoff
+state/BACKLOG.md    W01–W26 execution detail
+state/SESSIONS.md   proposed order for the next sessions
+state/WORK.md       P/W/D registers
+state/STATUS.md     what works, what is not wired
+state/README.md     what the folder is, and why it is not in docs/
+They are not in the built site — I checked, site/ has no HANDOFF/. AGENTS.md still starts at state/HANDOFF.md, so every session's read order is unchanged; prose that linked them names the new path; HANDOVER.md and its HTML twin agree.
+Eleven build warnings remain, all pre-existing links into folders that don't exist — ../VOCABULARY.md (×3), ../spine/EXPLAINER.md (×2), and a few others from before this work. Want me to clear those so mkdocs build --strict is clean?
+***
+Committed — e0b4553. mkdocs build --strict now exits 0 with 21 pages and no warnings.
+What each warning actually was:
+warning	what it was	fix
+../PLAN.md ×1	a plan file that never existed	→ PROJECT.md
+../VOCABULARY.md ×4	a "short canonical list" that was never written	→ GLOSSARY.md, which says so now
+../spine/EXPLAINER.md ×3	real file, but in pythagorean-spiral/docs/ where mkdocs can't follow	named by path instead of linked
+README.md ×2	fighting index.md for the section index	excluded from the build, kept for GitHub
+And strict: true is on, so a broken link fails the build rather than scrolling past — that's the part that keeps it clean.
+The live book is still up at http://127.0.0.1:8020/ (it auto-reloads on save). Current state of docs/:
+docs/    21 pages in the book: ARCHITECTURE, CLEARANCE, CORPUS, CREDITS,
+         CURVE-MODEL, FIDELITY, GLOSSARY, HANDOVER, JUNCTION, PHILOSOPHY,
+         PRIMAL, PROJECT, REVIEW, SPINE, TODO, VERIFY, WEB-GUIDE, caps,
+         clothoid-grid-3125, web  (+ README.md for GitHub only)
+state/   HANDOFF, BACKLOG, SESSIONS, WORK, STATUS
+workbench/  the generated pages and their data
+One leftover worth knowing: docs/TODO.md and docs/PROJECT.md are marked in docs/README.md as "older planning, kept for history — do not treat as current", yet they're still in the published nav. Want them moved to state/ or dropped from the nav?
+***
+***
+catenary What changed:
+- Numbered. Fig. 1–6 under every illustration.
+- Renamed. H1 and title are now Clothoid intermediate curves stage II; the sandbox entry matches.
+- Reversed the bottom four. One judgement call here: I read "the bottom 4" as Figs 3–6, so the order is now Fig. 3 both sides → Fig. 4 alternating → Fig. 5 one side → Fig. 6 the offset spans. That moved Root and branch above Where the cubics fit, with the cubic figure and the leaves note landing last.
+- Branches point up. Each panel rotates the tree so the root spine's chord is vertical. Same geometry, same branches — the stem now grows bottom-to-top, so the fronds fan upward instead of off a diagonal stick.
+If you meant the reverse to apply only within the branch section (figures 3–5 flipped, cubic left where it was), say so — it's a two-line change in the generator.
+
+New page: http://127.0.0.1:8003/stage-two.html (linked from the families page and the sandbox index).
+Offset parallel curves. The rule is exact and small: slide every chord by d, re-intersect the neighbours. Every node keeps its 4.35° angle — only the chord changes, losing 2d·tan(α/2). Because that's a constant, not a ratio, an offset is not a scaled copy: the short hook chords lose 30% of a chord while the arm loses 0.1%. So each plate has its own b:
+offset
+0
+0.30 × close
+0.62 × close
+The plate closes at d = c/(2·tan(α/2)) = 41,146 — which is just the hook's own curvature radius, c/α. Two figures: the full view (the plates are a skin over the arm) and a zoom on the first 17 chords (the same distance is a third of the radius, so they fan).
+Where the cubics fit. The parabola rule stands in 9 spans for 45 chords, G1 at the nodes. But a cubic's offset is degree 10, so the control-point trick is an approximation: measured 4% of the offset distance, and that share doesn't shrink with d. So the order is fixed — offset the spine, then fit spans to the plate. The figure shows the two plates 4% apart.
+Root and branch. A branch is a smaller spine leaving along the node's outgoing chord — G1 with nothing to blend. Three rules at every node: one side, alternating, both sides. Frond vs fishbone is only which way the side flips. Cross-linked to branch-points.html for where a branch may go; this page is how it grows.
+Two things I'd flag before leaves:
+The branch scale is currently proportional to the local chord (0.032 × chord, 10-chord child). That's what makes it read as a stem. A fixed absolute branch size looks completely different — worth trying both.
+Depth is implemented but the panels are one level; two levels is where it turns from a stem into a plant.
+Say the word and I'll do leaves: a plate that stops — one span at the end of a branch, sized by the chord that carries it.
+Build · DeepSeek V4.1 Flash · 26m 39s · 40.3 tok/s
+number the illustrations. reverse the bottom 4 top to bottom. then the branches should be changed to point up. rename "Clothoid intermediate curves stage II" 
+Thought · 46.6s
+I'm here. Two of these need a judgement call, so here's how I read them: figures numbered in reading order, the last four (cubic + three branch panels) reversed top-to-bottom, which means the branch section now comes before the cubic section. Branches get rotated upright.
+
+***
+
+Stage II (http://127.0.0.1:8003/stage-two.html): Figs 1–2 now sit two-up like the branch pairs, and the B panels in Figs 3–5 are a left-right mirror instead of a turn-over — same stem, same upward branches, only the side they leave on changes.
+Catenary sandbox (http://127.0.0.1:8003/catenary.html), the two projects:
+A — catenary from triples. The catenary asks for tan θ = s/a, so each step snaps θ to the nearest of 110 rungs (every pythagorean slope ≤ 62° with hypotenuse ≤ 500) and lays a chord of the arc that step deserves. Every chord is the hypotenuse of a real triangle; two are drawn on each end. The two branches share one catenary — down to the vertex, up from it — and at 0.62 : 0.38 the high anchor sits 71 above the vertex against 32 for the low. Worst node error 2.4 over an arc of 220 (1.1%).
+B — Weil's drapery. Each row is the catenary of its own rest width on a span that narrows with depth, so the cloth gathers and sags toward the free edge. Three.js view with orbit, a gather slider and a wireframe toggle. Two honest gaps, stated on the page: the relaxation pass and the recursive lower-catenary triangle split aren't in yet.
+One verification note: this headless Chrome has no WebGL, so I ran a second instance with SwiftShader. The canvas holds real geometry — 3 draw calls, 3,096 triangles, beige pixels at the centre — but headless-old won't composite a WebGL layer into a screenshot, so the panel photographs blank while it renders fine. If it's blank in your browser too, tell me and I'll look again; the 2D figure above it is the same drape either way.
+I read "catenary i c stage 2" as the Stage II page for the two-up change. If you meant the catenary page's own two figures, say so and I'll pair those instead.
+
+Final layout:
+- workbench/ — generated working pages, one generator each, workbench.html as the index, index.html as a temporary door
+- docs/ — the 26 markdown, HANDOVER.html, and the static archives spirals/ + terminals/
+- docs/spirals/ and docs/terminals/ keep their own generator paths
+I'll post the links and commit once the rebuild finishes.Final layout:
+- workbench/ — generated working pages, one generator each, workbench.html as the index, index.html as a temporary door
+- docs/ — the 26 markdown, HANDOVER.html, and the static archives spirals/ + terminals/
+- docs/spirals/ and docs/terminals/ keep their own generator paths
+I'll post the links and commit once the rebuild finishes.
+
+moved
+http://127.0.0.1:8003/docs/spirals/index.html — 121 recovered spines
+http://127.0.0.1:8003/docs/terminals/index.html — the terminal ends
+
+
+try to imitate this curve by using the same method as the clothoid but different length triangles. by that i mean, assuming we start at a circle, radius = r, and a set of say 10 stacked triangles, then 9, then 8 etc down to 1 we would have a regular euler. in this new case we start with 10 (7,24,25) triangles, then go to 9 (14,48,50) triangles, then 8 (28, 96,100) triangles and so forth down to 1 to end the series. this should make the curve flatten much faster.
+
+Error: getaddrinfo ENOTFOUND opencode.ai
+
+
+Short answer: I can’t find a published identification of the hip/vary-form template as a specific logarithmic spiral. The patternmaking literature names the tools — hip curve for hiplines, vary form for armholes and necklines — but does not give their geometry. The templates are proprietary shapes, not published curves.
+What is published is the mathematical family that contains the log spiral:
+The formula
+A logarithmic (equiangular) spiral:
+r(θ) = a e^(bθ)
+x(θ) = a e^(bθ) cos θ
+y(θ) = a e^(bθ) sin θ
+b is the shape; a is only scale.
+The angle between the tangent and the radius is constant: tan ψ = b.
+Radius of curvature: ρ = r √(1 + b²).
+Arc length: s = (√(1 + b²) / b)(r − r₀) — so ρ is proportional to s.
+Scaling by k is a rotation: Δθ = ln(k) / b. That is why a 126% copy is the same spiral, not a different one.
+The general log-aesthetic curve (Miura, Harada) is:
+ρ^α = c₀ s + c₁
+α = 1 → logarithmic spiral (ρ ∝ s)
+α = −1 → clothoid (ρ ∝ 1/s)
+other α → the intermediate family.
+So “which one?” has two answers to measure: α (is it a log spiral, a clothoid, or between?) and b (which log spiral).
+How to identify it from the template
+Trace the drawing edge as points.
+Estimate curvature ρ and arc length s along it.
+Fit log ρ against log s:
+slope +1 → log spiral, α = 1
+slope −1 → clothoid, α = −1
+other slope → log-aesthetic with α = 1/slope.
+If it is a log spiral, fit b from ln r = ln a + bθ after finding the pole, or from the constant tangent–radius angle.
+Trace the small and large pieces separately. If they give the same b, they are the same design scaled; the 1.26 ratio is then a rotation of ln(1.26)/b, and the join is exact — not G², but the same curve.
+The catch with the vary form
+A single log spiral has no inflection; it only tightens or loosens. The vary-form curve is often a compound shape (it changes direction for armholes/necklines), so it may be two log-aesthetic segments or an α that changes sign. The hip curve, being one long gentle arc, is the more likely single log spiral. That is a difference in shape, not just size — measure both.
+I found no source that publishes the manufacturer’s equation; the honest route is the fit above. If you scan the hip curve and the vary form, I can run the log ρ–log s fit and give you α and b, and tell you whether the 1.26 family is exact for your set.
+***
+Yes. Drop the image anywhere in the repo (or give me the path) and I’ll do the fit. numpy and scipy are now installed alongside Pillow.
+What I’ll produce:
+the working edge extracted as a point sequence;
+a fit to the log-aesthetic family ρ^α = c₀s + c₁, reporting α (≈1 means log spiral, ≈−1 clothoid, between means neither);
+if α ≈ 1, the log spiral r = a e^(bθ), with b, the constant tangent–radius angle, and the pole;
+residuals in millimetres and per cent;
+a normalized overlay of the small and large pieces, and the measured scale ratio — so the 1.26 claim is either confirmed or refuted for your set;
+a page and a JSON with the formula and the fitted points, plus an SVG of the reconstruction.
+For a good fit:
+flatbed scan if possible, 600 dpi, template flat, no shadow; a phone photo works but needs to be square-on.
+include a ruler or a known rectangle in the frame so I can scale and correct perspective.
+tell me which edge is the drawing edge — the templates have two long edges, and the bevel means the top and bottom outlines differ.
+both pieces if you have them: small/medium and large.
+If you only have one phone photo, I can still fit it, but the error bars will be honest and larger. Start with the hip curve; that is the one most likely to be a single log spiral.
+
+why dont you produce some typical log spirals and i will see if they match. also hyperbolic spirals... basically they produce the curve of a dress
+
+a visual family sheet is the fastest way to see which one your eye recognizes. I’ll draw the log spirals, hyperbolic spirals and a clothoid reference at the same scale.
+
+***
+The S-scroll is implemented and live in section 9 (6fd3624).
+It does what you described:
+Starts on a circle of radius r.
+Curvature runs +1/r → 0 → −1/r, so the inflection is the straightest point.
+Ends on a circle of the same radius r at the other end.
+Net turn is zero — it is an S, not a spiral that keeps going.
+At r=2, join gap 0.1 pt: arc length 503 pt, bounding box about 55 × 63 pt. The blue circles are the two ends, the violet dot is the inflection, the red dot is the start and the gold dot the finish.
+The controls are r, join gap and page, and it has the same Save JSON as the outward tool. Below r≈3.6 the same rule applies: lower the join gap (r=1 needs about 0.02; r=2 about 0.1; r=3 about 0.25) and the S still fits.
+http://127.0.0.1:8003/spiral-turns.html — section 9 at the bottom. If you meant the end distance from the start centre rather than the end radius of curvature, say so; this version returns the curvature radius to r, which is the S-scroll reading.
+***
+I'm here. Done — 9e712b5, live at http://127.0.0.1:8003/spiral-turns.html.
+- Largest example is now r = 40 with a 40° entry tail. The full-circle bound is still r = 50, but at 50 there is no room for a tail, so the example is set back. The tail’s outer radius is r √(1 + 40/360) ≈ 42.2, which stays inside the 50 limit — that is why 40 is the conforming radius, not an arbitrary “or so.”
+- r = 2 stays a dot, deliberately: it is the minimum with a hole, and any tail would be invisible. That is the point of the smallest case.
+- The branch page now has the two point sets you asked for: tiny pale dots at every exact chain knot, larger gold dots at each practical cubic end, and the numbered candidates in dark (red when blocked). Five of six probes are open; candidate 5 at 72% is blocked by the band.
+Pages:
+- http://127.0.0.1:8003/sandbox.html
+- http://127.0.0.1:8003/branch-points.html
+- http://127.0.0.1:8003/spiral-turns.html (section 5 is the three sizes)
+
+***
+I'm here. You were right on both counts, and the build now follows your workflow.
+The letter-C claim was wrong
+Measured from ten installed serif faces, the native segment counts are:
+glyph	range across serif faces	examples
+C	18–42	Charter 18, Baskerville 19, Times 21, New York 28, PT Serif 32, Bodoni 34, Didot 38, Big Caslon 42
+@	46–82	Baskerville 46, Times 55, PT Serif 69, Didot 82
+&	32–94	Charter 32, Times 45, Big Caslon 94
+~	10–24	Bodoni 10, Times 14, Didot 24
+So “2–4 cubics” describes a geometric ring, not a serif letter. One serif C is 18–42 cubics. That is the right yardstick, and it changes what “practical” should mean.
+The practical curve
+clothoid_lab/practical.py fits one clothoid through each structural run and only subdivides when the error exceeds the tolerance. At 0.5 mm:
+ 	design segments	cubics with mirror	page	worst deviation
+exact	943	1,164	249 KB	reference
+practical	18	34	7 KB	0.42 mm
+practical + one pin	19	36	7 KB	0.32 mm
+The half is 14 clothoids — the same order as one serif C. The band is 4.
+A real bug was inflating the exact count
+A straight 312-unit segment was taking 9 cubics. The cause: at a segment boundary the backend reports the next segment’s tangent, so a corner corrupted the end of the previous cubic and the fitter split to hide it. Fixed in bezier.fit_chain by reading the tangent just inside the segment. One straight segment now takes one cubic. That fix alone is why the 45°-style behaviour you remembered came back.
+Pins — the branch workflow you described
+The exact curve is for zooming in and choosing. The practical curve cannot be a fixed simplification, because a branch must land on a real vertex with the exact heading.
+A pin is that choice: a point on the exact chain becomes a hard split in the practical fit, both sides share the chain’s outgoing heading, and the rest is re-simplified within the same tolerance. Measured pin error: 2e-7 units, tangent continuous across it. One pin costs one or two cubics.
+So: choose on the exact curve → pin the point → regenerate the practical curve → attach the branch. The pin is drawn as the gold dot on the page.
+Written and verified
+- docs/practical-curve.html compares the profiles, shows the pinned drawing, and prints the serif counts; checked in headless Chrome at 900 and 390 px (the 390 table overflow was fixed).
+- The rule and the pin workflow are in docs/FIDELITY.md; the architecture, status, handoff, sessions and README all point at it.
+- 239 tests pass, including a regression that a corner no longer bows the previous segment and one that a pin is an exact vertex.
+- Committed as 81ab7bb.
+
+***
+I'm here. Roughly right in spirit, but the ratio isn't a rule and the end isn't literally “every chord.” The measured pipeline says:
+ 	1° step	0.5° step
+chain chords, right half	115	221
+structural spans (the study's 11 parts)	11	11
+chords per structural span	~10.5	~20
+fitted cubics in the half	351	352
+fitted cubics in the band	376	732
+C commands in the whole SVG (with mirror)	1,078	1,436
+So the corrections:
+1. “1 in 10 at the beginning” is a coincidence of the 1° run. The structural span count is 11 because study 01 has 11 parts, separated by corners and curvature reversals. That number does not change when you refine the step. The chord-to-span ratio therefore scales with the step: about 1 in 10 at 1°, 1 in 20 at 0.5°, 1 in 77 at 0.125°. It is not a fixed decimation; the span boundaries are chosen by how much the path has turned (a 50° budget, plus reversals), not by taking every tenth chord.
+2. The end does not use every chord as a cubic either — and the two strokes behave differently.
+- The half is gentle: 115 chords and 221 chords both fit to about 351 cubics. The fitter is driven by the 0.02-unit tolerance and the shape, so extra chords get absorbed; the ink count barely moves.
+- The band is tight (radius 25): it needs roughly one cubic per chord — 362 chords gave 376 cubics, 722 gave 732. There the “every chord” intuition is close to true.
+- The finished SVG is therefore about 1,100–1,450 cubic commands, not 852 chords and not 852 cubics.
+3. The raw chords are the plan, not the ink. They define the exact polygon the plan layer believes in. The engine re-fits that shape into cubics at print tolerance, merging where it can and splitting where curvature is tight. Nothing writes the 852-point polygon to the page.
+So the honest one-line version is: the chain is dense at the beginning; the structural spans are few and fixed by turns; the end is re-fitted by tolerance — merged on the gentle half, roughly one cubic per chord on the tight band. Your “1 in 10” is the 1° case of the middle row, not a property of the pipeline.
+***
+What I could and couldn’t recover
+I don’t have the earlier session itself — only what the repository recorded. What it recorded is the number you remember: the spine layer follows the ideal Euler law to 0.8% of peak, and the drawn cubics to 1.4% (rms 0.8%), described as “an Euler spiral to a percent and a half.” That was the accepted standard.
+I also owe you a correction. I said the drift “does not converge with finer steps.” That was wrong. The finer steps do converge; my earlier runs stopped too early, and one timed out. The real numbers:
+step	chords	worst drift	of height
+2°	62	66.19	4.38%
+1°	115	21.38	1.42%
+0.5°	221	19.44	1.29%
+0.25°	431	20.76	1.38%
+0.125°	852	1.67	0.11%
+0.0625°	—	did not finish in 60 s	—
+The coarse steps wobble because independently rounded corners can add or cancel. At 0.125° the grid is fine enough that the error collapses. The limit is cost, not principle.
+The rule, written as important
+A new page, docs/FIDELITY.md, opens with a warning:
+A chain that imitates a clothoid is accepted at 1.4–1.6%. For a chain study the rule is: worst span-end drift at most 1.6% of the study height. Always state which metric the number is. It is a resemblance budget, not node parity.
+It records the precedent, the full measured table, the pass/fail rule, what to do when it fails, and what the rule does not license. That last part matters: the ported P01 matches its reference to 0.03 units; the chain study is 19.44 units at 0.5° — about 650 times further. Calling the chain version “P01” would still be false.
+I also made the distinction explicit because it is easy to blur: the original 1.4% is a curvature-law figure; the 1.6% chain-study rule is node drift as a share of height. Same magnitude, same purpose, different measurement. A future report must say which one it used.
+Where it now lives
+- docs/FIDELITY.md — the rule, marked important.
+- docs/SESSIONS.md — the gate-4 section is now marked done under the rule, with the corrected table.
+- Handoff, architecture, status, work, verify, index — all say the gate is met, the study is 1.29%, and the fill is the remaining gap.
+- The generated study page — the banner now says “Meets the 1.6% fidelity rule; not P01 parity,” and the drawing is built at 0.5°.
+- The public MkDocs docs — a Fidelity page under Concepts, and the architecture/status/work/plan now say the gate is wired. That is committed locally as 0f19273; not pushed, since publishing is your call.
+- mkdocs is not installed in this environment, so the public source tree was regenerated but the site itself was not built.
+State
+The promotion gate is complete under the rule you gave: all four conditions hold, the chain study measures 1.29%, and 233 tests pass. The study is still drawn as centre lines; the filled ribbon is the spine layer’s miter job, and that is the next real connection rather than a gate condition.
+***
+
+***
+Promotion gate
+Gates 1–3 now pass and are committed. 3f7a603, 413dc86, 5ef5359.
+- clothoid_lab/spine.py reads a pythagorean_spiral chain through its own cubic spans and builds an ordinary Design / Trace / Piece.
+- Every fitted join lands on a chain anchor: worst 2.08e-14 units.
+- docs/spine-sheet.html: curl + a right-angle branch on 200 × 250 mm, +y up, through svg.document. Verified in headless Chrome at 900 and 390 px, no overflow.
+- piece_clearance(): the declared contact gives merged 1, crossings 1 (allowed), 0 violations. Without the contact the same join reports a disallowed crossing and a violation.
+- A chain carrying a cusp is now refused rather than silently rounding a right angle.
+Gate 4 is open on purpose. Exact chains cannot reproduce P01's node table: its start heading (77.97°) and corners are not in any triangle's rotation group. scripts/spine_study_probe.py measured the gap:
+step	chords	worst drift
+1.0°	115	14.9 units (0.99% of height)
+0.5°	221	30.0 units (1.98%)
+0.25°	431	18.9 units (1.25%)
+0.1°	—	did not finish in 2 min (exact integers)
+Finer steps do not converge — the cost is quantised corners on long levers. So the gate needs your rule: accept a measured resemblance, re-parameterise P01, or use the float hybrid. I did not claim the gate.
+Docs
+docs/SESSIONS.md now carries the proposed order for the next sessions (gate 4, canonical fleur, W04, turned terminals, earth/water/air/fire, archetypes) with target API sketches, verify lines and commit messages. ARCHITECTURE.md, STATUS.md, WORK.md, SPINE.md, VERIFY.md, README.md and HANDOFF.md all record gates 1–3 as true and gate 4 as open.
+The MkDocs/public copy is not synced — that is the separate clothoid-docs repo, and publishing should be your call.
+
+Both done, and the product work has a first real step.
+Veil — c00183f
+- New page: <http://127.0.0.1:8002/veil3d.html>, three.js r160 vendored locally so it works offline.
+- No lone discs: each mini cloud is 2–3 multi-lobe puff textures, and the same shade is reused within a cluster, so the lobes merge instead of reading as bubbles.
+- The cloud is a structured field — 18 columns, three shades, heavy overlap — covering the sheet side to side and across the works.
+- One slider, additive light 0–100, drives a separate additive pass over the body; at 22 it warms the veil without blowing out the fresco. Verified in headless Chrome with SwiftShader.
+Product work — 9edc5ce
+place.place_at_frame(points, anchor, heading) maps local +x to a heading and the origin to an anchor, so geometry drawn facing east can attach at a recovered terminal or a chain node. It accepts a float heading and refuses a non-unit one; four tests.
+Smoke check over all 88 Stage Two terminals, placing cap-1's anchor at each framework:
+- anchor gap: 0.0 (exactly on the seam)
+- direction: agrees to 0.084°, which is the six-decimal rounding in the stored heading, not the transform.
+
+***
+
+Next product step: attach the cap's actual segment geometry (clothoid → points) at a terminal, not just its anchor, and compare the joined end against the recovered taper. Then the reverse: a terminal at a chain node.
+
+***
+Product step done — 79819ea.
+Cap on a terminal (all 88 Stage Two ends, cap chosen by closest length, no scaling)
+Measure	Result
+Anchor gap	0.0
+Direction	within 0.084° — the six-decimal rounding of the stored heading
+Reach ÷ the terminal's cut length	median 0.98, range 0.12–1.10
+Ends where the cap covers 0.8–1.25 of the cut	66 of 88
+The 22 outliers are real, not noise: some recovered ends are much longer than any of the 36 caps (the worst reaches only 12% of the cut), so a cap cannot cover them. That is a useful constraint for the terminal vocabulary, not a placement failure.
+Terminal on a chain node (node 5 of a lobe)
+- Seam gap: 0.0 — the end sits exactly on the node.
+- Tip reaches 200.6 page units outward along the node's heading.
+One trap found and fixed in the process: the stored spans are y-down, the framework is y-up. Localising a terminal without flipping y put the seam 2,500 units away; with the flip it is exactly zero. That is the kind of mistake the datum is meant to make impossible, and it was mine, not the data's.
+What this does not yet prove: the cap's shape against the terminal's, only its reach. A shape comparison would need the terminal's width law at the seam, which the corpus stores as full_width and taper_fraction but not as a pointwise profile. That is the next honest measurement if you want it.
+
+
+***
+
+Two are done — the cap on a terminal and the reverse (79819ea). Eight left, and they group into three milestones.
+The promotion gate (4 steps, one milestone)
+1. clothoid_lab imports a chain and builds a Piece/Trace from its anchors.
+2. One spine rendered on the 200 × 250 sheet, +y up, through svg.document.
+3. piece_clearance() on a spine, with one declared contact.
+4. One W03 study drawn entirely from Pythagorean chains.
+Steps 1–3 are plumbing and can be done in one sitting; step 4 depends on them and on the fleur grammar.
+The product backlog after the gate (3 steps)
+5. Float rails with a reported residual — width at 20k chords as usable as the curve.
+6. fleur_canonical() — W03's own next step, deferred from before.
+7. Turned terminals (past 120°), then the clothoid junction blend — two related but separable pieces, so count this as one milestone with two halves.
+One parked item, not product
+8. The measured column in §2b and making the gate read measured values; plus the v1 caption correction. That is the veil, still tabled.
+If you want a single number: four steps to the gate, four to a finished curve layer. The gate is the one that changes what "central" means.
+
+
+
+
+3. docs/SPINE.md — I completed the walkthrough from the code and re-measured it (10 chords, peak 44.06°, scale 0.942 for the 10 mm ribbon). You know whether that S-curve is the example worth teaching.
+4. docs/WEB-GUIDE.md — the controls and the 120° cap rule; it should match the app you use daily. This is the page a stranger follows first.
+5. docs/ARCHITECTURE.md — the framing, not the facts: "two tools, intended pipeline, not wired". If you disagree with that story, everything downstream inherits the disagreement.
+Then, when there is time
+- context/PLAN.md — the canonical gate and order; it is short and decides the work.
+- docs/README.md — the index must match the tree; it is the map Gemini will trust.
+- The legacy set — BACKLOG.md, REVIEW.md, PHILOSOPHY.md, CLEARANCE.md, JUNCTION.md, PRIMAL.md. They now overlap the new summaries. Decide per file: keep as depth, merge, or archive. docs/web.md is the clearest case — superseded by the Web guide.
+docs/SPINE.md — set. The only defect was a number out of scope: "the fit sits within 1.4%" without saying which fit. It now reads measured on the curl study in both places. Verified: 10 chords, coefficient 0, exit east, peak 44.06°, final (56.05, 16.15), 22 outline points, scale 0.942 and bbox 8.0–192.0 × 8.0–37.1 for the 10 mm ribbon. What remains is not a defect: whether that S-curve is the example you want to teach.
+docs/WEB-GUIDE.md — set. Checked against app.js and server.py: every control id exists, presets and caps reset width to 10 mm, pointed caps clear it, ⌘/Ctrl+Enter redraws, the badges map to g1/join_g2, the limits are 1–200 segments and ≤100 mm, and the token is accepted in either Basic field. One deliberate omission: the report's own fields are not enumerated; the guide says to open it. That is a candidate for a later addition, not a fix.
+docs/ARCHITECTURE.md — set factually: G1 by construction, G2 only where supplied, the pipeline labelled not wired, four gate conditions listed, links to both guides. The framing is the part only you can approve; if you disagree with "two tools, one intended pipeline", every downstream page inherits that.
+One housekeeping fact: the public site is now three commits behind — the work-board rename, the verification page, and this spine fix. GitHub is refusing connections from this machine again; the local preview at http://127.0.0.1:8004/ is current. One push closes the gap when the network returns.
+
+
+Do not review w by hand: EXPLAINER.md, GALLERY.md, EXTREMES.md, TRANSFER.md, CLOUD*.md and the HTML pages. They are generated; the review belongs in their scripts.
+One structural question worth settling while you read: whether numbered sections (## 1.) are the house style. Gemini's drafts use them, our pages do not, and right now the site is mixed depending on who wrote the page.
+
+
+What changed
+- Six new pages fill the gaps: curve model, recovered corpus, work items, verification, status, credits.
+- The nav is grouped: Start here · Guides · Concepts · Reference · Spine layer in depth · Project · Archive, instead of one flat list of twenty.
+- Commits: fd2e0ae (source), aa57aa8 (site).
+Document map for Gemini — paths are in Kellytom/clothoid-docs
+Document	What it contains	Status
+README.md	What the repo is, the layout, where to start	complete
+context/PLAN.md	Objective, the W01→W04 order, the promotion gate, non-goals	complete, canonical
+context/VOCABULARY.md	The authoritative terms and rules (node framework, spine, knot)	complete
+docs/ARCHITECTURE.md	Two tools, the intended pipeline (labelled not wired), where to look	complete
+docs/WEB-GUIDE.md	Controls, design.json, status badges, limits, S-curve walkthrough	complete, verified
+docs/SPINE.md	Whole-number turns, exact vs measured, terms, worked S-curve	complete, numbers verified
+docs/GLOSSARY.md	Plain definitions, engine↔spine mapping, G0/G1/G2	complete
+docs/CURVE-MODEL.md	Design/Segment, Piece/Trace, terminals, junctions, Section, Bundle, clearance	complete; turned terminals and the blend are marked planned
+docs/CORPUS.md	Plates, terminal and spiral JSON, units (y-down), regeneration	complete
+docs/WORK.md	P/W/D registers, the order, the spine gate	complete
+docs/VERIFY.md	The four checks and what passing does not mean	complete
+docs/STATUS.md	Working / not wired / checks	complete, update as things land
+docs/CREDITS.md	Bertolazzi & Frego, the corpus, licences	complete
+docs/README.md	Which pages are handwritten, which generated, and their scripts	update when adding a page
+docs/HANDOFF.md, HANDOVER.md	Carried state and durable reference	carried; edit through /fhandoff
+docs/BACKLOG.md, REVIEW.md, PHILOSOPHY.md, CLEARANCE.md, JUNCTION.md, PRIMAL.md	Legacy depth behind the new summaries	handwritten
+pythagorean-spiral/docs/EXPLAINER.md and the other spine docs	The long argument and studies	generated — change the script, not the file
+docs/ornament-board.html, fleur-studies.html, piece-model.html, primal.html, principles.html	Build output	generated
+Names, answered directly
+- Spine is accurate as spine layer; alone it collides with a trace's spine. Keep the page and nav label "Spine layer guide"; file SPINE.md is fine.
+- Web guide is accurate as web application guide; the page documents the browser workbench. WEB-GUIDE.md is fine. I would not rename either.
+What is still thin, for Gemini to take
+1. Public-safe figures for the cloud page (the photographs are excluded by design).
+2. A dedicated formats page, if the JSON schemas outgrow CORPUS.md.
+3. Turned terminals and the clothoid junction blend are named as planned in CURVE-MODEL.md but have no page.
+4. docs/web.md is now superseded by WEB-GUIDE.md; it is in the Archive, so it should either be retired or cross-linked as history.
+
+the fenced block was unclosed and steps 3–5 were missing. I completed them from the real API and ran them, so the numbers are measured, not invented: 10 chords, coefficient 0, exits east, peak 44.06°, final (56.05, 16.15) mm; the 2 mm outline has 22 points; place.fit gives scale 2.507 and a drawing 8.0–192.0 mm across and 8.0–50.8 mm up.
+What I corrected
+- "Thousands of chords land exactly" → the plan is exact; past a few hundred chords coordinates are doubles with a ~1e-13 residual. The phrase "zero rounding errors" now applies to the plan only.
+- The table's "~1.4% curvature error" → the drawn cubics sit within about 1.4% of the ideal curvature law (rms 0.8%); that is an approximation, and the table now says so.
+- Niven's theorem wording: a chain ends on an axis exactly only when its total turn coefficient is zero; 90° is reachable only as a cusp.
+- Vocabulary: an anchor is every node's point and heading, not the start; added node framework; a knot is a span boundary, not "handles balanced"; rails are miter offsets, rational for small chains; "skeleton" replaced by spine.
+- "Use the spine tool vs the web app" kept, with the fact that they are not wired together stated plainly.
+
+
+Would you like me to create WEB-GUIDE.md, SPINE.md, web-guide.html, and spine.html directly inside your docs folder
+Terminology first: the datum is now a node framework — a point plus the direction the line is travelling. The list below says "frame" in the old sense; read it as framework.
+1. Place one cap at a terminal framework.  
+A cap is a finished end from the engine — 36 of them in out/caps, each a small curve with a known anchor point and angle. A terminal is an end recovered from the old ornaments: 150 of them, stored as curves plus, now, the seam point and outward direction. Placing a cap means putting the engine's end onto a recovered end. "Measure that the cap's anchor sits on the seam" means: transform the cap into the terminal's node framework, then check the distance between the two points. It should be zero or a float rounding; if it is not, the framework is wrong. This is the first time the two halves of the project actually touch — caps were made by the engine, terminals were recovered from the old drawings.
+2. Place a terminal at a spine node framework.  
+The same operation backwards: take a recovered end and hang it on a node of a Pythagorean chain. It matters because it proves the framework is not a special case invented for caps. If both directions work, then "a point and a direction" is a general attachment rule, and any part can meet any other part there.
+3. Promotion gate, step 1 — clothoid_lab imports a chain and builds a Piece/Trace from its anchors.  
+Today the main package does not use the spine layer at all. This step means the tool that draws ornaments can take a chain, read its points and directions, and make a Piece with a Trace — a full line with a width. Until that import exists, "central" is an intention; after it, the spine is part of the tool.
+4. Gate, step 2 — render one spine on the 200 × 250 sheet, +y up, through svg.document.  
+Draw the chain at the real page size, in the page's convention (y increases upward), using the existing SVG writer. It has to go through the same output path as every other drawing, or it is a picture in a side file rather than part of the system.
+5. Gate, step 3 — run piece_clearance() on a spine and declare one contact.  
+The clearance checker measures the smallest gap between strokes and flags crossings, allowing one only where a Contact declares it legal. Running it on a spine shows the new curve is measured by the same rule as everything else, and that declaring a touch works.
+6. Gate, step 4 — draw one W03 study entirely from Pythagorean chains.  
+W03 is the fleur grammar; study 01 is its first target. "Entirely" means every stroke of that study is built from chains — no engine spans, no hand-drawn cubics. That is the end-to-end proof: a real ornament, drawn from the new curve.
+7. Float rails — a float-native outline with a reported residual.  
+Rails are the two edges that give a spine its width. They are currently exact for small chains; at 20,000 chords the exact arithmetic is too expensive. This item means computing the outline in floating point and reporting how far it drifts from the exact answer, so width is as usable at scale as the centre line already is. Without that, long chains can be drawn but not given a reliable width.
+Items 1–2 are joins between parts. Items 3–6 are the four conditions in context/PLAN.md that make the spine layer officially part of the tool. Item 7 is the scale problem that remains after the curve itself was made cheap.
+
+***
+Done in both repos.
+- Private repo cebf2d0: framework_for(), the JSON key framework, the flag --frameworks-only, and the prose. All 150 terminals rewritten; the old frame key removed (0 left). docs/TRANSFER.md regenerated.
+- Public docs e77d7bc: context/VOCABULARY.md now says node framework and framework field, the changelog follows, and the regenerated transfer and spine handover are synced. Site rebuilt and pushed.
+What deliberately still says "frame" — because it is a different thing:
+- --frame WxH and frame= in clothoid_lab/svg.py, model.py, piece.py, cli.py — the render frame, the sheet scale.
+- "local frame" for a cap's origin — a coordinate frame, not the attachment datum.
+- scripts/set_window_geometry.py — an Inkscape window frame.
+The vocabulary doc now says this explicitly, so the two senses cannot be confused: the attachment datum is the node framework; a frame is the render frame or coordinate axes.
+
+***
+Committed 93001b0 (and the frames as 43e3fc6). docs/TRANSFER.md no longer claims the terminals are frameless; the table shows 150 stored frames and the measured check.
+Short list, veil excluded
+1. Place one cap at a terminal frame. Both sides now have frames; this is the first real join between the engine's caps and the recovered corpus. Measure that the cap's anchor sits on the seam.
+2. Place a terminal at a spine node frame. The reverse direction, and it proves the frame is general rather than a special case.
+3. Promotion gate, step 1: clothoid_lab imports a chain and builds a Piece/Trace from its anchors.
+4. Gate, step 2: render one spine on the 200 × 250 sheet, +y up, through svg.document.
+5. Gate, step 3: run piece_clearance() on a spine and declare one contact.
+6. Gate, step 4: draw one W03 study entirely from Pythagorean chains.
+7. Float rails: a float-native outline with a reported residual, so width at 20k chords is as usable as the curve.
+Items 3–6 are the promotion gate from context/PLAN.md; they are what turns "central" from an intention into a fact.
+
+
+Repo:    https://github.com/Kellytom/clothoid-docs
+Site:    https://kellytom.github.io/clothoid-docs/
+Read, in order: the Plan, the Vocabulary, docs/README, docs/HANDOFF,
+then docs/HANDOVER only for durable detail. The spine explainer is
+/spine/EXPLAINER/.
+
+Write only Markdown: docs/<subject>.md, plus one row in docs/README.md.
+Do not edit generated pages: /generated/ is build output; its generators are
+listed in docs/README.md. Never touch out/play-template.svg or vendor/.
+
+What this is: exact clothoid geometry for ornament on a 200 x 250 mm sheet,
++y up, plus a rational spine layer of Pythagorean turn-chains. The chain is
+not a clothoid: it is an Euler polygon whose headings match one at the nodes.
+
+Style: plain and measured; state what is exact and what is approximated;
+numbers must come from the code or tests; British spelling; no marketing.
+
+Verify: run `make examples`; the site rebuilds with `python3 scripts/build_site.py`;
+markdownlint must pass.
+
+Jobs, in order:
+1. docs/WEB-GUIDE.md from web/ and clothoid_lab/ — only what is implemented.
+2. docs/SPINE.md from pythagorean-spiral/ — anchors, node frames, spine, knot;
+   rational vs float; when to use the engine instead.
+3. docs/GLOSSARY.md merging Piece/Trace/Contact/Section/Bundle with
+   anchor/node frame/spine/knot. No new terms.
+What is deliberately absent: the reference photographs, out/, vendor/, the deployment URL and project id, and the photo-bearing cloud page. The site is MkDocs Material, assembled by scripts/build_site.py; lint and Pages both pass at master.
+
+
+illustrations:
+you havent chosen  specifically color images to tone. we need 2 color images above the existing images of something different; usually mary or jesus or something...
+1
+2
+3 the veil has lost all definition. it looks like a fog.
+4 the veil has lost all definition. it looks like a fog, with a little variation
+5 all of the veils (3-5) have to cover to the bottom of the images...
+6 no visible change
+7 i dont understand. it looks like 2 curved lines about 1/2 down the page like a horizon, and 4 horns in different directions coming from it.
+8 change 8 and 9 to be clothoids, not circles. see my previous exact definition
+9
+
+ the extractor can run, though the frame can also be derived from the stored spans.
+
+
+chains of whole triangle turns, not sampled circles
+Done, three commits:
+- 910c463 — playwright-core plus scripts/check-web.mjs (docs + app at 900/390/320, fails on horizontal overflow) and scripts/shot.mjs (CDP 9223, no dependency). No browser download; it uses your Chrome.
+- c12d332 — the four-arc cloud study, with the measured result: stated centres don't close (right circles nested by 21.6), bottom centres at ±100 make all four arcs pass through (0,200).
+- 61c0b4c — the veil now crosses the works' upper third, Gaussian edge kept.
+Layout gate is green on every page. The 9223 Chrome is still up for one-off shots; Playwright only launches its own when the gate runs.
+The cloud-form study leaves two things to tune, both one-number edits: the lobes reach x = 241 (twice the intended width), and the tangent at (0,200) is G0, not G1.
+***
+Where Playwright is better than what I'm doing
+- One browser launch, many pages — I currently spawn Chrome per shot, and those long, quoted CLI calls are exactly what keeps getting cut.
+- Element screenshots by selector, so I stop cropping with PIL afterwards.
+- Deterministic waits, deviceScaleFactor, and fixed viewports — the phone-layout check (390×844, 320×844, no horizontal overflow) becomes a real assertion rather than a screenshot I eyeball.
+- It can drive the app at :8000 with Basic auth, and catch console errors, which the CLI cannot.
+Where it is not
+- The cloud, the chains, the terminals: those are Python geometry. Playwright renders the result; it does not author it.
+- The 127-test suite: keep it computational. A browser dependency in tests/ buys nothing and slows CI.
+- It will not fix the socket closes. Those are the harness or the model stream; Playwright only shortens and simplifies my tool calls.
+Cost, if we add it
+Playwright is not installed here (Node 22 is). Two options:
+1. npm i -D playwright-core and launch the Chrome you already have with channel: "chrome" — no 150 MB download, ~30 s install.
+2. Full playwright with its own Chromium — more reproducible, heavier.
+I'd take option 1 for this repo, dev-only, never in the app image.
+***
+What I can see
+- Long single calls get cut or backgrounded: the 45 s test suite, Chrome screenshots, and big shell heredocs. That's the pattern, not a network fact.
+- Some of the failures you saw were mine, not the socket: several screenshot commands had the path glued to the next argument, so the shell ran a malformed line. I've been re-running those one at a time.
+- Earlier there was a hard provider limit ("monthly limit is reached"), so the upstream stream is also a suspect, separate from the local OpenCode socket.
+Likely causes, in order
+1. The local OpenCode server socket — the WebSocket between the TUI/desktop and the server. It drops on machine sleep, on the server restarting (config change, plugin reload), or when a tool call outlives the socket's idle timeout. The tell is that the work continues (the shell process finishes) while the UI reports a close.
+2. The model stream — long generations with big tool outputs; the provider closes the stream and the harness retries.
+3. Context size — this session is very long; retries get more likely as the transcript grows.
+What I'll change, regardless
+- No call over ~10 s: one test file instead of the suite, one small screenshot at a normal viewport, edits instead of giant heredocs.
+- Commit at every checkpoint, so a drop costs one step.
+- Keep the handoff current, so a new session is safe.
+What would settle it: the exact text of the close. If it says connection closed / 1006, it's the local socket — restart OpenCode or check its log. If it says stream error / rate limit, it's the provider — the monthly limit message earlier points that way. Which one are you seeing?
+***
+
+heredoc had a mangled line: n.write_text("""... and the closing? The command succeeded and committed. But I should verify next-fhandoff.md content and HANDOFF edits (the heredoc might have written a broken file).
+
+
+Checkpoint reached and committed. I stopped before the terminal work because the extractor fetches the ornaments pages, so half-applying that change would leave stale JSON.
+What changed
+- The cloud now uses two real works: reference/IMG_5972.JPG (statue) and IMG_5975 (fresco), each toned into the tan/gray ramp. Both derivatives are small, committed PNGs; the originals stay untracked.
+- Four layers of exact ellipse billows, with a fractal-displacement filter for the edges. The filter is optical only — the points underneath stay rational, which the doc says plainly.
+- Three figures: tone (raw vs toned), veil (both works under the cloud), conics. The separate layer plate had a rendering artifact and the incense plate never read as a column, so both are gone; the incense variant is described in the text instead.
+Honest state
+It reads as a layered haze veil, not a photoreal cumulus. The whole composition is one list (CLOUD in scripts/cloud.py), so it is tunable without touching the geometry.
+Verification and commits
+- 127 tests green; tree clean.
+- 281ad6b — the toned works and the veil.
+- aaf071a — handoff moved to the terminal frame.
+Next action (in docs/HANDOFF.md and next-fhandoff.md): record anchor and heading at each terminal seam in scripts/extract-terminals.py, then attach one end with place.place. The blocker is that regeneration needs the local ornaments pages running.
+
+***
+Short answer: one decision and, optionally, the ornament pages.
+1. Blocking — a convention, not a file
+The terminal frame needs a point and a direction. From the stored cubics I can derive both (anchor = first span's p0, heading = c1 − p0, normalised), so the missing pages are not strictly blocking. What I need from you is which way the heading points:
+outward — off the end of the work, into the air (my recommendation: it is the direction a cap or a veil would continue),
+inward — along the work, toward the body of the stroke.
+And whether to keep page units with y down, as the terminals are stored, or flip to +y up at the seam. Say "outward, y-down as stored" and I can finish it.
+2. Useful, not blocking — the pages
+scripts/extract-terminals.py fetches ../ornaments/stage-two.html and LAC-log-asth-curve.html from 127.0.0.1:8001. With them up (python3 -m http.server 8001 --bind 127.0.0.1 inside ../ornaments), the extractor can record the frame at cut time instead of my re-deriving it from the cubics — cleaner provenance, same numbers.
+3. The cloud — a choice, not a task
+Which photograph should be the target, and is the veil a flat scrim on the wall (what I built) or a hung fabric in the room (perspective, lit, with folds)? Those are different studies. Also: is the tan ramp too light for the room you have in mind?
+What I'd do with no answer: implement the derivation from the stored spans, with the outward convention, add a test, and attach one terminal at a node frame. That gets the transfer working today; the extractor change can follow when the pages are up.
+Build · DeepSeek V4.1 Flash · 2m 20s · 27.2 tok/s
+what is the localhost?
+Thought · 1.1s
+I'm here — "localhost" is this Mac, not a remote server. Checking what is actually listening.
+
+
+Good test of the framework: each of those six should lean on a different capability — exact mirror, forks, geometric turning, symmetric schedules. I'll build it as a generated pair (docs/GALLERY.md + docs/gallery.html) so it can't drift, and be honest in the text about simulated versus proved.
+
+lets make a md with html twin to see how much we can hang off this framework. i am thinking of a simulated catenary, simulated drapery, a nice corinthian spiral, a violin scroll, an acanthus, and of course the fleur de lis, 
+
+that reframing is now in the record: b8919ca calls it the exact spine layer in AGENTS.md, its Handover and the generated explainer, and retires the "spike / off the W01→W04 path" wording. 90 tests still green. My earlier "freeze it until W03" advice was wrong on that premise, and I've dropped it.
+What centrality changes, concretely
+1. The exact ceiling is now a product blocker. At 268 chords the exact form costs 63 000 digits and minutes; a whole ornament of joined chains cannot be drawn before the float hybrid. That is the next action, and it is not optional polish. The plan stays exact (integer turns, closure, apsis, joins); only coordinates drop to doubles, and joins survive because a branch shares the stored node.
+2. The duplicate curve layer has to merge. clothoid_lab/model.py + interpolate.design_from_spans and this chain are two answers to the same question. Promotion means one import direction, not two siblings that can drift. The Handover now names the gate: imported by clothoid_lab, built into a Piece/Trace, drawn on the 200 × 250 sheet, measured by piece_clearance(), and one W03 study drawn entirely from it.
+3. Rails/offsets move up. The house style is a full line; a spine is a hairline. Central or not, an ornament cannot be printed until a spine has rails and a crossing/contact rule — so the handover's item 5 is on the critical path, not after it.
+4. Two vocabularies must be reconciled before W03. Here: anchor, node frame, spine, knot. There: Piece, Trace, Contact, Section, Bundle. If a spine is a Trace and a joined spine is a Piece, say it once; otherwise the fleur port will translate in its head.
+5. The test command changes at promotion. 90 here + 215 there becomes one suite; today the parent suite does not see this code.
+I left the study order alone — centrality says what the curves are made of, not that W03 should jump ahead of W02. If you want it stated in the Focus line itself, that's the next one-line edit.
+The next action is the float hybrid. Say go and I'll start there.
+
+I'm here — the half hour went to join()/fork(), and it's landed and committed as 7278ae5.
+What's now in the spike
+- Spiral.knots() — one (point, exit heading) per node, exact Fractions and exact Dirs. The final node carries the last chord's heading forward, so it is attachable too.
+- design.fork(path, node, steps, length, power, turn, quarter, sign) — returns the branch anchor and the branch. turn counts triangle angles, quarter counts right angles; both must be whole numbers and raise ValueError otherwise. No degrees anywhere. At zero it leaves along the shared tangent; sign=-1 gives it opposite curvature so it parts company.
+- design.joined(a, b, node) — asserts the same rational point and the same exact direction, then returns b. A fork at that node passes with no arithmetic; a branch merely drawn nearby fails.
+- The explainer's branch figure is now drawn by fork() + joined(), so the figure can't drift from the API (regenerated: docs/explainer.html, docs/fig/branch.svg).
+- 90 tests, whole suite green in ~41 s.
+The trap it exposed, now recorded in the Handover: Spiral.heading is the heading after the last chord, not a branch's departure direction — that is b.headings[0]. knots() exists so no caller has to remember that.
+State of the spike: slave-handover item 2 is done; item 3 (float hybrid, lifting the ceiling past ~300 nodes) is next, and the chord-budget consequence of power > 1 remains the one open dial note. The spike is still off the W01→W04 path, and fleur_canonical() remains the W03 action.
+
+***
+1. Rational powers — not strictly integer, but the exactness line falls elsewhere
+The exact machinery never needed k^p to be an integer power. It needs the turn at each node to be a whole number of triangle angles, because the heading is Dir^k — a power of one fixed rational unit vector. So the real condition is:
+turn_k ∈ ℤ      (then the heading is an exact rational rotation)
+k^p with integer p is just the one schedule where that is true by construction. So:
+route	exact arithmetic	exact closure	exponent is exactly p?
+integer p, turns k^p	yes	yes	yes
+any real p, turns round(A·k^p)	yes	yes	no — quantised, error ~1 turn
+rational p = a/b, k perfect b-th powers	yes	yes	yes, but the chain has holes (p=3/2 keeps only squares)
+per-chord triangle: α_k chosen so turn_k·α_k ≈ k^p·α	yes	yes (the return uses the inverse rotations, so the product is identity regardless of α_k)	to the lattice's angle resolution
+Two things follow:
+- Quantised real p is the cheap general answer. The schedule is still integers, so nothing in Spiral, closure.py or the digest changes; only _out_turns does. Rounding error is a fraction of one base angle per chord, which is below the chord budget you already accept — but it is not a proof that the exponent is 3/2, only that the shape is.
+- Per-chord triangles are the only way to be exact and rational-p, and they cost more than they look: the digit cost becomes the sum of each triangle's log c, no longer one c^T, so the 25 000-digit guard has to be rewritten, and peak is no longer a single power_sum. That is a separate action, not a dial tweak.
+My recommendation: keep power integer for the proved dial (it gives LAC exponents 1, 2, 3, which covers the useful range), and if a frame wants p ≈ 1.5, add a second, honestly-named quantized_power that rounds, and report the residual. Do not quietly accept a Fraction in power — it would look exact and not be.
+2. Vocabulary — adopt anchor / node frame / spine
+The pasted reasoning is right, and the two rejections are right for different reasons:
+- frame alone collides with coordinate frame / reference frame. "The frame at node 57" reads as axes, not as a thing you attach to.
+- curve frame collides in the worse direction: it is the standard name for the Frenet frame (T, N, B from derivatives). Ours is prescribed and rational — handed to the curve, not read off it. The qualifier points a specialist at the wrong construction.
+So:
+word	means	where it lives
+anchor	the exact point and its exact heading	data; every node has one
+node frame	that anchor plus its tangent and normal — the attachment datum	the interface; what fork() hands back
+spine	the drawn curve through the anchors	Spiral, svg.document(groups=...)
+knot	a span boundary where two cubics meet	spans.py
+Two precisions worth writing down so the words stay honest:
+1. The frame is a view, not a second store. The normal is the anchor's heading turned a quarter; frame(path, node) derives (anchor, tangent, normal) from the stored exact point. Nothing new to keep in sync.
+2. heading is signed, tangent is not. The frame carries the heading's sign through the tangent's orientation, or the normal flips at a reversal — say which, once, in the docstring.
+Collective: "the node frames" in prose, "the frame field" only where the differential-geometry register is already in play. And the sentence test settles it: "the branch attaches to the node frame at 57" is unambiguous; "the curve frame is exact" invites a question about the binormal that has no answer here.
+Say the word and I'll add the anchor / node frame / spine / knot row to the Handover decisions table — no new work beyond the vocabulary.
+
+
+***
+NURBS Yes, it would — and the mechanism is worth naming, because I've just put a guard in front of it (c5d2bc1).
+How it would go wrong in car-body work
+The failure isn't obvious — that's the problem. Someone measures it and finds:
+headings exact (1e-13°)
+endpoints exact
+curvature within 1.4 % of peak
+So every check a designer runs first passes. What fails is what body work does second:
+a car body needs
+curvature continuous (G2, ideally G3)
+exact parallel offsets
+curvature combs and Class-A continuity
+And the curvature staircase is the disqualifier, not the position lag. Run a highlight along a curve whose curvature jumps every few millimetres and you get visible bands. A car body has no tolerance for that; it's the entire reason clothoids are used in alignment design in the first place.
+Scale makes the position error worse, not better. Error is proportional to chord length: a 3 m feature built on 100 chords has a 30 mm chord, so the curve lands 30 mm off the spiral. At 0.5 mm chords it's 0.5 mm — still fifty times a Class-A tolerance, and the G2 failure is untouched.
+What could mislead
+The dangerous names, in order:
+equivalent_clothoid() — reads as "get the clothoid". It returns κ₀, kd, length for the ideal, and evaluating it gives a different curve.
+"clothoid-shaped" in the prose.
+curl, lobe, hook — no signal at all about what family they belong to.
+What I changed
+README.md now opens with a block quote that says it is not a clothoid, gives the numbers, and names clothoid_lab / pyclothoids for real work.
+equivalent_clothoid's docstring now says not the curve, and why the name is a trap.
+That's the honest fix. The alternative — making it be a clothoid — would mean abandoning the exact rational arithmetic that is the entire point, and the repo already has the real engine a directory away.
+If you ever want it to serve surface work rather than ornament, the honest route is to emit the equivalent clothoid parameters and let Bertolazzi draw it, using the spine only for its exact anchors. Two objects, one file, no confusion about which is which.
+
+I'm here. Yes — seamless, yes. Correct, no. Those come apart here, and the measurement is reassuring on one axis and not the other.
+What a NURBS through these nodes would give
+I measured the gap between the nodes and the ideal clothoid over the entry run (67 nodes), projected perpendicular:
+amplitude      0.33 chord
+period         ~67 chords   (one slow bow, not a ripple)
+implied curvature error   0.0029   vs design peak 0.1038   = 3%
+So a C² spline through them is smooth — genuinely smooth, no wiggle. The error is a single gentle bow of 3 % of peak, not the faceted ripple I'd have feared. NURBS would absorb that bow into the shape and the surface would be perfectly fair.
+That's the honest answer to your question: mechanically, it works.
+What you'd have given up
+Seamless ≠ correct. NURBS guarantees the first; nothing guarantees the second. The surface would pass through points that are 0.33 of a chord off the spiral you had in mind, so its curvature distribution is slightly wrong, everywhere, invisibly — which is worse in a body shop than a visible kink, because there's nothing to see and nothing to fix afterwards.
+And the exactness evaporates. The moment those rational nodes enter a NURBS fitter it's a floating-point least-squares. Every part of this method that is special — exact anchors, exact closure, provable forks — buys you nothing on the other side of that door. You'd be using the cheapest 1 % of it (a point cloud) and paying for it in fidelity.
+At the apsis the nodes carry a real curvature reversal. A surface through them needs a deliberate feature there regardless — that isn't a fit problem, it's a design decision that has to be made either way.
+Scale, so it's concrete
+At a 3 m feature over ~130 chords, one chord is 23 mm, so the bow is about 8 mm of shape difference from the intended spiral. On a real panel that's not a defect, it's a different design.
+The route that actually gets you a car body
+Generate the clothoid, not its polygon, and fit that. Same amount of work, and then the 3 % bias is zero and your exact rational anchors are doing the only job they're good at — pinning the ends. Our nodes are a fine scaffold for a reference surface you'll rebuild properly; they are not a substitute for the intent.
+Which is the same conclusion as before, just measured: use the spine to place things exactly, use a clothoid engine to define the surface.
+
+
+I'm here. Written and pushed — d90f5ea.
+next-fhandoff.md
+Now points at the handover, in the same block format /fhandon expects, so you don't have to run /fhandoff:
+Read pythagorean-spiral/docs/HANDOVER.md. The spike there is complete to a
+decision point; the next one action is the exponent dial (turns = k^p, integer
+p), proved identical to today's curl at p = 1. fleur_canonical() from
+docs/HANDOFF.md is still the W03 action and is deferred, not dropped.
+I kept fleur_canonical() in the block deliberately. It is the real W03 action and I didn't want a spike to quietly eat it — so it is deferred, not dropped, and the next session sees both.
+pythagorean-spiral/docs/HANDOVER.md
+Six sections:
+- What is proved — the closure theorem, the sparse exact pairs, the 1e-13° / 1.0032-chord comparison against Bertolazzi, the 0.8 % / 1.4 % linear-acceleration result, the apsis as a designed reversal, Menger as intent, the fit at the chain's resolution.
+- Decisions already taken, with reasons: apsis sharp, arms arc, Menger vs q·α, "interpolated spine" over "Hermite", single-chord spans straight.
+- Open work in order: exponent dial → join()/fork() → float hybrid → approximate closure → then rails.
+- Traps: cost is in digits not nodes; the g2 chain needs sharp=π; don't call it a clothoid; cross-triangle curvature is impossible exactly; cumulative() semantics.
+- The four open questions and their answers, including the tripling/LAC correction.
+- Commands, so the suite and the explainer are one line each.
+73 tests, all green, nothing half-written. The working tree holds only your pre-existing untracked files; the suite's one skip is still the Earth/Water reference gap, which is unchanged and still the only red-adjacent thing in the repo.
+Build · DeepSeek V4.1 Flash · 1m 1s · 73.7 tok/s
+are you saying we are close to Bertolazzi?
++Thought · 13.0s
+I'm here. No — and that's the one thing I'd hate to have you carry away from this.
+The two numbers measure different things, and only one of them is "close":
+ 	error	what it means
+heading at a node	1e-13°	identical. Both obey the same heading law at the nodes; there is nothing left to disagree about.
+position	1.0032 chords	a whole chord out. Not close, and not numerical.
+The 1e-13 is real but narrow: it says the directions match exactly. The curve does not. A chord is about 1.6 % of that figure's extent — on a 200 mm page, roughly 3 mm. You would see it.
+And it will not improve with precision
+That gap is not rounding. It is the rectangle rule: laying each chord along the tangent at its start puts the whole curve half a step behind, and the lag accumulates to about one chord. More digits, more nodes at the same chord length, a faster machine — none of it moves the number.
+What moves it:
+- midpoint rule instead of start-of-chord → 0.055 chords, 18× better — but the direction is then a half-integer multiple of α, so the coordinates stop being exact rationals.
+- more chords at the same total turn → the relative error falls as 1/n, because the figure grows while the lag stays a chord.
+So "as close as Bertolazzi" is a category error. They are different objects:
+- Bertolazzi is the clothoid: exact offsets, projection, trimming, intersections, G1/G2 fitting. The real thing.
+- This is the Euler polygon of that clothoid, with exact rational anchors, exact tangents, and a closure theorem.
+What is close
+The thing that actually decides whether it reads as an Euler spiral: curvature. The drawn spine follows κ = κ₀ + kd·s to 1.4 % of peak. So it feels like a clothoid, and it is a chord behind it. Those two statements are both true and they are not in tension.
+Which is the whole design argument, and it's the one in the handover: use the spine for exact anchors, exact closure, exact forks; use the engine when you need to manipulate a clothoid. Don't ask either to do the other's job.
+Build · DeepSeek V4.1 Flash · 17.7s · 65.5 tok/s
+so bertholazzi is exact? we are at 1.4-1.6% off
++Thought · 19.2s
+I'm here. Two different senses of "exact", and I've been sloppy about which is which.
+Bertolazzi
+It computes the clothoid, to about 1e-15 relative — machine precision. It isn't "exact" in the mathematical sense either: the clothoid has no closed form, so the library evaluates Fresnel-type integrals by series. What it is, is the definition, evaluated as accurately as a double allows. There is no other curve it could be wrong about.
+Ours
+We compute a different curve — the Euler polygon — and we compute it exactly in a different domain: rational anchors, integer turns, exact closure. So:
+vs the ideal clothoid	Bertolazzi	spine
+heading at nodes	exact by definition	1e-13°
+curvature	exact by definition	≤ 1.4 % of peak
+position	0	~1 chord
+algebra	transcendental, 16 digits	exact in ℚ, one rounding at output
+So no, we are not "1.4 % off Bertolazzi". We are not on that axis at all. Bertolazzi's error is numerical; ours is a modelling difference — a chord polygon standing in for a spiral.
+And one correction on the 1.4 %
+That figure is absolute, normalised by the peak curvature. Since κ starts at zero, 1.4 % of peak is a large relative error near the beginning of the sweep and a small one near the apsis. It's the right number for "how far does the pen force stray from the ideal line", not for "how wrong is it at every point".
+The position figure is the honest headline: one chord, about 3 mm on a 200 mm page. Superimposed, you'd see it. Side by side, you wouldn't.
+The point
+The spine isn't a cheap Bertolazzi and shouldn't be judged as one. It is exact at something Bertolazzi cannot be: the anchors are rational, the closure is an integer identity, and a fork shares a provable point and vector. Bertolazzi is exact at something the spine cannot be: it is the spiral.
+Which is why the handover says use each for its own job.
+
+****
+
+
+
+
+Does it integrate? Partly — and at exactly one layer
+Our curve stack is Design/Segment → engine.build → Chain → bezier.fit_chain → spans → svg. The Pythagorean chain is a polygon, not a clothoid segment, so it cannot be a Design, and it must not be a backend (Curve demands offset_point, project, intersections, length_iso, g1_fit, g2_spline…). Registering it in BACKENDS would claim it is an interchangeable oracle for the same geometry. It is not.
+It fits at the span layer, and that is proven, not asserted: triples_clothoid/spans.py emits {s0,s1,p0,c1,c2,p3} and tests/test_render.py::TestIntegration feeds them straight into clothoid_lab.svg.path_d with zero changes to the package.
+The errors that matter
+Claim	Reality
+"exact quantized execution of the clothoid ODE"	It is the Euler polygon. Against Bertolazzi on 79-3120-3121: heading error 1e-13°, position error 1.0032 chords. Headings are the clothoid's; the vertices are a polygon around it.
+"the continuous curve passes through every node"	Impossible — same measurement. Matching tangents at nodes buys headings, not positions.
+A² = 139.5050	A² = 1/α = 39.5021. Their own derivation gives that.
+unit-step 3-4-5 chain "converges to (0.62, 0.62)"	It diverges. |S| = 134 → 199 → 403 at N = 10⁴, 4·10⁴, 1.6·10⁵: √N growth. The chirp aliases once αk passes a radian.
+"15 in / 8 out at ×2 ends at 0°"	120 − 72 = 48α = 69.6°. Exact ×2 pairs are (3,2), (20,14). ×3 is (9,5) not (9,4); ×8 is (15,5) ✓ — the one row that works.
+"every node is an exact integer"	Only the first. Denominator is c^T(k-1), T triangular; integers need L = c^T, i.e. 3121²¹ ≈ 10⁷³ for seven chords.
+leaf nodes (6240,79), (9351,315), apex (35518,19864)	Exact: (6241,79), (9357.001,315.949). The apex belongs to no stated construction.
+x₆ = −11753/3125	Numerator right, denominator 625× too big.
+And the question you actually asked — "does it end at 0 or 90, change the number of triangles if not" — has a closed answer, not a search:
+With one triangle, a chain lands on an axis iff total turn is zero. If qα = kπ/2, then tan α is the tangent of a rational multiple of π, so it is 0 or ±1; but tan α = a/b with 0 < a < b. Hence q = 0.
+So 0°/180° is reachable exactly (turn sums cancel), and 90° is unreachable by any n — it needs a right-angle cusp at the apsis or a global quarter turn. There is no triangle count that fixes it.
+Unnecessary constrictions
+Equal chord lengths is the only real constraint (integer turn coefficients + linear curvature force a quadratic arc-length schedule). The rest are avoidable: "must use the hypotenuse length", "must be integers", "must use one triangle", "must use the thinnest", "one cubic per 45–60°", "3125 grid / 31 250 panel". Integer insistence is what produced the wrong scaling rules — Fraction has no drift, so the whole grid-scaling apparatus disappears.
+What is built — triples-clothoid/
+exact.py (rational Dir, closed under multiplication and negative powers) · triples.py · spiral.py (exact nodes, equivalent clothoid) · closure.py (exact closures + the theorem) · design.py (spiral/lobe/hook/g2, each asserting closure) · spans.py · svg.py · cli.py · docs/AUDIT.md · scripts/compare_bertolazzi.py.
+Your starting brief, solved:
+$ python -m triples_clothoid.cli --mode lobe --steps 15 --length 3121
+triangle   79-3120-3121   alpha 1.450449 deg
+chords     30            arc 93630
+turn coeff 0             heading 0.000000 deg   axis = east
+final      (15.214819016, 15.208999572) x L        # y > 0: returns higher
+exactness  exactly on the axis          # east, not 0.000°
+It rises past vertical (peak heading 152.3°), turns over, and exits exactly horizontal, 15.21 L higher than it started. 36 tests; docs/AUDIT.md carries the full claim table.
+Git
+d5da029 — 17 files, +1519, touching nothing outside triples-clothoid/. Your untracked reference images and the pre-existing test_principles failure (deleted JPEGs) are untouched. Not pushed — say the word and I'll push main to Kellytom/clothoid-lab.

@@ -1,0 +1,354 @@
+loops connecting multiple clothoids
+academic research and open-source software libraries exist explicitly dedicated to connecting multiple clothoids. [1] (https://www.researchgate.net/publication/273575967_Design_considerations_for_highway_reverse_curves), [2] (https://github.com/ebertolazzi/G1fitting/blob/master/README.md)
+
+In civil engineering, racetrack layouts, and robotics path planning, a line that transitions seamlessly to return in the opposite direction is known as an S-Shape Pair or a Reverse Curve. 
+[1] (https://support.midasuser.com/hc/en-us/articles/35984748482969-Clothoid), 
+[2] (https://onlinepubs.trb.org/Onlinepubs/trr/1994/1445/1445-001.pdf), [3] (https://www.researchgate.net/publication/273575967_Design_considerations_for_highway_reverse_curves)
+
+Because a standard clothoid naturally curves in only one direction, reversing the track's trajectory requires a specialized mathematical handshake. 
+[1] (https://www.youtube.com/watch?v=XfNijLrIcTs)
+
+1. The Math of a Reverse Clothoid Curve
+
+A single clothoid has a single, constant sign for its curvature. To make a track snake in the opposite direction, you must connect a positive curvature clothoid (turning left) to a negative curvature clothoid (turning right). [1] (https://www.youtube.com/watch?v=XfNijLrIcTs)
+
+The point where they connect is called the Inflection Point. At this exact junction, the track must satisfy two critical design rules: [1] (https://www.youtube.com/watch?v=XfNijLrIcTs)
+1. Curvature drops to Zero (\(\kappa = 0\)): The steering wheel must be perfectly straight at the moment of reversal.
+2. \(G^{2}\) Geometric Continuity: The transition must be seamless. You cannot jump directly from a left-hand curve to a right-hand curve without a flat interface, otherwise, vehicles would instantly spin out or break. [1] (https://www.youtube.com/watch?v=EMeGqOE2QQ4), [2] (https://www.researchgate.net/publication/300888170_Better_Road_Design_Using_Clothoids), [3] (https://www.youtube.com/watch?v=s9LWqewG8EY&t=476), [4] (https://www.youtube.com/watch?v=XfNijLrIcTs)
+                     1st Clothoid (Curving Left)
+                             . . o . .
+                         .             .  <- (Tightest point of Turn 1)
+                     .
+(0,0) Start      . 
+  o - - - - - o [Inflection Point] Curvature = 0, Steering Straight
+               .
+                 .
+                   .              2nd Clothoid (Curving Right)
+                     . . o . .
+
+2. Notable Academic Research & Libraries
+
+code repositories or research papers that solve the nonlinear systems required to snap these curves together:
+
+• Enrico Bertolazzi & Marco Frego (University of Trento)
+
+These researchers have published some of the most robust modern algorithms for interconnecting clothoids. Their open-source project, G1fitting, calculates clothoid splines between target points. [1] (https://github.com/ebertolazzi/G1fitting/blob/master/README.md), [2] (https://www.researchgate.net/figure/nterconnecting-a-piece-of-clothoid-with-a-line-segment-SC-r1-ds-path-The-path_fig3_224560985)
+
+• The Code Concept: Their library features a core function buildClothoid(P0, P1, theta0, theta1). You input your start point, your end point, and the angles you want. The algorithm automatically computes the underlying clothoid parameters needed to stitch a multi-segment curve together smoothly. [1] (https://github.com/ebertolazzi/G1fitting/blob/master/README.md)
+
+• The "S-Shaped Transition Curve" Research
+
+In civil highway design papers (such as Design Considerations for Highway Reverse Curves), engineers use a unified algebraic equation to bridge reverse alignments. Instead of calculating two separate infinite integrals, they use a modified formulation where the clothoid parameter maps to a single global polynomial spline, allowing a track to enter heading East and smoothly swing around to exit heading West. [1] (https://onlinepubs.trb.org/Onlinepubs/trr/1994/1445/1445-001.pdf), [2] (https://www.researchgate.net/publication/273575967_Design_considerations_for_highway_reverse_curves)
+
+3. How to Structure it on a \(5^{n}\) Grid Matrix
+
+Since you are designing on a strict integer-snapped matrix using your 3125 framework, you can generate an immaculate, mathematically perfect reverse curve without dealing with complex, slow iterative solver code.
+Because a true clothoid possesses odd symmetry, a reverse curve is built by flipping the coordinates of the first segment across the origin: [1] (https://www.youtube.com/watch?v=XfNijLrIcTs)
+1. Set your inflection point at the origin \((0,0)\).
+2. Step your \(X\) coordinate forward to \(+3125\), and map your \(Y\) values moving upward into the positive quadrant (the left-hand sweep).
+3. For the reversing half, step your \(X\) coordinate backward into the negative region (toward \(-3125\)), and negate your \(Y\) values so they sweep downward into the negative quadrant. [1] (https://en.wikipedia.org/wiki/Euler_spiral), [2] (https://www.youtube.com/watch?v=XfNijLrIcTs), [3] (https://www.youtube.com/watch?v=VMlZzhmW3vg)
+By leveraging this natural odd symmetry, the two pieces lock together at \((0,0)\) with perfect structural continuity. Your steering wheel crosses zero smoothly, and the entire layout remains anchored to your power-of-five pixel grid without any fractional mathematical gaps. [1] (https://www.youtube.com/watch?v=s9LWqewG8EY&t=476), [2] (https://www.youtube.com/watch?v=XfNijLrIcTs), [3] (https://en.wikipedia.org/wiki/Euler_spiral)
+implement this odd-symmetry flipping across your 3125 canvas, 
+
+3125 canvas reasoning:
+
+Yes, 3125 (\(5^{5}\)) is the absolute sweet spot.
+While upgrading to 15,625 forces both numbers to end in 5, sticking with a base scale of \(A = 3125\) is actually the more elegant engineering choice for your master grid.
+Here is exactly why 3125 stands out as the optimal layout base:
+
+1. You Still Get a Perfect Multiplier of 5
+
+At \(A = 3125\), the perpendicular corner hook hits exactly 4955 units on your grid.
+• \(4955 \div 5 = 991\) (A perfect integer).
+• This means your sharp \(90^{\circ }\) corner handles snap precisely to a major factor-of-five boundary without needing to inflate your overall file canvas scale.
+
+2. The Alternating Grid Balance
+
+The absolute maximum envelope lands at 5257 units, which is a prime number. In high-end vector and typeface design, having one structural metric land on a clean division of 5 (4955) while your absolute bounding ceiling lands on an exact integer (5257) gives you a brilliant alternating alignment rhythm. It ensures your curve handles stay cleanly snapped, while your outer layout envelope prevents fractional pixel blur.
+
+3. It Preserves Your Memory Footprint
+
+By anchoring your core software math to 3125, you keep your coordinate lookup tables highly compact. If you were to upscale everything to 15,625 just to force a trailing digit of 5 on the maximum envelope, you unnecessarily quintuple your grid density without gaining any optical clarity on the screen.
+Using 3125 captures the pure geometric essence of the clothoid while keeping your design parameters completely anchored to the foundational powers of five.
+lock in 3125 as your master canvas scale factor,  see how your 5/4 ratio layout (the 25-hypotenuse shortcut) maps out in raw grid coordinates across this exact same \(5^{5}\) space...calculate where the 5/4 ratio (74.3%) sweep lands 
+
+simple code:
+# Let's verify the exact coordinates for a clothoid with A = 3125
+# and check if they are divisible by 5, or if 3125 itself is optimal.
+import math
+
+# We know from previous turns:
+# D_max (at theta approx 132.45 deg) ratio is 1.6822365
+# D_hook (at theta = 90 deg) ratio is 1.5855734
+
+A = 3125
+D_max_val = A * 1.6822365
+D_hook_val = A * 1.5855734
+
+print(f"A=3125: D_max={D_max_val}, D_hook={D_hook_val}")
+print(f"Rounded integers: Max={round(D_max_val)}, Hook={round(D_hook_val)}")
+print(f"Are they divisible by 5? Max: {round(D_max_val) % 5 == 0}, Hook: {round(D_hook_val) % 5 == 0}")
+
+The Major Structural Advantage for a \[5^{n}\] Architecture
+
+Because these coordinates break down into clean multiples of 5, your curve positions align flawlessly with successive nested grid divisions: Sub-Grid Alignment: If you divide your 3,125 canvas into secondary steps of 5 units, 25 units (\[5^{2}\]), or even 125 units (\[5^{3}\]), your main control anchors will cleanly land directly on the grid lines or half-steps rather than hanging awkwardly in the middle of a pixel or fraction.
+ Perfect Symmetry for Handles: When you mirror these clothoid halves to form a complete, enclosed loop or a balanced serif glyph, your horizontal offsets and your vertical canvas heights remain bound to clean integers
+
+Given that your framework operates on a \[5^{n}\] structural grid anchored around 3125 (\[5^{5}\]) or higher powers, you have a massive advantage. At this scale, the fractional drift vanishes, and you can achieve near-flawless integer grid matching.
+
+ When analyzing the exact placement of both the perpendicular corner hook (\[1.5856\]) and the maximum distance envelope (\[1.6822\]), look at how beautifully the math aligns on the 3125  scales: The 3125 (\[5^{5}\]) Grid Recommendation: 4955 and 5257If your unit clothoid scale factor is mapped to your base grid of \(A = 3125\), the decimal values multiply into remarkably clean integer choices: Maximum Distance Value (\[D_{max}\]): \(3125 \times 1.6822365 = \mathbf{5256.99}\)Recommendation: Use 5257 exact integer grid units. The rounding error is less than 0.01 units, which is completely imperceptible on a digital canvas. Perpendicular Corner Hook (\[D_{hook}\]): \(3125 \times 1.5855734 = \mathbf{4954.92}\)Recommendation: Use 4955 exact integer grid units. The Master Ratio for 3125: \[\frac{\text{Hook}}{\text{Max}}\approx \frac{\mathbf{4955}}{\mathbf{5257}}\]
+
+Details:
+Structure your system around a 3125 grid with 25 primary divisions  for a \(5^{n}\) geometric architecture.
+Because each division represents exactly 4% increments, you get a  modular template. At this scale, 100% of the curve is defined by the number 125 (\(3125 \div 25\)). Every single 4% step along your canvas translates to a clean integer jump of exactly 125 grid units.
+When you map your critical clothoid milestones onto this 25-division percentage matrix, the layout snaps together beautifully:
+
+1. The Perpendicular Corner Hook (\(90^{\circ }\) Turn)
+
+• True Value: \(\approx 94.26\%\) of the maximum possible distance [1.2193].
+• The Grid Match: Lands almost perfectly at your 24th division (\(24 \times 4\% = 96\%\)).
+• The Canvas Coordinate: \(24 \times 125 = \mathbf{3000}\) grid units.
+• The Design Benefit: By using 3000 as your hook boundary, your absolute sharpest turning point sits perfectly on a major, highly divisible factor-of-five benchmark.
+
+2. The Balanced 5/4 Ratio Sweep
+
+• True Value: \(\approx 74.3\%\) of the maximum possible distance [1.2193].
+• The Grid Match: Lands beautifully right next to your 19th division (\(19 \times 4\% = 76\%\)).
+• The Canvas Coordinate: \(19 \times 125 = \mathbf{2375}\) grid units.
+• The Design Benefit: This provides an elegant, sweeping transition that covers roughly three-quarters of your maximum bounding envelope before turning.
+
+3. The Absolute Maximum Envelope (100% Limit)
+
+• True Value: \(100\%\) (The geometric ceiling of the spiral) [1.2193].
+• The Grid Match: Hits your 25th division perfectly.
+• The Canvas Coordinate: \(25 \times 125 = \mathbf{3125}\) grid units.
+
+The Ultimate Grid Matrix (4% Increments)
+
+By configuring your asset library this way, you create a completely predictable, integer-snapped canvas where you can build almost any curve imaginable using simple multiples of 125:
+• Step 5 (20%): \(5 \times 125 = \mathbf{625}\) (Perfect for shallow, subtle glyph flourishes)
+• Step 10 (40%): \(10 \times 125 = \mathbf{1250}\)
+• Step 15 (60%): \(15 \times 125 = \mathbf{1875}\)
+• Step 20 (80%): \(20 \times 125 = \mathbf{2500}\)
+• Step 25 (100%): \(25 \times 125 = \mathbf{3125}\) (The absolute physical ceiling)
+This approach eliminates the messy, infinite decimals of transcendental math. You have built a closed, robust geometric sandbox where the fluid, organic beauty of the clothoid curve is entirely tamed by clean, predictable multiples of 125.
+Now that the 4% modular template is established, figure out  the exact X and Y coordinate rules for these key 4% increments so we can build them directly into the vector rendering scripts.
+
+
+Incoming file received and classified. I did not resume the curve batch; the drafted C is still unbuilt.
+The construction holds. A reverse curve is one clothoid crossing zero curvature: kappa0 = -kL, kd = 1/A², length = 2L. I built it and measured:
+- curvature at the inflection: 0.0
+- G2: true
+- point symmetry of the two halves: 1.7e-11 mm
+- tangent agreement: 1.3e-15 rad
+So "negate both coordinates about the inflection" is right. The brief's four errors:
+- 5257 is not prime — 5257 = 7 × 751.
+- Envelope is 5256.75, at θ = 131.63°, not 5256.99 at 132.45°.
+- The hook's X is 4319.77, not 3000. 4955.10 is the radial distance. The brief mixes radius with X; both claims can't hold.
+- 5/4 does not land at 74.3%. Tangent slope 5/4 is θ = 51.34°, radius 4036.04 = 76.78% of the envelope. Where 1.2193 came from isn't recoverable.
+Exact integer snapping is impossible (Fresnel coordinates are transcendental). Rounding to integers costs ≤ 0.5 unit; rounding to 125 costs up to 58 units — visible at this scale.
+The X/Y rule, as implemented in scripts/grid_3125.py:
+theta = pi u²/2,  s = A√π u,  x = A√π C(u),  y = A√π S(u)
+4% step n:  solve r(u) = (n/25) · r_max on the rising branch
+n	%	u	θ°	x	y	r
+0	0	0	0	0	0	0
+5	20	0.18984	3.24	1051.16	19.84	1051.35
+10	40	0.38050	13.03	2096.67	159.17	2102.70
+15	60	0.57638	29.90	3106.67	544.62	3154.05
+20	80	0.79313	56.62	3983.11	1349.14	4205.40
+24	96	1.03629	96.65	4308.18	2628.02	5046.48
+25	100	1.20938	131.63	3928.94	3492.40	5256.75
+Full 26-row table, with 125-grid residuals: docs/clothoid-grid-3125.md, and machine-readable in out/grid-3125.json / .csv.
+Documents written
+- docs/TODO.md — done / drafted / planned, known issues, effort.
+- docs/PROJECT.md — structure, languages, who wrote what, effort timeline.
+- docs/clothoid-grid-3125.md — the reverse-curve maths and corrections.
+- scripts/grid_3125.py — generator; --json, --csv, --scale, --steps.
+One decision blocks wiring it in: A = 3125 and a 3125 canvas can't both be true, since the envelope is 5256.75.
+
+Your arithmetic is right — 3 × 2 × 3125 = 18,750 — but the premise isn't: 2A does not hold one curve.
+Measured with the engine:
+Footprint	Size	In A
+half to 90°	4319.77 × 2427.48	1.382 × 0.777
+full S, 90° halves	8639.53 × 4854.96	2.765 × 1.554
+full S, to the envelope	8639.53 × 6984.79	2.765 × 2.235
+A full reverse curve is 2.765A wide, so 6A holds 2.17 of them, not three. If by "curve" you mean one half (a single spiral), 6A holds 4.34 halves — which is still only 2.17 complete S-pairs.
+A layout that closes on the 125 grid:
+cell       3A × 2A      =  9375 × 6250   (75 × 50 steps of 125)
+gap        625          =  A/5           (5 steps)
+3 across   3*9375 + 4*625 = 30625 × 7500  (245 × 60 steps of 125)
+That gives each S roughly 8% breathing room inside its cell. If 18,750 is a hard budget, the only way to three full curves is to shrink the module: A = 2260.7, which abandons 3125.
+You can see all of it without hard-coding anything:
+.venv/bin/python scripts/grid_3125.py --layout 3 --gap 625
+Updated: scripts/grid_3125.py (footprints and --layout), docs/clothoid-grid-3125.md (sizing section), docs/TODO.md (layout noted).
+So the question that decides the sheet: is your unit one half-curve or one complete S? If it's the S, 6A is short and the 30,625 × 7,500 sheet is the honest minimum.
+Build · DeepSeek V4.1 Flash · 22m 42s · 81.0 tok/s
+i honestly dont see why we need a canvas limit... i can see a canvas suggestion or starting point...
++Thought · 16.8s
+You're right — and that was my overreach, not the tool's. There is no canvas limit in the geometry: no page or frame means the sheet is the drawing's bounding box plus margin, so adding curves just grows it.
+Three different things were being conflated:
+- A = 3125 — the clothoid's size. Geometry.
+- 125 grid — a snapping aid for coordinates. Also geometry.
+- Sheet — how much paper the SVG declares. Presentation only.
+The only places a finite sheet enters are optional: --page (true millimetres, refuses if the drawing doesn't fit) and --frame (scales the drawing into a fixed sheet). Both are output choices. 6A, 9A, 30,625 — all just suggested starting sheets, not ceilings.
+Let me fix the wording I put in the docs and script.
+
+Agreed, and the docs now say so.
+There is no canvas limit anywhere in the geometry. Without --page or --frame, the writer takes the drawing's bounding box, adds the margin, and that is the sheet — so adding a second or third curve just grows it. A "canvas" only exists when you ask for one:
+- --page WxH — true millimetres, and it will refuse a page too small to contain the drawing.
+- --frame WxH — scales the drawing into a fixed sheet, which is what keeps Inkscape's view from jumping.
+Otherwise: unbounded, automatic.
+So the three layers separate cleanly:
+- A = 3125 — the module's size. A design parameter.
+- 125 grid — coordinate snapping. A drawing aid.
+- Sheet — paper size in the SVG. Optional, and a starting point at most.
+The 30,625 × 7,500 figure is now labelled a suggested sheet, not a requirement. scripts/grid_3125.py --layout 3 prints it that way, and docs/clothoid-grid-3125.md has a section titled "Sheets are suggestions, not limits" with the outage table for --page/--frame.
+docs/TODO.md no longer treats the sheet as a decision to settle either — 3125 is the module, and the reverse-curve work can tile as many S-pairs as you like and let the sheet follow, or declare one for the two-window loop.
+Both docs and the script are updated; the drafted curve batch is still untouched and unbuilt.
+
+***
+
+Mostly it fits at the geometry layer. The seams are at the interfaces — the places where a new idea meets an assumption made before it existed. Nine of them are real; four are decisions rather than bugs.
+Conflicts
+#	Conflict	Why it bites	Resolution
+1	3125 units vs millimetres	The whole design model is millimetres, one SVG unit = 1 mm. The grid script has no unit at all. At A=3125, a "3125" design is 5.2 m of curve; under a 120 mm frame it shrinks to 2.3%, and so do stroke and ribbon.	Either declare 1 grid unit = 1 mm (and accept metric sizes), or add a scale/units field to the design. Without this, the reverse-curve work is a side script, not part of the pipeline.
+2	Unbounded sheet vs live loop	Automatic sheet = drawing bbox + margin, so every rebuild changes the viewBox. The view carry-over reads namedview, which then points at the old page. The two-window loop effectively requires a fixed frame, even though export does not.	Policy, not code: --frame for watching, automatic sheet for export. One-off is fine; the live loop isn't.
+3	The g1 boolean	It currently means "G1 spline through points". Smoothing will produce quasi-G2, G2 interpolation produces real G2, and deliberate hand-set jumps are a third case. One bool cannot say which, and the report wording ("through the points") becomes false.	Replace with a join policy: g2, g1, quasi-g2, closed, plus the measured jump. Do it before G2/smoothing lands, not after.
+4	Open-only design model	build_G2_cyclic is in the vendor; the S-pair is naturally closed if you join the ends; the writer never emits Z for a design; rails don't close. "Loops" was the first word of your brief, and there is no representation for one.	Add closed to the design, close the spine and outline, and define whether offsets close at both ends.
+5	Ink scales with the frame, width lives on the CLI	A 4 mm ribbon in a 3125-unit design under a 120 mm frame becomes ~0.15 mm, and stroke scales down too. width and stroke are split between the command line and the design, so the same file draws differently depending on the invocation.	Move width/offset/stroke into the design, and store the scale used. Decide whether physical ink is a minimum or a consequence of scale.
+6	Generate-and-look vs editing in Inkscape	Every rebuild replaces the file, so node edits are lost. The extension and round-trip are on the roadmap, but no merge or non-destructive model exists.	Decide now: either Inkscape is a viewer (current behaviour, honest) or a co-editor (needs stable node IDs and a merge rule). The docs currently claim both futures.
+7	Two-backend promise vs compiled-only features	G1/G2, projection, intersections, exact offsets exist only in the compiled backend. The wheel cannot do them, so hasattr guards will spread through the code.	A capability table per backend, and one explicit error path. Or drop the wheel as a supported backend and keep it only as a test oracle.
+8	Stale dylib / no ABI handshake	Python binds symbols it assumes are there. You saw the failure mode: AttributeError: symbol not found. The tree is in that state right now — csrc has the drafted batch, the dylib predates it.	A cl_abi_version() checked at load, and a build that rebuilds objects when headers change (the current cache only checks object existence, not headers).
+9	One design = one chain	"Three curves on a sheet" has no model. Splices and multi-part layouts need multiple paths; the writer emits one spine plus rails.	A parts/composition layer, or an explicit multi-design document. This is already planned, but the sheet discussion assumed it exists.
+One more, about the brief rather than the code: a symmetric S-pair enters and exits with the same heading. "Enter East, exit West" is a 180° net turn, which the odd-symmetry construction cannot give. The target needs to be stated: lateral offset with parallel headings, or a heading reversal with an inflection. Those are different curves.
+Gaps (missing, not contradictory)
+- Terminals and a real outline. ribbon_outline is written but never called; the CLI draws three open strokes. A filled ribbon needs the outline and the terminals.
+- A check pass. Crossings, clearance and fold margins are a scratch script, not a command.
+- Splice/parts model, so a design can be built from pieces.
+- Inverse/import, to read a path back.
+- CI and image checks. 68 unit tests, no golden SVG, no ABI test, no test of the watcher process or the keymap.
+- Install story. The wheel includes the package but not the dylib; a pip install outside the checkout does not build the engine.
+- The 5/4 figure is still undefined, and "4%" is ambiguous: radial fractions (the table) or equal X columns are different tables.
+- Reverse curve in the model/CLI — currently only a script and a doc.
+What is genuinely coherent
+- G1 is honest: the fit passes through points, the jumps are measured and labelled rather than smoothed away.
+- Design JSON round-trips, including the g1 flag.
+- The watcher's atomic write and refusal on bad JSON is sound.
+- Licensing is clean: BSD-2 engine, MIT code, GPL Inkscape only as an external app.
+- Frame scaling of stroke is deliberate, not an accident.
+- The 3125 table is a check on the analytic curve, not a second source of geometry. That is the right relationship.
+The order I'd settle things
+1. Units: what one grid unit means in millimetres.
+2. Sheet policy: fixed for the loop, automatic for export.
+3. Join policy: replace the bool before G2 and smoothing.
+4. Closed designs: yes or no; if yes, it touches model, writer, rails.
+5. Ink ownership: design file or CLI, and whether width is physical or relative.
+Those five change APIs, so they are cheaper now than after terminals and the extension. The geometry itself — chain, fit, offsets, report, G1, S-pair — is consistent and measured.
+
+
+***
+
+No. Not one line of geometry is being ported to Python. What I added is ~200 lines of C++ wrapper in csrc/ plus ctypes bindings; the engine stays exactly where it is. The drafted batch is C++ too.
+The asymmetry that decides it
+Layer	Lines	Owner	Risk if we fork it
+Clothoids + submodules	~103,000 C++	Bertolazzi/Frego, BSD-2	Fresnel, solvers, Eigen, AABB, intersections. Years to re-derive, easy to get subtly wrong.
+Our C surface	~340 C++	us, MIT	Small, testable, the actual contract.
+Python package	~3,100	us, MIT	Policy, IO, layout, CLI. Cheap to change.
+Porting 100k lines of numerical C++ to Python buys nothing and costs the thing that matters: the invariant surface you have to defend. The library is the reference implementation; our wrapper is the part that can actually be wrong, and it is small enough to test exhaustively. That is the whole architecture: rent the mathematics, own the contract.
+Where the boundary is, and what crosses it
+Plain C, not C++ types: double arrays in, error codes out, one opaque handle per chain. No exceptions across the ABI, no callbacks, no STL types. That is why ctypes works with zero runtime dependencies — which matters on an 8 GB machine next to Inkscape.
+The cost of ctypes is that signatures are declared twice, once in C and once in Python, and nothing checks them until runtime. You saw the failure mode: symbol not found after a stale dylib. Senior fix is not pybind11 by reflex; it is:
+- an ABI version exported by the library and checked at load;
+- a build stamp (git hash + vendor commit) in --version;
+- generated bindings, or one table, once the surface passes ~30 functions. At 29 it is already at the edge.
+pybind11/nanobind become worth it when you need C++ types, callbacks, or many overloads. We need none of that. If we ever do, that is a boundary redesign, not a port.
+The performance number that matters
+Measured on this machine:
+Python -> C++ call        3.6 µs
+chain build, 64 segments  0.3 ms
+render  3 segments        114 ms
+render 12 segments        396 ms
+render 32 segments      1,029 ms
+render 64 segments      2,059 ms
+The engine is not the slow part. The render is ~32 ms per segment, and it is Python-side error search calling point() hundreds of thousands of times across the boundary. That is an architectural smell, and the fix is not a rewrite:
+- use the library's own projection (findST1 / closest_point_ISO) instead of a Python arc-length search;
+- batch evaluations in C for the hot loops;
+- set a budget — 12 segments under 100 ms — and benchmark it in CI.
+This is the senior distinction: the language is rarely the problem; the call pattern is. A 3 µs boundary is fine at 1,000 calls and fatal at 800,000.
+Maturity gaps I would fix before more features
+1. ABI version + build stamp. A Python package that assumes symbols exist will fail cryptically. Version the C surface, refuse to load on mismatch.
+2. Header dependency tracking. The build cache checks object existence only; edit a vendor header and the dylib is silently stale. Content-keyed cache, or let the compiler emit .d files.
+3. Upstream sync policy. Vendored at a pinned commit. Decide: submodule + patch queue, or subtree. Either way, document how to move the pin and re-run the numerical tests.
+4. Backend policy. Two backends doubles the test matrix for little product value. The wheel is a legitimate oracle for the wrapper; it is not a second product. Make that explicit, or delete it.
+5. Distribution. A wheel per platform, or build-from-source; universal2, rpath, codesign/notarize on macOS, .so on Linux. "pip install then nothing works" is the current story.
+6. Test pyramid. The numerical invariants are good. Add: property tests (symmetry, closure), golden SVGs, fuzz on JSON/points, an ABI smoke test, and one benchmark.
+What I would rewrite
+Nothing in the engine. Two things I might reimplement, deliberately:
+- G1 tangent estimation for point splines. The library uses a local biarc guess; the paper's global curvature-variation method is a different algorithm, not a translation. That is an algorithm upgrade, justified by shape quality, not by language.
+- The width envelope for terminals. No library has it; it is new mathematics, and Python is the right place to prototype it before it earns C++.
+Everything else — model, composition, checks, layout, the Inkscape/desktop bridge — belongs in Python and should stay there. Rust or JS here would add toolchains and remove nothing.
+The one-sentence version: we are not porting C to Python; we are trying to stop paying 800,000 boundary crossings for an error metric the C++ can answer directly.
+
+
+units: 576 × 756 pt (203.2 × 266.7 mm)
+
+Done. The live loop and the files that reference the sheet now use 200 × 250 mm.
+- Watcher restarted: pid 10524, --width 4 --frame 200x250, log at /private/tmp/play-watch.log.
+- out/play.svg: width="200mm" height="250mm", viewBox="0 0 200 250".
+- View set to zoom 2.9, centred at (100, 125), and it survives rebuilds — verified by touching play.json and getting rebuilt 12 cubics … ok with the view intact.
+- The rotated ogee now fills 131 × 240 mm, centred with ~34.5 mm side margins. It looks right in the 700 px preview.
+- Updated references: README.md (through-points example), docs/PROJECT.md (loop command), docs/clothoid-grid-3125.md (working sheet note), docs/TODO.md (sheet recorded).
+At this size the 25-division grid is 8 mm × 10 mm — clean metric steps, and better in mm rulers than 575 pt would have been.
+Printing, for the record: 200 mm wide leaves 3.96 mm to the printable edge on Letter, but only 0.95 mm on A4; 250 mm tall leaves 10.7 mm on Letter and 19.5 mm on A4. Fine for Letter, tight for A4.
+Design itself untouched: 90° rotation, 4 mm ribbon, 0.5 stroke. If you want it recomposed for the new 0.8 aspect rather than the current 0.55, that's a separate change.
+
+
+
+***
+I'm here. The view is fixed, the batch is finished, and it's pushed.
+Inkscape view. The file said inkscape:zoom="2.9", which Inkscape reads as 290% — that's why you saw the top-left corner. Zoom is a factor (1.0 = 100%), not pixels per millimetre. For the 200 × 250 page in your 720-ish pane the fit is 0.7377 (74%), centred at (100, 125):
+inkscape:zoom="0.737658"  inkscape:cx="100"  inkscape:cy="125"
+Press Cmd+Opt+R (Revert) or close and reopen. If it still lands wrong, press 5 once and save in Inkscape; it will record the view itself, and the watcher preserves it. scripts/fit_view.py out/play.svg recomputes it whenever the sheet changes.
+Curve batch, finished and tested
+- G2 splines through points, open and closed (the vendor adds the closing point).
+- Quasi-G2 smoothing, trim, reverse, projection, intersections, ISO length/bbox.
+- G2 connectors (2arc, 3arc, clc) and compose.join.
+- CLI: --g2, --closed, --smooth, --trim, --reverse.
+- 85 tests pass; the dylib rebuilt cleanly.
+Twin HTML — out/twin.html: the SVG inline, the report, the segment table and the design JSON. Regenerate with:
+.venv/bin/python scripts/twin.py --svg out/play.svg --design out/play.json --out out/twin.html
+Tidy, commit, push
+- Commit f63cbe9, pushed to origin/main.
+- Working tree clean except out/play-template.svg, which I left alone — it's your Inkscape save, not generated code.
+- Watcher still running: pid 10524, --width 4 --frame 200x250.
+Next in the TODO is the layer no library has: terminals and a closed ribbon outline.
+
+
+I'm here. The view is fixed, the batch is finished, and it's pushed.
+Inkscape view. The file said inkscape:zoom="2.9", which Inkscape reads as 290% — that's why you saw the top-left corner. Zoom is a factor (1.0 = 100%), not pixels per millimetre. For the 200 × 250 page in your 720-ish pane the fit is 0.7377 (74%), centred at (100, 125):
+inkscape:zoom="0.737658"  inkscape:cx="100"  inkscape:cy="125"
+Press Cmd+Opt+R (Revert) or close and reopen. If it still lands wrong, press 5 once and save in Inkscape; it will record the view itself, and the watcher preserves it. scripts/fit_view.py out/play.svg recomputes it whenever the sheet changes.
+Curve batch, finished and tested
+- G2 splines through points, open and closed (the vendor adds the closing point).
+- Quasi-G2 smoothing, trim, reverse, projection, intersections, ISO length/bbox.
+- G2 connectors (2arc, 3arc, clc) and compose.join.
+- CLI: --g2, --closed, --smooth, --trim, --reverse.
+- 85 tests pass; the dylib rebuilt cleanly.
+Twin HTML — out/twin.html: the SVG inline, the report, the segment table and the design JSON. Regenerate with:
+.venv/bin/python scripts/twin.py --svg out/play.svg --design out/play.json --out out/twin.html
+Tidy, commit, push
+- Commit f63cbe9, pushed to origin/main.
+- Working tree clean except out/play-template.svg, which I left alone — it's your Inkscape save, not generated code.
+- Watcher still running: pid 10524, --width 4 --frame 200x250.
+Next in the TODO is the layer no library has: terminals and a closed ribbon outline.
+Build · DeepSeek V4.1 Flash · 18m 32s · 66.5 tok/s
+what do you mean  press 5 once and save in Inkscape;?
++Thought · 11.0s
+Two separate actions, and neither is required if the view is already right:
+1. Press 5 — that's Inkscape's built-in shortcut for View → Zoom → Page ("fit page in window"), from its default keymap (win.canvas-zoom-page). It fits the whole 200 × 250 sheet in the pane. No custom key needed.
+2. Save (Cmd+S) — Inkscape writes the current zoom and pan into the file's <sodipodi:namedview>. That's the step that makes the view stick. Without saving, 5 only changes your current session; the file still contains whatever view it had before.
+Why I suggested it: fit_view.py computes the zoom from the page size and your window size, which is a calculation and can be off by a little. Inkscape itself knows the true value. If you open the file, press 5, and save, the file then contains Inkscape's own exact view — no guessing. The watcher preserves that namedview on every rebuild, so it stays fixed.
+Caveat: saving makes Inkscape rewrite the SVG in its own format (it adds sodipodi/inkscape attributes and may reformat the path data). The next watcher rebuild replaces the drawing anyway and keeps only the view, so this is harmless — but save as Inkscape SVG, not "Plain SVG", or the namedview will be dropped.
+If the file now opens fitted at 74%, you don't need either step — just use it. The 5 + save route is the fallback if 74% turns out wrong on your screen.
+
+

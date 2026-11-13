@@ -19,6 +19,7 @@ OUT = ROOT / "workbench" / "ph-septic-sandbox.html"
 PANELS = ROOT / "scripts" / "ph_septic_panels.js"
 MATH = ROOT / "scripts" / "ph_math.js"
 CURVES = ROOT / "workbench" / "septic-curves.json"
+SAMPLES = ROOT / "workbench" / "septic-samples.json"
 
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -49,6 +50,9 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .control-row input[type=range]{flex:1;min-width:90px}
 #c-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:10px 0 0}
+.samples svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+@media(max-width:900px){.samples{grid-template-columns:1fr}}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
@@ -56,6 +60,8 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
 .save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
 .save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.paste-row{display:flex;gap:10px;align-items:flex-start;margin:0 0 6px}
+.paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 .saved-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
@@ -97,6 +103,11 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-download">download JSON</button>
 </div>
 <div class="saved-row" id="b-saved"></div>
+<div class="paste-row">
+  <textarea id="b-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-3,3,0.5], "speedY": [2,-12,12,-0.5]} - or a whole {"curves": [...]} document'></textarea>
+  <button type="button" id="b-load">load pasted JSON</button>
+</div>
+<p class="small mono" id="b-paste-status"></p>
 <div class="pair">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
 <svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
@@ -118,6 +129,16 @@ curvatures and watch the curve follow; the curvature circles are dashed.</p>
 <div id="c-controls"></div>
 <svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
 <p class="small mono" id="c-readout"></p>
+</section>
+
+<section class="panel">
+<h2>D | small integer speeds</h2>
+<p>Forty curves found by scanning small integer speeds - every coefficient in
+<code>[-2, 2]</code> exhaustively, then a random sweep of <code>[-4, 4]</code> - with the
+inflection strictly inside, the speed path away from the origin, and the pitch read exactly. The
+numbers above each curve are its <code>speedX</code> and <code>speedY</code>: type them into panel B
+to take one apart.</p>
+<div class="samples">__SAMPLES__</div>
 </section>
 
 <section class="panel">
@@ -144,7 +165,11 @@ __PANELS__
 def build():
     import json
     curves = json.loads(CURVES.read_text())["curves"]
-    page = PAGE.replace("__CURVES__", "<script>window.septicCurves = "
+    import septic_samples
+    samples = json.loads(SAMPLES.read_text())["curves"]
+    grid = "".join(septic_samples.panel_svg(record) for record in samples)
+    page = PAGE.replace("__SAMPLES__", grid)
+    page = page.replace("__CURVES__", "<script>window.septicCurves = "
                         + json.dumps(curves, separators=(",", ":")) + ";</script>")
     OUT.write_text(page.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))
     print(OUT.relative_to(ROOT))

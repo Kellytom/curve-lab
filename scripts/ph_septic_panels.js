@@ -400,6 +400,34 @@
   });
   renderSaved();
 
+  document.getElementById("b-load").addEventListener("click", () => {
+    const status = document.getElementById("b-paste-status");
+    const text = document.getElementById("b-paste").value.trim();
+    if (!text) { status.textContent = "paste a curve or a {\"curves\": [...]} document"; return; }
+    try {
+      const data = JSON.parse(text);
+      const list = Array.isArray(data) ? data : (data.curves ? data.curves : [data]);
+      const items = localSaved();
+      let loaded = 0;
+      list.forEach(item => {
+        if (!item || !Array.isArray(item.speedX) || !Array.isArray(item.speedY)) return;
+        const name = item.name || `pasted ${items.length + 1}`;
+        const record = { name: name,
+                         speedX: item.speedX.map(Number), speedY: item.speedY.map(Number) };
+        const index = items.findIndex(entry => entry.name === name);
+        if (index >= 0) items[index] = record; else items.push(record);
+        loaded += 1;
+        if (loaded === 1) setSpeed(record.speedX, record.speedY);
+      });
+      storeSaved(items);
+      renderSaved();
+      status.textContent = loaded ? `${loaded} curve${loaded === 1 ? "" : "s"} loaded`
+                                 : "no speedX / speedY in that JSON";
+    } catch (error) {
+      status.textContent = "not JSON: " + error.message;
+    }
+  });
+
   document.getElementById("b-right").addEventListener("click", () => solve("right"));
   document.getElementById("b-close").addEventListener("click", () => solve("close"));
   drawB();

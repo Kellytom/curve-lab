@@ -12,6 +12,20 @@ JS = ROOT / "scripts" / "ph_septic_panels.js"
 
 
 class TestSepticSandbox(unittest.TestCase):
+    def test_the_sample_gallery_is_populated(self):
+        import json
+        document = json.loads((ROOT / "workbench" / "septic-samples.json").read_text())
+        curves = document["curves"]
+        self.assertEqual(len(curves), 40)
+        for curve in curves:
+            for key in ("speedX", "speedY", "bend", "pitch", "inflection", "closest"):
+                self.assertIn(key, curve)
+            self.assertEqual(len(curve["speedX"]), 4)
+            self.assertEqual(len(curve["speedY"]), 4)
+        page = PAGE.read_text()
+        self.assertIn('class="samples"', page)
+        self.assertEqual(page.count("<svg viewBox=\"0 0 480 250\""), 40)
+
     def test_the_named_curves_match_their_stated_metrics(self):
         import json
         document = json.loads((ROOT / "workbench" / "septic-curves.json").read_text())

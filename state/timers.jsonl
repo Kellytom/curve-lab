@@ -44,3 +44,6 @@
 {"event":"start","id":"80397-1794378576565","label":"fhandon","floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T06:29:36.565Z"}
 {"event":"floor","label":"fhandon","minutes":20,"floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T06:49:36.790Z"}
 {"event":"cap","label":"fhandon","minutes":120.02,"floor":20,"cap":120,"start":"2026-11-11T06:29:36.565Z","at":"2026-11-11T08:29:37.648Z","reason":"cap","before":"6","after":"3"}
+{"event":"start","id":"14856-1794436187199","label":"focus","floor":20,"cap":60,"start":"2026-11-11T22:29:47.199Z","at":"2026-11-11T22:29:47.199Z"}
+{"event":"floor","label":"focus","minutes":20,"floor":20,"cap":60,"start":"2026-11-11T22:29:47.199Z","at":"2026-11-11T22:49:47.354Z"}
+{"event":"cap","label":"focus","minutes":60.02,"floor":20,"cap":60,"start":"2026-11-11T22:29:47.199Z","at":"2026-11-11T23:29:48.186Z","reason":"cap","before":"0","after":"2"}

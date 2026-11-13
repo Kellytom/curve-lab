@@ -1524,3 +1524,67 @@ the comparison below is fair, one action per session:
 
 "Finished" for this thread means: one page, exact throughout, legible figure, and
 an SVG export in integer cells that Inkscape opens without rescaling.
+
+**2026-11-11 — Fig. T1 labels fixed (item 1 of the tph_tri_chain thread).**
+`tph_tri_chain/t1.js` now puts each vertex label in a left or right column, runs
+a one-dimensional spread per column (gap 2), and draws a leader line for a
+displaced label (3 of 25). The two tips label inward, the nose labels right, and
+A–D sit above their rings with a paper halo. The canvas is 980 × 820 at a
+uniform 0.25 px per cell, with an in-figure title, both axis labels, and a
+15 px two-row legend. Measured, not eyeballed: `node tph_tri_chain/audit_t1.mjs`
+prints 25 labels, 0 label overlaps, 0 letter-vs-ring overlaps, 0 overlaps among
+all 76 text boxes, 0 boxes outside the figure, and 25/25 vertex pairs matching
+`chain.py`. `tph_tri_chain/out/t1.png` is 980 × 822, 85.5 KB. The operator has
+not yet looked at it; the visual call is theirs. Next in the thread is item 2
+(one source of truth for `RESULTS.md` / `results.html`).
+
+**2026-11-11 — iteration gate slimmed.** `scripts/test.py --slim` runs ten
+engine modules (model, piece, clearance, fillet, junction, section, grammar,
+pyth_triples, pyth_cubic, todo) in 3.1 s with no page built; it is a smoke
+gate, not the commit gate. `node tph_tri_chain/audit_t1.mjs` now falls back to
+the page on disk when :8003 is down, so the T1 audit never needs the server.
+The two together take 5.7 s: `.venv/bin/python scripts/test.py --slim && node
+tph_tri_chain/audit_t1.mjs`. The default set (40 s) and `--full` are unchanged.
+
+**2026-11-11 — the thread rotated to the algebraic orientation.** The operator
+was right: the standard Tschirnhausen (and this repo's own alpha form
+18y² = x(x−6)²) has the loop along x, and the PH form (t − t³/3, t²) stood it
+up. `chain.py` now carries x = t², y = t − t³/3, so 9y² = x(x−3)² exactly; the
+exact coordinate is now x (x′ = 2t is linear) and the drift is in y. The mirror
+in `t1_block`, `glyph.py` and the audit is in y, not x. Every derived artefact
+was regenerated: sandbox tables and prose, `RESULTS.md` / `results.html`,
+`out/lattice-t3.svg` / `.csv`, `out/midpoint.svg` (Fig. T2 transposed: B is
+"x is exact", C is "y drifts"), and `out/t1.png`. All ten memo checks in
+`chain.py` pass, and `make_results.py` reports 0 failures. The audit prints 25
+labels, 0 overlaps, 25/25 pairs against `chain.py`; `out/t1.png` is 729 × 982,
+86.8 KB. The visual call on the rotated figures is the operator's.
+
+**2026-11-11 — TQ(k) page built.** `workbench/ph-quintic-lattice.html`
+(`scripts/ph_quintic_lattice.py`) carries the Tschirnhausen-type PH quintic:
+primitive, polynomial, `w = k(t²−1) + i`, so `y` is a cubic and only `x` is
+fifth-degree. The hit period is periodic mod 15 — `15|k` gives every integer t
+at scale 5, `3|k` gives 5ℤ at scale 5, `5|k` gives 3ℤ at scale 15, neither gives
+15ℤ at scale 15 — so there is no ceiling on k, only k² growth in the control
+numbers. TQ(15) is the headline (every integer t; controls 0…595 at scale 5;
+arc 121 at t=1, 123005 at t=5); TQ(3) is the small-controls member (hits at
+5ℤ). Every unit piece, reparametrised, is a quintic Bézier with integer
+controls at scale 5, so the cuts are exact and the lengths are rational.
+`tests/test_ph_quintic_lattice.py` (8 tests) checks the identity, the periods,
+the piece controls, the lengths and the degree-5 chain grid (442,368, drift 31).
+The page is in the manifest (80 pages) and links to `ph-families.html` and the
+tph_tri_chain sandbox. Suite 84 modules, green; the page figure has 0 text
+overlaps and 0 boxes outside its 940×500 viewBox.
+
+**2026-11-11 — TQ page: six figures, k = 75, and one persistent headless Chrome.**
+`workbench/ph-quintic-lattice.html` now carries six figures: the family
+(TQ(3)/TQ(15)/TQ(75) side by side), TQ(75) in all four quadrants, the zoom on
+the S and the inflection at (0,0), the three cut pieces, the grid-cost bars
+(256 vs 442,368 vs 5, log), and x(t)/y(t) with the stops. k = 75 is the
+headline: every integer t, grid 5, first piece controls (0, 5624, 11248, 14997,
+14996, 14995) / (0, −150, −300, −425, −500, −500), arc 3001 at t = 1 and
+3,075,005 at t = 5. The member table now says "every integer t / every 3rd /
+every 5th / every 15th", counts the hits in t = 0…5, and drops the ℤ notation.
+Browser work now attaches to one persistent headless shell on :9223
+(`chrome-headless-shell`, no window, no Dock icon); `audit_t1.mjs` connects
+over CDP and never launches a second Chrome. All six figures: 0 text overlaps,
+0 boxes outside the viewBox. 8 tests, slim suite green.

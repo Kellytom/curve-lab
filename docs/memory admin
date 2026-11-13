@@ -1,0 +1,420 @@
+memory admin
+
+~/.opencode/bin/opencode
+
+Separately, the clock is now out of the repo, committed as 6ee2914: scripts/timer.js and notify.js live in legacy/timer/ with a README saying why, ROOT and the chime path fixed so --check still answers, rules stripped from both AGENTS.md files, /fhandon and /fhandoff no longer start or tally anything, TODO.md marked retired and workbench/todo.html regenerated (89/99). state/timers.jsonl is kept as history only.
+
+***
+fix that. so, once i type / fhandoff, / quit, and quit kitty, then reboot the macbook, get into kitty, type ~/.opencode/bin/opencode, then / focus / handon everything should be taken care of? the reason i have to do this is the swap file grows to 6 gb even with no programs listed as running in activity monitor. keep this as a side task: working on this refresh process. i wish there was a way i could avoid it. compaction doesnt do it.
+
+ Proves: added and committed — c987839 writes the block, 9e1f7bf is the commit it names, which is now true rather than off by one. Tree clean.
+Your reboot sequence — yes, with one order constraint
+/fhandoff        # record squared, block written with Proves:, commits made
+/quit
+# reboot
+~/.opencode/bin/opencode    # starts in ~
+/focus                      # global command: moves the session to curve-lab
+/fhandon                    # project command: now available
+/focus lives in ~/.config/opencode/commands/focus.md (global), /fhandon lives in the repo. This session proved the handover already: the move injected AGENTS.md and made /fhandon appear. /focus must come first — if you launch in ~ and type /fhandon, the command does not exist.
+What is covered across the reboot: all work is committed (fhandon now commits its own output, so nothing finished is left in the working tree), the block has a finish line, the process files are tracked, untracked junk is resolved, and the server comes back up on demand. What is not, and does not need to be: the session's context, the running server, mkdocs, and the deployed revision (carried, not probed).
+The swap problem — measured first, then fixed
+6 GB of swap with nothing running is almost always one of two things, and they behave differently:
+vm.swapusage "used" still high with no processes → orphaned node children. opencode is a node process; each session, plus Chromium from scripts/shot.mjs, plus mkdocs serve watching node_modules, leaves pages behind. When those exit, the swapfile files in /private/var/vm/ stay allocated until boot, but "used" should fall.
+memory_pressure green while swap shows 6 GB → it is the dynamic pager holding allocated files, not live pressure. Nothing to reclaim without a reboot.
+Check before the next reboot:
+sysctl vm.swapusage
+memory_pressure | tail -3
+ps -Ao pid,rss,comm | sort -k2 -nr | head -15
+If ps shows node processes you did not start, kill them by PID first — that may recover most of it without a reboot. sudo purge will not; it clears file cache only. Disabling dynamic_pager is possible and not worth it.
+The three things that actually feed it: long-lived opencode sessions (this one is big), mkdocs serve autoreloading over node_modules, and Playwright Chromium per screenshot.
+Honest answer to "I wish there was a way to avoid it": there is no supported way to shrink swap without a boot. The avoidable part is the size — quit sessions when a focus ends (which /fhandon//fhandoff already give you a clean seam for), and stop mkdocs serve between checks. That turns a 6 GB swap-and-reboot into a ~1 GB one.
+Want me to record this as a parked side task (state/BACKBURNER-int.md, B03) with the three commands, so it survives the reboot?
+
+ B03 recorded and committed as ceb8355.
+Playwright: no — the opposite is the rule
+scripts/shot.mjs launches headless Chrome, takes the shot, and calls await browser.close() before the process exits. It is deliberately per-shot, not a daemon. The process list confirms it: no chrome-headless-shell running right now, despite two screenshots this session.
+Holding a browser open all session would cause the problem you are fighting — one headless Chrome is ~150–300 MB resident, and the old CDP-on-9223 daemon was removed precisely because it never let go. "Playwright for screenshots" is about which mechanism to use, not about uptime. It stays available on disk and costs nothing while idle.
+What I measured just now
+reading
+swap
+memory free
+pageouts
+opencode
+Chrome
+serve.py
+mkdocs
+Playwright
+So: you do not need to reboot for this measurement. 1.6 GB of 3.07 GB with 46% free is residue, not pressure — those swapfile* files were written earlier and will sit there until boot, but nothing is thrashing. The 6 GB state is what you get after a long session plus many Chrome tabs, and on this machine Chrome is the bigger lever than opencode — closing the renderer set is worth roughly twice what quitting the session is.
+What I could not fix, and will not pretend to: swap cannot be shrunk without a boot. Killing PIDs recovers live memory, not allocated swapfile space. B03 now records that distinction, the three measurement commands, the "no owner in ps" test that decides whether a reboot is actually warranted, and the two things not to do (disable SIP / unload dynamic_pager, or read swap as a leak).
+Your refresh sequence stands as designed — but it is now a tool of last resort, not the daily rhythm. The cheap win is quitting Chrome's renderer set and not keeping mkdocs serve warm.
+
+***
+I'm here.
+The 1.5 GB you are reading is Swap Used, not memory used. They happen to be the same number to one decimal — 1587 MB of swap — which is why it looks like the machine is doing nothing.
+The machine is not idle:
+reading	value
+RAM installed	8 GB — not 16
+PhysMem	8148M used, 43M unused
+wired	1654 MB
+compressor	734,197 pages = 3.0 GB occupied, holding 7.6 GB of logical pages
+swap	1587 MB used, 2227338 pages swapped out lifetime
+pressure level	2 (warning)
+disk	92% full, 38 GiB free
+That is genuinely full. Yellow is the kernel saying "I have compressed and evicted" — kern.memorystatus_vm_pressure_level = 2 — triggered by free pages falling to ~25 MB, not by a usage percentage. With 43 MB unused it would be alarming if it were green.
+Why "before we even started":
+1. macOS baseline on 8 GB here is already ~1.65 GB wired — kernel, WindowServer, drivers. That cannot be compressed or swapped, so your usable pool is ~6.3 GB, not 8.
+2. The compressor holds 3.0 GB of live data. That is cold pages belonging to running processes — mostly the two opencode node processes (240 MB and 406 MB RSS; RSS understates a V8 heap once it has been compressed) plus kitty and Sublime. It does not drain when a browser closes.
+3. Swap is residue. 1.5 GB was evicted earlier by Chrome's ~10 renderers; it stays allocated until boot even though Chrome has now exited. That is why the number is stuck.
+4. Cumulative evidence: 6.6 M compressions, 1.8 M swapins, 2.2 M swapouts. This machine has been cycling through compression for a long time.
+So the answer to "we haven't even started" is: you started long ago, and the working set is 8 GB with a browser. On this machine, opencode + Chrome + mkdocs serve is over budget by construction — not a bug in the process, a hardware ceiling.
+
+***
+
+I'm here. The chain worked — session is in /Users/thomaskelly/developer/curve-lab, the block carries its Proves: line, tree clean at 294acac. But the memory picture is worse than "not started": it was started, by Chrome, two minutes after boot.
+Evidence from the timestamps:
+event	time
+boot (kern.boottime)	16:46:32
+Chrome main process (pid 692)	16:48:02
+opencode (pids 822, 830)	16:49
+now	17:33 — 47 min uptime
+Forty-seven minutes, no coding, and:
+swap used        1612 MB
+pressure         2 (yellow)
+PhysMem          7913M used, 278M unused
+compressor       2.7 GB occupied
+Chrome           32 processes, 3150 MB
+That corrects me. Everything I measured earlier today was already after this reboot — the identical PIDs gave it away. So "swap is residue from an earlier session that only a boot clears" was wrong; the 1.6 GB was built from cold in 45 minutes. And it is not a leak: it is Chrome restoring 32 processes and 3.15 GB of tabs, which is 39% of an 8 GB machine on its own, against 1.67 GB of wired memory that cannot be paged.
+The arithmetic cannot come out green: 1.67 wired + 3.15 Chrome + 0.65 opencode = 5.5 GB, leaving ~2.5 GB for macOS caches and the compressor. It compresses, it swaps, it goes yellow. With swap already 1.6 GB and trending up from 1.59 GB an hour ago, the next heavy step pushes it toward your 6 GB.
+So the reboot ritual is not buying what it costs. The fix is one Chrome setting:
+Settings → On startup → Open the New Tab page, and chrome://performance → Memory Saver on.
+Until that changes, every reboot faithfully recreates the state it was meant to clear — which is exactly what happened today.
+B03 records the test and the conclusion (294acac), including that my "residue" reading was wrong.
+Want me to quit Chrome now so the first real /fhandon action starts on a clean 6 GB instead of 4.5 GB? It is the difference between the chain render succeeding and the machine compressing through it.
+Build · DeepSeek V4.1 Flash · 1m 8s · 77.3 tok/s
+i need chrome (the browser) to see the files... right? unless there is another way, eg a stripped down chrome... I can quit chrome but i just opend it and sublime and that is it.
+
+I'm here. Agreed on Safari — it is not the cheaper browser at 26 tabs; same multiprocess model, plus it is banned for the automated check. Building the launcher now, with localhost rather than file:.
+
+bby the way there are 2 chrome icons, one 4th on the bar, the other way over on the right side
+
+Error: Upstream request failed: [invalid_request_error] image input is not available on this engine (request_id: gw-adc59e92621d-188816)
+
+i quit chrome just so we can see what is going on. that turned memory green, and the bar went down by 1/2
+
+Use graphics acceleration when available
+Open your computer's proxy settings
+On-device AI
+On-device AI
+To power features like scam detection, Chrome can use AI models that run directly on your device. When this is off, these features might not work. Learn more about on-device AI
+
+Steps for the settings, in order:
+1. In Chrome's address bar, type chrome://settings/onStartup and press Return.
+2. Choose Open the New Tab page. (The other option, Continue where you left off, is the one restoring your 26 tabs.)
+3. In the address bar, type chrome://settings/performance and switch Memory Saver on.
+4. Optional but worth it: chrome://settings/system → turn off Continue running background apps when Google Chrome is closed. That stops Chrome lingering after you quit it.
+5. Quit Chrome completely (Cmd-Q), reopen it, and confirm you get one blank tab instead of the old session.
+That's it — three settings, one restart. When you've done it, say so and I'll read Chrome's preference file to confirm the values actually saved, rather than trusting the UI.
+One thing to decide separately: you now have two Chromes alive. Want me to quit the curve instance so only your normal one is running, or keep both?
+
+ 2) table that specific problem of opening old chrome with cntrl shift click as backburner or whatever. 
+ - Two commits: ae929d9, 751b271
+I also fixed a wrong claim in B03 while I was in there: swap does follow its owner down (1612 MB → 188 MB when you quit Chrome), so "released only at boot" was false.
+Housekeeping risks
+The icon source (build/icon/) is gitignored and the Dock app lives in ~/Applications — neither is backed up. If the repo moves, the app shows a notification instead of failing silently.
+The Chrome startup settings are still unverified. Swap is low now only because one browser is running.
+
+***
+
+I'm here. It is now a standing rule in three places, so it will happen every session without you asking:
+1. ~/AGENTS.md (global, every project): state the budget before a multi-step task — "this pass covers X; Y is next" — and the moment it is low, say "I am at the end of usable context in this session" before starting anything new, then stop cleanly.
+2. curve-lab/AGENTS.md: the same rule in the project's guardrails, plus "complete needs a diff or a test".
+3. /fhandoff: if the session ends on context, the handoff block must say so and list what remains — so the next session inherits the truth, not a trimmed result.
+The honest limit of the mechanism: I have no numeric meter. The cues are a long session, truncated tool output, and edits beginning to fail — which is exactly what happened twice today. So the rule also says the sentence must come before starting new work, not after a failed attempt.
+Committed a0c783d.
+For the record, the sentence applies to this session now: I am at the end of usable context. The one action to carry forward is the four missing graded curves — 3-4-5 spiral, hyperbola, seagrass ending, modulated width — each drawn from its own source, with a diff check behind it.
+Build · DeepSeek V4.1 Flash · 26.1s · 74.5 tok/s
+what is the actual way to measure that, the metric? how do we know the total number of tokens? the 474k is not a high number for context, right? what about setting a timer for active work (not total time) and if it goes over x hours, we do a new session? we need a real mechanism
++Thought · 11.0s
+I'm here. Good question — and there is a real number available locally; we just never looked. Checking the session store.
+
+I'm here. There is a real metric, and we have been ignoring it. The last turn's own numbers, straight from the session store:
+input        555
+output       309
+cache.read   473,472
+What those mean. cache.read is the conversation prefix the model re-reads on that request — that is the best local proxy for context in use. input is the new text for that turn; output is what came back. So "474k" is not tokens spent over the session; it is the size of the prompt on the last call.
+Is 474k high? It is only high relative to the window, and I do not know the window from inside — DeepSeek V4.1 Flash could be 256k, 1M, or more. So the honest answer is: the number is measurable, the threshold is not knowable without the model's declared window. That is why my "end of usable context" was a feeling, not a measurement — and the data suggests I may have called it early.
+A real mechanism (three parts, all cheap):
+1. 
+select json_extract(data,'$.tokens')
+from session_message
+where session_id=? and type='assistant' and json_extract(data,'$.tokens') is not null
+order by seq desc limit 1;
+2. 
+3. 
+What I would commit next session: scripts/ctx.py printing those three numbers, the window in opencode.jsonc, and the rule in AGENTS.md referencing the script rather than a feeling.
+And per the rule I just wrote, said plainly: I am at the end of usable context in this session — but the measurement above is the first thing that should replace that sentence with a number.
+
+The mechanism is now real, and it answers all three questions with numbers.
+1. The metric. input + cache.read from the newest assistant turn = the prompt the model actually read. That is context in use. scripts/ctx.py prints it.
+2. 474k is not high. With a 1M window it is 47.9% — mid-session, not near the end. My earlier "end of usable context" was wrong by roughly a factor of two, and it was exactly the kind of unmeasured claim you called out.
+3. The timer, done properly. Active minutes, not wall clock: the gaps between turns, each capped at five minutes, so idle time does not count as work. This session:
+context 478,616 / 1,000,000 = 47.9%
+active  212 min · turns 402
+verdict STOP — /fhandoff, then a new session
+So the honest reading is: the context was fine; the session was long. Three and a half hours and 402 turns is what degraded the work — many small edits, each verified, none of them a survey. The token meter would never have caught that. The timer does.
+Thresholds now in both AGENTS files and enforced by the tool: warn at 70% / 60 min / 40 turns, stop at 85% / 90 min / 60 turns. /fhandoff records which one tripped.
+Applied to now: we trip the timer, not the window. The right move is /fhandoff and a fresh session — not because the context is full, but because the work has gone stale in the way long sessions do. The handoff should carry: the four missing graded curves (3-4-5 spiral, hyperbola, seagrass, modulated width), and the instruction to enumerate before claiming completeness.
+
+What the evidence supports:
+- Context is measurable — input + cache.read, now 485,068 / 1,000,000 = 48.5%, verdict ok.
+- Duration is not predictive in this store: 0.47 errors per 100 turns under 30 minutes versus 0.12 above 120 minutes. The 90-minute rule was a guess, and the data leans against it.
+What changed: the verdict is context-only (warn 70%, stop 85%). Active minutes and turns are still printed, and at 180 minutes the tool adds one line — "long session by choice — check the task is still the task" — as an observation, not a threshold. The comment in ctx.py records why.
+The honest gap: no metric in the session store measures what actually went wrong today. Skipping is not an error; it is a mismatch between what you asked for and what I delivered. The only instruments that catch it are the ones we already built — a diff against the source tables, and a test that fails when the page is not complete. That is why recheck now runs 21 checks instead of 14, and why the catalogue rule is a failing check rather than a resolution.
+Committed b459ab4; rules updated in both AGENTS files.
+Build · DeepSeek V4.1 Flash · 2m 18s · 83.4 tok/s
+well keep a running tally of each sessions metrics for this; and add to / fhandoff and / fhandon and any where else. if you need to write py or script to keep track during a session and ding me when we are in the danger zone, do so
++Thought · 26.6s
+I'm here. Building the tally and the watchdog: a log per session, a summary, and a beep at 70% and 85% — wired into both commands.
+
+The tally — state/sessions.jsonl, one record per call: timestamp, session id, context used, percent, active minutes, turns, verdict.
+at                        session                          ctx %   min  turns  verdict
+2026-11-05T17:18:30  ses_e565b3b01ffePbTybdw6zh3aiu   48.8%   216    411  ok
+The script — scripts/ctx.py:
+- --log measures and appends to the tally;
+- --tally prints the last record for every session;
+- --watch 120 --log polls every two minutes and beeps at 70% (Glass) and again at 85% (Sosumi), printing a loud line each time;
+- --json for anything that wants to parse it.
+Wired in:
+- /fhandon now opens with the metrics section: run --log, check --tally, and optionally leave --watch running in a side terminal so you are dinged while working.
+- /fhandoff must run --log and put the numbers in the block's Context: line, so the next session starts with evidence rather than a feeling.
+- AGENTS.md carries the rules and the commands.
+Current reading: 48.8% · 216 active minutes · 411 turns · ok. So the beep would not have fired today — which is the point: the meter says we were never in the danger zone on context, and the tally will show over a few sessions whether that is true in practice.
+
+State: local 200 on :8003; remote not known — no .run.app URL is recorded in the docs (carried as a gap). Tests 44 modules green (run this session, 2026-11-05). Git clean at 0719c46; HEAD before the handoff was 6be9106. Context 50.6%, 221 active minutes, 419 turns, verdict ok.
+Previous action landed: yes — the n=1 stem with ±d rails, stated d < R_min, measured 2d gap and the stem/spine sentence is on the chain editor (Fig. S1). It is superseded by later work but it landed.
+Focused action: draw the 3-4-5 Pythagorean spiral as a showcase family, from pythagorean-spiral/, closure proved by turn counts summing to zero, integer nodes marked.
+Proves: workbench/showcase.html shows the spiral panel with the closure sum printed and its nodes on integers, tests/test_exploration_pages.py asserts that panel id, and scripts/recheck.py still reports 21/21.
+Committed: 294526b (state, graded gap, rejected paths), 0719c46 (the one-action block). Nothing untracked; tally updated in state/sessions.jsonl.
+Next command: /fhandon.
+
+***
+Build · DeepSeek V4.1 Flash · 10m 37s · 94.7 tok/s
+bring back the timer. you didnt work 1 hour u worked 10 min. search previous folders for the timer.
+
+
+
+
+ TODO.md is the clearing house now, and the timer workstream is in it (all four items checked; todo.html regenerated).
+Restored
+scripts/timer.js + scripts/notify.js, copied from ornaments/. The .timer.json marker was already gitignored here.
+Start: node scripts/timer.js 20m 60m "<label>" in the background.
+Check: --check → elapsed, floor, cap, phase.
+Stop: --stop.
+Wired into every session entry point
+/focus (global ~/.config/opencode/commands/focus.md) — starts the clock after the directory move.
+/fhandon (step 0) — starts it only if .timer.json is absent.
+/fhandoff — reports wall-clock elapsed, then clears it.
+AGENTS.md — “Session clock” rule under Context discipline, including: report wall time, not only ctx.py active minutes.
+Proved: real start → --check → --stop; it printed wiring test ... 0m elapsed and timer: cleared.
+Commit: 106640b. HANDOFF-int.md has the record but is left unstaged for /fhandoff.
+On the hour: you're right — the UI said 10m 37s, while ctx.py reported 23 active minutes. Those are different measurements; the timer now reports the one you were pointing at, and every /focus or /fhandon starts it from zero.
+
+
+that commit only contains .timer.json in .gitignore — the -S match was the substring timer.j, not an earlier timer.js. There was no previous curve-lab timer to recover.
+So the restored clock is the ornaments one plus the new stats layer, and it’s committed:
+5c5c80f — stats in state/timers.jsonl, --tally, /fhandoff wiring.
+106640b — the timer itself and the /focus + /fhandon starts.
+state/HANDOFF-int.md is still unstaged for /fhandoff. Nothing else from the background search needs action.
+
+ deadline report.
+Clock, honestly
+Measured block: 17.52m wall time, floor 20m, cap 60m. It was started at 23:11 and stopped at 23:28, just under the floor.
+ctx.py: 56 active minutes, 271 turns, 33.1% context when last checked.
+No warning fired, so there was nothing to note mid-run.
+The clock still undercounts the session: it started at 23:11, after the session had already been working, and I stopped it before the final verification. The numbers above are what the data says, not what the hour felt like. /focus and /fhandon now start it at the top, so the next block measures from zero.
+What landed
+Fleur proof 01 — workbench/fleur-proof.html. The grammar’s 26 spans, rails at ±12.5, cone terminal R = 25 at the lance tip, a real branch off the band node with seagrass, 16 integer nodes, two pyramid pairs.
+Volute proof 01 — workbench/volute-proof.html. 33 chords on 79-3120-3121, exact rational nodes, peak 765.8°, rails ±0.26, cone R = 0.52, seagrass branch at node 12.
+Cruciform proof 01 — workbench/cruciform-proof.html. Two G1 junctions (r = 0.6, arc 0.9425, step 1.667), two declared merges, seven section stations, four cone terminals.
+Ending fit pass — workbench/ending-fit.html. All ten C sections attached at 6 × offset; every one clears the rails by ~0.50 and crosses only at the declared tip. Ending grades stand.
+Modulated width proof — workbench/modulated-width-proof.html. Ratio 1.600, exact seams, 0.300 half-width deviation from the 2 × band, rail separation matches the law to 8.9e-16, no self-crossing.
+Proof gate — scripts/check-proofs.mjs, five pages × three viewports, 15/15.
+Verification
+recheck 26/26.
+Full suite 352 tests, OK, 1 skipped.
+Gate exit 0.
+TODO 59/64, with the grade review recorded: no grade changes.
+Clock bug found and fixed
+A stopped timer process kept running and logged a floor under the wrong label into state/timers.jsonl. Fixed: the marker carries an id and pid, the process exits when the marker is not its own, and --stop kills the owner. Tested with a real 3-second floor/stop; the stale floor record was removed.
+Commits: 2e66fa3, d997cc3, db481b1, 4ae07ab, 91c61cf, 12ff59c. state/HANDOFF-int.md is updated but left unstaged for /fhandoff.
+
+I'm here — and you're mostly right, with one correction: your “triangle length × 40” is the drawing extent, not the exact integer grid. The reports were conflating three different numbers.
+Measured on the repo’s own spine package:
+case	sweep	extent	exact denominator	cells at unit spacing	snap to 1/3125
+79-3120-3121, 1× turn, 62 steps	89.9°	55.8 chords	3121^62 = 10^216.6 (217 digits)	10^218.4	2.1e-4
+same arc, 2× turn, 31 steps	89.9°	27.9 chords	10^216.6 (217 digits)	10^218.1	2.2e-4
+3-4-5, 1× turn, 40 steps	1474.8°	3.16 chords	5^40 = 10^28 (28 digits)	10^28.5	1.9e-4
+So:
+1. Your extent estimate is right. A chain of 40–62 triangle steps is tens of chords long, not astronomically large. Grouping two turns per step halves the chord count (31 steps, 27.9 chords) and does not change the arc.
+2. The exact denominator is not ~40. Every triangle turn divides by c, so the denominator depends on the number of turns (90°/α), not on how you group them: 62 turns of 3121 is 3121^62, 217 digits. At unit spacing that is ~10^218 cells across the drawing. That is the genuinely large grid, and it is a representation cost — 217-digit integers are easy arithmetic — not a drawing size.
+3. The placement grid is small. Snap the same chain to the 1/3125 lattice and the worst error is 2.1e-4 of a chord. So for drawing, no huge grid is needed; the exact rational plan and the placement lattice are separate things.
+The distinction the reports should make: “the drawing is ~56 chords; its exact integer denominator is 217 digits; the placement grid is 3125 with 2e-4 error.” Saying “needs a very large grid” is only true of the second, and only at unit spacing.
+One more correction: a chain that turns by the same angle every step is a circle arc, not an LAC. The LAC/clothoid is the expensive case because the turns grow (0,1,2,…), so the denominator is c^(n(n+1)/2) — e.g. 3121^528 for 33 steps — and there the “large” is genuinely earned.
+I put this into docs/SPINE.md §2b with the numbers and committed it (7690a74), so the next report can name which of the three it means.
+Clock: 26 minutes on this segment, because it was restarted mid-session; ctx.py reports 88 active minutes for the session.
+
+The page: workbench/grid-explained.html — live at
+http://127.0.0.1:8003/workbench/grid-explained.html (200).
+Screenshot for you (I did not read it): /tmp/curve-lab-grid-explained.png (1000 × 3611).
+What the four panels show
+1. 
+2. 
+3. 
+4. 
+Your x-spiral point: yes, with one qualification.
+- For an inward spiral/volute, the first vertical and horizontal points bound the box; everything after curls inside. Exactly your rule.
+- For a constant-radius circle, the far side is −R, so the box is the diameter 2R: the 90° point gives the right edge, the 270° point the left.
+- For an outward spiral, later turns can exceed, so the last turning point sets the box.
+Either way, the box grows only at turning points, not along the path. A full circle’s box is ~1/π of its path.
+And the denominator question: you are right. Stringing triangles gives exact position and exact heading at every node — cos = 4/5, sin = 3/5 for 3-4-5, each step an exact rotation, each node an exact sum. The denominator is only how that exact fraction is written: 52/25 means 52 ticks of a 1/25 ruler. It is not an uncertainty and it does not make the drawing large.
+The measured example: 62 turns of 79-3120-3121 (90°) is a 39 × 40 box, a 62-chord path, an exact ruler of 3121⁶² (217 digits), and snaps to 1/3125 within 2.1e-4. The “large grid” was the ruler’s digit count, not the drawing.
+Commits: 58db68b (the page), 60fedaf (the grounding rule from your previous message), 2e8f87d (clock stats). Clock: 52.6 min this segment, 70.1 min across both measured records; 104 active minutes, 51% context.
+
+***
+
+Sitrep — curve-lab
+Clock / budget
+- Clock: stopped, no timer running. Last block: 52.57m; two measured blocks total 70.1m.
+- Context: 51.5% (515k / 1M), 106 active minutes, 398 turns. Verdict ok.
+Where the work stands
+- W03 fleur grammar: report page + declared centre seam; W04 P01–P20 from one function, each set measuring its own seam contacts.
+- Catalogue: 158 triples → 316 arm-pair curves, 632 sign variants, exact rotations.
+- Widths: span traces now fit ribbon rails and caps; integer-cubic offset page labelled fitted.
+- Rules added: three aspects (infinity / linearity / curve); grounded (horizontal datum + vertical); lattice stations vs points.
+- Grid explained page: exact position/heading, denominator as ruler, box vs path (270° → 79×79 box, 186-chord path).
+Verification
+- recheck 32/32.
+- Last full suite 369 tests green, 1 skipped; the 3 new grid-explained tests pass individually, so the next full run should be 372.
+- Proof gate 21/21 over 7 pages; grid-explained.html is not in the gate list yet.
+Open
+1. Design audit — name ground/vertical and the three aspects on every design; the integer cubics, fleur and cruciform still lack an infinity element (spiral tail or ray).
+2. Integer-lattice rule — recommendation recorded (stations for marks, points for exact operations); operator to confirm.
+Housekeeping
+- Tree clean except state/HANDOFF-int.md (updated, intentionally left for /fhandoff).
+- next-fhandoff-int.md is stale: it still says “draw the 3-4-5 spiral” and “recheck 21/21”. Run /fhandoff to replace it before the next session.
+- Last commit: 60fedaf (grounding rule).
+
+0 · Close the books (5–10 min)
+- Run the full suite (expect 372), add grid-explained.html to scripts/check-proofs.mjs, re-run the gate, commit.
+- You run /fhandoff so next-fhandoff-int.md stops pointing at the finished 3-4-5 action.
+Proves: suite green, gate covers 8 pages, handoff block matches HANDOFF-int.md.
+1 · Design audit (20–30 min)
+The rule is written; the pages are not all compliant.
+- Add the ground/vertical line to the pages that still lack it (integer cubic catalogue, ending fit, modulated width).
+- Record the infinity gaps for the integer cubic, fleur and cruciform in one table rather than silently passing them.
+- I will not redesign those three without your call. Two options per object:
+- add a spiral tail (infinity + curve, more ornament), or
+- add a ray to the page edge (cheapest infinity, more diagram).
+- Extend the recheck guard to cover every design page.
+Proves: every design page states ground + vertical + three aspects; a visible gaps table exists for the three without infinity; recheck grows by the audit checks.
+2 · W05 · first storey (30–40 min)
+Build one of the eight — the monstrance — from the existing parts: stem, fleur head/band, rays, cone endings, ground line. Report spans, joins, clearance, and its three aspects + ground.
+Proves: one workbench/storey-monstrance.html, generator + test, recheck claim, hub entry.
+3 · W05 · the other seven (a separate block)
+Pillar, flower, crib, church, ship, crucifix, tree — same template, one contact sheet. Only after you’ve seen the monstrance and said the template reads right.
+Decisions I need from you
+1. Lattice rule: confirm stations-for-marks / points-for-exact-operations, or choose full points.
+2. Infinity for the three designs: spiral tail, ray, or leave as recorded gaps.
+3. W05 after the audit, or W04 polish first?
+Clock discipline
+Each block gets its own timer (20m floor / 60m cap), commit, and stop. I won’t claim an hour unless the clock says so; the last two measured blocks were 17.5m and 52.6m.
+Say which block to start, and whether the design-audit choices above are approved.
+
+Clouds and drapery — added
+- Clouds · 7 — the whole 306-billow veil plus its six layers (bank, billow, crown, haze, light, shade), all from pythagorean_spiral/veil.py.
+- Drapery · 6 — the five catenary ribbons from gallery.drape() plus the composed rail.
+- Combined curves · 6 — catenary, drapery, Corinthian volute, violin scroll, acanthus and fleur-de-lis, all from the pythagorean-spiral gallery.
+- Primal · 4 — earth, water, air, fire as whole Piece grammars.
+- Integer C cubics · 316 — now on the showcase as well, ordered by arch height; the catalogue page still has both S and C tables.
+- W05 storey 01, the monstrance — ground, foot, stem with rails, head, host, 24 p-triple rays, cross; grounded, three aspects named.
+Showcase is now 1010 panels, 345 rows of three, 4.9 MB. 382 tests green, recheck 33/33.
+c = 1000 in one line
+It is the hypotenuse limit for the triples: 158 primitive triples → 316 arm pairs. At c = 500, 160 curves and the interior-angle range changes by less than 1°; at c = 200, 64 curves. Still your call on the total.
+The hour — I did not make it
+The clock says 17.0 min for this block, 118.2 min across five measured blocks. The reason is not the clock:
+- context is at 71.7%, and ctx.py now says WARN — finish this step, start nothing new.
+- An hour of these additions would cross the 85% stop and risk the session. I chose to commit the monstrance and stop rather than burn the last third on thinner work.
+If you want, say so and I’ll spend the next block to ~80% on W05 storeys 2–3; otherwise /fhandoff now and the hour starts clean next session.
+
+***
+the reduction is a sampling problem, not a list problem.
+The key fact
+All 316 S-cubics are one shape family: equal arms and chord 2c mean the shape depends only on the control-polygon interior angle, which runs 46.3°–88.7° across the whole table. The C-cubics are the same: one shape parameter, height/chord = 0.023–0.499. So the 632 rows sample two one-dimensional ranges. Sample the ranges instead of keeping every triple.
+Options, with counts
+reduction
+full, c ≤ 1000
+c ≤ 500
+c ≤ 200
+c ≤ 100
+one arm order per triple (c ≤ 1000)
+one per 4° + one per 0.05 height
+one per 5° + one per 0.05
+one per 2° + one per 0.03
+Lowering c alone does not remove duplicates: c ≤ 200 still has 128 curves and almost the same angle range (48.0–87.0°). The angle/height ladder is what makes it manageable.
+The 4° S ladder (11)
+3-4-5 63.4° · 4-3-5 71.6° · 5-12-13 56.3° · 12-5-13 78.7° · 15-8-17 76.0° · 8-15-17 59.0° · 7-24-25 53.1° · 21-20-29 68.2° · 40-9-41 83.7° · 13-84-85 49.4° · 112-15-113 86.2°.
+The C ladder at 0.05 height/chord gives 10, from 112-15-113 C (0.07) to 5-12-13 C (0.46), including 3-4-5 C at 0.40.
+
+Keep the full 632 on integer-cubic-catalogue.html as the table of record.
+Add a representatives(width_deg, height_step) function and a showcase family of 21 — 11 S + 10 C — one per bin, chosen as the smallest-c triple in that bin.
+ use this: “one per 4.3495° of interior angle / 0.05 of height, so use 3125 as a limit, giving about 4.3495
+
+State the rule on the page:
+smallest hypotenuse in each bin; the full table is linked.”
+That cuts 611 panels and keeps the shape range covered with no bin wider than 4° / 0.05. If you want even smaller, 5° gives 19.
+Say which density and I’ll wire the function and the family.
+
+Focus carried out: W05 storey 02, the pillar — landed and committed.
+- scripts/storey_pillar.py → workbench/storey-pillar.html (page 200 on :8003): plinth, torus, entasised shaft from two mirrored cubics with integer controls, band/echinus/abacus capital, and the axis drawn past the abacus as a ray.
+- Width comes from the profile, not an offset: the shaft swells to 16.39 at y = 27.4 on a 15 → 9 taper. The page states that swell is the entasis, not an error.
+- Ground/vertical named explicitly: baseline at y = 0 / axis at x = 0; the four aspects labelled (Linearity, Curve, Infinity, Grounded).
+- tests/test_storey_pillar.py — 5 tests pass (parts, integer mirrored controls, entasis above the base, aspects/ground, one figure).
+- Full suite 387 tests, 1 skipped; scripts/recheck.py 34/34.
+- Registered in workbench/manifest.json, hub rebuilt at 59 pages, added as the 34th recheck claim; TODO.md and the handoff truth updated.
+- Commit 42f5956 feat: add W05 storey 02, the pillar.
+Screenshot for your eye: /var/folders/ck/y5_gyx710jv6tr1z02xxpp1w0000gn/T/curve-lab-storey-pillar.png (1200×1863). I have not looked at it — the visual call is yours.
+Clock focus 9.47m of a 60m cap; context 6.0%, 37 turns.
+Left uncommitted on purpose for /fhandoff: state/HANDOFF-int.md and state/timers.jsonl. The next storey is the flower if you keep the W05 order.
+
+All 316 S-cubics are one shape family: equal arms and chord 2c mean the shape depends only on the control-polygon interior angle, which runs 46.3°–88.7° across the whole table. The C-cubics are the same: one shape parameter, height/chord = 0.023–0.499. So the 632 rows sample two one-dimensional ranges. Sample the ranges instead of keeping every triple.
+
+
+The 4° S ladder (11)
+3-4-5 63.4° · 4-3-5 71.6° · 5-12-13 56.3° · 12-5-13 78.7° · 15-8-17 76.0° · 8-15-17 59.0° · 7-24-25 53.1° · 21-20-29 68.2° · 40-9-41 83.7° · 13-84-85 49.4° · 112-15-113 86.2°.
+
+Keep the full 632 on integer-cubic-catalogue.html as the table of record.
+Add a representatives(width_deg, height_step) function and a showcase family of 21 — 11 S + 10 C — one per bin, chosen as the smallest-c triple in that bin.
+ use this: “one per 4.3495° of interior angle / 0.05 of height, so use 3125 as a limit, giving about 4.3495
+
+ GitHub is now set up the normal way, and the work is pushed.
+Remote
+GitHub repo renamed Kellytom/clothoid-lab → Kellytom/curve-lab (private).
+Local remote is now ssh://git@ssh.github.com:443/Kellytom/curve-lab.git. HTTPS to github.com is being reset in this environment, so the push goes over SSH on 443; a repo-scoped deploy key (curve-lab agent, write) was added — not a user-wide key.
+Policy — written into AGENTS.md and committed: commit per action, push main at every handoff, run test.py --full and recheck before pushing, check gh run list -L 1, never force-push, never commit the timer marker, a push is not a deploy.
+Pushed — 84483e4..5dfd95a; main is level with origin/main. That includes the six family headings, one curve per figure (19 panels), every note now carrying its panel's SVG inline for Inkscape/Glyphs, and c423 rebuilt as four quintic Hermite spans, G2 at the three interior knots. Showcase 501 figures.
+CI — two native runs are in progress (the policy commit and the showcase commit); the last completed run is green. I'll confirm when they land rather than poll.
+Working tree is clean except state/HANDOFF-int.md, which is intentionally uncommitted until /fhandoff.
+
+***
+
+ both setups are now in the notes with their own figures.
+Is m = 1.2 an elastica a circle? No — that was the bug.
+The free elastica minimises ∫κ²ds: κ″ + ½κ³ = 0, first integral κ′² + κ⁴/4 = C. With maximum curvature m, C = m⁴/4, so κ′ = ±½√(m⁴−κ⁴). Curvature runs from 0 to ±m; the curve inflects wherever κ = 0.
+A circle has constant κ ≠ 0, which does not satisfy that equation (only κ = 0 does). A circle is a solution of the constrained elastica, κ″ + ½κ³ = λκ with λ = κ²/2 — a different member.
+The first version started the integrator at κ = m, where κ′ = 0. It never left, so κ stayed constant and the curve was a circle of radius 1/m. That is exactly what you saw for m = 1.2.
+Started correctly at the inflection (κ = 0), m = 1.2 is a shallow wave, not a circle — that corrected curve is the figure in the new note. Larger m gives deeper waves and loops; the panels now use 2.2, 3.0, 3.8.
+The two notes
+How to set up an elastica correctly — the ODE, the first integral, the start point and turning points, why starting at m is the trap, m as curvature amplitude, and the fact that a G2 elastica fit (solving m, λ, rotation, scale from end data) is not implemented — the page draws the family only.
+How to set up a G2 quintic Hermite span — the six data per span, the basis identities p′(0)=v₀, p″(0)=a₀, the h and h² scaling when spans have different parameter lengths, and the C2-versus-G2 distinction: matching p″ as vectors is stronger than matching curvature, but copying p″ without the h² factor breaks the join.
+***
+
