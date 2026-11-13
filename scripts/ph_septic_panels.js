@@ -98,8 +98,11 @@
   function draw(plot, points, title, subtitle, marks) {
     const width = 720, height = 700, left = 74, right = 40, top = 92, bottom = 64;
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-    const minX = Math.min(...xs, 0), maxX = Math.max(...xs, span);
-    const minY = Math.min(...ys, 0), maxY = Math.max(...ys, span);
+    const rawMinX = Math.min(...xs, 0), rawMaxX = Math.max(...xs);
+    const rawMinY = Math.min(...ys, 0), rawMaxY = Math.max(...ys);
+    const padX = Math.max(1, (rawMaxX - rawMinX) * 0.06), padY = Math.max(1, (rawMaxY - rawMinY) * 0.06);
+    const minX = rawMinX - padX, maxX = rawMaxX + padX;
+    const minY = rawMinY - padY, maxY = rawMaxY + padY;
     const plotWidth = width - left - right, plotHeight = height - top - bottom;
     const scale = Math.min(plotWidth / Math.max(1e-6, maxX - minX), plotHeight / Math.max(1e-6, maxY - minY));
     const offsetX = left + (plotWidth - (maxX - minX) * scale) / 2;
@@ -179,7 +182,7 @@
   drawA();
 
   // ---------- panel B: the PH septic ----------
-  const bDefaults = { bx0: 1, bx1: 0, bx2: 0, bx3: 0.2, by0: 0, by1: 1, by2: 0, by3: 0 };
+  const bDefaults = { bx0: 2, bx1: -3, bx2: 3, bx3: 0.3, by0: 2, by1: -12, by2: 12, by3: 0 };
   const bState = { ...bDefaults };
   const bGrid = document.getElementById("b-controls");
   const bRow = axis => {
