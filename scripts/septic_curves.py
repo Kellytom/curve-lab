@@ -86,6 +86,9 @@ CURVES = [
     # 10.07), inflection 0.376, controls integer at 210; the sibling of the
     # hand-shaped half-heart, not a copy of it.
     ("heart-2", (2, 5, 6, -15), (2, -5, 5, 5)),
+    # fish-1: the operator's name. One crossing at (-307.9, 160.6); a big sweep
+    # (700 by 496, arc 1721) on a small pitch, 21.
+    ("fish-1", (15, -50, 15, -50), (50, -50, 15, -50)),
 ]
 
 
