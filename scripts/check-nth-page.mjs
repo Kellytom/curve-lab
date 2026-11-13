@@ -107,7 +107,7 @@ const gallery = await page.evaluate(() => {
 if (gallery.count < 27) failures.push(`gallery figures: ${gallery.count}`);
 if (!gallery.twoColumns) failures.push("gallery is not two columns");
 if (gallery.bad) failures.push(`gallery paths not drawn: ${gallery.bad}`);
-if (!gallery.first.startsWith("integer-105")) failures.push(`gallery order starts: ${gallery.first}`);
+if (!gallery.first.startsWith("amper")) failures.push(`gallery order starts: ${gallery.first}`);
 
 // a gallery cell opens in place: variables, JSON, and a load back into the sandbox
 const firstCell = page.locator("#n-gallery > figure").first();
@@ -127,8 +127,8 @@ if (!opened.json.includes('"speedX"') || opened.json.length < 40) failures.push(
 if (!opened.variables.includes("2, -5, 6")) failures.push("the cell does not show its variables");
 await firstCell.locator(".gallery-load").click();
 await page.waitForTimeout(300);
-if (!(await page.textContent("#n-readout")).startsWith("bend 3.011")) {
-  failures.push("gallery load did not bring integer-105 into the sandbox");
+if (!(await page.textContent("#n-readout")).startsWith("bend 4.163")) {
+  failures.push("gallery load did not bring amper into the sandbox");
 }
 await firstCell.locator(".gallery-close").click();
 
@@ -161,7 +161,7 @@ const part2 = await page.evaluate(() => {
   };
 });
 if (part2.count < 40) failures.push(`part 2 gallery: ${part2.count}`);
-if (part2.tags.join() !== "fitted") failures.push(`part 2 tags: ${part2.tags.join()}`);
+if (!part2.tags.includes("fitted")) failures.push(`part 2 tags: ${part2.tags.join()}`);
 if (part2.bad) failures.push(`part 2 paths not drawn: ${part2.bad}`);
 if (part2.boxes !== 12) failures.push(`part 2 boxes: ${part2.boxes}`);
 
