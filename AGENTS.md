@@ -144,6 +144,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - **Commit per action** when its `Proves:` line is satisfied and the suite is
   green. A finished action left uncommitted is the one thing a crash or a
   `git checkout` can destroy.
+- **Push after every green block, not only at handoff.** The remote is the
+  backup: a red or stale remote is worse than a local commit. If a push turns
+  the `native` workflow red, fix or revert before starting the next task.
 - **Push `main` at every handoff.** Do not end a session with green local
   commits GitHub has not seen. Before pushing: `scripts/test.py --full` and
   `scripts/recheck.py` must pass; then `git push origin main`; then

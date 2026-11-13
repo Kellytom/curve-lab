@@ -1,8 +1,10 @@
-```text
-Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-You are fixing Fig. T1 so no two labels touch: stagger the 25 vertex labels, move the A-D letters off the rings, and re-render to a PNG under 150 KB and 1000 px to check it by eye.
-Proves: a label audit over the 25 placed boxes prints 0 overlaps, `tph_tri_chain/out/t1.png` is under 150 KB and 1000 px, and the 25 vertex pairs still match `chain.py`.
-```
+# Next action
 
-Source: state/HANDOFF-int.md · 2026-11-11 · b41e205
-Context: 35.4% used, 156 active min, 203 turns, ok.
+Take the 40 sample curves in `workbench/septic-samples.json` (gallery D) and
+promote the interesting ones: add each to `scripts/septic_curves.py` as a named
+curve with its eight-speed recipe, regenerate, and check the JSON against the
+metrics. `lazy-s-2` is the model of what "interesting" means: small integers,
+pitch under a few hundred, inflection inside (0, 1), closest above 0.1.
+
+Then check `gh run list -L 1` - the last push (84ff0b7) was still running at
+handoff.
