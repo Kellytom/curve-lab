@@ -79,6 +79,8 @@ class TestSepticSandbox(unittest.TestCase):
     def test_the_page_exists_and_holds_both_panels(self):
         page = PAGE.read_text()
         for marker in ("a-controls", "a-plot", "b-controls", "b-plot",
+                       "b-open", "b-open-value", "b-lift", "b-lift-sign",
+                       "c-chord-chain", "d-chord-bars",
                        "the general polynomial", "the PH septic"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)

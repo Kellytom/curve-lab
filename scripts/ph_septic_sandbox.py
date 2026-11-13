@@ -66,6 +66,10 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .trio svg{margin:0}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a}
+.dial input[type=number]{width:64px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.dial select{font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+#b-open-slider{flex:1;min-width:120px;max-width:240px}
 .save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
 .save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
 .save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
@@ -108,6 +112,18 @@ same machinery as the quintic, one degree up.</p>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
+  <button type="button" id="b-open" title="solve until |chord| / arc reaches the dial, scale free">close to …</button>
+  <label class="dial" for="b-open-value">openness
+    <input id="b-open-value" type="number" min="0.02" max="1" step="0.01" value="0.25">
+  </label>
+  <input id="b-open-slider" type="range" min="0.02" max="1" step="0.01" value="0.25" aria-label="target openness">
+</div>
+<div class="solver-row">
+  <button type="button" id="b-lift" title="keep the five quintic numbers, add the two septic ones at +/- first/10, and solve that scale for the dial">lift a quintic to a septic</button>
+  <label class="dial" for="b-lift-sign">sign
+    <select id="b-lift-sign"><option value="1">+</option><option value="-1">−</option></select>
+  </label>
+  <span class="small mono" id="b-lift-status"></span>
 </div>
 <div class="save-row">
   <input id="b-name" type="text" placeholder="name this curve">
@@ -126,6 +142,11 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
+<p>Two more controls do what the buttons cannot. <strong>close to …</strong> solves until the chord is
+the dial's fraction of the arc (0.25 by default) instead of zero, which is where usable shapes live.
+<strong>lift a quintic</strong> keeps the five quintic numbers, seeds the two septic ones at
+±first/10 and solves that one scale for the dial; the sign select picks which side to start from.
+<code>close chord</code> is unchanged: it still walks to a new closed shape on each press.</p>
 </section>
 
 <section class="panel">

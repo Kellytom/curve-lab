@@ -73,6 +73,39 @@ if (septicAfter.readout !== septicBefore.readout) {
   failures.push(`retyped septic readout: "${septicBefore.readout}" -> "${septicAfter.readout}"`);
 }
 
+// the dial: solving to an openness must land on it, and the lift must keep the
+// five quintic numbers while adding the two septic ones
+const opennessOf = async () => {
+  const text = await page.textContent("#b-readout");
+  const match = text.match(/open ([0-9.]+)/);
+  return match ? Number(match[1]) : null;
+};
+await page.fill("#b-open-value", "0.30");
+await page.click("#b-open");
+await page.waitForTimeout(200);
+const reached = await opennessOf();
+if (reached === null || Math.abs(reached - 0.30) > 0.01) {
+  failures.push(`close-to 0.30 gave openness ${reached}`);
+}
+const liftInputs = await page.$$("#b-controls input[type=number]");
+const quintic = ["2", "-5", "6", "0", "4", "-22", "22", "0"];
+for (let i = 0; i < liftInputs.length; i++) {
+  await liftInputs[i].click();
+  await page.keyboard.press("Meta+A");
+  await page.keyboard.type(quintic[i], { delay: 10 });
+}
+await page.fill("#b-open-value", "0.25");
+await page.click("#b-lift");
+await page.waitForTimeout(200);
+const lifted = await page.$$eval("#b-controls input[type=number]", els => els.map(input => input.value));
+const liftedOpen = await opennessOf();
+if (liftedOpen === null || Math.abs(liftedOpen - 0.25) > 0.01) {
+  failures.push(`lift gave openness ${liftedOpen}`);
+}
+if (Number(lifted[4]) !== 4 || Number(lifted[5]) !== -22 || Number(lifted[6]) !== 22) {
+  failures.push(`lift moved the quintic numbers: ${lifted.join()}`);
+}
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();
