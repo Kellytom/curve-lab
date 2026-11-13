@@ -1012,6 +1012,13 @@ window.curveSaver = (function () {
       character: { plus: 2, minus: 1, profile: "taper" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
+    { name: "swan-2",
+      speedX: [5, -5, 5, 5, 5, -5],
+      speedY: [5, -50, 50, -5, 5, -5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: -2.988584, dy: 0.261467 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
