@@ -82,6 +82,10 @@ CURVES = [
     # (0.06, 0.59) - a knot, not a loop; the speed path comes within 0.696 of
     # the origin, so the curve is tight (0.38 by 0.73); pitch 280.
     ("double-knot", (2, -6, 3, 0.25), (2, -12, 12, 0.25)),
+    # heart-2: the operator's name. One tall open sweep, no crossing (6.97 by
+    # 10.07), inflection 0.376, controls integer at 210; the sibling of the
+    # hand-shaped half-heart, not a copy of it.
+    ("heart-2", (2, 5, 6, -15), (2, -5, 5, 5)),
 ]
 
 
