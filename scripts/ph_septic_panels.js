@@ -256,7 +256,7 @@
   // compared: B1 chains them head to tail in two shapes, B2 fans them from one
   // origin. Both use one scale, so a term is the same length in either box.
   const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
-                       width: 720, height: 520, pad: 64 };
+                       width: 400, height: 460, pad: 34 };
   const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
@@ -268,21 +268,20 @@
       ...heads.map(point => Math.max(Math.abs(point[0]), Math.abs(point[1]))),
       ...terms.map(term => Math.max(Math.abs(term[0]), Math.abs(term[1]))));
     const width = chordStyle.width, height = chordStyle.height, pad = chordStyle.pad;
-    const scale = Math.min(width - 2 * pad, height - 2 * pad - 44) / 2 / extent * 0.9;
-    const cx = width / 2, cy = height / 2 - 10;
+    const scale = Math.min(width - 2 * pad, height - 2 * pad - 96) / 2 / extent * 0.9;
+    const cx = width / 2, cy = (height - 96) / 2 + 10;
     return { fx: value => cx + value * scale, fy: value => cy - value * scale };
   }
-  function chordHead(art, label, heading, subtitle) {
+  function chordHead(art, label, heading) {
     const { pad, ink } = chordStyle;
     return art +
       `<rect width="${chordStyle.width}" height="${chordStyle.height}" fill="#fbf7ec"/>` +
-      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="${ink}">${label} | ${heading}</text>` +
-      `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">${subtitle}</text>`;
+      `<text x="${pad}" y="26" font-size="18" font-weight="600" fill="${ink}">${label} | ${heading}</text>`;
   }
   function chordLegend(art, rows) {
     const { pad, ink, height } = chordStyle;
     rows.forEach((entries, row) => {
-      const y = height - 34 - (rows.length - 1 - row) * 26;
+      const y = height - 30 - (rows.length - 1 - row) * 24;
       let x = pad;
       entries.forEach(entry => {
         if (entry.kind === "ring") {
@@ -292,8 +291,8 @@
         } else {
           art += `<line x1="${x}" y1="${y - 5}" x2="${x + 26}" y2="${y - 5}" stroke="${entry.colour}" stroke-width="${entry.width || 3}" stroke-linecap="round"/>`;
         }
-        art += `<text x="${x + 34}" y="${y}" font-size="15" fill="${ink}">${entry.text}</text>`;
-        x += 34 + entry.text.length * 7.6 + 20;
+        art += `<text x="${x + 34}" y="${y}" font-size="17" fill="${ink}">${entry.text}</text>`;
+        x += 34 + entry.text.length * 8.6 + 18;
       });
     });
     return art;
@@ -308,12 +307,11 @@
     const quinticEnd = heads[quinticCount];
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
-    let art = chordHead("", "B1", "chained, in two shapes",
-      "head to tail the seven vectors sum to the chord; T0-T4 are the quintic part, T5-T6 the septic-only part");
+    let art = chordHead("", "B1", "chained, in two shapes");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
-        `stroke="${i < quinticCount ? quintic : septic}" stroke-width="${i < quinticCount ? 3 : 3.6}" stroke-linecap="round"/>`;
+        `stroke="${i < quinticCount ? quintic : septic}" stroke-width="${i < quinticCount ? 3.2 : 4}" stroke-linecap="round"/>`;
     }
     art += `<line x1="${fx(0).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(quinticEnd[0]).toFixed(1)}" y2="${fy(quinticEnd[1]).toFixed(1)}" stroke="${quintic}" stroke-width="2" stroke-dasharray="5 5" opacity="0.85"/>` +
       `<line x1="${fx(0).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(end[0]).toFixed(1)}" y2="${fy(end[1]).toFixed(1)}" stroke="${ink}" stroke-width="2" stroke-dasharray="2 6"/>` +
@@ -323,9 +321,9 @@
       `<circle cx="${fx(end[0]).toFixed(1)}" cy="${fy(end[1]).toFixed(1)}" r="4.5" fill="${septic}"/>`;
     art = chordLegend(art, [
       [{ kind: "line", colour: quintic, text: "quintic T0-T4" },
-       { kind: "line", colour: septic, width: 3.6, text: "septic T5-T6" }],
-      [{ kind: "ring", colour: quintic, text: "the quintic's end" },
-       { kind: "dash", colour: quintic, text: "quintic sum" },
+       { kind: "line", colour: septic, width: 4, text: "septic T5-T6" }],
+      [{ kind: "ring", colour: quintic, text: "quintic ends" }],
+      [{ kind: "dash", colour: quintic, text: "quintic sum" },
        { kind: "dash", colour: ink, text: "all seven" }],
     ]);
     plot.innerHTML = art;
@@ -341,8 +339,7 @@
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
     const ox = fx(0), oy = fy(0);
-    let art = chordHead("", "B2", "the same terms as a fan",
-      "every term drawn from the origin, so its own size and direction show; the two dashed arrows are the sums");
+    let art = chordHead("", "B2", "the same terms as a fan");
     terms.forEach((term, i) => {
       const colour = i < quinticCount ? quintic : septic;
       art += `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(term[0]).toFixed(1)}" y2="${fy(term[1]).toFixed(1)}" ` +
@@ -353,8 +350,8 @@
       `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(end[0]).toFixed(1)}" y2="${fy(end[1]).toFixed(1)}" stroke="${ink}" stroke-width="2.6" stroke-dasharray="2 5"/>` +
       `<circle cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="4.5" fill="${ink}"/>`;
     art = chordLegend(art, [
-      [{ kind: "line", colour: quintic, width: 2.4, text: "one term, quintic" },
-       { kind: "line", colour: septic, width: 3.4, text: "one term, septic-only" }],
+      [{ kind: "line", colour: quintic, width: 2.4, text: "quintic term" },
+       { kind: "line", colour: septic, width: 3.4, text: "septic term" }],
       [{ kind: "dash", colour: quintic, text: "quintic sum" },
        { kind: "dash", colour: ink, text: "all seven" }],
     ]);

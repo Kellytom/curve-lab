@@ -60,6 +60,10 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 @media(max-width:900px){.samples{grid-template-columns:1fr}}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
+.trio{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;align-items:start;margin:6px 0 0}
+@media(max-width:1000px){.trio{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.trio{grid-template-columns:1fr}}
+.trio svg{margin:0}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
 .save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
@@ -98,10 +102,10 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
+<div class="trio">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<div class="pair">
-<svg id="b-chord-b1" viewBox="0 0 720 520" role="img" aria-label="chord terms B1, chained in two shapes"></svg>
-<svg id="b-chord-b2" viewBox="0 0 720 520" role="img" aria-label="chord terms B2, the same terms as a fan"></svg>
+<svg id="b-chord-b1" viewBox="0 0 400 460" role="img" aria-label="chord terms B1, chained in two shapes"></svg>
+<svg id="b-chord-b2" viewBox="0 0 400 460" role="img" aria-label="chord terms B2, the same terms as a fan"></svg>
 </div>
 <p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
 <div class="solver-row">
@@ -122,10 +126,10 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p class="small">The two boxes under the curve are the same seven chord terms, drawn two ways: <strong>B1</strong>
-chains them head to tail and marks where the quintic ends, <strong>B2</strong> fans each term from the
-origin so its own size and direction show. Both use one scale, so a vector is the same length in
-either box. The dashed arrows are the sums: quintic-only, and all seven.</p>
+<p class="small">The two boxes beside the curve are the same seven chord terms, drawn two ways: <strong>B1</strong>
+chains them head to tail and rings where the quintic ends, <strong>B2</strong> fans each term from the
+origin so its own size and direction show. All three use the same scale, so a vector is the same
+length in any box. The dashed arrows are the sums: quintic-only, and all seven.</p>
 </section>
 
 <section class="panel">
