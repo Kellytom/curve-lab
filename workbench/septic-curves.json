@@ -1,0 +1,51 @@
+{
+  "title": "named curves from the septic sandbox",
+  "curves": [
+    {
+      "name": "half-heart",
+      "speedX": [
+        1.95,
+        4.85,
+        6.45,
+        -16
+      ],
+      "speedY": [
+        2.0,
+        -4.95,
+        5.05,
+        5.25
+      ],
+      "bend": 2.377,
+      "pitch": 84000,
+      "inflection": 0.368,
+      "closest": 2.793,
+      "degree": [
+        7,
+        7
+      ]
+    },
+    {
+      "name": "flourish-a",
+      "speedX": [
+        1.95,
+        4.4,
+        6.45,
+        -16
+      ],
+      "speedY": [
+        2.0,
+        -8.0,
+        4.95,
+        5.2
+      ],
+      "bend": 1.651,
+      "pitch": 42000,
+      "inflection": 0.466,
+      "closest": 1.955,
+      "degree": [
+        7,
+        7
+      ]
+    }
+  ]
+}

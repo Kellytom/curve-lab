@@ -320,13 +320,85 @@
     const scale = bState.bx0 || 1;   // the solver fixes speedMid.x = 1; scale back
     bState.bx1 = scale * speed.x[1]; bState.bx2 = scale * speed.x[2]; bState.bx3 = scale * speed.x[3];
     bState.by0 = scale * speed.y[0]; bState.by1 = scale * speed.y[1]; bState.by2 = scale * speed.y[2]; bState.by3 = scale * speed.y[3];
-    const inputs = document.querySelectorAll("#b-controls input");
-    [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
-     bState.by0, bState.by1, bState.by2, bState.by3].forEach((value, i) => {
-      if (inputs[i]) inputs[i].value = +value.toFixed(6);
-    });
+    writeSpeed();
     drawB();
   }
+
+  const speedValues = () => [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
+                             bState.by0, bState.by1, bState.by2, bState.by3];
+  function writeSpeed() {
+    const numbers = document.querySelectorAll("#b-controls input[type=number]");
+    const ranges = document.querySelectorAll("#b-controls input[type=range]");
+    speedValues().forEach((value, i) => {
+      if (numbers[i]) numbers[i].value = +value.toFixed(6);
+      if (ranges[i]) ranges[i].value = value;
+    });
+  }
+  function setSpeed(speedX, speedY) {
+    [bState.bx0, bState.bx1, bState.bx2, bState.bx3] = speedX;
+    [bState.by0, bState.by1, bState.by2, bState.by3] = speedY;
+    writeSpeed();
+    drawB();
+  }
+
+  // ---------- named curves ----------
+  const seed = (window.septicCurves || []).map(curve => ({
+    name: curve.name, speedX: curve.speedX, speedY: curve.speedY
+  }));
+  const storageKey = "septic-sandbox-curves";
+  const localSaved = () => {
+    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (error) { return []; }
+  };
+  const storeSaved = items => localStorage.setItem(storageKey, JSON.stringify(items));
+  const allSaved = () => {
+    const byName = {};
+    seed.concat(localSaved()).forEach(item => { byName[item.name] = item; });
+    return Object.values(byName);
+  };
+  function renderSaved() {
+    const row = document.getElementById("b-saved");
+    row.textContent = "";
+    allSaved().forEach(item => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = item.name;
+      button.title = JSON.stringify(item.speedX) + " / " + JSON.stringify(item.speedY);
+      button.addEventListener("click", () => setSpeed(item.speedX, item.speedY));
+      row.append(button);
+    });
+  }
+  document.getElementById("b-save").addEventListener("click", () => {
+    const nameInput = document.getElementById("b-name");
+    const name = (nameInput.value || "").trim() || `curve ${localSaved().length + 1}`;
+    const metrics = window.recipeMetrics(
+      [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
+      [bState.by0, bState.by1, bState.by2, bState.by3]);
+    const items = localSaved().filter(item => item.name !== name);
+    items.push({
+      name: name,
+      speedX: [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
+      speedY: [bState.by0, bState.by1, bState.by2, bState.by3],
+      bend: +metrics.bend.toFixed(3),
+      pitch: metrics.pitch,
+      inflection: metrics.inflection === null ? null : +metrics.inflection.toFixed(3),
+      closest: +metrics.closest.toFixed(3)
+    });
+    storeSaved(items);
+    nameInput.value = "";
+    renderSaved();
+  });
+  document.getElementById("b-download").addEventListener("click", () => {
+    const payload = { title: "septic sandbox curves", curves: allSaved() };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "septic-curves.json";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  });
+  renderSaved();
 
   document.getElementById("b-right").addEventListener("click", () => solve("right"));
   document.getElementById("b-close").addEventListener("click", () => solve("close"));

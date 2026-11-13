@@ -26,6 +26,10 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
+.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.saved-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 </style></head><body>
@@ -61,6 +65,12 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
 </div>
+<div class="save-row">
+  <input id="b-name" type="text" placeholder="name this curve">
+  <button type="button" id="b-save">save this curve</button>
+  <button type="button" id="b-download">download JSON</button>
+</div>
+<div class="saved-row" id="b-saved"></div>
 <div class="pair">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
 <svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
@@ -86,6 +96,7 @@ trade is exactness for control.</p>
 JavaScript both checked into scripts.</p>
 </section>
 </main>
+<script>window.septicCurves = [{"name":"half-heart","speedX":[1.95,4.85,6.45,-16],"speedY":[2.0,-4.95,5.05,5.25],"bend":2.377,"pitch":84000,"inflection":0.368,"closest":2.793,"degree":[7,7]},{"name":"flourish-a","speedX":[1.95,4.4,6.45,-16],"speedY":[2.0,-8.0,4.95,5.2],"bend":1.651,"pitch":42000,"inflection":0.466,"closest":1.955,"degree":[7,7]}];</script>
 <script>
 // The shared maths for the curve pages: closed form, metrics, exact bend,
 // the polynomial evaluators and the saved-curve store. Loaded first.
@@ -568,13 +579,85 @@ window.curveSaver = (function () {
     const scale = bState.bx0 || 1;   // the solver fixes speedMid.x = 1; scale back
     bState.bx1 = scale * speed.x[1]; bState.bx2 = scale * speed.x[2]; bState.bx3 = scale * speed.x[3];
     bState.by0 = scale * speed.y[0]; bState.by1 = scale * speed.y[1]; bState.by2 = scale * speed.y[2]; bState.by3 = scale * speed.y[3];
-    const inputs = document.querySelectorAll("#b-controls input");
-    [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
-     bState.by0, bState.by1, bState.by2, bState.by3].forEach((value, i) => {
-      if (inputs[i]) inputs[i].value = +value.toFixed(6);
-    });
+    writeSpeed();
     drawB();
   }
+
+  const speedValues = () => [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
+                             bState.by0, bState.by1, bState.by2, bState.by3];
+  function writeSpeed() {
+    const numbers = document.querySelectorAll("#b-controls input[type=number]");
+    const ranges = document.querySelectorAll("#b-controls input[type=range]");
+    speedValues().forEach((value, i) => {
+      if (numbers[i]) numbers[i].value = +value.toFixed(6);
+      if (ranges[i]) ranges[i].value = value;
+    });
+  }
+  function setSpeed(speedX, speedY) {
+    [bState.bx0, bState.bx1, bState.bx2, bState.bx3] = speedX;
+    [bState.by0, bState.by1, bState.by2, bState.by3] = speedY;
+    writeSpeed();
+    drawB();
+  }
+
+  // ---------- named curves ----------
+  const seed = (window.septicCurves || []).map(curve => ({
+    name: curve.name, speedX: curve.speedX, speedY: curve.speedY
+  }));
+  const storageKey = "septic-sandbox-curves";
+  const localSaved = () => {
+    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (error) { return []; }
+  };
+  const storeSaved = items => localStorage.setItem(storageKey, JSON.stringify(items));
+  const allSaved = () => {
+    const byName = {};
+    seed.concat(localSaved()).forEach(item => { byName[item.name] = item; });
+    return Object.values(byName);
+  };
+  function renderSaved() {
+    const row = document.getElementById("b-saved");
+    row.textContent = "";
+    allSaved().forEach(item => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = item.name;
+      button.title = JSON.stringify(item.speedX) + " / " + JSON.stringify(item.speedY);
+      button.addEventListener("click", () => setSpeed(item.speedX, item.speedY));
+      row.append(button);
+    });
+  }
+  document.getElementById("b-save").addEventListener("click", () => {
+    const nameInput = document.getElementById("b-name");
+    const name = (nameInput.value || "").trim() || `curve ${localSaved().length + 1}`;
+    const metrics = window.recipeMetrics(
+      [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
+      [bState.by0, bState.by1, bState.by2, bState.by3]);
+    const items = localSaved().filter(item => item.name !== name);
+    items.push({
+      name: name,
+      speedX: [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
+      speedY: [bState.by0, bState.by1, bState.by2, bState.by3],
+      bend: +metrics.bend.toFixed(3),
+      pitch: metrics.pitch,
+      inflection: metrics.inflection === null ? null : +metrics.inflection.toFixed(3),
+      closest: +metrics.closest.toFixed(3)
+    });
+    storeSaved(items);
+    nameInput.value = "";
+    renderSaved();
+  });
+  document.getElementById("b-download").addEventListener("click", () => {
+    const payload = { title: "septic sandbox curves", curves: allSaved() };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "septic-curves.json";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  });
+  renderSaved();
 
   document.getElementById("b-right").addEventListener("click", () => solve("right"));
   document.getElementById("b-close").addEventListener("click", () => solve("close"));

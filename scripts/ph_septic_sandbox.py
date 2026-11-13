@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "ph-septic-sandbox.html"
 PANELS = ROOT / "scripts" / "ph_septic_panels.js"
 MATH = ROOT / "scripts" / "ph_math.js"
+CURVES = ROOT / "workbench" / "septic-curves.json"
 
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -47,6 +48,10 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
+.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.saved-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 </style></head><body><main>
@@ -81,6 +86,12 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
 </div>
+<div class="save-row">
+  <input id="b-name" type="text" placeholder="name this curve">
+  <button type="button" id="b-save">save this curve</button>
+  <button type="button" id="b-download">download JSON</button>
+</div>
+<div class="saved-row" id="b-saved"></div>
 <div class="pair">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
 <svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
@@ -106,6 +117,7 @@ trade is exactness for control.</p>
 JavaScript both checked into scripts.</p>
 </section>
 </main>
+__CURVES__
 <script>
 __PANELS__
 </script>
@@ -114,7 +126,11 @@ __PANELS__
 
 
 def build():
-    OUT.write_text(PAGE.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))
+    import json
+    curves = json.loads(CURVES.read_text())["curves"]
+    page = PAGE.replace("__CURVES__", "<script>window.septicCurves = "
+                        + json.dumps(curves, separators=(",", ":")) + ";</script>")
+    OUT.write_text(page.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))
     print(OUT.relative_to(ROOT))
 
 

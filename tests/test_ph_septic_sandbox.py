@@ -12,6 +12,28 @@ JS = ROOT / "scripts" / "ph_septic_panels.js"
 
 
 class TestSepticSandbox(unittest.TestCase):
+    def test_the_named_curves_match_their_stated_metrics(self):
+        import json
+        document = json.loads((ROOT / "workbench" / "septic-curves.json").read_text())
+        by_name = {curve["name"]: curve for curve in document["curves"]}
+        half = by_name["half-heart"]
+        self.assertAlmostEqual(half["bend"], 2.377, places=3)
+        self.assertEqual(half["pitch"], 84000)
+        self.assertAlmostEqual(half["inflection"], 0.368, places=3)
+        self.assertAlmostEqual(half["closest"], 2.793, places=3)
+        flourish = by_name["flourish-a"]
+        self.assertAlmostEqual(flourish["bend"], 1.651, places=3)
+        self.assertEqual(flourish["pitch"], 42000)
+        self.assertAlmostEqual(flourish["inflection"], 0.466, places=3)
+        self.assertAlmostEqual(flourish["closest"], 1.955, places=3)
+
+    def test_the_septic_curve_json_is_current(self):
+        import json
+        import septic_curves
+        expected = json.loads(json.dumps(septic_curves.build()))
+        self.assertEqual(json.loads((ROOT / "workbench" / "septic-curves.json").read_text()),
+                         expected)
+
     def test_the_sandbox_default_matches_the_python_metrics(self):
         import ph_quintic_metrics as M
         m = M.metrics((2, -3, 3, 0.3), (2, -12, 12, 0))
