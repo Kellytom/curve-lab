@@ -226,7 +226,9 @@
     const grade = flags.join(" | ");
     document.getElementById("b-grade").textContent = grade;
     document.getElementById("b-formula").textContent =
-      `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}`;
+      `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
+      `speed, the eight boxes: x ${speedX.map(v => +v.toFixed(3)).join(", ")} | ` +
+      `y ${speedY.map(v => +v.toFixed(3)).join(", ")}`;
     drawChordTerms(speedX, speedY);
   }
 

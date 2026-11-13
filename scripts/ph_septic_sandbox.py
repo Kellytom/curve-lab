@@ -47,6 +47,9 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
+#b-controls .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font-variant-numeric:tabular-nums}
+#b-controls .cell-inputs input[type=range]{min-width:36px}
+#b-controls .cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px}
 .control-row{display:flex;align-items:center;gap:8px;margin:4px 0;font:12px ui-monospace,Menlo,monospace}
 .control-row span{min-width:120px;color:#8a3b2a}
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
