@@ -650,6 +650,13 @@
       character: { plus: 2, minus: 1, profile: "taper" },
       shear: 0,
       hook: { magnitude: 3, angle: -12 } },
+    { name: "swan",
+      speedX: [5, -5, 5, 5, 5, -5],
+      speedY: [5, -50, 50, -5, 5, -5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { magnitude: 3, angle: -12 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
