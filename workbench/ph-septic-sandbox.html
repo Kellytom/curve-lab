@@ -18,8 +18,12 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
 .spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-cell{display:flex;flex-direction:column;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
-.spine-cell input{width:74px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.spine-cell{display:flex;flex-direction:column;gap:2px;width:132px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.cell-inputs{display:flex;gap:4px;align-items:center}
+.cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.cell-inputs input[type=range]{flex:1;min-width:56px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
@@ -43,7 +47,7 @@ Positive low orders lift, negative high orders brake, and the mix is what makes 
 rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are the derivatives at
 <code>t = 0</code>.</p>
 <div id="a-controls"></div>
-<svg id="a-plot" viewBox="0 0 720 700" role="img" aria-label="the general degree-7 polynomial"></svg>
+<svg id="a-plot" viewBox="0 0 720 520" role="img" aria-label="the general degree-7 polynomial"></svg>
 <p class="small mono" id="a-readout"></p>
 </section>
 
@@ -57,9 +61,12 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
 </div>
-<svg id="b-plot" viewBox="0 0 720 700" role="img" aria-label="the PH septic"></svg>
+<div class="pair">
+<svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
+<svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
+</div>
 <p class="small mono" id="b-readout"></p>
-<svg id="b-vectors" viewBox="0 0 720 420" role="img" aria-label="the chord terms of the septic"></svg>
+<p class="small mono" id="b-formula" style="white-space:pre-line"></p>
 <p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
 vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
 polygon into a triangle or a rectangle and the curve follows.</p>
@@ -177,7 +184,7 @@ JavaScript both checked into scripts.</p>
 
   // ---------- the drawing ----------
   function draw(plot, points, title, subtitle, marks) {
-    const width = 720, height = 700, left = 74, right = 40, top = 92, bottom = 64;
+    const width = 720, height = 520, left = 74, right = 40, top = 92, bottom = 64;
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
     const rawMinX = Math.min(...xs, 0), rawMaxX = Math.max(...xs);
     const rawMinY = Math.min(...ys, 0), rawMaxY = Math.max(...ys);
@@ -228,9 +235,21 @@ JavaScript both checked into scripts.</p>
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const input = document.createElement("input");
-      input.type = "number"; input.step = "0.1"; input.value = aState[`a${axis}${k}`];
-      input.addEventListener("input", () => { aState[`a${axis}${k}`] = +input.value; drawA(); });
-      cell.append(name, input);
+      input.type = "number"; input.step = "0.05"; input.min = "-5"; input.max = "5";
+      input.value = aState[`a${axis}${k}`];
+      const slider = document.createElement("input");
+      slider.type = "range"; slider.min = "-5"; slider.max = "5"; slider.step = "0.05";
+      slider.value = aState[`a${axis}${k}`];
+      input.addEventListener("input", () => {
+        slider.value = input.value; aState[`a${axis}${k}`] = +input.value; drawA();
+      });
+      slider.addEventListener("input", () => {
+        input.value = slider.value; aState[`a${axis}${k}`] = +slider.value; drawA();
+      });
+      const pair = document.createElement("div");
+      pair.className = "cell-inputs";
+      pair.append(input, slider);
+      cell.append(name, pair);
       row.append(cell);
     }
     return row;
@@ -278,9 +297,21 @@ JavaScript both checked into scripts.</p>
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const input = document.createElement("input");
-      input.type = "number"; input.step = "0.05"; input.value = bState[`b${axis}${k}`];
-      input.addEventListener("input", () => { bState[`b${axis}${k}`] = +input.value; drawB(); });
-      cell.append(name, input);
+      input.type = "number"; input.step = "0.05"; input.min = "-16"; input.max = "16";
+      input.value = bState[`b${axis}${k}`];
+      const slider = document.createElement("input");
+      slider.type = "range"; slider.min = "-16"; slider.max = "16"; slider.step = "0.05";
+      slider.value = bState[`b${axis}${k}`];
+      input.addEventListener("input", () => {
+        slider.value = input.value; bState[`b${axis}${k}`] = +input.value; drawB();
+      });
+      slider.addEventListener("input", () => {
+        input.value = slider.value; bState[`b${axis}${k}`] = +slider.value; drawB();
+      });
+      const pair = document.createElement("div");
+      pair.className = "cell-inputs";
+      pair.append(input, slider);
+      cell.append(name, pair);
       row.append(cell);
     }
     return row;
@@ -308,6 +339,9 @@ JavaScript both checked into scripts.</p>
     document.getElementById("b-readout").textContent =
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | closest ${m.closest.toFixed(3)}`;
+    const curve = curveOf(speedX, speedY);
+    document.getElementById("b-formula").textContent =
+      `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}`;
     drawChordTerms(speedX, speedY);
   }
 
@@ -334,7 +368,7 @@ JavaScript both checked into scripts.</p>
     let x = 0, y = 0;
     terms.forEach(term => { x += term[0]; y += term[1]; heads.push([x, y]); });
     const extent = Math.max(1e-9, ...heads.map(point => Math.max(Math.abs(point[0]), Math.abs(point[1]))));
-    const width = 720, height = 420, pad = 60;
+    const width = 720, height = 520, pad = 60;
     const scale = Math.min(width - 2 * pad, height - 2 * pad) / 2 / extent * 0.92;
     const cx = width / 2, cy = height / 2;
     const fx = value => cx + value * scale;
@@ -359,6 +393,30 @@ JavaScript both checked into scripts.</p>
     }
     plot.innerHTML = art;
   }
+  // r(t) = integral of w^2, coefficient by coefficient.
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  function curveOf(speedX, speedY) {
+    const xx = multiply(speedX, speedX), yy = multiply(speedY, speedY), xy = multiply(speedX, speedY);
+    const x = [0], y = [0];
+    for (let j = 0; j < xx.length; j++) {
+      x.push((xx[j] - (yy[j] || 0)) / (j + 1));
+      y.push(2 * xy[j] / (j + 1));
+    }
+    return { x, y };
+  }
+  const polynomialText = terms => {
+    const parts = [];
+    terms.forEach((coefficient, k) => {
+      if (k === 0 || Math.abs(coefficient) < 5e-4) return;
+      parts.push(`${coefficient < 0 ? " - " : " + "}${Math.abs(coefficient).toFixed(3)} t^${k}`);
+    });
+    return parts.join("").replace(/^ \+ /, "") || "0";
+  };
+
   // The classic shapes: make consecutive terms perpendicular, or close the chord.
   const dot2 = (u, v) => u[0] * v[0] + u[1] * v[1];
   const parametersOf = () => [bState.bx1, bState.bx2, bState.bx3,

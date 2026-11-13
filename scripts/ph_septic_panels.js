@@ -96,7 +96,7 @@
 
   // ---------- the drawing ----------
   function draw(plot, points, title, subtitle, marks) {
-    const width = 720, height = 700, left = 74, right = 40, top = 92, bottom = 64;
+    const width = 720, height = 520, left = 74, right = 40, top = 92, bottom = 64;
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
     const rawMinX = Math.min(...xs, 0), rawMaxX = Math.max(...xs);
     const rawMinY = Math.min(...ys, 0), rawMaxY = Math.max(...ys);
@@ -147,9 +147,21 @@
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const input = document.createElement("input");
-      input.type = "number"; input.step = "0.1"; input.value = aState[`a${axis}${k}`];
-      input.addEventListener("input", () => { aState[`a${axis}${k}`] = +input.value; drawA(); });
-      cell.append(name, input);
+      input.type = "number"; input.step = "0.05"; input.min = "-5"; input.max = "5";
+      input.value = aState[`a${axis}${k}`];
+      const slider = document.createElement("input");
+      slider.type = "range"; slider.min = "-5"; slider.max = "5"; slider.step = "0.05";
+      slider.value = aState[`a${axis}${k}`];
+      input.addEventListener("input", () => {
+        slider.value = input.value; aState[`a${axis}${k}`] = +input.value; drawA();
+      });
+      slider.addEventListener("input", () => {
+        input.value = slider.value; aState[`a${axis}${k}`] = +slider.value; drawA();
+      });
+      const pair = document.createElement("div");
+      pair.className = "cell-inputs";
+      pair.append(input, slider);
+      cell.append(name, pair);
       row.append(cell);
     }
     return row;
@@ -197,9 +209,21 @@
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const input = document.createElement("input");
-      input.type = "number"; input.step = "0.05"; input.value = bState[`b${axis}${k}`];
-      input.addEventListener("input", () => { bState[`b${axis}${k}`] = +input.value; drawB(); });
-      cell.append(name, input);
+      input.type = "number"; input.step = "0.05"; input.min = "-16"; input.max = "16";
+      input.value = bState[`b${axis}${k}`];
+      const slider = document.createElement("input");
+      slider.type = "range"; slider.min = "-16"; slider.max = "16"; slider.step = "0.05";
+      slider.value = bState[`b${axis}${k}`];
+      input.addEventListener("input", () => {
+        slider.value = input.value; bState[`b${axis}${k}`] = +input.value; drawB();
+      });
+      slider.addEventListener("input", () => {
+        input.value = slider.value; bState[`b${axis}${k}`] = +slider.value; drawB();
+      });
+      const pair = document.createElement("div");
+      pair.className = "cell-inputs";
+      pair.append(input, slider);
+      cell.append(name, pair);
       row.append(cell);
     }
     return row;
@@ -227,6 +251,9 @@
     document.getElementById("b-readout").textContent =
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | closest ${m.closest.toFixed(3)}`;
+    const curve = curveOf(speedX, speedY);
+    document.getElementById("b-formula").textContent =
+      `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}`;
     drawChordTerms(speedX, speedY);
   }
 
@@ -253,7 +280,7 @@
     let x = 0, y = 0;
     terms.forEach(term => { x += term[0]; y += term[1]; heads.push([x, y]); });
     const extent = Math.max(1e-9, ...heads.map(point => Math.max(Math.abs(point[0]), Math.abs(point[1]))));
-    const width = 720, height = 420, pad = 60;
+    const width = 720, height = 520, pad = 60;
     const scale = Math.min(width - 2 * pad, height - 2 * pad) / 2 / extent * 0.92;
     const cx = width / 2, cy = height / 2;
     const fx = value => cx + value * scale;
@@ -278,6 +305,30 @@
     }
     plot.innerHTML = art;
   }
+  // r(t) = integral of w^2, coefficient by coefficient.
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  function curveOf(speedX, speedY) {
+    const xx = multiply(speedX, speedX), yy = multiply(speedY, speedY), xy = multiply(speedX, speedY);
+    const x = [0], y = [0];
+    for (let j = 0; j < xx.length; j++) {
+      x.push((xx[j] - (yy[j] || 0)) / (j + 1));
+      y.push(2 * xy[j] / (j + 1));
+    }
+    return { x, y };
+  }
+  const polynomialText = terms => {
+    const parts = [];
+    terms.forEach((coefficient, k) => {
+      if (k === 0 || Math.abs(coefficient) < 5e-4) return;
+      parts.push(`${coefficient < 0 ? " - " : " + "}${Math.abs(coefficient).toFixed(3)} t^${k}`);
+    });
+    return parts.join("").replace(/^ \+ /, "") || "0";
+  };
+
   // The classic shapes: make consecutive terms perpendicular, or close the chord.
   const dot2 = (u, v) => u[0] * v[0] + u[1] * v[1];
   const parametersOf = () => [bState.bx1, bState.bx2, bState.bx3,

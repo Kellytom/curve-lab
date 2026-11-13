@@ -38,8 +38,12 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
 .spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-cell{display:flex;flex-direction:column;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
-.spine-cell input{width:74px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.spine-cell{display:flex;flex-direction:column;gap:2px;width:132px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.cell-inputs{display:flex;gap:4px;align-items:center}
+.cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.cell-inputs input[type=range]{flex:1;min-width:56px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
@@ -62,7 +66,7 @@ Positive low orders lift, negative high orders brake, and the mix is what makes 
 rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are the derivatives at
 <code>t = 0</code>.</p>
 <div id="a-controls"></div>
-<svg id="a-plot" viewBox="0 0 720 700" role="img" aria-label="the general degree-7 polynomial"></svg>
+<svg id="a-plot" viewBox="0 0 720 520" role="img" aria-label="the general degree-7 polynomial"></svg>
 <p class="small mono" id="a-readout"></p>
 </section>
 
@@ -76,9 +80,12 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
 </div>
-<svg id="b-plot" viewBox="0 0 720 700" role="img" aria-label="the PH septic"></svg>
+<div class="pair">
+<svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
+<svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
+</div>
 <p class="small mono" id="b-readout"></p>
-<svg id="b-vectors" viewBox="0 0 720 420" role="img" aria-label="the chord terms of the septic"></svg>
+<p class="small mono" id="b-formula" style="white-space:pre-line"></p>
 <p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
 vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
 polygon into a triangle or a rectangle and the curve follows.</p>

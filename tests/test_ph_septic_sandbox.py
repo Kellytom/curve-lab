@@ -11,6 +11,14 @@ JS = ROOT / "scripts" / "ph_septic_panels.js"
 
 
 class TestSepticSandbox(unittest.TestCase):
+    def test_the_sandbox_default_matches_the_python_metrics(self):
+        import ph_quintic_metrics as M
+        m = M.metrics((2, -3, 3, 0.3), (2, -12, 12, 0))
+        self.assertAlmostEqual(m["bend"], 1.850, places=3)
+        self.assertEqual(m["pitch"], 700)
+        self.assertAlmostEqual(m["inflection"], 0.494, places=3)
+        self.assertAlmostEqual(m["closest"], 1.461, places=3)
+
     def test_the_page_exists_and_holds_both_panels(self):
         page = PAGE.read_text()
         for marker in ("a-controls", "a-plot", "b-controls", "b-plot",

@@ -41,6 +41,14 @@ for (const [id, prefix] of Object.entries(expected)) {
 const saveButtons = await page.locator(".save-curve").count();
 if (saveButtons !== 6) failures.push(`save buttons: ${saveButtons}, expected 6`);
 
+// the septic sandbox: its numbers must match the Python metrics module
+const sandboxUrl = url.replace("ph-quintic-gallery.html", "ph-septic-sandbox.html");
+await page.goto(`${sandboxUrl}?v=${Date.now()}`, { waitUntil: "load" });
+const septic = await page.evaluate(() => document.getElementById("b-readout").textContent);
+if (!septic.startsWith("bend 1.850 | pitch 700 | inflection 0.494 | closest 1.461")) {
+  failures.push(`septic readout: "${septic}"`);
+}
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();
