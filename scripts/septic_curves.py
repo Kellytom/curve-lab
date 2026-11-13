@@ -68,6 +68,9 @@ CURVES = [
     # G-clef: the quintic lift at openness 0.35. One crossing at (-0.55, 0.91),
     # bend 2.855, controls integer at 105, x of degree 6.
     ("G-clef", (2, -5, 6, 1), (4, -22, 22, -1)),
+    # drop: the operator's name. Nearly closed (open 0.070), so bend 14.24, the
+    # second highest in the set; no crossing; controls integer at 420.
+    ("drop", (2, -5, 8, 0.5), (2, -25, 28, 0)),
 ]
 
 
