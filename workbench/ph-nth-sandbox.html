@@ -935,8 +935,9 @@ window.curveSaver = (function () {
     const status = document.getElementById("n-paste-status");
     const cap = 6000;   // keeps the numbers four digits or less
     let best = null;
+    const base = hookedSpeed();          // the hook is part of the t^5 coefficient
     for (let k = 1; k <= 500; k++) {
-      const tx = state.x.map(v => v * k), ty = state.y.map(v => v * k);
+      const tx = base.x.map(v => v * k), ty = base.y.map(v => v * k);
       if (Math.max(...tx.map(Math.abs), ...ty.map(Math.abs)) > cap) break;
       const m = metrics(tx, ty);
       const key = [m.pitch, Math.max(...tx.map(Math.abs), ...ty.map(Math.abs))];
@@ -945,7 +946,7 @@ window.curveSaver = (function () {
       }
     }
     if (!best) { if (status) status.textContent = "no scale fits under the cap"; return; }
-    const before = metrics(state.x, state.y).pitch;
+    const before = metrics(base.x, base.y).pitch;
     if (best.k > 1) {
       state.x = state.x.map(v => v * best.k);
       state.y = state.y.map(v => v * best.k);
