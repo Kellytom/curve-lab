@@ -112,6 +112,7 @@
   // ---------- panel B: the PH septic ----------
   const bDefaults = { bx0: 2, bx1: -3, bx2: 3, bx3: 0.3, by0: 2, by1: -12, by2: 12, by3: 0 };
   const bState = { ...bDefaults };
+  let bCurrentName = "curve";   // the name the JSON box prints
   const bGrid = document.getElementById("b-controls");
   const bCells = [];
   const decode = value => {
@@ -157,6 +158,7 @@
       bCells.push(elements);
       const stateKey = `b${axis}${k}`;
       const setValue = (value, sync) => {
+        bCurrentName = "curve";                  // a hand edit is not a named curve
         bState[stateKey] = value;
         syncBCell(elements, value, sync);
         drawB();
@@ -233,6 +235,19 @@
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
       `speed, the eight boxes: x ${speedX.map(v => +v.toFixed(3)).join(", ")} | ` +
       `y ${speedY.map(v => +v.toFixed(3)).join(", ")}`;
+    const jsonBox = document.getElementById("b-json");
+    if (jsonBox) {
+      jsonBox.value = JSON.stringify({
+        name: bCurrentName,
+        speedX: speedX.map(v => +v),
+        speedY: speedY.map(v => +v),
+        bend: +m.bend.toFixed(3),
+        pitch: m.pitch,
+        inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+        closest: +m.closest.toFixed(3),
+        degree: [degreeX, degreeY],
+      }, null, 2);
+    }
     drawChordTerms(speedX, speedY);
   }
 
@@ -329,31 +344,38 @@
     plot.innerHTML = art;
   }
 
-  function drawChordFan(terms) {
+  function drawChordBars(terms) {
     const plot = document.getElementById("b-chord-b2");
     if (!plot) return;
-    const { quintic, septic, ink } = chordStyle;
-    const quinticCount = 5;
-    const heads = cumulative(terms);
-    const quinticEnd = heads[quinticCount];
-    const end = heads[heads.length - 1];
-    const { fx, fy } = chordFrame(terms, heads);
-    const ox = fx(0), oy = fy(0);
-    let art = chordHead("", "B2", "the same terms as a fan");
-    terms.forEach((term, i) => {
-      const colour = i < quinticCount ? quintic : septic;
-      art += `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(term[0]).toFixed(1)}" y2="${fy(term[1]).toFixed(1)}" ` +
-        `stroke="${colour}" stroke-width="${i < quinticCount ? 2.4 : 3.4}" stroke-linecap="round" opacity="0.9"/>` +
-        `<circle cx="${fx(term[0]).toFixed(1)}" cy="${fy(term[1]).toFixed(1)}" r="${i < quinticCount ? 3 : 4}" fill="${colour}"/>`;
-    });
-    art += `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(quinticEnd[0]).toFixed(1)}" y2="${fy(quinticEnd[1]).toFixed(1)}" stroke="${quintic}" stroke-width="2.6" stroke-dasharray="6 4"/>` +
-      `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(end[0]).toFixed(1)}" y2="${fy(end[1]).toFixed(1)}" stroke="${ink}" stroke-width="2.6" stroke-dasharray="2 5"/>` +
-      `<circle cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="4.5" fill="${ink}"/>`;
+    const { ink, width, height, pad } = chordStyle;
+    // A signed coefficient belongs on a common baseline: bars from zero read
+    // better than angle and radius, and a sign flip mirrors the bar.
+    const rows = terms.length;
+    const left = 76, right = width - pad;
+    const top = 60, bottom = height - 96;
+    const rowHeight = (bottom - top) / rows;
+    const biggest = Math.max(1e-9, ...terms.flatMap(term => [Math.abs(term[0]), Math.abs(term[1])]));
+    const zero = (left + right) / 2;
+    const xOf = value => zero + value / biggest * (right - left) / 2;
+    const xColour = ink, yColour = "#8a6a3a";
+    let art = chordHead("", "B2", "the same terms as signed bars");
+    // the septic-only rows sit on a tinted band
+    art += `<rect x="${pad}" y="${(top + rowHeight * 5).toFixed(1)}" width="${width - 2 * pad}" height="${(rowHeight * 2).toFixed(1)}" fill="#f2ead6"/>`;
+    art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="${ink}" stroke-width="1.5"/>`;
+    for (let m = 0; m < rows; m++) {
+      const centre = top + rowHeight * m + rowHeight / 2;
+      art += `<text x="${pad}" y="${(centre + 5).toFixed(1)}" font-size="14" fill="${ink}">t^${m + 1}</text>`;
+      [[terms[m][0], xColour, centre - 7], [terms[m][1], yColour, centre + 7]].forEach(([value, colour, y]) => {
+        const start = Math.min(zero, xOf(value));
+        const length = Math.abs(xOf(value) - zero);
+        art += `<rect x="${start.toFixed(1)}" y="${(y - 5).toFixed(1)}" width="${Math.max(length, 0.6).toFixed(1)}" height="10" fill="${colour}"/>`;
+      });
+    }
+    art += `<text x="${zero + 4}" y="${top - 12}" font-size="13" fill="${ink}">0</text>`;
     art = chordLegend(art, [
-      [{ kind: "line", colour: quintic, width: 2.4, text: "quintic term" },
-       { kind: "line", colour: septic, width: 3.4, text: "septic term" }],
-      [{ kind: "dash", colour: quintic, text: "quintic sum" },
-       { kind: "dash", colour: ink, text: "all seven" }],
+      [{ kind: "line", colour: xColour, text: "x component" },
+       { kind: "line", colour: yColour, text: "y component" }],
+      [{ kind: "band", colour: "#f2ead6", text: "t^6-t^7: septic-only" }],
     ]);
     plot.innerHTML = art;
   }
@@ -361,7 +383,7 @@
   function drawChordTerms(speedX, speedY) {
     const terms = chordTerms(speedX, speedY);
     drawChordChain(terms);
-    drawChordFan(terms);
+    drawChordBars(terms);
     const values = document.getElementById("b-terms-values");
     if (values) {
       const pair = term => `(${term[0].toFixed(3)}, ${term[1].toFixed(3)})`;
@@ -466,7 +488,8 @@
       if (bCells[i]) syncBCell(bCells[i], value);
     });
   }
-  function setSpeed(speedX, speedY) {
+  function setSpeed(speedX, speedY, name) {
+    bCurrentName = name || "curve";
     [bState.bx0, bState.bx1, bState.bx2, bState.bx3] = speedX;
     [bState.by0, bState.by1, bState.by2, bState.by3] = speedY;
     writeSpeed();
@@ -495,7 +518,7 @@
       button.type = "button";
       button.textContent = item.name;
       button.title = JSON.stringify(item.speedX) + " / " + JSON.stringify(item.speedY);
-      button.addEventListener("click", () => setSpeed(item.speedX, item.speedY));
+      button.addEventListener("click", () => setSpeed(item.speedX, item.speedY, item.name));
       row.append(button);
     });
   }
@@ -549,7 +572,7 @@
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;
-        if (loaded === 1) setSpeed(record.speedX, record.speedY);
+        if (loaded === 1) setSpeed(record.speedX, record.speedY, record.name);
       });
       storeSaved(items);
       renderSaved();

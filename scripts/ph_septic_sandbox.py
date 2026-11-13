@@ -71,6 +71,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .paste-row{display:flex;gap:10px;align-items:flex-start;margin:0 0 6px}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
+#b-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 .saved-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
@@ -123,6 +124,9 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-load">load pasted JSON</button>
 </div>
 <p class="small mono" id="b-paste-status"></p>
+<p class="small mono">current curve, ready to select and cut — the same shape the paste box and
+<code>workbench/septic-curves.json</code> take:</p>
+<textarea id="b-json" rows="11" readonly></textarea>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
