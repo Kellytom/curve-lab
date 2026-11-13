@@ -89,6 +89,10 @@ CURVES = [
     # fish-1: the operator's name. One crossing at (-307.9, 160.6); a big sweep
     # (700 by 496, arc 1721) on a small pitch, 21.
     ("fish-1", (15, -50, 15, -50), (50, -50, 15, -50)),
+    # cap-T: the operator's name. One crossing at (61.6, 1199.1); the tallest
+    # extent in the set (1040 by 1468, arc 2786); the inflection is exactly at
+    # t = 0, so the curve leaves the origin straight; pitch 21.
+    ("cap-T", (50, -50, 50, -50), (50, -50, 0, -100)),
 ]
 
 
