@@ -41,6 +41,8 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
 .spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
+#b-controls .spine-row{flex-direction:column;align-items:stretch;gap:6px}
+#b-controls .spine-cell{width:100%}
 .spine-cell{display:flex;flex-direction:column;gap:2px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:4px;align-items:center}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
@@ -93,6 +95,10 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
+<div class="pair">
+<svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
+<svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
+</div>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
@@ -108,10 +114,6 @@ same machinery as the quintic, one degree up.</p>
   <button type="button" id="b-load">load pasted JSON</button>
 </div>
 <p class="small mono" id="b-paste-status"></p>
-<div class="pair">
-<svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
-</div>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
