@@ -714,6 +714,8 @@
     const byName = {};
     SEED.concat(saved()).forEach(item => { byName[item.name] = item; });
     Object.values(byName).forEach(item => {
+      const group = document.createElement("span");
+      group.className = "saved-item";
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = item.name;
@@ -725,23 +727,47 @@
         applyWidth(item);
         writeCells(); draw();
       });
-      row.append(button);
+      group.append(button);
+      if (!SEED.some(seed => seed.name === item.name)) {
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "saved-remove";
+        remove.textContent = "\u00d7";
+        remove.title = `delete "${item.name}"`;
+        remove.addEventListener("click", () => {
+          if (!window.confirm(`Delete "${item.name}" from the saved curves?`)) return;
+          store(saved().filter(entry => entry.name !== item.name));
+          renderSaved();
+          window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+          const status = document.getElementById("n-paste-status");
+          if (status) status.textContent = `deleted "${item.name}"`;
+        });
+        group.append(remove);
+      }
+      row.append(group);
     });
   }
   document.getElementById("n-save").addEventListener("click", () => {
     const nameField = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
     const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
     const name = resolveName(typed, "save this curve");
+    const speed = hookedSpeed();
     const m = metrics(speed.x, speed.y);
     const items = saved().filter(item => item.name !== name);
     items.push({ name, speedX: state.x.map(v => +v), speedY: state.y.map(v => +v),
                  bend: +m.bend.toFixed(3), pitch: m.pitch,
                  inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
-                 closest: +m.closest.toFixed(3) });
+                 closest: +m.closest.toFixed(3),
+                 width: { percent: width.percent },
+                 character: { plus: character.plus, minus: character.minus, profile: character.profile },
+                 shear: shear.delta, hook: { dx: hook.dx, dy: hook.dy } });
     store(items);
+    currentName = name;
     nameField.value = "";
     renderSaved();
     window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `saved as "${name}"`;
   });
   const renameButton = document.getElementById("n-rename");
   if (renameButton) renameButton.addEventListener("click", () => {

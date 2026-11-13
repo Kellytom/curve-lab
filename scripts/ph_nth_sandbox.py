@@ -61,6 +61,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .save-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 8px}
 .save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
 .saved-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.saved-row .saved-item{display:inline-flex;gap:2px;align-items:center}
+.saved-row .saved-remove{padding:2px 6px;color:#8a3b2a}
 .paste-row{display:flex;gap:10px;align-items:flex-start;margin:0 0 6px}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
