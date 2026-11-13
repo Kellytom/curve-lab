@@ -78,10 +78,28 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
+<div class="solver-row">
+  <label class="dial" for="n-d0">d0 <input id="n-d0" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
+  <label class="dial" for="n-k">k <input id="n-k" type="number" min="0" max="8" step="0.05" value="1.2"></label>
+  <label class="dial" for="n-p">p <input id="n-p" type="number" min="1" max="8" step="1" value="2"></label>
+  <label class="dial" for="n-serif"><input id="n-serif" type="checkbox" checked> serif foot</label>
+</div>
+<p class="small mono" id="n-width-readout"></p>
 </section>
 
 <section class="panel">
-<h2>B | the eleven chord terms</h2>
+<h2>B | the end: terminal and serif</h2>
+<p>An offset that flares is just <code>r &plusmn; d(t) n(t)</code> with <code>d</code> a function, and for
+a PH curve the normal is rational, so a polynomial width law keeps the rail rational &mdash; the flare is
+exact, not fitted. The terminal follows the house rule: radius <code>2 d(1)</code>, two arcs tangent to
+the rails, meeting at the tip. The serif foot leaves each rail end tangent to it and lands on a foot of
+half width <code>f</code>; its arc radius is fixed by the height and the foot, so the foot cannot
+disagree with the flare.</p>
+<svg id="n-detail" viewBox="0 0 720 420" role="img" aria-label="the terminal and the serif foot, enlarged"></svg>
+</section>
+
+<section class="panel">
+<h2>C | the eleven chord terms</h2>
 <p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. The first six
 rows are what a sextic can hold; the rest exist only because the position reaches <code>t^11</code>.
 The numbers are in the panel above and in the JSON box below.</p>
@@ -89,7 +107,7 @@ The numbers are in the panel above and in the JSON box below.</p>
 </section>
 
 <section class="panel">
-<h2>C | solve, save, take away</h2>
+<h2>D | solve, save, take away</h2>
 <div class="solver-row">
   <button type="button" id="n-close">close chord</button>
   <button type="button" id="n-open" title="solve until |chord| / arc reaches the dial">close to &hellip;</button>
@@ -121,6 +139,9 @@ what the septic already showed over the quintic. The price is the pitch: the int
 carry <code>1/(k+1)</code> and the squares of the decimal denominators, so the integer scale climbs
 faster than the shape count. The low-pitch form of each saved curve is the same shape on a coarser
 grid; it is a change of units, not a new curve.</p>
+<p>The flare is the reason for this page: a serif is a width story, not a curvature story. The rail
+distance is a declared number, and the terminal radius is twice it, so flare, terminal and foot are one
+number apart rather than three drawings agreeing by eye.</p>
 <p class="small">Generate: <code>.venv/bin/python scripts/ph_nth_sandbox.py</code> &mdash; the page and
 <code>scripts/ph_nth_panels.js</code> are both checked in.</p>
 </section>
