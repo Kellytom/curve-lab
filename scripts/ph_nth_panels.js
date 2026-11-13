@@ -581,6 +581,42 @@
     character.profile = profileField.value;
     draw();
   });
+  // the coarsest grid: scale the speeds by an integer until the pitch is as
+  // small as it can be while the numbers stay readable. Scaling cannot change
+  // the bend or the inflection, only the size and the grid.
+  const gridButton = document.getElementById("n-grid");
+  if (gridButton) gridButton.addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const cap = 6000;   // keeps the numbers four digits or less
+    let best = null;
+    for (let k = 1; k <= 500; k++) {
+      const tx = state.x.map(v => v * k), ty = state.y.map(v => v * k);
+      if (Math.max(...tx.map(Math.abs), ...ty.map(Math.abs)) > cap) break;
+      const m = metrics(tx, ty);
+      const key = [m.pitch, Math.max(...tx.map(Math.abs), ...ty.map(Math.abs))];
+      if (!best || key[0] < best.key[0] || (key[0] === best.key[0] && key[1] < best.key[1])) {
+        best = { k, key, pitch: m.pitch };
+      }
+    }
+    if (!best) { if (status) status.textContent = "no scale fits under the cap"; return; }
+    const before = metrics(state.x, state.y).pitch;
+    if (best.k > 1) {
+      state.x = state.x.map(v => v * best.k);
+      state.y = state.y.map(v => v * best.k);
+      hook.dx *= best.k; hook.dy *= best.k;
+      const hx = document.getElementById("n-hook"), hy = document.getElementById("n-hook-y");
+      if (hx) hx.value = String(+hook.dx.toFixed(6));
+      if (hy) hy.value = String(+hook.dy.toFixed(6));
+      currentName = "curve";
+      writeCells();
+      draw();
+    }
+    if (status) {
+      status.textContent = `pitch ${before.toLocaleString()} -> ${best.pitch.toLocaleString()} at x${best.k}` +
+        `, largest speed ${best.key[1].toLocaleString()}` +
+        (best.k === 1 ? " (already the coarsest)" : "");
+    }
+  });
   const widthField = document.getElementById("n-d");
   if (widthField) steppers(widthField, direction => {
     width.percent = stepInteger(width.percent, direction);

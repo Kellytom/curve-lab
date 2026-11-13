@@ -123,6 +123,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
 </div>
 <div class="solver-row">
+  <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
   <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
