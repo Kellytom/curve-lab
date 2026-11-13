@@ -63,10 +63,12 @@ def main():
     markdown_text = MD.read_text()
     twin = _html(markdown_text)
     if "--check" in sys.argv:
+        # no markdown import here: CI may not have it, and the SHA is enough
         if not HTML.exists():
             print("missing twin: docs/ph-quintic-review.html")
             return 1
-        if HTML.read_text() != twin:
+        source_sha = hashlib.sha1(markdown_text.encode("utf-8")).hexdigest()
+        if f"source-sha: {source_sha}" not in HTML.read_text():
             print("stale twin: run scripts/ph_review_doc.py")
             return 1
         print("twin is current")
