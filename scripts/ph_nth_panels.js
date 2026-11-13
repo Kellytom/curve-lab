@@ -677,12 +677,12 @@
       shear: 0,
       hook: { dx: -2.988584, dy: 0.261467 } },
     { name: "gosling",
-      speedX: [1, -1, 1, 1, 1, -1],
-      speedY: [1, -10, 10, -1, 1, -1],
-      width: { percent: 1 },
-      character: { plus: 2, minus: 1, profile: "taper" },
+      speedX: [1, -1, 1, 1, 1, 1],
+      speedY: [1, -10, 10, -1, 1, 1],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
-      hook: { dx: 0, dy: 0 } },
+      hook: { dx: 0, dy: -1 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
