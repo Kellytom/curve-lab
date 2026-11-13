@@ -74,6 +74,9 @@ CURVES = [
     # C: the operator's name. A wide open sweep, no crossing, no inflection;
     # bend 1.692, pitch 7 (the smallest in the set); x starts at speed 0.
     ("C", (0, -30, 30, -30), (30, -30, 30, -30)),
+    # drop-2: the operator's name. Nearly closed without crossing itself
+    # (open 0.0056, arc 574, chord 3.2), so the highest bend in the set, 177.4.
+    ("drop-2", (0, -30, 25, -30), (30, -40, 28, -40)),
 ]
 
 
