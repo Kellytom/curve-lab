@@ -974,6 +974,41 @@
     return points;
   }
 
+
+  // the character offsets of an entry, in data space: parallel rail plus the
+  // bow that the character dials make. Returns null when the entry has none.
+  function characterRailsOf(entry, steps = 220) {
+    const ch = entry.character;
+    if (!ch) return null;
+    const percent = entry.width ? Number(entry.width.percent) : 1.5;
+    const bump = t => ch.profile === "s" ? 8 * t * (1 - t) * (1 - 2 * t)
+      : ch.profile === "taper" ? 6.75 * t * t * (1 - t) : 4 * t * (1 - t);
+    const samples = samplesOf(entry, steps);
+    const xs = samples.map(q => q[0]), ys = samples.map(q => q[1]);
+    const size = Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const d = percent / 100 * size;
+    const side = sign => {
+      const strength = Number(sign > 0 ? ch.plus : ch.minus) || 0;
+      if (!strength) return null;
+      const eps = 0.08 * strength;
+      let fx = 0, fy = 0, gx = 0, gy = 0;
+      const out = [];
+      for (let i = 0; i < steps; i++) {
+        const t = (i + 0.5) / steps;
+        const a = value(entry.speedX, t), b = value(entry.speedY, t);
+        fx += (a * a - b * b) / steps; fy += 2 * a * b / steps;
+        const ang = sign * eps * bump(t);
+        const gr = a - ang * b, gi = b + ang * a;
+        gx += (gr * gr - gi * gi) / steps; gy += 2 * gr * gi / steps;
+        const q = samples[i + 1], t01 = (i + 1) / steps, weight = 4 * t01 * (1 - t01);
+        out.push([q[0] + sign * d * q[2] + weight * (gx - fx),
+                  q[1] + sign * d * q[3] + weight * (gy - fy)]);
+      }
+      return out;
+    };
+    return [side(1), side(-1)].filter(Boolean);
+  }
+
   function miniSvg(speedX, speedY, label, kind = null, entry = null) {
     const points = spineOf({ speedX, speedY }, 220);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
@@ -987,17 +1022,12 @@
     const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
                                (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
     let rails = "";
-    const percent = entry && entry.width ? Number(entry.width.percent) : null;
-    if (Number.isFinite(percent)) {
-      const samples = samplesOf({ speedX, speedY });
-      const xs2 = samples.map(q => q[0]), ys2 = samples.map(q => q[1]);
-      const size = Math.max(1e-9, Math.max(...xs2) - Math.min(...xs2), Math.max(...ys2) - Math.min(...ys2));
-      const half = percent / 100 * size;
-      const railPath = side => "M" + samples.map(q =>
-        (ox + (q[0] + side * half * q[2] - minX) * scale).toFixed(1) + "," +
-        (oy + (maxY - (q[1] + side * half * q[3])) * scale).toFixed(1)).join("L");
-      rails = `<path d="${railPath(1)}" fill="none" stroke="#1f5fa8" stroke-width="1"/>
-               <path d="${railPath(-1)}" fill="none" stroke="#1f5fa8" stroke-width="1"/>`;
+    const character = entry ? characterRailsOf({ ...entry, speedX, speedY }) : null;
+    if (character) {
+      rails = character.map(points => `<path d="M` + points.map(q =>
+        (ox + (q[0] - minX) * scale).toFixed(1) + "," +
+        (oy + (maxY - q[1]) * scale).toFixed(1)).join("L") +
+        `" fill="none" stroke="#5b7f3a" stroke-width="1"/>`).join("");
     }
     return `<figure class="pair-cell" data-speed="${kind || "full"}">
       <figcaption>${label}</figcaption>
@@ -1034,17 +1064,12 @@
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         ${(() => {
-          const percent = entry.width ? Number(entry.width.percent) : null;
-          if (!Number.isFinite(percent)) return "";
-          const samples = samplesOf(entry);
-          const sx2 = samples.map(q => q[0]), sy2 = samples.map(q => q[1]);
-          const size = Math.max(1e-9, Math.max(...sx2) - Math.min(...sx2), Math.max(...sy2) - Math.min(...sy2));
-          const half = percent / 100 * size;
-          const railPath = side => "M" + samples.map(q =>
-            (ox + (q[0] + side * half * q[2] - minX) * scale).toFixed(1) + "," +
-            (oy + (maxY - (q[1] + side * half * q[3])) * scale).toFixed(1)).join("L");
-          return `<path d="${railPath(1)}" fill="none" stroke="#1f5fa8" stroke-width="1"/>` +
-                 `<path d="${railPath(-1)}" fill="none" stroke="#1f5fa8" stroke-width="1"/>`;
+          const rails = characterRailsOf(entry);
+          if (!rails) return "";
+          return rails.map(points => `<path d="M` + points.map(q =>
+            (ox + (q[0] - minX) * scale).toFixed(1) + "," +
+            (oy + (maxY - q[1]) * scale).toFixed(1)).join("L") +
+            `" fill="none" stroke="#5b7f3a" stroke-width="1"/>`).join("");
         })()}
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
       </svg>
