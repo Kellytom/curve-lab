@@ -56,6 +56,9 @@ CURVES = [
     # the double loop: two self-crossings, measured by segment test at 1200
     # samples, at (-0.07, 0.21) and (-2.71, -1.68). bend 3.446, pitch 210.
     ("double-loop", (2, -5, 6, 1), (3, -26, 23, 5)),
+    # the operator's classic, cleaned to integers: one crossing at (-0.56, 0.93),
+    # bend 4.163, controls integer at 105.
+    ("loop-105", (2, -5, 6, 1), (4, -22, 22, -2)),
 ]
 
 
