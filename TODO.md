@@ -422,3 +422,34 @@ The discrete midpoint chain at twelve triangles per side, exact throughout.
   against `chain.py`; `out/t1.png` is 980 × 822, 85.5 KB.
 - [ ] Retire or convert `RESULTS.md` / `results.html`: they still carry decimals
   and duplicate the sandbox page.
+
+## PH curves at degree 6 and 7 — 2026-11-12
+
+The theory is settled and the sandbox is live at `workbench/ph-septic-sandbox.html`.
+What is left is feature work, not correctness.
+
+- [x] Exact metrics at any degree (`scripts/ph_quintic_metrics.py`), the
+  fraction guard, and the diagnostics: point, axis-line, straight, cusp,
+  no-inflection.
+- [x] Integer hits: the stops, the exact gcd method, near misses
+  (`scripts/ph_quintic_hits.py`).
+- [x] The septic sandbox: panel A (general degree-7 polynomial) and panel B
+  (PH septic, eight speed numbers), curve and chord terms side by side, plus a
+  solver for right angles and closure.
+- [x] The arc-length constraint on the closed septic, so a loop cannot shrink
+  to a point (the condition the closed-PH literature pairs with a zero chord).
+- [x] One copy of the maths in JavaScript (`scripts/ph_math.js`), shared by the
+  quintic page and the sandbox.
+- [ ] G2 Hermite interpolation at degree 7: positions, tangents and curvatures
+  in, up to eight curves out (Jüttler, Math. Comp. 70 (2001) 1089-1111).
+- [ ] Rational or integer solutions for the degree-7 classics: the closure
+  search over small integers found none in [-6, 6]; sweep rationals before
+  claiming there is no clean degree-7 analogue of `4*sqrt(5)`.
+- [ ] Unify `s_info` (degree 2) with `ph_quintic_metrics`: two paths for the
+  inflection today, agreeing but untested.
+- [ ] Test the septic solver's result, not only its default: assert the residual
+  after "make the terms right-angled" and after "close the chord".
+- [ ] Decide Q15 (the guide spine) on the quintic page: built before the brief
+  changed to single curves; keep as a reference or remove.
+- [ ] Integer grid at high degree: the pitch reaches 1e14 with decimal
+  coefficients, so clear the denominators before asking for hits.

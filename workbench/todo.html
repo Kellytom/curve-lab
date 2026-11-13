@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:89.1%}
+.fill{height:100%;background:#8c6a21;width:84.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -30,11 +30,11 @@ th,td{border-bottom:1px solid #d8ccae;padding:6px 8px;text-align:left;vertical-a
 th{color:#7b6c4e;font:600 10px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
 tr:nth-child(even) td{background:#fcf8ee}
 </style></head><body>
-<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">← all inputs</a><span class="grp">sheet</span><span><b>in</b> nothing — a mirror of TODO.md · <b>out</b> progress, tasks and the grade matrix</span></div><!-- /hub-bar --><main>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">&lt;- all inputs</a><span class="grp">sheet</span><span><b>in</b> nothing — a mirror of TODO.md | <b>out</b> progress, tasks and the grade matrix</span></div><!-- /hub-bar --><main>
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">90 / 101 done · 89% · read-only twin of
+<div class="count">95 / 112 done · 85% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -270,4 +270,28 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>A–D letters off the rings, then re-render to a PNG under 150 KB and 1000 px and look at it. <code>node tph_tri_chain/audit_t1.mjs</code> prints 0 overlaps and 25/25 pairs against <code>chain.py</code>; <code>out/t1.png</code> is 980 × 822, 85.5 KB.</p>
 <label class="task"><input type="checkbox" disabled><span>Retire or convert <code>RESULTS.md</code> / <code>results.html</code>: they still carry decimals</span></label>
 <p>and duplicate the sandbox page.</p>
+<h2>PH curves at degree 6 and 7 — 2026-11-12</h2>
+<p>The theory is settled and the sandbox is live at <code>workbench/ph-septic-sandbox.html</code>. What is left is feature work, not correctness.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Exact metrics at any degree (<code>scripts/ph_quintic_metrics.py</code>), the</span></label>
+<p>fraction guard, and the diagnostics: point, axis-line, straight, cusp, no-inflection.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Integer hits: the stops, the exact gcd method, near misses</span></label>
+<p>(<code>scripts/ph_quintic_hits.py</code>).</p>
+<label class="task"><input type="checkbox" checked disabled><span>The septic sandbox: panel A (general degree-7 polynomial) and panel B</span></label>
+<p>(PH septic, eight speed numbers), curve and chord terms side by side, plus a solver for right angles and closure.</p>
+<label class="task"><input type="checkbox" checked disabled><span>The arc-length constraint on the closed septic, so a loop cannot shrink</span></label>
+<p>to a point (the condition the closed-PH literature pairs with a zero chord).</p>
+<label class="task"><input type="checkbox" checked disabled><span>One copy of the maths in JavaScript (<code>scripts/ph_math.js</code>), shared by the</span></label>
+<p>quintic page and the sandbox.</p>
+<label class="task"><input type="checkbox" disabled><span>G2 Hermite interpolation at degree 7: positions, tangents and curvatures</span></label>
+<p>in, up to eight curves out (Jüttler, Math. Comp. 70 (2001) 1089-1111).</p>
+<label class="task"><input type="checkbox" disabled><span>Rational or integer solutions for the degree-7 classics: the closure</span></label>
+<p>search over small integers found none in [-6, 6]; sweep rationals before claiming there is no clean degree-7 analogue of <code>4*sqrt(5)</code>.</p>
+<label class="task"><input type="checkbox" disabled><span>Unify <code>s_info</code> (degree 2) with <code>ph_quintic_metrics</code>: two paths for the</span></label>
+<p>inflection today, agreeing but untested.</p>
+<label class="task"><input type="checkbox" disabled><span>Test the septic solver&#x27;s result, not only its default: assert the residual</span></label>
+<p>after &quot;make the terms right-angled&quot; and after &quot;close the chord&quot;.</p>
+<label class="task"><input type="checkbox" disabled><span>Decide Q15 (the guide spine) on the quintic page: built before the brief</span></label>
+<p>changed to single curves; keep as a reference or remove.</p>
+<label class="task"><input type="checkbox" disabled><span>Integer grid at high degree: the pitch reaches 1e14 with decimal</span></label>
+<p>coefficients, so clear the denominators before asking for hits.</p>
 </main></body></html>

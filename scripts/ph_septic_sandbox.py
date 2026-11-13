@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "ph-septic-sandbox.html"
 PANELS = ROOT / "scripts" / "ph_septic_panels.js"
+MATH = ROOT / "scripts" / "ph_math.js"
 
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -38,7 +39,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
 .spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-cell{display:flex;flex-direction:column;gap:2px;width:132px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.spine-cell{display:flex;flex-direction:column;gap:2px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:4px;align-items:center}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
@@ -113,7 +114,7 @@ __PANELS__
 
 
 def build():
-    OUT.write_text(PAGE.replace("__PANELS__", PANELS.read_text()))
+    OUT.write_text(PAGE.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))
     print(OUT.relative_to(ROOT))
 
 

@@ -522,6 +522,17 @@ same three lines as Q12 - no sampling.</p>
 </section>
 
 <section class="panel">
+<h2>Fig. Q15 | the guide spine</h2>
+<p>The spine is not a PH curve. It is the polynomial that <em>places</em> the anchors:
+<code>x = span*t</code>, <code>y = span*(n1 t + ... + n7 t^7)</code>. Positive low orders lift, negative high
+orders brake; mixed signs turn the all-positive ramp into an arch or an S. The six crosses are the
+anchors at <code>t = i/5</code>, and the quintic PH segments bridge them.</p>
+<div id="q15-controls"></div>
+<svg id="q15-plot" viewBox="0 0 900 560" role="img" aria-label="a guide spine with six anchors"></svg>
+<p class="small mono" id="q15-table"></p>
+</section>
+
+<section class="panel">
 <h2>Saved curves</h2>
 <p>Every illustration has a <strong>save this curve</strong> button. Saved curves stay in this browser
 and download as one JSON file, in the same shape as <a href="ph-quintic-presets.json">the preset
@@ -826,8 +837,9 @@ bend, pitch and the endpoint at that pitch. Regenerate both with
 </main></body></html>
 """
     html = html.replace("<!--Q12-->", fig_q12_svg())
+    maths = (ROOT / "scripts" / "ph_math.js").read_text()
     panels = (ROOT / "scripts" / "ph_panels.js").read_text()
-    html = html.replace("<!--SCRIPTS-->", "<script>\n" + panels + "</script>")
+    html = html.replace("<!--SCRIPTS-->", "<script>\n" + maths + "\n" + panels + "</script>")
     presets = json.loads((ROOT / "workbench" / "ph-quintic-presets.json").read_text())["presets"]
     html = html.replace("<!--PRESETS-->",
                         "<script>window.phPresets = "

@@ -18,7 +18,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:10px;align-items:center;margin:4px 0}
 .spine-row>span{width:18px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-cell{display:flex;flex-direction:column;gap:2px;width:132px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.spine-cell{display:flex;flex-direction:column;gap:2px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:4px;align-items:center}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
@@ -87,21 +87,62 @@ JavaScript both checked into scripts.</p>
 </section>
 </main>
 <script>
-// The septic sandbox: a general polynomial curve and a PH septic, side by side.
-//
-// Panel A: r(t) = (x(t), y(t)), each axis span * sum n_k t^k for k = 1..7.
-// Panel B: the PH septic, r' = w^2 with w cubic, so the position is degree 7.
+// The shared maths for the curve pages: closed form, metrics, exact bend,
+// the polynomial evaluators and the saved-curve store. Loaded first.
 
-(function () {
-  const span = 625;
-
-  // ---------- shared ----------
-  const value = (coefficients, t) => {
-    let total = 0;
-    for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
-    return total;
+window.closedFormOf = (function () {
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
+  return function (speedX, speedY) {
+    const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+    const decimalScale = Math.pow(10, maxDecimals);
+    const decimalScaleSquared = decimalScale * decimalScale;
+    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
+    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
+    const multiplyPolynomials = (left, right) => {
+      const product = new Array(left.length + right.length - 1).fill(0);
+      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
+      return product;
+    };
+    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
+    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
+    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
+    const reduceFraction = (numerator, denominator) => {
+      const divisor = greatestCommonDivisor(Math.abs(numerator), denominator) || 1;
+      return [numerator / divisor, denominator / divisor];
+    };
+    const xTerms = [], yTerms = [];
+    for (let j = 0; j < speedXSquared.length; j++) {
+      const denominator = decimalScaleSquared * (j + 1);   // the coefficient of t^(j+1) in r
+      xTerms.push(reduceFraction(speedXSquared[j] - (speedYSquared[j] || 0), denominator));
+      yTerms.push(reduceFraction(2 * speedXTimesY[j], denominator));
+    }
+    return { xTerms, yTerms };
   };
-  const derivative = coefficients => coefficients.slice(1).map((c, i) => c * (i + 1));
+})();
+window.formatPolynomial = function (terms) {
+  const powers = ["", "t", "t^2", "t^3", "t^4", "t^5"];
+  let text = "";
+  terms.forEach((term, j) => {
+    const numerator = term[0], denominator = term[1];
+    if (!numerator) return;
+    const magnitude = denominator === 1 ? String(Math.abs(numerator)) : `${Math.abs(numerator)}/${denominator}`;
+    const coefficient = (denominator === 1 && Math.abs(numerator) === 1) ? "" : magnitude;
+    text += (numerator < 0 ? (text ? " - " : "-") : (text ? " + " : "")) + coefficient + powers[j + 1];
+  });
+  return text || "0";
+};
+
+window.panelRecipes = {};
+window.polynomialValue = function (coefficients, t) {
+  let total = 0;
+  for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+  return total;
+};
+window.polynomialDerivative = function (coefficients) {
+  return coefficients.slice(1).map((coefficient, i) => coefficient * (i + 1));
+};
+window.exactBend = function (speedX, speedY) {
   const centred = coefficients => {
     const out = new Array(coefficients.length).fill(0);
     coefficients.forEach((coefficient, j) => {
@@ -114,74 +155,108 @@ JavaScript both checked into scripts.</p>
     return out;
   };
   const weight = power => (power % 2 ? 0 : 1 / (Math.pow(2, power) * (power + 1)));
-
-  function exactBend(speedX, speedY) {
-    let cx = centred(speedX), cy = centred(speedY);
-    const size = Math.max(cx.length, cy.length);
-    cx = cx.concat(new Array(size - cx.length).fill(0));
-    cy = cy.concat(new Array(size - cy.length).fill(0));
-    let arc = 0, chordRe = 0, chordIm = 0;
-    for (let k = 0; k < size; k++) {
-      for (let l = 0; l < size; l++) {
-        const w = weight(k + l);
-        if (!w) continue;
-        arc += (cx[k] * cx[l] + cy[k] * cy[l]) * w;
-        chordRe += (cx[k] * cx[l] - cy[k] * cy[l]) * w;
-        chordIm += (cx[k] * cy[l] + cy[k] * cx[l]) * w;
-      }
+  let cx = centred(speedX), cy = centred(speedY);
+  const size = Math.max(cx.length, cy.length);
+  cx = cx.concat(new Array(size - cx.length).fill(0));
+  cy = cy.concat(new Array(size - cy.length).fill(0));
+  let arc = 0, chordRe = 0, chordIm = 0;
+  for (let k = 0; k < cx.length; k++) {
+    for (let l = 0; l < cx.length; l++) {
+      const w = weight(k + l);
+      if (!w) continue;
+      arc += (cx[k] * cx[l] + cy[k] * cy[l]) * w;
+      chordRe += (cx[k] * cx[l] - cy[k] * cy[l]) * w;
+      chordIm += (cx[k] * cy[l] + cy[k] * cx[l]) * w;
     }
-    const chord = Math.hypot(chordRe, chordIm);
-    return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
   }
-
-  function pitch(speedX, speedY) {
-    const decimalPlaces = v => { const s = String(+v.toFixed(6)); const d = s.indexOf("."); return d < 0 ? 0 : s.length - d - 1; };
-    const scale = Math.pow(10, Math.max(...speedX.concat(speedY).map(decimalPlaces)));
-    const scaledX = speedX.map(v => Math.round(v * scale));
-    const scaledY = speedY.map(v => Math.round(v * scale));
-    const multiply = (a, b) => {
-      const out = new Array(a.length + b.length - 1).fill(0);
-      a.forEach((x, i) => b.forEach((y, j) => { out[i + j] += x * y; }));
-      return out;
-    };
-    const gcd = (a, b) => (b ? gcd(b, a % b) : a);
-    const lcm = (a, b) => a / gcd(a, b) * b;
-    const xSquared = multiply(scaledX, scaledX), ySquared = multiply(scaledY, scaledY);
-    const xTimesY = multiply(scaledX, scaledY);
-    let result = 1;
-    for (let j = 0; j < xSquared.length; j++) {
-      for (const numerator of [xSquared[j] - (ySquared[j] || 0), 2 * xTimesY[j]]) {
-        if (!numerator) continue;
-        const denominator = scale * scale * (j + 1);
-        result = lcm(result, denominator / gcd(Math.abs(numerator), denominator));
-      }
-    }
-    return result;
+  const chord = Math.hypot(chordRe, chordIm);
+  return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
+};
+window.recipeMetrics = function (speedX, speedY) {
+  const sampleCount = 600;
+  const value = window.polynomialValue;
+  const derivativeX = window.polynomialDerivative(speedX);
+  const derivativeY = window.polynomialDerivative(speedY);
+  const exact = window.exactBend(speedX, speedY);
+  let closest = Infinity;
+  for (let i = 0; i <= sampleCount; i++) {
+    const t = i / sampleCount;
+    closest = Math.min(closest, Math.hypot(value(speedX, t), value(speedY, t)));
   }
-
-  function metrics(speedX, speedY) {
-    const exact = exactBend(speedX, speedY);
-    const derivativeX = derivative(speedX), derivativeY = derivative(speedY);
-    let closest = Infinity;
-    for (let i = 0; i <= 600; i++) {
-      const t = i / 600;
-      closest = Math.min(closest, Math.hypot(value(speedX, t), value(speedY, t)));
-    }
-    const wronskian = t => value(speedX, t) * value(derivativeY, t) - value(speedY, t) * value(derivativeX, t);
-    let inflection = null;
-    for (let i = 0; i < 600 && inflection === null; i++) {
-      const low = i / 600, high = (i + 1) / 600;
-      if (wronskian(low) * wronskian(high) <= 0) {
-        let a = low, b = high;
-        for (let k = 0; k < 40; k++) {
-          const middle = (a + b) / 2;
-          if (wronskian(a) * wronskian(middle) <= 0) b = middle; else a = middle;
-        }
-        inflection = (a + b) / 2;
+  const wronskian = t => value(speedX, t) * value(derivativeY, t) - value(speedY, t) * value(derivativeX, t);
+  let inflection = null;
+  for (let i = 0; i < sampleCount && inflection === null; i++) {
+    const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+    if (wronskian(lowT) * wronskian(highT) <= 0) {
+      let low = lowT, high = highT;
+      for (let k = 0; k < 40; k++) {
+        const middle = (low + high) / 2;
+        if (wronskian(low) * wronskian(middle) <= 0) high = middle; else low = middle;
       }
+      inflection = (low + high) / 2;
     }
-    return { bend: exact.bend, pitch: pitch(speedX, speedY), inflection, closest };
   }
+  const decimalPlaces = value => { const text = String(+value.toFixed(6)); const dot = text.indexOf("."); return dot < 0 ? 0 : text.length - dot - 1; };
+  const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+  const decimalScale = Math.pow(10, maxDecimals), decimalScaleSquared = decimalScale * decimalScale;
+  const scaledX = speedX.map(value => Math.round(value * decimalScale));
+  const scaledY = speedY.map(value => Math.round(value * decimalScale));
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
+  const xSquared = multiply(scaledX, scaledX), ySquared = multiply(scaledY, scaledY);
+  const xTimesY = multiply(scaledX, scaledY);
+  let pitch = 1;
+  for (let j = 0; j < xSquared.length; j++) {
+    const numerators = [xSquared[j] - (ySquared[j] || 0), 2 * xTimesY[j]];
+    for (const numerator of numerators) {
+      if (!numerator) continue;
+      const denominator = decimalScaleSquared * (j + 1);
+      pitch = leastCommonMultiple(pitch, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
+    }
+  }
+  const closed = window.closedFormOf(speedX, speedY);
+  const endpoint = [closed.xTerms.reduce((sum, term) => sum + term[0] / term[1], 0),
+                    closed.yTerms.reduce((sum, term) => sum + term[0] / term[1], 0)];
+  return { bend: exact.bend, arc: exact.arc, chord: exact.chord, pitch, inflection, closest, endpoint };
+};
+window.curveSaver = (function () {
+  const key = "curve-lab-saved-curves";
+  const load = () => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (error) { return []; } };
+  const store = items => localStorage.setItem(key, JSON.stringify(items));
+  return {
+    add(record) { const items = load(); items.push(record); store(items); return items.length; },
+    count() { return load().length; },
+    clear() { store([]); },
+    download() {
+      const blob = new Blob([JSON.stringify({ title: "curves saved from the ph-quintic gallery", presets: load() }, null, 2)],
+                            { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "ph-quintic-saved.json";
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+  };
+})();
+
+// The septic sandbox: a general polynomial curve and a PH septic, side by side.
+//
+// Panel A: r(t) = (x(t), y(t)), each axis span * sum n_k t^k for k = 1..7.
+// Panel B: the PH septic, r' = w^2 with w cubic, so the position is degree 7.
+
+(function () {
+  const span = 625;
+
+  // ---------- shared ----------
+  const value = window.polynomialValue;
+  const metrics = window.recipeMetrics;
 
   // ---------- the drawing ----------
   function draw(plot, points, title, subtitle, marks) {
