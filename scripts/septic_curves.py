@@ -59,6 +59,9 @@ CURVES = [
     # the operator's classic, cleaned to integers: one crossing at (-0.56, 0.93),
     # bend 4.163, controls integer at 105.
     ("loop-105", (2, -5, 6, 1), (4, -22, 22, -2)),
+    # H: the operator's name. Two crossings at (-0.80, 1.35) and (-1.20, 0.79),
+    # the double-loop family; bend 4.501, controls integer at 420.
+    ("H", (2.5, -5, 5, 1), (5, -28, 22, 6)),
 ]
 
 
