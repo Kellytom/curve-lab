@@ -73,6 +73,9 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
   background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
 .gallery .gallery-name{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
 .gallery .gallery-metrics{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.gallery .gallery-tags{display:inline-flex;gap:6px;align-items:baseline}
+.gallery .tag{font:10px/1.4 ui-monospace,Menlo,monospace;padding:0 4px;border:1px solid var(--rule);
+  border-radius:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .gallery .more{margin:8px 0 0}
 .gallery .more textarea{width:100%;font:11px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;
   border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}

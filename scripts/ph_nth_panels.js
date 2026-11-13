@@ -806,7 +806,8 @@
     return `<figure data-name="${entry.name}">
       <button type="button" class="gallery-open" aria-expanded="false">
         <span class="gallery-name">${entry.name}</span>
-        <span class="gallery-metrics">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</span>
+        <span class="gallery-tags"><span class="tag">${String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
+        <span class="gallery-metrics">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</span></span>
       </button>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine only">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>

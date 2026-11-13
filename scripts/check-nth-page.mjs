@@ -147,6 +147,24 @@ notesPaths.forEach((path, i) => {
   if (/NaN|undefined/.test(path.d) || path.length < 2) failures.push(`notes path ${i} is not drawn`);
 });
 
+// part 2: the same sandbox over fitted curves
+await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-2.html?v=" + Date.now(), { waitUntil: "load" });
+await page.waitForTimeout(300);
+const part2 = await page.evaluate(() => {
+  const figures = [...document.querySelectorAll("#n-gallery figure")];
+  return {
+    count: figures.length,
+    tags: [...new Set(figures.map(f => f.querySelector(".tag").textContent))],
+    bad: [...document.querySelectorAll("#n-gallery svg path")]
+      .filter(p => /NaN/.test(p.getAttribute("d"))).length,
+    boxes: document.querySelectorAll("#n-controls input[type=number]").length,
+  };
+});
+if (part2.count < 40) failures.push(`part 2 gallery: ${part2.count}`);
+if (part2.tags.join() !== "fitted") failures.push(`part 2 tags: ${part2.tags.join()}`);
+if (part2.bad) failures.push(`part 2 paths not drawn: ${part2.bad}`);
+if (part2.boxes !== 12) failures.push(`part 2 boxes: ${part2.boxes}`);
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();
