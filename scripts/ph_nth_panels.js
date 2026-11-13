@@ -752,6 +752,18 @@
     }
   });
 
+  // the gallery opens a curve into this sandbox
+  window.phNthLoad = item => {
+    state.x = item.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
+    state.y = item.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
+    currentName = item.name;
+    applyWidth(item);
+    writeCells();
+    draw();
+    const controls = document.getElementById("n-controls");
+    if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   writeCells();
   renderSaved();
   draw();
@@ -789,15 +801,79 @@
     const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
     const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
                                (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
-    return `<figure>
-      <figcaption>${entry.name}</figcaption>
+    const json = JSON.stringify({ name: entry.name, speedX: entry.speedX, speedY: entry.speedY,
+                                  bend: entry.bend, pitch: entry.pitch, from: entry.from }, null, 1);
+    return `<figure data-name="${entry.name}">
+      <button type="button" class="gallery-open" aria-expanded="false">
+        <span class="gallery-name">${entry.name}</span>
+        <span class="gallery-metrics">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</span>
+      </button>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine only">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
       </svg>
-      <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</p>
+      <div class="more" hidden>
+        <p class="small mono">x ${entry.speedX.join(", ")}<br>y ${entry.speedY.join(", ")}</p>
+        <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()} | from ${entry.from}</p>
+        <textarea rows="7" readonly>${json}</textarea>
+        <div class="more-row">
+          <button type="button" class="gallery-load">load into the sandbox</button>
+          <button type="button" class="gallery-copy">copy JSON</button>
+          <button type="button" class="gallery-close">close</button>
+          <span class="small mono gallery-status"></span>
+        </div>
+      </div>
     </figure>`;
   }
 
   host.innerHTML = list.map(figureFor).join("");
+
+  const closeAll = except => {
+    host.querySelectorAll("figure.open").forEach(figure => {
+      if (figure === except) return;
+      figure.classList.remove("open");
+      figure.querySelector(".more").hidden = true;
+      figure.querySelector(".gallery-open").setAttribute("aria-expanded", "false");
+    });
+  };
+  host.addEventListener("click", event => {
+    const figure = event.target.closest("figure");
+    if (!figure) return;
+    const entry = list.find(item => item.name === figure.dataset.name);
+    const open = figure.querySelector(".gallery-open");
+    const more = figure.querySelector(".more");
+
+    if (event.target.closest(".gallery-open")) {
+      const showing = more.hidden;
+      closeAll(figure);
+      more.hidden = !showing;
+      figure.classList.toggle("open", showing);
+      open.setAttribute("aria-expanded", String(showing));
+      return;
+    }
+    if (event.target.closest(".gallery-close")) {
+      more.hidden = true;
+      figure.classList.remove("open");
+      open.setAttribute("aria-expanded", "false");
+      return;
+    }
+    if (event.target.closest(".gallery-load") && entry && window.phNthLoad) {
+      window.phNthLoad(entry);
+      return;
+    }
+    if (event.target.closest(".gallery-copy") && entry) {
+      const status = figure.querySelector(".gallery-status");
+      const text = figure.querySelector("textarea").value;
+      const done = () => { if (status) status.textContent = "copied"; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, () => {
+          figure.querySelector("textarea").select();
+          if (status) status.textContent = "select and copy";
+        });
+      } else {
+        figure.querySelector("textarea").select();
+        if (status) status.textContent = "select and copy";
+      }
+    }
+  });
 })();

@@ -101,13 +101,36 @@ const gallery = await page.evaluate(() => {
     count: figures.length,
     twoColumns: cells.length > 1 && cells[0] === cells[1],
     bad: paths.filter(p => /NaN/.test(p.getAttribute("d")) || p.getTotalLength() < 1).length,
-    first: figures.slice(0, 2).map(f => f.querySelector("figcaption").textContent).join(", "),
+    first: figures.slice(0, 2).map(f => f.querySelector(".gallery-name").textContent).join(", "),
   };
 });
 if (gallery.count < 27) failures.push(`gallery figures: ${gallery.count}`);
 if (!gallery.twoColumns) failures.push("gallery is not two columns");
 if (gallery.bad) failures.push(`gallery paths not drawn: ${gallery.bad}`);
 if (!gallery.first.startsWith("integer-105")) failures.push(`gallery order starts: ${gallery.first}`);
+
+// a gallery cell opens in place: variables, JSON, and a load back into the sandbox
+const firstCell = page.locator("#n-gallery figure").first();
+await firstCell.locator(".gallery-open").click();
+await page.waitForTimeout(200);
+const opened = await page.evaluate(() => {
+  const figure = document.querySelector("#n-gallery figure");
+  return {
+    open: figure.classList.contains("open"),
+    hidden: figure.querySelector(".more").hidden,
+    json: figure.querySelector("textarea").value,
+    variables: figure.querySelector(".more .mono").textContent,
+  };
+});
+if (!opened.open || opened.hidden) failures.push("the gallery cell did not open in place");
+if (!opened.json.includes('"speedX"') || opened.json.length < 40) failures.push("the cell has no JSON to copy");
+if (!opened.variables.includes("2, -5, 6")) failures.push("the cell does not show its variables");
+await firstCell.locator(".gallery-load").click();
+await page.waitForTimeout(300);
+if (!(await page.textContent("#n-readout")).startsWith("bend 3.011")) {
+  failures.push("gallery load did not bring integer-105 into the sandbox");
+}
+await firstCell.locator(".gallery-close").click();
 
 const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
 if (!notes) failures.push("the serif notes link is missing");

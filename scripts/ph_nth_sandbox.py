@@ -68,7 +68,17 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:700px){.gallery{grid-template-columns:1fr}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
-.gallery figcaption{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);margin:0 0 6px}
+.gallery figure.open{grid-column:1 / -1}
+.gallery .gallery-open{display:flex;justify-content:space-between;gap:8px;width:100%;
+  background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
+.gallery .gallery-name{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
+.gallery .gallery-metrics{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.gallery .more{margin:8px 0 0}
+.gallery .more textarea{width:100%;font:11px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;
+  border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
+.gallery .more-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 0}
+.gallery .more-row button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:4px 8px;background:#fbf7ec;
+  color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .gallery svg{border:0}
 .gallery p{margin:6px 0 0}
 </style></head><body><main>
