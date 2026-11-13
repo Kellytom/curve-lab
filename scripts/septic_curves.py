@@ -62,6 +62,9 @@ CURVES = [
     # H: the operator's name. Two crossings at (-0.80, 1.35) and (-1.20, 0.79),
     # the double-loop family; bend 4.501, controls integer at 420.
     ("H", (2.5, -5, 5, 1), (5, -28, 22, 6)),
+    # G: the operator's name. One crossing at (-5.90, 3.96), the widest reach in
+    # the set (13.3 by 12.6); bend 4.585, controls integer at 420.
+    ("G", (2.5, -8, 15, 1), (10, -55, 51, 2)),
 ]
 
 
