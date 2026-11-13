@@ -691,9 +691,9 @@ window.curveSaver = (function () {
     const degreeOf = terms => { let d = 0; terms.forEach((c, k) => { if (Math.abs(c) > 1e-9) d = k; }); return d; };
     const plain = metrics(state.x, state.y);
     const hookNote = (hook.dx || hook.dy)
-      ? ` | pitch without the hook ${plain.pitch.toLocaleString()}` : "";
+      ? ` | grid without the hook 1/${plain.pitch.toLocaleString()}` : "";
     document.getElementById("n-readout").textContent =
-      `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()}${hookNote} | ` +
+      `bend ${m.bend.toFixed(3)} | grid 1/${m.pitch.toLocaleString()}${hookNote} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
     const showing = [view.rails ? "parallel rails" : view.character ? "character offsets" : "spine only"];
@@ -959,7 +959,7 @@ window.curveSaver = (function () {
       draw();
     }
     if (status) {
-      status.textContent = `pitch ${before.toLocaleString()} -> ${best.pitch.toLocaleString()} at x${best.k}` +
+      status.textContent = `grid 1/${before.toLocaleString()} -> 1/${best.pitch.toLocaleString()} at x${best.k}` +
         `, largest speed ${best.key[1].toLocaleString()}` +
         (best.k === 1 ? " (already the coarsest)" : "");
     }
@@ -1335,7 +1335,7 @@ window.curveSaver = (function () {
       <button type="button" class="gallery-open" aria-expanded="false">
         <span class="gallery-name">${entry.name}</span>
         <span class="gallery-tags"><span class="tag">${String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
-        <span class="gallery-metrics">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</span></span>
+        <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
       </button>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine only">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
