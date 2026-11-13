@@ -300,15 +300,15 @@
     const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
     const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + padX;
     const minY = Math.min(...ys) - padY, maxY = Math.max(...ys) + padY;
-    const width_ = 720, height = 520, left = 74, right = 40, top = 92, bottom = 64;
+    const width_ = 720, height = 470, left = 74, right = 40, top = 18, bottom = 84;
     const scale = Math.min((width_ - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
     const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
     const path = points => "M" + turned(points).map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
-      `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">` +
+      `<text x="${left}" y="${height - 30}" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
+      `<text x="${left}" y="${height - 12}" font-size="12" fill="#7b6c4e">` +
       (view.rails ? `rails r +/- d n, d constant` : `the spine alone; rails and terminals are below`) +
       `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}</text>` +
       `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
@@ -332,9 +332,9 @@
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
     let legendX = left;
     legend.forEach(([colour, widthStroke, text]) => {
-      art += `<line x1="${legendX}" y1="${height - 16}" x2="${legendX + 26}" y2="${height - 16}" ` +
+      art += `<line x1="${legendX}" y1="${height - 52}" x2="${legendX + 26}" y2="${height - 52}" ` +
         `stroke="${colour}" stroke-width="${widthStroke}"/>` +
-        `<text x="${legendX + 34}" y="${height - 11}" font-size="15" fill="#2e2413">${text}</text>`;
+        `<text x="${legendX + 34}" y="${height - 47}" font-size="15" fill="#2e2413">${text}</text>`;
       legendX += 34 + text.length * 8.2 + 26;
     });
     plot.innerHTML = art;
