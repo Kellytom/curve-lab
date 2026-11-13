@@ -78,6 +78,10 @@ CURVES = [
     # drop-2: the operator's name. Nearly closed without crossing itself
     # (open 0.0056, arc 574, chord 3.2), so the highest bend in the set, 177.4.
     ("drop-2", (0, -30, 25, -30), (30, -40, 28, -40)),
+    # double-knot: the operator's name. Two crossings at (0.11, 0.56) and
+    # (0.06, 0.59) - a knot, not a loop; the speed path comes within 0.696 of
+    # the origin, so the curve is tight (0.38 by 0.73); pitch 280.
+    ("double-knot", (2, -6, 3, 0.25), (2, -12, 12, 0.25)),
 ]
 
 

@@ -506,6 +506,29 @@
         7,
         7
       ]
+    },
+    {
+      "name": "double-knot",
+      "speedX": [
+        2,
+        -6,
+        3,
+        0.25
+      ],
+      "speedY": [
+        2,
+        -12,
+        12,
+        0.25
+      ],
+      "bend": 3.947,
+      "pitch": 280,
+      "inflection": null,
+      "closest": 0.696,
+      "degree": [
+        6,
+        7
+      ]
     }
   ]
 }
