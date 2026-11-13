@@ -41,6 +41,8 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .spine-cell{display:flex;flex-direction:column;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .spine-cell input{width:74px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 #a-controls,#b-controls{margin:6px 0 12px}
+.solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.solver-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 </style></head><body><main>
 <p class="eyebrow">curve-lab | PH curves | degrees 6 and 7</p>
@@ -70,6 +72,10 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
+<div class="solver-row">
+  <button type="button" id="b-right">make the terms right-angled</button>
+  <button type="button" id="b-close">close the chord</button>
+</div>
 <svg id="b-plot" viewBox="0 0 720 700" role="img" aria-label="the PH septic"></svg>
 <p class="small mono" id="b-readout"></p>
 <svg id="b-vectors" viewBox="0 0 720 420" role="img" aria-label="the chord terms of the septic"></svg>

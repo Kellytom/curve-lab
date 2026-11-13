@@ -231,8 +231,7 @@
   }
 
   // The chord terms of the septic: w^2 has degree 6, so seven vectors.
-  function drawChordTerms(speedX, speedY) {
-    const plot = document.getElementById("b-vectors");
+  function chordTerms(speedX, speedY) {
     const terms = [];
     for (let m = 0; m <= 6; m++) {
       let re = 0, im = 0;
@@ -244,6 +243,12 @@
       }
       terms.push([re / (m + 1), im / (m + 1)]);
     }
+    return terms;
+  }
+
+  function drawChordTerms(speedX, speedY) {
+    const plot = document.getElementById("b-vectors");
+    const terms = chordTerms(speedX, speedY);
     const heads = [[0, 0]];
     let x = 0, y = 0;
     terms.forEach(term => { x += term[0]; y += term[1]; heads.push([x, y]); });
@@ -273,5 +278,58 @@
     }
     plot.innerHTML = art;
   }
+  // The classic shapes: make consecutive terms perpendicular, or close the chord.
+  const dot2 = (u, v) => u[0] * v[0] + u[1] * v[1];
+  const parametersOf = () => [bState.bx1, bState.bx2, bState.bx3,
+                              bState.by0, bState.by1, bState.by2, bState.by3];
+  const speedOf = params => ({ x: [1, params[0], params[1], params[2]],
+                               y: [params[3], params[4], params[5], params[6]] });
+  const cost = (params, mode) => {
+    const speed = speedOf(params);
+    const terms = chordTerms(speed.x, speed.y);
+    if (mode === "right") {
+      let total = 0;
+      for (let m = 0; m < 6; m++) { const d = dot2(terms[m], terms[m + 1]); total += d * d; }
+      return total;
+    }
+    const sum = terms.reduce((acc, term) => [acc[0] + term[0], acc[1] + term[1]], [0, 0]);
+    return sum[0] * sum[0] + sum[1] * sum[1];
+  };
+  function solve(mode) {
+    let params = parametersOf();
+    let best = cost(params, mode);
+    let step = 0.05;
+    const h = 1e-5;
+    for (let iteration = 0; iteration < 4000; iteration++) {
+      const gradient = params.map((value, i) => {
+        const trial = params.slice();
+        trial[i] += h;
+        return (cost(trial, mode) - best) / h;
+      });
+      const norm = Math.hypot(...gradient) || 1;
+      let improved = false;
+      for (let attempt = 0; attempt < 40; attempt++) {
+        const trial = params.map((value, i) => value - step * gradient[i] / norm);
+        const value = cost(trial, mode);
+        if (value < best) { params = trial; best = value; improved = true; step *= 1.2; break; }
+        step *= 0.5;
+      }
+      if (!improved) break;
+      if (best < 1e-20) break;
+    }
+    const speed = speedOf(params);
+    const scale = bState.bx0 || 1;   // the solver fixes speedMid.x = 1; scale back
+    bState.bx1 = scale * speed.x[1]; bState.bx2 = scale * speed.x[2]; bState.bx3 = scale * speed.x[3];
+    bState.by0 = scale * speed.y[0]; bState.by1 = scale * speed.y[1]; bState.by2 = scale * speed.y[2]; bState.by3 = scale * speed.y[3];
+    const inputs = document.querySelectorAll("#b-controls input");
+    [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
+     bState.by0, bState.by1, bState.by2, bState.by3].forEach((value, i) => {
+      if (inputs[i]) inputs[i].value = +value.toFixed(6);
+    });
+    drawB();
+  }
+
+  document.getElementById("b-right").addEventListener("click", () => solve("right"));
+  document.getElementById("b-close").addEventListener("click", () => solve("close"));
   drawB();
 })();
