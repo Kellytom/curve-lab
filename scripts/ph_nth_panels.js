@@ -30,11 +30,28 @@
   }
   function syncCell(cell, number, { write = true, sliders = true } = {}) {
     if (write) cell.number.value = +number.toFixed(6);
-    if (sliders) {
-      const parts = decode(number);
-      cell.fine.value = Math.abs(parts.mantissa);
-      cell.decade.value = parts.decade;
-    }
+    if (sliders) cell.fine.value = Math.abs(decode(number).mantissa);
+  }
+
+  // a pair of steppers that move a value to the next integer up or down
+  function stepInteger(value, direction) {
+    if (direction > 0) return Number.isInteger(value) ? value + 1 : Math.floor(value) + 1;
+    return Number.isInteger(value) ? value - 1 : Math.ceil(value) - 1;
+  }
+  function steppers(input, apply) {
+    const wrap = document.createElement("span");
+    wrap.className = "steppers";
+    [["\u25b2", 1], ["\u25bc", -1]].forEach(([label, direction]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "step";
+      button.textContent = label;
+      button.title = direction > 0 ? "next integer up" : "next integer down";
+      button.addEventListener("click", () => apply(direction));
+      wrap.append(button);
+    });
+    input.insertAdjacentElement("afterend", wrap);
+    return wrap;
   }
 
   function buildRow(axis) {
@@ -49,15 +66,26 @@
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const number = document.createElement("input");
-      number.type = "number"; number.step = "0.01";
+      number.type = "number"; number.step = "0.1";
       number.value = state[axis][k];
       const fine = document.createElement("input");
-      fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.01";
-      fine.title = "size (x 10^decade); the sign is typed in the box";
-      const decade = document.createElement("input");
-      decade.type = "range"; decade.min = "-2"; decade.max = "6"; decade.step = "1";
-      decade.className = "decade"; decade.title = "x 10^n";
-      const elements = { number, fine, decade };
+      fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
+      fine.title = "size, sign from the box";
+      const scales = document.createElement("span");
+      scales.className = "scales";
+      [["1", 0], ["10", 1], ["100", 2]].forEach(([label, power]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "scale";
+        button.textContent = label;
+        button.title = `mantissa x ${label}`;
+        button.addEventListener("click", () => {
+          const current = axis === "x" ? state.x[k] : state.y[k];
+          set(decode(current).mantissa * Math.pow(10, power));
+        });
+        scales.append(button);
+      });
+      const elements = { number, fine };
       cells.push({ axis, k, ...elements });
       const set = (v) => {
         currentName = "curve";
@@ -76,16 +104,17 @@
         draw();
       });
       fine.addEventListener("input", () => {
-        const sign = (axis === "x" ? state.x[k] : state.y[k]) < 0 ? -1 : 1;
-        set(sign * +fine.value * Math.pow(10, +decade.value));
-      });
-      decade.addEventListener("input", () => {
         const current = axis === "x" ? state.x[k] : state.y[k];
-        set(decode(current).mantissa * Math.pow(10, +decade.value));
+        const sign = current < 0 ? -1 : 1;
+        set(sign * +fine.value * Math.pow(10, decode(current).decade));
       });
       const pair = document.createElement("div");
       pair.className = "cell-inputs";
-      pair.append(number, fine, decade);
+      pair.append(number, fine, scales);
+      steppers(number, direction => {
+        const current = axis === "x" ? state.x[k] : state.y[k];
+        set(stepInteger(current, direction));
+      });
       cell.append(name, pair);
       row.append(cell);
     }
@@ -474,6 +503,11 @@
   });
   // the width law's three dials
   const strengthField = document.getElementById("n-char");
+  if (strengthField) steppers(strengthField, direction => {
+    character.strength = stepInteger(character.strength, direction);
+    strengthField.value = String(character.strength);
+    draw();
+  });
   if (strengthField) strengthField.addEventListener("input", () => {
     const v = Number(strengthField.value);
     if (!Number.isFinite(v)) return;
@@ -481,6 +515,11 @@
     draw();
   });
   const widthField = document.getElementById("n-d");
+  if (widthField) steppers(widthField, direction => {
+    width.percent = stepInteger(width.percent, direction);
+    widthField.value = String(width.percent);
+    draw();
+  });
   if (widthField) widthField.addEventListener("input", () => {
     const v = Number(widthField.value);
     if (!Number.isFinite(v)) return;

@@ -45,7 +45,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 #n-controls .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
 #n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
-#n-controls .cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px}
+#n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
+.scales,.steppers{display:inline-flex;gap:2px}
+.scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
+  background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.scales button:hover,.steppers button:hover{background:#efe7d3}
+.steppers button{padding:2px 3px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
 .solver-row button.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
 .solver-row button,.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
@@ -80,7 +85,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
 <div class="solver-row">
-  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
+  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
   <label class="dial" for="n-char">character <input id="n-char" type="number" min="0" max="3" step="0.1" value="2"></label>
 </div>
 <div class="solver-row">
