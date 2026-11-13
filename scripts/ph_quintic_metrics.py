@@ -33,6 +33,8 @@ from math import comb, lcm
 
 __all__ = [
     "to_fraction",
+    "curve_polynomials",
+    "diagnostics",
     "centred",
     "weight",
     "exact_bend",
@@ -81,6 +83,9 @@ def exact_bend(speed_x, speed_y):
     """arc, chord (complex) and bend, exactly."""
     cx = centred(speed_x)
     cy = centred(speed_y)
+    size = max(len(cx), len(cy))
+    cx += [Fraction(0)] * (size - len(cx))
+    cy += [Fraction(0)] * (size - len(cy))
     arc = Fraction(0)
     chord_re = Fraction(0)
     chord_im = Fraction(0)
@@ -185,6 +190,65 @@ def metrics(speed_x, speed_y) -> dict:
         "inflection": inflection(speed_x, speed_y),
         "closest": closest(speed_x, speed_y),
     }
+
+
+
+
+def curve_polynomials(speed_x, speed_y):
+    """x(t) and y(t) as coefficient lists, from the speed recipes."""
+    u = [to_fraction(coefficient) for coefficient in speed_x]
+    v = [to_fraction(coefficient) for coefficient in speed_y]
+    u_squared = _multiply(u, u)
+    v_squared = _multiply(v, v)
+    u_times_v = _multiply(u, v)
+    x_prime = [u_squared[i] - (v_squared[i] if i < len(v_squared) else 0)
+               for i in range(len(u_squared))]
+    y_prime = [2 * coefficient for coefficient in u_times_v]
+    x = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(x_prime)]
+    y = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(y_prime)]
+    return _trim(x), _trim(y)
+
+
+def _trim(polynomial):
+    out = list(polynomial)
+    while out and not out[-1]:
+        out.pop()
+    return out
+
+
+def diagnostics(speed_x, speed_y):
+    """The degeneracy checks, in one place, with a level and a message."""
+    x, y = curve_polynomials(speed_x, speed_y)
+
+    def degree(polynomial):
+        for k in range(len(polynomial) - 1, -1, -1):
+            if polynomial[k]:
+                return k
+        return 0
+
+    def is_zero(polynomial):
+        return all(not coefficient for coefficient in polynomial) or not polynomial
+
+    degree_x, degree_y = degree(x), degree(y)
+    m = metrics(speed_x, speed_y)
+    report = [{"code": "degree", "level": "info",
+               "message": f"degree {max(degree_x, degree_y)} (x {degree_x}, y {degree_y})"}]
+    if degree_x == 0 and degree_y == 0:
+        report.append({"code": "point", "level": "error",
+                       "message": "the curve is a single point"})
+    if is_zero(x) or is_zero(y):
+        report.append({"code": "axis-line", "level": "error",
+                       "message": "one coordinate is identically zero: an axis-aligned straight line"})
+    if m["bend"] <= 1 + 1e-9:
+        report.append({"code": "straight", "level": "warning",
+                       "message": "the curve is a straight line (bend 1.00)"})
+    if m["closest"] <= 1e-9:
+        report.append({"code": "cusp", "level": "error",
+                       "message": "the speed vanishes: a cusp"})
+    if m["inflection"] is None:
+        report.append({"code": "no-inflection", "level": "warning",
+                       "message": "no inflection: a C, not an S"})
+    return report
 
 
 if __name__ == "__main__":

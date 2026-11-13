@@ -350,10 +350,12 @@ JavaScript both checked into scripts.</p>
     const degree = Math.max(degreeX, degreeY);
     const product = multiply(curve.x, curve.y);
     const flat = product.every(coefficient => Math.abs(coefficient) < 1e-12);
-    const grade = (degree === 7 ? `degree 7 (x ${degreeX}, y ${degreeY})`
-      : `degree ${degree} (x ${degreeX}, y ${degreeY}) - no t^7 term anywhere`)
-      + (flat ? " | x*y = 0: one coordinate is identically zero, a straight line"
-              : " | x*y not identically zero");
+    const flags = [degree === 7 ? `degree 7 (x ${degreeX}, y ${degreeY})`
+                                : `degree ${degree} (x ${degreeX}, y ${degreeY}) - no t^7 term anywhere`];
+    if (flat) flags.push("one coordinate is identically zero: an axis-aligned straight line");
+    if (m.closest <= 1e-9) flags.push("the speed vanishes: a cusp");
+    if (m.inflection === null) flags.push("no inflection: a C, not an S");
+    const grade = flags.join(" | ");
     document.getElementById("b-grade").textContent = grade;
     document.getElementById("b-formula").textContent =
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}`;

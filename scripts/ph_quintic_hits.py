@@ -24,7 +24,7 @@ from __future__ import annotations
 import math
 from fractions import Fraction
 
-from ph_quintic_metrics import pitch, to_fraction
+from ph_quintic_metrics import curve_polynomials, pitch, to_fraction
 
 __all__ = [
     "curve_polynomials",
@@ -62,20 +62,6 @@ def _evaluate(polynomial, t):
     for coefficient in reversed(polynomial):
         total = total * t + coefficient
     return total
-
-
-def curve_polynomials(speed_x, speed_y):
-    """x(t) and y(t) as coefficient lists, from the speed recipes."""
-    u = [to_fraction(coefficient) for coefficient in speed_x]
-    v = [to_fraction(coefficient) for coefficient in speed_y]
-    u_squared = _multiply(u, u)
-    v_squared = _multiply(v, v)
-    u_times_v = _multiply(u, v)
-    x_prime = _subtract(u_squared, v_squared)
-    y_prime = [2 * coefficient for coefficient in u_times_v]
-    x = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(x_prime)]
-    y = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(y_prime)]
-    return _trim(x), _trim(y)
 
 
 def _poly_divmod(dividend, divisor):

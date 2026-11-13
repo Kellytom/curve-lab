@@ -74,6 +74,22 @@ class TestMetrics(unittest.TestCase):
         self.assertEqual(mixed["pitch"], padded["pitch"])
         self.assertAlmostEqual(mixed["inflection"], padded["inflection"], places=9)
 
+    def test_diagnostics_catch_each_degeneracy(self):
+        cases = {
+            "the pick": ((2, -3, 3), (2, -12, 12), ["degree"]),
+            "a point": ((0, 0, 0), (0, 0, 0), ["degree", "point", "axis-line", "cusp"]),
+            "an axis line": ((1, 0, 0), (0, 0, 0), ["degree", "axis-line", "straight"]),
+            "a diagonal line": ((2, 0, 0), (1, 0, 0), ["degree", "straight"]),
+            "a cusp": ((-0.5, 1, 0), (-1, 2, 0), ["degree", "straight", "cusp"]),
+        }
+        for label, (u, v, wanted) in cases.items():
+            with self.subTest(case=label):
+                self.assertEqual([d["code"] for d in M.diagnostics(u, v)], wanted)
+
+    def test_a_healthy_curve_reports_only_the_degree(self):
+        report = M.diagnostics((2, -3, 3), (2, -12, 12))
+        self.assertEqual([d["level"] for d in report], ["info"])
+
     def test_every_preset_matches_its_saved_bend(self):
         document = json.loads((ROOT / "workbench" / "ph-quintic-presets.json").read_text())
         for preset in document["presets"]:
