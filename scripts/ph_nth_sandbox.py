@@ -47,6 +47,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 #n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
 #n-controls .cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px}
 .solver-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.solver-row button.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
 .solver-row button,.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .dial input[type=number]{width:64px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
@@ -82,25 +83,22 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <label class="dial" for="n-d0">d0 <input id="n-d0" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
   <label class="dial" for="n-k">k <input id="n-k" type="number" min="0" max="8" step="0.05" value="1.2"></label>
   <label class="dial" for="n-p">p <input id="n-p" type="number" min="1" max="8" step="1" value="2"></label>
-  <label class="dial" for="n-serif"><input id="n-serif" type="checkbox" checked> serif foot</label>
+</div>
+<div class="solver-row">
+  <button type="button" id="n-rails" title="show or hide the two flared rails">rails</button>
+  <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
+  <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
+<p class="small">A serif foot as a PH appendix is parked:
+<a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a> holds that code, the button and its
+residual, so it can be picked up later without carrying it on this page.</p>
 </section>
 
-<section class="panel">
-<h2>B | the end: terminal and serif</h2>
-<p>An offset that flares is just <code>r &plusmn; d(t) n(t)</code> with <code>d</code> a function, and for
-a PH curve the normal is rational, so a polynomial width law keeps the rail rational &mdash; the flare is
-exact, not fitted. The terminal follows the house rule: radius <code>2 d(1)</code>, two arcs tangent to
-the rails, meeting at the tip. The serif foot is a PH span of the same degree: in the frame of the rail end it leaves along the
-rail's tangent and arrives along the base, landing on a foot of half width <code>f</code>. Four
-conditions on a degree-5 speed, solved in the page; the residual is printed beside the width. A
-circular arc is kept as the fallback when the solve misses by more than 0.05.</p>
-<svg id="n-detail" viewBox="0 0 720 420" role="img" aria-label="the terminal and the serif foot, enlarged"></svg>
-</section>
+
 
 <section class="panel">
-<h2>C | the eleven chord terms</h2>
+<h2>B | the eleven chord terms</h2>
 <p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. The first six
 rows are what a sextic can hold; the rest exist only because the position reaches <code>t^11</code>.
 The numbers are in the panel above and in the JSON box below.</p>
@@ -108,7 +106,7 @@ The numbers are in the panel above and in the JSON box below.</p>
 </section>
 
 <section class="panel">
-<h2>D | solve, save, take away</h2>
+<h2>C | solve, save, take away</h2>
 <div class="solver-row">
   <button type="button" id="n-close">close chord</button>
   <button type="button" id="n-open" title="solve until |chord| / arc reaches the dial">close to &hellip;</button>

@@ -62,7 +62,7 @@
       const set = (v) => {
         currentName = "curve";
         if (axis === "x") state.x[k] = v; else state.y[k] = v;
-        syncCell(elements, v, { write: false });
+        syncCell(elements, v);          // the slider is the source: write the box
         draw();
       };
       number.addEventListener("input", () => {
@@ -96,13 +96,15 @@
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? state.x[cell.k] : state.y[cell.k]));
   }
 
-  // ---------- the width law, the rails, the terminal, the serif ----------
+  // ---------- the width law, the rails, the terminal ----------
   // A parallel rail is r + d*n with d constant. A flared rail is the same
-  // formula with d a polynomial in t. For a PH curve n is rational in t, so a
-  // polynomial width law keeps the rail rational: the flare is exact, not
-  // fitted. d(t) = d0 * (1 + k * t^p).
-  const width = { d0: 0.35, k: 1.2, p: 2, serif: true };
+  // formula with d a function of t: d(t) = d0 * (1 + k * t^p). For a PH curve n
+  // is rational in t, so a polynomial width law keeps the rail rational.
+  const width = { d0: 0.35, k: 1.2, p: 2 };
   const widthAt = t => width.d0 * (1 + width.k * Math.pow(t, width.p));
+
+  // what the page draws: the spine alone by default
+  const view = { rails: false, startTerminal: false, endTerminal: false };
 
   function spineSamples(n = 700) {
     const out = [];
@@ -124,133 +126,49 @@
     return out;
   }
 
-  function arcPoints(cx, cy, from, to, steps = 40) {
+  // the arc through three points: a round terminal of radius d at that end
+  function arcThrough(cx, cy, from, to, through, steps = 48) {
+    const radius = Math.hypot(from[0] - cx, from[1] - cy) || 1e-9;
     const a0 = Math.atan2(from[1] - cy, from[0] - cx);
-    let a1 = Math.atan2(to[1] - cy, to[0] - cx);
-    while (a1 - a0 > Math.PI) a1 -= 2 * Math.PI;
-    while (a0 - a1 > Math.PI) a1 += 2 * Math.PI;
-    const radius = Math.hypot(from[0] - cx, from[1] - cy);
+    const a1 = Math.atan2(to[1] - cy, to[0] - cx);
+    const pick = [a1, a1 + 2 * Math.PI, a1 - 2 * Math.PI].map(end => {
+      const mid = (a0 + end) / 2;
+      const p = [cx + Math.cos(mid) * radius, cy + Math.sin(mid) * radius];
+      return { end, gap: Math.hypot(p[0] - through[0], p[1] - through[1]) };
+    }).sort((u, v) => u.gap - v.gap)[0];
     const points = [];
     for (let i = 0; i <= steps; i++) {
-      const a = a0 + (a1 - a0) * i / steps;
+      const a = a0 + (pick.end - a0) * i / steps;
       points.push([cx + radius * Math.cos(a), cy + radius * Math.sin(a)]);
     }
     return points;
   }
 
-  function endGeometry(spine) {
-    const end = spine[spine.length - 1];
-    const d1 = widthAt(1);
-    const radius = 2 * d1;                        // the house rule: R = 2 * d(1)
-    const A = [end.x + d1 * end.nx, end.y + d1 * end.ny];   // left rail end
-    const B = [end.x - d1 * end.nx, end.y - d1 * end.ny];   // right rail end
-    const tip = [end.x + Math.sqrt(3) * d1 * end.tx, end.y + Math.sqrt(3) * d1 * end.ty];
-    const leftCentre = [A[0] - radius * end.nx, A[1] - radius * end.ny];
-    const rightCentre = [B[0] + radius * end.nx, B[1] + radius * end.ny];
-    const coneLeft = arcPoints(leftCentre[0], leftCentre[1], A, tip);
-    const coneRight = arcPoints(rightCentre[0], rightCentre[1], B, tip);
-    // the serif: a bracketed foot. The arc leaves the rail end tangent to it and
-    // lands on the foot at half width f, height h. Its radius follows from the
-    // two, so the foot cannot contradict the flare.
-    const h = 0.9 * d1, f = 1.9 * d1;
-    const reach = f - d1;
-    const arcRadius = (h * h + reach * reach) / (2 * Math.max(1e-9, reach));
-    const footA = [end.x + h * end.tx + f * end.nx, end.y + h * end.ty + f * end.ny];
-    const footB = [end.x + h * end.tx - f * end.nx, end.y + h * end.ty - f * end.ny];
-    const arcLeft = arcPoints(A[0] + arcRadius * end.nx, A[1] + arcRadius * end.ny, A, footA);
-    const arcRight = arcPoints(B[0] - arcRadius * end.nx, B[1] - arcRadius * end.ny, B, footB);
-    // the appendix, placed in the world frame: local (u, n) at the rail end
-    const appendix = appendixOf(h, reach);
-    const place = points => points.map(([u, v]) => [end.x + u * end.tx + v * end.nx,
-                                                   end.y + u * end.ty + v * end.ny]);
-    let serifLeft = arcLeft, serifRight = arcRight;
-    if (appendix && appendix.residual < 0.05) {
-      serifLeft = place(appendix.points);
-      serifRight = appendix.points.map(([u, v]) => [end.x + u * end.tx - v * end.nx,
-                                                    end.y + u * end.ty - v * end.ny]);
-    }
-    return { end, d1, radius, A, B, tip, coneLeft, coneRight, h, f, arcRadius,
-             footA, footB, serifLeft, serifRight, arcLeft, arcRight,
-             appendixResidual: appendix ? appendix.residual : null };
-  }
-
-  // ---------- the serif as an appendix span of degree 11 ----------
-  // In the frame of the rail end (u = the rail tangent, n = the outward
-  // normal), the foot wants a curve from (0,0) to (h, reach) that leaves along
-  // u and arrives along the base -n. That is four conditions on a speed of
-  // degree 5, solved here by the same line search as the main solver.
-  function appendixOf(h, reach) {
-    if (reach <= 1e-9) return null;
-    const target = [h, reach];
-    const build = p => ({ x: [1].concat(p.slice(0, 5)), y: p.slice(5, 11) });
-    const tangentAt = (speed, t) => {
-      const a = value(speed.x, t), b = value(speed.y, t);
-      const s2 = a * a + b * b || 1;
-      return [(a * a - b * b) / s2, 2 * a * b / s2];
-    };
-    const endpointOf = speed => {
-      let x = 0, y = 0;
-      const steps = 300;
-      for (let i = 0; i < steps; i++) {
-        const t = (i + 0.5) / steps;
-        const a = value(speed.x, t), b = value(speed.y, t);
-        x += (a * a - b * b) / steps;
-        y += 2 * a * b / steps;
-      }
-      return [x, y];
-    };
-    const residual = p => {
-      const speed = build(p);
-      const end = endpointOf(speed);
-      const t0 = tangentAt(speed, 0), t1 = tangentAt(speed, 1);
-      return [end[0] - target[0], end[1] - target[1], -t0[1], -t1[0]];
-    };
-    const cost = p => residual(p).reduce((sum, r) => sum + r * r, 0);
-    // seed: a straight-ish span with a small turn, which is where a serif foot
-    // starts; the search is on a common grid for each of the ten numbers
-    let params = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0];
-    let best = cost(params);
-    for (let pass = 0; pass < 4; pass++) {
-      let reachStep = 0.5 / Math.pow(4, pass);
-      let moved = true;
-      while (moved && reachStep > 1e-7) {
-        moved = false;
-        for (let i = 0; i < params.length; i++) {
-          for (const direction of [1, -1]) {
-            const trial = params.slice();
-            trial[i] += direction * reachStep * Math.max(1, Math.abs(params[i]));
-            const v = cost(trial);
-            if (v < best) { params = trial; best = v; moved = true; break; }
-          }
-        }
-        if (!moved) reachStep /= 2;
-      }
-    }
-    const speed = build(params);
-    const points = [];
-    let x = 0, y = 0;
-    const steps = 160;
-    points.push([x, y]);
-    for (let i = 0; i < steps; i++) {
-      const t = (i + 0.5) / steps;
-      const a = value(speed.x, t), b = value(speed.y, t);
-      x += (a * a - b * b) / steps;
-      y += 2 * a * b / steps;
-      points.push([x, y]);
-    }
-    return { points, residual: Math.sqrt(best), speed };
+  // a simple arc terminal: a semicircle of radius d joining the two rails and
+  // bulging along the tangent (forward at the end, backward at the start)
+  function terminalArc(spine, atStart) {
+    const s = atStart ? spine[0] : spine[spine.length - 1];
+    const d = widthAt(atStart ? 0 : 1);
+    const sign = atStart ? -1 : 1;
+    const A = [s.x + d * s.nx, s.y + d * s.ny];
+    const B = [s.x - d * s.nx, s.y - d * s.ny];
+    const tip = [s.x + sign * d * s.tx, s.y + sign * d * s.ty];
+    const arc = arcThrough(s.x, s.y, A, B, tip);
+    return { arc, tip, d };
   }
 
   // ---------- the drawing ----------
   function draw() {
     const plot = document.getElementById("n-plot");
     const spine = spineSamples();
-    const geometry = endGeometry(spine);
     const leftRail = spine.map(s => [s.x + widthAt(s.t) * s.nx, s.y + widthAt(s.t) * s.ny]);
     const rightRail = spine.map(s => [s.x - widthAt(s.t) * s.nx, s.y - widthAt(s.t) * s.ny]);
-    const all = spine.map(s => [s.x, s.y]).concat(leftRail, rightRail,
-      geometry.coneLeft, geometry.coneRight, geometry.serifLeft, geometry.serifRight,
-      [geometry.tip], [geometry.footA], [geometry.footB]);
+    const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
+    const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
+    const all = spine.map(s => [s.x, s.y]);
+    if (view.rails) all.push(...leftRail, ...rightRail);
+    if (startEnd) all.push(...startEnd.arc, startEnd.tip);
+    if (finishEnd) all.push(...finishEnd.arc, finishEnd.tip);
     const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
     const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
     const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
@@ -262,25 +180,33 @@
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
     const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
     const path = points => "M" + points.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    const end = geometry.end;
-    plot.innerHTML =
-      `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine, a flared full line, and a serif</text>` +
-      `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">spine r(t) | rails r +/- d(t) n(t), d(t) = d0 (1 + k t^p) | terminal R = 2 d(1) | foot at half width f</text>` +
+    let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
+      `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
+      `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">` +
+      (view.rails ? `rails r +/- d(t) n(t), d(t) = d0 (1 + k t^p)` : `the spine alone; rails and terminals are below`) +
+      `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}</text>` +
       `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
-      `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
-      `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
-      `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
-      `<path d="${path(spine)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
-      `<path d="${path(geometry.coneLeft)}" fill="none" stroke="#a23b2a" stroke-width="2.2"/>` +
-      `<path d="${path(geometry.coneRight)}" fill="none" stroke="#a23b2a" stroke-width="2.2"/>` +
-      (width.serif
-        ? `<path d="${path(geometry.serifLeft)}" fill="none" stroke="#8a5a9e" stroke-width="2.4"/>` +
-          `<path d="${path(geometry.serifRight)}" fill="none" stroke="#8a5a9e" stroke-width="2.4"/>` +
-          `<line x1="${fx(geometry.footA[0]).toFixed(1)}" y1="${fy(geometry.footA[1]).toFixed(1)}" x2="${fx(geometry.footB[0]).toFixed(1)}" y2="${fy(geometry.footB[1]).toFixed(1)}" stroke="#8a5a9e" stroke-width="3"/>`
-        : "") +
-      `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>` +
-      `<circle cx="${fx(geometry.tip[0]).toFixed(1)}" cy="${fy(geometry.tip[1]).toFixed(1)}" r="4" fill="#a23b2a"/>`;
+      `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>`;
+    if (view.rails) {
+      art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
+             `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>`;
+    }
+    art += `<path d="${path(spine)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
+    // legend inside the figure, 15px, naming the spine first
+    const legend = [["#2e2413", 2.4, "spine"]];
+    if (view.rails) legend.push(["#1f5fa8", 1.8, "flared rail"]);
+    if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
+    let legendX = left;
+    legend.forEach(([colour, widthStroke, text]) => {
+      art += `<line x1="${legendX}" y1="${height - 16}" x2="${legendX + 26}" y2="${height - 16}" ` +
+        `stroke="${colour}" stroke-width="${widthStroke}"/>` +
+        `<text x="${legendX + 34}" y="${height - 11}" font-size="15" fill="#2e2413">${text}</text>`;
+      legendX += 34 + text.length * 8.2 + 26;
+    });
+    plot.innerHTML = art;
 
     const m = metrics(state.x, state.y);
     const openness = m.arc > 1e-12 ? Math.hypot(m.chord[0], m.chord[1]) / m.arc : 0;
@@ -290,12 +216,12 @@
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
+    const showing = [view.rails ? "rails" : "spine only"];
+    if (view.startTerminal) showing.push(`start terminal, radius ${widthAt(0).toFixed(3)}`);
+    if (view.endTerminal) showing.push(`end terminal, radius ${widthAt(1).toFixed(3)}`);
     document.getElementById("n-width-readout").textContent =
-      `d0 ${width.d0.toFixed(3)} | d(1) ${geometry.d1.toFixed(3)} | flare ${(geometry.d1 / width.d0).toFixed(2)}x | ` +
-      `terminal R ${geometry.radius.toFixed(3)} (= 2 d(1)) | foot half width ${geometry.f.toFixed(3)} | ` +
-      (geometry.appendixResidual !== null && geometry.appendixResidual < 0.05
-        ? `serif: PH span, residual ${geometry.appendixResidual.toFixed(4)}`
-        : `serif: arc fallback, residual ${geometry.appendixResidual === null ? "-" : geometry.appendixResidual.toFixed(3)}`);
+      `d0 ${width.d0.toFixed(3)} | d(1) ${widthAt(1).toFixed(3)} | flare ${(widthAt(1) / width.d0).toFixed(2)}x | ` +
+      `showing ${showing.join(", ")}`;
     document.getElementById("n-grade").textContent =
       `degree ${Math.max(degreeOf(curve.x), degreeOf(curve.y))} (x ${degreeOf(curve.x)}, y ${degreeOf(curve.y)})` +
       (m.inflection === null ? " | no inflection: a C, not an S" : "");
@@ -316,53 +242,7 @@
         width: { d0: width.d0, k: width.k, p: width.p },
       }, null, 2);
     }
-    drawDetail(geometry);
     drawBars();
-  }
-
-  // the end, enlarged: the cone terminal and the serif foot on their own scale
-  function drawDetail(geometry) {
-    const plot = document.getElementById("n-detail");
-    if (!plot) return;
-    const points = geometry.coneLeft.concat(geometry.coneRight,
-      geometry.serifLeft, geometry.serifRight,
-      [geometry.tip], [geometry.footA], [geometry.footB], [geometry.A], [geometry.B], [geometry.end]);
-    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-    const pad = 0.65 * Math.max(1e-6, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
-    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
-    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
-    const width = 720, height = 420, left = 70, right = 40, top = 84, bottom = 60;
-    const scale = Math.min((width - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
-    const ox = left + ((width - left - right) - (maxX - minX) * scale) / 2;
-    const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
-    const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
-    const path = pts => "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
-    // labels sit in a column on the left with a leader to each point, so they
-    // cannot collide with the geometry or with each other
-    const marks = [
-      [geometry.tip, "tip", "#a23b2a"],
-      [geometry.footA, "foot", "#8a5a9e"],
-      [geometry.A, "rail end", "#1f5fa8"],
-      [geometry.end, "spine end", "#2e2413"],
-    ];
-    let leaders = "";
-    marks.forEach((mark, i) => {
-      const y = top + 18 + i * 26;
-      leaders += `<text x="${left + 8}" y="${y}" font-size="13" fill="${mark[2]}">${mark[1]}</text>` +
-        `<line x1="${left + 74}" y1="${y - 4}" x2="${fx(mark[0][0]).toFixed(1)}" y2="${fy(mark[0][1]).toFixed(1)}" ` +
-        `stroke="${mark[2]}" stroke-width="1" stroke-dasharray="2 3" opacity="0.7"/>`;
-    });
-    plot.innerHTML =
-      `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The end, enlarged: cone terminal and serif foot</text>` +
-      `<text x="${left}" y="48" font-size="12" fill="#7b6c4e">R = 2 d(1) holds the width and the terminal to one number; the foot arc turns tangent from the rail</text>` +
-      `<path d="${path(geometry.coneLeft)}" fill="none" stroke="#a23b2a" stroke-width="2.6"/>` +
-      `<path d="${path(geometry.coneRight)}" fill="none" stroke="#a23b2a" stroke-width="2.6"/>` +
-      `<path d="${path(geometry.serifLeft)}" fill="none" stroke="#8a5a9e" stroke-width="2.8"/>` +
-      `<path d="${path(geometry.serifRight)}" fill="none" stroke="#8a5a9e" stroke-width="2.8"/>` +
-      `<line x1="${fx(geometry.footA[0]).toFixed(1)}" y1="${fy(geometry.footA[1]).toFixed(1)}" x2="${fx(geometry.footB[0]).toFixed(1)}" y2="${fy(geometry.footB[1]).toFixed(1)}" stroke="#8a5a9e" stroke-width="4"/>` +
-      leaders +
-      `<text x="${left}" y="${height - 22}" font-size="13" fill="#2e2413">cone radius ${geometry.radius.toFixed(2)} | foot half width ${geometry.f.toFixed(2)} | foot arc radius ${geometry.arcRadius.toFixed(2)} | height ${geometry.h.toFixed(2)}</text>`;
   }
 
   const multiply = (left, right) => {
@@ -547,8 +427,16 @@
       draw();
     });
   });
-  const serifBox = document.getElementById("n-serif");
-  if (serifBox) serifBox.addEventListener("change", () => { width.serif = serifBox.checked; draw(); });
+  [["n-rails", "rails"], ["n-terminal-start", "startTerminal"], ["n-terminal-end", "endTerminal"]]
+    .forEach(([id, key]) => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.addEventListener("click", () => {
+        view[key] = !view[key];
+        button.classList.toggle("is-on", view[key]);
+        draw();
+      });
+    });
   document.getElementById("n-zero-top").addEventListener("click", () => {
     state.x[POINTS - 1] = 0; state.y[POINTS - 1] = 0;
     currentName = "curve"; writeCells(); draw();

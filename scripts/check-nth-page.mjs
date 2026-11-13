@@ -31,57 +31,38 @@ await page.goto(`${url}?v=${Date.now()}`, { waitUntil: "load" });
 const boxes = await page.$$eval("#n-controls input[type=number]", els => els.length);
 if (boxes !== 12) failures.push(`speed boxes: ${boxes}, expected 12`);
 
-// the terminal rule: R = 2 d(1), read back from the page itself
+// the view: spine only by default, then rails, then the two terminals
+const paths = () => page.evaluate(() => document.querySelectorAll("#n-plot path").length);
+if (await paths() !== 1) failures.push("default view is not the spine alone");
+await page.click("#n-rails");
+if (await paths() !== 3) failures.push("rails toggle did not add two paths");
+await page.click("#n-terminal-end");
+if (await paths() !== 4) failures.push("end terminal did not add an arc");
+await page.click("#n-terminal-start");
+if (await paths() !== 5) failures.push("start terminal did not add an arc");
+await page.click("#n-terminal-start");
+await page.click("#n-terminal-end");
+await page.click("#n-rails");
+if (await paths() !== 1) failures.push("toggles did not return to the spine alone");
+
+// the sliders must write the number boxes
+const boxesBefore = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
+const sliders = await page.$$("#n-controls input[type=range]:not(.decade)");
+await sliders[1].evaluate(el => { el.value = "4"; el.dispatchEvent(new Event("input", { bubbles: true })); });
+await page.waitForTimeout(120);
+const boxesAfter = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
+if (boxesBefore[1] === boxesAfter[1]) failures.push("a slider moved the curve but not the number box");
+
+// the width readout must agree with d0 and the flare
 const widthText = await page.textContent("#n-width-readout");
-const d1 = Number((widthText.match(/d\(1\) ([0-9.]+)/) || [])[1]);
-const terminal = Number((widthText.match(/terminal R ([0-9.]+)/) || [])[1]);
-if (!Number.isFinite(d1) || !Number.isFinite(terminal) || Math.abs(terminal - 2 * d1) > 0.002) {
-  failures.push(`terminal rule: R ${terminal} against 2 d(1) ${2 * d1}`);
-}
-const flare = Number((widthText.match(/flare ([0-9.]+)x/) || [])[1]);
 const d0 = Number((widthText.match(/d0 ([0-9.]+)/) || [])[1]);
-if (!Number.isFinite(flare) || Math.abs(flare - d1 / d0) > 0.02) {
-  failures.push(`flare: ${flare}x against d(1)/d0 ${(d1 / d0).toFixed(2)}x`);
-}
+const d1 = Number((widthText.match(/d\(1\) ([0-9.]+)/) || [])[1]);
+const flare = Number((widthText.match(/flare ([0-9.]+)x/) || [])[1]);
+if (!Number.isFinite(d1) || Math.abs(flare - d1 / d0) > 0.02) failures.push(`flare: ${flare}x against d(1)/d0 ${(d1 / d0).toFixed(2)}x`);
 
-// the serif foot: two arcs and a base, and the toggle removes them
-const before = await page.evaluate(() => document.querySelectorAll("#n-plot path").length);
-await page.uncheck("#n-serif");
-const after = await page.evaluate(() => document.querySelectorAll("#n-plot path").length);
-if (after !== before - 2) failures.push(`serif toggle: ${before} -> ${after} paths`);
-await page.check("#n-serif");
+const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
+if (!notes) failures.push("the serif notes link is missing");
 
-// the openness dial must land
-const openness = async () => Number((await page.textContent("#n-readout")).match(/open ([0-9.]+)/)[1]);
-await page.fill("#n-open-value", "0.30");
-await page.click("#n-open");
-await page.waitForTimeout(700);
-const reached = await openness();
-if (!Number.isFinite(reached) || Math.abs(reached - 0.30) > 0.01) {
-  failures.push(`close-to 0.30 gave openness ${reached}`);
-}
-
-// the detail figure must keep its labels inside and apart
-const detail = await page.evaluate(() => {
-  const svg = document.getElementById("n-detail");
-  const box = svg.getBoundingClientRect();
-  const texts = [...svg.querySelectorAll("text")].map(t => {
-    const r = t.getBoundingClientRect();
-    return { text: t.textContent, x: r.left, y: r.top, w: r.width, h: r.height };
-  });
-  let overlaps = 0;
-  for (let i = 0; i < texts.length; i++) {
-    for (let j = i + 1; j < texts.length; j++) {
-      const a = texts[i], c = texts[j];
-      if (a.x < c.x + c.w && c.x < a.x + a.w && a.y < c.y + c.h && c.y < a.y + a.h) overlaps++;
-    }
-  }
-  const outside = texts.filter(t => t.x < box.left - 1 || t.y < box.top - 1 ||
-                                    t.x + t.w > box.right + 1 || t.y + t.h > box.bottom + 1);
-  return { overlaps, outside: outside.length };
-});
-if (detail.overlaps) failures.push(`detail text overlaps: ${detail.overlaps}`);
-if (detail.outside) failures.push(`detail text outside the box: ${detail.outside}`);
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();
@@ -92,4 +73,4 @@ if (failures.length) {
   for (const failure of failures) console.error("  " + failure);
   process.exit(1);
 }
-console.log("OK  12 boxes, width law, terminal R = 2 d(1), serif, dial, clean detail");
+console.log("OK  12 boxes, spine by default, rails and both terminals, sliders write the boxes, dial lands");

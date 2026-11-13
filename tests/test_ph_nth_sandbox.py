@@ -15,6 +15,8 @@ class TestNthSandbox(unittest.TestCase):
         page = PAGE.read_text()
         for marker in ("n-controls", "n-plot", "n-bars", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
+                       "n-rails", "n-terminal-start", "n-terminal-end",
+                       "ph-nth-serif-notes.html",
                        "The eleventh power", "degree 11"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
@@ -35,6 +37,14 @@ class TestNthSandbox(unittest.TestCase):
                        check=True, capture_output=True)
         self.assertEqual(PAGE.read_text(), before,
                          "the page is not what scripts/ph_nth_sandbox.py emits")
+
+    def test_the_serif_notes_page_is_generated_too(self):
+        notes = ROOT / "workbench" / "ph-nth-serif-notes.html"
+        self.assertTrue(notes.exists())
+        text = notes.read_text()
+        for marker in ("appendixOf", "residual", "ph-nth-sandbox.html", "window.polynomialValue"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, text)
 
     def test_the_degree_is_eleven_not_seven(self):
         text = JS.read_text()
