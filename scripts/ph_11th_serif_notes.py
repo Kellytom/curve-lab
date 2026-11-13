@@ -1,0 +1,280 @@
+"""Serif-foot notes: the PH appendix experiment, parked but still runnable.
+
+    .venv/bin/python scripts/ph_11th_serif_notes.py
+    open workbench/ph-11th-serif-notes.html
+
+This page carries the code and the control for the serif foot that the
+eleventh-power page used to hold. The problem: at the end of a flared rail,
+the foot should leave the rail tangent to it and arrive along the base, as a
+span of the same degree. That is four conditions on a degree-5 speed, solved
+numerically; the residual is printed. When it is small enough to trust, this
+is where it comes back from.
+
+The page is generated: edit this file, never the HTML.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "workbench" / "ph-11th-serif-notes.html"
+MATH = ROOT / "scripts" / "ph_math.js"
+
+PAGE = r"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serif foot notes: a PH appendix, parked</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 70px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:28px;line-height:1.15;margin:0 0 8px}
+h2{font-size:19px;margin:0 0 8px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:18px 20px;margin:0 0 22px}
+p{margin:0 0 12px}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:auto;font:12px/1.5 ui-monospace,Menlo,monospace}
+.small{font-size:13px;color:var(--muted)}
+.mono{font:12px/1.6 ui-monospace,Menlo,monospace}
+.dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a;margin:0 10px 0 0}
+.dial input{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+a{color:#1f5fa8}
+</style></head><body><main>
+<p class="eyebrow">curve-lab | notes | serif foot</p>
+<h1>A serif foot as a PH appendix</h1>
+<p>The eleventh-power page ends a full line in a round arc for now. The parked idea is sharper: make
+the foot itself a <strong>PH span of the same degree</strong>, so flare, terminal and serif are one
+rational object rather than a rail, an arc and a drawing that agree by eye. This page keeps the code
+and the numbers so the problem can be picked up without carrying it on the sandbox.</p>
+
+<section class="panel">
+<h2>The problem, stated</h2>
+<p>In the frame of the rail end &mdash; <code>u</code> along the rail's tangent, <code>n</code> the
+outward normal &mdash; the foot must run from <code>(0, 0)</code> to <code>(h, f - d)</code>, leave
+along <code>u</code>, and arrive along the base (the <code>n</code> direction). That is four
+conditions: two positions and two directions. A speed of degree 5 gives twelve numbers, of which
+eleven are free after the scale is fixed, so the conditions leave a seven-parameter family. The page
+solves for one member by line search and prints how far it misses.</p>
+<pre>residual = |P(1) - target| + |tangent(0) - u| + |tangent(1) - base|</pre>
+</section>
+
+<section class="panel">
+<h2>The flare, and the serif made from it</h2>
+<div class="row">
+  <label class="dial">d0 <input id="d0" type="number" value="0.35" step="0.01" min="0.05" max="2"></label>
+  <label class="dial">k <input id="k" type="number" value="1.2" step="0.05" min="0" max="6"></label>
+  <label class="dial">p <input id="p" type="number" value="1" step="1" min="1" max="8"></label>
+  <label class="dial">h / d <input id="hfac" type="number" value="0.9" step="0.05" min="0.2" max="3"></label>
+  <label class="dial">f / d <input id="ffac" type="number" value="1.9" step="0.05" min="1.05" max="4"></label>
+  <button type="button" id="solve">solve the foot</button>
+  <button type="button" id="arc">show the arc instead</button>
+</div>
+<svg id="plot" viewBox="0 0 720 520" role="img" aria-label="a rail end with a PH serif foot and the arc fallback"></svg>
+<p class="small mono" id="readout"></p>
+</section>
+
+<section class="panel">
+<h2>Where it stands</h2>
+<p>Residuals on the sandbox's default curve were 0.019 to 0.025 at the dial settings tried, on a foot
+of height about 0.7 &mdash; two to three per cent. That is close enough to look at and not close enough
+to claim exact. The solver is a coordinate line search, not a proper Levenberg&ndash;Marquardt; the
+conditions are four and the unknowns eleven, so a least-squares solve with a numeric Jacobian should
+do better and is the first thing to try.</p>
+<p>Two things are already exact and should not be lost: the rail is rational for a PH spine with a
+polynomial width law, and the arc terminal is a semicircle of radius <code>d</code> at that end. Only
+the foot is numerical.</p>
+<p><a href="ph-11th-sandbox.html">&larr; back to the eleventh-power sandbox</a></p>
+</section>
+</main>
+<script>
+__MATH__
+</script>
+<script>
+(function () {
+  const panel = document.getElementById("plot");
+  const readout = document.getElementById("readout");
+  const speed = { x: [2, -5, 6, 1, 0, 0], y: [4, -22, 22, -2, 0, 0] };
+  const value = window.polynomialValue;
+  const dial = id => Number(document.getElementById(id).value);
+
+  function spine(n) {
+    const out = [];
+    let x = 0, y = 0;
+    for (let i = 0; i <= n; i++) {
+      const t = i / n;
+      const p = value(speed.x, t), q = value(speed.y, t);
+      const s2 = p * p + q * q;
+      const tx = s2 > 1e-12 ? (p * p - q * q) / s2 : 1;
+      const ty = s2 > 1e-12 ? 2 * p * q / s2 : 0;
+      out.push({ t, x, y, tx, ty, nx: -ty, ny: tx });
+      if (i < n) {
+        const tm = (i + 0.5) / n;
+        const pm = value(speed.x, tm), qm = value(speed.y, tm);
+        x += (pm * pm - qm * qm) / n;
+        y += 2 * pm * qm / n;
+      }
+    }
+    return out;
+  }
+
+  // the solver, exactly as the sandbox carried it
+  function appendixOf(h, reach) {
+    if (reach <= 1e-9) return null;
+    const target = [h, reach];
+    const build = p => ({ x: [1].concat(p.slice(0, 5)), y: p.slice(5, 11) });
+    const tangentAt = (s, t) => {
+      const a = value(s.x, t), b = value(s.y, t);
+      const s2 = a * a + b * b || 1;
+      return [(a * a - b * b) / s2, 2 * a * b / s2];
+    };
+    const endpointOf = s => {
+      let x = 0, y = 0;
+      const steps = 300;
+      for (let i = 0; i < steps; i++) {
+        const t = (i + 0.5) / steps;
+        const a = value(s.x, t), b = value(s.y, t);
+        x += (a * a - b * b) / steps;
+        y += 2 * a * b / steps;
+      }
+      return [x, y];
+    };
+    const residual = p => {
+      const s = build(p);
+      const end = endpointOf(s);
+      const t0 = tangentAt(s, 0), t1 = tangentAt(s, 1);
+      return [end[0] - target[0], end[1] - target[1], -t0[1], -t1[0]];
+    };
+    const cost = p => residual(p).reduce((sum, r) => sum + r * r, 0);
+    let params = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0];
+    let best = cost(params);
+    for (let pass = 0; pass < 4; pass++) {
+      let step = 0.5 / Math.pow(4, pass);
+      let moved = true;
+      while (moved && step > 1e-7) {
+        moved = false;
+        for (let i = 0; i < params.length; i++) {
+          for (const dir of [1, -1]) {
+            const trial = params.slice();
+            trial[i] += dir * step * Math.max(1, Math.abs(params[i]));
+            const v = cost(trial);
+            if (v < best) { params = trial; best = v; moved = true; break; }
+          }
+        }
+        if (!moved) step /= 2;
+      }
+    }
+    const s = build(params);
+    const points = [];
+    let x = 0, y = 0;
+    const steps = 160;
+    points.push([x, y]);
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(s.x, t), b = value(s.y, t);
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      points.push([x, y]);
+    }
+    return { points, residual: Math.sqrt(best) };
+  }
+
+  function arcThrough(cx, cy, from, to, through, steps) {
+    const radius = Math.hypot(from[0] - cx, from[1] - cy) || 1e-9;
+    const a0 = Math.atan2(from[1] - cy, from[0] - cx);
+    const a1 = Math.atan2(to[1] - cy, to[0] - cx);
+    const pick = [a1, a1 + 2 * Math.PI, a1 - 2 * Math.PI].map(end => {
+      const mid = (a0 + end) / 2;
+      const p = [cx + Math.cos(mid) * radius, cy + Math.sin(mid) * radius];
+      return { end, gap: Math.hypot(p[0] - through[0], p[1] - through[1]) };
+    }).sort((u, v) => u.gap - v.gap)[0];
+    const out = [];
+    for (let i = 0; i <= steps; i++) {
+      const a = a0 + (pick.end - a0) * i / steps;
+      out.push([cx + radius * Math.cos(a), cy + radius * Math.sin(a)]);
+    }
+    return out;
+  }
+
+  let mode = "appendix";
+  function draw() {
+    const sp = spine(500);
+    const end = sp[sp.length - 1];
+    const d0 = dial("d0"), k = dial("k");
+    const d1 = d0 * (1 + k);
+    const h = dial("hfac") * d1, f = dial("ffac") * d1;
+    const reach = f - d1;
+    const A = [end.x + d1 * end.nx, end.y + d1 * end.ny];
+    const B = [end.x - d1 * end.nx, end.y - d1 * end.ny];
+    const foot = [end.x + h * end.tx + f * end.nx, end.y + h * end.ty + f * end.ny];
+    const appendix = appendixOf(h, reach);
+    const railAt = s => d0 * (1 + k * Math.pow(s.t, dial("p")));
+    const railLeft = sp.map(s => [s.x + railAt(s) * s.nx, s.y + railAt(s) * s.ny]);
+    const railRight = sp.map(s => [s.x - railAt(s) * s.nx, s.y - railAt(s) * s.ny]);
+    const left = appendix && mode === "appendix"
+      ? appendix.points.map(([u, v]) => [end.x + u * end.tx + v * end.nx, end.y + u * end.ty + v * end.ny])
+      : arcThrough(A[0] + (h * h + reach * reach) / (2 * reach) * end.nx,
+                   A[1] + (h * h + reach * reach) / (2 * reach) * end.ny, A, foot, foot, 40);
+    const all = sp.map(s => [s.x, s.y]).concat(railLeft, railRight, left, [foot], [[end.x, end.y]]);
+    const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+    const pad = 0.15 * Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
+    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    const w = 720, hgt = 520, l = 74, r = 40, t = 92, b = 64;
+    const s = Math.min((w - l - r) / (maxX - minX), (hgt - t - b) / (maxY - minY));
+    const ox = l + ((w - l - r) - (maxX - minX) * s) / 2;
+    const oy = t + ((hgt - t - b) - (maxY - minY) * s) / 2;
+    const fx = v => ox + (v - minX) * s, fy = v => oy + (maxY - v) * s;
+    const path = pts => "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
+    panel.innerHTML =
+      `<rect width="${w}" height="${hgt}" fill="#fbf7ec"/>` +
+      `<text x="${l}" y="28" font-size="15" font-weight="600" fill="#2e2413">A serif foot at the rail end: PH appendix against the arc</text>` +
+      `<text x="${l}" y="46" font-size="12" fill="#7b6c4e">grey: spine | blue: rail | purple: the foot | the foot must leave tangent and arrive on the base</text>` +
+      `<path d="${path(railLeft)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
+      `<path d="${path(railRight)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
+      `<path d="${path(sp.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.6"/>` +
+      `<path d="${path(left)}" fill="none" stroke="#8a5a9e" stroke-width="2.8"/>` +
+      `<line x1="${fx(foot[0]).toFixed(1)}" y1="${fy(foot[1]).toFixed(1)}" x2="${fx(foot[0] - 2 * f * end.nx).toFixed(1)}" y2="${fy(foot[1] - 2 * f * end.ny).toFixed(1)}" stroke="#8a5a9e" stroke-width="1.6" stroke-dasharray="4 3"/>` +
+      `<circle cx="${fx(end.x).toFixed(1)}" cy="${fy(end.y).toFixed(1)}" r="4" fill="#2e2413"/>` +
+      `<circle cx="${fx(foot[0]).toFixed(1)}" cy="${fy(foot[1]).toFixed(1)}" r="4" fill="#8a5a9e"/>` +
+      `<text x="${l}" y="${hgt - 40}" font-size="13" fill="#2e2413">d(1) ${d1.toFixed(3)} | foot height ${h.toFixed(3)} | half width ${f.toFixed(3)}</text>` +
+      (() => {
+        const items = [["#2e2413", 2.6, "spine"], ["#1f5fa8", 1.8, "flared rail"], ["#8a5a9e", 2.8, "serif foot"]];
+        let x = l;
+        let art = "";
+        items.forEach(([colour, widthStroke, text]) => {
+          art += `<line x1="${x}" y1="${hgt - 16}" x2="${x + 26}" y2="${hgt - 16}" stroke="${colour}" stroke-width="${widthStroke}"/>` +
+            `<text x="${x + 34}" y="${hgt - 11}" font-size="15" fill="#2e2413">${text}</text>`;
+          x += 34 + text.length * 8.2 + 26;
+        });
+        return art;
+      })();
+    readout.textContent = appendix
+      ? `${mode === "appendix" ? "PH appendix" : "arc fallback"} | residual ${mode === "appendix" ? appendix.residual.toFixed(4) : "-"} | ` +
+        `d(1) ${d1.toFixed(3)} | the appendix is a degree-11 PH span solved for four conditions`
+      : "no solve";
+  }
+
+  document.getElementById("solve").addEventListener("click", () => { mode = "appendix"; draw(); });
+  document.getElementById("arc").addEventListener("click", () => { mode = "arc"; draw(); });
+  ["d0", "k", "p", "hfac", "ffac"].forEach(id =>
+    document.getElementById(id).addEventListener("input", draw));
+  draw();
+})();
+</script>
+</body></html>
+"""
+
+
+def build():
+    OUT.write_text(PAGE.replace("__MATH__", MATH.read_text()))
+    print(OUT.relative_to(ROOT))
+
+
+if __name__ == "__main__":
+    build()
