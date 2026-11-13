@@ -17,6 +17,7 @@ The page is generated: edit this file, never the HTML.
 from __future__ import annotations
 
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -29,6 +30,58 @@ import ph_quintic_metrics as metrics  # noqa: E402
 OUT = ROOT / "workbench" / "ph-nth-sandbox-2.html"
 FITTED = ROOT / "workbench" / "ph-fitted-curves.json"
 LIMIT = 80
+
+
+def curve_points(sx, sy, n=240):
+    x = y = 0.0
+    points = [(0.0, 0.0)]
+    for i in range(n):
+        t = (i + 0.5) / n
+        p = sum(c * t ** k for k, c in enumerate(sx))
+        q = sum(c * t ** k for k, c in enumerate(sy))
+        x += (p * p - q * q) / n
+        y += 2 * p * q / n
+        points.append((x, y))
+    return points
+
+
+def normalised(points):
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    size = max(1e-12, max(xs) - min(xs), max(ys) - min(ys))
+    return [(x / size, y / size) for x, y in points]
+
+
+def deviation(sx, sy, tx, ty):
+    a = normalised(curve_points(sx, sy))
+    b = normalised(curve_points(tx, ty))
+    return max(math.hypot(ax - bx, ay - by) for (ax, ay), (bx, by) in zip(a, b))
+
+
+def simplify(sx, sy, tolerance=0.03):
+    """A rough grade: the speeds divided by a common step and rounded, so they
+    become small integers (at most 8, 16, 32 ... of the largest). The coarsest
+    step whose normalised curve stays within `tolerance` of the fit is kept.
+    Dividing by a constant only rescales the curve, so the shape is untouched
+    by the change of units; the rounding is the only simplification."""
+    largest = max(abs(v) for v in sx + sy) or 1
+    for divisions in (8, 16, 32, 64, 128, 256, 1024):
+        step = largest / divisions
+        simple_x = [round(v / step) for v in sx]
+        simple_y = [round(v / step) for v in sy]
+        if not any(simple_x) and not any(simple_y):
+            continue
+        error = deviation(sx, sy, simple_x, simple_y)
+        if error <= tolerance:
+            break
+    measured = metrics.metrics(simple_x, simple_y)
+    return {
+        "speedX": simple_x,
+        "speedY": simple_y,
+        "pitch": measured["pitch"],
+        "bend": round(measured["bend"], 3),
+        "deviation": round(error, 4),
+    }
 
 
 def gallery():
@@ -44,6 +97,7 @@ def gallery():
             "pitch": measured["pitch"],
             "from": curve["from"],
             "source": curve.get("source", ""),
+            "simple": simplify(curve["speedX"], curve["speedY"]),
         })
     return entries
 

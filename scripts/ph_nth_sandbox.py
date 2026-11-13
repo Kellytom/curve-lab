@@ -77,6 +77,9 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .gallery .tag{font:10px/1.4 ui-monospace,Menlo,monospace;padding:0 4px;border:1px solid var(--rule);
   border-radius:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .gallery .more{margin:8px 0 0}
+.gallery .pair-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 8px}
+.gallery .pair-cell{margin:0;border:1px solid var(--rule);padding:6px}
+.gallery .pair-cell figcaption{font:11px/1.3 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 4px}
 .gallery .more textarea{width:100%;font:11px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;
   border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 .gallery .more-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 0}

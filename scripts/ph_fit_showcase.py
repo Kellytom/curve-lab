@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 DEGREE = 5          # w is degree 5, so the position is degree 11
+SIMPLE_DEGREE = 3   # the rough grade: w cubic, position degree 7
 SAMPLES = 200       # samples along the source
 FIT_POINTS = 160    # points used by the least squares
 
@@ -80,12 +81,9 @@ def fit_series(us, values, degree=DEGREE):
     return solve(matrix, rhs)
 
 
-def fit_curve(points, degree=DEGREE):
-    path = resample(points, FIT_POINTS)
-    if not path or len(path) < degree + 2:
-        return None
+def fit_speeds(path, degree=DEGREE):
+    """The degree-`degree` speed through a resampled path, or None."""
     n = len(path) - 1
-    # z'(u) by central differences on the equal-chord samples
     roots = []
     for i in range(len(path)):
         a = max(0, i - 1)
@@ -102,11 +100,11 @@ def fit_curve(points, degree=DEGREE):
     imag = fit_series(us, [r.imag for r in roots], degree)
     if real is None or imag is None:
         return None
-    # rebuild the curve from w^2
-    speed_x = real
-    speed_y = imag
-    steps = 400
-    fitted = [(0.0, 0.0)]
+    return real, imag
+
+
+def integrate_speeds(speed_x, speed_y, steps=400):
+    points = [(0.0, 0.0)]
     x = y = 0.0
     for i in range(steps):
         u = (i + 0.5) / steps
@@ -114,9 +112,34 @@ def fit_curve(points, degree=DEGREE):
         q = sum(c * u ** k for k, c in enumerate(speed_y))
         x += (p * p - q * q) / steps
         y += 2 * p * q / steps
-        fitted.append((x, y))
-    # align the starts and measure the miss
-    ox, oy = path[0][0] - fitted[0][0], path[0][1] - fitted[0][1]
+        points.append((x, y))
+    return points
+
+
+def round_significant(value, digits=3):
+    if value == 0:
+        return 0.0
+    return round(value, -int(math.floor(math.log10(abs(value)))) + digits - 1)
+
+
+def normalised(points):
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    size = max(1e-12, max(xs) - min(xs), max(ys) - min(ys))
+    return [(x / size, y / size) for x, y in points]
+
+
+def fit_curve(points, degree=DEGREE):
+    path = resample(points, FIT_POINTS)
+    if not path or len(path) < degree + 2:
+        return None
+    full = fit_speeds(path, degree)
+    if full is None:
+        return None
+    speed_x, speed_y = full
+    fitted = integrate_speeds(speed_x, speed_y)
+    ox = path[0][0] - fitted[0][0]
+    oy = path[0][1] - fitted[0][1]
     fitted = [(px + ox, py + oy) for px, py in fitted]
     size = max(1e-9, max(p[0] for p in path) - min(p[0] for p in path),
                max(p[1] for p in path) - min(p[1] for p in path))
@@ -127,11 +150,35 @@ def fit_curve(points, degree=DEGREE):
         worst = max(worst, best)
         total += best * best
     rms = math.sqrt(total / len(fitted))
+
+    # the rough grade: the same speed with three significant figures. The
+    # monomial coefficients are ill-conditioned, so this is a *different*
+    # curve; the deviation says by how much.
+    simple_x = [round_significant(v) for v in speed_x]
+    simple_y = [round_significant(v) for v in speed_y]
+    simple_points = integrate_speeds(simple_x, simple_y)
+    # one shared scale for both curves: a curve that collapses must read as
+    # collapsed, not as a rescaling
+    fx = [p[0] for p in fitted]
+    fy = [p[1] for p in fitted]
+    reference = max(1e-12, max(fx) - min(fx), max(fy) - min(fy))
+    simple_xs = [p[0] for p in simple_points]
+    simple_ys = [p[1] for p in simple_points]
+    deviation = max(math.hypot(ax - bx, ay - by)
+                    for (ax, ay), (bx, by)
+                    in zip([(x / reference, y / reference) for x, y in fitted],
+                           [(x / reference, y / reference) for x, y in simple_points]))
+
     return {
         "speedX": [round(v, 6) for v in speed_x],
         "speedY": [round(v, 6) for v in speed_y],
         "rms": round(rms / size, 5),
         "max": round(worst / size, 5),
+        "simple": {
+            "speedX": simple_x,
+            "speedY": simple_y,
+            "deviation": round(deviation, 4),
+        },
     }
 
 
@@ -168,6 +215,7 @@ def fitted(limit=None, max_error=0.03):
                 "pitch": None,
                 "from": f"fitted, rms {result['rms']:.3f}",
                 "source": panel.get("key", ""),
+                "simple": result["simple"],
             })
     entries.sort(key=lambda e: e["from"])
     return entries[:limit] if limit else entries

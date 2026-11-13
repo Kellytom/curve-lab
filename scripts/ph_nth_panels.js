@@ -789,6 +789,27 @@
     return points;
   }
 
+  function miniSvg(speedX, speedY, label) {
+    const points = spineOf({ speedX, speedY }, 220);
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
+    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    const width = 200, height = 150, inset = 8;
+    const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
+    const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
+    const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
+    const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
+                               (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
+    return `<figure class="pair-cell">
+      <figcaption>${label}</figcaption>
+      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
+        <rect width="${width}" height="${height}" fill="#fbf7ec"/>
+        <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
+      </svg>
+    </figure>`;
+  }
+
   function figureFor(entry) {
     const points = spineOf(entry);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
@@ -814,6 +835,11 @@
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
       </svg>
       <div class="more" hidden>
+        <div class="pair-row">
+          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11")}
+          ${entry.simple ? miniSvg(entry.simple.speedX, entry.simple.speedY,
+              `3 figures — drift ${entry.simple.deviation}× the size`) : ""}
+        </div>
         <p class="small mono">x ${entry.speedX.join(", ")}<br>y ${entry.speedY.join(", ")}</p>
         <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()} | from ${entry.from}</p>
         <textarea rows="7" readonly>${json}</textarea>

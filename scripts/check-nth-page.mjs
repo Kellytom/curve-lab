@@ -94,7 +94,7 @@ await page.click("#n-rails");
 
 // the gallery: two columns, every spine drawn
 const gallery = await page.evaluate(() => {
-  const figures = [...document.querySelectorAll("#n-gallery figure")];
+  const figures = [...document.querySelectorAll("#n-gallery > figure")];
   const cells = figures.map(f => { const r = f.getBoundingClientRect(); return r.y; });
   const paths = [...document.querySelectorAll("#n-gallery svg path")];
   return {
@@ -110,7 +110,7 @@ if (gallery.bad) failures.push(`gallery paths not drawn: ${gallery.bad}`);
 if (!gallery.first.startsWith("integer-105")) failures.push(`gallery order starts: ${gallery.first}`);
 
 // a gallery cell opens in place: variables, JSON, and a load back into the sandbox
-const firstCell = page.locator("#n-gallery figure").first();
+const firstCell = page.locator("#n-gallery > figure").first();
 await firstCell.locator(".gallery-open").click();
 await page.waitForTimeout(200);
 const opened = await page.evaluate(() => {
@@ -151,7 +151,7 @@ notesPaths.forEach((path, i) => {
 await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-2.html?v=" + Date.now(), { waitUntil: "load" });
 await page.waitForTimeout(300);
 const part2 = await page.evaluate(() => {
-  const figures = [...document.querySelectorAll("#n-gallery figure")];
+  const figures = [...document.querySelectorAll("#n-gallery > figure")];
   return {
     count: figures.length,
     tags: [...new Set(figures.map(f => f.querySelector(".tag").textContent))],
