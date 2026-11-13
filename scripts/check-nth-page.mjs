@@ -60,12 +60,18 @@ await page.waitForTimeout(120);
 const boxesAfter = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
 if (boxesBefore[1] === boxesAfter[1]) failures.push("a slider moved the curve but not the number box");
 
-// the width readout must agree with d0 and the flare
+// the readout must quote the half-width the dial holds
+await page.fill("#n-d", "0.6");
+await page.dispatchEvent("#n-d", "input");
 const widthText = await page.textContent("#n-width-readout");
-const d0 = Number((widthText.match(/d0 ([0-9.]+)/) || [])[1]);
-const d1 = Number((widthText.match(/d\(1\) ([0-9.]+)/) || [])[1]);
-const flare = Number((widthText.match(/flare ([0-9.]+)x/) || [])[1]);
-if (!Number.isFinite(d1) || Math.abs(flare - d1 / d0) > 0.02) failures.push(`flare: ${flare}x against d(1)/d0 ${(d1 / d0).toFixed(2)}x`);
+const quoted = Number((widthText.match(/d ([0-9.]+)/) || [])[1]);
+if (!Number.isFinite(quoted) || Math.abs(quoted - 0.6) > 0.002) failures.push(`width readout: ${widthText}`);
+
+// character offsets: the same construction perturbed, two rails and the spine
+await page.click("#n-character");
+const characterPaths = await paths();
+if (characterPaths !== 3) failures.push(`character offsets: ${characterPaths} paths, expected 3`);
+await page.click("#n-character");
 
 const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
 if (!notes) failures.push("the serif notes link is missing");
@@ -92,4 +98,4 @@ if (failures.length) {
   for (const failure of failures) console.error("  " + failure);
   process.exit(1);
 }
-console.log("OK  12 boxes, spine by default, rails and both terminals, sliders write the boxes, dial lands");
+console.log("OK  12 boxes, spine by default, parallel rails, character offsets, both terminals, dial lands");

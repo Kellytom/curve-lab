@@ -96,15 +96,37 @@
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? state.x[cell.k] : state.y[cell.k]));
   }
 
-  // ---------- the width law, the rails, the terminal ----------
-  // A parallel rail is r + d*n with d constant. A flared rail is the same
-  // formula with d a function of t: d(t) = d0 * (1 + k * t^p). For a PH curve n
-  // is rational in t, so a polynomial width law keeps the rail rational.
-  const width = { d0: 0.35, k: 1.2, p: 2 };
-  const widthAt = t => width.d0 * (1 + width.k * Math.pow(t, width.p));
+  // ---------- the offsets, the terminal ----------
+  // Parallel for now: r + d*n with d a constant half-width. The flare law moved
+  // to workbench/ph-nth-serif-notes.html, where it is studied on its own.
+  const width = { d: 0.35 };
 
   // what the page draws: the spine alone by default
-  const view = { rails: false, startTerminal: false, endTerminal: false };
+  const view = { rails: false, character: false, startTerminal: false, endTerminal: false };
+
+  // A character offset is the same formula, modified: the rail is a PH curve in
+  // its own right, integrated from a speed perturbed by a small multiple of its
+  // own next coefficient. It starts on the spine's start section at +/- d and
+  // drifts by construction, which is the character.
+  function characterRail(sign) {
+    const eps = 0.35;
+    const next = (list, k) => (k + 1 < list.length ? list[k + 1] : 0);
+    const gx = state.x.map((v, k) => v + sign * eps * next(state.x, k));
+    const gy = state.y.map((v, k) => v + sign * eps * next(state.y, k));
+    const start = spineSamples(1)[0];
+    let x = start.x + sign * width.d * start.nx;
+    let y = start.y + sign * width.d * start.ny;
+    const points = [[x, y]];
+    const steps = 700;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(gx, t), b = value(gy, t);
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      points.push([x, y]);
+    }
+    return points;
+  }
 
   function spineSamples(n = 700) {
     const out = [];
@@ -148,7 +170,7 @@
   // bulging along the tangent (forward at the end, backward at the start)
   function terminalArc(spine, atStart) {
     const s = atStart ? spine[0] : spine[spine.length - 1];
-    const d = widthAt(atStart ? 0 : 1);
+    const d = width.d;
     const sign = atStart ? -1 : 1;
     const A = [s.x + d * s.nx, s.y + d * s.ny];
     const B = [s.x - d * s.nx, s.y - d * s.ny];
@@ -161,12 +183,15 @@
   function draw() {
     const plot = document.getElementById("n-plot");
     const spine = spineSamples();
-    const leftRail = spine.map(s => [s.x + widthAt(s.t) * s.nx, s.y + widthAt(s.t) * s.ny]);
-    const rightRail = spine.map(s => [s.x - widthAt(s.t) * s.nx, s.y - widthAt(s.t) * s.ny]);
+    const leftRail = spine.map(s => [s.x + width.d * s.nx, s.y + width.d * s.ny]);
+    const rightRail = spine.map(s => [s.x - width.d * s.nx, s.y - width.d * s.ny]);
+    const characterLeft = view.character ? characterRail(1) : null;
+    const characterRight = view.character ? characterRail(-1) : null;
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
     const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
     const all = spine.map(s => [s.x, s.y]);
     if (view.rails) all.push(...leftRail, ...rightRail);
+    if (characterLeft) all.push(...characterLeft, ...characterRight);
     if (startEnd) all.push(...startEnd.arc, startEnd.tip);
     if (finishEnd) all.push(...finishEnd.arc, finishEnd.tip);
     const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
@@ -183,7 +208,7 @@
     let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
       `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
       `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">` +
-      (view.rails ? `rails r +/- d(t) n(t), d(t) = d0 (1 + k t^p)` : `the spine alone; rails and terminals are below`) +
+      (view.rails ? `rails r +/- d n, d constant` : `the spine alone; rails and terminals are below`) +
       `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}</text>` +
       `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
       `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>`;
@@ -191,13 +216,18 @@
       art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
              `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>`;
     }
+    if (characterLeft) {
+      art += `<path d="${path(characterLeft)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>` +
+             `<path d="${path(characterRight)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>`;
+    }
     art += `<path d="${path(spine.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
     // legend inside the figure, 15px, naming the spine first
     const legend = [["#2e2413", 2.4, "spine"]];
-    if (view.rails) legend.push(["#1f5fa8", 1.8, "flared rail"]);
+    if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
+    if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
     let legendX = left;
     legend.forEach(([colour, widthStroke, text]) => {
@@ -216,12 +246,11 @@
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
-    const showing = [view.rails ? "rails" : "spine only"];
-    if (view.startTerminal) showing.push(`start terminal, radius ${widthAt(0).toFixed(3)}`);
-    if (view.endTerminal) showing.push(`end terminal, radius ${widthAt(1).toFixed(3)}`);
+    const showing = [view.rails ? `parallel rails, d ${width.d.toFixed(3)}` : view.character ? `character offsets, d ${width.d.toFixed(3)}` : "spine only"];
+    if (view.startTerminal) showing.push(`start terminal, radius ${width.d.toFixed(3)}`);
+    if (view.endTerminal) showing.push(`end terminal, radius ${width.d.toFixed(3)}`);
     document.getElementById("n-width-readout").textContent =
-      `d0 ${width.d0.toFixed(3)} | d(1) ${widthAt(1).toFixed(3)} | flare ${(widthAt(1) / width.d0).toFixed(2)}x | ` +
-      `showing ${showing.join(", ")}`;
+      `d ${width.d.toFixed(3)} | showing ${showing.join(", ")}`;
     document.getElementById("n-grade").textContent =
       `degree ${Math.max(degreeOf(curve.x), degreeOf(curve.y))} (x ${degreeOf(curve.x)}, y ${degreeOf(curve.y)})` +
       (m.inflection === null ? " | no inflection: a C, not an S" : "");
@@ -417,22 +446,26 @@
     if (Number.isFinite(v)) slider.value = String(Math.min(1, Math.max(0.02, v)));
   });
   // the width law's three dials
-  [["n-d0", "d0", 0.02, 4], ["n-k", "k", 0, 8], ["n-p", "p", 1, 8]].forEach(([id, key, low, high]) => {
-    const fieldOf = document.getElementById(id);
-    if (!fieldOf) return;
-    fieldOf.addEventListener("input", () => {
-      const v = Number(fieldOf.value);
-      if (!Number.isFinite(v)) return;
-      width[key] = Math.min(high, Math.max(low, v));
-      draw();
-    });
+  const widthField = document.getElementById("n-d");
+  if (widthField) widthField.addEventListener("input", () => {
+    const v = Number(widthField.value);
+    if (!Number.isFinite(v)) return;
+    width.d = Math.min(4, Math.max(0.02, v));
+    draw();
   });
-  [["n-rails", "rails"], ["n-terminal-start", "startTerminal"], ["n-terminal-end", "endTerminal"]]
+  [["n-rails", "rails"], ["n-character", "character"],
+   ["n-terminal-start", "startTerminal"], ["n-terminal-end", "endTerminal"]]
     .forEach(([id, key]) => {
       const button = document.getElementById(id);
       if (!button) return;
       button.addEventListener("click", () => {
         view[key] = !view[key];
+        if (key === "rails" && view.rails) view.character = false;
+        if (key === "character" && view.character) view.rails = false;
+        const railsButton = document.getElementById("n-rails");
+        const characterButton = document.getElementById("n-character");
+        if (railsButton) railsButton.classList.toggle("is-on", view.rails);
+        if (characterButton) characterButton.classList.toggle("is-on", view.character);
         button.classList.toggle("is-on", view[key]);
         draw();
       });

@@ -80,19 +80,20 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
 <div class="solver-row">
-  <label class="dial" for="n-d0">d0 <input id="n-d0" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
-  <label class="dial" for="n-k">k <input id="n-k" type="number" min="0" max="8" step="0.05" value="1.2"></label>
-  <label class="dial" for="n-p">p <input id="n-p" type="number" min="1" max="8" step="1" value="2"></label>
+  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0.02" max="4" step="0.01" value="0.35"></label>
 </div>
 <div class="solver-row">
-  <button type="button" id="n-rails" title="show or hide the two flared rails">rails</button>
+  <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
+  <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
-<p class="small">A serif foot as a PH appendix is parked:
-<a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a> holds that code, the button and its
-residual, so it can be picked up later without carrying it on this page.</p>
+<p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
+<strong>Character offsets</strong> keeps the same construction but perturbs the speed by a small multiple
+of its own next coefficient, so each rail is a PH curve in its own right and drifts away from the
+parallel. The flare law and the serif foot are parked in
+<a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a>.</p>
 </section>
 
 

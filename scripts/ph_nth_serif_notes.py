@@ -65,10 +65,11 @@ solves for one member by line search and prints how far it misses.</p>
 </section>
 
 <section class="panel">
-<h2>The experiment</h2>
+<h2>The flare, and the serif made from it</h2>
 <div class="row">
   <label class="dial">d0 <input id="d0" type="number" value="0.35" step="0.01" min="0.05" max="2"></label>
   <label class="dial">k <input id="k" type="number" value="1.2" step="0.05" min="0" max="6"></label>
+  <label class="dial">p <input id="p" type="number" value="1" step="1" min="1" max="8"></label>
   <label class="dial">h / d <input id="hfac" type="number" value="0.9" step="0.05" min="0.2" max="3"></label>
   <label class="dial">f / d <input id="ffac" type="number" value="1.9" step="0.05" min="1.05" max="4"></label>
   <button type="button" id="solve">solve the foot</button>
@@ -212,7 +213,7 @@ __MATH__
     const B = [end.x - d1 * end.nx, end.y - d1 * end.ny];
     const foot = [end.x + h * end.tx + f * end.nx, end.y + h * end.ty + f * end.ny];
     const appendix = appendixOf(h, reach);
-    const railAt = s => d0 * (1 + k * Math.pow(s.t, 1));   // the demo uses p = 1
+    const railAt = s => d0 * (1 + k * Math.pow(s.t, dial("p")));
     const railLeft = sp.map(s => [s.x + railAt(s) * s.nx, s.y + railAt(s) * s.ny]);
     const railRight = sp.map(s => [s.x - railAt(s) * s.nx, s.y - railAt(s) * s.ny]);
     const left = appendix && mode === "appendix"
@@ -261,7 +262,7 @@ __MATH__
 
   document.getElementById("solve").addEventListener("click", () => { mode = "appendix"; draw(); });
   document.getElementById("arc").addEventListener("click", () => { mode = "arc"; draw(); });
-  ["d0", "k", "hfac", "ffac"].forEach(id =>
+  ["d0", "k", "p", "hfac", "ffac"].forEach(id =>
     document.getElementById(id).addEventListener("input", draw));
   draw();
 })();
