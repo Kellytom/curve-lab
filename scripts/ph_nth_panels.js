@@ -325,6 +325,7 @@
         closest: +m.closest.toFixed(3),
         degree: [degreeOf(curve.x), degreeOf(curve.y)],
         width: { percent: width.percent },
+        character: character.strength,
       }, null, 2);
     }
     drawBars();
@@ -550,7 +551,13 @@
 
   // ---------- saved curves ----------
   const applyWidth = item => {
-    if (!item || !item.width) return;
+    if (!item) return;
+    if (Number.isFinite(Number(item.character))) {
+      character.strength = Math.min(3, Math.max(0, Number(item.character)));
+      const field = document.getElementById("n-char");
+      if (field) field.value = String(character.strength);
+    }
+    if (!item.width) return;
     const percent = Number(item.width.percent);
     if (!Number.isFinite(percent)) return;
     width.percent = percent;
@@ -624,7 +631,8 @@
         const name = item.name || `pasted ${items.length + 1}`;
         const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
                          width: item.width && Number.isFinite(Number(item.width.percent))
-                                ? { percent: Number(item.width.percent) } : undefined };
+                                ? { percent: Number(item.width.percent) } : undefined,
+                         character: Number.isFinite(Number(item.character)) ? Number(item.character) : undefined };
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;
