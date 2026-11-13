@@ -121,6 +121,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <label class="dial" for="n-hook-angle">hook angle <input id="n-hook-angle" type="number" min="-180" max="180" step="5" value="0"></label>
 </div>
 <div class="solver-row">
+  <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>

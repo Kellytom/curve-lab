@@ -73,6 +73,22 @@
       fine.title = "size, sign from the box";
       const scales = document.createElement("span");
       scales.className = "scales";
+      [["\u221a2", "root2"], ["\u00d71.1", "euler-step"], ["e", "euler"]].forEach(([label, kind]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "scale";
+        button.textContent = label;
+        button.title = kind === "root2" ? "snap to the nearest multiple of sqrt 2"
+          : kind === "euler" ? "snap to the nearest multiple of e (2.71828)"
+          : "multiply the mantissa by 1.1";
+        button.addEventListener("click", () => {
+          const current = axis === "x" ? state.x[k] : state.y[k];
+          if (kind === "root2") set(Math.round(current / Math.SQRT2) * Math.SQRT2);
+          else if (kind === "euler") set(Math.round(current / Math.E) * Math.E);
+          else set(current * 1.1);
+        });
+        scales.append(button);
+      });
       [["1", 0], ["10", 1], ["100", 2]].forEach(([label, power]) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -136,7 +152,12 @@
   const halfWidth = () => Math.max(1e-9, width.percent / 100 * curveSize);
 
   // what the page draws: the spine alone by default
-  const view = { rails: false, character: false, startTerminal: false, endTerminal: false };
+  const view = { rails: false, character: false, startTerminal: false, endTerminal: false, rotate: false };
+  const TURN = -Math.PI / 4;
+  const turned = points => view.rotate
+    ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
+                              x * Math.sin(TURN) + y * Math.cos(TURN)])
+    : points;
 
   // A character offset: the parallel rail, bowed. The bow is the difference
   // between integrating the speed turned a little at each station
@@ -271,7 +292,8 @@
     if (characterLeft) all.push(...characterLeft, ...characterRight);
     if (startEnd) all.push(...startEnd.arc, startEnd.tip);
     if (finishEnd) all.push(...finishEnd.arc, finishEnd.tip);
-    const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+    const shown = turned(all);
+    const xs = shown.map(p => p[0]), ys = shown.map(p => p[1]);
     const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
     const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
     const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + padX;
@@ -281,7 +303,7 @@
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
     const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
-    const path = points => "M" + points.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
+    const path = points => "M" + turned(points).map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
       `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
       `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">` +
@@ -566,7 +588,7 @@
     width.percent = Math.min(20, Math.max(0, v));
     draw();
   });
-  [["n-rails", "rails"], ["n-character", "character"],
+  [["n-rotate", "rotate"], ["n-rails", "rails"], ["n-character", "character"],
    ["n-terminal-start", "startTerminal"], ["n-terminal-end", "endTerminal"]]
     .forEach(([id, key]) => {
       const button = document.getElementById(id);
@@ -619,7 +641,16 @@
     if (field) field.value = String(percent);
   };
 
-  const SEED = [{ name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] }];
+  const SEED = [
+    { name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] },
+    { name: "euler-hook",
+      speedX: [2.2, -4.4, 6.6, 1.1, 1.1, -1.1],
+      speedY: [4.4, -22, 22, -2.2, 1.1, -1.1],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { magnitude: 3, angle: -12 } },
+  ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
   const uniqueName = (base, taken) => {
