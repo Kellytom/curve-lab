@@ -1627,3 +1627,177 @@ earlier handoff; the only known failure was the review-doc check importing
 Tried and rejected: widening the sample search to [-3,3] exhaustively — 2.5M
 candidates at ~64 ops each timed out; [-2,2] plus a random [-4,4] sweep is the
 working recipe.
+
+## 2026-11-13 (later) — gallery D promoted to named curves
+
+`scripts/septic_curves.py` now carries twelve named curves: the four shaped by
+hand (half-heart, flourish-a, flourish-b, lazy-s-2) plus eight promoted from
+gallery D, one per measured signature — small-loop, tight-loop, shallow-turn,
+narrow-arch, vertical-s, tight-hook, straight-start, long-sweep. Each keeps its
+gallery speeds unchanged; `test_the_promoted_curves_keep_their_gallery_numbers`
+pins every stored metric to its sample's.
+
+`workbench/septic-curves.json` and `workbench/ph-septic-sandbox.html` were
+regenerated and `scripts/hub.py` run. In the browser: 12 named buttons render,
+clicking **tight-loop** loads its speeds and reads bend 2.082 / pitch 210 /
+inflection 0.441 / closest 0.197, no page errors. `check-ph-page.mjs` prints OK
+(7 readouts, 6 save buttons). Test module 9 tests OK; default suite 91 modules
+green, exit 0. Committed locally; not pushed in this action.
+
+Tried and rejected: naming the curves by eye from the panels — the selection
+comes from measured signatures instead (self-crossings by segment test at 1200
+samples; bend/pitch/inflection/closest from `ph_quintic_metrics`), so each name
+states a number. Rejected "hairpin" for the 180° shallow turn: the word already
+means a turned terminal in `docs/PHILOSOPHY.md`.
+
+## 2026-11-13 (later still) — the sandbox box bug, and the classic curve
+
+Two defects reported from use, both fixed and committed:
+
+- **Typing ate the sign and the decimal point.** `input` fired on every
+  keystroke, and `syncBCell` wrote the field back; a partial entry ("-", "0.")
+  reads as empty in a number input, so `-1` became `1` and `79.301` became
+  `301`. Now a field is never written back while it is the source, and empty or
+  non-finite text is ignored. `check-ph-page.mjs` retypes the default speeds key
+  by key and fails if anything moves — proved by running it against the old
+  handler (FAIL: `-3 -> 3`, `0.3 -> 30`).
+- **The boxes clipped long numbers.** Panel B's speed boxes are now
+  `field-sizing: content` (min 96, max 176 px), the decade slider is a fixed
+  64 px, and the fine slider keeps the rest; measured at 1200/900/390 px with
+  `-14997.123456` typed: no clipping, panel B inside the page. Panel A is
+  untouched; the page's pre-existing horizontal overflow at 900/390 (104/614 px)
+  is unchanged and is panel A's, not this fix's.
+- **The formula block now prints the eight speeds** as well as x(t)/y(t), since
+  the boxes take the speed numbers and the polynomial is what is displayed.
+
+**The classic curve is exactly PH.** Speeds x `(2, -5, 6, 0)`, y
+`(4, -20, 20, -2)` reproduce `bend 3.011 | pitch 105 | inflection 0.505 |
+closest 1.068`, degree 7 (x 7, y 6), and the position polynomial character for
+character (controls integer at 105). The earlier paste (bend 30.134) is not PH:
+its z' is not a perfect square (residual 0.111 at t^4..t^6), so no eight speeds
+reproduce it; the nearest square root gives bend 29.857, pitch 1.05e14.
+
+**Two curves pinned from the operator's pastes:** `integer-105` above, and
+`integer-70` — x `(2, -3, 3, 3)`, y `(2, -12, 12, 1)`, bend 1.290, pitch 70
+(controls integer at 70; 1.143 -> 80). Both are exact, not replicas.
+
+**The chord box, reworked into a comparison.** The old single box listed seven
+vectors with a numeric column and read badly. It is now two boxes beside the
+plot, on one scale: **B1** chains the terms head to tail in two shapes (blue
+quintic T0-T4, red septic-only T5-T6) and rings where the quintic ends; **B2**
+is a signed bar chart — position on a common zero baseline, not angle and
+radius, because a sign is read from side and size from length (Cleveland's
+ranking: position beats length, length beats angle/area). Each term is two bars,
+x in ink and y in brown, on rows t^1..t^7, with the septic-only rows t^6-t^7 on
+a tint. A compass/rose version was drafted and dropped: it reads worse for
+signed values once the terms stop being parallel.
+
+The plot, B1 and B2 sit in one row at 1200 px (449/281/281), fold to two rows at
+1000 and one at 700; the chord viewBox is 400x460 with 18/17 px text so it stays
+readable at a third of the width. Measured at 1200/1000/700: 0 text overlaps,
+0 text outside either box. The numbers are printed in a line under the row
+(`#b-terms-values`), not stacked inside the figure.
+
+**A live JSON box.** `#b-json` is a read-only textarea under the paste row that
+always holds the current curve in the shape `workbench/septic-curves.json` and
+the paste box both take: name, speedX, speedY, bend, pitch, inflection,
+closest, degree. It carries the name of the clicked curve and falls back to
+"curve" after a hand edit. Proved by cutting it into the paste box: "1 curve
+loaded", same readout.
+
+**The size slider is a magnitude.** It spanned -16..16, so a zero mantissa sat
+exactly half way across, which read as "set to middle" when the value was
+nothing. It now spans 0..10 (the mantissa's own range, so it no longer snaps on
+release) and keeps the sign already in the box: zero is at the left end, and
+dragging `-2` to 7 gives `-7`. Typing a minus still sets the sign.
+
+`scripts/shot.mjs` takes an optional CSS selector as a seventh argument and
+shoots just that element: `node scripts/shot.mjs <url> <out.png> 1040 900
+viewport .trio` gives the three boxes in one 954x300, 30 KB image.
+
+## 2026-11-13 — is the septic more productive than the quintic? Measured
+
+Four deterministic experiments, no sweeps (about 12 solver runs total):
+
+1. **Full closure is degenerate.** `bend = arc/|chord|`, so `|C| = 0` gives an
+   infinite bend. Every exactly-closed septic the solver produced is a tight
+   coil (bend 1e5-1e6), not a shape. The curves worth keeping sit at 20-33%
+   openness (`H` 0.222, `G` 0.218, `loop-105` 0.240, `double-loop` 0.290,
+   `integer-105` 0.332); `classic-30` at 0.033 gives bend 30. Closure is a dial,
+   and the tidy step is what pulls the curve back into the usable band.
+2. **The third degree is load-bearing.** Dropping `t^3` from the same numbers:
+   `loop-105` 1 crossing -> 0, `G` 1 -> 0 (bend rises to 21.2), `H` stays 0,
+   `double-loop` stays 1. The two extra knobs are what hold loops at moderate
+   openness.
+3. **Automated tidy is the fragile part.** Holding a target openness is one
+   equation in two unknowns; snapping the rest to integers and solving moved the
+   last coefficient by 0.3-1.3 and the pitch from 1e9 to 1e11. The hand tidy is
+   doing real stabilising work.
+4. **No new curves by symmetry.** Swap, mirror-x, mirror-y and point-reflection
+   of the nine named curves produced no new two-crossing shape. `double-loop`
+   came from the close walk, not from symmetry.
+
+Verdict: the septic is the better *search space* (loops survive), the cubic and
+quintic the better *output space* (degree 7 controls are not what Inkscape
+wants). A "close to a chosen openness" dial is the one control that follows from
+this; the plain close button stays as it is.
+
+**2026-11-13 — the operator's method, and the low-pitch field.** The walk is:
+put the speeds near 50, vary one or two, press `close chord` (or `close to …`),
+then tidy. That is the process behind `H`, `G`, `Cap-C`, `cap-T`, `fish-1`,
+`drop`, `drop-2`, `double-knot`, `heart-2`.
+
+Every named curve now also carries a low-pitch form in
+`workbench/septic-curves.json`: `speedXLow`, `speedYLow`, `pitchLow`,
+`closestLow`. Scaling all eight speeds leaves bend and inflection untouched and
+scales `closest`, so the same shape can sit on a coarser grid; the fields are
+chosen by lowest pitch over a fixed set of terminating-decimal scales
+(`scripts/septic_curves.py`, `SCALES`). It is a second field, never a
+replacement: names such as `loop-105` and `integer-70` state the original pitch,
+so replacing would make them false. **`half-heart` is exempt** — the heart is a
+recognised figure and its decimals are the accepted statement of it.
+
+Measured: 26 of 27 non-exempt curves can be written lower; the floors are 7, 14
+and 21, set by the `1/(k+1)` factors, not by the speeds. Every low form was
+checked to keep the parent's bend and inflection to 1e-6 and to carry the pitch
+its stored numbers actually produce.
+
+## 2026-11-13 — the nth sandbox: degree 11, fitted curves, a gallery
+
+**Landed.** `workbench/ph-nth-sandbox.html` (part 1) and `workbench/ph-nth-sandbox-2.html`
+(part 2), generated by `scripts/ph_nth_sandbox.py` and `ph_nth_sandbox2.py` from
+`scripts/ph_nth_panels.js`. Part 1 carries exact curves; part 2 carries 80 showcase paths
+fitted to degree-11 PH speeds (`scripts/ph_fit_showcase.py --write 80`), each with its
+source path stored, so a cell opens original (left) against fitted (right).
+
+Controls on both pages: close chord, close-to with an openness dial, lift a quintic, a
+coarsest-grid button, character offsets (per-side strength, bow/S/taper profile, end
+shear), a rational tail hook, arc terminals on either end, a -45 view, a JSON box, and
+save/rename/delete/transfer with duplicate-name confirmation.
+
+**What this session proved, measured.** The number on the page called *grid* is the
+integer scale `1/N` at which every position coefficient is an integer: integer speeds
+always give `N | 27720 = lcm(1..11)`; at degree 13 the constant is `360360`; decimals
+break the rule because `w` is squared. A hook stored as magnitude and angle is irrational
+and blows the grid to 1e14; stored as a rational pair `(dx, dy)` it can even lower it.
+Monomial speed coefficients are ill-conditioned: 0.1% on `t^3` moves the fitted curve 38%
+of its size, so rounding the numbers cannot simplify a fitted curve.
+
+**Local:** 200 on `:8003`. **Remote:** no `.run.app` URL recorded, not probed (carried
+2026-11-13, no deploy this session). **Tests:** full suite 97 modules green, `recheck`
+55/55 (2026-11-13). **Git:** `ea969b8`, clean apart from this block.
+
+**Risks.** The 3-figure "simplified" column is not shape-preserving — it is evidence of
+the conditioning problem, not a tool. Saved curves live in `localStorage`, so a different
+browser sees only the seeds. Part 2's fits are labelled `fitted` with their rms; nothing
+there is claimed exact.
+
+**Next move:** part 3 at degree 13 (`SPEED_DEGREE = 6`, 14 speed boxes, position degree
+13), the natural test for cursive `m / v / w / u`.
+
+Tried and rejected: rounding monomial speeds to three figures — the curve moved by 0.02
+to 208 times its size; a polar hook (magnitude and angle) — irrational, grid 3.5e14;
+refitting at degree 3 as a "rough grade" — collapsed or diverged on the LAC curves.
+
+**Context:** 72.9% of 1M, 331 active min, 557 turns, WARN — the session stopped
+adding work at the warning, not at the cap.

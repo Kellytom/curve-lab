@@ -423,6 +423,19 @@ The discrete midpoint chain at twelve triangles per side, exact throughout.
 - [ ] Retire or convert `RESULTS.md` / `results.html`: they still carry decimals
   and duplicate the sandbox page.
 
+## PH curves at degree 11 — 2026-11-13
+
+- [x] Part 1 sandbox at degree 11: twelve speed boxes, character offsets, rational hook,
+  terminals, coarsest-grid, JSON and save. `workbench/ph-nth-sandbox.html`,
+  `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `tests/test_ph_nth_sandbox.py`.
+- [x] Part 2: 80 showcase curves fitted to degree-11 PH speeds, original against fit,
+  each labelled `fitted`, rms recorded. `workbench/ph-nth-sandbox-2.html`,
+  `scripts/ph_fit_showcase.py`, `workbench/ph-fitted-curves.json`,
+  `tests/test_ph_nth_sandbox2.py`.
+- [ ] Part 3 at degree 13 (14 speeds, position degree 13): the cursive test.
+- [ ] Brush-lift terminal: a PH span matching position, tangent, curvature and jerk, with
+  the width falling to zero, ending in a 30-60 degree point or a bulb.
+
 ## PH curves at degree 6 and 7 — 2026-11-12
 
 The theory is settled and the sandbox is live at `workbench/ph-septic-sandbox.html`.
