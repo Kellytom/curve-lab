@@ -31,7 +31,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .control-row span{min-width:120px;color:#8a3b2a}
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .control-row input[type=range]{flex:1;min-width:90px}
-#e-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#d-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:10px 0 0}
 .samples svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 @media(max-width:900px){.samples{grid-template-columns:1fr}}
@@ -81,11 +81,13 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 
 <section class="panel">
 <h2>B | the PH septic</h2>
-<p><code>w = (b_x0 + b_x1 t + b_x2 t^2 + b_x3 t^3) + i (b_y0 + ... + b_y3 t^3)</code>, and
-<code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
-same machinery as the quintic, one degree up.</p>
+<p>w = (b_x0 + b_x1 t + b_x2 t^2 + b_x3 t^3) + i (b_y0 + ... + b_y3 t^3), and r = integral of w^2. The two boxes beside the curve are the chord terms; the controls below solve, save and lift.</p>
 <div id="b-controls"></div>
+<div class="trio">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
+<svg id="b-chord-chain" viewBox="0 0 400 460" role="img" aria-label="the chord terms chained in two shapes"></svg>
+<svg id="b-chord-bars" viewBox="0 0 400 460" role="img" aria-label="the chord terms as signed bars"></svg>
+</div>
 <p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
@@ -120,44 +122,68 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p>Two more controls do what the buttons cannot. <strong>close to …</strong> solves until the chord is
-the dial's fraction of the arc (0.25 by default) instead of zero, which is where usable shapes live.
-<strong>lift a quintic</strong> keeps the five quintic numbers, seeds the two septic ones at
-±first/10 and solves that one scale for the dial; the sign select picks which side to start from.
-<code>close chord</code> is unchanged: it still walks to a new closed shape on each press.</p>
 </section>
 
-<section class="panel">
-<h2>C | the chord terms, chained</h2>
-<p>The seven vectors <code>T_m = (w^2)_m / (m+1)</code>, head to tail, drawn as two shapes: the first
-five are what a quintic can hold, the last two are septic-only. A ring marks where the quintic ends.
-The dashed arrows are the two sums, quintic-only and all seven. Read the sum off
-<code>#b-terms-values</code>; this panel follows whatever curve panel B holds.</p>
-<svg id="c-chord-chain" viewBox="0 0 720 460" role="img" aria-label="the chord terms chained in two shapes"></svg>
-</section>
 
 <section class="panel">
-<h2>D | the chord terms, as signed bars</h2>
-<p>The same seven terms, one row each, with the <code>x</code> and <code>y</code> components as bars
-from a shared zero line, so a sign flip mirrors the bar. Rows <code>t^6</code> and <code>t^7</code>
-sit on a tint: those are the septic-only terms. Signed sizes belong on a common baseline, not on an
-angle, which is why this panel does not use a compass.</p>
-<svg id="d-chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+<h2>C | the PH septic, a second curve</h2>
+<p>The same sandbox as B with its own numbers, plot and buttons, so two curves can be compared without retyping. The chord figures stay with B.</p>
+<div id="c-controls"></div>
+<svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
+<div class="solver-row">
+  <button type="button" id="c-right">make the terms right-angled</button>
+  <button type="button" id="c-close">close the chord</button>
+  <button type="button" id="c-open" title="solve until |chord| / arc reaches the dial, scale free">close to …</button>
+  <label class="dial" for="c-open-value">openness
+    <input id="c-open-value" type="number" min="0.02" max="1" step="0.01" value="0.25">
+  </label>
+  <input id="c-open-slider" type="range" min="0.02" max="1" step="0.01" value="0.25" aria-label="target openness">
+</div>
+<div class="solver-row">
+  <button type="button" id="c-lift" title="keep the five quintic numbers, add the two septic ones at +/- first/10, and solve that scale for the dial">lift a quintic to a septic</button>
+  <label class="dial" for="c-lift-sign">sign
+    <select id="c-lift-sign"><option value="1">+</option><option value="-1">−</option></select>
+  </label>
+  <span class="small mono" id="c-lift-status"></span>
+</div>
+<div class="save-row">
+  <input id="c-name" type="text" placeholder="name this curve">
+  <button type="button" id="c-save">save this curve</button>
+  <button type="button" id="c-download">download JSON</button>
+</div>
+<div class="saved-row" id="c-saved"></div>
+<div class="paste-row">
+  <textarea id="c-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-3,3,0.5], "speedY": [2,-12,12,-0.5]} - or a whole {"curves": [...]} document'></textarea>
+  <button type="button" id="c-load">load pasted JSON</button>
+</div>
+<p class="small mono" id="c-paste-status"></p>
+<p class="small mono">current curve, ready to select and cut — the same shape the paste box and
+<code>workbench/septic-curves.json</code> take:</p>
+<textarea id="c-json" rows="11" readonly></textarea>
+<p class="small mono" id="c-readout"></p>
+<p class="small mono" id="c-grade"></p>
+<p class="small mono" id="c-formula" style="white-space:pre-line"></p>
 </section>
 
+
+
+
+
+
+
 <section class="panel">
-<h2>E | G2 Hermite interpolation at degree 7</h2>
+<h2>D | G2 Hermite interpolation at degree 7</h2>
 <p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
 six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
 conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
 curvatures and watch the curve follow; the curvature circles are dashed.</p>
-<div id="e-controls"></div>
-<svg id="e-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
-<p class="small mono" id="e-readout"></p>
+<div id="d-controls"></div>
+<svg id="d-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="d-readout"></p>
 </section>
 
 <section class="panel">
-<h2>F | small integer speeds</h2>
+<h2>E | small integer speeds</h2>
 <p>Forty curves found by scanning small integer speeds - every coefficient in
 <code>[-2, 2]</code> exhaustively, then a random sweep of <code>[-4, 4]</code> - with the
 inflection strictly inside, the speed path away from the origin, and the pitch read exactly. The
@@ -451,11 +477,15 @@ window.curveSaver = (function () {
   }
   drawA();
 
-  // ---------- panel B: the PH septic ----------
+  const savedRowRenderers = [];
+  // Two copies of the same sandbox: prefix "b" beside the chord figures,
+  // prefix "c" on its own. Every lookup goes through $, so the ids differ.
+  function buildSepticPanel(prefix, chordIds) {
+    const $ = id => document.getElementById(prefix === 'b' ? id : id.replace(/^b-/, prefix + '-'));
   const bDefaults = { bx0: 2, bx1: -3, bx2: 3, bx3: 0.3, by0: 2, by1: -12, by2: 12, by3: 0 };
   const bState = { ...bDefaults };
   let bCurrentName = "curve";   // the name the JSON box prints
-  const bGrid = document.getElementById("b-controls");
+  const bGrid = $("b-controls");
   const bCells = [];
   const decode = value => {
     if (!value) return { mantissa: 0, decade: 0 };
@@ -549,11 +579,11 @@ window.curveSaver = (function () {
       points.push([x, y]);
     }
     const m = metrics(speedX, speedY);
-    draw(document.getElementById("b-plot"), points,
+    draw($("b-plot"), points,
          "B | the PH septic: r' = w^2 with w cubic",
          "w = (b_x) + i (b_y), each cubic | the position is degree 7 and the offsets are rational",
          [[0, 0], points[points.length - 1]]);
-    document.getElementById("b-readout").textContent =
+    $("b-readout").textContent =
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | closest ${m.closest.toFixed(3)} | ` +
       `open ${chordRatio(speedX, speedY).toFixed(3)}`;
@@ -573,12 +603,12 @@ window.curveSaver = (function () {
     if (m.closest <= 1e-9) flags.push("the speed vanishes: a cusp");
     if (m.inflection === null) flags.push("no inflection: a C, not an S");
     const grade = flags.join(" | ");
-    document.getElementById("b-grade").textContent = grade;
-    document.getElementById("b-formula").textContent =
+    $("b-grade").textContent = grade;
+    $("b-formula").textContent =
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
       `speed, the eight boxes: x ${speedX.map(v => +v.toFixed(3)).join(", ")} | ` +
       `y ${speedY.map(v => +v.toFixed(3)).join(", ")}`;
-    const jsonBox = document.getElementById("b-json");
+    const jsonBox = $("b-json");
     if (jsonBox) {
       jsonBox.value = JSON.stringify({
         name: bCurrentName,
@@ -614,7 +644,7 @@ window.curveSaver = (function () {
   // compared: B1 chains them head to tail in two shapes, B2 fans them from one
   // origin. Both use one scale, so a term is the same length in either box.
   const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
-                       width: 720, height: 460, pad: 64 };
+                       width: 400, height: 460, pad: 34 };
   const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
@@ -657,7 +687,7 @@ window.curveSaver = (function () {
   }
 
   function drawChordChain(terms) {
-    const plot = document.getElementById("c-chord-chain");
+    const plot = chordIds ? document.getElementById(chordIds.chain) : null;
     if (!plot) return;
     const { quintic, septic, ink } = chordStyle;
     const quinticCount = 5;
@@ -665,7 +695,7 @@ window.curveSaver = (function () {
     const quinticEnd = heads[quinticCount];
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
-    let art = chordHead("", "C", "the chord terms, chained in two shapes");
+    let art = chordHead("", "B1", "chained");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
@@ -688,7 +718,7 @@ window.curveSaver = (function () {
   }
 
   function drawChordBars(terms) {
-    const plot = document.getElementById("d-chord-bars");
+    const plot = chordIds ? document.getElementById(chordIds.bars) : null;
     if (!plot) return;
     const { ink, width, height, pad } = chordStyle;
     // A signed coefficient belongs on a common baseline: bars from zero read
@@ -701,7 +731,7 @@ window.curveSaver = (function () {
     const zero = (left + right) / 2;
     const xOf = value => zero + value / biggest * (right - left) / 2;
     const xColour = ink, yColour = "#8a6a3a";
-    let art = chordHead("", "D", "the same terms as signed bars");
+    let art = chordHead("", "B2", "signed bars");
     // the septic-only rows sit on a tinted band
     art += `<rect x="${pad}" y="${(top + rowHeight * 5).toFixed(1)}" width="${width - 2 * pad}" height="${(rowHeight * 2).toFixed(1)}" fill="#f2ead6"/>`;
     art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="${ink}" stroke-width="1.5"/>`;
@@ -727,7 +757,7 @@ window.curveSaver = (function () {
     const terms = chordTerms(speedX, speedY);
     drawChordChain(terms);
     drawChordBars(terms);
-    const values = document.getElementById("b-terms-values");
+    const values = $("b-terms-values");
     if (values) {
       const pair = term => `(${term[0].toFixed(3)}, ${term[1].toFixed(3)})`;
       const heads = cumulative(terms);
@@ -864,7 +894,8 @@ window.curveSaver = (function () {
     return Object.values(byName);
   };
   function renderSaved() {
-    const row = document.getElementById("b-saved");
+    const row = $("b-saved");
+    if (!row) return;
     row.textContent = "";
     allSaved().forEach(item => {
       const button = document.createElement("button");
@@ -875,8 +906,9 @@ window.curveSaver = (function () {
       row.append(button);
     });
   }
-  document.getElementById("b-save").addEventListener("click", () => {
-    const nameInput = document.getElementById("b-name");
+  savedRowRenderers.push(renderSaved);
+  if ($("b-save")) $("b-save").addEventListener("click", () => {
+    const nameInput = $("b-name");
     const name = (nameInput.value || "").trim() || `curve ${localSaved().length + 1}`;
     const metrics = window.recipeMetrics(
       [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
@@ -893,9 +925,9 @@ window.curveSaver = (function () {
     });
     storeSaved(items);
     nameInput.value = "";
-    renderSaved();
+    savedRowRenderers.forEach(fn => fn());
   });
-  document.getElementById("b-download").addEventListener("click", () => {
+  $("b-download").addEventListener("click", () => {
     const payload = { title: "septic sandbox curves", curves: allSaved() };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
@@ -908,9 +940,9 @@ window.curveSaver = (function () {
   });
   renderSaved();
 
-  document.getElementById("b-load").addEventListener("click", () => {
-    const status = document.getElementById("b-paste-status");
-    const text = document.getElementById("b-paste").value.trim();
+  $("b-load").addEventListener("click", () => {
+    const status = $("b-paste-status");
+    const text = $("b-paste").value.trim();
     if (!text) { status.textContent = "paste a curve or a {\"curves\": [...]} document"; return; }
     try {
       const data = JSON.parse(text);
@@ -928,7 +960,7 @@ window.curveSaver = (function () {
         if (loaded === 1) setSpeed(record.speedX, record.speedY, record.name);
       });
       storeSaved(items);
-      renderSaved();
+      savedRowRenderers.forEach(fn => fn());
       status.textContent = loaded ? `${loaded} curve${loaded === 1 ? "" : "s"} loaded`
                                  : "no speedX / speedY in that JSON";
     } catch (error) {
@@ -936,10 +968,10 @@ window.curveSaver = (function () {
     }
   });
 
-  document.getElementById("b-right").addEventListener("click", () => solve("right"));
-  document.getElementById("b-close").addEventListener("click", () => solve("close"));
-  const opennessInput = document.getElementById("b-open-value");
-  const opennessSlider = document.getElementById("b-open-slider");
+  $("b-right").addEventListener("click", () => solve("right"));
+  $("b-close").addEventListener("click", () => solve("close"));
+  const opennessInput = $("b-open-value");
+  const opennessSlider = $("b-open-slider");
   const opennessOf = () => {
     const raw = Number(opennessInput ? opennessInput.value : 0.25);
     return Number.isFinite(raw) ? Math.min(1, Math.max(0.02, raw)) : 0.25;
@@ -951,7 +983,7 @@ window.curveSaver = (function () {
       if (Number.isFinite(raw)) opennessSlider.value = String(Math.min(1, Math.max(0.02, raw)));
     });
   }
-  const opennessButton = document.getElementById("b-open");
+  const opennessButton = $("b-open");
   if (opennessButton) opennessButton.addEventListener("click", () => solve("openness", opennessOf()));
 
   // Lift a quintic: keep its five numbers, add the two septic ones at
@@ -990,7 +1022,7 @@ window.curveSaver = (function () {
       roots.sort((a, b) => Math.abs(a - sign) - Math.abs(b - sign));
       best = roots[0];
     }
-    const status = document.getElementById("b-lift-status");
+    const status = $("b-lift-status");
     if (best === null) {
       if (status) status.textContent = `no scale of the two extra numbers reaches openness ${target.toFixed(2)}`;
       return;
@@ -1005,12 +1037,15 @@ window.curveSaver = (function () {
         `lifted at s ${best.toFixed(3)}: x t^3 ${bState.bx3.toFixed(3)}, y t^3 ${bState.by3.toFixed(3)}`;
     }
   }
-  const liftButton = document.getElementById("b-lift");
+  const liftButton = $("b-lift");
   if (liftButton) liftButton.addEventListener("click", () => {
-    const select = document.getElementById("b-lift-sign");
+    const select = $("b-lift-sign");
     liftQuintic(select ? Number(select.value) : 1);
   });
   drawB();
+  }
+  buildSepticPanel('b', { chain: 'b-chord-chain', bars: 'b-chord-bars' });
+  buildSepticPanel('c', null);
 })();
 
 // Fig. Q16 - G2 Hermite interpolation at degree 7.
@@ -1018,9 +1053,9 @@ window.curveSaver = (function () {
 // septic r' = w^2 with w cubic, eight real unknowns; six conditions plus two
 // fairness terms, solved by Gauss-Newton.
 (function () {
-  const plot = document.getElementById("e-plot");
+  const plot = document.getElementById("d-plot");
   if (!plot) return;
-  const readout = document.getElementById("e-readout");
+  const readout = document.getElementById("d-readout");
   const width = 720, height = 520, left = 70, right = 50, top = 92, bottom = 64;
   const specs = [
     { key: "theta0", label: "angle 0 (deg)", min: -180, max: 180, step: 1, value: 60 },
@@ -1049,7 +1084,7 @@ window.curveSaver = (function () {
     row.append(name, numberInput, rangeInput);
     grid.append(row);
   });
-  document.getElementById("e-controls").append(grid);
+  document.getElementById("d-controls").append(grid);
 
   const cx = z => [z[0], z[1]];
   const add = (a, b) => [a[0] + b[0], a[1] + b[1]];

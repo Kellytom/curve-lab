@@ -21,6 +21,63 @@ MATH = ROOT / "scripts" / "ph_math.js"
 CURVES = ROOT / "workbench" / "septic-curves.json"
 SAMPLES = ROOT / "workbench" / "septic-samples.json"
 
+
+def septic_panel(letter, prefix, heading, blurb, chords=False):
+    """One sandbox panel: controls, plot, the solver rows, the JSON box."""
+    p = prefix
+    if chords:
+        figure = (
+            f'<div class="trio">\n'
+            f'<svg id="{p}-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>\n'
+            f'<svg id="{p}-chord-chain" viewBox="0 0 400 460" role="img" aria-label="the chord terms chained in two shapes"></svg>\n'
+            f'<svg id="{p}-chord-bars" viewBox="0 0 400 460" role="img" aria-label="the chord terms as signed bars"></svg>\n'
+            f'</div>\n'
+            f'<p class="small mono" id="{p}-terms-values" style="white-space:pre-line"></p>\n'
+        )
+    else:
+        figure = (f'<svg id="{p}-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>\n')
+    return (
+        f'<section class="panel">\n'
+        f'<h2>{letter} | {heading}</h2>\n'
+        f'<p>{blurb}</p>\n'
+        f'<div id="{p}-controls"></div>\n'
+        + figure +
+        f'<div class="solver-row">\n'
+        f'  <button type="button" id="{p}-right">make the terms right-angled</button>\n'
+        f'  <button type="button" id="{p}-close">close the chord</button>\n'
+        f'  <button type="button" id="{p}-open" title="solve until |chord| / arc reaches the dial, scale free">close to …</button>\n'
+        f'  <label class="dial" for="{p}-open-value">openness\n'
+        f'    <input id="{p}-open-value" type="number" min="0.02" max="1" step="0.01" value="0.25">\n'
+        f'  </label>\n'
+        f'  <input id="{p}-open-slider" type="range" min="0.02" max="1" step="0.01" value="0.25" aria-label="target openness">\n'
+        f'</div>\n'
+        f'<div class="solver-row">\n'
+        f'  <button type="button" id="{p}-lift" title="keep the five quintic numbers, add the two septic ones at +/- first/10, and solve that scale for the dial">lift a quintic to a septic</button>\n'
+        f'  <label class="dial" for="{p}-lift-sign">sign\n'
+        f'    <select id="{p}-lift-sign"><option value="1">+</option><option value="-1">−</option></select>\n'
+        f'  </label>\n'
+        f'  <span class="small mono" id="{p}-lift-status"></span>\n'
+        f'</div>\n'
+        f'<div class="save-row">\n'
+        f'  <input id="{p}-name" type="text" placeholder="name this curve">\n'
+        f'  <button type="button" id="{p}-save">save this curve</button>\n'
+        f'  <button type="button" id="{p}-download">download JSON</button>\n'
+        f'</div>\n'
+        f'<div class="saved-row" id="{p}-saved"></div>\n'
+        f'<div class="paste-row">\n'
+        f'  <textarea id="{p}-paste" rows="3" placeholder=\'paste a curve: {{"name": "x", "speedX": [2,-3,3,0.5], "speedY": [2,-12,12,-0.5]}} - or a whole {{"curves": [...]}} document\'></textarea>\n'
+        f'  <button type="button" id="{p}-load">load pasted JSON</button>\n'
+        f'</div>\n'
+        f'<p class="small mono" id="{p}-paste-status"></p>\n'
+        f'<p class="small mono">current curve, ready to select and cut — the same shape the paste box and\n'
+        f'<code>workbench/septic-curves.json</code> take:</p>\n'
+        f'<textarea id="{p}-json" rows="11" readonly></textarea>\n'
+        f'<p class="small mono" id="{p}-readout"></p>\n'
+        f'<p class="small mono" id="{p}-grade"></p>\n'
+        f'<p class="small mono" id="{p}-formula" style="white-space:pre-line"></p>\n'
+        f'</section>\n'
+    )
+
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +111,7 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .control-row span{min-width:120px;color:#8a3b2a}
 .control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .control-row input[type=range]{flex:1;min-width:90px}
-#e-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#d-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:10px 0 0}
 .samples svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 @media(max-width:900px){.samples{grid-template-columns:1fr}}
@@ -101,85 +158,28 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <p class="small mono" id="a-readout"></p>
 </section>
 
-<section class="panel">
-<h2>B | the PH septic</h2>
-<p><code>w = (b_x0 + b_x1 t + b_x2 t^2 + b_x3 t^3) + i (b_y0 + ... + b_y3 t^3)</code>, and
-<code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
-same machinery as the quintic, one degree up.</p>
-<div id="b-controls"></div>
-<svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
-<div class="solver-row">
-  <button type="button" id="b-right">make the terms right-angled</button>
-  <button type="button" id="b-close">close the chord</button>
-  <button type="button" id="b-open" title="solve until |chord| / arc reaches the dial, scale free">close to …</button>
-  <label class="dial" for="b-open-value">openness
-    <input id="b-open-value" type="number" min="0.02" max="1" step="0.01" value="0.25">
-  </label>
-  <input id="b-open-slider" type="range" min="0.02" max="1" step="0.01" value="0.25" aria-label="target openness">
-</div>
-<div class="solver-row">
-  <button type="button" id="b-lift" title="keep the five quintic numbers, add the two septic ones at +/- first/10, and solve that scale for the dial">lift a quintic to a septic</button>
-  <label class="dial" for="b-lift-sign">sign
-    <select id="b-lift-sign"><option value="1">+</option><option value="-1">−</option></select>
-  </label>
-  <span class="small mono" id="b-lift-status"></span>
-</div>
-<div class="save-row">
-  <input id="b-name" type="text" placeholder="name this curve">
-  <button type="button" id="b-save">save this curve</button>
-  <button type="button" id="b-download">download JSON</button>
-</div>
-<div class="saved-row" id="b-saved"></div>
-<div class="paste-row">
-  <textarea id="b-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-3,3,0.5], "speedY": [2,-12,12,-0.5]} - or a whole {"curves": [...]} document'></textarea>
-  <button type="button" id="b-load">load pasted JSON</button>
-</div>
-<p class="small mono" id="b-paste-status"></p>
-<p class="small mono">current curve, ready to select and cut — the same shape the paste box and
-<code>workbench/septic-curves.json</code> take:</p>
-<textarea id="b-json" rows="11" readonly></textarea>
-<p class="small mono" id="b-readout"></p>
-<p class="small mono" id="b-grade"></p>
-<p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p>Two more controls do what the buttons cannot. <strong>close to …</strong> solves until the chord is
-the dial's fraction of the arc (0.25 by default) instead of zero, which is where usable shapes live.
-<strong>lift a quintic</strong> keeps the five quintic numbers, seeds the two septic ones at
-±first/10 and solves that one scale for the dial; the sign select picks which side to start from.
-<code>close chord</code> is unchanged: it still walks to a new closed shape on each press.</p>
-</section>
+__PANEL_B__
+
+__PANEL_C__
+
+
+
+
+
 
 <section class="panel">
-<h2>C | the chord terms, chained</h2>
-<p>The seven vectors <code>T_m = (w^2)_m / (m+1)</code>, head to tail, drawn as two shapes: the first
-five are what a quintic can hold, the last two are septic-only. A ring marks where the quintic ends.
-The dashed arrows are the two sums, quintic-only and all seven. Read the sum off
-<code>#b-terms-values</code>; this panel follows whatever curve panel B holds.</p>
-<svg id="c-chord-chain" viewBox="0 0 720 460" role="img" aria-label="the chord terms chained in two shapes"></svg>
-</section>
-
-<section class="panel">
-<h2>D | the chord terms, as signed bars</h2>
-<p>The same seven terms, one row each, with the <code>x</code> and <code>y</code> components as bars
-from a shared zero line, so a sign flip mirrors the bar. Rows <code>t^6</code> and <code>t^7</code>
-sit on a tint: those are the septic-only terms. Signed sizes belong on a common baseline, not on an
-angle, which is why this panel does not use a compass.</p>
-<svg id="d-chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
-</section>
-
-<section class="panel">
-<h2>E | G2 Hermite interpolation at degree 7</h2>
+<h2>D | G2 Hermite interpolation at degree 7</h2>
 <p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
 six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
 conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
 curvatures and watch the curve follow; the curvature circles are dashed.</p>
-<div id="e-controls"></div>
-<svg id="e-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
-<p class="small mono" id="e-readout"></p>
+<div id="d-controls"></div>
+<svg id="d-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="d-readout"></p>
 </section>
 
 <section class="panel">
-<h2>F | small integer speeds</h2>
+<h2>E | small integer speeds</h2>
 <p>Forty curves found by scanning small integer speeds - every coefficient in
 <code>[-2, 2]</code> exhaustively, then a random sweep of <code>[-4, 4]</code> - with the
 inflection strictly inside, the speed path away from the origin, and the pitch read exactly. The
@@ -216,6 +216,15 @@ def build():
     samples = json.loads(SAMPLES.read_text())["curves"]
     grid = "".join(septic_samples.panel_svg(record) for record in samples)
     page = PAGE.replace("__SAMPLES__", grid)
+    page = page.replace("__PANEL_B__", septic_panel(
+        "B", "b", "the PH septic",
+        "w = (b_x0 + b_x1 t + b_x2 t^2 + b_x3 t^3) + i (b_y0 + ... + b_y3 t^3), and "
+        "r = integral of w^2. The two boxes beside the curve are the chord terms; the controls "
+        "below solve, save and lift.", chords=True))
+    page = page.replace("__PANEL_C__", septic_panel(
+        "C", "c", "the PH septic, a second curve",
+        "The same sandbox as B with its own numbers, plot and buttons, so two curves can be "
+        "compared without retyping. The chord figures stay with B."))
     page = page.replace("__CURVES__", "<script>window.septicCurves = "
                         + json.dumps(curves, separators=(",", ":")) + ";</script>")
     OUT.write_text(page.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))

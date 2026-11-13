@@ -109,11 +109,15 @@
   }
   drawA();
 
-  // ---------- panel B: the PH septic ----------
+  const savedRowRenderers = [];
+  // Two copies of the same sandbox: prefix "b" beside the chord figures,
+  // prefix "c" on its own. Every lookup goes through $, so the ids differ.
+  function buildSepticPanel(prefix, chordIds) {
+    const $ = id => document.getElementById(prefix === 'b' ? id : id.replace(/^b-/, prefix + '-'));
   const bDefaults = { bx0: 2, bx1: -3, bx2: 3, bx3: 0.3, by0: 2, by1: -12, by2: 12, by3: 0 };
   const bState = { ...bDefaults };
   let bCurrentName = "curve";   // the name the JSON box prints
-  const bGrid = document.getElementById("b-controls");
+  const bGrid = $("b-controls");
   const bCells = [];
   const decode = value => {
     if (!value) return { mantissa: 0, decade: 0 };
@@ -207,11 +211,11 @@
       points.push([x, y]);
     }
     const m = metrics(speedX, speedY);
-    draw(document.getElementById("b-plot"), points,
+    draw($("b-plot"), points,
          "B | the PH septic: r' = w^2 with w cubic",
          "w = (b_x) + i (b_y), each cubic | the position is degree 7 and the offsets are rational",
          [[0, 0], points[points.length - 1]]);
-    document.getElementById("b-readout").textContent =
+    $("b-readout").textContent =
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | closest ${m.closest.toFixed(3)} | ` +
       `open ${chordRatio(speedX, speedY).toFixed(3)}`;
@@ -231,12 +235,12 @@
     if (m.closest <= 1e-9) flags.push("the speed vanishes: a cusp");
     if (m.inflection === null) flags.push("no inflection: a C, not an S");
     const grade = flags.join(" | ");
-    document.getElementById("b-grade").textContent = grade;
-    document.getElementById("b-formula").textContent =
+    $("b-grade").textContent = grade;
+    $("b-formula").textContent =
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
       `speed, the eight boxes: x ${speedX.map(v => +v.toFixed(3)).join(", ")} | ` +
       `y ${speedY.map(v => +v.toFixed(3)).join(", ")}`;
-    const jsonBox = document.getElementById("b-json");
+    const jsonBox = $("b-json");
     if (jsonBox) {
       jsonBox.value = JSON.stringify({
         name: bCurrentName,
@@ -272,7 +276,7 @@
   // compared: B1 chains them head to tail in two shapes, B2 fans them from one
   // origin. Both use one scale, so a term is the same length in either box.
   const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
-                       width: 720, height: 460, pad: 64 };
+                       width: 400, height: 460, pad: 34 };
   const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
@@ -315,7 +319,7 @@
   }
 
   function drawChordChain(terms) {
-    const plot = document.getElementById("c-chord-chain");
+    const plot = chordIds ? document.getElementById(chordIds.chain) : null;
     if (!plot) return;
     const { quintic, septic, ink } = chordStyle;
     const quinticCount = 5;
@@ -323,7 +327,7 @@
     const quinticEnd = heads[quinticCount];
     const end = heads[heads.length - 1];
     const { fx, fy } = chordFrame(terms, heads);
-    let art = chordHead("", "C", "the chord terms, chained in two shapes");
+    let art = chordHead("", "B1", "chained");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
@@ -346,7 +350,7 @@
   }
 
   function drawChordBars(terms) {
-    const plot = document.getElementById("d-chord-bars");
+    const plot = chordIds ? document.getElementById(chordIds.bars) : null;
     if (!plot) return;
     const { ink, width, height, pad } = chordStyle;
     // A signed coefficient belongs on a common baseline: bars from zero read
@@ -359,7 +363,7 @@
     const zero = (left + right) / 2;
     const xOf = value => zero + value / biggest * (right - left) / 2;
     const xColour = ink, yColour = "#8a6a3a";
-    let art = chordHead("", "D", "the same terms as signed bars");
+    let art = chordHead("", "B2", "signed bars");
     // the septic-only rows sit on a tinted band
     art += `<rect x="${pad}" y="${(top + rowHeight * 5).toFixed(1)}" width="${width - 2 * pad}" height="${(rowHeight * 2).toFixed(1)}" fill="#f2ead6"/>`;
     art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="${ink}" stroke-width="1.5"/>`;
@@ -385,7 +389,7 @@
     const terms = chordTerms(speedX, speedY);
     drawChordChain(terms);
     drawChordBars(terms);
-    const values = document.getElementById("b-terms-values");
+    const values = $("b-terms-values");
     if (values) {
       const pair = term => `(${term[0].toFixed(3)}, ${term[1].toFixed(3)})`;
       const heads = cumulative(terms);
@@ -522,7 +526,8 @@
     return Object.values(byName);
   };
   function renderSaved() {
-    const row = document.getElementById("b-saved");
+    const row = $("b-saved");
+    if (!row) return;
     row.textContent = "";
     allSaved().forEach(item => {
       const button = document.createElement("button");
@@ -533,8 +538,9 @@
       row.append(button);
     });
   }
-  document.getElementById("b-save").addEventListener("click", () => {
-    const nameInput = document.getElementById("b-name");
+  savedRowRenderers.push(renderSaved);
+  if ($("b-save")) $("b-save").addEventListener("click", () => {
+    const nameInput = $("b-name");
     const name = (nameInput.value || "").trim() || `curve ${localSaved().length + 1}`;
     const metrics = window.recipeMetrics(
       [bState.bx0, bState.bx1, bState.bx2, bState.bx3],
@@ -551,9 +557,9 @@
     });
     storeSaved(items);
     nameInput.value = "";
-    renderSaved();
+    savedRowRenderers.forEach(fn => fn());
   });
-  document.getElementById("b-download").addEventListener("click", () => {
+  $("b-download").addEventListener("click", () => {
     const payload = { title: "septic sandbox curves", curves: allSaved() };
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
@@ -566,9 +572,9 @@
   });
   renderSaved();
 
-  document.getElementById("b-load").addEventListener("click", () => {
-    const status = document.getElementById("b-paste-status");
-    const text = document.getElementById("b-paste").value.trim();
+  $("b-load").addEventListener("click", () => {
+    const status = $("b-paste-status");
+    const text = $("b-paste").value.trim();
     if (!text) { status.textContent = "paste a curve or a {\"curves\": [...]} document"; return; }
     try {
       const data = JSON.parse(text);
@@ -586,7 +592,7 @@
         if (loaded === 1) setSpeed(record.speedX, record.speedY, record.name);
       });
       storeSaved(items);
-      renderSaved();
+      savedRowRenderers.forEach(fn => fn());
       status.textContent = loaded ? `${loaded} curve${loaded === 1 ? "" : "s"} loaded`
                                  : "no speedX / speedY in that JSON";
     } catch (error) {
@@ -594,10 +600,10 @@
     }
   });
 
-  document.getElementById("b-right").addEventListener("click", () => solve("right"));
-  document.getElementById("b-close").addEventListener("click", () => solve("close"));
-  const opennessInput = document.getElementById("b-open-value");
-  const opennessSlider = document.getElementById("b-open-slider");
+  $("b-right").addEventListener("click", () => solve("right"));
+  $("b-close").addEventListener("click", () => solve("close"));
+  const opennessInput = $("b-open-value");
+  const opennessSlider = $("b-open-slider");
   const opennessOf = () => {
     const raw = Number(opennessInput ? opennessInput.value : 0.25);
     return Number.isFinite(raw) ? Math.min(1, Math.max(0.02, raw)) : 0.25;
@@ -609,7 +615,7 @@
       if (Number.isFinite(raw)) opennessSlider.value = String(Math.min(1, Math.max(0.02, raw)));
     });
   }
-  const opennessButton = document.getElementById("b-open");
+  const opennessButton = $("b-open");
   if (opennessButton) opennessButton.addEventListener("click", () => solve("openness", opennessOf()));
 
   // Lift a quintic: keep its five numbers, add the two septic ones at
@@ -648,7 +654,7 @@
       roots.sort((a, b) => Math.abs(a - sign) - Math.abs(b - sign));
       best = roots[0];
     }
-    const status = document.getElementById("b-lift-status");
+    const status = $("b-lift-status");
     if (best === null) {
       if (status) status.textContent = `no scale of the two extra numbers reaches openness ${target.toFixed(2)}`;
       return;
@@ -663,12 +669,15 @@
         `lifted at s ${best.toFixed(3)}: x t^3 ${bState.bx3.toFixed(3)}, y t^3 ${bState.by3.toFixed(3)}`;
     }
   }
-  const liftButton = document.getElementById("b-lift");
+  const liftButton = $("b-lift");
   if (liftButton) liftButton.addEventListener("click", () => {
-    const select = document.getElementById("b-lift-sign");
+    const select = $("b-lift-sign");
     liftQuintic(select ? Number(select.value) : 1);
   });
   drawB();
+  }
+  buildSepticPanel('b', { chain: 'b-chord-chain', bars: 'b-chord-bars' });
+  buildSepticPanel('c', null);
 })();
 
 // Fig. Q16 - G2 Hermite interpolation at degree 7.
@@ -676,9 +685,9 @@
 // septic r' = w^2 with w cubic, eight real unknowns; six conditions plus two
 // fairness terms, solved by Gauss-Newton.
 (function () {
-  const plot = document.getElementById("e-plot");
+  const plot = document.getElementById("d-plot");
   if (!plot) return;
-  const readout = document.getElementById("e-readout");
+  const readout = document.getElementById("d-readout");
   const width = 720, height = 520, left = 70, right = 50, top = 92, bottom = 64;
   const specs = [
     { key: "theta0", label: "angle 0 (deg)", min: -180, max: 180, step: 1, value: 60 },
@@ -707,7 +716,7 @@
     row.append(name, numberInput, rangeInput);
     grid.append(row);
   });
-  document.getElementById("e-controls").append(grid);
+  document.getElementById("d-controls").append(grid);
 
   const cx = z => [z[0], z[1]];
   const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
