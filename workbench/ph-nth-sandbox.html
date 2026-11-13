@@ -1028,6 +1028,13 @@ window.curveSaver = (function () {
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: -1 } },
+    { name: "grass",
+      speedX: [7.5, -2.5, 7.5, 2.5, 7.5, -2.5],
+      speedY: [7.5, -25, 75, -2.5, 7.5, -2.5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
