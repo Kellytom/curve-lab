@@ -46,10 +46,18 @@ class TestNthSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, text)
 
-    def test_the_degree_is_eleven_not_seven(self):
+    def test_the_degree_ladder_is_written_once(self):
         text = JS.read_text()
-        self.assertIn("const SPEED_DEGREE = 5;", text)
-        self.assertIn("const DEGREE = 2 * SPEED_DEGREE + 1;", text)
+        self.assertIn("let speedDegree = Number.isFinite(asked) && asked >= 1 ? Math.round(asked) : 5;", text)
+        self.assertIn("const positionDegree = () => 2 * speedDegree + 1;", text)
+        self.assertIn("window.phNthSetDegree = k => {", text)
+
+    def test_the_page_carries_the_five_rungs(self):
+        page = PAGE.read_text()
+        for degree, numbers in ((11, 12), (13, 14), (15, 16), (17, 18), (19, 20)):
+            with self.subTest(degree=degree):
+                self.assertIn(f'data-speed-degree="{(degree - 1) // 2}">degree {degree} '
+                              f'&middot; {numbers} numbers', page)
 
 
 if __name__ == "__main__":

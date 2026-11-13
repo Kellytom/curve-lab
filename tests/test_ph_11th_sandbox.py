@@ -48,8 +48,8 @@ class Test11thSandbox(unittest.TestCase):
 
     def test_the_degree_is_eleven_not_seven(self):
         text = JS.read_text()
-        self.assertIn("const SPEED_DEGREE = 5;", text)
-        self.assertIn("const DEGREE = 2 * SPEED_DEGREE + 1;", text)
+        self.assertIn("let speedDegree = Number.isFinite(asked) && asked >= 1 ? Math.round(asked) : 5;", text)
+        self.assertIn("const positionDegree = () => 2 * speedDegree + 1;", text)
 
 
 if __name__ == "__main__":

@@ -1,14 +1,22 @@
-// The eleventh power: a PH curve of position degree 11.
+// The eleventh power and up: a PH curve whose position degree starts at 11.
 //
-// r' = w^2 with w of degree 5, so twelve speed numbers (six real, six
-// imaginary) and a position of degree 2*5 + 1 = 11. The maths is the same as
-// the septic sandbox; only the degree changes, and every loop below is written
-// in terms of the speed degree so a higher one is a constant, not a rewrite.
+// r' = w^2 with w of degree k, so 2(k+1) speed numbers (k+1 real, k+1
+// imaginary) and a position degree of 2k + 1. The ladder therefore steps by
+// two: k = 5, 6, 7, 8, 9 gives position degrees 11, 13, 15, 17, 19, with 12,
+// 14, 16, 18 and 20 speed numbers. An even position degree cannot occur:
+// p and q of equal top degree both square to a real leading term, so the
+// leading position term is always real and of odd degree.
+//
+// The page sets window.phSpeedDegree before this script runs. The rung buttons
+// call window.phNthSetDegree(k) to move up or down without a reload; existing
+// curves load into a bigger rung padded with zeros, which leaves the shape
+// alone.
 
 (function () {
-  const SPEED_DEGREE = 5;               // w is degree 5
-  const POINTS = SPEED_DEGREE + 1;      // 6 pairs
-  const DEGREE = 2 * SPEED_DEGREE + 1;  // 11
+  const asked = Number(window.phSpeedDegree);
+  let speedDegree = Number.isFinite(asked) && asked >= 1 ? Math.round(asked) : 5;
+  let speedCount = speedDegree + 1;     // numbers per axis, real or imaginary
+  const positionDegree = () => 2 * speedDegree + 1;
 
   const metrics = window.recipeMetrics;
   const value = window.polynomialValue;
@@ -60,7 +68,7 @@
     const label = document.createElement("span");
     label.textContent = axis;
     row.append(label);
-    for (let k = 0; k < POINTS; k++) {
+    for (let k = 0; k < speedCount; k++) {
       const cell = document.createElement("label");
       cell.className = "spine-cell";
       const name = document.createElement("span");
@@ -124,9 +132,21 @@
         const sign = current < 0 ? -1 : 1;
         set(sign * +fine.value * Math.pow(10, decode(current).decade));
       });
+      // The sign button: the slider carries size only, so the sign lives in the
+      // number box. One press flips it, which is the quickest way to try the
+      // other half of the family.
+      const flip = document.createElement("button");
+      flip.type = "button";
+      flip.className = "sign";
+      flip.textContent = "\u2212";
+      flip.title = "flip the sign of this number";
+      flip.addEventListener("click", () => {
+        const current = axis === "x" ? state.x[k] : state.y[k];
+        set(current === 0 ? -1 : -current);
+      });
       const pair = document.createElement("div");
       pair.className = "cell-inputs";
-      pair.append(number, fine, scales);
+      pair.append(number, fine, flip, scales);
       steppers(number, direction => {
         const current = axis === "x" ? state.x[k] : state.y[k];
         set(stepInteger(current, direction));
@@ -140,6 +160,35 @@
   function writeCells() {
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? state.x[cell.k] : state.y[cell.k]));
   }
+
+  function sizeState() {
+    while (state.x.length < speedCount) state.x.push(0);
+    while (state.y.length < speedCount) state.y.push(0);
+    state.x.length = speedCount;
+    state.y.length = speedCount;
+  }
+
+  // A new rung: every number that still has a box keeps its value, the new
+  // boxes start at zero, and the controls are rebuilt so the sliders match the
+  // new count. Nothing is rescaled, so an old curve draws the same shape.
+  function rebuildControls() {
+    sizeState();
+    cells.length = 0;
+    grid.textContent = "";
+    grid.append(buildRow("x"), buildRow("y"));
+  }
+
+  window.phNthDegree = () => ({ speedDegree, speedCount, degree: positionDegree() });
+  window.phNthSetDegree = k => {
+    const next = Math.round(Number(k));
+    if (!Number.isFinite(next) || next < 1 || next === speedDegree) return;
+    speedDegree = next;
+    speedCount = speedDegree + 1;
+    rebuildControls();
+    writeCells();
+    draw();
+    document.dispatchEvent(new CustomEvent("ph-nth-degree", { detail: window.phNthDegree() }));
+  };
 
   // ---------- the offsets, the terminal ----------
   // Parallel for now: r + d*n with d a constant half-width. The flare law moved
@@ -407,11 +456,11 @@
   // ---------- the chord terms, as signed bars ----------
   function chordTerms() {
     const terms = [];
-    for (let m = 0; m <= 2 * SPEED_DEGREE; m++) {
+    for (let m = 0; m <= 2 * speedDegree; m++) {
       let re = 0, im = 0;
-      for (let j = 0; j <= SPEED_DEGREE; j++) {
+      for (let j = 0; j <= speedDegree; j++) {
         const k = m - j;
-        if (k < 0 || k > SPEED_DEGREE) continue;
+        if (k < 0 || k > speedDegree) continue;
         re += state.x[j] * state.x[k] - state.y[j] * state.y[k];
         im += state.x[j] * state.y[k] + state.y[j] * state.x[k];
       }
@@ -449,14 +498,14 @@
   // ---------- the solvers ----------
   const freeIndices = () => {
     const out = [];
-    for (let i = 0; i < POINTS; i++) out.push([i, 0]);
-    for (let i = 0; i < POINTS; i++) out.push([i, 1]);
+    for (let i = 0; i < speedCount; i++) out.push([i, 0]);
+    for (let i = 0; i < speedCount; i++) out.push([i, 1]);
     return out;                       // every number except x t^0 stays fixed by scale
   };
   const paramsOf = () => state.x.slice(1).concat(state.y.slice());
   function speedOf(params) {
-    return { x: [state.x[0]].concat(params.slice(0, POINTS - 1)),
-             y: params.slice(POINTS - 1, 2 * POINTS - 1) };
+    return { x: [state.x[0]].concat(params.slice(0, speedCount - 1)),
+             y: params.slice(speedCount - 1, 2 * speedCount - 1) };
   }
   const arcLength = (speedX, speedY) => {
     let total = 0;
@@ -648,7 +697,7 @@
       });
     });
   document.getElementById("n-zero-top").addEventListener("click", () => {
-    state.x[POINTS - 1] = 0; state.y[POINTS - 1] = 0;
+    state.x[speedCount - 1] = 0; state.y[speedCount - 1] = 0;
     currentName = "curve"; writeCells(); draw();
   });
 
@@ -741,6 +790,39 @@
       character: { plus: 2, minus: 1, profile: "taper" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
+    // The letter strokes. The x row stays positive, so the curve never turns
+    // back in x; the y row is the one that changes sign, and each root of the y
+    // row inside (0,1) is one arch. u and v cross once, m and w cross twice,
+    // and m is w with the y row negated. A higher degree does not make a
+    // letter: it adds a wiggle. These are degree 3 and 5 on purpose.
+    { name: "u-bowl",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-1, 2, 0, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "v-sharp",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-1, 6, -12, 8, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "m-arch",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [3, -16, 16, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "w-arch",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-3, 16, -16, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
@@ -781,8 +863,8 @@
       button.textContent = item.name;
       button.title = JSON.stringify(item.speedX) + " / " + JSON.stringify(item.speedY);
       button.addEventListener("click", () => {
-        state.x = item.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
-        state.y = item.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
+        state.x = item.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+        state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
         currentName = item.name;
         applyWidth(item);
         writeCells(); draw();
@@ -887,8 +969,8 @@
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;
         if (loaded === 1) {
-          state.x = record.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
-          state.y = record.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
+          state.x = record.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+          state.y = record.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
           currentName = name;
           applyWidth(record);
           writeCells(); draw();
@@ -905,8 +987,8 @@
 
   // the gallery opens a curve into this sandbox
   window.phNthLoad = item => {
-    state.x = item.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
-    state.y = item.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
+    state.x = item.speedX.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+    state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
     currentName = item.name;
     applyWidth(item);
     writeCells();

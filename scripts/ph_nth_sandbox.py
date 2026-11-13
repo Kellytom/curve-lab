@@ -42,11 +42,14 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .spine-row{display:flex;gap:8px;align-items:center;margin:2px 0}
 .spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
 #n-controls .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
+/* the axis letter gets its own line, so the x row and the y row start level */
+#n-controls .spine-row>span:first-child{grid-column:1 / -1;width:auto;margin:2px 0 0}
 .spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 #n-controls .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
 #n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
-#n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
+.cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.cell-inputs .sign:hover{background:#efe7d3}
 .scales,.steppers{display:inline-flex;gap:2px}
 .scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
   background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
@@ -54,6 +57,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .steppers button{padding:2px 3px}
 .solver-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}
 .solver-row button.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+.rung-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.rung{font:11px/1.2 ui-monospace,Menlo,monospace;padding:4px 7px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.rung.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
 .solver-row button,.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .dial input[type=number]{width:64px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
@@ -92,7 +98,7 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .gallery p{margin:6px 0 0}
 </style></head><body><main>
 <p class="eyebrow">curve-lab | PH curves | position degree 11</p>
-<h1>The eleventh power</h1>
+<h1>The eleventh power and up</h1>
 <p>The septic sandbox stops at position degree 7, where the speed <code>w</code> is cubic. This page is
 the same machine one step up: <code>r' = w^2</code> with <code>w</code> of degree 5, so twelve speed
 numbers and a position of degree <strong>2 &times; 5 + 1 = 11</strong>. The offsets stay rational, the
@@ -100,13 +106,22 @@ pitch is still the lcm of the integrated coefficients' denominators, and the clo
 unchanged &mdash; more terms, same rules.</p>
 
 <section class="panel">
-<h2>A | the PH curve of degree 11</h2>
-<p>Six numbers for <code>x</code> and six for <code>y</code>, from <code>t^0</code> to <code>t^5</code>.
-The last pair is zero by default, which makes the curve a septic with two unused knobs: lift it and the
-eleventh power appears. <code>close chord</code> drives the endpoint home; <code>close to &hellip;</code>
+<h2>A | the PH curve, from degree 11 up</h2>
+<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.
+Each rung adds one number per axis, so the position degree rises by two: 11, 13, 15, 17, 19, with
+12, 14, 16, 18 and 20 numbers. An even position degree cannot occur for polynomial speeds, so the
+readout never prints one. A curve saved at a lower rung loads here unchanged: the new boxes are zero,
+which leaves the shape alone. <code>close chord</code> drives the endpoint home; <code>close to &hellip;</code>
 holds a chosen openness instead, because a fully closed curve has no chord and bend is arc over chord.</p>
+<div class="rung-row" id="n-rungs" role="group" aria-label="choose the position degree">
+  <button type="button" class="rung is-on" data-speed-degree="5">degree 11 &middot; 12 numbers</button>
+  <button type="button" class="rung" data-speed-degree="6">degree 13 &middot; 14 numbers</button>
+  <button type="button" class="rung" data-speed-degree="7">degree 15 &middot; 16 numbers</button>
+  <button type="button" class="rung" data-speed-degree="8">degree 17 &middot; 18 numbers</button>
+  <button type="button" class="rung" data-speed-degree="9">degree 19 &middot; 20 numbers</button>
+</div>
 <div id="n-controls"></div>
-<svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve of degree 11"></svg>
+<svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve"></svg>
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
@@ -206,6 +221,15 @@ padded with a zero pair, which changes nothing: the speed is the same polynomial
 </main>
 <script>
 window.phNthGallery = __GALLERY__;
+window.phSpeedDegree = 5;
+// The rung buttons: one number per axis per rung, so the degree moves by two.
+(() => {
+  const rungs = [...document.querySelectorAll("#n-rungs .rung")];
+  rungs.forEach(button => button.addEventListener("click", () => {
+    window.phNthSetDegree(button.dataset.speedDegree);
+    rungs.forEach(other => other.classList.toggle("is-on", other === button));
+  }));
+})();
 </script>
 <script>
 __MATH__

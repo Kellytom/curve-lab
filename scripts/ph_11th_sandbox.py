@@ -46,7 +46,8 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 #n-controls .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
 #n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
-#n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
+.cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.cell-inputs .sign:hover{background:#efe7d3}
 .scales,.steppers{display:inline-flex;gap:2px}
 .scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
   background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}

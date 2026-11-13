@@ -31,6 +31,33 @@ await page.goto(`${url}?v=${Date.now()}`, { waitUntil: "load" });
 const boxes = await page.$$eval("#n-controls input[type=number]", els => els.length);
 if (boxes !== 12) failures.push(`speed boxes: ${boxes}, expected 12`);
 
+// the degree ladder: one more number per axis per rung, so two more boxes, and
+// a filled top pair must make the readout name the degree that follows.
+const fillBox = (index, number) => page.evaluate(([i, v]) => {
+  const input = document.querySelectorAll("#n-controls input[type=number]")[i];
+  input.value = String(v);
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+}, [index, number]);
+
+for (const [speedDegree, degree, count] of [[6, 13, 14], [7, 15, 16], [8, 17, 18], [9, 19, 20]]) {
+  await page.click(`#n-rungs .rung[data-speed-degree="${speedDegree}"]`);
+  await page.waitForTimeout(150);
+  const made = await page.$$eval("#n-controls input[type=number]", els => els.length);
+  if (made !== count) failures.push(`degree ${degree}: ${made} boxes, expected ${count}`);
+  const sliders = await page.$$eval("#n-controls input[type=range]", els => els.length);
+  if (sliders !== count) failures.push(`degree ${degree}: ${sliders} sliders, expected ${count}`);
+  await fillBox(count / 2 - 1, 1);        // the top x number
+  await fillBox(count - 1, -1);           // the top y number
+  await page.waitForTimeout(150);
+  const grade = await page.textContent("#n-grade");
+  if (!grade.includes(`degree ${degree}`)) failures.push(`degree ${degree} readout: ${grade}`);
+}
+// back to the eleventh power: the rest of the checks assume twelve boxes
+await page.click('#n-rungs .rung[data-speed-degree="5"]');
+await page.waitForTimeout(150);
+const back = await page.$$eval("#n-controls input[type=number]", els => els.length);
+if (back !== 12) failures.push(`back to degree 11: ${back} boxes`);
+
 // the view: spine only by default, then rails, then the two terminals
 const paths = () => page.evaluate(() => document.querySelectorAll("#n-plot path").length);
 if (await paths() !== 1) failures.push("default view is not the spine alone");
