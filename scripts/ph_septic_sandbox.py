@@ -98,10 +98,12 @@ rather than a ramp. The control vectors <code>u_k = n_k * span * k!</code> are t
 <code>r = integral of w^2</code>. Degree 7, rational offsets, exact pitch and integer hits - the
 same machinery as the quintic, one degree up.</p>
 <div id="b-controls"></div>
-<div class="pair">
 <svg id="b-plot" viewBox="0 0 720 520" role="img" aria-label="the PH septic"></svg>
-<svg id="b-vectors" viewBox="0 0 720 520" role="img" aria-label="the chord terms of the septic"></svg>
+<div class="pair">
+<svg id="b-chord-b1" viewBox="0 0 720 520" role="img" aria-label="chord terms B1, chained in two shapes"></svg>
+<svg id="b-chord-b2" viewBox="0 0 720 520" role="img" aria-label="chord terms B2, the same terms as a fan"></svg>
 </div>
+<p class="small mono" id="b-terms-values" style="white-space:pre-line"></p>
 <div class="solver-row">
   <button type="button" id="b-right">make the terms right-angled</button>
   <button type="button" id="b-close">close the chord</button>
@@ -120,9 +122,10 @@ same machinery as the quintic, one degree up.</p>
 <p class="small mono" id="b-readout"></p>
 <p class="small mono" id="b-grade"></p>
 <p class="small mono" id="b-formula" style="white-space:pre-line"></p>
-<p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
-vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
-polygon into a triangle or a rectangle and the curve follows.</p>
+<p class="small">The two boxes under the curve are the same seven chord terms, drawn two ways: <strong>B1</strong>
+chains them head to tail and marks where the quintic ends, <strong>B2</strong> fans each term from the
+origin so its own size and direction show. Both use one scale, so a vector is the same length in
+either box. The dashed arrows are the sums: quintic-only, and all seven.</p>
 </section>
 
 <section class="panel">

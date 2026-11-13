@@ -1,17 +1,19 @@
 // Screenshot a page with Playwright. No daemon, no fixed port: the browser is
 // launched for the shot and closed after it.
 //
-//   node scripts/shot.mjs <url> <out.png> [width] [height] [full|viewport]
+//   node scripts/shot.mjs <url> <out.png> [width] [height] [full|viewport] [css selector]
 //
 // Playwright launches the Chrome already on the machine; nothing has to be
 // running beforehand, which is what the old CDP-on-9223 version required.
+// With a selector, only that element is shot, which is how a figure is looked
+// at without a whole page.
 
 import fs from "node:fs";
 import { chromium } from "playwright-core";
 
-const [, , url, out, w = "900", h = "1400", mode = "full"] = process.argv;
+const [, , url, out, w = "900", h = "1400", mode = "full", selector = ""] = process.argv;
 if (!url || !out) {
-  console.error("usage: node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]");
+  console.error("usage: node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport] [selector]");
   process.exit(2);
 }
 
@@ -42,10 +44,17 @@ const page = await browser.newPage({
   deviceScaleFactor: 1,
 });
 await page.goto(url, { waitUntil: "load", timeout: 20000 });
-await page.screenshot({ path: out, fullPage: mode === "full" });
-const size = await page.evaluate(() => [
-  document.documentElement.scrollWidth,
-  document.documentElement.scrollHeight,
-]);
-console.log(out, `${size[0]}x${size[1]}`);
+if (selector) {
+  const element = page.locator(selector).first();
+  await element.screenshot({ path: out });
+  const box = await element.boundingBox();
+  console.log(out, `${Math.round(box.width)}x${Math.round(box.height)}`, selector);
+} else {
+  await page.screenshot({ path: out, fullPage: mode === "full" });
+  const size = await page.evaluate(() => [
+    document.documentElement.scrollWidth,
+    document.documentElement.scrollHeight,
+  ]);
+  console.log(out, `${size[0]}x${size[1]}`);
+}
 await browser.close();

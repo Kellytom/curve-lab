@@ -126,7 +126,7 @@
     if (number) cell.number.value = +value.toFixed(6);
     if (sliders) {
       const parts = decode(value);
-      cell.fine.value = parts.mantissa;
+      cell.fine.value = Math.abs(parts.mantissa);
       cell.decade.value = parts.decade;
     }
   }
@@ -145,7 +145,10 @@
       input.type = "number"; input.step = "0.05";
       input.value = bState[`b${axis}${k}`];
       const slider = document.createElement("input");
-      slider.type = "range"; slider.min = "-16"; slider.max = "16"; slider.step = "0.05";
+      // the size of the mantissa, not its sign: zero sits at the left end, and
+      // the sign is typed in the box. The signed range put zero half way across.
+      slider.type = "range"; slider.min = "0"; slider.max = "10"; slider.step = "0.05";
+      slider.title = "size (x 10^decade); the sign is typed in the box";
       const decade = document.createElement("input");
       decade.type = "range"; decade.min = "-2"; decade.max = "6"; decade.step = "1";
       decade.className = "decade";
@@ -166,7 +169,8 @@
         setValue(value, { number: false });      // the field is the source
       });
       slider.addEventListener("input", () => {
-        setValue(slider.value * Math.pow(10, +decade.value), { sliders: false });
+        const sign = bState[stateKey] < 0 ? -1 : 1;
+        setValue(sign * slider.value * Math.pow(10, +decade.value), { sliders: false });
       });
       decade.addEventListener("input", () => {
         // scale what the state holds, not the snapped slider value
@@ -248,37 +252,128 @@
     return terms;
   }
 
-  function drawChordTerms(speedX, speedY) {
-    const plot = document.getElementById("b-vectors");
-    const terms = chordTerms(speedX, speedY);
+  // Two readings of the same seven chord terms, side by side so they can be
+  // compared: B1 chains them head to tail in two shapes, B2 fans them from one
+  // origin. Both use one scale, so a term is the same length in either box.
+  const chordStyle = { quintic: "#1f5fa8", septic: "#a23b2a", ink: "#2e2413",
+                       width: 720, height: 520, pad: 64 };
+  const cumulative = terms => {
     const heads = [[0, 0]];
     let x = 0, y = 0;
     terms.forEach(term => { x += term[0]; y += term[1]; heads.push([x, y]); });
-    const extent = Math.max(1e-9, ...heads.map(point => Math.max(Math.abs(point[0]), Math.abs(point[1]))));
-    const width = 720, height = 520, pad = 60;
-    const scale = Math.min(width - 2 * pad, height - 2 * pad) / 2 / extent * 0.92;
-    const cx = width / 2, cy = height / 2;
-    const fx = value => cx + value * scale;
-    const fy = value => cy - value * scale;
-    const colours = ["#1f5fa8", "#a23b2a", "#5b7f3a", "#8a5a9e", "#c07a1f", "#3f8a8a", "#8a3b2a"];
-    let art = `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">B | the chord terms</text>` +
-      `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">w^2 has degree 6, so seven vectors; head to tail they sum to the chord (dashed)</text>`;
+    return heads;
+  };
+  function chordFrame(terms, heads) {
+    const extent = Math.max(1e-9,
+      ...heads.map(point => Math.max(Math.abs(point[0]), Math.abs(point[1]))),
+      ...terms.map(term => Math.max(Math.abs(term[0]), Math.abs(term[1]))));
+    const width = chordStyle.width, height = chordStyle.height, pad = chordStyle.pad;
+    const scale = Math.min(width - 2 * pad, height - 2 * pad - 44) / 2 / extent * 0.9;
+    const cx = width / 2, cy = height / 2 - 10;
+    return { fx: value => cx + value * scale, fy: value => cy - value * scale };
+  }
+  function chordHead(art, label, heading, subtitle) {
+    const { pad, ink } = chordStyle;
+    return art +
+      `<rect width="${chordStyle.width}" height="${chordStyle.height}" fill="#fbf7ec"/>` +
+      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="${ink}">${label} | ${heading}</text>` +
+      `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">${subtitle}</text>`;
+  }
+  function chordLegend(art, rows) {
+    const { pad, ink, height } = chordStyle;
+    rows.forEach((entries, row) => {
+      const y = height - 34 - (rows.length - 1 - row) * 26;
+      let x = pad;
+      entries.forEach(entry => {
+        if (entry.kind === "ring") {
+          art += `<circle cx="${x + 9}" cy="${y - 5}" r="7" fill="none" stroke="${entry.colour}" stroke-width="2.5"/>`;
+        } else if (entry.kind === "dash") {
+          art += `<line x1="${x}" y1="${y - 5}" x2="${x + 26}" y2="${y - 5}" stroke="${entry.colour}" stroke-width="2.6" stroke-dasharray="4 4"/>`;
+        } else {
+          art += `<line x1="${x}" y1="${y - 5}" x2="${x + 26}" y2="${y - 5}" stroke="${entry.colour}" stroke-width="${entry.width || 3}" stroke-linecap="round"/>`;
+        }
+        art += `<text x="${x + 34}" y="${y}" font-size="15" fill="${ink}">${entry.text}</text>`;
+        x += 34 + entry.text.length * 7.6 + 20;
+      });
+    });
+    return art;
+  }
+
+  function drawChordChain(terms) {
+    const plot = document.getElementById("b-chord-b1");
+    if (!plot) return;
+    const { quintic, septic, ink } = chordStyle;
+    const quinticCount = 5;
+    const heads = cumulative(terms);
+    const quinticEnd = heads[quinticCount];
+    const end = heads[heads.length - 1];
+    const { fx, fy } = chordFrame(terms, heads);
+    let art = chordHead("", "B1", "chained, in two shapes",
+      "head to tail the seven vectors sum to the chord; T0-T4 are the quintic part, T5-T6 the septic-only part");
     for (let i = 0; i < terms.length; i++) {
       art += `<line x1="${fx(heads[i][0]).toFixed(1)}" y1="${fy(heads[i][1]).toFixed(1)}" ` +
         `x2="${fx(heads[i + 1][0]).toFixed(1)}" y2="${fy(heads[i + 1][1]).toFixed(1)}" ` +
-        `stroke="${colours[i]}" stroke-width="2.6"/>`;
-      art += `<circle cx="${fx(heads[i + 1][0]).toFixed(1)}" cy="${fy(heads[i + 1][1]).toFixed(1)}" r="3" fill="${colours[i]}"/>`;
+        `stroke="${i < quinticCount ? quintic : septic}" stroke-width="${i < quinticCount ? 3 : 3.6}" stroke-linecap="round"/>`;
     }
-    art += `<line x1="${fx(0).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(x).toFixed(1)}" y2="${fy(y).toFixed(1)}" ` +
-      `stroke="#2e2413" stroke-width="2" stroke-dasharray="6 4"/>` +
-      `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#2e2413"/>` +
-      `<text x="${fx(x) + 8}" y="${fy(y) - 8}" font-size="12" fill="#2e2413">chord (${x.toFixed(3)}, ${y.toFixed(3)})</text>`;
-    for (let i = 0; i < terms.length; i++) {
-      art += `<text x="${pad}" y="${height - 16 - (terms.length - 1 - i) * 16}" font-size="11" fill="${colours[i]}">` +
-        `T${i} = (${terms[i][0].toFixed(3)}, ${terms[i][1].toFixed(3)})</text>`;
-    }
+    art += `<line x1="${fx(0).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(quinticEnd[0]).toFixed(1)}" y2="${fy(quinticEnd[1]).toFixed(1)}" stroke="${quintic}" stroke-width="2" stroke-dasharray="5 5" opacity="0.85"/>` +
+      `<line x1="${fx(0).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(end[0]).toFixed(1)}" y2="${fy(end[1]).toFixed(1)}" stroke="${ink}" stroke-width="2" stroke-dasharray="2 6"/>` +
+      `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4.5" fill="${ink}"/>` +
+      `<circle cx="${fx(quinticEnd[0]).toFixed(1)}" cy="${fy(quinticEnd[1]).toFixed(1)}" r="7" fill="none" stroke="${quintic}" stroke-width="2.5"/>` +
+      `<circle cx="${fx(quinticEnd[0]).toFixed(1)}" cy="${fy(quinticEnd[1]).toFixed(1)}" r="2.5" fill="${quintic}"/>` +
+      `<circle cx="${fx(end[0]).toFixed(1)}" cy="${fy(end[1]).toFixed(1)}" r="4.5" fill="${septic}"/>`;
+    art = chordLegend(art, [
+      [{ kind: "line", colour: quintic, text: "quintic T0-T4" },
+       { kind: "line", colour: septic, width: 3.6, text: "septic T5-T6" }],
+      [{ kind: "ring", colour: quintic, text: "the quintic's end" },
+       { kind: "dash", colour: quintic, text: "quintic sum" },
+       { kind: "dash", colour: ink, text: "all seven" }],
+    ]);
     plot.innerHTML = art;
+  }
+
+  function drawChordFan(terms) {
+    const plot = document.getElementById("b-chord-b2");
+    if (!plot) return;
+    const { quintic, septic, ink } = chordStyle;
+    const quinticCount = 5;
+    const heads = cumulative(terms);
+    const quinticEnd = heads[quinticCount];
+    const end = heads[heads.length - 1];
+    const { fx, fy } = chordFrame(terms, heads);
+    const ox = fx(0), oy = fy(0);
+    let art = chordHead("", "B2", "the same terms as a fan",
+      "every term drawn from the origin, so its own size and direction show; the two dashed arrows are the sums");
+    terms.forEach((term, i) => {
+      const colour = i < quinticCount ? quintic : septic;
+      art += `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(term[0]).toFixed(1)}" y2="${fy(term[1]).toFixed(1)}" ` +
+        `stroke="${colour}" stroke-width="${i < quinticCount ? 2.4 : 3.4}" stroke-linecap="round" opacity="0.9"/>` +
+        `<circle cx="${fx(term[0]).toFixed(1)}" cy="${fy(term[1]).toFixed(1)}" r="${i < quinticCount ? 3 : 4}" fill="${colour}"/>`;
+    });
+    art += `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(quinticEnd[0]).toFixed(1)}" y2="${fy(quinticEnd[1]).toFixed(1)}" stroke="${quintic}" stroke-width="2.6" stroke-dasharray="6 4"/>` +
+      `<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${fx(end[0]).toFixed(1)}" y2="${fy(end[1]).toFixed(1)}" stroke="${ink}" stroke-width="2.6" stroke-dasharray="2 5"/>` +
+      `<circle cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="4.5" fill="${ink}"/>`;
+    art = chordLegend(art, [
+      [{ kind: "line", colour: quintic, width: 2.4, text: "one term, quintic" },
+       { kind: "line", colour: septic, width: 3.4, text: "one term, septic-only" }],
+      [{ kind: "dash", colour: quintic, text: "quintic sum" },
+       { kind: "dash", colour: ink, text: "all seven" }],
+    ]);
+    plot.innerHTML = art;
+  }
+
+  function drawChordTerms(speedX, speedY) {
+    const terms = chordTerms(speedX, speedY);
+    drawChordChain(terms);
+    drawChordFan(terms);
+    const values = document.getElementById("b-terms-values");
+    if (values) {
+      const pair = term => `(${term[0].toFixed(3)}, ${term[1].toFixed(3)})`;
+      const heads = cumulative(terms);
+      values.textContent =
+        `quintic T0-T4: ${terms.slice(0, 5).map(pair).join("  ")}\n` +
+        `septic T5-T6: ${terms.slice(5).map(pair).join("  ")}\n` +
+        `sum, quintic only ${pair(heads[5])}    sum, all seven ${pair(heads[heads.length - 1])}`;
+    }
   }
   // r(t) = integral of w^2, coefficient by coefficient.
   const multiply = (left, right) => {
