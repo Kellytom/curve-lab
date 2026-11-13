@@ -443,6 +443,17 @@
   });
 
   // ---------- saved curves ----------
+  const applyWidth = item => {
+    if (!item || !item.width) return;
+    ["d0", "k", "p"].forEach(key => {
+      const v = Number(item.width[key]);
+      if (!Number.isFinite(v)) return;
+      width[key] = v;
+      const field = document.getElementById("n-" + key);
+      if (field) field.value = String(v);
+    });
+  };
+
   const storageKey = "ph-nth-curves";
   const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
   const store = items => localStorage.setItem(storageKey, JSON.stringify(items));
@@ -458,6 +469,7 @@
         state.x = item.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
         state.y = item.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
         currentName = item.name;
+        applyWidth(item);
         writeCells(); draw();
       });
       row.append(button);
@@ -488,7 +500,9 @@
       list.forEach(item => {
         if (!item || !Array.isArray(item.speedX) || !Array.isArray(item.speedY)) return;
         const name = item.name || `pasted ${items.length + 1}`;
-        const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number) };
+        const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
+                         width: item.width ? { d0: Number(item.width.d0), k: Number(item.width.k),
+                                               p: Number(item.width.p) } : undefined };
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;
@@ -496,6 +510,7 @@
           state.x = record.speedX.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
           state.y = record.speedY.slice(0, POINTS).concat(new Array(POINTS).fill(0)).slice(0, POINTS);
           currentName = name;
+          applyWidth(record);
           writeCells(); draw();
         }
       });
