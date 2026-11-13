@@ -351,7 +351,17 @@
                               bState.by0, bState.by1, bState.by2, bState.by3];
   const speedOf = params => ({ x: [1, params[0], params[1], params[2]],
                                y: [params[3], params[4], params[5], params[6]] });
-  const cost = (params, mode) => {
+  const arcLength = (speedX, speedY) => {
+    let total = 0;
+    const steps = 400;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(speedX, t), b = value(speedY, t);
+      total += (a * a + b * b) / steps;
+    }
+    return total;
+  };
+  const cost = (params, mode, targetArc) => {
     const speed = speedOf(params);
     const terms = chordTerms(speed.x, speed.y);
     if (mode === "right") {
@@ -360,24 +370,30 @@
       return total;
     }
     const sum = terms.reduce((acc, term) => [acc[0] + term[0], acc[1] + term[1]], [0, 0]);
-    return sum[0] * sum[0] + sum[1] * sum[1];
+    const chordCost = sum[0] * sum[0] + sum[1] * sum[1];
+    // the arc-length constraint: a closed curve must not shrink to a point
+    const arcCost = targetArc === undefined ? 0 : (arcLength(speed.x, speed.y) - targetArc) ** 2;
+    const scale = Math.max(1e-9, targetArc === undefined ? 1 : targetArc) ** 2;
+    return (chordCost + arcCost) / scale;
   };
   function solve(mode) {
     let params = parametersOf();
-    let best = cost(params, mode);
+    const start = speedOf(params);
+    const targetArc = mode === "close" ? arcLength(start.x, start.y) : undefined;
+    let best = cost(params, mode, targetArc);
     let step = 0.05;
     const h = 1e-5;
     for (let iteration = 0; iteration < 4000; iteration++) {
       const gradient = params.map((value, i) => {
         const trial = params.slice();
         trial[i] += h;
-        return (cost(trial, mode) - best) / h;
+        return (cost(trial, mode, targetArc) - best) / h;
       });
       const norm = Math.hypot(...gradient) || 1;
       let improved = false;
       for (let attempt = 0; attempt < 40; attempt++) {
         const trial = params.map((value, i) => value - step * gradient[i] / norm);
-        const value = cost(trial, mode);
+        const value = cost(trial, mode, targetArc);
         if (value < best) { params = trial; best = value; improved = true; step *= 1.2; break; }
         step *= 0.5;
       }
