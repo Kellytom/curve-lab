@@ -486,7 +486,9 @@
       ? ` | grid without the hook 1/${plain.pitch.toLocaleString()}` : "";
     document.getElementById("n-readout").textContent =
       `bend ${m.bend.toFixed(3)} | grid 1/${m.pitch.toLocaleString()}${hookNote} | ` +
-      `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
+      `inflections ${m.inflections ? m.inflections.length : (m.inflection === null ? 0 : 1)}` +
+      ` (max ${2 * speedDegree - 1}) | ` +
+      `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
       `crosses ${meets.length}`;
     const crossingLabel = document.getElementById("n-crossings");
@@ -1006,6 +1008,9 @@
       bend: +m.bend.toFixed(3),
       pitch: m.pitch,
       inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+      inflections: (m.inflections || (m.inflection === null ? [] : [m.inflection]))
+        .map(value => +value.toFixed(4)),
+      inflectionMax: 2 * speedDegree - 1,
       closest: +m.closest.toFixed(3),
       width: { percent: width.percent },
       character: { plus: character.plus, minus: character.minus, profile: character.profile },

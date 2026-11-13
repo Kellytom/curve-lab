@@ -22,6 +22,22 @@ class TestMetrics(unittest.TestCase):
     def test_the_centred_frame_moves_t_minus_one_half(self):
         self.assertEqual(M.centred((2, -3, 3)), [F(5, 4), F(0), F(3)])
 
+    def test_the_inflection_count_is_read_off_the_wronskian(self):
+        # a bowl has no inflection; an S has one; the w-wave has two
+        self.assertEqual(M.inflections([1, 0, 0], [-1, 2, 0]), [])
+        self.assertEqual(len(M.inflections([1, 0, 0], [2, -9, 9])), 1)
+        self.assertEqual(len(M.inflections([1, 0, 0, 0, 0, 0], [-5, 46, -108, 72, 0, 0])), 2)
+
+    def test_the_inflection_count_never_exceeds_the_degree(self):
+        # the Wronskian of two degree-k speeds has degree at most 2k - 1
+        for speed_x, speed_y in (([2, -5, 6, 1, 0, 0], [4, -22, 22, -2, 0, 0]),
+                                 ([1, 0, 0, 0, 0, 0], [-5, 46, -108, 72, 0, 0])):
+            with self.subTest(speed_y=speed_y):
+                measured = M.metrics(speed_x, speed_y)
+                self.assertLessEqual(measured["inflection_count"], measured["inflection_max"])
+                self.assertEqual(measured["inflection_max"],
+                                 2 * max(len(speed_x), len(speed_y)) - 3)
+
     def test_the_fraction_guard_reads_decimals_not_binaries(self):
         self.assertEqual(M.to_fraction(0.1), F(1, 10))
         self.assertEqual(M.to_fraction(1.6500000000000001), F(33, 20))

@@ -178,9 +178,43 @@ def closest(speed_x, speed_y, samples: int = 800) -> float:
     return best
 
 
+def inflections(speed_x, speed_y, samples: int = 800) -> list:
+    """Every inflection in (0, 1): the roots of the Wronskian p q' - q p'.
+
+    The Wronskian has degree at most 2k - 1 for a speed of degree k, so this
+    list can never be longer than that. A shorter list is the useful reading:
+    it says the top powers are not turning the curve, so they can go.
+    """
+    u = [to_fraction(coefficient) for coefficient in speed_x]
+    v = [to_fraction(coefficient) for coefficient in speed_y]
+    left = _multiply(u, _derivative(v))
+    right = _multiply(v, _derivative(u))
+    length = max(len(left), len(right))
+    wronskian = [(left[i] if i < len(left) else Fraction(0))
+                 - (right[i] if i < len(right) else Fraction(0))
+                 for i in range(length)]
+    values = [float(_evaluate(wronskian, Fraction(i, samples)))
+              for i in range(samples + 1)]
+    found = []
+    for i in range(samples):
+        if values[i] == 0.0 or values[i] * values[i + 1] < 0:
+            low, high = i / samples, (i + 1) / samples
+            for _ in range(50):
+                middle = (low + high) / 2
+                if values[i] * float(_evaluate(wronskian, Fraction(middle).limit_denominator(10 ** 6))) <= 0:
+                    high = middle
+                else:
+                    low = middle
+            where = (low + high) / 2
+            if not any(abs(other - where) < 1e-4 for other in found):
+                found.append(where)
+    return found
+
+
 def metrics(speed_x, speed_y) -> dict:
     """Everything the gallery shows, at any degree."""
     arc, chord, bend = exact_bend(speed_x, speed_y)
+    every = inflections(speed_x, speed_y)
     return {
         "bend": bend,
         "arc": float(arc),
@@ -188,6 +222,9 @@ def metrics(speed_x, speed_y) -> dict:
         "chord_length": abs(chord),
         "pitch": pitch(speed_x, speed_y),
         "inflection": inflection(speed_x, speed_y),
+        "inflections": every,
+        "inflection_count": len(every),
+        "inflection_max": 2 * max(len(speed_x), len(speed_y)) - 3,
         "closest": closest(speed_x, speed_y),
     }
 
