@@ -117,8 +117,8 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 </div>
 <div class="solver-row">
   <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook">tail hook <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook-angle">hook angle <input id="n-hook-angle" type="number" min="-180" max="180" step="5" value="0"></label>
+  <label class="dial" for="n-hook">hook x <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
 </div>
 <div class="solver-row">
   <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
