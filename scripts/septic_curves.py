@@ -65,6 +65,9 @@ CURVES = [
     # G: the operator's name. One crossing at (-5.90, 3.96), the widest reach in
     # the set (13.3 by 12.6); bend 4.585, controls integer at 420.
     ("G", (2.5, -8, 15, 1), (10, -55, 51, 2)),
+    # G-clef: the quintic lift at openness 0.35. One crossing at (-0.55, 0.91),
+    # bend 2.855, controls integer at 105, x of degree 6.
+    ("G-clef", (2, -5, 6, 1), (4, -22, 22, -1)),
 ]
 
 
