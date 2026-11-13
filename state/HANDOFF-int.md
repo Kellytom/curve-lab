@@ -1612,3 +1612,18 @@ gcd, near misses), `scripts/ph_math.js` (one copy of the page maths).
 
 Open: the CI run from the last push (`gh run list -L 1`), and the six TODO
 items under "PH curves at degree 6 and 7".
+
+## 2026-11-13 (late) — sandbox layout, two-slider speeds
+
+Landed and pushed: `2e71f09` fine + decade slider on every speed (the solver
+could exceed ±16 and the display disagreed), `3089156` sliders stacked and
+full-width with the buttons under the images, `77029a3` the t^k label beside the
+input. Local server 200; `check-ph-page.mjs` green (7 readouts). Tests carried:
+649 tests from the last full run, 2026-11-12 (no code under web/, curve_lab/,
+tests/ changed since). CI: runs 43347946554 / 43348118205 were in flight at the
+earlier handoff; the only known failure was the review-doc check importing
+`markdown`, fixed in 70262d4 / 84ff0b7.
+
+Tried and rejected: widening the sample search to [-3,3] exhaustively — 2.5M
+candidates at ~64 ops each timed out; [-2,2] plus a random [-4,4] sweep is the
+working recipe.
