@@ -1019,6 +1019,13 @@ window.curveSaver = (function () {
       character: { plus: 2, minus: 1, profile: "taper" },
       shear: 0,
       hook: { dx: -2.988584, dy: 0.261467 } },
+    { name: "gosling",
+      speedX: [1, -1, 1, 1, 1, -1],
+      speedY: [1, -10, 10, -1, 1, -1],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
   ];
 
   const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
@@ -1077,6 +1084,7 @@ window.curveSaver = (function () {
     store(items);
     nameField.value = "";
     renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
   });
   const renameButton = document.getElementById("n-rename");
   if (renameButton) renameButton.addEventListener("click", () => {
@@ -1172,8 +1180,32 @@ window.curveSaver = (function () {
 // The gallery: spine only, one small figure per curve, two columns.
 (function () {
   const host = document.getElementById("n-gallery");
-  const list = window.phNthGallery;
-  if (!host || !Array.isArray(list)) return;
+  if (!host || !Array.isArray(window.phNthGallery)) return;
+  const storageKey = "ph-nth-curves";
+  const localSaved = () => {
+    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; }
+  };
+  function currentList() {
+    const locals = {};
+    localSaved().forEach(item => { locals[item.name] = item; });
+    const out = window.phNthGallery.map(entry => {
+      const local = locals[entry.name];
+      if (!local) return entry;
+      return { ...entry, speedX: local.speedX, speedY: local.speedY,
+               from: "local fix", local: true };
+    });
+    const known = new Set(out.map(entry => entry.name));
+    Object.values(locals).forEach(item => {
+      if (known.has(item.name)) return;
+      const measured = window.recipeMetrics ? window.recipeMetrics(item.speedX, item.speedY) : null;
+      out.push({ name: item.name, speedX: item.speedX, speedY: item.speedY,
+                 bend: measured ? +measured.bend.toFixed(3) : "-",
+                 pitch: measured ? measured.pitch : "-",
+                 from: "local", local: true });
+    });
+    return out;
+  }
+  let list = currentList();
   const value = window.polynomialValue;
 
   function spineOf(entry, steps = 260) {
@@ -1189,7 +1221,7 @@ window.curveSaver = (function () {
     return points;
   }
 
-  function miniSvg(speedX, speedY, label) {
+  function miniSvg(speedX, speedY, label, kind = null) {
     const points = spineOf({ speedX, speedY }, 220);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
     const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
@@ -1201,12 +1233,14 @@ window.curveSaver = (function () {
     const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
     const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
                                (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
-    return `<figure class="pair-cell">
+    return `<figure class="pair-cell" data-speed="${kind || "full"}">
       <figcaption>${label}</figcaption>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
       </svg>
+      ${kind === "simple" ? '<button type="button" class="gallery-transfer">transfer to part 1</button>' : ""}
+      ${kind ? '<button type="button" class="gallery-load-this">load this one</button>' : ""}
     </figure>`;
   }
 
@@ -1236,9 +1270,9 @@ window.curveSaver = (function () {
       </svg>
       <div class="more" hidden>
         <div class="pair-row">
-          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11")}
+          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11", "full")}
           ${entry.simple ? miniSvg(entry.simple.speedX, entry.simple.speedY,
-              `3 figures — drift ${entry.simple.deviation}× the size`) : ""}
+              `3 figures — drift ${entry.simple.deviation}× the size`, "simple") : ""}
         </div>
         <p class="small mono">x ${entry.speedX.join(", ")}<br>y ${entry.speedY.join(", ")}</p>
         <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()} | from ${entry.from}</p>
@@ -1253,7 +1287,12 @@ window.curveSaver = (function () {
     </figure>`;
   }
 
-  host.innerHTML = list.map(figureFor).join("");
+  const render = () => {
+    list = currentList();
+    host.innerHTML = list.map(figureFor).join("");
+  };
+  render();
+  window.addEventListener("ph-nth-saved", render);
 
   const closeAll = except => {
     host.querySelectorAll("figure.open").forEach(figure => {
@@ -1264,9 +1303,9 @@ window.curveSaver = (function () {
     });
   };
   host.addEventListener("click", event => {
-    const figure = event.target.closest("figure");
+    const figure = event.target.closest("figure[data-name]");   // the cell, not the pair figure inside it
     if (!figure) return;
-    const entry = list.find(item => item.name === figure.dataset.name);
+    const entry = currentList().find(item => item.name === figure.dataset.name);
     const open = figure.querySelector(".gallery-open");
     const more = figure.querySelector(".more");
 
@@ -1286,6 +1325,24 @@ window.curveSaver = (function () {
     }
     if (event.target.closest(".gallery-load") && entry && window.phNthLoad) {
       window.phNthLoad(entry);
+      return;
+    }
+    if (event.target.closest(".gallery-transfer") && entry && entry.simple) {
+      const suggested = `${entry.name} (3 figures)`;
+      const name = (window.prompt("Name it in part 1:", suggested) || "").trim();
+      if (!name) return;
+      const items = localSaved().filter(item => item.name !== name);
+      items.push({ name, speedX: entry.simple.speedX, speedY: entry.simple.speedY, from: "transferred" });
+      localStorage.setItem(storageKey, JSON.stringify(items));
+      window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+      return;
+    }
+    if (event.target.closest(".gallery-load-this") && entry && window.phNthLoad) {
+      const cell = event.target.closest(".pair-cell");
+      const isSimple = cell && cell.dataset.speed === "simple";
+      window.phNthLoad(isSimple
+        ? { ...entry, speedX: entry.simple.speedX, speedY: entry.simple.speedY, name: `${entry.name} (3 figures)` }
+        : entry);
       return;
     }
     if (event.target.closest(".gallery-copy") && entry) {
