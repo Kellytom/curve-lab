@@ -58,11 +58,44 @@ await page.waitForTimeout(150);
 const back = await page.$$eval("#n-controls input[type=number]", els => els.length);
 if (back !== 12) failures.push(`back to degree 11: ${back} boxes`);
 
-// the view: spine only by default, then rails, then the two terminals
-const paths = () => page.evaluate(() => document.querySelectorAll("#n-plot path").length);
+// the complementary curve: its own sliders, drawn grey, and counted where it
+// meets the spine
+const complementBoxes = await page.$$eval("#n-complement-controls input[type=number]", els => els.length);
+if (complementBoxes !== 12) failures.push(`complement boxes: ${complementBoxes}, expected 12`);
+const greyPath = () => page.evaluate(() => [...document.querySelectorAll("#n-plot path")]
+  .filter(path => (path.getAttribute("stroke") || "").toLowerCase() === "#666666")
+  .map(path => path.getAttribute("d"))[0] || "");
+const greyBefore = await greyPath();
+if (!greyBefore) failures.push("the complementary curve is not drawn in grey");
+const counted = (await page.textContent("#n-crossings")).trim();
+const marks = await page.evaluate(() => [...document.querySelectorAll("#n-plot circle")]
+  .filter(circle => (circle.getAttribute("stroke") || "").toLowerCase() === "#a23b2a").length);
+if (!/^\d+ crossings?$/.test(counted)) failures.push(`crossing label: "${counted}"`);
+if (Number(counted.split(" ")[0]) !== marks) failures.push(`label says "${counted}" but ${marks} marks are drawn`);
+const spineBefore = await page.evaluate(() => document.querySelectorAll("#n-plot path").length);
+
+// a complement slider must move the grey curve and leave the spine alone
+await page.evaluate(() => {
+  const boxes = document.querySelectorAll("#n-complement-controls input[type=number]");
+  const box = boxes[boxes.length - 1];
+  box.value = "2";
+  box.dispatchEvent(new Event("input", { bubbles: true }));
+});
+await page.waitForTimeout(200);
+const greyAfter = await greyPath();
+if (greyAfter === greyBefore) failures.push("a complement box did not move the grey curve");
+const spineAfter = await page.evaluate(() => document.querySelectorAll("#n-plot path").length);
+if (spineAfter !== spineBefore) failures.push("editing the complement changed the number of spine paths");
+
+// the view: spine only by default, then rails, then the two terminals.
+// The complementary curve is grey and is not counted as spine ink.
+const paths = () => page.evaluate(() =>
+  [...document.querySelectorAll("#n-plot path")]
+    .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666").length);
 if (await paths() !== 1) failures.push("default view is not the spine alone");
 const spinePath = await page.evaluate(() => {
-  const path = document.querySelector("#n-plot path");
+  const path = [...document.querySelectorAll("#n-plot path")]
+    .find(item => (item.getAttribute("stroke") || "").toLowerCase() === "#2e2413");
   return { d: path.getAttribute("d"), length: Math.round(path.getTotalLength()) };
 });
 if (/NaN|undefined/.test(spinePath.d) || spinePath.length < 2) {
@@ -98,18 +131,19 @@ if (!Number.isFinite(quoted) || Math.abs(quoted - 3) > 0.002) failures.push(`wid
 // be exactly the parallel rails
 await page.click("#n-rails");
 await page.waitForTimeout(150);
-const railsBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
-  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
-}));
+const inkBoxes = () => page.evaluate(() => [...document.querySelectorAll("#n-plot path")]
+  .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666")
+  .map(path => {
+    const r = path.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
+  }));
+const railsBox = await inkBoxes();
 await page.click("#n-character");
 await page.fill("#n-char-l", "0");
 await page.dispatchEvent("#n-char-l", "input");
 await page.fill("#n-char-r", "0");
 await page.dispatchEvent("#n-char-r", "input");
 await page.waitForTimeout(250);
-const zeroBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
-  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
-}));
+const zeroBox = await inkBoxes();
 if (JSON.stringify(zeroBox) !== JSON.stringify(railsBox))
   failures.push(`character 0 is not the parallel rail: ${JSON.stringify(zeroBox)} vs ${JSON.stringify(railsBox)}`);
 await page.fill("#n-char-l", "2");

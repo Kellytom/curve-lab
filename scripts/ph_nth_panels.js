@@ -30,6 +30,11 @@
 
   const cells = [];
   const grid = document.getElementById("n-controls");
+  const complementGrid = document.getElementById("n-complement-controls");
+  // The complementary curve: a second speed pair drawn under the spine. It
+  // starts as the mirror of the spine (the y row negated), so the two cross
+  // once per root of that row. Its numbers are its own.
+  const complement = { x: defaults.x.slice(), y: defaults.y.map(v => -v) };
 
   function decode(number) {
     if (!number) return { mantissa: 0, decade: 0 };
@@ -62,7 +67,9 @@
     return wrap;
   }
 
-  function buildRow(axis) {
+  // One row of numbers for one axis of one curve. `target` is the curve the row
+  // writes to, so the spine and the complementary curve share this code.
+  function buildRow(axis, target) {
     const row = document.createElement("div");
     row.className = "spine-row";
     const label = document.createElement("span");
@@ -75,7 +82,7 @@
       name.textContent = "t^" + k;
       const number = document.createElement("input");
       number.type = "number"; number.step = "0.1";
-      number.value = state[axis][k];
+      number.value = target[axis][k];
       const fine = document.createElement("input");
       fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
       fine.title = "size, sign from the box";
@@ -90,7 +97,7 @@
           : kind === "euler" ? "snap to the nearest multiple of e (2.71828)"
           : "multiply the mantissa by 1.1";
         button.addEventListener("click", () => {
-          const current = axis === "x" ? state.x[k] : state.y[k];
+          const current = axis === "x" ? target.x[k] : target.y[k];
           if (kind === "root2") set(Math.round(current / Math.SQRT2) * Math.SQRT2);
           else if (kind === "euler") set(Math.round(current / Math.E) * Math.E);
           else set(current * 1.1);
@@ -104,16 +111,16 @@
         button.textContent = label;
         button.title = `mantissa x ${label}`;
         button.addEventListener("click", () => {
-          const current = axis === "x" ? state.x[k] : state.y[k];
+          const current = axis === "x" ? target.x[k] : target.y[k];
           set(decode(current).mantissa * Math.pow(10, power));
         });
         scales.append(button);
       });
       const elements = { number, fine };
-      cells.push({ axis, k, ...elements });
+      cells.push({ axis, k, target, ...elements });
       const set = (v) => {
-        currentName = "curve";
-        if (axis === "x") state.x[k] = v; else state.y[k] = v;
+        if (target === state) currentName = "curve";
+        if (axis === "x") target.x[k] = v; else target.y[k] = v;
         syncCell(elements, v);          // the slider is the source: write the box
         draw();
       };
@@ -122,13 +129,13 @@
         if (text === "") return;
         const v = Number(text);
         if (!Number.isFinite(v)) return;
-        currentName = "curve";
-        if (axis === "x") state.x[k] = v; else state.y[k] = v;
+        if (target === state) currentName = "curve";
+        if (axis === "x") target.x[k] = v; else target.y[k] = v;
         syncCell(elements, v, { write: false });
         draw();
       });
       fine.addEventListener("input", () => {
-        const current = axis === "x" ? state.x[k] : state.y[k];
+        const current = axis === "x" ? target.x[k] : target.y[k];
         const sign = current < 0 ? -1 : 1;
         set(sign * +fine.value * Math.pow(10, decode(current).decade));
       });
@@ -141,14 +148,14 @@
       flip.textContent = "\u2212";
       flip.title = "flip the sign of this number";
       flip.addEventListener("click", () => {
-        const current = axis === "x" ? state.x[k] : state.y[k];
+        const current = axis === "x" ? target.x[k] : target.y[k];
         set(current === 0 ? -1 : -current);
       });
       const pair = document.createElement("div");
       pair.className = "cell-inputs";
       pair.append(number, fine, flip, scales);
       steppers(number, direction => {
-        const current = axis === "x" ? state.x[k] : state.y[k];
+        const current = axis === "x" ? target.x[k] : target.y[k];
         set(stepInteger(current, direction));
       });
       cell.append(name, pair);
@@ -156,26 +163,32 @@
     }
     return row;
   }
-  grid.append(buildRow("x"), buildRow("y"));
+  grid.append(buildRow("x", state), buildRow("y", state));
+  if (complementGrid) complementGrid.append(buildRow("x", complement), buildRow("y", complement));
   function writeCells() {
-    cells.forEach(cell => syncCell(cell, cell.axis === "x" ? state.x[cell.k] : state.y[cell.k]));
+    cells.forEach(cell => syncCell(cell, cell.axis === "x" ? cell.target.x[cell.k] : cell.target.y[cell.k]));
   }
 
-  function sizeState() {
-    while (state.x.length < speedCount) state.x.push(0);
-    while (state.y.length < speedCount) state.y.push(0);
-    state.x.length = speedCount;
-    state.y.length = speedCount;
+  function sizePair(pair) {
+    while (pair.x.length < speedCount) pair.x.push(0);
+    while (pair.y.length < speedCount) pair.y.push(0);
+    pair.x.length = speedCount;
+    pair.y.length = speedCount;
   }
 
   // A new rung: every number that still has a box keeps its value, the new
   // boxes start at zero, and the controls are rebuilt so the sliders match the
   // new count. Nothing is rescaled, so an old curve draws the same shape.
   function rebuildControls() {
-    sizeState();
+    sizePair(state);
+    sizePair(complement);
     cells.length = 0;
     grid.textContent = "";
-    grid.append(buildRow("x"), buildRow("y"));
+    grid.append(buildRow("x", state), buildRow("y", state));
+    if (complementGrid) {
+      complementGrid.textContent = "";
+      complementGrid.append(buildRow("x", complement), buildRow("y", complement));
+    }
   }
 
   window.phNthDegree = () => ({ speedDegree, speedCount, degree: positionDegree() });
@@ -321,11 +334,40 @@
     return { arc, tip, d };
   }
 
+  // Where two polylines cross. The bounding box test first, because most
+  // segment pairs are far apart; then both orientation tests must change sign.
+  function crossingsOf(first, second, tolerance) {
+    const hits = [];
+    const turn = (ax, ay, bx, by) => ax * by - ay * bx;
+    for (let i = 0; i < first.length - 1; i++) {
+      const [ax, ay] = first[i], [bx, by] = first[i + 1];
+      const lowX = Math.min(ax, bx), highX = Math.max(ax, bx);
+      const lowY = Math.min(ay, by), highY = Math.max(ay, by);
+      for (let j = 0; j < second.length - 1; j++) {
+        const [cx, cy] = second[j], [dx, dy] = second[j + 1];
+        if (Math.max(cx, dx) < lowX || Math.min(cx, dx) > highX) continue;
+        if (Math.max(cy, dy) < lowY || Math.min(cy, dy) > highY) continue;
+        const d1 = turn(bx - ax, by - ay, cx - ax, cy - ay);
+        const d2 = turn(bx - ax, by - ay, dx - ax, dy - ay);
+        const d3 = turn(dx - cx, dy - cy, ax - cx, ay - cy);
+        const d4 = turn(dx - cx, dy - cy, bx - cx, by - cy);
+        if (d1 * d2 < 0 && d3 * d4 < 0) {
+          const share = d1 / (d1 - d2);
+          hits.push([ax + (bx - ax) * share, ay + (by - ay) * share]);
+        }
+      }
+    }
+    // two neighbouring segments can both report the same point
+    return hits.filter((hit, index) => hits.findIndex(other =>
+      Math.abs(other[0] - hit[0]) < tolerance && Math.abs(other[1] - hit[1]) < tolerance) === index);
+  }
+
   // ---------- the drawing ----------
   function draw() {
     const plot = document.getElementById("n-plot");
     const speed = hookedSpeed();
     const spine = spineSamples(speed);
+    const complementSpine = spineSamples({ x: complement.x, y: complement.y }).map(s => [s.x, s.y]);
     const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
     const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
                                 Math.max(...spineYs) - Math.min(...spineYs));
@@ -339,6 +381,7 @@
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
     const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
     const all = spine.map(s => [s.x, s.y]);
+    all.push(...complementSpine);
     if (view.rails) all.push(...leftRail, ...rightRail);
     if (characterLeft) all.push(...characterLeft, ...characterRight);
     if (startEnd) all.push(...startEnd.arc, startEnd.tip);
@@ -349,17 +392,18 @@
     const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
     const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + padX;
     const minY = Math.min(...ys) - padY, maxY = Math.max(...ys) + padY;
-    const width_ = 720, height = 470, left = 74, right = 40, top = 18, bottom = 84;
+    const width_ = 720, height = 470, left = 74, right = 40, top = 64, bottom = 76;
     const scale = Math.min((width_ - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
     const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
     const path = points => "M" + turned(points).map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${left}" y="${height - 30}" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
-      `<text x="${left}" y="${height - 12}" font-size="12" fill="#7b6c4e">` +
+      `<text x="${left}" y="26" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
+      `<text x="${left}" y="44" font-size="12" fill="#7b6c4e">` +
       (view.rails ? `rails r +/- d n, d constant` : `the spine alone; rails and terminals are below`) +
-      `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}</text>` +
+      `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}` +
+      ` | grey: complementary curve</text>` +
       `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
       `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>`;
     if (view.rails) {
@@ -370,21 +414,38 @@
       art += `<path d="${path(characterLeft)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>` +
              `<path d="${path(characterRight)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>`;
     }
+    // the complementary curve sits under the spine: 40% grey (#666), so the dark
+    // stroke stays the one you read first
+    art += `<path d="${path(complementSpine)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
     art += `<path d="${path(spine.map(s => [s.x, s.y]))}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    // the meetings of the two curves, counted and marked
+    const meets = crossingsOf(spine.map(s => [s.x, s.y]), complementSpine,
+                              1e-4 * Math.max(1e-9, maxX - minX));
+    meets.forEach(([x, y]) => {
+      art += `<circle cx="${fx(x).toFixed(1)}" cy="${fy(y).toFixed(1)}" r="3.6" ` +
+             `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6"/>`;
+    });
     art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
-    // legend inside the figure, 15px, naming the spine first
-    const legend = [["#2e2413", 2.4, "spine"]];
+    // legend inside the figure, 15px, naming the spine first and wrapping when
+    // the entries would run past the right edge
+    const legend = [["#2e2413", 2.4, "spine"], ["#666666", 2, "complementary curve"]];
     if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
     if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
-    let legendX = left;
+    if (meets.length) legend.push(["#a23b2a", 1.6, "crossing"]);
+    let legendX = left, legendY = height - 44;
     legend.forEach(([colour, widthStroke, text]) => {
-      art += `<line x1="${legendX}" y1="${height - 52}" x2="${legendX + 26}" y2="${height - 52}" ` +
+      const entry = 34 + text.length * 8.2 + 26;
+      if (legendX > left && legendX + entry > width_ - right) {
+        legendX = left;
+        legendY += 20;
+      }
+      art += `<line x1="${legendX}" y1="${legendY}" x2="${legendX + 26}" y2="${legendY}" ` +
         `stroke="${colour}" stroke-width="${widthStroke}"/>` +
-        `<text x="${legendX + 34}" y="${height - 47}" font-size="15" fill="#2e2413">${text}</text>`;
-      legendX += 34 + text.length * 8.2 + 26;
+        `<text x="${legendX + 34}" y="${legendY + 5}" font-size="15" fill="#2e2413">${text}</text>`;
+      legendX += entry;
     });
     plot.innerHTML = art;
 
@@ -398,7 +459,12 @@
     document.getElementById("n-readout").textContent =
       `bend ${m.bend.toFixed(3)} | grid 1/${m.pitch.toLocaleString()}${hookNote} | ` +
       `inflection ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
-      `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)}`;
+      `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
+      `crosses ${meets.length}`;
+    const crossingLabel = document.getElementById("n-crossings");
+    if (crossingLabel) {
+      crossingLabel.textContent = `${meets.length} crossing${meets.length === 1 ? "" : "s"}`;
+    }
     const showing = [view.rails ? "parallel rails" : view.character ? "character offsets" : "spine only"];
     if (view.startTerminal) showing.push("start terminal");
     if (view.endTerminal) showing.push("end terminal");
@@ -739,6 +805,13 @@
     if (field) field.value = String(percent);
   };
 
+  // A loaded curve brings its mirror with it, so the pair always starts as a
+  // balanced set: one meeting per root of the y row.
+  function mirrorComplement() {
+    complement.x = state.x.slice();
+    complement.y = state.y.map(v => -v);
+  }
+
   const SEED = [
     { name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] },
     { name: "euler-hook",
@@ -867,6 +940,7 @@
         state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
         currentName = item.name;
         applyWidth(item);
+        mirrorComplement();
         writeCells(); draw();
       });
       group.append(button);
@@ -973,6 +1047,7 @@
           state.y = record.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
           currentName = name;
           applyWidth(record);
+          mirrorComplement();
           writeCells(); draw();
         }
       });
@@ -991,6 +1066,7 @@
     state.y = item.speedY.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
     currentName = item.name;
     applyWidth(item);
+    mirrorComplement();
     writeCells();
     draw();
     const controls = document.getElementById("n-controls");

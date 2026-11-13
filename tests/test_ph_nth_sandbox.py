@@ -52,6 +52,13 @@ class TestNthSandbox(unittest.TestCase):
         self.assertIn("const positionDegree = () => 2 * speedDegree + 1;", text)
         self.assertIn("window.phNthSetDegree = k => {", text)
 
+    def test_the_page_carries_the_complementary_curve(self):
+        page = PAGE.read_text()
+        for marker in ("n-complement-controls", "Complementary curve", "n-crossings",
+                       "crossingsOf", "complementSpine", "#666666"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, page)
+
     def test_the_page_carries_the_five_rungs(self):
         page = PAGE.read_text()
         for degree, numbers in ((11, 12), (13, 14), (15, 16), (17, 18), (19, 20)):

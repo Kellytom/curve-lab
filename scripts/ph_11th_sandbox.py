@@ -41,13 +41,16 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:8px;align-items:center;margin:2px 0}
 .spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-#n-controls .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
+.spine-grid .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
 .spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
-#n-controls .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
-#n-controls .cell-inputs input[type=range]{flex:1;min-width:36px}
+.spine-grid .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
+.spine-grid .cell-inputs input[type=range]{flex:1;min-width:36px}
 .cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .cell-inputs .sign:hover{background:#efe7d3}
+.complement{margin:14px 0 0;padding:10px 12px;border:1px dashed var(--rule);background:#f7f1e2}
+.complement h3{font-size:15px;margin:0 0 4px}
+.complement h3 .small{font-weight:400;color:var(--muted)}
 .scales,.steppers{display:inline-flex;gap:2px}
 .scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
   background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
@@ -106,7 +109,7 @@ unchanged &mdash; more terms, same rules.</p>
 The last pair is zero by default, which makes the curve a septic with two unused knobs: lift it and the
 eleventh power appears. <code>close chord</code> drives the endpoint home; <code>close to &hellip;</code>
 holds a chosen openness instead, because a fully closed curve has no chord and bend is arc over chord.</p>
-<div id="n-controls"></div>
+<div class="spine-grid" id="n-controls"></div>
 <svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve of degree 11"></svg>
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
@@ -133,6 +136,13 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
+<div class="complement">
+  <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
+  <p class="small">A second curve from the same construction, drawn in 40% grey under the spine and
+  counted where it meets it. It starts as the spine's mirror &mdash; the y row negated &mdash; so the
+  two cross once per root of that row.</p>
+  <div class="spine-grid" id="n-complement-controls"></div>
+</div>
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
 <strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
 station &mdash; <code>g = w (1 + i &epsilon; b(t))</code> &mdash; and blends back to the parallel at both
