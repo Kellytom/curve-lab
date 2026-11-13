@@ -22,6 +22,11 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .cell-inputs{display:flex;gap:4px;align-items:center}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
+.control-row{display:flex;align-items:center;gap:8px;margin:4px 0;font:12px ui-monospace,Menlo,monospace}
+.control-row span{min-width:120px;color:#8a3b2a}
+.control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.control-row input[type=range]{flex:1;min-width:90px}
+#c-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
@@ -84,6 +89,17 @@ polygon into a triangle or a rectangle and the curve follows.</p>
 </section>
 
 <section class="panel">
+<h2>C | G2 Hermite interpolation at degree 7</h2>
+<p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
+six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
+conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
+curvatures and watch the curve follow; the curvature circles are dashed.</p>
+<div id="c-controls"></div>
+<svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="c-readout"></p>
+</section>
+
+<section class="panel">
 <h2>What the difference costs</h2>
 <p><strong>Panel A</strong> can make any degree-7 shape, including the even/odd split that a sextic
 or septic control pair wants: the <code>t^6</code> term lifts the middle without skewing the ends,
@@ -96,7 +112,7 @@ trade is exactness for control.</p>
 JavaScript both checked into scripts.</p>
 </section>
 </main>
-<script>window.septicCurves = [{"name":"half-heart","speedX":[1.95,4.85,6.45,-16],"speedY":[2.0,-4.95,5.05,5.25],"bend":2.377,"pitch":84000,"inflection":0.368,"closest":2.793,"degree":[7,7]},{"name":"flourish-a","speedX":[1.95,4.4,6.45,-16],"speedY":[2.0,-8.0,4.95,5.2],"bend":1.651,"pitch":42000,"inflection":0.466,"closest":1.955,"degree":[7,7]},{"name":"flourish-b","speedX":[2.05,4.4,5.75,-16],"speedY":[1.75,-7.85,5.15,8.5],"bend":9.741,"pitch":84000,"inflection":0.388,"closest":2.661,"degree":[7,7]}];</script>
+<script>window.septicCurves = [{"name":"half-heart","speedX":[1.95,4.85,6.45,-16],"speedY":[2.0,-4.95,5.05,5.25],"bend":2.377,"pitch":84000,"inflection":0.368,"closest":2.793,"degree":[7,7]},{"name":"flourish-a","speedX":[1.95,4.4,6.45,-16],"speedY":[2.0,-8.0,4.95,5.2],"bend":1.651,"pitch":42000,"inflection":0.466,"closest":1.955,"degree":[7,7]},{"name":"flourish-b","speedX":[2.05,4.4,5.75,-16],"speedY":[1.75,-7.85,5.15,8.5],"bend":9.741,"pitch":84000,"inflection":0.388,"closest":2.661,"degree":[7,7]},{"name":"lazy-s-2","speedX":[2,-3,3,0.5],"speedY":[2,-12,12,-0.5],"bend":1.736,"pitch":70,"inflection":0.502,"closest":1.466,"degree":[6,7]}];</script>
 <script>
 // The shared maths for the curve pages: closed form, metrics, exact bend,
 // the polynomial evaluators and the saved-curve store. Loaded first.
@@ -662,6 +678,226 @@ window.curveSaver = (function () {
   document.getElementById("b-right").addEventListener("click", () => solve("right"));
   document.getElementById("b-close").addEventListener("click", () => solve("close"));
   drawB();
+})();
+
+// Fig. Q16 - G2 Hermite interpolation at degree 7.
+// Data: two points, two tangent angles, two curvatures.  The curve is a PH
+// septic r' = w^2 with w cubic, eight real unknowns; six conditions plus two
+// fairness terms, solved by Gauss-Newton.
+(function () {
+  const plot = document.getElementById("c-plot");
+  if (!plot) return;
+  const readout = document.getElementById("c-readout");
+  const width = 720, height = 520, left = 70, right = 50, top = 92, bottom = 64;
+  const specs = [
+    { key: "theta0", label: "angle 0 (deg)", min: -180, max: 180, step: 1, value: 60 },
+    { key: "theta1", label: "angle 1 (deg)", min: -180, max: 180, step: 1, value: 120 },
+    { key: "k0", label: "curvature 0", min: -4, max: 4, step: 0.05, value: 0 },
+    { key: "k1", label: "curvature 1", min: -4, max: 4, step: 0.05, value: 0 },
+    { key: "ex", label: "end x", min: 0.2, max: 3, step: 0.05, value: 1 },
+    { key: "ey", label: "end y", min: -1.5, max: 1.5, step: 0.05, value: 0 }
+  ];
+  const state = {};
+  const grid = document.createElement("div");
+  grid.className = "control-grid";
+  specs.forEach(spec => {
+    state[spec.key] = spec.value;
+    const row = document.createElement("label");
+    row.className = "control-row";
+    const name = document.createElement("span");
+    name.textContent = spec.label;
+    const numberInput = document.createElement("input");
+    numberInput.type = "number"; numberInput.step = spec.step; numberInput.value = spec.value;
+    const rangeInput = document.createElement("input");
+    rangeInput.type = "range"; rangeInput.min = spec.min; rangeInput.max = spec.max;
+    rangeInput.step = spec.step; rangeInput.value = spec.value;
+    numberInput.addEventListener("input", () => { rangeInput.value = numberInput.value; state[spec.key] = +numberInput.value; redraw(); });
+    rangeInput.addEventListener("input", () => { numberInput.value = rangeInput.value; state[spec.key] = +rangeInput.value; redraw(); });
+    row.append(name, numberInput, rangeInput);
+    grid.append(row);
+  });
+  document.getElementById("c-controls").append(grid);
+
+  const cx = z => [z[0], z[1]];
+  const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
+  const mul = (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];
+  const scale = (a, s) => [a[0] * s, a[1] * s];
+  const conj = a => [a[0], -a[1]];
+  const abs = a => Math.hypot(a[0], a[1]);
+
+  // w(t) = a + b t + c t^2 + d t^3, p = [a,b,c,d] each [re, im]
+  const wAt = (p, t) => add(add(p[0], scale(p[1], t)), add(scale(p[2], t * t), scale(p[3], t * t * t)));
+  const wPrimeAt = (p, t) => add(p[1], add(scale(p[2], 2 * t), scale(p[3], 3 * t * t)));
+  const dAt = (p, t) => {
+    const w = wAt(p, t), wp = wPrimeAt(p, t);
+    return scale(mul(w, w), 1); // r' = w^2
+  };
+  const curvatureAt = (p, t) => {
+    const w = wAt(p, t), wp = wPrimeAt(p, t);
+    const w2 = abs(w) ** 2;
+    return 2 * (conj(w)[0] * wp[1] - conj(w)[1] * wp[0]) / (w2 * w2);
+  };
+  const displacement = p => {
+    // integral of w^2 from 0 to 1, power basis
+    const [a, b, c, d] = p;
+    let total = [0, 0];
+    const addTerm = (z, s) => { total = add(total, scale(z, s)); };
+    addTerm(mul(a, a), 1);
+    addTerm(mul(a, b), 1);
+    addTerm(add(mul(b, b), scale(mul(a, c), 2)), 1 / 3);
+    addTerm(add(mul(a, d), mul(b, c)), 1 / 2);
+    addTerm(add(scale(mul(b, d), 2), mul(c, c)), 1 / 5);
+    addTerm(mul(c, d), 1 / 3);
+    addTerm(mul(d, d), 1 / 7);
+    return total;
+  };
+
+  const residuals = (p, data) => {
+    const a2 = mul(p[0], p[0]);
+    const w1 = wAt(p, 1), w12 = mul(w1, w1);
+    const t0 = [Math.cos(data.th0), Math.sin(data.th0)];
+    const t1 = [Math.cos(data.th1), Math.sin(data.th1)];
+    const delta = displacement(p);
+    return [
+      (a2[0] * t0[1] - a2[1] * t0[0]) / Math.max(1e-9, abs(a2)),
+      (w12[0] * t1[1] - w12[1] * t1[0]) / Math.max(1e-9, abs(w12)),
+      delta[0] - data.dx,
+      delta[1] - data.dy,
+      curvatureAt(p, 0) - data.k0,
+      curvatureAt(p, 1) - data.k1
+    ];
+  };
+
+  function solveLinear(matrix, rhs) {
+    const n = rhs.length;
+    const m = matrix.map((row, i) => row.concat([rhs[i]]));
+    for (let col = 0; col < n; col++) {
+      let pivot = col;
+      for (let row = col + 1; row < n; row++) if (Math.abs(m[row][col]) > Math.abs(m[pivot][col])) pivot = row;
+      [m[col], m[pivot]] = [m[pivot], m[col]];
+      const divider = m[col][col] || 1e-12;
+      for (let k = col; k <= n; k++) m[col][k] /= divider;
+      for (let row = 0; row < n; row++) {
+        if (row === col) continue;
+        const factor = m[row][col];
+        for (let k = col; k <= n; k++) m[row][k] -= factor * m[col][k];
+      }
+    }
+    return m.map(row => row[n]);
+  }
+
+  function gaussNewton(data, start) {
+    let p = start.map(z => z.slice());
+    let best = residuals(p, data);
+    let bestNorm = Math.hypot(...best);
+    let lambda = 1e-3;
+    for (let iteration = 0; iteration < 200; iteration++) {
+      const r = residuals(p, data);
+      const n = 8, J = [];
+      for (let j = 0; j < n; j++) {
+        const h = 1e-6;
+        const q = p.map(z => z.slice());
+        q[Math.floor(j / 2)][j % 2] += h;
+        const rq = residuals(q, data);
+        J.push(r.map((value, i) => (rq[i] - value) / h));
+      }
+      // normal equations J^T J + lambda I
+      const A = Array.from({ length: n }, () => new Array(n).fill(0));
+      const b = new Array(n).fill(0);
+      for (let i = 0; i < r.length; i++) {
+        for (let a = 0; a < n; a++) {
+          b[a] -= J[a][i] * r[i];
+          for (let k = 0; k < n; k++) A[a][k] += J[a][i] * J[k][i];
+        }
+      }
+      for (let a = 0; a < n; a++) A[a][a] += lambda;
+      const step = solveLinear(A, b);
+      const trial = p.map((z, i) => [z[0] + step[2 * i], z[1] + step[2 * i + 1]]);
+      const norm = Math.hypot(...residuals(trial, data));
+      if (norm < bestNorm) {
+        p = trial; bestNorm = norm; best = residuals(trial, data); lambda = Math.max(1e-9, lambda / 3);
+      } else {
+        lambda *= 10;
+      }
+      if (bestNorm < 1e-10 || lambda > 1e6) break;
+    }
+    return { p, norm: bestNorm };
+  }
+
+  let last = null;
+  function redraw() {
+    const data = {
+      th0: state.theta0 * Math.PI / 180, th1: state.theta1 * Math.PI / 180,
+      k0: state.k0, k1: state.k1, dx: state.ex, dy: state.ey
+    };
+    const a0 = Math.sqrt(Math.hypot(data.dx, data.dy) || 1);
+    let best = null;
+    for (let trial = 0; trial < 4; trial++) {
+      const noise = trial === 0 ? 0 : 0.35;
+      const start = [
+        [a0 * Math.cos(data.th0 / 2) + noise * (Math.random() - 0.5), a0 * Math.sin(data.th0 / 2) + noise * (Math.random() - 0.5)],
+        [noise * (Math.random() - 0.5), noise * (Math.random() - 0.5)],
+        [noise * (Math.random() - 0.5), noise * (Math.random() - 0.5)],
+        [noise * (Math.random() - 0.5), noise * (Math.random() - 0.5)]
+      ];
+      const result = gaussNewton(data, start);
+      if (best === null || result.norm < best.norm) best = result;
+    }
+    last = best;
+    // the curve
+    const points = [[0, 0]];
+    let x = 0, y = 0;
+    const steps = 400;
+    for (let i = 1; i <= steps; i++) {
+      const t = (i - 0.5) / steps;
+      const d = dAt(best.p, t);
+      x += d[0] / steps; y += d[1] / steps;
+      points.push([x, y]);
+    }
+    const xs = points.map(q => q[0]).concat([0, data.dx]);
+    const ys = points.map(q => q[1]).concat([0, data.dy]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const padX = Math.max(0.05, (maxX - minX) * 0.08), padY = Math.max(0.05, (maxY - minY) * 0.08);
+    const plotWidth = width - left - right, plotHeight = height - top - bottom;
+    const s = Math.min(plotWidth / (maxX - minX + 2 * padX), plotHeight / (maxY - minY + 2 * padY));
+    const ox = left + (plotWidth - (maxX - minX) * s) / 2, oy = top + (plotHeight - (maxY - minY) * s) / 2;
+    const fx = v => ox + (v - minX) * s, fy = v => oy + (maxY - v) * s;
+    const path = "M" + points.map(q => fx(q[0]).toFixed(1) + "," + fy(q[1]).toFixed(1)).join("L");
+    const arrow = (px, py, angle, colour) => {
+      const L = 0.22 * Math.max(1, Math.hypot(data.dx, data.dy));
+      const ex = px + L * Math.cos(angle), ey = py + L * Math.sin(angle);
+      return `<line x1="${fx(px)}" y1="${fy(py)}" x2="${fx(ex)}" y2="${fy(ey)}" stroke="${colour}" stroke-width="1.6"/>` +
+        `<circle cx="${fx(ex)}" cy="${fy(ey)}" r="3" fill="${colour}"/>`;
+    };
+    const circle = (px, py, k, angle, colour) => {
+      if (Math.abs(k) < 1e-6) return "";
+      const radius = Math.abs(1 / k);
+      const sign = k > 0 ? 1 : -1;
+      const nx = Math.cos(angle + sign * Math.PI / 2), ny = Math.sin(angle + sign * Math.PI / 2);
+      const cxx = px + radius * nx, cyy = py + radius * ny;
+      return `<circle cx="${fx(cxx)}" cy="${fy(cyy)}" r="${radius * s}" fill="none" stroke="${colour}" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>`;
+    };
+    plot.innerHTML =
+      `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
+      `<text x="${left}" y="28" font-size="15" font-weight="600" fill="#2e2413">C | G2 Hermite interpolation at degree 7</text>` +
+      `<text x="${left}" y="46" font-size="12" fill="#7b6c4e">blue: start tangent, red: end tangent, dashed: the curvature circles | curve: the PH septic</text>` +
+      `<path d="${path}" fill="none" stroke="#2e2413" stroke-width="2.4"/>` +
+      arrow(0, 0, data.th0, "#1f5fa8") +
+      arrow(data.dx, data.dy, data.th1, "#a23b2a") +
+      circle(0, 0, data.k0, data.th0, "#1f5fa8") +
+      circle(data.dx, data.dy, data.k1, data.th1, "#a23b2a") +
+      `<circle cx="${fx(0)}" cy="${fy(0)}" r="4" fill="#fbf7ec" stroke="#2e2413" stroke-width="2"/>` +
+      `<circle cx="${fx(data.dx)}" cy="${fy(data.dy)}" r="4" fill="#fbf7ec" stroke="#2e2413" stroke-width="2"/>`;
+    const k0 = curvatureAt(best.p, 0), k1 = curvatureAt(best.p, 1);
+    const measured = window.recipeMetrics(best.p.map(z => z[0]), best.p.map(z => z[1]));
+    readout.textContent =
+      `residual ${best.norm.toFixed(4)} | curvature ${k0.toFixed(3)} and ${k1.toFixed(3)} ` +
+      `(asked ${data.k0.toFixed(2)} and ${data.k1.toFixed(2)}) | bend ${measured.bend.toFixed(3)} ` +
+      `| pitch ${measured.pitch.toLocaleString()}` +
+      (best.norm > 0.01 ? " | no clean solution for this data" : "");
+  }
+  redraw();
 })();
 
 </script>

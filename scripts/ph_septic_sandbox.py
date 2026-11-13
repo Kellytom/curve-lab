@@ -44,6 +44,11 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 .cell-inputs{display:flex;gap:4px;align-items:center}
 .cell-inputs input[type=number]{width:56px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
 .cell-inputs input[type=range]{flex:1;min-width:56px}
+.control-row{display:flex;align-items:center;gap:8px;margin:4px 0;font:12px ui-monospace,Menlo,monospace}
+.control-row span{min-width:120px;color:#8a3b2a}
+.control-row input[type=number]{width:70px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+.control-row input[type=range]{flex:1;min-width:90px}
+#c-controls .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
 @media(max-width:900px){.pair{grid-template-columns:1fr}}
 #a-controls,#b-controls{margin:6px 0 12px}
@@ -102,6 +107,17 @@ same machinery as the quintic, one degree up.</p>
 <p class="small">The diagram is the same one Q13 draws for the quintic, one degree up: the seven
 vectors <code>T_m = (w^2)_m / (m+1)</code> head to tail, the dashed line their sum. Shape the
 polygon into a triangle or a rectangle and the curve follows.</p>
+</section>
+
+<section class="panel">
+<h2>C | G2 Hermite interpolation at degree 7</h2>
+<p>Two points, two tangent angles and two curvatures go in; a PH septic comes out and matches all
+six. The curve is <code>r' = w^2</code> with <code>w</code> cubic - eight real unknowns for six
+conditions, so the two that remain are spent on the fairest curve near the start. Drag the angles and
+curvatures and watch the curve follow; the curvature circles are dashed.</p>
+<div id="c-controls"></div>
+<svg id="c-plot" viewBox="0 0 720 520" role="img" aria-label="G2 Hermite interpolation at degree 7"></svg>
+<p class="small mono" id="c-readout"></p>
 </section>
 
 <section class="panel">
