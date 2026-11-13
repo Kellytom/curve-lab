@@ -567,13 +567,35 @@
 
   const SEED = [{ name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] }];
 
+  const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
+  const uniqueName = (base, taken) => {
+    let name = base, n = 2;
+    const used = taken || takenNames();
+    while (used.has(name)) name = `${base} ${n++}`;
+    return name;
+  };
+  // a name that already exists is never overwritten silently: OK renames the
+  // newcomer, Cancel replaces the old one
+  function resolveName(base, action) {
+    const taken = takenNames();
+    if (!taken.has(base)) return base;
+    const fresh = uniqueName(base, taken);
+    const rename = window.confirm(
+      `A curve called "${base}" already exists.\n\n` +
+      `OK: ${action} as "${fresh}"\n` +
+      `Cancel: replace "${base}"`);
+    return rename ? fresh : base;
+  }
+
   const storageKey = "ph-nth-curves";
   const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
   const store = items => localStorage.setItem(storageKey, JSON.stringify(items));
   function renderSaved() {
     const row = document.getElementById("n-saved");
     row.textContent = "";
-    SEED.concat(saved()).forEach(item => {
+    const byName = {};
+    SEED.concat(saved()).forEach(item => { byName[item.name] = item; });
+    Object.values(byName).forEach(item => {
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = item.name;
@@ -590,7 +612,8 @@
   }
   document.getElementById("n-save").addEventListener("click", () => {
     const nameField = document.getElementById("n-name");
-    const name = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
+    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
+    const name = resolveName(typed, "save this curve");
     const m = metrics(state.x, state.y);
     const items = saved().filter(item => item.name !== name);
     items.push({ name, speedX: state.x.map(v => +v), speedY: state.y.map(v => +v),
@@ -605,8 +628,19 @@
   if (renameButton) renameButton.addEventListener("click", () => {
     const field = document.getElementById("n-name");
     const status = document.getElementById("n-paste-status");
-    const name = (field.value || "").trim();
+    let name = (field.value || "").trim();
     if (!name) { if (status) status.textContent = "type a name, then press rename"; return; }
+    if (name !== currentName && takenNames().has(name)) {
+      const fresh = uniqueName(name);
+      if (!window.confirm(
+        `A curve called "${name}" already exists.\n\n` +
+        `OK: rename this one to "${fresh}"\n` +
+        `Cancel: keep the name "${currentName}"`)) {
+        if (status) status.textContent = `kept the name ${currentName}`;
+        return;
+      }
+      name = fresh;
+    }
     const items = saved();
     const index = items.findIndex(item => item.name === currentName);
     if (index >= 0) { items[index].name = name; store(items); }
@@ -625,10 +659,21 @@
       const data = JSON.parse(text);
       const list = Array.isArray(data) ? data : (data.curves ? data.curves : [data]);
       const items = saved();
+      const usedHere = takenNames();
       let loaded = 0;
       list.forEach(item => {
         if (!item || !Array.isArray(item.speedX) || !Array.isArray(item.speedY)) return;
-        const name = item.name || `pasted ${items.length + 1}`;
+        const base = item.name || `pasted ${items.length + 1}`;
+        let name = base;
+        if (usedHere.has(base)) {
+          const fresh = uniqueName(base, usedHere);
+          const rename = window.confirm(
+            `A curve called "${base}" already exists.\n\n` +
+            `OK: load as "${fresh}"\n` +
+            `Cancel: replace "${base}"`);
+          name = rename ? fresh : base;
+        }
+        usedHere.add(name);
         const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
                          width: item.width && Number.isFinite(Number(item.width.percent))
                                 ? { percent: Number(item.width.percent) } : undefined,
