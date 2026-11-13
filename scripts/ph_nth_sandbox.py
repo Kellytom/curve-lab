@@ -14,6 +14,7 @@ HTML.
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,6 +65,12 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.gallery{grid-template-columns:1fr}}
+.gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
+.gallery figcaption{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);margin:0 0 6px}
+.gallery svg{border:0}
+.gallery p{margin:6px 0 0}
 </style></head><body><main>
 <p class="eyebrow">curve-lab | PH curves | position degree 11</p>
 <h1>The eleventh power</h1>
@@ -166,7 +173,19 @@ number apart rather than three drawings agreeing by eye.</p>
 <p class="small">Generate: <code>.venv/bin/python scripts/ph_nth_sandbox.py</code> &mdash; the page and
 <code>scripts/ph_nth_panels.js</code> are both checked in.</p>
 </section>
+
+<hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
+<section class="panel">
+<h2>Gallery: the spines so far</h2>
+<p class="small">Spine only, one cell per curve, two columns. Started with the first two curves made
+here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
+padded with a zero pair, which changes nothing: the speed is the same polynomial.</p>
+<div class="gallery" id="n-gallery"></div>
+</section>
 </main>
+<script>
+window.phNthGallery = __GALLERY__;
+</script>
 <script>
 __MATH__
 </script>
@@ -177,8 +196,43 @@ __PANELS__
 """
 
 
+def gallery():
+    """The spines the gallery starts from, in order: the first two made here,
+    then the septic set, then the quintic page's cases."""
+    import json
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import ph_quintic_metrics as metrics
+
+    named_path = ROOT / "workbench" / "septic-curves.json"
+    document = json.loads(named_path.read_text())
+    by_name = {curve["name"]: curve for curve in document["curves"]}
+    first = ["integer-105", "integer-70"]
+    order = [name for name in first if name in by_name]
+    order += [curve["name"] for curve in document["curves"] if curve["name"] not in order]
+    entries = []
+    for name in order:
+        curve = by_name[name]
+        entries.append({
+            "name": name,
+            "speedX": (curve["speedX"] + [0] * 6)[:6],
+            "speedY": (curve["speedY"] + [0] * 6)[:6],
+            "bend": curve["bend"],
+            "pitch": curve["pitch"],
+            "from": "septic",
+        })
+    for name, sx, sy in [
+        ("quintic u=1+2t+t^2, v=1-t+t^2", (1, 2, 1, 0, 0, 0), (1, -1, 1, 0, 0, 0)),
+        ("quintic u=1+t^2, v=2t", (1, 0, 1, 0, 0, 0), (0, 2, 0, 0, 0, 0)),
+    ]:
+        m = metrics.metrics(sx, sy)
+        entries.append({"name": name, "speedX": list(sx), "speedY": list(sy),
+                        "bend": round(m["bend"], 3), "pitch": m["pitch"], "from": "quintic"})
+    return entries
+
+
 def build():
-    page = PAGE.replace("__MATH__", MATH.read_text()).replace("__PANELS__", PANELS.read_text())
+    page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":"))).replace("__MATH__", MATH.read_text()).replace("__PANELS__", PANELS.read_text())
     OUT.write_text(page)
     print(OUT.relative_to(ROOT))
 

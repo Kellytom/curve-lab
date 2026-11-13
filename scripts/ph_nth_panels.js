@@ -756,3 +756,48 @@
   renderSaved();
   draw();
 })();
+
+// The gallery: spine only, one small figure per curve, two columns.
+(function () {
+  const host = document.getElementById("n-gallery");
+  const list = window.phNthGallery;
+  if (!host || !Array.isArray(list)) return;
+  const value = window.polynomialValue;
+
+  function spineOf(entry, steps = 260) {
+    let x = 0, y = 0;
+    const points = [[0, 0]];
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(entry.speedX, t), b = value(entry.speedY, t);
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      points.push([x, y]);
+    }
+    return points;
+  }
+
+  function figureFor(entry) {
+    const points = spineOf(entry);
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    const pad = 0.08 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
+    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    const width = 200, height = 150, inset = 8;
+    const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
+    const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
+    const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
+    const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
+                               (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
+    return `<figure>
+      <figcaption>${entry.name}</figcaption>
+      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine only">
+        <rect width="${width}" height="${height}" fill="#fbf7ec"/>
+        <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
+      </svg>
+      <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()}</p>
+    </figure>`;
+  }
+
+  host.innerHTML = list.map(figureFor).join("");
+})();

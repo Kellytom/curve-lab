@@ -16,7 +16,7 @@ class TestNthSandbox(unittest.TestCase):
         for marker in ("n-controls", "n-plot", "n-bars", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
                        "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-angle", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
-                       "ph-nth-serif-notes.html",
+                       "ph-nth-serif-notes.html", "n-gallery", "phNthGallery", "integer-105", "integer-70",
                        "The eleventh power", "degree 11"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)

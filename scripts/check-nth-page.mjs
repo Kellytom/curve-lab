@@ -92,6 +92,23 @@ await page.dispatchEvent("#n-char-r", "input");
 await page.click("#n-character");
 await page.click("#n-rails");
 
+// the gallery: two columns, every spine drawn
+const gallery = await page.evaluate(() => {
+  const figures = [...document.querySelectorAll("#n-gallery figure")];
+  const cells = figures.map(f => { const r = f.getBoundingClientRect(); return r.y; });
+  const paths = [...document.querySelectorAll("#n-gallery svg path")];
+  return {
+    count: figures.length,
+    twoColumns: cells.length > 1 && cells[0] === cells[1],
+    bad: paths.filter(p => /NaN/.test(p.getAttribute("d")) || p.getTotalLength() < 1).length,
+    first: figures.slice(0, 2).map(f => f.querySelector("figcaption").textContent).join(", "),
+  };
+});
+if (gallery.count < 27) failures.push(`gallery figures: ${gallery.count}`);
+if (!gallery.twoColumns) failures.push("gallery is not two columns");
+if (gallery.bad) failures.push(`gallery paths not drawn: ${gallery.bad}`);
+if (!gallery.first.startsWith("integer-105")) failures.push(`gallery order starts: ${gallery.first}`);
+
 const notes = await page.getAttribute('a[href="ph-nth-serif-notes.html"]', "href");
 if (!notes) failures.push("the serif notes link is missing");
 
@@ -117,4 +134,4 @@ if (failures.length) {
   for (const failure of failures) console.error("  " + failure);
   process.exit(1);
 }
-console.log("OK  12 boxes, spine by default, parallel rails, one-sided character, S profile, shear, hook, terminals");
+console.log("OK  12 boxes, spine by default, offsets, character, shear, hook, terminals, gallery of " + gallery.count);
