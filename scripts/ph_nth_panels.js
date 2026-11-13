@@ -1023,8 +1023,8 @@
     return [side(1), side(-1)].filter(Boolean);
   }
 
-  function miniSvg(speedX, speedY, label, kind = null, entry = null) {
-    const points = spineOf({ speedX, speedY }, 220);
+  function miniSvg(speedX, speedY, label, kind = null, entry = null, rawPoints = null) {
+    const points = rawPoints || spineOf({ speedX, speedY }, 220);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
     const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
     const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
@@ -1089,9 +1089,10 @@
       </svg>
       <div class="more" hidden>
         <div class="pair-row">
-          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11", "full")}
-          ${entry.simple ? miniSvg(entry.simple.speedX, entry.simple.speedY,
-              `3 figures — drift ${entry.simple.deviation}× the size`, "simple") : ""}
+          ${entry.original && entry.original.length
+              ? miniSvg(null, null, "original", null, null, entry.original)
+              : ""}
+          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11", "full", entry)}
         </div>
         <p class="small mono">x ${entry.speedX.join(", ")}<br>y ${entry.speedY.join(", ")}</p>
         <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()} | from ${entry.from}</p>

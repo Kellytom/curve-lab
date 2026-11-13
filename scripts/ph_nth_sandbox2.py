@@ -95,6 +95,7 @@ def gallery():
             "speedY": curve["speedY"],
             "bend": round(measured["bend"], 3),
             "pitch": measured["pitch"],
+            "original": curve.get("original", []),
             "from": curve["from"],
             "source": curve.get("source", ""),
             "simple": simplify(curve["speedX"], curve["speedY"]),

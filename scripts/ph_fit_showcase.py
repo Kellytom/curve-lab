@@ -170,6 +170,7 @@ def fit_curve(points, degree=DEGREE):
                            [(x / reference, y / reference) for x, y in simple_points]))
 
     return {
+        "original": [[round(x, 6), round(y, 6)] for x, y in path[::4]],
         "speedX": [round(v, 6) for v in speed_x],
         "speedY": [round(v, 6) for v in speed_y],
         "rms": round(rms / size, 5),
@@ -209,6 +210,7 @@ def fitted(limit=None, max_error=0.03):
             name = title if index == 0 else f"{title} · {index + 1}"
             entries.append({
                 "name": name[:70],
+                "original": result["original"],
                 "speedX": result["speedX"],
                 "speedY": result["speedY"],
                 "bend": None,
