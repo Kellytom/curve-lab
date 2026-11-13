@@ -322,6 +322,29 @@
         7,
         7
       ]
+    },
+    {
+      "name": "double-loop",
+      "speedX": [
+        2,
+        -5,
+        6,
+        1
+      ],
+      "speedY": [
+        3,
+        -26,
+        23,
+        5
+      ],
+      "bend": 3.446,
+      "pitch": 210,
+      "inflection": 0.439,
+      "closest": 1.43,
+      "degree": [
+        7,
+        7
+      ]
     }
   ]
 }

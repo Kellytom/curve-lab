@@ -53,6 +53,9 @@ CURVES = [
     # its sibling: integer speeds, integer controls at 70, bend 1.290 (the
     # shallowest S in the set). 1.143 -> 80 at 70.
     ("integer-70", (2, -3, 3, 3), (2, -12, 12, 1)),
+    # the double loop: two self-crossings, measured by segment test at 1200
+    # samples, at (-0.07, 0.21) and (-2.71, -1.68). bend 3.446, pitch 210.
+    ("double-loop", (2, -5, 6, 1), (3, -26, 23, 5)),
 ]
 
 
