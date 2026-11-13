@@ -144,7 +144,25 @@
   // start. That difference is pinned to zero at both ends, so the rail meets
   // the parallel at +/- d at the start and the end and bows in between. It is
   // the character, not a drift: at character 0 the rail is the parallel rail.
-  const character = { strength: 2 };
+  const character = { plus: 2, minus: 2, profile: "bow" };
+  const shear = { delta: 0 };
+  const hook = { magnitude: 0, angle: 0 };
+
+  // the bow's profile: one swell, an S, or a taper toward the end
+  const bumpAt = t => {
+    if (character.profile === "s") return 8 * t * (1 - t) * (1 - 2 * t);
+    if (character.profile === "taper") return 6.75 * t * t * (1 - t);
+    return 4 * t * (1 - t);
+  };
+
+  // the tail hook is a polynomial change of the speed itself: add h e^{i phi}
+  // to the t^5 coefficient, so the spine bends without leaving the PH family
+  function hookedSpeed() {
+    const x = state.x.slice(), y = state.y.slice();
+    const h = hook.magnitude, a = hook.angle * Math.PI / 180;
+    if (h) { x[x.length - 1] += h * Math.cos(a); y[y.length - 1] += h * Math.sin(a); }
+    return { x, y };
+  }
   function integrateFrom(startX, startY, speedAt, steps) {
     let x = startX, y = startY;
     const points = [[x, y]];
@@ -157,40 +175,42 @@
     }
     return points;
   }
-  function characterRail(sign) {
+  function characterRail(sign, speed) {
     const steps = 700;
-    const spine = spineSamples(steps);
+    const spine = spineSamples(speed, steps);
     const start = spine[0];
     const d = halfWidth();
     const from = [start.x + sign * d * start.nx, start.y + sign * d * start.ny];
-    const flat = integrateFrom(from[0], from[1], t => [value(state.x, t), value(state.y, t)], steps);
-    const eps = 0.08 * character.strength;
+    const flat = integrateFrom(from[0], from[1], t => [value(speed.x, t), value(speed.y, t)], steps);
+    const eps = 0.08 * (sign > 0 ? character.plus : character.minus);
     const turned = integrateFrom(from[0], from[1], t => {
-      const p = value(state.x, t), q = value(state.y, t);
-      const a = sign * eps * 4 * t * (1 - t);
+      const p = value(speed.x, t), q = value(speed.y, t);
+      const a = sign * eps * bumpAt(t);
       return [p - a * q, q + a * p];
     }, steps);
     return spine.map((s, i) => {
-      const parallel = [s.x + sign * d * s.nx, s.y + sign * d * s.ny];
-      const weight = 4 * (i / steps) * (1 - i / steps);
+      const t = i / steps;
+      const parallel = [s.x + sign * d * s.nx + shear.delta * t * s.tx,
+                        s.y + sign * d * s.ny + shear.delta * t * s.ty];
+      const weight = 4 * t * (1 - t);
       return [parallel[0] + weight * (turned[i][0] - flat[i][0]),
               parallel[1] + weight * (turned[i][1] - flat[i][1])];
     });
   }
 
-  function spineSamples(n = 700) {
+  function spineSamples(speed, n = 700) {
     const out = [];
     let x = 0, y = 0;
     for (let i = 0; i <= n; i++) {
       const t = i / n;
-      const p = value(state.x, t), q = value(state.y, t);
+      const p = value(speed.x, t), q = value(speed.y, t);
       const speed2 = p * p + q * q;
       const tx = speed2 > 1e-12 ? (p * p - q * q) / speed2 : 1;
       const ty = speed2 > 1e-12 ? 2 * p * q / speed2 : 0;
       out.push({ t, x, y, tx, ty, nx: -ty, ny: tx });
       if (i < n) {
         const tm = (i + 0.5) / n;
-        const pm = value(state.x, tm), qm = value(state.y, tm);
+        const pm = value(speed.x, tm), qm = value(speed.y, tm);
         x += (pm * pm - qm * qm) / n;
         y += 2 * pm * qm / n;
       }
@@ -232,17 +252,18 @@
   // ---------- the drawing ----------
   function draw() {
     const plot = document.getElementById("n-plot");
-    const spine = spineSamples();
+    const speed = hookedSpeed();
+    const spine = spineSamples(speed);
     const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
     const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
                                 Math.max(...spineYs) - Math.min(...spineYs));
-    const measured = metrics(state.x, state.y);
+    const measured = metrics(speed.x, speed.y);
     curveSize = Math.max(1e-9, Math.max(Math.hypot(measured.chord[0], measured.chord[1]), 0.25 * diagonal));
     const d = halfWidth();
     const leftRail = spine.map(s => [s.x + d * s.nx, s.y + d * s.ny]);
     const rightRail = spine.map(s => [s.x - d * s.nx, s.y - d * s.ny]);
-    const characterLeft = view.character ? characterRail(1) : null;
-    const characterRight = view.character ? characterRail(-1) : null;
+    const characterLeft = view.character ? characterRail(1, speed) : null;
+    const characterRight = view.character ? characterRail(-1, speed) : null;
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
     const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
     const all = spine.map(s => [s.x, s.y]);
@@ -294,9 +315,9 @@
     });
     plot.innerHTML = art;
 
-    const m = metrics(state.x, state.y);
+    const m = metrics(speed.x, speed.y);
     const openness = m.arc > 1e-12 ? Math.hypot(m.chord[0], m.chord[1]) / m.arc : 0;
-    const curve = curveOf();
+    const curve = curveOf(speed);
     const degreeOf = terms => { let d = 0; terms.forEach((c, k) => { if (Math.abs(c) > 1e-9) d = k; }); return d; };
     document.getElementById("n-readout").textContent =
       `bend ${m.bend.toFixed(3)} | pitch ${m.pitch.toLocaleString()} | ` +
@@ -325,7 +346,9 @@
         closest: +m.closest.toFixed(3),
         degree: [degreeOf(curve.x), degreeOf(curve.y)],
         width: { percent: width.percent },
-        character: character.strength,
+        character: { plus: character.plus, minus: character.minus, profile: character.profile },
+        shear: shear.delta,
+        hook: { magnitude: hook.magnitude, angle: hook.angle },
       }, null, 2);
     }
     drawBars();
@@ -336,8 +359,8 @@
     left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
     return product;
   };
-  function curveOf() {
-    const xx = multiply(state.x, state.x), yy = multiply(state.y, state.y), xy = multiply(state.x, state.y);
+  function curveOf(speed = state) {
+    const xx = multiply(speed.x, speed.x), yy = multiply(speed.y, speed.y), xy = multiply(speed.x, speed.y);
     const x = [0], y = [0];
     for (let j = 0; j < xx.length; j++) {
       x.push((xx[j] - (yy[j] || 0)) / (j + 1));
@@ -503,16 +526,32 @@
     if (Number.isFinite(v)) slider.value = String(Math.min(1, Math.max(0.02, v)));
   });
   // the width law's three dials
-  const strengthField = document.getElementById("n-char");
-  if (strengthField) steppers(strengthField, direction => {
-    character.strength = stepInteger(character.strength, direction);
-    strengthField.value = String(character.strength);
-    draw();
-  });
-  if (strengthField) strengthField.addEventListener("input", () => {
-    const v = Number(strengthField.value);
-    if (!Number.isFinite(v)) return;
-    character.strength = Math.min(3, Math.max(0, v));
+  // the modifiers' dials: two character strengths, the bow profile, the end
+  // shear and the tail hook
+  const wireNumber = (id, apply, low, high) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener("input", () => {
+      const v = Number(field.value);
+      if (!Number.isFinite(v)) return;
+      apply(Math.min(high, Math.max(low, v)));
+      draw();
+    });
+    steppers(field, direction => {
+      const v = stepInteger(Number(field.value) || 0, direction);
+      field.value = String(v);
+      apply(Math.min(high, Math.max(low, v)));
+      draw();
+    });
+  };
+  wireNumber("n-char-l", v => { character.plus = v; }, 0, 3);
+  wireNumber("n-char-r", v => { character.minus = v; }, 0, 3);
+  wireNumber("n-shear", v => { shear.delta = v; }, -10, 10);
+  wireNumber("n-hook", v => { hook.magnitude = v; }, -10, 10);
+  wireNumber("n-hook-angle", v => { hook.angle = v; }, -180, 180);
+  const profileField = document.getElementById("n-prof");
+  if (profileField) profileField.addEventListener("change", () => {
+    character.profile = profileField.value;
     draw();
   });
   const widthField = document.getElementById("n-d");
@@ -552,11 +591,26 @@
   // ---------- saved curves ----------
   const applyWidth = item => {
     if (!item) return;
-    if (Number.isFinite(Number(item.character))) {
-      character.strength = Math.min(3, Math.max(0, Number(item.character)));
-      const field = document.getElementById("n-char");
-      if (field) field.value = String(character.strength);
+    if (item.character && typeof item.character === "object") {
+      character.plus = Number.isFinite(Number(item.character.plus)) ? Number(item.character.plus) : character.plus;
+      character.minus = Number.isFinite(Number(item.character.minus)) ? Number(item.character.minus) : character.minus;
+      if (["bow", "s", "taper"].includes(item.character.profile)) character.profile = item.character.profile;
+    } else if (Number.isFinite(Number(item.character))) {
+      character.plus = character.minus = Math.min(3, Math.max(0, Number(item.character)));
     }
+    if (Number.isFinite(Number(item.shear))) shear.delta = Number(item.shear);
+    if (item.hook && Number.isFinite(Number(item.hook.magnitude))) {
+      hook.magnitude = Number(item.hook.magnitude);
+      hook.angle = Number.isFinite(Number(item.hook.angle)) ? Number(item.hook.angle) : 0;
+    }
+    const setField = (id, v) => { const f = document.getElementById(id); if (f) f.value = String(v); };
+    setField("n-char-l", character.plus);
+    setField("n-char-r", character.minus);
+    setField("n-shear", shear.delta);
+    setField("n-hook", hook.magnitude);
+    setField("n-hook-angle", hook.angle);
+    const profile = document.getElementById("n-prof");
+    if (profile) profile.value = character.profile;
     if (!item.width) return;
     const percent = Number(item.width.percent);
     if (!Number.isFinite(percent)) return;
@@ -614,7 +668,7 @@
     const nameField = document.getElementById("n-name");
     const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
     const name = resolveName(typed, "save this curve");
-    const m = metrics(state.x, state.y);
+    const m = metrics(speed.x, speed.y);
     const items = saved().filter(item => item.name !== name);
     items.push({ name, speedX: state.x.map(v => +v), speedY: state.y.map(v => +v),
                  bend: +m.bend.toFixed(3), pitch: m.pitch,
@@ -677,7 +731,7 @@
         const record = { name, speedX: item.speedX.map(Number), speedY: item.speedY.map(Number),
                          width: item.width && Number.isFinite(Number(item.width.percent))
                                 ? { percent: Number(item.width.percent) } : undefined,
-                         character: Number.isFinite(Number(item.character)) ? Number(item.character) : undefined };
+                         character: item.character, shear: item.shear, hook: item.hook };
         const index = items.findIndex(entry => entry.name === name);
         if (index >= 0) items[index] = record; else items.push(record);
         loaded += 1;

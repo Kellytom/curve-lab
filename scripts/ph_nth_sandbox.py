@@ -86,7 +86,16 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
 <div class="solver-row">
   <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
-  <label class="dial" for="n-char">character <input id="n-char" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-char-r">character &minus; <input id="n-char-r" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-prof">profile
+    <select id="n-prof"><option value="bow">bow</option><option value="s">S</option><option value="taper">taper</option></select>
+  </label>
+</div>
+<div class="solver-row">
+  <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook">tail hook <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook-angle">hook angle <input id="n-hook-angle" type="number" min="-180" max="180" step="5" value="0"></label>
 </div>
 <div class="solver-row">
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
@@ -98,8 +107,12 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
 <strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
 station &mdash; <code>g = w (1 + i &epsilon; b(t))</code> &mdash; and blends back to the parallel at both
-ends, so the rail leaves and arrives at exactly <code>&plusmn; d</code> and bows in between. The
-<strong>character</strong> dial sets how far it bows; <code>d</code> sets the distance. The flare law and the serif foot are parked in
+ends, so the rail leaves and arrives at exactly <code>&plusmn; d</code> and bows in between. The two
+<strong>character</strong> dials set how far each side bows (they can differ, which is what a serif
+needs), the <strong>profile</strong> chooses the bow's shape (one swell, an S that crosses the parallel,
+or a taper toward the end), <strong>end shear</strong> leans the rails along the tangent by the end, and
+<strong>tail hook</strong> adds <code>h e^{i&phi;} t^5</code> to the speed itself, bending the last span
+without leaving the PH family. The flare law and the serif foot are parked in
 <a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a>.</p>
 </section>
 

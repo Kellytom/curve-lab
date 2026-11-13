@@ -75,16 +75,20 @@ const railsBox = await page.evaluate(() => [...document.querySelectorAll("#n-plo
   const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
 }));
 await page.click("#n-character");
-await page.fill("#n-char", "0");
-await page.dispatchEvent("#n-char", "input");
+await page.fill("#n-char-l", "0");
+await page.dispatchEvent("#n-char-l", "input");
+await page.fill("#n-char-r", "0");
+await page.dispatchEvent("#n-char-r", "input");
 await page.waitForTimeout(250);
 const zeroBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
   const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
 }));
 if (JSON.stringify(zeroBox) !== JSON.stringify(railsBox))
   failures.push(`character 0 is not the parallel rail: ${JSON.stringify(zeroBox)} vs ${JSON.stringify(railsBox)}`);
-await page.fill("#n-char", "2");
-await page.dispatchEvent("#n-char", "input");
+await page.fill("#n-char-l", "2");
+await page.dispatchEvent("#n-char-l", "input");
+await page.fill("#n-char-r", "2");
+await page.dispatchEvent("#n-char-r", "input");
 await page.click("#n-character");
 await page.click("#n-rails");
 
@@ -113,4 +117,4 @@ if (failures.length) {
   for (const failure of failures) console.error("  " + failure);
   process.exit(1);
 }
-console.log("OK  12 boxes, spine by default, parallel rails, character offsets, both terminals, dial lands");
+console.log("OK  12 boxes, spine by default, parallel rails, one-sided character, S profile, shear, hook, terminals");
