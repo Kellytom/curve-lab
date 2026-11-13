@@ -113,6 +113,18 @@
   const bDefaults = { bx0: 2, bx1: -3, bx2: 3, bx3: 0.3, by0: 2, by1: -12, by2: 12, by3: 0 };
   const bState = { ...bDefaults };
   const bGrid = document.getElementById("b-controls");
+  const bCells = [];
+  const decode = value => {
+    if (!value) return { mantissa: 0, decade: 0 };
+    const decade = Math.max(-2, Math.min(6, Math.floor(Math.log10(Math.abs(value)))));
+    return { mantissa: value / Math.pow(10, decade), decade: decade };
+  };
+  function syncBCell(cell, value) {
+    const parts = decode(value);
+    cell.number.value = +value.toFixed(6);
+    cell.fine.value = parts.mantissa;
+    cell.decade.value = parts.decade;
+  }
   const bRow = axis => {
     const row = document.createElement("div");
     row.className = "spine-row";
@@ -125,26 +137,37 @@
       const name = document.createElement("span");
       name.textContent = "t^" + k;
       const input = document.createElement("input");
-      input.type = "number"; input.step = "0.05"; input.min = "-16"; input.max = "16";
+      input.type = "number"; input.step = "0.05";
       input.value = bState[`b${axis}${k}`];
       const slider = document.createElement("input");
       slider.type = "range"; slider.min = "-16"; slider.max = "16"; slider.step = "0.05";
-      slider.value = bState[`b${axis}${k}`];
-      input.addEventListener("input", () => {
-        slider.value = input.value; bState[`b${axis}${k}`] = +input.value; drawB();
-      });
-      slider.addEventListener("input", () => {
-        input.value = slider.value; bState[`b${axis}${k}`] = +slider.value; drawB();
-      });
+      const decade = document.createElement("input");
+      decade.type = "range"; decade.min = "-2"; decade.max = "6"; decade.step = "1";
+      decade.className = "decade";
+      decade.title = "x 10^n";
+      const elements = { number: input, fine: slider, decade: decade };
+      bCells.push(elements);
+      const setValue = value => {
+        bState[`b${axis}${k}`] = value;
+        syncBCell(elements, value);
+        drawB();
+      };
+      input.addEventListener("input", () => setValue(+input.value));
+      slider.addEventListener("input", () => setValue(slider.value * Math.pow(10, +decade.value)));
+      decade.addEventListener("input", () => setValue(slider.value * Math.pow(10, +decade.value)));
       const pair = document.createElement("div");
       pair.className = "cell-inputs";
-      pair.append(input, slider);
+      pair.append(input, slider, decade);
       cell.append(name, pair);
       row.append(cell);
     }
     return row;
   };
   bGrid.append(bRow("x"), bRow("y"));
+  [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
+   bState.by0, bState.by1, bState.by2, bState.by3].forEach((value, i) => {
+    if (bCells[i]) syncBCell(bCells[i], value);
+  });
 
   function drawB() {
     const speedX = [bState.bx0, bState.bx1, bState.bx2, bState.bx3];
@@ -327,11 +350,8 @@
   const speedValues = () => [bState.bx0, bState.bx1, bState.bx2, bState.bx3,
                              bState.by0, bState.by1, bState.by2, bState.by3];
   function writeSpeed() {
-    const numbers = document.querySelectorAll("#b-controls input[type=number]");
-    const ranges = document.querySelectorAll("#b-controls input[type=range]");
     speedValues().forEach((value, i) => {
-      if (numbers[i]) numbers[i].value = +value.toFixed(6);
-      if (ranges[i]) ranges[i].value = value;
+      if (bCells[i]) syncBCell(bCells[i], value);
     });
   }
   function setSpeed(speedX, speedY) {
