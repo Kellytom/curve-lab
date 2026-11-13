@@ -4,6 +4,22 @@ Instructions accumulate. The operator's latest message is authoritative, and a
 new emphasis adds to the work rather than replacing what came before. Read what
 the work needs, not only what the handoff names.
 
+## Plain English, always
+
+Write in plain English: short sentences, everyday words, one idea per sentence.
+Jargon is allowed only when it is the name of something real in the project
+(`pitch`, `Pythagorean`, `PH`) and then it is defined in the same breath.
+
+- Say what a number measures and in what unit: "grid 1/27720", "bend 2.259
+  (arc over chord)", not "pitch 27720".
+- No filler verbs: use "use", "show", "make", "fix" instead of "utilise",
+  "leverage", "facilitate".
+- No sales words: "robust", "seamless", "powerful", "nice" — say what it does.
+- If a sentence needs a diagram to parse, rewrite it. If a term has two
+  meanings in the project, name both.
+- The operator may not be a mathematician: explain the result in words first,
+  the formula second.
+
 ## Start cheap
 
 0. **`state/READING-int.md`** — the authoritative reading list: what to load, in
