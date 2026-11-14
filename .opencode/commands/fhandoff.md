@@ -26,6 +26,11 @@ the date it was last checked.
    - **Tests:** run `.venv/bin/python -m unittest discover tests` only if
      something under `web/`, `curve_lab/`, `csrc/`, or `tests/` differs from
      HEAD. Otherwise carry the recorded count and label it carried.
+   - **Register:** run `.venv/bin/python -m unittest tests.test_regressions`. If
+     this session fixed a fault, the row and its test are already in the commit;
+     if it deliberately changed a listed behaviour, the row is amended in the
+     same commit with the reason. A red register is a defect to fix before the
+     block is written, not a note to carry.
    - **Claims:** if this session proved something that was not proved before,
      run `.venv/bin/python scripts/recheck.py` and commit the regenerated
      `state/ACHIEVEMENTS-int.md`. A claim in `HANDOFF-int.md` that recheck cannot
@@ -83,7 +88,8 @@ the date it was last checked.
    Allowed paths — the handoff files **and** the files this process runs on:
 
    - `state/HANDOFF-int.md`, `next-fhandoff-int.md`, `goals.md`, `TODO.md`,
-     `state/ACHIEVEMENTS-int.md`, `state/READING-int.md`
+     `state/ACHIEVEMENTS-int.md`, `state/READING-int.md`,
+     `state/REGRESSIONS-int.md`, `state/DESIGN-int.md`
    - `docs/HANDOVER.md`, `docs/HANDOVER.html`
    - `workbench/todo.html` if `scripts/todo.py` rewrote it
    - `AGENTS.md`, `.opencode/commands/*.md`, `.gitignore` if they changed

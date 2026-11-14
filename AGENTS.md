@@ -20,6 +20,26 @@ Jargon is allowed only when it is the name of something real in the project
 - The operator may not be a mathematician: explain the result in words first,
   the formula second.
 
+## Achievements are logged, not remembered
+
+Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
+
+- **`state/REGRESSIONS-int.md` is the register** of every fault that cost real
+  work, with the test that guards it. It is Tier 0: read it before changing a
+  control, not after breaking one.
+- **A fix and its register row land in the same commit.** A fix without a test is
+  not finished. The test goes in `tests/test_regressions.py`, named after the
+  fault, with the operator's own words in the docstring.
+- **Nothing is deleted from the register** because a change made it awkward. If a
+  test fails and the new behaviour is right, amend the row in that same commit
+  and write why.
+- **Run it at every boundary:** `.venv/bin/python -m unittest tests.test_regressions`
+  (a tenth of a second). `/fhandon` runs it before the action, `/fhandoff`
+  before writing the block.
+- **Settled decisions go in `state/DESIGN-int.md`**, with the reason, so the same
+  argument is not had twice. Published numbers go in `state/ACHIEVEMENTS-int.md`
+  via `scripts/recheck.py`.
+
 ## Start cheap
 
 0. **`state/READING-int.md`** — the authoritative reading list: what to load, in
