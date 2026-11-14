@@ -1207,7 +1207,9 @@ window.curveSaver = (function () {
   function curveOf(speed = state) {
     const xx = multiply(speed.x, speed.x), yy = multiply(speed.y, speed.y), xy = multiply(speed.x, speed.y);
     const x = [0], y = [0];
-    for (let j = 0; j < xx.length; j++) {
+    // as far as the longer square: the y terms past the x row's length still
+    // belong to the position
+    for (let j = 0; j < Math.max(xx.length, yy.length); j++) {
       x.push((xx[j] - (yy[j] || 0)) / (j + 1));
       y.push(2 * xy[j] / (j + 1));
     }

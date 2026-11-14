@@ -121,8 +121,13 @@ def pitch(speed_x, speed_y) -> int:
     u_squared = _multiply(u, u)
     v_squared = _multiply(v, v)
     u_times_v = _multiply(u, v)
-    x_prime = [u_squared[i] - (v_squared[i] if i < len(v_squared) else 0)
-               for i in range(len(u_squared))]
+    # reach as far as the longer square: building this over the x row alone
+    # drops the y terms past its length, which shortens the position and
+    # under-reports the grid
+    length = max(len(u_squared), len(v_squared))
+    x_prime = [(u_squared[i] if i < len(u_squared) else Fraction(0))
+               - (v_squared[i] if i < len(v_squared) else Fraction(0))
+               for i in range(length)]
     y_prime = [2 * coefficient for coefficient in u_times_v]
     result = 1
     for polynomial in (x_prime, y_prime):
@@ -223,8 +228,13 @@ def curve_polynomials(speed_x, speed_y):
     u_squared = _multiply(u, u)
     v_squared = _multiply(v, v)
     u_times_v = _multiply(u, v)
-    x_prime = [u_squared[i] - (v_squared[i] if i < len(v_squared) else 0)
-               for i in range(len(u_squared))]
+    # reach as far as the longer square: building this over the x row alone
+    # drops the y terms past its length, which shortens the position and
+    # under-reports the grid
+    length = max(len(u_squared), len(v_squared))
+    x_prime = [(u_squared[i] if i < len(u_squared) else Fraction(0))
+               - (v_squared[i] if i < len(v_squared) else Fraction(0))
+               for i in range(length)]
     y_prime = [2 * coefficient for coefficient in u_times_v]
     x = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(x_prime)]
     y = [Fraction(0)] + [coefficient / (j + 1) for j, coefficient in enumerate(y_prime)]
