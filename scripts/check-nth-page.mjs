@@ -253,6 +253,40 @@ notesPaths.forEach((path, i) => {
   if (/NaN|undefined/.test(path.d) || path.length < 2) failures.push(`notes path ${i} is not drawn`);
 });
 
+// the flat-spot panel: five spots must fill the twelve boxes with the known row
+await page.goto(`${url}?v=${Date.now()}`, { waitUntil: "load" });
+await page.waitForTimeout(300);
+await page.fill("#n-roots", "1/9, 1/2, 1/2, 1/2, 8/9");
+await page.fill("#n-bow", "0");
+await page.click("#n-roots-fill");
+await page.waitForTimeout(200);
+const filled = await page.$$eval("#n-controls input[type=number]", els => els.map(box => Number(box.value)));
+const wantX = [1, 0, 0, 0, 0, 0];
+const wantY = [-8, 129, -663, 1522, -1620, 648];
+if (JSON.stringify(filled.filter((_, i) => i % 2 === 0)) !== JSON.stringify(wantX)) {
+  failures.push("flat spots: x row " + filled.filter((_, i) => i % 2 === 0).join(","));
+}
+if (JSON.stringify(filled.filter((_, i) => i % 2 === 1)) !== JSON.stringify(wantY)) {
+  failures.push("flat spots: y row " + filled.filter((_, i) => i % 2 === 1).join(","));
+}
+const spotStatus = await page.textContent("#n-roots-status");
+if (!/grid 1\/22/.test(spotStatus)) failures.push("flat spots status: " + spotStatus);
+
+// the ruler: three clicks at 1/2 must stack three copies and build the cube
+await page.click("#n-roots-clear");
+const rulerBox = await page.locator("#n-roots-ruler").boundingBox();
+await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.height - 8);
+await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.height - 8);
+await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.height - 8);
+await page.waitForTimeout(200);
+const cubeY = (await page.$$eval("#n-controls input[type=number]", els => els.map(box => Number(box.value))))
+  .filter((_, i) => i % 2 === 1);
+if (JSON.stringify(cubeY) !== JSON.stringify([-1, 6, -12, 8, 0, 0])) {
+  failures.push("ruler three at 1/2: y " + cubeY.join(","));
+}
+const rulerCount = (await page.textContent("#n-roots-count") || "").trim();
+if (!/1\/2 x3/.test(rulerCount)) failures.push("ruler count: " + rulerCount);
+
 // part 2: the same sandbox over fitted curves
 await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-2.html?v=" + Date.now(), { waitUntil: "load" });
 await page.waitForTimeout(300);
