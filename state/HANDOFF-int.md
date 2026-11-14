@@ -1801,3 +1801,67 @@ refitting at degree 3 as a "rough grade" — collapsed or diverged on the LAC cu
 
 **Context:** 72.9% of 1M, 331 active min, 557 turns, WARN — the session stopped
 adding work at the warning, not at the cap.
+
+## 2026-11-13 (night) — the ladder, the pair, and what the formula can carry
+
+The sandbox grew from one rung to five, gained a second curve, and the curve
+family was measured against the log-aesthetic law. Everything below is checked
+by a script in the repo, not remembered.
+
+**Built.** The degree ladder (`11, 13, 15, 17, 19` — 12 to 20 speed numbers) with
+a slider and a sign flip on every number; the complementary curve in 40% grey
+with its own sliders, a crossing count and marked meetings; placement as a 3x3
+affine matrix per curve in the saved record (`curve-lab.double-knot/1`), plus a
+`turn` rule about the spine's centre because a centroid-rotation matrix would be
+wrong the moment the numbers change; a `t from` / `t to` window with no clamp; a
+`place the end` Newton solve on the top pair; an inflection count against the
+ceiling `2k - 1`; and the explanation panel (arithmetic ladder, product grid,
+length triangles, which-box-does-what, start-heading compass, Fig. E1-E4).
+
+**Tools.** `ph_crossings.py` (self and pair crossings), `ph_find.py` (random
+search on the two counts, `--write` to `workbench/found-curves.json`, which the
+gallery fetches), `ph_root_family.py` (letter strokes by root position),
+`lac_generate.py` (exact LAC spines from `(p, turn)`), `lac_fit.py` (is this an
+LAC?), `ph_carry.py` (can the PH formula carry a target curve?), `lac_rosettes.py`
+and `node_curves.py`.
+
+**Findings worth not losing.**
+- Position degree is always odd (`2k + 1`), so **12, 14 and 16 cannot occur**.
+- The grid ceiling is `lcm(1..d)`: 11 -> 27,720; **13 and 15 both 360,360**;
+  17 -> 12,252,240; 19 -> 232,792,560. Degree 15 is the cheap rung above 11.
+- **Symmetry comes from roots placed symmetrically about `t = 1/2`.** `wave3` is
+  roots `1/6, 1/2, 5/6`; `wave5` adds `1/3, 2/3`. A random search never finds
+  these; the root walk does, and it found 183 symmetric curves in one pass.
+- **The involute is an LAC at `p = 2`, exactly**: `rho = t`, `s = t^2/2`, so
+  `rho^2 = 2s`. The circle is `p = 0`, the Euler `p = -1`, the log spiral
+  `p = 1` (self-similar: scale 2 came back as 2.0002 and a turn of 39.63 deg
+  against the predicted `ln 2 = 39.72`).
+- **The PH formula carries any smooth target; the degree is the accuracy dial.**
+  At `k = 9`: involute 3e-5, catenary 0, Euler 0, log spiral 0 of the size.
+  The LAC law is the specification, the PH formula the representation.
+- **Node curves are not LACs** (residuals 0.06 to 0.78): rolling circles,
+  lemniscates, piriform, roses, strophoid, trisectrix, the sandbox cusps. They are
+  joins. Even the recovered involute plate (Stage II Fig. 14 spine 4) is drawn 3%
+  off the ideal.
+- **Crossings with the horizontal flip are 0 for symmetric curves.** The lace
+  comes from rotated copies about the centroid: `wave3` crosses 20 times at 180
+  deg, 19 at 90.
+- Fitted transcendental curves have no grid: `1/18,018,000,000,000`. Shapes only.
+
+**Bugs fixed, all found by cross-checking two implementations.** The pitch and
+`curve_polynomials` dropped the y terms when the x row was shorter (pitch read 1
+instead of 14); the vectorised crossing count paired segment *i* with *i* (8
+where the drawing crosses 3); numpy was an undeclared dependency, now pinned in
+`requirements.txt` and installed by CI; a `t from` of 0 piled 350 duplicate points
+on the origin; a duplicated control block left two of every id.
+
+**Risks.** Fitted curves are shapes, not exact PH curves, and their grids are
+useless. The gallery thumbnail is 200x150, so a spiral reads as a thick line
+there; judge on the main plot. Saved curves live in `localStorage`.
+
+**Next move.** Write the notes-page section (specification vs representation, with
+both tables), then decide whether the 183 symmetric-root curves beyond `wave3`
+are worth a page: the best so far is `x [1,0,0,0] y [-4,33,-75,50]` at 12
+meetings with its 180-degree copy.
+
+**Context:** 62.5% of 1M, 359 active min, 528 turns, verdict ok. **Git:** `b0bb749`.
