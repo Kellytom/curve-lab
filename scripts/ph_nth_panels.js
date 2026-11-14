@@ -35,6 +35,10 @@
   // starts as the spine flipped across the origin, which is the pair that
   // interleaves; its numbers are its own from then on.
   const complement = { x: defaults.x.slice(), y: defaults.y.slice() };
+  // The turn is a rule, not a matrix: it is applied about the spine's own
+  // centre, which moves whenever the numbers change, so a stored matrix would
+  // turn about the wrong point.
+  complement.turn = 0;
 
   // Placement is a 3x3 affine matrix, row major, applied to the drawn points:
   // [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f).
@@ -560,7 +564,21 @@
     const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
     const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
     const spinePoints = placed(state.transform, spine.map(s => [s.x, s.y]));
-    const complementShown = placed(complement.transform, complementSpine);
+    const centreOfSpine = spinePoints.length
+      ? [spinePoints.reduce((sum, p) => sum + p[0], 0) / spinePoints.length,
+         spinePoints.reduce((sum, p) => sum + p[1], 0) / spinePoints.length]
+      : [0, 0];
+    const turnedAbout = (points, degrees, about) => {
+      if (!degrees) return points;
+      const angle = degrees * Math.PI / 180;
+      const cos = Math.cos(angle), sin = Math.sin(angle);
+      return points.map(([x, y]) => {
+        const dx = x - about[0], dy = y - about[1];
+        return [about[0] + dx * cos - dy * sin, about[1] + dx * sin + dy * cos];
+      });
+    };
+    const complementShown = turnedAbout(
+      placed(complement.transform, complementSpine), complement.turn, centreOfSpine);
     const all = spinePoints.slice();
     all.push(...complementShown);
     if (view.rails) all.push(...leftRail, ...rightRail);
@@ -1054,6 +1072,14 @@
     draw();
   });
 
+  const turnField = document.getElementById("n-comp-turn");
+  if (turnField) turnField.addEventListener("input", () => {
+    const v = Number(turnField.value);
+    if (!Number.isFinite(v)) return;
+    complement.turn = v;
+    draw();
+  });
+
   // the window boxes: no clamp, so a tail can run as far as you like
   [["n-t-from", "from"], ["n-t-to", "to"]].forEach(([id, side]) => {
     const field = document.getElementById(id);
@@ -1202,6 +1228,30 @@
     // Found by scripts/ph_find.py, not drawn by hand: the first crosses its own
     // flip six times from four numbers a side, the second is the tightest curve
     // the search found with more than one inflection.
+    // From scripts/ph_root_family.py, which walks root positions instead of
+    // random coefficients. Same shapes as m-arch and wave3 at a fraction of the
+    // grid: pitch 1, 3 and 14 against 15 and 105.
+    { name: "m-coarse",
+      speedX: [1, 1],
+      speedY: [-6, 23, -20],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "bowl-coarse",
+      speedX: [1, 1],
+      speedY: [-3, 5],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "wave-coarse",
+      speedX: [1, 0],
+      speedY: [-4, 33, -75, 50],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
     { name: "knot-6",
       speedX: [-2, -2, 3, 4],
       speedY: [3, -6, -4, 2],
@@ -1289,6 +1339,7 @@
         speedX: complement.x.map(v => +v),
         speedY: complement.y.map(v => +v),
         transform: complement.transform.map(v => +v),
+        turn: +complement.turn,
       },
       bend: +m.bend.toFixed(3),
       pitch: m.pitch,
@@ -1346,6 +1397,9 @@
       complement.x = fit(pair.complementary.speedX);
       complement.y = fit(pair.complementary.speedY);
       complement.transform = (pair.complementary.transform || identity()).slice();
+      complement.turn = Number(pair.complementary.turn) || 0;
+      const turnBox = document.getElementById("n-comp-turn");
+      if (turnBox) turnBox.value = String(complement.turn);
     } else {
       flipComplement();
     }
@@ -1573,6 +1627,9 @@
                  pitch: measured ? measured.pitch : "-", from: "seed" };
       });
     out.unshift(...seeds);
+    found.forEach(entry => {
+      if (!out.some(other => other.name === entry.name)) out.push(entry);
+    });
     const known = new Set(out.map(entry => entry.name));
     Object.values(locals).forEach(item => {
       if (known.has(item.name)) return;
@@ -1585,6 +1642,20 @@
     });
     return out;
   }
+  // The finder's own file, read at load: every search that ran with --write
+  // shows up here without a rebuild, so nothing depends on someone remembering
+  // to add it to the seeds.
+  let found = [];
+  fetch("found-curves.json", { cache: "no-store" })
+    .then(response => (response.ok ? response.json() : null))
+    .then(document => {
+      if (document && Array.isArray(document.curves)) {
+        found = document.curves;
+        render();
+      }
+    })
+    .catch(() => { /* no file yet, or opened from disk: the seeds still draw */ });
+
   let list = currentList();
   const value = window.polynomialValue;
 
@@ -1701,7 +1772,8 @@
       <button type="button" class="gallery-open" aria-expanded="false">
         <span class="gallery-number">Fig. ${index}</span>
         <span class="gallery-name">${entry.name}</span>
-        <span class="gallery-tags"><span class="tag">${String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
+        <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
+          : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
         <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
       </button>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">

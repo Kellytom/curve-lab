@@ -1,0 +1,5 @@
+{
+ "name": "found-curves",
+ "note": "written by scripts/ph_find.py --write; the gallery reads this file as a second seed source",
+ "curves": []
+}
