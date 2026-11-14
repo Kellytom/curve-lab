@@ -1207,7 +1207,7 @@
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
-    { name: "inflect-3",
+    { name: "inflect-2",
       speedX: [3, -6, -1, 6],
       speedY: [-3, 6, -2, 0],
       width: { percent: 1.5 },
