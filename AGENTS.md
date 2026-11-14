@@ -116,6 +116,7 @@ and documentation alike.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
+| `state/REGRESSIONS-int.md` | fixed faults, each with the test that keeps it fixed |
 | `state/HANDOFF-int.md` | current truth |
 | `state/DOT-SOLVER-int.md` | the dot-solver sub-focus and its image exception |
 | `next-fhandoff-int.md` | one action |
@@ -131,6 +132,7 @@ Start the one server if it is not already up (this is idempotent — it says
 
 ```sh
 .venv/bin/python -m unittest discover tests
+.venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
 .venv/bin/python scripts/test.py --slim          # tight loop: engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
 .venv/bin/python scripts/test.py --full          # before a push

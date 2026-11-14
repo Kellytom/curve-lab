@@ -22,3 +22,9 @@
 {"session": "ses_e3ee1e9b9ffeXG86r3aewCl5LP", "used": 150756, "window": 1000000, "percent": 15.08, "active_min": 432.3, "turns": 690, "verdict": "ok", "at": "2026-11-11T02:01:46"}
 {"session": "ses_e36b54fb2ffehPCOmmrJKsZIvK", "used": 540315, "window": 1000000, "percent": 54.03, "active_min": 235.7, "turns": 360, "verdict": "ok", "at": "2026-11-11T17:27:42"}
 {"session": "ses_e33453c18ffeHvgRjSSXI19u1r", "used": 350214, "window": 1000000, "percent": 35.02, "active_min": 155.1, "turns": 202, "verdict": "ok", "at": "2026-11-11T21:19:43"}
+{"session": "ses_e326d3527ffe7YvFFqB311ztXa", "used": 691328, "window": 1000000, "percent": 69.13, "active_min": 598.2, "turns": 1007, "verdict": "ok", "at": "2026-11-12T20:58:54"}
+{"session": "ses_e2d5beb0fffeluIE7gHVTTV9uV", "used": 103878, "window": 1000000, "percent": 10.39, "active_min": 8.1, "turns": 52, "verdict": "ok", "at": "2026-11-12T21:10:19"}
+{"session": "ses_e2d5beb0fffeluIE7gHVTTV9uV", "used": 619020, "window": 1000000, "percent": 61.9, "active_min": 228.2, "turns": 458, "verdict": "ok", "at": "2026-11-13T09:55:54"}
+{"session": "ses_e2d5beb0fffeluIE7gHVTTV9uV", "used": 726976, "window": 1000000, "percent": 72.7, "active_min": 331.0, "turns": 557, "verdict": "warn", "at": "2026-11-13T12:13:01"}
+{"session": "ses_e2a16b62affe1XP9xvuMU1uw9v", "used": 632159, "window": 1000000, "percent": 63.22, "active_min": 361.2, "turns": 534, "verdict": "ok", "at": "2026-11-13T23:14:38"}
+{"session": "ses_e2a16b62affe1XP9xvuMU1uw9v", "used": 632644, "window": 1000000, "percent": 63.26, "active_min": 361.8, "turns": 535, "verdict": "ok", "at": "2026-11-13T23:14:45"}

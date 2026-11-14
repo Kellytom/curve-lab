@@ -62,9 +62,20 @@ table.figures th,table.figures td{border:1px solid var(--rule);padding:2px 10px;
 table.figures th{color:var(--muted);font-weight:400;text-align:left}
 
 .pair-boxes{display:block}
-.roots-ruler{position:relative;height:104px;margin:10px 0 34px;border-bottom:2px solid var(--ink);cursor:crosshair}
+.box-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.box-head h3{margin:0}
+.solver-row.tight{margin:0;gap:10px}
+#n-roots-box h3{margin:0 0 2px}
+.group-rule{border:0;border-top:1px solid var(--rule);margin:18px 0 10px}
+.group-head{margin:0 0 8px;font-size:16px;letter-spacing:.01em}
+.roots-ruler{position:relative;height:58px;margin:0 0 22px;border-bottom:2px solid var(--ink);cursor:crosshair}
 .roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
 .roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
+.roots-ruler .spot-count{position:absolute;bottom:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
+.roots-ruler .spot-value{font:700 12px ui-monospace,Menlo,monospace;color:#8a1f1f;cursor:pointer;padding:0 3px}
+.roots-ruler .spot-step{font:8px/1 ui-monospace,Menlo,monospace;color:#8a1f1f;background:none;border:0;padding:1px 3px;cursor:pointer}
+.roots-ruler .spot-step:hover{color:#1f4f8a}
+.roots-ruler .spot-count:hover{color:#1f4f8a}
 .roots-ruler .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
 .roots-ruler .spot:hover{background:#8a1f1f}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
@@ -95,13 +106,21 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
-#n-plot{max-height:60vh}
+#n-plot{width:100%;height:auto;display:block}
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
 @media(max-width:700px){.gallery{grid-template-columns:1fr}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
 .gallery figure.open{grid-column:1 / -1}
+.more-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
+.more-figure{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.more-figure svg{width:min(100%,340px);height:auto;max-height:260px}
+.gallery figure.open>svg{display:none}
+.gallery figure>svg{width:100%;max-width:300px;height:auto;max-height:220px;display:block;margin:0 auto}
+.more-actions{min-width:0;display:flex;flex-direction:column;gap:6px}
+.more-actions textarea{width:100%;font:11px ui-monospace,Menlo,monospace}
+@media(max-width:820px){.more-grid{grid-template-columns:1fr}}
 .gallery .gallery-open{display:flex;align-items:baseline;gap:8px;width:100%;
   background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
 .gallery .gallery-number{font:10px/1.4 ui-monospace,Menlo,monospace;color:#8a3b2a;min-width:46px}
@@ -163,31 +182,18 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" class="rung" data-speed-degree="14">degree 29 &middot; 30 numbers</button>
 </div>
 <div class="curve-box" id="n-primary-box">
-  <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
-  <div class="spine-grid" id="n-controls"></div>
-  <div class="solver-row">
-    <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
-    <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
+  <div class="box-head">
+    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
+    <div class="solver-row tight">
+      <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
+      <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
+    </div>
   </div>
+  <div class="spine-grid" id="n-controls"></div>
 </div>
 <div class="curve-box" id="n-roots-box">
-  <h3>Build from flat spots</h3>
-  <p class="small">A <strong>flat spot</strong> is a <code>t</code> where the stroke runs dead horizontal.
-  List the ones you want, press the button, and the boxes below fill themselves: the row is the
-  polynomial those spots multiply out to. Mirror every spot about <code>1/2</code> &mdash; <code>1/9</code>
-  with <code>8/9</code>, <code>1/8</code> with <code>7/8</code> &mdash; and keep <code>1/2</code> for
-  itself, and the curve comes out exactly symmetric. That is the only way to get symmetry on purpose;
-  a random row almost never has it.</p>
-  <p class="small">What to choose: the <strong>outer pair makes the knot</strong> (two swings out and back).
-  <strong>Three copies of <code>1/2</code></strong> make the long flat middle that lets the stroke cross
-  itself; one copy is a gentle S, five copies is nearly a straight line and crosses nothing.
-  Five spots is the cheap degree-11 rung; six or more moves you up a rung, which the page does for you.
-  <strong>Bow</strong> leans the stroke sideways: 0 is straight, &plusmn;1 to 2 opens the loop,
-  &plusmn;4 folds it hard.</p>
-  <p class="small" style="margin:0 0 2px">Click <strong>low on the strip, beside the rule</strong>, to place a flat
-  spot; click the same place again for another copy (the dots stack at the top of the strip), and
-  click a <strong>dot</strong> to take that copy away.</p>
-  <div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t, click the line to place one"></div>
+  <h3>Build from flat spots: see note below</h3>
+<div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t, click the line to place one"></div>
   <div class="solver-row">
     <label class="small"><input type="checkbox" id="n-roots-mirror" checked> mirror about 1/2</label>
     <button type="button" id="n-roots-dots-fill" title="write the rows from the dots on the strip">fill from the dots</button>
@@ -221,7 +227,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   </div>
   <p class="small mono" id="n-roots-status"></p>
 </div>
-<svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve"></svg>
+<svg id="n-plot" viewBox="0 0 900 380" role="img" aria-label="the PH curve"></svg>
 <div class="curve-box complement" id="n-complement-box">
   <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
   <div class="spine-grid" id="n-complement-controls"></div>
@@ -241,7 +247,8 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
-<p class="small mono" id="n-build">build 2026-11-14 13:57</p>
+<hr class="group-rule">
+<h3 class="group-head">Offset curves</h3>
 <div class="solver-row">
   <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
   <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
@@ -259,13 +266,32 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
   <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
+</div>
+<hr class="group-rule">
+<h3 class="group-head">Knot experiments</h3>
+<div class="solver-row" id="n-arc-row">
+  <label class="dial" for="n-arc-percent">keep the middle
+    <input id="n-arc-percent" type="number" min="10" max="99" step="1" value="70"> % of the ink</label>
+  <button type="button" id="n-arc-rebuild" title="cut in arc length, then rebuild the kept arc as exact rows">cut and rebuild</button>
+  <span class="small">arc length belongs to the shape, not to <code>t</code></span>
+</div>
+<div class="solver-row" id="n-knot-experiments">
+  <button type="button" id="n-cut-knot" title="restrict the drawing to the knot; the curve itself is unchanged">show only the knot</button>
+  <button type="button" id="n-rebuild-span" title="rebuild the knot's span as a new curve: exact whole numbers, no legs left in the rows">rebuild without the legs</button>
+  <button type="button" id="n-focus-knot" aria-pressed="false" title="frame the knot, not the whole stroke">focus the knot</button>
+  <label class="dial" for="n-zoom">zoom
+    <input id="n-zoom" type="range" min="1" max="12" step="0.5" value="1">
+    <input id="n-zoom-number" type="number" min="1" step="0.5" value="1" style="width:5.5em"></label>
+</div>
+<hr class="group-rule">
+<div class="solver-row" id="n-view-row">
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
   <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0">
-    <input id="n-t-from-slider" type="range" min="-2" max="2" step="0.05" value="0" title="drag the start of the window; the box takes any value"></label>
+    <input id="n-t-from-slider" type="range" min="-10" max="10" step="0.05" value="0" title="drag the start of the window; the box takes any value"></label>
   <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1">
-    <input id="n-t-to-slider" type="range" min="-2" max="2" step="0.05" value="1" title="drag the end of the window; the box takes any value"></label>
+    <input id="n-t-to-slider" type="range" min="-10" max="10" step="0.05" value="1" title="drag the end of the window; the box takes any value"></label>
   <label class="dial" for="n-end-x">end x <input id="n-end-x" type="number" step="0.05" value="0"></label>
   <label class="dial" for="n-end-y">end y <input id="n-end-y" type="number" step="0.05" value="0"></label>
   <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
@@ -306,6 +332,7 @@ without leaving the PH family. The flare law and the serif foot are parked in
   <input id="n-name" type="text" placeholder="name this curve">
   <button type="button" id="n-save" title="save both curves as one DK record">save the pair</button>
   <button type="button" id="n-save-primary" title="save only the dark curve, in the flat shape the other pages read">save primary only</button>
+  <button type="button" id="n-download" title="write this curve to a file in your Downloads folder">download this curve</button>
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>
@@ -322,6 +349,23 @@ without leaving the PH family. The flare law and the serif foot are parked in
 
 <hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
 <section class="panel">
+<h2>Note: how the flat spots build a curve</h2>
+<p class="small">A <strong>flat spot</strong> is a <code>t</code> where the stroke runs dead horizontal.
+List the ones you want, press the button, and the boxes below fill themselves: the row is the
+polynomial those spots multiply out to. Mirror every spot about <code>1/2</code> &mdash; <code>1/9</code>
+with <code>8/9</code>, <code>1/8</code> with <code>7/8</code> &mdash; and keep <code>1/2</code> for
+itself, and the curve comes out exactly symmetric. That is the only way to get symmetry on purpose;
+a random row almost never has it.</p>
+<p class="small">What to choose: the <strong>outer pair makes the knot</strong> (two swings out and
+back). <strong>Three copies of <code>1/2</code></strong> make the long flat middle that lets the stroke
+cross itself; one copy is a gentle S, five copies is nearly a straight line and crosses nothing.
+Five spots is the cheap degree-11 rung; six or more moves you up a rung, which the page does for you.
+<strong>Bow</strong> leans the stroke sideways: 0 is straight, &plusmn;1 to 2 opens the loop,
+&plusmn;4 folds it hard.</p>
+<p class="small">Click <strong>low on the strip, beside the rule</strong>, to place a flat spot; click
+the same place again for another copy (the dots stack at the top of the strip), and click a
+<strong>dot</strong> to take that copy away.</p>
+
 <h2>Gallery: the spines so far</h2>
 <p class="small">Spine only, one cell per curve, two columns. Started with the first two curves made
 here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
@@ -443,6 +487,7 @@ __MATH__
 <script>
 __PANELS__
 </script>
+<p class="small mono" id="n-build">build __BUILD__</p>
 </body></html>
 """
 
@@ -482,9 +527,15 @@ def gallery():
     return entries
 
 
+def stamped(page):
+    """Put the build time in the footer, so a stale copy is visible at a glance."""
+    import datetime
+    return page.replace("__BUILD__", datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+
+
 def build():
     page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":"))).replace("__MATH__", MATH.read_text()).replace("__PANELS__", PANELS.read_text())
-    OUT.write_text(page)
+    OUT.write_text(stamped(page))
     print(OUT.relative_to(ROOT))
 
 

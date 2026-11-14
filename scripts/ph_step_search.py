@@ -20,7 +20,6 @@ import argparse
 import json
 import sys
 from fractions import Fraction
-from math import gcd
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]

@@ -104,6 +104,30 @@ entry says so.
   stays symmetric. It produced knots with 20 meetings where the best earlier
   family reached 16, so it is the preferred way to widen the search.
 
+## Optical versus real (matters for the Bezier conversion)
+
+Some controls move the camera and leave the numbers alone. Others change the
+numbers. Only the second kind may be exported.
+
+**Optical — the rows are untouched, so these must never reach an export:**
+`zoom`, `focus the knot`, `show only the knot` (the `t from` / `t to` window),
+`rotate -45`, `hide the grey curve`, `rails`, `character offsets`, the terminals.
+
+**Real — these rewrite the rows:**
+the flat spots and the fill buttons, `copies at 1/2`, `bow`, the exponent step,
+typing in any box, and `rebuild without the legs`.
+
+Rule for the Bezier step: read `terms` from the record and convert those. Never
+convert what the plot shows, because the window can crop the stroke and the
+zoom changes nothing at all. If a curve with no legs is wanted, it must come from
+`rebuild without the legs` (exact, checked against a Python reference to the
+integer) or from different flat spots — not from the window.
+
+Measured note: on the curves tried, the self-crossings run across nearly the
+whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
+them and the rebuild honestly reports the whole curve. Legs are shortened by
+moving the flat spots, not by cutting `t`.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from

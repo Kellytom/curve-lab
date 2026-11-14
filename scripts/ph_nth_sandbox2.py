@@ -95,26 +95,31 @@ def found_gallery():
     """
     if not FOUND.exists():
         return []
-    document = json.loads(FOUND.read_text())
+    import curve_records
+    document = curve_records.read(FOUND)
     # part 2 keeps the earlier family; the newer finds live on the experimental page
-    curves = sorted([curve for curve in document.get("curves", [])
-                     if curve.get("batch", "first") == "first"],
-                    key=lambda curve: (-curve.get("meetings180", 0), curve.get("pitch", 0),
-                                       curve.get("bend", 0)))
+    curves = sorted([curve for curve in document["curves"]
+                     if curve.get("provenance", {}).get("batch", "first") == "first"],
+                    key=lambda curve: (-curve.get("measured", {}).get("meetings", 0),
+                                       curve.get("measured", {}).get("grid", 0),
+                                       curve.get("measured", {}).get("bend", 0)))
     entries = []
     for curve in curves:
-        measured = metrics.metrics(curve["speedX"], curve["speedY"])
+        # the page wants flat rows and a number to print; the file keeps terms and
+        # the measurements the search made, so both are derived here, once
+        x, y = curve_records.rows_from_terms(curve["terms"])
+        recorded = curve.get("measured", {})
         entries.append({
             "name": curve["name"],
-            "speedX": curve["speedX"],
-            "speedY": curve["speedY"],
-            "bend": round(measured["bend"], 3),
-            "pitch": measured["pitch"],
+            "terms": curve["terms"],
+            "speedX": x,
+            "speedY": y,
+            "bend": recorded.get("bend"),
+            "pitch": recorded.get("grid"),
             "original": [],
             "from": "found",
-            "source": f"root walk: roots {curve.get('roots', '')}, {curve.get('meetings180', '')} "
-                      f"meetings with its {curve.get('partner', 'half-turn copy')}, "
-                      f"{curve.get('self', '')} self-crossings",
+            "source": (f"roots {curve.get('provenance', {}).get('roots', '')}; "
+                       f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
         })
     return entries
 
@@ -242,7 +247,7 @@ def build():
         "<strong>fitted</strong>, not exact: the tag says so and the expanded panel gives the rms as a\n"
         "fraction of the curve's size. The showcase has no speed polynomials, so this is the only honest\n"
         "way to bring its shapes here.</p>")
-    OUT.write_text(page)
+    OUT.write_text(base.stamped(page))
     print(OUT.relative_to(ROOT), len(gallery()), "fitted curves")
 
 

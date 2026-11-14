@@ -32,7 +32,7 @@ import argparse
 import json
 import sys
 from fractions import Fraction
-from math import gcd, lcm
+from math import gcd
 from itertools import combinations_with_replacement
 from pathlib import Path
 
@@ -40,6 +40,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import ph_quintic_metrics as metrics  # noqa: E402
+import curve_records  # noqa: E402
 import ph_root_family  # noqa: E402
 from ph_crossings import pair_crossings, spine  # noqa: E402
 
@@ -288,23 +289,28 @@ def proportional(first, second) -> bool:
     return ratio is not None and ratio > 0
 
 
-def write_found(entries):
-    """Append the best rows to workbench/found-curves.json, the gallery's own file."""
+def write_found(entries, batch="new", walk=None):
+    """Append the finds to workbench/found-curves.json, in the one canonical format.
+
+    Duplicates are recognised by their terms, not by a flat row, and the file is
+    validated before it is written: a bad record never reaches disk.
+    """
     path = ROOT / "workbench" / "found-curves.json"
-    if path.exists():
-        try:
-            document = json.loads(path.read_text())
-        except json.JSONDecodeError:
-            document = {"name": "found-curves", "curves": []}
-    else:
-        document = {"name": "found-curves", "curves": []}
-    known = {(tuple(c["speedX"]), tuple(c["speedY"])) for c in document["curves"]}
-    names = {c["name"] for c in document["curves"]}
+    document = curve_records.read(path) if path.exists() else {"format": curve_records.FORMAT,
+                                                              "note": "", "curves": []}
+    def signature(terms):
+        return tuple((round(float(t["power"]), 6), round(float(t["x"]), 6), round(float(t["y"]), 6))
+                     for t in terms)
+    known = {signature(curve["terms"]) for curve in document["curves"]}
+    names = {curve["name"] for curve in document["curves"]}
     seeds = ph_root_family.seeds()
     added = 0
     skipped = []
     for curve in entries:
-        key = (tuple(curve["speedX"]), tuple(curve["speedY"]))
+        terms = [curve_records.term(k, value, curve["speedY"][k])
+                 for k, value in enumerate(curve["speedX"])
+                 if value or (k < len(curve["speedY"]) and curve["speedY"][k])]
+        key = signature(terms)
         if key in known:
             continue
         same = [name for name, seed_x, seed_y in seeds
@@ -320,75 +326,21 @@ def write_found(entries):
             name = f"{name}-{suffix}"
         names.add(name)
         known.add(key)
-        document["curves"].append({
-            "name": name,
-            "speedX": curve["speedX"],
-            "speedY": curve["speedY"],
-            "bend": curve["bend"],
-            "pitch": curve["pitch"],
-            "inflections": curve["inflections"],
-            "meetings180": curve["crossings180"],
-            "partner": curve["partner"],
-            "symmetryKind": curve["symmetryKind"],
-            "self": curve["self"],
-            "roots": curve["roots"],
-            "rootsExact": [str(value) for value in curve["rootList"]],
-            "from": "found",
-        })
+        document["curves"].append(curve_records.record(
+            name, terms,
+            bend=curve["bend"], grid=curve["pitch"],
+            meetings=curve["crossings180"], self_crossings=curve["self"],
+            roots=curve["roots"], walk=walk or f"speed degree {len(curve['speedY']) - 1}",
+            batch=batch))
         added += 1
-    document["note"] = ("written by scripts/ph_root_search.py (and ph_find.py); the gallery "
-                        "reads this file at load, so no rebuild is needed")
-    path.write_text(json.dumps(document, indent=1) + "\n")
+    document["note"] = ("the search's finds, one record each: `terms` puts every value beside its "
+                        "power, `measured` holds what the search measured, `provenance` says where "
+                        "it came from. Written by scripts/ph_root_search.py.")
+    curve_records.write(path, document)
     print(f"\n{path.relative_to(ROOT)}  {added} new, {len(document['curves'])} in all")
     for line in skipped:
         print(f"  skipped: {line}")
     return document
-
-
-def rename_existing():
-    """Bring every stored name back to the construction it states, without remeasuring.
-
-    A name is a claim about the roots, so a file whose names disagree with its
-    roots is wrong even when the curve is right. New names are checked against
-    the whole file before they are kept.
-    """
-    path = ROOT / "workbench" / "found-curves.json"
-    document = json.loads(path.read_text())
-    curves = document["curves"]
-    taken = {curve["name"] for curve in curves}
-    changed = []
-    touched = False
-    for curve in curves:
-        roots = [Fraction(text) for text in curve.get("rootsExact", [])]
-        if not roots:
-            continue
-        wanted = name_of({"rootList": roots, "self": curve.get("self", 0)})
-        if wanted == curve["name"]:
-            continue
-        name, suffix = wanted, 2
-        while name in taken and name != curve["name"]:
-            name = f"{wanted}-{suffix}"
-            suffix += 1
-        taken.discard(curve["name"])
-        taken.add(name)
-        changed.append(f"{curve['name']} -> {name}")
-        curve["name"] = name
-    # the two fields added after the first rows were written: the parity of the
-    # speed degree decides the symmetry, and no measurement is needed for it
-    for curve in curves:
-        degree = len(curve["speedY"]) - 1
-        kind = "half-turn" if degree % 2 == 0 else "mirror"
-        partner = "mirror copy" if kind == "half-turn" else "half-turn copy"
-        if curve.get("symmetryKind") != kind:
-            curve["symmetryKind"] = kind
-            curve["partner"] = partner
-            touched = True
-    if changed or touched:
-        path.write_text(json.dumps(document, indent=1) + "\n")
-    print(f"{len(changed)} names corrected")
-    for line in changed:
-        print("  " + line)
-    return changed
 
 
 def main():

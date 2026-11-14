@@ -45,21 +45,30 @@ INTRO = (
 
 def found_entries():
     """The finds, tangliest first: self-crossings, then meetings, then the cheap grid."""
-    document = json.loads(FOUND.read_text())
-    newer = [curve for curve in document["curves"] if curve.get("batch") == "new"]
+    import curve_records
+    document = curve_records.read(FOUND)
+    newer = [curve for curve in document["curves"]
+             if curve.get("provenance", {}).get("batch") == "new"]
     ordered = sorted(newer,
-                     key=lambda curve: (-curve.get("self", 0), -curve.get("meetings180", 0),
-                                        curve.get("pitch", 0)))
-    return [{
-        "name": curve["name"],
-        "speedX": curve["speedX"],
-        "speedY": curve["speedY"],
-        "bend": curve.get("bend"),
-        "pitch": curve.get("pitch"),
-        "from": "found",
-        "source": (f"flat spots {curve.get('roots', '')}; "
-                   f"{curve.get('meetings180', 0)} meetings, {curve.get('self', 0)} self-crossings"),
-    } for curve in ordered]
+                     key=lambda curve: (-curve.get("measured", {}).get("self", 0),
+                                        -curve.get("measured", {}).get("meetings", 0),
+                                        curve.get("measured", {}).get("grid", 0)))
+    entries = []
+    for curve in ordered:
+        x, y = curve_records.rows_from_terms(curve["terms"])
+        recorded = curve.get("measured", {})
+        entries.append({
+            "name": curve["name"],
+            "terms": curve["terms"],
+            "speedX": x,
+            "speedY": y,
+            "bend": recorded.get("bend"),
+            "pitch": recorded.get("grid"),
+            "from": "found",
+            "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
+                       f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
+        })
+    return entries
 
 
 def build():
@@ -86,7 +95,20 @@ def build():
         "<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.",
         INTRO + "<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.")
 
-    OUT.write_text(page)
+    # the curve being worked on opens on refresh: step 1 first, so its terms land
+    # in the whole-power boxes, then the curve itself
+    starter = (
+        "<script>\n"
+        "(() => {\n"
+        "  const step = document.getElementById('n-step');\n"
+        "  if (step) { step.value = '0.5'; step.dispatchEvent(new Event('input', { bubbles: true })); }\n"
+        "  const wanted = (window.phNthGallery || []).find(entry => entry.name === 'lace-1of10-3-2');\n"
+        "  if (wanted && window.phNthLoad) window.phNthLoad(wanted);\n"
+        "})();\n"
+        "</script>\n"
+    )
+    page = page.replace("</body></html>", starter + "</body></html>")
+    OUT.write_text(base.stamped(page))
     print(OUT.relative_to(ROOT), len(found_entries()), "found curves,", len(page), "bytes")
 
 

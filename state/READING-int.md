@@ -18,6 +18,7 @@ needs — no higher.
 | 5 | `goals.md` | 240 | the long arc and the offset tiers (also Tier 1) |
 | 6 | `state/ACHIEVEMENTS-int.md` | 37 | what is proved, with the command that re-derives it; stops rework |
 | 7 | `state/DESIGN-int.md` | 90 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 8 | `state/REGRESSIONS-int.md` | 60 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
