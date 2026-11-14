@@ -1,0 +1,2954 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment: fractional exponents</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+*{box-sizing:border-box}
+body{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:18px 20px 40px}
+.eyebrow{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+h1{font-size:24px;line-height:1.1;margin:0 0 4px}
+h2{font-size:18px;margin:0 0 6px}
+.panel{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;margin:0 0 12px}
+p{margin:0 0 6px}
+code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
+.small{font-size:13px;color:var(--muted)}
+.mono{font:12px/1.5 ui-monospace,Menlo,monospace}
+.spine-row{display:flex;gap:8px;align-items:center;margin:2px 0}
+.spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
+.spine-grid .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
+/* the axis letter gets its own line, so the x row and the y row start level */
+.spine-grid .spine-row>span:first-child{grid-column:1 / -1;width:auto;margin:2px 0 0}
+.spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
+.cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
+.spine-grid .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
+.spine-grid .cell-inputs input[type=range]{flex:1;min-width:80px;height:18px;accent-color:#8a1f1f}
+.cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px;accent-color:#1f4f8a}
+.cell-inputs input[type=range]::before{content:""}
+.cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.cell-inputs .sign:hover{background:#efe7d3}
+.pair-grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px 10px;align-items:center}
+.pair-grid .axis-head{font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pair-grid .power-label{font:11px ui-monospace,Menlo,monospace;color:#8a3b2a}
+.pair-grid .spine-cell{min-width:0}
+#n-compass{max-width:50%}
+table.figures{border-collapse:collapse;margin:6px 0 10px;font:12px ui-monospace,Menlo,monospace}
+table.figures th,table.figures td{border:1px solid var(--rule);padding:2px 10px;text-align:right}
+table.figures th{color:var(--muted);font-weight:400;text-align:left}
+
+.pair-boxes{display:block}
+.roots-ruler{position:relative;height:104px;margin:10px 0 34px;border-bottom:2px solid var(--ink);cursor:crosshair}
+.roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
+.roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
+.roots-ruler .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
+.roots-ruler .spot:hover{background:#8a1f1f}
+.curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
+.curve-box.complement{border-style:dashed}
+.curve-box h3{font-size:14px;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
+.curve-box h3 .small{font-weight:400;color:var(--muted)}
+.curve-box .spine-row{grid-template-columns:1fr}
+.scales,.steppers{display:inline-flex;gap:2px}
+.scales button,.steppers button{font:10px/1 ui-monospace,Menlo,monospace;padding:2px 4px;
+  background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.scales button:hover,.steppers button:hover{background:#efe7d3}
+.steppers button{padding:2px 3px}
+.solver-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}
+.solver-row button.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+.rung-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.rung{font:11px/1.2 ui-monospace,Menlo,monospace;padding:4px 7px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.rung.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+.solver-row button,.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a}
+.dial input[type=number]{width:64px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
+#n-open-slider{flex:1;min-width:120px;max-width:240px}
+.save-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 6px}
+.save-row input{font:12px ui-monospace,Menlo,monospace;padding:4px 8px;width:200px}
+.saved-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 6px}
+.saved-row .saved-item{display:inline-flex;gap:2px;align-items:center}
+.saved-row .saved-remove{padding:2px 6px;color:#8a3b2a}
+.paste-row{display:flex;gap:10px;align-items:flex-start;margin:0 0 6px}
+.paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
+#n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
+svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+#n-plot{max-height:60vh}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
+.gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
+@media(max-width:700px){.gallery{grid-template-columns:1fr}}
+.gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
+.gallery figure.open{grid-column:1 / -1}
+.gallery .gallery-open{display:flex;align-items:baseline;gap:8px;width:100%;
+  background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
+.gallery .gallery-number{font:10px/1.4 ui-monospace,Menlo,monospace;color:#8a3b2a;min-width:46px}
+.gallery .gallery-name{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
+.gallery .gallery-metrics{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
+.gallery .gallery-tags{display:inline-flex;gap:6px;align-items:baseline;margin-left:auto}
+.gallery .tag{font:10px/1.4 ui-monospace,Menlo,monospace;padding:0 4px;border:1px solid var(--rule);
+  border-radius:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.gallery .more{margin:8px 0 0}
+.gallery .pair-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 8px}
+.gallery .pair-cell{margin:0;border:1px solid var(--rule);padding:6px}
+.gallery .pair-cell figcaption{font:11px/1.3 ui-monospace,Menlo,monospace;color:var(--muted);margin:0 0 4px}
+.gallery .more textarea{width:100%;font:11px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;
+  border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
+.gallery .more-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 0}
+.gallery .more-row button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:4px 8px;background:#fbf7ec;
+  color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.gallery svg{border:0}
+.gallery p{margin:6px 0 0}
+</style></head><body><main>
+<p class="eyebrow">curve-lab | PH curves | position degree 11</p>
+<h1>The eleventh power and up</h1>
+<p>The septic sandbox stops at position degree 7, where the speed <code>w</code> is cubic. This page is
+the same machine one step up: <code>r' = w^2</code> with <code>w</code> of degree 5, so twelve speed
+numbers and a position of degree <strong>2 &times; 5 + 1 = 11</strong>. The offsets stay rational, the
+pitch is still the lcm of the integrated coefficients' denominators, and the closure algebra is
+unchanged &mdash; more terms, same rules.</p>
+
+<section class="panel">
+<h2>A | the PH curve, from degree 11 up</h2>
+<p class="small"><strong>Experimental.</strong> The rows below step by the exponent chosen at the top: 1/2 gives <code>t^0.5</code>, <code>t^1.5</code>, <code>t^2.5</code> (5/2), <code>t^3.5</code> (7/2). Bend and closest are measured from the curve; the grid and the inflection count are marked not applicable, because neither exists off the whole powers. There is no gallery on this page: it is for trying things.</p>
+<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.
+Each rung adds one number per axis, so the position degree rises by two: 11 up to 29, with
+12 to 30 numbers. Doubling the rows is what lets a fractional step reach the same top power:
+at step 1/2, fifteen numbers per axis reach t^7. An even position degree cannot occur for polynomial speeds, so the
+readout never prints one. A curve saved at a lower rung loads here unchanged: the new boxes are zero,
+which leaves the shape alone. <code>close chord</code> drives the endpoint home; <code>close to &hellip;</code>
+holds a chosen openness instead, because a fully closed curve has no chord and bend is arc over chord.</p>
+<div class="solver-row" id="n-step-row">
+  <label class="dial" for="n-step">exponent step
+    <input id="n-step" type="range" min="0.05" max="2" step="any" value="1">
+    <span class="mono" id="n-step-value">1</span></label>
+  <button type="button" class="step-at" data-step="1">whole 1</button>
+  <button type="button" class="step-at" data-step="0.5">&frac12;</button>
+  <button type="button" class="step-at" data-step="0.3333333333333333">&#8531;</button>
+  <button type="button" class="step-at" data-step="0.25">&frac14;</button>
+  <span class="small">The step is yours: filling the rows from a suggestion or from the dots
+  never changes it.</span>
+</div>
+<div class="rung-row" id="n-rungs" role="group" aria-label="choose the position degree">
+  <button type="button" class="rung is-on" data-speed-degree="5">degree 11 &middot; 12 numbers</button>
+  <button type="button" class="rung" data-speed-degree="6">degree 13 &middot; 14 numbers</button>
+  <button type="button" class="rung" data-speed-degree="7">degree 15 &middot; 16 numbers</button>
+  <button type="button" class="rung" data-speed-degree="8">degree 17 &middot; 18 numbers</button>
+  <button type="button" class="rung" data-speed-degree="9">degree 19 &middot; 20 numbers</button>
+  <button type="button" class="rung" data-speed-degree="10">degree 21 &middot; 22 numbers</button>
+  <button type="button" class="rung" data-speed-degree="11">degree 23 &middot; 24 numbers</button>
+  <button type="button" class="rung" data-speed-degree="12">degree 25 &middot; 26 numbers</button>
+  <button type="button" class="rung" data-speed-degree="13">degree 27 &middot; 28 numbers</button>
+  <button type="button" class="rung" data-speed-degree="14">degree 29 &middot; 30 numbers</button>
+</div>
+<div class="curve-box" id="n-primary-box">
+  <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
+  <div class="spine-grid" id="n-controls"></div>
+  <div class="solver-row">
+    <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
+  </div>
+</div>
+<div class="curve-box" id="n-roots-box">
+  <h3>Build from flat spots</h3>
+  <p class="small">A <strong>flat spot</strong> is a <code>t</code> where the stroke runs dead horizontal.
+  List the ones you want, press the button, and the boxes below fill themselves: the row is the
+  polynomial those spots multiply out to. Mirror every spot about <code>1/2</code> &mdash; <code>1/9</code>
+  with <code>8/9</code>, <code>1/8</code> with <code>7/8</code> &mdash; and keep <code>1/2</code> for
+  itself, and the curve comes out exactly symmetric. That is the only way to get symmetry on purpose;
+  a random row almost never has it.</p>
+  <p class="small">What to choose: the <strong>outer pair makes the knot</strong> (two swings out and back).
+  <strong>Three copies of <code>1/2</code></strong> make the long flat middle that lets the stroke cross
+  itself; one copy is a gentle S, five copies is nearly a straight line and crosses nothing.
+  Five spots is the cheap degree-11 rung; six or more moves you up a rung, which the page does for you.
+  <strong>Bow</strong> leans the stroke sideways: 0 is straight, &plusmn;1 to 2 opens the loop,
+  &plusmn;4 folds it hard.</p>
+  <p class="small" style="margin:0 0 2px">Click <strong>low on the strip, beside the rule</strong>, to place a flat
+  spot; click the same place again for another copy (the dots stack at the top of the strip), and
+  click a <strong>dot</strong> to take that copy away.</p>
+  <div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t, click the line to place one"></div>
+  <div class="solver-row">
+    <label class="small"><input type="checkbox" id="n-roots-mirror" checked> mirror about 1/2</label>
+    <button type="button" id="n-roots-dots-fill" title="write the rows from the dots on the strip">fill from the dots</button>
+    <button type="button" id="n-roots-undo">undo</button>
+    <button type="button" id="n-roots-clear">clear</button>
+    <span class="small" id="n-roots-count"></span>
+  </div>
+  <div class="solver-row">
+    <label class="dial" for="n-roots-half">copies at 1/2
+      <input id="n-roots-half" type="range" min="0" max="6" step="1" value="3">
+      <span class="mono" id="n-roots-half-value">3</span></label>
+    <label class="dial" for="n-bow-slider">bow
+      <input id="n-bow-slider" type="range" min="-12" max="12" step="0.25" value="0"></label>
+  </div>
+  <div class="solver-row">
+    <label class="dial" for="n-roots-preset">suggestion
+      <select id="n-roots-preset">
+        <option value="">choose one&hellip;</option>
+        <option value="1/9, 1/2, 1/2, 1/2, 8/9|0|1">knot, cheapest grid &middot; 1/9, 1/2 x3, 8/9 &middot; bow 0 &middot; step 1</option>
+        <option value="1/6, 1/2, 5/6|0|1">gentle S &middot; 1/6, 1/2, 5/6 &middot; bow 0 &middot; step 1</option>
+        <option value="1/8, 1/2, 1/2, 1/2, 7/8|-2|1">wide knot &middot; 1/8, 1/2 x3, 7/8 &middot; bow &minus;2 &middot; step 1</option>
+        <option value="1/12, 1/2, 1/2, 1/2, 11/12|4|1">leaning knot &middot; 1/12, 1/2 x3, 11/12 &middot; bow 4 &middot; step 1</option>
+        <option value="1/2, 1/2, 1/2, 1/2, 1/2|0|1">flat stroke &middot; 1/2 x5 &middot; bow 0 &middot; step 1</option>
+        <option value="1/6, 1/6, 1/2, 1/2, 5/6, 5/6|0|1">half-turn pair of pairs &middot; 1/6 doubled, 1/2 x2, 5/6 doubled</option>
+        <option value="1/7, 1/5, 1/2, 4/5, 6/7|9|1">your find &middot; 1/7, 1/5, 1/2, 4/5, 6/7 &middot; bow 9 &middot; step 1</option>
+        <option value="1/9, 1/2, 1/2, 1/2, 8/9|0|0.5">experiment: the same spots at step &frac12; &mdash; no mirror, a different curve</option>
+      </select></label>
+    <label class="dial" for="n-roots">flat spots <input id="n-roots" type="text" size="26" value="1/9, 1/2, 1/2, 1/2, 8/9"></label>
+    <label class="dial" for="n-bow">bow <input id="n-bow" type="number" step="0.5" value="0"></label>
+    <button type="button" id="n-roots-fill" title="multiply the flat spots out and write the rows">fill the numbers</button>
+  </div>
+  <p class="small mono" id="n-roots-status"></p>
+</div>
+<svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve"></svg>
+<div class="curve-box complement" id="n-complement-box">
+  <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
+  <div class="spine-grid" id="n-complement-controls"></div>
+  <div class="solver-row">
+    <label class="dial" for="n-comp-move-x">move x <input id="n-comp-move-x" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-comp-move-y">move y <input id="n-comp-move-y" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-comp-turn" title="turn the complementary curve about the spine's centre">turn <input id="n-comp-turn" type="number" step="15" value="0"></label>
+    <button type="button" id="n-comp-hide" aria-pressed="false" title="draw the primary curve alone">hide the grey curve</button>
+  </div>
+  <div class="solver-row">
+    <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
+    <button type="button" id="n-comp-upside" title="negate the y row: the same curve upside down">upside down</button>
+    <button type="button" id="n-comp-reverse" title="run the same curve from its other end">reverse</button>
+    <button type="button" id="n-comp-reset" title="the complementary curve becomes the spine, flipped across">reset to the spine</button>
+  </div>
+</div>
+<p class="small mono" id="n-readout"></p>
+<p class="small mono" id="n-grade"></p>
+<p class="small mono" id="n-formula" style="white-space:pre-line"></p>
+<p class="small mono" id="n-build">build 2026-11-14 13:57</p>
+<div class="solver-row">
+  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
+  <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-char-r">character &minus; <input id="n-char-r" type="number" min="0" max="3" step="0.1" value="2"></label>
+  <label class="dial" for="n-prof">profile
+    <select id="n-prof"><option value="bow">bow</option><option value="s">S</option><option value="taper">taper</option></select>
+  </label>
+</div>
+<div class="solver-row">
+  <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook">hook x <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
+  <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
+</div>
+<div class="solver-row">
+  <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
+  <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
+  <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
+  <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
+  <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
+  <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
+  <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0">
+    <input id="n-t-from-slider" type="range" min="-2" max="2" step="0.05" value="0" title="drag the start of the window; the box takes any value"></label>
+  <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1">
+    <input id="n-t-to-slider" type="range" min="-2" max="2" step="0.05" value="1" title="drag the end of the window; the box takes any value"></label>
+  <label class="dial" for="n-end-x">end x <input id="n-end-x" type="number" step="0.05" value="0"></label>
+  <label class="dial" for="n-end-y">end y <input id="n-end-y" type="number" step="0.05" value="0"></label>
+  <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
+</div>
+<p class="small mono" id="n-width-readout"></p>
+
+
+<p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
+<strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
+station &mdash; <code>g = w (1 + i &epsilon; b(t))</code> &mdash; and blends back to the parallel at both
+ends, so the rail leaves and arrives at exactly <code>&plusmn; d</code> and bows in between. The two
+<strong>character</strong> dials set how far each side bows (they can differ, which is what a serif
+needs), the <strong>profile</strong> chooses the bow's shape (one swell, an S that crosses the parallel,
+or a taper toward the end), <strong>end shear</strong> leans the rails along the tangent by the end, and
+<strong>tail hook</strong> adds <code>h e^{i&phi;} t^5</code> to the speed itself, bending the last span
+without leaving the PH family. The flare law and the serif foot are parked in
+<a href="ph-nth-serif-notes.html">ph-nth-serif-notes.html</a>.</p>
+</section>
+
+
+
+
+
+<section class="panel">
+<h2>B | solve, save, take away</h2>
+<div class="solver-row">
+  <button type="button" id="n-close">close chord</button>
+  <button type="button" id="n-open" title="solve until |chord| / arc reaches the dial">close to &hellip;</button>
+  <label class="dial" for="n-open-value">openness
+    <input id="n-open-value" type="number" min="0.02" max="1" step="0.01" value="0.25">
+  </label>
+  <input id="n-open-slider" type="range" min="0.02" max="1" step="0.01" value="0.25" aria-label="target openness">
+  <button type="button" id="n-zero-top" title="set x t^5 and y t^5 to zero: back to a septic">zero the top pair</button>
+</div>
+<div class="save-row">
+  <input id="n-category" type="text" placeholder="category" value="DK" size="6">
+  <span class="small" title="DK is a double knot: two curves saved as one record. S is a single curve, saved on its own.">DK = double knot &middot; S = single</span>
+  <input id="n-name" type="text" placeholder="name this curve">
+  <button type="button" id="n-save" title="save both curves as one DK record">save the pair</button>
+  <button type="button" id="n-save-primary" title="save only the dark curve, in the flat shape the other pages read">save primary only</button>
+  <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
+</div>
+<div class="saved-row" id="n-saved"></div>
+<div class="paste-row">
+  <textarea id="n-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-5,6,1,0,0], "speedY": [4,-22,22,-2,0,0]} - or a whole {"curves": [...]} document'></textarea>
+  <button type="button" id="n-load">load pasted JSON</button>
+</div>
+<p class="small mono" id="n-paste-status"></p>
+<p class="small mono">current curve, ready to select and cut:</p>
+<textarea id="n-json" rows="12" readonly></textarea>
+</section>
+
+
+
+<hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
+<section class="panel">
+
+</section>
+
+<hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
+<section class="panel" id="n-formula-box">
+<h2>How your numbers become the curve</h2>
+<p>You type two rows of numbers. The <code>x</code> row is how fast the curve moves sideways. The
+<code>y</code> row is how fast it moves up. Each number belongs to one power of <code>t</code>, and
+<code>t</code> runs from the start of the curve (0) to the end (1). The first number is the plain
+amount, the second is the amount that grows with <code>t</code>, the third with <code>t</code> squared,
+and so on. <code>t^0</code> means <code>t</code> to the power zero, which is 1, so that first box is a
+constant that holds at every <code>t</code>; it is not a value at the start. If only the first boxes are
+filled the speed never changes, so the curve is a straight line: the later boxes are what bend it.</p>
+<p>To get the curve, the speed is multiplied by itself, then added up from the start. Multiplying the
+speed by itself is the step that makes these curves special: the direction comes out of the product,
+and the length of the curve stays a whole number instead of a square root.</p>
+<p>Multiplying a row by itself makes every number in the row meet every other number. Pairs that land
+on the same power are added together, and dividing by the new power turns a speed into a position. So
+the <code>t</code> term of the curve comes from just the two first numbers, the <code>t</code> squared
+term from the first three, and so on.</p>
+<pre class="mono">speed:        w(t) = p(t) + i q(t)      p is the x row, q is the y row
+curve:        w(t) multiplied by itself, then added up from 0 to t
+
+the t term of x     = x0*x0 - y0*y0
+the t term of y     = 2 * x0 * y0
+the next power      adds the next pair of numbers, divided by the new power</pre>
+<p>How high the powers reach is set only by how many numbers you type. Six numbers per row reach
+<code>t</code> to the fifth in the speed and <code>t</code> to the eleventh in the curve. Ten numbers
+per row reach <code>t</code> to the ninth and <code>t</code> to the nineteenth. That is why the ladder
+steps by two: the square of the speed always lands on an odd power.</p>
+<h3 style="font-size:15px;margin:14px 0 4px">First, the plain arithmetic</h3>
+<p class="small">Powers add when you multiply, and signs follow a simple rule. That is all the grid
+below is doing.</p>
+<svg viewBox="0 0 560 210" role="img" aria-label="a ladder of products: powers add when you multiply, and two minuses make a plus">
+  <rect width="560" height="210" fill="#fbf7ec"/>
+  <text x="12" y="20" font-size="11" fill="#7b6c4e">the pair</text>
+  <text x="180" y="20" font-size="11" fill="#7b6c4e">the product</text>
+  <text x="330" y="20" font-size="11" fill="#7b6c4e">why</text>
+  <text x="12" y="52" font-size="14" fill="#2e2413">4 &#215; 4 = 16</text>
+  <text x="180" y="52" font-size="13" fill="#2e2413">t^0 &#215; t^0 = t^0</text>
+  <text x="330" y="52" font-size="12" fill="#7b6c4e">0 + 0 = 0</text>
+  <text x="12" y="82" font-size="14" fill="#2e2413">4t &#215; 4 = 16t</text>
+  <text x="180" y="82" font-size="13" fill="#2e2413">t^1 &#215; t^0 = t^1</text>
+  <text x="330" y="82" font-size="12" fill="#7b6c4e">1 + 0 = 1</text>
+  <text x="12" y="112" font-size="14" fill="#2e2413">2t &#215; 3t = 6t^2</text>
+  <text x="180" y="112" font-size="13" fill="#2e2413">t^1 &#215; t^1 = t^2</text>
+  <text x="330" y="112" font-size="12" fill="#7b6c4e">1 + 1 = 2</text>
+  <text x="12" y="142" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 = 4</text>
+  <text x="180" y="142" font-size="13" fill="#2e2413">two minuses</text>
+  <text x="330" y="142" font-size="12" fill="#7b6c4e">make a plus</text>
+  <text x="12" y="172" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 &#215; &#8722;2 = &#8722;8</text>
+  <text x="180" y="172" font-size="13" fill="#2e2413">three minuses</text>
+  <text x="330" y="172" font-size="12" fill="#7b6c4e">leave a minus</text>
+  <text x="12" y="198" font-size="11" fill="#8a3b2a">the x term of the curve is x0&#215;x0 &#8722; y0&#215;y0, so these signs decide which way it sets off</text>
+  <text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E1</text>
+</svg>
+<h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
+<p class="small">Every number in the x row is multiplied by every other, and the cell shows the
+product. Cells on the same diagonal add up to one power of the curve: the corner cell alone makes the
+<code>t</code> term, the next diagonal makes the <code>t</code> squared term, and so on. The small
+number in each corner is that diagonal. The y row does the same sum, and it is subtracted.</p>
+<svg id="n-pair-table" viewBox="0 0 560 470" role="img"
+     aria-label="a grid of products of the x numbers; cells on one diagonal add to one power of the curve"></svg>
+
+<h3 style="font-size:15px;margin:14px 0 4px">Why the length has no square root</h3>
+<p class="small">The length of an ordinary curve needs a square root, and the root rarely comes out
+clean. Here the two speeds are a matched pair, so the root cancels exactly and the length is a plain
+polynomial.</p>
+<svg id="n-length" viewBox="0 0 560 190" role="img"
+     aria-label="a triangle whose hypotenuse is a square root, beside the same triangle where the root cancels"></svg>
+<p class="small mono" id="n-length-exact"></p>
+<h3 style="font-size:15px;margin:14px 0 4px">Which box does what</h3>
+<p>The low boxes set the start and the frame. The high boxes set the end. Changing the top x box by
+one moves the beginning of the curve by about a hundredth of a unit and the end by about a whole unit,
+so the top boxes are where you place the arm that has to meet the next curve. These numbers were
+measured on the default curve by changing one box by one and seeing how far the curve moved:</p>
+<table class="figures">
+<tr><th>box changed</th><th>start moved</th><th>end moved</th></tr>
+<tr><td>t^0</td><td>1.80</td><td>4.51</td></tr>
+<tr><td>t^3</td><td>0.05</td><td>1.43</td></tr>
+<tr><td>t^5</td><td>0.01</td><td>1.06</td></tr>
+</table>
+<p>A high box also makes the arm longer: the last tenth of the curve measured 1.43 long by default,
+2.05 with the top x box at 1, and 3.66 with it at 3. But a high box does not make the curve smaller by
+itself &mdash; it reshapes the end. It can shrink the whole curve only if you pull the end back with the
+opposite sign, which is a choice you make, not something the box does.</p>
+<h3 style="font-size:15px;margin:14px 0 4px">The start heading</h3>
+<p class="small">The first pair sets the heading, and the heading is <strong>twice</strong> the angle of
+that pair. So a pair and its negative give the same heading &mdash; only the speed differs. The dark
+arrow is the curve on this page; it moves as you change the first boxes.</p>
+<svg id="n-compass" viewBox="0 0 340 340" role="img"
+     aria-label="a compass of start headings: 0 degrees from 1,0; 90 from 1,1; 180 from 0,1; 270 from 1,-1"></svg>
+<p class="small">The example below is read from the numbers on the page right now.</p>
+<pre class="mono" id="n-formula-explain"></pre>
+</section>
+</main>
+<script>
+window.phNthGallery = [];
+window.phPowerStep = 0.5;
+window.phSpeedDegree = 14;
+// The rung buttons: one number per axis per rung, so the degree moves by two.
+(() => {
+  const rungs = [...document.querySelectorAll("#n-rungs .rung")];
+  // the page may ask for a rung other than the first one
+  rungs.forEach(button => button.classList.toggle("is-on",
+    Number(button.dataset.speedDegree) === window.phSpeedDegree));
+  rungs.forEach(button => button.addEventListener("click", () => {
+    window.phNthSetDegree(button.dataset.speedDegree);
+    rungs.forEach(other => other.classList.toggle("is-on", other === button));
+  }));
+})();
+</script>
+<script>
+// The shared maths for the curve pages: closed form, metrics, exact bend,
+// the polynomial evaluators and the saved-curve store. Loaded first.
+
+window.closedFormOf = (function () {
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const decimalPlaces = value => { const text = String(value); const dotIndex = text.indexOf("."); return dotIndex < 0 ? 0 : text.length - dotIndex - 1; };
+  return function (speedX, speedY) {
+    const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+    const decimalScale = Math.pow(10, maxDecimals);
+    const decimalScaleSquared = decimalScale * decimalScale;
+    const scaledSpeedX = speedX.map(value => Math.round(value * decimalScale));
+    const scaledSpeedY = speedY.map(value => Math.round(value * decimalScale));
+    const multiplyPolynomials = (left, right) => {
+      const product = new Array(left.length + right.length - 1).fill(0);
+      left.forEach((leftCoefficient, i) => right.forEach((rightCoefficient, j) => { product[i + j] += leftCoefficient * rightCoefficient; }));
+      return product;
+    };
+    const speedXSquared = multiplyPolynomials(scaledSpeedX, scaledSpeedX);
+    const speedYSquared = multiplyPolynomials(scaledSpeedY, scaledSpeedY);
+    const speedXTimesY = multiplyPolynomials(scaledSpeedX, scaledSpeedY);
+    const reduceFraction = (numerator, denominator) => {
+      const divisor = greatestCommonDivisor(Math.abs(numerator), denominator) || 1;
+      return [numerator / divisor, denominator / divisor];
+    };
+    const xTerms = [], yTerms = [];
+    for (let j = 0; j < speedXSquared.length; j++) {
+      const denominator = decimalScaleSquared * (j + 1);   // the coefficient of t^(j+1) in r
+      xTerms.push(reduceFraction(speedXSquared[j] - (speedYSquared[j] || 0), denominator));
+      yTerms.push(reduceFraction(2 * speedXTimesY[j], denominator));
+    }
+    return { xTerms, yTerms };
+  };
+})();
+window.formatPolynomial = function (terms) {
+  const powers = ["", "t", "t^2", "t^3", "t^4", "t^5"];
+  let text = "";
+  terms.forEach((term, j) => {
+    const numerator = term[0], denominator = term[1];
+    if (!numerator) return;
+    const magnitude = denominator === 1 ? String(Math.abs(numerator)) : `${Math.abs(numerator)}/${denominator}`;
+    const coefficient = (denominator === 1 && Math.abs(numerator) === 1) ? "" : magnitude;
+    text += (numerator < 0 ? (text ? " - " : "-") : (text ? " + " : "")) + coefficient + powers[j + 1];
+  });
+  return text || "0";
+};
+
+window.panelRecipes = {};
+// The exponent step: 1 for whole powers, 1/2 for t^0.5, t^1.5, 5/2 ... The
+// experimental page sets window.phPowerStep; every other page leaves it unset,
+// so the Horner path below is what they run and nothing changes for them.
+window.polynomialValue = function (coefficients, t) {
+  const step = window.phPowerStep || 1;
+  if (step === 1) {
+    let total = 0;
+    for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+    return total;
+  }
+  let total = 0;
+  for (let i = 0; i < coefficients.length; i++) {
+    // a negative t has no real fractional power, so below zero the row is read
+    // by the odd extension: sign(t) |t|^(k step). The page says so in words.
+    const power = t < 0 ? Math.sign(t) * Math.pow(-t, i * step) : Math.pow(t, i * step);
+    total += coefficients[i] * power;
+  }
+  return total;
+};
+
+// Fractional exponents have no whole-number grid and no polynomial Wronskian,
+// so the numbers are measured from the curve instead of read off a formula.
+function numericMetrics(speedX, speedY) {
+  const value = window.polynomialValue;
+  const count = 1200;
+  let arc = 0, chordRe = 0, chordIm = 0, closest = Infinity;
+  for (let i = 0; i < count; i++) {
+    const t = (i + 0.5) / count;
+    const p = value(speedX, t), q = value(speedY, t);
+    arc += (p * p + q * q) / count;
+    chordRe += (p * p - q * q) / count;
+    chordIm += 2 * p * q / count;
+    closest = Math.min(closest, Math.hypot(p, q));
+  }
+  const chord = Math.hypot(chordRe, chordIm);
+  return { bend: chord > 1e-15 ? arc / chord : Infinity, arc, chord: [chordRe, chordIm],
+           pitch: 0, inflections: null, inflection: null, closest, inflectionMax: 0 };
+}
+window.polynomialDerivative = function (coefficients) {
+  return coefficients.slice(1).map((coefficient, i) => coefficient * (i + 1));
+};
+window.exactBend = function (speedX, speedY) {
+  const centred = coefficients => {
+    const out = new Array(coefficients.length).fill(0);
+    coefficients.forEach((coefficient, j) => {
+      let binomial = 1;
+      for (let k = 0; k <= j; k++) {
+        out[k] += coefficient * binomial * Math.pow(0.5, j - k);
+        binomial = binomial * (j - k) / (k + 1);
+      }
+    });
+    return out;
+  };
+  const weight = power => (power % 2 ? 0 : 1 / (Math.pow(2, power) * (power + 1)));
+  let cx = centred(speedX), cy = centred(speedY);
+  const size = Math.max(cx.length, cy.length);
+  cx = cx.concat(new Array(size - cx.length).fill(0));
+  cy = cy.concat(new Array(size - cy.length).fill(0));
+  let arc = 0, chordRe = 0, chordIm = 0;
+  for (let k = 0; k < cx.length; k++) {
+    for (let l = 0; l < cx.length; l++) {
+      const w = weight(k + l);
+      if (!w) continue;
+      arc += (cx[k] * cx[l] + cy[k] * cy[l]) * w;
+      chordRe += (cx[k] * cx[l] - cy[k] * cy[l]) * w;
+      chordIm += (cx[k] * cy[l] + cy[k] * cx[l]) * w;
+    }
+  }
+  const chord = Math.hypot(chordRe, chordIm);
+  return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
+};
+window.recipeMetrics = function (speedX, speedY) {
+  if ((window.phPowerStep || 1) !== 1) return numericMetrics(speedX, speedY);
+  const sampleCount = 600;
+  const value = window.polynomialValue;
+  const derivativeX = window.polynomialDerivative(speedX);
+  const derivativeY = window.polynomialDerivative(speedY);
+  const exact = window.exactBend(speedX, speedY);
+  let closest = Infinity;
+  for (let i = 0; i <= sampleCount; i++) {
+    const t = i / sampleCount;
+    closest = Math.min(closest, Math.hypot(value(speedX, t), value(speedY, t)));
+  }
+  const wronskian = t => value(speedX, t) * value(derivativeY, t) - value(speedY, t) * value(derivativeX, t);
+  // Every inflection, not only the first: the count is the useful number,
+  // because the Wronskian p q' - q p' has degree at most 2k - 1 for a speed of
+  // degree k, so a curve with fewer than that is not using its top powers.
+  const inflections = [];
+  // a straight line has a Wronskian that is zero everywhere: no inflections,
+  // rather than one per sample
+  const flatWronskian = Array.from({ length: 9 }, (unused, i) => wronskian(i / 8))
+    .every(rate => Math.abs(rate) < 1e-12);
+  for (let i = 0; i < sampleCount && !flatWronskian; i++) {
+    const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
+    if (wronskian(lowT) * wronskian(highT) <= 0) {
+      let low = lowT, high = highT;
+      for (let k = 0; k < 40; k++) {
+        const middle = (low + high) / 2;
+        if (wronskian(low) * wronskian(middle) <= 0) high = middle; else low = middle;
+      }
+      const found = (low + high) / 2;
+      // a root at the very start or end means the curve begins or ends with no
+      // curvature, not that it turns there; a tangency can be reported twice
+      const inside = found > 1e-6 && found < 1 - 1e-6;
+      if (inside && !inflections.some(other => Math.abs(other - found) < 1e-4)) {
+        inflections.push(found);
+      }
+    }
+  }
+  const inflection = inflections.length ? inflections[0] : null;
+  const decimalPlaces = value => { const text = String(+value.toFixed(6)); const dot = text.indexOf("."); return dot < 0 ? 0 : text.length - dot - 1; };
+  const maxDecimals = Math.max(...speedX.concat(speedY).map(decimalPlaces));
+  const decimalScale = Math.pow(10, maxDecimals), decimalScaleSquared = decimalScale * decimalScale;
+  const scaledX = speedX.map(value => Math.round(value * decimalScale));
+  const scaledY = speedY.map(value => Math.round(value * decimalScale));
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  const greatestCommonDivisor = (a, b) => (b ? greatestCommonDivisor(b, a % b) : a);
+  const leastCommonMultiple = (a, b) => a / greatestCommonDivisor(a, b) * b;
+  const xSquared = multiply(scaledX, scaledX), ySquared = multiply(scaledY, scaledY);
+  const xTimesY = multiply(scaledX, scaledY);
+  let pitch = 1;
+  for (let j = 0; j < xSquared.length; j++) {
+    const numerators = [xSquared[j] - (ySquared[j] || 0), 2 * xTimesY[j]];
+    for (const numerator of numerators) {
+      if (!numerator) continue;
+      const denominator = decimalScaleSquared * (j + 1);
+      pitch = leastCommonMultiple(pitch, denominator / greatestCommonDivisor(Math.abs(numerator), denominator));
+    }
+  }
+  const closed = window.closedFormOf(speedX, speedY);
+  const endpoint = [closed.xTerms.reduce((sum, term) => sum + term[0] / term[1], 0),
+                    closed.yTerms.reduce((sum, term) => sum + term[0] / term[1], 0)];
+  return { bend: exact.bend, arc: exact.arc, chord: exact.chord, pitch, inflection,
+           inflections, inflectionCount: inflections.length, closest, endpoint };
+};
+window.curveSaver = (function () {
+  const key = "curve-lab-saved-curves";
+  const load = () => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (error) { return []; } };
+  const store = items => localStorage.setItem(key, JSON.stringify(items));
+  return {
+    add(record) { const items = load(); items.push(record); store(items); return items.length; },
+    count() { return load().length; },
+    clear() { store([]); },
+    download() {
+      const blob = new Blob([JSON.stringify({ title: "curves saved from the ph-quintic gallery", presets: load() }, null, 2)],
+                            { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "ph-quintic-saved.json";
+      document.body.append(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }
+  };
+})();
+
+</script>
+<script>
+// The eleventh power and up: a PH curve whose position degree starts at 11.
+//
+// r' = w^2 with w of degree k, so 2(k+1) speed numbers (k+1 real, k+1
+// imaginary) and a position degree of 2k + 1. The ladder therefore steps by
+// two: k = 5, 6, 7, 8, 9 gives position degrees 11, 13, 15, 17, 19, with 12,
+// 14, 16, 18 and 20 speed numbers. An even position degree cannot occur:
+// p and q of equal top degree both square to a real leading term, so the
+// leading position term is always real and of odd degree.
+//
+// The page sets window.phSpeedDegree before this script runs. The rung buttons
+// call window.phNthSetDegree(k) to move up or down without a reload; existing
+// curves load into a bigger rung padded with zeros, which leaves the shape
+// alone.
+
+(function () {
+  const asked = Number(window.phSpeedDegree);
+  let speedDegree = Number.isFinite(asked) && asked >= 1 ? Math.round(asked) : 5;
+  let speedCount = speedDegree + 1;     // numbers per axis, real or imaginary
+  const positionDegree = () => 2 * speedDegree + 1;
+
+  const metrics = window.recipeMetrics;
+  const value = window.polynomialValue;
+
+  const defaults = {
+    x: [2, -5, 6, 1, 0, 0],
+    y: [4, -22, 22, -2, 0, 0],
+  };
+  const state = { x: defaults.x.slice(), y: defaults.y.slice() };
+  let currentName = "curve";
+
+  const cells = [];
+  const grid = document.getElementById("n-controls");
+  const complementGrid = document.getElementById("n-complement-controls");
+  // The complementary curve: a second speed pair drawn under the spine. It
+  // starts as the spine flipped across the origin, which is the pair that
+  // interleaves; its numbers are its own from then on.
+  const complement = { x: defaults.x.slice(), y: defaults.y.slice() };
+  // The turn is a rule, not a matrix: it is applied about the spine's own
+  // centre, which moves whenever the numbers change, so a stored matrix would
+  // turn about the wrong point.
+  complement.turn = 0;
+
+  // Placement is a 3x3 affine matrix, row major, applied to the drawn points:
+  // [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f).
+  // Flips, the half turn and the move are all this one object, so the speed
+  // numbers stay the curve and the matrix says where the curve sits.
+  const identity = () => [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  const FLIP_ACROSS = [-1, 0, 0, 0, 1, 0, 0, 0, 1];   // x -> -x
+  const UPSIDE_DOWN = [1, 0, 0, 0, -1, 0, 0, 0, 1];   // y -> -y
+  state.transform = identity();
+  complement.transform = identity();
+  const placed = (matrix, points) => points.map(([x, y]) => [
+    matrix[0] * x + matrix[1] * y + matrix[2],
+    matrix[3] * x + matrix[4] * y + matrix[5],
+  ]);
+  const compose = (left, right) => {
+    const out = new Array(9).fill(0);
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 3; column++) {
+        out[row * 3 + column] =
+          left[row * 3] * right[column] +
+          left[row * 3 + 1] * right[3 + column] +
+          left[row * 3 + 2] * right[6 + column];
+      }
+    }
+    return out;
+  };
+
+  function decode(number) {
+    if (!number) return { mantissa: 0, decade: 0 };
+    const decade = Math.max(-2, Math.min(6, Math.floor(Math.log10(Math.abs(number)))));
+    return { mantissa: number / Math.pow(10, decade), decade: decade };
+  }
+  function syncCell(cell, number, { write = true, sliders = true } = {}) {
+    if (write) cell.number.value = +number.toFixed(6);
+    if (!sliders) return;
+    const { mantissa, decade } = decode(number);
+    cell.fine.value = Math.abs(mantissa);
+    // the decade slider: the size of the number, one step per power of ten
+    if (cell.decade) cell.decade.value = String(decade);
+  }
+
+  // a pair of steppers that move a value to the next integer up or down
+  function stepInteger(value, direction) {
+    if (direction > 0) return Number.isInteger(value) ? value + 1 : Math.floor(value) + 1;
+    return Number.isInteger(value) ? value - 1 : Math.ceil(value) - 1;
+  }
+  function steppers(input, apply) {
+    const wrap = document.createElement("span");
+    wrap.className = "steppers";
+    [["\u25b2", 1], ["\u25bc", -1]].forEach(([label, direction]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "step";
+      button.textContent = label;
+      button.title = direction > 0 ? "next integer up" : "next integer down";
+      button.addEventListener("click", () => apply(direction));
+      wrap.append(button);
+    });
+    input.insertAdjacentElement("afterend", wrap);
+    return wrap;
+  }
+
+  // One cell of numbers: a box, a slider, the sign flip and the scale buttons.
+  // The power and the axis are written by the grid that holds the cell.
+  function makeCell(axis, target, k) {
+    const cell = document.createElement("label");
+    cell.className = "spine-cell";
+    const number = document.createElement("input");
+    number.type = "number"; number.step = "0.1";
+    number.value = target[axis][k] ?? 0;
+    const fine = document.createElement("input");
+    fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
+    fine.title = "size, sign from the box";
+    // the second slider: the decade. Two sliders per number, so 24 at degree 11,
+    // because the mantissa slider alone cannot reach 1000 or 0.01 quickly.
+    const decade = document.createElement("input");
+    decade.type = "range"; decade.min = "-2"; decade.max = "6"; decade.step = "1";
+    decade.className = "decade";
+    decade.title = "decade: the number is the mantissa x 10 to this power";
+    const scales = document.createElement("span");
+    scales.className = "scales";
+    [["\u221a2", "root2"], ["\u00d71.1", "euler-step"], ["e", "euler"]].forEach(([label, kind]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "scale";
+      button.textContent = label;
+      button.title = kind === "root2" ? "snap to the nearest multiple of sqrt 2"
+        : kind === "euler" ? "snap to the nearest multiple of e (2.71828)"
+        : "multiply the mantissa by 1.1";
+      button.addEventListener("click", () => {
+        const current = axis === "x" ? target.x[k] : target.y[k];
+        if (kind === "root2") set(Math.round(current / Math.SQRT2) * Math.SQRT2);
+        else if (kind === "euler") set(Math.round(current / Math.E) * Math.E);
+        else set(current * 1.1);
+      });
+      scales.append(button);
+    });
+    [["1", 0], ["10", 1], ["100", 2]].forEach(([label, power]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "scale";
+      button.textContent = label;
+      button.title = `mantissa x ${label}`;
+      button.addEventListener("click", () => {
+        const current = axis === "x" ? target.x[k] : target.y[k];
+        set(decode(current).mantissa * Math.pow(10, power));
+      });
+      scales.append(button);
+    });
+    const elements = { number, fine, decade };
+    cells.push({ axis, k, target, ...elements });
+    const set = (v) => {
+      if (target === state) currentName = "curve";
+      if (axis === "x") target.x[k] = v; else target.y[k] = v;
+      syncCell(elements, v);          // the slider is the source: write the box
+      draw();
+    };
+    number.addEventListener("input", () => {
+      const text = number.value.trim();
+      if (text === "") return;
+      const v = Number(text);
+      if (!Number.isFinite(v)) return;
+      if (target === state) currentName = "curve";
+      if (axis === "x") target.x[k] = v; else target.y[k] = v;
+      syncCell(elements, v, { write: false });
+      draw();
+    });
+    fine.addEventListener("input", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      const sign = current < 0 ? -1 : 1;
+      set(sign * +fine.value * Math.pow(10, decode(current).decade));
+    });
+    decade.addEventListener("input", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      const sign = current < 0 ? -1 : 1;
+      const mantissa = Math.abs(decode(current).mantissa);
+      set(sign * mantissa * Math.pow(10, +decade.value));
+    });
+    // The sign button: the slider carries size only, so the sign lives in the
+    // number box. One press flips it, which is the quickest way to try the
+    // other half of the family.
+    const flip = document.createElement("button");
+    flip.type = "button";
+    flip.className = "sign";
+    flip.textContent = "\u2212";
+    flip.title = "flip the sign of this number";
+    flip.addEventListener("click", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      set(current === 0 ? -1 : -current);
+    });
+    const pair = document.createElement("div");
+    pair.className = "cell-inputs";
+    pair.append(number, fine, decade, flip, scales);
+    steppers(number, direction => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      set(stepInteger(current, direction));
+    });
+    cell.append(pair);
+    return cell;
+  }
+
+  // The power a box carries. With exponent step 1 it is the box index; with a
+  // fractional step the boxes step by that fraction, so box 1 is t^0.5 at step
+  // 1/2 and every label, the formula and the closing sentence follow it.
+  const exponentOf = index => index * (window.phPowerStep || 1);
+  // written as a fraction, so t^5/2 does not become the rounded t^2.5
+  const exponentLabel = value => {
+    for (const d of [1, 2, 3, 4, 5, 6]) {
+      const n = value * d;
+      if (Math.abs(n - Math.round(n)) < 1e-9) {
+        return d === 1 ? String(Math.round(n)) : `${Math.round(n)}/${d}`;
+      }
+    }
+    return value.toFixed(3);
+  };
+  const powerText = index => {
+    const value = exponentOf(index);
+    if (index === 0) return "t^0";
+    if (Math.abs(value - 1) < 1e-9) return "t";
+    return `t^${exponentLabel(value)}`;
+  };
+
+  // One line per power: the power on the left, then the x number, then the y
+  // number. Six lines at degree 11, ten at degree 19.
+  function buildPairGrid(target) {
+    const grid = document.createElement("div");
+    grid.className = "pair-grid";
+    const heading = text => {
+      const span = document.createElement("span");
+      span.className = "axis-head";
+      span.textContent = text;
+      return span;
+    };
+    grid.append(document.createElement("span"), heading("x"), heading("y"));
+    for (let k = 0; k < speedCount; k++) {
+      const power = document.createElement("span");
+      power.className = "power-label";
+      power.textContent = powerText(k);
+      grid.append(power, makeCell("x", target, k), makeCell("y", target, k));
+    }
+    return grid;
+  }
+
+  // the row must be as long as the rung before the boxes are built, or a box
+  // asks for a number that is not there yet
+  sizePair(state);
+  sizePair(complement);
+  grid.append(buildPairGrid(state));
+  if (complementGrid) complementGrid.append(buildPairGrid(complement));
+  function writeCells() {
+    cells.forEach(cell => syncCell(cell, cell.axis === "x" ? cell.target.x[cell.k] : cell.target.y[cell.k]));
+  }
+
+  function sizePair(pair) {
+    while (pair.x.length < speedCount) pair.x.push(0);
+    while (pair.y.length < speedCount) pair.y.push(0);
+    pair.x.length = speedCount;
+    pair.y.length = speedCount;
+  }
+
+  // A new rung: every number that still has a box keeps its value, the new
+  // boxes start at zero, and the controls are rebuilt so the sliders match the
+  // new count. Nothing is rescaled, so an old curve draws the same shape.
+  function rebuildControls() {
+    sizePair(state);
+    sizePair(complement);
+    cells.length = 0;
+    grid.textContent = "";
+    grid.append(buildPairGrid(state));
+    if (complementGrid) {
+      complementGrid.textContent = "";
+      complementGrid.append(buildPairGrid(complement));
+    }
+  }
+
+  window.phNthDegree = () => ({ speedDegree, speedCount, degree: positionDegree() });
+  window.phNthSetDegree = k => {
+    const next = Math.round(Number(k));
+    if (!Number.isFinite(next) || next < 1 || next === speedDegree) return;
+    speedDegree = next;
+    speedCount = speedDegree + 1;
+    rebuildControls();
+    writeCells();
+    draw();
+    document.dispatchEvent(new CustomEvent("ph-nth-degree", { detail: window.phNthDegree() }));
+  };
+
+  // ---------- the offsets, the terminal ----------
+  // Parallel for now: r + d*n with d a constant half-width. The flare law moved
+  // to workbench/ph-nth-serif-notes.html, where it is studied on its own.
+  // d is a percentage of the curve's own size, not an absolute number: a 0.3
+  // curve and a 1400 curve should both show their offsets. The size is the
+  // diagonal of the spine's bounding box.
+  const width = { percent: 1.5 };
+  let curveSize = 1;
+  const halfWidth = () => Math.max(1e-9, width.percent / 100 * curveSize);
+
+  // what the page draws: the spine alone by default
+  const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
+                 rotate: false, complement: true };
+  const TURN = -Math.PI / 4;
+  const turned = points => view.rotate
+    ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
+                              x * Math.sin(TURN) + y * Math.cos(TURN)])
+    : points;
+
+  // A character offset: the parallel rail, bowed. The bow is the difference
+  // between integrating the speed turned a little at each station
+  // (g = w (1 + i eps b(t))) and integrating it untouched, both from the same
+  // start. That difference is pinned to zero at both ends, so the rail meets
+  // the parallel at +/- d at the start and the end and bows in between. It is
+  // the character, not a drift: at character 0 the rail is the parallel rail.
+  const character = { plus: 2, minus: 2, profile: "bow" };
+  const shear = { delta: 0 };
+  // the hook is a rational increment on the t^5 coefficient: (dx, dy).
+  // A magnitude and an angle would be irrational and blow the pitch up.
+  const hook = { dx: 0, dy: 0 };
+
+  // the bow's profile: one swell, an S, or a taper toward the end
+  const bumpAt = t => {
+    if (character.profile === "s") return 8 * t * (1 - t) * (1 - 2 * t);
+    if (character.profile === "taper") return 6.75 * t * t * (1 - t);
+    return 4 * t * (1 - t);
+  };
+
+  // the tail hook is a polynomial change of the speed itself: add h e^{i phi}
+  // to the t^5 coefficient, so the spine bends without leaving the PH family
+  function hookedSpeed() {
+    const x = state.x.slice(), y = state.y.slice();
+    x[x.length - 1] += hook.dx;
+    y[y.length - 1] += hook.dy;
+    return { x, y };
+  }
+  function integrateFrom(startX, startY, speedAt, steps) {
+    let x = startX, y = startY;
+    const points = [[x, y]];
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const [gr, gi] = speedAt(t);
+      x += (gr * gr - gi * gi) / steps;
+      y += 2 * gr * gi / steps;
+      points.push([x, y]);
+    }
+    return points;
+  }
+  function characterRail(sign, speed) {
+    const steps = 700;
+    const spine = spineSamples(speed, steps);
+    const start = spine[0];
+    const d = halfWidth();
+    const from = [start.x + sign * d * start.nx, start.y + sign * d * start.ny];
+    const flat = integrateFrom(from[0], from[1], t => [value(speed.x, t), value(speed.y, t)], steps);
+    const eps = 0.08 * (sign > 0 ? character.plus : character.minus);
+    const turned = integrateFrom(from[0], from[1], t => {
+      const p = value(speed.x, t), q = value(speed.y, t);
+      const a = sign * eps * bumpAt(t);
+      return [p - a * q, q + a * p];
+    }, steps);
+    return spine.map((s, i) => {
+      const t = i / steps;
+      const parallel = [s.x + sign * d * s.nx + shear.delta * t * s.tx,
+                        s.y + sign * d * s.ny + shear.delta * t * s.ty];
+      const weight = 4 * t * (1 - t);
+      return [parallel[0] + weight * (turned[i][0] - flat[i][0]),
+              parallel[1] + weight * (turned[i][1] - flat[i][1])];
+    });
+  }
+
+  // The parameter window. t = 0 is where the curve starts, so a negative `from`
+  // draws the same curve backwards from its own start, and a `to` past 1 runs on
+  // past the end. Nothing is clamped: the tail is the same curve, only longer.
+  const range = { from: 0, to: 1 };
+
+  // the points from t = 0 to t = end, as a walk of `steps`
+  function walkTo(speed, end, steps) {
+    const out = [];
+    let x = 0, y = 0;
+    const step = end / steps;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) * step;
+      const p = value(speed.x, t), q = value(speed.y, t);
+      x += (p * p - q * q) * step;
+      y += 2 * p * q * step;
+      out.push({ t, x, y });
+    }
+    return out;
+  }
+
+  function spineSamples(speed, n = 700) {
+    const half = Math.max(2, Math.round(n / 2));
+    // a from of 0 has no backwards part; walking it anyway would pile hundreds
+    // of duplicate points on the origin and invent crossings there
+    const forward = walkTo(speed, range.to, range.from === 0 ? n : half);
+    const backward = range.from === 0 ? [] : walkTo(speed, range.from, half).reverse();
+    const ordered = backward.concat([{ t: 0, x: 0, y: 0 }], forward);
+    return ordered.map(({ t, x, y }) => {
+      const p = value(speed.x, t), q = value(speed.y, t);
+      const speed2 = p * p + q * q;
+      const tx = speed2 > 1e-12 ? (p * p - q * q) / speed2 : 1;
+      const ty = speed2 > 1e-12 ? 2 * p * q / speed2 : 0;
+      return { t, x, y, tx, ty, nx: -ty, ny: tx };
+    });
+  }
+
+  // the arc through three points: a round terminal of radius d at that end
+  function arcThrough(cx, cy, from, to, through, steps = 48) {
+    const radius = Math.hypot(from[0] - cx, from[1] - cy) || 1e-9;
+    const a0 = Math.atan2(from[1] - cy, from[0] - cx);
+    const a1 = Math.atan2(to[1] - cy, to[0] - cx);
+    const pick = [a1, a1 + 2 * Math.PI, a1 - 2 * Math.PI].map(end => {
+      const mid = (a0 + end) / 2;
+      const p = [cx + Math.cos(mid) * radius, cy + Math.sin(mid) * radius];
+      return { end, gap: Math.hypot(p[0] - through[0], p[1] - through[1]) };
+    }).sort((u, v) => u.gap - v.gap)[0];
+    const points = [];
+    for (let i = 0; i <= steps; i++) {
+      const a = a0 + (pick.end - a0) * i / steps;
+      points.push([cx + radius * Math.cos(a), cy + radius * Math.sin(a)]);
+    }
+    return points;
+  }
+
+  // a simple arc terminal: a semicircle of radius d joining the two rails and
+  // bulging along the tangent (forward at the end, backward at the start)
+  function terminalArc(spine, atStart) {
+    const s = atStart ? spine[0] : spine[spine.length - 1];
+    const d = halfWidth();
+    const sign = atStart ? -1 : 1;
+    const A = [s.x + d * s.nx, s.y + d * s.ny];
+    const B = [s.x - d * s.nx, s.y - d * s.ny];
+    const tip = [s.x + sign * d * s.tx, s.y + sign * d * s.ty];
+    const arc = arcThrough(s.x, s.y, A, B, tip);
+    return { arc, tip, d };
+  }
+
+  // Where two polylines cross. The bounding box test first, because most
+  // segment pairs are far apart; then both orientation tests must change sign.
+  function crossingsOf(first, second, tolerance) {
+    const hits = [];
+    const turn = (ax, ay, bx, by) => ax * by - ay * bx;
+    for (let i = 0; i < first.length - 1; i++) {
+      const [ax, ay] = first[i], [bx, by] = first[i + 1];
+      const lowX = Math.min(ax, bx), highX = Math.max(ax, bx);
+      const lowY = Math.min(ay, by), highY = Math.max(ay, by);
+      for (let j = 0; j < second.length - 1; j++) {
+        const [cx, cy] = second[j], [dx, dy] = second[j + 1];
+        if (Math.max(cx, dx) < lowX || Math.min(cx, dx) > highX) continue;
+        if (Math.max(cy, dy) < lowY || Math.min(cy, dy) > highY) continue;
+        const d1 = turn(bx - ax, by - ay, cx - ax, cy - ay);
+        const d2 = turn(bx - ax, by - ay, dx - ax, dy - ay);
+        const d3 = turn(dx - cx, dy - cy, ax - cx, ay - cy);
+        const d4 = turn(dx - cx, dy - cy, bx - cx, by - cy);
+        if (d1 * d2 < 0 && d3 * d4 < 0) {
+          const share = d1 / (d1 - d2);
+          hits.push([ax + (bx - ax) * share, ay + (by - ay) * share]);
+        }
+      }
+    }
+    // two neighbouring segments can both report the same point
+    return hits.filter((hit, index) => hits.findIndex(other =>
+      Math.abs(other[0] - hit[0]) < tolerance && Math.abs(other[1] - hit[1]) < tolerance) === index);
+  }
+
+  // The compass at the foot of the page: the heading is twice the angle of the
+  // first pair, so four headings serve eight pairs, and a pair and its negative
+  // share a heading.
+  function drawCompass() {
+    const host = document.getElementById("n-compass");
+    if (!host) return;
+    const size = 340, cx = size / 2, cy = size / 2, radius = 112;
+    const groups = [
+      { heading: 0, pairs: [[1, 0], [-1, 0]], speed: 1 },
+      { heading: 90, pairs: [[1, 1], [-1, -1]], speed: 2 },
+      { heading: 180, pairs: [[0, 1], [0, -1]], speed: 1 },
+      { heading: 270, pairs: [[1, -1], [-1, 1]], speed: 2 },
+    ];
+    const at = (heading, distance) => [cx + Math.cos(heading) * distance,
+                                       cy - Math.sin(heading) * distance];
+    let art = `<rect width="${size}" height="${size}" fill="#fbf7ec"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#d8ccae"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${radius + 26}" fill="none" stroke="#efe7d3"/>`;
+    [[0, 1], [1, 0], [0, -1], [-1, 0]].forEach(([dx, dy]) => {
+      art += `<line x1="${cx + dx * (radius + 26)}" y1="${cy - dy * (radius + 26)}" ` +
+             `x2="${cx - dx * (radius + 26)}" y2="${cy + dy * (radius + 26)}" ` +
+             `stroke="#efe7d3"/>`;
+    });
+    ["0", "90", "180", "270"].forEach((label, index) => {
+      const [x, y] = at(index * Math.PI / 2, radius + 26);
+      art += `<text x="${x}" y="${y + 4}" font-size="12" fill="#7b6c4e" ` +
+             `text-anchor="middle">${label}</text>`;
+    });
+    groups.forEach(({ heading, pairs, speed }) => {
+      const angle = heading * Math.PI / 180;
+      const [tipX, tipY] = at(angle, radius - 8);
+      art += `<line x1="${cx}" y1="${cy}" x2="${tipX}" y2="${tipY}" ` +
+             `stroke="#c9bfa6" stroke-width="2"/>`;
+      const [labelX, labelY] = at(angle, radius - 26);
+      art += `<text x="${labelX}" y="${labelY}" font-size="12" fill="#2e2413" ` +
+             `text-anchor="middle">${pairs[0].join(",")}  ${pairs[1].join(",")}</text>` +
+             `<text x="${labelX}" y="${labelY + 13}" font-size="11" fill="#7b6c4e" ` +
+             `text-anchor="middle">speed ${speed}</text>`;
+    });
+    // the curve on this page
+    const x0 = state.x[0] || 0, y0 = state.y[0] || 0;
+    const heading = 2 * Math.atan2(y0, x0);
+    const [tipX, tipY] = at(heading, radius);
+    art += `<line x1="${cx}" y1="${cy}" x2="${tipX}" y2="${tipY}" ` +
+           `stroke="#2e2413" stroke-width="2.6"/>` +
+           `<circle cx="${tipX}" cy="${tipY}" r="4" fill="#2e2413"/>` +
+           `<circle cx="${cx}" cy="${cy}" r="4" fill="#1f5fa8"/>`;
+    const degrees = ((heading * 180 / Math.PI) % 360 + 360) % 360;
+    art += `<text x="${size - 8}" y="14" font-size="10" fill="#7b6c4e" ` +
+           `text-anchor="end">Fig. E4</text>`;
+    art += `<text x="${cx}" y="${size - 8}" font-size="13" fill="#2e2413" ` +
+           `text-anchor="middle">first pair ${x0}, ${y0} &rarr; heading ${degrees.toFixed(1)}&deg;` +
+           `, speed ${(x0 * x0 + y0 * y0).toFixed(2)}</text>`;
+    host.innerHTML = art;
+  }
+
+  // The grid of products: every x number times every other, with the diagonal
+  // that makes each power of the curve.
+  function drawPairTable() {
+    const host = document.getElementById("n-pair-table");
+    if (!host) return;
+    const count = Math.min(speedCount, 6);
+    const cell = 58, left = 74, top = 52;
+    const tints = ["#f4ecd7", "#efe4c9", "#f7f1e2"];
+    let art = `<rect width="560" height="470" fill="#fbf7ec"/>` +
+      `<text x="${left}" y="24" font-size="14" font-weight="600" fill="#2e2413">` +
+      `x row multiplied by itself${count < speedCount ? " (the first six powers)" : ""}</text>` +
+      `<text x="${left}" y="40" font-size="11" fill="#7b6c4e">each cell is one product; a diagonal is one power</text>`;
+    for (let i = 0; i < count; i++) {
+      art += `<text x="${left + i * cell + cell / 2}" y="${top - 8}" font-size="11" ` +
+             `fill="#7b6c4e" text-anchor="middle">t^${i}</text>` +
+             `<text x="${left - 10}" y="${top + i * cell + cell / 2 + 4}" font-size="11" ` +
+             `fill="#7b6c4e" text-anchor="end">t^${i}</text>`;
+    }
+    for (let row = 0; row < count; row++) {
+      for (let column = 0; column < count; column++) {
+        const power = row + column;
+        const product = (state.x[column] || 0) * (state.x[row] || 0);
+        const shade = tints[power % tints.length];
+        art += `<rect x="${left + column * cell}" y="${top + row * cell}" width="${cell - 3}" ` +
+               `height="${cell - 3}" fill="${shade}" stroke="#d8ccae"/>` +
+               `<text x="${left + column * cell + 4}" y="${top + row * cell + 13}" font-size="9" ` +
+               `fill="#8a3b2a">${power}</text>` +
+               `<text x="${left + column * cell + cell / 2 - 1}" y="${top + row * cell + cell / 2 + 6}" ` +
+               `font-size="12" fill="#2e2413" text-anchor="middle">${+product.toFixed(2)}</text>`;
+      }
+    }
+    const footY = top + count * cell + 16;
+    art += `<text x="${left}" y="${footY}" font-size="11" fill="#2e2413">` +
+           `diagonal 0 makes the t term, diagonal 1 the t^2 term, ... diagonal ${2 * (count - 1)} ` +
+           `the t^${2 * (count - 1) + 1} term</text>` +
+           `<text x="${left}" y="${footY + 15}" font-size="11" fill="#7b6c4e">` +
+           `each diagonal is divided by its power plus one</text>` +
+           `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E2</text>`;
+    host.innerHTML = art;
+  }
+
+  // The triangle: the root that an ordinary curve carries, and the same root
+  // cancelling here because the two speeds are a matched pair.
+  function drawLengthFigure(arcText) {
+    const host = document.getElementById("n-length");
+    if (!host) return;
+    const triangle = (x, title, hypotenuse, colour) => {
+      const ax = x, ay = 128, bx = x + 120, by = 128, cx = x + 120, cy = 44;
+      return `<text x="${x + 10}" y="22" font-size="12" font-weight="600" fill="#2e2413">${title}</text>` +
+        `<path d="M${ax},${ay} L${bx},${by} L${cx},${cy} Z" fill="#f7f1e2" stroke="#d8ccae"/>` +
+        `<text x="${x + 60}" y="${ay + 16}" font-size="11" fill="#7b6c4e" text-anchor="middle">x'</text>` +
+        `<text x="${bx + 6}" y="${(ay + cy) / 2}" font-size="11" fill="#7b6c4e">y'</text>` +
+        `<text x="${x + 34}" y="${(ay + cy) / 2 - 6}" font-size="11" fill="${colour}" ` +
+        `text-anchor="middle">${hypotenuse}</text>`;
+    };
+    let art = `<rect width="560" height="190" fill="#fbf7ec"/>` +
+      triangle(40, "an ordinary curve", "\u221a(x'\u00b2+y'\u00b2)", "#a23b2a") +
+      triangle(330, "these curves", "p\u00b2 + q\u00b2", "#2e2413") +
+      `<text x="40" y="158" font-size="11" fill="#a23b2a">the root stays: no clean length</text>` +
+      `<text x="330" y="158" font-size="11" fill="#2e2413">the root cancels: a plain polynomial</text>` +
+      `<text x="40" y="178" font-size="11" fill="#7b6c4e">` +
+      `x'\u00b2 + y'\u00b2 = (p\u00b2 + q\u00b2)\u00b2, so the length is the integral of p\u00b2 + q\u00b2` +
+      `</text>` +
+      `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E3</text>`;
+    host.innerHTML = art;
+    const exact = document.getElementById("n-length-exact");
+    if (exact) exact.textContent = arcText;
+  }
+
+  // ---------- the drawing ----------
+  function draw() {
+    const plot = document.getElementById("n-plot");
+    const speed = hookedSpeed();
+    const spine = spineSamples(speed);
+    const complementSpine = spineSamples({ x: complement.x, y: complement.y }).map(s => [s.x, s.y]);
+    const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
+    const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
+                                Math.max(...spineYs) - Math.min(...spineYs));
+    const measured = metrics(speed.x, speed.y);
+    curveSize = Math.max(1e-9, Math.max(Math.hypot(measured.chord[0], measured.chord[1]), 0.25 * diagonal));
+    const d = halfWidth();
+    const leftRail = spine.map(s => [s.x + d * s.nx, s.y + d * s.ny]);
+    const rightRail = spine.map(s => [s.x - d * s.nx, s.y - d * s.ny]);
+    const characterLeft = view.character ? characterRail(1, speed) : null;
+    const characterRight = view.character ? characterRail(-1, speed) : null;
+    const startEnd = view.startTerminal ? terminalArc(spine, true) : null;
+    const finishEnd = view.endTerminal ? terminalArc(spine, false) : null;
+    const spinePoints = placed(state.transform, spine.map(s => [s.x, s.y]));
+    const centreOfSpine = spinePoints.length
+      ? [spinePoints.reduce((sum, p) => sum + p[0], 0) / spinePoints.length,
+         spinePoints.reduce((sum, p) => sum + p[1], 0) / spinePoints.length]
+      : [0, 0];
+    const turnedAbout = (points, degrees, about) => {
+      if (!degrees) return points;
+      const angle = degrees * Math.PI / 180;
+      const cos = Math.cos(angle), sin = Math.sin(angle);
+      return points.map(([x, y]) => {
+        const dx = x - about[0], dy = y - about[1];
+        return [about[0] + dx * cos - dy * sin, about[1] + dx * sin + dy * cos];
+      });
+    };
+    const complementShown = turnedAbout(
+      placed(complement.transform, complementSpine), complement.turn, centreOfSpine);
+    const all = spinePoints.slice();
+    if (view.complement) all.push(...complementShown);
+    if (view.rails) all.push(...leftRail, ...rightRail);
+    if (characterLeft) all.push(...characterLeft, ...characterRight);
+    if (startEnd) all.push(...startEnd.arc, startEnd.tip);
+    if (finishEnd) all.push(...finishEnd.arc, finishEnd.tip);
+    const shown = turned(all);
+    const xs = shown.map(p => p[0]), ys = shown.map(p => p[1]);
+    const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
+    const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
+    const minX = Math.min(...xs) - padX, maxX = Math.max(...xs) + padX;
+    const minY = Math.min(...ys) - padY, maxY = Math.max(...ys) + padY;
+    const width_ = 720, height = 470, left = 74, right = 40, top = 64, bottom = 76;
+    const scale = Math.min((width_ - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
+    const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
+    const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
+    const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
+    const path = points => "M" + turned(points).map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
+    let art = `<rect width="${width_}" height="${height}" fill="#fbf7ec"/>` +
+      `<text x="${left}" y="26" font-size="15" font-weight="600" fill="#2e2413">The eleventh power: a PH spine${view.rails ? ", a flared full line" : ""}</text>` +
+      `<text x="${left}" y="44" font-size="12" fill="#7b6c4e">` +
+      (view.rails ? `rails r +/- d n, d constant` : `the spine alone; rails and terminals are below`) +
+      `${view.startTerminal || view.endTerminal ? " | terminal: an arc of radius d" : ""}` +
+      ` | grey: complementary curve</text>` +
+      `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
+      `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>`;
+    if (view.rails) {
+      art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
+             `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>`;
+    }
+    if (characterLeft) {
+      art += `<path d="${path(characterLeft)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>` +
+             `<path d="${path(characterRight)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>`;
+    }
+    // the complementary curve sits under the spine: 40% grey (#666), so the dark
+    // stroke stays the one you read first
+    if (view.complement) {
+      art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
+    }
+    art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    // the meetings of the two curves, counted and marked
+    const meets = view.complement ? crossingsOf(spinePoints, complementShown,
+                              1e-4 * Math.max(1e-9, maxX - minX)) : [];
+    meets.forEach(([x, y]) => {
+      art += `<circle cx="${fx(x).toFixed(1)}" cy="${fy(y).toFixed(1)}" r="3.6" ` +
+             `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6"/>`;
+    });
+    art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
+    // legend inside the figure, 15px, naming the spine first and wrapping when
+    // the entries would run past the right edge
+    const legend = [["#2e2413", 2.4, "spine"], ["#666666", 2, "complementary curve"]];
+    if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
+    if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
+    if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
+    if (meets.length) legend.push(["#a23b2a", 1.6, "crossing"]);
+    let legendX = left, legendY = height - 44;
+    legend.forEach(([colour, widthStroke, text]) => {
+      const entry = 34 + text.length * 8.2 + 26;
+      if (legendX > left && legendX + entry > width_ - right) {
+        legendX = left;
+        legendY += 20;
+      }
+      art += `<line x1="${legendX}" y1="${legendY}" x2="${legendX + 26}" y2="${legendY}" ` +
+        `stroke="${colour}" stroke-width="${widthStroke}"/>` +
+        `<text x="${legendX + 34}" y="${legendY + 5}" font-size="15" fill="#2e2413">${text}</text>`;
+      legendX += entry;
+    });
+    plot.innerHTML = art;
+
+    const m = metrics(speed.x, speed.y);
+    const openness = m.arc > 1e-12 ? Math.hypot(m.chord[0], m.chord[1]) / m.arc : 0;
+    const curve = curveOf(speed);
+    const degreeOf = terms => { let d = 0; terms.forEach((c, k) => { if (Math.abs(c) > 1e-9) d = k; }); return d; };
+    const plain = metrics(state.x, state.y);
+    const hookNote = (hook.dx || hook.dy)
+      ? ` | grid without the hook 1/${plain.pitch.toLocaleString()}` : "";
+    const gridText = m.pitch ? `grid 1/${m.pitch.toLocaleString()}${hookNote}` : "grid n/a: fractional powers";
+    const negativeNote = (range.from < 0 && (window.phPowerStep || 1) !== 1)
+      ? " | t below 0 uses the odd extension sign(t)|t|^step" : "";
+    const inflectionText = m.inflections
+      ? `inflections ${m.inflections.length} (max ${2 * speedDegree - 1})`
+      : "inflections n/a: fractional powers";
+    document.getElementById("n-readout").textContent =
+      `bend ${m.bend.toFixed(3)} | ${gridText} | ` + inflectionText + ` | ` +
+      `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
+      `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
+      `crosses ${meets.length}` + negativeNote;
+    const crossingLabel = document.getElementById("n-crossings");
+    if (crossingLabel) {
+      crossingLabel.textContent = `${meets.length} crossing${meets.length === 1 ? "" : "s"}`;
+    }
+    const showing = [view.rails ? "parallel rails" : view.character ? "character offsets" : "spine only"];
+    if (view.startTerminal) showing.push("start terminal");
+    if (view.endTerminal) showing.push("end terminal");
+    document.getElementById("n-width-readout").textContent =
+      `d ${width.percent.toFixed(2)}% of the curve = ${halfWidth().toFixed(3)} units | showing ${showing.join(", ")}`;
+    document.getElementById("n-grade").textContent =
+      `degree ${Math.max(degreeOf(curve.x), degreeOf(curve.y))} (x ${degreeOf(curve.x)}, y ${degreeOf(curve.y)})` +
+      (m.inflection === null ? " | no inflection: a C, not an S" : "");
+    document.getElementById("n-formula").textContent =
+      `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
+      `speed, the twelve boxes: x ${state.x.join(", ")} | y ${state.y.join(", ")}`;
+    // The worked example at the foot of the page: the same numbers the boxes
+    // hold, written out through the formula.
+    const explain = document.getElementById("n-formula-explain");
+    if (explain) {
+      const written = row => {
+        const parts = [];
+        row.forEach((c, k) => {
+          if (!c) return;
+          const power = k === 0 ? "" : powerText(k);
+          const size = Math.abs(c) === 1 && power ? "" : String(Math.abs(c));
+          parts.push(`${c < 0 ? " - " : parts.length ? " + " : ""}${size}${power}`);
+        });
+        return parts.join("") || "0";
+      };
+      const x0 = state.x[0] || 0, y0 = state.y[0] || 0;
+      explain.textContent =
+        `the x speed is  ${written(state.x)}\n` +
+        `the y speed is  ${written(state.y)}\n` +
+        `the t term of x is ${x0}*${x0} - ${y0}*${y0} = ${x0 * x0 - y0 * y0}\n` +
+        `the t term of y is 2 * ${x0} * ${y0} = ${2 * x0 * y0}\n` +
+        `${state.x.length} numbers per row: the speed reaches t^${exponentLabel(exponentOf(state.x.length - 1))}, ` +
+        `so the curve reaches t^${exponentLabel(2 * exponentOf(state.x.length - 1) + 1)}`;
+    }
+    const box = document.getElementById("n-json");
+    if (box) {
+      box.value = JSON.stringify(flatRecord(currentName), null, 2);
+    }
+    drawBars();
+    drawCompass();
+    drawPairTable();
+    drawLengthFigure(`this curve: length ${m.arc.toFixed(6)}, from a closed form ` +
+                     `\u2014 no square root was taken`);
+  }
+
+  const multiply = (left, right) => {
+    const product = new Array(left.length + right.length - 1).fill(0);
+    left.forEach((l, i) => right.forEach((r, j) => { product[i + j] += l * r; }));
+    return product;
+  };
+  function curveOf(speed = state) {
+    const xx = multiply(speed.x, speed.x), yy = multiply(speed.y, speed.y), xy = multiply(speed.x, speed.y);
+    const x = [0], y = [0];
+    // as far as the longer square: the y terms past the x row's length still
+    // belong to the position
+    for (let j = 0; j < Math.max(xx.length, yy.length); j++) {
+      x.push((xx[j] - (yy[j] || 0)) / (j + 1));
+      y.push(2 * xy[j] / (j + 1));
+    }
+    return { x, y };
+  }
+  const polynomialText = terms => {
+    const parts = [];
+    terms.forEach((coefficient, k) => {
+      if (k === 0 || Math.abs(coefficient) < 5e-4) return;
+      parts.push(`${coefficient < 0 ? " - " : " + "}${Math.abs(coefficient).toFixed(3)} t^${k}`);
+    });
+    return parts.join("").replace(/^ \+ /, "") || "0";
+  };
+
+  // ---------- the chord terms, as signed bars ----------
+  function chordTerms() {
+    const terms = [];
+    for (let m = 0; m <= 2 * speedDegree; m++) {
+      let re = 0, im = 0;
+      for (let j = 0; j <= speedDegree; j++) {
+        const k = m - j;
+        if (k < 0 || k > speedDegree) continue;
+        re += state.x[j] * state.x[k] - state.y[j] * state.y[k];
+        im += state.x[j] * state.y[k] + state.y[j] * state.x[k];
+      }
+      terms.push([re / (m + 1), im / (m + 1)]);
+    }
+    return terms;
+  }
+  function drawBars() {
+    const plot = document.getElementById("n-bars");
+    if (!plot) return;
+    const terms = chordTerms();
+    const rows = terms.length;
+    const width = 720, height = 460, pad = 64;
+    const left = 76, right = width - pad, top = 60, bottom = height - 96;
+    const rowHeight = (bottom - top) / rows;
+    const biggest = Math.max(1e-9, ...terms.flatMap(t => [Math.abs(t[0]), Math.abs(t[1])]));
+    const zero = (left + right) / 2;
+    const xOf = v => zero + v / biggest * (right - left) / 2;
+    let art = `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
+      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">The eleven chord terms, as signed bars</text>` +
+      `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">T_m = (w^2)_m / (m+1); t^1 to t^11 left to right, x above y in each row</text>`;
+    art += `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="#2e2413" stroke-width="1.5"/>`;
+    for (let r = 0; r < rows; r++) {
+      const centre = top + rowHeight * r + rowHeight / 2;
+      art += `<text x="${pad}" y="${(centre + 4).toFixed(1)}" font-size="12" fill="#2e2413">t^${r + 1}</text>`;
+      [[terms[r][0], "#2e2413", centre - 5], [terms[r][1], "#8a6a3a", centre + 5]].forEach(([v, colour, y]) => {
+        const start = Math.min(zero, xOf(v));
+        const length = Math.abs(xOf(v) - zero);
+        art += `<rect x="${start.toFixed(1)}" y="${(y - 3.5).toFixed(1)}" width="${Math.max(length, 0.5).toFixed(1)}" height="7" fill="${colour}"/>`;
+      });
+    }
+    plot.innerHTML = art;
+  }
+
+  // ---------- the solvers ----------
+  const freeIndices = () => {
+    const out = [];
+    for (let i = 0; i < speedCount; i++) out.push([i, 0]);
+    for (let i = 0; i < speedCount; i++) out.push([i, 1]);
+    return out;                       // every number except x t^0 stays fixed by scale
+  };
+  const paramsOf = () => state.x.slice(1).concat(state.y.slice());
+  function speedOf(params) {
+    return { x: [state.x[0]].concat(params.slice(0, speedCount - 1)),
+             y: params.slice(speedCount - 1, 2 * speedCount - 1) };
+  }
+  const arcLength = (speedX, speedY) => {
+    let total = 0;
+    const steps = 400;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(speedX, t), b = value(speedY, t);
+      total += (a * a + b * b) / steps;
+    }
+    return total;
+  };
+  const chordOf = (speedX, speedY) => {
+    const xx = multiply(speedX, speedX), yy = multiply(speedY, speedY), xy = multiply(speedX, speedY);
+    let re = 0, im = 0;
+    for (let j = 0; j < xx.length; j++) {
+      re += (xx[j] - (yy[j] || 0)) / (j + 1);
+      im += 2 * xy[j] / (j + 1);
+    }
+    return [re, im];
+  };
+  const ratioOf = (speedX, speedY) => {
+    const arc = arcLength(speedX, speedY);
+    const c = chordOf(speedX, speedY);
+    return arc > 1e-12 ? Math.hypot(c[0], c[1]) / arc : 0;
+  };
+  function cost(params, mode, targetArc, openness) {
+    const speed = speedOf(params);
+    if (mode === "openness") return (ratioOf(speed.x, speed.y) - openness) ** 2;
+    const c = chordOf(speed.x, speed.y);
+    const chordCost = c[0] * c[0] + c[1] * c[1];
+    const arcCost = targetArc === undefined ? 0 : (arcLength(speed.x, speed.y) - targetArc) ** 2;
+    const scale = Math.max(1e-9, targetArc === undefined ? 1 : targetArc) ** 2;
+    return (chordCost + arcCost) / scale;
+  }
+  function solve(mode, openness) {
+    let params = paramsOf();
+    const start = speedOf(params);
+    const targetArc = mode === "close" ? arcLength(start.x, start.y) : undefined;
+    let best = cost(params, mode, targetArc, openness);
+    let step = 0.05;
+    const h = 1e-5;
+    for (let iteration = 0; iteration < 4000; iteration++) {
+      const gradient = params.map((p, i) => {
+        const trial = params.slice();
+        trial[i] += h;
+        return (cost(trial, mode, targetArc, openness) - best) / h;
+      });
+      const norm = Math.hypot(...gradient) || 1;
+      let improved = false;
+      for (let attempt = 0; attempt < 40; attempt++) {
+        const trial = params.map((p, i) => p - step * gradient[i] / norm);
+        const v = cost(trial, mode, targetArc, openness);
+        if (v < best) { params = trial; best = v; improved = true; step *= 1.2; break; }
+        step *= 0.5;
+      }
+      if (!improved || best < 1e-20) break;
+    }
+    // Eleven parameters are badly scaled for one common step: polish each one
+    // on its own line, coarse to fine, which is what makes the solve land.
+    for (let pass = 0; pass < 3; pass++) {
+      let reach = 0.5 / Math.pow(4, pass);
+      let moved = true;
+      while (moved && reach > 1e-6) {
+        moved = false;
+        for (let i = 0; i < params.length; i++) {
+          for (const direction of [1, -1]) {
+            const trial = params.slice();
+            trial[i] += direction * reach * Math.max(1, Math.abs(params[i]));
+            const v = cost(trial, mode, targetArc, openness);
+            if (v < best) { params = trial; best = v; moved = true; break; }
+          }
+        }
+        if (!moved) reach /= 2;
+      }
+    }
+    const speed = speedOf(params);
+    state.x = [state.x[0]].concat(speed.x.slice(1));
+    state.y = speed.y.slice();
+    currentName = "curve";
+    writeCells();
+    draw();
+  }
+
+  const opennessOf = () => {
+    const raw = Number(document.getElementById("n-open-value").value);
+    return Number.isFinite(raw) ? Math.min(1, Math.max(0.02, raw)) : 0.25;
+  };
+  document.getElementById("n-close").addEventListener("click", () => solve("close"));
+  document.getElementById("n-open").addEventListener("click", () => solve("openness", opennessOf()));
+  const slider = document.getElementById("n-open-slider"), field = document.getElementById("n-open-value");
+  slider.addEventListener("input", () => { field.value = slider.value; });
+  field.addEventListener("input", () => {
+    const v = Number(field.value);
+    if (Number.isFinite(v)) slider.value = String(Math.min(1, Math.max(0.02, v)));
+  });
+  // the width law's three dials
+  // the modifiers' dials: two character strengths, the bow profile, the end
+  // shear and the tail hook
+  const wireNumber = (id, apply, low, high) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener("input", () => {
+      const v = Number(field.value);
+      if (!Number.isFinite(v)) return;
+      apply(Math.min(high, Math.max(low, v)));
+      draw();
+    });
+    steppers(field, direction => {
+      const v = stepInteger(Number(field.value) || 0, direction);
+      field.value = String(v);
+      apply(Math.min(high, Math.max(low, v)));
+      draw();
+    });
+  };
+  wireNumber("n-char-l", v => { character.plus = v; }, 0, 3);
+  wireNumber("n-char-r", v => { character.minus = v; }, 0, 3);
+  wireNumber("n-shear", v => { shear.delta = v; }, -10, 10);
+  wireNumber("n-hook", v => { hook.dx = v; }, -10, 10);
+  wireNumber("n-hook-y", v => { hook.dy = v; }, -10, 10);
+  const profileField = document.getElementById("n-prof");
+  if (profileField) profileField.addEventListener("change", () => {
+    character.profile = profileField.value;
+    draw();
+  });
+  // the coarsest grid: scale the speeds by an integer until the pitch is as
+  // small as it can be while the numbers stay readable. Scaling cannot change
+  // the bend or the inflection, only the size and the grid.
+  const gridButton = document.getElementById("n-grid");
+  if (gridButton) gridButton.addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const cap = 6000;   // keeps the numbers four digits or less
+    let best = null;
+    const base = hookedSpeed();          // the hook is part of the t^5 coefficient
+    for (let k = 1; k <= 500; k++) {
+      const tx = base.x.map(v => v * k), ty = base.y.map(v => v * k);
+      if (Math.max(...tx.map(Math.abs), ...ty.map(Math.abs)) > cap) break;
+      const m = metrics(tx, ty);
+      const key = [m.pitch, Math.max(...tx.map(Math.abs), ...ty.map(Math.abs))];
+      if (!best || key[0] < best.key[0] || (key[0] === best.key[0] && key[1] < best.key[1])) {
+        best = { k, key, pitch: m.pitch };
+      }
+    }
+    if (!best) { if (status) status.textContent = "no scale fits under the cap"; return; }
+    const before = metrics(base.x, base.y).pitch;
+    if (best.k > 1) {
+      state.x = state.x.map(v => v * best.k);
+      state.y = state.y.map(v => v * best.k);
+      hook.dx *= best.k; hook.dy *= best.k;
+      const hx = document.getElementById("n-hook"), hy = document.getElementById("n-hook-y");
+      if (hx) hx.value = String(+hook.dx.toFixed(6));
+      if (hy) hy.value = String(+hook.dy.toFixed(6));
+      currentName = "curve";
+      writeCells();
+      draw();
+    }
+    if (status) {
+      status.textContent = `grid 1/${before.toLocaleString()} -> 1/${best.pitch.toLocaleString()} at x${best.k}` +
+        `, largest speed ${best.key[1].toLocaleString()}` +
+        (best.k === 1 ? " (already the coarsest)" : "");
+    }
+  });
+  const widthField = document.getElementById("n-d");
+  if (widthField) steppers(widthField, direction => {
+    width.percent = stepInteger(width.percent, direction);
+    widthField.value = String(width.percent);
+    draw();
+  });
+  if (widthField) widthField.addEventListener("input", () => {
+    const v = Number(widthField.value);
+    if (!Number.isFinite(v)) return;
+    width.percent = Math.min(20, Math.max(0, v));
+    draw();
+  });
+  [["n-rotate", "rotate"], ["n-rails", "rails"], ["n-character", "character"],
+   ["n-terminal-start", "startTerminal"], ["n-terminal-end", "endTerminal"]]
+    .forEach(([id, key]) => {
+      const button = document.getElementById(id);
+      if (!button) return;
+      button.addEventListener("click", () => {
+        view[key] = !view[key];
+        if (key === "rails" && view.rails) view.character = false;
+        if (key === "character" && view.character) view.rails = false;
+        const railsButton = document.getElementById("n-rails");
+        const characterButton = document.getElementById("n-character");
+        if (railsButton) railsButton.classList.toggle("is-on", view.rails);
+        if (characterButton) characterButton.classList.toggle("is-on", view.character);
+        button.classList.toggle("is-on", view[key]);
+        draw();
+      });
+    });
+  document.getElementById("n-zero-top").addEventListener("click", () => {
+    state.x[speedCount - 1] = 0; state.y[speedCount - 1] = 0;
+    currentName = "curve"; writeCells(); draw();
+  });
+
+  // ---------- saved curves ----------
+  const applyWidth = item => {
+    if (!item) return;
+    if (item.character && typeof item.character === "object") {
+      character.plus = Number.isFinite(Number(item.character.plus)) ? Number(item.character.plus) : character.plus;
+      character.minus = Number.isFinite(Number(item.character.minus)) ? Number(item.character.minus) : character.minus;
+      if (["bow", "s", "taper"].includes(item.character.profile)) character.profile = item.character.profile;
+    } else if (Number.isFinite(Number(item.character))) {
+      character.plus = character.minus = Math.min(3, Math.max(0, Number(item.character)));
+    }
+    if (Number.isFinite(Number(item.shear))) shear.delta = Number(item.shear);
+    if (item.hook) {
+      if (Number.isFinite(Number(item.hook.dx)) || Number.isFinite(Number(item.hook.dy))) {
+        hook.dx = Number(item.hook.dx) || 0;
+        hook.dy = Number(item.hook.dy) || 0;
+      } else if (Number.isFinite(Number(item.hook.magnitude))) {
+        // older curves stored a polar hook; convert it once
+        const m = Number(item.hook.magnitude), a = (Number(item.hook.angle) || 0) * Math.PI / 180;
+        hook.dx = m * Math.cos(a);
+        hook.dy = m * Math.sin(a);
+      }
+    }
+    const setField = (id, v) => { const f = document.getElementById(id); if (f) f.value = String(v); };
+    setField("n-char-l", character.plus);
+    setField("n-char-r", character.minus);
+    setField("n-shear", shear.delta);
+    setField("n-hook", hook.dx);
+    setField("n-hook-y", hook.dy);
+    const profile = document.getElementById("n-prof");
+    if (profile) profile.value = character.profile;
+    if (!item.width) return;
+    const percent = Number(item.width.percent);
+    if (!Number.isFinite(percent)) return;
+    width.percent = percent;
+    const field = document.getElementById("n-d");
+    if (field) field.value = String(percent);
+  };
+
+  // A loaded curve brings its flip with it: the two rows swapped draws the same
+  // curve across the origin, so the pair interleaves instead of sitting on top
+  // of itself.
+  function flipComplement() {
+    complement.x = state.x.slice();
+    complement.y = state.y.slice();
+    complement.transform = compose(FLIP_ACROSS, state.transform);
+    writeMoves();
+  }
+
+  // The move boxes write straight into the matrix's translation column.
+  const moveFields = [];
+  function writeMoves() {
+    moveFields.forEach(({ field, target, index }) => {
+      field.value = String(+target.transform[index].toFixed(4));
+    });
+  }
+  // Place the end with the top pair. Adding c t^k to the speed moves the end by
+  // 2 c times the integral of w t^k, which is linear in c, so two numbers in the
+  // top pair can put the end anywhere near where it was - and the rest of the
+  // curve barely moves, because t^k is small away from t = 1.
+  function endpointOf(px, py) {
+    const curve = curveOf({ x: px, y: py });
+    return [curve.x.reduce((sum, v) => sum + v, 0), curve.y.reduce((sum, v) => sum + v, 0)];
+  }
+  function placeEnd(targetX, targetY) {
+    const k = speedCount - 1;
+    for (let step = 0; step < 8; step++) {
+      const end = endpointOf(state.x, state.y);
+      const offX = targetX - end[0], offY = targetY - end[1];
+      if (Math.hypot(offX, offY) < 1e-7) break;
+      const A = state.x.reduce((sum, v, j) => sum + v / (j + k + 1), 0);
+      const B = state.y.reduce((sum, v, j) => sum + v / (j + k + 1), 0);
+      const denominator = 2 * (A * A + B * B);
+      if (!denominator) return false;
+      state.x[k] += (A * offX + B * offY) / denominator;
+      state.y[k] += (A * offY - B * offX) / denominator;
+    }
+    return true;
+  }
+  const placeButton = document.getElementById("n-place-end");
+  if (placeButton) placeButton.addEventListener("click", () => {
+    const xField = document.getElementById("n-end-x");
+    const yField = document.getElementById("n-end-y");
+    const targetX = Number(xField.value), targetY = Number(yField.value);
+    if (!Number.isFinite(targetX) || !Number.isFinite(targetY)) return;
+    if (!placeEnd(targetX, targetY)) return;
+    writeCells();
+    draw();
+  });
+
+  const turnField = document.getElementById("n-comp-turn");
+  if (turnField) turnField.addEventListener("input", () => {
+    const v = Number(turnField.value);
+    if (!Number.isFinite(v)) return;
+    complement.turn = v;
+    draw();
+  });
+
+  // the window boxes: no clamp, so a tail can run as far as you like, and a
+  // slider beside each box for the quick drag. Negative t is allowed; with a
+  // fractional exponent the curve is drawn by the odd extension, which the
+  // readout says in words when the window goes below zero.
+  const windowSliders = {};
+  [["n-t-from", "from"], ["n-t-to", "to"]].forEach(([id, side]) => {
+    const field = document.getElementById(id);
+    const slider = document.getElementById(`${id}-slider`);
+    windowSliders[side] = slider;
+    if (slider) {
+      slider.addEventListener("input", () => {
+        const value = Number(slider.value);
+        if (field) field.value = String(value);
+        if (side === "from" && value === range.to) return;
+        if (side === "to" && value === range.from) return;
+        range[side] = value;
+        draw();
+      });
+    }
+    if (!field) return;
+    field.addEventListener("input", () => {
+      const v = Number(field.value);
+      if (!Number.isFinite(v)) return;
+      if (side === "from" && v === range.to) return;
+      if (side === "to" && v === range.from) return;
+      range[side] = v;
+      if (slider) slider.value = String(Math.max(-2, Math.min(2, v)));
+      draw();
+    });
+  });
+
+  [["n-move-x", state, 2], ["n-move-y", state, 5],
+   ["n-comp-move-x", complement, 2], ["n-comp-move-y", complement, 5]]
+    .forEach(([id, target, index]) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+      moveFields.push({ field, target, index });
+      field.addEventListener("input", () => {
+        const v = Number(field.value);
+        if (!Number.isFinite(v)) return;
+        target.transform[index] = v;
+        draw();
+      });
+    });
+
+  // p(1 - t), so the same curve is drawn from its other end
+  function reverseRow(row) {
+    const choose = (n, k) => {
+      let value = 1;
+      for (let i = 1; i <= k; i++) value = value * (n - k + i) / i;
+      return value;
+    };
+    const out = row.map(() => 0);
+    row.forEach((coefficient, k) => {
+      for (let j = 0; j <= k; j++) out[j] += coefficient * choose(k, j) * Math.pow(-1, k - j);
+    });
+    return out;
+  }
+
+  const complementActions = {
+    "n-comp-flip": () => {
+      complement.transform = compose(FLIP_ACROSS, complement.transform);
+    },
+    "n-comp-upside": () => {
+      complement.transform = compose(UPSIDE_DOWN, complement.transform);
+    },
+    "n-comp-reverse": () => {
+      complement.x = reverseRow(complement.x);
+      complement.y = reverseRow(complement.y);
+    },
+    "n-comp-reset": flipComplement,
+  };
+  Object.entries(complementActions).forEach(([id, action]) => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.addEventListener("click", () => { action(); writeCells(); writeMoves(); draw(); });
+  });
+
+  const SEED = [
+    { name: "amper", speedX: [2, -5, 6, 1, 0, 0], speedY: [4, -22, 22, -2, 0, 0] },
+    { name: "euler-hook",
+      speedX: [2.2, -4.4, 6.6, 1.1, 1.1, -1.1],
+      speedY: [4.4, -22, 22, -2.2, 1.1, -1.1],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: 2.934, dy: -0.624 } },
+    { name: "swan",
+      speedX: [5, -5, 5, 5, 5, -5],
+      speedY: [5, -50, 50, -5, 5, -5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "swan-2",
+      speedX: [5, -5, 5, 5, 5, -5],
+      speedY: [5, -50, 50, -5, 5, -5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: -2.988584, dy: 0.261467 } },
+    { name: "gosling",
+      speedX: [1, -1, 1, 1, 1, 1],
+      speedY: [1, -10, 10, -1, 1, 1],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: -1 } },
+    { name: "double-tap",
+      speedX: [2, -6, 2, 2, 0, 4],
+      speedY: [4, -24, 24, -2, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "curlicue",
+      speedX: [10, 20, -660, 1930, -2090, 785],
+      speedY: [-5, 200, -875, 1445, -1030, 275],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "grass",
+      speedX: [7.5, -2.5, 7.5, 2.5, 7.5, -2.5],
+      speedY: [7.5, -25, 75, -2.5, 7.5, -2.5],
+      width: { percent: 1 },
+      character: { plus: 2, minus: 1, profile: "taper" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    // The letter strokes. The x row stays positive, so the curve never turns
+    // back in x; the y row is the one that changes sign, and each root of the y
+    // row inside (0,1) is one arch. u and v cross once, m and w cross twice,
+    // and m is w with the y row negated. A higher degree does not make a
+    // letter: it adds a wiggle. These are degree 3 and 5 on purpose.
+    { name: "u-bowl",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-1, 2, 0, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "v-sharp",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-1, 6, -12, 8, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "m-arch",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [3, -16, 16, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "gumdrop",
+      speedX: [2, 1, -1, 1, -1, 1, -1, 1, -1, 0],
+      speedY: [-10, 137, -675, 1530, -1620, 648, 0, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    // Found by scripts/ph_find.py, not drawn by hand: the first crosses its own
+    // flip six times from four numbers a side, the second is the tightest curve
+    // the search found with more than one inflection.
+    // From scripts/ph_root_family.py, which walks root positions instead of
+    // random coefficients. Same shapes as m-arch and wave3 at a fraction of the
+    // grid: pitch 1, 3 and 14 against 15 and 105.
+    { name: "m-coarse",
+      speedX: [1, 1],
+      speedY: [-6, 23, -20],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "bowl-coarse",
+      speedX: [1, 1],
+      speedY: [-3, 5],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "wave-coarse",
+      speedX: [1, 0],
+      speedY: [-4, 33, -75, 50],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    // The named curves that the PH formula carries, fitted at degree 7 by
+    // scripts/ph_carry.py: the deviation from the target is in the comment.
+    // Their grids are fine because a fitted transcendental curve needs decimals;
+    // the shape is what is being kept, not the integer grid.
+    { name: "involute-fit",          // 0.00010 of the size, one and a half turns
+      speedX: [0.5951, 37.5019, -207.7699, 519.4995, -1241.3886, 1888.7416, -1368.1424, 370.9987],
+      speedY: [-0.0371, 6.6438, 92.4853, -203.4783, 6.5755, 105.8778, 19.7943, -37.2965],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "catenary-fit",          // 0.00000
+      speedX: [2.2425, -2.1364, 2.5227, -0.8004, 0.4702, -0.084, 0.028, 0.0],
+      speedY: [-1.4243, 3.3637, -1.6023, 1.2613, -0.2998, 0.1404, -0.0205, 0.0059],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "euler-fit",             // 0.00002, one full turn
+      speedX: [1.0015, -0.1045, 1.7424, -11.9521, 35.6612, -72.0211, 62.6600, -17.9857],
+      speedY: [0.0002, -0.0120, 3.2612, -0.1396, -2.5111, 11.7646, -25.4700, 13.1077],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "logspiral-fit",         // 0.00007, two turns
+      speedX: [2.8444, -9.9068, -68.9870, -28.7523, 208.7261, 549.4016, -1086.0085, 446.3495],
+      speedY: [2.1810, 23.7130, -54.4823, 133.2243, -1136.2484, 2274.9752, -1585.1451, 352.4053],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "knot-6",
+      speedX: [-2, -2, 3, 4],
+      speedY: [3, -6, -4, 2],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "knot-7",
+      speedX: [2, -6, 2, -2, 2],
+      speedY: [1, 2, -3, -6, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "inflect-2",
+      speedX: [3, -6, -1, 6],
+      speedY: [-3, 6, -2, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    // The higher-degree shapes that earned a place: one three-arch wave, one
+    // deep sharp valley, a sharper one, and the two-sharp-turn curve at degree
+    // 13. The rest of the batch I handed over were variants of these or flat
+    // ribbons; they are one number away from these.
+    { name: "wave3",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-5, 46, -108, 72, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "cusp5-x3",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-3, 30, -120, 240, -240, 96],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "cusp7-deep",
+      speedX: [1, 0, 0, 0, 0, 0, 0, 0],
+      speedY: [-4, 56, -336, 1120, -2240, 2688, -1792, 512],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "twin-cusp",
+      speedX: [2, 0, 0, 0, 0, 0, 0],
+      speedY: [8, -108, 594, -1701, 2673, -2187, 729],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "w-arch",
+      speedX: [1, 0, 0, 0, 0, 0],
+      speedY: [-3, 16, -16, 0, 0, 0],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+  ];
+
+  // The saved shape. One category, one name, two curves; each curve carries its
+  // own speed rows and its own 3x3 placement matrix, row major:
+  //   [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f)
+  // so a flip, a turn and a move are one object and the numbers stay the curve.
+  // Old flat records ({name, speedX, speedY}) still load: pairOf fills them in.
+  const category = () => {
+    const field = document.getElementById("n-category");
+    const typed = field ? field.value.trim() : "";
+    return typed || "DK";
+  };
+  function pairRecord(name) {
+    const m = metrics(state.x, state.y);
+    return {
+      format: "curve-lab.double-knot/1",
+      category: category(),
+      name,
+      primary: {
+        speedX: state.x.map(v => +v),
+        speedY: state.y.map(v => +v),
+        transform: state.transform.map(v => +v),
+      },
+      complementary: {
+        speedX: complement.x.map(v => +v),
+        speedY: complement.y.map(v => +v),
+        transform: complement.transform.map(v => +v),
+        turn: +complement.turn,
+      },
+      bend: +m.bend.toFixed(3),
+      pitch: m.pitch,
+      inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+      inflections: (m.inflections || (m.inflection === null ? [] : [m.inflection]))
+        .map(value => +value.toFixed(4)),
+      inflectionMax: 2 * speedDegree - 1,
+      closest: +m.closest.toFixed(3),
+      width: { percent: width.percent },
+      character: { plus: character.plus, minus: character.minus, profile: character.profile },
+      shear: shear.delta,
+      hook: { dx: hook.dx, dy: hook.dy },
+    };
+  }
+  // A single curve, in the flat shape the septic, quintic and gallery pages
+  // already read: no second curve, no matrix, just the rows.
+  function flatRecord(name) {
+    const m = metrics(state.x, state.y);
+    return {
+      name,
+      category: "S",
+      speedX: state.x.map(v => +v),
+      speedY: state.y.map(v => +v),
+      bend: +m.bend.toFixed(3),
+      pitch: m.pitch,
+      inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+      inflections: (m.inflections || []).map(value => +value.toFixed(4)),
+      closest: +m.closest.toFixed(3),
+      width: { percent: width.percent },
+      tRange: { from: range.from, to: range.to },
+      character: { plus: character.plus, minus: character.minus, profile: character.profile },
+      shear: shear.delta,
+      hook: { dx: hook.dx, dy: hook.dy },
+    };
+  }
+
+  function pairOf(item) {
+    if (item && item.primary) return item;
+    if (item && Array.isArray(item.speedX) && Array.isArray(item.speedY)) {
+      return { ...item, format: "curve-lab.double-knot/1",
+               category: item.category || "S",
+               primary: { speedX: item.speedX, speedY: item.speedY, transform: identity() },
+               complementary: null };
+    }
+    return null;
+  }
+  function loadPair(item) {
+    const pair = pairOf(item);
+    if (!pair) return;
+    const fit = row => row.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+    state.x = fit(pair.primary.speedX);
+    state.y = fit(pair.primary.speedY);
+    state.transform = (pair.primary.transform || identity()).slice();
+    if (pair.complementary && Array.isArray(pair.complementary.speedX)) {
+      complement.x = fit(pair.complementary.speedX);
+      complement.y = fit(pair.complementary.speedY);
+      complement.transform = (pair.complementary.transform || identity()).slice();
+      complement.turn = Number(pair.complementary.turn) || 0;
+      const turnBox = document.getElementById("n-comp-turn");
+      if (turnBox) turnBox.value = String(complement.turn);
+    } else {
+      flipComplement();
+    }
+    currentName = pair.name || "curve";
+    applyWidth(pair);
+    const endX = document.getElementById("n-end-x");
+    const endY = document.getElementById("n-end-y");
+    if (endX && endY) {
+      const end = endpointOf(state.x, state.y);
+      endX.value = String(+end[0].toFixed(3));
+      endY.value = String(+end[1].toFixed(3));
+    }
+    if (pair.tRange && Number.isFinite(Number(pair.tRange.from)) && Number.isFinite(Number(pair.tRange.to))) {
+      range.from = Number(pair.tRange.from);
+      range.to = Number(pair.tRange.to);
+      const fromField = document.getElementById("n-t-from");
+      const toField = document.getElementById("n-t-to");
+      if (fromField) fromField.value = String(range.from);
+      if (toField) toField.value = String(range.to);
+    }
+    writeCells();
+    writeMoves();
+    draw();
+  }
+
+  const takenNames = () => new Set(SEED.concat(saved()).map(item => item.name));
+  const uniqueName = (base, taken) => {
+    let name = base, n = 2;
+    const used = taken || takenNames();
+    while (used.has(name)) name = `${base} ${n++}`;
+    return name;
+  };
+  // a name that already exists is never overwritten silently: OK renames the
+  // newcomer, Cancel replaces the old one
+  function resolveName(base, action) {
+    const taken = takenNames();
+    if (!taken.has(base)) return base;
+    const fresh = uniqueName(base, taken);
+    const rename = window.confirm(
+      `A curve called "${base}" already exists.\n\n` +
+      `OK: ${action} as "${fresh}"\n` +
+      `Cancel: replace "${base}"`);
+    return rename ? fresh : base;
+  }
+
+  window.phNthSeeds = SEED;
+
+  const storageKey = "ph-nth-curves";
+  const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
+  const store = items => localStorage.setItem(storageKey, JSON.stringify(items));
+  function renderSaved() {
+    const row = document.getElementById("n-saved");
+    row.textContent = "";
+    const byName = {};
+    SEED.concat(saved()).forEach(item => { byName[item.name] = item; });
+    Object.values(byName).forEach(item => {
+      const group = document.createElement("span");
+      group.className = "saved-item";
+      const button = document.createElement("button");
+      button.type = "button";
+      const pair = pairOf(item);
+      const primary = pair ? pair.primary : item;
+      button.textContent = (pair && pair.category ? pair.category + " · " : "") + item.name;
+      button.title = JSON.stringify(primary.speedX) + " / " + JSON.stringify(primary.speedY);
+      button.addEventListener("click", () => loadPair(item));
+      group.append(button);
+      if (!SEED.some(seed => seed.name === item.name)) {
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "saved-remove";
+        remove.textContent = "\u00d7";
+        remove.title = `delete "${item.name}"`;
+        remove.addEventListener("click", () => {
+          if (!window.confirm(`Delete "${item.name}" from the saved curves?`)) return;
+          store(saved().filter(entry => entry.name !== item.name));
+          renderSaved();
+          window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+          const status = document.getElementById("n-paste-status");
+          if (status) status.textContent = `deleted "${item.name}"`;
+        });
+        group.append(remove);
+      }
+      row.append(group);
+    });
+  }
+  document.getElementById("n-save").addEventListener("click", () => {
+    const nameField = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
+    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
+    const name = resolveName(typed, "save this curve");
+    const speed = hookedSpeed();
+    const m = metrics(speed.x, speed.y);
+    const items = saved().filter(item => item.name !== name);
+    items.push(pairRecord(name));
+    store(items);
+    currentName = name;
+    nameField.value = "";
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `saved as "${name}"`;
+  });
+  const savePrimary = document.getElementById("n-save-primary");
+  if (savePrimary) savePrimary.addEventListener("click", () => {
+    const nameField = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
+    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
+    const name = resolveName(typed, "save this curve");
+    const items = saved().filter(item => item.name !== name);
+    items.push(flatRecord(name));
+    store(items);
+    currentName = name;
+    nameField.value = "";
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `saved the primary curve as "${name}"`;
+  });
+
+  const renameButton = document.getElementById("n-rename");
+  if (renameButton) renameButton.addEventListener("click", () => {
+    const field = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
+    let name = (field.value || "").trim();
+    if (!name) { if (status) status.textContent = "type a name, then press rename"; return; }
+    if (name !== currentName && takenNames().has(name)) {
+      const fresh = uniqueName(name);
+      if (!window.confirm(
+        `A curve called "${name}" already exists.\n\n` +
+        `OK: rename this one to "${fresh}"\n` +
+        `Cancel: keep the name "${currentName}"`)) {
+        if (status) status.textContent = `kept the name ${currentName}`;
+        return;
+      }
+      name = fresh;
+    }
+    const items = saved();
+    const index = items.findIndex(item => item.name === currentName);
+    if (index >= 0) { items[index].name = name; store(items); }
+    currentName = name;
+    field.value = "";
+    if (status) status.textContent = index >= 0 ? `renamed to ${name}` : `named ${name} (press save to keep it)`;
+    renderSaved();
+    draw();
+  });
+
+  document.getElementById("n-load").addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const text = document.getElementById("n-paste").value.trim();
+    if (!text) { status.textContent = "paste a curve or a {\"curves\": [...]} document"; return; }
+    try {
+      const data = JSON.parse(text);
+      const list = Array.isArray(data) ? data : (data.curves ? data.curves : [data]);
+      const items = saved();
+      const usedHere = takenNames();
+      let loaded = 0;
+      list.forEach(item => {
+        const pair = pairOf(item);
+        if (!pair) return;
+        const base = pair.name || `pasted ${items.length + 1}`;
+        let name = base;
+        if (usedHere.has(base)) {
+          const fresh = uniqueName(base, usedHere);
+          const rename = window.confirm(
+            `A curve called "${base}" already exists.\n\n` +
+            `OK: load as "${fresh}"\n` +
+            `Cancel: replace "${base}"`);
+          name = rename ? fresh : base;
+        }
+        usedHere.add(name);
+        const record = { ...pair, name };
+        const index = items.findIndex(entry => entry.name === name);
+        if (index >= 0) items[index] = record; else items.push(record);
+        loaded += 1;
+        if (loaded === 1) loadPair(record);
+      });
+      store(items);
+      renderSaved();
+      status.textContent = loaded ? `${loaded} curve${loaded === 1 ? "" : "s"} loaded`
+                                 : "no speedX / speedY in that JSON";
+    } catch (error) {
+      status.textContent = "not JSON: " + error.message;
+    }
+  });
+
+  // the gallery opens a curve into this sandbox
+  window.phNthLoad = item => {
+    loadPair(item);
+    const controls = document.getElementById("n-controls");
+    if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // ---------- build a curve from its flat spots ----------
+  // The row in the boxes is a polynomial's coefficients, lowest power first. Its
+  // roots are the t where the vertical speed is zero, so the stroke runs
+  // horizontal there. Choosing the roots and multiplying out is the only way to
+  // get a symmetric curve on purpose.
+  const gcdPair = (a, b) => {
+    a = Math.abs(a); b = Math.abs(b);
+    while (b) { const next = a % b; a = b; b = next; }
+    return a || 1;
+  };
+  const lcmPair = (a, b) => a * b / gcdPair(a, b);
+  const parseSpot = text => {
+    const trimmed = String(text).trim();
+    if (!trimmed) return null;
+    if (trimmed.includes("/")) {
+      const [top, bottom] = trimmed.split("/");
+      let n = Number(top), d = Number(bottom);
+      if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
+      if (d < 0) { n = -n; d = -d; }
+      const g = gcdPair(n, d);
+      return { n: n / g, d: d / g };
+    }
+    const plain = Number(trimmed);
+    if (!Number.isFinite(plain)) return null;
+    const n = Math.round(plain * 1000), d = 1000;
+    const g = gcdPair(n, d);
+    return { n: n / g, d: d / g };
+  };
+  // Multiply (t - spot) for every spot, exactly, in whole numbers: put every spot
+  // over one denominator D, multiply the integer roots out, then clear D^k.
+  function rowFromFlatSpots(spots) {
+    let D = 1;
+    spots.forEach(spot => { D = lcmPair(D, spot.d); });
+    const whole = spots.map(spot => spot.n * (D / spot.d));
+    let row = [1];
+    whole.forEach(root => {
+      const next = new Array(row.length + 1).fill(0);
+      row.forEach((value, power) => {
+        next[power] += -root * value;
+        next[power + 1] += value;
+      });
+      row = next;
+    });
+    row = row.map((value, power) => value * Math.pow(D, power));
+    const divisor = row.reduce((shared, value) => gcdPair(shared, value), 0) || 1;
+    return row.map(value => value / divisor);
+  }
+  const padRow = (row, count) => {
+    const out = row.slice(0, count);
+    while (out.length < count) out.push(0);
+    return out;
+  };
+
+  const rootsField = document.getElementById("n-roots");
+  const bowField = document.getElementById("n-bow");
+  const rootsStatus = document.getElementById("n-roots-status");
+  const rootsButton = document.getElementById("n-roots-fill");
+  const rootsPreset = document.getElementById("n-roots-preset");
+
+  function fillFromFlatSpots() {
+    const spots = String(rootsField ? rootsField.value : "")
+      .split(/[,;\s]+/).map(parseSpot).filter(Boolean);
+    if (!spots.length) {
+      if (rootsStatus) rootsStatus.textContent = "type at least one flat spot, for example 1/2";
+      return;
+    }
+    const bow = (bowField && parseSpot(bowField.value)) || { n: 0, d: 1 };
+    const degree = Math.max(spots.length, 2);
+    if (degree > 9) {
+      if (rootsStatus) rootsStatus.textContent = `too many flat spots: ${spots.length}; this page stops at 9`;
+      return;
+    }
+    // keep the rung the page is already on: shrinking to the smallest fit threw
+    // away the longer rows, and with them the half-power boxes to type into
+    if (window.phNthDegree().speedCount < degree + 1) window.phNthSetDegree(Math.max(5, degree));
+    const count = window.phNthDegree().speedCount;
+    // the bow is a fraction, so both rows are scaled by its denominator: a common
+    // scale leaves the shape alone and keeps every number whole
+    state.x = padRow([bow.d, bow.n, -bow.n], count);
+    state.y = padRow(rowFromFlatSpots(spots).map(value => value * bow.d), count);
+    writeCells();
+    draw();
+    const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+    if (rootsStatus) {
+      const scaled = bow.d > 1 ? ` · both rows scaled by ${bow.d} to keep the bow whole` : "";
+      const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch}` : " · grid n/a";
+      // the mirror only holds at step 1: say so rather than let the picture lie
+      const step = window.phPowerStep || 1;
+      const warning = Math.abs(step - 1) > 1e-9
+        ? ` · at step ${step.toFixed(2)} the mirror does not hold; set the step to 1 for the knot`
+        : "";
+      rootsStatus.textContent = `degree ${positionDegree()} · y ${state.y.join(", ")}` +
+        (measured ? ` · bend ${measured.bend.toFixed(3)}${grid}` : "") + scaled + warning;
+    }
+  }
+
+  // ---------- the ruler: place flat spots by hand ----------
+  // One dot per copy, so three dots stacked at 1/2 is the triple flat. Every
+  // position is a fraction with a small denominator, mirrored about 1/2.
+  // the positions on the strip: every fraction below 1/2 whose denominator is
+  // here, plus 1/2 itself. The wider set came with the longer rows (30 numbers),
+  // which can carry more distinct flat spots.
+  const RULER_DENOMINATORS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20];
+  const rulerSpots = (() => {
+    const seen = new Map();
+    RULER_DENOMINATORS.forEach(d => {
+      for (let n = 1; n < d / 2; n++) {
+        const g = gcdPair(n, d);
+        seen.set(`${n / g}/${d / g}`, { n: n / g, d: d / g, value: (n / g) / (d / g) });
+      }
+    });
+    seen.set("1/2", { n: 1, d: 2, value: 0.5 });
+    return [...seen.values()].sort((a, b) => a.value - b.value);
+  })();
+  const rulerHost = document.getElementById("n-roots-ruler");
+  const mirrorBox = document.getElementById("n-roots-mirror");
+  const countLabel = document.getElementById("n-roots-count");
+  const sameSpot = (a, b) => a.n * b.d === b.n * a.d;
+  let marks = [];
+
+  function textOf(spots) {
+    return spots.slice().sort((a, b) => a.n / a.d - b.n / b.d)
+      .map(spot => `${spot.n}/${spot.d}`).join(", ");
+  }
+  function applySpots() {
+    if (rootsField) rootsField.value = textOf(marks);
+    if (countLabel) {
+      const copies = {};
+      marks.forEach(spot => { const key = `${spot.n}/${spot.d}`; copies[key] = (copies[key] || 0) + 1; });
+      const summary = Object.entries(copies).map(([key, times]) => times > 1 ? `${key} x${times}` : key).join(", ");
+      countLabel.textContent = marks.length ? `${marks.length} spot${marks.length === 1 ? "" : "s"}: ${summary}` : "no spots yet";
+    }
+    renderRuler();
+  }
+  function addSpot(spot, remove) {
+    if (remove) {
+      const at = marks.findIndex(item => sameSpot(item, spot));
+      if (at >= 0) marks.splice(at, 1);
+    } else {
+      marks.push({ n: spot.n, d: spot.d });
+      const mirror = mirrorBox && mirrorBox.checked;
+      if (mirror && spot.n * 2 !== spot.d) marks.push({ n: spot.d - spot.n, d: spot.d });
+    }
+    applySpots();
+  }
+  function renderRuler() {
+    if (!rulerHost) return;
+    rulerHost.textContent = "";
+    // ticks first, then the labels, in order of importance: the small
+    // denominators get a name before the crowded ones do
+    rulerSpots.forEach(spot => {
+      const tick = document.createElement("span");
+      tick.className = "tick";
+      tick.style.left = `${spot.value * 100}%`;
+      tick.style.height = spot.d <= 6 || spot.d === 8 ? "12px" : "7px";
+      rulerHost.append(tick);
+    });
+    const labelRows = [[], []];
+    rulerSpots.slice().sort((a, b) => a.d - b.d || a.value - b.value).forEach(spot => {
+      for (let row = 0; row < labelRows.length; row++) {
+        if (labelRows[row].every(placed => Math.abs(placed - spot.value) > 0.045)) {
+          const label = document.createElement("span");
+          label.className = "tick-label";
+          label.style.left = `${spot.value * 100}%`;
+          label.style.bottom = row === 0 ? "-18px" : "-31px";
+          label.textContent = `${spot.n}/${spot.d}`;
+          rulerHost.append(label);
+          labelRows[row].push(spot.value);
+          return;
+        }
+      }
+    });
+    const stacks = new Map();
+    marks.forEach(spot => {
+      const key = `${spot.n}/${spot.d}`;
+      stacks.set(key, [...(stacks.get(key) || []), spot]);
+    });
+    stacks.forEach((stack, key) => {
+      const value = stack[0].n / stack[0].d;
+      stack.forEach((spot, index) => {
+        const dot = document.createElement("span");
+        dot.className = "spot";
+        dot.style.left = `${value * 100}%`;
+        // dots stack down from the top of the strip, so the lower band beside the
+        // rule stays clear: a click there always adds another copy
+        dot.style.top = `${6 + index * 11}px`;
+        dot.dataset.spot = key;
+        dot.title = `${key}${stack.length > 1 ? `, ${stack.length} copies` : ""} — click to remove this copy, shift-click to clear the stack`;
+        if (index === stack.length - 1 && stack.length > 1) dot.textContent = String(stack.length);
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          // a dot toggles: click it and that copy goes; shift-click clears the stack
+          if (event.shiftKey) {
+            marks = marks.filter(item => !sameSpot(item, spot));
+            applySpots();
+            return;
+          }
+          addSpot(spot, true);
+        });
+        rulerHost.append(dot);
+      });
+    });
+  }
+  if (rulerHost) {
+    rulerHost.addEventListener("click", event => {
+      const rect = rulerHost.getBoundingClientRect();
+      const t = (event.clientX - rect.left) / Math.max(1, rect.width);
+      let best = null;
+      let closest = 1;
+      rulerSpots.forEach(spot => {
+        const distance = Math.abs(spot.value - t);
+        if (distance < closest) { best = spot; closest = distance; }
+      });
+      if (best && closest < 0.06) addSpot(best, false);
+    });
+    // start from the flat spots already in the field
+    String(rootsField ? rootsField.value : "").split(/[,;\s]+/).map(parseSpot).filter(Boolean)
+      .forEach(spot => marks.push(spot));
+    renderRuler();
+    if (countLabel) countLabel.textContent = marks.length ? `${marks.length} spots` : "no spots yet";
+  }
+  const halfSlider = document.getElementById("n-roots-half");
+  const halfLabel = document.getElementById("n-roots-half-value");
+  if (halfSlider) halfSlider.addEventListener("input", () => {
+    const want = Number(halfSlider.value);
+    marks = marks.filter(spot => spot.n * 2 !== spot.d);      // drop the 1/2 copies
+    for (let i = 0; i < want; i++) marks.push({ n: 1, d: 2 });
+    if (halfLabel) halfLabel.textContent = String(want);
+    applySpots();
+  });
+  const bowSlider = document.getElementById("n-bow-slider");
+  if (bowSlider) {
+    bowSlider.addEventListener("input", () => {
+      if (bowField) bowField.value = bowSlider.value;
+      applySpots();
+    });
+    if (bowField) bowField.addEventListener("change", () => {
+      const value = Number(bowField.value);
+      if (Number.isFinite(value)) bowSlider.value = String(Math.max(-12, Math.min(12, value)));
+    });
+  }
+
+  // the grey curve on or off: sometimes only the primary is wanted
+  const hideComplement = document.getElementById("n-comp-hide");
+  if (hideComplement) {
+    hideComplement.addEventListener("click", () => {
+      view.complement = !view.complement;
+      hideComplement.textContent = view.complement ? "hide the grey curve" : "show the grey curve";
+      hideComplement.setAttribute("aria-pressed", String(!view.complement));
+      draw();
+    });
+  }
+
+  const dotsFill = document.getElementById("n-roots-dots-fill");
+  if (dotsFill) dotsFill.addEventListener("click", () => {
+    if (rootsField) rootsField.value = textOf(marks);
+    if (marks.length) fillFromFlatSpots();
+  });
+
+  const undoButton = document.getElementById("n-roots-undo");
+  if (undoButton) undoButton.addEventListener("click", () => { marks.pop(); applySpots(); });
+  const clearButton = document.getElementById("n-roots-clear");
+  if (clearButton) clearButton.addEventListener("click", () => { marks = []; applySpots(); });
+  const rootsFieldForTyping = rootsField;
+  if (rootsFieldForTyping) rootsFieldForTyping.addEventListener("change", () => {
+    marks = String(rootsFieldForTyping.value).split(/[,;\s]+/).map(parseSpot).filter(Boolean)
+      .map(spot => ({ n: spot.n, d: spot.d }));
+    renderRuler();
+  });
+
+  // The exponent step: a slider on the experimental page, with buttons for the
+  // named stops. Any value in between is allowed, so 0.75 is a real choice.
+  const stepControl = document.getElementById("n-step");
+  const stepValue = document.getElementById("n-step-value");
+  const stepName = value => {
+    if (Math.abs(value - 1) < 1e-9) return "1";
+    if (Math.abs(value - 0.5) < 1e-9) return "\u00bd";
+    if (Math.abs(value - 1 / 3) < 1e-3) return "\u2153";
+    if (Math.abs(value - 0.25) < 1e-9) return "\u00bc";
+    return value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+  };
+  const applyStep = value => {
+    window.phPowerStep = value;
+    if (stepControl && stepControl.type === "range") stepControl.value = String(value);
+    if (stepValue) stepValue.textContent = stepName(value);
+    rebuildControls();
+    writeCells();
+    draw();
+  };
+  if (stepControl) {
+    if (Math.abs((window.phPowerStep || 1) - Number(stepControl.value)) > 1e-9) {
+      stepControl.value = String(window.phPowerStep || 1);
+      if (stepValue) stepValue.textContent = stepName(window.phPowerStep || 1);
+    }
+    const read = () => applyStep(Number(stepControl.value) || 1);
+    stepControl.addEventListener("input", read);
+    stepControl.addEventListener("change", read);
+    document.querySelectorAll(".step-at").forEach(button => {
+      button.addEventListener("click", () => applyStep(Number(button.dataset.step) || 1));
+    });
+  }
+
+  if (rootsButton) rootsButton.addEventListener("click", fillFromFlatSpots);
+  if (rootsPreset) rootsPreset.addEventListener("change", () => {
+    // a suggestion names a known curve, so it carries its own exponent step: the
+    // knot presets are whole powers, because mirroring only holds there
+    const [spots, bow, step] = String(rootsPreset.value || "").split("|");
+    if (!spots) return;
+    if (rootsField) rootsField.value = spots;
+    if (bowField) bowField.value = bow === undefined ? "0" : bow;
+    // the step is the operator's, not the suggestion's: it stays where it is
+    if (stepControl) stepControl.value = String(window.phPowerStep || 1);
+  });
+
+  flipComplement();        // the pair starts flipped, so it crosses
+  writeCells();
+  renderSaved();
+  draw();
+})();
+
+// The gallery: spine only, one small figure per curve, two columns.
+(function () {
+  const host = document.getElementById("n-gallery");
+  if (!host || !Array.isArray(window.phNthGallery)) return;
+
+  const storageKey = "ph-nth-curves";
+  const localSaved = () => {
+    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; }
+  };
+  // A saved item may be a pair (primary and complementary) or a single curve;
+  // the gallery draws the primary either way.
+  const rowsOf = item => (item && item.primary) ? item.primary : item;
+
+  function currentList() {
+    const locals = {};
+    localSaved().forEach(item => { locals[item.name] = item; });
+    const out = window.phNthGallery.map(entry => {
+      const local = locals[entry.name];
+      if (!local) return entry;
+      const rows = rowsOf(local);
+      return { ...entry, speedX: rows.speedX, speedY: rows.speedY,
+               from: "local fix", local: true };
+    });
+    const seeds = (window.phNthSeeds || [])
+      .filter(seed => !out.some(entry => entry.name === seed.name))
+      .map(seed => {
+        const measured = window.recipeMetrics ? window.recipeMetrics(seed.speedX, seed.speedY) : null;
+        return { ...seed, bend: measured ? +measured.bend.toFixed(3) : "-",
+                 pitch: measured ? measured.pitch : "-", from: "seed" };
+      });
+    out.unshift(...seeds);
+    found.forEach(entry => {
+      if (!out.some(other => other.name === entry.name)) out.push(entry);
+    });
+    const known = new Set(out.map(entry => entry.name));
+    Object.values(locals).forEach(item => {
+      if (known.has(item.name)) return;
+      const rows = rowsOf(item);
+      const measured = window.recipeMetrics ? window.recipeMetrics(rows.speedX, rows.speedY) : null;
+      out.push({ name: item.name, speedX: rows.speedX, speedY: rows.speedY,
+                 bend: measured ? +measured.bend.toFixed(3) : "-",
+                 pitch: measured ? measured.pitch : "-",
+                 from: "local", local: true });
+    });
+    // no sort here: the order on the page is the order the generator wrote, so a
+    // figure can be moved by the generator and stay moved. A rank sort here used to
+    // pull a moved operator entry straight back to the top.
+    return out;
+  }
+  // The finder's own file, read at load: every search that ran with --write
+  // shows up here without a rebuild, so nothing depends on someone remembering
+  // to add it to the seeds.
+  let found = [];
+  fetch("found-curves.json", { cache: "no-store" })
+    .then(response => (response.ok ? response.json() : null))
+    .then(document => {
+      if (document && Array.isArray(document.curves)) {
+        found = document.curves;
+        render();
+      }
+    })
+    .catch(() => { /* no file yet, or opened from disk: the seeds still draw */ });
+
+  let list = currentList();
+  const value = window.polynomialValue;
+
+  function samplesOf(entry, steps = 220) {
+    let x = 0, y = 0;
+    const out = [[0, 0, 0, 0]];
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(entry.speedX, t), b = value(entry.speedY, t);
+      const s2 = a * a + b * b || 1;
+      const tx = (a * a - b * b) / s2, ty = 2 * a * b / s2;
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      out.push([x, y, -ty, tx]);        // point and left normal
+    }
+    return out;
+  }
+
+  function spineOf(entry, steps = 260) {
+    let x = 0, y = 0;
+    const points = [[0, 0]];
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const a = value(entry.speedX, t), b = value(entry.speedY, t);
+      x += (a * a - b * b) / steps;
+      y += 2 * a * b / steps;
+      points.push([x, y]);
+    }
+    return points;
+  }
+
+
+  // the character offsets of an entry, in data space: parallel rail plus the
+  // bow that the character dials make. Returns null when the entry has none.
+  function characterRailsOf(entry, steps = 220) {
+    const ch = entry.character;
+    if (!ch) return null;
+    const percent = entry.width ? Number(entry.width.percent) : 1.5;
+    const bump = t => ch.profile === "s" ? 8 * t * (1 - t) * (1 - 2 * t)
+      : ch.profile === "taper" ? 6.75 * t * t * (1 - t) : 4 * t * (1 - t);
+    const samples = samplesOf(entry, steps);
+    const xs = samples.map(q => q[0]), ys = samples.map(q => q[1]);
+    const size = Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const d = percent / 100 * size;
+    const side = sign => {
+      const strength = Number(sign > 0 ? ch.plus : ch.minus) || 0;
+      if (!strength) return null;
+      const eps = 0.08 * strength;
+      let fx = 0, fy = 0, gx = 0, gy = 0;
+      const out = [];
+      for (let i = 0; i < steps; i++) {
+        const t = (i + 0.5) / steps;
+        const a = value(entry.speedX, t), b = value(entry.speedY, t);
+        fx += (a * a - b * b) / steps; fy += 2 * a * b / steps;
+        const ang = sign * eps * bump(t);
+        const gr = a - ang * b, gi = b + ang * a;
+        gx += (gr * gr - gi * gi) / steps; gy += 2 * gr * gi / steps;
+        const q = samples[i + 1], t01 = (i + 1) / steps, weight = 4 * t01 * (1 - t01);
+        out.push([q[0] + sign * d * q[2] + weight * (gx - fx),
+                  q[1] + sign * d * q[3] + weight * (gy - fy)]);
+      }
+      return out;
+    };
+    return [side(1), side(-1)].filter(Boolean);
+  }
+
+  function miniSvg(speedX, speedY, label, kind = null, entry = null, rawPoints = null) {
+    const points = rawPoints || spineOf({ speedX, speedY }, 220);
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
+    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    const width = 200, height = 150, inset = 8;
+    const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
+    const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
+    const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
+    const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
+                               (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
+    let rails = "";
+    const character = entry ? characterRailsOf({ ...entry, speedX, speedY }) : null;
+    if (character) {
+      rails = character.map(points => `<path d="M` + points.map(q =>
+        (ox + (q[0] - minX) * scale).toFixed(1) + "," +
+        (oy + (maxY - q[1]) * scale).toFixed(1)).join("L") +
+        `" fill="none" stroke="#5b7f3a" stroke-width="1"/>`).join("");
+    }
+    return `<figure class="pair-cell" data-speed="${kind || "full"}">
+      <figcaption>${label}</figcaption>
+      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
+        <rect width="${width}" height="${height}" fill="#fbf7ec"/>
+        ${rails}
+        <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
+      </svg>
+      ${kind === "simple" ? '<button type="button" class="gallery-transfer">transfer to part 1</button>' : ""}
+      ${kind ? '<button type="button" class="gallery-load-this">load this one</button>' : ""}
+    </figure>`;
+  }
+
+  function figureFor(entry, index = 0) {
+    const points = spineOf(entry);
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    const pad = 0.08 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
+    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    const width = 200, height = 150, inset = 8;
+    const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
+    const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
+    const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
+    const d = "M" + points.map(p => (ox + (p[0] - minX) * scale).toFixed(1) + "," +
+                               (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
+    const json = JSON.stringify({ name: entry.name, speedX: entry.speedX, speedY: entry.speedY,
+                                  bend: entry.bend, pitch: entry.pitch, from: entry.from }, null, 1);
+    return `<figure data-name="${entry.name}">
+      <button type="button" class="gallery-open" aria-expanded="false">
+        <span class="gallery-number">Fig. ${index}</span>
+        <span class="gallery-name">${entry.name}</span>
+        <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
+          : String(entry.from || "") === "operator" ? "yours"
+          : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
+        <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
+      </button>
+      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
+        <rect width="${width}" height="${height}" fill="#fbf7ec"/>
+        ${(() => {
+          const rails = characterRailsOf(entry);
+          if (!rails) return "";
+          return rails.map(points => `<path d="M` + points.map(q =>
+            (ox + (q[0] - minX) * scale).toFixed(1) + "," +
+            (oy + (maxY - q[1]) * scale).toFixed(1)).join("L") +
+            `" fill="none" stroke="#5b7f3a" stroke-width="1"/>`).join("");
+        })()}
+        <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
+      </svg>
+      <div class="more" hidden>
+        <div class="pair-row">
+          ${entry.original && entry.original.length
+              ? miniSvg(null, null, "original", null, null, entry.original)
+              : ""}
+          ${miniSvg(entry.speedX, entry.speedY, "fitted, degree 11", "full", entry)}
+        </div>
+        <p class="small mono">x ${entry.speedX.join(", ")}<br>y ${entry.speedY.join(", ")}</p>
+        <p class="small mono">bend ${entry.bend} | pitch ${Number(entry.pitch).toLocaleString()} | from ${entry.from}</p>
+        <textarea rows="7" readonly>${json}</textarea>
+        <div class="more-row">
+          <button type="button" class="gallery-load">load into the sandbox</button>
+          <button type="button" class="gallery-copy">copy JSON</button>
+          <button type="button" class="gallery-close">close</button>
+          <span class="small mono gallery-status"></span>
+        </div>
+      </div>
+    </figure>`;
+  }
+
+  const render = () => {
+    list = currentList();
+    const declared = window.phNthKnots || [];
+    const byName = new Map(list.map(entry => [entry.name, entry]));
+    const knotItems = declared.map(name => byName.get(name)).filter(Boolean);
+    const knotNames = new Set(knotItems.map(entry => entry.name));
+    const others = list.filter(entry => !knotNames.has(entry.name));
+    if (!knotItems.length) {
+      host.innerHTML = list.map((entry, index) => figureFor(entry, index + 1)).join("");
+      return;
+    }
+    host.innerHTML =
+      `<h2 class="gallery-head" id="n-knots">Knotlike curves</h2>
+    <p class="gallery-note">Your two pasted curves come first, tagged <strong>yours</strong>: <code>integer-105</code>
+    and <code>integer-70</code>. Then the finds from the symmetric root walk, tagged 
+    <strong>found</strong>, so the two sets can be compared row for row. <code>wave3</code>,
+    <code>knot-6</code> and <code>knot-7</code> were already on the page. Under each name: the bend,
+    the grid, and the meetings the walk measured with the copy that makes the lace.</p>`
+      + knotItems.map((entry, index) => figureFor(entry, index + 1)).join("")
+      + `<h2 class="gallery-head" id="n-rest">Everything else</h2>`
+      + others.map((entry, index) => figureFor(entry, knotItems.length + index + 1)).join("");
+  };
+  render();
+  window.addEventListener("ph-nth-saved", render);
+
+  const closeAll = except => {
+    host.querySelectorAll("figure.open").forEach(figure => {
+      if (figure === except) return;
+      figure.classList.remove("open");
+      figure.querySelector(".more").hidden = true;
+      figure.querySelector(".gallery-open").setAttribute("aria-expanded", "false");
+    });
+  };
+  host.addEventListener("click", event => {
+    const figure = event.target.closest("figure[data-name]");   // the cell, not the pair figure inside it
+    if (!figure) return;
+    const entry = currentList().find(item => item.name === figure.dataset.name);
+    const open = figure.querySelector(".gallery-open");
+    const more = figure.querySelector(".more");
+
+    if (event.target.closest(".gallery-open")) {
+      const showing = more.hidden;
+      closeAll(figure);
+      more.hidden = !showing;
+      figure.classList.toggle("open", showing);
+      open.setAttribute("aria-expanded", String(showing));
+      return;
+    }
+    if (!event.target.closest("button") && !event.target.closest(".more")) {
+      const more = figure.querySelector(".more");
+      const showing = more.hidden;
+      closeAll(figure);
+      more.hidden = !showing;
+      figure.classList.toggle("open", showing);
+      open.setAttribute("aria-expanded", String(showing));
+      return;
+    }
+    if (event.target.closest(".gallery-close")) {
+      more.hidden = true;
+      figure.classList.remove("open");
+      open.setAttribute("aria-expanded", "false");
+      return;
+    }
+    if (event.target.closest(".gallery-load") && entry && window.phNthLoad) {
+      window.phNthLoad(entry);
+      return;
+    }
+    if (event.target.closest(".gallery-transfer") && entry && entry.simple) {
+      const suggested = `${entry.name} (3 figures)`;
+      const name = (window.prompt("Name it in part 1:", suggested) || "").trim();
+      if (!name) return;
+      const items = localSaved().filter(item => item.name !== name);
+      items.push({ name, speedX: entry.simple.speedX, speedY: entry.simple.speedY, from: "transferred" });
+      localStorage.setItem(storageKey, JSON.stringify(items));
+      window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+      return;
+    }
+    if (event.target.closest(".gallery-load-this") && entry && window.phNthLoad) {
+      const cell = event.target.closest(".pair-cell");
+      const isSimple = cell && cell.dataset.speed === "simple";
+      window.phNthLoad(isSimple
+        ? { ...entry, speedX: entry.simple.speedX, speedY: entry.simple.speedY, name: `${entry.name} (3 figures)` }
+        : entry);
+      return;
+    }
+    if (event.target.closest(".gallery-copy") && entry) {
+      const status = figure.querySelector(".gallery-status");
+      const text = figure.querySelector("textarea").value;
+      const done = () => { if (status) status.textContent = "copied"; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, () => {
+          figure.querySelector("textarea").select();
+          if (status) status.textContent = "select and copy";
+        });
+      } else {
+        figure.querySelector("textarea").select();
+        if (status) status.textContent = "select and copy";
+      }
+    }
+  });
+})();
+
+</script>
+</body></html>

@@ -47,7 +47,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
 .cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
 .spine-grid .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
-.spine-grid .cell-inputs input[type=range]{flex:1;min-width:36px}
+.spine-grid .cell-inputs input[type=range]{flex:1;min-width:80px;height:18px;accent-color:#8a1f1f}
+.cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px;accent-color:#1f4f8a}
+.cell-inputs input[type=range]::before{content:""}
 .cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .cell-inputs .sign:hover{background:#efe7d3}
 .pair-grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px 10px;align-items:center}
@@ -60,6 +62,11 @@ table.figures th,table.figures td{border:1px solid var(--rule);padding:2px 10px;
 table.figures th{color:var(--muted);font-weight:400;text-align:left}
 
 .pair-boxes{display:block}
+.roots-ruler{position:relative;height:104px;margin:10px 0 34px;border-bottom:2px solid var(--ink);cursor:crosshair}
+.roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
+.roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
+.roots-ruler .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
+.roots-ruler .spot:hover{background:#8a1f1f}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
 .curve-box.complement{border-style:dashed}
 .curve-box h3{font-size:14px;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
@@ -90,6 +97,8 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 #n-plot{max-height:60vh}
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
+.gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
 @media(max-width:700px){.gallery{grid-template-columns:1fr}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
 .gallery figure.open{grid-column:1 / -1}
@@ -124,17 +133,34 @@ unchanged &mdash; more terms, same rules.</p>
 <section class="panel">
 <h2>A | the PH curve, from degree 11 up</h2>
 <p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.
-Each rung adds one number per axis, so the position degree rises by two: 11, 13, 15, 17, 19, with
-12, 14, 16, 18 and 20 numbers. An even position degree cannot occur for polynomial speeds, so the
+Each rung adds one number per axis, so the position degree rises by two: 11 up to 29, with
+12 to 30 numbers. Doubling the rows is what lets a fractional step reach the same top power:
+at step 1/2, fifteen numbers per axis reach t^7. An even position degree cannot occur for polynomial speeds, so the
 readout never prints one. A curve saved at a lower rung loads here unchanged: the new boxes are zero,
 which leaves the shape alone. <code>close chord</code> drives the endpoint home; <code>close to &hellip;</code>
 holds a chosen openness instead, because a fully closed curve has no chord and bend is arc over chord.</p>
+<div class="solver-row" id="n-step-row">
+  <label class="dial" for="n-step">exponent step
+    <input id="n-step" type="range" min="0.05" max="2" step="any" value="1">
+    <span class="mono" id="n-step-value">1</span></label>
+  <button type="button" class="step-at" data-step="1">whole 1</button>
+  <button type="button" class="step-at" data-step="0.5">&frac12;</button>
+  <button type="button" class="step-at" data-step="0.3333333333333333">&#8531;</button>
+  <button type="button" class="step-at" data-step="0.25">&frac14;</button>
+  <span class="small">The step is yours: filling the rows from a suggestion or from the dots
+  never changes it.</span>
+</div>
 <div class="rung-row" id="n-rungs" role="group" aria-label="choose the position degree">
   <button type="button" class="rung is-on" data-speed-degree="5">degree 11 &middot; 12 numbers</button>
   <button type="button" class="rung" data-speed-degree="6">degree 13 &middot; 14 numbers</button>
   <button type="button" class="rung" data-speed-degree="7">degree 15 &middot; 16 numbers</button>
   <button type="button" class="rung" data-speed-degree="8">degree 17 &middot; 18 numbers</button>
   <button type="button" class="rung" data-speed-degree="9">degree 19 &middot; 20 numbers</button>
+  <button type="button" class="rung" data-speed-degree="10">degree 21 &middot; 22 numbers</button>
+  <button type="button" class="rung" data-speed-degree="11">degree 23 &middot; 24 numbers</button>
+  <button type="button" class="rung" data-speed-degree="12">degree 25 &middot; 26 numbers</button>
+  <button type="button" class="rung" data-speed-degree="13">degree 27 &middot; 28 numbers</button>
+  <button type="button" class="rung" data-speed-degree="14">degree 29 &middot; 30 numbers</button>
 </div>
 <div class="curve-box" id="n-primary-box">
   <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
@@ -144,6 +170,57 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
   </div>
 </div>
+<div class="curve-box" id="n-roots-box">
+  <h3>Build from flat spots</h3>
+  <p class="small">A <strong>flat spot</strong> is a <code>t</code> where the stroke runs dead horizontal.
+  List the ones you want, press the button, and the boxes below fill themselves: the row is the
+  polynomial those spots multiply out to. Mirror every spot about <code>1/2</code> &mdash; <code>1/9</code>
+  with <code>8/9</code>, <code>1/8</code> with <code>7/8</code> &mdash; and keep <code>1/2</code> for
+  itself, and the curve comes out exactly symmetric. That is the only way to get symmetry on purpose;
+  a random row almost never has it.</p>
+  <p class="small">What to choose: the <strong>outer pair makes the knot</strong> (two swings out and back).
+  <strong>Three copies of <code>1/2</code></strong> make the long flat middle that lets the stroke cross
+  itself; one copy is a gentle S, five copies is nearly a straight line and crosses nothing.
+  Five spots is the cheap degree-11 rung; six or more moves you up a rung, which the page does for you.
+  <strong>Bow</strong> leans the stroke sideways: 0 is straight, &plusmn;1 to 2 opens the loop,
+  &plusmn;4 folds it hard.</p>
+  <p class="small" style="margin:0 0 2px">Click <strong>low on the strip, beside the rule</strong>, to place a flat
+  spot; click the same place again for another copy (the dots stack at the top of the strip), and
+  click a <strong>dot</strong> to take that copy away.</p>
+  <div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t, click the line to place one"></div>
+  <div class="solver-row">
+    <label class="small"><input type="checkbox" id="n-roots-mirror" checked> mirror about 1/2</label>
+    <button type="button" id="n-roots-dots-fill" title="write the rows from the dots on the strip">fill from the dots</button>
+    <button type="button" id="n-roots-undo">undo</button>
+    <button type="button" id="n-roots-clear">clear</button>
+    <span class="small" id="n-roots-count"></span>
+  </div>
+  <div class="solver-row">
+    <label class="dial" for="n-roots-half">copies at 1/2
+      <input id="n-roots-half" type="range" min="0" max="6" step="1" value="3">
+      <span class="mono" id="n-roots-half-value">3</span></label>
+    <label class="dial" for="n-bow-slider">bow
+      <input id="n-bow-slider" type="range" min="-12" max="12" step="0.25" value="0"></label>
+  </div>
+  <div class="solver-row">
+    <label class="dial" for="n-roots-preset">suggestion
+      <select id="n-roots-preset">
+        <option value="">choose one&hellip;</option>
+        <option value="1/9, 1/2, 1/2, 1/2, 8/9|0|1">knot, cheapest grid &middot; 1/9, 1/2 x3, 8/9 &middot; bow 0 &middot; step 1</option>
+        <option value="1/6, 1/2, 5/6|0|1">gentle S &middot; 1/6, 1/2, 5/6 &middot; bow 0 &middot; step 1</option>
+        <option value="1/8, 1/2, 1/2, 1/2, 7/8|-2|1">wide knot &middot; 1/8, 1/2 x3, 7/8 &middot; bow &minus;2 &middot; step 1</option>
+        <option value="1/12, 1/2, 1/2, 1/2, 11/12|4|1">leaning knot &middot; 1/12, 1/2 x3, 11/12 &middot; bow 4 &middot; step 1</option>
+        <option value="1/2, 1/2, 1/2, 1/2, 1/2|0|1">flat stroke &middot; 1/2 x5 &middot; bow 0 &middot; step 1</option>
+        <option value="1/6, 1/6, 1/2, 1/2, 5/6, 5/6|0|1">half-turn pair of pairs &middot; 1/6 doubled, 1/2 x2, 5/6 doubled</option>
+        <option value="1/7, 1/5, 1/2, 4/5, 6/7|9|1">your find &middot; 1/7, 1/5, 1/2, 4/5, 6/7 &middot; bow 9 &middot; step 1</option>
+        <option value="1/9, 1/2, 1/2, 1/2, 8/9|0|0.5">experiment: the same spots at step &frac12; &mdash; no mirror, a different curve</option>
+      </select></label>
+    <label class="dial" for="n-roots">flat spots <input id="n-roots" type="text" size="26" value="1/9, 1/2, 1/2, 1/2, 8/9"></label>
+    <label class="dial" for="n-bow">bow <input id="n-bow" type="number" step="0.5" value="0"></label>
+    <button type="button" id="n-roots-fill" title="multiply the flat spots out and write the rows">fill the numbers</button>
+  </div>
+  <p class="small mono" id="n-roots-status"></p>
+</div>
 <svg id="n-plot" viewBox="0 0 720 520" role="img" aria-label="the PH curve"></svg>
 <div class="curve-box complement" id="n-complement-box">
   <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
@@ -152,6 +229,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <label class="dial" for="n-comp-move-x">move x <input id="n-comp-move-x" type="number" step="0.1" value="0"></label>
     <label class="dial" for="n-comp-move-y">move y <input id="n-comp-move-y" type="number" step="0.1" value="0"></label>
     <label class="dial" for="n-comp-turn" title="turn the complementary curve about the spine's centre">turn <input id="n-comp-turn" type="number" step="15" value="0"></label>
+    <button type="button" id="n-comp-hide" aria-pressed="false" title="draw the primary curve alone">hide the grey curve</button>
   </div>
   <div class="solver-row">
     <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
@@ -163,6 +241,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
+<p class="small mono" id="n-build">build 2026-11-14 13:57</p>
 <div class="solver-row">
   <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
   <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
@@ -183,8 +262,10 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
-  <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0"></label>
-  <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1"></label>
+  <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0">
+    <input id="n-t-from-slider" type="range" min="-2" max="2" step="0.05" value="0" title="drag the start of the window; the box takes any value"></label>
+  <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1">
+    <input id="n-t-to-slider" type="range" min="-2" max="2" step="0.05" value="1" title="drag the end of the window; the box takes any value"></label>
   <label class="dial" for="n-end-x">end x <input id="n-end-x" type="number" step="0.05" value="0"></label>
   <label class="dial" for="n-end-y">end y <input id="n-end-y" type="number" step="0.05" value="0"></label>
   <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
@@ -347,6 +428,9 @@ window.phSpeedDegree = 5;
 // The rung buttons: one number per axis per rung, so the degree moves by two.
 (() => {
   const rungs = [...document.querySelectorAll("#n-rungs .rung")];
+  // the page may ask for a rung other than the first one
+  rungs.forEach(button => button.classList.toggle("is-on",
+    Number(button.dataset.speedDegree) === window.phSpeedDegree));
   rungs.forEach(button => button.addEventListener("click", () => {
     window.phNthSetDegree(button.dataset.speedDegree);
     rungs.forEach(other => other.classList.toggle("is-on", other === button));

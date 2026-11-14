@@ -17,6 +17,7 @@ needs — no higher.
 | 4 | `TODO.md` | 254 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 5 | `goals.md` | 240 | the long arc and the offset tiers (also Tier 1) |
 | 6 | `state/ACHIEVEMENTS-int.md` | 37 | what is proved, with the command that re-derives it; stops rework |
+| 7 | `state/DESIGN-int.md` | 90 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
@@ -81,8 +82,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 ## Never on a load
 
 `docs/HANDOVER.md` (durable architecture/deploy/security only, deliberately
-long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, the generated
-`workbench/*.html` other than the page under change, `docs/HANDOVER.html`,
+long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, `docs/HANDOVER.html`,
 `state/monitor.log`, and the `ornaments` repository except for extraction or
 comparison.
 

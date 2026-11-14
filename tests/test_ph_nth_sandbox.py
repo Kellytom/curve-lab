@@ -17,6 +17,8 @@ class TestNthSandbox(unittest.TestCase):
                        "n-open-value", "n-json", "n-saved", "n-paste",
                        "n-rotate", "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-y", "euler-hook", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
                        "ph-nth-serif-notes.html", "n-gallery", "phNthGallery", "integer-105", "integer-70",
+                       "Build from flat spots", "n-roots", "n-bow", "n-roots-fill", "n-roots-preset",
+                       "n-roots-ruler", "n-roots-mirror", "n-roots-undo", "n-roots-clear",
                        "The eleventh power", "degree 11"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)

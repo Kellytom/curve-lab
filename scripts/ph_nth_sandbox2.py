@@ -96,8 +96,11 @@ def found_gallery():
     if not FOUND.exists():
         return []
     document = json.loads(FOUND.read_text())
+    curves = sorted(document.get("curves", []),
+                    key=lambda curve: (-curve.get("meetings180", 0), curve.get("pitch", 0),
+                                       curve.get("bend", 0)))
     entries = []
-    for curve in document.get("curves", []):
+    for curve in curves:
         measured = metrics.metrics(curve["speedX"], curve["speedY"])
         entries.append({
             "name": curve["name"],
@@ -108,14 +111,15 @@ def found_gallery():
             "original": [],
             "from": "found",
             "source": f"root walk: roots {curve.get('roots', '')}, {curve.get('meetings180', '')} "
-                      f"meetings with its half-turn copy, {curve.get('self', '')} self-crossings",
+                      f"meetings with its {curve.get('partner', 'half-turn copy')}, "
+                      f"{curve.get('self', '')} self-crossings",
         })
     return entries
 
 
 def gallery():
     document = json.loads(FITTED.read_text())
-    entries = found_gallery()
+    entries = apply_operator_order(operator_pins() + found_gallery())
     for curve in document["curves"][:LIMIT]:
         measured = metrics.metrics(curve["speedX"], curve["speedY"])
         entries.append({
@@ -132,8 +136,89 @@ def gallery():
     return entries
 
 
+def operator_pins():
+    """The six curves the operator keeps as the knotlike examples, first in the section.
+
+    Pasted from the sandbox as JSON on 2026-11-14. Every one is symmetric, and the
+    repeated rows are kept as he saved them (`knot` and `knot-2` are `wave3` padded
+    to ten numbers, which is the same polynomial).
+    """
+    pasted = [
+        ("wave3", [1, 0, 0, 0, 0, 0], [-5, 46, -108, 72, 0, 0], 2.329, 105),
+        ("knot", [1] + [0] * 9, [-5, 46, -108, 72] + [0] * 6, 2.329, 105),
+        ("bud", [0.5] + [0] * 9, [-5, 46, -108, 72] + [0] * 6, 1.222, 420),
+        ("knot-2", [1] + [0] * 9, [-5, 46, -108, 72] + [0] * 6, 2.329, 105),
+        ("wave5", [1, 0, 0, 0, 0, 0], [-10, 137, -675, 1530, -1620, 648], 1.374, 462),
+        ("hersheys copy", [1] + [0] * 9, [-3, 30, -120, 240, -240, 96] + [0] * 4, 10, 11),
+        # found by the operator 2026-11-14: two mirrored pairs and one middle, with
+        # a bow of 9, which is what keeps it from reading as a flat band
+        ("wave-1of7-1of5-1-bow9", [1, 9, -9, 0, 0, 0],
+         [-24, 394, -2263, 5592, -6125, 2450], 1.525, 6930),
+    ]
+    return [{
+        "name": name,
+        "speedX": speed_x,
+        "speedY": speed_y,
+        "bend": bend,
+        "pitch": pitch,
+        "original": [],
+        "from": "operator",
+        "source": "the operator's knotlike examples, pasted 2026-11-14",
+    } for name, speed_x, speed_y, bend, pitch in pasted]
+
+
+# The operator's ordering, 2026-11-14, stated by NAME. It used to be stated by
+# position, and adding one curve shifted every number, so the section re-shuffled
+# on its own. Names do not drift.
+#   this block sits below the anchor, in this order
+DEMOTE = ("wave5", "lace-1of9-3", "lace-1of12-3", "wave-1of5-1of3-3", "lace-1of8-1of3-0",
+          "lace-1of10-3", "wave-1of8-1of3-2", "wave-1of5-1of4-3", "wave-1of6-2")
+AFTER = "wave-1of3-2"
+# single moves, by name: the subjects keep their own order under the anchor
+MOVES = ((("wave-1of7-3",), "lace-1of8-3"),
+         (("lace-1of9-3", "lace-1of12-3"), "wave-1of7-3"),
+         (("lace-1of10-3",), "lace-1of12-3"))
+
+
+def apply_operator_order(entries):
+    """The operator's order: the named block below its anchor, then the named moves."""
+    names = [entry["name"] for entry in entries]
+    moving = [entry for entry in entries if entry["name"] in DEMOTE]
+    kept = [entry for entry in entries if entry["name"] not in DEMOTE]
+    if AFTER in [entry["name"] for entry in kept]:
+        cut = next(i for i, entry in enumerate(kept) if entry["name"] == AFTER) + 1
+        ordered = kept[:cut] + moving + kept[cut:]
+    else:
+        ordered = kept + moving
+    for subjects, anchor in MOVES:
+        lifted = [entry for entry in ordered if entry["name"] in subjects]
+        if not lifted:
+            continue
+        for entry in lifted:
+            ordered.remove(entry)
+        place = next((i for i, entry in enumerate(ordered) if entry["name"] == anchor), None)
+        if place is None:
+            ordered.extend(lifted)
+        else:
+            ordered[place + 1:place + 1] = lifted
+    return ordered
+
+
+def knot_names():
+    """The knotlike section, in the operator's order: his six, then every find.
+
+    It reads one list, the same one the gallery is built from, so a move made in
+    `apply_operator_order` shows up in the section as well.
+    """
+    return [entry["name"] for entry in apply_operator_order(operator_pins() + found_gallery())]
+
+
 def build():
     page = base.PAGE
+    knots = json.dumps(knot_names(), separators=(",", ":"))
+    page = page.replace("window.phNthGallery = __GALLERY__;",
+                        "window.phNthGallery = __GALLERY__;\n"
+                        f"window.phNthKnots = {knots};")
     page = page.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
     page = page.replace("__MATH__", base.MATH.read_text())
     page = page.replace("__PANELS__", base.PANELS.read_text())

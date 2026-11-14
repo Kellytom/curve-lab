@@ -73,7 +73,11 @@
   }
   function syncCell(cell, number, { write = true, sliders = true } = {}) {
     if (write) cell.number.value = +number.toFixed(6);
-    if (sliders) cell.fine.value = Math.abs(decode(number).mantissa);
+    if (!sliders) return;
+    const { mantissa, decade } = decode(number);
+    cell.fine.value = Math.abs(mantissa);
+    // the decade slider: the size of the number, one step per power of ten
+    if (cell.decade) cell.decade.value = String(decade);
   }
 
   // a pair of steppers that move a value to the next integer up or down
@@ -104,10 +108,16 @@
     cell.className = "spine-cell";
     const number = document.createElement("input");
     number.type = "number"; number.step = "0.1";
-    number.value = target[axis][k];
+    number.value = target[axis][k] ?? 0;
     const fine = document.createElement("input");
     fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
     fine.title = "size, sign from the box";
+    // the second slider: the decade. Two sliders per number, so 24 at degree 11,
+    // because the mantissa slider alone cannot reach 1000 or 0.01 quickly.
+    const decade = document.createElement("input");
+    decade.type = "range"; decade.min = "-2"; decade.max = "6"; decade.step = "1";
+    decade.className = "decade";
+    decade.title = "decade: the number is the mantissa x 10 to this power";
     const scales = document.createElement("span");
     scales.className = "scales";
     [["\u221a2", "root2"], ["\u00d71.1", "euler-step"], ["e", "euler"]].forEach(([label, kind]) => {
@@ -138,7 +148,7 @@
       });
       scales.append(button);
     });
-    const elements = { number, fine };
+    const elements = { number, fine, decade };
     cells.push({ axis, k, target, ...elements });
     const set = (v) => {
       if (target === state) currentName = "curve";
@@ -161,6 +171,12 @@
       const sign = current < 0 ? -1 : 1;
       set(sign * +fine.value * Math.pow(10, decode(current).decade));
     });
+    decade.addEventListener("input", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      const sign = current < 0 ? -1 : 1;
+      const mantissa = Math.abs(decode(current).mantissa);
+      set(sign * mantissa * Math.pow(10, +decade.value));
+    });
     // The sign button: the slider carries size only, so the sign lives in the
     // number box. One press flips it, which is the quickest way to try the
     // other half of the family.
@@ -175,7 +191,7 @@
     });
     const pair = document.createElement("div");
     pair.className = "cell-inputs";
-    pair.append(number, fine, flip, scales);
+    pair.append(number, fine, decade, flip, scales);
     steppers(number, direction => {
       const current = axis === "x" ? target.x[k] : target.y[k];
       set(stepInteger(current, direction));
@@ -183,6 +199,27 @@
     cell.append(pair);
     return cell;
   }
+
+  // The power a box carries. With exponent step 1 it is the box index; with a
+  // fractional step the boxes step by that fraction, so box 1 is t^0.5 at step
+  // 1/2 and every label, the formula and the closing sentence follow it.
+  const exponentOf = index => index * (window.phPowerStep || 1);
+  // written as a fraction, so t^5/2 does not become the rounded t^2.5
+  const exponentLabel = value => {
+    for (const d of [1, 2, 3, 4, 5, 6]) {
+      const n = value * d;
+      if (Math.abs(n - Math.round(n)) < 1e-9) {
+        return d === 1 ? String(Math.round(n)) : `${Math.round(n)}/${d}`;
+      }
+    }
+    return value.toFixed(3);
+  };
+  const powerText = index => {
+    const value = exponentOf(index);
+    if (index === 0) return "t^0";
+    if (Math.abs(value - 1) < 1e-9) return "t";
+    return `t^${exponentLabel(value)}`;
+  };
 
   // One line per power: the power on the left, then the x number, then the y
   // number. Six lines at degree 11, ten at degree 19.
@@ -199,12 +236,16 @@
     for (let k = 0; k < speedCount; k++) {
       const power = document.createElement("span");
       power.className = "power-label";
-      power.textContent = "t^" + k;
+      power.textContent = powerText(k);
       grid.append(power, makeCell("x", target, k), makeCell("y", target, k));
     }
     return grid;
   }
 
+  // the row must be as long as the rung before the boxes are built, or a box
+  // asks for a number that is not there yet
+  sizePair(state);
+  sizePair(complement);
   grid.append(buildPairGrid(state));
   if (complementGrid) complementGrid.append(buildPairGrid(complement));
   function writeCells() {
@@ -256,7 +297,8 @@
   const halfWidth = () => Math.max(1e-9, width.percent / 100 * curveSize);
 
   // what the page draws: the spine alone by default
-  const view = { rails: false, character: false, startTerminal: false, endTerminal: false, rotate: false };
+  const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
+                 rotate: false, complement: true };
   const TURN = -Math.PI / 4;
   const turned = points => view.rotate
     ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
@@ -580,7 +622,7 @@
     const complementShown = turnedAbout(
       placed(complement.transform, complementSpine), complement.turn, centreOfSpine);
     const all = spinePoints.slice();
-    all.push(...complementShown);
+    if (view.complement) all.push(...complementShown);
     if (view.rails) all.push(...leftRail, ...rightRail);
     if (characterLeft) all.push(...characterLeft, ...characterRight);
     if (startEnd) all.push(...startEnd.arc, startEnd.tip);
@@ -615,13 +657,15 @@
     }
     // the complementary curve sits under the spine: 40% grey (#666), so the dark
     // stroke stays the one you read first
-    art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
+    if (view.complement) {
+      art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
+    }
     art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     // the meetings of the two curves, counted and marked
-    const meets = crossingsOf(spinePoints, complementShown,
-                              1e-4 * Math.max(1e-9, maxX - minX));
+    const meets = view.complement ? crossingsOf(spinePoints, complementShown,
+                              1e-4 * Math.max(1e-9, maxX - minX)) : [];
     meets.forEach(([x, y]) => {
       art += `<circle cx="${fx(x).toFixed(1)}" cy="${fy(y).toFixed(1)}" r="3.6" ` +
              `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6"/>`;
@@ -655,13 +699,17 @@
     const plain = metrics(state.x, state.y);
     const hookNote = (hook.dx || hook.dy)
       ? ` | grid without the hook 1/${plain.pitch.toLocaleString()}` : "";
+    const gridText = m.pitch ? `grid 1/${m.pitch.toLocaleString()}${hookNote}` : "grid n/a: fractional powers";
+    const negativeNote = (range.from < 0 && (window.phPowerStep || 1) !== 1)
+      ? " | t below 0 uses the odd extension sign(t)|t|^step" : "";
+    const inflectionText = m.inflections
+      ? `inflections ${m.inflections.length} (max ${2 * speedDegree - 1})`
+      : "inflections n/a: fractional powers";
     document.getElementById("n-readout").textContent =
-      `bend ${m.bend.toFixed(3)} | grid 1/${m.pitch.toLocaleString()}${hookNote} | ` +
-      `inflections ${m.inflections ? m.inflections.length : (m.inflection === null ? 0 : 1)}` +
-      ` (max ${2 * speedDegree - 1}) | ` +
+      `bend ${m.bend.toFixed(3)} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
-      `crosses ${meets.length}`;
+      `crosses ${meets.length}` + negativeNote;
     const crossingLabel = document.getElementById("n-crossings");
     if (crossingLabel) {
       crossingLabel.textContent = `${meets.length} crossing${meets.length === 1 ? "" : "s"}`;
@@ -685,8 +733,9 @@
         const parts = [];
         row.forEach((c, k) => {
           if (!c) return;
-          const power = k === 0 ? "" : k === 1 ? "t" : `t^${k}`;
-          parts.push(`${c < 0 ? " - " : parts.length ? " + " : ""}${Math.abs(c)}${power}`);
+          const power = k === 0 ? "" : powerText(k);
+          const size = Math.abs(c) === 1 && power ? "" : String(Math.abs(c));
+          parts.push(`${c < 0 ? " - " : parts.length ? " + " : ""}${size}${power}`);
         });
         return parts.join("") || "0";
       };
@@ -696,8 +745,8 @@
         `the y speed is  ${written(state.y)}\n` +
         `the t term of x is ${x0}*${x0} - ${y0}*${y0} = ${x0 * x0 - y0 * y0}\n` +
         `the t term of y is 2 * ${x0} * ${y0} = ${2 * x0 * y0}\n` +
-        `${state.x.length} numbers per row: the speed reaches t^${state.x.length - 1}, ` +
-        `so the curve reaches t^${2 * (state.x.length - 1) + 1}`;
+        `${state.x.length} numbers per row: the speed reaches t^${exponentLabel(exponentOf(state.x.length - 1))}, ` +
+        `so the curve reaches t^${exponentLabel(2 * exponentOf(state.x.length - 1) + 1)}`;
     }
     const box = document.getElementById("n-json");
     if (box) {
@@ -1080,9 +1129,25 @@
     draw();
   });
 
-  // the window boxes: no clamp, so a tail can run as far as you like
+  // the window boxes: no clamp, so a tail can run as far as you like, and a
+  // slider beside each box for the quick drag. Negative t is allowed; with a
+  // fractional exponent the curve is drawn by the odd extension, which the
+  // readout says in words when the window goes below zero.
+  const windowSliders = {};
   [["n-t-from", "from"], ["n-t-to", "to"]].forEach(([id, side]) => {
     const field = document.getElementById(id);
+    const slider = document.getElementById(`${id}-slider`);
+    windowSliders[side] = slider;
+    if (slider) {
+      slider.addEventListener("input", () => {
+        const value = Number(slider.value);
+        if (field) field.value = String(value);
+        if (side === "from" && value === range.to) return;
+        if (side === "to" && value === range.from) return;
+        range[side] = value;
+        draw();
+      });
+    }
     if (!field) return;
     field.addEventListener("input", () => {
       const v = Number(field.value);
@@ -1090,6 +1155,7 @@
       if (side === "from" && v === range.to) return;
       if (side === "to" && v === range.from) return;
       range[side] = v;
+      if (slider) slider.value = String(Math.max(-2, Math.min(2, v)));
       draw();
     });
   });
@@ -1622,6 +1688,320 @@
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // ---------- build a curve from its flat spots ----------
+  // The row in the boxes is a polynomial's coefficients, lowest power first. Its
+  // roots are the t where the vertical speed is zero, so the stroke runs
+  // horizontal there. Choosing the roots and multiplying out is the only way to
+  // get a symmetric curve on purpose.
+  const gcdPair = (a, b) => {
+    a = Math.abs(a); b = Math.abs(b);
+    while (b) { const next = a % b; a = b; b = next; }
+    return a || 1;
+  };
+  const lcmPair = (a, b) => a * b / gcdPair(a, b);
+  const parseSpot = text => {
+    const trimmed = String(text).trim();
+    if (!trimmed) return null;
+    if (trimmed.includes("/")) {
+      const [top, bottom] = trimmed.split("/");
+      let n = Number(top), d = Number(bottom);
+      if (!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
+      if (d < 0) { n = -n; d = -d; }
+      const g = gcdPair(n, d);
+      return { n: n / g, d: d / g };
+    }
+    const plain = Number(trimmed);
+    if (!Number.isFinite(plain)) return null;
+    const n = Math.round(plain * 1000), d = 1000;
+    const g = gcdPair(n, d);
+    return { n: n / g, d: d / g };
+  };
+  // Multiply (t - spot) for every spot, exactly, in whole numbers: put every spot
+  // over one denominator D, multiply the integer roots out, then clear D^k.
+  function rowFromFlatSpots(spots) {
+    let D = 1;
+    spots.forEach(spot => { D = lcmPair(D, spot.d); });
+    const whole = spots.map(spot => spot.n * (D / spot.d));
+    let row = [1];
+    whole.forEach(root => {
+      const next = new Array(row.length + 1).fill(0);
+      row.forEach((value, power) => {
+        next[power] += -root * value;
+        next[power + 1] += value;
+      });
+      row = next;
+    });
+    row = row.map((value, power) => value * Math.pow(D, power));
+    const divisor = row.reduce((shared, value) => gcdPair(shared, value), 0) || 1;
+    return row.map(value => value / divisor);
+  }
+  const padRow = (row, count) => {
+    const out = row.slice(0, count);
+    while (out.length < count) out.push(0);
+    return out;
+  };
+
+  const rootsField = document.getElementById("n-roots");
+  const bowField = document.getElementById("n-bow");
+  const rootsStatus = document.getElementById("n-roots-status");
+  const rootsButton = document.getElementById("n-roots-fill");
+  const rootsPreset = document.getElementById("n-roots-preset");
+
+  function fillFromFlatSpots() {
+    const spots = String(rootsField ? rootsField.value : "")
+      .split(/[,;\s]+/).map(parseSpot).filter(Boolean);
+    if (!spots.length) {
+      if (rootsStatus) rootsStatus.textContent = "type at least one flat spot, for example 1/2";
+      return;
+    }
+    const bow = (bowField && parseSpot(bowField.value)) || { n: 0, d: 1 };
+    const degree = Math.max(spots.length, 2);
+    if (degree > 9) {
+      if (rootsStatus) rootsStatus.textContent = `too many flat spots: ${spots.length}; this page stops at 9`;
+      return;
+    }
+    // keep the rung the page is already on: shrinking to the smallest fit threw
+    // away the longer rows, and with them the half-power boxes to type into
+    if (window.phNthDegree().speedCount < degree + 1) window.phNthSetDegree(Math.max(5, degree));
+    const count = window.phNthDegree().speedCount;
+    // the bow is a fraction, so both rows are scaled by its denominator: a common
+    // scale leaves the shape alone and keeps every number whole
+    state.x = padRow([bow.d, bow.n, -bow.n], count);
+    state.y = padRow(rowFromFlatSpots(spots).map(value => value * bow.d), count);
+    writeCells();
+    draw();
+    const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+    if (rootsStatus) {
+      const scaled = bow.d > 1 ? ` · both rows scaled by ${bow.d} to keep the bow whole` : "";
+      const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch}` : " · grid n/a";
+      // the mirror only holds at step 1: say so rather than let the picture lie
+      const step = window.phPowerStep || 1;
+      const warning = Math.abs(step - 1) > 1e-9
+        ? ` · at step ${step.toFixed(2)} the mirror does not hold; set the step to 1 for the knot`
+        : "";
+      rootsStatus.textContent = `degree ${positionDegree()} · y ${state.y.join(", ")}` +
+        (measured ? ` · bend ${measured.bend.toFixed(3)}${grid}` : "") + scaled + warning;
+    }
+  }
+
+  // ---------- the ruler: place flat spots by hand ----------
+  // One dot per copy, so three dots stacked at 1/2 is the triple flat. Every
+  // position is a fraction with a small denominator, mirrored about 1/2.
+  // the positions on the strip: every fraction below 1/2 whose denominator is
+  // here, plus 1/2 itself. The wider set came with the longer rows (30 numbers),
+  // which can carry more distinct flat spots.
+  const RULER_DENOMINATORS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20];
+  const rulerSpots = (() => {
+    const seen = new Map();
+    RULER_DENOMINATORS.forEach(d => {
+      for (let n = 1; n < d / 2; n++) {
+        const g = gcdPair(n, d);
+        seen.set(`${n / g}/${d / g}`, { n: n / g, d: d / g, value: (n / g) / (d / g) });
+      }
+    });
+    seen.set("1/2", { n: 1, d: 2, value: 0.5 });
+    return [...seen.values()].sort((a, b) => a.value - b.value);
+  })();
+  const rulerHost = document.getElementById("n-roots-ruler");
+  const mirrorBox = document.getElementById("n-roots-mirror");
+  const countLabel = document.getElementById("n-roots-count");
+  const sameSpot = (a, b) => a.n * b.d === b.n * a.d;
+  let marks = [];
+
+  function textOf(spots) {
+    return spots.slice().sort((a, b) => a.n / a.d - b.n / b.d)
+      .map(spot => `${spot.n}/${spot.d}`).join(", ");
+  }
+  function applySpots() {
+    if (rootsField) rootsField.value = textOf(marks);
+    if (countLabel) {
+      const copies = {};
+      marks.forEach(spot => { const key = `${spot.n}/${spot.d}`; copies[key] = (copies[key] || 0) + 1; });
+      const summary = Object.entries(copies).map(([key, times]) => times > 1 ? `${key} x${times}` : key).join(", ");
+      countLabel.textContent = marks.length ? `${marks.length} spot${marks.length === 1 ? "" : "s"}: ${summary}` : "no spots yet";
+    }
+    renderRuler();
+  }
+  function addSpot(spot, remove) {
+    if (remove) {
+      const at = marks.findIndex(item => sameSpot(item, spot));
+      if (at >= 0) marks.splice(at, 1);
+    } else {
+      marks.push({ n: spot.n, d: spot.d });
+      const mirror = mirrorBox && mirrorBox.checked;
+      if (mirror && spot.n * 2 !== spot.d) marks.push({ n: spot.d - spot.n, d: spot.d });
+    }
+    applySpots();
+  }
+  function renderRuler() {
+    if (!rulerHost) return;
+    rulerHost.textContent = "";
+    // ticks first, then the labels, in order of importance: the small
+    // denominators get a name before the crowded ones do
+    rulerSpots.forEach(spot => {
+      const tick = document.createElement("span");
+      tick.className = "tick";
+      tick.style.left = `${spot.value * 100}%`;
+      tick.style.height = spot.d <= 6 || spot.d === 8 ? "12px" : "7px";
+      rulerHost.append(tick);
+    });
+    const labelRows = [[], []];
+    rulerSpots.slice().sort((a, b) => a.d - b.d || a.value - b.value).forEach(spot => {
+      for (let row = 0; row < labelRows.length; row++) {
+        if (labelRows[row].every(placed => Math.abs(placed - spot.value) > 0.045)) {
+          const label = document.createElement("span");
+          label.className = "tick-label";
+          label.style.left = `${spot.value * 100}%`;
+          label.style.bottom = row === 0 ? "-18px" : "-31px";
+          label.textContent = `${spot.n}/${spot.d}`;
+          rulerHost.append(label);
+          labelRows[row].push(spot.value);
+          return;
+        }
+      }
+    });
+    const stacks = new Map();
+    marks.forEach(spot => {
+      const key = `${spot.n}/${spot.d}`;
+      stacks.set(key, [...(stacks.get(key) || []), spot]);
+    });
+    stacks.forEach((stack, key) => {
+      const value = stack[0].n / stack[0].d;
+      stack.forEach((spot, index) => {
+        const dot = document.createElement("span");
+        dot.className = "spot";
+        dot.style.left = `${value * 100}%`;
+        // dots stack down from the top of the strip, so the lower band beside the
+        // rule stays clear: a click there always adds another copy
+        dot.style.top = `${6 + index * 11}px`;
+        dot.dataset.spot = key;
+        dot.title = `${key}${stack.length > 1 ? `, ${stack.length} copies` : ""} — click to remove this copy, shift-click to clear the stack`;
+        if (index === stack.length - 1 && stack.length > 1) dot.textContent = String(stack.length);
+        dot.addEventListener("click", event => {
+          event.stopPropagation();
+          // a dot toggles: click it and that copy goes; shift-click clears the stack
+          if (event.shiftKey) {
+            marks = marks.filter(item => !sameSpot(item, spot));
+            applySpots();
+            return;
+          }
+          addSpot(spot, true);
+        });
+        rulerHost.append(dot);
+      });
+    });
+  }
+  if (rulerHost) {
+    rulerHost.addEventListener("click", event => {
+      const rect = rulerHost.getBoundingClientRect();
+      const t = (event.clientX - rect.left) / Math.max(1, rect.width);
+      let best = null;
+      let closest = 1;
+      rulerSpots.forEach(spot => {
+        const distance = Math.abs(spot.value - t);
+        if (distance < closest) { best = spot; closest = distance; }
+      });
+      if (best && closest < 0.06) addSpot(best, false);
+    });
+    // start from the flat spots already in the field
+    String(rootsField ? rootsField.value : "").split(/[,;\s]+/).map(parseSpot).filter(Boolean)
+      .forEach(spot => marks.push(spot));
+    renderRuler();
+    if (countLabel) countLabel.textContent = marks.length ? `${marks.length} spots` : "no spots yet";
+  }
+  const halfSlider = document.getElementById("n-roots-half");
+  const halfLabel = document.getElementById("n-roots-half-value");
+  if (halfSlider) halfSlider.addEventListener("input", () => {
+    const want = Number(halfSlider.value);
+    marks = marks.filter(spot => spot.n * 2 !== spot.d);      // drop the 1/2 copies
+    for (let i = 0; i < want; i++) marks.push({ n: 1, d: 2 });
+    if (halfLabel) halfLabel.textContent = String(want);
+    applySpots();
+  });
+  const bowSlider = document.getElementById("n-bow-slider");
+  if (bowSlider) {
+    bowSlider.addEventListener("input", () => {
+      if (bowField) bowField.value = bowSlider.value;
+      applySpots();
+    });
+    if (bowField) bowField.addEventListener("change", () => {
+      const value = Number(bowField.value);
+      if (Number.isFinite(value)) bowSlider.value = String(Math.max(-12, Math.min(12, value)));
+    });
+  }
+
+  // the grey curve on or off: sometimes only the primary is wanted
+  const hideComplement = document.getElementById("n-comp-hide");
+  if (hideComplement) {
+    hideComplement.addEventListener("click", () => {
+      view.complement = !view.complement;
+      hideComplement.textContent = view.complement ? "hide the grey curve" : "show the grey curve";
+      hideComplement.setAttribute("aria-pressed", String(!view.complement));
+      draw();
+    });
+  }
+
+  const dotsFill = document.getElementById("n-roots-dots-fill");
+  if (dotsFill) dotsFill.addEventListener("click", () => {
+    if (rootsField) rootsField.value = textOf(marks);
+    if (marks.length) fillFromFlatSpots();
+  });
+
+  const undoButton = document.getElementById("n-roots-undo");
+  if (undoButton) undoButton.addEventListener("click", () => { marks.pop(); applySpots(); });
+  const clearButton = document.getElementById("n-roots-clear");
+  if (clearButton) clearButton.addEventListener("click", () => { marks = []; applySpots(); });
+  const rootsFieldForTyping = rootsField;
+  if (rootsFieldForTyping) rootsFieldForTyping.addEventListener("change", () => {
+    marks = String(rootsFieldForTyping.value).split(/[,;\s]+/).map(parseSpot).filter(Boolean)
+      .map(spot => ({ n: spot.n, d: spot.d }));
+    renderRuler();
+  });
+
+  // The exponent step: a slider on the experimental page, with buttons for the
+  // named stops. Any value in between is allowed, so 0.75 is a real choice.
+  const stepControl = document.getElementById("n-step");
+  const stepValue = document.getElementById("n-step-value");
+  const stepName = value => {
+    if (Math.abs(value - 1) < 1e-9) return "1";
+    if (Math.abs(value - 0.5) < 1e-9) return "\u00bd";
+    if (Math.abs(value - 1 / 3) < 1e-3) return "\u2153";
+    if (Math.abs(value - 0.25) < 1e-9) return "\u00bc";
+    return value.toFixed(2).replace(/0+$/, "").replace(/\.$/, "");
+  };
+  const applyStep = value => {
+    window.phPowerStep = value;
+    if (stepControl && stepControl.type === "range") stepControl.value = String(value);
+    if (stepValue) stepValue.textContent = stepName(value);
+    rebuildControls();
+    writeCells();
+    draw();
+  };
+  if (stepControl) {
+    if (Math.abs((window.phPowerStep || 1) - Number(stepControl.value)) > 1e-9) {
+      stepControl.value = String(window.phPowerStep || 1);
+      if (stepValue) stepValue.textContent = stepName(window.phPowerStep || 1);
+    }
+    const read = () => applyStep(Number(stepControl.value) || 1);
+    stepControl.addEventListener("input", read);
+    stepControl.addEventListener("change", read);
+    document.querySelectorAll(".step-at").forEach(button => {
+      button.addEventListener("click", () => applyStep(Number(button.dataset.step) || 1));
+    });
+  }
+
+  if (rootsButton) rootsButton.addEventListener("click", fillFromFlatSpots);
+  if (rootsPreset) rootsPreset.addEventListener("change", () => {
+    // a suggestion names a known curve, so it carries its own exponent step: the
+    // knot presets are whole powers, because mirroring only holds there
+    const [spots, bow, step] = String(rootsPreset.value || "").split("|");
+    if (!spots) return;
+    if (rootsField) rootsField.value = spots;
+    if (bowField) bowField.value = bow === undefined ? "0" : bow;
+    // the step is the operator's, not the suggestion's: it stays where it is
+    if (stepControl) stepControl.value = String(window.phPowerStep || 1);
+  });
+
   flipComplement();        // the pair starts flipped, so it crosses
   writeCells();
   renderSaved();
@@ -1672,6 +2052,9 @@
                  pitch: measured ? measured.pitch : "-",
                  from: "local", local: true });
     });
+    // no sort here: the order on the page is the order the generator wrote, so a
+    // figure can be moved by the generator and stay moved. A rank sort here used to
+    // pull a moved operator entry straight back to the top.
     return out;
   }
   // The finder's own file, read at load: every search that ran with --write
@@ -1805,6 +2188,7 @@
         <span class="gallery-number">Fig. ${index}</span>
         <span class="gallery-name">${entry.name}</span>
         <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
+          : String(entry.from || "") === "operator" ? "yours"
           : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
         <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
       </button>
@@ -1842,7 +2226,25 @@
 
   const render = () => {
     list = currentList();
-    host.innerHTML = list.map((entry, index) => figureFor(entry, index + 1)).join("");
+    const declared = window.phNthKnots || [];
+    const byName = new Map(list.map(entry => [entry.name, entry]));
+    const knotItems = declared.map(name => byName.get(name)).filter(Boolean);
+    const knotNames = new Set(knotItems.map(entry => entry.name));
+    const others = list.filter(entry => !knotNames.has(entry.name));
+    if (!knotItems.length) {
+      host.innerHTML = list.map((entry, index) => figureFor(entry, index + 1)).join("");
+      return;
+    }
+    host.innerHTML =
+      `<h2 class="gallery-head" id="n-knots">Knotlike curves</h2>
+    <p class="gallery-note">Your two pasted curves come first, tagged <strong>yours</strong>: <code>integer-105</code>
+    and <code>integer-70</code>. Then the finds from the symmetric root walk, tagged 
+    <strong>found</strong>, so the two sets can be compared row for row. <code>wave3</code>,
+    <code>knot-6</code> and <code>knot-7</code> were already on the page. Under each name: the bend,
+    the grid, and the meetings the walk measured with the copy that makes the lace.</p>`
+      + knotItems.map((entry, index) => figureFor(entry, index + 1)).join("")
+      + `<h2 class="gallery-head" id="n-rest">Everything else</h2>`
+      + others.map((entry, index) => figureFor(entry, knotItems.length + index + 1)).join("");
   };
   render();
   window.addEventListener("ph-nth-saved", render);

@@ -4,13 +4,6 @@ Instructions accumulate. The operator's latest message is authoritative, and a
 new emphasis adds to the work rather than replacing what came before. Read what
 the work needs, not only what the handoff names.
 
-## Never go quiet
-
-Never leave the operator waiting more than **two minutes** without a word. If a
-step will take longer — a build, a search, a browser run — say what you are
-waiting on and roughly how long it takes *before* you wait, then give an interim
-line. A silent chain of tool calls reads as a freeze.
-
 ## Plain English, always
 
 Write in plain English: short sentences, everyday words, one idea per sentence.
@@ -50,8 +43,9 @@ not edit by hand).
 
 Do **not** read `docs/HANDOVER.md` unless the action needs durable
 architecture/deploy/security detail. It is deliberately long. Do not read
-`vendor/`, `out/caps/*.svg`, the generated board HTML, or the `ornaments`
-repository unless the action is extraction or comparison.
+`vendor/`, `out/caps/*.svg`, or the `ornaments` repository unless the action is
+extraction or comparison. Generated pages may be read: reading the built page
+is how a claim about the page is checked.
 
 ## Focus (2026-10-26)
 
@@ -121,6 +115,7 @@ and documentation alike.
 | `workbench/spirals/` | recovered Stage II + LAC spines and their parity report |
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
+| `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
 | `state/HANDOFF-int.md` | current truth |
 | `state/DOT-SOLVER-int.md` | the dot-solver sub-focus and its image exception |
 | `next-fhandoff-int.md` | one action |
@@ -164,6 +159,8 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## GitHub — run it like a normal developer
 
+- **No internet unless the operator says so.** No fetch, no push, no `gh`, no remote
+  probe. Work from the files on disk and say what you ran.
 - **No CI unless the operator says so.** Do not run `gh run watch`, do not poll
   `gh run list`, do not wait for a workflow. Make the push, report it in one
   line, and leave the run alone.
