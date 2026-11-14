@@ -281,6 +281,7 @@ below is doing.</p>
   <text x="180" y="172" font-size="13" fill="#2e2413">three minuses</text>
   <text x="330" y="172" font-size="12" fill="#7b6c4e">leave a minus</text>
   <text x="12" y="198" font-size="11" fill="#8a3b2a">the x term of the curve is x0&#215;x0 &#8722; y0&#215;y0, so these signs decide which way it sets off</text>
+  <text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E1</text>
 </svg>
 <h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
 <p class="small">Every number in the x row is multiplied by every other, and the cell shows the
@@ -966,6 +967,8 @@ window.curveSaver = (function () {
            `<circle cx="${tipX}" cy="${tipY}" r="4" fill="#2e2413"/>` +
            `<circle cx="${cx}" cy="${cy}" r="4" fill="#1f5fa8"/>`;
     const degrees = ((heading * 180 / Math.PI) % 360 + 360) % 360;
+    art += `<text x="${size - 8}" y="14" font-size="10" fill="#7b6c4e" ` +
+           `text-anchor="end">Fig. E4</text>`;
     art += `<text x="${cx}" y="${size - 8}" font-size="13" fill="#2e2413" ` +
            `text-anchor="middle">first pair ${x0}, ${y0} &rarr; heading ${degrees.toFixed(1)}&deg;` +
            `, speed ${(x0 * x0 + y0 * y0).toFixed(2)}</text>`;
@@ -1008,7 +1011,8 @@ window.curveSaver = (function () {
            `diagonal 0 makes the t term, diagonal 1 the t^2 term, ... diagonal ${2 * (count - 1)} ` +
            `the t^${2 * (count - 1) + 1} term</text>` +
            `<text x="${left}" y="${footY + 15}" font-size="11" fill="#7b6c4e">` +
-           `each diagonal is divided by its power plus one</text>`;
+           `each diagonal is divided by its power plus one</text>` +
+           `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E2</text>`;
     host.innerHTML = art;
   }
 
@@ -1033,7 +1037,8 @@ window.curveSaver = (function () {
       `<text x="330" y="158" font-size="11" fill="#2e2413">the root cancels: a plain polynomial</text>` +
       `<text x="40" y="178" font-size="11" fill="#7b6c4e">` +
       `x'\u00b2 + y'\u00b2 = (p\u00b2 + q\u00b2)\u00b2, so the length is the integral of p\u00b2 + q\u00b2` +
-      `</text>`;
+      `</text>` +
+      `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E3</text>`;
     host.innerHTML = art;
     const exact = document.getElementById("n-length-exact");
     if (exact) exact.textContent = arcText;

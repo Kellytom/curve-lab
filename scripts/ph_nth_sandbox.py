@@ -298,6 +298,7 @@ below is doing.</p>
   <text x="180" y="172" font-size="13" fill="#2e2413">three minuses</text>
   <text x="330" y="172" font-size="12" fill="#7b6c4e">leave a minus</text>
   <text x="12" y="198" font-size="11" fill="#8a3b2a">the x term of the curve is x0&#215;x0 &#8722; y0&#215;y0, so these signs decide which way it sets off</text>
+  <text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E1</text>
 </svg>
 <h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
 <p class="small">Every number in the x row is multiplied by every other, and the cell shows the

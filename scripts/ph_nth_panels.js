@@ -462,6 +462,8 @@
            `<circle cx="${tipX}" cy="${tipY}" r="4" fill="#2e2413"/>` +
            `<circle cx="${cx}" cy="${cy}" r="4" fill="#1f5fa8"/>`;
     const degrees = ((heading * 180 / Math.PI) % 360 + 360) % 360;
+    art += `<text x="${size - 8}" y="14" font-size="10" fill="#7b6c4e" ` +
+           `text-anchor="end">Fig. E4</text>`;
     art += `<text x="${cx}" y="${size - 8}" font-size="13" fill="#2e2413" ` +
            `text-anchor="middle">first pair ${x0}, ${y0} &rarr; heading ${degrees.toFixed(1)}&deg;` +
            `, speed ${(x0 * x0 + y0 * y0).toFixed(2)}</text>`;
@@ -504,7 +506,8 @@
            `diagonal 0 makes the t term, diagonal 1 the t^2 term, ... diagonal ${2 * (count - 1)} ` +
            `the t^${2 * (count - 1) + 1} term</text>` +
            `<text x="${left}" y="${footY + 15}" font-size="11" fill="#7b6c4e">` +
-           `each diagonal is divided by its power plus one</text>`;
+           `each diagonal is divided by its power plus one</text>` +
+           `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E2</text>`;
     host.innerHTML = art;
   }
 
@@ -529,7 +532,8 @@
       `<text x="330" y="158" font-size="11" fill="#2e2413">the root cancels: a plain polynomial</text>` +
       `<text x="40" y="178" font-size="11" fill="#7b6c4e">` +
       `x'\u00b2 + y'\u00b2 = (p\u00b2 + q\u00b2)\u00b2, so the length is the integral of p\u00b2 + q\u00b2` +
-      `</text>`;
+      `</text>` +
+      `<text x="548" y="14" font-size="10" fill="#7b6c4e" text-anchor="end">Fig. E3</text>`;
     host.innerHTML = art;
     const exact = document.getElementById("n-length-exact");
     if (exact) exact.textContent = arcText;
