@@ -115,6 +115,13 @@ def classics():
                                         3 * radius * math.sin(t) - radius * math.sin(3 * t)),
                              0, 2 * math.pi),
         "gerono lemniscate": (lambda t: (math.cos(t), math.sin(t) * math.cos(t)), 0, 2 * math.pi),
+        "bernoulli lobe": (lambda t: (math.sqrt(max(0.0, math.cos(2 * t))) * math.cos(t),
+                                      math.sqrt(max(0.0, math.cos(2 * t))) * math.sin(t)),
+                           -math.pi / 4, math.pi / 4),
+        "piriform, trimmed": (lambda t: (1 + math.sin(t),
+                                         math.cos(t) * (1 + math.sin(t))),
+                              -math.pi / 2 + 0.25 * 2 * math.pi,
+                              3 * math.pi / 2 - 0.25 * 2 * math.pi),
         "a circle": (lambda t: (math.cos(t), math.sin(t)), 0, math.pi / 2),
     }
     print(f"{'curve':22s} {'best p':>7} {'residual':>10}   verdict")
