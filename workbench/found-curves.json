@@ -33,7 +33,9 @@
     "1/2",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "lace-1of12-3",
@@ -66,7 +68,9 @@
     "1/2",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "lace-1of10-3",
@@ -99,7 +103,9 @@
     "1/2",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of5-1of3-1",
@@ -132,10 +138,12 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
-   "name": "wave-1of4-1",
+   "name": "wave-2x1of4-1",
    "speedX": [
     1.0,
     1.0,
@@ -165,7 +173,9 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of4-1of3-1",
@@ -198,7 +208,9 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of6-1of3-1",
@@ -231,7 +243,9 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-2of5-3",
@@ -264,7 +278,9 @@
     "1/2",
     "3/5"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of6-3",
@@ -297,10 +313,12 @@
     "1/2",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
-   "name": "wave-1of3-1",
+   "name": "wave-2x1of3-1",
    "speedX": [
     1.0,
     -2.0,
@@ -330,7 +348,9 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of5-3",
@@ -363,7 +383,9 @@
     "1/2",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of5-1of4-1",
@@ -396,7 +418,9 @@
     "3/4",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of3-3",
@@ -429,7 +453,9 @@
     "1/2",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-1of4-3",
@@ -462,7 +488,9 @@
     "1/2",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
   },
   {
    "name": "wave-middle-5",
@@ -494,6 +522,5783 @@
     "1/2",
     "1/2",
     "1/2"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of5-1of3-3",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    134,
+    -923,
+    3412,
+    -7345,
+    9238,
+    -6300,
+    1800
+   ],
+   "bend": 2.284,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 14,
+   "self": 2,
+   "roots": "1/5, 1/3, 1/2, 1/2, 1/2, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of5-1of4-3",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    211,
+    -1517,
+    5798,
+    -12780,
+    16312,
+    -11200,
+    3200
+   ],
+   "bend": 2.243,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 10,
+   "self": 2,
+   "roots": "1/5, 1/4, 1/2, 1/2, 1/2, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of10-5",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    190,
+    -1460,
+    5720,
+    -12720,
+    16288,
+    -11200,
+    3200
+   ],
+   "bend": 1.833,
+   "pitch": 429,
+   "inflections": 3,
+   "meetings180": 8,
+   "self": 2,
+   "roots": "1/10, 1/2, 1/2, 1/2, 1/2, 1/2, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "9/10"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "lace-1of12-5",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -11,
+    254,
+    -2024,
+    8080,
+    -18160,
+    23392,
+    -16128,
+    4608
+   ],
+   "bend": 4.034,
+   "pitch": 2145,
+   "inflections": 3,
+   "meetings180": 8,
+   "self": 10,
+   "roots": "1/12, 1/2, 1/2, 1/2, 1/2, 1/2, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "11/12"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of4-2x1of3-1",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    196,
+    -1335,
+    4916,
+    -10575,
+    13302,
+    -9072,
+    2592
+   ],
+   "bend": 2.09,
+   "pitch": 30030,
+   "inflections": 6,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/4, 1/3, 1/3, 1/2, 2/3, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-2x1of4-3",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    150,
+    -1036,
+    3848,
+    -8320,
+    10496,
+    -7168,
+    2048
+   ],
+   "bend": 1.577,
+   "pitch": 45045,
+   "inflections": 5,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/4, 1/4, 1/2, 1/2, 1/2, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of6-1of3-3",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    177,
+    -1263,
+    4778,
+    -10440,
+    13248,
+    -9072,
+    2592
+   ],
+   "bend": 1.728,
+   "pitch": 1365,
+   "inflections": 5,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/6, 1/3, 1/2, 1/2, 1/2, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of3-2of5-3",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    176,
+    -1097,
+    3768,
+    -7705,
+    9382,
+    -6300,
+    1800
+   ],
+   "bend": 1.916,
+   "pitch": 8190,
+   "inflections": 5,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/3, 2/5, 1/2, 1/2, 1/2, 3/5, 2/3",
+   "rootsExact": [
+    "1/3",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "2/3"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of8-5",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    134,
+    -984,
+    3760,
+    -8240,
+    10464,
+    -7168,
+    2048
+   ],
+   "bend": 1.516,
+   "pitch": 2145,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/8, 1/2, 1/2, 1/2, 1/2, 1/2, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/8"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-3x1of3-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    124,
+    -810,
+    2889,
+    -6075,
+    7533,
+    -5103,
+    1458
+   ],
+   "bend": 1.448,
+   "pitch": 60060,
+   "inflections": 2,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/3, 1/3, 1/3, 1/2, 2/3, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-2of5-5",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    85,
+    -515,
+    1730,
+    -3480,
+    4192,
+    -2800,
+    800
+   ],
+   "bend": 1.491,
+   "pitch": 4290,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "2/5, 1/2, 1/2, 1/2, 1/2, 1/2, 3/5",
+   "rootsExact": [
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of4-1of3-3",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    95,
+    -629,
+    2262,
+    -4780,
+    5944,
+    -4032,
+    1152
+   ],
+   "bend": 1.572,
+   "pitch": 6930,
+   "inflections": 5,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/4, 1/3, 1/2, 1/2, 1/2, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of6-5",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    86,
+    -596,
+    2200,
+    -4720,
+    5920,
+    -4032,
+    1152
+   ],
+   "bend": 7.327,
+   "pitch": 2145,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 2,
+   "roots": "1/6, 1/2, 1/2, 1/2, 1/2, 1/2, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of5-5",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    65,
+    -435,
+    1570,
+    -3320,
+    4128,
+    -2800,
+    800
+   ],
+   "bend": 7.968,
+   "pitch": 2145,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 2,
+   "roots": "1/5, 1/2, 1/2, 1/2, 1/2, 1/2, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-2x1of3-3",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    60,
+    -381,
+    1328,
+    -2745,
+    3366,
+    -2268,
+    648
+   ],
+   "bend": 2.784,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 2,
+   "self": 2,
+   "roots": "1/3, 1/3, 1/2, 1/2, 1/2, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of4-5",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -3,
+    46,
+    -296,
+    1040,
+    -2160,
+    2656,
+    -1792,
+    512
+   ],
+   "bend": 3.369,
+   "pitch": 2145,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 1/2, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of3-5",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -2,
+    29,
+    -179,
+    610,
+    -1240,
+    1504,
+    -1008,
+    288
+   ],
+   "bend": 3.444,
+   "pitch": 4290,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/3, 1/2, 1/2, 1/2, 1/2, 1/2, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-middle-7",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -1,
+    14,
+    -84,
+    280,
+    -560,
+    672,
+    -448,
+    128
+   ],
+   "bend": 1.333,
+   "pitch": 15,
+   "inflections": 1,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/2, 1/2, 1/2, 1/2, 1/2, 1/2, 1/2",
+   "rootsExact": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "lace-1of9-3",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    129,
+    -663,
+    1522,
+    -1620,
+    648
+   ],
+   "bend": 1.772,
+   "pitch": 22,
+   "inflections": 3,
+   "meetings180": 16,
+   "self": 8,
+   "roots": "1/9, 1/2, 1/2, 1/2, 8/9",
+   "rootsExact": [
+    "1/9",
+    "1/2",
+    "1/2",
+    "1/2",
+    "8/9"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of7-3",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    85,
+    -415,
+    930,
+    -980,
+    392
+   ],
+   "bend": 1.928,
+   "pitch": 3465,
+   "inflections": 3,
+   "meetings180": 8,
+   "self": 2,
+   "roots": "1/7, 1/2, 1/2, 1/2, 6/7",
+   "rootsExact": [
+    "1/7",
+    "1/2",
+    "1/2",
+    "1/2",
+    "6/7"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-2of7-3",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    109,
+    -463,
+    962,
+    -980,
+    392
+   ],
+   "bend": 1.559,
+   "pitch": 770,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "2/7, 1/2, 1/2, 1/2, 5/7",
+   "rootsExact": [
+    "2/7",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/7"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "wave-1of14-3",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -13,
+    274,
+    -1528,
+    3632,
+    -3920,
+    1568
+   ],
+   "bend": 1.671,
+   "pitch": 1155,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 3,
+   "roots": "1/14, 1/2, 1/2, 1/2, 13/14",
+   "rootsExact": [
+    "1/14",
+    "1/2",
+    "1/2",
+    "1/2",
+    "13/14"
+   ],
+   "from": "found",
+   "symmetryKind": "mirror",
+   "partner": "half-turn copy"
+  },
+  {
+   "name": "lace-1of8-1of3-0",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    14,
+    -191,
+    767,
+    -1152,
+    576
+   ],
+   "bend": 1.475,
+   "pitch": 42,
+   "inflections": 3,
+   "meetings180": 13,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 6,
+   "roots": "1/8, 1/3, 2/3, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/3",
+    "2/3",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    5,
+    -56,
+    200,
+    -288,
+    144
+   ],
+   "bend": 1.374,
+   "pitch": 105,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/2, 1/2, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/2",
+    "1/2",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-2",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    7,
+    -92,
+    348,
+    -512,
+    256
+   ],
+   "bend": 2.264,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 4,
+   "roots": "1/8, 1/2, 1/2, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/2",
+    "1/2",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of3-0",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    10,
+    -117,
+    441,
+    -648,
+    324
+   ],
+   "bend": 1.078,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/3, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of4-0",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    12,
+    -139,
+    539,
+    -800,
+    400
+   ],
+   "bend": 1.206,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/4, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-2of5-0",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    18,
+    -171,
+    571,
+    -800,
+    400
+   ],
+   "bend": 1.176,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 2/5, 3/5, 3/4",
+   "rootsExact": [
+    "1/4",
+    "2/5",
+    "3/5",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-2",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    9,
+    -136,
+    536,
+    -800,
+    400
+   ],
+   "bend": 2.271,
+   "pitch": 315,
+   "inflections": 3,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 4,
+   "roots": "1/10, 1/2, 1/2, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/2",
+    "1/2",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-2",
+   "speedX": [
+    0.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    2,
+    -17,
+    53,
+    -72,
+    36
+   ],
+   "bend": 1.846,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/2, 1/2, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-2",
+   "speedX": [
+    0.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    3,
+    -28,
+    92,
+    -128,
+    64
+   ],
+   "bend": 3.836,
+   "pitch": 63,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of4-0",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    9,
+    -96,
+    352,
+    -512,
+    256
+   ],
+   "bend": 1.064,
+   "pitch": 315,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/4, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2of5-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    6,
+    -49,
+    149,
+    -200,
+    100
+   ],
+   "bend": 1.098,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "2/5, 1/2, 1/2, 3/5",
+   "rootsExact": [
+    "2/5",
+    "1/2",
+    "1/2",
+    "3/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of3-0",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    8,
+    -86,
+    311,
+    -450,
+    225
+   ],
+   "bend": 1.1,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/3, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    4,
+    -41,
+    141,
+    -200,
+    100
+   ],
+   "bend": 1.406,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/2, 1/2, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/2",
+    "1/2",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3of8-2",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    15,
+    -124,
+    380,
+    -512,
+    256
+   ],
+   "bend": 1.082,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 4,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "3/8, 1/2, 1/2, 5/8",
+   "rootsExact": [
+    "3/8",
+    "1/2",
+    "1/2",
+    "5/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of3-0",
+   "speedX": [
+    0.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    4,
+    -36,
+    117,
+    -162,
+    81
+   ],
+   "bend": 1.925,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/3, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-middle-4",
+   "speedX": [
+    0.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    1,
+    -8,
+    24,
+    -32,
+    16
+   ],
+   "bend": 1.743,
+   "pitch": 630,
+   "inflections": 1,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/2, 1/2, 1/2, 1/2",
+   "rootsExact": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-2of5-0",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    12,
+    -104,
+    329,
+    -450,
+    225
+   ],
+   "bend": 1.03,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 2/5, 3/5, 2/3",
+   "rootsExact": [
+    "1/3",
+    "2/5",
+    "3/5",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of12-2",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    11,
+    -188,
+    764,
+    -1152,
+    576
+   ],
+   "bend": 1.114,
+   "pitch": 70,
+   "inflections": 3,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 2,
+   "roots": "1/12, 1/2, 1/2, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/2",
+    "1/2",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-1of3-0",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    6,
+    -59,
+    203,
+    -288,
+    144
+   ],
+   "bend": 1.142,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/3, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of6-0",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    25,
+    -360,
+    1656,
+    -2592,
+    1296
+   ],
+   "bend": 1.019,
+   "pitch": 105,
+   "inflections": 3,
+   "meetings180": 1,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/6, 5/6, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/6",
+    "5/6",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of5-0",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    20,
+    -269,
+    1169,
+    -1800,
+    900
+   ],
+   "bend": 1.025,
+   "pitch": 105,
+   "inflections": 3,
+   "meetings180": 1,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/5, 4/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/5",
+    "4/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of5-0",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    16,
+    -200,
+    825,
+    -1250,
+    625
+   ],
+   "bend": 1.026,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 1,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/5, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of4-0",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    15,
+    -188,
+    764,
+    -1152,
+    576
+   ],
+   "bend": 1.038,
+   "pitch": 210,
+   "inflections": 3,
+   "meetings180": 1,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/4, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-1of4-0",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    21,
+    -304,
+    1328,
+    -2048,
+    1024
+   ],
+   "bend": 1.046,
+   "pitch": 315,
+   "inflections": 3,
+   "meetings180": 1,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 2,
+   "roots": "1/8, 1/4, 3/4, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/4",
+    "3/4",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-1of3-2",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    14,
+    -247,
+    1587,
+    -4984,
+    8252,
+    -6912,
+    2304
+   ],
+   "bend": 1.286,
+   "pitch": 45045,
+   "inflections": 5,
+   "meetings180": 11,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/8, 1/3, 1/2, 1/2, 2/3, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-4",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    9,
+    -172,
+    1116,
+    -3488,
+    5744,
+    -4800,
+    1600
+   ],
+   "bend": 1.239,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 4,
+   "roots": "1/10, 1/2, 1/2, 1/2, 1/2, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-4",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    7,
+    -120,
+    744,
+    -2272,
+    3696,
+    -3072,
+    1024
+   ],
+   "bend": 1.314,
+   "pitch": 6435,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/8, 1/2, 1/2, 1/2, 1/2, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of12-4",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    11,
+    -232,
+    1560,
+    -4960,
+    8240,
+    -6912,
+    2304
+   ],
+   "bend": 1.442,
+   "pitch": 9009,
+   "inflections": 3,
+   "meetings180": 9,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 2,
+   "roots": "1/12, 1/2, 1/2, 1/2, 1/2, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of3-2",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    10,
+    -157,
+    949,
+    -2880,
+    4680,
+    -3888,
+    1296
+   ],
+   "bend": 1.198,
+   "pitch": 5005,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/3, 1/2, 1/2, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-2of5-2",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    18,
+    -243,
+    1327,
+    -3768,
+    5884,
+    -4800,
+    1600
+   ],
+   "bend": 1.255,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 2/5, 1/2, 1/2, 3/5, 3/4",
+   "rootsExact": [
+    "1/4",
+    "2/5",
+    "1/2",
+    "1/2",
+    "3/5",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-2of5-2",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    12,
+    -152,
+    793,
+    -2182,
+    3341,
+    -2700,
+    900
+   ],
+   "bend": 1.564,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 2/5, 1/2, 1/2, 3/5, 2/3",
+   "rootsExact": [
+    "1/3",
+    "2/5",
+    "1/2",
+    "1/2",
+    "3/5",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of3-2",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    8,
+    -118,
+    687,
+    -2038,
+    3269,
+    -2700,
+    900
+   ],
+   "bend": 1.689,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/3, 1/2, 1/2, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-2x1of3-0",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    16,
+    -244,
+    1468,
+    -4473,
+    7299,
+    -6075,
+    2025
+   ],
+   "bend": 1.162,
+   "pitch": 60060,
+   "inflections": 5,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/3, 1/3, 2/3, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/3",
+    "2/3",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of4-1of3-0",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    18,
+    -273,
+    1649,
+    -5056,
+    8288,
+    -6912,
+    2304
+   ],
+   "bend": 1.302,
+   "pitch": 8190,
+   "inflections": 5,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/4, 1/3, 2/3, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/3",
+    "2/3",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-2x1of3-0",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    12,
+    -172,
+    991,
+    -2934,
+    4707,
+    -3888,
+    1296
+   ],
+   "bend": 1.381,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/3, 1/3, 2/3, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/3",
+    "2/3",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-4",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    5,
+    -76,
+    444,
+    -1312,
+    2096,
+    -1728,
+    576
+   ],
+   "bend": 2.289,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/2, 1/2, 1/2, 1/2, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-4",
+   "speedX": [
+    0.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    2,
+    -25,
+    129,
+    -352,
+    536,
+    -432,
+    144
+   ],
+   "bend": 2.505,
+   "pitch": 90090,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/2, 1/2, 1/2, 1/2, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-4",
+   "speedX": [
+    0.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    4,
+    -57,
+    321,
+    -928,
+    1464,
+    -1200,
+    400
+   ],
+   "bend": 3.105,
+   "pitch": 90090,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/2, 1/2, 1/2, 1/2, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3x1of3-0",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    8,
+    -108,
+    594,
+    -1701,
+    2673,
+    -2187,
+    729
+   ],
+   "bend": 2.586,
+   "pitch": 60060,
+   "inflections": 1,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/3, 1/3, 2/3, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/3",
+    "2/3",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-4",
+   "speedX": [
+    0.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    3,
+    -40,
+    216,
+    -608,
+    944,
+    -768,
+    256
+   ],
+   "bend": 7.103,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3of8-4",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    15,
+    -184,
+    936,
+    -2528,
+    3824,
+    -3072,
+    1024
+   ],
+   "bend": 1.089,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "3/8, 1/2, 1/2, 1/2, 1/2, 5/8",
+   "rootsExact": [
+    "3/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2of5-4",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    6,
+    -73,
+    369,
+    -992,
+    1496,
+    -1200,
+    400
+   ],
+   "bend": 1.177,
+   "pitch": 90090,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "2/5, 1/2, 1/2, 1/2, 1/2, 3/5",
+   "rootsExact": [
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of5-2",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    20,
+    -349,
+    2325,
+    -7552,
+    12776,
+    -10800,
+    3600
+   ],
+   "bend": 1.28,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/5, 1/2, 1/2, 4/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/5",
+    "1/2",
+    "1/2",
+    "4/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of4-2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    15,
+    -248,
+    1576,
+    -4960,
+    8240,
+    -6912,
+    2304
+   ],
+   "bend": 1.288,
+   "pitch": 45045,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/4, 1/2, 1/2, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "1/2",
+    "1/2",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of4-2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    12,
+    -187,
+    1143,
+    -3512,
+    5756,
+    -4800,
+    1600
+   ],
+   "bend": 1.429,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/4, 1/2, 1/2, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "1/2",
+    "1/2",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of5-2",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    16,
+    -264,
+    1689,
+    -5350,
+    8925,
+    -7500,
+    2500
+   ],
+   "bend": 1.433,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/5, 1/2, 1/2, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "1/2",
+    "1/2",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of4-2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    9,
+    -132,
+    772,
+    -2304,
+    3712,
+    -3072,
+    1024
+   ],
+   "bend": 1.745,
+   "pitch": 45045,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/4, 1/2, 1/2, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/2",
+    "1/2",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-1of3-2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    6,
+    -83,
+    463,
+    -1336,
+    2108,
+    -1728,
+    576
+   ],
+   "bend": 2.494,
+   "pitch": 90090,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/3, 1/2, 1/2, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of3-2",
+   "speedX": [
+    0.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    4,
+    -52,
+    277,
+    -774,
+    1197,
+    -972,
+    324
+   ],
+   "bend": 2.636,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/3, 1/2, 1/2, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/2",
+    "1/2",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-middle-6",
+   "speedX": [
+    0.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    1,
+    -12,
+    60,
+    -160,
+    240,
+    -192,
+    64
+   ],
+   "bend": 2.377,
+   "pitch": 8190,
+   "inflections": 1,
+   "meetings180": 2,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/2, 1/2, 1/2, 1/2, 1/2, 1/2",
+   "rootsExact": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of12-1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -22,
+    431,
+    -2457,
+    5958,
+    -6480,
+    2592
+   ],
+   "bend": 2.74,
+   "pitch": 231,
+   "inflections": 4,
+   "meetings180": 20,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 14,
+   "roots": "1/12, 1/3, 1/2, 2/3, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/3",
+    "1/2",
+    "2/3",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-1of4-1",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -27,
+    498,
+    -2932,
+    7288,
+    -8000,
+    3200
+   ],
+   "bend": 1.504,
+   "pitch": 3465,
+   "inflections": 2,
+   "meetings180": 20,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 10,
+   "roots": "1/10, 1/4, 1/2, 3/4, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/4",
+    "1/2",
+    "3/4",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-3-2",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "bend": 2.033,
+   "pitch": 3465,
+   "inflections": 1,
+   "meetings180": 18,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 16,
+   "roots": "1/10, 1/2, 1/2, 1/2, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-2x1of6-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -25,
+    410,
+    -2376,
+    5904,
+    -6480,
+    2592
+   ],
+   "bend": 1.593,
+   "pitch": 231,
+   "inflections": 2,
+   "meetings180": 15,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 8,
+   "roots": "1/6, 1/6, 1/2, 5/6, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/6",
+    "1/2",
+    "5/6",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of6-1of5-1",
+   "speedX": [
+    3.0,
+    -9.0,
+    9.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -20,
+    309,
+    -1707,
+    4138,
+    -4500,
+    1800
+   ],
+   "bend": 1.263,
+   "pitch": 385,
+   "inflections": 4,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 5,
+   "roots": "1/6, 1/5, 1/2, 4/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/5",
+    "1/2",
+    "4/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -18,
+    317,
+    -1743,
+    4162,
+    -4500,
+    1800
+   ],
+   "bend": 2.965,
+   "pitch": 2310,
+   "inflections": 2,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/10, 1/3, 1/2, 2/3, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/3",
+    "1/2",
+    "2/3",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of12-1of4-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -33,
+    674,
+    -4128,
+    10432,
+    -11520,
+    4608
+   ],
+   "bend": 1.564,
+   "pitch": 462,
+   "inflections": 4,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 7,
+   "roots": "1/12, 1/4, 1/2, 3/4, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/4",
+    "1/2",
+    "3/4",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of10-1of5-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    697,
+    -4375,
+    11250,
+    -12500,
+    5000
+   ],
+   "bend": 1.387,
+   "pitch": 693,
+   "inflections": 4,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 1,
+   "roots": "1/10, 1/5, 1/2, 4/5, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/5",
+    "1/2",
+    "4/5",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of3-1",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -14,
+    219,
+    -1149,
+    2686,
+    -2880,
+    1152
+   ],
+   "bend": 1.33,
+   "pitch": 2310,
+   "inflections": 2,
+   "meetings180": 12,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 8,
+   "roots": "1/8, 1/3, 1/2, 2/3, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/3",
+    "1/2",
+    "2/3",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of3-1-2",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 3.338,
+   "pitch": 770,
+   "inflections": 6,
+   "meetings180": 12,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/2",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of3-1-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648
+   ],
+   "bend": 1.057,
+   "pitch": 462,
+   "inflections": 3,
+   "meetings180": 11,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/3, 1/2, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of5-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -28,
+    487,
+    -2893,
+    7262,
+    -8000,
+    3200
+   ],
+   "bend": 1.734,
+   "pitch": 385,
+   "inflections": 4,
+   "meetings180": 10,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/5, 1/2, 4/5, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/5",
+    "1/2",
+    "4/5",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of4-1",
+   "speedX": [
+    4.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -21,
+    346,
+    -1936,
+    4704,
+    -5120,
+    2048
+   ],
+   "bend": 1.316,
+   "pitch": 3465,
+   "inflections": 3,
+   "meetings180": 10,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 9,
+   "roots": "1/8, 1/4, 1/2, 3/4, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/4",
+    "1/2",
+    "3/4",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-1of6-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -35,
+    642,
+    -4020,
+    10360,
+    -11520,
+    4608
+   ],
+   "bend": 1.369,
+   "pitch": 462,
+   "inflections": 4,
+   "meetings180": 10,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 1,
+   "roots": "1/8, 1/6, 1/2, 5/6, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/6",
+    "1/2",
+    "5/6",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-2x1of5-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -16,
+    232,
+    -1225,
+    2900,
+    -3125,
+    1250
+   ],
+   "bend": 3.196,
+   "pitch": 2310,
+   "inflections": 6,
+   "meetings180": 8,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 1/5, 1/2, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "1/2",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of4-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -15,
+    218,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "bend": 4.048,
+   "pitch": 1155,
+   "inflections": 2,
+   "meetings180": 8,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/4, 1/2, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "1/2",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of6-2of5-1",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -30,
+    401,
+    -1923,
+    4282,
+    -4500,
+    1800
+   ],
+   "bend": 1.28,
+   "pitch": 2310,
+   "inflections": 2,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/6, 2/5, 1/2, 3/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "2/5",
+    "1/2",
+    "3/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of5-2of5-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -24,
+    298,
+    -1375,
+    3000,
+    -3125,
+    1250
+   ],
+   "bend": 1.503,
+   "pitch": 6930,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 2/5, 1/2, 3/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "2/5",
+    "1/2",
+    "3/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-2of5-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -18,
+    207,
+    -913,
+    1942,
+    -2000,
+    800
+   ],
+   "bend": 1.969,
+   "pitch": 6930,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 3,
+   "roots": "1/4, 2/5, 1/2, 3/5, 3/4",
+   "rootsExact": [
+    "1/4",
+    "2/5",
+    "1/2",
+    "3/5",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-3of10-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -21,
+    226,
+    -952,
+    1968,
+    -2000,
+    800
+   ],
+   "bend": 1.572,
+   "pitch": 3465,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "3/10, 1/2, 1/2, 1/2, 7/10",
+   "rootsExact": [
+    "3/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-3of8-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -15,
+    154,
+    -628,
+    1272,
+    -1280,
+    512
+   ],
+   "bend": 2.407,
+   "pitch": 3465,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "3/8, 1/2, 1/2, 1/2, 5/8",
+   "rootsExact": [
+    "3/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of3-2of5-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    128,
+    -537,
+    1108,
+    -1125,
+    450
+   ],
+   "bend": 5.119,
+   "pitch": 2310,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/3, 2/5, 1/2, 3/5, 2/3",
+   "rootsExact": [
+    "1/3",
+    "2/5",
+    "1/2",
+    "3/5",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-3of8-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -30,
+    323,
+    -1365,
+    2830,
+    -2880,
+    1152
+   ],
+   "bend": 1.36,
+   "pitch": 231,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/3, 3/8, 1/2, 5/8, 2/3",
+   "rootsExact": [
+    "1/3",
+    "3/8",
+    "1/2",
+    "5/8",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-3-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -2,
+    21,
+    -87,
+    178,
+    -180,
+    72
+   ],
+   "bend": 1.248,
+   "pitch": 2310,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/2, 1/2, 1/2, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-3-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -3,
+    34,
+    -148,
+    312,
+    -320,
+    128
+   ],
+   "bend": 1.252,
+   "pitch": 3465,
+   "inflections": 3,
+   "meetings180": 5,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-2of5-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -42,
+    643,
+    -3277,
+    7518,
+    -8000,
+    3200
+   ],
+   "bend": 1.258,
+   "pitch": 3465,
+   "inflections": 4,
+   "meetings180": 2,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 7,
+   "roots": "1/8, 2/5, 1/2, 3/5, 7/8",
+   "rootsExact": [
+    "1/8",
+    "2/5",
+    "1/2",
+    "3/5",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3of10-1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -42,
+    473,
+    -2067,
+    4378,
+    -4500,
+    1800
+   ],
+   "bend": 1.178,
+   "pitch": 1155,
+   "inflections": 4,
+   "meetings180": 2,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "3/10, 1/3, 1/2, 2/3, 7/10",
+   "rootsExact": [
+    "3/10",
+    "1/3",
+    "1/2",
+    "2/3",
+    "7/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x2of5-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    372,
+    -1525,
+    3100,
+    -3125,
+    1250
+   ],
+   "bend": 1.225,
+   "pitch": 1386,
+   "inflections": 4,
+   "meetings180": 2,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 1,
+   "roots": "2/5, 2/5, 1/2, 3/5, 3/5",
+   "rootsExact": [
+    "2/5",
+    "2/5",
+    "1/2",
+    "3/5",
+    "3/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-5of12-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -35,
+    354,
+    -1428,
+    2872,
+    -2880,
+    1152
+   ],
+   "bend": 1.234,
+   "pitch": 462,
+   "inflections": 3,
+   "meetings180": 2,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "5/12, 1/2, 1/2, 1/2, 7/12",
+   "rootsExact": [
+    "5/12",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-middle-5-2",
+   "speedX": [
+    2.0,
+    -9.0,
+    9.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -1,
+    10,
+    -40,
+    80,
+    -80,
+    32
+   ],
+   "bend": 1.299,
+   "pitch": 330,
+   "inflections": 3,
+   "meetings180": 2,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/2, 1/2, 1/2, 1/2, 1/2",
+   "rootsExact": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of10-1of4-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -27,
+    606,
+    -5032,
+    21008,
+    -48880,
+    64352,
+    -44800,
+    12800
+   ],
+   "bend": 2.348,
+   "pitch": 1638,
+   "inflections": 5,
+   "meetings180": 18,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/10, 1/4, 1/2, 1/2, 1/2, 3/4, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of12-2x1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -44,
+    1060,
+    -8991,
+    37908,
+    -88695,
+    117126,
+    -81648,
+    23328
+   ],
+   "bend": 1.385,
+   "pitch": 30030,
+   "inflections": 6,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 10,
+   "roots": "1/12, 1/3, 1/3, 1/2, 2/3, 2/3, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of10-1of3-3",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -18,
+    389,
+    -3083,
+    12402,
+    -28120,
+    36448,
+    -25200,
+    7200
+   ],
+   "bend": 1.262,
+   "pitch": 630,
+   "inflections": 3,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 3,
+   "roots": "1/10, 1/3, 1/2, 1/2, 1/2, 2/3, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of12-1of3-3",
+   "speedX": [
+    4.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -22,
+    519,
+    -4269,
+    17510,
+    -40140,
+    52344,
+    -36288,
+    10368
+   ],
+   "bend": 1.423,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 14,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 7,
+   "roots": "1/12, 1/3, 1/2, 1/2, 1/2, 2/3, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of12-1of4-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -33,
+    806,
+    -6956,
+    29640,
+    -69760,
+    92416,
+    -64512,
+    18432
+   ],
+   "bend": 1.83,
+   "pitch": 8190,
+   "inflections": 5,
+   "meetings180": 10,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/12, 1/4, 1/2, 1/2, 1/2, 3/4, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-2of5-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -30,
+    521,
+    -3647,
+    13578,
+    -29320,
+    36928,
+    -25200,
+    7200
+   ],
+   "bend": 1.649,
+   "pitch": 9009,
+   "inflections": 5,
+   "meetings180": 10,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 2/5, 1/2, 1/2, 1/2, 3/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-5-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    134,
+    -984,
+    3760,
+    -8240,
+    10464,
+    -7168,
+    2048
+   ],
+   "bend": 1.198,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 8,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/8, 1/2, 1/2, 1/2, 1/2, 1/2, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of3-3-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    177,
+    -1263,
+    4778,
+    -10440,
+    13248,
+    -9072,
+    2592
+   ],
+   "bend": 1.075,
+   "pitch": 2730,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/3, 1/2, 1/2, 1/2, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-1of3-3-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    95,
+    -629,
+    2262,
+    -4780,
+    5944,
+    -4032,
+    1152
+   ],
+   "bend": 1.148,
+   "pitch": 6930,
+   "inflections": 5,
+   "meetings180": 7,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/3, 1/2, 1/2, 1/2, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of4-1of3-2of5-1",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    576,
+    -3851,
+    13964,
+    -29695,
+    37078,
+    -25200,
+    7200
+   ],
+   "bend": 1.213,
+   "pitch": 90090,
+   "inflections": 8,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "2/5",
+    "1/2",
+    "3/5",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-2x1of5-1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -32,
+    608,
+    -4682,
+    18913,
+    -43375,
+    56725,
+    -39375,
+    11250
+   ],
+   "bend": 1.401,
+   "pitch": 60060,
+   "inflections": 8,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 1/5, 1/3, 1/2, 2/3, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "1/3",
+    "1/2",
+    "2/3",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-2x1of3-2of5-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -24,
+    364,
+    -2334,
+    8201,
+    -17055,
+    20997,
+    -14175,
+    4050
+   ],
+   "bend": 1.607,
+   "pitch": 60060,
+   "inflections": 8,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/3, 1/3, 2/5, 1/2, 3/5, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "2/5",
+    "1/2",
+    "3/5",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of5-1of4-1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -24,
+    434,
+    -3209,
+    12576,
+    -28255,
+    36502,
+    -25200,
+    7200
+   ],
+   "bend": 1.784,
+   "pitch": 90090,
+   "inflections": 8,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 1/4, 1/3, 1/2, 2/3, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of5-2of5-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -24,
+    394,
+    -2663,
+    9692,
+    -20625,
+    25750,
+    -17500,
+    5000
+   ],
+   "bend": 1.686,
+   "pitch": 30030,
+   "inflections": 7,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 2/5, 1/2, 1/2, 1/2, 3/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-3x1of4-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -27,
+    486,
+    -3600,
+    14176,
+    -32000,
+    41472,
+    -28672,
+    8192
+   ],
+   "bend": 1.567,
+   "pitch": 45045,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/4, 1/4, 1/4, 1/2, 3/4, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/4",
+    "1/2",
+    "3/4",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of10-2x1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    796,
+    -6501,
+    26864,
+    -62145,
+    81558,
+    -56700,
+    16200
+   ],
+   "bend": 1.573,
+   "pitch": 30030,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/10, 1/3, 1/3, 1/2, 2/3, 2/3, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of4-3",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -15,
+    278,
+    -2072,
+    8112,
+    -18160,
+    23392,
+    -16128,
+    4608
+   ],
+   "bend": 1.324,
+   "pitch": 4095,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/4, 1/2, 1/2, 1/2, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of12-1of5-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -44,
+    1115,
+    -10085,
+    44470,
+    -107020,
+    143608,
+    -100800,
+    28800
+   ],
+   "bend": 1.414,
+   "pitch": 7,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/12, 1/5, 1/2, 1/2, 1/2, 4/5, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-3of10-5",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -21,
+    310,
+    -1940,
+    6680,
+    -13680,
+    16672,
+    -11200,
+    3200
+   ],
+   "bend": 1.839,
+   "pitch": 2145,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "3/10, 1/2, 1/2, 1/2, 1/2, 1/2, 7/10",
+   "rootsExact": [
+    "3/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of4-1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -30,
+    571,
+    -4377,
+    17582,
+    -40140,
+    52344,
+    -36288,
+    10368
+   ],
+   "bend": 1.473,
+   "pitch": 30030,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/4, 1/3, 1/2, 2/3, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-2x1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -28,
+    564,
+    -4395,
+    17684,
+    -40275,
+    52398,
+    -36288,
+    10368
+   ],
+   "bend": 1.619,
+   "pitch": 10010,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/3, 1/3, 1/2, 2/3, 2/3, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of5-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -28,
+    599,
+    -4953,
+    20782,
+    -48620,
+    64248,
+    -44800,
+    12800
+   ],
+   "bend": 1.669,
+   "pitch": 30030,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/5, 1/2, 1/2, 1/2, 4/5, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of6-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -25,
+    510,
+    -4116,
+    17048,
+    -39600,
+    52128,
+    -36288,
+    10368
+   ],
+   "bend": 1.843,
+   "pitch": 5005,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/6, 1/2, 1/2, 1/2, 5/6, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-2x1of4-1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -18,
+    309,
+    -2195,
+    8354,
+    -18400,
+    23488,
+    -16128,
+    4608
+   ],
+   "bend": 2.794,
+   "pitch": 90090,
+   "inflections": 8,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/4, 1/4, 1/3, 1/2, 2/3, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of4-2of5-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -18,
+    279,
+    -1813,
+    6422,
+    -13420,
+    16568,
+    -11200,
+    3200
+   ],
+   "bend": 2.477,
+   "pitch": 90090,
+   "inflections": 7,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/4, 2/5, 1/2, 1/2, 1/2, 3/5, 3/4",
+   "rootsExact": [
+    "1/4",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-2x1of3-1",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -20,
+    364,
+    -2673,
+    10368,
+    -23085,
+    29646,
+    -20412,
+    5832
+   ],
+   "bend": 2.397,
+   "pitch": 30030,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/3, 1/3, 1/2, 2/3, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of4-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -21,
+    430,
+    -3404,
+    13832,
+    -31680,
+    41344,
+    -28672,
+    8192
+   ],
+   "bend": 2.493,
+   "pitch": 1155,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/4, 1/2, 1/2, 1/2, 3/4, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of5-3",
+   "speedX": [
+    5.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -20,
+    389,
+    -3023,
+    12202,
+    -27880,
+    36352,
+    -25200,
+    7200
+   ],
+   "bend": 2.575,
+   "pitch": 2730,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/5, 1/2, 1/2, 1/2, 4/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of3-3of8-3",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -30,
+    443,
+    -2777,
+    9582,
+    -19660,
+    23992,
+    -16128,
+    4608
+   ],
+   "bend": 1.291,
+   "pitch": 8190,
+   "inflections": 7,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/3, 3/8, 1/2, 1/2, 1/2, 5/8, 2/3",
+   "rootsExact": [
+    "1/3",
+    "3/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/8",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of6-1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -50,
+    1045,
+    -8667,
+    36882,
+    -87480,
+    116640,
+    -81648,
+    23328
+   ],
+   "bend": 1.238,
+   "pitch": 15015,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/6, 1/3, 1/2, 2/3, 5/6, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/6",
+    "1/3",
+    "1/2",
+    "2/3",
+    "5/6",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of5-1of4-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -48,
+    952,
+    -7643,
+    32012,
+    -75375,
+    100150,
+    -70000,
+    20000
+   ],
+   "bend": 1.244,
+   "pitch": 30030,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/5, 1/5, 1/4, 1/2, 3/4, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "1/4",
+    "1/2",
+    "3/4",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-2x1of4-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -45,
+    894,
+    -7148,
+    29768,
+    -69760,
+    92416,
+    -64512,
+    18432
+   ],
+   "bend": 1.284,
+   "pitch": 90090,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/6, 1/4, 1/4, 1/2, 3/4, 3/4, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/4",
+    "1/4",
+    "1/2",
+    "3/4",
+    "3/4",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-1of4-1of3-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -42,
+    881,
+    -7175,
+    29946,
+    -70000,
+    92512,
+    -64512,
+    18432
+   ],
+   "bend": 1.362,
+   "pitch": 6435,
+   "inflections": 6,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/8, 1/4, 1/3, 1/2, 2/3, 3/4, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of8-2of5-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -42,
+    811,
+    -6017,
+    23198,
+    -51180,
+    65272,
+    -44800,
+    12800
+   ],
+   "bend": 1.33,
+   "pitch": 3003,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/8, 2/5, 1/2, 1/2, 1/2, 3/5, 7/8",
+   "rootsExact": [
+    "1/8",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of5-2x1of4-1",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    681,
+    -5251,
+    21314,
+    -49120,
+    64448,
+    -44800,
+    12800
+   ],
+   "bend": 1.26,
+   "pitch": 90090,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 1/4, 1/4, 1/2, 3/4, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "1/4",
+    "1/2",
+    "3/4",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-1of5-3",
+   "speedX": [
+    6.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    841,
+    -7307,
+    31538,
+    -75000,
+    100000,
+    -70000,
+    20000
+   ],
+   "bend": 1.325,
+   "pitch": 273,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/10, 1/5, 1/2, 1/2, 1/2, 4/5, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of6-3",
+   "speedX": [
+    6.0,
+    -36.0,
+    36.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -35,
+    782,
+    -6728,
+    29008,
+    -69040,
+    92128,
+    -64512,
+    18432
+   ],
+   "bend": 1.343,
+   "pitch": 5005,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/6, 1/2, 1/2, 1/2, 5/6, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of8-1of3-3",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -14,
+    275,
+    -2081,
+    8158,
+    -18220,
+    23416,
+    -16128,
+    4608
+   ],
+   "bend": 1.418,
+   "pitch": 2730,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/8, 1/3, 1/2, 1/2, 1/2, 2/3, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3of8-5",
+   "speedX": [
+    3.0,
+    -9.0,
+    9.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -15,
+    214,
+    -1304,
+    4400,
+    -8880,
+    10720,
+    -7168,
+    2048
+   ],
+   "bend": 1.45,
+   "pitch": 4290,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "3/8, 1/2, 1/2, 1/2, 1/2, 1/2, 5/8",
+   "rootsExact": [
+    "3/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-3of8-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -45,
+    702,
+    -4588,
+    16328,
+    -34240,
+    42368,
+    -28672,
+    8192
+   ],
+   "bend": 1.212,
+   "pitch": 8190,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/4, 3/8, 1/2, 1/2, 1/2, 5/8, 3/4",
+   "rootsExact": [
+    "1/4",
+    "3/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/8",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-3of10-1of3-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -42,
+    641,
+    -4127,
+    14538,
+    -30280,
+    37312,
+    -25200,
+    7200
+   ],
+   "bend": 1.241,
+   "pitch": 9009,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "3/10, 1/3, 1/2, 1/2, 1/2, 2/3, 7/10",
+   "rootsExact": [
+    "3/10",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "7/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x2of5-3",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -36,
+    516,
+    -3157,
+    10688,
+    -21625,
+    26150,
+    -17500,
+    5000
+   ],
+   "bend": 1.316,
+   "pitch": 18018,
+   "inflections": 5,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "2/5, 2/5, 1/2, 1/2, 1/2, 3/5, 3/5",
+   "rootsExact": [
+    "2/5",
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5",
+    "3/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of5-1of3-1",
+   "speedX": [
+    6.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -40,
+    798,
+    -6375,
+    26420,
+    -61605,
+    81342,
+    -56700,
+    16200
+   ],
+   "bend": 1.208,
+   "pitch": 6006,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 3,
+   "roots": "1/6, 1/5, 1/3, 1/2, 2/3, 4/5, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/5",
+    "1/3",
+    "1/2",
+    "2/3",
+    "4/5",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of5-2x1of3-1",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -16,
+    276,
+    -1956,
+    7409,
+    -16245,
+    20673,
+    -14175,
+    4050
+   ],
+   "bend": 1.255,
+   "pitch": 60060,
+   "inflections": 4,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 4,
+   "roots": "1/5, 1/3, 1/3, 1/2, 2/3, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of5-3",
+   "speedX": [
+    3.0,
+    -16.0,
+    16.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -16,
+    296,
+    -2217,
+    8728,
+    -19625,
+    25350,
+    -17500,
+    5000
+   ],
+   "bend": 1.277,
+   "pitch": 30030,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 3,
+   "roots": "1/5, 1/5, 1/2, 1/2, 1/2, 4/5, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-5of12-5",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -35,
+    494,
+    -2984,
+    10000,
+    -20080,
+    24160,
+    -16128,
+    4608
+   ],
+   "bend": 1.331,
+   "pitch": 1430,
+   "inflections": 3,
+   "meetings180": 6,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 1,
+   "roots": "5/12, 1/2, 1/2, 1/2, 1/2, 1/2, 7/12",
+   "rootsExact": [
+    "5/12",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of3-2of5-1",
+   "speedX": [
+    7.0,
+    -25.0,
+    25.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -48,
+    812,
+    -5648,
+    21057,
+    -45625,
+    57625,
+    -39375,
+    11250
+   ],
+   "bend": 1.203,
+   "pitch": 180180,
+   "inflections": 6,
+   "meetings180": 5,
+   "partner": "half-turn copy",
+   "symmetryKind": "mirror",
+   "self": 2,
+   "roots": "1/5, 1/3, 2/5, 1/2, 3/5, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "2/5",
+    "1/2",
+    "3/5",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-5-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    86,
+    -596,
+    2200,
+    -4720,
+    5920,
+    -4032,
+    1152
+   ],
+   "bend": 1.265,
+   "pitch": 15015,
+   "inflections": 3,
+   "meetings180": 4,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/6, 1/2, 1/2, 1/2, 1/2, 1/2, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-5-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    65,
+    -435,
+    1570,
+    -3320,
+    4128,
+    -2800,
+    800
+   ],
+   "bend": 1.317,
+   "pitch": 18018,
+   "inflections": 3,
+   "meetings180": 4,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/5, 1/2, 1/2, 1/2, 1/2, 1/2, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-5-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -3,
+    46,
+    -296,
+    1040,
+    -2160,
+    2656,
+    -1792,
+    512
+   ],
+   "bend": 1.372,
+   "pitch": 45045,
+   "inflections": 3,
+   "meetings180": 4,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 1/2, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2x1of3-3-2",
+   "speedX": [
+    -1.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    60,
+    -381,
+    1328,
+    -2745,
+    3366,
+    -2268,
+    648
+   ],
+   "bend": 1.252,
+   "pitch": 30030,
+   "inflections": 5,
+   "meetings180": 3,
+   "partner": "mirror copy",
+   "symmetryKind": "half-turn",
+   "self": 0,
+   "roots": "1/3, 1/3, 1/2, 1/2, 1/2, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3",
+    "2/3"
    ],
    "from": "found"
   }

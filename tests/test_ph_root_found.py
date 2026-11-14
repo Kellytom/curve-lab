@@ -45,11 +45,22 @@ class TestFoundCurves(unittest.TestCase):
     def test_the_name_carries_every_pair_and_the_middle_count(self):
         for curve in self.curves:
             parts = curve["name"].split("-")
+            # a trailing bare number marks a second curve with the same roots but a
+            # different x row; that mark is not part of the construction
+            if len(parts) > 3 and parts[-1].isdigit() and parts[-2].isdigit():
+                parts = parts[:-1]
             kind, middle = parts[0], int(parts[-1])
             named = set(parts[1:-1])
             roots = [Fraction(text) for text in curve["rootsExact"]]
-            pairs = {f"{pair.numerator}of{pair.denominator}"
-                     for pair in (min(v, 1 - v) for v in roots if v != Fraction(1, 2))}
+            counts = {}
+            for value in roots:
+                if value == Fraction(1, 2):
+                    continue
+                pair = min(value, 1 - value)
+                counts[pair] = counts.get(pair, 0) + 1
+            pairs = {f"{pair.numerator}of{pair.denominator}" if times // 2 == 1
+                     else f"{times // 2}x{pair.numerator}of{pair.denominator}"
+                     for pair, times in counts.items()}
             with self.subTest(name=curve["name"]):
                 self.assertIn(kind, ("lace", "wave"))
                 self.assertEqual(named, pairs or {"middle"})
@@ -73,14 +84,15 @@ class TestFoundCurves(unittest.TestCase):
                 self.assertEqual(int(measured["pitch"]), int(curve["pitch"]))
                 self.assertEqual(measured["inflection_count"], curve["inflections"])
 
-    def test_the_best_find_is_the_eighth_pair_lace(self):
-        """The walk's headline: an 8th pair with three roots at the middle."""
+    def test_the_best_find_is_the_two_pair_lace(self):
+        """The walk's headline: pairs at 1/12 and 1/3, one root at the middle,
+        and an x row with its own mirrored roots at 2/5."""
         best = max(self.curves, key=lambda curve: curve["meetings180"])
-        self.assertEqual(best["name"], "lace-1of8-3")
-        self.assertEqual(best["rootsExact"],
-                         ["1/8", "1/2", "1/2", "1/2", "7/8"])
-        self.assertEqual(best["self"], 8)
-        self.assertEqual(best["meetings180"], 16)
+        self.assertEqual(best["name"], "lace-1of12-1of3-1")
+        self.assertEqual(best["rootsExact"], ["1/12", "1/3", "1/2", "2/3", "11/12"])
+        self.assertEqual(best["self"], 14)
+        self.assertEqual(best["meetings180"], 20)
+        self.assertEqual(best["speedX"][:3], [7.0, -25.0, 25.0])
 
 
 if __name__ == "__main__":

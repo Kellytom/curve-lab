@@ -43,7 +43,7 @@ import ph_quintic_metrics as metrics  # noqa: E402
 import ph_root_family  # noqa: E402
 from ph_crossings import pair_crossings, spine  # noqa: E402
 
-DENOMINATORS = (2, 3, 4, 5, 6, 8, 10, 12)
+DENOMINATORS = (2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16)
 OUT = ROOT / "workbench" / "root-family.json"
 
 
@@ -95,11 +95,23 @@ def symmetric_sets(degree: int):
 
 
 def x_rows():
-    """The symmetric x rows: constant, and c t(1 - t) added to a constant."""
+    """The symmetric x rows.
+
+    A constant, a bow c t(1 - t) on its own or on a constant, and rows with their
+    own mirrored roots. The last group is the new axis: the x speed's flat spots
+    turn the stroke vertically, so giving x roots adds loops without breaking the
+    mirror, because the roots are mirrored too.
+    """
     rows = [("flat", [Fraction(1)])]
     for c in (Fraction(1), Fraction(2), Fraction(4), Fraction(-1), Fraction(-2)):
         rows.append((f"bow{c}", [Fraction(0), c, -c]))
         rows.append((f"flat+bow{c}", [Fraction(1), c, -c]))
+    for r in (Fraction(1, 2), Fraction(1, 3), Fraction(1, 4), Fraction(1, 6), Fraction(2, 5)):
+        roots = [r] if r == Fraction(1, 2) else [r, 1 - r]
+        built = [Fraction(v) for v in row_from_roots(roots)]
+        rows.append((f"xroots-{r}", built))
+        rows.append((f"flat+xroots-{r}", [Fraction(1)] + built[1:] if built[0] == 0 else
+                     [Fraction(1) + built[0]] + built[1:]))
     return rows
 
 
@@ -109,18 +121,34 @@ def scaled(row, length: int) -> list[float]:
     return out + [0.0] * (length - len(out))
 
 
-def symmetry_of(points) -> float:
-    """Worst distance to the curve's own vertical mirror, as a share of its size."""
+def mirror_of(points):
+    """Flip across the vertical centre line."""
     centre = (min(x for x, _ in points) + max(x for x, _ in points)) / 2
-    mirrored = [(2 * centre - x, y) for x, y in points]
+    return [(2 * centre - x, y) for x, y in points]
+
+
+def half_turn_of(points):
+    """The same curve rotated 180 degrees about the centre of its box."""
+    centre_x = (min(x for x, _ in points) + max(x for x, _ in points)) / 2
+    centre_y = (min(y for _, y in points) + max(y for _, y in points)) / 2
+    return [(2 * centre_x - x, 2 * centre_y - y) for x, y in points]
+
+
+def distance_to(points, other) -> float:
+    """Worst distance from one curve to the other, as a share of the size."""
     size = max(max(x for x, _ in points) - min(x for x, _ in points),
                max(y for _, y in points) - min(y for _, y in points)) or 1e-9
 
     def nearest(point, cloud):
         return min(((px - point[0]) ** 2 + (py - point[1]) ** 2) ** 0.5 for px, py in cloud)
 
-    return max(max(nearest(p, points) for p in mirrored),
-               max(nearest(p, mirrored) for p in points)) / size
+    return max(max(nearest(p, other) for p in points),
+               max(nearest(p, points) for p in other)) / size
+
+
+def symmetry_of(points) -> float:
+    """Worst distance to the curve's own vertical mirror, as a share of its size."""
+    return distance_to(points, mirror_of(points))
 
 
 def rotate(points, degrees):
@@ -134,26 +162,43 @@ def rotate(points, degrees):
 
 
 def describe(speed_x, speed_y):
-    """Everything the report needs, or None when the curve is unusable."""
-    arc, x, y = spine(speed_x, speed_y, 600)
+    """Everything the report needs, or None when the curve is unusable.
+
+    The cheap tests run first: the spine gives the size, the aspect and the
+    mirror distance, and only a survivor pays for the exact metrics. That is what
+    makes a higher rung of the walk finish in minutes.
+    """
+    _, x, y = spine(speed_x, speed_y, 400)
     points = list(zip(x, y))
     width = max(x) - min(x)
     height = max(y) - min(y)
     if height <= 0 or width <= 0:
         return None
-    measured = metrics.metrics(speed_x, speed_y)
-    if measured["pitch"] > 5_000_000 or measured["bend"] > 40:
-        return None
     aspect = width / height
     if not (0.25 < aspect < 4):
+        return None
+    # Odd-degree rows mirror in x; even-degree rows turn half way round. Both are
+    # exact; the filter has to accept the one the curve actually has.
+    if distance_to(points, mirror_of(points)) <= 1e-6:
+        kind, partner, partner_name = "mirror", rotate(points, 180), "half-turn copy"
+        symmetry = distance_to(points, mirror_of(points))
+    elif distance_to(points, half_turn_of(points)) <= 1e-6:
+        kind, partner, partner_name = "half-turn", mirror_of(points), "mirror copy"
+        symmetry = distance_to(points, half_turn_of(points))
+    else:
+        return None
+    measured = metrics.metrics(speed_x, speed_y)
+    if measured["pitch"] > 5_000_000 or measured["bend"] > 40:
         return None
     return {
         "bend": round(measured["bend"], 3),
         "pitch": int(measured["pitch"]),
         "inflections": measured["inflection_count"],
         "aspect": round(aspect, 3),
-        "symmetry": symmetry_of(points),
-        "crossings180": len(pair_crossings(points, rotate(points, 180))),
+        "symmetry": symmetry,
+        "symmetryKind": kind,
+        "partner": partner_name,
+        "crossings180": len(pair_crossings(points, partner)),
         "crossings90": len(pair_crossings(points, rotate(points, 90))),
         "self": len(pair_crossings(points, points)),
     }
@@ -190,13 +235,22 @@ def name_of(curve) -> str:
     rebuild the row from the name alone, which is the point of the naming rule.
     """
     roots = curve["rootList"]
-    pairs = sorted({min(value, 1 - value) for value in roots if value != Fraction(1, 2)})
+    counts = {}
+    for value in roots:
+        if value == Fraction(1, 2):
+            continue
+        pair = min(value, 1 - value)
+        counts[pair] = counts.get(pair, 0) + 1
     middle = sum(1 for value in roots if value == Fraction(1, 2))
     kind = "lace" if curve["self"] >= 4 else "wave"
-    if not pairs:
+    if not counts:
         return f"{kind}-middle-{middle}"
-    stem = "-".join(f"{pair.numerator}of{pair.denominator}" for pair in pairs)
-    return f"{kind}-{stem}-{middle}"
+    tokens = []
+    for pair in sorted(counts):
+        times = counts[pair] // 2          # a pair is two roots; the name counts pairs
+        stem = f"{pair.numerator}of{pair.denominator}"
+        tokens.append(stem if times == 1 else f"{times}x{stem}")
+    return f"{kind}-{'-'.join(tokens)}-{middle}"
 
 
 def proportional(first, second) -> bool:
@@ -257,6 +311,8 @@ def write_found(entries):
             "pitch": curve["pitch"],
             "inflections": curve["inflections"],
             "meetings180": curve["crossings180"],
+            "partner": curve["partner"],
+            "symmetryKind": curve["symmetryKind"],
             "self": curve["self"],
             "roots": curve["roots"],
             "rootsExact": [str(value) for value in curve["rootList"]],
@@ -272,7 +328,55 @@ def write_found(entries):
     return document
 
 
+def rename_existing():
+    """Bring every stored name back to the construction it states, without remeasuring.
+
+    A name is a claim about the roots, so a file whose names disagree with its
+    roots is wrong even when the curve is right. New names are checked against
+    the whole file before they are kept.
+    """
+    path = ROOT / "workbench" / "found-curves.json"
+    document = json.loads(path.read_text())
+    curves = document["curves"]
+    taken = {curve["name"] for curve in curves}
+    changed = []
+    touched = False
+    for curve in curves:
+        roots = [Fraction(text) for text in curve.get("rootsExact", [])]
+        if not roots:
+            continue
+        wanted = name_of({"rootList": roots, "self": curve.get("self", 0)})
+        if wanted == curve["name"]:
+            continue
+        name, suffix = wanted, 2
+        while name in taken and name != curve["name"]:
+            name = f"{wanted}-{suffix}"
+            suffix += 1
+        taken.discard(curve["name"])
+        taken.add(name)
+        changed.append(f"{curve['name']} -> {name}")
+        curve["name"] = name
+    # the two fields added after the first rows were written: the parity of the
+    # speed degree decides the symmetry, and no measurement is needed for it
+    for curve in curves:
+        degree = len(curve["speedY"]) - 1
+        kind = "half-turn" if degree % 2 == 0 else "mirror"
+        partner = "mirror copy" if kind == "half-turn" else "half-turn copy"
+        if curve.get("symmetryKind") != kind:
+            curve["symmetryKind"] = kind
+            curve["partner"] = partner
+            touched = True
+    if changed or touched:
+        path.write_text(json.dumps(document, indent=1) + "\n")
+    print(f"{len(changed)} names corrected")
+    for line in changed:
+        print("  " + line)
+    return changed
+
+
 def main():
+    global DENOMINATORS
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--degree", type=int, default=5,
                         help="speed degree (5 is the degree-11 rung; positions have degree + 1)")
@@ -280,8 +384,16 @@ def main():
                         help="write workbench/root-family.json")
     parser.add_argument("--found", action="store_true",
                         help="add the best row of each shape to workbench/found-curves.json")
+    parser.add_argument("--rename", action="store_true",
+                        help="correct the stored names in found-curves.json and stop")
     parser.add_argument("--top", type=int, default=15)
+    parser.add_argument("--denominators", default=",".join(str(value) for value in DENOMINATORS),
+                        help="comma-separated denominators of the mirror positions")
     args = parser.parse_args()
+    if args.rename:
+        rename_existing()
+        return
+    DENOMINATORS = tuple(int(value) for value in args.denominators.split(",") if value.strip())
 
     found = search(args.degree)
     found.sort(key=lambda row: (-row["crossings180"], -row["crossings90"],
