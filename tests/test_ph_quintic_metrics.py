@@ -35,6 +35,13 @@ class TestMetrics(unittest.TestCase):
         self.assertIsNone(straight["inflection"])
         self.assertEqual(round(straight["bend"], 6), 1.0)
 
+    def test_an_inflection_at_the_very_start_does_not_count(self):
+        # this curve's Wronskian vanishes at t = 0; the curve begins flat, it
+        # does not turn there
+        measured = M.metrics([1, -1, 2, -2, 0, 0], [1, -1, 0, -2, 0, 0])
+        self.assertEqual(measured["inflection_count"], 0)
+        self.assertIsNone(measured["inflection"])
+
     def test_the_inflection_count_never_exceeds_the_degree(self):
         # the Wronskian of two degree-k speeds has degree at most 2k - 1
         for speed_x, speed_y in (([2, -5, 6, 1, 0, 0], [4, -22, 22, -2, 0, 0]),

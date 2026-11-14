@@ -224,16 +224,10 @@ without leaving the PH family. The flare law and the serif foot are parked in
 
 
 
-<section class="panel">
-<h2>B | the eleven chord terms</h2>
-<p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. The first six
-rows are what a sextic can hold; the rest exist only because the position reaches <code>t^11</code>.
-The numbers are in the panel above and in the JSON box below.</p>
-<svg id="n-bars" viewBox="0 0 720 460" role="img" aria-label="the eleven chord terms as signed bars"></svg>
-</section>
+
 
 <section class="panel">
-<h2>C | solve, save, take away</h2>
+<h2>B | solve, save, take away</h2>
 <div class="solver-row">
   <button type="button" id="n-close">close chord</button>
   <button type="button" id="n-open" title="solve until |chord| / arc reaches the dial">close to &hellip;</button>
@@ -261,20 +255,7 @@ The numbers are in the panel above and in the JSON box below.</p>
 <textarea id="n-json" rows="12" readonly></textarea>
 </section>
 
-<section class="panel">
-<h2>What the eleventh power costs</h2>
-<p>Every extra degree adds one speed pair and two position powers. The closure condition stays two
-equations, so the closed family grows by two dimensions per degree &mdash; more room for loops, which is
-what the septic already showed over the quintic. The price is the pitch: the integrated coefficients
-carry <code>1/(k+1)</code> and the squares of the decimal denominators, so the integer scale climbs
-faster than the shape count. The low-pitch form of each saved curve is the same shape on a coarser
-grid; it is a change of units, not a new curve.</p>
-<p>The flare is the reason for this page: a serif is a width story, not a curvature story. The rail
-distance is a declared number, and the terminal radius is twice it, so flare, terminal and foot are one
-number apart rather than three drawings agreeing by eye.</p>
-<p class="small">Generate: <code>.venv/bin/python scripts/ph_nth_sandbox.py</code> &mdash; the page and
-<code>scripts/ph_nth_panels.js</code> are both checked in.</p>
-</section>
+
 
 <hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
 <section class="panel">
@@ -312,6 +293,31 @@ the next power      adds the next pair of numbers, divided by the new power</pre
 <code>t</code> to the fifth in the speed and <code>t</code> to the eleventh in the curve. Ten numbers
 per row reach <code>t</code> to the ninth and <code>t</code> to the nineteenth. That is why the ladder
 steps by two: the square of the speed always lands on an odd power.</p>
+<h3 style="font-size:15px;margin:14px 0 4px">First, the plain arithmetic</h3>
+<p class="small">Powers add when you multiply, and signs follow a simple rule. That is all the grid
+below is doing.</p>
+<svg viewBox="0 0 560 210" role="img" aria-label="a ladder of products: powers add when you multiply, and two minuses make a plus">
+  <rect width="560" height="210" fill="#fbf7ec"/>
+  <text x="12" y="20" font-size="11" fill="#7b6c4e">the pair</text>
+  <text x="180" y="20" font-size="11" fill="#7b6c4e">the product</text>
+  <text x="330" y="20" font-size="11" fill="#7b6c4e">why</text>
+  <text x="12" y="52" font-size="14" fill="#2e2413">4 &#215; 4 = 16</text>
+  <text x="180" y="52" font-size="13" fill="#2e2413">t^0 &#215; t^0 = t^0</text>
+  <text x="330" y="52" font-size="12" fill="#7b6c4e">0 + 0 = 0</text>
+  <text x="12" y="82" font-size="14" fill="#2e2413">4t &#215; 4 = 16t</text>
+  <text x="180" y="82" font-size="13" fill="#2e2413">t^1 &#215; t^0 = t^1</text>
+  <text x="330" y="82" font-size="12" fill="#7b6c4e">1 + 0 = 1</text>
+  <text x="12" y="112" font-size="14" fill="#2e2413">2t &#215; 3t = 6t^2</text>
+  <text x="180" y="112" font-size="13" fill="#2e2413">t^1 &#215; t^1 = t^2</text>
+  <text x="330" y="112" font-size="12" fill="#7b6c4e">1 + 1 = 2</text>
+  <text x="12" y="142" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 = 4</text>
+  <text x="180" y="142" font-size="13" fill="#2e2413">two minuses</text>
+  <text x="330" y="142" font-size="12" fill="#7b6c4e">make a plus</text>
+  <text x="12" y="172" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 &#215; &#8722;2 = &#8722;8</text>
+  <text x="180" y="172" font-size="13" fill="#2e2413">three minuses</text>
+  <text x="330" y="172" font-size="12" fill="#7b6c4e">leave a minus</text>
+  <text x="12" y="198" font-size="11" fill="#8a3b2a">the x term of the curve is x0&#215;x0 &#8722; y0&#215;y0, so these signs decide which way it sets off</text>
+</svg>
 <h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
 <p class="small">Every number in the x row is multiplied by every other, and the cell shows the
 product. Cells on the same diagonal add up to one power of the curve: the corner cell alone makes the

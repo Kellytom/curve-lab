@@ -80,6 +80,32 @@ solves for one member by line search and prints how far it misses.</p>
 </section>
 
 <section class="panel">
+<h2>The chord terms of the default curve</h2>
+<p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. These are
+the terms the integral produces for the sandbox's default curve, which is the curve the rest of this
+page works on. The first six rows are what a sextic can hold; the rest exist only because the position
+reaches <code>t^11</code>.</p>
+<svg id="chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+</section>
+
+<section class="panel">
+<h2>What the eleventh power costs</h2>
+<p>Every extra degree adds one speed pair and two position powers. The closure condition stays two
+equations, so the closed family grows by two dimensions per degree. That is more room for a shape, but
+it does not by itself give more loops: the wave families at degree 11, 13, 15 and 19 cross themselves
+zero times, and the loops this project has are degree 3 to 7. What the extra degrees buy is wiggles and
+sharper turns, not more crossings.</p>
+<p>The price is the pitch: the integrated coefficients carry <code>1/(k+1)</code> and the squares of the
+decimal denominators, so the integer scale climbs faster than the shape count. The low-pitch form of
+each saved curve is the same shape on a coarser grid; it is a change of units, not a new curve.</p>
+<p>The flare is the reason for the sandbox: a serif is a width story, not a curvature story. The rail
+distance is a declared number, and the terminal radius is twice it, so flare, terminal and foot are one
+number apart rather than three drawings agreeing by eye.</p>
+<p class="small">The page this describes: <code>.venv/bin/python scripts/ph_nth_sandbox.py</code> &mdash;
+<code>workbench/ph-nth-sandbox.html</code>.</p>
+</section>
+
+<section class="panel">
 <h2>Where it stands</h2>
 <p>Residuals on the sandbox's default curve were 0.019 to 0.025 at the dial settings tried, on a foot
 of height about 0.7 &mdash; two to three per cent. That is close enough to look at and not close enough
@@ -102,6 +128,45 @@ __MATH__
   const speed = { x: [2, -5, 6, 1, 0, 0], y: [4, -22, 22, -2, 0, 0] };
   const value = window.polynomialValue;
   const dial = id => Number(document.getElementById(id).value);
+
+  // the chord terms of this curve: T_m = (w^2)_m / (m+1), drawn as signed bars
+  (function drawChordBars() {
+    const plot = document.getElementById("chord-bars");
+    if (!plot) return;
+    const terms = [];
+    const count = speed.x.length;
+    for (let m = 0; m <= 2 * (count - 1); m++) {
+      let re = 0, im = 0;
+      for (let j = 0; j < count; j++) {
+        const k = m - j;
+        if (k < 0 || k >= count) continue;
+        re += speed.x[j] * speed.x[k] - speed.y[j] * speed.y[k];
+        im += speed.x[j] * speed.y[k] + speed.y[j] * speed.x[k];
+      }
+      terms.push([re / (m + 1), im / (m + 1)]);
+    }
+    const width = 720, height = 460, pad = 64;
+    const left = 76, right = width - pad, top = 60, bottom = height - 96;
+    const rowHeight = (bottom - top) / terms.length;
+    const biggest = Math.max(1e-9, ...terms.flatMap(term => [Math.abs(term[0]), Math.abs(term[1])]));
+    const zero = (left + right) / 2;
+    const xOf = v => zero + v / biggest * (right - left) / 2;
+    let art = `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
+      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">The chord terms, as signed bars</text>` +
+      `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">T_m = (w^2)_m / (m+1); t^1 to t^11 left to right, x above y in each row</text>` +
+      `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="#2e2413" stroke-width="1.5"/>`;
+    for (let r = 0; r < terms.length; r++) {
+      const centre = top + rowHeight * r + rowHeight / 2;
+      art += `<text x="${pad}" y="${(centre + 4).toFixed(1)}" font-size="12" fill="#2e2413">t^${r + 1}</text>`;
+      [[terms[r][0], "#2e2413", centre - 5], [terms[r][1], "#8a6a3a", centre + 5]].forEach(([v, colour, y]) => {
+        const startX = Math.min(zero, xOf(v));
+        const length = Math.abs(xOf(v) - zero);
+        art += `<rect x="${startX.toFixed(1)}" y="${(y - 3.5).toFixed(1)}" ` +
+               `width="${Math.max(length, 0.5).toFixed(1)}" height="7" fill="${colour}"/>`;
+      });
+    }
+    plot.innerHTML = art;
+  })();
 
   function spine(n) {
     const out = [];

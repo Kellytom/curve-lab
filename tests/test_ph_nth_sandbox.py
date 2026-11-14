@@ -13,7 +13,7 @@ JS = ROOT / "scripts" / "ph_nth_panels.js"
 class TestNthSandbox(unittest.TestCase):
     def test_the_page_holds_the_degree_11_sandbox(self):
         page = PAGE.read_text()
-        for marker in ("n-controls", "n-plot", "n-bars", "n-close", "n-open",
+        for marker in ("n-controls", "n-plot", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
                        "n-rotate", "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-y", "euler-hook", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
                        "ph-nth-serif-notes.html", "n-gallery", "phNthGallery", "integer-105", "integer-70",
@@ -42,7 +42,8 @@ class TestNthSandbox(unittest.TestCase):
         notes = ROOT / "workbench" / "ph-nth-serif-notes.html"
         self.assertTrue(notes.exists())
         text = notes.read_text()
-        for marker in ("appendixOf", "residual", "ph-nth-sandbox.html", "window.polynomialValue"):
+        for marker in ("appendixOf", "residual", "ph-nth-sandbox.html", "window.polynomialValue",
+                       "chord-bars"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, text)
 

@@ -141,32 +141,13 @@ def _evaluate(coefficients, t):
 
 
 def inflection(speed_x, speed_y, samples: int = 800):
-    """Where the tangent turns the other way, or None."""
-    u = [to_fraction(coefficient) for coefficient in speed_x]
-    v = [to_fraction(coefficient) for coefficient in speed_y]
-    left = _multiply(u, _derivative(v))
-    right = _multiply(v, _derivative(u))
-    length = max(len(left), len(right))
-    wronskian = [(left[i] if i < len(left) else Fraction(0))
-                 - (right[i] if i < len(right) else Fraction(0))
-                 for i in range(length)]
-    if not any(wronskian):
-        return None                   # a straight line has no inflection
-    values = [float(_evaluate(wronskian, Fraction(i, samples)))
-              for i in range(samples + 1)]
-    for i in range(samples):
-        if values[i] == 0.0:
-            return i / samples
-        if values[i] * values[i + 1] < 0:
-            low, high = i / samples, (i + 1) / samples
-            for _ in range(50):
-                middle = (low + high) / 2
-                if values[i] * float(_evaluate(wronskian, Fraction(middle).limit_denominator(10 ** 6))) <= 0:
-                    high = middle
-                else:
-                    low = middle
-            return (low + high) / 2
-    return None
+    """Where the tangent turns the other way first, or None.
+
+    Read from `inflections`, so the single value and the count can never
+    disagree, and a root at the very start or end does not count.
+    """
+    found = inflections(speed_x, speed_y, samples)
+    return found[0] if found else None
 
 
 def closest(speed_x, speed_y, samples: int = 800) -> float:
@@ -210,7 +191,7 @@ def inflections(speed_x, speed_y, samples: int = 800) -> list:
                 else:
                     low = middle
             where = (low + high) / 2
-            if not any(abs(other - where) < 1e-4 for other in found):
+            if 1e-6 < where < 1 - 1e-6 and not any(abs(other - where) < 1e-4 for other in found):
                 found.append(where)
     return found
 

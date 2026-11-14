@@ -663,7 +663,7 @@
     }
     const box = document.getElementById("n-json");
     if (box) {
-      box.value = JSON.stringify(pairRecord(currentName), null, 2);
+      box.value = JSON.stringify(flatRecord(currentName), null, 2);
     }
     drawBars();
     drawCompass();

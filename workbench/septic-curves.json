@@ -928,7 +928,7 @@
       ],
       "bend": 2.109,
       "pitch": 21,
-      "inflection": 0.0,
+      "inflection": null,
       "closest": 26.642,
       "degree": [
         7,

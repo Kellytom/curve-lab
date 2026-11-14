@@ -298,6 +298,31 @@ the next power      adds the next pair of numbers, divided by the new power</pre
 <code>t</code> to the fifth in the speed and <code>t</code> to the eleventh in the curve. Ten numbers
 per row reach <code>t</code> to the ninth and <code>t</code> to the nineteenth. That is why the ladder
 steps by two: the square of the speed always lands on an odd power.</p>
+<h3 style="font-size:15px;margin:14px 0 4px">First, the plain arithmetic</h3>
+<p class="small">Powers add when you multiply, and signs follow a simple rule. That is all the grid
+below is doing.</p>
+<svg viewBox="0 0 560 210" role="img" aria-label="a ladder of products: powers add when you multiply, and two minuses make a plus">
+  <rect width="560" height="210" fill="#fbf7ec"/>
+  <text x="12" y="20" font-size="11" fill="#7b6c4e">the pair</text>
+  <text x="180" y="20" font-size="11" fill="#7b6c4e">the product</text>
+  <text x="330" y="20" font-size="11" fill="#7b6c4e">why</text>
+  <text x="12" y="52" font-size="14" fill="#2e2413">4 &#215; 4 = 16</text>
+  <text x="180" y="52" font-size="13" fill="#2e2413">t^0 &#215; t^0 = t^0</text>
+  <text x="330" y="52" font-size="12" fill="#7b6c4e">0 + 0 = 0</text>
+  <text x="12" y="82" font-size="14" fill="#2e2413">4t &#215; 4 = 16t</text>
+  <text x="180" y="82" font-size="13" fill="#2e2413">t^1 &#215; t^0 = t^1</text>
+  <text x="330" y="82" font-size="12" fill="#7b6c4e">1 + 0 = 1</text>
+  <text x="12" y="112" font-size="14" fill="#2e2413">2t &#215; 3t = 6t^2</text>
+  <text x="180" y="112" font-size="13" fill="#2e2413">t^1 &#215; t^1 = t^2</text>
+  <text x="330" y="112" font-size="12" fill="#7b6c4e">1 + 1 = 2</text>
+  <text x="12" y="142" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 = 4</text>
+  <text x="180" y="142" font-size="13" fill="#2e2413">two minuses</text>
+  <text x="330" y="142" font-size="12" fill="#7b6c4e">make a plus</text>
+  <text x="12" y="172" font-size="14" fill="#2e2413">&#8722;2 &#215; &#8722;2 &#215; &#8722;2 = &#8722;8</text>
+  <text x="180" y="172" font-size="13" fill="#2e2413">three minuses</text>
+  <text x="330" y="172" font-size="12" fill="#7b6c4e">leave a minus</text>
+  <text x="12" y="198" font-size="11" fill="#8a3b2a">the x term of the curve is x0&#215;x0 &#8722; y0&#215;y0, so these signs decide which way it sets off</text>
+</svg>
 <h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
 <p class="small">Every number in the x row is multiplied by every other, and the cell shows the
 product. Cells on the same diagonal add up to one power of the curve: the corner cell alone makes the

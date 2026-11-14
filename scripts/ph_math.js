@@ -112,8 +112,12 @@ window.recipeMetrics = function (speedX, speedY) {
         if (wronskian(low) * wronskian(middle) <= 0) high = middle; else low = middle;
       }
       const found = (low + high) / 2;
-      // a tangency can be reported by two neighbouring samples; keep it once
-      if (!inflections.some(other => Math.abs(other - found) < 1e-4)) inflections.push(found);
+      // a root at the very start or end means the curve begins or ends with no
+      // curvature, not that it turns there; a tangency can be reported twice
+      const inside = found > 1e-6 && found < 1 - 1e-6;
+      if (inside && !inflections.some(other => Math.abs(other - found) < 1e-4)) {
+        inflections.push(found);
+      }
     }
   }
   const inflection = inflections.length ? inflections[0] : null;
