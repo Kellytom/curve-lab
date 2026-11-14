@@ -61,6 +61,22 @@ def flipped_across(points):
     return [(-x, y) for x, y in points]
 
 
+def total_turn(speed_x, speed_y) -> float:
+    """How far the tangent swings from start to end, in degrees.
+
+    The tangent is w squared, so its angle is twice the angle of w: the turn is
+    twice the change in direction of the speed.
+    """
+    def angle(row, t):
+        value = sum(c * t ** k for k, c in enumerate(row))
+        return value
+    p0, q0 = angle(speed_x, 0.0), angle(speed_y, 0.0)
+    p1, q1 = angle(speed_x, 1.0), angle(speed_y, 1.0)
+    start = math.atan2(q0, p0)
+    end = math.atan2(q1, p1)
+    return abs(math.degrees(2 * (end - start)))
+
+
 def crossings_with_flip(speed_x, speed_y, samples: int = 500) -> int:
     _, x, y = spine(speed_x, speed_y, samples)
     points = list(zip(x, y))
@@ -83,12 +99,15 @@ def search_inflections(curves: int, lengths=(4, 5, 6)) -> list:
     return best
 
 
-def search_crossings(curves: int, lengths=(3, 4, 5)) -> list:
+def search_crossings(curves: int, lengths=(3, 4, 5), max_turn: float = 400.0,
+                     min_crossings: int = 4) -> list:
     best = []
     for _ in range(curves):
         speed_x, speed_y = random_rows(random.choice(lengths))
+        if max_turn < 400.0 and total_turn(speed_x, speed_y) > max_turn:
+            continue
         count = crossings_with_flip(speed_x, speed_y)
-        if count < 4:
+        if count < min_crossings:
             continue
         # verify at a finer sample count before it is offered
         if crossings_with_flip(speed_x, speed_y, samples=1200) != count:
@@ -105,6 +124,9 @@ def main():
     parser.add_argument("--crossings", action="store_true")
     parser.add_argument("--both", action="store_true")
     parser.add_argument("--curves", type=int, default=2500)
+    parser.add_argument("--min-crossings", type=int, default=4)
+    parser.add_argument("--max-turn", type=float, default=400.0,
+                        help="keep only curves whose tangent turns no more than this")
     parser.add_argument("--seed", type=int, default=11)
     args = parser.parse_args()
     if not (args.inflections or args.crossings or args.both):
@@ -123,10 +145,12 @@ def main():
                                          "speedY": speed_y}))
 
     if args.crossings or args.both:
-        found = search_crossings(args.curves)
+        found = search_crossings(args.curves, max_turn=args.max_turn,
+                                 min_crossings=args.min_crossings)
         print(f"\nmost crossings with its own flip ({len(found)} with four or more)")
-        for count, speed_x, speed_y, measured in found[:6]:
-            print(f"  {count} crossings  x {speed_x}  y {speed_y}"
+        for count, speed_x, speed_y, measured in found[:8]:
+            print(f"  {count} crossings  turn {total_turn(speed_x, speed_y):5.1f}"
+                  f"  x {speed_x}  y {speed_y}"
                   f"  bend {measured['bend']:.3f}  pitch {measured['pitch']}")
         if found:
             count, speed_x, speed_y, measured = found[0]
