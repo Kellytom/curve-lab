@@ -44,8 +44,9 @@ for (const [speedDegree, degree, count] of [[6, 13, 14], [7, 15, 16], [8, 17, 18
   await page.waitForTimeout(150);
   const made = await page.$$eval("#n-controls input[type=number]", els => els.length);
   if (made !== count) failures.push(`degree ${degree}: ${made} boxes, expected ${count}`);
+  // two sliders per number: the mantissa and the decade
   const sliders = await page.$$eval("#n-controls input[type=range]", els => els.length);
-  if (sliders !== count) failures.push(`degree ${degree}: ${sliders} sliders, expected ${count}`);
+  if (sliders !== count * 2) failures.push(`degree ${degree}: ${sliders} sliders, expected ${count * 2}`);
   await fillBox(count / 2 - 1, 1);        // the top x number
   await fillBox(count - 1, -1);           // the top y number
   await page.waitForTimeout(150);
@@ -279,6 +280,9 @@ await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.
 await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.height - 8);
 await page.mouse.click(rulerBox.x + rulerBox.width * 0.5, rulerBox.y + rulerBox.height - 8);
 await page.waitForTimeout(200);
+// the dots no longer fill the rows by themselves: the operator presses the button
+await page.click("#n-roots-dots-fill");
+await page.waitForTimeout(300);
 const cubeY = (await page.$$eval("#n-controls input[type=number]", els => els.map(box => Number(box.value))))
   .filter((_, i) => i % 2 === 1);
 if (JSON.stringify(cubeY) !== JSON.stringify([-1, 6, -12, 8, 0, 0])) {

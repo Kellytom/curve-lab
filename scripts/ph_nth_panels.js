@@ -781,9 +781,10 @@
       const whole = Math.max(1e-6, Math.hypot(
         Math.max(...shown.map(p => p[0])) - Math.min(...shown.map(p => p[0])),
         Math.max(...shown.map(p => p[1])) - Math.min(...shown.map(p => p[1]))));
-      // the frame is a share of the whole figure, so it starts wide enough to see
-      // the knot in context and closes in as the zoom rises; the knot always fits
-      const half = Math.max(whole * (0.10 + 0.25 / Math.max(1, view.zoom)), spread * 0.55);
+      // the frame starts as the knot plus a margin, then the zoom divides it: 12x is
+      // twelve times tighter than 1x, which is what a zoom control is expected to do
+      const baseHalf = Math.max(spread * 0.9, whole * 0.03);
+      const half = baseHalf / Math.max(1, view.zoom);
       minX = centreX - half; maxX = centreX + half;
       minY = centreY - half; maxY = centreY + half;
     } else {
@@ -2511,6 +2512,27 @@
   // the gallery draws the primary either way.
   const rowsOf = item => (item && item.primary) ? item.primary : item;
 
+  // A stored record carries `terms` (power beside value), not a flat row. The page
+  // draws rows, so the row is derived here — one source of truth on disk, a row
+  // in memory. A record without terms passes through untouched.
+  function withRows(entry) {
+    if (!entry || (Array.isArray(entry.speedX) && Array.isArray(entry.speedY))) return entry;
+    if (!Array.isArray(entry.terms) || !entry.terms.length) return entry;
+    const top = entry.terms.reduce((high, term) => Math.max(high, Number(term.power) || 0), 0);
+    const x = new Array(top + 1).fill(0);
+    const y = new Array(top + 1).fill(0);
+    entry.terms.forEach(term => {
+      const index = Number(term.power) || 0;
+      x[index] = Number(term.x) || 0;
+      y[index] = Number(term.y) || 0;
+    });
+    const measured = entry.measured || {};
+    return { ...entry, speedX: x, speedY: y,
+             from: entry.from || "found",     // it came from the finder's file
+             bend: measured.bend !== undefined ? measured.bend : entry.bend,
+             pitch: measured.grid !== undefined ? measured.grid : entry.pitch };
+  }
+
   function currentList() {
     const locals = {};
     localSaved().forEach(item => { locals[item.name] = item; });
@@ -2530,7 +2552,7 @@
       });
     out.unshift(...seeds);
     found.forEach(entry => {
-      if (!out.some(other => other.name === entry.name)) out.push(entry);
+      if (!out.some(other => other.name === entry.name)) out.push(withRows(entry));
     });
     const known = new Set(out.map(entry => entry.name));
     Object.values(locals).forEach(item => {

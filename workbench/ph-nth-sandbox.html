@@ -47,7 +47,7 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 .roots-ruler{position:relative;height:58px;margin:0 0 22px;border-bottom:2px solid var(--ink);cursor:crosshair}
 .roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
 .roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
-.roots-ruler .spot-count{position:absolute;bottom:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
+.roots-ruler .spot-count{position:absolute;top:2px;bottom:auto;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
 .roots-ruler .spot-value{font:700 12px ui-monospace,Menlo,monospace;color:#8a1f1f;cursor:pointer;padding:0 3px}
 .roots-ruler .spot-step{font:8px/1 ui-monospace,Menlo,monospace;color:#8a1f1f;background:none;border:0;padding:1px 3px;cursor:pointer}
 .roots-ruler .spot-step:hover{color:#1f4f8a}
@@ -1451,9 +1451,10 @@ window.curveSaver = (function () {
       const whole = Math.max(1e-6, Math.hypot(
         Math.max(...shown.map(p => p[0])) - Math.min(...shown.map(p => p[0])),
         Math.max(...shown.map(p => p[1])) - Math.min(...shown.map(p => p[1]))));
-      // the frame is a share of the whole figure, so it starts wide enough to see
-      // the knot in context and closes in as the zoom rises; the knot always fits
-      const half = Math.max(whole * (0.10 + 0.25 / Math.max(1, view.zoom)), spread * 0.55);
+      // the frame starts as the knot plus a margin, then the zoom divides it: 12x is
+      // twelve times tighter than 1x, which is what a zoom control is expected to do
+      const baseHalf = Math.max(spread * 0.9, whole * 0.03);
+      const half = baseHalf / Math.max(1, view.zoom);
       minX = centreX - half; maxX = centreX + half;
       minY = centreY - half; maxY = centreY + half;
     } else {
@@ -3181,6 +3182,27 @@ window.curveSaver = (function () {
   // the gallery draws the primary either way.
   const rowsOf = item => (item && item.primary) ? item.primary : item;
 
+  // A stored record carries `terms` (power beside value), not a flat row. The page
+  // draws rows, so the row is derived here — one source of truth on disk, a row
+  // in memory. A record without terms passes through untouched.
+  function withRows(entry) {
+    if (!entry || (Array.isArray(entry.speedX) && Array.isArray(entry.speedY))) return entry;
+    if (!Array.isArray(entry.terms) || !entry.terms.length) return entry;
+    const top = entry.terms.reduce((high, term) => Math.max(high, Number(term.power) || 0), 0);
+    const x = new Array(top + 1).fill(0);
+    const y = new Array(top + 1).fill(0);
+    entry.terms.forEach(term => {
+      const index = Number(term.power) || 0;
+      x[index] = Number(term.x) || 0;
+      y[index] = Number(term.y) || 0;
+    });
+    const measured = entry.measured || {};
+    return { ...entry, speedX: x, speedY: y,
+             from: entry.from || "found",     // it came from the finder's file
+             bend: measured.bend !== undefined ? measured.bend : entry.bend,
+             pitch: measured.grid !== undefined ? measured.grid : entry.pitch };
+  }
+
   function currentList() {
     const locals = {};
     localSaved().forEach(item => { locals[item.name] = item; });
@@ -3200,7 +3222,7 @@ window.curveSaver = (function () {
       });
     out.unshift(...seeds);
     found.forEach(entry => {
-      if (!out.some(other => other.name === entry.name)) out.push(entry);
+      if (!out.some(other => other.name === entry.name)) out.push(withRows(entry));
     });
     const known = new Set(out.map(entry => entry.name));
     Object.values(locals).forEach(item => {
@@ -3492,5 +3514,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 18:07</p>
+<p class="small mono" id="n-build">build 2026-11-14 18:17</p>
 </body></html>

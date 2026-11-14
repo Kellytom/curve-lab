@@ -71,7 +71,7 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 .roots-ruler{position:relative;height:58px;margin:0 0 22px;border-bottom:2px solid var(--ink);cursor:crosshair}
 .roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
 .roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
-.roots-ruler .spot-count{position:absolute;bottom:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
+.roots-ruler .spot-count{position:absolute;top:2px;bottom:auto;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
 .roots-ruler .spot-value{font:700 12px ui-monospace,Menlo,monospace;color:#8a1f1f;cursor:pointer;padding:0 3px}
 .roots-ruler .spot-step{font:8px/1 ui-monospace,Menlo,monospace;color:#8a1f1f;background:none;border:0;padding:1px 3px;cursor:pointer}
 .roots-ruler .spot-step:hover{color:#1f4f8a}
