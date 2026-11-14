@@ -1758,6 +1758,38 @@ window.curveSaver = (function () {
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
+    // The named curves that the PH formula carries, fitted at degree 7 by
+    // scripts/ph_carry.py: the deviation from the target is in the comment.
+    // Their grids are fine because a fitted transcendental curve needs decimals;
+    // the shape is what is being kept, not the integer grid.
+    { name: "involute-fit",          // 0.00007 of the size
+      speedX: [0.3984, 24.8167, -129.6241, 402.542, -904.4024, 1146.8911, -736.4957, 189.6145],
+      speedY: [-0.0147, 2.8263, 43.0857, -96.6056, 118.394, -141.8274, 102.5184, -28.3798],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "catenary-fit",          // 0.00000
+      speedX: [2.2425, -2.1364, 2.5227, -0.8004, 0.4702, -0.084, 0.028, 0.0],
+      speedY: [-1.4243, 3.3637, -1.6023, 1.2613, -0.2998, 0.1404, -0.0205, 0.0059],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "euler-fit",             // 0.00000
+      speedX: [1.0, 0.0, 0.0, 0.0001, -0.0317, 0.0009, -0.001, 0.0006],
+      speedY: [0.0, 0.0, 0.25, 0.0001, -0.0002, 0.0004, -0.003, 0.0001],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
+    { name: "logspiral-fit",         // 0.00008
+      speedX: [2.7836, -11.8004, -54.5115, -82.738, 521.4982, -197.5279, -410.2923, 242.3391],
+      speedY: [2.2471, 21.8767, -49.9834, 56.2898, -817.33, 1894.1938, -1472.9641, 373.6279],
+      width: { percent: 1.5 },
+      character: { plus: 2, minus: 2, profile: "bow" },
+      shear: 0,
+      hook: { dx: 0, dy: 0 } },
     { name: "knot-6",
       speedX: [-2, -2, 3, 4],
       speedY: [3, -6, -4, 2],
