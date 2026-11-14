@@ -432,7 +432,28 @@ The discrete midpoint chain at twelve triangles per side, exact throughout.
   each labelled `fitted`, rms recorded. `workbench/ph-nth-sandbox-2.html`,
   `scripts/ph_fit_showcase.py`, `workbench/ph-fitted-curves.json`,
   `tests/test_ph_nth_sandbox2.py`.
-- [ ] Part 3 at degree 13 (14 speeds, position degree 13): the cursive test.
+- [x] Part 3: the ladder replaced the single degree-13 page. Rungs at degrees 11, 13, 15,
+  17 and 19 (12 to 20 speed numbers), each with a slider on every number and a `-` button
+  that flips its sign. A curve saved at a lower rung loads into a higher one padded with
+  zeros, shape unchanged. `workbench/ph-nth-sandbox.html`, `scripts/ph_nth_panels.js`.
+- [x] The complementary curve: a second speed pair in 40% grey under the spine, its own
+  sliders, `flip across`, `upside down`, `reverse`, `reset to the spine`, and a count of
+  the meetings with the spine, marked in the figure. `scripts/ph_crossings.py` is the same
+  test in Python.
+- [x] Placement as data: each curve carries a 3x3 affine matrix in the saved record, so a
+  flip or a move is one object and the speed numbers stay the curve. Saved as
+  `curve-lab.double-knot/1` with a category (`DK`), or as a single flat curve (`S`).
+- [x] The inflection count against the ceiling `2k - 1`, so a curve that is not using its
+  top powers says so. A root at the very start or end does not count.
+- [x] A `t from` / `t to` window with no clamp, and `place the end`: the top pair solves
+  the endpoint by Newton, moving the first half of the curve by 0.0094 for an end shift of
+  (0.5, 0.3).
+- [x] `scripts/ph_find.py` searches on the two counts: most inflections for its degree, and
+  most crossings with its own flip. Best so far: `knot-6`, six crossings from four numbers
+  a side.
+- [x] The explanation panel at the foot of the page: the arithmetic ladder, the product
+  grid worked through on fixed numbers, the triangles for the length, which box does what,
+  and the start-heading compass.
 - [ ] Brush-lift terminal: a PH span matching position, tangent, curvature and jerk, with
   the width falling to zero, ending in a 30-60 degree point or a bulb.
 
