@@ -6,6 +6,42 @@
  "figures": [
   {
    "figure": "Fig. 1",
+   "title": "LAC: p = -3, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        309.34,
+        -0.0
+       ],
+       "c2": [
+        782.982,
+        -295.374
+       ],
+       "p3": [
+        813.988,
+        -326.38
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 2",
    "title": "LAC: p = -3, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -59,7 +95,7 @@
    ]
   },
   {
-   "figure": "Fig. 2",
+   "figure": "Fig. 3",
    "title": "LAC: p = -3, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -149,7 +185,7 @@
    ]
   },
   {
-   "figure": "Fig. 3",
+   "figure": "Fig. 4",
    "title": "LAC: p = -3, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -275,7 +311,43 @@
    ]
   },
   {
-   "figure": "Fig. 4",
+   "figure": "Fig. 5",
+   "title": "LAC: p = -2, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        308.695,
+        -0.0
+       ],
+       "c2": [
+        784.661,
+        -291.111
+       ],
+       "p3": [
+        815.666,
+        -322.116
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 6",
    "title": "LAC: p = -2, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -329,7 +401,7 @@
    ]
   },
   {
-   "figure": "Fig. 5",
+   "figure": "Fig. 7",
    "title": "LAC: p = -2, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -419,7 +491,7 @@
    ]
   },
   {
-   "figure": "Fig. 6",
+   "figure": "Fig. 8",
    "title": "LAC: p = -2, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -545,7 +617,43 @@
    ]
   },
   {
-   "figure": "Fig. 7",
+   "figure": "Fig. 9",
+   "title": "LAC: p = -1.5, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        308.052,
+        -0.0
+       ],
+       "c2": [
+        786.214,
+        -287.126
+       ],
+       "p3": [
+        817.219,
+        -318.131
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 10",
    "title": "LAC: p = -1.5, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -599,7 +707,7 @@
    ]
   },
   {
-   "figure": "Fig. 8",
+   "figure": "Fig. 11",
    "title": "LAC: p = -1.5, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -689,7 +797,7 @@
    ]
   },
   {
-   "figure": "Fig. 9",
+   "figure": "Fig. 12",
    "title": "LAC: p = -1.5, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -815,7 +923,43 @@
    ]
   },
   {
-   "figure": "Fig. 10",
+   "figure": "Fig. 13",
+   "title": "LAC: p = -1, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        306.783,
+        -0.0
+       ],
+       "c2": [
+        789.002,
+        -279.87
+       ],
+       "p3": [
+        820.007,
+        -310.875
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 14",
    "title": "LAC: p = -1, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -869,7 +1013,7 @@
    ]
   },
   {
-   "figure": "Fig. 11",
+   "figure": "Fig. 15",
    "title": "LAC: p = -1, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -959,7 +1103,7 @@
    ]
   },
   {
-   "figure": "Fig. 12",
+   "figure": "Fig. 16",
    "title": "LAC: p = -1, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1085,7 +1229,43 @@
    ]
   },
   {
-   "figure": "Fig. 13",
+   "figure": "Fig. 17",
+   "title": "LAC: p = -0.5, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        303.222,
+        -0.0
+       ],
+       "c2": [
+        795.52,
+        -262.337
+       ],
+       "p3": [
+        826.528,
+        -293.345
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 18",
    "title": "LAC: p = -0.5, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1139,7 +1319,7 @@
    ]
   },
   {
-   "figure": "Fig. 14",
+   "figure": "Fig. 19",
    "title": "LAC: p = -0.5, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1229,7 +1409,7 @@
    ]
   },
   {
-   "figure": "Fig. 15",
+   "figure": "Fig. 20",
    "title": "LAC: p = -0.5, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1355,7 +1535,43 @@
    ]
   },
   {
-   "figure": "Fig. 16",
+   "figure": "Fig. 21",
+   "title": "LAC: p = 0, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        310.616,
+        -0.0
+       ],
+       "c2": [
+        779.167,
+        -304.888
+       ],
+       "p3": [
+        810.175,
+        -335.896
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 22",
    "title": "LAC: p = 0, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1409,7 +1625,7 @@
    ]
   },
   {
-   "figure": "Fig. 17",
+   "figure": "Fig. 23",
    "title": "LAC: p = 0, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1499,7 +1715,7 @@
    ]
   },
   {
-   "figure": "Fig. 18",
+   "figure": "Fig. 24",
    "title": "LAC: p = 0, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1625,7 +1841,79 @@
    ]
   },
   {
-   "figure": "Fig. 19",
+   "figure": "Fig. 25",
+   "title": "LAC: p = 0.5, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        291.004,
+        -0.0
+       ],
+       "c2": [
+        706.979,
+        -453.704
+       ],
+       "p3": [
+        738.206,
+        -484.931
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 26",
+   "title": "LAC: p = 1, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        313.267,
+        -0.0
+       ],
+       "c2": [
+        761.458,
+        -346.344
+       ],
+       "p3": [
+        792.491,
+        -377.377
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 27",
    "title": "LAC: p = 1, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1679,7 +1967,7 @@
    ]
   },
   {
-   "figure": "Fig. 20",
+   "figure": "Fig. 28",
    "title": "LAC: p = 1, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1769,7 +2057,7 @@
    ]
   },
   {
-   "figure": "Fig. 21",
+   "figure": "Fig. 29",
    "title": "LAC: p = 1, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1895,7 +2183,43 @@
    ]
   },
   {
-   "figure": "Fig. 22",
+   "figure": "Fig. 30",
+   "title": "LAC: p = 1.5, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        312.796,
+        -0.0
+       ],
+       "c2": [
+        768.849,
+        -329.545
+       ],
+       "p3": [
+        799.869,
+        -360.565
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 31",
    "title": "LAC: p = 1.5, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -1949,7 +2273,7 @@
    ]
   },
   {
-   "figure": "Fig. 23",
+   "figure": "Fig. 32",
    "title": "LAC: p = 1.5, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2039,7 +2363,7 @@
    ]
   },
   {
-   "figure": "Fig. 24",
+   "figure": "Fig. 33",
    "title": "LAC: p = 1.5, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2165,7 +2489,43 @@
    ]
   },
   {
-   "figure": "Fig. 25",
+   "figure": "Fig. 34",
+   "title": "LAC: p = 2, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        312.345,
+        -0.0
+       ],
+       "c2": [
+        771.873,
+        -322.47
+       ],
+       "p3": [
+        802.889,
+        -353.486
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 35",
    "title": "LAC: p = 2, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2219,7 +2579,7 @@
    ]
   },
   {
-   "figure": "Fig. 26",
+   "figure": "Fig. 36",
    "title": "LAC: p = 2, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2309,7 +2669,7 @@
    ]
   },
   {
-   "figure": "Fig. 27",
+   "figure": "Fig. 37",
    "title": "LAC: p = 2, turn 270",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2435,7 +2795,43 @@
    ]
   },
   {
-   "figure": "Fig. 28",
+   "figure": "Fig. 38",
+   "title": "LAC: p = 3, turn 45",
+   "family": "logaesthetic",
+   "plate": "generated",
+   "k0": 1.0,
+   "k1": 1.0,
+   "spines": [
+    {
+     "id": "spine-1",
+     "kind": "spine",
+     "stroke": 1.0,
+     "spans": [
+      {
+       "p0": [
+        0.0,
+        -0.0
+       ],
+       "c1": [
+        311.814,
+        -0.0
+       ],
+       "c2": [
+        774.564,
+        -316.071
+       ],
+       "p3": [
+        805.577,
+        -347.083
+       ]
+      }
+     ],
+     "d": "M0.0,-0.0"
+    }
+   ]
+  },
+  {
+   "figure": "Fig. 39",
    "title": "LAC: p = 3, turn 90",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2489,7 +2885,7 @@
    ]
   },
   {
-   "figure": "Fig. 29",
+   "figure": "Fig. 40",
    "title": "LAC: p = 3, turn 180",
    "family": "logaesthetic",
    "plate": "generated",
@@ -2579,7 +2975,7 @@
    ]
   },
   {
-   "figure": "Fig. 30",
+   "figure": "Fig. 41",
    "title": "LAC: p = 3, turn 270",
    "family": "logaesthetic",
    "plate": "generated",

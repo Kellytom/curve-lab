@@ -37,7 +37,7 @@ OUT = ROOT / "workbench" / "spirals" / "lac-generated.json"
 PLATES = ROOT / "workbench" / "spirals" / "lac.json"
 
 P_VALUES = (-3.0, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 3.0)
-TURNS = (90, 180, 270)
+TURNS = (45, 90, 180, 270)
 SPAN_TURN = 45.0          # degrees per cubic, the same split the plates use
 SIZE = 900.0              # the drawn size, in page units
 
@@ -249,6 +249,37 @@ def plate_points(figure):
     return out
 
 
+def similarity_fit(a, b):
+    """The best similarity taking a onto b: (deviation, scale, rotation in degrees).
+
+    A curve is self-similar when one half maps onto the next by a similarity with
+    a scale other than 1; a circle maps with scale 1, which is only a rotation.
+    """
+    count = min(len(a), len(b))
+    aa = _resample(a, count)
+    bb = _resample(b, count)
+    ax = [p[0] for p in aa]; ay = [p[1] for p in aa]
+    bx = [p[0] for p in bb]; by = [p[1] for p in bb]
+    amx, amy = sum(ax) / count, sum(ay) / count
+    bmx, bmy = sum(bx) / count, sum(by) / count
+    ax = [v - amx for v in ax]; ay = [v - amy for v in ay]
+    bx = [v - bmx for v in bx]; by = [v - bmy for v in by]
+    sa = math.sqrt(sum(v * v for v in ax) + sum(v * v for v in ay)) or 1e-9
+    sb = math.sqrt(sum(v * v for v in bx) + sum(v * v for v in by)) or 1e-9
+    ax = [v / sa for v in ax]; ay = [v / sa for v in ay]
+    bx = [v / sb for v in bx]; by = [v / sb for v in by]
+    real = sum(p * q + r * s for p, r, q, s in zip(ax, ay, bx, by))
+    imag = sum(p * s - r * q for p, r, q, s in zip(ax, ay, bx, by))
+    angle = math.atan2(imag, real)
+    cos, sin = math.cos(angle), math.sin(angle)
+    worst = 0.0
+    for px, py, qx, qy in zip(ax, ay, bx, by):
+        rx = qx * cos + qy * sin
+        ry = -qx * sin + qy * cos
+        worst = max(worst, math.hypot(px - rx, py - ry))
+    return worst / math.sqrt(2), sb / sa, math.degrees(angle)
+
+
 def procrustes_deviation(a, b):
     """Worst distance between two polylines after the best similarity fit.
 
@@ -346,18 +377,64 @@ def _turn_of(title):
     return int(title.split("turn ")[1].split()[0])
 
 
+def points_range(alpha, s0, s1, samples=1200):
+    """The curve between two arc lengths, in design space."""
+    step = (s1 - s0) / samples
+    x = y = theta = 0.0
+    # walk from 0 so the position is on the same curve
+    total = s0 + (s1 - s0)
+    walk = max(1, int(samples * total / max(s1 - s0, 1e-9)))
+    out = []
+    step_all = total / walk
+    for i in range(walk):
+        s = (i + 0.5) * step_all
+        theta += curvature(alpha, s) * step_all
+        x += math.cos(theta) * step_all
+        y += math.sin(theta) * step_all
+        if s >= s0:
+            out.append((x, y, theta))
+    return out
+
+
+def selfsimilar():
+    """Is one arc a scaled, turned copy of another?
+
+    For rho^p = 1 + s the copies are not equal arcs: the curve is self-similar
+    when the arc from u to u' maps onto the arc from lu to lu' by a scale of l
+    and a turn of ln(l). Only p = 1 has that property, because only there is the
+    curvature proportional to 1/u.
+    """
+    lam = 2.0
+    print(f"{'curve':26s} {'deviation':>10} {'scale':>8} {'turn':>8}   expected")
+    for alpha in P_VALUES:
+        try:
+            length = arc_for_turn(alpha, 270)
+        except ValueError:
+            continue
+        first = points_range(alpha, 0.0, length)
+        second = points_range(alpha, lam - 1.0, lam * (1.0 + length) - 1.0)
+        deviation, scale, rotation = similarity_fit(first, second)
+        expected = f"scale {lam:g}, turn {math.degrees(math.log(lam)):.1f}"
+        note = "  self-similar" if deviation < 0.01 and abs(scale - lam) < 0.02 else ""
+        print(f"LAC: p = {alpha:<4g}, turn 270  {deviation:10.4f} {scale:8.4f}"
+              f" {rotation:8.2f}   {expected}{note}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
     parser.add_argument("--parity", action="store_true")
+    parser.add_argument("--selfsimilar", action="store_true")
     args = parser.parse_args()
-    if not (args.write or args.parity):
+    if not (args.write or args.parity or args.selfsimilar):
         parser.print_help()
         return
     if args.write or not OUT.exists():
         build()
     if args.parity:
         parity()
+    if args.selfsimilar:
+        selfsimilar()
 
 
 if __name__ == "__main__":
