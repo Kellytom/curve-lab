@@ -161,6 +161,23 @@ def rotate(points, degrees):
              cy + (x - cx) * sin_a + (y - cy) * cos_a) for x, y in points]
 
 
+def x_row_kind(row):
+    """Which family an x row belongs to: 'flat', 'bow', or 'roots'.
+
+    flat   a constant, so the stroke only moves sideways
+    bow    1 + c t(1-t): the bow family, one lean
+    roots  the row carries its own mirrored roots: the newer axis
+    """
+    values = [float(v) for v in row]
+    while len(values) > 1 and values[-1] == 0:
+        values.pop()
+    if len(values) == 1:
+        return "flat"
+    if len(values) == 3 and abs(values[1] + values[2]) < 1e-9:
+        return "bow"
+    return "roots"
+
+
 def describe(speed_x, speed_y):
     """Everything the report needs, or None when the curve is unusable.
 

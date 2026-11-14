@@ -96,7 +96,9 @@ def found_gallery():
     if not FOUND.exists():
         return []
     document = json.loads(FOUND.read_text())
-    curves = sorted(document.get("curves", []),
+    # part 2 keeps the earlier family; the newer finds live on the experimental page
+    curves = sorted([curve for curve in document.get("curves", [])
+                     if curve.get("batch", "first") == "first"],
                     key=lambda curve: (-curve.get("meetings180", 0), curve.get("pitch", 0),
                                        curve.get("bend", 0)))
     entries = []

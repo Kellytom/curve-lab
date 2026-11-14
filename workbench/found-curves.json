@@ -35,7 +35,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "lace-1of12-3",
@@ -70,7 +71,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "lace-1of10-3",
@@ -105,7 +107,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of3-1",
@@ -140,7 +143,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of4-1",
@@ -175,7 +179,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-1of3-1",
@@ -210,7 +215,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of3-1",
@@ -245,7 +251,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2of5-3",
@@ -280,7 +287,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-3",
@@ -315,7 +323,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of3-1",
@@ -350,7 +359,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-3",
@@ -385,7 +395,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of4-1",
@@ -420,7 +431,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-3",
@@ -455,7 +467,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-3",
@@ -490,7 +503,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-middle-5",
@@ -525,7 +539,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of3-3",
@@ -566,7 +581,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of4-3",
@@ -607,7 +623,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of10-5",
@@ -648,7 +665,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "lace-1of12-5",
@@ -689,7 +707,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-2x1of3-1",
@@ -730,7 +749,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of4-3",
@@ -771,7 +791,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of3-3",
@@ -812,7 +833,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-2of5-3",
@@ -853,7 +875,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of8-5",
@@ -894,7 +917,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-3x1of3-1",
@@ -935,7 +959,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2of5-5",
@@ -976,7 +1001,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-1of3-3",
@@ -1017,7 +1043,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-5",
@@ -1058,7 +1085,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-5",
@@ -1099,7 +1127,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of3-3",
@@ -1140,7 +1169,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-5",
@@ -1181,7 +1211,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-5",
@@ -1222,7 +1253,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-middle-7",
@@ -1263,7 +1295,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "lace-1of9-3",
@@ -1298,7 +1331,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of7-3",
@@ -1333,7 +1367,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-2of7-3",
@@ -1368,7 +1403,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "wave-1of14-3",
@@ -1403,7 +1439,8 @@
    ],
    "from": "found",
    "symmetryKind": "mirror",
-   "partner": "half-turn copy"
+   "partner": "half-turn copy",
+   "batch": "first"
   },
   {
    "name": "lace-1of8-1of3-0",
@@ -1435,7 +1472,8 @@
     "2/3",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-2",
@@ -1467,7 +1505,8 @@
     "1/2",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "lace-1of8-2",
@@ -1499,7 +1538,8 @@
     "1/2",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of3-0",
@@ -1531,7 +1571,8 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of4-0",
@@ -1563,7 +1604,8 @@
     "3/4",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-2of5-0",
@@ -1595,7 +1637,8 @@
     "3/5",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "lace-1of10-2",
@@ -1627,7 +1670,8 @@
     "1/2",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-2",
@@ -1659,7 +1703,8 @@
     "1/2",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-2",
@@ -1691,7 +1736,8 @@
     "1/2",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of4-0",
@@ -1723,7 +1769,8 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2of5-2",
@@ -1755,7 +1802,8 @@
     "1/2",
     "3/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of3-0",
@@ -1787,7 +1835,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-2",
@@ -1819,7 +1868,8 @@
     "1/2",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-3of8-2",
@@ -1851,7 +1901,8 @@
     "1/2",
     "5/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of3-0",
@@ -1883,7 +1934,8 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-middle-4",
@@ -1915,7 +1967,8 @@
     "1/2",
     "1/2"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-2of5-0",
@@ -1947,7 +2000,8 @@
     "3/5",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of12-2",
@@ -1979,7 +2033,8 @@
     "1/2",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-1of3-0",
@@ -2011,7 +2066,8 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of6-0",
@@ -2043,7 +2099,8 @@
     "5/6",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of5-0",
@@ -2075,7 +2132,8 @@
     "4/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of5-0",
@@ -2107,7 +2165,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of4-0",
@@ -2139,7 +2198,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of8-1of4-0",
@@ -2171,7 +2231,8 @@
     "3/4",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of8-1of3-2",
@@ -2209,7 +2270,8 @@
     "2/3",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "lace-1of10-4",
@@ -2247,7 +2309,8 @@
     "1/2",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of8-4",
@@ -2285,7 +2348,8 @@
     "1/2",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of12-4",
@@ -2323,7 +2387,8 @@
     "1/2",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of3-2",
@@ -2361,7 +2426,8 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-2of5-2",
@@ -2399,7 +2465,8 @@
     "3/5",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-2of5-2",
@@ -2437,7 +2504,8 @@
     "3/5",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of3-2",
@@ -2475,7 +2543,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-2x1of3-0",
@@ -2513,7 +2582,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of4-1of3-0",
@@ -2551,7 +2621,8 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-2x1of3-0",
@@ -2589,7 +2660,8 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-4",
@@ -2627,7 +2699,8 @@
     "1/2",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of3-4",
@@ -2665,7 +2738,8 @@
     "1/2",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-4",
@@ -2703,7 +2777,8 @@
     "1/2",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-3x1of3-0",
@@ -2741,7 +2816,8 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-4",
@@ -2779,7 +2855,8 @@
     "1/2",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-3of8-4",
@@ -2817,7 +2894,8 @@
     "1/2",
     "5/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2of5-4",
@@ -2855,7 +2933,8 @@
     "1/2",
     "3/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of5-2",
@@ -2893,7 +2972,8 @@
     "4/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of6-1of4-2",
@@ -2931,7 +3011,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of5-1of4-2",
@@ -2969,7 +3050,8 @@
     "3/4",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of5-2",
@@ -3007,7 +3089,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of4-2",
@@ -3045,7 +3128,8 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-1of4-1of3-2",
@@ -3083,7 +3167,8 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-2x1of3-2",
@@ -3121,7 +3206,8 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "wave-middle-6",
@@ -3159,7 +3245,8 @@
     "1/2",
     "1/2"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "first"
   },
   {
    "name": "lace-1of12-1of3-1",
@@ -3194,7 +3281,8 @@
     "2/3",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of10-1of4-1",
@@ -3229,7 +3317,8 @@
     "3/4",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of10-3-2",
@@ -3264,7 +3353,8 @@
     "1/2",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-2x1of6-1",
@@ -3299,7 +3389,8 @@
     "5/6",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of6-1of5-1",
@@ -3334,7 +3425,8 @@
     "4/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of10-1of3-1",
@@ -3369,7 +3461,8 @@
     "2/3",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of12-1of4-1",
@@ -3404,7 +3497,8 @@
     "3/4",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of10-1of5-1",
@@ -3439,7 +3533,8 @@
     "4/5",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of3-1",
@@ -3474,7 +3569,8 @@
     "2/3",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of5-1of3-1-2",
@@ -3509,7 +3605,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of3-1-2",
@@ -3544,7 +3641,8 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of5-1",
@@ -3579,7 +3677,8 @@
     "4/5",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of4-1",
@@ -3614,7 +3713,8 @@
     "3/4",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of8-1of6-1",
@@ -3649,7 +3749,8 @@
     "5/6",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-2x1of5-1",
@@ -3684,7 +3785,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of4-1",
@@ -3719,7 +3821,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of6-2of5-1",
@@ -3754,7 +3857,8 @@
     "3/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of5-2of5-1",
@@ -3789,7 +3893,8 @@
     "3/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of4-2of5-1",
@@ -3824,7 +3929,8 @@
     "3/5",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-3of10-3",
@@ -3859,7 +3965,8 @@
     "1/2",
     "7/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-3of8-3",
@@ -3894,7 +4001,8 @@
     "1/2",
     "5/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of3-2of5-1",
@@ -3929,7 +4037,8 @@
     "3/5",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of3-3of8-1",
@@ -3964,7 +4073,8 @@
     "5/8",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of3-3-2",
@@ -3999,7 +4109,8 @@
     "1/2",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of4-3-2",
@@ -4034,7 +4145,8 @@
     "1/2",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-2of5-1",
@@ -4069,7 +4181,8 @@
     "3/5",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-3of10-1of3-1",
@@ -4104,7 +4217,8 @@
     "2/3",
     "7/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x2of5-1",
@@ -4139,7 +4253,8 @@
     "3/5",
     "3/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-5of12-3",
@@ -4174,7 +4289,8 @@
     "1/2",
     "7/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-middle-5-2",
@@ -4209,7 +4325,8 @@
     "1/2",
     "1/2"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of10-1of4-3",
@@ -4250,7 +4367,8 @@
     "3/4",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of12-2x1of3-1",
@@ -4291,7 +4409,8 @@
     "2/3",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of10-1of3-3",
@@ -4332,7 +4451,8 @@
     "2/3",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of12-1of3-3",
@@ -4373,7 +4493,8 @@
     "2/3",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of12-1of4-3",
@@ -4414,7 +4535,8 @@
     "3/4",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-2of5-3",
@@ -4455,7 +4577,8 @@
     "3/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of8-5-2",
@@ -4496,7 +4619,8 @@
     "1/2",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of3-3-2",
@@ -4537,7 +4661,8 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of4-1of3-3-2",
@@ -4578,7 +4703,8 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of4-1of3-2of5-1",
@@ -4619,7 +4745,8 @@
     "2/3",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-2x1of5-1of3-1",
@@ -4660,7 +4787,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-2x1of3-2of5-1",
@@ -4701,7 +4829,8 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of5-1of4-1of3-1",
@@ -4742,7 +4871,8 @@
     "3/4",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of5-2of5-3",
@@ -4783,7 +4913,8 @@
     "3/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-3x1of4-1",
@@ -4824,7 +4955,8 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of10-2x1of3-1",
@@ -4865,7 +4997,8 @@
     "2/3",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of4-3",
@@ -4906,7 +5039,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of12-1of5-3",
@@ -4947,7 +5081,8 @@
     "4/5",
     "11/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-3of10-5",
@@ -4988,7 +5123,8 @@
     "1/2",
     "7/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of4-1of3-1",
@@ -5029,7 +5165,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-2x1of3-1",
@@ -5070,7 +5207,8 @@
     "2/3",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of5-3",
@@ -5111,7 +5249,8 @@
     "4/5",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x1of6-3",
@@ -5152,7 +5291,8 @@
     "5/6",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-2x1of4-1of3-1",
@@ -5193,7 +5333,8 @@
     "3/4",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of4-2of5-3",
@@ -5234,7 +5375,8 @@
     "3/5",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-2x1of3-1",
@@ -5275,7 +5417,8 @@
     "2/3",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of4-3",
@@ -5316,7 +5459,8 @@
     "3/4",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of5-3",
@@ -5357,7 +5501,8 @@
     "4/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of3-3of8-3",
@@ -5398,7 +5543,8 @@
     "5/8",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x1of6-1of3-1",
@@ -5439,7 +5585,8 @@
     "5/6",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x1of5-1of4-1",
@@ -5480,7 +5627,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-2x1of4-1",
@@ -5521,7 +5669,8 @@
     "3/4",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of8-1of4-1of3-1",
@@ -5562,7 +5711,8 @@
     "3/4",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of8-2of5-3",
@@ -5603,7 +5753,8 @@
     "3/5",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of5-2x1of4-1",
@@ -5644,7 +5795,8 @@
     "3/4",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of10-1of5-3",
@@ -5685,7 +5837,8 @@
     "4/5",
     "9/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of6-3",
@@ -5726,7 +5879,8 @@
     "5/6",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of8-1of3-3",
@@ -5767,7 +5921,8 @@
     "2/3",
     "7/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-3of8-5",
@@ -5808,7 +5963,8 @@
     "1/2",
     "5/8"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of4-3of8-3",
@@ -5849,7 +6005,8 @@
     "5/8",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-3of10-1of3-3",
@@ -5890,7 +6047,8 @@
     "2/3",
     "7/10"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x2of5-3",
@@ -5931,7 +6089,8 @@
     "3/5",
     "3/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-1of5-1of3-1",
@@ -5972,7 +6131,8 @@
     "4/5",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "lace-1of5-2x1of3-1",
@@ -6013,7 +6173,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x1of5-3",
@@ -6054,7 +6215,8 @@
     "4/5",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-5of12-5",
@@ -6095,7 +6257,8 @@
     "1/2",
     "7/12"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of5-1of3-2of5-1",
@@ -6136,7 +6299,8 @@
     "2/3",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of6-5-2",
@@ -6177,7 +6341,8 @@
     "1/2",
     "5/6"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of5-5-2",
@@ -6218,7 +6383,8 @@
     "1/2",
     "4/5"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-1of4-5-2",
@@ -6259,7 +6425,8 @@
     "1/2",
     "3/4"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   },
   {
    "name": "wave-2x1of3-3-2",
@@ -6300,7 +6467,8 @@
     "2/3",
     "2/3"
    ],
-   "from": "found"
+   "from": "found",
+   "batch": "new"
   }
  ]
 }

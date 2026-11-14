@@ -2169,7 +2169,8 @@ window.curveSaver = (function () {
     return rename ? fresh : base;
   }
 
-  window.phNthSeeds = SEED;
+  // a page may switch the seeds off, so its gallery shows only what it means to show
+  window.phNthSeeds = window.phHideSeeds ? [] : SEED;
 
   const storageKey = "ph-nth-curves";
   const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
@@ -2309,6 +2310,13 @@ window.curveSaver = (function () {
 
   // the gallery opens a curve into this sandbox
   window.phNthLoad = item => {
+    // a stored curve is a whole-power row, so opening one puts the step back to 1
+    if (Math.abs((window.phPowerStep || 1) - 1) > 1e-9) {
+      window.phPowerStep = 1;
+      if (stepControl) stepControl.value = "1";
+      if (stepValue) stepValue.textContent = "1";
+      rebuildControls();
+    }
     loadPair(item);
     const controls = document.getElementById("n-controls");
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2816,7 +2824,7 @@ window.curveSaver = (function () {
         <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
           : String(entry.from || "") === "operator" ? "yours"
           : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
-        <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
+        <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
       </button>
       <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>

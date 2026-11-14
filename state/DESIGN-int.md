@@ -112,6 +112,16 @@ entry says so.
 - **Names state the construction**: kind + every mirrored pair + the middle
   count. `lace-1of9-3` = a lace (four or more self-crossings), pair at 1/9 and
   8/9, three roots at 1/2. `2x` marks a repeated pair. Settled.
+- **The finds are split by batch.** Part 2 keeps the earlier family; the
+  experimental page's foot carries only the newer batch, tangliest first, odd
+  shapes included. Reason: a page for looking at new shapes should not be a
+  second copy of the kept collection. `found-curves.json` marks each row
+  `batch: first` or `batch: new`. Settled 2026-11-14, by the operator.
+- **The "x row roots" axis turned out to be the bow, sampled finer.** A row like
+  `[7, -25, 25]` is `7(1 - 3.57 t(1-t))`, a bow of 3.57 — between the old
+  hand-picked 2 and 4. So the gain came from trying bow strengths that were not
+  on the list, not from a new construction. The bow slider now reaches ±12 for
+  that reason.
 - **Finds land in `workbench/found-curves.json`**, which the galleries read at
   load. A row proportional to an existing seed is skipped.
 
