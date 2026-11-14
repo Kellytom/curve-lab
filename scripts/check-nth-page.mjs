@@ -155,6 +155,49 @@ await page.dispatchEvent("#n-char-r", "input");
 await page.click("#n-character");
 await page.click("#n-rails");
 
+// place the end: the top pair solves the endpoint, and the start barely moves
+const endOf = () => page.evaluate(() => {
+  const json = JSON.parse(document.getElementById("n-json").value);
+  const x = json.speedX, y = json.speedY;
+  const poly = (row, t) => row.reduce((sum, v, k) => sum + v * Math.pow(t, k), 0);
+  let px = 0, py = 0;
+  const steps = 4000;
+  for (let i = 0; i < steps; i++) {
+    const t = (i + 0.5) / steps;
+    const p = poly(x, t), q = poly(y, t);
+    px += (p * p - q * q) / steps;
+    py += 2 * p * q / steps;
+  }
+  return [px, py];
+});
+const before = await page.evaluate(() => document.querySelector("#n-plot path[stroke='#2e2413']").getAttribute("d").slice(0, 400));
+await page.fill("#n-end-x", "0.5");
+await page.fill("#n-end-y", "0.3");
+await page.click("#n-place-end");
+await page.waitForTimeout(400);
+const landed = await endOf();
+if (Math.hypot(landed[0] - 0.5, landed[1] - 0.3) > 0.002) {
+  failures.push(`place the end landed at ${landed.map(v => v.toFixed(4)).join(", ")}`);
+}
+const after = await page.evaluate(() => document.querySelector("#n-plot path[stroke='#2e2413']").getAttribute("d").slice(0, 400));
+if (after === before) failures.push("place the end changed nothing");
+
+// the window runs past the ends when asked. The drawn path is measured in
+// screen units, so a long tail shrinks the rest of the figure; what is checked
+// is that the window changed the drawing at all.
+const pathNow = () => page.evaluate(() =>
+  [...document.querySelectorAll("#n-plot path")]
+    .find(p => (p.getAttribute("stroke") || "").toLowerCase() === "#2e2413").getAttribute("d"));
+const pathBefore = await pathNow();
+await page.fill("#n-t-from", "-0.3");
+await page.dispatchEvent("#n-t-from", "input");
+await page.waitForTimeout(300);
+const pathAfter = await pathNow();
+if (pathAfter === pathBefore) failures.push("t from -0.3 did not change the drawing");
+await page.fill("#n-t-from", "0");
+await page.dispatchEvent("#n-t-from", "input");
+await page.waitForTimeout(200);
+
 // the gallery: two columns, every spine drawn
 const gallery = await page.evaluate(() => {
   const figures = [...document.querySelectorAll("#n-gallery > figure")];
