@@ -1893,3 +1893,41 @@ rejected: judging every node curve by the LAC law — most are not LACs.
 
 **Next move:** the notes-page section, specification versus representation, with
 both tables.
+
+## 2026-13-11 (session) — new curves from the symmetric root walk
+
+**Landed.** `scripts/ph_root_search.py` walks every mirror-closed root set up to a
+chosen speed degree and denominator, over symmetric x rows only (a constant and
+`c·t(1−t)`), and measures each curve. Symmetry about `t = 1/2` is an exact equation
+on the coefficients, so random small-integer rows never land on it (1,500 draws, 0
+hits); choosing the roots and multiplying out makes it true by construction.
+
+**At speed degree 5** (12 speed numbers, the degree-11 rung): 57 curves pass the
+shape filter. `wave3` comes back at the top of the degree-3 walk with 20 meetings
+at 180° and 19 at 90°, which is the hand-found number, so the walk is calibrated on
+a known case before it is trusted on new ones.
+
+**15 curves landed** in `workbench/found-curves.json` (the gallery fetches it at
+load, so no rebuild): three laces at roots 1/8, 1/10 and 1/12 with three roots at
+1/2, giving 8, 8 and 10 self-crossings and 16, 12 and 14 meetings with their
+half-turn copies. That beats `knot-6`'s six crossings from a four-number row.
+Best: `lace-1of8-3`, bend 1.39, grid 1/1155, 8 self-crossings. Names state the
+construction, e.g. `wave-1of4-1of3-1` = pairs 1/4 and 1/3 plus one root at 1/2.
+
+**Proved.** `tests/test_ph_root_search.py` (7): mirrored roots give `q(1−t) = ±q(t)`
+exactly, `wave3` is exactly `72(t−1/6)(t−1/2)(t−5/6)`, three non-symmetric rows all
+fail. `tests/test_ph_root_found.py` (6): every stored row rebuilds from its own
+name, is symmetric in integers, and its bend/pitch/inflections match a fresh
+measurement. Suite 98 modules green; `check-nth-page.mjs` OK (gallery of 71, the
+lace loads its rows). Commit `9158204`, pushed, CI run `43557627848` green.
+
+**Screenshots** for the operator: `$TMPDIR/lace-1of8-3.png`, `$TMPDIR/lace-1of12-3.png`
+(407×334, 10 and 13 KB). Not read by the model.
+
+Tried and rejected: naming by the smallest pair only — `wave-1of4-1-2` came out for
+a row with two pairs, which the name denied; now every pair is in the name and the
+test checks it. Appending without a guard against the existing seeds — `wave5`'s own
+y row turned up as a find; `write_found` now skips a row proportional to a seed's.
+
+**Next:** the same exhaustive walk at speed degree 7 (16 numbers, ~45 min of compute)
+and degree 9; then the notes-page section still owed (specification vs representation).
