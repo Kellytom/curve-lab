@@ -58,6 +58,10 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
 | the septic sandbox / degrees 6 and 7 | `scripts/ph_septic_sandbox.py`, `scripts/ph_septic_panels.js`, `scripts/septic_curves.py`, `scripts/septic_samples.py`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_septic_sandbox.py`, `scripts/check-ph-page.mjs`, `workbench/septic-samples.json`, `workbench/septic-curves.json` |
 | PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `docs/PH-INTEGER.md` |
+| the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |
+| part 2, the fitted gallery | `scripts/ph_nth_sandbox2.py`, `scripts/ph_fit_showcase.py`, `workbench/ph-fitted-curves.json`, `tests/test_ph_nth_sandbox2.py` |
+| the complementary curve and its crossings | `scripts/ph_crossings.py`, `scripts/ph_nth_panels.js` (the grey curve), `workbench/ph-nth-sandbox.html` |
+| finding curves by count | `scripts/ph_find.py`, `scripts/ph_quintic_metrics.py` (`inflections`), `scripts/ph_crossings.py` |
 | arches from genus 1+ curves | `scripts/arches.py`, `tests/test_arches.py` |
 | Maclaurin trisectrix | `scripts/maclaurin.py`, `tests/test_maclaurin.py` |
 | arches and pillars | `scripts/arches_pillars.py`, `tests/test_arches_pillars.py` |
