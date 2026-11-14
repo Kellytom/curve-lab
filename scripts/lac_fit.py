@@ -122,6 +122,8 @@ def classics():
                                          math.cos(t) * (1 + math.sin(t))),
                               -math.pi / 2 + 0.25 * 2 * math.pi,
                               3 * math.pi / 2 - 0.25 * 2 * math.pi),
+        "circle involute": (lambda t: (math.cos(t) + t * math.sin(t),
+                                       math.sin(t) - t * math.cos(t)), 0, 2 * math.pi),
         "a circle": (lambda t: (math.cos(t), math.sin(t)), 0, math.pi / 2),
     }
     print(f"{'curve':22s} {'best p':>7} {'residual':>10}   verdict")
