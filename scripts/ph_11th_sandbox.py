@@ -52,6 +52,9 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .pair-grid .axis-head{font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .pair-grid .power-label{font:11px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .pair-grid .spine-cell{min-width:0}
+table.figures{border-collapse:collapse;margin:6px 0 10px;font:12px ui-monospace,Menlo,monospace}
+table.figures th,table.figures td{border:1px solid var(--rule);padding:2px 10px;text-align:right}
+table.figures th{color:var(--muted);font-weight:400;text-align:left}
 
 .pair-boxes{display:block}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
@@ -310,6 +313,21 @@ polynomial.</p>
 <svg id="n-length" viewBox="0 0 560 190" role="img"
      aria-label="a triangle whose hypotenuse is a square root, beside the same triangle where the root cancels"></svg>
 <p class="small mono" id="n-length-exact"></p>
+<h3 style="font-size:15px;margin:14px 0 4px">Which box does what</h3>
+<p>The low boxes set the start and the frame. The high boxes set the end. Changing the top x box by
+one moves the beginning of the curve by about a hundredth of a unit and the end by about a whole unit,
+so the top boxes are where you place the arm that has to meet the next curve. These numbers were
+measured on the default curve by changing one box by one and seeing how far the curve moved:</p>
+<table class="figures">
+<tr><th>box changed</th><th>start moved</th><th>end moved</th></tr>
+<tr><td>t^0</td><td>1.80</td><td>4.51</td></tr>
+<tr><td>t^3</td><td>0.05</td><td>1.43</td></tr>
+<tr><td>t^5</td><td>0.01</td><td>1.06</td></tr>
+</table>
+<p>A high box also makes the arm longer: the last tenth of the curve measured 1.43 long by default,
+2.05 with the top x box at 1, and 3.66 with it at 3. But a high box does not make the curve smaller by
+itself &mdash; it reshapes the end. It can shrink the whole curve only if you pull the end back with the
+opposite sign, which is a choice you make, not something the box does.</p>
 <h3 style="font-size:15px;margin:14px 0 4px">The start heading</h3>
 <p class="small">The first pair sets the heading, and the heading is <strong>twice</strong> the angle of
 that pair. So a pair and its negative give the same heading &mdash; only the speed differs. The dark
