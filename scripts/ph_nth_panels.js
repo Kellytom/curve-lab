@@ -1590,7 +1590,7 @@
     </figure>`;
   }
 
-  function figureFor(entry) {
+  function figureFor(entry, index = 0) {
     const points = spineOf(entry);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
     const pad = 0.08 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
@@ -1606,6 +1606,7 @@
                                   bend: entry.bend, pitch: entry.pitch, from: entry.from }, null, 1);
     return `<figure data-name="${entry.name}">
       <button type="button" class="gallery-open" aria-expanded="false">
+        <span class="gallery-number">Fig. ${index}</span>
         <span class="gallery-name">${entry.name}</span>
         <span class="gallery-tags"><span class="tag">${String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
         <span class="gallery-metrics">bend ${entry.bend} | grid 1/${Number(entry.pitch).toLocaleString()}</span></span>
@@ -1644,7 +1645,7 @@
 
   const render = () => {
     list = currentList();
-    host.innerHTML = list.map(figureFor).join("");
+    host.innerHTML = list.map((entry, index) => figureFor(entry, index + 1)).join("");
   };
   render();
   window.addEventListener("ph-nth-saved", render);

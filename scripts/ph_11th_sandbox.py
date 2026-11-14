@@ -52,6 +52,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .pair-grid .axis-head{font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .pair-grid .power-label{font:11px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .pair-grid .spine-cell{min-width:0}
+#n-compass{max-width:50%}
 table.figures{border-collapse:collapse;margin:6px 0 10px;font:12px ui-monospace,Menlo,monospace}
 table.figures th,table.figures td{border:1px solid var(--rule);padding:2px 10px;text-align:right}
 table.figures th{color:var(--muted);font-weight:400;text-align:left}
@@ -87,11 +88,12 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 @media(max-width:700px){.gallery{grid-template-columns:1fr}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
 .gallery figure.open{grid-column:1 / -1}
-.gallery .gallery-open{display:flex;justify-content:space-between;gap:8px;width:100%;
+.gallery .gallery-open{display:flex;align-items:baseline;gap:8px;width:100%;
   background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
+.gallery .gallery-number{font:10px/1.4 ui-monospace,Menlo,monospace;color:#8a3b2a;min-width:46px}
 .gallery .gallery-name{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
 .gallery .gallery-metrics{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
-.gallery .gallery-tags{display:inline-flex;gap:6px;align-items:baseline}
+.gallery .gallery-tags{display:inline-flex;gap:6px;align-items:baseline;margin-left:auto}
 .gallery .tag{font:10px/1.4 ui-monospace,Menlo,monospace;padding:0 4px;border:1px solid var(--rule);
   border-radius:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .gallery .more{margin:8px 0 0}
