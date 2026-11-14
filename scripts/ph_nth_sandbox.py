@@ -242,9 +242,10 @@ The numbers are in the panel above and in the JSON box below.</p>
 </div>
 <div class="save-row">
   <input id="n-category" type="text" placeholder="category" value="DK" size="6">
-  <span class="small" title="DK is short for double knot: two curves saved as one record">DK = double knot</span>
+  <span class="small" title="DK is a double knot: two curves saved as one record. S is a single curve, saved on its own.">DK = double knot &middot; S = single</span>
   <input id="n-name" type="text" placeholder="name this curve">
-  <button type="button" id="n-save">save this curve</button>
+  <button type="button" id="n-save" title="save both curves as one DK record">save the pair</button>
+  <button type="button" id="n-save-primary" title="save only the dark curve, in the flat shape the other pages read">save primary only</button>
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>

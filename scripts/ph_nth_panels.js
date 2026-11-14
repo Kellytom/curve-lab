@@ -1177,11 +1177,32 @@
       hook: { dx: hook.dx, dy: hook.dy },
     };
   }
+  // A single curve, in the flat shape the septic, quintic and gallery pages
+  // already read: no second curve, no matrix, just the rows.
+  function flatRecord(name) {
+    const m = metrics(state.x, state.y);
+    return {
+      name,
+      category: "S",
+      speedX: state.x.map(v => +v),
+      speedY: state.y.map(v => +v),
+      bend: +m.bend.toFixed(3),
+      pitch: m.pitch,
+      inflection: m.inflection === null ? null : +m.inflection.toFixed(3),
+      inflections: (m.inflections || []).map(value => +value.toFixed(4)),
+      closest: +m.closest.toFixed(3),
+      width: { percent: width.percent },
+      character: { plus: character.plus, minus: character.minus, profile: character.profile },
+      shear: shear.delta,
+      hook: { dx: hook.dx, dy: hook.dy },
+    };
+  }
+
   function pairOf(item) {
     if (item && item.primary) return item;
     if (item && Array.isArray(item.speedX) && Array.isArray(item.speedY)) {
       return { ...item, format: "curve-lab.double-knot/1",
-               category: item.category || "DK",
+               category: item.category || "S",
                primary: { speedX: item.speedX, speedY: item.speedY, transform: identity() },
                complementary: null };
     }
@@ -1284,6 +1305,22 @@
     window.dispatchEvent(new CustomEvent("ph-nth-saved"));
     if (status) status.textContent = `saved as "${name}"`;
   });
+  const savePrimary = document.getElementById("n-save-primary");
+  if (savePrimary) savePrimary.addEventListener("click", () => {
+    const nameField = document.getElementById("n-name");
+    const status = document.getElementById("n-paste-status");
+    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
+    const name = resolveName(typed, "save this curve");
+    const items = saved().filter(item => item.name !== name);
+    items.push(flatRecord(name));
+    store(items);
+    currentName = name;
+    nameField.value = "";
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `saved the primary curve as "${name}"`;
+  });
+
   const renameButton = document.getElementById("n-rename");
   if (renameButton) renameButton.addEventListener("click", () => {
     const field = document.getElementById("n-name");
@@ -1372,13 +1409,18 @@
   const localSaved = () => {
     try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; }
   };
+  // A saved item may be a pair (primary and complementary) or a single curve;
+  // the gallery draws the primary either way.
+  const rowsOf = item => (item && item.primary) ? item.primary : item;
+
   function currentList() {
     const locals = {};
     localSaved().forEach(item => { locals[item.name] = item; });
     const out = window.phNthGallery.map(entry => {
       const local = locals[entry.name];
       if (!local) return entry;
-      return { ...entry, speedX: local.speedX, speedY: local.speedY,
+      const rows = rowsOf(local);
+      return { ...entry, speedX: rows.speedX, speedY: rows.speedY,
                from: "local fix", local: true };
     });
     const seeds = (window.phNthSeeds || [])
@@ -1392,8 +1434,9 @@
     const known = new Set(out.map(entry => entry.name));
     Object.values(locals).forEach(item => {
       if (known.has(item.name)) return;
-      const measured = window.recipeMetrics ? window.recipeMetrics(item.speedX, item.speedY) : null;
-      out.push({ name: item.name, speedX: item.speedX, speedY: item.speedY,
+      const rows = rowsOf(item);
+      const measured = window.recipeMetrics ? window.recipeMetrics(rows.speedX, rows.speedY) : null;
+      out.push({ name: item.name, speedX: rows.speedX, speedY: rows.speedY,
                  bend: measured ? +measured.bend.toFixed(3) : "-",
                  pitch: measured ? measured.pitch : "-",
                  from: "local", local: true });
