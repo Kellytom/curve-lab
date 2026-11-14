@@ -32,10 +32,14 @@ const boxes = await page.$$eval("#n-controls input[type=number]", els => els.len
 if (boxes !== 12) failures.push(`speed boxes: ${boxes}, expected 12`);
 
 // the view: spine only by default, then rails, then the two terminals
-const paths = () => page.evaluate(() => document.querySelectorAll("#n-plot path").length);
+// the complementary curve is grey and is not counted as spine ink
+const paths = () => page.evaluate(() =>
+  [...document.querySelectorAll("#n-plot path")]
+    .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666").length);
 if (await paths() !== 1) failures.push("default view is not the spine alone");
 const spinePath = await page.evaluate(() => {
-  const path = document.querySelector("#n-plot path");
+  const path = [...document.querySelectorAll("#n-plot path")]
+    .find(item => (item.getAttribute("stroke") || "").toLowerCase() === "#2e2413");
   return { d: path.getAttribute("d"), length: Math.round(path.getTotalLength()) };
 });
 if (/NaN|undefined/.test(spinePath.d) || spinePath.length < 2) {
@@ -55,10 +59,11 @@ if (await paths() !== 1) failures.push("toggles did not return to the spine alon
 // the sliders must write the number boxes
 const boxesBefore = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
 const sliders = await page.$$("#n-controls input[type=range]:not(.decade)");
-await sliders[1].evaluate(el => { el.value = "4"; el.dispatchEvent(new Event("input", { bubbles: true })); });
+// the first cell is x t^0, whose box holds 2: moving its slider to 7 must write 7
+await sliders[0].evaluate(el => { el.value = "7"; el.dispatchEvent(new Event("input", { bubbles: true })); });
 await page.waitForTimeout(120);
 const boxesAfter = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
-if (boxesBefore[1] === boxesAfter[1]) failures.push("a slider moved the curve but not the number box");
+if (boxesBefore[0] === boxesAfter[0]) failures.push("a slider moved the curve but not the number box");
 
 // the readout must quote the half-width the dial holds
 await page.fill("#n-d", "3");
@@ -71,18 +76,19 @@ if (!Number.isFinite(quoted) || Math.abs(quoted - 3) > 0.002) failures.push(`wid
 // be exactly the parallel rails
 await page.click("#n-rails");
 await page.waitForTimeout(150);
-const railsBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
-  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
-}));
+const inkBoxes = () => page.evaluate(() => [...document.querySelectorAll("#n-plot path")]
+  .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666")
+  .map(path => {
+    const r = path.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
+  }));
+const railsBox = await inkBoxes();
 await page.click("#n-character");
 await page.fill("#n-char-l", "0");
 await page.dispatchEvent("#n-char-l", "input");
 await page.fill("#n-char-r", "0");
 await page.dispatchEvent("#n-char-r", "input");
 await page.waitForTimeout(250);
-const zeroBox = await page.evaluate(() => [...document.querySelectorAll("#n-plot path")].map(p => {
-  const r = p.getBBox(); return [Math.round(r.width * 100) / 100, Math.round(r.height * 100) / 100];
-}));
+const zeroBox = await inkBoxes();
 if (JSON.stringify(zeroBox) !== JSON.stringify(railsBox))
   failures.push(`character 0 is not the parallel rail: ${JSON.stringify(zeroBox)} vs ${JSON.stringify(railsBox)}`);
 await page.fill("#n-char-l", "2");
