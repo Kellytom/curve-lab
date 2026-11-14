@@ -150,6 +150,8 @@ def inflection(speed_x, speed_y, samples: int = 800):
     wronskian = [(left[i] if i < len(left) else Fraction(0))
                  - (right[i] if i < len(right) else Fraction(0))
                  for i in range(length)]
+    if not any(wronskian):
+        return None                   # a straight line has no inflection
     values = [float(_evaluate(wronskian, Fraction(i, samples)))
               for i in range(samples + 1)]
     for i in range(samples):
@@ -193,6 +195,8 @@ def inflections(speed_x, speed_y, samples: int = 800) -> list:
     wronskian = [(left[i] if i < len(left) else Fraction(0))
                  - (right[i] if i < len(right) else Fraction(0))
                  for i in range(length)]
+    if not any(wronskian):
+        return []                     # a straight line: no curvature, no inflection
     values = [float(_evaluate(wronskian, Fraction(i, samples)))
               for i in range(samples + 1)]
     found = []

@@ -274,7 +274,9 @@ padded with a zero pair, which changes nothing: the speed is the same polynomial
 <code>y</code> row is how fast it moves up. Each number belongs to one power of <code>t</code>, and
 <code>t</code> runs from the start of the curve (0) to the end (1). The first number is the plain
 amount, the second is the amount that grows with <code>t</code>, the third with <code>t</code> squared,
-and so on.</p>
+and so on. <code>t^0</code> means <code>t</code> to the power zero, which is 1, so that first box is a
+constant that holds at every <code>t</code>; it is not a value at the start. If only the first boxes are
+filled the speed never changes, so the curve is a straight line: the later boxes are what bend it.</p>
 <p>To get the curve, the speed is multiplied by itself, then added up from the start. Multiplying the
 speed by itself is the step that makes these curves special: the direction comes out of the product,
 and the length of the curve stays a whole number instead of a square root.</p>

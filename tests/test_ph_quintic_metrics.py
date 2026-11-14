@@ -28,6 +28,13 @@ class TestMetrics(unittest.TestCase):
         self.assertEqual(len(M.inflections([1, 0, 0], [2, -9, 9])), 1)
         self.assertEqual(len(M.inflections([1, 0, 0, 0, 0, 0], [-5, 46, -108, 72, 0, 0])), 2)
 
+    def test_a_straight_line_has_no_inflections(self):
+        # the Wronskian is zero everywhere, which is not one root per sample
+        straight = M.metrics([2, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0])
+        self.assertEqual(straight["inflection_count"], 0)
+        self.assertIsNone(straight["inflection"])
+        self.assertEqual(round(straight["bend"], 6), 1.0)
+
     def test_the_inflection_count_never_exceeds_the_degree(self):
         # the Wronskian of two degree-k speeds has degree at most 2k - 1
         for speed_x, speed_y in (([2, -5, 6, 1, 0, 0], [4, -22, 22, -2, 0, 0]),
@@ -91,12 +98,19 @@ class TestMetrics(unittest.TestCase):
         self.assertAlmostEqual(mixed["inflection"], padded["inflection"], places=9)
 
     def test_diagnostics_catch_each_degeneracy(self):
+        # a degenerate curve is a straight line or a point, and neither has an
+        # inflection: the Wronskian is zero everywhere, so "no-inflection" is
+        # reported as well as the shape it degenerated to
         cases = {
             "the pick": ((2, -3, 3), (2, -12, 12), ["degree"]),
-            "a point": ((0, 0, 0), (0, 0, 0), ["degree", "point", "axis-line", "cusp"]),
-            "an axis line": ((1, 0, 0), (0, 0, 0), ["degree", "axis-line", "straight"]),
-            "a diagonal line": ((2, 0, 0), (1, 0, 0), ["degree", "straight"]),
-            "a cusp": ((-0.5, 1, 0), (-1, 2, 0), ["degree", "straight", "cusp"]),
+            "a point": ((0, 0, 0), (0, 0, 0),
+                        ["degree", "point", "axis-line", "cusp", "no-inflection"]),
+            "an axis line": ((1, 0, 0), (0, 0, 0),
+                             ["degree", "axis-line", "straight", "no-inflection"]),
+            "a diagonal line": ((2, 0, 0), (1, 0, 0),
+                                ["degree", "straight", "no-inflection"]),
+            "a cusp": ((-0.5, 1, 0), (-1, 2, 0),
+                       ["degree", "straight", "cusp", "no-inflection"]),
         }
         for label, (u, v, wanted) in cases.items():
             with self.subTest(case=label):

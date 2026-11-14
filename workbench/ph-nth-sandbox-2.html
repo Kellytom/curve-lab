@@ -266,7 +266,9 @@ way to bring its shapes here.</p>
 <code>y</code> row is how fast it moves up. Each number belongs to one power of <code>t</code>, and
 <code>t</code> runs from the start of the curve (0) to the end (1). The first number is the plain
 amount, the second is the amount that grows with <code>t</code>, the third with <code>t</code> squared,
-and so on.</p>
+and so on. <code>t^0</code> means <code>t</code> to the power zero, which is 1, so that first box is a
+constant that holds at every <code>t</code>; it is not a value at the start. If only the first boxes are
+filled the speed never changes, so the curve is a straight line: the later boxes are what bend it.</p>
 <p>To get the curve, the speed is multiplied by itself, then added up from the start. Multiplying the
 speed by itself is the step that makes these curves special: the direction comes out of the product,
 and the length of the curve stays a whole number instead of a square root.</p>
@@ -402,7 +404,11 @@ window.recipeMetrics = function (speedX, speedY) {
   // because the Wronskian p q' - q p' has degree at most 2k - 1 for a speed of
   // degree k, so a curve with fewer than that is not using its top powers.
   const inflections = [];
-  for (let i = 0; i < sampleCount; i++) {
+  // a straight line has a Wronskian that is zero everywhere: no inflections,
+  // rather than one per sample
+  const flatWronskian = Array.from({ length: 9 }, (unused, i) => wronskian(i / 8))
+    .every(rate => Math.abs(rate) < 1e-12);
+  for (let i = 0; i < sampleCount && !flatWronskian; i++) {
     const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
     if (wronskian(lowT) * wronskian(highT) <= 0) {
       let low = lowT, high = highT;

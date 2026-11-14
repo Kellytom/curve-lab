@@ -99,7 +99,11 @@ window.recipeMetrics = function (speedX, speedY) {
   // because the Wronskian p q' - q p' has degree at most 2k - 1 for a speed of
   // degree k, so a curve with fewer than that is not using its top powers.
   const inflections = [];
-  for (let i = 0; i < sampleCount; i++) {
+  // a straight line has a Wronskian that is zero everywhere: no inflections,
+  // rather than one per sample
+  const flatWronskian = Array.from({ length: 9 }, (unused, i) => wronskian(i / 8))
+    .every(rate => Math.abs(rate) < 1e-12);
+  for (let i = 0; i < sampleCount && !flatWronskian; i++) {
     const lowT = i / sampleCount, highT = (i + 1) / sampleCount;
     if (wronskian(lowT) * wronskian(highT) <= 0) {
       let low = lowT, high = highT;
