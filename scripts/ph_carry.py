@@ -87,7 +87,8 @@ def deviation(a, b):
 
 
 def involute(t):
-    a = 2 * math.pi * t
+    """One and a half turns, so the spiral reads as a spiral."""
+    a = 3 * math.pi * t
     return (math.cos(a) + a * math.sin(a), math.sin(a) - a * math.cos(a))
 
 
@@ -97,22 +98,22 @@ def catenary(t):
 
 
 def euler_spiral(t):
-    """theta = u^2 / 2, so the curvature grows with arc length."""
+    """theta = 2 pi u squared: one full turn, curvature growing with arc length."""
     steps = 200
     u = t
     x = y = 0.0
     h = u / steps
     for i in range(steps):
         s = (i + 0.5) * h
-        angle = s * s / 2
+        angle = 2 * math.pi * s * s
         x += math.cos(angle) * h
         y += math.sin(angle) * h
     return (x, y)
 
 
 def log_spiral(t):
-    """r = e^(b theta): the self-similar LAC."""
-    b = 0.2
+    """r = e^(b theta): the self-similar LAC, two turns with a clear growth."""
+    b = 0.25
     angle = 4 * math.pi * t
     r = math.exp(b * angle)
     return (r * math.cos(angle), r * math.sin(angle))
