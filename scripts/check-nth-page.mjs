@@ -271,6 +271,40 @@ if (!part2.tags.includes("fitted")) failures.push(`part 2 tags: ${part2.tags.joi
 if (part2.bad) failures.push(`part 2 paths not drawn: ${part2.bad}`);
 if (part2.boxes !== 12) failures.push(`part 2 boxes: ${part2.boxes}`);
 
+// the root walk's finds: found-curves.json is fetched at load, so the new curves
+// must appear without a rebuild, tagged "found", and load into the sandbox with
+// the rows the search measured.
+await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox.html?v=" + Date.now(), { waitUntil: "load" });
+await page.waitForTimeout(400);
+const lace = await page.evaluate(() => {
+  const figure = document.querySelector('figure[data-name="lace-1of8-3"]');
+  if (!figure) return null;
+  return {
+    tag: figure.querySelector(".tag").textContent,
+    metrics: figure.querySelector(".gallery-metrics").textContent.replace(/\s+/g, " ").trim(),
+  };
+});
+if (!lace) failures.push("the root walk's lace-1of8-3 is not in the gallery");
+else {
+  if (lace.tag !== "found") failures.push(`lace tag: ${lace.tag}`);
+  if (!/bend 1\.39/.test(lace.metrics)) failures.push(`lace readout: ${lace.metrics}`);
+  if (!/grid 1\/1,155/.test(lace.metrics)) failures.push(`lace grid: ${lace.metrics}`);
+  await page.click('figure[data-name="lace-1of8-3"] .gallery-open');
+  await page.click('figure[data-name="lace-1of8-3"] .gallery-load');
+  await page.waitForTimeout(200);
+  const boxesLoaded = await page.$$eval("#n-controls input[type=number]",
+    els => els.map(box => Number(box.value)));
+  // the boxes alternate: x0, y0, x1, y1, ...
+  const wantedX = [1, -2, 2, 0, 0, 0];
+  const wantedY = [-7, 106, -532, 1208, -1280, 512];
+  if (JSON.stringify(boxesLoaded.filter((_, i) => i % 2 === 0)) !== JSON.stringify(wantedX)) {
+    failures.push(`lace x row loaded as ${boxesLoaded.filter((_, i) => i % 2 === 0).join(",")}`);
+  }
+  if (JSON.stringify(boxesLoaded.filter((_, i) => i % 2 === 1)) !== JSON.stringify(wantedY)) {
+    failures.push(`lace y row loaded as ${boxesLoaded.filter((_, i) => i % 2 === 1).join(",")}`);
+  }
+}
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();

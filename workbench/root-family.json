@@ -1,0 +1,1127 @@
+{
+ "name": "root-family",
+ "note": "written by scripts/ph_root_search.py; every curve is exactly symmetric because its roots come in mirror pairs about t = 1/2",
+ "degree": 5,
+ "curves": [
+  {
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 1.393,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 3.895,
+   "symmetry": 1.9637915840319888e-15,
+   "crossings180": 16,
+   "crossings90": 14,
+   "self": 8
+  },
+  {
+   "roots": "1/12, 1/2, 1/2, 1/2, 11/12",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -11,
+    210,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "bend": 2.353,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 2.551,
+   "symmetry": 4.953030316567119e-15,
+   "crossings180": 14,
+   "crossings90": 15,
+   "self": 10
+  },
+  {
+   "roots": "1/10, 1/2, 1/2, 1/2, 9/10",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "bend": 2.333,
+   "pitch": 3465,
+   "inflections": 3,
+   "aspect": 3.588,
+   "symmetry": 7.182186057106774e-15,
+   "crossings180": 12,
+   "crossings90": 9,
+   "self": 8
+  },
+  {
+   "roots": "1/10, 1/2, 1/2, 1/2, 9/10",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "bend": 4.509,
+   "pitch": 3465,
+   "inflections": 3,
+   "aspect": 2.208,
+   "symmetry": 8.639771949704067e-15,
+   "crossings180": 12,
+   "crossings90": 9,
+   "self": 8
+  },
+  {
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 2.085,
+   "pitch": 231,
+   "inflections": 3,
+   "aspect": 2.819,
+   "symmetry": 2.606623496866489e-15,
+   "crossings180": 8,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 2.85,
+   "pitch": 2310,
+   "inflections": 3,
+   "aspect": 2.186,
+   "symmetry": 3.2170453403600978e-15,
+   "crossings180": 8,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 4.448,
+   "pitch": 385,
+   "inflections": 3,
+   "aspect": 2.073,
+   "symmetry": 3.3231681153753166e-15,
+   "crossings180": 8,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "xRow": "flat+bow-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 1.653,
+   "pitch": 770,
+   "inflections": 3,
+   "aspect": 3.391,
+   "symmetry": 1.9685991492507035e-15,
+   "crossings180": 8,
+   "crossings90": 8,
+   "self": 10
+  },
+  {
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 1.585,
+   "pitch": 770,
+   "inflections": 4,
+   "aspect": 3.515,
+   "symmetry": 3.934376308650894e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/4, 1/2, 3/4, 3/4",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    114,
+    -544,
+    1216,
+    -1280,
+    512
+   ],
+   "bend": 1.634,
+   "pitch": 6930,
+   "inflections": 4,
+   "aspect": 3.505,
+   "symmetry": 1.241086186362424e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat+bow-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 1.696,
+   "pitch": 1155,
+   "inflections": 4,
+   "aspect": 2.609,
+   "symmetry": 4.417851903722566e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/3, 1/2, 2/3, 5/6",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648
+   ],
+   "bend": 1.791,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 3.832,
+   "symmetry": 3.2008884805345603e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 1.895,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 3.003,
+   "symmetry": 4.700823626461531e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/4, 1/2, 3/4, 3/4",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    114,
+    -544,
+    1216,
+    -1280,
+    512
+   ],
+   "bend": 1.929,
+   "pitch": 693,
+   "inflections": 4,
+   "aspect": 3.0,
+   "symmetry": 1.1462687454307216e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 2.169,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 2.106,
+   "symmetry": 4.4563407080345105e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 2.374,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 2.47,
+   "symmetry": 5.441888330915622e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/3, 1/2, 2/3, 5/6",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648
+   ],
+   "bend": 2.645,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 2.731,
+   "symmetry": 4.286767819009393e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 1.904,
+   "pitch": 1386,
+   "inflections": 3,
+   "aspect": 2.26,
+   "symmetry": 2.20601706112906e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat+bow-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 2.475,
+   "pitch": 2310,
+   "inflections": 3,
+   "aspect": 1.749,
+   "symmetry": 4.448104132730732e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 2.481,
+   "pitch": 3465,
+   "inflections": 3,
+   "aspect": 1.777,
+   "symmetry": 2.217923395929928e-15,
+   "crossings180": 6,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 4.08,
+   "pitch": 77,
+   "inflections": 3,
+   "aspect": 1.348,
+   "symmetry": 4.487117632815051e-15,
+   "crossings180": 6,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 10.669,
+   "pitch": 2310,
+   "inflections": 3,
+   "aspect": 1.889,
+   "symmetry": 3.3457803832149865e-15,
+   "crossings180": 6,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 1.416,
+   "pitch": 462,
+   "inflections": 4,
+   "aspect": 3.078,
+   "symmetry": 3.463010282927798e-15,
+   "crossings180": 6,
+   "crossings90": 7,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat+bow-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 1.557,
+   "pitch": 3465,
+   "inflections": 3,
+   "aspect": 2.733,
+   "symmetry": 1.3832069661679898e-15,
+   "crossings180": 6,
+   "crossings90": 7,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 1.789,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 2.277,
+   "symmetry": 3.672340932127345e-15,
+   "crossings180": 6,
+   "crossings90": 7,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 1.34,
+   "pitch": 6930,
+   "inflections": 3,
+   "aspect": 3.195,
+   "symmetry": 1.2135869597521328e-15,
+   "crossings180": 6,
+   "crossings90": 5,
+   "self": 2
+  },
+  {
+   "roots": "1/12, 1/2, 1/2, 1/2, 11/12",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -11,
+    210,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "bend": 1.679,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 3.979,
+   "symmetry": 4.1591915612303976e-15,
+   "crossings180": 6,
+   "crossings90": 5,
+   "self": 3
+  },
+  {
+   "roots": "1/3, 1/3, 1/2, 2/3, 2/3",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    44,
+    -189,
+    396,
+    -405,
+    162
+   ],
+   "bend": 2.108,
+   "pitch": 462,
+   "inflections": 4,
+   "aspect": 1.597,
+   "symmetry": 3.0785230249756317e-15,
+   "crossings180": 6,
+   "crossings90": 2,
+   "self": 1
+  },
+  {
+   "roots": "1/5, 1/2, 1/2, 1/2, 4/5",
+   "xRow": "flat+bow-2",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    49,
+    -223,
+    482,
+    -500,
+    200
+   ],
+   "bend": 2.367,
+   "pitch": 2310,
+   "inflections": 3,
+   "aspect": 1.494,
+   "symmetry": 3.4284034261380538e-15,
+   "crossings180": 6,
+   "crossings90": 2,
+   "self": 2
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 22.897,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 2.498,
+   "symmetry": 3.149342460368106e-15,
+   "crossings180": 6,
+   "crossings90": 2,
+   "self": 0
+  },
+  {
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 3.71,
+   "pitch": 1155,
+   "inflections": 3,
+   "aspect": 3.892,
+   "symmetry": 1.1772791902507943e-15,
+   "crossings180": 4,
+   "crossings90": 1,
+   "self": 0
+  },
+  {
+   "roots": "1/5, 1/4, 1/2, 3/4, 4/5",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    163,
+    -817,
+    1878,
+    -2000,
+    800
+   ],
+   "bend": 1.884,
+   "pitch": 6930,
+   "inflections": 4,
+   "aspect": 3.578,
+   "symmetry": 3.5508441538736987e-15,
+   "crossings180": 2,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/4, 1/2, 3/4, 3/4",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    114,
+    -544,
+    1216,
+    -1280,
+    512
+   ],
+   "bend": 3.041,
+   "pitch": 3465,
+   "inflections": 4,
+   "aspect": 1.983,
+   "symmetry": 2.2359950550819387e-15,
+   "crossings180": 2,
+   "crossings90": 9,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat+bow1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 3.033,
+   "pitch": 1155,
+   "inflections": 4,
+   "aspect": 1.574,
+   "symmetry": 4.712957153471036e-15,
+   "crossings180": 2,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 4.692,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 2.153,
+   "symmetry": 6.753524758808596e-15,
+   "crossings180": 2,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 4.951,
+   "pitch": 462,
+   "inflections": 4,
+   "aspect": 1.623,
+   "symmetry": 4.900218437837773e-15,
+   "crossings180": 2,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat+bow2",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 3.548,
+   "pitch": 6930,
+   "inflections": 3,
+   "aspect": 1.285,
+   "symmetry": 3.1406623196426074e-15,
+   "crossings180": 2,
+   "crossings90": 8,
+   "self": 2
+  },
+  {
+   "roots": "1/3, 1/3, 1/2, 2/3, 2/3",
+   "xRow": "flat",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    44,
+    -189,
+    396,
+    -405,
+    162
+   ],
+   "bend": 7.48,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 1.219,
+   "symmetry": 3.0005138507704458e-15,
+   "crossings180": 2,
+   "crossings90": 6,
+   "self": 2
+  },
+  {
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 17.562,
+   "pitch": 6930,
+   "inflections": 3,
+   "aspect": 1.937,
+   "symmetry": 2.8819943722236136e-15,
+   "crossings180": 2,
+   "crossings90": 6,
+   "self": 2
+  },
+  {
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "xRow": "flat+bow4",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 35.891,
+   "pitch": 2310,
+   "inflections": 4,
+   "aspect": 2.521,
+   "symmetry": 2.9530863217613086e-15,
+   "crossings180": 2,
+   "crossings90": 4,
+   "self": 0
+  }
+ ]
+}

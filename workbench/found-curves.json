@@ -1,5 +1,501 @@
 {
  "name": "found-curves",
- "note": "written by scripts/ph_find.py --write; the gallery reads this file as a second seed source",
- "curves": []
+ "note": "written by scripts/ph_root_search.py (and ph_find.py); the gallery reads this file at load, so no rebuild is needed",
+ "curves": [
+  {
+   "name": "lace-1of8-3",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "bend": 1.393,
+   "pitch": 1155,
+   "inflections": 3,
+   "meetings180": 16,
+   "self": 8,
+   "roots": "1/8, 1/2, 1/2, 1/2, 7/8",
+   "rootsExact": [
+    "1/8",
+    "1/2",
+    "1/2",
+    "1/2",
+    "7/8"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of12-3",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -11,
+    210,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "bend": 2.353,
+   "pitch": 1155,
+   "inflections": 3,
+   "meetings180": 14,
+   "self": 10,
+   "roots": "1/12, 1/2, 1/2, 1/2, 11/12",
+   "rootsExact": [
+    "1/12",
+    "1/2",
+    "1/2",
+    "1/2",
+    "11/12"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "lace-1of10-3",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "bend": 2.333,
+   "pitch": 3465,
+   "inflections": 3,
+   "meetings180": 12,
+   "self": 8,
+   "roots": "1/10, 1/2, 1/2, 1/2, 9/10",
+   "rootsExact": [
+    "1/10",
+    "1/2",
+    "1/2",
+    "1/2",
+    "9/10"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of3-1",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -8,
+    102,
+    -483,
+    1072,
+    -1125,
+    450
+   ],
+   "bend": 1.585,
+   "pitch": 770,
+   "inflections": 4,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/3",
+    "1/2",
+    "2/3",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-1",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -9,
+    114,
+    -544,
+    1216,
+    -1280,
+    512
+   ],
+   "bend": 1.634,
+   "pitch": 6930,
+   "inflections": 4,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/4, 1/4, 1/2, 3/4, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/4",
+    "1/2",
+    "3/4",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-1of3-1",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    71,
+    -321,
+    694,
+    -720,
+    288
+   ],
+   "bend": 1.696,
+   "pitch": 1155,
+   "inflections": 4,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/3",
+    "1/2",
+    "2/3",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-1of3-1",
+   "speedX": [
+    1.0,
+    2.0,
+    -2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648
+   ],
+   "bend": 1.791,
+   "pitch": 2310,
+   "inflections": 4,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/6, 1/3, 1/2, 2/3, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "2/3",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-2of5-3",
+   "speedX": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -6,
+    61,
+    -247,
+    498,
+    -500,
+    200
+   ],
+   "bend": 1.904,
+   "pitch": 1386,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
+   "rootsExact": [
+    "2/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of6-3",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -5,
+    66,
+    -312,
+    688,
+    -720,
+    288
+   ],
+   "bend": 2.475,
+   "pitch": 2310,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
+   "rootsExact": [
+    "1/6",
+    "1/2",
+    "1/2",
+    "1/2",
+    "5/6"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-1",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    44,
+    -189,
+    396,
+    -405,
+    162
+   ],
+   "bend": 2.108,
+   "pitch": 462,
+   "inflections": 4,
+   "meetings180": 6,
+   "self": 1,
+   "roots": "1/3, 1/3, 1/2, 2/3, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/3",
+    "1/2",
+    "2/3",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-3",
+   "speedX": [
+    1.0,
+    -2.0,
+    2.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -4,
+    49,
+    -223,
+    482,
+    -500,
+    200
+   ],
+   "bend": 2.367,
+   "pitch": 2310,
+   "inflections": 3,
+   "meetings180": 6,
+   "self": 2,
+   "roots": "1/5, 1/2, 1/2, 1/2, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/2",
+    "1/2",
+    "1/2",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of5-1of4-1",
+   "speedX": [
+    1.0,
+    4.0,
+    -4.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -12,
+    163,
+    -817,
+    1878,
+    -2000,
+    800
+   ],
+   "bend": 1.884,
+   "pitch": 6930,
+   "inflections": 4,
+   "meetings180": 2,
+   "self": 2,
+   "roots": "1/5, 1/4, 1/2, 3/4, 4/5",
+   "rootsExact": [
+    "1/5",
+    "1/4",
+    "1/2",
+    "3/4",
+    "4/5"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of3-3",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -2,
+    21,
+    -87,
+    178,
+    -180,
+    72
+   ],
+   "bend": 2.934,
+   "pitch": 1155,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/3, 1/2, 1/2, 1/2, 2/3",
+   "rootsExact": [
+    "1/3",
+    "1/2",
+    "1/2",
+    "1/2",
+    "2/3"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-1of4-3",
+   "speedX": [
+    1.0,
+    1.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -3,
+    34,
+    -148,
+    312,
+    -320,
+    128
+   ],
+   "bend": 3.153,
+   "pitch": 6930,
+   "inflections": 3,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/4, 1/2, 1/2, 1/2, 3/4",
+   "rootsExact": [
+    "1/4",
+    "1/2",
+    "1/2",
+    "1/2",
+    "3/4"
+   ],
+   "from": "found"
+  },
+  {
+   "name": "wave-middle-5",
+   "speedX": [
+    1.0,
+    -1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "speedY": [
+    -1,
+    10,
+    -40,
+    80,
+    -80,
+    32
+   ],
+   "bend": 1.299,
+   "pitch": 110,
+   "inflections": 1,
+   "meetings180": 2,
+   "self": 0,
+   "roots": "1/2, 1/2, 1/2, 1/2, 1/2",
+   "rootsExact": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+   ],
+   "from": "found"
+  }
+ ]
 }
