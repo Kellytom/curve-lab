@@ -1,2 +1,4 @@
-# Nothing is required to run the tool: the wheel is optional.
+# The one library the tool uses; everything else is the standard library.
+numpy==2.5.4
+
 # The compiled backend needs only a C++ compiler; see scripts/build-native.sh.

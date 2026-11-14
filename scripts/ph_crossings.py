@@ -11,9 +11,10 @@ rather than only by its shape.
 `closest` in `ph_quintic_metrics` is a different question: it is how near the
 speed path comes to zero, not where the curve meets itself.
 
-Plain Python only: the test suite runs where numpy is not installed, and a
-second, faster code path would be a second thing to keep correct. The bounding
-box test in front of every pair keeps it quick enough.
+One implementation, on numpy: the rows are reversed before any polynomial work,
+because numpy reads coefficients highest power first and the rows are written
+lowest power first. A second pure-Python path was tried and drifted from this
+one, which is exactly the debugging the single path avoids.
 """
 
 from __future__ import annotations
@@ -23,17 +24,17 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import ph_quintic_metrics as metrics  # noqa: E402
 
 
-def _poly(coefficients, t):
-    total = 0.0
-    for coefficient in reversed(coefficients):
-        total = total * t + coefficient
-    return total
+def _row(coefficients):
+    """The row as numpy wants it: highest power first."""
+    return np.array(coefficients, dtype=float)[::-1]
 
 
 def spine(speed_x, speed_y, samples: int = 600):
@@ -42,41 +43,20 @@ def spine(speed_x, speed_y, samples: int = 600):
     The steps are taken at the midpoint of each interval, which is the same rule
     the page uses, so a count here and a count on the page agree.
     """
-    t = [i / samples for i in range(samples + 1)]
+    t = np.linspace(0.0, 1.0, samples + 1)
+    middle = (t[:-1] + t[1:]) / 2
+    p = np.polyval(_row(speed_x), middle)
+    q = np.polyval(_row(speed_y), middle)
     step = 1.0 / samples
-    x = [0.0]
-    y = [0.0]
-    for i in range(samples):
-        middle = (i + 0.5) * step
-        p = _poly(speed_x, middle)
-        q = _poly(speed_y, middle)
-        x.append(x[-1] + (p * p - q * q) * step)
-        y.append(y[-1] + 2 * p * q * step)
+    x = np.concatenate(([0.0], np.cumsum((p * p - q * q) * step)))
+    y = np.concatenate(([0.0], np.cumsum((2 * p * q) * step)))
     return t, x, y
 
 
-def _cross(ax, ay, bx, by):
-    return ax * by - ay * bx
-
-
-def _segments_cross(a, b, c, d, tolerance=0.0):
-    """Two segments cross when both orientation tests change sign."""
-    ax, ay = a
-    bx, by = b
-    cx, cy = c
-    dx, dy = d
-    if max(cx, dx) < min(ax, bx) or min(cx, dx) > max(ax, bx):
-        return None
-    if max(cy, dy) < min(ay, by) or min(cy, dy) > max(ay, by):
-        return None
-    d1 = _cross(bx - ax, by - ay, cx - ax, cy - ay)
-    d2 = _cross(bx - ax, by - ay, dx - ax, dy - ay)
-    d3 = _cross(dx - cx, dy - cy, ax - cx, ay - cy)
-    d4 = _cross(dx - cx, dy - cy, bx - cx, by - cy)
-    if d1 * d2 < -tolerance and d3 * d4 < -tolerance:
-        share = d1 / (d1 - d2) if abs(d1 - d2) > 1e-15 else 0.5
-        return (ax + (bx - ax) * share, ay + (by - ay) * share)
-    return None
+def _segment_axes(points):
+    """Segment starts and ends as two arrays, for the broadcast tests."""
+    array = np.asarray(points, dtype=float)
+    return array[:-1], array[1:]
 
 
 def self_crossings(speed_x, speed_y, samples: int = 600):
@@ -86,14 +66,29 @@ def self_crossings(speed_x, speed_y, samples: int = 600):
     two apart, whose shared corner is not a crossing.
     """
     t, x, y = spine(speed_x, speed_y, samples)
-    points = list(zip(x, y))
+    points = np.column_stack((x, y))
+    a, b = points[:-1], points[1:]
+    count = len(a)
+    i, j = np.triu_indices(count, k=2)
+    keep = j > i + 1
+    i, j = i[keep], j[keep]
+    if not len(i):
+        return []
+    a1, b1, a2, b2 = a[i], b[i], a[j], b[j]
+    def turn(u, v):
+        return u[:, 0] * v[:, 1] - u[:, 1] * v[:, 0]
+    d1 = turn(b1 - a1, a2 - a1)
+    d2 = turn(b1 - a1, b2 - a1)
+    d3 = turn(b2 - a2, a1 - a2)
+    d4 = turn(b2 - a2, b1 - a2)
+    hit = (d1 * d2 < 0) & (d3 * d4 < 0)
     out = []
-    for i in range(len(points) - 1):
-        for j in range(i + 2, len(points) - 1):
-            hit = _segments_cross(points[i], points[i + 1], points[j], points[j + 1])
-            if hit:
-                out.append({"t1": round(t[i], 4), "t2": round(t[j], 4),
-                            "x": round(hit[0], 4), "y": round(hit[1], 4)})
+    for index in np.nonzero(hit)[0]:
+        length = d1[index] - d2[index]
+        share = d1[index] / length if abs(length) > 1e-15 else 0.5
+        point = a1[index] + (b1[index] - a1[index]) * share
+        out.append({"t1": round(float(t[i[index]]), 4), "t2": round(float(t[j[index]]), 4),
+                    "x": round(float(point[0]), 4), "y": round(float(point[1]), 4)})
     return out
 
 
@@ -123,17 +118,31 @@ def pair_crossings(first, second):
     One crossing can be reported by several segment pairs, so the points are
     clustered: two reports closer than a thousandth of the size are one meeting.
     """
+    a, b = _segment_axes(first)
+    c, d = _segment_axes(second)
+    if not (len(a) and len(c)):
+        return []
+    # every segment of one against every segment of the other: the two index
+    # axes must stay separate, or the subtraction pairs segment i with segment i
+    ax, ay = a[:, 0][:, None], a[:, 1][:, None]
+    bx, by = b[:, 0][:, None], b[:, 1][:, None]
+    cx, cy = c[:, 0][None, :], c[:, 1][None, :]
+    dx, dy = d[:, 0][None, :], d[:, 1][None, :]
+    ux, uy = bx - ax, by - ay
+    vx, vy = dx - cx, dy - cy
+    d1 = ux * (cy - ay) - uy * (cx - ax)
+    d2 = ux * (dy - ay) - uy * (dx - ax)
+    d3 = vx * (ay - cy) - vy * (ax - cx)
+    d4 = vx * (by - cy) - vy * (bx - cx)
+    rows, columns = np.nonzero((d1 * d2 < 0) & (d3 * d4 < 0))
     points = []
-    for i in range(len(first) - 1):
-        for j in range(len(second) - 1):
-            hit = _segments_cross(first[i], first[i + 1], second[j], second[j + 1])
-            if hit:
-                points.append(hit)
+    for i, j in zip(rows, columns):
+        share = d1[i, j] / (d1[i, j] - d2[i, j])
+        points.append((float(a[i, 0] + (b[i, 0] - a[i, 0]) * share),
+                       float(a[i, 1] + (b[i, 1] - a[i, 1]) * share)))
     if not points:
         return []
-    xs = [point[0] for point in first]
-    ys = [point[1] for point in first]
-    size = max(1e-9, max(xs) - min(xs), max(ys) - min(ys))
+    size = max(1e-9, float(np.ptp(np.asarray(first, dtype=float), axis=0).max()))
     kept = []
     for point in points:
         if not any(abs(point[0] - other[0]) < 1e-3 * size and

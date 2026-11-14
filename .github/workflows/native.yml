@@ -32,6 +32,9 @@ jobs:
           file build/libclothoidlab.so
           ls -lh build/libclothoidlab.so
 
+      - name: Install the one library
+        run: python -m pip install -r requirements.txt
+
       - name: Run the tests
         run: python -m unittest discover tests
 

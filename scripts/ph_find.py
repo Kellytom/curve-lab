@@ -26,10 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-try:                                   # numpy is only a fast screen
-    import numpy as np
-except ImportError:                    # the test runner has no numpy
-    np = None
+import numpy as np  # noqa: E402
 
 import ph_quintic_metrics as metrics  # noqa: E402
 from ph_crossings import pair_crossings, spine  # noqa: E402
@@ -39,8 +36,6 @@ def fast_inflections(speed_x, speed_y) -> int:
     """Roots of the Wronskian in (0, 1), by polynomial roots rather than by
     sampling. Used only to screen candidates; the ones that are reported are
     measured again exactly with `metrics.inflections`."""
-    if np is None:
-        return len(metrics.inflections(speed_x, speed_y))
     # numpy reads coefficients highest power first; the rows are written lowest
     # power first, so both are reversed here
     p = np.array(speed_x[::-1], dtype=float)
