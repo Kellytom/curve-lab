@@ -342,9 +342,11 @@
   }
 
   function spineSamples(speed, n = 700) {
-    const steps = Math.max(2, Math.round(n / 2));
-    const forward = walkTo(speed, range.to, steps);
-    const backward = walkTo(speed, range.from, steps).reverse();
+    const half = Math.max(2, Math.round(n / 2));
+    // a from of 0 has no backwards part; walking it anyway would pile hundreds
+    // of duplicate points on the origin and invent crossings there
+    const forward = walkTo(speed, range.to, range.from === 0 ? n : half);
+    const backward = range.from === 0 ? [] : walkTo(speed, range.from, half).reverse();
     const ordered = backward.concat([{ t: 0, x: 0, y: 0 }], forward);
     return ordered.map(({ t, x, y }) => {
       const p = value(speed.x, t), q = value(speed.y, t);
