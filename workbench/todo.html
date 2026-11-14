@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:83.6%}
+.fill{height:100%;background:#8c6a21;width:85.2%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">97 / 116 done · 84% · read-only twin of
+<div class="count">104 / 122 done · 85% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -275,7 +275,20 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>terminals, coarsest-grid, JSON and save. <code>workbench/ph-nth-sandbox.html</code>, <code>scripts/ph_nth_sandbox.py</code>, <code>scripts/ph_nth_panels.js</code>, <code>tests/test_ph_nth_sandbox.py</code>.</p>
 <label class="task"><input type="checkbox" checked disabled><span>Part 2: 80 showcase curves fitted to degree-11 PH speeds, original against fit,</span></label>
 <p>each labelled <code>fitted</code>, rms recorded. <code>workbench/ph-nth-sandbox-2.html</code>, <code>scripts/ph_fit_showcase.py</code>, <code>workbench/ph-fitted-curves.json</code>, <code>tests/test_ph_nth_sandbox2.py</code>.</p>
-<label class="task"><input type="checkbox" disabled><span>Part 3 at degree 13 (14 speeds, position degree 13): the cursive test.</span></label>
+<label class="task"><input type="checkbox" checked disabled><span>Part 3: the ladder replaced the single degree-13 page. Rungs at degrees 11, 13, 15,</span></label>
+<p>17 and 19 (12 to 20 speed numbers), each with a slider on every number and a <code>-</code> button that flips its sign. A curve saved at a lower rung loads into a higher one padded with zeros, shape unchanged. <code>workbench/ph-nth-sandbox.html</code>, <code>scripts/ph_nth_panels.js</code>.</p>
+<label class="task"><input type="checkbox" checked disabled><span>The complementary curve: a second speed pair in 40% grey under the spine, its own</span></label>
+<p>sliders, <code>flip across</code>, <code>upside down</code>, <code>reverse</code>, <code>reset to the spine</code>, and a count of the meetings with the spine, marked in the figure. <code>scripts/ph_crossings.py</code> is the same test in Python.</p>
+<label class="task"><input type="checkbox" checked disabled><span>Placement as data: each curve carries a 3x3 affine matrix in the saved record, so a</span></label>
+<p>flip or a move is one object and the speed numbers stay the curve. Saved as <code>curve-lab.double-knot/1</code> with a category (<code>DK</code>), or as a single flat curve (<code>S</code>).</p>
+<label class="task"><input type="checkbox" checked disabled><span>The inflection count against the ceiling <code>2k - 1</code>, so a curve that is not using its</span></label>
+<p>top powers says so. A root at the very start or end does not count.</p>
+<label class="task"><input type="checkbox" checked disabled><span>A <code>t from</code> / <code>t to</code> window with no clamp, and <code>place the end</code>: the top pair solves</span></label>
+<p>the endpoint by Newton, moving the first half of the curve by 0.0094 for an end shift of (0.5, 0.3).</p>
+<label class="task"><input type="checkbox" checked disabled><span><code>scripts/ph_find.py</code> searches on the two counts: most inflections for its degree, and</span></label>
+<p>most crossings with its own flip. Best so far: <code>knot-6</code>, six crossings from four numbers a side.</p>
+<label class="task"><input type="checkbox" checked disabled><span>The explanation panel at the foot of the page: the arithmetic ladder, the product</span></label>
+<p>grid worked through on fixed numbers, the triangles for the length, which box does what, and the start-heading compass.</p>
 <label class="task"><input type="checkbox" disabled><span>Brush-lift terminal: a PH span matching position, tangent, curvature and jerk, with</span></label>
 <p>the width falling to zero, ending in a 30-60 degree point or a bulb.</p>
 <h2>PH curves at degree 6 and 7 — 2026-11-12</h2>

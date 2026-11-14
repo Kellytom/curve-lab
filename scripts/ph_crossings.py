@@ -28,13 +28,18 @@ import ph_quintic_metrics as metrics  # noqa: E402
 
 
 def spine(speed_x, speed_y, samples: int = 600):
-    """Sample the spine: the position is the integral of w squared."""
+    """Sample the spine: the position is the integral of w squared.
+
+    The steps are taken at the midpoint of each interval, which is the same rule
+    the page uses, so a count here and a count on the page agree.
+    """
     t = np.linspace(0.0, 1.0, samples + 1)
-    p = np.polyval(np.array(speed_x, dtype=float)[::-1], t)
-    q = np.polyval(np.array(speed_y, dtype=float)[::-1], t)
+    middle = (t[:-1] + t[1:]) / 2
+    p = np.polyval(np.array(speed_x, dtype=float)[::-1], middle)
+    q = np.polyval(np.array(speed_y, dtype=float)[::-1], middle)
     step = 1.0 / samples
-    x = np.concatenate(([0.0], np.cumsum((p * p - q * q)[:-1] * step)))
-    y = np.concatenate(([0.0], np.cumsum((2 * p * q)[:-1] * step)))
+    x = np.concatenate(([0.0], np.cumsum((p * p - q * q) * step)))
+    y = np.concatenate(([0.0], np.cumsum((2 * p * q) * step)))
     return t, x, y
 
 
@@ -81,31 +86,46 @@ def pair_crossings(first, second):
     """Where two polylines cross, as a list of points.
 
     A proper crossing needs both orientation tests to change sign, so a shared
-    endpoint or a tangency does not count.
+    endpoint or a tangency does not count. Vectorised over all segment pairs:
+    a thousand segments each way is a million tests, which numpy does in one go.
     """
-    hits = []
-    def turn(ax, ay, bx, by):
-        return ax * by - ay * bx
-    for i in range(len(first) - 1):
-        ax, ay = first[i]
-        bx, by = first[i + 1]
-        low_x, high_x = min(ax, bx), max(ax, bx)
-        low_y, high_y = min(ay, by), max(ay, by)
-        for j in range(len(second) - 1):
-            cx, cy = second[j]
-            dx, dy = second[j + 1]
-            if max(cx, dx) < low_x or min(cx, dx) > high_x:
-                continue
-            if max(cy, dy) < low_y or min(cy, dy) > high_y:
-                continue
-            d1 = turn(bx - ax, by - ay, cx - ax, cy - ay)
-            d2 = turn(bx - ax, by - ay, dx - ax, dy - ay)
-            d3 = turn(dx - cx, dy - cy, ax - cx, ay - cy)
-            d4 = turn(dx - cx, dy - cy, bx - cx, by - cy)
-            if d1 * d2 < 0 and d3 * d4 < 0:
-                share = d1 / (d1 - d2)
-                hits.append((ax + (bx - ax) * share, ay + (by - ay) * share))
-    return hits
+    a = np.array(first[:-1], dtype=float)
+    b = np.array(first[1:], dtype=float)
+    c = np.array(second[:-1], dtype=float)
+    d = np.array(second[1:], dtype=float)
+    if not (len(a) and len(c)):
+        return []
+    # every segment of the first against every segment of the second: the two
+    # index axes must stay separate, or the subtraction silently pairs segment
+    # i with segment i and the count is nonsense
+    ax, ay = a[:, 0][:, None], a[:, 1][:, None]
+    bx, by = b[:, 0][:, None], b[:, 1][:, None]
+    cx, cy = c[:, 0][None, :], c[:, 1][None, :]
+    dx, dy = d[:, 0][None, :], d[:, 1][None, :]
+    ux, uy = bx - ax, by - ay
+    vx, vy = dx - cx, dy - cy
+    d1 = ux * (cy - ay) - uy * (cx - ax)
+    d2 = ux * (dy - ay) - uy * (dx - ax)
+    d3 = vx * (ay - cy) - vy * (ax - cx)
+    d4 = vx * (by - cy) - vy * (bx - cx)
+    hit = (d1 * d2 < 0) & (d3 * d4 < 0)
+    rows, columns = np.nonzero(hit)
+    points = []
+    for i, j in zip(rows, columns):
+        share = d1[i, j] / (d1[i, j] - d2[i, j])
+        points.append((a[i, 0] + (b[i, 0] - a[i, 0]) * share,
+                       a[i, 1] + (b[i, 1] - a[i, 1]) * share))
+    # one crossing can be reported by several segment pairs, so cluster the
+    # points: two reports closer than a thousandth of the size are one meeting
+    if not points:
+        return []
+    size = max(1e-9, float(np.ptp(np.array(first), axis=0).max()))
+    kept = []
+    for point in points:
+        if not any(abs(point[0] - other[0]) < 1e-3 * size and
+                   abs(point[1] - other[1]) < 1e-3 * size for other in kept):
+            kept.append(point)
+    return kept
 
 
 def describe(speed_x, speed_y, samples: int = 600):
