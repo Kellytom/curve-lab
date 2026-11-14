@@ -294,6 +294,27 @@ the next power      adds the next pair of numbers, divided by the new power</pre
 <code>t</code> to the fifth in the speed and <code>t</code> to the eleventh in the curve. Ten numbers
 per row reach <code>t</code> to the ninth and <code>t</code> to the nineteenth. That is why the ladder
 steps by two: the square of the speed always lands on an odd power.</p>
+<h3 style="font-size:15px;margin:14px 0 4px">Which numbers meet</h3>
+<p class="small">Every number in the x row is multiplied by every other, and the cell shows the
+product. Cells on the same diagonal add up to one power of the curve: the corner cell alone makes the
+<code>t</code> term, the next diagonal makes the <code>t</code> squared term, and so on. The small
+number in each corner is that diagonal. The y row does the same sum, and it is subtracted.</p>
+<svg id="n-pair-table" viewBox="0 0 560 470" role="img"
+     aria-label="a grid of products of the x numbers; cells on one diagonal add to one power of the curve"></svg>
+
+<h3 style="font-size:15px;margin:14px 0 4px">Why the length has no square root</h3>
+<p class="small">The length of an ordinary curve needs a square root, and the root rarely comes out
+clean. Here the two speeds are a matched pair, so the root cancels exactly and the length is a plain
+polynomial.</p>
+<svg id="n-length" viewBox="0 0 560 190" role="img"
+     aria-label="a triangle whose hypotenuse is a square root, beside the same triangle where the root cancels"></svg>
+<p class="small mono" id="n-length-exact"></p>
+<h3 style="font-size:15px;margin:14px 0 4px">The start heading</h3>
+<p class="small">The first pair sets the heading, and the heading is <strong>twice</strong> the angle of
+that pair. So a pair and its negative give the same heading &mdash; only the speed differs. The dark
+arrow is the curve on this page; it moves as you change the first boxes.</p>
+<svg id="n-compass" viewBox="0 0 340 340" role="img"
+     aria-label="a compass of start headings: 0 degrees from 1,0; 90 from 1,1; 180 from 0,1; 270 from 1,-1"></svg>
 <p class="small">The example below is read from the numbers on the page right now.</p>
 <pre class="mono" id="n-formula-explain"></pre>
 </section>

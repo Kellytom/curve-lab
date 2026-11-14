@@ -400,6 +400,127 @@
       Math.abs(other[0] - hit[0]) < tolerance && Math.abs(other[1] - hit[1]) < tolerance) === index);
   }
 
+  // The compass at the foot of the page: the heading is twice the angle of the
+  // first pair, so four headings serve eight pairs, and a pair and its negative
+  // share a heading.
+  function drawCompass() {
+    const host = document.getElementById("n-compass");
+    if (!host) return;
+    const size = 340, cx = size / 2, cy = size / 2, radius = 112;
+    const groups = [
+      { heading: 0, pairs: [[1, 0], [-1, 0]], speed: 1 },
+      { heading: 90, pairs: [[1, 1], [-1, -1]], speed: 2 },
+      { heading: 180, pairs: [[0, 1], [0, -1]], speed: 1 },
+      { heading: 270, pairs: [[1, -1], [-1, 1]], speed: 2 },
+    ];
+    const at = (heading, distance) => [cx + Math.cos(heading) * distance,
+                                       cy - Math.sin(heading) * distance];
+    let art = `<rect width="${size}" height="${size}" fill="#fbf7ec"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#d8ccae"/>` +
+      `<circle cx="${cx}" cy="${cy}" r="${radius + 26}" fill="none" stroke="#efe7d3"/>`;
+    [[0, 1], [1, 0], [0, -1], [-1, 0]].forEach(([dx, dy]) => {
+      art += `<line x1="${cx + dx * (radius + 26)}" y1="${cy - dy * (radius + 26)}" ` +
+             `x2="${cx - dx * (radius + 26)}" y2="${cy + dy * (radius + 26)}" ` +
+             `stroke="#efe7d3"/>`;
+    });
+    ["0", "90", "180", "270"].forEach((label, index) => {
+      const [x, y] = at(index * Math.PI / 2, radius + 26);
+      art += `<text x="${x}" y="${y + 4}" font-size="12" fill="#7b6c4e" ` +
+             `text-anchor="middle">${label}</text>`;
+    });
+    groups.forEach(({ heading, pairs, speed }) => {
+      const angle = heading * Math.PI / 180;
+      const [tipX, tipY] = at(angle, radius - 8);
+      art += `<line x1="${cx}" y1="${cy}" x2="${tipX}" y2="${tipY}" ` +
+             `stroke="#c9bfa6" stroke-width="2"/>`;
+      const [labelX, labelY] = at(angle, radius - 26);
+      art += `<text x="${labelX}" y="${labelY}" font-size="12" fill="#2e2413" ` +
+             `text-anchor="middle">${pairs[0].join(",")}  ${pairs[1].join(",")}</text>` +
+             `<text x="${labelX}" y="${labelY + 13}" font-size="11" fill="#7b6c4e" ` +
+             `text-anchor="middle">speed ${speed}</text>`;
+    });
+    // the curve on this page
+    const x0 = state.x[0] || 0, y0 = state.y[0] || 0;
+    const heading = 2 * Math.atan2(y0, x0);
+    const [tipX, tipY] = at(heading, radius);
+    art += `<line x1="${cx}" y1="${cy}" x2="${tipX}" y2="${tipY}" ` +
+           `stroke="#2e2413" stroke-width="2.6"/>` +
+           `<circle cx="${tipX}" cy="${tipY}" r="4" fill="#2e2413"/>` +
+           `<circle cx="${cx}" cy="${cy}" r="4" fill="#1f5fa8"/>`;
+    const degrees = ((heading * 180 / Math.PI) % 360 + 360) % 360;
+    art += `<text x="${cx}" y="${size - 8}" font-size="13" fill="#2e2413" ` +
+           `text-anchor="middle">first pair ${x0}, ${y0} &rarr; heading ${degrees.toFixed(1)}&deg;` +
+           `, speed ${(x0 * x0 + y0 * y0).toFixed(2)}</text>`;
+    host.innerHTML = art;
+  }
+
+  // The grid of products: every x number times every other, with the diagonal
+  // that makes each power of the curve.
+  function drawPairTable() {
+    const host = document.getElementById("n-pair-table");
+    if (!host) return;
+    const count = Math.min(speedCount, 6);
+    const cell = 58, left = 74, top = 52;
+    const tints = ["#f4ecd7", "#efe4c9", "#f7f1e2"];
+    let art = `<rect width="560" height="470" fill="#fbf7ec"/>` +
+      `<text x="${left}" y="24" font-size="14" font-weight="600" fill="#2e2413">` +
+      `x row multiplied by itself${count < speedCount ? " (the first six powers)" : ""}</text>` +
+      `<text x="${left}" y="40" font-size="11" fill="#7b6c4e">each cell is one product; a diagonal is one power</text>`;
+    for (let i = 0; i < count; i++) {
+      art += `<text x="${left + i * cell + cell / 2}" y="${top - 8}" font-size="11" ` +
+             `fill="#7b6c4e" text-anchor="middle">t^${i}</text>` +
+             `<text x="${left - 10}" y="${top + i * cell + cell / 2 + 4}" font-size="11" ` +
+             `fill="#7b6c4e" text-anchor="end">t^${i}</text>`;
+    }
+    for (let row = 0; row < count; row++) {
+      for (let column = 0; column < count; column++) {
+        const power = row + column;
+        const product = (state.x[column] || 0) * (state.x[row] || 0);
+        const shade = tints[power % tints.length];
+        art += `<rect x="${left + column * cell}" y="${top + row * cell}" width="${cell - 3}" ` +
+               `height="${cell - 3}" fill="${shade}" stroke="#d8ccae"/>` +
+               `<text x="${left + column * cell + 4}" y="${top + row * cell + 13}" font-size="9" ` +
+               `fill="#8a3b2a">${power}</text>` +
+               `<text x="${left + column * cell + cell / 2 - 1}" y="${top + row * cell + cell / 2 + 6}" ` +
+               `font-size="12" fill="#2e2413" text-anchor="middle">${+product.toFixed(2)}</text>`;
+      }
+    }
+    const footY = top + count * cell + 16;
+    art += `<text x="${left}" y="${footY}" font-size="11" fill="#2e2413">` +
+           `diagonal 0 makes the t term, diagonal 1 the t^2 term, ... diagonal ${2 * (count - 1)} ` +
+           `the t^${2 * (count - 1) + 1} term</text>` +
+           `<text x="${left}" y="${footY + 15}" font-size="11" fill="#7b6c4e">` +
+           `each diagonal is divided by its power plus one</text>`;
+    host.innerHTML = art;
+  }
+
+  // The triangle: the root that an ordinary curve carries, and the same root
+  // cancelling here because the two speeds are a matched pair.
+  function drawLengthFigure(arcText) {
+    const host = document.getElementById("n-length");
+    if (!host) return;
+    const triangle = (x, title, hypotenuse, colour) => {
+      const ax = x, ay = 128, bx = x + 120, by = 128, cx = x + 120, cy = 44;
+      return `<text x="${x + 10}" y="22" font-size="12" font-weight="600" fill="#2e2413">${title}</text>` +
+        `<path d="M${ax},${ay} L${bx},${by} L${cx},${cy} Z" fill="#f7f1e2" stroke="#d8ccae"/>` +
+        `<text x="${x + 60}" y="${ay + 16}" font-size="11" fill="#7b6c4e" text-anchor="middle">x'</text>` +
+        `<text x="${bx + 6}" y="${(ay + cy) / 2}" font-size="11" fill="#7b6c4e">y'</text>` +
+        `<text x="${x + 34}" y="${(ay + cy) / 2 - 6}" font-size="11" fill="${colour}" ` +
+        `text-anchor="middle">${hypotenuse}</text>`;
+    };
+    let art = `<rect width="560" height="190" fill="#fbf7ec"/>` +
+      triangle(40, "an ordinary curve", "\u221a(x'\u00b2+y'\u00b2)", "#a23b2a") +
+      triangle(330, "these curves", "p\u00b2 + q\u00b2", "#2e2413") +
+      `<text x="40" y="158" font-size="11" fill="#a23b2a">the root stays: no clean length</text>` +
+      `<text x="330" y="158" font-size="11" fill="#2e2413">the root cancels: a plain polynomial</text>` +
+      `<text x="40" y="178" font-size="11" fill="#7b6c4e">` +
+      `x'\u00b2 + y'\u00b2 = (p\u00b2 + q\u00b2)\u00b2, so the length is the integral of p\u00b2 + q\u00b2` +
+      `</text>`;
+    host.innerHTML = art;
+    const exact = document.getElementById("n-length-exact");
+    if (exact) exact.textContent = arcText;
+  }
+
   // ---------- the drawing ----------
   function draw() {
     const plot = document.getElementById("n-plot");
@@ -545,6 +666,10 @@
       box.value = JSON.stringify(pairRecord(currentName), null, 2);
     }
     drawBars();
+    drawCompass();
+    drawPairTable();
+    drawLengthFigure(`this curve: length ${m.arc.toFixed(6)}, from a closed form ` +
+                     `\u2014 no square root was taken`);
   }
 
   const multiply = (left, right) => {
