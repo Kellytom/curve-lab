@@ -4,6 +4,13 @@ Instructions accumulate. The operator's latest message is authoritative, and a
 new emphasis adds to the work rather than replacing what came before. Read what
 the work needs, not only what the handoff names.
 
+## Never go quiet
+
+Never leave the operator waiting more than **two minutes** without a word. If a
+step will take longer — a build, a search, a browser run — say what you are
+waiting on and roughly how long it takes *before* you wait, then give an interim
+line. A silent chain of tool calls reads as a freeze.
+
 ## Plain English, always
 
 Write in plain English: short sentences, everyday words, one idea per sentence.
@@ -157,6 +164,11 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## GitHub — run it like a normal developer
 
+- **No CI unless the operator says so.** Do not run `gh run watch`, do not poll
+  `gh run list`, do not wait for a workflow. Make the push, report it in one
+  line, and leave the run alone.
+- **Anything on GitHub that takes more than a minute needs approval first.**
+  Say what it is and how long it takes, then wait for a yes.
 - **Commit per action** when its `Proves:` line is satisfied and the suite is
   green. A finished action left uncommitted is the one thing a crash or a
   `git checkout` can destroy.

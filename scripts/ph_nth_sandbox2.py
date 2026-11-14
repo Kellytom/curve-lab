@@ -29,6 +29,7 @@ import ph_quintic_metrics as metrics  # noqa: E402
 
 OUT = ROOT / "workbench" / "ph-nth-sandbox-2.html"
 FITTED = ROOT / "workbench" / "ph-fitted-curves.json"
+FOUND = ROOT / "workbench" / "found-curves.json"
 LIMIT = 80
 
 
@@ -84,9 +85,37 @@ def simplify(sx, sy, tolerance=0.03):
     }
 
 
+def found_gallery():
+    """The root walk's finds, first in the gallery.
+
+    These are exact, not fitted: their speeds are the curve. They sit here
+    because this is the page the operator reads them on. `simple` is left out
+    on purpose, so the transfer button does not offer a rough grade of a curve
+    that needs no grading.
+    """
+    if not FOUND.exists():
+        return []
+    document = json.loads(FOUND.read_text())
+    entries = []
+    for curve in document.get("curves", []):
+        measured = metrics.metrics(curve["speedX"], curve["speedY"])
+        entries.append({
+            "name": curve["name"],
+            "speedX": curve["speedX"],
+            "speedY": curve["speedY"],
+            "bend": round(measured["bend"], 3),
+            "pitch": measured["pitch"],
+            "original": [],
+            "from": "found",
+            "source": f"root walk: roots {curve.get('roots', '')}, {curve.get('meetings180', '')} "
+                      f"meetings with its half-turn copy, {curve.get('self', '')} self-crossings",
+        })
+    return entries
+
+
 def gallery():
     document = json.loads(FITTED.read_text())
-    entries = []
+    entries = found_gallery()
     for curve in document["curves"][:LIMIT]:
         measured = metrics.metrics(curve["speedX"], curve["speedY"])
         entries.append({
