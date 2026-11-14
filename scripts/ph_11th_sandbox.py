@@ -168,35 +168,14 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
+  <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0"></label>
+  <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1"></label>
+  <label class="dial" for="n-end-x">end x <input id="n-end-x" type="number" step="0.05" value="0"></label>
+  <label class="dial" for="n-end-y">end y <input id="n-end-y" type="number" step="0.05" value="0"></label>
+  <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
-<p class="small">A second curve from the same construction, drawn in 40% grey under the spine and counted where it meets it. <strong>flip across</strong> swaps the two rows, <strong>upside down</strong> negates the y row, and <strong>reverse</strong> runs it from the other end.</p>
-  </div>
-</div>
-<p class="small mono" id="n-grade"></p>
-<p class="small mono" id="n-formula" style="white-space:pre-line"></p>
-<div class="solver-row">
-  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
-  <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
-  <label class="dial" for="n-char-r">character &minus; <input id="n-char-r" type="number" min="0" max="3" step="0.1" value="2"></label>
-  <label class="dial" for="n-prof">profile
-    <select id="n-prof"><option value="bow">bow</option><option value="s">S</option><option value="taper">taper</option></select>
-  </label>
-</div>
-<div class="solver-row">
-  <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook">hook x <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
-</div>
-<div class="solver-row">
-  <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
-  <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
-  <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
-  <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
-  <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
-  <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
-</div>
-<p class="small mono" id="n-width-readout"></p>
+
 
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
 <strong>Character offsets</strong> keeps the same construction but turns the speed a little at each

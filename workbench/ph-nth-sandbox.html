@@ -158,35 +158,14 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
   <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
   <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
+  <label class="dial" for="n-t-from">t from <input id="n-t-from" type="number" step="0.05" value="0"></label>
+  <label class="dial" for="n-t-to">t to <input id="n-t-to" type="number" step="0.05" value="1"></label>
+  <label class="dial" for="n-end-x">end x <input id="n-end-x" type="number" step="0.05" value="0"></label>
+  <label class="dial" for="n-end-y">end y <input id="n-end-y" type="number" step="0.05" value="0"></label>
+  <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
-<p class="small">A second curve from the same construction, drawn in 40% grey under the spine and counted where it meets it. <strong>flip across</strong> swaps the two rows, which draws the same curve across the origin; <strong>upside down</strong> negates the y row; <strong>reverse</strong> runs it from the other end. Change its roots or powers and the crossings move; an even, balanced set is what a knot needs.</p>
-  </div>
-</div>
-<p class="small mono" id="n-grade"></p>
-<p class="small mono" id="n-formula" style="white-space:pre-line"></p>
-<div class="solver-row">
-  <label class="dial" for="n-d">d <input id="n-d" type="number" min="0" max="20" step="0.1" value="1.5"></label>
-  <label class="dial" for="n-char-l">character + <input id="n-char-l" type="number" min="0" max="3" step="0.1" value="2"></label>
-  <label class="dial" for="n-char-r">character &minus; <input id="n-char-r" type="number" min="0" max="3" step="0.1" value="2"></label>
-  <label class="dial" for="n-prof">profile
-    <select id="n-prof"><option value="bow">bow</option><option value="s">S</option><option value="taper">taper</option></select>
-  </label>
-</div>
-<div class="solver-row">
-  <label class="dial" for="n-shear">end shear <input id="n-shear" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook">hook x <input id="n-hook" type="number" min="-10" max="10" step="0.1" value="0"></label>
-  <label class="dial" for="n-hook-y">hook y <input id="n-hook-y" type="number" min="-10" max="10" step="0.1" value="0"></label>
-</div>
-<div class="solver-row">
-  <button type="button" id="n-grid" title="scale the speeds by an integer until the pitch is smallest with the numbers under 6000">coarsest grid</button>
-  <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
-  <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
-  <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
-  <button type="button" id="n-terminal-start" title="an arc terminal at the start">start terminal</button>
-  <button type="button" id="n-terminal-end" title="an arc terminal at the end">end terminal</button>
-</div>
-<p class="small mono" id="n-width-readout"></p>
+
 
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.
 <strong>Character offsets</strong> keeps the same construction but turns the speed a little at each
@@ -848,24 +827,38 @@ window.curveSaver = (function () {
     });
   }
 
-  function spineSamples(speed, n = 700) {
+  // The parameter window. t = 0 is where the curve starts, so a negative `from`
+  // draws the same curve backwards from its own start, and a `to` past 1 runs on
+  // past the end. Nothing is clamped: the tail is the same curve, only longer.
+  const range = { from: 0, to: 1 };
+
+  // the points from t = 0 to t = end, as a walk of `steps`
+  function walkTo(speed, end, steps) {
     const out = [];
     let x = 0, y = 0;
-    for (let i = 0; i <= n; i++) {
-      const t = i / n;
+    const step = end / steps;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) * step;
+      const p = value(speed.x, t), q = value(speed.y, t);
+      x += (p * p - q * q) * step;
+      y += 2 * p * q * step;
+      out.push({ t, x, y });
+    }
+    return out;
+  }
+
+  function spineSamples(speed, n = 700) {
+    const steps = Math.max(2, Math.round(n / 2));
+    const forward = walkTo(speed, range.to, steps);
+    const backward = walkTo(speed, range.from, steps).reverse();
+    const ordered = backward.concat([{ t: 0, x: 0, y: 0 }], forward);
+    return ordered.map(({ t, x, y }) => {
       const p = value(speed.x, t), q = value(speed.y, t);
       const speed2 = p * p + q * q;
       const tx = speed2 > 1e-12 ? (p * p - q * q) / speed2 : 1;
       const ty = speed2 > 1e-12 ? 2 * p * q / speed2 : 0;
-      out.push({ t, x, y, tx, ty, nx: -ty, ny: tx });
-      if (i < n) {
-        const tm = (i + 0.5) / n;
-        const pm = value(speed.x, tm), qm = value(speed.y, tm);
-        x += (pm * pm - qm * qm) / n;
-        y += 2 * pm * qm / n;
-      }
-    }
-    return out;
+      return { t, x, y, tx, ty, nx: -ty, ny: tx };
+    });
   }
 
   // the arc through three points: a round terminal of radius d at that end
@@ -1525,6 +1518,54 @@ window.curveSaver = (function () {
       field.value = String(+target.transform[index].toFixed(4));
     });
   }
+  // Place the end with the top pair. Adding c t^k to the speed moves the end by
+  // 2 c times the integral of w t^k, which is linear in c, so two numbers in the
+  // top pair can put the end anywhere near where it was - and the rest of the
+  // curve barely moves, because t^k is small away from t = 1.
+  function endpointOf(px, py) {
+    const curve = curveOf({ x: px, y: py });
+    return [curve.x.reduce((sum, v) => sum + v, 0), curve.y.reduce((sum, v) => sum + v, 0)];
+  }
+  function placeEnd(targetX, targetY) {
+    const k = speedCount - 1;
+    for (let step = 0; step < 8; step++) {
+      const end = endpointOf(state.x, state.y);
+      const offX = targetX - end[0], offY = targetY - end[1];
+      if (Math.hypot(offX, offY) < 1e-7) break;
+      const A = state.x.reduce((sum, v, j) => sum + v / (j + k + 1), 0);
+      const B = state.y.reduce((sum, v, j) => sum + v / (j + k + 1), 0);
+      const denominator = 2 * (A * A + B * B);
+      if (!denominator) return false;
+      state.x[k] += (A * offX + B * offY) / denominator;
+      state.y[k] += (A * offY - B * offX) / denominator;
+    }
+    return true;
+  }
+  const placeButton = document.getElementById("n-place-end");
+  if (placeButton) placeButton.addEventListener("click", () => {
+    const xField = document.getElementById("n-end-x");
+    const yField = document.getElementById("n-end-y");
+    const targetX = Number(xField.value), targetY = Number(yField.value);
+    if (!Number.isFinite(targetX) || !Number.isFinite(targetY)) return;
+    if (!placeEnd(targetX, targetY)) return;
+    writeCells();
+    draw();
+  });
+
+  // the window boxes: no clamp, so a tail can run as far as you like
+  [["n-t-from", "from"], ["n-t-to", "to"]].forEach(([id, side]) => {
+    const field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener("input", () => {
+      const v = Number(field.value);
+      if (!Number.isFinite(v)) return;
+      if (side === "from" && v === range.to) return;
+      if (side === "to" && v === range.from) return;
+      range[side] = v;
+      draw();
+    });
+  });
+
   [["n-move-x", state, 2], ["n-move-y", state, 5],
    ["n-comp-move-x", complement, 2], ["n-comp-move-y", complement, 5]]
     .forEach(([id, target, index]) => {
@@ -1691,15 +1732,15 @@ window.curveSaver = (function () {
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
-    { name: "cusp7-x3",
+    { name: "cusp7-deep",
       speedX: [1, 0, 0, 0, 0, 0, 0, 0],
-      speedY: [-3, 42, -252, 840, -1680, 2016, -1344, 384],
+      speedY: [-4, 56, -336, 1120, -2240, 2688, -1792, 512],
       width: { percent: 1.5 },
       character: { plus: 2, minus: 2, profile: "bow" },
       shear: 0,
       hook: { dx: 0, dy: 0 } },
     { name: "twin-cusp",
-      speedX: [1, 0, 0, 0, 0, 0, 0],
+      speedX: [2, 0, 0, 0, 0, 0, 0],
       speedY: [8, -108, 594, -1701, 2673, -2187, 729],
       width: { percent: 1.5 },
       character: { plus: 2, minus: 2, profile: "bow" },
@@ -1768,6 +1809,7 @@ window.curveSaver = (function () {
       inflections: (m.inflections || []).map(value => +value.toFixed(4)),
       closest: +m.closest.toFixed(3),
       width: { percent: width.percent },
+      tRange: { from: range.from, to: range.to },
       character: { plus: character.plus, minus: character.minus, profile: character.profile },
       shear: shear.delta,
       hook: { dx: hook.dx, dy: hook.dy },
@@ -1800,6 +1842,21 @@ window.curveSaver = (function () {
     }
     currentName = pair.name || "curve";
     applyWidth(pair);
+    const endX = document.getElementById("n-end-x");
+    const endY = document.getElementById("n-end-y");
+    if (endX && endY) {
+      const end = endpointOf(state.x, state.y);
+      endX.value = String(+end[0].toFixed(3));
+      endY.value = String(+end[1].toFixed(3));
+    }
+    if (pair.tRange && Number.isFinite(Number(pair.tRange.from)) && Number.isFinite(Number(pair.tRange.to))) {
+      range.from = Number(pair.tRange.from);
+      range.to = Number(pair.tRange.to);
+      const fromField = document.getElementById("n-t-from");
+      const toField = document.getElementById("n-t-to");
+      if (fromField) fromField.value = String(range.from);
+      if (toField) toField.value = String(range.to);
+    }
     writeCells();
     writeMoves();
     draw();
