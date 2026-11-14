@@ -1865,3 +1865,31 @@ are worth a page: the best so far is `x [1,0,0,0] y [-4,33,-75,50]` at 12
 meetings with its 180-degree copy.
 
 **Context:** 62.5% of 1M, 359 active min, 528 turns, verdict ok. **Git:** `b0bb749`.
+
+## 2026-11-13 (night, status at handoff)
+
+**The previous action did not land, and should not.** `next-fhandoff-int.md` asked
+for part 3 at degree 13 (`scripts/ph_nth_sandbox3.py`, 14 boxes). That work was
+superseded in the session above by the **degree ladder**: rungs at 11, 13, 15, 17
+and 19 inside the one page, so a separate part-3 page was never built and is not
+wanted. The next handoff says so instead of repeating it.
+
+**Current truth.**
+- **Local:** 200 on `:8003` (probed 2026-11-13).
+- **Remote:** no `.run.app` URL recorded; the probe returned 000. Carried from
+  2026-11-13, no deploy this session.
+- **Tests:** carried, 100 modules green from `scripts/test.py --full` on
+  2026-11-13; `web/`, `curve_lab/`, `csrc/` and `tests/` are unchanged since HEAD,
+  so nothing was re-run.
+- **Claims:** `scripts/recheck.py` 55/55 on 2026-11-13, `state/ACHIEVEMENTS-int.md`
+  unchanged.
+- **Git:** clean after this block except `state/sessions.jsonl` (the ctx log).
+
+Tried and rejected: a random search for knot-like curves over small-integer speed
+rows (scripts/ph_similar.py, 1500 draws) — it found zero symmetric curves, because
+symmetry comes from roots placed symmetrically about t = 1/2 and a random draw
+almost never lands there; the root walk replaced it and found 183 in one pass. Also
+rejected: judging every node curve by the LAC law — most are not LACs.
+
+**Next move:** the notes-page section, specification versus representation, with
+both tables.

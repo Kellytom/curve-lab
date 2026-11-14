@@ -151,6 +151,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <div class="solver-row">
     <label class="dial" for="n-comp-move-x">move x <input id="n-comp-move-x" type="number" step="0.1" value="0"></label>
     <label class="dial" for="n-comp-move-y">move y <input id="n-comp-move-y" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-comp-turn" title="turn the complementary curve about the spine's centre">turn <input id="n-comp-turn" type="number" step="15" value="0"></label>
   </div>
   <div class="solver-row">
     <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
