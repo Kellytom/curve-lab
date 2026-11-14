@@ -987,7 +987,7 @@
   const category = () => {
     const field = document.getElementById("n-category");
     const typed = field ? field.value.trim() : "";
-    return typed || "double knot curves";
+    return typed || "DK";
   };
   function pairRecord(name) {
     const m = metrics(state.x, state.y);
@@ -1022,7 +1022,7 @@
     if (item && item.primary) return item;
     if (item && Array.isArray(item.speedX) && Array.isArray(item.speedY)) {
       return { ...item, format: "curve-lab.double-knot/1",
-               category: item.category || "double knot curves",
+               category: item.category || "DK",
                primary: { speedX: item.speedX, speedY: item.speedY, transform: identity() },
                complementary: null };
     }

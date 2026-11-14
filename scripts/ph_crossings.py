@@ -77,6 +77,37 @@ def self_crossings(speed_x, speed_y, samples: int = 600, tol: float = 1e-9):
     return out
 
 
+def pair_crossings(first, second):
+    """Where two polylines cross, as a list of points.
+
+    A proper crossing needs both orientation tests to change sign, so a shared
+    endpoint or a tangency does not count.
+    """
+    hits = []
+    def turn(ax, ay, bx, by):
+        return ax * by - ay * bx
+    for i in range(len(first) - 1):
+        ax, ay = first[i]
+        bx, by = first[i + 1]
+        low_x, high_x = min(ax, bx), max(ax, bx)
+        low_y, high_y = min(ay, by), max(ay, by)
+        for j in range(len(second) - 1):
+            cx, cy = second[j]
+            dx, dy = second[j + 1]
+            if max(cx, dx) < low_x or min(cx, dx) > high_x:
+                continue
+            if max(cy, dy) < low_y or min(cy, dy) > high_y:
+                continue
+            d1 = turn(bx - ax, by - ay, cx - ax, cy - ay)
+            d2 = turn(bx - ax, by - ay, dx - ax, dy - ay)
+            d3 = turn(dx - cx, dy - cy, ax - cx, ay - cy)
+            d4 = turn(dx - cx, dy - cy, bx - cx, by - cy)
+            if d1 * d2 < 0 and d3 * d4 < 0:
+                share = d1 / (d1 - d2)
+                hits.append((ax + (bx - ax) * share, ay + (by - ay) * share))
+    return hits
+
+
 def describe(speed_x, speed_y, samples: int = 600):
     hits = self_crossings(speed_x, speed_y, samples)
     measured = metrics.metrics(speed_x, speed_y)
