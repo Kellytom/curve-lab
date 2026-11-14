@@ -90,13 +90,55 @@ def control():
           "\nthe scan starts at 0.1 for that reason.)")
 
 
+def classics():
+    """The named curves worth asking about, and what the fit says.
+
+    The rolling-circle family (cardioid, nephroid, deltoid, astroid) and the
+    Gerono lemniscate are smooth curves with cusps or a seam, and none of them
+    follows a power law in arc length. They are joins, not LACs.
+    """
+    import math
+    def arc(fn, t0, t1, n=2000):
+        return [fn(t0 + (t1 - t0) * i / n) for i in range(n + 1)]
+    radius = 1.0
+    cases = {
+        "cardioid (R = r)": (lambda t: (2 * radius * math.cos(t) - radius * math.cos(2 * t),
+                                        2 * radius * math.sin(t) - radius * math.sin(2 * t)),
+                             0, 2 * math.pi),
+        "nephroid (R = 2r)": (lambda t: (3 * radius * math.cos(t) - radius * math.cos(3 * t),
+                                         3 * radius * math.sin(t) - radius * math.sin(3 * t)),
+                              0, 2 * math.pi),
+        "deltoid (R = 3r)": (lambda t: (2 * radius * math.cos(t) + radius * math.cos(2 * t),
+                                        2 * radius * math.sin(t) - radius * math.sin(2 * t)),
+                             0, 2 * math.pi),
+        "astroid (R = 4r)": (lambda t: (3 * radius * math.cos(t) + radius * math.cos(3 * t),
+                                        3 * radius * math.sin(t) - radius * math.sin(3 * t)),
+                             0, 2 * math.pi),
+        "gerono lemniscate": (lambda t: (math.cos(t), math.sin(t) * math.cos(t)), 0, 2 * math.pi),
+        "a circle": (lambda t: (math.cos(t), math.sin(t)), 0, math.pi / 2),
+    }
+    print(f"{'curve':22s} {'best p':>7} {'residual':>10}   verdict")
+    for name, (fn, t0, t1) in cases.items():
+        residual, power = best_power(arc(fn, t0, t1))
+        if residual is None:
+            print(f"{name:22s} {'-':>7} {'-':>10}   no curvature: a corner or a line")
+            continue
+        verdict = ("an LAC" if residual < 0.01 else
+                   "close" if residual < 0.05 else "not an LAC")
+        print(f"{name:22s} {power:7.1f} {residual:10.4f}   {verdict}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--rows", nargs=2, metavar=("SPEED_X", "SPEED_Y"))
     parser.add_argument("--control", action="store_true")
+    parser.add_argument("--classics", action="store_true")
     args = parser.parse_args()
     if args.control:
         control()
+        return
+    if args.classics:
+        classics()
         return
     if not args.rows:
         parser.print_help()
