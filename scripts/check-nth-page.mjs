@@ -115,10 +115,12 @@ if (await paths() !== 1) failures.push("toggles did not return to the spine alon
 // the sliders must write the number boxes
 const boxesBefore = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
 const sliders = await page.$$("#n-controls input[type=range]:not(.decade)");
-await sliders[1].evaluate(el => { el.value = "4"; el.dispatchEvent(new Event("input", { bubbles: true })); });
+// the first cell is x t^0, whose box holds 2 by default: moving its slider to 7
+// must write 7 into that same box
+await sliders[0].evaluate(el => { el.value = "7"; el.dispatchEvent(new Event("input", { bubbles: true })); });
 await page.waitForTimeout(120);
 const boxesAfter = await page.$$eval("#n-controls input[type=number]", els => els.map(input => input.value));
-if (boxesBefore[1] === boxesAfter[1]) failures.push("a slider moved the curve but not the number box");
+if (boxesBefore[0] === boxesAfter[0]) failures.push("a slider moved the curve but not the number box");
 
 // the readout must quote the half-width the dial holds
 await page.fill("#n-d", "3");

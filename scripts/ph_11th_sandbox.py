@@ -48,6 +48,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .spine-grid .cell-inputs input[type=range]{flex:1;min-width:36px}
 .cell-inputs .sign{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .cell-inputs .sign:hover{background:#efe7d3}
+.pair-grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px 10px;align-items:center}
+.pair-grid .axis-head{font:11px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pair-grid .power-label{font:11px ui-monospace,Menlo,monospace;color:#8a3b2a}
+.pair-grid .spine-cell{min-width:0}
+
 .pair-boxes{display:block}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
 .curve-box.complement{border-style:dashed}
@@ -260,6 +265,35 @@ number apart rather than three drawings agreeing by eye.</p>
 here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
 padded with a zero pair, which changes nothing: the speed is the same polynomial.</p>
 <div class="gallery" id="n-gallery"></div>
+</section>
+
+<hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">
+<section class="panel" id="n-formula-box">
+<h2>How your numbers become the curve</h2>
+<p>You type two rows of numbers. The <code>x</code> row is how fast the curve moves sideways. The
+<code>y</code> row is how fast it moves up. Each number belongs to one power of <code>t</code>, and
+<code>t</code> runs from the start of the curve (0) to the end (1). The first number is the plain
+amount, the second is the amount that grows with <code>t</code>, the third with <code>t</code> squared,
+and so on.</p>
+<p>To get the curve, the speed is multiplied by itself, then added up from the start. Multiplying the
+speed by itself is the step that makes these curves special: the direction comes out of the product,
+and the length of the curve stays a whole number instead of a square root.</p>
+<p>Multiplying a row by itself makes every number in the row meet every other number. Pairs that land
+on the same power are added together, and dividing by the new power turns a speed into a position. So
+the <code>t</code> term of the curve comes from just the two first numbers, the <code>t</code> squared
+term from the first three, and so on.</p>
+<pre class="mono">speed:        w(t) = p(t) + i q(t)      p is the x row, q is the y row
+curve:        w(t) multiplied by itself, then added up from 0 to t
+
+the t term of x     = x0*x0 - y0*y0
+the t term of y     = 2 * x0 * y0
+the next power      adds the next pair of numbers, divided by the new power</pre>
+<p>How high the powers reach is set only by how many numbers you type. Six numbers per row reach
+<code>t</code> to the fifth in the speed and <code>t</code> to the eleventh in the curve. Ten numbers
+per row reach <code>t</code> to the ninth and <code>t</code> to the nineteenth. That is why the ladder
+steps by two: the square of the speed always lands on an odd power.</p>
+<p class="small">The example below is read from the numbers on the page right now.</p>
+<pre class="mono" id="n-formula-explain"></pre>
 </section>
 </main>
 <script>

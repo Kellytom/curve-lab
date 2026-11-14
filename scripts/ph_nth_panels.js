@@ -93,104 +93,116 @@
     return wrap;
   }
 
-  // One row of numbers for one axis of one curve. `target` is the curve the row
-  // writes to, so the spine and the complementary curve share this code.
-  function buildRow(axis, target) {
-    const row = document.createElement("div");
-    row.className = "spine-row";
-    const label = document.createElement("span");
-    label.textContent = axis;
-    row.append(label);
-    for (let k = 0; k < speedCount; k++) {
-      const cell = document.createElement("label");
-      cell.className = "spine-cell";
-      const name = document.createElement("span");
-      name.textContent = "t^" + k;
-      const number = document.createElement("input");
-      number.type = "number"; number.step = "0.1";
-      number.value = target[axis][k];
-      const fine = document.createElement("input");
-      fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
-      fine.title = "size, sign from the box";
-      const scales = document.createElement("span");
-      scales.className = "scales";
-      [["\u221a2", "root2"], ["\u00d71.1", "euler-step"], ["e", "euler"]].forEach(([label, kind]) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "scale";
-        button.textContent = label;
-        button.title = kind === "root2" ? "snap to the nearest multiple of sqrt 2"
-          : kind === "euler" ? "snap to the nearest multiple of e (2.71828)"
-          : "multiply the mantissa by 1.1";
-        button.addEventListener("click", () => {
-          const current = axis === "x" ? target.x[k] : target.y[k];
-          if (kind === "root2") set(Math.round(current / Math.SQRT2) * Math.SQRT2);
-          else if (kind === "euler") set(Math.round(current / Math.E) * Math.E);
-          else set(current * 1.1);
-        });
-        scales.append(button);
-      });
-      [["1", 0], ["10", 1], ["100", 2]].forEach(([label, power]) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "scale";
-        button.textContent = label;
-        button.title = `mantissa x ${label}`;
-        button.addEventListener("click", () => {
-          const current = axis === "x" ? target.x[k] : target.y[k];
-          set(decode(current).mantissa * Math.pow(10, power));
-        });
-        scales.append(button);
-      });
-      const elements = { number, fine };
-      cells.push({ axis, k, target, ...elements });
-      const set = (v) => {
-        if (target === state) currentName = "curve";
-        if (axis === "x") target.x[k] = v; else target.y[k] = v;
-        syncCell(elements, v);          // the slider is the source: write the box
-        draw();
-      };
-      number.addEventListener("input", () => {
-        const text = number.value.trim();
-        if (text === "") return;
-        const v = Number(text);
-        if (!Number.isFinite(v)) return;
-        if (target === state) currentName = "curve";
-        if (axis === "x") target.x[k] = v; else target.y[k] = v;
-        syncCell(elements, v, { write: false });
-        draw();
-      });
-      fine.addEventListener("input", () => {
+  // One cell of numbers: a box, a slider, the sign flip and the scale buttons.
+  // The power and the axis are written by the grid that holds the cell.
+  function makeCell(axis, target, k) {
+    const cell = document.createElement("label");
+    cell.className = "spine-cell";
+    const number = document.createElement("input");
+    number.type = "number"; number.step = "0.1";
+    number.value = target[axis][k];
+    const fine = document.createElement("input");
+    fine.type = "range"; fine.min = "0"; fine.max = "10"; fine.step = "0.1";
+    fine.title = "size, sign from the box";
+    const scales = document.createElement("span");
+    scales.className = "scales";
+    [["\u221a2", "root2"], ["\u00d71.1", "euler-step"], ["e", "euler"]].forEach(([label, kind]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "scale";
+      button.textContent = label;
+      button.title = kind === "root2" ? "snap to the nearest multiple of sqrt 2"
+        : kind === "euler" ? "snap to the nearest multiple of e (2.71828)"
+        : "multiply the mantissa by 1.1";
+      button.addEventListener("click", () => {
         const current = axis === "x" ? target.x[k] : target.y[k];
-        const sign = current < 0 ? -1 : 1;
-        set(sign * +fine.value * Math.pow(10, decode(current).decade));
+        if (kind === "root2") set(Math.round(current / Math.SQRT2) * Math.SQRT2);
+        else if (kind === "euler") set(Math.round(current / Math.E) * Math.E);
+        else set(current * 1.1);
       });
-      // The sign button: the slider carries size only, so the sign lives in the
-      // number box. One press flips it, which is the quickest way to try the
-      // other half of the family.
-      const flip = document.createElement("button");
-      flip.type = "button";
-      flip.className = "sign";
-      flip.textContent = "\u2212";
-      flip.title = "flip the sign of this number";
-      flip.addEventListener("click", () => {
+      scales.append(button);
+    });
+    [["1", 0], ["10", 1], ["100", 2]].forEach(([label, power]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "scale";
+      button.textContent = label;
+      button.title = `mantissa x ${label}`;
+      button.addEventListener("click", () => {
         const current = axis === "x" ? target.x[k] : target.y[k];
-        set(current === 0 ? -1 : -current);
+        set(decode(current).mantissa * Math.pow(10, power));
       });
-      const pair = document.createElement("div");
-      pair.className = "cell-inputs";
-      pair.append(number, fine, flip, scales);
-      steppers(number, direction => {
-        const current = axis === "x" ? target.x[k] : target.y[k];
-        set(stepInteger(current, direction));
-      });
-      cell.append(name, pair);
-      row.append(cell);
-    }
-    return row;
+      scales.append(button);
+    });
+    const elements = { number, fine };
+    cells.push({ axis, k, target, ...elements });
+    const set = (v) => {
+      if (target === state) currentName = "curve";
+      if (axis === "x") target.x[k] = v; else target.y[k] = v;
+      syncCell(elements, v);          // the slider is the source: write the box
+      draw();
+    };
+    number.addEventListener("input", () => {
+      const text = number.value.trim();
+      if (text === "") return;
+      const v = Number(text);
+      if (!Number.isFinite(v)) return;
+      if (target === state) currentName = "curve";
+      if (axis === "x") target.x[k] = v; else target.y[k] = v;
+      syncCell(elements, v, { write: false });
+      draw();
+    });
+    fine.addEventListener("input", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      const sign = current < 0 ? -1 : 1;
+      set(sign * +fine.value * Math.pow(10, decode(current).decade));
+    });
+    // The sign button: the slider carries size only, so the sign lives in the
+    // number box. One press flips it, which is the quickest way to try the
+    // other half of the family.
+    const flip = document.createElement("button");
+    flip.type = "button";
+    flip.className = "sign";
+    flip.textContent = "\u2212";
+    flip.title = "flip the sign of this number";
+    flip.addEventListener("click", () => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      set(current === 0 ? -1 : -current);
+    });
+    const pair = document.createElement("div");
+    pair.className = "cell-inputs";
+    pair.append(number, fine, flip, scales);
+    steppers(number, direction => {
+      const current = axis === "x" ? target.x[k] : target.y[k];
+      set(stepInteger(current, direction));
+    });
+    cell.append(pair);
+    return cell;
   }
-  grid.append(buildRow("x", state), buildRow("y", state));
-  if (complementGrid) complementGrid.append(buildRow("x", complement), buildRow("y", complement));
+
+  // One line per power: the power on the left, then the x number, then the y
+  // number. Six lines at degree 11, ten at degree 19.
+  function buildPairGrid(target) {
+    const grid = document.createElement("div");
+    grid.className = "pair-grid";
+    const heading = text => {
+      const span = document.createElement("span");
+      span.className = "axis-head";
+      span.textContent = text;
+      return span;
+    };
+    grid.append(document.createElement("span"), heading("x"), heading("y"));
+    for (let k = 0; k < speedCount; k++) {
+      const power = document.createElement("span");
+      power.className = "power-label";
+      power.textContent = "t^" + k;
+      grid.append(power, makeCell("x", target, k), makeCell("y", target, k));
+    }
+    return grid;
+  }
+
+  grid.append(buildPairGrid(state));
+  if (complementGrid) complementGrid.append(buildPairGrid(complement));
   function writeCells() {
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? cell.target.x[cell.k] : cell.target.y[cell.k]));
   }
@@ -210,10 +222,10 @@
     sizePair(complement);
     cells.length = 0;
     grid.textContent = "";
-    grid.append(buildRow("x", state), buildRow("y", state));
+    grid.append(buildPairGrid(state));
     if (complementGrid) {
       complementGrid.textContent = "";
-      complementGrid.append(buildRow("x", complement), buildRow("y", complement));
+      complementGrid.append(buildPairGrid(complement));
     }
   }
 
@@ -506,6 +518,28 @@
     document.getElementById("n-formula").textContent =
       `x(t) = ${polynomialText(curve.x)}\ny(t) = ${polynomialText(curve.y)}\n` +
       `speed, the twelve boxes: x ${state.x.join(", ")} | y ${state.y.join(", ")}`;
+    // The worked example at the foot of the page: the same numbers the boxes
+    // hold, written out through the formula.
+    const explain = document.getElementById("n-formula-explain");
+    if (explain) {
+      const written = row => {
+        const parts = [];
+        row.forEach((c, k) => {
+          if (!c) return;
+          const power = k === 0 ? "" : k === 1 ? "t" : `t^${k}`;
+          parts.push(`${c < 0 ? " - " : parts.length ? " + " : ""}${Math.abs(c)}${power}`);
+        });
+        return parts.join("") || "0";
+      };
+      const x0 = state.x[0] || 0, y0 = state.y[0] || 0;
+      explain.textContent =
+        `the x speed is  ${written(state.x)}\n` +
+        `the y speed is  ${written(state.y)}\n` +
+        `the t term of x is ${x0}*${x0} - ${y0}*${y0} = ${x0 * x0 - y0 * y0}\n` +
+        `the t term of y is 2 * ${x0} * ${y0} = ${2 * x0 * y0}\n` +
+        `${state.x.length} numbers per row: the speed reaches t^${state.x.length - 1}, ` +
+        `so the curve reaches t^${2 * (state.x.length - 1) + 1}`;
+    }
     const box = document.getElementById("n-json");
     if (box) {
       box.value = JSON.stringify(pairRecord(currentName), null, 2);
