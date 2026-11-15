@@ -98,13 +98,24 @@ class TestRegressions(unittest.TestCase):
         """2026-11-14: 'make the knot bigger' had no number to steer by."""
         self.assertIn("knot ${knotShare}% legs ${legShare}%", PANELS.read_text())
 
-    def test_the_tweak_sizes_are_binary_exact_only(self):
+    def test_the_nudge_buttons_offer_only_whole_steps(self):
         """2026-11-14: a size of 1/3 took the grid from 3,465 to 8.7e13, because a
-        third cannot be written exactly in machine arithmetic."""
+        third cannot be written exactly in machine arithmetic.
+
+        Amended the same day on the operator's call: the free-text size field and
+        the share-of-the-pair dial are gone, replaced by one dropdown of patterns
+        and four press-buttons. A fraction cannot be typed at all now, so the
+        hazard is gone by construction rather than by an offered list.
+        """
         source = EXP.read_text()
-        self.assertNotIn('value="1/3"', source)
-        for allowed in ("1/8", "1/4", "1/2"):
-            self.assertIn(f'value="{allowed}"', source)
+        self.assertNotIn('id="n-tweak-size"', source)
+        self.assertNotIn("n-tweak-divisor", source)
+        for step in ('data-step="-5"', 'data-step="-1"', 'data-step="1"', 'data-step="5"'):
+            with self.subTest(step=step):
+                self.assertIn(step, source)
+        for spread in ('<option value="13">', '<option value="39">'):
+            with self.subTest(spread=spread):
+                self.assertIn(spread, source)
 
     def test_the_flat_spots_fill_whole_power_boxes(self):
         """2026-11-14: pressing fill at step 1/2 wrote the knot into the half-power

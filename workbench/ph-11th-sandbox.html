@@ -690,6 +690,7 @@ window.curveSaver = (function () {
     cells.push({ axis, k, target, ...elements });
     const set = (v) => {
       if (target === state) setName("curve (edited)");
+      if (target === state && window.phNthForgetTweaks) window.phNthForgetTweaks();
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v);          // the slider is the source: write the box
       draw();
@@ -700,6 +701,7 @@ window.curveSaver = (function () {
       const v = Number(text);
       if (!Number.isFinite(v)) return;
       if (target === state) setName("curve (edited)");
+      if (target === state && window.phNthForgetTweaks) window.phNthForgetTweaks();
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v, { write: false });
       draw();
@@ -2598,6 +2600,7 @@ window.curveSaver = (function () {
   // the gallery opens a curve into this sandbox
   window.phNthLoad = item => {
     loadPair(item);
+    if (window.phNthForgetTweaks) window.phNthForgetTweaks();
     const controls = document.getElementById("n-controls");
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -2693,6 +2696,7 @@ window.curveSaver = (function () {
     const placed = rowsFromTerms(terms);
     state.x = placed.x.slice(0, count).concat(new Array(count).fill(0)).slice(0, count);
     state.y = placed.y.slice(0, count).concat(new Array(count).fill(0)).slice(0, count);
+    if (window.phNthForgetTweaks) window.phNthForgetTweaks();
     writeCells();
     draw();
     const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
@@ -2939,6 +2943,16 @@ window.curveSaver = (function () {
   };
 
   const tweakTotal = document.getElementById("n-tweak-total");
+  // A new shape means a new starting point. The running total describes the curve
+  // that was in the boxes when the first tweak was made, so every path that
+  // replaces the rows clears it: a load, a family, a fill, a step change, or a
+  // number typed by hand.
+  const forgetTweaks = () => {
+    tweakBase = null;
+    tweakHistory.length = 0;
+    if (tweakTotal) tweakTotal.textContent = "no change from the starting curve yet";
+  };
+  window.phNthForgetTweaks = forgetTweaks;
   // the curve as it stood before the first tweak of this run, so the panel can say
   // what the total change is — and as a fraction, because round fractions are what
   // keep the grid cheap
@@ -2983,14 +2997,15 @@ window.curveSaver = (function () {
   const snapshotBase = () => { if (!tweakBase) tweakBase = { x: state.x.slice(), y: state.y.slice() }; };
 
   const tweakStatus = document.getElementById("n-tweak-status");
-  const tweakSize = document.getElementById("n-tweak-size");
   // the size is a fraction. Its denominator is the grid cost: an addition needs the
   // grid times that denominator, the multiply times its square, because the factor
   // is used twice. A decimal such as 0.1 costs ten, which is why it felt wrong.
-  const readSize = () => {
-    const spot = parseSpot(tweakSize ? tweakSize.value : "1/4");
-    if (!spot || spot.n <= 0) return { value: 0.25, denominator: 4, text: "1/4" };
-    return { value: spot.n / spot.d, denominator: spot.d, text: `${spot.n}/${spot.d}` };
+  // The size is a whole number, and the buttons supply it: -5, -1, +1, +5.
+  // A negative size subtracts the same balanced pattern, which is just as
+  // mirror-safe as adding it; the rows already hold negative numbers.
+  const sizeOf = step => {
+    const value = Number(step) || 0;
+    return { value, denominator: 1, text: value < 0 ? `\u2212${Math.abs(value)}` : String(value) };
   };
 
   function addToPower(row, power, amount) {
@@ -3002,23 +3017,8 @@ window.curveSaver = (function () {
     return true;
   }
 
-  function applyPattern(key, row) {
-    let { value: size, denominator, text } = readSize();
-    // A share of the coefficient itself: the x pair has equal magnitude, so
-    // 16/16 = 1 keeps both the whole numbers and the balance. Divides the pair's
-    // own value, so the tweak is integer whenever the divisor divides it.
-    const divisorBox = document.getElementById("n-tweak-divisor");
-    const divisor = divisorBox ? Number(divisorBox.value) : 0;
-    if (divisor && row === state.x) {
-      const step = window.phPowerStep || 1;
-      const first = Math.round(1 / step);
-      const magnitude = Math.abs(row[first] || 0);
-      if (magnitude) {
-        size = Math.round((magnitude / divisor) * 1e6) / 1e6;
-        text = `${magnitude}/${divisor}`;
-        denominator = 1;
-      }
-    }
+  function applyPattern(key, row, step) {
+    const { value: size, text } = sizeOf(step);
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
@@ -3094,15 +3094,24 @@ window.curveSaver = (function () {
     }
   }
 
-  [["n-tweak-x1", "x1", () => state.x], ["n-tweak-x2", "x2", () => state.x],
-   ["n-tweak-x3", "x3", () => state.x], ["n-tweak-y1", "y1", () => state.y],
-   ["n-tweak-y2", "y2", () => state.y]].forEach(([id, key, row]) => {
-    const button = document.getElementById(id);
-    if (button) button.addEventListener("click", () => applyPattern(key, row()));
+  // One dropdown picks the shape of the change; four buttons apply it, so the same
+  // dropdown serves a nudge in either direction and a bump in either direction.
+  const patternSelect = document.getElementById("n-tweak-pattern");
+  const patternRows = { x1: () => state.x, x2: () => state.x, x3: () => state.x,
+                        y1: () => state.y, y2: () => state.y };
+  document.querySelectorAll(".tweak-step").forEach(button => {
+    button.addEventListener("click", () => {
+      const key = patternSelect ? patternSelect.value : "x2";
+      const row = patternRows[key];
+      if (!row) return;
+      applyPattern(key, row(), Number(button.dataset.step));
+    });
   });
   const tweakBoth = document.getElementById("n-tweak-both");
+  const spreadSelect = document.getElementById("n-tweak-spread");
   if (tweakBoth) tweakBoth.addEventListener("click", () => {
-    const { value, denominator, text } = readSize();
+    const { value, denominator, text } =
+      sizeOf(spreadSelect ? spreadSelect.value : "5");
     multiplyBoth(value, denominator, text);
   });
   const tweakUndo = document.getElementById("n-tweak-undo");
@@ -3441,6 +3450,7 @@ window.curveSaver = (function () {
       state.x = carried.x.slice(0, speedCount);
       state.y = carried.y.slice(0, speedCount);
     }
+    if (window.phNthForgetTweaks) window.phNthForgetTweaks();
     if (stepControl && stepControl.type === "range") stepControl.value = String(value);
     if (stepValue) stepValue.textContent = stepName(value);
     rebuildControls();

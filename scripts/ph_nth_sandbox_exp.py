@@ -122,36 +122,42 @@ def build():
     box_end = page.index('<p class="small mono" id="n-readout">')
     tweak = """<div class="curve-box" id="n-tweak-box">
   <h3>Tweak the primary curve, mirror kept</h3>
-  <p class="small">Each button adds a balanced change, so the curve stays mirrored about the middle.
-  <strong>size</strong> scales it, as a fraction: 1 is bold, 1/4 is a nudge. Use halves,
-  quarters, eighths or whole numbers — <strong>not thirds or sevenths</strong>, which cannot be written
-  exactly in the machine and blow the integer grid up (measured: 1/3 took 3,465 to 8.7e13). The
-  status line says what the grid cost is, and at step 1 the readout shows the grid itself. The primary curve above redraws at
-  once. On the y row the pattern has three numbers, because that row reads as its own negative from
-  the far end, so a two-number swap would lean it.</p>
+  <p class="small">Pick a change in the dropdown, then press one of the four buttons; each press
+  adds that change once more, so ten presses give ten times the nudge. Every pattern is balanced about
+  the middle, so the curve stays mirrored: <strong>x: t1, t2</strong> and <strong>x: t2 to t4</strong>
+  push the width, <strong>x: t3 to t6</strong> and the two y patterns push the vertical gesture.
+  <strong>nudge</strong> is one step, <strong>bump</strong> is five. A minus button subtracts the
+  pattern, which is just as safe as adding it — the rows already carry negative numbers. The status
+  line prints the grid after every press, because the grid after a change depends on arithmetic and
+  not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
+  and of 6 gives 1/770. <strong>Widen the ink</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
+  which re-times the stroke rather than adding a term; that lifts the top power, so a divisor it has
+  not met before (13) joins the grid unless <code>s</code> is a multiple of 13 — 39 measures 1/210,
+  the cheapest of the four.</p>
   <div class="solver-row">
-    <label class="dial" for="n-tweak-size">size
-      <input id="n-tweak-size" type="text" list="n-tweak-sizes" value="1/4" size="6"
-             title="a fraction such as 1/4; decimals work but cost more grid">
-      <datalist id="n-tweak-sizes">
-        <option value="1/8"></option><option value="1/4"></option><option value="1/2"></option>
-        <option value="1"></option><option value="2"></option><option value="3"></option>
-      </datalist></label>
-    <label class="dial" for="n-tweak-divisor" title="take a share of the coefficient itself: 16 divided by 8 gives a whole-number tweak of 2">share of the x pair
-      <select id="n-tweak-divisor">
-        <option value="0">absolute size</option>
-        <option value="2">1/2 of the pair</option>
-        <option value="4">1/4 of the pair</option>
-        <option value="8">1/8 of the pair</option>
-        <option value="16">1/16 of the pair</option>
+    <label class="dial" for="n-tweak-pattern">change
+      <select id="n-tweak-pattern">
+        <option value="x1">x: t1, t2</option>
+        <option value="x2" selected>x: t2 to t4</option>
+        <option value="x3">x: t3 to t6</option>
+        <option value="y1">y: t1 to t3</option>
+        <option value="y2">y: t2 to t5</option>
       </select></label>
-    <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
-    <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
-    <button type="button" id="n-tweak-x3" title="add +1, -3, +3, -1 times size on t^3 to t^6">x: t3 to t6</button>
-    <button type="button" id="n-tweak-y1" title="add -1, +3, -2 times size on t^1 to t^3">y: t1 to t3</button>
-    <button type="button" id="n-tweak-y2" title="add -1, +4, -5, +2 times size on t^2 to t^5">y: t2 to t5</button>
-    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + size (t - t^2)">both rows: 1 + size(t - t2)</button>
-    <button type="button" id="n-tweak-undo" title="take back the last tweak">undo</button>
+    <button type="button" class="tweak-step" data-step="-5" title="subtract 5 times the pattern">bump &minus;5</button>
+    <button type="button" class="tweak-step" data-step="-1" title="subtract the pattern once">nudge &minus;1</button>
+    <button type="button" class="tweak-step" data-step="1" title="add the pattern once">nudge +1</button>
+    <button type="button" class="tweak-step" data-step="5" title="add 5 times the pattern">bump +5</button>
+    <button type="button" id="n-tweak-undo" title="take back the last change">undo</button>
+  </div>
+  <div class="solver-row">
+    <label class="dial" for="n-tweak-spread" title="multiplying both rows re-times the stroke; 13 is the divisor the new top power introduces, so a multiple of 13 keeps it out of the grid">widen the ink, s =
+      <select id="n-tweak-spread">
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="13">13</option>
+        <option value="39">39</option>
+      </select></label>
+    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2)">widen the ink</button>
   </div>
   <p class="small mono" id="n-tweak-status"></p>
   <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>

@@ -10,6 +10,25 @@ MATH = ROOT / "scripts" / "ph_math.js"
 
 
 class TestFractionalSandbox(unittest.TestCase):
+    def test_the_tweak_panel_is_a_dropdown_and_four_buttons(self):
+        """One dropdown picks the change; four buttons press it in either direction.
+
+        The operator's call, 2026-11-14: "a drop down of the different options ...
+        and then a button to nudge (1) or bump (5) that does the change each time
+        it is pressed", plus a minus set for subtracting the same pattern.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-tweak-pattern"', page)
+        for pattern in ("x: t1, t2", "x: t2 to t4", "x: t3 to t6",
+                        "y: t1 to t3", "y: t2 to t5"):
+            with self.subTest(pattern=pattern):
+                self.assertIn(pattern, page)
+        for step in ('data-step="-5"', 'data-step="-1"', 'data-step="1"', 'data-step="5"'):
+            with self.subTest(step=step):
+                self.assertIn(step, page)
+        self.assertIn('id="n-tweak-spread"', page)
+        self.assertIn('<option value="39">', page)
+
     def test_the_seven_families_come_before_the_found_curves(self):
         """Seven families above the line; the found curves stay below it, for later.
 
