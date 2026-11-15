@@ -1,4 +1,4 @@
-"""The experimental page: fractional exponents, and no gallery under it."""
+"""The experimental page: fractional exponents, and the gallery under it."""
 
 import sys
 import unittest
@@ -17,11 +17,18 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
 
-    def test_the_page_has_no_gallery(self):
-        """A curve under test must not sit among the ones we keep."""
+    def test_the_page_keeps_the_gallery(self):
+        """The operator's call, 2026-11-14: "the page should have a gallery".
+
+        The page was written without one, so a curve under test could not sit
+        among the ones we keep. That is reversed: the page opens on a found
+        curve and the gallery is how the rest are reached. This test used to
+        assert the opposite and was the last red in the suite.
+        """
         page = PAGE.read_text()
-        self.assertNotIn('id="n-gallery"', page)
-        self.assertNotIn("Gallery: the spines so far", page)
+        self.assertIn('id="n-gallery"', page)
+        self.assertIn("window.phNthGallery", page)
+        self.assertIn('document.getElementById("n-gallery")', page)
 
     def test_the_step_applies_from_the_first_draw(self):
         self.assertIn("window.phPowerStep = 0.5", PAGE.read_text())

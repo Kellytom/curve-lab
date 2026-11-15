@@ -36,6 +36,8 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 16 | 2026-11-14 | "a fraction like 1/4 ... .1 doesnt seem like the way" — 1/3 blew the grid to 8.7e13 | `test_the_tweak_sizes_are_binary_exact_only` | only binary-exact sizes are offered |
 | 17 | 2026-11-14 | "fix these buttons so they never lose data" — a lower rung deleted the higher numbers | `check-nth-page.mjs` (rung round trip keeps 777) | rung changes stash coefficients instead of deleting them |
 | 18 | 2026-11-14 | the suite went red on `ph-nth-sandbox.html` with nothing changed: the reproduce check compared the build stamp, so it failed whenever the minute rolled over | `test_the_generator_reproduces_the_page` (compares after dropping the `n-build` line) | the rebuild check tests the page, not the clock |
+| 19 | 2026-11-14 | 172 errors in `test_ph_root_found.py` for hours: the test read `speedX`/`bend`/`pitch` while `found-curves.json` had become `curve-lab.curves/2` with `terms`/`measured` | `test_the_walk_landed_something` (asserts the format) and the rows rebuilt from `terms` | the found-curves checks follow the file format, so a format change cannot silently orphan them |
+| 20 | 2026-11-14 | "the page should have a gallery" — the experimental page had one, and its test still demanded none, so the suite stayed red | `test_the_page_keeps_the_gallery` | the experimental page keeps its gallery; the reversed guard is written in the test's docstring |
 
 ## Fixed and measured, but not yet in the fast suite
 
