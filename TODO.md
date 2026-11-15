@@ -435,6 +435,29 @@ The discrete midpoint chain at twelve triangles per side, exact throughout.
 - [ ] Retire or convert `RESULTS.md` / `results.html`: they still carry decimals
   and duplicate the sandbox page.
 
+## Legs, truncation, and the Bezier step — 2026-11-14
+
+The finding that shapes the next step: on these curves the legs are **not a
+separable stretch of `t`**. The self-crossings run from about t 0.02 to 0.98, so any
+span that removes a leg also removes crossings. Measured: the largest exact span
+below the whole curve is (15/16)^2 = 0.879, still shorter than the 0.96 the knot
+occupies. The rebuild therefore falls back to the whole curve and says so.
+
+- [ ] **Decide the fate of the three knot buttons** (`show only the knot`,
+      `rebuild without the legs`, `cut and rebuild`): retire them, or replace the
+      exact rebuild with a fitted one clearly labelled *fitted, not exact*. They
+      now report why they cannot help, which is honest but not useful.
+- [ ] **Decide what the Bezier step does with truncation.** 67 of 169 stored
+      records carry a `truncation` block (arc length, 20% off each end). Either the
+      fitter consumes it, or the field is decoration and should go.
+- [ ] **Spend spans where the curvature is.** The legs are nearly straight, so the
+      natural answer to "short legs" at the Bezier stage is one span per leg and
+      several on the knot — not a cut in `t`. This is the item that may retire the
+      whole truncation question.
+- [ ] **The fitter itself:** cubic spans, a stated deviation tolerance, G1 or G2 at
+      the joins, and every fitted curve labelled fitted. The exact rows stay the
+      record; the cubics are a drawing.
+
 ## PH curves at degree 11 — 2026-11-13
 
 - [x] Part 1 sandbox at degree 11: twelve speed boxes, character offsets, rational hook,
