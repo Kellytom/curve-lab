@@ -52,7 +52,7 @@ def term(power, x, y):
 
 
 def record(name, terms, *, bend=None, grid=None, meetings=None, self_crossings=None,
-           roots=None, walk=None, batch=None):
+           roots=None, walk=None, batch=None, truncation=None):
     """A record in the canonical shape, with only the facts that were measured."""
     cleaned = [term(t["power"], t["x"], t["y"]) for t in terms
                if float(t.get("x", 0)) or float(t.get("y", 0))]
@@ -67,9 +67,17 @@ def record(name, terms, *, bend=None, grid=None, meetings=None, self_crossings=N
         measured["self"] = int(self_crossings)
     provenance = {key: value for key, value in
                   (("roots", roots), ("walk", walk), ("batch", batch)) if value}
-    return {key: value for key, value in
-            (("name", name), ("terms", cleaned), ("measured", measured),
-             ("provenance", provenance)) if value not in ({}, None, "")}
+    out = {key: value for key, value in
+           (("name", name), ("terms", cleaned), ("measured", measured),
+            ("provenance", provenance)) if value not in ({}, None, "")}
+    if truncation:
+        out["truncation"] = {
+            end: {"t": float(truncation[end]["t"]),
+                  "x": float(truncation[end]["x"]),
+                  "y": float(truncation[end]["y"])}
+            for end in ("from", "to") if end in truncation
+        }
+    return out
 
 
 def rows_from_terms(terms):
@@ -166,7 +174,8 @@ def upgrade(entry):
     return record(name, terms, bend=bend, grid=grid, meetings=meetings,
                   self_crossings=self_crossings, roots=roots,
                   walk=provenance.get("walk", entry.get("walk")),
-                  batch=provenance.get("batch", entry.get("batch", "first")))
+                  batch=provenance.get("batch", entry.get("batch", "first")),
+                  truncation=entry.get("truncation"))
 
 
 # ---------------------------------------------------------------------- writing
@@ -231,6 +240,25 @@ def validate(document):
             problems.append(f"{where}: a power appears twice")
         if powers != sorted(powers):
             problems.append(f"{where}: the powers are not in order")
+        truncation = curve.get("truncation")
+        if truncation is not None:
+            if not isinstance(truncation, dict):
+                problems.append(f"{where}: truncation is not an object")
+            else:
+                for end in ("from", "to"):
+                    point = truncation.get(end)
+                    if not isinstance(point, dict):
+                        problems.append(f"{where}: truncation has no {end} point")
+                        continue
+                    for key in ("t", "x", "y"):
+                        value = point.get(key)
+                        if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value):
+                            problems.append(f"{where}: truncation {end} {key} is not a number")
+                    if isinstance(point.get("t"), (int, float)) and not (0 <= point["t"] <= 1):
+                        problems.append(f"{where}: truncation {end} t = {point['t']} is outside 0..1")
+                if isinstance(truncation.get("from"), dict) and isinstance(truncation.get("to"), dict):
+                    if truncation["from"].get("t", 0) >= truncation["to"].get("t", 0):
+                        problems.append(f"{where}: truncation from is not before to")
         measured = curve.get("measured") or {}
         grid = measured.get("grid")
         if grid is not None and (not isinstance(grid, int) or grid < 1):

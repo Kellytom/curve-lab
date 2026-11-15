@@ -261,11 +261,21 @@
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? cell.target.x[cell.k] : cell.target.y[cell.k]));
   }
 
+  // Changing the rung must never destroy a number. A coefficient above the new rung
+  // is stashed rather than deleted, and comes back when the rung grows again; a
+  // coefficient that was never set is zero.
   function sizePair(pair) {
-    while (pair.x.length < speedCount) pair.x.push(0);
-    while (pair.y.length < speedCount) pair.y.push(0);
-    pair.x.length = speedCount;
-    pair.y.length = speedCount;
+    if (!pair.stash) pair.stash = { x: [], y: [] };
+    ["x", "y"].forEach(axis => {
+      const row = pair[axis];
+      if (row.length > speedCount) {
+        pair.stash[axis] = row.slice(speedCount);
+        row.length = speedCount;
+      }
+      while (row.length < speedCount) {
+        row.push(pair.stash[axis].length ? pair.stash[axis].shift() : 0);
+      }
+    });
   }
 
   // A new rung: every number that still has a box keeps its value, the new
@@ -803,6 +813,14 @@
       const half = spread * 0.9;
       frame = { minX: centreX - half, maxX: centreX + half, minY: centreY - half, maxY: centreY + half };
     }
+    // a cut end gets a dotted stub, and the frame must have room for it or the clip
+    // eats it: 6% of the frame on each side when a cut is in force
+    if (range.from > 1e-9 || range.to < 1 - 1e-9) {
+      const growX = (frame.maxX - frame.minX) * 0.06;
+      const growY = (frame.maxY - frame.minY) * 0.06;
+      frame = { minX: frame.minX - growX, maxX: frame.maxX + growX,
+                minY: frame.minY - growY, maxY: frame.maxY + growY };
+    }
     const zoom = Number(view.zoom);
     const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
     if (factor !== 1) {
@@ -841,6 +859,23 @@
       art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
     }
     art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    // a cut end gets a short dotted stub along its own direction, about a quarter of
+    // an inch on screen, so the eye reads "the leg continues" rather than "the curve
+    // stops here". It is a hint, not geometry: it is not part of the curve.
+    const stub = 22;                                  // 22 screen units: a quarter inch or so
+    const carried = parts => parts.map(p => [fx(p[0]), fy(p[1])]);
+    const dotted = (from, towards) => {
+      const dx = towards[0] - from[0], dy = towards[1] - from[1];
+      const length = Math.hypot(dx, dy) || 1;
+      const end = [from[0] - (dx / length) * stub, from[1] - (dy / length) * stub];
+      return `<path d="M${(from[0]).toFixed(1)},${(from[1]).toFixed(1)}L${(end[0]).toFixed(1)},${(end[1]).toFixed(1)}" ` +
+             `fill="none" stroke="#6b6152" stroke-width="1.6" stroke-dasharray="3 4"/>`;
+    };
+    const shownSpine = turned(spinePoints).map(p => [fx(p[0]), fy(p[1])]);
+    if (range.from > 1e-9 && shownSpine.length > 2) art += dotted(shownSpine[0], shownSpine[1]);
+    if (range.to < 1 - 1e-9 && shownSpine.length > 2) {
+      art += dotted(shownSpine[shownSpine.length - 1], shownSpine[shownSpine.length - 2]);
+    }
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     // the meetings of the two curves, counted and marked
@@ -854,6 +889,9 @@
     // legend inside the figure, 15px, naming the spine first and wrapping when
     // the entries would run past the right edge
     const legend = [["#2e2413", 2.4, "spine"], ["#666666", 2, "complementary curve"]];
+    if (range.from > 1e-9 || range.to < 1 - 1e-9) {
+      legend.push(["#6b6152", 1.6, "the legs continue past the cut"]);
+    }
     if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
     if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
@@ -1782,6 +1820,21 @@
       flipComplement();
     }
     currentName = pair.name || "curve";
+    // a record may carry a cut: the whole curve is still in the terms, the window
+    // says which part of it this curve is about
+    if (pair.truncation && pair.truncation.from && pair.truncation.to) {
+      range.from = Number(pair.truncation.from.t);
+      range.to = Number(pair.truncation.to.t);
+      const fromBox = document.getElementById("n-t-from"), toBox = document.getElementById("n-t-to");
+      if (fromBox) fromBox.value = String(range.from);
+      if (toBox) toBox.value = String(range.to);
+      const fromSlider = document.getElementById("n-t-from-slider"), toSlider = document.getElementById("n-t-to-slider");
+      if (fromSlider) fromSlider.value = String(Math.max(-10, Math.min(10, range.from)));
+      if (toSlider) toSlider.value = String(Math.max(-10, Math.min(10, range.to)));
+    } else if (item && !item.truncation) {
+      range.from = 0;
+      range.to = 1;
+    }
     applyWidth(pair);
     const endX = document.getElementById("n-end-x");
     const endY = document.getElementById("n-end-y");

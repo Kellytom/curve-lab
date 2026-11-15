@@ -200,6 +200,13 @@ instinct confirmed: the numbers have to be read together, not one at a time.
 The panel offers both levers, an absolute fraction and a share of the x pair, and
 the status reports the grid after every tweak.
 
+## A rung hides numbers, it never deletes them
+
+Moving to a lower degree keeps every coefficient above the new rung in a stash and
+shows zeros in the new boxes; moving back restores them. Measured: a value of 777
+in the top box at degree 29 survives degree 11 and returns on the way up. The rule
+is the same everywhere in this project: a view may hide data, never destroy it.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the

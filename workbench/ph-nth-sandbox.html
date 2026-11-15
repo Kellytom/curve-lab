@@ -937,11 +937,21 @@ window.curveSaver = (function () {
     cells.forEach(cell => syncCell(cell, cell.axis === "x" ? cell.target.x[cell.k] : cell.target.y[cell.k]));
   }
 
+  // Changing the rung must never destroy a number. A coefficient above the new rung
+  // is stashed rather than deleted, and comes back when the rung grows again; a
+  // coefficient that was never set is zero.
   function sizePair(pair) {
-    while (pair.x.length < speedCount) pair.x.push(0);
-    while (pair.y.length < speedCount) pair.y.push(0);
-    pair.x.length = speedCount;
-    pair.y.length = speedCount;
+    if (!pair.stash) pair.stash = { x: [], y: [] };
+    ["x", "y"].forEach(axis => {
+      const row = pair[axis];
+      if (row.length > speedCount) {
+        pair.stash[axis] = row.slice(speedCount);
+        row.length = speedCount;
+      }
+      while (row.length < speedCount) {
+        row.push(pair.stash[axis].length ? pair.stash[axis].shift() : 0);
+      }
+    });
   }
 
   // A new rung: every number that still has a box keeps its value, the new
@@ -1264,6 +1274,23 @@ window.curveSaver = (function () {
   })();
 
   // the same path the button takes, so a test can check the numbers directly
+  // how far the drawn curve is from its own mirror, as a share of its size
+  window.phNthSymmetry = () => {
+    const points = spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y]);
+    const mirror = R_mirrorOf(points);
+    const size = Math.max(
+      Math.max(...points.map(p => p[0])) - Math.min(...points.map(p => p[0])),
+      Math.max(...points.map(p => p[1])) - Math.min(...points.map(p => p[1]))) || 1e-9;
+    const near = (p, cloud) => Math.min(...cloud.map(q => Math.hypot(p[0] - q[0], p[1] - q[1])));
+    const gap = Math.max(Math.max(...mirror.map(p => near(p, points))),
+                         Math.max(...points.map(p => near(p, mirror))));
+    return +(gap / size).toFixed(4);
+  };
+  const R_mirrorOf = points => {
+    const centre = (Math.min(...points.map(p => p[0])) + Math.max(...points.map(p => p[0]))) / 2;
+    return points.map(([x, y]) => [2 * centre - x, y]);
+  };
+
   window.phNthSpanRows = (aN, aD, lenN, lenD, rootN, rootD) => {
     const a = frac(aN, aD), span = frac(lenN, lenD), root = frac(rootN, rootD);
     const rows = sharedIntegers([spanValuesExact(state.x, a, span, root),
@@ -1462,6 +1489,14 @@ window.curveSaver = (function () {
       const half = spread * 0.9;
       frame = { minX: centreX - half, maxX: centreX + half, minY: centreY - half, maxY: centreY + half };
     }
+    // a cut end gets a dotted stub, and the frame must have room for it or the clip
+    // eats it: 6% of the frame on each side when a cut is in force
+    if (range.from > 1e-9 || range.to < 1 - 1e-9) {
+      const growX = (frame.maxX - frame.minX) * 0.06;
+      const growY = (frame.maxY - frame.minY) * 0.06;
+      frame = { minX: frame.minX - growX, maxX: frame.maxX + growX,
+                minY: frame.minY - growY, maxY: frame.maxY + growY };
+    }
     const zoom = Number(view.zoom);
     const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
     if (factor !== 1) {
@@ -1500,6 +1535,23 @@ window.curveSaver = (function () {
       art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
     }
     art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    // a cut end gets a short dotted stub along its own direction, about a quarter of
+    // an inch on screen, so the eye reads "the leg continues" rather than "the curve
+    // stops here". It is a hint, not geometry: it is not part of the curve.
+    const stub = 22;                                  // 22 screen units: a quarter inch or so
+    const carried = parts => parts.map(p => [fx(p[0]), fy(p[1])]);
+    const dotted = (from, towards) => {
+      const dx = towards[0] - from[0], dy = towards[1] - from[1];
+      const length = Math.hypot(dx, dy) || 1;
+      const end = [from[0] - (dx / length) * stub, from[1] - (dy / length) * stub];
+      return `<path d="M${(from[0]).toFixed(1)},${(from[1]).toFixed(1)}L${(end[0]).toFixed(1)},${(end[1]).toFixed(1)}" ` +
+             `fill="none" stroke="#6b6152" stroke-width="1.6" stroke-dasharray="3 4"/>`;
+    };
+    const shownSpine = turned(spinePoints).map(p => [fx(p[0]), fy(p[1])]);
+    if (range.from > 1e-9 && shownSpine.length > 2) art += dotted(shownSpine[0], shownSpine[1]);
+    if (range.to < 1 - 1e-9 && shownSpine.length > 2) {
+      art += dotted(shownSpine[shownSpine.length - 1], shownSpine[shownSpine.length - 2]);
+    }
     if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
     // the meetings of the two curves, counted and marked
@@ -1513,6 +1565,9 @@ window.curveSaver = (function () {
     // legend inside the figure, 15px, naming the spine first and wrapping when
     // the entries would run past the right edge
     const legend = [["#2e2413", 2.4, "spine"], ["#666666", 2, "complementary curve"]];
+    if (range.from > 1e-9 || range.to < 1 - 1e-9) {
+      legend.push(["#6b6152", 1.6, "the legs continue past the cut"]);
+    }
     if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
     if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
@@ -2441,6 +2496,21 @@ window.curveSaver = (function () {
       flipComplement();
     }
     currentName = pair.name || "curve";
+    // a record may carry a cut: the whole curve is still in the terms, the window
+    // says which part of it this curve is about
+    if (pair.truncation && pair.truncation.from && pair.truncation.to) {
+      range.from = Number(pair.truncation.from.t);
+      range.to = Number(pair.truncation.to.t);
+      const fromBox = document.getElementById("n-t-from"), toBox = document.getElementById("n-t-to");
+      if (fromBox) fromBox.value = String(range.from);
+      if (toBox) toBox.value = String(range.to);
+      const fromSlider = document.getElementById("n-t-from-slider"), toSlider = document.getElementById("n-t-to-slider");
+      if (fromSlider) fromSlider.value = String(Math.max(-10, Math.min(10, range.from)));
+      if (toSlider) toSlider.value = String(Math.max(-10, Math.min(10, range.to)));
+    } else if (item && !item.truncation) {
+      range.from = 0;
+      range.to = 1;
+    }
     applyWidth(pair);
     const endX = document.getElementById("n-end-x");
     const endY = document.getElementById("n-end-y");
@@ -2906,8 +2976,60 @@ window.curveSaver = (function () {
     y2: [[2, -1], [3, 4], [4, -5], [5, 2]],
   };
   const tweakHistory = [];
+  const tweakTotal = document.getElementById("n-tweak-total");
+  // the curve as it stood before the first tweak of this run, so the panel can say
+  // what the total change is — and as a fraction, because round fractions are what
+  // keep the grid cheap
+  let tweakBase = null;
+  const asFraction = value => {
+    if (Math.abs(value - Math.round(value)) < 1e-9) return String(Math.round(value));
+    let best = null;
+    for (let d = 2; d <= 64; d++) {
+      const n = Math.round(value * d);
+      const error = Math.abs(value - n / d);
+      if (!best || error < best.error) best = { n, d, error };
+    }
+    if (best && best.error < 1e-4) {
+      const sources = [];
+      for (let n2 = 1; n2 < best.d; n2++) sources.push(n2);
+      return `${best.n}/${best.d}`;
+    }
+    return value.toFixed(4);
+  };
+  function updateTweakTotal() {
+    if (!tweakTotal) return;
+    if (!tweakBase) { tweakTotal.textContent = "no change from the starting curve yet"; return; }
+    const step = window.phPowerStep || 1;
+    const parts = [];
+    const describe = (before, after, axis) => {
+      after.forEach((value, index) => {
+        const was = before[index] || 0;
+        const delta = +(value - was).toFixed(6);
+        if (!delta) return;
+        const power = +(index * step).toFixed(3);
+        const share = was ? asFraction(delta / was) : null;
+        parts.push(`${axis} t^${power} ${delta > 0 ? "+" : ""}${asFraction(delta)}` +
+                   (share ? ` (${share} of ${asFraction(was)})` : ""));
+      });
+    };
+    describe(tweakBase.x, state.x, "x");
+    describe(tweakBase.y, state.y, "y");
+    const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+    const grid = now && now.pitch ? ` · grid 1/${now.pitch.toLocaleString()}` : " · grid n/a at this step";
+    tweakTotal.textContent = parts.length ? `total change: ${parts.join("; ")}${grid}` : "no change from the starting curve yet";
+  }
+  const snapshotBase = () => { if (!tweakBase) tweakBase = { x: state.x.slice(), y: state.y.slice() }; };
+
   const tweakStatus = document.getElementById("n-tweak-status");
   const tweakSize = document.getElementById("n-tweak-size");
+  // the size is a fraction. Its denominator is the grid cost: an addition needs the
+  // grid times that denominator, the multiply times its square, because the factor
+  // is used twice. A decimal such as 0.1 costs ten, which is why it felt wrong.
+  const readSize = () => {
+    const spot = parseSpot(tweakSize ? tweakSize.value : "1/4");
+    if (!spot || spot.n <= 0) return { value: 0.25, denominator: 4, text: "1/4" };
+    return { value: spot.n / spot.d, denominator: spot.d, text: `${spot.n}/${spot.d}` };
+  };
 
   function addToPower(row, power, amount) {
     const step = window.phPowerStep || 1;
@@ -2919,35 +3041,95 @@ window.curveSaver = (function () {
   }
 
   function applyPattern(key, row) {
-    const size = Number(tweakSize && tweakSize.value) || 0.1;
+    let { value: size, denominator, text } = readSize();
+    // A share of the coefficient itself: the x pair has equal magnitude, so
+    // 16/16 = 1 keeps both the whole numbers and the balance. Divides the pair's
+    // own value, so the tweak is integer whenever the divisor divides it.
+    const divisorBox = document.getElementById("n-tweak-divisor");
+    const divisor = divisorBox ? Number(divisorBox.value) : 0;
+    if (divisor && row === state.x) {
+      const step = window.phPowerStep || 1;
+      const first = Math.round(1 / step);
+      const magnitude = Math.abs(row[first] || 0);
+      if (magnitude) {
+        size = Math.round((magnitude / divisor) * 1e6) / 1e6;
+        text = `${magnitude}/${divisor}`;
+        denominator = 1;
+      }
+    }
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
+    snapshotBase();
     tweakHistory.push({ row: row === state.x ? "x" : "y", before: row.slice() });
     let touched = 0;
     pattern.forEach(([power, weight]) => { if (addToPower(row, power, weight * size)) touched += 1; });
     writeCells();
     draw();
+    updateTweakTotal();
     if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
       tweakStatus.textContent = touched
-        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${pattern.map(p => p[1] * size).join(", ")}`
+        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${text} times ` +
+          `${pattern.map(p => p[1]).join(", ")}${grid}`
         : "this step cannot reach those powers";
     }
   }
 
-  function multiplyBoth(size) {
-    const factor = [1, size, -size];
-    const product = row => {
-      const out = new Array(row.length + 2).fill(0);
-      row.forEach((value, k) => factor.forEach((f, j) => { out[k + j] += value * f; }));
-      return out.slice(0, row.length).map(value => Math.round(value * 1e6) / 1e6);
+  function multiplyBoth(size, denominator, text) {
+    // Done in powers, not in boxes: at step 1/2 a box is half a power, so scaling
+    // boxes would put the factor's centre at t = 1/4 and lean the curve. The factor
+    // is 1 + size(t - t^2), namely powers 0, 1 and 2.
+    const step = window.phPowerStep || 1;
+    const factor = [[0, 1], [1, size], [2, -size]];
+    const indexOf = power => {
+      const exact = power / step;
+      const index = Math.round(exact);
+      return Math.abs(exact - index) < 1e-9 ? index : null;
     };
+    const product = row => {
+      const out = new Map();
+      row.forEach((value, k) => {
+        if (!value) return;
+        factor.forEach(([offset, weight]) => {
+          const power = +(k * step + offset).toFixed(6);
+          out.set(power, (out.get(power) || 0) + value * weight);
+        });
+      });
+      return out;
+    };
+    const px = product(state.x), py = product(state.y);
+    const offGrid = [...px.keys(), ...py.keys()].filter(power => indexOf(power) === null);
+    if (offGrid.length) {
+      if (tweakStatus) tweakStatus.textContent =
+        `this step cannot hold power ${offGrid[0]}: the multiply needs a step that divides 1 and 2`;
+      return;
+    }
+    const top = Math.max(...[...px.keys(), ...py.keys()].map(indexOf)) + 1;
+    snapshotBase();
     tweakHistory.push({ row: "both", x: state.x.slice(), y: state.y.slice() });
-    state.x = product(state.x);
-    state.y = product(state.y);
+    if (top > window.phNthDegree().speedCount) window.phNthSetDegree(top - 1);
+    sizePair(state);
+    const write = row => {
+      const out = new Array(speedCount).fill(0);
+      row.forEach((value, power) => {
+        const index = indexOf(power);
+        if (index !== null && index < speedCount) out[index] = +value.toFixed(6);
+      });
+      return out;
+    };
+    state.x = write(px);
+    state.y = write(py);
     writeCells();
     draw();
-    if (tweakStatus) tweakStatus.textContent = `both rows multiplied by (1 + ${size}(t - t^2))`;
+    updateTweakTotal();
+    if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
+      tweakStatus.textContent =
+        `both rows multiplied by 1 + ${text}(t - t^2) in powers, mirror held${grid}`;
+    }
   }
 
   [["n-tweak-x1", "x1", () => state.x], ["n-tweak-x2", "x2", () => state.x],
@@ -2958,16 +3140,22 @@ window.curveSaver = (function () {
   });
   const tweakBoth = document.getElementById("n-tweak-both");
   if (tweakBoth) tweakBoth.addEventListener("click", () => {
-    multiplyBoth(Number(tweakSize && tweakSize.value) || 0.1);
+    const { value, denominator, text } = readSize();
+    multiplyBoth(value, denominator, text);
   });
   const tweakUndo = document.getElementById("n-tweak-undo");
   if (tweakUndo) tweakUndo.addEventListener("click", () => {
     const last = tweakHistory.pop();
     if (!last) { if (tweakStatus) tweakStatus.textContent = "nothing to undo"; return; }
-    if (last.row === "both") { state.x = last.x; state.y = last.y; }
-    else if (last.row === "x") state.x = last.before; else state.y = last.before;
+    // a tweak may have grown the rung, so a restored row is padded to the boxes that
+    // exist now rather than left short — a short row makes a box read undefined
+    const pad = row => row.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+    if (last.row === "both") { state.x = pad(last.x); state.y = pad(last.y); }
+    else if (last.row === "x") state.x = pad(last.before); else state.y = pad(last.before);
     writeCells();
     draw();
+    if (!tweakHistory.length) tweakBase = null;
+    updateTweakTotal();
     if (tweakStatus) tweakStatus.textContent = "last tweak undone";
   });
 
@@ -3624,5 +3812,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 18:50</p>
+<p class="small mono" id="n-build">build 2026-11-14 19:52</p>
 </body></html>

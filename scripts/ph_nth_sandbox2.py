@@ -118,6 +118,7 @@ def found_gallery():
             "pitch": recorded.get("grid"),
             "original": [],
             "from": "found",
+            "truncation": curve.get("truncation"),
             "source": (f"roots {curve.get('provenance', {}).get('roots', '')}; "
                        f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
         })

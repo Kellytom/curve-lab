@@ -343,6 +343,24 @@ else {
   }
 }
 
+// changing the rung must not destroy a number above it
+await page.goto(`${url}?v=${Date.now()}`, { waitUntil: "load" });
+await page.waitForTimeout(300);
+await page.click('#n-rungs .rung[data-speed-degree="14"]');
+await page.waitForTimeout(300);
+const topBox = async () => page.$$eval("#n-controls input[type=number]", els => els[els.length - 1]);
+await page.$$eval("#n-controls input[type=number]", els => {
+  const last = els[els.length - 1];
+  last.value = "777";
+  last.dispatchEvent(new Event("input", { bubbles: true }));
+});
+await page.click('#n-rungs .rung[data-speed-degree="5"]');
+await page.waitForTimeout(250);
+await page.click('#n-rungs .rung[data-speed-degree="14"]');
+await page.waitForTimeout(250);
+const kept = await page.$$eval("#n-controls input[type=number]", els => Number(els[els.length - 1].value));
+if (kept !== 777) failures.push(`rung round trip lost the top value: ${kept}`);
+
 // the experimental page's mirror-safe tweaks: the multiply must keep the gap at
 // zero (a trimmed product leaned the curve) and undo must survive a grown rung
 await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-exp.html?v=" + Date.now(), { waitUntil: "load" });

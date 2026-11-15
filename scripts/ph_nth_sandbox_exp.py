@@ -69,6 +69,7 @@ def found_entries():
             "bend": recorded.get("bend"),
             "pitch": recorded.get("grid"),
             "from": "found",
+            "truncation": curve.get("truncation"),
             "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
                        f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
         })
