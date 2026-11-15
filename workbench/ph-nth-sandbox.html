@@ -1270,8 +1270,10 @@ window.curveSaver = (function () {
   }
 
   const exactTable = (() => {
+    // every square (k/n)^2 for n up to 16: long knots need long spans, and a span
+    // that cannot be covered makes the rebuild fall back to the whole curve
     const out = [];
-    for (let n = 2; n <= 8; n++) for (let k = 1; k < n; k++) out.push({ lenN: k * k, lenD: n * n, rootN: k, rootD: n });
+    for (let n = 2; n <= 16; n++) for (let k = 1; k < n; k++) out.push({ lenN: k * k, lenD: n * n, rootN: k, rootD: n });
     return out.sort((p, q) => p.lenN / p.lenD - q.lenN / q.lenD);
   })();
 
@@ -1515,7 +1517,15 @@ window.curveSaver = (function () {
       frame = { minX: midX - halfW, maxX: midX + halfW, minY: midY - halfH, maxY: midY + halfH };
     }
     const { minX, maxX, minY, maxY } = frame;
-    const width_ = 900, height = 380, left = 40, right = 24, top = 16, bottom = 24;
+    // The box follows the curve's own shape, within limits: a fixed 2.37:1 box leaves a
+    // tall curve filling 10% of the width, which reads as "zoomed out" for reasons that
+    // have nothing to do with the curve.
+    const width_ = 900;
+    const frameAspect = Math.max(1e-9, (maxX - minX) / Math.max(1e-9, maxY - minY));
+    const height = Math.round(Math.max(260, Math.min(620, width_ / frameAspect)));
+    const svgHost = document.getElementById("n-plot");
+    if (svgHost) svgHost.setAttribute("viewBox", `0 0 ${width_} ${height}`);
+    const left = 40, right = 24, top = 16, bottom = 24;
     const scale = Math.min((width_ - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
@@ -3213,6 +3223,12 @@ window.curveSaver = (function () {
   let lastRebuild = null;
   function rebuildSpanExact(low, high, statusPrefix) {
     const status = document.getElementById("n-paste-status");
+    const step = window.phPowerStep || 1;
+    if (Math.abs(step - 1) > 1e-9) {
+      if (status) status.textContent =
+        "the rebuild needs whole powers: set the exponent step to 1 first (a half-power row is not a polynomial in t)";
+      return false;
+    }
     const wanted = Math.min(1, high - low);
     let choice = null, aSteps = 0;
     for (const option of exactTable) {
@@ -3833,5 +3849,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 19:56</p>
+<p class="small mono" id="n-build">build 2026-11-14 20:38</p>
 </body></html>
