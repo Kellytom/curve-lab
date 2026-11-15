@@ -765,6 +765,15 @@
    "purpose": "The same sandbox with exponent step 1/2, 1/3 or 1/4, and no gallery under it.",
    "inputs": "the step, the speed rows, or the flat spots on the ruler",
    "outputs": "a curve with t^0.5, t^1.5, 5/2 and 7/2 terms; bend measured, grid not applicable"
+  },
+  {
+   "key": "ph-nth-exp-notes",
+   "file": "ph-nth-exp-notes.html",
+   "group": "ph",
+   "title": "Knot experiments that did not work",
+   "purpose": "Where the three leg-cutting controls are parked, with the measurements that parked them.",
+   "inputs": "none; it is a record",
+   "outputs": "the reasons, and what replaces them"
   }
  ]
 }

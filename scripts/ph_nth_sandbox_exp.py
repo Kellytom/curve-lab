@@ -129,6 +129,28 @@ def build():
 """
     page = page[:box_start] + tweak + page[box_end:]
 
+    # the leg-cutting controls are parked on their own notes page: they cannot work
+    # on this family (the crossings span the curve), and leaving them here only
+    # invited the operator to try them again. Removed by exact markup, so the row
+    # that keeps the zoom and the focus is untouched.
+    arc_row = """<div class="solver-row" id="n-arc-row">
+  <label class="dial" for="n-arc-percent">keep the middle
+    <input id="n-arc-percent" type="number" min="10" max="99" step="1" value="70"> % of the ink</label>
+  <button type="button" id="n-arc-rebuild" title="cut in arc length, then rebuild the kept arc as exact rows">cut and rebuild</button>
+  <span class="small">arc length belongs to the shape, not to <code>t</code></span>
+</div>
+"""
+    page = page.replace(arc_row, "")
+    for markup in (
+        '  <button type="button" id="n-cut-knot" title="restrict the drawing to the knot; the curve itself is unchanged">show only the knot</button>\n',
+        '  <button type="button" id="n-rebuild-span" title="rebuild the knot\'s span as a new curve: exact whole numbers, no legs left in the rows">rebuild without the legs</button>\n',
+    ):
+        page = page.replace(markup, "")
+    page = page.replace("Knot experiments</h3>",
+                        "Look closer</h3>\n<p class=\"small\">Optical only: these change the frame, "
+                        "never the numbers. The knot-cutting controls that did not work are "
+                        "<a href=\"ph-nth-exp-notes.html\">parked with their measurements</a>.</p>", 1)
+
     # the gallery keeps its host, and gets a heading of its own
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
