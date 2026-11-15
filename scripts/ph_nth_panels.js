@@ -2178,7 +2178,13 @@
   // the positions on the strip: every fraction below 1/2 whose denominator is
   // here, plus 1/2 itself. The wider set came with the longer rows (30 numbers),
   // which can carry more distinct flat spots.
-  const RULER_DENOMINATORS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20];
+  const RULER_DENOMINATORS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                              16, 17, 18, 19, 20];
+
+  // The strip reads 0 at the left and 1/2 at the right, so a distance that used
+  // to be 2.6% of the page is now 5.2%: 1/19 and 1/20 land on separate ticks.
+  const RULER_SPAN = 200;          // 1/2 at 100%, so position = value x 200
+
   const rulerSpots = (() => {
     const seen = new Map();
     RULER_DENOMINATORS.forEach(d => {
@@ -2191,6 +2197,8 @@
     return [...seen.values()].sort((a, b) => a.value - b.value);
   })();
   const rulerHost = document.getElementById("n-roots-ruler");
+  const lowerStrip = rulerHost ? rulerHost.querySelector(".ruler-lower") : null;
+  const upperStrip = rulerHost ? rulerHost.querySelector(".ruler-upper") : null;
   const mirrorBox = document.getElementById("n-roots-mirror");
   const countLabel = document.getElementById("n-roots-count");
   const sameSpot = (a, b) => a.n * b.d === b.n * a.d;
@@ -2222,32 +2230,60 @@
     applySpots();
   }
   function renderRuler() {
-    if (!rulerHost) return;
-    rulerHost.textContent = "";
-    // ticks first, then the labels, in order of importance: the small
-    // denominators get a name before the crowded ones do
-    rulerSpots.forEach(spot => {
-      const tick = document.createElement("span");
-      tick.className = "tick";
-      tick.style.left = `${spot.value * 100}%`;
-      tick.style.height = spot.d <= 6 || spot.d === 8 ? "12px" : "7px";
-      rulerHost.append(tick);
-    });
-    const labelRows = [[], []];
-    rulerSpots.slice().sort((a, b) => a.d - b.d || a.value - b.value).forEach(spot => {
-      for (let row = 0; row < labelRows.length; row++) {
-        if (labelRows[row].every(placed => Math.abs(placed - spot.value) > 0.045)) {
+    if (!rulerHost || !lowerStrip || !upperStrip) return;
+    lowerStrip.textContent = "";
+    upperStrip.textContent = "";
+    // The two strips carry the same spots read from opposite ends: the lower runs
+    // 0 to 1/2, the upper runs 1 to 1/2, so a spot and its mirror sit the same
+    // distance from the middle and line up one above the other.
+    const drawTick = (strip, left, tall) => {
+      const mark = document.createElement("span");
+      mark.className = "tick";
+      mark.style.left = `${left.toFixed(2)}%`;
+      mark.style.height = tall ? "14px" : "8px";
+      strip.append(mark);
+    };
+    // Every fraction gets a name if one fits: small denominators first, then the
+    // crowded ones, each on the first of six rows where its own width is free.
+    const NAME_CHAR = 6.2;          // px per character at 11px monospace
+    const NAME_GAP = 4;             // px of air between two names on one row
+    const nameWidth = text => (text.length * NAME_CHAR + NAME_GAP) / 10;   // % of ~1000px
+    const nameTicks = (strip, items) => {
+      const rows = [[], [], [], [], [], []];
+      items.slice().sort((a, b) => a.d - b.d || a.n - b.n).forEach(item => {
+        const width = nameWidth(item.text);
+        for (let row = 0; row < rows.length; row++) {
+          const clear = rows[row].every(placed =>
+            Math.abs(placed.at - item.left) >= (placed.width + width) / 2);
+          if (!clear) continue;
           const label = document.createElement("span");
           label.className = "tick-label";
-          label.style.left = `${spot.value * 100}%`;
-          label.style.bottom = row === 0 ? "-18px" : "-31px";
-          label.textContent = `${spot.n}/${spot.d}`;
-          rulerHost.append(label);
-          labelRows[row].push(spot.value);
+          label.style.left = `${item.left.toFixed(2)}%`;
+          label.style.bottom = `${20 + row * 12}px`;
+          label.textContent = item.text;
+          label.title = item.title;
+          strip.append(label);
+          rows[row].push({ at: item.left, width });
           return;
         }
-      }
+      });
+    };
+    const lowerItems = [];
+    const upperItems = [];
+    rulerSpots.forEach(spot => {
+      const at = spot.value * RULER_SPAN;
+      // both strips put the same fraction the same distance from the middle, so
+      // 1/19 on the lower strip sits directly under 18/19 on the upper one
+      drawTick(lowerStrip, at, spot.d <= 6 || spot.d === 8);
+      drawTick(upperStrip, at, false);
+      lowerItems.push({ left: at, d: spot.d, n: spot.n, text: `${spot.n}/${spot.d}`,
+                        title: `${spot.n}/${spot.d} of the way along t` });
+      upperItems.push({ left: at, d: spot.d, n: spot.n,
+                        text: `${spot.d - spot.n}/${spot.d}`,
+                        title: `the mirror of ${spot.n}/${spot.d}` });
     });
+    nameTicks(lowerStrip, lowerItems);
+    nameTicks(upperStrip, upperItems);
     // one badge per position, carrying its count: a stacked dot costs vertical
     // space and stops being clickable once the stack grows over the rule
     const counts = new Map();
@@ -2258,9 +2294,10 @@
     counts.forEach((times, key) => {
       const [numerator, denominator] = key.split("/").map(Number);
       const spot = { n: numerator, d: denominator };
+      const below = numerator / denominator <= 0.5;
       const badge = document.createElement("span");
       badge.className = "spot-count";
-      badge.style.left = `${(numerator / denominator) * 100}%`;
+      badge.style.left = `${(below ? numerator / denominator : 1 - numerator / denominator) * RULER_SPAN}%`;
       badge.dataset.spot = key;
       badge.title = `${key}: ${times} ${times === 1 ? "copy" : "copies"}`;
       // an arrow each side of the count: up adds a copy, down takes one away and
@@ -2285,21 +2322,24 @@
         addSpot(spot, event.shiftKey);
       });
       badge.append(step("\u25b2", "one more copy", false), value, step("\u25bc", "one fewer copy", true));
-      rulerHost.append(badge);
+      (numerator / denominator <= 0.5 ? lowerStrip : upperStrip).append(badge);
     });
   }
 
-  if (rulerHost) {
-    rulerHost.addEventListener("click", event => {
-      const rect = rulerHost.getBoundingClientRect();
-      const t = (event.clientX - rect.left) / Math.max(1, rect.width);
+  if (rulerHost && lowerStrip) {
+    // only the lower strip places spots; the upper one is the mirror read out,
+    // so a click on it would have to mean two things at once
+    lowerStrip.addEventListener("click", event => {
+      const rect = lowerStrip.getBoundingClientRect();
+      const across = (event.clientX - rect.left) / Math.max(1, rect.width);   // 0..1 over 0..1/2
+      const value = across / 2;
       let best = null;
       let closest = 1;
       rulerSpots.forEach(spot => {
-        const distance = Math.abs(spot.value - t);
+        const distance = Math.abs(spot.value - value);
         if (distance < closest) { best = spot; closest = distance; }
       });
-      if (best && closest < 0.06) addSpot(best, false);
+      if (best && closest < 0.02) addSpot(best, false);
     });
     // start from the flat spots already in the field
     String(rootsField ? rootsField.value : "").split(/[,;\s]+/).map(parseSpot).filter(Boolean)

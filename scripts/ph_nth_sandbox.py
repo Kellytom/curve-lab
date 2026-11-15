@@ -68,16 +68,22 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 #n-roots-box h3{margin:0 0 2px}
 .group-rule{border:0;border-top:1px solid var(--rule);margin:18px 0 10px}
 .group-head{margin:0 0 8px;font-size:16px;letter-spacing:.01em}
-.roots-ruler{position:relative;height:58px;margin:0 0 22px;border-bottom:2px solid var(--ink);cursor:crosshair}
-.roots-ruler .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
-.roots-ruler .tick-label{position:absolute;bottom:-18px;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
-.roots-ruler .spot-count{position:absolute;top:2px;bottom:auto;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
-.roots-ruler .spot-value{font:700 12px ui-monospace,Menlo,monospace;color:#8a1f1f;cursor:pointer;padding:0 3px}
-.roots-ruler .spot-step{font:8px/1 ui-monospace,Menlo,monospace;color:#8a1f1f;background:none;border:0;padding:1px 3px;cursor:pointer}
-.roots-ruler .spot-step:hover{color:#1f4f8a}
-.roots-ruler .spot-count:hover{color:#1f4f8a}
-.roots-ruler .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
-.roots-ruler .spot:hover{background:#8a1f1f}
+.roots-ruler{position:relative;margin:0 0 26px}
+.ruler-strip{position:relative;height:146px;border-bottom:2px solid var(--ink)}
+.ruler-strip + .ruler-strip{margin-top:8px}
+.ruler-lower{cursor:crosshair}
+.ruler-upper{cursor:default}
+.ruler-strip .tick{position:absolute;bottom:0;width:1px;background:#b9ae97}
+.ruler-strip .tick-label{position:absolute;transform:translateX(-50%);font-size:11px;color:#6b6152;white-space:nowrap}
+.ruler-upper .tick{background:#cbbfa4}
+.ruler-upper .tick-label{color:#8a7f68}
+.ruler-strip .spot-count{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;line-height:1;background:#fbf7ec;padding:0 2px;user-select:none}
+.ruler-strip .spot-value{font:700 12px ui-monospace,Menlo,monospace;color:#8a1f1f;cursor:pointer;padding:0 3px}
+.ruler-strip .spot-step{font:8px/1 ui-monospace,Menlo,monospace;color:#8a1f1f;background:none;border:0;padding:1px 3px;cursor:pointer}
+.ruler-strip .spot-step:hover{color:#1f4f8a}
+.ruler-strip .spot-count:hover{color:#1f4f8a}
+.ruler-strip .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
+.ruler-strip .spot:hover{background:#8a1f1f}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
 .curve-box.complement{border-style:dashed}
 .curve-box h3{font-size:14px;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
@@ -212,7 +218,10 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 </div>
 <div class="curve-box" id="n-roots-box">
   <h3>Build from flat spots: see note below</h3>
-<div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t, click the line to place one"></div>
+<div class="roots-ruler" id="n-roots-ruler" role="group" aria-label="flat spots along t: the top strip runs 0 to 1/2, the bottom strip is its mirror, 1 to 1/2 backwards">
+  <div class="ruler-strip ruler-lower" title="0 at the left, 1/2 at the right: click to place a flat spot"></div>
+  <div class="ruler-strip ruler-upper" title="the mirror: 1 at the left, 1/2 at the right; 1/19 sits under its partner, 18/19"></div>
+</div>
   <div class="solver-row">
     <label class="small"><input type="checkbox" id="n-roots-mirror" checked> mirror about 1/2</label>
     <button type="button" id="n-roots-dots-fill" title="write the rows from the dots on the strip">fill from the dots</button>

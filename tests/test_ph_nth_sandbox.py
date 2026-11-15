@@ -16,6 +16,23 @@ def without_build_stamp(text):
 
 
 class TestNthSandbox(unittest.TestCase):
+    def test_the_ruler_runs_to_the_middle_and_mirrors_back_from_one(self):
+        """0 to 1/2 across the page, then 1 to 1/2 under it, so 1/19 and 1/20 split.
+
+        The strip used to read 0 to 1 across the box, which put 1/19 and 1/20
+        about 2.6 px apart on a 1030 px page and left the odd denominators
+        unreadable. Doubling the scale puts them 6.4 px apart, and the mirror
+        strip shows 18/19 directly under 1/19.
+        """
+        page = PAGE.read_text()
+        for marker in ('class="ruler-strip ruler-lower"',
+                       'class="ruler-strip ruler-upper"',
+                       "RULER_SPAN = 200",
+                       "16, 17, 18, 19, 20]",
+                       "drawTick(upperStrip, at, false);"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, page)
+
     def test_the_page_holds_the_degree_11_sandbox(self):
         page = PAGE.read_text()
         for marker in ("n-controls", "n-plot", "n-close", "n-open",
