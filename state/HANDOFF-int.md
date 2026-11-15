@@ -1961,3 +1961,60 @@ first run found three defects, all fixed. The data format is
 
 **Focus now:** making new curves with the tweak panel and adding them to the
 front of the experimental page's found curves, which now sorts newest first.
+
+## 2026-11-14 (session) — the sandbox, the register, and what the curves can do
+
+**The previous action did not land.** `next-fhandoff-int.md` asked for the notes-page
+section on specification vs representation (membership and carry tables). It was not
+done; this session worked on the sandbox pages instead. The front matter of
+`ph-nth-serif-notes.html` was not regenerated with those tables.
+
+**Built.** The experimental sandbox now has: a flat-spot ruler whose numbers stack per
+copy (click the number to add, shift-click to remove), an explicit `fill from the dots`,
+a fraction size box, and a `Tweak the primary curve, mirror kept` panel with balanced
+patterns for the x row (`t1,t2`; `t2..t4`; `t3..t6`) and the y row (`t1..t3 = -1,+3,-2`;
+`t2..t5`), plus a multiply of both rows by `1 + size(t - t^2)`. Measured: every pattern
+holds the mirror at 0.0000, and the sizes are binary-exact only — a size of 1/3 took the
+grid from 3,465 to 8.7e13.
+
+**Measured, and these are the numbers worth keeping.** Legs shorten by moving the outer
+flat spots inward (88% → 42% → 12%), not by cutting `t`: these curves' crossings span
+t 0.02 to 0.98, and the largest exact span below the whole curve is 0.879. Half powers
+are a dial, not a field: 0 of 400 random half-power rows made a knot, but one term at
+`t^1/2` took a curve from 6 crossings to 9. A share of the coefficient is the cheap
+lever: 1/4 of the 16 pair took the grid 3,465 → 693. Base pairs whose magnitude is a
+multiple of five (`15`, `20`, `30`) give grid 693.
+
+**Data.** `workbench/found-curves.json` is `curve-lab.curves/2`: `name`, `terms` (power
+beside each value), `measured`, `provenance`, and optionally `truncation`. 169 records,
+67 of them truncated by arc length (20% off each end). Every stored bend and grid
+re-derives from its own terms. Records now carry `step`, so a curve made at ½ reloads at
+½; absent means whole powers.
+
+**Register.** `scripts/register.py` runs the fast fixed-fault checks and the browser gate
+as one command, starting the server itself; a could-not-run exits non-zero rather than
+being counted a pass. 17 rows. Green at this commit.
+
+**Local:** 200 on `:8003`. **Remote:** no `.run.app` URL recorded; not probed, no deploy
+this session (carried 2026-11-13). **Tests:** 101 modules green, run this session
+(`scripts/test.py`). **Git:** clean at `a286827` before this block.
+
+**Risks, in the order they will bite.** The drawing is coalesced into one animation
+frame, so a click followed by an immediate DOM read sees the previous frame — the gate
+needs a 120 ms settle. Zoom and pan move the viewBox only, so zooming no longer raises
+the sample count (the polyline stays at 700 points). The pan sliders are coarse: one
+step is one model unit and these curves are a few units across.
+
+**Next move:** start the Bézier fitting step on one stored curve, with the span plan and
+the deviation measured rather than eyeballed.
+
+Tried and rejected: cutting legs in `t` (window, arc-length cut, exact sub-span rebuild,
+integer-hit cut) — the crossings span the curve, and a half-power row is not a polynomial
+in `t`, so no span shorter than the whole holds the knot; the three controls are parked on
+`ph-nth-exp-notes.html`. Also rejected: tweak sizes of 1/3 or 1/7 (binary-inexact, grid
+explodes), and coefficient-wise multiplication by `t(1-t)` (must be a polynomial product,
+otherwise the mirror breaks).
+
+**Context:** the operator reports 77% used. `scripts/ctx.py --log` reports 2.7% for
+session `ses_e230985b1ffe`, which is not this conversation's id (`ses_e27b9fc53ffe`), so
+the meter is not tracking this session — carried as ambiguous rather than trusted.

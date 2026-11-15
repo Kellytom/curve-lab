@@ -254,11 +254,44 @@ window.formatPolynomial = function (terms) {
 };
 
 window.panelRecipes = {};
+// The exponent step: 1 for whole powers, 1/2 for t^0.5, t^1.5, 5/2 ... The
+// experimental page sets window.phPowerStep; every other page leaves it unset,
+// so the Horner path below is what they run and nothing changes for them.
 window.polynomialValue = function (coefficients, t) {
+  const step = window.phPowerStep || 1;
+  if (step === 1) {
+    let total = 0;
+    for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+    return total;
+  }
   let total = 0;
-  for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+  for (let i = 0; i < coefficients.length; i++) {
+    // a negative t has no real fractional power, so below zero the row is read
+    // by the odd extension: sign(t) |t|^(k step). The page says so in words.
+    const power = t < 0 ? Math.sign(t) * Math.pow(-t, i * step) : Math.pow(t, i * step);
+    total += coefficients[i] * power;
+  }
   return total;
 };
+
+// Fractional exponents have no whole-number grid and no polynomial Wronskian,
+// so the numbers are measured from the curve instead of read off a formula.
+function numericMetrics(speedX, speedY) {
+  const value = window.polynomialValue;
+  const count = 1200;
+  let arc = 0, chordRe = 0, chordIm = 0, closest = Infinity;
+  for (let i = 0; i < count; i++) {
+    const t = (i + 0.5) / count;
+    const p = value(speedX, t), q = value(speedY, t);
+    arc += (p * p + q * q) / count;
+    chordRe += (p * p - q * q) / count;
+    chordIm += 2 * p * q / count;
+    closest = Math.min(closest, Math.hypot(p, q));
+  }
+  const chord = Math.hypot(chordRe, chordIm);
+  return { bend: chord > 1e-15 ? arc / chord : Infinity, arc, chord: [chordRe, chordIm],
+           pitch: 0, inflections: null, inflection: null, closest, inflectionMax: 0 };
+}
 window.polynomialDerivative = function (coefficients) {
   return coefficients.slice(1).map((coefficient, i) => coefficient * (i + 1));
 };
@@ -293,6 +326,7 @@ window.exactBend = function (speedX, speedY) {
   return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
 };
 window.recipeMetrics = function (speedX, speedY) {
+  if ((window.phPowerStep || 1) !== 1) return numericMetrics(speedX, speedY);
   const sampleCount = 600;
   const value = window.polynomialValue;
   const derivativeX = window.polynomialDerivative(speedX);

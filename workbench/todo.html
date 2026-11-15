@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:80.6%}
+.fill{height:100%;background:#8c6a21;width:80.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">104 / 129 done · 81% · read-only twin of
+<div class="count">105 / 130 done · 81% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -279,10 +279,12 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>and duplicate the sandbox page.</p>
 <h2>Legs, truncation, and the Bezier step — 2026-11-14</h2>
 <p>The finding that shapes the next step: on these curves the legs are <strong>not a separable stretch of <code>t</code></strong>. The self-crossings run from about t 0.02 to 0.98, so any span that removes a leg also removes crossings. Measured: the largest exact span below the whole curve is (15/16)^2 = 0.879, still shorter than the 0.96 the knot occupies. The rebuild therefore falls back to the whole curve and says so.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Decide the fate of the three knot buttons</strong> (<code>show only the knot</code>,</span></label>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Decide the fate of the three knot buttons</strong> (<code>show only the knot</code>,</span></label>
 <p><code>rebuild without the legs</code>, <code>cut and rebuild</code>): retire them, or replace the exact rebuild with a fitted one clearly labelled *fitted, not exact*. They now report why they cannot help, which is honest but not useful.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Decide what the Bezier step does with truncation.</strong> 67 of 169 stored</span></label>
 <p>records carry a <code>truncation</code> block (arc length, 20% off each end). Either the fitter consumes it, or the field is decoration and should go.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Pan sliders are coarse:</strong> one step is one model unit and these curves are a</span></label>
+<p>few units across. Choose a range and step that suit close work.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Spend spans where the curvature is.</strong> The legs are nearly straight, so the</span></label>
 <p>natural answer to &quot;short legs&quot; at the Bezier stage is one span per leg and several on the knot — not a cut in <code>t</code>. This is the item that may retire the whole truncation question.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>The fitter itself:</strong> cubic spans, a stated deviation tolerance, G1 or G2 at</span></label>
