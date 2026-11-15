@@ -88,7 +88,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
-#n-plot{width:100%;height:auto;display:block}
+#n-plot{width:100%;max-width:600px;height:auto;display:block;margin:0 auto}
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
@@ -99,6 +99,10 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .more-figure{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
 .more-figure svg{width:min(100%,340px);height:auto;max-height:260px}
 .gallery figure.open>svg{display:none}
+.gallery figure{position:relative}
+.thumb-zoom{position:absolute;top:6px;right:6px;display:flex;gap:3px;z-index:2}
+.thumb-zoom button{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:#2e2413;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.thumb-zoom button:hover{background:#efe7d3}
 .gallery figure>svg{width:100%;max-width:300px;height:auto;max-height:220px;display:block;margin:0 auto}
 .more-actions{min-width:0;display:flex;flex-direction:column;gap:6px}
 .more-actions textarea{width:100%;font:11px ui-monospace,Menlo,monospace}
@@ -1279,6 +1283,10 @@ window.curveSaver = (function () {
 
   // the same path the button takes, so a test can check the numbers directly
   // how far the drawn curve is from its own mirror, as a share of its size
+  // the gallery needs the crossings too, to frame a thumbnail on its knot
+  window.phNthCrossings = points => crossingsOf(points, points,
+    1e-4 * Math.max(1e-9, Math.max(...points.map(p => p[0])) - Math.min(...points.map(p => p[0]))));
+
   window.phNthSymmetry = () => {
     const points = spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y]);
     const mirror = R_mirrorOf(points);
@@ -1431,7 +1439,10 @@ window.curveSaver = (function () {
   function draw() {
     const plot = document.getElementById("n-plot");
     const speed = hookedSpeed();
-    const spine = spineSamples(speed);
+    // magnified views show the polyline's corners, so sample in proportion to the
+    // magnification: 700 points is plenty at 1x, not at 12x
+    const zoomForSamples = Math.abs(Number(view.zoom) || 1);
+    const spine = spineSamples(speed, Math.round(700 * Math.min(6, Math.max(1, zoomForSamples))));
     const complementSpine = spineSamples({ x: complement.x, y: complement.y }).map(s => [s.x, s.y]);
     const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
     const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
@@ -1591,16 +1602,16 @@ window.curveSaver = (function () {
     if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
     if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
     if (meets.length) legend.push(["#a23b2a", 1.6, "crossing"]);
-    let legendX = left, legendY = height - 44;
+    let legendX = left, legendY = height - 40;
     legend.forEach(([colour, widthStroke, text]) => {
       const entry = 34 + text.length * 8.2 + 26;
       if (legendX > left && legendX + entry > width_ - right) {
         legendX = left;
-        legendY += 20;
+        legendY += 26;
       }
       art += `<line x1="${legendX}" y1="${legendY}" x2="${legendX + 26}" y2="${legendY}" ` +
         `stroke="${colour}" stroke-width="${widthStroke}"/>` +
-        `<text x="${legendX + 34}" y="${legendY + 5}" font-size="15" fill="#2e2413">${text}</text>`;
+        `<text x="${legendX + 34}" y="${legendY + 6}" font-size="22" fill="#2e2413">${text}</text>`;
       legendX += entry;
     });
     plot.innerHTML = art;
@@ -2407,6 +2418,7 @@ window.curveSaver = (function () {
       inflections: (m.inflections || []).map(value => +value.toFixed(4)),
       closest: +m.closest.toFixed(3),
       width: { percent: width.percent },
+      step: window.phPowerStep || 1,
       tRange: { from: range.from, to: range.to },
       character: { plus: character.plus, minus: character.minus, profile: character.profile },
       shear: shear.delta,
@@ -2513,6 +2525,16 @@ window.curveSaver = (function () {
       if (turnBox) turnBox.value = String(complement.turn);
     } else {
       flipComplement();
+    }
+    // a record made at a fractional step loads at that step, so it draws as it was
+    // saved rather than leaning
+    if (pair.step && Math.abs(Number(pair.step) - (window.phPowerStep || 1)) > 1e-9) {
+      window.phPowerStep = Number(pair.step);
+      const control = document.getElementById("n-step");
+      if (control) {
+        control.value = String(pair.step);
+        control.dispatchEvent(new Event("input", { bubbles: false }));
+      }
     }
     setName(pair.name || "curve");
     // a record may carry a cut: the whole curve is still in the terms, the window
@@ -3609,9 +3631,15 @@ window.curveSaver = (function () {
   function spineOf(entry, steps = 260) {
     let x = 0, y = 0;
     const points = [[0, 0]];
+    // A stored curve with no step field was built at whole powers: the step field is
+    // new, so absent means 1. Falling back to the page's step drew a different curve
+    // in the thumbnail — which is what "the thumbnail is wrong" was.
+    const step = entry && Number(entry.step) ? Number(entry.step) : 1;
+    const at = (row, t) => row.reduce((sum, c, k) => sum + c * Math.pow(t, k * step), 0);
     for (let i = 0; i < steps; i++) {
       const t = (i + 0.5) / steps;
-      const a = value(entry.speedX, t), b = value(entry.speedY, t);
+      const a = step === 1 ? value(entry.speedX, t) : at(entry.speedX, t);
+      const b = step === 1 ? value(entry.speedY, t) : at(entry.speedY, t);
       x += (a * a - b * b) / steps;
       y += 2 * a * b / steps;
       points.push([x, y]);
@@ -3655,12 +3683,39 @@ window.curveSaver = (function () {
   }
 
   function miniSvg(speedX, speedY, label, kind = null, entry = null, rawPoints = null) {
-    const points = rawPoints || spineOf({ speedX, speedY }, 220);
+    // a record built at a fractional step has its numbers at powers k*step. Drawing it
+    // at whole powers is a different curve — that is why a thumbnail could look wrong
+    // while "load this one" looked right.
+    const entryStep = entry && Number(entry.step) ? Number(entry.step) : 1;
+    const points = rawPoints || spineOf({ speedX, speedY, step: entryStep }, 220);
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-    const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
-    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
-    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
-    const width = 200, height = 150, inset = 8;
+    // a thumbnail is 200 pixels wide: fitted to the whole curve, a knot is a smudge.
+    // Frame it on the crossing cluster instead, with room around it, and fall back to
+    // the whole curve when nothing crosses.
+    const crossings = window.phNthCrossings ? window.phNthCrossings(points) : [];
+    let minX, maxX, minY, maxY;
+    const framedOnKnot = crossings.length >= 2;
+    if (framedOnKnot) {
+      const kx = crossings.map(p => p[0]), ky = crossings.map(p => p[1]);
+      const centreX = (Math.min(...kx) + Math.max(...kx)) / 2;
+      const centreY = (Math.min(...ky) + Math.max(...ky)) / 2;
+      const spread = Math.max(Math.max(...kx) - Math.min(...kx), Math.max(...ky) - Math.min(...ky), 1e-9);
+      const half = spread * 0.85;
+      minX = centreX - half; maxX = centreX + half;
+      minY = centreY - half; maxY = centreY + half;
+    } else {
+      const pad = 0.06 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+      minX = Math.min(...xs) - pad; maxX = Math.max(...xs) + pad;
+      minY = Math.min(...ys) - pad; maxY = Math.max(...ys) + pad;
+    }
+    // the thumbnail's box follows its curve, within limits: in a fixed 200x150 box a
+    // 3:1 curve fills the width and only about 40% of the height, so it reads as
+    // unzoomed beside a squarer one. The cell stays the same size; the drawing's
+    // viewBox is what changes.
+    const width = 200;
+    const curveAspect = Math.max(1e-9, (maxX - minX) / Math.max(1e-9, maxY - minY));
+    const height = Math.round(Math.max(96, Math.min(200, (width - 16) / curveAspect + 16)));
+    const inset = 8;
     const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
     const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
     const oy = inset + ((height - 2 * inset) - (maxY - minY) * scale) / 2;
@@ -3676,7 +3731,7 @@ window.curveSaver = (function () {
     }
     return `<figure class="pair-cell" data-speed="${kind || "full"}">
       <figcaption>${label}</figcaption>
-      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
+      <svg viewBox="0 0 ${width} ${height}" data-frame="${framedOnKnot ? "knot" : "whole"}" role="img" aria-label="${label}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         ${rails}
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
@@ -3686,12 +3741,45 @@ window.curveSaver = (function () {
     </figure>`;
   }
 
+  // per-thumbnail zoom: a knot-framed figure is sometimes too tight, and a whole-curve
+  // one sometimes too wide. Kept by name, so it survives a re-render.
+  const thumbnailZoom = new Map();
+
   function figureFor(entry, index = 0) {
-    const points = spineOf(entry);
+    const zoom = Math.max(0.25, Math.min(8, thumbnailZoom.get(entry.name) || 1));
+    // more samples where the view is magnified, so the line does not look jagged
+    const points = spineOf(entry, Math.round(400 * Math.min(6, Math.max(1, zoom))));
     const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-    const pad = 0.08 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
-    const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad;
-    const minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad;
+    // Frame the thumbnail on the knot when there is one: at 200 pixels the whole curve
+    // makes the tangle a smudge, which is why the little figures did not show the knot
+    // that "load this one" shows correctly.
+    const crossings = window.phNthCrossings ? window.phNthCrossings(points) : [];
+    const framedOnKnot = crossings.length >= 2;
+    let minX, maxX, minY, maxY;
+    if (framedOnKnot) {
+      const kx = crossings.map(p => p[0]), ky = crossings.map(p => p[1]);
+      const centreX = (Math.min(...kx) + Math.max(...kx)) / 2;
+      const centreY = (Math.min(...ky) + Math.max(...ky)) / 2;
+      const spread = Math.max(Math.max(...kx) - Math.min(...kx), Math.max(...ky) - Math.min(...ky), 1e-9);
+      // a knot can sit on a curve that shoots far away. Frame the knot, but grow the
+      // frame until no more than a tenth of the ink is cut off — a fixed margin either
+      // crops most of the curve or zooms so far out that the knot is a smudge.
+      const reach = points
+        .map(p => Math.max(Math.abs(p[0] - centreX), Math.abs(p[1] - centreY)))
+        .sort((a, b) => a - b);
+      const ninetieth = reach[Math.floor(reach.length * 0.9)] || spread;
+      const half = Math.max(spread * 0.85, ninetieth * 1.1) / zoom;
+      minX = centreX - half; maxX = centreX + half;
+      minY = centreY - half; maxY = centreY + half;
+    } else {
+      const pad = 0.08 * Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+      const midX = (Math.min(...xs) + Math.max(...xs)) / 2;
+      const midY = (Math.min(...ys) + Math.max(...ys)) / 2;
+      const halfW = ((Math.max(...xs) - Math.min(...xs)) / 2 + pad) / zoom;
+      const halfH = ((Math.max(...ys) - Math.min(...ys)) / 2 + pad) / zoom;
+      minX = midX - halfW; maxX = midX + halfW;
+      minY = midY - halfH; maxY = midY + halfH;
+    }
     const width = 200, height = 150, inset = 8;
     const scale = Math.min((width - 2 * inset) / (maxX - minX), (height - 2 * inset) / (maxY - minY));
     const ox = inset + ((width - 2 * inset) - (maxX - minX) * scale) / 2;
@@ -3701,6 +3789,7 @@ window.curveSaver = (function () {
     const json = JSON.stringify({ name: entry.name, speedX: entry.speedX, speedY: entry.speedY,
                                   bend: entry.bend, pitch: entry.pitch, from: entry.from }, null, 1);
     return `<figure data-name="${entry.name}">
+      <span class="thumb-zoom"><button type="button" class="thumb-plus" title="closer" aria-label="closer on ${entry.name}">+</button><button type="button" class="thumb-minus" title="wider" aria-label="wider on ${entry.name}">&minus;</button></span>
       <button type="button" class="gallery-open" aria-expanded="false">
         <span class="gallery-number">Fig. ${index}</span>
         <span class="gallery-name">${entry.name}</span>
@@ -3709,7 +3798,7 @@ window.curveSaver = (function () {
           : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
         <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
       </button>
-      <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
+      <svg viewBox="0 0 ${width} ${height}" data-frame="${framedOnKnot ? "knot" : "whole"}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         ${(() => {
           const rails = characterRailsOf(entry);
@@ -3786,6 +3875,14 @@ window.curveSaver = (function () {
     const open = figure.querySelector(".gallery-open");
     const more = figure.querySelector(".more");
 
+    if (event.target.closest(".thumb-plus") || event.target.closest(".thumb-minus")) {
+      const step = event.target.closest(".thumb-plus") ? 1.4 : 1 / 1.4;
+      const current = thumbnailZoom.get(figure.dataset.name) || 1;
+      thumbnailZoom.set(figure.dataset.name, Math.max(0.25, Math.min(8, current * step)));
+      const index = [...host.querySelectorAll("figure[data-name]")].indexOf(figure) + 1;
+      figure.outerHTML = figureFor(entry, index);
+      return;
+    }
     if (event.target.closest(".gallery-open")) {
       const showing = more.hidden;
       closeAll(figure);
@@ -3849,5 +3946,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 20:38</p>
+<p class="small mono" id="n-build">build 2026-11-14 20:53</p>
 </body></html>
