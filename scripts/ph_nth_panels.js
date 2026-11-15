@@ -2247,6 +2247,50 @@
     y2: [[2, -1], [3, 4], [4, -5], [5, 2]],
   };
   const tweakHistory = [];
+  const tweakTotal = document.getElementById("n-tweak-total");
+  // the curve as it stood before the first tweak of this run, so the panel can say
+  // what the total change is — and as a fraction, because round fractions are what
+  // keep the grid cheap
+  let tweakBase = null;
+  const asFraction = value => {
+    if (Math.abs(value - Math.round(value)) < 1e-9) return String(Math.round(value));
+    let best = null;
+    for (let d = 2; d <= 64; d++) {
+      const n = Math.round(value * d);
+      const error = Math.abs(value - n / d);
+      if (!best || error < best.error) best = { n, d, error };
+    }
+    if (best && best.error < 1e-4) {
+      const sources = [];
+      for (let n2 = 1; n2 < best.d; n2++) sources.push(n2);
+      return `${best.n}/${best.d}`;
+    }
+    return value.toFixed(4);
+  };
+  function updateTweakTotal() {
+    if (!tweakTotal) return;
+    if (!tweakBase) { tweakTotal.textContent = "no change from the starting curve yet"; return; }
+    const step = window.phPowerStep || 1;
+    const parts = [];
+    const describe = (before, after, axis) => {
+      after.forEach((value, index) => {
+        const was = before[index] || 0;
+        const delta = +(value - was).toFixed(6);
+        if (!delta) return;
+        const power = +(index * step).toFixed(3);
+        const share = was ? asFraction(delta / was) : null;
+        parts.push(`${axis} t^${power} ${delta > 0 ? "+" : ""}${asFraction(delta)}` +
+                   (share ? ` (${share} of ${asFraction(was)})` : ""));
+      });
+    };
+    describe(tweakBase.x, state.x, "x");
+    describe(tweakBase.y, state.y, "y");
+    const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+    const grid = now && now.pitch ? ` · grid 1/${now.pitch.toLocaleString()}` : " · grid n/a at this step";
+    tweakTotal.textContent = parts.length ? `total change: ${parts.join("; ")}${grid}` : "no change from the starting curve yet";
+  }
+  const snapshotBase = () => { if (!tweakBase) tweakBase = { x: state.x.slice(), y: state.y.slice() }; };
+
   const tweakStatus = document.getElementById("n-tweak-status");
   const tweakSize = document.getElementById("n-tweak-size");
   // the size is a fraction. Its denominator is the grid cost: an addition needs the
@@ -2287,11 +2331,13 @@
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
+    snapshotBase();
     tweakHistory.push({ row: row === state.x ? "x" : "y", before: row.slice() });
     let touched = 0;
     pattern.forEach(([power, weight]) => { if (addToPower(row, power, weight * size)) touched += 1; });
     writeCells();
     draw();
+    updateTweakTotal();
     if (tweakStatus) {
       const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
       const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
@@ -2332,6 +2378,7 @@
       return;
     }
     const top = Math.max(...[...px.keys(), ...py.keys()].map(indexOf)) + 1;
+    snapshotBase();
     tweakHistory.push({ row: "both", x: state.x.slice(), y: state.y.slice() });
     if (top > window.phNthDegree().speedCount) window.phNthSetDegree(top - 1);
     sizePair(state);
@@ -2347,6 +2394,7 @@
     state.y = write(py);
     writeCells();
     draw();
+    updateTweakTotal();
     if (tweakStatus) {
       const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
       const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
@@ -2377,6 +2425,8 @@
     else if (last.row === "x") state.x = pad(last.before); else state.y = pad(last.before);
     writeCells();
     draw();
+    if (!tweakHistory.length) tweakBase = null;
+    updateTweakTotal();
     if (tweakStatus) tweakStatus.textContent = "last tweak undone";
   });
 

@@ -109,10 +109,10 @@ def build():
     <label class="dial" for="n-tweak-divisor" title="take a share of the coefficient itself: 16 divided by 8 gives a whole-number tweak of 2">share of the x pair
       <select id="n-tweak-divisor">
         <option value="0">absolute size</option>
-        <option value="2">1/2 of 16 = 8</option>
-        <option value="4">1/4 of 16 = 4</option>
-        <option value="8">1/8 of 16 = 2</option>
-        <option value="16" selected>1/16 of 16 = 1</option>
+        <option value="2">1/2 of the pair</option>
+        <option value="4">1/4 of the pair</option>
+        <option value="8">1/8 of the pair</option>
+        <option value="16">1/16 of the pair</option>
       </select></label>
     <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
     <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
@@ -123,6 +123,7 @@ def build():
     <button type="button" id="n-tweak-undo" title="take back the last tweak">undo</button>
   </div>
   <p class="small mono" id="n-tweak-status"></p>
+  <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>
 </div>
 """
     page = page[:box_start] + tweak + page[box_end:]
@@ -148,7 +149,7 @@ def build():
         "(() => {\n"
         "  const step = document.getElementById('n-step');\n"
         "  if (step) { step.value = '0.5'; step.dispatchEvent(new Event('input', { bubbles: true })); }\n"
-        "  const wanted = (window.phNthGallery || []).find(entry => entry.name === 'lace-1of10-3-2');\n"
+        "  const wanted = (window.phNthGallery || []).find(entry => entry.name === 'wide-knot-x20');\n"
         "  if (wanted && window.phNthLoad) window.phNthLoad(wanted);\n"
         "})();\n"
         "</script>\n"
