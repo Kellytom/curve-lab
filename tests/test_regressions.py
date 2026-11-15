@@ -98,6 +98,14 @@ class TestRegressions(unittest.TestCase):
         """2026-11-14: 'make the knot bigger' had no number to steer by."""
         self.assertIn("knot ${knotShare}% legs ${legShare}%", PANELS.read_text())
 
+    def test_the_tweak_sizes_are_binary_exact_only(self):
+        """2026-11-14: a size of 1/3 took the grid from 3,465 to 8.7e13, because a
+        third cannot be written exactly in machine arithmetic."""
+        source = EXP.read_text()
+        self.assertNotIn('value="1/3"', source)
+        for allowed in ("1/8", "1/4", "1/2"):
+            self.assertIn(f'value="{allowed}"', source)
+
     def test_the_flat_spots_fill_whole_power_boxes(self):
         """2026-11-14: pressing fill at step 1/2 wrote the knot into the half-power
         boxes, so the button drew a different curve from the one it named."""

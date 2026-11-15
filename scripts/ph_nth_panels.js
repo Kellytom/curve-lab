@@ -2249,6 +2249,14 @@
   const tweakHistory = [];
   const tweakStatus = document.getElementById("n-tweak-status");
   const tweakSize = document.getElementById("n-tweak-size");
+  // the size is a fraction. Its denominator is the grid cost: an addition needs the
+  // grid times that denominator, the multiply times its square, because the factor
+  // is used twice. A decimal such as 0.1 costs ten, which is why it felt wrong.
+  const readSize = () => {
+    const spot = parseSpot(tweakSize ? tweakSize.value : "1/4");
+    if (!spot || spot.n <= 0) return { value: 0.25, denominator: 4, text: "1/4" };
+    return { value: spot.n / spot.d, denominator: spot.d, text: `${spot.n}/${spot.d}` };
+  };
 
   function addToPower(row, power, amount) {
     const step = window.phPowerStep || 1;
@@ -2260,7 +2268,7 @@
   }
 
   function applyPattern(key, row) {
-    const size = Number(tweakSize && tweakSize.value) || 0.1;
+    const { value: size, denominator, text } = readSize();
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
@@ -2270,13 +2278,16 @@
     writeCells();
     draw();
     if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
       tweakStatus.textContent = touched
-        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${pattern.map(p => p[1] * size).join(", ")}`
+        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${text} times ` +
+          `${pattern.map(p => p[1]).join(", ")}${grid}`
         : "this step cannot reach those powers";
     }
   }
 
-  function multiplyBoth(size) {
+  function multiplyBoth(size, denominator, text) {
     // Done in powers, not in boxes: at step 1/2 a box is half a power, so scaling
     // boxes would put the factor's centre at t = 1/4 and lean the curve. The factor
     // is 1 + size(t - t^2), namely powers 0, 1 and 2.
@@ -2321,8 +2332,12 @@
     state.y = write(py);
     writeCells();
     draw();
-    if (tweakStatus) tweakStatus.textContent =
-      `both rows multiplied by 1 + ${size}(t - t^2) in powers, so the mirror holds`;
+    if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
+      tweakStatus.textContent =
+        `both rows multiplied by 1 + ${text}(t - t^2) in powers, mirror held${grid}`;
+    }
   }
 
   [["n-tweak-x1", "x1", () => state.x], ["n-tweak-x2", "x2", () => state.x],
@@ -2333,7 +2348,8 @@
   });
   const tweakBoth = document.getElementById("n-tweak-both");
   if (tweakBoth) tweakBoth.addEventListener("click", () => {
-    multiplyBoth(Number(tweakSize && tweakSize.value) || 0.1);
+    const { value, denominator, text } = readSize();
+    multiplyBoth(value, denominator, text);
   });
   const tweakUndo = document.getElementById("n-tweak-undo");
   if (tweakUndo) tweakUndo.addEventListener("click", () => {

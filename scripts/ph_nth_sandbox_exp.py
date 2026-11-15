@@ -92,11 +92,20 @@ def build():
     tweak = """<div class="curve-box" id="n-tweak-box">
   <h3>Tweak the primary curve, mirror kept</h3>
   <p class="small">Each button adds a balanced change, so the curve stays mirrored about the middle.
-  <strong>size</strong> scales it: 0.1 is a small nudge, 1 is bold. The primary curve above redraws at
+  <strong>size</strong> scales it, as a fraction: 1 is bold, 1/4 is a nudge. Use halves,
+  quarters, eighths or whole numbers — <strong>not thirds or sevenths</strong>, which cannot be written
+  exactly in the machine and blow the integer grid up (measured: 1/3 took 3,465 to 8.7e13). The
+  status line says what the grid cost is, and at step 1 the readout shows the grid itself. The primary curve above redraws at
   once. On the y row the pattern has three numbers, because that row reads as its own negative from
   the far end, so a two-number swap would lean it.</p>
   <div class="solver-row">
-    <label class="dial" for="n-tweak-size">size <input id="n-tweak-size" type="number" min="0" max="2" step="0.01" value="0.1"></label>
+    <label class="dial" for="n-tweak-size">size
+      <input id="n-tweak-size" type="text" list="n-tweak-sizes" value="1/4" size="6"
+             title="a fraction such as 1/4; decimals work but cost more grid">
+      <datalist id="n-tweak-sizes">
+        <option value="1/8"></option><option value="1/4"></option><option value="1/2"></option>
+        <option value="1"></option><option value="2"></option><option value="3"></option>
+      </datalist></label>
     <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
     <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
     <button type="button" id="n-tweak-x3" title="add +1, -3, +3, -1 times size on t^3 to t^6">x: t3 to t6</button>

@@ -155,6 +155,28 @@ The experimental page carries these as buttons; the primary curve redraws at onc
 and `window.phNthSymmetry()` reports the mirror gap, which is 0.0000 for every
 pattern above at steps 1 and 1/2.
 
+## What a tweak costs in grid
+
+The tweak sizes are fractions, and the fraction decides the integer grid the curve
+needs. Measured on the operator's curve at step 1, adding `x: t1,t2`:
+
+| size | grid after | factor |
+|---|---|---|
+| 1 | 6,930 | ×2 |
+| 1/4 | 22,176 | ×6.4 |
+| 1/2 | 27,720 | ×8 |
+| 1/8 | (cheaper than 1/4 in every case tried) | — |
+| **1/3** | **86,625,000,000,000** | ruined |
+
+1/3 is not an arithmetic limit but a machine one: a third cannot be written
+exactly in binary, so every coefficient becomes a long decimal and the grid
+explodes. **Only halves, quarters, eighths and whole numbers are offered**, and
+the page says why. The multiply by `1 + size(t − t²)` is the most expensive
+(1/2 took the grid to 5,765,760) because the factor is used twice.
+
+The status line reports the grid after every tweak, so the cost is visible rather
+than discovered later.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the

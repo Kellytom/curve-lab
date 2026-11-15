@@ -214,11 +214,20 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 <div class="curve-box" id="n-tweak-box">
   <h3>Tweak the primary curve, mirror kept</h3>
   <p class="small">Each button adds a balanced change, so the curve stays mirrored about the middle.
-  <strong>size</strong> scales it: 0.1 is a small nudge, 1 is bold. The primary curve above redraws at
+  <strong>size</strong> scales it, as a fraction: 1 is bold, 1/4 is a nudge. Use halves,
+  quarters, eighths or whole numbers — <strong>not thirds or sevenths</strong>, which cannot be written
+  exactly in the machine and blow the integer grid up (measured: 1/3 took 3,465 to 8.7e13). The
+  status line says what the grid cost is, and at step 1 the readout shows the grid itself. The primary curve above redraws at
   once. On the y row the pattern has three numbers, because that row reads as its own negative from
   the far end, so a two-number swap would lean it.</p>
   <div class="solver-row">
-    <label class="dial" for="n-tweak-size">size <input id="n-tweak-size" type="number" min="0" max="2" step="0.01" value="0.1"></label>
+    <label class="dial" for="n-tweak-size">size
+      <input id="n-tweak-size" type="text" list="n-tweak-sizes" value="1/4" size="6"
+             title="a fraction such as 1/4; decimals work but cost more grid">
+      <datalist id="n-tweak-sizes">
+        <option value="1/8"></option><option value="1/4"></option><option value="1/2"></option>
+        <option value="1"></option><option value="2"></option><option value="3"></option>
+      </datalist></label>
     <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
     <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
     <button type="button" id="n-tweak-x3" title="add +1, -3, +3, -1 times size on t^3 to t^6">x: t3 to t6</button>
@@ -2929,6 +2938,14 @@ window.curveSaver = (function () {
   const tweakHistory = [];
   const tweakStatus = document.getElementById("n-tweak-status");
   const tweakSize = document.getElementById("n-tweak-size");
+  // the size is a fraction. Its denominator is the grid cost: an addition needs the
+  // grid times that denominator, the multiply times its square, because the factor
+  // is used twice. A decimal such as 0.1 costs ten, which is why it felt wrong.
+  const readSize = () => {
+    const spot = parseSpot(tweakSize ? tweakSize.value : "1/4");
+    if (!spot || spot.n <= 0) return { value: 0.25, denominator: 4, text: "1/4" };
+    return { value: spot.n / spot.d, denominator: spot.d, text: `${spot.n}/${spot.d}` };
+  };
 
   function addToPower(row, power, amount) {
     const step = window.phPowerStep || 1;
@@ -2940,7 +2957,7 @@ window.curveSaver = (function () {
   }
 
   function applyPattern(key, row) {
-    const size = Number(tweakSize && tweakSize.value) || 0.1;
+    const { value: size, denominator, text } = readSize();
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
@@ -2950,13 +2967,16 @@ window.curveSaver = (function () {
     writeCells();
     draw();
     if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
       tweakStatus.textContent = touched
-        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${pattern.map(p => p[1] * size).join(", ")}`
+        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${text} times ` +
+          `${pattern.map(p => p[1]).join(", ")}${grid}`
         : "this step cannot reach those powers";
     }
   }
 
-  function multiplyBoth(size) {
+  function multiplyBoth(size, denominator, text) {
     // Done in powers, not in boxes: at step 1/2 a box is half a power, so scaling
     // boxes would put the factor's centre at t = 1/4 and lean the curve. The factor
     // is 1 + size(t - t^2), namely powers 0, 1 and 2.
@@ -3001,8 +3021,12 @@ window.curveSaver = (function () {
     state.y = write(py);
     writeCells();
     draw();
-    if (tweakStatus) tweakStatus.textContent =
-      `both rows multiplied by 1 + ${size}(t - t^2) in powers, so the mirror holds`;
+    if (tweakStatus) {
+      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
+      tweakStatus.textContent =
+        `both rows multiplied by 1 + ${text}(t - t^2) in powers, mirror held${grid}`;
+    }
   }
 
   [["n-tweak-x1", "x1", () => state.x], ["n-tweak-x2", "x2", () => state.x],
@@ -3013,7 +3037,8 @@ window.curveSaver = (function () {
   });
   const tweakBoth = document.getElementById("n-tweak-both");
   if (tweakBoth) tweakBoth.addEventListener("click", () => {
-    multiplyBoth(Number(tweakSize && tweakSize.value) || 0.1);
+    const { value, denominator, text } = readSize();
+    multiplyBoth(value, denominator, text);
   });
   const tweakUndo = document.getElementById("n-tweak-undo");
   if (tweakUndo) tweakUndo.addEventListener("click", () => {
@@ -3682,7 +3707,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 19:23</p>
+<p class="small mono" id="n-build">build 2026-11-14 19:28</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');
