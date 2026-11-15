@@ -177,6 +177,29 @@ the page says why. The multiply by `1 + size(t − t²)` is the most expensive
 The status line reports the grid after every tweak, so the cost is visible rather
 than discovered later.
 
+## A tweak is a share of the coefficient, not an absolute step
+
+An absolute size changes every coefficient by the same amount. A share takes a
+fraction of the coefficient itself, which keeps a mirrored pair balanced: the pair
+has equal magnitude, so a quarter of 16 moves both ends by 4.
+
+Measured on the default curve at step 1, adding `x: t1, t2`:
+
+| share of the 16 pair | tweak | x becomes | grid |
+|---|---|---|---|
+| 1/16 | +1 | 3, -17, 17 | 6,930 |
+| 1/8 | +2 | 3, -18, 18 | 3,465 |
+| **1/4** | **+4** | 3, -20, 20 | **693** |
+| 1/2 | +8 | 3, -24, 24 | 3,465 |
+
+All keep the mirror exact. The grid is a least common multiple over the whole
+position polynomial, so a share can lower it — 1/4 made the curve five times
+cheaper — as well as raise it, which 1/16 did. That is the operator's gcd
+instinct confirmed: the numbers have to be read together, not one at a time.
+
+The panel offers both levers, an absolute fraction and a share of the x pair, and
+the status reports the grid after every tweak.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the
