@@ -112,6 +112,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
+.plot-legend{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin:10px 0 4px;font:15px/1.4 Georgia,serif;color:var(--ink)}
+.legend-item{display:inline-flex;align-items:center;gap:8px}
+.legend-rule{display:inline-block;width:26px;height:3px;border-radius:2px}
 .plot-row{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;align-items:start}
 @media(max-width:760px){.plot-row{grid-template-columns:1fr}}
 .plot-host{min-width:0}
@@ -254,12 +257,12 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
       <input id="n-zoom-number" type="number" step="0.5" value="1" style="width:5em" title="positive in, negative out"></label>
     <label class="hud-row" for="n-pan-x">pan x
       <input id="n-pan-x" type="range" min="-50" max="50" step="1" value="0"></label>
-    <label class="hud-row" for="n-move-x">pan x
-      <input id="n-move-x" type="number" step="0.1" value="0"></label>
+    <label class="hud-row" for="n-pan-x-number">pan x
+      <input id="n-pan-x-number" type="number" step="0.1" value="0"></label>
     <label class="hud-row" for="n-pan-y">pan y
       <input id="n-pan-y" type="range" min="-50" max="50" step="1" value="0"></label>
-    <label class="hud-row" for="n-move-y">pan y
-      <input id="n-move-y" type="number" step="0.1" value="0"></label>
+    <label class="hud-row" for="n-pan-y-number">pan y
+      <input id="n-pan-y-number" type="number" step="0.1" value="0"></label>
     <button type="button" id="n-view-reset" title="zoom 1, no pan, no rotation">reset the view</button>
   </aside>
 </div>
@@ -329,6 +332,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-place-end" title="solve the top pair so the curve ends here; the rest of the curve barely moves">place the end</button>
 </div>
 <p class="small mono" id="n-width-readout"></p>
+<div class="plot-legend" id="n-plot-legend" aria-label="legend of the plot"></div>
 
 
 <p class="small">The offsets are parallel here: <code>r &plusmn; d n</code> with <code>d</code> constant.

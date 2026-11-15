@@ -93,7 +93,8 @@ if (spineAfter !== spineBefore) failures.push("editing the complement changed th
 const paths = () => page.evaluate(() =>
   [...document.querySelectorAll("#n-plot path")]
     .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666").length);
-if (await paths() !== 1) failures.push("default view is not the spine alone");
+const basePaths = await paths();
+if (basePaths !== 1) failures.push(`default view is not the spine alone: ${basePaths} paths`);
 const spinePath = await page.evaluate(() => {
   const path = [...document.querySelectorAll("#n-plot path")]
     .find(item => (item.getAttribute("stroke") || "").toLowerCase() === "#2e2413");
@@ -102,15 +103,18 @@ const spinePath = await page.evaluate(() => {
 if (/NaN|undefined/.test(spinePath.d) || spinePath.length < 2) {
   failures.push(`the spine is not drawn: length ${spinePath.length}`);
 }
-await page.click("#n-rails");
-if (await paths() !== 3) failures.push("rails toggle did not add two paths");
-await page.click("#n-terminal-end");
+// the page coalesces a redraw into the next animation frame, so a click needs a beat
+// before the DOM shows its result
+const clickAndSettle = async selector => { await page.click(selector); await page.waitForTimeout(120); };
+await clickAndSettle("#n-rails");
+if (await paths() !== 3) failures.push(`rails toggle did not add two paths: ${await paths()} paths`);
+await clickAndSettle("#n-terminal-end");
 if (await paths() !== 4) failures.push("end terminal did not add an arc");
-await page.click("#n-terminal-start");
+await clickAndSettle("#n-terminal-start");
 if (await paths() !== 5) failures.push("start terminal did not add an arc");
-await page.click("#n-terminal-start");
-await page.click("#n-terminal-end");
-await page.click("#n-rails");
+await clickAndSettle("#n-terminal-start");
+await clickAndSettle("#n-terminal-end");
+await clickAndSettle("#n-rails");
 if (await paths() !== 1) failures.push("toggles did not return to the spine alone");
 
 // the sliders must write the number boxes
@@ -132,7 +136,7 @@ if (!Number.isFinite(quoted) || Math.abs(quoted - 3) > 0.002) failures.push(`wid
 
 // character offsets: two rails and the spine, and at character 0 the rails must
 // be exactly the parallel rails
-await page.click("#n-rails");
+await clickAndSettle("#n-rails");
 await page.waitForTimeout(150);
 const inkBoxes = () => page.evaluate(() => [...document.querySelectorAll("#n-plot path")]
   .filter(path => (path.getAttribute("stroke") || "").toLowerCase() !== "#666666")
@@ -154,7 +158,7 @@ await page.dispatchEvent("#n-char-l", "input");
 await page.fill("#n-char-r", "2");
 await page.dispatchEvent("#n-char-r", "input");
 await page.click("#n-character");
-await page.click("#n-rails");
+await clickAndSettle("#n-rails");
 
 // place the end: the top pair solves the endpoint, and the start barely moves
 const endOf = () => page.evaluate(() => {

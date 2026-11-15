@@ -317,7 +317,8 @@
 
   // what the page draws: the spine alone by default
   const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
-                 rotate: false, complement: !window.phNoComplement, focusKnot: false, zoom: 1 };
+                 rotate: false, complement: !window.phNoComplement, focusKnot: false, zoom: 1,
+                 panX: 0, panY: 0 };
   const TURN = -Math.PI / 4;
   const turned = points => view.rotate
     ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
@@ -754,13 +755,38 @@
   }
 
   // ---------- the drawing ----------
+  // Zoom and pan move the viewBox over the finished picture: no re-sampling, so a
+  // slider drag is instant. Positive zoom magnifies, negative pulls back, |z| < 1 is 1;
+  // pan is a share of the visible width, so it feels the same at every zoom.
+  let viewCanvas = null;
+  function applyView() {
+    const svg = document.getElementById("n-plot");
+    if (!svg || !viewCanvas) return;
+    const zoom = Number(view.zoom);
+    const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
+    const w = viewCanvas.width * factor;
+    const h = viewCanvas.height * factor;
+    const cx = viewCanvas.width / 2 + (Number(view.panX) || 0) / 100 * w;
+    const cy = viewCanvas.height / 2 + (Number(view.panY) || 0) / 100 * h;
+    svg.setAttribute("viewBox", `${(cx - w / 2).toFixed(1)} ${(cy - h / 2).toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}`);
+  }
+
+  // one redraw per animation frame, however many events arrive in between: holding an
+  // arrow key fires dozens of input events and each one used to cost a full draw
+  let drawPending = false;
   function draw() {
+    if (drawPending) return;
+    drawPending = true;
+    requestAnimationFrame(() => { drawPending = false; drawNow(); });
+  }
+
+  function drawNow() {
     const plot = document.getElementById("n-plot");
     const speed = hookedSpeed();
     // magnified views show the polyline's corners, so sample in proportion to the
     // magnification: 700 points is plenty at 1x, not at 12x
     const zoomForSamples = Math.abs(Number(view.zoom) || 1);
-    const spine = spineSamples(speed, Math.round(700 * Math.min(6, Math.max(1, zoomForSamples))));
+    const spine = spineSamples(speed, Math.round(700 * Math.min(3, Math.max(1, zoomForSamples))));
     const complementSpine = spineSamples({ x: complement.x, y: complement.y }).map(s => [s.x, s.y]);
     const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
     const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
@@ -799,14 +825,19 @@
     const shown = turned(all);
     // where the stroke crosses itself: that cluster is the knot, and the focus
     // frames it instead of the whole curve, which is mostly long legs
-    const selfCrossings = crossingsOf(spinePoints, spinePoints,
+    // the crossing test compares every segment with every other, so it runs on a
+    // decimated copy: 400 points instead of up to 4200 keeps a keypress instant
+    const decimate = (points, want = 400) => {
+      const stride = Math.max(1, Math.round(points.length / want));
+      return points.filter((unused, index) => index % stride === 0 || index === points.length - 1);
+    };
+    const selfCrossings = crossingsOf(decimate(spinePoints), decimate(spinePoints),
                                       1e-4 * Math.max(1e-9, Math.max(...shown.map(p => p[0])) -
                                                       Math.min(...shown.map(p => p[0]))));
     const knotsShown = turned(selfCrossings);
-    // The frame is chosen first — the knot with a margin when focusing, otherwise
-    // the whole curve — and then the zoom scales it about its own centre. Positive
-    // zoom magnifies, negative pulls back past the whole figure, |z| < 1 counts as
-    // 1. Working this way keeps both directions one piece of arithmetic.
+    // The drawing is made once, at the base frame: the knot with a margin when the
+    // focus is on, otherwise the whole curve. Zoom and pan are applied afterwards by
+    // moving the viewBox over the finished picture, so neither costs a redraw.
     const xs = shown.map(p => p[0]), ys = shown.map(p => p[1]);
     const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
     const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
@@ -822,33 +853,13 @@
       const half = spread * 0.9;
       frame = { minX: centreX - half, maxX: centreX + half, minY: centreY - half, maxY: centreY + half };
     }
-    // a cut end gets a dotted stub, and the frame must have room for it or the clip
-    // eats it: 6% of the frame on each side when a cut is in force
     if (range.from > 1e-9 || range.to < 1 - 1e-9) {
       const growX = (frame.maxX - frame.minX) * 0.06;
       const growY = (frame.maxY - frame.minY) * 0.06;
       frame = { minX: frame.minX - growX, maxX: frame.maxX + growX,
                 minY: frame.minY - growY, maxY: frame.maxY + growY };
     }
-    const zoom = Number(view.zoom);
-    const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
-    if (factor !== 1) {
-      // aim at the knot when there is one: the centre of the bounding box can sit
-      // far from the crossings, and zooming there magnifies empty space — which is
-      // exactly what "the zoom does nothing" feels like
-      let midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
-      if (knotsShown.length) {
-        midX = (Math.min(...knotsShown.map(p => p[0])) + Math.max(...knotsShown.map(p => p[0]))) / 2;
-        midY = (Math.min(...knotsShown.map(p => p[1])) + Math.max(...knotsShown.map(p => p[1]))) / 2;
-      }
-      const halfW = ((frame.maxX - frame.minX) / 2) * factor;
-      const halfH = ((frame.maxY - frame.minY) / 2) * factor;
-      frame = { minX: midX - halfW, maxX: midX + halfW, minY: midY - halfH, maxY: midY + halfH };
-    }
     const { minX, maxX, minY, maxY } = frame;
-    // The box follows the curve's own shape, within limits: a fixed 2.37:1 box leaves a
-    // tall curve filling 10% of the width, which reads as "zoomed out" for reasons that
-    // have nothing to do with the curve.
     const width_ = 900;
     const frameAspect = Math.max(1e-9, (maxX - minX) / Math.max(1e-9, maxY - minY));
     const height = Math.round(Math.max(260, Math.min(620, width_ / frameAspect)));
@@ -910,29 +921,25 @@
              `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6"/>`;
     });
     art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
-    // legend inside the figure, 15px, naming the spine first and wrapping when
-    // the entries would run past the right edge
-    const legend = [["#2e2413", 2.4, "spine"], ["#666666", 2, "complementary curve"]];
-    if (range.from > 1e-9 || range.to < 1 - 1e-9) {
-      legend.push(["#6b6152", 1.6, "the legs continue past the cut"]);
+    // the legend lives in the page, under the offset controls, not inside the figure:
+    // it names the strokes in words and stays legible at any plot size
+    const legend = [["#2e2413", "spine"]];
+    if (view.complement) legend.push(["#666666", "complementary curve"]);
+    if (range.from > 1e-9 || range.to < 1 - 1e-9) legend.push(["#6b6152", "the legs continue past the cut"]);
+    if (view.rails) legend.push(["#1f5fa8", "parallel rail"]);
+    if (view.character) legend.push(["#5b7f3a", "character offset"]);
+    if (startEnd || finishEnd) legend.push(["#a23b2a", "terminal arc, radius d"]);
+    if (meets.length) legend.push(["#a23b2a", "crossing"]);
+    const legendHost = document.getElementById("n-plot-legend");
+    if (legendHost) {
+      legendHost.innerHTML = legend.map(([colour, text]) =>
+        `<span class="legend-item"><span class="legend-rule" style="background:${colour}"></span>` +
+        `<span class="legend-text">${text}</span></span>`).join("");
     }
-    if (view.rails) legend.push(["#1f5fa8", 1.8, "parallel rail"]);
-    if (view.character) legend.push(["#5b7f3a", 2, "character offset"]);
-    if (startEnd || finishEnd) legend.push(["#a23b2a", 2.4, "terminal arc, radius d"]);
-    if (meets.length) legend.push(["#a23b2a", 1.6, "crossing"]);
-    let legendX = left, legendY = height - 40;
-    legend.forEach(([colour, widthStroke, text]) => {
-      const entry = 34 + text.length * 8.2 + 26;
-      if (legendX > left && legendX + entry > width_ - right) {
-        legendX = left;
-        legendY += 26;
-      }
-      art += `<line x1="${legendX}" y1="${legendY}" x2="${legendX + 26}" y2="${legendY}" ` +
-        `stroke="${colour}" stroke-width="${widthStroke}"/>` +
-        `<text x="${legendX + 34}" y="${legendY + 6}" font-size="22" fill="#2e2413">${text}</text>`;
-      legendX += entry;
-    });
     plot.innerHTML = art;
+    // the picture is complete; from here on, zoom and pan only move the window over it
+    viewCanvas = { width: width_, height };
+    applyView();
     syncToggles();
 
     // how much of the figure is knot and how much is leg: the two numbers that
@@ -2663,14 +2670,23 @@
   });
 
   // the HUD's pan sliders drive the same translation the number boxes do
-  [["n-pan-x", "n-move-x"], ["n-pan-y", "n-move-y"]].forEach(([sliderId, fieldId]) => {
-    const slider = document.getElementById(sliderId);
-    const field = document.getElementById(fieldId);
-    if (!slider || !field) return;
-    slider.addEventListener("input", () => {
-      field.value = slider.value;
-      field.dispatchEvent(new Event("input", { bubbles: true }));
-    });
+  // pan is optical: it moves the frame, never the numbers
+  const setPan = (axis, value) => {
+    const amount = Number(value) || 0;
+    if (axis === "x") view.panX = amount; else view.panY = amount;
+    const slider = document.getElementById(axis === "x" ? "n-pan-x" : "n-pan-y");
+    const field = document.getElementById(axis === "x" ? "n-pan-x-number" : "n-pan-y-number");
+    if (slider && Number(slider.value) !== amount) slider.value = String(amount);
+    if (field && Number(field.value) !== amount) field.value = String(amount);
+    applyView();
+  };
+  [["n-pan-x", "x"], ["n-pan-y", "y"]].forEach(([id, axis]) => {
+    const slider = document.getElementById(id);
+    if (slider) slider.addEventListener("input", () => setPan(axis, slider.value));
+  });
+  [["n-pan-x-number", "x"], ["n-pan-y-number", "y"]].forEach(([id, axis]) => {
+    const field = document.getElementById(id);
+    if (field) field.addEventListener("input", () => setPan(axis, field.value));
   });
   const viewReset = document.getElementById("n-view-reset");
   if (viewReset) viewReset.addEventListener("click", () => {
@@ -2681,13 +2697,14 @@
     const zoomNumber = document.getElementById("n-zoom-number");
     if (zoomSlider) zoomSlider.value = "1";
     if (zoomNumber) zoomNumber.value = "1";
-    [["n-move-x", "n-pan-x"], ["n-move-y", "n-pan-y"]].forEach(([fieldId, sliderId]) => {
-      const field = document.getElementById(fieldId);
+    view.panX = 0; view.panY = 0;
+    [["n-pan-x", "n-pan-x-number"], ["n-pan-y", "n-pan-y-number"]].forEach(([sliderId, fieldId]) => {
       const slider = document.getElementById(sliderId);
-      if (field) { field.value = "0"; field.dispatchEvent(new Event("input", { bubbles: true })); }
+      const field = document.getElementById(fieldId);
       if (slider) slider.value = "0";
+      if (field) field.value = "0";
     });
-    draw();
+    applyView();
     const status = document.getElementById("n-paste-status");
     if (status) status.textContent = "view reset: zoom 1, no pan";
   });
@@ -2728,7 +2745,7 @@
     view.zoom = !Number.isFinite(wanted) || Math.abs(wanted) < 1 ? 1 : wanted;
     if (zoomSlider) zoomSlider.value = String(Math.max(-12, Math.min(12, view.zoom)));
     if (zoomNumber) zoomNumber.value = String(view.zoom);
-    draw();
+    applyView();
   };
   if (zoomSlider) zoomSlider.addEventListener("input", () => setZoom(zoomSlider.value));
   if (zoomNumber) {
