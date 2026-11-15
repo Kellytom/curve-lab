@@ -228,6 +228,14 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
         <option value="1/8"></option><option value="1/4"></option><option value="1/2"></option>
         <option value="1"></option><option value="2"></option><option value="3"></option>
       </datalist></label>
+    <label class="dial" for="n-tweak-divisor" title="take a share of the coefficient itself: 16 divided by 8 gives a whole-number tweak of 2">share of the x pair
+      <select id="n-tweak-divisor">
+        <option value="0">absolute size</option>
+        <option value="2">1/2 of 16 = 8</option>
+        <option value="4">1/4 of 16 = 4</option>
+        <option value="8">1/8 of 16 = 2</option>
+        <option value="16" selected>1/16 of 16 = 1</option>
+      </select></label>
     <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
     <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
     <button type="button" id="n-tweak-x3" title="add +1, -3, +3, -1 times size on t^3 to t^6">x: t3 to t6</button>
@@ -2957,7 +2965,22 @@ window.curveSaver = (function () {
   }
 
   function applyPattern(key, row) {
-    const { value: size, denominator, text } = readSize();
+    let { value: size, denominator, text } = readSize();
+    // A share of the coefficient itself: the x pair has equal magnitude, so
+    // 16/16 = 1 keeps both the whole numbers and the balance. Divides the pair's
+    // own value, so the tweak is integer whenever the divisor divides it.
+    const divisorBox = document.getElementById("n-tweak-divisor");
+    const divisor = divisorBox ? Number(divisorBox.value) : 0;
+    if (divisor && row === state.x) {
+      const step = window.phPowerStep || 1;
+      const first = Math.round(1 / step);
+      const magnitude = Math.abs(row[first] || 0);
+      if (magnitude) {
+        size = Math.round((magnitude / divisor) * 1e6) / 1e6;
+        text = `${magnitude}/${divisor}`;
+        denominator = 1;
+      }
+    }
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
@@ -3707,7 +3730,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 19:28</p>
+<p class="small mono" id="n-build">build 2026-11-14 19:30</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

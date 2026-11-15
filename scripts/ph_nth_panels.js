@@ -2268,7 +2268,22 @@
   }
 
   function applyPattern(key, row) {
-    const { value: size, denominator, text } = readSize();
+    let { value: size, denominator, text } = readSize();
+    // A share of the coefficient itself: the x pair has equal magnitude, so
+    // 16/16 = 1 keeps both the whole numbers and the balance. Divides the pair's
+    // own value, so the tweak is integer whenever the divisor divides it.
+    const divisorBox = document.getElementById("n-tweak-divisor");
+    const divisor = divisorBox ? Number(divisorBox.value) : 0;
+    if (divisor && row === state.x) {
+      const step = window.phPowerStep || 1;
+      const first = Math.round(1 / step);
+      const magnitude = Math.abs(row[first] || 0);
+      if (magnitude) {
+        size = Math.round((magnitude / divisor) * 1e6) / 1e6;
+        text = `${magnitude}/${divisor}`;
+        denominator = 1;
+      }
+    }
     const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
     const pattern = table[key];
     if (!pattern) return;
