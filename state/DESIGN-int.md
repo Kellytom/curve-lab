@@ -207,6 +207,31 @@ shows zeros in the new boxes; moving back restores them. Measured: a value of 77
 in the top box at degree 29 survives degree 11 and returns on the way up. The rule
 is the same everywhere in this project: a view may hide data, never destroy it.
 
+## Half powers: a dial, not a field
+
+Probed 2026-11-14 with `scripts/half_probe.py`; three answers, all measured.
+
+1. **They are not a place to look for knots.** Of 400 random half-power rows, none
+   had five or more crossings with a sane aspect. A half-power row is a polynomial
+   in `sqrt(t)`, and its geometry collapses toward a flat band: the same numbers that
+   give 38% knot at step 1 give 1% at step 1/2, with the legs at 86%.
+2. **One half-power term is a useful asymmetry dial.** On a curve with six
+   crossings, a value of 1 at `t^1/2` gave **nine** crossings, knot 22%, bend 2.86 —
+   unbalanced (mirror gap 0.245) but knottier. At 4 it collapsed to two crossings.
+   So: one or two terms in the odd boxes changes the shape deliberately; it is not
+   where a search would start.
+3. **The balanced tweak patterns are step-safe.** At step 1/2 they land on the
+   whole-power boxes (the panel maps powers, not boxes), so the mirror stays exact:
+   measured gap 0.0000 with the x pattern, the y pattern, and both, and the knot
+   moves 38% → 40%, 41%, 34%. Used on an *odd* box instead they break the mirror,
+   which is the dial above.
+
+**Consequence for the Bezier step:** a half-power row has no polynomial
+parameterisation in `t`, so it cannot be span-fitted exactly the way a whole-power
+row can. It would have to be sampled and fitted — labelled fitted, never exact. That
+is the reason to treat half powers as an experiment on a single curve rather than a
+family to catalogue.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the
