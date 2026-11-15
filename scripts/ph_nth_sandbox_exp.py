@@ -49,8 +49,12 @@ def found_entries():
     document = curve_records.read(FOUND)
     newer = [curve for curve in document["curves"]
              if curve.get("provenance", {}).get("batch") == "new"]
+    # newest first: the page is where new curves are worked on, so they lead. Ties
+    # fall back to the tangliest, then the cheapest grid.
+    position = {id(curve): index for index, curve in enumerate(document["curves"])}
     ordered = sorted(newer,
-                     key=lambda curve: (-curve.get("measured", {}).get("self", 0),
+                     key=lambda curve: (-position[id(curve)],
+                                        -curve.get("measured", {}).get("self", 0),
                                         -curve.get("measured", {}).get("meetings", 0),
                                         curve.get("measured", {}).get("grid", 0)))
     entries = []
@@ -74,12 +78,37 @@ def found_entries():
 def build():
     page = base.PAGE
     page = page.replace("__GALLERY__", json.dumps(found_entries(), separators=(",", ":")))
-    page = page.replace("window.phSpeedDegree = 5;", "window.phHideSeeds = true;\nwindow.phSpeedDegree = 5;")
+    page = page.replace("window.phSpeedDegree = 5;",
+                        "window.phHideSeeds = true;\nwindow.phNoComplement = true;\nwindow.phSpeedDegree = 5;")
     page = page.replace("__MATH__", base.MATH.read_text())
     page = page.replace("__PANELS__", base.PANELS.read_text())
     page = page.replace("<title>The eleventh power: a PH curve of degree 11</title>",
                         "<title>Experiment: fractional exponents</title>")
     page = page.replace("<h1>The eleventh power</h1>", "<h1>Experiment: fractional exponents</h1>")
+
+    # the complementary curve goes, and a mirror-safe tweak panel takes its place
+    box_start = page.index('<div class="curve-box complement" id="n-complement-box">')
+    box_end = page.index('<p class="small mono" id="n-readout">')
+    tweak = """<div class="curve-box" id="n-tweak-box">
+  <h3>Tweak the primary curve, mirror kept</h3>
+  <p class="small">Each button adds a balanced change, so the curve stays mirrored about the middle.
+  <strong>size</strong> scales it: 0.1 is a small nudge, 1 is bold. The primary curve above redraws at
+  once. On the y row the pattern has three numbers, because that row reads as its own negative from
+  the far end, so a two-number swap would lean it.</p>
+  <div class="solver-row">
+    <label class="dial" for="n-tweak-size">size <input id="n-tweak-size" type="number" min="0" max="2" step="0.01" value="0.1"></label>
+    <button type="button" id="n-tweak-x1" title="add -size on t^1 and +size on t^2">x: t1, t2</button>
+    <button type="button" id="n-tweak-x2" title="add +1, -2, +1 times size on t^2 to t^4">x: t2 to t4</button>
+    <button type="button" id="n-tweak-x3" title="add +1, -3, +3, -1 times size on t^3 to t^6">x: t3 to t6</button>
+    <button type="button" id="n-tweak-y1" title="add -1, +3, -2 times size on t^1 to t^3">y: t1 to t3</button>
+    <button type="button" id="n-tweak-y2" title="add -1, +4, -5, +2 times size on t^2 to t^5">y: t2 to t5</button>
+    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + size (t - t^2)">both rows: 1 + size(t - t2)</button>
+    <button type="button" id="n-tweak-undo" title="take back the last tweak">undo</button>
+  </div>
+  <p class="small mono" id="n-tweak-status"></p>
+</div>
+"""
+    page = page[:box_start] + tweak + page[box_end:]
 
     # the gallery keeps its host, and gets a heading of its own
     head_start = page.index("<h2>Gallery: the spines so far</h2>")

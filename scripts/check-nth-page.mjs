@@ -343,6 +343,25 @@ else {
   }
 }
 
+// the experimental page's mirror-safe tweaks: the multiply must keep the gap at
+// zero (a trimmed product leaned the curve) and undo must survive a grown rung
+await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-exp.html?v=" + Date.now(), { waitUntil: "load" });
+await page.waitForTimeout(400);
+const gapNow = () => page.evaluate(() => (window.phNthSymmetry ? window.phNthSymmetry() : null));
+const startGap = await gapNow();
+if (startGap === null) failures.push("the exp page has no phNthSymmetry hook");
+else {
+  await page.fill("#n-tweak-size", "0.2");
+  await page.click("#n-tweak-both");
+  await page.waitForTimeout(300);
+  const afterGap = await gapNow();
+  if (!(afterGap <= 0.005)) failures.push(`tweak both: mirror gap ${afterGap}, expected 0`);
+  await page.click("#n-tweak-undo");
+  await page.waitForTimeout(300);
+  const undoneGap = await gapNow();
+  if (!(undoneGap <= 0.005)) failures.push(`tweak undo: mirror gap ${undoneGap}, expected 0`);
+}
+
 if (errors.length) failures.push(`page errors: ${errors.join(" | ")}`);
 
 await page.close();

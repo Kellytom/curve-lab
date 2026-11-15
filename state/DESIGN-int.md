@@ -104,6 +104,57 @@ entry says so.
   stays symmetric. It produced knots with 20 meetings where the best earlier
   family reached 16, so it is the preferred way to widen the search.
 
+## High-order tail terms loosen the knot
+
+The low powers set the knot; a small tail at the top powers (measured on the
+operator's find: `t^11` to `t^14`, coefficients of order one) opens it up and
+costs the mirror.
+
+| tail scale | crossings | knot share | mirror gap |
+|---|---|---|---|
+| 0 (the lace) | 13 | 4% | 0.00 |
+| 0.5 | 8 | 9% | 0.28 |
+| 1 (the find) | 8 | 19% | 0.51 |
+| 2 | 7 | **43%** | 0.55 |
+| 4 | 5 | 3% | 0.16 |
+| 8 | 4 | 1% | 0.44 |
+
+So: doubling the tail takes the knot from 19% to 43%; quadrupling it destroys the
+crossings instead of loosening them. The symmetry is gone from the first step —
+that is the point of the axis, and it is the only lever found so far that makes a
+knot bigger without flattening the whole figure. The find is kept as
+`loose-knot-tail14` in the knotlike section.
+
+## Tweaks that keep the mirror
+
+A row is even or odd about t = 1/2, and a tweak keeps the mirror only if it has
+the same parity as the row it touches. Measured on the operator's curve: x is
+even (reads the same from the far end), y is odd (reads as its own negative).
+
+Patterns that hold the mirror, as additions at the given powers, times a size:
+
+| row | powers | numbers |
+|---|---|---|
+| x (even) | t1, t2 | -1, +1 |
+| x (even) | t2, t3, t4 | +1, -2, +1 |
+| x (even) | t3 … t6 | +1, -3, +3, -1 |
+| y (odd) | t1, t2, t3 | -1, +3, -2 |
+| y (odd) | t2 … t5 | -1, +4, -5, +2 |
+
+The operator's own habit — +0.1 on one power, −0.1 on the next — is the first
+row: it works because the two changes cancel when the row is read backwards.
+
+Multiplying a whole row by `1 + size(t − t²)` also holds the mirror, and it is the
+stronger lever (crossings 13 → 19 at size 0.2). Two traps, both hit and fixed:
+the product is two powers longer than the row — trimming it to the old length
+drops the terms that balance the change, which is exactly the lopsided curve; and
+it must be done in powers, not in boxes, because at step 1/2 a box is half a
+power and the factor would centre at t = 1/4.
+
+The experimental page carries these as buttons; the primary curve redraws at once
+and `window.phNthSymmetry()` reports the mirror gap, which is 0.0000 for every
+pattern above at steps 1 and 1/2.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the

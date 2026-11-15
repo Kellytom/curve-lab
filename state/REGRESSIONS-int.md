@@ -30,6 +30,9 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 10 | 2026-11-14 | a grid and inflection count claimed for fractional powers | `test_a_fractional_step_reports_no_grid_and_no_inflection_count` | honest readouts |
 | 11 | 2026-11-14 | no number to steer "make the knot bigger" by | `test_the_readout_still_reports_knot_and_leg_shares` | knot/leg shares |
 | 12 | 2026-11-14 | loading a curve silently changed the exponent step | `test_loading_a_curve_does_not_change_the_exponent_step` | the step belongs to the operator |
+| 13 | 2026-11-14 | "Build from flat spots is putting the numbers in the wrong boxes when I click the button" | `test_the_flat_spots_fill_whole_power_boxes` | the fill places coefficients by power |
+| 14 | 2026-11-14 | "both rows: 1 + size(t - t2)" went lopsided | `check-nth-page.mjs` (exp page: gap stays 0.0000) | the product keeps its tail instead of trimming it |
+| 15 | 2026-11-14 | undo after a rung grew crashed a box | `check-nth-page.mjs` (exp page: undo runs clean) | restored rows are padded to the boxes that exist |
 
 ## Fixed and measured, but not yet in the fast suite
 

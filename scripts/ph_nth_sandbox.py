@@ -93,6 +93,12 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 .rung-row{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
 .rung{font:11px/1.2 ui-monospace,Menlo,monospace;padding:4px 7px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .rung.is-on{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+button{transition:background .08s ease,transform .05s ease}
+button:hover{background:#efe7d3}
+button:active{background:#d9cba8;transform:translateY(1px)}
+button[aria-pressed="true"]{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+button[aria-pressed="true"]:hover{background:#463a24}
+button:disabled{opacity:.45;cursor:not-allowed}
 .solver-row button,.save-row button,.saved-row button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 .dial{display:flex;align-items:center;gap:6px;font:12px ui-monospace,Menlo,monospace;color:#8a3b2a}
 .dial input[type=number]{width:64px;font:12px ui-monospace,Menlo,monospace;padding:2px 4px}
@@ -280,8 +286,8 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-rebuild-span" title="rebuild the knot's span as a new curve: exact whole numbers, no legs left in the rows">rebuild without the legs</button>
   <button type="button" id="n-focus-knot" aria-pressed="false" title="frame the knot, not the whole stroke">focus the knot</button>
   <label class="dial" for="n-zoom">zoom
-    <input id="n-zoom" type="range" min="1" max="12" step="0.5" value="1">
-    <input id="n-zoom-number" type="number" min="1" step="0.5" value="1" style="width:5.5em"></label>
+    <input id="n-zoom" type="range" min="-12" max="12" step="0.5" value="1" title="positive zooms in on the knot, negative pulls back">
+    <input id="n-zoom-number" type="number" step="0.5" value="1" style="width:5.5em" title="positive in, negative out"></label>
 </div>
 <hr class="group-rule">
 <div class="solver-row" id="n-view-row">

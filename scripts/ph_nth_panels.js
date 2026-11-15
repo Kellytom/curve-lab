@@ -307,7 +307,7 @@
 
   // what the page draws: the spine alone by default
   const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
-                 rotate: false, complement: true, focusKnot: false, zoom: 1 };
+                 rotate: false, complement: !window.phNoComplement, focusKnot: false, zoom: 1 };
   const TURN = -Math.PI / 4;
   const turned = points => view.rotate
     ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
@@ -588,6 +588,23 @@
   })();
 
   // the same path the button takes, so a test can check the numbers directly
+  // how far the drawn curve is from its own mirror, as a share of its size
+  window.phNthSymmetry = () => {
+    const points = spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y]);
+    const mirror = R_mirrorOf(points);
+    const size = Math.max(
+      Math.max(...points.map(p => p[0])) - Math.min(...points.map(p => p[0])),
+      Math.max(...points.map(p => p[1])) - Math.min(...points.map(p => p[1]))) || 1e-9;
+    const near = (p, cloud) => Math.min(...cloud.map(q => Math.hypot(p[0] - q[0], p[1] - q[1])));
+    const gap = Math.max(Math.max(...mirror.map(p => near(p, points))),
+                         Math.max(...points.map(p => near(p, mirror))));
+    return +(gap / size).toFixed(4);
+  };
+  const R_mirrorOf = points => {
+    const centre = (Math.min(...points.map(p => p[0])) + Math.max(...points.map(p => p[0]))) / 2;
+    return points.map(([x, y]) => [2 * centre - x, y]);
+  };
+
   window.phNthSpanRows = (aN, aD, lenN, lenD, rootN, rootD) => {
     const a = frac(aN, aD), span = frac(lenN, lenD), root = frac(rootN, rootD);
     const rows = sharedIntegers([spanValuesExact(state.x, a, span, root),
@@ -767,43 +784,34 @@
                                       1e-4 * Math.max(1e-9, Math.max(...shown.map(p => p[0])) -
                                                       Math.min(...shown.map(p => p[0]))));
     const knotsShown = turned(selfCrossings);
-    let minX, maxX, minY, maxY;
-    // zooming always aims at the knot's centre, whether or not the focus is on:
-    // magnifying the middle of the bounding box would drift away from the knot
-    if ((view.focusKnot || view.zoom > 1) && knotsShown.length) {
+    // The frame is chosen first — the knot with a margin when focusing, otherwise
+    // the whole curve — and then the zoom scales it about its own centre. Positive
+    // zoom magnifies, negative pulls back past the whole figure, |z| < 1 counts as
+    // 1. Working this way keeps both directions one piece of arithmetic.
+    const xs = shown.map(p => p[0]), ys = shown.map(p => p[1]);
+    const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
+    const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
+    let frame = {
+      minX: Math.min(...xs) - padX, maxX: Math.max(...xs) + padX,
+      minY: Math.min(...ys) - padY, maxY: Math.max(...ys) + padY,
+    };
+    if (view.focusKnot && knotsShown.length) {
       const kx = knotsShown.map(p => p[0]), ky = knotsShown.map(p => p[1]);
       const centreX = (Math.min(...kx) + Math.max(...kx)) / 2;
       const centreY = (Math.min(...ky) + Math.max(...ky)) / 2;
-      const spread = Math.max(Math.max(...kx) - Math.min(...kx), Math.max(...ky) - Math.min(...ky),
-                              1e-6);
-      // room to see the knot in context: a generous margin at zoom 1, closing in
-      // as the zoom rises, and never tighter than a fifth of the whole figure
-      const whole = Math.max(1e-6, Math.hypot(
-        Math.max(...shown.map(p => p[0])) - Math.min(...shown.map(p => p[0])),
-        Math.max(...shown.map(p => p[1])) - Math.min(...shown.map(p => p[1]))));
-      // the frame starts as the knot plus a margin, then the zoom divides it: 12x is
-      // twelve times tighter than 1x, which is what a zoom control is expected to do
-      const baseHalf = Math.max(spread * 0.9, whole * 0.03);
-      const half = baseHalf / Math.max(1, view.zoom);
-      minX = centreX - half; maxX = centreX + half;
-      minY = centreY - half; maxY = centreY + half;
-    } else {
-      const xs = shown.map(p => p[0]), ys = shown.map(p => p[1]);
-      const padX = Math.max(1e-6, (Math.max(...xs) - Math.min(...xs)) * 0.08);
-      const padY = Math.max(1e-6, (Math.max(...ys) - Math.min(...ys)) * 0.08);
-      minX = Math.min(...xs) - padX; maxX = Math.max(...xs) + padX;
-      minY = Math.min(...ys) - padY; maxY = Math.max(...ys) + padY;
-      // the zoom magnifies whatever frame is in use, so it works with the whole
-      // curve too, not only with the knot focus
-      if (view.zoom > 1) {
-        const midX = (minX + maxX) / 2, midY = (minY + maxY) / 2;
-        const halfW = (maxX - minX) / (2 * view.zoom), halfH = (maxY - minY) / (2 * view.zoom);
-        minX = midX - halfW; maxX = midX + halfW;
-        minY = midY - halfH; maxY = midY + halfH;
-      }
+      const spread = Math.max(Math.max(...kx) - Math.min(...kx), Math.max(...ky) - Math.min(...ky), 1e-6);
+      const half = spread * 0.9;
+      frame = { minX: centreX - half, maxX: centreX + half, minY: centreY - half, maxY: centreY + half };
     }
-    // no title inside the figure and no footer caption: the page already says what
-    // this is, so the plot spends its height on the curve
+    const zoom = Number(view.zoom);
+    const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
+    if (factor !== 1) {
+      const midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
+      const halfW = ((frame.maxX - frame.minX) / 2) * factor;
+      const halfH = ((frame.maxY - frame.minY) / 2) * factor;
+      frame = { minX: midX - halfW, maxX: midX + halfW, minY: midY - halfH, maxY: midY + halfH };
+    }
+    const { minX, maxX, minY, maxY } = frame;
     const width_ = 900, height = 380, left = 40, right = 24, top = 16, bottom = 24;
     const scale = Math.min((width_ - left - right) / (maxX - minX), (height - top - bottom) / (maxY - minY));
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
@@ -863,6 +871,7 @@
       legendX += entry;
     });
     plot.innerHTML = art;
+    syncToggles();
 
     // how much of the figure is knot and how much is leg: the two numbers that
     // answer "make the knot bigger and the legs shorter"
@@ -2038,8 +2047,19 @@
     const count = window.phNthDegree().speedCount;
     // the bow is a fraction, so both rows are scaled by its denominator: a common
     // scale leaves the shape alone and keeps every number whole
-    state.x = padRow([bow.d, bow.n, -bow.n], count);
-    state.y = padRow(rowFromFlatSpots(spots).map(value => value * bow.d), count);
+    // the flat spots describe a polynomial in t, so its coefficients belong in the
+    // boxes whose powers are whole. Writing them straight in put the whole-power
+    // curve into the half-power boxes whenever the step was 1/2.
+    const whole = rowFromFlatSpots(spots).map(value => value * bow.d);
+    const terms = [];
+    for (let k = 0; k < Math.max(whole.length, 3); k++) {
+      terms.push({ power: k,
+                   x: k === 0 ? bow.d : (k === 1 ? bow.n : (k === 2 ? -bow.n : 0)),
+                   y: whole[k] || 0 });
+    }
+    const placed = rowsFromTerms(terms);
+    state.x = placed.x.slice(0, count).concat(new Array(count).fill(0)).slice(0, count);
+    state.y = placed.y.slice(0, count).concat(new Array(count).fill(0)).slice(0, count);
     writeCells();
     draw();
     const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
@@ -2049,9 +2069,10 @@
       // the mirror only holds at step 1: say so rather than let the picture lie
       const step = window.phPowerStep || 1;
       const warning = Math.abs(step - 1) > 1e-9
-        ? ` · at step ${step.toFixed(2)} the mirror does not hold; set the step to 1 for the knot`
+        ? ` · placed on whole powers: the ${step.toFixed(2)} boxes stay zero, so the knot is exact`
         : "";
-      rootsStatus.textContent = `degree ${positionDegree()} · y ${state.y.join(", ")}` +
+      rootsStatus.textContent = `step ${step.toFixed(2)} · top power t^${exponentLabel(exponentOf(count - 1))} · ` +
+        `y ${state.y.join(", ")}` +
         (measured ? ` · bend ${measured.bend.toFixed(3)}${grid}` : "") + scaled + warning;
     }
   }
@@ -2211,6 +2232,122 @@
       if (Number.isFinite(value)) bowSlider.value = String(Math.max(-12, Math.min(12, value)));
     });
   }
+
+  // ---------- mirror-safe tweaks on the primary curve ----------
+  // Each pattern is exactly balanced about t = 1/2, so the mirror survives: an
+  // even row takes an even pattern, an odd row an odd one (the row is odd when it
+  // reads as its own negative from the far end).
+  const EVEN_PATTERNS = {
+    x1: [[1, -1], [2, 1]],
+    x2: [[2, 1], [3, -2], [4, 1]],
+    x3: [[3, 1], [4, -3], [5, 3], [6, -1]],
+  };
+  const ODD_PATTERNS = {
+    y1: [[1, -1], [2, 3], [3, -2]],
+    y2: [[2, -1], [3, 4], [4, -5], [5, 2]],
+  };
+  const tweakHistory = [];
+  const tweakStatus = document.getElementById("n-tweak-status");
+  const tweakSize = document.getElementById("n-tweak-size");
+
+  function addToPower(row, power, amount) {
+    const step = window.phPowerStep || 1;
+    const exact = power / step;
+    const index = Math.round(exact);
+    if (Math.abs(exact - index) > 1e-9 || index >= row.length) return false;
+    row[index] = Math.round((row[index] + amount) * 1e6) / 1e6;
+    return true;
+  }
+
+  function applyPattern(key, row) {
+    const size = Number(tweakSize && tweakSize.value) || 0.1;
+    const table = row === state.x ? EVEN_PATTERNS : ODD_PATTERNS;
+    const pattern = table[key];
+    if (!pattern) return;
+    tweakHistory.push({ row: row === state.x ? "x" : "y", before: row.slice() });
+    let touched = 0;
+    pattern.forEach(([power, weight]) => { if (addToPower(row, power, weight * size)) touched += 1; });
+    writeCells();
+    draw();
+    if (tweakStatus) {
+      tweakStatus.textContent = touched
+        ? `${row === state.x ? "x" : "y"} row: ${touched} powers moved by ${pattern.map(p => p[1] * size).join(", ")}`
+        : "this step cannot reach those powers";
+    }
+  }
+
+  function multiplyBoth(size) {
+    // Done in powers, not in boxes: at step 1/2 a box is half a power, so scaling
+    // boxes would put the factor's centre at t = 1/4 and lean the curve. The factor
+    // is 1 + size(t - t^2), namely powers 0, 1 and 2.
+    const step = window.phPowerStep || 1;
+    const factor = [[0, 1], [1, size], [2, -size]];
+    const indexOf = power => {
+      const exact = power / step;
+      const index = Math.round(exact);
+      return Math.abs(exact - index) < 1e-9 ? index : null;
+    };
+    const product = row => {
+      const out = new Map();
+      row.forEach((value, k) => {
+        if (!value) return;
+        factor.forEach(([offset, weight]) => {
+          const power = +(k * step + offset).toFixed(6);
+          out.set(power, (out.get(power) || 0) + value * weight);
+        });
+      });
+      return out;
+    };
+    const px = product(state.x), py = product(state.y);
+    const offGrid = [...px.keys(), ...py.keys()].filter(power => indexOf(power) === null);
+    if (offGrid.length) {
+      if (tweakStatus) tweakStatus.textContent =
+        `this step cannot hold power ${offGrid[0]}: the multiply needs a step that divides 1 and 2`;
+      return;
+    }
+    const top = Math.max(...[...px.keys(), ...py.keys()].map(indexOf)) + 1;
+    tweakHistory.push({ row: "both", x: state.x.slice(), y: state.y.slice() });
+    if (top > window.phNthDegree().speedCount) window.phNthSetDegree(top - 1);
+    sizePair(state);
+    const write = row => {
+      const out = new Array(speedCount).fill(0);
+      row.forEach((value, power) => {
+        const index = indexOf(power);
+        if (index !== null && index < speedCount) out[index] = +value.toFixed(6);
+      });
+      return out;
+    };
+    state.x = write(px);
+    state.y = write(py);
+    writeCells();
+    draw();
+    if (tweakStatus) tweakStatus.textContent =
+      `both rows multiplied by 1 + ${size}(t - t^2) in powers, so the mirror holds`;
+  }
+
+  [["n-tweak-x1", "x1", () => state.x], ["n-tweak-x2", "x2", () => state.x],
+   ["n-tweak-x3", "x3", () => state.x], ["n-tweak-y1", "y1", () => state.y],
+   ["n-tweak-y2", "y2", () => state.y]].forEach(([id, key, row]) => {
+    const button = document.getElementById(id);
+    if (button) button.addEventListener("click", () => applyPattern(key, row()));
+  });
+  const tweakBoth = document.getElementById("n-tweak-both");
+  if (tweakBoth) tweakBoth.addEventListener("click", () => {
+    multiplyBoth(Number(tweakSize && tweakSize.value) || 0.1);
+  });
+  const tweakUndo = document.getElementById("n-tweak-undo");
+  if (tweakUndo) tweakUndo.addEventListener("click", () => {
+    const last = tweakHistory.pop();
+    if (!last) { if (tweakStatus) tweakStatus.textContent = "nothing to undo"; return; }
+    // a tweak may have grown the rung, so a restored row is padded to the boxes that
+    // exist now rather than left short — a short row makes a box read undefined
+    const pad = row => row.slice(0, speedCount).concat(new Array(speedCount).fill(0)).slice(0, speedCount);
+    if (last.row === "both") { state.x = pad(last.x); state.y = pad(last.y); }
+    else if (last.row === "x") state.x = pad(last.before); else state.y = pad(last.before);
+    writeCells();
+    draw();
+    if (tweakStatus) tweakStatus.textContent = "last tweak undone";
+  });
 
   const cutKnot = document.getElementById("n-cut-knot");
   if (cutKnot) cutKnot.addEventListener("click", () => {
@@ -2372,8 +2509,10 @@
   const zoomSlider = document.getElementById("n-zoom");
   const zoomNumber = document.getElementById("n-zoom-number");
   const setZoom = value => {
-    view.zoom = Math.max(1, Number(value) || 1);
-    if (zoomSlider) zoomSlider.value = String(Math.min(12, view.zoom));
+    const wanted = Number(value);
+    // zero has no meaning for a magnification, so it snaps to 1
+    view.zoom = !Number.isFinite(wanted) || Math.abs(wanted) < 1 ? 1 : wanted;
+    if (zoomSlider) zoomSlider.value = String(Math.max(-12, Math.min(12, view.zoom)));
     if (zoomNumber) zoomNumber.value = String(view.zoom);
     draw();
   };
@@ -2398,6 +2537,25 @@
     const status = document.getElementById("n-paste-status");
     if (status) status.textContent = `downloaded ${name}.json — move it into workbench/ to keep it`;
   });
+
+  // Toggle buttons keep their state visible: aria-pressed is the state, the CSS
+  // makes it look pressed, and a screen reader reads it out. Set from the view
+  // flags on every draw, so a toggle can never drift out of step with what is shown.
+  const toggleButtons = [
+    ["n-rails", () => view.rails],
+    ["n-character", () => view.character],
+    ["n-terminal-start", () => view.startTerminal],
+    ["n-terminal-end", () => view.endTerminal],
+    ["n-rotate", () => view.rotate],
+    ["n-focus-knot", () => view.focusKnot],
+    ["n-comp-hide", () => !view.complement],
+  ];
+  function syncToggles() {
+    toggleButtons.forEach(([id, state]) => {
+      const button = document.getElementById(id);
+      if (button) button.setAttribute("aria-pressed", String(Boolean(state())));
+    });
+  }
 
   // the grey curve on or off: sometimes only the primary is wanted
   const hideComplement = document.getElementById("n-comp-hide");

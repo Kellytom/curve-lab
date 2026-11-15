@@ -1931,3 +1931,33 @@ y row turned up as a find; `write_found` now skips a row proportional to a seed'
 
 **Next:** the same exhaustive walk at speed degree 7 (16 numbers, ~45 min of compute)
 and degree 9; then the notes-page section still owed (specification vs representation).
+
+## 2026-11-14 — mirror-safe tweaks, and the register that keeps them
+
+**Built.** The experimental page replaces its complementary curve with a "Tweak
+the primary curve, mirror kept" panel: a size box and one button per balanced
+pattern. Measured at size 0.2, every pattern holds the mirror gap at 0.0000 at
+both step 1 and step ½, and the primary curve redraws at once.
+
+The patterns, as additions at the given powers: `x: t1,t2 = -1,+1`;
+`x: t2..t4 = +1,-2,+1`; `x: t3..t6 = +1,-3,+3,-1`; `y: t1..t3 = -1,+3,-2`;
+`y: t2..t5 = -1,+4,-5,+2`. The y row needs the three-number form because it reads
+as its own negative from the far end. The operator's own `+0.1/-0.1` habit is the
+first row.
+
+**Two faults found by use, both fixed and guarded:** the multiply by
+`1 + size(t - t²)` was trimming the top two powers, and those are exactly the
+terms that balance the change — hence "it goes lopsided"; and undo crashed after
+a tweak had grown the rung, because a restored row was shorter than the boxes.
+Both now have browser checks in `scripts/check-nth-page.mjs`, register rows 14
+and 15.
+
+**Also landed:** `scripts/register.py` runs the whole register — the fast
+fixed-fault checks plus the browser gate — starting the server itself and
+reporting a could-not-run as a non-zero outcome, so a skip is never a pass. Its
+first run found three defects, all fixed. The data format is
+`curve-lab.curves/2`: terms carry their power, measured numbers are labelled, and
+`workbench/found-curves.json` validates before it is written.
+
+**Focus now:** making new curves with the tweak panel and adding them to the
+front of the experimental page's found curves, which now sorts newest first.

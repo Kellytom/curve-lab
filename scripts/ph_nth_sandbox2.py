@@ -161,6 +161,11 @@ def operator_pins():
         # a bow of 9, which is what keeps it from reading as a flat band
         ("wave-1of7-1of5-1-bow9", [1, 9, -9, 0, 0, 0],
          [-24, 394, -2263, 5592, -6125, 2450], 1.525, 6930),
+        # operator's find 2026-11-14: the lace's low powers with a small tail at
+        # t^11..t^14. The tail loosens the knot and breaks the mirror on purpose.
+        ("loose-knot-tail14",
+         [3, 0, -16, 0, 16, 0, 0, 0, 0, 0, 0, -1, 1, 0, -1],
+         [-9, 0, 154, 0, -808, 0, 1872, 0, -2000, 0, 800, -1, 1, -1, -2], 1.756, 3465),
     ]
     return [{
         "name": name,

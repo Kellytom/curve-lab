@@ -98,6 +98,15 @@ class TestRegressions(unittest.TestCase):
         """2026-11-14: 'make the knot bigger' had no number to steer by."""
         self.assertIn("knot ${knotShare}% legs ${legShare}%", PANELS.read_text())
 
+    def test_the_flat_spots_fill_whole_power_boxes(self):
+        """2026-11-14: pressing fill at step 1/2 wrote the knot into the half-power
+        boxes, so the button drew a different curve from the one it named."""
+        panels = PANELS.read_text()
+        fill = panels[panels.index("function fillFromFlatSpots()"):]
+        fill = fill[:fill.index("writeCells();")]
+        self.assertIn("rowsFromTerms(terms)", fill)
+        self.assertNotIn("padRow([bow.d, bow.n, -bow.n], count)", fill)
+
     def test_loading_a_curve_does_not_change_the_exponent_step(self):
         """2026-11-14: loading used to reset the step, silently changing the curve."""
         panels = PANELS.read_text()
