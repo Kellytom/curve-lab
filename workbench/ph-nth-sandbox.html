@@ -165,7 +165,9 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 </div>
 <div class="curve-box" id="n-primary-box">
   <div class="box-head">
-    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
+    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span>
+      <span class="mono" id="n-curve-name" title="the name of the curve you are working on; select it to copy"
+            style="user-select:text;background:#efe7d3;border:1px solid var(--rule);border-radius:3px;padding:0 4px">curve</span></h3>
     <div class="solver-row tight">
       <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
       <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
@@ -827,7 +829,7 @@ window.curveSaver = (function () {
     const elements = { number, fine, decade };
     cells.push({ axis, k, target, ...elements });
     const set = (v) => {
-      if (target === state) currentName = "curve";
+      if (target === state) setName("curve (edited)");
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v);          // the slider is the source: write the box
       draw();
@@ -837,7 +839,7 @@ window.curveSaver = (function () {
       if (text === "") return;
       const v = Number(text);
       if (!Number.isFinite(v)) return;
-      if (target === state) currentName = "curve";
+      if (target === state) setName("curve (edited)");
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v, { write: false });
       draw();
@@ -1500,7 +1502,14 @@ window.curveSaver = (function () {
     const zoom = Number(view.zoom);
     const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
     if (factor !== 1) {
-      const midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
+      // aim at the knot when there is one: the centre of the bounding box can sit
+      // far from the crossings, and zooming there magnifies empty space — which is
+      // exactly what "the zoom does nothing" feels like
+      let midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
+      if (knotsShown.length) {
+        midX = (Math.min(...knotsShown.map(p => p[0])) + Math.max(...knotsShown.map(p => p[0]))) / 2;
+        midY = (Math.min(...knotsShown.map(p => p[1])) + Math.max(...knotsShown.map(p => p[1]))) / 2;
+      }
       const halfW = ((frame.maxX - frame.minX) / 2) * factor;
       const halfH = ((frame.maxY - frame.minY) / 2) * factor;
       frame = { minX: midX - halfW, maxX: midX + halfW, minY: midY - halfH, maxY: midY + halfH };
@@ -2495,7 +2504,7 @@ window.curveSaver = (function () {
     } else {
       flipComplement();
     }
-    currentName = pair.name || "curve";
+    setName(pair.name || "curve");
     // a record may carry a cut: the whole curve is still in the terms, the window
     // says which part of it this curve is about
     if (pair.truncation && pair.truncation.from && pair.truncation.to) {
@@ -2976,6 +2985,15 @@ window.curveSaver = (function () {
     y2: [[2, -1], [3, 4], [4, -5], [5, 2]],
   };
   const tweakHistory = [];
+  // the name of the curve being worked on, in the open, so it can be copied into a
+  // conversation. Editing any number marks it as changed rather than renaming it.
+  const nameBadge = () => document.getElementById("n-curve-name");
+  const setName = name => {
+    currentName = name;
+    const badge = nameBadge();
+    if (badge) badge.textContent = name;
+  };
+
   const tweakTotal = document.getElementById("n-tweak-total");
   // the curve as it stood before the first tweak of this run, so the panel can say
   // what the total change is — and as a fraction, because round fractions are what
@@ -3327,7 +3345,10 @@ window.curveSaver = (function () {
     draw();
   };
   if (zoomSlider) zoomSlider.addEventListener("input", () => setZoom(zoomSlider.value));
-  if (zoomNumber) zoomNumber.addEventListener("input", () => setZoom(zoomNumber.value));
+  if (zoomNumber) {
+    zoomNumber.addEventListener("input", () => setZoom(zoomNumber.value));
+    zoomNumber.addEventListener("change", () => setZoom(zoomNumber.value));
+  }
 
   // A save lives in this browser only, so anything worth keeping also goes to a
   // file: the page cannot write to the repo, but a download is one button.
@@ -3812,5 +3833,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 19:52</p>
+<p class="small mono" id="n-build">build 2026-11-14 19:56</p>
 </body></html>

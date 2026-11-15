@@ -151,7 +151,7 @@
     const elements = { number, fine, decade };
     cells.push({ axis, k, target, ...elements });
     const set = (v) => {
-      if (target === state) currentName = "curve";
+      if (target === state) setName("curve (edited)");
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v);          // the slider is the source: write the box
       draw();
@@ -161,7 +161,7 @@
       if (text === "") return;
       const v = Number(text);
       if (!Number.isFinite(v)) return;
-      if (target === state) currentName = "curve";
+      if (target === state) setName("curve (edited)");
       if (axis === "x") target.x[k] = v; else target.y[k] = v;
       syncCell(elements, v, { write: false });
       draw();
@@ -592,8 +592,10 @@
   }
 
   const exactTable = (() => {
+    // every square (k/n)^2 for n up to 16: long knots need long spans, and a span
+    // that cannot be covered makes the rebuild fall back to the whole curve
     const out = [];
-    for (let n = 2; n <= 8; n++) for (let k = 1; k < n; k++) out.push({ lenN: k * k, lenD: n * n, rootN: k, rootD: n });
+    for (let n = 2; n <= 16; n++) for (let k = 1; k < n; k++) out.push({ lenN: k * k, lenD: n * n, rootN: k, rootD: n });
     return out.sort((p, q) => p.lenN / p.lenD - q.lenN / q.lenD);
   })();
 
@@ -824,7 +826,14 @@
     const zoom = Number(view.zoom);
     const factor = !Number.isFinite(zoom) || Math.abs(zoom) < 1 ? 1 : (zoom > 0 ? 1 / zoom : Math.abs(zoom));
     if (factor !== 1) {
-      const midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
+      // aim at the knot when there is one: the centre of the bounding box can sit
+      // far from the crossings, and zooming there magnifies empty space — which is
+      // exactly what "the zoom does nothing" feels like
+      let midX = (frame.minX + frame.maxX) / 2, midY = (frame.minY + frame.maxY) / 2;
+      if (knotsShown.length) {
+        midX = (Math.min(...knotsShown.map(p => p[0])) + Math.max(...knotsShown.map(p => p[0]))) / 2;
+        midY = (Math.min(...knotsShown.map(p => p[1])) + Math.max(...knotsShown.map(p => p[1]))) / 2;
+      }
       const halfW = ((frame.maxX - frame.minX) / 2) * factor;
       const halfH = ((frame.maxY - frame.minY) / 2) * factor;
       frame = { minX: midX - halfW, maxX: midX + halfW, minY: midY - halfH, maxY: midY + halfH };
@@ -1819,7 +1828,7 @@
     } else {
       flipComplement();
     }
-    currentName = pair.name || "curve";
+    setName(pair.name || "curve");
     // a record may carry a cut: the whole curve is still in the terms, the window
     // says which part of it this curve is about
     if (pair.truncation && pair.truncation.from && pair.truncation.to) {
@@ -2300,6 +2309,15 @@
     y2: [[2, -1], [3, 4], [4, -5], [5, 2]],
   };
   const tweakHistory = [];
+  // the name of the curve being worked on, in the open, so it can be copied into a
+  // conversation. Editing any number marks it as changed rather than renaming it.
+  const nameBadge = () => document.getElementById("n-curve-name");
+  const setName = name => {
+    currentName = name;
+    const badge = nameBadge();
+    if (badge) badge.textContent = name;
+  };
+
   const tweakTotal = document.getElementById("n-tweak-total");
   // the curve as it stood before the first tweak of this run, so the panel can say
   // what the total change is — and as a fraction, because round fractions are what
@@ -2519,6 +2537,12 @@
   let lastRebuild = null;
   function rebuildSpanExact(low, high, statusPrefix) {
     const status = document.getElementById("n-paste-status");
+    const step = window.phPowerStep || 1;
+    if (Math.abs(step - 1) > 1e-9) {
+      if (status) status.textContent =
+        "the rebuild needs whole powers: set the exponent step to 1 first (a half-power row is not a polynomial in t)";
+      return false;
+    }
     const wanted = Math.min(1, high - low);
     let choice = null, aSteps = 0;
     for (const option of exactTable) {
@@ -2651,7 +2675,10 @@
     draw();
   };
   if (zoomSlider) zoomSlider.addEventListener("input", () => setZoom(zoomSlider.value));
-  if (zoomNumber) zoomNumber.addEventListener("input", () => setZoom(zoomNumber.value));
+  if (zoomNumber) {
+    zoomNumber.addEventListener("input", () => setZoom(zoomNumber.value));
+    zoomNumber.addEventListener("change", () => setZoom(zoomNumber.value));
+  }
 
   // A save lives in this browser only, so anything worth keeping also goes to a
   // file: the page cannot write to the repo, but a download is one button.

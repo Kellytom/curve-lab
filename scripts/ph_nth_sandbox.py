@@ -189,7 +189,9 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
 </div>
 <div class="curve-box" id="n-primary-box">
   <div class="box-head">
-    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span></h3>
+    <h3>Primary curve <span class="small mono" id="n-primary-degree"></span>
+      <span class="mono" id="n-curve-name" title="the name of the curve you are working on; select it to copy"
+            style="user-select:text;background:#efe7d3;border:1px solid var(--rule);border-radius:3px;padding:0 4px">curve</span></h3>
     <div class="solver-row tight">
       <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
       <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
