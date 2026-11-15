@@ -6,13 +6,10 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-nth-sandbox.html"
 JS = ROOT / "scripts" / "ph_nth_panels.js"
-
-
-def without_build_stamp(text):
-    """The build line carries the clock, so two rebuilds never match exactly."""
-    return "\n".join(line for line in text.splitlines() if 'id="n-build"' not in line)
 
 
 class TestNthSandbox(unittest.TestCase):
@@ -32,6 +29,16 @@ class TestNthSandbox(unittest.TestCase):
                        "drawTick(upperStrip, at, false);"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
+
+    def test_the_readout_names_the_last_number_not_the_last_box(self):
+        """Five spots give a t^5 row in fifteen boxes; saying t^14 is a lie.
+
+        The panel reported the last box of the rung as the top power, so a curve
+        whose numbers stop at t^5 appeared to run to t^14 and looked truncated.
+        """
+        page = PAGE.read_text()
+        self.assertIn("boxes in use", page)
+        self.assertIn("const filled = Math.max(topUsed(state.y), topUsed(state.x)) + 1;", page)
 
     def test_the_page_holds_the_degree_11_sandbox(self):
         page = PAGE.read_text()

@@ -5,6 +5,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-nth-sandbox-2.html"
 FITTED = ROOT / "workbench" / "ph-fitted-curves.json"
 
@@ -35,11 +37,8 @@ class TestNthSandbox2(unittest.TestCase):
         before = PAGE.read_text()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_nth_sandbox2.py")],
                        check=True, capture_output=True)
-        # the build line carries the clock, so a rebuild a minute later can never
-        # match it exactly; the check is about the page, not the time of day
-        without_stamp = lambda text: "\n".join(
-            line for line in text.splitlines() if 'id="n-build"' not in line)
-        self.assertEqual(without_stamp(PAGE.read_text()), without_stamp(before))
+        self.assertEqual(without_build_stamp(PAGE.read_text()),
+                         without_build_stamp(before))
 
 
 if __name__ == "__main__":

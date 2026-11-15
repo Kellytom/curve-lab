@@ -1,10 +1,14 @@
 """Part 2: the same sandbox over fitted showcase curves."""
 
 import json
+import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-11th-sandbox-2.html"
 FITTED = ROOT / "workbench" / "ph-11th-fitted-curves.json"
 
@@ -34,7 +38,8 @@ class Test11thSandbox2(unittest.TestCase):
         before = PAGE.read_text()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_11th_sandbox2.py")],
                        check=True, capture_output=True)
-        self.assertEqual(PAGE.read_text(), before)
+        self.assertEqual(without_build_stamp(PAGE.read_text()),
+                         without_build_stamp(before))
 
 
 if __name__ == "__main__":

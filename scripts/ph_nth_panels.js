@@ -2158,6 +2158,13 @@
     writeCells();
     draw();
     const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+    // the top power is the last number that is not zero, not the last box: a row
+    // with six numbers in fifteen boxes is a t^5 curve, and saying t^14 is a lie
+    const topUsed = row => {
+      for (let k = row.length - 1; k >= 0; k--) if (Math.abs(row[k]) > 1e-9) return k;
+      return 0;
+    };
+    const filled = Math.max(topUsed(state.y), topUsed(state.x)) + 1;
     if (rootsStatus) {
       const scaled = bow.d > 1 ? ` · both rows scaled by ${bow.d} to keep the bow whole` : "";
       const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch}` : " · grid n/a";
@@ -2166,7 +2173,9 @@
       const warning = Math.abs(step - 1) > 1e-9
         ? ` · placed on whole powers: the ${step.toFixed(2)} boxes stay zero, so the knot is exact`
         : "";
-      rootsStatus.textContent = `step ${step.toFixed(2)} · top power t^${exponentLabel(exponentOf(count - 1))} · ` +
+      rootsStatus.textContent = `step ${step.toFixed(2)} · ${spots.length} spots → ` +
+        `top power t^${exponentLabel(exponentOf(filled - 1))} ` +
+        `(${filled} of ${count} boxes in use) · ` +
         `y ${state.y.join(", ")}` +
         (measured ? ` · bend ${measured.bend.toFixed(3)}${grid}` : "") + scaled + warning;
     }

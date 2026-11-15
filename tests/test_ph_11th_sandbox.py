@@ -6,6 +6,9 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-11th-sandbox.html"
 JS = ROOT / "scripts" / "ph_nth_panels.js"
 
@@ -35,7 +38,8 @@ class Test11thSandbox(unittest.TestCase):
         before = PAGE.read_text()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_11th_sandbox.py")],
                        check=True, capture_output=True)
-        self.assertEqual(PAGE.read_text(), before,
+        self.assertEqual(without_build_stamp(PAGE.read_text()),
+                         without_build_stamp(before),
                          "the page is not what scripts/ph_11th_sandbox.py emits")
 
     def test_the_serif_notes_page_is_generated_too(self):
