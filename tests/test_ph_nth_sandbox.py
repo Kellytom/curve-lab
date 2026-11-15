@@ -10,6 +10,11 @@ PAGE = ROOT / "workbench" / "ph-nth-sandbox.html"
 JS = ROOT / "scripts" / "ph_nth_panels.js"
 
 
+def without_build_stamp(text):
+    """The build line carries the clock, so two rebuilds never match exactly."""
+    return "\n".join(line for line in text.splitlines() if 'id="n-build"' not in line)
+
+
 class TestNthSandbox(unittest.TestCase):
     def test_the_page_holds_the_degree_11_sandbox(self):
         page = PAGE.read_text()
@@ -37,7 +42,8 @@ class TestNthSandbox(unittest.TestCase):
         before = PAGE.read_text()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_nth_sandbox.py")],
                        check=True, capture_output=True)
-        self.assertEqual(PAGE.read_text(), before,
+        self.assertEqual(without_build_stamp(PAGE.read_text()),
+                         without_build_stamp(before),
                          "the page is not what scripts/ph_nth_sandbox.py emits")
 
     def test_the_serif_notes_page_is_generated_too(self):
@@ -48,6 +54,37 @@ class TestNthSandbox(unittest.TestCase):
                        "chord-bars"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, text)
+
+    def test_the_law_and_the_formula_are_named_as_different_things(self):
+        """The operator's split: a specification says what, a representation says how."""
+        text = (ROOT / "workbench" / "ph-nth-serif-notes.html").read_text()
+        paragraphs = text.split("<p")[1:]
+        together = [part for part in paragraphs
+                    if "specification" in part and "representation" in part]
+        self.assertTrue(together,
+                        "no paragraph holds both 'specification' and 'representation'")
+
+    def test_the_two_tables_and_every_figure_are_numbered(self):
+        text = (ROOT / "workbench" / "ph-nth-serif-notes.html").read_text()
+        for marker in ("id=\"lac-membership\"", "id=\"ph-carry\"",
+                       "Table 1", "Table 2", "Fig. 1", "Fig. 2"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, text)
+
+    def test_the_carry_table_is_computed_not_typed(self):
+        """Table 2 must be what scripts/ph_carry.py produces, to five places."""
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import ph_carry
+        text = (ROOT / "workbench" / "ph-nth-serif-notes.html").read_text()
+        for name, fn in (("involute", ph_carry.involute),
+                         ("log spiral", ph_carry.log_spiral)):
+            points = ph_carry.target_points(fn, samples=240)
+            for degree in (3, 9):
+                real, imag = ph_carry.fit_speed(points, degree)
+                carried = ph_carry.ph_points(real, imag, samples=240)
+                cell = f"{ph_carry.deviation(carried, points[1:]):.5f}"
+                with self.subTest(target=name, degree=degree):
+                    self.assertIn(cell, text)
 
     def test_the_degree_ladder_is_written_once(self):
         text = JS.read_text()

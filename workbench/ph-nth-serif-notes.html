@@ -22,6 +22,11 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 a{color:#1f5fa8}
+table{border-collapse:collapse;width:100%;margin:0 0 14px}
+th,td{border-bottom:1px solid var(--rule);padding:6px 8px;font-size:14px;vertical-align:top}
+th{text-align:left;font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font:11px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 0 6px}
 </style></head><body><main>
 <p class="eyebrow">curve-lab | notes | serif foot</p>
 <h1>A serif foot as a PH appendix</h1>
@@ -29,6 +34,55 @@ a{color:#1f5fa8}
 the foot itself a <strong>PH span of the same degree</strong>, so flare, terminal and serif are one
 rational object rather than a rail, an arc and a drawing that agree by eye. This page keeps the code
 and the numbers so the problem can be picked up without carrying it on the sandbox.</p>
+
+<section class="panel">
+<h2>Specification and representation</h2>
+<p>The log-aesthetic law is a <strong>specification</strong>: it says what the curve must be, without
+saying how to draw it. The radius of curvature raised to a power <code>p</code> is a straight line in
+arc length, <code>rho^p = c0 s + c1</code>. That one condition decides membership before any code
+runs, and it is what Table 1 tests. The PH formula is a <strong>representation</strong>: it says how
+the curve is written down, <code>z'(t) = w(t)^2</code> with <code>w</code> a polynomial speed of
+degree <code>k</code>, and that is the form in which an offset stays exact. It is what Table 2 tests.
+The two are independent in both directions. A curve can meet the law and still not be PH, because
+the Euler spiral and the log spiral are not polynomial curves, so no degree carries them exactly;
+and a PH curve can be drawn from the formula without meeting any law at all. So membership is not a
+result about this page's machinery, and a small deviation in Table 2 does not make a curve an LAC.</p>
+<p class="small">The <code>p</code> in Table 1 is the law's exponent. The flare dial in Figure 1 is
+also labelled <code>p</code>; that one is the flare's power, and it is a different number.</p>
+
+<table id="lac-membership">
+<caption>Table 1 &middot; membership of the log-aesthetic family &middot; <code>scripts/lac_fit.py</code></caption>
+<thead><tr><th>curve</th><th class="num">p (law)</th><th class="num">fitted p</th><th class="num">residual</th><th>what the curve is</th></tr></thead>
+<tbody>
+<tr><td>circle</td><td class="num">0</td><td class="num">0.1</td><td class="num">0.0000</td><td class="small">constant radius; 0 is off the scan</td></tr>
+<tr><td>Euler spiral</td><td class="num">-1</td><td class="num">-1.0</td><td class="num">0.0002</td><td class="small">curvature grows with arc length</td></tr>
+<tr><td>log spiral</td><td class="num">1</td><td class="num">1.0</td><td class="num">0.0000</td><td class="small">self-similar: radius grows with arc length</td></tr>
+<tr><td>circle involute</td><td class="num">2</td><td class="num">2.0</td><td class="num">0.0000</td><td class="small">radius grows as the square root of arc length</td></tr>
+</tbody>
+</table>
+<p class="small">The fitted <code>p</code> and residual are the scan <code>lac_fit.py</code> prints. A
+residual of 0.0000 is zero at the four places shown, so the radius really is a straight line in arc
+length. The circle's law value is 0, but the scan skips 0 (a constant radius fits a flat line at any
+<code>p</code>), so the fit reports the neighbouring 0.1; it is the same answer at the precision that
+matters. The Euler spiral's 0.0002 is the error of the numerical arc, not of the law.</p>
+
+<table id="ph-carry">
+<caption>Table 2 &middot; what a degree-<code>k</code> PH formula carries &middot; <code>scripts/ph_carry.py</code></caption>
+<thead><tr><th>target</th><th class="num">k = 3</th><th class="num">k = 5</th><th class="num">k = 7</th><th class="num">k = 9</th></tr></thead>
+<tbody>
+<tr><td>involute (LAC p = 2)</td><td class="num">0.01260</td><td class="num">0.00035</td><td class="num">0.00010</td><td class="num">0.00004</td></tr>
+<tr><td>catenary</td><td class="num">0.00004</td><td class="num">0.00000</td><td class="num">0.00000</td><td class="num">0.00000</td></tr>
+<tr><td>Euler spiral (LAC p = -1)</td><td class="num">0.00449</td><td class="num">0.00031</td><td class="num">0.00002</td><td class="num">0.00000</td></tr>
+<tr><td>log spiral (LAC p = 1)</td><td class="num">0.03038</td><td class="num">0.00187</td><td class="num">0.00007</td><td class="num">0.00000</td></tr>
+</tbody>
+</table>
+<p class="small">Each number is the worst distance from the target after the best similarity fit, as
+a share of the curve's size: 0.0126 is 1.3%. Every row falls as <code>k</code> rises, and that is the
+whole point &mdash; the formula is general and the degree is the price of accuracy. At <code>k = 3</code>
+the worst case is the involute at 1.3%; by <code>k = 9</code> it is 0.00004, four parts in a hundred
+thousand. The log spiral settles slowest at <code>k = 3</code> (3.0%) because it grows two turns wide,
+and is down to 0.007% by <code>k = 7</code>.</p>
+</section>
 
 <section class="panel">
 <h2>The problem, stated</h2>
@@ -42,7 +96,7 @@ solves for one member by line search and prints how far it misses.</p>
 </section>
 
 <section class="panel">
-<h2>The flare, and the serif made from it</h2>
+<h2>Figure 1 &middot; the flare, and the serif made from it</h2>
 <div class="row">
   <label class="dial">d0 <input id="d0" type="number" value="0.35" step="0.01" min="0.05" max="2"></label>
   <label class="dial">k <input id="k" type="number" value="1.2" step="0.05" min="0" max="6"></label>
@@ -52,17 +106,17 @@ solves for one member by line search and prints how far it misses.</p>
   <button type="button" id="solve">solve the foot</button>
   <button type="button" id="arc">show the arc instead</button>
 </div>
-<svg id="plot" viewBox="0 0 720 520" role="img" aria-label="a rail end with a PH serif foot and the arc fallback"></svg>
+<svg id="plot" viewBox="0 0 720 520" role="img" aria-label="Fig. 1: a rail end with a PH serif foot and the arc fallback"></svg>
 <p class="small mono" id="readout"></p>
 </section>
 
 <section class="panel">
-<h2>The chord terms of the default curve</h2>
+<h2>Figure 2 &middot; the chord terms of the default curve</h2>
 <p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. These are
 the terms the integral produces for the sandbox's default curve, which is the curve the rest of this
 page works on. The first six rows are what a sextic can hold; the rest exist only because the position
 reaches <code>t^11</code>.</p>
-<svg id="chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+<svg id="chord-bars" viewBox="0 0 720 460" role="img" aria-label="Fig. 2: the chord terms as signed bars"></svg>
 </section>
 
 <section class="panel">
@@ -143,11 +197,44 @@ window.formatPolynomial = function (terms) {
 };
 
 window.panelRecipes = {};
+// The exponent step: 1 for whole powers, 1/2 for t^0.5, t^1.5, 5/2 ... The
+// experimental page sets window.phPowerStep; every other page leaves it unset,
+// so the Horner path below is what they run and nothing changes for them.
 window.polynomialValue = function (coefficients, t) {
+  const step = window.phPowerStep || 1;
+  if (step === 1) {
+    let total = 0;
+    for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+    return total;
+  }
   let total = 0;
-  for (let i = coefficients.length - 1; i >= 0; i--) total = total * t + coefficients[i];
+  for (let i = 0; i < coefficients.length; i++) {
+    // a negative t has no real fractional power, so below zero the row is read
+    // by the odd extension: sign(t) |t|^(k step). The page says so in words.
+    const power = t < 0 ? Math.sign(t) * Math.pow(-t, i * step) : Math.pow(t, i * step);
+    total += coefficients[i] * power;
+  }
   return total;
 };
+
+// Fractional exponents have no whole-number grid and no polynomial Wronskian,
+// so the numbers are measured from the curve instead of read off a formula.
+function numericMetrics(speedX, speedY) {
+  const value = window.polynomialValue;
+  const count = 1200;
+  let arc = 0, chordRe = 0, chordIm = 0, closest = Infinity;
+  for (let i = 0; i < count; i++) {
+    const t = (i + 0.5) / count;
+    const p = value(speedX, t), q = value(speedY, t);
+    arc += (p * p + q * q) / count;
+    chordRe += (p * p - q * q) / count;
+    chordIm += 2 * p * q / count;
+    closest = Math.min(closest, Math.hypot(p, q));
+  }
+  const chord = Math.hypot(chordRe, chordIm);
+  return { bend: chord > 1e-15 ? arc / chord : Infinity, arc, chord: [chordRe, chordIm],
+           pitch: 0, inflections: null, inflection: null, closest, inflectionMax: 0 };
+}
 window.polynomialDerivative = function (coefficients) {
   return coefficients.slice(1).map((coefficient, i) => coefficient * (i + 1));
 };
@@ -182,6 +269,7 @@ window.exactBend = function (speedX, speedY) {
   return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
 };
 window.recipeMetrics = function (speedX, speedY) {
+  if ((window.phPowerStep || 1) !== 1) return numericMetrics(speedX, speedY);
   const sampleCount = 600;
   const value = window.polynomialValue;
   const derivativeX = window.polynomialDerivative(speedX);
@@ -302,7 +390,7 @@ window.curveSaver = (function () {
     const zero = (left + right) / 2;
     const xOf = v => zero + v / biggest * (right - left) / 2;
     let art = `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">The chord terms, as signed bars</text>` +
+      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. 2 &middot; the chord terms, as signed bars</text>` +
       `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">T_m = (w^2)_m / (m+1); t^1 to t^11 left to right, x above y in each row</text>` +
       `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="#2e2413" stroke-width="1.5"/>`;
     for (let r = 0; r < terms.length; r++) {
@@ -448,7 +536,7 @@ window.curveSaver = (function () {
     const path = pts => "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     panel.innerHTML =
       `<rect width="${w}" height="${hgt}" fill="#fbf7ec"/>` +
-      `<text x="${l}" y="28" font-size="15" font-weight="600" fill="#2e2413">A serif foot at the rail end: PH appendix against the arc</text>` +
+      `<text x="${l}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. 1 &middot; a serif foot at the rail end: PH appendix against the arc</text>` +
       `<text x="${l}" y="46" font-size="12" fill="#7b6c4e">grey: spine | blue: rail | purple: the foot | the foot must leave tangent and arrive on the base</text>` +
       `<path d="${path(railLeft)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
       `<path d="${path(railRight)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +

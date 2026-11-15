@@ -10,16 +10,105 @@ span of the same degree. That is four conditions on a degree-5 speed, solved
 numerically; the residual is printed. When it is small enough to trust, this
 is where it comes back from.
 
+The page also carries the two tables that keep the question straight. The
+log-aesthetic law is a specification: it says what the curve must be, and it
+settles membership. The PH formula is a representation: it says how the curve is
+written down and drawn, and the degree is its price. Table 1 asks the law's
+question and Table 2 the representation's, and both are computed here from the
+scripts that own them, never typed in by hand.
+
 The page is generated: edit this file, never the HTML.
 """
 
 from __future__ import annotations
 
+import math
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "ph-nth-serif-notes.html"
 MATH = ROOT / "scripts" / "ph_math.js"
+
+sys.path.insert(0, str(ROOT / "scripts"))
+
+import lac_fit  # noqa: E402
+import ph_carry  # noqa: E402
+
+
+def _arc(fn, start, stop, samples=2000):
+    return [fn(start + (stop - start) * i / samples) for i in range(samples + 1)]
+
+
+def membership_rows():
+    """Table 1: the four named members and what the fit says about each.
+
+    p comes from the law; the fitted p and residual come from
+    `lac_fit.best_power`, the same function `lac_fit.py --classics` prints.
+    The circle's law value is 0, but the scan skips 0 (a constant radius fits
+    a flat line at any p), so the fit reports the neighbouring 0.1.
+    """
+    circle = _arc(lambda t: (math.cos(t), math.sin(t)), 0.0, math.pi / 2)
+    involute = _arc(ph_carry.involute, 0.0, 2 * math.pi)
+    euler = _arc(ph_carry.euler_spiral, 0.0, 1.0, samples=800)
+    log_spiral = _arc(ph_carry.log_spiral, 0.0, 1.0)
+    rows = [
+        ("circle", 0, circle, "constant radius; 0 is off the scan"),
+        ("Euler spiral", -1, euler, "curvature grows with arc length"),
+        ("log spiral", 1, log_spiral, "self-similar: radius grows with arc length"),
+        ("circle involute", 2, involute, "radius grows as the square root of arc length"),
+    ]
+    out = []
+    for name, law_p, points, note in rows:
+        residual, fitted = lac_fit.best_power(points)
+        out.append((name, law_p, fitted, residual, note))
+    return out
+
+
+def carry_rows():
+    """Table 2: worst deviation of a degree-k PH fit, as a share of size."""
+    targets = [
+        ("involute (LAC p = 2)", ph_carry.involute),
+        ("catenary", ph_carry.catenary),
+        ("Euler spiral (LAC p = -1)", ph_carry.euler_spiral),
+        ("log spiral (LAC p = 1)", ph_carry.log_spiral),
+    ]
+    degrees = (3, 5, 7, 9)
+    out = []
+    for name, fn in targets:
+        points = ph_carry.target_points(fn, samples=240)
+        cells = []
+        for degree in degrees:
+            real, imag = ph_carry.fit_speed(points, degree)
+            carried = ph_carry.ph_points(real, imag, samples=240)
+            cells.append(ph_carry.deviation(carried, points[1:]))
+        out.append((name, cells))
+    return out
+
+
+def membership_table():
+    body = "".join(
+        f'<tr><td>{name}</td><td class="num">{law_p}</td>'
+        f'<td class="num">{fitted:.1f}</td><td class="num">{residual:.4f}</td>'
+        f'<td class="small">{note}</td></tr>\n'
+        for name, law_p, fitted, residual, note in membership_rows())
+    return ('<thead><tr><th>curve</th><th class="num">p (law)</th>'
+            '<th class="num">fitted p</th><th class="num">residual</th>'
+            '<th>what the curve is</th></tr></thead>\n<tbody>\n'
+            + body + "</tbody>")
+
+
+def carry_table():
+    degrees = (3, 5, 7, 9)
+    head = ('<thead><tr><th>target</th>'
+            + "".join(f'<th class="num">k = {k}</th>' for k in degrees)
+            + "</tr></thead>")
+    body = "".join(
+        f'<tr><td>{name}</td>'
+        + "".join(f'<td class="num">{cell:.5f}</td>' for cell in cells)
+        + "</tr>\n"
+        for name, cells in carry_rows())
+    return head + "\n<tbody>\n" + body + "</tbody>"
 
 PAGE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -45,6 +134,11 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 button{font:12px/1.2 ui-monospace,Menlo,monospace;padding:5px 9px;background:#fbf7ec;color:var(--ink);border:1px solid var(--rule);border-radius:3px;cursor:pointer}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
 a{color:#1f5fa8}
+table{border-collapse:collapse;width:100%;margin:0 0 14px}
+th,td{border-bottom:1px solid var(--rule);padding:6px 8px;font-size:14px;vertical-align:top}
+th{text-align:left;font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font:11px/1.5 ui-monospace,Menlo,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 0 6px}
 </style></head><body><main>
 <p class="eyebrow">curve-lab | notes | serif foot</p>
 <h1>A serif foot as a PH appendix</h1>
@@ -52,6 +146,43 @@ a{color:#1f5fa8}
 the foot itself a <strong>PH span of the same degree</strong>, so flare, terminal and serif are one
 rational object rather than a rail, an arc and a drawing that agree by eye. This page keeps the code
 and the numbers so the problem can be picked up without carrying it on the sandbox.</p>
+
+<section class="panel">
+<h2>Specification and representation</h2>
+<p>The log-aesthetic law is a <strong>specification</strong>: it says what the curve must be, without
+saying how to draw it. The radius of curvature raised to a power <code>p</code> is a straight line in
+arc length, <code>rho^p = c0 s + c1</code>. That one condition decides membership before any code
+runs, and it is what Table 1 tests. The PH formula is a <strong>representation</strong>: it says how
+the curve is written down, <code>z'(t) = w(t)^2</code> with <code>w</code> a polynomial speed of
+degree <code>k</code>, and that is the form in which an offset stays exact. It is what Table 2 tests.
+The two are independent in both directions. A curve can meet the law and still not be PH, because
+the Euler spiral and the log spiral are not polynomial curves, so no degree carries them exactly;
+and a PH curve can be drawn from the formula without meeting any law at all. So membership is not a
+result about this page's machinery, and a small deviation in Table 2 does not make a curve an LAC.</p>
+<p class="small">The <code>p</code> in Table 1 is the law's exponent. The flare dial in Figure 1 is
+also labelled <code>p</code>; that one is the flare's power, and it is a different number.</p>
+
+<table id="lac-membership">
+<caption>Table 1 &middot; membership of the log-aesthetic family &middot; <code>scripts/lac_fit.py</code></caption>
+__MEMBERSHIP__
+</table>
+<p class="small">The fitted <code>p</code> and residual are the scan <code>lac_fit.py</code> prints. A
+residual of 0.0000 is zero at the four places shown, so the radius really is a straight line in arc
+length. The circle's law value is 0, but the scan skips 0 (a constant radius fits a flat line at any
+<code>p</code>), so the fit reports the neighbouring 0.1; it is the same answer at the precision that
+matters. The Euler spiral's 0.0002 is the error of the numerical arc, not of the law.</p>
+
+<table id="ph-carry">
+<caption>Table 2 &middot; what a degree-<code>k</code> PH formula carries &middot; <code>scripts/ph_carry.py</code></caption>
+__CARRY__
+</table>
+<p class="small">Each number is the worst distance from the target after the best similarity fit, as
+a share of the curve's size: 0.0126 is 1.3%. Every row falls as <code>k</code> rises, and that is the
+whole point &mdash; the formula is general and the degree is the price of accuracy. At <code>k = 3</code>
+the worst case is the involute at 1.3%; by <code>k = 9</code> it is 0.00004, four parts in a hundred
+thousand. The log spiral settles slowest at <code>k = 3</code> (3.0%) because it grows two turns wide,
+and is down to 0.007% by <code>k = 7</code>.</p>
+</section>
 
 <section class="panel">
 <h2>The problem, stated</h2>
@@ -65,7 +196,7 @@ solves for one member by line search and prints how far it misses.</p>
 </section>
 
 <section class="panel">
-<h2>The flare, and the serif made from it</h2>
+<h2>Figure 1 &middot; the flare, and the serif made from it</h2>
 <div class="row">
   <label class="dial">d0 <input id="d0" type="number" value="0.35" step="0.01" min="0.05" max="2"></label>
   <label class="dial">k <input id="k" type="number" value="1.2" step="0.05" min="0" max="6"></label>
@@ -75,17 +206,17 @@ solves for one member by line search and prints how far it misses.</p>
   <button type="button" id="solve">solve the foot</button>
   <button type="button" id="arc">show the arc instead</button>
 </div>
-<svg id="plot" viewBox="0 0 720 520" role="img" aria-label="a rail end with a PH serif foot and the arc fallback"></svg>
+<svg id="plot" viewBox="0 0 720 520" role="img" aria-label="Fig. 1: a rail end with a PH serif foot and the arc fallback"></svg>
 <p class="small mono" id="readout"></p>
 </section>
 
 <section class="panel">
-<h2>The chord terms of the default curve</h2>
+<h2>Figure 2 &middot; the chord terms of the default curve</h2>
 <p>One row per position power, <code>x</code> above <code>y</code>, on a shared zero line. These are
 the terms the integral produces for the sandbox's default curve, which is the curve the rest of this
 page works on. The first six rows are what a sextic can hold; the rest exist only because the position
 reaches <code>t^11</code>.</p>
-<svg id="chord-bars" viewBox="0 0 720 460" role="img" aria-label="the chord terms as signed bars"></svg>
+<svg id="chord-bars" viewBox="0 0 720 460" role="img" aria-label="Fig. 2: the chord terms as signed bars"></svg>
 </section>
 
 <section class="panel">
@@ -152,7 +283,7 @@ __MATH__
     const zero = (left + right) / 2;
     const xOf = v => zero + v / biggest * (right - left) / 2;
     let art = `<rect width="${width}" height="${height}" fill="#fbf7ec"/>` +
-      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">The chord terms, as signed bars</text>` +
+      `<text x="${pad}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. 2 &middot; the chord terms, as signed bars</text>` +
       `<text x="${pad}" y="48" font-size="12" fill="#7b6c4e">T_m = (w^2)_m / (m+1); t^1 to t^11 left to right, x above y in each row</text>` +
       `<line x1="${zero}" y1="${top - 6}" x2="${zero}" y2="${bottom + 4}" stroke="#2e2413" stroke-width="1.5"/>`;
     for (let r = 0; r < terms.length; r++) {
@@ -298,7 +429,7 @@ __MATH__
     const path = pts => "M" + pts.map(p => fx(p[0]).toFixed(1) + "," + fy(p[1]).toFixed(1)).join("L");
     panel.innerHTML =
       `<rect width="${w}" height="${hgt}" fill="#fbf7ec"/>` +
-      `<text x="${l}" y="28" font-size="15" font-weight="600" fill="#2e2413">A serif foot at the rail end: PH appendix against the arc</text>` +
+      `<text x="${l}" y="28" font-size="15" font-weight="600" fill="#2e2413">Fig. 1 &middot; a serif foot at the rail end: PH appendix against the arc</text>` +
       `<text x="${l}" y="46" font-size="12" fill="#7b6c4e">grey: spine | blue: rail | purple: the foot | the foot must leave tangent and arrive on the base</text>` +
       `<path d="${path(railLeft)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
       `<path d="${path(railRight)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
@@ -337,7 +468,10 @@ __MATH__
 
 
 def build():
-    OUT.write_text(PAGE.replace("__MATH__", MATH.read_text()))
+    page = (PAGE.replace("__MATH__", MATH.read_text())
+                .replace("__MEMBERSHIP__", membership_table())
+                .replace("__CARRY__", carry_table()))
+    OUT.write_text(page)
     print(OUT.relative_to(ROOT))
 
 

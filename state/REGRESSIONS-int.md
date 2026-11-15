@@ -35,6 +35,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 15 | 2026-11-14 | undo after a rung grew crashed a box | `check-nth-page.mjs` (exp page: undo runs clean) | restored rows are padded to the boxes that exist |
 | 16 | 2026-11-14 | "a fraction like 1/4 ... .1 doesnt seem like the way" — 1/3 blew the grid to 8.7e13 | `test_the_tweak_sizes_are_binary_exact_only` | only binary-exact sizes are offered |
 | 17 | 2026-11-14 | "fix these buttons so they never lose data" — a lower rung deleted the higher numbers | `check-nth-page.mjs` (rung round trip keeps 777) | rung changes stash coefficients instead of deleting them |
+| 18 | 2026-11-14 | the suite went red on `ph-nth-sandbox.html` with nothing changed: the reproduce check compared the build stamp, so it failed whenever the minute rolled over | `test_the_generator_reproduces_the_page` (compares after dropping the `n-build` line) | the rebuild check tests the page, not the clock |
 
 ## Fixed and measured, but not yet in the fast suite
 

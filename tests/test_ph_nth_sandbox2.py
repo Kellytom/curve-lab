@@ -35,7 +35,11 @@ class TestNthSandbox2(unittest.TestCase):
         before = PAGE.read_text()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_nth_sandbox2.py")],
                        check=True, capture_output=True)
-        self.assertEqual(PAGE.read_text(), before)
+        # the build line carries the clock, so a rebuild a minute later can never
+        # match it exactly; the check is about the page, not the time of day
+        without_stamp = lambda text: "\n".join(
+            line for line in text.splitlines() if 'id="n-build"' not in line)
+        self.assertEqual(without_stamp(PAGE.read_text()), without_stamp(before))
 
 
 if __name__ == "__main__":
