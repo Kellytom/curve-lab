@@ -112,7 +112,15 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .paste-row textarea{flex:1;min-height:64px;font:12px/1.4 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink)}
 #n-json{width:100%;font:12px/1.5 ui-monospace,Menlo,monospace;padding:6px 8px;border:1px solid var(--rule);background:#fffdf7;color:var(--ink);resize:vertical}
 svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background:var(--paper)}
-#n-plot{width:100%;max-width:600px;height:auto;display:block;margin:0 auto}
+.plot-row{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;align-items:start}
+@media(max-width:760px){.plot-row{grid-template-columns:1fr}}
+.plot-host{min-width:0}
+#n-plot{width:100%;height:auto;display:block}
+.hud{background:var(--paper);border:1px solid var(--rule);padding:10px 12px;font:12px/1.5 ui-monospace,Menlo,monospace}
+.hud h4{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hud-row{display:block;margin:0 0 8px}
+.hud-row input[type=range]{width:100%}
+.hud-row input[type=number]{width:100%}
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
@@ -196,10 +204,6 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <h3>Primary curve <span class="small mono" id="n-primary-degree"></span>
       <span class="mono" id="n-curve-name" title="the name of the curve you are working on; select it to copy"
             style="user-select:text;background:#efe7d3;border:1px solid var(--rule);border-radius:3px;padding:0 4px">curve</span></h3>
-    <div class="solver-row tight">
-      <label class="dial" for="n-move-x">move x <input id="n-move-x" type="number" step="0.1" value="0"></label>
-      <label class="dial" for="n-move-y">move y <input id="n-move-y" type="number" step="0.1" value="0"></label>
-    </div>
   </div>
   <div class="spine-grid" id="n-controls"></div>
 </div>
@@ -239,7 +243,26 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   </div>
   <p class="small mono" id="n-roots-status"></p>
 </div>
-<svg id="n-plot" viewBox="0 0 900 380" role="img" aria-label="the PH curve"></svg>
+<div class="plot-row" id="n-plot-row">
+  <div class="plot-host"><svg id="n-plot" viewBox="0 0 900 380" role="img" aria-label="the PH curve"></svg></div>
+  <aside class="hud" id="n-view-hud" aria-label="view controls">
+    <h4>View</h4>
+    <label class="hud-row" for="n-zoom">zoom
+      <input id="n-zoom" type="range" min="-12" max="12" step="0.5" value="1" title="positive zooms in on the knot, negative pulls back">
+    </label>
+    <label class="hud-row" for="n-zoom-number">zoom
+      <input id="n-zoom-number" type="number" step="0.5" value="1" style="width:5em" title="positive in, negative out"></label>
+    <label class="hud-row" for="n-pan-x">pan x
+      <input id="n-pan-x" type="range" min="-50" max="50" step="1" value="0"></label>
+    <label class="hud-row" for="n-move-x">pan x
+      <input id="n-move-x" type="number" step="0.1" value="0"></label>
+    <label class="hud-row" for="n-pan-y">pan y
+      <input id="n-pan-y" type="range" min="-50" max="50" step="1" value="0"></label>
+    <label class="hud-row" for="n-move-y">pan y
+      <input id="n-move-y" type="number" step="0.1" value="0"></label>
+    <button type="button" id="n-view-reset" title="zoom 1, no pan, no rotation">reset the view</button>
+  </aside>
+</div>
 <div class="curve-box complement" id="n-complement-box">
   <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
   <div class="spine-grid" id="n-complement-controls"></div>
@@ -291,9 +314,6 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-cut-knot" title="restrict the drawing to the knot; the curve itself is unchanged">show only the knot</button>
   <button type="button" id="n-rebuild-span" title="rebuild the knot's span as a new curve: exact whole numbers, no legs left in the rows">rebuild without the legs</button>
   <button type="button" id="n-focus-knot" aria-pressed="false" title="frame the knot, not the whole stroke">focus the knot</button>
-  <label class="dial" for="n-zoom">zoom
-    <input id="n-zoom" type="range" min="-12" max="12" step="0.5" value="1" title="positive zooms in on the knot, negative pulls back">
-    <input id="n-zoom-number" type="number" step="0.5" value="1" style="width:5.5em" title="positive in, negative out"></label>
 </div>
 <hr class="group-rule">
 <div class="solver-row" id="n-view-row">

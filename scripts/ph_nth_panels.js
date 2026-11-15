@@ -2662,6 +2662,36 @@
       `(t ${low.toFixed(3)} to ${high.toFixed(3)}): `);
   });
 
+  // the HUD's pan sliders drive the same translation the number boxes do
+  [["n-pan-x", "n-move-x"], ["n-pan-y", "n-move-y"]].forEach(([sliderId, fieldId]) => {
+    const slider = document.getElementById(sliderId);
+    const field = document.getElementById(fieldId);
+    if (!slider || !field) return;
+    slider.addEventListener("input", () => {
+      field.value = slider.value;
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+  const viewReset = document.getElementById("n-view-reset");
+  if (viewReset) viewReset.addEventListener("click", () => {
+    view.zoom = 1;
+    view.focusKnot = false;
+    view.rotate = false;
+    const zoomSlider = document.getElementById("n-zoom");
+    const zoomNumber = document.getElementById("n-zoom-number");
+    if (zoomSlider) zoomSlider.value = "1";
+    if (zoomNumber) zoomNumber.value = "1";
+    [["n-move-x", "n-pan-x"], ["n-move-y", "n-pan-y"]].forEach(([fieldId, sliderId]) => {
+      const field = document.getElementById(fieldId);
+      const slider = document.getElementById(sliderId);
+      if (field) { field.value = "0"; field.dispatchEvent(new Event("input", { bubbles: true })); }
+      if (slider) slider.value = "0";
+    });
+    draw();
+    const status = document.getElementById("n-paste-status");
+    if (status) status.textContent = "view reset: zoom 1, no pan";
+  });
+
   // a plain percentage cut: same fraction of t off each end, exact in the JSON
   const cutPercent = document.getElementById("n-cut-percent");
   const cutApply = document.getElementById("n-cut-apply");
