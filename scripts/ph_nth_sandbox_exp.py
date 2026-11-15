@@ -66,8 +66,10 @@ def family_section():
 INTRO = (
     "<p class=\"small\"><strong>Experimental.</strong> The rows below step by the exponent chosen at "
     "the top: 1/2 gives <code>t^0.5</code>, <code>t^1.5</code>, <code>t^2.5</code> (5/2), "
-    "<code>t^3.5</code> (7/2). Bend and closest are measured from the curve; the grid and the "
-    "inflection count are marked not applicable, because neither exists off the whole powers. A "
+    "<code>t^3.5</code> (7/2). Bend and closest are measured from the curve. The grid and the "
+    "inflection count need whole powers; when the step is 1/2 or 1/3 but every number still sits on a "
+    "whole power &mdash; the half boxes left empty &mdash; the row is folded back and both are reported "
+    "as usual. Only a number that really sits on a fractional power turns them off. A "
     "fractional step cannot be mirror-symmetric: symmetry needs <code>t = 2^(-1/s)</code>, which is "
     "irrational for every rational step but 1.</p>\n"
 )

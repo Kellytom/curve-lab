@@ -325,8 +325,37 @@ window.exactBend = function (speedX, speedY) {
   const chord = Math.hypot(chordRe, chordIm);
   return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
 };
+// A row on a fractional step can still be a whole-power polynomial: the half boxes
+// are simply empty. When every non-zero number sits on a whole power, fold the row
+// down and measure it exactly, because the grid does exist. Returns null when a
+// number really is on a fractional power.
+function foldToWholePowers(row, step) {
+  if (Math.abs(step - 1) < 1e-12) return row.slice();
+  const out = [];
+  for (let k = 0; k < row.length; k++) {
+    if (Math.abs(row[k]) < 1e-12) continue;
+    const power = k * step;
+    if (Math.abs(power - Math.round(power)) > 1e-9) return null;
+    const index = Math.round(power);
+    out[index] = (out[index] || 0) + row[k];
+  }
+  for (let i = 0; i < out.length; i++) out[i] = out[i] || 0;
+  return out;
+}
 window.recipeMetrics = function (speedX, speedY) {
-  if ((window.phPowerStep || 1) !== 1) return numericMetrics(speedX, speedY);
+  const step = window.phPowerStep || 1;
+  if (Math.abs(step - 1) > 1e-12) {
+    const foldedX = foldToWholePowers(speedX, step);
+    const foldedY = foldToWholePowers(speedY, step);
+    // only a number that truly sits on a half or third power costs the grid
+    if (!foldedX || !foldedY) return numericMetrics(speedX, speedY);
+    // pad to a common length: the grid is read off the squared rows, and a short
+    // row would cut the powers off the end of that product
+    const longest = Math.max(foldedX.length, foldedY.length);
+    const pad = row => row.concat(new Array(longest - row.length).fill(0));
+    speedX = pad(foldedX);
+    speedY = pad(foldedY);
+  }
   const sampleCount = 600;
   const value = window.polynomialValue;
   const derivativeX = window.polynomialDerivative(speedX);

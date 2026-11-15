@@ -17,11 +17,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:8px;align-items:center;margin:2px 0}
 .spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-grid .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
+.spine-grid .spine-row{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:6px;align-items:stretch}
 /* the axis letter gets its own line, so the x row and the y row start level */
 .spine-grid .spine-row>span:first-child{grid-column:1 / -1;width:auto;margin:2px 0 0}
 .spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
-.cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
+.cell-inputs{display:flex;gap:6px;align-items:center;flex:1;min-width:0;flex-wrap:wrap}
 .spine-grid .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
 .spine-grid .cell-inputs input[type=range]{flex:1;min-width:80px;height:18px;accent-color:#8a1f1f}
 .cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px;accent-color:#1f4f8a}
@@ -106,10 +106,10 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .hud-row{display:block;margin:0 0 8px}
 .hud-row input[type=range]{width:100%}
 .hud-row input[type=number]{width:100%}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
-@media(max-width:700px){.gallery{grid-template-columns:1fr}}
+@media(max-width:700px){.gallery{grid-template-columns:minmax(0, 1fr)}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
 .gallery figure.open{grid-column:1 / -1}
 .more-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}
@@ -155,7 +155,7 @@ unchanged &mdash; more terms, same rules.</p>
 
 <section class="panel">
 <h2>A | the PH curve, from degree 11 up</h2>
-<p class="small"><strong>Experimental.</strong> The rows below step by the exponent chosen at the top: 1/2 gives <code>t^0.5</code>, <code>t^1.5</code>, <code>t^2.5</code> (5/2), <code>t^3.5</code> (7/2). Bend and closest are measured from the curve; the grid and the inflection count are marked not applicable, because neither exists off the whole powers. A fractional step cannot be mirror-symmetric: symmetry needs <code>t = 2^(-1/s)</code>, which is irrational for every rational step but 1.</p>
+<p class="small"><strong>Experimental.</strong> The rows below step by the exponent chosen at the top: 1/2 gives <code>t^0.5</code>, <code>t^1.5</code>, <code>t^2.5</code> (5/2), <code>t^3.5</code> (7/2). Bend and closest are measured from the curve. The grid and the inflection count need whole powers; when the step is 1/2 or 1/3 but every number still sits on a whole power &mdash; the half boxes left empty &mdash; the row is folded back and both are reported as usual. Only a number that really sits on a fractional power turns them off. A fractional step cannot be mirror-symmetric: symmetry needs <code>t = 2^(-1/s)</code>, which is irrational for every rational step but 1.</p>
 <p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.
 Each rung adds one number per axis, so the position degree rises by two: 11 up to 29, with
 12 to 30 numbers. Doubling the rows is what lets a fractional step reach the same top power:
@@ -658,8 +658,37 @@ window.exactBend = function (speedX, speedY) {
   const chord = Math.hypot(chordRe, chordIm);
   return { arc, chord: [chordRe, chordIm], bend: chord > 1e-15 ? arc / chord : Infinity };
 };
+// A row on a fractional step can still be a whole-power polynomial: the half boxes
+// are simply empty. When every non-zero number sits on a whole power, fold the row
+// down and measure it exactly, because the grid does exist. Returns null when a
+// number really is on a fractional power.
+function foldToWholePowers(row, step) {
+  if (Math.abs(step - 1) < 1e-12) return row.slice();
+  const out = [];
+  for (let k = 0; k < row.length; k++) {
+    if (Math.abs(row[k]) < 1e-12) continue;
+    const power = k * step;
+    if (Math.abs(power - Math.round(power)) > 1e-9) return null;
+    const index = Math.round(power);
+    out[index] = (out[index] || 0) + row[k];
+  }
+  for (let i = 0; i < out.length; i++) out[i] = out[i] || 0;
+  return out;
+}
 window.recipeMetrics = function (speedX, speedY) {
-  if ((window.phPowerStep || 1) !== 1) return numericMetrics(speedX, speedY);
+  const step = window.phPowerStep || 1;
+  if (Math.abs(step - 1) > 1e-12) {
+    const foldedX = foldToWholePowers(speedX, step);
+    const foldedY = foldToWholePowers(speedY, step);
+    // only a number that truly sits on a half or third power costs the grid
+    if (!foldedX || !foldedY) return numericMetrics(speedX, speedY);
+    // pad to a common length: the grid is read off the squared rows, and a short
+    // row would cut the powers off the end of that product
+    const longest = Math.max(foldedX.length, foldedY.length);
+    const pad = row => row.concat(new Array(longest - row.length).fill(0));
+    speedX = pad(foldedX);
+    speedY = pad(foldedY);
+  }
   const sampleCount = 600;
   const value = window.polynomialValue;
   const derivativeX = window.polynomialDerivative(speedX);
@@ -4122,7 +4151,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 23:22</p>
+<p class="small mono" id="n-build">build 2026-11-14 23:59</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

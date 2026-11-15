@@ -41,11 +41,11 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 .mono{font:12px/1.5 ui-monospace,Menlo,monospace}
 .spine-row{display:flex;gap:8px;align-items:center;margin:2px 0}
 .spine-row>span{width:34px;color:#8a3b2a;font:13px ui-monospace,Menlo,monospace}
-.spine-grid .spine-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}
+.spine-grid .spine-row{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:6px;align-items:stretch}
 /* the axis letter gets its own line, so the x row and the y row start level */
 .spine-grid .spine-row>span:first-child{grid-column:1 / -1;width:auto;margin:2px 0 0}
 .spine-cell{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;min-width:110px;font:11px ui-monospace,Menlo,monospace;color:var(--muted)}
-.cell-inputs{display:flex;gap:6px;align-items:center;flex:1}
+.cell-inputs{display:flex;gap:6px;align-items:center;flex:1;min-width:0;flex-wrap:wrap}
 .spine-grid .cell-inputs input[type=number]{width:auto;min-width:96px;max-width:176px;field-sizing:content;font:12px ui-monospace,Menlo,monospace;padding:2px 4px;font-variant-numeric:tabular-nums}
 .spine-grid .cell-inputs input[type=range]{flex:1;min-width:80px;height:18px;accent-color:#8a1f1f}
 .cell-inputs input[type=range].decade{flex:0 0 64px;min-width:64px;accent-color:#1f4f8a}
@@ -130,10 +130,10 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .hud-row{display:block;margin:0 0 8px}
 .hud-row input[type=range]{width:100%}
 .hud-row input[type=number]{width:100%}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.gallery{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
-@media(max-width:700px){.gallery{grid-template-columns:1fr}}
+@media(max-width:700px){.gallery{grid-template-columns:minmax(0, 1fr)}}
 .gallery figure{margin:0;background:var(--paper);border:1px solid var(--rule);padding:8px}
 .gallery figure.open{grid-column:1 / -1}
 .more-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start}

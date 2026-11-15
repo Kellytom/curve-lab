@@ -13,6 +13,19 @@ JS = ROOT / "scripts" / "ph_nth_panels.js"
 
 
 class TestNthSandbox(unittest.TestCase):
+    def test_the_page_cannot_scroll_sideways(self):
+        """The found-curve gallery blew out the right edge of the page.
+
+        2026-11-15: `1fr` columns floor at their content's width, so one long
+        gallery cell — or one speed-control cell — pushed the page wider than the
+        window and the found curves ran off the right side. `minmax(0, 1fr)` lets
+        a column shrink; measured: body scroll width equals the window at 900,
+        1000, 1024, 1120 and 1280 px, and the gallery still shows two columns.
+        """
+        page = PAGE.read_text()
+        self.assertIn("repeat(2, minmax(0, 1fr))", page)
+        self.assertIn(".cell-inputs{display:flex;gap:6px;align-items:center;flex:1;min-width:0;flex-wrap:wrap}", page)
+
     def test_the_ruler_runs_to_the_middle_and_mirrors_back_from_one(self):
         """0 to 1/2 across the page, then 1 to 1/2 under it, so 1/19 and 1/20 split.
 

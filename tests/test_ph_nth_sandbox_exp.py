@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = ROOT / "workbench" / "ph-nth-sandbox-exp.html"
 MATH = ROOT / "scripts" / "ph_math.js"
+PANELS = ROOT / "scripts" / "ph_nth_panels.js"
 
 
 class TestFractionalSandbox(unittest.TestCase):
@@ -68,6 +69,22 @@ class TestFractionalSandbox(unittest.TestCase):
 
     def test_the_step_applies_from_the_first_draw(self):
         self.assertIn("window.phPowerStep = 0.5", PAGE.read_text())
+
+    def test_a_whole_power_row_is_measured_even_on_a_half_step(self):
+        """It said "grid n/a: fractional powers" with no fractional power in use.
+
+        The step was 1/2 and every number sat on a whole power, so the row was a
+        plain polynomial and the grid existed. A folded row must also be padded to
+        a common length: a constant x row folds to one number, and the grid is read
+        off the squared rows, so a short row cut the powers off the end of that
+        product and reported grid 1/1.
+        """
+        maths = MATH.read_text()
+        self.assertIn("function foldToWholePowers(row, step)", maths)
+        self.assertIn("if (!foldedX || !foldedY) return numericMetrics(speedX, speedY);", maths)
+        self.assertIn("const pad = row => row.concat(new Array(longest - row.length).fill(0));", maths)
+        # the words stay for a number that really is on a fractional power
+        self.assertIn("grid n/a: fractional powers", PANELS.read_text())
 
     def test_the_maths_carries_a_step_and_falls_back_to_horner(self):
         maths = MATH.read_text()
