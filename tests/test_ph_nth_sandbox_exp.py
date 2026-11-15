@@ -10,6 +10,23 @@ MATH = ROOT / "scripts" / "ph_math.js"
 
 
 class TestFractionalSandbox(unittest.TestCase):
+    def test_the_seven_families_come_before_the_found_curves(self):
+        """Seven families above the line; the found curves stay below it, for later.
+
+        One outer flat spot, its mirror and three copies at 1/2: five spots, so a
+        t^5 row. Clicking one writes those spots into the field and presses the
+        same "fill from the dots" the operator presses.
+        """
+        page = PAGE.read_text()
+        for family in ("1/15", "1/14", "1/13", "1/12", "1/11", "1/10", "1/9"):
+            with self.subTest(family=family):
+                self.assertIn(f'data-spots="{family}, 1/2, 1/2, 1/2, ', page)
+        self.assertLess(page.index('id="n-families"'),
+                        page.index("<h2>Found curves</h2>"),
+                        "the families must sit above the found curves")
+        self.assertIn("<hr", page)
+        self.assertIn("#n-family-buttons .family", page)
+
     def test_the_page_is_built_with_the_step_control(self):
         page = PAGE.read_text()
         for marker in ("Experiment: fractional exponents", "n-step", "exponent step",

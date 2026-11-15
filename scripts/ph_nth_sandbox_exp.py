@@ -33,6 +33,36 @@ GALLERY_HEAD = (
     "because every stored curve is a whole-power row.</p>\n"
 )
 
+# The seven families to work from: one outer flat spot, its mirror, and three
+# copies at 1/2. Five spots, so the row ends at t^5. A button writes those spots
+# into the field and presses the same "fill from the dots" the operator presses,
+# so what loads is exactly what the strip shows.
+FAMILIES = ("1/15", "1/14", "1/13", "1/12", "1/11", "1/10", "1/9")
+
+
+def family_section():
+    buttons = []
+    for text in FAMILIES:
+        numerator, denominator = (int(part) for part in text.split("/"))
+        spots = f"{text}, 1/2, 1/2, 1/2, {denominator - numerator}/{denominator}"
+        buttons.append(
+            f'    <button type="button" class="family" data-spots="{spots}" '
+            f'title="flat spots {spots}">{text}</button>')
+    return (
+        '<div class="curve-box" id="n-families">\n'
+        '<h3>Seven families: one outer flat spot, its mirror, three at 1/2</h3>\n'
+        '<p class="small">One flat spot and its mirror, plus three copies at 1/2, is five spots, '
+        'so the row runs to <code>t^5</code>. The outer spot picks the family. Click one to load '
+        'it, then nudge the numbers above to find its children; the dots it loads are on the strip '
+        'in your own hand, so you can move one and watch the row follow.</p>\n'
+        '<div class="solver-row" id="n-family-buttons">\n'
+        + "\n".join(buttons) + "\n"
+        '</div>\n'
+        '<p class="small">Families first; the found curves stay below the line, for later.</p>\n'
+        '</div>\n'
+        '<hr style="border:0;border-top:2px solid #2e2413;margin:22px 0 16px">\n'
+    )
+
 INTRO = (
     "<p class=\"small\"><strong>Experimental.</strong> The rows below step by the exponent chosen at "
     "the top: 1/2 gives <code>t^0.5</code>, <code>t^1.5</code>, <code>t^2.5</code> (5/2), "
@@ -151,10 +181,10 @@ def build():
                         "never the numbers. The knot-cutting controls that did not work are "
                         "<a href=\"ph-nth-exp-notes.html\">parked with their measurements</a>.</p>", 1)
 
-    # the gallery keeps its host, and gets a heading of its own
+    # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + GALLERY_HEAD + page[head_end:]
+    page = page[:head_start] + family_section() + GALLERY_HEAD + page[head_end:]
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves
@@ -165,8 +195,8 @@ def build():
         "<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.",
         INTRO + "<p>One row of numbers for <code>x</code> and one for <code>y</code>, from <code>t^0</code> upward.")
 
-    # the curve being worked on opens on refresh: step 1 first, so its terms land
-    # in the whole-power boxes, then the curve itself
+    # a family button writes its spots into the field and presses the same control
+    # the operator presses, so the curve that loads is the one the dots describe
     starter = (
         "<script>\n"
         "(() => {\n"
@@ -174,6 +204,25 @@ def build():
         "  if (step) { step.value = '0.5'; step.dispatchEvent(new Event('input', { bubbles: true })); }\n"
         "  const wanted = (window.phNthGallery || []).find(entry => entry.name === 'wide-knot-x20');\n"
         "  if (wanted && window.phNthLoad) window.phNthLoad(wanted);\n"
+        "})();\n"
+        "(() => {\n"
+        "  // the seven families: one click loads the spots, and the strip follows\n"
+        "  document.querySelectorAll('#n-family-buttons .family').forEach(button => {\n"
+        "    button.addEventListener('click', () => {\n"
+        "      const field = document.getElementById('n-roots');\n"
+        "      const fill = document.getElementById('n-roots-dots-fill');\n"
+        "      if (!field || !fill) return;\n"
+        "      // a family row is whole powers: put the step at 1 first, so the six\n"
+        "      // numbers land in six boxes instead of every other half-power box\n"
+        "      const stepBox = document.getElementById('n-step');\n"
+        "      if (stepBox) { stepBox.value = '1'; stepBox.dispatchEvent(new Event('input', { bubbles: true })); }\n"
+        "      field.value = button.dataset.spots;\n"
+        "      field.dispatchEvent(new Event('change', { bubbles: true }));\n"
+        "      fill.click();\n"
+        "      const box = document.getElementById('n-roots-box');\n"
+        "      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'start' });\n"
+        "    });\n"
+        "  });\n"
         "})();\n"
         "</script>\n"
     )

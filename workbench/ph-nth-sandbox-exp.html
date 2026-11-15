@@ -402,6 +402,21 @@ Five spots is the cheap degree-11 rung; six or more moves you up a rung, which t
 the same place again for another copy (the dots stack at the top of the strip), and click a
 <strong>dot</strong> to take that copy away.</p>
 
+<div class="curve-box" id="n-families">
+<h3>Seven families: one outer flat spot, its mirror, three at 1/2</h3>
+<p class="small">One flat spot and its mirror, plus three copies at 1/2, is five spots, so the row runs to <code>t^5</code>. The outer spot picks the family. Click one to load it, then nudge the numbers above to find its children; the dots it loads are on the strip in your own hand, so you can move one and watch the row follow.</p>
+<div class="solver-row" id="n-family-buttons">
+    <button type="button" class="family" data-spots="1/15, 1/2, 1/2, 1/2, 14/15" title="flat spots 1/15, 1/2, 1/2, 1/2, 14/15">1/15</button>
+    <button type="button" class="family" data-spots="1/14, 1/2, 1/2, 1/2, 13/14" title="flat spots 1/14, 1/2, 1/2, 1/2, 13/14">1/14</button>
+    <button type="button" class="family" data-spots="1/13, 1/2, 1/2, 1/2, 12/13" title="flat spots 1/13, 1/2, 1/2, 1/2, 12/13">1/13</button>
+    <button type="button" class="family" data-spots="1/12, 1/2, 1/2, 1/2, 11/12" title="flat spots 1/12, 1/2, 1/2, 1/2, 11/12">1/12</button>
+    <button type="button" class="family" data-spots="1/11, 1/2, 1/2, 1/2, 10/11" title="flat spots 1/11, 1/2, 1/2, 1/2, 10/11">1/11</button>
+    <button type="button" class="family" data-spots="1/10, 1/2, 1/2, 1/2, 9/10" title="flat spots 1/10, 1/2, 1/2, 1/2, 9/10">1/10</button>
+    <button type="button" class="family" data-spots="1/9, 1/2, 1/2, 1/2, 8/9" title="flat spots 1/9, 1/2, 1/2, 1/2, 8/9">1/9</button>
+</div>
+<p class="small">Families first; the found curves stay below the line, for later.</p>
+</div>
+<hr style="border:0;border-top:2px solid #2e2413;margin:22px 0 16px">
 <h2>Found curves</h2>
 <p class="small">Every curve the search has landed, tangliest first. The line under each name is its bend and its grid; the expanded cell gives the flat spots, the meetings and the self-crossings. Odd shapes are kept on purpose. Loading one sets the exponent step back to 1, because every stored curve is a whole-power row.</p>
 <div class="gallery" id="n-gallery"></div>
@@ -4091,13 +4106,32 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-14 22:30</p>
+<p class="small mono" id="n-build">build 2026-11-14 22:46</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');
   if (step) { step.value = '0.5'; step.dispatchEvent(new Event('input', { bubbles: true })); }
   const wanted = (window.phNthGallery || []).find(entry => entry.name === 'wide-knot-x20');
   if (wanted && window.phNthLoad) window.phNthLoad(wanted);
+})();
+(() => {
+  // the seven families: one click loads the spots, and the strip follows
+  document.querySelectorAll('#n-family-buttons .family').forEach(button => {
+    button.addEventListener('click', () => {
+      const field = document.getElementById('n-roots');
+      const fill = document.getElementById('n-roots-dots-fill');
+      if (!field || !fill) return;
+      // a family row is whole powers: put the step at 1 first, so the six
+      // numbers land in six boxes instead of every other half-power box
+      const stepBox = document.getElementById('n-step');
+      if (stepBox) { stepBox.value = '1'; stepBox.dispatchEvent(new Event('input', { bubbles: true })); }
+      field.value = button.dataset.spots;
+      field.dispatchEvent(new Event('change', { bubbles: true }));
+      fill.click();
+      const box = document.getElementById('n-roots-box');
+      if (box) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 })();
 </script>
 </body></html>
