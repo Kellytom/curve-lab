@@ -39,6 +39,6 @@
  "figure": {
   "file": null,
   "withdrawn": true,
-  "reason": "the page's drawing collapses for rows of this size"
+  "reason": "the page's loop view renders this row as a line; see notes.md"
  }
 }

@@ -1383,8 +1383,12 @@ window.curveSaver = (function () {
     // detail against a number that size: the crossings vanished and the count read 0.
     // The shape is scale free, so the drawing uses a copy scaled to about 1 while the
     // row, the grid and the bend stay exact on the original.
-    const peak = Math.max(1e-12, ...speed.x.map(Math.abs), ...speed.y.map(Math.abs));
-    const drawSpeed = peak > 1e6 ? { x: speed.x.map(v => v / peak), y: speed.y.map(v => v / peak) } : speed;
+    // No rescaling. Two attempts failed for the same reason: at 10^8 the difference
+    // p^2 - q^2 loses its low bits to cancellation, and dividing the row first does not
+    // restore them (measured: a curve that draws at peak 2.7e5 degrades when scaled).
+    // Large rows need the factored form or exact arithmetic, which is a TODO row.
+    const drawSpeed = speed;
+    window.phNthScale = () => ({ peak: Math.max(1e-12, ...speed.x.map(Math.abs), ...speed.y.map(Math.abs)) });
     // magnified views show the polyline's corners, so sample in proportion to the
     // magnification: 700 points is plenty at 1x, not at 12x
     const zoomForSamples = Math.abs(Number(view.zoom) || 1);

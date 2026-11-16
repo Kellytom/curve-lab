@@ -16,6 +16,13 @@
       that does not match the session the operator sees (it said 47 per cent where there
       was plenty of room, and 70 where the operator had 45). Until it is fixed, do not
       quote it or act on it. The operator's own count is the authority.
+- [ ] **The loop view draws a line, so no figure ships.** Measured on ten curves: ink
+      spread 240–514 px across, 1–16 px down, i.e. a horizontal line and its axis. One
+      curve of the ten draws (spread 251×116). Two rescales were tried and rejected:
+      dividing the row by its peak gave a 10^-15-wide curve, and 1/sqrt(peak) still
+      degraded a curve that draws unscaled (peak 2.7e5). The next thing to try is the
+      factored form (evaluate the product of (t - r) rather than the expanded row) or
+      exact arithmetic; the numbers in `curves/` are exact and unaffected.
 - [ ] **The census families do not draw.** Eleven flat spots give coefficients of
       10^13 to 10^23 and the page's double-precision drawing collapses to a dot (frame
       span 2e-6, 701 points at one coordinate). The section was withdrawn from the

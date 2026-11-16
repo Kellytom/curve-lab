@@ -21,6 +21,12 @@ curves/
 - **`notes.md` is the human copy.** The formula written out, every variable named with
   its meaning and value, one plain sentence about the shape, and where the curve came
   from. A reader who never opens the page can understand the curve from this file.
+**No figures are currently shipped.** The pipeline (`scripts/curve_png.mjs`) works, but
+the loop view renders these rows as a flat line: measured on all ten, ink spread 240–514
+px across and 1–16 px down. One curve draws (spread 251×116). The cause is under
+investigation — cancellation at peaks near 10^8, or the framing — and the rule stands:
+a figure is only written when it can be shown.
+
 **A figure is only written when the drawing can show it.** Measured 2026-11-16: curves
 with eleven or more flat spots have coefficients of 10^13 to 10^23, and the page draws in
 double precision, so the knot — 10^-13 of the row's size — collapses to a single point.

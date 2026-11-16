@@ -44,6 +44,14 @@ const box = await plot.boundingBox();
 const height = Math.round(width * box.height / box.width);
 await page.setViewportSize({ width: width + 160, height: height + 200 });
 await page.waitForTimeout(300);
+const facts = await page.evaluate(() => {
+  const f = window.phNthFrame();
+  const d = document.querySelector("#n-plot path").getAttribute("d");
+  return { span: +((f.maxX - f.minX)).toExponential(2),
+           points: (new Set((d.match(/-?\d+\.\d+,-?\d+\.\d+/g) || []))).size,
+           scale: window.phNthScale ? window.phNthScale() : null };
+});
+console.log("render facts:", JSON.stringify(facts));
 const png = await (await page.$("#n-plot")).screenshot();
 writeFileSync(outPath, png);
 console.log(`${outPath} ${png.length} bytes ${width}x${height}`);

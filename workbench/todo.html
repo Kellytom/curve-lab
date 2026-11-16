@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:78.9%}
+.fill{height:100%;background:#8c6a21;width:78.4%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">105 / 133 done · 79% · read-only twin of
+<div class="count">105 / 134 done · 78% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -44,6 +44,8 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>not match the operator&#x27;s own count (47 where there was room, 70 where they had 45). Removed from both AGENTS.md files on the operator&#x27;s instruction. If context trouble returns as a real symptom, reopen it here rather than reinventing a threshold.</p>
 <label class="task"><input type="checkbox" disabled><span><strong><code>scripts/ctx.py</code> is wrong and is not used.</strong> It reports a share of a 1M window</span></label>
 <p>that does not match the session the operator sees (it said 47 per cent where there was plenty of room, and 70 where the operator had 45). Until it is fixed, do not quote it or act on it. The operator&#x27;s own count is the authority.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>The loop view draws a line, so no figure ships.</strong> Measured on ten curves: ink</span></label>
+<p>spread 240–514 px across, 1–16 px down, i.e. a horizontal line and its axis. One curve of the ten draws (spread 251×116). Two rescales were tried and rejected: dividing the row by its peak gave a 10^-15-wide curve, and 1/sqrt(peak) still degraded a curve that draws unscaled (peak 2.7e5). The next thing to try is the factored form (evaluate the product of (t - r) rather than the expanded row) or exact arithmetic; the numbers in <code>curves/</code> are exact and unaffected.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>The census families do not draw.</strong> Eleven flat spots give coefficients of</span></label>
 <p>10^13 to 10^23 and the page&#x27;s double-precision drawing collapses to a dot (frame span 2e-6, 701 points at one coordinate). The section was withdrawn from the sandbox and recorded as failed on <code>ph-nth-exp-notes.html</code>. The fix is either a scaled row for the drawing or an exact renderer; the six cheap knots are fine.</p>
 <h2>Handling current state — 2026-11-13</h2>
