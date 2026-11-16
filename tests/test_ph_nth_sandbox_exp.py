@@ -28,7 +28,39 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(step=step):
                 self.assertIn(step, page)
         self.assertIn('id="n-tweak-spread"', page)
-        self.assertIn('<option value="39">', page)
+        self.assertIn('<option value="13">', page)
+
+    def test_the_related_families_sit_below_the_seven_and_above_the_gallery(self):
+        """Two outer spots and their mirrors, three at 1/2: seven spots, a t^7 row.
+
+        Each button carries the crossing count this page's own counter gives, so the
+        label and the readout must agree; measured 11, 10, 10, 8, 8, 6, 5.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-related"', page)
+        self.assertIn("Related families: two outer flat spots", page)
+        self.assertLess(page.index('id="n-families"'), page.index('id="n-related"'))
+        self.assertLess(page.index('id="n-related"'), page.index("<h2>Found curves</h2>"))
+        for label, spots in (("1/11 + 1/5 &middot; 11 crossings",
+                              "1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11"),
+                             ("1/15 + 1/7 &middot; 5 crossings",
+                              "1/15, 1/7, 1/2, 1/2, 1/2, 6/7, 14/15")):
+            with self.subTest(label=label):
+                self.assertIn(label, page)
+                self.assertIn(f'data-spots="{spots}"', page)
+
+    def test_a_loaded_curve_brings_its_flat_spots_back(self):
+        """The ruler must describe the curve that is loaded, not the one before it.
+
+        Gallery entries carry `roots`; the load puts them in the field and on the
+        strip, and a curve with no recorded spots clears the strip rather than
+        leaving the last curve's dots underneath.
+        """
+        page = PAGE.read_text()
+        self.assertIn('"roots":"1/3, 1/3, 1/2, 1/2, 1/2, 2/3, 2/3"', page)
+        panels = PANELS.read_text()
+        self.assertIn('rootsFieldNow.value = (item && item.roots) || "";', panels)
+        self.assertIn("crosses itself ${selfCrossings.length}", panels)
 
     def test_the_seven_families_come_before_the_found_curves(self):
         """Seven families above the line; the found curves stay below it, for later.
@@ -45,7 +77,7 @@ class TestFractionalSandbox(unittest.TestCase):
                         page.index("<h2>Found curves</h2>"),
                         "the families must sit above the found curves")
         self.assertIn("<hr", page)
-        self.assertIn("#n-family-buttons .family", page)
+        self.assertIn("document.querySelectorAll('.family')", page)
 
     def test_the_page_is_built_with_the_step_control(self):
         page = PAGE.read_text()

@@ -105,7 +105,9 @@ class TestRegressions(unittest.TestCase):
         Amended the same day on the operator's call: the free-text size field and
         the share-of-the-pair dial are gone, replaced by one dropdown of patterns
         and four press-buttons. A fraction cannot be typed at all now, so the
-        hazard is gone by construction rather than by an offered list.
+        hazard is gone by construction rather than by an offered list. The widened
+        ink is refitted to whole numbers at the same degree, so it cannot move the
+        grid either.
         """
         source = EXP.read_text()
         self.assertNotIn('id="n-tweak-size"', source)
@@ -113,8 +115,7 @@ class TestRegressions(unittest.TestCase):
         for step in ('data-step="-5"', 'data-step="-1"', 'data-step="1"', 'data-step="5"'):
             with self.subTest(step=step):
                 self.assertIn(step, source)
-        for spread in ('<option value="9"', '<option value="17"', '<option value="39"',
-                       '<option value="50"'):
+        for spread in ('<option value="3"', '<option value="8"', '<option value="13"'):
             with self.subTest(spread=spread):
                 self.assertIn(spread, source)
 

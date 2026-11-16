@@ -75,6 +75,24 @@ INTRO = (
 )
 
 
+def spot_text(provenance):
+    """The flat spots as the ruler reads them, or "" when the note is prose.
+
+    A few records describe themselves in words ("y from lace-1of10-3-2; x = ..."), and
+    writing that into the field would put nonsense on the ruler, so only a plain list
+    of fractions is offered.
+    """
+    text = str(provenance or "").strip()
+    if not text:
+        return ""
+    parts = [part.strip() for part in text.split(",")]
+    for part in parts:
+        top, _, bottom = part.partition("/")
+        if not top.isdigit() or (bottom and not bottom.isdigit()):
+            return ""
+    return ", ".join(parts)
+
+
 def found_entries():
     """The finds, tangliest first: self-crossings, then meetings, then the cheap grid."""
     import curve_records
@@ -101,11 +119,50 @@ def found_entries():
             "bend": recorded.get("bend"),
             "pitch": recorded.get("grid"),
             "from": "found",
+            "roots": spot_text(curve.get("provenance", {}).get("roots")),
             "truncation": curve.get("truncation"),
             "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
                        f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
         })
     return entries
+
+
+# Two outer flat spots and their mirrors, with three copies at 1/2: seven spots, so a
+# t^7 row. The pairs below were measured one by one; the count beside each is the
+# number of times the spine crosses itself, which is the number the page reports.
+RELATED = (
+    ("1/11 + 1/5", 11, 5, 11),
+    ("1/10 + 1/4", 10, 4, 10),
+    ("1/9 + 1/4", 9, 4, 10),
+    ("1/11 + 1/7", 11, 7, 8),
+    ("1/12 + 1/5", 12, 5, 8),
+    ("1/15 + 1/5", 15, 5, 6),
+    ("1/15 + 1/7", 15, 7, 5),
+)
+
+
+def related_section():
+    buttons = []
+    for label, first, second, crossings in RELATED:
+        spots = (f"1/{first}, 1/{second}, 1/2, 1/2, 1/2, "
+                 f"{second - 1}/{second}, {first - 1}/{first}")
+        buttons.append(
+            f'    <button type="button" class="family" data-spots="{spots}" '
+            f'title="flat spots {spots}">{label} &middot; {crossings} crossings</button>')
+    return (
+        '<div class="curve-box" id="n-related">\n'
+        '<h3>Related families: two outer flat spots, its mirror, three at 1/2</h3>\n'
+        '<p class="small">Two outer spots on one side and their two mirrors, plus the three copies at '
+        '1/2, is seven spots, so the row runs to <code>t^7</code>. Each button carries the number of '
+        'times that curve crosses itself, read from this page\'s own counter after loading it; the number '
+        'in the button is that count. 1/11 + 1/5 reaches eleven, twice what any five-spot family '
+        'does. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each.</p>\n'
+        '<div class="solver-row" id="n-related-buttons">\n'
+        + "\n".join(buttons) + "\n"
+        '</div>\n'
+        '<p class="small">These sit above the line too: the found gallery stays below it.</p>\n'
+        '</div>\n'
+    )
 
 
 def build():
@@ -133,13 +190,12 @@ def build():
   line prints the grid after every press, because the grid after a change depends on arithmetic and
   not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
   and of 6 gives 1/770. <strong>Widen the ink</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
-  which re-times the stroke rather than adding a term. The multiplication lifts the top power from
-  <code>t^10</code> to <code>t^14</code>, and every new power is divided by its own number when it is
-  integrated &mdash; 13 at <code>t^12</code>, 14 at <code>t^13</code>, 15 at <code>t^14</code> &mdash;
-  so a 13 joins the grid unless <code>s</code> cancels it. The list carries the sizes that cancel it,
-  with the grid each one measured on <code>1/15</code>: 39 gives 1/210 and 50 gives 1/182 against the
-  base 1/154, but both re-time the stroke hard (the middle runs 11 and 13 times faster). A gentle push
-  cannot be cheap here &mdash; the four new powers have to be paid for.</p>
+  which re-times the stroke rather than adding a term. It used to keep the two new powers, and
+  those brought the divisors 13, 14 and 15 into the grid &mdash; 1/210 at best, against a base of 1/154.
+  It now fits the widened rows back into the numbers that already exist and rounds them to whole
+  numbers, so the degree does not change. The price is distortion, and the status line prints it —
+  the worst miss as a share of the row, and the grid the new whole numbers give, which is not
+  promised to stay put. Press it twice and the second press widens what the first produced.</p>
   <div class="solver-row">
     <label class="dial" for="n-tweak-pattern">change
       <select id="n-tweak-pattern">
@@ -158,12 +214,12 @@ def build():
   <div class="solver-row">
     <label class="dial" for="n-tweak-spread" title="multiplying both rows re-times the stroke; 13 is the divisor the new top power introduces, so a multiple of 13 keeps it out of the grid">widen the ink, s =
       <select id="n-tweak-spread">
-        <option value="1">1 &mdash; grid 1/90,090</option>
-        <option value="5">5 &mdash; grid 1/2,002</option>
-        <option value="9" selected>9 &mdash; grid 1/770</option>
-        <option value="17">17 &mdash; grid 1/390</option>
-        <option value="39">39 &mdash; grid 1/210</option>
-        <option value="50">50 &mdash; grid 1/182</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="5" selected>5</option>
+        <option value="8">8</option>
+        <option value="13">13</option>
       </select></label>
     <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2)">widen the ink</button>
   </div>
@@ -198,7 +254,7 @@ def build():
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + family_section() + GALLERY_HEAD + page[head_end:]
+    page = page[:head_start] + family_section() + related_section() + GALLERY_HEAD + page[head_end:]
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves
@@ -221,7 +277,7 @@ def build():
         "})();\n"
         "(() => {\n"
         "  // the seven families: one click loads the spots, and the strip follows\n"
-        "  document.querySelectorAll('#n-family-buttons .family').forEach(button => {\n"
+        "  document.querySelectorAll('.family').forEach(button => {\n"
         "    button.addEventListener('click', () => {\n"
         "      const field = document.getElementById('n-roots');\n"
         "      const fill = document.getElementById('n-roots-dots-fill');\n"

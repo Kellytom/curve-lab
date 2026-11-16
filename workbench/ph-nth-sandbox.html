@@ -1789,7 +1789,8 @@ window.curveSaver = (function () {
       `bend ${m.bend.toFixed(3)} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
-      `crosses ${meets.length}` +
+      `crosses itself ${selfCrossings.length}` +
+      (view.complement ? ` | meets the grey curve ${meets.length}` : "") +
       (knotShare === null ? " | no knot: nothing crosses" : ` | knot ${knotShare}% legs ${legShare}%`) +
       negativeNote;
     const crossingLabel = document.getElementById("n-crossings");
@@ -2873,6 +2874,15 @@ window.curveSaver = (function () {
   // the gallery opens a curve into this sandbox
   window.phNthLoad = item => {
     loadPair(item);
+    // a curve that knows its flat spots puts them back on the ruler and in the field,
+    // so the dots and the numbers describe the same curve after a load
+    const rootsFieldNow = document.getElementById("n-roots");
+    if (rootsFieldNow) {
+      // a curve with no recorded spots clears the strip rather than leaving the last
+      // curve's dots sitting under a different curve
+      rootsFieldNow.value = (item && item.roots) || "";
+      rootsFieldNow.dispatchEvent(new Event("change", { bubbles: true }));
+    }
     if (window.phNthForgetTweaks) window.phNthForgetTweaks();
     const controls = document.getElementById("n-controls");
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -3312,80 +3322,104 @@ window.curveSaver = (function () {
     }
   }
 
-  function multiplyBoth(size, denominator, text) {
-    // Done in powers, not in boxes: at step 1/2 a box is half a power, so scaling
-    // boxes would put the factor's centre at t = 1/4 and lean the curve. The factor
-    // is 1 + size(t - t^2), namely powers 0, 1 and 2.
-    const step = window.phPowerStep || 1;
+  // Least squares of a polynomial of `length` numbers through sampled values, in the
+  // variable u = 2t - 1 (the well-conditioned window), solved with a pivoted
+  // Gauss-Jordan sweep. Returns whole numbers, because the grid is a property of the
+  // integers and a fitted 0.37 would cost more grid than it buys shape.
+  function fitValues(values, length) {
+    const n = length;
+    const u = t => 2 * t - 1;
+    const sample = t => values.reduce((sum, [power, c]) => sum + c * Math.pow(t, power), 0);
+    const A = Array.from({ length: n }, () => new Array(n + 1).fill(0));
+    for (let i = 0; i <= 80; i++) {
+      const t = i / 80, x = u(t), y = sample(t);
+      const basis = [];
+      for (let k = 0; k < n; k++) basis.push(Math.pow(x, k));
+      for (let a = 0; a < n; a++) {
+        for (let b = 0; b < n; b++) A[a][b] += basis[a] * basis[b];
+        A[a][n] += basis[a] * y;
+      }
+    }
+    for (let col = 0; col < n; col++) {
+      let pivot = col;
+      for (let r = col + 1; r < n; r++) if (Math.abs(A[r][col]) > Math.abs(A[pivot][col])) pivot = r;
+      if (Math.abs(A[pivot][col]) < 1e-12) continue;
+      const held = A[col]; A[col] = A[pivot]; A[pivot] = held;
+      const scale = A[col][col];
+      for (let c = col; c <= n; c++) A[col][c] /= scale;
+      for (let r = 0; r < n; r++) {
+        if (r === col) continue;
+        const factor = A[r][col];
+        if (!factor) continue;
+        for (let c = col; c <= n; c++) A[r][c] -= factor * A[col][c];
+      }
+    }
+    const inU = A.map(row => row[n]);
+    // back to powers of t, then to whole numbers
+    const inT = new Array(n).fill(0);
+    inU.forEach((coefficient, k) => {
+      // (2t - 1)^k = sum_j C(k,j) (2t)^j (-1)^(k-j)
+      let binomial = 1;
+      for (let j = 0; j <= k; j++) {
+        inT[j] += coefficient * binomial * Math.pow(2, j) * (j === k ? 1 : Math.pow(-1, k - j));
+        binomial = binomial * (k - j) / (j + 1);
+      }
+    });
+    const whole = inT.map(value => Math.round(value));
+    let worst = 0;
+    for (let i = 0; i <= 80; i++) {
+      const t = i / 80;
+      const made = whole.reduce((sum, coefficient, k) => sum + coefficient * Math.pow(t, k), 0);
+      worst = Math.max(worst, Math.abs(sample(t) - made));
+    }
+    const scale = Math.max(1e-9, ...whole.map(Math.abs));
+    return { whole, distortion: worst / scale };
+  }
+
+  // Widen the ink without raising the power. The old rule multiplied both rows by
+  // 1 + s(t - t^2) and kept the two new powers, which added the divisors 13, 14 and 15
+  // to the grid. Now the product is fitted back into the numbers that already exist
+  // and rounded to whole numbers, so the grid cannot move; the price is distortion,
+  // printed on the status line instead of hidden.
+  function widenInPlace(size, text) {
     const factor = [[0, 1], [1, size], [2, -size]];
-    const indexOf = power => {
-      const exact = power / step;
-      const index = Math.round(exact);
-      return Math.abs(exact - index) < 1e-9 ? index : null;
-    };
     const product = row => {
       const out = new Map();
       row.forEach((value, k) => {
         if (!value) return;
         factor.forEach(([offset, weight]) => {
-          const power = +(k * step + offset).toFixed(6);
+          const power = k + offset;
           out.set(power, (out.get(power) || 0) + value * weight);
         });
       });
-      return out;
+      return [...out.entries()].sort((a, b) => a[0] - b[0]);
     };
-    const px = product(state.x), py = product(state.y);
-    const offGrid = [...px.keys(), ...py.keys()].filter(power => indexOf(power) === null);
-    if (offGrid.length) {
-      if (tweakStatus) tweakStatus.textContent =
-        `this step cannot hold power ${offGrid[0]}: the multiply needs a step that divides 1 and 2`;
-      return;
-    }
-    const top = Math.max(...[...px.keys(), ...py.keys()].map(indexOf)) + 1;
+    const before = { x: state.x.slice(), y: state.y.slice() };
+    const fx = fitValues(product(state.x), speedCount);
+    const fy = fitValues(product(state.y), speedCount);
     snapshotBase();
-    tweakHistory.push({ row: "both", x: state.x.slice(), y: state.y.slice() });
-    if (top > window.phNthDegree().speedCount) window.phNthSetDegree(top - 1);
-    sizePair(state);
-    const write = row => {
-      const out = new Array(speedCount).fill(0);
-      row.forEach((value, power) => {
-        const index = indexOf(power);
-        if (index !== null && index < speedCount) out[index] = +value.toFixed(6);
-      });
-      return out;
-    };
-    state.x = write(px);
-    state.y = write(py);
+    tweakHistory.push({ row: "both", x: before.x, y: before.y });
+    state.x = fx.whole.slice(0, speedCount);
+    state.y = fy.whole.slice(0, speedCount);
     writeCells();
     draw();
     updateTweakTotal();
     if (tweakStatus) {
-      const now = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
-      const grid = now && now.pitch ? ` · grid now 1/${now.pitch.toLocaleString()}` : "";
+      const percent = value => `${(value * 100).toFixed(2)}%`;
+      const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
+      const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch.toLocaleString()}` : " · grid n/a";
       tweakStatus.textContent =
-        `both rows multiplied by 1 + ${text}(t - t^2) in powers, mirror held${grid}`;
+        `widened in place by 1 + ${text}(t - t^2): both rows refitted to ${speedCount} whole numbers` +
+        ` · off by ${percent(Math.max(fx.distortion, fy.distortion))} of the row` +
+        `${grid}`;
     }
   }
 
-  // One dropdown picks the shape of the change; four buttons apply it, so the same
-  // dropdown serves a nudge in either direction and a bump in either direction.
-  const patternSelect = document.getElementById("n-tweak-pattern");
-  const patternRows = { x1: () => state.x, x2: () => state.x, x3: () => state.x,
-                        y1: () => state.y, y2: () => state.y };
-  document.querySelectorAll(".tweak-step").forEach(button => {
-    button.addEventListener("click", () => {
-      const key = patternSelect ? patternSelect.value : "x2";
-      const row = patternRows[key];
-      if (!row) return;
-      applyPattern(key, row(), Number(button.dataset.step));
-    });
-  });
   const tweakBoth = document.getElementById("n-tweak-both");
   const spreadSelect = document.getElementById("n-tweak-spread");
   if (tweakBoth) tweakBoth.addEventListener("click", () => {
-    const { value, denominator, text } =
-      sizeOf(spreadSelect ? spreadSelect.value : "5");
-    multiplyBoth(value, denominator, text);
+    const { value, text } = sizeOf(spreadSelect ? spreadSelect.value : "1");
+    widenInPlace(value, text);
   });
   const tweakUndo = document.getElementById("n-tweak-undo");
   if (tweakUndo) tweakUndo.addEventListener("click", () => {
@@ -3693,6 +3727,13 @@ window.curveSaver = (function () {
     marks = String(rootsFieldForTyping.value).split(/[,;\s]+/).map(parseSpot).filter(Boolean)
       .map(spot => ({ n: spot.n, d: spot.d }));
     renderRuler();
+    // the count is part of the same reading, so it moves with the dots
+    if (countLabel) {
+      const copies = {};
+      marks.forEach(spot => { const key = `${spot.n}/${spot.d}`; copies[key] = (copies[key] || 0) + 1; });
+      const summary = Object.entries(copies).map(([key, times]) => times > 1 ? `${key} x${times}` : key).join(", ");
+      countLabel.textContent = marks.length ? `${marks.length} spot${marks.length === 1 ? "" : "s"}: ${summary}` : "no spots yet";
+    }
   });
 
   // The exponent step: a slider on the experimental page, with buttons for the
@@ -4188,5 +4229,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-15 20:09</p>
+<p class="small mono" id="n-build">build 2026-11-15 21:06</p>
 </body></html>
