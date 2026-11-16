@@ -124,16 +124,17 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .thumb-zoom{position:absolute;top:6px;right:6px;display:flex;gap:3px;z-index:2}
 .thumb-zoom button{font:12px/1 ui-monospace,Menlo,monospace;padding:2px 5px;background:#fbf7ec;color:#2e2413;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .thumb-zoom button:hover{background:#efe7d3}
-.gallery figure>svg{width:100%;max-width:300px;height:auto;max-height:220px;display:block;margin:0 auto}
+.gallery figure>svg{width:100%;height:auto;display:block;margin:0 auto}
 .more-actions{min-width:0;display:flex;flex-direction:column;gap:6px}
 .more-actions textarea{width:100%;font:11px ui-monospace,Menlo,monospace}
 @media(max-width:820px){.more-grid{grid-template-columns:1fr}}
-.gallery .gallery-open{display:flex;align-items:baseline;gap:8px;width:100%;
+.gallery .gallery-open{display:block;width:100%;
   background:none;border:0;padding:0 0 6px;cursor:pointer;text-align:left}
-.gallery .gallery-number{font:10px/1.4 ui-monospace,Menlo,monospace;color:#8a3b2a;min-width:46px}
-.gallery .gallery-name{font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
+.gallery .gallery-open>span{display:block}
+.gallery .gallery-number{display:inline;font:10px/1.4 ui-monospace,Menlo,monospace;color:#8a3b2a;margin-right:8px}
+.gallery .gallery-name{display:inline;font:12px/1.4 ui-monospace,Menlo,monospace;color:var(--ink);font-weight:600}
 .gallery .gallery-metrics{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--muted)}
-.gallery .gallery-tags{display:inline-flex;gap:6px;align-items:baseline;margin-left:auto}
+.gallery .gallery-tags{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;margin:2px 0 0}
 .gallery .tag{font:10px/1.4 ui-monospace,Menlo,monospace;padding:0 4px;border:1px solid var(--rule);
   border-radius:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .gallery .more{margin:8px 0 0}
@@ -4432,6 +4433,10 @@ window.curveSaver = (function () {
 
   const render = () => {
     list = currentList();
+    // the HUD picture for each curve, from the list the generator captured; every cell shows
+    // the same image the primary plot gave, whether or not the entry came from the gallery JSON
+    const captured = window.phNthFigures || {};
+    list.forEach(entry => { if (captured[entry.name]) entry.figure = captured[entry.name]; });
     const symmetric = [], asymmetric = [];
     list.forEach(entry => (isSymmetric(entry) ? symmetric : asymmetric).push(entry));
     let number = 0;
@@ -4561,5 +4566,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 17:08</p>
+<p class="small mono" id="n-build">build 2026-11-16 17:32</p>
 </body></html>

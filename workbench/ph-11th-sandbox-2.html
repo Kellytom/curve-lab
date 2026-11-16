@@ -4220,6 +4220,10 @@ window.curveSaver = (function () {
 
   const render = () => {
     list = currentList();
+    // the HUD picture for each curve, from the list the generator captured; every cell shows
+    // the same image the primary plot gave, whether or not the entry came from the gallery JSON
+    const captured = window.phNthFigures || {};
+    list.forEach(entry => { if (captured[entry.name]) entry.figure = captured[entry.name]; });
     const symmetric = [], asymmetric = [];
     list.forEach(entry => (isSymmetric(entry) ? symmetric : asymmetric).push(entry));
     let number = 0;

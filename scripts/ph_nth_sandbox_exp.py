@@ -14,6 +14,7 @@ The seeds are switched off here so the found curves are not mixed with them.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -113,6 +114,7 @@ def found_entries():
         x, y = curve_records.rows_from_terms(curve["terms"])
         recorded = curve.get("measured", {})
         name = curve["name"]
+        figure_slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
         entries.append({
             "name": name,
             "terms": curve["terms"],
@@ -125,10 +127,10 @@ def found_entries():
             # an accepted figure, if this curve has a folder under curves/: the gallery
             # shows the drawing rather than its own thumbnail, so what is reviewed is what
             # appears here
-            "figure": next((f"../curves/{folder.name}/figure.png"
-                            for folder in (ROOT / "curves").iterdir()
-                            if folder.is_dir() and folder.name == name
-                            and (folder / "figure.png").exists()), ""),
+            # the HUD picture for this curve, captured by scripts/found_png.mjs; the cell
+            # shows that and nothing else, so the gallery and the HUD cannot disagree
+            "figure": (f"../workbench/figures/{figure_slug}.png"
+                       if (ROOT / "workbench" / "figures" / f"{figure_slug}.png").exists() else ""),
             "truncation": curve.get("truncation"),
             "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
                        f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
@@ -323,6 +325,16 @@ def build():
     page = page.replace("__GALLERY__", json.dumps(found_entries(), separators=(",", ":")))
     page = page.replace("window.phSpeedDegree = 5;",
                         "window.phHideSeeds = true;\nwindow.phNoComplement = true;\nwindow.phSpeedDegree = 5;")
+    figures = {}
+    figures_dir = ROOT / "workbench" / "figures"
+    if figures_dir.exists():
+        names = {curve["name"] for curve in json.loads(FOUND.read_text())["curves"]}
+        for path in figures_dir.glob("*.png"):
+            for name in names:
+                if re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") == path.stem:
+                    figures[name] = f"../workbench/figures/{path.name}"
+    page = page.replace("window.phSpeedDegree = 5;",
+                        "window.phNthFigures = " + json.dumps(figures, separators=(",", ":")) + ";\nwindow.phSpeedDegree = 5;", 1)
     page = page.replace("__MATH__", base.MATH.read_text())
     page = page.replace("__PANELS__", base.PANELS.read_text())
     page = page.replace("<title>The eleventh power: a PH curve of degree 11</title>",
