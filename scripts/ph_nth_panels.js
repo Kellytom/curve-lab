@@ -3599,30 +3599,42 @@
   };
 
   // The clean-up list: a curve moved here is hidden from the gallery and written into the
-  // box at the foot, which is handed back and applied to found-curves.json. Nothing leaves
-  // the repository until that list comes back.
-  const archiveKey = "ph-nth-archive";
+  // box at the foot, which is handed back and applied to found-curves.json.
+  //
+  // Each curve gets a stable id from its name, and the list holds ids. The first version hid
+  // cells at load, before the gallery had built them, so a reload brought every curve back —
+  // hiding now runs after every render, and the id survives a rename of the display text.
+  const archiveKey = "ph-nth-archive-v2";
+  const uidOf = name => {
+    let hash = 2166136261;
+    for (let i = 0; i < name.length; i++) {
+      hash ^= name.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(16).padStart(8, "0");
+  };
   const archived = () => {
     try { return JSON.parse(localStorage.getItem(archiveKey) || "[]"); } catch (error) { return []; }
   };
-  const writeArchive = list => {
-    localStorage.setItem(archiveKey, JSON.stringify(list));
-    const box = document.getElementById("n-archive-box");
-    if (box) box.value = JSON.stringify(list, null, 1);
-    const state = document.getElementById("n-archive-state");
-    if (state) state.textContent = list.length ? `${list.length} moved` : "none moved yet";
+  const applyArchive = () => {
+    const ids = new Set(archived().map(item => item.uid));
     document.querySelectorAll("#n-gallery figure[data-name]").forEach(figure => {
-      if (list.includes(figure.dataset.name)) figure.style.display = "none";
+      figure.style.display = ids.has(uidOf(figure.dataset.name)) ? "none" : "";
     });
+    const box = document.getElementById("n-archive-box");
+    if (box) box.value = JSON.stringify(archived(), null, 1);
+    const state = document.getElementById("n-archive-state");
+    if (state) state.textContent = ids.size ? `${ids.size} moved` : "none moved yet";
   };
-  writeArchive(archived());
   document.addEventListener("click", event => {
     if (!event.target.closest(".gallery-archive")) return;
     const figure = event.target.closest("figure[data-name]");
     if (!figure) return;
+    const name = figure.dataset.name;
     const list = archived();
-    if (!list.includes(figure.dataset.name)) list.push(figure.dataset.name);
-    writeArchive(list);
+    if (!list.some(item => item.uid === uidOf(name))) list.push({ uid: uidOf(name), name });
+    localStorage.setItem(archiveKey, JSON.stringify(list));
+    applyArchive();
   });
   const archiveCopy = document.getElementById("n-archive-copy");
   if (archiveCopy) archiveCopy.addEventListener("click", () => {
@@ -3633,11 +3645,8 @@
   if (archiveUndo) archiveUndo.addEventListener("click", () => {
     const list = archived();
     list.pop();
-    writeArchive(list);
-    const name = list[list.length - 1];
-    document.querySelectorAll("#n-gallery figure[data-name]").forEach(figure => {
-      if (!list.includes(figure.dataset.name)) figure.style.display = "";
-    });
+    localStorage.setItem(archiveKey, JSON.stringify(list));
+    applyArchive();
   });
 
   const render = () => {
@@ -3657,9 +3666,14 @@
     worth looking at that the flat-spot grammar did not build. Kept for the eye, not as
     evidence.</p>`
       + asymmetric.map(entry => figureFor(entry, ++number)).join("");
+    // the archive is applied inside the render, so a late re-render (the found file arrives
+    // after the first paint) cannot bring a moved curve back
+    applyArchive();
   };
   render();
+  applyArchive();
   window.addEventListener("ph-nth-saved", render);
+  window.addEventListener("ph-nth-saved", applyArchive);
 
   const closeAll = except => {
     host.querySelectorAll("figure.open").forEach(figure => {

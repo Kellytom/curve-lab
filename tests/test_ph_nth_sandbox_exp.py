@@ -126,6 +126,18 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_the_clean_up_list_survives_a_reload_and_is_keyed_by_id(self):
+        """A moved curve came back on every reload: the hiding ran before the cells existed.
+
+        The list now holds {uid, name}, the uid is a hash of the name, and the hide is applied
+        at the end of every render, including the one after the found file arrives.
+        """
+        panels = PANELS.read_text()
+        self.assertIn('const archiveKey = "ph-nth-archive-v2";', panels)
+        self.assertIn("const uidOf = name => {", panels)
+        self.assertIn("list.push({ uid: uidOf(name), name });", panels)
+        self.assertIn("    applyArchive();\n  };", panels)
+
     def test_every_gallery_cell_can_be_moved_to_the_notes_list(self):
         """A clean-up button per curve, hiding it and listing it for the notes page.
 

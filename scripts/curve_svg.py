@@ -30,42 +30,37 @@ def spots_of(record):
 
 
 def curve_points(record, samples=1400, balance=None):
-    """z(t) = integral of w^2, with q from the roots so nothing cancels.
+    """z(t) = integral of w^2, in exact fractions.
 
-    With no flat spots recorded, the speed row itself is used and the notes say so. `balance`
-    sets p: None keeps p = 1, "max" sets p to the row's largest coefficient — which is what
-    turns a 10,000:1 sliver into a curve whose loop can be seen, at the cost of changing the
-    curve, so the figure states which p was used.
+    Both rows come from the record when it has them, so the picture is the record's curve and
+    not an approximation of it. Only when a record carries flat spots and no rows is q built
+    from the roots — the census convention, p = 1 — and the figure says which p it used.
+
+    This was wrong until 2026-11-16: it always used p = 1 and ignored the record's x row, so
+    an imported curve came out as a straight sliver — "you are only making 1/2 the curve".
     """
+    speed_x = record.get("speedX") or []
+    speed_y = record.get("speedY") or []
     spots = spots_of(record)
-    if spots:
-        row = [F(1)]
+
+    if speed_x and speed_y:
+        p_row = [F(str(value)) for value in speed_x]
+        q_row = [F(str(value)) for value in speed_y]
+        source = "the record's two rows, exact"
+    elif spots:
+        q_row = [F(1)]
         for root in spots:
-            nxt = [F(0)] * (len(row) + 1)
-            for power, value in enumerate(row):
+            nxt = [F(0)] * (len(q_row) + 1)
+            for power, value in enumerate(q_row):
                 nxt[power] += -root * value
                 nxt[power + 1] += value
-            row = nxt
-        peak = max(abs(value) for value in row) or F(1)
-        row = [value / peak for value in row]
-        raw_peak = peak
+            q_row = nxt
+        p_row = [F(1)]
+        source = "the flat spots, with p = 1 (the census convention)"
     else:
-        speed_y = record.get("speedY") or []
-        if not speed_y:
-            return None
-        peak = max(abs(F(str(value))) for value in speed_y) or F(1)
-        row = [F(str(value)) / peak for value in speed_y]
-        raw_peak = peak
+        return None
 
-    if balance is None:
-        balance = record.get("figure", {}).get("balance", None)
-    p_value = F(1)
-    if balance:
-        p_value = raw_peak
-        if balance not in (True, "max"):
-            p_value = F(str(balance))
-
-    def q_at(t):
+    def at(row, t):
         total = F(0)
         power = F(1)
         for coefficient in row:
@@ -75,16 +70,15 @@ def curve_points(record, samples=1400, balance=None):
 
     points = []
     x = y = F(0)
+    step = F(1, samples)
     for i in range(samples + 1):
-        t = F(i, samples)
-        q = q_at(t)
         points.append((float(x), float(y)))
         if i < samples:
-            step = F(1, samples)
-            tm = t + step / 2
-            qm = q_at(tm)
-            x += (p_value * p_value - qm * qm) * step
-            y += 2 * p_value * qm * step
+            tm = F(i, samples) + step / 2
+            p_m, q_m = at(p_row, tm), at(q_row, tm)
+            x += (p_m * p_m - q_m * q_m) * step
+            y += 2 * p_m * q_m * step
+    curve_points.source = source
     return points
 
 
@@ -134,8 +128,7 @@ def svg_for(record, number=1):
     name = record.get("name", "curve")
     balance = record.get("figure", {}).get("balance", None)
     aspect_label = "" if aspect in (1, None) else f" &middot; y stretched {aspect:,}x to be seen"
-    p_label = "p = 1" if not balance else ("p = max |q| (balanced)" if balance is True or balance == "max"
-                                           else f"p = {balance}")
+    p_label = getattr(curve_points, "source", "the record's rows")
     crossings = record.get("crossings", "?")
     grid = record.get("grid", "?")
     spots = record.get("roots", "")
