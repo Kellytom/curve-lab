@@ -266,7 +266,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   pattern, which is just as safe as adding it — the rows already carry negative numbers. The status
   line prints the grid after every press, because the grid after a change depends on arithmetic and
   not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
-  and of 6 gives 1/770. <strong>Widen the ink</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
+  and of 6 gives 1/770. <strong>Expand and change</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
   which re-times the stroke rather than adding a term. It used to keep the two new powers, and
   those brought the divisors 13, 14 and 15 into the grid &mdash; 1/210 at best, against a base of 1/154.
   It now fits the widened rows back into the numbers that already exist and rounds them to whole
@@ -289,7 +289,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <button type="button" id="n-tweak-undo" title="take back the last change">undo</button>
   </div>
   <div class="solver-row">
-    <label class="dial" for="n-tweak-spread" title="multiplying both rows re-times the stroke; 13 is the divisor the new top power introduces, so a multiple of 13 keeps it out of the grid">widen the ink, s =
+    <label class="dial" for="n-tweak-spread" title="how hard the expansion pushes: s in 1 + s(t - t^2)">expand and change, s =
       <select id="n-tweak-spread">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -298,7 +298,7 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
         <option value="8">8</option>
         <option value="13">13</option>
       </select></label>
-    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2)">widen the ink</button>
+    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2), then fit them back to the same powers">expand and change</button>
   </div>
   <p class="small mono" id="n-tweak-status"></p>
   <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>
@@ -3432,7 +3432,7 @@ window.curveSaver = (function () {
     return { whole, distortion: worst / scale };
   }
 
-  // Widen the ink without raising the power. The old rule multiplied both rows by
+  // Expand and change without raising the power. The old rule multiplied both rows by
   // 1 + s(t - t^2) and kept the two new powers, which added the divisors 13, 14 and 15
   // to the grid. Now the product is fitted back into the numbers that already exist
   // and rounded to whole numbers, so the grid cannot move; the price is distortion,
@@ -3474,11 +3474,25 @@ window.curveSaver = (function () {
       const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
       const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch.toLocaleString()}` : " · grid n/a";
       tweakStatus.textContent =
-        `widened in place by 1 + ${text}(t - t^2): rows refitted to ${lengthX}/${lengthY} whole numbers` +
+        `expanded by 1 + ${text}(t - t^2): rows refitted to ${lengthX}/${lengthY} whole numbers` +
         ` · off by ${percent(Math.max(fx.distortion, fy.distortion))} of the row` +
         `${grid}`;
     }
   }
+
+  // One dropdown picks the shape of the change; four buttons apply it, so the same
+  // dropdown serves a nudge in either direction and a bump in either direction.
+  const patternSelect = document.getElementById("n-tweak-pattern");
+  const patternRows = { x1: () => state.x, x2: () => state.x, x3: () => state.x,
+                        y1: () => state.y, y2: () => state.y };
+  document.querySelectorAll(".tweak-step").forEach(button => {
+    button.addEventListener("click", () => {
+      const key = patternSelect ? patternSelect.value : "x2";
+      const row = patternRows[key];
+      if (!row) return;
+      applyPattern(key, row(), Number(button.dataset.step));
+    });
+  });
 
   const tweakBoth = document.getElementById("n-tweak-both");
   const spreadSelect = document.getElementById("n-tweak-spread");
@@ -4294,7 +4308,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-15 21:08</p>
+<p class="small mono" id="n-build">build 2026-11-15 21:27</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

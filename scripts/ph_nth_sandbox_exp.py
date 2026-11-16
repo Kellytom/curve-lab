@@ -189,7 +189,7 @@ def build():
   pattern, which is just as safe as adding it — the rows already carry negative numbers. The status
   line prints the grid after every press, because the grid after a change depends on arithmetic and
   not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
-  and of 6 gives 1/770. <strong>Widen the ink</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
+  and of 6 gives 1/770. <strong>Expand and change</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
   which re-times the stroke rather than adding a term. It used to keep the two new powers, and
   those brought the divisors 13, 14 and 15 into the grid &mdash; 1/210 at best, against a base of 1/154.
   It now fits the widened rows back into the numbers that already exist and rounds them to whole
@@ -212,7 +212,7 @@ def build():
     <button type="button" id="n-tweak-undo" title="take back the last change">undo</button>
   </div>
   <div class="solver-row">
-    <label class="dial" for="n-tweak-spread" title="multiplying both rows re-times the stroke; 13 is the divisor the new top power introduces, so a multiple of 13 keeps it out of the grid">widen the ink, s =
+    <label class="dial" for="n-tweak-spread" title="how hard the expansion pushes: s in 1 + s(t - t^2)">expand and change, s =
       <select id="n-tweak-spread">
         <option value="1">1</option>
         <option value="2">2</option>
@@ -221,7 +221,7 @@ def build():
         <option value="8">8</option>
         <option value="13">13</option>
       </select></label>
-    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2)">widen the ink</button>
+    <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2), then fit them back to the same powers">expand and change</button>
   </div>
   <p class="small mono" id="n-tweak-status"></p>
   <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>

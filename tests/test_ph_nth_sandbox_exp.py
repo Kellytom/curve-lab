@@ -11,6 +11,20 @@ PANELS = ROOT / "scripts" / "ph_nth_panels.js"
 
 
 class TestFractionalSandbox(unittest.TestCase):
+    def test_the_four_buttons_are_wired_to_the_dropdown(self):
+        """2026-11-15: every pattern button went dead for every dropdown choice.
+
+        Rewriting the widen control replaced a span of the file that also held the
+        listener block, so the buttons were in the page with nothing behind them.
+        These three markers are the wiring: the selector, the row table and the call.
+        """
+        panels = PANELS.read_text()
+        for marker in ('document.querySelectorAll(".tweak-step").forEach',
+                       "const patternRows = { x1:",
+                       "applyPattern(key, row(), Number(button.dataset.step));"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, panels)
+
     def test_the_tweak_panel_is_a_dropdown_and_four_buttons(self):
         """One dropdown picks the change; four buttons press it in either direction.
 

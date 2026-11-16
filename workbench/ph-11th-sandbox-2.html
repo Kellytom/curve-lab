@@ -3198,7 +3198,7 @@ window.curveSaver = (function () {
     return { whole, distortion: worst / scale };
   }
 
-  // Widen the ink without raising the power. The old rule multiplied both rows by
+  // Expand and change without raising the power. The old rule multiplied both rows by
   // 1 + s(t - t^2) and kept the two new powers, which added the divisors 13, 14 and 15
   // to the grid. Now the product is fitted back into the numbers that already exist
   // and rounded to whole numbers, so the grid cannot move; the price is distortion,
@@ -3240,11 +3240,25 @@ window.curveSaver = (function () {
       const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
       const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch.toLocaleString()}` : " · grid n/a";
       tweakStatus.textContent =
-        `widened in place by 1 + ${text}(t - t^2): rows refitted to ${lengthX}/${lengthY} whole numbers` +
+        `expanded by 1 + ${text}(t - t^2): rows refitted to ${lengthX}/${lengthY} whole numbers` +
         ` · off by ${percent(Math.max(fx.distortion, fy.distortion))} of the row` +
         `${grid}`;
     }
   }
+
+  // One dropdown picks the shape of the change; four buttons apply it, so the same
+  // dropdown serves a nudge in either direction and a bump in either direction.
+  const patternSelect = document.getElementById("n-tweak-pattern");
+  const patternRows = { x1: () => state.x, x2: () => state.x, x3: () => state.x,
+                        y1: () => state.y, y2: () => state.y };
+  document.querySelectorAll(".tweak-step").forEach(button => {
+    button.addEventListener("click", () => {
+      const key = patternSelect ? patternSelect.value : "x2";
+      const row = patternRows[key];
+      if (!row) return;
+      applyPattern(key, row(), Number(button.dataset.step));
+    });
+  });
 
   const tweakBoth = document.getElementById("n-tweak-both");
   const spreadSelect = document.getElementById("n-tweak-spread");
