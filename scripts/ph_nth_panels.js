@@ -2739,7 +2739,7 @@
     if (fromSlider) fromSlider.value = String(range.from);
     if (toSlider) toSlider.value = String(range.to);
     view.focusKnot = false;
-    if (focusKnot) focusKnot.setAttribute("aria-pressed", "false");
+    paintFocus();
     draw();
     if (status) {
       status.textContent = `cut to t ${fractionText(range.from)} … ${fractionText(range.to)}: ` +
@@ -2886,6 +2886,7 @@
       if (slider) slider.value = "0";
       if (field) field.value = "0";
     });
+    paintFocus();                 // the switch is part of the view, so it repaints too
     applyView();
     const status = document.getElementById("n-paste-status");
     if (status) status.textContent = "view reset: zoom 1, no pan";
@@ -2912,13 +2913,21 @@
     }
   });
 
-  const focusKnot = document.getElementById("n-focus-knot");
-  if (focusKnot) focusKnot.addEventListener("click", () => {
-    view.focusKnot = !view.focusKnot;
-    focusKnot.setAttribute("aria-pressed", String(view.focusKnot));
-    focusKnot.textContent = view.focusKnot ? "show the whole curve" : "focus the knot";
-    draw();
+  // Two copies of one switch: one in the view panel beside the figure, one under it.
+  // Both read and write view.focusKnot, so they can never disagree.
+  const focusButtons = ["n-focus-knot", "n-focus-knot-hud"]
+    .map(id => document.getElementById(id)).filter(Boolean);
+  const paintFocus = () => focusButtons.forEach(button => {
+    button.setAttribute("aria-pressed", String(view.focusKnot));
+    button.textContent = view.focusKnot ? "show the whole curve" : "focus the knot";
   });
+  focusButtons.forEach(button => button.addEventListener("click", () => {
+    view.focusKnot = !view.focusKnot;
+    paintFocus();
+    draw();
+  }));
+  paintFocus();
+  const focusKnot = document.getElementById("n-focus-knot");
   const zoomSlider = document.getElementById("n-zoom");
   const zoomNumber = document.getElementById("n-zoom-number");
   const setZoom = value => {
@@ -2998,6 +3007,7 @@
     ["n-terminal-end", () => view.endTerminal],
     ["n-rotate", () => view.rotate],
     ["n-focus-knot", () => view.focusKnot],
+    ["n-focus-knot-hud", () => view.focusKnot],
     ["n-comp-hide", () => !view.complement],
   ];
   function syncToggles() {

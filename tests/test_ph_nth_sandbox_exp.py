@@ -25,6 +25,20 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, panels)
 
+    def test_the_focus_switch_has_two_copies_that_cannot_disagree(self):
+        """One switch in the view panel, one under the figure: both must stay in step.
+
+        They read and write view.focusKnot, and the same paint function sets the word
+        and aria-pressed on both, so a reset or a press cannot leave one stale.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-focus-knot-hud"', page)
+        self.assertIn('id="n-focus-knot"', page)
+        panels = PANELS.read_text()
+        self.assertIn('const focusButtons = ["n-focus-knot", "n-focus-knot-hud"]', panels)
+        self.assertIn("paintFocus();", panels)
+        self.assertIn('["n-focus-knot-hud", () => view.focusKnot]', panels)
+
     def test_the_loop_button_reads_its_window_from_the_crossings(self):
         """The window is not one constant: three outer fractions push the knot outward.
 
