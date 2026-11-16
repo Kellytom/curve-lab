@@ -1996,14 +1996,27 @@ as one command, starting the server itself; a could-not-run exits non-zero rathe
 being counted a pass. 17 rows. Green at this commit.
 
 **Local:** 200 on `:8003`. **Remote:** no `.run.app` URL recorded; not probed, no deploy
-this session (carried 2026-11-13). **Tests:** 101 modules green, run this session
-(`scripts/test.py`). **Git:** clean at `a286827` before this block.
+this session (carried 2026-11-13). **Tests:** `scripts/test.py` green at `8f168c3` — 101
+modules, no failures (119.6 s). Two reds were carried in and fixed: `test_ph_root_found.py`
+read `speedX`/`bend`/`pitch` after `workbench/found-curves.json` became
+`curve-lab.curves/2` (172 errors), and the experimental page's gallery test demanded no
+gallery on a page that has one. Both guards are reversed rather than deleted (register rows
+19, 20). **Git:** `8f168c3`, not pushed (no internet this session).
 
-**Risks, in the order they will bite.** The drawing is coalesced into one animation
-frame, so a click followed by an immediate DOM read sees the previous frame — the gate
-needs a 120 ms settle. Zoom and pan move the viewBox only, so zooming no longer raises
-the sample count (the polyline stays at 700 points). The pan sliders are coarse: one
-step is one model unit and these curves are a few units across.
+**Risks, in the order they will bite.** (1) The drawing is coalesced into one animation
+frame, so any test or script that clicks and then immediately reads the DOM sees the previous
+frame — the gate needs a 120 ms settle, which is why it once reported the rails failing. That
+is a behaviour change, not a bug, and it will look like a bug to whoever writes the next
+check. (2) Pan and zoom move the viewBox only: 20 pans in 473 ms, and the polyline stays at
+700 points, so zoom no longer raises sampling — the earlier "jagged at high zoom" fix is moot
+and sampling cannot be raised by zooming. (3) Open, unfixed: the pan sliders are coarse (one
+step is one model unit, and these curves are a few units across); thumbnails of browser-saved
+curves cannot be reproduced headlessly because localStorage is invisible to a headless run;
+the three knot-cutting controls are parked on `ph-nth-exp-notes.html` and the truncation
+decision (fitter consumes it, or the field goes) is still open in `TODO.md`. (4) There is no
+d3 on the sandbox pages — they write SVG by hand, and d3 is vendored only in `tph_tri_chain/`;
+if "standard across the project" was a request rather than a question, that is a deliberate
+refactor and its own action, not a one-line change.
 
 **Next move:** start the Bézier fitting step on one stored curve, with the span plan and
 the deviation measured rather than eyeballed.
@@ -2018,3 +2031,116 @@ otherwise the mirror breaks).
 **Context:** the operator reports 77% used. `scripts/ctx.py --log` reports 2.7% for
 session `ses_e230985b1ffe`, which is not this conversation's id (`ses_e27b9fc53ffe`), so
 the meter is not tracking this session — carried as ambiguous rather than trusted.
+
+## 2026-11-14, 847bb1e — the specification/representation section
+
+The focused action came true. `scripts/ph_nth_serif_notes.py` now emits a
+"Specification and representation" section at the top of
+`workbench/ph-nth-serif-notes.html`, and it says the thing in words: the
+log-aesthetic law says what the curve must be (a specification), the PH formula
+says how it is drawn (a representation), and neither implies the other — the
+Euler spiral and the log spiral meet the law and are not polynomial, so no degree
+carries them exactly.
+
+Table 1 is membership of the family (circle p = 0, Euler p = −1, log spiral p = 1,
+involute p = 2), computed by `lac_fit.best_power`, the same function
+`lac_fit.py --classics` prints. The circle's row reads 0.1 because the scan skips
+0; the page says why. Table 2 is the degree-`k` PH carry at k = 3, 5, 7, 9,
+computed by `ph_carry`. Neither table is typed in:
+`test_the_carry_table_is_computed_not_typed` recomputes cells and the page must
+match to five places. Figures 1 and 2 are now numbered inside the figure, and the
+two tables are numbered with captions.
+
+Register row 18: the reproduce checks on `ph-nth-sandbox.html` and
+`ph-nth-sandbox-2.html` compared the build stamp, so they failed whenever the
+minute rolled over — a red suite with nothing changed. Both now drop the stamp
+line before comparing.
+
+## 2026-11-14, ec4ae68 — the flat-spot ruler, doubled
+
+The ruler read 0 to 1 across the box, so every fraction crowded into the left
+half and 1/19 and 1/20 were 2.6 px apart. It now runs **0 to 1/2 across the
+whole width**, with a **second strip under it from 1 to 1/2** that names the
+mirrors — 18/19 sits directly under 1/19 at 10.53%, so a spot and its partner
+line up. Denominators reach 20 and now include 17 and 19.
+
+Labels pack by their own width over six rows, so all 64 keep their names; the
+gap between 1/19 and 1/20 is 6.4 px on a 1030 px page (it was 2.6 px). Only the
+lower strip places spots — the upper is a read-out. Four pages inline
+`scripts/ph_nth_panels.js` and all four were regenerated (11th, 11th-2,
+sandbox, sandbox-2, exp).
+
+## 2026-11-14, 1e677c0 — seven families above the found curves
+
+The experimental page now opens with the seven families the operator named:
+one outer flat spot, its mirror and three copies at 1/2 — `1/15` to `1/9`. Each
+is five spots, so a `t^5` row. A button writes the spots into the field and
+presses the same "fill from the dots" the operator presses (at step 1, so six
+numbers land in six boxes), then scrolls to the strip. A rule separates them from
+the found gallery, which stays below for later.
+
+Measured by clicking each one: bend 1.148, 1.192, 1.250, 1.328, 1.431, 1.571,
+1.772 for 1/15, 1/14, 1/13, 1/12, 1/11, 1/10, 1/9; grids 1/154, 1/231, 1/1386,
+1/77, 1/42, 1/693, 1/22.
+
+The tweak panel was rebuilt the same day (`4aedfdb`): one dropdown of the five
+patterns, four press-buttons (-5, -1, +1, +5), undo, and "widen the ink" at s = 1,
+5, 13, 39. The share-of-the-pair dial is gone — inert on the families, and its
+divisors do not divide the common pairs (25, 36). The total-change line clears on
+a family load, a gallery load, a fill, a step change and a typed number.
+
+Two faults fixed at `7609051`. The readout said "grid n/a: fractional powers" with
+no fractional power in use: `recipeMetrics` fell back to the numeric path whenever
+the step was not 1. A row whose half boxes are empty is folded back to whole powers
+(and padded, or a constant x row cut the powers off the squared row) and measured
+exactly; a real half-power term still reports n/a. And the gallery and the speed
+grid used `1fr`, which floors at content width, so a long cell pushed the page past
+the window and the found curves ran off the right edge — both are
+`repeat(2, minmax(0, 1fr))` now, measured clean at 900–1280 px.
+
+**Next move:** not set by this session; the operator runs `/fhandoff`. Both carried
+reds are gone (rows 19 and 20) and the experimental page keeps its gallery by the
+operator's call. The serif notes section landed at `847bb1e`.
+
+## 2026-11-16, 1b8774e — handoff
+
+**Did the previous action land? No.** The block of 2026-11-14 asked for the Bézier fitting
+step and named `scripts/bezier_fit.py` and `tests/test_bezier_fit.py`; neither file exists.
+The session that followed worked on the page instead, so the action is still open and is the
+next move below, unchanged.
+
+**Local:** 200 on `:8003`. **Remote:** `000` — no `.run.app` URL recorded, not probed
+(carried 2026-11-13; nothing deployed this session). **Tests:** carried — 101 modules green
+at `1b8774e`, the last full `scripts/test.py` run this session; nothing under `web/`,
+`curve_lab/`, `csrc/` or `tests/` has changed since. **Register:** `tests.test_regressions`
+green, run now (14 tests). **Git:** clean at `1b8774e` except this block.
+
+**What changed this session.** Pages: the serif notes section (`847bb1e`); a second
+symmetric ruler, fold-into-whole-powers so a whole-power row on a step of ½ reports its grid,
+a gallery split into Symmetric/Asymmetric by a 1 % mirror test, `copy this one` for saved
+records, a manual focus (`focus` in the record), and the "possible families" section
+(`7ac5852`). Data: `curves/` holds ten curves, each `curve.json` + `notes.md`, with figures
+drawn from the flat spots and y stretched by a printed factor. Review page:
+`workbench/curve-figures.html` — ten rows, page view beside factored view, accept/reject,
+decisions returned as JSON. **None of those decisions has been made yet.**
+
+**Risks, in the order they will bite.** (1) The census families draw as slivers because
+`p = 1` against `q` of 10⁸; that is the shape, not a renderer fault, and the fix is a
+balanced family, not a picture. (2) The context meter is retired (AGENTS.md, 2026-11-16): its
+share did not match the session, so no percentage is quoted here. (3) The drawing is
+coalesced into one animation frame, so a test that clicks and reads the DOM needs a beat.
+(4) `curves/*/figure.png` are withdrawn where the page draws a line; `figure-exact.png` is
+the only picture for those.
+
+**Next move:** start the Bézier fitting step — fit `wide-knot-x20` with cubic spans, print the
+span count and the maximum deviation as a share of the curve's size, and do the same for two
+more stored curves.
+
+**Context:** meter retired 2026-11-16 and not quoted. `scripts/ctx.py --log` reports 394
+active minutes and 558 turns for this session; those are reported, not judged.
+
+Tried and rejected: rescaling the row to fix the drawing — dividing by its peak gave a
+10^-15-wide curve (scaling `w` scales the curve by its square) and 1/sqrt(peak) still degraded
+a curve that draws unscaled at peak 2.7e5; the cause is cancellation, and the factored form
+was the answer. Tried and rejected: a size threshold as a predictor of which rows the page
+miscounts — it did not pick out the five that failed.
