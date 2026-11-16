@@ -29,9 +29,11 @@
  "source": "family-census.json; see scripts/family_census.py for the box",
  "format": "curve-lab.curve/1",
  "figure": {
-  "file": "figure.png",
+  "file": "figure-exact.png",
   "view": "loop, focus the knot",
   "width": 900,
-  "made_by": "scripts/curve_png.mjs"
+  "made_by": "scripts/curve_svg.py + scripts/svg_png.mjs",
+  "balance": null,
+  "aspect": "auto"
  }
 }

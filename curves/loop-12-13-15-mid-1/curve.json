@@ -33,8 +33,11 @@
  "source": "family-census.json; see scripts/family_census.py for the box",
  "format": "curve-lab.curve/1",
  "figure": {
-  "file": null,
+  "file": "figure-exact.png",
   "withdrawn": true,
-  "reason": "the loop view renders this row as a flat line (ink 608x1)"
+  "reason": "the loop view renders this row as a flat line (ink 608x1)",
+  "balance": null,
+  "made_by": "scripts/curve_svg.py + scripts/svg_png.mjs",
+  "aspect": "auto"
  }
 }

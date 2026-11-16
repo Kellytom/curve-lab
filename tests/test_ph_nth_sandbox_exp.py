@@ -126,6 +126,24 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_the_figure_review_page_shows_both_pictures(self):
+        """Old beside new for every curve, with accept, reject and none per row.
+
+        The factored picture is drawn from the flat spots with a stated vertical stretch,
+        because these curves hug the axis; the choices are the operator's, and come back as
+        JSON rather than being applied silently.
+        """
+        page = (ROOT / "workbench" / "curve-figures.html").read_text()
+        self.assertIn("Curve figures: accept or reject", page)
+        self.assertIn("accept factored", page)
+        self.assertIn("keep page", page)
+        self.assertIn("curve-figure-decisions", page)
+        self.assertEqual(page.count('class="row" data-slug="'), 10)
+        for folder in sorted((ROOT / "curves").iterdir()):
+            if folder.is_dir() and (folder / "curve.json").exists():
+                self.assertTrue((folder / "figure-exact.png").exists(), folder.name)
+                self.assertLess((folder / "figure-exact.png").stat().st_size, 150_000)
+
     def test_the_possible_section_carries_the_investigation_list(self):
         """Three kinds of candidate, and a warning where the page cannot reproduce them.
 
