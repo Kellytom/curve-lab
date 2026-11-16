@@ -188,8 +188,8 @@ def measure(x, y):
         loop = None
     # the endpoint is the integral of w^2, exact
     n = max(len(x), len(y))
-    xs = list(x) + [0] * (n - len(x))
-    ys = list(y) + [0] * (n - len(y))
+    xs = [F(str(value)) for value in x] + [F(0)] * (n - len(x))
+    ys = [F(str(value)) for value in y] + [F(0)] * (n - len(y))
     end_x = sum(F(sum(xs[i] * xs[m - i] for i in range(n) if 0 <= m - i < n)
                   - sum(ys[i] * ys[m - i] for i in range(n) if 0 <= m - i < n), m + 1)
                 for m in range(2 * n - 1))
@@ -202,8 +202,8 @@ def measure(x, y):
 
 def _arc(x, y):
     n = max(len(x), len(y))
-    xs = list(x) + [0] * (n - len(x))
-    ys = list(y) + [0] * (n - len(y))
+    xs = [F(str(value)) for value in x] + [F(0)] * (n - len(x))
+    ys = [F(str(value)) for value in y] + [F(0)] * (n - len(y))
     total = F(0)
     for m in range(2 * n - 1):
         total += F(sum(xs[i] * xs[m - i] for i in range(n) if 0 <= m - i < n)

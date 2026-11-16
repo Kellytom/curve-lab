@@ -1,0 +1,38 @@
+{
+ "name": "wide-knot-x20",
+ "speedX": [
+  4.0,
+  -20.0,
+  20.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "speedY": [
+  -9.0,
+  154.0,
+  -808.0,
+  1872.0,
+  -2000.0,
+  800.0
+ ],
+ "step": 1,
+ "roots": "",
+ "loop": {
+  "from": 0.0015,
+  "to": 0.9975
+ },
+ "bend": 3.908,
+ "grid": 693,
+ "crossings": 6,
+ "arc": "4967/693",
+ "source": "workbench/found-curves.json; new batch",
+ "format": "curve-lab.curve/1",
+ "figure": {
+  "file": "figure.png",
+  "view": "factored",
+  "aspect": "auto",
+  "balance": null,
+  "drawn_by": "scripts/curve_svg.py + scripts/svg_png.mjs"
+ }
+}

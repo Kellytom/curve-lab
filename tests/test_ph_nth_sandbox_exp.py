@@ -126,6 +126,26 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_the_named_found_curves_have_folders_and_figures(self):
+        """The five the operator named, imported with the factored drawing.
+
+        wide-knot-x20 has a prose provenance, so its figure is drawn from the row; the
+        other four have flat spots and are drawn from them. Every one carries the stretch
+        factor it needed, because these rows are slivers.
+        """
+        for name in ("wide-knot-x20", "lace-1of8-1of3-3", "lace-1of8-1of6-3",
+                     "lace-1of10-1of5-3", "wave-1of8-2of5-3"):
+            folder = ROOT / "curves" / name
+            with self.subTest(curve=name):
+                self.assertTrue((folder / "curve.json").exists())
+                self.assertTrue((folder / "notes.md").exists())
+                figure = folder / "figure.png"
+                self.assertTrue(figure.exists())
+                self.assertLess(figure.stat().st_size, 150_000)
+                svg = (folder / "figure-exact.svg").read_text()
+                self.assertIn("factored form", svg)
+                self.assertIn("y stretched", svg)
+
     def test_the_figure_review_page_shows_both_pictures(self):
         """Old beside new for every curve, with accept, reject and none per row.
 
@@ -138,7 +158,9 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("accept factored", page)
         self.assertIn("keep page", page)
         self.assertIn("curve-figure-decisions", page)
-        self.assertEqual(page.count('class="row" data-slug="'), 10)
+        folders = [folder for folder in (ROOT / "curves").iterdir()
+                   if folder.is_dir() and (folder / "curve.json").exists()]
+        self.assertEqual(page.count('class="row" data-slug="'), len(folders))
         for folder in sorted((ROOT / "curves").iterdir()):
             if folder.is_dir() and (folder / "curve.json").exists():
                 self.assertTrue((folder / "figure-exact.png").exists(), folder.name)

@@ -1,0 +1,42 @@
+{
+ "name": "wave-1of8-2of5-3",
+ "speedX": [
+  7.0,
+  -25.0,
+  25.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "speedY": [
+  -42.0,
+  811.0,
+  -6017.0,
+  23198.0,
+  -51180.0,
+  65272.0,
+  -44800.0,
+  12800.0
+ ],
+ "step": 1,
+ "roots": "1/8, 2/5, 1/2, 1/2, 1/2, 3/5, 7/8",
+ "loop": {
+  "from": 0.0279,
+  "to": 0.9712
+ },
+ "bend": 1.33,
+ "grid": 3003,
+ "crossings": 2,
+ "arc": "278548/3003",
+ "source": "workbench/found-curves.json; new batch",
+ "format": "curve-lab.curve/1",
+ "figure": {
+  "file": "figure.png",
+  "view": "factored",
+  "aspect": "auto",
+  "balance": null,
+  "drawn_by": "scripts/curve_svg.py + scripts/svg_png.mjs"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "name": "lace-1of8-1of6-3",
+ "speedX": [
+  6.0,
+  -36.0,
+  36.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0
+ ],
+ "speedY": [
+  -35.0,
+  782.0,
+  -6728.0,
+  29008.0,
+  -69040.0,
+  92128.0,
+  -64512.0,
+  18432.0
+ ],
+ "step": 1,
+ "roots": "1/8, 1/6, 1/2, 1/2, 1/2, 5/6, 7/8",
+ "loop": {
+  "from": 0.021,
+  "to": 0.978
+ },
+ "bend": 1.343,
+ "grid": 5005,
+ "crossings": 4,
+ "arc": "282003/5005",
+ "source": "workbench/found-curves.json; new batch",
+ "format": "curve-lab.curve/1",
+ "figure": {
+  "file": "figure.png",
+  "view": "factored",
+  "aspect": "auto",
+  "balance": null,
+  "drawn_by": "scripts/curve_svg.py + scripts/svg_png.mjs"
+ }
+}

@@ -32,35 +32,37 @@ def spots_of(record):
 def curve_points(record, samples=1400, balance=None):
     """z(t) = integral of w^2, with q from the roots so nothing cancels.
 
-    `balance` sets p. It defaults to the record's "balance" key, and to 1 when absent.
-    The census families have p = 1 against a q that reaches 10^8, so their shape is a
-    sliver 10^4 times longer than it is deep and any figure of them is a flat line. Setting
-    p to the size of q gives a picture where the loop can be seen; it changes the curve, so
-    the figure says which p was used.
+    With no flat spots recorded, the speed row itself is used and the notes say so. `balance`
+    sets p: None keeps p = 1, "max" sets p to the row's largest coefficient — which is what
+    turns a 10,000:1 sliver into a curve whose loop can be seen, at the cost of changing the
+    curve, so the figure states which p was used.
     """
     spots = spots_of(record)
-    if not spots:
-        return None
-    # q(t) = K * product(t - r), K set so the largest coefficient is 1: the shape only.
-    row = [F(1)]
-    for root in spots:
-        nxt = [F(0)] * (len(row) + 1)
-        for power, value in enumerate(row):
-            nxt[power] += -root * value
-            nxt[power + 1] += value
-        row = nxt
-    peak = max(abs(value) for value in row) or F(1)
-    row = [value / peak for value in row]
-    # p's size comes from the row before it was normalised, which is what makes the
-    # difference between a sliver and a curve
-    raw_peak = peak
+    if spots:
+        row = [F(1)]
+        for root in spots:
+            nxt = [F(0)] * (len(row) + 1)
+            for power, value in enumerate(row):
+                nxt[power] += -root * value
+                nxt[power + 1] += value
+            row = nxt
+        peak = max(abs(value) for value in row) or F(1)
+        row = [value / peak for value in row]
+        raw_peak = peak
+    else:
+        speed_y = record.get("speedY") or []
+        if not speed_y:
+            return None
+        peak = max(abs(F(str(value))) for value in speed_y) or F(1)
+        row = [F(str(value)) / peak for value in speed_y]
+        raw_peak = peak
 
     if balance is None:
         balance = record.get("figure", {}).get("balance", None)
     p_value = F(1)
     if balance:
         p_value = raw_peak
-        if balance is not True and balance != "max":
+        if balance not in (True, "max"):
             p_value = F(str(balance))
 
     def q_at(t):
@@ -81,7 +83,6 @@ def curve_points(record, samples=1400, balance=None):
             step = F(1, samples)
             tm = t + step / 2
             qm = q_at(tm)
-            # z' = (p^2 - q^2, 2 p q)
             x += (p_value * p_value - qm * qm) * step
             y += 2 * p_value * qm * step
     return points
