@@ -92,6 +92,25 @@ curvature is gives short legs and a faithful knot without cutting the curve at a
 plan recorded in <code>TODO.md</code>.</p>
 </section>
 
+<section class="panel">
+<h2>The point count is not part of the formula</h2>
+<p>The view panel shows a line like <code>visible part: 12,001 points over t 0.021 to 0.979
+(4&times;)</code>. That number is about the <strong>drawing</strong>, not about the curve. It says how
+many sample points the polyline was built from at the current magnification; the curve itself is the
+row of numbers above the figure, and nothing in the row is changed by pressing
+<strong>recalculate at this zoom</strong>.</p>
+<p>Why it exists: a picture is a polyline of straight segments, and at 10&times; or 12&times; the
+corners of a 700-point polyline are visible. The button multiplies the detail by four and samples only
+the window on screen, so a zoomed view looks like a line. Press it again for four times more. Panning
+and zooming do not resample, so dragging stays cheap.</p>
+<p>Why it must not be used later: the cubic spans for the lead are fitted to the <em>numbers</em>, from
+the speed row and the tolerance the G3 gate asks for. A point count from the screen is a rendering
+choice, has no tolerance attached, and changes whenever the operator zooms. Treat it as a label on the
+glass, not a measurement of the curve. The measurements that do travel are
+<code>bend</code> (arc over chord), <code>grid</code> (the pitch the row needs), the crossing count and
+the loop window &mdash; and those are what a saved record carries.</p>
+</section>
+
 <p><a href="ph-nth-sandbox-exp.html">&larr; back to the experimental sandbox</a></p>
 </main></body></html>
 """

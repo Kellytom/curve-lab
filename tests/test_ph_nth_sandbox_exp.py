@@ -94,6 +94,22 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn('id="n-tweak-spread"', page)
         self.assertIn('<option value="13">', page)
 
+    def test_the_point_count_is_labelled_as_a_drawing_detail(self):
+        """The visible-part count is a rendering number, not a curve measurement.
+
+        The operator's call, 2026-11-16: small print beside it, and a section on the
+        notes page, so it is never mistaken for something the cubic spans are read from.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-zoom-detail-fineprint"', page)
+        self.assertIn("not the curve", page)
+        self.assertIn("never", page)
+        notes = (ROOT / "workbench" / "ph-nth-exp-notes.html").read_text()
+        self.assertIn("The point count is not part of the formula", notes)
+        for word in ("visible part", "recalculate at this zoom", "G3 gate"):
+            with self.subTest(word=word):
+                self.assertIn(word, notes)
+
     def test_the_census_covers_its_stated_box(self):
         """Exhaustive within a box that is written down, not "all curves" full stop.
 
