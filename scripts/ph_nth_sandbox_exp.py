@@ -168,6 +168,61 @@ def related_section():
     )
 
 
+CENSUS = ROOT / "workbench" / "family-census.json"
+
+
+def census_picks(knotty=6, cheap=6):
+    """The best of the census, so every copy count and pair count is reachable.
+
+    The two sections above it fix the copy count at three; the census did not. It found
+    9 crossings at grid 1/42 with one copy at 1/2, and 6 at grid 1/36 with three outer
+    pairs — neither is a button anywhere else. Ranked by crossings, then by grid, with a
+    second list for the cheap ones (grid 100 or less).
+    """
+    if not CENSUS.exists():
+        return []
+    curves = json.loads(CENSUS.read_text())["curves"]
+    curves = sorted(curves, key=lambda c: (-c["crossings"], c["grid"]))
+    chosen = list(curves[:knotty])
+    below = sorted([c for c in curves if c["grid"] <= 100 and c["crossings"] >= 5],
+                   key=lambda c: (-c["crossings"], c["grid"]))
+    seen = {c["spots"] for c in chosen}
+    chosen += [c for c in below if c["spots"] not in seen][:cheap]
+    return chosen
+
+
+def census_section():
+    picks = census_picks()
+    if not picks:
+        return ""
+    buttons = []
+    for curve in picks:
+        spots = curve["spots"]
+        outer = [part.strip() for part in spots.split(",") if part.strip() != "1/2"]
+        copies = sum(1 for part in spots.split(",") if part.strip() == "1/2")
+        outer = outer[: (len(outer) + 1) // 2]          # the lower half names the spots
+        label = (f"{curve['crossings']} crossings &middot; grid 1/{curve['grid']:,} "
+                 f"&middot; {' + '.join(outer)} + &frac12;&times;{copies}")
+        buttons.append(
+            f'    <button type="button" class="family" data-spots="{spots}" '
+            f'title="flat spots {spots}">{label}</button>')
+    return (
+        '<div class="curve-box" id="n-census">\n'
+        '<h3>Best of the census: every copy count</h3>\n'
+        '<p class="small">The two sections above hold the copy count at three. The census '
+        'did not: it measured 1 to 5 copies at 1/2 and 1 to 3 outer pairs, 7,068 curves in '
+        'all, and these twelve are the best of them &mdash; the six tangliest, then the six '
+        'cheapest with five crossings or more. Each button says its crossings, its grid and '
+        'its spots, so a cheap knot can be found without opening the JSON.</p>\n'
+        '<div class="solver-row" id="n-census-buttons">\n'
+        + "\n".join(buttons) + "\n"
+        '</div>\n'
+        '<p class="small">The full list is <code>workbench/family-census.json</code>; '
+        '<code>scripts/family_census.py --report</code> prints the ranking again.</p>\n'
+        '</div>\n'
+    )
+
+
 def build():
     page = base.PAGE
     page = page.replace("__GALLERY__", json.dumps(found_entries(), separators=(",", ":")))
@@ -257,7 +312,7 @@ def build():
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + family_section() + related_section() + GALLERY_HEAD + page[head_end:]
+    page = page[:head_start] + family_section() + related_section() + census_section() + GALLERY_HEAD + page[head_end:]
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves

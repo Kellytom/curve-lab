@@ -1578,13 +1578,19 @@ window.curveSaver = (function () {
   function drawNow() {
     const plot = document.getElementById("n-plot");
     const speed = hookedSpeed();
+    // Eleven roots give coefficients near 10^13, and a double cannot hold the knot's
+    // detail against a number that size: the crossings vanished and the count read 0.
+    // The shape is scale free, so the drawing uses a copy scaled to about 1 while the
+    // row, the grid and the bend stay exact on the original.
+    const peak = Math.max(1e-12, ...speed.x.map(Math.abs), ...speed.y.map(Math.abs));
+    const drawSpeed = peak > 1e6 ? { x: speed.x.map(v => v / peak), y: speed.y.map(v => v / peak) } : speed;
     // magnified views show the polyline's corners, so sample in proportion to the
     // magnification: 700 points is plenty at 1x, not at 12x
     const zoomForSamples = Math.abs(Number(view.zoom) || 1);
     // the button multiplies the detail on request; nothing samples on a pan or a
     // zoom, so dragging stays cheap and the sharper line costs one press
     const samples = Math.round(700 * Math.min(3, Math.max(1, zoomForSamples)) * (view.detail || 1));
-    const spine = spineSamples(speed, samples);
+    const spine = spineSamples(drawSpeed, samples);
     const detailNote = document.getElementById("n-zoom-detail-note");
     if (detailNote) {
       detailNote.textContent = (view.detail || 1) > 1
@@ -1737,7 +1743,7 @@ window.curveSaver = (function () {
         const tHi = Math.min(range.to, spans[spans.length - 1].t);
         if (tHi > tLo + 1e-6) {
           const steps = Math.max(300, Math.round(3000 * (view.detail || 1)));
-          const dense = denseBetween(speed, tLo, tHi, steps);
+          const dense = denseBetween(drawSpeed, tLo, tHi, steps);
           if (detailNote) {
             detailNote.textContent = `visible part: ${dense.length.toLocaleString()} points `
               + `over t ${tLo.toFixed(3)} to ${tHi.toFixed(3)} (${view.detail}\u00d7)`;
@@ -3023,8 +3029,13 @@ window.curveSaver = (function () {
     }
     const bow = (bowField && parseSpot(bowField.value)) || { n: 0, d: 1 };
     const degree = Math.max(spots.length, 2);
-    if (degree > 9) {
-      if (rootsStatus) rootsStatus.textContent = `too many flat spots: ${spots.length}; this page stops at 9`;
+    // the row has one number more than its degree, so a rung of N numbers takes N-1
+    // spots. The cap was 9 — the eleventh-power rung's size — which silently refused
+    // the census families with three pairs and five copies at 1/2.
+    const spotLimit = Math.max(2, window.phNthDegree().speedCount - 1);
+    if (degree > spotLimit) {
+      if (rootsStatus) rootsStatus.textContent =
+        `too many flat spots: ${spots.length}; this rung takes ${spotLimit}`;
       return;
     }
     // keep the rung the page is already on: shrinking to the smallest fit threw
@@ -4304,9 +4315,14 @@ window.curveSaver = (function () {
     const x = entry.speedX || [], y = entry.speedY || [];
     if (!x.length || !y.length || !x.some(Boolean) || !y.some(Boolean)) return false;
     const at = (row, t) => row.reduce((sum, c, k) => sum + c * Math.pow(t, k), 0);
+    // A 1 per cent mirror test, not an exact one: the fitted and truncated curves are
+    // symmetric to the eye while differing in the last digits (measured 0.08 to 0.8 per
+    // cent of the row), and an exact test filed 18 of them under Asymmetric.
+    const peak = Math.max(1, ...x.map(Math.abs), ...y.map(Math.abs));
+    const slack = 0.01 * peak;
     return [1 / 7, 2 / 5, 9 / 11].every(t =>
-      Math.abs(at(x, 1 - t) - at(x, t)) < 1e-9 &&
-      Math.abs(at(y, 1 - t) + at(y, t)) < 1e-9);
+      Math.abs(at(x, 1 - t) - at(x, t)) < slack &&
+      Math.abs(at(y, 1 - t) + at(y, t)) < slack);
   };
 
   const render = () => {
@@ -4317,7 +4333,9 @@ window.curveSaver = (function () {
     host.innerHTML =
       `<h2 class="gallery-head" id="n-symmetric">Symmetric</h2>
     <p class="gallery-note">Mirrored about the middle: <code>q(1 - t) = -q(t)</code> and
-    <code>p(1 - t) = p(t)</code>. These are the ones the flat-spot grammar built.</p>`
+    <code>p(1 - t) = p(t)</code>, to within 1 per cent of the row &mdash; a fitted or
+    truncated curve is symmetric to the eye while differing in the last digits. These are
+    the ones the flat-spot grammar built.</p>`
       + symmetric.map(entry => figureFor(entry, ++number)).join("")
       + `<h2 class="gallery-head" id="n-asymmetric">Asymmetric</h2>
     <p class="gallery-note">Not mirrored about t = 1/2. The Euler hook is the type: a shape
@@ -4433,5 +4451,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 10:01</p>
+<p class="small mono" id="n-build">build 2026-11-16 10:15</p>
 </body></html>
