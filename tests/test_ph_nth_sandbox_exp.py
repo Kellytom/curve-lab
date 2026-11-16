@@ -102,8 +102,8 @@ class TestFractionalSandbox(unittest.TestCase):
         """
         page = PAGE.read_text()
         self.assertIn('id="n-zoom-detail-fineprint"', page)
-        self.assertIn("not the curve", page)
-        self.assertIn("never", page)
+        self.assertIn("not part of formula", page)
+        self.assertIn('href="ph-nth-exp-notes.html"', page)
         notes = (ROOT / "workbench" / "ph-nth-exp-notes.html").read_text()
         self.assertIn("The point count is not part of the formula", notes)
         for word in ("visible part", "recalculate at this zoom", "G3 gate"):
