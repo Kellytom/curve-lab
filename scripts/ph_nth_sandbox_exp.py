@@ -133,9 +133,13 @@ def build():
   line prints the grid after every press, because the grid after a change depends on arithmetic and
   not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
   and of 6 gives 1/770. <strong>Widen the ink</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
-  which re-times the stroke rather than adding a term; that lifts the top power, so a divisor it has
-  not met before (13) joins the grid unless <code>s</code> is a multiple of 13 — 39 measures 1/210,
-  the cheapest of the four.</p>
+  which re-times the stroke rather than adding a term. The multiplication lifts the top power from
+  <code>t^10</code> to <code>t^14</code>, and every new power is divided by its own number when it is
+  integrated &mdash; 13 at <code>t^12</code>, 14 at <code>t^13</code>, 15 at <code>t^14</code> &mdash;
+  so a 13 joins the grid unless <code>s</code> cancels it. The list carries the sizes that cancel it,
+  with the grid each one measured on <code>1/15</code>: 39 gives 1/210 and 50 gives 1/182 against the
+  base 1/154, but both re-time the stroke hard (the middle runs 11 and 13 times faster). A gentle push
+  cannot be cheap here &mdash; the four new powers have to be paid for.</p>
   <div class="solver-row">
     <label class="dial" for="n-tweak-pattern">change
       <select id="n-tweak-pattern">
@@ -154,10 +158,12 @@ def build():
   <div class="solver-row">
     <label class="dial" for="n-tweak-spread" title="multiplying both rows re-times the stroke; 13 is the divisor the new top power introduces, so a multiple of 13 keeps it out of the grid">widen the ink, s =
       <select id="n-tweak-spread">
-        <option value="1">1</option>
-        <option value="5">5</option>
-        <option value="13">13</option>
-        <option value="39">39</option>
+        <option value="1">1 &mdash; grid 1/90,090</option>
+        <option value="5">5 &mdash; grid 1/2,002</option>
+        <option value="9" selected>9 &mdash; grid 1/770</option>
+        <option value="17">17 &mdash; grid 1/390</option>
+        <option value="39">39 &mdash; grid 1/210</option>
+        <option value="50">50 &mdash; grid 1/182</option>
       </select></label>
     <button type="button" id="n-tweak-both" title="multiply both rows by 1 + s (t - t^2)">widen the ink</button>
   </div>

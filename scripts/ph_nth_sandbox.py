@@ -264,6 +264,9 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     </label>
     <label class="hud-row" for="n-zoom-number">zoom
       <input id="n-zoom-number" type="number" step="0.5" value="1" style="width:5em" title="positive in, negative out"></label>
+    <button type="button" id="n-zoom-detail"
+            title="re-sample the curve at four times the current detail, so a zoomed view is a smooth line instead of a polyline; press again for four times more">recalculate at this zoom</button>
+    <p class="small mono" id="n-zoom-detail-note">drawing 700 points</p>
     <label class="hud-row" for="n-pan-x">pan x
       <input id="n-pan-x" type="range" min="-50" max="50" step="1" value="0"></label>
     <label class="hud-row" for="n-pan-x-number">pan x

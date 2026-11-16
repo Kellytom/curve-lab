@@ -113,7 +113,8 @@ class TestRegressions(unittest.TestCase):
         for step in ('data-step="-5"', 'data-step="-1"', 'data-step="1"', 'data-step="5"'):
             with self.subTest(step=step):
                 self.assertIn(step, source)
-        for spread in ('<option value="13">', '<option value="39">'):
+        for spread in ('<option value="9"', '<option value="17"', '<option value="39"',
+                       '<option value="50"'):
             with self.subTest(spread=spread):
                 self.assertIn(spread, source)
 

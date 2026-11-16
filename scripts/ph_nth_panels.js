@@ -320,7 +320,7 @@
   // what the page draws: the spine alone by default
   const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
                  rotate: false, complement: !window.phNoComplement, focusKnot: false, zoom: 1,
-                 panX: 0, panY: 0 };
+                 panX: 0, panY: 0, detail: 1 };
   const TURN = -Math.PI / 4;
   const turned = points => view.rotate
     ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
@@ -423,6 +423,25 @@
       const ty = speed2 > 1e-12 ? 2 * p * q / speed2 : 0;
       return { t, x, y, tx, ty, nx: -ty, ny: tx };
     });
+  }
+
+  // A dense walk over one window of t, starting where a quick whole walk leaves
+  // us at tLo. Only the window is integrated, so the recalculate button pays for
+  // the part on screen and nothing else.
+  function denseBetween(speed, tLo, tHi, steps) {
+    const head = walkTo(speed, tLo, 300);
+    let x = head.length ? head[head.length - 1].x : 0;
+    let y = head.length ? head[head.length - 1].y : 0;
+    const out = [{ x, y }];
+    const h = (tHi - tLo) / steps;
+    for (let i = 0; i < steps; i++) {
+      const t = tLo + (i + 0.5) * h;
+      const p = value(speed.x, t), q = value(speed.y, t);
+      x += (p * p - q * q) * h;
+      y += 2 * p * q * h;
+      out.push({ x, y });
+    }
+    return out;
   }
 
   // the arc through three points: a round terminal of radius d at that end
@@ -788,7 +807,16 @@
     // magnified views show the polyline's corners, so sample in proportion to the
     // magnification: 700 points is plenty at 1x, not at 12x
     const zoomForSamples = Math.abs(Number(view.zoom) || 1);
-    const spine = spineSamples(speed, Math.round(700 * Math.min(3, Math.max(1, zoomForSamples))));
+    // the button multiplies the detail on request; nothing samples on a pan or a
+    // zoom, so dragging stays cheap and the sharper line costs one press
+    const samples = Math.round(700 * Math.min(3, Math.max(1, zoomForSamples)) * (view.detail || 1));
+    const spine = spineSamples(speed, samples);
+    const detailNote = document.getElementById("n-zoom-detail-note");
+    if (detailNote) {
+      detailNote.textContent = (view.detail || 1) > 1
+        ? `recalculating the visible part (${view.detail}\u00d7)`
+        : `drawing ${samples.toLocaleString()} points`;
+    }
     const complementSpine = spineSamples({ x: complement.x, y: complement.y }).map(s => [s.x, s.y]);
     const spineXs = spine.map(s => s.x), spineYs = spine.map(s => s.y);
     const diagonal = Math.hypot(Math.max(...spineXs) - Math.min(...spineXs),
@@ -872,6 +900,13 @@
     const ox = left + ((width_ - left - right) - (maxX - minX) * scale) / 2;
     const oy = top + ((height - top - bottom) - (maxY - minY) * scale) / 2;
     const fx = v => ox + (v - minX) * scale, fy = v => oy + (maxY - v) * scale;
+    // Zoom moves the viewBox over a finished picture, so a stroke measured in user
+    // units would grow with the magnification: at 12x a 2.4 unit line is nearly an
+    // inch thick. Every path carries vector-effect="non-scaling-stroke", so a stroke
+    // width is screen pixels and the line stays the same thickness at any zoom.
+    const zoomValue = Number(view.zoom);
+    const viewFactor = !Number.isFinite(zoomValue) || Math.abs(zoomValue) < 1 ? 1
+      : (zoomValue > 0 ? 1 / zoomValue : Math.abs(zoomValue));
     // the frame is published so a test can ask what it is showing
     window.phNthFrame = () => ({ minX, maxX, minY, maxY, scale, focus: view.focusKnot, zoom: view.zoom,
                                  knotCentre: knotsShown.length
@@ -883,19 +918,48 @@
       `<line x1="${fx(minX).toFixed(1)}" y1="${fy(0).toFixed(1)}" x2="${fx(maxX).toFixed(1)}" y2="${fy(0).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>` +
       `<line x1="${fx(0).toFixed(1)}" y1="${fy(minY).toFixed(1)}" x2="${fx(0).toFixed(1)}" y2="${fy(maxY).toFixed(1)}" stroke="#c9bfa6" stroke-dasharray="3 5"/>`;
     if (view.rails) {
-      art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>` +
-             `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8"/>`;
+      art += `<path d="${path(leftRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8" vector-effect="non-scaling-stroke"/>` +
+             `<path d="${path(rightRail)}" fill="none" stroke="#1f5fa8" stroke-width="1.8" vector-effect="non-scaling-stroke"/>`;
     }
     if (characterLeft) {
-      art += `<path d="${path(characterLeft)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>` +
-             `<path d="${path(characterRight)}" fill="none" stroke="#5b7f3a" stroke-width="2"/>`;
+      art += `<path d="${path(characterLeft)}" fill="none" stroke="#5b7f3a" stroke-width="2" vector-effect="non-scaling-stroke"/>` +
+             `<path d="${path(characterRight)}" fill="none" stroke="#5b7f3a" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
     }
     // the complementary curve sits under the spine: 40% grey (#666), so the dark
     // stroke stays the one you read first
     if (view.complement) {
-      art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2"/>`;
+      art += `<path d="${path(complementShown)}" fill="none" stroke="#666666" stroke-opacity="0.6" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
     }
-    art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4"/>`;
+    art += `<path d="${path(spinePoints)}" fill="none" stroke="#2e2413" stroke-width="2.4" vector-effect="non-scaling-stroke"/>`;
+    // the recalculate button: a dense copy of only the part on screen, drawn over the
+    // coarse path, so zooming back out still shows the whole curve
+    if ((view.detail || 1) > 1) {
+      const vw = width_ * viewFactor, vh = height * viewFactor;
+      const cx = width_ / 2 + (Number(view.panX) || 0) / 100 * vw;
+      const cy = height / 2 + (Number(view.panY) || 0) / 100 * vh;
+      const loX = minX + ((cx - vw / 2) - ox) / scale, hiX = minX + ((cx + vw / 2) - ox) / scale;
+      const loY = maxY - ((cy + vh / 2) - oy) / scale, hiY = maxY - ((cy - vh / 2) - oy) / scale;
+      const pad = 0.01 * Math.max(hiX - loX, hiY - loY, 1e-9);
+      const inside = spine.filter(spot => spot.t >= range.from - 1e-9 && spot.t <= range.to + 1e-9 &&
+        spot.x >= loX - pad && spot.x <= hiX + pad && spot.y >= loY - pad && spot.y <= hiY + pad);
+      // at a very deep zoom the view can fall between coarse samples, so fall back
+      // to the whole kept range rather than doing nothing
+      const spans = inside.length > 1 ? inside : [{ t: range.from }, { t: range.to }];
+      {
+        const tLo = Math.max(range.from, spans[0].t);
+        const tHi = Math.min(range.to, spans[spans.length - 1].t);
+        if (tHi > tLo + 1e-6) {
+          const steps = Math.max(300, Math.round(3000 * (view.detail || 1)));
+          const dense = denseBetween(speed, tLo, tHi, steps);
+          if (detailNote) {
+            detailNote.textContent = `visible part: ${dense.length.toLocaleString()} points `
+              + `over t ${tLo.toFixed(3)} to ${tHi.toFixed(3)} (${view.detail}\u00d7)`;
+          }
+          art += `<path d="M${dense.map(p => fx(p.x).toFixed(1) + "," + fy(p.y).toFixed(1)).join("L")}" ` +
+                 `fill="none" stroke="#2e2413" stroke-width="2.4" vector-effect="non-scaling-stroke"/>`;
+        }
+      }
+    }
     // a cut end gets a short dotted stub along its own direction, about a quarter of
     // an inch on screen, so the eye reads "the leg continues" rather than "the curve
     // stops here". It is a hint, not geometry: it is not part of the curve.
@@ -906,21 +970,21 @@
       const length = Math.hypot(dx, dy) || 1;
       const end = [from[0] - (dx / length) * stub, from[1] - (dy / length) * stub];
       return `<path d="M${(from[0]).toFixed(1)},${(from[1]).toFixed(1)}L${(end[0]).toFixed(1)},${(end[1]).toFixed(1)}" ` +
-             `fill="none" stroke="#6b6152" stroke-width="1.6" stroke-dasharray="3 4"/>`;
+             `fill="none" stroke="#6b6152" stroke-width="1.6" vector-effect="non-scaling-stroke" stroke-dasharray="3 4"/>`;
     };
     const shownSpine = turned(spinePoints).map(p => [fx(p[0]), fy(p[1])]);
     if (range.from > 1e-9 && shownSpine.length > 2) art += dotted(shownSpine[0], shownSpine[1]);
     if (range.to < 1 - 1e-9 && shownSpine.length > 2) {
       art += dotted(shownSpine[shownSpine.length - 1], shownSpine[shownSpine.length - 2]);
     }
-    if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
-    if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4"/>`;
+    if (startEnd) art += `<path d="${path(startEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4" vector-effect="non-scaling-stroke"/>`;
+    if (finishEnd) art += `<path d="${path(finishEnd.arc)}" fill="none" stroke="#a23b2a" stroke-width="2.4" vector-effect="non-scaling-stroke"/>`;
     // the meetings of the two curves, counted and marked
     const meets = view.complement ? crossingsOf(spinePoints, complementShown,
                               1e-4 * Math.max(1e-9, maxX - minX)) : [];
     meets.forEach(([x, y]) => {
       art += `<circle cx="${fx(x).toFixed(1)}" cy="${fy(y).toFixed(1)}" r="3.6" ` +
-             `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6"/>`;
+             `fill="#fbf7ec" stroke="#a23b2a" stroke-width="1.6" vector-effect="non-scaling-stroke"/>`;
     });
     art += `<circle cx="${fx(0).toFixed(1)}" cy="${fy(0).toFixed(1)}" r="4" fill="#1f5fa8"/>`;
     // the legend lives in the page, under the offset controls, not inside the figure:
@@ -2751,6 +2815,8 @@
     view.zoom = 1;
     view.focusKnot = false;
     view.rotate = false;
+    view.detail = 1;
+    draw();                      // back to the normal density, not left dense
     const zoomSlider = document.getElementById("n-zoom");
     const zoomNumber = document.getElementById("n-zoom-number");
     if (zoomSlider) zoomSlider.value = "1";
@@ -2805,6 +2871,11 @@
     if (zoomNumber) zoomNumber.value = String(view.zoom);
     applyView();
   };
+  const detailButton = document.getElementById("n-zoom-detail");
+  if (detailButton) detailButton.addEventListener("click", () => {
+    view.detail = Math.min(32, (view.detail || 1) * 4);
+    draw();
+  });
   if (zoomSlider) zoomSlider.addEventListener("input", () => setZoom(zoomSlider.value));
   if (zoomNumber) {
     zoomNumber.addEventListener("input", () => setZoom(zoomNumber.value));
