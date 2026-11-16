@@ -438,6 +438,15 @@ the same place again for another copy (the dots stack at the top of the strip), 
 here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
 padded with a zero pair, which changes nothing: the speed is the same polynomial.</p>
 <div class="gallery" id="n-gallery"></div>
+<div class="panel" id="n-archive-panel">
+  <h3>Moved to notes</h3>
+  <p class="small">Curves you cleared from the gallery. They are hidden here and listed below;
+  hand the list back and they leave <code>found-curves.json</code> for the notes page.</p>
+  <textarea id="n-archive-box" rows="4" readonly></textarea>
+  <p><button type="button" id="n-archive-copy">copy the list</button>
+     <button type="button" id="n-archive-undo">undo the last one</button>
+     <span class="small mono" id="n-archive-state"></span></p>
+</div>
 </section>
 
 <hr style="border:0;border-top:1px solid var(--rule);margin:26px 0 18px">

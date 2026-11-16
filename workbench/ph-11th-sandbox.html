@@ -4063,17 +4063,12 @@ window.curveSaver = (function () {
                                (oy + (maxY - p[1]) * scale).toFixed(1)).join("L");
     const json = JSON.stringify({ name: entry.name, speedX: entry.speedX, speedY: entry.speedY,
                                   bend: entry.bend, pitch: entry.pitch, from: entry.from }, null, 1);
-    return `<figure data-name="${entry.name}">
-      <span class="thumb-zoom"><button type="button" class="thumb-plus" title="closer" aria-label="closer on ${entry.name}">+</button><button type="button" class="thumb-minus" title="wider" aria-label="wider on ${entry.name}">&minus;</button></span>
-      <button type="button" class="gallery-open" aria-expanded="false">
-        <span class="gallery-number">Fig. ${index}</span>
-        <span class="gallery-name">${entry.name}</span>
-        <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
-          : String(entry.from || "") === "operator" ? "yours"
-          : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
-        <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
-      </button>
-      <svg viewBox="0 0 ${width} ${height}" data-frame="${framedOnKnot ? "knot" : "whole"}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
+    // An accepted figure wins over the computed thumbnail: the reviewed picture is the one
+    // that shows in the gallery. The svg thumbnail stays as the fallback and for the
+    // expanded cell, which still needs the curve itself.
+    const shiny = entry.figure
+      ? `<img src="${entry.figure}" alt="${entry.name}, accepted figure">`
+      : `<svg viewBox="0 0 ${width} ${height}" data-frame="${framedOnKnot ? "knot" : "whole"}" role="img" aria-label="${entry.name}, spine${entry.width ? " and rails" : ""}">
         <rect width="${width}" height="${height}" fill="#fbf7ec"/>
         ${(() => {
           const rails = characterRailsOf(entry);
@@ -4084,7 +4079,18 @@ window.curveSaver = (function () {
             `" fill="none" stroke="#5b7f3a" stroke-width="1"/>`).join("");
         })()}
         <path d="${d}" fill="none" stroke="#2e2413" stroke-width="1.6"/>
-      </svg>
+      </svg>`;
+    return `<figure data-name="${entry.name}">
+      <span class="thumb-zoom"><button type="button" class="thumb-plus" title="closer" aria-label="closer on ${entry.name}">+</button><button type="button" class="thumb-minus" title="wider" aria-label="wider on ${entry.name}">&minus;</button></span>
+      <button type="button" class="gallery-open" aria-expanded="false">
+        <span class="gallery-number">Fig. ${index}</span>
+        <span class="gallery-name">${entry.name}</span>
+        <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
+          : String(entry.from || "") === "operator" ? "yours"
+          : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
+        <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
+      </button>
+      ${shiny}
       <div class="more" hidden>
         <div class="more-grid">
           <div class="more-figure">
@@ -4102,6 +4108,7 @@ window.curveSaver = (function () {
               <button type="button" class="gallery-load">load into the sandbox</button>
               <button type="button" class="gallery-copy">copy JSON</button>
               <button type="button" class="gallery-duplicate" title="add a copy beside this one, with the same numbers, leaving the original alone">copy this one</button>
+              <button type="button" class="gallery-archive" title="take this curve out of the gallery and list it for the notes page">move to notes</button>
               <button type="button" class="gallery-close">close</button>
               <span class="small mono gallery-status"></span>
             </div>
@@ -4129,6 +4136,48 @@ window.curveSaver = (function () {
       Math.abs(at(x, 1 - t) - at(x, t)) < slack &&
       Math.abs(at(y, 1 - t) + at(y, t)) < slack);
   };
+
+  // The clean-up list: a curve moved here is hidden from the gallery and written into the
+  // box at the foot, which is handed back and applied to found-curves.json. Nothing leaves
+  // the repository until that list comes back.
+  const archiveKey = "ph-nth-archive";
+  const archived = () => {
+    try { return JSON.parse(localStorage.getItem(archiveKey) || "[]"); } catch (error) { return []; }
+  };
+  const writeArchive = list => {
+    localStorage.setItem(archiveKey, JSON.stringify(list));
+    const box = document.getElementById("n-archive-box");
+    if (box) box.value = JSON.stringify(list, null, 1);
+    const state = document.getElementById("n-archive-state");
+    if (state) state.textContent = list.length ? `${list.length} moved` : "none moved yet";
+    document.querySelectorAll("#n-gallery figure[data-name]").forEach(figure => {
+      if (list.includes(figure.dataset.name)) figure.style.display = "none";
+    });
+  };
+  writeArchive(archived());
+  document.addEventListener("click", event => {
+    if (!event.target.closest(".gallery-archive")) return;
+    const figure = event.target.closest("figure[data-name]");
+    if (!figure) return;
+    const list = archived();
+    if (!list.includes(figure.dataset.name)) list.push(figure.dataset.name);
+    writeArchive(list);
+  });
+  const archiveCopy = document.getElementById("n-archive-copy");
+  if (archiveCopy) archiveCopy.addEventListener("click", () => {
+    const box = document.getElementById("n-archive-box");
+    if (box) { box.select(); if (navigator.clipboard) navigator.clipboard.writeText(box.value).catch(() => {}); }
+  });
+  const archiveUndo = document.getElementById("n-archive-undo");
+  if (archiveUndo) archiveUndo.addEventListener("click", () => {
+    const list = archived();
+    list.pop();
+    writeArchive(list);
+    const name = list[list.length - 1];
+    document.querySelectorAll("#n-gallery figure[data-name]").forEach(figure => {
+      if (!list.includes(figure.dataset.name)) figure.style.display = "";
+    });
+  });
 
   const render = () => {
     list = currentList();

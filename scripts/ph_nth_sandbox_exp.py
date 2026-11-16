@@ -112,8 +112,9 @@ def found_entries():
     for curve in ordered:
         x, y = curve_records.rows_from_terms(curve["terms"])
         recorded = curve.get("measured", {})
+        name = curve["name"]
         entries.append({
-            "name": curve["name"],
+            "name": name,
             "terms": curve["terms"],
             "speedX": x,
             "speedY": y,
@@ -121,6 +122,13 @@ def found_entries():
             "pitch": recorded.get("grid"),
             "from": "found",
             "roots": spot_text(curve.get("provenance", {}).get("roots")),
+            # an accepted figure, if this curve has a folder under curves/: the gallery
+            # shows the drawing rather than its own thumbnail, so what is reviewed is what
+            # appears here
+            "figure": next((f"../curves/{folder.name}/figure.png"
+                            for folder in (ROOT / "curves").iterdir()
+                            if folder.is_dir() and folder.name == name
+                            and (folder / "figure.png").exists()), ""),
             "truncation": curve.get("truncation"),
             "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
                        f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),

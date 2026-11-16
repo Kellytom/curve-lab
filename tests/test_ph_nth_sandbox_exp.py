@@ -126,6 +126,20 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_every_gallery_cell_can_be_moved_to_the_notes_list(self):
+        """A clean-up button per curve, hiding it and listing it for the notes page.
+
+        Nothing leaves the repository until the list comes back; the button only writes the
+        name into the box at the foot and hides the cell in this browser.
+        """
+        page = PAGE.read_text()
+        self.assertIn('class="gallery-archive"', page)
+        self.assertIn('id="n-archive-box"', page)
+        self.assertIn('id="n-archive-undo"', page)
+        panels = PANELS.read_text()
+        self.assertIn('const archiveKey = "ph-nth-archive";', panels)
+        self.assertIn('writeArchive(archived());', panels)
+
     def test_the_named_found_curves_have_folders_and_figures(self):
         """The five the operator named, imported with the factored drawing.
 

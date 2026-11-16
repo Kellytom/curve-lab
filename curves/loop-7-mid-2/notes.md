@@ -38,6 +38,6 @@ family-census.json; see scripts/family_census.py for the box
 
 ## The figure
 
-`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the loop view:
-the middle of `t`, framed on the knot. If the picture and the numbers ever disagree, the
-numbers are right and the figure is stale — regenerate it rather than trust it.
+`figure.png` is the **factored** drawing, accepted on 2026-11-16. Drawn from the flat spots,
+with y stretched by the factor printed under the title, because these rows make a curve that
+hugs the x axis. `figure-exact.png` is the same picture before it replaced the original.
