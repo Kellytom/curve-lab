@@ -149,8 +149,8 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn('id="n-archive-box"', page)
         self.assertIn('id="n-archive-undo"', page)
         panels = PANELS.read_text()
-        self.assertIn('const archiveKey = "ph-nth-archive";', panels)
-        self.assertIn('writeArchive(archived());', panels)
+        self.assertIn('const archiveKey = "ph-nth-archive-v2";', panels)
+        self.assertIn("applyArchive();", panels)
 
     def test_the_named_found_curves_have_folders_and_figures(self):
         """The five the operator named, imported with the factored drawing.
