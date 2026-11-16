@@ -2647,13 +2647,22 @@
       });
       return [...out.entries()].sort((a, b) => a[0] - b[0]);
     };
+    // fit back to the number of numbers the row already uses, not to the whole rung:
+    // a 15-box page would otherwise gain powers the curve never had, and with them
+    // the divisors 12, 13, 14 and 15 in the grid
+    const extent = row => {
+      let k = row.length - 1;
+      while (k > 0 && Math.abs(row[k]) < 1e-12) k -= 1;
+      return Math.max(3, k + 1);
+    };
     const before = { x: state.x.slice(), y: state.y.slice() };
-    const fx = fitValues(product(state.x), speedCount);
-    const fy = fitValues(product(state.y), speedCount);
+    const lengthX = extent(state.x), lengthY = extent(state.y);
+    const fx = fitValues(product(state.x), lengthX);
+    const fy = fitValues(product(state.y), lengthY);
     snapshotBase();
     tweakHistory.push({ row: "both", x: before.x, y: before.y });
-    state.x = fx.whole.slice(0, speedCount);
-    state.y = fy.whole.slice(0, speedCount);
+    state.x = fx.whole.concat(new Array(Math.max(0, speedCount - fx.whole.length)).fill(0)).slice(0, speedCount);
+    state.y = fy.whole.concat(new Array(Math.max(0, speedCount - fy.whole.length)).fill(0)).slice(0, speedCount);
     writeCells();
     draw();
     updateTweakTotal();
@@ -2662,7 +2671,7 @@
       const measured = window.recipeMetrics ? window.recipeMetrics(state.x, state.y) : null;
       const grid = measured && measured.pitch ? ` · grid 1/${measured.pitch.toLocaleString()}` : " · grid n/a";
       tweakStatus.textContent =
-        `widened in place by 1 + ${text}(t - t^2): both rows refitted to ${speedCount} whole numbers` +
+        `widened in place by 1 + ${text}(t - t^2): rows refitted to ${lengthX}/${lengthY} whole numbers` +
         ` · off by ${percent(Math.max(fx.distortion, fy.distortion))} of the row` +
         `${grid}`;
     }
