@@ -464,6 +464,24 @@ the same place again for another copy (the dots stack at the top of the strip), 
 </div>
 <p class="small">These sit above the line too: the found gallery stays below it.</p>
 </div>
+<div class="curve-box" id="n-possible">
+<h3>Possible families: what to investigate</h3>
+<p class="small">Curves the census found that are not buttons above, chosen by hand for three different questions. <strong>record</strong> — the most crossings the box holds, at any grid cost, so the ceiling can be seen. <strong>cheap</strong> — five crossings or more on a grid of 100 or less, where the best value for the eye is likely to be. <strong>untried</strong> — one outer spot families outside the 1/15 to 1/9 window, so those seven are not mistaken for the whole set.</p>
+<p class="small">The count on each button is the census's, measured in exact whole-number arithmetic. This page evaluates in double precision, so on some of these rows it reads lower &mdash; four of the eleven read 0 &mdash; and a few draw as a flat line. Measured, not guessed: the rows that agree and the rows that do not are both on the list. If a button and the readout disagree, <strong>the census is right</strong>; the page is the limitation, and the loop window with a manual focus is the tool to try.</p>
+<div class="solver-row" id="n-possible-buttons">
+    <button type="button" class="family" data-spots="1/5, 1/8, 1/12, 1/2, 1/2, 1/2, 1/2, 1/2, 11/12, 7/8, 4/5" title="record: flat spots 1/5, 1/8, 1/12, 1/2, 1/2, 1/2, 1/2, 1/2, 11/12, 7/8, 4/5">record &middot; 19 crossings &middot; grid 1/74,364,290 &middot; 1/5 + 1/8 + 1/12 + &frac12;&times;5</button>
+    <button type="button" class="family" data-spots="1/3, 1/5, 1/11, 1/2, 10/11, 4/5, 2/3" title="record: flat spots 1/3, 1/5, 1/11, 1/2, 10/11, 4/5, 2/3">record &middot; 15 crossings &middot; grid 1/12,012 &middot; 1/3 + 1/5 + 1/11 + &frac12;&times;1</button>
+    <button type="button" class="family" data-spots="1/3, 1/7, 1/11, 1/2, 1/2, 1/2, 10/11, 6/7, 2/3" title="record: flat spots 1/3, 1/7, 1/11, 1/2, 1/2, 1/2, 10/11, 6/7, 2/3">record &middot; 15 crossings &middot; grid 1/19,399,380 &middot; 1/3 + 1/7 + 1/11 + &frac12;&times;3</button>
+    <button type="button" class="family" data-spots="1/8, 1/11, 1/2, 10/11, 7/8" title="cheap: flat spots 1/8, 1/11, 1/2, 10/11, 7/8">cheap &middot; 9 crossings &middot; grid 1/42 &middot; 1/8 + 1/11 + &frac12;&times;1</button>
+    <button type="button" class="family" data-spots="1/7, 1/2, 1/2, 6/7" title="cheap: flat spots 1/7, 1/2, 1/2, 6/7">cheap &middot; 8 crossings &middot; grid 1/90 &middot; 1/7 + &frac12;&times;2</button>
+    <button type="button" class="family" data-spots="1/5, 1/12, 1/2, 1/2, 1/2, 11/12, 4/5" title="cheap: flat spots 1/5, 1/12, 1/2, 1/2, 1/2, 11/12, 4/5">cheap &middot; 7 crossings &middot; grid 1/42 &middot; 1/5 + 1/12 + &frac12;&times;3</button>
+    <button type="button" class="family" data-spots="1/3, 1/8, 1/13, 1/2, 12/13, 7/8, 2/3" title="cheap: flat spots 1/3, 1/8, 1/13, 1/2, 12/13, 7/8, 2/3">cheap &middot; 7 crossings &middot; grid 1/90 &middot; 1/3 + 1/8 + 1/13 + &frac12;&times;1</button>
+    <button type="button" class="family" data-spots="1/12, 1/13, 1/15, 1/2, 14/15, 12/13, 11/12" title="cheap: flat spots 1/12, 1/13, 1/15, 1/2, 14/15, 12/13, 11/12">cheap &middot; 6 crossings &middot; grid 1/6 &middot; 1/12 + 1/13 + 1/15 + &frac12;&times;1</button>
+    <button type="button" class="family" data-spots="1/18, 1/2, 1/2, 1/2, 17/18" title="untried: flat spots 1/18, 1/2, 1/2, 1/2, 17/18">untried &middot; 3 crossings &middot; grid 1/77 &middot; 1/18 + &frac12;&times;3</button>
+    <button type="button" class="family" data-spots="1/16, 1/2, 1/2, 1/2, 15/16" title="untried: flat spots 1/16, 1/2, 1/2, 1/2, 15/16">untried &middot; 3 crossings &middot; grid 1/99 &middot; 1/16 + &frac12;&times;3</button>
+    <button type="button" class="family" data-spots="1/20, 1/2, 1/2, 1/2, 19/20" title="untried: flat spots 1/20, 1/2, 1/2, 1/2, 19/20">untried &middot; 3 crossings &middot; grid 1/231 &middot; 1/20 + &frac12;&times;3</button>
+</div>
+</div>
 <h2>Found curves</h2>
 <p class="small">Every curve the search has landed, tangliest first. The line under each name is its bend and its grid; the expanded cell gives the flat spots, the meetings and the self-crossings. Odd shapes are kept on purpose. Loading one sets the exponent step back to 1, because every stored curve is a whole-power row.</p>
 <div class="gallery" id="n-gallery"></div>
@@ -4511,7 +4529,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 11:07</p>
+<p class="small mono" id="n-build">build 2026-11-16 11:58</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

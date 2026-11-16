@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import ph_nth_sandbox as base  # noqa: E402
+import ph_root_search as roots_module  # noqa: E402
 
 OUT = ROOT / "workbench" / "ph-nth-sandbox-exp.html"
 FOUND = ROOT / "workbench" / "found-curves.json"
@@ -171,6 +172,92 @@ def related_section():
 CENSUS = ROOT / "workbench" / "family-census.json"
 
 
+def possible_picks():
+    """The investigation list: what is known to be good and is not a button yet.
+
+    Three kinds, because they answer different questions:
+      * record holders — the most crossings the box holds, however fine the grid;
+      * cheap knots   — five crossings or more on a grid of 100 or less;
+      * one-pair families outside the page's window, so the seven above it are not
+        mistaken for the whole set.
+    """
+    if not CENSUS.exists():
+        return []
+    curves = json.loads(CENSUS.read_text())["curves"]
+    chosen, seen = [], set()
+
+    def take(curve, tag):
+        if curve["spots"] in seen:
+            return
+        seen.add(curve["spots"])
+        chosen.append((curve, tag))
+
+    for curve in sorted(curves, key=lambda c: (-c["crossings"], c["grid"]))[:3]:
+        take(curve, "record")
+    cheap = sorted([c for c in curves if c["grid"] <= 100 and c["crossings"] >= 5],
+                   key=lambda c: (-c["crossings"], c["grid"]))
+    for curve in cheap[:5]:
+        take(curve, "cheap")
+    outside = [c for c in curves if c["outer"] == 1 and c["copies"] == 3
+               and not c["spots"].startswith(("1/15", "1/14", "1/13", "1/12", "1/11", "1/10", "1/9"))]
+    for curve in sorted(outside, key=lambda c: (-c["crossings"], c["grid"]))[:3]:
+        take(curve, "untried")
+    return chosen
+
+
+def big_row(spots_text):
+    """True when the row's coefficients pass a million, where the page's counter fails.
+
+    The census counts crossings in exact arithmetic; the page evaluates in doubles, and
+    at peaks near 10^8 the difference p^2 - q^2 loses its low bits. Measured on the page:
+    every row below a million reproduces its census count, and four of the five above it
+    read 0. The button says so rather than pretending.
+    """
+    try:
+        spots = [F(part.strip()) for part in spots_text.split(",") if part.strip()]
+        row = roots_module.row_from_roots(spots)
+        return max(abs(value) for value in row) > 1_000_000
+    except Exception:
+        return False
+
+
+def possible_section():
+    picks = possible_picks()
+    if not picks:
+        return ""
+    buttons = []
+    for curve, tag in picks:
+        spots = curve["spots"]
+        outer = [part.strip() for part in spots.split(",") if part.strip() != "1/2"]
+        copies = sum(1 for part in spots.split(",") if part.strip() == "1/2")
+        outer = outer[: (len(outer) + 1) // 2]
+        caution = ""
+        buttons.append(
+            f'    <button type="button" class="family" data-spots="{spots}" '
+            f'title="{tag}: flat spots {spots}{caution}">{tag} &middot; {curve["crossings"]} crossings '
+            f'&middot; grid 1/{curve["grid"]:,} &middot; {" + ".join(outer)} + &frac12;&times;{copies}{caution}</button>')
+    return (
+        '<div class="curve-box" id="n-possible">\n'
+        '<h3>Possible families: what to investigate</h3>\n'
+        '<p class="small">Curves the census found that are not buttons above, chosen by hand for '
+        'three different questions. <strong>record</strong> — the most crossings the box holds, at any '
+        'grid cost, so the ceiling can be seen. <strong>cheap</strong> — five crossings or more on a '
+        'grid of 100 or less, where the best value for the eye is likely to be. <strong>untried</strong> '
+        '— one outer spot families outside the 1/15 to 1/9 window, so those seven are not mistaken for '
+        'the whole set.</p>\n'
+        '<p class="small">The count on each button is the census\'s, measured in exact whole-number '
+        'arithmetic. This page evaluates in double precision, so on some of these rows it reads lower '
+        '&mdash; four of the eleven read 0 &mdash; and a few draw as a flat line. Measured, not guessed: '
+        'the rows that agree and the rows that do not are both on the list. If a button and the readout '
+        'disagree, <strong>the census is right</strong>; the page is the limitation, and the loop window '
+        'with a manual focus is the tool to try.</p>\n'
+        '<div class="solver-row" id="n-possible-buttons">\n'
+        + "\n".join(buttons) + "\n"
+        '</div>\n'
+        '</div>\n'
+    )
+
+
 def census_picks(knotty=6, cheap=6):
     """The best of the census, so every copy count and pair count is reachable.
 
@@ -312,7 +399,7 @@ def build():
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + family_section() + related_section() + GALLERY_HEAD + page[head_end:]
+    page = page[:head_start] + family_section() + related_section() + possible_section() + GALLERY_HEAD + page[head_end:]
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves

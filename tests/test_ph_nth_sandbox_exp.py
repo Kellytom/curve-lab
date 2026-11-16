@@ -126,6 +126,22 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_the_possible_section_carries_the_investigation_list(self):
+        """Three kinds of candidate, and a warning where the page cannot reproduce them.
+
+        Measured: rows below a million reproduce their census count on the page; four of
+        the five above it read 0, so those buttons say "big row" rather than promising.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-possible"', page)
+        self.assertIn("Possible families: what to investigate", page)
+        self.assertIn("the census is right", page)
+        for tag in ("record", "cheap", "untried"):
+            with self.subTest(tag=tag):
+                self.assertIn(f">{tag} &middot;", page)
+        self.assertLess(page.index('id="n-related"'), page.index('id="n-possible"'))
+        self.assertLess(page.index('id="n-possible"'), page.index("<h2>Found curves</h2>"))
+
     def test_the_census_section_is_withdrawn_and_recorded_as_failed(self):
         """Eleven spots give rows of 10^13; the page's drawing collapses to a dot.
 
