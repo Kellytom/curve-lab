@@ -87,10 +87,11 @@ long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, `docs/HANDOVER.htm
 `state/monitor.log`, and the `ornaments` repository except for extraction or
 comparison.
 
-Never load an image: any `.png`, `.jpg`, `.pdf` or other raster/binary figure.
-The engine has no image input, so one image in the history fails every later
-turn with `image input is not available on this engine`. Use `file` / `sips` /
-a script for numbers and let the operator make the visual call.
+Images are allowed since 2026-11-16, under 150 KB and 1000 px on the long side; check with
+`sips -g pixelWidth -g pixelHeight` and downscale with `sips -Z 900` when over. The old
+"engine has no image input" rule applied to large files only and is deprecated. A visual
+judgement is still the operator's; a rendered check is still best verified by printed
+numbers.
 
 ## Cost rule
 
