@@ -68,7 +68,7 @@ __ROWS__
 </main>
 <script>
 (function () {
-  const key = "curve-figure-decisions";
+  const key = "curve-figure-decisions-2";
   const saved = () => { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) { return {}; } };
   const store = value => localStorage.setItem(key, JSON.stringify(value));
   const show = () => {
@@ -134,8 +134,13 @@ def row_for(folder):
     else:
         cells.append('<div class="cell"><p class="label">factored</p>'
                      '<div class="missing">not drawn</div></div>')
+    figure = record.get("figure", {})
+    if figure.get("decided"):
+        status = f'accepted {figure["decided"]} &mdash; {figure.get("choice", "factored")}'
+    else:
+        status = "<strong>new</strong> &mdash; no decision yet"
     facts = (f'{record.get("crossings", "?")} crossings &middot; grid 1/{record.get("grid", "?")} '
-             f'&middot; flat spots {record.get("roots", "")}')
+             f'&middot; flat spots {record.get("roots", "") or "row only"} &middot; {status}')
     return (f'<div class="row" data-slug="{slug}">\n<h2>{record.get("name", slug)}</h2>\n'
             f'<p class="facts">{facts}</p>\n' + "\n".join(cells) +
             '\n<div class="decide">'
@@ -145,12 +150,20 @@ def row_for(folder):
             '<span class="state">no choice yet</span></div>\n</div>')
 
 
+def decided(folder):
+    record = json.loads((folder / "curve.json").read_text())
+    return record.get("figure", {}).get("decided")
+
+
 def build():
     folders = [folder for folder in sorted(CURVES.iterdir())
                if folder.is_dir() and (folder / "curve.json").exists()]
+    # undecided first: the newest curves are the ones to look at
+    folders.sort(key=lambda folder: (decided(folder) is not None, folder.name))
     rows = "\n".join(row_for(folder) for folder in folders)
     OUT.write_text(PAGE.replace("__ROWS__", rows))
     print(OUT.relative_to(ROOT), len(folders), "curves")
+    print("open http://127.0.0.1:8003/workbench/curve-figures.html")
 
 
 if __name__ == "__main__":
