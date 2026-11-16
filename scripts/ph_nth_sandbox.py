@@ -84,6 +84,7 @@ table.figures th{color:var(--muted);font-weight:400;text-align:left}
 .ruler-strip .spot-count:hover{color:#1f4f8a}
 .ruler-strip .spot{position:absolute;width:13px;height:13px;border-radius:50%;background:#2e2413;border:2px solid #fbf7ec;bottom:8px;transform:translateX(-50%);cursor:pointer;font-size:9px;color:#fbf7ec;text-align:center;line-height:13px}
 .ruler-strip .spot:hover{background:#8a1f1f}
+#n-square-ruler{height:74px;border-bottom:2px solid var(--ink);cursor:crosshair;margin:0 0 22px}
 .curve-box{margin:10px 0;padding:8px 10px;border:1px solid var(--rule);background:#f7f1e2}
 .curve-box.complement{border-style:dashed}
 .curve-box h3{font-size:14px;margin:0 0 6px;display:flex;justify-content:space-between;gap:8px}
@@ -222,6 +223,10 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <div class="ruler-strip ruler-lower" title="0 at the left, 1/2 at the right: click to place a flat spot"></div>
   <div class="ruler-strip ruler-upper" title="the mirror: 1 at the left, 1/2 at the right; 1/19 sits under its partner, 18/19"></div>
 </div>
+<p class="small">Square fractions: <code>t = 1/k&sup2;</code>, the points where the half-power variable
+<code>u = &radic;t</code> is a whole fraction <code>1/k</code>. Clicking one places a flat spot there.</p>
+<div class="roots-ruler" id="n-square-ruler" role="group"
+     aria-label="square fractions t = 1 over k squared, for k 2 to 13"></div>
   <div class="solver-row">
     <label class="small"><input type="checkbox" id="n-roots-mirror" checked> mirror about 1/2</label>
     <button type="button" id="n-roots-dots-fill" title="write the rows from the dots on the strip">fill from the dots</button>
@@ -382,7 +387,7 @@ without leaving the PH family. The flare law and the serif foot are parked in
   <button type="button" id="n-zero-top" title="set x t^5 and y t^5 to zero: back to a septic">zero the top pair</button>
 </div>
 <div class="save-row">
-  <input id="n-category" type="text" placeholder="category" value="DK" size="6">
+  <input id="n-category" type="text" placeholder="category" value="S" size="6">
   <span class="small" title="DK is a double knot: two curves saved as one record. S is a single curve, saved on its own.">DK = double knot &middot; S = single</span>
   <input id="n-name" type="text" placeholder="name this curve">
   <button type="button" id="n-save" title="save both curves as one DK record">save the pair</button>

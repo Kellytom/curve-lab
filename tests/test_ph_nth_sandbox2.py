@@ -24,7 +24,7 @@ class TestNthSandbox2(unittest.TestCase):
 
     def test_the_page_carries_the_fitted_gallery(self):
         page = PAGE.read_text()
-        for marker in ("phNthGallery", "phNthKnots", "n-gallery", "Knotlike curves",
+        for marker in ("phNthGallery", "phNthKnots", "n-gallery", "Symmetric", "Asymmetric",
                        "Build from flat spots", "n-roots-fill", "Part 2: fitted curves",
                        "fitted", "n-controls", "n-plot"):
             with self.subTest(marker=marker):

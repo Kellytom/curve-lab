@@ -2335,10 +2335,21 @@ window.curveSaver = (function () {
   //   [a b c; d e f; 0 0 1] sends (x, y) to (a x + b y + c, d x + e y + f)
   // so a flip, a turn and a move are one object and the numbers stay the curve.
   // Old flat records ({name, speedX, speedY}) still load: pairOf fills them in.
+  // Names are keys: they go into data-name, into localStorage and into a download
+  // filename, so a quote or a slash would break one of the three. Keep letters, digits,
+  // space and - _ . / + (the slash is for fractions), collapse runs of spaces, cap at 40.
+  const NAME_ALLOWED = /[^0-9A-Za-z ._+\/-]/g;
+  const cleanName = text => String(text || "")
+    .replace(NAME_ALLOWED, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 40);
+  const esc = text => String(text).replace(/[&<>"']/g, ch =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
   const category = () => {
     const field = document.getElementById("n-category");
     const typed = field ? field.value.trim() : "";
-    return typed || "DK";
+    return typed || "S";
   };
   function pairRecord(name) {
     const m = metrics(state.x, state.y);
@@ -2617,8 +2628,8 @@ window.curveSaver = (function () {
   document.getElementById("n-save").addEventListener("click", () => {
     const nameField = document.getElementById("n-name");
     const status = document.getElementById("n-paste-status");
-    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
-    const name = resolveName(typed, "save this curve");
+    const typed = cleanName(nameField.value) || `curve ${saved().length + 1}`;
+    const name = cleanName(resolveName(typed, "save this curve"));
     const speed = hookedSpeed();
     const m = metrics(speed.x, speed.y);
     const items = saved().filter(item => item.name !== name);
@@ -2634,8 +2645,8 @@ window.curveSaver = (function () {
   if (savePrimary) savePrimary.addEventListener("click", () => {
     const nameField = document.getElementById("n-name");
     const status = document.getElementById("n-paste-status");
-    const typed = (nameField.value || "").trim() || `curve ${saved().length + 1}`;
-    const name = resolveName(typed, "save this curve");
+    const typed = cleanName(nameField.value) || `curve ${saved().length + 1}`;
+    const name = cleanName(resolveName(typed, "save this curve"));
     const items = saved().filter(item => item.name !== name);
     items.push(flatRecord(name));
     store(items);
@@ -3022,6 +3033,40 @@ window.curveSaver = (function () {
     renderRuler();
     if (countLabel) countLabel.textContent = marks.length ? `${marks.length} spots` : "no spots yet";
   }
+  // The square fractions: t = 1/k^2, where the half-power variable u = sqrt(t) is 1/k.
+  // They are the same family as any other flat spot — five spots still give a t^5 row —
+  // but measured 2026-11-16 they are a thin seam: 16 of 90 sets reach three crossings,
+  // the best being 1/4 + 1/16 with seven at grid 1/495. The strip exists so the claim
+  // can be tested by hand, not because the numbers are rich.
+  const squareRuler = document.getElementById("n-square-ruler");
+  if (squareRuler) {
+    const squares = [];
+    for (let k = 2; k <= 13; k++) squares.push({ n: 1, d: k * k, value: 1 / (k * k), k });
+    squares.forEach(spot => {
+      const tick = document.createElement("span");
+      tick.className = "tick";
+      tick.style.left = `${(spot.value * 200).toFixed(2)}%`;
+      tick.style.height = spot.k <= 6 ? "12px" : "7px";
+      tick.title = `t = 1/${spot.d} = 1/${spot.k}^2, where sqrt(t) = 1/${spot.k}`;
+      squareRuler.append(tick);
+      const label = document.createElement("span");
+      label.className = "tick-label";
+      label.style.left = `${(spot.value * 200).toFixed(2)}%`;
+      label.style.bottom = "8px";
+      label.textContent = `1/${spot.d}`;
+      squareRuler.append(label);
+    });
+    squareRuler.addEventListener("click", event => {
+      const rect = squareRuler.getBoundingClientRect();
+      const across = (event.clientX - rect.left) / Math.max(1, rect.width);
+      let best = null, closest = 1;
+      squares.forEach(spot => {
+        const distance = Math.abs(spot.value * 2 - across);
+        if (distance < closest) { best = spot; closest = distance; }
+      });
+      if (best && closest < 0.03) addSpot({ n: best.n, d: best.d }, false);
+    });
+  }
   const halfSlider = document.getElementById("n-roots-half");
   const halfLabel = document.getElementById("n-roots-half-value");
   if (halfSlider) halfSlider.addEventListener("input", () => {
@@ -3061,9 +3106,9 @@ window.curveSaver = (function () {
   // conversation. Editing any number marks it as changed rather than renaming it.
   const nameBadge = () => document.getElementById("n-curve-name");
   const setName = name => {
-    currentName = name;
+    currentName = cleanName(name);
     const badge = nameBadge();
-    if (badge) badge.textContent = name;
+    if (badge) badge.textContent = currentName;
   };
 
   const tweakTotal = document.getElementById("n-tweak-total");
@@ -3571,7 +3616,7 @@ window.curveSaver = (function () {
   if (downloadButton) downloadButton.addEventListener("click", () => {
     const box = document.getElementById("n-json");
     const text = box ? box.value : JSON.stringify(flatRecord(currentName), null, 2);
-    const name = (currentName || "curve").replace(/[^\w.-]+/g, "-");
+    const name = (cleanName(currentName) || "curve").replace(/[^\w.-]+/g, "-");
     const blob = new Blob([text], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
@@ -4021,27 +4066,35 @@ window.curveSaver = (function () {
     </figure>`;
   }
 
+  // Is the curve mirrored about t = 1/2? p(1-t) = p(t) and q(1-t) = -q(t). Tested on the
+  // numbers themselves at three rational points rather than on the shape, so an entry
+  // with no rows or a fractional step is simply not symmetric.
+  const isSymmetric = entry => {
+    const step = Number(entry.step) || 1;
+    if (Math.abs(step - 1) > 1e-9) return false;
+    const x = entry.speedX || [], y = entry.speedY || [];
+    if (!x.length || !y.length || !x.some(Boolean) || !y.some(Boolean)) return false;
+    const at = (row, t) => row.reduce((sum, c, k) => sum + c * Math.pow(t, k), 0);
+    return [1 / 7, 2 / 5, 9 / 11].every(t =>
+      Math.abs(at(x, 1 - t) - at(x, t)) < 1e-9 &&
+      Math.abs(at(y, 1 - t) + at(y, t)) < 1e-9);
+  };
+
   const render = () => {
     list = currentList();
-    const declared = window.phNthKnots || [];
-    const byName = new Map(list.map(entry => [entry.name, entry]));
-    const knotItems = declared.map(name => byName.get(name)).filter(Boolean);
-    const knotNames = new Set(knotItems.map(entry => entry.name));
-    const others = list.filter(entry => !knotNames.has(entry.name));
-    if (!knotItems.length) {
-      host.innerHTML = list.map((entry, index) => figureFor(entry, index + 1)).join("");
-      return;
-    }
+    const symmetric = [], asymmetric = [];
+    list.forEach(entry => (isSymmetric(entry) ? symmetric : asymmetric).push(entry));
+    let number = 0;
     host.innerHTML =
-      `<h2 class="gallery-head" id="n-knots">Knotlike curves</h2>
-    <p class="gallery-note">Your two pasted curves come first, tagged <strong>yours</strong>: <code>integer-105</code>
-    and <code>integer-70</code>. Then the finds from the symmetric root walk, tagged 
-    <strong>found</strong>, so the two sets can be compared row for row. <code>wave3</code>,
-    <code>knot-6</code> and <code>knot-7</code> were already on the page. Under each name: the bend,
-    the grid, and the meetings the walk measured with the copy that makes the lace.</p>`
-      + knotItems.map((entry, index) => figureFor(entry, index + 1)).join("")
-      + `<h2 class="gallery-head" id="n-rest">Everything else</h2>`
-      + others.map((entry, index) => figureFor(entry, knotItems.length + index + 1)).join("");
+      `<h2 class="gallery-head" id="n-symmetric">Symmetric</h2>
+    <p class="gallery-note">Mirrored about the middle: <code>q(1 - t) = -q(t)</code> and
+    <code>p(1 - t) = p(t)</code>. These are the ones the flat-spot grammar built.</p>`
+      + symmetric.map(entry => figureFor(entry, ++number)).join("")
+      + `<h2 class="gallery-head" id="n-asymmetric">Asymmetric</h2>
+    <p class="gallery-note">Not mirrored about t = 1/2. The Euler hook is the type: a shape
+    worth looking at that the flat-spot grammar did not build. Kept for the eye, not as
+    evidence.</p>`
+      + asymmetric.map(entry => figureFor(entry, ++number)).join("");
   };
   render();
   window.addEventListener("ph-11th-saved", render);
