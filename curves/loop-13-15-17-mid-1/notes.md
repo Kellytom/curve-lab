@@ -38,11 +38,9 @@ family-census.json; see scripts/family_census.py for the box
 
 ## The figure
 
-`figure.png` is withdrawn. The loop view draws this row as a flat line: ink spread 608 by
-1 pixel in a 766 by 224 image. It is the shape, not a crash — the curve's own height is a
-few thousandths of its length — and a manual focus or zoom can bring the knot up. Set it
-in `curve.json` and re-render:
-
-```json
-"figure": { "file": "figure.png", "view": "knot", "focus": { "x": -1.2, "y": -0.3 }, "zoom": 4 }
-```
+`figure.png` is the **factored** drawing, accepted on 2026-11-16. It is drawn from the flat
+spots — `q` as a product of `(t − r)`, `p` constant — where nothing cancels, and `y` is
+stretched by the factor printed under the title, because these rows make a curve that hugs
+the x axis. The stretch is stated on the figure so the picture is never mistaken for an
+equal-aspect drawing. `figure-exact.png` is the same picture before it replaced the original;
+`figure-exact.svg` is its source.

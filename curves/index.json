@@ -71,7 +71,7 @@
    "grid": 6,
    "arc": "85395323/6",
    "notes": "loop-12-13-15-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-12-13-15-mid-1/figure.png"
   },
   {
    "slug": "loop-13-15-17-mid-1",
@@ -80,7 +80,7 @@
    "grid": 36,
    "arc": "2737739533/36",
    "notes": "loop-13-15-17-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-13-15-17-mid-1/figure.png"
   },
   {
    "slug": "loop-12-15-18-mid-1",
@@ -89,7 +89,7 @@
    "grid": 66,
    "arc": "4395394843/66",
    "notes": "loop-12-15-18-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-12-15-18-mid-1/figure.png"
   }
  ]
 }

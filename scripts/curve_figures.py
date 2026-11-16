@@ -50,6 +50,9 @@ textarea{width:100%;height:120px;font:12px ui-monospace,Menlo,monospace;padding:
   border:1px solid var(--rule);background:#fffdf7}
 </style></head><body><main>
 <h1>Curve figures: accept or reject</h1>
+<p><strong>Decisions applied 2026-11-16:</strong> nine curves accepted the factored drawing;
+<code>loop-7-mid-2</code> was left as it was, because it already drew correctly. The page is
+kept as the record of that pass, and the buttons still work if another pass is wanted.</p>
 <p>Two pictures for each curve. <strong>page</strong> is the sandbox's loop view, drawn from the
 speed row in double precision. <strong>factored</strong> is drawn from the flat spots, where
 nothing cancels, with y stretched by the factor printed under the picture &mdash; these curves hug
