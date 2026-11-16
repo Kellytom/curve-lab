@@ -104,10 +104,10 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("Related families: two outer flat spots", page)
         self.assertLess(page.index('id="n-families"'), page.index('id="n-related"'))
         self.assertLess(page.index('id="n-related"'), page.index("<h2>Found curves</h2>"))
-        for label, spots in (("1/11 + 1/5 &middot; 9 crossings",
-                              "1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11"),
-                             ("1/15 + 1/7 &middot; 5 crossings",
-                              "1/15, 1/7, 1/2, 1/2, 1/2, 6/7, 14/15")):
+        for label, spots in (("1/15 + 1/12 &middot; 9 crossings",
+                              "1/15, 1/12, 1/2, 1/2, 1/2, 11/12, 14/15"),
+                             ("1/17 + 1/4 &middot; 7 crossings",
+                              "1/17, 1/4, 1/2, 1/2, 1/2, 3/4, 16/17")):
             with self.subTest(label=label):
                 self.assertIn(label, page)
                 self.assertIn(f'data-spots="{spots}"', page)
