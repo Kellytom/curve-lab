@@ -320,7 +320,7 @@
   // what the page draws: the spine alone by default
   const view = { rails: false, character: false, startTerminal: false, endTerminal: false,
                  rotate: false, complement: !window.phNoComplement, focusKnot: false, zoom: 1,
-                 panX: 0, panY: 0, detail: 1 };
+                 panX: 0, panY: 0, detail: 1, focusPoint: null };
   const TURN = -Math.PI / 4;
   const turned = points => view.rotate
     ? points.map(([x, y]) => [x * Math.cos(TURN) - y * Math.sin(TURN),
@@ -901,6 +901,14 @@
       const growY = (frame.maxY - frame.minY) * 0.06;
       frame = { minX: frame.minX - growX, maxX: frame.maxX + growX,
                 minY: frame.minY - growY, maxY: frame.maxY + growY };
+    }
+    // A manual focus frames one point, so a side inflection that looks like a knot can
+    // be left out of the view. It is a view, never a change to the curve.
+    if (view.focusPoint) {
+      const halfX = Math.max(1e-6, (frame.maxX - frame.minX) * 0.18);
+      const halfY = Math.max(1e-6, (frame.maxY - frame.minY) * 0.18);
+      frame = { minX: view.focusPoint.x - halfX, maxX: view.focusPoint.x + halfX,
+                minY: view.focusPoint.y - halfY, maxY: view.focusPoint.y + halfY };
     }
     const { minX, maxX, minY, maxY } = frame;
     const width_ = 900;
@@ -1842,6 +1850,7 @@
         const field = document.getElementById("n-roots");
         return field ? field.value.trim() : "";
       })(),
+      focus: view.focusPoint ? { x: +view.focusPoint.x, y: +view.focusPoint.y } : null,
       character: { plus: character.plus, minus: character.minus, profile: character.profile },
       shear: shear.delta,
       hook: { dx: hook.dx, dy: hook.dy },
@@ -2016,6 +2025,14 @@
   }
 
   // a page may switch the seeds off, so its gallery shows only what it means to show
+  // Copies of the six letter and seed strokes that predate the current row length:
+  // v-sharp, m-arch, gumdrop, m-coarse, bowl-coarse, wave-coarse. Several look wrong
+  // beside the later curves, and the originals are kept as they were, so a repaired
+  // version can sit at the bottom of the list next to its source.
+  ["v-sharp", "m-arch", "gumdrop", "m-coarse", "bowl-coarse", "wave-coarse"].forEach(name => {
+    const source = SEED.find(seed => seed.name === name);
+    if (source) SEED.push({ ...source, name: `${name} (copy)`, repairOf: name });
+  });
   window.phNthSeeds = window.phHideSeeds ? [] : SEED;
 
   const storageKey = "ph-nth-curves";
@@ -2167,6 +2184,7 @@
       rootsFieldNow.dispatchEvent(new Event("change", { bubbles: true }));
     }
     if (window.phNthForgetTweaks) window.phNthForgetTweaks();
+    view.focusPoint = (item && item.focus) ? { x: Number(item.focus.x), y: Number(item.focus.y) } : null;
     const controls = document.getElementById("n-controls");
     if (controls) controls.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -3029,6 +3047,19 @@
       });
       draw();
     });
+  });
+  const focusHere = document.getElementById("n-focus-here");
+  const focusClear = document.getElementById("n-focus-clear");
+  if (focusHere) focusHere.addEventListener("click", () => {
+    const fx = Number((document.getElementById("n-focus-x") || {}).value);
+    const fy = Number((document.getElementById("n-focus-y") || {}).value);
+    if (!Number.isFinite(fx) || !Number.isFinite(fy)) return;
+    view.focusPoint = { x: fx, y: fy };
+    draw();
+  });
+  if (focusClear) focusClear.addEventListener("click", () => {
+    view.focusPoint = null;
+    draw();
   });
   const detailButton = document.getElementById("n-zoom-detail");
   if (detailButton) detailButton.addEventListener("click", () => {

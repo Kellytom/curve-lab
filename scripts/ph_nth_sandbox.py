@@ -279,6 +279,13 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <button type="button" id="n-whole-curve" title="draw t 0 to 1 again">whole curve</button>
     <button type="button" id="n-focus-knot-hud" aria-pressed="false"
             title="frame the knot instead of the whole curve; the same switch as the one under the figure">focus the knot</button>
+    <label class="hud-row" for="n-focus-x">focus x
+      <input id="n-focus-x" type="number" step="0.1" placeholder="x"></label>
+    <label class="hud-row" for="n-focus-y">focus y
+      <input id="n-focus-y" type="number" step="0.1" placeholder="y"></label>
+    <button type="button" id="n-focus-here"
+            title="frame this point, so a side inflection can be ignored; saved in the record as focus">focus here</button>
+    <button type="button" id="n-focus-clear" title="go back to framing the whole curve">clear focus</button>
     <label class="hud-row" for="n-pan-x">pan x
       <input id="n-pan-x" type="range" min="-50" max="50" step="1" value="0"></label>
     <label class="hud-row" for="n-pan-x-number">pan x
