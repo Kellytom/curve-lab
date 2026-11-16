@@ -212,13 +212,11 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
-- **Measure context, don't feel it:** `python scripts/ctx.py` (1M window). Warn
-  at 70%, stop at 85% — then /fhandoff. It also prints active minutes and turns,
-  but they are reported, not judged: the store shows no error-rate rise with
-  long sessions, so no time threshold is claimed. `--log` appends to
-  `state/sessions.jsonl`; `--tally` shows the last record per session; `--watch
-  N` beeps at 70% and 85%. Never narrow the task
-  silently; "complete" needs a diff or a test.
+- **The context meter is retired (2026-11-16).** `scripts/ctx.py` reported a share
+  that did not match the session the operator sees, so it is no longer quoted or acted
+  on. The operator's own count is the authority. If context trouble returns, it is a row
+  in `TODO.md`; do not reinstate a threshold here without fixing the meter first.
+  Never narrow the task silently: "complete" needs a diff or a test.
 - **Catalogue pages are generated from the source tables**, never drawn from
   memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
   before claiming completeness; `recheck` fails when one is missing.
@@ -261,11 +259,8 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   overlap the curve or each other.
 - Exports stay under 150 KB and 1000 px on the long side, so they can be looked at.
 
-## Context discipline
+## Reading discipline
 
-- **The window is 1,000,000 tokens.** `scripts/ctx.py` is configured correctly;
-  do not retune `DEFAULT_WINDOW` from a recollection or a guess. 85% of one
-  million is the stop point, and a session at 17% has room.
 - Probe once with a single shell call; grep before reading; do not re-read a
   file already in context.
 - Prefer `git diff --stat` and targeted `sed` over whole-file reads.

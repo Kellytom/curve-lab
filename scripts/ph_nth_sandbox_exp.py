@@ -312,7 +312,7 @@ def build():
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + family_section() + related_section() + census_section() + GALLERY_HEAD + page[head_end:]
+    page = page[:head_start] + family_section() + related_section() + GALLERY_HEAD + page[head_end:]
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves

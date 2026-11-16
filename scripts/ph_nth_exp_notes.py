@@ -93,6 +93,25 @@ plan recorded in <code>TODO.md</code>.</p>
 </section>
 
 <section class="panel">
+<h2>Failed: the census families on the sandbox</h2>
+<p>The census (<code>workbench/family-census.json</code>) measured 7,068 symmetric
+flat-spot curves and found better knots than the sections above carry: nine crossings at
+grid 1/42, six at grid 1/36. Twelve of them were wired into a section on the sandbox,
+"Best of the census: every copy count". <strong>The section is withdrawn.</strong></p>
+<p>The reason is arithmetic, not the census. A curve with three outer pairs and five
+copies at 1/2 has eleven flat spots, so its row runs to <code>t^11</code> and the
+coefficients reach 10<sup>13</sup> to 10<sup>23</sup>. The page draws in double precision:
+the knot is 10<sup>-13</sup> of the row's size, so the whole picture collapses to a single
+point. Measured on the page: frame span 2&times;10<sup>-6</sup>, all 701 path points at the
+same coordinate.</p>
+<p>Two things are true at once: the census numbers are exact (whole-number arithmetic, no
+sampling), and the page cannot show those particular curves. The six cheaper knots in the
+census &mdash; <code>1/8 + 1/11</code> at 9 crossings, grid 1/42 &mdash; draw correctly and
+are the ones worth promoting; the eleven-spot families need either a scaled row or an
+exact renderer before they belong on a page.</p>
+</section>
+
+<section class="panel">
 <h2>The point count is not part of the formula</h2>
 <p>The view panel shows a line like <code>visible part: 12,001 points over t 0.021 to 0.979
 (4&times;)</code>. That number is about the <strong>drawing</strong>, not about the curve. It says how

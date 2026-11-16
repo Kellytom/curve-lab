@@ -121,6 +121,18 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_the_census_section_is_withdrawn_and_recorded_as_failed(self):
+        """Eleven spots give rows of 10^13; the page's drawing collapses to a dot.
+
+        2026-11-16: the section was taken off the sandbox and written up on the notes page
+        rather than left as buttons that draw nothing.
+        """
+        self.assertNotIn('id="n-census-buttons"', PAGE.read_text())
+        notes = (ROOT / "workbench" / "ph-nth-exp-notes.html").read_text()
+        self.assertIn("Failed: the census families on the sandbox", notes)
+        self.assertIn("collapses to a single", notes)
+        self.assertIn("grid 1/42", notes)
+
     def test_the_point_count_is_labelled_as_a_drawing_detail(self):
         """The visible-part count is a rendering number, not a curve measurement.
 
