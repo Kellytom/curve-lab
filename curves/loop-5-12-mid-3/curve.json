@@ -1,0 +1,41 @@
+{
+ "name": "loop-5-12-mid-3",
+ "speedX": [
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "speedY": [
+  -44,
+  1115,
+  -10085,
+  44470,
+  -107020,
+  143608,
+  -100800,
+  28800
+ ],
+ "step": 1,
+ "roots": "1/5, 1/12, 1/2, 1/2, 1/2, 11/12, 4/5",
+ "loop": {
+  "from": 0.0513,
+  "to": 0.9477
+ },
+ "bend": null,
+ "grid": 42,
+ "crossings": 7,
+ "arc": "953/14",
+ "source": "family-census.json; see scripts/family_census.py for the box",
+ "format": "curve-lab.curve/1",
+ "figure": {
+  "file": "figure.png",
+  "view": "loop, focus the knot",
+  "width": 900,
+  "made_by": "scripts/curve_png.mjs"
+ }
+}

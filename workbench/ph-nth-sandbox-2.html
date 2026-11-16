@@ -4288,6 +4288,7 @@ window.curveSaver = (function () {
             <div class="more-row">
               <button type="button" class="gallery-load">load into the sandbox</button>
               <button type="button" class="gallery-copy">copy JSON</button>
+              <button type="button" class="gallery-duplicate" title="add a copy beside this one, with the same numbers, leaving the original alone">copy this one</button>
               <button type="button" class="gallery-close">close</button>
               <span class="small mono gallery-status"></span>
             </div>
@@ -4398,6 +4399,25 @@ window.curveSaver = (function () {
         : entry);
       return;
     }
+    if (event.target.closest(".gallery-duplicate") && entry) {
+      // A saved curve is the operator's, not the page's: the duplicate keeps the same
+      // numbers, category and step, and the original is written back untouched beside it.
+      const status = figure.querySelector(".gallery-status");
+      const saved = localSaved();
+      const source = saved.find(item => item.name === entry.name);
+      if (!source) {
+        if (status) status.textContent = "this one is built in, not saved";
+        return;
+      }
+      let name = `${entry.name} (copy)`;
+      let index = 2;
+      while (saved.some(item => item.name === name)) name = `${entry.name} (copy ${index++})`;
+      saved.push({ ...source, name });
+      localStorage.setItem(storageKey, JSON.stringify(saved));
+      window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+      if (status) status.textContent = `saved ${name}`;
+      return;
+    }
     if (event.target.closest(".gallery-copy") && entry) {
       const status = figure.querySelector(".gallery-status");
       const text = figure.querySelector("textarea").value;
@@ -4416,5 +4436,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 09:47</p>
+<p class="small mono" id="n-build">build 2026-11-16 10:02</p>
 </body></html>

@@ -94,6 +94,33 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn('id="n-tweak-spread"', page)
         self.assertIn('<option value="13">', page)
 
+    def test_a_saved_curve_can_be_copied_from_its_cell(self):
+        """The operator's records live in the browser; only the page can copy them."""
+        panels = PANELS.read_text()
+        self.assertIn('class="gallery-duplicate"', panels)
+        self.assertIn("saved.push({ ...source, name });", panels)
+        self.assertIn("while (saved.some(item => item.name === name))", panels)
+
+    def test_every_curve_folder_has_its_three_files_and_an_index_row(self):
+        """One folder per curve: record, notes, figure; one row in index.json."""
+        index = json.loads((ROOT / "curves" / "index.json").read_text())
+        self.assertEqual(index["format"], "curve-lab.index/1")
+        self.assertGreaterEqual(len(index["curves"]), 7)
+        for row in index["curves"]:
+            folder = ROOT / "curves" / row["slug"]
+            with self.subTest(curve=row["slug"]):
+                self.assertTrue((folder / "curve.json").exists())
+                notes = (folder / "notes.md").read_text()
+                self.assertIn("## The formula", notes)
+                self.assertIn("## The variables", notes)
+                self.assertIn("| `grid` |", notes)
+                figure = folder / "figure.png"
+                self.assertTrue(figure.exists())
+                self.assertLess(figure.stat().st_size, 150_000, "a figure must stay under 150 KB")
+                record = json.loads((folder / "curve.json").read_text())
+                self.assertEqual(record["format"], "curve-lab.curve/1")
+                self.assertIn("figure", record)
+
     def test_the_point_count_is_labelled_as_a_drawing_detail(self):
         """The visible-part count is a rendering number, not a curve measurement.
 
