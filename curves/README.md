@@ -21,6 +21,12 @@ curves/
 - **`notes.md` is the human copy.** The formula written out, every variable named with
   its meaning and value, one plain sentence about the shape, and where the curve came
   from. A reader who never opens the page can understand the curve from this file.
+**A figure is only written when the drawing can show it.** Measured 2026-11-16: curves
+with eleven or more flat spots have coefficients of 10^13 to 10^23, and the page draws in
+double precision, so the knot — 10^-13 of the row's size — collapses to a single point.
+Five of the ten folders have `"figure": null` for that reason; their notes say so and
+their numbers are still exact. A figure is never invented to fill the gap.
+
 - **`figure.png` is the eye's copy.** 900 px wide, well under the 150 KB limit, made by
   `scripts/curve_png.mjs` from the page's own drawing in the loop view. If the figure and
   the notes ever disagree, **the notes are right** and the figure is stale.

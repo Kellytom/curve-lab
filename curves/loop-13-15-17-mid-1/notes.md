@@ -37,7 +37,10 @@ polynomial integral and is exact.
 family-census.json; see scripts/family_census.py for the box
 
 ## The figure
-
-`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the loop view:
-the middle of `t`, framed on the knot. If the picture and the numbers ever disagree, the
-numbers are right and the figure is stale — regenerate it rather than trust it.
+`figure.png` is withdrawn. The page's drawing collapses for this row: eleven or more
+flat spots put the coefficients between 10^13 and 10^23, and the knot is 10^-13 of the
+row's size, so the picture comes out as one point (measured: frame span 2e-6, every path
+point at one coordinate). The numbers in this file are still exact. The failure and the
+five figures that do draw are written up on `ph-nth-exp-notes.html`, under "Failed: the
+census families on the sandbox". Regenerate with `scripts/curve_png.mjs` once the
+drawing is fixed.

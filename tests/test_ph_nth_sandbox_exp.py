@@ -115,8 +115,13 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertIn("## The variables", notes)
                 self.assertIn("| `grid` |", notes)
                 figure = folder / "figure.png"
-                self.assertTrue(figure.exists())
-                self.assertLess(figure.stat().st_size, 150_000, "a figure must stay under 150 KB")
+                if figure.exists():
+                    self.assertLess(figure.stat().st_size, 150_000, "a figure must stay under 150 KB")
+                else:
+                    # a withdrawn figure must say why, in the folder and in the record
+                    self.assertIn("is withdrawn", notes)
+                    self.assertTrue(json.loads((folder / "curve.json").read_text())
+                                    ["figure"].get("withdrawn"))
                 record = json.loads((folder / "curve.json").read_text())
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
