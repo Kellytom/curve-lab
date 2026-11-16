@@ -267,6 +267,9 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <button type="button" id="n-zoom-detail"
             title="re-sample the curve at four times the current detail, so a zoomed view is a smooth line instead of a polyline; press again for four times more">recalculate at this zoom</button>
     <p class="small mono" id="n-zoom-detail-note">drawing 700 points</p>
+    <button type="button" id="n-loop-only"
+            title="draw only t 0.02 to 0.98: the two approach strokes at the ends carry a fifth to a half of the ink between them and are not part of the loop">loop only</button>
+    <button type="button" id="n-whole-curve" title="draw t 0 to 1 again">whole curve</button>
     <label class="hud-row" for="n-pan-x">pan x
       <input id="n-pan-x" type="range" min="-50" max="50" step="1" value="0"></label>
     <label class="hud-row" for="n-pan-x-number">pan x

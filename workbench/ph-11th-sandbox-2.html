@@ -3497,6 +3497,24 @@ window.curveSaver = (function () {
     if (zoomNumber) zoomNumber.value = String(view.zoom);
     applyView();
   };
+  // The loop is the middle of t; the ends carry the long approach strokes. Measured on
+  // the seven families: t below 0.03 holds 20 to 27 per cent of the ink, and on the
+  // two-outer-spot pairs 41 per cent. Drawing 0.02 to 0.98 keeps every crossing
+  // (the outermost sits at t 0.028) and drops most of the legs, so the frame fits the loop.
+  [["n-loop-only", 0.02, 0.98], ["n-whole-curve", 0, 1]].forEach(([id, lo, hi]) => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.addEventListener("click", () => {
+      range.from = lo;
+      range.to = hi;
+      [["n-t-from", lo], ["n-t-to", hi],
+       ["n-t-from-slider", lo], ["n-t-to-slider", hi]].forEach(([fieldId, value]) => {
+        const field = document.getElementById(fieldId);
+        if (field) field.value = String(value);
+      });
+      draw();
+    });
+  });
   const detailButton = document.getElementById("n-zoom-detail");
   if (detailButton) detailButton.addEventListener("click", () => {
     view.detail = Math.min(32, (view.detail || 1) * 4);

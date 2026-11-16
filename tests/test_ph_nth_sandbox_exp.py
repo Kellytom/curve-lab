@@ -25,6 +25,19 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, panels)
 
+    def test_the_loop_button_draws_the_middle_of_t(self):
+        """t below 0.03 carries a fifth to a half of the ink and none of the knot.
+
+        Measured on the seven families: 20 to 27 per cent of the ink sits in t < 0.03,
+        and 41 per cent on the two-outer-spot pairs. The button draws 0.02 to 0.98,
+        which keeps every crossing (the outermost is at t 0.028).
+        """
+        panels = PANELS.read_text()
+        self.assertIn('[["n-loop-only", 0.02, 0.98], ["n-whole-curve", 0, 1]]', panels)
+        page = PAGE.read_text()
+        self.assertIn('id="n-loop-only"', page)
+        self.assertIn('id="n-whole-curve"', page)
+
     def test_the_tweak_panel_is_a_dropdown_and_four_buttons(self):
         """One dropdown picks the change; four buttons press it in either direction.
 
