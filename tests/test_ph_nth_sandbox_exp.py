@@ -25,15 +25,18 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, panels)
 
-    def test_the_loop_button_draws_the_middle_of_t(self):
-        """t below 0.03 carries a fifth to a half of the ink and none of the knot.
+    def test_the_loop_button_reads_its_window_from_the_crossings(self):
+        """The window is not one constant: three outer fractions push the knot outward.
 
-        Measured on the seven families: 20 to 27 per cent of the ink sits in t < 0.03,
-        and 41 per cent on the two-outer-spot pairs. The button draws 0.02 to 0.98,
-        which keeps every crossing (the outermost is at t 0.028).
+        A fixed 0.02 cut suits 1/15 and clips the outermost meeting on 1/9, so the
+        button measures the crossing parameters and pads them by 2 per cent. The
+        window also travels in the record as `loop`, so a saved curve keeps it.
         """
         panels = PANELS.read_text()
-        self.assertIn('[["n-loop-only", 0.02, 0.98], ["n-whole-curve", 0, 1]]', panels)
+        self.assertIn("function loopWindow()", panels)
+        self.assertIn("const params = crossingParams(points, 1e-4);", panels)
+        self.assertIn("loop: (() => { const [from, to] = loopWindow();", panels)
+        self.assertIn("const [lo, hi] = fixed || loopWindow();", panels)
         page = PAGE.read_text()
         self.assertIn('id="n-loop-only"', page)
         self.assertIn('id="n-whole-curve"', page)

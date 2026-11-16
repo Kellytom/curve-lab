@@ -2379,6 +2379,7 @@ window.curveSaver = (function () {
       width: { percent: width.percent },
       step: window.phPowerStep || 1,
       tRange: { from: range.from, to: range.to },
+      loop: (() => { const [from, to] = loopWindow(); return { from: +from.toFixed(4), to: +to.toFixed(4) }; })(),
       character: { plus: character.plus, minus: character.minus, profile: character.profile },
       shear: shear.delta,
       hook: { dx: hook.dx, dy: hook.dy },
@@ -3499,10 +3500,21 @@ window.curveSaver = (function () {
   // the seven families: t below 0.03 holds 20 to 27 per cent of the ink, and on the
   // two-outer-spot pairs 41 per cent. Drawing 0.02 to 0.98 keeps every crossing
   // (the outermost sits at t 0.028) and drops most of the legs, so the frame fits the loop.
-  [["n-loop-only", 0.02, 0.98], ["n-whole-curve", 0, 1]].forEach(([id, lo, hi]) => {
+  // The loop is not the same window on every curve: three outer fractions push the
+  // crossings toward the ends, so the padding that fits 1/15 cuts the knot off a
+  // pair. The window is read from the crossings themselves, with 2 per cent of air.
+  function loopWindow() {
+    const points = spineSamples({ x: state.x, y: state.y }).map(spot => [spot.x, spot.y]);
+    const params = crossingParams(points, 1e-4);
+    if (!params.length) return [0.02, 0.98];
+    const ts = params.flatMap(param => [param.tA, param.tB]);
+    return [Math.max(0, Math.min(...ts) - 0.02), Math.min(1, Math.max(...ts) + 0.02)];
+  }
+  [["n-loop-only", null], ["n-whole-curve", [0, 1]]].forEach(([id, fixed]) => {
     const button = document.getElementById(id);
     if (!button) return;
     button.addEventListener("click", () => {
+      const [lo, hi] = fixed || loopWindow();
       range.from = lo;
       range.to = hi;
       [["n-t-from", lo], ["n-t-to", hi],
