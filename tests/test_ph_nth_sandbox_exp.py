@@ -1,5 +1,6 @@
 """The experimental page: fractional exponents, and the gallery under it."""
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -92,6 +93,22 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertIn(step, page)
         self.assertIn('id="n-tweak-spread"', page)
         self.assertIn('<option value="13">', page)
+
+    def test_the_census_covers_its_stated_box(self):
+        """Exhaustive within a box that is written down, not "all curves" full stop.
+
+        1-3 outer pairs, denominators 2-20, 1-5 copies at 1/2. Measured 2026-11-16:
+        7,695 root sets, 7,068 distinct curves, best 19 crossings.
+        """
+        census = json.loads((ROOT / "workbench" / "family-census.json").read_text())
+        self.assertEqual(census["tested"], 7695)
+        self.assertEqual(len(census["curves"]), 7068)
+        self.assertIn("denominators 2-20", census["box"])
+        best = max(curve["crossings"] for curve in census["curves"])
+        self.assertEqual(best, 19)
+        for curve in census["curves"][:50]:
+            for key in ("spots", "outer", "copies", "crossings", "grid", "arc"):
+                self.assertIn(key, curve)
 
     def test_the_related_families_sit_below_the_seven_and_above_the_gallery(self):
         """Two outer spots and their mirrors, three at 1/2: seven spots, a t^7 row.
