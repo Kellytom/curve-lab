@@ -21,6 +21,26 @@ curves/
 - **`notes.md` is the human copy.** The formula written out, every variable named with
   its meaning and value, one plain sentence about the shape, and where the curve came
   from. A reader who never opens the page can understand the curve from this file.
+## Adjusting a figure by hand
+
+The view is written into `curve.json`, so a figure can be corrected without touching code:
+
+```json
+"figure": {
+  "file": "figure.png",
+  "view": "loop",            // "loop" (default), "knot", "whole"
+  "focus": { "x": -1.2, "y": -0.3 },   // frame this point instead of the whole curve
+  "zoom": 4,                            // the page's zoom slider, positive zooms in
+  "pan": [0, 20],                       // pan x and y, in per cent of the frame
+  "range": [0.03, 0.97]                 // an explicit window of t, overriding the view
+}
+```
+
+Then `.venv/bin/python scripts/curve_files.py --record curves/<slug>/curve.json --png 900`.
+Omitting every key but `file` gives the loop view. Measured 2026-11-16: seven of the ten
+figures show the curve (ink spread 608 wide and 7 to 271 tall), three draw a flat line
+(608 by 1) and are withdrawn with their reason.
+
 **No figures are currently shipped.** The pipeline (`scripts/curve_png.mjs`) works, but
 the loop view renders these rows as a flat line: measured on all ten, ink spread 240–514
 px across and 1–16 px down. One curve draws (spread 251×116). The cause is under

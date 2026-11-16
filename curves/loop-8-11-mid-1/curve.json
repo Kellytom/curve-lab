@@ -29,8 +29,9 @@
  "source": "family-census.json; see scripts/family_census.py for the box",
  "format": "curve-lab.curve/1",
  "figure": {
-  "file": null,
-  "withdrawn": true,
-  "reason": "the page's loop view renders this row as a line; see notes.md"
+  "file": "figure.png",
+  "view": "loop, focus the knot",
+  "width": 900,
+  "made_by": "scripts/curve_png.mjs"
  }
 }

@@ -8,7 +8,7 @@
    "grid": 74364290,
    "arc": "167772771091/74364290",
    "notes": "loop-5-8-12-mid-5/notes.md",
-   "figure": null
+   "figure": "loop-5-8-12-mid-5/figure.png"
   },
   {
    "slug": "loop-3-5-11-mid-1",
@@ -17,7 +17,7 @@
    "grid": 12012,
    "arc": "908777/4004",
    "notes": "loop-3-5-11-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-3-5-11-mid-1/figure.png"
   },
   {
    "slug": "loop-3-7-11-mid-3",
@@ -26,7 +26,7 @@
    "grid": 19399380,
    "arc": "8196257341/19399380",
    "notes": "loop-3-7-11-mid-3/notes.md",
-   "figure": null
+   "figure": "loop-3-7-11-mid-3/figure.png"
   },
   {
    "slug": "loop-8-11-mid-1",
@@ -35,7 +35,7 @@
    "grid": 42,
    "arc": "10673/14",
    "notes": "loop-8-11-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-8-11-mid-1/figure.png"
   },
   {
    "slug": "loop-7-mid-2",
@@ -44,7 +44,7 @@
    "grid": 90,
    "arc": "65/18",
    "notes": "loop-7-mid-2/notes.md",
-   "figure": null
+   "figure": "loop-7-mid-2/figure.png"
   },
   {
    "slug": "loop-5-12-mid-3",
@@ -53,7 +53,7 @@
    "grid": 42,
    "arc": "953/14",
    "notes": "loop-5-12-mid-3/notes.md",
-   "figure": null
+   "figure": "loop-5-12-mid-3/figure.png"
   },
   {
    "slug": "loop-3-8-13-mid-1",
@@ -62,7 +62,7 @@
    "grid": 90,
    "arc": "80449/90",
    "notes": "loop-3-8-13-mid-1/notes.md",
-   "figure": null
+   "figure": "loop-3-8-13-mid-1/figure.png"
   },
   {
    "slug": "loop-12-13-15-mid-1",

@@ -34,11 +34,45 @@ await page.goto("http://127.0.0.1:8003/workbench/ph-nth-sandbox-exp.html", { wai
 await page.waitForTimeout(600);
 await page.evaluate(item => window.phNthLoad(item), record);
 await page.waitForTimeout(400);
-// the loop view: the middle of t, and the frame on the knot
-await page.click("#n-loop-only").catch(() => {});
-await page.waitForTimeout(300);
-await page.click("#n-focus-knot-hud").catch(() => {});
-await page.waitForTimeout(400);
+// The view is chosen by the record's figure spec, so a figure can be adjusted by hand:
+//   "view": "loop"   the middle of t (default)
+//   "view": "knot"   frame the knot
+//   "view": "whole"  the whole curve
+//   "range": [from, to]   an explicit window of t
+const spec = record.figure || {};
+const view = spec.view || "loop";
+if (Array.isArray(spec.range)) {
+  await page.evaluate(([from, to]) => {
+    for (const [id, value] of [["n-t-from", from], ["n-t-to", to]]) {
+      const field = document.getElementById(id);
+      if (field) { field.value = String(value); field.dispatchEvent(new Event("change", { bubbles: true })); }
+    }
+  }, spec.range);
+  await page.waitForTimeout(400);
+} else if (view === "loop") {
+  await page.click("#n-loop-only").catch(() => {});
+  await page.waitForTimeout(300);
+} else if (view === "knot") {
+  await page.click("#n-focus-knot-hud").catch(() => {});
+  await page.waitForTimeout(300);
+}
+// manual adjustments, written by hand in curve.json when a figure needs them
+const focus = spec.focus;
+if (focus) {
+  await page.fill("#n-focus-x", String(focus.x)).catch(() => {});
+  await page.fill("#n-focus-y", String(focus.y)).catch(() => {});
+  await page.click("#n-focus-here").catch(() => {});
+  await page.waitForTimeout(300);
+}
+if (spec.zoom) {
+  await page.fill("#n-zoom-number", String(spec.zoom)).catch(() => {});
+  await page.waitForTimeout(300);
+}
+if (Array.isArray(spec.pan)) {
+  await page.fill("#n-pan-x-number", String(spec.pan[0] || 0)).catch(() => {});
+  await page.fill("#n-pan-y-number", String(spec.pan[1] || 0)).catch(() => {});
+  await page.waitForTimeout(300);
+}
 const plot = await page.$("#n-plot");
 const box = await plot.boundingBox();
 const height = Math.round(width * box.height / box.width);

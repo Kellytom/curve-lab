@@ -37,15 +37,7 @@ polynomial integral and is exact.
 family-census.json; see scripts/family_census.py for the box
 
 ## The figure
-`figure.png` is withdrawn, 2026-11-16. The pipeline runs end to end — the page is opened,
-the record loaded, the loop view framed, the plot screenshotted — but the pictures come
-out as a flat line rather than a knot, and the ink measurement says so: 500 to 1,000 dark
-pixels spread 240 to 514 across and only 1 to 16 down, which is a horizontal line and its
-axis, not a curve. One curve of the ten (loop-7-mid-2, spread 251x116) does draw.
 
-Two causes were tried and rejected: dividing the row by its peak made the curve 10^-15
-wide (scaling w scales the curve by its square, so the factor must be 1/sqrt(peak)), and
-1/sqrt(peak) still degraded a curve that draws unscaled (peak 2.7e5). The remaining
-suspicion is cancellation in p^2 - q^2 at peaks near 10^8, which needs the factored form
-or exact arithmetic rather than a rescale. The numbers in this folder are exact and
-unaffected; only the picture is missing.
+`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the loop view:
+the middle of `t`, framed on the knot. If the picture and the numbers ever disagree, the
+numbers are right and the figure is stale — regenerate it rather than trust it.
