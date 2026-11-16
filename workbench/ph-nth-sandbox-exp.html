@@ -438,14 +438,14 @@ the same place again for another copy (the dots stack at the top of the strip), 
 <hr style="border:0;border-top:2px solid #2e2413;margin:22px 0 16px">
 <div class="curve-box" id="n-related">
 <h3>Related families: two outer flat spots, its mirror, three at 1/2</h3>
-<p class="small">Two outer spots on one side and their two mirrors, plus the three copies at 1/2, is seven spots, so the row runs to <code>t^7</code>. Each button carries the number of times that curve crosses itself, read from this page's own counter after loading it; the number in the button is that count. 1/11 + 1/5 reaches eleven, twice what any five-spot family does. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each.</p>
+<p class="small">Two outer spots on one side and their two mirrors, plus the three copies at 1/2, is seven spots, so the row runs to <code>t^7</code>. Each button carries the number of times that curve crosses itself, read from this page's own counter after loading it; the number in the button is that count. 1/11 + 1/5 reaches nine, against five for the best five-spot family. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each. The page and the scripts sample t at 1024 intervals, so these counts agree to within one near-tangential meeting.</p>
 <div class="solver-row" id="n-related-buttons">
-    <button type="button" class="family" data-spots="1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11" title="flat spots 1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11">1/11 + 1/5 &middot; 11 crossings</button>
-    <button type="button" class="family" data-spots="1/10, 1/4, 1/2, 1/2, 1/2, 3/4, 9/10" title="flat spots 1/10, 1/4, 1/2, 1/2, 1/2, 3/4, 9/10">1/10 + 1/4 &middot; 10 crossings</button>
-    <button type="button" class="family" data-spots="1/9, 1/4, 1/2, 1/2, 1/2, 3/4, 8/9" title="flat spots 1/9, 1/4, 1/2, 1/2, 1/2, 3/4, 8/9">1/9 + 1/4 &middot; 10 crossings</button>
+    <button type="button" class="family" data-spots="1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11" title="flat spots 1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11">1/11 + 1/5 &middot; 9 crossings</button>
     <button type="button" class="family" data-spots="1/11, 1/7, 1/2, 1/2, 1/2, 6/7, 10/11" title="flat spots 1/11, 1/7, 1/2, 1/2, 1/2, 6/7, 10/11">1/11 + 1/7 &middot; 8 crossings</button>
-    <button type="button" class="family" data-spots="1/12, 1/5, 1/2, 1/2, 1/2, 4/5, 11/12" title="flat spots 1/12, 1/5, 1/2, 1/2, 1/2, 4/5, 11/12">1/12 + 1/5 &middot; 8 crossings</button>
-    <button type="button" class="family" data-spots="1/15, 1/5, 1/2, 1/2, 1/2, 4/5, 14/15" title="flat spots 1/15, 1/5, 1/2, 1/2, 1/2, 4/5, 14/15">1/15 + 1/5 &middot; 6 crossings</button>
+    <button type="button" class="family" data-spots="1/12, 1/5, 1/2, 1/2, 1/2, 4/5, 11/12" title="flat spots 1/12, 1/5, 1/2, 1/2, 1/2, 4/5, 11/12">1/12 + 1/5 &middot; 7 crossings</button>
+    <button type="button" class="family" data-spots="1/10, 1/4, 1/2, 1/2, 1/2, 3/4, 9/10" title="flat spots 1/10, 1/4, 1/2, 1/2, 1/2, 3/4, 9/10">1/10 + 1/4 &middot; 5 crossings</button>
+    <button type="button" class="family" data-spots="1/9, 1/4, 1/2, 1/2, 1/2, 3/4, 8/9" title="flat spots 1/9, 1/4, 1/2, 1/2, 1/2, 3/4, 8/9">1/9 + 1/4 &middot; 5 crossings</button>
+    <button type="button" class="family" data-spots="1/15, 1/5, 1/2, 1/2, 1/2, 4/5, 14/15" title="flat spots 1/15, 1/5, 1/2, 1/2, 1/2, 4/5, 14/15">1/15 + 1/5 &middot; 5 crossings</button>
     <button type="button" class="family" data-spots="1/15, 1/7, 1/2, 1/2, 1/2, 6/7, 14/15" title="flat spots 1/15, 1/7, 1/2, 1/2, 1/2, 6/7, 14/15">1/15 + 1/7 &middot; 5 crossings</button>
 </div>
 <p class="small">These sit above the line too: the found gallery stays below it.</p>
@@ -1217,7 +1217,10 @@ window.curveSaver = (function () {
     return out;
   }
 
-  function spineSamples(speed, n = 700) {
+  // One sampling rule for the page and the scripts: 1024 intervals, a power of
+  // two, evaluated at the midpoint of each. A crossing count is only comparable
+  // between tools when both use the same points.
+  function spineSamples(speed, n = 1024) {
     const half = Math.max(2, Math.round(n / 2));
     // a from of 0 has no backwards part; walking it anyway would pile hundreds
     // of duplicate points on the origin and invent crossings there
@@ -1669,10 +1672,15 @@ window.curveSaver = (function () {
       const stride = Math.max(1, Math.round(points.length / want));
       return points.filter((unused, index) => index % stride === 0 || index === points.length - 1);
     };
-    const selfCrossings = crossingsOf(decimate(spinePoints), decimate(spinePoints),
-                                      1e-4 * Math.max(1e-9, Math.max(...shown.map(p => p[0])) -
-                                                      Math.min(...shown.map(p => p[0]))));
-    const knotsShown = turned(selfCrossings);
+    // Measured with the parameter routine, which skips the two neighbouring segments
+    // the way ph_crossings.self_crossings does. The old count ran crossingsOf over a
+    // decimated copy and counted near-tangential touches the scripts did not, which is
+    // why the page said 8 where the script said 9.
+    const crossTolerance = 1e-4 * Math.max(1e-9, Math.max(...shown.map(p => p[0])) -
+                                           Math.min(...shown.map(p => p[0])));
+    const selfCrossings = crossingParams(spinePoints, crossTolerance);
+    const crossingPoints = selfCrossings.map(hit => [hit.x, hit.y]);
+    const knotsShown = turned(crossingPoints);
     // The drawing is made once, at the base frame: the knot with a margin when the
     // focus is on, otherwise the whole curve. Zoom and pan are applied afterwards by
     // moving the viewBox over the finished picture, so neither costs a redraw.
@@ -1824,12 +1832,12 @@ window.curveSaver = (function () {
         Math.max(...spinePoints.map(p => p[0])) - Math.min(...spinePoints.map(p => p[0])),
         Math.max(...spinePoints.map(p => p[1])) - Math.min(...spinePoints.map(p => p[1]))));
       const spread = Math.max(
-        Math.max(...selfCrossings.map(p => p[0])) - Math.min(...selfCrossings.map(p => p[0])),
-        Math.max(...selfCrossings.map(p => p[1])) - Math.min(...selfCrossings.map(p => p[1])));
+        Math.max(...crossingPoints.map(p => p[0])) - Math.min(...crossingPoints.map(p => p[0])),
+        Math.max(...crossingPoints.map(p => p[1])) - Math.min(...crossingPoints.map(p => p[1])));
       const legs = Math.max(
-        Math.min(...selfCrossings.map(c => Math.hypot(c[0] - spinePoints[0][0], c[1] - spinePoints[0][1]))),
-        Math.min(...selfCrossings.map(c => Math.hypot(c[0] - spinePoints[spinePoints.length - 1][0],
-                                                      c[1] - spinePoints[spinePoints.length - 1][1]))));
+        Math.min(...crossingPoints.map(c => Math.hypot(c[0] - spinePoints[0][0], c[1] - spinePoints[0][1]))),
+        Math.min(...crossingPoints.map(c => Math.hypot(c[0] - spinePoints[spinePoints.length - 1][0],
+                                                       c[1] - spinePoints[spinePoints.length - 1][1]))));
       knotShare = Math.round((spread / diag) * 100);
       legShare = Math.round((legs / diag) * 100);
     }
@@ -4353,7 +4361,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 07:36</p>
+<p class="small mono" id="n-build">build 2026-11-16 07:45</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

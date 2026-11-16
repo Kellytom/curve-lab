@@ -39,6 +39,18 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("paintFocus();", panels)
         self.assertIn('["n-focus-knot-hud", () => view.focusKnot]', panels)
 
+    def test_the_page_and_the_scripts_sample_t_the_same_way(self):
+        """One sampling rule, so a count means the same thing in both places.
+
+        2026-11-15: the page said 8 where the script said 9, because the page ran a
+        separate crossing routine over a decimated copy. Both now use 1024 intervals
+        and the parameter routine that skips the neighbouring segments.
+        """
+        panels = PANELS.read_text()
+        self.assertIn("function spineSamples(speed, n = 1024) {", panels)
+        self.assertIn("const selfCrossings = crossingParams(spinePoints, crossTolerance);", panels)
+        self.assertNotIn("decimate(spinePoints), decimate(spinePoints)", panels)
+
     def test_the_loop_button_reads_its_window_from_the_crossings(self):
         """The window is not one constant: three outer fractions push the knot outward.
 
@@ -85,7 +97,7 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("Related families: two outer flat spots", page)
         self.assertLess(page.index('id="n-families"'), page.index('id="n-related"'))
         self.assertLess(page.index('id="n-related"'), page.index("<h2>Found curves</h2>"))
-        for label, spots in (("1/11 + 1/5 &middot; 11 crossings",
+        for label, spots in (("1/11 + 1/5 &middot; 9 crossings",
                               "1/11, 1/5, 1/2, 1/2, 1/2, 4/5, 10/11"),
                              ("1/15 + 1/7 &middot; 5 crossings",
                               "1/15, 1/7, 1/2, 1/2, 1/2, 6/7, 14/15")):

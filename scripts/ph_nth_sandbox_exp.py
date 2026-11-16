@@ -131,12 +131,12 @@ def found_entries():
 # t^7 row. The pairs below were measured one by one; the count beside each is the
 # number of times the spine crosses itself, which is the number the page reports.
 RELATED = (
-    ("1/11 + 1/5", 11, 5, 11),
-    ("1/10 + 1/4", 10, 4, 10),
-    ("1/9 + 1/4", 9, 4, 10),
+    ("1/11 + 1/5", 11, 5, 9),
     ("1/11 + 1/7", 11, 7, 8),
-    ("1/12 + 1/5", 12, 5, 8),
-    ("1/15 + 1/5", 15, 5, 6),
+    ("1/12 + 1/5", 12, 5, 7),
+    ("1/10 + 1/4", 10, 4, 5),
+    ("1/9 + 1/4", 9, 4, 5),
+    ("1/15 + 1/5", 15, 5, 5),
     ("1/15 + 1/7", 15, 7, 5),
 )
 
@@ -155,8 +155,10 @@ def related_section():
         '<p class="small">Two outer spots on one side and their two mirrors, plus the three copies at '
         '1/2, is seven spots, so the row runs to <code>t^7</code>. Each button carries the number of '
         'times that curve crosses itself, read from this page\'s own counter after loading it; the number '
-        'in the button is that count. 1/11 + 1/5 reaches eleven, twice what any five-spot family '
-        'does. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each.</p>\n'
+        'in the button is that count. 1/11 + 1/5 reaches nine, against five for the best five-spot '
+        'family. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each. The page '
+        'and the scripts sample t at 1024 intervals, so these counts agree to within one '
+        'near-tangential meeting.</p>\n'
         '<div class="solver-row" id="n-related-buttons">\n'
         + "\n".join(buttons) + "\n"
         '</div>\n'
