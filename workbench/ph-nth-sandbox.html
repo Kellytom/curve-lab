@@ -109,6 +109,10 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .hud-row input[type=number]{width:100%}
 .gallery{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
 .gallery figure>img{width:100%;height:auto;display:block;border:1px solid var(--rule);background:#fbf7ec}
+.gallery .cell-tools{display:flex;gap:4px;align-items:center;margin:5px 0 0;flex-wrap:wrap}
+.gallery .cell-tools button{font:10px/1 ui-monospace,Menlo,monospace;padding:4px 6px;background:#fbf7ec;color:#7b6c4e;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.gallery .cell-tools button:hover{background:#2e2413;color:#fbf7ec}
+.gallery .gallery-star.starred{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
 .gallery .cell-archive{display:block;width:100%;margin:5px 0 0;font:10px/1 ui-monospace,Menlo,monospace;padding:4px 5px;background:#fbf7ec;color:#7b6c4e;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .gallery .cell-archive:hover{background:#2e2413;color:#fbf7ec}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
@@ -418,6 +422,15 @@ the same place again for another copy (the dots stack at the top of the strip), 
 here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
 padded with a zero pair, which changes nothing: the speed is the same polynomial.</p>
 <div class="gallery" id="n-gallery"></div>
+<div class="panel" id="n-order-panel">
+  <h3>Starred order</h3>
+  <p class="small">Star a curve and it rises to the top of the gallery; the arrows move it within
+  the starred list until 1, 2, 3 are right. The order is kept in this browser and printed below
+  to hand back.</p>
+  <textarea id="n-order-box" rows="4" readonly></textarea>
+  <p><button type="button" id="n-order-copy">copy the order</button>
+     <span class="small mono" id="n-order-state"></span></p>
+</div>
 <div class="panel" id="n-archive-panel">
   <h3>Moved to notes</h3>
   <p class="small">Curves you cleared from the gallery. They are hidden here and listed below;
@@ -4250,7 +4263,7 @@ window.curveSaver = (function () {
   // one sometimes too wide. Kept by name, so it survives a re-render.
   const thumbnailZoom = new Map();
 
-  function figureFor(entry, index = 0) {
+  function figureFor(entry, index = 0, starred = false) {
     const zoom = Math.max(0.25, Math.min(8, thumbnailZoom.get(entry.name) || 1));
     // more samples where the view is magnified, so the line does not look jagged
     const points = spineOf(entry, Math.round(400 * Math.min(6, Math.max(1, zoom))));
@@ -4329,8 +4342,11 @@ window.curveSaver = (function () {
         <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
       </button>
       ${shiny}
-      <button type="button" class="gallery-archive cell-archive"
-              title="take this curve out of the gallery and list it for the notes page">move to notes</button>
+      <div class="cell-tools">
+        <button type="button" class="gallery-star${starred ? " starred" : ""}" title="star this curve: it rises to the top of the gallery">${starred ? "&#9733; starred" : "&#9734; star"}</button>
+        ${starred ? '<button type="button" class="gallery-up" title="move it up the starred list">&uarr;</button><button type="button" class="gallery-down" title="move it down the starred list">&darr;</button>' : ""}
+        <button type="button" class="gallery-archive cell-archive" title="take this curve out of the gallery and list it for the notes page">move to notes</button>
+      </div>
       <div class="more" hidden>
         <div class="more-grid">
           <div class="more-figure">
@@ -4383,6 +4399,19 @@ window.curveSaver = (function () {
   // Each curve gets a stable id from its name, and the list holds ids. The first version hid
   // cells at load, before the gallery had built them, so a reload brought every curve back —
   // hiding now runs after every render, and the id survives a rename of the display text.
+  // Starred curves rise to the top of the gallery, and the arrows put them in order. The list
+  // is names in display order, kept in this browser and printed at the foot to hand back.
+  const starKey = "ph-nth-stars";
+  const stars = () => {
+    try { return JSON.parse(localStorage.getItem(starKey) || "[]"); } catch (error) { return []; }
+  };
+  const setStars = list => {
+    localStorage.setItem(starKey, JSON.stringify(list));
+    const box = document.getElementById("n-order-box");
+    if (box) box.value = JSON.stringify(list, null, 1);
+    const state = document.getElementById("n-order-state");
+    if (state) state.textContent = list.length ? `${list.length} starred` : "none starred yet";
+  };
   const archiveKey = "ph-nth-archive-v2";
   const uidOf = name => {
     let hash = 2166136261;
@@ -4415,6 +4444,32 @@ window.curveSaver = (function () {
     localStorage.setItem(archiveKey, JSON.stringify(list));
     applyArchive();
   });
+  document.addEventListener("click", event => {
+    const star = event.target.closest(".gallery-star");
+    const up = event.target.closest(".gallery-up");
+    const down = event.target.closest(".gallery-down");
+    if (!star && !up && !down) return;
+    const figure = event.target.closest("figure[data-name]");
+    if (!figure) return;
+    const name = figure.dataset.name;
+    const list = stars();
+    const at = list.indexOf(name);
+    if (star) {
+      if (at >= 0) list.splice(at, 1); else list.unshift(name);
+    } else if (at >= 0) {
+      const to = up ? at - 1 : at + 1;
+      if (to >= 0 && to < list.length) { list.splice(at, 1); list.splice(to, 0, name); }
+    }
+    setStars(list);
+    render();
+  });
+  const orderCopy = document.getElementById("n-order-copy");
+  if (orderCopy) orderCopy.addEventListener("click", () => {
+    const box = document.getElementById("n-order-box");
+    if (box) { box.select(); if (navigator.clipboard) navigator.clipboard.writeText(box.value).catch(() => {}); }
+  });
+  setStars(stars());
+
   const archiveCopy = document.getElementById("n-archive-copy");
   if (archiveCopy) archiveCopy.addEventListener("click", () => {
     const box = document.getElementById("n-archive-box");
@@ -4434,6 +4489,17 @@ window.curveSaver = (function () {
     // the same image the primary plot gave, whether or not the entry came from the gallery JSON
     const captured = window.phNthFigures || {};
     list.forEach(entry => { if (captured[entry.name]) entry.figure = captured[entry.name]; });
+    // starred first, in the operator's order; everything else keeps its file order (sort is
+    // stable, so the unstarred do not shuffle)
+    const order = stars();
+    list.sort((left, right) => {
+      const a = order.indexOf(left.name), b = order.indexOf(right.name);
+      if (a >= 0 && b >= 0) return a - b;
+      if (a >= 0) return -1;
+      if (b >= 0) return 1;
+      return 0;
+    });
+    const starredName = name => order.includes(name);
     const symmetric = [], asymmetric = [];
     list.forEach(entry => (isSymmetric(entry) ? symmetric : asymmetric).push(entry));
     // Number only the curves that are still in the gallery: after a clean-up the visible
@@ -4452,12 +4518,12 @@ window.curveSaver = (function () {
     <code>p(1 - t) = p(t)</code>, to within 1 per cent of the row &mdash; a fitted or
     truncated curve is symmetric to the eye while differing in the last digits. These are
     the ones the flat-spot grammar built.</p>`
-      + symmetric.map(entry => figureFor(entry, numberOf(entry))).join("")
+      + symmetric.map(entry => figureFor(entry, numberOf(entry), starredName(entry.name))).join("")
       + `<h2 class="gallery-head" id="n-asymmetric">Asymmetric</h2>
     <p class="gallery-note">Not mirrored about t = 1/2. The Euler hook is the type: a shape
     worth looking at that the flat-spot grammar did not build. Kept for the eye, not as
     evidence.</p>`
-      + asymmetric.map(entry => figureFor(entry, numberOf(entry))).join("");
+      + asymmetric.map(entry => figureFor(entry, numberOf(entry), starredName(entry.name))).join("");
     // the archive is applied inside the render, so a late re-render (the found file arrives
     // after the first paint) cannot bring a moved curve back
     applyArchive();
@@ -4572,5 +4638,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 18:14</p>
+<p class="small mono" id="n-build">build 2026-11-16 18:20</p>
 </body></html>

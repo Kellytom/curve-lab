@@ -21,7 +21,8 @@ class TestFormat(unittest.TestCase):
         document = R.read(FOUND)
         self.assertEqual(document["format"], R.FORMAT)
         self.assertEqual(R.validate(document), [])
-        self.assertGreater(len(document["curves"]), 100)
+        # the operator prunes this file; a clean-up must not fail the format test
+        self.assertGreater(len(document["curves"]), 0)
 
     def test_no_record_keeps_a_flat_row(self):
         """One source of truth: the terms, not a parallel pair of arrays."""

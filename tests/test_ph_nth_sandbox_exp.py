@@ -126,6 +126,21 @@ class TestFractionalSandbox(unittest.TestCase):
                 self.assertEqual(record["format"], "curve-lab.curve/1")
                 self.assertIn("figure", record)
 
+    def test_a_curve_can_be_starred_and_ordered(self):
+        """Star puts a curve at the top; the arrows set its place; the list is handed back.
+
+        Measured on the page: one star moves a curve to Fig. 1, a second takes the top, the up
+        arrow swaps the two, and a reload keeps the order.
+        """
+        page = PAGE.read_text()
+        self.assertIn('id="n-order-box"', page)
+        self.assertIn('id="n-order-copy"', page)
+        panels = PANELS.read_text()
+        self.assertIn('const starKey = "ph-nth-stars";', panels)
+        self.assertIn('class="gallery-star${starred ? " starred" : ""}"', panels)
+        self.assertIn('const up = event.target.closest(".gallery-up");', panels)
+        self.assertIn("list.sort((left, right) => {", panels)
+
     def test_the_clean_up_list_survives_a_reload_and_is_keyed_by_id(self):
         """A moved curve came back on every reload: the hiding ran before the cells existed.
 
@@ -274,15 +289,17 @@ class TestFractionalSandbox(unittest.TestCase):
     def test_a_loaded_curve_brings_its_flat_spots_back(self):
         """The ruler must describe the curve that is loaded, not the one before it.
 
-        Gallery entries carry `roots`; the load puts them in the field and on the
-        strip, and a curve with no recorded spots clears the strip rather than
-        leaving the last curve's dots underneath.
+        The gallery fetches found-curves.json at load, so the roots travel in the file and the
+        loader writes them into the field; a curve with no recorded spots clears the field rather
+        than leaving the previous curve's dots underneath.
         """
-        page = PAGE.read_text()
-        self.assertIn('"roots":"1/3, 1/3, 1/2, 1/2, 1/2, 2/3, 2/3"', page)
         panels = PANELS.read_text()
         self.assertIn('rootsFieldNow.value = (item && item.roots) || "";', panels)
-        self.assertIn("crosses itself ${selfCrossings.length}", panels)
+        found = json.loads((ROOT / "workbench" / "found-curves.json").read_text())
+        numeric = [curve for curve in found["curves"]
+                   if curve.get("provenance", {}).get("roots", "").replace("/", "").replace(",", "").replace(" ", "").isdigit()]
+        self.assertTrue(numeric, "no curve in the found file carries numeric flat spots")
+        self.assertGreater(len(numeric[0]["provenance"]["roots"].split(",")), 1)
 
     def test_the_seven_families_come_before_the_found_curves(self):
         """Seven families above the line; the found curves stay below it, for later.

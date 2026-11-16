@@ -133,6 +133,10 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .hud-row input[type=number]{width:100%}
 .gallery{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
 .gallery figure>img{width:100%;height:auto;display:block;border:1px solid var(--rule);background:#fbf7ec}
+.gallery .cell-tools{display:flex;gap:4px;align-items:center;margin:5px 0 0;flex-wrap:wrap}
+.gallery .cell-tools button{font:10px/1 ui-monospace,Menlo,monospace;padding:4px 6px;background:#fbf7ec;color:#7b6c4e;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.gallery .cell-tools button:hover{background:#2e2413;color:#fbf7ec}
+.gallery .gallery-star.starred{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
 .gallery .cell-archive{display:block;width:100%;margin:5px 0 0;font:10px/1 ui-monospace,Menlo,monospace;padding:4px 5px;background:#fbf7ec;color:#7b6c4e;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
 .gallery .cell-archive:hover{background:#2e2413;color:#fbf7ec}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
@@ -442,6 +446,15 @@ the same place again for another copy (the dots stack at the top of the strip), 
 here, then everything the septic sandbox and the quintic page already carried. Degree 7 curves are
 padded with a zero pair, which changes nothing: the speed is the same polynomial.</p>
 <div class="gallery" id="n-gallery"></div>
+<div class="panel" id="n-order-panel">
+  <h3>Starred order</h3>
+  <p class="small">Star a curve and it rises to the top of the gallery; the arrows move it within
+  the starred list until 1, 2, 3 are right. The order is kept in this browser and printed below
+  to hand back.</p>
+  <textarea id="n-order-box" rows="4" readonly></textarea>
+  <p><button type="button" id="n-order-copy">copy the order</button>
+     <span class="small mono" id="n-order-state"></span></p>
+</div>
 <div class="panel" id="n-archive-panel">
   <h3>Moved to notes</h3>
   <p class="small">Curves you cleared from the gallery. They are hidden here and listed below;
