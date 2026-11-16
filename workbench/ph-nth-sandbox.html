@@ -4321,7 +4321,7 @@ window.curveSaver = (function () {
     return `<figure data-name="${entry.name}">
       <span class="thumb-zoom"><button type="button" class="thumb-plus" title="closer" aria-label="closer on ${entry.name}">+</button><button type="button" class="thumb-minus" title="wider" aria-label="wider on ${entry.name}">&minus;</button></span>
       <button type="button" class="gallery-open" aria-expanded="false">
-        <span class="gallery-number">Fig. ${index}</span>
+        <span class="gallery-number">${index ? `Fig. ${index}` : "moved"}</span>
         <span class="gallery-name">${entry.name}</span>
         <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
           : String(entry.from || "") === "operator" ? "yours"
@@ -4436,19 +4436,28 @@ window.curveSaver = (function () {
     list.forEach(entry => { if (captured[entry.name]) entry.figure = captured[entry.name]; });
     const symmetric = [], asymmetric = [];
     list.forEach(entry => (isSymmetric(entry) ? symmetric : asymmetric).push(entry));
+    // Number only the curves that are still in the gallery: after a clean-up the visible
+    // figures read 1, 2, 3 … with no gaps. The hidden ones stay in the page (so undo works)
+    // and carry no number; nothing is added or removed by the numbering.
+    const hiddenIds = new Set(archived().map(item => item.uid));
+    // Counted as the cells are written, in the order they appear, so the visible figures read
+    // 1, 2, 3 … with no gaps however many were moved. A map keyed by name skipped numbers
+    // whenever two entries shared a name.
     let number = 0;
+    const numberOf = entry =>
+      hiddenIds.has(uidOf(entry.name)) ? 0 : ++number;
     host.innerHTML =
       `<h2 class="gallery-head" id="n-symmetric">Symmetric</h2>
     <p class="gallery-note">Mirrored about the middle: <code>q(1 - t) = -q(t)</code> and
     <code>p(1 - t) = p(t)</code>, to within 1 per cent of the row &mdash; a fitted or
     truncated curve is symmetric to the eye while differing in the last digits. These are
     the ones the flat-spot grammar built.</p>`
-      + symmetric.map(entry => figureFor(entry, ++number)).join("")
+      + symmetric.map(entry => figureFor(entry, numberOf(entry))).join("")
       + `<h2 class="gallery-head" id="n-asymmetric">Asymmetric</h2>
     <p class="gallery-note">Not mirrored about t = 1/2. The Euler hook is the type: a shape
     worth looking at that the flat-spot grammar did not build. Kept for the eye, not as
     evidence.</p>`
-      + asymmetric.map(entry => figureFor(entry, ++number)).join("");
+      + asymmetric.map(entry => figureFor(entry, numberOf(entry))).join("");
     // the archive is applied inside the render, so a late re-render (the found file arrives
     // after the first paint) cannot bring a moved curve back
     applyArchive();
@@ -4563,5 +4572,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 17:32</p>
+<p class="small mono" id="n-build">build 2026-11-16 17:57</p>
 </body></html>
