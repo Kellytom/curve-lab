@@ -103,8 +103,8 @@ def exaggerate(points, factor):
 def frame_of(points):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
-    pad_x = (max(xs) - min(xs)) * 0.08 or 1.0
-    pad_y = (max(ys) - min(ys)) * 0.08 or 1.0
+    pad_x = (max(xs) - min(xs)) * 0.15 or 1.0
+    pad_y = (max(ys) - min(ys)) * 0.15 or 1.0
     return min(xs) - pad_x, max(xs) + pad_x, min(ys) - pad_y, max(ys) + pad_y
 
 

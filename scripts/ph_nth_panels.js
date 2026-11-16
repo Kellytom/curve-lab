@@ -3462,7 +3462,15 @@
     // makes the tangle a smudge, which is why the little figures did not show the knot
     // that "load this one" shows correctly.
     const crossings = window.phNthCrossings ? window.phNthCrossings(points) : [];
-    const framedOnKnot = crossings.length >= 2;
+    // 2026-11-16, operator: some figures looked "too zoomed" and showed only part of the
+    // curve. A knot covering less than a third of the curve is not enough reason to throw
+    // the rest away, so those are framed whole.
+    const wholeSpan = Math.max(1e-9, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+    const clusterSpan = crossings.length >= 2
+      ? (Math.max(...crossings.map(p => p[0])) - Math.min(...crossings.map(p => p[0])))
+        + (Math.max(...crossings.map(p => p[1])) - Math.min(...crossings.map(p => p[1])))
+      : 0;
+    const framedOnKnot = crossings.length >= 2 && clusterSpan > wholeSpan * 0.33;
     let minX, maxX, minY, maxY;
     if (framedOnKnot) {
       const kx = crossings.map(p => p[0]), ky = crossings.map(p => p[1]);
