@@ -132,6 +132,8 @@ svg{width:100%;height:auto;display:block;border:1px solid var(--rule);background
 .hud-row input[type=range]{width:100%}
 .hud-row input[type=number]{width:100%}
 .gallery{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:16px}
+.gallery .cell-archive{display:block;width:100%;margin:5px 0 0;font:10px/1 ui-monospace,Menlo,monospace;padding:4px 5px;background:#fbf7ec;color:#7b6c4e;border:1px solid var(--rule);border-radius:2px;cursor:pointer}
+.gallery .cell-archive:hover{background:#2e2413;color:#fbf7ec}
 .gallery .gallery-head{grid-column:1 / -1;margin:10px 0 0;font-size:20px;border-top:2px solid var(--ink);padding-top:8px}
 .gallery .gallery-note{grid-column:1 / -1;margin:0 0 4px;color:var(--muted);font-size:14px;max-width:80ch}
 @media(max-width:700px){.gallery{grid-template-columns:minmax(0, 1fr)}}

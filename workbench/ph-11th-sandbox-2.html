@@ -2501,8 +2501,26 @@ window.curveSaver = (function () {
   }
 
   function loadPair(item) {
+    // A record states the step its numbers were written at. Loading it at whatever step the
+    // page happens to be on re-expands the row into other powers — a different curve, with a
+    // different grid, which is why the readout and the record disagreed (wide-knot-x20 read
+    // grid 1/14,549,535 at step 1/2 against the record's 1/693 at step 1).
+    const wanted = Number(item && item.step);
+    const stepBox = document.getElementById("n-step");
+    if (Number.isFinite(wanted) && wanted > 0 && stepBox &&
+        Math.abs((window.phPowerStep || 1) - wanted) > 1e-9) {
+      stepBox.value = String(wanted);
+      stepBox.dispatchEvent(new Event("input", { bubbles: true }));
+    }
     const pair = pairOf(item);
     if (!pair) return;
+    // The stash holds coefficients that were above the rung when the rung shrank, and
+    // sizePair pads a short row from it. On a NEW curve those numbers belong to the previous
+    // curve, so a load must start clean: measured, a stale stash made the page draw a
+    // different curve from the record (grid 1/5,148 against the record's 1/36) and nothing
+    // in the readout pointed at it.
+    state.stash = { x: [], y: [] };
+    complement.stash = { x: [], y: [] };
     const fit = row => {
       const spread = expandForStep(row);
       const need = spread.length;
@@ -4101,6 +4119,8 @@ window.curveSaver = (function () {
         <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
       </button>
       ${shiny}
+      <button type="button" class="gallery-archive cell-archive"
+              title="take this curve out of the gallery and list it for the notes page">move to notes</button>
       <div class="more" hidden>
         <div class="more-grid">
           <div class="more-figure">

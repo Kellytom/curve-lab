@@ -133,7 +133,7 @@ class TestFractionalSandbox(unittest.TestCase):
         name into the box at the foot and hides the cell in this browser.
         """
         page = PAGE.read_text()
-        self.assertIn('class="gallery-archive"', page)
+        self.assertIn('class="gallery-archive cell-archive"', page)
         self.assertIn('id="n-archive-box"', page)
         self.assertIn('id="n-archive-undo"', page)
         panels = PANELS.read_text()

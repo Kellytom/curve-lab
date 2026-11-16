@@ -35,7 +35,8 @@
  "figure": {
   "file": "figure.png",
   "view": "whole",
-  "drawn_by": "scripts/curve_png.mjs \u2014 the page's own plot",
-  "note": "figure 1 is the primary curve's plot as the page draws it"
+  "drawn_by": "scripts/curve_png_all.mjs \u2014 the page's own plot",
+  "note": "figure 1 is the primary curve's plot as the page draws it",
+  "page_agrees": true
  }
 }
