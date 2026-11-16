@@ -131,13 +131,13 @@ def found_entries():
 # t^7 row. The pairs below were measured one by one; the count beside each is the
 # number of times the spine crosses itself, which is the number the page reports.
 RELATED = (
+    ("1/15 + 1/12", 15, 12, 9),
+    ("1/16 + 1/13", 16, 13, 9),
+    ("1/11 + 1/7", 11, 7, 9),
     ("1/11 + 1/5", 11, 5, 9),
-    ("1/11 + 1/7", 11, 7, 8),
     ("1/12 + 1/5", 12, 5, 7),
-    ("1/10 + 1/4", 10, 4, 5),
-    ("1/9 + 1/4", 9, 4, 5),
-    ("1/15 + 1/5", 15, 5, 5),
-    ("1/15 + 1/7", 15, 7, 5),
+    ("1/16 + 1/4", 16, 4, 7),
+    ("1/17 + 1/4", 17, 4, 7),
 )
 
 
@@ -155,10 +155,11 @@ def related_section():
         '<p class="small">Two outer spots on one side and their two mirrors, plus the three copies at '
         '1/2, is seven spots, so the row runs to <code>t^7</code>. Each button carries the number of '
         'times that curve crosses itself, read from this page\'s own counter after loading it; the number '
-        'in the button is that count. 1/11 + 1/5 reaches nine, against five for the best five-spot '
-        'family. Pairs that collapse are left out: 1/10 + 1/7 and 1/9 + 1/5 measure one each. The page '
-        'and the scripts sample t at 1024 intervals, so these counts agree to within one '
-        'near-tangential meeting.</p>\n'
+        'in the button is that count. These seven are the best of the 171 such families over denominators '
+        '2 to 20: every pair was measured, and the list is by crossings first, then by the cheapest grid '
+        '&mdash; 1/15 + 1/12 reaches nine at 1/182, where 1/11 + 1/5 costs 1/6,006 for the same nine. '
+        'Adding a third outer pair reaches fifteen crossings at 1/3 + 1/7 + 1/11, but its grid is '
+        '1/19,399,380, so it is not offered here.</p>\n'
         '<div class="solver-row" id="n-related-buttons">\n'
         + "\n".join(buttons) + "\n"
         '</div>\n'

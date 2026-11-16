@@ -39,6 +39,13 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("paintFocus();", panels)
         self.assertIn('["n-focus-knot-hud", () => view.focusKnot]', panels)
 
+    def test_a_saved_curve_keeps_its_flat_spots_and_its_loop(self):
+        """Downloaded JSON must describe the curve well enough to restore the ruler."""
+        panels = PANELS.read_text()
+        self.assertIn('const field = document.getElementById("n-roots");\n        return field ? field.value.trim() : "";', panels)
+        self.assertIn("loop: (() => { const [from, to] = loopWindow();", panels)
+        self.assertIn("tRange: { from: range.from, to: range.to },", panels)
+
     def test_the_page_and_the_scripts_sample_t_the_same_way(self):
         """One sampling rule, so a count means the same thing in both places.
 

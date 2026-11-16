@@ -538,9 +538,14 @@
         }
       }
     }
+    // Deduplicate by the parameter pair, not by a distance on the page. The distance
+    // rule scaled with the curve's size, so on a row whose numbers are in the
+    // thousands it merged crossings that were centimetres apart on screen: 1/15 + 1/12
+    // reported three where there are nine, four of them inside t 0.059 to 0.071.
     const kept = [];
     hits.forEach(hit => {
-      if (kept.some(other => Math.abs(other.x - hit.x) < tolerance && Math.abs(other.y - hit.y) < tolerance)) return;
+      if (kept.some(other => Math.abs(other.tA - hit.tA) < 1e-6 &&
+                            Math.abs(other.tB - hit.tB) < 1e-6)) return;
       kept.push(hit);
     });
     return kept;
@@ -1821,6 +1826,11 @@
       step: window.phPowerStep || 1,
       tRange: { from: range.from, to: range.to },
       loop: (() => { const [from, to] = loopWindow(); return { from: +from.toFixed(4), to: +to.toFixed(4) }; })(),
+      // the flat spots, so a saved curve can put its dots back on the ruler
+      roots: (() => {
+        const field = document.getElementById("n-roots");
+        return field ? field.value.trim() : "";
+      })(),
       character: { plus: character.plus, minus: character.minus, profile: character.profile },
       shear: shear.delta,
       hook: { dx: hook.dx, dy: hook.dy },
