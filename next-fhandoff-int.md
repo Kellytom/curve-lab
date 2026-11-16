@@ -4,4 +4,4 @@ You are starting the Bézier fitting step: fit wide-knot-x20 with cubic spans, p
 Proves: scripts/bezier_fit.py prints, for each of three stored curves, the span count and the maximum deviation as a share of the curve size (fitted, not exact, and labelled so); every fitted curve is stated to be a drawing while the record's terms remain the curve; tests/test_bezier_fit.py passes and the printed deviation is under the tolerance the script states.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-14, a013a37.
+Source: state/HANDOFF-int.md, 2026-11-16, 9e078d5.
