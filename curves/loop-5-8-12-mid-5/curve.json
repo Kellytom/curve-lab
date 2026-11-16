@@ -42,10 +42,8 @@
  "format": "curve-lab.curve/1",
  "figure": {
   "file": "figure.png",
-  "view": "factored",
-  "drawn_by": "scripts/curve_svg.py + scripts/svg_png.mjs",
-  "decided": "2026-11-16",
-  "choice": "factored",
-  "note": "drawn from the flat spots; y stretched by the factor printed on the figure"
+  "view": "whole",
+  "drawn_by": "scripts/curve_png.mjs \u2014 the page's own plot",
+  "note": "figure 1 is the primary curve's plot as the page draws it"
  }
 }

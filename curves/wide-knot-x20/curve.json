@@ -30,9 +30,8 @@
  "format": "curve-lab.curve/1",
  "figure": {
   "file": "figure.png",
-  "view": "factored",
-  "aspect": "auto",
-  "balance": null,
-  "drawn_by": "scripts/curve_svg.py + scripts/svg_png.mjs"
+  "view": "whole",
+  "drawn_by": "scripts/curve_png.mjs \u2014 the page's own plot",
+  "note": "figure 1 is the primary curve's plot as the page draws it"
  }
 }

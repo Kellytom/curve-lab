@@ -38,6 +38,10 @@ workbench/found-curves.json; new batch
 
 ## The figure
 
-`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the loop view:
-the middle of `t`, framed on the knot. If the picture and the numbers ever disagree, the
-numbers are right and the figure is stale — regenerate it rather than trust it.
+`figure.png` is **figure 1 as the page draws it**: the primary curve's own plot, captured with
+`node scripts/curve_png.mjs curves/<slug>/curve.json curves/<slug>/figure.png 900`. Nothing is
+re-drawn or re-fitted here, so the folder and the page cannot disagree.
+
+If this row is one the page cannot draw faithfully — a large row collapses to a flat line —
+the picture says so by being empty, and the numbers above are still exact. The factored
+drawing, which does not have that problem, is kept beside it as `figure-exact.png`.

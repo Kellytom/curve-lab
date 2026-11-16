@@ -38,9 +38,10 @@ family-census.json; see scripts/family_census.py for the box
 
 ## The figure
 
-`figure.png` is the **factored** drawing, accepted on 2026-11-16. It is drawn from the flat
-spots — `q` as a product of `(t − r)`, `p` constant — where nothing cancels, and `y` is
-stretched by the factor printed under the title, because these rows make a curve that hugs
-the x axis. The stretch is stated on the figure so the picture is never mistaken for an
-equal-aspect drawing. `figure-exact.png` is the same picture before it replaced the original;
-`figure-exact.svg` is its source.
+`figure.png` is **figure 1 as the page draws it**: the primary curve's own plot, captured with
+`node scripts/curve_png.mjs curves/<slug>/curve.json curves/<slug>/figure.png 900`. Nothing is
+re-drawn or re-fitted here, so the folder and the page cannot disagree.
+
+If this row is one the page cannot draw faithfully — a large row collapses to a flat line —
+the picture says so by being empty, and the numbers above are still exact. The factored
+drawing, which does not have that problem, is kept beside it as `figure-exact.png`.
