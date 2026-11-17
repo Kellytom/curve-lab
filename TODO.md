@@ -6,13 +6,21 @@
 
 ## From the 2026-11-16 review, in value order
 
-- [ ] **One exact numeric core, consumed by the page.** `pitch` exists in `ph_math.js`,
+- [x] **One exact numeric core, consumed by the page.** `pitch` exists in `ph_math.js`,
       `ph_quintic_metrics.py` and four scripts; they disagree in doubles (page 1/5,148 against an
       exact 1/36 on identical rows). Precompute, export, and let the page read the numbers.
+      *Landed 2026-11-16:* `curve_lab/measure.py` is the one exact core;
+      `scripts/ph_quintic_metrics.py` is a facade over it; `scripts/exact_numbers.py` audits every
+      record; the page prints the record's number, labelled, while the loaded rows are untouched.
+      `tests/test_exact_numbers.py` guards all of it. Found on the way: `loop-13-15-17-mid-1`
+      reproduces exactly — record 36, page 5,148.
 - [ ] **One figure pipeline.** Three exist: `curves/<slug>/figure.png`, `workbench/figures/*.png`,
       `figure-exact.png`/`.svg`. One curve, one picture, one script.
 - [ ] **The page-versus-record check as a test.** `scripts/curve_png_all.mjs` does it; the suite
       does not. Two faults reached the operator because of that gap.
+      *Half landed 2026-11-16:* the suite now compares every stored record with the exact core
+      (`tests/test_exact_numbers.py`). The live browser pass on every curve is still
+      `scripts/curve_png_all.mjs`.
 - [ ] **De-duplicate `ph_nth_panels.js`.** 3,846 lines inlined into 100 pages.
 
 ## Open work from 2026-11-16

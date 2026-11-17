@@ -600,7 +600,7 @@ window.curveSaver = (function () {
     x: [2, -5, 6, 1, 0, 0],
     y: [4, -22, 22, -2, 0, 0],
   };
-  const state = { x: defaults.x.slice(), y: defaults.y.slice() };
+  const state = { x: defaults.x.slice(), y: defaults.y.slice(), record: null };
   let currentName = "curve";
 
   const cells = [];
@@ -1636,16 +1636,28 @@ window.curveSaver = (function () {
     const curve = curveOf(speed);
     const degreeOf = terms => { let d = 0; terms.forEach((c, k) => { if (Math.abs(c) > 1e-9) d = k; }); return d; };
     const plain = metrics(state.x, state.y);
+    // The exact numbers travel with the record. They are used only while the
+    // rows are untouched, so an edit goes back to the page's own measurement,
+    // and the label says which of the two a reader is looking at.
+    const sameRow = (left, right) => Array.isArray(left) && Array.isArray(right) &&
+      left.length === right.length && left.every((value, i) => Math.abs(value - right[i]) < 1e-12);
+    const record = (state.record && !hook.dx && !hook.dy &&
+                    sameRow(state.record.x, state.x) && sameRow(state.record.y, state.y))
+      ? state.record : null;
+    const storedGrid = record && record.grid ? record.grid : null;
     const hookNote = (hook.dx || hook.dy)
       ? ` | grid without the hook 1/${plain.pitch.toLocaleString()}` : "";
-    const gridText = m.pitch ? `grid 1/${m.pitch.toLocaleString()}${hookNote}` : "grid n/a: fractional powers";
+    const gridText = storedGrid
+      ? `grid 1/${storedGrid.toLocaleString()} (exact, from the record)`
+      : (m.pitch ? `grid 1/${m.pitch.toLocaleString()}${hookNote}` : "grid n/a: fractional powers");
+    const bendText = record && record.bend !== null ? `${record.bend.toFixed(3)} (record)` : m.bend.toFixed(3);
     const negativeNote = (range.from < 0 && (window.phPowerStep || 1) !== 1)
       ? " | t below 0 uses the odd extension sign(t)|t|^step" : "";
     const inflectionText = m.inflections
       ? `inflections ${m.inflections.length} (max ${2 * speedDegree - 1})`
       : "inflections n/a: fractional powers";
     document.getElementById("n-readout").textContent =
-      `bend ${m.bend.toFixed(3)} | ${gridText} | ` + inflectionText + ` | ` +
+      `bend ${bendText} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
       `crosses itself ${selfCrossings.length}` +
@@ -2571,6 +2583,28 @@ window.curveSaver = (function () {
       }
     }
     setName(pair.name || "curve");
+    // A stored curve's numbers come from its record, measured exactly by
+    // curve_lab/measure.py. The page's own arithmetic stays, for a curve being
+    // edited, but it is not the authority: on loop-13-15-17-mid-1 the page's
+    // doubles report grid 5,148 where the exact answer is 36, and the record
+    // says 36. The record is used only while the rows still match what was
+    // loaded, so the first edit returns the page to its own measurement.
+    const recordNumber = key => {
+      if (!item) return null;
+      const top = item[key];
+      if (top !== undefined && top !== null) return Number(top);
+      const measured = item.measured || {};
+      const inner = measured[key];
+      if (inner !== undefined && inner !== null) return Number(inner);
+      return null;
+    };
+    const recordGrid = recordNumber("grid");
+    const recordBend = recordNumber("bend");
+    state.record = (Number.isFinite(recordGrid) || Number.isFinite(recordBend))
+      ? { name: pair.name || "curve", x: state.x.slice(), y: state.y.slice(),
+          grid: Number.isFinite(recordGrid) ? recordGrid : null,
+          bend: Number.isFinite(recordBend) ? recordBend : null }
+      : null;
     // a record may carry a cut: the whole curve is still in the terms, the window
     // says which part of it this curve is about
     if (pair.truncation && pair.truncation.from && pair.truncation.to) {

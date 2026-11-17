@@ -256,6 +256,32 @@ whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
 them and the rebuild honestly reports the whole curve. Legs are shortened by
 moving the flat spots, not by cutting `t`.
 
+## One exact numeric core, and the page reading it
+
+Settled 2026-11-16, from the senior review's first item ("the numeric core
+exists three times and disagrees with itself").
+
+- **`curve_lab/measure.py` is the only exact implementation** of grid, bend,
+  arc, inflections and closest. `scripts/ph_quintic_metrics.py` is now a facade
+  over it, keeping the names a dozen scripts import. Reason: two
+  implementations agreed on 74 curves and disagreed on the seventy-fifth —
+  `loop-13-15-17-mid-1`, exact grid 36, page 5,148 — and a third copy would
+  have found a seventy-sixth.
+- **The disagreement is a double limit, not a coding slip.** The page scales a
+  row to whole numbers and squares it; a coefficient of 1.03e8 squares to
+  1.06e16, past 9.0e15 where a double stops counting by ones. No amount of
+  care in the JavaScript fixes that; the exact answer has to be carried.
+- **A stored curve's numbers come from its record.** The record now holds the
+  exact grid and bend, and the page prints them, labelled "(exact, from the
+  record)", while the loaded rows are still untouched. The first edit returns
+  the page to its own arithmetic, which is honest for a curve being made.
+  Reason: the page must not claim an exactness it does not have, and a record
+  must not be re-derived by a viewer.
+- **`scripts/exact_numbers.py` audits every record against the core**, and
+  `--write` puts the exact number back. `tests/test_exact_numbers.py` runs the
+  audit in the suite, so a wrong number is a red test, not a curve that looks
+  different from its figure.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from
