@@ -35,6 +35,9 @@ class TunnelDocTest(unittest.TestCase):
         self.assertEqual(0, result.returncode, result.stderr)
         text = (ROOT / "docs" / "TUNNEL.md").read_text(encoding="utf-8")
         self.assertIn("scripts/service.sh install", text)
+        source = script.read_text(encoding="utf-8")
+        self.assertIn("restart [app|tunnel|all]", source)
+        self.assertIn("restart app", text)
 
     def test_no_tunnel_secret_is_committed(self):
         tracked = subprocess.run(

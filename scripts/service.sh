@@ -5,6 +5,8 @@
 #   scripts/service.sh install     # write two LaunchAgents, start both
 #   scripts/service.sh status      # loaded? running? what URL?
 #   scripts/service.sh url         # the current phone URL (also copies it)
+#   scripts/service.sh restart app # kick the app only (the phone URL survives)
+#   scripts/service.sh restart tunnel   # new tunnel, new URL
 #   scripts/service.sh restart     # kick both
 #   scripts/service.sh uninstall   # stop and remove the agents
 #
@@ -115,7 +117,13 @@ case "${1:-status}" in
     echo "removed both agents and their plists"
     ;;
   restart)
-    for label in "$APP_LABEL" "$TUNNEL_LABEL"; do
+    case "${2:-all}" in
+      app)    targets="$APP_LABEL" ;;
+      tunnel) targets="$TUNNEL_LABEL" ;;
+      all)    targets="$APP_LABEL $TUNNEL_LABEL" ;;
+      *)      echo "use: $0 restart [app|tunnel|all]" >&2; exit 2 ;;
+    esac
+    for label in $targets; do
       if loaded "$label"; then
         launchctl kickstart -k "$DOMAIN/$label"
         echo "restarted $label"
@@ -179,7 +187,7 @@ case "${1:-status}" in
     echo "--- tunnel ---"; tail -20 "$TUNNEL_LOG"
     ;;
   *)
-    echo "use: $0 install|status|url|restart|uninstall|log" >&2
+    echo "use: $0 install|status|url|restart [app|tunnel|all]|uninstall|log" >&2
     exit 2
     ;;
 esac

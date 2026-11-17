@@ -157,7 +157,8 @@ code and the phone's. Logs are `/tmp/curve-lab-app.log` and
 `/tmp/curve-lab-tunnel.log`.
 
 ```sh
-scripts/service.sh restart      # kick both
+scripts/service.sh restart app  # kick the app only — the phone URL survives
+scripts/service.sh restart      # both (a tunnel restart means a new URL)
 scripts/service.sh log          # tail both logs
 scripts/service.sh uninstall    # stop and remove both agents
 ```

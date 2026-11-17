@@ -177,7 +177,8 @@ scripts/service.sh url          # prints today's address, and copies it
 — then starts them. <code>status</code> prints each one's state and pid, the local HTTP
 code and the phone's. Logs are <code>/tmp/curve-lab-app.log</code> and
 <code>/tmp/curve-lab-tunnel.log</code>.</p>
-<pre><code class="language-sh">scripts/service.sh restart      # kick both
+<pre><code class="language-sh">scripts/service.sh restart app  # kick the app only — the phone URL survives
+scripts/service.sh restart      # both (a tunnel restart means a new URL)
 scripts/service.sh log          # tail both logs
 scripts/service.sh uninstall    # stop and remove both agents
 </code></pre>
@@ -254,5 +255,5 @@ Cloudflare has created it is cached as "does not exist" by macOS, so <code>curl<
 </tr>
 </tbody>
 </table>
-<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: b898c5a3c2b696b4ce157be7e8814da8b44497d5 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: ed6b9e012a99775b954889fbeff31169014aca8b · do not edit this HTML by hand.</p>
 </main></body></html>
