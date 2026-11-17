@@ -1,4 +1,5 @@
 {
+ "format": "curve-lab.root-family/1",
  "name": "root-family",
  "note": "written by scripts/ph_root_search.py; every curve is exactly symmetric because its roots come in mirror pairs about t = 1/2",
  "degree": 5,

@@ -1,4 +1,5 @@
 {
+  "format": "curve-lab.ph-quintic-presets/1",
   "title": "PH quintic preset recipes",
   "generator": "scripts/ph_quintic_presets.py",
   "convention": "u and v are exact fractions as strings; the curve is r(t) = integral of (u + i v)^2 dt; pitch is the lcm of the integrated coefficients' denominators; bend is arc / chord",

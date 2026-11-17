@@ -1,4 +1,5 @@
 {
+ "format": "curve-lab.ph-fitted/1",
  "title": "showcase curves fitted to a degree-11 PH speed",
  "method": "w = sqrt(z') sampled, then a degree-5 least squares fit; rms and max are fractions of the source's size",
  "curves": [

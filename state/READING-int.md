@@ -19,7 +19,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 2 | `LTMemory-int.md` | 228 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 103 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 2,735 | current truth — **read the tail (~80 lines), not the whole file** |
+| 5 | `state/HANDOFF-int.md` | 2,762 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 733 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 92 | what is proved, with the command that re-derives it; stops rework |
@@ -90,6 +90,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | a W-label | `state/BACKLOG-int.md` — that label only |
 | what is parked | `state/BACKBURNER-int.md` |
 | unresolved curves (need a link) | `state/UNRESOLVED-int.md` |
+| the datasets and their formats | `state/DATA-int.md`, `curve_lab/datafile.py`, `scripts/data_format.py`, `scripts/data_audit.py`, `tests/test_data_audit.py` |
 | verification | `scripts/recheck.py`, `scripts/test.py` |
 | architecture / print review | `docs/ARCHITECTURE.md`, `docs/REVIEW.md` — after the current work, not before |
 

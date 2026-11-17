@@ -1,0 +1,69 @@
+"""The one loader for a data file: parse it, insist it declares a format.
+
+Every JSON dataset under `workbench/` starts with a `format` line. Reading
+through this function means an unstamped or unparseable file is an error with a
+name, not a silently empty list — the fault class the register already holds
+twice (row 19: a format change orphaned a reader; row 23: a failed read became
+a write).
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+# One row per dataset under workbench/. `state/DATA-int.md` is the same list for
+# a reader; a test keeps the two in step. A new dataset is not real until it is
+# here, because nothing will stamp or audit it otherwise.
+FORMATS = {
+    "family-census.json": "curve-lab.family-census/1",
+    "flowers.json": "curve-lab.flowers/1",
+    "found-curves.json": "curve-lab.curves/2",
+    "found-for-exp.json": "curve-lab.curves/2",
+    "g3-catalogue-cache.json": "curve-lab.g3-catalogue-cache/1",
+    "g3-catalogue.json": "curve-lab.g3-catalogue/1",
+    "g3-diagnostics.json": "curve-lab.g3-diagnostics/1",
+    "g3-handover.json": "curve-lab.g3-handover/1",
+    "manifest.json": "curve-lab.manifest/1",
+    "moved-curves.json": "curve-lab.moved/1",
+    "operator-list.json": "curve-lab.operator-list/1",
+    "ph-11th-fitted-curves.json": "curve-lab.ph-fitted/1",
+    "ph-fitted-curves.json": "curve-lab.ph-fitted/1",
+    "ph-quintic-presets.json": "curve-lab.ph-quintic-presets/1",
+    "ph-quintic-yours.json": "curve-lab.ph-quintic-yours/1",
+    "real-curves.json": "real-curves/1",
+    "root-family.json": "curve-lab.root-family/1",
+    "septic-curves.json": "curve-lab.septic-curves/1",
+    "septic-samples.json": "curve-lab.septic-samples/1",
+    "starred.json": "starred/1",
+}
+
+
+# A file that is derived and gitignored: a fresh clone does not have it and
+# must not fail the audit for that. Rebuild it with its own script.
+OPTIONAL = {"g3-catalogue-cache.json"}
+
+
+class DataFileError(ValueError):
+    """A data file that is missing, unparseable, or does not say what it is."""
+
+
+def load(path: str | Path, expected: str | None = None):
+    path = Path(path)
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as error:
+        raise DataFileError(f"{path}: cannot read ({error.strerror})") from error
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as error:
+        raise DataFileError(f"{path}: not JSON ({error.msg} at line {error.lineno})") from error
+    if not isinstance(data, dict):
+        raise DataFileError(f"{path}: expected an object with a format field")
+    fmt = data.get("format")
+    if not fmt:
+        raise DataFileError(f"{path}: no format field")
+    if expected and fmt != expected:
+        raise DataFileError(f"{path}: format {fmt}, expected {expected}")
+    return data

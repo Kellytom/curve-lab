@@ -1,4 +1,5 @@
 {
+ "format": "curve-lab.manifest/1",
  "note": "One entry per input page. The hub reads this and the pages themselves; nothing about a page is written twice.",
  "groups": [
   {

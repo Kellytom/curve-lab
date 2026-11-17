@@ -1,4 +1,5 @@
 {
+  "format": "curve-lab.ph-quintic-yours/1",
   "title": "curves saved from the ph-quintic gallery, cleaned",
   "generator": "scripts/ph_quintic_yours.py",
   "note": "u_decimal and v_decimal are what the sliders held; u and v are the same curve as integers, scaled by the lcm of the denominators. The pitch is read from the integer form - the decimal form's pitch is meaningless because the decimals are binary approximations.",

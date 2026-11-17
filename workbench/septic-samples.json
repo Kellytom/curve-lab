@@ -1,4 +1,5 @@
 {
+  "format": "curve-lab.septic-samples/1",
   "title": "septic samples from small integer speeds",
   "searched": "speed coefficients in [-2, 2], first x coefficient positive, gcd 1",
   "curves": [

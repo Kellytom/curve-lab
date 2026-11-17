@@ -1,4 +1,5 @@
 {
+  "format": "curve-lab.septic-curves/1",
   "title": "named curves from the septic sandbox",
   "curves": [
     {
