@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import concurrent.futures as futures
 import os
+import re
 import subprocess
 import sys
 import time
@@ -100,6 +101,33 @@ def run(names, jobs=1):
 BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs")
 
 
+def run_js_tests() -> int:
+    """The browser-side modules' own tests, run in Node.
+
+    The exact rational core, the polynomial helpers and the PH offset live in
+    `workbench/*.js`; they run in the same runtime as the page, so their tests
+    do too. This is the only reason Node is in the gate.
+    """
+    node = subprocess.run(["node", "--version"], capture_output=True, text=True)
+    if node.returncode != 0:
+        print("  JS tests skipped: no node")
+        return 0
+    files = sorted((ROOT / "tests" / "js").glob("*.test.js"))
+    if not files:
+        return 0
+    result = subprocess.run(["node", "--test", *[str(f) for f in files]],
+                            cwd=ROOT, capture_output=True, text=True)
+    passed = re.search(r"^# pass (\d+)$", result.stdout, re.M)
+    failed = re.search(r"^# fail (\d+)$", result.stdout, re.M)
+    summary = (f"{passed.group(1) if passed else '?'} pass, "
+               f"{failed.group(1) if failed else '?'} fail")
+    print(f"  JS tests: {summary}")
+    if result.returncode != 0:
+        print(result.stdout[-1600:])
+        return 1
+    return 0
+
+
 def run_browser_checks() -> int:
     """The page checks that need Chrome: a control exists and draws."""
     node = subprocess.run(["node", "--version"], capture_output=True, text=True)
@@ -143,6 +171,8 @@ def main(argv):
     else:
         tail = ""
     print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}" + tail)
+    if code == 0:
+        code = run_js_tests()
     if "--browser" in argv and code == 0:
         code = run_browser_checks()
     return code

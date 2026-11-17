@@ -20,10 +20,10 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 57 | the next few sessions, one action each, with what is parked and why |
 | 5 | `state/HANDOFF-int.md` | 2,504 | current truth — **read the tail (~80 lines), not the whole file** |
-| 6 | `TODO.md` | 611 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 6 | `TODO.md` | 626 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 92 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 425 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 9 | `state/DESIGN-int.md` | 447 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 10 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
@@ -40,6 +40,7 @@ to *what is the next step*.
 | `docs/PROJECT.md` | 165 | scope in and out; what is deliberately not built |
 | `goals.md` | 265 | the arc: plant-forms → ornament-forms, and the offset tiers |
 | `docs/PHILOSOPHY.md` | 192 | glyph, full line, sections, joints — the design rules |
+| `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
 
 **Scope in one line**, so it is never absent even when the files are not open:
 exact integer and rational curves on one grid; the goal is a grammar of

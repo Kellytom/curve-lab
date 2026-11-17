@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:77.5%}
+.fill{height:100%;background:#8c6a21;width:77.1%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">110 / 142 done · 77% · read-only twin of
+<div class="count">111 / 144 done · 77% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -50,6 +50,12 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>*Landed 2026-11-17:* the pages load <code>workbench/ph_math.js</code> and <code>workbench/ph_nth_panels.js</code>, written once by <code>scripts/build-pages.py</code>; 23,212 lines left the repository and the sandbox page went from 253 KB to 45 KB. <code>tests/test_page_assets.py</code> keeps one copy.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Tests assert strings and counts, not behaviour</strong> (review&#x27;s fourth item).</span></label>
 <p>*Audited 2026-11-17.* The literal counts the review named (60, 109, 169, the 50 markers) are gone from <code>tests/</code>; the remaining number assertions are per-fixture expectations (four spans in a fillet, one violation in a clearance case) or published results (<code>7068</code> census rows), which are claims and should stay literal. The two tests that depended on the gallery&#x27;s wording now find it by <code>id=&quot;n-gallery&quot;</code>.</p>
+<h2>JS exact core — 2026-11-17</h2>
+<p>The plan is <code>state/PORT-int.md</code>. Python is not rewritten for symmetry; a calculation moves only when the page must compute it live.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Browser-side exact core, first slice:</strong> <code>workbench/exact.js</code> (Rational on</span></label>
+<p>BigInt), <code>workbench/poly_exact.js</code>, <code>workbench/ph_offset.js</code>, and <code>tests/js/ph_offset.test.js</code> pinned to the Python numbers (the polynomials, the normal equations, grid 3360, the rail grids, the symmetric candidate). <code>scripts/test.py</code> runs <code>node --test</code> after the Python modules (8 pass, 0.3 s); <code>scripts/code_count.sh</code> prints the split: Python 67,062 lines, our JS 11,951.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Next:</strong> <code>workbench/rail_chart.js</code>, then the rail lab controls reading</span></label>
+<p><code>ph_offset.js</code>; then crossings; grid and bend only with the 1e16 guard; <code>measure.py</code> last. Node stays a test tool, not a build dependency.</p>
 <h2>Open work from 2026-11-16</h2>
 <label class="task"><input type="checkbox" disabled><span><strong>The figure decisions are not made.</strong> <code>workbench/curve-figures.html</code> shows the page</span></label>
 <p>view beside the factored view for all ten curves; the accept/reject JSON has to come back before any figure replaces its original.</p>

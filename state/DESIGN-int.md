@@ -394,6 +394,28 @@ later... that is the last step before transfer to inkscape and glyphs 4".
   a mirror station, and it changes the primary curve, so the choice is the
   operator's.
 
+## Browser JS, Node as a tool — 2026-11-17
+
+Settled 2026-11-17, by the operator: the page layer should be JS, but "dont get
+too dependent on node except for good reason (the code is already debugged)".
+
+- **Live page maths is JS**, in small self-contained modules that load as a
+  plain script or through `require`; no bundler, under 200 lines each.
+- **Node is a verification tool**, not a build dependency: it runs the browser
+  modules' tests and the Playwright page checks. No generator moves to Node to
+  be Node.
+- **Python stays where it is debugged** — the engine, the records, the audits,
+  the generators that write static cards. A calculation moves only when a page
+  must compute it live, and then the Python twin is deleted in the same commit.
+- **One number, one source**: a live number from the JS module, a stored number
+  from the record. No third implementation.
+- **No floats on an exact path**; the 1e16 case (`loop-13-15-17-mid-1`) is the
+  mandatory test when a grid or crossing function moves.
+- The first slice: `exact.js`, `poly_exact.js`, `ph_offset.js`, pinned to the
+  Python numbers by `tests/js/ph_offset.test.js`; `scripts/test.py` runs
+  `node --test`; `scripts/code_count.sh` prints the language split at handoff.
+  The full plan and order is `state/PORT-int.md`.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from

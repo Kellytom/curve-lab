@@ -38,6 +38,21 @@
       (`7068` census rows), which are claims and should stay literal. The two tests that
       depended on the gallery's wording now find it by `id="n-gallery"`.
 
+## JS exact core — 2026-11-17
+
+The plan is `state/PORT-int.md`. Python is not rewritten for symmetry; a
+calculation moves only when the page must compute it live.
+
+- [x] **Browser-side exact core, first slice:** `workbench/exact.js` (Rational on
+  BigInt), `workbench/poly_exact.js`, `workbench/ph_offset.js`, and
+  `tests/js/ph_offset.test.js` pinned to the Python numbers (the polynomials,
+  the normal equations, grid 3360, the rail grids, the symmetric candidate).
+  `scripts/test.py` runs `node --test` after the Python modules (8 pass, 0.3 s);
+  `scripts/code_count.sh` prints the split: Python 67,062 lines, our JS 11,951.
+- [ ] **Next:** `workbench/rail_chart.js`, then the rail lab controls reading
+  `ph_offset.js`; then crossings; grid and bend only with the 1e16 guard;
+  `measure.py` last. Node stays a test tool, not a build dependency.
+
 ## Open work from 2026-11-16
 
 - [ ] **The figure decisions are not made.** `workbench/curve-figures.html` shows the page
