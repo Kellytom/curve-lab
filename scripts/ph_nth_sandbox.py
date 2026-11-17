@@ -411,6 +411,10 @@ without leaving the PH family. The flare law and the serif foot are parked in
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>
+<p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
+<button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
+<button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<span class="small mono" id="n-saved-count"></span></p>
 <div class="paste-row">
   <textarea id="n-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-5,6,1,0,0], "speedY": [4,-22,22,-2,0,0]} - or a whole {"curves": [...]} document'></textarea>
   <button type="button" id="n-load">load pasted JSON</button>

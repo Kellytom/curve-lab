@@ -400,6 +400,10 @@ without leaving the PH family. The flare law and the serif foot are parked in
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>
+<p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
+<button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
+<button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<span class="small mono" id="n-saved-count"></span></p>
 <div class="paste-row">
   <textarea id="n-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-5,6,1,0,0], "speedY": [4,-22,22,-2,0,0]} - or a whole {"curves": [...]} document'></textarea>
   <button type="button" id="n-load">load pasted JSON</button>
@@ -3009,6 +3013,31 @@ window.curveSaver = (function () {
     const count = document.getElementById("n-saved-count");
     if (count) count.textContent = `${items.length} curves written`;
   });
+  // One press for everything that lives only in this browser: the saved curves, the list moved to
+  // notes, and the star order. Those three are the only state a terminal exit would otherwise
+  // lose, and the file it writes can be committed as state/operator-list.json.
+  const exportAll = document.getElementById("n-export-everything");
+  if (exportAll) exportAll.addEventListener("click", () => {
+    const read = key => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (error) { return []; } };
+    const payload = {
+      format: "curve-lab.operator-list/1",
+      note: "everything this browser holds; saved curves, moved list, star order",
+      saved: saved(),
+      moved: read("ph-nth-archive-v2"),
+      starred: read("ph-nth-stars"),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 1)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "operator-list.json";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    const count = document.getElementById("n-saved-count");
+    if (count) count.textContent = `exported ${payload.saved.length} saved, ${payload.moved.length} moved, ${payload.starred.length} starred`;
+  });
+
   const countSaved = document.getElementById("n-count-saved");
   if (countSaved) countSaved.addEventListener("click", () => {
     const items = saved();
@@ -4746,7 +4775,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 20:52</p>
+<p class="small mono" id="n-build">build 2026-11-16 21:06</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');
