@@ -43,6 +43,11 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   draws with `plate_math.js`; the selectors list the 28 saved curves; every
   copy has its character rails and closed ends; the readout prints the paths
   and the note. `tests/test_square_frame.py` guards the controls and the page.
+- [x] **Stars and the gallery picker:** the lab stars a design (localStorage),
+  downloads `starred.json`; the exporter adds those under **Framed Quintic
+  symmetric figures** above **Simple framed symmetric central figures** and the
+  singles. The lab also has a bottom picker: **88 thumbnails** (28 seed/new + 60
+  found) with rails and the operator's category, click to load into curve a.
 - [ ] **The chain form (B8):** two curves end to end, not flipped — a shallow
   leg to a steep leg — with the join angle printed.
 

@@ -46,7 +46,32 @@ const seed = eval("(" + text.slice(open, end) + ")");
 // a horizontal tangent there (grid 15, station (0, 5)).
 const made = [{ name: "new-symmetric", speedX: [1], speedY: [1, -4, 4],
                 from: "new" }];
-const curves = seed.concat(made).map((row) => ({
+
+// The found set stores terms (power, x, y); turn them into speed rows.
+const foundData = JSON.parse(readFileSync("workbench/found-curves.json", "utf8"));
+const rows = seed.map((row) => ({ ...row, source: "seed" }))
+  .concat(made.map((row) => ({ ...row, source: "new" })));
+const seen = new Set(rows.map((row) => row.name));
+for (const row of foundData.curves) {
+  if (seen.has(row.name)) continue;
+  const top = Math.max(...row.terms.map((term) => term.power));
+  const speedX = new Array(top + 1).fill(0);
+  const speedY = new Array(top + 1).fill(0);
+  row.terms.forEach((term) => {
+    speedX[term.power] = term.x;
+    speedY[term.power] = term.y;
+  });
+  rows.push({ name: row.name, speedX, speedY, source: "found",
+              found: row.measured });
+  seen.add(row.name);
+}
+
+const curves = rows.map((row) => {
+  const symmetry = PlateMath.symmetry({ speedX: row.speedX, speedY: row.speedY });
+  const category = row.source === "found"
+    ? (symmetry.symmetric ? "symmetric" : "asymmetric")
+    : (["u-bowl", "wave-coarse"].includes(row.name) ? "symmetric" : "asymmetric");
+  return {
   name: row.name,
   speedX: row.speedX,
   speedY: row.speedY,
@@ -54,8 +79,11 @@ const curves = seed.concat(made).map((row) => ({
   ...(row.character ? { character: row.character } : {}),
   ...(row.shear !== undefined ? { shear: row.shear } : {}),
   ...(row.hook ? { hook: row.hook } : {}),
-  symmetry: PlateMath.symmetry({ speedX: row.speedX, speedY: row.speedY }),
-}));
+  ...(row.source ? { source: row.source } : {}),
+  ...(row.found ? { found: row.found } : {}),
+  symmetry, category,
+  };
+});
 
 const data = {
   format: "real-curves/1",

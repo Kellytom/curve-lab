@@ -1,7 +1,7 @@
 {
  "format": "real-curves/1",
  "note": "The operator's kept set from the sandbox seed. Speed rows are the PH pair (u, v); character data is kept for the later rails.",
- "count": 28,
+ "count": 88,
  "curves": [
   {
    "name": "amper",
@@ -21,12 +21,14 @@
     0,
     0
    ],
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.9743465258365868,
     "mirror": 0.8835187924626104
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "euler-hook",
@@ -59,12 +61,14 @@
     "dx": 2.934,
     "dy": -0.624
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.8996256907166754,
     "mirror": 0.8862316557056474
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "swan",
@@ -97,12 +101,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.414485994665342,
     "mirror": 0.9362125907199265
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "swan-2",
@@ -135,12 +141,14 @@
     "dx": -2.988584,
     "dy": 0.261467
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.414485994665342,
     "mirror": 0.9362125907199265
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "gosling",
@@ -173,12 +181,14 @@
     "dx": 0,
     "dy": -1
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.8038079518386492,
     "mirror": 0.7641951628850597
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "double-tap",
@@ -211,12 +221,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.4057532524163086,
     "mirror": 0.615416314386733
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "curlicue",
@@ -249,12 +261,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.44269274559265986,
     "mirror": 0.56308363962498
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "grass",
@@ -287,12 +301,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.8939129470261086,
     "mirror": 0.7073137590582071
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "u-bowl",
@@ -325,12 +341,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 1.1999976000034498,
     "mirror": 3.996794895056277e-16
-   }
+   },
+   "category": "symmetric"
   },
   {
    "name": "v-sharp",
@@ -363,12 +381,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 0.5599897857055844,
     "mirror": 6.217213251618118e-16
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "m-arch",
@@ -401,12 +421,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "half-turn",
     "symmetric": true,
     "half": 8.326913847585592e-16,
     "mirror": 0.7809011866524741
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "gumdrop",
@@ -447,12 +469,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.9335464546634256,
     "mirror": 0.06212244361454071
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "m-coarse",
@@ -478,12 +502,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.8939753564699567,
     "mirror": 0.8480973692580228
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "bowl-coarse",
@@ -508,12 +534,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 1.6361464591917116,
     "mirror": 0.8117559672596689
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "wave-coarse",
@@ -540,12 +568,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 0.9646619818269452,
     "mirror": 3.366118666084138e-16
-   }
+   },
+   "category": "symmetric"
   },
   {
    "name": "involute-fit",
@@ -582,12 +612,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.964649121885647,
     "mirror": 0.9379582616191076
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "catenary-fit",
@@ -624,12 +656,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 0.821929614823496,
     "mirror": 0.00004248375716301626
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "euler-fit",
@@ -666,12 +700,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 1.1318880003226905,
     "mirror": 1.0134122642755738
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "logspiral-fit",
@@ -708,12 +744,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.5467492209503508,
     "mirror": 0.5450659929669333
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "knot-6",
@@ -742,12 +780,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.7936088373913638,
     "mirror": 0.7868483381246313
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "knot-7",
@@ -778,12 +818,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 0.7350429013825348,
     "mirror": 0.8389588687770871
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "inflect-2",
@@ -812,12 +854,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "none",
     "symmetric": false,
     "half": 1.1203490291548504,
     "mirror": 0.8621772854033931
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "wave3",
@@ -850,12 +894,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 0.5364312703942097,
     "mirror": 6.700010994594447e-16
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "cusp5-x3",
@@ -888,12 +934,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 1.1304213456210106,
     "mirror": 1.349188452614139e-15
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "cusp7-deep",
@@ -930,12 +978,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "mirror",
     "symmetric": true,
     "half": 1.0934949794349442,
     "mirror": 3.9761582563905e-15
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "twin-cusp",
@@ -970,12 +1020,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "half-turn",
     "symmetric": true,
     "half": 3.5666820455052404e-15,
     "mirror": 0.7912061285708692
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "w-arch",
@@ -1008,12 +1060,14 @@
     "dx": 0,
     "dy": 0
    },
+   "source": "seed",
    "symmetry": {
     "kind": "half-turn",
     "symmetric": true,
     "half": 8.326913847585592e-16,
     "mirror": 0.7809011866524741
-   }
+   },
+   "category": "asymmetric"
   },
   {
    "name": "new-symmetric",
@@ -1025,12 +1079,2081 @@
     -4,
     4
    ],
+   "source": "new",
    "symmetry": {
     "kind": "half-turn",
     "symmetric": true,
     "half": 3.371369497459904e-16,
     "mirror": 0.6401800705493244
-   }
+   },
+   "category": "asymmetric"
+  },
+  {
+   "name": "lace-1of8-3",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -7,
+    106,
+    -532,
+    1208,
+    -1280,
+    512
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.393,
+    "grid": 1155,
+    "meetings": 16,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.3735154272940585,
+    "mirror": 3.800544706502223e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-3",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -11,
+    210,
+    -1140,
+    2680,
+    -2880,
+    1152
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.353,
+    "grid": 1155,
+    "meetings": 14,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.7301014537523242,
+    "mirror": 2.928872726162926e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-3",
+   "speedX": [
+    1,
+    2,
+    -2,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.333,
+    "grid": 3465,
+    "meetings": 12,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5223291581797441,
+    "mirror": 2.5356310253233544e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of3-3",
+   "speedX": [
+    1,
+    -1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -2,
+    21,
+    -87,
+    178,
+    -180,
+    72
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.934,
+    "grid": 1155,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.9981403013789228,
+    "mirror": 9.885567116277684e-16
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of4-3",
+   "speedX": [
+    1,
+    1,
+    -1,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -3,
+    34,
+    -148,
+    312,
+    -320,
+    128
+   ],
+   "source": "found",
+   "found": {
+    "bend": 3.153,
+    "grid": 6930,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.7243207215329871,
+    "mirror": 1.1028853309033058e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-middle-5",
+   "speedX": [
+    1,
+    -1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -1,
+    10,
+    -40,
+    80,
+    -80,
+    32
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.299,
+    "grid": 110,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.4969438182494263,
+    "mirror": 3.5311276743879665e-16
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of10-5",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -9,
+    190,
+    -1460,
+    5720,
+    -12720,
+    16288,
+    -11200,
+    3200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.833,
+    "grid": 429,
+    "meetings": 8,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.369356814653226,
+    "mirror": 4.689213047264042e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-5",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -11,
+    254,
+    -2024,
+    8080,
+    -18160,
+    23392,
+    -16128,
+    4608
+   ],
+   "source": "found",
+   "found": {
+    "bend": 4.034,
+    "grid": 2145,
+    "meetings": 8,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.44392888863879554,
+    "mirror": 2.8018699910266016e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of8-5",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -7,
+    134,
+    -984,
+    3760,
+    -8240,
+    10464,
+    -7168,
+    2048
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.516,
+    "grid": 2145,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.517037579942369,
+    "mirror": 1.4838737013987173e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of6-5",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -5,
+    86,
+    -596,
+    2200,
+    -4720,
+    5920,
+    -4032,
+    1152
+   ],
+   "source": "found",
+   "found": {
+    "bend": 7.327,
+    "grid": 2145,
+    "meetings": 2,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.9812897038547481,
+    "mirror": 2.2405251878648122e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of5-5",
+   "speedX": [
+    1,
+    -1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -4,
+    65,
+    -435,
+    1570,
+    -3320,
+    4128,
+    -2800,
+    800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 7.968,
+    "grid": 2145,
+    "meetings": 2,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.200176338913309,
+    "mirror": 2.6992861994956152e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2x1of3-3",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -4,
+    60,
+    -381,
+    1328,
+    -2745,
+    3366,
+    -2268,
+    648
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.784,
+    "grid": 30030,
+    "meetings": 2,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.2494952150994196,
+    "mirror": 1.176861301592672e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of4-5",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -3,
+    46,
+    -296,
+    1040,
+    -2160,
+    2656,
+    -1792,
+    512
+   ],
+   "source": "found",
+   "found": {
+    "bend": 3.369,
+    "grid": 2145,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.7537174902256331,
+    "mirror": 8.66144572222782e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of3-5",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -2,
+    29,
+    -179,
+    610,
+    -1240,
+    1504,
+    -1008,
+    288
+   ],
+   "source": "found",
+   "found": {
+    "bend": 3.444,
+    "grid": 4290,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.1050225784802394,
+    "mirror": 8.600229132698375e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-middle-7",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -1,
+    14,
+    -84,
+    280,
+    -560,
+    672,
+    -448,
+    128
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.333,
+    "grid": 15,
+    "meetings": 2,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5414383067363205,
+    "mirror": 1.6698938989103733e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of9-3",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -8,
+    129,
+    -663,
+    1522,
+    -1620,
+    648
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.772,
+    "grid": 22,
+    "meetings": 16,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.2788599979648828,
+    "mirror": 1.3260624807824023e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of7-3",
+   "speedX": [
+    1,
+    -1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -6,
+    85,
+    -415,
+    930,
+    -980,
+    392
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.928,
+    "grid": 3465,
+    "meetings": 8,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5947037298944515,
+    "mirror": 4.523004861320469e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2of7-3",
+   "speedX": [
+    1,
+    2,
+    -2,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -10,
+    109,
+    -463,
+    962,
+    -980,
+    392
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.559,
+    "grid": 770,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.493621704592518,
+    "mirror": 1.3361875294785428e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of14-3",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -13,
+    274,
+    -1528,
+    3632,
+    -3920,
+    1568
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.671,
+    "grid": 1155,
+    "meetings": 6,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5911161107283058,
+    "mirror": 6.156310697598882e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of3-0",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0
+   ],
+   "speedY": [
+    14,
+    -191,
+    767,
+    -1152,
+    576
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.475,
+    "grid": 42,
+    "meetings": 13,
+    "self": 4
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 9.82033792922337e-16,
+    "mirror": 0.3091001870795257
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-2",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0
+   ],
+   "speedY": [
+    9,
+    -136,
+    536,
+    -800,
+    400
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.271,
+    "grid": 315,
+    "meetings": 7,
+    "self": 2
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 1.55820787715561e-15,
+    "mirror": 0.7337522059683411
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of3-2",
+   "speedX": [
+    0,
+    2,
+    -2,
+    0,
+    0
+   ],
+   "speedY": [
+    2,
+    -17,
+    53,
+    -72,
+    36
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.846,
+    "grid": 210,
+    "meetings": 5,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 9.40384679641769e-16,
+    "mirror": 0.32108818110040505
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2of5-2",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0
+   ],
+   "speedY": [
+    6,
+    -49,
+    149,
+    -200,
+    100
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.098,
+    "grid": 630,
+    "meetings": 5,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 6.781412977977286e-16,
+    "mirror": 0.5044620884944223
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-3of8-2",
+   "speedX": [
+    1,
+    1,
+    -1,
+    0,
+    0
+   ],
+   "speedY": [
+    15,
+    -124,
+    380,
+    -512,
+    256
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.082,
+    "grid": 630,
+    "meetings": 4,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 6.043125206005747e-16,
+    "mirror": 0.2604084151537447
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-middle-4",
+   "speedX": [
+    0,
+    1,
+    -1,
+    0,
+    0
+   ],
+   "speedY": [
+    1,
+    -8,
+    24,
+    -32,
+    16
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.743,
+    "grid": 630,
+    "meetings": 3,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 6.8167850697458e-16,
+    "mirror": 0.3448610936242457
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of3-2of5-0",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0
+   ],
+   "speedY": [
+    12,
+    -104,
+    329,
+    -450,
+    225
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.03,
+    "grid": 210,
+    "meetings": 3,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 2.5029088899391767e-16,
+    "mirror": 0.2577572539414882
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2x1of6-0",
+   "speedX": [
+    1,
+    4,
+    -4,
+    0,
+    0
+   ],
+   "speedY": [
+    25,
+    -360,
+    1656,
+    -2592,
+    1296
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.019,
+    "grid": 105,
+    "meetings": 1,
+    "self": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 6.691211634266501e-16,
+    "mirror": 0.26040278909172504
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-4",
+   "speedX": [
+    1,
+    -2,
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    9,
+    -172,
+    1116,
+    -3488,
+    5744,
+    -4800,
+    1600
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.239,
+    "grid": 45045,
+    "meetings": 9,
+    "self": 2
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 4.048060981986871e-15,
+    "mirror": 0.2512471368474208
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of12-4",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    11,
+    -232,
+    1560,
+    -4960,
+    8240,
+    -6912,
+    2304
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.442,
+    "grid": 9009,
+    "meetings": 9,
+    "self": 2
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 1.7210576242267016e-14,
+    "mirror": 0.24735197556611463
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-1of3-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -22,
+    431,
+    -2457,
+    5958,
+    -6480,
+    2592
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.74,
+    "grid": 231,
+    "meetings": 20,
+    "self": 7
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6522122527193969,
+    "mirror": 3.4905326340959692e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-1of4-1",
+   "speedX": [
+    6,
+    -36,
+    36,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -27,
+    498,
+    -2932,
+    7288,
+    -8000,
+    3200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.504,
+    "grid": 3465,
+    "meetings": 20,
+    "self": 7
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5108785898451751,
+    "mirror": 2.4597099520333883e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-3-2",
+   "speedX": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.033,
+    "grid": 3465,
+    "meetings": 18,
+    "self": 11
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.9578081782172789,
+    "mirror": 2.0420776337300226e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-2x1of6-1",
+   "speedX": [
+    5,
+    -36,
+    36,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -25,
+    410,
+    -2376,
+    5904,
+    -6480,
+    2592
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.593,
+    "grid": 231,
+    "meetings": 15,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.353760127829915,
+    "mirror": 2.330422638053086e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of6-1of5-1",
+   "speedX": [
+    3,
+    -9,
+    9,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -20,
+    309,
+    -1707,
+    4138,
+    -4500,
+    1800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.263,
+    "grid": 385,
+    "meetings": 14,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5460148122171807,
+    "mirror": 4.1553383967654996e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-1of3-1",
+   "speedX": [
+    5,
+    -36,
+    36,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -18,
+    317,
+    -1743,
+    4162,
+    -4500,
+    1800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.965,
+    "grid": 2310,
+    "meetings": 14,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.0984097666403194,
+    "mirror": 4.830416962792558e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-1of4-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -33,
+    674,
+    -4128,
+    10432,
+    -11520,
+    4608
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.564,
+    "grid": 462,
+    "meetings": 14,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5462596452959135,
+    "mirror": 3.4631971583864494e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of10-1of5-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -36,
+    697,
+    -4375,
+    11250,
+    -12500,
+    5000
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.387,
+    "grid": 693,
+    "meetings": 14,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6172755920472882,
+    "mirror": 9.094274287617037e-16
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of3-1",
+   "speedX": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -14,
+    219,
+    -1149,
+    2686,
+    -2880,
+    1152
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.33,
+    "grid": 2310,
+    "meetings": 12,
+    "self": 7
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6151211432511474,
+    "mirror": 1.4470728701866935e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of5-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -28,
+    487,
+    -2893,
+    7262,
+    -8000,
+    3200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.734,
+    "grid": 385,
+    "meetings": 10,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.9303878849634838,
+    "mirror": 2.4088007880105455e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of4-1",
+   "speedX": [
+    4,
+    -16,
+    16,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -21,
+    346,
+    -1936,
+    4704,
+    -5120,
+    2048
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.316,
+    "grid": 3465,
+    "meetings": 10,
+    "self": 8
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5957105161010539,
+    "mirror": 4.010567283789782e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of8-1of6-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -35,
+    642,
+    -4020,
+    10360,
+    -11520,
+    4608
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.369,
+    "grid": 462,
+    "meetings": 10,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6666145129241425,
+    "mirror": 4.302449785338301e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-2of5-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -42,
+    643,
+    -3277,
+    7518,
+    -8000,
+    3200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.258,
+    "grid": 3465,
+    "meetings": 2,
+    "self": 7
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.45393107025964535,
+    "mirror": 1.54145686102389e-15
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-5of12-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -35,
+    354,
+    -1428,
+    2872,
+    -2880,
+    1152
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.234,
+    "grid": 462,
+    "meetings": 2,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6076307581427516,
+    "mirror": 4.1257542001716894e-16
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of10-1of4-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -27,
+    606,
+    -5032,
+    21008,
+    -48880,
+    64352,
+    -44800,
+    12800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 2.348,
+    "grid": 1638,
+    "meetings": 18,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.0561195938143522,
+    "mirror": 3.258083708166041e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-2x1of3-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -44,
+    1060,
+    -8991,
+    37908,
+    -88695,
+    117126,
+    -81648,
+    23328
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.385,
+    "grid": 30030,
+    "meetings": 14,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.44780521273784923,
+    "mirror": 1.923403150617826e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of10-1of3-3",
+   "speedX": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -18,
+    389,
+    -3083,
+    12402,
+    -28120,
+    36448,
+    -25200,
+    7200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.262,
+    "grid": 630,
+    "meetings": 14,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5032699115181024,
+    "mirror": 3.413253587289367e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of12-1of3-3",
+   "speedX": [
+    4,
+    -16,
+    16,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -22,
+    519,
+    -4269,
+    17510,
+    -40140,
+    52344,
+    -36288,
+    10368
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.423,
+    "grid": 30030,
+    "meetings": 14,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.4956923508410315,
+    "mirror": 2.335168216547773e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of12-1of4-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -33,
+    806,
+    -6956,
+    29640,
+    -69760,
+    92416,
+    -64512,
+    18432
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.83,
+    "grid": 8190,
+    "meetings": 10,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.7205907440221555,
+    "mirror": 4.8515006111420874e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of6-2of5-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -30,
+    521,
+    -3647,
+    13578,
+    -29320,
+    36928,
+    -25200,
+    7200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.649,
+    "grid": 9009,
+    "meetings": 10,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.8619368124140611,
+    "mirror": 2.4734224951336426e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of10-2x1of3-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -36,
+    796,
+    -6501,
+    26864,
+    -62145,
+    81558,
+    -56700,
+    16200
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.573,
+    "grid": 30030,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.6586049421635782,
+    "mirror": 2.459167605171539e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of12-1of5-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -44,
+    1115,
+    -10085,
+    44470,
+    -107020,
+    143608,
+    -100800,
+    28800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.414,
+    "grid": 7,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5470376744920824,
+    "mirror": 1.0951759717790933e-13
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2x1of6-1of3-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -50,
+    1045,
+    -8667,
+    36882,
+    -87480,
+    116640,
+    -81648,
+    23328
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.238,
+    "grid": 15015,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.4911804286196839,
+    "mirror": 1.941400258929654e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-2x1of5-1of4-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -48,
+    952,
+    -7643,
+    32012,
+    -75375,
+    100150,
+    -70000,
+    20000
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.244,
+    "grid": 30030,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5043281817976305,
+    "mirror": 1.1653828684505421e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of6-2x1of4-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -45,
+    894,
+    -7148,
+    29768,
+    -69760,
+    92416,
+    -64512,
+    18432
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.284,
+    "grid": 90090,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5433692066540622,
+    "mirror": 2.12506548018384e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of8-1of4-1of3-1",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -42,
+    881,
+    -7175,
+    29946,
+    -70000,
+    92512,
+    -64512,
+    18432
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.362,
+    "grid": 6435,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5852959079969504,
+    "mirror": 3.0215904900063555e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wave-1of8-2of5-3",
+   "speedX": [
+    7,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -42,
+    811,
+    -6017,
+    23198,
+    -51180,
+    65272,
+    -44800,
+    12800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.33,
+    "grid": 3003,
+    "meetings": 6,
+    "self": 1
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.550138412855386,
+    "mirror": 4.428805076899937e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of10-1of5-3",
+   "speedX": [
+    6,
+    -25,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -36,
+    841,
+    -7307,
+    31538,
+    -75000,
+    100000,
+    -70000,
+    20000
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.325,
+    "grid": 273,
+    "meetings": 6,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5673665140192415,
+    "mirror": 2.620627956571676e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of6-3",
+   "speedX": [
+    6,
+    -36,
+    36,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -35,
+    782,
+    -6728,
+    29008,
+    -69040,
+    92128,
+    -64512,
+    18432
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.343,
+    "grid": 5005,
+    "meetings": 6,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5476266952389274,
+    "mirror": 2.990195282360895e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "lace-1of8-1of3-3",
+   "speedX": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -14,
+    275,
+    -2081,
+    8158,
+    -18220,
+    23416,
+    -16128,
+    4608
+   ],
+   "source": "found",
+   "found": {
+    "bend": 1.418,
+    "grid": 2730,
+    "meetings": 6,
+    "self": 3
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.7010080602631472,
+    "mirror": 1.8201829691689915e-14
+   },
+   "category": "symmetric"
+  },
+  {
+   "name": "wide-knot-x20",
+   "speedX": [
+    4,
+    -20,
+    20,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -9,
+    154,
+    -808,
+    1872,
+    -2000,
+    800
+   ],
+   "source": "found",
+   "found": {
+    "bend": 3.908,
+    "grid": 693,
+    "self": 5
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.387950667450755,
+    "mirror": 3.9890800376072095e-15
+   },
+   "category": "symmetric"
   }
  ]
 }

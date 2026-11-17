@@ -24,7 +24,8 @@ class SquareFrameTest(unittest.TestCase):
         for control in ("sf-a", "sf-b", "sf-form", "sf-per-w", "sf-per-h",
                         "sf-pattern", "sf-leg", "sf-natural", "sf-size",
                         "sf-fill", "sf-alternate", "sf-frame", "sf-width",
-                        "sf-plus", "sf-minus", "sf-profile", "sf-stage",
+                        "sf-plus", "sf-minus", "sf-profile", "sf-star",
+                        "sf-stars", "sf-download", "sf-gallery", "sf-stage",
                         "sf-readout"):
             self.assertIn(f'id="{control}"', self.page, control)
 
@@ -49,6 +50,19 @@ class SquareFrameTest(unittest.TestCase):
         self.assertIn("symmetric: [], asymmetric: []", self.page)
         self.assertIn('["symmetric", "asymmetric"]', self.page)
         self.assertIn("symmetry", self.page)
+
+    def test_the_curve_gallery_is_present(self):
+        self.assertIn('id="sf-gallery"', self.page)
+        self.assertIn("function renderGallery", self.page)
+        self.assertIn("curve-card", self.page)
+        self.assertIn("data-name", self.page)
+
+    def test_the_star_flow_is_present(self):
+        self.assertIn("square-lab-stars", self.page)
+        self.assertIn("starred.json", self.page)
+        self.assertIn("localStorage", self.page)
+        self.assertIn("function starDesign", self.page)
+        self.assertIn("function downloadStars", self.page)
 
     def test_curve_b_offers_none_and_same(self):
         self.assertIn('["none", "same"]', self.page)

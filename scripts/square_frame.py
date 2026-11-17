@@ -28,7 +28,96 @@ const $ = (id) => document.getElementById(id);
 const stage = $("sf-stage");
 const readout = $("sf-readout");
 const params = new URLSearchParams(location.search);
+const STAR_KEY = "square-lab-stars";
 let rows = null;
+
+function readStars() {
+  try { return JSON.parse(localStorage.getItem(STAR_KEY) || "[]"); }
+  catch { return []; }
+}
+function writeStars(stars) {
+  localStorage.setItem(STAR_KEY, JSON.stringify(stars));
+  renderStars();
+}
+function currentSpec() {
+  const aName = $("sf-a").value;
+  const choice = $("sf-b").value;
+  const bName = choice === "none" ? null : choice === "same" ? aName : choice;
+  let form = $("sf-form").value;
+  if (form === "leaf" && !bName) form = "single";
+  const natural = $("sf-natural").checked;
+  return {
+    descriptor: `${aName}-${form}`,
+    form, curve: aName, curveB: bName,
+    perWidth: Number($("sf-per-w").value), perHeight: Number($("sf-per-h").value),
+    pattern: $("sf-pattern").value,
+    leg: natural ? null : Number($("sf-leg").value),
+    frame: $("sf-frame").checked && form !== "single",
+    alternate: $("sf-alternate").checked,
+    width: Number($("sf-width").value), plus: Number($("sf-plus").value),
+    minus: Number($("sf-minus").value), profile: $("sf-profile").value,
+  };
+}
+function starDesign() {
+  const stars = readStars();
+  const max = stars.reduce((m, star) => Math.max(m, Number(star.serial) || 0), 300);
+  const spec = currentSpec();
+  spec.serial = max + 1;
+  stars.push(spec);
+  writeStars(stars);
+}
+function renderStars() {
+  const stars = readStars();
+  $("sf-stars").innerHTML = stars.length
+    ? stars.map((star, index) => `<div class="star-row"><span>${star.descriptor} · `
+      + `${String(star.serial).padStart(4, "0")}</span>`
+      + `<button type="button" data-index="${index}">remove</button></div>`).join("")
+    : `<p class="empty">no stars yet</p>`;
+}
+function gallerySvg(name) {
+  let group;
+  try { group = PlateMath.group(rows[name]); } catch { return ""; }
+  const paths = group.paths;
+  const box = PlateMath.bbox(paths.flat());
+  const w = 160, h = 110, margin = 8;
+  const [x0, y0, x1, y1] = box;
+  const k = Math.min((w - 2 * margin) / (x1 - x0), (h - 2 * margin) / (y1 - y0));
+  const ox = (w - (x1 - x0) * k) / 2 - x0 * k;
+  const oy = (h - (y1 - y0) * k) / 2 - y0 * k;
+  const to = ([x, y]) => [ox + x * k, h - (oy + y * k)];
+  const lines = paths.map((path) => {
+    const text = path.map((p) => to(p).map((v) => v.toFixed(1)).join(",")).join(" ");
+    return `<polyline points="${text}" fill="none" stroke="#2e2413" stroke-width="1.2" `
+      + `stroke-linecap="round" stroke-linejoin="round"/>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true">`
+    + `<rect width="${w}" height="${h}" fill="#ffffff"/>${lines}</svg>`;
+}
+
+function renderGallery() {
+  const names = Object.keys(rows).sort();
+  $("sf-gallery").innerHTML = names.map((name) => {
+    const category = rows[name].category
+      || (rows[name].symmetry && rows[name].symmetry.symmetric ? "symmetric" : "asymmetric");
+    return `<button type="button" class="curve-card" data-name="${name}">`
+      + gallerySvg(name) + `<span>${name}<br><i>${category}</i></span></button>`;
+  }).join("");
+}
+
+function downloadStars() {
+  const plates = readStars().map((star) => {
+    const { serial, ...rest } = star;
+    return { ...rest, variant: 1, kind: "star", serial,
+             id: `${star.descriptor}-1-t-exp-c-${String(serial).padStart(4, "0")}` };
+  });
+  const blob = new Blob([JSON.stringify({ format: "starred/1", plates }, null, 1)],
+    { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "starred.json";
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
 
 function show(id, value) {
   const el = $(id + "-v");
@@ -52,8 +141,9 @@ function start() {
   const names = Object.keys(rows).sort();
   const groups = { symmetric: [], asymmetric: [] };
   names.forEach((name) => {
-    const symmetric = rows[name].symmetry && rows[name].symmetry.symmetric;
-    groups[symmetric ? "symmetric" : "asymmetric"].push(name);
+    const category = rows[name].category
+      || (rows[name].symmetry && rows[name].symmetry.symmetric ? "symmetric" : "asymmetric");
+    groups[category].push(name);
   });
   ["sf-a", "sf-b"].forEach((id) => {
     const extra = id === "sf-b" ? ["none", "same"] : [];
@@ -69,6 +159,8 @@ function start() {
   $("sf-natural").checked = true;
   loadCharacter($("sf-a").value);
   if (params.has("width")) $("sf-width").value = params.get("width");
+  renderStars();
+  renderGallery();
   draw();
 }
 
@@ -151,7 +243,8 @@ function draw() {
   readout.textContent =
     `${((x1 - x0) * k / 72).toFixed(2)} × ${((y1 - y0) * k / 72).toFixed(2)} in · `
     + `${data.paths.length} paths · stroke ${stroke.toFixed(2)} pt · ${data.note}`
-    + ` · curve a ${rows[aName].symmetry ? rows[aName].symmetry.kind : "?"}`
+    + ` · curve a ${rows[aName].category || "?"}`
+    + ` (${rows[aName].symmetry ? rows[aName].symmetry.kind : "?"})`
     + fallback;
 }
 
@@ -160,6 +253,22 @@ function draw() {
  "sf-profile"].forEach((id) => $(id).addEventListener("input", draw));
 $("sf-a").addEventListener("input", () => { loadCharacter($("sf-a").value); draw(); });
 $("sf-b").addEventListener("input", draw);
+$("sf-gallery").addEventListener("click", (event) => {
+  const card = event.target.closest(".curve-card");
+  if (!card) return;
+  $("sf-a").value = card.dataset.name;
+  loadCharacter($("sf-a").value);
+  draw();
+});
+$("sf-star").addEventListener("click", starDesign);
+$("sf-download").addEventListener("click", downloadStars);
+$("sf-stars").addEventListener("click", (event) => {
+  const index = event.target.dataset.index;
+  if (index === undefined) return;
+  const stars = readStars();
+  stars.splice(Number(index), 1);
+  writeStars(stars);
+});
 start();
 """
 
@@ -204,10 +313,23 @@ h1{{font-size:24px;margin:0 0 4px}}
 .controls select,.controls input[type=text]{{width:100%;padding:4px;
   font:13px ui-monospace,Menlo,monospace;border:1px solid #d8ccae;background:#fff}}
 .controls .check{{display:flex;gap:8px;align-items:center}}
+.controls button{{width:100%;margin:0 0 8px;padding:6px;font:12px ui-monospace,Menlo,monospace;
+  border:1px solid #d8ccae;background:#f6f1e4;color:#2e2413;cursor:pointer}}
+.controls .star-row{{display:flex;justify-content:space-between;align-items:center;
+  font:11px ui-monospace,Menlo,monospace;color:#555;margin:2px 0}}
+.controls .star-row button{{width:auto;margin:0;padding:1px 6px}}
+.controls .empty{{font:11px ui-monospace,Menlo,monospace;color:#999;margin:4px 0 0}}
 .stage{{background:#fff;border:1px solid #d8ccae;padding:8px}}
 .stage svg{{display:block;width:100%;height:auto}}
 #sf-readout{{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin:0 0 8px}}
 .note{{font-size:12px;color:#7b6c4e;margin-top:16px}}
+.curves-title{{font-size:17px;margin:36px 0 4px}}
+.curve-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}}
+.curve-card{{display:block;background:#fffdf7;border:1px solid #d8ccae;padding:6px;
+  text-align:left;cursor:pointer;font:10px/1.4 ui-monospace,Menlo,monospace;color:#555}}
+.curve-card svg{{display:block;width:100%;height:auto;margin-bottom:4px}}
+.curve-card i{{color:#999;font-style:normal}}
+.curve-card:hover{{border-color:#b58312}}
 code{{font:12px ui-monospace,Menlo,monospace}}
 </style></head><body><main>
 <h1>Square and frame lab</h1>
@@ -272,6 +394,9 @@ its character rails and is closed at the ends.</p>
     flip every other copy</label>
   <label class="check"><input id="sf-frame" type="checkbox" checked>
     show the frame</label>
+  <button id="sf-star" type="button">★ star this design</button>
+  <button id="sf-download" type="button">download starred.json</button>
+  <div id="sf-stars"></div>
 </div>
 <div>
   <div id="sf-readout">loading…</div>
@@ -284,6 +409,11 @@ its character rails and is closed at the ends.</p>
 plates use and the same saved set in <code>real-curves.json</code>. A rail that
 would fold is shrunk, and a plate at the floor is drawn spine-only. The stroke
 floor is <strong>1 point</strong> at 1–4 inches.</p>
+<h2 class="curves-title">The curves</h2>
+<p class="note">Click a curve to load it into curve a. Each thumbnail is the
+spine with its character rails, closed at the ends; the small word under the
+name is its measured symmetry.</p>
+<div id="sf-gallery" class="curve-grid"></div>
 <p class="note">Re-derive: <code>python scripts/square_frame.py</code> ·
 <code>node --test tests/js</code></p>
 </main>

@@ -449,6 +449,17 @@ no input fields.
   plate is spine-only and the caption says so. Two of the 27 saved curves land
   there: `involute-fit` and `inflect-2`.
 
+## Starring is a download, not a server write — 2026-11-17
+
+The operator stars designs in the lab and wants them in the book gallery. The
+lab runs in the browser; its stars live in `localStorage`; the exporter runs in
+Node and cannot read a browser. The bridge is a **downloaded file**:
+`workbench/starred.json`. The lab allocates each star a serial (from 0301) once,
+stores it with the settings, and downloads the file; the exporter reads it if
+present and adds the plates under the top section. There is no write endpoint on
+the server, and a missing file is a prompt, not an error. This is the same
+pattern as the saved-curve list: the browser cannot be the database.
+
 ## Symmetry is measured, not guessed — 2026-11-17
 
 The operator's note: the saved curves are not all internally symmetric, so the
@@ -459,12 +470,14 @@ lab groups them. The measurement is on the spine, at 400 stations:
   x values add to `2x(1/2)` and the y values are equal;
 - **none** — neither, within 0.5% of the bounding-box diagonal.
 
-Measured on the 28 saved curves: **11 symmetric** (7 mirror: `u-bowl`, `v-sharp`,
-`wave-coarse`, `catenary-fit`, `wave3`, `cusp5-x3`, `cusp7-deep`; 4 half-turn:
-`m-arch`, `w-arch`, `twin-cusp`, `new-symmetric`) and **17 asymmetric**
-(`amper`, `swan`, the fits, the knots, `gumdrop`, ...). The lab's two curve
-menus group the options under **symmetric** and **asymmetric**; the gallery
-caption prints the kind. The record lives in `workbench/real-curves.json`.
+**The operator's category is stricter than the axis test.** Among the seed,
+only `u-bowl` and `wave-coarse` count as symmetric; the 60 **found** curves take
+their measured symmetry. The measured kind stays in the data and the readout
+prints both, so the difference is visible: `v-sharp` is a measured mirror but
+the operator's category is asymmetric. The lab now offers **88 curves**
+(28 seed/new + 60 found) and **62 are symmetric** under this rule. The record
+lives in `workbench/real-curves.json`, with `source` (seed, new, found),
+`symmetry` and `category` per curve.
 
 ## Central designs are at least two curves — 2026-11-17
 

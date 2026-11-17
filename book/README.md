@@ -67,6 +67,20 @@ It writes `svg/<id>.svg`, `plates/<id>.png`, `render.html` and `index.html`,
 prints the distance, the fold margin, the pixel size and the bytes, and stamps
 300 dpi.
 
+## Starred figures
+
+The gallery's top section, **Framed Quintic symmetric figures**, is whatever the
+operator stars in `workbench/square-frame.html`. A browser cannot write a file,
+so the bridge is a download: star a design in the lab, press **download
+starred.json**, and save the file to `workbench/starred.json`. The next export
+adds those plates under the top section. With no file, the section shows the
+instruction rather than an error.
+
+The section below it, **Simple framed symmetric central figures**, is the pair
+in `plates.json` (cross and leaf). The 27 single curves from `plates.json` follow. The lab's picker offers the
+full 88-curve set, including the 60 found curves; starring one promotes it to
+the top section.
+
 ## What is not done
 
 - **Clipping to the ink.** The curve's ends stop at the margin, not at a hand

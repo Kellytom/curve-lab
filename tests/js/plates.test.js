@@ -58,11 +58,19 @@ test("every plate has its SVG and a 300 dpi PNG at the long side", () => {
   }
 });
 
-test("symmetry is measured: u-bowl mirrors, swan does not, new-symmetric turns", () => {
+test("symmetry is measured, and the category follows the operator", () => {
   assert.equal(PlateMath.symmetry(rows["u-bowl"]).kind, "mirror");
   assert.equal(PlateMath.symmetry(rows["swan"]).symmetric, false);
   assert.equal(PlateMath.symmetry(rows["new-symmetric"]).kind, "half-turn");
-  for (const row of curves.curves) assert.ok(row.symmetry, row.name);
+  assert.equal(rows["u-bowl"].category, "symmetric");
+  assert.equal(rows["v-sharp"].category, "asymmetric");  // measured mirror, but not chosen
+  assert.equal(rows["swan"].category, "asymmetric");
+  assert.equal(rows["lace-1of8-3"].source, "found");
+  assert.equal(rows["lace-1of8-3"].category, "symmetric");
+  for (const row of curves.curves) {
+    assert.ok(row.symmetry, row.name);
+    assert.ok(["symmetric", "asymmetric"].includes(row.category), row.name);
+  }
 });
 
 test("the curve data is whole: count matches, no empty or zero rows", () => {
@@ -82,9 +90,13 @@ test("a frame pattern can use both curves", () => {
   assert.deepEqual(south.map((item) => item.letter), ["a", "b"]);
 });
 
-test("the gallery has the central designs above the single curves", () => {
+test("the gallery has the starred section, the simple designs and the singles", () => {
   const gallery = fs.readFileSync(path.join(ROOT, "book/index.html"), "utf8");
-  assert.ok(gallery.includes("New symmetric central figures"));
+  assert.ok(gallery.includes("Framed Quintic symmetric figures"));
+  assert.ok(gallery.includes("Simple framed symmetric central figures"));
   assert.ok(gallery.includes("Single curves"));
-  assert.equal((gallery.match(/<img /g) || []).length, manifest.plates.length);
+  const starredPath = path.join(ROOT, "workbench/starred.json");
+  const starred = fs.existsSync(starredPath)
+    ? (JSON.parse(fs.readFileSync(starredPath, "utf8")).plates || []).length : 0;
+  assert.equal((gallery.match(/<img /g) || []).length, manifest.plates.length + starred);
 });

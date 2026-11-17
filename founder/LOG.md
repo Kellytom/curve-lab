@@ -155,10 +155,19 @@ Every remark carries one:
   and `square_lab.js` are gone. `[now]`
 - **The load wait is gone.** The curve data is written into the page, so the
   lab opens with the drawing already there. `[now]`
-- **The curves are grouped by measured symmetry.** 11 of the 28 are symmetric
-  (7 mirror, 4 half turn); `amper` and `swan` are not. The two menus show
-  **symmetric** and **asymmetric**. `[now]`
+- **The curves are grouped by the operator's category.** Among the seed only
+  `u-bowl` and `wave-coarse` count; the 60 found curves take their measured
+  symmetry. 62 of the 88 are symmetric; `amper`, `swan` and `v-sharp` are not.
+  The two menus show **symmetric** and **asymmetric**. `[now]`
+- **The found curves are in the lab:** 88 thumbnails at the foot, click to load,
+  and any of them can be starred into the book gallery. `[now]`
 - **The single arch is the default** (`u-bowl`, natural legs) because a bowl
   forced to a 45° leg flattens; the 45° rule is for mitred edges, not arches.
   `[now]`
+- **Stars feed the book gallery.** Star a design in the lab, download
+  `starred.json`, drop it in `workbench/`; the gallery's top section is
+  **Framed Quintic symmetric figures**, then the simple framed pair, then the
+  singles. `[now]`
+- **The lab has a picker at its foot:** 28 thumbnails with rails and symmetry,
+  click to load into curve a. `[now]`
 - **Next: the chain form** — two curves end to end, not flipped. `[now]`

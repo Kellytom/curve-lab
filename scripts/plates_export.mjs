@@ -7,7 +7,7 @@
 // screenshots every plate with Playwright, stamps 300 dpi, then writes
 // book/index.html. No Python in the path.
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
 import { resolve } from "node:path";
 import { chromium } from "playwright-core";
@@ -35,9 +35,45 @@ for (const row of curveData.curves) {
 }
 const rows = Object.fromEntries(curveData.curves.map((row) => [row.name, row]));
 
+// Stars from the lab: the lab cannot write a file, so it downloads
+// workbench/starred.json and the operator drops it in. Absent is not an error.
+const starredPath = resolve(ROOT, "workbench", "starred.json");
+let starred = [];
+if (existsSync(starredPath)) {
+  const data = JSON.parse(readFileSync(starredPath, "utf8"));
+  starred = (data.plates || []).map((plate) => ({ ...plate, kind: "star" }));
+}
+
 // -- the plate ---------------------------------------------------------------
 
 function compose(plate) {
+  if (plate.kind === "star") {
+    const patched = { ...rows };
+    const patch = (name) => {
+      if (!name || !rows[name]) return;
+      patched[name] = {
+        ...rows[name],
+        width: { percent: plate.width ?? (rows[name].width || {}).percent ?? 1.5 },
+        character: {
+          plus: plate.plus ?? (rows[name].character || {}).plus ?? 2,
+          minus: plate.minus ?? (rows[name].character || {}).minus ?? 2,
+          profile: plate.profile ?? (rows[name].character || {}).profile ?? "bow",
+        },
+      };
+    };
+    patch(plate.curve); patch(plate.curveB);
+    if (plate.form === "single") {
+      const group = PlateMath.group(patched[plate.curve]);
+      return { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()),
+               note: `${group.note} · starred` };
+    }
+    const data = PlateMath.design({
+      form: plate.form, curve: plate.curve, curveB: plate.curveB,
+      leg: plate.leg, pattern: plate.pattern, alternate: plate.alternate,
+      frame: plate.frame ? { perWidth: plate.perWidth, perHeight: plate.perHeight } : null,
+    }, patched);
+    return { paths: data.paths, bbox: data.bbox, note: `${data.note} · starred` };
+  }
   if (plate.kind === "design") {
     const data = PlateMath.design(plate, rows);
     const symmetry = rows[plate.curve] && rows[plate.curve].symmetry;
@@ -132,7 +168,7 @@ function pngSize(path) {
 // -- render, screenshot, gallery --------------------------------------------
 
 const plates = [];
-manifest.plates.forEach((plate) => {
+[...starred, ...manifest.plates].forEach((plate) => {
   const composed = compose(plate);
   const { svg, pxW, pxH } = plateSvg(composed, manifest.longSide, manifest.strokeShare);
   plates.push({ ...plate, ...composed, svg, pxW, pxH });
@@ -172,7 +208,7 @@ for (const plate of plates) {
   const path = resolve(PNG_DIR, `${plate.id}.png`);
   setDpi(path);
   const [w, h] = pngSize(path);
-  const info = plate.kind === "design"
+  const info = plate.kind === "design" || plate.kind === "star"
     ? `${plate.paths.length} paths · ${plate.note}`
     : plate.note;
   console.log(`${plate.id.padEnd(30)} ${plate.kind.padEnd(6)} ${info.slice(0, 42).padEnd(42)} `
@@ -180,8 +216,9 @@ for (const plate of plates) {
     + `${String(readFileSync(path).length).padStart(8)}`);
 }
 
+const starredPlates = plates.filter((plate) => plate.kind === "star");
 const designs = plates.filter((plate) => plate.kind === "design");
-const singles = plates.filter((plate) => plate.kind !== "design");
+const singles = plates.filter((plate) => plate.kind === "seed");
 const cards = (group) => group.map((plate) =>
   `<figure><img src="plates/${plate.id}.png" width="${plate.pxW}" height="${plate.pxH}" alt="${plate.id}">`
   + `<figcaption><b>${plate.id}</b><br>${plate.note}</figcaption></figure>`).join("");
@@ -199,7 +236,10 @@ figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin-top:6px}
 </style></head><body><main>
 <h1>Book plates — temporary export</h1>
 <p class="lead">${plates.length} plates · ${designs.length} central designs and ${singles.length} single curves · white ground, no text on the image, tight to the curve · labels outside, two columns · names are <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
-<h2>New symmetric central figures, with frames</h2>
+<h2>Framed Quintic symmetric figures</h2>
+<p class="lead">Starred in the square and frame lab, then exported from <code>workbench/starred.json</code>. ${starredPlates.length ? "" : "No stars yet: star a design in the lab and download the file."}</p>
+<div class="grid">${starredPlates.length ? cards(starredPlates) : ""}</div>
+<h2>Simple framed symmetric central figures</h2>
 <p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg frame of arches overlaps itself, so it is not offered framed.</p>
 <div class="grid">${cards(designs)}</div>
 <h2>Single curves</h2>

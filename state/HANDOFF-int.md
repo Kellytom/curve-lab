@@ -2563,7 +2563,11 @@ B7 then moved the lab onto the same data and maths: the curve set is inlined
 and checked (empty, count, zeros), and the four sandbox cubics and
 `square_lab.js` are gone.
 
-**Next:** B8, the chain form.
+**Stars and the picker.** The lab stars a design to `localStorage`, downloads
+`starred.json`; the exporter adds those plates under **Framed Quintic symmetric
+figures** above **Simple framed symmetric central figures** and the singles. A
+picker at the foot of the lab shows all 28 curves with their rails and symmetry;
+click to load one. **Next:** B8, the chain form.
 
 ## 2026-11-17 (later still) — B7 landed: the lab on the real curves
 
@@ -2574,4 +2578,8 @@ sandbox cubics and `workbench/square_lab.js` are deleted. The curve data is
 default. Controls: curve a/b, form, counts, a/b pattern, leg or natural legs,
 print size, fill, alternate, frame.
 
-Tests: 6 page tests and 15 JS tests. **Next:** B8, the chain form.
+Tests: 6 page tests and 15 JS tests. **Stars and the picker.** The lab stars a design to `localStorage`, downloads
+`starred.json`; the exporter adds those plates under **Framed Quintic symmetric
+figures** above **Simple framed symmetric central figures** and the singles. A
+picker at the foot of the lab shows all 28 curves with their rails and symmetry;
+click to load one. **Next:** B8, the chain form.
