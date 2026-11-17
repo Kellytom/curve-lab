@@ -19,7 +19,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 2 | `LTMemory-int.md` | 203 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 57 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 2,458 | current truth — **read the tail (~80 lines), not the whole file** |
+| 5 | `state/HANDOFF-int.md` | 2,504 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 611 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 92 | what is proved, with the command that re-derives it; stops rework |
@@ -56,7 +56,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the fleur grammar / W04 sets | `curve_lab/grammar.py`, `curve_lab/fleur_sets.py`, `scripts/fleur_grammar.py`, `scripts/fleur_sets.py`, `tests/test_fleur_grammar.py`, `tests/test_fleur_sets.py` |
 | the integer cubic catalogue / offset | `scripts/integer_cubic_catalogue.py`, `scripts/integer_cubic_offset.py`, `tests/test_pyth_cubic_catalogue.py`, `tests/test_integer_cubic_offset.py` |
 | an ornament proof | `scripts/plant_forms.py`, `scripts/euler_sections.py`, `scripts/{fleur,volute,cruciform}_proof.py`, `scripts/ending_fit.py`, `scripts/modulated_width_proof.py`, `tests/test_{fleur,volute,cruciform}_proof.py`, `tests/test_ending_fit.py`, `tests/test_modulated_width_proof.py` |
-| offsets, rails, clearance | `docs/CLEARANCE.md`, `curve_lab/offsets.py`, `curve_lab/parallel_bezier.py`, `curve_lab/piece.py` |
+| offsets, rails, clearance | `docs/CLEARANCE.md`, `curve_lab/offsets.py`, `curve_lab/ph_offset.py`, `curve_lab/parallel_bezier.py`, `curve_lab/piece.py`, `scripts/integer_ph_rail.py`, `scripts/rail_chart.py`, `workbench/integer-ph-rail.html`, `tests/test_integer_ph_rail.py` |
 | endings, terminals, flowers | `docs/JUNCTION.md`, `docs/FLOWERS-int.md`, `curve_lab/terminals.py`, `curve_lab/plant.py` |
 | primal ornaments | `docs/PRIMAL.md`, `curve_lab/primal.py` |
 | plant-form proof | `docs/PHILOSOPHY.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |

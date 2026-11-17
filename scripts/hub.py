@@ -180,6 +180,39 @@ def inject(entry: dict) -> str:
     return state
 
 
+def decorate(entry: dict) -> str:
+    """The bar and the lattice pass for one page — what the hub gives it.
+
+    A page generator calls this after writing its page, so a rebuild does not
+    drop the bar or the lattice pass. One implementation: the hub's own loop
+    uses it too.
+    """
+    state = inject(entry)
+    path = WB / entry["file"]
+    if path.exists():
+        raw = path.read_text(encoding="utf-8")
+        new = overlay_html(raw)
+        if new != raw:
+            path.write_text(new, encoding="utf-8")
+    return state
+
+
+def entry_for(filename: str):
+    """The manifest entry for a page file, or None."""
+    for entry in load()["pages"]:
+        if entry["file"] == filename:
+            return entry
+    return None
+
+
+def decorate_file(filename: str) -> str:
+    """Decorate one page by its file name, for a generator to call."""
+    entry = entry_for(filename)
+    if entry is None:
+        return "not-in-manifest"
+    return decorate(entry)
+
+
 def card(entry: dict) -> str:
     svg = first_svg(WB / entry["file"])
     thumb = f'<div class="thumb">{svg}</div>' if svg else '<div class="thumb"></div>'
@@ -238,17 +271,10 @@ def main() -> int:
     build(manifest)
     counts = {}
     for p in manifest["pages"]:
-        st = inject(p)
+        st = decorate(p)
         counts[st] = counts.get(st, 0) + 1
-    # one lattice pass over every page, then rebuild so the hub thumbnails
-    # are cut from the decorated figures rather than the bare ones.
-    for p in manifest["pages"]:
-        path = WB / p["file"]
-        if path.exists():
-            raw = path.read_text(encoding="utf-8")
-            new = overlay_html(raw)
-            if new != raw:
-                path.write_text(new, encoding="utf-8")
+    # the pages are decorated before this build, so the hub thumbnails are cut
+    # from the decorated figures rather than the bare ones.
     build(manifest)
     print(HUB)
     print("  pages:", len(manifest["pages"]), "·", ", ".join(

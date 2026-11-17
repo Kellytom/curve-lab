@@ -163,6 +163,9 @@ tr:nth-child(even) td{{background:#fcf8ee}}
 </main></body></html>
 """
     OUT.write_text(page, encoding="utf-8")
+    # the hub bar and the lattice pass, so a rebuild does not drop them
+    import hub
+    hub.decorate_file(OUT.name)
     print(OUT)
     print(f"  {done}/{total} done")
     return 0
