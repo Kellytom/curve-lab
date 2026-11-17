@@ -2760,3 +2760,24 @@ url`). A named tunnel ends the second problem once a domain is on the Cloudflare
 account; the account has no zone, so `cloudflared tunnel login` cannot complete.
 
 **Git:** `1edec6c`, local only.
+
+## 2026-11-17 (S4) — 179 stored curves, 0 gaps
+
+**Landed.** `scripts/curve_audit.py` prints one row per curve in
+`workbench/operator-list.json` (179) with five fields: grid, crossing-pair count,
+picture, note, page. Grid, picture and page were already complete. The crossing
+count was missing on 59 records and is now recomputed by the router
+(`stable_crossings`); `--write` fills it into the record that owns it
+(`found-curves.json`, `moved-curves.json`, or `curves/<name>/curve.json`), never
+into the generated list. Notes come from the record, the folder's `notes.md`, or
+a derived line from the roots it was built from, marked `(derived)`.
+`tests/test_curve_audit.py` fails when the count is not 179/0.
+
+**One bug found while reading the output, not the data:** a crossing count of
+**0** was being reported as a gap; `wave-1of4-2` really has no crossings. The
+check now treats only `None`/`""` as missing.
+
+**Public prep, same session.** All 16 tracked reference images now carry a
+licence record (the three fleur PNGs point at the SVG they were rendered from),
+`tests/test_reference_licences.py` guards it, and the history scan found no secret
+value — three key-shaped hits, all the secret's name in deploy docs.
