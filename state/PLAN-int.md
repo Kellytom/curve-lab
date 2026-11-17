@@ -29,6 +29,8 @@ integer stations where a branch can attach.
 | B3 | balance stations | for one curve, a page lists the lattice stations at a grid whose tangent is vertical, horizontal or a 3-4-5 direction, and any pair balanced about y = k; all exact; a test pins one | B1 |
 | B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
 | B5 | character offsets | one plate whose rails have a declared varying width, with the width law printed in the manifest | B2 |
+| B6 | **square and frame lab** | a live page: curve, curves per side, leg angle, print size, fill, flips; the joins measured; a 1 pt stroke floor at 1–4 in; 15 JS tests | **landed 2026-11-17** |
+| B7 | other geometric figures | the same corner rule on a pentagon (leg 54°) and a pentagram point (18°), drawn and measured | B6 |
 
 **B3 — balance, not symmetry.** A *balance station* is a lattice point at a
 chosen grid whose tangent has a declared clean direction: vertical, horizontal,

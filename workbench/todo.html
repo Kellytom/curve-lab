@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:75.2%}
+.fill{height:100%;background:#8c6a21;width:74.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">112 / 149 done · 75% · read-only twin of
+<div class="count">113 / 151 done · 75% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -51,6 +51,10 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>proof, no upscaling.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Character offsets (B5):</strong> one plate whose rails have a declared varying</span></label>
 <p>width, with the width law in the manifest.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Square and frame lab (B6):</strong> the leg bisects the corner; one curve on</span></label>
+<p>each edge of a square, or <code>n</code> copies a side for a frame; the frame and the central cross built separately and overlaid. <code>workbench/square-frame.html</code> (live controls, measures in points, 1 pt stroke floor), <code>workbench/ square_lab.js</code>, <code>curve_lab/square_assembly.py</code>, <code>scripts/square_frame.py</code>, <code>scripts/square_try.py</code>, 15 JS tests and 5 page tests.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Other figures (B7):</strong> the same rule on a pentagon (leg 54°) and a</span></label>
+<p>pentagram point (18°); a polygon edge list instead of the fixed square.</p>
 <h2>From the 2026-11-16 review, in value order</h2>
 <label class="task"><input type="checkbox" checked disabled><span><strong>One exact numeric core, consumed by the page.</strong> <code>pitch</code> exists in <code>ph_math.js</code>,</span></label>
 <p><code>ph_quintic_metrics.py</code> and four scripts; they disagree in doubles (page 1/5,148 against an exact 1/36 on identical rows). Precompute, export, and let the page read the numbers. *Landed 2026-11-16:* <code>curve_lab/measure.py</code> is the one exact core; <code>scripts/ph_quintic_metrics.py</code> is a facade over it; <code>scripts/exact_numbers.py</code> audits every record; the page prints the record&#x27;s number, labelled, while the loaded rows are untouched. <code>tests/test_exact_numbers.py</code> guards all of it. Found on the way: <code>loop-13-15-17-mid-1</code> reproduces exactly — record 36, page 5,148.</p>

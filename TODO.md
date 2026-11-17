@@ -24,6 +24,14 @@ later. Rules and naming are in `book/README.md`; the plan is
   proof, no upscaling.
 - [ ] **Character offsets (B5):** one plate whose rails have a declared varying
   width, with the width law in the manifest.
+- [x] **Square and frame lab (B6):** the leg bisects the corner; one curve on
+  each edge of a square, or `n` copies a side for a frame; the frame and the
+  central cross built separately and overlaid. `workbench/square-frame.html`
+  (live controls, measures in points, 1 pt stroke floor), `workbench/
+  square_lab.js`, `curve_lab/square_assembly.py`, `scripts/square_frame.py`,
+  `scripts/square_try.py`, 15 JS tests and 5 page tests.
+- [ ] **Other figures (B7):** the same rule on a pentagon (leg 54°) and a
+  pentagram point (18°); a polygon edge list instead of the fixed square.
 
 ## From the 2026-11-16 review, in value order
 

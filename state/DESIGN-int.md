@@ -440,6 +440,35 @@ no input fields.
   for a smaller `offsetShare`. The lace knots have no visible rail at any
   distance (|d·κ| = 735 at 3% of the size), so they are not plate material.
 
+## Square and frame: the leg bisects the corner — 2026-11-17
+
+The operator's construction, 2026-11-17: measure the curve's chord (the
+end-to-end distance on x, with the legs at the same y), make an invisible square
+of that side, and put one curve on each edge. North is the x-flip, east the
+quarter turn, west the mirror. `curve_lab/square_assembly.py` and
+`workbench/square_lab.js` implement it; `scripts/square_try.py` is the static
+proof and `workbench/square-frame.html` is the lab.
+
+- **One rule: the leg bisects the corner.** A square corner is 90°, so the leg
+  is 45°. The angle is reached by scaling the curve *across its chord*, so the
+  ends stay on the edge and the square stays closed at the measured side.
+- **Measured joins:** an arch at a 45° leg joins continuously (0° kink); an S
+  at 45° joins at 90° (a miter); an arch as drawn leaves 16°.
+- **The frame is the same rule with `n` chords a side.** The side is
+  `n × the chord`, so 3 copies fill one side and 5 make a finer, lace-like
+  scale. The frame and the central cross are built **separately** and only
+  overlaid — a picture in a frame. Do not merge them into one curve set.
+- **The page is a lab, not a plate.** Curve, curves per side, leg angle, print
+  size, fill, alternate flips and the cross, all live. The page measures in
+  points (1/72 in).
+- **The stroke floor is exactly 1 point** at every size from 1 to 4 inches:
+  `strokeFor` returns `max(1, 0.0035 × width in points)`, so the percentage
+  rules above 3.97 in and the floor holds below it. A scaled-down plate never
+  loses its line.
+- **The next shapes follow the same corner rule:** a pentagon's corner is 108°
+  (leg 54°), a pentagram point is 36° (leg 18°). The square is the first case,
+  not a special one.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from

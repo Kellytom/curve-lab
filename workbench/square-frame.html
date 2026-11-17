@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Square and frame lab</title>
+<style>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:28px 22px 60px}
+h1{font-size:24px;margin:0 0 4px}
+.lead{color:#8c6a21;margin:0 0 20px}
+.wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:start}
+.controls{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px}
+.controls label{display:block;margin:0 0 14px;font-size:13px}
+.controls .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.controls input[type=range]{width:100%;margin:4px 0 0}
+.controls select{width:100%;padding:4px;font:13px ui-monospace,Menlo,monospace}
+.controls .check{display:flex;gap:8px;align-items:center}
+.stage{background:#fff;border:1px solid #d8ccae;padding:8px}
+.stage svg{display:block;width:100%;height:auto}
+#sf-readout{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin:0 0 8px}
+.note{font-size:12px;color:#7b6c4e;margin-top:16px}
+code{font:12px ui-monospace,Menlo,monospace}
+</style></head><body>
+<!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">&lt;- all inputs</a><span class="grp">curve</span><span><b>in</b> curve, curves per side, leg angle, print size, fill, flips | <b>out</b> the square or frame, the join angles, the stroke in points</span></div><!-- /hub-bar --><main>
+<h1>Square and frame lab</h1>
+<p class="lead">One curve, placed on the edges by one rule: the leg bisects the
+corner. A square corner is 90°, so the leg is 45°; an arch then joins
+continuously, an S joins at a right angle. The frame and the cross are built
+separately and only share the page.</p>
+
+<div class="wrap">
+<div class="controls">
+  <label>curve
+    <select id="sf-curve"><option value="arch-345">arch 3-4-5 (smooth corners)</option><option value="s-345">S 3-4-5 (right-angle corners)</option><option value="arch-5-12-13">arch 5-12-13</option><option value="s-5-12-13">S 5-12-13</option></select>
+  </label>
+  <label>
+    <span class="row"><span>curves per side</span><b id="sf-per-side-v">3</b></span>
+    <input id="sf-per-side" type="range" min="1" max="8" step="1" value="3">
+  </label>
+  <label>
+    <span class="row"><span>leg angle</span><b id="sf-leg-v">45°</b></span>
+    <input id="sf-leg" type="range" min="20" max="70" step="1" value="45">
+  </label>
+  <label>
+    <span class="row"><span>print size</span><b id="sf-size-v">4.00 in</b></span>
+    <input id="sf-size" type="range" min="1" max="4" step="0.25" value="4">
+  </label>
+  <label>
+    <span class="row"><span>frame fills</span><b id="sf-fill-v">100%</b></span>
+    <input id="sf-fill" type="range" min="0.5" max="1" step="0.05" value="1">
+  </label>
+  <label class="check"><input id="sf-alternate" type="checkbox">
+    flip every other copy</label>
+  <label class="check"><input id="sf-cross" type="checkbox" checked>
+    show the central cross</label>
+</div>
+<div>
+  <div id="sf-readout">…</div>
+  <div class="stage"><svg id="sf-stage" viewBox="0 0 288 288" role="img"
+    aria-label="square and frame from one curve"></svg></div>
+</div>
+</div>
+
+<p class="note">The stroke floor is <strong>1 point</strong> at every size: the
+page measures in points, and <code>strokeFor</code> never returns less. At 4 in
+a 0.35% line is 1.008 pt; at 1 in the floor holds it at 1 pt. The frame side is
+<code>curves per side × the chord</code>, so more copies on the same page means
+a finer, lace-like scale.</p>
+<p class="note">Re-derive: <code>python scripts/square_frame.py</code> ·
+<code>node --test tests/js</code></p>
+</main>
+<script src="square_lab.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const stage = $("sf-stage");
+const readout = $("sf-readout");
+
+function show(id, value) {
+  const el = $(id + "-v");
+  if (el) el.textContent = value;
+}
+
+function draw() {
+  const spec = SquareLab.CURVES[$("sf-curve").value];
+  const perSide = Number($("sf-per-side").value);
+  const leg = Number($("sf-leg").value);
+  const sizeIn = Number($("sf-size").value);
+  const fill = Number($("sf-fill").value);
+  const alternate = $("sf-alternate").checked;
+  const withCross = $("sf-cross").checked;
+
+  show("sf-per-side", perSide);
+  show("sf-leg", leg + "°");
+  show("sf-size", sizeIn.toFixed(2) + " in");
+  show("sf-fill", Math.round(fill * 100) + "%");
+
+  const W = sizeIn * 72;
+  const H = W;
+  const margin = W * 0.06;
+  const frameSide = perSide * SquareLab.chord(spec.points);
+  const curves = SquareLab.frame(spec.points, perSide, leg, alternate, frameSide);
+  const crossSide = frameSide * 0.34;
+  const shift = (frameSide - crossSide) / 2;
+  const cross = withCross
+    ? SquareLab.assemble(spec.points, crossSide, leg).map((curve) => ({
+        ...curve,
+        points: curve.points.map(([x, y]) => [x + shift, y + shift]),
+      }))
+    : [];
+
+  const all = curves.concat(cross);
+  const [x0, y0, x1, y1] = SquareLab.bbox(all);
+  const k = Math.min((W - 2 * margin) / (x1 - x0), (H - 2 * margin) / (y1 - y0)) * fill;
+  const ox = (W - (x1 - x0) * k) / 2 - x0 * k;
+  const oy = (H - (y1 - y0) * k) / 2 - y0 * k;
+  const toSvg = ([x, y]) => [ox + x * k, H - (oy + y * k)];
+  const stroke = SquareLab.strokeFor(W);
+
+  stage.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  stage.setAttribute("width", W);
+  stage.setAttribute("height", H);
+
+  const line = (points, colour) => {
+    const text = points.map((p) => toSvg(p).map((v) => v.toFixed(2)).join(",")).join(" ");
+    return `<polyline points="${text}" fill="none" stroke="${colour}" `
+      + `stroke-width="${stroke.toFixed(2)}" stroke-linecap="round" `
+      + `stroke-linejoin="round"/>`;
+  };
+  stage.innerHTML =
+    curves.map((c) => line(SquareLab.sample(c.points, 120), "#2e2413")).join("")
+    + cross.map((c) => line(SquareLab.sample(c.points, 120), "#7b6c4e")).join("");
+
+  const joins = SquareLab.distinctKinks(SquareLab.ringKinks(curves)).join(" / ");
+  readout.textContent =
+    `side ${((frameSide * k) / 72).toFixed(2)} in · `
+    + `copy ${(((frameSide / perSide) * k) / 72).toFixed(2)} in · `
+    + `stroke ${stroke.toFixed(2)} pt · joins ${joins}° · `
+    + `${curves.length} curves` + (withCross ? " + cross" : "");
+}
+
+["sf-curve", "sf-per-side", "sf-leg", "sf-size", "sf-fill",
+ "sf-alternate", "sf-cross"].forEach((id) => {
+  $(id).addEventListener("input", draw);
+});
+draw();
+</script>
+</body></html>

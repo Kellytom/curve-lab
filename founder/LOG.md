@@ -81,6 +81,19 @@ Every remark carries one:
 - **The lace knots are not ribbon material:** at 3% of their size the rail
   folds (|d·κ| = 735). `[later]` — use them as spines or endings, not plates.
 
+## 2026-11-17 — the square and the frame
+
+- **One rule: the leg bisects the corner.** A square is 90°, so the leg is 45°;
+  the ends stay on the edge and the square closes at the measured side. An arch
+  joins continuously, an S at a right angle. `[now]` — the lab is live.
+- **The frame is separate from the cross.** Three chords a side, the same rule,
+  overlaid only — a picture in a frame. Five curves a side makes a finer,
+  lace-like scale. `[now]` — choose the settings for the book.
+- **The stroke floor is 1 point** at every size from 1 to 4 inches. `[now]` —
+  a plate may be scaled down without losing its line.
+- **The next shapes are the same rule:** pentagon 54°, pentagram point 18°.
+  `[next]` — a polygon edge list, not a second construction.
+
 ## Open, in priority order
 
 - `[now]` Trim size, plate count, ink, and whether a plate carries a caption in

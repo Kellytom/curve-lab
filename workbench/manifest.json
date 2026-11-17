@@ -569,6 +569,15 @@
    "outputs": "two exact rails, the cubic fit's measured miss, the lattice grid and the mirror station"
   },
   {
+   "key": "square-frame",
+   "file": "square-frame.html",
+   "group": "curve",
+   "title": "Square and frame lab",
+   "purpose": "One curve on the edges of a square, and a frame of three chords a side.",
+   "inputs": "curve, curves per side, leg angle, print size, fill, flips",
+   "outputs": "the square or frame, the join angles, the stroke in points"
+  },
+  {
    "key": "integer-g2",
    "file": "integer-g2.html",
    "group": "curve",
