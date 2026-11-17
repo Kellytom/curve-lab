@@ -126,6 +126,13 @@ no sync. It does **not** restore a session; it opens one local page,
 | your real Chrome while the light one runs | `chrome-main [url]` (`~/bin`) |
 | a link in this chat | click it; it goes to the default browser (main Chrome) |
 
+- **Why quit:** to release swap and RAM, not to preserve state. The design is
+  in `localStorage`, the tab set is one local page; nothing has to stay open to
+  keep the work. Open only the one tab the focus needs.
+- **One icon per app.** `Curve Lab Browser` keeps `CurveLab.icns`;
+  `Save Curve Tabs` has its own `SaveCurveTabs.icns`, generated from
+  `scripts/browser-apps/save-curve-tabs.svg` (a cream curve and a gold down
+  arrow). Two apps, because a Dock click cannot pass `--save`.
 - Both labs keep the on-screen design in `localStorage` (`square-lab-state`) and
   restore it on load; the saved-tabs links open in a new tab, so the launcher
   page stays put. The saved set is still just URLs.
