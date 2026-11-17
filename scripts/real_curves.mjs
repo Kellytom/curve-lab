@@ -8,6 +8,10 @@
 // crossed-out curves are not here.
 
 import { readFileSync, writeFileSync } from "node:fs";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const PlateMath = require("../workbench/plate_math.js");
 
 const SOURCE = "workbench/ph_nth_panels.js";
 const OUT = "workbench/real-curves.json";
@@ -50,6 +54,7 @@ const curves = seed.concat(made).map((row) => ({
   ...(row.character ? { character: row.character } : {}),
   ...(row.shear !== undefined ? { shear: row.shear } : {}),
   ...(row.hook ? { hook: row.hook } : {}),
+  symmetry: PlateMath.symmetry({ speedX: row.speedX, speedY: row.speedY }),
 }));
 
 const data = {

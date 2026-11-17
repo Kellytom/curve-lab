@@ -287,7 +287,29 @@
 
   const strokeFor = (widthPt) => Math.max(1, 0.0035 * widthPt);
 
+  // Symmetry, measured on the spine: a half turn about the midpoint, or a
+  // mirror about the vertical line through it. `none` is the honest answer for
+  // an S curve; the tolerance is 0.5% of the bounding-box diagonal.
+  function symmetry(row, samples = 400) {
+    const points = spine(row.speedX, row.speedY, samples).map((s) => [s.x, s.y]);
+    const mid = points[samples / 2];
+    const box = bbox(points);
+    const size = Math.hypot(box[2] - box[0], box[3] - box[1]) || 1;
+    let half = 0;
+    let mirror = 0;
+    for (let i = 0; i <= samples; i += 1) {
+      const a = points[i];
+      const b = points[samples - i];
+      half = Math.max(half, Math.hypot(a[0] + b[0] - 2 * mid[0], a[1] + b[1] - 2 * mid[1]));
+      mirror = Math.max(mirror, Math.abs(a[0] + b[0] - 2 * mid[0]),
+                        Math.abs(a[1] - b[1]));
+    }
+    const tolerance = 0.005 * size;
+    const kind = half <= tolerance ? "half-turn" : mirror <= tolerance ? "mirror" : "none";
+    return { kind, symmetric: kind !== "none", half: half / size, mirror: mirror / size };
+  }
+
   return { value, spine, curvaturePeak, rail, bbox, group, prepared,
            cross, leaf, frame, design, rotate, translate, scale, scaleY,
-           flipY, strokeFor };
+           flipY, strokeFor, symmetry };
 });

@@ -20,7 +20,13 @@
     -2,
     0,
     0
-   ]
+   ],
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.9743465258365868,
+    "mirror": 0.8835187924626104
+   }
   },
   {
    "name": "euler-hook",
@@ -52,6 +58,12 @@
    "hook": {
     "dx": 2.934,
     "dy": -0.624
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.8996256907166754,
+    "mirror": 0.8862316557056474
    }
   },
   {
@@ -84,6 +96,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.414485994665342,
+    "mirror": 0.9362125907199265
    }
   },
   {
@@ -116,6 +134,12 @@
    "hook": {
     "dx": -2.988584,
     "dy": 0.261467
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.414485994665342,
+    "mirror": 0.9362125907199265
    }
   },
   {
@@ -148,6 +172,12 @@
    "hook": {
     "dx": 0,
     "dy": -1
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.8038079518386492,
+    "mirror": 0.7641951628850597
    }
   },
   {
@@ -180,6 +210,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.4057532524163086,
+    "mirror": 0.615416314386733
    }
   },
   {
@@ -212,6 +248,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.44269274559265986,
+    "mirror": 0.56308363962498
    }
   },
   {
@@ -244,6 +286,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.8939129470261086,
+    "mirror": 0.7073137590582071
    }
   },
   {
@@ -276,6 +324,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.1999976000034498,
+    "mirror": 3.996794895056277e-16
    }
   },
   {
@@ -308,6 +362,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5599897857055844,
+    "mirror": 6.217213251618118e-16
    }
   },
   {
@@ -340,6 +400,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 8.326913847585592e-16,
+    "mirror": 0.7809011866524741
    }
   },
   {
@@ -380,6 +446,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.9335464546634256,
+    "mirror": 0.06212244361454071
    }
   },
   {
@@ -405,6 +477,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.8939753564699567,
+    "mirror": 0.8480973692580228
    }
   },
   {
@@ -429,6 +507,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 1.6361464591917116,
+    "mirror": 0.8117559672596689
    }
   },
   {
@@ -455,6 +539,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.9646619818269452,
+    "mirror": 3.366118666084138e-16
    }
   },
   {
@@ -491,6 +581,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.964649121885647,
+    "mirror": 0.9379582616191076
    }
   },
   {
@@ -527,6 +623,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.821929614823496,
+    "mirror": 0.00004248375716301626
    }
   },
   {
@@ -563,6 +665,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 1.1318880003226905,
+    "mirror": 1.0134122642755738
    }
   },
   {
@@ -599,6 +707,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.5467492209503508,
+    "mirror": 0.5450659929669333
    }
   },
   {
@@ -627,6 +741,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.7936088373913638,
+    "mirror": 0.7868483381246313
    }
   },
   {
@@ -657,6 +777,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 0.7350429013825348,
+    "mirror": 0.8389588687770871
    }
   },
   {
@@ -685,6 +811,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "none",
+    "symmetric": false,
+    "half": 1.1203490291548504,
+    "mirror": 0.8621772854033931
    }
   },
   {
@@ -717,6 +849,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 0.5364312703942097,
+    "mirror": 6.700010994594447e-16
    }
   },
   {
@@ -749,6 +887,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.1304213456210106,
+    "mirror": 1.349188452614139e-15
    }
   },
   {
@@ -785,6 +929,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "mirror",
+    "symmetric": true,
+    "half": 1.0934949794349442,
+    "mirror": 3.9761582563905e-15
    }
   },
   {
@@ -819,6 +969,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 3.5666820455052404e-15,
+    "mirror": 0.7912061285708692
    }
   },
   {
@@ -851,6 +1007,12 @@
    "hook": {
     "dx": 0,
     "dy": 0
+   },
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 8.326913847585592e-16,
+    "mirror": 0.7809011866524741
    }
   },
   {
@@ -862,7 +1024,13 @@
     1,
     -4,
     4
-   ]
+   ],
+   "symmetry": {
+    "kind": "half-turn",
+    "symmetric": true,
+    "half": 3.371369497459904e-16,
+    "mirror": 0.6401800705493244
+   }
   }
  ]
 }

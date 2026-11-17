@@ -50,10 +50,18 @@ function loadCharacter(name) {
 function start() {
   rows = Object.fromEntries(window.REAL_CURVES.curves.map((row) => [row.name, row]));
   const names = Object.keys(rows).sort();
+  const groups = { symmetric: [], asymmetric: [] };
+  names.forEach((name) => {
+    const symmetric = rows[name].symmetry && rows[name].symmetry.symmetric;
+    groups[symmetric ? "symmetric" : "asymmetric"].push(name);
+  });
   ["sf-a", "sf-b"].forEach((id) => {
     const extra = id === "sf-b" ? ["none", "same"] : [];
-    $(id).innerHTML = [...extra, ...names]
-      .map((name) => `<option>${name}</option>`).join("");
+    const grouped = ["symmetric", "asymmetric"].map((label) =>
+      `<optgroup label="${label}">`
+      + groups[label].map((name) => `<option>${name}</option>`).join("")
+      + "</optgroup>").join("");
+    $(id).innerHTML = extra.map((name) => `<option>${name}</option>`).join("") + grouped;
   });
   $("sf-a").value = "u-bowl";
   $("sf-b").value = "none";
@@ -143,6 +151,7 @@ function draw() {
   readout.textContent =
     `${((x1 - x0) * k / 72).toFixed(2)} × ${((y1 - y0) * k / 72).toFixed(2)} in · `
     + `${data.paths.length} paths · stroke ${stroke.toFixed(2)} pt · ${data.note}`
+    + ` · curve a ${rows[aName].symmetry ? rows[aName].symmetry.kind : "?"}`
     + fallback;
 }
 

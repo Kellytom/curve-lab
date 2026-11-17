@@ -58,6 +58,13 @@ test("every plate has its SVG and a 300 dpi PNG at the long side", () => {
   }
 });
 
+test("symmetry is measured: u-bowl mirrors, swan does not, new-symmetric turns", () => {
+  assert.equal(PlateMath.symmetry(rows["u-bowl"]).kind, "mirror");
+  assert.equal(PlateMath.symmetry(rows["swan"]).symmetric, false);
+  assert.equal(PlateMath.symmetry(rows["new-symmetric"]).kind, "half-turn");
+  for (const row of curves.curves) assert.ok(row.symmetry, row.name);
+});
+
 test("the curve data is whole: count matches, no empty or zero rows", () => {
   assert.equal(curves.count, curves.curves.length);
   for (const row of curves.curves) {

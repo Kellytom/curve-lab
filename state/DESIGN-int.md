@@ -449,6 +449,23 @@ no input fields.
   plate is spine-only and the caption says so. Two of the 27 saved curves land
   there: `involute-fit` and `inflect-2`.
 
+## Symmetry is measured, not guessed — 2026-11-17
+
+The operator's note: the saved curves are not all internally symmetric, so the
+lab groups them. The measurement is on the spine, at 400 stations:
+
+- **half turn** — `C(1/2+s) + C(1/2−s) = 2C(1/2)`;
+- **mirror** — the same about the vertical line through the midpoint, so the
+  x values add to `2x(1/2)` and the y values are equal;
+- **none** — neither, within 0.5% of the bounding-box diagonal.
+
+Measured on the 28 saved curves: **11 symmetric** (7 mirror: `u-bowl`, `v-sharp`,
+`wave-coarse`, `catenary-fit`, `wave3`, `cusp5-x3`, `cusp7-deep`; 4 half-turn:
+`m-arch`, `w-arch`, `twin-cusp`, `new-symmetric`) and **17 asymmetric**
+(`amper`, `swan`, the fits, the knots, `gumdrop`, ...). The lab's two curve
+menus group the options under **symmetric** and **asymmetric**; the gallery
+caption prints the kind. The record lives in `workbench/real-curves.json`.
+
 ## Central designs are at least two curves — 2026-11-17
 
 The operator's definition: a central design has **at least two curves joined at

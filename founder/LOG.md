@@ -155,6 +155,9 @@ Every remark carries one:
   and `square_lab.js` are gone. `[now]`
 - **The load wait is gone.** The curve data is written into the page, so the
   lab opens with the drawing already there. `[now]`
+- **The curves are grouped by measured symmetry.** 11 of the 28 are symmetric
+  (7 mirror, 4 half turn); `amper` and `swan` are not. The two menus show
+  **symmetric** and **asymmetric**. `[now]`
 - **The single arch is the default** (`u-bowl`, natural legs) because a bowl
   forced to a 45° leg flattens; the 45° rule is for mitred edges, not arches.
   `[now]`

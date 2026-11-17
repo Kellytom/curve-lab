@@ -44,6 +44,12 @@ class SquareFrameTest(unittest.TestCase):
         self.assertEqual(square_frame.page_html().strip(),
                          without_bar.strip())
 
+    def test_the_curves_are_grouped_by_symmetry(self):
+        self.assertIn("optgroup label=", self.page)
+        self.assertIn("symmetric: [], asymmetric: []", self.page)
+        self.assertIn('["symmetric", "asymmetric"]', self.page)
+        self.assertIn("symmetry", self.page)
+
     def test_curve_b_offers_none_and_same(self):
         self.assertIn('["none", "same"]', self.page)
         self.assertIn('bChoice === "none"', self.page)

@@ -40,11 +40,14 @@ const rows = Object.fromEntries(curveData.curves.map((row) => [row.name, row]));
 function compose(plate) {
   if (plate.kind === "design") {
     const data = PlateMath.design(plate, rows);
-    return { paths: data.paths, bbox: data.bbox, note: data.note };
+    const symmetry = rows[plate.curve] && rows[plate.curve].symmetry;
+    return { paths: data.paths, bbox: data.bbox,
+             note: data.note + (symmetry ? ` · curve ${symmetry.kind}` : "") };
   }
   const group = PlateMath.group(rows[plate.name]);
-  const paths = group.paths;
-  return { paths, bbox: PlateMath.bbox(paths.flat()), note: group.note };
+  const symmetry = rows[plate.name] && rows[plate.name].symmetry;
+  return { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()),
+           note: group.note + (symmetry ? ` · ${symmetry.kind}` : "") };
 }
 
 function plateSvg(composed, longSide, strokeShare) {
