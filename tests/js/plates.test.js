@@ -98,3 +98,16 @@ test("the gallery is the Astro page, and the generated page is gone", async () =
   assert.equal(gallery.designs.length, 2);
   assert.equal(gallery.designs.length + gallery.singles.length, manifest.plates.length);
 });
+
+test("a chain joins b's first point to a's last, and prints the corner", () => {
+  const design = PlateMath.design(
+    { form: "chain", curve: "u-bowl", curveB: "v-sharp" }, rows);
+  assert.match(design.note, /chain/);
+  assert.match(design.note, /join -?[0-9.]+°/);
+  const first = design.paths[0];
+  const second = design.paths[7];  // one railed group is seven paths
+  const end = first[first.length - 1];
+  const start = second[0];
+  assert.ok(Math.hypot(end[0] - start[0], end[1] - start[1]) < 1e-9,
+    "the two curves do not meet");
+});

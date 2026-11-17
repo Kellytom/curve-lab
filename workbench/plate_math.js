@@ -229,6 +229,25 @@
             { name: "top", paths: top.paths }];
   }
 
+  // Two curves end to end, not flipped: b is translated so its first point is
+  // a's last point, and each keeps its own natural legs. The corner is the
+  // difference between a's end heading and b's start heading — a design
+  // decision, printed, not hidden.
+  function chain(a, b) {
+    const first = prepared(a, a.chord, null);
+    const second = prepared(b, b.chord, null);
+    const end = first.spine[first.spine.length - 1];
+    const start = second.spine[0];
+    const moved = second.paths.map((path) =>
+      translate(path, end[0] - start[0], end[1] - start[1]));
+    let join = endLegOf(first.spine) - legOf(second.spine);
+    while (join > 180) join -= 360;
+    while (join < -180) join += 360;
+    return { items: [{ name: "first", paths: first.paths },
+                     { name: "second", paths: moved }],
+             join, end: first.spine[first.spine.length - 1] };
+  }
+
   function frame(a, b, perWidth, perHeight, leg, pattern, alternate) {
     const letters = (pattern || "a").replace(/[^ab]/g, "") || "a";
     const length = a.chord;
@@ -259,6 +278,10 @@
       central = cross(a, a.chord, leg); centralNote = "cross";
     } else if (spec.form === "leaf") {
       central = leaf(a, b, leg); centralNote = "leaf";
+    } else if (spec.form === "chain") {
+      const joined = chain(a, b);
+      central = joined.items;
+      centralNote = `chain · join ${joined.join.toFixed(1)}°`;
     } else if (spec.form === "arch") {
       central = [{ name: "arch", paths: prepared(a, a.chord, leg).paths }];
       centralNote = "arch";
@@ -310,6 +333,6 @@
   }
 
   return { value, spine, curvaturePeak, rail, bbox, group, prepared,
-           cross, leaf, frame, design, rotate, translate, scale, scaleY,
+           cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });
