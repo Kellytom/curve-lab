@@ -256,6 +256,22 @@ whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
 them and the rebuild honestly reports the whole curve. Legs are shortened by
 moving the flat spots, not by cutting `t`.
 
+## Context: no budget, the operator decides
+
+Settled 2026-11-17, by the operator: "take out all constraints about context
+budget... the problem was chrome not opencode."
+
+- **Every instruction that constrained context use is removed**: no budget line
+  before a task, no percentage, no minute count, no metric pasted into a handoff.
+- **The 2026-11-16 meter measured the wrong thing.** It reported OpenCode's
+  share, but the pressure was Chrome holding memory on an 8 GB machine. Retiring
+  the meter without retiring the budget kept a constraint with no measurement
+  behind it.
+- **The operator monitors and decides how long a session runs**, and may ask for
+  several actions in one session. The agent reports each action as it lands.
+- **What survives is honesty, not memory**: never report a narrowed result as
+  complete, and "complete" needs a diff or a test.
+
 ## Self-crossings: crossing pairs, not meeting points
 
 Settled 2026-11-16, after the page and the record disagreed on

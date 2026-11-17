@@ -33,7 +33,7 @@ Focused handon for curve-lab. Work in
    say so rather than changing it quietly.
 4. Read `state/READING-int.md` **first**. It is the authoritative list of what
    to load, in order, with line costs and the never-load list. Follow its
-   Tier 0 exactly; it is the whole of the session's context budget. Do not
+   Tier 0 exactly. Do not
    invent a reading order, and do not skip a Tier 0 file because the action
    looks small. Its first row is `senior-dev.md`: twelve rules, one page, read
    it before the action every time.
@@ -84,8 +84,9 @@ same session, but the two are not linked: `/fhandon` picks up the focused work
 and stops; the operator calls `/fhandoff` to put it down and write the block
 `/fhandon` will read next time.
 
-## Context
+## How long a session runs
 
-The clock is retired and the meter is retired (2026-11-16): neither percentage
-nor minute count is quoted or acted on. If context trouble returns, it is a row
-in `TODO.md`. Do not reinstate a threshold here.
+The operator decides. Nothing here limits context use or asks for a budget; the
+2026-11-16 meter measured the wrong thing (OpenCode, while Chrome was the
+pressure) and is retired. Work the plan, report as each action lands, and stop
+when the operator says stop.

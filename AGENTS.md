@@ -231,11 +231,11 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
 - Do not change `vendor/`; caps are baked into the app image.
-- **The context meter is retired (2026-11-16).** `scripts/ctx.py` reported a share
-  that did not match the session the operator sees, so it is no longer quoted or acted
-  on. The operator's own count is the authority. If context trouble returns, it is a row
-  in `TODO.md`; do not reinstate a threshold here without fixing the meter first.
-  Never narrow the task silently: "complete" needs a diff or a test.
+- **No context budget is enforced here (2026-11-17).** The 2026-11-16 meter measured
+  OpenCode while the actual pressure was Chrome holding memory, so it has been retired
+  and every instruction that constrained context use is gone. The operator monitors and
+  decides how long a session runs. The one rule that stays is about honesty, not memory:
+  never report a narrowed result as complete — "complete" needs a diff or a test.
 - **Catalogue pages are generated from the source tables**, never drawn from
   memory. Diff the page against `generators.NAMED` and `heart_forms.FORMS`
   before claiming completeness; `recheck` fails when one is missing.
