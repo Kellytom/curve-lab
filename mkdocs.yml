@@ -44,6 +44,7 @@ markdown_extensions:
 
 nav:
   - Start here: index.md
+  - The tunnel (phone access): TUNNEL.md
   - Truth and state:
       - Verification: VERIFY.md
       - Fidelity budget: FIDELITY.md
