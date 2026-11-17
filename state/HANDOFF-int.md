@@ -2419,9 +2419,11 @@ depends on scale, so it is not a property of the curve.
 **Did the previous action land? Yes.** S1 of `state/PLAN-int.md` is done: the
 engine function, the symmetric mode, the proof page and the tests.
 
-**Local:** 200 on `:8003`. **Remote:** `000`, carried, not probed. **Tests:** 108
-modules green (`scripts/test.py`, 83.4 s). **Register:** 24 rows, green.
-**Git:** clean at `7362b32` plus this block.
+**Local:** 200 on `:8003` (probed at handoff). **Remote:** `000`, carried from
+2026-11-13, not probed. **Tests:** 108 modules green, carried from `7362b32`
+(`scripts/test.py`, 83.4 s, 2026-11-17) — nothing under `web/`, `curve_lab/`,
+`csrc/` or `tests/` differs from HEAD since. **Register:** 14 tests, green, run
+now. **Git:** clean at `cb63932` except the session log.
 
 **What landed.**
 - `curve_lab/terminals.py`: `cone_terminal()` — two 60° arcs, `R = 2 × half`, each
@@ -2444,3 +2446,13 @@ the hub manifest.
 
 **Next move:** S2 — the integer cubic's exact PH offset rail beside the Levien
 fit on the same curve.
+
+Tried and rejected: reporting a suite result from `tail -4` — it hides the
+`FAILED` blocks above the summary, and I twice called a red tree green; grep for
+`FAILED` or read the whole summary. Tried and rejected: comparing the inlined
+panels byte for byte — some generators substitute inside the copy on purpose, so
+the build-time check is the honest one. Tried and rejected: clustering crossings
+by position to report "meeting places" — the count then depends on the figure's
+scale and is not a property of the curve. Tried and rejected: verifying in a
+fresh browser profile while the operator works in the light one — it proves the
+source, not the page.
