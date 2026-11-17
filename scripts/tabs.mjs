@@ -14,12 +14,13 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const PORT = process.env.CURVE_TABS_PORT || "9224";
 const FILE = path.join(os.homedir(), ".config", "curve-lab", "tabs.json");
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const INDEX = path.join(ROOT, "workbench", "tabs.html");
+const INDEX_URL = pathToFileURL(INDEX).href;
 const mode = process.argv[2] || "save";
 
 const usage = `usage: node scripts/tabs.mjs <save|open|list|status>`;
@@ -41,7 +42,9 @@ if (mode === "save") {
     process.exit(1);
   }
   const pages = tabs
-    .filter((tab) => tab.type === "page" && /^(https?|file):/.test(tab.url || ""))
+    .filter((tab) => tab.type === "page"
+      && /^(https?|file):/.test(tab.url || "")
+      && tab.url !== INDEX_URL)
     .map((tab) => ({ url: tab.url, title: tab.title || "" }));
   const saved = new Date().toISOString();
   mkdirSync(path.dirname(FILE), { recursive: true });

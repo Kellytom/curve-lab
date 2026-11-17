@@ -119,13 +119,17 @@ no sync. It does **not** restore a session; it opens one local page,
 | want | do |
 |---|---|
 | workbench pages in the light browser | Dock app `Curve Lab Browser`, or `scripts/chrome-curve.command` |
-| save the tabs you have open as the focus set | `scripts/chrome-curve.command --save` (writes `workbench/tabs.html`) |
+| save the tabs you have open as the focus set | Dock app `Save Curve Tabs`, or `scripts/chrome-curve.command --save` (writes `workbench/tabs.html`) |
 | reopen that set | launch normally, or `--saved`; it opens the one local page |
 | the default focus pair | `--default` (the lab and the book gallery) |
 | one link in the light browser | `curve-open <url>` (`~/bin`, on PATH) — also takes `catenary.html` |
 | your real Chrome while the light one runs | `chrome-main [url]` (`~/bin`) |
 | a link in this chat | click it; it goes to the default browser (main Chrome) |
 
+- Both Dock apps are in `~/Applications` and only hand off to the repo launcher:
+  `Curve Lab Browser` opens the saved-tabs page, `Save Curve Tabs` runs `--save`
+  and notifies (a .app has no terminal). The save app's snapshot excludes the
+  saved-tabs page itself.
 - The saved-tabs page is generated and ignored by git; the URL snapshot is in
   `~/.config/curve-lab/tabs.json`. Saving reads the light profile's debugging
   port (9224), so an instance started before the port was added must be
