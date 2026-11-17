@@ -44,6 +44,12 @@ the date it was last checked.
    - If something is genuinely ambiguous, write the uncertainty in one line
      rather than investigating it.
 
+2d. **Refresh the reading list's numbers:** `.venv/bin/python scripts/reading_counts.py`.
+   The counts in `state/READING-int.md` are a cache of `wc -l`; nothing refreshed them and they
+   drifted by a thousand lines. If the action you just finished used a file that is not on the
+   list, add its row in the same edit — that file's own rule says so, and this step is where it
+   gets obeyed.
+
 3. **Update `state/HANDOFF-int.md`** to the current truth: local, remote, tests,
    git state, risks, and the next move. Keep it to edits, not a rewrite. If the
    long arc moved, update `goals.md` (plant-forms → ornament-forms).

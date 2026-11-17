@@ -330,6 +330,7 @@ window.exactBend = function (speedX, speedY) {
 // down and measure it exactly, because the grid does exist. Returns null when a
 // number really is on a fractional power.
 function foldToWholePowers(row, step) {
+  if (!Array.isArray(row) || !row.length) return null;      // a record with no rows
   if (Math.abs(step - 1) < 1e-12) return row.slice();
   const out = [];
   for (let k = 0; k < row.length; k++) {
@@ -343,6 +344,13 @@ function foldToWholePowers(row, step) {
   return out;
 }
 window.recipeMetrics = function (speedX, speedY) {
+  // A saved record written by an older page can arrive with no rows at all. Returning zeros
+  // beats throwing: the thrown error stopped the whole page script, which is how a damaged
+  // record hid every saved curve.
+  if (!Array.isArray(speedX) || !Array.isArray(speedY) || !speedX.length || !speedY.length) {
+    return { bend: 0, arc: 0, chord: [0, 0], pitch: 0, inflections: null, inflection: null,
+             closest: 0, inflectionMax: 0 };
+  }
   const step = window.phPowerStep || 1;
   if (Math.abs(step - 1) > 1e-12) {
     const foldedX = foldToWholePowers(speedX, step);

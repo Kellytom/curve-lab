@@ -2070,17 +2070,29 @@
     const row = document.getElementById("n-saved");
     row.textContent = "";
     const byName = {};
-    SEED.concat(saved()).forEach(item => { byName[item.name] = item; });
+    SEED.concat(saved()).forEach(item => { if (item && item.name) byName[item.name] = item; });
+    // One unreadable record must not hide the rest: a saved curve written by an older page can
+    // lack speedX, and the exception used to abort this loop, leaving the operator with the
+    // built-in seeds only. A damaged entry is shown, named, and deletable.
     Object.values(byName).forEach(item => {
       const group = document.createElement("span");
       group.className = "saved-item";
       const button = document.createElement("button");
       button.type = "button";
-      const pair = pairOf(item);
-      const primary = pair ? pair.primary : item;
-      button.textContent = (pair && pair.category ? pair.category + " · " : "") + item.name;
-      button.title = JSON.stringify(primary.speedX) + " / " + JSON.stringify(primary.speedY);
-      button.addEventListener("click", () => loadPair(item));
+      let label = item.name, title = "";
+      try {
+        const pair = pairOf(item);
+        const primary = pair ? pair.primary : item;
+        if (!primary || !Array.isArray(primary.speedX)) throw new Error("no speedX");
+        label = (pair && pair.category ? pair.category + " · " : "") + item.name;
+        title = JSON.stringify(primary.speedX) + " / " + JSON.stringify(primary.speedY);
+        button.addEventListener("click", () => loadPair(item));
+      } catch (error) {
+        label = item.name + " (unreadable: " + (error.message || "bad record") + ")";
+        title = "this record cannot be loaded; download the list and keep it, then delete this one";
+      }
+      button.textContent = label;
+      button.title = title;
       group.append(button);
       if (!SEED.some(seed => seed.name === item.name)) {
         const remove = document.createElement("button");
@@ -2117,6 +2129,32 @@
     window.dispatchEvent(new CustomEvent("ph-nth-saved"));
     if (status) status.textContent = `saved as "${name}"`;
   });
+  // A backup for the operator's own curves: everything in this browser, as one file. Saved
+  // curves are the only data in this project that lives nowhere else, so there has to be a way
+  // out that does not depend on me seeing the browser.
+  const downloadAll = document.getElementById("n-download-all");
+  if (downloadAll) downloadAll.addEventListener("click", () => {
+    const items = saved();
+    const blob = new Blob([JSON.stringify({ format: "curve-lab.saved/1", curves: items }, null, 1)],
+                          { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `saved-curves-${items.length}.json`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    const count = document.getElementById("n-saved-count");
+    if (count) count.textContent = `${items.length} curves written`;
+  });
+  const countSaved = document.getElementById("n-count-saved");
+  if (countSaved) countSaved.addEventListener("click", () => {
+    const items = saved();
+    const count = document.getElementById("n-saved-count");
+    if (count) count.textContent = `${items.length} saved in this browser` +
+      (items.length ? `: ${items.slice(0, 8).map(item => item.name).join(", ")}${items.length > 8 ? " …" : ""}` : "");
+  });
+
   const savePrimary = document.getElementById("n-save-primary");
   if (savePrimary) savePrimary.addEventListener("click", () => {
     const nameField = document.getElementById("n-name");

@@ -7,18 +7,18 @@ the file wins and this list is wrong.
 Read it at the top of every focused session. Then follow the tier the action
 needs — no higher.
 
-## Tier 0 — every fhandon, no exceptions (~750 lines)
+## Tier 0 — every fhandon, no exceptions (~3,670 lines, of which HANDOFF is read as a tail)
 
 | # | file | lines | why |
 |---|---|---|---|
-| 1 | `LTMemory-int.md` | 127 | the map, the invariants, what is settled and what is open |
+| 1 | `LTMemory-int.md` | 171 | the map, the invariants, what is settled and what is open |
 | 2 | `next-fhandoff-int.md` | 5 | the default next action, when the operator has not set one |
-| 3 | `state/HANDOFF-int.md` | 846 | current truth — **read the tail (~80 lines), not the whole file** |
-| 4 | `TODO.md` | 254 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
-| 5 | `goals.md` | 240 | the long arc and the offset tiers (also Tier 1) |
-| 6 | `state/ACHIEVEMENTS-int.md` | 37 | what is proved, with the command that re-derives it; stops rework |
-| 7 | `state/DESIGN-int.md` | 90 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 8 | `state/REGRESSIONS-int.md` | 60 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 3 | `state/HANDOFF-int.md` | 2,226 | current truth — **read the tail (~80 lines), not the whole file** |
+| 4 | `TODO.md` | 570 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 5 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
+| 6 | `state/ACHIEVEMENTS-int.md` | 91 | what is proved, with the command that re-derives it; stops rework |
+| 7 | `state/DESIGN-int.md` | 287 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 8 | `state/REGRESSIONS-int.md` | 63 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 
@@ -30,10 +30,10 @@ to *what is the next step*.
 
 | file | lines | answers |
 |---|---|---|
-| `SPEC.md` | 143 | what the deliverable is |
+| `SPEC.md` | 148 | what the deliverable is |
 | `docs/PROJECT.md` | 165 | scope in and out; what is deliberately not built |
-| `goals.md` | 240 | the arc: plant-forms → ornament-forms, and the offset tiers |
-| `docs/PHILOSOPHY.md` | 106 | glyph, full line, sections, joints — the design rules |
+| `goals.md` | 265 | the arc: plant-forms → ornament-forms, and the offset tiers |
+| `docs/PHILOSOPHY.md` | 192 | glyph, full line, sections, joints — the design rules |
 
 **Scope in one line**, so it is never absent even when the files are not open:
 exact integer and rational curves on one grid; the goal is a grammar of
@@ -61,6 +61,9 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the septic sandbox / degrees 6 and 7 | `scripts/ph_septic_sandbox.py`, `scripts/ph_septic_panels.js`, `scripts/septic_curves.py`, `scripts/septic_samples.py`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_septic_sandbox.py`, `scripts/check-ph-page.mjs`, `workbench/septic-samples.json`, `workbench/septic-curves.json` |
 | PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `docs/PH-INTEGER.md` |
 | the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |
+| a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
+| the gallery's clean-up and order | `scripts/moved_notes.py`, `workbench/moved-curves.json`, `workbench/curve-figures.html` |
+| finding curves / the census | `scripts/family_census.py`, `scripts/related_families.py`, `scripts/import_found.py`, `workbench/family-census.json`, `scripts/direction_curves.py` |
 | part 2, the fitted gallery | `scripts/ph_nth_sandbox2.py`, `scripts/ph_fit_showcase.py`, `workbench/ph-fitted-curves.json`, `tests/test_ph_nth_sandbox2.py` |
 | the complementary curve and its crossings | `scripts/ph_crossings.py`, `scripts/ph_nth_panels.js` (the grey curve), `workbench/ph-nth-sandbox.html` |
 | finding curves by count | `scripts/ph_find.py`, `scripts/ph_quintic_metrics.py` (`inflections`), `scripts/ph_crossings.py` |

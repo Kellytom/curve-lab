@@ -42,7 +42,7 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
 
 ## Start cheap
 
-0. **`state/READING-int.md`** — the authoritative reading list: what to load, in
+0. **`state/READING-int.md`** — the authoritative reading list (its line counts are refreshed by `scripts/reading_counts.py`, which `/fhandoff` runs): what to load, in
    what order, at what cost, and what never to load. Follow it; do not invent a
    reading order. If an action needs a file that is not on it, add the row.
 

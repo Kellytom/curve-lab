@@ -1,6 +1,7 @@
 """The experimental page: fractional exponents, and the gallery under it."""
 
 import json
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -74,6 +75,15 @@ class TestFractionalSandbox(unittest.TestCase):
         page = PAGE.read_text()
         self.assertIn('id="n-loop-only"', page)
         self.assertIn('id="n-whole-curve"', page)
+
+    def test_the_reading_list_counts_are_current(self):
+        """The list is a cache of wc -l, and /fhandoff now refreshes it.
+
+        It had drifted by a thousand lines on HANDOFF and by 200 on DESIGN before anyone noticed.
+        """
+        result = subprocess.run([sys.executable, str(ROOT / "scripts" / "reading_counts.py"), "--check"],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stdout.strip())
 
     def test_the_tweak_explanation_lives_on_the_notes_page(self):
         """The operator's call, 2026-11-16: the panel kept 257 words for four buttons.
