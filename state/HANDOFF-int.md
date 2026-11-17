@@ -2398,8 +2398,11 @@ collapsing them needs the operator to say whether the review page's factored vie
 (3) Tests still assert literal counts (60, 109, 169, 50). (4) Saved curves, the moved list and
 the star order live in the browser until exported.
 
-**Next move:** review item 5 — serve `ph_nth_panels.js` and `ph_math.js` as one static copy
-per page instead of inlining 3,846 lines into each, with a test that a page loads them.
+**Next move:** the two-arc cone terminal — one arc from each rail end, radius
+`R = 2 × offset`, tangent at the base and meeting at the centreline tip, with the
+arc centres stated. The `cone` already in `curve_lab/terminals.py` is a width law,
+not this construction, so the new one needs its own name. It is goals.md work item
+2 and it finishes the terminal layer the review left alone.
 
 **Context:** meter retired 2026-11-16 and not quoted. Session long by choice; the operator
 asked for the night.
