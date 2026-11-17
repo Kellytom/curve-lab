@@ -2646,3 +2646,10 @@ Tried and rejected: `@astrojs/check` — `ERR_REQUIRE_ESM` from the language
 server in this install; Prettier + `prettier-plugin-astro` — no native binding;
 Astro 7 — Node 22.4.1 below its floor; further installs — the operator stopped
 the network.
+
+**After the handoff (2026-11-17):** the light browser now opens one local
+saved-tabs page, `workbench/tabs.html`, listing only the focus tabs;
+`scripts/chrome-curve.command --save` writes it, `--saved` opens it, and
+`--default` opens the focus pair. `071ae33`; see LTMemory §Browsers and links.
+The git line above (`96aea81`) predates this commit; the next `/fhandoff`
+rewrites the block.
