@@ -1,7 +1,7 @@
 ```text
 Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
-You are starting the Bézier fitting step: fit wide-knot-x20 with cubic spans, print the maximum deviation as a share of the curve's size and the span count, and do the same for two more stored curves so the numbers are comparable.
-Proves: scripts/bezier_fit.py prints, for each of three stored curves, the span count and the maximum deviation as a share of the curve size (fitted, not exact, and labelled so); every fitted curve is stated to be a drawing while the record's terms remain the curve; tests/test_bezier_fit.py passes and the printed deviation is under the tolerance the script states.
+You are adding the two-arc cone terminal to curve_lab/terminals.py: one arc from each rail end, radius R = 2 x the offset, tangent to the rail at its base and meeting the other arc at the centreline tip, with both arc centres stated. The `cone` already there is a width law, so give this one its own name and say in the docstring that the two are different things.
+Proves: tests/test_cone_terminal.py passes - tangency within 1e-9 at three offsets, R = 2 x offset on each, the arcs meet at the tip within 1e-9, and a bare tip is rejected; and a page draws the terminal with the radius and both arc centres labelled.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-16, 296ba50.
+Source: state/HANDOFF-int.md, 2026-11-17, 4c22f4c.
