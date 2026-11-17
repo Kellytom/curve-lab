@@ -90,13 +90,11 @@ test("a frame pattern can use both curves", () => {
   assert.deepEqual(south.map((item) => item.letter), ["a", "b"]);
 });
 
-test("the gallery has the starred section, the simple designs and the singles", () => {
-  const gallery = fs.readFileSync(path.join(ROOT, "book/index.html"), "utf8");
-  assert.ok(gallery.includes("Framed Quintic symmetric figures"));
-  assert.ok(gallery.includes("Simple framed symmetric central figures"));
-  assert.ok(gallery.includes("Single curves"));
-  const starredPath = path.join(ROOT, "workbench/starred.json");
-  const starred = fs.existsSync(starredPath)
-    ? (JSON.parse(fs.readFileSync(starredPath, "utf8")).plates || []).length : 0;
-  assert.equal((gallery.match(/<img /g) || []).length, manifest.plates.length + starred);
+test("the gallery is the Astro page, and the generated page is gone", async () => {
+  assert.equal(fs.existsSync(path.join(ROOT, "book/index.html")), false);
+  const { buildGallery } = await import(
+    require("node:url").pathToFileURL(path.join(ROOT, "app/src/lib/gallery.js")).href);
+  const gallery = buildGallery({ root: ROOT, starred: [] });
+  assert.equal(gallery.designs.length, 2);
+  assert.equal(gallery.designs.length + gallery.singles.length, manifest.plates.length);
 });

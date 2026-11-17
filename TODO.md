@@ -43,9 +43,13 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   draws with `plate_math.js`; the selectors list the 28 saved curves; every
   copy has its character rails and closed ends; the readout prints the paths
   and the note. `tests/test_square_frame.py` guards the controls and the page.
-- [ ] **Port the book gallery into Astro (A2, the next action):** one page lists
-  the starred plates and the cross/leaf designs from the files; retire the
-  generated `book/index.html` in the same commit.
+- [x] **Port the book gallery into Astro (A2, landed 2026-11-17):**
+  `app/src/pages/book.astro` lists the stars from `workbench/starred.json`, then
+  the cross and leaf from `book/plates.json`, then the singles, with the
+  exporter's own captions from `workbench/plate_compose.js`. `app/src/lib/gallery.js`
+  reads the files per request; `app/src/pages/api/plate/[id].js` serves the PNGs
+  from `book/plates/`. `book/index.html` is deleted and the exporter no longer
+  writes it. 7 app tests (one lists every plate from the files).
 - [x] **The gate:** the two 42 s sandbox page modules moved to `--full`; the
   default gate is 69 s on this loaded machine (91 s before), `--slim` about 2 s.
 - [x] **The Astro app:** `app/` runs Astro 5.18 + `@astrojs/node` on `:4321`;

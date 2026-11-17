@@ -15,6 +15,13 @@ ported; its stars are saved by the page itself to `workbench/starred.json`.
 - **The save:** `src/lib/stars.js` is plain Node (atomic write, validated ids);
   `src/pages/api/stars.js` is a thin adapter. A Next route handler or a Hono
   route can import the same function.
+- **The book gallery:** `/book` (`src/pages/book.astro`) lists the starred
+  plates from `../workbench/starred.json`, then the cross and leaf from
+  `../book/plates.json`, then the singles. `src/lib/gallery.js` reads both files
+  on every request and takes each caption from `../workbench/plate_compose.js`,
+  the same call the exporter makes. The PNGs are served by
+  `src/pages/api/plate/[id].js` from `../book/plates/`, so nothing is copied.
+  The generated `book/index.html` is gone.
 - **The endpoint:** `POST /api/stars` with `{ "plates": [...] }` wrote
   `workbench/starred.json` in the test run.
 
@@ -23,5 +30,5 @@ cd app && npm run dev      # http://localhost:4321
 npm test                   # the save tests, no browser
 ```
 
-Not ported yet: the book gallery and the other workbench pages. The old lab at
+Not ported yet: the other workbench pages. The old lab at
 `:8003` stays until the Astro page reaches parity.

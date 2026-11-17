@@ -85,8 +85,8 @@ this symmetry; call it balance.
 | # | action | `Proves:` | needs |
 |---|---|---|---|
 | A1 | **lab + save in Astro** | the page at :4321 renders the 88 curves; a star and **save to workbench** write `workbench/starred.json`; 4 save tests in the gate | **landed 2026-11-17** |
-| A2 | port the book gallery | an Astro page lists the star file and the simple designs; the generated `book/index.html` is retired | A1 |
-| A3 | port pages on touch | each moved page is deleted from the generators in the same commit; the shared maths stays one file | A2 |
+| A2 | **landed 2026-11-17** — port the book gallery | an Astro page lists the star file and the simple designs; the generated `book/index.html` is retired | A1 |
+| A3 | port pages on touch (the next action) | each moved page is deleted from the generators in the same commit; the shared maths stays one file | A2 |
 | A4 | the Python bridge | one Node entry point calls the exact engine (or the spline connector) with a whitelisted operation, and a test round-trips one result | A1 |
 
 **Note:** the book (B1–B5) and the older JS port feed Astro; A2 is the next

@@ -538,6 +538,28 @@ download stays as the fallback. Migration order and the Python bridge are in
 `state/ASTRO-int.md`. The old generated pages remain until each is ported and
 deleted in the same commit.
 
+## The book gallery is the Astro page — 2026-11-17
+
+Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
+
+- **The gallery is a server page**, `app/src/pages/book.astro`, reading
+  `book/plates.json` and `workbench/starred.json` on every request. Reason: a
+  star saved to `workbench/starred.json` shows up without a rebuild, and the
+  listing cannot drift from the file the way a generated page can.
+- **One caption, one module.** `workbench/plate_compose.js` holds the compose
+  call; the exporter and the gallery both require it. Reason: the caption is
+  the plate's name in the book, so two copies of the wording is the fault class
+  the register already names.
+- **Every star is listed, even before its PNG exists.** A star with no exported
+  plate says `PNG not exported yet` on its card. Reason: dropping it would make
+  the gallery quietly disagree with the file it claims to list.
+- **The PNGs are served from `book/plates/`**, not copied into `app/public/`:
+  `app/src/pages/api/plate/[id].js` checks the id against the plate-name pattern
+  and the resolved path against the plate directory. Reason: 5.8 MB of plates
+  would otherwise exist twice, and two copies drift.
+- **The exporter writes SVG, PNG and `render.html` only.** No page is generated
+  from it. A missing `starred.json` is still a prompt, not an error.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from

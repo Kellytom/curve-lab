@@ -63,18 +63,19 @@ square.
 node scripts/plates_export.mjs
 ```
 
-It writes `svg/<id>.svg`, `plates/<id>.png`, `render.html` and `index.html`,
-prints the distance, the fold margin, the pixel size and the bytes, and stamps
-300 dpi.
+It writes `svg/<id>.svg`, `plates/<id>.png` and `render.html`, prints the
+distance, the fold margin, the pixel size and the bytes, and stamps 300 dpi. It
+no longer writes `index.html`: the gallery is the Astro page at `/book`.
 
 ## Starred figures
 
 The gallery's top section, **Framed Quintic symmetric figures**, is whatever the
-operator stars in `workbench/square-frame.html`. A browser cannot write a file,
+operator stars in the lab. A browser cannot write a file,
 so the bridge is a download: star a design in the lab, press **download
 starred.json**, and save the file to `workbench/starred.json`. The next export
 adds those plates under the top section. With no file, the section shows the
-instruction rather than an error.
+instruction rather than an error. The Astro gallery lists every star the moment
+the file exists; a star whose PNG has not been exported yet says so on its card.
 
 The section below it, **Simple framed symmetric central figures**, is the pair
 in `plates.json` (cross and leaf). The 27 single curves from `plates.json` follow. The lab's picker offers the
@@ -102,4 +103,8 @@ the top section.
 | `plates/*.png` | the images, 300 dpi |
 | `svg/*.svg` | the same plates as SVG |
 | `render.html` | the page the screenshots are taken from (generated) |
-| `index.html` | the gallery, no controls (generated) |
+
+The gallery is not a generated file. It is `app/src/pages/book.astro`, reading
+`plates.json` and `workbench/starred.json` on each request and serving the PNGs
+through `/api/plate/<id>`. `workbench/plate_compose.js` writes every caption
+once, for both the exporter and the page.

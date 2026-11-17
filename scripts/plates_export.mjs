@@ -1,11 +1,12 @@
-// Export the book plates: SVG, PNG at 300 dpi, and the gallery. All in JS.
+// Export the book plates: SVG and PNG at 300 dpi. All in JS.
 //
 //   node scripts/plates_export.mjs
 //
 // Reads book/plates.json and workbench/real-curves.json, composes each plate
 // with workbench/plate_math.js, writes book/svg/<id>.svg and book/render.html,
-// screenshots every plate with Playwright, stamps 300 dpi, then writes
-// book/index.html. No Python in the path.
+// screenshots every plate with Playwright and stamps 300 dpi. No Python in
+// the path. The gallery is the Astro page at /book; this script no longer
+// writes book/index.html.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -14,6 +15,7 @@ import { chromium } from "playwright-core";
 
 const require = createRequire(import.meta.url);
 const PlateMath = require("../workbench/plate_math.js");
+const { composePlate } = require("../workbench/plate_compose.js");
 
 const ROOT = resolve(import.meta.dirname, "..");
 const BOOK = resolve(ROOT, "book");
@@ -42,48 +44,6 @@ let starred = [];
 if (existsSync(starredPath)) {
   const data = JSON.parse(readFileSync(starredPath, "utf8"));
   starred = (data.plates || []).map((plate) => ({ ...plate, kind: "star" }));
-}
-
-// -- the plate ---------------------------------------------------------------
-
-function compose(plate) {
-  if (plate.kind === "star") {
-    const patched = { ...rows };
-    const patch = (name) => {
-      if (!name || !rows[name]) return;
-      patched[name] = {
-        ...rows[name],
-        width: { percent: plate.width ?? (rows[name].width || {}).percent ?? 1.5 },
-        character: {
-          plus: plate.plus ?? (rows[name].character || {}).plus ?? 2,
-          minus: plate.minus ?? (rows[name].character || {}).minus ?? 2,
-          profile: plate.profile ?? (rows[name].character || {}).profile ?? "bow",
-        },
-      };
-    };
-    patch(plate.curve); patch(plate.curveB);
-    if (plate.form === "single") {
-      const group = PlateMath.group(patched[plate.curve]);
-      return { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()),
-               note: `${group.note} · starred` };
-    }
-    const data = PlateMath.design({
-      form: plate.form, curve: plate.curve, curveB: plate.curveB,
-      leg: plate.leg, pattern: plate.pattern, alternate: plate.alternate,
-      frame: plate.frame ? { perWidth: plate.perWidth, perHeight: plate.perHeight } : null,
-    }, patched);
-    return { paths: data.paths, bbox: data.bbox, note: `${data.note} · starred` };
-  }
-  if (plate.kind === "design") {
-    const data = PlateMath.design(plate, rows);
-    const symmetry = rows[plate.curve] && rows[plate.curve].symmetry;
-    return { paths: data.paths, bbox: data.bbox,
-             note: data.note + (symmetry ? ` · curve ${symmetry.kind}` : "") };
-  }
-  const group = PlateMath.group(rows[plate.name]);
-  const symmetry = rows[plate.name] && rows[plate.name].symmetry;
-  return { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()),
-           note: group.note + (symmetry ? ` · ${symmetry.kind}` : "") };
 }
 
 function plateSvg(composed, longSide, strokeShare) {
@@ -169,7 +129,7 @@ function pngSize(path) {
 
 const plates = [];
 [...starred, ...manifest.plates].forEach((plate) => {
-  const composed = compose(plate);
+  const composed = composePlate(plate, rows);
   const { svg, pxW, pxH } = plateSvg(composed, manifest.longSide, manifest.strokeShare);
   plates.push({ ...plate, ...composed, svg, pxW, pxH });
 });
@@ -215,38 +175,3 @@ for (const plate of plates) {
     + `${String(w).padStart(4)}x${String(h).padEnd(5)} ${String(DPI).padStart(4)} `
     + `${String(readFileSync(path).length).padStart(8)}`);
 }
-
-const starredPlates = plates.filter((plate) => plate.kind === "star");
-const designs = plates.filter((plate) => plate.kind === "design");
-const singles = plates.filter((plate) => plate.kind === "seed");
-const cards = (group) => group.map((plate) =>
-  `<figure><img src="plates/${plate.id}.png" width="${plate.pxW}" height="${plate.pxH}" alt="${plate.id}">`
-  + `<figcaption><b>${plate.id}</b><br>${plate.note}</figcaption></figure>`).join("");
-const gallery = `<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Book plates — temporary export</title>
-<style>
-body{margin:0;background:#fff;color:#111;font:14px/1.55 Georgia,serif}
-main{max-width:1120px;margin:0 auto;padding:30px 22px 60px}
-h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:34px 0 4px;font-weight:600}
-.lead{color:#666;margin:0 0 18px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid #eee}
-figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin-top:6px}
-.empty-state{grid-column:1/-1;border:1px dashed #d3d3d3;padding:22px 24px;color:#777;font-size:13px}
-a{color:#8c6a21}
-</style></head><body><main>
-<h1>Book plates — temporary export</h1>
-<p class="lead">${plates.length} plates · ${designs.length} central designs and ${singles.length} single curves · white ground, no text on the image, tight to the curve · labels outside, two columns · names are <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
-<h2>Framed Quintic symmetric figures</h2>
-<p class="lead">Starred in the square and frame lab, then written to <code>workbench/starred.json</code> by the page itself.</p>
-<div class="grid">${starredPlates.length ? cards(starredPlates) : `<p class="empty-state">No stars yet. Open the <a href="http://localhost:4321/">Astro lab</a>, set the design, press <b>star this design</b>, then <b>save to workbench</b>; the next export puts it here.</p>`}</div>
-<h2>Simple framed symmetric central figures</h2>
-<p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg frame of arches overlaps itself, so it is not offered framed.</p>
-<div class="grid">${cards(designs)}</div>
-<h2>Single curves</h2>
-<p class="lead">${singles.length} plates, one saved curve each with its character rails.</p>
-<div class="grid">${cards(singles)}</div>
-</main></body></html>`;
-writeFileSync(resolve(BOOK, "index.html"), gallery);
-console.log(resolve(BOOK, "index.html"));
