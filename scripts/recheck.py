@@ -821,9 +821,12 @@ def c_integer_ph_rail():
           and d["plain_first"]["scale"] == 688800
           and d["fit"]["error"] < 1e-5 and not d["fit"]["drawn"]
           and f"{d['fit']['share']:.2e}" in page
-          and "not a mirror line" in page)
+          and "not a mirror line" in page
+          and I.mirror_data()["symmetry"]["central"] == 0.0
+          and I.mirror_data()["scale"] == 15)
     return ok, (f"exact rail; first grid {d['first']['scale']} at t=1/2; "
-                f"fit miss {d['fit']['error']:.1e} over {d['fit']['spans']} spans")
+                f"fit miss {d['fit']['error']:.1e} over {d['fit']['spans']} spans; "
+                f"mirror candidate grid {I.mirror_data()['scale']}")
 
 
 @check("the fleur grammar declares its seam and reports its corners",

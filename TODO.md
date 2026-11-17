@@ -263,6 +263,11 @@ C-family p-triple conversion and the ornament-form proofs below.
   gap, 49% mirror gap, tangent 12.7° off vertical, x = 0 met four times), so it
   is a branch station, not a mirror line. A symmetric PH curve is the unbuilt
   third option; the symmetric integer cubic is not PH.
+  **Mirror candidate (not adopted):** `u = 1`, `v = (2t − 1)²` is exactly
+  symmetric (half-turn gap 0.000), midpoint (2/5, 1/3) at grid 15 with the rails
+  at d = 1/15 giving (0, 6) and (0, 4); one shift by −2/5 puts the station at
+  (0, 5), the +rail's first interior hit is grid 5, and the y axis crosses the
+  curve once. Shown on the page as a candidate.
 
 **Decision rules**
 

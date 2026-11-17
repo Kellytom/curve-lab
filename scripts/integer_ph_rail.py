@@ -39,6 +39,12 @@ D = Fraction(41, 1120)          # 0.0366 model units, 41/1120 of the half-width
 PLAIN_D = Fraction(3, 100)      # the contrast: an unchosen distance
 FIT_TOL = 1e-5
 
+# The mirror candidate: both speeds even about t = 1/2, so the curve is a half
+# turn about its midpoint and the midpoint's tangent is horizontal.
+MIRROR_U = [Fraction(1)]
+MIRROR_V = [Fraction(1), Fraction(-4), Fraction(4)]
+MIRROR_D = Fraction(1, 15)
+
 INK, BLUE, RED, GOLD, MUTED = "#2e2413", "#1f5fa8", "#a23b2a", "#b58312", "#7b6c4e"
 PAPER, GRID, LINE = "#fffdf7", "#e4dcc6", "#d8ccae"
 
@@ -195,6 +201,50 @@ def proof_data():
         "symmetry": _symmetry(u, v),
         "inflection": inflection,
         "ladder": _ladder(u, v)[:7],
+    }
+
+
+def mirror_data():
+    """A symmetric PH candidate: the mirror station is built into the formula.
+
+    `u = 1` and `v = (2t − 1)²` are both even about t = 1/2, so the curve is a
+    half turn about its midpoint, the tangent there is horizontal, and the
+    vertical line through it is the normal. Both rails are exact.
+    """
+    u, v = MIRROR_U, MIRROR_V
+    x, y = ph.curve(u, v)
+    sigma = ph.speed_squared(u, v)
+    midpoint = ph.point_at(u, v, 0, Fraction(1, 2))
+    shift = -midpoint[0]
+    scale = 15
+    station = []
+    for label, distance in (("spine", 0), ("rail +d", MIRROR_D),
+                            ("rail -d", -MIRROR_D)):
+        at = ph.point_at(u, v, distance, Fraction(1, 2))
+        translated = (at[0] + shift, at[1])
+        station.append({
+            "label": label,
+            "model": translated,
+            "lattice": (translated[0] * scale, translated[1] * scale),
+        })
+    point, tangent = ph.float_sampler(u, v, 0)
+    kappa = ph.curvature_peak(u, v)
+    return {
+        "u": u, "v": v, "x": x, "y": y, "sigma": sigma,
+        "midpoint": midpoint,
+        "shift": shift,
+        "scale": scale,
+        "at_scale": ph.hits_at_scale(u, v, scale),
+        "station": station,
+        "distance": MIRROR_D,
+        "rail_first": ph.first_interior_hit(u, v, MIRROR_D, q_max=120),
+        "rail_at_scale": ph.hits_at_scale(u, v, scale, MIRROR_D),
+        "ladder": _ladder(u, v)[:5],
+        "size": _size(u, v),
+        "fold": float(MIRROR_D) * kappa,
+        "tangent_deg": math.degrees(tangent(0.5)),
+        "crossings": _axis_crossings(u, v, shift),
+        "symmetry": _symmetry(u, v),
     }
 
 
@@ -405,6 +455,38 @@ def main() -> int:
                f"+{d['shift']}"],
     )
 
+    mirror = mirror_data()
+    mirror_shift = float(mirror["shift"])
+    mirror_spine = _translated(
+        _rail_points(mirror["u"], mirror["v"], 0), mirror_shift)
+    mirror_upper = _translated(
+        _rail_points(mirror["u"], mirror["v"], mirror["distance"]),
+        mirror_shift)
+    mirror_lower = _translated(
+        _rail_points(mirror["u"], mirror["v"], -mirror["distance"]),
+        mirror_shift)
+    mirror_station = mirror["station"]
+    figure_mirror = _chart(
+        [
+            (mirror_spine, INK, 2.4, None, "symmetric spine"),
+            (mirror_upper, BLUE, 1.6, None, "exact rail, +d"),
+            (mirror_lower, RED, 1.6, None, "exact rail, −d"),
+        ],
+        900, 560,
+        "Fig. R4 · a symmetric PH candidate: the station sits on the y axis",
+        f"u = 1, v = (2t − 1)² · d = 1/15 · half turn exact · +y up",
+        "x (model units, translated)", "y (model units)",
+        marks=[((0.0, float(mirror["midpoint"][1])), "station", 8, -8)],
+        vertical=(0.0, "y axis"),
+        notes=[f"grid {mirror['scale']}: "
+               + " · ".join(f"{row['label']} ({row['lattice'][0]:.0f}, "
+                            f"{row['lattice'][1]:.0f})"
+                            for row in mirror_station),
+               f"the y axis crosses this curve once · |d·κ| = "
+               f"{mirror['fold']:.3f}, no fold"],
+        mark_legend=f"lattice point, grid {mirror['scale']}",
+    )
+
     ladder_rows = "".join(
         f"<tr><td>{scale:,}</td><td>{', '.join(str(t) for t in parameters)}</td></tr>"
         for scale, parameters in d["ladder"])
@@ -431,7 +513,9 @@ code{{font:12px ui-monospace,Menlo,monospace}}
 <h1>The integer PH curve and its exact rail</h1>
 <p class="lead">{d['name']} is PH by construction, so its rail is a ratio of two
 polynomials — not a fitted cubic. The cubic fit is computed and printed as a
-number; nothing cubic is drawn, because cubics are the export step.</p>
+number; nothing cubic is drawn, because cubics are the export step. The last
+section is a symmetric PH candidate that puts the mirror station on the y
+axis.</p>
 
 <div class="panel">
 <p><strong>The source.</strong> The curve is written by the speed pair</p>
@@ -518,11 +602,49 @@ It is a station on the centreline, not a mirror line.</p>
 <p>A true mirror axis needs a symmetric curve. The Pythagorean integer cubic
 family is half-turn symmetric with its midpoint at (c, 0) — a lattice point at
 scale 1, at its inflection, with a horizontal tangent there — but it is not PH,
-so its rail is fitted, not exact. A symmetric PH curve is the third option and
-is not built.</p>
+so its rail is fitted, not exact. A symmetric PH curve is the third option, and
+the candidate below is one.</p>
 </div>
 
 <div class="art">{figure_station}</div>
+
+<div class="art">{figure_axis}</div>
+
+<h2>A candidate with the mirror station built in</h2>
+<div class="panel">
+<p><strong>The formula.</strong> Take both speeds even about t = 1/2:
+<code>u = 1</code> and <code>v = (2t − 1)²</code>. Both are unchanged when
+t is replaced by 1 − t, so the hodograph is even and the curve is a half turn
+about its midpoint. The tangent at the midpoint is exactly horizontal, so the
+vertical line through it is the normal, and the curve crosses that line once.
+The rail is exact for the same reason as above: the speed is a polynomial.</p>
+<p><strong>The numbers.</strong> The midpoint is
+<code>({mirror['midpoint'][0]}, {mirror['midpoint'][1]})</code>
+= ({float(mirror['midpoint'][0]):.3f}, {float(mirror['midpoint'][1]):.3f}),
+which is ({mirror['station'][0]['lattice'][0]:.0f},
+{mirror['station'][0]['lattice'][1]:.0f}) at <strong>grid
+{mirror['scale']}</strong>. One shift by
+<code>{mirror['shift']}</code> puts it at (0,
+{mirror['station'][0]['lattice'][1]:.0f}). The rails at d = 1/15 land on the
+same grid at (0, {mirror['station'][1]['lattice'][1]:.0f}) and (0,
+{mirror['station'][2]['lattice'][1]:.0f}), and the +rail's first interior hit
+is even cheaper: <strong>grid {mirror['rail_first']['scale']}</strong> at
+t = {mirror['rail_first']['t'][0]}/{mirror['rail_first']['t'][1]},
+({mirror['rail_first']['point'][0]}, {mirror['rail_first']['point'][1]}).
+The half-turn gap is {mirror['symmetry']['central']:.3f} of the size;
+<code>|d·κ| ≤ {mirror['fold']:.3f}</code>, so no rail folds.</p>
+<table>
+<tr><th>curve</th><th>point at grid {mirror['scale']}</th></tr>
+{''.join(f"<tr><td>{row['label']}</td><td>({row['lattice'][0]:.0f}, {row['lattice'][1]:.0f})</td></tr>" for row in mirror_station)}
+</table>
+<p class="warn"><strong>Status: a candidate, not adopted.</strong> It gives
+what {d['name']} cannot — exact symmetry, one crossing of the y axis, a
+horizontal station tangent, and grid {mirror['scale']} instead of
+{d['scale']}. It also changes the primary curve, so the choice is the
+operator's.</p>
+</div>
+
+<div class="art">{figure_mirror}</div>
 
 <h2>What this means for branches</h2>
 <div class="panel">
@@ -543,8 +665,6 @@ whole-number data on the grid you need and it can hit the lattice by
 construction. The rails are the only side curves where the hit is dictated by
 the parent.</p>
 </div>
-
-<div class="art">{figure_axis}</div>
 
 <div class="panel">
 <p><strong>Re-derive.</strong>

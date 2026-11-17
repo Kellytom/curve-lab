@@ -21,6 +21,7 @@ class IntegerPhRailTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = I.proof_data()
+        cls.mirror = I.mirror_data()
 
     def setUp(self):
         self.page = (ROOT / "workbench" / "integer-ph-rail.html").read_text(
@@ -118,6 +119,26 @@ class IntegerPhRailTest(unittest.TestCase):
         self.assertIn("exact", self.page.lower())
         self.assertIn("(0, 4130)", self.page)
         self.assertIn("mirror", self.page.lower())
+
+    # -- the mirror candidate ---------------------------------------------
+
+    def test_the_mirror_candidate_is_exactly_symmetric(self):
+        mirror = self.mirror
+        self.assertEqual(mirror["symmetry"]["central"], 0.0)
+        self.assertAlmostEqual(mirror["tangent_deg"], 0.0, places=9)
+        self.assertEqual(mirror["midpoint"], (Fraction(2, 5), Fraction(1, 3)))
+
+    def test_the_mirror_station_sits_on_the_axis_at_grid_15(self):
+        mirror = self.mirror
+        self.assertEqual([row["lattice"] for row in mirror["station"]],
+                         [(0, 5), (0, 6), (0, 4)])
+        self.assertEqual(len(mirror["at_scale"]), 3)
+        self.assertEqual(mirror["rail_first"]["scale"], 5)
+        self.assertEqual(len(mirror["crossings"]), 1)
+
+    def test_the_page_calls_the_mirror_curve_a_candidate(self):
+        self.assertIn("candidate", self.page.lower())
+        self.assertIn("not adopted", self.page)
 
 
 if __name__ == "__main__":

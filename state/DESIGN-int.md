@@ -383,8 +383,16 @@ later... that is the last step before transfer to inkscape and glyphs 4".
   the inflection is at t = 0.5051, and x = 0 meets the curve four times. A true
   mirror axis needs a symmetric curve: the Pythagorean integer cubic family is
   half-turn symmetric with its midpoint at (c, 0) on scale 1, but it is not PH,
-  so its rail is fitted. A symmetric PH curve is the third option and is not
-  built.
+  so its rail is fitted. A symmetric PH curve is the third option.
+- **A symmetric PH candidate was found** (2026-11-17, **not adopted**):
+  `u = 1`, `v = (2t − 1)²`. Both speeds are even about 1/2, so the curve is a
+  half turn about its midpoint (2/5, 1/3), the tangent there is exactly
+  horizontal, and the vertical line through it crosses the curve once. Grid 15
+  puts the station at (6, 5); one shift by −2/5 puts it at (0, 5); both rails at
+  d = 1/15 land at (0, 6) and (0, 4) on the same grid; the + rail's first
+  interior hit is grid 5. It is the first curve here with both an exact rail and
+  a mirror station, and it changes the primary curve, so the choice is the
+  operator's.
 
 ## Searching and naming
 
