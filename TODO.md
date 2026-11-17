@@ -43,6 +43,11 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   draws with `plate_math.js`; the selectors list the 28 saved curves; every
   copy has its character rails and closed ends; the readout prints the paths
   and the note. `tests/test_square_frame.py` guards the controls and the page.
+- [x] **The Astro app:** `app/` runs Astro 5.18 + `@astrojs/node` on `:4321`;
+  the lab page imports the shared `plate_math.js` and `real-curves.json`, stars
+  the current design, and **save to workbench** writes `workbench/starred.json`
+  through `app/src/lib/stars.js` (validated, atomic). 4 save tests in the gate.
+  Next: the book gallery, then pages on touch; the Python bridge is A4.
 - [x] **Stars and the gallery picker:** the lab stars a design (localStorage),
   downloads `starred.json`; the exporter adds those under **Framed Quintic
   symmetric figures** above **Simple framed symmetric central figures** and the

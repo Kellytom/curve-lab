@@ -113,6 +113,7 @@ def run_js_tests() -> int:
         print("  JS tests skipped: no node")
         return 0
     files = sorted((ROOT / "tests" / "js").glob("*.test.js"))
+    files += sorted((ROOT / "app" / "tests").glob("*.test.mjs"))
     if not files:
         return 0
     result = subprocess.run(["node", "--test", *[str(f) for f in files]],

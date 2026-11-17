@@ -149,6 +149,8 @@ and documentation alike.
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
+| `app/` | the Astro app: the lab and the save endpoint; see `app/README.md` |
+| `app/src/lib/stars.js` | the plain-Node star save; portable to Next and Hono |
 | `curve_lab/square_assembly.py` | the same corner rule in Python, for static proofs |
 | `founder/LOG.md` | the founder's current focus, dated entries and priority tags |
 | `state/PORT-int.md` | the language boundary: browser JS, Node for tests, Python where debugged |
@@ -190,6 +192,9 @@ node scripts/real_curves.mjs                     # rebuild workbench/real-curves
 .venv/bin/python scripts/square_frame.py         # the square/frame lab page
 node --test tests/js/*.test.js                   # the browser modules' own tests
 sh scripts/code_count.sh                         # the language split at handoff
+cd app && npm run dev                            # the Astro lab on :4321
+npm --prefix app test                            # the save endpoint tests
+astro --version                                  # the global Astro 5.18.2
 node scripts/board/build-board.mjs              # regenerate both board pages
 .venv/bin/python scripts/g3_showcase_doc.py      # refresh the G3 showcase doc + HTML twin
 .venv/bin/python scripts/g3_cubic_native.py      # the cubic-native side list

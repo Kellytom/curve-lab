@@ -131,6 +131,19 @@ Every remark carries one:
   (the leaf) or end to end (the chain, not flipped). `[now]`
 - **The lab still offers the four sandbox cubics**; B7 is next. `[now]`
 
+## 2026-11-17 — the Astro app is live
+
+- **The final stack is Astro.** The lab now runs at `localhost:4321` from
+  `app/`, on Astro 5.18 because this machine's Node 22.4 is below Astro 7's
+  floor. A global Astro 5.18.2 is installed. `[now]`
+- **The page saves its own stars.** Press **save to workbench** and
+  `workbench/starred.json` is written, validated and atomic; no download step.
+  The download stays as the fallback, and the save library is plain Node so a
+  Next route can reuse it. `[now]`
+- **The maths and the 88 curves are shared,** not copied into the app.
+  `[now]`
+- **Next: the book gallery into Astro**, then pages on touch. `[now]`
+
 ## Open, in priority order
 
 - `[now]` Trim size, plate count, ink, and whether a plate carries a caption in

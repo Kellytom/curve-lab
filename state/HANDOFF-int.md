@@ -2583,3 +2583,28 @@ Tests: 6 page tests and 15 JS tests. **Stars and the picker.** The lab stars a d
 figures** above **Simple framed symmetric central figures** and the singles. A
 picker at the foot of the lab shows all 28 curves with their rails and symmetry;
 click to load one. **Next:** B8, the chain form.
+
+## 2026-11-17 (Astro) — the app is Astro; the lab and its save are live
+
+**Decision:** the operator chose Astro for the final app. No React; local file
+support; it must run on Next and other servers.
+
+**Running:** `app/` with Astro **5.18.2** + `@astrojs/node` **9.5.5** on
+**:4321**. Astro 7 refused this machine's Node 22.4.1 (it wants >=22.23.4);
+Astro 5 accepts it. A global Astro 5.18.2 is installed. The old grid-8 project
+is on 4.15.
+
+**What works.** The lab page imports the shared `workbench/plate_math.js` and
+`workbench/real-curves.json` (Vite fs.allow to the repo root). A star stores the
+current design in localStorage; **save to workbench** posts to `/api/stars` and
+writes `workbench/starred.json` through `app/src/lib/stars.js` — plain Node,
+validated ids, temp file + rename. The download stays as the fallback. A browser
+run verified: 88 cards, star, save, file on disk.
+
+**Tests:** 4 save tests in `app/tests/stars.test.mjs`, now in the gate with the
+17 JS tests; 110 Python modules.
+
+**Not yet:** the book gallery and the other pages are still generated HTML. The
+Python engine and the spline connector stay; A4 is the Node bridge.
+
+**Next:** A2, port the book gallery into Astro; then pages on touch.

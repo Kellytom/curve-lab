@@ -80,6 +80,18 @@ this symmetry; call it balance.
 | Modulated width (former Stage IV) | Its own proof, after the ornament grammar. | `goals.md` |
 | Other polygons (pentagon, pentagram) | Operator, 2026-11-17: squares and rectangles first; the same corner rule holds (54°, 18°) when they come back. | this table; `founder/LOG.md` |
 
+## Astro app — the operator's new stack
+
+| # | action | `Proves:` | needs |
+|---|---|---|---|
+| A1 | **lab + save in Astro** | the page at :4321 renders the 88 curves; a star and **save to workbench** write `workbench/starred.json`; 4 save tests in the gate | **landed 2026-11-17** |
+| A2 | port the book gallery | an Astro page lists the star file and the simple designs; the generated `book/index.html` is retired | A1 |
+| A3 | port pages on touch | each moved page is deleted from the generators in the same commit; the shared maths stays one file | A2 |
+| A4 | the Python bridge | one Node entry point calls the exact engine (or the spline connector) with a whitelisted operation, and a test round-trips one result | A1 |
+
+**Note:** the book (B1–B5) and the older JS port feed Astro; A2 is the next
+wiring step after B3/B4 if the operator keeps the book first.
+
 ## How a session ends
 
 1. Its `Proves:` line is true, or the session stops and says why.

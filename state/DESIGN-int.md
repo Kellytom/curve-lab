@@ -523,6 +523,21 @@ proof and `workbench/square-frame.html` is the lab.
   corner is 108° (leg 54°), a pentagram point 36° (leg 18°) — but the box is
   not square and the counts are per axis, so it is a separate piece of work.
 
+## Astro is the app — 2026-11-17
+
+Settled 2026-11-17, by the operator: the final result is Astro; no React; local
+file support; it must work on Next and other servers. `app/` runs Astro 5.18.2
+with the Node adapter on **:4321**. Astro 7 was refused by this machine's Node
+22.4.1 (it wants >=22.23.4); Astro 5 accepts it, and a global 5.18.2 is
+installed. The page imports `workbench/plate_math.js` and
+`workbench/real-curves.json` — no second maths. The save is
+`app/src/lib/stars.js`, plain Node (validate, temp file, rename), called by a
+thin Astro route; a Next or Hono route can call the same function. The lab's
+"save to workbench" writes `workbench/starred.json` from the page, and the
+download stays as the fallback. Migration order and the Python bridge are in
+`state/ASTRO-int.md`. The old generated pages remain until each is ported and
+deleted in the same commit.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from
