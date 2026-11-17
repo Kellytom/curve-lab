@@ -2144,3 +2144,49 @@ Tried and rejected: rescaling the row to fix the drawing — dividing by its pea
 a curve that draws unscaled at peak 2.7e5; the cause is cancellation, and the factored form
 was the answer. Tried and rejected: a size threshold as a predictor of which rows the page
 miscounts — it did not pick out the five that failed.
+
+## 2026-11-16, senior review of the codebase
+
+Asked for as a review; recorded here so it is not carried in someone's head.
+
+**Sizes, measured.** Engine (`curve_lab/`, `web/`) 7,862 lines. Generators (`scripts/`) 55,899.
+Generated pages (`workbench/`) 53,967 lines across 95 pages. Tests 9,092 lines, 105 modules.
+Commits 821. The engine is small; the generators are seven times its size and the HTML they write
+is as large again. That ratio is the finding: the product is 95 generated pages written as Python
+strings.
+
+**What is genuinely good.** Exact arithmetic as a stated invariant, not an aspiration. A bug
+register with a test per row (`state/REGRESSIONS-int.md`, 20 rows). Pages generated, never
+hand-edited. Written memory that lets a session start in minutes. 105 test modules.
+
+**Five things to fix, in value order.**
+
+1. **The numeric core exists three times and disagrees with itself.** `pitch` lives in
+   `ph_math.js`, `ph_quintic_metrics.py` and four scripts written this session. They agree in exact
+   arithmetic and disagree in doubles: the page said grid 1/5,148 where the exact answer is 1/36,
+   with identical rows. That divergence is the cause of most of 2026-11-16's confusion. One
+   reference implementation, exact, exported for the page to consume.
+2. **Three figure pipelines, created this session.** `curves/<slug>/figure.png` (page capture or
+   exact drawing), `workbench/figures/*.png` (169 HUD captures), and `figure-exact.png`/`.svg`
+   beside the first. One curve, one picture, one path, one script; the gallery reads that path.
+3. **The ad-hoc verification should be a test.** `scripts/curve_png_all.mjs` compares the page's
+   grid and bend with the record's for every curve. Nothing in `tests/` does, which is why a stale
+   stash and a wrong step both reached the operator. That check belongs in the suite.
+4. **Tests assert strings and counts, not behaviour.** The clean-up broke tests demanding more than
+   100 records and a named curve's flat spots. Every literal count (60, 109, 169, 50 markers) is a
+   test that will fail for the right reason eventually. Derive expectations from data; assert DOM
+   structure rather than substrings.
+5. **3,846 lines of `ph_nth_panels.js` inlined into 100 pages** — 384,600 duplicated lines, and the
+   reason one edit dirties 100 pages and eight generators. Serve it as a static file, or accept
+   that "one page, one generator" implies one copy of the engine and stop inlining.
+
+**Smaller observations.** Files over 1,800 lines that are 80 % HTML (`g3_showcase.py`,
+`ph_families.py`) want template files, which would give escaping (a curve name containing a quote
+can break a page), highlighting and readable diffs. `ctx.py` is retired but still present; it
+belongs in `legacy/`. `family-census.json` is 1.2 MB of derived data: committed, good, but say in
+one line where it comes from and that the sweep takes twelve minutes. The register tracks faults,
+not absences — it has no row for "nothing compares page numbers with record numbers".
+
+**Advice for the next session:** not more features. One action — make the page consume exact
+precomputed numbers, and add the test that compares them. That is the difference between a lab that
+finds curves and a lab that trusts its own display.
