@@ -41,3 +41,7 @@ site/
 workbench/g3-catalogue-cache.json
 
 state/build-cache.json
+
+# Astro
+app/.astro/
+app/dist/
