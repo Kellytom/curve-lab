@@ -357,12 +357,8 @@ arrow is the curve on this page; it moves as you change the first boxes.</p>
 <script>
 window.phNthGallery = __GALLERY__;
 </script>
-<script>
-__MATH__
-</script>
-<script>
-__PANELS__
-</script>
+<script src="ph_math.js"></script>
+<script src="ph_nth_panels.js"></script>
 </body></html>
 """
 
@@ -412,7 +408,7 @@ def own_saved_list(page):
 
 
 def build():
-    page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":"))).replace("__MATH__", MATH.read_text()).replace("__PANELS__", PANELS.read_text())
+    page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
     page = own_saved_list(page)
     OUT.write_text(page)
     print(OUT.relative_to(ROOT))

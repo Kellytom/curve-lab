@@ -37,7 +37,23 @@ GENERATORS = (
 )
 
 
+def write_shared() -> None:
+    """Put the two shared scripts beside the pages, once each.
+
+    Every sandbox page used to inline its own copy (3,846 lines, 100 times). The
+    pages now load these two files, so an edit to the source is live on the next
+    reload and the repository holds one copy instead of a hundred.
+    """
+    for name in ("ph_math.js", "ph_nth_panels.js"):
+        source = ROOT / "scripts" / name
+        target = ROOT / "workbench" / name
+        text = source.read_text()
+        if not target.exists() or target.read_text() != text:
+            target.write_text(text)
+
+
 def main() -> int:
+    write_shared()
     for name in GENERATORS:
         result = subprocess.run([str(PYTHON), str(ROOT / "scripts" / name)], cwd=ROOT,
                                 capture_output=True, text=True)

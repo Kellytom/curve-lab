@@ -2351,3 +2351,62 @@ the whole story: the HTML is the product and it is written as Python strings.
 Not more features. One action: make the page consume exact precomputed numbers,
 and add the test that compares them. That is the difference between a lab that
 finds curves and a lab that trusts its own display.
+
+## 2026-11-17 (night) — the exact core, the lost buttons, and the stale crossing counts
+
+**Did the previous action land? No.** `next-fhandoff-int.md` still asks for the Bézier
+fitting step and `scripts/bezier_fit.py` does not exist. The operator parked it in words:
+"we need the curves and the engine to be complete before we go cubic bezier."
+
+**Local:** 200 on `:8003`. **Remote:** `000`, carried from 2026-11-13, not probed.
+**Tests:** 106 modules green at `26d8a3c` (`scripts/test.py`, 86.6 s). **Register:** 24 rows,
+green. **Git:** clean at `26d8a3c` plus this block. **Tag:** `page-works-2026-11-16` at
+`f24301f` — a page whose rails draw, whose side-curve controls exist and whose buttons hold
+every stored curve.
+
+**What landed, in the order it was asked for.**
+
+1. **One exact numeric core.** `curve_lab/measure.py` holds grid, bend, arc, inflections,
+   closest in `Fraction`; `scripts/ph_quintic_metrics.py` is a facade over it. The page prints
+   a stored curve's numbers from its record, labelled "(exact, from the record)", while the
+   loaded rows are untouched. `loop-13-15-17-mid-1` reproduced exactly: record 36, page 5,148.
+2. **The saved-curve buttons.** `workbench/operator-list.json` holds 179 curves built from the
+   stored records by `scripts/operator_list.py`; a browser with no list is seeded from it, so
+   the B panel shows 212 buttons instead of 33. A failed read can no longer become a write:
+   backup + mirror on every save, repair on load, `undo the last change`, `restore a list`.
+   `scripts/check-saved.mjs` proves six of those, including a pair record.
+3. **The gallery carries every stored curve** — 60 found, 109 moved, 10 kept — and the
+   experimental page keeps the complementary-curve box (it used to cut it out of its own
+   build, which is why the side-curve button could not exist there).
+4. **`Look closer`** is its own section: the optical controls no longer sit among the ones
+   that change the numbers.
+5. **`scripts/build-pages.py`** rebuilds all eight pages that inline the shared JavaScript;
+   `tests/test_page_assets.py` fails when a page is older than the shared file. This is the
+   fault that made a correct rails control look dead.
+6. **Crossings are one number again: crossing pairs.** 100 stored counts predated the
+   parameter-pair dedupe. `scripts/crossing_audit.py` recomputes, `--write` restores,
+   `tests/test_crossings.py` guards. `lace-1of10-1of5-3` is 5 pairs at 3 places.
+7. **`scripts/reading_counts.py`** was blind to numbered rows; it now refreshes Tier 0 and
+   `tests/test_reading_counts.py` guards it. `/fhandon`'s stale 846-line note and its retired
+   no-image rule are corrected, and `READING-int.md` now says the opening message adds to
+   Tier 0 and never replaces it.
+
+**Risks, in the order they will bite.** (1) Every page still inlines `ph_math.js` and
+`ph_nth_panels.js`; the build script and the drift test catch a forgotten rebuild, but the
+review's item 5 — serve one copy — removes the class. (2) Three figure pipelines still exist;
+collapsing them needs the operator to say whether the review page's factored views survive.
+(3) Tests still assert literal counts (60, 109, 169, 50). (4) Saved curves, the moved list and
+the star order live in the browser until exported.
+
+**Next move:** review item 5 — serve `ph_nth_panels.js` and `ph_math.js` as one static copy
+per page instead of inlining 3,846 lines into each, with a test that a page loads them.
+
+**Context:** meter retired 2026-11-16 and not quoted. Session long by choice; the operator
+asked for the night.
+
+Tried and rejected: testing against a fresh browser profile while the operator works in the
+light one — it proved the source and not the page, and a stale inline copy looked like a dead
+control. Tried and rejected: comparing inlined JavaScript byte for byte — some generators
+substitute inside the copy on purpose; the build-time test is the honest check. Tried and
+rejected: clustering crossings by position to report "meeting places" — the count then
+depends on scale, so it is not a property of the curve.

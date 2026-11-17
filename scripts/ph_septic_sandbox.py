@@ -202,9 +202,8 @@ JavaScript both checked into scripts.</p>
 </section>
 </main>
 __CURVES__
-<script>
-__PANELS__
-</script>
+<script src="ph_math.js"></script>
+<script src="ph_nth_panels.js"></script>
 </body></html>
 """
 
@@ -227,7 +226,7 @@ def build():
         "compared without retyping. The chord figures stay with B."))
     page = page.replace("__CURVES__", "<script>window.septicCurves = "
                         + json.dumps(curves, separators=(",", ":")) + ";</script>")
-    OUT.write_text(page.replace("__PANELS__", MATH.read_text() + "\n" + PANELS.read_text()))
+    OUT.write_text(page)
     print(OUT.relative_to(ROOT))
 
 

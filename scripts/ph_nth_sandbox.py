@@ -414,6 +414,7 @@ without leaving the PH family. The flare law and the serif foot are parked in
 <p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
 <button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
 <button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<button type="button" id="n-undo-saved" title="put back the list as it was before the last save or delete">undo the last change</button>
 <label class="small" title="read a list written by export everything, or by download all, back into this browser; names already here are kept as they are">restore a list
   <input id="n-import-list" type="file" accept="application/json,text/plain">
 </label>
@@ -581,12 +582,8 @@ window.phSpeedDegree = 5;
   }));
 })();
 </script>
-<script>
-__MATH__
-</script>
-<script>
-__PANELS__
-</script>
+<script src="ph_math.js"></script>
+<script src="ph_nth_panels.js"></script>
 <p class="small mono" id="n-build">build __BUILD__</p>
 </body></html>
 """
@@ -634,7 +631,7 @@ def stamped(page):
 
 
 def build():
-    page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":"))).replace("__MATH__", MATH.read_text()).replace("__PANELS__", PANELS.read_text())
+    page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
     OUT.write_text(stamped(page))
     print(OUT.relative_to(ROOT))
 

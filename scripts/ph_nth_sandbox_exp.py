@@ -390,8 +390,6 @@ def build():
                     figures[name] = f"../workbench/figures/{path.name}"
     page = page.replace("window.phSpeedDegree = 5;",
                         "window.phNthFigures = " + json.dumps(figures, separators=(",", ":")) + ";\nwindow.phSpeedDegree = 5;", 1)
-    page = page.replace("__MATH__", base.MATH.read_text())
-    page = page.replace("__PANELS__", base.PANELS.read_text())
     page = page.replace("<title>The eleventh power: a PH curve of degree 11</title>",
                         "<title>Experiment: fractional exponents</title>")
     page = page.replace("<h1>The eleventh power</h1>", "<h1>Experiment: fractional exponents</h1>")

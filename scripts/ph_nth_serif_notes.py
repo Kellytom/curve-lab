@@ -249,9 +249,7 @@ the foot is numerical.</p>
 <p><a href="ph-nth-sandbox.html">&larr; back to the eleventh-power sandbox</a></p>
 </section>
 </main>
-<script>
-__MATH__
-</script>
+<script src="ph_math.js"></script>
 <script>
 (function () {
   const panel = document.getElementById("plot");
@@ -468,7 +466,7 @@ __MATH__
 
 
 def build():
-    page = (PAGE.replace("__MATH__", MATH.read_text())
+    page = (PAGE
                 .replace("__MEMBERSHIP__", membership_table())
                 .replace("__CARRY__", carry_table()))
     OUT.write_text(page)

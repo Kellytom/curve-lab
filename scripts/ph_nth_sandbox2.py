@@ -233,8 +233,6 @@ def build():
                         "window.phNthGallery = __GALLERY__;\n"
                         f"window.phNthKnots = {knots};")
     page = page.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
-    page = page.replace("__MATH__", base.MATH.read_text())
-    page = page.replace("__PANELS__", base.PANELS.read_text())
     page = page.replace("<title>The eleventh power: a PH curve of degree 11</title>",
                         "<title>Part 2: fitted curves at degree 11</title>")
     page = page.replace("<h1>The eleventh power</h1>", "<h1>Part 2: fitted curves</h1>")
