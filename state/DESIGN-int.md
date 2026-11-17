@@ -416,6 +416,30 @@ too dependent on node except for good reason (the code is already debugged)".
   `node --test`; `scripts/code_count.sh` prints the language split at handoff.
   The full plan and order is `state/PORT-int.md`.
 
+## Book plates — 2026-11-17
+
+The short-term deliverable: PNG plates for a book, SVGs kept beside them for the
+later Inkscape step. The operator's rules, in their words: **white background,
+no text on the image, clipped to the edge of the curve**, a plain gallery with
+no input fields.
+
+- **This overrides the figure-label rule for these plates.** A book plate has no
+  title, axes or legend inside the image; the gallery and the manifest carry the
+  name and the note. Every other figure still follows the label rule.
+- **The name is `<descriptor>-<variant>-t-exp-c-<serial>`**, for example
+  `swan-1-t-exp-c-0001`. The serial is allocated once in `book/plates.json` and
+  never reused, so a re-export keeps the name and a LibreOffice link survives.
+- **The size is decided by the bounding box of spine plus both rails.** The
+  canvas aspect is that box, so the curve fills 97.6% of the long side; a margin
+  of 1.2% keeps the stroke from being cut. Long side 3000 px, stroke 0.35% of
+  it, 300 dpi in the PNG so LibreOffice inserts at 254 mm rather than 790 mm.
+- **The rails are drawn, and their status is in the manifest.** A PH or stored
+  speed pair gives the exact rational rail; an integer cubic gives the true
+  normal offset sampled, and says so.
+- **The plate refuses a folded rail.** `|d·κ| ≥ 0.98` stops the export and asks
+  for a smaller `offsetShare`. The lace knots have no visible rail at any
+  distance (|d·κ| = 735 at 3% of the size), so they are not plate material.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from

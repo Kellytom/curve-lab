@@ -1,0 +1,62 @@
+{
+ "note": "One row per book plate. The name is <descriptor>-<variant>-t-exp-c-<serial>, e.g. swan-1-t-exp-c-0001. The serial is allocated once and never reused, so a LibreOffice link survives a re-export. Add a row, run scripts/plate_export.py, and the SVGs, PNGs and gallery follow.",
+ "longSide": 3000,
+ "strokeShare": 0.0035,
+ "plates": [
+  {
+   "id": "swan-1-t-exp-c-0001",
+   "descriptor": "swan",
+   "variant": 1,
+   "kind": "ph",
+   "u": [1],
+   "v": [1, -4, 4],
+   "offsetShare": 0.04,
+   "note": "symmetric PH S · exact rail"
+  },
+  {
+   "id": "sweep-1-t-exp-c-0002",
+   "descriptor": "sweep",
+   "variant": 1,
+   "kind": "cubic",
+   "triple": [3, 4, 5],
+   "offsetShare": 0.05,
+   "note": "3-4-5 integer cubic · rail from the true normal"
+  },
+  {
+   "id": "sweep-2-t-exp-c-0003",
+   "descriptor": "sweep",
+   "variant": 2,
+   "kind": "cubic",
+   "triple": [5, 12, 13],
+   "offsetShare": 0.05,
+   "note": "5-12-13 integer cubic"
+  },
+  {
+   "id": "sweep-3-t-exp-c-0004",
+   "descriptor": "sweep",
+   "variant": 3,
+   "kind": "cubic",
+   "triple": [8, 15, 17],
+   "offsetShare": 0.05,
+   "note": "8-15-17 integer cubic"
+  },
+  {
+   "id": "sweep-4-t-exp-c-0005",
+   "descriptor": "sweep",
+   "variant": 4,
+   "kind": "cubic",
+   "triple": [7, 24, 25],
+   "offsetShare": 0.05,
+   "note": "7-24-25 integer cubic"
+  },
+  {
+   "id": "sweep-5-t-exp-c-0006",
+   "descriptor": "sweep",
+   "variant": 5,
+   "kind": "cubic",
+   "triple": [20, 21, 29],
+   "offsetShare": 0.05,
+   "note": "20-21-29 integer cubic · symmetric, rails clear of the curve"
+  }
+ ]
+}

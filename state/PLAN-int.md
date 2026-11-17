@@ -16,6 +16,33 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Short-term milestone — the book, Christmas 2026
+
+The operator's aim (2026-11-17): export PNG plates now for a book, with SVGs
+and cubic Béziers later. Mostly symmetric curves, with character offsets, and
+integer stations where a branch can attach.
+
+| # | action | `Proves:` | needs |
+|---|---|---|---|
+| B1 | **plate pipeline** | six plates, white ground, no text, 300 dpi, tight to the curve; a plain gallery; seven tests | **landed 2026-11-17** |
+| B2 | choose the plate set | 12–24 plates the operator can pick from the gallery, each with an `offsetShare` that does not fold | B1 |
+| B3 | balance stations | for one curve, a page lists the lattice stations at a grid whose tangent is vertical, horizontal or a 3-4-5 direction, and any pair balanced about y = k; all exact; a test pins one | B1 |
+| B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
+| B5 | character offsets | one plate whose rails have a declared varying width, with the width law printed in the manifest | B2 |
+
+**B3 — balance, not symmetry.** A *balance station* is a lattice point at a
+chosen grid whose tangent has a declared clean direction: vertical, horizontal,
+or a Pythagorean slope such as 3/4. The branch then leaves at a clean angle. A
+*balanced pair* is two such stations related by a declared horizontal axis
+y = k — equal offsets above and below, or mirrored tangent angles — without the
+curve itself being symmetric. For a PH or integer curve the derivative is a
+polynomial, so a direction (a, b) is the rational root of `a·y' − b·x' = 0`, and
+the rational-root theorem plus the station's grid condition enumerates the
+candidates exactly; `scripts/ph_quintic_hits.py` already has the gcd method.
+The one clean case proved so far is the symmetric PH candidate: a horizontal
+tangent at t = 1/2, on grid 15 at (0, 5) after the station shift. Do not call
+this symmetry; call it balance.
+
 | # | session | the one action | `Proves:` | needs |
 |---|---|---|---|---|
 | S1 | **landed 2026-11-17** — cone terminal, proof half | Draw the two-arc cone terminal, default and **symmetric**, and wire it into the terminal report | A page shows the two arcs, `R = 2 × half`, both arc centres and the `√3 × half` tip at three offsets, and shows the symmetric mode snapping a leaned pair onto the centreline with its `shift` and `axis_twist` printed; a test regenerates the page; `tests/test_cone_terminal.py` still passes | engine, symmetric mode and eleven tests landed 2026-11-17 |
