@@ -10,11 +10,12 @@ The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers
 later. The gallery now carries the real saved curves; the operator picks the set.
 Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B5.
 
-- [x] **Plate pipeline:** `scripts/plate_export.py`, `plate_curves.py`,
-  `plate_png.mjs`, `png_dpi.py` and `scripts/real_curves.mjs`, with
+- [x] **Plate pipeline, in JS:** `scripts/plates_export.mjs` with
+  `workbench/plate_math.js` and `scripts/real_curves.mjs`, reading
   `book/plates.json` and `workbench/real-curves.json`. 3000 px, 300 dpi, white
-  ground, no text, tight to the curve; a plain gallery; `tests/test_plate_export.py`
-  (8 tests). Names are `<descriptor>-<variant>-t-exp-c-<serial>`.
+  ground, no text, tight to the curve; the gallery has the designs above the
+  singles; `tests/js/plates.test.js` (6 tests). Names are
+  `<descriptor>-<variant>-t-exp-c-<serial>`.
 - [x] **The real curves in the gallery:** 27 saved curves, each with its own
   character rails (width %, plus/minus, bow/s/taper). 25 have rails; 2 are
   spine-only because the base offset folds at the 0.2% floor.

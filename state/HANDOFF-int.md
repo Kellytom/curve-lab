@@ -2544,3 +2544,19 @@ Tried and rejected: the four sandbox cubics as the lab's curve set (they are
 placeholders); lace plates (|d·κ| = 735, no visible rail); a second
 implementation of a page; Node as a build dependency; calling a station a
 mirror.
+
+## 2026-11-17 (final) — the plate path is JS
+
+The book plates and the central designs now run in JS: `workbench/plate_math.js`
+(the spine, the character rails, the caps that close the ribbon, and
+cross/leaf/arch/frame) and `scripts/plates_export.mjs` (SVG, 300 dpi PNG,
+gallery). The Python plate files are deleted — `plate_curves.py`,
+`plate_designs.py`, `plate_export.py`, `plate_png.mjs`, `png_dpi.py` and
+`tests/test_plate_export.py` — so there is one implementation, not two.
+
+`tests/js/plates.test.js` guards the maths and the files: 6 tests; the gate now
+runs 24 JS tests. The gallery has the three symmetric designs (cross, leaf,
+arch) above the 27 single curves, and every character rail is closed at its
+ends.
+
+**Next:** B7, real curves in the lab.

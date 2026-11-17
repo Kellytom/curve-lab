@@ -1,8 +1,51 @@
 {
- "note": "One row per book plate. The name is <descriptor>-<variant>-t-exp-c-<serial>; the serial is allocated once and never reused. The plates draw the saved curve's character rails (width percent, plus/minus, profile), not a parallel offset.",
+ "note": "One row per book plate. The name is <descriptor>-<variant>-t-exp-c-<serial>; the serial is allocated once and never reused. Single curves draw the record's character rails; designs assemble the curves on 90\u00b0 edges and keep the rails on every copy.",
  "longSide": 3000,
  "strokeShare": 0.0035,
  "plates": [
+  {
+   "id": "cross-frame-1-t-exp-c-0201",
+   "descriptor": "cross-frame",
+   "variant": 1,
+   "kind": "design",
+   "form": "cross",
+   "curve": "new-symmetric",
+   "leg": 45,
+   "frame": {
+    "perWidth": 3,
+    "perHeight": 3
+   },
+   "note": "cross in a 3\u00d73 frame"
+  },
+  {
+   "id": "leaf-frame-1-t-exp-c-0202",
+   "descriptor": "leaf-frame",
+   "variant": 1,
+   "kind": "design",
+   "form": "leaf",
+   "curve": "new-symmetric",
+   "curveB": "new-symmetric",
+   "leg": 45,
+   "frame": {
+    "perWidth": 3,
+    "perHeight": 3
+   },
+   "note": "leaf in a 3\u00d73 frame"
+  },
+  {
+   "id": "arch-frame-1-t-exp-c-0203",
+   "descriptor": "arch-frame",
+   "variant": 1,
+   "kind": "design",
+   "form": "arch",
+   "curve": "u-bowl",
+   "leg": null,
+   "frame": {
+    "perWidth": 3,
+    "perHeight": 3
+   },
+   "note": "arch in a 3\u00d73 frame \u00b7 natural legs"
+  },
   {
    "id": "amper-1-t-exp-c-0101",
    "descriptor": "amper",

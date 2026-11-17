@@ -1,0 +1,66 @@
+// The plate maths and the exported files, all in JS.
+// Run: node --test tests/js
+const { test } = require("node:test");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const PlateMath = require("../../workbench/plate_math.js");
+
+const ROOT = path.resolve(__dirname, "../..");
+const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "book/plates.json")));
+const curves = JSON.parse(fs.readFileSync(path.join(ROOT, "workbench/real-curves.json")));
+const rows = Object.fromEntries(curves.curves.map((row) => [row.name, row]));
+
+test("a railed curve is the spine, two rails and four caps", () => {
+  const group = PlateMath.group(rows.amper);
+  assert.equal(group.paths.length, 7);
+  assert.ok(group.note.includes("character rails"));
+});
+
+test("a curve whose rail folds is spine only", () => {
+  const group = PlateMath.group(rows["inflect-2"]);
+  assert.equal(group.paths.length, 1);
+  assert.ok(group.note.includes("spine only"));
+});
+
+test("a cross in a 3x3 frame is 16 groups of seven paths", () => {
+  const spec = manifest.plates.find((plate) => plate.id.startsWith("cross-frame"));
+  const design = PlateMath.design(spec, rows);
+  assert.equal(design.paths.length, 16 * 7);
+  assert.ok(design.note.includes("character rails"));
+});
+
+test("a leaf in a 3x3 frame is 14 groups", () => {
+  const spec = manifest.plates.find((plate) => plate.id.startsWith("leaf-frame"));
+  assert.equal(PlateMath.design(spec, rows).paths.length, 14 * 7);
+});
+
+test("every plate has its SVG and a 300 dpi PNG at the long side", () => {
+  for (const plate of manifest.plates) {
+    const svg = fs.readFileSync(path.join(ROOT, "book/svg", `${plate.id}.svg`), "utf8");
+    assert.ok(!svg.includes("<text"), plate.id);
+    assert.ok(svg.includes('fill="#ffffff"'), plate.id);
+    const width = Number(svg.match(/width="(\d+)"/)[1]);
+    const height = Number(svg.match(/height="(\d+)"/)[1]);
+    assert.equal(Math.max(width, height), manifest.longSide, plate.id);
+    const png = fs.readFileSync(path.join(ROOT, "book/plates", `${plate.id}.png`));
+    assert.equal(png.readUInt32BE(16), width, plate.id);
+    assert.equal(png.readUInt32BE(20), height, plate.id);
+    let offset = 8;
+    let dpi = 0;
+    while (offset < png.length) {
+      const length = png.readUInt32BE(offset);
+      const type = png.toString("ascii", offset + 4, offset + 8);
+      if (type === "pHYs") dpi = Math.round(png.readUInt32BE(offset + 8) * 0.0254);
+      offset += 12 + length;
+    }
+    assert.equal(dpi, 300, plate.id);
+  }
+});
+
+test("the gallery has the central designs above the single curves", () => {
+  const gallery = fs.readFileSync(path.join(ROOT, "book/index.html"), "utf8");
+  assert.ok(gallery.includes("New symmetric central figures"));
+  assert.ok(gallery.includes("Single curves"));
+  assert.equal((gallery.match(/<img /g) || []).length, manifest.plates.length);
+});

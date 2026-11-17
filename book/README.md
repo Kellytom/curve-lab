@@ -60,7 +60,7 @@ square.
 3. Run:
 
 ```sh
-.venv/bin/python scripts/plate_export.py
+node scripts/plates_export.mjs
 ```
 
 It writes `svg/<id>.svg`, `plates/<id>.png`, `render.html` and `index.html`,

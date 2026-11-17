@@ -37,7 +37,12 @@ for (let i = open; i < text.length; i += 1) {
 if (end < 0) throw new Error("the SEED array is not closed");
 
 const seed = eval("(" + text.slice(open, end) + ")");
-const curves = seed.map((row) => ({
+// One curve we made here, not from the sandbox: u = 1, v = (2t − 1)². Both
+// speeds are even about t = 1/2, so it is a half turn about its midpoint, with
+// a horizontal tangent there (grid 15, station (0, 5)).
+const made = [{ name: "new-symmetric", speedX: [1], speedY: [1, -4, 4],
+                from: "new" }];
+const curves = seed.concat(made).map((row) => ({
   name: row.name,
   speedX: row.speedX,
   speedY: row.speedY,

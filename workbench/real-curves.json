@@ -1,7 +1,7 @@
 {
  "format": "real-curves/1",
  "note": "The operator's kept set from the sandbox seed. Speed rows are the PH pair (u, v); character data is kept for the later rails.",
- "count": 27,
+ "count": 28,
  "curves": [
   {
    "name": "amper",
@@ -852,6 +852,17 @@
     "dx": 0,
     "dy": 0
    }
+  },
+  {
+   "name": "new-symmetric",
+   "speedX": [
+    1
+   ],
+   "speedY": [
+    1,
+    -4,
+    4
+   ]
   }
  ]
 }

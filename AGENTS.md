@@ -148,6 +148,7 @@ and documentation alike.
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
+| `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
 | `workbench/square_lab.js` | the square/frame/leaf geometry the lab loads |
 | `curve_lab/square_assembly.py` | the same corner rule in Python, for static proofs |
 | `founder/LOG.md` | the founder's current focus, dated entries and priority tags |
@@ -185,7 +186,7 @@ node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
 .venv/bin/mkdocs build                          # static output into site/
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
 node scripts/check-ph-page.mjs                  # gallery readouts in a headless browser
-.venv/bin/python scripts/plate_export.py         # book plates: SVG, PNG, gallery
+node scripts/plates_export.mjs                  # book plates: SVG, PNG, gallery
 node scripts/real_curves.mjs                     # rebuild workbench/real-curves.json
 .venv/bin/python scripts/square_frame.py         # the square/frame lab page
 node --test tests/js/*.test.js                   # the browser modules' own tests

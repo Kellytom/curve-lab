@@ -437,7 +437,7 @@ no input fields.
   2026-11-17): a ±d base at the record's width percent, bowed by its `plus` /
   `minus` strength and its `bow`, `s` or `taper` profile. The construction is
   the sandbox's (`workbench/ph_nth_panels.js`, `characterRail`), reproduced in
-  `scripts/plate_curves.py`. A parallel rail is a later feature and is not
+  `workbench/plate_math.js`. A parallel rail is a later feature and is not
   drawn. When the base offset would fold, the width is halved; at the 0.2%
   floor the plate is spine-only and says so.
 - **A folded base offset is never drawn.** If `|d·κ|` at the record's width
