@@ -20,5 +20,6 @@ it showed, and what it settled.
 
 | file | what it settled |
 |---|---|
+| `LOG.md` | the session log, newest last, every remark tagged `[now]`, `[next]` or `[later]` |
 | `screens/half-heart-euler-drift.png` | the positive-x half of the Beutel sextic, fitted with an Euler polygon that runs **straight up at x ≈ 1.16** — outside the curve's own width of 1.105. The walk holds a heading instead of following the turn. Recorded as an open defect, not a passing result. |
 | `screens/euler-heart.png` | the heart built the other way: one clothoid arc rotated to kiss the y axis, then mirrored. This one works; the cleft is the kiss. |
