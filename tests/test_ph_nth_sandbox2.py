@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-nth-sandbox-2.html"
+PANELS = ROOT / "scripts" / "ph_nth_panels.js"
 FITTED = ROOT / "workbench" / "ph-fitted-curves.json"
 
 
@@ -24,7 +25,10 @@ class TestNthSandbox2(unittest.TestCase):
 
     def test_the_page_carries_the_fitted_gallery(self):
         page = PAGE.read_text()
-        for marker in ("phNthGallery", "phNthKnots", "n-gallery", "Symmetric", "Asymmetric",
+        panels = PANELS.read_text()
+        self.assertIn("Symmetric", panels)
+        self.assertIn("Asymmetric", panels)
+        for marker in ("phNthGallery", "phNthKnots", "n-gallery",
                        "Build from flat spots", "n-roots-fill", "Part 2: fitted curves",
                        "fitted", "n-controls", "n-plot"):
             with self.subTest(marker=marker):

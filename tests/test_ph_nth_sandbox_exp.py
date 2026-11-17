@@ -185,7 +185,8 @@ class TestFractionalSandbox(unittest.TestCase):
         name into the box at the foot and hides the cell in this browser.
         """
         page = PAGE.read_text()
-        self.assertIn('class="gallery-archive cell-archive"', page)
+        panels = PANELS.read_text()
+        self.assertIn('class="gallery-archive cell-archive"', panels)
         self.assertIn('id="n-archive-box"', page)
         self.assertIn('id="n-archive-undo"', page)
         panels = PANELS.read_text()
@@ -359,9 +360,10 @@ class TestFractionalSandbox(unittest.TestCase):
         assert the opposite and was the last red in the suite.
         """
         page = PAGE.read_text()
+        panels = PANELS.read_text()
         self.assertIn('id="n-gallery"', page)
         self.assertIn("window.phNthGallery", page)
-        self.assertIn('document.getElementById("n-gallery")', page)
+        self.assertIn('document.getElementById("n-gallery")', panels)
 
     def test_the_step_applies_from_the_first_draw(self):
         self.assertIn("window.phPowerStep = 0.5", PAGE.read_text())
@@ -390,9 +392,9 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("total = total * t + coefficients[i]", maths)
 
     def test_fractional_powers_have_no_grid_or_inflection_count(self):
-        page = PAGE.read_text()
-        self.assertIn("grid n/a: fractional powers", page)
-        self.assertIn("inflections n/a: fractional powers", page)
+        panels = PANELS.read_text()
+        self.assertIn("grid n/a: fractional powers", panels)
+        self.assertIn("inflections n/a: fractional powers", panels)
 
 
 if __name__ == "__main__":

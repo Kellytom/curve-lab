@@ -87,9 +87,12 @@ class TestSepticSandbox(unittest.TestCase):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
 
-    def test_the_page_inlines_the_checked_in_javascript(self):
+    def test_the_page_loads_the_checked_in_javascript(self):
+        """The page loads the shared files; it does not inline a copy of its own."""
         page = PAGE.read_text()
-        self.assertIn(JS.read_text().strip()[:200], page)
+        self.assertIn('src="ph_math.js"', page)
+        self.assertIn('src="ph_nth_panels.js"', page)
+        self.assertNotIn("window.phNthSaved = {", page)
 
     def test_the_javascript_parses(self):
         result = subprocess.run(["node", "--check", str(JS)],

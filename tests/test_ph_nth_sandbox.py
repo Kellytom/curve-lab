@@ -9,6 +9,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 from tests.stamps import without_build_stamp  # noqa: E402
 PAGE = ROOT / "workbench" / "ph-nth-sandbox.html"
+PANELS = ROOT / "scripts" / "ph_nth_panels.js"
+MATH = ROOT / "scripts" / "ph_math.js"
+
+
+def program() -> str:
+    """The page's program: its markup plus the two scripts it loads."""
+    return "\n".join(path.read_text() for path in (PAGE, MATH, PANELS))
 JS = ROOT / "scripts" / "ph_nth_panels.js"
 
 
@@ -22,7 +29,7 @@ class TestNthSandbox(unittest.TestCase):
         a column shrink; measured: body scroll width equals the window at 900,
         1000, 1024, 1120 and 1280 px, and the gallery still shows two columns.
         """
-        page = PAGE.read_text()
+        page = program()
         self.assertIn("repeat(2, minmax(0, 1fr))", page)
         self.assertIn(".cell-inputs{display:flex;gap:6px;align-items:center;flex:1;min-width:0;flex-wrap:wrap}", page)
 
@@ -34,14 +41,15 @@ class TestNthSandbox(unittest.TestCase):
         unreadable. Doubling the scale puts them 6.4 px apart, and the mirror
         strip shows 18/19 directly under 1/19.
         """
-        page = PAGE.read_text()
-        for marker in ('class="ruler-strip ruler-lower"',
-                       'class="ruler-strip ruler-upper"',
-                       "RULER_SPAN = 200",
-                       "16, 17, 18, 19, 20]",
-                       "drawTick(upperStrip, at, false);"):
+        page = program()
+        panels = PANELS.read_text()
+        for marker in ('class="ruler-strip ruler-lower"', 'class="ruler-strip ruler-upper"'):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
+        for marker in ("RULER_SPAN = 200", "16, 17, 18, 19, 20]",
+                       "drawTick(upperStrip, at, false);"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, panels)
 
     def test_the_readout_names_the_last_number_not_the_last_box(self):
         """Five spots give a t^5 row in fifteen boxes; saying t^14 is a lie.
@@ -49,12 +57,12 @@ class TestNthSandbox(unittest.TestCase):
         The panel reported the last box of the rung as the top power, so a curve
         whose numbers stop at t^5 appeared to run to t^14 and looked truncated.
         """
-        page = PAGE.read_text()
-        self.assertIn("boxes in use", page)
-        self.assertIn("const filled = Math.max(topUsed(state.y), topUsed(state.x)) + 1;", page)
+        panels = PANELS.read_text()
+        self.assertIn("boxes in use", panels)
+        self.assertIn("const filled = Math.max(topUsed(state.y), topUsed(state.x)) + 1;", panels)
 
     def test_the_page_holds_the_degree_11_sandbox(self):
-        page = PAGE.read_text()
+        page = program()
         for marker in ("n-controls", "n-plot", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
                        "n-rotate", "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-y", "euler-hook", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
@@ -66,7 +74,7 @@ class TestNthSandbox(unittest.TestCase):
                 self.assertIn(marker, page)
 
     def test_the_page_inlines_the_checked_in_javascript(self):
-        page = PAGE.read_text()
+        page = program()
         self.assertIn(JS.read_text().strip()[:200], page)
         self.assertIn("window.recipeMetrics", page)   # the shared maths came along
 
@@ -76,10 +84,10 @@ class TestNthSandbox(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_the_generator_reproduces_the_page(self):
-        before = PAGE.read_text()
+        before = program()
         subprocess.run([sys.executable, str(ROOT / "scripts" / "ph_nth_sandbox.py")],
                        check=True, capture_output=True)
-        self.assertEqual(without_build_stamp(PAGE.read_text()),
+        self.assertEqual(without_build_stamp(program()),
                          without_build_stamp(before),
                          "the page is not what scripts/ph_nth_sandbox.py emits")
 
@@ -130,14 +138,14 @@ class TestNthSandbox(unittest.TestCase):
         self.assertIn("window.phNthSetDegree = k => {", text)
 
     def test_the_page_carries_the_complementary_curve(self):
-        page = PAGE.read_text()
+        page = program()
         for marker in ("n-complement-controls", "Complementary curve", "n-crossings",
                        "crossingsOf", "complementSpine", "#666666"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
 
     def test_the_page_carries_the_five_rungs(self):
-        page = PAGE.read_text()
+        page = program()
         for degree, numbers in ((11, 12), (13, 14), (15, 16), (17, 18), (19, 20)):
             with self.subTest(degree=degree):
                 self.assertIn(f'data-speed-degree="{(degree - 1) // 2}">degree {degree} '

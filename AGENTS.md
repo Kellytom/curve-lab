@@ -46,6 +46,9 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
    what order, at what cost, and what never to load. Follow it; do not invent a
    reading order. If an action needs a file that is not on it, add the row.
 
+   Read **`senior-dev.md`** (twelve rules, one page) before the action, on every
+   focus command. It is the working standard, not a process.
+
 Tier 0 of that list, in short: `LTMemory-int.md` (map, invariants, settled),
 `next-fhandoff-int.md` (the one action), `state/HANDOFF-int.md` (**tail only** —
 current truth), `TODO.md` (checklist), `goals.md` (the arc),
@@ -148,6 +151,8 @@ and documentation alike.
 | `state/HANDOFF-int.md` | current truth |
 | `state/DOT-SOLVER-int.md` | the dot-solver sub-focus and its image exception |
 | `next-fhandoff-int.md` | one action |
+| `senior-dev.md` | twelve working rules; read on every focus command |
+| `state/parked-focus-int.md` | parked directions, newest first; `/fstart <direction>` pushes, `/fstart return` pops |
 
 ## Commands
 

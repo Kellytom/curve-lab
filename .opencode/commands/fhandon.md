@@ -35,7 +35,8 @@ Focused handon for curve-lab. Work in
    to load, in order, with line costs and the never-load list. Follow its
    Tier 0 exactly; it is the whole of the session's context budget. Do not
    invent a reading order, and do not skip a Tier 0 file because the action
-   looks small.
+   looks small. Its first row is `senior-dev.md`: twelve rules, one page, read
+   it before the action every time.
 5. Tier 0 includes `LTMemory-int.md` (the map and invariants), `goals.md` (the
    plant-form → ornament-form arc), `TODO.md` (the checklist) and
    `state/HANDOFF-int.md` (current truth — its **tail**, not the whole file; the
@@ -83,22 +84,8 @@ same session, but the two are not linked: `/fhandon` picks up the focused work
 and stops; the operator calls `/fhandoff` to put it down and write the block
 `/fhandon` will read next time.
 
-## Session metrics
+## Context
 
-The tally is `state/sessions.jsonl`; `scripts/ctx.py` writes it and reads the
-session store, so it needs no cooperation from the model.
-
-```sh
-.venv/bin/python scripts/ctx.py --log          # current context %, active min, turns
-.venv/bin/python scripts/ctx.py --tally        # the last record per session
-```
-
-If you want the warning while working, leave this running in a side terminal —
-it beeps at 70% and again at 85%:
-
-```sh
-.venv/bin/python scripts/ctx.py --watch 120 --log
-```
-
-Check it at task boundaries, not continuously. Context is measured; minutes and
-turns are reported, not judged.
+The clock is retired and the meter is retired (2026-11-16): neither percentage
+nor minute count is quoted or acted on. If context trouble returns, it is a row
+in `TODO.md`. Do not reinstate a threshold here.

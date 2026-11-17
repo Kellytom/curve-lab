@@ -15,14 +15,15 @@ A session that reads only the files named in the message has skipped Tier 0.
 
 | # | file | lines | why |
 |---|---|---|---|
-| 1 | `LTMemory-int.md` | 196 | the map, the invariants, what is settled and what is open |
-| 2 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 3 | `state/HANDOFF-int.md` | 2,415 | current truth — **read the tail (~80 lines), not the whole file** |
-| 4 | `TODO.md` | 593 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
-| 5 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
-| 6 | `state/ACHIEVEMENTS-int.md` | 91 | what is proved, with the command that re-derives it; stops rework |
-| 7 | `state/DESIGN-int.md` | 354 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 8 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 1 | `senior-dev.md` | 42 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
+| 2 | `LTMemory-int.md` | 196 | the map, the invariants, what is settled and what is open |
+| 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
+| 4 | `state/HANDOFF-int.md` | 2,415 | current truth — **read the tail (~80 lines), not the whole file** |
+| 5 | `TODO.md` | 593 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 6 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
+| 7 | `state/ACHIEVEMENTS-int.md` | 91 | what is proved, with the command that re-derives it; stops rework |
+| 8 | `state/DESIGN-int.md` | 354 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 9 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 

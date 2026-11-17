@@ -131,7 +131,9 @@ class TestFoundCurves(unittest.TestCase):
         self.assertEqual(best["name"], "lace-1of12-1of3-1")
         self.assertEqual(best["provenance"]["roots"],
                          "1/12, 1/3, 1/2, 2/3, 11/12")
-        self.assertEqual(best["measured"]["self"], 14)
+        # 14 was the old double count: each crossing was recorded twice under the
+        # distance dedupe, replaced by the parameter-pair dedupe (DESIGN-int).
+        self.assertEqual(best["measured"]["self"], 7)
         self.assertEqual(best["measured"]["meetings"], 20)
         self.assertEqual([float(v) for v in row_of(best, "x")[:3]], [7.0, -25.0, 25.0])
 
