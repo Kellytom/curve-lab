@@ -113,6 +113,7 @@ def build_records():
 
 def build_document(records):
     return {
+        "format": "curve-lab.ph-quintic-presets/1",
         "title": "PH quintic preset recipes",
         "generator": "scripts/ph_quintic_presets.py",
         "convention": (

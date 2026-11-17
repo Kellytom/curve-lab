@@ -28,6 +28,13 @@ that stops being true.
 own indentation, so the diff is one line per file. It refuses to write a file
 that would not parse. Tests: `tests/test_data_audit.py`.
 
+**When a generator rewrites a stamped file without the `format` line**, the suite
+fails at `data_format.py --check`. Fix the generator (add the key first in the
+document it builds) rather than re-stamping by hand, or the next run repeats it.
+`ph_quintic_presets`, `ph_quintic_yours` and `septic_curves` were fixed this way
+on 2026-11-17; their tests compare the written file with the generator, so they
+would fail either way. The other generators are fixed on first failure.
+
 ## The datasets
 
 Rows are counted by `data_audit.py` (2026-11-17).

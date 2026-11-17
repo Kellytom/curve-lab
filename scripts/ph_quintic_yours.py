@@ -104,6 +104,7 @@ def build_records():
 
 def build_document(records):
     return {
+        "format": "curve-lab.ph-quintic-yours/1",
         "title": "curves saved from the ph-quintic gallery, cleaned",
         "generator": "scripts/ph_quintic_yours.py",
         "note": (

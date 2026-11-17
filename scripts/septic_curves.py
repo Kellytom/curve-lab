@@ -152,7 +152,8 @@ def record(name, speed_x, speed_y):
 
 
 def build():
-    return {"title": "named curves from the septic sandbox",
+    return {"format": "curve-lab.septic-curves/1",
+            "title": "named curves from the septic sandbox",
             "curves": [record(*curve) for curve in CURVES]}
 
 
