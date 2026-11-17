@@ -317,6 +317,22 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <p class="small mono" id="n-tweak-status"></p>
   <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>
 </div>
+<div class="curve-box complement" id="n-complement-box">
+  <h3>Complementary curve <span class="small mono" id="n-crossings"></span></h3>
+  <div class="spine-grid" id="n-complement-controls"></div>
+  <div class="solver-row">
+    <label class="dial" for="n-comp-move-x">move x <input id="n-comp-move-x" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-comp-move-y">move y <input id="n-comp-move-y" type="number" step="0.1" value="0"></label>
+    <label class="dial" for="n-comp-turn" title="turn the complementary curve about the spine's centre">turn <input id="n-comp-turn" type="number" step="15" value="0"></label>
+    <button type="button" id="n-comp-hide" aria-pressed="false" title="draw the primary curve alone">hide the grey curve</button>
+  </div>
+  <div class="solver-row">
+    <button type="button" id="n-comp-flip" title="swap the two rows: the same curve drawn across the origin">flip across</button>
+    <button type="button" id="n-comp-upside" title="negate the y row: the same curve upside down">upside down</button>
+    <button type="button" id="n-comp-reverse" title="run the same curve from its other end">reverse</button>
+    <button type="button" id="n-comp-reset" title="the complementary curve becomes the spine, flipped across">reset to the spine</button>
+  </div>
+</div>
 <p class="small mono" id="n-readout"></p>
 <p class="small mono" id="n-grade"></p>
 <p class="small mono" id="n-formula" style="white-space:pre-line"></p>
@@ -340,12 +356,13 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
   <button type="button" id="n-rotate" title="view the whole figure turned by -45 degrees">rotate -45&deg;</button>
   <button type="button" id="n-rails" title="parallel offsets at +/- d">rails</button>
 </div>
-<hr class="group-rule">
-<h3 class="group-head">Look closer</h3>
+<section class="panel" id="n-look-closer">
+<h2>Look closer</h2>
 <p class="small">Optical only: these change the frame, never the numbers. The knot-cutting controls that did not work are <a href="ph-nth-exp-notes.html">parked with their measurements</a>.</p>
 <div class="solver-row" id="n-knot-experiments">
   <button type="button" id="n-focus-knot" aria-pressed="false" title="frame the knot, not the whole stroke">focus the knot</button>
 </div>
+</section>
 <hr class="group-rule">
 <div class="solver-row" id="n-view-row">
   <button type="button" id="n-character" title="the same PH formula with the speed perturbed by its own next coefficient">character offsets</button>
@@ -403,6 +420,7 @@ without leaving the PH family. The flare law and the serif foot are parked in
 <p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
 <button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
 <button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<button type="button" id="n-undo-saved" title="put back the list as it was before the last save or delete">undo the last change</button>
 <label class="small" title="read a list written by export everything, or by download all, back into this browser; names already here are kept as they are">restore a list
   <input id="n-import-list" type="file" accept="application/json,text/plain">
 </label>
@@ -3158,6 +3176,22 @@ window.curveSaver = (function () {
       .catch(() => { /* no file yet: the buttons hold the seeds, as before */ });
   }
 
+  const undo = document.getElementById("n-undo-saved");
+  if (undo) undo.addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const raw = localStorage.getItem(backupKey);
+    let items = null;
+    try { items = raw ? JSON.parse(raw) : null; } catch (error) { items = null; }
+    if (!Array.isArray(items)) {
+      if (status) status.textContent = "nothing to undo: no earlier list is kept yet";
+      return;
+    }
+    store(items);
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `undid the last change: ${items.length} curve(s) back`;
+  });
+
   const countSaved = document.getElementById("n-count-saved");
   if (countSaved) countSaved.addEventListener("click", () => {
     const items = saved();
@@ -4904,7 +4938,7 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 21:59</p>
+<p class="small mono" id="n-build">build 2026-11-16 22:14</p>
 <script>
 (() => {
   const step = document.getElementById('n-step');

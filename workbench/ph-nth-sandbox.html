@@ -390,6 +390,7 @@ without leaving the PH family. The flare law and the serif foot are parked in
 <p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
 <button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
 <button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<button type="button" id="n-undo-saved" title="put back the list as it was before the last save or delete">undo the last change</button>
 <label class="small" title="read a list written by export everything, or by download all, back into this browser; names already here are kept as they are">restore a list
   <input id="n-import-list" type="file" accept="application/json,text/plain">
 </label>
@@ -3096,6 +3097,22 @@ window.curveSaver = (function () {
       .catch(() => { /* no file yet: the buttons hold the seeds, as before */ });
   }
 
+  const undo = document.getElementById("n-undo-saved");
+  if (undo) undo.addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const raw = localStorage.getItem(backupKey);
+    let items = null;
+    try { items = raw ? JSON.parse(raw) : null; } catch (error) { items = null; }
+    if (!Array.isArray(items)) {
+      if (status) status.textContent = "nothing to undo: no earlier list is kept yet";
+      return;
+    }
+    store(items);
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `undid the last change: ${items.length} curve(s) back`;
+  });
+
   const countSaved = document.getElementById("n-count-saved");
   if (countSaved) countSaved.addEventListener("click", () => {
     const items = saved();
@@ -4842,5 +4859,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 22:02</p>
+<p class="small mono" id="n-build">build 2026-11-16 22:17</p>
 </body></html>

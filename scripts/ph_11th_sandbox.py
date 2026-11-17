@@ -220,6 +220,14 @@ The numbers are in the panel above and in the JSON box below.</p>
   <button type="button" id="n-rename" title="rename the saved curve this one came from, or name it">rename</button>
 </div>
 <div class="saved-row" id="n-saved"></div>
+<p class="small"><button type="button" id="n-download-all" title="write every saved curve to one JSON file, so a browser reset cannot lose them">download all saved curves</button>
+<button type="button" id="n-export-everything" title="everything this browser holds — saved curves, the moved list and the star order — as one file to put back in the repo">export everything</button>
+<button type="button" id="n-count-saved" title="how many are stored in this browser">count them</button>
+<button type="button" id="n-undo-saved" title="put back the list as it was before the last save or delete">undo the last change</button>
+<label class="small" title="read a list written by export everything, or by download all, back into this browser; names already here are kept as they are">restore a list
+  <input id="n-import-list" type="file" accept="application/json,text/plain">
+</label>
+<span class="small mono" id="n-saved-count"></span></p>
 <div class="paste-row">
   <textarea id="n-paste" rows="3" placeholder='paste a curve: {"name": "x", "speedX": [2,-5,6,1,0,0], "speedY": [4,-22,22,-2,0,0]} - or a whole {"curves": [...]} document'></textarea>
   <button type="button" id="n-load">load pasted JSON</button>

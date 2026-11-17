@@ -434,7 +434,11 @@ def build():
   <p class="small mono" id="n-tweak-total">no change from the starting curve yet</p>
 </div>
 """
-    page = page[:box_start] + tweak + page[box_end:]
+    # the tweak panel goes ABOVE the complementary curve and leaves it in place.
+    # Cutting the box out (as it did until 2026-11-16) removed the only control that
+    # puts a second curve on the figure, and the operator cannot add the side curves
+    # without it: "i cant put in the side curves because the button is missing".
+    page = page[:box_start] + tweak + page[box_start:]
 
     # the leg-cutting controls are parked on their own notes page: they cannot work
     # on this family (the crossings span the curve), and leaving them here only
@@ -453,10 +457,24 @@ def build():
         '  <button type="button" id="n-rebuild-span" title="rebuild the knot\'s span as a new curve: exact whole numbers, no legs left in the rows">rebuild without the legs</button>\n',
     ):
         page = page.replace(markup, "")
-    page = page.replace("Knot experiments</h3>",
-                        "Look closer</h3>\n<p class=\"small\">Optical only: these change the frame, "
-                        "never the numbers. The knot-cutting controls that did not work are "
-                        "<a href=\"ph-nth-exp-notes.html\">parked with their measurements</a>.</p>", 1)
+    # The optical controls get a section of their own: on this page the working
+    # controls sit above them, and "focus the knot" was being read as one more thing
+    # that changes the curve. It does not: it moves the frame and leaves the numbers
+    # alone (DESIGN-int, "Optical versus real").
+    page = page.replace(
+        '<hr class="group-rule">\n<h3 class="group-head">Knot experiments</h3>',
+        '<section class="panel" id="n-look-closer">\n'
+        '<h2>Look closer</h2>\n'
+        '<p class="small">Optical only: these change the frame, never the numbers. The '
+        'knot-cutting controls that did not work are '
+        '<a href="ph-nth-exp-notes.html">parked with their measurements</a>.</p>',
+        1)
+    page = page.replace(
+        '  <button type="button" id="n-focus-knot" aria-pressed="false" '
+        'title="frame the knot, not the whole stroke">focus the knot</button>\n</div>',
+        '  <button type="button" id="n-focus-knot" aria-pressed="false" '
+        'title="frame the knot, not the whole stroke">focus the knot</button>\n</div>\n'
+        '</section>', 1)
 
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
