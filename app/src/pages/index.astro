@@ -3,8 +3,10 @@
 // admin-dashboard layout (fixed sidebar, top bar, card grid); the colours and
 // type are curve-lab's own.
 import { buildHub } from "../lib/pages.js";
+import { tunnelInfo } from "../lib/tunnel.js";
 
 const hub = buildHub();
+const tunnel = tunnelInfo();
 const sections = [{ key: "app", label: "The app", pages: hub.app }, ...hub.sections];
 ---
 
@@ -34,6 +36,8 @@ main{min-width:0;padding:0 26px 80px}
   padding:18px 0 12px;margin-bottom:10px}
 h1{font-size:23px;margin:0 0 2px}
 .sub{color:var(--mute);font:12px/1.5 ui-monospace,Menlo,monospace;margin:0}
+.sub.phone{margin-top:3px}
+.sub.phone a{color:var(--gold)}
 h2{font-size:18px;margin:34px 0 4px;scroll-margin-top:72px}
 h2 .count{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);font-weight:400;
   margin-left:8px}
@@ -75,6 +79,9 @@ h2 .count{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);font-weig
     <h1>The hub</h1>
     <p class="sub">{hub.total} live pages · the app first, then the workbench by intent ·
       scroll, or jump from the left</p>
+    <p class="sub phone">{tunnel.url
+      ? <>phone: <a href={tunnel.url}>{tunnel.url}</a> · changes when the tunnel restarts</>
+      : <>phone: no quick tunnel in {tunnel.logPath} — <code>scripts/service.sh status</code></>}</p>
   </div>
 
   {sections.map((section) => (

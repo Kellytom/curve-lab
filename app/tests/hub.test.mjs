@@ -8,6 +8,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildHub } from "../src/lib/pages.js";
+import { latestTunnelUrl } from "../src/lib/tunnel.js";
 
 const APP = fileURLToPath(new URL("..", import.meta.url));
 const ROOT = path.resolve(APP, "..");
@@ -54,4 +55,16 @@ test("the hub page reads the module, and the lab moved off the root", async () =
   assert.ok(hubPage.includes("<iframe"));
   const lab = await readFile(path.join(APP, "src", "pages", "lab.astro"), "utf8");
   assert.ok(lab.includes("Square and frame lab"));
+});
+
+test("the tunnel url is the last one the log announced", () => {
+  const log = [
+    "INF | https://first-name-old.trycloudflare.com |",
+    "2026-11-17 INF some other line",
+    "INF | https://second-name-new.trycloudflare.com |",
+    "INF connection registered",
+  ].join("\n");
+  assert.equal(latestTunnelUrl(log), "https://second-name-new.trycloudflare.com");
+  assert.equal(latestTunnelUrl(""), null);
+  assert.equal(latestTunnelUrl(null), null);
 });

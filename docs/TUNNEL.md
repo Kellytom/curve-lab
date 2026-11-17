@@ -153,7 +153,9 @@ scripts/service.sh url          # prints today's address, and copies it
 `install` writes two agents — `com.curvelab.app` (the Astro dev server on
 :4321) and `com.curvelab.tunnel` (`cloudflared tunnel --url`, forwarding to it)
 — then starts them. `status` prints each one's state and pid, the local HTTP
-code and the phone's. Logs are `/tmp/curve-lab-app.log` and
+code and the phone's. The hub prints the current address in its header too
+(read from the tunnel's log), so on the Mac you never need a terminal to find
+it: `http://localhost:4321/`. Logs are `/tmp/curve-lab-app.log` and
 `/tmp/curve-lab-tunnel.log`.
 
 ```sh
