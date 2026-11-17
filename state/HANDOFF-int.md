@@ -2224,3 +2224,40 @@ degraded a curve that draws unscaled) — the cause was cancellation, the answer
 form. Tried and rejected: a coefficient-size threshold as a predictor of which rows the page
 miscounts — it did not pick out the five that failed. Tried and rejected: hiding moved curves at
 load — the late re-render brought them back; the fix is to apply the archive inside every render.
+
+## 2026-11-16 (final), handoff
+
+**Did the previous action land? No.** `scripts/bezier_fit.py` still does not exist, so the Bézier
+fitting step is unchanged and remains the next move.
+
+**Local:** 200 on `:8003`. **Remote:** `000`, no `.run.app` URL recorded, not probed (carried
+2026-11-13). **Tests:** carried — 101 modules green at `faf8546`, the last full run this session;
+nothing under `web/`, `curve_lab/`, `csrc/` or `tests/` changed since. **Register:** green, run now.
+**Reading list:** `scripts/reading_counts.py --check` passes; counts current. **Git:** clean at
+`faf8546`.
+
+**What changed since the review block.** The gallery gained star and up/down ordering with a JSON
+box; the operator's clean-up was applied (109 curves to `workbench/moved-curves.json` and
+`workbench/moved-curves.html`, 60 left, Fig. 1–60, 54 symmetric and 6 asymmetric); the tweak
+explanation moved to the notes page; the reading list got a refresh script, a `/fhandoff` step and
+three rows for this session's files; and the browser-only state now has one-press export
+(`operator-list.json`: saved curves, moved list, star order), verified with seeded data.
+
+**Risks, in the order they will bite.** (1) The numeric core still exists three times and the page's
+arithmetic disagrees with the exact answer on large rows — the review's first item. (2) Three figure
+pipelines exist. (3) Saved curves, the moved list and the star order live only in the browser until
+`export everything` is pressed. (4) Tests still assert literal counts, so the next data change will
+break them for the right reason.
+
+**Next move:** the Bézier fitting step, unchanged.
+
+**Context:** meter retired 2026-11-16 and not quoted; `ctx.py` reports the numbers above, verdict
+WARN, session long by choice.
+
+Tried and rejected: rescaling the row to fix the drawing (10^-15 curve at 1/peak; 1/sqrt(peak)
+degraded a curve that draws unscaled) — cancellation was the cause, the factored form the answer.
+Tried and rejected: a coefficient-size threshold to predict which rows the page miscounts — it did
+not pick out the five that failed. Tried and rejected: hiding moved curves only at load — the late
+re-render brought them back; the fix is to apply the archive inside every render. Tried and
+rejected: quoting the page's own grid on large rows — it is wrong in doubles (1/5,148 against an
+exact 1/36 on identical rows), so the record is the authority.
