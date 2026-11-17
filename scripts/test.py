@@ -5,6 +5,12 @@
     .venv/bin/python scripts/test.py --full    # everything
     .venv/bin/python scripts/test.py --slow    # only the slow modules
     .venv/bin/python scripts/test.py --jobs 1  # serial, for a clean traceback
+    .venv/bin/python scripts/test.py --browser # also the headless page checks
+
+The browser checks need Chrome and the local server, so they are opt-in: they
+are the only way to prove a control exists and draws (rails, the saved-curve
+buttons), and they were folklore until 2026-11-17. `--browser` adds them after
+the Python modules, in the same gate, so "green" means the page too.
 
 Modules run as separate processes, one per module, up to --jobs at a time
 (default: the CPU count). Each module is independent, so a failure in one cannot
@@ -91,6 +97,27 @@ def run(names, jobs=1):
     return code, time.perf_counter() - t0, done
 
 
+BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs")
+
+
+def run_browser_checks() -> int:
+    """The page checks that need Chrome: a control exists and draws."""
+    node = subprocess.run(["node", "--version"], capture_output=True, text=True)
+    if node.returncode != 0:
+        print("  browser checks skipped: no node")
+        return 0
+    code = 0
+    for name in BROWSER_CHECKS:
+        result = subprocess.run(["node", str(ROOT / "scripts" / name)], cwd=ROOT,
+                                capture_output=True, text=True)
+        tail = (result.stdout.strip().splitlines() or [""])[-1]
+        print(f"  {name}: {tail}")
+        if result.returncode != 0:
+            print(result.stdout[-1200:])
+            code = 1
+    return code
+
+
 def main(argv):
     everything = modules()
     if "--full" in argv:
@@ -116,6 +143,8 @@ def main(argv):
     else:
         tail = ""
     print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}" + tail)
+    if "--browser" in argv and code == 0:
+        code = run_browser_checks()
     return code
 
 

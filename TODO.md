@@ -16,12 +16,27 @@
       reproduces exactly — record 36, page 5,148.
 - [ ] **One figure pipeline.** Three exist: `curves/<slug>/figure.png`, `workbench/figures/*.png`,
       `figure-exact.png`/`.svg`. One curve, one picture, one script.
-- [ ] **The page-versus-record check as a test.** `scripts/curve_png_all.mjs` does it; the suite
+      *Blocked on a decision, 2026-11-17.* The two pipelines cover disjoint sets
+      (`workbench/figures/` holds the 169 gallery curves, `curves/<slug>/` the 15 with a folder),
+      so each curve already has one picture and one path. The duplication that remains is
+      `figure-exact.png/.svg` beside `figure.png` for the same curve, and the review page
+      `workbench/curve-figures.html` needs both views to make the accept/reject decision that is
+      still unmade. Collapsing them now would delete the evidence for an undecided judgement.
+- [x] **The page-versus-record check as a test.** `scripts/curve_png_all.mjs` does it; the suite
       does not. Two faults reached the operator because of that gap.
       *Half landed 2026-11-16:* the suite now compares every stored record with the exact core
-      (`tests/test_exact_numbers.py`). The live browser pass on every curve is still
-      `scripts/curve_png_all.mjs`.
-- [ ] **De-duplicate `ph_nth_panels.js`.** 3,846 lines inlined into 100 pages.
+      (`tests/test_exact_numbers.py`) and with the crossings router (`tests/test_crossings.py`).
+      The live browser pass on every curve is still `scripts/curve_png_all.mjs`.
+- [x] **De-duplicate `ph_nth_panels.js`.** 3,846 lines inlined into 100 pages.
+      *Landed 2026-11-17:* the pages load `workbench/ph_math.js` and `workbench/ph_nth_panels.js`,
+      written once by `scripts/build-pages.py`; 23,212 lines left the repository and the sandbox
+      page went from 253 KB to 45 KB. `tests/test_page_assets.py` keeps one copy.
+- [x] **Tests assert strings and counts, not behaviour** (review's fourth item).
+      *Audited 2026-11-17.* The literal counts the review named (60, 109, 169, the 50 markers)
+      are gone from `tests/`; the remaining number assertions are per-fixture expectations
+      (four spans in a fillet, one violation in a clearance case) or published results
+      (`7068` census rows), which are claims and should stay literal. The two tests that
+      depended on the gallery's wording now find it by `id="n-gallery"`.
 
 ## Open work from 2026-11-16
 
