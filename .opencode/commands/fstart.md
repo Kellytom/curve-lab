@@ -63,6 +63,12 @@ Rules that still hold:
 - **Use the operator's words in the action** when they named the thing to change,
   so a later session can tell whether it was the same request.
 
+Before the commit, put the direction into the rolling queue: it becomes the top
+row of `state/PLAN-int.md` (marked *this session*), and the row it displaced is
+marked *parked by /fstart <date>* if the stack now holds its block. A direction
+that only lives in `next-fhandoff-int.md` is lost the moment the next handoff
+overwrites it.
+
 ## 3. Commit the swap so it is recoverable
 
 Two commits, so the hash in the block is real:

@@ -151,6 +151,7 @@ and documentation alike.
 | `state/HANDOFF-int.md` | current truth |
 | `state/DOT-SOLVER-int.md` | the dot-solver sub-focus and its image exception |
 | `next-fhandoff-int.md` | one action |
+| `state/PLAN-int.md` | the rolling queue of the next sessions; edited at every handoff |
 | `senior-dev.md` | twelve working rules; read on every focus command |
 | `state/parked-focus-int.md` | parked directions, newest first; `/fstart <direction>` pushes, `/fstart return` pops |
 

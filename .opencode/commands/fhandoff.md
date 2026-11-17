@@ -63,6 +63,12 @@ the date it was last checked.
    The rejected paths are the expensive knowledge; without them the next session
    pays for the same attempt twice. If nothing was rejected, write `none`.
 
+3c. **Roll the plan.** `state/PLAN-int.md` is a queue, not a monument: mark the
+   session's row **landed** (keep the line), move anything newly blocked into
+   *Parked* with the one-line reason, and add any new direction to the top. The
+   next unlanded row must match what step 4 puts in `next-fhandoff-int.md`; if
+   they disagree, the plan is wrong and you fix the plan.
+
 3b. **Tick `TODO.md`.** If the action completed a `- [ ]`, mark it `- [x]`. If it
    opened work that now needs a label, add the item. Then regenerate the twin:
    `.venv/bin/python scripts/todo.py` (and `scripts/hub.py` if the bar changed).

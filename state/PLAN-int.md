@@ -1,9 +1,15 @@
 # PLAN-int — the next few sessions
 
-The queue behind `next-fhandoff-int.md`. One action per session, each with a
-`Proves:` line, so a session can be judged done without re-reading the project.
-The order follows the operator's instruction, 2026-11-17: **the curves and the
-engine are complete before the cubic Bézier step.**
+**This is a rolling plan.** The top row that is not marked landed is the next
+session's action. It is edited at every handoff — a finished row is marked
+*landed* and kept, a blocked one moves to *Parked* with the reason, a new
+direction goes to the top — and it is never rewritten from memory. It is the
+queue behind `next-fhandoff-int.md`; that file names only the one action.
+
+One action per session, each with a `Proves:` line, so a session can be judged
+done without re-reading the project. The order follows the operator's
+instruction, 2026-11-17: **the curves and the engine are complete before the
+cubic Bézier step.**
 
 A session is one action. If its `Proves:` line needs a decision nobody has made,
 the session stops and writes the question — it does not pick.
