@@ -2190,3 +2190,37 @@ not absences — it has no row for "nothing compares page numbers with record nu
 **Advice for the next session:** not more features. One action — make the page consume exact
 precomputed numbers, and add the test that compares them. That is the difference between a lab that
 finds curves and a lab that trusts its own display.
+
+## 2026-11-16 (end), handoff
+
+**Did the previous action land? No.** The block still asks for the Bézier fitting step and names
+`scripts/bezier_fit.py` and `tests/test_bezier_fit.py`; neither exists. Unchanged and still next.
+
+**Local:** 200 on `:8003`. **Remote:** `000`, no `.run.app` URL recorded, not probed (carried
+2026-11-13). **Tests:** carried — 101 modules green at `7ed8afb`, the last full `scripts/test.py` run
+this session; nothing under `web/`, `curve_lab/`, `csrc/` or `tests/` changed since. **Register:**
+green, run now. **Git:** `1795a8e`, plus this block and the two operator screenshots moved to
+`docs/evidence/`.
+
+**What changed since the review block.** The tweak explanation moved to the notes page (the panel
+keeps a title and a link); the gallery gained star and up/down ordering with a JSON box; the
+clean-up list from the operator was applied — 109 curves to `workbench/moved-curves.json` and
+`workbench/moved-curves.html`, 60 left in `found-curves.json`, numbered Fig. 1 to 60 with 54
+symmetric and 6 asymmetric.
+
+**Risks, in the order they will bite.** (1) The numeric core still exists three times and the page's
+own arithmetic disagrees with the exact answer on large rows — the review's first item, still open.
+(2) Three figure pipelines exist. (3) The gallery's star order and moved list live in the browser
+until the JSON comes back. (4) Tests still assert literal counts, so the next data change breaks
+them for the right reason.
+
+**Next move:** the Bézier fitting step, unchanged.
+
+**Context:** meter retired 2026-11-16 and not quoted; `ctx.py` reports 560 active minutes, 723
+turns, verdict WARN — reported, not judged. The session is long by choice.
+
+Tried and rejected: rescaling the row to fix the drawing (10^-15 curve at 1/peak; 1/sqrt(peak)
+degraded a curve that draws unscaled) — the cause was cancellation, the answer was the factored
+form. Tried and rejected: a coefficient-size threshold as a predictor of which rows the page
+miscounts — it did not pick out the five that failed. Tried and rejected: hiding moved curves at
+load — the late re-render brought them back; the fix is to apply the archive inside every render.
