@@ -40,7 +40,7 @@
     "bend": 1.585,
     "grid": 770,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/3, 1/2, 2/3, 4/5",
@@ -85,7 +85,7 @@
     "bend": 1.634,
     "grid": 6930,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 1/4, 1/2, 3/4, 3/4",
@@ -130,7 +130,7 @@
     "bend": 1.696,
     "grid": 1155,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 1/3, 1/2, 2/3, 3/4",
@@ -175,7 +175,7 @@
     "bend": 1.791,
     "grid": 2310,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/3, 1/2, 2/3, 5/6",
@@ -220,7 +220,7 @@
     "bend": 1.904,
     "grid": 1386,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "2/5, 1/2, 1/2, 1/2, 3/5",
@@ -265,7 +265,7 @@
     "bend": 2.475,
     "grid": 2310,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/2, 1/2, 1/2, 5/6",
@@ -355,7 +355,7 @@
     "bend": 2.367,
     "grid": 2310,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/2, 1/2, 1/2, 4/5",
@@ -400,7 +400,7 @@
     "bend": 1.884,
     "grid": 6930,
     "meetings": 2,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/4, 1/2, 3/4, 4/5",
@@ -455,7 +455,7 @@
     "bend": 2.284,
     "grid": 30030,
     "meetings": 14,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/3, 1/2, 1/2, 1/2, 2/3, 4/5",
@@ -510,7 +510,7 @@
     "bend": 2.243,
     "grid": 30030,
     "meetings": 10,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/4, 1/2, 1/2, 1/2, 3/4, 4/5",
@@ -565,7 +565,7 @@
     "bend": 2.09,
     "grid": 30030,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 1/3, 1/3, 1/2, 2/3, 2/3, 3/4",
@@ -620,7 +620,7 @@
     "bend": 1.577,
     "grid": 45045,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 1/4, 1/2, 1/2, 1/2, 3/4, 3/4",
@@ -675,7 +675,7 @@
     "bend": 1.728,
     "grid": 1365,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/3, 1/2, 1/2, 1/2, 2/3, 5/6",
@@ -730,7 +730,7 @@
     "bend": 1.916,
     "grid": 8190,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/3, 2/5, 1/2, 1/2, 1/2, 3/5, 2/3",
@@ -785,7 +785,7 @@
     "bend": 1.448,
     "grid": 60060,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/3, 1/3, 1/3, 1/2, 2/3, 2/3, 2/3",
@@ -840,7 +840,7 @@
     "bend": 1.491,
     "grid": 4290,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "2/5, 1/2, 1/2, 1/2, 1/2, 1/2, 3/5",
@@ -895,7 +895,7 @@
     "bend": 1.572,
     "grid": 6930,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 1/3, 1/2, 1/2, 1/2, 2/3, 3/4",
@@ -987,7 +987,7 @@
     "bend": 2.264,
     "grid": 630,
     "meetings": 9,
-    "self": 4
+    "self": 2
    },
    "provenance": {
     "roots": "1/8, 1/2, 1/2, 7/8",
@@ -1691,7 +1691,7 @@
     "bend": 1.046,
     "grid": 315,
     "meetings": 1,
-    "self": 2
+    "self": 4
    },
    "provenance": {
     "roots": "1/8, 1/4, 3/4, 7/8",
@@ -3326,7 +3326,7 @@
     "bend": 3.196,
     "grid": 2310,
     "meetings": 8,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 1/5, 1/2, 4/5, 4/5",
@@ -3371,7 +3371,7 @@
     "bend": 4.048,
     "grid": 1155,
     "meetings": 8,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/4, 1/2, 3/4, 5/6",
@@ -3416,7 +3416,7 @@
     "bend": 1.28,
     "grid": 2310,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/6, 2/5, 1/2, 3/5, 5/6",
@@ -3461,7 +3461,7 @@
     "bend": 1.503,
     "grid": 6930,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 2/5, 1/2, 3/5, 4/5",
@@ -3551,7 +3551,7 @@
     "bend": 1.572,
     "grid": 3465,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "3/10, 1/2, 1/2, 1/2, 7/10",
@@ -3596,7 +3596,7 @@
     "bend": 2.407,
     "grid": 3465,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "3/8, 1/2, 1/2, 1/2, 5/8",
@@ -3641,7 +3641,7 @@
     "bend": 5.119,
     "grid": 2310,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/3, 2/5, 1/2, 3/5, 2/3",
@@ -3686,7 +3686,7 @@
     "bend": 1.36,
     "grid": 231,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/3, 3/8, 1/2, 5/8, 2/3",
@@ -3857,7 +3857,7 @@
     "bend": 1.178,
     "grid": 1155,
     "meetings": 2,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "3/10, 1/3, 1/2, 2/3, 7/10",
@@ -4215,7 +4215,7 @@
     "bend": 1.213,
     "grid": 90090,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4",
@@ -4270,7 +4270,7 @@
     "bend": 1.401,
     "grid": 60060,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 1/5, 1/3, 1/2, 2/3, 4/5, 4/5",
@@ -4325,7 +4325,7 @@
     "bend": 1.607,
     "grid": 60060,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/3, 1/3, 2/5, 1/2, 3/5, 2/3, 2/3",
@@ -4380,7 +4380,7 @@
     "bend": 1.784,
     "grid": 90090,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 1/4, 1/3, 1/2, 2/3, 3/4, 4/5",
@@ -4435,7 +4435,7 @@
     "bend": 1.686,
     "grid": 30030,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 2/5, 1/2, 1/2, 1/2, 3/5, 4/5",
@@ -4490,7 +4490,7 @@
     "bend": 1.567,
     "grid": 45045,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/4, 1/4, 1/4, 1/2, 3/4, 3/4, 3/4",
@@ -4545,7 +4545,7 @@
     "bend": 1.324,
     "grid": 4095,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/4, 1/2, 1/2, 1/2, 3/4, 5/6",
@@ -4600,7 +4600,7 @@
     "bend": 1.839,
     "grid": 2145,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "3/10, 1/2, 1/2, 1/2, 1/2, 1/2, 7/10",
@@ -4655,7 +4655,7 @@
     "bend": 1.473,
     "grid": 30030,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/4, 1/3, 1/2, 2/3, 3/4, 5/6",
@@ -4710,7 +4710,7 @@
     "bend": 1.619,
     "grid": 10010,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/8, 1/3, 1/3, 1/2, 2/3, 2/3, 7/8",
@@ -4765,7 +4765,7 @@
     "bend": 1.669,
     "grid": 30030,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/8, 1/5, 1/2, 1/2, 1/2, 4/5, 7/8",
@@ -4820,7 +4820,7 @@
     "bend": 1.843,
     "grid": 5005,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/6, 1/2, 1/2, 1/2, 5/6, 5/6",
@@ -4875,7 +4875,7 @@
     "bend": 2.794,
     "grid": 90090,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/4, 1/4, 1/3, 1/2, 2/3, 3/4, 3/4",
@@ -4930,7 +4930,7 @@
     "bend": 2.477,
     "grid": 90090,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/4, 2/5, 1/2, 1/2, 1/2, 3/5, 3/4",
@@ -4985,7 +4985,7 @@
     "bend": 2.397,
     "grid": 30030,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/3, 1/3, 1/2, 2/3, 2/3, 5/6",
@@ -5040,7 +5040,7 @@
     "bend": 2.493,
     "grid": 1155,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/8, 1/4, 1/2, 1/2, 1/2, 3/4, 7/8",
@@ -5095,7 +5095,7 @@
     "bend": 2.575,
     "grid": 2730,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/6, 1/5, 1/2, 1/2, 1/2, 4/5, 5/6",
@@ -5150,7 +5150,7 @@
     "bend": 1.291,
     "grid": 8190,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/3, 3/8, 1/2, 1/2, 1/2, 5/8, 2/3",
@@ -5205,7 +5205,7 @@
     "bend": 1.26,
     "grid": 90090,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 1/4, 1/4, 1/2, 3/4, 3/4, 4/5",
@@ -5260,7 +5260,7 @@
     "bend": 1.45,
     "grid": 4290,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "3/8, 1/2, 1/2, 1/2, 1/2, 1/2, 5/8",
@@ -5315,7 +5315,7 @@
     "bend": 1.212,
     "grid": 8190,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/4, 3/8, 1/2, 1/2, 1/2, 5/8, 3/4",
@@ -5370,7 +5370,7 @@
     "bend": 1.241,
     "grid": 9009,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "3/10, 1/3, 1/2, 1/2, 1/2, 2/3, 7/10",
@@ -5425,7 +5425,7 @@
     "bend": 1.316,
     "grid": 18018,
     "meetings": 6,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "2/5, 2/5, 1/2, 1/2, 1/2, 3/5, 3/5",
@@ -5480,7 +5480,7 @@
     "bend": 1.208,
     "grid": 6006,
     "meetings": 6,
-    "self": 3
+    "self": 7
    },
    "provenance": {
     "roots": "1/6, 1/5, 1/3, 1/2, 2/3, 4/5, 5/6",
@@ -5535,7 +5535,7 @@
     "bend": 1.255,
     "grid": 60060,
     "meetings": 6,
-    "self": 4
+    "self": 3
    },
    "provenance": {
     "roots": "1/5, 1/3, 1/3, 1/2, 2/3, 2/3, 4/5",
@@ -5700,7 +5700,7 @@
     "bend": 1.203,
     "grid": 180180,
     "meetings": 5,
-    "self": 2
+    "self": 1
    },
    "provenance": {
     "roots": "1/5, 1/3, 2/5, 1/2, 3/5, 2/3, 4/5",

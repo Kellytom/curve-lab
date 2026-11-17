@@ -256,6 +256,24 @@ whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
 them and the rebuild honestly reports the whole curve. Legs are shortened by
 moving the flat spots, not by cutting `t`.
 
+## Self-crossings: crossing pairs, not meeting points
+
+Settled 2026-11-16, after the page and the record disagreed on
+`lace-1of10-1of5-3` (page 5, record 4).
+
+- **The number is a count of crossing pairs**: two parameters `t1 < t2` where the
+  stroke passes through the same place. It is scale-free, and it is what the
+  galleries sort by and the page prints.
+- **Three passes through one point are three pairs.** That curve has 5 pairs at
+  3 places, one of them a triple point. If a reader needs places, say *meeting
+  points*; never call both "crossings".
+- **The stored numbers were stale.** The galleries' `self` values were written
+  before the parameter-pair dedupe replaced the distance dedupe, and nothing
+  recomputed them: 100 numbers across seven files were wrong. `scripts/crossing_audit.py`
+  recomputes them, `--write` puts them back, and `tests/test_crossings.py` keeps
+  them honest. Reason: a displayed number that no current routine produces is
+  the fault class the 2026-11-16 review named.
+
 ## Saved curves: a read that fails must never become a write
 
 Settled 2026-11-16, after the operator's saved buttons were emptied twice and the

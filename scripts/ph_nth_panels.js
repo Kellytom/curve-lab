@@ -1085,7 +1085,7 @@
       `bend ${bendText} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
-      `crosses itself ${selfCrossings.length}` +
+      `crosses itself ${selfCrossings.length} (crossing pairs)` +
       (view.complement ? ` | meets the grey curve ${meets.length}` : "") +
       (knotShare === null ? " | no knot: nothing crosses" : ` | knot ${knotShare}% legs ${legShare}%`) +
       negativeNote;
@@ -2288,6 +2288,22 @@
       .then(payload => { if (payload && Array.isArray(payload.saved) && payload.saved.length) mergeSaved(payload.saved, "operator-list.json"); })
       .catch(() => { /* no file yet: the buttons hold the seeds, as before */ });
   }
+
+  const undo = document.getElementById("n-undo-saved");
+  if (undo) undo.addEventListener("click", () => {
+    const status = document.getElementById("n-paste-status");
+    const raw = localStorage.getItem(backupKey);
+    let items = null;
+    try { items = raw ? JSON.parse(raw) : null; } catch (error) { items = null; }
+    if (!Array.isArray(items)) {
+      if (status) status.textContent = "nothing to undo: no earlier list is kept yet";
+      return;
+    }
+    store(items);
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-nth-saved"));
+    if (status) status.textContent = `undid the last change: ${items.length} curve(s) back`;
+  });
 
   const countSaved = document.getElementById("n-count-saved");
   if (countSaved) countSaved.addEventListener("click", () => {

@@ -24,7 +24,7 @@
  },
  "bend": 3.908,
  "grid": 693,
- "crossings": 6,
+ "crossings": 5,
  "arc": "4967/693",
  "source": "workbench/found-curves.json; new batch",
  "format": "curve-lab.curve/1",

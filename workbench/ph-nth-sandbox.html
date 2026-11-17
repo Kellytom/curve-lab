@@ -1893,7 +1893,7 @@ window.curveSaver = (function () {
       `bend ${bendText} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
-      `crosses itself ${selfCrossings.length}` +
+      `crosses itself ${selfCrossings.length} (crossing pairs)` +
       (view.complement ? ` | meets the grey curve ${meets.length}` : "") +
       (knotShare === null ? " | no knot: nothing crosses" : ` | knot ${knotShare}% legs ${legShare}%`) +
       negativeNote;
@@ -4859,5 +4859,5 @@ window.curveSaver = (function () {
 })();
 
 </script>
-<p class="small mono" id="n-build">build 2026-11-16 22:17</p>
+<p class="small mono" id="n-build">build 2026-11-16 22:26</p>
 </body></html>

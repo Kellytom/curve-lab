@@ -1668,7 +1668,7 @@ window.curveSaver = (function () {
       `bend ${bendText} | ${gridText} | ` + inflectionText + ` | ` +
       `first ${m.inflection === null ? " - " : m.inflection.toFixed(3)} | ` +
       `closest ${m.closest.toFixed(3)} | open ${openness.toFixed(3)} | ` +
-      `crosses itself ${selfCrossings.length}` +
+      `crosses itself ${selfCrossings.length} (crossing pairs)` +
       (view.complement ? ` | meets the grey curve ${meets.length}` : "") +
       (knotShare === null ? " | no knot: nothing crosses" : ` | knot ${knotShare}% legs ${legShare}%`) +
       negativeNote;
