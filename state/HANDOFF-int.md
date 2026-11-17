@@ -2413,3 +2413,34 @@ control. Tried and rejected: comparing inlined JavaScript byte for byte — some
 substitute inside the copy on purpose; the build-time test is the honest check. Tried and
 rejected: clustering crossings by position to report "meeting places" — the count then
 depends on scale, so it is not a property of the curve.
+
+## 2026-11-17 (later) — S1 landed: the cone terminal, both modes
+
+**Did the previous action land? Yes.** S1 of `state/PLAN-int.md` is done: the
+engine function, the symmetric mode, the proof page and the tests.
+
+**Local:** 200 on `:8003`. **Remote:** `000`, carried, not probed. **Tests:** 108
+modules green (`scripts/test.py`, 83.4 s). **Register:** 24 rows, green.
+**Git:** clean at `7362b32` plus this block.
+
+**What landed.**
+- `curve_lab/terminals.py`: `cone_terminal()` — two 60° arcs, `R = 2 × half`, each
+  centred on the *opposite* rail's end, meeting at `√3 × half`; `symmetric=True`
+  with `centre` and `tangent` snaps the rail ends to a mirror pair and puts the
+  tip on the centreline, reporting `shift` and `axis_twist`. Eleven tests.
+- Two bugs the tests did not catch, found by looking at the page: the tip's
+  perpendicular was not normalised, and the second arc left the tip along the
+  incoming tangent (a loop at the point). Both fixed; both visible only in the
+  rendered figure. Lesson: draw the figure and look at it.
+- `workbench/cone-terminal.html`: Fig. C1a default (tip off the stroke, 8.53°
+  twist) and C1b symmetric (tip on the centreline, 12.000 snapped).
+- The false "engine has no image input" rule is gone from every file; images are
+  450 KB / 3000 px. Context-budget instructions are gone; DESIGN records why.
+
+**Risks.** (1) The default cap still leans on a curved spine; symmetric mode is
+the answer and the caller must pass the spine's tangent. (2) The figure is drawn
+from straight rails; a curved spine's joins are not shown. (3) Page not yet in
+the hub manifest.
+
+**Next move:** S2 — the integer cubic's exact PH offset rail beside the Levien
+fit on the same curve.
