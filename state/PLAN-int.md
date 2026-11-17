@@ -30,6 +30,10 @@ integer stations where a branch can attach.
 | B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
 | B5 | character offsets | one plate whose rails have a declared varying width, with the width law printed in the manifest | B2 |
 | B6 | **square and frame lab** | a live page: curve a, curve b, counts across and down, an a/b pattern, leg angle, print size, fill; the joins and leaf tips measured; a 1 pt stroke floor at 1–4 in; 18 JS tests | **landed 2026-11-17** |
+| B7 | **real curves in the lab** | the two selectors list the saved curves and none of the sandbox cubics; one real curve assembles and prints joins and tip angles; a test pins it | B6 |
+
+**The live action is B7.** The operator parked the book (B2–B5) and the JS port
+on 2026-11-17 until the lab's curves are real; do not start them unprompted.
 
 **B3 — balance, not symmetry.** A *balance station* is a lattice point at a
 chosen grid whose tangent has a declared clean direction: vertical, horizontal,
@@ -47,7 +51,7 @@ this symmetry; call it balance.
 | # | session | the one action | `Proves:` | needs |
 |---|---|---|---|---|
 | S1 | **landed 2026-11-17** — cone terminal, proof half | Draw the two-arc cone terminal, default and **symmetric**, and wire it into the terminal report | A page shows the two arcs, `R = 2 × half`, both arc centres and the `√3 × half` tip at three offsets, and shows the symmetric mode snapping a leaned pair onto the centreline with its `shift` and `axis_twist` printed; a test regenerates the page; `tests/test_cone_terminal.py` still passes | engine, symmetric mode and eleven tests landed 2026-11-17 |
-| S2 | offset catalogue: the integer cubic rail | Add the exact PH offset rail for `integer-105`, drawn beside the Levien fit on the same curve | A card shows both rails; the exact one is labelled exact; the fit reports its measured deviation; a test pins the exact rail | none |
+| S2 | **landed 2026-11-17** — offset catalogue: the integer cubic rail | Add the exact PH offset rail for `integer-105`, drawn beside the Levien fit on the same curve | A card shows both rails; the exact one is labelled exact; the fit reports its measured deviation; a test pins the exact rail | none |
 | S3 | `Section` wiring (engine) | Terminals and clearance read `Section` instead of re-deriving width from the rails | The plant-form proof prints the same numbers before and after; a test fails if a terminal computes its own width again | S1 |
 | S4 | curve completeness audit | One script checks every stored curve has a picture, grid, crossings, notes and a page link, and fills what is missing | `scripts/curve_audit.py` prints 179 rows and 0 gaps; the report is committed | S2 |
 | S5 | Bézier fitting | Fit three stored curves with cubic spans and print span count and deviation as a share of the curve's size | `scripts/bezier_fit.py` and `tests/test_bezier_fit.py`, deviation under the tolerance the script states | S1–S4 |

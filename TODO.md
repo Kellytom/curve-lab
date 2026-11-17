@@ -7,8 +7,9 @@
 ## Book plates — 2026-11-17
 
 The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers
-later. Rules and naming are in `book/README.md`; the plan is
-`state/PLAN-int.md` B1–B5.
+later. **The operator parked this on 2026-11-17 until the lab's curves are
+real**; do not start the set or the contact sheet unprompted. Rules and naming
+are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B5.
 
 - [x] **Plate pipeline:** `scripts/plate_export.py`, `plate_curves.py`,
   `plate_png.mjs` and `png_dpi.py`, with `book/plates.json`. Six plates at
@@ -34,6 +35,10 @@ later. Rules and naming are in `book/README.md`; the plan is
   90°/0° — the attach problem, shown not hidden.
 - [ ] **Other figures — parked (operator, 2026-11-17):** squares and rectangles
   first. The same corner rule holds later (pentagon 54°, pentagram point 18°).
+- [ ] **Real curves in the lab (B7, the live action):** replace the four sandbox
+  cubics with the saved curves from the panels seed (33 kept; the UI's × means
+  dismissed), normalised to the chord before assembly; say which will not
+  normalise; a test pins one real curve.
 
 ## From the 2026-11-16 review, in value order
 
@@ -547,11 +552,11 @@ evidence; add to them, do not re-solve them.
 
 ## Next action
 
-The four graded gaps are closed — the 3-4-5 spiral, the seagrass ending, the
-modulated-width study and the hyperbola are all on `showcase.html` as families
-20, 8d, 4d and 9d. The focused next action is the first ornament proof from
-`goals.md`: one fleur using the plant-form grammar (stalk, ±d rails, ending,
-lattice marks, branches). `workbench/todo.html` is the visible twin.
+The live action is **B7: real curves in the lab**. Replace the four sandbox
+cubics with the saved curves (the 33 kept in the panels seed; the ones marked
+with the UI's × were dismissed), normalising each PH speed pair to its chord
+before assembly. The book (B2–B5) and the JS port wait on the operator's word.
+`workbench/todo.html` is the visible twin.
 
 - [x] **Close the graded gap:** 3-4-5 spiral, seagrass, modulated width, hyperbola — drawn on `showcase.html`.
 

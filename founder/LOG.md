@@ -19,23 +19,21 @@ Every remark carries one:
 
 ## Current focus — 2026-11-17
 
-- **The book: PNG plates for Christmas.** The pipeline is live in `book/`:
-  six symmetric plates, white, no text, tight to the curve, 300 dpi, a
-  two-column gallery with the label outside. `[now]` — choose the set, the trim
-  size and the plate count.
-- **The square and rectangle lab.** One rule: the leg bisects the 90° corner,
-  so it is 45°. The frame takes a count across and a count down, and an a/b
-  pattern along each side (for example `aba`). The central leaf is curve a
-  below and the flipped curve b above, with the feet forced onto the same two
-  points. `[now]` — play with it and choose the book's frame.
-- **The attach problem is measured, not hidden.** An arch over an arch prints
-  tips 90° / 90°; an S over an arch prints 90° / 0°, so one foot is smooth and
-  the other square. The page prints both numbers. `[now]` — match the curve
-  pair before using a leaf in the book.
-- **Squares and rectangles only** until they are right; pentagons and
-  pentagrams are parked, not forgotten. `[now]`
-- **The stroke floor is 1 point** at every print size from 1 to 4 inches.
-  `[now]`
+- **Real curves in the lab.** `[now]` The lab still offers four sandbox cubics;
+  replace them with the saved curves, normalised to the chord, and say which
+  ones will not normalise. This is the live action (B7).
+- **The square and rectangle lab.** `[now]` One rule: the leg bisects the 90°
+  corner, so it is 45°. Counts across and down, an a/b pattern per side, and a
+  central leaf of curve a below and flipped curve b above, feet forced together.
+- **The attach problem is measured.** `[now]` Arch over arch prints tips
+  90° / 90°; S over arch prints 90° / 0°. Match the pair before a leaf is used.
+- **Squares and rectangles only.** `[now]` Pentagons and pentagrams are parked.
+- **The stroke floor is 1 point** at 1–4 inches. `[now]`
+- **The book waits.** `[next]` The plate pipeline is live (`book/`), but the
+  set, trim size, contact sheet and character offsets wait until the lab's
+  curves are real. Do not start them unprompted.
+- **The JS port waits.** `[later]` The exact core and the square lab are in JS;
+  the rail lab, crossings and grid wait for the operator's word.
 
 ## 2026-11-16 — the saved curves, the crossings, one exact core
 

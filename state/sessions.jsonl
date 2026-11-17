@@ -40,3 +40,5 @@
 {"session": "ses_e230985b1ffeRxMYF2DwR5NXa3", "used": 457890, "window": 1000000, "percent": 45.79, "active_min": 247.0, "turns": 402, "verdict": "ok", "at": "2026-11-16T08:07:22"}
 {"session": "ses_e230985b1ffeRxMYF2DwR5NXa3", "used": 611308, "window": 1000000, "percent": 61.13, "active_min": 393.7, "turns": 558, "verdict": "ok", "at": "2026-11-16T12:22:13"}
 {"session": "ses_e230985b1ffeRxMYF2DwR5NXa3", "used": 752637, "window": 1000000, "percent": 75.26, "active_min": 559.7, "turns": 723, "verdict": "warn", "at": "2026-11-16T20:33:14"}
+{"session": "ses_e230985b1ffeRxMYF2DwR5NXa3", "used": 776525, "window": 1000000, "percent": 77.65, "active_min": 589.9, "turns": 753, "verdict": "warn", "at": "2026-11-16T21:12:00"}
+{"session": "ses_e230985b1ffeRxMYF2DwR5NXa3", "used": 778683, "window": 1000000, "percent": 77.87, "active_min": 590.1, "turns": 754, "verdict": "warn", "at": "2026-11-16T21:12:16"}

@@ -2456,3 +2456,91 @@ by position to report "meeting places" — the count then depends on the figure'
 scale and is not a property of the curve. Tried and rejected: verifying in a
 fresh browser profile while the operator works in the light one — it proves the
 source, not the page.
+
+## 2026-11-17 (later) — S2 landed: the exact PH rail, the lattice grid, a mirror candidate
+
+**Did the previous action land? Yes.** S2 of `state/PLAN-int.md`: `integer-105`'s
+exact rail beside the Levien fit, plus the lattice grid the action asked for.
+
+**Local:** 200 on `:8003` (probed at the session start). **Remote:** not pushed —
+the operator's rule is no internet unless asked. **Tests:** 109 modules green
+(`scripts/test.py`, 84 s, 4 skipped without `--full`). **Register:** 14 green.
+**Git:** `da3e8f5`, clean except this block and the session log.
+
+**What landed.**
+- `curve_lab/ph_offset.py`: the exact PH offset as a ratio of two polynomials,
+  `O = C + d·(−y', x')/σ`. Exact `Fraction` points, `lattice_scale`,
+  `first_interior_hit`, `hits_at_scale`, and a float sampler for fits/drawings.
+  No Bézier control data: cubics are the export step.
+- `scripts/integer_ph_rail.py` + `workbench/integer-ph-rail.html` (manifest and
+  hub entry). `integer-105`: pitch 105 gives **2** lattice points; the first
+  interior hit is **t = 1/2, grid 3360** (32× the pitch); the rails share that
+  grid only at **d = 41/1120** (normal (40/41, −9/41)), and at d = 3/100 the
+  rail needs **688,800**. The station translates to (0, 4130) with the rails at
+  (120, 4103) and (−120, 4157). It is **not** a mirror: half-turn gap 37%,
+  mirror gap 49%, tangent 12.7° off vertical, x = 0 met four times.
+- The fit is measured (45 spans, 9.2e-6 = 4.4e-6 of the 2.068 size) and printed
+  as a number, not drawn.
+- **Mirror candidate, not adopted:** `u = 1`, `v = (2t − 1)²`. Half-turn gap
+  0.000, tangent at the midpoint exactly horizontal, y axis crosses once.
+  Grid 15: midpoint (6, 5) → (0, 5) after a shift of −2/5; rails at d = 1/15
+  give (0, 6) and (0, 4); the +rail's first interior hit is **grid 5**.
+- `tests/test_integer_ph_rail.py` (14 tests): normal equations in `Fraction`,
+  pinned polynomials, the grid numbers, the station, the label-swap guard, the
+  candidate. Recheck claim added; DESIGN, TODO and LTMemory updated.
+
+**Risks.** (1) Adopting the candidate changes the primary curve. (2) The lattice
+search is t = k/q up to q = 200 — not a proof against an irrational-parameter
+hit. (3) A rail hits the lattice only when d is chosen for the normal there.
+
+**Next move:** the operator's choice — keep `integer-105` (exact rail, no mirror
+axis) or adopt the symmetric candidate (exact rail and mirror axis). Otherwise
+S3, the `Section` wiring.
+
+Rejected: reading the page's speed pair as the derivative (that made the curve
+look non-PH; it is PH because the pages write `C' = (u² − v², 2uv)`); giving the
+rail Bézier control data (two negative weights, a 3.0e27 denominator, and a
+Bézier form the operator asked to defer); drawing the cubic fit; calling the
+four-crossing midpoint line a mirror.
+
+## 2026-11-17 (end of the long session) — JS core, book plates, the lab; real curves next
+
+**Did the previous action land? Yes.** S2 landed, then the JS exact core, the
+book plates and the square/rectangle lab.
+
+**Local:** 200 on `:8003`. **Remote:** not pushed — no internet unless asked.
+**Tests:** 111 Python modules and 18 JS tests green; register green; recheck
+56/56 at the run before the lab work. **Git:** clean at this commit.
+
+**What landed.**
+- **S2:** `curve_lab/ph_offset.py` and `scripts/integer_ph_rail.py`; the exact
+  rail for `integer-105`, the first interior lattice hit at **grid 3360**
+  (t = 1/2), the rails sharing it only at **d = 41/1120**, and the symmetric
+  candidate `u = 1, v = (2t − 1)²` at grid 15.
+- **JS core:** `workbench/exact.js`, `poly_exact.js`, `ph_offset.js`, 18 tests
+  pinned to the Python numbers; `scripts/test.py` runs `node --test`;
+  `state/PORT-int.md` sets the boundary (browser JS, Node for tests, Python
+  where it is debugged).
+- **Book plates:** `book/` with six symmetric plates, 300 dpi, tight crop,
+  white, no text, two-column gallery; `scripts/plate_export.py`,
+  `plate_curves.py`, `plate_png.mjs`, `png_dpi.py`; 7 tests.
+- **The lab:** `workbench/square-frame.html`, `workbench/square_lab.js`,
+  `curve_lab/square_assembly.py`. The leg bisects the 90° corner; the curve is
+  placed on one edge and mirrored/quarter-turned for the other three; the frame
+  takes counts across and down and an a/b pattern; the leaf is curve a below
+  and flipped b above. Measured: arch/arch tips 90°/90°, S/arch 90°/0°.
+  1 pt stroke floor at 1–4 in.
+- **Records:** founder's log has a Current focus, the plan marks S2, the next
+  action is B7.
+
+**Risks.** (1) The lab still offers the four sandbox cubics; B7 is the fix.
+(2) The book waits; the set and trim size are not chosen. (3) The JS port is
+partial: the rail lab, crossings and grid remain Python. (4) The leaf's tip
+pair must match before a leaf goes in the book.
+
+**Next move:** B7 — real curves in the lab, normalised to the chord.
+
+Tried and rejected: the four sandbox cubics as the lab's curve set (they are
+placeholders); lace plates (|d·κ| = 735, no visible rail); a second
+implementation of a page; Node as a build dependency; calling a station a
+mirror.
