@@ -94,3 +94,65 @@ class TestConeTerminal(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSymmetricConeTerminal(unittest.TestCase):
+    """The operator's "it is slightly offset", 2026-11-17.
+
+    On a curved spine one rail is a little longer than the other, so the two rail
+    ends do not sit square to the stroke. The cap then reads lopsided even though
+    it is symmetric about its own axis. Symmetric mode puts it on the centreline.
+    """
+
+    def skewed_rails(self):
+        """A pair whose ends disagree by 0.3 along the stroke: the usual lean."""
+        pos = {"spans": [{"p0": (1, -5), "c1": (1, -2), "c2": (1, -1),
+                          "p3": (1, 0.0), "t": (0, 1)}]}
+        neg = {"spans": [{"p0": (-1, -5), "c1": (-1, -2), "c2": (-1, -1),
+                          "p3": (-1, 0.3), "t": (0, 1)}]}
+        return pos, neg
+
+    def test_the_tip_lands_exactly_on_the_given_centreline(self):
+        pos, neg = self.skewed_rails()
+        cone = cone_terminal(pos, neg, symmetric=True, centre=(0, 0), tangent=(0, 1))
+        self.assertAlmostEqual(0.0, cone["tip"][0], places=12)
+        self.assertAlmostEqual(math.sqrt(3.0), cone["tip"][1], places=12)
+
+    def test_the_rail_ends_become_an_exact_mirror_pair(self):
+        pos, neg = self.skewed_rails()
+        cone = cone_terminal(pos, neg, symmetric=True, centre=(0, 0), tangent=(0, 1))
+        first, last = cone["spans"][0], cone["spans"][1]
+        self.assertAlmostEqual(cone["half"], math.dist((0.0, 0.0), first["p0"]), places=12)
+        self.assertAlmostEqual(cone["half"], math.dist((0.0, 0.0), last["p3"]), places=12)
+        self.assertEqual(0.0, cone["shift"]["pos"], "the + end was already square")
+        self.assertGreater(cone["shift"]["neg"], 0.29)
+
+    def test_the_two_arcs_are_mirror_images_about_the_axis(self):
+        pos, neg = self.skewed_rails()
+        cone = cone_terminal(pos, neg, symmetric=True, centre=(0, 0), tangent=(0, 1))
+        first, last = cone["spans"][0], cone["spans"][1]
+
+        def mirror(point):
+            """Reflect about the y axis through the centre (the axis is (0, 1))."""
+            return (-point[0], point[1])
+
+        self.assertAlmostEqual(mirror(last["p3"])[0], first["p0"][0], places=12)
+        self.assertAlmostEqual(mirror(last["c2"])[0], first["c1"][0], places=9)
+        self.assertAlmostEqual(mirror(last["c2"])[1], first["c1"][1], places=9)
+        self.assertAlmostEqual(mirror(last["p3"])[1], first["p0"][1], places=12)
+
+    def test_without_a_tangent_the_axis_is_squared_and_the_lean_is_reported(self):
+        pos, neg = self.skewed_rails()
+        cone = cone_terminal(pos, neg, symmetric=True, centre=(0, 0))
+        self.assertGreater(cone["axis_twist"], 1.0, "a leaned pair must report its lean")
+        self.assertAlmostEqual(cone["radius"], 2 * cone["half"], places=12)
+
+    def test_the_default_mode_still_leaves_the_rails_where_they_are(self):
+        """The feature is additive: a caller that does not ask keeps today's cap."""
+        pos, neg = self.skewed_rails()
+        cone = cone_terminal(pos, neg)
+        self.assertEqual(0.0, cone["shift"]["pos"])
+        self.assertEqual(0.0, cone["shift"]["neg"])
+        self.assertEqual(0.0, cone["axis_twist"])
+        self.assertAlmostEqual(0.0, cone["tip"][0], places=3)
+        self.assertGreater(cone["tip"][1], math.sqrt(3.0))

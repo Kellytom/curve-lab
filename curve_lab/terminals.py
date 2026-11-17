@@ -209,7 +209,8 @@ def terminal_spans(rail_pos: dict, rail_neg: dict, kind: str,
     return [_dome(p_pos, p_neg, outward, sagitta)]
 
 
-def cone_terminal(rail_pos, rail_neg, end: str = "end"):
+def cone_terminal(rail_pos, rail_neg, end: str = "end", symmetric: bool = False,
+                  centre=None, tangent=None):
     """The two-arc cone terminal: R = 2 x the half width, meeting at the tip.
 
     Two things in this repository are called a cone, and they are not the same:
@@ -237,6 +238,18 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end"):
     `tip`, `centres`, `radius`, `half`, `outward`, `tangents` (the unit tangent
     at each rail end, in the direction of travel). A caller that only wants the
     geometry can ignore `spans`.
+
+    **Symmetric mode.** By default the cap is built from the two rail ends as
+    they come: on a curved spine one rail is slightly longer than the other, so
+    the cap's midpoint sits a little off the spine and the figure reads lopsided
+    — the operator's "it is slightly offset", 2026-11-17. `symmetric=True` puts
+    the cap on the centreline instead: `centre` becomes the cap's midpoint (the
+    spine's end point), each rail end is snapped to its mirror position at the
+    same half width, and the cap's axis is squared to the rail-end line. The
+    returned `shift` says how far each rail end moved, and `axis_twist` says how
+    many degrees the axis was turned to square it — both zero when the rails were
+    already symmetric. Nothing is hidden: a caller that does not want the rails
+    moved keeps the default.
     """
     p_pos, t_pos = _end(rail_pos["spans"], end)
     p_neg, t_neg = _end(rail_neg["spans"], end)
@@ -249,6 +262,43 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end"):
     mid = ((p_pos[0] + p_neg[0]) / 2.0, (p_pos[1] + p_neg[1]) / 2.0)
     outward = _unit(t_pos[0] + t_neg[0], t_pos[1] + t_neg[1])
     side = _unit(p_pos[0] - p_neg[0], p_pos[1] - p_neg[1])
+
+    shift = {"pos": 0.0, "neg": 0.0}
+    axis_twist = 0.0
+    if centre is not None:
+        mid = (float(centre[0]), float(centre[1]))
+    if symmetric:
+        # The cap's axis is the centreline. When the caller knows it (the spine's
+        # end tangent), use it exactly; otherwise square the average rail tangent
+        # to the rail-end line, which is the best axis the two ends can offer.
+        # On a curved spine one rail is a little longer than the other, and an
+        # axis taken from the ends alone leans — that lean is the "slight offset".
+        average = outward
+        if tangent is not None:
+            outward = _unit(float(tangent[0]), float(tangent[1]))
+        else:
+            along = average[0] * side[0] + average[1] * side[1]
+            squared = (average[0] - side[0] * along, average[1] - side[1] * along)
+            if math.hypot(*squared) < 1e-12:
+                raise ValueError("a cone terminal needs the two rails to leave the same way")
+            outward = _unit(*squared)
+        side = (-outward[1], outward[0])
+        # Keep the + rail on the same hand as it came in.
+        if side[0] * (p_pos[0] - p_neg[0]) + side[1] * (p_pos[1] - p_neg[1]) < 0:
+            side = (outward[1], -outward[0])
+        axis_twist = abs(math.degrees(math.acos(
+            max(-1.0, min(1.0, average[0] * outward[0] + average[1] * outward[1])))))
+
+        # The width across the new axis, not the distance between two ends that
+        # were not square to it: this is the half width the ribbon already had.
+        half = abs((p_pos[0] - p_neg[0]) * side[0] + (p_pos[1] - p_neg[1]) * side[1]) / 2.0
+        if half <= 1e-9:
+            raise ValueError("a symmetric cone terminal needs a width across its axis")
+
+        target_pos = (mid[0] + side[0] * half, mid[1] + side[1] * half)
+        target_neg = (mid[0] - side[0] * half, mid[1] - side[1] * half)
+        shift = {"pos": math.dist(p_pos, target_pos), "neg": math.dist(p_neg, target_neg)}
+        p_pos, p_neg = target_pos, target_neg
 
     radius = 2.0 * half
     tip = (mid[0] + outward[0] * math.sqrt(3.0) * half,
@@ -299,4 +349,6 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end"):
         "half": half,
         "outward": outward,
         "tangents": {"base": outward, "tip_pos": tip_tangent_pos, "tip_neg": tip_tangent_neg},
+        "shift": shift,
+        "axis_twist": axis_twist,
     }

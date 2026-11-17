@@ -6,17 +6,19 @@ session's action. It is edited at every handoff — a finished row is marked
 direction goes to the top — and it is never rewritten from memory. It is the
 queue behind `next-fhandoff-int.md`; that file names only the one action.
 
-One action per session, each with a `Proves:` line, so a session can be judged
-done without re-reading the project. The order follows the operator's
-instruction, 2026-11-17: **the curves and the engine are complete before the
-cubic Bézier step.**
+Each action has a `Proves:` line, so it can be judged done without re-reading
+the project. The order follows the operator's instruction, 2026-11-17: **the
+curves and the engine are complete before the cubic Bézier step.**
 
-A session is one action. If its `Proves:` line needs a decision nobody has made,
-the session stops and writes the question — it does not pick.
+**How much a session takes is the operator's call.** Work the queue from the top,
+one action at a time, each committed when its `Proves:` line is true and reported
+in one line. Keep going to the next row while the operator wants more; stop when
+they say stop, when a row is blocked, or when a `Proves:` line needs a decision
+nobody has made — and then write the question instead of picking.
 
 | # | session | the one action | `Proves:` | needs |
 |---|---|---|---|---|
-| S1 | cone terminal, proof half | Draw the two-arc cone terminal and wire it into the terminal report | A page shows the two arcs, `R = 2 × half`, both arc centres and the `√3 × half` tip at three offsets; a test regenerates the page; `tests/test_cone_terminal.py` still passes | engine and tests landed 2026-11-17 |
+| S1 | cone terminal, proof half | Draw the two-arc cone terminal, default and **symmetric**, and wire it into the terminal report | A page shows the two arcs, `R = 2 × half`, both arc centres and the `√3 × half` tip at three offsets, and shows the symmetric mode snapping a leaned pair onto the centreline with its `shift` and `axis_twist` printed; a test regenerates the page; `tests/test_cone_terminal.py` still passes | engine, symmetric mode and eleven tests landed 2026-11-17 |
 | S2 | offset catalogue: the integer cubic rail | Add the exact PH offset rail for `integer-105`, drawn beside the Levien fit on the same curve | A card shows both rails; the exact one is labelled exact; the fit reports its measured deviation; a test pins the exact rail | none |
 | S3 | `Section` wiring (engine) | Terminals and clearance read `Section` instead of re-deriving width from the rails | The plant-form proof prints the same numbers before and after; a test fails if a terminal computes its own width again | S1 |
 | S4 | curve completeness audit | One script checks every stored curve has a picture, grid, crossings, notes and a page link, and fills what is missing | `scripts/curve_audit.py` prints 179 rows and 0 gaps; the report is committed | S2 |
