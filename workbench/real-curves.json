@@ -1,0 +1,857 @@
+{
+ "format": "real-curves/1",
+ "note": "The operator's kept set from the sandbox seed. Speed rows are the PH pair (u, v); character data is kept for the later rails.",
+ "count": 27,
+ "curves": [
+  {
+   "name": "amper",
+   "speedX": [
+    2,
+    -5,
+    6,
+    1,
+    0,
+    0
+   ],
+   "speedY": [
+    4,
+    -22,
+    22,
+    -2,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "euler-hook",
+   "speedX": [
+    2.2,
+    -4.4,
+    6.6,
+    1.1,
+    1.1,
+    -1.1
+   ],
+   "speedY": [
+    4.4,
+    -22,
+    22,
+    -2.2,
+    1.1,
+    -1.1
+   ],
+   "width": {
+    "percent": 1
+   },
+   "character": {
+    "plus": 2,
+    "minus": 1,
+    "profile": "taper"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 2.934,
+    "dy": -0.624
+   }
+  },
+  {
+   "name": "swan",
+   "speedX": [
+    5,
+    -5,
+    5,
+    5,
+    5,
+    -5
+   ],
+   "speedY": [
+    5,
+    -50,
+    50,
+    -5,
+    5,
+    -5
+   ],
+   "width": {
+    "percent": 1
+   },
+   "character": {
+    "plus": 2,
+    "minus": 1,
+    "profile": "taper"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "swan-2",
+   "speedX": [
+    5,
+    -5,
+    5,
+    5,
+    5,
+    -5
+   ],
+   "speedY": [
+    5,
+    -50,
+    50,
+    -5,
+    5,
+    -5
+   ],
+   "width": {
+    "percent": 1
+   },
+   "character": {
+    "plus": 2,
+    "minus": 1,
+    "profile": "taper"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": -2.988584,
+    "dy": 0.261467
+   }
+  },
+  {
+   "name": "gosling",
+   "speedX": [
+    1,
+    -1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "speedY": [
+    1,
+    -10,
+    10,
+    -1,
+    1,
+    1
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": -1
+   }
+  },
+  {
+   "name": "double-tap",
+   "speedX": [
+    2,
+    -6,
+    2,
+    2,
+    0,
+    4
+   ],
+   "speedY": [
+    4,
+    -24,
+    24,
+    -2,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "curlicue",
+   "speedX": [
+    10,
+    20,
+    -660,
+    1930,
+    -2090,
+    785
+   ],
+   "speedY": [
+    -5,
+    200,
+    -875,
+    1445,
+    -1030,
+    275
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "grass",
+   "speedX": [
+    7.5,
+    -2.5,
+    7.5,
+    2.5,
+    7.5,
+    -2.5
+   ],
+   "speedY": [
+    7.5,
+    -25,
+    75,
+    -2.5,
+    7.5,
+    -2.5
+   ],
+   "width": {
+    "percent": 1
+   },
+   "character": {
+    "plus": 2,
+    "minus": 1,
+    "profile": "taper"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "u-bowl",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -1,
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "v-sharp",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -1,
+    6,
+    -12,
+    8,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "m-arch",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    3,
+    -16,
+    16,
+    0,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "gumdrop",
+   "speedX": [
+    2,
+    1,
+    -1,
+    1,
+    -1,
+    1,
+    -1,
+    1,
+    -1,
+    0
+   ],
+   "speedY": [
+    -10,
+    137,
+    -675,
+    1530,
+    -1620,
+    648,
+    0,
+    0,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "m-coarse",
+   "speedX": [
+    1,
+    1
+   ],
+   "speedY": [
+    -6,
+    23,
+    -20
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "bowl-coarse",
+   "speedX": [
+    1,
+    1
+   ],
+   "speedY": [
+    -3,
+    5
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "wave-coarse",
+   "speedX": [
+    1,
+    0
+   ],
+   "speedY": [
+    -4,
+    33,
+    -75,
+    50
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "involute-fit",
+   "speedX": [
+    0.5951,
+    37.5019,
+    -207.7699,
+    519.4995,
+    -1241.3886,
+    1888.7416,
+    -1368.1424,
+    370.9987
+   ],
+   "speedY": [
+    -0.0371,
+    6.6438,
+    92.4853,
+    -203.4783,
+    6.5755,
+    105.8778,
+    19.7943,
+    -37.2965
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "catenary-fit",
+   "speedX": [
+    2.2425,
+    -2.1364,
+    2.5227,
+    -0.8004,
+    0.4702,
+    -0.084,
+    0.028,
+    0
+   ],
+   "speedY": [
+    -1.4243,
+    3.3637,
+    -1.6023,
+    1.2613,
+    -0.2998,
+    0.1404,
+    -0.0205,
+    0.0059
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "euler-fit",
+   "speedX": [
+    1.0015,
+    -0.1045,
+    1.7424,
+    -11.9521,
+    35.6612,
+    -72.0211,
+    62.66,
+    -17.9857
+   ],
+   "speedY": [
+    0.0002,
+    -0.012,
+    3.2612,
+    -0.1396,
+    -2.5111,
+    11.7646,
+    -25.47,
+    13.1077
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "logspiral-fit",
+   "speedX": [
+    2.8444,
+    -9.9068,
+    -68.987,
+    -28.7523,
+    208.7261,
+    549.4016,
+    -1086.0085,
+    446.3495
+   ],
+   "speedY": [
+    2.181,
+    23.713,
+    -54.4823,
+    133.2243,
+    -1136.2484,
+    2274.9752,
+    -1585.1451,
+    352.4053
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "knot-6",
+   "speedX": [
+    -2,
+    -2,
+    3,
+    4
+   ],
+   "speedY": [
+    3,
+    -6,
+    -4,
+    2
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "knot-7",
+   "speedX": [
+    2,
+    -6,
+    2,
+    -2,
+    2
+   ],
+   "speedY": [
+    1,
+    2,
+    -3,
+    -6,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "inflect-2",
+   "speedX": [
+    3,
+    -6,
+    -1,
+    6
+   ],
+   "speedY": [
+    -3,
+    6,
+    -2,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "wave3",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -5,
+    46,
+    -108,
+    72,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "cusp5-x3",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -3,
+    30,
+    -120,
+    240,
+    -240,
+    96
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "cusp7-deep",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -4,
+    56,
+    -336,
+    1120,
+    -2240,
+    2688,
+    -1792,
+    512
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "twin-cusp",
+   "speedX": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    8,
+    -108,
+    594,
+    -1701,
+    2673,
+    -2187,
+    729
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "w-arch",
+   "speedX": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "speedY": [
+    -3,
+    16,
+    -16,
+    0,
+    0,
+    0
+   ],
+   "width": {
+    "percent": 1.5
+   },
+   "character": {
+    "plus": 2,
+    "minus": 2,
+    "profile": "bow"
+   },
+   "shear": 0,
+   "hook": {
+    "dx": 0,
+    "dy": 0
+   }
+  }
+ ]
+}

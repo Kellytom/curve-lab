@@ -433,12 +433,31 @@ no input fields.
   canvas aspect is that box, so the curve fills 97.6% of the long side; a margin
   of 1.2% keeps the stroke from being cut. Long side 3000 px, stroke 0.35% of
   it, 300 dpi in the PNG so LibreOffice inserts at 254 mm rather than 790 mm.
-- **The rails are drawn, and their status is in the manifest.** A PH or stored
-  speed pair gives the exact rational rail; an integer cubic gives the true
-  normal offset sampled, and says so.
-- **The plate refuses a folded rail.** `|d·κ| ≥ 0.98` stops the export and asks
-  for a smaller `offsetShare`. The lace knots have no visible rail at any
-  distance (|d·κ| = 735 at 3% of the size), so they are not plate material.
+- **The rails are character rails, not parallel offsets** (operator,
+  2026-11-17): a ±d base at the record's width percent, bowed by its `plus` /
+  `minus` strength and its `bow`, `s` or `taper` profile. The construction is
+  the sandbox's (`workbench/ph_nth_panels.js`, `characterRail`), reproduced in
+  `scripts/plate_curves.py`. A parallel rail is a later feature and is not
+  drawn. When the base offset would fold, the width is halved; at the 0.2%
+  floor the plate is spine-only and says so.
+- **A folded base offset is never drawn.** If `|d·κ|` at the record's width
+  would fold, the width is halved until it does not; at the 0.2% floor the
+  plate is spine-only and the caption says so. Two of the 27 saved curves land
+  there: `involute-fit` and `inflect-2`.
+
+## Central designs are at least two curves — 2026-11-17
+
+The operator's definition: a central design has **at least two curves joined at
+their legs** (or end to end). Two forms so far:
+
+- **The leaf** — curve a below, the flipped curve b above, both pairs of feet on
+  the same two points. Measured tip angles: arch/arch 90°/90°, S/arch 90°/0°.
+- **The chain** — curve a then curve b, end to end, **not flipped**. A shallow-leg
+  curve and a steep-leg curve can meet at a shared foot; the join angle is the
+  difference between a's end tangent and b's start tangent. That difference is
+  the design's decision, not a fault: it is a corner unless the angles match.
+- The book plates are single curves (spine plus character rails), not central
+  designs.
 
 ## Square and frame: the leg bisects the corner — 2026-11-17
 

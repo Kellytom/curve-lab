@@ -1,15 +1,22 @@
-"""The curves a book plate may draw: a spine and its two rails, in floats.
+"""Spine and character rails for one book plate.
 
-Three sources, one output shape:
+A **character rail** is not a plain parallel offset. It starts at the same
+`±d` from the spine, but bows: the rail is the parallel plus the difference
+between integrating the speed turned slightly at each station and integrating
+it untouched, weighted by `4t(1−t)` so the difference vanishes at both ends.
+That is the sandbox's construction (`workbench/ph_nth_panels.js`,
+`characterRail`), reproduced here for the plate export.
 
-- `ph` — a speed pair `(u, v)`; the curve is PH, so the rail is exact and is
-  sampled from the rational offset.
-- `record` — a stored curve's speed rows (also a PH pair, by construction).
-- `cubic` — an integer cubic from a Pythagorean triple; not PH, so the rail is
-  the true normal offset, sampled. It is drawn, never claimed exact.
+- `d = width.percent / 100 × the spine's bounding-box diagonal`.
+- `eps = 0.08 × plus` on the left, `0.08 × minus` on the right.
+- the bow profile: `bow = 4t(1−t)`, `s = 8t(1−t)(1−2t)`,
+  `taper = 6.75 t²(1−t)`.
 
-`load()` returns the spine, both rails, the bounding box, the distance and the
-fold margin. Nothing here writes a file; `plate_export.py` does that.
+The curves come from `workbench/real-curves.json` (the operator's kept set).
+If `|d·κ|` is too large the width is reduced until the base offset no longer
+folds; if it still folds at the floor, the plate is drawn spine-only and says
+so. Nothing here claims exactness: the spine is exact PH, the character is a
+drawing.
 """
 
 from __future__ import annotations
@@ -17,6 +24,7 @@ from __future__ import annotations
 import json
 import math
 import sys
+from functools import lru_cache
 from fractions import Fraction
 from pathlib import Path
 
@@ -24,13 +32,90 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab import ph_offset as ph  # noqa: E402
-from curve_lab.pyth_cubic import case  # noqa: E402
 
-SAMPLES = 1600
+STEPS = 700
+DEFAULT_WIDTH = 1.5
+DEFAULT_PLUS = 2.0
+DEFAULT_MINUS = 2.0
+DEFAULT_PROFILE = "bow"
+WIDTH_FLOOR = 0.2
+FOLD_LIMIT = 0.9
 
 
-def _sample(point, samples=SAMPLES):
-    return [point(i / samples) for i in range(samples + 1)]
+@lru_cache(maxsize=1)
+def _curves() -> dict:
+    path = ROOT / "workbench" / "real-curves.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {row["name"]: row for row in data["curves"]}
+
+
+def _value(poly, t):
+    total = 0.0
+    for coefficient in reversed(poly):
+        total = total * t + float(coefficient)
+    return total
+
+
+def _spine(u, v, steps=STEPS):
+    """Position, tangent and normal at every station, integrated like the page."""
+    out = []
+    x = y = 0.0
+    for i in range(steps + 1):
+        t = i / steps
+        p, q = _value(u, t), _value(v, t)
+        speed2 = p * p + q * q
+        tx = (p * p - q * q) / speed2 if speed2 > 1e-12 else 1.0
+        ty = 2 * p * q / speed2 if speed2 > 1e-12 else 0.0
+        out.append({"t": t, "x": x, "y": y, "tx": tx, "ty": ty,
+                    "nx": -ty, "ny": tx})
+        if i < steps:
+            tm = (i + 0.5) / steps
+            pm, qm = _value(u, tm), _value(v, tm)
+            x += (pm * pm - qm * qm) / steps
+            y += 2 * pm * qm / steps
+    return out
+
+
+def _profile(name, t):
+    if name == "s":
+        return 8 * t * (1 - t) * (1 - 2 * t)
+    if name == "taper":
+        return 6.75 * t * t * (1 - t)
+    return 4 * t * (1 - t)
+
+
+def _integrate(start, u, v, steps, eps=0.0, bump=None):
+    """Integrate (u² − v², 2uv); with `eps`, turn the speed by eps·bump(t)."""
+    x, y = start
+    points = [(x, y)]
+    for i in range(steps):
+        t = (i + 0.5) / steps
+        p, q = _value(u, t), _value(v, t)
+        if eps:
+            a = eps * bump(t)
+            p, q = p - a * q, q + a * p
+        x += (p * p - q * q) / steps
+        y += 2 * p * q / steps
+        points.append((x, y))
+    return points
+
+
+def _rail(spine, u, v, distance, sign, strength, profile, shear, steps=STEPS):
+    start_spine = spine[0]
+    start = (start_spine["x"] + sign * distance * start_spine["nx"],
+             start_spine["y"] + sign * distance * start_spine["ny"])
+    flat = _integrate(start, u, v, steps)
+    bump = lambda t: _profile(profile, t)
+    turned = _integrate(start, u, v, steps, eps=0.08 * strength, bump=bump)
+    out = []
+    for i, station in enumerate(spine):
+        t = i / steps
+        parallel = (station["x"] + sign * distance * station["nx"] + shear * t * station["tx"],
+                    station["y"] + sign * distance * station["ny"] + shear * t * station["ty"])
+        weight = 4 * t * (1 - t)
+        out.append((parallel[0] + weight * (turned[i][0] - flat[i][0]),
+                    parallel[1] + weight * (turned[i][1] - flat[i][1])))
+    return out
 
 
 def _bbox(points):
@@ -44,102 +129,50 @@ def _diagonal(points):
     return math.hypot(x1 - x0, y1 - y0)
 
 
-def _speed_pair(spec):
-    """The PH pair for a `ph` or `record` plate."""
-    if spec["kind"] == "ph":
-        return ([Fraction(value) for value in spec["u"]],
-                [Fraction(value) for value in spec["v"]], "exact rational rail")
-    path = ROOT / "curves" / spec["slug"] / "curve.json"
-    if not path.exists():
-        raise FileNotFoundError(f"no record at {path}")
-    record = json.loads(path.read_text(encoding="utf-8"))
-    u = [Fraction(str(value)) for value in record["speedX"]]
-    v = [Fraction(str(value)) for value in record["speedY"]]
-    return u, v, f"exact rational rail · record {spec['slug']}"
-
-
-def _cubic(spec):
-    """Control points and a normal-offset sampler for an integer cubic."""
-    a, b, c = spec["triple"]
-    row = case(a, b, c)
-    p0, p1, p2, p3 = row["p0"], row["p1"], row["p2"], row["p3"]
-
-    def point(t):
-        mt = 1.0 - t
-        return (mt ** 3 * p0[0] + 3 * mt * mt * t * p1[0]
-                + 3 * mt * t * t * p2[0] + t ** 3 * p3[0],
-                mt ** 3 * p0[1] + 3 * mt * mt * t * p1[1]
-                + 3 * mt * t * t * p2[1] + t ** 3 * p3[1])
-
-    def derivative(t):
-        mt = 1.0 - t
-        return (3 * mt * mt * (p1[0] - p0[0]) + 6 * mt * t * (p2[0] - p1[0])
-                + 3 * t * t * (p3[0] - p2[0]),
-                3 * mt * mt * (p1[1] - p0[1]) + 6 * mt * t * (p2[1] - p1[1])
-                + 3 * t * t * (p3[1] - p2[1]))
-
-    def second(t):
-        mt = 1.0 - t
-        ax, ay = p2[0] - 2 * p1[0] + p0[0], p2[1] - 2 * p1[1] + p0[1]
-        bx, by = p3[0] - 2 * p2[0] + p1[0], p3[1] - 2 * p2[1] + p1[1]
-        return 6 * (mt * ax + t * bx), 6 * (mt * ay + t * by)
-
-    return point, derivative, second, f"true normal offset, sampled · {row['label']} cubic"
-
-
-def _curvature_peak(derivative, second, samples=1200):
-    worst = 0.0
-    for i in range(samples + 1):
-        t = i / samples
-        dx, dy = derivative(t)
-        speed = math.hypot(dx, dy)
-        if speed < 1e-12:
-            return math.inf
-        ddx, ddy = second(t)
-        worst = max(worst, abs(dx * ddy - dy * ddx) / speed ** 3)
-    return worst
-
-
 def load(spec) -> dict:
-    """Spine, both rails and the numbers a plate needs."""
-    if spec["kind"] in ("ph", "record"):
-        u, v, rail_kind = _speed_pair(spec)
-        point, _ = ph.float_sampler(u, v, 0)
-        spine = _sample(point)
-        size = _diagonal(spine)
-        distance = spec["offsetShare"] * size
-        left, _ = ph.float_sampler(u, v, distance)
-        right, _ = ph.float_sampler(u, v, -distance)
-        rail_left = _sample(left)
-        rail_right = _sample(right)
-        peak = ph.curvature_peak(u, v, samples=1200)
+    """Spine, character rails, and the numbers a plate needs."""
+    row = _curves().get(spec["name"])
+    if row is None:
+        raise KeyError(f"{spec['name']} is not in workbench/real-curves.json")
+    u = [Fraction(str(value)) for value in row["speedX"]]
+    v = [Fraction(str(value)) for value in row["speedY"]]
+    width = float((row.get("width") or {}).get("percent", DEFAULT_WIDTH))
+    character = row.get("character") or {}
+    plus = float(character.get("plus", DEFAULT_PLUS))
+    minus = float(character.get("minus", DEFAULT_MINUS))
+    profile = character.get("profile", DEFAULT_PROFILE)
+    if profile not in ("bow", "s", "taper"):
+        profile = DEFAULT_PROFILE
+    shear = float(row.get("shear", 0.0))
+
+    spine = _spine(u, v)
+    size = _diagonal([(station["x"], station["y"]) for station in spine])
+    peak = ph.curvature_peak(u, v, samples=400)
+    distance = width / 100.0 * size
+    while abs(distance) * peak > FOLD_LIMIT and width > WIDTH_FLOOR:
+        width /= 2.0
+        distance = width / 100.0 * size
+    rails = []
+    if abs(distance) * peak <= FOLD_LIMIT:
+        rails.append(_rail(spine, u, v, distance, 1, plus, profile, shear))
+        rails.append(_rail(spine, u, v, distance, -1, minus, profile, shear))
+        rail_note = f"character rails · width {width:g}% · {profile} {plus:g}/{minus:g}"
     else:
-        base, derivative, second, rail_kind = _cubic(spec)
-        spine = _sample(base)
-        size = _diagonal(spine)
-        distance = spec["offsetShare"] * size
-
-        def offset(t, signed):
-            x, y = base(t)
-            dx, dy = derivative(t)
-            speed = math.hypot(dx, dy) or 1.0
-            return (x - dy / speed * signed, y + dx / speed * signed)
-
-        rail_left = _sample(lambda t: offset(t, distance))
-        rail_right = _sample(lambda t: offset(t, -distance))
-        peak = _curvature_peak(derivative, second)
-
-    fold = abs(distance) * peak
-    if fold >= 0.98:
-        raise ValueError(f"{spec['id']}: the rail folds (|d·κ| = {fold:.2f}); "
-                         "lower offsetShare")
+        distance = 0.0
+        rail_note = f"rail folds at the {WIDTH_FLOOR:g}% floor · spine only"
+    spine_points = [(station["x"], station["y"]) for station in spine]
+    box = _bbox(spine_points + [point for rail in rails for point in rail])
     return {
-        "id": spec["id"],
-        "spine": spine,
-        "rails": [rail_left, rail_right],
-        "bbox": _bbox(spine + rail_left + rail_right),
+        "name": spec["name"],
+        "spine": spine_points,
+        "rails": rails,
+        "bbox": box,
         "size": size,
+        "width": width,
+        "plus": plus,
+        "minus": minus,
+        "profile": profile,
         "distance": distance,
-        "fold": fold,
-        "railKind": rail_kind,
+        "fold": abs(distance) * peak,
+        "note": rail_note,
     }

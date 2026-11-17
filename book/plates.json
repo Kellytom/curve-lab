@@ -1,62 +1,223 @@
 {
- "note": "One row per book plate. The name is <descriptor>-<variant>-t-exp-c-<serial>, e.g. swan-1-t-exp-c-0001. The serial is allocated once and never reused, so a LibreOffice link survives a re-export. Add a row, run scripts/plate_export.py, and the SVGs, PNGs and gallery follow.",
+ "note": "One row per book plate. The name is <descriptor>-<variant>-t-exp-c-<serial>; the serial is allocated once and never reused. The plates draw the saved curve's character rails (width percent, plus/minus, profile), not a parallel offset.",
  "longSide": 3000,
  "strokeShare": 0.0035,
  "plates": [
   {
-   "id": "swan-1-t-exp-c-0001",
+   "id": "amper-1-t-exp-c-0101",
+   "descriptor": "amper",
+   "variant": 1,
+   "kind": "seed",
+   "name": "amper",
+   "note": "amper \u00b7 saved curve"
+  },
+  {
+   "id": "euler-hook-1-t-exp-c-0102",
+   "descriptor": "euler-hook",
+   "variant": 1,
+   "kind": "seed",
+   "name": "euler-hook",
+   "note": "euler-hook \u00b7 saved curve"
+  },
+  {
+   "id": "swan-1-t-exp-c-0103",
    "descriptor": "swan",
    "variant": 1,
-   "kind": "ph",
-   "u": [1],
-   "v": [1, -4, 4],
-   "offsetShare": 0.04,
-   "note": "symmetric PH S · exact rail"
+   "kind": "seed",
+   "name": "swan",
+   "note": "swan \u00b7 saved curve"
   },
   {
-   "id": "sweep-1-t-exp-c-0002",
-   "descriptor": "sweep",
+   "id": "swan-2-1-t-exp-c-0104",
+   "descriptor": "swan-2",
    "variant": 1,
-   "kind": "cubic",
-   "triple": [3, 4, 5],
-   "offsetShare": 0.05,
-   "note": "3-4-5 integer cubic · rail from the true normal"
+   "kind": "seed",
+   "name": "swan-2",
+   "note": "swan-2 \u00b7 saved curve"
   },
   {
-   "id": "sweep-2-t-exp-c-0003",
-   "descriptor": "sweep",
-   "variant": 2,
-   "kind": "cubic",
-   "triple": [5, 12, 13],
-   "offsetShare": 0.05,
-   "note": "5-12-13 integer cubic"
+   "id": "gosling-1-t-exp-c-0105",
+   "descriptor": "gosling",
+   "variant": 1,
+   "kind": "seed",
+   "name": "gosling",
+   "note": "gosling \u00b7 saved curve"
   },
   {
-   "id": "sweep-3-t-exp-c-0004",
-   "descriptor": "sweep",
-   "variant": 3,
-   "kind": "cubic",
-   "triple": [8, 15, 17],
-   "offsetShare": 0.05,
-   "note": "8-15-17 integer cubic"
+   "id": "double-tap-1-t-exp-c-0106",
+   "descriptor": "double-tap",
+   "variant": 1,
+   "kind": "seed",
+   "name": "double-tap",
+   "note": "double-tap \u00b7 saved curve"
   },
   {
-   "id": "sweep-4-t-exp-c-0005",
-   "descriptor": "sweep",
-   "variant": 4,
-   "kind": "cubic",
-   "triple": [7, 24, 25],
-   "offsetShare": 0.05,
-   "note": "7-24-25 integer cubic"
+   "id": "curlicue-1-t-exp-c-0107",
+   "descriptor": "curlicue",
+   "variant": 1,
+   "kind": "seed",
+   "name": "curlicue",
+   "note": "curlicue \u00b7 saved curve"
   },
   {
-   "id": "sweep-5-t-exp-c-0006",
-   "descriptor": "sweep",
-   "variant": 5,
-   "kind": "cubic",
-   "triple": [20, 21, 29],
-   "offsetShare": 0.05,
-   "note": "20-21-29 integer cubic · symmetric, rails clear of the curve"
+   "id": "grass-1-t-exp-c-0108",
+   "descriptor": "grass",
+   "variant": 1,
+   "kind": "seed",
+   "name": "grass",
+   "note": "grass \u00b7 saved curve"
+  },
+  {
+   "id": "u-bowl-1-t-exp-c-0109",
+   "descriptor": "u-bowl",
+   "variant": 1,
+   "kind": "seed",
+   "name": "u-bowl",
+   "note": "u-bowl \u00b7 saved curve"
+  },
+  {
+   "id": "v-sharp-1-t-exp-c-0110",
+   "descriptor": "v-sharp",
+   "variant": 1,
+   "kind": "seed",
+   "name": "v-sharp",
+   "note": "v-sharp \u00b7 saved curve"
+  },
+  {
+   "id": "m-arch-1-t-exp-c-0111",
+   "descriptor": "m-arch",
+   "variant": 1,
+   "kind": "seed",
+   "name": "m-arch",
+   "note": "m-arch \u00b7 saved curve"
+  },
+  {
+   "id": "gumdrop-1-t-exp-c-0112",
+   "descriptor": "gumdrop",
+   "variant": 1,
+   "kind": "seed",
+   "name": "gumdrop",
+   "note": "gumdrop \u00b7 saved curve"
+  },
+  {
+   "id": "m-coarse-1-t-exp-c-0113",
+   "descriptor": "m-coarse",
+   "variant": 1,
+   "kind": "seed",
+   "name": "m-coarse",
+   "note": "m-coarse \u00b7 saved curve"
+  },
+  {
+   "id": "bowl-coarse-1-t-exp-c-0114",
+   "descriptor": "bowl-coarse",
+   "variant": 1,
+   "kind": "seed",
+   "name": "bowl-coarse",
+   "note": "bowl-coarse \u00b7 saved curve"
+  },
+  {
+   "id": "wave-coarse-1-t-exp-c-0115",
+   "descriptor": "wave-coarse",
+   "variant": 1,
+   "kind": "seed",
+   "name": "wave-coarse",
+   "note": "wave-coarse \u00b7 saved curve"
+  },
+  {
+   "id": "involute-fit-1-t-exp-c-0116",
+   "descriptor": "involute-fit",
+   "variant": 1,
+   "kind": "seed",
+   "name": "involute-fit",
+   "note": "involute-fit \u00b7 saved curve"
+  },
+  {
+   "id": "catenary-fit-1-t-exp-c-0117",
+   "descriptor": "catenary-fit",
+   "variant": 1,
+   "kind": "seed",
+   "name": "catenary-fit",
+   "note": "catenary-fit \u00b7 saved curve"
+  },
+  {
+   "id": "euler-fit-1-t-exp-c-0118",
+   "descriptor": "euler-fit",
+   "variant": 1,
+   "kind": "seed",
+   "name": "euler-fit",
+   "note": "euler-fit \u00b7 saved curve"
+  },
+  {
+   "id": "logspiral-fit-1-t-exp-c-0119",
+   "descriptor": "logspiral-fit",
+   "variant": 1,
+   "kind": "seed",
+   "name": "logspiral-fit",
+   "note": "logspiral-fit \u00b7 saved curve"
+  },
+  {
+   "id": "knot-6-1-t-exp-c-0120",
+   "descriptor": "knot-6",
+   "variant": 1,
+   "kind": "seed",
+   "name": "knot-6",
+   "note": "knot-6 \u00b7 saved curve"
+  },
+  {
+   "id": "knot-7-1-t-exp-c-0121",
+   "descriptor": "knot-7",
+   "variant": 1,
+   "kind": "seed",
+   "name": "knot-7",
+   "note": "knot-7 \u00b7 saved curve"
+  },
+  {
+   "id": "inflect-2-1-t-exp-c-0122",
+   "descriptor": "inflect-2",
+   "variant": 1,
+   "kind": "seed",
+   "name": "inflect-2",
+   "note": "inflect-2 \u00b7 saved curve"
+  },
+  {
+   "id": "wave3-1-t-exp-c-0123",
+   "descriptor": "wave3",
+   "variant": 1,
+   "kind": "seed",
+   "name": "wave3",
+   "note": "wave3 \u00b7 saved curve"
+  },
+  {
+   "id": "cusp5-x3-1-t-exp-c-0124",
+   "descriptor": "cusp5-x3",
+   "variant": 1,
+   "kind": "seed",
+   "name": "cusp5-x3",
+   "note": "cusp5-x3 \u00b7 saved curve"
+  },
+  {
+   "id": "cusp7-deep-1-t-exp-c-0125",
+   "descriptor": "cusp7-deep",
+   "variant": 1,
+   "kind": "seed",
+   "name": "cusp7-deep",
+   "note": "cusp7-deep \u00b7 saved curve"
+  },
+  {
+   "id": "twin-cusp-1-t-exp-c-0126",
+   "descriptor": "twin-cusp",
+   "variant": 1,
+   "kind": "seed",
+   "name": "twin-cusp",
+   "note": "twin-cusp \u00b7 saved curve"
+  },
+  {
+   "id": "w-arch-1-t-exp-c-0127",
+   "descriptor": "w-arch",
+   "variant": 1,
+   "kind": "seed",
+   "name": "w-arch",
+   "note": "w-arch \u00b7 saved curve"
   }
  ]
 }

@@ -37,7 +37,7 @@ from png_dpi import read_dpi, set_dpi  # noqa: E402
 BOOK = ROOT / "book"
 SVG_DIR = BOOK / "svg"
 PNG_DIR = BOOK / "plates"
-NAME = re.compile(r"^([a-z][a-z0-9]*)-([0-9]+)-t-exp-c-([0-9]{4})$")
+NAME = re.compile(r"^([a-z0-9][a-z0-9-]*)-([0-9]+)-t-exp-c-([0-9]{4})$")
 MARGIN_SHARE = 0.012
 DPI = 300
 
@@ -114,7 +114,8 @@ def gallery(plates) -> str:
     cards = "".join(
         f'<figure><img src="plates/{plate["id"]}.png" width="{plate["pxW"]}" '
         f'height="{plate["pxH"]}" alt="{plate["id"]}">'
-        f'<figcaption><b>{plate["id"]}</b><br>{plate["note"]}</figcaption></figure>'
+        f'<figcaption><b>{plate["id"]}</b><br>{plate["note"]} · '
+        f'{plate["data"]["note"]}</figcaption></figure>'
         for plate in plates)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -161,7 +162,8 @@ def main() -> int:
         print(result.stderr[-1200:])
         return 1
 
-    print(f"{'plate':26} {'kind':7} {'d':>8} {'|d.k|':>6} {'pixels':>11} {'dpi':>4} {'bytes':>8}")
+    print(f"{'plate':30} {'rails':6} {'width':>6} {'profile':8} {'fold':>6} "
+          f"{'pixels':>11} {'dpi':>4} {'bytes':>8}")
     for plate in plates:
         path = PNG_DIR / f"{plate['id']}.png"
         if not path.exists():
@@ -169,9 +171,11 @@ def main() -> int:
             return 1
         set_dpi(path, DPI)
         data = plate["data"]
-        print(f"{plate['id']:26} {plate['kind']:7} {data['distance']:8.4f} "
-              f"{data['fold']:6.3f} {plate['pxW']:5}x{plate['pxH']:<5} "
-              f"{read_dpi(path):4} {path.stat().st_size:8}")
+        rails = "char" if data["rails"] else "spine"
+        print(f"{plate['id']:30} {rails:6} {data['width']:6.2f} "
+              f"{data['profile']:8} {data['fold']:6.3f} "
+              f"{plate['pxW']:5}x{plate['pxH']:<5} {read_dpi(path):4} "
+              f"{path.stat().st_size:8}")
     (BOOK / "index.html").write_text(gallery(plates), encoding="utf-8")
     print(BOOK / "index.html")
     return 0

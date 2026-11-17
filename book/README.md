@@ -29,6 +29,7 @@ image, clipped to the curve**, a plain gallery with no controls.
 | ground | `#ffffff` | print |
 | ink | `#111111` | print |
 | stroke | 0.35% of the long side (10.5 px) | about 0.5 mm at 150 mm wide |
+| rails | **character rails**: a ±d base at `width%` of the spine's size, bowed by the record's `plus`/`minus` and `bow`/`s`/`taper` profile | the sandbox's character, not a parallel offset |
 | margin | 1.2% of the long side (36 px) | the stroke is never cut; the curve fills 97.6% |
 | text | none | operator's instruction; the gallery carries the name |
 | gallery | two columns, the label outside the image | operator's instruction; the label is the id and the note |
@@ -40,13 +41,22 @@ square.
 
 ## Adding a plate
 
-1. Add a row to `plates.json` with a fresh serial. Three kinds:
-   - `"kind": "ph"` — a speed pair `u`, `v`. The rail is exact.
-   - `"kind": "record"` — a stored curve's `slug`; its speed rows are a PH pair.
-   - `"kind": "cubic"` — a Pythagorean `triple`; the rail is the true normal
-     offset, sampled.
-2. `offsetShare` is the rail distance as a share of the spine's bounding-box
-   diagonal. The export refuses a plate whose rail folds (`|d·κ| ≥ 0.98`).
+1. Add a row to `plates.json` with a fresh serial. The plates draw the saved
+   curves from `workbench/real-curves.json`, so a row is `"kind": "seed"` plus
+   the curve's `"name"`:
+
+   ```json
+   {"id": "amper-1-t-exp-c-0101", "descriptor": "amper", "variant": 1,
+    "kind": "seed", "name": "amper", "note": "amper · saved curve"}
+   ```
+
+   The descriptor may contain hyphens; the `-t-exp-c-` marker is where the name
+   is split. `node scripts/real_curves.mjs` rebuilds the curve data from the
+   sandbox seed.
+2. `width`, `plus`, `minus` and `profile` come from the curve's own record. If
+   `|d·κ|` is too large, the width is halved until the base offset no longer
+   folds; if it still folds at the 0.2% floor, the plate is drawn spine-only and
+   says so.
 3. Run:
 
 ```sh

@@ -18,12 +18,12 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 1 | `senior-dev.md` | 43 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
 | 2 | `LTMemory-int.md` | 203 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 4 | `state/PLAN-int.md` | 90 | the next few sessions, one action each, with what is parked and why |
+| 4 | `state/PLAN-int.md` | 91 | the next few sessions, one action each, with what is parked and why |
 | 5 | `state/HANDOFF-int.md` | 2,546 | current truth — **read the tail (~80 lines), not the whole file** |
-| 6 | `TODO.md` | 662 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 6 | `TODO.md` | 665 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 92 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 501 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 9 | `state/DESIGN-int.md` | 520 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 10 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
@@ -41,7 +41,7 @@ to *what is the next step*.
 | `goals.md` | 265 | the arc: plant-forms → ornament-forms, and the offset tiers |
 | `docs/PHILOSOPHY.md` | 192 | glyph, full line, sections, joints — the design rules |
 | `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
-| `founder/LOG.md` | 135 | the founder's current focus, dated entries and priority tags; read the top section |
+| `founder/LOG.md` | 148 | the founder's current focus, dated entries and priority tags; read the top section |
 
 **Scope in one line**, so it is never absent even when the files are not open:
 exact integer and rational curves on one grid; the goal is a grammar of
@@ -70,7 +70,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `docs/PH-INTEGER.md` |
 | the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |
 | a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
-| book plates (PNG export) | `book/README.md`, `book/plates.json`, `scripts/plate_export.py`, `scripts/plate_curves.py`, `scripts/plate_png.mjs`, `scripts/png_dpi.py`, `tests/test_plate_export.py` |
+| book plates (PNG export) | `book/README.md`, `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plate_export.py`, `scripts/plate_curves.py`, `scripts/plate_png.mjs`, `scripts/png_dpi.py`, `tests/test_plate_export.py` |
 | square and frame figures | `curve_lab/square_assembly.py`, `workbench/square_lab.js`, `workbench/square-frame.html`, `scripts/square_frame.py`, `scripts/square_try.py`, `tests/js/square_lab.test.js`, `tests/test_square_frame.py` |
 | the gallery's clean-up and order | `scripts/moved_notes.py`, `workbench/moved-curves.json`, `workbench/curve-figures.html` |
 | finding curves / the census | `scripts/family_census.py`, `scripts/related_families.py`, `scripts/import_found.py`, `workbench/family-census.json`, `scripts/direction_curves.py` |

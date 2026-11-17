@@ -7,24 +7,26 @@
 ## Book plates — 2026-11-17
 
 The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers
-later. **The operator parked this on 2026-11-17 until the lab's curves are
-real**; do not start the set or the contact sheet unprompted. Rules and naming
-are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B5.
+later. The gallery now carries the real saved curves; the operator picks the set.
+Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B5.
 
 - [x] **Plate pipeline:** `scripts/plate_export.py`, `plate_curves.py`,
-  `plate_png.mjs` and `png_dpi.py`, with `book/plates.json`. Six plates at
-  3000 px, 300 dpi, white ground, no text, tight to the curve; a plain gallery;
-  `tests/test_plate_export.py` (7 tests). Names are
-  `<descriptor>-<variant>-t-exp-c-<serial>`, and a folded rail refuses to export.
-- [ ] **Choose the set:** 12–24 plates the operator picks from the gallery,
-  mostly symmetric, each with an `offsetShare` that does not fold.
+  `plate_png.mjs`, `png_dpi.py` and `scripts/real_curves.mjs`, with
+  `book/plates.json` and `workbench/real-curves.json`. 3000 px, 300 dpi, white
+  ground, no text, tight to the curve; a plain gallery; `tests/test_plate_export.py`
+  (8 tests). Names are `<descriptor>-<variant>-t-exp-c-<serial>`.
+- [x] **The real curves in the gallery:** 27 saved curves, each with its own
+  character rails (width %, plus/minus, bow/s/taper). 25 have rails; 2 are
+  spine-only because the base offset folds at the 0.2% floor.
+- [ ] **Choose the set:** pick from the 27, and the trim size; the gallery is the
+  contact sheet.
 - [ ] **Balance stations (B3):** a page listing lattice stations whose tangent
   is vertical, horizontal or a 3-4-5 direction, and any pair balanced about
   y = k. Exact, from the derivative polynomial. It is balance, not symmetry.
 - [ ] **LibreOffice contact sheet (B4):** insert at trim size, one per page, PDF
   proof, no upscaling.
-- [ ] **Character offsets (B5):** one plate whose rails have a declared varying
-  width, with the width law in the manifest.
+- [x] **Character offsets (B5):** the plates draw the record's character rails,
+  not parallel offsets; the gallery prints the width and profile.
 - [x] **Square and frame lab (B6):** the leg bisects the 90° corner; one curve
   per edge, or a rectangle with counts across and down and an a/b pattern per
   side; the central leaf is curve a below and the flipped curve b above, feet
@@ -36,9 +38,10 @@ are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B5.
 - [ ] **Other figures — parked (operator, 2026-11-17):** squares and rectangles
   first. The same corner rule holds later (pentagon 54°, pentagram point 18°).
 - [ ] **Real curves in the lab (B7, the live action):** replace the four sandbox
-  cubics with the saved curves from the panels seed (33 kept; the UI's × means
-  dismissed), normalised to the chord before assembly; say which will not
-  normalise; a test pins one real curve.
+  cubics with the saved curves (27 kept; the UI's × means dismissed), normalised
+  to the chord before assembly; say which will not normalise; a test pins one.
+- [ ] **The chain form (B8):** two curves end to end, not flipped — a shallow
+  leg to a steep leg — with the join angle printed.
 
 ## From the 2026-11-16 review, in value order
 

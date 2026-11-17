@@ -25,12 +25,13 @@ integer stations where a branch can attach.
 | # | action | `Proves:` | needs |
 |---|---|---|---|
 | B1 | **plate pipeline** | six plates, white ground, no text, 300 dpi, tight to the curve; a plain gallery; seven tests | **landed 2026-11-17** |
-| B2 | choose the plate set | 12–24 plates the operator can pick from the gallery, each with an `offsetShare` that does not fold | B1 |
+| B2 | **landed 2026-11-17** — choose the plate set | 27 saved curves in the gallery, each with its character rails; the operator can pick | B1 |
 | B3 | balance stations | for one curve, a page lists the lattice stations at a grid whose tangent is vertical, horizontal or a 3-4-5 direction, and any pair balanced about y = k; all exact; a test pins one | B1 |
 | B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
-| B5 | character offsets | one plate whose rails have a declared varying width, with the width law printed in the manifest | B2 |
+| B5 | **landed 2026-11-17** — character offsets | 25 of the 27 plates carry character rails (width %, plus/minus, bow/s/taper); the gallery prints them; two are spine-only because the base offset folds | B1 |
 | B6 | **square and frame lab** | a live page: curve a, curve b, counts across and down, an a/b pattern, leg angle, print size, fill; the joins and leaf tips measured; a 1 pt stroke floor at 1–4 in; 18 JS tests | **landed 2026-11-17** |
 | B7 | **real curves in the lab** | the two selectors list the saved curves and none of the sandbox cubics; one real curve assembles and prints joins and tip angles; a test pins it | B6 |
+| B8 | the chain form | two curves end to end (a shallow leg, a steep leg), not flipped, with the join angle printed | B6 |
 
 **The live action is B7.** The operator parked the book (B2–B5) and the JS port
 on 2026-11-17 until the lab's curves are real; do not start them unprompted.

@@ -15,7 +15,7 @@ import plate_curves  # noqa: E402
 from png_dpi import read_dpi  # noqa: E402
 
 BOOK = ROOT / "book"
-NAME = re.compile(r"^([a-z][a-z0-9]*)-([0-9]+)-t-exp-c-([0-9]{4})$")
+NAME = re.compile(r"^([a-z0-9][a-z0-9-]*)-([0-9]+)-t-exp-c-([0-9]{4})$")
 
 
 def png_size(path):
@@ -94,11 +94,24 @@ class BookPlateTest(unittest.TestCase):
             self.assertIn(plate["id"], self.gallery)
             self.assertIn(f'src="plates/{plate["id"]}.png"', self.gallery)
 
+    def test_the_curves_are_the_saved_set(self):
+        data = json.loads((ROOT / "workbench" / "real-curves.json").read_text())
+        names = {row["name"] for row in data["curves"]}
+        ids = {plate["id"] for plate in self.plates}
+        for plate in self.plates:
+            self.assertEqual(plate["kind"], "seed")
+            self.assertIn(plate["name"], names)
+        for retired in ("swan-1-t-exp-c-0001", "sweep-1-t-exp-c-0002"):
+            self.assertNotIn(retired, ids)
+
     def test_no_rail_folds(self):
         for plate in self.plates:
             data = plate_curves.load(plate)
-            self.assertLess(data["fold"], 0.98, plate["id"])
-            self.assertGreater(data["distance"], 0.0)
+            if data["rails"]:
+                self.assertLess(data["fold"], 0.9, plate["id"])
+                self.assertIn("character rails", data["note"])
+            else:
+                self.assertIn("spine only", data["note"], plate["id"])
 
 
 if __name__ == "__main__":

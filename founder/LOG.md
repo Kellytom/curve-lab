@@ -29,9 +29,9 @@ Every remark carries one:
   90° / 90°; S over arch prints 90° / 0°. Match the pair before a leaf is used.
 - **Squares and rectangles only.** `[now]` Pentagons and pentagrams are parked.
 - **The stroke floor is 1 point** at 1–4 inches. `[now]`
-- **The book waits.** `[next]` The plate pipeline is live (`book/`), but the
-  set, trim size, contact sheet and character offsets wait until the lab's
-  curves are real. Do not start them unprompted.
+- **The book gallery has the real curves.** `[now]` 27 saved curves in
+  `book/index.html`, each with its character rails; pick the set, the trim size
+  and the plate count from there.
 - **The JS port waits.** `[later]` The exact core and the square lab are in JS;
   the rail lab, crossings and grid wait for the operator's word.
 
@@ -116,6 +116,19 @@ Every remark carries one:
   losing the line.
 - **Other polygons are parked** by the operator: pentagons and pentagrams wait
   until the 90° case is right. `[later]`
+
+## 2026-11-17 — the real curves reach the gallery
+
+- **27 saved curves now fill `book/index.html`.** Each plate draws the curve's
+  own character rails: the width percent, the plus/minus strength and the
+  `bow`/`s`/`taper` profile from the record. 25 have rails; `involute-fit` and
+  `inflect-2` are spine-only because the base offset folds even at the 0.2%
+  floor. `[now]`
+- **Character rails, not parallel offsets.** The operator's call: parallel
+  rails are later. `[now]`
+- **A central design is at least two curves joined at the legs** — mirrored
+  (the leaf) or end to end (the chain, not flipped). `[now]`
+- **The lab still offers the four sandbox cubics**; B7 is next. `[now]`
 
 ## Open, in priority order
 
