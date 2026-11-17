@@ -16,7 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from curve_lab.datafile import FORMATS, DataFileError, load  # noqa: E402
+from curve_lab.datafile import FORMATS, OPTIONAL, DataFileError, load  # noqa: E402
 
 
 class DataContractTest(unittest.TestCase):
@@ -34,7 +34,10 @@ class DataContractTest(unittest.TestCase):
 
     def test_the_registry_names_every_file_and_nothing_else(self):
         on_disk = sorted(p.name for p in (ROOT / "workbench").glob("*.json"))
-        self.assertEqual(sorted(FORMATS), on_disk)
+        # A gitignored cache may be absent on a fresh clone; every other
+        # registered dataset must be present.
+        expected = sorted(set(on_disk) | {name for name in OPTIONAL if name not in on_disk})
+        self.assertEqual(sorted(FORMATS), expected)
         doc = (ROOT / "state" / "DATA-int.md").read_text(encoding="utf-8")
         for name in on_disk:
             self.assertIn(f"`{name}`", doc, f"{name} is not in state/DATA-int.md")
