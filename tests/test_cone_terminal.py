@@ -148,11 +148,17 @@ class TestSymmetricConeTerminal(unittest.TestCase):
         self.assertAlmostEqual(cone["radius"], 2 * cone["half"], places=12)
 
     def test_the_default_mode_still_leaves_the_rails_where_they_are(self):
-        """The feature is additive: a caller that does not ask keeps today's cap."""
+        """The feature is additive: the default cap does not move either rail end.
+
+        It still reports the lean, because the arcs must be circles of radius R
+        about the two ends: the axis is squared to the rail-end line, so a leaned
+        pair has a non-zero twist even in the default mode.
+        """
         pos, neg = self.skewed_rails()
         cone = cone_terminal(pos, neg)
         self.assertEqual(0.0, cone["shift"]["pos"])
         self.assertEqual(0.0, cone["shift"]["neg"])
-        self.assertEqual(0.0, cone["axis_twist"])
-        self.assertAlmostEqual(0.0, cone["tip"][0], places=3)
-        self.assertGreater(cone["tip"][1], math.sqrt(3.0))
+        self.assertGreater(cone["axis_twist"], 1.0)
+        # Both arcs are circles of radius R about the opposite rail ends.
+        for centre in cone["centres"].values():
+            self.assertAlmostEqual(cone["radius"], math.dist(centre, cone["tip"]), places=12)

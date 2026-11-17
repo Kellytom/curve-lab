@@ -23,7 +23,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 6 | `TODO.md` | 593 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 91 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 370 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 9 | `state/DESIGN-int.md` | 383 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 10 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
@@ -96,11 +96,11 @@ long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, `docs/HANDOVER.htm
 `state/monitor.log`, and the `ornaments` repository except for extraction or
 comparison.
 
-Images are allowed since 2026-11-16, under 150 KB and 1000 px on the long side; check with
-`sips -g pixelWidth -g pixelHeight` and downscale with `sips -Z 900` when over. The old
-"engine has no image input" rule applied to large files only and is deprecated. A visual
-judgement is still the operator's; a rendered check is still best verified by printed
-numbers.
+Images are readable. The 2026-11-04 rule "the engine has no image input" was wrong:
+the failures were very large files, not images. Limits since 2026-11-17 are 450 KB and
+3000 px on the long side; check with `sips -g pixelWidth -g pixelHeight` and downscale
+with `sips -Z 2400` only when a limit is broken. A visual judgement is still the
+operator's; a rendered check is still best verified by printed numbers.
 
 ## Cost rule
 

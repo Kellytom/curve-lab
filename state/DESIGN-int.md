@@ -256,6 +256,19 @@ whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
 them and the rebuild honestly reports the whole curve. Legs are shortened by
 moving the flat spots, not by cutting `t`.
 
+## Images: the "no image input" rule was false
+
+Corrected 2026-11-17, by the operator: "it is not true whatever it is".
+
+- **The engine reads images.** Commit `3558a3e` (2026-11-04) recorded that one
+  PNG read fails every later turn; what actually failed were very large files.
+  The rule was deprecated in `AGENTS.md` on 2026-11-16 but survived in
+  `/fhandon` and `state/READING-int.md`, so a command kept telling sessions not
+  to look at a figure that had been readable for days.
+- **Every copy is gone**, and the limit is 450 KB and 3000 px on the long side,
+  downscaled only when a limit is actually broken. A figure is still best judged
+  by printed numbers or the DOM; looking at it is allowed, not required.
+
 ## Context: no budget, the operator decides
 
 Settled 2026-11-17, by the operator: "take out all constraints about context

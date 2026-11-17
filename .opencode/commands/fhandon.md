@@ -64,11 +64,15 @@ Focused handon for curve-lab. Work in
 11. Where a browser check or a screenshot is needed, use **Playwright** via
     `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
     its own browser, so nothing has to be running first. Do not use the Review
-    pane, Safari/safaridriver, or the old CDP-on-9223 daemon. Never `read` the
-    PNG it writes: the engine has no image input, and one image in the history
-    fails every later turn with `image input is not available on this engine`.
-    Report the path and let the operator look.
-12. Do the action and stop. The operator runs `/fhandoff` when they want the
+    pane, Safari/safaridriver, or the old CDP-on-9223 daemon. An image may be
+    looked at when it is under 450 KB and 3000 px on the long side; check with
+    `sips -g pixelWidth -g pixelHeight` and `ls -l`, and downscale with
+    `sips -Z 2400` only when a limit is actually broken.
+12. Do the focused action to its `Proves:` line, commit it, and report in one
+    line. Then the session may take the next unlanded row of `state/PLAN-int.md`,
+    one action at a time, committing each — **how many is the operator's call.**
+    Stop when they say stop, when a row is blocked, or when a `Proves:` line needs
+    a decision nobody has made. The operator runs `/fhandoff` when they want the
     focused handoff refreshed; it is not run automatically.
 
 If `next-fhandoff-int.md` is missing or empty, read `state/HANDOFF-int.md` and ask for the

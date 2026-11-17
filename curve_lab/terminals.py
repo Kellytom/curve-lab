@@ -264,30 +264,33 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end", symmetric: bool = False,
     side = _unit(p_pos[0] - p_neg[0], p_pos[1] - p_neg[1])
 
     shift = {"pos": 0.0, "neg": 0.0}
-    axis_twist = 0.0
     if centre is not None:
         mid = (float(centre[0]), float(centre[1]))
+
+    # The cap's axis. Both arcs are circles of radius R about the two rail ends,
+    # so the tip must sit on the line perpendicular to the rail-end line; the
+    # average rail tangent is squared to it. `axis_twist` says how far it had to
+    # turn: on a curved spine the two tangents lean, and that lean is the
+    # "slightly offset" the operator saw.
+    average = outward
+    along = average[0] * side[0] + average[1] * side[1]
+    squared = (average[0] - side[0] * along, average[1] - side[1] * along)
+    if math.hypot(*squared) < 1e-12:
+        raise ValueError("a cone terminal needs the two rails to leave the same way")
+    axis_twist = abs(90.0 - math.degrees(math.acos(max(-1.0, min(1.0, abs(along))))))
+    outward = _unit(*squared)
+
     if symmetric:
-        # The cap's axis is the centreline. When the caller knows it (the spine's
-        # end tangent), use it exactly; otherwise square the average rail tangent
-        # to the rail-end line, which is the best axis the two ends can offer.
-        # On a curved spine one rail is a little longer than the other, and an
-        # axis taken from the ends alone leans — that lean is the "slight offset".
-        average = outward
+        # The caller's tangent is the centreline when it is given; otherwise the
+        # squared axis is the best the two rail ends can offer.
         if tangent is not None:
             outward = _unit(float(tangent[0]), float(tangent[1]))
-        else:
-            along = average[0] * side[0] + average[1] * side[1]
-            squared = (average[0] - side[0] * along, average[1] - side[1] * along)
-            if math.hypot(*squared) < 1e-12:
-                raise ValueError("a cone terminal needs the two rails to leave the same way")
-            outward = _unit(*squared)
+            axis_twist = abs(math.degrees(math.acos(
+                max(-1.0, min(1.0, average[0] * outward[0] + average[1] * outward[1])))))
         side = (-outward[1], outward[0])
         # Keep the + rail on the same hand as it came in.
         if side[0] * (p_pos[0] - p_neg[0]) + side[1] * (p_pos[1] - p_neg[1]) < 0:
             side = (outward[1], -outward[0])
-        axis_twist = abs(math.degrees(math.acos(
-            max(-1.0, min(1.0, average[0] * outward[0] + average[1] * outward[1])))))
 
         # The width across the new axis, not the distance between two ends that
         # were not square to it: this is the half width the ribbon already had.
@@ -329,13 +332,16 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end", symmetric: bool = False,
     # At the tip the travel direction is perpendicular to the radius from the
     # opposite rail end: rotate that radius by a right angle in the travel sense.
     def perpendicular_into(radius_vector, travel_hint):
-        candidate = (-radius_vector[1], radius_vector[0])
+        candidate = _unit(-radius_vector[1], radius_vector[0])
         if candidate[0] * travel_hint[0] + candidate[1] * travel_hint[1] < 0:
-            candidate = (radius_vector[1], -radius_vector[0])
+            candidate = _unit(radius_vector[1], -radius_vector[0])
         return candidate
 
+    # Travel at the tip: the first arc arrives along to_tip_pos, the second arc
+    # leaves toward the - rail end, which is the opposite hint.
+    leave_tip = _unit(p_neg[0] - tip[0], p_neg[1] - tip[1])
     tip_tangent_pos = perpendicular_into((tip[0] - centre_pos[0], tip[1] - centre_pos[1]), to_tip_pos)
-    tip_tangent_neg = perpendicular_into((tip[0] - centre_neg[0], tip[1] - centre_neg[1]), to_tip_neg)
+    tip_tangent_neg = perpendicular_into((tip[0] - centre_neg[0], tip[1] - centre_neg[1]), leave_tip)
 
     spans = [
         arc(p_pos, tip, centre_pos, tangent_pos, tip_tangent_pos),
