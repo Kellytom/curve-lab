@@ -2653,3 +2653,110 @@ saved-tabs page, `workbench/tabs.html`, listing only the focus tabs;
 `--default` opens the focus pair. `071ae33`; see LTMemory §Browsers and links.
 The git line above (`96aea81`) predates this commit; the next `/fhandoff`
 rewrites the block.
+
+## 2026-11-17 (A2) — the book gallery is the Astro page at /book
+
+**Did the action land? Yes.** `app/src/pages/book.astro` renders three sections
+in the operator's order: the plates starred in the lab (`workbench/starred.json`),
+the cross and leaf (`book/plates.json`), then the 27 singles. `app/src/lib/gallery.js`
+reads both files on every request, so a saved star appears without a rebuild; the
+caption for each card comes from `workbench/plate_compose.js`, the compose call
+the exporter now shares instead of owning. PNGs are served by
+`app/src/pages/api/plate/[id].js` from `book/plates/` (id checked against the
+plate-name pattern, path checked against the plate directory), so 5.8 MB is not
+copied into the app. `book/index.html` is deleted and `scripts/plates_export.mjs`
+no longer writes it; it still writes SVG, PNG and `render.html`.
+
+**Proof.** Built server on :4399: `/book` 200, 29 `<img>` (2 designs + 27
+singles), captions identical to the retired page ("cross · 3×3 frame ·
+new-symmetric · character rails · curve half-turn"); `/api/plate/cross-frame-1-t-exp-c-0201`
+200 `image/png` 463,827 bytes; a traversal id gets 400. With a temporary
+`starred.json` (`u-bowl-arch-1-t-exp-c-0301`) the star appears under Framed
+Quintic symmetric figures, ledger reads "1 starred", and its card says the PNG is
+not exported yet — then the temporary file was removed. `npm test` 11 pass,
+`npm run build` green, `scripts/test.py` 108 modules + 28 JS tests green.
+7 new app tests in `app/tests/gallery.test.mjs`; the plates test now fails if
+`book/index.html` returns.
+
+**Tried and rejected.** Requiring `../workbench/plate_compose.js` by relative
+path — the Astro build moves `gallery.js` into `dist/server/chunks/`, so the
+require resolved there and every page was a 500. Fixed by requiring the absolute
+path under the resolved repo root.
+
+**One file left alone.** A fresh export rewrote `book/plates/involute-fit-1-t-exp-c-0116.png`
+(127,615 → 128,140 bytes, same 3000×2447). The composer is identical before and
+after this action, so this is the current Chrome rasterising that thin spine-only
+plate differently from the 13:23 export; the PNG was restored to keep the commit
+scoped. Worth re-exporting deliberately, not as a side effect.
+
+**Git:** `7fd71ad`, local only — no push (the operator has not asked).
+
+**Next move:** A3, port pages on touch: each moved workbench page is deleted from
+its generator in the same commit, and the shared maths stays one file.
+
+## 2026-11-17 (hub) — `/` is the hub; the lab moved to `/lab`
+
+**Landed.** `app/src/pages/index.astro` is a scrollable hub of **100 live
+cards**: the lab and book gallery first, then the 86 manifest pages under the
+manifest's own four intents (curve 64, terminal 2, strand 6, sheet 12), then 12
+workbench pages the manifest does not name (PH sandboxes, cone-terminal,
+flowers, curve-figures and the rest). `app/src/lib/pages.js` builds that list
+from `workbench/manifest.json` plus the folder; `app/src/pages/pages/[...file].js`
+serves `workbench/<file>` with a path check, so a preview is always the current
+generated page. The shell is the admin-dashboard layout (sticky sidebar, top
+bar, card grid) in curve-lab's cream, gold and Georgia; the Flowbite Astro
+admin dashboard (MIT) is credited in `app/README.md` for the layout only — no
+Tailwind or template code is used. The lab moved to `/lab`; `/book`'s lab link
+follows.
+
+**Proof.** Built server: `/`, `/lab`, `/book` 200; 100 `<iframe>`; sidebar
+anchors `#app #curve #terminal #strand #sheet #unlisted`;
+`/pages/ph-nth-sandbox.html` 200, `/pages/ph_math.js` 200 `text/javascript`;
+`/pages/../astro.config.mjs` 404. Rendered at 1400 px: cards, captions and the
+lab/book frames (the lab's 3.52 × 2.54 in readout and the book's two designs)
+draw correctly. 4 hub tests (every manifest page shown once, every disk HTML
+listed, app pages lead, page wiring); 15 app tests, 108 Python modules and 32 JS
+tests green. `e9effbe`.
+
+**Four senior fixes after the first render.** The book's empty state pointed at
+`/` (now the hub) instead of `/lab`; `galleryRoot` was doing two jobs and is now
+`repoRoot`; `buildHub` computed a `counts` object nobody read; the template had
+no credit line.
+
+**Known cost.** 100 iframes make a 26,438 px page. `loading="lazy"` holds the
+offscreen ones back, but scrolling far loads many pages with their own JS. On
+this 8 GB machine that is the Chrome pressure the project already knows; if it
+bites, the fix is a "load previews" switch per section, not fewer pages in the
+list.
+
+**Next:** how the phone sees the site — LAN (`npm run dev -- --host`, then
+`http://172.17.5.202:4321`), or a Cloudflare quick tunnel with
+`vite.server.allowedHosts`. Hosting (Netlify/Pages) waits on the public task,
+because `/pages/**`, `/api/plate/**` and `/book` all read the repo from disk.
+
+## 2026-11-17 (tunnel, services) — the phone gets in without a terminal
+
+**Landed.** `cloudflared 2026.11.1` at `~/bin/cloudflared` (prebuilt; Homebrew
+was compiling Go and was stopped). `docs/TUNNEL.md` + generated twin: quick
+tunnel, named tunnel with the no-zone dead end written down, get in/get out,
+symptom table. `scripts/tunnel.sh` for the named tunnel; `scripts/service.sh`
+for what is running now: two LaunchAgents (`com.curvelab.app`,
+`com.curvelab.tunnel`) that start at login and restart on death, so neither
+process belongs to a terminal or an agent session.
+
+**Proof.** Killed the app's pid: `launchd` gave a new pid, port back in ~14 s,
+`/` 200. Restarted the tunnel: new quick address
+`https://retention-staying-fence-empire.trycloudflare.com`, 200 from here.
+`scripts/service.sh status` prints both states, the local code and the phone's.
+
+**Found on the way.** Probing a quick URL the instant it is printed caches an
+NXDOMAIN on this Mac, so `curl` says "Could not resolve host" while the tunnel
+answers 200 when pinned to its IP. `status` now distinguishes the two, and the
+run book says `sudo killall -HUP mDNSResponder`.
+
+**Residual, stated plainly.** Not hosting: sleep, shutdown or logout ends the
+URL, and a quick tunnel takes a new name each restart (`scripts/service.sh
+url`). A named tunnel ends the second problem once a domain is on the Cloudflare
+account; the account has no zone, so `cloudflared tunnel login` cannot complete.
+
+**Git:** `1edec6c`, local only.
