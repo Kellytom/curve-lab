@@ -83,22 +83,33 @@ def cusp_ranges(span: dict, distance: float, steps: int = 96):
     return out
 
 
-def fit_span(span: dict, distance: float, tol: float = 0.01,
-             max_spans: int = 64):
-    """Fit one source cubic's normal offset with a cubic chain."""
+def fit_offset(point, tangent, tol: float = 0.01, max_spans: int = 64):
+    """Fit a cubic chain to an exact offset given as point/tangent callables.
+
+    This is the same adaptive fit `fit_span` uses, opened up so a source that
+    is not a cubic (a degree-7 PH curve, say) can be fitted from its exact
+    offset instead of from a cubic approximation of the source.
+    """
     from .bezier import fit_interval, span_error
 
-    point = lambda t: _offset_point(span, t, distance)
-    tangent = lambda t: _offset_tangent(span, t)
     fitted = fit_interval(0.0, 1.0, point, tangent, tol=tol,
                           max_spans=max_spans)
-    errors = [span_error(s, point) for s in fitted]
+    errors = [span_error(span, point) for span in fitted]
     return {
         "spans": fitted,
         "error_max": max(errors) if errors else 0.0,
-        "cusps": cusp_ranges(span, distance),
-        "clamped": sum(1 for s in fitted if s.get("clamped")),
+        "clamped": sum(1 for span in fitted if span.get("clamped")),
     }
+
+
+def fit_span(span: dict, distance: float, tol: float = 0.01,
+             max_spans: int = 64):
+    """Fit one source cubic's normal offset with a cubic chain."""
+    fitted = fit_offset(lambda t: _offset_point(span, t, distance),
+                        lambda t: _offset_tangent(span, t),
+                        tol=tol, max_spans=max_spans)
+    fitted["cusps"] = cusp_ranges(span, distance)
+    return fitted
 
 
 def fit_chain(spans: list[dict], distance: float, tol: float = 0.01,

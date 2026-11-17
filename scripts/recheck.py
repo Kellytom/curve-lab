@@ -809,6 +809,23 @@ def c_integer_cubic_offset():
     return ok, f"3-4-5 cubic, d = {d['distance']:g}, error {d['error']:.1e}"
 
 
+@check("the integer PH rail is exact, and the lattice grid is measured",
+       "curve_lab/ph_offset.py; scripts/integer_ph_rail.py; workbench/integer-ph-rail.html",
+       "python -m unittest tests.test_integer_ph_rail")
+def c_integer_ph_rail():
+    import integer_ph_rail as I
+    d = I.proof_data()
+    page = (ROOT / "workbench" / "integer-ph-rail.html").read_text()
+    ok = (d["first"]["scale"] == 3360 and d["first"]["t"] == (1, 2)
+          and d["rail_first"]["scale"] == 3360
+          and d["plain_first"]["scale"] == 688800
+          and d["fit"]["error"] < 1e-5 and not d["fit"]["drawn"]
+          and f"{d['fit']['share']:.2e}" in page
+          and "not a mirror line" in page)
+    return ok, (f"exact rail; first grid {d['first']['scale']} at t=1/2; "
+                f"fit miss {d['fit']['error']:.1e} over {d['fit']['spans']} spans")
+
+
 @check("the fleur grammar declares its seam and reports its corners",
        "curve_lab/grammar.py study_01_report; workbench/fleur-grammar.html",
        "python -m unittest tests.test_fleur_grammar")

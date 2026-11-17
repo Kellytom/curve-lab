@@ -175,6 +175,11 @@ no sync and no session restore.
   Per-span grids cost 5^k: fine to six spans, unusable by twelve.
 - The Euclid family chain is integer at scale 1 and C1 everywhere; its curvature
   exponent drifts to -4/3, so it is a generalised Euler spiral in the limit.
+- A PH curve's offset is exact and rational: `O = C + d·(−y', x')/σ`, in
+  `curve_lab/ph_offset.py`. On `integer-105` the first interior lattice hit is
+  **grid 3360 at t = 1/2** (32× the pitch 105); the rails share that grid only
+  at **d = 41/1120**. The curve is not symmetric, so its midpoint is a branch
+  station, not a mirror line. Cubics are the export step, not the working form.
 
 ## Open
 
@@ -187,7 +192,9 @@ no sync and no session restore.
 - Double tangency: the model is rotation *plus* placement; no solution yet.
 - The Gerono leaf: the double-tangent line is right, the arc choice is not.
 - **Offsets are drawn nowhere.** Every curve here will need an offset set, and
-  the page only asserts "rational, exact" in a table. The tiers decide it: PH
+  the page only asserts "rational, exact" in a table. The PH integer curve now
+  has its exact rail (`integer-ph-rail.html`); the conics, LACs and sampled
+  curves are still unbuilt. The tiers decide it: PH
   curves offset exactly, rational quartics need fitting, sampled curves can only
   be fitted from samples. Nothing has been pushed through `curve_lab/offsets.py`
   yet, so we do not know which of the twenty-one are safe to give a width.

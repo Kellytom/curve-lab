@@ -560,6 +560,15 @@
    "outputs": "the exact offset for reference, the fitted chain, its error"
   },
   {
+   "key": "integer-ph-rail",
+   "file": "integer-ph-rail.html",
+   "group": "curve",
+   "title": "Integer PH rail",
+   "purpose": "An exact rail on a PH integer curve, and the grid its lattice points need.",
+   "inputs": "the integer-105 speed pair, the offset distance",
+   "outputs": "two exact rails, the cubic fit's measured miss, the lattice grid and the mirror station"
+  },
+  {
    "key": "integer-g2",
    "file": "integer-g2.html",
    "group": "curve",

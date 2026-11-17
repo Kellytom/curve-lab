@@ -250,6 +250,19 @@ C-family p-triple conversion and the ornament-form proofs below.
   guard; `workbench/spine-sheet.html` shows the ribbons. `tests/test_spine.py::TestSpanRibbon`.
 - [x] **Offset comparison:** the 3-4-5 integer cubic at d = 0.5, fitted with
   Levien's chain (error 1.9e-3, 8 spans, 0 cusps). `workbench/integer-cubic-offset.html`, `scripts/integer_cubic_offset.py`.
+- [x] **Exact PH rail for `integer-105`** (2026-11-17): `curve_lab/ph_offset.py`,
+  `scripts/integer_ph_rail.py`, `workbench/integer-ph-rail.html`,
+  `tests/test_integer_ph_rail.py`. The rail is a ratio of two polynomials, drawn
+  from exact rational points; no cubic is drawn, and the Levien fit's miss is
+  9.2e-6 (4.4e-6 of the curve size) over 45 spans, printed as a number.
+  Lattice measured: pitch 105 gives **2** points; the first interior hit is the
+  midpoint at **t = 1/2, grid 3360** (32× the pitch); the rails share that grid
+  only at **d = 41/1120**, and at d = 3/100 the rail needs **688,800**. The
+  midpoint station translates to (0, 4130) on grid 3360 with the rails at
+  (120, 4103) and (−120, 4157) — but the curve is not symmetric (37% half-turn
+  gap, 49% mirror gap, tangent 12.7° off vertical, x = 0 met four times), so it
+  is a branch station, not a mirror line. A symmetric PH curve is the unbuilt
+  third option; the symmetric integer cubic is not PH.
 
 **Decision rules**
 

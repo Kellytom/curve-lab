@@ -352,6 +352,40 @@ exists three times and disagrees with itself").
   audit in the suite, so a wrong number is a red test, not a curve that looks
   different from its figure.
 
+## Exact form before cubics — 2026-11-17
+
+Settled 2026-11-17, by the operator: "i am trying to avoid cubic beziers until
+later... that is the last step before transfer to inkscape and glyphs 4".
+
+- **The working representation is exact polynomial data** — the speed pair, the
+  position polynomials, or a ratio of two polynomials. A cubic Bézier chain is
+  the **export step** (PLAN S5), not the form the work is reasoned in. A card
+  may print a cubic fit's measured miss as a number; it does not draw the cubic
+  chain.
+- **A PH curve's offset is exact and rational**: `O = C + d·(−y', x')/σ`, with
+  `σ = u² + v²` a polynomial. `curve_lab/ph_offset.py` implements it in
+  `Fraction`; there is no Bézier control data and no weight in the card.
+- **Measured on `integer-105`** (`u = 2 − 5t + 6t²`, `v = 4 − 20t + 20t² − 2t³`):
+  pitch 105, and at 105 the curve has exactly **two** lattice points, the ends.
+  The first interior hit is the midpoint at **t = 1/2, grid 3360** — 32 times
+  the pitch. The next stations are 25,515 (t = 1/3), 76,545 (t = 2/3), 143,360
+  (t = 3/4) and so on, one at a time.
+- **A rail hits the lattice only when d is chosen for the hit.** At
+  d = 41/1120 the rail's first hit is the same grid 3360, at the same t; at
+  d = 3/100 it is 688,800. The reason is arithmetic: the unit normal at the
+  station is (40/41, −9/41), so d must carry the factor 41. A branch is its own
+  curve, not a parallel offset, so it can be built on the lattice independently
+  — the rails are the only side curves whose hits are dictated by the parent.
+- **A station is not a mirror line.** The midpoint station translates to
+  (0, 4130) on grid 3360, and the two rails land at (120, 4103) and
+  (−120, 4157). But the curve is not symmetric (half-turn gap 37% of its size,
+  vertical-mirror gap 49%), the tangent at the station is 12.7° off vertical,
+  the inflection is at t = 0.5051, and x = 0 meets the curve four times. A true
+  mirror axis needs a symmetric curve: the Pythagorean integer cubic family is
+  half-turn symmetric with its midpoint at (c, 0) on scale 1, but it is not PH,
+  so its rail is fitted. A symmetric PH curve is the third option and is not
+  built.
+
 ## Searching and naming
 
 - **Symmetry is built in by choosing roots, never by hoping.** A row from
