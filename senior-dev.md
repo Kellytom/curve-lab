@@ -25,9 +25,10 @@ process to satisfy.
    lines moved. A 9,000-line diff for 100 numbers is a mistake.
 7. **Derive expectations from data; assert structure, not wording.** Tests that
    quote a heading break when the heading improves. Find the section by its id.
-8. **Commit the action when its `Proves:` line is true, then stop.** Do not keep
-   going past it and do not stop short. Tag a page that works (`page-works-…`)
-   so a bad next step is one command away from undone.
+8. **Commit the action when its `Proves:` line is true.** Do not stop short and do
+   not keep going past it: the next step is the next row of the plan, a new
+   commit. Tag a page that works (`page-works-…`) so a bad next step is one
+   command away from undone.
 9. **Never start a feature on a red tree.** Repair, commit, then build.
 10. **A blocked decision is written down, not guessed.** Put it in `TODO.md` with
     the options and the reason it is blocked; do not quietly pick one.

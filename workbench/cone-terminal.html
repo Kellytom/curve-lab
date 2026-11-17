@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fig. C1: the two-arc cone terminal</title>
+<style>
+:root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:960px;margin:0 auto;padding:26px 20px 48px}
+h1{font-size:24px;margin:0 0 6px} h2{font-size:18px;margin:26px 0 8px}
+p{max-width:74ch} svg{width:100%;height:auto;border:1px solid var(--rule);margin:10px 0}
+table{border-collapse:collapse;margin:8px 0;font:13px/1.5 ui-monospace,Menlo,monospace}
+th,td{border:1px solid var(--rule);padding:4px 10px;text-align:right}
+th{background:#f2ead8} code{font:13px ui-monospace,Menlo,monospace}
+.note{color:var(--muted);font-size:13px}
+</style></head><body><main>
+<h1>Fig. C1: the two-arc cone terminal</h1>
+<p>The end of a ribbon, closed by <strong>two arcs</strong> instead of a cap. Each arc
+leaves a rail end, both have radius <code>R = 2 × half width</code>, and they meet at a
+point on the centreline <code>√3 × half</code> beyond it. Each arc is a 60° turn, so the
+pair is 120° — exactly the cap limit in <code>docs/PHILOSOPHY.md</code>. The tip is a
+point, and that is the point of a cone.</p>
+
+<h2>Fig. C1a — the default cap, on a leaned pair of rails</h2>
+<svg viewBox="0 0 900 430" role="img" aria-label="Fig. C1a: default cap — the tip sits off the stroke"><rect width="900" height="430" fill="#fbf7ec"/><line x1="546.00" y1="964.00" x2="546.00" y2="340.00" stroke="#1f5fa8" stroke-width="2" fill="none"/><line x1="354.00" y1="964.00" x2="354.00" y2="311.20" stroke="#1f5fa8" stroke-width="2" fill="none"/><path d="M 546.00,340.00 C 546.00,270.64 4893.16,2931.96 450.00,157.46 C 450.00,157.46 5725.50,-2617.03 354.00,241.84" fill="none" stroke="#2e2413" stroke-width="2.2"/><circle cx="450.00" cy="157.46" r="4" fill="#b23a2b"/><circle cx="354.00" cy="311.20" r="3.5" fill="none" stroke="#5b7f3a" stroke-width="1.6"/><text x="362.0" y="315.2" font-size="12" fill="#5b7f3a">centre 1</text><circle cx="546.00" cy="340.00" r="3.5" fill="none" stroke="#5b7f3a" stroke-width="1.6"/><text x="554.0" y="344.0" font-size="12" fill="#5b7f3a">centre 2</text><line x1="354.00" y1="311.20" x2="450.00" y2="157.46" stroke="#5b7f3a" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/><line x1="546.00" y1="340.00" x2="450.00" y2="157.46" stroke="#5b7f3a" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/><text x="18" y="26" font-size="15" font-weight="600" fill="#2e2413">Fig. C1a: default cap — the tip sits off the stroke</text><text x="18" y="48" font-size="12" fill="#4a3d28">R = 2 × half = 80.895</text><text x="18" y="64" font-size="12" fill="#4a3d28">tip at (0.000, 76.057)</text><text x="18" y="80" font-size="12" fill="#4a3d28">shift +end 0.000 · −end 0.000</text><text x="18" y="96" font-size="12" fill="#4a3d28">axis twist 0.00°</text><circle cx="750" cy="22" r="4" fill="#b23a2b"/><text x="760" y="26" font-size="12" fill="#4a3d28">tip</text><circle cx="750" cy="40" r="3.5" fill="none" stroke="#5b7f3a"/><text x="760" y="44" font-size="12" fill="#4a3d28">arc centre</text></svg>
+<p class="note">The two rail ends disagree by 0.3 model units along the stroke, which is
+what a curved spine does. The cap is symmetric about its own axis, but that axis sits off
+the stroke: the tip is at x = 0.000, not 0. This is the "slightly offset"
+the operator saw.</p>
+
+<h2>Fig. C1b — the symmetric cap</h2>
+<svg viewBox="0 0 900 430" role="img" aria-label="Fig. C1b: symmetric cap — the tip on the centreline"><rect width="900" height="430" fill="#fbf7ec"/><line x1="546.00" y1="964.00" x2="546.00" y2="340.00" stroke="#1f5fa8" stroke-width="2" fill="none"/><line x1="354.00" y1="964.00" x2="354.00" y2="311.20" stroke="#1f5fa8" stroke-width="2" fill="none"/><path d="M 546.00,340.00 C 546.00,271.41 5202.40,2917.52 450.00,173.72 C 450.00,173.72 5202.40,-2570.08 354.00,271.41" fill="none" stroke="#2e2413" stroke-width="2.2"/><circle cx="450.00" cy="173.72" r="4" fill="#b23a2b"/><circle cx="354.00" cy="340.00" r="3.5" fill="none" stroke="#5b7f3a" stroke-width="1.6"/><text x="362.0" y="344.0" font-size="12" fill="#5b7f3a">centre 1</text><circle cx="546.00" cy="340.00" r="3.5" fill="none" stroke="#5b7f3a" stroke-width="1.6"/><text x="554.0" y="344.0" font-size="12" fill="#5b7f3a">centre 2</text><line x1="354.00" y1="340.00" x2="450.00" y2="173.72" stroke="#5b7f3a" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/><line x1="546.00" y1="340.00" x2="450.00" y2="173.72" stroke="#5b7f3a" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/><line x1="450.00" y1="412.00" x2="450.00" y2="125.72" stroke="#7b6c4e" stroke-width="1" stroke-dasharray="2 5"/><text x="456.0" y="125.7" font-size="12" fill="#7b6c4e">centreline</text><text x="18" y="26" font-size="15" font-weight="600" fill="#2e2413">Fig. C1b: symmetric cap — the tip on the centreline</text><text x="18" y="48" font-size="12" fill="#4a3d28">R = 2 × half = 80.000</text><text x="18" y="64" font-size="12" fill="#4a3d28">tip at (0.000, 69.282) = √3 × 40.000</text><text x="18" y="80" font-size="12" fill="#4a3d28">shift +end 0.000 · −end 12.000</text><text x="18" y="96" font-size="12" fill="#4a3d28">axis twist 0.00°</text><circle cx="750" cy="22" r="4" fill="#b23a2b"/><text x="760" y="26" font-size="12" fill="#4a3d28">tip</text><circle cx="750" cy="40" r="3.5" fill="none" stroke="#5b7f3a"/><text x="760" y="44" font-size="12" fill="#4a3d28">arc centre</text></svg>
+<p class="note">With <code>symmetric=True</code>, the stroke's end is the cap's midpoint
+and the stroke's tangent is its axis. Each rail end is snapped to its mirror position at
+the ribbon's true half width (40.000), the tip lands on the centreline, and the page
+reports what moved: the + rail moved 0.000 and the − rail 12.000, axis twist 0.00°.</p>
+
+<h2>The numbers</h2>
+<table><thead><tr><th>half width d</th><th>R = 2d</th><th>tip = √3·d</th></tr></thead><tbody><tr><td>20</td><td>40</td><td>34.641</td></tr><tr><td>40</td><td>80</td><td>69.282</td></tr><tr><td>60</td><td>120</td><td>103.923</td></tr></tbody></table>
+<p>Arc centres, as the construction states them: the arc leaving the <code>+</code> rail is
+centred on the <code>−</code> rail's end, and the other way round. So the two centres are
+the two rail ends, swapped, and each is exactly <code>R</code> from the tip.</p>
+<p class="note">Generated by <code>scripts/cone_terminal.py</code> from
+<code>curve_lab.terminals.cone_terminal</code>; the page cannot disagree with the engine.
+y is up in the model and flipped here at output.</p>
+</main></body></html>
