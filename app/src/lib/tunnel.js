@@ -5,6 +5,7 @@
 // the log keeps one source — the process itself — and lets the hub print it.
 
 import { existsSync, readFileSync, statSync } from "node:fs";
+import { networkInterfaces } from "node:os";
 
 export const TUNNEL_LOG = "/tmp/curve-lab-tunnel.log";
 const QUICK = /https:\/\/[a-z0-9-]+\.trycloudflare\.com/g;
@@ -24,4 +25,19 @@ export function tunnelInfo(logPath = TUNNEL_LOG) {
   } catch {
     return { url: null, logPath, updated: null };
   }
+}
+
+// The LAN addresses this Mac answers on, so a phone at home has a way in that
+// does not depend on the tunnel's name surviving a restart.
+export function lanUrls(port = 4321) {
+  const urls = [];
+  for (const [name, addresses] of Object.entries(networkInterfaces())) {
+    if (name.startsWith("lo") || name.startsWith("utun") || name.startsWith("awdl")) continue;
+    for (const address of addresses || []) {
+      if (address.family === "IPv4" && !address.internal) {
+        urls.push(`http://${address.address}:${port}`);
+      }
+    }
+  }
+  return urls;
 }

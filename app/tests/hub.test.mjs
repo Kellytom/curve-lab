@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildHub } from "../src/lib/pages.js";
-import { latestTunnelUrl } from "../src/lib/tunnel.js";
+import { lanUrls, latestTunnelUrl } from "../src/lib/tunnel.js";
 
 const APP = fileURLToPath(new URL("..", import.meta.url));
 const ROOT = path.resolve(APP, "..");
@@ -67,4 +67,10 @@ test("the tunnel url is the last one the log announced", () => {
   assert.equal(latestTunnelUrl(log), "https://second-name-new.trycloudflare.com");
   assert.equal(latestTunnelUrl(""), null);
   assert.equal(latestTunnelUrl(null), null);
+});
+
+test("the home address is a plain http url on this machine", () => {
+  for (const url of lanUrls()) {
+    assert.match(url, /^http:\/\/\d+\.\d+\.\d+\.\d+:4321$/);
+  }
 });
