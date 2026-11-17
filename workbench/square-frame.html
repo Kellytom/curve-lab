@@ -9,7 +9,7 @@ h1{font-size:24px;margin:0 0 4px}
 .lead{color:#8c6a21;margin:0 0 20px}
 .wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:start}
 .controls{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px}
-.controls label{display:block;margin:0 0 13px;font-size:13px}
+.controls label{display:block;margin:0 0 12px;font-size:13px}
 .controls .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .controls input[type=range]{width:100%;margin:4px 0 0}
 .controls select,.controls input[type=text]{width:100%;padding:4px;
@@ -23,21 +23,25 @@ code{font:12px ui-monospace,Menlo,monospace}
 </style></head><body>
 <!-- hub-bar --><style>.hub-bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;margin:0;padding:7px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#7b6c4e}.hub-bar a{color:#8c6a21;text-decoration:none;font-weight:600}.hub-bar a:hover{text-decoration:underline}.hub-bar b{color:#8c6a21;font-weight:600}.hub-bar .grp{text-transform:uppercase;letter-spacing:.1em}@media(max-width:640px){.hub-bar{padding:6px 12px;gap:8px}}</style><div class="hub-bar"><a href="workbench.html">&lt;- all inputs</a><span class="grp">curve</span><span><b>in</b> curve a, curve b, curves across, curves down, pattern, leg, print size, fill | <b>out</b> the frame and the leaf, the join and tip angles, the stroke in points</span></div><!-- /hub-bar --><main>
 <h1>Square and frame lab</h1>
-<p class="lead">Squares and rectangles only. One rule: the leg bisects the
-90° corner, so it is 45°. An arch joins continuously; an S joins at a right
-angle. The frame and the leaf are built separately and only share the page.</p>
+<p class="lead">The saved curves, on 90° edges. The leg bisects the corner
+(45°) for a cross or a frame; an arch keeps its natural legs. Every copy carries
+its character rails and is closed at the ends.</p>
 
 <div class="wrap">
 <div class="controls">
-  <label>curve a
-    <select id="sf-a"><option value="arch-345">arch 3-4-5</option><option value="s-345">S 3-4-5</option><option value="arch-5-12-13">arch 5-12-13</option><option value="s-5-12-13">S 5-12-13</option></select>
-  </label>
-  <label>curve b
-    <select id="sf-b"><option value="arch-345">arch 3-4-5</option><option value="s-345">S 3-4-5</option><option value="arch-5-12-13">arch 5-12-13</option><option value="s-5-12-13">S 5-12-13</option></select>
+  <label>curve a <select id="sf-a"></select></label>
+  <label>curve b <select id="sf-b"></select></label>
+  <label>form
+    <select id="sf-form">
+      <option value="cross">cross</option>
+      <option value="leaf">leaf</option>
+      <option value="arch">arch</option>
+      <option value="single">single curve</option>
+    </select>
   </label>
   <label>
-    <span class="row"><span>curves across</span><b id="sf-per-w-v">2</b></span>
-    <input id="sf-per-w" type="range" min="1" max="6" step="1" value="2">
+    <span class="row"><span>curves across</span><b id="sf-per-w-v">3</b></span>
+    <input id="sf-per-w" type="range" min="1" max="6" step="1" value="3">
   </label>
   <label>
     <span class="row"><span>curves down</span><b id="sf-per-h-v">3</b></span>
@@ -50,140 +54,129 @@ angle. The frame and the leaf are built separately and only share the page.</p>
     <span class="row"><span>leg angle</span><b id="sf-leg-v">45°</b></span>
     <input id="sf-leg" type="range" min="20" max="70" step="1" value="45">
   </label>
+  <label class="check"><input id="sf-natural" type="checkbox"> natural legs
+    (for the arch)</label>
   <label>
     <span class="row"><span>print size</span><b id="sf-size-v">4.00 in</b></span>
     <input id="sf-size" type="range" min="1" max="4" step="0.25" value="4">
   </label>
   <label>
-    <span class="row"><span>frame fills</span><b id="sf-fill-v">100%</b></span>
+    <span class="row"><span>drawing fills</span><b id="sf-fill-v">100%</b></span>
     <input id="sf-fill" type="range" min="0.5" max="1" step="0.05" value="1">
   </label>
   <label class="check"><input id="sf-alternate" type="checkbox">
     flip every other copy</label>
   <label class="check"><input id="sf-frame" type="checkbox" checked>
     show the frame</label>
-  <label class="check"><input id="sf-leaf" type="checkbox" checked>
-    show the leaf</label>
 </div>
 <div>
-  <div id="sf-readout">…</div>
+  <div id="sf-readout">loading…</div>
   <div class="stage"><svg id="sf-stage" viewBox="0 0 288 288" role="img"
-    aria-label="square or rectangular frame and a central leaf"></svg></div>
+    aria-label="saved curves on the edges of a square or rectangle"></svg></div>
 </div>
 </div>
 
-<p class="note"><strong>The leaf</strong> is curve a below and curve b above,
-flipped, with the feet forced onto the same two points. The tip angles are
-printed: 90° / 90° means the two curves meet cleanly at both feet; a mismatch
-(e.g. 90° / 0°) means one foot is smooth and the other is square, which is the
-attach problem to watch.</p>
-<p class="note">The stroke floor is <strong>1 point</strong> at every size:
-the page measures in points, and <code>strokeFor</code> never returns less. The
-box is <code>curves across × the chord</code> by <code>curves down × the
-chord</code>, so 2 × 3 gives a tall frame. The pattern cycles a/b along each
-side.</p>
+<p class="note">The page loads the same <code>plate_math.js</code> the book
+plates use and the same saved set in <code>real-curves.json</code>. A rail that
+would fold is shrunk, and a plate at the floor is drawn spine-only. The stroke
+floor is <strong>1 point</strong> at 1–4 inches.</p>
 <p class="note">Re-derive: <code>python scripts/square_frame.py</code> ·
 <code>node --test tests/js</code></p>
 </main>
-<script src="square_lab.js"></script>
+<script src="plate_math.js"></script>
+<script>window.REAL_CURVES = {"format": "real-curves/1", "note": "The operator's kept set from the sandbox seed. Speed rows are the PH pair (u, v); character data is kept for the later rails.", "count": 28, "curves": [{"name": "amper", "speedX": [2, -5, 6, 1, 0, 0], "speedY": [4, -22, 22, -2, 0, 0]}, {"name": "euler-hook", "speedX": [2.2, -4.4, 6.6, 1.1, 1.1, -1.1], "speedY": [4.4, -22, 22, -2.2, 1.1, -1.1], "width": {"percent": 1}, "character": {"plus": 2, "minus": 1, "profile": "taper"}, "shear": 0, "hook": {"dx": 2.934, "dy": -0.624}}, {"name": "swan", "speedX": [5, -5, 5, 5, 5, -5], "speedY": [5, -50, 50, -5, 5, -5], "width": {"percent": 1}, "character": {"plus": 2, "minus": 1, "profile": "taper"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "swan-2", "speedX": [5, -5, 5, 5, 5, -5], "speedY": [5, -50, 50, -5, 5, -5], "width": {"percent": 1}, "character": {"plus": 2, "minus": 1, "profile": "taper"}, "shear": 0, "hook": {"dx": -2.988584, "dy": 0.261467}}, {"name": "gosling", "speedX": [1, -1, 1, 1, 1, 1], "speedY": [1, -10, 10, -1, 1, 1], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": -1}}, {"name": "double-tap", "speedX": [2, -6, 2, 2, 0, 4], "speedY": [4, -24, 24, -2, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "curlicue", "speedX": [10, 20, -660, 1930, -2090, 785], "speedY": [-5, 200, -875, 1445, -1030, 275], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "grass", "speedX": [7.5, -2.5, 7.5, 2.5, 7.5, -2.5], "speedY": [7.5, -25, 75, -2.5, 7.5, -2.5], "width": {"percent": 1}, "character": {"plus": 2, "minus": 1, "profile": "taper"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "u-bowl", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [-1, 2, 0, 0, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "v-sharp", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [-1, 6, -12, 8, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "m-arch", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [3, -16, 16, 0, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "gumdrop", "speedX": [2, 1, -1, 1, -1, 1, -1, 1, -1, 0], "speedY": [-10, 137, -675, 1530, -1620, 648, 0, 0, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "m-coarse", "speedX": [1, 1], "speedY": [-6, 23, -20], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "bowl-coarse", "speedX": [1, 1], "speedY": [-3, 5], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "wave-coarse", "speedX": [1, 0], "speedY": [-4, 33, -75, 50], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "involute-fit", "speedX": [0.5951, 37.5019, -207.7699, 519.4995, -1241.3886, 1888.7416, -1368.1424, 370.9987], "speedY": [-0.0371, 6.6438, 92.4853, -203.4783, 6.5755, 105.8778, 19.7943, -37.2965], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "catenary-fit", "speedX": [2.2425, -2.1364, 2.5227, -0.8004, 0.4702, -0.084, 0.028, 0], "speedY": [-1.4243, 3.3637, -1.6023, 1.2613, -0.2998, 0.1404, -0.0205, 0.0059], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "euler-fit", "speedX": [1.0015, -0.1045, 1.7424, -11.9521, 35.6612, -72.0211, 62.66, -17.9857], "speedY": [0.0002, -0.012, 3.2612, -0.1396, -2.5111, 11.7646, -25.47, 13.1077], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "logspiral-fit", "speedX": [2.8444, -9.9068, -68.987, -28.7523, 208.7261, 549.4016, -1086.0085, 446.3495], "speedY": [2.181, 23.713, -54.4823, 133.2243, -1136.2484, 2274.9752, -1585.1451, 352.4053], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "knot-6", "speedX": [-2, -2, 3, 4], "speedY": [3, -6, -4, 2], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "knot-7", "speedX": [2, -6, 2, -2, 2], "speedY": [1, 2, -3, -6, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "inflect-2", "speedX": [3, -6, -1, 6], "speedY": [-3, 6, -2, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "wave3", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [-5, 46, -108, 72, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "cusp5-x3", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [-3, 30, -120, 240, -240, 96], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "cusp7-deep", "speedX": [1, 0, 0, 0, 0, 0, 0, 0], "speedY": [-4, 56, -336, 1120, -2240, 2688, -1792, 512], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "twin-cusp", "speedX": [2, 0, 0, 0, 0, 0, 0], "speedY": [8, -108, 594, -1701, 2673, -2187, 729], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "w-arch", "speedX": [1, 0, 0, 0, 0, 0], "speedY": [-3, 16, -16, 0, 0, 0], "width": {"percent": 1.5}, "character": {"plus": 2, "minus": 2, "profile": "bow"}, "shear": 0, "hook": {"dx": 0, "dy": 0}}, {"name": "new-symmetric", "speedX": [1], "speedY": [1, -4, 4]}]};</script>
 <script>
 const $ = (id) => document.getElementById(id);
 const stage = $("sf-stage");
 const readout = $("sf-readout");
+let rows = null;
 
 function show(id, value) {
   const el = $(id + "-v");
   if (el) el.textContent = value;
 }
 
+function start() {
+  rows = Object.fromEntries(window.REAL_CURVES.curves.map((row) => [row.name, row]));
+  const names = Object.keys(rows).sort();
+  ["sf-a", "sf-b"].forEach((id) => {
+    $(id).innerHTML = names.map((name) => `<option>${name}</option>`).join("");
+  });
+  $("sf-a").value = "u-bowl";
+  $("sf-b").value = "u-bowl";
+  $("sf-form").value = "single";
+  $("sf-natural").checked = true;
+  draw();
+}
+
 function draw() {
-  const a = SquareLab.CURVES[$("sf-a").value].points;
-  const b = SquareLab.CURVES[$("sf-b").value].points;
+  if (!rows) return;
+  const aName = $("sf-a").value;
+  const bName = $("sf-b").value;
+  const form = $("sf-form").value;
   const perW = Number($("sf-per-w").value);
   const perH = Number($("sf-per-h").value);
   const pattern = $("sf-pattern").value;
-  const leg = Number($("sf-leg").value);
+  const natural = $("sf-natural").checked;
+  const leg = natural ? null : Number($("sf-leg").value);
   const sizeIn = Number($("sf-size").value);
   const fill = Number($("sf-fill").value);
   const alternate = $("sf-alternate").checked;
   const showFrame = $("sf-frame").checked;
-  const showLeaf = $("sf-leaf").checked;
 
   show("sf-per-w", perW);
   show("sf-per-h", perH);
-  show("sf-leg", leg + "°");
+  show("sf-leg", natural ? "natural" : leg + "°");
   show("sf-size", sizeIn.toFixed(2) + " in");
   show("sf-fill", Math.round(fill * 100) + "%");
 
-  const L = SquareLab.chord(a);
-  const boxW = perW * L;
-  const boxH = perH * L;
-  const frame = showFrame
-    ? SquareLab.frameRect(a, b, perW, perH, leg, pattern, alternate)
-    : { W: boxW, H: boxH, curves: [] };
-
-  let leafCurves = [];
-  let tips = null;
-  if (showLeaf) {
-    const leaf = SquareLab.central(a, b, leg);
-    tips = leaf.tips;
-    const cx = boxW / 2 - leaf.feet / 2;
-    const cy = boxH / 2;
-    leafCurves = leaf.curves.map((curve) => ({
-      ...curve,
-      points: curve.points.map(([x, y]) => [x + cx, y + cy]),
-    }));
-  }
-
-  const all = frame.curves.concat(leafCurves);
-  if (!all.length) {
+  let data;
+  try {
+    if (form === "single") {
+      const group = PlateMath.group(rows[aName]);
+      data = { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()), note: group.note };
+    } else {
+      data = PlateMath.design({
+        form, curve: aName, curveB: bName, leg,
+        frame: showFrame ? { perWidth: perW, perHeight: perH } : null,
+        pattern, alternate,
+      }, rows);
+    }
+  } catch (error) {
     stage.innerHTML = "";
-    readout.textContent = "nothing to draw";
+    readout.textContent = String(error);
     return;
   }
 
   const W = sizeIn * 72;
   const H = W;
   const margin = W * 0.06;
-  const [x0, y0, x1, y1] = SquareLab.bbox(all);
+  const [x0, y0, x1, y1] = data.bbox;
   const k = Math.min((W - 2 * margin) / (x1 - x0), (H - 2 * margin) / (y1 - y0)) * fill;
   const ox = (W - (x1 - x0) * k) / 2 - x0 * k;
   const oy = (H - (y1 - y0) * k) / 2 - y0 * k;
   const toSvg = ([x, y]) => [ox + x * k, H - (oy + y * k)];
-  const stroke = SquareLab.strokeFor(W);
+  const stroke = PlateMath.strokeFor(W);
 
   stage.setAttribute("viewBox", `0 0 ${W} ${H}`);
   stage.setAttribute("width", W);
   stage.setAttribute("height", H);
-
-  const line = (points, colour) => {
-    const text = points.map((p) => toSvg(p).map((v) => v.toFixed(2)).join(",")).join(" ");
-    return `<polyline points="${text}" fill="none" stroke="${colour}" `
+  stage.innerHTML = data.paths.map((path) => {
+    const text = path.map((p) => toSvg(p).map((v) => v.toFixed(2)).join(",")).join(" ");
+    return `<polyline points="${text}" fill="none" stroke="#2e2413" `
       + `stroke-width="${stroke.toFixed(2)}" stroke-linecap="round" `
       + `stroke-linejoin="round"/>`;
-  };
-  stage.innerHTML =
-    frame.curves.map((c) => line(SquareLab.sample(c.points, 120), "#2e2413")).join("")
-    + leafCurves.map((c) => line(SquareLab.sample(c.points, 120), "#7b6c4e")).join("");
+  }).join("");
 
-  const parts = [];
-  parts.push(`box ${((frame.W * k) / 72).toFixed(2)} × ${((frame.H * k) / 72).toFixed(2)} in`);
-  parts.push(`copy ${((L * k) / 72).toFixed(2)} in`);
-  parts.push(`stroke ${stroke.toFixed(2)} pt`);
-  if (showFrame) {
-    const joins = SquareLab.distinctKinks(SquareLab.ringKinks(frame.curves)).join(" / ");
-    parts.push(`${frame.curves.length} frame curves · joins ${joins}°`);
-  }
-  if (tips) {
-    parts.push(`leaf tips ${Math.round(tips.left)}° / ${Math.round(tips.right)}°`);
-  }
-  readout.textContent = parts.join(" · ");
+  readout.textContent =
+    `${((x1 - x0) * k / 72).toFixed(2)} × ${((y1 - y0) * k / 72).toFixed(2)} in · `
+    + `${data.paths.length} paths · stroke ${stroke.toFixed(2)} pt · ${data.note}`;
 }
 
-["sf-a", "sf-b", "sf-per-w", "sf-per-h", "sf-pattern", "sf-leg",
- "sf-size", "sf-fill", "sf-alternate", "sf-frame", "sf-leaf"].forEach((id) => {
+["sf-a", "sf-b", "sf-form", "sf-per-w", "sf-per-h", "sf-pattern", "sf-leg",
+ "sf-natural", "sf-size", "sf-fill", "sf-alternate", "sf-frame"].forEach((id) => {
   $(id).addEventListener("input", draw);
 });
-draw();
+start();
 </script>
 </body></html>

@@ -23,6 +23,9 @@ Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long
 | `web/server.py` | the app: auth, rate limit, `/api/render` |
 | `workbench/` | the input pages, one per idea; each has one generator |
 | `workbench/ph_math.js`, `workbench/ph_nth_panels.js` | the shared page JavaScript, written once by `scripts/build-pages.py`; the pages load these, they do not inline them |
+| `workbench/plate_math.js` | the plate maths in JS: character rails, the closing caps, cross/leaf/arch/frame |
+| `workbench/real-curves.json` | the 28 saved curves; the lab inlines it and a test compares the copy with the file |
+| `scripts/plates_export.mjs` | the book plates in JS: SVG, 300 dpi PNG, gallery |
 | `workbench/operator-list.json` | every stored curve as a button, written by `scripts/operator_list.py`; a browser with no list is seeded from it |
 | `scripts/` | the generators, the doc builders, and the checkers |
 | `scripts/build-pages.py` | rebuilds all eight pages that load the shared JavaScript, then the hub |

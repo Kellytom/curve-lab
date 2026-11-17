@@ -24,6 +24,15 @@ const MARGIN_SHARE = 0.012;
 
 const manifest = JSON.parse(readFileSync(resolve(BOOK, "plates.json"), "utf8"));
 const curveData = JSON.parse(readFileSync(resolve(ROOT, "workbench", "real-curves.json"), "utf8"));
+if (curveData.count !== curveData.curves.length) {
+  throw new Error("real-curves.json: count does not match the curve list");
+}
+for (const row of curveData.curves) {
+  const speeds = [...row.speedX, ...row.speedY].map(Number);
+  if (!speeds.some((value) => value !== 0)) {
+    throw new Error(`real-curves.json: ${row.name} has no nonzero speed`);
+  }
+}
 const rows = Object.fromEntries(curveData.curves.map((row) => [row.name, row]));
 
 // -- the plate ---------------------------------------------------------------
@@ -188,7 +197,7 @@ figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin-top:6px}
 <h1>Book plates — temporary export</h1>
 <p class="lead">${plates.length} plates · ${designs.length} central designs and ${singles.length} single curves · white ground, no text on the image, tight to the curve · labels outside, two columns · names are <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
 <h2>New symmetric central figures, with frames</h2>
-<p class="lead">Cross, leaf and arch, each in a frame, every copy carrying its character rails and closed at the ends.</p>
+<p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg frame of arches overlaps itself, so it is not offered framed.</p>
 <div class="grid">${cards(designs)}</div>
 <h2>Single curves</h2>
 <p class="lead">${singles.length} plates, one saved curve each with its character rails.</p>

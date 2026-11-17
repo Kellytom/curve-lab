@@ -21,15 +21,17 @@ class SquareFrameTest(unittest.TestCase):
         cls.generated = square_frame.page_html()
 
     def test_every_control_is_present(self):
-        for control in ("sf-a", "sf-b", "sf-per-w", "sf-per-h", "sf-pattern",
-                        "sf-leg", "sf-size", "sf-fill", "sf-alternate",
-                        "sf-frame", "sf-leaf", "sf-stage", "sf-readout"):
+        for control in ("sf-a", "sf-b", "sf-form", "sf-per-w", "sf-per-h",
+                        "sf-pattern", "sf-leg", "sf-natural", "sf-size",
+                        "sf-fill", "sf-alternate", "sf-frame", "sf-stage",
+                        "sf-readout"):
             self.assertIn(f'id="{control}"', self.page, control)
 
     def test_the_page_computes_in_the_browser(self):
-        self.assertIn('src="square_lab.js"', self.page)
-        self.assertIn("SquareLab.frameRect(", self.page)
-        self.assertIn("SquareLab.central(", self.page)
+        self.assertIn('src="plate_math.js"', self.page)
+        self.assertIn("PlateMath.design(", self.page)
+        self.assertIn("PlateMath.group(", self.page)
+        self.assertNotIn("square_lab.js", self.page)
         # no form: a page reload must never lose the settings
         self.assertNotIn("<form", self.page.lower())
 
@@ -40,6 +42,22 @@ class SquareFrameTest(unittest.TestCase):
         without_bar = re.sub(r"<body>\n+", "<body>", without_bar)
         self.assertEqual(square_frame.page_html().strip(),
                          without_bar.strip())
+
+    def test_the_curves_are_inlined(self):
+        self.assertIn("window.REAL_CURVES", self.page)
+        self.assertNotIn('fetch("real-curves.json")', self.page)
+
+    def test_the_inline_data_matches_the_file(self):
+        data = json.loads((ROOT / "workbench" / "real-curves.json").read_text())
+        match = re.search(r"window\.REAL_CURVES = (\{.*?\});</script>",
+                          self.page, re.S)
+        self.assertIsNotNone(match)
+        inline = json.loads(match.group(1))
+        self.assertEqual(inline, data)
+        self.assertEqual(len(inline["curves"]), inline["count"])
+        for row in inline["curves"]:
+            speeds = list(row.get("speedX") or []) + list(row.get("speedY") or [])
+            self.assertTrue(any(float(value) for value in speeds), row["name"])
 
     def test_the_manifest_names_the_page(self):
         manifest = json.loads((ROOT / "workbench" / "manifest.json").read_text())

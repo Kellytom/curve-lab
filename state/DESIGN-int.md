@@ -440,6 +440,10 @@ no input fields.
   `workbench/plate_math.js`. A parallel rail is a later feature and is not
   drawn. When the base offset would fold, the width is halved; at the 0.2%
   floor the plate is spine-only and says so.
+- **The inline data is checked.** The lab's curve data is written into the page;
+  the generator refuses an empty list, a count mismatch or a row of zeros, and a
+  test compares the inline copy with the file. Reason: the 2026-11-16 fault, when
+  a damaged read emptied two thirds of the saved curves.
 - **A folded base offset is never drawn.** If `|d·κ|` at the record's width
   would fold, the width is halved until it does not; at the 0.2% floor the
   plate is spine-only and the caption says so. Two of the 27 saved curves land
@@ -465,7 +469,7 @@ The operator's construction, 2026-11-17: measure the curve's chord (the
 end-to-end distance on x, with the legs at the same y), make an invisible square
 of that side, and put one curve on each edge. North is the x-flip, east the
 quarter turn, west the mirror. `curve_lab/square_assembly.py` and
-`workbench/square_lab.js` implement it; `scripts/square_try.py` is the static
+`workbench/plate_math.js` implement it; `scripts/square_try.py` is the static
 proof and `workbench/square-frame.html` is the lab.
 
 - **One rule: the leg bisects the corner.** A square corner is 90°, so the leg

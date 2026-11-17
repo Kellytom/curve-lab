@@ -149,7 +149,6 @@ and documentation alike.
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
-| `workbench/square_lab.js` | the square/frame/leaf geometry the lab loads |
 | `curve_lab/square_assembly.py` | the same corner rule in Python, for static proofs |
 | `founder/LOG.md` | the founder's current focus, dated entries and priority tags |
 | `state/PORT-int.md` | the language boundary: browser JS, Node for tests, Python where debugged |

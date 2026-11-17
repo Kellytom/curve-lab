@@ -16,9 +16,10 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   ground, no text, tight to the curve; the gallery has the designs above the
   singles; `tests/js/plates.test.js` (6 tests). Names are
   `<descriptor>-<variant>-t-exp-c-<serial>`.
-- [x] **The real curves in the gallery:** 27 saved curves, each with its own
-  character rails (width %, plus/minus, bow/s/taper). 25 have rails; 2 are
-  spine-only because the base offset folds at the 0.2% floor.
+- [x] **The real curves in the gallery:** two framed central designs (cross,
+  leaf) above 27 single curves, each with its own character rails. 25 singles
+  have rails; 2 are spine-only because the base offset folds at the 0.2% floor.
+  The arch is a single plate and a lab form: a natural-leg arch frame overlaps.
 - [ ] **Choose the set:** pick from the 27, and the trim size; the gallery is the
   contact sheet.
 - [ ] **Balance stations (B3):** a page listing lattice stations whose tangent
@@ -38,9 +39,10 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   90°/0° — the attach problem, shown not hidden.
 - [ ] **Other figures — parked (operator, 2026-11-17):** squares and rectangles
   first. The same corner rule holds later (pentagon 54°, pentagram point 18°).
-- [ ] **Real curves in the lab (B7, the live action):** replace the four sandbox
-  cubics with the saved curves (27 kept; the UI's × means dismissed), normalised
-  to the chord before assembly; say which will not normalise; a test pins one.
+- [x] **Real curves in the lab (B7):** the lab loads `real-curves.json` and
+  draws with `plate_math.js`; the selectors list the 28 saved curves; every
+  copy has its character rails and closed ends; the readout prints the paths
+  and the note. `tests/test_square_frame.py` guards the controls and the page.
 - [ ] **The chain form (B8):** two curves end to end, not flipped — a shallow
   leg to a steep leg — with the join angle printed.
 

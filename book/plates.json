@@ -33,20 +33,6 @@
    "note": "leaf in a 3\u00d73 frame"
   },
   {
-   "id": "arch-frame-1-t-exp-c-0203",
-   "descriptor": "arch-frame",
-   "variant": 1,
-   "kind": "design",
-   "form": "arch",
-   "curve": "u-bowl",
-   "leg": null,
-   "frame": {
-    "perWidth": 3,
-    "perHeight": 3
-   },
-   "note": "arch in a 3\u00d73 frame \u00b7 natural legs"
-  },
-  {
    "id": "amper-1-t-exp-c-0101",
    "descriptor": "amper",
    "variant": 1,

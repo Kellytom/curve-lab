@@ -19,9 +19,10 @@ Every remark carries one:
 
 ## Current focus — 2026-11-17
 
-- **Real curves in the lab.** `[now]` The lab still offers four sandbox cubics;
-  replace them with the saved curves, normalised to the chord, and say which
-  ones will not normalise. This is the live action (B7).
+- **The lab and the plates are on the saved curves.** `[now]` The lab draws with
+  `plate_math.js` and inlines the saved set; the gallery has the framed cross and
+  leaf plus 27 single curves. The arch is a single plate and a lab form; a
+  natural-leg arch frame overlaps itself, so it is not framed.
 - **The square and rectangle lab.** `[now]` One rule: the leg bisects the 90°
   corner, so it is 45°. Counts across and down, an a/b pattern per side, and a
   central leaf of curve a below and flipped curve b above, feet forced together.
@@ -146,3 +147,15 @@ Every remark carries one:
   last; the server only if the deploy changes.
 - `[later]` Other polygons (pentagon, pentagram) — parked until the 90° case is
   right.
+
+## 2026-11-17 — the lab is on the real curves
+
+- **The lab draws the saved set** with the same `plate_math.js` as the plates:
+  character rails, closed ends, cross/leaf/arch/frame. The four sandbox cubics
+  and `square_lab.js` are gone. `[now]`
+- **The load wait is gone.** The curve data is written into the page, so the
+  lab opens with the drawing already there. `[now]`
+- **The single arch is the default** (`u-bowl`, natural legs) because a bowl
+  forced to a 45° leg flattens; the 45° rule is for mitred edges, not arches.
+  `[now]`
+- **Next: the chain form** — two curves end to end, not flipped. `[now]`

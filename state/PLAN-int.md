@@ -30,11 +30,11 @@ integer stations where a branch can attach.
 | B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
 | B5 | **landed 2026-11-17** — character offsets | 25 of the 27 plates carry character rails (width %, plus/minus, bow/s/taper); the gallery prints them; two are spine-only because the base offset folds | B1 |
 | B6 | **square and frame lab** | a live page: curve a, curve b, counts across and down, an a/b pattern, leg angle, print size, fill; the joins and leaf tips measured; a 1 pt stroke floor at 1–4 in; 18 JS tests | **landed 2026-11-17** |
-| B7 | **real curves in the lab** | the two selectors list the saved curves and none of the sandbox cubics; one real curve assembles and prints joins and tip angles; a test pins it | B6 |
+| B7 | **landed 2026-11-17** — real curves in the lab | the selectors list the saved curves and none of the sandbox cubics; the lab draws `plate_math.js` groups with their character rails; the readout prints the paths and the note | B6 |
 | B8 | the chain form | two curves end to end (a shallow leg, a steep leg), not flipped, with the join angle printed | B6 |
 
-**The live action is B7.** The operator parked the book (B2–B5) and the JS port
-on 2026-11-17 until the lab's curves are real; do not start them unprompted.
+**The live action is B8, the chain form.** The book is at B2/B4; the JS port's
+first slice is landed.
 
 **B3 — balance, not symmetry.** A *balance station* is a lattice point at a
 chosen grid whose tangent has a declared clean direction: vertical, horizontal,

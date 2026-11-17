@@ -58,6 +58,23 @@ test("every plate has its SVG and a 300 dpi PNG at the long side", () => {
   }
 });
 
+test("the curve data is whole: count matches, no empty or zero rows", () => {
+  assert.equal(curves.count, curves.curves.length);
+  for (const row of curves.curves) {
+    const speeds = [...row.speedX, ...row.speedY].map(Number);
+    assert.ok(speeds.some((value) => value !== 0), row.name);
+  }
+});
+
+test("a frame pattern can use both curves", () => {
+  const a = PlateMath.group(rows.amper);
+  const b = PlateMath.group(rows.swan);
+  const border = PlateMath.frame(a, b, 2, 2, 45, "ab", false);
+  assert.equal(border.length, 8);
+  const south = border.filter((item) => item.name === "south");
+  assert.deepEqual(south.map((item) => item.letter), ["a", "b"]);
+});
+
 test("the gallery has the central designs above the single curves", () => {
   const gallery = fs.readFileSync(path.join(ROOT, "book/index.html"), "utf8");
   assert.ok(gallery.includes("New symmetric central figures"));

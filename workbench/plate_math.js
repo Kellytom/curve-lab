@@ -229,17 +229,22 @@
             { name: "top", paths: top.paths }];
   }
 
-  function frame(item, perWidth, perHeight, leg) {
-    const length = item.chord;
+  function frame(a, b, perWidth, perHeight, leg, pattern, alternate) {
+    const letters = (pattern || "a").replace(/[^ab]/g, "") || "a";
+    const length = a.chord;
     const width = perWidth * length, height = perHeight * length;
-    const preparedItem = prepared(item, length, leg);
+    const preparedA = prepared(a, length, leg);
+    const preparedB = b ? prepared(b, length, leg) : preparedA;
     const edges = [["south", 0, 0, 0, perWidth], ["east", width, 0, 90, perHeight],
                    ["north", width, height, 180, perWidth], ["west", 0, height, 270, perHeight]];
     const out = [];
     edges.forEach(([name, ox, oy, deg, count]) => {
       for (let copy = 0; copy < count; copy += 1) {
-        const local = preparedItem.paths.map((path) => translate(path, copy * length, 0));
-        out.push({ name, copy, paths: local.map((path) => translate(rotate(path, deg), ox, oy)) });
+        const letter = letters[copy % letters.length];
+        const shape = letter === "b" ? preparedB : preparedA;
+        let paths = shape.paths.map((path) => translate(path, copy * length, 0));
+        if (alternate && copy % 2) paths = paths.map(flipY);
+        out.push({ name, copy, letter, paths: paths.map((path) => translate(rotate(path, deg), ox, oy)) });
       }
     });
     return out;
@@ -261,7 +266,10 @@
       throw new Error(`unknown form ${spec.form}`);
     }
     let border = [];
-    if (spec.frame) border = frame(a, Number(spec.frame.perWidth), Number(spec.frame.perHeight), leg);
+    if (spec.frame) {
+      border = frame(a, spec.curveB ? b : null, Number(spec.frame.perWidth),
+                     Number(spec.frame.perHeight), leg, spec.pattern, spec.alternate);
+    }
     let centralPaths = central.flatMap((item) => item.paths);
     if (border.length) {
       const cbox = bbox(centralPaths.flat());
@@ -277,6 +285,9 @@
     return { paths, bbox: bbox(paths.flat()), note };
   }
 
+  const strokeFor = (widthPt) => Math.max(1, 0.0035 * widthPt);
+
   return { value, spine, curvaturePeak, rail, bbox, group, prepared,
-           cross, leaf, frame, design, rotate, translate, scale, scaleY, flipY };
+           cross, leaf, frame, design, rotate, translate, scale, scaleY,
+           flipY, strokeFor };
 });

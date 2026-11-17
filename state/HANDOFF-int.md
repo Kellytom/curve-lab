@@ -2555,8 +2555,23 @@ gallery). The Python plate files are deleted — `plate_curves.py`,
 `tests/test_plate_export.py` — so there is one implementation, not two.
 
 `tests/js/plates.test.js` guards the maths and the files: 6 tests; the gate now
-runs 24 JS tests. The gallery has the three symmetric designs (cross, leaf,
-arch) above the 27 single curves, and every character rail is closed at its
-ends.
+runs 24 JS tests. The gallery has two framed symmetric designs (cross, leaf) above the 27 single
+curves; the arch is a single plate and a lab form, because a natural-leg arch
+frame overlaps itself. Every character rail is closed at its ends.
 
-**Next:** B7, real curves in the lab.
+B7 then moved the lab onto the same data and maths: the curve set is inlined
+and checked (empty, count, zeros), and the four sandbox cubics and
+`square_lab.js` are gone.
+
+**Next:** B8, the chain form.
+
+## 2026-11-17 (later still) — B7 landed: the lab on the real curves
+
+The lab now loads the saved set and draws with `workbench/plate_math.js`: the
+curve, its character rails, the closed ends, and cross/leaf/arch/frame. The four
+sandbox cubics and `workbench/square_lab.js` are deleted. The curve data is
+**inlined into the page** (no fetch, no load wait), and the single arch is the
+default. Controls: curve a/b, form, counts, a/b pattern, leg or natural legs,
+print size, fill, alternate, frame.
+
+Tests: 6 page tests and 15 JS tests. **Next:** B8, the chain form.
