@@ -9,6 +9,9 @@ ported; its stars are saved by the page itself to `workbench/starred.json`.
   is the version and the CLI, not one `node_modules` for every folder.
 - **Shared code:** `../workbench/plate_math.js` and `../workbench/real-curves.json`
   through Vite's `server.fs.allow`; one copy of the maths and the data.
+- **The design is remembered:** the lab writes its controls to
+  `localStorage` (`square-lab-state`) on every change and restores them on load,
+  so reopening the tab returns the design on screen, not just the page.
 - **The save:** `src/lib/stars.js` is plain Node (atomic write, validated ids);
   `src/pages/api/stars.js` is a thin adapter. A Next route handler or a Hono
   route can import the same function.

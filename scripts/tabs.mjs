@@ -55,7 +55,7 @@ if (mode === "save") {
   const escape = (text) => String(text).replace(/[&<>"']/g, (c) => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   })[c]);
-  const rows = pages.map((page) => `      <li><a href="${escape(page.url)}">`
+  const rows = pages.map((page) => `      <li><a href="${escape(page.url)}" target="_blank" rel="noreferrer">`
     + `${escape(page.title || page.url)}</a><br><code>${escape(page.url)}</code></li>`)
     .join("\n");
   writeFileSync(INDEX, `<!doctype html>

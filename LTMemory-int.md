@@ -126,6 +126,9 @@ no sync. It does **not** restore a session; it opens one local page,
 | your real Chrome while the light one runs | `chrome-main [url]` (`~/bin`) |
 | a link in this chat | click it; it goes to the default browser (main Chrome) |
 
+- Both labs keep the on-screen design in `localStorage` (`square-lab-state`) and
+  restore it on load; the saved-tabs links open in a new tab, so the launcher
+  page stays put. The saved set is still just URLs.
 - Both Dock apps are in `~/Applications` and only hand off to the repo launcher:
   `Curve Lab Browser` opens the saved-tabs page, `Save Curve Tabs` runs `--save`
   and notifies (a .app has no terminal). The save app's snapshot excludes the

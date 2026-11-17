@@ -4,6 +4,7 @@ const stage = $("sf-stage");
 const readout = $("sf-readout");
 const params = new URLSearchParams(location.search);
 const STAR_KEY = "square-lab-stars";
+const STATE_KEY = "square-lab-state";
 let rows = null;
 
 function readStars() {
@@ -133,6 +134,52 @@ function loadCharacter(name) {
     ? character.profile : "bow";
 }
 
+function readState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY) || "null"); }
+  catch { return null; }
+}
+
+function saveState() {
+  const state = {
+    a: $("sf-a").value, b: $("sf-b").value, form: $("sf-form").value,
+    perW: $("sf-per-w").value, perH: $("sf-per-h").value,
+    pattern: $("sf-pattern").value, leg: $("sf-leg").value,
+    natural: $("sf-natural").checked, size: $("sf-size").value,
+    fill: $("sf-fill").value, alternate: $("sf-alternate").checked,
+    frame: $("sf-frame").checked, width: $("sf-width").value,
+    plus: $("sf-plus").value, minus: $("sf-minus").value,
+    profile: $("sf-profile").value,
+  };
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch {}
+}
+
+function applyState(state) {
+  const option = (id, value) => {
+    const select = $(id);
+    if (value !== undefined
+        && [...select.options].some((entry) => entry.value === value)) {
+      select.value = value;
+    }
+  };
+  option("sf-a", state.a);
+  option("sf-b", state.b);
+  option("sf-form", state.form);
+  option("sf-profile", state.profile);
+  const field = (id, value) => { if (value !== undefined) $(id).value = value; };
+  field("sf-per-w", state.perW);
+  field("sf-per-h", state.perH);
+  field("sf-pattern", state.pattern);
+  field("sf-leg", state.leg);
+  field("sf-size", state.size);
+  field("sf-fill", state.fill);
+  field("sf-width", state.width);
+  field("sf-plus", state.plus);
+  field("sf-minus", state.minus);
+  $("sf-natural").checked = Boolean(state.natural);
+  $("sf-alternate").checked = Boolean(state.alternate);
+  $("sf-frame").checked = Boolean(state.frame);
+}
+
 function start() {
   const curveData = JSON.parse(document.getElementById("curve-data").textContent);
   rows = Object.fromEntries(curveData.curves.map((row) => [row.name, row]));
@@ -156,6 +203,8 @@ function start() {
   $("sf-form").value = "single";
   $("sf-natural").checked = true;
   loadCharacter($("sf-a").value);
+  const saved = readState();
+  if (saved) applyState(saved);
   if (params.has("width")) $("sf-width").value = params.get("width");
   renderStars();
   renderGallery();
@@ -244,6 +293,7 @@ function draw() {
     + ` · curve a ${rows[aName].category || "?"}`
     + ` (${rows[aName].symmetry ? rows[aName].symmetry.kind : "?"})`
     + fallback;
+  saveState();
 }
 
 ["sf-per-w", "sf-per-h", "sf-pattern", "sf-leg", "sf-natural", "sf-size",
