@@ -92,6 +92,14 @@ curvature is gives short legs and a faithful knot without cutting the curve at a
 plan recorded in <code>TODO.md</code>.</p>
 </section>
 
+<section class="panel" id="tweak">
+<h2>Tweaking the primary curve: what the buttons do</h2>
+<p>Pick a change in the dropdown, then press one of the four buttons; each press adds that change once more, so ten presses give ten times the nudge. Every pattern is balanced about the middle, so the curve stays mirrored: x: t1, t2 and x: t2 to t4 push the width, x: t3 to t6 and the two y patterns push the vertical gesture. nudge is one step, bump is five. A minus button subtracts the pattern, which is just as safe as adding it — the rows already carry negative numbers. The status line prints the grid after every press, because the grid after a change depends on arithmetic and not on how round the number looks: on 1/15 a nudge of 3 keeps 1/154, of 5 gives 1/1386 and of 6 gives 1/770. Expand and change multiplies both rows by 1 + s(t - t^2), which re-times the stroke rather than adding a term. It used to keep the two new powers, and those brought the divisors 13, 14 and 15 into the grid &mdash; 1/210 at best, against a base of 1/154. It now fits the widened rows back into the numbers that already exist and rounds them to whole numbers, so the degree does not change. The price is distortion, and the status line prints it — the worst miss as a share of the row, and the grid the new whole numbers give, which is not promised to stay put. Press it twice and the second press widens what the first produced.</p>
+<p>This text lived under the tweak panel on the sandbox until 2026-11-16, where it was longer than
+the control it described. The panel now carries the three numbers that matter &mdash; the pattern,
+the direction and the step &mdash; and this page carries the reasoning.</p>
+</section>
+
 <section class="panel">
 <h2>Failed: the census families on the sandbox</h2>
 <p>The census (<code>workbench/family-census.json</code>) measured 7,068 symmetric

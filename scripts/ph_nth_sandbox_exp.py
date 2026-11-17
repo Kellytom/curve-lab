@@ -345,22 +345,9 @@ def build():
     box_start = page.index('<div class="curve-box complement" id="n-complement-box">')
     box_end = page.index('<p class="small mono" id="n-readout">')
     tweak = """<div class="curve-box" id="n-tweak-box">
-  <h3>Tweak the primary curve, mirror kept</h3>
-  <p class="small">Pick a change in the dropdown, then press one of the four buttons; each press
-  adds that change once more, so ten presses give ten times the nudge. Every pattern is balanced about
-  the middle, so the curve stays mirrored: <strong>x: t1, t2</strong> and <strong>x: t2 to t4</strong>
-  push the width, <strong>x: t3 to t6</strong> and the two y patterns push the vertical gesture.
-  <strong>nudge</strong> is one step, <strong>bump</strong> is five. A minus button subtracts the
-  pattern, which is just as safe as adding it — the rows already carry negative numbers. The status
-  line prints the grid after every press, because the grid after a change depends on arithmetic and
-  not on how round the number looks: on <code>1/15</code> a nudge of 3 keeps 1/154, of 5 gives 1/1386
-  and of 6 gives 1/770. <strong>Expand and change</strong> multiplies both rows by <code>1 + s(t - t^2)</code>,
-  which re-times the stroke rather than adding a term. It used to keep the two new powers, and
-  those brought the divisors 13, 14 and 15 into the grid &mdash; 1/210 at best, against a base of 1/154.
-  It now fits the widened rows back into the numbers that already exist and rounds them to whole
-  numbers, so the degree does not change. The price is distortion, and the status line prints it —
-  the worst miss as a share of the row, and the grid the new whole numbers give, which is not
-  promised to stay put. Press it twice and the second press widens what the first produced.</p>
+  <h3>Tweak the primary curve, see notes</h3>
+  <p class="small">Each press adds the pattern once more, so ten presses give ten times the nudge.
+  <a href="ph-nth-exp-notes.html#tweak">How the patterns, the grid and the distortion work</a>.</p>
   <div class="solver-row">
     <label class="dial" for="n-tweak-pattern">change
       <select id="n-tweak-pattern">

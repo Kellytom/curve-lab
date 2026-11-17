@@ -75,6 +75,21 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn('id="n-loop-only"', page)
         self.assertIn('id="n-whole-curve"', page)
 
+    def test_the_tweak_explanation_lives_on_the_notes_page(self):
+        """The operator's call, 2026-11-16: the panel kept 257 words for four buttons.
+
+        The panel now says the title and links to the section, and the words are on
+        ph-nth-exp-notes.html under #tweak.
+        """
+        page = PAGE.read_text()
+        self.assertIn("Tweak the primary curve, see notes", page)
+        self.assertIn('href="ph-nth-exp-notes.html#tweak"', page)
+        self.assertNotIn("Every pattern is balanced about", page)
+        notes = (ROOT / "workbench" / "ph-nth-exp-notes.html").read_text()
+        self.assertIn('id="tweak"', notes)
+        self.assertIn("Every pattern is balanced about", notes)
+        self.assertIn("Expand and change multiplies both rows", notes)
+
     def test_the_tweak_panel_is_a_dropdown_and_four_buttons(self):
         """One dropdown picks the change; four buttons press it in either direction.
 
