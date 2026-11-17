@@ -113,15 +113,23 @@ one, and ports 8000/8001/8002 belong to other projects.
 
 Two Chromes, one app. The default profile is the expensive one; the throwaway
 profile at `$TMPDIR/chrome-curve` is for workbench pages and has no extensions,
-no sync and no session restore.
+no sync. It does **not** restore a session; it opens one local page,
+`workbench/tabs.html`, listing only the tabs saved for the current focus.
 
 | want | do |
 |---|---|
 | workbench pages in the light browser | Dock app `Curve Lab Browser`, or `scripts/chrome-curve.command` |
+| save the tabs you have open as the focus set | `scripts/chrome-curve.command --save` (writes `workbench/tabs.html`) |
+| reopen that set | launch normally, or `--saved`; it opens the one local page |
+| the default focus pair | `--default` (the lab and the book gallery) |
 | one link in the light browser | `curve-open <url>` (`~/bin`, on PATH) — also takes `catenary.html` |
 | your real Chrome while the light one runs | `chrome-main [url]` (`~/bin`) |
 | a link in this chat | click it; it goes to the default browser (main Chrome) |
 
+- The saved-tabs page is generated and ignored by git; the URL snapshot is in
+  `~/.config/curve-lab/tabs.json`. Saving reads the light profile's debugging
+  port (9224), so an instance started before the port was added must be
+  relaunched once.
 - The Dock's Chrome tile activates **whichever instance is running**, because
   macOS identifies the app by bundle, not by `--user-data-dir`. With the light
   profile up, that tile brings the light window forward. `chrome-main` is the
