@@ -18,16 +18,25 @@ class Test11thSandbox(unittest.TestCase):
         page = PAGE.read_text()
         for marker in ("n-controls", "n-plot", "n-bars", "n-close", "n-open",
                        "n-open-value", "n-json", "n-saved", "n-paste",
-                       "n-rotate", "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-y", "euler-hook", "n-terminal-start", "n-terminal-end", "n-d", "n-rename", "amper",
+                       "n-rotate", "n-rails", "n-character", "n-char-l", "n-char-r", "n-prof", "n-shear", "n-hook", "n-hook-y", "n-terminal-start", "n-terminal-end", "n-d", "n-rename",
                        "ph-11th-serif-notes.html", "n-gallery", "phNthGallery", "integer-105", "integer-70",
                        "The eleventh power", "degree 11"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, page)
 
-    def test_the_page_inlines_the_checked_in_javascript(self):
+    def test_the_page_loads_the_checked_in_javascript(self):
+        """The page loads the shared file; it does not inline a copy of its own."""
         page = PAGE.read_text()
-        self.assertIn(JS.read_text().strip()[:200], page)
-        self.assertIn("window.recipeMetrics", page)   # the shared maths came along
+        self.assertIn('src="ph_nth_panels.js"', page)
+        self.assertIn('src="ph_math.js"', page)
+        self.assertNotIn("window.phNthSaved = {", page)
+
+    def test_the_seeds_travel_with_the_panels_file(self):
+        """Seed names live in the shared file now, so the page cannot carry them."""
+        panels = JS.read_text()
+        for marker in ("euler-hook", "amper"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, panels)
 
     def test_the_javascript_parses(self):
         result = subprocess.run(["node", "--check", str(JS)],

@@ -207,3 +207,96 @@ def terminal_spans(rail_pos: dict, rail_neg: dict, kind: str,
     else:  # round: a semicircle, whose radius is the half width
         sagitta = half
     return [_dome(p_pos, p_neg, outward, sagitta)]
+
+
+def cone_terminal(rail_pos, rail_neg, end: str = "end"):
+    """The two-arc cone terminal: R = 2 x the half width, meeting at the tip.
+
+    Two things in this repository are called a cone, and they are not the same:
+
+    * **`kind="cone"`, above** — a *width law*. The ribbon narrows along a curve
+      on `w = ½(1−(1−t)³)`; the end is closed by the ordinary width-law spans.
+    * **this function** — a *construction*. One circular arc leaves each rail
+      end, both of radius `R = 2 × half width`, each tangent to its rail at the
+      base, and the two meet at a point on the centreline.
+
+    The construction, written out because the numbers are what make it exact:
+
+        half      = |rail+ end − rail− end| / 2
+        tip       = mid + outward · √3 · half
+        R         = 2 · half
+        centre of the arc from the + rail = the − rail's end
+        centre of the arc from the − rail = the + rail's end
+
+    So each arc is a 60° turn: its chord is the radius, and `|tip − rail end|` is
+    also the radius. The two 60° turns make 120°, which is exactly the cap limit
+    in `docs/PHILOSOPHY.md` — it is a pointed cone, not a cap, and the tip is
+    where the point is wanted.
+
+    Returns a dict: `spans` (two cubic spans, + rail to tip, tip to − rail),
+    `tip`, `centres`, `radius`, `half`, `outward`, `tangents` (the unit tangent
+    at each rail end, in the direction of travel). A caller that only wants the
+    geometry can ignore `spans`.
+    """
+    p_pos, t_pos = _end(rail_pos["spans"], end)
+    p_neg, t_neg = _end(rail_neg["spans"], end)
+
+    span = math.hypot(p_pos[0] - p_neg[0], p_pos[1] - p_neg[1])
+    half = span / 2.0
+    if half <= 1e-9:
+        raise ValueError("a cone terminal needs a ribbon with a width")
+
+    mid = ((p_pos[0] + p_neg[0]) / 2.0, (p_pos[1] + p_neg[1]) / 2.0)
+    outward = _unit(t_pos[0] + t_neg[0], t_pos[1] + t_neg[1])
+    side = _unit(p_pos[0] - p_neg[0], p_pos[1] - p_neg[1])
+
+    radius = 2.0 * half
+    tip = (mid[0] + outward[0] * math.sqrt(3.0) * half,
+           mid[1] + outward[1] * math.sqrt(3.0) * half)
+
+    # Each arc is centred on the other rail's end; that is what makes it tangent
+    # to its own rail at the base (the radius meets the rail at a right angle).
+    centre_pos = p_neg
+    centre_neg = p_pos
+
+    # A 60° arc's control points sit at (4/3) tan(15°) of the radius from each end.
+    reach = (4.0 / 3.0) * math.tan(math.radians(15.0)) * radius
+
+    def arc(start, finish, centre, tangent_at_start, tangent_at_finish):
+        c1 = (start[0] + tangent_at_start[0] * reach, start[1] + tangent_at_start[1] * reach)
+        c2 = (finish[0] - tangent_at_finish[0] * reach, finish[1] - tangent_at_finish[1] * reach)
+        return _span(start, finish, c1, c2)
+
+    # Travelling from a rail end toward the tip, the tangent turns inward; at the
+    # tip the two tangents meet at the cone's point, not smoothly.
+    to_tip_pos = _unit(tip[0] - p_pos[0], tip[1] - p_pos[1])
+    to_tip_neg = _unit(tip[0] - p_neg[0], tip[1] - p_neg[1])
+
+    # The + rail is left in the direction of travel; the - rail is arrived at
+    # against it, so the cap reads as one stroke closing on itself.
+    tangent_pos = outward
+    tangent_neg = (-outward[0], -outward[1])
+    # At the tip the travel direction is perpendicular to the radius from the
+    # opposite rail end: rotate that radius by a right angle in the travel sense.
+    def perpendicular_into(radius_vector, travel_hint):
+        candidate = (-radius_vector[1], radius_vector[0])
+        if candidate[0] * travel_hint[0] + candidate[1] * travel_hint[1] < 0:
+            candidate = (radius_vector[1], -radius_vector[0])
+        return candidate
+
+    tip_tangent_pos = perpendicular_into((tip[0] - centre_pos[0], tip[1] - centre_pos[1]), to_tip_pos)
+    tip_tangent_neg = perpendicular_into((tip[0] - centre_neg[0], tip[1] - centre_neg[1]), to_tip_neg)
+
+    spans = [
+        arc(p_pos, tip, centre_pos, tangent_pos, tip_tangent_pos),
+        arc(tip, p_neg, centre_neg, tip_tangent_neg, tangent_neg),
+    ]
+    return {
+        "spans": spans,
+        "tip": tip,
+        "centres": {"pos": centre_pos, "neg": centre_neg},
+        "radius": radius,
+        "half": half,
+        "outward": outward,
+        "tangents": {"base": outward, "tip_pos": tip_tangent_pos, "tip_neg": tip_tangent_neg},
+    }
