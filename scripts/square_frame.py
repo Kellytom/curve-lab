@@ -27,6 +27,7 @@ APP = r"""
 const $ = (id) => document.getElementById(id);
 const stage = $("sf-stage");
 const readout = $("sf-readout");
+const params = new URLSearchParams(location.search);
 let rows = null;
 
 function show(id, value) {
@@ -34,24 +35,46 @@ function show(id, value) {
   if (el) el.textContent = value;
 }
 
+function loadCharacter(name) {
+  const row = rows[name];
+  if (!row) return;
+  const width = (row.width && row.width.percent) || 1.5;
+  const character = row.character || {};
+  $("sf-width").value = width;
+  $("sf-plus").value = character.plus ?? 2;
+  $("sf-minus").value = character.minus ?? 2;
+  $("sf-profile").value = ["bow", "s", "taper"].includes(character.profile)
+    ? character.profile : "bow";
+}
+
 function start() {
   rows = Object.fromEntries(window.REAL_CURVES.curves.map((row) => [row.name, row]));
   const names = Object.keys(rows).sort();
   ["sf-a", "sf-b"].forEach((id) => {
-    $(id).innerHTML = names.map((name) => `<option>${name}</option>`).join("");
+    const extra = id === "sf-b" ? ["none", "same"] : [];
+    $(id).innerHTML = [...extra, ...names]
+      .map((name) => `<option>${name}</option>`).join("");
   });
   $("sf-a").value = "u-bowl";
-  $("sf-b").value = "u-bowl";
+  $("sf-b").value = "none";
   $("sf-form").value = "single";
   $("sf-natural").checked = true;
+  loadCharacter($("sf-a").value);
+  if (params.has("width")) $("sf-width").value = params.get("width");
   draw();
 }
 
 function draw() {
   if (!rows) return;
   const aName = $("sf-a").value;
-  const bName = $("sf-b").value;
-  const form = $("sf-form").value;
+  const bChoice = $("sf-b").value;
+  const bName = bChoice === "none" ? null : bChoice === "same" ? aName : bChoice;
+  let form = $("sf-form").value;
+  let fallback = "";
+  if (form === "leaf" && !bName) {
+    form = "single";
+    fallback = " · curve b none, drawn single";
+  }
   const perW = Number($("sf-per-w").value);
   const perH = Number($("sf-per-h").value);
   const pattern = $("sf-pattern").value;
@@ -61,24 +84,35 @@ function draw() {
   const fill = Number($("sf-fill").value);
   const alternate = $("sf-alternate").checked;
   const showFrame = $("sf-frame").checked;
+  const width = Number($("sf-width").value);
+  const plus = Number($("sf-plus").value);
+  const minus = Number($("sf-minus").value);
+  const profile = $("sf-profile").value;
 
   show("sf-per-w", perW);
   show("sf-per-h", perH);
   show("sf-leg", natural ? "natural" : leg + "°");
   show("sf-size", sizeIn.toFixed(2) + " in");
   show("sf-fill", Math.round(fill * 100) + "%");
+  show("sf-width", width.toFixed(1) + "%");
+  show("sf-plus", plus.toFixed(1) + " / " + minus.toFixed(1));
+
+  const patch = (name) => ({ ...rows[name], width: { percent: width },
+    character: { plus, minus, profile } });
+  const patched = { ...rows, [aName]: patch(aName) };
+  if (bName) patched[bName] = patch(bName);
 
   let data;
   try {
     if (form === "single") {
-      const group = PlateMath.group(rows[aName]);
+      const group = PlateMath.group(patched[aName]);
       data = { paths: group.paths, bbox: PlateMath.bbox(group.paths.flat()), note: group.note };
     } else {
       data = PlateMath.design({
-        form, curve: aName, curveB: bName, leg,
+        form, curve: aName, curveB: bName || undefined, leg,
         frame: showFrame ? { perWidth: perW, perHeight: perH } : null,
         pattern, alternate,
-      }, rows);
+      }, patched);
     }
   } catch (error) {
     stage.innerHTML = "";
@@ -108,13 +142,15 @@ function draw() {
 
   readout.textContent =
     `${((x1 - x0) * k / 72).toFixed(2)} × ${((y1 - y0) * k / 72).toFixed(2)} in · `
-    + `${data.paths.length} paths · stroke ${stroke.toFixed(2)} pt · ${data.note}`;
+    + `${data.paths.length} paths · stroke ${stroke.toFixed(2)} pt · ${data.note}`
+    + fallback;
 }
 
-["sf-a", "sf-b", "sf-form", "sf-per-w", "sf-per-h", "sf-pattern", "sf-leg",
- "sf-natural", "sf-size", "sf-fill", "sf-alternate", "sf-frame"].forEach((id) => {
-  $(id).addEventListener("input", draw);
-});
+["sf-per-w", "sf-per-h", "sf-pattern", "sf-leg", "sf-natural", "sf-size",
+ "sf-fill", "sf-alternate", "sf-frame", "sf-width", "sf-plus", "sf-minus",
+ "sf-profile"].forEach((id) => $(id).addEventListener("input", draw));
+$("sf-a").addEventListener("input", () => { loadCharacter($("sf-a").value); draw(); });
+$("sf-b").addEventListener("input", draw);
 start();
 """
 
@@ -174,6 +210,22 @@ its character rails and is closed at the ends.</p>
 <div class="controls">
   <label>curve a <select id="sf-a"></select></label>
   <label>curve b <select id="sf-b"></select></label>
+  <label>
+    <span class="row"><span>rail width</span><b id="sf-width-v">1.5%</b></span>
+    <input id="sf-width" type="range" min="0.5" max="6" step="0.1" value="1.5">
+  </label>
+  <label>
+    <span class="row"><span>plus / minus</span><b id="sf-plus-v">2.0 / 2.0</b></span>
+    <input id="sf-plus" type="range" min="0" max="3" step="0.1" value="2">
+    <input id="sf-minus" type="range" min="0" max="3" step="0.1" value="2">
+  </label>
+  <label>profile
+    <select id="sf-profile">
+      <option value="bow">bow</option>
+      <option value="s">s</option>
+      <option value="taper">taper</option>
+    </select>
+  </label>
   <label>form
     <select id="sf-form">
       <option value="cross">cross</option>

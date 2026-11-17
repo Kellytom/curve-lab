@@ -23,7 +23,8 @@ class SquareFrameTest(unittest.TestCase):
     def test_every_control_is_present(self):
         for control in ("sf-a", "sf-b", "sf-form", "sf-per-w", "sf-per-h",
                         "sf-pattern", "sf-leg", "sf-natural", "sf-size",
-                        "sf-fill", "sf-alternate", "sf-frame", "sf-stage",
+                        "sf-fill", "sf-alternate", "sf-frame", "sf-width",
+                        "sf-plus", "sf-minus", "sf-profile", "sf-stage",
                         "sf-readout"):
             self.assertIn(f'id="{control}"', self.page, control)
 
@@ -42,6 +43,11 @@ class SquareFrameTest(unittest.TestCase):
         without_bar = re.sub(r"<body>\n+", "<body>", without_bar)
         self.assertEqual(square_frame.page_html().strip(),
                          without_bar.strip())
+
+    def test_curve_b_offers_none_and_same(self):
+        self.assertIn('["none", "same"]', self.page)
+        self.assertIn('bChoice === "none"', self.page)
+        self.assertIn('bChoice === "same"', self.page)
 
     def test_the_curves_are_inlined(self):
         self.assertIn("window.REAL_CURVES", self.page)
