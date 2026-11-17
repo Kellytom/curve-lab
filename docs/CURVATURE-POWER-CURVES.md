@@ -3,7 +3,7 @@
 A quick reference for where the bending is tightest on curves of the form
 \(y = x^n\), and on the related septic hyperbola and superellipse.
 
-**Every number below is computed by `scripts/curvature_power.py`.** Run it to
+**Every number below is computed by `scripts/curvature_power.py`** — the location *and* the curvature there. Run it to
 reproduce the table, the septic points and the scan; `--check` fails if the two
 numbers this page once got wrong (the \(n = 4\) row, the superellipse maximum)
 drift back.
@@ -48,17 +48,17 @@ y_{\max} = x_{\max}^{\,n}.
 
 ### Numerical values
 
-| \(n\) | \(x_{\max}\) | \(y_{\max}\) | Point |
-|------:|------------:|------------:|------|
-| 2 | 0.000 | 0.000 | \((0.000, 0.000)\) |
-| 3 | 0.386 | 0.058 | \((0.386, 0.058)\) |
-| 4 | 0.511 | 0.068 | \((0.511, 0.068)\) |
-| 5 | 0.583 | 0.067 | \((0.583, 0.067)\) |
-| 6 | 0.631 | 0.063 | \((0.631, 0.063)\) |
-| 7 | 0.668 | 0.059 | \((0.668, 0.059)\) |
-| 10 | 0.738 | 0.048 | \((0.738, 0.048)\) |
-| 20 | 0.837 | 0.028 | \((0.837, 0.028)\) |
-| 100 | 0.952 | 0.007 | \((0.952, 0.007)\) |
+| \(n\) | \(x_{\max}\) | \(y_{\max}\) | \(\kappa_{\max}\) | Point |
+|------:|------------:|------------:|-------------:|------|
+| 2 | 0.000 | 0.000 | 2.000 | $(0.000, 0.000)$ |
+| 3 | 0.386 | 0.058 | 1.762 | $(0.386, 0.058)$ |
+| 4 | 0.511 | 0.068 | 2.151 | $(0.511, 0.068)$ |
+| 5 | 0.583 | 0.067 | 2.573 | $(0.583, 0.067)$ |
+| 6 | 0.631 | 0.063 | 2.998 | $(0.631, 0.063)$ |
+| 7 | 0.668 | 0.059 | 3.421 | $(0.668, 0.059)$ |
+| 10 | 0.738 | 0.048 | 4.672 | $(0.738, 0.048)$ |
+| 20 | 0.837 | 0.028 | 8.729 | $(0.837, 0.028)$ |
+| 100 | 0.952 | 0.007 | 40.061 | $(0.952, 0.007)$ |
 
 The \(y\)-coordinate stays small because \(x^n\) is still tiny at the
 maximum-curvature \(x\). The point is close to the \(x\)-axis.
