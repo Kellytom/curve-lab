@@ -4,4 +4,4 @@ You are porting the book gallery into the Astro app: one page that lists the sta
 Proves: the Astro gallery lists every starred plate and both simple designs from those files, a test fails when one is missing, the generated page is removed or redirected, and the app build and the suite are green.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-17, commit 122ee13.
+Source: state/HANDOFF-int.md, 2026-11-17, commit abd83f6.
