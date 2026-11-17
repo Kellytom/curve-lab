@@ -19,9 +19,16 @@ Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long
 | path | what it is |
 |---|---|
 | `curve_lab/` | the engine: `Design`, `Segment`, `Piece`, clearance, fillet, junction |
+| `curve_lab/measure.py` | **the one exact core**: grid, bend, arc, inflections, closest, in `Fraction` |
 | `web/server.py` | the app: auth, rate limit, `/api/render` |
 | `workbench/` | the input pages, one per idea; each has one generator |
+| `workbench/ph_math.js`, `workbench/ph_nth_panels.js` | the shared page JavaScript, written once by `scripts/build-pages.py`; the pages load these, they do not inline them |
+| `workbench/operator-list.json` | every stored curve as a button, written by `scripts/operator_list.py`; a browser with no list is seeded from it |
 | `scripts/` | the generators, the doc builders, and the checkers |
+| `scripts/build-pages.py` | rebuilds all eight pages that load the shared JavaScript, then the hub |
+| `scripts/exact_numbers.py` | audits every stored record's grid and bend against `curve_lab/measure.py` |
+| `scripts/crossing_audit.py` | audits every stored curve's crossing-pair count |
+| `scripts/check-saved.mjs`, `scripts/check-rails.mjs` | the headless page checks; run with `scripts/test.py --browser` |
 | `docs/` | prose that mkdocs builds; `docs/PH-INTEGER.md` and `docs/HUB.md` are generated |
 | `goals.md` | the long arc: plant-forms → ornament-forms; endings, lattice marks, branches |
 | `state/` | `HANDOFF-int.md`, `ACHIEVEMENTS-int.md`, `BACKLOG-int.md`, `monitor.log` |
@@ -64,10 +71,28 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 
 | command | what it proves |
 |---|---|
-| `scripts/recheck.py` | fourteen claims re-derived from scratch; writes `state/ACHIEVEMENTS-int.md` |
-| `scripts/test.py` | the fast suite (~17 s); `--full` for everything (~42 s) |
+| `scripts/recheck.py` | the claims re-derived from scratch; writes `state/ACHIEVEMENTS-int.md` |
+| `scripts/test.py` | the fast suite; `--full` for everything, `--browser` to add the page checks |
+| `scripts/build-pages.py` | rebuilds every page that loads the shared JavaScript — **run after editing `ph_math.js` or `ph_nth_panels.js`** |
+| `scripts/exact_numbers.py` | every stored grid and bend equals the exact core (`--write` repairs) |
+| `scripts/crossing_audit.py` | every stored crossing count equals the router (`--write` repairs) |
+| `scripts/operator_list.py` | rebuilds the button list from the stored records |
+| `scripts/check-saved.mjs` | the saved-curve buttons seed, repair, undo and load |
+| `scripts/check-rails.mjs` | rails draws, and the complementary controls exist, on five pages |
 | `scripts/hub.py` | rebuilds the hub and every page's bar — **run after any page generator** |
 | `scripts/monitor.py` | tells a local failure from a network one |
+
+## Working rules learned the hard way
+
+- **The page is the evidence, not the source.** A control that is correct in
+  `scripts/` and stale in the browser looks broken; `scripts/build-pages.py`
+  plus `tests/test_page_assets.py` exist for that fault.
+- **A failed read must never become a write.** The saved-curve store keeps a
+  backup and a mirror, and refuses to treat a damaged value as an empty list.
+- **Tag a page that works.** `page-works-2026-11-16` is the first; a `git tag`
+  after a verified page is cheaper than re-fixing it.
+- **One number, one definition.** Grid is grid; the crossing count is *crossing
+  pairs*, not places; a triple point is three pairs.
 
 ## One server
 

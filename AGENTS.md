@@ -109,6 +109,14 @@ and documentation alike.
 |---|---|
 | `web/server.py` | stdlib server, auth, rate limit, `/api/render` |
 | `curve_lab/model.py` | `Design` and `Segment` |
+| `curve_lab/measure.py` | **the one exact core**: grid, bend, arc, inflections, closest in `Fraction` |
+| `scripts/build-pages.py` | rebuilds the eight pages that load the shared JS, then the hub |
+| `scripts/exact_numbers.py` | audits every record's grid and bend against `curve_lab/measure.py` |
+| `scripts/crossing_audit.py` | audits every record's crossing-pair count |
+| `scripts/operator_list.py` | writes `workbench/operator-list.json` from the stored records |
+| `scripts/check-saved.mjs` | the saved-curve buttons: seed, repair, undo, load (headless) |
+| `scripts/check-rails.mjs` | rails draws and the complementary controls exist (headless) |
+| `workbench/ph_math.js`, `workbench/ph_nth_panels.js` | the shared page JS, written once by `build-pages.py`; pages load them |
 | `curve_lab/piece.py` | `Piece`, `Trace`, multi-trace render (W01) |
 | `curve_lab/clearance.py` | min-gap and crossing report; `piece_clearance()` |
 | `curve_lab/fillet.py` | tangent-arc fillet at a corner (`corner_fillet`) |
@@ -155,7 +163,12 @@ Start the one server if it is not already up (this is idempotent — it says
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
 .venv/bin/python scripts/test.py --slim          # tight loop: engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
+.venv/bin/python scripts/test.py --browser       # the gate plus the headless page checks
 .venv/bin/python scripts/test.py --full          # before a push
+.venv/bin/python scripts/build-pages.py          # rebuild every page that loads the shared JS
+.venv/bin/python scripts/exact_numbers.py        # audit stored grid/bend; --write repairs
+.venv/bin/python scripts/crossing_audit.py       # audit stored crossing counts; --write repairs
+.venv/bin/python scripts/operator_list.py        # rebuild the button list from the records
 node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
 .venv/bin/mkdocs serve                          # the docs book, live on :8000
 .venv/bin/mkdocs build                          # static output into site/

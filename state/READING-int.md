@@ -15,7 +15,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 
 | # | file | lines | why |
 |---|---|---|---|
-| 1 | `LTMemory-int.md` | 171 | the map, the invariants, what is settled and what is open |
+| 1 | `LTMemory-int.md` | 196 | the map, the invariants, what is settled and what is open |
 | 2 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 3 | `state/HANDOFF-int.md` | 2,415 | current truth — **read the tail (~80 lines), not the whole file** |
 | 4 | `TODO.md` | 593 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
