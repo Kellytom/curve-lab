@@ -135,6 +135,48 @@ Three things exist: the tunnel, its DNS record, and the local config.
 | works on the Mac, not on the phone | the URL is the LAN one, or DNS has not propagated (a minute or two) | open the `https://` hostname, not the IP |
 | tunnel starts, then dies | port 4321 was up at start and gone later | start the app first, then the tunnel |
 | `login` waits, then `Failed to fetch resource` | the account has no zone to authorise against | add a domain to Cloudflare, then run `cloudflared tunnel login` again |
+| `curl` says *Could not resolve host*, the phone works | a stale negative DNS entry on this Mac | `sudo killall -HUP mDNSResponder`, or just use the phone |
+| the address changed after a restart | the quick tunnel takes a new name each start | `scripts/service.sh url`; a named tunnel stops this |
+
+## Ordinary and robust: the login services
+
+Run both as `launchd` agents and they start at login, restart when they fall
+over, and stop belonging to a terminal window. The quick tunnel needs no domain
+for this.
+
+```sh
+scripts/service.sh install
+scripts/service.sh status
+scripts/service.sh url          # prints today's address, and copies it
+```
+
+`install` writes two agents — `com.curvelab.app` (the Astro dev server on
+:4321) and `com.curvelab.tunnel` (`cloudflared tunnel --url`, forwarding to it)
+— then starts them. `status` prints each one's state and pid, the local HTTP
+code and the phone's. Logs are `/tmp/curve-lab-app.log` and
+`/tmp/curve-lab-tunnel.log`.
+
+```sh
+scripts/service.sh restart      # kick both
+scripts/service.sh log          # tail both logs
+scripts/service.sh uninstall    # stop and remove both agents
+```
+
+**What "robust" does and does not buy.** `launchd` restarts a process that dies;
+it starts both at login; it survives this terminal and any agent session ending.
+It does **not** survive the Mac sleeping or shutting down, and it does not keep
+the address: the quick tunnel takes a new name every time its process restarts,
+so re-run `scripts/service.sh url` after a restart. A named tunnel (above)
+removes that last wrinkle once there is a domain.
+
+**If this Mac cannot resolve the address.** A quick-tunnel name looked up before
+Cloudflare has created it is cached as "does not exist" by macOS, so `curl` says
+*Could not resolve host* while the tunnel is fine and the phone loads it.
+`status` pins the address and says which case you are in. To clear the cache:
+
+```sh
+sudo killall -HUP mDNSResponder
+```
 
 ## What this is not
 
@@ -154,7 +196,9 @@ Three things exist: the tunnel, its DNS record, and the local config.
 
 | path | what it is | committed? |
 |---|---|---|
-| `scripts/tunnel.sh` | start, stop, status, log | yes |
+| `scripts/tunnel.sh` | named-tunnel start, stop, status, log | yes |
+| `scripts/service.sh` | login services for the app and the quick tunnel | yes |
+| `~/Library/LaunchAgents/com.curvelab.*.plist` | the two agents | **no** |
 | `~/.cloudflared/config.yml` | tunnel name, key path, hostname | **no** |
 | `~/.cloudflared/cert.pem` | account credential from `login` | **no** |
 | `~/.cloudflared/<UUID>.json` | tunnel key from `create` | **no** |

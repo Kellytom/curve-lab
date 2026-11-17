@@ -27,6 +27,15 @@ class TunnelDocTest(unittest.TestCase):
         self.assertIn("scripts/tunnel.sh start", text)
         self.assertIn("scripts/tunnel.sh stop", text)
 
+    def test_the_service_script_is_runnable(self):
+        script = ROOT / "scripts" / "service.sh"
+        self.assertTrue(script.exists(), "scripts/service.sh is missing")
+        self.assertTrue(script.stat().st_mode & 0o111, "service.sh is not executable")
+        result = subprocess.run(["sh", "-n", str(script)], capture_output=True, text=True)
+        self.assertEqual(0, result.returncode, result.stderr)
+        text = (ROOT / "docs" / "TUNNEL.md").read_text(encoding="utf-8")
+        self.assertIn("scripts/service.sh install", text)
+
     def test_no_tunnel_secret_is_committed(self):
         tracked = subprocess.run(
             ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout

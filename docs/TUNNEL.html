@@ -152,8 +152,47 @@ uses it again.</p>
 <td>the account has no zone to authorise against</td>
 <td>add a domain to Cloudflare, then run <code>cloudflared tunnel login</code> again</td>
 </tr>
+<tr>
+<td><code>curl</code> says <em>Could not resolve host</em>, the phone works</td>
+<td>a stale negative DNS entry on this Mac</td>
+<td><code>sudo killall -HUP mDNSResponder</code>, or just use the phone</td>
+</tr>
+<tr>
+<td>the address changed after a restart</td>
+<td>the quick tunnel takes a new name each start</td>
+<td><code>scripts/service.sh url</code>; a named tunnel stops this</td>
+</tr>
 </tbody>
 </table>
+<h2 id="ordinary-and-robust-the-login-services">Ordinary and robust: the login services</h2>
+<p>Run both as <code>launchd</code> agents and they start at login, restart when they fall
+over, and stop belonging to a terminal window. The quick tunnel needs no domain
+for this.</p>
+<pre><code class="language-sh">scripts/service.sh install
+scripts/service.sh status
+scripts/service.sh url          # prints today's address, and copies it
+</code></pre>
+<p><code>install</code> writes two agents — <code>com.curvelab.app</code> (the Astro dev server on
+:4321) and <code>com.curvelab.tunnel</code> (<code>cloudflared tunnel --url</code>, forwarding to it)
+— then starts them. <code>status</code> prints each one's state and pid, the local HTTP
+code and the phone's. Logs are <code>/tmp/curve-lab-app.log</code> and
+<code>/tmp/curve-lab-tunnel.log</code>.</p>
+<pre><code class="language-sh">scripts/service.sh restart      # kick both
+scripts/service.sh log          # tail both logs
+scripts/service.sh uninstall    # stop and remove both agents
+</code></pre>
+<p><strong>What "robust" does and does not buy.</strong> <code>launchd</code> restarts a process that dies;
+it starts both at login; it survives this terminal and any agent session ending.
+It does <strong>not</strong> survive the Mac sleeping or shutting down, and it does not keep
+the address: the quick tunnel takes a new name every time its process restarts,
+so re-run <code>scripts/service.sh url</code> after a restart. A named tunnel (above)
+removes that last wrinkle once there is a domain.</p>
+<p><strong>If this Mac cannot resolve the address.</strong> A quick-tunnel name looked up before
+Cloudflare has created it is cached as "does not exist" by macOS, so <code>curl</code> says
+<em>Could not resolve host</em> while the tunnel is fine and the phone loads it.
+<code>status</code> pins the address and says which case you are in. To clear the cache:</p>
+<pre><code class="language-sh">sudo killall -HUP mDNSResponder
+</code></pre>
 <h2 id="what-this-is-not">What this is not</h2>
 <ul>
 <li><strong>Not hosting.</strong> Mac asleep, URL down. For a page that is always up, the app
@@ -180,8 +219,18 @@ uses it again.</p>
 <tbody>
 <tr>
 <td><code>scripts/tunnel.sh</code></td>
-<td>start, stop, status, log</td>
+<td>named-tunnel start, stop, status, log</td>
 <td>yes</td>
+</tr>
+<tr>
+<td><code>scripts/service.sh</code></td>
+<td>login services for the app and the quick tunnel</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><code>~/Library/LaunchAgents/com.curvelab.*.plist</code></td>
+<td>the two agents</td>
+<td><strong>no</strong></td>
 </tr>
 <tr>
 <td><code>~/.cloudflared/config.yml</code></td>
@@ -205,5 +254,5 @@ uses it again.</p>
 </tr>
 </tbody>
 </table>
-<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: cd9a904c0c7b8bdeea19994a94c09b135d01460d · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: b898c5a3c2b696b4ce157be7e8814da8b44497d5 · do not edit this HTML by hand.</p>
 </main></body></html>
