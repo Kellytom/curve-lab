@@ -1,5 +1,11 @@
 # Attribution
 
+Every tracked image under `reference/` has a licence record in
+`reference/manifest.json` or `reference/fleur/svg/manifest.json`;
+`tests/test_reference_licences.py` fails when one is missing. The
+working inbox (`reference/inbox/`, 13 GB) is gitignored and is not part
+of the repository.
+
 ## Vendored and compiled
 
 **Clothoids**, by Enrico Bertolazzi and Marco Frego. The geometry engine:

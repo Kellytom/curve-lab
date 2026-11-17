@@ -77,16 +77,25 @@ The operator's plan: publish the code, the ideas and the images. Each line below
 is a thing that blocks a public repo or a public URL; none of them changes the
 curves. Do these in order and do not guess the one decision.
 
-- [ ] **The licence, stated once.** The package is MIT (`PROJECT.md`, the README)
+- [x] **The licence, stated once (2026-11-17).** `LICENSE` is MIT; the vendored
+  Clothoids is BSD-2 with `ATTRIBUTION.md`. Checked, not changed. The package is MIT (`PROJECT.md`, the README)
   and the vendored Clothoids is BSD-2 with `ATTRIBUTION.md`; confirm every
   third-party file in `vendor/` and `reference/external/` is accounted for, and
   put the MIT text at `LICENSE` (check it is there) before the repo is public.
-- [ ] **Images: rights and credit.** `reference/` holds downloaded reference
+- [x] **Images: rights and credit (2026-11-17).** All 16 tracked reference
+  images have a licence record; the three fleur PNGs point at the SVG they were
+  rendered from. `reference/` is gitignored except the licensed files, so the
+  13 GB inbox cannot reach a public clone. `tests/test_reference_licences.py`
+  keeps it true. Original note: `reference/` holds downloaded reference
   images, `founder/screens/` holds screenshots, and `docs/` embeds figures.
   Record each image's source and licence in `reference/manifest.json`, or move
   the ones without a licence out of the public tree. "Public images" is the
   first real risk here.
-- [ ] **Secrets: a history scan, not a grep of the working tree.** The auth
+- [x] **Secrets: a history scan, not a grep of the working tree (2026-11-17).**
+  Scanned every commit for key-shaped strings and for `.env`/`.pem`/`key` files.
+  Three matches, all the secret's *name* in deploy docs
+  (`CLOTHOID_TOKEN=clothoid-token:latest`); no key value, no key file ever
+  committed. Original note: The auth
   token lives in `~/.config/<app>/token` and Secret Manager and must never be in
   the repo or its history. Scan the history (a one-off tool run is fine) and say
   what was checked.

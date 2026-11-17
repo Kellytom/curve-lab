@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:72.0%}
+.fill{height:100%;background:#8c6a21;width:73.8%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">121 / 168 done · 72% · read-only twin of
+<div class="count">124 / 168 done · 74% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -73,12 +73,12 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>leg to a steep leg — with the join angle printed.</p>
 <h2>Going public — 2026-11-17</h2>
 <p>The operator&#x27;s plan: publish the code, the ideas and the images. Each line below is a thing that blocks a public repo or a public URL; none of them changes the curves. Do these in order and do not guess the one decision.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>The licence, stated once.</strong> The package is MIT (<code>PROJECT.md</code>, the README)</span></label>
-<p>and the vendored Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>; confirm every third-party file in <code>vendor/</code> and <code>reference/external/</code> is accounted for, and put the MIT text at <code>LICENSE</code> (check it is there) before the repo is public.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Images: rights and credit.</strong> <code>reference/</code> holds downloaded reference</span></label>
-<p>images, <code>founder/screens/</code> holds screenshots, and <code>docs/</code> embeds figures. Record each image&#x27;s source and licence in <code>reference/manifest.json</code>, or move the ones without a licence out of the public tree. &quot;Public images&quot; is the first real risk here.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Secrets: a history scan, not a grep of the working tree.</strong> The auth</span></label>
-<p>token lives in <code>~/.config/&lt;app&gt;/token</code> and Secret Manager and must never be in the repo or its history. Scan the history (a one-off tool run is fine) and say what was checked.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>The licence, stated once (2026-11-17).</strong> <code>LICENSE</code> is MIT; the vendored</span></label>
+<p>Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>. Checked, not changed. The package is MIT (<code>PROJECT.md</code>, the README) and the vendored Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>; confirm every third-party file in <code>vendor/</code> and <code>reference/external/</code> is accounted for, and put the MIT text at <code>LICENSE</code> (check it is there) before the repo is public.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Images: rights and credit (2026-11-17).</strong> All 16 tracked reference</span></label>
+<p>images have a licence record; the three fleur PNGs point at the SVG they were rendered from. <code>reference/</code> is gitignored except the licensed files, so the 13 GB inbox cannot reach a public clone. <code>tests/test_reference_licences.py</code> keeps it true. Original note: <code>reference/</code> holds downloaded reference images, <code>founder/screens/</code> holds screenshots, and <code>docs/</code> embeds figures. Record each image&#x27;s source and licence in <code>reference/manifest.json</code>, or move the ones without a licence out of the public tree. &quot;Public images&quot; is the first real risk here.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Secrets: a history scan, not a grep of the working tree (2026-11-17).</strong></span></label>
+<p>Scanned every commit for key-shaped strings and for <code>.env</code>/<code>.pem</code>/<code>key</code> files. Three matches, all the secret&#x27;s *name* in deploy docs (<code>CLOTHOID_TOKEN=clothoid-token:latest</code>); no key value, no key file ever committed. Original note: The auth token lives in <code>~/.config/&lt;app&gt;/token</code> and Secret Manager and must never be in the repo or its history. Scan the history (a one-off tool run is fine) and say what was checked.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Auth: the one decision nobody has made.</strong> <code>web/server.py</code> is HTTP Basic</span></label>
 <p>on everything except <code>/health</code>; the Astro app has none. Public URL means either an open read (no auth) or a login for the lab only. Write the answer here before deploying; do not pick it quietly.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>State files are written for us, not for strangers.</strong> <code>state/*.md</code> is</span></label>

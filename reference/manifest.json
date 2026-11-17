@@ -32,7 +32,7 @@
   "title": "File:Fleur-de-Lis.jpg",
   "page": "https://commons.wikimedia.org/wiki/File:Fleur-de-Lis.jpg",
   "licence": "CC BY 4.0",
-  "artist": "Miguel Angel Oma\u00f1a Rojas",
+  "artist": "Miguel Angel Omaña Rojas",
   "bytes": 581298
  },
  {
@@ -88,5 +88,35 @@
   "licence": "CC BY-SA 4.0",
   "artist": "Noedlh",
   "bytes": 55868
+ },
+ {
+  "subject": "fleur",
+  "file": "fleur/png/Blason-gueules-3-fleurs-de-lys-argent.png",
+  "title": "File:Blason-gueules-3-fleurs-de-lys-argent.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Blason-gueules-3-fleurs-de-lys-argent.svg",
+  "licence": "CC BY-SA 4.0",
+  "derived_from": "reference/fleur/svg/Blason-gueules-3-fleurs-de-lys-argent.svg",
+  "note": "PNG render of the SVG above; same licence, no new work",
+  "bytes": 151816
+ },
+ {
+  "subject": "fleur",
+  "file": "fleur/png/Blason-gueules-3-fleurs-de-lys-or.png",
+  "title": "File:Blason-gueules-3-fleurs-de-lys-or.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Blason-gueules-3-fleurs-de-lys-or.svg",
+  "licence": "CC BY-SA 4.0",
+  "derived_from": "reference/fleur/svg/Blason-gueules-3-fleurs-de-lys-or.svg",
+  "note": "PNG render of the SVG above; same licence, no new work",
+  "bytes": 153959
+ },
+ {
+  "subject": "fleur",
+  "file": "fleur/png/Fleur_de_lys__or_.png",
+  "title": "File:Fleur de lys (or).png",
+  "page": "https://commons.wikimedia.org/wiki/File:Fleur_de_lys_(or).svg",
+  "licence": "CC BY 1.0",
+  "derived_from": "reference/fleur/svg/Fleur_de_lys__or_.svg",
+  "note": "PNG render of the SVG above; same licence, no new work",
+  "bytes": 116006
  }
 ]
