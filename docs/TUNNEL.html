@@ -43,6 +43,13 @@ nothing to serve. Stop it with Ctrl-C, or</p>
 </code></pre>
 <p>The address dies with the process. That is the whole trade: instant, free,
 temporary. For a name that lasts, do the one-time setup below.</p>
+<p><strong>Before you start: the account needs a zone.</strong> <code>cloudflared tunnel login</code> shows
+a list of domains to authorise against. With no domain on the account the list
+is empty, the login sits "Waiting for login…" for about eight minutes and then
+fails with <code>Failed to fetch resource</code> — it has nothing to authorise, and no
+<code>cert.pem</code> is written (or your browser downloads one, which you would have to
+copy to <code>~/.cloudflared/cert.pem</code> by hand). Add a domain to the Cloudflare
+account first — the free plan is enough, and Registrar sells one at cost.</p>
 <h2 id="one-time-setup">One-time setup</h2>
 <p>Four commands, in order, from the repo root.</p>
 <pre><code class="language-sh">~/bin/cloudflared tunnel login
@@ -140,6 +147,11 @@ uses it again.</p>
 <td>port 4321 was up at start and gone later</td>
 <td>start the app first, then the tunnel</td>
 </tr>
+<tr>
+<td><code>login</code> waits, then <code>Failed to fetch resource</code></td>
+<td>the account has no zone to authorise against</td>
+<td>add a domain to Cloudflare, then run <code>cloudflared tunnel login</code> again</td>
+</tr>
 </tbody>
 </table>
 <h2 id="what-this-is-not">What this is not</h2>
@@ -193,5 +205,5 @@ uses it again.</p>
 </tr>
 </tbody>
 </table>
-<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: 1a7c080875d681ab59c530dfcfa1ea9618e94471 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: cd9a904c0c7b8bdeea19994a94c09b135d01460d · do not edit this HTML by hand.</p>
 </main></body></html>

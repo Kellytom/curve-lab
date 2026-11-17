@@ -30,6 +30,14 @@ pkill -f "cloudflared tunnel --url"
 The address dies with the process. That is the whole trade: instant, free,
 temporary. For a name that lasts, do the one-time setup below.
 
+**Before you start: the account needs a zone.** `cloudflared tunnel login` shows
+a list of domains to authorise against. With no domain on the account the list
+is empty, the login sits "Waiting for login…" for about eight minutes and then
+fails with `Failed to fetch resource` — it has nothing to authorise, and no
+`cert.pem` is written (or your browser downloads one, which you would have to
+copy to `~/.cloudflared/cert.pem` by hand). Add a domain to the Cloudflare
+account first — the free plan is enough, and Registrar sells one at cost.
+
 ## One-time setup
 
 Four commands, in order, from the repo root.
@@ -126,6 +134,7 @@ Three things exist: the tunnel, its DNS record, and the local config.
 | works at home, not on the work Wi-Fi | the phone cannot see the Mac on that network — the tunnel is the fix, not the cause | check `status`, then reload the phone |
 | works on the Mac, not on the phone | the URL is the LAN one, or DNS has not propagated (a minute or two) | open the `https://` hostname, not the IP |
 | tunnel starts, then dies | port 4321 was up at start and gone later | start the app first, then the tunnel |
+| `login` waits, then `Failed to fetch resource` | the account has no zone to authorise against | add a domain to Cloudflare, then run `cloudflared tunnel login` again |
 
 ## What this is not
 
