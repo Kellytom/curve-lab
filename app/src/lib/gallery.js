@@ -15,7 +15,7 @@ const require = createRequire(import.meta.url);
 const APP_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 export const PLATE_ID = /^[a-z0-9][a-z0-9-]*-[0-9]+-t-exp-c-[0-9]{4}$/;
 
-export function galleryRoot(root) {
+export function repoRoot(root) {
   const chosen = root || process.env.CURVE_LAB_ROOT;
   if (chosen) return path.resolve(chosen);
   // The built server runs from app/ and the tests from the repo, so look for the
@@ -86,7 +86,7 @@ function plateItem(plate, rows, plateDir, composePlate) {
 }
 
 export function buildGallery({ root, starred: givenStarred } = {}) {
-  const repo = galleryRoot(root);
+  const repo = repoRoot(root);
   const manifest = readJson(path.join(repo, "book", "plates.json"), { plates: [] });
   const curves = readJson(path.join(repo, "workbench", "real-curves.json"), { curves: [] });
   const rows = Object.fromEntries((curves.curves || []).map((row) => [row.name, row]));

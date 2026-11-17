@@ -7,7 +7,7 @@
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { galleryRoot, PLATE_ID } from "../../../lib/gallery.js";
+import { repoRoot, PLATE_ID } from "../../../lib/gallery.js";
 
 const PLATE_DIR = "book/plates";
 
@@ -16,7 +16,7 @@ export const GET = async ({ params }) => {
   if (!PLATE_ID.test(id || "")) {
     return new Response("bad plate id\n", { status: 400 });
   }
-  const dir = path.join(galleryRoot(), PLATE_DIR);
+  const dir = path.join(repoRoot(), PLATE_DIR);
   const file = path.resolve(dir, `${id}.png`);
   if (path.dirname(file) !== path.resolve(dir)) {
     return new Response("bad plate id\n", { status: 400 });

@@ -31,7 +31,7 @@ a{color:#8c6a21}
 .app-nav a:hover{text-decoration:underline}
 </style>
 </head><body>
-<nav class="app-nav"><a href="/">the lab</a> · this page is the book gallery ·
+<nav class="app-nav"><a href="/">the hub</a> · <a href="/lab">the lab</a> · this page is the book gallery ·
   <em>plates from <code>book/plates.json</code> and <code>workbench/starred.json</code></em></nav>
 <main>
 <h1>Book plates — temporary export</h1>
@@ -52,7 +52,7 @@ a{color:#8c6a21}
       <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
     </figure>
   )) : (
-    <p class="empty-state">No stars yet. Open the <a href="/">Astro lab</a>, set the design,
+    <p class="empty-state">No stars yet. Open the <a href="/lab">Astro lab</a>, set the design,
       press <b>star this design</b>, then <b>save to workbench</b>; the next plate export
       puts it here.</p>
   )}

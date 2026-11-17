@@ -1,0 +1,141 @@
+---
+import curves from "../../../workbench/real-curves.json";
+import plateMathUrl from "../../../workbench/plate_math.js?url";
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Square and frame lab — Astro</title>
+<style is:global>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:28px 22px 60px}
+h1{font-size:24px;margin:0 0 4px}
+.lead{color:#8c6a21;margin:0 0 20px}
+.wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:start}
+.controls{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px}
+.controls label{display:block;margin:0 0 12px;font-size:13px}
+.controls .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.controls input[type=range]{width:100%;margin:4px 0 0}
+.controls select,.controls input[type=text]{width:100%;padding:4px;
+  font:13px ui-monospace,Menlo,monospace;border:1px solid #d8ccae;background:#fff}
+.controls .check{display:flex;gap:8px;align-items:center}
+.controls button{width:100%;margin:0 0 8px;padding:6px;font:12px ui-monospace,Menlo,monospace;
+  border:1px solid #d8ccae;background:#f6f1e4;color:#2e2413;cursor:pointer}
+.controls .star-row{display:flex;justify-content:space-between;align-items:center;
+  font:11px ui-monospace,Menlo,monospace;color:#555;margin:2px 0}
+.controls .star-row button{width:auto;margin:0;padding:1px 6px}
+.controls .empty{font:11px ui-monospace,Menlo,monospace;color:#999;margin:4px 0 0}
+.stage{background:#fff;border:1px solid #d8ccae;padding:8px}
+.stage svg{display:block;width:100%;height:auto}
+#sf-readout{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin:0 0 8px}
+.note{font-size:12px;color:#7b6c4e;margin-top:16px}
+.curves-title{font-size:17px;margin:36px 0 4px}
+.curve-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.curve-card{display:block;background:#fffdf7;border:1px solid #d8ccae;padding:6px;
+  text-align:left;cursor:pointer;font:10px/1.4 ui-monospace,Menlo,monospace;color:#555}
+.curve-card svg{display:block;width:100%;height:auto;margin-bottom:4px}
+.curve-card i{color:#999;font-style:normal}
+.curve-card:hover{border-color:#b58312}
+code{font:12px ui-monospace,Menlo,monospace}
+.app-nav{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding:8px 22px;
+  background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,Menlo,monospace;
+  color:#7b6c4e;max-width:1120px;margin:0 auto}
+.app-nav a{color:#8c6a21;text-decoration:none;font-weight:600}
+.app-nav a:hover{text-decoration:underline}
+.app-nav em{margin-left:auto;font-style:normal;color:#999}
+</style>
+</head><body>
+<nav class="app-nav"><a href="/">the hub</a> · <a href="/book">the book gallery</a> ·
+  <em>this page is the lab</em></nav>
+
+<h1>Square and frame lab</h1>
+<p class="lead">The saved curves, on 90° edges. The leg bisects the corner
+(45°) for a cross or a frame; an arch keeps its natural legs. Every copy carries
+its character rails and is closed at the ends.</p>
+
+<div class="wrap">
+<div class="controls">
+  <label>curve a <select id="sf-a"></select></label>
+  <label>curve b <select id="sf-b"></select></label>
+  <label>
+    <span class="row"><span>rail width</span><b id="sf-width-v">1.5%</b></span>
+    <input id="sf-width" type="range" min="0.5" max="6" step="0.1" value="1.5">
+  </label>
+  <label>
+    <span class="row"><span>plus / minus</span><b id="sf-plus-v">2.0 / 2.0</b></span>
+    <input id="sf-plus" type="range" min="0" max="3" step="0.1" value="2">
+    <input id="sf-minus" type="range" min="0" max="3" step="0.1" value="2">
+  </label>
+  <label>profile
+    <select id="sf-profile">
+      <option value="bow">bow</option>
+      <option value="s">s</option>
+      <option value="taper">taper</option>
+    </select>
+  </label>
+  <label>form
+    <select id="sf-form">
+      <option value="cross">cross</option>
+      <option value="leaf">leaf</option>
+      <option value="arch">arch</option>
+      <option value="single">single curve</option>
+    </select>
+  </label>
+  <label>
+    <span class="row"><span>curves across</span><b id="sf-per-w-v">3</b></span>
+    <input id="sf-per-w" type="range" min="1" max="6" step="1" value="3">
+  </label>
+  <label>
+    <span class="row"><span>curves down</span><b id="sf-per-h-v">3</b></span>
+    <input id="sf-per-h" type="range" min="1" max="6" step="1" value="3">
+  </label>
+  <label>frame pattern (a/b)
+    <input id="sf-pattern" type="text" value="aba" maxlength="8" spellcheck="false">
+  </label>
+  <label>
+    <span class="row"><span>leg angle</span><b id="sf-leg-v">45°</b></span>
+    <input id="sf-leg" type="range" min="20" max="70" step="1" value="45">
+  </label>
+  <label class="check"><input id="sf-natural" type="checkbox"> natural legs
+    (for the arch)</label>
+  <label>
+    <span class="row"><span>print size</span><b id="sf-size-v">4.00 in</b></span>
+    <input id="sf-size" type="range" min="1" max="4" step="0.25" value="4">
+  </label>
+  <label>
+    <span class="row"><span>drawing fills</span><b id="sf-fill-v">100%</b></span>
+    <input id="sf-fill" type="range" min="0.5" max="1" step="0.05" value="1">
+  </label>
+  <label class="check"><input id="sf-alternate" type="checkbox">
+    flip every other copy</label>
+  <label class="check"><input id="sf-frame" type="checkbox" checked>
+    show the frame</label>
+  <button id="sf-star" type="button">★ star this design</button>
+  <button id="sf-download" type="button">download starred.json</button>
+  <button id="sf-save" type="button">save to workbench</button>
+  <div id="sf-save-status"></div>
+  <div id="sf-stars"></div>
+</div>
+<div>
+  <div id="sf-readout">loading…</div>
+  <div class="stage"><svg id="sf-stage" viewBox="0 0 288 288" role="img"
+    aria-label="saved curves on the edges of a square or rectangle"></svg></div>
+</div>
+</div>
+
+<p class="note">The page loads the same <code>plate_math.js</code> the book
+plates use and the same saved set in <code>real-curves.json</code>. A rail that
+would fold is shrunk, and a plate at the floor is drawn spine-only. The stroke
+floor is <strong>1 point</strong> at 1–4 inches.</p>
+<h2 class="curves-title">The curves</h2>
+<p class="note">Click a curve to load it into curve a. Each thumbnail is the
+spine with its character rails, closed at the ends; the small word under the
+name is its measured symmetry.</p>
+<div id="sf-gallery" class="curve-grid"></div>
+<p class="note">Astro page: the maths is <code>plate_math.js</code>, the save is
+<code>/api/stars</code>.</p>
+
+<script type="application/json" id="curve-data" set:html={JSON.stringify(curves)}></script>
+<script is:inline src={plateMathUrl}></script>
+<script>import "../scripts/lab.js";</script>
+</body></html>

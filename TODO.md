@@ -52,6 +52,12 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   writes it. 7 app tests (one lists every plate from the files).
 - [x] **The gate:** the two 42 s sandbox page modules moved to `--full`; the
   default gate is 69 s on this loaded machine (91 s before), `--slim` about 2 s.
+- [x] **The hub (2026-11-17):** `/` is a scrollable hub of every page — the lab
+  and book first, then the 86 manifest pages by intent, then any workbench HTML
+  the manifest misses — each live in an iframe. The shell is the admin-dashboard
+  layout in curve-lab's cream and gold; `src/lib/pages.js` builds the list from
+  `manifest.json` + the files on disk; `src/pages/pages/[...file].js` serves the
+  workbench files so previews are always current. 4 hub tests.
 - [x] **The Astro app:** `app/` runs Astro 5.18 + `@astrojs/node` on `:4321`;
   the lab page imports the shared `plate_math.js` and `real-curves.json`, stars
   the current design, and **save to workbench** writes `workbench/starred.json`
@@ -64,6 +70,46 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   found) with rails and the operator's category, click to load into curve a.
 - [ ] **The chain form (B8):** two curves end to end, not flipped — a shallow
   leg to a steep leg — with the join angle printed.
+
+## Going public — 2026-11-17
+
+The operator's plan: publish the code, the ideas and the images. Each line below
+is a thing that blocks a public repo or a public URL; none of them changes the
+curves. Do these in order and do not guess the one decision.
+
+- [ ] **The licence, stated once.** The package is MIT (`PROJECT.md`, the README)
+  and the vendored Clothoids is BSD-2 with `ATTRIBUTION.md`; confirm every
+  third-party file in `vendor/` and `reference/external/` is accounted for, and
+  put the MIT text at `LICENSE` (check it is there) before the repo is public.
+- [ ] **Images: rights and credit.** `reference/` holds downloaded reference
+  images, `founder/screens/` holds screenshots, and `docs/` embeds figures.
+  Record each image's source and licence in `reference/manifest.json`, or move
+  the ones without a licence out of the public tree. "Public images" is the
+  first real risk here.
+- [ ] **Secrets: a history scan, not a grep of the working tree.** The auth
+  token lives in `~/.config/<app>/token` and Secret Manager and must never be in
+  the repo or its history. Scan the history (a one-off tool run is fine) and say
+  what was checked.
+- [ ] **Auth: the one decision nobody has made.** `web/server.py` is HTTP Basic
+  on everything except `/health`; the Astro app has none. Public URL means either
+  an open read (no auth) or a login for the lab only. Write the answer here
+  before deploying; do not pick it quietly.
+- [ ] **State files are written for us, not for strangers.** `state/*.md` is
+  working notes and `founder/LOG.md` is the founder's log. Decide what ships:
+  keep them (they are the honest process) or a curated `docs/` subset. The
+  handoffs name private URLs and process; read one as a stranger would.
+- [ ] **Public entry points.** The root is now the hub (`/`), with `/lab` and
+  `/book`; a stranger landing on the hub sees 100 internal pages. Decide whether
+  `/` stays the hub in public or a short front page links to the hub.
+- [ ] **Deploy.** Cloud Run is `clothoid-web` (`us-central1`, max-instances 1,
+  token secret). Making it public is a separate explicit deploy; the private URL
+  stays out of the repo and the chat.
+- [ ] **Templates credited.** The hub's shell follows the Flowbite Astro admin
+  dashboard layout (MIT, Bergside); no Tailwind or Flowbite code was added —
+  the CSS is ours. Say so in the app README so the provenance is clear.
+- [ ] **A reader's first five minutes.** A short `README` path: what curve-lab
+  is, the one exact idea (integer and rational curves on one grid), how to run
+  the hub, and where the book is.
 
 ## From the 2026-11-16 review, in value order
 

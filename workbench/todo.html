@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:75.9%}
+.fill{height:100%;background:#8c6a21;width:72.0%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">120 / 158 done · 76% · read-only twin of
+<div class="count">121 / 168 done · 72% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -63,12 +63,34 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p><code>app/src/pages/book.astro</code> lists the stars from <code>workbench/starred.json</code>, then the cross and leaf from <code>book/plates.json</code>, then the singles, with the exporter&#x27;s own captions from <code>workbench/plate_compose.js</code>. <code>app/src/lib/gallery.js</code> reads the files per request; <code>app/src/pages/api/plate/[id].js</code> serves the PNGs from <code>book/plates/</code>. <code>book/index.html</code> is deleted and the exporter no longer writes it. 7 app tests (one lists every plate from the files).</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>The gate:</strong> the two 42 s sandbox page modules moved to <code>--full</code>; the</span></label>
 <p>default gate is 69 s on this loaded machine (91 s before), <code>--slim</code> about 2 s.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>The hub (2026-11-17):</strong> <code>/</code> is a scrollable hub of every page — the lab</span></label>
+<p>and book first, then the 86 manifest pages by intent, then any workbench HTML the manifest misses — each live in an iframe. The shell is the admin-dashboard layout in curve-lab&#x27;s cream and gold; <code>src/lib/pages.js</code> builds the list from <code>manifest.json</code> + the files on disk; <code>src/pages/pages/[...file].js</code> serves the workbench files so previews are always current. 4 hub tests.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>The Astro app:</strong> <code>app/</code> runs Astro 5.18 + <code>@astrojs/node</code> on <code>:4321</code>;</span></label>
 <p>the lab page imports the shared <code>plate_math.js</code> and <code>real-curves.json</code>, stars the current design, and <strong>save to workbench</strong> writes <code>workbench/starred.json</code> through <code>app/src/lib/stars.js</code> (validated, atomic). 4 save tests in the gate. Next: the book gallery, then pages on touch; the Python bridge is A4.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Stars and the gallery picker:</strong> the lab stars a design (localStorage),</span></label>
 <p>downloads <code>starred.json</code>; the exporter adds those under <strong>Framed Quintic symmetric figures</strong> above <strong>Simple framed symmetric central figures</strong> and the singles. The lab also has a bottom picker: <strong>88 thumbnails</strong> (28 seed/new + 60 found) with rails and the operator&#x27;s category, click to load into curve a.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>The chain form (B8):</strong> two curves end to end, not flipped — a shallow</span></label>
 <p>leg to a steep leg — with the join angle printed.</p>
+<h2>Going public — 2026-11-17</h2>
+<p>The operator&#x27;s plan: publish the code, the ideas and the images. Each line below is a thing that blocks a public repo or a public URL; none of them changes the curves. Do these in order and do not guess the one decision.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>The licence, stated once.</strong> The package is MIT (<code>PROJECT.md</code>, the README)</span></label>
+<p>and the vendored Clothoids is BSD-2 with <code>ATTRIBUTION.md</code>; confirm every third-party file in <code>vendor/</code> and <code>reference/external/</code> is accounted for, and put the MIT text at <code>LICENSE</code> (check it is there) before the repo is public.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Images: rights and credit.</strong> <code>reference/</code> holds downloaded reference</span></label>
+<p>images, <code>founder/screens/</code> holds screenshots, and <code>docs/</code> embeds figures. Record each image&#x27;s source and licence in <code>reference/manifest.json</code>, or move the ones without a licence out of the public tree. &quot;Public images&quot; is the first real risk here.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Secrets: a history scan, not a grep of the working tree.</strong> The auth</span></label>
+<p>token lives in <code>~/.config/&lt;app&gt;/token</code> and Secret Manager and must never be in the repo or its history. Scan the history (a one-off tool run is fine) and say what was checked.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Auth: the one decision nobody has made.</strong> <code>web/server.py</code> is HTTP Basic</span></label>
+<p>on everything except <code>/health</code>; the Astro app has none. Public URL means either an open read (no auth) or a login for the lab only. Write the answer here before deploying; do not pick it quietly.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>State files are written for us, not for strangers.</strong> <code>state/*.md</code> is</span></label>
+<p>working notes and <code>founder/LOG.md</code> is the founder&#x27;s log. Decide what ships: keep them (they are the honest process) or a curated <code>docs/</code> subset. The handoffs name private URLs and process; read one as a stranger would.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Public entry points.</strong> The root is now the hub (<code>/</code>), with <code>/lab</code> and</span></label>
+<p><code>/book</code>; a stranger landing on the hub sees 100 internal pages. Decide whether <code>/</code> stays the hub in public or a short front page links to the hub.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Deploy.</strong> Cloud Run is <code>clothoid-web</code> (<code>us-central1</code>, max-instances 1,</span></label>
+<p>token secret). Making it public is a separate explicit deploy; the private URL stays out of the repo and the chat.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Templates credited.</strong> The hub&#x27;s shell follows the Flowbite Astro admin</span></label>
+<p>dashboard layout (MIT, Bergside); no Tailwind or Flowbite code was added — the CSS is ours. Say so in the app README so the provenance is clear.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>A reader&#x27;s first five minutes.</strong> A short <code>README</code> path: what curve-lab</span></label>
+<p>is, the one exact idea (integer and rational curves on one grid), how to run the hub, and where the book is.</p>
 <h2>From the 2026-11-16 review, in value order</h2>
 <label class="task"><input type="checkbox" checked disabled><span><strong>One exact numeric core, consumed by the page.</strong> <code>pitch</code> exists in <code>ph_math.js</code>,</span></label>
 <p><code>ph_quintic_metrics.py</code> and four scripts; they disagree in doubles (page 1/5,148 against an exact 1/36 on identical rows). Precompute, export, and let the page read the numbers. *Landed 2026-11-16:* <code>curve_lab/measure.py</code> is the one exact core; <code>scripts/ph_quintic_metrics.py</code> is a facade over it; <code>scripts/exact_numbers.py</code> audits every record; the page prints the record&#x27;s number, labelled, while the loaded rows are untouched. <code>tests/test_exact_numbers.py</code> guards all of it. Found on the way: <code>loop-13-15-17-mid-1</code> reproduces exactly — record 36, page 5,148.</p>
