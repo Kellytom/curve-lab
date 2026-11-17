@@ -38,7 +38,8 @@ Focused handon for curve-lab. Work in
    looks small.
 5. Tier 0 includes `LTMemory-int.md` (the map and invariants), `goals.md` (the
    plant-form → ornament-form arc), `TODO.md` (the checklist) and
-   `state/HANDOFF-int.md` (current truth — its **tail**, not all 846 lines).
+   `state/HANDOFF-int.md` (current truth — its **tail**, not the whole file; the
+   count is in `READING-int.md`).
    Read them in the order `READING-int.md` gives.
 6. Add **Tier 1** — `SPEC.md`, `docs/PROJECT.md`, `goals.md`,
    `docs/PHILOSOPHY.md` — whenever the action changes direction, adds a page or

@@ -256,6 +256,29 @@ whole `t` range (for example t 0.081 to 0.919), so no shorter exact span holds
 them and the rebuild honestly reports the whole curve. Legs are shortened by
 moving the flat spots, not by cutting `t`.
 
+## Saved curves: a read that fails must never become a write
+
+Settled 2026-11-16, after the operator's saved buttons were emptied twice and the
+operator asked "how can you lose all those curves when we werent even touching
+that code".
+
+- **A failed read is not an empty list.** `readSaved()` says whether it read; a
+  save refuses to treat a damaged value as nothing. Reason: the old code did
+  `saved()` (which returned `[]` on any parse error), filtered it, pushed one
+  curve, and wrote — one save deleted every other curve.
+- **Every write keeps the previous value.** `ph-nth-curves-backup` holds the list
+  as it was before the write, and `ph-nth-curves-mirror` holds the list as it is
+  now. Reason: the damage is noticed a session later, so there has to be a value
+  to go back to without a browser profile.
+- **A damaged value is repaired on load**, from the backup, then the mirror.
+  Only a browser that has never held a list is seeded.
+- **The repository keeps a list: `workbench/operator-list.json`**, written by
+  `scripts/operator_list.py` from the stored records. The page seeds a browser
+  with no list from it, and `restore a list` reads any export back in.
+  `tests/test_operator_list.py` keeps it current and complete.
+- **The check is `scripts/check-saved.mjs`**, six browser checks, because a
+  storage rule cannot be proven from the Python suite alone.
+
 ## One exact numeric core, and the page reading it
 
 Settled 2026-11-16, from the senior review's first item ("the numeric core

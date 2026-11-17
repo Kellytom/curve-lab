@@ -7,18 +7,22 @@ the file wins and this list is wrong.
 Read it at the top of every focused session. Then follow the tier the action
 needs — no higher.
 
+**The opening message adds to this list; it never replaces it.** When the
+operator names files to read, those join Tier 0 — they are not a shorter list.
+A session that reads only the files named in the message has skipped Tier 0.
+
 ## Tier 0 — every fhandon, no exceptions (~3,670 lines, of which HANDOFF is read as a tail)
 
 | # | file | lines | why |
 |---|---|---|---|
 | 1 | `LTMemory-int.md` | 171 | the map, the invariants, what is settled and what is open |
-| 2 | `next-fhandoff-int.md` | 5 | the default next action, when the operator has not set one |
-| 3 | `state/HANDOFF-int.md` | 2,226 | current truth — **read the tail (~80 lines), not the whole file** |
-| 4 | `TODO.md` | 570 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 2 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
+| 3 | `state/HANDOFF-int.md` | 2,353 | current truth — **read the tail (~80 lines), not the whole file** |
+| 4 | `TODO.md` | 578 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 5 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
 | 6 | `state/ACHIEVEMENTS-int.md` | 91 | what is proved, with the command that re-derives it; stops rework |
-| 7 | `state/DESIGN-int.md` | 287 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
-| 8 | `state/REGRESSIONS-int.md` | 63 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
+| 7 | `state/DESIGN-int.md` | 336 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 8 | `state/REGRESSIONS-int.md` | 68 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
 

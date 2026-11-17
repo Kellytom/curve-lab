@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LIST = ROOT / "state" / "READING-int.md"
-ROW = re.compile(r"^\| [`]([^`]+)[`] \| ([0-9,]+) \|")
+ROW = re.compile(r"^\| (?:[0-9]+ \| )?[`]([^`]+)[`] \| ([0-9,]+) \|")
 
 
 def main() -> int:

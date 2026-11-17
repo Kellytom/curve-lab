@@ -39,6 +39,8 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 19 | 2026-11-14 | 172 errors in `test_ph_root_found.py` for hours: the test read `speedX`/`bend`/`pitch` while `found-curves.json` had become `curve-lab.curves/2` with `terms`/`measured` | `test_the_walk_landed_something` (asserts the format) and the rows rebuilt from `terms` | the found-curves checks follow the file format, so a format change cannot silently orphan them |
 | 20 | 2026-11-14 | "the page should have a gallery" — the experimental page had one, and its test still demanded none, so the suite stayed red | `test_the_page_keeps_the_gallery` | the experimental page keeps its gallery; the reversed guard is written in the test's docstring |
 | 21 | 2026-11-16 | "grid 1/5,148 against the record's 1/36, with identical rows" — the page's doubles squared a row of 10^8 (1.06e16, past 2^53) and counted the grid 143 times too big | `test_exact_numbers.py`: `test_every_stored_curve_agrees_with_the_exact_core`, `test_the_large_row_keeps_grid_36_not_the_page_5148`, `test_the_page_squares_the_same_row_wrong_and_is_told_not_to` | one exact core (`curve_lab/measure.py`), the record as the authority for a stored curve, and the page printing the record's number while its rows are untouched |
+| 22 | 2026-11-16 | "the list said HANDOFF was 2,226 lines when it was 2,353, and the counter said 'counts already right'" — the row pattern expected the file name second, so every numbered Tier 0 row was skipped | `tests/test_reading_counts.py`: `test_a_numbered_row_is_one_the_counter_recognises`, `test_the_pairing_has_no_stale_count_left` | the reading list's counts, and the counter that must refresh them |
+| 23 | 2026-11-16 | "how can you lose all those curves when we werent even touching that code" — a damaged read became an empty list, and the next save wrote one curve over all of them | `scripts/check-saved.mjs` (six browser checks: seeding, repair from backup, no wipe after a bad read, load from a restored button, a pair record) and `tests/test_operator_list.py` (the list on disk is current and complete) | the saved-curve buttons: no write after a failed read, a backup and mirror on every save, and a file to seed a reset browser |
 
 ## Fixed and measured, but not yet in the fast suite
 
@@ -49,7 +51,9 @@ headless browser), so they are named here rather than duplicated:
   at ½ give a count of 3);
 - the suggestion list fills the known row `[-8, 129, -663, 1522, -1620, 648]`;
 - typing in a speed box keeps its sign and its decimal point;
-- the gallery loads a curve into the sandbox with the rows it was saved with.
+- the gallery loads a curve into the sandbox with the rows it was saved with;
+- the saved-curve buttons survive a damaged value and a browser reset
+  (`scripts/check-saved.mjs`: six checks, seeded from `workbench/operator-list.json`).
 
 ## Known open faults
 

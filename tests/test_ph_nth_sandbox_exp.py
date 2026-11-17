@@ -246,7 +246,7 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(tag=tag):
                 self.assertIn(f">{tag} &middot;", page)
         self.assertLess(page.index('id="n-related"'), page.index('id="n-possible"'))
-        self.assertLess(page.index('id="n-possible"'), page.index("<h2>Found curves</h2>"))
+        self.assertLess(page.index('id="n-possible"'), page.index('id="n-gallery"'))
 
     def test_the_census_section_is_withdrawn_and_recorded_as_failed(self):
         """Eleven spots give rows of 10^13; the page's drawing collapses to a dot.
@@ -302,7 +302,7 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn('id="n-related"', page)
         self.assertIn("Related families: two outer flat spots", page)
         self.assertLess(page.index('id="n-families"'), page.index('id="n-related"'))
-        self.assertLess(page.index('id="n-related"'), page.index("<h2>Found curves</h2>"))
+        self.assertLess(page.index('id="n-related"'), page.index('id="n-gallery"'))
         for label, spots in (("1/15 + 1/12 &middot; 9 crossings",
                               "1/15, 1/12, 1/2, 1/2, 1/2, 11/12, 14/15"),
                              ("1/17 + 1/4 &middot; 7 crossings",
@@ -338,7 +338,7 @@ class TestFractionalSandbox(unittest.TestCase):
             with self.subTest(family=family):
                 self.assertIn(f'data-spots="{family}, 1/2, 1/2, 1/2, ', page)
         self.assertLess(page.index('id="n-families"'),
-                        page.index("<h2>Found curves</h2>"),
+                        page.index('id="n-gallery"'),
                         "the families must sit above the found curves")
         self.assertIn("<hr", page)
         self.assertIn("document.querySelectorAll('.family')", page)

@@ -21,18 +21,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+import curve_records  # noqa: E402
 import ph_nth_sandbox as base  # noqa: E402
 import ph_root_search as roots_module  # noqa: E402
 
 OUT = ROOT / "workbench" / "ph-nth-sandbox-exp.html"
 FOUND = ROOT / "workbench" / "found-curves.json"
+MOVED = ROOT / "workbench" / "moved-curves.json"
+CURVES = ROOT / "curves"
 
 GALLERY_HEAD = (
-    "<h2>Found curves</h2>\n"
-    "<p class=\"small\">Every curve the search has landed, tangliest first. The line under each name "
-    "is its bend and its grid; the expanded cell gives the flat spots, the meetings and the "
-    "self-crossings. Odd shapes are kept on purpose. Loading one sets the exponent step back to 1, "
-    "because every stored curve is a whole-power row.</p>\n"
+    "<h2 id=\"n-gallery\">Every stored curve</h2>\n"
+    "<p class=\"small\">Every curve on record, as a button: the finds first, tangliest first, "
+    "then the curves moved to the notes, then the 15 with a folder of their own. The line under "
+    "each name is its bend and its grid; the expanded cell gives the flat spots, the meetings and "
+    "the self-crossings. Odd shapes are kept on purpose. Loading one sets the exponent step back to "
+    "1, because every stored curve is a whole-power row.</p>\n"
 )
 
 # The seven families to work from: one outer flat spot, its mirror, and three
@@ -95,46 +99,97 @@ def spot_text(provenance):
     return ", ".join(parts)
 
 
-def found_entries():
-    """The finds, tangliest first: self-crossings, then meetings, then the cheap grid."""
-    import curve_records
+def _figure_for(name, tag):
+    """The picture for a curve, from the one place that curve's picture lives."""
+    slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+    if tag == "folder":
+        return f"../curves/{name}/figure.png"
+    hud = ROOT / "workbench" / "figures" / f"{slug}.png"
+    return f"../workbench/figures/{slug}.png" if hud.exists() else ""
+
+
+def _terms_of(record):
+    """A record's terms, whether it stores terms or speed rows."""
+    if record.get("terms"):
+        return record["terms"]
+    speed_x = record.get("speedX") or []
+    speed_y = record.get("speedY") or []
+    length = max(len(speed_x), len(speed_y))
+    return [
+        {"power": power,
+         "x": speed_x[power] if power < len(speed_x) else 0,
+         "y": speed_y[power] if power < len(speed_y) else 0}
+        for power in range(length)
+    ]
+
+
+def _entry(curve, tag):
+    """One gallery entry: the shape every cell and every load button reads."""
+    terms = _terms_of(curve)
+    x, y = curve_records.rows_from_terms(terms)
+    measured = curve.get("measured") or {}
+    name = curve["name"]
+    roots = (curve.get("provenance") or {}).get("roots", "")
+    return {
+        "name": name,
+        "terms": terms,
+        "speedX": x,
+        "speedY": y,
+        "bend": measured.get("bend", curve.get("bend")),
+        "pitch": measured.get("grid", curve.get("grid")),
+        "from": tag,
+        "roots": spot_text(roots),
+        "figure": _figure_for(name, tag),
+        "truncation": curve.get("truncation"),
+        "source": (f"flat spots {roots}; {measured.get('meetings', 0)} meetings, "
+                   f"{measured.get('self', 0)} self-crossings")
+        if roots else (curve.get("source") or ""),
+    }
+
+
+def stored_entries():
+    """Every stored curve, as one gallery: found first, then the moved, then the folders.
+
+    The operator asked on 2026-11-16 for every curve to be back in the buttons:
+    "make sure i get all my curves back in the buttons". The moved curves were
+    taken out of this gallery in the clean-up, which left them on the notes page
+    with no way to load one. They are back here, tagged *moved*, and the 15
+    curves with a folder under `curves/` are tagged *kept*.
+    """
+    entries, seen = [], set()
     document = curve_records.read(FOUND)
     newer = [curve for curve in document["curves"]
              if curve.get("provenance", {}).get("batch") == "new"]
-    # newest first: the page is where new curves are worked on, so they lead. Ties
-    # fall back to the tangliest, then the cheapest grid.
     position = {id(curve): index for index, curve in enumerate(document["curves"])}
     ordered = sorted(newer,
                      key=lambda curve: (-position[id(curve)],
                                         -curve.get("measured", {}).get("self", 0),
                                         -curve.get("measured", {}).get("meetings", 0),
                                         curve.get("measured", {}).get("grid", 0)))
-    entries = []
+    for curve in document["curves"]:
+        if curve not in newer:
+            ordered.append(curve)
     for curve in ordered:
-        x, y = curve_records.rows_from_terms(curve["terms"])
-        recorded = curve.get("measured", {})
-        name = curve["name"]
-        figure_slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
-        entries.append({
-            "name": name,
-            "terms": curve["terms"],
-            "speedX": x,
-            "speedY": y,
-            "bend": recorded.get("bend"),
-            "pitch": recorded.get("grid"),
-            "from": "found",
-            "roots": spot_text(curve.get("provenance", {}).get("roots")),
-            # an accepted figure, if this curve has a folder under curves/: the gallery
-            # shows the drawing rather than its own thumbnail, so what is reviewed is what
-            # appears here
-            # the HUD picture for this curve, captured by scripts/found_png.mjs; the cell
-            # shows that and nothing else, so the gallery and the HUD cannot disagree
-            "figure": (f"../workbench/figures/{figure_slug}.png"
-                       if (ROOT / "workbench" / "figures" / f"{figure_slug}.png").exists() else ""),
-            "truncation": curve.get("truncation"),
-            "source": (f"flat spots {curve.get('provenance', {}).get('roots', '')}; "
-                       f"{recorded.get('meetings', 0)} meetings, {recorded.get('self', 0)} self-crossings"),
-        })
+        entries.append(_entry(curve, "found"))
+        seen.add(curve["name"])
+
+    if MOVED.exists():
+        moved_document = json.loads(MOVED.read_text())
+        moved = [curve for curve in moved_document.get("curves", [])
+                 if curve.get("name") not in seen]
+        moved.sort(key=lambda curve: (-curve.get("measured", {}).get("self", 0),
+                                      -curve.get("measured", {}).get("meetings", 0),
+                                      curve.get("measured", {}).get("grid", 0)))
+        for curve in moved:
+            entries.append(_entry(curve, "moved"))
+            seen.add(curve["name"])
+
+    for path in sorted(CURVES.glob("*/curve.json")):
+        record = json.loads(path.read_text())
+        if record.get("name") in seen:
+            continue
+        entries.append(_entry(record, "folder"))
+        seen.add(record.get("name"))
     return entries
 
 
@@ -322,7 +377,7 @@ def census_section():
 
 def build():
     page = base.PAGE
-    page = page.replace("__GALLERY__", json.dumps(found_entries(), separators=(",", ":")))
+    page = page.replace("__GALLERY__", json.dumps(stored_entries(), separators=(",", ":")))
     page = page.replace("window.phSpeedDegree = 5;",
                         "window.phHideSeeds = true;\nwindow.phNoComplement = true;\nwindow.phSpeedDegree = 5;")
     figures = {}
@@ -450,7 +505,7 @@ def build():
     )
     page = page.replace("</body></html>", starter + "</body></html>")
     OUT.write_text(base.stamped(page))
-    print(OUT.relative_to(ROOT), len(found_entries()), "found curves,", len(page), "bytes")
+    print(OUT.relative_to(ROOT), len(stored_entries()), "found curves,", len(page), "bytes")
 
 
 if __name__ == "__main__":

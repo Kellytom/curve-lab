@@ -2675,8 +2675,32 @@ window.curveSaver = (function () {
   window.phNthSeeds = window.phHideSeeds ? [] : SEED;
 
   const storageKey = "ph-11th-curves";
-  const saved = () => { try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; } };
-  const store = items => localStorage.setItem(storageKey, JSON.stringify(items));
+  // A read that fails must never become an empty list that is then written back:
+  // that is how the operator's saved curves were lost (2026-11-16). So a read
+  // says whether it succeeded, every write keeps the previous value as a backup
+  // and a mirror, and a damaged value is recovered instead of replaced.
+  const backupKey = storageKey + "-backup";
+  const mirrorKey = storageKey + "-mirror";
+  const readSaved = () => {
+    const raw = localStorage.getItem(storageKey);
+    if (raw === null) return { items: [], ok: true };
+    try {
+      const items = JSON.parse(raw);
+      return Array.isArray(items) ? { items, ok: true } : { items: [], ok: false };
+    } catch (error) {
+      return { items: [], ok: false };
+    }
+  };
+  const saved = () => readSaved().items;
+  const store = items => {
+    const raw = localStorage.getItem(storageKey);
+    if (raw !== null && raw !== JSON.stringify(items)) localStorage.setItem(backupKey, raw);
+    const text = JSON.stringify(items);
+    localStorage.setItem(storageKey, text);
+    localStorage.setItem(mirrorKey, text);
+    return true;
+  };
+  window.phNthSaved = { readSaved, store, saved, backupKey, mirrorKey };
   function renderSaved() {
     const row = document.getElementById("n-saved");
     row.textContent = "";
@@ -2782,6 +2806,65 @@ window.curveSaver = (function () {
     const count = document.getElementById("n-saved-count");
     if (count) count.textContent = `exported ${payload.saved.length} saved, ${payload.moved.length} moved, ${payload.starred.length} starred`;
   });
+  // The other half of the export: a list written out has to come back in, or the
+  // file is a receipt rather than a backup. Two ways in — the file picker below,
+  // and an automatic read of operator-list.json when this browser has never held
+  // a list at all — so a browser reset cannot empty the buttons for good.
+  const mergeSaved = (incoming, where) => {
+    const status = document.getElementById("n-paste-status");
+    if (!Array.isArray(incoming)) return 0;
+    const byName = {};
+    saved().forEach(item => { if (item && item.name) byName[item.name] = item; });
+    let added = 0;
+    incoming.forEach(item => {
+      if (!item || !item.name || byName[item.name]) return;
+      byName[item.name] = item;
+      added++;
+    });
+    store(Object.values(byName));
+    renderSaved();
+    window.dispatchEvent(new CustomEvent("ph-11th-saved"));
+    if (status) {
+      status.textContent = added
+        ? `restored ${added} curve(s) from ${where}; ${incoming.length - added} were already here`
+        : `nothing to restore from ${where}: all ${incoming.length} were already here`;
+    }
+    return added;
+  };
+  const importList = document.getElementById("n-import-list");
+  if (importList) importList.addEventListener("change", async event => {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    const status = document.getElementById("n-paste-status");
+    try {
+      const payload = JSON.parse(await file.text());
+      mergeSaved(payload.saved || payload.curves || [], file.name);
+    } catch (error) {
+      if (status) status.textContent = `${file.name} is not a saved-curve list: ${error.message || error}`;
+    }
+    importList.value = "";
+  });
+  // Recovery on load, in the order that loses least. A damaged value is repaired
+  // from its backup or mirror before anything is written; only a browser that has
+  // never held a list is seeded from the file the repository keeps.
+  const restored = readSaved();
+  if (!restored.ok) {
+    const salvage = [backupKey, mirrorKey]
+      .map(key => { try { return JSON.parse(localStorage.getItem(key) || "null"); } catch (error) { return null; } })
+      .find(items => Array.isArray(items) && items.length);
+    if (salvage) {
+      store(salvage);
+      renderSaved();
+      const status = document.getElementById("n-paste-status");
+      if (status) status.textContent = `the saved list could not be read; ${salvage.length} curve(s) restored from its backup`;
+    }
+  }
+  if (localStorage.getItem(storageKey) === null) {
+    fetch("operator-list.json", { cache: "no-store" })
+      .then(response => response.ok ? response.json() : null)
+      .then(payload => { if (payload && Array.isArray(payload.saved) && payload.saved.length) mergeSaved(payload.saved, "operator-list.json"); })
+      .catch(() => { /* no file yet: the buttons hold the seeds, as before */ });
+  }
 
   const countSaved = document.getElementById("n-count-saved");
   if (countSaved) countSaved.addEventListener("click", () => {
@@ -3931,9 +4014,16 @@ window.curveSaver = (function () {
   const host = document.getElementById("n-gallery");
   if (!host || !Array.isArray(window.phNthGallery)) return;
 
-  const storageKey = "ph-11th-curves";
+  const galleryKey = "ph-11th-curves";
+  // The guarded store from the panel above, when this page has it: a failed read
+  // must not turn into a write of one curve over all the others.
   const localSaved = () => {
-    try { return JSON.parse(localStorage.getItem(storageKey) || "[]"); } catch (e) { return []; }
+    if (window.phNthSaved) return window.phNthSaved.readSaved().items;
+    try { return JSON.parse(localStorage.getItem(galleryKey) || "[]"); } catch (e) { return []; }
+  };
+  const localStore = items => {
+    if (window.phNthSaved) return window.phNthSaved.store(items);
+    localStorage.setItem(galleryKey, JSON.stringify(items));
   };
   // A saved item may be a pair (primary and complementary) or a single curve;
   // the gallery draws the primary either way.
@@ -4220,6 +4310,8 @@ window.curveSaver = (function () {
         <span class="gallery-name">${entry.name}</span>
         <span class="gallery-tags"><span class="tag">${String(entry.from || "") === "found" ? "found"
           : String(entry.from || "") === "operator" ? "yours"
+          : String(entry.from || "") === "moved" ? "moved"
+          : String(entry.from || "") === "folder" ? "kept"
           : String(entry.from || "").startsWith("fitted") ? "fitted" : "exact"}</span>
         <span class="gallery-metrics">bend ${entry.bend} | ${Number(entry.pitch) ? "grid 1/" + Number(entry.pitch).toLocaleString() : "grid n/a"}</span></span>
       </button>
@@ -4471,7 +4563,7 @@ window.curveSaver = (function () {
       if (!name) return;
       const items = localSaved().filter(item => item.name !== name);
       items.push({ name, speedX: entry.simple.speedX, speedY: entry.simple.speedY, from: "transferred" });
-      localStorage.setItem(storageKey, JSON.stringify(items));
+      localStore(items);
       window.dispatchEvent(new CustomEvent("ph-11th-saved"));
       return;
     }
@@ -4497,7 +4589,7 @@ window.curveSaver = (function () {
       let index = 2;
       while (saved.some(item => item.name === name)) name = `${entry.name} (copy ${index++})`;
       saved.push({ ...source, name });
-      localStorage.setItem(storageKey, JSON.stringify(saved));
+      localStore(saved);
       window.dispatchEvent(new CustomEvent("ph-11th-saved"));
       if (status) status.textContent = `saved ${name}`;
       return;
