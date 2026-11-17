@@ -40,6 +40,20 @@ no server); this file supersedes its UI choice, not its engine plan.
    pages and the API travel together. Local files are a dev/desktop feature; a
    hosted instance would write to its own storage, not the repo.
 
+## Tooling (offline, 2026-11-17)
+
+- **zod** is the one runtime addition: the star payload is parsed against a
+  schema before the write; a missing plate, a bad id or a duplicate fails the
+  request.
+- `@astrojs/check`/`typescript` and `prettier`/`prettier-plugin-astro` were
+  tried and removed. The checker throws `ERR_REQUIRE_ESM` from
+  `@astrojs/language-server` on this install; the Astro Prettier plugin cannot
+  find its native binding. Both need a fresh install with the network, which is
+  off by the operator's instruction (2026-11-17). `npm run build` and
+  `npm test` are the gate in the meantime.
+- **No more network.** Installs, fetches and registry probes stop here; the
+  global Astro 5.18.2 and `app/node_modules` are the fixed kit.
+
 ## Rules
 
 - One implementation: the Astro page uses the same `plate_math.js`; do not fork

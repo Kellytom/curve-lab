@@ -2607,4 +2607,9 @@ run verified: 88 cards, star, save, file on disk.
 **Not yet:** the book gallery and the other pages are still generated HTML. The
 Python engine and the spline connector stay; A4 is the Node bridge.
 
+**Network off** by the operator: no installs or fetches from here. `zod` is the
+one runtime addition; `@astrojs/check` and Prettier were removed (incompatible
+in this install, unrepairable offline). `npm run build` and `npm test` are the
+app gate.
+
 **Next:** A2, port the book gallery into Astro; then pages on touch.

@@ -233,12 +233,14 @@ h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:34px 0 4px;font-weight
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
 figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid #eee}
 figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin-top:6px}
+.empty-state{grid-column:1/-1;border:1px dashed #d3d3d3;padding:22px 24px;color:#777;font-size:13px}
+a{color:#8c6a21}
 </style></head><body><main>
 <h1>Book plates — temporary export</h1>
 <p class="lead">${plates.length} plates · ${designs.length} central designs and ${singles.length} single curves · white ground, no text on the image, tight to the curve · labels outside, two columns · names are <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
 <h2>Framed Quintic symmetric figures</h2>
-<p class="lead">Starred in the square and frame lab, then exported from <code>workbench/starred.json</code>. ${starredPlates.length ? "" : "No stars yet: star a design in the lab and download the file."}</p>
-<div class="grid">${starredPlates.length ? cards(starredPlates) : ""}</div>
+<p class="lead">Starred in the square and frame lab, then written to <code>workbench/starred.json</code> by the page itself.</p>
+<div class="grid">${starredPlates.length ? cards(starredPlates) : `<p class="empty-state">No stars yet. Open the <a href="http://localhost:4321/">Astro lab</a>, set the design, press <b>star this design</b>, then <b>save to workbench</b>; the next export puts it here.</p>`}</div>
 <h2>Simple framed symmetric central figures</h2>
 <p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg frame of arches overlaps itself, so it is not offered framed.</p>
 <div class="grid">${cards(designs)}</div>

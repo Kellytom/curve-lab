@@ -143,6 +143,8 @@ Every remark carries one:
 - **The maths and the 88 curves are shared,** not copied into the app.
   `[now]`
 - **Next: the book gallery into Astro**, then pages on touch. `[now]`
+- **The network is off.** The Astro kit is installed and the app builds offline;
+  the checker and formatter stay out until a network session. `[now]`
 
 ## Open, in priority order
 
