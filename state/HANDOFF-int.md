@@ -2261,3 +2261,93 @@ not pick out the five that failed. Tried and rejected: hiding moved curves only 
 re-render brought them back; the fix is to apply the archive inside every render. Tried and
 rejected: quoting the page's own grid on large rows — it is wrong in doubles (1/5,148 against an
 exact 1/36 on identical rows), so the record is the authority.
+
+## 2026-11-16 (later) — the senior review, in its own words
+
+Recorded 2026-11-16, at the operator's request: "include all that in the handoff."
+The summary of this review sits earlier in this file, under "2026-11-16, senior
+review of the codebase". This block carries the review's own words, so a later
+session reads the argument rather than a paraphrase. Provenance: one senior-dev
+pass, DeepSeek V4.1 Flash 1017, 7 min 5 s.
+
+**Where it stands.** The review landed at `1795a8e`; its four highest-value items
+became rows in `TODO.md`. The three handoffs after it (`5b12485`, `296ba50`,
+`82d85c0`) all kept the Bézier fitting step as the next move, so the review's
+advice has not been actioned yet. The fifth item, on tests asserting counts,
+never became a row.
+
+### The shape of it
+
+| area | measured |
+|---|---|
+| engine (`curve_lab/`, `web/`) | 7,862 lines |
+| generators (`scripts/`) | 55,899 lines |
+| generated pages (`workbench/`) | 53,967 lines across 95 pages |
+| tests | 9,092 lines, 105 modules |
+| commits | 821 |
+
+The engine is small and the generators are seven times its size. That ratio is
+the whole story: the HTML is the product and it is written as Python strings.
+
+### What is genuinely good
+
+- Exact arithmetic is a stated invariant, not a hope: `Fraction`, whole rows,
+  exact arc as a polynomial integral.
+- A bug register with tests (`state/REGRESSIONS-int.md`, 20 rows). That is rarer
+  than it should be.
+- Pages are generated, never hand-edited — the one rule that keeps 95 pages
+  honest.
+- Written memory: LTMemory, HANDOFF, TODO, READING — a new session can start in
+  minutes.
+- 105 test modules for a research lab is real discipline.
+
+### Five things I would fix, in value order
+
+1. **The numeric core exists three times and disagrees with itself.**
+   `pitch` is implemented in `ph_math.js`, `ph_quintic_metrics.py`, and four
+   scripts added that day. They agree in exact arithmetic and disagree in
+   doubles: the page said grid 1/5,148 where the exact answer is 1/36, with
+   identical rows. That single divergence caused most of that afternoon. One
+   reference implementation (Python, exact), exported as data the page consumes,
+   kills the whole class.
+2. **Three parallel figure pipelines — the reviewer's doing, that day.**
+   `curves/<slug>/figure.png` (page capture or exact drawing),
+   `workbench/figures/*.png` (169 HUD captures), plus `figure-exact.png`/`.svg`
+   beside the first. One curve should have one picture, one path, one script,
+   and the gallery should read that path.
+3. **The verification written ad hoc should be a test.**
+   `scripts/curve_png_all.mjs` checks the page's grid equals the record's for
+   every curve. Nothing in `tests/` does that, which is why a stale-stash bug and
+   a wrong-step bug both survived to the operator. That check belongs in the
+   suite.
+4. **Tests assert strings and counts, not behaviour.** That day's clean-up broke
+   tests that demanded more than 100 records and a named curve's flat spots.
+   Every literal count (60, 109, 169, the 50 markers) is a test that will fail
+   for the right reason eventually. Derive expectations from the data; assert
+   DOM structure, not substrings.
+5. **3,846 lines of `ph_nth_panels.js` inlined into 100 pages.** That is 384,600
+   lines of duplicated JavaScript in the repository, and it is why an edit to one
+   file lights up 100 dirty pages and 8 failing generators at once. Either serve
+   it as a static file, or accept that "one page, one generator" implies "one
+   copy of the engine" and stop inlining.
+
+### Smaller observations
+
+- `scripts/` has files over 1,800 lines that are 80 % HTML (`g3_showcase.py`,
+  `ph_families.py`). Template files would give escaping, syntax highlighting and
+  readable diffs. Right now a name containing a quote can break a page — that
+  risk was hit with curve names.
+- `ctx.py` is retired but still on disk; fine, but it should move to `legacy/` so
+  nobody wires it back up.
+- `family-census.json` is 1.2 MB of derived data committed. Good — but it should
+  say in one line where it comes from and how long the sweep takes, so no one
+  regenerates it blindly (12 minutes).
+- The register has 20 rows; two faults that day were found by the operator, not
+  by it. The register tracks faults; it does not yet track absences like "no test
+  compares page numbers with record numbers".
+
+### What I would advise for the next session
+
+Not more features. One action: make the page consume exact precomputed numbers,
+and add the test that compares them. That is the difference between a lab that
+finds curves and a lab that trusts its own display.
