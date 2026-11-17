@@ -16,6 +16,10 @@ export default defineConfig({
   output: "server",
   adapter: node({ mode: "standalone" }),
   server: { port: 4321 },
+  // The dev toolbar (Menu / Inspect / Audit / Settings) is a dev-only overlay.
+  // Every hub preview is an iframe, so one toolbar became a row of them; the
+  // work is done from the command line, so it is off.
+  devToolbar: { enabled: false },
   vite: { server: { fs: { allow: [repoRoot] },
     allowedHosts: [".trycloudflare.com", ...extraHosts] } },
 });
