@@ -29,8 +29,7 @@ integer stations where a branch can attach.
 | B3 | balance stations | for one curve, a page lists the lattice stations at a grid whose tangent is vertical, horizontal or a 3-4-5 direction, and any pair balanced about y = k; all exact; a test pins one | B1 |
 | B4 | LibreOffice contact sheet | the plates inserted at trim size, one per page, and a PDF proof; no upscaling | B2 |
 | B5 | character offsets | one plate whose rails have a declared varying width, with the width law printed in the manifest | B2 |
-| B6 | **square and frame lab** | a live page: curve, curves per side, leg angle, print size, fill, flips; the joins measured; a 1 pt stroke floor at 1–4 in; 15 JS tests | **landed 2026-11-17** |
-| B7 | other geometric figures | the same corner rule on a pentagon (leg 54°) and a pentagram point (18°), drawn and measured | B6 |
+| B6 | **square and frame lab** | a live page: curve a, curve b, counts across and down, an a/b pattern, leg angle, print size, fill; the joins and leaf tips measured; a 1 pt stroke floor at 1–4 in; 18 JS tests | **landed 2026-11-17** |
 
 **B3 — balance, not symmetry.** A *balance station* is a lattice point at a
 chosen grid whose tangent has a declared clean direction: vertical, horizontal,
@@ -74,6 +73,7 @@ this symmetry; call it balance.
 | Primal studies (fire, water, earth, air) | After the ornament grammar, per `docs/PRIMAL.md`. | `goals.md` |
 | W03 fleur grammar, W04 twenty parameter sets | Board order, not this queue. | `state/BACKLOG-int.md`, `workbench/ornament-board.html` |
 | Modulated width (former Stage IV) | Its own proof, after the ornament grammar. | `goals.md` |
+| Other polygons (pentagon, pentagram) | Operator, 2026-11-17: squares and rectangles first; the same corner rule holds (54°, 18°) when they come back. | this table; `founder/LOG.md` |
 
 ## How a session ends
 

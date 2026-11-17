@@ -54,3 +54,34 @@ test("the stroke never falls below one point", () => {
   assert.equal(L.strokeFor(144), 1);         // 2 inches
   assert.ok(Math.abs(L.strokeFor(288) - 1.008) < 1e-9);  // 4 inches
 });
+
+test("a leaf's feet coincide and an arch meets an arch at 90° both ends", () => {
+  const leaf = L.central(ARCH, ARCH, 45);
+  const bottom = leaf.curves[0].points;
+  const top = leaf.curves[1].points;
+  assert.deepEqual(bottom[0], top[0]);
+  assert.deepEqual(bottom[3], top[3]);
+  assert.ok(Math.abs(leaf.tips.left - 90) < 1e-9);
+  assert.ok(Math.abs(leaf.tips.right - 90) < 1e-9);
+});
+
+test("an S top and an arch bottom do not attach at both feet", () => {
+  // the S's start and end tangents are parallel, so one foot is smooth (0°)
+  // and the other is square (90°). This is the mismatch to watch.
+  const leaf = L.central(ARCH, L.CURVES["s-345"].points, 45);
+  const tips = [leaf.tips.left, leaf.tips.right].sort((a, b) => a - b);
+  assert.ok(Math.abs(tips[0] - 0) < 1e-9);
+  assert.ok(Math.abs(tips[1] - 90) < 1e-9);
+});
+
+test("a rectangular frame follows the counts and the a/b pattern", () => {
+  const frame = L.frameRect(ARCH, ARCH, 2, 3, 45, "aba", false);
+  const L0 = L.chord(ARCH);
+  assert.ok(Math.abs(frame.W - 2 * L0) < 1e-9);
+  assert.ok(Math.abs(frame.H - 3 * L0) < 1e-9);
+  assert.equal(frame.curves.length, 2 + 3 + 2 + 3);
+  const south = frame.curves.filter((c) => c.name === "south");
+  assert.deepEqual(south.map((c) => c.letter), ["a", "b"]);  // 2 copies, pattern aba
+  const east = frame.curves.filter((c) => c.name === "east");
+  assert.deepEqual(east.map((c) => c.letter), ["a", "b", "a"]);
+});

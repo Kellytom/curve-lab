@@ -21,15 +21,15 @@ class SquareFrameTest(unittest.TestCase):
         cls.generated = square_frame.page_html()
 
     def test_every_control_is_present(self):
-        for control in ("sf-curve", "sf-per-side", "sf-leg", "sf-size",
-                        "sf-fill", "sf-alternate", "sf-cross",
-                        "sf-stage", "sf-readout"):
+        for control in ("sf-a", "sf-b", "sf-per-w", "sf-per-h", "sf-pattern",
+                        "sf-leg", "sf-size", "sf-fill", "sf-alternate",
+                        "sf-frame", "sf-leaf", "sf-stage", "sf-readout"):
             self.assertIn(f'id="{control}"', self.page, control)
 
     def test_the_page_computes_in_the_browser(self):
         self.assertIn('src="square_lab.js"', self.page)
-        self.assertIn("SquareLab.frame(", self.page)
-        self.assertIn("SquareLab.assemble(", self.page)
+        self.assertIn("SquareLab.frameRect(", self.page)
+        self.assertIn("SquareLab.central(", self.page)
         # no form: a page reload must never lose the settings
         self.assertNotIn("<form", self.page.lower())
 

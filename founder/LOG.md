@@ -17,6 +17,26 @@ Every remark carries one:
 - A remark with no tag is read as `[next]`. The operator sets the tags; a
   session may propose one, never silently promote it.
 
+## Current focus — 2026-11-17
+
+- **The book: PNG plates for Christmas.** The pipeline is live in `book/`:
+  six symmetric plates, white, no text, tight to the curve, 300 dpi, a
+  two-column gallery with the label outside. `[now]` — choose the set, the trim
+  size and the plate count.
+- **The square and rectangle lab.** One rule: the leg bisects the 90° corner,
+  so it is 45°. The frame takes a count across and a count down, and an a/b
+  pattern along each side (for example `aba`). The central leaf is curve a
+  below and the flipped curve b above, with the feet forced onto the same two
+  points. `[now]` — play with it and choose the book's frame.
+- **The attach problem is measured, not hidden.** An arch over an arch prints
+  tips 90° / 90°; an S over an arch prints 90° / 0°, so one foot is smooth and
+  the other square. The page prints both numbers. `[now]` — match the curve
+  pair before using a leaf in the book.
+- **Squares and rectangles only** until they are right; pentagons and
+  pentagrams are parked, not forgotten. `[now]`
+- **The stroke floor is 1 point** at every print size from 1 to 4 inches.
+  `[now]`
+
 ## 2026-11-16 — the saved curves, the crossings, one exact core
 
 - **The saved-curve buttons were emptied twice.** A failed read became an empty
@@ -81,18 +101,23 @@ Every remark carries one:
 - **The lace knots are not ribbon material:** at 3% of their size the rail
   folds (|d·κ| = 735). `[later]` — use them as spines or endings, not plates.
 
-## 2026-11-17 — the square and the frame
+## 2026-11-17 — the square, the rectangle and the leaf
 
-- **One rule: the leg bisects the corner.** A square is 90°, so the leg is 45°;
-  the ends stay on the edge and the square closes at the measured side. An arch
-  joins continuously, an S at a right angle. `[now]` — the lab is live.
-- **The frame is separate from the cross.** Three chords a side, the same rule,
-  overlaid only — a picture in a frame. Five curves a side makes a finer,
-  lace-like scale. `[now]` — choose the settings for the book.
-- **The stroke floor is 1 point** at every size from 1 to 4 inches. `[now]` —
-  a plate may be scaled down without losing its line.
-- **The next shapes are the same rule:** pentagon 54°, pentagram point 18°.
-  `[next]` — a polygon edge list, not a second construction.
+- **One rule: the leg bisects the corner.** A 90° corner wants a 45° leg; the
+  ends stay on the edge and the box closes at the measured side. An arch joins
+  continuously, an S at a right angle. `[now]` — the lab is live.
+- **The frame is a rectangle now:** counts across and down (2 × 3 for a tall
+  leaf), a per-side a/b pattern (`aba`), three or five curves a side for a finer
+  scale. The frame and the leaf are built separately and overlaid. `[now]` —
+  choose the settings for the book.
+- **The leaf is curve a below, flipped curve b above, feet forced together.**
+  The tip angles are printed; an arch over an arch is 90° / 90°, an S over an
+  arch is 90° / 0°. That mismatch is the attach problem, measured. `[now]`
+- **Squares and rectangles only** until they are right. `[now]`
+- **The stroke floor is 1 point** at 1–4 inches. `[now]` — scale down without
+  losing the line.
+- **Other polygons are parked** by the operator: pentagons and pentagrams wait
+  until the 90° case is right. `[later]`
 
 ## Open, in priority order
 
@@ -100,9 +125,13 @@ Every remark carries one:
   the book; the export needs the print size, not only pixels.
 - `[now]` The chosen plate set: 12–24 symmetric curves, each with an
   `offsetShare` that does not fold; the two-column gallery is the contact sheet.
+- `[now]` The leaf pair and the frame settings (counts, pattern, leg) chosen
+  from the lab, with the tip angles equal at both feet.
 - `[next]` The balance-stations page (B3), exact from the derivative polynomial.
 - `[next]` One plate with a declared character offset (varying width).
 - `[next]` A LibreOffice contact sheet at trim size, with a PDF proof.
 - `[later]` Cubic Béziers and the Inkscape transfer.
 - `[later]` The rail lab in JS, crossings, then grid and bend; `measure.py`
   last; the server only if the deploy changes.
+- `[later]` Other polygons (pentagon, pentagram) — parked until the 90° case is
+  right.

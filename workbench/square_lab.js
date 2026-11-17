@@ -38,7 +38,7 @@
 
   const scale = (p, k) => p.map(([x, y]) => [x * k, y * k]);
   const translate = (p, o) => p.map(([x, y]) => [x + o[0], y + o[1]]);
-  const flipY = (p) => p.map(([x, y]) => [x, -y]);
+  const flipY = (p) => p.map(([x, y]) => [x, y === 0 ? 0 : -y]);
 
   const rotate = (p, deg) => {
     const a = (deg * Math.PI) / 180;
@@ -64,6 +64,15 @@
   ];
 
   const place = (p, deg, origin) => translate(rotate(p, deg), origin);
+
+  // Scale across the chord to an exact leg angle, with no auto-flip: a leaf's
+  // bottom needs a negative leg, and the caller must be able to ask for it.
+  const stretchExact = (p, deg) => {
+    const [dx, dy] = derivative(p, 0);
+    if (Math.abs(dy) < 1e-12) throw new Error("the start tangent is parallel to the chord");
+    const k = (Math.tan((deg * Math.PI) / 180) * dx) / dy;
+    return p.map(([x, y]) => [x, y * k]);
+  };
 
   const assemble = (p, side, legDeg) => {
     const length = chord(p);
@@ -102,6 +111,60 @@
     return { from: `${curve.name}${curve.copy}`, to: `${next.name}${next.copy}`, angle: d };
   });
 
+  // A leaf: curve a below, curve b above, both with their feet on the same two
+  // points. Each is stretched to the same leg, so the tip angle at both feet
+  // is 2 × the leg, and the feet cannot drift apart.
+  const central = (a, b, legDeg) => {
+    const feet = chord(a);
+    const bottom = stretchExact(flipY(scale(a, feet / chord(a))), -legDeg);
+    const top = stretchExact(scale(b, feet / chord(b)), legDeg);
+    const curve = (name, points, sign) => ({
+      name, copy: "", points,
+      startLeg: legAt(points, 0), endLeg: legAt(points, 1),
+      tip: sign,
+    });
+    return {
+      feet,
+      curves: [curve("bottom", bottom, -1), curve("top", top, 1)],
+      // the angle between the two tangents at a foot: 2 × the leg, by design
+      tips: {
+        left: Math.abs(legAt(top, 0) - legAt(bottom, 0)),
+        right: Math.abs(legAt(bottom, 1) - legAt(top, 1)),
+      },
+    };
+  };
+
+  // A rectangular frame: `perWidth` copies on the top and bottom, `perHeight`
+  // on the sides. `pattern` is a string of a/b, cycled along each side.
+  const frameRect = (a, b, perWidth, perHeight, legDeg, pattern, alternate) => {
+    if (perWidth < 1 || perHeight < 1) throw new Error("a frame needs at least one copy per side");
+    const L = chord(a);
+    const W = perWidth * L;
+    const H = perHeight * L;
+    const letters = pattern.replace(/[^ab]/g, "") || "a";
+    const sides = [
+      ["south", [0, 0], 0, perWidth, W],
+      ["east", [W, 0], 90, perHeight, H],
+      ["north", [W, H], 180, perWidth, W],
+      ["west", [0, H], 270, perHeight, H],
+    ];
+    const curves = [];
+    sides.forEach(([name, origin, deg, count, length]) => {
+      const copyLength = length / count;
+      for (let copy = 0; copy < count; copy += 1) {
+        const letter = letters[copy % letters.length];
+        const source = letter === "b" ? b : a;
+        let shape = stretchToLeg(scale(source, copyLength / chord(source)), legDeg);
+        if (alternate && copy % 2) shape = flipY(shape);
+        const points = place(translate(shape, [copy * copyLength, 0]), deg, origin);
+        curves.push({ name, copy: `${letter}${copy}`, letter, points,
+                      startLeg: legAt(shape, 0) + deg,
+                      endLeg: legAt(shape, 1) + deg });
+      }
+    });
+    return { W, H, curves };
+  };
+
   const distinctKinks = (kinks) =>
     [...new Set(kinks.map((k) => Math.round(k.angle)))].sort((a, b) => a - b);
 
@@ -132,7 +195,7 @@
     "s-5-12-13": { label: "S 5-12-13", points: [[0, 0], [5, -12], [21, 12], [26, 0]] },
   };
 
-  return { at, derivative, legAt, chord, stretchToLeg, rotate, translate,
-           scale, assemble, frame, ringKinks, distinctKinks, bbox, sample,
-           strokeFor, CURVES };
+  return { at, derivative, legAt, chord, stretchToLeg, stretchExact, rotate,
+           translate, scale, assemble, frame, frameRect, central, ringKinks,
+           distinctKinks, bbox, sample, strokeFor, CURVES };
 });

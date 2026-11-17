@@ -465,9 +465,10 @@ proof and `workbench/square-frame.html` is the lab.
   `strokeFor` returns `max(1, 0.0035 × width in points)`, so the percentage
   rules above 3.97 in and the floor holds below it. A scaled-down plate never
   loses its line.
-- **The next shapes follow the same corner rule:** a pentagon's corner is 108°
-  (leg 54°), a pentagram point is 36° (leg 18°). The square is the first case,
-  not a special one.
+- **Squares and rectangles only, for now.** The operator parked other polygons
+  on 2026-11-17. The same corner rule holds when they return: a pentagon's
+  corner is 108° (leg 54°), a pentagram point 36° (leg 18°) — but the box is
+  not square and the counts are per axis, so it is a separate piece of work.
 
 ## Searching and naming
 

@@ -573,9 +573,9 @@
    "file": "square-frame.html",
    "group": "curve",
    "title": "Square and frame lab",
-   "purpose": "One curve on the edges of a square, and a frame of three chords a side.",
-   "inputs": "curve, curves per side, leg angle, print size, fill, flips",
-   "outputs": "the square or frame, the join angles, the stroke in points"
+   "purpose": "One curve on the edges of a square, or a rectangular frame with an a/b pattern and a central leaf.",
+   "inputs": "curve a, curve b, curves across, curves down, pattern, leg, print size, fill",
+   "outputs": "the frame and the leaf, the join and tip angles, the stroke in points"
   },
   {
    "key": "integer-g2",

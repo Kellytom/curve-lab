@@ -1,15 +1,14 @@
-"""The interactive square/frame lab: controls, and a page that draws live.
+"""The interactive square/rectangle lab: controls, and a page that draws live.
 
     .venv/bin/python scripts/square_frame.py
 
 Writes `workbench/square-frame.html`. The geometry lives in
 `workbench/square_lab.js` (the same file the page loads); this generator writes
-only the shell, the controls and the app that wires them. Nothing here draws a
-curve; the browser does, so a slider change is immediate.
+only the shell, the controls and the app that wires them. Squares and
+rectangles only: the leg rule is 45° because the corner is 90°.
 
 The page measures in points (1/72 in). The stroke is `SquareLab.strokeFor`, so
-it is 1 point at every print size from 1 to 4 inches — the floor the operator
-asked for.
+it is 1 point at every print size from 1 to 4 inches.
 """
 
 from __future__ import annotations
@@ -34,34 +33,54 @@ function show(id, value) {
 }
 
 function draw() {
-  const spec = SquareLab.CURVES[$("sf-curve").value];
-  const perSide = Number($("sf-per-side").value);
+  const a = SquareLab.CURVES[$("sf-a").value].points;
+  const b = SquareLab.CURVES[$("sf-b").value].points;
+  const perW = Number($("sf-per-w").value);
+  const perH = Number($("sf-per-h").value);
+  const pattern = $("sf-pattern").value;
   const leg = Number($("sf-leg").value);
   const sizeIn = Number($("sf-size").value);
   const fill = Number($("sf-fill").value);
   const alternate = $("sf-alternate").checked;
-  const withCross = $("sf-cross").checked;
+  const showFrame = $("sf-frame").checked;
+  const showLeaf = $("sf-leaf").checked;
 
-  show("sf-per-side", perSide);
+  show("sf-per-w", perW);
+  show("sf-per-h", perH);
   show("sf-leg", leg + "°");
   show("sf-size", sizeIn.toFixed(2) + " in");
   show("sf-fill", Math.round(fill * 100) + "%");
 
+  const L = SquareLab.chord(a);
+  const boxW = perW * L;
+  const boxH = perH * L;
+  const frame = showFrame
+    ? SquareLab.frameRect(a, b, perW, perH, leg, pattern, alternate)
+    : { W: boxW, H: boxH, curves: [] };
+
+  let leafCurves = [];
+  let tips = null;
+  if (showLeaf) {
+    const leaf = SquareLab.central(a, b, leg);
+    tips = leaf.tips;
+    const cx = boxW / 2 - leaf.feet / 2;
+    const cy = boxH / 2;
+    leafCurves = leaf.curves.map((curve) => ({
+      ...curve,
+      points: curve.points.map(([x, y]) => [x + cx, y + cy]),
+    }));
+  }
+
+  const all = frame.curves.concat(leafCurves);
+  if (!all.length) {
+    stage.innerHTML = "";
+    readout.textContent = "nothing to draw";
+    return;
+  }
+
   const W = sizeIn * 72;
   const H = W;
   const margin = W * 0.06;
-  const frameSide = perSide * SquareLab.chord(spec.points);
-  const curves = SquareLab.frame(spec.points, perSide, leg, alternate, frameSide);
-  const crossSide = frameSide * 0.34;
-  const shift = (frameSide - crossSide) / 2;
-  const cross = withCross
-    ? SquareLab.assemble(spec.points, crossSide, leg).map((curve) => ({
-        ...curve,
-        points: curve.points.map(([x, y]) => [x + shift, y + shift]),
-      }))
-    : [];
-
-  const all = curves.concat(cross);
   const [x0, y0, x1, y1] = SquareLab.bbox(all);
   const k = Math.min((W - 2 * margin) / (x1 - x0), (H - 2 * margin) / (y1 - y0)) * fill;
   const ox = (W - (x1 - x0) * k) / 2 - x0 * k;
@@ -80,19 +99,25 @@ function draw() {
       + `stroke-linejoin="round"/>`;
   };
   stage.innerHTML =
-    curves.map((c) => line(SquareLab.sample(c.points, 120), "#2e2413")).join("")
-    + cross.map((c) => line(SquareLab.sample(c.points, 120), "#7b6c4e")).join("");
+    frame.curves.map((c) => line(SquareLab.sample(c.points, 120), "#2e2413")).join("")
+    + leafCurves.map((c) => line(SquareLab.sample(c.points, 120), "#7b6c4e")).join("");
 
-  const joins = SquareLab.distinctKinks(SquareLab.ringKinks(curves)).join(" / ");
-  readout.textContent =
-    `side ${((frameSide * k) / 72).toFixed(2)} in · `
-    + `copy ${(((frameSide / perSide) * k) / 72).toFixed(2)} in · `
-    + `stroke ${stroke.toFixed(2)} pt · joins ${joins}° · `
-    + `${curves.length} curves` + (withCross ? " + cross" : "");
+  const parts = [];
+  parts.push(`box ${((frame.W * k) / 72).toFixed(2)} × ${((frame.H * k) / 72).toFixed(2)} in`);
+  parts.push(`copy ${((L * k) / 72).toFixed(2)} in`);
+  parts.push(`stroke ${stroke.toFixed(2)} pt`);
+  if (showFrame) {
+    const joins = SquareLab.distinctKinks(SquareLab.ringKinks(frame.curves)).join(" / ");
+    parts.push(`${frame.curves.length} frame curves · joins ${joins}°`);
+  }
+  if (tips) {
+    parts.push(`leaf tips ${Math.round(tips.left)}° / ${Math.round(tips.right)}°`);
+  }
+  readout.textContent = parts.join(" · ");
 }
 
-["sf-curve", "sf-per-side", "sf-leg", "sf-size", "sf-fill",
- "sf-alternate", "sf-cross"].forEach((id) => {
+["sf-a", "sf-b", "sf-per-w", "sf-per-h", "sf-pattern", "sf-leg",
+ "sf-size", "sf-fill", "sf-alternate", "sf-frame", "sf-leaf"].forEach((id) => {
   $(id).addEventListener("input", draw);
 });
 draw();
@@ -101,8 +126,8 @@ draw();
 
 def page_html() -> str:
     curves = [
-        ("arch-345", "arch 3-4-5 (smooth corners)"),
-        ("s-345", "S 3-4-5 (right-angle corners)"),
+        ("arch-345", "arch 3-4-5"),
+        ("s-345", "S 3-4-5"),
         ("arch-5-12-13", "arch 5-12-13"),
         ("s-5-12-13", "S 5-12-13"),
     ]
@@ -119,10 +144,11 @@ h1{{font-size:24px;margin:0 0 4px}}
 .lead{{color:#8c6a21;margin:0 0 20px}}
 .wrap{{display:grid;grid-template-columns:300px minmax(0,1fr);gap:22px;align-items:start}}
 .controls{{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px}}
-.controls label{{display:block;margin:0 0 14px;font-size:13px}}
+.controls label{{display:block;margin:0 0 13px;font-size:13px}}
 .controls .row{{display:flex;justify-content:space-between;align-items:baseline;gap:8px}}
 .controls input[type=range]{{width:100%;margin:4px 0 0}}
-.controls select{{width:100%;padding:4px;font:13px ui-monospace,Menlo,monospace}}
+.controls select,.controls input[type=text]{{width:100%;padding:4px;
+  font:13px ui-monospace,Menlo,monospace;border:1px solid #d8ccae;background:#fff}}
 .controls .check{{display:flex;gap:8px;align-items:center}}
 .stage{{background:#fff;border:1px solid #d8ccae;padding:8px}}
 .stage svg{{display:block;width:100%;height:auto}}
@@ -131,19 +157,28 @@ h1{{font-size:24px;margin:0 0 4px}}
 code{{font:12px ui-monospace,Menlo,monospace}}
 </style></head><body><main>
 <h1>Square and frame lab</h1>
-<p class="lead">One curve, placed on the edges by one rule: the leg bisects the
-corner. A square corner is 90°, so the leg is 45°; an arch then joins
-continuously, an S joins at a right angle. The frame and the cross are built
-separately and only share the page.</p>
+<p class="lead">Squares and rectangles only. One rule: the leg bisects the
+90° corner, so it is 45°. An arch joins continuously; an S joins at a right
+angle. The frame and the leaf are built separately and only share the page.</p>
 
 <div class="wrap">
 <div class="controls">
-  <label>curve
-    <select id="sf-curve">{options}</select>
+  <label>curve a
+    <select id="sf-a">{options}</select>
+  </label>
+  <label>curve b
+    <select id="sf-b">{options}</select>
   </label>
   <label>
-    <span class="row"><span>curves per side</span><b id="sf-per-side-v">3</b></span>
-    <input id="sf-per-side" type="range" min="1" max="8" step="1" value="3">
+    <span class="row"><span>curves across</span><b id="sf-per-w-v">2</b></span>
+    <input id="sf-per-w" type="range" min="1" max="6" step="1" value="2">
+  </label>
+  <label>
+    <span class="row"><span>curves down</span><b id="sf-per-h-v">3</b></span>
+    <input id="sf-per-h" type="range" min="1" max="6" step="1" value="3">
+  </label>
+  <label>frame pattern (a/b)
+    <input id="sf-pattern" type="text" value="aba" maxlength="8" spellcheck="false">
   </label>
   <label>
     <span class="row"><span>leg angle</span><b id="sf-leg-v">45°</b></span>
@@ -159,21 +194,28 @@ separately and only share the page.</p>
   </label>
   <label class="check"><input id="sf-alternate" type="checkbox">
     flip every other copy</label>
-  <label class="check"><input id="sf-cross" type="checkbox" checked>
-    show the central cross</label>
+  <label class="check"><input id="sf-frame" type="checkbox" checked>
+    show the frame</label>
+  <label class="check"><input id="sf-leaf" type="checkbox" checked>
+    show the leaf</label>
 </div>
 <div>
   <div id="sf-readout">…</div>
   <div class="stage"><svg id="sf-stage" viewBox="0 0 288 288" role="img"
-    aria-label="square and frame from one curve"></svg></div>
+    aria-label="square or rectangular frame and a central leaf"></svg></div>
 </div>
 </div>
 
-<p class="note">The stroke floor is <strong>1 point</strong> at every size: the
-page measures in points, and <code>strokeFor</code> never returns less. At 4 in
-a 0.35% line is 1.008 pt; at 1 in the floor holds it at 1 pt. The frame side is
-<code>curves per side × the chord</code>, so more copies on the same page means
-a finer, lace-like scale.</p>
+<p class="note"><strong>The leaf</strong> is curve a below and curve b above,
+flipped, with the feet forced onto the same two points. The tip angles are
+printed: 90° / 90° means the two curves meet cleanly at both feet; a mismatch
+(e.g. 90° / 0°) means one foot is smooth and the other is square, which is the
+attach problem to watch.</p>
+<p class="note">The stroke floor is <strong>1 point</strong> at every size:
+the page measures in points, and <code>strokeFor</code> never returns less. The
+box is <code>curves across × the chord</code> by <code>curves down × the
+chord</code>, so 2 × 3 gives a tall frame. The pattern cycles a/b along each
+side.</p>
 <p class="note">Re-derive: <code>python scripts/square_frame.py</code> ·
 <code>node --test tests/js</code></p>
 </main>
