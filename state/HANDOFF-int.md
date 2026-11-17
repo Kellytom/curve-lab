@@ -2613,3 +2613,36 @@ in this install, unrepairable offline). `npm run build` and `npm test` are the
 app gate.
 
 **Next:** A2, port the book gallery into Astro; then pages on touch.
+
+## 2026-11-17 (fhandoff) — A2 did not land; the app and the gate are current
+
+**Did the previous action land? No.** The previous next action was A2, the book
+gallery into Astro. `app/src/pages/` holds only `index.astro` and the `api/`
+route, and `book/index.html` is still the generated page. This block restates
+A2; it does not invent a new action.
+
+**Local:** 200 on `:8003` and on `:4321` (probed now). **Remote:** `000`, not
+pushed, carried (last checked 2026-11-17; no deploy this session). **Tests:**
+108 Python modules and 21 JS/app tests, carried from the run before the handoff
+commit; the tree is clean, so nothing under `web/`, `curve_lab/`, `csrc/` or
+`tests/` moved. **Register:** green (run now). **Git:** clean at `96aea81`.
+
+**Changed since the last block.** The default gate now sends the two 42 s
+sandbox page modules to `--full`: **69 s** here on a loaded 4-core machine, from
+91 s; `--slim` is about 2 s. The Astro page has navigation, the gallery has a
+deliberate empty state for stars, and the save payload is parsed with zod.
+`@astrojs/check` and Prettier were removed (ESM/require error; missing native
+binding) and are unrepairable with the network off; `npm run build` and
+`npm test` are the app gate.
+
+**Risks.** (1) The gate is still 69 s here with 59 Chrome/node processes; an
+incremental runner is the real fix. (2) Astro 7 waits on Node >=22.23.4; this
+machine is 22.4.1. (3) The old generated pages remain until ported. (4) The
+Python engine and the spline connector stay; A4 is the Node bridge.
+
+**Next move:** A2 — the book gallery into Astro.
+
+Tried and rejected: `@astrojs/check` — `ERR_REQUIRE_ESM` from the language
+server in this install; Prettier + `prettier-plugin-astro` — no native binding;
+Astro 7 — Node 22.4.1 below its floor; further installs — the operator stopped
+the network.

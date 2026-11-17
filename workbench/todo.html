@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:75.6%}
+.fill{height:100%;background:#8c6a21;width:75.3%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">118 / 156 done · 76% · read-only twin of
+<div class="count">119 / 158 done · 75% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -59,6 +59,10 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>first. The same corner rule holds later (pentagon 54°, pentagram point 18°).</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Real curves in the lab (B7):</strong> the lab loads <code>real-curves.json</code> and</span></label>
 <p>draws with <code>plate_math.js</code>; the selectors list the 28 saved curves; every copy has its character rails and closed ends; the readout prints the paths and the note. <code>tests/test_square_frame.py</code> guards the controls and the page.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Port the book gallery into Astro (A2, the next action):</strong> one page lists</span></label>
+<p>the starred plates and the cross/leaf designs from the files; retire the generated <code>book/index.html</code> in the same commit.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>The gate:</strong> the two 42 s sandbox page modules moved to <code>--full</code>; the</span></label>
+<p>default gate is 69 s on this loaded machine (91 s before), <code>--slim</code> about 2 s.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>The Astro app:</strong> <code>app/</code> runs Astro 5.18 + <code>@astrojs/node</code> on <code>:4321</code>;</span></label>
 <p>the lab page imports the shared <code>plate_math.js</code> and <code>real-curves.json</code>, stars the current design, and <strong>save to workbench</strong> writes <code>workbench/starred.json</code> through <code>app/src/lib/stars.js</code> (validated, atomic). 4 save tests in the gate. Next: the book gallery, then pages on touch; the Python bridge is A4.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Stars and the gallery picker:</strong> the lab stars a design (localStorage),</span></label>

@@ -43,6 +43,11 @@ Rules and naming are in `book/README.md`; the plan is `state/PLAN-int.md` B1–B
   draws with `plate_math.js`; the selectors list the 28 saved curves; every
   copy has its character rails and closed ends; the readout prints the paths
   and the note. `tests/test_square_frame.py` guards the controls and the page.
+- [ ] **Port the book gallery into Astro (A2, the next action):** one page lists
+  the starred plates and the cross/leaf designs from the files; retire the
+  generated `book/index.html` in the same commit.
+- [x] **The gate:** the two 42 s sandbox page modules moved to `--full`; the
+  default gate is 69 s on this loaded machine (91 s before), `--slim` about 2 s.
 - [x] **The Astro app:** `app/` runs Astro 5.18 + `@astrojs/node` on `:4321`;
   the lab page imports the shared `plate_math.js` and `real-curves.json`, stars
   the current design, and **save to workbench** writes `workbench/starred.json`
