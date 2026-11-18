@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Book plates — moved to the app</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;background:#fff;color:#111;font:14px/1.6 Georgia,serif;padding:40px}
+a{color:#8c6a21}
+</style>
+<script>
+// the gallery is the Astro page; keep the port, change to 4321
+(() => {
+  const target = location.protocol + "//" + location.hostname + ":4321/book";
+  location.replace(target);
+})();
+</script>
+</head><body>
+<p>The book gallery moved to the app: <a href="http://127.0.0.1:4321/book">open /book</a>.</p>
+</body></html>

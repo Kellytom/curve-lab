@@ -82,8 +82,14 @@ test("the page reads the gallery module, and the generated page is gone", async 
   assert.ok(page.includes("buildGallery"));
   assert.ok(page.includes("Framed Quintic symmetric figures"));
   assert.ok(page.includes("Simple framed symmetric central figures"));
-  assert.ok(!existsSync(path.join(ROOT, "book", "index.html")),
-    "book/index.html is still generated; the Astro page replaced it");
+  // The generated gallery is gone. A small redirect file may exist for the old
+  // Python server at :8003 — it must contain no figures, only a jump to /book.
+  const legacy = path.join(ROOT, "book", "index.html");
+  if (existsSync(legacy)) {
+    const text = (await readFile(legacy, "utf8"));
+    assert.ok(text.includes("location.replace"), "book/index.html is not a redirect");
+    assert.ok(!text.includes("<figure>"), "book/index.html is still the generated gallery");
+  }
 });
 
 test("the star file is read through the same plate-name rule as the save", async () => {

@@ -53,6 +53,9 @@ test("the hub page reads the module, and the lab moved off the root", async () =
   const hubPage = await readFile(path.join(APP, "src", "pages", "index.astro"), "utf8");
   assert.ok(hubPage.includes('from "../lib/pages.js"'));
   assert.ok(hubPage.includes("<iframe"));
+  assert.ok(hubPage.includes('href="/everything"'), "the hub no longer points at the full list");
+  const all = await readFile(path.join(APP, "src", "pages", "everything.astro"), "utf8");
+  assert.ok(all.includes("buildHub"));
   const lab = await readFile(path.join(APP, "src", "pages", "lab.astro"), "utf8");
   assert.ok(lab.includes("Square and frame lab"));
 });

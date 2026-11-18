@@ -8,6 +8,7 @@ import { lanUrls, tunnelInfo } from "../lib/tunnel.js";
 const hub = buildHub();
 const tunnel = tunnelInfo();
 const lan = lanUrls();
+const app = hub.app;
 const sections = [{ key: "app", label: "The app", pages: hub.app }, ...hub.sections];
 ---
 
@@ -68,40 +69,31 @@ h2 .count{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);font-weig
 <aside>
   <div class="brand">curve-lab<small>the hub · everything in one scroll</small></div>
   <nav>
-    {sections.map((section) => (
-      <a href={`#${section.key}`}>{section.label}<b>{section.pages.length}</b></a>
+    <section id="app">
+  <h2>The app</h2>
+  <div class="grid">
+    {app.map((page) => (
+      <article class="card tall">
+        <header>
+          <h3>{page.title}<span>{page.purpose}</span></h3>
+          <a href={page.src} target="_blank" rel="noopener">open ↗</a>
+        </header>
+        <iframe src={page.src} title={page.title} loading="lazy"></iframe>
+      </article>
     ))}
-  </nav>
-  <p class="all">{hub.total} pages · the workbench files are served live from
-    <code>workbench/</code> at <code>/pages/&lt;file&gt;</code></p>
-</aside>
-<main>
-  <div class="top">
-    <h1>The hub</h1>
-    <p class="sub">{hub.total} live pages · the app first, then the workbench by intent ·
-      scroll, or jump from the left</p>
-    <p class="sub phone">{tunnel.url
-      ? <>phone: <a href={tunnel.url}>{tunnel.url}</a> · changes when the tunnel restarts</>
-      : <>phone: no quick tunnel in {tunnel.logPath} — <code>scripts/service.sh status</code></>}
-      {lan.length ? <> · home: <a href={lan[0]}>{lan[0]}</a></> : null}</p>
   </div>
+</section>
 
-  {sections.map((section) => (
-    <section id={section.key}>
-      <h2>{section.label}<span class="count">{section.pages.length}</span></h2>
-      <div class="grid">
-        {section.pages.map((page) => (
-          <article class:list={["card", section.key === "app" && "tall"]}>
-            <header>
-              <h3>{page.title}<span>{page.purpose}</span></h3>
-              <a href={page.src} target="_blank" rel="noopener">open ↗</a>
-            </header>
-            <iframe src={page.src} title={page.title} loading="lazy"></iframe>
-          </article>
-        ))}
-      </div>
-    </section>
-  ))}
+<h2>There's more…</h2>
+<p class="lead" style="font-size:15px;color:#2e2413;max-width:760px">
+  Everything else is kept and still working: the generators, the degree ladder's
+  notes, the terminal and junction proofs, the catalogue pages. {hub.total - app.length}
+  pages in all. They are on one page of their own, so this one stays short and the
+  four above stay at the top.</p>
+<p><a href="/everything" style="display:inline-block;padding:8px 14px;border:1px solid #c9a441;
+  background:#fbf3dc;color:#8c6a21;text-decoration:none;font:12px ui-monospace,Menlo,monospace">
+  the full page list →</a></p>
+
 </main>
 </div>
 </body></html>

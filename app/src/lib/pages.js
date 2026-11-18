@@ -60,8 +60,8 @@ export function buildHub({ root } = {}) {
   // The app's own pages lead: they are the future, the workbench pages are the
   // material they are being ported from.
   const app = [
-    { key: "lab", title: "The lab", src: "/lab",
-      purpose: "Square and frame lab: the saved curves on 90° edges, stars, save." },
+    { key: "lab", title: "Central design & frame", src: "/lab",
+      purpose: "Cross, leaf, arch or chain on 90° edges; curves per side, leg angle, print size, stars." },
     { key: "book", title: "The book gallery", src: "/book",
       purpose: "The exported plates: stars, cross and leaf, then the singles." },
     { key: "ph-nth-sandbox", title: "PH nth sandbox", src: "/ph-nth-sandbox",

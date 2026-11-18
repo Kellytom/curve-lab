@@ -1,0 +1,47 @@
+---
+// Every older workbench page, as a link list: the hub stays short, this page
+// carries the rest. No iframes — it opens instantly.
+import { buildHub } from "../lib/pages.js";
+
+const hub = buildHub();
+const sections = hub.sections;
+---
+
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everything else</title>
+<style is:global>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:26px 22px 70px}
+h1{font-size:24px;margin:0 0 4px}
+h2{font-size:16px;margin:26px 0 6px}
+.lead{color:#8c6a21;margin:0 0 16px;font-size:13px}
+ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:8px}
+li{background:#fffdf7;border:1px solid #d8ccae;padding:8px 10px}
+li a{color:#2e2413;font-weight:600;text-decoration:none;font-size:14px}
+li a:hover{color:#8c6a21;text-decoration:underline}
+li p{margin:2px 0 0;font:11px/1.45 ui-monospace,Menlo,monospace;color:#7b6c4e}
+code{font:11px ui-monospace,Menlo,monospace}
+</style></head><body>
+<nav style="font:11px/1.5 ui-monospace,Menlo,monospace;padding:8px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae">
+  <a href="/" style="color:#8c6a21">the hub</a> · <a href="/finder" style="color:#8c6a21">curve finder</a> ·
+  <a href="/ph-nth-sandbox" style="color:#8c6a21">PH nth sandbox</a> · <a href="/lab" style="color:#8c6a21">lab</a> ·
+  <a href="/book" style="color:#8c6a21">book</a>
+</nav>
+<main>
+<h1>Everything else</h1>
+<p class="lead">{hub.total - hub.app.length} older pages · every one still generated and still working ·
+  grouped by what you are looking for</p>
+{sections.map((section) => (
+  <section id={section.key}>
+    <h2>{section.label}</h2>
+    <ul>
+      {section.pages.map((page) => (
+        <li><a href={page.src}>{page.title}</a><p>{page.purpose}</p></li>
+      ))}
+    </ul>
+  </section>
+))}
+</main>
+</body></html>
