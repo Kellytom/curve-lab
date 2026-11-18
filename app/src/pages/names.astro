@@ -21,7 +21,7 @@ const needsName = (curve) =>
   curve.auto_named || /\s|=|,/.test(curve.name) || curve.name.length > 28;
 
 const rows = registry.curves
-  .filter(needsName)
+  .filter((curve) => !curve.candidate)
   .sort((a, b) => (b.importance || 0) - (a.importance || 0) || a.name.localeCompare(b.name))
   .map((curve) => {
     const note = noteOf.get(curve.uid) || {};
@@ -37,6 +37,7 @@ const rows = registry.curves
       importance: note.importance ?? curve.importance ?? 0,
       lists: curve.lists.join(", "),
       starred: curve.starred,
+      auto: curve.auto_named,
     };
   });
 ---
@@ -48,8 +49,9 @@ const rows = registry.curves
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
 <style>
-.row{border-top:1px solid var(--pico-muted-border-color);padding:.55rem 0;display:flex;gap:.7rem;align-items:flex-start}
-.row img.thumb{width:96px;height:96px;object-fit:contain;background:#fff;border:1px solid var(--pico-muted-border-color);flex:none}
+.desk{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.row{border:1px solid var(--pico-muted-border-color);padding:.55rem;background:#fff}
+.row img.thumb{display:block;width:100%;height:auto;background:#fff;border:1px solid #eee;margin-bottom:.4rem}
 .row .body{flex:1}
 .row .who{font-size:.72rem;color:var(--pico-muted-color)}
 .line{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
@@ -64,15 +66,17 @@ const rows = registry.curves
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
 <main class="container">
   <h1>Naming desk</h1>
-  <p>{rows.length} curves still carry a sentence for a name. Type the middle; the
+  <p>{rows.length} curves still carry a sentence for a name, among the curves
+    you picked. Finder candidates that were never starred are left out. Type the middle; the
     prefix and postfix are added around it. The stars are importance: 1 to 10,
     and the top of every list is the highest.</p>
 
+  <div class="desk">
   {rows.map((row) => (
     <div class="row" data-uid={row.uid}>
       <img class="thumb" src={`/curves/${row.uid}.png`} alt={`${row.name} curve`} loading="lazy">
       <div class="body">
-      <div class="who">{row.uid} · lists: {row.lists}{row.starred ? " · starred" : ""} · now: <code>{row.name}</code></div>
+      <div class="who">{row.uid} · lists: {row.lists}{row.starred ? " · starred" : ""} · now: <code>{row.name}</code>{row.auto ? " · auto" : ""}</div>
       <div class="line">
         <span class="word">{row.prefix}-</span>
         <input type="text" class="core" value={row.core} aria-label={`name core for ${row.uid}`}>
@@ -89,6 +93,7 @@ const rows = registry.curves
       </div>
     </div>
   ))}
+  </div>
 </main>
 <script is:inline>
 (() => {

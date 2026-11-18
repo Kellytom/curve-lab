@@ -179,7 +179,9 @@ export function buildIlluminations(root) {
 
   const sections = [
     { title: "Fig. 1–50 · found", records: byList("found").slice(0, 50) },
-    { title: "Fig. 51–59 · finder", records: byList("finder").slice(0, 9) },
+    // Only the finder curves that were actually picked: starred or rated.
+    // Unstarred finder rows are the candidate pool, not the collection.
+    { title: "Finder · picked", records: byList("finder").filter((r) => r.starred || (r.importance || 0) > 0) },
     { title: "Roses", records: registry.filter((r) => r.family_id === "rose" && !r.name.includes("k-4")) },
     { title: "B | solve, save, take away", records: byList("B") },
   ];

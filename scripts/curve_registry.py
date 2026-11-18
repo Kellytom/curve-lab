@@ -227,6 +227,12 @@ def main(argv: list[str]) -> int:
         record["owner"] = owner_mark(secret, record["uid"])
         record["kind"] = record.get("kind", "rows")
         record["starred"] = any(n in stars for n in [record["name"], *record["aliases"]])
+        # A curve that exists only in the finder, was never starred and was never
+        # rated is a candidate, not a pick. It stays in the registry, out of the
+        # naming desk and out of the chosen sets.
+        record["candidate"] = (record["lists"] == ["finder"]
+                               and not record["starred"]
+                               and int(record.get("importance") or 0) == 0)
         record["importance"] = int(note.get("importance",
                                           10 if record["starred"] else 0))
         for key in ("rotation", "pieces", "border_uid"):

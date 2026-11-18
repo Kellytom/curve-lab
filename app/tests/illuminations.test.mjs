@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import path from "node:path";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import { buildIlluminations } from "../src/lib/bordered.js";
 
@@ -8,18 +9,25 @@ const ROOT = path.resolve(import.meta.dirname, "../..");
 test("the gallery has the picked sets, numbered once", () => {
   const gallery = buildIlluminations(ROOT);
 
-  assert.equal(gallery.total, 241);
+  const registry = JSON.parse(
+    readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url), "utf8"),
+  ).curves;
+  const pickedFinder = registry.filter(
+    (r) => r.lists.includes("finder") && (r.starred || (r.importance || 0) > 0),
+  ).length;
+  const bCurves = registry.filter((r) => r.lists.includes("B")).length;
+  assert.equal(gallery.total, 50 + pickedFinder + 3 + bCurves);
   assert.deepEqual(
     gallery.sections.map((section) => section.items.length),
-    [50, 9, 3, 179],
+    [50, pickedFinder, 3, bCurves],
   );
   assert.match(gallery.sections[0].title, /Fig\. 1.50/);
   assert.match(gallery.sections[3].title, /solve, save, take away/);
 
   const ids = gallery.sections.flatMap((section) => section.items.map((item) => item.id));
-  assert.equal(new Set(ids).size, 241, "an id is repeated");
+  assert.equal(new Set(ids).size, gallery.total, "an id is repeated");
   assert.deepEqual(ids.slice(0, 3), ["fig-1", "fig-2", "fig-3"]);
-  assert.equal(ids.at(-1), "fig-241");
+  assert.equal(ids.at(-1), `fig-${gallery.total}`);
 
   for (const item of gallery.sections[0].items) {
     assert.match(item.svg, /^<svg/, `${item.name} has no drawing`);
