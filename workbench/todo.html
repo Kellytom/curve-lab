@@ -108,11 +108,13 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>rational parameters. Endpoints and tangents are exact fractions, printed on each card; <code>arc -1 to 1</code> turns <strong>−90.0°</strong> across the arc, which is a usable right-angle chain piece.</p>
 <label class="task"><input type="checkbox" checked disabled><span><strong>Ends first</strong> (<code>scripts/ends_first.py</code>): position, tangent and second</span></label>
 <p>derivative at both ends solved exactly (two free coefficients per coordinate left over), and the crossing at <code>t = 1/4, 3/4</code> solved from those. Three cases, ends and crossing both verified exact.</p>
-<label class="task"><input type="checkbox" disabled><span><strong>Shape quality of the ends-first set.</strong> The three cards are shallow: the</span></label>
-<p>end curvatures used are small (±1). The lever is the second-derivative input, not the solve — raise it and the middle bows. Worth one pass before any of these becomes a plate.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Ends-first is parked, with the real cause found.</strong> Raising the end</span></label>
+<p>curvature did not help: the solve leaves the top powers (t^6, t^7) as the free parameters, so the particular solution and the crossing correction are large and the curve plunges far outside its own chord (measured x −20 on a 0..2 chord) while looking flat when scaled to the card. The fix is a better basis — Bernstein with local handles, or free parameters spread across low powers — and a norm bound on the coefficients. Not a tuning problem.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Chain two different ends-first curves</strong> and print the corner, the way the</span></label>
 <p>arcs do, so the family is proved connectable rather than argued connectable.</p>
-<h2>Tschirnhausen, elevation — investigated 2026-11-18</h2>
+<h2>Tschirnhausen — <strong>off the board</strong> (2026-11-18)</h2>
+<p>Retired from the finder by the operator (&quot;it failed to produce anything interesting yet&quot;). The base curve is classic but adds nothing the loops do not; the two elevated forms were slivers. The script and the checks stay, the cards do not.</p>
+<h3>The investigation, kept</h3>
 <li><strong>The old work was exact, not an approximation.</strong> <code>tph_tri_chain/RESULTS.md</code></li>
 <p>already solved the rational part: at <code>x = t²</code>, <code>y = t − t³/3</code>, integer points exist exactly at <code>t</code> a multiple of 3 (<code>(9,−6)</code>, <code>(36,−66)</code>, …), and other rational stops are exact at a stated pitch (<code>t = 12/5</code> → <code>(720,−276)</code> at pitch 125).</p>
 <li><strong>The node cannot be rationalised.</strong> It sits at <code>t = ±√3</code>; the old study says</li>

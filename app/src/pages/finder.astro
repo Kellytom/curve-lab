@@ -34,6 +34,13 @@ function metaLine(curve) {
     bits.push(`tangent ${curve.peak.angle.toFixed(1)}°`);
     bits.push(`κ ${curve.peak.kappa.toFixed(3)}`);
   }
+  const rec = curve.record || {};
+  if (rec.formula) bits.push(rec.formula);
+  if (rec.variables && Object.keys(rec.variables).length) {
+    bits.push("vars " + Object.entries(rec.variables).map(([k, v]) => `${k}=${Array.isArray(v) ? JSON.stringify(v) : v}`).join(" "));
+  }
+  if (rec.grid) bits.push(`grid ${rec.grid}`);
+  bits.push(rec.sandbox ? "sandbox ✓" : `sandbox ✗ (${rec.sandboxReason || "no definition"})`);
   const f = curve.features || {};
   if (f["tangent_45"] && f["tangent_45"].length) bits.push(`45° at t ${f["tangent_45"].join(", ")}`);
   if (f["tangent_-45"] && f["tangent_-45"].length) bits.push(`−45° at t ${f["tangent_-45"].join(", ")}`);

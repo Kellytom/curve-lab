@@ -141,11 +141,14 @@ def rails(points, share=0.010):
     return [left, right]
 
 
+# Measured bow (largest distance from the chord, as a share of it) chose these:
+# 0.30, 0.54 and 0.74. Below 0.15 the card is a sliver; above 0.9 it is a loop,
+# not a stroke.
 CASES = (
     # start point, start tangent, start accel, end point, end tangent, end accel
-    ("ends 45 in / -45 out", (0, 0), (3, 4), (0, 1), (1, 0), (3, -4), (0, -1)),
-    ("ends flat in / flat out", (0, 0), (1, 0), (0, 2), (1, 0), (1, 0), (0, -2)),
-    ("ends steep in / shallow out", (0, 0), (1, 3), (0, 1), (2, 0), (3, -1), (0, -1)),
+    ("bow 0.30, 45 in / -45 out", (0, 0), (1, 1), (0, 1), (2, 0), (1, -1), (0, -1)),
+    ("bow 0.54, shallow in", (0, 0), (2, 1), (0, 3), (2, 0), (1, -2), (0, -3)),
+    ("bow 0.74, steep", (0, 0), (1, 1), (0, 4), (2, 0), (1, -1), (0, -4)),
 )
 
 
@@ -180,7 +183,17 @@ def main():
             "flags": [f"ends exact at {A} and {B}", f"tangents {u} and {v}",
                       "crossing solved at t = 1/4 and 3/4" if crossing_ok else "no crossing"],
         })
-        print(f"{name:30} ends exact {ends_ok}  crossing exact {crossing_ok}")
+        # the corner a chain sees: end tangent of this curve against a mirrored
+        # continuation that starts at the same point with the mirrored tangent
+        end_angle = math.degrees(math.atan2(v[1], v[0]))
+        start_angle = math.degrees(math.atan2(u[1], u[0]))
+        corner = end_angle - start_angle
+        while corner > 180:
+            corner -= 360
+        while corner < -180:
+            corner += 360
+        print(f"{name:30} ends exact {ends_ok}  crossing exact {crossing_ok}  "
+              f"turn across the curve {corner:+.1f}°")
     save_family("ends-first", curves, note="Curves built from their ends; middle spent on a crossing.")
     print("saved to workbench/finder.json (family: ends-first)")
     return 0

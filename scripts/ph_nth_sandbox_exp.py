@@ -388,9 +388,10 @@ def finder_section(limit=24):
     starred = set()
     if starred_path.exists():
         starred = {c.get("name") for c in (json.loads(starred_path.read_text(encoding="utf-8")).get("curves") or [])}
-    order = sorted(curves, key=lambda c: (0 if c.get("name") in starred else 1 if c.get("featured") else 2))
+    # only the starred curves come over; nothing else is fetched from the finder
+    chosen = [c for c in curves if c.get("name") in starred]
     cells = []
-    for curve in order[:limit]:
+    for curve in chosen[:limit]:
         pts = curve.get("path") or []
         if len(pts) < 8:
             continue
@@ -409,7 +410,7 @@ def finder_section(limit=24):
             f'<figcaption>{_html.escape(curve["name"])} · {_html.escape(curve.get("family", ""))}'
             f'{" · " + _html.escape(", ".join(sym)) if sym else ""}</figcaption></figure>')
     return ('<h2 id="finder-curves">From the curve finder</h2>'
-            '<p class="small">The finder\'s curves, starred and picked first. '
+            '<p class="small">The finder\'s starred curves. '
             'Open <a href="/finder">the finder</a> to star or save them; this page reads them read-only.</p>'
             '<div class="gallery" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))">'
             + "".join(cells) + "</div>\n")

@@ -165,14 +165,23 @@ the lab) was tested against 14 rational axes plus the half turn. Results:
   derivative at both ends solved exactly (two free coefficients per coordinate
   left over), and the crossing at `t = 1/4, 3/4` solved from those. Three cases,
   ends and crossing both verified exact.
-- [ ] **Shape quality of the ends-first set.** The three cards are shallow: the
-  end curvatures used are small (±1). The lever is the second-derivative input,
-  not the solve — raise it and the middle bows. Worth one pass before any of
-  these becomes a plate.
+- [ ] **Ends-first is parked, with the real cause found.** Raising the end
+  curvature did not help: the solve leaves the top powers (t^6, t^7) as the free
+  parameters, so the particular solution and the crossing correction are large
+  and the curve plunges far outside its own chord (measured x −20 on a 0..2
+  chord) while looking flat when scaled to the card. The fix is a better basis —
+  Bernstein with local handles, or free parameters spread across low powers —
+  and a norm bound on the coefficients. Not a tuning problem.
 - [ ] **Chain two different ends-first curves** and print the corner, the way the
   arcs do, so the family is proved connectable rather than argued connectable.
 
-## Tschirnhausen, elevation — investigated 2026-11-18
+## Tschirnhausen — **off the board** (2026-11-18)
+
+Retired from the finder by the operator ("it failed to produce anything interesting
+yet"). The base curve is classic but adds nothing the loops do not; the two
+elevated forms were slivers. The script and the checks stay, the cards do not.
+
+### The investigation, kept
 
 - **The old work was exact, not an approximation.** `tph_tri_chain/RESULTS.md`
   already solved the rational part: at `x = t²`, `y = t − t³/3`, integer points
