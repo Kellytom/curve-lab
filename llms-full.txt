@@ -862,15 +862,15 @@ so every point lands on an integer grid instead of being snapped to one.
 
 | you want | open |
 |---|---|
-| what the project is for | [Project](project.md) |
-| how the engine is wired | [Architecture](architecture.md) |
-| the words used here | [Glossary](glossary.md) |
-| the design thinking | [Philosophy](philosophy.md) |
-| why integer curves | [Integer PH curves](ph-integer.md) |
-| how a claim is checked | [Verification](verify.md) |
-| where every folder is | [Structure](structure.md) |
-| the accuracy budget | [Fidelity](fidelity.md) |
-| the recovered corpus | [Corpus](corpus.md) |
+| what the project is for | [Project](/docs/project/) |
+| how the engine is wired | [Architecture](/docs/architecture/) |
+| the words used here | [Glossary](/docs/glossary/) |
+| the design thinking | [Philosophy](/docs/philosophy/) |
+| why integer curves | [Integer PH curves](/docs/ph-integer/) |
+| how a claim is checked | [Verification](/docs/verify/) |
+| where every folder is | [Structure](/docs/structure/) |
+| the accuracy budget | [Fidelity](/docs/fidelity/) |
+| the recovered corpus | [Corpus](/docs/corpus/) |
 
 ## Run it
 
@@ -1064,7 +1064,7 @@ title: "Concepts"
 > **draft A** — a working draft, not a final text.
 
 The words this project uses, each with one meaning. If a term is missing, the
-[Glossary](glossary.md) has the longer list.
+[Glossary](/docs/glossary/) has the longer list.
 
 ## Euler curve
 
@@ -1184,7 +1184,7 @@ at output and nowhere else. A figure never inherits y-down silently.
 ## How a claim is checked
 
 A number is a fraction or a count, produced by one function and reproduced by one
-command. The commands are in [Verification](verify.md). A drawing can show a
+command. The commands are in [Verification](/docs/verify/). A drawing can show a
 result; it cannot prove one.
 
 
@@ -1640,21 +1640,21 @@ rather than a page experiment.
 
 | If you want | Read |
 |---|---|
-| Why the project exists and in what order | [The plan](project.md) |
-| To use the browser tool | [Web application guide](web-guide.md) |
-| A plain-English term | [Glossary](glossary.md) |
-| The words, and how the two sides' vocabularies map | [Glossary](glossary.md) |
+| Why the project exists and in what order | [The plan](/docs/project/) |
+| To use the browser tool | [Web application guide](/docs/web-guide/) |
+| A plain-English term | [Glossary](/docs/glossary/) |
+| The words, and how the two sides' vocabularies map | [Glossary](/docs/glossary/) |
 | What is true today, and what is next | Current truth (`state/HANDOFF-int.md`) |
-| The spine layer, step by step | [Spine guide](spine.md) |
-| The curve model in detail | [Curve model](curve-model.md) |
-| The accepted accuracy budget | [Fidelity](fidelity.md) |
-| The recovered plates and their formats | [Recovered corpus](corpus.md) |
+| The spine layer, step by step | [Spine guide](/docs/spine/) |
+| The curve model in detail | [Curve model](/docs/curve-model/) |
+| The accepted accuracy budget | [Fidelity](/docs/fidelity/) |
+| The recovered plates and their formats | [Recovered corpus](/docs/corpus/) |
 | Work items, plates and decisions | Work items and the work board (`state/WORK-int.md`) |
-| What passes, and how | [Verification](verify.md) |
+| What passes, and how | [Verification](/docs/verify/) |
 | What works today | Status (`state/STATUS-int.md`) |
-| Who wrote the engine | [Credits](credits.md) |
+| Who wrote the engine | [Credits](/docs/credits/) |
 | The spine layer in depth | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
-| How the folder is organised | [Documentation index](index.md) |
+| How the folder is organised | [Documentation index](/docs/index/) |
 
 ## Which tool for which job
 
@@ -1664,7 +1664,7 @@ rather than a page experiment.
 | Download an SVG for Inkscape | web app | the download control |
 | Close a loop that must meet exactly | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
 | Snap a flourish to an exact grid | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
-| Look up a term | — | [Glossary](glossary.md) |
+| Look up a term | — | [Glossary](/docs/glossary/) |
 
 ## What this overview does not claim
 

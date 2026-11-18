@@ -95,7 +95,7 @@ export default defineConfig({
         { icon: "github", label: "GitHub", href: "https://github.com/Kellytom/curve-lab" },
       ],
       editLink: {
-        baseUrl: "https://github.com/Kellytom/curve-lab/edit/main/app/src/content/docs/",
+        baseUrl: "https://github.com/Kellytom/curve-lab/edit/main/app/",
       },
     }),
   ],

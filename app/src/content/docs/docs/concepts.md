@@ -5,7 +5,7 @@ title: "Concepts"
 > **draft A** — a working draft, not a final text.
 
 The words this project uses, each with one meaning. If a term is missing, the
-[Glossary](glossary.md) has the longer list.
+[Glossary](/docs/glossary/) has the longer list.
 
 ## Euler curve
 
@@ -125,5 +125,5 @@ at output and nowhere else. A figure never inherits y-down silently.
 ## How a claim is checked
 
 A number is a fraction or a count, produced by one function and reproduced by one
-command. The commands are in [Verification](verify.md). A drawing can show a
+command. The commands are in [Verification](/docs/verify/). A drawing can show a
 result; it cannot prove one.

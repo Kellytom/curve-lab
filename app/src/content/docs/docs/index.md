@@ -15,15 +15,15 @@ so every point lands on an integer grid instead of being snapped to one.
 
 | you want | open |
 |---|---|
-| what the project is for | [Project](project.md) |
-| how the engine is wired | [Architecture](architecture.md) |
-| the words used here | [Glossary](glossary.md) |
-| the design thinking | [Philosophy](philosophy.md) |
-| why integer curves | [Integer PH curves](ph-integer.md) |
-| how a claim is checked | [Verification](verify.md) |
-| where every folder is | [Structure](structure.md) |
-| the accuracy budget | [Fidelity](fidelity.md) |
-| the recovered corpus | [Corpus](corpus.md) |
+| what the project is for | [Project](/docs/project/) |
+| how the engine is wired | [Architecture](/docs/architecture/) |
+| the words used here | [Glossary](/docs/glossary/) |
+| the design thinking | [Philosophy](/docs/philosophy/) |
+| why integer curves | [Integer PH curves](/docs/ph-integer/) |
+| how a claim is checked | [Verification](/docs/verify/) |
+| where every folder is | [Structure](/docs/structure/) |
+| the accuracy budget | [Fidelity](/docs/fidelity/) |
+| the recovered corpus | [Corpus](/docs/corpus/) |
 
 ## Run it
 

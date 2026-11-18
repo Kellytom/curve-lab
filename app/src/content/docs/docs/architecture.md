@@ -115,21 +115,21 @@ rather than a page experiment.
 
 | If you want | Read |
 |---|---|
-| Why the project exists and in what order | [The plan](project.md) |
-| To use the browser tool | [Web application guide](web-guide.md) |
-| A plain-English term | [Glossary](glossary.md) |
-| The words, and how the two sides' vocabularies map | [Glossary](glossary.md) |
+| Why the project exists and in what order | [The plan](/docs/project/) |
+| To use the browser tool | [Web application guide](/docs/web-guide/) |
+| A plain-English term | [Glossary](/docs/glossary/) |
+| The words, and how the two sides' vocabularies map | [Glossary](/docs/glossary/) |
 | What is true today, and what is next | Current truth (`state/HANDOFF-int.md`) |
-| The spine layer, step by step | [Spine guide](spine.md) |
-| The curve model in detail | [Curve model](curve-model.md) |
-| The accepted accuracy budget | [Fidelity](fidelity.md) |
-| The recovered plates and their formats | [Recovered corpus](corpus.md) |
+| The spine layer, step by step | [Spine guide](/docs/spine/) |
+| The curve model in detail | [Curve model](/docs/curve-model/) |
+| The accepted accuracy budget | [Fidelity](/docs/fidelity/) |
+| The recovered plates and their formats | [Recovered corpus](/docs/corpus/) |
 | Work items, plates and decisions | Work items and the work board (`state/WORK-int.md`) |
-| What passes, and how | [Verification](verify.md) |
+| What passes, and how | [Verification](/docs/verify/) |
 | What works today | Status (`state/STATUS-int.md`) |
-| Who wrote the engine | [Credits](credits.md) |
+| Who wrote the engine | [Credits](/docs/credits/) |
 | The spine layer in depth | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
-| How the folder is organised | [Documentation index](index.md) |
+| How the folder is organised | [Documentation index](/docs/index/) |
 
 ## Which tool for which job
 
@@ -139,7 +139,7 @@ rather than a page experiment.
 | Download an SVG for Inkscape | web app | the download control |
 | Close a loop that must meet exactly | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
 | Snap a flourish to an exact grid | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
-| Look up a term | — | [Glossary](glossary.md) |
+| Look up a term | — | [Glossary](/docs/glossary/) |
 
 ## What this overview does not claim
 
