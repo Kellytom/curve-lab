@@ -77,7 +77,7 @@ test("a damaged star entry is listed and named, not dropped", () => {
 });
 
 test("the page reads the gallery module, and the generated page is gone", async () => {
-  const page = await readFile(path.join(APP, "src", "pages", "book.astro"), "utf8");
+  const page = await readFile(path.join(APP, "src", "pages", "illuminations.astro"), "utf8");
   assert.ok(page.includes('from "../lib/gallery.js"'));
   assert.ok(page.includes("buildGallery"));
   assert.ok(page.includes("Framed Quintic symmetric figures"));
@@ -88,6 +88,7 @@ test("the page reads the gallery module, and the generated page is gone", async 
   if (existsSync(legacy)) {
     const text = (await readFile(legacy, "utf8"));
     assert.ok(text.includes("location.replace"), "book/index.html is not a redirect");
+    assert.ok(text.includes("/illuminations"), "the redirect does not reach the gallery");
     assert.ok(!text.includes("<figure>"), "book/index.html is still the generated gallery");
   }
 });
