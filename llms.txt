@@ -15,6 +15,8 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [docs/index.md](docs/index.md): the front page of the prose book.
+- [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
+- [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
 - [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
 - [docs/STRUCTURE.md](docs/STRUCTURE.md): where every folder is.

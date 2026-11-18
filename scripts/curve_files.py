@@ -116,9 +116,11 @@ polynomial integral and is exact.
 
 ## The figure
 
-`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the loop view:
-the middle of `t`, framed on the knot. If the picture and the numbers ever disagree, the
-numbers are right and the figure is stale — regenerate it rather than trust it.
+`figure.png` is drawn by the page itself (`scripts/curve_png.mjs`), in the view
+recorded in `curve.json`. Where a large row collapses to a flat line,
+`figure-exact.png` holds the factored drawing. If the picture and the numbers
+ever disagree, the numbers are right and the figure is stale — regenerate it
+rather than trust it.
 """
 
 

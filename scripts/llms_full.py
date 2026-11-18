@@ -25,6 +25,8 @@ DOCUMENTS = [
     "AGENTS.md",
     "senior-dev.md",
     "docs/index.md",
+    "docs/WORKED-EXAMPLE.md",
+    "docs/STATE-OF-THE-WORK.md",
     "docs/PROJECT.md",
     "docs/STRUCTURE.md",
     "docs/ARCHITECTURE.md",

@@ -1,5 +1,9 @@
 # curve-lab
 
+<img src="docs/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
+
+*A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
+
 > **draft A** — a working draft, not a final text.
 Numerical clothoid chains, out as plain editable SVG.
 

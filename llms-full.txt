@@ -13,6 +13,10 @@ relative to the repository root.
 
 # curve-lab
 
+<img src="docs/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
+
+*A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
+
 > **draft A** — a working draft, not a final text.
 Numerical clothoid chains, out as plain editable SVG.
 
@@ -390,6 +394,8 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [docs/index.md](docs/index.md): the front page of the prose book.
+- [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
+- [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
 - [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
 - [docs/STRUCTURE.md](docs/STRUCTURE.md): where every folder is.
@@ -879,6 +885,231 @@ that the base, the middle and the top can be *chosen* rather than discovered.
 design decisions, and the queue. They are written for the next session, not for
 a first reader, and they change daily. Start from this page, and use `state/`
 only when you are changing the work.
+
+
+<!-- source: docs/WORKED-EXAMPLE.md -->
+
+# One curve, end to end
+
+> **draft A** — a working draft, not a final text.
+
+This page follows a single stored curve from its definition to its figure and
+its checks. If you read one page to see how the project fits together, read this
+one.
+
+The curve is `lace-1of8-1of3-3`. Its record is
+`curves/lace-1of8-1of3-3/curve.json`. In one line: **3 crossing pairs, grid
+1/2730, arc 10.4114**.
+
+## 1. The definition
+
+The curve is written as the square of a complex polynomial. With
+
+```
+p(t) = 3 - 16t + 16t²
+q(t) = -14 + 275t - 2081t² + 8158t³ - 18220t⁴ + 23416t⁵ - 16128t⁶ + 4608t⁷
+w(t) = p(t) + i q(t)
+```
+
+the position is
+
+```
+z(t) = ∫ w(t)² dt
+```
+
+so the velocity is `w²` and its length is `|w|² = p² + q²`, which is a
+polynomial in `t`. That is the whole trick: a polynomial length means the arc
+length is a polynomial integral, and a polynomial integral of whole numbers is
+exact.
+
+The position rows, integrated term by term, are
+
+```
+x(t) = -187t + 3802t² - 133541/3 t³ + 686231/2 t⁴ - ... + 10616832t¹⁴ - 7077888/5 t¹⁵
+y(t) = -84t + 1049t² - 21734/3 t³ + 31085t⁴ - ... + 73728/5 t¹⁰
+```
+
+The fractions are the whole story. A term `c·t^k` integrates to `c/(k+1)`, so a
+denominator appears at every power.
+
+## 2. The grid
+
+The denominators above are **2, 3, 5, 7 and 13**. Their least common multiple is
+
+```
+2 × 3 × 5 × 7 × 13 = 2730
+```
+
+Multiply the whole position by 2730 and every coefficient is an integer. The
+**grid is 1/2730**: the pitch the curve's points can land on. A grid of 1/2730
+is cheap enough to store and to compare; a grid of 1/86,625,000,000,000 is not,
+which is why the page refuses a tweak size of 1/3.
+
+The code is `curve_lab/measure.py:grid()`. It squares the speed rows, divides
+by the power plus one, and takes the least common multiple of the denominators.
+There is one implementation, and every stored number comes from it.
+
+## 3. The measures
+
+| measure | value | how it is read |
+|---|---|---|
+| grid | 1/2730 | the common denominator of the position rows |
+| arc | 28423/2730 = 10.4114 | the exact integral of `p² + q²` |
+| chord | 7.3447 | the distance between the two ends |
+| bend | 1.418 | arc over chord: 10.4114 / 7.3447 |
+| crossings | 3 pairs | two parameters `t₁ < t₂` at the same place |
+| flat spots | 1/8, 1/3, 1/2, 1/2, 1/2, 2/3, 7/8 | the roots of `q(t) = 0` |
+
+The three crossing pairs are at
+
+```
+t 0.0449 and 0.9541   →  (-3.6550, -2.2032)
+t 0.2227 and 0.2969   →  (-3.8034, -2.7551)
+t 0.7021 and 0.7764   →  (-3.5407, -2.7551)
+```
+
+Three passes through one point would be three pairs at one place. Here the
+three places are distinct. The number is **crossing pairs**, not meeting points.
+
+## 4. Recompute it
+
+```sh
+.venv/bin/python - <<'PY'
+import json, sys
+sys.path.insert(0, "scripts")
+
+from curve_lab import measure
+from ph_crossings import self_crossings
+
+record = json.load(open("curves/lace-1of8-1of3-3/curve.json"))
+print("grid  ", measure.grid(record["speedX"], record["speedY"]))
+print("arc   ", measure.arc_and_chord(record["speedX"], record["speedY"]))
+print("pairs ", len(self_crossings(record["speedX"], record["speedY"])))
+PY
+```
+
+```
+grid   2730
+arc    (Fraction(28423, 2730), (-7.344688644688644+0j), 1.417999...)
+pairs  3
+```
+
+The three numbers on that output are the three in the record. If they differ,
+the record is stale, and `scripts/exact_numbers.py --write` repairs the grid and
+the bend.
+
+## 5. Where the figure comes from
+
+`curves/lace-1of8-1of3-3/figure.png` is drawn by the page itself
+(`scripts/curve_png.mjs`), from the same record. `figure-exact.png` is the
+factored drawing, which keeps a large row from collapsing to a flat line. The
+copy below is the factored one, so this page can show it:
+
+![The lace-1of8-1of3-3 curve, factored drawing](evidence/lace-1of8-1of3-3-exact.png)
+
+*Fig. E1. `lace-1of8-1of3-3` on grid 1/2730: 3 crossing pairs, bend 1.418. The
+figure is a copy of `curves/lace-1of8-1of3-3/figure-exact.png`; the record is
+the authority for the numbers.*
+
+Positive y is up in the record. The SVG writer flips it once at output, because
+SVG's y points down.
+
+## 6. The checks
+
+| claim | the check |
+|---|---|
+| grid and bend match the exact core | `scripts/exact_numbers.py` |
+| crossing pairs match the router | `scripts/crossing_audit.py` |
+| the record reads through one loader | `scripts/data_audit.py` |
+| the page is rebuilt from its generator | the page's own test |
+| a fixed fault stays fixed | `.venv/bin/python -m unittest tests.test_regressions` |
+
+## What this page shows
+
+A number in this project is a fraction or a count, produced by one function, and
+reproduced by one command. The figure is a picture of the same record, not a
+second source. That is what "exact" means here, and it is the standard every
+page is held to.
+
+
+<!-- source: docs/STATE-OF-THE-WORK.md -->
+
+# State of the work
+
+> **draft A** — a working draft, not a final text.
+
+**As of 2026-11-18.** This page says what is proved, what is still a draft, and
+what comes next. Every claim names the command that checks it.
+
+## Proved
+
+| claim | number | the check |
+|---|---|---|
+| the achievements re-derive | 65 of 65 | `scripts/recheck.py` |
+| stored curves agree with the exact core | 75 curves, every grid and bend | `scripts/exact_numbers.py` |
+| stored crossing counts agree with the router | every record | `scripts/crossing_audit.py` |
+| every dataset declares its format and reads through one loader | 24 files | `scripts/data_audit.py` |
+| the book plates exist and match their manifest | 29 plates | `node scripts/plates_export.mjs --check` |
+| the square and frame rule holds at a 45° leg | arch 0° kink, S 90° | `scripts/square_try.py` |
+| a fixed fault stays fixed | the register, row by row | `scripts/test_regressions.py` |
+
+The full gate is `.venv/bin/python scripts/test.py --full`. It runs the Python
+suite, the JS tests, the data audits, and the page rebuild checks.
+
+## Draft
+
+Everything in the public tree is **draft A**. That is not modesty: the label is
+on every outward page, and `scripts/stamp_draft.py --check` fails if one loses
+it.
+
+The parts most likely to change:
+
+- the Astro app (`app/`): pages, the save endpoint, the book gallery;
+- the book plates (`book/`): 29 plates, chosen by eye, no print proof yet;
+- the prose (`docs/`): this page included;
+- the sandbox pages (`workbench/`): experiments, labelled as such.
+
+## Known gaps
+
+These are open faults, written down rather than hidden:
+
+- **Cut and rebuild falls back to the whole curve.** The exact span needed is
+  longer than the largest exact square below 1, so only the whole span keeps the
+  numbers exact. The page says so instead of cutting silently.
+- **Rebuild without the legs often has nothing to remove.** The crossings span
+  nearly all of `t` on the curves tried, so the leg removal is exact but rarely
+  applies.
+- **No login on the Astro app.** The Python server has a shared-token gate; the
+  Astro lab does not. Do not put it on a public hostname.
+- **The plates are drawn, not printed.** Stroke weights and page sizes are set
+  from measurements; a printer has not confirmed them.
+
+## Next
+
+The current plan is in `state/PLAN-int.md`, and the one action is in
+`next-fhandoff-int.md`. In order:
+
+1. **The grid bill for every finder curve.** Rebuild each curve's exact
+   polynomials from its definition and write `workbench/curve-records.json`, one
+   row per curve, with kind, scale, grid, degree and formula. The calibration is
+   `lace-1of8-3` at grid 1155.
+2. **W02, terminals.** The cap families, measured and drawn.
+3. **W03, the fleur grammar.** Parts, joints, symmetry.
+4. **W04, twenty parameter sets.** The grammar with numbers.
+5. **The primal studies** (fire, water, earth, air), then the archetypal
+   ornaments.
+
+## How to check a number here
+
+```sh
+.venv/bin/python scripts/recheck.py            # the achievements, 65 checks
+.venv/bin/python scripts/exact_numbers.py      # grid and bend of every record
+.venv/bin/python scripts/crossing_audit.py     # crossing pairs
+.venv/bin/python -m unittest tests.test_regressions   # fixed faults, ~0.1 s
+```
+
+A number that does not come from one of these commands is not a number this
+project will defend.
 
 
 <!-- source: docs/PROJECT.md -->
