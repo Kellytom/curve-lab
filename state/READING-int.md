@@ -15,6 +15,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 
 | # | file | lines | why |
 |---|---|---|---|
+| 0 | `state/SPRINT-int.md` | 170 | the sprint plan: found curves → integers → offsets → plates, one session per sprint |
 | 1 | `senior-dev.md` | 43 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
 | 2 | `LTMemory-int.md` | 231 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
