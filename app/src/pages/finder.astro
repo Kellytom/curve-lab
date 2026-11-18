@@ -126,6 +126,8 @@ code{font:11px ui-monospace,Menlo,monospace}
 <script is:inline>
 (() => {
   const KEY = "finder-stars";
+  let baseHash = JSON.parse(document.getElementById("finder-base").textContent || '""');
+  let lastError = "";
   const nameToId = JSON.parse(document.getElementById("finder-name-to-id").textContent || "{}");
   const migrate = (list) => {
     let changed = false;
@@ -177,7 +179,8 @@ code{font:11px ui-monospace,Menlo,monospace}
       }
     });
     const status = document.getElementById("star-status");
-    if (status) status.textContent = `${pick.ids.size || pick.names.size} starred`;
+    if (status && lastError) status.textContent = lastError;
+    else if (status) status.textContent = `${pick.ids.size || pick.names.size} starred`;
     const empty = document.getElementById("starred-empty");
     if (empty) empty.style.display = (pick.ids.size || pick.names.size) ? "none" : "";
   };
@@ -195,18 +198,48 @@ code{font:11px ui-monospace,Menlo,monospace}
       paint();
     });
   });
-  const baseHash = JSON.parse(document.getElementById("finder-base").textContent || '""');
-  const post = async () => {
+  // The page holds the hash it read. After a save the file changes, so the hash
+  // must change too: a page that kept the old one was refused on every save
+  // after the first. On a 409, merge what the server has with what this browser
+  // has and retry once; never drop a star to win a race.
+  const merge = (current, local) => {
+    const byKey = new Map();
+    for (const star of [...current, ...local]) {
+      const key = star.id || star.name;
+      if (key) byKey.set(key, star);
+    }
+    return [...byKey.values()];
+  };
+  const post = async (retry = true) => {
     const status = document.getElementById("star-status");
     try {
       const response = await fetch("/api/finder-stars", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ format: "curve-lab.finder-stars/1", baseHash, curves: read() }),
+        body: JSON.stringify({ format: "curve-lab.finder-stars/1", baseHash,
+                               allowEmpty: false, curves: read() }),
       });
       const out = await response.json();
-      status.textContent = response.ok ? `saved ${out.saved}` : `save failed: ${out.error}`;
-    } catch (error) { status.textContent = `save failed: ${error}`; }
+      if (response.ok) {
+        baseHash = out.hash || baseHash;
+        lastError = "";
+        status.textContent = `saved ${out.saved}`;
+        return;
+      }
+      if (response.status === 409 && retry) {
+        const now = await (await fetch("/api/finder-stars")).json();
+        if (Array.isArray(now.curves)) {
+          write(merge(now.curves, read()));
+          baseHash = now.hash || "";
+          return post(false);
+        }
+      }
+      lastError = `save failed: ${out.error}`;
+      status.textContent = lastError;
+    } catch (error) {
+      lastError = `save failed: ${error}`;
+      status.textContent = lastError;
+    }
   };
   const save = document.getElementById("save-stars");
   if (save) save.addEventListener("click", post);

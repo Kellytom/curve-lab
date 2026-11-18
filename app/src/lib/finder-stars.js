@@ -55,6 +55,17 @@ async function rotateBackup(dir, target) {
 export async function saveFinderStars(payload, root) {
   const curves = validateFinderStars(payload);
   const dir = path.join(path.resolve(root), "workbench");
+  const live = path.join(dir, "finder-stars.json");
+  if (!curves.length && payload?.allowEmpty !== true && existsSync(live)) {
+    const current = readFinderStars(root);
+    if (current.curves.length) {
+      const error = new Error(
+        `refusing to empty ${current.curves.length} starred curves; ` +
+        "pass allowEmpty: true if that is really intended");
+      error.status = 409;
+      throw error;
+    }
+  }
   await mkdir(dir, { recursive: true });
   const target = path.join(dir, "finder-stars.json");
   const backup = path.join(dir, "finder-stars.backup.json");
@@ -75,9 +86,10 @@ export async function saveFinderStars(payload, root) {
     await copyFile(target, backup);
     await rotateBackup(dir, target);
   }
-  await writeFile(temp, JSON.stringify({ format: "curve-lab.finder-stars/1", curves }, null, 1) + "\n");
+  const text = JSON.stringify({ format: "curve-lab.finder-stars/1", curves }, null, 1) + "\n";
+  await writeFile(temp, text);
   await rename(temp, target);
-  return { saved: curves.length, path: target, backup };
+  return { saved: curves.length, path: target, backup, hash: fileHash(text) };
 }
 
 // A read that fails is not an empty list: repair from the backup, and say which
@@ -95,4 +107,23 @@ export function readFinderStars(root) {
     }
   }
   return { curves: [], source: "none" };
+}
+
+// The current list and its hash, so a client that lost the race can merge and
+// retry instead of dropping the stars it just made.
+export function finderStarsState(root) {
+  const dir = path.join(path.resolve(root), "workbench");
+  const file = path.join(dir, "finder-stars.json");
+  if (!existsSync(file)) return { curves: [], source: "none", hash: "" };
+  const text = readFileSync(file, "utf8");
+  try {
+    const data = JSON.parse(text);
+    if (Array.isArray(data.curves)) {
+      return { curves: data.curves, source: "live", hash: fileHash(text) };
+    }
+  } catch {
+    // fall through to the backup reader
+  }
+  const fallback = readFinderStars(root);
+  return { ...fallback, hash: "" };
 }
