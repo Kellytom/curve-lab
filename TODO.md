@@ -120,6 +120,26 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+## Tschirnhausen, elevation — investigated 2026-11-18
+
+- **The old work was exact, not an approximation.** `tph_tri_chain/RESULTS.md`
+  already solved the rational part: at `x = t²`, `y = t − t³/3`, integer points
+  exist exactly at `t` a multiple of 3 (`(9,−6)`, `(36,−66)`, …), and other
+  rational stops are exact at a stated pitch (`t = 12/5` → `(720,−276)` at
+  pitch 125).
+- **The node cannot be rationalised.** It sits at `t = ±√3`; the old study says
+  so in as many words ("no chain built at fractional steps can land on it").
+- [x] **Elevation implemented** (`scripts/tschirnhausen.py`): the cubic elevates
+  to degree 7 *identically* (checked: `x(⅓) = ⅔` either way), and moving one
+  handle by a solved amount puts a crossing at `t = ±1` or `±½`.
+- [ ] **Parked: shape control.** A single handle nudged by 0.007–0.123 produces a
+  sliver, not a loop — near the ends the added `t⁷` term dominates. A coordinated
+  move of several handles (or solving in the power basis with a norm bound) is
+  the next attempt, and nothing about it is urgent.
+- **Cost stated on the cards:** above degree 3 the PH property is lost, so arc
+  length and offsets stop being exact. Tschirnhausen is the only planar cubic PH
+  curve; that is why the base is special.
+
 ## Data safety — urgent done, the rest queued (2026-11-18)
 
 Done tonight: atomic writes, zod validation, a backup before every write,

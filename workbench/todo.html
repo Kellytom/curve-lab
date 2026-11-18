@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:71.7%}
+.fill{height:100%;background:#8c6a21;width:71.4%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">124 / 173 done · 72% · read-only twin of
+<div class="count">125 / 175 done · 71% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -91,6 +91,17 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>dashboard layout (MIT, Bergside); no Tailwind or Flowbite code was added — the CSS is ours. Say so in the app README so the provenance is clear.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>A reader&#x27;s first five minutes.</strong> A short <code>README</code> path: what curve-lab</span></label>
 <p>is, the one exact idea (integer and rational curves on one grid), how to run the hub, and where the book is.</p>
+<h2>Tschirnhausen, elevation — investigated 2026-11-18</h2>
+<li><strong>The old work was exact, not an approximation.</strong> <code>tph_tri_chain/RESULTS.md</code></li>
+<p>already solved the rational part: at <code>x = t²</code>, <code>y = t − t³/3</code>, integer points exist exactly at <code>t</code> a multiple of 3 (<code>(9,−6)</code>, <code>(36,−66)</code>, …), and other rational stops are exact at a stated pitch (<code>t = 12/5</code> → <code>(720,−276)</code> at pitch 125).</p>
+<li><strong>The node cannot be rationalised.</strong> It sits at <code>t = ±√3</code>; the old study says</li>
+<p>so in as many words (&quot;no chain built at fractional steps can land on it&quot;).</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Elevation implemented</strong> (<code>scripts/tschirnhausen.py</code>): the cubic elevates</span></label>
+<p>to degree 7 *identically* (checked: <code>x(⅓) = ⅔</code> either way), and moving one handle by a solved amount puts a crossing at <code>t = ±1</code> or <code>±½</code>.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Parked: shape control.</strong> A single handle nudged by 0.007–0.123 produces a</span></label>
+<p>sliver, not a loop — near the ends the added <code>t⁷</code> term dominates. A coordinated move of several handles (or solving in the power basis with a norm bound) is the next attempt, and nothing about it is urgent.</p>
+<li><strong>Cost stated on the cards:</strong> above degree 3 the PH property is lost, so arc</li>
+<p>length and offsets stop being exact. Tschirnhausen is the only planar cubic PH curve; that is why the base is special.</p>
 <h2>Data safety — urgent done, the rest queued (2026-11-18)</h2>
 <p>Done tonight: atomic writes, zod validation, a backup before every write, repair-on-read, five timestamped generations in <code>workbench/backups/</code>, a stale write refused with 409 (two tabs cannot silently overwrite), auto-save of stars, an export button, one merged <code>finder.json</code> with a <code>definition</code> per curve, and <code>finder_rebuild.py</code> proving septic and solved curves rebuild within 1e-4.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>Rebuild the other three families.</strong> <code>finder_rebuild.py</code> checks 26 of 42</span></label>

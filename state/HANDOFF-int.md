@@ -2815,3 +2815,17 @@ about 6. One condition per degree over-determines and zeroes coefficients; the
 `curve_lab/nodes.py` (resultant crossing solver, unproven), `curve_lab/reduction.py`
 (covers). `/finder` stars to `workbench/finder-stars.json` with a backup.
 Known gap: curvature peaks report cusps (κ 440–747) without saying so.
+
+## 2026-11-18 (Tschirnhausen) — the old work was exact; the elevation is parked
+
+`tph_tri_chain/RESULTS.md` already answered the rational question: with
+`x = t²`, `y = t − t³/3`, integer hits are exactly the multiples of 3 and other
+rational stops are exact at a stated pitch. The node is at `t = ±√3` and stays
+irrational. Not an approximation — a different (and larger) result than a
+rational node would have been.
+
+`scripts/tschirnhausen.py` adds the degree-elevation experiment: the cubic
+elevates to degree 7 identically (verified), and a solved handle move puts a
+crossing at `t = ±1` (±0.007) and `t = ±½` (±0.123). The drawn results are
+slivers, because one handle cannot bend an elevated septic near its ends; that is
+recorded in `TODO.md` as parked, with the PH cost stated on the cards.
