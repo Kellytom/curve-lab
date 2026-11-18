@@ -68,3 +68,17 @@ Large and excluded: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/`,
 The repository root is `/Users/thomaskelly/developer/curve-lab` — under
 `/Users/thomaskelly/developer/`, not nested in another project. Every path in
 `docs/STRUCTURE.md` is relative to that root; `$REPO` means that directory.
+
+---
+
+## 2026-11-18 00:10 — the curve finder's current state
+
+- Stored finds are PH: `u = 1 − 2t + 2t²`, `v` = `(t−p)(t−1+p)(t−½)^m` scaled to
+  integers. `lace-1of8-3` matches `p = 1/8, m = 3` exactly.
+- Properness ≠ no loops. A loop is a finite failure of injectivity; the reduction
+  test only finds covers. Do not say "proper, so no crossings".
+- The design family is `x = Q − P, y = Q + P` (P odd, Q even). Crossings are
+  two linear equations; 45° tangent is `P' = 0`; the axis crossing is `P = 0`.
+- `/finder` shows solved crossings and weighted-balance curves; stars save to
+  `workbench/finder-stars.json` (backup kept). Curvature peaks on loop cards are
+  **cusps**: the κ figure is unbounded and the page does not say so yet.

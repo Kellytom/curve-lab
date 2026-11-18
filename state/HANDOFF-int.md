@@ -2781,3 +2781,37 @@ check now treats only `None`/`""` as missing.
 licence record (the three fleur PNGs point at the SVG they were rendered from),
 `tests/test_reference_licences.py` guards it, and the history scan found no secret
 value — three key-shaped hits, all the secret's name in deploy docs.
+
+## 2026-11-17 (curve finder) — the family, the loops, and what solving buys
+
+**The stored finds are PH curves with a recovered generator.** `lace-1of8-3`'s
+`v` row is exactly `(t−1/8)(t−7/8)(t−1/2)³ × 512` and `u = 1 − 2t + 2t²`; the
+odd/even sign alternation the operator remembered comes from multiplying those
+roots out. So the lace family is one mirrored pair plus a middle count, and the
+pair position is the single interesting number.
+
+**Properness is not "no loops".** A loop is a finite failure of injectivity, so
+a self-intersecting curve is still proper; `curve_lab/reduction.py` catches only
+covers. Crossings need `z(t)=z(s)` solved, not a segment scan (the first scan
+reported fifty crossings on a straight line by counting collinear pairs).
+
+**The parametric family `x = Q − P, y = Q + P` (P odd, Q even)** is the useful
+design space: mirror about `y = x` is free; `Q = 0` gives exactly the line
+`y = −x`, so the even coefficients are the shape and the odd ones redistribute
+the parameter; the curve meets the axis where `P = 0`, and its tangent is 45°
+where `P' = 0`. Crossings are **solved**: `Q(t₁)=Q(t₂)`, `P(t₁)=P(t₂)` are two
+linear equations. Eight solved crossings are on `/finder`, ranked cusp-free by
+branch angle (best 61°, family limits); `cross+45deg at t=1/4` also forces the
+tangent at one branch to be parallel to the axis.
+
+**Weighted derivative balance** (`Σ w_k z⁽ᵏ⁾(t₀) = 0`) is linear and splits into
+P and Q. As an identity it forces a constant curve (since `(I−D)T = z'`); at a
+point it is a usable condition. Weight profile decides how motion is spent:
+`2⁻ᵏ` and `1/k²` give speed ratios up to 120, while `1/(2ᵏk!)` flattens it to
+about 6. One condition per degree over-determines and zeroes coefficients; the
+**minimum-norm** solution keeps every degree alive.
+
+**Instruments:** `curve_lab/features.py` (flats, inflections, symmetry, bend),
+`curve_lab/nodes.py` (resultant crossing solver, unproven), `curve_lab/reduction.py`
+(covers). `/finder` stars to `workbench/finder-stars.json` with a backup.
+Known gap: curvature peaks report cusps (κ 440–747) without saying so.
