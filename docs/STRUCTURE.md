@@ -1,5 +1,9 @@
 # Where everything lives
 
+**Repository root: `/Users/thomaskelly/developer/curve-lab`** — every path below
+is relative to it, and `$REPO` in a command means that directory. The repository
+sits under `/Users/thomaskelly/developer/`; it is not inside any other project.
+
 Generated from the tree on 2026-11-17. Excluded because they are large or
 regenerable: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/` (13 GB,
 gitignored except the licensed images), `out/`, `site/`, `dist/`.
@@ -31,7 +35,7 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 
 ## The files that matter most
 
-| file | what |
+| `$REPO/…` | what |
 |---|---|
 | `AGENTS.md` | how to work here |
 | `next-fhandoff-int.md` | the one next action |

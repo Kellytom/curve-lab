@@ -48,3 +48,11 @@ matter. Read it before hunting. The short version: `curve_lab/` is the engine,
 JSON, `app/src/` the Astro site, `state/` the working memory, `docs/` the book.
 Large and excluded: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/`,
 `out/`, `site/`, `dist/`.
+
+---
+
+## 2026-11-17 20:00 — absolute root
+
+The repository root is `/Users/thomaskelly/developer/curve-lab` — under
+`/Users/thomaskelly/developer/`, not nested in another project. Every path in
+`docs/STRUCTURE.md` is relative to that root; `$REPO` means that directory.
