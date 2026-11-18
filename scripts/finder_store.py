@@ -39,6 +39,38 @@ def _read():
     return {"format": FORMAT, "curves": []}
 
 
+def _signature(curve):
+    pts = curve.get("path") or []
+    if len(pts) < 8:
+        return None
+    xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+    size = max(max(xs) - min(xs), max(ys) - min(ys)) or 1.0
+    x0, y0 = min(xs), min(ys)
+    rounded = [(round((x - x0) / size, 3), round((y - y0) / size, 3)) for x, y in pts]
+    forward = json.dumps(rounded)
+    backward = json.dumps(list(reversed(rounded)))
+    return min(forward, backward)
+
+
+def mark_duplicates(curves):
+    """Flag a curve that draws the same shape as another, whatever its family."""
+    seen = {}
+    for curve in curves:
+        curve.pop("dup", None)
+        curve["flags"] = [f for f in (curve.get("flags") or []) if not str(f).startswith("dup of")]
+    for curve in curves:
+        sig = _signature(curve)
+        if sig is None:
+            continue
+        if sig in seen:
+            other = seen[sig]
+            curve["dup"] = True
+            curve.setdefault("flags", []).append(f"dup of {other['name']}")
+        else:
+            seen[sig] = curve
+    return sum(1 for c in curves if c.get("dup"))
+
+
 def save_family(family: str, curves: list[dict], note: str = "") -> dict:
     # The same recipe twice is the same curve: drop the repeat, keep the first.
     seen, unique = set(), []
@@ -57,6 +89,7 @@ def save_family(family: str, curves: list[dict], note: str = "") -> dict:
             digest = hashlib.sha1(json.dumps(curve.get("definition"), sort_keys=True).encode()).hexdigest()[:8]
             curve["id"] = f"{family}-{digest}"
     merged = kept + curves
+    mark_duplicates(merged)
     if OUT.exists():
         shutil.copyfile(OUT, BACKUP)
         # Keep five timestamped generations, not one backup that the next bad

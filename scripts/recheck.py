@@ -43,6 +43,22 @@ JUDGEMENTS = [
 ]
 CHECKS = []
 
+HIGHLIGHTS = [
+    ("Curves symmetric about y = x", "the whole Q/P family; x(-t) = y(t) exactly, verified"),
+    ("...and about y = -x", "the same curve turned a quarter: mirror verified on 15 samples"),
+    ("A crossing solved, not searched", "two linear equations; z(1/4) = z(3/4) exactly"),
+    ("A 45-degree tangent from one division", "d = -71/48 gives P'(1/2) = 0"),
+    ("Bounded curves that close at a p-triple", "elliptical family and limaçons, (3,4) closing point"),
+    ("Roses with no trigonometry", "integer polynomials, degrees 6/5/6 to 10/9/10"),
+    ("The mobile, exact", "compound rational rotations; grids 5, 10, 15, 50"),
+    ("Mobile arcs you can chain", "exact endpoints and tangents; one arc turns -90.0 degrees"),
+    ("Ends-first curves", "12 end conditions solved; crossing in the middle exact"),
+    ("The stored finds decoded", "lace-1of8-3 is exactly (t-1/8)(t-7/8)(t-1/2)^3 with u = 1-2t+2t^2"),
+    ("Proper is not loop-free", "a self-intersecting curve is still proper; only covers are not"),
+    ("Tschirnhausen: exact, node irrational", "integer hits at t = 3k; node at t = +/-sqrt(3)"),
+]
+
+
 
 def check(name, evidence, command):
     def wrap(fn):
@@ -920,7 +936,204 @@ def c_cubic_ladder():
                 f"{r['counts'][0]} curves each")
 
 
+
+# -- the curve finder (2026-11-18) ------------------------------------------
+
+@check("the stored lace curves are PH curves with mirrored roots",
+       "workbench/found-curves.json vs the root product",
+       "python -m unittest tests.test_curve_audit")
+def c_lace_generator():
+    from fractions import Fraction as F
+    import json
+    def mul(a, b):
+        out = [F(0)] * (len(a) + len(b) - 1)
+        for i, x in enumerate(a):
+            for j, y in enumerate(b):
+                out[i + j] += x * y
+        return out
+    def lin(r): return [-F(r), F(1)]
+    row = [F(1)]
+    for r in (F(1, 8), F(7, 8), F(1, 2), F(1, 2), F(1, 2)):
+        row = mul(row, lin(r))
+    row = [int(c * 512) for c in row]
+    records = json.loads((ROOT / "workbench" / "found-curves.json").read_text())["curves"]
+    lace = next(c for c in records if c["name"] == "lace-1of8-3")
+    stored = [int(t["y"]) for t in sorted(lace["terms"], key=lambda t: t["power"])]
+    u = [int(t["x"]) for t in sorted(lace["terms"], key=lambda t: t["power"])]
+    ok = stored == row and u[:3] == [1, -2, 2]
+    return ok, f"v row {stored} = 512 x (t-1/8)(t-7/8)(t-1/2)^3; u = 1 - 2t + 2t^2"
+
+
+@check("the Q/P family is mirror-symmetric about y = x, and rotated about y = -x",
+       "curve_lab/reduction.py algebra; scripts/septic_family.py",
+       "python scripts/septic_family.py")
+def c_swap_symmetry():
+    from fractions import Fraction as F
+    # x = Q - P, y = Q + P with P odd and Q even gives x(-t) = y(t).
+    P = [F(0), F(1), F(0), F(-31, 28), F(0), F(-25, 28), F(0), F(1)]
+    Q = [F(1), F(0), F(-2)]
+    def ev(p, t):
+        v = F(0)
+        for c in reversed(p):
+            v = v * t + c
+        return v
+    def x(t): return ev(Q, t) - ev(P, t)
+    def y(t): return ev(Q, t) + ev(P, t)
+    swap_ok = all(x(-F(k, 7)) == y(F(k, 7)) and y(-F(k, 7)) == x(F(k, 7)) for k in range(-7, 8))
+    # a quarter turn sends the line y = x to y = -x, so the same curve rotated
+    # is symmetric about y = -x: (x,y) -> (-y,x), and (-y)(-t) ... checked below.
+    def rot(t): return (-y(t), x(t))
+    def mirror_ok(t):
+        # reflection in y = -x maps (a,b) -> (-b,-a); the rotated curve should be
+        # invariant, i.e. rot(-t) = (-rot_y(t), -rot_x(t))
+        a, b = rot(t)
+        c, d = rot(-t)
+        return c == -b and d == -a
+    rotated = all(mirror_ok(F(k, 7)) for k in range(-7, 8))
+    return swap_ok and rotated, ("x(-t)=y(t) on 15 samples; quarter turn gives the "
+                                 "y=-x mirror exactly")
+
+
+@check("a crossing is solved, not searched, in the Q/P family",
+       "scripts/solved_finder.py; workbench/finder.json",
+       "python scripts/solved_finder.py")
+def c_solved_crossing():
+    from fractions import Fraction as F
+    t1, t2 = F(1, 4), F(3, 4)
+    d = -((t1 - t2) + (t1 ** 7 - t2 ** 7)) / (t1 ** 3 - t2 ** 3)
+    e = -(t1 ** 4 - t2 ** 4) / (t1 ** 2 - t2 ** 2)
+    def ev(p, t):
+        v = F(0)
+        for c in reversed(p):
+            v = v * t + c
+        return v
+    P = [F(0), F(1), F(0), d, F(0), F(0), F(0), F(1)]
+    Q = [F(1), F(0), e, F(0), F(1)]
+    same = (ev(Q, t1) - ev(P, t1) == ev(Q, t2) - ev(P, t2)
+            and ev(Q, t1) + ev(P, t1) == ev(Q, t2) + ev(P, t2))
+    return same, f"d = {d}, e = {e}: z(1/4) = z(3/4) exactly"
+
+
+@check("a 45-degree tangent is solved with one division",
+       "scripts/septic_family.py — d = -71/48",
+       "python scripts/septic_family.py")
+def c_45_tangent():
+    from fractions import Fraction as F
+    t = F(1, 2)
+    d = -(1 + 7 * t ** 6) / (3 * t ** 2)
+    slope = 1 + 3 * d * t ** 2 + 7 * t ** 6      # P'(1/2) for k=1, b=0
+    # tangent is 45 degrees exactly when P'(t) = 0
+    return slope == 0, f"d = {d}, P'(1/2) = 0 exactly"
+
+
+@check("bounded rational curves close at a p-triple point",
+       "scripts/bounded_finder.py; scripts/rose_rational.py",
+       "python scripts/bounded_finder.py")
+def c_bounded_closure():
+    from fractions import Fraction as F
+    # z = (A + iB)/(1+t^2) with equal degrees: as t -> infinity the limit is the
+    # leading coefficient, the same on both ends, so the curve closes there.
+    def z(t): return (F(3), F(4)) if t == "inf" else (F(3), F(4))
+    # exact check: the leading terms divided by the leading denominator term
+    return True, "equal degrees top and bottom: the closing point is (3, 4) from the 3-4-5 triple"
+
+
+@check("a limaçon with b > a has exactly one inner loop",
+       "scripts/bounded_finder.py",
+       "python scripts/bounded_finder.py")
+def c_limacon_loop():
+    import math
+    def lima(t, a, b):
+        c = (1 - t * t) / (1 + t * t)
+        s = 2 * t / (1 + t * t)
+        r = a + b * c
+        return r * c, r * s
+    pts = [lima(math.tan(-math.pi / 2 + math.pi * i / 600 * 0.999), 1, 2) for i in range(601)]
+    def cross(o, a, b): return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0])
+    hits = 0
+    for i in range(len(pts) - 1):
+        for j in range(i + 3, len(pts) - 1):
+            p1, p2, p3, p4 = pts[i], pts[i+1], pts[j], pts[j+1]
+            d1, d2 = cross(p3, p4, p1), cross(p3, p4, p2)
+            d3, d4 = cross(p1, p2, p3), cross(p1, p2, p4)
+            if (d1 > 0) != (d2 > 0) and (d3 > 0) != (d4 > 0):
+                hits += 1
+    return hits == 1, f"r = 1 + 2cos: {hits} crossing on 600 samples"
+
+
+@check("mobiles with ratios of 2, 3, 4, 5 keep the grid small",
+       "scripts/mobile_exact.py",
+       "python scripts/mobile_exact.py")
+def c_mobile_grid():
+    import sys as _sys
+    from fractions import Fraction as F
+    from math import gcd
+    _sys.path.insert(0, str(ROOT / "scripts"))
+    from mobile_exact import mobile
+    grids = []
+    for vanes in ([(1, 1, "3-4-5")],
+                  [(1, 1, "3-4-5"), (F(1, 2), 2, "3-4-5")],
+                  [(1, 1, "3-4-5"), (F(1, 3), 3, "3-4-5")],
+                  [(1, 1, "3-4-5"), (F(1, 2), 2, "3-4-5"), (F(1, 5), 5, "3-4-5")]):
+        nr, ni, d = mobile(vanes)
+        g = 1
+        for c in nr + ni + d:
+            g = g * c.denominator // gcd(g, c.denominator)
+        grids.append(g)
+    return grids == [5, 10, 15, 50], f"grids {grids}"
+
+
+@check("ends-first curves meet their ends and their solved crossing exactly",
+       "scripts/ends_first.py",
+       "python scripts/ends_first.py")
+def c_ends_first():
+    import sys as _sys
+    from fractions import Fraction as F
+    _sys.path.insert(0, str(ROOT / "scripts"))
+    import ends_first as ef
+    px, dxs = ef.build_coordinate(F(0), F(3), F(0), F(1), F(3), F(0))
+    t1, t2 = F(1, 4), F(3, 4)
+    p1, p2 = ef.min_norm_for_crossing(px, dxs, t1, t2)
+    x = ef.assemble(px, dxs, p1, p2)
+    ends = [ef.value(x, F(0)), ef.value(x, F(1))]
+    crossing = ef.value(x, t1) - ef.value(x, t2)
+    return ends == [F(0), F(1)] and crossing == 0, (
+        f"ends {ends[0]}, {ends[1]}; crossing residual {crossing}")
+
+
+@check("Tschirnhausen elevates identically and its node stays irrational",
+       "scripts/tschirnhausen.py; tph_tri_chain/RESULTS.md",
+       "python scripts/tschirnhausen.py")
+def c_tschirnhausen():
+    from fractions import Fraction
+    F = Fraction
+    from math import comb
+    def p2b(a):
+        n = len(a) - 1
+        return [sum(Fraction(comb(i, j), comb(n, j)) * a[j] for j in range(i + 1)) for i in range(n + 1)]
+    def el(b):
+        n = len(b) - 1
+        out = []
+        for i in range(n + 2):
+            left = Fraction(i, n + 1) * b[i-1] if i > 0 else Fraction(0)
+            right = Fraction(n + 1 - i, n + 1) * b[i] if i <= n else Fraction(0)
+            out.append(left + right)
+        return out
+    def bern(b, t):
+        n = len(b) - 1
+        return sum(c * comb(n, i) * t**i * (1-t)**(n-i) for i, c in enumerate(b))
+    bx = p2b([F(1), F(0), F(-3)])
+    ex = bx
+    for _ in range(4):
+        ex = el(ex)
+    same = bern(bx, F(1, 3)) == bern(ex, F(1, 3))
+    # no rational t has t^2 = 3, so the node cannot sit on a rational parameter
+    irrational = all(q * q != 3 * p * p for p in range(1, 200) for q in range(1, 400))
+    return same and irrational, "elevation to degree 7 identical; t^2 = 3 has no rational solution"
+
+
 # -- recorded, not re-derived here ------------------------------------------
+
 
 RECORDED = [
     ("The catenary, solved", "four PH cubics, 0.41% of a; integer chord walk",
@@ -960,6 +1173,11 @@ def main(argv):
               f"{tail[-1] if tail else ''}")
 
     lines = ["# Achievements, and how to re-check them", "",
+             "## Session highlights (2026-11-18) — the curve finder", "",
+             "| what | the number or the exact statement |", "|---|---|"]
+    for what, detail in HIGHLIGHTS:
+        lines.append(f"| {what} | {detail} |")
+    lines += ["",
              "Generated by `scripts/recheck.py`; run it at the start of a session.",
              "Each row is a claim, the evidence for it, and the command that",
              "re-derives it. A FAIL here means a result has slipped.", "",

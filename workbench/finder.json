@@ -62641,10 +62641,12 @@
     "tangent_-45": []
    },
    "flags": [
-    "43° branches"
+    "43° branches",
+    "dup of loop t=1/4,3/4"
    ],
    "family": "solved-crossings",
-   "id": "solved-crossings-d5db964c"
+   "id": "solved-crossings-d5db964c",
+   "dup": true
   },
   {
    "name": "cross 1/2–3/4",
@@ -66546,10 +66548,12 @@
     "tangent_-45": []
    },
    "flags": [
-    "40° branches"
+    "40° branches",
+    "dup of loop t=1/2,3/4"
    ],
    "family": "solved-crossings",
-   "id": "solved-crossings-8efe0446"
+   "id": "solved-crossings-8efe0446",
+   "dup": true
   },
   {
    "name": "cross 1/3–2/3",
@@ -70451,10 +70455,12 @@
     "tangent_-45": []
    },
    "flags": [
-    "24° branches"
+    "24° branches",
+    "dup of loop t=1/3,2/3"
    ],
    "family": "solved-crossings",
-   "id": "solved-crossings-b05121e1"
+   "id": "solved-crossings-b05121e1",
+   "dup": true
   },
   {
    "name": "cross 1/5–3/5",
