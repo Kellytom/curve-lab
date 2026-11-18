@@ -123,6 +123,17 @@ def curves():
         out.append({"name": f"y=x^{n}",
                     "x": [Fraction(0), Fraction(1)],
                     "y": [Fraction(0)] * n + [Fraction(1)]})
+    # Septics with several terms: y = t^7 + a t^5 + b t^3, small integers.
+    # The point is to see whether a curvature peak can land on a 45° tangent
+    # (y' = 1) or near t = 1/2, and whether it lands on a rational t at all.
+    for a in (-2, -1, 0, 1, 2):
+        for b in (-2, -1, 0, 1, 2):
+            if (a, b) == (0, 0):
+                continue
+            y = [Fraction(0)] * 8
+            y[7], y[5], y[3] = Fraction(1), Fraction(a), Fraction(b)
+            out.append({"name": f"septic a={a:+d} b={b:+d}",
+                        "x": [Fraction(0), Fraction(1)], "y": y})
     return out
 
 
