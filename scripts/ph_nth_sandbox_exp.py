@@ -460,6 +460,39 @@ def gaussian_section():
             + "".join(panels) + '</div>\n')
 
 
+FINDER_LIVE = """
+<script>
+(() => {
+  const box = document.getElementById("n-finder-live");
+  if (!box) return;
+  const draw = (pts) => {
+    if (!pts || pts.length < 2) return "";
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs);
+    const y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const w = x1 - x0 || 1, h = y1 - y0 || 1;
+    const k = 170 / Math.max(w, h);
+    const ox = (190 - w * k) / 2, oy = (190 - h * k) / 2;
+    return pts.map(([x, y]) =>
+      `${(ox + (x - x0) * k).toFixed(1)},${(190 - (oy + (y - y0) * k)).toFixed(1)}`).join(" ");
+  };
+  Promise.all([
+    fetch("/api/finder-stars").then(r => r.json()),
+    fetch("/workbench/finder.json").then(r => r.json()),
+  ]).then(([stars, data]) => {
+    const names = new Set((stars.curves || []).map(c => c.name));
+    const chosen = (data.curves || []).filter(c => names.has(c.name));
+    if (!chosen.length) return;
+    box.innerHTML = chosen.map(c =>
+      `<figure><svg viewBox="0 0 190 190" width="190" height="190">` +
+      `<rect width="190" height="190" fill="#fff"/>` +
+      `<polyline points="${draw(c.path)}" fill="none" stroke="#111" stroke-width="1.2"/>` +
+      `</svg><figcaption>${c.name}</figcaption></figure>`).join("");
+  }).catch(() => { /* keep the generated list */ });
+})();
+</script>
+"""
+
 def finder_section(limit=24):
     """The finder's curves, drawn inline, above the gallery."""
     import json
@@ -497,8 +530,8 @@ def finder_section(limit=24):
     return ('<h2 id="finder-curves">From the curve finder</h2>'
             '<p class="small">The finder\'s starred curves. '
             'Open <a href="/finder">the finder</a> to star or save them; this page reads them read-only.</p>'
-            '<div class="gallery" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))">'
-            + "".join(cells) + "</div>\n")
+            '<div class="gallery" id="n-finder-live" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))">'
+            + "".join(cells) + "</div>\n" + FINDER_LIVE)
 
 
 def build():

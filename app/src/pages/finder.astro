@@ -133,30 +133,20 @@ code{font:11px ui-monospace,Menlo,monospace}
   };
   const read = () => {
     try {
-      // The file and this browser both hold stars. Merge them: a browser that
-      // was seeded from an older file, or a different origin, must not hide the
-      // stars the file already has.
-      const seed = JSON.parse(document.getElementById("finder-stars-seed").textContent || "[]");
+      // Seed from the file once, then this browser is the editor. Merging the
+      // file into every read made a star impossible to remove: the file put it
+      // back. The server still merges duplicates by name on save.
       const raw = localStorage.getItem(KEY);
-      const value = raw === null ? [] : JSON.parse(raw);
-      const stored = Array.isArray(value) ? value : [];
-      const byKey = new Map();
-      for (const star of [...seed, ...stored]) {
-        const key = star.name || star.id;
-        if (key) byKey.set(key, star);
+      if (raw !== null) {
+        const value = JSON.parse(raw);
+        const stored = Array.isArray(value) ? value : [];
+        const { out, changed } = migrate(stored);
+        if (changed) localStorage.setItem(KEY, JSON.stringify(out));
+        return out;
       }
-      if (!byKey.size) {
-        // A failed save leaves a rescue copy; use it if the live list is empty.
-        try {
-          const rescue = JSON.parse(localStorage.getItem("finder-stars-rescue") || "null");
-          for (const star of rescue?.curves || []) {
-            const key = star.name || star.id;
-            if (key) byKey.set(key, star);
-          }
-        } catch { /* nothing to rescue */ }
-      }
-      const { out, changed } = migrate([...byKey.values()]);
-      if (changed || byKey.size !== stored.length) localStorage.setItem(KEY, JSON.stringify(out));
+      const seed = JSON.parse(document.getElementById("finder-stars-seed").textContent || "[]");
+      const { out } = migrate(seed);
+      localStorage.setItem(KEY, JSON.stringify(out));
       return out;
     } catch { return []; }
   };
