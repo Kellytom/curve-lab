@@ -70,7 +70,7 @@ in a single place.
 - **Junction:** a branch meeting a trunk at a declared merge. A junction carries
   the corner, the gap that must survive inside the fork, the rounding or blend,
   the taper, and the contacts where the strokes are allowed to touch.
-- **Clothoid blend:** the easing transition that would remove the sudden change
+- **Euler curve blend:** the easing transition that would remove the sudden change
   in bend at a junction. *Planned; not built.*
 
 ## Measuring across the line: `Section` and `Bundle`

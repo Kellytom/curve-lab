@@ -51,7 +51,7 @@ design = Design(anchor=..., segments=[Segment(kd=0, length=8, kappa0=0),
 ```
 
 The two joins come out G1 with a curvature step of `1/r` — exactly what a
-circular fillet is, and the reason a trunk eventually wants the clothoid
+circular fillet is, and the reason a trunk eventually wants the Euler curve
 blend.
 
 The maths is the standard construction: for interior angle `θ`, the touch
@@ -62,7 +62,7 @@ not fit the shorter edge, collinear edges, and edges that double back.
 ## What it is not
 
 - **It is G1, not G2.** Curvature jumps from 0 to `1/r` at each touch point.
-  That is honest for a foot or a nick, and visible on a trunk. The clothoid
+  That is honest for a foot or a nick, and visible on a trunk. The Euler curve
   blend (`cl_g2_connect` in the engine) is the next step, not this one.
 - **Straight edges only.** `fillet_span` rejects curved spans instead of
   pretending a tangent point lies on the chord.
@@ -98,7 +98,7 @@ Junction
   point        where the two centre lines would meet
   angle        interior angle between the strokes
   clearance    minimum gap that must survive through the crotch
-  fillet       radius, or None for a clothoid blend
+  fillet       radius, or None for an Euler curve blend
   taper        length over which the branch narrows into the trunk
   bulb         none | cone | bulb, from the W02 terminal laws
   contacts     declared Contact objects passed to the clearance report
@@ -117,7 +117,7 @@ parameters — conventionally β₁ (a tangential scale) and β₂ (a tension, o
 curvature ratio) — and the pieces are constructed so the join is G2 for any
 positive values of them. B-splines are the special case β₁ = 1, β₂ = 0.
 
-Why it matters here: the current G2 route is the fillet or the clothoid blend,
+Why it matters here: the current G2 route is the fillet or the Euler curve blend,
 both of which *solve* for the matching curvature. A beta-spline instead exposes
 the joint as two dials, which is closer to how a capital or a leaf-to-branch
 join is actually adjusted. The cost is the same as every spline: the result is

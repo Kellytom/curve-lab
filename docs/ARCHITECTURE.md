@@ -8,9 +8,9 @@ most of the design decisions follow from keeping them apart.
 ## The curve engine (`curve_lab`)
 
 A train does not jerk into a bend; the track eases into it. That transition is a
-clothoid, or Euler spiral, and the engine uses the same idea for ornament.
+Euler curve, or Euler spiral, and the engine uses the same idea for ornament.
 
-The engine's job is the *drawn* curve: it fits smooth clothoid segments, gives
+The engine's job is the *drawn* curve: it fits smooth Euler-curve segments, gives
 them width, and checks that separate strokes do not collide. Its joins are G1 by
 construction — the tangents meet exactly. Curvature is continuous (G2) only
 where a terminal's width law or a blend supplies it; a plain corner or a
@@ -38,8 +38,8 @@ What that buys, and what it costs:
 - A right angle is exact as a *cusp*, a component swap; it is not reachable by
   accumulated turning, which is a theorem, not a limitation of the code.
 
-The spine layer is not a clothoid and does not replace the engine. It is a
-polygon whose headings match a clothoid at the nodes; its position is up to a
+The spine layer is not an Euler curve and does not replace the engine. It is a
+polygon whose headings match an Euler curve at the nodes; its position is up to a
 chord away.
 
 ## How they are meant to connect
@@ -60,8 +60,8 @@ The intended pipeline, from exact plan to finished page:
    edit, measure, download SVG
 ```
 
-**All four conditions hold under the operator's fidelity rule (2026-10-30).** The two tools now
-meet at `curve_lab/spine.py`: a chain's own spans become ordinary clothoid
+**All four conditions hold under the author's fidelity rule (2026-10-30).** The two tools now
+meet at `curve_lab/spine.py`: a chain's own spans become ordinary Euler curve
 segments, so rails, terminals, clearance and the SVG writer need no second
 geometry kind.
 
@@ -73,14 +73,14 @@ geometry kind.
    a forked node passes, and the same gap fails without the declaration.
 4. **Done.** One W03 study is drawn entirely from Pythagorean chains. P01's
    start heading (77.97°) and corners are not in any triangle's rotation group,
-   so this is a chain plan, not P01's node table. It passes the operator's
+   so this is a chain plan, not P01's node table. It passes the author's
    rule — worst span-end drift at most **1.6% of study height** — at **1.29%**
    with a 0.5° turn step. See `FIDELITY.md`; the study is **not** node parity
    (0.03 units for the port against 19.44 here).
 
 There are now **two profiles** of a chain study: the exact one (one cubic per
 chord, 1,164 cubics) for zooming and choosing, and the practical one (one
-clothoid per structural run, 34 cubics at 0.42 mm) for output. A **pin** carries
+Euler curve per structural run, 34 cubics at 0.42 mm) for output. A **pin** carries
 a branch chosen on the exact curve into the practical curve as an exact vertex.
 The remaining gap is surface, not wiring: the fill currently needs the spine
 layer's exact miter, because the engine's rail builder crosses at per-chord
@@ -94,7 +94,7 @@ matters, because only two of the three are different geometry.
 | way in | you supply | it solves | it produces |
 |---|---|---|---|
 | **spine** | a triangle, a turn schedule, a closure | an exact rational Euler polygon | a chain → `Piece` |
-| **engine** | segments, points with tangents, or recovered spans | the clothoid through those constraints | a `Design` → `Piece` |
+| **engine** | segments, points with tangents, or recovered spans | the Euler curve through those constraints | a `Design` → `Piece` |
 | **scroll** | an end radius, a join gap, a page and a clearance | the curvature rate and the length, plus the inflection or the return to radius `r` | a `Design` → `Piece` |
 
 The spine is a *different* curve: a discrete polygon with exact rational nodes.

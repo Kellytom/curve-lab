@@ -20,6 +20,9 @@ You need a C++ compiler for the engine. Without one, `pip install -r
 requirements-dev.txt` and set `CLOTHOID_BACKEND=pyclothoids`; the wheel is a
 second opinion, not the default.
 
+Every package, version and licence is in `DEPENDENCIES.md`. If you add one, add
+its row there in the same commit.
+
 ## The loop
 
 ```sh
@@ -49,6 +52,17 @@ the summary, or grep for `FAILED`, rather than the last four lines.
    loses its label.
 6. **One number, one definition.** If two things share a name, name them apart
    in the same breath.
+
+## The draft label
+
+Every outward page carries `draft A`: an HTML page gets a corner badge and a
+title suffix, a Markdown page gets one line under the first heading.
+`scripts/stamp_draft.py` applies it, `--check` enforces it in the suite, and
+`scripts/build-pages.py` re-stamps after a rebuild.
+
+Two deliberate exceptions: book plate images carry no text at all, because the
+image is the plate; and `llms.txt` / `llms-full.txt` are machine-facing files,
+not pages.
 
 ## Naming
 

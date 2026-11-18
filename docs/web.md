@@ -22,7 +22,7 @@ wrapper around a Python server.
 ## Directory structure
 
 ```
-clothoid-web/
+Euler curve-web/
 ├── package.json
 ├── pnpm-lock.yaml
 ├── tsconfig.json
@@ -65,9 +65,9 @@ clothoid-web/
 │   │   └── install.ts            beforeinstallprompt, iOS hints
 │   ├── styles/
 │   └── wasm/                     generated, not edited
-│       ├── clothoid.js           Emscripten ES module
-│       ├── clothoid.wasm
-│       └── clothoid.d.ts         hand-written or --emit-tsd
+│       ├── Euler curve.js           Emscripten ES module
+│       ├── Euler curve.wasm
+│       └── Euler curve.d.ts         hand-written or --emit-tsd
 ├── cpp/
 │   ├── clothoid_api.cpp          same 26-function C surface
 │   └── build-wasm.sh             em++ invocation
@@ -93,7 +93,7 @@ clothoid-web/
 | Component | Language | Responsibility | Depends on |
 |---|---|---|---|
 | `cpp/clothoid_api.cpp` | C++17 | plain C ABI over the vendor engine | Clothoids, Eigen |
-| `clothoid.wasm` | WASM | compiled engine | Emscripten |
+| `Euler curve.wasm` | WASM | compiled engine | Emscripten |
 | `core/wasm.ts` | TS | load, memory, arrays, error codes, typed `g1_fit`, `g2_spline`, `trim`, etc. | wasm module |
 | `core/model.ts` | TS | design types, JSON schema, units, corners | — |
 | `core/engine.ts` | TS | resolve curvature, tangent, corners; global arc length | model, wasm |
@@ -145,12 +145,12 @@ em++ -std=c++17 -O3 -flto -fexceptions \
   -Ivendor/Clothoids/submodules/GenericContainer/include \
   -Ivendor/Clothoids/submodules/quarticRootsFlocke/src \
   csrc/clothoid_api.cpp vendor/Clothoids/src/*.cc ... \
-  -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=createClothoid \
+  -sMODULARIZE=1 -sEXPORT_ES6=1 -sEXPORT_NAME=createEuler curve \
   -sENVIRONMENT=web,worker -sALLOW_MEMORY_GROWTH=1 \
   -sFILESYSTEM=0 -sDISABLE_EXCEPTION_CATCHING=0 \
   -sEXPORTED_FUNCTIONS='["_malloc","_free","_cl_new",...]' \
   -sEXPORTED_RUNTIME_METHODS='["ccall","cwrap","HEAPF64"]' \
-  -o src/wasm/clothoid.js
+  -o src/wasm/Euler curve.js
 ```
 
 - Keep the **26 `cl_*` functions**; export `_malloc` and `_free`.
@@ -159,7 +159,7 @@ em++ -std=c++17 -O3 -flto -fexceptions \
   Pages stays viable.
 - `-fexceptions` and exception catching are required because the vendor throws.
 - `wasm-opt -O3` afterwards; strip debug for production.
-- Emit TS declarations (`--emit-tsd`) or write `clothoid.d.ts` by hand.
+- Emit TS declarations (`--emit-tsd`) or write `Euler curve.d.ts` by hand.
 - ABI version: add `cl_abi_version()` before shipping; the JS wrapper refuses
   a mismatch.
 

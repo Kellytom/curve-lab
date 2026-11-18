@@ -22,7 +22,7 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 | `curves/` | 77 | one folder per curve with a picture and notes |
 | `docs/` | 54 | the mkdocs book and page twins |
 | `engine/` | 1 | `Dockerfile` for the native build |
-| `exercises/` | 2 | the closed-clothoid exercise |
+| `exercises/` | 2 | the closed-Euler curve exercise |
 | `focus-math/` | 771 | a fetched maths corpus: sources, headers, samples |
 | `founder/` | 5 | screenshots and the founder's log |
 | `legacy/` | 4 |  |

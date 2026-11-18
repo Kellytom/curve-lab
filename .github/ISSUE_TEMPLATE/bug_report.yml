@@ -1,0 +1,54 @@
+name: Bug report
+description: Something is wrong: a page, a number, or a command.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. A command and its output are worth more than a
+        screenshot.
+  - type: textarea
+    id: what
+    attributes:
+      label: What went wrong
+      description: One or two sentences. What did you do, and what happened?
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: The command you ran
+      description: Paste the command and the last 20 lines of its output.
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: What you expected
+      placeholder: The grid should be 1/2730, not 1/2731.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where it is
+      options:
+        - engine (curve_lab/)
+        - lab page (workbench/)
+        - app (app/)
+        - book plates (book/)
+        - docs (docs/)
+        - data (curves/, workbench/*.json)
+        - not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send
+      options:
+        - label: I searched the issues and did not find this one.
+          required: true
+        - label: I ran `.venv/bin/python scripts/test.py --slim` (if this is code).

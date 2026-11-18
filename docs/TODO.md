@@ -10,7 +10,7 @@ Effort is focused working time, not calendar time.
 
 ## Done
 
-- **Engine.** Clothoid chains compiled from the vendored C++ (BSD-2), placed by
+- **Engine.** Euler curve chains compiled from the vendored C++ (BSD-2), placed by
   arc length, continuity measured rather than assumed.
 - **Cubic fit with a measured error.** Adaptive split, error found by searching
   arc length, not by distance to samples.
@@ -20,7 +20,7 @@ Effort is focused working time, not calendar time.
   notation, design JSON carried in the file.
 - **Design model.** Anchor, segments, explicit or inherited curvature, JSON
   round trip, `g1` flag for fits whose curvature jumps are intended.
-- **G1 fitting.** Two-point `buildClothoid` and a spline through points, as a
+- **G1 fitting.** Two-point `buildEuler curve` and a spline through points, as a
   design; CLI `--points`, watchable with `--watch --points`. Every point hit to
   ~1e-14 mm in tests.
 - **Two-window loop.** Poll-based watcher, atomic writes, a bad edit never
@@ -32,7 +32,7 @@ Effort is focused working time, not calendar time.
   `scripts/set_window_geometry.py`.
 - **Environment.** Xcode 13.2.1 selected, `/usr/bin/python3` works again,
   project venv on Python 3.12.4.
-- **Reverse-curve maths and the 3125 grid.** The S-pair as one clothoid with
+- **Reverse-curve maths and the 3125 grid.** The S-pair as one Euler curve with
   zero curvature at the inflection, verified G2 and symmetric to `1.7e-11 mm`;
   a generator and 4% table in `scripts/grid_3125.py` and
   `docs/clothoid-grid-3125.md`.
@@ -42,10 +42,10 @@ Effort is focused working time, not calendar time.
 - **Twin and view helpers.** `scripts/twin.py` writes a self-contained HTML twin;
   `scripts/fit_view.py` computes the Inkscape saved view (zoom is a factor, not
   pixels per millimetre).
-- **Cap family and fold.** The two-clothoid caps from `closed-cl-1` were
+- **Cap family and fold.** The two-Euler-curve caps from `closed-cl-1` were
   continued from y=10 to y=162.2817, where `kd2` reaches zero; documented in
   `docs/caps.md` with the full table in `out/caps/README.md`.
-- **Class II pointed leaves.** Both clothoids left-turning, one tangent corner;
+- **Class II pointed leaves.** Both Euler curves left-turning, one tangent corner;
   `cap-pt-1`…`cap-pt-9` from Y=20 to Y=180, the point closing at Y=199.239.
 
 ## Planned, in priority order
@@ -66,7 +66,7 @@ settled; the choices are not.
       (245 x 60 steps of 125); the sheet may also grow automatically.
 - [ ] Decide the grid: integer rounding is honest, 125 snapping is not (up to
       58 units off). If 125 is required, adopt canvas 5250 with `A = 3121.0`.
-- [ ] Add a reverse-curve design: one clothoid crossing zero curvature, half
+- [ ] Add a reverse-curve design: one Euler curve crossing zero curvature, half
       turn and `A` in the design JSON.
 - [ ] CLI entry (`--reverse A --half-turn DEG`) and a preset.
 - [ ] Tests: `kappa = 0` at the inflection, G2, symmetry error < 1e-9, endpoints.
@@ -84,7 +84,7 @@ The one layer no repository has. `Clothoids` offsets at a constant distance; a
 tapered or looped end needs a width envelope.
 
 - [ ] Half-width as a function of arc length, `w(s)`, and rails offset by it.
-- [ ] Terminal kinds made from clothoids: round, tapered to a point, looped.
+- [ ] Terminal kinds made from Euler curves: round, tapered to a point, looped.
 - [ ] Outline builder: rail + terminal + rail + terminal, one closed path.
 - [ ] Keep the three-line mode. The spine is already a separate path, so the
       paint can change without touching the geometry.
@@ -144,7 +144,7 @@ centreline accent, with the accent's ink semantics stated rather than assumed.
 
 ### 8. Re-import and inverse fitting — 2–3 days
 
-- [ ] Read a path, split it, fit clothoids, report the approximation error.
+- [ ] Read a path, split it, fit Euler curves, report the approximation error.
 - [ ] Replace a section of an existing design with a fitted piece.
 - [ ] No claim of an exact inverse; the error is the deliverable.
 

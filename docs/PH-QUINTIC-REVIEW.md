@@ -119,7 +119,7 @@ and a test that `Fraction(float)` appears nowhere else.
 
 ### 3.5 The saved-curve loop is not closed
 
-Saved curves live in `localStorage`; the operator must paste JSON back, and then
+Saved curves live in `localStorage`; the author must paste JSON back, and then
 a script cleans it. A small merge step would close the loop: read the clipboard
 or a dropped file, clean it, append to the preset JSON.
 

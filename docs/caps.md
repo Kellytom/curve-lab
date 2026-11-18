@@ -1,29 +1,29 @@
-# Closed two-clothoid caps
+# Closed two-Euler-curve caps
 
 > **draft A** — a working draft, not a final text.
 This is the account of the cap exercise: a hairpin that starts at the origin
-heading east, changes from a left clothoid to a right clothoid at an inflection,
+heading east, changes from a left Euler curve to a right Euler curve at an inflection,
 and ends with a horizontal centreline. Two families came out of it, and a fold.
 
 ## The model
 
 ```
 start        (0, 0), heading east
-first        kappa0 = 0, kd1 > 0, length L1      left clothoid
+first        kappa0 = 0, kd1 > 0, length L1      left Euler curve
 inflection   kappa  = 0                          the hand-off
-second       kappa0 = 0, kd2 < 0, length L2      right clothoid
+second       kappa0 = 0, kd2 < 0, length L2      right Euler curve
 end          (?, ?), heading west
 ```
 
 Two ways of reaching the y-axis were built on that:
 
-1. **Direct**: the clothoids end at `(0, Y)` heading west. That is
+1. **Direct**: the Euler curves end at `(0, Y)` heading west. That is
    `cap-11` … `cap-27`.
-2. **Straight return**: the clothoids end at `(X, X)` heading west, then a
+2. **Straight return**: the Euler curves end at `(X, X)` heading west, then a
    straight segment of length `X` returns to `(0, X)`. That is
    `cap-5` … `cap-10`.
 
-A third, separate form is the single clothoid turning exactly −180°:
+A third, separate form is the single Euler curve turning exactly −180°:
 `cap-1` (30 mm) and `cap-2` (10 mm). It has no inflection and no joint.
 
 ## The fixed numbers
@@ -59,12 +59,12 @@ y-axis.
 ## The result
 
 The direct family solves from **Y = 10** to **Y = 162.2817** with the second
-clothoid right-leaning. The fold is at:
+Euler curve right-leaning. The fold is at:
 
 ```
 Y     162.2817
 L1    321.442393
-kd2   0                 the second clothoid is now a straight line
+kd2   0                 the second Euler curve is now a straight line
 L2    120.213937
 ```
 
@@ -81,7 +81,7 @@ and `cap-22` at about 0.0196 mm. The rest are between 0.004 and 0.015 mm.
 
 ## Class II: the pointed leaf
 
-A second family uses the same two clothoids as the **two edges of a leaf**, not
+A second family uses the same two Euler curves as the **two edges of a leaf**, not
 as a centreline with rails. The edges meet at a **tangent corner**, the point.
 The y-axis closes the base.
 
@@ -104,7 +104,7 @@ corner falling from 145° to 15°.
 
 This required a real model change: `Segment.corner` is a tangent jump at the
 start of a segment, carried through JSON and the engine, and reported as
-`corners`. Class II uses no rails; the two clothoid edges themselves are the
+`corners`. Class II uses no rails; the two Euler curve edges themselves are the
 drawing, closed by the y-axis. A cornered ribbon is still possible, and its rail
 fit stops a fraction of a millimetre short of the break so the offset search
 never sits exactly on the discontinuity.
@@ -114,10 +114,10 @@ never sits exactly on the discontinuity.
 - The family is a genuine one-parameter continuation: fixed curvature scale,
   fixed ribbon, only the endpoint height changes.
 - The straight return and the direct end are different families. In
-  `cap-5`…`cap-10` the clothoids stop at `(X, X)`; in `cap-11`…`cap-27` they
+  `cap-5`…`cap-10` the Euler curves stop at `(X, X)`; in `cap-11`…`cap-27` they
   stop on the y-axis itself.
 - The fold is where `kd2` reaches zero, not where the equations lose a solution.
-- A positive endpoint x at the same height needs the second clothoid to
+- A positive endpoint x at the same height needs the second Euler curve to
   over-rotate; that is why `cap-3` loops and was superseded.
 
 ## Files

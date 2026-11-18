@@ -1,0 +1,37 @@
+name: Feature request
+description: A curve, a control, a page, or a document you would like.
+title: "idea: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What can you not do today? Describe the job, not only the screen.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: The shape of the answer
+      description: One or two sentences. A number, a command or a page name is enough.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where it belongs
+      options:
+        - engine (curve_lab/)
+        - lab page (workbench/)
+        - app (app/)
+        - book plates (book/)
+        - docs (docs/)
+        - not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send
+      options:
+        - label: I searched the issues and the backlog (`state/BACKLOG-int.md`).
+          required: true

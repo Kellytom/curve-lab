@@ -3,7 +3,7 @@
 > **draft A** — a working draft, not a final text.
 The web tool in `web/` is a small workbench for drawing curves: open it, edit a
 design, see the drawing and a short report, download an SVG. It is a Python
-server in front of the C++ clothoid engine (Enrico Bertolazzi and Marco Frego).
+server in front of the C++ Euler-curve engine (Enrico Bertolazzi and Marco Frego).
 
 ## Opening it
 
@@ -22,7 +22,7 @@ the password field. The token is not in this repository.
 
 1. You pick a preset or type a design on the left.
 2. The browser posts the design to `/api/render`.
-3. The engine builds the clothoid segments, joins them, applies the width and
+3. The engine builds the Euler-curve segments, joins them, applies the width and
    offset, and returns an SVG.
 4. The drawing appears on the right with a status line and a report.
 

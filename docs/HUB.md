@@ -29,7 +29,7 @@ the fold:
 - *I want a sheet*
 
 Each is a plain description of the decision, ending in exactly one link — the
-page that starts it. The words "clothoid", "hodograph", "fidelity" and "G1"
+page that starts it. The words "Euler curve", "hodograph", "fidelity" and "G1"
 appear in none of them. A reader who has never seen the project should be able
 to pick by intent.
 

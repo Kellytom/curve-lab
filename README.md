@@ -5,9 +5,13 @@
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
 > **draft A** — a working draft, not a final text.
+
+**curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.**
+
 Exact integer and Euler curves, out as plain editable SVG.
 
-An **Euler curve** (also called a clothoid, or Euler spiral) is the curve whose
+An **Euler curve** (also called an Euler curve, or Euler spiral) is the curve whose
 curvature rises in proportion to arc length. It is the transition every road and
 railway uses, and the shape under a French curve. This tool builds chains of them
 to a stated tolerance, offsets them into ribbons, and writes SVG that Inkscape
@@ -335,6 +339,9 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `docs/` | the prose book, built by mkdocs |
 | `state/` | working notes for the next session: handoff, register, decisions |
 | `tests/` | the suite, and the fixed-fault register that guards it |
+
+`DEPENDENCIES.md` lists every package, its version, its licence and why it is
+there; it also says what the project refuses to depend on.
 
 `docs/STRUCTURE.md` has the full tree.
 

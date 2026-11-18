@@ -2,8 +2,8 @@
 
 > **draft A** — a working draft, not a final text.
 
-A workshop for one thing: **curves that can be built exactly, and ornaments that
-follow from them.**
+**curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.**
 
 The older layer is the Euler curve — curvature linear in arc length. The newer
 layer is stricter: build with whole-number polynomials and Pythagorean triples,

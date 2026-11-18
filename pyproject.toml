@@ -5,11 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "curve-lab"
 version = "0.1.0"
-description = "Numerical clothoid chains out as plain editable SVG"
+description = "Exact integer and Euler curves for ornament, with a plain SVG writer"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-dependencies = []
+dependencies = ["numpy>=2.0,<3"]
 
 [project.optional-dependencies]
 wheel = ["pyclothoids==0.2.0"]
@@ -19,3 +19,10 @@ curve-lab = "curve_lab.cli:main"
 
 [tool.setuptools]
 packages = ["curve_lab", "curve_lab.backend"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]

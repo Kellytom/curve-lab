@@ -18,9 +18,13 @@ relative to the repository root.
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
 > **draft A** — a working draft, not a final text.
+
+**curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.**
+
 Exact integer and Euler curves, out as plain editable SVG.
 
-An **Euler curve** (also called a clothoid, or Euler spiral) is the curve whose
+An **Euler curve** (also called an Euler curve, or Euler spiral) is the curve whose
 curvature rises in proportion to arc length. It is the transition every road and
 railway uses, and the shape under a French curve. This tool builds chains of them
 to a stated tolerance, offsets them into ribbons, and writes SVG that Inkscape
@@ -349,6 +353,9 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `state/` | working notes for the next session: handoff, register, decisions |
 | `tests/` | the suite, and the fixed-fault register that guards it |
 
+`DEPENDENCIES.md` lists every package, its version, its licence and why it is
+there; it also says what the project refuses to depend on.
+
 `docs/STRUCTURE.md` has the full tree.
 
 ## Tests
@@ -387,7 +394,10 @@ the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.
 
 > Exact integer and rational curves for ornament: a Python engine, a generated browser lab, and an Astro app.
 
-curve-lab builds curves whose coordinates are whole numbers, then measures their
+curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.
+
+It builds curves whose coordinates are whole numbers, then measures their
 grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
 book plates, are built from those curves. A second, older layer does numerical
 Euler-curve chains and writes them as plain SVG.
@@ -399,6 +409,7 @@ https://github.com/Kellytom/curve-lab/tree/main/
 ## Start here
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
+- [DEPENDENCIES.md](DEPENDENCIES.md): every package, its version, licence and reason.
 - [docs/index.md](docs/index.md): the front page of the prose book.
 - [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
 - [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
@@ -837,8 +848,8 @@ this project has actually had, delete it and say why.
 
 > **draft A** — a working draft, not a final text.
 
-A workshop for one thing: **curves that can be built exactly, and ornaments that
-follow from them.**
+**curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.**
 
 The older layer is the Euler curve — curvature linear in arc length. The newer
 layer is stricter: build with whole-number polynomials and Pythagorean triples,
@@ -1179,6 +1190,14 @@ result; it cannot prove one.
 **As of 2026-11-18.** This page says what is proved, what is still a draft, and
 what comes next. Every claim names the command that checks it.
 
+## The three words
+
+- **proved** — a command reproduces the number; the check is in the table below.
+- **draft** — it exists and is shown, but no check fixes it yet. It carries the
+  `draft A` label.
+- **gap** — it does not work, or it is missing. It is written down here rather
+  than hidden.
+
 ## Proved
 
 | claim | number | the check |
@@ -1453,7 +1472,7 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 | `curves/` | 77 | one folder per curve with a picture and notes |
 | `docs/` | 54 | the mkdocs book and page twins |
 | `engine/` | 1 | `Dockerfile` for the native build |
-| `exercises/` | 2 | the closed-clothoid exercise |
+| `exercises/` | 2 | the closed-Euler curve exercise |
 | `focus-math/` | 771 | a fetched maths corpus: sources, headers, samples |
 | `founder/` | 5 | screenshots and the founder's log |
 | `legacy/` | 4 |  |
@@ -1501,9 +1520,9 @@ most of the design decisions follow from keeping them apart.
 ## The curve engine (`curve_lab`)
 
 A train does not jerk into a bend; the track eases into it. That transition is a
-clothoid, or Euler spiral, and the engine uses the same idea for ornament.
+Euler curve, or Euler spiral, and the engine uses the same idea for ornament.
 
-The engine's job is the *drawn* curve: it fits smooth clothoid segments, gives
+The engine's job is the *drawn* curve: it fits smooth Euler-curve segments, gives
 them width, and checks that separate strokes do not collide. Its joins are G1 by
 construction — the tangents meet exactly. Curvature is continuous (G2) only
 where a terminal's width law or a blend supplies it; a plain corner or a
@@ -1531,8 +1550,8 @@ What that buys, and what it costs:
 - A right angle is exact as a *cusp*, a component swap; it is not reachable by
   accumulated turning, which is a theorem, not a limitation of the code.
 
-The spine layer is not a clothoid and does not replace the engine. It is a
-polygon whose headings match a clothoid at the nodes; its position is up to a
+The spine layer is not an Euler curve and does not replace the engine. It is a
+polygon whose headings match an Euler curve at the nodes; its position is up to a
 chord away.
 
 ## How they are meant to connect
@@ -1553,8 +1572,8 @@ The intended pipeline, from exact plan to finished page:
    edit, measure, download SVG
 ```
 
-**All four conditions hold under the operator's fidelity rule (2026-10-30).** The two tools now
-meet at `curve_lab/spine.py`: a chain's own spans become ordinary clothoid
+**All four conditions hold under the author's fidelity rule (2026-10-30).** The two tools now
+meet at `curve_lab/spine.py`: a chain's own spans become ordinary Euler curve
 segments, so rails, terminals, clearance and the SVG writer need no second
 geometry kind.
 
@@ -1566,14 +1585,14 @@ geometry kind.
    a forked node passes, and the same gap fails without the declaration.
 4. **Done.** One W03 study is drawn entirely from Pythagorean chains. P01's
    start heading (77.97°) and corners are not in any triangle's rotation group,
-   so this is a chain plan, not P01's node table. It passes the operator's
+   so this is a chain plan, not P01's node table. It passes the author's
    rule — worst span-end drift at most **1.6% of study height** — at **1.29%**
    with a 0.5° turn step. See `FIDELITY.md`; the study is **not** node parity
    (0.03 units for the port against 19.44 here).
 
 There are now **two profiles** of a chain study: the exact one (one cubic per
 chord, 1,164 cubics) for zooming and choosing, and the practical one (one
-clothoid per structural run, 34 cubics at 0.42 mm) for output. A **pin** carries
+Euler curve per structural run, 34 cubics at 0.42 mm) for output. A **pin** carries
 a branch chosen on the exact curve into the practical curve as an exact vertex.
 The remaining gap is surface, not wiring: the fill currently needs the spine
 layer's exact miter, because the engine's rail builder crosses at per-chord
@@ -1587,7 +1606,7 @@ matters, because only two of the three are different geometry.
 | way in | you supply | it solves | it produces |
 |---|---|---|---|
 | **spine** | a triangle, a turn schedule, a closure | an exact rational Euler polygon | a chain → `Piece` |
-| **engine** | segments, points with tangents, or recovered spans | the clothoid through those constraints | a `Design` → `Piece` |
+| **engine** | segments, points with tangents, or recovered spans | the Euler curve through those constraints | a `Design` → `Piece` |
 | **scroll** | an end radius, a join gap, a page and a clearance | the curvature rate and the length, plus the inflection or the return to radius `r` | a `Design` → `Piece` |
 
 The spine is a *different* curve: a discrete polygon with exact rational nodes.
@@ -1783,7 +1802,7 @@ in a single place.
 - **Junction:** a branch meeting a trunk at a declared merge. A junction carries
   the corner, the gap that must survive inside the fork, the rounding or blend,
   the taper, and the contacts where the strokes are allowed to touch.
-- **Clothoid blend:** the easing transition that would remove the sudden change
+- **Euler curve blend:** the easing transition that would remove the sudden change
   in bend at a junction. *Planned; not built.*
 
 ## Measuring across the line: `Section` and `Bundle`
@@ -2137,7 +2156,7 @@ there; they are evidence, not tests.
 # Fidelity: the accepted budget
 
 > **draft A** — a working draft, not a final text.
-> **Important — operator decision, 2026-10-30.** A chain that imitates a
+> **Important — author decision, 2026-10-30.** A chain that imitates a
 > An Euler curve is accepted at **1.4–1.6 per cent**. That figure was set for the
 > curvature-law fit (the chain follows the ideal Euler law to 0.8% of peak; the
 > drawn cubics to 1.4%, rms 0.8%). For a **chain study** the working rule is:
@@ -2307,7 +2326,7 @@ cubic, not nine.
 
 ## Where the rule came from
 
-The operator set it on 2026-10-30, in the same conversation that produced the
+The author set it on 2026-10-30, in the same conversation that produced the
 promotion gate. Record it here, in `state/SESSIONS-int.md`, and in the public docs; it is
 the kind of decision that is expensive to rediscover.
 
@@ -2518,7 +2537,7 @@ design = Design(anchor=..., segments=[Segment(kd=0, length=8, kappa0=0),
 ```
 
 The two joins come out G1 with a curvature step of `1/r` — exactly what a
-circular fillet is, and the reason a trunk eventually wants the clothoid
+circular fillet is, and the reason a trunk eventually wants the Euler curve
 blend.
 
 The maths is the standard construction: for interior angle `θ`, the touch
@@ -2529,7 +2548,7 @@ not fit the shorter edge, collinear edges, and edges that double back.
 ## What it is not
 
 - **It is G1, not G2.** Curvature jumps from 0 to `1/r` at each touch point.
-  That is honest for a foot or a nick, and visible on a trunk. The clothoid
+  That is honest for a foot or a nick, and visible on a trunk. The Euler curve
   blend (`cl_g2_connect` in the engine) is the next step, not this one.
 - **Straight edges only.** `fillet_span` rejects curved spans instead of
   pretending a tangent point lies on the chord.
@@ -2565,7 +2584,7 @@ Junction
   point        where the two centre lines would meet
   angle        interior angle between the strokes
   clearance    minimum gap that must survive through the crotch
-  fillet       radius, or None for a clothoid blend
+  fillet       radius, or None for an Euler curve blend
   taper        length over which the branch narrows into the trunk
   bulb         none | cone | bulb, from the W02 terminal laws
   contacts     declared Contact objects passed to the clearance report
@@ -2584,7 +2603,7 @@ parameters — conventionally β₁ (a tangential scale) and β₂ (a tension, o
 curvature ratio) — and the pieces are constructed so the join is G2 for any
 positive values of them. B-splines are the special case β₁ = 1, β₂ = 0.
 
-Why it matters here: the current G2 route is the fillet or the clothoid blend,
+Why it matters here: the current G2 route is the fillet or the Euler curve blend,
 both of which *solve* for the matching curvature. A beta-spline instead exposes
 the joint as two dials, which is closer to how a capital or a leaf-to-branch
 join is actually adjusted. The cost is the same as every spline: the result is
@@ -2694,7 +2713,7 @@ Examples:
 
 | object | linearity | curve | infinity |
 |---|---|---|---|
-| clothoid / Euler | κ → 0 at one end | κ grows | the heading limit |
+| Euler curve / Euler | κ → 0 at one end | κ grows | the heading limit |
 | LAC | the low-curvature start | the power-law bend | the limiting circle |
 | 3-4-5 exact chain | straight chords | triangular-number headings | the open spiral's limit |
 | integer cubic | straight end tangents | the S bend | **absent** — pair it with a spiral or a ray |
@@ -2848,7 +2867,7 @@ Until then this page is intent, not a plan of record.
 **Status 2026-10-26:** the first slice exists ahead of the gate, by request —
 `curve_lab/primal.py` and `workbench/primal.html`: one canonical grammar per
 element (earth terraces with corners, a water wave, cloud billows, a fire
-tongue), rendered from clothoid segments with the terminals each needs. They
+tongue), rendered from Euler-curve segments with the terminals each needs. They
 are sketches to argue with, not the studies described above: no parameter
 families, no measured gores, no web route. The gate still stands for those.
 

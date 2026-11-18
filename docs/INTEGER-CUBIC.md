@@ -219,7 +219,7 @@ G2 by itself.
 
 The exact pair is also carried as an actual `Piece`/`Trace` with cubic spans in
 `workbench/integer-g2-piece.html`; `Trace(spans=...)` uses the existing SVG and
-`piece_clearance()` path without a clothoid fit.
+`piece_clearance()` path without an Euler curve fit.
 
 Run it with:
 
@@ -358,7 +358,7 @@ The integer points on `x² + y² = 3125` give these slopes:
 
 These are rational-lattice rotations. Scaling by `3125` clears the denominator
 and returns integer control points. The number `3125` also appears as a
-clothoid parameter elsewhere in the project; that is a different use of the
+Euler curve parameter elsewhere in the project; that is a different use of the
 same number (`docs/clothoid-grid-3125.md`).
 
 ## Scope

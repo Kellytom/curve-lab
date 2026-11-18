@@ -1,4 +1,4 @@
-# The 3125 clothoid grid
+# The 3125 Euler curve grid
 
 > **draft A** — a working draft, not a final text.
 What the reverse-curve brief gets right, what does not survive arithmetic, and
@@ -7,7 +7,7 @@ the numbers below are that script's output, not hand arithmetic.
 
 ## The curve
 
-Standard Euler spiral, clothoid parameter `A = 3125`, curvature linear in arc
+Standard Euler spiral, Euler curve parameter `A = 3125`, curvature linear in arc
 length and zero at the inflection:
 
 ```
@@ -23,12 +23,12 @@ Clothoids engine and checks them against the known values at `u = 1`
 (`C = 0.7798934`, `S = 0.4382591`).
 
 This is the whole construction. There is no polynomial approximation and no
-iterative solve needed: one clothoid, parameter `u` from negative to positive,
+iterative solve needed: one Euler curve, parameter `u` from negative to positive,
 turns one way below the inflection and the other way above it.
 
 ## Odd symmetry, verified
 
-The S-pair is one clothoid crossing zero curvature:
+The S-pair is one Euler curve crossing zero curvature:
 
 ```json
 {"anchor": {"x": 0, "y": 0, "angle": 0},
@@ -180,7 +180,7 @@ prime; it is a drawing aid.
 ## Status
 
 - The generator and this table exist: `scripts/grid_3125.py`, `out/grid-3125.*`.
-- The S-pair is verified as a single clothoid with zero curvature at the
+- The S-pair is verified as a single Euler curve with zero curvature at the
   inflection, G2, symmetric to `1.7e-11 mm`.
 - Not done: a `--reverse` design/CLI entry and a renderer that consumes the
   table. No sheet decision is required; sheets stay optional, as everywhere else

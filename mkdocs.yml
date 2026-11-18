@@ -48,18 +48,21 @@ nav:
   - Concepts: CONCEPTS.md
   - State of the work: STATE-OF-THE-WORK.md
   - The tunnel (phone access): TUNNEL.md
+  - Where everything lives: STRUCTURE.md
   - Truth and state:
       - Verification: VERIFY.md
       - Fidelity budget: FIDELITY.md
   - The engine:
       - Architecture: ARCHITECTURE.md
       - Curve model: CURVE-MODEL.md
+      - Curvature power curves: CURVATURE-POWER-CURVES.md
       - Integer PH curves: PH-INTEGER.md
       - Integer cubic Béziers: INTEGER-CUBIC.md
       - The G3 showcase: G3-showcase-docs.md
       - Pythagorean families: PYTHAGOREAN-FAMILIES.md
       - The spine layer: SPINE.md
       - Glossary: GLOSSARY.md
+      - Self-intersection references: SELF-INTERSECTION-REFERENCES.md
       - The web workbench: WEB-GUIDE.md
       - The input hub: HUB.md
   - Design:
@@ -78,3 +81,4 @@ nav:
       - The web MVP: web.md
   - Reviews:
       - Architecture and print review: REVIEW.md
+      - PH quintic review: PH-QUINTIC-REVIEW.md

@@ -3,7 +3,7 @@
 > **draft A** — a working draft, not a final text.
 ## The engine
 
-The clothoid geometry comes from the C++ library by **Enrico Bertolazzi** and
+The Euler-curve geometry comes from the C++ library by **Enrico Bertolazzi** and
 **Marco Frego**. It is kept in `vendor/` and built into the app image. The Python
 side wraps it; the mathematics is theirs.
 

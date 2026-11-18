@@ -1,7 +1,7 @@
 # Fidelity: the accepted budget
 
 > **draft A** — a working draft, not a final text.
-> **Important — operator decision, 2026-10-30.** A chain that imitates a
+> **Important — author decision, 2026-10-30.** A chain that imitates a
 > An Euler curve is accepted at **1.4–1.6 per cent**. That figure was set for the
 > curvature-law fit (the chain follows the ideal Euler law to 0.8% of peak; the
 > drawn cubics to 1.4%, rms 0.8%). For a **chain study** the working rule is:
@@ -171,6 +171,6 @@ cubic, not nine.
 
 ## Where the rule came from
 
-The operator set it on 2026-10-30, in the same conversation that produced the
+The author set it on 2026-10-30, in the same conversation that produced the
 promotion gate. Record it here, in `state/SESSIONS-int.md`, and in the public docs; it is
 the kind of decision that is expensive to rediscover.

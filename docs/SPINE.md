@@ -71,7 +71,7 @@ large.
 So "needs a very large grid" is accurate only for (2), the exact integer
 denominator at unit spacing. It is misleading for (1) and (3): the chain is a
 short drawing with a fine exact scale, and 217-digit integers are a
-representation cost, not a drawing size. The clothoid case is the expensive
+representation cost, not a drawing size. The Euler curve case is the expensive
 one: turns 0..n-1 grow, so the denominator is c^(n(n+1)/2), not c^n. A
 constant-turn chain is a circular arc, not an LAC, however it is grouped.
 
@@ -91,11 +91,11 @@ Use it when the *plan* has to be exact: a loop that must close, a design that
 must sit on a grid, a mirror that must be a true mirror, a join that must be
 proved rather than fitted.
 
-Use the web app when you want the drawn clothoid curve: smooth, G2-capable, with
+Use the web app when you want the drawn Euler curve: smooth, G2-capable, with
 widths and a clearance report, exported as SVG.
 
 They now meet at `curve_lab/spine.py`: a chain's own spans become ordinary
-clothoid segments, so a `Piece` can hold a spine and the normal rails, terminals
+Euler-curve segments, so a `Piece` can hold a spine and the normal rails, terminals
 and clearance apply. Three of the four promotion conditions pass (`3f7a603`);
 the fourth — one W03 study drawn entirely from chains — is open because exact
 chains cannot reproduce P01's node table. See `state/SESSIONS-int.md`.

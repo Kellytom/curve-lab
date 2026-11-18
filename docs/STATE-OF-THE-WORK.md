@@ -5,6 +5,14 @@
 **As of 2026-11-18.** This page says what is proved, what is still a draft, and
 what comes next. Every claim names the command that checks it.
 
+## The three words
+
+- **proved** — a command reproduces the number; the check is in the table below.
+- **draft** — it exists and is shown, but no check fixes it yet. It carries the
+  `draft A` label.
+- **gap** — it does not work, or it is missing. It is written down here rather
+  than hidden.
+
 ## Proved
 
 | claim | number | the check |

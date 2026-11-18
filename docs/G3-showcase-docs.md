@@ -5,7 +5,7 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-18 · commit `b372e5a`
+Updated 2026-11-18 · commit `6d53c36`
 <!-- updated:end -->
 
 The live pages are generated into `workbench/` and served by the lab, not by
@@ -112,7 +112,7 @@ reasons, not a blanket "not a single cubic":
 
 | curve | why cubic-first fails here |
 |---|---|
-| Stage II · Fig. 1 · The clothoid · spine 2 | a clothoid's curvature grows linearly; a four-point cubic span cannot carry that G3 data |
+| Stage II · Fig. 1 · The Euler curve · spine 2 | an Euler curve's curvature grows linearly; a four-point cubic span cannot carry that G3 data |
 | heart · Wolfram | sampled heart; no four-point cubic chain carries its G3 data |
 | heart · Mangaldan | sampled heart; no four-point cubic chain carries its G3 data |
 | primal · fire | grammar-built sampled curve; no four-point cubic chain carries its G3 data |

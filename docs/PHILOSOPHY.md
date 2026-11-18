@@ -76,7 +76,7 @@ Examples:
 
 | object | linearity | curve | infinity |
 |---|---|---|---|
-| clothoid / Euler | κ → 0 at one end | κ grows | the heading limit |
+| Euler curve / Euler | κ → 0 at one end | κ grows | the heading limit |
 | LAC | the low-curvature start | the power-law bend | the limiting circle |
 | 3-4-5 exact chain | straight chords | triangular-number headings | the open spiral's limit |
 | integer cubic | straight end tangents | the S bend | **absent** — pair it with a spiral or a ray |

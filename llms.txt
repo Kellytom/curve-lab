@@ -2,7 +2,10 @@
 
 > Exact integer and rational curves for ornament: a Python engine, a generated browser lab, and an Astro app.
 
-curve-lab builds curves whose coordinates are whole numbers, then measures their
+curve-lab is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them.
+
+It builds curves whose coordinates are whole numbers, then measures their
 grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
 book plates, are built from those curves. A second, older layer does numerical
 Euler-curve chains and writes them as plain SVG.
@@ -14,6 +17,7 @@ https://github.com/Kellytom/curve-lab/tree/main/
 ## Start here
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
+- [DEPENDENCIES.md](DEPENDENCIES.md): every package, its version, licence and reason.
 - [docs/index.md](docs/index.md): the front page of the prose book.
 - [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
 - [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.

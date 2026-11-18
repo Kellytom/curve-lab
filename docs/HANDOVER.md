@@ -29,10 +29,10 @@ The remote page and `/api/render` were smoke-tested after deployment:
 | Account | `kelly.aquinas.tom@gmail.com` |
 | Project | `<your-gcp-project>` |
 | Region | `us-central1` |
-| Cloud Run service | `clothoid-web` |
-| Current revision | `clothoid-web-00002-wsp` |
+| Cloud Run service | `Euler curve-web` |
+| Current revision | `Euler curve-web-00002-wsp` |
 | Runtime | Linux container, Python 3.12, Debian slim |
-| Image repository | `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-web` |
+| Image repository | `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/Euler curve-web` |
 | Min / max instances | `0` / `1` |
 | Concurrency | `2` |
 | CPU / memory | `1 vCPU` / `512 MiB` |
@@ -109,7 +109,7 @@ into two images:
    Debian bookworm stage installs `clang` and compiles the vendored Clothoids
    sources and `csrc/` into `libclothoidlab.so`; the runtime stage is
    `python:3.12-slim` plus `libstdc++6` and that `.so`. Pushed to
-   `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/clothoid-engine:2026-10-26`.
+   `us-central1-docker.pkg.dev/<your-gcp-project>/cloud-run-source-deploy/Euler curve-engine:2026-10-26`.
    Rebuild only when `vendor/`, `csrc/`, or `scripts/build-native.sh` changes.
 2. **App image** (root `Dockerfile`): starts FROM the engine base and copies
    `curve_lab/`, `web/`, and `out/caps/`. Every UI or Python change rebuilds
@@ -193,7 +193,7 @@ gcloud builds submit --config cloudbuild.engine.yaml \
   --ignore-file=.gcloudignore.engine .
 
 # app — every UI/Python change; thin upload, no compiler
-gcloud run deploy clothoid-web --source . ...
+gcloud run deploy Euler curve-web --source . ...
 ```
 
 ## What Cloud Run does
@@ -224,7 +224,7 @@ commercial “marriage” is to the Google account/billing setup, not the code.
 To stop everything:
 
 ```sh
-gcloud run services delete clothoid-web --region us-central1
+gcloud run services delete Euler curve-web --region us-central1
 # Optional and destructive: removes the whole project.
 gcloud projects delete <your-gcp-project>
 ```
@@ -302,7 +302,7 @@ Remote deploy (rebuilds the Linux image and updates the service):
 ```sh
 cd /path/to/curve-lab
 gcloud config set project <your-gcp-project>
-gcloud run deploy clothoid-web \
+gcloud run deploy Euler curve-web \
   --source . \
   --region us-central1 \
   --allow-unauthenticated \
@@ -316,7 +316,7 @@ gcloud run deploy clothoid-web \
 Check the service:
 
 ```sh
-gcloud run services describe clothoid-web --region us-central1 \
+gcloud run services describe Euler curve-web --region us-central1 \
   --format='value(status.url,status.latestReadyRevisionName)'
 ```
 
@@ -327,7 +327,7 @@ list is baked into the image; adding a cap JSON requires a rebuild.
 
 - Every route except `/health` requires **HTTP Basic auth** with a shared token.
   The username is ignored; the password is the token. The token is stored in
-  Secret Manager as `clothoid-token` and mounted as `CLOTHOID_TOKEN`; the local
+  Secret Manager as `Euler curve-token` and mounted as `CLOTHOID_TOKEN`; the local
   copy is `~/.config/<app>/token`, outside the repository.
 - `/health` is public and returns `{"ok": true}` for uptime checks. `/healthz`
   is intercepted by Google's frontend and is not used.
@@ -375,7 +375,7 @@ start. They are modelled on the existing `handoff`/`handon` pattern in
   focused action, writes `next-fhandoff-int.md` with a two-line pointer, and commits
   only the handoff files.
 - **`/fhandon`** — reads `next-fhandoff-int.md`, follows its doc pointers, performs
-  that single action, and stops. The operator runs `/fhandoff` when it is time
+  that single action, and stops. The author runs `/fhandoff` when it is time
   to put the work down again.
 
 They live in `.opencode/commands/` and are available when OpenCode is opened in

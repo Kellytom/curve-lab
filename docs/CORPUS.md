@@ -26,10 +26,10 @@ to the whole spine, not to a single span or plate.
 |---|---|
 | `line` | a straight run |
 | `arc` | part of a circle |
-| `euler` | an Euler spiral: the clothoid this project draws |
+| `euler` | an Euler spiral: the Euler curve this project draws |
 | `logaesthetic` | a curve whose rate of bending follows a fixed aesthetic ratio |
 | `reflected` | a mirrored copy of another spine |
-| `hyperbezier` | a different curve family from the source page; **not** a clothoid |
+| `hyperbezier` | a different curve family from the source page; **not** an Euler curve |
 | `member` | one stroke inside a composite group, such as a leaf in a cluster |
 
 ### How the plates are distributed
@@ -49,9 +49,9 @@ to the whole spine, not to a single span or plate.
 Across the 90 Stage II spines: `euler` 37, `logaesthetic` 16, `line` 12,
 `hyperbezier` 8, `member` 8, `arc` 6, `reflected` 3.
 
-## How close each family is to a clothoid
+## How close each family is to an Euler curve
 
-Fitting one clothoid to each spine gives a parity measurement: the typical
+Fitting one Euler curve to each spine gives a parity measurement: the typical
 (median) error as a fraction of one chord, and the worst case.
 
 | Family | Typical error | Worst |

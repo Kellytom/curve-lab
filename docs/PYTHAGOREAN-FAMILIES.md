@@ -146,7 +146,7 @@ arm angle is `atan(2nm/(m^2-n^2))`, which falls like `2n/m` — for `n=2`, about
 `theta ∝ m^-0.988` (`R^2 = 0.9999`).
 
 Along the chain, `|kappa| ∝ s^-1.238` (`R^2 = 0.993`) where `s` is arc length:
-a spiral, but not a clothoid (`s^+1`), a logarithmic spiral (`s^-1`) or a circle
+a spiral, but not an Euler curve (`s^+1`), a logarithmic spiral (`s^-1`) or a circle
 (`s^0`). The sweep bends hard at the start and nearly straightens by the end.
 
 ## What the plot does and does not do
