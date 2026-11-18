@@ -12,10 +12,14 @@ const ROOT = path.resolve(APP, "..");
 test("the finder data is whole", async () => {
   const data = finderData(ROOT);
   assert.ok(data.curves.length >= 10, "not enough curves");
+  const withPeak = data.curves.filter((c) => c.peak && c.peak.kappa > 0);
+  assert.ok(withPeak.length >= 5, "too few curves have a curvature peak");
   for (const curve of data.curves) {
     assert.ok(curve.name.length > 0);
     assert.ok(Array.isArray(curve.path) && curve.path.length > 2, `${curve.name}: no path`);
-    assert.ok(curve.peak && curve.peak.kappa > 0, `${curve.name}: no peak`);
+    // A straight curve has no curvature peak; that is legitimate, not a gap.
+    assert.ok(curve.peak === null || curve.peak.kappa >= 0, `${curve.name}: bad peak`);
+    if (curve.peak) assert.ok(Number.isFinite(curve.peak.t), `${curve.name}: peak without t`);
     assert.equal(typeof curve.proper, "boolean", `${curve.name}: no verdict`);
   }
 });
