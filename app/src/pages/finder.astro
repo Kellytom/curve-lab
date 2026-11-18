@@ -84,19 +84,9 @@ code{font:11px ui-monospace,Menlo,monospace}
 </style>
 </head><body>
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
-<nav style="font:11px/1.5 ui-monospace,Menlo,monospace;padding:8px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae">
-  <a href="/" style="color:#8c6a21">the hub</a> · <a href="/lab" style="color:#8c6a21">the lab</a> ·
-  <a href="/illuminations" style="color:#8c6a21">illuminations</a> · this page is the curve finder
-</nav>
 <main>
 <h1>Curve finder</h1>
-<p class="lead"><button id="save-stars" type="button">save stars to workbench</button>
-  <button id="export-stars" type="button">export stars</button>
-  <label style="margin-left:10px"><input id="auto-save" type="checkbox" checked> auto-save</label>
-  <span id="star-status"></span><br>
-  {curves.length} curves · <span id="star-count">{starred.length}</span> starred ·
-  {featured.length} rated best by the finder · data:
-  <code>workbench/finder.json</code></p>
+<p class="lead" id="star-status" aria-live="polite"></p>
 
 {sections.length ? sections.map((section) => (
   <section id={section.key}>
@@ -183,8 +173,7 @@ code{font:11px ui-monospace,Menlo,monospace}
     const lead = document.getElementById("star-count");
     if (lead) lead.textContent = String(count);
     const status = document.getElementById("star-status");
-    if (status && lastError) status.textContent = lastError;
-    else if (status) status.textContent = `${count} starred`;
+    if (status) status.textContent = lastError;
     const empty = document.getElementById("starred-empty");
     if (empty) empty.style.display = (pick.ids.size || pick.names.size) ? "none" : "";
   };
@@ -221,13 +210,13 @@ code{font:11px ui-monospace,Menlo,monospace}
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ format: "curve-lab.finder-stars/1", baseHash,
-                               allowEmpty: false, curves: read() }),
+                               allowEmpty: true, curves: read() }),
       });
       const out = await response.json();
       if (response.ok) {
         baseHash = out.hash || baseHash;
         lastError = "";
-        status.textContent = `saved ${out.saved}`;
+        if (status) status.textContent = "";
         return;
       }
       if (response.status === 409 && retry) {
@@ -247,12 +236,12 @@ code{font:11px ui-monospace,Menlo,monospace}
   };
   const save = document.getElementById("save-stars");
   if (save) save.addEventListener("click", post);
+  // Always saved, quietly: the file is what the sandbox reads, and a star that
+  // only lives in this browser is a star the next step cannot see.
   let timer = null;
-  const auto = document.getElementById("auto-save");
   document.querySelectorAll("button.star").forEach((button) => button.addEventListener("click", () => {
-    if (!auto || !auto.checked) return;
     clearTimeout(timer);
-    timer = setTimeout(post, 900);
+    timer = setTimeout(post, 400);
   }));
   const exportStars = document.getElementById("export-stars");
   if (exportStars) exportStars.addEventListener("click", () => {
