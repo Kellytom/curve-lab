@@ -3189,7 +3189,7 @@
   },
   {
    "uid": "c-0088",
-   "name": "ph-3-4-5-rotated-mirror-slope-3of4-loadable",
+   "name": "ph-3-4-5-rotated-mirror-slope-3of4",
    "aliases": [
     "PH 3-4-5 rotated, mirror slope -3/4 (loadable)"
    ],
@@ -3200,8 +3200,8 @@
    "family": "ph-symmetric",
    "source": "finder",
    "auto_named": true,
-   "family_id": "ph-symmetric",
-   "variant": "ph-3-4-5-rotated-mirror-slope-3of4-loadable",
+   "family_id": "ph",
+   "variant": "3-4-5-rotated-mirror-slope-3of4",
    "owner": "d6337b258f578fae",
    "kind": "polyline",
    "starred": false,
@@ -4829,7 +4829,7 @@
   },
   {
    "uid": "c-0089",
-   "name": "45deg-at-t-1of2",
+   "name": "bend45-t1of2",
    "aliases": [
     "45deg at t=1/2"
    ],
@@ -4840,8 +4840,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "45deg-at-t-1of2",
+   "family_id": "bend45",
+   "variant": "t1of2",
    "owner": "c9526c3e937107b3",
    "kind": "polyline",
    "starred": false,
@@ -6139,11 +6139,11 @@
      "d": "-71/48"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": null
   },
   {
    "uid": "c-0090",
-   "name": "45deg-b-1-at-t-1of2",
+   "name": "bend45-b-1-t1of2",
    "aliases": [
     "45deg, b=1 at t=1/2"
    ],
@@ -6154,8 +6154,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "45deg-b-1-at-t-1of2",
+   "family_id": "bend45",
+   "variant": "b-1-t1of2",
    "owner": "c664bb1a7d8ceed6",
    "kind": "polyline",
    "starred": false,
@@ -7454,11 +7454,11 @@
      "d": "-91/48"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": "c-0089"
   },
   {
    "uid": "c-0091",
-   "name": "loop-t-1of2-3of4",
+   "name": "loop-t1of2-3of4",
    "aliases": [
     "loop t=1/2,3/4"
    ],
@@ -7469,8 +7469,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "loop-t-1of2-3of4",
+   "family_id": "loop",
+   "variant": "t1of2-3of4",
    "owner": "d43a67bfbe900d39",
    "kind": "polyline",
    "starred": true,
@@ -8770,11 +8770,11 @@
      "e": "-13/16"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": "c-0261"
   },
   {
    "uid": "c-0092",
-   "name": "loop-t-1of3-2of3",
+   "name": "loop-t1of3-2of3",
    "aliases": [
     "loop t=1/3,2/3"
    ],
@@ -8785,8 +8785,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "loop-t-1of3-2of3",
+   "family_id": "loop",
+   "variant": "t1of3-2of3",
    "owner": "88ca33ca5ba1d390",
    "kind": "polyline",
    "starred": true,
@@ -10086,11 +10086,11 @@
      "e": "-5/9"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": "c-0261"
   },
   {
    "uid": "c-0093",
-   "name": "loop-t-1of4-3of4",
+   "name": "loop-t1of4-3of4",
    "aliases": [
     "loop t=1/4,3/4"
    ],
@@ -10101,8 +10101,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "loop-t-1of4-3of4",
+   "family_id": "loop",
+   "variant": "t1of4-3of4",
    "owner": "9d23aa63222e4f1f",
    "kind": "polyline",
    "starred": true,
@@ -11402,11 +11402,11 @@
      "e": "-5/8"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": "c-0261"
   },
   {
    "uid": "c-0094",
-   "name": "cross-plus-45deg-at-t-1of4",
+   "name": "cross-45deg-t1of4",
    "aliases": [
     "cross+45deg at t=1/4"
    ],
@@ -11417,8 +11417,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "cross-plus-45deg-at-t-1of4",
+   "family_id": "cross",
+   "variant": "45deg-t1of4",
    "owner": "b7d7657a2c7e3857",
    "kind": "polyline",
    "starred": true,
@@ -12719,11 +12719,11 @@
      "e": "-5/8"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": "c-0101"
   },
   {
    "uid": "c-0095",
-   "name": "a-plus-1",
+   "name": "term-a-plus-1",
    "aliases": [
     "a +1"
    ],
@@ -12734,7 +12734,7 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
+   "family_id": "term",
    "variant": "a-plus-1",
    "owner": "2cb957503d8dd23e",
    "kind": "polyline",
@@ -14037,7 +14037,7 @@
   },
   {
    "uid": "c-0096",
-   "name": "c-1",
+   "name": "term-c-1",
    "aliases": [
     "c -1"
    ],
@@ -14048,7 +14048,7 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
+   "family_id": "term",
    "variant": "c-1",
    "owner": "de40aed33a37da1f",
    "kind": "polyline",
@@ -15351,7 +15351,7 @@
   },
   {
    "uid": "c-0097",
-   "name": "e-plus-1",
+   "name": "term-e-plus-1",
    "aliases": [
     "e +1"
    ],
@@ -15362,7 +15362,7 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
+   "family_id": "term",
    "variant": "e-plus-1",
    "owner": "00b732d10c6536b9",
    "kind": "polyline",
@@ -16665,7 +16665,7 @@
   },
   {
    "uid": "c-0098",
-   "name": "a-c-e-mixed",
+   "name": "term-a-c-e-mixed",
    "aliases": [
     "a,c,e mixed"
    ],
@@ -16676,7 +16676,7 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
+   "family_id": "term",
    "variant": "a-c-e-mixed",
    "owner": "03746480e1129663",
    "kind": "polyline",
@@ -17992,8 +17992,8 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
-   "variant": "line-q-0",
+   "family_id": "line",
+   "variant": "q-0",
    "owner": "eabe6f13e81653d4",
    "kind": "polyline",
    "starred": false,
@@ -19290,11 +19290,11 @@
      "k": "1"
     }
    },
-   "base_uid": "c-0096"
+   "base_uid": null
   },
   {
    "uid": "c-0100",
-   "name": "c-10-middle",
+   "name": "term-c-10-middle",
    "aliases": [
     "c=10 middle"
    ],
@@ -19305,7 +19305,7 @@
    "family": "septic",
    "source": "finder",
    "auto_named": true,
-   "family_id": "septic",
+   "family_id": "term",
    "variant": "c-10-middle",
    "owner": "310accba6f88653c",
    "kind": "polyline",
@@ -20620,8 +20620,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-2of5-4of5",
+   "family_id": "cross",
+   "variant": "2of5-4of5",
    "owner": "7a713168c670f82a",
    "kind": "polyline",
    "starred": true,
@@ -21939,8 +21939,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of5-4of5",
+   "family_id": "cross",
+   "variant": "1of5-4of5",
    "owner": "22da06e489d308d0",
    "kind": "polyline",
    "starred": false,
@@ -23258,8 +23258,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of3-3of4",
+   "family_id": "cross",
+   "variant": "1of3-3of4",
    "owner": "9b999f556e80e9d0",
    "kind": "polyline",
    "starred": false,
@@ -24577,8 +24577,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of4-3of4",
+   "family_id": "cross",
+   "variant": "1of4-3of4",
    "owner": "fe1fa8548b8e8240",
    "kind": "polyline",
    "starred": false,
@@ -25896,8 +25896,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of2-3of4",
+   "family_id": "cross",
+   "variant": "1of2-3of4",
    "owner": "4d28dd10423f5a7c",
    "kind": "polyline",
    "starred": false,
@@ -27215,8 +27215,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of3-2of3",
+   "family_id": "cross",
+   "variant": "1of3-2of3",
    "owner": "97f92d3e7bf2cf69",
    "kind": "polyline",
    "starred": false,
@@ -28534,8 +28534,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-1of5-3of5",
+   "family_id": "cross",
+   "variant": "1of5-3of5",
    "owner": "b158a7cc3018a32f",
    "kind": "polyline",
    "starred": false,
@@ -29853,8 +29853,8 @@
    "family": "solved-crossings",
    "source": "finder",
    "auto_named": true,
-   "family_id": "solved-crossings",
-   "variant": "cross-2of5-3of5",
+   "family_id": "cross",
+   "variant": "2of5-3of5",
    "owner": "e23853c4b29c1df5",
    "kind": "polyline",
    "starred": false,
@@ -31161,7 +31161,7 @@
   },
   {
    "uid": "c-0109",
-   "name": "exp-balance-at-t-1of4",
+   "name": "weighted-balance-exp-balance-t1of4",
    "aliases": [
     "exp balance at t=1/4"
    ],
@@ -31173,7 +31173,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "exp-balance-at-t-1of4",
+   "variant": "exp-balance-t1of4",
    "owner": "923ebe4a00fd6126",
    "kind": "polyline",
    "starred": false,
@@ -32477,7 +32477,7 @@
   },
   {
    "uid": "c-0110",
-   "name": "exp-balance-at-t-1of2",
+   "name": "weighted-balance-exp-balance-t1of2",
    "aliases": [
     "exp balance at t=1/2"
    ],
@@ -32489,7 +32489,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "exp-balance-at-t-1of2",
+   "variant": "exp-balance-t1of2",
    "owner": "d8fe14b3ddf33958",
    "kind": "polyline",
    "starred": false,
@@ -33793,7 +33793,7 @@
   },
   {
    "uid": "c-0111",
-   "name": "exp-balance-at-t-3of4",
+   "name": "weighted-balance-exp-balance-t3of4",
    "aliases": [
     "exp balance at t=3/4"
    ],
@@ -33805,7 +33805,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "exp-balance-at-t-3of4",
+   "variant": "exp-balance-t3of4",
    "owner": "c5d3134ddb3f5cec",
    "kind": "polyline",
    "starred": false,
@@ -35109,7 +35109,7 @@
   },
   {
    "uid": "c-0112",
-   "name": "parabola-balance-at-t-1of4",
+   "name": "weighted-balance-parabola-balance-t1of4",
    "aliases": [
     "parabola balance at t=1/4"
    ],
@@ -35121,7 +35121,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "parabola-balance-at-t-1of4",
+   "variant": "parabola-balance-t1of4",
    "owner": "9ad92413cdd5a4ba",
    "kind": "polyline",
    "starred": false,
@@ -36425,7 +36425,7 @@
   },
   {
    "uid": "c-0113",
-   "name": "parabola-balance-at-t-1of2",
+   "name": "weighted-balance-parabola-balance-t1of2",
    "aliases": [
     "parabola balance at t=1/2"
    ],
@@ -36437,7 +36437,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "parabola-balance-at-t-1of2",
+   "variant": "parabola-balance-t1of2",
    "owner": "4978878e87d3f5e2",
    "kind": "polyline",
    "starred": false,
@@ -37741,7 +37741,7 @@
   },
   {
    "uid": "c-0114",
-   "name": "parabola-balance-at-t-3of4",
+   "name": "weighted-balance-parabola-balance-t3of4",
    "aliases": [
     "parabola balance at t=3/4"
    ],
@@ -37753,7 +37753,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "parabola-balance-at-t-3of4",
+   "variant": "parabola-balance-t3of4",
    "owner": "199c7d3fd0e032fb",
    "kind": "polyline",
    "starred": false,
@@ -39057,7 +39057,7 @@
   },
   {
    "uid": "c-0115",
-   "name": "flat-balance-at-t-1of4",
+   "name": "weighted-balance-flat-balance-t1of4",
    "aliases": [
     "flat balance at t=1/4"
    ],
@@ -39069,7 +39069,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "flat-balance-at-t-1of4",
+   "variant": "flat-balance-t1of4",
    "owner": "ff63d2faafbfa8fb",
    "kind": "polyline",
    "starred": false,
@@ -40373,7 +40373,7 @@
   },
   {
    "uid": "c-0116",
-   "name": "flat-balance-at-t-1of2",
+   "name": "weighted-balance-flat-balance-t1of2",
    "aliases": [
     "flat balance at t=1/2"
    ],
@@ -40385,7 +40385,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "flat-balance-at-t-1of2",
+   "variant": "flat-balance-t1of2",
    "owner": "6aaf634bd0d398b3",
    "kind": "polyline",
    "starred": false,
@@ -41689,7 +41689,7 @@
   },
   {
    "uid": "c-0117",
-   "name": "flat-balance-at-t-3of4",
+   "name": "weighted-balance-flat-balance-t3of4",
    "aliases": [
     "flat balance at t=3/4"
    ],
@@ -41701,7 +41701,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "weighted-balance",
-   "variant": "flat-balance-at-t-3of4",
+   "variant": "flat-balance-t3of4",
    "owner": "ca3a32a625a5429a",
    "kind": "polyline",
    "starred": false,
@@ -43005,7 +43005,7 @@
   },
   {
    "uid": "c-0118",
-   "name": "3-4-5-gentle",
+   "name": "bounded-3-4-5-gentle",
    "aliases": [
     "3-4-5, gentle"
    ],
@@ -45843,7 +45843,7 @@
   },
   {
    "uid": "c-0119",
-   "name": "3-4-5-crossed",
+   "name": "bounded-3-4-5-crossed",
    "aliases": [
     "3-4-5, crossed"
    ],
@@ -48681,7 +48681,7 @@
   },
   {
    "uid": "c-0120",
-   "name": "5-12-13-gentle",
+   "name": "bounded-5-12-13-gentle",
    "aliases": [
     "5-12-13, gentle"
    ],
@@ -51519,7 +51519,7 @@
   },
   {
    "uid": "c-0121",
-   "name": "5-12-13-crossed",
+   "name": "bounded-5-12-13-crossed",
    "aliases": [
     "5-12-13, crossed"
    ],
@@ -54357,7 +54357,7 @@
   },
   {
    "uid": "c-0122",
-   "name": "8-15-17-crossed",
+   "name": "bounded-8-15-17-crossed",
    "aliases": [
     "8-15-17, crossed"
    ],
@@ -57195,7 +57195,7 @@
   },
   {
    "uid": "c-0123",
-   "name": "3-4-5-tight",
+   "name": "bounded-3-4-5-tight",
    "aliases": [
     "3-4-5, tight"
    ],
@@ -60033,7 +60033,7 @@
   },
   {
    "uid": "c-0124",
-   "name": "limacon-1-plus-2cos",
+   "name": "bounded-limacon-1-plus-2cos",
    "aliases": [
     "limacon 1+2cos"
    ],
@@ -62866,7 +62866,7 @@
   },
   {
    "uid": "c-0125",
-   "name": "limacon-1-plus-3cos",
+   "name": "bounded-limacon-1-plus-3cos",
    "aliases": [
     "limacon 1+3cos"
    ],
@@ -65699,7 +65699,7 @@
   },
   {
    "uid": "c-0126",
-   "name": "limacon-2-plus-3cos",
+   "name": "bounded-limacon-2-plus-3cos",
    "aliases": [
     "limacon 2+3cos"
    ],
@@ -68532,7 +68532,7 @@
   },
   {
    "uid": "c-0127",
-   "name": "two-vanes-1-1of2",
+   "name": "mobile-two-vanes-1-1of2",
    "aliases": [
     "two vanes, 1:1/2"
    ],
@@ -70972,7 +70972,7 @@
   },
   {
    "uid": "c-0128",
-   "name": "two-vanes-1-1of3",
+   "name": "mobile-two-vanes-1-1of3",
    "aliases": [
     "two vanes, 1:1/3"
    ],
@@ -73412,7 +73412,7 @@
   },
   {
    "uid": "c-0129",
-   "name": "three-vanes-1-1of2-1of4",
+   "name": "mobile-three-vanes-1-1of2-1of4",
    "aliases": [
     "three vanes, 1:1/2:1/4"
    ],
@@ -75856,7 +75856,7 @@
   },
   {
    "uid": "c-0130",
-   "name": "three-vanes-big-small",
+   "name": "mobile-three-vanes-big-small",
    "aliases": [
     "three vanes, big small"
    ],
@@ -78300,7 +78300,7 @@
   },
   {
    "uid": "c-0131",
-   "name": "one-vane-3-4-5",
+   "name": "mobile-exact-one-vane-3-4-5",
    "aliases": [
     "one vane, 3-4-5"
    ],
@@ -81217,7 +81217,7 @@
   },
   {
    "uid": "c-0132",
-   "name": "3-4-5-plus-half-2-turns",
+   "name": "mobile-exact-3-4-5-plus-half-2-turns",
    "aliases": [
     "3-4-5 + half, 2 turns"
    ],
@@ -84139,7 +84139,7 @@
   },
   {
    "uid": "c-0133",
-   "name": "3-4-5-plus-third-3-turns",
+   "name": "mobile-exact-3-4-5-plus-third-3-turns",
    "aliases": [
     "3-4-5 + third, 3 turns"
    ],
@@ -87061,7 +87061,7 @@
   },
   {
    "uid": "c-0134",
-   "name": "1-1of2-1of5-at-1-2-5",
+   "name": "mobile-exact-1-1of2-1of5-1-2-5",
    "aliases": [
     "1, 1/2, 1/5 at 1, 2, 5"
    ],
@@ -87073,7 +87073,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "mobile-exact",
-   "variant": "1-1of2-1of5-at-1-2-5",
+   "variant": "1-1of2-1of5-1-2-5",
    "owner": "9a28417a2df043b0",
    "kind": "polyline",
    "starred": true,
@@ -89988,7 +89988,7 @@
   },
   {
    "uid": "c-0135",
-   "name": "arc-0-to-1of2",
+   "name": "mobile-arcs-arc-0-to-1of2",
    "aliases": [
     "arc 0 to 1/2"
    ],
@@ -91952,7 +91952,7 @@
   },
   {
    "uid": "c-0136",
-   "name": "arc-1of2-to-1of2",
+   "name": "mobile-arcs-arc-1of2-to-1of2",
    "aliases": [
     "arc -1/2 to 1/2"
    ],
@@ -93916,7 +93916,7 @@
   },
   {
    "uid": "c-0137",
-   "name": "arc-0-to-1",
+   "name": "mobile-arcs-arc-0-to-1",
    "aliases": [
     "arc 0 to 1"
    ],
@@ -95880,7 +95880,7 @@
   },
   {
    "uid": "c-0138",
-   "name": "arc-1-to-1",
+   "name": "mobile-arcs-arc-1-to-1",
    "aliases": [
     "arc -1 to 1"
    ],
@@ -97855,8 +97855,8 @@
    "family": "roses-rational",
    "source": "finder",
    "auto_named": true,
-   "family_id": "roses-rational",
-   "variant": "rose-k-2-a-1-b-1",
+   "family_id": "rose",
+   "variant": "k-2-a-1-b-1",
    "owner": "74bae6f92c153001",
    "kind": "polyline",
    "starred": false,
@@ -100769,8 +100769,8 @@
    "family": "roses-rational",
    "source": "finder",
    "auto_named": true,
-   "family_id": "roses-rational",
-   "variant": "rose-k-2-a-1-b-1",
+   "family_id": "rose",
+   "variant": "k-2-a-1-b-1",
    "owner": "926eb52435489f7b",
    "kind": "polyline",
    "starred": false,
@@ -103682,8 +103682,8 @@
    "family": "roses-rational",
    "source": "finder",
    "auto_named": true,
-   "family_id": "roses-rational",
-   "variant": "rose-k-3-a-1-b-1",
+   "family_id": "rose",
+   "variant": "k-3-a-1-b-1",
    "owner": "f8905858ff1830f4",
    "kind": "polyline",
    "starred": false,
@@ -106595,8 +106595,8 @@
    "family": "roses-rational",
    "source": "finder",
    "auto_named": true,
-   "family_id": "roses-rational",
-   "variant": "rose-k-4-a-1-b-1",
+   "family_id": "rose",
+   "variant": "k-4-a-1-b-1",
    "owner": "1e47685064be1630",
    "kind": "polyline",
    "starred": false,
@@ -109497,7 +109497,7 @@
   },
   {
    "uid": "c-0143",
-   "name": "y-x-2-as-t-2-cover",
+   "name": "graphs-y-x-2-as-t2-cover",
    "aliases": [
     "y=x^2 as t^2 cover"
    ],
@@ -109509,7 +109509,7 @@
    "source": "finder",
    "auto_named": true,
    "family_id": "graphs",
-   "variant": "y-x-2-as-t-2-cover",
+   "variant": "y-x-2-as-t2-cover",
    "owner": "8877c9734e56b68a",
    "kind": "polyline",
    "starred": false,

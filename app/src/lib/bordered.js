@@ -98,13 +98,24 @@ export function buildIlluminations(root) {
   const rows = Object.fromEntries(lab.curves.map((curve) => [curve.name, curve]));
   const finder = readJson(path.join(base, "workbench", "finder.json")).curves;
   const saved = readJson(path.join(base, "workbench", "operator-list.json")).saved;
+  // The registry is the name of record. A curve in a list is matched through its
+  // name or an alias, and shown under the registry name, sorted by importance.
+  const registry = readJson(path.join(base, "workbench", "curve-registry.json")).curves;
+  const label = new Map();
+  const weight = new Map();
+  for (const record of registry) {
+    for (const name of [record.name, ...(record.aliases || [])]) label.set(name, record.name);
+    weight.set(record.name, record.importance || 0);
+  }
+  const renamed = (curve) => ({ ...curve, name: label.get(curve.name) || curve.name });
+  const byWeight = (a, b) => (weight.get(b.name) || 0) - (weight.get(a.name) || 0);
   const roses = finder.filter((curve) => curve.family === "roses-rational" && curve.name !== "rose k=4, a=1 b=1");
 
   const sections = [
-    { title: "Fig. 1–50 · found", items: lab.curves.filter((c) => c.source === "found").slice(0, 50) },
-    { title: "Fig. 51–59 · finder", items: finder.slice(0, 9) },
-    { title: "Roses", items: roses },
-    { title: "B | solve, save, take away", items: saved },
+    { title: "Fig. 1–50 · found", items: lab.curves.filter((c) => c.source === "found").slice(0, 50).map(renamed).sort(byWeight) },
+    { title: "Fig. 51–59 · finder", items: finder.slice(0, 9).map(renamed).sort(byWeight) },
+    { title: "Roses", items: roses.map(renamed).sort(byWeight) },
+    { title: "B | solve, save, take away", items: saved.map(renamed).sort(byWeight) },
   ];
 
   let n = 0;

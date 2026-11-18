@@ -76,13 +76,34 @@ def owner_mark(secret, uid):
     return hmac.new(secret.encode(), uid.encode(), hashlib.sha256).hexdigest()[:16]
 
 
+FILLER = {"loadable", "the", "at", "of", "septic", "septic-curves"}
+FAMILY_WORDS = (
+    ("rose", "rose"), ("loop", "loop"), ("cross", "cross"),
+    ("45deg", "bend45"), ("line", "line"), ("ph", "ph"),
+    ("lace", "lace"), ("wave", "wave"),
+)
+PREFIX = {"45deg": "bend45", "a": "term", "c": "term", "e": "term"}
+
+
+def tidy(text: str) -> str:
+    parts = [part for part in text.split("-") if part and part not in FILLER]
+    out = "-".join(parts)
+    out = re.sub(r"^45deg-", "", out)
+    out = re.sub(r"^plus-", "", out)
+    out = out.replace("-t-", "-t")
+    out = re.sub(r"-q-(\d)", r"-q\1", out)
+    out = re.sub(r"^t-(\d)", r"t\1", out)
+    out = re.sub(r"^(plus|minus)-(\d)", r"\1\2", out)
+    return out
+
+
 def variant_of(name, family):
     s = slug(name)
     if s == family:
         return "plain"
     if s.startswith(f"{family}-"):
-        return s[len(family) + 1:]
-    return s
+        return tidy(s[len(family) + 1:]) or "plain"
+    return tidy(s)
 
 
 def rows_of(item):
@@ -189,8 +210,18 @@ def main(argv: list[str]) -> int:
                 record["aliases"].append(record["name"])
             record["name"] = note["name"]
         record["auto_named"] = slug(chosen) != chosen
-        record["family_id"] = slug(record["family"])
-        record["variant"] = variant_of(record["name"], record["family_id"])
+        record["family_id"] = PREFIX.get(slug(record["family"]), slug(record["family"]))
+        record["variant"] = variant_of(record["name"], slug(record["family"]))
+        if record["auto_named"]:
+            raw = slug(chosen)
+            prefix = next((pref for word, pref in FAMILY_WORDS if raw.startswith(word)),
+                          record["family_id"])
+            if re.match(r"^[a-e](-|$)", raw) or "mixed" in raw:
+                prefix = "term"
+            core = tidy(raw[len(prefix):] if raw.startswith(prefix) else raw)
+            record["family_id"] = prefix
+            record["variant"] = core or "plain"
+            record["name"] = prefix if not core else f"{prefix}-{core}"
         record["owner"] = owner_mark(secret, record["uid"])
         record["kind"] = record.get("kind", "rows")
         record["starred"] = any(n in stars for n in [record["name"], *record["aliases"]])
