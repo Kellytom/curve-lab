@@ -3928,9 +3928,14 @@
      1.0
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)",
+    "mirror y=-x (gap 0.0000)",
+    "half turn (gap 0.0000)"
+   ],
    "family": "septic",
-   "id": "septic-528cbdf1"
+   "id": "septic-528cbdf1",
+   "featured": true
   },
   {
    "name": "45deg, b=1 at t=1/2",
@@ -7847,7 +7852,11 @@
      1.0
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)",
+    "mirror y=-x (gap 0.0000)",
+    "half turn (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-10cdc66e"
   },
@@ -11770,7 +11779,9 @@
      0.638
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-65ba9eb9"
   },
@@ -15693,7 +15704,9 @@
      0.529
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-4603b2fc"
   },
@@ -19616,7 +19629,9 @@
      0.561
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-395c3183",
    "featured": true
@@ -23542,7 +23557,9 @@
      0.561
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-2d65022c"
   },
@@ -27454,7 +27471,9 @@
      0.242
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-051a482e"
   },
@@ -31366,7 +31385,9 @@
      0.107
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-3b0fa2a6"
   },
@@ -35278,7 +35299,9 @@
      0.002
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-42e273f1"
   },
@@ -39194,7 +39217,9 @@
      0.002
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-4d2d5ba1"
   },
@@ -43104,7 +43129,11 @@
      1.0
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)",
+    "mirror y=-x (gap 0.0000)",
+    "half turn (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-a5c26850"
   },
@@ -47020,7 +47049,9 @@
      0.316
     ]
    },
-   "flags": [],
+   "flags": [
+    "mirror y=x (gap 0.0000)"
+   ],
    "family": "septic",
    "id": "septic-93eb438c"
   },
@@ -50924,7 +50955,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "61° branches"
+    "61° branches",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-b347aad9",
@@ -54830,7 +54862,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "59° branches"
+    "59° branches",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-a87e37fd",
@@ -58736,7 +58769,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "47° branches"
+    "47° branches",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-44c496cb"
@@ -62642,7 +62676,8 @@
    },
    "flags": [
     "43° branches",
-    "dup of loop t=1/4,3/4"
+    "dup of loop t=1/4,3/4",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-d5db964c",
@@ -66549,7 +66584,8 @@
    },
    "flags": [
     "40° branches",
-    "dup of loop t=1/2,3/4"
+    "dup of loop t=1/2,3/4",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-8efe0446",
@@ -70456,7 +70492,8 @@
    },
    "flags": [
     "24° branches",
-    "dup of loop t=1/3,2/3"
+    "dup of loop t=1/3,2/3",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-b05121e1",
@@ -74362,7 +74399,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "14° branches"
+    "14° branches",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-52342b99"
@@ -78268,7 +78306,8 @@
    },
    "flags": [
     "cusp at the crossing",
-    "13° branches"
+    "13° branches",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "solved-crossings",
    "id": "solved-crossings-0e2e0363"
@@ -82161,7 +82200,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-554974fc"
@@ -86054,7 +86094,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-b8160c02"
@@ -89947,7 +89988,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-a62bb4f9"
@@ -93840,7 +93882,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-77851267"
@@ -97733,7 +97776,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-5aa8a928"
@@ -101626,7 +101670,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-dcba084d"
@@ -105519,7 +105564,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 0.048"
+    "min speed 0.048",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-909bc644"
@@ -109412,7 +109458,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 0.373"
+    "min speed 0.373",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-7dc3e315"
@@ -113305,7 +113352,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "min speed 1.414"
+    "min speed 1.414",
+    "mirror y=x (gap 0.0000)"
    ],
    "family": "weighted-balance",
    "id": "weighted-balance-dd8b856d"
@@ -121761,7 +121809,8 @@
    },
    "flags": [
     "closed at (3, 4)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "half turn (gap 0.0017)"
    ],
    "family": "bounded",
    "id": "bounded-3f0cb234"
@@ -130217,7 +130266,8 @@
    },
    "flags": [
     "closed at (3, 4)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "half turn (gap 0.0017)"
    ],
    "family": "bounded",
    "id": "bounded-615835e4"
@@ -138673,7 +138723,8 @@
    },
    "flags": [
     "closed at (5, 12)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "half turn (gap 0.0016)"
    ],
    "family": "bounded",
    "id": "bounded-b7885349"
@@ -147129,7 +147180,10 @@
    },
    "flags": [
     "closed at (5, 12)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "mirror y=x (gap 0.0023)",
+    "mirror y=-x (gap 0.0031)",
+    "half turn (gap 0.0020)"
    ],
    "family": "bounded",
    "id": "bounded-48529b8f"
@@ -155585,7 +155639,8 @@
    },
    "flags": [
     "closed at (8, 15)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "half turn (gap 0.0017)"
    ],
    "family": "bounded",
    "id": "bounded-c4e67c4c"
@@ -164041,7 +164096,8 @@
    },
    "flags": [
     "closed at (3, 4)",
-    "0 sampled crossings"
+    "0 sampled crossings",
+    "half turn (gap 0.0016)"
    ],
    "family": "bounded",
    "id": "bounded-5740b611"
@@ -172487,7 +172543,8 @@
    },
    "flags": [
     "r = 1 + 2 cos θ",
-    "1 sampled crossings"
+    "1 sampled crossings",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "bounded",
    "id": "bounded-d265e2cd",
@@ -180934,7 +180991,8 @@
    },
    "flags": [
     "r = 1 + 3 cos θ",
-    "1 sampled crossings"
+    "1 sampled crossings",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "bounded",
    "id": "bounded-18527786",
@@ -189381,7 +189439,8 @@
    },
    "flags": [
     "r = 2 + 3 cos θ",
-    "1 sampled crossings"
+    "1 sampled crossings",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "bounded",
    "id": "bounded-eaa5d5ba"
@@ -196640,7 +196699,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "0 crossings on the sample"
+    "0 crossings on the sample",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "mobile",
    "id": "mobile-4758b572"
@@ -203899,7 +203959,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "0 crossings on the sample"
+    "0 crossings on the sample",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "mobile",
    "id": "mobile-2d759ba0"
@@ -211166,7 +211227,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "0 crossings on the sample"
+    "0 crossings on the sample",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "mobile",
    "id": "mobile-40c057b2"
@@ -218433,7 +218495,8 @@
     "tangent_-45": []
    },
    "flags": [
-    "0 crossings on the sample"
+    "0 crossings on the sample",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "mobile",
    "id": "mobile-e5b80cfd"
@@ -302606,7 +302669,8 @@
    },
    "flags": [
     "integer polynomials, degrees (6, 5, 6)",
-    "exact rational: no cos, no sin"
+    "exact rational: no cos, no sin",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "roses-rational",
    "id": "roses-rational-22d6aef2",
@@ -311290,7 +311354,8 @@
    },
    "flags": [
     "integer polynomials, degrees (6, 5, 6)",
-    "exact rational: no cos, no sin"
+    "exact rational: no cos, no sin",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "roses-rational",
    "id": "roses-rational-3f10f52d"
@@ -319973,7 +320038,8 @@
    },
    "flags": [
     "integer polynomials, degrees (8, 7, 8)",
-    "exact rational: no cos, no sin"
+    "exact rational: no cos, no sin",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "roses-rational",
    "id": "roses-rational-f32838b4",
@@ -328657,7 +328723,8 @@
    },
    "flags": [
     "integer polynomials, degrees (10, 9, 10)",
-    "exact rational: no cos, no sin"
+    "exact rational: no cos, no sin",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "roses-rational",
    "id": "roses-rational-6dca291c"
@@ -337338,7 +337405,8 @@
    },
    "flags": [
     "the only planar cubic PH curve",
-    "node at t = ±1/√3: irrational, not on the grid"
+    "node at t = ±1/√3: irrational, not on the grid",
+    "mirror x axis (gap 0.0000)"
    ],
    "family": "tschirnhausen",
    "id": "tschirnhausen-4006f2f7",
@@ -354721,7 +354789,8 @@
    "flags": [
     "handle 3 moved by (+0.000, -0.123)",
     "min speed 1.23",
-    "PH lost above degree 3"
+    "PH lost above degree 3",
+    "mirror vertical (gap 0.0039)"
    ],
    "family": "tschirnhausen",
    "id": "tschirnhausen-aaa6ed64"

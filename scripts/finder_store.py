@@ -52,6 +52,49 @@ def _signature(curve):
     return min(forward, backward)
 
 
+# The axes worth naming on a card. Values are direction vectors, all rational.
+MIRRORS = {
+    "mirror y=x": (1, 1),
+    "mirror x axis": (1, 0),
+    "mirror y=-x": (1, -1),
+    "mirror vertical": (0, 1),
+    "mirror slope 3/4": (4, 3),
+}
+
+
+def _symmetry_flags(curve, threshold=0.005):
+    import numpy as np
+    pts = curve.get("path") or []
+    if len(pts) < 16:
+        return []
+    p = np.asarray(pts, dtype=float)
+    centre = (p.min(axis=0) + p.max(axis=0)) / 2
+    q = p - centre
+    size = max(p.max(axis=0) - p.min(axis=0)) or 1.0
+    flags = []
+    for name, (dx, dy) in MIRRORS.items():
+        d = np.array([dx, dy], dtype=float)
+        reflected = 2 * np.outer(q @ d / (d @ d), d) - q
+        a, b = q[:, None, :], reflected[None, :, :]
+        distances = np.sqrt(((a - b) ** 2).sum(axis=2))
+        gap = max(distances.min(axis=1).max(), distances.min(axis=0).max())
+        if gap / size <= threshold:
+            flags.append(f"{name} (gap {gap / size:.4f})")
+    a, b = q[:, None, :], (-q)[None, :, :]
+    distances = np.sqrt(((a - b) ** 2).sum(axis=2))
+    gap = max(distances.min(axis=1).max(), distances.min(axis=0).max())
+    if gap / size <= threshold:
+        flags.append(f"half turn (gap {gap / size:.4f})")
+    return flags
+
+
+def mark_symmetry(curves):
+    for curve in curves:
+        flags = [f for f in (curve.get("flags") or [])
+                 if not str(f).startswith(("mirror ", "half turn"))]
+        curve["flags"] = flags + _symmetry_flags(curve)
+
+
 def mark_duplicates(curves):
     """Flag a curve that draws the same shape as another, whatever its family."""
     seen = {}
@@ -90,6 +133,7 @@ def save_family(family: str, curves: list[dict], note: str = "") -> dict:
             curve["id"] = f"{family}-{digest}"
     merged = kept + curves
     mark_duplicates(merged)
+    mark_symmetry(merged)
     if OUT.exists():
         shutil.copyfile(OUT, BACKUP)
         # Keep five timestamped generations, not one backup that the next bad

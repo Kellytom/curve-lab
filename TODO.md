@@ -120,6 +120,30 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+## Symmetry axes — checked 2026-11-18
+
+Every stored curve (318: finder families, the 60 finds, the 109 moved, the 88 in
+the lab) was tested against 14 rational axes plus the half turn. Results:
+
+| axis | curves |
+|---|---|
+| vertical | 167 |
+| half turn | 83 |
+| **y = x (45°)** | **30** — the whole Q/P family and its loops |
+| **x axis** | **13** — limaçons, mobiles, roses, Tschirnhausen |
+| y = −x | 4 |
+| slope 1/2 | 1 (the only oblique hit) |
+
+- [x] **45° and x-axis labelled on the cards**, from a measured gap (0.5% of
+  size), computed in `finder_store.mark_symmetry` so a regeneration keeps them.
+- [ ] **Oblique axes: nothing found, parked.** No curve sits on slopes 3/4, 4/3,
+  5/12, 7/24, 2/1 or 3/1. The single slope-1/2 hit is `bounded · 3-4-5, crossed`
+  at gap 0.0044 — an *ellipse*, symmetric about its own major axis, which happens
+  to be tilted. That is not an ornament axis. The operator's doubt was right;
+  reopen only if a construction is meant to produce one, never by searching.
+- **The sandbox page tested only the vertical axis** (`phNthSymmetry`); that is
+  why the diagonal and x-axis cases were never answered there.
+
 ## Connectable curves — built 2026-11-18
 
 - [x] **Mobile arcs** (`scripts/mobile_arcs.py`): the mobile cut between two

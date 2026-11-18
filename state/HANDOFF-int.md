@@ -2855,3 +2855,24 @@ three blocks: **Starred** (by id, at the top), **Best so far** (13 curves marked
 `featured`, one or two per new method), then the rest by family. Stars are stored
 by id with name, family and definition; the save carries a base hash and is
 refused with 409 if the file moved. 61 curves, build and 23 app tests green.
+
+## 2026-11-18 (symmetry) — 45° and x-axis answered, labelled, featured
+
+Every stored curve (318: finder families, the 60 finds, the 109 moved, the 88 in
+the lab) was tested against 14 rational mirror axes and the half turn.
+`scripts/symmetry_audit.py` does it with numpy in 14 s.
+
+**45° (y = x): 30 curves.** The whole `Q/P` family and its loops — exact by
+construction, `x(−t) = y(t)`.
+**x axis: 13 curves.** The limaçons, the mobiles, the rational roses and the
+Tschirnhausen base.
+Vertical 167, half turn 83, y = −x 4. Oblique: **one** hit, `3-4-5, crossed` at
+slope 1/2 (gap 0.0044) — an ellipse about its own tilted major axis, not an
+ornament axis. No 3/4 mirror exists, as the operator suspected.
+
+`finder_store.mark_symmetry` writes the measured gap onto each card as a flag
+("mirror y=x (gap 0.0000)"), so a regeneration keeps it. The page's featured set
+is balanced: four for y = x, six for the x axis, four chainable pieces.
+
+The sandbox page (`phNthSymmetry`) tests **only** the vertical axis; that is why
+these cases were open there.

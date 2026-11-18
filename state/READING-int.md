@@ -19,10 +19,10 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 2 | `LTMemory-int.md` | 231 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
 | 4 | `state/PLAN-int.md` | 103 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 2,857 | current truth — **read the tail (~80 lines), not the whole file** |
-| 6 | `TODO.md` | 802 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
+| 5 | `state/HANDOFF-int.md` | 2,878 | current truth — **read the tail (~80 lines), not the whole file** |
+| 6 | `TODO.md` | 826 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 265 | the long arc and the offset tiers (also Tier 1) |
-| 8 | `state/ACHIEVEMENTS-int.md` | 92 | what is proved, with the command that re-derives it; stops rework |
+| 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
 | 9 | `state/DESIGN-int.md` | 628 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 10 | `state/REGRESSIONS-int.md` | 69 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
