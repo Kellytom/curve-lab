@@ -40,6 +40,8 @@ process to satisfy.
 
 13. **No wait over 5 seconds.** Long checks run in the background; the fast
     loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
+14. **A loop runs once per change.** Re-running to confirm is waste; a second
+    run needs a change and a reason.
 
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault

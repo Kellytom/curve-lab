@@ -54,6 +54,8 @@ lands. The operator does not sit and watch a test run.
   background.
 - If a check cannot be made to run in under 5 seconds, split it, or move it out
   of the loop. Waiting is a bug in the workflow.
+- **A loop runs once per change.** Never run the same check twice to "confirm".
+  A second run needs a code change and a reason. Re-running is waste, not care.
 
 ## Start cheap
 

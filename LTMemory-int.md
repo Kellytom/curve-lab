@@ -19,6 +19,8 @@ Nothing else unless the action names it. `app/src/content/docs/docs/handover.md`
 - **No foreground command over 5 seconds.** Background it and continue. The fast
   loop is `scripts/test.py --fast` (about 3 s); the commit gate is a background
   job. The operator never waits for a test.
+- **A loop runs once per change.** Never re-run a check to confirm it. A second
+  run needs a code change and a reason.
 
 ## The map
 
