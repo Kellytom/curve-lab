@@ -34,14 +34,14 @@ function mapPaths(paths, size = SIZE) {
   return paths.map((points) => points.map(([x, y]) => [x * k + ox, oy - y * k]));
 }
 
-function svgFrom(paths) {
+function svgFrom(paths, label) {
   const lines = mapPaths(paths).map((points) => {
     const step = Math.max(1, Math.floor(points.length / 150));
     const kept = points.filter((_, i) => i % step === 0 || i === points.length - 1);
     return `<polyline points="${kept.map((p) => p.map((v) => Math.round(v)).join(",")).join(" ")}"` +
       ' fill="none" stroke="#111" stroke-width="1.1" stroke-linejoin="round"/>';
   });
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}">` +
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}" role="img" aria-label="${label}">` +
     `<rect width="${SIZE}" height="${SIZE}" fill="#fff"/>${lines.join("")}</svg>`;
 }
 
@@ -114,7 +114,7 @@ export function buildIlluminations(root) {
       n += 1;
       const slug = String(curve.name || `curve-${n}`).toLowerCase()
         .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      return { n, name: curve.name, slug, id: `fig-${n}`, svg: svgFrom(pathsFor(curve, rows)) };
+      return { n, name: curve.name, slug, id: `fig-${n}`, svg: svgFrom(pathsFor(curve, rows), `Fig. ${n}: ${curve.name}`) };
     }),
   }));
   cache = { total: n, sections: built };
