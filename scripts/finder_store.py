@@ -12,6 +12,7 @@ preserved, and the previous version is copied to `finder.backup.json` first.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from datetime import datetime
@@ -52,6 +53,9 @@ def save_family(family: str, curves: list[dict], note: str = "") -> dict:
     kept = [c for c in data["curves"] if c.get("family") != family]
     for curve in curves:
         curve["family"] = family
+        if not curve.get("id"):
+            digest = hashlib.sha1(json.dumps(curve.get("definition"), sort_keys=True).encode()).hexdigest()[:8]
+            curve["id"] = f"{family}-{digest}"
     merged = kept + curves
     if OUT.exists():
         shutil.copyfile(OUT, BACKUP)

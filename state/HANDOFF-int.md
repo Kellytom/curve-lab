@@ -2846,3 +2846,12 @@ default tilts are 3-4-5 only.
 
 Known weakness, in TODO: the ends-first cards are shallow because the end
 curvatures given are ±1; that input is the lever, not the solve.
+
+## 2026-11-18 (finder page) — ids, starred first, best picked
+
+Every curve now carries a stable `id` (`family-<sha1(definition)[:8]>`), assigned
+by `finder_store.save_family`, so a star survives regeneration. The page renders
+three blocks: **Starred** (by id, at the top), **Best so far** (13 curves marked
+`featured`, one or two per new method), then the rest by family. Stars are stored
+by id with name, family and definition; the save carries a base hash and is
+refused with 409 if the file moved. 61 curves, build and 23 app tests green.
