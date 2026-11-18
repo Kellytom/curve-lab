@@ -133,6 +133,8 @@ def shape_of(item):
 def slug(text: str) -> str:
     s = str(text or "").strip().lower()
     s = re.sub(r"(\d+)\s*/\s*(\d+)", r"\1of\2", s)     # 1/8 -> 1of8
+    s = re.sub(r"=\s*-(\d+)", r"=minus\1", s)            # b=-1 -> b=minus1
+    s = re.sub(r"(?<=\s)-(\d)", r" minus\1", s)          # slope -3 -> slope minus3
     s = s.replace("+", " plus ").replace("−", " minus ")
     s = re.sub(r"[^a-z0-9]+", "-", s)
     s = re.sub(r"-{2,}", "-", s).strip("-")
@@ -227,6 +229,9 @@ def main(argv: list[str]) -> int:
         record["starred"] = any(n in stars for n in [record["name"], *record["aliases"]])
         record["importance"] = int(note.get("importance",
                                           10 if record["starred"] else 0))
+        for key in ("rotation", "pieces", "border_uid"):
+            if note.get(key) is not None:
+                record[key] = note[key]
         if not x and not y and item.get("path"):
             record["path"] = [[round(px, 2), round(py, 2)] for px, py in item["path"]]
             record.pop("speedX", None)
@@ -277,7 +282,23 @@ def main(argv: list[str]) -> int:
     if OUT.exists():
         stamp = datetime.now().isoformat().replace(":", "-").replace(".", "-")
         shutil.copy2(OUT, backup / f"curve-registry-{stamp}.json")
-    OUT.write_text(json.dumps({"format": FORMAT, "curves": records}, indent=1) + "\n",
+    # A set is the composite: the inner curve, the border curve, the turn, the
+    # number of pieces and the border's copies per side. One default set per
+    # curve; more can sit beside it later.
+    sets = []
+    for index, record in enumerate(records, start=1):
+        sets.append({
+            "uid": f"s-{index:04d}",
+            "name": f"{record['name']}-set",
+            "inner_uid": record["uid"],
+            "border_uid": record.get("border_uid") or record["uid"],
+            "rotation": int(record.get("rotation", 0) or 0),
+            "pieces": int(record.get("pieces", 1) or 1),
+            "per_side": 5 if record["uid"] in {"c-0007", "c-0002"} else 9,
+            "importance": int(record.get("importance", 0) or 0),
+        })
+
+    OUT.write_text(json.dumps({"format": FORMAT, "curves": records, "sets": sets}, indent=1) + "\n",
                    encoding="utf-8")
     TODO.write_text(json.dumps({"format": "curve-lab.naming-todo/1", "curves": todo},
                                indent=1) + "\n", encoding="utf-8")

@@ -31,8 +31,8 @@ test("the roses are the three rational ones, not the old rosettes", () => {
   const gallery = buildIlluminations(ROOT);
   const roses = gallery.sections[2].items.map((item) => item.name);
   assert.deepEqual(roses, [
-    "rose k=2, a=1 b=1",
-    "rose k=2, a=1 b=-1",
-    "rose k=3, a=1 b=1",
+    "rose-k-2-a-1-b-1",
+    "rose-k-2-a-1-b-minus1",
+    "rose-k-3-a-1-b-1",
   ]);
 });

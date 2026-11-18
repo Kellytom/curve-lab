@@ -3,15 +3,9 @@
  "curves": [
   {
    "uid": "c-0088",
-   "name": "ph-3-4-5-rotated-mirror-slope-3of4-loadable",
+   "name": "ph-3-4-5-rotated-mirror-slope-minus3of4-loadable",
    "current": "PH 3-4-5 rotated, mirror slope -3/4 (loadable)",
    "why": "long"
-  },
-  {
-   "uid": "c-0096",
-   "name": "c-1",
-   "current": "c -1",
-   "why": "not descriptive"
   },
   {
    "uid": "c-0134",

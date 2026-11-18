@@ -2,6 +2,7 @@
 // POST /api/curve-notes — merge one or more {uid, name, importance} rows.
 
 import { readNotes, saveNotes } from "../../lib/curve-notes.js";
+import { clearIlluminateCache } from "../../lib/bordered.js";
 
 const base = () => process.env.CURVE_LAB_ROOT || process.cwd();
 const json = (body, status = 200) =>
@@ -21,7 +22,9 @@ export const GET = async () => {
 export const POST = async ({ request }) => {
   try {
     const payload = await request.json();
-    return json(await saveNotes(payload, base()));
+    const result = await saveNotes(payload, base());
+    clearIlluminateCache();
+    return json(result);
   } catch (error) {
     return json({ error: String(error.message || error) }, error.status || 400);
   }

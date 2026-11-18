@@ -35,6 +35,13 @@ a{color:#8c6a21}
 .illuminations figure{margin:0;background:#fff;border:1px solid #ddd;padding:6px}
 .illuminations svg{display:block;width:100%;height:auto}
 .illuminations figcaption{font-size:11px;color:#666;margin-top:4px}
+.turn{display:flex;gap:4px;align-items:center;margin-top:4px}
+.turn button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:2px 6px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+.turn button.on{background:#c9a441;color:#fff}
+.turn .saveflag{font:10px/1.2 ui-monospace,Menlo,monospace;color:#8a3b2a;margin-left:4px}
+.imp{display:flex;gap:2px;margin-top:3px}
+.imp button{font:10px/1.1 ui-monospace,Menlo,monospace;padding:1px 4px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+.imp button.on{background:#c9a441;color:#fff}
 </style>
 </head><body>
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
@@ -108,10 +115,63 @@ a{color:#8c6a21}
         <figure id={item.id}>
           <div set:html={item.svg}></div>
           <figcaption>Fig. {item.n} · {item.name}</figcaption>
+          <div class="turn" data-uid={item.uid} data-rot={item.rotation} data-pieces={item.pieces}>
+            <button type="button" data-turn="-90" title="turn the inner curve 90 degrees anticlockwise">&#8634;</button>
+            <button type="button" data-turn="90" title="turn the inner curve 90 degrees clockwise">&#8635;</button>
+            <button type="button" data-piece="1" class={item.pieces === 1 ? "on" : ""}>1</button>
+            <button type="button" data-piece="2" class={item.pieces === 2 ? "on" : ""}>2</button>
+            <button type="button" data-piece="4" class={item.pieces === 4 ? "on" : ""}>4</button>
+            <span class="saveflag"></span>
+          </div>
+          <div class="imp" data-uid={item.uid}>
+            {Array.from({ length: 10 }, (_, i) => (
+              <button type="button" data-imp={i + 1} class={i + 1 <= item.importance ? "on" : ""}>{i + 1}</button>
+            ))}
+          </div>
         </figure>
       ))}
     </div>
   </section>
 ))}
 </main>
+<script is:inline>
+(() => {
+  const post = async (uid, body) => {
+    const response = await fetch("/api/curve-notes", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ curves: [{ uid, ...body }] }),
+    });
+    return response.ok;
+  };
+  document.querySelectorAll(".turn").forEach((row) => {
+    const uid = row.dataset.uid;
+    row.querySelectorAll("button[data-turn]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const rotation = (Number(row.dataset.rot) || 0) + Number(button.dataset.turn);
+        row.querySelector(".saveflag").textContent = "saving...";
+        const ok = await post(uid, { rotation });
+        row.querySelector(".saveflag").textContent = ok ? "saved" : "failed";
+        if (ok) location.reload();
+      });
+    });
+    row.parentElement.querySelectorAll(".imp button").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const flag = row.querySelector(".saveflag");
+        flag.textContent = "saving...";
+        const ok = await post(uid, { importance: Number(button.dataset.imp) });
+        flag.textContent = ok ? "saved" : "failed";
+        if (ok) location.reload();
+      });
+    });
+    row.querySelectorAll("button[data-piece]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        row.querySelector(".saveflag").textContent = "saving...";
+        const ok = await post(uid, { pieces: Number(button.dataset.piece) });
+        row.querySelector(".saveflag").textContent = ok ? "saved" : "failed";
+        if (ok) location.reload();
+      });
+    });
+  });
+})();
+</script>
 </body></html>

@@ -16,6 +16,9 @@ const Note = z.object({
   uid: z.string().regex(/^c-\d{4}$/, "uid must look like c-0001"),
   name: z.string().trim().min(1).max(80).optional(),
   importance: z.number().int().min(0).max(10).optional(),
+  rotation: z.number().int().min(-360).max(360).optional(),
+  pieces: z.union([z.literal(1), z.literal(2), z.literal(4)]).optional(),
+  border_uid: z.string().regex(/^c-\d{4}$/).optional(),
 }).passthrough();
 
 const Payload = z.object({ curves: z.array(Note) });
