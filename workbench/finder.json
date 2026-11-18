@@ -1649,7 +1649,6 @@
     "tangent_-45": []
    },
    "flags": [
-    "mirror slope -3/4, gap 0.000000 (axis through the origin)",
     "speed rows whole after x sqrt5: u = 2 - t - 2t^2, v = 1 + 2t - t^2",
     "sandbox: loads — PH rows, scale 5"
    ]

@@ -53,6 +53,8 @@ def gaps(points):
     q = p - centre
     size = max(p.max(axis=0) - p.min(axis=0)) or 1.0
     out = {}
+    spacing = float(np.mean(np.linalg.norm(np.diff(q, axis=0), axis=1))) / size if len(q) > 1 else 0.0
+    tolerance = max(THRESHOLD, 2.5 * spacing)
     for name, (dx, dy) in AXES.items():
         d = np.array([dx, dy], dtype=float)
         reflected = 2 * np.outer(q @ d / (d @ d), d) - q

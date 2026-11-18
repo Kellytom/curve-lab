@@ -120,6 +120,14 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+- [ ] **Closed curves need a full-turn sample.** The rose `k=4` card stores
+  `t ∈ [−1, 1]`, which is half a turn, so the card cannot show the `y = x`
+  symmetry the algebra proves (`r(θ) = r(π/2 − θ)` to machine zero). Sample
+  closed families over the full turn and re-run `mark_symmetry`.
+- [ ] **The symmetry flag threshold is now density-aware.** Good for closed
+  curves, but it means two cards can use different tolerances; print the
+  tolerance on the card or in the readout so the number is honest.
+
 ## Speed: a placeholder for the primary curve — 2026-11-18
 
 - [ ] **Inline PNG placeholder for the primary curve.** The sandbox draws its

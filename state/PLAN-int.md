@@ -16,6 +16,12 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Sprint queue — the found curves to plates (2026-11-18)
+
+`state/SPRINT-int.md` holds the six-sprint plan; its **Sprint 1 (the grid bill)**
+is the next action and is what `next-fhandoff-int.md` names. Earlier rows above
+stay landed; this queue runs in parallel with the book and the app.
+
 ## Short-term milestone — the book, Christmas 2026
 
 The operator's aim (2026-11-17): export PNG plates now for a book, with SVGs

@@ -2876,3 +2876,43 @@ is balanced: four for y = x, six for the x axis, four chainable pieces.
 
 The sandbox page (`phNthSymmetry`) tests **only** the vertical axis; that is why
 these cases were open there.
+
+## 2026-11-18 (close) — records, rotations, and the tree is clean
+
+**Landed since the last block.** Every finder curve carries a `record`: kind,
+formula, variables, grid and a sandbox verdict (`scripts/curve_record_view.py`).
+Tschirnhausen is off the board. The sandbox's finder section carries only the 5
+starred curves. A new section on the sandbox page, *Rational rotation: a mirror
+you can turn*, shows the vertical mirror and the same curve turned by
+`q = 1/2, 1/3, 1/4, 1/5` — axes `−3/4, −4/3, −15/8, −12/5` — with the 45° attempt
+drawn from floats and labelled not exact. One loadable PH curve with whole rows
+(`u = 2 − t − 2t²`, `v = 1 + 2t − t²`, mirror slope −3/4 at gap 0.000000) sits at
+the top of a new **Symmetric** section on the finder.
+
+**Why 45° is impossible on the grid.** Rotating a PH curve multiplies its *speed*
+by `e^{iθ/2}`; the rows stay rational only when `tan(θ/2)` is rational. p-triple
+angles pass (`3-4-5`: `tan = 1/2`, rows whole after `√5`); 45° fails
+(`tan 22.5° = √2 − 1`). Recorded in `state/DESIGN-int.md`.
+
+**Measured state.** Local `:4321` 200. Register green. App tests 23/23 (carried
+from this session's runs). Python suite 114 modules (carried, code dirs
+unchanged). Recheck 65/65 (carried from the run after `hub.py` restored the
+missing bar). Remote: repo private, anonymous fetch 404 (carried 2026-11-18).
+Git clean at `ce9875b` before this block's commit.
+
+**Risks.** (1) The rose `k=4` card stores only half a turn (t ∈ [−1,1]), so the
+page cannot show the diagonal symmetry the algebra proves; closed curves need a
+full-turn sampling. (2) The finder's symmetry test now scales tolerance with
+sampling density, which fixes closed curves but makes the flag threshold
+curve-dependent — worth stating on the page. (3) No finder curve loads in the
+sandbox except the new PH one; the kind counts are 29 position, 25 rational, 1 PH.
+
+**Next move:** Sprint 1 of `state/SPRINT-int.md` — the grid bill for all 56
+curves.
+
+Tried and rejected: the ends-first generator as a shape source — six end
+conditions leave the top powers free, the crossing correction then plunges the
+curve far outside its chord (x −20 on a 2-unit span) and it draws as a sliver; a
+better basis (Bernstein with local handles) is needed, recorded in TODO.
+Rotating a PH curve by 45° — needs `√2`, so no rational rows exist.
+Tschirnhausen — classic but adds nothing; off the board.

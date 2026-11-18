@@ -72,13 +72,17 @@ def _symmetry_flags(curve, threshold=0.005):
     q = p - centre
     size = max(p.max(axis=0) - p.min(axis=0)) or 1.0
     flags = []
+    # a closed curve sampled at N points cannot be matched better than about one
+    # spacing; compare against that, not a fixed share of the size
+    spacing = float(np.mean(np.linalg.norm(np.diff(q, axis=0), axis=1))) / size if len(q) > 1 else 0.0
+    tolerance = max(threshold, 2.5 * spacing)
     for name, (dx, dy) in MIRRORS.items():
         d = np.array([dx, dy], dtype=float)
         reflected = 2 * np.outer(q @ d / (d @ d), d) - q
         a, b = q[:, None, :], reflected[None, :, :]
         distances = np.sqrt(((a - b) ** 2).sum(axis=2))
         gap = max(distances.min(axis=1).max(), distances.min(axis=0).max())
-        if gap / size <= threshold:
+        if gap / size <= tolerance:
             flags.append(f"{name} (gap {gap / size:.4f})")
     a, b = q[:, None, :], (-q)[None, :, :]
     distances = np.sqrt(((a - b) ** 2).sum(axis=2))
