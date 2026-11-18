@@ -28,7 +28,7 @@ build when you want to change the geometry.
 
 | layer | what it is | first command |
 |---|---|---|
-| the app | the Astro pages: hub, finder, sandbox, book plates | `npm --prefix app install && npm --prefix app run dev` |
+| the app | the Astro pages: hub, finder, sandbox, illuminations | `npm --prefix app install && npm --prefix app run dev` |
 | the lab | generated browser pages for the curve studies and the ornament work | `.venv/bin/python scripts/serve.py` |
 | the engine | exact geometry in Python: Euler-curve chains, integer and PH curves, grid, bend, crossings, SVG | `bash scripts/build-native.sh`, then `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
 

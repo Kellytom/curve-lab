@@ -114,7 +114,7 @@ export function buildIlluminations(root) {
       n += 1;
       const slug = String(curve.name || `curve-${n}`).toLowerCase()
         .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-      return { n, name: curve.name, slug, svg: svgFrom(pathsFor(curve, rows)) };
+      return { n, name: curve.name, slug, id: `fig-${n}`, svg: svgFrom(pathsFor(curve, rows)) };
     }),
   }));
   cache = { total: n, sections: built };

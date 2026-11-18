@@ -22,6 +22,7 @@ so every point lands on an integer grid instead of being snapped to one.
 | why integer curves | [Integer PH curves](/docs/ph-integer/) |
 | how a claim is checked | [Verification](/docs/verify/) |
 | where every folder is | [Structure](/docs/structure/) |
+| the bordered pictures | the app's `/illuminations` page |
 | the accuracy budget | [Fidelity](/docs/fidelity/) |
 | the recovered corpus | [Corpus](/docs/corpus/) |
 

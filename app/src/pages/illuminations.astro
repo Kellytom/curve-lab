@@ -104,7 +104,7 @@ a{color:#8c6a21}
     <h3>{section.title}</h3>
     <div class="illuminations">
       {section.items.map((item) => (
-        <figure>
+        <figure id={item.id}>
           <div set:html={item.svg}></div>
           <figcaption>Fig. {item.n} · {item.name}</figcaption>
         </figure>

@@ -24,6 +24,8 @@ _2026-11-18._
 - `scripts/stamp_draft.py`: the `draft A` label on every outward page, enforced
   by `tests/test_draft_label.py` and re-applied by `scripts/build-pages.py`.
 - An `about` page in the Astro app, linking the repository's own documents.
+- The Gallery of Illuminations at `/illuminations`: 241 curves, each bordered by
+the same curve three times a side, numbered once.
 
 ### Changed
 
