@@ -27,6 +27,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from curve_lab.datafile import FORMATS  # noqa: E402
+from finder_store import save_family  # noqa: E402
 from curve_finder import peak  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
@@ -122,6 +123,8 @@ def main():
             "name": f"cross {t1}–{t2}",
             "pair": [str(t1), str(t2)],
             "coefficients": {"d": str(d), "e": str(e), "c": "1"},
+            "definition": {"family": "solved-crossings", "pair": [str(t1), str(t2)],
+                           "coefficients": {"d": str(d), "e": str(e), "c": "1"}},
             "degree": 7,
             "proper": True,
             "path": path(x, y, *SPAN),
@@ -137,11 +140,7 @@ def main():
     found.sort(key=lambda item: (item["crossing"]["min_speed"] < 0.05,
                                  abs(item["crossing"]["angle"] - 90)))
     best = found[:KEEP]
-    OUT.write_text(json.dumps({
-        "format": FORMATS["finder.json"],
-        "note": "Crossings solved at rational parameter pairs; ranked by cusp-free and right-angled.",
-        "curves": best,
-    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    save_family("solved-crossings", best, note="Crossings solved at rational parameter pairs.")
     for item in best:
         c = item["crossing"]
         print(f'{item["name"]:20} angle {c["angle"]:5.1f}°  min speed {c["min_speed"]:6.3f}  '

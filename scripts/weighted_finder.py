@@ -31,6 +31,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from curve_lab.datafile import FORMATS  # noqa: E402
+from finder_store import save_family  # noqa: E402
 from curve_finder import peak  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
@@ -128,6 +129,8 @@ def main():
             curves.append({
                 "name": f"{kind} balance at t={t0}",
                 "coefficients": {"b": str(b), "e": str(e)},
+                "definition": {"family": "weighted-balance", "kind": kind,
+                               "t0": str(t0), "coefficients": {"b": str(b), "e": str(e)}},
                 "degree": 7, "proper": True,
                 "path": points, "rails": rails(points),
                 "peak": None if p is None else {
@@ -137,11 +140,7 @@ def main():
                 "flags": [f"min speed {min(speeds):.3f}"],
             })
             print(f"{kind:9} t0={t0}  b={float(b):9.4f} e={float(e):9.4f}  min speed {min(speeds):.3f}")
-    OUT.write_text(json.dumps({
-        "format": FORMATS["finder.json"],
-        "note": "Weighted derivative balance at a chosen t: exponential and parabolic weights.",
-        "curves": curves,
-    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    save_family("weighted-balance", curves, note="Weighted derivative balance at a chosen t.")
     print(f"wrote {OUT.relative_to(ROOT)} with {len(curves)} curves")
     return 0
 

@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from curve_lab.datafile import FORMATS  # noqa: E402
+from finder_store import save_family  # noqa: E402
 from curve_finder import peak  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
@@ -146,6 +147,7 @@ def main():
             "x": [str(c) for c in x],
             "y": [str(c) for c in y],
             "spec": {k: str(v) for k, v in spec.items()},
+            "definition": {"family": "septic", "spec": {k: str(v) for k, v in spec.items()}},
             "degree": 7,
             "proper": True,
             "path": points,
@@ -160,11 +162,7 @@ def main():
         print(f'{name:14} 45deg at t={r["tangent_45"]}  -45deg at t={r["tangent_-45"]}')
     # The solved curves lead: they are the ones worth looking at.
     curves.sort(key=lambda c: 0 if ("loop" in c["name"] or "45deg" in c["name"]) else 1)
-    OUT.write_text(json.dumps({
-        "format": FORMATS["finder.json"],
-        "note": "The parametric septic family, eight settings, nothing assumed.",
-        "curves": curves,
-    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    save_family("septic", curves, note="The parametric septic family: x = Q - P, y = Q + P.")
     print(f"wrote {OUT.relative_to(ROOT)} with {len(curves)} curves")
     return 0
 

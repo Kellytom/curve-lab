@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab.datafile import FORMATS  # noqa: E402
+from finder_store import save_family  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
 SAMPLES = 700
@@ -118,6 +119,7 @@ def main():
         curves.append({
             "name": name,
             "spec": {k: str(v) for k, v in spec.items()},
+            "definition": {"family": "bounded", "spec": {k: str(v) for k, v in spec.items()}},
             "degree": 2,
             "proper": True,
             "path": points,
@@ -130,11 +132,7 @@ def main():
         where = (f"r = {spec['polar'][0]} + {spec['polar'][1]} cos theta" if "polar" in spec
                  else f"closing point ({spec['ax']}, {spec['ay']})")
         print(f"{name:18} {where:26} sampled crossings {hits}")
-    OUT.write_text(json.dumps({
-        "format": FORMATS["finder.json"],
-        "note": "Bounded rational curves: equal degrees, closing point from a p-triple.",
-        "curves": curves,
-    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    save_family("bounded", curves, note="Bounded rational curves closing on a p-triple point.")
     print(f"wrote {OUT.relative_to(ROOT)} with {len(curves)} curves")
     return 0
 
