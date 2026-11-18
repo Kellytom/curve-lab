@@ -37,3 +37,14 @@ data `workbench/finder.json`, page `/finder`.
   **24.1° (n=3), 28.1° (n=4), 30.0° (n=5), 31.8° (n=7), 32.7° (n=9)** — never
   45°. A 45° tangent occurs at x where n·x^(n−1) = 1, which is not the peak.
 - So the 45° hunch is not confirmed on this family. Do not repeat it as fact.
+
+---
+
+## 2026-11-17 19:55 — where the files are
+
+`docs/STRUCTURE.md` lists the top-level tree with file counts and the files that
+matter. Read it before hunting. The short version: `curve_lab/` is the engine,
+`scripts/` the generators and audits, `workbench/` the generated pages and their
+JSON, `app/src/` the Astro site, `state/` the working memory, `docs/` the book.
+Large and excluded: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/`,
+`out/`, `site/`, `dist/`.
