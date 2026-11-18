@@ -107,7 +107,6 @@ SPECS = {
     "limacon 1+2cos": dict(polar=(1, 2)),
     "limacon 1+3cos": dict(polar=(1, 3)),
     "limacon 2+3cos": dict(polar=(2, 3)),
-    "limacon 1+2cos (5x)": dict(polar=(1, 2)),
 }
 
 

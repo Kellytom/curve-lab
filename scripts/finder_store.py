@@ -38,6 +38,15 @@ def _read():
 
 
 def save_family(family: str, curves: list[dict], note: str = "") -> dict:
+    # The same recipe twice is the same curve: drop the repeat, keep the first.
+    seen, unique = set(), []
+    for curve in curves:
+        key = json.dumps(curve.get("definition"), sort_keys=True)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(curve)
+    curves = unique
     data = _read()
     kept = [c for c in data["curves"] if c.get("family") != family]
     for curve in curves:

@@ -37,18 +37,13 @@ RAIL_SHARE = 0.012
 SPAN = (-1.0, 1.0)
 
 CURVES = (
-    ("k only", dict(k=1)),
-    ("b +1", dict(k=1, b=1)),
-    ("b -1", dict(k=1, b=-1)),
-    ("d -1", dict(k=1, d=-1)),
-    ("d +1", dict(k=1, d=1)),
     ("a +1", dict(k=1, a=1)),
     ("c -1", dict(k=1, c=-1)),
     ("e +1", dict(k=1, e=1)),
-    ("b,d mixed", dict(k=1, b=1, d=-1)),
     ("a,c,e mixed", dict(k=1, a=1, c=-1, e=1)),
-    ("f +1", dict(k=1, f=1)),
     # Solved, not guessed: d chosen so P'(1/2) = 0 — a 45-degree tangent halfway.
+    # One representative of the Q = 0 case: every one of them is the line y = -x.
+    ("line (Q=0)", dict(k=1)),
     ("45deg at t=1/2", dict(k=1, d=Fraction(-71, 48))),
     ("45deg, b=1 at t=1/2", dict(k=1, b=1, d=Fraction(-91, 48))),
     # Solved crossings: two parameters forced onto one point.
