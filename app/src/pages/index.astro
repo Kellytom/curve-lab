@@ -1,7 +1,7 @@
 ---
-// The hub: every page the app will use, live, in one scroll. The shell is the
-// admin-dashboard layout (fixed sidebar, top bar, card grid); the colours and
-// type are curve-lab's own.
+// The hub: four live pages, one door to the rest. Layout is Pico CSS
+// (classless, vendored at /vendor/pico.min.css) so there is no CSS of ours to
+// think about beyond the frame heights.
 import { buildHub } from "../lib/pages.js";
 import { lanUrls, tunnelInfo } from "../lib/tunnel.js";
 
@@ -9,91 +9,67 @@ const hub = buildHub();
 const tunnel = tunnelInfo();
 const lan = lanUrls();
 const app = hub.app;
-const sections = [{ key: "app", label: "The app", pages: hub.app }, ...hub.sections];
+const older = hub.total - app.length;
 ---
 
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>curve-lab — the hub</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
 <style is:global>
-:root{--ground:#f6f1e4;--paper:#fffdf7;--line:#d8ccae;--ink:#2e2413;--gold:#8c6a21;--mute:#7b6c4e}
-*{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.55 Georgia,serif}
-.shell{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}
-aside{position:sticky;top:0;height:100vh;overflow:auto;background:var(--paper);
-  border-right:1px solid var(--line);padding:18px 0 28px}
-.brand{font:600 17px/1.2 Georgia,serif;padding:0 18px 4px}
-.brand small{display:block;font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);
-  font-weight:400;margin-top:3px}
-aside nav{padding:14px 10px 0}
-aside a{display:flex;justify-content:space-between;gap:8px;padding:5px 8px;border-radius:3px;
-  color:var(--ink);text-decoration:none;font:12px/1.4 ui-monospace,Menlo,monospace}
-aside a:hover{background:var(--ground);color:var(--gold)}
-aside a b{font-weight:400;color:var(--mute)}
-aside .all{margin:14px 10px 0;padding:8px;border-top:1px solid var(--line);
-  font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute)}
-main{min-width:0;padding:0 26px 80px}
-.top{position:sticky;top:0;z-index:2;background:var(--ground);border-bottom:1px solid var(--line);
-  padding:18px 0 12px;margin-bottom:10px}
-h1{font-size:23px;margin:0 0 2px}
-.sub{color:var(--mute);font:12px/1.5 ui-monospace,Menlo,monospace;margin:0}
-.sub.phone{margin-top:3px}
-.sub.phone a{color:var(--gold)}
-h2{font-size:18px;margin:34px 0 4px;scroll-margin-top:72px}
-h2 .count{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);font-weight:400;
-  margin-left:8px}
-.lead{color:var(--mute);font-size:13px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));gap:18px}
-.card{background:var(--paper);border:1px solid var(--line);padding:0;overflow:hidden}
-.card header{display:flex;align-items:baseline;gap:10px;padding:9px 12px;
-  border-bottom:1px solid var(--line);background:#fbf7ec}
-.card h3{font-size:14px;margin:0;flex:1;min-width:0}
-.card h3 span{display:block;font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--mute);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card a{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--gold);text-decoration:none;
-  white-space:nowrap}
-.card a:hover{text-decoration:underline}
-.card iframe{display:block;width:100%;height:440px;border:0;background:#fff}
-.card.tall iframe{height:620px}
-@media (max-width:900px){
-  .shell{grid-template-columns:1fr}
-  aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}
-  aside nav{display:flex;flex-wrap:wrap}
-  main{padding:0 14px 60px}
-  .grid{grid-template-columns:1fr}
-}
+/* only what Pico cannot know: the preview frame height and a two-column grid */
+.app-grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(26rem,1fr))}
+.app-grid article{margin:0}
+.app-grid iframe{display:block;width:100%;height:30rem;border:0;background:#fff}
+.app-grid h3{margin:0}
+.app-grid .purpose{font-size:.8rem;color:var(--pico-muted-color);margin:.2rem 0 .6rem}
+.app-grid .open{font-size:.78rem}
+.phone{font-size:.85rem}
+.hint{font-size:.72rem;color:var(--pico-muted-color);margin:.35rem .1rem 0}
+@media (max-width:600px){.app-grid iframe{height:22rem}}
 </style>
 </head><body>
-<div class="shell">
-<aside>
-  <div class="brand">curve-lab<small>the hub · everything in one scroll</small></div>
-  <nav>
-    <section id="app">
-  <h2>The app</h2>
-  <div class="grid">
+<nav class="container-fluid">
+  <ul><li><strong>curve-lab</strong></li></ul>
+  <ul>
+    <li><a href="/lab">central design &amp; frame</a></li>
+    <li><a href="/book">book</a></li>
+    <li><a href="/ph-nth-sandbox">sandbox</a></li>
+    <li><a href="/finder">finder</a></li>
+    <li><a href="/everything">everything else</a></li>
+  </ul>
+</nav>
+<main class="container">
+  <h1>curve-lab</h1>
+  <p>Four pages, live. {older} older pages behind one link.</p>
+  <p class="phone">{tunnel.url
+    ? <>phone: <a href={tunnel.url}>{tunnel.url}</a></>
+    : <>phone: no tunnel running — <code>scripts/service.sh status</code></>}
+    {lan.length ? <> · home: <a href={lan[0]}>{lan[0]}</a></> : null}</p>
+
+  <div class="app-grid">
     {app.map((page) => (
-      <article class="card tall">
+      <article>
         <header>
-          <h3>{page.title}<span>{page.purpose}</span></h3>
-          <a href={page.src} target="_blank" rel="noopener">open ↗</a>
+          <h3>{page.title}</h3>
+          <p class="purpose">{page.purpose}</p>
+          <a class="open" href={page.src} target="_blank" rel="noopener">open in a tab ↗</a>
         </header>
         <iframe src={page.src} title={page.title} loading="lazy"></iframe>
+        <p class="hint">(scroll inside the frame for more)</p>
       </article>
     ))}
   </div>
-</section>
 
-<h2>There's more…</h2>
-<p class="lead" style="font-size:15px;color:#2e2413;max-width:760px">
-  Everything else is kept and still working: the generators, the degree ladder's
-  notes, the terminal and junction proofs, the catalogue pages. {hub.total - app.length}
-  pages in all. They are on one page of their own, so this one stays short and the
-  four above stay at the top.</p>
-<p><a href="/everything" style="display:inline-block;padding:8px 14px;border:1px solid #c9a441;
-  background:#fbf3dc;color:#8c6a21;text-decoration:none;font:12px ui-monospace,Menlo,monospace">
-  the full page list →</a></p>
-
+  <article style="margin-top:2rem">
+    <h2>There's more…</h2>
+    <p>Everything else is kept and still working: the generators, the degree ladder's
+      notes, the terminal and junction proofs, the catalogues. {older} pages in all,
+      grouped by what you are looking for, so this page stays short and the four
+      above stay at the top.</p>
+    <p><a class="button" href="/everything" role="button">the full page list →</a></p>
+  </article>
 </main>
-</div>
 </body></html>

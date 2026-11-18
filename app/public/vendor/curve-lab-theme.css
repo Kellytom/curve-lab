@@ -1,0 +1,24 @@
+/* curve-lab over Pico: only variables. No layout CSS lives here. */
+html[data-theme="light"], :root:not([data-theme="dark"]) {
+  --pico-font-family: Georgia, "Times New Roman", serif;
+  --pico-font-size: 100%;
+  --pico-background-color: #f6f1e4;
+  --pico-color: #2e2413;
+  --pico-muted-color: #7b6c4e;
+  --pico-muted-border-color: #d8ccae;
+  --pico-primary: #8c6a21;
+  --pico-primary-background: #8c6a21;
+  --pico-primary-border: #8c6a21;
+  --pico-primary-hover: #a9832c;
+  --pico-primary-hover-background: #a9832c;
+  --pico-primary-focus: rgba(140, 106, 33, 0.25);
+  --pico-primary-underline: rgba(140, 106, 33, 0.4);
+  --pico-card-background-color: #fffdf7;
+  --pico-card-border-color: #d8ccae;
+  --pico-card-sectioning-background-color: #fbf7ec;
+  --pico-border-radius: 3px;
+  --pico-form-element-background-color: #fffdf7;
+  --pico-form-element-border-color: #d8ccae;
+  --pico-code-background-color: #f4ecd7;
+  --pico-code-color: #2e2413;
+}
