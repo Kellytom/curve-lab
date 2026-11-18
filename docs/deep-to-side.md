@@ -1,5 +1,17 @@
 # deep → side
 
+**Read these to get up to speed**, in this order (paths from `/Users/thomaskelly/developer/curve-lab`):
+
+1. `docs/deep-to-side.md` — this file: what changed, what not to trust.
+2. `docs/STRUCTURE.md` — where every folder is, and the files that matter.
+3. `state/DATA-int.md` — every dataset, its format, who writes and reads it.
+4. `workbench/finder.json` — the curve finder's current results (read, do not edit).
+5. `docs/CURVATURE-POWER-CURVES.md` — the power-curve numbers, all computed by
+   `scripts/curvature_power.py`.
+
+Do not read: `reference/` (13 GB, mostly gitignored), `vendor/`, `out/`, `dist/`,
+`node_modules/`, `state/HANDOFF-int.md` (long; the tail is the current truth).
+
 **One direction.** The main session (DeepSeek) writes here; the side chat reads
 it. The side chat never edits this file.
 

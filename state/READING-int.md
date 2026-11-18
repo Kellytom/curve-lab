@@ -90,7 +90,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | a W-label | `state/BACKLOG-int.md` — that label only |
 | what is parked | `state/BACKBURNER-int.md` |
 | unresolved curves (need a link) | `state/UNRESOLVED-int.md` |
-| talking to the side chat | `deep-to-side.md`, `side-to-deep.md` — one direction each, newest entry at the top |
+| talking to the side chat | `docs/deep-to-side.md`, `docs/side-to-deep.md` — one direction each, newest entry at the top |
 | the datasets and their formats | `state/DATA-int.md`, `curve_lab/datafile.py`, `scripts/data_format.py`, `scripts/data_audit.py`, `tests/test_data_audit.py` |
 | verification | `scripts/recheck.py`, `scripts/test.py` |
 | architecture / print review | `docs/ARCHITECTURE.md`, `docs/REVIEW.md` — after the current work, not before |

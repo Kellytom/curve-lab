@@ -46,7 +46,7 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 | `LTMemory-int.md` | the map and invariants |
 | `senior-dev.md` | twelve working rules |
 | `docs/TUNNEL.md` | how the phone reaches the app |
-| `deep-to-side.md` / `side-to-deep.md` | mail between the sessions |
+| `docs/deep-to-side.md` / `docs/side-to-deep.md` | mail between the sessions |
 | `workbench/manifest.json` | every input page, with its purpose |
 | `workbench/finder.json` | the curve finder's current results |
 | `workbench/starred.json` | the stars saved from the lab |
