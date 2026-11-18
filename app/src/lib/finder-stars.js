@@ -26,13 +26,15 @@ export function validateFinderStars(payload) {
   if (!payload || !Array.isArray(payload.curves)) {
     throw new Error("expected { curves: [...] }");
   }
+  // The file keys stars by name, the page by id. A payload can therefore carry
+  // the same curve twice; that is a naming mismatch, not bad data. Merge by
+  // name and keep the first, rather than refusing the whole list.
   const parsed = Payload.parse(payload).curves;
-  const seen = new Set();
+  const byName = new Map();
   for (const star of parsed) {
-    if (seen.has(star.name)) throw new Error(`duplicate curve: ${star.name}`);
-    seen.add(star.name);
+    if (!byName.has(star.name)) byName.set(star.name, star);
   }
-  return parsed;
+  return [...byName.values()];
 }
 
 const KEEP_BACKUPS = 5;

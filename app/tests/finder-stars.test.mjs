@@ -85,3 +85,18 @@ test("the state reader returns the list and its hash", async () => {
   assert.match(state.hash, /^[0-9a-f]{12}$/);
   await rm(root, { recursive: true, force: true });
 });
+
+test("the same curve twice is merged, not refused", async () => {
+  const root = await mkdtemp(path.join(tmpdir(), "finder-stars-"));
+  const result = await saveFinderStars({
+    curves: [
+      { name: "loop t=1/2,3/4" },
+      { name: "loop t=1/2,3/4", id: "loop-t-1-2-3-4" },
+      { name: "cross+45deg at t=1/4" },
+    ],
+  }, root);
+  assert.equal(result.saved, 2);
+  const live = JSON.parse(await readFile(path.join(root, "workbench", "finder-stars.json"), "utf8"));
+  assert.deepEqual(live.curves.map((c) => c.name), ["loop t=1/2,3/4", "cross+45deg at t=1/4"]);
+  await rm(root, { recursive: true, force: true });
+});

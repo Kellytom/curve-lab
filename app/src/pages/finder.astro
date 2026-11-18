@@ -142,8 +142,18 @@ code{font:11px ui-monospace,Menlo,monospace}
       const stored = Array.isArray(value) ? value : [];
       const byKey = new Map();
       for (const star of [...seed, ...stored]) {
-        const key = star.id || star.name;
+        const key = star.name || star.id;
         if (key) byKey.set(key, star);
+      }
+      if (!byKey.size) {
+        // A failed save leaves a rescue copy; use it if the live list is empty.
+        try {
+          const rescue = JSON.parse(localStorage.getItem("finder-stars-rescue") || "null");
+          for (const star of rescue?.curves || []) {
+            const key = star.name || star.id;
+            if (key) byKey.set(key, star);
+          }
+        } catch { /* nothing to rescue */ }
       }
       const { out, changed } = migrate([...byKey.values()]);
       if (changed || byKey.size !== stored.length) localStorage.setItem(KEY, JSON.stringify(out));
@@ -195,10 +205,12 @@ code{font:11px ui-monospace,Menlo,monospace}
   // must change too: a page that kept the old one was refused on every save
   // after the first. On a 409, merge what the server has with what this browser
   // has and retry once; never drop a star to win a race.
+  // Key by name: the file writes names, the page writes ids, and a curve has
+  // one name in both. Keying by id kept both copies and the save was refused.
   const merge = (current, local) => {
     const byKey = new Map();
     for (const star of [...current, ...local]) {
-      const key = star.id || star.name;
+      const key = star.name || star.id;
       if (key) byKey.set(key, star);
     }
     return [...byKey.values()];
@@ -227,10 +239,18 @@ code{font:11px ui-monospace,Menlo,monospace}
           return post(false);
         }
       }
-      lastError = `save failed: ${out.error}`;
+      lastError = `save failed: ${out.error} — the stars are kept in this browser`;
+      try {
+        localStorage.setItem("finder-stars-rescue",
+          JSON.stringify({ at: new Date().toISOString(), curves: read() }));
+      } catch { /* storage may be full */ }
       status.textContent = lastError;
     } catch (error) {
-      lastError = `save failed: ${error}`;
+      lastError = `save failed: ${error} — the stars are kept in this browser`;
+      try {
+        localStorage.setItem("finder-stars-rescue",
+          JSON.stringify({ at: new Date().toISOString(), curves: read() }));
+      } catch { /* storage may be full */ }
       status.textContent = lastError;
     }
   };
