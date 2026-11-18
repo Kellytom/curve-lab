@@ -94,7 +94,8 @@ code{font:11px ui-monospace,Menlo,monospace}
   <button id="export-stars" type="button">export stars</button>
   <label style="margin-left:10px"><input id="auto-save" type="checkbox" checked> auto-save</label>
   <span id="star-status"></span><br>
-  {curves.length} curves · {starred.length} starred · {featured.length} picked as best · data:
+  {curves.length} curves · <span id="star-count">{starred.length}</span> starred ·
+  {featured.length} rated best by the finder · data:
   <code>workbench/finder.json</code></p>
 
 {sections.length ? sections.map((section) => (
@@ -178,9 +179,12 @@ code{font:11px ui-monospace,Menlo,monospace}
         if (card && grid && card.parentElement !== grid) grid.appendChild(card);
       }
     });
+    const count = pick.ids.size || pick.names.size;
+    const lead = document.getElementById("star-count");
+    if (lead) lead.textContent = String(count);
     const status = document.getElementById("star-status");
     if (status && lastError) status.textContent = lastError;
-    else if (status) status.textContent = `${pick.ids.size || pick.names.size} starred`;
+    else if (status) status.textContent = `${count} starred`;
     const empty = document.getElementById("starred-empty");
     if (empty) empty.style.display = (pick.ids.size || pick.names.size) ? "none" : "";
   };
