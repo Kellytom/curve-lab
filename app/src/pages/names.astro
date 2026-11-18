@@ -48,7 +48,9 @@ const rows = registry.curves
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
 <style>
-.row{border-top:1px solid var(--pico-muted-border-color);padding:.55rem 0}
+.row{border-top:1px solid var(--pico-muted-border-color);padding:.55rem 0;display:flex;gap:.7rem;align-items:flex-start}
+.row img.thumb{width:96px;height:96px;object-fit:contain;background:#fff;border:1px solid var(--pico-muted-border-color);flex:none}
+.row .body{flex:1}
 .row .who{font-size:.72rem;color:var(--pico-muted-color)}
 .line{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
 .line .word{font:12px/1.4 ui-monospace,Menlo,monospace;color:#8c6a21}
@@ -68,6 +70,8 @@ const rows = registry.curves
 
   {rows.map((row) => (
     <div class="row" data-uid={row.uid}>
+      <img class="thumb" src={`/curves/${row.uid}.png`} alt={`${row.name} curve`} loading="lazy">
+      <div class="body">
       <div class="who">{row.uid} · lists: {row.lists}{row.starred ? " · starred" : ""} · now: <code>{row.name}</code></div>
       <div class="line">
         <span class="word">{row.prefix}-</span>
@@ -81,6 +85,7 @@ const rows = registry.curves
         {Array.from({ length: 10 }, (_, i) => (
           <button type="button" data-value={i + 1} class={i + 1 <= row.importance ? "on" : ""}>{i + 1}</button>
         ))}
+      </div>
       </div>
     </div>
   ))}

@@ -94,6 +94,16 @@ export function svgForRecord(record) {
   return svgFrom(pathsFor(record, rows), `${record.uid}: ${record.name}`);
 }
 
+export function plainSvgForRecord(record) {
+  let points;
+  if (record.path) {
+    points = record.path;
+  } else {
+    points = P.spine(record.speedX, record.speedY, 400).map((s) => [s.x, s.y]);
+  }
+  return svgFrom([points], `${record.uid}: ${record.name}`);
+}
+
 let cache = null;
 
 export function buildIlluminations(root) {
