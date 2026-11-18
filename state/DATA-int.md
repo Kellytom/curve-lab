@@ -62,7 +62,6 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
-| `roses.json` | `curve-lab.roses/1` | recorded | `scripts/lac_rosettes.py --json` | the illuminations gallery |
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |

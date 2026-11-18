@@ -38,7 +38,6 @@ FORMATS = {
     "ph-quintic-yours.json": "curve-lab.ph-quintic-yours/1",
     "real-curves.json": "real-curves/1",
     "root-family.json": "curve-lab.root-family/1",
-    "roses.json": "curve-lab.roses/1",
     "septic-curves.json": "curve-lab.septic-curves/1",
     "septic-samples.json": "curve-lab.septic-samples/1",
     "starred.json": "starred/1",
