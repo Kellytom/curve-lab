@@ -11,7 +11,7 @@ const starredNames = new Set((data.starred || []).map((s) => s.name).filter(Bool
 const isStarred = (c) => starredIds.has(c.id) || starredNames.has(c.name);
 const starred = curves.filter(isStarred);
 const mirrored = (c) => (c.flags || []).some((f) => String(f).startsWith("mirror "));
-const symmetric = curves.filter(mirrored).sort((a, b) => {
+const symmetric = curves.filter((c) => mirrored(c) && !isStarred(c)).sort((a, b) => {
   if (a.id === "symmetric-rotated345") return -1;
   if (b.id === "symmetric-rotated345") return 1;
   const rank = (c) => (c.flags || []).some((f) => String(f).startsWith("mirror y=x")) ? 0 : 1;
@@ -22,9 +22,9 @@ const rest = curves.filter((c) => !isStarred(c) && !c.featured && !mirrored(c));
 const familyNames = [...new Set(rest.map((c) => c.family || "other"))].sort();
 
 const sections = [];
+sections.push({ key: "starred", title: "Starred", lead: "Your choices, at the top.", curves: starred });
 if (symmetric.length) sections.push({ key: "symmetric", title: "Symmetric",
   lead: "Mirror curves, measured. The top one is new: a 3-4-5 rotation of a vertically mirrored curve, exact gap 0.0000 about slope −3/4.", curves: symmetric });
-sections.push({ key: "starred", title: "Starred", lead: "Your choices, at the top.", curves: starred });
 if (featured.length) sections.push({ key: "best", title: "Best so far", lead: "The strongest of the new methods: solved crossings, arcs, ends-first, bounded curves.", curves: featured });
 for (const family of familyNames) {
   sections.push({ key: family, title: family, lead: "", curves: rest.filter((c) => (c.family || "other") === family) });
@@ -86,7 +86,7 @@ code{font:11px ui-monospace,Menlo,monospace}
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
 <nav style="font:11px/1.5 ui-monospace,Menlo,monospace;padding:8px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae">
   <a href="/" style="color:#8c6a21">the hub</a> · <a href="/lab" style="color:#8c6a21">the lab</a> ·
-  <a href="/book" style="color:#8c6a21">the book</a> · this page is the curve finder
+  <a href="/illuminations" style="color:#8c6a21">illuminations</a> · this page is the curve finder
 </nav>
 <main>
 <h1>Curve finder</h1>
@@ -140,17 +140,20 @@ code{font:11px ui-monospace,Menlo,monospace}
   };
   const read = () => {
     try {
+      // The file and this browser both hold stars. Merge them: a browser that
+      // was seeded from an older file, or a different origin, must not hide the
+      // stars the file already has.
+      const seed = JSON.parse(document.getElementById("finder-stars-seed").textContent || "[]");
       const raw = localStorage.getItem(KEY);
-      if (raw === null) {
-        const seed = JSON.parse(document.getElementById("finder-stars-seed").textContent || "[]");
-        const { out } = migrate(seed);
-        localStorage.setItem(KEY, JSON.stringify(out));
-        return out;
+      const value = raw === null ? [] : JSON.parse(raw);
+      const stored = Array.isArray(value) ? value : [];
+      const byKey = new Map();
+      for (const star of [...seed, ...stored]) {
+        const key = star.id || star.name;
+        if (key) byKey.set(key, star);
       }
-      const value = JSON.parse(raw);
-      if (!Array.isArray(value)) return [];
-      const { out, changed } = migrate(value);
-      if (changed) localStorage.setItem(KEY, JSON.stringify(out));
+      const { out, changed } = migrate([...byKey.values()]);
+      if (changed || byKey.size !== stored.length) localStorage.setItem(KEY, JSON.stringify(out));
       return out;
     } catch { return []; }
   };
