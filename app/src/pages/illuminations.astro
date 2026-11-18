@@ -4,7 +4,9 @@ import { buildGallery } from "../lib/gallery.js";
 // Reads book/plates.json and workbench/starred.json on every request, so a new
 // star or a fresh export shows up without a rebuild. The page is the gallery;
 // book/index.html is no longer generated.
+import { buildIlluminations } from "../lib/bordered.js";
 const gallery = buildGallery();
+const illuminated = buildIlluminations();
 const { stars, designs, singles, counts } = gallery;
 const plateWord = (n) => (n === 1 ? "plate" : "plates");
 ---
@@ -29,6 +31,10 @@ a{color:#8c6a21}
   color:#7b6c4e;max-width:1120px;margin:0 auto}
 .app-nav a{color:#8c6a21;text-decoration:none;font-weight:600}
 .app-nav a:hover{text-decoration:underline}
+.illuminations{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.illuminations figure{margin:0;background:#fff;border:1px solid #ddd;padding:6px}
+.illuminations svg{display:block;width:100%;height:auto}
+.illuminations figcaption{font-size:11px;color:#666;margin-top:4px}
 </style>
 </head><body>
 <div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
@@ -90,5 +96,21 @@ a{color:#8c6a21}
     </figure>
   ))}
 </div>
+<h2 id="bordered">Bordered illuminations</h2>
+<p>{illuminated.total} figures, numbered once. Each border is the same curve,
+  three times a side.</p>
+{illuminated.sections.map((section) => (
+  <section>
+    <h3>{section.title}</h3>
+    <div class="illuminations">
+      {section.items.map((item) => (
+        <figure>
+          <div set:html={item.svg}></div>
+          <figcaption>Fig. {item.n} · {item.name}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+))}
 </main>
 </body></html>
