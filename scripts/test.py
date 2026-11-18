@@ -60,6 +60,15 @@ SLIM = {
     "test_todo",
 }
 
+# The fast loop: the engine, the data contract, the fixed-fault register and the
+# exact core. Minutes of numerical sweeps and page rebuilds are deliberately
+# out; run the default before a commit and --full before a push.
+FAST = {
+    "test_engine", "test_piece", "test_fillet", "test_section",
+    "test_pyth_triples", "test_pyth_cubic",
+    "test_regressions", "test_data_audit", "test_exact_numbers", "test_operator_list",
+}
+
 # Only the two modules that write the same page compete for it:
 # test_curve_census and test_stem_library both rebuild stem-library.html.
 # Everything else builds in memory or writes its own file.
@@ -156,9 +165,13 @@ def main(argv):
         chosen = [n for n in everything if n in SLOW]
     elif "--slim" in argv:
         chosen = [n for n in everything if n in SLIM]
+    elif "--fast" in argv:
+        chosen = [n for n in everything if n in FAST]
     else:
         chosen = [n for n in everything if n not in SLOW]
     jobs = max(2, min(8, (os.cpu_count() or 2)))
+    if "--fast" in argv:
+        jobs = max(jobs, 8)
     if "--jobs" in argv:
         jobs = max(1, int(argv[argv.index("--jobs") + 1]))
     code, secs, done = run(chosen, jobs)
@@ -166,14 +179,14 @@ def main(argv):
     if done:
         slow = sorted(done, key=lambda d: -d[2])[:5]
         print("\n  slowest: " + " · ".join(f"{n} {s:.1f}s" for n, _, s, _ in slow))
-    if "--slim" in argv:
+    if "--slim" in argv or "--fast" in argv:
         tail = f" · skipped {len(skipped)} more (--full for those)"
     elif skipped:
         tail = f" · skipped {', '.join(skipped)} (--full for those)"
     else:
         tail = ""
     print(f"  {len(chosen)} modules in {secs:.1f} s · jobs {jobs}" + tail)
-    if code == 0:
+    if code == 0 and "--fast" not in argv:
         code = run_js_tests()
     if "--browser" in argv and code == 0:
         code = run_browser_checks()

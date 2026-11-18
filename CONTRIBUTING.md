@@ -26,13 +26,15 @@ its row there in the same commit.
 ## The loop
 
 ```sh
+.venv/bin/python scripts/test.py --fast   # the fast loop, about 15 s
 .venv/bin/python scripts/test.py --slim   # engine only, about 3 s
 .venv/bin/python scripts/test.py --full   # the gate: Python, JS, data, pages
 .venv/bin/python scripts/serve.py         # the lab pages, port 8003
 npm --prefix app run dev                  # the app and the book, port 4321
 ```
 
-Run `--full` before you send a change. A truncated log hides a red test: read
+Run `--fast` constantly (about 3 s) and `--full` before you send a change. A
+long run belongs in the background, not in front of you. A truncated log hides a red test: read
 the summary, or grep for `FAILED`, rather than the last four lines.
 
 ## Rules that are not negotiable

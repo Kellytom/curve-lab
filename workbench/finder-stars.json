@@ -2,16 +2,20 @@
  "format": "curve-lab.finder-stars/1",
  "curves": [
   {
-   "name": "loop t=1/2,3/4"
+   "name": "loop t=1/2,3/4",
+   "id": "septic-65ba9eb9"
   },
   {
-   "name": "loop t=1/3,2/3"
+   "name": "loop t=1/3,2/3",
+   "id": "septic-4603b2fc"
   },
   {
-   "name": "loop t=1/4,3/4"
+   "name": "loop t=1/4,3/4",
+   "id": "septic-395c3183"
   },
   {
-   "name": "cross+45deg at t=1/4"
+   "name": "cross+45deg at t=1/4",
+   "id": "septic-2d65022c"
   },
   {
    "name": "cross 2/5–4/5",
@@ -20,7 +24,33 @@
     "e": "-4/5",
     "c": "1"
    },
-   "family": "solved-crossings"
+   "family": "solved-crossings",
+   "id": "solved-crossings-b347aad9"
+  },
+  {
+   "name": "1, 1/2, 1/5 at 1, 2, 5",
+   "id": "mobile-exact-a1e9b7ef",
+   "family": "mobile-exact",
+   "definition": {
+    "family": "mobile-exact",
+    "vanes": [
+     [
+      "1",
+      1,
+      "3-4-5"
+     ],
+     [
+      "1/2",
+      2,
+      "3-4-5"
+     ],
+     [
+      "1/5",
+      5,
+      "3-4-5"
+     ]
+    ]
+   }
   }
  ]
 }

@@ -1,4 +1,23 @@
 {
  "format": "curve-lab.naming-todo/1",
- "curves": []
+ "curves": [
+  {
+   "uid": "c-0088",
+   "name": "ph-3-4-5-rotated-mirror-slope-3of4-loadable",
+   "current": "PH 3-4-5 rotated, mirror slope -3/4 (loadable)",
+   "why": "long"
+  },
+  {
+   "uid": "c-0096",
+   "name": "c-1",
+   "current": "c -1",
+   "why": "not descriptive"
+  },
+  {
+   "uid": "c-0134",
+   "name": "1-1of2-1of5-at-1-2-5",
+   "current": "1, 1/2, 1/5 at 1, 2, 5",
+   "why": "not descriptive"
+  }
+ ]
 }

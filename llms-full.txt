@@ -529,6 +529,21 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
   argument is not had twice. Published numbers go in `state/ACHIEVEMENTS-int.md`
   via `scripts/recheck.py`.
 
+## Iteration: no wait over 5 seconds
+
+**Nothing runs in the foreground for more than 5 seconds.** A command that will
+take longer goes to the background, and the work continues; report it when it
+lands. The operator does not sit and watch a test run.
+
+- The fast loop is `.venv/bin/python scripts/test.py --fast` — 10 modules, about
+  **3 seconds**. Run it after every change.
+- The commit gate and `--full` are **background** jobs. Start one, keep working,
+  read the result at the next natural boundary.
+- A page rebuild, a plate export, an image raster, a dependency install: all
+  background.
+- If a check cannot be made to run in under 5 seconds, split it, or move it out
+  of the loop. Waiting is a bug in the workflow.
+
 ## Start cheap
 
 0. **`state/READING-int.md`** — the authoritative reading list (its line counts are refreshed by `scripts/reading_counts.py`, which `/fhandoff` runs): what to load, in
@@ -663,7 +678,8 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
-.venv/bin/python scripts/test.py --slim          # tight loop: engine only, ~3 s
+.venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
+.venv/bin/python scripts/test.py --slim          # engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
 .venv/bin/python scripts/test.py --browser       # the gate plus the headless page checks
 .venv/bin/python scripts/test.py --full          # before a push
@@ -837,6 +853,9 @@ process to satisfy.
     does not re-open it.
 12. **Say what you are doing and what it costs.** One line at a time, plain
     English, numbers with their units. A long silent tool chain reads as a freeze.
+
+13. **No wait over 5 seconds.** Long checks run in the background; the fast
+    loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
 
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault
@@ -3725,6 +3744,9 @@ Rows are counted by `data_audit.py` (2026-11-17).
 |---|---|---|---|---|
 | `family-census.json` | `curve-lab.family-census/1` | cache | `scripts/curve_files.py` | `scripts/family_census.py` |
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
+| `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
+| `curve-notes.json` | `curve-lab.curve-notes/1` | record | `/api/curve-notes` | the registry build |
+| `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
 | `finder.backup.json` | `curve-lab.finder/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `finder-stars.json` | `curve-lab.finder-stars/1` | record | `app/src/lib/finder-stars.js` | the star list on the `/finder` page |

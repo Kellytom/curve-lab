@@ -38,6 +38,9 @@ process to satisfy.
 12. **Say what you are doing and what it costs.** One line at a time, plain
     English, numbers with their units. A long silent tool chain reads as a freeze.
 
+13. **No wait over 5 seconds.** Long checks run in the background; the fast
+    loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
+
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault
 this project has actually had, delete it and say why.

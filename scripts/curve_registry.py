@@ -26,6 +26,8 @@ A name still ugly after that goes to workbench/naming-todo.json for a human.
 
 from __future__ import annotations
 
+import hashlib
+import hmac
 import json
 import math
 import re
@@ -37,6 +39,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "workbench" / "curve-registry.json"
+NOTES = ROOT / "workbench" / "curve-notes.json"
+STARS = ROOT / "workbench" / "finder-stars.json"
 TODO = ROOT / "workbench" / "naming-todo.json"
 SOURCES = (
     ("found", "workbench/real-curves.json", "curves"),
@@ -44,6 +48,41 @@ SOURCES = (
     ("B", "workbench/operator-list.json", "saved"),
 )
 FORMAT = "curve-lab.curve-registry/1"
+PPOI = ROOT / "ppoi.json"
+
+
+def owner_secret():
+    """The ownership key lives outside the repository (ppoi.json, gitignored).
+
+    A record carries only an HMAC of its uid, so a pull request cannot forge the
+    mark without the key, and the key never appears in the public tree.
+    """
+    if not PPOI.exists():
+        return None
+    data = json.loads(PPOI.read_text(encoding="utf-8"))
+    secret = data.get("ownership", {}).get("secret")
+    if secret:
+        return secret
+    import secrets as _secrets
+    secret = _secrets.token_hex(32)
+    data.setdefault("ownership", {})["secret"] = secret
+    PPOI.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    return secret
+
+
+def owner_mark(secret, uid):
+    if not secret:
+        return None
+    return hmac.new(secret.encode(), uid.encode(), hashlib.sha256).hexdigest()[:16]
+
+
+def variant_of(name, family):
+    s = slug(name)
+    if s == family:
+        return "plain"
+    if s.startswith(f"{family}-"):
+        return s[len(family) + 1:]
+    return s
 
 
 def rows_of(item):
@@ -55,6 +94,11 @@ def rows_of(item):
 def shape_of(item):
     x, y = rows_of(item)
     if not x and not y:
+        path = item.get("path")
+        if path:
+            # A drawing without rows: identity is its outline, rounded. Two
+            # paths merge only when every sampled point agrees.
+            return ("path", tuple((round(px, 2), round(py, 2)) for px, py in path))
         return None
     whole = x + y
     factor = 0
@@ -102,6 +146,18 @@ def main(argv: list[str]) -> int:
                 order.append(shape)
             groups[shape].append({"list": list_name, "item": item})
 
+    stars = set()
+    if STARS.exists():
+        for star in json.loads(STARS.read_text(encoding="utf-8")).get("curves", []):
+            if star.get("name"):
+                stars.add(star["name"])
+    notes = {}
+    if NOTES.exists():
+        for note in json.loads(NOTES.read_text(encoding="utf-8")).get("curves", []):
+            if note.get("uid"):
+                notes[note["uid"]] = note
+
+    secret = owner_secret()
     records = []
     todo = []
     merged = 0
@@ -110,8 +166,9 @@ def main(argv: list[str]) -> int:
         merged += len(members) - 1
         names = [member["item"].get("name") or "curve" for member in members]
         chosen = sorted(names, key=name_score)[0]
-        # Naming is a later pass: the registry keeps the chosen name as it is.
-        name = chosen
+        # A sentence becomes a name; the sentence is kept as an alias. A name
+        # that was already structured is left exactly as it is.
+        name = slug(chosen) or chosen
         aliases = sorted({n for n in names if n != name})
         item = members[0]["item"]
         x, y = rows_of(item)
@@ -126,6 +183,24 @@ def main(argv: list[str]) -> int:
             "family": family_of(name, item),
             "source": members[0]["list"],
         }
+        note = notes.get(record["uid"], {})
+        if note.get("name"):
+            if note["name"] != record["name"] and record["name"] not in record["aliases"]:
+                record["aliases"].append(record["name"])
+            record["name"] = note["name"]
+        record["auto_named"] = slug(chosen) != chosen
+        record["family_id"] = slug(record["family"])
+        record["variant"] = variant_of(record["name"], record["family_id"])
+        record["owner"] = owner_mark(secret, record["uid"])
+        record["kind"] = record.get("kind", "rows")
+        record["starred"] = any(n in stars for n in [record["name"], *record["aliases"]])
+        record["importance"] = int(note.get("importance",
+                                          10 if record["starred"] else 0))
+        if not x and not y and item.get("path"):
+            record["path"] = [[round(px, 2), round(py, 2)] for px, py in item["path"]]
+            record.pop("speedX", None)
+            record.pop("speedY", None)
+            record["kind"] = "polyline"
         for extra in ("definition", "grid", "note"):
             if item.get(extra) is not None:
                 record[extra] = item[extra]
@@ -133,6 +208,15 @@ def main(argv: list[str]) -> int:
         if len(name) > 40 or not re.search(r"[a-z]{3}", name):
             todo.append({"uid": record["uid"], "name": name, "current": chosen,
                          "why": "long" if len(name) > 40 else "not descriptive"})
+
+    # a family's base is the plain member, else its shortest variant
+    families: dict[str, list[dict]] = {}
+    for record in records:
+        families.setdefault(record["family_id"], []).append(record)
+    for members in families.values():
+        base = min(members, key=lambda r: (r["variant"] != "plain", len(r["variant"])))
+        for record in members:
+            record["base_uid"] = None if record is base else base["uid"]
 
     # names must be unique; a collision takes a numeric postfix, never a silent drop
     seen: dict[str, int] = {}

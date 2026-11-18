@@ -1,0 +1,131 @@
+---
+// The naming desk: a quick pass over the curves whose names are still
+// sentences. Type the middle of the name; the prefix and postfix are added
+// around it. The stars are importance, 1 to 10.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+const base = path.join(process.cwd(), "..");
+const registry = JSON.parse(readFileSync(path.join(base, "workbench", "curve-registry.json"), "utf8"));
+let notes = [];
+try {
+  notes = JSON.parse(readFileSync(path.join(base, "workbench", "curve-notes.json"), "utf8")).curves || [];
+} catch { notes = []; }
+const noteOf = new Map(notes.map((note) => [note.uid, note]));
+
+const slug = (text) => String(text || "").toLowerCase()
+  .replace(/(\d+)\s*\/\s*(\d+)/g, "$1of$2")
+  .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+const needsName = (curve) =>
+  curve.auto_named || /\s|=|,/.test(curve.name) || curve.name.length > 28;
+
+const rows = registry.curves
+  .filter(needsName)
+  .sort((a, b) => (b.importance || 0) - (a.importance || 0) || a.name.localeCompare(b.name))
+  .map((curve) => {
+    const note = noteOf.get(curve.uid) || {};
+    const postfixMatch = curve.name.match(/-(\d+)$/);
+    const postfix = postfixMatch ? postfixMatch[1] : "";
+    const prefix = curve.family && curve.family !== "curve" ? curve.family : slug(curve.name).split("-")[0];
+    return {
+      uid: curve.uid,
+      name: curve.name,
+      prefix,
+      postfix,
+      core: slug(curve.name).replace(new RegExp(`^${prefix}-?`), "").replace(new RegExp(`-?${postfix}$`), ""),
+      importance: note.importance ?? curve.importance ?? 0,
+      lists: curve.lists.join(", "),
+      starred: curve.starred,
+    };
+  });
+---
+
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naming desk: draft A</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<style>
+.row{border-top:1px solid var(--pico-muted-border-color);padding:.55rem 0}
+.row .who{font-size:.72rem;color:var(--pico-muted-color)}
+.line{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+.line .word{font:12px/1.4 ui-monospace,Menlo,monospace;color:#8c6a21}
+.line input[type=text]{width:12rem;margin:0;padding:.25rem .45rem}
+.line button{margin:0;padding:.2rem .5rem;font-size:.72rem}
+.stars button{margin:0;padding:.05rem .28rem;font-size:.72rem;line-height:1.4}
+.stars button.on{background:#c9a441;color:#fff;border-color:#c9a441}
+.saved{font-size:.7rem;color:#2f7d32;margin-left:.4rem}
+</style>
+</head><body>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
+<main class="container">
+  <h1>Naming desk</h1>
+  <p>{rows.length} curves still carry a sentence for a name. Type the middle; the
+    prefix and postfix are added around it. The stars are importance: 1 to 10,
+    and the top of every list is the highest.</p>
+
+  {rows.map((row) => (
+    <div class="row" data-uid={row.uid}>
+      <div class="who">{row.uid} · lists: {row.lists}{row.starred ? " · starred" : ""} · now: <code>{row.name}</code></div>
+      <div class="line">
+        <span class="word">{row.prefix}-</span>
+        <input type="text" class="core" value={row.core} aria-label={`name core for ${row.uid}`}>
+        <span class="word">{row.postfix ? `-${row.postfix}` : ""}</span>
+        <span class="word preview"></span>
+        <span class="saved"></span>
+      </div>
+      <div class="line stars" role="group" aria-label={`importance for ${row.uid}`}>
+        <span class="word">importance</span>
+        {Array.from({ length: 10 }, (_, i) => (
+          <button type="button" data-value={i + 1} class={i + 1 <= row.importance ? "on" : ""}>{i + 1}</button>
+        ))}
+      </div>
+    </div>
+  ))}
+</main>
+<script is:inline>
+(() => {
+  const save = async (row) => {
+    const uid = row.dataset.uid;
+    const prefix = row.querySelector(".word").textContent.replace(/-$/, "");
+    const core = row.querySelector(".core").value.trim();
+    const postfix = row.querySelectorAll(".word")[1].textContent.replace(/^-/, "");
+    const name = core ? [prefix, core, postfix].filter(Boolean).join("-") : "";
+    const importance = Number(row.querySelector(".stars button.on")?.dataset.value || 0);
+    const body = { curves: [{ uid }] };
+    if (name) body.curves[0].name = name;
+    body.curves[0].importance = importance;
+    const response = await fetch("/api/curve-notes", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const out = await response.json();
+    const flag = row.querySelector(".saved");
+    flag.textContent = response.ok ? "saved" : `failed: ${out.error}`;
+  };
+  document.querySelectorAll(".row").forEach((row) => {
+    const update = () => {
+      const prefix = row.querySelector(".word").textContent.replace(/-$/, "");
+      const core = row.querySelector(".core").value.trim();
+      const postfix = row.querySelectorAll(".word")[1].textContent.replace(/^-/, "");
+      row.querySelector(".preview").textContent = core ? `= ${[prefix, core, postfix].filter(Boolean).join("-")}` : "";
+    };
+    const core = row.querySelector(".core");
+    core.addEventListener("input", update);
+    update();
+    let timer = null;
+    let timer = null;
+    const later = () => { clearTimeout(timer); timer = setTimeout(() => save(row), 500); };
+    core.addEventListener("input", later);
+    row.querySelectorAll(".stars button").forEach((button) => {
+      button.addEventListener("click", () => {
+        row.querySelectorAll(".stars button").forEach((other) => other.classList.toggle("on", other === button));
+        save(row);
+      });
+    });
+  });
+})();
+</script>
+</body></html>

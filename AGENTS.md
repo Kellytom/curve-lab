@@ -40,6 +40,21 @@ Hours go into fixing a fault, and a fault fixed twice is a process failure. So:
   argument is not had twice. Published numbers go in `state/ACHIEVEMENTS-int.md`
   via `scripts/recheck.py`.
 
+## Iteration: no wait over 5 seconds
+
+**Nothing runs in the foreground for more than 5 seconds.** A command that will
+take longer goes to the background, and the work continues; report it when it
+lands. The operator does not sit and watch a test run.
+
+- The fast loop is `.venv/bin/python scripts/test.py --fast` — 10 modules, about
+  **3 seconds**. Run it after every change.
+- The commit gate and `--full` are **background** jobs. Start one, keep working,
+  read the result at the next natural boundary.
+- A page rebuild, a plate export, an image raster, a dependency install: all
+  background.
+- If a check cannot be made to run in under 5 seconds, split it, or move it out
+  of the loop. Waiting is a bug in the workflow.
+
 ## Start cheap
 
 0. **`state/READING-int.md`** — the authoritative reading list (its line counts are refreshed by `scripts/reading_counts.py`, which `/fhandoff` runs): what to load, in
@@ -174,7 +189,8 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
-.venv/bin/python scripts/test.py --slim          # tight loop: engine only, ~3 s
+.venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
+.venv/bin/python scripts/test.py --slim          # engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
 .venv/bin/python scripts/test.py --browser       # the gate plus the headless page checks
 .venv/bin/python scripts/test.py --full          # before a push

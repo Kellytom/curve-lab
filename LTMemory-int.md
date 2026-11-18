@@ -14,6 +14,12 @@ minutes, and so the same ground is not dug twice.
 
 Nothing else unless the action names it. `app/src/content/docs/docs/handover.md` is deliberately long.
 
+## The rules that cost time
+
+- **No foreground command over 5 seconds.** Background it and continue. The fast
+  loop is `scripts/test.py --fast` (about 3 s); the commit gate is a background
+  job. The operator never waits for a test.
+
 ## The map
 
 | path | what it is |
