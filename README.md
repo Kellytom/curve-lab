@@ -32,6 +32,9 @@ Two commands check the work:
 
 The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`.
 
+Reading this with an AI agent? `llms.txt` is the short map, and
+`llms-full.txt` is the same documents in one file.
+
 ## What this is now
 
 The first half of the repo is the clothoid engine described below: chains of

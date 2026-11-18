@@ -1,0 +1,85 @@
+# curve-lab
+
+> Exact integer and rational curves for ornament: a Python engine, a generated browser lab, and an Astro app.
+
+curve-lab builds curves whose coordinates are whole numbers, then measures their
+grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
+book plates, are built from those curves. A second, older layer does numerical
+clothoid chains and writes them as plain SVG.
+
+Read this page first. Everything below is a path in this repository; the same
+files are on the public GitHub mirror at
+https://github.com/Kellytom/curve-lab/tree/main/
+
+## Start here
+
+- [README.md](README.md): the three layers, the first command for each, and a repository map.
+- [docs/index.md](docs/index.md): the front page of the prose book.
+- [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
+- [docs/STRUCTURE.md](docs/STRUCTURE.md): where every folder is.
+
+## The rules that matter
+
+- [AGENTS.md](AGENTS.md): the working rules. Read this before changing code.
+- [docs/PH-INTEGER.md](docs/PH-INTEGER.md): why the curves are integer, and what a float would lose.
+- [docs/VERIFY.md](docs/VERIFY.md): how a claim is checked here.
+- [senior-dev.md](senior-dev.md): twelve rules learned the hard way.
+
+## Reference
+
+- [docs/GLOSSARY.md](docs/GLOSSARY.md): the words, each with one meaning.
+- [docs/CURVE-MODEL.md](docs/CURVE-MODEL.md): the design and segment model.
+- [docs/CLEARANCE.md](docs/CLEARANCE.md): the minimum-gap and crossing rule.
+- [docs/FIDELITY.md](docs/FIDELITY.md): the accuracy budget and its precedent.
+- [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md): glyph, full line, sections, joints.
+- [docs/JUNCTION.md](docs/JUNCTION.md): junctions, fillets, declared contacts.
+- [docs/PRIMAL.md](docs/PRIMAL.md): the four primal ornaments and their gate.
+
+## Decisions and history
+
+- [state/DESIGN-int.md](state/DESIGN-int.md): settled decisions, each with its reason.
+- [state/REGRESSIONS-int.md](state/REGRESSIONS-int.md): every fault that cost real work, and the test that guards it.
+- [state/DATA-int.md](state/DATA-int.md): every stored dataset and its format.
+- [book/README.md](book/README.md): the book plates and their rules.
+- [app/README.md](app/README.md): the Astro app and its save endpoint.
+
+## Optional
+
+- [docs/HANDOVER.md](docs/HANDOVER.md): long; architecture, deploy and security detail.
+- [docs/G3-showcase-docs.md](docs/G3-showcase-docs.md): the G3 showcase and its gate.
+- [state/PORT-int.md](state/PORT-int.md): the language boundary, JS in the browser and Python where it is debugged.
+
+## What an agent needs to know before editing
+
+- The code root is the repository root. `$REPO` means this folder.
+- Python 3.12, no third-party runtime dependencies; the native engine is built
+  by `bash scripts/build-native.sh` and cached in `build/`.
+- The one exact numeric core is `curve_lab/measure.py`, in `Fraction`. Do not
+  add a second implementation of grid, bend, arc, inflections or closest.
+- `Fraction` and integers on exact paths. A `cos` or `sin` of a general angle is
+  irrational and leaves the integer grid: use a Pythagorean triple, or a
+  rational `t = tan(θ/2)`. A float on an exact path is the same red flag.
+- Positive y is up in the model; SVG's y is down, so the flip happens once, at
+  output. Do not inherit y-down silently.
+- Every outward page carries a `draft A` label. `scripts/stamp_draft.py --check`
+  enforces it; `scripts/build-pages.py` re-stamps after a rebuild.
+- A generated page is never edited by hand. Change its generator in `scripts/`
+  and rebuild.
+- A fix and its register row land in the same commit, with a test in
+  `tests/test_regressions.py` named after the fault.
+
+## Commands
+
+```sh
+.venv/bin/python scripts/test.py --slim     # the engine, about 3 s
+.venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
+.venv/bin/python scripts/serve.py           # the lab pages, http://127.0.0.1:8003
+.venv/bin/python -m mkdocs serve            # the prose book, http://127.0.0.1:8000
+cd app && npm run dev                       # the Astro app, http://127.0.0.1:4321
+```
+
+## Licence
+
+MIT for this project. The vendored clothoid engine is BSD-2-Clause, Eigen is
+MPL-2.0, and the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.
