@@ -124,7 +124,7 @@ number that belongs to *one set of generators* as if it belonged to the degree.
 - **n = 5** is the workhorse: C and S shapes, first-order Hermite interpolation
   with a single segment, and the only low degree that supports C² PH splines.
   The quintic transition curve — straight line to circular arc with monotone
-  curvature — is the lowest-degree polynomial that does the clothoid's job.
+  curvature — is the lowest-degree polynomial that does the Euler curve's job.
 - **n = 6** takes `deg h = 1` with quadratic generators. This is where the
   multiple-cusp shapes live.
 

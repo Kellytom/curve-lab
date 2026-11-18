@@ -45,6 +45,7 @@ markdown_extensions:
 nav:
   - Start here: index.md
   - One curve, end to end: WORKED-EXAMPLE.md
+  - Concepts: CONCEPTS.md
   - State of the work: STATE-OF-THE-WORK.md
   - The tunnel (phone access): TUNNEL.md
   - Truth and state:

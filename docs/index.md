@@ -5,7 +5,7 @@
 A workshop for one thing: **curves that can be built exactly, and ornaments that
 follow from them.**
 
-The older layer is the clothoid — curvature linear in arc length. The newer
+The older layer is the Euler curve — curvature linear in arc length. The newer
 layer is stricter: build with whole-number polynomials and Pythagorean triples,
 so every point lands on an integer grid instead of being snapped to one.
 

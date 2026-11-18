@@ -4,7 +4,7 @@
 `curve-lab` is a workshop for curves that can be built exactly, and for the
 ornaments that follow from them. It has two halves.
 
-The first is clothoid geometry: a design is a chain of segments whose curvature
+The first is Euler-curve geometry: a design is a chain of segments whose curvature
 rises linearly with arc length, placed in the plane, fitted to cubic Béziers to
 a measured tolerance, offset into rails, and written in millimetres with no
 transform, so Inkscape opens it as ordinary nodes. The loop is meant for a
@@ -169,5 +169,5 @@ placed by `scripts/set_window_geometry.py`.
 - `SPEC.md` — what it promises, with the acceptance numbers.
 - `docs/TODO.md` — what is done, planned, and what is broken.
 - `docs/clothoid-grid-3125.md` — reverse curves, odd symmetry, the exact 4% table.
-- `docs/caps.md` — the closed two-clothoid cap family and its fold.
+- `docs/caps.md` — the closed two-Euler-curve cap family and its fold.
 - `ATTRIBUTION.md` — licences and provenance.

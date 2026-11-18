@@ -1,0 +1,55 @@
+---
+// About: what this is, in one screen, with links to the repository's own words.
+// The book is mkdocs and lives on GitHub; this page does not copy it.
+const links = [
+  { label: "README", href: "https://github.com/Kellytom/curve-lab#readme", note: "the three layers and the first commands" },
+  { label: "Concepts", href: "https://github.com/Kellytom/curve-lab/blob/main/docs/CONCEPTS.md", note: "Euler curve, grid, bend, crossing pair" },
+  { label: "One curve, end to end", href: "https://github.com/Kellytom/curve-lab/blob/main/docs/WORKED-EXAMPLE.md", note: "a curve from its polynomials to its figure" },
+  { label: "State of the work", href: "https://github.com/Kellytom/curve-lab/blob/main/docs/STATE-OF-THE-WORK.md", note: "what is proved, what is draft, what is next" },
+  { label: "Contributing", href: "https://github.com/Kellytom/curve-lab/blob/main/CONTRIBUTING.md", note: "setup, rules, naming" },
+  { label: "llms.txt", href: "https://github.com/Kellytom/curve-lab/blob/main/llms.txt", note: "the same map for an agent" },
+];
+---
+
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About curve-lab: draft A</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+</head><body>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
+<nav class="container-fluid">
+  <ul><li><strong>curve-lab</strong></li></ul>
+  <ul>
+    <li><a href="/">hub</a></li>
+    <li><a href="/lab">central design &amp; frame</a></li>
+    <li><a href="/book">book</a></li>
+    <li><a href="/finder">finder</a></li>
+    <li><a href="/everything">everything else</a></li>
+  </ul>
+</nav>
+<main class="container">
+  <h1>About curve-lab</h1>
+  <p>A workshop for curves that can be built exactly, and for the ornaments that
+    follow from them. A curve is written as a pair of polynomials with
+    whole-number coefficients, so its grid, bend, symmetry and self-crossings
+    are computed in exact fractions rather than floats.</p>
+  <p>The older layer is the Euler curve — curvature rising in proportion to arc
+    length — built as a chain and written as plain SVG that Inkscape opens as
+    ordinary nodes. The newer layer is the exact integer curve, and the book
+    plates are built from it.</p>
+
+  <h2>Read more</h2>
+  <ul>
+    {links.map((link) => (
+      <li><a href={link.href}>{link.label}</a> — {link.note}</li>
+    ))}
+  </ul>
+
+  <h2>Run it</h2>
+  <p>The lab pages are generated into <code>workbench/</code> and served by
+    <code>scripts/serve.py</code> on port 8003. This app is the Astro layer on
+    port 4321. The prose book is mkdocs, on port 8000.</p>
+</main>
+</body></html>

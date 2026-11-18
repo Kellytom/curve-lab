@@ -5,7 +5,7 @@
 curve-lab builds curves whose coordinates are whole numbers, then measures their
 grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
 book plates, are built from those curves. A second, older layer does numerical
-clothoid chains and writes them as plain SVG.
+Euler-curve chains and writes them as plain SVG.
 
 Read this page first. Everything below is a path in this repository; the same
 files are on the public GitHub mirror at
@@ -16,6 +16,7 @@ https://github.com/Kellytom/curve-lab/tree/main/
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [docs/index.md](docs/index.md): the front page of the prose book.
 - [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
+- [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
 - [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
 - [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
@@ -83,5 +84,5 @@ cd app && npm run dev                       # the Astro app, http://127.0.0.1:43
 
 ## Licence
 
-MIT for this project. The vendored clothoid engine is BSD-2-Clause, Eigen is
+MIT for this project. The vendored Clothoids engine is BSD-2-Clause, Eigen is
 MPL-2.0, and the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.

@@ -5,13 +5,13 @@
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
 > **draft A** — a working draft, not a final text.
-Numerical clothoid chains, out as plain editable SVG.
+Exact integer and Euler curves, out as plain editable SVG.
 
-A clothoid, or Euler spiral, is the curve whose curvature rises linearly with
-arc length. It is the transition every road and railway uses, and the shape
-under a French curve. This tool builds chains of them to stated tolerance,
-offsets them into ribbons, and writes SVG that Inkscape opens as ordinary cubic
-Bézier nodes.
+An **Euler curve** (also called a clothoid, or Euler spiral) is the curve whose
+curvature rises in proportion to arc length. It is the transition every road and
+railway uses, and the shape under a French curve. This tool builds chains of them
+to a stated tolerance, offsets them into ribbons, and writes SVG that Inkscape
+opens as ordinary cubic Bézier nodes.
 
 The engine is Bertolazzi's Clothoids, compiled from the vendored source and
 called through a small C surface. Everything around it is here: the chain
@@ -19,13 +19,18 @@ model, the cubic fit, the rails, and the writer.
 
 ## Start here
 
-The repo has three layers. Pick the one you need.
+The repo has three layers. The quickest look is the app; the engine is what you
+build when you want to change the geometry.
 
 | layer | what it is | first command |
 |---|---|---|
-| the engine | exact geometry in Python: clothoid chains, integer and PH curves, grid, bend, crossings, SVG | `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
+| the app | the Astro pages: hub, finder, sandbox, book plates | `npm --prefix app install && npm --prefix app run dev` |
 | the lab | generated browser pages for the curve studies and the ornament work | `.venv/bin/python scripts/serve.py` |
-| the app | the Astro pages: hub, finder, sandbox, book plates | `cd app && npm run dev` |
+| the engine | exact geometry in Python: Euler-curve chains, integer and PH curves, grid, bend, crossings, SVG | `bash scripts/build-native.sh`, then `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
+
+The native build is needed for the engine only. It stays C++ on purpose: the
+engine is the part that must be exact and fast, and the rest of the project does
+not depend on it to run.
 
 Two commands check the work:
 
@@ -34,14 +39,15 @@ Two commands check the work:
 .venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
 ```
 
-The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`.
+The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`. Start with
+[Concepts](docs/CONCEPTS.md) if a word is unfamiliar.
 
 Reading this with an AI agent? `llms.txt` is the short map, and
 `llms-full.txt` is the same documents in one file.
 
 ## What this is now
 
-The first half of the repo is the clothoid engine described below: chains of
+The first half of the repo is the Euler-curve engine described below: chains of
 segments, a cubic fit to a measured tolerance, rails, and SVG that Inkscape
 opens as ordinary nodes.
 
@@ -50,8 +56,8 @@ whole-number coefficients, so its grid (the pitch its points land on), its bend,
 its symmetry and its self-crossings are computed in exact fractions, not
 floats. The ornament studies and the book plates are built from those curves.
 
-One rule ties the halves together: a claim is either proved by a test, or
-measured and printed with its number. A picture is never the proof.
+The rest of this page is the engine's detail: the chain model, the cubic fit, the
+rails, and the writer.
 
 ## Install and run
 
@@ -211,7 +217,7 @@ the points and let it fit them:
 36, 10
 ```
 
-This is Bertolazzi and Frego's G1 fitting. Each pair of points gets one clothoid
+This is Bertolazzi and Frego's G1 fitting. Each pair of points gets one Euler curve
 that passes through both with the directions at its ends, and the directions are
 estimated so neighbours share a tangent. The fit is G1, not G2: curvature is
 free to jump at a point, and the report prints the jump rather than hiding it.
@@ -229,7 +235,7 @@ A supplied direction is honoured; with no `thetas`, they are estimated.
 `--watch --points out/route.txt` watches the points file and refits on save,
 the same loop as a design file.
 
-Two points give one clothoid. The fit is available directly too, as
+Two points give one Euler curve. The fit is available directly too, as
 `interpolate.fit(p0, t0, p1, t1)`, returning `(kappa0, kd, length)`.
 
 ```
@@ -246,7 +252,7 @@ ring. It costs more segments, and it removes the jumps — measured, not assumed
 ## Splicing and trimming
 
 The chain can be cut and reversed without refitting, so the pieces stay the
-same clothoid arcs. Two designs can be joined with a G2 connector at the seam:
+same Euler-curve arcs. Two designs can be joined with a G2 connector at the seam:
 
 ```python
 from curve_lab import compose

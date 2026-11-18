@@ -2,7 +2,7 @@
 
 > **draft A** — a working draft, not a final text.
 > **Important — operator decision, 2026-10-30.** A chain that imitates a
-> clothoid is accepted at **1.4–1.6 per cent**. That figure was set for the
+> An Euler curve is accepted at **1.4–1.6 per cent**. That figure was set for the
 > curvature-law fit (the chain follows the ideal Euler law to 0.8% of peak; the
 > drawn cubics to 1.4%, rms 0.8%). For a **chain study** the working rule is:
 > the worst span-end drift must be **at most 1.6 per cent of the study's
@@ -22,7 +22,7 @@ From the spine layer's own handover:
 > a percent and a half.
 
 That is the precedent: about one and a half per cent, for a chain standing in
-for a clothoid. It was accepted as good enough for ornament at print size.
+for an Euler curve. It was accepted as good enough for ornament at print size.
 
 ## Two different percentages, and why the difference matters
 
@@ -106,7 +106,7 @@ and therefore one cubic per chord. At a 0.5 degree step that is 943 design
 segments and **1,164 cubics** with the mirror, a 249 KB page. It is the file to
 zoom into and to keep as the record.
 
-The practical profile fits one clothoid through each *structural run* — the part
+The practical profile fits one Euler curve through each *structural run* — the part
 between two of the study's corners — and subdivides a run only when the measured
 error exceeds the tolerance. At 0.5 mm:
 
@@ -157,7 +157,7 @@ ring, not a letter. Measured native counts from ten installed serif faces:
 
 TrueType stores quadratics, and one cubic reproduces a quadratic exactly by
 degree elevation, so the count is the cubic equivalent. One serif C is 18–42
-cubics; `@` is 46–82 and `&` is 32–94. The practical half at 14 clothoids is in the
+cubics; `@` is 46–82 and `&` is 32–94. The practical half at 14 Euler curves is in the
 range of one serif C; the exact half at 221 is past a whole glyph, and the band
 at 722 is past an `@` several times over.
 

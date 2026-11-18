@@ -18,13 +18,13 @@ relative to the repository root.
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
 > **draft A** — a working draft, not a final text.
-Numerical clothoid chains, out as plain editable SVG.
+Exact integer and Euler curves, out as plain editable SVG.
 
-A clothoid, or Euler spiral, is the curve whose curvature rises linearly with
-arc length. It is the transition every road and railway uses, and the shape
-under a French curve. This tool builds chains of them to stated tolerance,
-offsets them into ribbons, and writes SVG that Inkscape opens as ordinary cubic
-Bézier nodes.
+An **Euler curve** (also called a clothoid, or Euler spiral) is the curve whose
+curvature rises in proportion to arc length. It is the transition every road and
+railway uses, and the shape under a French curve. This tool builds chains of them
+to a stated tolerance, offsets them into ribbons, and writes SVG that Inkscape
+opens as ordinary cubic Bézier nodes.
 
 The engine is Bertolazzi's Clothoids, compiled from the vendored source and
 called through a small C surface. Everything around it is here: the chain
@@ -32,13 +32,18 @@ model, the cubic fit, the rails, and the writer.
 
 ## Start here
 
-The repo has three layers. Pick the one you need.
+The repo has three layers. The quickest look is the app; the engine is what you
+build when you want to change the geometry.
 
 | layer | what it is | first command |
 |---|---|---|
-| the engine | exact geometry in Python: clothoid chains, integer and PH curves, grid, bend, crossings, SVG | `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
+| the app | the Astro pages: hub, finder, sandbox, book plates | `npm --prefix app install && npm --prefix app run dev` |
 | the lab | generated browser pages for the curve studies and the ornament work | `.venv/bin/python scripts/serve.py` |
-| the app | the Astro pages: hub, finder, sandbox, book plates | `cd app && npm run dev` |
+| the engine | exact geometry in Python: Euler-curve chains, integer and PH curves, grid, bend, crossings, SVG | `bash scripts/build-native.sh`, then `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
+
+The native build is needed for the engine only. It stays C++ on purpose: the
+engine is the part that must be exact and fast, and the rest of the project does
+not depend on it to run.
 
 Two commands check the work:
 
@@ -47,14 +52,15 @@ Two commands check the work:
 .venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
 ```
 
-The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`.
+The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`. Start with
+[Concepts](docs/CONCEPTS.md) if a word is unfamiliar.
 
 Reading this with an AI agent? `llms.txt` is the short map, and
 `llms-full.txt` is the same documents in one file.
 
 ## What this is now
 
-The first half of the repo is the clothoid engine described below: chains of
+The first half of the repo is the Euler-curve engine described below: chains of
 segments, a cubic fit to a measured tolerance, rails, and SVG that Inkscape
 opens as ordinary nodes.
 
@@ -63,8 +69,8 @@ whole-number coefficients, so its grid (the pitch its points land on), its bend,
 its symmetry and its self-crossings are computed in exact fractions, not
 floats. The ornament studies and the book plates are built from those curves.
 
-One rule ties the halves together: a claim is either proved by a test, or
-measured and printed with its number. A picture is never the proof.
+The rest of this page is the engine's detail: the chain model, the cubic fit, the
+rails, and the writer.
 
 ## Install and run
 
@@ -224,7 +230,7 @@ the points and let it fit them:
 36, 10
 ```
 
-This is Bertolazzi and Frego's G1 fitting. Each pair of points gets one clothoid
+This is Bertolazzi and Frego's G1 fitting. Each pair of points gets one Euler curve
 that passes through both with the directions at its ends, and the directions are
 estimated so neighbours share a tangent. The fit is G1, not G2: curvature is
 free to jump at a point, and the report prints the jump rather than hiding it.
@@ -242,7 +248,7 @@ A supplied direction is honoured; with no `thetas`, they are estimated.
 `--watch --points out/route.txt` watches the points file and refits on save,
 the same loop as a design file.
 
-Two points give one clothoid. The fit is available directly too, as
+Two points give one Euler curve. The fit is available directly too, as
 `interpolate.fit(p0, t0, p1, t1)`, returning `(kappa0, kd, length)`.
 
 ```
@@ -259,7 +265,7 @@ ring. It costs more segments, and it removes the jumps — measured, not assumed
 ## Splicing and trimming
 
 The chain can be cut and reversed without refitting, so the pieces stay the
-same clothoid arcs. Two designs can be joined with a G2 connector at the seam:
+same Euler-curve arcs. Two designs can be joined with a G2 connector at the seam:
 
 ```python
 from curve_lab import compose
@@ -384,7 +390,7 @@ the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.
 curve-lab builds curves whose coordinates are whole numbers, then measures their
 grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
 book plates, are built from those curves. A second, older layer does numerical
-clothoid chains and writes them as plain SVG.
+Euler-curve chains and writes them as plain SVG.
 
 Read this page first. Everything below is a path in this repository; the same
 files are on the public GitHub mirror at
@@ -395,6 +401,7 @@ https://github.com/Kellytom/curve-lab/tree/main/
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [docs/index.md](docs/index.md): the front page of the prose book.
 - [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
+- [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
 - [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
 - [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
@@ -462,7 +469,7 @@ cd app && npm run dev                       # the Astro app, http://127.0.0.1:43
 
 ## Licence
 
-MIT for this project. The vendored clothoid engine is BSD-2-Clause, Eigen is
+MIT for this project. The vendored Clothoids engine is BSD-2-Clause, Eigen is
 MPL-2.0, and the optional wheel is MIT. See `LICENSE` and `ATTRIBUTION.md`.
 
 
@@ -833,7 +840,7 @@ this project has actually had, delete it and say why.
 A workshop for one thing: **curves that can be built exactly, and ornaments that
 follow from them.**
 
-The older layer is the clothoid — curvature linear in arc length. The newer
+The older layer is the Euler curve — curvature linear in arc length. The newer
 layer is stricter: build with whole-number polynomials and Pythagorean triples,
 so every point lands on an integer grid instead of being snapped to one.
 
@@ -1032,6 +1039,137 @@ second source. That is what "exact" means here, and it is the standard every
 page is held to.
 
 
+<!-- source: docs/CONCEPTS.md -->
+
+# Concepts
+
+> **draft A** — a working draft, not a final text.
+
+The words this project uses, each with one meaning. If a term is missing, the
+[Glossary](GLOSSARY.md) has the longer list.
+
+## Euler curve
+
+An **Euler curve** is the curve whose curvature rises in proportion to arc
+length. Roads and railways use it as the transition into a bend, and a
+draughtsman's French curve is a short piece of one. The older name is
+**clothoid**, or **Euler spiral**; this project says Euler curve in prose and
+keeps `clothoid` in code, file names and the name of the vendored library
+(Bertolazzi and Frego's *Clothoids*).
+
+Two facts follow from the definition, and they are why the project uses it:
+
+- the tangent turns smoothly, with no jump in curvature at a join;
+- the shape is fixed by very few numbers, so it is easy to state and compare.
+
+## Exact curve
+
+An **exact curve** here is a curve written as polynomials in a parameter `t`,
+with whole-number or rational coefficients. Nothing is sampled. Given `t`, the
+point is a fraction, and the measurement is arithmetic rather than a fit.
+
+## Speed, and the square
+
+Write the curve as a complex polynomial `w(t) = p(t) + i q(t)`, and let the curve
+be
+
+```
+z(t) = ∫ w(t)² dt
+```
+
+Then the velocity is `w²`, and its length is `|w|² = p² + q²`, a polynomial. A
+polynomial length means the arc length is a polynomial integral, which is why it
+can be computed exactly. A curve with this property is called a **Pythagorean
+hodograph** curve, or **PH** curve.
+
+## Grid
+
+The **grid** is the pitch the curve's points can land on, written as a fraction
+`1/n`. To find it, integrate the speed rows term by term, collect the
+denominators of the position terms, and take their least common multiple. Grid
+1/2730 means: multiply the position by 2730 and every coefficient is a whole
+number.
+
+A cheap grid is a curve that is easy to store and compare. A grid of
+1/86,625,000,000,000 is not, which is why the page refuses certain tweak sizes.
+
+## Bend
+
+**Bend** is arc length divided by the straight distance between the two ends:
+how much longer the curve is than the line it spans. A straight line has bend 1.
+Bend 1.418 means the curve is 41.8% longer than its chord.
+
+It is a single number for the whole curve, not a curvature at a point.
+
+## Arc and chord
+
+The **arc** is the length along the curve, exact as a fraction. The **chord** is
+the straight distance between the two ends. Bend is arc over chord.
+
+## Flat spot
+
+A **flat spot** is a place where the stroke runs horizontal: a root of `q(t)`.
+A flat spot counted twice or three times is a repeated root, and a repeated root
+holds the stroke flat for a stretch. The number of flat spots, and where they
+are, is one of the few things that fixes the shape.
+
+## Crossing pair
+
+A **crossing pair** is two parameters `t₁ < t₂` where the stroke passes through
+the same point. The number is scale-free, and it is what the galleries sort by.
+
+Three passes through one point are **three pairs at one place**. If a reader
+needs places, say *meeting points*; never call both "crossings".
+
+## Loop
+
+The **loop** is the part of `t` that holds the knot, written as a range such as
+`t 0.0249 to 0.9741`. It is a viewing window, not a different curve.
+
+## Step
+
+The **step** is the power step of the rows. At step 1 the powers are whole
+numbers. At step ½ they are halves, and the curve is a polynomial in `√t`.
+Fractional steps are an experiment: they give new shapes but no exact integer
+grid and no mirror symmetry.
+
+## Symmetry
+
+Measured on the spine at 400 stations, not guessed:
+
+- **half turn**: `C(1/2+s) + C(1/2−s) = 2C(1/2)`;
+- **mirror**: the same about the vertical line through the midpoint;
+- **none**: neither, within 0.5% of the bounding-box diagonal.
+
+The operator's category is stricter than the axis test, so both are printed.
+
+## Rails
+
+A **rail** is a side curve at a stated distance from the spine. The book plates
+use **character rails**: the offset is bowed by a strength and a profile, so the
+rail reads as a drawn edge rather than a mechanical parallel. A rail folds where
+`|d · κ| ≥ 1`; the fold is measured and printed.
+
+## Plate, section, junction, contact
+
+- A **plate** is one book image: a spine plus its rails, clipped to the curve.
+- A **section** is one station across a full line.
+- A **junction** is a branch plus a trunk plus a declared merge.
+- A **contact** is a declared legal touch, so a deliberate join is not reported
+  as a collision.
+
+## Positive y
+
+In the model, positive y points up. SVG's y points down, so the writer flips once
+at output and nowhere else. A figure never inherits y-down silently.
+
+## How a claim is checked
+
+A number is a fraction or a count, produced by one function and reproduced by one
+command. The commands are in [Verification](VERIFY.md). A drawing can show a
+result; it cannot prove one.
+
+
 <!-- source: docs/STATE-OF-THE-WORK.md -->
 
 # State of the work
@@ -1120,7 +1258,7 @@ project will defend.
 `curve-lab` is a workshop for curves that can be built exactly, and for the
 ornaments that follow from them. It has two halves.
 
-The first is clothoid geometry: a design is a chain of segments whose curvature
+The first is Euler-curve geometry: a design is a chain of segments whose curvature
 rises linearly with arc length, placed in the plane, fitted to cubic Béziers to
 a measured tolerance, offset into rails, and written in millimetres with no
 transform, so Inkscape opens it as ordinary nodes. The loop is meant for a
@@ -1285,7 +1423,7 @@ placed by `scripts/set_window_geometry.py`.
 - `SPEC.md` — what it promises, with the acceptance numbers.
 - `docs/TODO.md` — what is done, planned, and what is broken.
 - `docs/clothoid-grid-3125.md` — reverse curves, odd symmetry, the exact 4% table.
-- `docs/caps.md` — the closed two-clothoid cap family and its fold.
+- `docs/caps.md` — the closed two-Euler-curve cap family and its fold.
 - `ATTRIBUTION.md` — licences and provenance.
 
 
@@ -1519,7 +1657,7 @@ was never written.
 |---|---|
 | **Piece** | One drawing: named traces, an optional mirror, layers, and declared contacts. It is the container, not a claim that the ornament is finished. |
 | **Trace** | One full line inside a piece: a spine, its optional ribbon width, its terminals, and its mirror rule. |
-| **Segment** | One piece of a design's centre line: a clothoid arc stated by `kappa0`, `kd` and `length`. |
+| **Segment** | One piece of a design's centre line: an Euler curve arc stated by `kappa0`, `kd` and `length`. |
 | **Contact** | A *declared* legal touch or crossing. The clearance report allows a crossing only where a contact covers it. |
 | **Section** | A reading, not a shape: one station across a full line, with the spine point, tangent, width and the two rails. |
 | **Bundle** | The design box: a named set of full lines that must not touch, with an internal clearance and a footprint. The box is for placement, not clipping. |
@@ -1812,7 +1950,7 @@ number that belongs to *one set of generators* as if it belonged to the degree.
 - **n = 5** is the workhorse: C and S shapes, first-order Hermite interpolation
   with a single segment, and the only low degree that supports C² PH splines.
   The quintic transition curve — straight line to circular arc with monotone
-  curvature — is the lowest-degree polynomial that does the clothoid's job.
+  curvature — is the lowest-degree polynomial that does the Euler curve's job.
 - **n = 6** takes `deg h = 1` with quadratic generators. This is where the
   multiple-cusp shapes live.
 
@@ -2000,7 +2138,7 @@ there; they are evidence, not tests.
 
 > **draft A** — a working draft, not a final text.
 > **Important — operator decision, 2026-10-30.** A chain that imitates a
-> clothoid is accepted at **1.4–1.6 per cent**. That figure was set for the
+> An Euler curve is accepted at **1.4–1.6 per cent**. That figure was set for the
 > curvature-law fit (the chain follows the ideal Euler law to 0.8% of peak; the
 > drawn cubics to 1.4%, rms 0.8%). For a **chain study** the working rule is:
 > the worst span-end drift must be **at most 1.6 per cent of the study's
@@ -2020,7 +2158,7 @@ From the spine layer's own handover:
 > a percent and a half.
 
 That is the precedent: about one and a half per cent, for a chain standing in
-for a clothoid. It was accepted as good enough for ornament at print size.
+for an Euler curve. It was accepted as good enough for ornament at print size.
 
 ## Two different percentages, and why the difference matters
 
@@ -2104,7 +2242,7 @@ and therefore one cubic per chord. At a 0.5 degree step that is 943 design
 segments and **1,164 cubics** with the mirror, a 249 KB page. It is the file to
 zoom into and to keep as the record.
 
-The practical profile fits one clothoid through each *structural run* — the part
+The practical profile fits one Euler curve through each *structural run* — the part
 between two of the study's corners — and subdivides a run only when the measured
 error exceeds the tolerance. At 0.5 mm:
 
@@ -2155,7 +2293,7 @@ ring, not a letter. Measured native counts from ten installed serif faces:
 
 TrueType stores quadratics, and one cubic reproduces a quadratic exactly by
 degree elevation, so the count is the cubic equivalent. One serif C is 18–42
-cubics; `@` is 46–82 and `&` is 32–94. The practical half at 14 clothoids is in the
+cubics; `@` is 46–82 and `&` is 32–94. The practical half at 14 Euler curves is in the
 range of one serif C; the exact half at 221 is past a whole glyph, and the band
 at 722 is past an `@` several times over.
 

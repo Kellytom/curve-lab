@@ -12,7 +12,7 @@ was never written.
 |---|---|
 | **Piece** | One drawing: named traces, an optional mirror, layers, and declared contacts. It is the container, not a claim that the ornament is finished. |
 | **Trace** | One full line inside a piece: a spine, its optional ribbon width, its terminals, and its mirror rule. |
-| **Segment** | One piece of a design's centre line: a clothoid arc stated by `kappa0`, `kd` and `length`. |
+| **Segment** | One piece of a design's centre line: an Euler curve arc stated by `kappa0`, `kd` and `length`. |
 | **Contact** | A *declared* legal touch or crossing. The clearance report allows a crossing only where a contact covers it. |
 | **Section** | A reading, not a shape: one station across a full line, with the spine point, tangent, width and the two rails. |
 | **Bundle** | The design box: a named set of full lines that must not touch, with an internal clearance and a footprint. The box is for placement, not clipping. |
