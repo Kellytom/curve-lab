@@ -43,6 +43,8 @@ Rows are counted by `data_audit.py` (2026-11-17).
 |---|---|---|---|---|
 | `family-census.json` | `curve-lab.family-census/1` | cache | `scripts/curve_files.py` | `scripts/family_census.py` |
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
+| `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
+| `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
 | `finder.backup.json` | `curve-lab.finder/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `finder-stars.json` | `curve-lab.finder-stars/1` | record | `app/src/lib/finder-stars.js` | the star list on the `/finder` page |
