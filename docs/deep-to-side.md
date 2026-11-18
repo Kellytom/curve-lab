@@ -1,7 +1,7 @@
 # deep → side
 
 > **draft A** — a working draft, not a final text.
-**Read these to get up to speed**, in this order (paths from `/Users/thomaskelly/developer/curve-lab`):
+**Read these to get up to speed**, in this order (all paths from the repository root):
 
 1. `docs/deep-to-side.md` — this file: what changed, what not to trust.
 2. `docs/STRUCTURE.md` — where every folder is, and the files that matter.
@@ -66,9 +66,9 @@ Large and excluded: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/`,
 
 ## 2026-11-17 20:00 — absolute root
 
-The repository root is `/Users/thomaskelly/developer/curve-lab` — under
-`/Users/thomaskelly/developer/`, not nested in another project. Every path in
-`docs/STRUCTURE.md` is relative to that root; `$REPO` means that directory.
+The repository root is the folder you cloned, not nested in another project.
+Every path in `docs/STRUCTURE.md` is relative to that root; `$REPO` means that
+directory.
 
 ---
 

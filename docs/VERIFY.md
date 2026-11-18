@@ -13,11 +13,8 @@ Four checks. Each answers one practical question, and each can fail on its own.
 shared-token gate, and the work board's principle cards. When they pass, the
 engine still does what it says.
 
-*Status:* 239 pass (1 skipped), 2026-10-30. The spine bridge is included:
-`tests/test_spine.py` checks the anchor import, the 200 × 250 sheet and the
-declared contact; `tests/test_spine_study.py` holds the chain study to the
-1.6% fidelity rule; `tests/test_practical.py` holds the practical profile and
-the boundary-tangent regression.
+Read the last line of the output for the current count. A number pasted into a
+document goes stale; the command is the source.
 
 ## 2. Does the spine layer still work?
 

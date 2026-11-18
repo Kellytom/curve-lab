@@ -1,16 +1,23 @@
 # Project overview
 
 > **draft A** — a working draft, not a final text.
-`curve-lab` turns numerical clothoids into plain, editable SVG. A design is
-a chain of clothoid segments — curvature rising linearly with arc length —
-placed in the plane, fitted to cubic Béziers to a measured tolerance, offset
-into rails, and written in millimetres with no transform, so Inkscape opens it
-as ordinary nodes. The loop is meant for a human: edit a design, the watcher
-rebuilds, Inkscape reloads, look, repeat.
+`curve-lab` is a workshop for curves that can be built exactly, and for the
+ornaments that follow from them. It has two halves.
 
-It is a small tool with a real engine under it. The geometry is Bertolazzi and
-Frego's Clothoids (BSD-2), compiled from the vendored source; everything above
-the C surface is MIT and written here.
+The first is clothoid geometry: a design is a chain of segments whose curvature
+rises linearly with arc length, placed in the plane, fitted to cubic Béziers to
+a measured tolerance, offset into rails, and written in millimetres with no
+transform, so Inkscape opens it as ordinary nodes. The loop is meant for a
+human: edit a design, the watcher rebuilds, Inkscape reloads, look, repeat.
+
+The second is exact integer curves: a curve written as a pair of polynomials
+with whole-number coefficients, so its grid (the pitch its points land on), its
+bend, its symmetry and its self-crossings are computed in exact fractions. The
+ornament studies and the book plates are built from these.
+
+The engine under the first half is Bertolazzi and Frego's Clothoids (BSD-2),
+compiled from the vendored source; everything above the C surface is MIT and
+written here.
 
 ## Pipeline
 

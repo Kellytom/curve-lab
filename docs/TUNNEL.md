@@ -68,7 +68,7 @@ makes the address permanent: it creates the CNAME in Cloudflare's DNS.
 ```sh
 cat > ~/.cloudflared/config.yml <<'YAML'
 tunnel: curve-lab
-credentials-file: /Users/thomaskelly/.cloudflared/<UUID>.json
+credentials-file: /Users/you/.cloudflared/<UUID>.json
 
 ingress:
   - hostname: lab.example.com

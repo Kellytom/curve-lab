@@ -5,17 +5,18 @@
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-18 · commit `b29d901`
+Updated 2026-11-18 · commit `b372e5a`
 <!-- updated:end -->
 
-The live pages are:
+The live pages are generated into `workbench/` and served by the lab, not by
+this book:
 
-- [The G3 showcase](../workbench/g3-showcase.html) — the one page: lead,
+- `workbench/g3-showcase.html` — the one page: lead,
   quintic-required set, cusp family, and the full gallery.
-- [G3 notes](../workbench/g3-notes.html) — the continuity ladder, the
+- `workbench/g3-notes.html` — the continuity ladder, the
   circle, and the error tables.
-- [G3 handover](../workbench/g3-handover.html) — the standalone gallery copy.
-- [Tightest-span diagnostics](../workbench/g3-diagnostics.html) — the red
+- `workbench/g3-handover.html` — the standalone gallery copy.
+- `workbench/g3-diagnostics.html` — the red
   rings and the zoomable problem areas.
 
 ## What it is for
@@ -171,7 +172,7 @@ six-point spans as the working view.
 
 ## The error tables
 
-The join error tables moved to [G3 notes](../workbench/g3-notes.html). The
+The join error tables moved to `workbench/g3-notes.html`. The
 notes page repeats each of the six cubic curves with:
 
 - `|Δp|`, tangent angle, `|Δκ|`, `|Δ(dκ/ds)|`;

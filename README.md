@@ -13,6 +13,39 @@ The engine is Bertolazzi's Clothoids, compiled from the vendored source and
 called through a small C surface. Everything around it is here: the chain
 model, the cubic fit, the rails, and the writer.
 
+## Start here
+
+The repo has three layers. Pick the one you need.
+
+| layer | what it is | first command |
+|---|---|---|
+| the engine | exact geometry in Python: clothoid chains, integer and PH curves, grid, bend, crossings, SVG | `.venv/bin/python -m curve_lab.cli --preset s-curve --width 6 --out out/s-curve.svg` |
+| the lab | generated browser pages for the curve studies and the ornament work | `.venv/bin/python scripts/serve.py` |
+| the app | the Astro pages: hub, finder, sandbox, book plates | `cd app && npm run dev` |
+
+Two commands check the work:
+
+```sh
+.venv/bin/python scripts/test.py --slim     # engine only, about 3 s
+.venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
+```
+
+The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`.
+
+## What this is now
+
+The first half of the repo is the clothoid engine described below: chains of
+segments, a cubic fit to a measured tolerance, rails, and SVG that Inkscape
+opens as ordinary nodes.
+
+The newer half is exact integer curves. A curve is a pair of polynomials with
+whole-number coefficients, so its grid (the pitch its points land on), its bend,
+its symmetry and its self-crossings are computed in exact fractions, not
+floats. The ornament studies and the book plates are built from those curves.
+
+One rule ties the halves together: a claim is either proved by a test, or
+measured and printed with its number. A picture is never the proof.
+
 ## Install and run
 
 ```sh
@@ -277,13 +310,29 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 - `curve_lab/grammar.py` + `curve_lab/fleur_sets.py` build the fleur studies; `scripts/fleur_grammar.py` and `scripts/fleur_sets.py` write their reports.
 - `scripts/fleur_proof.py`, `scripts/volute_proof.py`, `scripts/cruciform_proof.py` build the ornament proofs (`workbench/fleur-proof.html`, `-volute-proof.html`, `-cruciform-proof.html`).
 
+## Repository map
+
+| folder | what it holds |
+|---|---|
+| `curve_lab/` | the Python engine: model, measure, clearance, PH curves, fillet, junction, grammar |
+| `curves/` | one folder per stored curve: its definition, its figures, its notes |
+| `workbench/` | the generated lab pages, one generator each in `scripts/` |
+| `app/` | the Astro app: hub, finder, sandbox, book gallery |
+| `book/` | the book plates: manifest, SVG, 300 dpi PNG |
+| `docs/` | the prose book, built by mkdocs |
+| `state/` | working notes for the next session: handoff, register, decisions |
+| `tests/` | the suite, and the fixed-fault register that guards it |
+
+`docs/STRUCTURE.md` has the full tree.
+
 ## Tests
 
 ```sh
 .venv/bin/python -m unittest discover tests
 ```
 
-346 checks. The engine is held against an independent Simpson integral of the
+The suite is the proof. The engine is held against an independent Simpson
+integral of the
 Fresnel form, every preset against G2, both spline methods against the points
 they were given, the G2 spline and the joined designs against their own
 curvature continuity, the fitter against its own tolerance, and the writer

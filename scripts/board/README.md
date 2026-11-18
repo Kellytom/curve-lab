@@ -43,7 +43,7 @@ Override with `CDP_PORT` and `ORNAMENTS_URL` if needed.
 ## Build
 
 ```sh
-cd /Users/thomaskelly/developer/curve-lab
+cd /path/to/curve-lab
 node scripts/board/extract-studies.mjs
 node scripts/board/extract-ornaments.mjs
 node scripts/board/build-board.mjs

@@ -1,9 +1,9 @@
 # Where everything lives
 
 > **draft A** — a working draft, not a final text.
-**Repository root: `/Users/thomaskelly/developer/curve-lab`** — every path below
-is relative to it, and `$REPO` in a command means that directory. The repository
-sits under `/Users/thomaskelly/developer/`; it is not inside any other project.
+**Repository root: the folder you cloned** — every path below is relative to
+it, and `$REPO` in a command means that folder. Nothing below assumes a fixed
+parent directory.
 
 Generated from the tree on 2026-11-17. Excluded because they are large or
 regenerable: `.git`, `node_modules`, `.venv`, `vendor/`, `reference/` (13 GB,

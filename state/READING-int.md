@@ -38,7 +38,7 @@ to *what is the next step*.
 | file | lines | answers |
 |---|---|---|
 | `SPEC.md` | 149 | what the deliverable is |
-| `docs/PROJECT.md` | 166 | scope in and out; what is deliberately not built |
+| `docs/PROJECT.md` | 173 | scope in and out; what is deliberately not built |
 | `goals.md` | 266 | the arc: plant-forms → ornament-forms, and the offset tiers |
 | `docs/PHILOSOPHY.md` | 193 | glyph, full line, sections, joints — the design rules |
 | `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
