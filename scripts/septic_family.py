@@ -47,6 +47,10 @@ CURVES = (
     # Solved, not guessed: d chosen so P'(1/2) = 0 — a 45-degree tangent halfway.
     ("45deg at t=1/2", dict(k=1, d=Fraction(-71, 48))),
     ("45deg, b=1 at t=1/2", dict(k=1, b=1, d=Fraction(-91, 48))),
+    # Solved crossings: two parameters forced onto one point.
+    ("loop t=1/2,3/4", dict(k=1, d=Fraction(-6155, 4864), c=1, e=Fraction(-13, 16))),
+    ("loop t=1/3,2/3", dict(k=1, d=Fraction(-856, 567), c=1, e=Fraction(-5, 9))),
+    ("loop t=1/4,3/4", dict(k=1, d=Fraction(-5189, 3328), c=1, e=Fraction(-5, 8))),
 )
 
 
@@ -143,6 +147,8 @@ def main():
         })
         r = curves[-1]["features"]
         print(f'{name:14} 45deg at t={r["tangent_45"]}  -45deg at t={r["tangent_-45"]}')
+    # The solved curves lead: they are the ones worth looking at.
+    curves.sort(key=lambda c: 0 if ("loop" in c["name"] or "45deg" in c["name"]) else 1)
     OUT.write_text(json.dumps({
         "format": FORMATS["finder.json"],
         "note": "The parametric septic family, eight settings, nothing assumed.",
