@@ -6,6 +6,26 @@ import { finderData, svgPath } from "../lib/finder.js";
 const data = finderData();
 const curves = data.curves;
 const flagCount = curves.filter((c) => c.flags && c.flags.length).length;
+
+// One line per card, built as text: nested JSX conditionals broke the parser once.
+function metaLine(curve) {
+  const bits = [`degree ${curve.degree}`];
+  bits.push(curve.proper ? "proper" : (curve.cover ? `cover ×${curve.cover}` : "cover"));
+  if (curve.substitution) bits.push(curve.substitution);
+  if (curve.note) bits.push(curve.note);
+  if (curve.peak) {
+    bits.push(`peak t ${curve.peak.t.toFixed(3)}`);
+    bits.push(`tangent ${curve.peak.angle.toFixed(1)}°`);
+    bits.push(`κ ${curve.peak.kappa.toFixed(3)}`);
+  } else {
+    bits.push("no curvature peak measured");
+  }
+  const f = curve.features || {};
+  if (f["tangent_45"] && f["tangent_45"].length) bits.push(`45° tangent at t ${f["tangent_45"].join(", ")}`);
+  if (f["tangent_-45"] && f["tangent_-45"].length) bits.push(`−45° tangent at t ${f["tangent_-45"].join(", ")}`);
+  if (f.crossing_pairs !== undefined) bits.push(`${f.crossing_pairs} crossing pairs`);
+  return bits.join(" · ");
+}
 ---
 
 <!doctype html>
@@ -46,13 +66,7 @@ code{font:11px ui-monospace,Menlo,monospace}
         <article class="card">
           <h2>{curve.name}</h2>
           <svg viewBox={viewBox} role="img" aria-label={curve.name}><path d={d} fill="none" stroke="#111" stroke-width="1.2"/></svg>
-          <p class="meta">
-            degree <b>{curve.degree}</b> · {curve.proper ? "proper" : (curve.cover ? `cover ×${curve.cover}` : "cover")}
-            {curve.substitution ? <> · <b>{curve.substitution}</b></> : null}
-            {curve.note ? <> · {curve.note}</> : null}<br>
-            {curve.peak ? <>peak at t = <b>{curve.peak.t.toFixed(3)}</b> · tangent <b>{curve.peak.angle.toFixed(1)}°</b> ·
-              κ <b>{curve.peak.kappa.toFixed(3)}</b></> : "no peak"}
-          </p>
+          <p class="meta">{metaLine(curve)}</p>
           {curve.flags && curve.flags.length ? curve.flags.map((flag) => <span class="flag">{flag}</span>) : null}
         </article>
       );
