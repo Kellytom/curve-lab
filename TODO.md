@@ -120,6 +120,29 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+## Data safety — urgent done, the rest queued (2026-11-18)
+
+Done tonight: atomic writes, zod validation, a backup before every write,
+repair-on-read, five timestamped generations in `workbench/backups/`, a stale
+write refused with 409 (two tabs cannot silently overwrite), auto-save of stars,
+an export button, one merged `finder.json` with a `definition` per curve, and
+`finder_rebuild.py` proving septic and solved curves rebuild within 1e-4.
+
+- [ ] **Rebuild the other three families.** `finder_rebuild.py` checks 26 of 42
+  curves; bounded, weighted-balance and mobile carry definitions but are not
+  rebuilt yet. The chain of custody is only as good as its coverage.
+- [ ] **Commit the data files automatically.** `finder.json` and
+  `finder-stars.json` change on disk and wait for a human to commit. A small
+  `scripts/data_commit.sh` (stage, `git commit -m "data: <what changed>"`) run
+  after a save would put every chosen curve in git without ceremony.
+- [ ] **One writer at a time across processes.** The 409 guards two *tabs*; two
+  scripts writing `finder.json` at once still race. A lock file in
+  `workbench/.lock` around generator runs closes it.
+- [ ] **A daily snapshot.** `state/backups/workbench-json-*.tgz` exists because I
+  made one by hand. A launchd job (like the tunnel) keeps five.
+- [ ] **Tests for the guards.** 409 and rotation have one test each; a test that a
+  second *process* cannot write during a save needs a real second process.
+
 ## From the 2026-11-16 review, in value order
 
 - [x] **One exact numeric core, consumed by the page.** `pitch` exists in `ph_math.js`,

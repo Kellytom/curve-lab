@@ -67,6 +67,8 @@ code{font:11px ui-monospace,Menlo,monospace}
 <h1>Curve finder — first results</h1>
 <p class="lead"><button id="save-stars" type="button">save stars to workbench</button>
 <button id="export-stars" type="button">export stars</button>
+<label style="font:11px ui-monospace,Menlo,monospace;color:#7b6c4e;margin-left:10px">
+  <input id="auto-save" type="checkbox" checked> auto-save stars</label>
 <span id="star-status"></span><br>{curves.length} curves · {flagCount} with a flag · properness and collapse from
   <code>curve_lab/reduction.py</code>, the curvature peak from a scan · data:
   <code>workbench/finder.json</code></p>
@@ -90,6 +92,7 @@ code{font:11px ui-monospace,Menlo,monospace}
 </main>
 <script id="finder-stars-seed" type="application/json" set:html={JSON.stringify(data.starred || [])}></script>
 <script id="finder-specs" type="application/json" set:html={JSON.stringify(specs)}></script>
+<script id="finder-base" type="application/json" set:html={JSON.stringify(data.baseHash || "")}></script>
 <script is:inline>
 (() => {
   const KEY = "finder-stars";
@@ -131,14 +134,14 @@ code{font:11px ui-monospace,Menlo,monospace}
       paint();
     });
   });
-  const save = document.getElementById("save-stars");
-  if (save) save.addEventListener("click", async () => {
+  const baseHash = JSON.parse(document.getElementById("finder-base").textContent || '""');
+  const post = async () => {
     const status = document.getElementById("star-status");
     try {
       const response = await fetch("/api/finder-stars", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ format: "curve-lab.finder-stars/1", curves: read() }),
+        body: JSON.stringify({ format: "curve-lab.finder-stars/1", baseHash, curves: read() }),
       });
       const out = await response.json();
       status.textContent = response.ok
@@ -147,7 +150,19 @@ code{font:11px ui-monospace,Menlo,monospace}
     } catch (error) {
       status.textContent = `save failed: ${error}`;
     }
-  });
+  };
+  const save = document.getElementById("save-stars");
+  if (save) save.addEventListener("click", post);
+  // Auto-save: a star is only safe once it is a file. Debounced so a burst of
+  // clicks is one write, and the base hash still refuses a stale overwrite.
+  let timer = null;
+  const autosave = document.getElementById("auto-save");
+  const schedule = () => {
+    if (!autosave || !autosave.checked) return;
+    clearTimeout(timer);
+    timer = setTimeout(post, 900);
+  };
+  document.querySelectorAll("button.star").forEach((button) => button.addEventListener("click", schedule));
   const exportStars = document.getElementById("export-stars");
   if (exportStars) exportStars.addEventListener("click", () => {
     const blob = new Blob([JSON.stringify({ format: "curve-lab.finder-stars/1", curves: read() }, null, 1)],

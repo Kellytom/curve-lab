@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +55,14 @@ def save_family(family: str, curves: list[dict], note: str = "") -> dict:
     merged = kept + curves
     if OUT.exists():
         shutil.copyfile(OUT, BACKUP)
+        # Keep five timestamped generations, not one backup that the next bad
+        # write would overwrite.
+        backups = ROOT / "workbench" / "backups"
+        backups.mkdir(exist_ok=True)
+        stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        shutil.copyfile(OUT, backups / f"finder-{stamp}.json")
+        for old in sorted(backups.glob("finder-*.json"))[:-5]:
+            old.unlink()
     payload = {
         "format": FORMAT,
         "note": note or data.get("note", ""),

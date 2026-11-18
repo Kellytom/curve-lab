@@ -14,7 +14,7 @@ export const POST = async ({ request }) => {
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: String(error.message || error) }), {
-      status: 400,
+      status: error.status || 400,
       headers: { "content-type": "application/json" },
     });
   }

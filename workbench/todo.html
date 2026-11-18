@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:73.8%}
+.fill{height:100%;background:#8c6a21;width:71.7%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">124 / 168 done · 74% · read-only twin of
+<div class="count">124 / 173 done · 72% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -91,6 +91,18 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>dashboard layout (MIT, Bergside); no Tailwind or Flowbite code was added — the CSS is ours. Say so in the app README so the provenance is clear.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>A reader&#x27;s first five minutes.</strong> A short <code>README</code> path: what curve-lab</span></label>
 <p>is, the one exact idea (integer and rational curves on one grid), how to run the hub, and where the book is.</p>
+<h2>Data safety — urgent done, the rest queued (2026-11-18)</h2>
+<p>Done tonight: atomic writes, zod validation, a backup before every write, repair-on-read, five timestamped generations in <code>workbench/backups/</code>, a stale write refused with 409 (two tabs cannot silently overwrite), auto-save of stars, an export button, one merged <code>finder.json</code> with a <code>definition</code> per curve, and <code>finder_rebuild.py</code> proving septic and solved curves rebuild within 1e-4.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Rebuild the other three families.</strong> <code>finder_rebuild.py</code> checks 26 of 42</span></label>
+<p>curves; bounded, weighted-balance and mobile carry definitions but are not rebuilt yet. The chain of custody is only as good as its coverage.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Commit the data files automatically.</strong> <code>finder.json</code> and</span></label>
+<p><code>finder-stars.json</code> change on disk and wait for a human to commit. A small <code>scripts/data_commit.sh</code> (stage, <code>git commit -m &quot;data: &lt;what changed&gt;&quot;</code>) run after a save would put every chosen curve in git without ceremony.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>One writer at a time across processes.</strong> The 409 guards two *tabs*; two</span></label>
+<p>scripts writing <code>finder.json</code> at once still race. A lock file in <code>workbench/.lock</code> around generator runs closes it.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>A daily snapshot.</strong> <code>state/backups/workbench-json-*.tgz</code> exists because I</span></label>
+<p>made one by hand. A launchd job (like the tunnel) keeps five.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Tests for the guards.</strong> 409 and rotation have one test each; a test that a</span></label>
+<p>second *process* cannot write during a save needs a real second process.</p>
 <h2>From the 2026-11-16 review, in value order</h2>
 <label class="task"><input type="checkbox" checked disabled><span><strong>One exact numeric core, consumed by the page.</strong> <code>pitch</code> exists in <code>ph_math.js</code>,</span></label>
 <p><code>ph_quintic_metrics.py</code> and four scripts; they disagree in doubles (page 1/5,148 against an exact 1/36 on identical rows). Precompute, export, and let the page read the numbers. *Landed 2026-11-16:* <code>curve_lab/measure.py</code> is the one exact core; <code>scripts/ph_quintic_metrics.py</code> is a facade over it; <code>scripts/exact_numbers.py</code> audits every record; the page prints the record&#x27;s number, labelled, while the loaded rows are untouched. <code>tests/test_exact_numbers.py</code> guards all of it. Found on the way: <code>loop-13-15-17-mid-1</code> reproduces exactly — record 36, page 5,148.</p>

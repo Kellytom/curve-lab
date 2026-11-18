@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { readFinderStars, saveFinderStars } from "../src/lib/finder-stars.js";
@@ -31,5 +31,20 @@ test("a malformed payload is refused before anything is written", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "finder-stars-"));
   await assert.rejects(() => saveFinderStars({ curves: [{ name: "" }] }, root));
   assert.equal(readFinderStars(root).source, "none");
+  await rm(root, { recursive: true, force: true });
+});
+
+test("a stale write is refused, and old versions are kept", async () => {
+  const { fileHash } = await import("../src/lib/finder-stars.js");
+  const root = await mkdtemp(path.join(tmpdir(), "finder-stars-"));
+  await saveFinderStars({ curves: [{ name: "a" }] }, root);
+  const livePath = path.join(root, "workbench", "finder-stars.json");
+  const seen = fileHash(await readFile(livePath, "utf8"));
+  await saveFinderStars({ curves: [{ name: "b" }] }, root);
+  await assert.rejects(
+    () => saveFinderStars({ baseHash: seen, curves: [{ name: "c" }] }, root),
+    /changed since it was read/);
+  const backups = await readdir(path.join(root, "workbench", "backups"));
+  assert.ok(backups.length >= 1, "no timestamped backup kept");
   await rm(root, { recursive: true, force: true });
 });
