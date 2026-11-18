@@ -3236,6 +3236,14 @@ pretty hard to get back to rational."
 - **The sandbox shows the family** under "Rational rotation: a mirror you can turn"
   on `ph-nth-sandbox-exp.html`, one panel per `q`, with the 45° attempt drawn from
   floats and labelled not exact.
+- **A turn is saved as a new curve, never over the old one** — 2026-11-18, by the
+  author. The name takes the postfix `-rotpofr`, where `p/r` is the tangent of
+  half the turn: `-rot3of4`. A slash cannot appear in a name because it is the
+  path separator; `of` matches the existing `lace-1of8-1of3-3` style.
+- **The whole-row turn also scales the curve by `r² + p²`.** Multiplying the
+  speed by `(r + i p)` turns the position by `2·atan(p/r)` and scales it by
+  `r² + p²` (5 for `q = 1/2`). This is arithmetic, not a defect: no whole-number
+  rows give a pure turn. The HUD says the scale in the same line as the turn.
 
 ## Optical versus real (matters for the Bezier conversion)
 

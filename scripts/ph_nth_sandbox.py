@@ -303,6 +303,18 @@ holds a chosen openness instead, because a fully closed curve has no chord and b
     <label class="hud-row" for="n-pan-y-number">pan y
       <input id="n-pan-y-number" type="number" step="0.1" value="0"></label>
     <button type="button" id="n-view-reset" title="zoom 1, no pan, no rotation">reset the view</button>
+    <h4>Turn</h4>
+    <label class="hud-row" for="n-turn-q">half-angle tan
+      <select id="n-turn-q">
+        <option value="">choose&hellip;</option>
+        <option value="1/2">1/2 &middot; axis slope &minus;3/4</option>
+        <option value="1/3">1/3 &middot; axis slope &minus;4/3</option>
+        <option value="1/4">1/4 &middot; axis slope &minus;15/8</option>
+        <option value="1/5">1/5 &middot; axis slope &minus;12/5</option>
+      </select></label>
+    <button type="button" id="n-turn-apply"
+            title="turn the rows so the mirror axis is Pythagorean; the original is not changed">turn the curve</button>
+    <p class="small mono" id="n-turn-status"></p>
   </aside>
 </div>
 <div class="curve-box complement" id="n-complement-box">

@@ -2196,6 +2196,44 @@
       row.append(group);
     });
   }
+  // ---------- turn the curve by a Pythagorean axis ----------
+  // A turn whose half-angle has tangent p/r multiplies the speed by (r + i p).
+  // The rows stay whole, the curve is turned by 2 atan(p/r), and it is scaled by
+  // r^2 + p^2 (the scale is arithmetic, not a defect: no whole rows give a pure
+  // turn). The original is untouched; a save writes a new name with -rotpofr.
+  const turnSelect = document.getElementById("n-turn-q");
+  const turnApply = document.getElementById("n-turn-apply");
+  const turnStatus = document.getElementById("n-turn-status");
+  if (turnApply) turnApply.addEventListener("click", () => {
+    const [p, r] = String(turnSelect && turnSelect.value || "").split("/").map(Number);
+    if (!Number.isInteger(p) || !Number.isInteger(r) || !r) {
+      if (turnStatus) turnStatus.textContent = "choose a turn first";
+      return;
+    }
+    const speed = hookedSpeed();
+    const nx = [], ny = [];
+    for (let k = 0; k < speedCount; k++) {
+      const u = speed.x[k] || 0, v = speed.y[k] || 0;
+      nx.push(r * u - p * v);
+      ny.push(p * u + r * v);
+    }
+    state.x = nx;
+    state.y = ny;
+    hook.dx = 0;
+    hook.dy = 0;
+    writeCells();
+    draw();
+    const scale = r * r + p * p;
+    const nameField = document.getElementById("n-name");
+    const base = cleanName(currentName || (nameField && nameField.value) || "curve")
+      .replace(/-rot\d+of\d+$/, "");
+    if (nameField) nameField.value = `${base}-rot${p}of${r}`;
+    if (turnStatus) {
+      turnStatus.textContent =
+        `turned by 2 atan(${p}/${r}); rows whole, curve x${scale}. ` +
+        `Save writes "${base}-rot${p}of${r}"; the original stays.`;
+    }
+  });
   document.getElementById("n-save").addEventListener("click", () => {
     const nameField = document.getElementById("n-name");
     const status = document.getElementById("n-paste-status");

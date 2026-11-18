@@ -397,5 +397,17 @@ class TestFractionalSandbox(unittest.TestCase):
         self.assertIn("inflections n/a: fractional powers", panels)
 
 
+    def test_the_hud_turns_the_curve_by_a_pythagorean_axis(self):
+        """The run rows stay whole; the original is saved under a -rot postfix."""
+        page = PAGE.read_text(encoding="utf-8")
+        for marker in ('id="n-turn-q"', 'id="n-turn-apply"', "turn the curve"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, page)
+        panels = PANELS.read_text(encoding="utf-8")
+        for marker in ("r * u - p * v", "p * u + r * v", "-rot${p}of${r}"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, panels)
+
+
 if __name__ == "__main__":
     unittest.main()
