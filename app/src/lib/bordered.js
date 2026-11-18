@@ -89,6 +89,11 @@ function pathsFor(curve, rows) {
   }, rows).paths;
 }
 
+export function svgForRecord(record) {
+  const rows = { [record.name]: record };
+  return svgFrom(pathsFor(record, rows), `${record.uid}: ${record.name}`);
+}
+
 let cache = null;
 
 export function buildIlluminations(root) {
