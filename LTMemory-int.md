@@ -170,6 +170,9 @@ no sync. It does **not** restore a session; it opens one local page,
   made exact.
 - **One grid per curve** for now; the grid is a factorisation problem, not a
   size problem.
+- **`cos`/`sin` of an arbitrary angle is a red flag**: irrational, and off the
+  grid for good. Use rational circle points (p-triples, `t = tan(θ/2)`), and call
+  a real-trig figure *sampled*, never exact.
 - **Enumerate the source, do not recall it.** When a page claims a catalogue,
   diff the page against the tables that own it (`generators.NAMED`,
   `heart_forms.FORMS`, `curve_lab.presets`) and render from them. We once

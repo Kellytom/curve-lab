@@ -232,6 +232,33 @@ row can. It would have to be sampled and fitted — labelled fitted, never exact
 is the reason to treat half powers as an experiment on a single curve rather than a
 family to catalogue.
 
+## Trigonometry: irrational values are a red flag — 2026-11-18
+
+Settled by the operator: "I don't mind trig that uses rational fractions like 3/4
+or 7/24 but we have to stay on the integer grid, and once you go irrational it is
+pretty hard to get back to rational."
+
+- **The object is the ratio, never the angle.** `cos θ`, `sin θ` for a general
+  angle are irrational, so any point built from them leaves the integer grid and
+  cannot come back. What is allowed is a **rational point of the circle**: a
+  `p`-triple such as `3-4-5` or `7-24-25`, or equivalently the rational
+  parametrisation
+
+      cos θ = (1 − t²)/(1 + t²),   sin θ = 2t/(1 + t²),   t = 7/24
+
+  which gives `(527/625, 336/625)` — exact fractions, on the grid at 625.
+- **A curve drawn by sampling `cos`/`sin` is a drawing, not the curve.** The
+  roses on `/finder` were sampled that way; the algebra has an exact rational
+  form, but the picture does not, and the caption must say "sampled" until it is
+  rebuilt from rational points.
+- **Trig is not impossible, it is a red flag.** A `sin`/`cos` in a generator is
+  the signal to ask: can this be written with `t = tan(θ/2)` and a rational `t`?
+  If yes, rewrite it. If no, label the figure sampled and do not claim exactness.
+- **The same rule covers every rotation.** A rotation matrix with `cos θ` is the
+  same red flag; a rotation by a `p`-triple, `(3/5, 4/5)`, is exact on the grid.
+  The repo already has the machinery: `curve_lab/pyth_cubic.py` and the
+  `pythagorean-spiral` turn lattice.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the

@@ -24,7 +24,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from curve_lab.datafile import FORMATS  # noqa: E402
+from curve_lab.features import features  # noqa: E402
 from curve_lab.reduction import reduce_curve  # noqa: E402
+from finder_store import save_family  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
 SAMPLES = 900
@@ -123,6 +125,9 @@ def curves():
         out.append({"name": f"y=x^{n}",
                     "x": [Fraction(0), Fraction(1)],
                     "y": [Fraction(0)] * n + [Fraction(1)]})
+    # Symmetric by construction: x = t, y a polynomial in u = t - 1/2. Even
+    # powers give a mirror about t = 1/2; odd powers give a half turn.
+    out += mid_polynomials()
     # Septics with several terms: y = t^7 + a t^5 + b t^3, small integers.
     # The point is to see whether a curvature peak can land on a 45° tangent
     # (y' = 1) or near t = 1/2, and whether it lands on a rational t at all.
@@ -137,9 +142,41 @@ def curves():
     return out
 
 
+def mid_polynomials():
+    """x = t with y built from u = t - 1/2, so symmetry is by construction."""
+    half = Fraction(1, 2)
+
+    # simpler and exact: build (t - 1/2)^k by binomial expansion
+    def power_of_shift(k):
+        from math import comb
+        # coefficient of t^i in (t - 1/2)^k is C(k,i) * (-1)^(k-i) / 2^(k-i)
+        return [Fraction((-1) ** (k - i) * comb(k, i), 2 ** (k - i)) if i <= k else Fraction(0)
+                for i in range(k + 1)]
+
+    def sum_of(terms):
+        poly = [Fraction(0)]
+        for k, c in terms:
+            part = power_of_shift(k)
+            while len(poly) < len(part):
+                poly.append(Fraction(0))
+            for i, v in enumerate(part):
+                poly[i] += Fraction(c) * v
+        return poly
+
+    x = [Fraction(0), Fraction(1)]
+    return [
+        {"name": "u^2 (mirror by construction)", "x": x, "y": sum_of([(2, 1)])},
+        {"name": "u^4 (mirror by construction)", "x": x, "y": sum_of([(4, 1)])},
+        {"name": "u^2+u^4 (mirror)", "x": x, "y": sum_of([(2, 1), (4, 1)])},
+        {"name": "u^3 (half turn by construction)", "x": x, "y": sum_of([(3, 1)])},
+        {"name": "u+u^3 (half turn)", "x": x, "y": sum_of([(1, 1), (3, 1)])},
+    ]
+
+
 def record(name, x, y):
     verdict = reduce_curve(x, y)
     point = peak(x, y)
+    measured = features(x, y)
     entry = {
         "name": name,
         "x": [str(c) for c in x],
@@ -157,7 +194,8 @@ def record(name, x, y):
             "x": float(point["x"]),
             "y": float(point["y"]),
         },
-        "flags": flags(point),
+        "flags": flags(point) + (["symmetric"] if measured["symmetric"] else []),
+        "features": measured,
     }
     return entry
 
@@ -172,10 +210,7 @@ def main(argv):
               f"{', '.join(entry['flags'])}")
     if "--check" in argv:
         return 0 if all(entry["path"] for entry in entries) else 1
-    document = {"format": FORMATS["finder.json"], "note": "First curve-finder results: properness, "
-                "collapse and the curvature peak.", "curves": entries}
-    OUT.write_text(json.dumps(document, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)}")
+    save_family("graphs", entries, note="Graphs: properness, collapse, curvature peak.")
     return 0
 
 

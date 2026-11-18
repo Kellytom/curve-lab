@@ -48,3 +48,7 @@ app/dist/
 
 # the local saved-tabs page (personal state, generated)
 workbench/tabs.html
+workbench/backups/
+workbench/finder.backup.json
+workbench/finder-stars.backup.json
+state/backups/

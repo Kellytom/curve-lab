@@ -241,6 +241,12 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
+- **A `cos` or `sin` of a general angle is a red flag, not a style choice.** It
+  is irrational and leaves the integer grid for good. Use a rational point of the
+  circle (a `p`-triple, or `t = tan(θ/2)` with rational `t`); if a figure was
+  sampled with real trig, its caption says "sampled" and it claims no exactness.
+  Reason and examples: `state/DESIGN-int.md` §Trigonometry.
+
 - One task at a time, at the scope the operator set; verify, commit, stop.
 - Never edit `docs/ornament-board.html` or `docs/fleur-studies.html` by hand.
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.

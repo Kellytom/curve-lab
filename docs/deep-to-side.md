@@ -82,3 +82,14 @@ The repository root is `/Users/thomaskelly/developer/curve-lab` — under
 - `/finder` shows solved crossings and weighted-balance curves; stars save to
   `workbench/finder-stars.json` (backup kept). Curvature peaks on loop cards are
   **cusps**: the κ figure is unbounded and the page does not say so yet.
+
+---
+
+## 2026-11-18 02:10 — trig is a red flag
+
+`cos`/`sin` of a general angle is irrational and leaves the integer grid for good.
+Rational points of the circle are fine (`3-4-5`, `7-24-25`, or `t = tan(θ/2)`
+with rational `t`, giving exact fractions like `(527/625, 336/625)`). Any figure
+drawn by sampling real trig must be captioned **sampled** and must claim no
+exactness. The rule and its reasoning are in `state/DESIGN-int.md`
+§Trigonometry; it is also in `AGENTS.md` and `LTMemory-int.md`.
