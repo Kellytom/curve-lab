@@ -1,8 +1,9 @@
 name: native
 
+# Manual only, by the operator's decision (2026-11-17): CI on every push slowed
+# iteration, and this repository is not hiding anything. Run it from the
+# Actions tab, or `gh workflow run native`, when a native build is in question.
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
