@@ -1,0 +1,65 @@
+---
+// The curve finder: first results. The numbers come from scripts/curve_finder.py
+// via workbench/finder.json; this page only draws and labels them.
+import { finderData, svgPath } from "../lib/finder.js";
+
+const data = finderData();
+const curves = data.curves;
+const flagCount = curves.filter((c) => c.flags && c.flags.length).length;
+---
+
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curve finder — first results</title>
+<style is:global>
+body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
+main{max-width:1120px;margin:0 auto;padding:28px 22px 60px}
+h1{font-size:24px;margin:0 0 4px}
+.lead{color:#8c6a21;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{background:#fffdf7;border:1px solid #d8ccae;padding:10px}
+.card h2{font-size:14px;margin:0 0 6px}
+.card svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #eee;margin-bottom:6px}
+.meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:#555}
+.meta b{font-weight:600;color:#2e2413}
+.flag{display:inline-block;margin-top:4px;padding:1px 6px;border:1px solid #c9a441;
+  background:#fbf3dc;font:10px/1.5 ui-monospace,Menlo,monospace;color:#8c6a21}
+.empty{border:1px dashed #d3d3d3;padding:18px;color:#777}
+code{font:11px ui-monospace,Menlo,monospace}
+</style>
+</head><body>
+<nav style="font:11px/1.5 ui-monospace,Menlo,monospace;padding:8px 22px;background:#efe7d3;border-bottom:1px solid #d8ccae">
+  <a href="/" style="color:#8c6a21">the hub</a> · <a href="/lab" style="color:#8c6a21">the lab</a> ·
+  <a href="/book" style="color:#8c6a21">the book</a> · this page is the curve finder
+</nav>
+<main>
+<h1>Curve finder — first results</h1>
+<p class="lead">{curves.length} curves · {flagCount} with a flag · properness and collapse from
+  <code>curve_lab/reduction.py</code>, the curvature peak from a scan · data:
+  <code>workbench/finder.json</code></p>
+{curves.length ? (
+  <div class="grid">
+    {curves.map((curve) => {
+      const { d, viewBox } = svgPath(curve.path);
+      return (
+        <article class="card">
+          <h2>{curve.name}</h2>
+          <svg viewBox={viewBox} role="img" aria-label={curve.name}><path d={d} fill="none" stroke="#111" stroke-width="1.2"/></svg>
+          <p class="meta">
+            degree <b>{curve.degree}</b> · {curve.proper ? "proper" : (curve.cover ? `cover ×${curve.cover}` : "cover")}
+            {curve.substitution ? <> · <b>{curve.substitution}</b></> : null}
+            {curve.note ? <> · {curve.note}</> : null}<br>
+            {curve.peak ? <>peak at t = <b>{curve.peak.t.toFixed(3)}</b> · tangent <b>{curve.peak.angle.toFixed(1)}°</b> ·
+              κ <b>{curve.peak.kappa.toFixed(3)}</b></> : "no peak"}
+          </p>
+          {curve.flags && curve.flags.length ? curve.flags.map((flag) => <span class="flag">{flag}</span>) : null}
+        </article>
+      );
+    })}
+  </div>
+) : (
+  <p class="empty">No results yet. Run <code>.venv/bin/python scripts/curve_finder.py</code>.</p>
+)}
+</main>
+</body></html>

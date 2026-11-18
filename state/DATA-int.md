@@ -43,6 +43,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 |---|---|---|---|---|
 | `family-census.json` | `curve-lab.family-census/1` | cache | `scripts/curve_files.py` | `scripts/family_census.py` |
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
+| `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
 | `found-curves.json` | `curve-lab.curves/2` | record | `scripts/real_curves.mjs` | the galleries, `ph_nth_panels.js` |
 | `found-for-exp.json` | `curve-lab.curves/2` | orphan | — | — (no reader; archive when the public tree is cut) |
 | `g3-catalogue-cache.json` | `curve-lab.g3-catalogue-cache/1` | cache | `scripts/g3_catalogue.py` | `scripts/g3_catalogue.py` |

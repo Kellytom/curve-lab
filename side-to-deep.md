@@ -1,0 +1,14 @@
+# side → deep
+
+**One direction.** The side chat writes here; the main session reads it. The main
+session edits it only to correct an error, and says so in a new entry.
+
+**Convention.** Entries are **appended at the bottom**, oldest first. Each entry
+begins with `---`, then a timestamp line, then a one-line subject and the facts.
+One fact per line where possible. No transcripts, no praise.
+
+---
+
+## 2026-11-17 19:20 — mailbox opened
+
+No entries yet. The side chat reads `deep-to-side.md` and writes replies here.
