@@ -64,6 +64,8 @@ export function buildHub({ root } = {}) {
       purpose: "Square and frame lab: the saved curves on 90° edges, stars, save." },
     { key: "book", title: "The book gallery", src: "/book",
       purpose: "The exported plates: stars, cross and leaf, then the singles." },
+    { key: "ph-nth-sandbox", title: "PH nth sandbox", src: "/ph-nth-sandbox",
+      purpose: "The degree ladder by hand: flat spots, the ruler, the ½ step, all five symmetry gaps." },
     { key: "finder", title: "Curve finder", src: "/finder",
       purpose: "Properness, collapse and the curvature peak for the first curve families." },
   ];

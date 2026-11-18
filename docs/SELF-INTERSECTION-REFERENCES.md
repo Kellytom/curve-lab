@@ -120,6 +120,93 @@ a focus. For eccentricity \(e \neq 1\) these ichthyoids are quartic or higher,
 so the family gives one way to generalise the cubic geometrically, but not an
 algebraic canonical form for all self-intersecting curves.
 
+## Elevating the Tschirnhausen cubic
+
+There are two ways to "raise the degree" of a Tschirnhausen cubic. They give
+very different results.
+
+### Degree elevation as a Bézier curve
+
+A degree-\(n\) Bézier curve can be rewritten as a degree-\((n+1)\) Bézier curve
+without changing the underlying shape. The new control points are convex
+combinations of the old ones:
+
+\[
+\mathbf{P}_i^{(n+1)} = \frac{i}{n+1}\mathbf{P}_{i-1}^{(n)} + \frac{n+1-i}{n+1}\mathbf{P}_i^{(n)}.
+\]
+
+If you degree-elevate a Tschirnhausen cubic to quartic, quintic, or higher, the
+curve is **still a Tschirnhausen cubic**. The extra control points are not free;
+they are fixed by the old ones. You get more handles, but no new geometry.
+
+### True higher-degree PH curves
+
+A planar PH curve is built from a complex polynomial \(w(t)\) by squaring the
+hodograph:
+
+\[
+r'(t) = w(t)^2.
+\]
+
+If \(w(t)\) has degree \(m\), then \(r(t)\) has degree \(2m+1\). The table below
+shows how the parameter count grows:
+
+| Curve degree | Degree of \(w(t)\) | Complex coefficients | Real parameters | Design capability |
+|---:|---:|---:|---:|:---|
+| 3 | 1 | 2 | 4 | Tschirnhausen cubic only (up to similarity) |
+| 5 | 2 | 3 | 6 | First-order Hermite interpolation; can inflect |
+| 7 | 3 | 4 | 8 | More loops and self-intersections possible |
+| \(2m+1\) | \(m\) | \(m+1\) | \(2m+2\) | Increasing shape freedom |
+
+**Why the jump at degree 5 matters.** A cubic PH curve has no finite inflection
+points. A quintic PH curve can inflect, so it can follow an S-shaped path. That
+makes quintics the first useful PH family for free-form design.
+
+**The Hermite interpolation problem.** Matching given endpoints and tangent
+vectors by a planar PH quintic leads to a system of quadratic equations. Farouki
+shows that there are generally **four distinct PH quintic solutions**. Some of
+them contain unwanted loops or cusps. The "good" interpolant is selected by a
+shape measure such as:
+
+- shortest arc length,
+- smallest absolute rotation index,
+- lowest elastic bending energy.
+
+So raising the degree from 3 to 5 does not just add parameters — it introduces a
+selection problem.
+
+### What higher degree means for self-intersections
+
+A polynomial curve of degree \(n\) can have up to
+
+\[
+(n-1)^2
+\]
+
+self-intersections (Quine's bound for a closed curve traced by a polynomial on
+the unit circle; the bound is sharp). So:
+
+- cubic: at most 1 self-intersection,
+- quintic: at most 4,
+- septic: at most 9,
+- degree \(n\): at most \((n-1)^2\).
+
+Unlike the cubic case, there is **no single canonical curve** that captures all
+self-intersecting quintics or septics. The space of self-intersecting curves is
+high-dimensional and must be sampled or constrained.
+
+### Exactness
+
+The Tschirnhausen parameterization uses polynomials in \(t\):
+
+\[
+x(t) = a(1 - 3t^2), \qquad y(t) = at(3 - t^2).
+\]
+
+With a rational choice of \(a\) and \(t\), every point is rational. There is no
+\(\sin\) or \(\cos\) of a general angle, so the construction stays on the
+integer/rational grid. This matters for the project's exact-curve goals.
+
 ## PH curves and loop conditions
 
 ### Farouki, *Introduction to Pythagorean-Hodograph Curves* (2008)

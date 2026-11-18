@@ -1,4 +1,26 @@
 {
  "format": "curve-lab.finder-stars/1",
- "curves": []
+ "curves": [
+  {
+   "name": "loop t=1/2,3/4"
+  },
+  {
+   "name": "loop t=1/3,2/3"
+  },
+  {
+   "name": "loop t=1/4,3/4"
+  },
+  {
+   "name": "cross+45deg at t=1/4"
+  },
+  {
+   "name": "cross 2/5–4/5",
+   "spec": {
+    "d": "-23753/17500",
+    "e": "-4/5",
+    "c": "1"
+   },
+   "family": "solved-crossings"
+  }
+ ]
 }

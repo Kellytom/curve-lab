@@ -635,21 +635,40 @@
   window.phNthCrossings = points => crossingsOf(points, points,
     1e-4 * Math.max(1e-9, Math.max(...points.map(p => p[0])) - Math.min(...points.map(p => p[0]))));
 
-  window.phNthSymmetry = () => {
-    const points = spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y]);
-    const mirror = R_mirrorOf(points);
-    const size = Math.max(
-      Math.max(...points.map(p => p[0])) - Math.min(...points.map(p => p[0])),
-      Math.max(...points.map(p => p[1])) - Math.min(...points.map(p => p[1]))) || 1e-9;
-    const near = (p, cloud) => Math.min(...cloud.map(q => Math.hypot(p[0] - q[0], p[1] - q[1])));
-    const gap = Math.max(Math.max(...mirror.map(p => near(p, points))),
-                         Math.max(...points.map(p => near(p, mirror))));
-    return +(gap / size).toFixed(4);
+  // Every mirror axis worth naming, measured the same way: the largest gap
+  // between the curve and its reflection, as a share of the curve's size.
+  const R_gaps = points => {
+    const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+    const cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const size = Math.max(Math.max(...xs) - Math.min(...xs),
+                          Math.max(...ys) - Math.min(...ys)) || 1e-9;
+    const gap = other => {
+      const near = (p, cloud) => Math.min(...cloud.map(q => Math.hypot(p[0] - q[0], p[1] - q[1])));
+      const a = Math.max(...other.map(p => near(p, points)));
+      const b = Math.max(...points.map(p => near(p, other)));
+      return +(Math.max(a, b) / size).toFixed(4);
+    };
+    const reflect = (dx, dy) => {
+      const d2 = dx * dx + dy * dy;
+      return points.map(([x, y]) => {
+        const ux = x - cx, uy = y - cy;
+        const k = (ux * dx + uy * dy) / d2;
+        return [cx + 2 * k * dx - ux, cy + 2 * k * dy - uy];
+      });
+    };
+    return {
+      vertical: gap(points.map(([x, y]) => [2 * cx - x, y])),
+      horizontal: gap(points.map(([x, y]) => [x, 2 * cy - y])),
+      halfTurn: gap(points.map(([x, y]) => [2 * cx - x, 2 * cy - y])),
+      diagonal: gap(reflect(1, 1)),
+      antiDiagonal: gap(reflect(1, -1)),
+    };
   };
-  const R_mirrorOf = points => {
-    const centre = (Math.min(...points.map(p => p[0])) + Math.max(...points.map(p => p[0]))) / 2;
-    return points.map(([x, y]) => [2 * centre - x, y]);
-  };
+
+  // kept for the page checks: the vertical mirror, as a single number
+  window.phNthSymmetry = () => R_gaps(spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y])).vertical;
+  window.phNthSymmetryAll = () => R_gaps(spineSamples({ x: state.x, y: state.y }).map(s => [s.x, s.y]));
 
   window.phNthSpanRows = (aN, aD, lenN, lenD, rootN, rootD) => {
     const a = frac(aN, aD), span = frac(lenN, lenD), root = frac(rootN, rootD);
@@ -1088,6 +1107,12 @@
       `crosses itself ${selfCrossings.length} (crossing pairs)` +
       (view.complement ? ` | meets the grey curve ${meets.length}` : "") +
       (knotShare === null ? " | no knot: nothing crosses" : ` | knot ${knotShare}% legs ${legShare}%`) +
+      (() => {
+        const g = window.phNthSymmetryAll();
+        const label = (value) => value <= 0.005 ? "0" : value.toFixed(3);
+        return ` | symmetry v ${label(g.vertical)} x ${label(g.horizontal)}` +
+               ` half ${label(g.halfTurn)} y=x ${label(g.diagonal)} y=-x ${label(g.antiDiagonal)}`;
+      })() +
       negativeNote;
     const crossingLabel = document.getElementById("n-crossings");
     if (crossingLabel) {

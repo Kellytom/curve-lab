@@ -40,7 +40,7 @@ test("workbench files outside the manifest are still listed", () => {
 
 test("the app's own pages lead, and every page has a source url", () => {
   const hub = buildHub({ root: ROOT });
-  assert.deepEqual(hub.app.map((page) => page.src), ["/lab", "/book", "/finder"]);
+  assert.deepEqual(hub.app.map((page) => page.src), ["/lab", "/book", "/ph-nth-sandbox", "/finder"]);
   assert.equal(hub.total, hub.app.length
     + hub.sections.reduce((n, section) => n + section.pages.length, 0));
   for (const page of [...hub.app, ...hub.sections.flatMap((section) => section.pages)]) {
