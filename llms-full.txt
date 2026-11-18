@@ -348,7 +348,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `curve_lab/` | the Python engine: model, measure, clearance, PH curves, fillet, junction, grammar |
 | `curves/` | one folder per stored curve: its definition, its figures, its notes |
 | `workbench/` | the generated lab pages, one generator each in `scripts/` |
-| `app/` | the Astro app: hub, finder, sandbox, book gallery |
+| `app/` | the Astro app: hub, finder, sandbox, illuminations; `app/prisma/` is the database schema |
 | `book/` | the book plates: manifest, SVG, 300 dpi PNG |
 | `app/src/content/docs/` | the prose book, rendered by Starlight |
 | `state/` | working notes for the next session: handoff, register, decisions |
@@ -543,6 +543,22 @@ lands. The operator does not sit and watch a test run.
   background.
 - If a check cannot be made to run in under 5 seconds, split it, or move it out
   of the loop. Waiting is a bug in the workflow.
+- **Think async.** Start independent jobs together instead of queueing them;
+  a long job runs in the background and is reported when it lands, never waited on.
+- **A loop runs once per change.** Never run the same check twice to "confirm".
+  A second run needs a code change and a reason. Re-running is waste, not care.
+
+## Data: the database is the record
+
+- Names, importance, rotation and pieces are edited in **SQLite through
+  Prisma** (`app/prisma/schema.prisma`, `app/prisma/dev.db`). A save is a
+  transaction; a bad uid is refused before a row is written.
+- `workbench/curve-registry.json` is the **seed**; `curve-notes.json` and
+  `finder-stars.json` are **exports**. Never hand-edit a name into an export and
+  expect it to stick — use `/names` or `/api/curve-notes`.
+- After a schema change: `cd app && npx prisma db push`. After a fresh clone:
+  `npx prisma db push && node scripts/migrate.mjs && node scripts/check-db.mjs`.
+- The database is gitignored; the schema and the migration are not.
 
 ## Start cheap
 
@@ -856,6 +872,8 @@ process to satisfy.
 
 13. **No wait over 5 seconds.** Long checks run in the background; the fast
     loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
+14. **A loop runs once per change.** Re-running to confirm is waste; a second
+    run needs a change and a reason.
 
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault

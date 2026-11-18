@@ -13,7 +13,7 @@ const json = (body, status = 200) =>
 
 export const GET = async () => {
   try {
-    return json({ format: "curve-lab.curve-notes/1", ...readNotes(base()) });
+    return json({ format: "curve-lab.curve-notes/1", ...(await readNotes()) });
   } catch (error) {
     return json({ error: String(error.message || error) }, 500);
   }
@@ -22,7 +22,7 @@ export const GET = async () => {
 export const POST = async ({ request }) => {
   try {
     const payload = await request.json();
-    const result = await saveNotes(payload, base());
+    const result = await saveNotes(payload);
     clearIlluminateCache();
     return json(result);
   } catch (error) {

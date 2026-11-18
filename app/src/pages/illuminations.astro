@@ -6,7 +6,7 @@ import { buildGallery } from "../lib/gallery.js";
 // book/index.html is no longer generated.
 import { buildIlluminations } from "../lib/bordered.js";
 const gallery = buildGallery();
-const illuminated = buildIlluminations();
+const illuminated = await buildIlluminations();
 const { stars, designs, singles, counts } = gallery;
 const plateWord = (n) => (n === 1 ? "plate" : "plates");
 ---

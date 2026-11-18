@@ -59,6 +59,18 @@ lands. The operator does not sit and watch a test run.
 - **A loop runs once per change.** Never run the same check twice to "confirm".
   A second run needs a code change and a reason. Re-running is waste, not care.
 
+## Data: the database is the record
+
+- Names, importance, rotation and pieces are edited in **SQLite through
+  Prisma** (`app/prisma/schema.prisma`, `app/prisma/dev.db`). A save is a
+  transaction; a bad uid is refused before a row is written.
+- `workbench/curve-registry.json` is the **seed**; `curve-notes.json` and
+  `finder-stars.json` are **exports**. Never hand-edit a name into an export and
+  expect it to stick — use `/names` or `/api/curve-notes`.
+- After a schema change: `cd app && npx prisma db push`. After a fresh clone:
+  `npx prisma db push && node scripts/migrate.mjs && node scripts/check-db.mjs`.
+- The database is gitignored; the schema and the migration are not.
+
 ## Start cheap
 
 0. **`state/READING-int.md`** — the authoritative reading list (its line counts are refreshed by `scripts/reading_counts.py`, which `/fhandoff` runs): what to load, in

@@ -3,9 +3,10 @@
 // under each, so a curve whose frame is too wide can be swapped or turned.
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { loadRegistry } from "../lib/registry.js";
 
 const base = path.join(process.cwd(), "..");
-const registry = JSON.parse(readFileSync(path.join(base, "workbench", "curve-registry.json"), "utf8")).curves;
+const registry = (await loadRegistry(base)).curves;
 const meta = new Map();
 try {
   const index = JSON.parse(readFileSync(path.join(process.cwd(), "public", "figures", "index.json"), "utf8"));

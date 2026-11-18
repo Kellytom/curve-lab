@@ -1,16 +1,8 @@
-// Naming and importance, kept beside the registry rather than inside it: the
-// registry is rebuilt from the sources, and a rebuild must not lose a human's
-// name or rating.
-//
-// A failed read is never a write; every save keeps the previous file; an empty
-// list cannot replace a non-empty one.
+// Names, importance, the turn and the pieces of a curve set, in SQLite through
+// Prisma. A save is a transaction; a bad uid is refused before a row is written.
 
-import { copyFile, mkdir, readFile, rename, writeFile } from "node:fs/promises";
-import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
 import { z } from "zod";
-
-export const FORMAT = "curve-lab.curve-notes/1";
+import { prisma } from "./db.js";
 
 const Note = z.object({
   uid: z.string().regex(/^c-\d{4}$/, "uid must look like c-0001"),
@@ -18,47 +10,56 @@ const Note = z.object({
   importance: z.number().int().min(0).max(10).optional(),
   rotation: z.number().int().min(-360).max(360).optional(),
   pieces: z.union([z.literal(1), z.literal(2), z.literal(4)]).optional(),
-  border_uid: z.string().regex(/^c-\d{4}$/).optional(),
-}).passthrough();
+  border_uid: z.string().regex(/^c-\d{4}$/, "border uid must look like c-0001").optional(),
+});
 
 const Payload = z.object({ curves: z.array(Note) });
 
-export function notesPath(root) {
-  return path.join(path.resolve(root), "workbench", "curve-notes.json");
+export function toNote(row) {
+  return {
+    uid: row.uid,
+    name: row.name || undefined,
+    importance: row.importance,
+    rotation: row.rotation,
+    pieces: row.pieces,
+    border_uid: row.borderUid || undefined,
+    updated: row.updatedAt?.toISOString?.() || undefined,
+  };
 }
 
-export function readNotes(root) {
-  const file = notesPath(root);
-  if (!existsSync(file)) return { curves: [] };
-  try {
-    const data = JSON.parse(readFileSync(file, "utf8"));
-    return Array.isArray(data.curves) ? { curves: data.curves } : { curves: [] };
-  } catch {
-    return { curves: [] };
-  }
+export function validateNotes(payload) {
+  return Payload.parse(payload).curves;
 }
 
-export async function saveNotes(payload, root) {
-  const incoming = Payload.parse(payload).curves;
-  const file = notesPath(root);
-  const dir = path.dirname(file);
-  await mkdir(dir, { recursive: true });
-  const current = readNotes(root).curves;
-  if (!incoming.length && current.length) {
-    const error = new Error("refusing to empty the notes; send at least one curve");
-    error.status = 409;
+export async function readNotes() {
+  const rows = await prisma.note.findMany({ orderBy: { uid: "asc" } });
+  return { curves: rows.map(toNote) };
+}
+
+export async function saveNotes(payload) {
+  const incoming = validateNotes(payload);
+  if (!incoming.length) {
+    const error = new Error("nothing to save");
+    error.status = 400;
     throw error;
   }
-  const byUid = new Map(current.map((note) => [note.uid, note]));
-  for (const note of incoming) byUid.set(note.uid, { ...byUid.get(note.uid), ...note });
-  if (existsSync(file)) {
-    const backups = path.join(dir, "backups");
-    await mkdir(backups, { recursive: true });
-    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-    await copyFile(file, path.join(backups, `curve-notes-${stamp}.json`));
-  }
-  const temp = `${file}.tmp`;
-  await writeFile(temp, JSON.stringify({ format: FORMAT, curves: [...byUid.values()] }, null, 1) + "\n");
-  await rename(temp, file);
-  return { saved: byUid.size, path: file };
+  await prisma.$transaction(incoming.map((note) => prisma.note.upsert({
+    where: { uid: note.uid },
+    create: {
+      uid: note.uid,
+      name: note.name ?? null,
+      importance: note.importance ?? 0,
+      rotation: note.rotation ?? 0,
+      pieces: note.pieces ?? 1,
+      borderUid: note.border_uid ?? null,
+    },
+    update: {
+      ...(note.name !== undefined ? { name: note.name } : {}),
+      ...(note.importance !== undefined ? { importance: note.importance } : {}),
+      ...(note.rotation !== undefined ? { rotation: note.rotation } : {}),
+      ...(note.pieces !== undefined ? { pieces: note.pieces } : {}),
+      ...(note.border_uid !== undefined ? { borderUid: note.border_uid } : {}),
+    },
+  })));
+  return { saved: incoming.length };
 }

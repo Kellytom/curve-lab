@@ -17,7 +17,8 @@ Every pin is in `requirements.txt`, `requirements-dev.txt` or
 | the Astro app | Node 22 and npm | `npm --prefix app install` |
 
 The engine and the lab need no Node. The app needs no Python. The book needs
-neither the compiler nor Node.
+neither the compiler nor Node. The first run creates the database:
+`cd app && npx prisma db push && node scripts/migrate.mjs`.
 
 ## Python
 
@@ -51,6 +52,9 @@ not fetched at build time.
 | `@astrojs/starlight` | 0.36.0 | MIT | renders the prose book at `/docs` |
 | `@astrojs/node` | 9.5.5 | MIT | the Node adapter that runs Astro as a server |
 | `zod` | 3.25.76 | MIT | validates the payload the save route receives |
+| `@prisma/client` | 6.19.3 | Apache-2.0 | typed CRUD over the SQLite database |
+| `prisma` (CLI) | 6.19.3 | Apache-2.0 | schema, `db push`, migrations |
+| SQLite | bundled | public domain | the database file: transactions and constraints |
 | Pico CSS | vendored 2.x | MIT | the app's stylesheet, kept as one file, no build step |
 
 ## What is deliberately not a dependency
@@ -62,8 +66,9 @@ not fetched at build time.
   server; the app is Astro's own.
 - **No test runner beyond the standard ones.** `unittest` in Python, `node:test`
   in JavaScript.
-- **No ORM and no database.** The data is JSON files with a declared `format`
-  field, read through one loader.
+- **No second database and no second ORM.** SQLite through Prisma is the only
+  place edits are written. The JSON files are a seed and an export, read through
+  one loader.
 - **No auth library.** The server's shared-token gate is a few lines of
   `hmac.compare_digest` and Basic auth.
 

@@ -6,8 +6,8 @@ import { buildIlluminations } from "../src/lib/bordered.js";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 
-test("the gallery has the picked sets, numbered once", () => {
-  const gallery = buildIlluminations(ROOT);
+test("the gallery has the picked sets, numbered once", async () => {
+  const gallery = await buildIlluminations(ROOT);
 
   const registry = JSON.parse(
     readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url), "utf8"),
@@ -35,8 +35,8 @@ test("the gallery has the picked sets, numbered once", () => {
   }
 });
 
-test("the roses are the three rational ones, not the old rosettes", () => {
-  const gallery = buildIlluminations(ROOT);
+test("the roses are the three rational ones, not the old rosettes", async () => {
+  const gallery = await buildIlluminations(ROOT);
   const roses = gallery.sections[2].items.map((item) => item.name);
   assert.deepEqual(roses, [
     "rose-k-2-a-1-b-1",

@@ -1,4 +1,14 @@
 {
  "format": "curve-lab.curve-notes/1",
- "curves": []
+ "curves": [
+  {
+   "uid": "c-0001",
+   "name": "amper"
+  },
+  {
+   "uid": "c-0101",
+   "name": "cross-2of5-4of5",
+   "importance": 10
+  }
+ ]
 }

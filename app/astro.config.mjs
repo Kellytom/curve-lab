@@ -68,6 +68,10 @@ const sidebar = [
     ],
   },
   {
+    label: "Data",
+    items: ["docs/data"],
+  },
+  {
     label: "Reviews",
     items: ["docs/review", "docs/ph-quintic-review"],
   },

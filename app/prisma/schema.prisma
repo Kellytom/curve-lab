@@ -1,0 +1,47 @@
+// The database is the record for anything a human edits: names, importance,
+// the turn and pieces of a curve set. The JSON registry stays as the read-only
+// index that seeds this database.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Curve {
+  uid       String  @id
+  name      String  @unique
+  family    String?
+  lists     String  // JSON array of list names
+  aliases   String  // JSON array of former names
+  starred   Boolean @default(false)
+  candidate Boolean @default(false)
+  createdAt DateTime @default(now())
+  note      Note?
+  sets      CurveSet[]
+}
+
+model Note {
+  uid        String   @id
+  curve      Curve?   @relation(fields: [uid], references: [uid])
+  name       String?
+  importance Int      @default(0)
+  rotation   Int      @default(0)
+  pieces     Int      @default(1)
+  borderUid  String?
+  updatedAt  DateTime @updatedAt
+}
+
+model CurveSet {
+  uid        String @id
+  name       String
+  innerUid   String
+  inner      Curve  @relation(fields: [innerUid], references: [uid])
+  borderUid  String
+  rotation   Int    @default(0)
+  pieces     Int    @default(1)
+  perSide    Int    @default(9)
+  importance Int    @default(0)
+}

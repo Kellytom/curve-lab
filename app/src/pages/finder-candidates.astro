@@ -3,10 +3,9 @@
 // candidate pool, not the collection, and they are kept so the pool is visible.
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { loadRegistry } from "../lib/registry.js";
 
-const registry = JSON.parse(
-  readFileSync(path.join(process.cwd(), "..", "workbench", "curve-registry.json"), "utf8"),
-).curves;
+const registry = (await loadRegistry(path.join(process.cwd(), ".."))).curves;
 const candidates = registry.filter((record) => record.candidate);
 ---
 

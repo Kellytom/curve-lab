@@ -55,3 +55,8 @@ state/backups/
 
 # local user directory (app data, personal)
 app/data/
+
+# Prisma: local database and its journals
+app/prisma/dev.db
+app/prisma/dev.db-journal
+app/.env

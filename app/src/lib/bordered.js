@@ -13,6 +13,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
+import { loadRegistry } from "./registry.js";
 
 const require = createRequire(import.meta.url);
 const P = require("../../../workbench/plate_math.js");
@@ -168,10 +169,10 @@ export function clearIlluminateCache() {
   cache = null;
 }
 
-export function buildIlluminations(root) {
+export async function buildIlluminations(root) {
   if (cache) return cache;
   const base = root || path.resolve(process.cwd(), "..");
-  const registry = readJson(path.join(base, "workbench", "curve-registry.json")).curves;
+  const registry = (await loadRegistry(base)).curves;
   const rows = Object.fromEntries(registry.map((record) => [record.name, record]));
   const byUid = Object.fromEntries(registry.map((record) => [record.uid, record]));
   const byList = (name) => registry.filter((record) => record.lists.includes(name));

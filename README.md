@@ -335,7 +335,7 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `curve_lab/` | the Python engine: model, measure, clearance, PH curves, fillet, junction, grammar |
 | `curves/` | one folder per stored curve: its definition, its figures, its notes |
 | `workbench/` | the generated lab pages, one generator each in `scripts/` |
-| `app/` | the Astro app: hub, finder, sandbox, book gallery |
+| `app/` | the Astro app: hub, finder, sandbox, illuminations; `app/prisma/` is the database schema |
 | `book/` | the book plates: manifest, SVG, 300 dpi PNG |
 | `app/src/content/docs/` | the prose book, rendered by Starlight |
 | `state/` | working notes for the next session: handoff, register, decisions |
