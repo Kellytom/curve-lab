@@ -11,3 +11,7 @@ const globalForPrisma = globalThis;
 export const prisma = globalForPrisma.__prisma || new PrismaClient();
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.__prisma = prisma;
+
+// WAL lets a reader and a writer work at the same time without locking the
+// whole file; it is the normal mode for a small server-side SQLite database.
+prisma.$executeRawUnsafe("PRAGMA journal_mode=WAL;").catch(() => {});

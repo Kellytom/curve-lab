@@ -8,7 +8,7 @@ if (Astro.request.method === "POST") {
     return new Response("bad origin", { status: 403 });
   }
   const form = await Astro.request.formData();
-  const result = createUser({
+  const result = await createUser({
     name: String(form.get("name") || ""),
     email: String(form.get("email") || ""),
     role: String(form.get("role") || "viewer"),
@@ -17,7 +17,7 @@ if (Astro.request.method === "POST") {
   if (result.ok) return Astro.redirect("/users", 303);
   error = result.error;
 }
-const state = readUsers();
+const state = await readUsers();
 ---
 
 <!doctype html>

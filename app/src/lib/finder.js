@@ -3,19 +3,17 @@
 // The page displays; the Python script computes. No maths happens here.
 
 import { existsSync, readFileSync } from "node:fs";
-import { fileHash, readFinderStars } from "./finder-stars.js";
+import { readFinderStars } from "./finder-stars.js";
 import path from "node:path";
 import { repoRoot } from "./gallery.js";
 
-export function finderData(root) {
+export async function finderData(root) {
   const base = repoRoot(root);
   const file = path.join(base, "workbench", "finder.json");
-  const { curves: starred, source } = readFinderStars(base);
-  const starsFile = path.join(base, "workbench", "finder-stars.json");
-  const baseHash = existsSync(starsFile) ? fileHash(readFileSync(starsFile, "utf8")) : "";
-  if (!existsSync(file)) return { format: null, curves: [], starred, starSource: source, baseHash, missing: file };
+  const { curves: starred, source } = await readFinderStars();
+  if (!existsSync(file)) return { format: null, curves: [], starred, starSource: source, missing: file };
   const data = JSON.parse(readFileSync(file, "utf8"));
-  return { ...data, curves: Array.isArray(data.curves) ? data.curves : [], starred, starSource: source, baseHash };
+  return { ...data, curves: Array.isArray(data.curves) ? data.curves : [], starred, starSource: source };
 }
 
 // A polyline in pixel space, from the sampled points, with a small margin.

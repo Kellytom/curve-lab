@@ -60,3 +60,6 @@ app/data/
 app/prisma/dev.db
 app/prisma/dev.db-journal
 app/.env
+
+# database snapshots
+state/backups/db/

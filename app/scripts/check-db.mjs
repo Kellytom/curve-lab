@@ -15,6 +15,9 @@ const counts = {
   curves: await prisma.curve.count(),
   notes: await prisma.note.count(),
   sets: await prisma.curveSet.count(),
+  stars: await prisma.star.count(),
+  plateStars: await prisma.plateStar.count(),
+  users: await prisma.user.count(),
 };
 const expected = {
   curves: registry.curves.length,
@@ -26,7 +29,8 @@ console.log("expected", expected);
 
 const orphans = await prisma.note.count({ where: { curve: null } });
 const nameless = await prisma.curve.count({ where: { name: "" } });
-if (JSON.stringify(counts) !== JSON.stringify(expected) || orphans || nameless) {
+const core = { curves: counts.curves, notes: counts.notes, sets: counts.sets };
+if (JSON.stringify(core) !== JSON.stringify(expected) || orphans || nameless) {
   console.error("mismatch", { orphans, nameless });
   process.exitCode = 1;
 } else {

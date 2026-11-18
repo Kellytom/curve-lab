@@ -3,7 +3,7 @@
 // workbench/finder-stars.json. The logic is src/lib/finder-stars.js so a Next
 // or Hono route can reuse it.
 
-import { finderStarsState, saveFinderStars } from "../../lib/finder-stars.js";
+import { readFinderStars, saveFinderStars } from "../../lib/finder-stars.js";
 
 const base = () => process.env.CURVE_LAB_ROOT || process.cwd();
 const json = (body, status = 200) =>
@@ -14,8 +14,7 @@ const json = (body, status = 200) =>
 
 export const GET = async () => {
   try {
-    const state = finderStarsState(base());
-    return json({ format: "curve-lab.finder-stars/1", ...state });
+    return json({ format: "curve-lab.finder-stars/1", ...(await readFinderStars()) });
   } catch (error) {
     return json({ error: String(error.message || error) }, 500);
   }

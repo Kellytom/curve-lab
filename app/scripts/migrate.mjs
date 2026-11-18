@@ -5,10 +5,12 @@
 // The JSON stays as the read-only index that seeds the database. After this
 // runs, names, importance, rotation and pieces are edited in the database.
 
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { PrismaClient } from "@prisma/client";
 
+execFileSync("node", [path.join(import.meta.dirname, "backup-db.mjs")], { stdio: "inherit" });
 const prisma = new PrismaClient();
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const workbench = (name) => path.join(ROOT, "workbench", name);
@@ -22,6 +24,7 @@ const starNames = new Set(
 
 const byUid = new Map(notes.curves.filter((n) => n.uid).map((n) => [n.uid, n]));
 
+if (await prisma.curve.count() === 0) {
 await prisma.$transaction(async (tx) => {
   for (const record of registry.curves) {
     await tx.curve.upsert({
@@ -81,6 +84,39 @@ await prisma.$transaction(async (tx) => {
     });
   }
 });
+}
+
+// Stars, users and plate stars are small edited stores; the JSON is their seed.
+const starFile = workbench("finder-stars.json");
+if (existsSync(starFile)) {
+  for (const star of JSON.parse(readFileSync(starFile, "utf8")).curves || []) {
+    await prisma.star.upsert({
+      where: { name: star.name },
+      create: { name: star.name, note: star.note ?? null, spec: star.spec ? JSON.stringify(star.spec) : null },
+      update: { note: star.note ?? null, spec: star.spec ? JSON.stringify(star.spec) : null },
+    });
+  }
+}
+const userFile = path.join(ROOT, "app", "data", "users.json");
+if (existsSync(userFile)) {
+  for (const user of JSON.parse(readFileSync(userFile, "utf8")).users || []) {
+    await prisma.user.upsert({
+      where: { id: user.id },
+      create: { id: user.id, name: user.name, email: user.email || null, role: user.role || "viewer", notes: user.notes || null },
+      update: { name: user.name, email: user.email || null, role: user.role || "viewer", notes: user.notes || null },
+    });
+  }
+}
+const plateFile = workbench("starred.json");
+if (existsSync(plateFile)) {
+  for (const plate of JSON.parse(readFileSync(plateFile, "utf8")).plates || []) {
+    await prisma.plateStar.upsert({
+      where: { id: plate.id },
+      create: { id: plate.id, note: plate.note ?? null },
+      update: { note: plate.note ?? null },
+    });
+  }
+}
 
 const counts = {
   curves: await prisma.curve.count(),

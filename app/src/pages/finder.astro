@@ -3,7 +3,7 @@
 // workbench/finder.json; this page draws, labels, and stars by a stable id.
 import { finderData, svgPath } from "../lib/finder.js";
 
-const data = finderData();
+const data = await finderData();
 const curves = data.curves;
 const byName = new Map(curves.map((c) => [c.name, c]));
 const starredIds = new Set((data.starred || []).map((s) => s.id).filter(Boolean));
@@ -113,11 +113,9 @@ code{font:11px ui-monospace,Menlo,monospace}
 <script id="finder-stars-seed" type="application/json" set:html={JSON.stringify(data.starred || [])}></script>
 <script id="finder-specs" type="application/json" set:html={JSON.stringify(specs)}></script>
 <script id="finder-name-to-id" type="application/json" set:html={JSON.stringify(Object.fromEntries(curves.map((c) => [c.name, c.id])))}></script>
-<script id="finder-base" type="application/json" set:html={JSON.stringify(data.baseHash || "")}></script>
 <script is:inline>
 (() => {
   const KEY = "finder-stars";
-  let baseHash = JSON.parse(document.getElementById("finder-base").textContent || '""');
   let lastError = "";
   const nameToId = JSON.parse(document.getElementById("finder-name-to-id").textContent || "{}");
   const migrate = (list) => {
@@ -205,29 +203,19 @@ code{font:11px ui-monospace,Menlo,monospace}
     }
     return [...byKey.values()];
   };
-  const post = async (retry = true) => {
+  const post = async () => {
     const status = document.getElementById("star-status");
     try {
       const response = await fetch("/api/finder-stars", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ format: "curve-lab.finder-stars/1", baseHash,
-                               allowEmpty: true, curves: read() }),
+        body: JSON.stringify({ format: "curve-lab.finder-stars/1", curves: read() }),
       });
       const out = await response.json();
       if (response.ok) {
-        baseHash = out.hash || baseHash;
         lastError = "";
         if (status) status.textContent = "";
         return;
-      }
-      if (response.status === 409 && retry) {
-        const now = await (await fetch("/api/finder-stars")).json();
-        if (Array.isArray(now.curves)) {
-          write(merge(now.curves, read()));
-          baseHash = now.hash || "";
-          return post(false);
-        }
       }
       lastError = `save failed: ${out.error} — the stars are kept in this browser`;
       try {

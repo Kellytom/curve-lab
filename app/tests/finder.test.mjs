@@ -10,7 +10,7 @@ const APP = fileURLToPath(new URL("..", import.meta.url));
 const ROOT = path.resolve(APP, "..");
 
 test("the finder data is whole", async () => {
-  const data = finderData(ROOT);
+  const data = await finderData(ROOT);
   assert.ok(data.curves.length >= 10, "not enough curves");
   const withPeak = data.curves.filter((c) => c.peak && c.peak.kappa > 0);
   assert.ok(withPeak.length >= 5, "too few curves have a curvature peak");

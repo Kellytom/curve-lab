@@ -45,3 +45,30 @@ model CurveSet {
   perSide    Int    @default(9)
   importance Int    @default(0)
 }
+
+// A finder star: the curve the person kept. The name matches Curve.name or an
+// alias, so a star survives a rename of the display name.
+model Star {
+  name      String   @id
+  note      String?
+  spec      String?  // JSON, the definition the finder showed
+  createdAt DateTime @default(now())
+}
+
+// A plate starred in the lab, for the book gallery.
+model PlateStar {
+  id        String   @id
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+// A person in the lab's directory. Not a login: no password field exists.
+model User {
+  id        String   @id
+  name      String
+  email     String?
+  role      String   @default("viewer")
+  notes     String?
+  created   DateTime @default(now())
+  updated   DateTime @updatedAt
+}

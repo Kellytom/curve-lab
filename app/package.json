@@ -6,7 +6,11 @@
     "dev": "CURVE_LAB_ROOT=.. astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "backup": "node scripts/backup-db.mjs",
+    "restore": "node scripts/restore-db.mjs",
+    "predev": "node scripts/backup-db.mjs",
+    "prebuild": "node scripts/backup-db.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.5",
