@@ -46,11 +46,11 @@ none may be skipped by drawing a pretty outline over a missing rule.
   straight run), **curve** (changing curvature) and **infinity** (a spiral's
   limit circle, a heading limit, or a ray to a point at infinity). Parts may
   carry one aspect each; a design with fewer than three is incomplete. See
-  `docs/PHILOSOPHY.md` §Infinity, linearity, curve.
+  `app/src/content/docs/docs/philosophy.md` §Infinity, linearity, curve.
 - **Every design is grounded.** A horizontal datum (ground line, baseline,
   plinth, band or foot) and a vertical element (stem, lance, axis, trunk) must
   be related; the relation may be visible or declared, never absent. See
-  `docs/PHILOSOPHY.md` §Grounded.
+  `app/src/content/docs/docs/philosophy.md` §Grounded.
 - **mm internally; +y up.** Flip at SVG/page output and say where.
 - The **integer lattice** is in model space. The page grid is a ruler, not the
   lattice.
@@ -116,16 +116,16 @@ the springing and impost heights declared and the sections chosen for the span.
   `piece_clearance()`.
 - `workbench/flowers.html`, `scripts/stems_print.py` — the flowers sheet and
   the stem/ending placement.
-- `docs/FLOWERS-int.md`, `docs/PHILOSOPHY.md`, `docs/CLEARANCE.md`,
-  `docs/JUNCTION.md` — the durable prose.
+- `archive/notes/FLOWERS-int.md`, `app/src/content/docs/docs/philosophy.md`, `app/src/content/docs/docs/clearance.md`,
+  `app/src/content/docs/docs/junction.md` — the durable prose.
 - `reference/external/parallel-beziers.html` — Raph Levien, “Parallel curves of
   cubic Béziers” (2022-09-09); the fitted cubic-Bézier offset reference.
 - `pythagorean-spiral/` — the exact p-triple Euler polygon, rational miter rails
-  (`ribbon.rails`), placement and lattice; `docs/SPINE.md`,
+  (`ribbon.rails`), placement and lattice; `app/src/content/docs/docs/spine.md`,
   `pythagorean-spiral/docs/TRANSFER.md`.
 - `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html` — the exact
   Pythagorean integer cubic family: chord `2c`, arms `c`, rational tangents,
-  integer rotations; `docs/INTEGER-CUBIC.md`.
+  integer rotations; `app/src/content/docs/docs/integer-cubic.md`.
 - `curve_lab/spine.py` — the bridge from a chain's cubic spans to a
   `Design`/`Piece`; a cusp must be split first.
 - `workbench/levien-integer.html` — the Levien integer sandbox (parabola, half,
@@ -243,7 +243,7 @@ exact PH where available, Levien's cubic fit, and the LAC/chain rail. The same
   nodes use lattice *points* (both coordinates). Measured: the plant stalk has
   seven stations at y = 1…7, none with integer x, and one full point (0, 0);
   the 3-4-5 lobe has 2 of 11 scale-1 integer nodes. The operator confirms;
-  `docs/PHILOSOPHY.md` §Lattice has the rule and the numbers.
+  `app/src/content/docs/docs/philosophy.md` §Lattice has the rule and the numbers.
 - **Cone terminal — resolved in the proof.** Rail ends are `point ± offset·N`,
   the tip is `point + √3·offset·T`, and the arc centres are `A − R·N` and
   `B + R·N` with `R = 2·offset`.  The only remaining question is whether the

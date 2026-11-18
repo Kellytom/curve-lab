@@ -13,7 +13,7 @@ price of the only exact route: every heading change must be a whole number of
 triangle turns, and P01's start heading (77.97 degrees) and corners are not in
 that group. A finer angle reduces the quantisation, and it does converge: 0.125
 degrees reaches 0.11% of height, while 0.0625 degrees did not finish in a minute.
-The cost is the limit, not the method. See `docs/FIDELITY.md`.
+The cost is the limit, not the method. See `app/src/content/docs/docs/fidelity.md`.
 
 The band is not included: it is a second stroke, and its 180 degree arcs need
 the same treatment at the same cost.

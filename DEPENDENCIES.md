@@ -13,7 +13,7 @@ Every pin is in `requirements.txt`, `requirements-dev.txt` or
 | the engine | Python 3.12 and `numpy` | `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt` |
 | the engine's C surface | a C++17 compiler | `bash scripts/build-native.sh` |
 | the lab pages | Python and `numpy` | `.venv/bin/python scripts/serve.py` |
-| the prose book | `markdown`, `mkdocs`, `mkdocs-material` | `.venv/bin/pip install -r requirements-dev.txt` |
+| the prose book | `@astrojs/starlight` (installed with the app) | `npm --prefix app install` |
 | the Astro app | Node 22 and npm | `npm --prefix app install` |
 
 The engine and the lab need no Node. The app needs no Python. The book needs
@@ -25,9 +25,6 @@ neither the compiler nor Node.
 |---|---|---|---|
 | Python | 3.12 | PSF-2.0 | runs the engine, the scripts and the tests |
 | `numpy` | 2.5.4 | BSD-3-Clause | numeric work in `curve_lab/nodes.py` and the finder scripts |
-| `markdown` | 3.11.2 | BSD-3-Clause | builds the HTML twins of two docs pages |
-| `mkdocs` | 1.6.1 | BSD-2-Clause | builds the prose book |
-| `mkdocs-material` | 9.8.0 | MIT | the book's theme |
 | `pyclothoids` | 0.2.0 | MIT | optional: the prebuilt wheel, a second opinion on the C wrapper, and a fallback when no compiler is available |
 
 `pyclothoids` carries the same engine as the vendored source, so it agrees on
@@ -51,6 +48,7 @@ not fetched at build time.
 |---|---|---|---|
 | Node | 22 | MIT | runs the Astro app and the page checks |
 | `astro` | 5.18.2 | MIT | the app and its pages, server-rendered |
+| `@astrojs/starlight` | 0.36.0 | MIT | renders the prose book at `/docs` |
 | `@astrojs/node` | 9.5.5 | MIT | the Node adapter that runs Astro as a server |
 | `zod` | 3.25.76 | MIT | validates the payload the save route receives |
 | Pico CSS | vendored 2.x | MIT | the app's stylesheet, kept as one file, no build step |
@@ -58,7 +56,7 @@ not fetched at build time.
 ## What is deliberately not a dependency
 
 - **No front-end framework.** No React, Vue, Svelte or bundler. The lab pages are
-  plain HTML with small scripts; the app is Astro.
+  plain HTML with small scripts; the app and the book are Astro.
 - **No path library.** Writing `M` and `C` is a formatting job, not a package.
 - **No server framework.** The Python server is the standard library's HTTP
   server; the app is Astro's own.
@@ -71,8 +69,8 @@ not fetched at build time.
 
 ## What "pinned" means here
 
-Exact versions are pinned for the tools that change behaviour: `numpy` and
-`markdown` in `requirements.txt`, the app packages in `package.json`. A pin is
+Exact versions are pinned for the tools that change behaviour: `numpy` in
+`requirements.txt`, the app packages in `package.json`. A pin is
 changed on purpose, in its own commit, with the tests run afterwards.
 
 The one exception is `vendor/Clothoids`, which is a source tree, not a package.

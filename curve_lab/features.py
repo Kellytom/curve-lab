@@ -6,7 +6,7 @@ the finder measures the same list. Positions are polynomials in t; every root is
 located numerically (sign change plus bisection), and every count is reported
 with the rule that produced it. The crossing count is a count of **parameter
 pairs** — three passes through one point are three pairs — matching
-`docs/CLEARANCE.md` and the register.
+`app/src/content/docs/docs/clearance.md` and the register.
 """
 
 from __future__ import annotations

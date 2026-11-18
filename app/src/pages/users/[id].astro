@@ -1,0 +1,76 @@
+---
+import { findUser, removeUser, updateUser, ROLES } from "../../lib/users.js";
+import { sameOrigin } from "../../lib/http.js";
+
+const id = String(Astro.params.id);
+let error = "";
+
+if (Astro.request.method === "POST") {
+  if (!sameOrigin(Astro.request, Astro.url)) {
+    return new Response("bad origin", { status: 403 });
+  }
+  const form = await Astro.request.formData();
+  if (String(form.get("intent") || "save") === "delete") {
+    const result = removeUser(id);
+    if (result.ok) return Astro.redirect("/users", 303);
+    error = result.error;
+  } else {
+    const result = updateUser(id, {
+      name: String(form.get("name") || ""),
+      email: String(form.get("email") || ""),
+      role: String(form.get("role") || "viewer"),
+      notes: String(form.get("notes") || ""),
+    });
+    if (result.ok) return Astro.redirect("/users", 303);
+    error = result.error;
+  }
+}
+
+const user = findUser(id);
+if (!user) return Astro.redirect("/users", 303);
+---
+
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{user.name} — users</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+</head><body>
+<nav class="container-fluid">
+  <ul><li><strong>curve-lab</strong></li></ul>
+  <ul>
+    <li><a href="/">hub</a></li>
+    <li><a href="/users">users</a></li>
+    <li><a href="/blog">notes</a></li>
+    <li><a href="/about">about</a></li>
+  </ul>
+</nav>
+<main class="container">
+  <h1>{user.name}</h1>
+  <p><small>id <code>{user.id}</code> · created {user.created?.slice(0, 10)}</small></p>
+
+  {error ? <article aria-invalid="true"><strong>{error}</strong></article> : null}
+
+  <form method="post">
+    <label>Name <input name="name" value={user.name} required maxlength="80"></label>
+    <div class="grid">
+      <label>Address <input name="email" type="email" value={user.email} maxlength="200"></label>
+      <label>Role
+        <select name="role">
+          {ROLES.map((role) => <option value={role} selected={role === user.role}>{role}</option>)}
+        </select>
+      </label>
+    </div>
+    <label>Note <textarea name="notes" maxlength="500" rows="3">{user.notes}</textarea></label>
+    <button type="submit">Save</button>
+  </form>
+
+  <form method="post" onsubmit="return confirm('Remove this user?')">
+    <input type="hidden" name="intent" value="delete">
+    <button type="submit" class="secondary outline">Remove this user</button>
+  </form>
+
+  <p><a href="/users">all users</a></p>
+</main>
+</body></html>

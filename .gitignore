@@ -52,3 +52,6 @@ workbench/backups/
 workbench/finder.backup.json
 workbench/finder-stars.backup.json
 state/backups/
+
+# local user directory (app data, personal)
+app/data/

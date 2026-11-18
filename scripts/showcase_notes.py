@@ -69,7 +69,7 @@ NOTES = [
         "tech": ['schedule'], "body": ["A log-aesthetic curve drawn as a stem: the centreline follows κ ∝ s^(α−1), and the two rails stand off it at a constant distance.",
          "The law is exact and the rails are fitted — the same split as every other ribbon on this page, stated rather than hidden."],
         "numbers": ["α = 1", "two rails", "smooth"],
-        "source": "docs/SPINE.md · workbench/spirals/",
+        "source": "app/src/content/docs/docs/spine.md · workbench/spirals/",
         "command": "python scripts/check-spirals.py",
     },
     {
@@ -85,7 +85,7 @@ NOTES = [
         "body": ["α = 0.5: same construction, a different exponent, a different sweep. The grammar — centreline, rails, ending — is unchanged.",
          "That is what makes the family useful: the curve varies, the rules do not."],
         "numbers": ["α = 0.5", "same rails and ending"],
-        "source": "docs/SPINE.md · goals.md (LAC tier)",
+        "source": "app/src/content/docs/docs/spine.md · goals.md (LAC tier)",
         "command": "python scripts/check-spirals.py",
     },
     {
@@ -234,7 +234,7 @@ NOTES = [
         "body": ["Three petals, r = cos 3t. The higher degree is what gives three-fold symmetry without a fitted blend.",
          "It is in the flower grammar precisely because the symmetry is exact: a rosette that is not rational cannot promise it."],
         "numbers": ["sextic", "3-fold symmetry", "rational"],
-        "source": "scripts/generators.py · docs/FLOWERS-int.md",
+        "source": "scripts/generators.py · archive/notes/FLOWERS-int.md",
         "command": "python scripts/generators.py",
     },
     {
@@ -266,7 +266,7 @@ NOTES = [
         "body": ["r = 1 − cos t: the flower head with a cusp at the base. Exact, rational, and one of the four forms the flower grammar admits.",
          "The cusp is where the head meets the stalk, which is convenient: the join is a singularity, not a fit."],
         "numbers": ["r = 1 − cos t", "one cusp", "rational"],
-        "source": "curve_lab/plant.py flower · docs/FLOWERS-int.md",
+        "source": "curve_lab/plant.py flower · archive/notes/FLOWERS-int.md",
         "command": "python -c \"from curve_lab import plant; print(len(plant.flower((0,0),(1,0),1.0)['left']))\"",
     },
     {
@@ -338,7 +338,7 @@ NOTES = [
         "body": ["κ ∝ s: the one curve whose curvature is linear in arc length. It cannot be written in elementary functions, so it is integrated.",
          "It is the core of the Euler catalogue and the reason a chain of them, not one, is needed for G2."],
         "numbers": ["κ ∝ s", "no elementary form", "one cannot do G2"],
-        "source": "workbench/euler-sections.html · docs/SPINE.md",
+        "source": "workbench/euler-sections.html · app/src/content/docs/docs/spine.md",
         "command": "python scripts/euler_match.py",
     },
     {
@@ -354,7 +354,7 @@ NOTES = [
         "body": ["Equal chords, whole-number turns 1,2,2,1,1 — a sweep that tightens and eases without crossing itself. The dotted polygon is the exact object; the smooth line through it is the drawing.",
          "This is the same construction as the LAC spines, shown without a target curve so the schedule itself is visible."],
         "numbers": ["equal chords", "turns 1,2,2,1,1", "no self-crossing"],
-        "source": "pythagorean-spiral/ · docs/SPINE.md",
+        "source": "pythagorean-spiral/ · app/src/content/docs/docs/spine.md",
         "command": "python scripts/showcase.py",
     },
     {
@@ -466,7 +466,7 @@ NOTES = [
         "body": ["The second span starts with exactly the curvature the first one ends with — 0.6 — and unwinds it. That is what makes the join G2 rather than merely G1.",
          "This is the smallest object that shows why one clothoid is not enough and two are."],
         "numbers": ["κ at the join 0.6", "both sides", "G2"],
-        "source": "curve_lab/presets.py (ogee) · docs/SPINE.md",
+        "source": "curve_lab/presets.py (ogee) · app/src/content/docs/docs/spine.md",
         "command": "python -c \"from curve_lab import presets; print(presets.get('ogee').segments)\"",
     },
     {
@@ -482,7 +482,7 @@ NOTES = [
         "body": ["κ ∝ s^(α−1) with α below 1: the curvature falls slowly, so the curve tightens as it runs. It is the same law the clothoid uses, with a different exponent.",
          "Nothing here is fitted: the law is the definition, and the drawing is its integral."],
         "numbers": ["α = 0.35", "κ falls", "smooth"],
-        "source": "docs/SPINE.md §5 (curl study) · workbench/spirals/",
+        "source": "app/src/content/docs/docs/spine.md §5 (curl study) · workbench/spirals/",
         "command": "python scripts/check-spirals.py",
     },
     {
@@ -498,7 +498,7 @@ NOTES = [
         "body": ["α above 1: curvature rises with arc length, so the curve opens and then closes toward a circle as α approaches 2.",
          "It is the family's other end, and the reason a single α is enough to describe every smooth 'aesthetic' curve the project uses."],
         "numbers": ["α = 1.7", "κ rises", "circle at α = 2"],
-        "source": "docs/SPINE.md · goals.md (LAC tier)",
+        "source": "app/src/content/docs/docs/spine.md · goals.md (LAC tier)",
         "command": "python scripts/check-spirals.py",
     },
     {
@@ -506,7 +506,7 @@ NOTES = [
         "body": ["The grey curve is the ideal cycloid; the dark one is the same curve with every heading rounded to 3° and the arches rebuilt from those rounded steps.",
          "This is the project's central move, shown rather than described: the ideal curve is the target, the polygon is the plan, and the cusps survive the rounding."],
         "numbers": ["3° quantisation", "cusps preserved"],
-        "source": "docs/SPINE.md §5 · workbench/euler-sections.html",
+        "source": "app/src/content/docs/docs/spine.md §5 · workbench/euler-sections.html",
         "command": "python scripts/euler_match.py",
     },
     {
@@ -522,7 +522,7 @@ NOTES = [
         "body": ["The tractrix's cusp is the hard case: the quantised polygon gathers points near it, and the clothoid fit degrades there. That degradation is the measured 15% figure.",
          "It is drawn beside the ideal rather than instead of it, so the error is visible rather than asserted."],
         "numbers": ["one cusp", "clothoid fit degrades"],
-        "source": "scripts/euler_match.py · docs/SPINE.md",
+        "source": "scripts/euler_match.py · app/src/content/docs/docs/spine.md",
         "command": "python scripts/euler_match.py",
     },
     {
@@ -584,7 +584,7 @@ NOTES = [
         ],
         "numbers": ["10 equal chords, 11 nodes", "peak heading 553.05°",
                     "sum of turns = 0", "350 rungs to 3125, median gap 0.14°"],
-        "source": "pythagorean-spiral/ · docs/SPINE.md §2, §5 · curve_lab/spine.py",
+        "source": "pythagorean-spiral/ · app/src/content/docs/docs/spine.md §2, §5 · curve_lab/spine.py",
         "command": "python scripts/showcase.py",
     },
     {
@@ -592,7 +592,7 @@ NOTES = [
         "body": ["Ten equal chords, each turned by a whole number of 3-4-5 angles. The gold dots are every node; the dark line is the polygon through them. Nothing here is fitted — the drawn object is the exact chain, not an approximation of it.",
          "The turn schedule 1,2,3,4,5,−5,−4,−3,−2,−1 is the curve: it winds to a peak heading of 553.05°, then unwinds along the same integers and exits exactly east. Here is the closure rule: the turns must cancel, because no accumulation of a 3-4-5 angle can land on a rational right angle."],
         "numbers": ["10 chords, 11 nodes", "peak heading 553.05°", "sum of turns = 0"],
-        "source": "pythagorean-spiral/ · docs/SPINE.md §2, §5",
+        "source": "pythagorean-spiral/ · app/src/content/docs/docs/spine.md §2, §5",
         "command": "python scripts/showcase.py",
     },
     {
@@ -600,7 +600,7 @@ NOTES = [
         "body": ["The heading after chord k is alpha·T(k), so tracking the cumulative turn coefficient is enough to decide closure. It climbs 1, 3, 6, 10, 15 and comes back through the same integers to 0. The exit is exactly east, with no angle drift at all.",
          "The cancellation is not a tuning trick: with one triangle, Niven's theorem leaves total turn zero as the only exact axis landing. A vertical exit needs an explicit right-angle cusp, or a quarter turn of the finished design."],
         "numbers": ["1+2+3+4+5−5−4−3−2−1 = 0", "exit heading east", "zero angle drift"],
-        "source": "pythagorean-spiral/pythagorean_spiral/closure.py · docs/SPINE.md",
+        "source": "pythagorean-spiral/pythagorean_spiral/closure.py · app/src/content/docs/docs/spine.md",
         "command": "python -m unittest discover -s pythagorean-spiral/tests -t pythagorean-spiral",
     },
     {
@@ -614,9 +614,9 @@ NOTES = [
     {
         "id": "20a", "fig": "Fig. 20a", "title": "Caps: butt, point, arc, round", "kind": "geometry",
         "body": ["A terminal is geometry, not a stroke hint: the rails stop and a few spans bridge them, so the end survives export to a tool that ignores stroke-linecap.",
-         "The four caps are ordered by what they do. Butt is the baseline — the rails simply stop. Point meets at a tip half a width out. Arc is a shallow 5 mm dome. Round is a semicircle of radius half the width. The 120° cap limit is a project choice, stated in docs/JUNCTION.md."],
+         "The four caps are ordered by what they do. Butt is the baseline — the rails simply stop. Point meets at a tip half a width out. Arc is a shallow 5 mm dome. Round is a semicircle of radius half the width. The 120° cap limit is a project choice, stated in app/src/content/docs/docs/junction.md."],
         "numbers": ["butt · point · arc · round", "cap limit 120°", "half-width reaches"],
-        "source": "curve_lab/terminals.py · docs/JUNCTION.md",
+        "source": "curve_lab/terminals.py · app/src/content/docs/docs/junction.md",
         "command": "python -m unittest tests.test_terminals",
     },
     {

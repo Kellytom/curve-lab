@@ -39,7 +39,7 @@ the date it was last checked.
      session deployed or changed Cloud Run, Cloud Build, or billing. Carry the
      recorded values and label them carried.
    - **Parity:** never run `scripts/check-parity.py` here; it is its own check.
-   - **Handover:** read `docs/HANDOVER.md` only if a durable fact actually
+   - **Handover:** read `app/src/content/docs/docs/handover.md` only if a durable fact actually
      changed, and then keep `docs/HANDOVER.html` in step with it.
    - If something is genuinely ambiguous, write the uncertainty in one line
      rather than investigating it.
@@ -82,7 +82,7 @@ the date it was last checked.
    exactly three lines:
 
    ```text
-   Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
+   Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
    You are <the single focused action>.
    Proves: <the artifact and the check that make it done>.
    ```
@@ -102,7 +102,7 @@ the date it was last checked.
    - `state/HANDOFF-int.md`, `next-fhandoff-int.md`, `goals.md`, `TODO.md`,
      `state/ACHIEVEMENTS-int.md`, `state/READING-int.md`,
      `state/REGRESSIONS-int.md`, `state/DESIGN-int.md`
-   - `docs/HANDOVER.md`, `docs/HANDOVER.html`
+   - `app/src/content/docs/docs/handover.md`, `docs/HANDOVER.html`
    - `workbench/todo.html` if `scripts/todo.py` rewrote it
    - `AGENTS.md`, `.opencode/commands/*.md`, `.gitignore` if they changed
 

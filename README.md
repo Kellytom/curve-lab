@@ -1,6 +1,6 @@
 # curve-lab
 
-<img src="docs/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
+<img src="assets/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
 
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
@@ -43,8 +43,9 @@ Two commands check the work:
 .venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
 ```
 
-The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`. Start with
-[Concepts](docs/CONCEPTS.md) if a word is unfamiliar.
+The prose lives in `app/src/content/docs/docs/` and is rendered at `/docs` by
+the app. Start with
+[Concepts](app/src/content/docs/docs/concepts.md) if a word is unfamiliar.
 
 Reading this with an AI agent? `llms.txt` is the short map, and
 `llms-full.txt` is the same documents in one file.
@@ -130,7 +131,7 @@ piece_clearance(piece, clearance=5.0,
 
 Measurements carry their error: a pair is only called a violation when it is
 below `clearance - 2·tol`, and the band in between is reported as a warning.
-See `docs/CLEARANCE.md` for the rule, the algorithm and its limits.
+See `app/src/content/docs/docs/clearance.md` for the rule, the algorithm and its limits.
 
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
@@ -336,14 +337,14 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `workbench/` | the generated lab pages, one generator each in `scripts/` |
 | `app/` | the Astro app: hub, finder, sandbox, book gallery |
 | `book/` | the book plates: manifest, SVG, 300 dpi PNG |
-| `docs/` | the prose book, built by mkdocs |
+| `app/src/content/docs/` | the prose book, rendered by Starlight |
 | `state/` | working notes for the next session: handoff, register, decisions |
 | `tests/` | the suite, and the fixed-fault register that guards it |
 
 `DEPENDENCIES.md` lists every package, its version, its licence and why it is
 there; it also says what the project refuses to depend on.
 
-`docs/STRUCTURE.md` has the full tree.
+`app/src/content/docs/docs/structure.md` has the full tree.
 
 ## Tests
 

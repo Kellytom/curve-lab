@@ -802,7 +802,7 @@ def c_sequence_curves():
 
 
 @check("every design page names its three aspects and its ground",
-       "docs/PHILOSOPHY.md §Infinity, linearity, curve",
+       "app/src/content/docs/docs/philosophy.md §Infinity, linearity, curve",
        "python -m unittest tests.test_fleur_proof tests.test_volute_proof tests.test_cruciform_proof")
 def c_three_aspects():
     pages = ["fleur-proof.html", "volute-proof.html", "cruciform-proof.html"]

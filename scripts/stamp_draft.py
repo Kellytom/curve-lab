@@ -35,8 +35,6 @@ MD_LINE = "> **draft A** — a working draft, not a final text.\n"
 def targets() -> list[Path]:
     files: list[Path] = []
     files += sorted((ROOT / "workbench").glob("*.html"))
-    files += sorted((ROOT / "docs").glob("*.html"))
-    files += sorted((ROOT / "docs").glob("*.md"))
     files += sorted((ROOT / "book").glob("*.html"))
     files += sorted((ROOT / "app" / "src" / "pages").glob("*.astro"))
     files += sorted((ROOT / "curves").glob("*/notes.md"))

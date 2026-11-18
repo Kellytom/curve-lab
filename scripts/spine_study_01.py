@@ -7,7 +7,7 @@ Draws the right half and the band as composite chains at the default turn step
 on the 200 x 250 mm sheet, and prints the drift of every span end from P01's
 node. The study passes the operator's fidelity rule — worst span-end drift at
 most 1.6% of study height — and is still not P01 parity. See
-`docs/FIDELITY.md`.
+`app/src/content/docs/docs/fidelity.md`.
 """
 
 from __future__ import annotations
@@ -95,7 +95,7 @@ def main() -> int:
     (2026-10-30); this drawing measures 1.29% at a 0.5° turn step. P01's start
     heading (77.97°) and corners are not in the chain's rotation group, so this
     is a chain <em>plan</em> with a measured resemblance, not P01's node table.
-    The rule, its precedent and its caveats are in <code>docs/FIDELITY.md</code>.
+    The rule, its precedent and its caveats are in <code>app/src/content/docs/docs/fidelity.md</code>.
   </div>
 
   <h2>The drawing</h2>

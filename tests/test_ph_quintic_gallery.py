@@ -196,13 +196,6 @@ class TestGallery(unittest.TestCase):
         for name in ("speedMid", "slopeMid", "curvatureMid", "q13-exact", "q13-terms"):
             self.assertIn(name, page)
 
-    def test_the_review_twin_is_current(self):
-        import subprocess
-        result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "ph_review_doc.py"), "--check"],
-            cwd=ROOT, capture_output=True, text=True)
-        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-
     def test_q14_takes_any_degree(self):
         page = (ROOT / "workbench" / "ph-quintic-gallery.html").read_text()
         for name in ("Fig. Q14", "q14-u", "q14-v", "q14-plot", "q14-readout", "q14-hits"):

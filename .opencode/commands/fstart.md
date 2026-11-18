@@ -46,7 +46,7 @@ Write `next-fhandoff-int.md` at the repo root in the same three-line form the
 rest of the process uses:
 
 ```text
-Read state/HANDOFF-int.md. Read docs/HANDOVER.md only for durable detail.
+Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
 You are <the single focused action, in the operator's sense>.
 Proves: <the artifact and the check that make it done>.
 ```

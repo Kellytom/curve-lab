@@ -38,9 +38,9 @@ to *what is the next step*.
 | file | lines | answers |
 |---|---|---|
 | `SPEC.md` | 149 | what the deliverable is |
-| `docs/PROJECT.md` | 173 | scope in and out; what is deliberately not built |
+| `app/src/content/docs/docs/project.md` | 175 | scope in and out; what is deliberately not built |
 | `goals.md` | 266 | the arc: plant-forms → ornament-forms, and the offset tiers |
-| `docs/PHILOSOPHY.md` | 193 | glyph, full line, sections, joints — the design rules |
+| `app/src/content/docs/docs/philosophy.md` | 195 | glyph, full line, sections, joints — the design rules |
 | `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
 | `founder/LOG.md` | 188 | the founder's current focus, dated entries and priority tags; read the top section |
 
@@ -52,23 +52,23 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 
 | the action is about | load |
 |---|---|
-| Pythagorean field / integer cubic and G2 | `docs/PYTHAGOREAN-FAMILIES.md`, `docs/INTEGER-CUBIC.md`, `curve_lab/pyth_triples.py`, `curve_lab/pyth_cubic.py`, `curve_lab/pyth_g2.py` |
-| the exact spine / pythagorean-spiral | `docs/SPINE.md`, `pythagorean-spiral/docs/AUDIT.md`, `pythagorean-spiral/pythagorean_spiral/{spiral,triples,closure,design}.py`, `curve_lab/spine.py` |
+| Pythagorean field / integer cubic and G2 | `app/src/content/docs/docs/pythagorean-families.md`, `app/src/content/docs/docs/integer-cubic.md`, `curve_lab/pyth_triples.py`, `curve_lab/pyth_cubic.py`, `curve_lab/pyth_g2.py` |
+| the exact spine / pythagorean-spiral | `app/src/content/docs/docs/spine.md`, `pythagorean-spiral/docs/AUDIT.md`, `pythagorean-spiral/pythagorean_spiral/{spiral,triples,closure,design}.py`, `curve_lab/spine.py` |
 | sequence curves | `scripts/sequence_curves.py`, `tests/test_sequence_curves.py` |
 | the showcase / a catalogue page | `scripts/showcase.py`, `scripts/showcase_notes.py`, `scripts/showcase_catalogue.py`, `scripts/curve_morphs.py`, `scripts/stem_variants.py`, `scripts/generators.py` (the `NAMED` table), `tests/test_exploration_pages.py`, `tests/test_curve_census.py` |
 | the fleur grammar / W04 sets | `curve_lab/grammar.py`, `curve_lab/fleur_sets.py`, `scripts/fleur_grammar.py`, `scripts/fleur_sets.py`, `tests/test_fleur_grammar.py`, `tests/test_fleur_sets.py` |
 | the integer cubic catalogue / offset | `scripts/integer_cubic_catalogue.py`, `scripts/integer_cubic_offset.py`, `tests/test_pyth_cubic_catalogue.py`, `tests/test_integer_cubic_offset.py` |
 | an ornament proof | `scripts/plant_forms.py`, `scripts/euler_sections.py`, `scripts/{fleur,volute,cruciform}_proof.py`, `scripts/ending_fit.py`, `scripts/modulated_width_proof.py`, `tests/test_{fleur,volute,cruciform}_proof.py`, `tests/test_ending_fit.py`, `tests/test_modulated_width_proof.py` |
-| offsets, rails, clearance | `docs/CLEARANCE.md`, `curve_lab/offsets.py`, `curve_lab/ph_offset.py`, `curve_lab/parallel_bezier.py`, `curve_lab/piece.py`, `scripts/integer_ph_rail.py`, `scripts/rail_chart.py`, `workbench/integer-ph-rail.html`, `tests/test_integer_ph_rail.py` |
-| endings, terminals, flowers | `docs/JUNCTION.md`, `docs/FLOWERS-int.md`, `curve_lab/terminals.py`, `curve_lab/plant.py` |
-| primal ornaments | `docs/PRIMAL.md`, `curve_lab/primal.py` |
-| plant-form proof | `docs/PHILOSOPHY.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |
+| offsets, rails, clearance | `app/src/content/docs/docs/clearance.md`, `curve_lab/offsets.py`, `curve_lab/ph_offset.py`, `curve_lab/parallel_bezier.py`, `curve_lab/piece.py`, `scripts/integer_ph_rail.py`, `scripts/rail_chart.py`, `workbench/integer-ph-rail.html`, `tests/test_integer_ph_rail.py` |
+| endings, terminals, flowers | `app/src/content/docs/docs/junction.md`, `archive/notes/FLOWERS-int.md`, `curve_lab/terminals.py`, `curve_lab/plant.py` |
+| primal ornaments | `app/src/content/docs/docs/primal.md`, `curve_lab/primal.py` |
+| plant-form proof | `app/src/content/docs/docs/philosophy.md`, `curve_lab/plant.py`, `scripts/plant_forms.py` |
 | the page map / breadth | `workbench/workbench.html` + `workbench/manifest.json` (365; generated — index only, do not read through) |
 | the Pell / √2 hyperbola (d as a dial) | `scripts/pell.py`, `tests/test_pell.py` |
 | constant width / Reuleaux | `scripts/reuleaux.py`, `tests/test_reuleaux.py` |
 | PH quintics | `scripts/ph_quintic.py`, `tests/test_ph_quintic.py` |
 | the septic sandbox / degrees 6 and 7 | `scripts/ph_septic_sandbox.py`, `scripts/ph_septic_panels.js`, `scripts/septic_curves.py`, `scripts/septic_samples.py`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_septic_sandbox.py`, `scripts/check-ph-page.mjs`, `workbench/septic-samples.json`, `workbench/septic-curves.json` |
-| PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `docs/PH-INTEGER.md` |
+| PH families (all rungs) | `workbench/ph-families.html`, `scripts/ph_families.py`, `app/src/content/docs/docs/ph-integer.md` |
 | the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |
 | a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
 | book plates (PNG export) | `book/README.md`, `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plates_export.mjs`, `workbench/plate_math.js`, `tests/js/plates.test.js` |
@@ -87,18 +87,18 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the discrete clothoid | `scripts/discrete_clothoid.py`, `tests/test_discrete_clothoid.py` |
 | Gen-Arch / LA radials | `scripts/gen_arch.py`, `tests/test_gen_arch.py` |
 | the parabola evolute / involute | `scripts/pyth_plane.py`, `tests/test_exploration_pages.py` |
-| source intake | `goals.md` §Source intake, `reference/manifest.json`, `docs/CORPUS.md` |
+| source intake | `goals.md` §Source intake, `reference/manifest.json`, `app/src/content/docs/docs/corpus.md` |
 | a W-label | `state/BACKLOG-int.md` — that label only |
 | what is parked | `state/BACKBURNER-int.md` |
 | unresolved curves (need a link) | `state/UNRESOLVED-int.md` |
 | talking to the side chat | `archive/notes/deep-to-side.md`, `archive/notes/side-to-deep.md` — one direction each, newest entry at the top |
 | the datasets and their formats | `state/DATA-int.md`, `curve_lab/datafile.py`, `scripts/data_format.py`, `scripts/data_audit.py`, `tests/test_data_audit.py` |
 | verification | `scripts/recheck.py`, `scripts/test.py` |
-| architecture / print review | `docs/ARCHITECTURE.md`, `docs/REVIEW.md` — after the current work, not before |
+| architecture / print review | `app/src/content/docs/docs/architecture.md`, `app/src/content/docs/docs/review.md` — after the current work, not before |
 
 ## Never on a load
 
-`docs/HANDOVER.md` (durable architecture/deploy/security only, deliberately
+`app/src/content/docs/docs/handover.md` (durable architecture/deploy/security only, deliberately
 long), `vendor/`, `out/caps/*.svg`, `site/`, `node_modules/`, `docs/HANDOVER.html`,
 `state/monitor.log`, and the `ornaments` repository except for extraction or
 comparison.

@@ -2,7 +2,3 @@
 numpy==2.5.4
 
 # The compiled backend needs only a C++ compiler; see scripts/build-native.sh.
-
-# The doc twins (docs/TUNNEL.html, docs/PH-QUINTIC-REVIEW.html) are built
-# with the same Markdown engine mkdocs uses; the tests import it too.
-markdown==3.11.2

@@ -42,8 +42,8 @@ Focused handon for curve-lab. Work in
    `state/HANDOFF-int.md` (current truth — its **tail**, not the whole file; the
    count is in `READING-int.md`).
    Read them in the order `READING-int.md` gives.
-6. Add **Tier 1** — `SPEC.md`, `docs/PROJECT.md`, `goals.md`,
-   `docs/PHILOSOPHY.md` — whenever the action changes direction, adds a page or
+6. Add **Tier 1** — `SPEC.md`, `app/src/content/docs/docs/project.md`, `goals.md`,
+   `app/src/content/docs/docs/philosophy.md` — whenever the action changes direction, adds a page or
    module, claims a result, or touches a grade. Scope is otherwise one line, and
    it is at the foot of the Tier 1 section.
 7. `next-fhandoff-int.md`'s first line names the docs to read. Read them, in

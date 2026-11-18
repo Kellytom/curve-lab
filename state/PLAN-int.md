@@ -81,7 +81,7 @@ this symmetry; call it balance.
 |---|---|---|
 | One figure pipeline (review item 2) | Blocked on the operator's accept/reject of the factored views. Collapsing it now deletes evidence for an undecided judgement. | `TODO.md` "From the 2026-11-16 review" |
 | Bézier step | The operator parked it until the curves and engine are complete. | `next-fhandoff-int.md` history; this plan's S5 |
-| Primal studies (fire, water, earth, air) | After the ornament grammar, per `docs/PRIMAL.md`. | `goals.md` |
+| Primal studies (fire, water, earth, air) | After the ornament grammar, per `app/src/content/docs/docs/primal.md`. | `goals.md` |
 | W03 fleur grammar, W04 twenty parameter sets | Board order, not this queue. | `state/BACKLOG-int.md`, `workbench/ornament-board.html` |
 | Modulated width (former Stage IV) | Its own proof, after the ornament grammar. | `goals.md` |
 | Other polygons (pentagon, pentagram) | Operator, 2026-11-17: squares and rectangles first; the same corner rule holds (54°, 18°) when they come back. | this table; `founder/LOG.md` |

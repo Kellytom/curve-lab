@@ -39,7 +39,7 @@ remote MVP now exist.
   option; there is no active Levien exact-integer route.
 - **Process (2026-11-04):** `state/READING-int.md` is now the reading authority —
   Tier 0 is ~750 lines and no source, Tier 1 is the scope anchor
-  (`SPEC.md`, `docs/PROJECT.md`, `goals.md`, `docs/PHILOSOPHY.md`). `/fhandoff`
+  (`SPEC.md`, `app/src/content/docs/docs/project.md`, `goals.md`, `app/src/content/docs/docs/philosophy.md`). `/fhandoff`
   requires a `Proves:` finish line, a rejected-path line and a `TODO.md` tick;
   `/fhandon` commits its own work and backgrounds the server start. The next
   block was written under the new contract.
@@ -100,7 +100,7 @@ remote MVP now exist.
   and the SM23–SM26 integer studies, including the 25- and 5-grid sequences
   that land exactly on n = 3125).  The boundary
   p=±0.5 stems are dropped from SM5/SM6, SM7/SM8, SM9, SM11, SM13–SM16; the
-  p=±0.5 reference plates stay in the LAC group.  Doc: `docs/FLOWERS-int.md`.
+  p=±0.5 reference plates stay in the LAC group.  Doc: `archive/notes/FLOWERS-int.md`.
 - **Plant-form / ornament-form arc (2026-11-03):** `goals.md` is the long arc:
   stalk → two-sided offsets (2 × offset + breathing room) → flower, seagrass or
   cone terminal (two arcs R = 2 × offset meeting at the centreline) → marks at
@@ -118,7 +118,7 @@ remote MVP now exist.
   `P0=(0,0)`, `P1=(a,−b)`, `P2=(2c−a,b)`, `P3=(2c,0)`; chord `2c`, arms `c`,
   tangent `−atan2(b,a)`. The 3-4-5 base is `(0,0) → (3,−4) → (7,4) → (10,0)`;
   ten triples and the 3125 slopes are on the page. `curve_lab/pyth_cubic.py`;
-  `docs/INTEGER-CUBIC.md`; `tests/test_pyth_cubic.py`,
+  `app/src/content/docs/docs/integer-cubic.md`; `tests/test_pyth_cubic.py`,
   `tests/test_integer_cubic.py`. This is not the Euler fit.
 - **Integer G2 probe (2026-11-03):** `workbench/integer-g2.html` — mirror the
   symmetric cubic across each endpoint tangent, scale by the hypotenuse, and
@@ -143,7 +143,7 @@ remote MVP now exist.
   the bound, the Fässler `N≈1450` cluster and the highlighted `n=20` 800 band;
   the `n=2` sweep runs from `(20,21,29)` at 43.60° to `(3245,228,3253)` at 4.02°.
   A 500 box has 22 downward fixed-`m` curves and 15 right-opening fixed-`n`
-  curves; see `docs/PYTHAGOREAN-FAMILIES.md`.
+  curves; see `app/src/content/docs/docs/pythagorean-families.md`.
 - **n=2 triple-tangent chain (2026-11-04, this session):** the sweep is now a
   rendered curve. `curve_lab/pyth_chain.py` builds 52 integer cubic spans from
   53 arm vectors: `D_k = 2(T_k+T_{k+1})`, `P0..P3 = N_k, N_k+T_k, N_{k+1}-T_{k+1},
@@ -271,7 +271,7 @@ remote MVP now exist.
   Tests: `tests/test_spine.py` (10). **Gate 4 is met under the operator's
   fidelity rule**: worst span-end drift at most 1.6% of study height; the chain
   study at 0.5° measures **1.29%**. Commits `3f7a603`, `413dc86`, `5ef5359`,
-  `97e83d5`. Rule and caveats: `docs/FIDELITY.md`.
+  `97e83d5`. Rule and caveats: `app/src/content/docs/docs/fidelity.md`.
 - **Git:** HEAD `cf5fcb6` (2026-11-02). Tree clean; untracked are three
   photographs (`IMG_2832.JPG`, `IMG_4668.JPG`, `reference/fire/IMG_4238.JPG`)
   and `state/monitor.log`, which is a log and stays untracked.
@@ -287,7 +287,7 @@ remote MVP now exist.
   the material theme and `strict: true`. `mkdocs` and `mkdocs-material` are
   pinned in `requirements-dev.txt`; `site/` is ignored. The state files are not
   in the book, on purpose.
-- **Docs:** `docs/HANDOVER.md` is the durable reference;
+- **Docs:** `app/src/content/docs/docs/handover.md` is the durable reference;
   `docs/HANDOVER.html` is its browser mirror.
 - **Public docs (2026-10-29):** `github.com/Kellytom/clothoid-docs`, site
   `kellytom.github.io/clothoid-docs/` — the Markdown, generated HTML, spine
@@ -443,7 +443,7 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
   edges and doubled-back edges. This is G1 by construction: curvature still
   jumps at the touch points, so a trunk needs the clothoid blend next.
   `arc_segment()` turns the fillet into a circular-arc `Segment` + anchor, so a
-  filleted run can be a normal `Design`. Docs: `docs/JUNCTION.md`; tests:
+  filleted run can be a normal `Design`. Docs: `app/src/content/docs/docs/junction.md`; tests:
   `tests/test_fillet.py`.
 - **Principle cards:** `reference/principles.json` holds eight cards — four
   primals, four archetypes — each with a gesture paragraph, exactly three
@@ -504,7 +504,7 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
   is analytic, so a rendered-contrast check is still wanted. 127 tests there. This is the exact **spine
   layer**, central to the curve work, not a spike — it is just not yet
   imported by `curve_lab` (promotion gate in
-  `pythagorean-spiral/docs/HANDOVER.md`).
+  `pythagorean-spiral/app/src/content/docs/docs/handover.md`).
 - **Span bridge:** `interpolate.design_from_spans(spans)` turns a recovered or
   grammar-produced cubic chain into a `Design`, one clothoid segment per span,
   marked G1. This is the entry point a W03 port consumes.
@@ -521,7 +521,7 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
   the report says *violation*, *warning* or *pass* instead of pretending the
   last tenth of a millimetre is known. `render_piece()` was split into
   `build_piece()` + writer so drawing and measuring share one geometry build.
-  Docs: `docs/CLEARANCE.md`; tests: `tests/test_clearance.py`.
+  Docs: `app/src/content/docs/docs/clearance.md`; tests: `tests/test_clearance.py`.
 - **Terminals recovered:** `scripts/extract-terminals.py` cuts the outline ends
   out of the two ornaments pages at their `L`/`Z` seams and writes
   `workbench/terminals/stage-two.json` (20 plates, 88 ends),
@@ -635,7 +635,7 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
   page's **first `<svg>` as the thumbnail**, writes `workbench/workbench.html`,
   and injects a guarded one-line bar into all 17 pages. The hub opens with four
   plain-language decisions (curve / terminal / strand / sheet), one link each.
-  `docs/HUB.md` explains it, including the one rule: **run `hub.py` after any
+  `app/src/content/docs/docs/hub.md` explains it, including the one rule: **run `hub.py` after any
   page generator**, because a generator drops its bar.
 - **Twenty-one named curves on the generators page**, each measured. Fourteen are
   exact, thin control scales and all: bean 12/273, bicorn 6/105, nodal 1/4,
@@ -654,7 +654,7 @@ of that comparison, and `curve_lab/offsets.py` is where it lands.
   Bernoulli lemniscate **is** rational (genus 0 — its node at the origin plus the
   two circular points at infinity absorb the degree), contrary to an earlier
   guess in this file's own reasoning.
-- **`docs/PH-INTEGER.md` + its HTML twin.** The corrected rewrite of the
+- **`app/src/content/docs/docs/ph-integer.md` + its HTML twin.** The corrected rewrite of the
   survey, generated by `scripts/ph_doc.py` from `loom`'s own arithmetic so the
   prose cannot drift. In the mkdocs nav under *The engine*. `mkdocs build`
   (strict) is clean. The twin is the same source through `markdown`, styled
@@ -803,7 +803,7 @@ only at a declared terminal, and a blend where a leaf meets a branch and a
 branch meets the trunk.
 
 **After W03/W04: the primal studies.** Fire, water, earth and air are a category
-of their own (`docs/PRIMAL.md`), gated on a finished framework: twenty fleur
+of their own (`app/src/content/docs/docs/primal.md`), gated on a finished framework: twenty fleur
 studies with node parity, turned terminals, junctions with measured gores,
 `Section` as a first-class model, and a web route. Order within it is earth →
 water → air → fire, because fire needs the turned terminals. The archetypes
@@ -833,14 +833,14 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/spine_sheet.py` | builds `workbench/spine-sheet.html` |
 | `scripts/spine_study_probe.py` | measures a chain study's drift from P01 |
 | `docs/SESSIONS-int.md` | proposed order for the next sessions, gate 4 first |
-| `docs/FIDELITY.md` | **the accepted 1.4–1.6% accuracy budget** and its metrics |
+| `app/src/content/docs/docs/fidelity.md` | **the accepted 1.4–1.6% accuracy budget** and its metrics |
 | `curve_lab/terminals.py` | `butt`, `point`, `arc`, `round`, `taper` cap geometry |
 | `tests/test_piece.py` | piece model, mirror, round-trip tests |
 | `tests/test_terminals.py` | each terminal, extension, fold and width rejection |
 | `scripts/piece_sandbox.py` | builds `workbench/piece-model.html` |
-| `docs/REVIEW.md` | senior review: page model, PDF, outline, ids, CI |
-| `docs/PHILOSOPHY.md` | what a glyph is: parts, full lines, sections, joints |
-| `docs/PRIMAL.md` | primal ornaments: the four elements, their gate and order |
+| `app/src/content/docs/docs/review.md` | senior review: page model, PDF, outline, ids, CI |
+| `app/src/content/docs/docs/philosophy.md` | what a glyph is: parts, full lines, sections, joints |
+| `app/src/content/docs/docs/primal.md` | primal ornaments: the four elements, their gate and order |
 | `workbench/piece-model.html` | W01/W02 visual proof: traces, rails, mirror, terminal strip |
 | `Dockerfile` | thin app image; starts FROM the engine base |
 | `engine/Dockerfile` | engine base: C++ build + Python runtime + `.so` |
@@ -850,14 +850,14 @@ report (spans, joins, copy error, fold) and no fill. Then W04 the twenty sets.
 | `scripts/check-parity.py` | local/remote parity smoke test |
 | `tests/test_web.py` | web API tests |
 | `tests/test_auth.py` | token auth and rate-limit tests |
-| `docs/HANDOVER.md` | durable handover |
+| `app/src/content/docs/docs/handover.md` | durable handover |
 | `docs/HANDOVER.html` | HTML mirror |
 | `docs/BACKLOG-int.md` | execution detail for W01–W26 |
 | `workbench/ornament-board.html` | visual board: 85 plates, 26 work, 11 decisions |
 | `workbench/fleur-studies.html` | subpage: the twenty fleur studies, P01–P20 |
 | `scripts/board/` | board generator, template, extractors and README |
 | `next-fhandoff-int.md` | two-line focused pointer |
-| `docs/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
+| `archive/notes/FLOWERS-int.md` | the four-stem flowers sheet: mm units, Euler flowers, JSON/Node split, stem library |
 | `scripts/stems_print.py` · `.mjs` | flowers geometry → JSON, then the SVG renderer |
 | `workbench/flowers.html` | the four-stem flower print sheet (8.5 × 11, mm) |
 | `workbench/stem-library.html` | 177 labelled stems: S01–S109, S118–S157, S166–S167; SM1–SM26 |
@@ -1235,7 +1235,7 @@ the geometry, each with its counts recomputed in the generator:
   and the canonical fleur (a form, not a curve). Features excluded on purpose.
 - **All-of-it pass (2026-11-07):** kappa in NAMED; biarcs page (equal-radius,
   G1, R = √2−1); **Drawn pairs · 2** (Lissajous, yin-yang); qAC + discrete LAC
-  page (c = 0 check 5e-5); Beta-splines written up in `docs/JUNCTION.md` as a
+  page (c = 0 check 5e-5); Beta-splines written up in `app/src/content/docs/docs/junction.md` as a
   join option, not built. `state/UNRESOLVED-int.md` holds σ/τ, quartic
   Catmull–Rom and propeller for the operator's links. 482 figures; recheck
   45/45; 71 modules.
@@ -1382,7 +1382,7 @@ with independent x/y scales. (2026-11-09)
   continuity). The spatial/helix reading is out.
 - **The 116 count did not reproduce.** Current `\bPH\b`: 32 docs-only; 18 in
   `PH-INTEGER.md`/`INTEGER-CUBIC.md`/`FLOWERS-int.md`; 196 docs+scripts. The
-  generated `docs/PH-INTEGER.md` was created at `b2e56cf` with 12 and never
+  generated `app/src/content/docs/docs/ph-integer.md` was created at `b2e56cf` with 12 and never
   116. Reconcile the note's pattern/snapshot or mark it stale.
 - **Local:** `:8003/health` returns **404** (server not serving that route or
   not up). **Remote:** Cloud Run unknown; no URL recorded. **GitHub:** `main`
@@ -1444,7 +1444,7 @@ literature has it. The page quotes both sources and gives the construction per
 degree: cubic `b = (−a ± √(3(4Δ − a²)))/2` (checked 1.8e-15), quintic
 `2b² + 3(a+c)b + (3a² + ac + 3c² − 15Δ) = 0`. *Milestone* is the word for
 `t = k/m`; *station* already means one-coordinate-integer in
-`docs/PHILOSOPHY.md`, so it is not used for these.
+`app/src/content/docs/docs/philosophy.md`, so it is not used for these.
 
 **Numbers that can be quoted.** The alpha `18y² = x(x−6)²` has integer points
 `(18k², ±6k(3k²−1))` plus the node `(6,0)` — four in `t ∈ [−4,4]`. At `h = 3`
@@ -1648,7 +1648,7 @@ Tried and rejected: naming the curves by eye from the panels — the selection
 comes from measured signatures instead (self-crossings by segment test at 1200
 samples; bend/pitch/inflection/closest from `ph_quintic_metrics`), so each name
 states a number. Rejected "hairpin" for the 180° shallow turn: the word already
-means a turned terminal in `docs/PHILOSOPHY.md`.
+means a turned terminal in `app/src/content/docs/docs/philosophy.md`.
 
 ## 2026-11-13 (later still) — the sandbox box bug, and the classic curve
 
@@ -2737,7 +2737,7 @@ because `/pages/**`, `/api/plate/**` and `/book` all read the repo from disk.
 ## 2026-11-17 (tunnel, services) — the phone gets in without a terminal
 
 **Landed.** `cloudflared 2026.11.1` at `~/bin/cloudflared` (prebuilt; Homebrew
-was compiling Go and was stopped). `docs/TUNNEL.md` + generated twin: quick
+was compiling Go and was stopped). `app/src/content/docs/docs/tunnel.md` + generated twin: quick
 tunnel, named tunnel with the no-zone dead end written down, get in/get out,
 symptom table. `scripts/tunnel.sh` for the named tunnel; `scripts/service.sh`
 for what is running now: two LaunchAgents (`com.curvelab.app`,

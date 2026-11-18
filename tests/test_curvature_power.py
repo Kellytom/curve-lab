@@ -1,6 +1,6 @@
 """The power-curve numbers are computed, and the two old errors stay fixed.
 
-docs/CURVATURE-POWER-CURVES.md was written with a correct formula and a wrong
+app/src/content/docs/docs/curvature-power-curves.md was written with a correct formula and a wrong
 table: n = 4 read 0.535 (it is 0.511), and the septic superellipse had its
 maximum and minimum swapped. The script computes every number; this test runs
 its regression check.
@@ -21,7 +21,7 @@ class CurvaturePowerTest(unittest.TestCase):
         self.assertEqual(0, result.returncode, result.stdout + result.stderr)
 
     def test_the_doc_cites_the_script(self):
-        text = (ROOT / "docs" / "CURVATURE-POWER-CURVES.md").read_text(encoding="utf-8")
+        text = (ROOT / "app" / "src" / "content" / "docs" / "docs" / "curvature-power-curves.md").read_text(encoding="utf-8")
         self.assertIn("scripts/curvature_power.py", text)
         self.assertIn("0.511", text)
         self.assertIn("flattest", text)

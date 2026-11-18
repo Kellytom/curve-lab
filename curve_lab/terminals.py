@@ -3,7 +3,7 @@
 A terminal is any treatment of an open ribbon's end. **Cap** is a subset: an end
 that closes the cross-section without turning the stroke past a limit. The
 current limit is 120 degrees, a project choice rather than a law — see
-`docs/JUNCTION.md`. Under it, `butt`, `point`, `arc` and `round` are caps;
+`app/src/content/docs/docs/junction.md`. Under it, `butt`, `point`, `arc` and `round` are caps;
 `taper`, `cone` and `bulb` are tapers (terminals, not caps); and a hairpin, which
 turns the stroke back on itself, is a *turned terminal* — also not a cap, and not
 built yet. `bulb` here is the Stage II width-law taper, not the old ornament bulb
@@ -231,7 +231,7 @@ def cone_terminal(rail_pos, rail_neg, end: str = "end", symmetric: bool = False,
 
     So each arc is a 60° turn: its chord is the radius, and `|tip − rail end|` is
     also the radius. The two 60° turns make 120°, which is exactly the cap limit
-    in `docs/PHILOSOPHY.md` — it is a pointed cone, not a cap, and the tip is
+    in `app/src/content/docs/docs/philosophy.md` — it is a pointed cone, not a cap, and the tip is
     where the point is wanted.
 
     Returns a dict: `spans` (two cubic spans, + rail to tip, tip to − rail),

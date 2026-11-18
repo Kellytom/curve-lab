@@ -1,26 +1,21 @@
-"""The tunnel run book: the Markdown is the source, the HTML twin is generated.
+"""The tunnel run book, and the secrets it must never carry.
 
-The fault this guards: a hostname or a command fixed in one twin and not the
-other, so the operator follows a step that no longer exists.
+Starlight renders the Markdown now, so there is one copy of the page. These
+checks guard the run book's headings and the rule that no tunnel secret is
+committed.
 """
 
 import subprocess
-import sys
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+DOC = ROOT / "app" / "src" / "content" / "docs" / "docs" / "tunnel.md"
 
 
 class TunnelDocTest(unittest.TestCase):
-    def test_the_twin_is_current(self):
-        result = subprocess.run(
-            [sys.executable, "scripts/tunnel_doc.py", "--check"],
-            cwd=ROOT, capture_output=True, text=True)
-        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-
     def test_the_run_book_names_both_ends(self):
-        text = (ROOT / "docs" / "TUNNEL.md").read_text(encoding="utf-8")
+        text = DOC.read_text(encoding="utf-8")
         for heading in ("## One-time setup", "## Get in", "## Get out",
                         "## Turning it off for good", "## When it breaks"):
             self.assertIn(heading, text)
@@ -33,7 +28,7 @@ class TunnelDocTest(unittest.TestCase):
         self.assertTrue(script.stat().st_mode & 0o111, "service.sh is not executable")
         result = subprocess.run(["sh", "-n", str(script)], capture_output=True, text=True)
         self.assertEqual(0, result.returncode, result.stderr)
-        text = (ROOT / "docs" / "TUNNEL.md").read_text(encoding="utf-8")
+        text = DOC.read_text(encoding="utf-8")
         self.assertIn("scripts/service.sh install", text)
         source = script.read_text(encoding="utf-8")
         self.assertIn("restart [app|tunnel|all]", source)
@@ -42,8 +37,10 @@ class TunnelDocTest(unittest.TestCase):
     def test_no_tunnel_secret_is_committed(self):
         tracked = subprocess.run(
             ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True).stdout
-        for name in ("cert.pem", "config.yml"):
-            self.assertNotIn(name, tracked)
+        paths = tracked.splitlines()
+        self.assertNotIn("cert.pem", tracked)
+        self.assertNotIn(".cloudflared/", tracked)
+        self.assertNotIn("config.yml", paths)  # a root cloudflared config
         self.assertFalse((ROOT / "cert.pem").exists())
 
 

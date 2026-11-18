@@ -2,7 +2,7 @@
 
 Settled 2026-11-17, by the operator: **Astro is the app.** "The final result
 will be in astro.js anyway"; no React; local file support; it must work on
-Next and other servers too. `docs/web.md` is the older stack note (Svelte/WASM,
+Next and other servers too. `app/src/content/docs/docs/web.md` is the older stack note (Svelte/WASM,
 no server); this file supersedes its UI choice, not its engine plan.
 
 ## What is running

@@ -9,7 +9,7 @@ The curve is the standard Euler spiral with parameter A = 3125:
 
 The 4% steps are radial fractions of the largest distance from the inflection,
 solved on the rising branch. They are not multiples of 125; see
-docs/clothoid-grid-3125.md for what the residuals are.
+app/src/content/docs/docs/clothoid-grid-3125.md for what the residuals are.
 
     python scripts/grid_3125.py
     python scripts/grid_3125.py --steps 25 --json out/grid-3125.json

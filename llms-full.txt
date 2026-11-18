@@ -13,7 +13,7 @@ relative to the repository root.
 
 # curve-lab
 
-<img src="docs/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
+<img src="assets/header.png" alt="Three book plates: a swan curve, the leaf frame and the cross frame" width="100%">
 
 *A swan curve, the leaf frame and the cross frame. Temporary header; the plates are draft A.*
 
@@ -56,8 +56,9 @@ Two commands check the work:
 .venv/bin/python scripts/test.py --full     # the commit gate, about 2 min
 ```
 
-The prose lives in `docs/`; build it with `.venv/bin/mkdocs serve`. Start with
-[Concepts](docs/CONCEPTS.md) if a word is unfamiliar.
+The prose lives in `app/src/content/docs/docs/` and is rendered at `/docs` by
+the app. Start with
+[Concepts](app/src/content/docs/docs/concepts.md) if a word is unfamiliar.
 
 Reading this with an AI agent? `llms.txt` is the short map, and
 `llms-full.txt` is the same documents in one file.
@@ -143,7 +144,7 @@ piece_clearance(piece, clearance=5.0,
 
 Measurements carry their error: a pair is only called a violation when it is
 below `clearance - 2·tol`, and the band in between is reported as a warning.
-See `docs/CLEARANCE.md` for the rule, the algorithm and its limits.
+See `app/src/content/docs/docs/clearance.md` for the rule, the algorithm and its limits.
 
 Exit status is 0 when the fit is inside tolerance and every join is G2, 1 when
 it is not. A fold in a rail is reported and does not fail the run.
@@ -349,14 +350,14 @@ From the command line, `--trim 20,120` and `--reverse` apply to any design, and
 | `workbench/` | the generated lab pages, one generator each in `scripts/` |
 | `app/` | the Astro app: hub, finder, sandbox, book gallery |
 | `book/` | the book plates: manifest, SVG, 300 dpi PNG |
-| `docs/` | the prose book, built by mkdocs |
+| `app/src/content/docs/` | the prose book, rendered by Starlight |
 | `state/` | working notes for the next session: handoff, register, decisions |
 | `tests/` | the suite, and the fixed-fault register that guards it |
 
 `DEPENDENCIES.md` lists every package, its version, its licence and why it is
 there; it also says what the project refuses to depend on.
 
-`docs/STRUCTURE.md` has the full tree.
+`app/src/content/docs/docs/structure.md` has the full tree.
 
 ## Tests
 
@@ -410,30 +411,30 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [DEPENDENCIES.md](DEPENDENCIES.md): every package, its version, licence and reason.
-- [docs/index.md](docs/index.md): the front page of the prose book.
-- [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
-- [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
-- [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
-- [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
-- [docs/STRUCTURE.md](docs/STRUCTURE.md): where every folder is.
+- [app/src/content/docs/docs/index.md](app/src/content/docs/docs/index.md): the front page of the prose book.
+- [app/src/content/docs/docs/worked-example.md](app/src/content/docs/docs/worked-example.md): one curve from definition to figure and checks.
+- [app/src/content/docs/docs/concepts.md](app/src/content/docs/docs/concepts.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
+- [app/src/content/docs/docs/state-of-the-work.md](app/src/content/docs/docs/state-of-the-work.md): what is proved, what is draft, what is next.
+- [app/src/content/docs/docs/project.md](app/src/content/docs/docs/project.md): what the project is, in two halves, and the pipeline.
+- [app/src/content/docs/docs/architecture.md](app/src/content/docs/docs/architecture.md): how the engine is wired.
+- [app/src/content/docs/docs/structure.md](app/src/content/docs/docs/structure.md): where every folder is.
 
 ## The rules that matter
 
 - [AGENTS.md](AGENTS.md): the working rules. Read this before changing code.
-- [docs/PH-INTEGER.md](docs/PH-INTEGER.md): why the curves are integer, and what a float would lose.
-- [docs/VERIFY.md](docs/VERIFY.md): how a claim is checked here.
+- [app/src/content/docs/docs/ph-integer.md](app/src/content/docs/docs/ph-integer.md): why the curves are integer, and what a float would lose.
+- [app/src/content/docs/docs/verify.md](app/src/content/docs/docs/verify.md): how a claim is checked here.
 - [senior-dev.md](senior-dev.md): twelve rules learned the hard way.
 
 ## Reference
 
-- [docs/GLOSSARY.md](docs/GLOSSARY.md): the words, each with one meaning.
-- [docs/CURVE-MODEL.md](docs/CURVE-MODEL.md): the design and segment model.
-- [docs/CLEARANCE.md](docs/CLEARANCE.md): the minimum-gap and crossing rule.
-- [docs/FIDELITY.md](docs/FIDELITY.md): the accuracy budget and its precedent.
-- [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md): glyph, full line, sections, joints.
-- [docs/JUNCTION.md](docs/JUNCTION.md): junctions, fillets, declared contacts.
-- [docs/PRIMAL.md](docs/PRIMAL.md): the four primal ornaments and their gate.
+- [app/src/content/docs/docs/glossary.md](app/src/content/docs/docs/glossary.md): the words, each with one meaning.
+- [app/src/content/docs/docs/curve-model.md](app/src/content/docs/docs/curve-model.md): the design and segment model.
+- [app/src/content/docs/docs/clearance.md](app/src/content/docs/docs/clearance.md): the minimum-gap and crossing rule.
+- [app/src/content/docs/docs/fidelity.md](app/src/content/docs/docs/fidelity.md): the accuracy budget and its precedent.
+- [app/src/content/docs/docs/philosophy.md](app/src/content/docs/docs/philosophy.md): glyph, full line, sections, joints.
+- [app/src/content/docs/docs/junction.md](app/src/content/docs/docs/junction.md): junctions, fillets, declared contacts.
+- [app/src/content/docs/docs/primal.md](app/src/content/docs/docs/primal.md): the four primal ornaments and their gate.
 
 ## Decisions and history
 
@@ -445,8 +446,8 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 ## Optional
 
-- [docs/HANDOVER.md](docs/HANDOVER.md): long; architecture, deploy and security detail.
-- [docs/G3-showcase-docs.md](docs/G3-showcase-docs.md): the G3 showcase and its gate.
+- [app/src/content/docs/docs/handover.md](app/src/content/docs/docs/handover.md): long; architecture, deploy and security detail.
+- [app/src/content/docs/docs/g3-showcase-docs.md](app/src/content/docs/docs/g3-showcase-docs.md): the G3 showcase and its gate.
 - [state/PORT-int.md](state/PORT-int.md): the language boundary, JS in the browser and Python where it is debugged.
 
 ## What an agent needs to know before editing
@@ -543,7 +544,7 @@ current truth), `TODO.md` (checklist), `goals.md` (the arc),
 `state/ACHIEVEMENTS-int.md` (what is proved, and `scripts/recheck.py`).
 
 Tier 1 — **the scope anchor**, read when direction or a grade is in question:
-`SPEC.md`, `docs/PROJECT.md`, `goals.md`, `docs/PHILOSOPHY.md`. Scope in one
+`SPEC.md`, `app/src/content/docs/docs/project.md`, `goals.md`, `app/src/content/docs/docs/philosophy.md`. Scope in one
 line, so it is never absent: exact integer and rational curves on one grid; the
 deliverable is a grammar of plant-forms that becomes the ornament grammar, not a
 gallery of drawings.
@@ -552,7 +553,7 @@ Then, per action only: `state/BACKLOG-int.md` (the W-label detail, and nothing
 else), `workbench/ornament-board.html` (visual order and labels; generated — do
 not edit by hand).
 
-Do **not** read `docs/HANDOVER.md` unless the action needs durable
+Do **not** read `app/src/content/docs/docs/handover.md` unless the action needs durable
 architecture/deploy/security detail. It is deliberately long. Do not read
 `vendor/`, `out/caps/*.svg`, or the `ornaments` repository unless the action is
 extraction or comparison. Generated pages may be read: reading the built page
@@ -562,7 +563,7 @@ is how a claim about the page is checked.
 
 The DeepSeek order: **W01 piece model** → **W02 terminals** → **W03 fleur
 grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
-water, earth, air — see `docs/PRIMAL.md`), then the archetypal ornaments. The
+water, earth, air — see `app/src/content/docs/docs/primal.md`), then the archetypal ornaments. The
 plant-form → ornament-form arc is in `goals.md`; the focused next action is
 still the offset catalogue. Auth and render limits are live; accounts/roles are
 later. Keep the public URL private.
@@ -621,16 +622,16 @@ and documentation alike.
 | `curve_lab/presets.py` | bracket, ogee, petal, S-curve |
 | `scripts/board/` | board generator + template + extractors (edit these, not `workbench/*.html`) |
 | `tests/` | 305 tests; run the whole suite |
-| `docs/REVIEW.md` | architecture/print review — act after the current work |
-| `docs/PHILOSOPHY.md` | the design philosophy: glyph, full line, sections, joints |
+| `app/src/content/docs/docs/review.md` | architecture/print review — act after the current work |
+| `app/src/content/docs/docs/philosophy.md` | the design philosophy: glyph, full line, sections, joints |
 | `goals.md` | the long arc: plant-forms → ornament-forms; offsets, endings, lattice growth marks, branches |
-| `docs/PRIMAL.md` | primal ornaments (fire, water, earth, air) and their gate |
+| `app/src/content/docs/docs/primal.md` | primal ornaments (fire, water, earth, air) and their gate |
 | `docs/G3-showcase-docs.md` | how the G3 showcase is built; the HTML twin is generated by `scripts/g3_showcase_doc.py` |
 | `state/G3-FIXES-int.md` | the tracked figure fixes, the colour rule and their proofs |
 | `reference/principles.json` | principle cards: gesture, 3 numbers, not-this |
 | `reference/` | attributed reference images + manifest (measurement only) |
-| `docs/CLEARANCE.md` | the clearance/crossing rule and its limits |
-| `docs/JUNCTION.md` | junctions: vocabulary, fillet, what comes next |
+| `app/src/content/docs/docs/clearance.md` | the clearance/crossing rule and its limits |
+| `app/src/content/docs/docs/junction.md` | junctions: vocabulary, fillet, what comes next |
 | `workbench/spirals/` | recovered Stage II + LAC spines and their parity report |
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
@@ -671,8 +672,8 @@ Start the one server if it is not already up (this is idempotent — it says
 .venv/bin/python scripts/crossing_audit.py       # audit stored crossing counts; --write repairs
 .venv/bin/python scripts/operator_list.py        # rebuild the button list from the records
 node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
-.venv/bin/mkdocs serve                          # the docs book, live on :8000
-.venv/bin/mkdocs build                          # static output into site/
+npm --prefix app run dev                         # the app and the book, :4321/docs
+npm --prefix app run build                       # a production build
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
 node scripts/check-ph-page.mjs                  # gallery readouts in a headless browser
 node scripts/plates_export.mjs                  # book plates: SVG, PNG, gallery
@@ -842,9 +843,11 @@ look thorough. If a rule above makes the work slower without catching a fault
 this project has actually had, delete it and say why.
 
 
-<!-- source: docs/index.md -->
+<!-- source: app/src/content/docs/docs/index.md -->
 
-# curve-lab
+---
+title: "curve-lab"
+---
 
 > **draft A** — a working draft, not a final text.
 
@@ -859,21 +862,21 @@ so every point lands on an integer grid instead of being snapped to one.
 
 | you want | open |
 |---|---|
-| what the project is for | [Project](PROJECT.md) |
-| how the engine is wired | [Architecture](ARCHITECTURE.md) |
-| the words used here | [Glossary](GLOSSARY.md) |
-| the design thinking | [Philosophy](PHILOSOPHY.md) |
-| why integer curves | [Integer PH curves](PH-INTEGER.md) |
-| how a claim is checked | [Verification](VERIFY.md) |
-| where every folder is | [Structure](STRUCTURE.md) |
-| the accuracy budget | [Fidelity](FIDELITY.md) |
-| the recovered corpus | [Corpus](CORPUS.md) |
+| what the project is for | [Project](project.md) |
+| how the engine is wired | [Architecture](architecture.md) |
+| the words used here | [Glossary](glossary.md) |
+| the design thinking | [Philosophy](philosophy.md) |
+| why integer curves | [Integer PH curves](ph-integer.md) |
+| how a claim is checked | [Verification](verify.md) |
+| where every folder is | [Structure](structure.md) |
+| the accuracy budget | [Fidelity](fidelity.md) |
+| the recovered corpus | [Corpus](corpus.md) |
 
 ## Run it
 
 ```sh
 .venv/bin/python scripts/serve.py      # the lab, http://127.0.0.1:8003
-.venv/bin/mkdocs serve                 # this book, http://127.0.0.1:8000
+npm --prefix app run dev                # this book, http://127.0.0.1:4321/docs
 cd app && npm run dev                  # the Astro app, http://127.0.0.1:4321
 ```
 
@@ -905,9 +908,11 @@ a first reader, and they change daily. Start from this page, and use `state/`
 only when you are changing the work.
 
 
-<!-- source: docs/WORKED-EXAMPLE.md -->
+<!-- source: app/src/content/docs/docs/worked-example.md -->
 
-# One curve, end to end
+---
+title: "One curve, end to end"
+---
 
 > **draft A** — a working draft, not a final text.
 
@@ -1050,14 +1055,16 @@ second source. That is what "exact" means here, and it is the standard every
 page is held to.
 
 
-<!-- source: docs/CONCEPTS.md -->
+<!-- source: app/src/content/docs/docs/concepts.md -->
 
-# Concepts
+---
+title: "Concepts"
+---
 
 > **draft A** — a working draft, not a final text.
 
 The words this project uses, each with one meaning. If a term is missing, the
-[Glossary](GLOSSARY.md) has the longer list.
+[Glossary](glossary.md) has the longer list.
 
 ## Euler curve
 
@@ -1177,13 +1184,15 @@ at output and nowhere else. A figure never inherits y-down silently.
 ## How a claim is checked
 
 A number is a fraction or a count, produced by one function and reproduced by one
-command. The commands are in [Verification](VERIFY.md). A drawing can show a
+command. The commands are in [Verification](verify.md). A drawing can show a
 result; it cannot prove one.
 
 
-<!-- source: docs/STATE-OF-THE-WORK.md -->
+<!-- source: app/src/content/docs/docs/state-of-the-work.md -->
 
-# State of the work
+---
+title: "State of the work"
+---
 
 > **draft A** — a working draft, not a final text.
 
@@ -1269,9 +1278,11 @@ A number that does not come from one of these commands is not a number this
 project will defend.
 
 
-<!-- source: docs/PROJECT.md -->
+<!-- source: app/src/content/docs/docs/project.md -->
 
-# Project overview
+---
+title: "Project overview"
+---
 
 > **draft A** — a working draft, not a final text.
 `curve-lab` is a workshop for curves that can be built exactly, and for the
@@ -1446,9 +1457,11 @@ placed by `scripts/set_window_geometry.py`.
 - `ATTRIBUTION.md` — licences and provenance.
 
 
-<!-- source: docs/STRUCTURE.md -->
+<!-- source: app/src/content/docs/docs/structure.md -->
 
-# Where everything lives
+---
+title: "Where everything lives"
+---
 
 > **draft A** — a working draft, not a final text.
 **Repository root: the folder you cloned** — every path below is relative to
@@ -1470,7 +1483,7 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 | `csrc/` | 1 | the C surface over the vendored Clothoids engine |
 | `curve_lab/` | 46 | the Python engine (measure, reduction, grammar, plates maths) |
 | `curves/` | 77 | one folder per curve with a picture and notes |
-| `docs/` | 54 | the mkdocs book and page twins |
+| `app/src/content/docs/` | 35 | the prose book, rendered by Starlight |
 | `engine/` | 1 | `Dockerfile` for the native build |
 | `exercises/` | 2 | the closed-Euler curve exercise |
 | `focus-math/` | 771 | a fetched maths corpus: sources, headers, samples |
@@ -1508,9 +1521,11 @@ gitignored except the licensed images), `out/`, `site/`, `dist/`.
 | `scripts/curvature_power.py` | the power-curve numbers |
 
 
-<!-- source: docs/ARCHITECTURE.md -->
+<!-- source: app/src/content/docs/docs/architecture.md -->
 
-# Architecture overview
+---
+title: "Architecture overview"
+---
 
 > **draft A** — a working draft, not a final text.
 This project draws smooth decorative curves — scrolls, leaves, ribbons — and it
@@ -1625,19 +1640,19 @@ rather than a page experiment.
 
 | If you want | Read |
 |---|---|
-| Why the project exists and in what order | [The plan](PROJECT.md) |
-| To use the browser tool | [Web application guide](WEB-GUIDE.md) |
-| A plain-English term | [Glossary](GLOSSARY.md) |
-| The words, and how the two sides' vocabularies map | [Glossary](GLOSSARY.md) |
+| Why the project exists and in what order | [The plan](project.md) |
+| To use the browser tool | [Web application guide](web-guide.md) |
+| A plain-English term | [Glossary](glossary.md) |
+| The words, and how the two sides' vocabularies map | [Glossary](glossary.md) |
 | What is true today, and what is next | Current truth (`state/HANDOFF-int.md`) |
-| The spine layer, step by step | [Spine guide](SPINE.md) |
-| The curve model in detail | [Curve model](CURVE-MODEL.md) |
-| The accepted accuracy budget | [Fidelity](FIDELITY.md) |
-| The recovered plates and their formats | [Recovered corpus](CORPUS.md) |
+| The spine layer, step by step | [Spine guide](spine.md) |
+| The curve model in detail | [Curve model](curve-model.md) |
+| The accepted accuracy budget | [Fidelity](fidelity.md) |
+| The recovered plates and their formats | [Recovered corpus](corpus.md) |
 | Work items, plates and decisions | Work items and the work board (`state/WORK-int.md`) |
-| What passes, and how | [Verification](VERIFY.md) |
+| What passes, and how | [Verification](verify.md) |
 | What works today | Status (`state/STATUS-int.md`) |
-| Who wrote the engine | [Credits](CREDITS.md) |
+| Who wrote the engine | [Credits](credits.md) |
 | The spine layer in depth | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
 | How the folder is organised | [Documentation index](index.md) |
 
@@ -1649,7 +1664,7 @@ rather than a page experiment.
 | Download an SVG for Inkscape | web app | the download control |
 | Close a loop that must meet exactly | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
 | Snap a flourish to an exact grid | spine layer | Spine explainer (`pythagorean-spiral/docs/EXPLAINER.md`) |
-| Look up a term | — | [Glossary](GLOSSARY.md) |
+| Look up a term | — | [Glossary](glossary.md) |
 
 ## What this overview does not claim
 
@@ -1660,9 +1675,11 @@ rather than a page experiment.
   measured.
 
 
-<!-- source: docs/GLOSSARY.md -->
+<!-- source: app/src/content/docs/docs/glossary.md -->
 
-# Glossary
+---
+title: "Glossary"
+---
 
 > **draft A** — a working draft, not a final text.
 The two sides of the project use different words for overlapping ideas. This
@@ -1728,9 +1745,11 @@ of the ideal curvature law.
   the render frame (`--frame WxH`) or coordinate axes.
 
 
-<!-- source: docs/CURVE-MODEL.md -->
+<!-- source: app/src/content/docs/docs/curve-model.md -->
 
-# The curve model
+---
+title: "The curve model"
+---
 
 > **draft A** — a working draft, not a final text.
 The engine draws one line at a time. You give it a starting point, a direction,
@@ -1841,9 +1860,11 @@ deliberate blend provides it; an unblended corner or junction still has a
 curvature step, and the reports say so.
 
 
-<!-- source: docs/PH-INTEGER.md -->
+<!-- source: app/src/content/docs/docs/ph-integer.md -->
 
-# Integer PH curves: the generator, the grid, and what is actually true
+---
+title: "Integer PH curves: the generator, the grid, and what is actually true"
+---
 
 > **draft A** — a working draft, not a final text.
 A corrected version of a survey that has been circulating in this project.
@@ -2085,9 +2106,11 @@ fixed and now agrees with `from_hermite` to `10⁻¹⁴`.
 - Whether `generators` should write straight into the web app's input pages.
 
 
-<!-- source: docs/VERIFY.md -->
+<!-- source: app/src/content/docs/docs/verify.md -->
 
-# Verification
+---
+title: "Verification"
+---
 
 > **draft A** — a working draft, not a final text.
 Four checks. Each answers one practical question, and each can fail on its own.
@@ -2151,9 +2174,11 @@ Those are recorded as measured studies in the documentation. Read the numbers
 there; they are evidence, not tests.
 
 
-<!-- source: docs/FIDELITY.md -->
+<!-- source: app/src/content/docs/docs/fidelity.md -->
 
-# Fidelity: the accepted budget
+---
+title: "Fidelity: the accepted budget"
+---
 
 > **draft A** — a working draft, not a final text.
 > **Important — author decision, 2026-10-30.** A chain that imitates a
@@ -2331,9 +2356,11 @@ promotion gate. Record it here, in `state/SESSIONS-int.md`, and in the public do
 the kind of decision that is expensive to rediscover.
 
 
-<!-- source: docs/CLEARANCE.md -->
+<!-- source: app/src/content/docs/docs/clearance.md -->
 
-# Clearance and crossings
+---
+title: "Clearance and crossings"
+---
 
 > **draft A** — a working draft, not a final text.
 `curve_lab/clearance.py` answers one question about a drawing:
@@ -2482,9 +2509,11 @@ this module, and the gore is read directly from the warning band: the set of
 points where two strokes come within `clearance` of each other.
 
 
-<!-- source: docs/JUNCTION.md -->
+<!-- source: app/src/content/docs/docs/junction.md -->
 
-# Junctions
+---
+title: "Junctions"
+---
 
 > **draft A** — a working draft, not a final text.
 A junction is where one stroke meets another: leaf to branch, branch to trunk.
@@ -2633,9 +2662,11 @@ rejection, trimming two spans, keeping the outer ends, curved-span rejection, ar
 report.
 
 
-<!-- source: docs/PHILOSOPHY.md -->
+<!-- source: app/src/content/docs/docs/philosophy.md -->
 
-# Design philosophy
+---
+title: "Design philosophy"
+---
 
 > **draft A** — a working draft, not a final text.
 The question this answers: when we say "a fleur", what is the object, in what
@@ -2830,9 +2861,11 @@ junction gore and a clearance sample all want to read, and today each of them
 reconstructs it from the fitted paths.
 
 
-<!-- source: docs/PRIMAL.md -->
+<!-- source: app/src/content/docs/docs/primal.md -->
 
-# Primal ornaments
+---
+title: "Primal ornaments"
+---
 
 > **draft A** — a working draft, not a final text.
 A category of its own, after the framework and before the archetypes:

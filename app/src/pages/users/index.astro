@@ -1,0 +1,86 @@
+---
+import { createUser, readUsers, ROLES } from "../../lib/users.js";
+import { sameOrigin } from "../../lib/http.js";
+
+let error = "";
+if (Astro.request.method === "POST") {
+  if (!sameOrigin(Astro.request, Astro.url)) {
+    return new Response("bad origin", { status: 403 });
+  }
+  const form = await Astro.request.formData();
+  const result = createUser({
+    name: String(form.get("name") || ""),
+    email: String(form.get("email") || ""),
+    role: String(form.get("role") || "viewer"),
+    notes: String(form.get("notes") || ""),
+  });
+  if (result.ok) return Astro.redirect("/users", 303);
+  error = result.error;
+}
+const state = readUsers();
+---
+
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Users</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+</head><body>
+<nav class="container-fluid">
+  <ul><li><strong>curve-lab</strong></li></ul>
+  <ul>
+    <li><a href="/">hub</a></li>
+    <li><a href="/lab">lab</a></li>
+    <li><a href="/book">book</a></li>
+    <li><a href="/finder">finder</a></li>
+    <li><a href="/blog">notes</a></li>
+    <li><a href="/about">about</a></li>
+  </ul>
+</nav>
+<main class="container">
+  <h1>Users</h1>
+  <p>A directory, not a login. There are no passwords on this page. The record
+    keeps a name, an address, a role and a note; the file is
+    <code>app/data/users.json</code>, which is not committed.</p>
+
+  {error ? <article aria-invalid="true"><strong>{error}</strong></article> : null}
+  {!state.ok ? <article aria-invalid="true"><strong>{state.error}. Nothing will be written until it is repaired.</strong></article> : null}
+
+  {state.users.length ? (
+    <table>
+      <thead><tr><th>name</th><th>role</th><th>address</th><th></th></tr></thead>
+      <tbody>
+        {state.users.map((user) => (
+          <tr>
+            <td><a href={`/users/${user.id}`}>{user.name}</a></td>
+            <td>{user.role}</td>
+            <td>{user.email || "—"}</td>
+            <td>
+              <form method="post" action={`/users/${user.id}`} style="margin:0">
+                <input type="hidden" name="intent" value="delete">
+                <button type="submit" class="secondary outline" style="padding:.15rem .5rem">remove</button>
+              </form>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : <p><em>No users yet.</em></p>}
+
+  <h2>Add a user</h2>
+  <form method="post">
+    <div class="grid">
+      <label>Name <input name="name" required maxlength="80" autocomplete="off"></label>
+      <label>Address <input name="email" type="email" maxlength="200" autocomplete="off"></label>
+      <label>Role
+        <select name="role">
+          {ROLES.map((role) => <option value={role}>{role}</option>)}
+        </select>
+      </label>
+    </div>
+    <label>Note <textarea name="notes" maxlength="500" rows="2"></textarea></label>
+    <button type="submit">Add</button>
+  </form>
+</main>
+</body></html>

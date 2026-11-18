@@ -12,7 +12,7 @@ minutes, and so the same ground is not dug twice.
 4. `goals.md` — the long arc: plant-forms → ornament-forms.
 5. `workbench/workbench.html` — the pages, chosen by intent.
 
-Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long.
+Nothing else unless the action names it. `app/src/content/docs/docs/handover.md` is deliberately long.
 
 ## The map
 
@@ -32,7 +32,7 @@ Nothing else unless the action names it. `docs/HANDOVER.md` is deliberately long
 | `scripts/exact_numbers.py` | audits every stored record's grid and bend against `curve_lab/measure.py` |
 | `scripts/crossing_audit.py` | audits every stored curve's crossing-pair count |
 | `scripts/check-saved.mjs`, `scripts/check-rails.mjs` | the headless page checks; run with `scripts/test.py --browser` |
-| `docs/` | prose that mkdocs builds; `docs/PH-INTEGER.md` and `docs/HUB.md` are generated |
+| `app/src/content/docs/docs/` | the prose book, rendered by Starlight at `/docs`; ph-integer.md and hub.md are generated |
 | `goals.md` | the long arc: plant-forms → ornament-forms; endings, lattice marks, branches |
 | `state/` | `HANDOFF-int.md`, `ACHIEVEMENTS-int.md`, `BACKLOG-int.md`, `monitor.log` |
 | `founder/` | screenshots and notes, tracked on purpose so they are backed up |
@@ -65,7 +65,7 @@ script; never the HTML.
 | `workbench/fleur-study-01.html` | `scripts/study_01.py` |
 | `workbench/ornament-board.html` | `scripts/board/build-board.mjs` |
 | `workbench/workbench.html` (the hub) | `scripts/hub.py` + `workbench/manifest.json` |
-| `docs/PH-INTEGER.md` + `.html` | `scripts/ph_doc.py` |
+| `app/src/content/docs/docs/ph-integer.md` + `.html` | `scripts/ph_doc.py` |
 
 Two pairings have mismatched names (`piece-model`, `fleur-study-01`); they are
 listed here rather than renamed, because the scripts are referenced elsewhere.

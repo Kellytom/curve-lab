@@ -29,7 +29,7 @@ its row there in the same commit.
 .venv/bin/python scripts/test.py --slim   # engine only, about 3 s
 .venv/bin/python scripts/test.py --full   # the gate: Python, JS, data, pages
 .venv/bin/python scripts/serve.py         # the lab pages, port 8003
-.venv/bin/python -m mkdocs serve          # the book, port 8000
+npm --prefix app run dev                  # the app and the book, port 4321
 ```
 
 Run `--full` before you send a change. A truncated log hides a red test: read
@@ -82,10 +82,10 @@ not pages.
 ## Where to start
 
 - `llms.txt` — the map, if a tool is reading this.
-- `docs/index.md` — the book's front page.
-- `docs/VERIFY.md` — how a claim is checked.
+- `app/src/content/docs/docs/index.md` — the book's front page.
+- `app/src/content/docs/docs/verify.md` — how a claim is checked.
 - `state/BACKLOG-int.md` — the work queue, with the W-labels.
-- `docs/GLOSSARY.md` — the words, each with one meaning.
+- `app/src/content/docs/docs/glossary.md` — the words, each with one meaning.
 
 ## Questions
 

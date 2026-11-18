@@ -375,7 +375,7 @@ The showcase is the inventory, not a sampler: every family, every stem cut.
   `pyth-plane`.
 - [ ] Lattice windows / RPTPGA: parked — a fabrication claim, not a curve.
 - [x] Kappa curve (Gutschoven) in NAMED; Lissajous and the yin-yang boundary
-  in **Drawn pairs · 2**; Beta-splines recorded in `docs/JUNCTION.md`.
+  in **Drawn pairs · 2**; Beta-splines recorded in `app/src/content/docs/docs/junction.md`.
 - [ ] Unresolved curves waiting on a link: σ-curve, τ-curve, quartic
   Catmull–Rom, propeller — see `state/UNRESOLVED-int.md`.
 - [x] One curve per figure for the six families; every note carries its panel
@@ -438,7 +438,7 @@ C-family p-triple conversion and the ornament-form proofs below.
   `P1=(a,−b)`, `P2=(2c−a,b)`, `P3=(2c,0)`; chord `2c`, arms `c`, rational
   tangents; `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html`.
 - [x] Pythagorean rotations, the `60³ = 216000` sample grid, and the simple
-  `360` demonstration; `docs/INTEGER-CUBIC.md`.
+  `360` demonstration; `app/src/content/docs/docs/integer-cubic.md`.
 - [x] G2 mirror-chain probe: 10/10 triples pass both joins at scale `c`;
   `curve_lab/pyth_g2.py`, `workbench/integer-g2.html`.
 - [x] Asymmetric G2 pair at scale 1, plus a G1 fallback example; Fig. G2.
@@ -517,7 +517,7 @@ C-family p-triple conversion and the ornament-form proofs below.
 - **Every design names its three aspects: infinity, linearity, curve.** A
   design with only two is incomplete. Parts may carry one each; an integer
   cubic or the fleur has no infinity of its own and must be paired with a
-  spiral or a ray. See `docs/PHILOSOPHY.md` §Infinity, linearity, curve.
+  spiral or a ray. See `app/src/content/docs/docs/philosophy.md` §Infinity, linearity, curve.
 - Integer controls are a lattice result, not a promise of exact offsets.
 - `216,000` is the canonical grid. `360,000` is optional for `1/25`; `1/9`
   costs `×27` and is not the default.
@@ -635,7 +635,7 @@ parallel option in the offset catalogue; do not add new Levien integer probes.
   change. The fleur, volute and cruciform proofs exercise the ending and junction
   rules; none of them adds a curve to the offset table, so the A–D rows and the
   ending/flower track stand. The C families stay endings.
-- [ ] Confirm the integer-lattice rule. **Recommendation 2026-11-05:** marks at lattice *stations* (one coordinate integer), exact operations at lattice *points* (both). Plant stalk: 7 stations, 1 full point. See `docs/PHILOSOPHY.md` §Lattice; operator to confirm.
+- [ ] Confirm the integer-lattice rule. **Recommendation 2026-11-05:** marks at lattice *stations* (one coordinate integer), exact operations at lattice *points* (both). Plant stalk: 7 stations, 1 full point. See `app/src/content/docs/docs/philosophy.md` §Lattice; operator to confirm.
 - [x] Move the C-grade curves into an explicit **ending/flower track** and the p-triple Euler track; no deletions. Grouping still needs the ending fit pass.
 
 ## Curve grades (provisional)
@@ -737,8 +737,8 @@ evidence; add to them, do not re-solve them.
 | clothoid per recovered span | 586/586 fits, median 0.00–0.03% of chord | `scripts/check-spirals.py` |
 | square-discriminant route is dead | 0 of 17,168 on the rung ladder | `state/HANDOFF-int.md` |
 | spine chain vs study 01 | 1.29% drift | `scripts/spine_study_probe.py` |
-| **p-triple Euler polygon + rational miter rails** | exact rational polygon; cubic drawing approx. 1.4% | `docs/SPINE.md`, `pythagorean-spiral/docs/GALLERY.md`, `TRANSFER.md`; `pythagorean-spiral` tests |
-| **Pythagorean integer cubic family** | 10 triples, integer controls, chord 2c, arms c | `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html`, `docs/INTEGER-CUBIC.md`; `tests/test_pyth_cubic.py` |
+| **p-triple Euler polygon + rational miter rails** | exact rational polygon; cubic drawing approx. 1.4% | `app/src/content/docs/docs/spine.md`, `pythagorean-spiral/docs/GALLERY.md`, `TRANSFER.md`; `pythagorean-spiral` tests |
+| **Pythagorean integer cubic family** | 10 triples, integer controls, chord 2c, arms c | `curve_lab/pyth_cubic.py`, `workbench/integer-cubic.html`, `app/src/content/docs/docs/integer-cubic.md`; `tests/test_pyth_cubic.py` |
 | **Integer G2 mirror chain** | 10/10 triples pass both joins | `curve_lab/pyth_g2.py`, `workbench/integer-g2.html`; `tests/test_pyth_g2.py` |
 | **Asymmetric integer G2 pair** | scale 1; tangent (4,−3); curvature −6/5 | `curve_lab/pyth_g2.py`, `workbench/integer-g2.html` Fig. G2; `tests/test_pyth_g2.py` |
 

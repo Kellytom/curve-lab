@@ -70,7 +70,7 @@ re-derives it. A FAIL here means a result has slipped.
 | ok | the tightest-span diagnostics mark every row below 25% | 16 tightest spans, 10% floor to 25% display band | workbench/g3-diagnostics.html — red rings on curve and dκ/ds |
 | ok | an extend-and-cut terminal inherits G3 | 2 cuts, worst G3 across the cut 6.2e-12 | scripts/g3_cut.py — two curves, cut inside a span, tail discarded |
 | ok | the sequence-curve family closes on the integer lattice | 5 panels, closure gap 0 | scripts/sequence_curves.py — five panels, exact closure |
-| ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | docs/PHILOSOPHY.md §Infinity, linearity, curve |
+| ok | every design page names its three aspects and its ground | 3 design pages name three aspects and the ground | app/src/content/docs/docs/philosophy.md §Infinity, linearity, curve |
 | ok | the integer cubic's offset is fitted and labelled, not exact | 3-4-5 cubic, d = 0.5, error 1.9e-03 | scripts/integer_cubic_offset.py; workbench/integer-cubic-offset.html |
 | ok | the integer PH rail is exact, and the lattice grid is measured | exact rail; first grid 3360 at t=1/2; fit miss 9.2e-06 over 45 spans; mirror candidate grid 15 | curve_lab/ph_offset.py; scripts/integer_ph_rail.py; workbench/integer-ph-rail.html |
 | ok | the fleur grammar declares its seam and reports its corners | 26 spans, 9 corners, 2 seam contacts, 0 disallowed | curve_lab/grammar.py study_01_report; workbench/fleur-grammar.html |

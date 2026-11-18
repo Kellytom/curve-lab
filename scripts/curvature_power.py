@@ -3,7 +3,7 @@
     .venv/bin/python scripts/curvature_power.py            # print the table
     .venv/bin/python scripts/curvature_power.py --check    # exit 1 if the doc disagrees
 
-Every number in `docs/CURVATURE-POWER-CURVES.md` comes from here. The maximum
+Every number in `app/src/content/docs/docs/curvature-power-curves.md` comes from here. The maximum
 of y = x^n is found from the derivative of curvature in closed form and checked
 against a numeric scan; the septic hyperbola and superellipse are scanned.
 

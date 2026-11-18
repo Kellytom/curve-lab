@@ -1,21 +1,15 @@
-"""Build docs/G3-showcase-docs.html from docs/G3-showcase-docs.md.
+"""Keep the counts block in the G3 showcase document true.
 
-    .venv/bin/python scripts/g3_showcase_doc.py
     .venv/bin/python scripts/g3_showcase_doc.py --check
+    .venv/bin/python scripts/g3_showcase_doc.py
 
-The Markdown is the source. This script:
-
-- fills the counts block from the catalogue JSON and the showcase page;
-- stamps the updated line with the date and commit;
-- writes the HTML twin and embeds the Markdown SHA.
-
-`--check` exits 1 when the twin or the counts are stale, so the document
-cannot silently drift from the showcase.
+The page is Starlight content now; this script does not build HTML. It reads the
+catalogue and the showcase page, and rewrites the counts table between the
+`counts` markers, or fails when it is stale.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import subprocess
@@ -28,8 +22,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import g3_showcase as S  # noqa: E402
 
-MD = ROOT / "docs" / "G3-showcase-docs.md"
-HTML = ROOT / "docs" / "G3-showcase-docs.html"
+MD = ROOT / "app" / "src" / "content" / "docs" / "docs" / "g3-showcase-docs.md"
 
 
 def _git(*args):
@@ -99,56 +92,8 @@ def _replace(md, name, body):
         f"<!-- {name}:start -->\n{body}\n<!-- {name}:end -->", md)
 
 
-def _html(md):
-    import markdown
-    body = markdown.markdown(
-        md, extensions=["tables", "toc", "fenced_code", "sane_lists"])
-    sha = hashlib.sha1(md.encode("utf-8")).hexdigest()
-    commit = _git("rev-parse", "--short", "HEAD")
-    return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 showcase · how it is built</title>
-<style>
-:root{{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--blue:#1f5fa8}}
-*{{box-sizing:border-box}}
-body{{margin:0;background:#f3eddf;color:var(--ink);font:16px/1.6 Georgia,serif}}
-main{{max-width:980px;margin:0 auto;padding:34px 22px 70px}}
-.eyebrow{{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}}
-h1{{font-size:34px;line-height:1.12;margin:0 0 10px}}
-h2{{font-size:21px;margin:28px 0 8px;padding-top:12px;border-top:1px solid var(--rule)}}
-h3{{font-size:17px;margin:20px 0 6px}}
-p{{margin:0 0 12px}}
-a{{color:var(--blue)}}
-blockquote{{margin:0 0 16px;padding:10px 16px;border-left:4px solid var(--gold);background:#fffdf7;color:var(--muted)}}
-table{{border-collapse:collapse;width:100%;margin:10px 0 16px;font:13px/1.5 ui-monospace,Menlo,monospace}}
-th,td{{border:1px solid var(--rule);padding:5px 8px;text-align:left;vertical-align:top}}
-th{{color:var(--muted);font-weight:400}}
-code{{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}}
-pre{{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:auto}}
-pre code{{background:none;padding:0}}
-.live{{margin:0 0 18px;padding:10px 14px;background:#fffdf7;border-left:4px solid var(--gold);font:13px/1.6 ui-monospace,Menlo,monospace}}
-.footer{{margin-top:34px;padding-top:10px;border-top:1px solid var(--rule);font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}}
-</style></head><body><main>
-<p class="eyebrow">curve-lab · G3 showcase</p>
-<p class="live"><a href="../workbench/g3-showcase.html">Open the live showcase</a> ·
-<a href="../workbench/g3-notes.html">G3 notes</a> ·
-<a href="../workbench/g3-handover.html">G3 handover</a> ·
-<a href="../workbench/g3-diagnostics.html">tightest-span diagnostics</a></p>
-{body}
-<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: {sha} · commit: {commit or '—'} · {date.today().isoformat()} · do not edit this HTML by hand.</p>
-</main></body></html>
-"""
-
-
 def _check():
     md = MD.read_text(encoding="utf-8")
-    html = HTML.read_text(encoding="utf-8")
-    sha = hashlib.sha1(md.encode("utf-8")).hexdigest()
-    if f"source-sha: {sha}" not in html:
-        print("stale: docs/G3-showcase-docs.html does not match the Markdown.\n"
-              "Run .venv/bin/python scripts/g3_showcase_doc.py")
-        return 1
     expected = _counts_table(_counts())
     if expected not in md:
         print("stale: the counts block does not match the catalogue/showcase.\n"
@@ -165,12 +110,7 @@ def build():
     md = _replace(md, "updated", updated)
     md = _replace(md, "counts", _counts_table(counts))
     MD.write_text(md, encoding="utf-8")
-    HTML.write_text(_html(md), encoding="utf-8")
-    import stamp_draft
-    stamp_draft.stamp_file(MD)
-    stamp_draft.stamp_file(HTML)
     print(MD)
-    print(HTML)
     return 0
 
 

@@ -18,30 +18,30 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 - [README.md](README.md): the three layers, the first command for each, and a repository map.
 - [DEPENDENCIES.md](DEPENDENCIES.md): every package, its version, licence and reason.
-- [docs/index.md](docs/index.md): the front page of the prose book.
-- [docs/WORKED-EXAMPLE.md](docs/WORKED-EXAMPLE.md): one curve from definition to figure and checks.
-- [docs/CONCEPTS.md](docs/CONCEPTS.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
-- [docs/STATE-OF-THE-WORK.md](docs/STATE-OF-THE-WORK.md): what is proved, what is draft, what is next.
-- [docs/PROJECT.md](docs/PROJECT.md): what the project is, in two halves, and the pipeline.
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the engine is wired.
-- [docs/STRUCTURE.md](docs/STRUCTURE.md): where every folder is.
+- [app/src/content/docs/docs/index.md](app/src/content/docs/docs/index.md): the front page of the prose book.
+- [app/src/content/docs/docs/worked-example.md](app/src/content/docs/docs/worked-example.md): one curve from definition to figure and checks.
+- [app/src/content/docs/docs/concepts.md](app/src/content/docs/docs/concepts.md): Euler curve, exact curve, grid, bend, crossing pair, rails.
+- [app/src/content/docs/docs/state-of-the-work.md](app/src/content/docs/docs/state-of-the-work.md): what is proved, what is draft, what is next.
+- [app/src/content/docs/docs/project.md](app/src/content/docs/docs/project.md): what the project is, in two halves, and the pipeline.
+- [app/src/content/docs/docs/architecture.md](app/src/content/docs/docs/architecture.md): how the engine is wired.
+- [app/src/content/docs/docs/structure.md](app/src/content/docs/docs/structure.md): where every folder is.
 
 ## The rules that matter
 
 - [AGENTS.md](AGENTS.md): the working rules. Read this before changing code.
-- [docs/PH-INTEGER.md](docs/PH-INTEGER.md): why the curves are integer, and what a float would lose.
-- [docs/VERIFY.md](docs/VERIFY.md): how a claim is checked here.
+- [app/src/content/docs/docs/ph-integer.md](app/src/content/docs/docs/ph-integer.md): why the curves are integer, and what a float would lose.
+- [app/src/content/docs/docs/verify.md](app/src/content/docs/docs/verify.md): how a claim is checked here.
 - [senior-dev.md](senior-dev.md): twelve rules learned the hard way.
 
 ## Reference
 
-- [docs/GLOSSARY.md](docs/GLOSSARY.md): the words, each with one meaning.
-- [docs/CURVE-MODEL.md](docs/CURVE-MODEL.md): the design and segment model.
-- [docs/CLEARANCE.md](docs/CLEARANCE.md): the minimum-gap and crossing rule.
-- [docs/FIDELITY.md](docs/FIDELITY.md): the accuracy budget and its precedent.
-- [docs/PHILOSOPHY.md](docs/PHILOSOPHY.md): glyph, full line, sections, joints.
-- [docs/JUNCTION.md](docs/JUNCTION.md): junctions, fillets, declared contacts.
-- [docs/PRIMAL.md](docs/PRIMAL.md): the four primal ornaments and their gate.
+- [app/src/content/docs/docs/glossary.md](app/src/content/docs/docs/glossary.md): the words, each with one meaning.
+- [app/src/content/docs/docs/curve-model.md](app/src/content/docs/docs/curve-model.md): the design and segment model.
+- [app/src/content/docs/docs/clearance.md](app/src/content/docs/docs/clearance.md): the minimum-gap and crossing rule.
+- [app/src/content/docs/docs/fidelity.md](app/src/content/docs/docs/fidelity.md): the accuracy budget and its precedent.
+- [app/src/content/docs/docs/philosophy.md](app/src/content/docs/docs/philosophy.md): glyph, full line, sections, joints.
+- [app/src/content/docs/docs/junction.md](app/src/content/docs/docs/junction.md): junctions, fillets, declared contacts.
+- [app/src/content/docs/docs/primal.md](app/src/content/docs/docs/primal.md): the four primal ornaments and their gate.
 
 ## Decisions and history
 
@@ -53,8 +53,8 @@ https://github.com/Kellytom/curve-lab/tree/main/
 
 ## Optional
 
-- [docs/HANDOVER.md](docs/HANDOVER.md): long; architecture, deploy and security detail.
-- [docs/G3-showcase-docs.md](docs/G3-showcase-docs.md): the G3 showcase and its gate.
+- [app/src/content/docs/docs/handover.md](app/src/content/docs/docs/handover.md): long; architecture, deploy and security detail.
+- [app/src/content/docs/docs/g3-showcase-docs.md](app/src/content/docs/docs/g3-showcase-docs.md): the G3 showcase and its gate.
 - [state/PORT-int.md](state/PORT-int.md): the language boundary, JS in the browser and Python where it is debugged.
 
 ## What an agent needs to know before editing
