@@ -1,10 +1,11 @@
 # The G3 showcase
 
+> **draft A** — a working draft, not a final text.
 > One page for the overall view. Cubic first; a quintic only when the curve
 > genuinely needs it. Everything on the page is a measurement, not a drawing.
 
 <!-- updated:start -->
-Updated 2026-11-10 · commit `27c62f7`
+Updated 2026-11-18 · commit `b29d901`
 <!-- updated:end -->
 
 The live pages are:

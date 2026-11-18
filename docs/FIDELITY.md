@@ -1,5 +1,6 @@
 # Fidelity: the accepted budget
 
+> **draft A** — a working draft, not a final text.
 > **Important — operator decision, 2026-10-30.** A chain that imitates a
 > clothoid is accepted at **1.4–1.6 per cent**. That figure was set for the
 > curvature-law fit (the chain follows the ideal Euler law to 0.8% of peak; the

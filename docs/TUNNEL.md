@@ -1,5 +1,6 @@
 # The tunnel: one URL for the phone, for good
 
+> **draft A** — a working draft, not a final text.
 A named Cloudflare tunnel gives the Astro app a hostname that does not change,
 on your own domain, while the Mac is awake. It is not hosting: when the Mac
 sleeps or the tunnel stops, the URL stops answering.

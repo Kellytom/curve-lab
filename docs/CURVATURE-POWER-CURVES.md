@@ -1,5 +1,6 @@
 # Maximum curvature of power-law curves
 
+> **draft A** — a working draft, not a final text.
 A quick reference for where the bending is tightest on curves of the form
 \(y = x^n\), and on the related septic hyperbola and superellipse.
 

@@ -21,7 +21,9 @@ FORMATS = {
     "flowers.json": "curve-lab.flowers/1",
     "found-curves.json": "curve-lab.curves/2",
     "finder.json": "curve-lab.finder/1",
+    "finder.backup.json": "curve-lab.finder/1",
     "finder-stars.json": "curve-lab.finder-stars/1",
+    "finder-stars.backup.json": "curve-lab.finder-stars/1",
     "found-for-exp.json": "curve-lab.curves/2",
     "g3-catalogue-cache.json": "curve-lab.g3-catalogue-cache/1",
     "g3-catalogue.json": "curve-lab.g3-catalogue/1",
@@ -44,7 +46,10 @@ FORMATS = {
 
 # A file that is derived and gitignored: a fresh clone does not have it and
 # must not fail the audit for that. Rebuild it with its own script.
-OPTIONAL = {"g3-catalogue-cache.json", "finder-stars.json"}
+# The two `.backup.json` files are the previous value kept by every save (the
+# register row 23 fault); they exist only after a save on this machine.
+OPTIONAL = {"g3-catalogue-cache.json", "finder-stars.json",
+            "finder.backup.json", "finder-stars.backup.json"}
 
 
 class DataFileError(ValueError):

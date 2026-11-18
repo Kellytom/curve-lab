@@ -1,5 +1,6 @@
 # The input hub
 
+> **draft A** — a working draft, not a final text.
 How the workbench is entered, and why it is built the way it is.
 
 ## The problem

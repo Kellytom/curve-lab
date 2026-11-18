@@ -1,5 +1,6 @@
 # Project review — 2026-10-26
 
+> **draft A** — a working draft, not a final text.
 A senior-dev plus senior-designer pass over the whole repository, written to be
 acted on later. Ordered by the cost of discovering each item late, not by how
 bad it is today.

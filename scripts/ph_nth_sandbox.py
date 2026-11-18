@@ -633,6 +633,8 @@ def stamped(page):
 def build():
     page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
     OUT.write_text(stamped(page))
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT))
 
 

@@ -1,5 +1,6 @@
 # To do
 
+> **draft A** — a working draft, not a final text.
 Status as of **2026-10-24**. Two states only:
 
 - **done** — in the tree, tested, working.

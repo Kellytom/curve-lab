@@ -1,5 +1,6 @@
 # PH quintics: where the work stands
 
+> **draft A** — a working draft, not a final text.
 A senior review of the PH quintic work: the result, what is solid, what is not,
 and the plan for the next level - finding every integer hit once a curve is
 chosen.

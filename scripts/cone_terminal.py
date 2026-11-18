@@ -208,6 +208,8 @@ def build():
                        default_tip_x=default["tip"][0], half=symmetric["half"],
                        shifts=shifts, table=table())
     OUT.write_text(page)
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT))
 
 

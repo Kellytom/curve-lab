@@ -1,5 +1,6 @@
 # Web application guide
 
+> **draft A** — a working draft, not a final text.
 The web tool in `web/` is a small workbench for drawing curves: open it, edit a
 design, see the drawing and a short report, download an SVG. It is a Python
 server in front of the C++ clothoid engine (Enrico Bertolazzi and Marco Frego).

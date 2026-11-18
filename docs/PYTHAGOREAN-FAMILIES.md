@@ -1,5 +1,6 @@
 # Pythagorean families
 
+> **draft A** — a working draft, not a final text.
 The workbench page is `workbench/pythagorean-families.html`; the generator is
 `scripts/pythagorean_families.py`; the data is `curve_lab/pyth_triples.py`.
 

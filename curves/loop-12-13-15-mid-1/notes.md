@@ -1,5 +1,6 @@
 # loop-12-13-15-mid-1
 
+> **draft A** — a working draft, not a final text.
 **In one line.** A curve whose speed is the polynomial below; 6 self-crossings,
 grid 1/6, arc 14232553.8333.
 

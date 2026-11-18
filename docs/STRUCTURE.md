@@ -1,5 +1,6 @@
 # Where everything lives
 
+> **draft A** — a working draft, not a final text.
 **Repository root: `/Users/thomaskelly/developer/curve-lab`** — every path below
 is relative to it, and `$REPO` in a command means that directory. The repository
 sits under `/Users/thomaskelly/developer/`; it is not inside any other project.

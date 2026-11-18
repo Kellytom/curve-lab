@@ -346,7 +346,8 @@ def _curves_json() -> str:
 
 def page_html() -> str:
     curves = _curves_json()
-    return f'''<!doctype html>
+    import stamp_draft
+    return stamp_draft.stamp_html(f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Square and frame lab</title>
@@ -471,11 +472,13 @@ name is its measured symmetry.</p>
 <script>window.REAL_CURVES = __CURVES__;</script>
 <script>{APP}</script>
 </body></html>
-'''.replace("__CURVES__", curves)
+'''.replace("__CURVES__", curves))
 
 
 def main() -> int:
     OUT.write_text(page_html(), encoding="utf-8")
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     import hub
     hub.decorate_file(OUT.name)
     print(OUT)

@@ -56,7 +56,8 @@ pre code{{background:none;padding:0}}
 
 def main(argv: list[str]) -> int:
     source = MD.read_text(encoding="utf-8")
-    expected = build(source)
+    import stamp_draft
+    expected = stamp_draft.stamp_html(build(source))
     if "--check" in argv:
         if not HTML.exists():
             print(f"missing: {HTML.relative_to(ROOT)}")

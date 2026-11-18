@@ -1,5 +1,6 @@
 # curve-lab handover
 
+> **draft A** — a working draft, not a final text.
 **Updated:** 2026-10-25  
 **Status:** local MVP and public remote MVP are both live.  
 **Current code:** latest commit in this repository; run `git log -1` on the handover machine.

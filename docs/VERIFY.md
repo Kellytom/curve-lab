@@ -1,5 +1,6 @@
 # Verification
 
+> **draft A** — a working draft, not a final text.
 Four checks. Each answers one practical question, and each can fail on its own.
 
 ## 1. Does the curve engine still work?

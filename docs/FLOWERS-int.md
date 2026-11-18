@@ -1,5 +1,6 @@
 # The flowers print sheet — 8.5 × 11, four stems with flowers
 
+> **draft A** — a working draft, not a final text.
 **Status:** working design, 2026-11-02. Reuse this page rather than rebuild it.
 The visual proof is `workbench/flowers.html`; the print file is
 `workbench/flowers.svg`.

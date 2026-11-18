@@ -1,5 +1,6 @@
 # curve-lab
 
+> **draft A** — a working draft, not a final text.
 Numerical clothoid chains, out as plain editable SVG.
 
 A clothoid, or Euler spiral, is the curve whose curvature rises linearly with

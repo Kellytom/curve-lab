@@ -1,5 +1,6 @@
 # Web / PWA architecture
 
+> **draft A** — a working draft, not a final text.
 A static, local-first PWA with a TypeScript UI and the C++ Clothoids engine
 compiled to WebAssembly. No server, no database, no Python in production.
 

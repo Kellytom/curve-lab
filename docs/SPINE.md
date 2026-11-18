@@ -1,5 +1,6 @@
 # The spine layer guide
 
+> **draft A** — a working draft, not a final text.
 The spine layer (`pythagorean-spiral/`) builds the skeleton that ribbons, leaves
 and flourishes hang on. It works in whole numbers and fractions taken from right
 triangles, so a chain can be reasoned about exactly instead of drifting by

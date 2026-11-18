@@ -1,5 +1,6 @@
 # Goals
 
+> **draft A** — a working draft, not a final text.
 The long arc: **plant-forms first, ornament-forms after.** The plant-form is the
 first complete ornament: one full line, two rails, an ending, growth marks and
 branches. The grammar is the deliverable, not one drawing.

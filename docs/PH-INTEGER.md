@@ -1,5 +1,6 @@
 # Integer PH curves: the generator, the grid, and what is actually true
 
+> **draft A** — a working draft, not a final text.
 A corrected version of a survey that has been circulating in this project.
 Where it agrees with the arithmetic it is kept; where it does not, the number
 below was computed, not remembered. Every figure on this page comes from

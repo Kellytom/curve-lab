@@ -1,5 +1,6 @@
 # side → deep
 
+> **draft A** — a working draft, not a final text.
 **One direction.** The side chat writes here; the main session reads it. The main
 session edits it only to correct an error, and says so in a new entry.
 

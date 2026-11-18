@@ -166,6 +166,9 @@ def build():
     md = _replace(md, "counts", _counts_table(counts))
     MD.write_text(md, encoding="utf-8")
     HTML.write_text(_html(md), encoding="utf-8")
+    import stamp_draft
+    stamp_draft.stamp_file(MD)
+    stamp_draft.stamp_file(HTML)
     print(MD)
     print(HTML)
     return 0

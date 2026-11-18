@@ -7,7 +7,12 @@ import { lanUrls, tunnelInfo } from "../lib/tunnel.js";
 
 const hub = buildHub();
 const tunnel = tunnelInfo();
-const lan = lanUrls();
+// The LAN list is for the phone at home and the person at the Mac. On a public
+// hostname it would print this machine's private addresses to a stranger, so
+// it is shown only when the request came from localhost.
+const host = Astro.request.headers.get("host") ?? "";
+const isLocalHost = /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(host);
+const lan = isLocalHost ? lanUrls() : [];
 const app = hub.app;
 const older = hub.total - app.length;
 ---
@@ -15,7 +20,7 @@ const older = hub.total - app.length;
 <!doctype html>
 <html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>curve-lab — the hub</title>
+<title>Curve Hub: draft A</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
 <style is:global>
@@ -31,6 +36,7 @@ const older = hub.total - app.length;
 @media (max-width:600px){.app-grid iframe{height:22rem}}
 </style>
 </head><body>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
 <nav class="container-fluid">
   <ul><li><strong>curve-lab</strong></li></ul>
   <ul>

@@ -1,5 +1,6 @@
 # Integer cubic Béziers
 
+> **draft A** — a working draft, not a final text.
 An exact cubic family whose control points are integers, built from a
 Pythagorean triple.
 

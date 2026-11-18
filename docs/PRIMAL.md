@@ -1,5 +1,6 @@
 # Primal ornaments
 
+> **draft A** — a working draft, not a final text.
 A category of its own, after the framework and before the archetypes:
 
     framework → primal (fire, water, earth, air) → archetypal (fleur, acanthus)

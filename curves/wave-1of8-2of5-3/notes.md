@@ -1,5 +1,6 @@
 # wave-1of8-2of5-3
 
+> **draft A** — a working draft, not a final text.
 **In one line.** A curve whose speed is the polynomial below; 2 self-crossings,
 grid 1/3003, arc 92.7566.
 

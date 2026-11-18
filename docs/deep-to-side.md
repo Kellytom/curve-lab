@@ -1,5 +1,6 @@
 # deep → side
 
+> **draft A** — a working draft, not a final text.
 **Read these to get up to speed**, in this order (paths from `/Users/thomaskelly/developer/curve-lab`):
 
 1. `docs/deep-to-side.md` — this file: what changed, what not to trust.

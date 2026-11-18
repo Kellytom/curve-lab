@@ -61,6 +61,13 @@ def main() -> int:
             print(f"{name} failed:\n{result.stderr[-1500:]}")
             return result.returncode
         print(f"{name}: ok")
+    # A regenerated page must not lose its draft label: stamp after every build.
+    result = subprocess.run([str(PYTHON), str(ROOT / "scripts" / "stamp_draft.py")],
+                            cwd=ROOT, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"stamp_draft.py failed:\n{result.stderr[-1500:]}")
+        return result.returncode
+    print(result.stdout.strip())
     return 0
 
 

@@ -1,5 +1,6 @@
 # Project overview
 
+> **draft A** — a working draft, not a final text.
 `curve-lab` turns numerical clothoids into plain, editable SVG. A design is
 a chain of clothoid segments — curvature rising linearly with arc length —
 placed in the plane, fitted to cubic Béziers to a measured tolerance, offset

@@ -277,6 +277,8 @@ The one first-class object still missing is Section. Today the terminal width la
 
  we walk, but only the spine — and the glyph is not a walk. Let me write the philosophy down properly, because it is currently implicit and that is the problem.
 # Wrotedocs/PHILOSOPHY.md
+
+> **draft A** — a working draft, not a final text.
 # Design philosophy
 
 The question this answers: when we say "a fleur", what is the object, in what

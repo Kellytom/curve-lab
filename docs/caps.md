@@ -1,5 +1,6 @@
 # Closed two-clothoid caps
 
+> **draft A** — a working draft, not a final text.
 This is the account of the cap exercise: a hairpin that starts at the origin
 heading east, changes from a left clothoid to a right clothoid at an inflection,
 and ends with a horizontal centreline. Two families came out of it, and a fold.

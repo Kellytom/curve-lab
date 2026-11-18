@@ -1,5 +1,6 @@
 # Design philosophy
 
+> **draft A** — a working draft, not a final text.
 The question this answers: when we say "a fleur", what is the object, in what
 order is it built, and what are its parts called?
 

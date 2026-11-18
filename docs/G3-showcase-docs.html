@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>G3 showcase · how it is built</title>
+<title>G3 showcase · how it is built: draft A</title>
 <style>
 :root{--paper:#fbf7ec;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--blue:#1f5fa8}
 *{box-sizing:border-box}
@@ -22,7 +22,8 @@ pre{background:#fffdf7;border:1px solid var(--rule);padding:12px 14px;overflow:a
 pre code{background:none;padding:0}
 .live{margin:0 0 18px;padding:10px 14px;background:#fffdf7;border-left:4px solid var(--gold);font:13px/1.6 ui-monospace,Menlo,monospace}
 .footer{margin-top:34px;padding-top:10px;border-top:1px solid var(--rule);font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
-</style></head><body><main>
+</style></head><body>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div><main>
 <p class="eyebrow">curve-lab · G3 showcase</p>
 <p class="live"><a href="../workbench/g3-showcase.html">Open the live showcase</a> ·
 <a href="../workbench/g3-notes.html">G3 notes</a> ·
@@ -30,11 +31,12 @@ pre code{background:none;padding:0}
 <a href="../workbench/g3-diagnostics.html">tightest-span diagnostics</a></p>
 <h1 id="the-g3-showcase">The G3 showcase</h1>
 <blockquote>
-<p>One page for the overall view. Cubic first; a quintic only when the curve
+<p><strong>draft A</strong> — a working draft, not a final text.
+One page for the overall view. Cubic first; a quintic only when the curve
 genuinely needs it. Everything on the page is a measurement, not a drawing.</p>
 </blockquote>
 <!-- updated:start -->
-<p>Updated 2026-11-10 · commit <code>27c62f7</code></p>
+<p>Updated 2026-11-18 · commit <code>b29d901</code></p>
 <!-- updated:end -->
 
 <p>The live pages are:</p>
@@ -386,5 +388,5 @@ error tables; <code>workbench/g3-handover.html</code> is the standalone fallback
 </ol>
 <p>When the showcase changes, run the page generators first, then the doc
 generator, then the hub. Do not edit <code>docs/G3-showcase-docs.html</code> by hand.</p>
-<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 7d4e4c49a30cc9cdc0d2c3f07ee59b751e6e0ff2 · commit: 27c62f7 · 2026-11-10 · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/G3-showcase-docs.md</code> · source-sha: 14d66b9c7d7704cb44afb199905fc32b60b675a8 · commit: b29d901 · 2026-11-18 · do not edit this HTML by hand.</p>
 </main></body></html>

@@ -227,6 +227,8 @@ def build():
     page = page.replace("__CURVES__", "<script>window.septicCurves = "
                         + json.dumps(curves, separators=(",", ":")) + ";</script>")
     OUT.write_text(page)
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT))
 
 

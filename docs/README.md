@@ -1,5 +1,6 @@
 # docs
 
+> **draft A** — a working draft, not a final text.
 What is in this folder, which pages are generated, and where new writing belongs.
 
 ## Start here

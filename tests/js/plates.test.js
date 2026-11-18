@@ -90,8 +90,13 @@ test("a frame pattern can use both curves", () => {
   assert.deepEqual(south.map((item) => item.letter), ["a", "b"]);
 });
 
-test("the gallery is the Astro page, and the generated page is gone", async () => {
-  assert.equal(fs.existsSync(path.join(ROOT, "book/index.html")), false);
+test("the gallery is the Astro page, and book/index.html only redirects", async () => {
+  // The redirect was re-added (commit 927059e) so an old port still reaches the
+  // Astro gallery; the generated gallery itself is gone. app/tests/gallery.test.mjs
+  // guards the same file.
+  const redirect = fs.readFileSync(path.join(ROOT, "book/index.html"), "utf8");
+  assert.match(redirect, /location\.replace/);
+  assert.doesNotMatch(redirect, /<figure>/);
   const { buildGallery } = await import(
     require("node:url").pathToFileURL(path.join(ROOT, "app/src/lib/gallery.js")).href);
   const gallery = buildGallery({ root: ROOT, starred: [] });

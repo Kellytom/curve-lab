@@ -1,5 +1,6 @@
 # Architecture overview
 
+> **draft A** — a working draft, not a final text.
 This project draws smooth decorative curves — scrolls, leaves, ribbons — and it
 does so with two tools rather than one. They are good at different things, and
 most of the design decisions follow from keeping them apart.

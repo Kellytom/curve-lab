@@ -1,5 +1,6 @@
 # Junctions
 
+> **draft A** — a working draft, not a final text.
 A junction is where one stroke meets another: leaf to branch, branch to trunk.
 The vocabulary is borrowed, because the problem is older than this project:
 

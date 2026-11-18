@@ -1,5 +1,6 @@
 # curve-lab
 
+> **draft A** — a working draft, not a final text.
 A workshop for one thing: **curves that can be built exactly, and ornaments that
 follow from them.**
 

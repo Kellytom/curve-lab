@@ -1,5 +1,6 @@
 # wide-knot-x20
 
+> **draft A** — a working draft, not a final text.
 **In one line.** A curve whose speed is the polynomial below; 6 self-crossings,
 grid 1/693, arc 7.1674.
 

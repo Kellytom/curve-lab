@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The tunnel | curve-lab</title>
+<title>The tunnel | curve-lab: draft A</title>
 <style>
 :root{--paper:#fffdf7;--ground:#f3eddf;--ink:#2e2413;--muted:#7b6c4e;--rule:#d8ccae;--gold:#c9a441;--blue:#1f5fa8}
 *{box-sizing:border-box}
@@ -21,12 +21,16 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f4ecd7;padding:1px 4px}
 pre{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;overflow:auto}
 pre code{background:none;padding:0}
 .footer{margin-top:34px;padding-top:10px;border-top:1px solid var(--rule);font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--muted)}
-</style></head><body><main>
+</style></head><body>
+<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div><main>
 <p class="eyebrow">curve-lab · the tunnel</p>
 <h1 id="the-tunnel-one-url-for-the-phone-for-good">The tunnel: one URL for the phone, for good</h1>
-<p>A named Cloudflare tunnel gives the Astro app a hostname that does not change,
+<blockquote>
+<p><strong>draft A</strong> — a working draft, not a final text.
+A named Cloudflare tunnel gives the Astro app a hostname that does not change,
 on your own domain, while the Mac is awake. It is not hosting: when the Mac
 sleeps or the tunnel stops, the URL stops answering.</p>
+</blockquote>
 <p>The workbench pages are already served inside the app (<code>/pages/&lt;file&gt;</code>), so the
 whole hub works through the tunnel — no second port, no second server.</p>
 <p><strong>What only you can do:</strong> authorise the tunnel against your Cloudflare account
@@ -257,5 +261,5 @@ Cloudflare has created it is cached as "does not exist" by macOS, so <code>curl<
 </tr>
 </tbody>
 </table>
-<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: ae181983d1c82af975dc4ab62a04cc0945438a0a · do not edit this HTML by hand.</p>
+<p class="footer">Generated from <code>docs/TUNNEL.md</code> · source-sha: 9aae99a2ed73a2461ed9fad93c2f5fb9bb39dfa4 · do not edit this HTML by hand.</p>
 </main></body></html>

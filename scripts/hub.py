@@ -264,6 +264,8 @@ thumbnail — so nothing here can drift from what the page actually shows.</p>
 </body></html>
 """
     HUB.write_text(hub, encoding="utf-8")
+    import stamp_draft
+    stamp_draft.stamp_file(HUB)
 
 
 def main() -> int:

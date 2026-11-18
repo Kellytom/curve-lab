@@ -1,5 +1,6 @@
 # Credits and licences
 
+> **draft A** — a working draft, not a final text.
 ## The engine
 
 The clothoid geometry comes from the C++ library by **Enrico Bertolazzi** and

@@ -38,12 +38,14 @@ class SquareFrameTest(unittest.TestCase):
         self.assertNotIn("<form", self.page.lower())
 
     def test_the_generator_makes_the_page(self):
-        without_bar = re.sub(r"<!-- hub-bar -->.*?<!-- /hub-bar -->", "",
-                             self.page, flags=re.S)
-        # the hub adds a newline after <body> for its bar; the generator does not
-        without_bar = re.sub(r"<body>\n+", "<body>", without_bar)
-        self.assertEqual(square_frame.page_html().strip(),
-                         without_bar.strip())
+        def normalise(html):
+            # the hub adds a bar, and the draft badge follows <body> with or
+            # without a newline depending on who wrote it last
+            html = re.sub(r"<!-- hub-bar -->.*?<!-- /hub-bar -->", "", html, flags=re.S)
+            return re.sub(r"<body>\n+", "<body>", html).strip()
+
+        self.assertEqual(normalise(square_frame.page_html()),
+                         normalise(self.page))
 
     def test_the_curves_are_grouped_by_symmetry(self):
         self.assertIn("optgroup label=", self.page)

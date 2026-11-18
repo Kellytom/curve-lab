@@ -252,6 +252,8 @@ def build():
         "fraction of the curve's size. The showcase has no speed polynomials, so this is the only honest\n"
         "way to bring its shapes here.</p>")
     OUT.write_text(base.stamped(page))
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT), len(gallery()), "fitted curves")
 
 

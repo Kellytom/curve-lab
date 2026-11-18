@@ -1,5 +1,6 @@
 # Clearance and crossings
 
+> **draft A** — a working draft, not a final text.
 `curve_lab/clearance.py` answers one question about a drawing:
 
 > Does the ink keep at least **5 mm** between strokes, and does it cross

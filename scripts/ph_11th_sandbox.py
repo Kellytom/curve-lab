@@ -411,6 +411,8 @@ def build():
     page = PAGE.replace("__GALLERY__", json.dumps(gallery(), separators=(",", ":")))
     page = own_saved_list(page)
     OUT.write_text(page)
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT))
 
 

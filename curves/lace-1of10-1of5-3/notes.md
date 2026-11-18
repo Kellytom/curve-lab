@@ -1,5 +1,6 @@
 # lace-1of10-1of5-3
 
+> **draft A** — a working draft, not a final text.
 **In one line.** A curve whose speed is the polynomial below; 4 self-crossings,
 grid 1/273, arc 55.7582.
 

@@ -126,6 +126,8 @@ def build():
         "way to bring its shapes here.</p>")
     page = base.own_saved_list(page)
     OUT.write_text(page)
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     print(OUT.relative_to(ROOT), len(gallery()), "fitted curves")
 
 

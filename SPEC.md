@@ -1,5 +1,6 @@
 # Spec
 
+> **draft A** — a working draft, not a final text.
 What this tool is for, what it refuses to do, and the numbers that decide
 whether it has done the job. The original brief is preserved in the lineage of
 this file; what follows is the version the code is held to.

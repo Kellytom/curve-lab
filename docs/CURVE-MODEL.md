@@ -1,5 +1,6 @@
 # The curve model
 
+> **draft A** — a working draft, not a final text.
 The engine draws one line at a time. You give it a starting point, a direction,
 and a list of segments; each segment bends by a stated amount, and that bend
 changes steadily along its length. It then wraps that line in a complete drawing

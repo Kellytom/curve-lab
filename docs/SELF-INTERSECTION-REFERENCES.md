@@ -1,5 +1,6 @@
 # Self-intersection detection for curves and surfaces
 
+> **draft A** — a working draft, not a final text.
 A short reference list for the curve finder and the loop/cusp checks. Every entry
 was verified online on 2026-11-17.
 

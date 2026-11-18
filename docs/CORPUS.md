@@ -1,5 +1,6 @@
 # The recovered corpus
 
+> **draft A** — a working draft, not a final text.
 The project began with two historical ornament sources drawn with cubic Bézier
 curves: the **Stage II plates** and the **LAC (log-aesthetic curve) page**. We
 extracted their terminal ends and centrelines into structured data. The source
