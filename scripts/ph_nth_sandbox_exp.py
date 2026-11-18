@@ -375,6 +375,91 @@ def census_section():
     )
 
 
+def gaussian_section():
+    """The rotation family: a vertical mirror turned by rational angles."""
+    from fractions import Fraction as F
+
+    def integral(poly):
+        return [F(0)] + [F(c, i + 1) for i, c in enumerate(poly)]
+
+    def mul(a, b):
+        out = [F(0)] * (len(a) + len(b) - 1)
+        for i, x in enumerate(a):
+            for j, y in enumerate(b):
+                out[i + j] += x * y
+        return out
+
+    def sub(a, b):
+        n = max(len(a), len(b))
+        a = list(a) + [F(0)] * (n - len(a)); b = list(b) + [F(0)] * (n - len(b))
+        return [x - y for x, y in zip(a, b)]
+
+    def ev(poly, t):
+        total = F(0)
+        for c in reversed(poly):
+            total = total * t + c
+        return total
+
+    def curve(u, v, n=200):
+        x = integral(sub(mul(u, u), mul(v, v))); y = integral([2 * c for c in mul(u, v)])
+        return [(ev(x, F(i, n)), ev(y, F(i, n))) for i in range(-n, n + 1)]
+
+    def svg(points, axis_dy, axis_dx, title, note, size=280, dashed=True):
+        xs = [float(p[0]) for p in points]; ys = [float(p[1]) for p in points]
+        span = max(max(xs) - min(xs), max(ys) - min(ys)) or 1.0
+        norm = (axis_dx ** 2 + axis_dy ** 2) ** 0.5
+        ax = (axis_dx / norm * span * 0.85, axis_dy / norm * span * 0.85)
+        x0, x1 = min(min(xs), -ax[0]), max(max(xs), ax[0])
+        y0, y1 = min(min(ys), -ax[1]), max(max(ys), ax[1])
+        w, h = x1 - x0 or 1, y1 - y0 or 1
+        m = 14
+        k = (size - 2 * m) / max(w, h)
+        ox, oy = (size - w * k) / 2, (size - h * k) / 2
+        put = lambda x, y: (ox + (x - x0) * k, size - (oy + (y - y0) * k))
+        poly = " ".join(f"{put(float(px), float(py))[0]:.1f},{put(float(px), float(py))[1]:.1f}"
+                        for px, py in points)
+        a1, a2 = put(-ax[0], -ax[1]), put(ax[0], ax[1])
+        style = 'stroke="#c9a441" stroke-width="1.2"' + (' stroke-dasharray="5 4"' if dashed else "")
+        return (f'<figure><svg viewBox="0 0 {size} {size}" width="{size}" height="{size}">'
+                f'<rect width="{size}" height="{size}" fill="#fff"/>'
+                f'<line x1="{a1[0]:.1f}" y1="{a1[1]:.1f}" x2="{a2[0]:.1f}" y2="{a2[1]:.1f}" {style}/>'
+                f'<polyline points="{poly}" fill="none" stroke="#111" stroke-width="1.7"/></svg>'
+                f'<figcaption><b>{title}</b><br>{note}</figcaption></figure>')
+
+    u0 = [F(1), F(0), F(-1)]; v0 = [F(0), F(1)]
+    panels = [svg(curve(u0, v0), 1, 0, "vertical mirror", "u = 1 &minus; t&sup2;, v = t")]
+    # q = tan(half the turn); rows u = r u0 - p v0, v = p u0 + r v0 with q = p/r
+    for p_, r_ in ((1, 2), (1, 3), (1, 4), (1, 5)):
+        q = F(p_, r_)
+        u = [r_ * a - p_ * b for a, b in zip(u0, v0)]
+        v = [p_ * a + r_ * b for a, b in zip(u0, v0)]
+        slope = -(1 - q * q) / (2 * q)
+        panels.append(svg(curve(u, v), 1, -slope,
+                          f"turned, q = {p_}/{r_}",
+                          f"axis slope {slope} &middot; u,v whole after x{1 + q*q}"))
+    # the 45-degree attempt: q = sqrt2 - 1, irrational. Drawn from floats only.
+    import math
+    q = math.sqrt(2) - 1
+    turned = []
+    for i in range(-200, 201):
+        t = i / 200
+        x = t - t ** 3 + t ** 5 / 5
+        y = t ** 2 - t ** 4 / 2
+        c, s = math.cos(math.atan(q)), math.sin(math.atan(q))
+        turned.append((c * x - s * y, s * x + c * y))
+    panels.append(svg(turned, 1, 1, "45&deg; &mdash; not exact",
+                      "q = &radic;2 &minus; 1, irrational: no rational rows"))
+
+    return ('<h2 id="gaussian-rotation">Rational rotation: a mirror you can turn</h2>'
+            '<p class="small">Turn the vertical mirror by an angle whose <b>half-angle</b> has a '
+            'rational tangent, and the speed rows stay whole after a common factor. The axis turns '
+            'with the curve: slope &minus;3/4 at q = 1/2, &minus;4/3 at 1/3, &minus;15/8 at 1/4. '
+            'At 45&deg; the half-angle is 22.5&deg;, whose tangent is &radic;2 &minus; 1: no rational '
+            'rows, so the last panel is drawn from floats and says so.</p>'
+            '<div class="gallery" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">'
+            + "".join(panels) + '</div>\n')
+
+
 def finder_section(limit=24):
     """The finder's curves, drawn inline, above the gallery."""
     import json
@@ -519,7 +604,7 @@ def build():
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
     page = (page[:head_start] + family_section() + related_section() + possible_section()
-            + finder_section() + GALLERY_HEAD + page[head_end:])
+            + gaussian_section() + finder_section() + GALLERY_HEAD + page[head_end:])
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves

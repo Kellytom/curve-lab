@@ -269,6 +269,25 @@ pretty hard to get back to rational."
   The repo already has the machinery: `curve_lab/pyth_cubic.py` and the
   `pythagorean-spiral` turn lattice.
 
+## Rotations are Gaussian rationals — 2026-11-18
+
+- **The operation is multiplication by a Gaussian rational** `(a + bi)` with `a, b`
+  rational; a rotation needs unit length, `a² + b² = 1`, so every rational rotation
+  is a **Pythagorean triple** (`3-4-5`, `5-12-13`, `8-15-17`). The repo already
+  uses these in `curve_lab/pyth_cubic.py` and the spiral turn lattice.
+- **For a PH curve the speed turns by half the angle.** Rotating a vertical-mirror
+  curve by `θ` multiplies its speed by `e^{iθ/2}`, so the rows stay rational only
+  when `tan(θ/2)` is rational. `θ` from a p-triple satisfies this: `3-4-5` gives
+  `tan(θ/2) = 1/2`, and multiplying the rows by the common factor `√5` makes them
+  whole. `45°` gives `tan 22.5° = √2 − 1`, irrational, so **no rational rows exist**
+  and no exact `y = x` PH curve can be written.
+- **What is reachable:** mirror axes of slope `−3/4`, `−4/3`, `−15/8`, `−12/5` …
+  from `q = 1/2, 1/3, 1/4, 1/5`. What is not: `y = x`, `y = −x`, and any axis whose
+  half-angle is not Pythagorean.
+- **The sandbox shows the family** under "Rational rotation: a mirror you can turn"
+  on `ph-nth-sandbox-exp.html`, one panel per `q`, with the 45° attempt drawn from
+  floats and labelled not exact.
+
 ## Optical versus real (matters for the Bezier conversion)
 
 Some controls move the camera and leave the numbers alone. Others change the

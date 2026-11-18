@@ -10,11 +10,20 @@ const starredIds = new Set((data.starred || []).map((s) => s.id).filter(Boolean)
 const starredNames = new Set((data.starred || []).map((s) => s.name).filter(Boolean));
 const isStarred = (c) => starredIds.has(c.id) || starredNames.has(c.name);
 const starred = curves.filter(isStarred);
+const mirrored = (c) => (c.flags || []).some((f) => String(f).startsWith("mirror "));
+const symmetric = curves.filter(mirrored).sort((a, b) => {
+  if (a.id === "symmetric-rotated345") return -1;
+  if (b.id === "symmetric-rotated345") return 1;
+  const rank = (c) => (c.flags || []).some((f) => String(f).startsWith("mirror y=x")) ? 0 : 1;
+  return rank(a) - rank(b);
+});
 const featured = curves.filter((c) => c.featured && !isStarred(c));
-const rest = curves.filter((c) => !isStarred(c) && !c.featured);
+const rest = curves.filter((c) => !isStarred(c) && !c.featured && !mirrored(c));
 const familyNames = [...new Set(rest.map((c) => c.family || "other"))].sort();
 
 const sections = [];
+if (symmetric.length) sections.push({ key: "symmetric", title: "Symmetric",
+  lead: "Mirror curves, measured. The top one is new: a 3-4-5 rotation of a vertically mirrored curve, exact gap 0.0000 about slope −3/4.", curves: symmetric });
 sections.push({ key: "starred", title: "Starred", lead: "Your choices, at the top.", curves: starred });
 if (featured.length) sections.push({ key: "best", title: "Best so far", lead: "The strongest of the new methods: solved crossings, arcs, ends-first, bounded curves.", curves: featured });
 for (const family of familyNames) {
