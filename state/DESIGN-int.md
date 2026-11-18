@@ -234,6 +234,16 @@ family to catalogue.
 
 ## Trigonometry: irrational values are a red flag — 2026-11-18
 
+- **Ratios come from 2, 3, 4 and 5.** The operator's standing assumption
+  (2026-11-18): weights, amplitudes and turns use `1, 1/2, 1/3, 1/4, 1/5` and
+  integer rates, and tilts use the `3-4-5` triple. Measured: a mobile on those
+  keeps grids of **5, 10, 15, 50**. A `5-12-13` tilt adds a 13 and an `8-15-17`
+  adds a 17 — exact, but the grid jumps to 4250 and 13260, which is no longer
+  simple. Treat a denominator above 5 as a red flag of the same kind as a
+  `cos`: allowed if a reason is written down, not by accident.
+
+
+
 Settled by the operator: "I don't mind trig that uses rational fractions like 3/4
 or 7/24 but we have to stay on the integer grid, and once you go irrational it is
 pretty hard to get back to rational."

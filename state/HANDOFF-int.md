@@ -2829,3 +2829,20 @@ elevates to degree 7 identically (verified), and a solved handle move puts a
 crossing at `t = ±1` (±0.007) and `t = ±½` (±0.123). The drawn results are
 slivers, because one handle cannot bend an elevated septic near its ends; that is
 recorded in `TODO.md` as parked, with the PH cost stated on the cards.
+
+## 2026-11-18 (connectable curves) — mobile arcs and ends-first, both exact
+
+`scripts/mobile_arcs.py` cuts the mobile between two rational parameters: the
+endpoints and end tangents are exact fractions printed on each card, and
+`arc −1 to 1` turns exactly −90.0° across the arc. `scripts/ends_first.py` builds
+a degree-7 curve from position, tangent and second derivative at both ends
+(twelve conditions, two free coefficients per coordinate), then spends the free
+coefficients on a crossing at t = 1/4 and 3/4 — verified exact on all three cases.
+
+Grid check under the operator's rule (ratios from 2, 3, 4, 5): a mobile on those
+keeps grids of 5, 10, 15 and 50. `5-12-13` and `8-15-17` tilts introduce 13 and
+17 and the grids jump to 4250 and 13260 — exact, but no longer simple, so the
+default tilts are 3-4-5 only.
+
+Known weakness, in TODO: the ends-first cards are shallow because the end
+curvatures given are ±1; that input is the lever, not the solve.

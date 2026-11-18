@@ -120,6 +120,23 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+## Connectable curves — built 2026-11-18
+
+- [x] **Mobile arcs** (`scripts/mobile_arcs.py`): the mobile cut between two
+  rational parameters. Endpoints and tangents are exact fractions, printed on
+  each card; `arc -1 to 1` turns **−90.0°** across the arc, which is a usable
+  right-angle chain piece.
+- [x] **Ends first** (`scripts/ends_first.py`): position, tangent and second
+  derivative at both ends solved exactly (two free coefficients per coordinate
+  left over), and the crossing at `t = 1/4, 3/4` solved from those. Three cases,
+  ends and crossing both verified exact.
+- [ ] **Shape quality of the ends-first set.** The three cards are shallow: the
+  end curvatures used are small (±1). The lever is the second-derivative input,
+  not the solve — raise it and the middle bows. Worth one pass before any of
+  these becomes a plate.
+- [ ] **Chain two different ends-first curves** and print the corner, the way the
+  arcs do, so the family is proved connectable rather than argued connectable.
+
 ## Tschirnhausen, elevation — investigated 2026-11-18
 
 - **The old work was exact, not an approximation.** `tph_tri_chain/RESULTS.md`

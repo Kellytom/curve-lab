@@ -154,11 +154,15 @@ def rails(points, share=RAIL_SHARE):
     return [left, right]
 
 
+# Denominators from 2, 3, 4, 5 only: amplitudes 1, 1/2, 1/3, 1/5; integer rates;
+# the 3-4-5 tilt (denominator 5). 5-12-13 and 8-15-17 bring a 13 and a 17, which
+# is what pushed the grids to 4250 and 13260 — exact, but no longer simple.
 VANES = (
     ("one vane, 3-4-5", [(1, 1, "3-4-5")]),
-    ("3-4-5 + half 5-12-13, 2 turns", [(1, 1, "3-4-5"), (Fraction(1, 2), 2, "5-12-13")]),
-    ("3-4-5 + half 8-15-17, 3 turns", [(1, 1, "3-4-5"), (Fraction(1, 2), 3, "8-15-17")]),
-    ("two small, one big", [(1, 1, "3-4-5"), (Fraction(1, 3), 2, "5-12-13"), (Fraction(1, 4), 3, "8-15-17")]),
+    ("3-4-5 + half, 2 turns", [(1, 1, "3-4-5"), (Fraction(1, 2), 2, "3-4-5")]),
+    ("3-4-5 + third, 3 turns", [(1, 1, "3-4-5"), (Fraction(1, 3), 3, "3-4-5")]),
+    ("1, 1/2, 1/5 at 1, 2, 5", [(1, 1, "3-4-5"), (Fraction(1, 2), 2, "3-4-5"),
+                                 (Fraction(1, 5), 5, "3-4-5")]),
 )
 
 
