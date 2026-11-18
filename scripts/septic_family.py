@@ -25,7 +25,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+sys.path.insert(0, str(ROOT / "scripts"))
+
 from curve_lab.datafile import FORMATS  # noqa: E402
+from curve_finder import peak  # noqa: E402
 
 OUT = ROOT / "workbench" / "finder.json"
 SAMPLES = 320
@@ -51,6 +54,11 @@ CURVES = (
     ("loop t=1/2,3/4", dict(k=1, d=Fraction(-6155, 4864), c=1, e=Fraction(-13, 16))),
     ("loop t=1/3,2/3", dict(k=1, d=Fraction(-856, 567), c=1, e=Fraction(-5, 9))),
     ("loop t=1/4,3/4", dict(k=1, d=Fraction(-5189, 3328), c=1, e=Fraction(-5, 8))),
+    # Three conditions: cross at 1/4 and 3/4, and a 45° tangent at 1/4.
+    ("cross+45deg at t=1/4", dict(k=1, b=Fraction(9443, 1192),
+                                  d=Fraction(-235259, 38144), c=1, e=Fraction(-5, 8))),
+    # Middle-dominant: t^4 outweighs t^7 inside |t| < 0.7, so it leaves the diagonal.
+    ("c=10 middle", dict(k=1, c=10, e=-2)),
 )
 
 
@@ -132,6 +140,7 @@ def main():
     for name, spec in CURVES:
         x, y = build(spec)
         points = path(x, y, *SPAN)
+        p = peak(x, y, samples=1200)
         curves.append({
             "name": name,
             "x": [str(c) for c in x],
@@ -141,7 +150,9 @@ def main():
             "proper": True,
             "path": points,
             "rails": rails(points),
-            "peak": None,
+            "peak": None if p is None else {
+                "t": float(p["t"]), "kappa": float(p["kappa"]),
+                "angle": round(p["angle"], 3), "x": float(p["x"]), "y": float(p["y"])},
             "features": readings(x, y, *SPAN),
             "flags": [],
         })
