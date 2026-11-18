@@ -120,6 +120,17 @@ curves. Do these in order and do not guess the one decision.
   is, the one exact idea (integer and rational curves on one grid), how to run
   the hub, and where the book is.
 
+## Speed: a placeholder for the primary curve — 2026-11-18
+
+- [ ] **Inline PNG placeholder for the primary curve.** The sandbox draws its
+  default curve only after the shared JS has loaded, so the page opens on a
+  caption list for a moment — the operator's words: "make some inline pngs as
+  placeholders for the main curve, since it takes a while to load". Take one
+  screenshot of the default primary curve, inline it as a base64 PNG behind the
+  canvas, and let the live drawing replace it when the first frame is ready. It
+  must be the *default* curve only, and labelled as a placeholder, so it can
+  never be mistaken for a drawn result.
+
 ## Symmetry axes — checked 2026-11-18
 
 Every stored curve (318: finder families, the 60 finds, the 109 moved, the 88 in

@@ -375,6 +375,46 @@ def census_section():
     )
 
 
+def finder_section(limit=24):
+    """The finder's curves, drawn inline, above the gallery."""
+    import json
+    import html as _html
+    path = ROOT / "workbench" / "finder.json"
+    if not path.exists():
+        return ""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    curves = data.get("curves") or []
+    starred_path = ROOT / "workbench" / "finder-stars.json"
+    starred = set()
+    if starred_path.exists():
+        starred = {c.get("name") for c in (json.loads(starred_path.read_text(encoding="utf-8")).get("curves") or [])}
+    order = sorted(curves, key=lambda c: (0 if c.get("name") in starred else 1 if c.get("featured") else 2))
+    cells = []
+    for curve in order[:limit]:
+        pts = curve.get("path") or []
+        if len(pts) < 8:
+            continue
+        xs = [p[0] for p in pts]; ys = [p[1] for p in pts]
+        x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+        size, margin = 190, 10
+        w = x1 - x0 or 1; h = y1 - y0 or 1
+        k = (size - 2 * margin) / max(w, h)
+        ox, oy = (size - w * k) / 2, (size - h * k) / 2
+        poly = " ".join(f"{ox + (x - x0) * k:.1f},{size - (oy + (y - y0) * k):.1f}" for x, y in pts)
+        sym = [f.split(" (")[0] for f in curve.get("flags", []) if f.startswith(("mirror ", "half turn"))]
+        cells.append(
+            f'<figure><svg viewBox="0 0 {size} {size}" width="{size}" height="{size}">'
+            f'<rect width="{size}" height="{size}" fill="#fff"/>'
+            f'<polyline points="{poly}" fill="none" stroke="#111" stroke-width="1.2"/></svg>'
+            f'<figcaption>{_html.escape(curve["name"])} · {_html.escape(curve.get("family", ""))}'
+            f'{" · " + _html.escape(", ".join(sym)) if sym else ""}</figcaption></figure>')
+    return ('<h2 id="finder-curves">From the curve finder</h2>'
+            '<p class="small">The finder\'s curves, starred and picked first. '
+            'Open <a href="/finder">the finder</a> to star or save them; this page reads them read-only.</p>'
+            '<div class="gallery" style="grid-template-columns:repeat(auto-fill,minmax(190px,1fr))">'
+            + "".join(cells) + "</div>\n")
+
+
 def build():
     page = base.PAGE
     page = page.replace("__GALLERY__", json.dumps(stored_entries(), separators=(",", ":")))
@@ -477,7 +517,8 @@ def build():
     # the gallery keeps its host, and gets a heading of its own, under the families
     head_start = page.index("<h2>Gallery: the spines so far</h2>")
     head_end = page.index('<div class="gallery" id="n-gallery"></div>')
-    page = page[:head_start] + family_section() + related_section() + possible_section() + GALLERY_HEAD + page[head_end:]
+    page = (page[:head_start] + family_section() + related_section() + possible_section()
+            + finder_section() + GALLERY_HEAD + page[head_end:])
 
     # fifteen numbers per axis, so step 1/2 reaches t^7, and the step applies from
     # the first draw rather than only once the slider moves

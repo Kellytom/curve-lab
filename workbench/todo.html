@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:70.7%}
+.fill{height:100%;background:#8c6a21;width:70.3%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -34,7 +34,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">128 / 181 done · 71% · read-only twin of
+<div class="count">128 / 182 done · 70% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -91,6 +91,9 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>dashboard layout (MIT, Bergside); no Tailwind or Flowbite code was added — the CSS is ours. Say so in the app README so the provenance is clear.</p>
 <label class="task"><input type="checkbox" disabled><span><strong>A reader&#x27;s first five minutes.</strong> A short <code>README</code> path: what curve-lab</span></label>
 <p>is, the one exact idea (integer and rational curves on one grid), how to run the hub, and where the book is.</p>
+<h2>Speed: a placeholder for the primary curve — 2026-11-18</h2>
+<label class="task"><input type="checkbox" disabled><span><strong>Inline PNG placeholder for the primary curve.</strong> The sandbox draws its</span></label>
+<p>default curve only after the shared JS has loaded, so the page opens on a caption list for a moment — the operator&#x27;s words: &quot;make some inline pngs as placeholders for the main curve, since it takes a while to load&quot;. Take one screenshot of the default primary curve, inline it as a base64 PNG behind the canvas, and let the live drawing replace it when the first frame is ready. It must be the *default* curve only, and labelled as a placeholder, so it can never be mistaken for a drawn result.</p>
 <h2>Symmetry axes — checked 2026-11-18</h2>
 <p>Every stored curve (318: finder families, the 60 finds, the 109 moved, the 88 in the lab) was tested against 14 rational axes plus the half turn. Results:</p>
 <div class="tablewrap"><table><thead><tr><th>axis</th><th>curves</th></tr></thead><tbody><tr><td>vertical</td><td>167</td></tr><tr><td>half turn</td><td>83</td></tr><tr><td><strong>y = x (45°)</strong></td><td><strong>30</strong> — the whole Q/P family and its loops</td></tr><tr><td><strong>x axis</strong></td><td><strong>13</strong> — limaçons, mobiles, roses, Tschirnhausen</td></tr><tr><td>y = −x</td><td>4</td></tr><tr><td>slope 1/2</td><td>1 (the only oblique hit)</td></tr></tbody></table></div>
