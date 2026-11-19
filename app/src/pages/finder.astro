@@ -117,6 +117,7 @@ code{font:11px ui-monospace,Menlo,monospace}
 (() => {
   const KEY = "finder-stars";
   let lastError = "";
+  const removedStars = new Set();
   const nameToId = JSON.parse(document.getElementById("finder-name-to-id").textContent || "{}");
   const migrate = (list) => {
     let changed = false;
@@ -184,6 +185,7 @@ code{font:11px ui-monospace,Menlo,monospace}
       else {
         const specs = JSON.parse(document.getElementById("finder-specs").textContent || "{}");
         list.push({ id, ...(specs[id] || {}) });
+        removedStars.delete(title);
       }
       write(list);
       paint();
@@ -209,11 +211,13 @@ code{font:11px ui-monospace,Menlo,monospace}
       const response = await fetch("/api/finder-stars", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ format: "curve-lab.finder-stars/1", curves: read() }),
+        body: JSON.stringify({ format: "curve-lab.finder-stars/1", curves: read(),
+                               removed: [...removedStars] }),
       });
       const out = await response.json();
       if (response.ok) {
         lastError = "";
+        removedStars.clear();
         if (status) status.textContent = "";
         return;
       }

@@ -48,6 +48,9 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 27 | 2026-11-19 | a backup was written 0 bytes and still said "integrity ok" | `scripts/backup-db.mjs` checks the row count as well as the integrity | backups |
 | 28 | 2026-11-19 | the notes mirror was stale: 2 rows against 262 in the database | `scripts/check-db.mjs` and the save path writing the mirror | the readable fallback |
 
+| 29 | 2026-11-19 | "the finder starred curves don't show" — a browser with 2 stars saved, and the server deleted the other 4 | no automated guard yet: the endpoint is checked by hand (`/api/finder-stars` must still list 6) | a save adds; a removal must be named in `removed` |
+| 30 | 2026-11-19 | "/lab has no margins" — the page lost its `<main>` wrapper, so the max-width and padding never applied | no automated guard yet; checked by the computed box (1164 px, left 118) | the lab's layout |
+
 ## Fixed and measured, but not yet in the fast suite
 
 These have browser-level proof in `scripts/check-nth-page.mjs` (which needs a

@@ -59,7 +59,10 @@ export async function saveFinderStars(payload, root) {
       throw error;
     }
   }
-  const names = curves.map((star) => star.name);
+  // A save adds and updates. It never deletes a name the client did not send:
+  // a browser with a partial list wiped four stars that way on 2026-11-19.
+  // Removing a star is explicit, in `removed`.
+  const removed = Array.isArray(payload?.removed) ? payload.removed : [];
   const operations = curves.map((star) => prisma.star.upsert({
     where: { name: star.name },
     create: {
@@ -73,7 +76,7 @@ export async function saveFinderStars(payload, root) {
     },
   }));
   await prisma.$transaction([
-    prisma.star.deleteMany({ where: { name: { notIn: names } } }),
+    ...(removed.length ? [prisma.star.deleteMany({ where: { name: { in: removed } } })] : []),
     ...operations,
   ]);
   const file = exportJson(root, curves.map((star) => ({
