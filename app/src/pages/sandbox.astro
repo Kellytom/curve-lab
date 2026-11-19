@@ -14,6 +14,7 @@ import { repoRoot } from "../lib/gallery.js";
 const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-curves.json"), "utf8"));
 // The parametric material lives in its own file; one page, two datasets.
 const parametric = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-parametric.json"), "utf8"));
+const wobble = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wobble.json"), "utf8"));
 const window = data.window;
 
 function box(points, size = 300) {
@@ -198,6 +199,22 @@ function rowsOf(terms) {
         <Fragment set:html={plot(pair.points, { size: 340 })} />
         <figcaption><b>{pair.op}</b> of {pair.a} and {pair.b}<br>
           <span class="facts">{pair.crossings} crossing pairs</span></figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>5 · The wobble that follows the unit circle</h2>
+  <p class="lead">Not a constant offset: at every station the stroke is pushed by the
+    unit-circle point at a slope that walks along the curve, so the wobble travels
+    instead of shifting. The circle is walked by slope, not angle — slope 1/2 is the
+    3-4-5 point — so every pushed point stays rational. {(wobble.panels?.[0]?.title)}
+    is shown first for comparison; the wobble is {Math.round((wobble.share || 0) * 100)}%
+    of the curve's size.</p>
+  <div class="row">
+    {(wobble.panels || []).map((panel) => (
+      <figure class="tile">
+        <Fragment set:html={plot(panel.points, { size: 320 })} />
+        <figcaption>{panel.title}</figcaption>
       </figure>
     ))}
   </div>

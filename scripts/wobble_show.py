@@ -115,6 +115,20 @@ The wobble is {int(SHARE * 100)}% of the curve's size.</p>
 </body></html>
 """
     OUT.write_text(html, encoding="utf-8")
+    # and the same three panels as data, for /sandbox
+    panels_json = {
+        "format": "curve-lab.wobble/1",
+        "note": "the swan stroke, then the unit-circle wobble at slope 0-1 and -1..1; rational circle points",
+        "subject": record["name"],
+        "share": SHARE,
+        "panels": [
+            {"title": f"{record['name']} — the stroke as it is", "points": [[round(a, 4), round(b, 4)] for a, b in points]},
+            {"title": "wobble slope 0 → 1 (a quarter of the circle)", "points": [[round(a, 4), round(b, 4)] for a, b in wobbled(points, 0.0, 1.0)]},
+            {"title": "wobble slope −1 → 1 (half the circle)", "points": [[round(a, 4), round(b, 4)] for a, b in wobbled(points, -1.0, 1.0)]},
+        ],
+    }
+    (ROOT / "workbench" / "wobble.json").write_text(json.dumps(panels_json, indent=1) + "\n", encoding="utf-8")
+    print("wrote workbench/wobble.json")
     print(f"wrote {OUT.relative_to(ROOT)}")
     return 0
 
