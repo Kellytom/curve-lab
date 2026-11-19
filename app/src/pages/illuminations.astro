@@ -5,135 +5,129 @@ import { buildGallery } from "../lib/gallery.js";
 // star or a fresh export shows up without a rebuild. The page is the gallery;
 // book/index.html is no longer generated.
 import { buildIlluminations } from "../lib/bordered.js";
-import AppNav from "../components/AppNav.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 const gallery = buildGallery();
 const illuminated = await buildIlluminations();
 const { stars, designs, singles, counts } = gallery;
 const plateWord = (n) => (n === 1 ? "plate" : "plates");
 ---
 
-<!doctype html>
-<html lang="en" data-theme="light"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gallery of Illuminations: draft A</title>
-<link rel="stylesheet" href="/vendor/pico.min.css">
-<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
-<link rel="stylesheet" href="/vendor/app-shell.css">
-<style is:global>
-/* Only layout: the colours and the background come from curve-lab-theme.css,
-   the same sheet the hub, the book and everything else in the app load. */
-body{margin:0}
-main{max-width:1120px;margin:0 auto;padding:30px 22px 60px}
-h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.25rem;margin:34px 0 4px;font-weight:600}
-.lead{color:var(--pico-muted-color);margin:0 0 18px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid var(--pico-muted-border-color)}
-figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:6px}
-.empty-state{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:22px 24px;color:var(--pico-muted-color);font-size:13px}
-.missing{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:18px 20px;color:var(--pico-muted-color);font-size:13px}
-a{color:var(--pico-primary)}
-.illuminations{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.illuminations figure{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color);padding:6px}
-.illuminations svg{display:block;width:100%;height:auto}
-.illuminations img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--pico-muted-border-color)}
-.illuminations figcaption{font-size:11px;color:#666;margin-top:4px}
-.turn{display:flex;gap:4px;align-items:center;margin-top:4px}
-.turn button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:2px 6px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
-.turn button.on{background:#c9a441;color:#fff}
-.turn .saveflag{font:10px/1.2 ui-monospace,Menlo,monospace;color:#8a3b2a;margin-left:4px}
-.imp{display:flex;gap:2px;margin-top:3px}
-.imp button{font:10px/1.1 ui-monospace,Menlo,monospace;padding:1px 4px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
-.imp button.on{background:#c9a441;color:#fff}
-</style>
-</head><body>
-<AppNav title="the book gallery" />
-<main id="main">
-<h1>Gallery of Illuminations</h1>
+<BaseLayout title="the book gallery" pageTitle="Gallery of Illuminations: draft A" mainClass="">
+  <Fragment slot="head">
+    <style is:global>
+    /* Only layout: the colours and the background come from curve-lab-theme.css,
+       the same sheet the hub, the book and everything else in the app load. */
+    body{margin:0}
+    main{max-width:1120px;margin:0 auto;padding:30px 22px 60px}
+    h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.25rem;margin:34px 0 4px;font-weight:600}
+    .lead{color:var(--pico-muted-color);margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+    figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid var(--pico-muted-border-color)}
+    figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:6px}
+    .empty-state{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:22px 24px;color:var(--pico-muted-color);font-size:13px}
+    .missing{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:18px 20px;color:var(--pico-muted-color);font-size:13px}
+    a{color:var(--pico-primary)}
+    .illuminations{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .illuminations figure{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color);padding:6px}
+    .illuminations svg{display:block;width:100%;height:auto}
+    .illuminations img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--pico-muted-border-color)}
+    .illuminations figcaption{font-size:11px;color:#666;margin-top:4px}
+    .turn{display:flex;gap:4px;align-items:center;margin-top:4px}
+    .turn button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:2px 6px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+    .turn button.on{background:#c9a441;color:#fff}
+    .turn .saveflag{font:10px/1.2 ui-monospace,Menlo,monospace;color:#8a3b2a;margin-left:4px}
+    .imp{display:flex;gap:2px;margin-top:3px}
+    .imp button{font:10px/1.1 ui-monospace,Menlo,monospace;padding:1px 4px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+    .imp button.on{background:#c9a441;color:#fff}
+    </style>
+  </Fragment>
+  <h1>Gallery of Illuminations</h1>
   <p>The illuminator turns a curve from the sandbox into an illustration: the
     spine, its character rails, and the frame. A plate is one illumination,
     drawn to fill its paper.</p>
-<p class="lead">{counts.total} {plateWord(counts.total)} · {counts.designs} central designs and
-  {counts.singles} single curves{counts.stars ? `, ${counts.stars} starred` : ""} · white ground,
-  no text on the image, tight to the curve · labels outside, two columns · names are
-  <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
+  <p class="lead">{counts.total} {plateWord(counts.total)} · {counts.designs} central designs and
+    {counts.singles} single curves{counts.stars ? `, ${counts.stars} starred` : ""} · white ground,
+    no text on the image, tight to the curve · labels outside, two columns · names are
+    <code>&lt;descriptor&gt;-&lt;variant&gt;-t-exp-c-&lt;serial&gt;</code></p>
 
-<h2>Framed Quintic symmetric figures</h2>
-<p class="lead">Starred in the square and frame lab, then written to
-  <code>workbench/starred.json</code> by the page itself.</p>
-<div class="grid">
-  {stars.length ? stars.map((plate) => (
-    <figure>
-      {plate.image
-        ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-        : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
-      <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
-    </figure>
-  )) : (
-    <p class="empty-state">No stars yet. Open the <a href="/lab">Astro lab</a>, set the design,
-      press <b>star this design</b>, then <b>save to workbench</b>; the next plate export
-      puts it here.</p>
-  )}
-</div>
+  <h2>Framed Quintic symmetric figures</h2>
+  <p class="lead">Starred in the square and frame lab, then written to
+    <code>workbench/starred.json</code> by the page itself.</p>
+  <div class="grid">
+    {stars.length ? stars.map((plate) => (
+      <figure>
+        {plate.image
+          ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
+          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
+        <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
+      </figure>
+    )) : (
+      <p class="empty-state">No stars yet. Open the <a href="/lab">Astro lab</a>, set the design,
+        press <b>star this design</b>, then <b>save to workbench</b>; the next plate export
+        puts it here.</p>
+    )}
+  </div>
 
-<h2>Simple framed symmetric central figures</h2>
-<p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails
-  and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg
-  frame of arches overlaps itself, so it is not offered framed.</p>
-<div class="grid">
-  {designs.map((plate) => (
-    <figure>
-      {plate.image
-        ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-        : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
-      <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
-    </figure>
+  <h2>Simple framed symmetric central figures</h2>
+  <p class="lead">Cross and leaf, each in a frame, every copy carrying its character rails
+    and closed at the ends. The arch is a single-curve plate and a lab form; a natural-leg
+    frame of arches overlaps itself, so it is not offered framed.</p>
+  <div class="grid">
+    {designs.map((plate) => (
+      <figure>
+        {plate.image
+          ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
+          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code></p>}
+        <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>Single curves</h2>
+  <p class="lead">{singles.length} plates, one saved curve each with its character rails.</p>
+  <div class="grid">
+    {singles.map((plate) => (
+      <figure>
+        {plate.image
+          ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
+          : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code> — or
+            this <code>book/plates.json</code> row has never been drawn.</p>}
+        <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
+      </figure>
+    ))}
+  </div>
+  <h2 id="bordered">Bordered illuminations</h2>
+  <p><a href="/figures/">every curve as a PNG &rarr;</a></p>
+  <p>{illuminated.total} figures, numbered once. Each border is the same curve,
+    three times a side.</p>
+  {illuminated.sections.map((section) => (
+    <section>
+      <h3>{section.title}</h3>
+      <div class="illuminations">
+        {section.items.map((item) => (
+          <figure id={item.id}>
+            <img src={`/illuminations/${item.id}.svg`} width="900" height="900"
+              alt={`Fig. ${item.n}: ${item.name}`} loading="lazy" decoding="async">
+            <figcaption>Fig. {item.n} · {item.name}</figcaption>
+            <div class="turn" data-uid={item.uid} data-rot={item.rotation} data-pieces={item.pieces}>
+              <button type="button" data-turn="-90" title="turn the inner curve 90 degrees anticlockwise">&#8634;</button>
+              <button type="button" data-turn="90" title="turn the inner curve 90 degrees clockwise">&#8635;</button>
+              <button type="button" data-piece="1" class={item.pieces === 1 ? "on" : ""}>1</button>
+              <button type="button" data-piece="2" class={item.pieces === 2 ? "on" : ""}>2</button>
+              <button type="button" data-piece="4" class={item.pieces === 4 ? "on" : ""}>4</button>
+              <span class="saveflag"></span>
+            </div>
+            <div class="imp" data-uid={item.uid}>
+              {Array.from({ length: 10 }, (_, i) => (
+                <button type="button" data-imp={i + 1} class={i + 1 <= item.importance ? "on" : ""}>{i + 1}</button>
+              ))}
+            </div>
+          </figure>
+        ))}
+      </div>
+    </section>
   ))}
-</div>
-
-<h2>Single curves</h2>
-<p class="lead">{singles.length} plates, one saved curve each with its character rails.</p>
-<div class="grid">
-  {singles.map((plate) => (
-    <figure>
-      {plate.image
-        ? <img src={plate.image} width={plate.width} height={plate.height} alt={plate.id} loading="lazy">
-        : <p class="missing">PNG not exported yet — run <code>node scripts/plates_export.mjs</code> — or
-          this <code>book/plates.json</code> row has never been drawn.</p>}
-      <figcaption><b>{plate.id}</b><br>{plate.note}</figcaption>
-    </figure>
-  ))}
-</div>
-<h2 id="bordered">Bordered illuminations</h2>
-<p><a href="/figures/">every curve as a PNG &rarr;</a></p>
-<p>{illuminated.total} figures, numbered once. Each border is the same curve,
-  three times a side.</p>
-{illuminated.sections.map((section) => (
-  <section>
-    <h3>{section.title}</h3>
-    <div class="illuminations">
-      {section.items.map((item) => (
-        <figure id={item.id}>
-          <img src={`/illuminations/${item.id}.svg`} width="900" height="900"
-            alt={`Fig. ${item.n}: ${item.name}`} loading="lazy" decoding="async">
-          <figcaption>Fig. {item.n} · {item.name}</figcaption>
-          <div class="turn" data-uid={item.uid} data-rot={item.rotation} data-pieces={item.pieces}>
-            <button type="button" data-turn="-90" title="turn the inner curve 90 degrees anticlockwise">&#8634;</button>
-            <button type="button" data-turn="90" title="turn the inner curve 90 degrees clockwise">&#8635;</button>
-            <button type="button" data-piece="1" class={item.pieces === 1 ? "on" : ""}>1</button>
-            <button type="button" data-piece="2" class={item.pieces === 2 ? "on" : ""}>2</button>
-            <button type="button" data-piece="4" class={item.pieces === 4 ? "on" : ""}>4</button>
-            <span class="saveflag"></span>
-          </div>
-          <div class="imp" data-uid={item.uid}>
-            {Array.from({ length: 10 }, (_, i) => (
-              <button type="button" data-imp={i + 1} class={i + 1 <= item.importance ? "on" : ""}>{i + 1}</button>
-            ))}
-          </div>
-        </figure>
-      ))}
-    </div>
-  </section>
-))}
-</main>
-<script>import "../scripts/illuminations.js";</script>
-</body></html>
+  <Fragment slot="scripts">
+    <script>import "../scripts/illuminations.js";</script>
+  </Fragment>
+</BaseLayout>

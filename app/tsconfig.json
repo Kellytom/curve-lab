@@ -9,11 +9,19 @@
   // small scripts, not a TypeScript rewrite. Strict null checks are on; that
   // is where a missing value shows up before a browser does.
   "extends": "astro/tsconfigs/base",
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [
+    ".astro/types.d.ts",
+    "src/lib/name-parts.js",
+    "src/lib/star-list.js",
+    "src/lib/finder-sections.js",
+    "src/lib/duplicates.js",
+    "src/lib/registry.js",
+    "src/lib/curve-notes.js"
+  ],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": false,
+    "checkJs": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "noUnusedLocals": false

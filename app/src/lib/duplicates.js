@@ -1,3 +1,4 @@
+// @ts-check
 // Which curves the duplicate audit says are the same drawing.
 //
 // The audit writes state/DUPLICATES-int.md; this reads its table so a page can
@@ -8,6 +9,10 @@ import path from "node:path";
 
 const UID = /^c-\d{4}$/;
 
+/**
+ * @param {string} text
+ * @returns {Map<string, string[]>}
+ */
 export function parseDuplicates(text) {
   const map = new Map();
   for (const line of String(text || "").split("\n")) {
@@ -20,6 +25,10 @@ export function parseDuplicates(text) {
   return map;
 }
 
+/**
+ * @param {string} root
+ * @returns {Map<string, string[]>}
+ */
 export function readDuplicates(root) {
   const file = path.join(root, "state", "DUPLICATES-int.md");
   if (!existsSync(file)) return new Map();

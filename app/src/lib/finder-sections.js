@@ -1,3 +1,4 @@
+// @ts-check
 // The finder's sections: one card per curve, in a fixed order.
 //
 // The order is starred, symmetric, best, then the remaining families. The
@@ -5,11 +6,25 @@
 // built into both "Symmetric" and "Best so far", so the page showed the same
 // curve twice. Each group here excludes everything the earlier ones took.
 
+/**
+ * @typedef {Object<string, any> & {
+ *   id?: string,
+ *   flags?: string[],
+ *   featured?: boolean,
+ *   family?: string,
+ * }} Curve
+ */
+
+/**
+ * @param {Curve} curve
+ * @returns {boolean}
+ */
 const isMirrored = (curve) => (curve.flags || []).some((flag) => String(flag).startsWith("mirror "));
 
 /**
- * @param {Array<any>} curves
- * @param {(curve: any) => boolean} [isStarred]
+ * @param {Curve[]} curves
+ * @param {(curve: Curve) => boolean} [isStarred]
+ * @returns {{ key: string, title: string, lead: string, curves: Curve[] }[]}
  */
 export function finderSections(curves, isStarred = () => false) {
   const starred = curves.filter((curve) => isStarred(curve));

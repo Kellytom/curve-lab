@@ -15,3 +15,9 @@ test("a good note passes and keeps its fields", () => {
   assert.equal(note.rotation, 90);
   assert.equal(note.pieces, 2);
 });
+
+test("a curve can be set aside for the notes pool, and only with a real flag", () => {
+  const [note] = validateNotes({ curves: [{ uid: "c-0001", candidate: true }] });
+  assert.equal(note.candidate, true);
+  assert.throws(() => validateNotes({ curves: [{ uid: "c-0001", candidate: "yes" }] }));
+});

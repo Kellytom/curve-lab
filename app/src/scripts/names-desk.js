@@ -106,3 +106,60 @@ document.querySelectorAll(".row").forEach((row) => {
     }
   });
 });
+
+// Move to notes: the curve leaves this desk and joins the pool on
+// /finder-candidates. One click, with an undo line for this session. The flag
+// is a database row, so a reload, a new tab or a fresh clone keeps the choice.
+const undoBar = document.createElement("div");
+undoBar.id = "names-undo";
+undoBar.hidden = true;
+undoBar.innerHTML = '<span></span><button type="button">undo</button>';
+document.body.append(undoBar);
+
+const postCurve = async (body) => {
+  const response = await fetch("/api/curve-notes", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ curves: [body] }),
+  });
+  return response.ok;
+};
+
+let undoMove = null;
+let undoTimer = null;
+const showUndo = (uid, name) => {
+  undoMove = { uid, name };
+  undoBar.querySelector("span").textContent = `${name} moved to notes —`;
+  undoBar.hidden = false;
+  clearTimeout(undoTimer);
+  undoTimer = setTimeout(() => { undoBar.hidden = true; }, 30000);
+};
+
+undoBar.querySelector("button").addEventListener("click", async () => {
+  if (!undoMove) return;
+  const { uid, name } = undoMove;
+  const ok = await postCurve({ uid, candidate: false });
+  undoBar.hidden = true;
+  undoMove = null;
+  if (ok) location.reload();
+  else undoBar.querySelector("span").textContent = `${name} could not be restored`;
+});
+
+document.querySelectorAll(".to-notes").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const row = button.closest(".row");
+    const uid = row.dataset.uid;
+    const name = row.querySelector(".now").textContent;
+    button.disabled = true;
+    const ok = await postCurve({ uid, candidate: true });
+    if (!ok) {
+      button.disabled = false;
+      const flag = row.querySelector(".flag");
+      flag.textContent = "not moved";
+      flag.className = "flag bad";
+      return;
+    }
+    showUndo(uid, name);
+    row.remove();
+  });
+});

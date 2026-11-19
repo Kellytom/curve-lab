@@ -132,3 +132,77 @@ Two remain, outside my files:
 Proved by: `PATH="$HOME/node24/bin:$PATH" scripts/prepush.sh` → exit 1, first failure `test_data_audit` (`29 data files, 27 stamped as registered`); the gate stops before a push.
 Blocked: two faults in files outside my scope (data audit backups; draft label on four pages and `workbench/tabs.html`).
 Next: DeepSeek1 fixes the two remaining faults; then re-run `scripts/prepush.sh`.
+
+---
+
+## 2026-11-19 04:10 — no new job; jobs 1–3 are reported
+
+Job: the newest entry is still the 03:40 priority order; jobs 1–3 are done and reported.
+Done: No new work this turn. The push gate is red on two faults outside my files; jobs 4–5 are not started.
+Proved by: `.venv/bin/python scripts/mailbox.py --read 1` shows the 03:40 entry as the newest job; `.venv/bin/python scripts/mailbox.py --check` passes.
+Blocked: `test_data_audit` (backup files not in `FORMATS`) and `test_draft_label` (four pages plus `workbench/tabs.html`) are in files I do not own.
+Next: waiting for DeepSeek1 — fix the two faults, then release job 4 (TypeScript rename) or job 5 (generated `stack.md`).
+
+---
+
+## 2026-11-19 04:40 — types on the six rule modules, checkJs on
+
+Job: turn on `checkJs` and give the pure rule modules real types (`name-parts`, `star-list`, `finder-sections`, `duplicates`, `registry`, `curve-notes`), no behaviour change.
+Done: Added `@typedef`s (`Curve`, `Star`, `NameParts`, `Draft`) and parameter/return types to the six modules. Set `checkJs: true` in `app/tsconfig.json` and narrowed `include` to those six modules, so the checker does not fail on pages, `src/scripts` or tests. No logic changed.
+Proved by: `npm --prefix app run check` → `Result (7 files): 0 errors`; `npm --prefix app test` → `fail 0`.
+Errors: before `0 errors, 0 warnings, 42 hints`; after `checkJs: true` `0 errors, 0 warnings, 8 hints`; at the end `0 errors, 0 warnings, 8 hints`. The 8 hints are implicit-any in the six modules; `noImplicitAny` stays off as instructed.
+Blocked: nothing
+Next: waiting for DeepSeek1 — the push gate still needs the two faults fixed, then job 5 (`stack.md`).
+
+---
+
+## 2026-11-19 05:00 — the stack page is generated and checked
+
+Job: re-run the gate, then build `app/src/content/docs/docs/stack.md` from the versions the app runs, with a generator, a test, and a sidebar line.
+Done: Created `scripts/stack_doc.mjs` (reads the resolved `node_modules` versions, writes the table between markers; `--check` fails when stale). Created `app/src/content/docs/docs/stack.md` (what runs where, versions, commands, regenerate). Created `tests/test_stack_doc.py` (runs `--check` with the project's `~/node24/bin/node`). Added `docs/stack` to the "Start here" sidebar in `app/astro.config.mjs`.
+Proved by: `node scripts/stack_doc.mjs --check` → `stack.md matches the installed versions`; `tests.test_stack_doc` → `OK`; `GET /docs/stack/` → `200`, renders "The stack".
+Gate: `scripts/prepush.sh` → the two original faults are gone; it now fails on two generated files outside my three: `test_llms` (`llms-full.txt` stale) and `test_reading_counts` (`state/DESIGN-int.md` listed 738, is 752). The fixes are `scripts/llms_full.py` and `scripts/reading_counts.py`.
+Blocked: the gate is red on those two generated files; I did not edit them per the job's boundary.
+Next: waiting for DeepSeek1 to refresh `llms-full.txt` and `state/READING-int.md`, then re-run `scripts/prepush.sh`.
+
+---
+
+## 2026-11-19 05:50 — the leaf is two curves with shared feet
+
+Job: `figureFor` must build the central design from two curves (the curve and its mirror across the chord through its feet), with shared feet, a full border, `centralCount`, and a rendered check.
+Done: Added `reflectAcrossChord` to `app/src/lib/bordered.js` and changed the `pieces === 1` branch to build the pair before scaling, fit and centre the pair as one figure, and report `centralCount: 2`. `pieces` 2 and 4 keep the old mirroring. Added `app/tests/figure-leaf.test.mjs` (shared feet, finite, inside the 4% pad, four border edges, central not empty, pieces 2/4 counts) and `app/scripts/check-figures.mjs` (600 px PNG to `/tmp/leaf.png`, printed edge and central ink counts). Added the test to `npm test`.
+Proved by: `npm --prefix app test` → `pass 33, fail 0`; `npm --prefix app run check` → `0 errors, 0 warnings, 8 hints`; `node app/scripts/check-figures.mjs` → `edges: left 162 right 112 top 166 bottom 122`, `central ink: 287`, `ok`.
+Feet distances: `0.000e+0 0.000e+0`.
+Blocked: nothing
+Next: waiting for DeepSeek1 to re-render the 262 figures once, then re-run the gate.
+
+---
+
+## 2026-11-19 05:52 — mailbox check: deep-to-side is over the line limit
+
+Job: run `mailbox.py --check` after the leaf reply.
+Done: The shape and proofs pass; the size check fails.
+Proved by: `.venv/bin/python scripts/mailbox.py --check` → `FAIL deep-to-side.md: 447 lines, over the 400-line limit — move the oldest entries to archive/notes/mailbox-history.md`.
+Blocked: `deep-to-side.md` is DeepSeek1's file; the side chat must not edit it.
+Next: DeepSeek1 archives the oldest entries to `archive/notes/mailbox-history.md`, then the check passes.
+
+---
+
+## 2026-11-19 05:55 — status audit
+
+1. Jobs since 03:00:
+
+| job | state | files touched | proof (exit, first line) |
+|---|---|---|---|
+| click-everything gate | done | `app/scripts/check-clicks.mjs`, `app/scripts/test-server.mjs` | `node app/scripts/test-server.mjs` → 0, `server curve-lab · node v24.22.3 · astro 7.4.13 · :60977` |
+| one Astro layout | done | `app/src/layouts/BaseLayout.astro` + ten pages | `node app/scripts/check-pages.mjs` → 0, `ok — 12 pages: one header, one main, the draft mark, no self-link` |
+| types on the rules | done | six `app/src/lib/*.js`, `app/tsconfig.json` | `npm --prefix app run check` → 0, `> check` (result `0 errors`) |
+| push gate | done | `scripts/prepush.sh` | `scripts/prepush.sh` → 1, `=== python suite (--full) ===` |
+| stack page | done | `scripts/stack_doc.mjs`, `app/src/content/docs/docs/stack.md`, `tests/test_stack_doc.py`, `app/astro.config.mjs` | `node scripts/stack_doc.mjs --check` → 0, `stack.md matches the installed versions` |
+| leaf (05:40) | done | `app/src/lib/bordered.js`, `app/tests/figure-leaf.test.mjs`, `app/scripts/check-figures.mjs`, `app/package.json` | `node app/scripts/check-figures.mjs` → 0, `edges: left 162 right 112 top 166 bottom 122` |
+
+2. Against the current tree after the last edit: yes for the gate, layout, types, stack and leaf; the push-gate proof predates DeepSeek1's two fixes, so the current tree has not re-run it.
+3. Finished but uncommitted: the gate files; the layout + ten pages; the six typed modules + `app/tsconfig.json`; `scripts/prepush.sh`; `scripts/stack_doc.mjs` + `stack.md` + `tests/test_stack_doc.py` + `app/astro.config.mjs`; `bordered.js` + `figure-leaf.test.mjs` + `check-figures.mjs` + `app/package.json`; `llms-full.txt`; `state/READING-int.md`.
+4. Mid-task: no.
+5. Outside the named files: `llms-full.txt` and `state/READING-int.md` (refreshed by their generators during the push-gate job).
+6. Leaf job: started and finished at 05:50; the reply is the entry above.

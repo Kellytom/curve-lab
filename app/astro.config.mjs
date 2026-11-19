@@ -25,6 +25,7 @@ const sidebar = [
       "docs/state-of-the-work",
       "docs/structure",
       "docs/verify",
+      "docs/stack",
       "docs/fidelity",
     ],
   },

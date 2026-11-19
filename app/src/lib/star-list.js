@@ -1,3 +1,4 @@
+// @ts-check
 // One star per curve, whatever it was called when it was starred.
 //
 // A star may carry the finder's stable id, a name, or both. The page writes
@@ -5,6 +6,15 @@
 // so the same curve can appear twice in a browser's list. The key is the id
 // when there is one; a name resolves to its id through the page's own table.
 
+/**
+ * @typedef {{ id?: string, name?: string, [key: string]: any }} Star
+ */
+
+/**
+ * @param {Star | null | undefined} star
+ * @param {Record<string, string>} [nameToId]
+ * @returns {string}
+ */
 export function starKey(star, nameToId = {}) {
   if (!star) return "";
   if (star.id) return star.id;
@@ -12,6 +22,11 @@ export function starKey(star, nameToId = {}) {
   return star.name ? `name:${star.name}` : "";
 }
 
+/**
+ * @param {Star[]} list
+ * @param {Record<string, string>} [nameToId]
+ * @returns {Star[]}
+ */
 export function dedupeStars(list, nameToId = {}) {
   const byKey = new Map();
   for (const star of Array.isArray(list) ? list : []) {
@@ -25,6 +40,12 @@ export function dedupeStars(list, nameToId = {}) {
 }
 
 // The number of stars this page can actually show: one per curve on it.
+/**
+ * @param {Star[]} list
+ * @param {Record<string, string>} [nameToId]
+ * @param {Set<string>} [knownIds]
+ * @returns {number}
+ */
 export function countStars(list, nameToId = {}, knownIds = new Set()) {
   const keys = new Set();
   for (const star of Array.isArray(list) ? list : []) {

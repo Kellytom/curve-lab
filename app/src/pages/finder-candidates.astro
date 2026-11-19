@@ -4,48 +4,42 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { loadRegistry } from "../lib/registry.js";
-
-import AppNav from "../components/AppNav.astro";
-const registry = (await loadRegistry(path.join(process.cwd(), ".."))).curves;
+import BaseLayout from "../layouts/BaseLayout.astro";
+const registry = (await loadRegistry()).curves;
 const candidates = registry.filter((record) => record.candidate);
 ---
 
-<!doctype html>
-<html lang="en" data-theme="light"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/vendor/pico.min.css">
-<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
-<link rel="stylesheet" href="/vendor/app-shell.css">
-<title>Sandbox notes: draft A</title>
-<link rel="stylesheet" href="/vendor/pico.min.css">
-<style>
-body{margin:0;padding:16px;background:#faf8f2;color:#222;font:13px/1.4 system-ui,sans-serif}
-h1{font-size:18px;margin:0 0 4px}
-p{color:#666;margin:0 0 16px;max-width:70ch}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-figure{margin:0;background:#fff;border:1px solid #ddd;padding:8px}
-img{display:block;width:100%;height:auto;background:#fff}
-figcaption{font-size:11px;color:#555;margin-top:6px;word-break:break-all}
-figcaption b{color:#222}
-</style>
-</head><body>
-<AppNav title="the candidates" />
-<main id="main">
-<h1>Finder candidates</h1>
-<p>{candidates.length} finder curves that were never starred. They are candidates,
-  not picks: they stay in the registry so the pool is visible, and they are not
-  on the naming desk or in the gallery. The name in the caption is the current
-  one; the parenthesis is the name it arrived with.</p>
-<div class="grid">
-  {candidates.map((record) => (
-    <figure>
-      <img src={`/curves/${record.uid}.png`} loading="lazy" alt={record.name}>
-      <figcaption>
-        {record.uid} · <b>{record.name}</b><br>
-        {record.family_id}{record.aliases && record.aliases.length ? ` · was ${record.aliases[0]}` : ""}
-      </figcaption>
-    </figure>
-  ))}
-</div>
-</main>
-</body></html>
+<BaseLayout title="the candidates" pageTitle="Sandbox notes: draft A" mainClass="">
+  <Fragment slot="head">
+    <style is:global>
+    body{margin:0;padding:16px;background:#faf8f2;color:#222;font:13px/1.4 system-ui,sans-serif}
+    h1{font-size:18px;margin:0 0 4px}
+    p{color:#666;margin:0 0 16px;max-width:70ch}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    figure{margin:0;background:#fff;border:1px solid #ddd;padding:8px}
+    img{display:block;width:100%;height:auto;background:#fff}
+    figcaption{font-size:11px;color:#555;margin-top:6px;word-break:break-all}
+    figcaption b{color:#222}
+    </style>
+  </Fragment>
+  <h1>Finder candidates</h1>
+  <p>{candidates.length} curves set aside: the finder curves that were never
+    starred, and the chosen ones moved off the naming desk with <b>move to notes</b>.
+    They stay in the registry so the pool is visible; they are not on the naming
+    desk or in the gallery. <b>restore</b> puts one back on the desk.</p>
+  <div class="grid">
+    {candidates.map((record) => (
+      <figure>
+        <img src={`/curves/${record.uid}.png`} loading="lazy" alt={record.name}>
+        <figcaption>
+          {record.uid} · <b>{record.name}</b><br>
+          {record.family_id}{record.aliases && record.aliases.length ? ` · was ${record.aliases[0]}` : ""}
+          <button type="button" class="restore" data-uid={record.uid} title="put this curve back on the naming desk">restore</button>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <Fragment slot="scripts">
+    <script>import "../scripts/candidates.js";</script>
+  </Fragment>
+</BaseLayout>

@@ -573,6 +573,10 @@ lands. The operator does not sit and watch a test run.
   of the loop. Waiting is a bug in the workflow.
 - **Think async.** Start independent jobs together instead of queueing them;
   a long job runs in the background and is reported when it lands, never waited on.
+- **The handoff is part of the gate.** `tests/test_memory_freshness.py` fails when
+  the newest handoff section is older than the last code commit, or when the next
+  action names a commit that does not exist. Update the memory in the same commit
+  as the work, not "later".
 - **A loop runs once per change.** Never run the same check twice to "confirm".
   A second run needs a code change and a reason. Re-running is waste, not care.
 
@@ -731,6 +735,9 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
+npm --prefix app run check                        # astro check + eslint: the static gate
+npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
+npm --prefix app run gate                         # check + the unit tests
 .venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
 .venv/bin/python scripts/test.py --slim          # engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
@@ -741,7 +748,8 @@ Start the one server if it is not already up (this is idempotent — it says
 .venv/bin/python scripts/crossing_audit.py       # audit stored crossing counts; --write repairs
 .venv/bin/python scripts/operator_list.py        # rebuild the button list from the records
 node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
-npm --prefix app run dev                         # the app and the book, :4321/docs
+npm --prefix app run dev                         # the app and the book, :4321/docs (Node 24)
+curl -s localhost:4321/api/health                # who is serving: node and astro versions
 npm --prefix app run build                       # a production build
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
 node scripts/check-ph-page.mjs                  # gallery readouts in a headless browser
@@ -806,6 +814,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Reason and examples: `state/DESIGN-int.md` §Trigonometry.
 
 - One task at a time, at the scope the operator set; verify, commit, stop.
+- **A page carries no rules.** Its `<script>` is one import; logic lives in
+  `app/src/scripts/` (linted) or `app/src/lib/` (linted and tested). A rule that
+  cannot fail a command is a wish: add the check before the note.
 - Never edit `docs/ornament-board.html` or `docs/fleur-studies.html` by hand.
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.
@@ -3678,6 +3689,73 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
   order come from the DOM or from a script's printed output, with the command
   named.
 
+## The app has one shell — 2026-11-19
+
+Settled by the operator: "every page in astro should look like this: same css:
+[title] · the hub · the book gallery · this page is the [title]", and "don't put
+a link to the same file in the header; all industry standard best practice".
+
+- **One header component**, `app/src/components/AppNav.astro`, rendered by every
+  page right after `<body>`: the brand, the draft mark, the page's own name (the
+  sentence "this page is the lab"), then a `<nav aria-label="Main">` list.
+- **The current page is not a link to itself.** It is left out of the menu and
+  the page's name is stated in the header instead. No `aria-current` on a link
+  that would reload the page you are on.
+- **A skip link** to `#main`, and every page has exactly one `<main id="main">`,
+  so the menu is not the first thing the keyboard has to walk through.
+- **Colours only from `curve-lab-theme.css`**; `app/public/vendor/app-shell.css`
+  holds the layout and is linked after Pico and the theme on every page. A page
+  that sets its own background is the out-of-date case.
+- The check is `app/scripts/check-pages.mjs`: 12 pages, one header, one main,
+  the draft mark, no self-link.
+
+## Figures are files, not inlined SVG — 2026-11-19
+
+`/illuminations` inlined 238 bordered drawings into one document: **82,689,119
+bytes**, 0.96 s to build and send, every visit. Each figure is now
+`/illuminations/fig-N.svg`, served with `Cache-Control: public, max-age=604800`
+and a strong ETag, and the page asks for it with `loading="lazy"`.
+
+- Measured after: the page is **307,907 bytes** (268× smaller) and 0.069 s.
+  One figure is about 465 KB and is fetched once, then kept.
+- The gallery build is memoised, keyed by the mtime of the registry and the
+  notes, so a data edit rebuilds it and an unchanged page does not.
+- The same rule applies to any future page with many drawings: a file per
+  drawing, not one enormous HTML response.
+
+## One star per curve — 2026-11-19
+
+The finder stored stars by name and by id, so a curve starred under an old name
+and again under its new one counted twice, and a mirrored curve that was also
+featured was drawn in two sections.
+
+- **`app/src/lib/star-list.js`** dedupes a stored list by the curve id (a name
+  resolves through the page's own name→id table). A star whose name no longer
+  maps is kept, never dropped.
+- **Sections never overlap**: `app/src/lib/finder-sections.js` removes each
+  group from the next, so "Symmetric" wins over "Best so far".
+- **A removal is named.** Un-starring sends the name in `removed`; the page and
+  the server both require it, so a partial list can no longer delete a star.
+
+## Static checks are the gate — 2026-11-19
+
+Settled by the operator: "a library? a methodology that is actually enforceable,
+not just md?" — and "i consider typescript a BIG framework. but do it".
+
+- **TypeScript through Astro.** `app/tsconfig.json` extends `astro/tsconfigs/base`;
+  `npm --prefix app run check` runs `astro check`. It found 42 errors the first
+  time, including the class that cost three sessions: a name used outside its
+  scope in a page script.
+- **ESLint with `no-undef`** checks `src/lib`, `src/scripts`, `tests` and
+  `scripts`. It is the same fault at the plain-JavaScript edge.
+- **A page carries no rules.** Its `<script>` is one import; the logic lives in
+  `app/src/scripts/*.js` (linted) or `app/src/lib/*.js` (linted and unit-tested).
+  `names-desk.js`, `finder-stars.js`, `illuminations.js` and `lab.js` follow it.
+- **`draftState`** is the tested rule for a browser draft: it counts only when it
+  is newer than the record's save, and never when it is empty. A saved name can
+  no longer be hidden by yesterday's text.
+- The rule behind all of it: **a rule that cannot fail a command is a wish.**
+
 ## Data: SQLite through Prisma is the record — 2026-11-19
 
 Settled by the operator after the naming loss and the desk save that never ran.
@@ -3742,10 +3820,17 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 23 | 2026-11-16 | "how can you lose all those curves when we werent even touching that code" — a damaged read became an empty list, and the next save wrote one curve over all of them | `scripts/check-saved.mjs` (six browser checks: seeding, repair from backup, no wipe after a bad read, load from a restored button, a pair record) and `tests/test_operator_list.py` (the list on disk is current and complete) | the saved-curve buttons: no write after a failed read, a backup and mirror on every save, and a file to seed a reset browser |
 | 24 | 2026-11-16 | the page said `crosses itself 5` for `lace-1of10-1of5-3` and the record said 4 — the stored numbers predated the parameter-pair dedupe | `tests/test_crossings.py`: every record matches the router, the triple point counts as three pairs, and the count is scale-free | 100 stale crossing counts, and the one definition they now share |
 
-| 25 | 2026-11-19 | "all the names I typed are lost" — the desk's script threw on a duplicate `let timer`, so Save never ran | none yet: the API is tested (`app/tests/curve-notes.test.mjs`), the page is not | the desk save path |
+| 25 | 2026-11-19 | "all the names I typed are lost" — the desk's script threw on a duplicate `let timer`, so Save never ran | `app/scripts/check-names.mjs` (212 rows, every one composes a name; a save survives a reload) and `app/tests/name-parts.test.mjs` | the desk save path, including a name that is only its construction |
 | 26 | 2026-11-19 | "save failed: duplicate curve" — the file keyed by name, the page by id, and the merge kept both | `app/tests/finder-stars.test.mjs` (duplicate merge) | star identity |
 | 27 | 2026-11-19 | a backup was written 0 bytes and still said "integrity ok" | `scripts/backup-db.mjs` checks the row count as well as the integrity | backups |
 | 28 | 2026-11-19 | the notes mirror was stale: 2 rows against 262 in the database | `scripts/check-db.mjs` and the save path writing the mirror | the readable fallback |
+
+| 29 | 2026-11-19 | "the finder starred curves don't show" — a browser with 2 stars saved, and the server deleted the other 4 | `app/scripts/check-stars.mjs`: 56 cards, no duplicate card, starring saves, un-starring names its removal, and the server's count is unchanged | a save adds; a removal must be named in `removed` |
+| 30 | 2026-11-19 | "/lab has no margins" — the page lost its `<main>` wrapper, so the max-width and padding never applied | `app/scripts/check-pages.mjs`: every page has `main#main`, one header, the draft mark and no self-link | every page's layout |
+| 31 | 2026-11-19 | "24 starred curves, but many are duplicates" — a mirrored curve that was also featured was built into both "Symmetric" and "Best so far", so 5 cards existed twice | `app/tests/finder-sections.test.mjs`: no curve is in two sections | the finder's section order |
+| 32 | 2026-11-19 | a star click threw `ReferenceError: title is not defined` before the list was written, so nothing was added and nothing was saved | `app/scripts/check-stars.mjs` | the finder's star button |
+| 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
+| 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
 
 ## Fixed and measured, but not yet in the fast suite
 

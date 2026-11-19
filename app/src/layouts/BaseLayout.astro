@@ -1,0 +1,30 @@
+---
+// The app shell: one doctype, one head, one nav, one main.
+//
+// A page supplies:
+//   - title:     the phrase after "this page is" (e.g. "the naming desk");
+//   - pageTitle: the <title> text (e.g. "Naming desk: draft A");
+//   - mainClass: "container" by default, "" for a page with its own layout.
+//
+// Page-specific styles and scripts go in the named slots, so they stay with
+// the page. The shared colours and type come from curve-lab-theme.css; a page
+// must not add a second font.
+import AppNav from "../components/AppNav.astro";
+
+const { title, pageTitle, mainClass = "container" } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{pageTitle || `${title}: draft A`}</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<slot name="head" />
+</head><body>
+<AppNav title={title} />
+<main id="main" class={mainClass}>
+  <slot />
+</main>
+<slot name="scripts" />
+</body></html>

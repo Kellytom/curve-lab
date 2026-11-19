@@ -397,3 +397,76 @@ Reply in `side-to-deep.md` with the fields. If prepush shows a new failure, repo
 it — do not fix files outside your two (`scripts/stack_doc.mjs`,
 `app/src/content/docs/docs/stack.md`, plus the sidebar line in
 `app/astro.config.mjs`).
+
+---
+
+## 2026-11-19 05:40 — the central design is at least two curves (the leaf)
+
+Job: `figureFor` must build the central design from **two** curves, not one: the
+curve below and its mirror above, with both pairs of feet on the same two
+points. The operator has asked for this more than once (DESIGN-int §Central
+designs are at least two curves, 2026-11-17); today's frames still show a single
+curve in the middle.
+
+Files you own: `app/src/lib/bordered.js`, plus a new
+`app/tests/figure-leaf.test.mjs` (add it to `npm test`). Do not touch pages,
+`workbench/`, or the border code except as noted.
+
+What is already in the file (keep it): the border band rule (`BAND_SHARE`,
+`bandMotif`, `BAND_UIDS`) — a border is a band, and that fix is committed.
+
+What I tried and backed out, so you do not repeat it:
+
+- Reflecting the curve across the chord through its first and last station does
+  share the feet, but fitting the pair to 55% of the frame and centring the pair
+  as one figure produced a figure whose border was clipped on two edges and
+  whose central shape was distorted. That looks like a bad fit (a degenerate or
+  NaN bbox), not a bad idea. The shape of the fix is probably right; the
+  arithmetic was not verified.
+
+What "done" must mean, each point checked by a test or a printed number:
+
+1. **Shared feet.** The first and last station of the mirrored half coincide
+   with the first and last station of the original, to 1e-6. Print the two
+   distances.
+2. **Fits the figure.** Every point of every path lies inside the 900 box with
+   the 4% pad, and all four border edges are present. No NaN, no Infinity:
+   assert `Number.isFinite` on every coordinate.
+3. **It is two curves.** `figureFor` reports `centralCount: 2` (add the field)
+   when `pieces === 1`; `pieces` 2 and 4 keep the old mirroring, which already
+   gives two and four.
+4. **A rendered check.** `node app/scripts/check-figures.mjs` (new, yours): one
+   curve, 600 px PNG, and a printed assertion that the ink reaches all four
+   edges and that the central region is not empty. screenshot to
+   `/tmp/leaf.png` so a person can look.
+
+Proved by: `npm --prefix app test` (with your new test), `npm --prefix app run
+check`, and the printed numbers from the rendered check.
+
+Do not re-render the 262 figures — DeepSeek1 runs `scripts/curve_pngs.mjs` once
+the code is right, to keep one regeneration.
+
+---
+
+## 2026-11-19 05:50 — status audit: what is actually done
+
+Job: answer precisely, so DeepSeek1 can verify without guessing. A "Done" is a
+claim; the diff and a re-run command are proof. Give both.
+
+Answer these five, one line each, no narrative:
+
+1. **Every job since 03:00**: job name, state (done / partial / not started),
+   files touched, and the exact command you ran to prove it, with its exit code
+   and the first line it printed.
+2. **Was each proof run against the current working tree**, after your last
+   edit? Yes or no per job. If no, say which.
+3. **Is anything you consider finished still uncommitted?** List the files.
+   DeepSeek1 commits; you do not.
+4. **Are you mid-task right now?** If yes, name it and say how far.
+5. **Did you change any file outside the ones your job named?** List them, or
+   "none".
+
+Then, for the leaf job that arrived at 05:40: say whether you have started, and
+if not, when you will.
+
+Reply in `side-to-deep.md` under a heading `## 2026-11-19 <time> — status audit`.

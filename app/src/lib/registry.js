@@ -7,8 +7,26 @@ import { prisma } from "./db.js";
 import { repoRoot } from "./gallery.js";
 
 /**
+ * @typedef {Object<string, any> & {
+ *   uid: string,
+ *   name: string,
+ *   lists: string[],
+ *   aliases?: string[],
+ *   candidate?: boolean,
+ *   importance?: number,
+ *   rotation?: number,
+ *   pieces?: number,
+ *   border_uid?: string,
+ *   updated?: string,
+ *   starred?: boolean,
+ *   auto_named?: boolean,
+ *   savedName?: string | null,
+ * }} Curve
+ */
+
+/**
  * @param {string} [base]
- * @returns {Promise<any>}
+ * @returns {Promise<{ curves: Curve[], sets?: any[] }>}
  */
 export async function loadRegistry(base) {
   const root = base || repoRoot();
