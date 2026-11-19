@@ -2,11 +2,15 @@
 // The PH nth sandbox, inside the app. One copy of the page: the generated file
 // stays at /pages/ph-nth-sandbox-exp.html and this route frames it.
 const SRC = "/pages/ph-nth-sandbox-exp.html";
+import AppNav from "../components/AppNav.astro";
 ---
 
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
 <title>PH nth sandbox: draft A</title>
 <style is:global>
 body{margin:0;background:#f6f1e4;color:#2e2413;font:14px/1.5 Georgia,serif}
@@ -19,9 +23,9 @@ main{padding:0}
 iframe{display:block;width:100%;height:calc(100vh - 42px);border:0;background:#fff}
 </style>
 </head><body>
-<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
+<AppNav title="the PH nth sandbox" />
 <header><a href="/">the hub</a> · <a href="/finder">the curve finder</a> ·
   <a href="/lab">the lab</a> · this page is the PH nth sandbox
   <span class="note">symmetry readout: vertical, x axis, half turn, y=x, y=−x</span></header>
-<main><iframe src={SRC} title="PH nth sandbox"></iframe></main>
+<main id="main"><iframe src={SRC} title="PH nth sandbox"></iframe></main>
 </body></html>

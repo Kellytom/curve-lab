@@ -6,7 +6,7 @@
     "dev": "CURVE_LAB_ROOT=.. astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs",
+    "test": "node --test tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs",
     "backup": "node scripts/backup-db.mjs",
     "restore": "node scripts/restore-db.mjs",
     "predev": "node scripts/backup-db.mjs",

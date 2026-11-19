@@ -5,6 +5,7 @@ import { buildGallery } from "../lib/gallery.js";
 // star or a fresh export shows up without a rebuild. The page is the gallery;
 // book/index.html is no longer generated.
 import { buildIlluminations } from "../lib/bordered.js";
+import AppNav from "../components/AppNav.astro";
 const gallery = buildGallery();
 const illuminated = await buildIlluminations();
 const { stars, designs, singles, counts } = gallery;
@@ -12,28 +13,29 @@ const plateWord = (n) => (n === 1 ? "plate" : "plates");
 ---
 
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gallery of Illuminations: draft A</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
 <style is:global>
-body{margin:0;background:#fff;color:#111;font:14px/1.55 Georgia,serif}
+/* Only layout: the colours and the background come from curve-lab-theme.css,
+   the same sheet the hub, the book and everything else in the app load. */
+body{margin:0}
 main{max-width:1120px;margin:0 auto;padding:30px 22px 60px}
-h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:34px 0 4px;font-weight:600}
-.lead{color:#666;margin:0 0 18px}
+h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.25rem;margin:34px 0 4px;font-weight:600}
+.lead{color:var(--pico-muted-color);margin:0 0 18px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid #eee}
-figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:#555;margin-top:6px}
-.empty-state{grid-column:1/-1;border:1px dashed #d3d3d3;padding:22px 24px;color:#777;font-size:13px}
-.missing{grid-column:1/-1;border:1px dashed #d3d3d3;padding:18px 20px;color:#777;font-size:13px}
-a{color:#8c6a21}
-.app-nav{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding:8px 22px;
-  background:#f6f1e4;border-bottom:1px solid #e2d8bf;font:11px/1.5 ui-monospace,Menlo,monospace;
-  color:#7b6c4e;max-width:1120px;margin:0 auto}
-.app-nav a{color:#8c6a21;text-decoration:none;font-weight:600}
-.app-nav a:hover{text-decoration:underline}
+figure{margin:0}img{width:100%;height:auto;display:block;border:1px solid var(--pico-muted-border-color)}
+figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:6px}
+.empty-state{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:22px 24px;color:var(--pico-muted-color);font-size:13px}
+.missing{grid-column:1/-1;border:1px dashed var(--pico-muted-border-color);padding:18px 20px;color:var(--pico-muted-color);font-size:13px}
+a{color:var(--pico-primary)}
 .illuminations{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.illuminations figure{margin:0;background:#fff;border:1px solid #ddd;padding:6px}
+.illuminations figure{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color);padding:6px}
 .illuminations svg{display:block;width:100%;height:auto}
+.illuminations img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--pico-muted-border-color)}
 .illuminations figcaption{font-size:11px;color:#666;margin-top:4px}
 .turn{display:flex;gap:4px;align-items:center;margin-top:4px}
 .turn button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:2px 6px;margin:0;background:#fbf7ec;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
@@ -44,10 +46,8 @@ a{color:#8c6a21}
 .imp button.on{background:#c9a441;color:#fff}
 </style>
 </head><body>
-<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
-<nav class="app-nav"><a href="/">the hub</a> · <a href="/lab">the lab</a> · the illuminator's gallery ·
-  <em>curves from the sandbox, and the plates they become</em></nav>
-<main>
+<AppNav title="the book gallery" />
+<main id="main">
 <h1>Gallery of Illuminations</h1>
   <p>The illuminator turns a curve from the sandbox into an illustration: the
     spine, its character rails, and the frame. A plate is one illumination,
@@ -113,7 +113,8 @@ a{color:#8c6a21}
     <div class="illuminations">
       {section.items.map((item) => (
         <figure id={item.id}>
-          <div set:html={item.svg}></div>
+          <img src={`/illuminations/${item.id}.svg`} width="900" height="900"
+            alt={`Fig. ${item.n}: ${item.name}`} loading="lazy" decoding="async">
           <figcaption>Fig. {item.n} · {item.name}</figcaption>
           <div class="turn" data-uid={item.uid} data-rot={item.rotation} data-pieces={item.pieces}>
             <button type="button" data-turn="-90" title="turn the inner curve 90 degrees anticlockwise">&#8634;</button>

@@ -1,10 +1,14 @@
 ---
 import curves from "../../../workbench/real-curves.json";
 import plateMathUrl from "../../../workbench/plate_math.js?url";
+import AppNav from "../components/AppNav.astro";
 ---
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
 <title>Square and frame lab — Astro: draft A</title>
 <style is:global>
 body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
@@ -37,19 +41,11 @@ h1{font-size:24px;margin:0 0 4px}
 .curve-card i{color:#999;font-style:normal}
 .curve-card:hover{border-color:#b58312}
 code{font:12px ui-monospace,Menlo,monospace}
-.app-nav{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding:8px 22px;
-  background:#efe7d3;border-bottom:1px solid #d8ccae;font:11px/1.5 ui-monospace,Menlo,monospace;
-  color:#7b6c4e;max-width:1120px;margin:0 auto}
-.app-nav a{color:#8c6a21;text-decoration:none;font-weight:600}
-.app-nav a:hover{text-decoration:underline}
-.app-nav em{margin-left:auto;font-style:normal;color:#999}
 </style>
 </head><body>
-<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
-<nav class="app-nav"><a href="/">the hub</a> · <a href="/book">the book gallery</a> ·
-  <em>this page is the lab</em></nav>
+<AppNav title="the lab" />
 
-<main>
+<main id="main">
 <h1>Square and frame lab</h1>
 <p class="lead">The saved curves, on 90° edges. The leg bisects the corner
 (45°) for a cross or a frame; an arch keeps its natural legs. Every copy carries

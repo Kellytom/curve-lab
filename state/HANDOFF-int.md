@@ -2950,3 +2950,32 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **Tried and rejected:** `brew install node@24` — macOS 12 is Tier 3, no
   bottles, and it broke the existing `icu4c` link; the official tarball at
   `~/node24` is the working path.
+
+## 2026-11-19 — the app shell, the finder's stars, the naming desk
+
+- **One header on every page** (`app/src/components/AppNav.astro`,
+  `app/public/vendor/app-shell.css`): brand, draft mark, "this page is the X",
+  and a menu that does not link to the page you are on. Skip link to
+  `main#main`; the theme's colours only. `app/scripts/check-pages.mjs` checks
+  all 12 pages.
+- **`/illuminations` stopped inlining 238 SVGs**: 82,689,119 bytes → 307,907
+  bytes, 0.96 s → 0.069 s. Each figure is `/illuminations/fig-N.svg`, cached
+  for a week with an ETag, loaded lazily; the build is memoised by data mtime.
+- **The finder's star click was throwing** (`title is not defined`), so a star
+  was never added and never saved. Fixed; un-starring now names its removal.
+  Stars are one per curve (`app/src/lib/star-list.js`), and sections cannot
+  overlap (`app/src/lib/finder-sections.js`) — the source of the 5 duplicate
+  cards.
+- **The naming desk** can save a name that is only its construction ("amper",
+  "knot-6"); ten of the 212 rows could not be saved before. Drafts are stored
+  only when the box differs from the saved name.
+- **Measured:** 12 pages 200 with one header; `/finder` 56 cards, 0 duplicates;
+  `/figures` 262 PNGs; `/illuminations` 238 figures; app tests 21/21; the
+  register 14/14; `check-names` 212 rows, save survives a reload; `check-stars`
+  round trip leaves the server at its 6 stars.
+- **Data intact:** the three saved names from the check (`c-0091`
+  `loop-t1of2-3of4`, `c-0094` `cross-small-knot`, `c-0101` `cross-2-loops-45`)
+  are in the database with their 01:01 and 01:37 timestamps, and `/names`
+  renders them at the top by importance.
+- **Next:** the operator inspects the 12 pages; then the naming of the 212, then
+  the pictures. Sprint 1 stays parked behind them.

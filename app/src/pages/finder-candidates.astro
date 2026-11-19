@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { loadRegistry } from "../lib/registry.js";
 
+import AppNav from "../components/AppNav.astro";
 const registry = (await loadRegistry(path.join(process.cwd(), ".."))).curves;
 const candidates = registry.filter((record) => record.candidate);
 ---
@@ -12,6 +13,9 @@ const candidates = registry.filter((record) => record.candidate);
 <!doctype html>
 <html lang="en" data-theme="light"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
 <title>Sandbox notes: draft A</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <style>
@@ -25,7 +29,8 @@ figcaption{font-size:11px;color:#555;margin-top:6px;word-break:break-all}
 figcaption b{color:#222}
 </style>
 </head><body>
-<div class="draft-a" style="position:fixed;right:.75rem;bottom:.75rem;z-index:9999;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9">draft A</div>
+<AppNav title="the candidates" />
+<main id="main">
 <h1>Finder candidates</h1>
 <p>{candidates.length} finder curves that were never starred. They are candidates,
   not picks: they stay in the registry so the pool is visible, and they are not
@@ -42,4 +47,5 @@ figcaption b{color:#222}
     </figure>
   ))}
 </div>
+</main>
 </body></html>

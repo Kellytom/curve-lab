@@ -654,6 +654,54 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
   order come from the DOM or from a script's printed output, with the command
   named.
 
+## The app has one shell — 2026-11-19
+
+Settled by the operator: "every page in astro should look like this: same css:
+[title] · the hub · the book gallery · this page is the [title]", and "don't put
+a link to the same file in the header; all industry standard best practice".
+
+- **One header component**, `app/src/components/AppNav.astro`, rendered by every
+  page right after `<body>`: the brand, the draft mark, the page's own name (the
+  sentence "this page is the lab"), then a `<nav aria-label="Main">` list.
+- **The current page is not a link to itself.** It is left out of the menu and
+  the page's name is stated in the header instead. No `aria-current` on a link
+  that would reload the page you are on.
+- **A skip link** to `#main`, and every page has exactly one `<main id="main">`,
+  so the menu is not the first thing the keyboard has to walk through.
+- **Colours only from `curve-lab-theme.css`**; `app/public/vendor/app-shell.css`
+  holds the layout and is linked after Pico and the theme on every page. A page
+  that sets its own background is the out-of-date case.
+- The check is `app/scripts/check-pages.mjs`: 12 pages, one header, one main,
+  the draft mark, no self-link.
+
+## Figures are files, not inlined SVG — 2026-11-19
+
+`/illuminations` inlined 238 bordered drawings into one document: **82,689,119
+bytes**, 0.96 s to build and send, every visit. Each figure is now
+`/illuminations/fig-N.svg`, served with `Cache-Control: public, max-age=604800`
+and a strong ETag, and the page asks for it with `loading="lazy"`.
+
+- Measured after: the page is **307,907 bytes** (268× smaller) and 0.069 s.
+  One figure is about 465 KB and is fetched once, then kept.
+- The gallery build is memoised, keyed by the mtime of the registry and the
+  notes, so a data edit rebuilds it and an unchanged page does not.
+- The same rule applies to any future page with many drawings: a file per
+  drawing, not one enormous HTML response.
+
+## One star per curve — 2026-11-19
+
+The finder stored stars by name and by id, so a curve starred under an old name
+and again under its new one counted twice, and a mirrored curve that was also
+featured was drawn in two sections.
+
+- **`app/src/lib/star-list.js`** dedupes a stored list by the curve id (a name
+  resolves through the page's own name→id table). A star whose name no longer
+  maps is kept, never dropped.
+- **Sections never overlap**: `app/src/lib/finder-sections.js` removes each
+  group from the next, so "Symmetric" wins over "Best so far".
+- **A removal is named.** Un-starring sends the name in `removed`; the page and
+  the server both require it, so a partial list can no longer delete a star.
+
 ## Data: SQLite through Prisma is the record — 2026-11-19
 
 Settled by the operator after the naming loss and the desk save that never ran.

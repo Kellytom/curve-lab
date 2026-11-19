@@ -10,7 +10,7 @@
 // edge. 9 by default, 5 for the curves whose loops make a wide border. The
 // border's share of the figure is measured and printed, so a wide one is seen.
 
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { loadRegistry } from "./registry.js";
@@ -169,9 +169,22 @@ export function clearIlluminateCache() {
   cache = null;
 }
 
+// The build is memoised: 238 figures is about a second of work, and the page
+// and its figure route must not each pay it. The stamp is the two data files'
+// mtimes, so an edit to the registry or the notes rebuilds on the next request
+// instead of serving yesterday's borders.
+function dataStamp(base) {
+  return ["workbench/curve-registry.json", "workbench/curve-notes.json"]
+    .map((file) => {
+      try { return statSync(path.join(base, file)).mtimeMs; } catch { return 0; }
+    })
+    .join(":");
+}
+
 export async function buildIlluminations(root) {
-  if (cache) return cache;
   const base = root || path.resolve(process.cwd(), "..");
+  const stamp = dataStamp(base);
+  if (cache && cache.base === base && cache.stamp === stamp) return cache;
   const registry = (await loadRegistry(base)).curves;
   const rows = Object.fromEntries(registry.map((record) => [record.name, record]));
   const byUid = Object.fromEntries(registry.map((record) => [record.uid, record]));
@@ -210,6 +223,12 @@ export async function buildIlluminations(root) {
       };
     }),
   }));
-  cache = { total: n, sections: built };
+  cache = {
+    total: n,
+    sections: built,
+    base,
+    stamp,
+    byId: Object.fromEntries(built.flatMap((section) => section.items.map((item) => [item.id, item]))),
+  };
   return cache;
 }

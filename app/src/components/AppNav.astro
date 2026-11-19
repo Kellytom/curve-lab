@@ -1,0 +1,42 @@
+---
+// The site header, rendered by every page.
+//
+// Standard structure and states:
+//   - a skip link, because the menu comes first in the tab order;
+//   - one <header> with the brand, the page's own name and the main menu;
+//   - the page you are on is text, not a link to itself, and is marked
+//     aria-current="page" so the state is not carried by colour alone.
+//
+// The title includes its article ("the lab", "the book gallery"), so the
+// sentence reads "this page is the lab".
+const { title } = Astro.props;
+const path = Astro.url.pathname;
+const items = [
+  { href: "/", label: "the hub" },
+  { href: "/lab", label: "the lab" },
+  { href: "/illuminations", label: "the book gallery" },
+  { href: "/names", label: "the naming desk" },
+  { href: "/figures", label: "every curve" },
+  { href: "/finder", label: "the curve finder" },
+  { href: "/everything", label: "everything else" },
+];
+const isCurrent = (href) => (href === "/" ? path === "/" : path.startsWith(href));
+const atHome = path === "/";
+---
+<a class="skip-link" href="#main">skip to the content</a>
+<header class="site-header">
+  <div class="bar">
+    {atHome
+      ? <span class="brand" aria-current="page">curve-lab</span>
+      : <a class="brand" href="/">curve-lab</a>}
+    <span class="draft" title="the working draft, not a published edition">draft A</span>
+    <span class="page-title">this page is <strong>{title}</strong></span>
+  </div>
+  <nav class="site-menu" aria-label="Main">
+    <ul>
+      {items.filter((item) => !isCurrent(item.href)).map((item) => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
+import AppNav from "../../components/AppNav.astro";
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
@@ -11,19 +12,10 @@ const posts = (await getCollection("blog"))
 <title>Notes</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
 </head><body>
-<nav class="container-fluid">
-  <ul><li><strong>curve-lab</strong></li></ul>
-  <ul>
-    <li><a href="/">hub</a></li>
-    <li><a href="/lab">lab</a></li>
-    <li><a href="/illuminations">illuminations</a></li>
-    <li><a href="/finder">finder</a></li>
-    <li><a href="/users">users</a></li>
-    <li><a href="/about">about</a></li>
-  </ul>
-</nav>
-<main class="container">
+<AppNav title="the notes" />
+<main id="main" class="container">
   <h1>Notes</h1>
   <p>A blog, framed and ready. Nothing is published yet. A note is one Markdown
     file in <code>app/src/content/blog/</code> with a title, a date and a
