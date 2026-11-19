@@ -19,10 +19,11 @@
   },
   {
    "uid": "c-0003",
-   "importance": 0,
+   "name": "swan",
+   "importance": 4,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.868Z"
+   "updated": "2026-11-19T03:16:12.255Z"
   },
   {
    "uid": "c-0004",
@@ -58,24 +59,27 @@
   },
   {
    "uid": "c-0008",
-   "importance": 0,
+   "name": "u-bowl",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.884Z"
+   "updated": "2026-11-19T03:16:38.833Z"
   },
   {
    "uid": "c-0009",
-   "importance": 0,
+   "name": "v-flat-bowl",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.897Z"
+   "updated": "2026-11-19T03:16:53.801Z"
   },
   {
    "uid": "c-0010",
-   "importance": 0,
+   "name": "m-arch-line",
+   "importance": 4,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.901Z"
+   "updated": "2026-11-19T03:15:42.420Z"
   },
   {
    "uid": "c-0011",
@@ -87,10 +91,11 @@
   },
   {
    "uid": "c-0012",
-   "importance": 0,
+   "name": "m-side-wave",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.907Z"
+   "updated": "2026-11-19T03:16:00.570Z"
   },
   {
    "uid": "c-0013",
@@ -188,24 +193,27 @@
   },
   {
    "uid": "c-0025",
-   "importance": 0,
+   "name": "twin-z",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.946Z"
+   "updated": "2026-11-19T03:16:32.488Z"
   },
   {
    "uid": "c-0026",
-   "importance": 0,
+   "name": "w-arch-knot-big",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.950Z"
+   "updated": "2026-11-19T03:17:10.859Z"
   },
   {
    "uid": "c-0027",
-   "importance": 0,
+   "name": "new-symmetric",
+   "importance": 4,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.953Z"
+   "updated": "2026-11-19T03:16:17.806Z"
   },
   {
    "uid": "c-0028",
@@ -529,10 +537,11 @@
   },
   {
    "uid": "c-0071",
-   "importance": 0,
+   "name": "wave-arch-triangle-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.130Z"
+   "updated": "2026-11-19T03:18:29.676Z"
   },
   {
    "uid": "c-0072",
@@ -544,10 +553,11 @@
   },
   {
    "uid": "c-0073",
-   "importance": 0,
+   "name": "wave-double-loop-dupe-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.159Z"
+   "updated": "2026-11-19T03:17:40.966Z"
   },
   {
    "uid": "c-0074",
@@ -1889,70 +1899,80 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.914Z"
+   "updated": "2026-11-18T23:28:01.914Z",
+   "candidate": true
   },
   {
    "uid": "c-0254",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.917Z"
+   "updated": "2026-11-18T23:28:01.917Z",
+   "candidate": true
   },
   {
    "uid": "c-0255",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.941Z"
+   "updated": "2026-11-18T23:28:01.941Z",
+   "candidate": true
   },
   {
    "uid": "c-0256",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.989Z"
+   "updated": "2026-11-18T23:28:01.989Z",
+   "candidate": true
   },
   {
    "uid": "c-0257",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.010Z"
+   "updated": "2026-11-18T23:28:02.010Z",
+   "candidate": true
   },
   {
    "uid": "c-0258",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.016Z"
+   "updated": "2026-11-18T23:28:02.016Z",
+   "candidate": true
   },
   {
    "uid": "c-0259",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.023Z"
+   "updated": "2026-11-18T23:28:02.023Z",
+   "candidate": true
   },
   {
    "uid": "c-0260",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.026Z"
+   "updated": "2026-11-18T23:28:02.026Z",
+   "candidate": true
   },
   {
    "uid": "c-0261",
-   "importance": 0,
+   "name": "loop-knot-45-2",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.030Z"
+   "updated": "2026-11-19T03:15:20.743Z"
   },
   {
    "uid": "c-0262",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:02.034Z"
+   "updated": "2026-11-18T23:28:02.034Z",
+   "candidate": true
   }
  ]
 }
