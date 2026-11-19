@@ -6,7 +6,7 @@
    "name": "amper",
    "family": "amper",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -16,7 +16,7 @@
    "name": "euler-hook",
    "family": "euler",
    "perSide": 5,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -26,7 +26,7 @@
    "name": "swan",
    "family": "swan",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -36,7 +36,7 @@
    "name": "gosling",
    "family": "gosling",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -46,7 +46,7 @@
    "name": "double-tap",
    "family": "double",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -56,7 +56,7 @@
    "name": "curlicue",
    "family": "curlicue",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -66,7 +66,7 @@
    "name": "grass",
    "family": "grass",
    "perSide": 5,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -76,7 +76,7 @@
    "name": "u-bowl",
    "family": "u",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -86,7 +86,7 @@
    "name": "v-sharp",
    "family": "v",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -96,7 +96,7 @@
    "name": "m-arch",
    "family": "m",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -106,7 +106,7 @@
    "name": "gumdrop",
    "family": "gumdrop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -116,7 +116,7 @@
    "name": "m-coarse",
    "family": "m",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -126,7 +126,7 @@
    "name": "bowl-coarse",
    "family": "bowl",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -136,7 +136,7 @@
    "name": "wave-coarse",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -146,7 +146,7 @@
    "name": "involute-fit",
    "family": "involute",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -156,7 +156,7 @@
    "name": "catenary-fit",
    "family": "catenary",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -166,7 +166,7 @@
    "name": "euler-fit",
    "family": "euler",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -176,7 +176,7 @@
    "name": "logspiral-fit",
    "family": "logspiral",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -186,7 +186,7 @@
    "name": "knot-6",
    "family": "knot",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -196,7 +196,7 @@
    "name": "knot-7",
    "family": "knot",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -206,7 +206,7 @@
    "name": "inflect-2",
    "family": "inflect",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -216,7 +216,7 @@
    "name": "wave3",
    "family": "wave3",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -226,7 +226,7 @@
    "name": "cusp5-x3",
    "family": "cusp5",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -236,7 +236,7 @@
    "name": "cusp7-deep",
    "family": "cusp7",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -246,7 +246,7 @@
    "name": "twin-cusp",
    "family": "twin",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -256,7 +256,7 @@
    "name": "w-arch",
    "family": "w",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -266,7 +266,7 @@
    "name": "new-symmetric",
    "family": "new",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -276,7 +276,7 @@
    "name": "lace-1of8-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -286,7 +286,7 @@
    "name": "lace-1of12-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -296,7 +296,7 @@
    "name": "lace-1of10-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -306,7 +306,7 @@
    "name": "wave-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -316,7 +316,7 @@
    "name": "wave-1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -326,7 +326,7 @@
    "name": "wave-middle-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -336,7 +336,7 @@
    "name": "wave-1of10-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -346,7 +346,7 @@
    "name": "lace-1of12-5",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -356,7 +356,7 @@
    "name": "wave-1of8-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -366,7 +366,7 @@
    "name": "wave-1of6-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -376,7 +376,7 @@
    "name": "wave-1of5-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -386,7 +386,7 @@
    "name": "wave-2x1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -396,7 +396,7 @@
    "name": "wave-1of4-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -406,7 +406,7 @@
    "name": "wave-1of3-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -416,7 +416,7 @@
    "name": "wave-middle-7",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -426,7 +426,7 @@
    "name": "lace-1of9-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -436,7 +436,7 @@
    "name": "wave-1of7-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -446,7 +446,7 @@
    "name": "wave-2of7-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -456,7 +456,7 @@
    "name": "wave-1of14-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -466,7 +466,7 @@
    "name": "lace-1of8-1of3-0",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -476,7 +476,7 @@
    "name": "lace-1of10-2",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -486,7 +486,7 @@
    "name": "wave-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -496,7 +496,7 @@
    "name": "wave-2of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -506,7 +506,7 @@
    "name": "wave-3of8-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -516,7 +516,7 @@
    "name": "wave-middle-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -526,7 +526,7 @@
    "name": "wave-1of3-2of5-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -536,7 +536,7 @@
    "name": "wave-2x1of6-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -546,7 +546,7 @@
    "name": "lace-1of10-4",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -556,7 +556,7 @@
    "name": "wave-1of12-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -566,7 +566,7 @@
    "name": "lace-1of12-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -576,7 +576,7 @@
    "name": "lace-1of10-1of4-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -586,7 +586,7 @@
    "name": "lace-1of10-3-2",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -596,7 +596,7 @@
    "name": "lace-2x1of6-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -606,7 +606,7 @@
    "name": "lace-1of6-1of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -616,7 +616,7 @@
    "name": "lace-1of10-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -626,7 +626,7 @@
    "name": "lace-1of12-1of4-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -636,7 +636,7 @@
    "name": "wave-1of10-1of5-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -646,7 +646,7 @@
    "name": "lace-1of8-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -656,7 +656,7 @@
    "name": "lace-1of8-1of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -666,7 +666,7 @@
    "name": "lace-1of8-1of4-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -676,7 +676,7 @@
    "name": "wave-1of8-1of6-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -686,7 +686,7 @@
    "name": "lace-1of8-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -696,7 +696,7 @@
    "name": "wave-5of12-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -706,7 +706,7 @@
    "name": "wave-1of10-1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -716,7 +716,7 @@
    "name": "lace-1of12-2x1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -726,7 +726,7 @@
    "name": "wave-1of10-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -736,7 +736,7 @@
    "name": "lace-1of12-1of3-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -746,7 +746,7 @@
    "name": "wave-1of12-1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -756,7 +756,7 @@
    "name": "wave-1of6-2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -766,7 +766,7 @@
    "name": "wave-1of10-2x1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -776,7 +776,7 @@
    "name": "wave-1of12-1of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -786,7 +786,7 @@
    "name": "wave-2x1of6-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -796,7 +796,7 @@
    "name": "wave-2x1of5-1of4-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -806,7 +806,7 @@
    "name": "wave-1of6-2x1of4-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -816,7 +816,7 @@
    "name": "wave-1of8-1of4-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -826,7 +826,7 @@
    "name": "wave-1of8-2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -836,7 +836,7 @@
    "name": "lace-1of10-1of5-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -846,7 +846,7 @@
    "name": "lace-1of8-1of6-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -856,7 +856,7 @@
    "name": "lace-1of8-1of3-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -866,7 +866,7 @@
    "name": "wide-knot-x20",
    "family": "wide",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -876,7 +876,7 @@
    "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
    "family": "ph",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -886,7 +886,7 @@
    "name": "bend45-t1of2",
    "family": "bend45",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -896,7 +896,7 @@
    "name": "bend45-b-1-t1of2",
    "family": "bend45",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -906,7 +906,7 @@
    "name": "loop-t1of2-3of4",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -916,7 +916,7 @@
    "name": "loop-t1of3-2of3",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -926,7 +926,7 @@
    "name": "loop-t1of4-3of4",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -936,7 +936,7 @@
    "name": "cross-45deg-t1of4",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -946,7 +946,7 @@
    "name": "term-a-plus-1",
    "family": "term",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -956,7 +956,7 @@
    "name": "term-c-minus1",
    "family": "term",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -966,7 +966,7 @@
    "name": "term-e-plus-1",
    "family": "term",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -976,7 +976,7 @@
    "name": "term-a-c-e-mixed",
    "family": "term",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -986,7 +986,7 @@
    "name": "line-q-0",
    "family": "line",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -996,7 +996,7 @@
    "name": "term-c-10-middle",
    "family": "term",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1006,7 +1006,7 @@
    "name": "cross-2of5-4of5",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1016,7 +1016,7 @@
    "name": "cross-1of5-4of5",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1026,7 +1026,7 @@
    "name": "cross-1of3-3of4",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1036,7 +1036,7 @@
    "name": "cross-1of4-3of4",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1046,7 +1046,7 @@
    "name": "cross-1of2-3of4",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1056,7 +1056,7 @@
    "name": "cross-1of3-2of3",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1066,7 +1066,7 @@
    "name": "cross-1of5-3of5",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1076,7 +1076,7 @@
    "name": "cross-2of5-3of5",
    "family": "cross",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1086,7 +1086,7 @@
    "name": "weighted-balance-exp-balance-t1of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1096,7 +1096,7 @@
    "name": "weighted-balance-exp-balance-t1of2",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1106,7 +1106,7 @@
    "name": "weighted-balance-exp-balance-t3of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1116,7 +1116,7 @@
    "name": "weighted-balance-parabola-balance-t1of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1126,7 +1126,7 @@
    "name": "weighted-balance-parabola-balance-t1of2",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1136,7 +1136,7 @@
    "name": "weighted-balance-parabola-balance-t3of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1146,7 +1146,7 @@
    "name": "weighted-balance-flat-balance-t1of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1156,7 +1156,7 @@
    "name": "weighted-balance-flat-balance-t1of2",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1166,7 +1166,7 @@
    "name": "weighted-balance-flat-balance-t3of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1176,7 +1176,7 @@
    "name": "bounded-3-4-5-gentle",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1186,7 +1186,7 @@
    "name": "bounded-3-4-5-crossed",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1196,7 +1196,7 @@
    "name": "bounded-5-12-13-gentle",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1206,7 +1206,7 @@
    "name": "bounded-5-12-13-crossed",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1216,7 +1216,7 @@
    "name": "bounded-8-15-17-crossed",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1226,7 +1226,7 @@
    "name": "bounded-3-4-5-tight",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1236,7 +1236,7 @@
    "name": "bounded-limacon-1-plus-2cos",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1246,7 +1246,7 @@
    "name": "bounded-limacon-1-plus-3cos",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1256,7 +1256,7 @@
    "name": "bounded-limacon-2-plus-3cos",
    "family": "bounded",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1266,7 +1266,7 @@
    "name": "mobile-two-vanes-1-1of2",
    "family": "mobile",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1276,7 +1276,7 @@
    "name": "mobile-two-vanes-1-1of3",
    "family": "mobile",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1286,7 +1286,7 @@
    "name": "mobile-three-vanes-1-1of2-1of4",
    "family": "mobile",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1296,7 +1296,7 @@
    "name": "mobile-three-vanes-big-small",
    "family": "mobile",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1306,7 +1306,7 @@
    "name": "mobile-exact-one-vane-3-4-5",
    "family": "mobile-exact",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1316,7 +1316,7 @@
    "name": "mobile-exact-3-4-5-plus-half-2-turns",
    "family": "mobile-exact",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1326,7 +1326,7 @@
    "name": "mobile-exact-3-4-5-plus-third-3-turns",
    "family": "mobile-exact",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1336,7 +1336,7 @@
    "name": "mobile-exact-1-1of2-1of5-1-2-5",
    "family": "mobile-exact",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1346,7 +1346,7 @@
    "name": "mobile-arcs-arc-0-to-1of2",
    "family": "mobile-arcs",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1356,7 +1356,7 @@
    "name": "mobile-arcs-arc-minus1of2-to-1of2",
    "family": "mobile-arcs",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1366,7 +1366,7 @@
    "name": "mobile-arcs-arc-0-to-1",
    "family": "mobile-arcs",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1376,7 +1376,7 @@
    "name": "mobile-arcs-arc-minus1-to-1",
    "family": "mobile-arcs",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1386,7 +1386,7 @@
    "name": "rose-k-2-a-1-b-1",
    "family": "rose",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1396,7 +1396,7 @@
    "name": "rose-k-2-a-1-b-minus1",
    "family": "rose",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1406,7 +1406,7 @@
    "name": "rose-k-3-a-1-b-1",
    "family": "rose",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1416,7 +1416,7 @@
    "name": "rose-k-4-a-1-b-1",
    "family": "rose",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1426,7 +1426,7 @@
    "name": "graphs-y-x-2-as-t2-cover",
    "family": "graphs",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1436,7 +1436,7 @@
    "name": "wave-1of5-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1446,7 +1446,7 @@
    "name": "wave-2x1of4-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1456,7 +1456,7 @@
    "name": "wave-1of4-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1466,7 +1466,7 @@
    "name": "wave-1of6-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1476,7 +1476,7 @@
    "name": "wave-2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1486,7 +1486,7 @@
    "name": "wave-1of6-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1496,7 +1496,7 @@
    "name": "wave-2x1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1506,7 +1506,7 @@
    "name": "wave-1of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1516,7 +1516,7 @@
    "name": "wave-1of5-1of4-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1526,7 +1526,7 @@
    "name": "wave-1of5-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1536,7 +1536,7 @@
    "name": "wave-1of5-1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1546,7 +1546,7 @@
    "name": "wave-1of4-2x1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1556,7 +1556,7 @@
    "name": "wave-2x1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1566,7 +1566,7 @@
    "name": "wave-1of6-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1576,7 +1576,7 @@
    "name": "wave-1of3-2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1586,7 +1586,7 @@
    "name": "wave-3x1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1596,7 +1596,7 @@
    "name": "wave-2of5-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1606,7 +1606,7 @@
    "name": "wave-1of4-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1616,7 +1616,7 @@
    "name": "wave-1of6-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1626,7 +1626,7 @@
    "name": "lace-1of8-2",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1636,7 +1636,7 @@
    "name": "wave-1of6-1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1646,7 +1646,7 @@
    "name": "wave-1of5-1of4-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1656,7 +1656,7 @@
    "name": "wave-1of4-2of5-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1666,7 +1666,7 @@
    "name": "wave-1of4-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1676,7 +1676,7 @@
    "name": "wave-2x1of4-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1686,7 +1686,7 @@
    "name": "wave-1of5-1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1696,7 +1696,7 @@
    "name": "wave-1of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1706,7 +1706,7 @@
    "name": "wave-2x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1716,7 +1716,7 @@
    "name": "wave-1of12-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1726,7 +1726,7 @@
    "name": "wave-1of4-1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1736,7 +1736,7 @@
    "name": "wave-1of6-1of5-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1746,7 +1746,7 @@
    "name": "wave-2x1of5-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1756,7 +1756,7 @@
    "name": "wave-1of6-1of4-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1766,7 +1766,7 @@
    "name": "wave-1of8-1of4-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1776,7 +1776,7 @@
    "name": "wave-1of8-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1786,7 +1786,7 @@
    "name": "wave-1of8-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1796,7 +1796,7 @@
    "name": "wave-1of6-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1806,7 +1806,7 @@
    "name": "wave-1of4-2of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1816,7 +1816,7 @@
    "name": "wave-1of3-2of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1826,7 +1826,7 @@
    "name": "wave-1of5-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1836,7 +1836,7 @@
    "name": "wave-1of5-2x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1846,7 +1846,7 @@
    "name": "wave-2x1of4-1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1856,7 +1856,7 @@
    "name": "wave-1of4-2x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1866,7 +1866,7 @@
    "name": "wave-1of6-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1876,7 +1876,7 @@
    "name": "wave-1of3-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1886,7 +1886,7 @@
    "name": "wave-1of5-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1896,7 +1896,7 @@
    "name": "wave-3x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1906,7 +1906,7 @@
    "name": "wave-1of4-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1916,7 +1916,7 @@
    "name": "wave-3of8-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1926,7 +1926,7 @@
    "name": "wave-2of5-4",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1936,7 +1936,7 @@
    "name": "wave-1of6-1of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1946,7 +1946,7 @@
    "name": "wave-1of6-1of4-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1956,7 +1956,7 @@
    "name": "wave-1of5-1of4-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1966,7 +1966,7 @@
    "name": "wave-2x1of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1976,7 +1976,7 @@
    "name": "wave-2x1of4-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1986,7 +1986,7 @@
    "name": "wave-1of4-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1996,7 +1996,7 @@
    "name": "wave-2x1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2006,7 +2006,7 @@
    "name": "wave-middle-6",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2016,7 +2016,7 @@
    "name": "wave-1of5-1of3-1-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2026,7 +2026,7 @@
    "name": "wave-1of6-1of3-1-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2036,7 +2036,7 @@
    "name": "lace-2x1of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2046,7 +2046,7 @@
    "name": "wave-1of6-1of4-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2056,7 +2056,7 @@
    "name": "lace-1of6-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2066,7 +2066,7 @@
    "name": "lace-1of5-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2076,7 +2076,7 @@
    "name": "wave-1of4-2of5-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2086,7 +2086,7 @@
    "name": "lace-3of10-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2096,7 +2096,7 @@
    "name": "lace-3of8-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2106,7 +2106,7 @@
    "name": "lace-1of3-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2116,7 +2116,7 @@
    "name": "wave-1of3-3of8-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2126,7 +2126,7 @@
    "name": "wave-1of3-3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2136,7 +2136,7 @@
    "name": "wave-1of4-3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2146,7 +2146,7 @@
    "name": "wave-3of10-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2156,7 +2156,7 @@
    "name": "wave-2x2of5-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2166,7 +2166,7 @@
    "name": "wave-middle-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2176,7 +2176,7 @@
    "name": "wave-1of8-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2186,7 +2186,7 @@
    "name": "wave-1of6-1of3-3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2196,7 +2196,7 @@
    "name": "wave-1of4-1of3-3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2206,7 +2206,7 @@
    "name": "lace-1of4-1of3-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2216,7 +2216,7 @@
    "name": "lace-2x1of5-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2226,7 +2226,7 @@
    "name": "lace-2x1of3-2of5-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2236,7 +2236,7 @@
    "name": "lace-1of5-1of4-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2246,7 +2246,7 @@
    "name": "lace-1of5-2of5-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2256,7 +2256,7 @@
    "name": "lace-3x1of4-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2266,7 +2266,7 @@
    "name": "wave-1of6-1of4-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2276,7 +2276,7 @@
    "name": "lace-3of10-5",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2286,7 +2286,7 @@
    "name": "wave-1of6-1of4-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2296,7 +2296,7 @@
    "name": "lace-1of8-2x1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2306,7 +2306,7 @@
    "name": "lace-1of8-1of5-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2316,7 +2316,7 @@
    "name": "wave-2x1of6-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2326,7 +2326,7 @@
    "name": "lace-2x1of4-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2336,7 +2336,7 @@
    "name": "lace-1of4-2of5-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2346,7 +2346,7 @@
    "name": "wave-1of6-2x1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2356,7 +2356,7 @@
    "name": "lace-1of8-1of4-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2366,7 +2366,7 @@
    "name": "wave-1of6-1of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2376,7 +2376,7 @@
    "name": "lace-1of3-3of8-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2386,7 +2386,7 @@
    "name": "lace-1of5-2x1of4-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2396,7 +2396,7 @@
    "name": "wave-3of8-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2406,7 +2406,7 @@
    "name": "wave-1of4-3of8-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2416,7 +2416,7 @@
    "name": "wave-3of10-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2426,7 +2426,7 @@
    "name": "wave-2x2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2436,7 +2436,7 @@
    "name": "wave-1of6-1of5-1of3-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2446,7 +2446,7 @@
    "name": "lace-1of5-2x1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2456,7 +2456,7 @@
    "name": "wave-2x1of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2466,7 +2466,7 @@
    "name": "wave-5of12-5",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2476,7 +2476,7 @@
    "name": "wave-1of5-1of3-2of5-1",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2486,7 +2486,7 @@
    "name": "wave-1of6-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2496,7 +2496,7 @@
    "name": "wave-1of5-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2506,7 +2506,7 @@
    "name": "wave-1of4-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2516,7 +2516,7 @@
    "name": "wave-2x1of3-3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2526,7 +2526,7 @@
    "name": "loop-12-13-15-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2536,7 +2536,7 @@
    "name": "loop-12-15-18-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2546,7 +2546,7 @@
    "name": "loop-13-15-17-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2556,7 +2556,7 @@
    "name": "loop-3-5-11-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2566,7 +2566,7 @@
    "name": "loop-3-7-11-mid-3",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2576,7 +2576,7 @@
    "name": "loop-3-8-13-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2586,7 +2586,7 @@
    "name": "loop-5-12-mid-3",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2596,7 +2596,7 @@
    "name": "loop-5-8-12-mid-5",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2606,7 +2606,7 @@
    "name": "loop-7-mid-2",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2616,7 +2616,77 @@
    "name": "loop-8-11-mid-1",
    "family": "loop",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0263",
+   "name": "bezier-loop-1",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0264",
+   "name": "bezier-loop-2",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0265",
+   "name": "bezier-loop-3",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0266",
+   "name": "bezier-loop-4",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0267",
+   "name": "bezier-loop-5",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0268",
+   "name": "bezier-loop-6",
+   "family": "bezier",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0269",
+   "name": "mobile-k3-equal",
+   "family": "mobile-k3",
+   "perSide": 9,
+   "marginPercent": 25,
    "failed": false,
    "reason": null,
    "tooWide": false

@@ -738,6 +738,7 @@ and documentation alike.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
+| `state/PRIME-MOVER-int.md` | the prime mover: drive parametrics with a unit circle walked by p-triples, not by a linear t; read before designing a new family |
 | `state/EXPLORATION-int.md` | future ideas with their first measurable step: the pendulum mobile, Gaussian transforms, tweaks as rows, rails on every curve, tails, the review, the empty cells |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
@@ -825,6 +826,10 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - **Push after every green block, not only at handoff.** The remote is the
   backup: a red or stale remote is worse than a local commit. If a push turns
   the `native` workflow red, fix or revert before starting the next task.
+- **DeepSeek2 owns git (2026-11-19).** It commits and pushes its own work when
+  `scripts/prepush.sh` is green, and reports the hash. DeepSeek1 decides what is
+  work, reviews the diff and writes the handoff; it does not commit while
+  DeepSeek2 is mid-job. One committer at a time, always.
 - **Push `main` at every handoff.** Do not end a session with green local
   commits GitHub has not seen. Before pushing: `scripts/test.py --full` and
   `scripts/recheck.py` must pass; then `git push origin main`; then
@@ -3837,6 +3842,21 @@ not just md?" — and "i consider typescript a BIG framework. but do it".
   no longer be hidden by yesterday's text.
 - The rule behind all of it: **a rule that cannot fail a command is a wish.**
 
+## The prime mover, and who owns git — 2026-11-19
+
+- **Curves may be driven by a circle, not a linear t.** The operator's reframing
+  is in `state/PRIME-MOVER-int.md`: `PMx, PMy` travel the unit circle over
+  `PM ∈ [−2π, 2π]`, the points come from p-triples (7-24-25 from (25, 0) to
+  (24, ±7)), the points are reused, and the + and − walks are different sets.
+  A new family says which driver it uses; the root family stays linear.
+- **A fixed p-triple never closes at 2π.** Niven: rational cosines belong only to
+  0°, 60°, 90°, 120°, 180°, so a repeated triple misses by a little more each
+  step. The file names the three honest routes (state the gap, change the last
+  triple, or use quarter and half turns) and requires the choice to be declared.
+- **DeepSeek2 owns git.** It commits and pushes when `prepush` is green and
+  reports the hash; DeepSeek1 decides, reviews and writes the handoff. One
+  committer at a time, so two sessions cannot interleave a history.
+
 ## Data: SQLite through Prisma is the record — 2026-11-19
 
 Settled by the operator after the naming loss and the desk save that never ran.
@@ -3912,6 +3932,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 32 | 2026-11-19 | a star click threw `ReferenceError: title is not defined` before the list was written, so nothing was added and nothing was saved | `app/scripts/check-stars.mjs` | the finder's star button |
 | 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
 | 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
+| 35 | 2026-11-19 | "/illuminations is 500" — after the rails and fills, a figure held more points than `Math.min(...xs)` can take, and 238 figures in one request threw `Maximum call stack size exceeded` | `app/scripts/check-pages.mjs` (all 12 pages, 200 and one header) and `state/FRAMES-int.md` for the richer paths | the figure writer's bbox |
 
 ## Fixed and measured, but not yet in the fast suite
 
@@ -4004,6 +4025,12 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `g3-handover.json` | `curve-lab.g3-handover/1` | cache | `scripts/g3_handover.py` | `scripts/g3_showcase_doc.py` |
 | `manifest.json` | `curve-lab.manifest/1` | index | `scripts/hub.py` | the Astro hub, `scripts/hub.py` |
 | `moved-curves.json` | `curve-lab.moved/1` | record | `scripts/moved_notes.py` | `scripts/operator_list.py` |
+| `near-zero.json` | `curve-lab.near-zero/1` | cache | `scripts/near_zero.py` | the near-zero report |
+| `wobble.json` | `curve-lab.wobble/1` | cache | `scripts/wobble_show.py` | the `/sandbox` wobble panels |
+| `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
+| `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
+| `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
+| `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.py` | the root search report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
 | `ph-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_fit_showcase.py` | `scripts/ph_nth_sandbox2.py` |
@@ -4011,6 +4038,9 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
+| `sandbox-curves.json` | `curve-lab.sandbox/1` | cache | `scripts/sandbox_curves.py` | the `/sandbox` page |
+| `sandbox-parametric.json` | `curve-lab.sandbox-parametric/1` | cache | `scripts/sandbox_parametric.py` | the parametric adder |
+| `parametric-candidates.json` | `curve-lab.parametric-candidates/1` | cache | `scripts/parametric_search.py` | the complex-coefficient search history |
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |

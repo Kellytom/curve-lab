@@ -39,6 +39,7 @@ FORMATS = {
     "moved-curves.json": "curve-lab.moved/1",
     "mobile-curves.json": "curve-lab.mobile-curves/1",
     "coupler-curves.json": "curve-lab.coupler-curves/1",
+    "bezier-knots.json": "curve-lab.bezier-knots/1",
     "root-candidates.json": "curve-lab.root-candidates/1",
     "wobble.json": "curve-lab.wobble/1",
     "near-zero.json": "curve-lab.near-zero/1",
