@@ -7,19 +7,21 @@ Focused handon for curve-lab. Work in
 
 1. Before any tool call, write one sentence naming the focused action you are
    about to carry out, so the operator can see you are on the right thing.
-2. Bring up the single server — but **never run it in the foreground**. It
-   prints "already serving" and exits 0 when the port is taken, and blocks
-   forever in `serve_forever` when it is not, so a bare call hangs the session.
-   Start only if the port is down, and background it:
+2. Bring up the app — but **never in the foreground**. The app is Astro on
+   **4321** and runs on **Node 24** (`~/node24`). The generated lab pages have
+   their own Python server on 8003; start that one only when the action reads
+   those pages.
 
    ```sh
-   curl -s -o /dev/null --max-time 2 http://127.0.0.1:8003/ || \
-     ( .venv/bin/python scripts/serve.py >"$TMPDIR/curve-lab-serve.log" 2>&1 & )
-   curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 http://127.0.0.1:8003/
+   curl -s -o /dev/null --max-time 2 http://127.0.0.1:4321/ || \
+     ( PATH="$HOME/node24/bin:$PATH" npm --prefix app run dev -- --host \
+         >"$TMPDIR/curve-lab-app.log" 2>&1 & )
+   curl -s -o /dev/null -w '%{http_code}\n' --max-time 5 http://127.0.0.1:4321/
    ```
 
    Expect `200`. If it is not 200, say so in one line and carry on — a dead
    server is a fact for the handoff, not a reason to stop reading.
+
 3. Run the register before touching anything — it costs a tenth of a second and
    it is the only guard against undoing a fix that took hours:
 
@@ -31,6 +33,10 @@ Focused handon for curve-lab. Work in
    looked like to the operator, and the test says what still guards it. If the
    action you are about to take would change a behaviour listed there, stop and
    say so rather than changing it quietly.
+3b. Check the database against the registry: `node app/scripts/check-db.mjs`.
+   Expect 262 curves, 262 notes, 262 sets. A mismatch is a defect to name before
+   the action, not a detail to discover later.
+
 4. Read `state/READING-int.md` **first**. It is the authoritative list of what
    to load, in order, with line costs and the never-load list. Follow its
    Tier 0 exactly. Do not
@@ -61,7 +67,8 @@ Focused handon for curve-lab. Work in
    message that names the action. Do not bundle the handoff record; that is
    `/fhandoff`'s job. A finished action left uncommitted is the one thing a
    reboot, a crash or a `git checkout` can still destroy.
-11. Where a browser check or a screenshot is needed, use **Playwright** via
+11. Where a browser check or a screenshot is needed, run Node under the same
+    `~/node24` path, and use **Playwright** via
     `node scripts/shot.mjs <url> <out.png> [w] [h] [full|viewport]`. It launches
     its own browser, so nothing has to be running first. Do not use the Review
     pane, Safari/safaridriver, or the old CDP-on-9223 daemon. An image may be
