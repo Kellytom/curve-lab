@@ -22,9 +22,12 @@ nobody has made — and then write the question instead of picking.
   (`illus-` A and B, 180 plates), the analysis table (`CurveMetric`, 262 rows),
   the message bus, recovery parity and job ownership, the stack page, and the
   essay on the logic of beauty.
-- **In flight:** variants **C** (corner rule: rotate where the legs suit it,
-  stop where they do not) and **D** (C plus a tangent seam and a 50%/9%
-  proportion), with a paragraph per A/B/C/D block.
+- **The focus now: new families along the prime-mover line.** Circle-driven
+  parametrics from p-triple tables (`state/PRIME-MOVER-int.md`), whole-control
+  Béziers with loops, and the two-tone/fill design pass. The seven curated
+  finds (six `bezier-loop-*`, one mobile) are in the collection and starred.
+- **In flight (DeepSeek2):** variants **C** (corner rule) and **D** (C plus a
+  tangent seam and a 50%/9% proportion), with a paragraph per A/B/C/D block.
 - **Paused on a decision:** the print export (`scripts/book_export.mjs`, 3000 px,
   300 dpi, manifest) waits on whether the "scriptures" are a caption on the
   plate or text pages beside it.

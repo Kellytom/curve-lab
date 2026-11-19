@@ -21,6 +21,17 @@ The main families are done; these are loose ends, not new work:
 - the parity sweep (u even, v odd over t ∈ [−1,1]) gives symmetry but almost no crossings — recorded, not pursued;
 - coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
 
+
+- **The seven curated finds need plates.** `c-0263`..`c-0269` are in the registry,
+  the database and `/figures`, but not in the 90-frame set; `frames_build.mjs`
+  will pick them up on its next run (269 chosen now, so 97 plates).
+- **`curve_pngs.mjs --only` overwrote `figures/index.json` with a partial list.** The
+  guard was never added; the full rebuild restored it. Add the guard or drop the flag.
+- **`migrate.mjs` only seeds an empty database.** The additive path is
+  `app/scripts/add-registry-curves.mjs`; both should be named in the README.
+- **`scripts/curve_registry.py` would rebuild the registry and lose the seven finds.**
+  It must learn to keep curated rows before it is run again.
+
 ## Book plates — 2026-11-17
 
 The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers

@@ -3045,3 +3045,20 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **Measured on the imaginary idea**: odd-only is a point in x; one even term
   opens it (grid 90090, 0 inflections, bend 1.009 — almost straight). The
   substitution makes wings and tails, not knots.
+
+### Focus realigned — let the prime mover drive new families (2026-11-19)
+
+- **The standing direction is the prime mover** (`state/PRIME-MOVER-int.md`): a
+  pair `PMx, PMy` travelling the unit circle over `PM ∈ [−2π, 2π]`, walked by
+  p-triples from `(25, 0)` to `(24, ±7)`, the two directions distinct sets. A
+  fixed triple never closes at 2π (Niven); the three routes are written down.
+- **Seven new curves entered the collection, starred:** six looped integer
+  Béziers (`bezier-loop-1..6`, whole controls, 2–3 crossings each) and one
+  mobile `k = 8/3` at equal radii. Registry 269 curves, 269 sets, notes equal;
+  `check-db` green; figures rendered.
+- **What was tried and did not pay:** coupler curves (5 of 900 looped, none more
+  than twice), parity symmetry over `t ∈ [−1,1]` (symmetry, almost no crossings),
+  the two-pair root sweep (flat ghosts — crossings in a microscopic fold), the
+  Chebyshev Lissajous family (known, parked by the operator).
+- **The one change of hands:** DeepSeek2 owns git from now; DeepSeek1 decides,
+  reviews and writes the handoff.
