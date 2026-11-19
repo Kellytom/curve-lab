@@ -96,6 +96,8 @@ def main(argv=None) -> int:
     parser.add_argument("--read", nargs="?", type=int, const=1, metavar="N",
                         help="print the last N entries of each file (default 1)")
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--rotate", type=int, nargs="?", const=8, metavar="KEEP",
+                        help="move all but the newest KEEP entries to mailbox-history.md")
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args(argv)
 
@@ -103,6 +105,28 @@ def main(argv=None) -> int:
         for path in FILES.values():
             print(quiet_read(path, args.read))
             print()
+        return 0
+
+    if args.rotate:
+        history = ROOT / "archive" / "notes" / "mailbox-history.md"
+        moved_all = []
+        for path in FILES.values():
+            text = path.read_text(encoding="utf-8")
+            found = entries(path)
+            if len(found) <= args.rotate:
+                continue
+            cut = found[-args.rotate][0]          # the line the kept part starts at
+            lines = text.splitlines(keepends=True)
+            head, old, kept = "".join(lines[:found[0][0] - 1]), lines[found[0][0] - 1:cut - 1], lines[cut - 1:]
+            moved_all.append("\n### from " + path.name + "\n\n" + "".join(old).rstrip() + "\n")
+            path.write_text(head + "".join(kept), encoding="utf-8")
+            print(f"{path.name}: moved {len(found) - args.rotate} entries, kept {args.rotate}")
+        if moved_all:
+            with history.open("a", encoding="utf-8") as handle:
+                if history.stat().st_size == 0:
+                    handle.write("# mailbox history — rotated entries\n")
+                handle.write("\n".join(moved_all) + "\n")
+            print(f"appended to {history.relative_to(ROOT)}")
         return 0
 
     if args.check:
