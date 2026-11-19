@@ -1,4 +1,3 @@
-// @ts-check
 // The finder's sections: one card per curve, in a fixed order.
 //
 // The order is starred, symmetric, best, then the remaining families. The
@@ -6,34 +5,31 @@
 // built into both "Symmetric" and "Best so far", so the page showed the same
 // curve twice. Each group here excludes everything the earlier ones took.
 
-/**
- * @typedef {Object<string, any> & {
- *   id?: string,
- *   flags?: string[],
- *   featured?: boolean,
- *   family?: string,
- * }} Curve
- */
+export type Curve = {
+  id?: string;
+  flags?: string[];
+  featured?: boolean;
+  family?: string;
+  [key: string]: any;
+};
 
-/**
- * @param {Curve} curve
- * @returns {boolean}
- */
-const isMirrored = (curve) => (curve.flags || []).some((flag) => String(flag).startsWith("mirror "));
+export type Section = {
+  key: string;
+  title: string;
+  lead: string;
+  curves: Curve[];
+};
 
-/**
- * @param {Curve[]} curves
- * @param {(curve: Curve) => boolean} [isStarred]
- * @returns {{ key: string, title: string, lead: string, curves: Curve[] }[]}
- */
-export function finderSections(curves, isStarred = () => false) {
+const isMirrored = (curve: Curve): boolean => (curve.flags || []).some((flag) => String(flag).startsWith("mirror "));
+
+export function finderSections(curves: Curve[], isStarred: (curve: Curve) => boolean = () => false): Section[] {
   const starred = curves.filter((curve) => isStarred(curve));
   const symmetric = curves
     .filter((curve) => isMirrored(curve) && !isStarred(curve))
     .sort((a, b) => {
       if (a.id === "symmetric-rotated345") return -1;
       if (b.id === "symmetric-rotated345") return 1;
-      const rank = (curve) =>
+      const rank = (curve: Curve) =>
         (curve.flags || []).some((flag) => String(flag).startsWith("mirror y=x")) ? 0 : 1;
       return rank(a) - rank(b);
     });
@@ -43,7 +39,7 @@ export function finderSections(curves, isStarred = () => false) {
   );
   const familyNames = [...new Set(rest.map((curve) => curve.family || "other"))].sort();
 
-  const sections = [
+  const sections: Section[] = [
     { key: "starred", title: "Starred", lead: "Your choices, at the top.", curves: starred },
   ];
   if (symmetric.length) {

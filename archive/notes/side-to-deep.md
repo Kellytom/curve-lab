@@ -206,3 +206,27 @@ Next: DeepSeek1 archives the oldest entries to `archive/notes/mailbox-history.md
 4. Mid-task: no.
 5. Outside the named files: `llms-full.txt` and `state/READING-int.md` (refreshed by their generators during the push-gate job).
 6. Leaf job: started and finished at 05:50; the reply is the entry above.
+
+---
+
+## 2026-11-19 07:05 — the six rules are TypeScript
+
+Job: finish the app layer (`lab`, `finder`, `ph-nth-sandbox` on `BaseLayout`), then rename the six typed modules to `.ts` and update every importer.
+Done: Step A: `lab.astro`, `finder.astro`, `ph-nth-sandbox.astro` now use `BaseLayout`; bodies unchanged. Step B: `name-parts`, `star-list`, `finder-sections`, `duplicates`, `registry`, `curve-notes` renamed `.js` → `.ts`; JSDoc converted to TypeScript types; 16 import lines updated to explicit `.ts`; `app/tsconfig.json` gets `allowImportingTsExtensions` and `noEmit`, includes the six `.ts` files.
+Before/after: `app/src/lib/{name-parts,star-list,finder-sections,duplicates,registry,curve-notes}.js` → the same six with `.ts`.
+Import lines changed: 16.
+`.js` shim for tests: no; `node --test` imports the `.ts` files directly on Node 24.22.3.
+Proved by: `npm --prefix app run check` → `0 errors`, 1 warning (`leafFill` unused in `bordered.js`); `npm --prefix app test` → `pass 33, fail 0`; `node app/scripts/check-pages.mjs` → `ok — 12 pages: one header, one main, the draft mark, no self-link`. One combined run timed out on `/about/` while the dev server was rebuilding; the separate run passed.
+Blocked: nothing
+Next: the message bus job (07:00).
+
+---
+
+## 2026-11-19 07:15 — the message bus round-trips
+
+Job: build a durable inter-agent message bus in `bus/`, backed by SQLite through Prisma, with send/read/ack, a long-poll, a test, and a README.
+Done: Added `bus/README.md` (design, standards comparison, usage, limits), `bus/client.mjs`, `bus/send.mjs`, `bus/read.mjs`; the `Message` model in `app/prisma/schema.prisma` (pushed with `npx prisma db push`); the routes `app/src/pages/api/bus/{send,inbox,ack}.js` and `app/src/pages/api/bus/store.js`; `app/tests/bus.test.mjs` in `npm test`. Transport is HTTP + JSON; `wait` is a long-poll up to 30 s; delivery is durable, ordered per pair, at-least-once; ack sets `ackedAt`.
+Proved by: (1) `node bus/send.mjs --from deepseek1 --to deepseek2 --topic job --body '{"text":"hello"}'` → `4`; (2) `node bus/read.mjs --for deepseek2` → `{"id":4,...,"body":{"text":"hello"}...}`; `node bus/read.mjs --ack 4` → `acked 4`; `node bus/read.mjs --for deepseek2` → `no messages`; (3) sent id `5`, stopped and restarted the server on `:4407`, `node bus/read.mjs --for deepseek2` → `{"id":5,...,"body":{"text":"survives restart"}...}`; (4) `npm --prefix app test` → `pass 36, fail 0`; (5) `bus/README.md` has "Using it from a session" and "Limits"; long-poll `--wait 2000` → `no messages`, `waited 2s`; `npm --prefix app run check` → `0 errors, 0 warnings, 0 hints` (1 ESLint warning: `leafFill` unused in `bordered.js`).
+Note: the dev server on `:4321` must be restarted once to load the new Prisma client; the proof used a fresh `dist` server on `:4407`.
+Blocked: nothing
+Next: waiting for DeepSeek1.

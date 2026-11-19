@@ -13,7 +13,7 @@
 import { statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
-import { loadRegistry } from "./registry.js";
+import { loadRegistry } from "./registry.ts";
 
 import { repoRoot } from "./gallery.js";
 
@@ -43,10 +43,6 @@ const CENTRAL_SHARE = 0.55;
 // The curves the operator found colliding with their own border (2026-11-19).
 // The aspect test catches the tall ones; these are the rest, where the loops
 // are wide but still deeper than the step.
-const BAND_UIDS = new Set([
-  "c-0003", "c-0005", "c-0006", "c-0011", "c-0024",
-  "c-0055", "c-0056", "c-0163", "c-0261",
-]);
 
 function pointsOf(record) {
   if (record.path) return record.path;
@@ -116,21 +112,23 @@ function bandMotif(record) {
   const box = P.bbox(points);
   const width = box[2] - box[0];
   const height = box[3] - box[1];
-  const named = BAND_UIDS.has(record.uid);
-  if (!width || (!named && !(height > width * 1.2))) return record;
-  const k = (BAND_SHARE * width) / height;
+  if (!width || !height) return record;
+  // Only ever flatten: a motif already flatter than the share is left alone.
+  const k = Math.min(1, (BAND_SHARE * width) / height);
+  if (k === 1) return record;
   if (record.path) return { ...record, path: record.path.map(([x, y]) => [x, y * k]) };
   return { ...record, speedY: (record.speedY || []).map((v) => v * k) };
 }
 
 function frameBorder(record, perSide, turn = 0) {
   if (record.path) {
-    const motif = bandMotif(record).path;
+    const flat = bandMotif(record).path;
+    const motif = turn ? rotatePoints(flat, turn) : flat;
     const xs = motif.map((p) => p[0]);
     const ys = motif.map((p) => p[1]);
     const unit = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) || 1;
     const side = perSide * unit;
-    const turn = (pts, deg) => {
+    const spin = (pts, deg) => {
       const a = deg * Math.PI / 180;
       return pts.map(([x, y]) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]);
     };
@@ -138,14 +136,17 @@ function frameBorder(record, perSide, turn = 0) {
     [[0, 0, 0], [side, 0, 90], [side, side, 180], [0, side, 270]].forEach(([ox, oy, deg]) => {
       for (let copy = 0; copy < perSide; copy += 1) {
         const moved = motif.map(([x, y]) => [x + copy * unit, y]);
-        border.push(turn(moved, deg).map(([x, y]) => [x + ox, y + oy]));
+        border.push(spin(moved, deg).map(([x, y]) => [x + ox, y + oy]));
       }
     });
     return border;
   }
   // A speed-row curve is turned by turning its velocity: (u, v) -> (-v, u).
   // That is what makes the four wide curves a border instead of a collision.
-  const a = P.group(bandMotif(record));
+  const turned = turn === 90
+    ? { ...record, speedX: (record.speedY || []).map((v) => -v), speedY: record.speedX }
+    : record;
+  const a = P.group(bandMotif(turned));
   return P.frame(a, null, perSide, perSide, 45, "a", false).flatMap((item) => item.paths);
 }
 
@@ -159,17 +160,19 @@ function marginPercent(border, central) {
 }
 
 export function figureFor(record, all, borderRecord) {
-  const perSide = PER_SIDE_FIVE.has(record.uid) ? 5 : PER_SIDE;
+  const perSide = Number(record.perSide) || (PER_SIDE_FIVE.has(record.uid) ? 5 : PER_SIDE);
   const rotation = Number(record.rotation) || 0;
   const pieces = [1, 2, 4].includes(Number(record.pieces)) ? Number(record.pieces) : 1;
 
   const build = (borderTurn) => {
-    const border = frameBorder(borderRecord || record, perSide, borderTurn);
+    const border = frameBorder(borderRecord || record, perSide,
+      borderRecord ? 0 : (Number(record.borderTurn) || 0));
     const fbox = P.bbox(border.flat());
     const inner = rotatePoints(pointsOf(record), rotation);
     const cx = (fbox[0] + fbox[2]) / 2;
     const cy = (fbox[1] + fbox[3]) / 2;
     let central;
+    let leafFill = null;
     if (pieces === 1) {
       // The leaf: the curve and its mirror across the chord through its feet.
       // Fit and centre the pair as one figure, so the shared feet stay shared.
@@ -182,6 +185,8 @@ export function figureFor(record, all, borderRecord) {
       const dx = cx - (box[0] + box[2]) / 2;
       const dy = cy - (box[1] + box[3]) / 2;
       central = scaled.map((line) => line.map(([x, y]) => [x + dx, y + dy]));
+      // The leaf closes: curve to the far foot, the mirror back again.
+      leafFill = [...central[0], ...central[1].slice().reverse()];
     } else {
       const ibox = P.bbox(inner);
       const size = Math.max(ibox[2] - ibox[0], ibox[3] - ibox[1]) || 1;
@@ -197,6 +202,7 @@ export function figureFor(record, all, borderRecord) {
       rotation,
       pieces,
       centralCount: central.length,
+      fills: leafFill ? [leafFill] : [],
       borderTurn,
       failed: false,
       tooWide: margin >= TOO_WIDE,
@@ -216,7 +222,7 @@ export function figureFor(record, all, borderRecord) {
   }
 }
 
-function svgFrom(paths, label) {
+function svgFrom(paths, label, fills = []) {
   const all = paths.flat();
   const xs = all.map((p) => p[0]);
   const ys = all.map((p) => p[1]);
@@ -227,6 +233,10 @@ function svgFrom(paths, label) {
   const k = inner / Math.max(w, h);
   const ox = (SIZE - w * k) / 2 - x0 * k;
   const oy = (SIZE + h * k) / 2 + y0 * k;
+  const fillsSvg = fills.map((points) => {
+    const d = points.map(([x, y], i) => `${i ? "L" : "M"}${(ox + x * k).toFixed(2)},${(oy - y * k).toFixed(2)}`).join("");
+    return `<path d="${d}Z" fill="#ece4cf" stroke="none" fill-rule="nonzero"/>`;
+  }).join("");
   const lines = paths.map((points) => {
     const step = Math.max(1, Math.floor(points.length / 300));
     const kept = points.filter((_, i) => i % step === 0 || i === points.length - 1);
@@ -235,11 +245,11 @@ function svgFrom(paths, label) {
       ' fill="none" stroke="#111" stroke-width="1.1" stroke-linejoin="round"/>';
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}" role="img" aria-label="${label}">` +
-    `<rect width="${SIZE}" height="${SIZE}" fill="#fff"/>${lines.join("")}</svg>`;
+    `<rect width="${SIZE}" height="${SIZE}" fill="#fff"/>${fillsSvg}${lines.join("")}</svg>`;
 }
 
 export function svgForFigure(figure, label) {
-  return svgFrom(figure.paths, label);
+  return svgFrom(figure.paths, label, figure.fills);
 }
 
 export function svgForRecord(record, all = {}) {
@@ -299,7 +309,7 @@ export async function buildIlluminations(root) {
         uid: record.uid,
         name: record.name,
         id: `fig-${n}`,
-        svg: svgFrom(figure.paths, `Fig. ${n}: ${record.name}`),
+        svg: svgFrom(figure.paths, `Fig. ${n}: ${record.name}`, figure.fills),
         perSide: figure.perSide,
         marginPercent: figure.margin,
         rotation: figure.rotation,

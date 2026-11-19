@@ -31,6 +31,8 @@ model Note {
   rotation   Int      @default(0)
   pieces     Int      @default(1)
   borderUid  String?
+  perSide    Int      @default(0)   // 0 = the default rule; 3..40 otherwise
+  borderTurn Int      @default(0)   // 0, 90: lay the border motif on its side
   updatedAt  DateTime @updatedAt
 }
 
@@ -80,4 +82,21 @@ model SandboxCurve {
   data      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// The inter-agent message bus. One row is one message; an unacked row is the
+// inbox, an acked row is the history. Ordering per (fromAgent, toAgent) is the
+// row id. The body is JSON text, validated before it is stored.
+model Message {
+  id        Int       @id @default(autoincrement())
+  fromAgent String
+  toAgent   String
+  topic     String
+  body      String
+  createdAt DateTime  @default(now())
+  ackedAt   DateTime?
+  attempts  Int       @default(0)
+
+  @@index([toAgent, ackedAt, id])
+  @@index([fromAgent, toAgent, id])
 }

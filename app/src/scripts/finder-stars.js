@@ -5,7 +5,7 @@
 // threw on every click, so a star was never added and never saved — a bug no
 // test could see while the code sat in a page. The keying rule is
 // `dedupeStars`, which has its own test.
-import { dedupeStars } from "../lib/star-list.js";
+import { dedupeStars } from "../lib/star-list.ts";
 
 const KEY = "finder-stars";
 let lastError = "";

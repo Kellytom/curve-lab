@@ -1,4 +1,3 @@
-// @ts-check
 // Names, importance, the turn and the pieces of a curve set, in SQLite through
 // Prisma. A save is a transaction; a bad uid is refused before a row is written.
 
@@ -15,6 +14,8 @@ const Note = z.object({
   rotation: z.number().int().min(-360).max(360).optional(),
   pieces: z.union([z.literal(1), z.literal(2), z.literal(4)]).optional(),
   border_uid: z.string().regex(/^c-\d{4}$/, "border uid must look like c-0001").optional(),
+  perSide: z.number().int().min(3).max(40).optional(),
+  borderTurn: z.union([z.literal(0), z.literal(90)]).optional(),
   // "move to notes": the curve leaves the naming desk and joins the pool on
   // /finder-candidates. Reversible with false.
   candidate: z.boolean().optional(),
@@ -22,11 +23,7 @@ const Note = z.object({
 
 const Payload = z.object({ curves: z.array(Note) });
 
-/**
- * @param {any} row
- * @returns {any}
- */
-export function toNote(row) {
+export function toNote(row: any): any {
   return {
     uid: row.uid,
     name: row.name || undefined,
@@ -34,35 +31,26 @@ export function toNote(row) {
     rotation: row.rotation,
     pieces: row.pieces,
     border_uid: row.borderUid || undefined,
+    perSide: row.perSide || undefined,
+    borderTurn: row.borderTurn || undefined,
     updated: row.updatedAt?.toISOString?.() || undefined,
   };
 }
 
-/**
- * @param {any} payload
- * @returns {any[]}
- */
-export function validateNotes(payload) {
+export function validateNotes(payload: any): any[] {
   return Payload.parse(payload).curves;
 }
 
-/**
- * @returns {Promise<{ curves: any[] }>}
- */
-export async function readNotes() {
+export async function readNotes(): Promise<{ curves: any[] }> {
   const rows = await prisma.note.findMany({ orderBy: { uid: "asc" } });
   return { curves: rows.map(toNote) };
 }
 
-/**
- * @param {any} payload
- * @returns {Promise<{ saved: number }>}
- */
-export async function saveNotes(payload) {
+export async function saveNotes(payload: any): Promise<{ saved: number }> {
   const incoming = validateNotes(payload);
   if (!incoming.length) {
     const error = new Error("nothing to save");
-    /** @type {any} */ (error).status = 400;
+    (error as any).status = 400;
     throw error;
   }
   // The candidate flag is a property of the curve row, not of its note: the
@@ -79,6 +67,8 @@ export async function saveNotes(payload) {
         rotation: note.rotation ?? 0,
         pieces: note.pieces ?? 1,
         borderUid: note.border_uid ?? null,
+      perSide: note.perSide ?? 0,
+      borderTurn: note.borderTurn ?? 0,
       },
       update: {
         ...(note.name !== undefined ? { name: note.name } : {}),
@@ -86,6 +76,8 @@ export async function saveNotes(payload) {
         ...(note.rotation !== undefined ? { rotation: note.rotation } : {}),
         ...(note.pieces !== undefined ? { pieces: note.pieces } : {}),
         ...(note.border_uid !== undefined ? { borderUid: note.border_uid } : {}),
+        ...(note.perSide !== undefined ? { perSide: note.perSide } : {}),
+        ...(note.borderTurn !== undefined ? { borderTurn: note.borderTurn } : {}),
       },
     })),
     ...moves.map((note) => prisma.curve.update({
@@ -100,11 +92,11 @@ export async function saveNotes(payload) {
     prisma.note.findMany({ orderBy: { uid: "asc" } }),
     prisma.curve.findMany({ select: { uid: true, candidate: true } }),
   ]);
-  const candidateOf = new Map(curves.map((curve) => [curve.uid, curve.candidate]));
+  const candidateOf = new Map(curves.map((curve: any) => [curve.uid, curve.candidate]));
   const dir = path.join(repoRoot(), "workbench");
   const file = path.join(dir, "curve-notes.json");
   if (existsSync(file)) copyFileSync(file, path.join(dir, "curve-notes.backup.json"));
-  const exported = rows.map((row) => ({
+  const exported = rows.map((row: any) => ({
     ...toNote(row),
     ...(candidateOf.get(row.uid) ? { candidate: true } : {}),
   }));

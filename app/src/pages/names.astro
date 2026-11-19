@@ -3,9 +3,9 @@
 // kept as a draft in this browser until it is saved, so a reload cannot lose it.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { loadRegistry } from "../lib/registry.js";
-import { splitName } from "../lib/name-parts.js";
-import { readDuplicates } from "../lib/duplicates.js";
+import { loadRegistry } from "../lib/registry.ts";
+import { splitName } from "../lib/name-parts.ts";
+import { readDuplicates } from "../lib/duplicates.ts";
 import { repoRoot } from "../lib/gallery.js";
 import BaseLayout from "../layouts/BaseLayout.astro";
 

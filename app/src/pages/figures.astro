@@ -3,7 +3,7 @@
 // under each, so a curve whose frame is too wide can be swapped or turned.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { loadRegistry } from "../lib/registry.js";
+import { loadRegistry } from "../lib/registry.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const registry = (await loadRegistry()).curves;

@@ -1,4 +1,3 @@
-// @ts-check
 // The registry as the pages read it: the JSON index, with the human edits from
 // the database applied on top. The database is the record; the JSON is seed.
 import { readFileSync } from "node:fs";
@@ -6,43 +5,44 @@ import path from "node:path";
 import { prisma } from "./db.js";
 import { repoRoot } from "./gallery.js";
 
-/**
- * @typedef {Object<string, any> & {
- *   uid: string,
- *   name: string,
- *   lists: string[],
- *   aliases?: string[],
- *   candidate?: boolean,
- *   importance?: number,
- *   rotation?: number,
- *   pieces?: number,
- *   border_uid?: string,
- *   updated?: string,
- *   starred?: boolean,
- *   auto_named?: boolean,
- *   savedName?: string | null,
- * }} Curve
- */
+export type Curve = {
+  uid: string;
+  name: string;
+  lists: string[];
+  aliases?: string[];
+  candidate?: boolean;
+  importance?: number;
+  rotation?: number;
+  pieces?: number;
+  border_uid?: string;
+  updated?: string;
+  starred?: boolean;
+  auto_named?: boolean;
+  savedName?: string | null;
+  [key: string]: any;
+};
 
-/**
- * @param {string} [base]
- * @returns {Promise<{ curves: Curve[], sets?: any[] }>}
- */
-export async function loadRegistry(base) {
+export type Registry = {
+  curves: Curve[];
+  sets?: any[];
+  [key: string]: any;
+};
+
+export async function loadRegistry(base?: string): Promise<Registry> {
   const root = base || repoRoot();
-  const registry = JSON.parse(readFileSync(path.join(root, "workbench", "curve-registry.json"), "utf8"));
+  const registry: Registry = JSON.parse(readFileSync(path.join(root, "workbench", "curve-registry.json"), "utf8"));
   const [notes, curves] = await Promise.all([
     prisma.note.findMany(),
     prisma.curve.findMany({ select: { uid: true, candidate: true } }),
   ]);
-  const byUid = new Map(notes.map((note) => [note.uid, note]));
-  const candidateOf = new Map(curves.map((curve) => [curve.uid, curve.candidate]));
+  const byUid = new Map(notes.map((note: any) => [note.uid, note]));
+  const candidateOf = new Map<string, boolean>(curves.map((curve: any) => [curve.uid, curve.candidate]));
 
   for (const record of registry.curves) {
     // A curve moved to the notes pool is a row in the database: the seed does
     // not know about it, so the database decides.
     if (candidateOf.has(record.uid)) record.candidate = candidateOf.get(record.uid);
-    const note = byUid.get(record.uid);
+    const note: any = byUid.get(record.uid);
     if (!note) continue;
     if (note.name && note.name !== record.name) {
       if (!Array.isArray(record.aliases)) record.aliases = [];
@@ -56,6 +56,8 @@ export async function loadRegistry(base) {
     if (note.borderUid) record.border_uid = note.borderUid;
     record.updated = note.updatedAt ? note.updatedAt.toISOString() : undefined;
     record.savedName = note.name || null;
+    if (note.perSide) record.perSide = note.perSide;
+    if (note.borderTurn) record.borderTurn = note.borderTurn;
   }
 
   const records = new Map(registry.curves.map((record) => [record.uid, record]));

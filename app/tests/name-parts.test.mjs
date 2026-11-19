@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { composeName, splitName } from "../src/lib/name-parts.js";
+import { composeName, splitName } from "../src/lib/name-parts.ts";
 
 test("a construction with no variant is a name on its own", () => {
   assert.equal(composeName({ prefix: "amper", core: "", postfix: "" }), "amper");
@@ -36,7 +36,7 @@ test("splitting a stored name gives back the same name", () => {
 });
 
 test("an old draft never hides a newer saved name", async () => {
-  const { draftState } = await import("../src/lib/name-parts.js");
+  const { draftState } = await import("../src/lib/name-parts.ts");
   const savedAt = Date.parse("2026-11-19T01:01:00Z");
   assert.deepEqual(draftState("45deg-t1of4", savedAt), { value: "45deg-t1of4", stale: true });
   assert.deepEqual(draftState({ value: "old", at: savedAt - 1000 }, savedAt).stale, true);
@@ -44,13 +44,13 @@ test("an old draft never hides a newer saved name", async () => {
 });
 
 test("an empty draft is not a draft", async () => {
-  const { draftState } = await import("../src/lib/name-parts.js");
+  const { draftState } = await import("../src/lib/name-parts.ts");
   assert.equal(draftState("", 0).value, undefined);
   assert.equal(draftState({ value: "", at: Date.now() }, 0).value, undefined);
 });
 
 test("the duplicate table marks every uid in a group, never the group's head only", async () => {
-  const { parseDuplicates } = await import("../src/lib/duplicates.js");
+  const { parseDuplicates } = await import("../src/lib/duplicates.ts");
   const text = [
     "| group | worst | uids | names |",
     "|---|---|---|---|",

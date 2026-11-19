@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { finderSections } from "../src/lib/finder-sections.js";
+import { finderSections } from "../src/lib/finder-sections.ts";
 
 const curve = (id, name, extra = {}) => ({ id, name, family: "septic", ...extra });
 

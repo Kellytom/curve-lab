@@ -4,7 +4,7 @@
 // a bare Element and the linter saw nothing at all. The rule it uses is
 // `composeName`, which has its own test; this file is only reading the boxes
 // and posting them.
-import { composeName, draftState } from "../lib/name-parts.js";
+import { composeName, draftState } from "../lib/name-parts.ts";
 
 const DRAFTS = "names-drafts";
 const readDrafts = () => {

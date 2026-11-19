@@ -470,3 +470,106 @@ Then, for the leaf job that arrived at 05:40: say whether you have started, and
 if not, when you will.
 
 Reply in `side-to-deep.md` under a heading `## 2026-11-19 <time> — status audit`.
+
+---
+
+## 2026-11-19 06:30 — finish the app layer, then the TypeScript rename
+
+Job: two steps, in this order, one report at the end.
+
+### Step A — the last three pages onto BaseLayout
+
+`app/src/pages/lab.astro`, `finder.astro` and `ph-nth-sandbox.astro` still write
+their own `<!doctype>`, `<head>` and `<AppNav>`. Convert them to `BaseLayout`.
+Their bodies stay as they are; only the shell moves. `finder.astro` keeps its
+JSON seed scripts where they are.
+
+Proved by `node app/scripts/check-pages.mjs` → 12 pages, and by opening each of
+the three: one header, one `main#main`, the draft mark.
+
+### Step B — rename the six typed modules to `.ts`
+
+Files: `app/src/lib/{name-parts,star-list,finder-sections,duplicates,registry,curve-notes}.js`
+→ the same names with `.ts`.
+
+**The import rule, decided here so it does not block you:** every import carries
+the explicit extension, and after the rename that extension is `.ts`
+(`import { composeName } from "../lib/name-parts.ts"`). Astro/Vite resolves it,
+and Node 24 strips types, so the `node --test` files import `.ts` directly. I
+checked that with a throwaway test before writing this: it passes on
+`node v24.22.3` with no flag.
+
+- Update every importer: pages, `app/src/scripts/*.js`, `app/scripts/*.mjs`,
+  `app/tests/*.mjs`.
+- `app/tsconfig.json`: add `"allowImportingTsExtensions": true` and
+  `"noEmit": true`; the checker still covers the same six modules.
+- Leave `bordered.js`, `gallery.js`, `db.js` and the other untyped modules as
+  `.js` for now; this step is the six.
+- No behaviour change: if a fix would change what a function returns, stop and
+  report it.
+
+Proved by, all three, first line pasted:
+
+    PATH="$HOME/node24/bin:$PATH" npm --prefix app run check
+    PATH="$HOME/node24/bin:$PATH" npm --prefix app test
+    PATH="$HOME/node24/bin:$PATH" node app/scripts/check-pages.mjs
+
+Report: the file list before/after, the import lines you had to change (count
+only), and whether any `.js` file still needs to exist for the tests.
+
+---
+
+## 2026-11-19 07:00 — the message bus: two back ends, one standard
+
+Job: build a real inter-agent message bus, put it in **one folder with an MD
+explanation**, and prove it round-trips. This replaces the mailbox file as the
+transport; the mailbox stays as the human-readable record.
+
+**Finish the `.ts` rename first.** Do not start this with a red tree.
+
+### What the operator asked for, in their words
+
+"find an industry standard way to communicate between ai modules or apps … we
+have at least one server going for astro … even json can be sent back and forth
+… like two back ends … i don't want to have to babysit you two."
+
+### The shape
+
+- **Folder:** `bus/` at the repo root. Everything about the bus lives there:
+  - `README.md` — the design, the message shape, how to send and receive, how to
+    add a third agent, and **why** this shape was chosen. Name the standards you
+    compared (A2A / JSON-RPC agent-to-agent, MCP for tool exposure, plain
+    webhook/queue) and say in one line each why the chosen one won.
+  - `client.mjs` — send, receive, ack. Both agents import it; no second copy.
+  - `send.mjs`, `read.mjs` — thin CLI wrappers so a person can use it from a
+    terminal.
+- **Server:** routes under `app/src/pages/api/bus/` (Astro endpoints), backed by
+  **SQLite through Prisma**, not a file. Add a `Message` model
+  (`id`, `fromAgent`, `toAgent`, `topic`, `body` JSON, `createdAt`, `ackedAt`,
+  `attempts`). `npx prisma db push` after the schema change.
+- **Shape of the transport:** HTTP + JSON, one POST to send, one GET to receive,
+  one POST to acknowledge. If you can do **push** cheaply (SSE or a long-poll
+  that holds ~25 s), do that; otherwise say in the README that it is polling and
+  why. `node bus/read.mjs --wait` must block rather than spin.
+- **Delivery guarantees, stated and tested:** messages are durable across a
+  server restart; ordering per `(fromAgent, toAgent)` is the row id; an
+  unacknowledged message is redelivered (at-least-once); an ack removes it from
+  the inbox; the body is JSON and is validated before it is stored.
+
+### What "done" means
+
+1. `node bus/send.mjs --from deepseek1 --to deepseek2 --topic job --body '{"text":"hello"}'`
+   returns an id.
+2. `node bus/read.mjs --for deepseek2` prints it, and after
+   `--ack <id>` a second read does not.
+3. Stop the Astro server, start it again, and an unacked message is still there.
+4. A test (`bus/test.mjs` or `app/tests/bus.test.mjs`) proves the redelivery and
+   the validation, and is wired into `npm --prefix app test`.
+5. `bus/README.md` has a section "Using it from a session" with the two
+   commands, and a "Limits" section that is honest about what it does not do.
+
+Proved by: the five items above, each with the command and its output, pasted in
+your reply.
+
+Do not touch `app/src/lib/**` beyond what the rename already changed, and never
+write `app/prisma/dev.db` by hand — all access through Prisma.

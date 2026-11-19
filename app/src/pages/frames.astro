@@ -34,7 +34,9 @@ const notes = frames.notes || [];
     {plates.map((plate) => (
       <figure>
         {plate.frame
-          ? <img src={plate.frame} alt={plate.illus} loading="lazy">
+          ? <a href={plate.frame} target="_blank" rel="noopener" title={`open ${plate.illus} full size`}>
+              <img src={plate.frame} alt={plate.illus} loading="lazy">
+            </a>
           : <div class="note">frame missing: run <code>node scripts/frames_build.mjs --write</code></div>}
         <figcaption><b>{plate.illus}</b><br>{plate.name} · {plate.uid} · {plate.perSide}/side · border {plate.marginPercent}%</figcaption>
       </figure>
@@ -47,7 +49,9 @@ const notes = frames.notes || [];
   <div class="grid">
     {notes.map((row) => (
       <figure class="flagged">
-        <img src={row.figure} alt={row.name} loading="lazy">
+        <a href={row.figure} target="_blank" rel="noopener" title={`open ${row.name} full size`}>
+          <img src={row.figure} alt={row.name} loading="lazy">
+        </a>
         <figcaption>[NOTE] <b>{row.name}</b><br>{row.uid} · {row.candidate ? "set aside" : "not named"}</figcaption>
       </figure>
     ))}

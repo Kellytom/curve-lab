@@ -3,7 +3,7 @@
 // candidate pool, not the collection, and they are kept so the pool is visible.
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { loadRegistry } from "../lib/registry.js";
+import { loadRegistry } from "../lib/registry.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 const registry = (await loadRegistry()).curves;
 const candidates = registry.filter((record) => record.candidate);

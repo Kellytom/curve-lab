@@ -2,8 +2,8 @@
 // The curve finder. The numbers come from the generators via
 // workbench/finder.json; this page draws, labels, and stars by a stable id.
 import { finderData, svgPath } from "../lib/finder.js";
-import { finderSections } from "../lib/finder-sections.js";
-import AppNav from "../components/AppNav.astro";
+import { finderSections } from "../lib/finder-sections.ts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const data = await finderData();
 const curves = data.curves;
@@ -40,65 +40,58 @@ function metaLine(curve) {
 }
 ---
 
-<!doctype html>
-<html lang="en" data-theme="light"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/vendor/pico.min.css">
-<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
-<link rel="stylesheet" href="/vendor/app-shell.css">
-<title>Curve finder: draft A</title>
-<style is:global>
-body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
-main{max-width:1120px;margin:0 auto;padding:24px 22px 60px}
-h1{font-size:24px;margin:0 0 4px}
-h2{font-size:16px;margin:26px 0 2px}
-.lead{color:#8c6a21;margin:0 0 12px;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.card{background:#fffdf7;border:1px solid #d8ccae;padding:10px}
-.card h3{font-size:14px;margin:0 0 6px}
-.card svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #eee;margin-bottom:6px}
-.meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:#555}
-.flag{display:inline-block;margin:4px 4px 0 0;padding:1px 6px;border:1px solid #c9a441;
-  background:#fbf3dc;font:10px/1.5 ui-monospace,Menlo,monospace;color:#8c6a21}
-.star{background:none;border:0;font-size:15px;color:#8c6a21;cursor:pointer;padding:0 3px}
-#save-stars,#export-stars{font:11px ui-monospace,Menlo,monospace;padding:2px 8px;border:1px solid #c9a441;
-  background:#fbf3dc;color:#8c6a21;cursor:pointer}
-#star-status{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e;margin-left:8px}
-.empty{border:1px dashed #d3d3d3;padding:18px;color:#777}
-code{font:11px ui-monospace,Menlo,monospace}
-</style>
-</head><body>
-<AppNav title="the curve finder" />
-<main id="main">
-<h1>Curve finder</h1>
-<p class="lead" id="star-status" aria-live="polite"></p>
+<BaseLayout title="the curve finder" pageTitle="Curve finder: draft A" mainClass="">
+  <Fragment slot="head">
+    <style is:global>
+    body{margin:0;background:#f6f1e4;color:#2e2413;font:15px/1.55 Georgia,serif}
+    main{max-width:1120px;margin:0 auto;padding:24px 22px 60px}
+    h1{font-size:24px;margin:0 0 4px}
+    h2{font-size:16px;margin:26px 0 2px}
+    .lead{color:#8c6a21;margin:0 0 12px;font-size:13px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+    .card{background:#fffdf7;border:1px solid #d8ccae;padding:10px}
+    .card h3{font-size:14px;margin:0 0 6px}
+    .card svg{display:block;width:100%;height:auto;background:#fff;border:1px solid #eee;margin-bottom:6px}
+    .meta{font:11px/1.55 ui-monospace,Menlo,monospace;color:#555}
+    .flag{display:inline-block;margin:4px 4px 0 0;padding:1px 6px;border:1px solid #c9a441;
+      background:#fbf3dc;font:10px/1.5 ui-monospace,Menlo,monospace;color:#8c6a21}
+    .star{background:none;border:0;font-size:15px;color:#8c6a21;cursor:pointer;padding:0 3px}
+    #save-stars,#export-stars{font:11px ui-monospace,Menlo,monospace;padding:2px 8px;border:1px solid #c9a441;
+      background:#fbf3dc;color:#8c6a21;cursor:pointer}
+    #star-status{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e;margin-left:8px}
+    .empty{border:1px dashed #d3d3d3;padding:18px;color:#777}
+    code{font:11px ui-monospace,Menlo,monospace}
+    </style>
+  </Fragment>
+  <h1>Curve finder</h1>
+  <p class="lead" id="star-status" aria-live="polite"></p>
 
-{sections.length ? sections.map((section) => (
-  <section id={section.key}>
-    <h2>{section.title}{section.key === "starred"
-      ? <span id="star-count" title="stars this page can show"> {section.curves.length}</span>
-      : null}</h2>
-    {section.lead ? <p class="lead">{section.lead}</p> : null}
-    <div class="grid" id={`${section.key}-grid`}>
-      {section.curves.map((curve) => {
-        const { d, viewBox } = svgPath(curve.path);
-        return (
-          <article class="card">
-            <h3><button class="star" type="button" data-id={curve.id} aria-label={`star ${curve.name}`}>☆</button> {curve.name}</h3>
-            <svg viewBox={viewBox} role="img" aria-label={curve.name}><path d={d} fill="none" stroke="#111" stroke-width="1.2"/></svg>
-            <p class="meta">{metaLine(curve)}</p>
-            {curve.flags && curve.flags.length ? curve.flags.map((flag) => <span class="flag">{flag}</span>) : null}
-          </article>
-        );
-      })}
-    </div>
-  </section>
-)) : (
-  <p class="empty">No curves yet. Run a generator, e.g. <code>.venv/bin/python scripts/septic_family.py</code>.</p>
-)}
-</main>
-<script id="finder-stars-seed" type="application/json" set:html={JSON.stringify(data.starred || [])}></script>
-<script id="finder-specs" type="application/json" set:html={JSON.stringify(specs)}></script>
-<script id="finder-name-to-id" type="application/json" set:html={JSON.stringify(Object.fromEntries(curves.map((c) => [c.name, c.id])))}></script>
-<script>import "../scripts/finder-stars.js";</script>
-</body></html>
+  {sections.length ? sections.map((section) => (
+    <section id={section.key}>
+      <h2>{section.title}{section.key === "starred"
+        ? <span id="star-count" title="stars this page can show"> {section.curves.length}</span>
+        : null}</h2>
+      {section.lead ? <p class="lead">{section.lead}</p> : null}
+      <div class="grid" id={`${section.key}-grid`}>
+        {section.curves.map((curve) => {
+          const { d, viewBox } = svgPath(curve.path);
+          return (
+            <article class="card">
+              <h3><button class="star" type="button" data-id={curve.id} aria-label={`star ${curve.name}`}>☆</button> {curve.name}</h3>
+              <svg viewBox={viewBox} role="img" aria-label={curve.name}><path d={d} fill="none" stroke="#111" stroke-width="1.2"/></svg>
+              <p class="meta">{metaLine(curve)}</p>
+              {curve.flags && curve.flags.length ? curve.flags.map((flag) => <span class="flag">{flag}</span>) : null}
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  )) : (
+    <p class="empty">No curves yet. Run a generator, e.g. <code>.venv/bin/python scripts/septic_family.py</code>.</p>
+  )}
+
+  <script id="finder-stars-seed" type="application/json" set:html={JSON.stringify(data.starred || [])}></script>
+  <script id="finder-specs" type="application/json" set:html={JSON.stringify(specs)}></script>
+  <script id="finder-name-to-id" type="application/json" set:html={JSON.stringify(Object.fromEntries(curves.map((c) => [c.name, c.id])))}></script>
+  <script>import "../scripts/finder-stars.js";</script>
+</BaseLayout>

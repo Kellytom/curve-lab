@@ -11,17 +11,19 @@
   "extends": "astro/tsconfigs/base",
   "include": [
     ".astro/types.d.ts",
-    "src/lib/name-parts.js",
-    "src/lib/star-list.js",
-    "src/lib/finder-sections.js",
-    "src/lib/duplicates.js",
-    "src/lib/registry.js",
-    "src/lib/curve-notes.js"
+    "src/lib/name-parts.ts",
+    "src/lib/star-list.ts",
+    "src/lib/finder-sections.ts",
+    "src/lib/duplicates.ts",
+    "src/lib/registry.ts",
+    "src/lib/curve-notes.ts"
   ],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "strictNullChecks": true,
     "noImplicitAny": false,
     "noUnusedLocals": false

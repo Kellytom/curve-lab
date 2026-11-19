@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { validateNotes } from "../src/lib/curve-notes.js";
+import { validateNotes } from "../src/lib/curve-notes.ts";
 
 test("a bad uid or importance is refused before the database sees it", () => {
   assert.throws(() => validateNotes({ curves: [{ uid: "nope" }] }), /uid/);

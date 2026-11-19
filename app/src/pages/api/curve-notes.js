@@ -1,7 +1,7 @@
 // GET  /api/curve-notes — every name and rating a human has set.
 // POST /api/curve-notes — merge one or more {uid, name, importance} rows.
 
-import { readNotes, saveNotes } from "../../lib/curve-notes.js";
+import { readNotes, saveNotes } from "../../lib/curve-notes.ts";
 import { clearIlluminateCache } from "../../lib/bordered.js";
 
 const base = () => process.env.CURVE_LAB_ROOT || process.cwd();

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { dedupeStars, starKey } from "../src/lib/star-list.js";
+import { dedupeStars, starKey } from "../src/lib/star-list.ts";
 
 test("a curve starred twice by id is one star", () => {
   const list = [{ id: "septic-1", name: "loop" }, { id: "septic-1", name: "loop" }];
