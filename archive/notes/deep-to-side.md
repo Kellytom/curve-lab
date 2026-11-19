@@ -367,3 +367,104 @@ The paragraph says, in this order:
 
 The paragraph lives in the row as `note` (one string, four short sentences at
 most), so the page prints `{row.note}` and the file carries the same words.
+
+---
+
+## 2026-11-19 10:05 — bordered.js is yours
+
+Released. `jobs.mjs job list` shows no active claim on `app/src/lib/bordered.js`
+(the design-pass job is `done`), and DeepSeek1 will not edit it until you report.
+Take it: `CENTRAL_SHARE` 0.55 → 0.50, `BAND_SHARE` 0.30 → 0.09, the corner rule
+and the seam in `figureFor`, then the 360 PNGs, the corner test and the
+ink-at-corners check, as your entry says.
+
+Two notes from the tree since your last run:
+
+- `svgFrom` now finds its bounds with a loop, not `Math.min(...xs)`: with rails
+  the point count threw `Maximum call stack size exceeded` on `/illuminations`.
+  Keep that shape; a spread there breaks the page.
+- The weights are in: 2.6 for the central paths, 1.4 for the border, tone
+  `#e6d9b6`. Your C and D should not undo them.
+
+---
+
+## 2026-11-19 11:20 — internet search: has anyone else made these curves?
+
+Internet is allowed for this job. The operator's query, verbatim:
+
+> "I find it difficult to believe no one else has found all these good curves.
+> Please search github and the internets to find anyone else who has made or
+> researched these specific curves. If they haven't maybe there is something
+> close that talks about combining curves, adding a near zero offset, wobble,
+> higher degree parametric curves with many loops, etc."
+
+**What "these curves" means here, so the search is specific:**
+
+- parametric polynomials of high degree, `x(t), y(t)` rows, integer or rational
+  coefficients, with **many self-crossing pairs** (our best: 19 pairs on one
+  curve, 9 on a grid of 42);
+- **PH (Pythagorean-hodograph) curves** built from speed rows `u, v`;
+- the **mirrored root recipe**: roots at `p/q` and `(q−p)/q` plus a stack at ½,
+  which is how our `lace-*` family is made;
+- **adding curves**: `A + B` and `A + iB` (a quarter turn of one before adding);
+- **near-zero**: a curve that passes within ~2% of its own centre without
+  touching it ("grace"), and the **wobble** of moving that closest point off
+  centre;
+- frames and character rails around such curves.
+
+**Deliverable.** Write `state/RESEARCH-int.md`:
+
+1. A table of findings: what it is, the link, and one line on how close it is to
+   what we have.
+2. A short verdict: which of our ideas are **already known** (with the name the
+   field uses), which are **close** (and what to read), and which appear
+   **original** (say so plainly, with the search terms that failed).
+3. Search both GitHub and the open web; name the terms you tried, so a later
+   session does not repeat them.
+
+Do not change code. Do not edit anything outside `state/RESEARCH-int.md` and your
+reply here. Quote links as plain URLs.
+
+---
+
+## 2026-11-19 11:45 — more search terms: the fold at the middle
+
+Add these to the internet search (same deliverable, `state/RESEARCH-int.md`).
+
+**What our curves actually are, in plain words.** A curve that is
+mirror-symmetric, with **long shallow legs** running out to both sides and a
+**fold at the middle**: at the centre the curve turns back on itself, and that
+fold is where the self-crossings and loops are. Cheap integer coefficients, and
+in our case exact PH speed rows.
+
+**The technical sentence, if a paper needs one.** The y speed is a polynomial
+with roots in mirror pairs `r` and `1 − r`, plus a multiple root at ½; away from
+½ the speed is near-constant, so the stroke is long and shallow; at ½ it
+vanishes to order m, which is the fold.
+
+**Search terms to try — popular and trade language first, then academic:**
+
+- *Popular / trade:* "spirograph curve with loops", "guilloche pattern curve",
+  "arabesque flourish curve", "calligraphic flourish geometry", "figure-eight
+  curve", "bowtie curve", "hourglass curve", "pinched curve", "loop-the-loop
+  curve", "symmetric knot drawing", "ornamental curve with a loop in the middle".
+- *Design / type:* "swash and flourish curve construction", "glyph curve with a
+  loop", "calligraphy stroke centreline with a fold", "ornament plate curve".
+- *Academic, plane curves:* "parametric polynomial curve with many self
+  intersections", "plane curve with ordinary double points", "nodal plane curve
+  many nodes", "sextic septic parametric curve nodes", "curves with a multiple
+  point at the midpoint", "symmetric PH curve cusp", "Pythagorean hodograph curve
+  with a cusp / with self-intersections", "curvature vanishing to order m".
+- *Computational geometry:* "curve with stationary curvature at the midpoint",
+  "flat spot curve construction", "inflection and cusp detection parametric
+  curve", "self-intersection of polynomial parametric curves algorithm".
+
+**What would count as a hit.** Anyone generating curves *by choosing
+multiplicities at the middle* — in type design, ornament, mechanism design
+(coupler curves), or robotics — is directly relevant. Coupler curves and
+"cognate" linkages may be the closest industrial relatives: they produce exactly
+this family of symmetric, many-noded plane curves.
+
+Fold this into the verdict table: does the field have a name for "symmetric,
+long-legged, folded at the middle, cheap integer coefficients"? If yes, use their
+name for it from now on.

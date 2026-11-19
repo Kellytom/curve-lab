@@ -1,0 +1,71 @@
+---
+// One curve, large: the place to look at a single stroke closely.
+//
+// /figures stays the contact sheet of every curve; /names is the desk where
+// names are edited; this page is the close look, and the place a curve's
+// numbers sit beside its picture.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { loadRegistry } from "../../lib/registry.ts";
+import { repoRoot } from "../../lib/gallery.js";
+
+const { uid } = Astro.params;
+const registry = await loadRegistry();
+const record = registry.curves.find((curve) => curve.uid === uid);
+if (!record) return new Response("no such curve", { status: 404 });
+
+const analysis = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "curve-analysis.json"), "utf8"));
+const metric = (analysis.curves || []).find((row) => row.uid === uid) || {};
+const frames = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "frames.json"), "utf8"));
+const plate = (frames.curves || []).find((row) => row.uid === uid);
+
+const ordered = [...registry.curves].sort((a, b) => a.uid.localeCompare(b.uid));
+const at = ordered.findIndex((curve) => curve.uid === uid);
+const previous = ordered[at - 1];
+const next = ordered[at + 1];
+const number = (value, fallback = "—") =>
+  typeof value === "number" && Number.isFinite(value) ? String(value) : fallback;
+---
+
+<BaseLayout title={record.name} pageTitle="One curve: draft A">
+  <Fragment slot="head">
+    <style is:global>
+    .single{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:26px;align-items:start}
+    @media (max-width:900px){.single{grid-template-columns:1fr}}
+    .picture{margin:0;background:#fff;border:1px solid var(--pico-muted-border-color)}
+    .picture img{display:block;width:100%;height:auto}
+    .facts{margin:0;padding:0;list-style:none;font:12px/1.9 ui-monospace,Menlo,monospace;color:var(--pico-muted-color)}
+    .facts b{color:var(--pico-color);font-weight:600}
+    .pager{display:flex;justify-content:space-between;margin-top:18px;font:12px/1.6 ui-monospace,Menlo,monospace}
+    </style>
+  </Fragment>
+
+  <h1>{record.name}</h1>
+  <p class="lead">{record.uid} · {record.family_id} · {record.lists.join(", ")}
+    {record.candidate ? " · set aside" : ""}</p>
+
+  <div class="single">
+    <figure class="picture">
+      <a href={`/figures/${record.uid}.png`} target="_blank" rel="noopener">
+        <img src={`/figures/${record.uid}.png`} alt={record.name}>
+      </a>
+    </figure>
+    <div>
+      <ul class="facts">
+        <li>grid <b>{metric.grid ? Number(metric.grid).toLocaleString("en-GB") : "—"}</b></li>
+        <li>bend <b>{number(metric.bend)}</b> (arc over chord)</li>
+        <li>crossing pairs <b>{number(metric.crossings, "0")}</b>, at <b>{number(metric.meetingPoints, "0")}</b> places</li>
+        <li>inflections <b>{number(metric.inflections, "0")}</b> of {number(metric.inflectionMax, "—")}</li>
+        <li>median curvature × size <b>{number(metric.curvatureMedian)}</b></li>
+        <li>mirror gap <b>{number(metric.mirrorY)}</b> · half turn <b>{number(metric.halfTurn)}</b></li>
+        <li>method <b>{metric.method || "—"}</b></li>
+        {plate ? <li>plate <b>{plate.illus}</b> · {plate.perSide} a side</li> : <li>no plate (not among the 90)</li>}
+      </ul>
+      <p class="pager">
+        {previous ? <a href={`/curves/${previous.uid}`}>← {previous.name}</a> : <span></span>}
+        {next ? <a href={`/curves/${next.uid}`}>{next.name} →</a> : <span></span>}
+      </p>
+    </div>
+  </div>
+</BaseLayout>

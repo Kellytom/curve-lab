@@ -1,0 +1,17 @@
+{
+ "format": "curve-lab.new-curve/1",
+ "name": "lissajous-t3-t5",
+ "family": "lissajous-chebyshev",
+ "note": "x = T3(t), y = T5(t) over t in [-1,1]; whole coefficients, so every rational t gives a rational point",
+ "x": [0, -3, 0, 4],
+ "y": [0, 5, 0, -20, 0, 16],
+ "found": "2026-11-19",
+ "numbers": {
+  "crossingPairsRouter": 2,
+  "aspect": 1.0,
+  "bbox": [2.0, 2.0],
+  "inflections": 2,
+  "grid": 1
+ },
+ "caveat": "Lissajous figures are a known family; new to this registry, not new to the world. The Chebyshev form is the exact-integer one: x = T3, y = T5."
+}

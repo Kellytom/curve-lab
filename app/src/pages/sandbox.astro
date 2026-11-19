@@ -86,6 +86,25 @@ function rowsOf(terms) {
   <p class="lead">Both are sampled drawings. The imaginary curves also carry exact
     grid and inflection counts from the one core, and say so where they do.</p>
 
+
+  <h2>0 · The Lissajous maker</h2>
+  <p class="lead">A new family for this registry: x = T<sub>m</sub>(t), y = T<sub>n</sub>(t),
+    the Chebyshev form of the Lissajous figure. Whole coefficients, so every rational
+    t gives a rational point — grid 1, not an approximation. Move the two degrees.</p>
+  <div class="lab" style="display:grid;grid-template-columns:380px minmax(0,1fr);gap:20px;align-items:start">
+    <svg id="liss-plot" viewBox="0 0 360 360" role="img" aria-label="the Lissajous curve"
+      style="width:380px;height:380px;background:#fffdf7;border:1px solid var(--pico-muted-border-color)"></svg>
+    <div>
+      <label for="liss-m">x = T<sub>m</sub> · <output id="liss-m-out">3</output></label>
+      <input id="liss-m" type="range" min="1" max="12" step="1" value="3">
+      <label for="liss-n">y = T<sub>n</sub> · <output id="liss-n-out">5</output></label>
+      <input id="liss-n" type="range" min="1" max="12" step="1" value="5">
+      <p class="facts" id="liss-readout" style="font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:12px"></p>
+      <p class="lead">Known to the field as Lissajous curves; new to this registry. The
+        Chebyshev form is the one that stays on the integer grid.</p>
+    </div>
+  </div>
+
   <h2>1 · Adding curves, term by term</h2>
   <p class="lead">Each term drawn alone over the same window, three across, then the
     sum at the same scale. A polynomial's shape is the sum of its terms; this is

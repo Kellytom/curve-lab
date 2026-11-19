@@ -1,0 +1,63 @@
+---
+// The looped integer Béziers found by scripts/bezier_knots.py.
+//
+// Whole-number controls, Bernstein form: exact at every dyadic t (halves,
+// quarters). Each card shows the curve in black and its control polygon
+// dashed, so the loop can be read back to the numbers that made it.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+
+const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "bezier-knots.json"), "utf8"));
+const curves = data.curves || [];
+
+function plot(controls, points, size = 300) {
+  const xs = points.map((p) => p[0]);
+  const ys = points.map((p) => p[1]);
+  const pad = 22;
+  const span = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys), 1e-9);
+  const k = (size - 2 * pad) / span;
+  const cx = (Math.max(...xs) + Math.min(...xs)) / 2;
+  const cy = (Math.max(...ys) + Math.min(...ys)) / 2;
+  const sx = (x) => size / 2 + (x - cx) * k;
+  const sy = (y) => size / 2 - (y - cy) * k;
+  const line = (list) => list.map(([x, y], i) => `${i ? "L" : "M"}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join("");
+  return `<svg viewBox="0 0 ${size} ${size}" role="img">
+    <rect width="${size}" height="${size}" fill="#fffdf7"/>
+    <path d="${line(controls)}" fill="none" stroke="#c9a441" stroke-width="1" stroke-dasharray="4 3"/>
+    ${controls.map(([x, y]) => `<circle cx="${sx(x).toFixed(1)}" cy="${sy(y).toFixed(1)}" r="2.5" fill="#c9a441"/>`).join("")}
+    <path d="${line(points)}" fill="none" stroke="#141414" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>`;
+}
+---
+
+<BaseLayout title="the Bézier knots" pageTitle="Bézier knots: draft A">
+  <Fragment slot="head">
+    <style is:global>
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    figure{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color)}
+    figure svg{display:block;width:100%;height:auto}
+    figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);padding:6px 8px;border-top:1px solid var(--pico-muted-border-color);word-break:break-word}
+    code{font:11px/1.5 ui-monospace,Menlo,monospace}
+    </style>
+  </Fragment>
+
+  <h1>Looped integer Béziers</h1>
+  <p class="lead"><b>{curves.length}</b> curves from <code>scripts/bezier_knots.py</code> — whole-number
+    control points, Bernstein form, exact at every dyadic <code>t</code>. The dashed
+    polygon is the control net; the loops are what an integer net can do that a
+    straight chain cannot. Sorted by crossings, then by how square the figure is.</p>
+
+  <div class="grid">
+    {curves.map((curve, index) => (
+      <figure>
+        <Fragment set:html={plot(curve.controls, curve.points)} />
+        <figcaption>
+          #{index + 1} · degree {curve.degree} · <b>{curve.crossings} crossings</b> · aspect {curve.aspect}<br>
+          controls {curve.controls.map(([x, y]) => `(${x}, ${y})`).join(" ")}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</BaseLayout>

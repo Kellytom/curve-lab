@@ -11,6 +11,16 @@ rows, tweaks as database rows, character rails on all 262 curves, tails, the
 review, and the 77 empty cells of (crossings x inflections). The file carries
 the first measurable step for each. Not this week.
 
+## Stragglers — covered ground, park for later (2026-11-19)
+
+The main families are done; these are loose ends, not new work:
+
+- the tiny cheap knots, for a close look: `m-arch`/`w-arch` grid 15, `lace-1of8-1of3-0` grid 42, `loop-7-mid-2` grid 90 (8 pairs), `wave3` grid 105;
+- `/figures` gives up on 262 lazy images in the light browser; the new `/curves/<uid>` page is the close look, and /figures could be split into pages of 50;
+- the root lab (`/roots`) reproduces the `lace-*` family; it needs a second pair and a variable x row before it can find anything;
+- the parity sweep (u even, v odd over t ∈ [−1,1]) gives symmetry but almost no crossings — recorded, not pursued;
+- coupler curves: my first generator zigzagged between circle-intersection branches; the family still looks worth one careful attempt.
+
 ## Book plates — 2026-11-17
 
 The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers
