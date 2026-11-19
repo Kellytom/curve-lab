@@ -191,6 +191,7 @@ and documentation alike.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
+| `state/PRIME-MOVER-int.md` | the prime mover: drive parametrics with a unit circle walked by p-triples, not by a linear t; read before designing a new family |
 | `state/EXPLORATION-int.md` | future ideas with their first measurable step: the pendulum mobile, Gaussian transforms, tweaks as rows, rails on every curve, tails, the review, the empty cells |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
@@ -278,6 +279,10 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 - **Push after every green block, not only at handoff.** The remote is the
   backup: a red or stale remote is worse than a local commit. If a push turns
   the `native` workflow red, fix or revert before starting the next task.
+- **DeepSeek2 owns git (2026-11-19).** It commits and pushes its own work when
+  `scripts/prepush.sh` is green, and reports the hash. DeepSeek1 decides what is
+  work, reviews the diff and writes the handoff; it does not commit while
+  DeepSeek2 is mid-job. One committer at a time, always.
 - **Push `main` at every handoff.** Do not end a session with green local
   commits GitHub has not seen. Before pushing: `scripts/test.py --full` and
   `scripts/recheck.py` must pass; then `git push origin main`; then

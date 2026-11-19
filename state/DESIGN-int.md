@@ -735,6 +735,21 @@ not just md?" — and "i consider typescript a BIG framework. but do it".
   no longer be hidden by yesterday's text.
 - The rule behind all of it: **a rule that cannot fail a command is a wish.**
 
+## The prime mover, and who owns git — 2026-11-19
+
+- **Curves may be driven by a circle, not a linear t.** The operator's reframing
+  is in `state/PRIME-MOVER-int.md`: `PMx, PMy` travel the unit circle over
+  `PM ∈ [−2π, 2π]`, the points come from p-triples (7-24-25 from (25, 0) to
+  (24, ±7)), the points are reused, and the + and − walks are different sets.
+  A new family says which driver it uses; the root family stays linear.
+- **A fixed p-triple never closes at 2π.** Niven: rational cosines belong only to
+  0°, 60°, 90°, 120°, 180°, so a repeated triple misses by a little more each
+  step. The file names the three honest routes (state the gap, change the last
+  triple, or use quarter and half turns) and requires the choice to be declared.
+- **DeepSeek2 owns git.** It commits and pushes when `prepush` is green and
+  reports the hash; DeepSeek1 decides, reviews and writes the handoff. One
+  committer at a time, so two sessions cannot interleave a history.
+
 ## Data: SQLite through Prisma is the record — 2026-11-19
 
 Settled by the operator after the naming loss and the desk save that never ran.

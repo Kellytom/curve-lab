@@ -24,7 +24,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 6 | `TODO.md` | 871 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
-| 9 | `state/DESIGN-int.md` | 752 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
+| 9 | `state/DESIGN-int.md` | 767 | decisions already taken on controls, pages and naming, and why; stops the same argument twice |
 | 10 | `state/REGRESSIONS-int.md` | 82 | fixed faults and the test that guards each; read before changing a control, run before a handoff |
 
 If an action names a file, that file joins the load. Nothing else joins it.
@@ -73,6 +73,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
 | book plates (PNG export) | `book/README.md`, `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plates_export.mjs`, `workbench/plate_math.js`, `tests/js/plates.test.js` |
 | square and frame figures | `curve_lab/square_assembly.py`, `workbench/plate_math.js`, `workbench/square-frame.html`, `scripts/square_frame.py`, `scripts/square_try.py`, `tests/js/plates.test.js`, `tests/test_square_frame.py` |
+| the prime mover: circle-driven parametrics, p-triple points, the closure fact | `state/PRIME-MOVER-int.md` |
 | future exploration (the pendulum mobile, Gaussian transforms, tails, the review) | `state/EXPLORATION-int.md` |
 | the gallery's clean-up and order | `scripts/moved_notes.py`, `workbench/moved-curves.json`, `workbench/curve-figures.html` |
 | finding curves / the census | `scripts/family_census.py`, `scripts/related_families.py`, `scripts/import_found.py`, `workbench/family-census.json`, `scripts/direction_curves.py` |
