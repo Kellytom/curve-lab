@@ -115,7 +115,7 @@ grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
 water, earth, air — see `app/src/content/docs/docs/primal.md`), then the archetypal ornaments. The
 plant-form → ornament-form arc is in `goals.md`; the focused next action is
 still the offset catalogue. Auth and render limits are live; accounts/roles are
-later. Keep the public URL private.
+later. Keep the deployed app's URL private (the repository is public).
 
 ## Degree: cubic first — quintic only when the curve needs it
 

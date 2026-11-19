@@ -10,9 +10,13 @@ grid, bend, symmetry and self-crossings in exact fractions. Ornaments, and the
 book plates, are built from those curves. A second, older layer does numerical
 Euler-curve chains and writes them as plain SVG.
 
-Read this page first. Everything below is a path in this repository; the same
-files are on the public GitHub mirror at
-https://github.com/Kellytom/curve-lab/tree/main/
+Read `senior-dev.md` before changing code; this page is the map, not the law.
+Everything below is a path in this repository, which is public at
+https://github.com/Kellytom/curve-lab — the running app's address is private and
+must not be published.
+
+The focused action changes daily: it lives in `next-fhandoff-int.md`, and the
+queue behind it in `state/PLAN-int.md`. This page does not copy it.
 
 ## Start here
 
@@ -42,6 +46,18 @@ https://github.com/Kellytom/curve-lab/tree/main/
 - [app/src/content/docs/docs/philosophy.md](app/src/content/docs/docs/philosophy.md): glyph, full line, sections, joints.
 - [app/src/content/docs/docs/junction.md](app/src/content/docs/docs/junction.md): junctions, fillets, declared contacts.
 - [app/src/content/docs/docs/primal.md](app/src/content/docs/docs/primal.md): the four primal ornaments and their gate.
+
+## Working state (internal)
+
+These are process, not product. They are in the repository because the work is
+done in the open; they are not a description of the library.
+
+- [LTMemory-int.md](LTMemory-int.md): the map and the invariants a session reads first.
+- [state/HANDOFF-int.md](state/HANDOFF-int.md): the current truth. Read the tail, not the whole file.
+- [next-fhandoff-int.md](next-fhandoff-int.md): the one next action.
+- [state/PLAN-int.md](state/PLAN-int.md): the queue of next sessions.
+- [state/READING-int.md](state/READING-int.md): what to read, in what order, at what cost.
+- [state/REGRESSIONS-int.md](state/REGRESSIONS-int.md): every fault that cost real work, and its test.
 
 ## Decisions and history
 
@@ -75,6 +91,18 @@ https://github.com/Kellytom/curve-lab/tree/main/
   and rebuild.
 - A fix and its register row land in the same commit, with a test in
   `tests/test_regressions.py` named after the fault.
+
+## Discipline
+
+- A fix and its register row land in the same commit, with a test in
+  `tests/test_regressions.py` named after the fault.
+- The fast loop is `.venv/bin/python scripts/test.py --fast` (about 15 s); the
+  app's fast tests are `npm --prefix app test` (about 2 s).
+- In this repository, `/fhandon` starts a session from the handoff and `/fhandoff`
+  writes the next block. Never begin work without the register:
+  `.venv/bin/python -m unittest tests.test_regressions`.
+- Raw notes live in `archive/notes/`; they are not documentation and are not
+  part of the book.
 
 ## Commands
 
