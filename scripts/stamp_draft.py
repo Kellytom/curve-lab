@@ -34,7 +34,8 @@ MD_LINE = "> **draft A** — a working draft, not a final text.\n"
 # pointer files are deliberately absent.
 def targets() -> list[Path]:
     files: list[Path] = []
-    files += sorted((ROOT / "workbench").glob("*.html"))
+    files += [p for p in sorted((ROOT / "workbench").glob("*.html"))
+              if p.name != "tabs.html"]  # the local launcher, not an outward page
     files += sorted((ROOT / "book").glob("*.html"))
     files += sorted((ROOT / "app" / "src" / "pages").glob("*.astro"))
     files += sorted((ROOT / "curves").glob("*/notes.md"))
@@ -43,6 +44,11 @@ def targets() -> list[Path]:
         if path.exists():
             files.append(path)
     return [p for p in files if p.is_file()]
+
+
+def carries_label(text: str) -> bool:
+    """A page that renders the shared header carries the label from there."""
+    return 'class="draft-a"' in text or "<AppNav" in text or "<BaseLayout" in text
 
 
 def stamp_html(text: str) -> str:
@@ -96,6 +102,8 @@ def main(argv: list[str]) -> int:
         text = path.read_text(encoding="utf-8")
         new = stamp_html(text) if path.suffix in (".html", ".astro") else stamp_md(text)
         if new == text:
+            continue
+        if check and path.suffix in (".html", ".astro") and carries_label(text):
             continue
         if check:
             missing.append(path.relative_to(ROOT))

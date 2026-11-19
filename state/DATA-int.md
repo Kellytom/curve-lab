@@ -45,6 +45,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
 | `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
 | `curve-notes.json` | `curve-lab.curve-notes/1` | record | `/api/curve-notes` | the registry build |
+| `curve-notes.backup.json` | `curve-lab.curve-notes/1` | backup | `/api/curve-notes`, on every write | the naming pass after a damaged read |
 | `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
 | `finder.backup.json` | `curve-lab.finder/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
@@ -68,6 +69,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |
+| `starred.backup.json` | `starred/1` | backup | `POST /api/stars`, on every write | the book gallery after a damaged read |
 
 **Record** means the file is the authority for a number the site shows.
 **Cache** means it is derived and can be rebuilt by its script. **Runtime** means

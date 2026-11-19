@@ -22,6 +22,7 @@ FORMATS = {
     "found-curves.json": "curve-lab.curves/2",
     "curve-registry.json": "curve-lab.curve-registry/1",
     "curve-notes.json": "curve-lab.curve-notes/1",
+    "curve-notes.backup.json": "curve-lab.curve-notes/1",
     "naming-todo.json": "curve-lab.naming-todo/1",
     "finder.json": "curve-lab.finder/1",
     "finder.backup.json": "curve-lab.finder/1",
@@ -44,6 +45,7 @@ FORMATS = {
     "septic-curves.json": "curve-lab.septic-curves/1",
     "septic-samples.json": "curve-lab.septic-samples/1",
     "starred.json": "starred/1",
+    "starred.backup.json": "starred/1",
 }
 
 
@@ -52,7 +54,8 @@ FORMATS = {
 # The two `.backup.json` files are the previous value kept by every save (the
 # register row 23 fault); they exist only after a save on this machine.
 OPTIONAL = {"g3-catalogue-cache.json", "finder-stars.json",
-            "finder.backup.json", "finder-stars.backup.json"}
+            "finder.backup.json", "finder-stars.backup.json",
+            "curve-notes.backup.json", "starred.backup.json"}
 
 
 class DataFileError(ValueError):

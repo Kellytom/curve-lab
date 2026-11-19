@@ -37,6 +37,7 @@ export async function loadRegistry(base) {
     record.pieces = note.pieces ?? record.pieces ?? 1;
     if (note.borderUid) record.border_uid = note.borderUid;
     record.updated = note.updatedAt ? note.updatedAt.toISOString() : undefined;
+    record.savedName = note.name || null;
   }
 
   const records = new Map(registry.curves.map((record) => [record.uid, record]));
