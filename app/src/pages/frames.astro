@@ -1,0 +1,55 @@
+---
+// The 90 chosen curves as framed illuminations. Generated list:
+// workbench/frames.json, written by scripts/frames_build.mjs.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+
+const frames = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "frames.json"), "utf8"));
+const plates = frames.curves || [];
+const notes = frames.notes || [];
+---
+
+<BaseLayout title="the frames" pageTitle="The frames: draft A">
+  <Fragment slot="head">
+    <style is:global>
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+    figure{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color);padding:8px}
+    img{display:block;width:100%;height:auto;background:#fff}
+    figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:6px;word-break:break-all}
+    figcaption b{color:var(--pico-color)}
+    .note{color:var(--pico-muted-color);font-size:.82rem}
+    .flagged{border-left:3px solid #c9a441;padding-left:.6rem}
+    </style>
+  </Fragment>
+
+  <h1>The frames</h1>
+  <p><b>{plates.length}</b> plates, each named <code>illus-&lt;name&gt;</code> with the last
+    postfix dropped. The frame is the curve repeated <i>n</i> times a side, the side being
+    <i>n</i> × the chord; the figure is tight to the drawn marks. {notes.length} curves on
+    <a href="/figures">/figures</a> are not among these and are marked <b>[NOTE]</b> below.</p>
+
+  <div class="grid">
+    {plates.map((plate) => (
+      <figure>
+        {plate.frame
+          ? <img src={plate.frame} alt={plate.illus} loading="lazy">
+          : <div class="note">frame missing: run <code>node scripts/frames_build.mjs --write</code></div>}
+        <figcaption><b>{plate.illus}</b><br>{plate.name} · {plate.uid} · {plate.perSide}/side · border {plate.marginPercent}%</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>[NOTE] — framed on /figures, not among the 90</h2>
+  <p class="note">These have a picture and no chosen name. Move one to the top of the naming
+    desk with <b>restore</b> on <a href="/finder-candidates">/finder-candidates</a>, then name it.</p>
+  <div class="grid">
+    {notes.map((row) => (
+      <figure class="flagged">
+        <img src={row.figure} alt={row.name} loading="lazy">
+        <figcaption>[NOTE] <b>{row.name}</b><br>{row.uid} · {row.candidate ? "set aside" : "not named"}</figcaption>
+      </figure>
+    ))}
+  </div>
+</BaseLayout>

@@ -20,6 +20,7 @@ FORMATS = {
     "family-census.json": "curve-lab.family-census/1",
     "flowers.json": "curve-lab.flowers/1",
     "found-curves.json": "curve-lab.curves/2",
+    "frames.json": "curve-lab.frames/1",
     "curve-registry.json": "curve-lab.curve-registry/1",
     "curve-notes.json": "curve-lab.curve-notes/1",
     "curve-notes.backup.json": "curve-lab.curve-notes/1",

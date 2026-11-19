@@ -1,0 +1,2030 @@
+{
+ "format": "curve-lab.frames/1",
+ "note": "the 90 chosen curves as framed illuminations; names are illus-<name> with the last postfix dropped",
+ "curves": [
+  {
+   "uid": "c-0001",
+   "name": "amper",
+   "illus": "illus-amper",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0002",
+   "name": "euler-hook",
+   "illus": "illus-euler-hook",
+   "variant": null,
+   "perSide": 5,
+   "marginPercent": 40,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0003",
+   "name": "swan",
+   "illus": "illus-swan",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0004",
+   "name": "gosling",
+   "illus": "illus-gosling",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0005",
+   "name": "double-tap",
+   "illus": "illus-double-tap",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0006",
+   "name": "curlicue",
+   "illus": "illus-curlicue",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0007",
+   "name": "grass",
+   "illus": "illus-grass",
+   "variant": null,
+   "perSide": 5,
+   "marginPercent": 40,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0008",
+   "name": "u-bowl",
+   "illus": "illus-u-bowl",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0009",
+   "name": "v-flat-bowl",
+   "illus": "illus-v-flat-bowl",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0010",
+   "name": "m-arch-line",
+   "illus": "illus-m-arch-line",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "illus": "illus-gumdrop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0012",
+   "name": "m-side-wave",
+   "illus": "illus-m-side-wave",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0013",
+   "name": "bowl-drop",
+   "illus": "illus-bowl-drop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0014",
+   "name": "wave-big",
+   "illus": "illus-wave-big",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "illus": "illus-involute-fit",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "illus": "illus-catenary-fit",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "illus": "illus-euler-fit",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "illus": "illus-logspiral-fit",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0019",
+   "name": "knot-loop-6",
+   "illus": "illus-knot-loop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0020",
+   "name": "knot-small-loop-7",
+   "illus": "illus-knot-small-loop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0021",
+   "name": "inflect-spear-2",
+   "illus": "illus-inflect-spear",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0022",
+   "name": "wave3-balance",
+   "illus": "illus-wave3-balance",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0023",
+   "name": "cusp5-hersey1",
+   "illus": "illus-cusp5-hersey1",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-hersey2",
+   "illus": "illus-cusp7-hersey2",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0025",
+   "name": "twin-z",
+   "illus": "illus-twin-z",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0026",
+   "name": "w-arch-knot-big",
+   "illus": "illus-w-arch-knot-big",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0027",
+   "name": "new-symmetric",
+   "illus": "illus-new-symmetric",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0028",
+   "name": "lace-2-eight-3",
+   "illus": "illus-lace-2-eight",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0029",
+   "name": "lace-balloon-3",
+   "illus": "illus-lace-balloon",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0030",
+   "name": "lace-horseshoe-3",
+   "illus": "illus-lace-horseshoe",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0031",
+   "name": "wave-bowl-3",
+   "illus": "illus-wave-bowl-3",
+   "variant": "postfix kept: the base is shared",
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0033",
+   "name": "wave-middle-5",
+   "illus": "illus-wave-middle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-wide-triangle-5",
+   "illus": "illus-wave-wide-triangle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-wide-bow-5",
+   "illus": "illus-lace-wide-bow",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-bowl-5",
+   "illus": "illus-wave-bowl-5",
+   "variant": "postfix kept: the base is shared",
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0043",
+   "name": "lace-collar-3",
+   "illus": "illus-lace-collar",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0046",
+   "name": "wave-point-heart-3",
+   "illus": "illus-wave-point-heart",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0047",
+   "name": "lace-sz-0",
+   "illus": "illus-lace-sz",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0048",
+   "name": "lace-s-2",
+   "illus": "illus-lace-s",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0053",
+   "name": "wave-small-0",
+   "illus": "illus-wave-small",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0055",
+   "name": "lace-z-4",
+   "illus": "illus-lace-z",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0056",
+   "name": "wave-point-s-4",
+   "illus": "illus-wave-point-s",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0057",
+   "name": "lace-heart-drop-1",
+   "illus": "illus-lace-heart-drop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0058",
+   "name": "lace-flourish2-1",
+   "illus": "illus-lace-flourish2",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0059",
+   "name": "lace-butterfly-2",
+   "illus": "illus-lace-butterfly",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0060",
+   "name": "lace-arch-x-1",
+   "illus": "illus-lace-arch-x",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0061",
+   "name": "lace-small-knob-1",
+   "illus": "illus-lace-small-knob",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0062",
+   "name": "lace-flourish-1",
+   "illus": "illus-lace-flourish",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0063",
+   "name": "lace-m-1",
+   "illus": "illus-lace-m",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0064",
+   "name": "wave-double-v-1",
+   "illus": "illus-wave-double-v",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0065",
+   "name": "lace-small-double-1",
+   "illus": "illus-lace-small-double",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0066",
+   "name": "lace-drop-heart-1",
+   "illus": "illus-lace-drop-heart",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0067",
+   "name": "lace-small-acorn-1",
+   "illus": "illus-lace-small-acorn",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0068",
+   "name": "wave-tri-1",
+   "illus": "illus-wave-tri",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0069",
+   "name": "lace-small-bottle-1",
+   "illus": "illus-lace-small-bottle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-arch-triangle-3",
+   "illus": "illus-wave-arch-triangle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-double-drop-1",
+   "illus": "illus-lace-double-drop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-double-loop-dupe-3",
+   "illus": "illus-wave-double-loop-dupe",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-fly-3",
+   "illus": "illus-lace-fly",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-curve-triangle-point-3",
+   "illus": "illus-wave-curve-triangle-point",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-curve-triangle-1",
+   "illus": "illus-wave-curve-triangle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-curve-triangle-point-big-3",
+   "illus": "illus-wave-curve-triangle-point-big",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-upside-d-heart-3",
+   "illus": "illus-lace-upside-d-heart",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-tri-hershey-3",
+   "illus": "illus-lace-tri-hershey",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-tri-drop-3",
+   "illus": "illus-lace-tri-drop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0087",
+   "name": "wide-knot-t",
+   "illus": "illus-wide-knot-t",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0091",
+   "name": "loop-2-cusps-45",
+   "illus": "illus-loop-2-cusps",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0092",
+   "name": "loop-2-small-loops-45",
+   "illus": "illus-loop-2-small-loops",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0093",
+   "name": "loop-2-loops-45",
+   "illus": "illus-loop-2-loops",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0094",
+   "name": "cross-small-knot",
+   "illus": "illus-cross-small-knot",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0101",
+   "name": "cross-2-loops-45",
+   "illus": "illus-cross-2-loops",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0134",
+   "name": "mobile-exact-helmet-45-5",
+   "illus": "illus-mobile-exact-helmet-45",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-wide-hersey-3",
+   "illus": "illus-wave-wide-hersey",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-hersey-3",
+   "illus": "illus-wave-hersey",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0163",
+   "name": "lace-lazy-s-2",
+   "illus": "illus-lace-lazy-s",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0165",
+   "name": "wave-french-0",
+   "illus": "illus-wave-french",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0172",
+   "name": "wave-lazy-line-2",
+   "illus": "illus-wave-lazy-line",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0173",
+   "name": "wave-crest-45-0",
+   "illus": "illus-wave-crest-45",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0176",
+   "name": "wave-falls-0",
+   "illus": "illus-wave-falls",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0177",
+   "name": "wave-thin-0",
+   "illus": "illus-wave-thin",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0178",
+   "name": "wave-thread-2",
+   "illus": "illus-wave-thread",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0179",
+   "name": "wave-bobby-4",
+   "illus": "illus-wave-bobby",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0210",
+   "name": "lace-triangle-loop-3",
+   "illus": "illus-lace-triangle-loop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0212",
+   "name": "wave-loop-1",
+   "illus": "illus-wave-loop",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0213",
+   "name": "wave-sine-2",
+   "illus": "illus-wave-sine",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0217",
+   "name": "wave-middle-v-2",
+   "illus": "illus-wave-middle-v",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0220",
+   "name": "wave-45-2",
+   "illus": "illus-wave-45",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-arch-triangle-3",
+   "illus": "illus-lace-arch-triangle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-triangle-3",
+   "illus": "illus-lace-triangle",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  },
+  {
+   "uid": "c-0261",
+   "name": "loop-knot-45-2",
+   "illus": "illus-loop-knot-45",
+   "variant": null,
+   "perSide": 9,
+   "marginPercent": 44,
+   "tooWide": true,
+   "failed": false,
+   "frame": null
+  }
+ ],
+ "notes": [
+  {
+   "uid": "c-0032",
+   "name": "wave-1of4-3",
+   "candidate": true,
+   "figure": "/figures/c-0032.png"
+  },
+  {
+   "uid": "c-0036",
+   "name": "wave-1of8-5",
+   "candidate": true,
+   "figure": "/figures/c-0036.png"
+  },
+  {
+   "uid": "c-0037",
+   "name": "wave-1of6-5",
+   "candidate": true,
+   "figure": "/figures/c-0037.png"
+  },
+  {
+   "uid": "c-0038",
+   "name": "wave-1of5-5",
+   "candidate": true,
+   "figure": "/figures/c-0038.png"
+  },
+  {
+   "uid": "c-0039",
+   "name": "wave-2x1of3-3",
+   "candidate": true,
+   "figure": "/figures/c-0039.png"
+  },
+  {
+   "uid": "c-0040",
+   "name": "wave-1of4-5",
+   "candidate": true,
+   "figure": "/figures/c-0040.png"
+  },
+  {
+   "uid": "c-0042",
+   "name": "wave-middle-7",
+   "candidate": true,
+   "figure": "/figures/c-0042.png"
+  },
+  {
+   "uid": "c-0044",
+   "name": "wave-1of7-3",
+   "candidate": true,
+   "figure": "/figures/c-0044.png"
+  },
+  {
+   "uid": "c-0045",
+   "name": "wave-2of7-3",
+   "candidate": true,
+   "figure": "/figures/c-0045.png"
+  },
+  {
+   "uid": "c-0049",
+   "name": "wave-1of3-2",
+   "candidate": true,
+   "figure": "/figures/c-0049.png"
+  },
+  {
+   "uid": "c-0050",
+   "name": "wave-2of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0050.png"
+  },
+  {
+   "uid": "c-0051",
+   "name": "wave-3of8-2",
+   "candidate": true,
+   "figure": "/figures/c-0051.png"
+  },
+  {
+   "uid": "c-0052",
+   "name": "wave-middle-4",
+   "candidate": true,
+   "figure": "/figures/c-0052.png"
+  },
+  {
+   "uid": "c-0054",
+   "name": "wave-2x1of6-0",
+   "candidate": true,
+   "figure": "/figures/c-0054.png"
+  },
+  {
+   "uid": "c-0070",
+   "name": "wave-5of12-3",
+   "candidate": true,
+   "figure": "/figures/c-0070.png"
+  },
+  {
+   "uid": "c-0076",
+   "name": "wave-1of6-2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0076.png"
+  },
+  {
+   "uid": "c-0079",
+   "name": "wave-2x1of6-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0079.png"
+  },
+  {
+   "uid": "c-0080",
+   "name": "wave-2x1of5-1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0080.png"
+  },
+  {
+   "uid": "c-0081",
+   "name": "wave-1of6-2x1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0081.png"
+  },
+  {
+   "uid": "c-0082",
+   "name": "wave-1of8-1of4-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0082.png"
+  },
+  {
+   "uid": "c-0083",
+   "name": "wave-1of8-2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0083.png"
+  },
+  {
+   "uid": "c-0088",
+   "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
+   "candidate": true,
+   "figure": "/figures/c-0088.png"
+  },
+  {
+   "uid": "c-0089",
+   "name": "bend45-t1of2",
+   "candidate": true,
+   "figure": "/figures/c-0089.png"
+  },
+  {
+   "uid": "c-0090",
+   "name": "bend45-b-1-t1of2",
+   "candidate": true,
+   "figure": "/figures/c-0090.png"
+  },
+  {
+   "uid": "c-0095",
+   "name": "term-a-plus-1",
+   "candidate": true,
+   "figure": "/figures/c-0095.png"
+  },
+  {
+   "uid": "c-0096",
+   "name": "term-c-minus1",
+   "candidate": true,
+   "figure": "/figures/c-0096.png"
+  },
+  {
+   "uid": "c-0097",
+   "name": "term-e-plus-1",
+   "candidate": true,
+   "figure": "/figures/c-0097.png"
+  },
+  {
+   "uid": "c-0098",
+   "name": "term-a-c-e-mixed",
+   "candidate": true,
+   "figure": "/figures/c-0098.png"
+  },
+  {
+   "uid": "c-0099",
+   "name": "line-q-0",
+   "candidate": true,
+   "figure": "/figures/c-0099.png"
+  },
+  {
+   "uid": "c-0100",
+   "name": "term-c-10-middle",
+   "candidate": true,
+   "figure": "/figures/c-0100.png"
+  },
+  {
+   "uid": "c-0102",
+   "name": "cross-1of5-4of5",
+   "candidate": true,
+   "figure": "/figures/c-0102.png"
+  },
+  {
+   "uid": "c-0103",
+   "name": "cross-1of3-3of4",
+   "candidate": true,
+   "figure": "/figures/c-0103.png"
+  },
+  {
+   "uid": "c-0104",
+   "name": "cross-1of4-3of4",
+   "candidate": true,
+   "figure": "/figures/c-0104.png"
+  },
+  {
+   "uid": "c-0105",
+   "name": "cross-1of2-3of4",
+   "candidate": true,
+   "figure": "/figures/c-0105.png"
+  },
+  {
+   "uid": "c-0106",
+   "name": "cross-1of3-2of3",
+   "candidate": true,
+   "figure": "/figures/c-0106.png"
+  },
+  {
+   "uid": "c-0107",
+   "name": "cross-1of5-3of5",
+   "candidate": true,
+   "figure": "/figures/c-0107.png"
+  },
+  {
+   "uid": "c-0108",
+   "name": "cross-2of5-3of5",
+   "candidate": true,
+   "figure": "/figures/c-0108.png"
+  },
+  {
+   "uid": "c-0109",
+   "name": "weighted-balance-exp-balance-t1of4",
+   "candidate": true,
+   "figure": "/figures/c-0109.png"
+  },
+  {
+   "uid": "c-0110",
+   "name": "weighted-balance-exp-balance-t1of2",
+   "candidate": true,
+   "figure": "/figures/c-0110.png"
+  },
+  {
+   "uid": "c-0111",
+   "name": "weighted-balance-exp-balance-t3of4",
+   "candidate": true,
+   "figure": "/figures/c-0111.png"
+  },
+  {
+   "uid": "c-0112",
+   "name": "weighted-balance-parabola-balance-t1of4",
+   "candidate": true,
+   "figure": "/figures/c-0112.png"
+  },
+  {
+   "uid": "c-0113",
+   "name": "weighted-balance-parabola-balance-t1of2",
+   "candidate": true,
+   "figure": "/figures/c-0113.png"
+  },
+  {
+   "uid": "c-0114",
+   "name": "weighted-balance-parabola-balance-t3of4",
+   "candidate": true,
+   "figure": "/figures/c-0114.png"
+  },
+  {
+   "uid": "c-0115",
+   "name": "weighted-balance-flat-balance-t1of4",
+   "candidate": true,
+   "figure": "/figures/c-0115.png"
+  },
+  {
+   "uid": "c-0116",
+   "name": "weighted-balance-flat-balance-t1of2",
+   "candidate": true,
+   "figure": "/figures/c-0116.png"
+  },
+  {
+   "uid": "c-0117",
+   "name": "weighted-balance-flat-balance-t3of4",
+   "candidate": true,
+   "figure": "/figures/c-0117.png"
+  },
+  {
+   "uid": "c-0118",
+   "name": "bounded-3-4-5-gentle",
+   "candidate": true,
+   "figure": "/figures/c-0118.png"
+  },
+  {
+   "uid": "c-0119",
+   "name": "bounded-3-4-5-crossed",
+   "candidate": true,
+   "figure": "/figures/c-0119.png"
+  },
+  {
+   "uid": "c-0120",
+   "name": "bounded-5-12-13-gentle",
+   "candidate": true,
+   "figure": "/figures/c-0120.png"
+  },
+  {
+   "uid": "c-0121",
+   "name": "bounded-5-12-13-crossed",
+   "candidate": true,
+   "figure": "/figures/c-0121.png"
+  },
+  {
+   "uid": "c-0122",
+   "name": "bounded-8-15-17-crossed",
+   "candidate": true,
+   "figure": "/figures/c-0122.png"
+  },
+  {
+   "uid": "c-0123",
+   "name": "bounded-3-4-5-tight",
+   "candidate": true,
+   "figure": "/figures/c-0123.png"
+  },
+  {
+   "uid": "c-0124",
+   "name": "bounded-limacon-1-plus-2cos",
+   "candidate": true,
+   "figure": "/figures/c-0124.png"
+  },
+  {
+   "uid": "c-0125",
+   "name": "bounded-limacon-1-plus-3cos",
+   "candidate": true,
+   "figure": "/figures/c-0125.png"
+  },
+  {
+   "uid": "c-0126",
+   "name": "bounded-limacon-2-plus-3cos",
+   "candidate": true,
+   "figure": "/figures/c-0126.png"
+  },
+  {
+   "uid": "c-0127",
+   "name": "mobile-two-vanes-1-1of2",
+   "candidate": true,
+   "figure": "/figures/c-0127.png"
+  },
+  {
+   "uid": "c-0128",
+   "name": "mobile-two-vanes-1-1of3",
+   "candidate": true,
+   "figure": "/figures/c-0128.png"
+  },
+  {
+   "uid": "c-0129",
+   "name": "mobile-three-vanes-1-1of2-1of4",
+   "candidate": true,
+   "figure": "/figures/c-0129.png"
+  },
+  {
+   "uid": "c-0130",
+   "name": "mobile-three-vanes-big-small",
+   "candidate": true,
+   "figure": "/figures/c-0130.png"
+  },
+  {
+   "uid": "c-0131",
+   "name": "mobile-exact-one-vane-3-4-5",
+   "candidate": true,
+   "figure": "/figures/c-0131.png"
+  },
+  {
+   "uid": "c-0132",
+   "name": "mobile-exact-3-4-5-plus-half-2-turns",
+   "candidate": true,
+   "figure": "/figures/c-0132.png"
+  },
+  {
+   "uid": "c-0133",
+   "name": "mobile-exact-3-4-5-plus-third-3-turns",
+   "candidate": true,
+   "figure": "/figures/c-0133.png"
+  },
+  {
+   "uid": "c-0135",
+   "name": "mobile-arcs-arc-0-to-1of2",
+   "candidate": true,
+   "figure": "/figures/c-0135.png"
+  },
+  {
+   "uid": "c-0136",
+   "name": "mobile-arcs-arc-minus1of2-to-1of2",
+   "candidate": true,
+   "figure": "/figures/c-0136.png"
+  },
+  {
+   "uid": "c-0137",
+   "name": "mobile-arcs-arc-0-to-1",
+   "candidate": true,
+   "figure": "/figures/c-0137.png"
+  },
+  {
+   "uid": "c-0138",
+   "name": "mobile-arcs-arc-minus1-to-1",
+   "candidate": true,
+   "figure": "/figures/c-0138.png"
+  },
+  {
+   "uid": "c-0139",
+   "name": "rose-k-2-a-1-b-1",
+   "candidate": true,
+   "figure": "/figures/c-0139.png"
+  },
+  {
+   "uid": "c-0140",
+   "name": "rose-k-2-a-1-b-minus1",
+   "candidate": true,
+   "figure": "/figures/c-0140.png"
+  },
+  {
+   "uid": "c-0141",
+   "name": "rose-k-3-a-1-b-1",
+   "candidate": true,
+   "figure": "/figures/c-0141.png"
+  },
+  {
+   "uid": "c-0142",
+   "name": "rose-k-4-a-1-b-1",
+   "candidate": true,
+   "figure": "/figures/c-0142.png"
+  },
+  {
+   "uid": "c-0143",
+   "name": "graphs-y-x-2-as-t2-cover",
+   "candidate": true,
+   "figure": "/figures/c-0143.png"
+  },
+  {
+   "uid": "c-0144",
+   "name": "wave-1of5-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0144.png"
+  },
+  {
+   "uid": "c-0145",
+   "name": "wave-2x1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0145.png"
+  },
+  {
+   "uid": "c-0146",
+   "name": "wave-1of4-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0146.png"
+  },
+  {
+   "uid": "c-0147",
+   "name": "wave-1of6-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0147.png"
+  },
+  {
+   "uid": "c-0148",
+   "name": "wave-2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0148.png"
+  },
+  {
+   "uid": "c-0149",
+   "name": "wave-1of6-3",
+   "candidate": true,
+   "figure": "/figures/c-0149.png"
+  },
+  {
+   "uid": "c-0150",
+   "name": "wave-2x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0150.png"
+  },
+  {
+   "uid": "c-0151",
+   "name": "wave-1of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0151.png"
+  },
+  {
+   "uid": "c-0152",
+   "name": "wave-1of5-1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0152.png"
+  },
+  {
+   "uid": "c-0153",
+   "name": "wave-1of5-1of3-3",
+   "candidate": true,
+   "figure": "/figures/c-0153.png"
+  },
+  {
+   "uid": "c-0154",
+   "name": "wave-1of5-1of4-3",
+   "candidate": true,
+   "figure": "/figures/c-0154.png"
+  },
+  {
+   "uid": "c-0155",
+   "name": "wave-1of4-2x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0155.png"
+  },
+  {
+   "uid": "c-0156",
+   "name": "wave-2x1of4-3",
+   "candidate": true,
+   "figure": "/figures/c-0156.png"
+  },
+  {
+   "uid": "c-0157",
+   "name": "wave-1of6-1of3-3",
+   "candidate": true,
+   "figure": "/figures/c-0157.png"
+  },
+  {
+   "uid": "c-0159",
+   "name": "wave-3x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0159.png"
+  },
+  {
+   "uid": "c-0160",
+   "name": "wave-2of5-5",
+   "candidate": true,
+   "figure": "/figures/c-0160.png"
+  },
+  {
+   "uid": "c-0162",
+   "name": "wave-1of6-2",
+   "candidate": true,
+   "figure": "/figures/c-0162.png"
+  },
+  {
+   "uid": "c-0164",
+   "name": "wave-1of6-1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0164.png"
+  },
+  {
+   "uid": "c-0166",
+   "name": "wave-1of4-2of5-0",
+   "candidate": true,
+   "figure": "/figures/c-0166.png"
+  },
+  {
+   "uid": "c-0167",
+   "name": "wave-1of4-2",
+   "candidate": true,
+   "figure": "/figures/c-0167.png"
+  },
+  {
+   "uid": "c-0168",
+   "name": "wave-2x1of4-0",
+   "candidate": true,
+   "figure": "/figures/c-0168.png"
+  },
+  {
+   "uid": "c-0169",
+   "name": "wave-1of5-1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0169.png"
+  },
+  {
+   "uid": "c-0170",
+   "name": "wave-1of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0170.png"
+  },
+  {
+   "uid": "c-0171",
+   "name": "wave-2x1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0171.png"
+  },
+  {
+   "uid": "c-0174",
+   "name": "wave-1of6-1of5-0",
+   "candidate": true,
+   "figure": "/figures/c-0174.png"
+  },
+  {
+   "uid": "c-0175",
+   "name": "wave-2x1of5-0",
+   "candidate": true,
+   "figure": "/figures/c-0175.png"
+  },
+  {
+   "uid": "c-0180",
+   "name": "wave-1of6-1of3-2",
+   "candidate": true,
+   "figure": "/figures/c-0180.png"
+  },
+  {
+   "uid": "c-0181",
+   "name": "wave-1of4-2of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0181.png"
+  },
+  {
+   "uid": "c-0182",
+   "name": "wave-1of3-2of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0182.png"
+  },
+  {
+   "uid": "c-0183",
+   "name": "wave-1of5-1of3-2",
+   "candidate": true,
+   "figure": "/figures/c-0183.png"
+  },
+  {
+   "uid": "c-0184",
+   "name": "wave-1of5-2x1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0184.png"
+  },
+  {
+   "uid": "c-0185",
+   "name": "wave-2x1of4-1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0185.png"
+  },
+  {
+   "uid": "c-0186",
+   "name": "wave-1of4-2x1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0186.png"
+  },
+  {
+   "uid": "c-0187",
+   "name": "wave-1of6-4",
+   "candidate": true,
+   "figure": "/figures/c-0187.png"
+  },
+  {
+   "uid": "c-0188",
+   "name": "wave-1of3-4",
+   "candidate": true,
+   "figure": "/figures/c-0188.png"
+  },
+  {
+   "uid": "c-0189",
+   "name": "wave-1of5-4",
+   "candidate": true,
+   "figure": "/figures/c-0189.png"
+  },
+  {
+   "uid": "c-0190",
+   "name": "wave-3x1of3-0",
+   "candidate": true,
+   "figure": "/figures/c-0190.png"
+  },
+  {
+   "uid": "c-0191",
+   "name": "wave-1of4-4",
+   "candidate": true,
+   "figure": "/figures/c-0191.png"
+  },
+  {
+   "uid": "c-0192",
+   "name": "wave-3of8-4",
+   "candidate": true,
+   "figure": "/figures/c-0192.png"
+  },
+  {
+   "uid": "c-0193",
+   "name": "wave-2of5-4",
+   "candidate": true,
+   "figure": "/figures/c-0193.png"
+  },
+  {
+   "uid": "c-0194",
+   "name": "wave-1of6-1of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0194.png"
+  },
+  {
+   "uid": "c-0195",
+   "name": "wave-1of6-1of4-2",
+   "candidate": true,
+   "figure": "/figures/c-0195.png"
+  },
+  {
+   "uid": "c-0196",
+   "name": "wave-1of5-1of4-2",
+   "candidate": true,
+   "figure": "/figures/c-0196.png"
+  },
+  {
+   "uid": "c-0197",
+   "name": "wave-2x1of5-2",
+   "candidate": true,
+   "figure": "/figures/c-0197.png"
+  },
+  {
+   "uid": "c-0198",
+   "name": "wave-2x1of4-2",
+   "candidate": true,
+   "figure": "/figures/c-0198.png"
+  },
+  {
+   "uid": "c-0199",
+   "name": "wave-1of4-1of3-2",
+   "candidate": true,
+   "figure": "/figures/c-0199.png"
+  },
+  {
+   "uid": "c-0200",
+   "name": "wave-2x1of3-2",
+   "candidate": true,
+   "figure": "/figures/c-0200.png"
+  },
+  {
+   "uid": "c-0201",
+   "name": "wave-middle-6",
+   "candidate": true,
+   "figure": "/figures/c-0201.png"
+  },
+  {
+   "uid": "c-0202",
+   "name": "wave-1of5-1of3-1-2",
+   "candidate": true,
+   "figure": "/figures/c-0202.png"
+  },
+  {
+   "uid": "c-0203",
+   "name": "wave-1of6-1of3-1-2",
+   "candidate": true,
+   "figure": "/figures/c-0203.png"
+  },
+  {
+   "uid": "c-0204",
+   "name": "lace-2x1of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0204.png"
+  },
+  {
+   "uid": "c-0205",
+   "name": "wave-1of6-1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0205.png"
+  },
+  {
+   "uid": "c-0206",
+   "name": "lace-1of6-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0206.png"
+  },
+  {
+   "uid": "c-0207",
+   "name": "lace-1of5-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0207.png"
+  },
+  {
+   "uid": "c-0208",
+   "name": "wave-1of4-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0208.png"
+  },
+  {
+   "uid": "c-0209",
+   "name": "lace-3of10-3",
+   "candidate": true,
+   "figure": "/figures/c-0209.png"
+  },
+  {
+   "uid": "c-0211",
+   "name": "lace-1of3-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0211.png"
+  },
+  {
+   "uid": "c-0214",
+   "name": "wave-1of4-3-2",
+   "candidate": true,
+   "figure": "/figures/c-0214.png"
+  },
+  {
+   "uid": "c-0215",
+   "name": "wave-3of10-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0215.png"
+  },
+  {
+   "uid": "c-0216",
+   "name": "wave-2x2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0216.png"
+  },
+  {
+   "uid": "c-0218",
+   "name": "wave-1of8-5-2",
+   "candidate": true,
+   "figure": "/figures/c-0218.png"
+  },
+  {
+   "uid": "c-0219",
+   "name": "wave-1of6-1of3-3-2",
+   "candidate": true,
+   "figure": "/figures/c-0219.png"
+  },
+  {
+   "uid": "c-0221",
+   "name": "lace-1of4-1of3-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0221.png"
+  },
+  {
+   "uid": "c-0222",
+   "name": "lace-2x1of5-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0222.png"
+  },
+  {
+   "uid": "c-0223",
+   "name": "lace-2x1of3-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0223.png"
+  },
+  {
+   "uid": "c-0224",
+   "name": "lace-1of5-1of4-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0224.png"
+  },
+  {
+   "uid": "c-0225",
+   "name": "lace-1of5-2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0225.png"
+  },
+  {
+   "uid": "c-0226",
+   "name": "lace-3x1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0226.png"
+  },
+  {
+   "uid": "c-0227",
+   "name": "wave-1of6-1of4-3",
+   "candidate": true,
+   "figure": "/figures/c-0227.png"
+  },
+  {
+   "uid": "c-0228",
+   "name": "lace-3of10-5",
+   "candidate": true,
+   "figure": "/figures/c-0228.png"
+  },
+  {
+   "uid": "c-0229",
+   "name": "wave-1of6-1of4-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0229.png"
+  },
+  {
+   "uid": "c-0230",
+   "name": "lace-1of8-2x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0230.png"
+  },
+  {
+   "uid": "c-0232",
+   "name": "wave-2x1of6-3",
+   "candidate": true,
+   "figure": "/figures/c-0232.png"
+  },
+  {
+   "uid": "c-0233",
+   "name": "lace-2x1of4-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0233.png"
+  },
+  {
+   "uid": "c-0234",
+   "name": "lace-1of4-2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0234.png"
+  },
+  {
+   "uid": "c-0235",
+   "name": "wave-1of6-2x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0235.png"
+  },
+  {
+   "uid": "c-0237",
+   "name": "wave-1of6-1of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0237.png"
+  },
+  {
+   "uid": "c-0238",
+   "name": "lace-1of3-3of8-3",
+   "candidate": true,
+   "figure": "/figures/c-0238.png"
+  },
+  {
+   "uid": "c-0239",
+   "name": "lace-1of5-2x1of4-1",
+   "candidate": true,
+   "figure": "/figures/c-0239.png"
+  },
+  {
+   "uid": "c-0240",
+   "name": "wave-3of8-5",
+   "candidate": true,
+   "figure": "/figures/c-0240.png"
+  },
+  {
+   "uid": "c-0241",
+   "name": "wave-1of4-3of8-3",
+   "candidate": true,
+   "figure": "/figures/c-0241.png"
+  },
+  {
+   "uid": "c-0242",
+   "name": "wave-3of10-1of3-3",
+   "candidate": true,
+   "figure": "/figures/c-0242.png"
+  },
+  {
+   "uid": "c-0243",
+   "name": "wave-2x2of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0243.png"
+  },
+  {
+   "uid": "c-0244",
+   "name": "wave-1of6-1of5-1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0244.png"
+  },
+  {
+   "uid": "c-0245",
+   "name": "lace-1of5-2x1of3-1",
+   "candidate": true,
+   "figure": "/figures/c-0245.png"
+  },
+  {
+   "uid": "c-0246",
+   "name": "wave-2x1of5-3",
+   "candidate": true,
+   "figure": "/figures/c-0246.png"
+  },
+  {
+   "uid": "c-0247",
+   "name": "wave-5of12-5",
+   "candidate": true,
+   "figure": "/figures/c-0247.png"
+  },
+  {
+   "uid": "c-0248",
+   "name": "wave-1of5-1of3-2of5-1",
+   "candidate": true,
+   "figure": "/figures/c-0248.png"
+  },
+  {
+   "uid": "c-0249",
+   "name": "wave-1of6-5-2",
+   "candidate": true,
+   "figure": "/figures/c-0249.png"
+  },
+  {
+   "uid": "c-0250",
+   "name": "wave-1of5-5-2",
+   "candidate": true,
+   "figure": "/figures/c-0250.png"
+  },
+  {
+   "uid": "c-0251",
+   "name": "wave-1of4-5-2",
+   "candidate": true,
+   "figure": "/figures/c-0251.png"
+  },
+  {
+   "uid": "c-0252",
+   "name": "wave-2x1of3-3-2",
+   "candidate": true,
+   "figure": "/figures/c-0252.png"
+  },
+  {
+   "uid": "c-0253",
+   "name": "loop-12-13-15-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0253.png"
+  },
+  {
+   "uid": "c-0254",
+   "name": "loop-12-15-18-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0254.png"
+  },
+  {
+   "uid": "c-0255",
+   "name": "loop-13-15-17-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0255.png"
+  },
+  {
+   "uid": "c-0256",
+   "name": "loop-3-5-11-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0256.png"
+  },
+  {
+   "uid": "c-0257",
+   "name": "loop-3-7-11-mid-3",
+   "candidate": true,
+   "figure": "/figures/c-0257.png"
+  },
+  {
+   "uid": "c-0258",
+   "name": "loop-3-8-13-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0258.png"
+  },
+  {
+   "uid": "c-0259",
+   "name": "loop-5-12-mid-3",
+   "candidate": true,
+   "figure": "/figures/c-0259.png"
+  },
+  {
+   "uid": "c-0260",
+   "name": "loop-5-8-12-mid-5",
+   "candidate": true,
+   "figure": "/figures/c-0260.png"
+  },
+  {
+   "uid": "c-0262",
+   "name": "loop-8-11-mid-1",
+   "candidate": true,
+   "figure": "/figures/c-0262.png"
+  }
+ ]
+}
