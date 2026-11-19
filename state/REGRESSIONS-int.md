@@ -54,6 +54,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 32 | 2026-11-19 | a star click threw `ReferenceError: title is not defined` before the list was written, so nothing was added and nothing was saved | `app/scripts/check-stars.mjs` | the finder's star button |
 | 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
 | 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
+| 35 | 2026-11-19 | "/illuminations is 500" — after the rails and fills, a figure held more points than `Math.min(...xs)` can take, and 238 figures in one request threw `Maximum call stack size exceeded` | `app/scripts/check-pages.mjs` (all 12 pages, 200 and one header) and `state/FRAMES-int.md` for the richer paths | the figure writer's bbox |
 
 ## Fixed and measured, but not yet in the fast suite
 

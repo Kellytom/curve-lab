@@ -265,11 +265,18 @@ export function figureFor(record, all, borderRecord) {
 }
 
 function svgFrom(paths, label, fills = [], options = {}) {
-  const all = paths.flat();
-  const xs = all.map((p) => p[0]);
-  const ys = all.map((p) => p[1]);
-  const x0 = Math.min(...xs), x1 = Math.max(...xs);
-  const y0 = Math.min(...ys), y1 = Math.max(...ys);
+  // A loop, not Math.min(...xs): with rails and fills a figure holds far more
+  // points than a spread can take, and the illuminations page builds 238 of
+  // them in one request — a spread there throws Maximum call stack size.
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const path of paths) {
+    for (const [x, y] of path) {
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      if (y > y1) y1 = y;
+    }
+  }
   const w = x1 - x0 || 1, h = y1 - y0 || 1;
   const inner = SIZE * (1 - 2 * PAD);
   const k = inner / Math.max(w, h);
