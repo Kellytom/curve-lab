@@ -4,17 +4,18 @@
   {
    "uid": "c-0001",
    "name": "amper",
-   "importance": 0,
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T00:23:20.640Z"
+   "updated": "2026-11-19T03:00:14.558Z"
   },
   {
    "uid": "c-0002",
-   "importance": 0,
+   "name": "euler-hook",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.864Z"
+   "updated": "2026-11-19T03:01:51.419Z"
   },
   {
    "uid": "c-0003",
@@ -25,31 +26,35 @@
   },
   {
    "uid": "c-0004",
-   "importance": 0,
+   "name": "gosling",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.871Z"
+   "updated": "2026-11-19T03:01:57.766Z"
   },
   {
    "uid": "c-0005",
-   "importance": 0,
+   "name": "double-tap",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.875Z"
+   "updated": "2026-11-19T03:01:38.102Z"
   },
   {
    "uid": "c-0006",
-   "importance": 0,
+   "name": "curlicue",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.878Z"
+   "updated": "2026-11-19T03:00:54.004Z"
   },
   {
    "uid": "c-0007",
-   "importance": 0,
+   "name": "grass",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.881Z"
+   "updated": "2026-11-19T03:02:03.745Z"
   },
   {
    "uid": "c-0008",
@@ -74,10 +79,11 @@
   },
   {
    "uid": "c-0011",
-   "importance": 0,
+   "name": "gumdrop",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.903Z"
+   "updated": "2026-11-19T03:02:13.164Z"
   },
   {
    "uid": "c-0012",
@@ -88,10 +94,11 @@
   },
   {
    "uid": "c-0013",
-   "importance": 0,
+   "name": "bowl-drop",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.910Z"
+   "updated": "2026-11-19T03:00:36.255Z"
   },
   {
    "uid": "c-0014",
@@ -102,24 +109,27 @@
   },
   {
    "uid": "c-0015",
-   "importance": 0,
+   "name": "involute-fit",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.916Z"
+   "updated": "2026-11-19T03:02:37.332Z"
   },
   {
    "uid": "c-0016",
-   "importance": 0,
+   "name": "catenary-fit",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.919Z"
+   "updated": "2026-11-19T03:00:46.906Z"
   },
   {
    "uid": "c-0017",
-   "importance": 0,
+   "name": "euler-fit",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.922Z"
+   "updated": "2026-11-19T03:01:44.876Z"
   },
   {
    "uid": "c-0018",
@@ -130,24 +140,27 @@
   },
   {
    "uid": "c-0019",
-   "importance": 0,
+   "name": "knot-loop-6",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.928Z"
+   "updated": "2026-11-19T03:02:49.602Z"
   },
   {
    "uid": "c-0020",
-   "importance": 0,
+   "name": "knot-small-loop-7",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.931Z"
+   "updated": "2026-11-19T03:03:10.289Z"
   },
   {
    "uid": "c-0021",
-   "importance": 0,
+   "name": "inflect-spear-2",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.934Z"
+   "updated": "2026-11-19T03:02:32.155Z"
   },
   {
    "uid": "c-0022",
@@ -158,17 +171,19 @@
   },
   {
    "uid": "c-0023",
-   "importance": 0,
+   "name": "cusp5-hersey1",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.940Z"
+   "updated": "2026-11-19T03:01:14.494Z"
   },
   {
    "uid": "c-0024",
-   "importance": 0,
+   "name": "cusp7-hersey2",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.943Z"
+   "updated": "2026-11-19T03:01:27.254Z"
   },
   {
    "uid": "c-0025",
@@ -403,10 +418,11 @@
   },
   {
    "uid": "c-0058",
-   "importance": 0,
+   "name": "lace-flourish2-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.051Z"
+   "updated": "2026-11-19T03:03:52.513Z"
   },
   {
    "uid": "c-0059",
@@ -431,10 +447,11 @@
   },
   {
    "uid": "c-0062",
-   "importance": 0,
+   "name": "lace-flourish-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.069Z"
+   "updated": "2026-11-19T03:03:50.711Z"
   },
   {
    "uid": "c-0063",
@@ -637,25 +654,27 @@
   },
   {
    "uid": "c-0091",
-   "name": "loop-t1of2-3of4",
-   "importance": 10,
+   "name": "loop-2-cusps-45",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T02:49:38.701Z"
+   "updated": "2026-11-19T02:59:17.185Z"
   },
   {
    "uid": "c-0092",
-   "importance": 10,
+   "name": "loop-2-small-loops-45",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.233Z"
+   "updated": "2026-11-19T02:59:18.784Z"
   },
   {
    "uid": "c-0093",
-   "importance": 10,
+   "name": "loop-2-loops-45",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.237Z"
+   "updated": "2026-11-19T02:59:33.332Z"
   },
   {
    "uid": "c-0094",
@@ -979,10 +998,11 @@
   },
   {
    "uid": "c-0134",
-   "importance": 10,
+   "name": "mobile-exact-helmet-45-5",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.462Z"
+   "updated": "2026-11-19T02:59:49.793Z"
   },
   {
    "uid": "c-0135",
