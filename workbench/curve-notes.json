@@ -241,10 +241,11 @@
   },
   {
    "uid": "c-0031",
-   "importance": 0,
+   "name": "wave-bowl-3",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.966Z"
+   "updated": "2026-11-19T03:23:08.779Z"
   },
   {
    "uid": "c-0032",
@@ -262,10 +263,11 @@
   },
   {
    "uid": "c-0034",
-   "importance": 0,
+   "name": "wave-wide-triangle-5",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.975Z"
+   "updated": "2026-11-19T03:19:50.495Z"
   },
   {
    "uid": "c-0035",
@@ -312,10 +314,11 @@
   },
   {
    "uid": "c-0041",
-   "importance": 0,
+   "name": "wave-bowl-5",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.994Z"
+   "updated": "2026-11-19T03:22:25.558Z"
   },
   {
    "uid": "c-0042",
@@ -374,7 +377,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.019Z"
+   "updated": "2026-11-18T23:28:01.019Z",
+   "candidate": true
   },
   {
    "uid": "c-0050",
@@ -484,10 +488,11 @@
   },
   {
    "uid": "c-0064",
-   "importance": 0,
+   "name": "wave-double-v-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.077Z"
+   "updated": "2026-11-19T03:19:21.768Z"
   },
   {
    "uid": "c-0065",
@@ -569,10 +574,11 @@
   },
   {
    "uid": "c-0075",
-   "importance": 0,
+   "name": "wave-curve-triangle-point-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.166Z"
+   "updated": "2026-11-19T03:20:23.070Z"
   },
   {
    "uid": "c-0076",
@@ -583,17 +589,19 @@
   },
   {
    "uid": "c-0077",
-   "importance": 0,
+   "name": "wave-curve-triangle-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.175Z"
+   "updated": "2026-11-19T03:19:22.930Z"
   },
   {
    "uid": "c-0078",
-   "importance": 0,
+   "name": "wave-curve-triangle-point-big-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.179Z"
+   "updated": "2026-11-19T03:20:49.287Z"
   },
   {
    "uid": "c-0079",
@@ -1128,7 +1136,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.524Z"
+   "updated": "2026-11-18T23:28:01.524Z",
+   "candidate": true
   },
   {
    "uid": "c-0147",
@@ -1209,10 +1218,11 @@
   },
   {
    "uid": "c-0158",
-   "importance": 0,
+   "name": "wave-wide-hersey-3",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.569Z"
+   "updated": "2026-11-19T03:23:25.540Z"
   },
   {
    "uid": "c-0159",
@@ -1230,10 +1240,11 @@
   },
   {
    "uid": "c-0161",
-   "importance": 0,
+   "name": "wave-hersey-3",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.577Z"
+   "updated": "2026-11-19T03:21:53.617Z"
   },
   {
    "uid": "c-0162",
@@ -1308,17 +1319,19 @@
   },
   {
    "uid": "c-0172",
-   "importance": 0,
+   "name": "wave-lazy-line-2",
+   "importance": 7,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.621Z"
+   "updated": "2026-11-19T03:21:17.803Z"
   },
   {
    "uid": "c-0173",
-   "importance": 0,
+   "name": "wave-crest-45-0",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.625Z"
+   "updated": "2026-11-19T03:22:12.214Z"
   },
   {
    "uid": "c-0174",
@@ -1381,7 +1394,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.653Z"
+   "updated": "2026-11-18T23:28:01.653Z",
+   "candidate": true
   },
   {
    "uid": "c-0183",
@@ -1423,7 +1437,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.673Z"
+   "updated": "2026-11-18T23:28:01.673Z",
+   "candidate": true
   },
   {
    "uid": "c-0189",
@@ -1500,7 +1515,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.712Z"
+   "updated": "2026-11-18T23:28:01.712Z",
+   "candidate": true
   },
   {
    "uid": "c-0200",
@@ -1594,17 +1610,19 @@
   },
   {
    "uid": "c-0212",
-   "importance": 0,
+   "name": "wave-loop-1",
+   "importance": 8,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.757Z"
+   "updated": "2026-11-19T03:22:41.471Z"
   },
   {
    "uid": "c-0213",
-   "importance": 0,
+   "name": "wave-sine-2",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.760Z"
+   "updated": "2026-11-19T03:22:59.838Z"
   },
   {
    "uid": "c-0214",
