@@ -16,6 +16,8 @@ const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox
 const parametric = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-parametric.json"), "utf8"));
 const wobble = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wobble.json"), "utf8"));
 const beziers = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "bezier-knots.json"), "utf8"));
+const couplers = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "coupler-curves.json"), "utf8"));
+const mobiles = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "mobile-curves.json"), "utf8"));
 const window = data.window;
 
 function box(points, size = 300) {
@@ -232,6 +234,42 @@ function rowsOf(terms) {
         <figcaption>
           <b>#{index + 1}</b> · degree {curve.degree} · {curve.crossings} crossings<br>
           <span class="facts">{curve.controls.map(([x, y]) => `(${x}, ${y})`).join(" ")}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>7 · Coupler curves — the industrial cousin</h2>
+  <p class="lead">What a four-bar linkage draws: two fixed pivots, a crank, a coupler
+    and a rocker, with the traced point on the coupler. The field's name is the
+    coupler curve, and symmetric ones come from a crank equal to a rocker. Sampled —
+    cos and sin of a real angle — and mostly simple: only 5 of 900 random linkages
+    looped, and none more than twice. Shown for the comparison, not as a source.</p>
+  <div class="imag">
+    {(couplers.curves || []).map((curve) => (
+      <figure class="tile">
+        <Fragment set:html={plot(curve.points, { size: 320 })} />
+        <figcaption>
+          r₂ {curve.r2} · r₃ {curve.r3} · r₄ {curve.r4} · ground {curve.d} · a {curve.a} · b {curve.b}<br>
+          <span class="facts">{curve.crossings} crossings · mirror {curve.mirror}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>8 · The mobile — two vanes turning at different rates</h2>
+  <p class="lead">The main vane turns once while the small parts twirl k times:
+    P(t) = r₁(cos t, sin t) + r₂(cos kt, sin kt), with k a rational p/q. The
+    classical epicycloid family, and the symmetric ones are the epicycloids
+    themselves — k = 3/1 at equal radii has a mirror gap of 0.008. Sampled, not
+    exact, and said so.</p>
+  <div class="imag">
+    {(mobiles.curves || []).slice(0, 4).map((curve) => (
+      <figure class="tile">
+        <Fragment set:html={plot(curve.points, { size: 320 })} />
+        <figcaption>
+          k = {curve.p}/{curve.q} · radii {curve.r1} : {curve.r2}<br>
+          <span class="facts">{curve.crossings} crossings · aspect {curve.aspect} · mirror {curve.mirror}</span>
         </figcaption>
       </figure>
     ))}

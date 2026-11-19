@@ -68,12 +68,11 @@ def trace(r2, r3, r4, ground, a, b, steps=720):
     points = []
     previous = None
     for k in range(steps + 1):
-        # Walk the crank by slope, not by angle: t from -6 to 6 and back through
-        # infinity, which covers the whole turn.
-        u = -6 + 12 * k / steps
-        p, q = abs(u), 1
-        bx, by = crank_point((p, q))
-        bx, by = r2 * bx, r2 * by
+        # A full turn matters more than rational points: walking a slope from
+        # -6 to 6 covers only a short arc, and the curve retraced it, inventing
+        # crossings. cos/sin for now; the rational walk can follow.
+        t = 2 * math.pi * k / steps
+        bx, by = r2 * math.cos(t), r2 * math.sin(t)
         hit = circle_hit(bx, by, r3, ground, 0.0, r4, previous)
         if hit is None:
             return []
