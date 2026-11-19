@@ -69,6 +69,19 @@ width rails to a two-edge leaf puts a diamond at its point.
 
 Tests: **96 pass**, including 4 web tests (`tests/test_web.py`).
 
+## Data (2026-11-19)
+
+The record for anything a human edits is **SQLite through Prisma**:
+`app/prisma/schema.prisma`, database at `app/prisma/dev.db` (gitignored). Names,
+importance, rotation, pieces, stars, plate stars, users and sandbox saves are
+rows; a save is a transaction.
+
+`workbench/curve-registry.json` is the seed. `curve-notes.json` and the star
+files are exports, committed and pushed every five minutes by
+`scripts/sync-data.sh`; a dead disk loses minutes, not data. Snapshots are taken
+on dev start, before a build and before a migration, integrity-checked, with the
+last 20 kept and `npm run restore` to go back.
+
 ## Local versus remote
 
 | Capability | Local Mac | Cloud Run |

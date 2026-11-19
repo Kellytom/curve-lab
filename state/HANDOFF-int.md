@@ -2939,3 +2939,14 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **Open**: stars are keyed by name (aliases keep a rename safe; a uid foreign
   key is the proper model); there is no automated database test; the polyline
   frame maths is a second copy; 2 dependency alerts remain.
+
+### Session close — 2026-11-19
+
+- **Landed:** SQLite through Prisma as the record; automatic snapshots and a
+  five-minute GitHub sync of the exports; Astro 7.4.13 on Node 24.22.3 with the
+  fast app tests (13 in about 2 s); the handoff, `fhandon` and `focus` commands
+  matched to the tree; the memory freshness test in the fast gate.
+- **Next:** the 212 names on `/names`, then the pictures.
+- **Tried and rejected:** `brew install node@24` — macOS 12 is Tier 3, no
+  bottles, and it broke the existing `icu4c` link; the official tarball at
+  `~/node24` is the working path.

@@ -18,6 +18,8 @@ nobody has made — and then write the question instead of picking.
 
 ## Current (2026-11-19)
 
+- **Landed:** the data layer (SQLite/Prisma, backups, GitHub sync), Astro 7 on
+  Node 24, and the handoff commands. Kept as the record.
 - **Name the 212 chosen curves** — in flight; the desk is `/names`.
 - **The pictures** — the Gallery of Illuminations and the figures sheet, after
   the naming.
