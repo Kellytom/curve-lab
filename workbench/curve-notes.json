@@ -215,17 +215,19 @@
   },
   {
    "uid": "c-0029",
-   "importance": 0,
+   "name": "lace-balloon-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.959Z"
+   "updated": "2026-11-19T03:06:36.809Z"
   },
   {
    "uid": "c-0030",
-   "importance": 0,
+   "name": "lace-horseshoe-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.963Z"
+   "updated": "2026-11-19T03:04:40.250Z"
   },
   {
    "uid": "c-0031",
@@ -257,10 +259,11 @@
   },
   {
    "uid": "c-0035",
-   "importance": 0,
+   "name": "lace-wide-bow-5",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.978Z"
+   "updated": "2026-11-19T03:06:53.917Z"
   },
   {
    "uid": "c-0036",
@@ -341,17 +344,19 @@
   },
   {
    "uid": "c-0047",
-   "importance": 0,
+   "name": "lace-sz-0",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.015Z"
+   "updated": "2026-11-19T03:07:45.880Z"
   },
   {
    "uid": "c-0048",
-   "importance": 0,
+   "name": "lace-s-2",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.016Z"
+   "updated": "2026-11-19T03:04:26.976Z"
   },
   {
    "uid": "c-0049",
@@ -397,10 +402,11 @@
   },
   {
    "uid": "c-0055",
-   "importance": 0,
+   "name": "lace-z-4",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.041Z"
+   "updated": "2026-11-19T03:05:04.257Z"
   },
   {
    "uid": "c-0056",
@@ -411,10 +417,11 @@
   },
   {
    "uid": "c-0057",
-   "importance": 0,
+   "name": "lace-heart-drop-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.047Z"
+   "updated": "2026-11-19T03:05:26.986Z"
   },
   {
    "uid": "c-0058",
@@ -426,10 +433,11 @@
   },
   {
    "uid": "c-0059",
-   "importance": 0,
+   "name": "lace-butterfly-2",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.054Z"
+   "updated": "2026-11-19T03:04:54.063Z"
   },
   {
    "uid": "c-0060",
@@ -440,10 +448,11 @@
   },
   {
    "uid": "c-0061",
-   "importance": 0,
+   "name": "lace-small-knob-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.064Z"
+   "updated": "2026-11-19T03:07:26.866Z"
   },
   {
    "uid": "c-0062",
@@ -455,10 +464,11 @@
   },
   {
    "uid": "c-0063",
-   "importance": 0,
+   "name": "lace-m-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.073Z"
+   "updated": "2026-11-19T03:05:50.582Z"
   },
   {
    "uid": "c-0064",
@@ -469,10 +479,11 @@
   },
   {
    "uid": "c-0065",
-   "importance": 0,
+   "name": "lace-small-double-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.080Z"
+   "updated": "2026-11-19T03:08:02.580Z"
   },
   {
    "uid": "c-0066",
@@ -483,10 +494,11 @@
   },
   {
    "uid": "c-0067",
-   "importance": 0,
+   "name": "lace-small-acorn-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.086Z"
+   "updated": "2026-11-19T03:08:58.366Z"
   },
   {
    "uid": "c-0068",
@@ -518,10 +530,11 @@
   },
   {
    "uid": "c-0072",
-   "importance": 0,
+   "name": "lace-double-drop-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.140Z"
+   "updated": "2026-11-19T03:06:19.555Z"
   },
   {
    "uid": "c-0073",
@@ -532,10 +545,11 @@
   },
   {
    "uid": "c-0074",
-   "importance": 0,
+   "name": "lace-fly-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.164Z"
+   "updated": "2026-11-19T03:05:40.139Z"
   },
   {
    "uid": "c-0075",
@@ -602,10 +616,11 @@
   },
   {
    "uid": "c-0084",
-   "importance": 0,
+   "name": "lace-upside-d-heart-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.203Z"
+   "updated": "2026-11-19T03:04:16.734Z"
   },
   {
    "uid": "c-0085",
@@ -616,10 +631,11 @@
   },
   {
    "uid": "c-0086",
-   "importance": 0,
+   "name": "lace-tri-drop-3",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.213Z"
+   "updated": "2026-11-19T03:08:38.455Z"
   },
   {
    "uid": "c-0087",
@@ -1515,14 +1531,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.736Z"
+   "updated": "2026-11-18T23:28:01.736Z",
+   "candidate": true
   },
   {
    "uid": "c-0207",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.739Z"
+   "updated": "2026-11-18T23:28:01.739Z",
+   "candidate": true
   },
   {
    "uid": "c-0208",
@@ -1550,7 +1568,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.754Z"
+   "updated": "2026-11-18T23:28:01.754Z",
+   "candidate": true
   },
   {
    "uid": "c-0212",
@@ -1620,7 +1639,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.791Z"
+   "updated": "2026-11-18T23:28:01.791Z",
+   "candidate": true
   },
   {
    "uid": "c-0222",
@@ -1641,14 +1661,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.801Z"
+   "updated": "2026-11-18T23:28:01.801Z",
+   "candidate": true
   },
   {
    "uid": "c-0225",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.805Z"
+   "updated": "2026-11-18T23:28:01.805Z",
+   "candidate": true
   },
   {
    "uid": "c-0226",
@@ -1711,7 +1733,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.842Z"
+   "updated": "2026-11-18T23:28:01.842Z",
+   "candidate": true
   },
   {
    "uid": "c-0235",
@@ -1739,14 +1762,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.856Z"
+   "updated": "2026-11-18T23:28:01.856Z",
+   "candidate": true
   },
   {
    "uid": "c-0239",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.861Z"
+   "updated": "2026-11-18T23:28:01.861Z",
+   "candidate": true
   },
   {
    "uid": "c-0240",
@@ -1788,7 +1813,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.882Z"
+   "updated": "2026-11-18T23:28:01.882Z",
+   "candidate": true
   },
   {
    "uid": "c-0246",
