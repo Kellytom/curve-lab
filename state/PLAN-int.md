@@ -85,6 +85,15 @@ this symmetry; call it balance.
   curves are complete" has to mean.
 - **S5** is the Bézier step, only when the four above are true.
 
+## Future exploration — the map, not the queue
+
+`state/EXPLORATION-int.md` holds the operator's ideas for what the set has not
+tried: the pendulum mobile, Gaussian/Pythagorean transforms on the polynomial
+rows, tweaks stored as rows, character rails on every curve including the set-aside
+ones, tails, the review of what was never followed up, and the empty cells of
+(crossings x inflections) from `state/SIMILARITY-int.md`. Nothing there starts
+without the operator saying so.
+
 ## Parked — not in this plan
 
 | thing | why it is parked | where it is recorded |

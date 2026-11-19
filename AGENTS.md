@@ -191,6 +191,7 @@ and documentation alike.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
+| `state/EXPLORATION-int.md` | future ideas with their first measurable step: the pendulum mobile, Gaussian transforms, tweaks as rows, rails on every curve, tails, the review, the empty cells |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
 | `app/` | the Astro app: the lab and the save endpoint; see `app/README.md` |
