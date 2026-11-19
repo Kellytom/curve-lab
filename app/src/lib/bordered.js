@@ -36,6 +36,9 @@ const TOO_WIDE = 30;
 // a quarter turn does not help (P.frame normalises each copy to its chord), so
 // the motif is flattened to a stated share of the step before tiling.
 const BAND_SHARE = 0.3;
+// How much of the frame's side the central design takes: the subject, not a mark.
+// The old rule scaled it to 1/perSide (one ninth), which read as a speck.
+const CENTRAL_SHARE = 0.55;
 
 // The curves the operator found colliding with their own border (2026-11-19).
 // The aspect test catches the tall ones; these are the rest, where the loops
@@ -71,6 +74,27 @@ function mirroredPieces(points, pieces) {
     out.push(points.map(([x, y]) => [2 * cx - x, 2 * cy - y]));
   }
   return out;
+}
+
+// The mirror of a curve across the chord through its first and last station.
+// The two feet lie on the chord, so they are fixed points of the reflection and
+// the two halves share them exactly.
+function reflectAcrossChord(points) {
+  const a = points[0];
+  const b = points[points.length - 1];
+  const dx = b[0] - a[0];
+  const dy = b[1] - a[1];
+  const len2 = dx * dx + dy * dy;
+  if (!len2) {
+    // A closed curve: the chord is a point, so mirror across that point.
+    return points.map(([x, y]) => [2 * a[0] - x, 2 * a[1] - y]);
+  }
+  return points.map(([x, y]) => {
+    const t = ((x - a[0]) * dx + (y - a[1]) * dy) / len2;
+    const px = a[0] + t * dx;
+    const py = a[1] + t * dy;
+    return [2 * px - x, 2 * py - y];
+  });
 }
 
 function scaleAbout(points, factor) {
@@ -142,13 +166,29 @@ export function figureFor(record, all, borderRecord) {
   const build = (borderTurn) => {
     const border = frameBorder(borderRecord || record, perSide, borderTurn);
     const fbox = P.bbox(border.flat());
-    const unit = Math.max(fbox[2] - fbox[0], fbox[3] - fbox[1]) / perSide || 1;
-    let inner = rotatePoints(pointsOf(record), rotation);
-    const ibox = P.bbox(inner);
-    const size = Math.max(ibox[2] - ibox[0], ibox[3] - ibox[1]) || 1;
-    inner = scaleAbout(inner, unit / size);
-    const central = mirroredPieces(inner, pieces)
-      .map((line) => moveToCentre(line, (fbox[0] + fbox[2]) / 2, (fbox[1] + fbox[3]) / 2));
+    const inner = rotatePoints(pointsOf(record), rotation);
+    const cx = (fbox[0] + fbox[2]) / 2;
+    const cy = (fbox[1] + fbox[3]) / 2;
+    let central;
+    if (pieces === 1) {
+      // The leaf: the curve and its mirror across the chord through its feet.
+      // Fit and centre the pair as one figure, so the shared feet stay shared.
+      const pair = [inner, reflectAcrossChord(inner)];
+      const pairBox = P.bbox(pair.flat());
+      const size = Math.max(pairBox[2] - pairBox[0], pairBox[3] - pairBox[1]) || 1;
+      const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
+      const scaled = pair.map((line) => scaleAbout(line, target / size));
+      const box = P.bbox(scaled.flat());
+      const dx = cx - (box[0] + box[2]) / 2;
+      const dy = cy - (box[1] + box[3]) / 2;
+      central = scaled.map((line) => line.map(([x, y]) => [x + dx, y + dy]));
+    } else {
+      const ibox = P.bbox(inner);
+      const size = Math.max(ibox[2] - ibox[0], ibox[3] - ibox[1]) || 1;
+      const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
+      central = mirroredPieces(scaleAbout(inner, target / size), pieces)
+        .map((line) => moveToCentre(line, cx, cy));
+    }
     const margin = marginPercent(border, central);
     return {
       paths: [...central, ...border],
@@ -156,6 +196,7 @@ export function figureFor(record, all, borderRecord) {
       margin,
       rotation,
       pieces,
+      centralCount: central.length,
       borderTurn,
       failed: false,
       tooWide: margin >= TOO_WIDE,
@@ -169,7 +210,7 @@ export function figureFor(record, all, borderRecord) {
     return quarter.margin >= straight.margin + 5 ? quarter : straight;
   } catch (error) {
     return {
-      paths: [pointsOf(record)], perSide, margin: 0, rotation, pieces,
+      paths: [pointsOf(record)], perSide, margin: 0, rotation, pieces, centralCount: 1,
       failed: true, reason: String(error.message || error),
     };
   }
