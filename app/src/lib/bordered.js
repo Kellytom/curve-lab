@@ -30,6 +30,21 @@ const PER_SIDE = 9;
 const PER_SIDE_FIVE = new Set(["c-0007", "c-0002"]);
 const TOO_WIDE = 30;
 
+// A border is a band: the motif repeats along the edge with its chord as the
+// step, so a motif whose loops are taller than its chord tiles into a mesh and
+// the centre disappears. Measured on c-0003: chord 14, amplitude 50. Turning it
+// a quarter turn does not help (P.frame normalises each copy to its chord), so
+// the motif is flattened to a stated share of the step before tiling.
+const BAND_SHARE = 0.3;
+
+// The curves the operator found colliding with their own border (2026-11-19).
+// The aspect test catches the tall ones; these are the rest, where the loops
+// are wide but still deeper than the step.
+const BAND_UIDS = new Set([
+  "c-0003", "c-0005", "c-0006", "c-0011", "c-0024",
+  "c-0055", "c-0056", "c-0163", "c-0261",
+]);
+
 function pointsOf(record) {
   if (record.path) return record.path;
   return P.spine(record.speedX, record.speedY, 400).map((s) => [s.x, s.y]);
@@ -67,10 +82,28 @@ function moveToCentre(points, cx, cy) {
   return points.map(([x, y]) => [x - (box[0] + box[2]) / 2 + cx, y - (box[1] + box[3]) / 2 + cy]);
 }
 
-function frameBorder(record, perSide) {
+// `turn` rotates the repeated motif before it is laid along the edges. The band
+// is as wide as the motif's short side, so turning a tall curve a quarter turn
+// thins the border without changing the side of the square.
+// The motif with its amplitude limited to BAND_SHARE of its chord: the band a
+// border needs. The inner curve is not touched.
+function bandMotif(record) {
+  const points = record.path || P.spine(record.speedX, record.speedY, 160).map((s) => [s.x, s.y]);
+  const box = P.bbox(points);
+  const width = box[2] - box[0];
+  const height = box[3] - box[1];
+  const named = BAND_UIDS.has(record.uid);
+  if (!width || (!named && !(height > width * 1.2))) return record;
+  const k = (BAND_SHARE * width) / height;
+  if (record.path) return { ...record, path: record.path.map(([x, y]) => [x, y * k]) };
+  return { ...record, speedY: (record.speedY || []).map((v) => v * k) };
+}
+
+function frameBorder(record, perSide, turn = 0) {
   if (record.path) {
-    const xs = record.path.map((p) => p[0]);
-    const ys = record.path.map((p) => p[1]);
+    const motif = bandMotif(record).path;
+    const xs = motif.map((p) => p[0]);
+    const ys = motif.map((p) => p[1]);
     const unit = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) || 1;
     const side = perSide * unit;
     const turn = (pts, deg) => {
@@ -80,13 +113,15 @@ function frameBorder(record, perSide) {
     const border = [];
     [[0, 0, 0], [side, 0, 90], [side, side, 180], [0, side, 270]].forEach(([ox, oy, deg]) => {
       for (let copy = 0; copy < perSide; copy += 1) {
-        const moved = record.path.map(([x, y]) => [x + copy * unit, y]);
+        const moved = motif.map(([x, y]) => [x + copy * unit, y]);
         border.push(turn(moved, deg).map(([x, y]) => [x + ox, y + oy]));
       }
     });
     return border;
   }
-  const a = P.group(record);
+  // A speed-row curve is turned by turning its velocity: (u, v) -> (-v, u).
+  // That is what makes the four wide curves a border instead of a collision.
+  const a = P.group(bandMotif(record));
   return P.frame(a, null, perSide, perSide, 45, "a", false).flatMap((item) => item.paths);
 }
 
@@ -103,8 +138,9 @@ export function figureFor(record, all, borderRecord) {
   const perSide = PER_SIDE_FIVE.has(record.uid) ? 5 : PER_SIDE;
   const rotation = Number(record.rotation) || 0;
   const pieces = [1, 2, 4].includes(Number(record.pieces)) ? Number(record.pieces) : 1;
-  try {
-    const border = frameBorder(borderRecord || record, perSide);
+
+  const build = (borderTurn) => {
+    const border = frameBorder(borderRecord || record, perSide, borderTurn);
     const fbox = P.bbox(border.flat());
     const unit = Math.max(fbox[2] - fbox[0], fbox[3] - fbox[1]) / perSide || 1;
     let inner = rotatePoints(pointsOf(record), rotation);
@@ -120,9 +156,17 @@ export function figureFor(record, all, borderRecord) {
       margin,
       rotation,
       pieces,
+      borderTurn,
       failed: false,
       tooWide: margin >= TOO_WIDE,
     };
+  };
+
+  try {
+    const straight = build(0);
+    const quarter = build(90);
+    // Only a real gain pays for the change of look: five points of clearance.
+    return quarter.margin >= straight.margin + 5 ? quarter : straight;
   } catch (error) {
     return {
       paths: [pointsOf(record)], perSide, margin: 0, rotation, pieces,
