@@ -79,6 +79,10 @@ const sidebar = [
     label: "Operations",
     items: ["docs/tunnel"],
   },
+  {
+    label: "For other people",
+    items: ["docs/self-host"],
+  },
 ];
 
 export default defineConfig({

@@ -1,0 +1,13 @@
+services:
+  curve-lab:
+    build:
+      context: ../..
+      dockerfile: deploy/self-host/Dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - curve-data:/data
+    restart: unless-stopped
+
+volumes:
+  curve-data:
