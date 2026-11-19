@@ -174,7 +174,7 @@
    "illus": "illus-catenary-fit",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-catenary-fit.png"
@@ -240,7 +240,7 @@
    "illus": "illus-wave3-balance",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-wave3-balance.png"
@@ -372,7 +372,7 @@
    "illus": "illus-lace-wide-bow",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-lace-wide-bow.png"
@@ -405,7 +405,7 @@
    "illus": "illus-wave-point-heart",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-wave-point-heart.png"
@@ -559,7 +559,7 @@
    "illus": "illus-lace-small-double",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-lace-small-double.png"
@@ -647,7 +647,7 @@
    "illus": "illus-lace-fly",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-lace-fly.png"
@@ -812,7 +812,7 @@
    "illus": "illus-wave-hersey",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-wave-hersey.png"
@@ -944,7 +944,7 @@
    "illus": "illus-wave-middle-v",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-wave-middle-v.png"
@@ -966,7 +966,7 @@
    "illus": "illus-lace-arch-triangle",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-lace-arch-triangle.png"
@@ -977,7 +977,7 @@
    "illus": "illus-lace-triangle",
    "variant": null,
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "tooWide": false,
    "failed": false,
    "frame": "/frames/illus-lace-triangle.png"

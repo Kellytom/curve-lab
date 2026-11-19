@@ -18,9 +18,21 @@ const SVG_DIR = path.join(ROOT, "build", "figures-svg");
 mkdirSync(PNG_DIR, { recursive: true });
 mkdirSync(SVG_DIR, { recursive: true });
 
-const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8")).curves;
+const only = (() => {
+  const at = process.argv.indexOf("--only");
+  return at >= 0 ? new Set(process.argv.slice(at + 1).flatMap((v) => v.split(","))) : null;
+})();
+const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8")).curves
+  .filter((record) => !only || only.has(record.uid));
+const byUid = Object.fromEntries(registry.map((record) => [record.uid, record]));
+// A curve may name another curve as its border (the note's border_uid). The
+// database is the record; this reads its mirror, so the frame drawn here is the
+// frame the page shows.
+const notes = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-notes.json"), "utf8"));
+const borderOf = new Map((notes.curves || []).filter((n) => n.border_uid).map((n) => [n.uid, n.border_uid]));
 const items = registry.map((record) => {
-  const figure = figureFor(record, { [record.name]: record });
+  const border = borderOf.get(record.uid);
+  const figure = figureFor(record, { [record.name]: record }, border ? byUid[border] : null);
   const svgFile = path.join(SVG_DIR, `${record.uid}.svg`);
   writeFileSync(svgFile, svgForFigure(figure, `${record.uid}: ${record.name}`));
   return {

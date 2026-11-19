@@ -156,7 +156,7 @@
    "name": "catenary-fit",
    "family": "catenary",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -216,7 +216,7 @@
    "name": "wave3",
    "family": "wave3",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -346,7 +346,7 @@
    "name": "lace-1of12-5",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -456,7 +456,7 @@
    "name": "wave-1of14-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -646,7 +646,7 @@
    "name": "lace-1of8-1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -696,7 +696,7 @@
    "name": "wave-5of12-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -736,7 +736,7 @@
    "name": "lace-1of12-1of3-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -756,7 +756,7 @@
    "name": "wave-1of6-2of5-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -876,7 +876,7 @@
    "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
    "family": "ph",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -986,7 +986,7 @@
    "name": "line-q-0",
    "family": "line",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1086,7 +1086,7 @@
    "name": "weighted-balance-exp-balance-t1of4",
    "family": "weighted-balance",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1266,7 +1266,7 @@
    "name": "mobile-two-vanes-1-1of2",
    "family": "mobile",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1316,7 +1316,7 @@
    "name": "mobile-exact-3-4-5-plus-half-2-turns",
    "family": "mobile-exact",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1526,7 +1526,7 @@
    "name": "wave-1of5-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1606,7 +1606,7 @@
    "name": "wave-1of4-1of3-3",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1616,7 +1616,7 @@
    "name": "wave-1of6-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1666,7 +1666,7 @@
    "name": "wave-1of4-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1686,7 +1686,7 @@
    "name": "wave-1of5-1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1706,7 +1706,7 @@
    "name": "wave-2x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1826,7 +1826,7 @@
    "name": "wave-1of5-1of3-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1856,7 +1856,7 @@
    "name": "wave-1of4-2x1of3-0",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -1966,7 +1966,7 @@
    "name": "wave-2x1of5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2026,7 +2026,7 @@
    "name": "wave-1of6-1of3-1-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2166,7 +2166,7 @@
    "name": "wave-middle-5-2",
    "family": "wave",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2296,7 +2296,7 @@
    "name": "lace-1of8-2x1of3-1",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2306,7 +2306,7 @@
    "name": "lace-1of8-1of5-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 22,
+   "marginPercent": 23,
    "failed": false,
    "reason": null,
    "tooWide": false
@@ -2356,7 +2356,7 @@
    "name": "lace-1of8-1of4-3",
    "family": "lace",
    "perSide": 9,
-   "marginPercent": 23,
+   "marginPercent": 22,
    "failed": false,
    "reason": null,
    "tooWide": false

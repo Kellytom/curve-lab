@@ -31,13 +31,13 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-bowl-drop | bowl-drop | c-0013 | 9 | 22 |
 | illus-wave-big | wave-big | c-0014 | 9 | 22 |
 | illus-involute-fit | involute-fit | c-0015 | 9 | 23 |
-| illus-catenary-fit | catenary-fit | c-0016 | 9 | 23 |
+| illus-catenary-fit | catenary-fit | c-0016 | 9 | 22 |
 | illus-euler-fit | euler-fit | c-0017 | 9 | 22 |
 | illus-logspiral-fit | logspiral-fit | c-0018 | 9 | 22 |
 | illus-knot-loop | knot-loop-6 | c-0019 | 9 | 22 |
 | illus-knot-small-loop | knot-small-loop-7 | c-0020 | 9 | 22 |
 | illus-inflect-spear | inflect-spear-2 | c-0021 | 9 | 22 |
-| illus-wave3-balance | wave3-balance | c-0022 | 9 | 22 |
+| illus-wave3-balance | wave3-balance | c-0022 | 9 | 23 |
 | illus-cusp5-hersey1 | cusp5-hersey1 | c-0023 | 9 | 22 |
 | illus-cusp7-hersey2 | cusp7-hersey2 | c-0024 | 9 | 22 |
 | illus-twin-z | twin-z | c-0025 | 9 | 22 |
@@ -49,10 +49,10 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-wave-bowl-3 | wave-bowl-3 | c-0031 | 9 | 22 |
 | illus-wave-middle | wave-middle-5 | c-0033 | 9 | 22 |
 | illus-wave-wide-triangle | wave-wide-triangle-5 | c-0034 | 9 | 22 |
-| illus-lace-wide-bow | lace-wide-bow-5 | c-0035 | 9 | 22 |
+| illus-lace-wide-bow | lace-wide-bow-5 | c-0035 | 9 | 23 |
 | illus-wave-bowl-5 | wave-bowl-5 | c-0041 | 9 | 22 |
 | illus-lace-collar | lace-collar-3 | c-0043 | 9 | 22 |
-| illus-wave-point-heart | wave-point-heart-3 | c-0046 | 9 | 23 |
+| illus-wave-point-heart | wave-point-heart-3 | c-0046 | 9 | 22 |
 | illus-lace-sz | lace-sz-0 | c-0047 | 9 | 23 |
 | illus-lace-s | lace-s-2 | c-0048 | 9 | 22 |
 | illus-wave-small | wave-small-0 | c-0053 | 9 | 22 |
@@ -66,7 +66,7 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-lace-flourish | lace-flourish-1 | c-0062 | 9 | 22 |
 | illus-lace-m | lace-m-1 | c-0063 | 9 | 22 |
 | illus-wave-double-v | wave-double-v-1 | c-0064 | 9 | 22 |
-| illus-lace-small-double | lace-small-double-1 | c-0065 | 9 | 22 |
+| illus-lace-small-double | lace-small-double-1 | c-0065 | 9 | 23 |
 | illus-lace-drop-heart | lace-drop-heart-1 | c-0066 | 9 | 22 |
 | illus-lace-small-acorn | lace-small-acorn-1 | c-0067 | 9 | 22 |
 | illus-wave-tri | wave-tri-1 | c-0068 | 9 | 22 |
@@ -74,7 +74,7 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-wave-arch-triangle | wave-arch-triangle-3 | c-0071 | 9 | 22 |
 | illus-lace-double-drop | lace-double-drop-1 | c-0072 | 9 | 22 |
 | illus-wave-double-loop-dupe | wave-double-loop-dupe-3 | c-0073 | 9 | 22 |
-| illus-lace-fly | lace-fly-3 | c-0074 | 9 | 22 |
+| illus-lace-fly | lace-fly-3 | c-0074 | 9 | 23 |
 | illus-wave-curve-triangle-point | wave-curve-triangle-point-3 | c-0075 | 9 | 22 |
 | illus-wave-curve-triangle | wave-curve-triangle-1 | c-0077 | 9 | 22 |
 | illus-wave-curve-triangle-point-big | wave-curve-triangle-point-big-3 | c-0078 | 9 | 22 |
@@ -89,7 +89,7 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-cross-2-loops | cross-2-loops-45 | c-0101 | 9 | 22 |
 | illus-mobile-exact-helmet-45 | mobile-exact-helmet-45-5 | c-0134 | 9 | 22 |
 | illus-wave-wide-hersey | wave-wide-hersey-3 | c-0158 | 9 | 22 |
-| illus-wave-hersey | wave-hersey-3 | c-0161 | 9 | 23 |
+| illus-wave-hersey | wave-hersey-3 | c-0161 | 9 | 22 |
 | illus-lace-lazy-s | lace-lazy-s-2 | c-0163 | 9 | 22 |
 | illus-wave-french | wave-french-0 | c-0165 | 9 | 22 |
 | illus-wave-lazy-line | wave-lazy-line-2 | c-0172 | 9 | 22 |
@@ -101,10 +101,10 @@ figure is tight to the drawn marks with a 1.2% margin.
 | illus-lace-triangle-loop | lace-triangle-loop-3 | c-0210 | 9 | 22 |
 | illus-wave-loop | wave-loop-1 | c-0212 | 9 | 22 |
 | illus-wave-sine | wave-sine-2 | c-0213 | 9 | 22 |
-| illus-wave-middle-v | wave-middle-v-2 | c-0217 | 9 | 22 |
+| illus-wave-middle-v | wave-middle-v-2 | c-0217 | 9 | 23 |
 | illus-wave-45 | wave-45-2 | c-0220 | 9 | 22 |
-| illus-lace-arch-triangle | lace-arch-triangle-3 | c-0231 | 9 | 22 |
-| illus-lace-triangle | lace-triangle-3 | c-0236 | 9 | 23 |
+| illus-lace-arch-triangle | lace-arch-triangle-3 | c-0231 | 9 | 23 |
+| illus-lace-triangle | lace-triangle-3 | c-0236 | 9 | 22 |
 | illus-loop-knot-45 | loop-knot-45-2 | c-0261 | 9 | 22 |
 
 ## [NOTE] — framed, not yet named
