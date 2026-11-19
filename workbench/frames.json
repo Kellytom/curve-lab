@@ -1,6 +1,7 @@
 {
  "format": "curve-lab.frames/1",
- "note": "the 90 chosen curves as framed illuminations; names are illus-<name> with the last postfix dropped",
+ "note": "the 90 chosen curves as framed illuminations; names are illus-<name> with the last postfix dropped; the PNGs are thumbnails, not print plates",
+ "thumbnailPixels": 600,
  "curves": [
   {
    "uid": "c-0001",
@@ -11,7 +12,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-amper.png"
   },
   {
    "uid": "c-0002",
@@ -22,7 +23,7 @@
    "marginPercent": 40,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-euler-hook.png"
   },
   {
    "uid": "c-0003",
@@ -33,7 +34,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-swan.png"
   },
   {
    "uid": "c-0004",
@@ -44,7 +45,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-gosling.png"
   },
   {
    "uid": "c-0005",
@@ -55,7 +56,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-double-tap.png"
   },
   {
    "uid": "c-0006",
@@ -66,7 +67,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-curlicue.png"
   },
   {
    "uid": "c-0007",
@@ -77,7 +78,7 @@
    "marginPercent": 40,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-grass.png"
   },
   {
    "uid": "c-0008",
@@ -88,7 +89,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-u-bowl.png"
   },
   {
    "uid": "c-0009",
@@ -99,7 +100,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-v-flat-bowl.png"
   },
   {
    "uid": "c-0010",
@@ -110,7 +111,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-m-arch-line.png"
   },
   {
    "uid": "c-0011",
@@ -121,7 +122,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-gumdrop.png"
   },
   {
    "uid": "c-0012",
@@ -132,7 +133,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-m-side-wave.png"
   },
   {
    "uid": "c-0013",
@@ -143,7 +144,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-bowl-drop.png"
   },
   {
    "uid": "c-0014",
@@ -154,7 +155,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-big.png"
   },
   {
    "uid": "c-0015",
@@ -165,7 +166,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-involute-fit.png"
   },
   {
    "uid": "c-0016",
@@ -176,7 +177,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-catenary-fit.png"
   },
   {
    "uid": "c-0017",
@@ -187,7 +188,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-euler-fit.png"
   },
   {
    "uid": "c-0018",
@@ -198,7 +199,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-logspiral-fit.png"
   },
   {
    "uid": "c-0019",
@@ -209,7 +210,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-knot-loop.png"
   },
   {
    "uid": "c-0020",
@@ -220,7 +221,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-knot-small-loop.png"
   },
   {
    "uid": "c-0021",
@@ -231,7 +232,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-inflect-spear.png"
   },
   {
    "uid": "c-0022",
@@ -242,7 +243,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave3-balance.png"
   },
   {
    "uid": "c-0023",
@@ -253,7 +254,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-cusp5-hersey1.png"
   },
   {
    "uid": "c-0024",
@@ -264,7 +265,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-cusp7-hersey2.png"
   },
   {
    "uid": "c-0025",
@@ -275,7 +276,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-twin-z.png"
   },
   {
    "uid": "c-0026",
@@ -286,7 +287,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-w-arch-knot-big.png"
   },
   {
    "uid": "c-0027",
@@ -297,7 +298,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-new-symmetric.png"
   },
   {
    "uid": "c-0028",
@@ -308,7 +309,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-2-eight.png"
   },
   {
    "uid": "c-0029",
@@ -319,7 +320,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-balloon.png"
   },
   {
    "uid": "c-0030",
@@ -330,7 +331,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-horseshoe.png"
   },
   {
    "uid": "c-0031",
@@ -341,7 +342,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-bowl-3.png"
   },
   {
    "uid": "c-0033",
@@ -352,7 +353,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-middle.png"
   },
   {
    "uid": "c-0034",
@@ -363,7 +364,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-wide-triangle.png"
   },
   {
    "uid": "c-0035",
@@ -374,7 +375,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-wide-bow.png"
   },
   {
    "uid": "c-0041",
@@ -385,7 +386,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-bowl-5.png"
   },
   {
    "uid": "c-0043",
@@ -396,7 +397,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-collar.png"
   },
   {
    "uid": "c-0046",
@@ -407,7 +408,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-point-heart.png"
   },
   {
    "uid": "c-0047",
@@ -418,7 +419,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-sz.png"
   },
   {
    "uid": "c-0048",
@@ -429,7 +430,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-s.png"
   },
   {
    "uid": "c-0053",
@@ -440,7 +441,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-small.png"
   },
   {
    "uid": "c-0055",
@@ -451,7 +452,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-z.png"
   },
   {
    "uid": "c-0056",
@@ -462,7 +463,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-point-s.png"
   },
   {
    "uid": "c-0057",
@@ -473,7 +474,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-heart-drop.png"
   },
   {
    "uid": "c-0058",
@@ -484,7 +485,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-flourish2.png"
   },
   {
    "uid": "c-0059",
@@ -495,7 +496,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-butterfly.png"
   },
   {
    "uid": "c-0060",
@@ -506,7 +507,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-arch-x.png"
   },
   {
    "uid": "c-0061",
@@ -517,7 +518,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-small-knob.png"
   },
   {
    "uid": "c-0062",
@@ -528,7 +529,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-flourish.png"
   },
   {
    "uid": "c-0063",
@@ -539,7 +540,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-m.png"
   },
   {
    "uid": "c-0064",
@@ -550,7 +551,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-double-v.png"
   },
   {
    "uid": "c-0065",
@@ -561,7 +562,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-small-double.png"
   },
   {
    "uid": "c-0066",
@@ -572,7 +573,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-drop-heart.png"
   },
   {
    "uid": "c-0067",
@@ -583,7 +584,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-small-acorn.png"
   },
   {
    "uid": "c-0068",
@@ -594,7 +595,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-tri.png"
   },
   {
    "uid": "c-0069",
@@ -605,7 +606,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-small-bottle.png"
   },
   {
    "uid": "c-0071",
@@ -616,7 +617,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-arch-triangle.png"
   },
   {
    "uid": "c-0072",
@@ -627,7 +628,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-double-drop.png"
   },
   {
    "uid": "c-0073",
@@ -638,7 +639,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-double-loop-dupe.png"
   },
   {
    "uid": "c-0074",
@@ -649,7 +650,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-fly.png"
   },
   {
    "uid": "c-0075",
@@ -660,7 +661,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-curve-triangle-point.png"
   },
   {
    "uid": "c-0077",
@@ -671,7 +672,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-curve-triangle.png"
   },
   {
    "uid": "c-0078",
@@ -682,7 +683,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-curve-triangle-point-big.png"
   },
   {
    "uid": "c-0084",
@@ -693,7 +694,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-upside-d-heart.png"
   },
   {
    "uid": "c-0085",
@@ -704,7 +705,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-tri-hershey.png"
   },
   {
    "uid": "c-0086",
@@ -715,7 +716,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-tri-drop.png"
   },
   {
    "uid": "c-0087",
@@ -726,7 +727,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wide-knot-t.png"
   },
   {
    "uid": "c-0091",
@@ -737,7 +738,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-loop-2-cusps.png"
   },
   {
    "uid": "c-0092",
@@ -748,7 +749,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-loop-2-small-loops.png"
   },
   {
    "uid": "c-0093",
@@ -759,7 +760,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-loop-2-loops.png"
   },
   {
    "uid": "c-0094",
@@ -770,7 +771,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-cross-small-knot.png"
   },
   {
    "uid": "c-0101",
@@ -781,7 +782,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-cross-2-loops.png"
   },
   {
    "uid": "c-0134",
@@ -792,7 +793,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-mobile-exact-helmet-45.png"
   },
   {
    "uid": "c-0158",
@@ -803,7 +804,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-wide-hersey.png"
   },
   {
    "uid": "c-0161",
@@ -814,7 +815,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-hersey.png"
   },
   {
    "uid": "c-0163",
@@ -825,7 +826,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-lazy-s.png"
   },
   {
    "uid": "c-0165",
@@ -836,7 +837,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-french.png"
   },
   {
    "uid": "c-0172",
@@ -847,7 +848,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-lazy-line.png"
   },
   {
    "uid": "c-0173",
@@ -858,7 +859,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-crest-45.png"
   },
   {
    "uid": "c-0176",
@@ -869,7 +870,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-falls.png"
   },
   {
    "uid": "c-0177",
@@ -880,7 +881,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-thin.png"
   },
   {
    "uid": "c-0178",
@@ -891,7 +892,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-thread.png"
   },
   {
    "uid": "c-0179",
@@ -902,7 +903,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-bobby.png"
   },
   {
    "uid": "c-0210",
@@ -913,7 +914,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-triangle-loop.png"
   },
   {
    "uid": "c-0212",
@@ -924,7 +925,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-loop.png"
   },
   {
    "uid": "c-0213",
@@ -935,7 +936,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-sine.png"
   },
   {
    "uid": "c-0217",
@@ -946,7 +947,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-middle-v.png"
   },
   {
    "uid": "c-0220",
@@ -957,7 +958,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-wave-45.png"
   },
   {
    "uid": "c-0231",
@@ -968,7 +969,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-arch-triangle.png"
   },
   {
    "uid": "c-0236",
@@ -979,7 +980,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-lace-triangle.png"
   },
   {
    "uid": "c-0261",
@@ -990,7 +991,7 @@
    "marginPercent": 44,
    "tooWide": true,
    "failed": false,
-   "frame": null
+   "frame": "/frames/illus-loop-knot-45.png"
   }
  ],
  "notes": [

@@ -654,6 +654,20 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
   order come from the DOM or from a script's printed output, with the command
   named.
 
+## Frames start as thumbnails — 2026-11-19
+
+Settled by the operator: "you can keep track of these pngs as simple thumbnails
+basically. dont worry about the final pngs yet."
+
+- The 90 `illus-` frames are **600 px thumbnails**, copied from the bordered set
+  so the plates can be seen, ordered and named. `workbench/frames.json` records
+  `thumbnailPixels` and says so in its note.
+- The book-plate rule (3000 px, 300 dpi, 1.2% margin) still governs the **final**
+  export and is not applied here. Re-rendering at print size is a separate step,
+  after the set is chosen.
+- A thumbnail is never called a plate. The `/frames` page says "plates" for the
+  list and "thumbnail" in the data; the file's note carries the distinction.
+
 ## The app has one shell — 2026-11-19
 
 Settled by the operator: "every page in astro should look like this: same css:
