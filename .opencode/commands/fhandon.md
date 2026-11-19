@@ -22,6 +22,18 @@ Focused handon for curve-lab. Work in
    Expect `200`. If it is not 200, say so in one line and carry on — a dead
    server is a fact for the handoff, not a reason to stop reading.
 
+   A 200 is not enough after an upgrade: the daemon survives quitting OpenCode,
+   and an old Astro can still hold the port. Read its identity:
+
+   ```sh
+   curl -s --max-time 3 http://127.0.0.1:4321/api/health
+   ```
+
+   It must say `"node":"v24` and `"astro":"7.`. If it does not, the server is
+   from an older stack: stop it
+   (`PATH="$HOME/node24/bin:$PATH" npm --prefix app exec astro dev stop`), start
+   it again with the block above, and check the health line once.
+
 3. Run the register before touching anything — it costs a tenth of a second and
    it is the only guard against undoing a fix that took hours:
 

@@ -228,7 +228,8 @@ Start the one server if it is not already up (this is idempotent — it says
 .venv/bin/python scripts/crossing_audit.py       # audit stored crossing counts; --write repairs
 .venv/bin/python scripts/operator_list.py        # rebuild the button list from the records
 node tph_tri_chain/audit_t1.mjs                  # Fig. T1: label audit, ~2 s
-npm --prefix app run dev                         # the app and the book, :4321/docs
+npm --prefix app run dev                         # the app and the book, :4321/docs (Node 24)
+curl -s localhost:4321/api/health                # who is serving: node and astro versions
 npm --prefix app run build                       # a production build
 .venv/bin/python web/server.py                  # local, open on 127.0.0.1
 node scripts/check-ph-page.mjs                  # gallery readouts in a headless browser
