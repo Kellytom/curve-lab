@@ -47,10 +47,10 @@ not fetched at build time.
 
 | package | version | licence | why |
 |---|---|---|---|
-| Node | 22 | MIT | runs the Astro app and the page checks |
-| `astro` | 5.18.2 | MIT | the app and its pages, server-rendered |
-| `@astrojs/starlight` | 0.36.0 | MIT | renders the prose book at `/docs` |
-| `@astrojs/node` | 9.5.5 | MIT | the Node adapter that runs Astro as a server |
+| Node | 24.22.3 | MIT | runs the Astro app and the page checks; Astro 7 needs 22.23 or newer |
+| `astro` | 7.4.13 | MIT | the app and its pages, server-rendered |
+| `@astrojs/starlight` | 0.43.1 | MIT | renders the prose book at `/docs` |
+| `@astrojs/node` | 11.1.14 | MIT | the Node adapter that runs Astro as a server |
 | `zod` | 3.25.76 | MIT | validates the payload the save route receives |
 | `@prisma/client` | 6.19.3 | Apache-2.0 | typed CRUD over the SQLite database |
 | `prisma` (CLI) | 6.19.3 | Apache-2.0 | schema, `db push`, migrations |

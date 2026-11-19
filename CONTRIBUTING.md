@@ -27,6 +27,8 @@ its row there in the same commit.
 
 ```sh
 .venv/bin/python scripts/test.py --fast   # the fast loop, about 15 s
+npm --prefix app test                     # the app's fast tests, about 3 s
+npm --prefix app run test:full            # the app's rendering tests
 .venv/bin/python scripts/test.py --slim   # engine only, about 3 s
 .venv/bin/python scripts/test.py --full   # the gate: Python, JS, data, pages
 .venv/bin/python scripts/serve.py         # the lab pages, port 8003

@@ -9,7 +9,7 @@ backups honest.
 
 ## What you need
 
-- **Node 22 or newer** (24 works) and npm
+- **Node 24** (at least 22.23) and npm
 - **Python 3.12** for the engine and the scripts
 - **A C++ compiler** only if you want the compiled clothoid engine
 - **git**
