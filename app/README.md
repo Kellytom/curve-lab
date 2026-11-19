@@ -44,6 +44,10 @@ cd app && npm run dev      # http://localhost:4321
 npm test                   # the save tests, no browser
 ```
 
+**After a Prisma schema change**, restart the dev server. The running process
+keeps the client it loaded at start, so a new model or field is `undefined`
+until the restart. Run `cd app && npx prisma db push`, then restart `npm run dev`.
+
 Not ported yet: the other workbench pages (the hub previews them from the
 Python-generated files). The old lab at
 `:8003` stays until the Astro page reaches parity.

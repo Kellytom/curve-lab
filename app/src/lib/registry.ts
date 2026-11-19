@@ -58,6 +58,11 @@ export async function loadRegistry(base?: string): Promise<Registry> {
     record.savedName = note.name || null;
     if (note.perSide) record.perSide = note.perSide;
     if (note.borderTurn) record.borderTurn = note.borderTurn;
+    if (note.offsets) record.offsets = note.offsets;
+    if (note.widthPct) record.widthPct = note.widthPct;
+    if (note.plus) record.plus = note.plus;
+    if (note.minus) record.minus = note.minus;
+    if (note.profile) record.profile = note.profile;
   }
 
   const records = new Map(registry.curves.map((record) => [record.uid, record]));

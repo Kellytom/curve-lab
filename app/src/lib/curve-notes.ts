@@ -16,6 +16,11 @@ const Note = z.object({
   border_uid: z.string().regex(/^c-\d{4}$/, "border uid must look like c-0001").optional(),
   perSide: z.number().int().min(3).max(40).optional(),
   borderTurn: z.union([z.literal(0), z.literal(90)]).optional(),
+  offsets: z.number().int().min(0).max(1).optional(),
+  widthPct: z.number().int().min(0).max(20).optional(),
+  plus: z.number().int().min(0).max(5).optional(),
+  minus: z.number().int().min(0).max(5).optional(),
+  profile: z.enum(["bow", "s", "taper"]).optional(),
   // "move to notes": the curve leaves the naming desk and joins the pool on
   // /finder-candidates. Reversible with false.
   candidate: z.boolean().optional(),
@@ -33,6 +38,11 @@ export function toNote(row: any): any {
     border_uid: row.borderUid || undefined,
     perSide: row.perSide || undefined,
     borderTurn: row.borderTurn || undefined,
+    offsets: row.offsets || undefined,
+    widthPct: row.widthPct || undefined,
+    plus: row.plus || undefined,
+    minus: row.minus || undefined,
+    profile: row.profile || undefined,
     updated: row.updatedAt?.toISOString?.() || undefined,
   };
 }
@@ -67,8 +77,13 @@ export async function saveNotes(payload: any): Promise<{ saved: number }> {
         rotation: note.rotation ?? 0,
         pieces: note.pieces ?? 1,
         borderUid: note.border_uid ?? null,
-      perSide: note.perSide ?? 0,
-      borderTurn: note.borderTurn ?? 0,
+        perSide: note.perSide ?? 0,
+        borderTurn: note.borderTurn ?? 0,
+        offsets: note.offsets ?? 0,
+        widthPct: note.widthPct ?? 0,
+        plus: note.plus ?? 0,
+        minus: note.minus ?? 0,
+        profile: note.profile ?? null,
       },
       update: {
         ...(note.name !== undefined ? { name: note.name } : {}),
@@ -78,6 +93,11 @@ export async function saveNotes(payload: any): Promise<{ saved: number }> {
         ...(note.border_uid !== undefined ? { borderUid: note.border_uid } : {}),
         ...(note.perSide !== undefined ? { perSide: note.perSide } : {}),
         ...(note.borderTurn !== undefined ? { borderTurn: note.borderTurn } : {}),
+        ...(note.offsets !== undefined ? { offsets: note.offsets } : {}),
+        ...(note.widthPct !== undefined ? { widthPct: note.widthPct } : {}),
+        ...(note.plus !== undefined ? { plus: note.plus } : {}),
+        ...(note.minus !== undefined ? { minus: note.minus } : {}),
+        ...(note.profile !== undefined ? { profile: note.profile } : {}),
       },
     })),
     ...moves.map((note) => prisma.curve.update({

@@ -139,7 +139,7 @@ function frameBorder(record, perSide, turn = 0) {
         border.push(spin(moved, deg).map(([x, y]) => [x + ox, y + oy]));
       }
     });
-    return border;
+    return { paths: border, fills: [] };
   }
   // A speed-row curve is turned by turning its velocity: (u, v) -> (-v, u).
   // That is what makes the four wide curves a border instead of a collision.
@@ -147,7 +147,25 @@ function frameBorder(record, perSide, turn = 0) {
     ? { ...record, speedX: (record.speedY || []).map((v) => -v), speedY: record.speedX }
     : record;
   const a = P.group(bandMotif(turned));
-  return P.frame(a, null, perSide, perSide, 45, "a", false).flatMap((item) => item.paths);
+  const items = P.frame(a, null, perSide, perSide, 45, "a", false);
+  const paths = items.flatMap((item) => item.paths);
+  const fills = items
+    .filter((item) => item.paths.length >= 3)
+    .map((item) => {
+      const band = [...item.paths[1], ...item.paths[2].slice().reverse()];
+      band.push(band[0]);
+      return band;
+    });
+  return { paths, fills };
+}
+
+// The paths the centre draws: the spine only, or the spine and its rails when
+// the note turns the character offsets on.
+function centralPaths(record, rotation) {
+  if (record.offsets && record.speedX && record.speedY) {
+    return P.group(record).paths.map((path) => rotatePoints(path, rotation));
+  }
+  return [rotatePoints(pointsOf(record), rotation)];
 }
 
 function marginPercent(border, central) {
@@ -165,34 +183,58 @@ export function figureFor(record, all, borderRecord) {
   const pieces = [1, 2, 4].includes(Number(record.pieces)) ? Number(record.pieces) : 1;
 
   const build = (borderTurn) => {
-    const border = frameBorder(borderRecord || record, perSide,
+    const borderFrame = frameBorder(borderRecord || record, perSide,
       borderRecord ? 0 : (Number(record.borderTurn) || 0));
+    const border = borderFrame.paths;
+    const borderFills = borderFrame.fills;
     const fbox = P.bbox(border.flat());
-    const inner = rotatePoints(pointsOf(record), rotation);
     const cx = (fbox[0] + fbox[2]) / 2;
     const cy = (fbox[1] + fbox[3]) / 2;
     let central;
-    let leafFill = null;
+    let centralCount;
+    let fills;
     if (pieces === 1) {
       // The leaf: the curve and its mirror across the chord through its feet.
-      // Fit and centre the pair as one figure, so the shared feet stay shared.
-      const pair = [inner, reflectAcrossChord(inner)];
-      const pairBox = P.bbox(pair.flat());
+      // With offsets on, each half is the rail band, not the spine.
+      const half = centralPaths(record, rotation);
+      const mirror = half.map((path) => reflectAcrossChord(path));
+      const halves = [half, mirror];
+      const bands = [];
+      if (half.length >= 3) {
+        const band = [...half[1], ...half[2].slice().reverse()];
+        band.push(band[0]);
+        const mirrorBand = [...mirror[1], ...mirror[2].slice().reverse()];
+        mirrorBand.push(mirrorBand[0]);
+        bands.push(band, mirrorBand);
+      } else {
+        const leaf = [...half[0], ...mirror[0].slice().reverse()];
+        leaf.push(leaf[0]);
+        bands.push(leaf);
+      }
+      const all = halves.flat();
+      const pairBox = P.bbox(all.flat());
       const size = Math.max(pairBox[2] - pairBox[0], pairBox[3] - pairBox[1]) || 1;
       const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
-      const scaled = pair.map((line) => scaleAbout(line, target / size));
-      const box = P.bbox(scaled.flat());
+      const scale = target / size;
+      const scaledHalves = halves.map((h) => h.map((p) => scaleAbout(p, scale)));
+      const scaledBands = bands.map((b) => scaleAbout(b, scale));
+      const box = P.bbox(scaledHalves.flat().flat());
       const dx = cx - (box[0] + box[2]) / 2;
       const dy = cy - (box[1] + box[3]) / 2;
-      central = scaled.map((line) => line.map(([x, y]) => [x + dx, y + dy]));
-      // The leaf closes: curve to the far foot, the mirror back again.
-      leafFill = [...central[0], ...central[1].slice().reverse()];
+      const movedHalves = scaledHalves.map((h) => h.map((p) => p.map(([x, y]) => [x + dx, y + dy])));
+      const movedBands = scaledBands.map((b) => b.map(([x, y]) => [x + dx, y + dy]));
+      central = movedHalves.flat();
+      centralCount = movedHalves.length;
+      fills = [...movedBands, ...borderFills];
     } else {
+      const inner = rotatePoints(pointsOf(record), rotation);
       const ibox = P.bbox(inner);
       const size = Math.max(ibox[2] - ibox[0], ibox[3] - ibox[1]) || 1;
       const target = CENTRAL_SHARE * (fbox[2] - fbox[0]);
       central = mirroredPieces(scaleAbout(inner, target / size), pieces)
         .map((line) => moveToCentre(line, cx, cy));
+      centralCount = central.length;
+      fills = borderFills;
     }
     const margin = marginPercent(border, central);
     return {
@@ -201,8 +243,8 @@ export function figureFor(record, all, borderRecord) {
       margin,
       rotation,
       pieces,
-      centralCount: central.length,
-      fills: leafFill ? [leafFill] : [],
+      centralCount,
+      fills,
       borderTurn,
       failed: false,
       tooWide: margin >= TOO_WIDE,
@@ -217,12 +259,12 @@ export function figureFor(record, all, borderRecord) {
   } catch (error) {
     return {
       paths: [pointsOf(record)], perSide, margin: 0, rotation, pieces, centralCount: 1,
-      failed: true, reason: String(error.message || error),
+      fills: [], failed: true, reason: String(error.message || error),
     };
   }
 }
 
-function svgFrom(paths, label, fills = []) {
+function svgFrom(paths, label, fills = [], options = {}) {
   const all = paths.flat();
   const xs = all.map((p) => p[0]);
   const ys = all.map((p) => p[1]);
@@ -235,21 +277,24 @@ function svgFrom(paths, label, fills = []) {
   const oy = (SIZE + h * k) / 2 + y0 * k;
   const fillsSvg = fills.map((points) => {
     const d = points.map(([x, y], i) => `${i ? "L" : "M"}${(ox + x * k).toFixed(2)},${(oy - y * k).toFixed(2)}`).join("");
-    return `<path d="${d}Z" fill="#ece4cf" stroke="none" fill-rule="nonzero"/>`;
+    return `<path d="${d}Z" fill="#e6d9b6" stroke="none" fill-rule="nonzero"/>`;
   }).join("");
-  const lines = paths.map((points) => {
+  const central = Number(options.centralCount) || 0;
+  const lines = paths.map((points, index) => {
+    // The frame is a frame: the border sits back, the design comes forward.
+    const weight = central && index < central ? 2.6 : 1.4;
     const step = Math.max(1, Math.floor(points.length / 300));
     const kept = points.filter((_, i) => i % step === 0 || i === points.length - 1);
     return `<polyline points="${kept.map(([x, y]) =>
       `${(x * k + ox).toFixed(1)},${(oy - y * k).toFixed(1)}`).join(" ")}"` +
-      ' fill="none" stroke="#111" stroke-width="1.1" stroke-linejoin="round"/>';
+      ` fill="none" stroke="#141414" stroke-width="${weight}" stroke-linecap="round" stroke-linejoin="round"/>`;
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}" role="img" aria-label="${label}">` +
     `<rect width="${SIZE}" height="${SIZE}" fill="#fff"/>${fillsSvg}${lines.join("")}</svg>`;
 }
 
 export function svgForFigure(figure, label) {
-  return svgFrom(figure.paths, label, figure.fills);
+  return svgFrom(figure.paths, label, figure.fills, { centralCount: figure.centralCount });
 }
 
 export function svgForRecord(record, all = {}) {
@@ -309,7 +354,7 @@ export async function buildIlluminations(root) {
         uid: record.uid,
         name: record.name,
         id: `fig-${n}`,
-        svg: svgFrom(figure.paths, `Fig. ${n}: ${record.name}`, figure.fills),
+        svg: svgFrom(figure.paths, `Fig. ${n}: ${record.name}`, figure.fills, { centralCount: figure.centralCount }),
         perSide: figure.perSide,
         marginPercent: figure.margin,
         rotation: figure.rotation,
