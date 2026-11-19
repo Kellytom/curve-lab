@@ -653,3 +653,19 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
 - **A number in a report is measured, not recalled.** Counts, positions and
   order come from the DOM or from a script's printed output, with the command
   named.
+
+## Data: SQLite through Prisma is the record — 2026-11-19
+
+Settled by the operator after the naming loss and the desk save that never ran.
+
+- **SQLite through Prisma** holds what a human edits: names, importance,
+  rotation, pieces, border uid, stars, plate stars, users and sandbox saves. A
+  save is a transaction; a bad uid is refused before a row is written.
+- **The JSON files are seed and export.** `curve-registry.json` seeds the
+  database; `curve-notes.json` and the star files are written on save and pushed
+  to GitHub every five minutes, so a dead disk loses minutes, not data.
+- **Snapshots are automatic** on dev start, before a build and before a
+  migration: `.backup`, `PRAGMA integrity_check`, the last 20 kept, `npm run
+  restore`. WAL is on.
+- **The user directory is not public.** It is the one store deliberately kept
+  out of GitHub.

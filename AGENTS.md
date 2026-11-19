@@ -56,6 +56,10 @@ lands. The operator does not sit and watch a test run.
   of the loop. Waiting is a bug in the workflow.
 - **Think async.** Start independent jobs together instead of queueing them;
   a long job runs in the background and is reported when it lands, never waited on.
+- **The handoff is part of the gate.** `tests/test_memory_freshness.py` fails when
+  the newest handoff section is older than the last code commit, or when the next
+  action names a commit that does not exist. Update the memory in the same commit
+  as the work, not "later".
 - **A loop runs once per change.** Never run the same check twice to "confirm".
   A second run needs a code change and a reason. Re-running is waste, not care.
 
@@ -110,11 +114,13 @@ is how a claim about the page is checked.
 
 ## Focus (2026-10-26)
 
-The DeepSeek order: **W01 piece model** → **W02 terminals** → **W03 fleur
+The long order is **W01 piece model** → **W02 terminals** → **W03 fleur
 grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
-water, earth, air — see `app/src/content/docs/docs/primal.md`), then the archetypal ornaments. The
-plant-form → ornament-form arc is in `goals.md`; the focused next action is
-still the offset catalogue. Auth and render limits are live; accounts/roles are
+water, earth, air — see `app/src/content/docs/docs/primal.md`), then the
+archetypal ornaments. **Current (2026-11-19):** finish naming the 212 chosen
+curves on `/names`, then the pictures — the Gallery of Illuminations and the
+figures sheet. Sprint 1 (the grid bill) is parked behind them; the long order
+resumes after. Auth and render limits are live; accounts/roles are
 later. Keep the deployed app's URL private (the repository is public).
 
 ## Degree: cubic first — quintic only when the curve needs it

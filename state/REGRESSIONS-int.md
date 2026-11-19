@@ -43,6 +43,11 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 23 | 2026-11-16 | "how can you lose all those curves when we werent even touching that code" — a damaged read became an empty list, and the next save wrote one curve over all of them | `scripts/check-saved.mjs` (six browser checks: seeding, repair from backup, no wipe after a bad read, load from a restored button, a pair record) and `tests/test_operator_list.py` (the list on disk is current and complete) | the saved-curve buttons: no write after a failed read, a backup and mirror on every save, and a file to seed a reset browser |
 | 24 | 2026-11-16 | the page said `crosses itself 5` for `lace-1of10-1of5-3` and the record said 4 — the stored numbers predated the parameter-pair dedupe | `tests/test_crossings.py`: every record matches the router, the triple point counts as three pairs, and the count is scale-free | 100 stale crossing counts, and the one definition they now share |
 
+| 25 | 2026-11-19 | "all the names I typed are lost" — the desk's script threw on a duplicate `let timer`, so Save never ran | none yet: the API is tested (`app/tests/curve-notes.test.mjs`), the page is not | the desk save path |
+| 26 | 2026-11-19 | "save failed: duplicate curve" — the file keyed by name, the page by id, and the merge kept both | `app/tests/finder-stars.test.mjs` (duplicate merge) | star identity |
+| 27 | 2026-11-19 | a backup was written 0 bytes and still said "integrity ok" | `scripts/backup-db.mjs` checks the row count as well as the integrity | backups |
+| 28 | 2026-11-19 | the notes mirror was stale: 2 rows against 262 in the database | `scripts/check-db.mjs` and the save path writing the mirror | the readable fallback |
+
 ## Fixed and measured, but not yet in the fast suite
 
 These have browser-level proof in `scripts/check-nth-page.mjs` (which needs a

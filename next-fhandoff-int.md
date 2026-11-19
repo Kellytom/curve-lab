@@ -1,7 +1,11 @@
 ```text
-Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
-You are running Sprint 1 of state/SPRINT-int.md: the grid bill for every finder curve — rebuild each curve's exact polynomials from its definition, clear denominators, divide out the gcd, and write workbench/curve-records.json with kind, scale, grid, degree and formula for all 56.
-Proves: workbench/curve-records.json has one row per finder curve, each with a kind and a grid; `lace-1of8-3` reproduces grid 1155 as calibration; the five starred loops print their grid and scale in the report; the file parses through curve_lab/datafile.py.
+Read state/HANDOFF-int.md (tail). Read senior-dev.md before the action.
+Finish the renaming: the 212 chosen curves on /names, each with a prefix from its
+construction and a postfix for its variant; then make the pictures good — the
+Gallery of Illuminations and the figures sheet.
+Proves: node scripts/check-db.mjs says the database matches the registry; a saved
+name survives a reload; /illuminations renders 241 figures and /figures 262 PNGs;
+npm --prefix app test is green.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-18, commit 88da247.
+Source: state/HANDOFF-int.md, 2026-11-19, commit a6371d4.

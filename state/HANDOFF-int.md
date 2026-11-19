@@ -1,6 +1,6 @@
 # curve-lab handoff
 
-**Updated:** 2026-11-04
+**Updated:** 2026-11-19
 **Use `/fhandon` to resume, `/fhandoff` to refresh this file.** The commands are
 project-scoped: open OpenCode in this repository to use them. They are not
 global and do not appear in `grid-8` or `ornaments`.
@@ -2916,3 +2916,26 @@ curve far outside its chord (x −20 on a 2-unit span) and it draws as a sliver;
 better basis (Bernstein with local handles) is needed, recorded in TODO.
 Rotating a PH curve by 45° — needs `√2`, so no rational rows exist.
 Tschirnhausen — classic but adds nothing; off the board.
+
+## 2026-11-19 — the data layer, Astro 7, and the naming desk
+
+- **Node 24.22.3** from the official tarball at `~/node24` (Homebrew cannot build
+  it on macOS 12); it is on PATH. **Astro 7.4.13**, Starlight 0.43.1, adapter 11.
+  The app's fast tests are 13 in about 2 s; the rendering tests are `test:full`.
+- **SQLite through Prisma is the record**: names, importance, rotation, pieces,
+  border uid, stars, plate stars, users and sandbox saves are rows. The database
+  is gitignored; `workbench/curve-registry.json` is the seed. The migration
+  proved 262 curves, 262 notes, 262 sets.
+- **Backups**: `.backup` snapshots on dev start, before a build and before a
+  migration, integrity-checked, the last 20 in `state/backups/db`; `npm run
+  backup` and `npm run restore`; WAL on.
+- **GitHub is the off-site copy** for the exports: `scripts/sync-data.sh` runs
+  every five minutes from a LaunchAgent.
+- **Pages**: `/illuminations` 241 figures (50 found, the picked finder curves,
+  3 roses, all of B); `/figures` 262 bordered PNGs with the border margin;
+  `/names` the 212 chosen curves; `/finder-candidates` the 50 unstarred pool.
+- **Next**: finish the naming, then the pictures. Sprint 1 (the grid bill) is
+  parked behind them.
+- **Open**: stars are keyed by name (aliases keep a rename safe; a uid foreign
+  key is the proper model); there is no automated database test; the polyline
+  frame maths is a second copy; 2 dependency alerts remain.

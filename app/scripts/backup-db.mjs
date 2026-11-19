@@ -31,6 +31,11 @@ if (check !== "ok") {
   console.error(`backup failed its integrity check: ${check}`);
   process.exit(1);
 }
+const rows = Number(execFileSync("sqlite3", [target, "select count(*) from Curve;"], { encoding: "utf8" }).trim());
+if (!rows) {
+  console.error("backup has no rows: refusing to count it as a backup");
+  process.exit(1);
+}
 
 const files = readdirSync(DIR).filter((name) => /^dev-.*\.db$/.test(name)).sort();
 for (const old of files.slice(0, Math.max(0, files.length - KEEP))) {

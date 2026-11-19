@@ -16,6 +16,14 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Current (2026-11-19)
+
+- **Name the 212 chosen curves** — in flight; the desk is `/names`.
+- **The pictures** — the Gallery of Illuminations and the figures sheet, after
+  the naming.
+- Sprint 1 (the grid bill) is parked behind these; resume it when the pictures
+  are signed off.
+
 ## Sprint queue — the found curves to plates (2026-11-18)
 
 `state/SPRINT-int.md` holds the six-sprint plan; its **Sprint 1 (the grid bill)**

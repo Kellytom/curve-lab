@@ -24,6 +24,18 @@ Nothing else unless the action names it. `app/src/content/docs/docs/handover.md`
 - **A loop runs once per change.** Never re-run a check to confirm it. A second
   run needs a code change and a reason.
 
+## Data and runtime (2026-11-19)
+
+- **Node 24** at `~/node24` is on PATH; the app requires `>=22.23.4`. Astro 7.
+- **SQLite through Prisma is the record** (`app/prisma/schema.prisma`,
+  `app/prisma/dev.db`, gitignored). Names, importance, rotation, pieces, stars,
+  plate stars, users and sandbox saves are rows.
+- `workbench/curve-registry.json` is the seed; `curve-notes.json`,
+  `finder-stars.json`, `starred.json` and `operator-list.json` are exports.
+  Rebuild: `npx prisma db push && node scripts/migrate.mjs && node scripts/check-db.mjs`.
+- Snapshots and the GitHub sync are automatic; the book pages "Where the data
+  lives" and "If something goes wrong" say how.
+
 ## The map
 
 | path | what it is |

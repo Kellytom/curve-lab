@@ -31,6 +31,10 @@ the same curve three times a side, numbered once.
 
 ### Changed
 
+- Astro 7.4.13 on Node 24.22.3; the app requires Node 22.23 or newer.
+- Names, ratings, turns, pieces and stars moved from JSON files to SQLite through
+  Prisma; the JSON files are seed and export.
+
 - Prose says **Euler curve**; `clothoid` remains where it names the vendored
   library, a file or a backend (`Clothoids`, `pyclothoids`, `clothoid_api.cpp`).
 - The README leads with the app and the lab; the native build is described as
@@ -48,6 +52,16 @@ the same curve three times a side, numbered once.
   crossing count of 4 became the record's 3.
 - `mkdocs build` passes in strict mode; the G3 page names the lab pages instead
   of linking to files outside the book.
+
+### Added
+
+- SQLite through Prisma as the record, with a counted migration and
+  `scripts/check-db.mjs`.
+- Automatic snapshots, `npm run backup`, `npm run restore`, WAL, and a
+  five-minute GitHub sync of the exports.
+- `SandboxCurve` and `PlateStar`; the sandbox saves and the plate stars are rows.
+- The book's "Where the data lives", "If something goes wrong" and "Run your own
+  instance" pages.
 
 ### Removed
 

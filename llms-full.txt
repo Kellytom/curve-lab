@@ -627,11 +627,13 @@ is how a claim about the page is checked.
 
 ## Focus (2026-10-26)
 
-The DeepSeek order: **W01 piece model** → **W02 terminals** → **W03 fleur
+The long order is **W01 piece model** → **W02 terminals** → **W03 fleur
 grammar** → **W04 twenty parameter sets**, then the primal studies (fire,
-water, earth, air — see `app/src/content/docs/docs/primal.md`), then the archetypal ornaments. The
-plant-form → ornament-form arc is in `goals.md`; the focused next action is
-still the offset catalogue. Auth and render limits are live; accounts/roles are
+water, earth, air — see `app/src/content/docs/docs/primal.md`), then the
+archetypal ornaments. **Current (2026-11-19):** finish naming the 212 chosen
+curves on `/names`, then the pictures — the Gallery of Illuminations and the
+figures sheet. Sprint 1 (the grid bill) is parked behind them; the long order
+resumes after. Auth and render limits are live; accounts/roles are
 later. Keep the deployed app's URL private (the repository is public).
 
 ## Degree: cubic first — quintic only when the curve needs it
@@ -3676,6 +3678,22 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
   order come from the DOM or from a script's printed output, with the command
   named.
 
+## Data: SQLite through Prisma is the record — 2026-11-19
+
+Settled by the operator after the naming loss and the desk save that never ran.
+
+- **SQLite through Prisma** holds what a human edits: names, importance,
+  rotation, pieces, border uid, stars, plate stars, users and sandbox saves. A
+  save is a transaction; a bad uid is refused before a row is written.
+- **The JSON files are seed and export.** `curve-registry.json` seeds the
+  database; `curve-notes.json` and the star files are written on save and pushed
+  to GitHub every five minutes, so a dead disk loses minutes, not data.
+- **Snapshots are automatic** on dev start, before a build and before a
+  migration: `.backup`, `PRAGMA integrity_check`, the last 20 kept, `npm run
+  restore`. WAL is on.
+- **The user directory is not public.** It is the one store deliberately kept
+  out of GitHub.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 
@@ -3723,6 +3741,11 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 22 | 2026-11-16 | "the list said HANDOFF was 2,226 lines when it was 2,353, and the counter said 'counts already right'" — the row pattern expected the file name second, so every numbered Tier 0 row was skipped | `tests/test_reading_counts.py`: `test_a_numbered_row_is_one_the_counter_recognises`, `test_the_pairing_has_no_stale_count_left` | the reading list's counts, and the counter that must refresh them |
 | 23 | 2026-11-16 | "how can you lose all those curves when we werent even touching that code" — a damaged read became an empty list, and the next save wrote one curve over all of them | `scripts/check-saved.mjs` (six browser checks: seeding, repair from backup, no wipe after a bad read, load from a restored button, a pair record) and `tests/test_operator_list.py` (the list on disk is current and complete) | the saved-curve buttons: no write after a failed read, a backup and mirror on every save, and a file to seed a reset browser |
 | 24 | 2026-11-16 | the page said `crosses itself 5` for `lace-1of10-1of5-3` and the record said 4 — the stored numbers predated the parameter-pair dedupe | `tests/test_crossings.py`: every record matches the router, the triple point counts as three pairs, and the count is scale-free | 100 stale crossing counts, and the one definition they now share |
+
+| 25 | 2026-11-19 | "all the names I typed are lost" — the desk's script threw on a duplicate `let timer`, so Save never ran | none yet: the API is tested (`app/tests/curve-notes.test.mjs`), the page is not | the desk save path |
+| 26 | 2026-11-19 | "save failed: duplicate curve" — the file keyed by name, the page by id, and the merge kept both | `app/tests/finder-stars.test.mjs` (duplicate merge) | star identity |
+| 27 | 2026-11-19 | a backup was written 0 bytes and still said "integrity ok" | `scripts/backup-db.mjs` checks the row count as well as the integrity | backups |
+| 28 | 2026-11-19 | the notes mirror was stale: 2 rows against 262 in the database | `scripts/check-db.mjs` and the save path writing the mirror | the readable fallback |
 
 ## Fixed and measured, but not yet in the fast suite
 
