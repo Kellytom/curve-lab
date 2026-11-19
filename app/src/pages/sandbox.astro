@@ -1,0 +1,141 @@
+---
+// Two sandboxes on one page, both from workbench/sandbox-curves.json:
+//
+//   the visual adder   every term drawn alone, three across, then the sum
+//   the imaginary      the polynomial at z = b i, exact numbers where they exist
+//
+// Sampled drawings; the imaginary curves carry exact grid and inflection counts
+// from the one core, so the page never claims exactness it does not have.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+
+const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-curves.json"), "utf8"));
+const window = data.window;
+
+function box(points, size = 300) {
+  const xs = points.map((p) => p[0]);
+  const ys = points.map((p) => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  const y0 = Math.min(...ys), y1 = Math.max(...ys);
+  return { x0, x1, y0, y1 };
+}
+
+function plot(points, { size = 300, pad = 22, axes = true } = {}) {
+  const { x0, x1, y0, y1 } = box(points);
+  const w = x1 - x0 || 1, h = y1 - y0 || 1;
+  const k = (size - 2 * pad) / Math.max(w, h);
+  const sx = (x) => pad + (x - x0) * k + ((size - 2 * pad) - w * k) / 2;
+  const sy = (y) => size - pad - (y - y0) * k - ((size - 2 * pad) - h * k) / 2;
+  const d = points.map(([x, y], i) => `${i ? "L" : "M"}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join("");
+  const zeroX = x0 <= 0 && x1 >= 0 ? sx(0) : null;
+  const zeroY = y0 <= 0 && y1 >= 0 ? sy(0) : null;
+  const axis = 'stroke="#b9a98a" stroke-width="1"';
+  return `<svg viewBox="0 0 ${size} ${size}" role="img">
+    <rect width="${size}" height="${size}" fill="#fffdf7"/>
+    ${axes && zeroY !== null ? `<line x1="${pad}" y1="${zeroY}" x2="${size - pad}" y2="${zeroY}" ${axis}/>` : ""}
+    ${axes && zeroX !== null ? `<line x1="${zeroX}" y1="${pad}" x2="${zeroX}" y2="${size - pad}" ${axis}/>` : ""}
+    <path d="${d}" fill="none" stroke="#141414" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+const label = (term) => {
+  const sign = term.coef < 0 ? "−" : "";
+  const size = Math.abs(term.coef) === 1 ? "" : String(Math.abs(term.coef));
+  return `${sign}${size}x${term.power === 1 ? "" : `^${term.power}`}`;
+};
+
+// Three across, with the plus between; a full row ends with the plus that
+// continues on the next line, so the sum reads as one line of typing.
+function rowsOf(terms) {
+  const rows = [];
+  for (let i = 0; i < terms.length; i += 3) {
+    const row = terms.slice(i, i + 3);
+    const parts = [];
+    row.forEach((term, index) => {
+      parts.push({ term, plus: index < row.length - 1 });
+    });
+    rows.push({ parts, continues: i + 3 < terms.length });
+  }
+  return rows;
+}
+---
+
+<BaseLayout title="the sandboxes" pageTitle="Sandboxes: draft A">
+  <Fragment slot="head">
+    <style is:global>
+    h2{font-size:1.2rem;margin:28px 0 4px}
+    p.lead{color:var(--pico-muted-color);margin:0 0 14px;max-width:70ch}
+    .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 14px}
+    .tile{margin:0;background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color)}
+    .tile svg{display:block;width:280px;height:280px}
+    .tile figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);padding:6px 8px;border-top:1px solid var(--pico-muted-border-color)}
+    .plus{font:700 24px/1 Georgia,serif;color:var(--pico-primary);padding:0 3px}
+    .sum{align-items:flex-start;margin-top:20px;padding-top:16px;border-top:1px solid var(--pico-muted-border-color)}
+    .sum .tile svg{width:560px;height:560px}
+    .imag{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+    .imag .tile svg{width:100%;height:auto}
+    .facts{font:11px/1.6 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);padding:6px 8px}
+    </style>
+  </Fragment>
+
+  <h1>Two sandboxes</h1>
+  <p class="lead">Both are sampled drawings. The imaginary curves also carry exact
+    grid and inflection counts from the one core, and say so where they do.</p>
+
+  <h2>1 · Adding curves, term by term</h2>
+  <p class="lead">Each term drawn alone over the same window, three across, then the
+    sum at the same scale. A polynomial's shape is the sum of its terms; this is
+    the only way to see that happen.</p>
+
+  {data.adders.map((adder) => (
+    <section>
+      <h3 style="font-size:1rem;margin:18px 0 4px">{adder.name}</h3>
+      <p class="lead">{adder.note}</p>
+      {rowsOf(adder.terms).map((row) => (
+        <div class="row">
+          {row.parts.map(({ term, plus }) => (
+            <Fragment>
+              <figure class="tile">
+                <Fragment set:html={plot(term.points)} />
+                <figcaption>the term {label(term)} alone</figcaption>
+              </figure>
+              {plus ? <div class="plus">+</div> : null}
+            </Fragment>
+          ))}
+          {row.continues ? <div class="plus">+</div> : null}
+        </div>
+      ))}
+      <div class="row sum">
+        <div class="plus">=</div>
+        <figure class="tile">
+          <Fragment set:html={plot(adder.sum, { size: 560 })} />
+          <figcaption>the sum: all {adder.terms.length} terms added</figcaption>
+        </figure>
+      </div>
+    </section>
+  ))}
+
+  <h2>2 · The imaginary variable: z = b i</h2>
+  <p class="lead">Even powers of <code>i b</code> are real, odd powers imaginary, so
+    the polynomial becomes a plane curve: even terms give x, odd terms give y, and
+    every sign rotates. With only odd powers x is identically zero — a straight
+    line, kept here rather than hidden.</p>
+
+  <div class="imag">
+    {data.imaginary.map((curve) => (
+      <figure class="tile">
+        {curve.degenerate
+          ? <p class="facts">degenerate: x is identically zero</p>
+          : <Fragment set:html={plot(curve.points, { size: 340 })} />}
+        <figcaption>
+          <b>{curve.name}</b><br>{curve.note}
+          {curve.degenerate
+            ? ""
+            : <span class="facts">grid {curve.grid} · inflections {curve.inflections} · bend {curve.bend}</span>}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</BaseLayout>
