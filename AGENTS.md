@@ -70,6 +70,10 @@ lands. The operator does not sit and watch a test run.
 - After a schema change: `cd app && npx prisma db push`. After a fresh clone:
   `npx prisma db push && node scripts/migrate.mjs && node scripts/check-db.mjs`.
 - The database is gitignored; the schema and the migration are not.
+- The data exports are pushed to GitHub every five minutes by
+  `scripts/sync-data.sh` (a LaunchAgent); GitHub is the off-site copy and the
+  database rebuilds from it. `app/data/users.json` is the one store that is
+  deliberately not there.
 - A snapshot is taken on dev start, before a build and before the migration;
   `npm run backup` takes one now and `npm run restore` puts the newest back.
   Snapshots are in `state/backups/db/`, checked with `PRAGMA integrity_check`.

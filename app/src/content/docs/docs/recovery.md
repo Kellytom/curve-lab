@@ -38,14 +38,19 @@ and `/api/finder-stars`.
 
 ## The disk is lost, or the machine will not start
 
-This is the gap. Snapshots live in `state/backups/db/` on the same disk as the
-database, so they do not survive a dead disk. One of these is required:
+GitHub is the off-site copy, and it is kept current automatically: a LaunchAgent
+runs `scripts/sync-data.sh` every five minutes, committing and pushing the data
+exports (`curve-registry.json`, `curve-notes.json`, `finder-stars.json`,
+`starred.json`, `operator-list.json`).
 
-- a nightly encrypted copy of that folder to another disk or a cloud folder, or
-- a committed snapshot on a private branch.
+On a new machine: clone the repository, `npm --prefix app install`,
+`npx prisma db push`, `node scripts/migrate.mjs`, `node scripts/check-db.mjs`.
+You lose at most the last five minutes of edits, and only if the machine died
+between two syncs.
 
-Until one is chosen, the off-site copy is manual: copy `state/backups/db/` and
-`workbench/curve-notes.json` somewhere else, on a schedule you trust.
+The exception is the **user directory**: it lives only in `app/data/users.json`
+(gitignored) and in the database. It is deliberately not on GitHub because the
+repository is public. Back that file up somewhere private, or accept losing it.
 
 ## Something is hacked
 
