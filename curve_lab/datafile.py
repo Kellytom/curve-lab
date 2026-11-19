@@ -46,6 +46,8 @@ FORMATS = {
     "real-curves.json": "real-curves/1",
     "root-family.json": "curve-lab.root-family/1",
     "sandbox-curves.json": "curve-lab.sandbox/1",
+    "sandbox-parametric.json": "curve-lab.sandbox-parametric/1",
+    "parametric-candidates.json": "curve-lab.parametric-candidates/1",
     "septic-curves.json": "curve-lab.septic-curves/1",
     "septic-samples.json": "curve-lab.septic-samples/1",
     "starred.json": "starred/1",
