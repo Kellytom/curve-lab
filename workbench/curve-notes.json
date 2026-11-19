@@ -252,7 +252,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.969Z"
+   "updated": "2026-11-18T23:28:00.969Z",
+   "candidate": true
   },
   {
    "uid": "c-0033",
@@ -282,35 +283,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.980Z"
+   "updated": "2026-11-18T23:28:00.980Z",
+   "candidate": true
   },
   {
    "uid": "c-0037",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.983Z"
+   "updated": "2026-11-18T23:28:00.983Z",
+   "candidate": true
   },
   {
    "uid": "c-0038",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.986Z"
+   "updated": "2026-11-18T23:28:00.986Z",
+   "candidate": true
   },
   {
    "uid": "c-0039",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.988Z"
+   "updated": "2026-11-18T23:28:00.988Z",
+   "candidate": true
   },
   {
    "uid": "c-0040",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.992Z"
+   "updated": "2026-11-18T23:28:00.992Z",
+   "candidate": true
   },
   {
    "uid": "c-0041",
@@ -340,21 +346,24 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.005Z"
+   "updated": "2026-11-18T23:28:01.005Z",
+   "candidate": true
   },
   {
    "uid": "c-0045",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.010Z"
+   "updated": "2026-11-18T23:28:01.010Z",
+   "candidate": true
   },
   {
    "uid": "c-0046",
-   "importance": 0,
+   "name": "wave-point-heart-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.013Z"
+   "updated": "2026-11-19T03:24:21.280Z"
   },
   {
    "uid": "c-0047",
@@ -385,35 +394,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.020Z"
+   "updated": "2026-11-18T23:28:01.020Z",
+   "candidate": true
   },
   {
    "uid": "c-0051",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.025Z"
+   "updated": "2026-11-18T23:28:01.025Z",
+   "candidate": true
   },
   {
    "uid": "c-0052",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.029Z"
+   "updated": "2026-11-18T23:28:01.029Z",
+   "candidate": true
   },
   {
    "uid": "c-0053",
-   "importance": 0,
+   "name": "wave-small-0",
+   "importance": 7,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.032Z"
+   "updated": "2026-11-19T03:24:40.819Z"
   },
   {
    "uid": "c-0054",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.034Z"
+   "updated": "2026-11-18T23:28:01.034Z",
+   "candidate": true
   },
   {
    "uid": "c-0055",
@@ -425,10 +439,11 @@
   },
   {
    "uid": "c-0056",
-   "importance": 0,
+   "name": "wave-point-s-4",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.044Z"
+   "updated": "2026-11-19T03:24:08.403Z"
   },
   {
    "uid": "c-0057",
@@ -520,10 +535,11 @@
   },
   {
    "uid": "c-0068",
-   "importance": 0,
+   "name": "wave-tri-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.094Z"
+   "updated": "2026-11-19T03:28:09.047Z"
   },
   {
    "uid": "c-0069",
@@ -538,7 +554,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.115Z"
+   "updated": "2026-11-18T23:28:01.115Z",
+   "candidate": true
   },
   {
    "uid": "c-0071",
@@ -585,7 +602,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.172Z"
+   "updated": "2026-11-18T23:28:01.172Z",
+   "candidate": true
   },
   {
    "uid": "c-0077",
@@ -608,35 +626,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.182Z"
+   "updated": "2026-11-18T23:28:01.182Z",
+   "candidate": true
   },
   {
    "uid": "c-0080",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.184Z"
+   "updated": "2026-11-18T23:28:01.184Z",
+   "candidate": true
   },
   {
    "uid": "c-0081",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.190Z"
+   "updated": "2026-11-18T23:28:01.190Z",
+   "candidate": true
   },
   {
    "uid": "c-0082",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.197Z"
+   "updated": "2026-11-18T23:28:01.197Z",
+   "candidate": true
   },
   {
    "uid": "c-0083",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.200Z"
+   "updated": "2026-11-18T23:28:01.200Z",
+   "candidate": true
   },
   {
    "uid": "c-0084",
@@ -1122,14 +1145,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.516Z"
+   "updated": "2026-11-18T23:28:01.516Z",
+   "candidate": true
   },
   {
    "uid": "c-0145",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.521Z"
+   "updated": "2026-11-18T23:28:01.521Z",
+   "candidate": true
   },
   {
    "uid": "c-0146",
@@ -1151,21 +1176,24 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.532Z"
+   "updated": "2026-11-18T23:28:01.532Z",
+   "candidate": true
   },
   {
    "uid": "c-0149",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.540Z"
+   "updated": "2026-11-18T23:28:01.540Z",
+   "candidate": true
   },
   {
    "uid": "c-0150",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.542Z"
+   "updated": "2026-11-18T23:28:01.542Z",
+   "candidate": true
   },
   {
    "uid": "c-0151",
@@ -1179,35 +1207,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.551Z"
+   "updated": "2026-11-18T23:28:01.551Z",
+   "candidate": true
   },
   {
    "uid": "c-0153",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.554Z"
+   "updated": "2026-11-18T23:28:01.554Z",
+   "candidate": true
   },
   {
    "uid": "c-0154",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.557Z"
+   "updated": "2026-11-18T23:28:01.557Z",
+   "candidate": true
   },
   {
    "uid": "c-0155",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.560Z"
+   "updated": "2026-11-18T23:28:01.560Z",
+   "candidate": true
   },
   {
    "uid": "c-0156",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.562Z"
+   "updated": "2026-11-18T23:28:01.562Z",
+   "candidate": true
   },
   {
    "uid": "c-0157",
@@ -1229,14 +1262,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.573Z"
+   "updated": "2026-11-18T23:28:01.573Z",
+   "candidate": true
   },
   {
    "uid": "c-0160",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.575Z"
+   "updated": "2026-11-18T23:28:01.575Z",
+   "candidate": true
   },
   {
    "uid": "c-0161",
@@ -1251,7 +1286,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.581Z"
+   "updated": "2026-11-18T23:28:01.581Z",
+   "candidate": true
   },
   {
    "uid": "c-0163",
@@ -1266,56 +1302,64 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.589Z"
+   "updated": "2026-11-18T23:28:01.589Z",
+   "candidate": true
   },
   {
    "uid": "c-0165",
-   "importance": 0,
+   "name": "wave-french-0",
+   "importance": 6,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.592Z"
+   "updated": "2026-11-19T03:25:35.955Z"
   },
   {
    "uid": "c-0166",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.595Z"
+   "updated": "2026-11-18T23:28:01.595Z",
+   "candidate": true
   },
   {
    "uid": "c-0167",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.597Z"
+   "updated": "2026-11-18T23:28:01.597Z",
+   "candidate": true
   },
   {
    "uid": "c-0168",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.600Z"
+   "updated": "2026-11-18T23:28:01.600Z",
+   "candidate": true
   },
   {
    "uid": "c-0169",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.608Z"
+   "updated": "2026-11-18T23:28:01.608Z",
+   "candidate": true
   },
   {
    "uid": "c-0170",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.612Z"
+   "updated": "2026-11-18T23:28:01.612Z",
+   "candidate": true
   },
   {
    "uid": "c-0171",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.615Z"
+   "updated": "2026-11-18T23:28:01.615Z",
+   "candidate": true
   },
   {
    "uid": "c-0172",
@@ -1338,14 +1382,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.629Z"
+   "updated": "2026-11-18T23:28:01.629Z",
+   "candidate": true
   },
   {
    "uid": "c-0175",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.631Z"
+   "updated": "2026-11-18T23:28:01.631Z",
+   "candidate": true
   },
   {
    "uid": "c-0176",
@@ -1356,24 +1402,27 @@
   },
   {
    "uid": "c-0177",
-   "importance": 0,
+   "name": "wave-thin-0",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.636Z"
+   "updated": "2026-11-19T03:27:29.428Z"
   },
   {
    "uid": "c-0178",
-   "importance": 0,
+   "name": "wave-thread-2",
+   "importance": 4,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.639Z"
+   "updated": "2026-11-19T03:27:17.334Z"
   },
   {
    "uid": "c-0179",
-   "importance": 0,
+   "name": "wave-bobby-4",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.642Z"
+   "updated": "2026-11-19T03:27:51.647Z"
   },
   {
    "uid": "c-0180",
@@ -1387,7 +1436,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.650Z"
+   "updated": "2026-11-18T23:28:01.650Z",
+   "candidate": true
   },
   {
    "uid": "c-0182",
@@ -1402,35 +1452,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.657Z"
+   "updated": "2026-11-18T23:28:01.657Z",
+   "candidate": true
   },
   {
    "uid": "c-0184",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.660Z"
+   "updated": "2026-11-18T23:28:01.660Z",
+   "candidate": true
   },
   {
    "uid": "c-0185",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.663Z"
+   "updated": "2026-11-18T23:28:01.663Z",
+   "candidate": true
   },
   {
    "uid": "c-0186",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.666Z"
+   "updated": "2026-11-18T23:28:01.666Z",
+   "candidate": true
   },
   {
    "uid": "c-0187",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.669Z"
+   "updated": "2026-11-18T23:28:01.669Z",
+   "candidate": true
   },
   {
    "uid": "c-0188",
@@ -1445,70 +1500,80 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.676Z"
+   "updated": "2026-11-18T23:28:01.676Z",
+   "candidate": true
   },
   {
    "uid": "c-0190",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.679Z"
+   "updated": "2026-11-18T23:28:01.679Z",
+   "candidate": true
   },
   {
    "uid": "c-0191",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.682Z"
+   "updated": "2026-11-18T23:28:01.682Z",
+   "candidate": true
   },
   {
    "uid": "c-0192",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.685Z"
+   "updated": "2026-11-18T23:28:01.685Z",
+   "candidate": true
   },
   {
    "uid": "c-0193",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.688Z"
+   "updated": "2026-11-18T23:28:01.688Z",
+   "candidate": true
   },
   {
    "uid": "c-0194",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.692Z"
+   "updated": "2026-11-18T23:28:01.692Z",
+   "candidate": true
   },
   {
    "uid": "c-0195",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.696Z"
+   "updated": "2026-11-18T23:28:01.696Z",
+   "candidate": true
   },
   {
    "uid": "c-0196",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.701Z"
+   "updated": "2026-11-18T23:28:01.701Z",
+   "candidate": true
   },
   {
    "uid": "c-0197",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.704Z"
+   "updated": "2026-11-18T23:28:01.704Z",
+   "candidate": true
   },
   {
    "uid": "c-0198",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.709Z"
+   "updated": "2026-11-18T23:28:01.709Z",
+   "candidate": true
   },
   {
    "uid": "c-0199",
@@ -1523,7 +1588,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.715Z"
+   "updated": "2026-11-18T23:28:01.715Z",
+   "candidate": true
   },
   {
    "uid": "c-0201",
@@ -1537,7 +1603,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.722Z"
+   "updated": "2026-11-18T23:28:01.722Z",
+   "candidate": true
   },
   {
    "uid": "c-0203",
@@ -1582,7 +1649,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.743Z"
+   "updated": "2026-11-18T23:28:01.743Z",
+   "candidate": true
   },
   {
    "uid": "c-0209",
@@ -1629,21 +1697,24 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.764Z"
+   "updated": "2026-11-18T23:28:01.764Z",
+   "candidate": true
   },
   {
    "uid": "c-0215",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.767Z"
+   "updated": "2026-11-18T23:28:01.767Z",
+   "candidate": true
   },
   {
    "uid": "c-0216",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.771Z"
+   "updated": "2026-11-18T23:28:01.771Z",
+   "candidate": true
   },
   {
    "uid": "c-0217",
@@ -1657,7 +1728,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.779Z"
+   "updated": "2026-11-18T23:28:01.779Z",
+   "candidate": true
   },
   {
    "uid": "c-0219",
@@ -1668,10 +1740,11 @@
   },
   {
    "uid": "c-0220",
-   "importance": 0,
+   "name": "wave-45-2",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.787Z"
+   "updated": "2026-11-19T03:25:52.906Z"
   },
   {
    "uid": "c-0221",
@@ -1726,7 +1799,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.813Z"
+   "updated": "2026-11-18T23:28:01.813Z",
+   "candidate": true
   },
   {
    "uid": "c-0228",
@@ -1741,7 +1815,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.820Z"
+   "updated": "2026-11-18T23:28:01.820Z",
+   "candidate": true
   },
   {
    "uid": "c-0230",
@@ -1764,7 +1839,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.831Z"
+   "updated": "2026-11-18T23:28:01.831Z",
+   "candidate": true
   },
   {
    "uid": "c-0233",
@@ -1787,7 +1863,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.845Z"
+   "updated": "2026-11-18T23:28:01.845Z",
+   "candidate": true
   },
   {
    "uid": "c-0236",
@@ -1802,7 +1879,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.851Z"
+   "updated": "2026-11-18T23:28:01.851Z",
+   "candidate": true
   },
   {
    "uid": "c-0238",
@@ -1825,35 +1903,40 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.864Z"
+   "updated": "2026-11-18T23:28:01.864Z",
+   "candidate": true
   },
   {
    "uid": "c-0241",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.867Z"
+   "updated": "2026-11-18T23:28:01.867Z",
+   "candidate": true
   },
   {
    "uid": "c-0242",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.874Z"
+   "updated": "2026-11-18T23:28:01.874Z",
+   "candidate": true
   },
   {
    "uid": "c-0243",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.877Z"
+   "updated": "2026-11-18T23:28:01.877Z",
+   "candidate": true
   },
   {
    "uid": "c-0244",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.879Z"
+   "updated": "2026-11-18T23:28:01.879Z",
+   "candidate": true
   },
   {
    "uid": "c-0245",
@@ -1868,49 +1951,56 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.888Z"
+   "updated": "2026-11-18T23:28:01.888Z",
+   "candidate": true
   },
   {
    "uid": "c-0247",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.892Z"
+   "updated": "2026-11-18T23:28:01.892Z",
+   "candidate": true
   },
   {
    "uid": "c-0248",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.896Z"
+   "updated": "2026-11-18T23:28:01.896Z",
+   "candidate": true
   },
   {
    "uid": "c-0249",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.900Z"
+   "updated": "2026-11-18T23:28:01.900Z",
+   "candidate": true
   },
   {
    "uid": "c-0250",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.904Z"
+   "updated": "2026-11-18T23:28:01.904Z",
+   "candidate": true
   },
   {
    "uid": "c-0251",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.908Z"
+   "updated": "2026-11-18T23:28:01.908Z",
+   "candidate": true
   },
   {
    "uid": "c-0252",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.911Z"
+   "updated": "2026-11-18T23:28:01.911Z",
+   "candidate": true
   },
   {
    "uid": "c-0253",
