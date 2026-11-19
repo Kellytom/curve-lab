@@ -111,7 +111,8 @@
    "importance": 8,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:30:29.078Z"
+   "border_uid": "c-0002",
+   "updated": "2026-11-19T04:33:20.841Z"
   },
   {
    "uid": "c-0015",
@@ -151,7 +152,8 @@
    "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:02:49.602Z"
+   "perSide": 21,
+   "updated": "2026-11-19T04:33:20.841Z"
   },
   {
    "uid": "c-0020",
@@ -167,7 +169,8 @@
    "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:02:32.155Z"
+   "borderTurn": 90,
+   "updated": "2026-11-19T04:33:20.841Z"
   },
   {
    "uid": "c-0022",
@@ -279,7 +282,8 @@
    "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-19T03:06:53.917Z"
+   "borderTurn": 90,
+   "updated": "2026-11-19T04:33:20.841Z"
   },
   {
    "uid": "c-0036",
