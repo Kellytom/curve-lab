@@ -21,6 +21,36 @@ The engine is Bertolazzi's Clothoids, compiled from the vendored source and
 called through a small C surface. Everything around it is here: the chain
 model, the cubic fit, the rails, and the writer.
 
+## The logic of beauty
+
+Beauty is not an optional accessory.
+
+Take a simple black square on a white background, say a piece of paper. Stare at
+the square for a little, then look at the white part of the paper. You see a
+floating square. If you just look at the square continuously, you notice the
+edges seem to have the same effect as when you looked at the white part of the
+paper: a halo effect. This is because of the way our eye is constructed; the
+receptors get tired, and so a shadow shape is formed.
+
+When we add a beautiful frame to the square, we are softening the effect of
+tiredness in our eyes. The halo effect is swallowed up by the ornate part of the
+frame. Frames are often gold coloured not to show richness, but because the halo
+often has a golden or reddish-brown luminance.
+
+The same with a diploma on the wall, with an engraved outside edge — it makes it
+easier to look at.
+
+The line weight has to vary, and different colours help as well. This keeps the
+halo effect to a minimum.
+
+When we look at a window, we get the same effect in reverse: the light from the
+window creates a halo or shadow effect when we look away. Stained glass windows
+soften that effect, when they are done right.
+
+Another thing beauty does is orient us. Usually they help us retain balance by
+literally showing us which way is up. Often beautiful designs are symmetric
+side to side but they are different on top than they are on the bottom.
+
 ## Start here
 
 The repo has three layers. The quickest look is the app; the engine is what you
