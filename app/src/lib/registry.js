@@ -1,16 +1,29 @@
+// @ts-check
 // The registry as the pages read it: the JSON index, with the human edits from
 // the database applied on top. The database is the record; the JSON is seed.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { prisma } from "./db.js";
+import { repoRoot } from "./gallery.js";
 
+/**
+ * @param {string} [base]
+ * @returns {Promise<any>}
+ */
 export async function loadRegistry(base) {
-  const root = base || path.resolve(process.cwd(), "..");
+  const root = base || repoRoot();
   const registry = JSON.parse(readFileSync(path.join(root, "workbench", "curve-registry.json"), "utf8"));
-  const notes = await prisma.note.findMany();
+  const [notes, curves] = await Promise.all([
+    prisma.note.findMany(),
+    prisma.curve.findMany({ select: { uid: true, candidate: true } }),
+  ]);
   const byUid = new Map(notes.map((note) => [note.uid, note]));
+  const candidateOf = new Map(curves.map((curve) => [curve.uid, curve.candidate]));
 
   for (const record of registry.curves) {
+    // A curve moved to the notes pool is a row in the database: the seed does
+    // not know about it, so the database decides.
+    if (candidateOf.has(record.uid)) record.candidate = candidateOf.get(record.uid);
     const note = byUid.get(record.uid);
     if (!note) continue;
     if (note.name && note.name !== record.name) {

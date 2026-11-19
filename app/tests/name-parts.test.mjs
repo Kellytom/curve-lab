@@ -48,3 +48,16 @@ test("an empty draft is not a draft", async () => {
   assert.equal(draftState("", 0).value, undefined);
   assert.equal(draftState({ value: "", at: Date.now() }, 0).value, undefined);
 });
+
+test("the duplicate table marks every uid in a group, never the group's head only", async () => {
+  const { parseDuplicates } = await import("../src/lib/duplicates.js");
+  const text = [
+    "| group | worst | uids | names |",
+    "|---|---|---|---|",
+    "| 1 | 0.0000 | c-0010, c-0026 | m-arch · w-arch |",
+  ].join("\n");
+  const map = parseDuplicates(text);
+  assert.deepEqual(map.get("c-0010"), ["c-0026"]);
+  assert.deepEqual(map.get("c-0026"), ["c-0010"]);
+  assert.equal(map.get("c-0011"), undefined);
+});

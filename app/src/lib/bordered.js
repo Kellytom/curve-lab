@@ -15,8 +15,14 @@ import path from "node:path";
 import { createRequire } from "node:module";
 import { loadRegistry } from "./registry.js";
 
+import { repoRoot } from "./gallery.js";
+
 const require = createRequire(import.meta.url);
-const P = require("../../../workbench/plate_math.js");
+// The plate maths lives at the repository root, not inside app/. A path
+// relative to this file works in the source tree and breaks in the built
+// server, where the chunk sits in app/dist/server/chunks: the require then
+// looks for app/workbench/plate_math.js. Ask for the repo root instead.
+const P = require(path.join(repoRoot(), "workbench", "plate_math.js"));
 
 const SIZE = 900;
 const PAD = 0.04;
@@ -178,7 +184,7 @@ function dataStamp(base) {
 }
 
 export async function buildIlluminations(root) {
-  const base = root || path.resolve(process.cwd(), "..");
+  const base = root || repoRoot();
   const stamp = dataStamp(base);
   if (cache && cache.base === base && cache.stamp === stamp) return cache;
   const registry = (await loadRegistry(base)).curves;
