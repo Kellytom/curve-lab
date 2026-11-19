@@ -147,6 +147,62 @@ empty — which is a result worth writing down.
 
 ---
 
+---
+
+## 8. The alternating odd polynomial, parametric
+
+**The idea.** `y = x - x³ + x⁵ - x⁷`, and the same as a *parametric* curve:
+`x = t`, `y = t - t³ + t⁵ - t⁷`. Signs alternate, powers are odd, the
+coefficients are one.
+
+**What exists.** The general row form already holds this curve: speed rows are
+the derivative of each coordinate, so this is a position polynomial with speed
+`x' = 1`, `y' = 1 - 3t² + 5t⁴ - 7t⁶`. Nothing new is needed to measure it: grid,
+bend, inflections and crossings all come from the exact core.
+
+**Why it is worth a look, not just a check.** The alternating signs give a shape
+that flattens at one end and climbs at the other — a "wing" profile. At degree 7
+it has three stationary points of `y`, so it is a candidate for a leaf with a
+tail (see §5) rather than a knot.
+
+**First step.** Measure it as a row curve (grid, inflections, crossings) and put
+it beside the closest curve in `state/SIMILARITY-int.md`. If it is already in the
+set's neighbourhood, the family is covered; if it is in an empty cell, it is a
+new family and the higher degrees (`t⁹`, `t¹¹`) are a search axis.
+
+---
+
+## 9. An imaginary variable in the polynomial
+
+**The idea.** Put an imaginary number in the variable of
+`y = ±var₁t⁷ ± var₂t⁶ …`: evaluate at `t = i·s` instead of a real `t`.
+
+**What that does, worked out.** With `P(z) = Σ aₖ zᵏ` and `z = i s`:
+
+- even powers `z^{2m} = (-1)^m s^{2m}` — real;
+- odd powers `z^{2m+1} = i (-1)^m s^{2m+1}` — imaginary.
+
+So the curve is `x(s) = Re P(i s)` (the even terms, sign-flipped every other
+one) and `y(s) = Im P(i s)` (the odd terms, likewise). Two real polynomials,
+whole coefficients, on the same grid: the imaginary variable is a **sign
+rotation of the coefficients**, not an approximation.
+
+**One trap, found by working the example.** If the polynomial has only odd
+powers — the operator's `y = x - x³ + x⁵ - x⁷` — then `P(i s)` is purely
+imaginary and the curve is a **straight vertical line**. `x` is identically zero.
+The transform only makes a plane curve when both parities are present, which is
+exactly the general `±var₁t⁷ ± var₂t⁶` form. Say this in the notes so the idea is
+not judged by the degenerate case.
+
+**Why it is worth doing.** It is a second, independent way to fill the empty
+cells: the same coefficient sets, read as a different curve. It also connects to
+§2 (Gaussian transforms): multiplying by `i` is the quarter turn, and this is the
+same operation applied to the variable rather than to the speed.
+
+**First step.** Take three stored curves, form `P(i s)`, and report grid,
+inflections and crossings for each. If the results land in empty cells of the
+analysis, the transform is a search method, not a curiosity.
+
 ## How to use this file
 
 - Nothing here starts without the operator saying so; `state/PLAN-int.md` owns
