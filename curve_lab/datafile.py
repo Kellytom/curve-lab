@@ -37,6 +37,7 @@ FORMATS = {
     "g3-handover.json": "curve-lab.g3-handover/1",
     "manifest.json": "curve-lab.manifest/1",
     "moved-curves.json": "curve-lab.moved/1",
+    "near-zero.json": "curve-lab.near-zero/1",
     "operator-list.json": "curve-lab.operator-list/1",
     "ph-11th-fitted-curves.json": "curve-lab.ph-fitted/1",
     "ph-fitted-curves.json": "curve-lab.ph-fitted/1",

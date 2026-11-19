@@ -61,6 +61,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `g3-handover.json` | `curve-lab.g3-handover/1` | cache | `scripts/g3_handover.py` | `scripts/g3_showcase_doc.py` |
 | `manifest.json` | `curve-lab.manifest/1` | index | `scripts/hub.py` | the Astro hub, `scripts/hub.py` |
 | `moved-curves.json` | `curve-lab.moved/1` | record | `scripts/moved_notes.py` | `scripts/operator_list.py` |
+| `near-zero.json` | `curve-lab.near-zero/1` | cache | `scripts/near_zero.py` | the near-zero report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
 | `ph-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_fit_showcase.py` | `scripts/ph_nth_sandbox2.py` |

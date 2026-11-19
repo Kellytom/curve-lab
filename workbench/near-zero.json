@@ -1,0 +1,1275 @@
+{
+ "format": "curve-lab.near-zero/1",
+ "note": "distance from the curve to the origin, and where it happens; sampled",
+ "curves": [
+  {
+   "uid": "c-0043",
+   "name": "lace-1of9-3",
+   "distance": 0.03056,
+   "share": 0.0236,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.295
+  },
+  {
+   "uid": "c-0021",
+   "name": "inflect-2",
+   "distance": 0.037185,
+   "share": 0.023,
+   "t": 0.1125,
+   "interior": true,
+   "size": 1.62
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "distance": 0.037189,
+   "share": 0.1907,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.195
+  },
+  {
+   "uid": "c-0042",
+   "name": "wave-middle-7",
+   "distance": 0.056246,
+   "share": 0.2812,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.2
+  },
+  {
+   "uid": "c-0019",
+   "name": "knot-6",
+   "distance": 0.062047,
+   "share": 0.0263,
+   "t": 0.87,
+   "interior": true,
+   "size": 2.357
+  },
+  {
+   "uid": "c-0033",
+   "name": "wave-middle-5",
+   "distance": 0.078122,
+   "share": 0.2565,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.305
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "distance": 0.082378,
+   "share": 0.0105,
+   "t": 0.2,
+   "interior": true,
+   "size": 7.852
+  },
+  {
+   "uid": "c-0022",
+   "name": "wave3",
+   "distance": 0.083279,
+   "share": 0.1107,
+   "t": 0.405,
+   "interior": true,
+   "size": 0.752
+  },
+  {
+   "uid": "c-0046",
+   "name": "wave-1of14-3",
+   "distance": 0.088492,
+   "share": 0.0207,
+   "t": 0.8,
+   "interior": true,
+   "size": 4.273
+  },
+  {
+   "uid": "c-0006",
+   "name": "curlicue",
+   "distance": 0.092065,
+   "share": 0.0045,
+   "t": 0.555,
+   "interior": true,
+   "size": 20.395
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-1of3-5",
+   "distance": 0.108321,
+   "share": 0.6629,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.163
+  },
+  {
+   "uid": "c-0217",
+   "name": "wave-middle-5-2",
+   "distance": 0.116178,
+   "share": 0.3815,
+   "t": 0.855,
+   "interior": true,
+   "size": 0.305
+  },
+  {
+   "uid": "c-0014",
+   "name": "wave-coarse",
+   "distance": 0.117487,
+   "share": 0.3656,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.321
+  },
+  {
+   "uid": "c-0009",
+   "name": "v-sharp",
+   "distance": 0.124998,
+   "share": 0.2917,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.429
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-1of10-5",
+   "distance": 0.141729,
+   "share": 0.1181,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.2
+  },
+  {
+   "uid": "c-0031",
+   "name": "wave-1of3-3",
+   "distance": 0.147031,
+   "share": 0.5757,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.255
+  },
+  {
+   "uid": "c-0028",
+   "name": "lace-1of8-3",
+   "distance": 0.15312,
+   "share": 0.1288,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.188
+  },
+  {
+   "uid": "c-0150",
+   "name": "wave-2x1of3-1",
+   "distance": 0.161872,
+   "share": 0.3846,
+   "t": 0.0825,
+   "interior": true,
+   "size": 0.421
+  },
+  {
+   "uid": "c-0040",
+   "name": "wave-1of4-5",
+   "distance": 0.166329,
+   "share": 0.4062,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.409
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-1of12-5",
+   "distance": 0.180391,
+   "share": 0.1519,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.187
+  },
+  {
+   "uid": "c-0044",
+   "name": "wave-1of7-3",
+   "distance": 0.185695,
+   "share": 0.2463,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.754
+  },
+  {
+   "uid": "c-0151",
+   "name": "wave-1of5-3",
+   "distance": 0.191743,
+   "share": 0.5619,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.341
+  },
+  {
+   "uid": "c-0039",
+   "name": "wave-2x1of3-3",
+   "distance": 0.193125,
+   "share": 0.7385,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.261
+  },
+  {
+   "uid": "c-0038",
+   "name": "wave-1of5-5",
+   "distance": 0.193536,
+   "share": 0.7472,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.259
+  },
+  {
+   "uid": "c-0032",
+   "name": "wave-1of4-3",
+   "distance": 0.215568,
+   "share": 0.3837,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.562
+  },
+  {
+   "uid": "c-0149",
+   "name": "wave-1of6-3",
+   "distance": 0.218253,
+   "share": 0.46,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.475
+  },
+  {
+   "uid": "c-0160",
+   "name": "wave-2of5-5",
+   "distance": 0.218403,
+   "share": 0.2296,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.951
+  },
+  {
+   "uid": "c-0005",
+   "name": "double-tap",
+   "distance": 0.220265,
+   "share": 0.1928,
+   "t": 0.48,
+   "interior": true,
+   "size": 1.142
+  },
+  {
+   "uid": "c-0036",
+   "name": "wave-1of8-5",
+   "distance": 0.221392,
+   "share": 0.2448,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.904
+  },
+  {
+   "uid": "c-0037",
+   "name": "wave-1of6-5",
+   "distance": 0.221829,
+   "share": 0.5508,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.403
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-1of4-1of3-3",
+   "distance": 0.238493,
+   "share": 0.2926,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.815
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-deep",
+   "distance": 0.249985,
+   "share": 0.653,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.383
+  },
+  {
+   "uid": "c-0023",
+   "name": "cusp5-x3",
+   "distance": 0.249992,
+   "share": 0.6851,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.365
+  },
+  {
+   "uid": "c-0008",
+   "name": "u-bowl",
+   "distance": 0.25,
+   "share": 0.75,
+   "t": 0.5,
+   "interior": true,
+   "size": 0.333
+  },
+  {
+   "uid": "c-0146",
+   "name": "wave-1of4-1of3-1",
+   "distance": 0.263924,
+   "share": 0.2625,
+   "t": 0.9175,
+   "interior": true,
+   "size": 1.005
+  },
+  {
+   "uid": "c-0148",
+   "name": "wave-2of5-3",
+   "distance": 0.265313,
+   "share": 0.2398,
+   "t": 0.9175,
+   "interior": true,
+   "size": 1.106
+  },
+  {
+   "uid": "c-0159",
+   "name": "wave-3x1of3-1",
+   "distance": 0.331945,
+   "share": 0.2125,
+   "t": 0.9175,
+   "interior": true,
+   "size": 1.562
+  },
+  {
+   "uid": "c-0030",
+   "name": "lace-1of10-3",
+   "distance": 0.355541,
+   "share": 0.2634,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.35
+  },
+  {
+   "uid": "c-0013",
+   "name": "bowl-coarse",
+   "distance": 0.360598,
+   "share": 0.3339,
+   "t": 0.155,
+   "interior": true,
+   "size": 1.08
+  },
+  {
+   "uid": "c-0057",
+   "name": "lace-1of12-1of3-1",
+   "distance": 0.401433,
+   "share": 0.0608,
+   "t": 0.3425,
+   "interior": true,
+   "size": 6.603
+  },
+  {
+   "uid": "c-0153",
+   "name": "wave-1of5-1of3-3",
+   "distance": 0.410177,
+   "share": 0.3855,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.064
+  },
+  {
+   "uid": "c-0144",
+   "name": "wave-1of5-1of3-1",
+   "distance": 0.413885,
+   "share": 0.2421,
+   "t": 0.0825,
+   "interior": true,
+   "size": 1.709
+  },
+  {
+   "uid": "c-0156",
+   "name": "wave-2x1of4-3",
+   "distance": 0.458294,
+   "share": 0.2645,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.733
+  },
+  {
+   "uid": "c-0157",
+   "name": "wave-1of6-1of3-3",
+   "distance": 0.458538,
+   "share": 0.2445,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.876
+  },
+  {
+   "uid": "c-0045",
+   "name": "wave-2of7-3",
+   "distance": 0.477833,
+   "share": 0.1484,
+   "t": 0.0825,
+   "interior": true,
+   "size": 3.22
+  },
+  {
+   "uid": "c-0145",
+   "name": "wave-2x1of4-1",
+   "distance": 0.509212,
+   "share": 0.2364,
+   "t": 0.0825,
+   "interior": true,
+   "size": 2.154
+  },
+  {
+   "uid": "c-0012",
+   "name": "m-coarse",
+   "distance": 0.533277,
+   "share": 0.3284,
+   "t": 0.8375,
+   "interior": true,
+   "size": 1.624
+  },
+  {
+   "uid": "c-0147",
+   "name": "wave-1of6-1of3-1",
+   "distance": 0.546622,
+   "share": 0.2402,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.276
+  },
+  {
+   "uid": "c-0029",
+   "name": "lace-1of12-3",
+   "distance": 0.59124,
+   "share": 0.2792,
+   "t": 0.18,
+   "interior": true,
+   "size": 2.117
+  },
+  {
+   "uid": "c-0004",
+   "name": "gosling",
+   "distance": 0.651338,
+   "share": 0.6829,
+   "t": 0.9175,
+   "interior": true,
+   "size": 0.954
+  },
+  {
+   "uid": "c-0154",
+   "name": "wave-1of5-1of4-3",
+   "distance": 0.661416,
+   "share": 0.2869,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.306
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "distance": 0.676308,
+   "share": 0.4508,
+   "t": 0.5,
+   "interior": true,
+   "size": 1.5
+  },
+  {
+   "uid": "c-0020",
+   "name": "knot-7",
+   "distance": 0.690852,
+   "share": 0.3016,
+   "t": 0.9075,
+   "interior": true,
+   "size": 2.29
+  },
+  {
+   "uid": "c-0059",
+   "name": "lace-1of10-3-2",
+   "distance": 0.692136,
+   "share": 0.4667,
+   "t": 0.755,
+   "interior": true,
+   "size": 1.483
+  },
+  {
+   "uid": "c-0155",
+   "name": "wave-1of4-2x1of3-1",
+   "distance": 0.727048,
+   "share": 0.2766,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.629
+  },
+  {
+   "uid": "c-0060",
+   "name": "lace-2x1of6-1",
+   "distance": 0.783887,
+   "share": 0.0567,
+   "t": 0.5,
+   "interior": true,
+   "size": 13.817
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-1of3-2of5-3",
+   "distance": 0.843693,
+   "share": 0.2696,
+   "t": 0.5,
+   "interior": true,
+   "size": 3.129
+  },
+  {
+   "uid": "c-0087",
+   "name": "wide-knot-x20",
+   "distance": 0.857088,
+   "share": 0.699,
+   "t": 0.7275,
+   "interior": true,
+   "size": 1.226
+  },
+  {
+   "uid": "c-0001",
+   "name": "amper",
+   "distance": 0.859546,
+   "share": 0.7924,
+   "t": 0.9175,
+   "interior": true,
+   "size": 1.085
+  },
+  {
+   "uid": "c-0259",
+   "name": "loop-5-12-mid-3",
+   "distance": 0.873078,
+   "share": 0.0264,
+   "t": 0.8,
+   "interior": true,
+   "size": 33.01
+  },
+  {
+   "uid": "c-0152",
+   "name": "wave-1of5-1of4-1",
+   "distance": 0.906162,
+   "share": 0.2795,
+   "t": 0.5275,
+   "interior": true,
+   "size": 3.242
+  },
+  {
+   "uid": "c-0002",
+   "name": "euler-hook",
+   "distance": 0.969109,
+   "share": 0.3167,
+   "t": 0.8675,
+   "interior": true,
+   "size": 3.06
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "distance": 1.079879,
+   "share": 0.5234,
+   "t": 0.535,
+   "interior": true,
+   "size": 2.063
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-1of8-1of3-3",
+   "distance": 1.328665,
+   "share": 0.362,
+   "t": 0.9175,
+   "interior": true,
+   "size": 3.67
+  },
+  {
+   "uid": "c-0065",
+   "name": "lace-1of8-1of3-1",
+   "distance": 1.437251,
+   "share": 0.3092,
+   "t": 0.5,
+   "interior": true,
+   "size": 4.648
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-1of10-1of3-3",
+   "distance": 1.439376,
+   "share": 0.2463,
+   "t": 0.5,
+   "interior": true,
+   "size": 5.845
+  },
+  {
+   "uid": "c-0227",
+   "name": "wave-1of6-1of4-3",
+   "distance": 1.439885,
+   "share": 0.3043,
+   "t": 0.0825,
+   "interior": true,
+   "size": 4.732
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-1of12-1of3-3",
+   "distance": 1.489274,
+   "share": 0.1969,
+   "t": 0.3325,
+   "interior": true,
+   "size": 7.562
+  },
+  {
+   "uid": "c-0246",
+   "name": "wave-2x1of5-3",
+   "distance": 1.527862,
+   "share": 0.2765,
+   "t": 0.9175,
+   "interior": true,
+   "size": 5.527
+  },
+  {
+   "uid": "c-0240",
+   "name": "wave-3of8-5",
+   "distance": 1.539318,
+   "share": 0.2567,
+   "t": 0.9175,
+   "interior": true,
+   "size": 5.996
+  },
+  {
+   "uid": "c-0245",
+   "name": "lace-1of5-2x1of3-1",
+   "distance": 1.557359,
+   "share": 0.2586,
+   "t": 0.9175,
+   "interior": true,
+   "size": 6.021
+  },
+  {
+   "uid": "c-0202",
+   "name": "wave-1of5-1of3-1-2",
+   "distance": 1.610676,
+   "share": 0.5646,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.853
+  },
+  {
+   "uid": "c-0061",
+   "name": "lace-1of6-1of5-1",
+   "distance": 1.862226,
+   "share": 0.1811,
+   "t": 0.0825,
+   "interior": true,
+   "size": 10.281
+  },
+  {
+   "uid": "c-0256",
+   "name": "loop-3-5-11-mid-1",
+   "distance": 1.976367,
+   "share": 0.0176,
+   "t": 0.5,
+   "interior": true,
+   "size": 112.401
+  },
+  {
+   "uid": "c-0204",
+   "name": "lace-2x1of5-1",
+   "distance": 2.068059,
+   "share": 0.5541,
+   "t": 0.5,
+   "interior": true,
+   "size": 3.733
+  },
+  {
+   "uid": "c-0205",
+   "name": "wave-1of6-1of4-1",
+   "distance": 2.160688,
+   "share": 0.7612,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.838
+  },
+  {
+   "uid": "c-0058",
+   "name": "lace-1of10-1of4-1",
+   "distance": 2.622519,
+   "share": 0.1837,
+   "t": 0.5,
+   "interior": true,
+   "size": 14.273
+  },
+  {
+   "uid": "c-0062",
+   "name": "lace-1of10-1of3-1",
+   "distance": 2.635079,
+   "share": 0.632,
+   "t": 0.5,
+   "interior": true,
+   "size": 4.17
+  },
+  {
+   "uid": "c-0211",
+   "name": "lace-1of3-2of5-1",
+   "distance": 2.652131,
+   "share": 0.9377,
+   "t": 0.5,
+   "interior": true,
+   "size": 2.828
+  },
+  {
+   "uid": "c-0257",
+   "name": "loop-3-7-11-mid-3",
+   "distance": 2.865007,
+   "share": 0.0136,
+   "t": 0.8575,
+   "interior": true,
+   "size": 210.02
+  },
+  {
+   "uid": "c-0067",
+   "name": "lace-1of8-1of4-1",
+   "distance": 2.925525,
+   "share": 0.2888,
+   "t": 0.9175,
+   "interior": true,
+   "size": 10.129
+  },
+  {
+   "uid": "c-0237",
+   "name": "wave-1of6-1of5-3",
+   "distance": 3.054314,
+   "share": 0.5873,
+   "t": 0.5,
+   "interior": true,
+   "size": 5.201
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-1of8-1of4-3",
+   "distance": 3.078994,
+   "share": 0.5611,
+   "t": 0.5,
+   "interior": true,
+   "size": 5.487
+  },
+  {
+   "uid": "c-0233",
+   "name": "lace-2x1of4-1of3-1",
+   "distance": 3.189013,
+   "share": 0.6981,
+   "t": 0.5,
+   "interior": true,
+   "size": 4.568
+  },
+  {
+   "uid": "c-0210",
+   "name": "lace-3of8-3",
+   "distance": 3.210569,
+   "share": 0.5508,
+   "t": 0.0825,
+   "interior": true,
+   "size": 5.829
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "distance": 3.361419,
+   "share": 0.1976,
+   "t": 0.46,
+   "interior": true,
+   "size": 17.008
+  },
+  {
+   "uid": "c-0235",
+   "name": "wave-1of6-2x1of3-1",
+   "distance": 3.385277,
+   "share": 0.5773,
+   "t": 0.5,
+   "interior": true,
+   "size": 5.864
+  },
+  {
+   "uid": "c-0234",
+   "name": "lace-1of4-2of5-3",
+   "distance": 3.396548,
+   "share": 0.6121,
+   "t": 0.5,
+   "interior": true,
+   "size": 5.549
+  },
+  {
+   "uid": "c-0232",
+   "name": "wave-2x1of6-3",
+   "distance": 3.541077,
+   "share": 0.3644,
+   "t": 0.5,
+   "interior": true,
+   "size": 9.718
+  },
+  {
+   "uid": "c-0063",
+   "name": "lace-1of12-1of4-1",
+   "distance": 3.58873,
+   "share": 0.1761,
+   "t": 0.76,
+   "interior": true,
+   "size": 20.379
+  },
+  {
+   "uid": "c-0208",
+   "name": "wave-1of4-2of5-1",
+   "distance": 3.692741,
+   "share": 0.4363,
+   "t": 0.0825,
+   "interior": true,
+   "size": 8.464
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-1of8-1of5-3",
+   "distance": 3.729464,
+   "share": 0.3045,
+   "t": 0.5,
+   "interior": true,
+   "size": 12.249
+  },
+  {
+   "uid": "c-0209",
+   "name": "lace-3of10-3",
+   "distance": 3.885505,
+   "share": 0.271,
+   "t": 0.9175,
+   "interior": true,
+   "size": 14.338
+  },
+  {
+   "uid": "c-0003",
+   "name": "swan",
+   "distance": 3.950608,
+   "share": 0.1593,
+   "t": 0.5825,
+   "interior": true,
+   "size": 24.793
+  },
+  {
+   "uid": "c-0228",
+   "name": "lace-3of10-5",
+   "distance": 4.063226,
+   "share": 0.4161,
+   "t": 0.5,
+   "interior": true,
+   "size": 9.765
+  },
+  {
+   "uid": "c-0224",
+   "name": "lace-1of5-1of4-1of3-1",
+   "distance": 4.102076,
+   "share": 0.3926,
+   "t": 0.5,
+   "interior": true,
+   "size": 10.448
+  },
+  {
+   "uid": "c-0230",
+   "name": "lace-1of8-2x1of3-1",
+   "distance": 4.343536,
+   "share": 0.3283,
+   "t": 0.5,
+   "interior": true,
+   "size": 13.231
+  },
+  {
+   "uid": "c-0225",
+   "name": "lace-1of5-2of5-3",
+   "distance": 4.371522,
+   "share": 0.3659,
+   "t": 0.5,
+   "interior": true,
+   "size": 11.949
+  },
+  {
+   "uid": "c-0207",
+   "name": "lace-1of5-2of5-1",
+   "distance": 4.397751,
+   "share": 0.2696,
+   "t": 0.9175,
+   "interior": true,
+   "size": 16.31
+  },
+  {
+   "uid": "c-0223",
+   "name": "lace-2x1of3-2of5-1",
+   "distance": 4.461319,
+   "share": 0.3303,
+   "t": 0.9175,
+   "interior": true,
+   "size": 13.509
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-1of12-1of4-3",
+   "distance": 4.474752,
+   "share": 0.3233,
+   "t": 0.7425,
+   "interior": true,
+   "size": 13.84
+  },
+  {
+   "uid": "c-0258",
+   "name": "loop-3-8-13-mid-1",
+   "distance": 4.654437,
+   "share": 0.0104,
+   "t": 0.5,
+   "interior": true,
+   "size": 445.502
+  },
+  {
+   "uid": "c-0226",
+   "name": "lace-3x1of4-1",
+   "distance": 4.674116,
+   "share": 0.3232,
+   "t": 0.5,
+   "interior": true,
+   "size": 14.463
+  },
+  {
+   "uid": "c-0229",
+   "name": "wave-1of6-1of4-1of3-1",
+   "distance": 4.933352,
+   "share": 0.2845,
+   "t": 0.5,
+   "interior": true,
+   "size": 17.342
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-1of10-1of4-3",
+   "distance": 5.00918,
+   "share": 0.5877,
+   "t": 0.26,
+   "interior": true,
+   "size": 8.523
+  },
+  {
+   "uid": "c-0222",
+   "name": "lace-2x1of5-1of3-1",
+   "distance": 5.284393,
+   "share": 0.2587,
+   "t": 0.5,
+   "interior": true,
+   "size": 20.43
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-1of12-2x1of3-1",
+   "distance": 5.338546,
+   "share": 0.179,
+   "t": 0.5,
+   "interior": true,
+   "size": 29.828
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-1of8-1of6-3",
+   "distance": 5.752203,
+   "share": 0.2745,
+   "t": 0.5,
+   "interior": true,
+   "size": 20.958
+  },
+  {
+   "uid": "c-0066",
+   "name": "lace-1of8-1of5-1",
+   "distance": 5.851774,
+   "share": 0.3735,
+   "t": 0.0825,
+   "interior": true,
+   "size": 15.667
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-1of10-1of5-3",
+   "distance": 5.912178,
+   "share": 0.2811,
+   "t": 0.8,
+   "interior": true,
+   "size": 21.03
+  },
+  {
+   "uid": "c-0238",
+   "name": "lace-1of3-3of8-3",
+   "distance": 6.008027,
+   "share": 0.2431,
+   "t": 0.9175,
+   "interior": true,
+   "size": 24.71
+  },
+  {
+   "uid": "c-0206",
+   "name": "lace-1of6-2of5-1",
+   "distance": 6.18598,
+   "share": 0.2407,
+   "t": 0.0825,
+   "interior": true,
+   "size": 25.695
+  },
+  {
+   "uid": "c-0260",
+   "name": "loop-5-8-12-mid-5",
+   "distance": 6.24716,
+   "share": 0.0056,
+   "t": 0.5,
+   "interior": true,
+   "size": 1125.147
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-1of10-2x1of3-1",
+   "distance": 6.373045,
+   "share": 0.3177,
+   "t": 0.5,
+   "interior": true,
+   "size": 20.061
+  },
+  {
+   "uid": "c-0239",
+   "name": "lace-1of5-2x1of4-1",
+   "distance": 6.688773,
+   "share": 0.2417,
+   "t": 0.0825,
+   "interior": true,
+   "size": 27.675
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-1of12-1of5-3",
+   "distance": 6.779569,
+   "share": 0.2442,
+   "t": 0.7975,
+   "interior": true,
+   "size": 27.76
+  },
+  {
+   "uid": "c-0221",
+   "name": "lace-1of4-1of3-2of5-1",
+   "distance": 7.069853,
+   "share": 0.2095,
+   "t": 0.0825,
+   "interior": true,
+   "size": 33.747
+  },
+  {
+   "uid": "c-0212",
+   "name": "wave-1of3-3of8-1",
+   "distance": 7.21478,
+   "share": 0.226,
+   "t": 0.9175,
+   "interior": true,
+   "size": 31.928
+  },
+  {
+   "uid": "c-0076",
+   "name": "wave-1of6-2of5-3",
+   "distance": 7.429156,
+   "share": 0.4194,
+   "t": 0.0825,
+   "interior": true,
+   "size": 17.712
+  },
+  {
+   "uid": "c-0244",
+   "name": "wave-1of6-1of5-1of3-1",
+   "distance": 7.598637,
+   "share": 0.231,
+   "t": 0.9175,
+   "interior": true,
+   "size": 32.894
+  },
+  {
+   "uid": "c-0247",
+   "name": "wave-5of12-5",
+   "distance": 8.20663,
+   "share": 0.2364,
+   "t": 0.9175,
+   "interior": true,
+   "size": 34.717
+  },
+  {
+   "uid": "c-0068",
+   "name": "wave-1of8-1of6-1",
+   "distance": 8.291471,
+   "share": 0.2663,
+   "t": 0.9175,
+   "interior": true,
+   "size": 31.141
+  },
+  {
+   "uid": "c-0064",
+   "name": "wave-1of10-1of5-1",
+   "distance": 8.305499,
+   "share": 0.2794,
+   "t": 0.0825,
+   "interior": true,
+   "size": 29.727
+  },
+  {
+   "uid": "c-0243",
+   "name": "wave-2x2of5-3",
+   "distance": 8.454651,
+   "share": 0.2325,
+   "t": 0.9175,
+   "interior": true,
+   "size": 36.357
+  },
+  {
+   "uid": "c-0069",
+   "name": "lace-1of8-2of5-1",
+   "distance": 8.888252,
+   "share": 0.1997,
+   "t": 0.6,
+   "interior": true,
+   "size": 44.501
+  },
+  {
+   "uid": "c-0070",
+   "name": "wave-5of12-3",
+   "distance": 9.20457,
+   "share": 0.187,
+   "t": 0.0825,
+   "interior": true,
+   "size": 49.224
+  },
+  {
+   "uid": "c-0216",
+   "name": "wave-2x2of5-1",
+   "distance": 9.39902,
+   "share": 0.1841,
+   "t": 0.9175,
+   "interior": true,
+   "size": 51.046
+  },
+  {
+   "uid": "c-0083",
+   "name": "wave-1of8-2of5-3",
+   "distance": 9.495683,
+   "share": 0.2724,
+   "t": 0.415,
+   "interior": true,
+   "size": 34.861
+  },
+  {
+   "uid": "c-0082",
+   "name": "wave-1of8-1of4-1of3-1",
+   "distance": 9.541887,
+   "share": 0.3005,
+   "t": 0.5,
+   "interior": true,
+   "size": 31.757
+  },
+  {
+   "uid": "c-0242",
+   "name": "wave-3of10-1of3-3",
+   "distance": 9.898465,
+   "share": 0.2072,
+   "t": 0.9175,
+   "interior": true,
+   "size": 47.781
+  },
+  {
+   "uid": "c-0081",
+   "name": "wave-1of6-2x1of4-1",
+   "distance": 10.30776,
+   "share": 0.2544,
+   "t": 0.9175,
+   "interior": true,
+   "size": 40.519
+  },
+  {
+   "uid": "c-0241",
+   "name": "wave-1of4-3of8-3",
+   "distance": 10.634674,
+   "share": 0.1964,
+   "t": 0.0825,
+   "interior": true,
+   "size": 54.155
+  },
+  {
+   "uid": "c-0215",
+   "name": "wave-3of10-1of3-1",
+   "distance": 10.865265,
+   "share": 0.1684,
+   "t": 0.0825,
+   "interior": true,
+   "size": 64.512
+  },
+  {
+   "uid": "c-0080",
+   "name": "wave-2x1of5-1of4-1",
+   "distance": 10.908799,
+   "share": 0.2313,
+   "t": 0.0825,
+   "interior": true,
+   "size": 47.171
+  },
+  {
+   "uid": "c-0262",
+   "name": "loop-8-11-mid-1",
+   "distance": 11.072787,
+   "share": 0.0291,
+   "t": 0.535,
+   "interior": true,
+   "size": 380.119
+  },
+  {
+   "uid": "c-0079",
+   "name": "wave-2x1of6-1of3-1",
+   "distance": 11.077887,
+   "share": 0.2296,
+   "t": 0.9175,
+   "interior": true,
+   "size": 48.239
+  },
+  {
+   "uid": "c-0248",
+   "name": "wave-1of5-1of3-2of5-1",
+   "distance": 11.332021,
+   "share": 0.2004,
+   "t": 0.9175,
+   "interior": true,
+   "size": 56.546
+  },
+  {
+   "uid": "c-0007",
+   "name": "grass",
+   "distance": 42.775738,
+   "share": 0.1522,
+   "t": 0.87,
+   "interior": true,
+   "size": 281.012
+  },
+  {
+   "uid": "c-0253",
+   "name": "loop-12-13-15-mid-1",
+   "distance": 1436.322157,
+   "share": 0.0002,
+   "t": 0.4975,
+   "interior": true,
+   "size": 7116195.515
+  },
+  {
+   "uid": "c-0254",
+   "name": "loop-12-15-18-mid-1",
+   "distance": 3135.181188,
+   "share": 0.0001,
+   "t": 0.4975,
+   "interior": true,
+   "size": 33298265.71
+  },
+  {
+   "uid": "c-0255",
+   "name": "loop-13-15-17-mid-1",
+   "distance": 3357.428318,
+   "share": 0.0001,
+   "t": 0.5,
+   "interior": true,
+   "size": 38023970.422
+  }
+ ]
+}
