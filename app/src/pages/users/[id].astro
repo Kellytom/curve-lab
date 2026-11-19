@@ -14,7 +14,7 @@ if (Astro.request.method === "POST") {
   if (String(form.get("intent") || "save") === "delete") {
     const result = await removeUser(id);
     if (result.ok) return Astro.redirect("/users", 303);
-    error = result.error;
+    error = result.error || "the remove failed";
   } else {
     const result = await updateUser(id, {
       name: String(form.get("name") || ""),

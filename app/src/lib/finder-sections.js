@@ -7,6 +7,10 @@
 
 const isMirrored = (curve) => (curve.flags || []).some((flag) => String(flag).startsWith("mirror "));
 
+/**
+ * @param {Array<any>} curves
+ * @param {(curve: any) => boolean} [isStarred]
+ */
 export function finderSections(curves, isStarred = () => false) {
   const starred = curves.filter((curve) => isStarred(curve));
   const symmetric = curves

@@ -6,7 +6,10 @@
     "dev": "CURVE_LAB_ROOT=.. astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs",
+    "test": "node --test tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs tests/name-parts.test.mjs",
+    "check": "astro check && eslint src/lib src/scripts tests scripts",
+    "test:pages": "node scripts/check-pages.mjs && node scripts/check-stars.mjs && node scripts/check-names.mjs",
+    "gate": "npm run check && npm test",
     "backup": "node scripts/backup-db.mjs",
     "restore": "node scripts/restore-db.mjs",
     "predev": "node scripts/backup-db.mjs",
@@ -23,5 +26,10 @@
   },
   "engines": {
     "node": ">=22.23.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "eslint": "^10.15.0",
+    "typescript": "^6.0.3"
   }
 }

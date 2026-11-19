@@ -218,6 +218,9 @@ Start the one server if it is not already up (this is idempotent — it says
 ```sh
 .venv/bin/python -m unittest discover tests
 .venv/bin/python -m unittest tests.test_regressions   # the fixed-bug register, ~0.1 s
+npm --prefix app run check                        # astro check + eslint: the static gate
+npm --prefix app run test:pages                   # the 12 pages, stars and names, in a browser
+npm --prefix app run gate                         # check + the unit tests
 .venv/bin/python scripts/test.py --fast           # tight loop: engine, data, register, ~15 s
 .venv/bin/python scripts/test.py --slim          # engine only, ~3 s
 .venv/bin/python scripts/test.py                 # commit gate, ~40 s
@@ -294,6 +297,9 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   Reason and examples: `state/DESIGN-int.md` §Trigonometry.
 
 - One task at a time, at the scope the operator set; verify, commit, stop.
+- **A page carries no rules.** Its `<script>` is one import; logic lives in
+  `app/src/scripts/` (linted) or `app/src/lib/` (linted and tested). A rule that
+  cannot fail a command is a wish: add the check before the note.
 - Never edit `docs/ornament-board.html` or `docs/fleur-studies.html` by hand.
   Change `scripts/board/build-board.mjs` or `board-template.html`, then rebuild.
 - Never touch `out/play-template.svg`.

@@ -702,6 +702,25 @@ featured was drawn in two sections.
 - **A removal is named.** Un-starring sends the name in `removed`; the page and
   the server both require it, so a partial list can no longer delete a star.
 
+## Static checks are the gate — 2026-11-19
+
+Settled by the operator: "a library? a methodology that is actually enforceable,
+not just md?" — and "i consider typescript a BIG framework. but do it".
+
+- **TypeScript through Astro.** `app/tsconfig.json` extends `astro/tsconfigs/base`;
+  `npm --prefix app run check` runs `astro check`. It found 42 errors the first
+  time, including the class that cost three sessions: a name used outside its
+  scope in a page script.
+- **ESLint with `no-undef`** checks `src/lib`, `src/scripts`, `tests` and
+  `scripts`. It is the same fault at the plain-JavaScript edge.
+- **A page carries no rules.** Its `<script>` is one import; the logic lives in
+  `app/src/scripts/*.js` (linted) or `app/src/lib/*.js` (linted and unit-tested).
+  `names-desk.js`, `finder-stars.js`, `illuminations.js` and `lab.js` follow it.
+- **`draftState`** is the tested rule for a browser draft: it counts only when it
+  is newer than the record's save, and never when it is empty. A saved name can
+  no longer be hidden by yesterday's text.
+- The rule behind all of it: **a rule that cannot fail a command is a wish.**
+
 ## Data: SQLite through Prisma is the record — 2026-11-19
 
 Settled by the operator after the naming loss and the desk save that never ran.

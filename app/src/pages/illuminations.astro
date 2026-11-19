@@ -135,44 +135,5 @@ a{color:var(--pico-primary)}
   </section>
 ))}
 </main>
-<script is:inline>
-(() => {
-  const post = async (uid, body) => {
-    const response = await fetch("/api/curve-notes", {
-      method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ curves: [{ uid, ...body }] }),
-    });
-    return response.ok;
-  };
-  document.querySelectorAll(".turn").forEach((row) => {
-    const uid = row.dataset.uid;
-    row.querySelectorAll("button[data-turn]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const rotation = (Number(row.dataset.rot) || 0) + Number(button.dataset.turn);
-        row.querySelector(".saveflag").textContent = "saving...";
-        const ok = await post(uid, { rotation });
-        row.querySelector(".saveflag").textContent = ok ? "saved" : "failed";
-        if (ok) location.reload();
-      });
-    });
-    row.parentElement.querySelectorAll(".imp button").forEach((button) => {
-      button.addEventListener("click", async () => {
-        const flag = row.querySelector(".saveflag");
-        flag.textContent = "saving...";
-        const ok = await post(uid, { importance: Number(button.dataset.imp) });
-        flag.textContent = ok ? "saved" : "failed";
-        if (ok) location.reload();
-      });
-    });
-    row.querySelectorAll("button[data-piece]").forEach((button) => {
-      button.addEventListener("click", async () => {
-        row.querySelector(".saveflag").textContent = "saving...";
-        const ok = await post(uid, { pieces: Number(button.dataset.piece) });
-        row.querySelector(".saveflag").textContent = ok ? "saved" : "failed";
-        if (ok) location.reload();
-      });
-    });
-  });
-})();
-</script>
+<script>import "../scripts/illuminations.js";</script>
 </body></html>

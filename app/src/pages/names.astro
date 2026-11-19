@@ -16,6 +16,7 @@ const rows = registry.curves
   .map((curve) => ({
     uid: curve.uid,
     name: curve.name,
+    updated: curve.updated,
     ...splitName(curve.name, curve.family_id),
     importance: curve.importance || 0,
     lists: curve.lists.join(", "),
@@ -61,9 +62,9 @@ p{color:#666;margin:0 0 12px;max-width:80ch}
 
   <div class="desk">
   {rows.map((row) => (
-    <div class="row" data-uid={row.uid} data-imp={row.importance}>
+    <div class="row" data-uid={row.uid} data-imp={row.importance} data-updated={row.updated || ""}>
       <img class="thumb" src={`/curves/${row.uid}.png`} alt={`${row.name} curve`} loading="lazy">
-      <div class="who">{row.uid} · {row.lists}{row.starred ? " · starred" : ""} · now: <code class="now">{row.name}</code>{row.auto ? " · auto" : ""}</div>
+      <div class="who">{row.uid} · {row.lists}{row.starred ? " · starred" : ""} · now: <code class="now">{row.name}</code>{row.auto ? " · auto" : ""}<span class="saved-at">{row.updated ? ` · saved ${row.updated.slice(0, 16).replace("T", " ")}` : " · not saved yet"}</span></div>
       <div class="line">
         <span class="fixed prefix">{row.prefix}-</span>
         <input type="text" class="core" value={row.core} placeholder={row.core ? "" : row.name} aria-label={`name for ${row.uid}`}>
@@ -84,72 +85,5 @@ p{color:#666;margin:0 0 12px;max-width:80ch}
   ))}
   </div>
 </main>
-<script>
-import { composeName } from "../lib/name-parts.js";
-(() => {
-  const DRAFTS = "names-drafts";
-  const readDrafts = () => { try { return JSON.parse(localStorage.getItem(DRAFTS) || "{}"); } catch { return {}; } };
-  const writeDrafts = (drafts) => localStorage.setItem(DRAFTS, JSON.stringify(drafts));
-  const drafts = readDrafts();
-
-  const compose = (row) => composeName({
-    prefix: row.querySelector(".prefix").textContent,
-    core: row.querySelector(".core").value,
-    postfix: row.querySelector(".postfix").textContent,
-  });
-
-  document.querySelectorAll(".row").forEach((row) => {
-    const uid = row.dataset.uid;
-    const core = row.querySelector(".core");
-    const preview = row.querySelector(".preview");
-    // `savedCore` is the middle of the name the record already has. A draft is
-    // an edit away from it, not a copy of every box: writing a draft for a box
-    // nobody touched made "unsaved" impossible to tell from "saved".
-    let savedCore = core.value;
-    if (drafts[uid] !== undefined) core.value = drafts[uid];
-
-    const update = () => {
-      const name = compose(row);
-      preview.textContent = name ? `= ${name}` : "";
-      if (core.value === savedCore) delete drafts[uid];
-      else drafts[uid] = core.value;
-      writeDrafts(drafts);
-    };
-    core.addEventListener("input", update);
-    update();
-
-    row.querySelectorAll(".stars button").forEach((button) => {
-      button.addEventListener("click", () => {
-        row.dataset.imp = button.dataset.imp;
-        row.querySelectorAll(".stars button").forEach((other) => other.classList.toggle("on", other === button));
-      });
-    });
-
-    row.querySelector(".save").addEventListener("click", async () => {
-      const flag = row.querySelector(".flag");
-      const name = compose(row);
-      if (!name) { flag.textContent = "type a name first"; flag.className = "flag bad"; return; }
-      const body = { curves: [{ uid, name, importance: Number(row.dataset.imp) || 0 }] };
-      flag.textContent = "saving…"; flag.className = "flag";
-      try {
-        const response = await fetch("/api/curve-notes", {
-          method: "POST", headers: { "content-type": "application/json" },
-          body: JSON.stringify(body),
-        });
-        const out = await response.json();
-        if (!response.ok) throw new Error(out.error || "save failed");
-        savedCore = core.value;
-        delete drafts[uid];
-        writeDrafts(drafts);
-        row.querySelector(".now").textContent = name;
-        flag.textContent = "saved";
-        flag.className = "flag";
-      } catch (error) {
-        flag.textContent = `not saved: ${error.message}`;
-        flag.className = "flag bad";
-      }
-    });
-  });
-})();
-</script>
+<script>import "../scripts/names-desk.js";</script>
 </body></html>

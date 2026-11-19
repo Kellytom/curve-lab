@@ -34,3 +34,17 @@ test("splitting a stored name gives back the same name", () => {
     assert.equal(composeName(parts), name, `${name} did not round trip`);
   }
 });
+
+test("an old draft never hides a newer saved name", async () => {
+  const { draftState } = await import("../src/lib/name-parts.js");
+  const savedAt = Date.parse("2026-11-19T01:01:00Z");
+  assert.deepEqual(draftState("45deg-t1of4", savedAt), { value: "45deg-t1of4", stale: true });
+  assert.deepEqual(draftState({ value: "old", at: savedAt - 1000 }, savedAt).stale, true);
+  assert.deepEqual(draftState({ value: "typed now", at: savedAt + 1000 }, savedAt), { value: "typed now", stale: false });
+});
+
+test("an empty draft is not a draft", async () => {
+  const { draftState } = await import("../src/lib/name-parts.js");
+  assert.equal(draftState("", 0).value, undefined);
+  assert.equal(draftState({ value: "", at: Date.now() }, 0).value, undefined);
+});

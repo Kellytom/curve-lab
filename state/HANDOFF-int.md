@@ -2979,3 +2979,20 @@ Tschirnhausen — classic but adds nothing; off the board.
   renders them at the top by importance.
 - **Next:** the operator inspects the 12 pages; then the naming of the 212, then
   the pictures. Sprint 1 stays parked behind them.
+
+### Session close (later, 2026-11-19) — the static gate, and names that stay visible
+
+- **TypeScript and ESLint are the gate.** `npm --prefix app run check` runs
+  `astro check` then `eslint`; both are clean (0 errors, 0 warnings; 33 implicit
+  `any` hints). The first run found 42 errors, all in page scripts.
+- **Page logic moved out of the pages**: `app/src/scripts/names-desk.js`,
+  `finder-stars.js`, `illuminations.js` (lab already imported its own). A page
+  script is now one import.
+- **The saved name always wins over a browser draft.** `draftState` (tested) drops
+  a draft older than the record; empty drafts are not drafts. `/names` prints
+  "saved <time>" per row. Verified in a browser: a stale draft is discarded and
+  `c-0094` shows `small-knot` with "saved 2026-11-19 01:01".
+- **Measured:** `npm run check` clean; app tests 28/28; `check-pages` 12 pages;
+  `check-names` 212 rows; `check-stars` 6 stars before and after; the register
+  green (14 tests).
+- **Next:** the operator names the 212; then the pictures; Sprint 1 stays parked.

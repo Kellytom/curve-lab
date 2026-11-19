@@ -10,7 +10,7 @@
 // edge. 9 by default, 5 for the curves whose loops make a wide border. The
 // border's share of the figure is measured and printed, so a wide one is seen.
 
-import { readFileSync, statSync } from "node:fs";
+import { statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { loadRegistry } from "./registry.js";
@@ -23,10 +23,6 @@ const PAD = 0.04;
 const PER_SIDE = 9;
 const PER_SIDE_FIVE = new Set(["c-0007", "c-0002"]);
 const TOO_WIDE = 30;
-
-function readJson(file) {
-  return JSON.parse(readFileSync(file, "utf8"));
-}
 
 function pointsOf(record) {
   if (record.path) return record.path;

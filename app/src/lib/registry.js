@@ -23,6 +23,7 @@ export async function loadRegistry(base) {
     record.rotation = note.rotation ?? record.rotation ?? 0;
     record.pieces = note.pieces ?? record.pieces ?? 1;
     if (note.borderUid) record.border_uid = note.borderUid;
+    record.updated = note.updatedAt ? note.updatedAt.toISOString() : undefined;
   }
 
   const records = new Map(registry.curves.map((record) => [record.uid, record]));

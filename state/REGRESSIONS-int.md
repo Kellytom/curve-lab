@@ -53,6 +53,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 31 | 2026-11-19 | "24 starred curves, but many are duplicates" — a mirrored curve that was also featured was built into both "Symmetric" and "Best so far", so 5 cards existed twice | `app/tests/finder-sections.test.mjs`: no curve is in two sections | the finder's section order |
 | 32 | 2026-11-19 | a star click threw `ReferenceError: title is not defined` before the list was written, so nothing was added and nothing was saved | `app/scripts/check-stars.mjs` | the finder's star button |
 | 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
+| 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
 
 ## Fixed and measured, but not yet in the fast suite
 
