@@ -3029,3 +3029,19 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **In flight**: variants **C** (corner rule) and **D** (C + tangent seam +
   50%/9% proportion), each with a paragraph per A/B/C/D block; the print export
   (`scripts/book_export.mjs`) exists and is paused until the plates are judged.
+
+### The hour's sandboxes — 2026-11-19
+
+- **`/sandbox`**: the visual adder — every term of a polynomial drawn alone,
+  three across with a plus, the sum large at the same scale; five families,
+  including `x − x³ + x⁵ − x⁷`. And **`z = b i`**: even terms give x, odd give y,
+  signs rotate; the odd-only case is shown as the degenerate vertical line it is.
+  Data from `scripts/sandbox_curves.py`, a registered format; the page is in the
+  nav and in the page check (13 pages).
+- **`scripts/where-is-my-phone.sh`**: Shortcuts first, a message second, Find My
+  third; the number lives in `~/.config/curve-lab/phone`, never in the repo. The
+  operator reports Messages is not working on this Mac, so the Shortcut is the
+  real route when it exists.
+- **Measured on the imaginary idea**: odd-only is a point in x; one even term
+  opens it (grid 90090, 0 inflections, bend 1.009 — almost straight). The
+  substitution makes wings and tails, not knots.
