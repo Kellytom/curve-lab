@@ -20,6 +20,7 @@ model Curve {
   candidate Boolean @default(false)
   createdAt DateTime @default(now())
   note      Note?
+  metric    CurveMetric?
   sets      CurveSet[]
 }
 
@@ -33,6 +34,11 @@ model Note {
   borderUid  String?
   perSide    Int      @default(0)   // 0 = the default rule; 3..40 otherwise
   borderTurn Int      @default(0)   // 0, 90: lay the border motif on its side
+  offsets    Int      @default(0)   // 0 = spine only; 1 = draw the rails
+  widthPct   Int      @default(0)   // 0 = plate_math DEFAULT_WIDTH
+  plus       Int      @default(0)   // 0 = plate_math DEFAULT_PLUS
+  minus      Int      @default(0)   // 0 = plate_math DEFAULT_MINUS
+  profile    String?                // bow, s, taper, or null for the default
   updatedAt  DateTime @updatedAt
 }
 
@@ -99,4 +105,60 @@ model Message {
 
   @@index([toAgent, ackedAt, id])
   @@index([fromAgent, toAgent, id])
+}
+
+// One row per agent session. The database is the source of truth for who is
+// working, on what, and when they were last seen. The mailbox is the narrative.
+model Session {
+  id       String   @id
+  role     String
+  model    String
+  state    String   @default("idle")   // idle, working
+  job      String?
+  lastSeen DateTime @default(now())
+}
+
+// One row per job. `files` is a JSON array; an active job owns those files, and
+// a second active job naming the same file is refused by the claim check.
+model Job {
+  id        String   @id
+  owner     String
+  files     String   // JSON array of paths
+  state     String   @default("queued") // queued, active, done, blocked
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([state])
+}
+
+// What is measured about a curve, so two curves can be compared as numbers
+// rather than by eye. Written by scripts/analyse_curves.py (exact core where
+// the curve has speed rows) and loaded by app/scripts/load-analysis.mjs.
+model CurveMetric {
+  uid            String   @id
+  curve          Curve    @relation(fields: [uid], references: [uid])
+  family         String?
+  kind           String            // rows | path | rational
+  method         String            // exact | sampled
+  degree         Int      @default(0)
+  step           Float    @default(1)
+  grid           BigInt   @default(0)  // exact integer; may exceed 2^53
+  bend           Float    @default(0)
+  arc            Float    @default(0)
+  chord          Float    @default(0)
+  inflections    Int      @default(0)
+  inflectionMax  Int      @default(0)
+  closest        Float    @default(0)
+  crossings      Int      @default(0)
+  meetingPoints  Int      @default(0)
+  bboxW          Float    @default(0)
+  bboxH          Float    @default(0)
+  area           Float    @default(0)
+  maxCurvature   Float    @default(0)
+  curvatureMedian Float   @default(0)  // dimensionless: kappa x the curve's size
+  mirrorY        Float    @default(0)
+  halfTurn       Float    @default(0)
+  mirrorYX       Float    @default(0)
+  computedAt     DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

@@ -22,6 +22,7 @@ FORMATS = {
     "found-curves.json": "curve-lab.curves/2",
     "frames.json": "curve-lab.frames/1",
     "curve-registry.json": "curve-lab.curve-registry/1",
+    "curve-analysis.json": "curve-lab.curve-analysis/1",
     "curve-notes.json": "curve-lab.curve-notes/1",
     "curve-notes.backup.json": "curve-lab.curve-notes/1",
     "naming-todo.json": "curve-lab.naming-todo/1",
