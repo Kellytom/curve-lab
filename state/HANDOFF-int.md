@@ -2996,3 +2996,36 @@ Tschirnhausen — classic but adds nothing; off the board.
   `check-names` 212 rows; `check-stars` 6 stars before and after; the register
   green (14 tests).
 - **Next:** the operator names the 212; then the pictures; Sprint 1 stays parked.
+
+## 2026-11-19 — the measured set, the rails, and two new variants in flight
+
+- **Every curve is measured.** `CurveMetric` (one row per curve): grid, bend,
+  arc, chord, inflections, closest, crossing pairs, meeting points, bbox, area,
+  curvature median, three symmetry gaps, and `method` exact/sampled — 206 exact,
+  56 sampled. `scripts/analyse_curves.py` computes, `load-analysis.mjs` writes
+  through Prisma. `state/SIMILARITY-int.md` gives every curve's three nearest
+  neighbours and the **77 empty cells** of (crossings x inflections): the search
+  list for curves that do not exist yet.
+- **The border is a band, everywhere.** The motif's amplitude is capped at 30%
+  of its chord; the per-curve whack-a-mole is gone and `c-0037`/`c-0038` came
+  right on their own. Stored per curve: `perSide`, `borderTurn`, `border_uid`.
+- **Character offsets are data**: `offsets`, `widthPct`, `plus`, `minus`,
+  `profile`; the rails are drawn and their band filled, in the centre and on the
+  border. Every frame has an A plate and a `-B` twin; 180 PNGs.
+- **The leaf is two curves** (curve + its mirror across the chord through the
+  feet), filled pale: the first two-tone glyph. Weights were split (2.6 central,
+  1.4 border) and the tone deepened on the operator's account of the halo.
+- **Recovery parity and job ownership**: `scripts/recover.sh` (check/backup/
+  restore, naming what a restore overwrites), `Session` and `Job` rows, and
+  `scripts/jobs.mjs` refusing a claim that overlaps an active one.
+- **The message bus** (`bus/`): HTTP + JSON over SQLite, durable, ordered,
+  at-least-once, long-poll; first traffic sent and acknowledged.
+- **The map**: `state/EXPLORATION-int.md` — the pendulum mobile, Gaussian
+  transforms, tweaks as rows, rails everywhere, tails, the review, the empty
+  cells. `state/DESIGN-TODO-int.md` ranks the 262 curves by open design task
+  (164 want a corner *stop*, 67 suit a rotated corner, 64 show a seam crossing).
+- **The essay**: "The logic of beauty" is in the README, on the hub, and in the
+  philosophy page.
+- **In flight**: variants **C** (corner rule) and **D** (C + tangent seam +
+  50%/9% proportion), each with a paragraph per A/B/C/D block; the print export
+  (`scripts/book_export.mjs`) exists and is paused until the plates are judged.

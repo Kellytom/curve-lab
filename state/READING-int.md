@@ -19,8 +19,8 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 1 | `senior-dev.md` | 48 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
 | 2 | `LTMemory-int.md` | 253 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 4 | `state/PLAN-int.md` | 128 | the next few sessions, one action each, with what is parked and why |
-| 5 | `state/HANDOFF-int.md` | 2,998 | current truth — **read the tail (~80 lines), not the whole file** |
+| 4 | `state/PLAN-int.md` | 135 | the next few sessions, one action each, with what is parked and why |
+| 5 | `state/HANDOFF-int.md` | 3,031 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 861 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
 | 8 | `state/ACHIEVEMENTS-int.md` | 118 | what is proved, with the command that re-derives it; stops rework |
@@ -40,7 +40,7 @@ to *what is the next step*.
 | `SPEC.md` | 149 | what the deliverable is |
 | `app/src/content/docs/docs/project.md` | 175 | scope in and out; what is deliberately not built |
 | `goals.md` | 266 | the arc: plant-forms → ornament-forms, and the offset tiers |
-| `app/src/content/docs/docs/philosophy.md` | 195 | glyph, full line, sections, joints — the design rules |
+| `app/src/content/docs/docs/philosophy.md` | 231 | glyph, full line, sections, joints — the design rules |
 | `state/PORT-int.md` | 100 | the language boundary: browser JS, Node for tests only, Python kept where it is debugged |
 | `founder/LOG.md` | 188 | the founder's current focus, dated entries and priority tags; read the top section |
 

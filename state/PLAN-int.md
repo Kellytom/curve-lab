@@ -16,15 +16,22 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
-## Current (2026-11-19)
+## Current (2026-11-19, late)
 
-- **Landed:** the data layer (SQLite/Prisma, backups, GitHub sync), Astro 7 on
-  Node 24, and the handoff commands. Kept as the record.
-- **Name the 212 chosen curves** — in flight; the desk is `/names`.
-- **The pictures** — the Gallery of Illuminations and the figures sheet, after
-  the naming.
-- Sprint 1 (the grid bill) is parked behind these; resume it when the pictures
-  are signed off.
+- **Landed:** the naming desk (90 chosen, 90 named, 172 set aside), the frames
+  (`illus-` A and B, 180 plates), the analysis table (`CurveMetric`, 262 rows),
+  the message bus, recovery parity and job ownership, the stack page, and the
+  essay on the logic of beauty.
+- **In flight:** variants **C** (corner rule: rotate where the legs suit it,
+  stop where they do not) and **D** (C plus a tangent seam and a 50%/9%
+  proportion), with a paragraph per A/B/C/D block.
+- **Paused on a decision:** the print export (`scripts/book_export.mjs`, 3000 px,
+  300 dpi, manifest) waits on whether the "scriptures" are a caption on the
+  plate or text pages beside it.
+- **Next after that:** the design report's top rows (`state/DESIGN-TODO-int.md`),
+  then the exploration map (`state/EXPLORATION-int.md`) — the mobile, the
+  Gaussian transforms, tails, and the 77 empty cells.
+- Sprint 1 (the grid bill) stays parked behind these.
 
 ## Sprint queue — the found curves to plates (2026-11-18)
 
