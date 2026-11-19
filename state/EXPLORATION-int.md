@@ -210,3 +210,34 @@ analysis, the transform is a search method, not a curiosity.
 - When an idea lands, move it to `state/ACHIEVEMENTS-int.md` with the command
   that re-derives it, and delete it here.
 - When an idea is refused, say why here and keep the row — a refusal is a result.
+
+---
+
+## 10. Complex-coefficient search — TABLED, with the reason
+
+**The idea.** Curves as one complex polynomial, `z(t) = Σ (a_k + i b_k) t^k`,
+degree to 11, then simplified to integer rows and sections. A real coefficient
+makes a graph, which cannot loop; a coefficient carrying `i` turns that term a
+quarter turn, so `A + iB` is how a polynomial gets loops. This is the programme,
+stated in full, and it is right.
+
+**Attempted (2026-11-19).** `scripts/parametric_search.py`: 400 random
+coefficient patterns, crossings counted on a sampled polyline. **Zero candidates
+with two or more crossings.**
+
+**Why that is not a result.** The same counter, pointed at `c-0262`, reports **1**
+crossing where `scripts/ph_crossings.py` reports **9**. The counter samples by
+index, and these curves loop tightly near one end, so it walks past the loops. A
+blind counter and an empty space produce the same number. Do not read the zero
+as "the space is empty".
+
+**Next, in this order — both cheap.**
+
+1. **Calibrate the counter**: it must report 9 on `c-0262`, 10+ on `c-0253` and
+   19 on `c-0260` before it scores anything. Until then, no search result counts.
+2. **Search from the knots out**: take one stored loop and add a quarter-turned
+   copy of another stored curve, `A + iB`, then vary `B` and its sign. That uses
+   curves known to loop rather than hoping a random coefficient set does.
+
+`scripts/parametric_search.py` keeps its history and its serials; the page order
+is newest first and starred pinned, so a future run lands on top by itself.
