@@ -1,6 +1,8 @@
 // Names, importance, the turn and the pieces of a curve set, in SQLite through
 // Prisma. A save is a transaction; a bad uid is refused before a row is written.
 
+import { copyFileSync, existsSync, writeFileSync } from "node:fs";
+import path from "node:path";
 import { z } from "zod";
 import { prisma } from "./db.js";
 
@@ -61,5 +63,12 @@ export async function saveNotes(payload) {
       ...(note.border_uid !== undefined ? { borderUid: note.border_uid } : {}),
     },
   })));
+  // The readable mirror: if the database and its snapshots are both lost, the
+  // names are still in a file a person can open.
+  const rows = await prisma.note.findMany({ orderBy: { uid: "asc" } });
+  const dir = path.join(process.cwd(), "..", "workbench");
+  const file = path.join(dir, "curve-notes.json");
+  if (existsSync(file)) copyFileSync(file, path.join(dir, "curve-notes.backup.json"));
+  writeFileSync(file, JSON.stringify({ format: "curve-lab.curve-notes/1", curves: rows.map(toNote) }, null, 1) + "\n");
   return { saved: incoming.length };
 }

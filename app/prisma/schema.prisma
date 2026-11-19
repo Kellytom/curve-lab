@@ -72,3 +72,12 @@ model User {
   created   DateTime @default(now())
   updated   DateTime @updatedAt
 }
+
+// A curve saved from the sandbox. The record is the page's own pair record,
+// stored as JSON so the rows and terms stay exactly as written.
+model SandboxCurve {
+  name      String   @id
+  data      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

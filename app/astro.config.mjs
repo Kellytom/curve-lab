@@ -69,7 +69,7 @@ const sidebar = [
   },
   {
     label: "Data",
-    items: ["docs/data"],
+    items: ["docs/data", "docs/recovery"],
   },
   {
     label: "Reviews",

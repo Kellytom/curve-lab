@@ -2244,6 +2244,14 @@
     const items = saved().filter(item => item.name !== name);
     items.push(pairRecord(name));
     store(items);
+    // The database is the record; this browser is the editor. The post is
+    // fire-and-forget so a slow save never blocks the drawing.
+    try {
+      fetch("/api/sandbox-curves", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ curves: [items[items.length - 1]] }),
+      }).catch(() => {});
+    } catch { /* offline: the browser still holds it */ }
     currentName = name;
     nameField.value = "";
     renderSaved();
@@ -2385,6 +2393,14 @@
     const items = saved().filter(item => item.name !== name);
     items.push(flatRecord(name));
     store(items);
+    // The database is the record; this browser is the editor. The post is
+    // fire-and-forget so a slow save never blocks the drawing.
+    try {
+      fetch("/api/sandbox-curves", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ curves: [items[items.length - 1]] }),
+      }).catch(() => {});
+    } catch { /* offline: the browser still holds it */ }
     currentName = name;
     nameField.value = "";
     renderSaved();
@@ -3509,6 +3525,16 @@
   writeCells();
   renderSaved();
   draw();
+  // Curves saved in another browser come back from the database.
+  fetch("/api/sandbox-curves").then((r) => r.json()).then(({ curves }) => {
+    if (!Array.isArray(curves) || !curves.length) return;
+    const current = saved();
+    const names = new Set(current.map((item) => item.name));
+    const missing = curves.filter((item) => item && !names.has(item.name));
+    if (!missing.length) return;
+    store([...current, ...missing]);
+    renderSaved();
+  }).catch(() => { /* no database: the browser copy stands */ });
 })();
 
 // The gallery: spine only, one small figure per curve, two columns.
