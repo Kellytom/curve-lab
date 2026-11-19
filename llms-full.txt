@@ -34,6 +34,36 @@ The engine is Bertolazzi's Clothoids, compiled from the vendored source and
 called through a small C surface. Everything around it is here: the chain
 model, the cubic fit, the rails, and the writer.
 
+## The logic of beauty
+
+Beauty is not an optional accessory.
+
+Take a simple black square on a white background, say a piece of paper. Stare at
+the square for a little, then look at the white part of the paper. You see a
+floating square. If you just look at the square continuously, you notice the
+edges seem to have the same effect as when you looked at the white part of the
+paper: a halo effect. This is because of the way our eye is constructed; the
+receptors get tired, and so a shadow shape is formed.
+
+When we add a beautiful frame to the square, we are softening the effect of
+tiredness in our eyes. The halo effect is swallowed up by the ornate part of the
+frame. Frames are often gold coloured not to show richness, but because the halo
+often has a golden or reddish-brown luminance.
+
+The same with a diploma on the wall, with an engraved outside edge — it makes it
+easier to look at.
+
+The line weight has to vary, and different colours help as well. This keeps the
+halo effect to a minimum.
+
+When we look at a window, we get the same effect in reverse: the light from the
+window creates a halo or shadow effect when we look away. Stained glass windows
+soften that effect, when they are done right.
+
+Another thing beauty does is orient us. Usually they help us retain balance by
+literally showing us which way is up. Often beautiful designs are symmetric
+side to side but they are different on top than they are on the bottom.
+
 ## Start here
 
 The repo has three layers. The quickest look is the app; the engine is what you
@@ -708,6 +738,7 @@ and documentation alike.
 | `workbench/` | the working pages, one generator each; these become the app's input pages |
 | `pythagorean-spiral/` | the exact spine layer — central to the curve work, not a spike; not yet imported by the package |
 | `state/DESIGN-int.md` | settled design decisions, with the reason; read before changing a control |
+| `state/EXPLORATION-int.md` | future ideas with their first measurable step: the pendulum mobile, Gaussian transforms, tweaks as rows, rails on every curve, tails, the review, the empty cells |
 | `book/` | the book plates: manifest, PNGs, SVGs, gallery; rules in `book/README.md` |
 | `workbench/plate_math.js` | the plate maths in JS: character rails, caps, designs |
 | `app/` | the Astro app: the lab and the save endpoint; see `app/README.md` |
@@ -2758,6 +2789,42 @@ title: "Design philosophy"
 The question this answers: when we say "a fleur", what is the object, in what
 order is it built, and what are its parts called?
 
+## The logic of beauty
+
+Beauty is not an optional accessory.
+
+Take a simple black square on a white background, say a piece of paper. Stare at
+the square for a little, then look at the white part of the paper. You see a
+floating square. If you just look at the square continuously, you notice the
+edges seem to have the same effect as when you looked at the white part of the
+paper: a halo effect. This is because of the way our eye is constructed; the
+receptors get tired, and so a shadow shape is formed.
+
+When we add a beautiful frame to the square, we are softening the effect of
+tiredness in our eyes. The halo effect is swallowed up by the ornate part of the
+frame. Frames are often gold coloured not to show richness, but because the halo
+often has a golden or reddish-brown luminance.
+
+The same with a diploma on the wall, with an engraved outside edge — it makes it
+easier to look at.
+
+The line weight has to vary, and different colours help as well. This keeps the
+halo effect to a minimum.
+
+When we look at a window, we get the same effect in reverse: the light from the
+window creates a halo or shadow effect when we look away. Stained glass windows
+soften that effect, when they are done right.
+
+Another thing beauty does is orient us. Usually they help us retain balance by
+literally showing us which way is up. Often beautiful designs are symmetric
+side to side but they are different on top than they are on the bottom.
+
+The consequences for this project: **the frame is not decoration around the
+curve, it is the part that lets the eye rest.** A uniform hairline is the case
+the eye tires of first, which is why the plates want two weights and a mid tone,
+and why a border that collides with its centre reads as a fault however correct
+the geometry.
+
 ## The glyph is a graph, not a walk
 
 There is no single curve to walk from 1 to 2 to 3. A glyph is:
@@ -3689,6 +3756,20 @@ Settled 2026-11-17, when A2 landed. The generated `book/index.html` is retired.
   order come from the DOM or from a script's printed output, with the command
   named.
 
+## Frames start as thumbnails — 2026-11-19
+
+Settled by the operator: "you can keep track of these pngs as simple thumbnails
+basically. dont worry about the final pngs yet."
+
+- The 90 `illus-` frames are **600 px thumbnails**, copied from the bordered set
+  so the plates can be seen, ordered and named. `workbench/frames.json` records
+  `thumbnailPixels` and says so in its note.
+- The book-plate rule (3000 px, 300 dpi, 1.2% margin) still governs the **final**
+  export and is not applied here. Re-rendering at print size is a separate step,
+  after the set is chosen.
+- A thumbnail is never called a plate. The `/frames` page says "plates" for the
+  list and "thumbnail" in the data; the file's note carries the distinction.
+
 ## The app has one shell — 2026-11-19
 
 Settled by the operator: "every page in astro should look like this: same css:
@@ -3907,12 +3988,15 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `flowers.json` | `curve-lab.flowers/1` | cache | `scripts/stems_print.py` | `scripts/stems_print.py` |
 | `curve-registry.json` | `curve-lab.curve-registry/1` | record | `scripts/curve_registry.py` | the registry and the naming pass |
 | `curve-notes.json` | `curve-lab.curve-notes/1` | record | `/api/curve-notes` | the registry build |
+| `curve-analysis.json` | `curve-lab.curve-analysis/1` | record | `scripts/analyse_curves.py` | `app/scripts/load-analysis.mjs`, `scripts/similar_curves.py` |
+| `curve-notes.backup.json` | `curve-lab.curve-notes/1` | backup | `/api/curve-notes`, on every write | the naming pass after a damaged read |
 | `naming-todo.json` | `curve-lab.naming-todo/1` | working | `scripts/curve_registry.py` | the naming page |
 | `finder.json` | `curve-lab.finder/1` | cache | `scripts/curve_finder.py` | the Astro `/finder` page |
 | `finder.backup.json` | `curve-lab.finder/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `finder-stars.json` | `curve-lab.finder-stars/1` | record | `app/src/lib/finder-stars.js` | the star list on the `/finder` page |
 | `finder-stars.backup.json` | `curve-lab.finder-stars/1` | backup | the `/finder` page, on save | `readSaved()` repair, then the page |
 | `found-curves.json` | `curve-lab.curves/2` | record | `scripts/real_curves.mjs` | the galleries, `ph_nth_panels.js` |
+| `frames.json` | `curve-lab.frames/1` | record | `scripts/frames_build.mjs` | the `/frames` page |
 | `found-for-exp.json` | `curve-lab.curves/2` | orphan | — | — (no reader; archive when the public tree is cut) |
 | `g3-catalogue-cache.json` | `curve-lab.g3-catalogue-cache/1` | cache | `scripts/g3_catalogue.py` | `scripts/g3_catalogue.py` |
 | `g3-catalogue.json` | `curve-lab.g3-catalogue/1` | record | `scripts/g3_catalogue.py` | `scripts/g3_gate.py`, `g3_cubic_native.py` |
@@ -3930,6 +4014,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |
+| `starred.backup.json` | `starred/1` | backup | `POST /api/stars`, on every write | the book gallery after a damaged read |
 
 **Record** means the file is the authority for a number the site shows.
 **Cache** means it is derived and can be rebuilt by its script. **Runtime** means
@@ -4103,6 +4188,10 @@ Astro 5.18 with `@astrojs/node`, on **http://localhost:4321**.
 cd app && npm run dev      # http://localhost:4321
 npm test                   # the save tests, no browser
 ```
+
+**After a Prisma schema change**, restart the dev server. The running process
+keeps the client it loaded at start, so a new model or field is `undefined`
+until the restart. Run `cd app && npx prisma db push`, then restart `npm run dev`.
 
 Not ported yet: the other workbench pages (the hub previews them from the
 Python-generated files). The old lab at
