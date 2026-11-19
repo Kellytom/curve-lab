@@ -655,10 +655,11 @@
   },
   {
    "uid": "c-0094",
-   "importance": 10,
+   "name": "cross-small-knot",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.240Z"
+   "updated": "2026-11-19T01:01:39.481Z"
   },
   {
    "uid": "c-0095",
@@ -704,11 +705,11 @@
   },
   {
    "uid": "c-0101",
-   "name": "cross-2of5-4of5",
-   "importance": 10,
+   "name": "cross-2-loops-45",
+   "importance": 5,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.287Z"
+   "updated": "2026-11-19T01:01:36.486Z"
   },
   {
    "uid": "c-0102",
