@@ -107,10 +107,11 @@
   },
   {
    "uid": "c-0014",
-   "importance": 0,
+   "name": "wave-big",
+   "importance": 8,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.913Z"
+   "updated": "2026-11-19T03:30:29.078Z"
   },
   {
    "uid": "c-0015",
@@ -170,10 +171,11 @@
   },
   {
    "uid": "c-0022",
-   "importance": 0,
+   "name": "wave3-balance",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.937Z"
+   "updated": "2026-11-19T03:30:05.734Z"
   },
   {
    "uid": "c-0023",
@@ -257,10 +259,11 @@
   },
   {
    "uid": "c-0033",
-   "importance": 0,
+   "name": "wave-middle-5",
+   "importance": 2,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.972Z"
+   "updated": "2026-11-19T03:29:09.168Z"
   },
   {
    "uid": "c-0034",
@@ -331,7 +334,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.998Z"
+   "updated": "2026-11-18T23:28:00.998Z",
+   "candidate": true
   },
   {
    "uid": "c-0043",
@@ -687,10 +691,11 @@
   },
   {
    "uid": "c-0087",
-   "importance": 0,
+   "name": "wide-knot-t",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.216Z"
+   "updated": "2026-11-19T03:29:48.108Z"
   },
   {
    "uid": "c-0088",
@@ -1169,7 +1174,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.529Z"
+   "updated": "2026-11-18T23:28:01.529Z",
+   "candidate": true
   },
   {
    "uid": "c-0148",
@@ -1200,7 +1206,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.546Z"
+   "updated": "2026-11-18T23:28:01.546Z",
+   "candidate": true
   },
   {
    "uid": "c-0152",
@@ -1247,7 +1254,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.566Z"
+   "updated": "2026-11-18T23:28:01.566Z",
+   "candidate": true
   },
   {
    "uid": "c-0158",
@@ -1395,10 +1403,11 @@
   },
   {
    "uid": "c-0176",
-   "importance": 0,
+   "name": "wave-falls-0",
+   "importance": 4,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.634Z"
+   "updated": "2026-11-19T03:31:05.530Z"
   },
   {
    "uid": "c-0177",
@@ -1429,7 +1438,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.648Z"
+   "updated": "2026-11-18T23:28:01.648Z",
+   "candidate": true
   },
   {
    "uid": "c-0181",
@@ -1596,7 +1606,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.718Z"
+   "updated": "2026-11-18T23:28:01.718Z",
+   "candidate": true
   },
   {
    "uid": "c-0202",
@@ -1611,7 +1622,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.725Z"
+   "updated": "2026-11-18T23:28:01.725Z",
+   "candidate": true
   },
   {
    "uid": "c-0204",
@@ -1626,7 +1638,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.732Z"
+   "updated": "2026-11-18T23:28:01.732Z",
+   "candidate": true
   },
   {
    "uid": "c-0206",
@@ -1718,10 +1731,11 @@
   },
   {
    "uid": "c-0217",
-   "importance": 0,
+   "name": "wave-middle-v-2",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.774Z"
+   "updated": "2026-11-19T03:29:28.526Z"
   },
   {
    "uid": "c-0218",
@@ -1736,7 +1750,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.783Z"
+   "updated": "2026-11-18T23:28:01.783Z",
+   "candidate": true
   },
   {
    "uid": "c-0220",
