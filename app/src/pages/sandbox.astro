@@ -15,6 +15,7 @@ const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox
 // The parametric material lives in its own file; one page, two datasets.
 const parametric = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-parametric.json"), "utf8"));
 const wobble = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wobble.json"), "utf8"));
+const beziers = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "bezier-knots.json"), "utf8"));
 const window = data.window;
 
 function box(points, size = 300) {
@@ -215,6 +216,23 @@ function rowsOf(terms) {
       <figure class="tile">
         <Fragment set:html={plot(panel.points, { size: 320 })} />
         <figcaption>{panel.title}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2>6 · Looped integer Béziers</h2>
+  <p class="lead">Whole-number control points, Bernstein form: exact at every dyadic
+    t. These are the curves the Bézier search found — a loop that no stacked root
+    made, from six small integers. Their full page, with the control nets drawn, is
+    at <a href="/bezier">/bezier</a>.</p>
+  <div class="imag">
+    {(beziers.curves || []).map((curve, index) => (
+      <figure class="tile">
+        <Fragment set:html={plot(curve.points, { size: 320 })} />
+        <figcaption>
+          <b>#{index + 1}</b> · degree {curve.degree} · {curve.crossings} crossings<br>
+          <span class="facts">{curve.controls.map(([x, y]) => `(${x}, ${y})`).join(" ")}</span>
+        </figcaption>
       </figure>
     ))}
   </div>
