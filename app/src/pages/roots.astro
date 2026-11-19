@@ -1,0 +1,57 @@
+---
+// The root lab: sliders and number boxes over the recipe that worked, with the
+// curve redrawing on every change and a note saying why it is different.
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="the root lab" pageTitle="Root lab: draft A">
+  <Fragment slot="head">
+    <style is:global>
+    .lab{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+    @media (max-width:900px){.lab{grid-template-columns:1fr}}
+    .stage{background:#fffdf7;border:1px solid var(--pico-muted-border-color);padding:10px}
+    .stage svg{display:block;width:100%;height:auto;background:#fff}
+    .controls{background:var(--pico-card-background-color);border:1px solid var(--pico-muted-border-color);padding:14px 16px}
+    .controls label{display:block;font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin:10px 0 2px}
+    .controls input[type=range]{width:100%;margin:0}
+    .controls output{font:13px/1.4 ui-monospace,Menlo,monospace;color:var(--pico-color)}
+    .suggest{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+    .suggest button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:3px 7px;margin:0;background:#fbf3dc;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+    .facts{font:12px/1.6 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:12px}
+    .note{max-width:80ch;color:var(--pico-color);margin-top:14px}
+    .note b{color:var(--pico-primary)}
+    </style>
+  </Fragment>
+
+  <h1>The root lab</h1>
+  <p class="lead">A mirrored root pair at p/q and (q−p)/q, plus a stack at ½ — the
+    recipe. Drag the pair and the stack; the curve and its note follow. The same
+    numbers are built by <code>scripts/root_search.py</code>, so a find here can be
+    written down exactly.</p>
+
+  <div class="lab">
+    <div class="stage"><svg id="lab-plot" viewBox="0 0 600 600" role="img" aria-label="the curve"></svg></div>
+    <div class="controls">
+      <label for="p">pair numerator p <output id="p-out">1</output></label>
+      <input id="p" type="range" min="1" max="11" step="1" value="1">
+      <label for="q">pair denominator q <output id="q-out">9</output></label>
+      <input id="q" type="range" min="5" max="12" step="1" value="9">
+      <label for="mid">roots at ½ <output id="mid-out">3</output></label>
+      <input id="mid" type="range" min="1" max="5" step="2" value="3">
+      <div class="suggest" role="group" aria-label="suggested pairs">
+        <button type="button" data-p="1" data-q="8" data-mid="3">1/8 · 3</button>
+        <button type="button" data-p="1" data-q="9" data-mid="3">1/9 · 3</button>
+        <button type="button" data-p="2" data-q="5" data-mid="1">2/5 · 1</button>
+        <button type="button" data-p="3" data-q="10" data-mid="5">3/10 · 5</button>
+        <button type="button" data-p="5" data-q="12" data-mid="3">5/12 · 3</button>
+      </div>
+      <div class="facts" id="lab-facts"></div>
+    </div>
+  </div>
+
+  <p class="note" id="lab-note"></p>
+
+  <Fragment slot="scripts">
+    <script>import "../scripts/lab-roots.js";</script>
+  </Fragment>
+</BaseLayout>
