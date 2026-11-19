@@ -320,3 +320,80 @@ Files for 2 and 3 are yours when you reach them (`app/src/lib/**`,
 posts a prompt into your session when a new entry appears; you no longer need to
 be told to type `mail`. You still reply in `side-to-deep.md`, in the fields at
 the top of this file, and `scripts/mailbox.py --check` must pass.
+
+---
+
+## 2026-11-19 04:25 — types on the rules (`src/lib`), no behaviour change
+
+Job: turn on `checkJs` and give the pure rule modules real types. This is slice 2
+of the stack programme; it is the last static gap.
+
+Files you own for this job: `app/src/lib/name-parts.js`, `star-list.js`,
+`finder-sections.js`, `duplicates.js`, `registry.js`, `curve-notes.js`, and
+`app/tsconfig.json`. Do not touch pages, `src/scripts`, `app/prisma`, or
+`workbench`.
+
+Steps:
+
+1. Add JSDoc types to those six modules: parameter and return types, and a
+   `@typedef` per record shape (`Curve`, `Star`, `NameParts`, `Draft`). Keep the
+   code identical; no refactor, no rename.
+2. Set `"checkJs": true` in `app/tsconfig.json`. Leave `noImplicitAny` off — the
+   goal is real types on the rules, not a rewrite of every call site. `strictNullChecks`
+   stays on, so a possibly-undefined value is an error you must handle.
+3. Fix only what the checker reports in those six files. If a fix would change
+   behaviour, stop and report it instead.
+
+Proved by, both first lines pasted:
+
+    PATH="$HOME/node24/bin:$PATH" npm --prefix app run check
+    PATH="$HOME/node24/bin:$PATH" npm --prefix app test
+
+Also report: the error count before you started, after step 2, and at the end.
+
+Do not run `scripts/prepush.sh` while you work — DeepSeek1 is fixing the two
+faults it found (the data-audit backups and the draft-label check).
+
+---
+
+## 2026-11-19 04:55 — the two faults are fixed; take job 5 (stack.md)
+
+Job: the two gate faults you reported are fixed. Re-run the gate, then do job 5 —
+`app/src/content/docs/docs/stack.md`, generated from the versions the app
+actually runs.
+
+What changed here (do not re-fix):
+
+- `curve-notes.backup.json` and `starred.backup.json` are now registered in
+  `curve_lab/datafile.py` and documented in `state/DATA-int.md`; the audit reads
+  30 of 30.
+- The draft-label check accepts a page that renders the shared header and skips
+  the private `workbench/tabs.html`; 130 pages, 0 missing.
+
+Job 5, bounded:
+
+- `app/src/content/docs/docs/stack.md` — what runs where: Node 24.22.3, Astro
+  7.4.13 on the Node adapter, Starlight 0.43.1, Prisma 6.19.3 + SQLite, router
+  in `app/src/pages`, the exact engine in Python (`curve_lab/measure.py`), the
+  tests and their commands, and the boundary rule (browser and server are TS/JS;
+  Python stays for the exact core).
+- The **versions must be read, not typed**: a small script
+  (`scripts/stack_doc.mjs`) reads `app/package.json` and the resolved
+  `node_modules/*/package.json`, writes the table between two markers in the
+  doc, and a test (`tests/test_stack_doc.py` or a node test) fails when the doc
+  and the packages disagree.
+- Add the page to the Starlight sidebar under "Start here", and say the command
+  that regenerates it.
+
+Job 4 (the `.js` → `.ts` rename) is **deferred**: a rename changes every import
+specifier (`"./gallery.js"` must become `"./gallery.ts"` or the loader must
+resolve it), so it needs one decision from the operator about how imports are
+written. Do not start it.
+
+Proved by: `scripts/prepush.sh` (now that the two faults are gone), then
+`node scripts/stack_doc.mjs --check` and the doc page rendering at `/docs/stack`.
+
+Reply in `side-to-deep.md` with the fields. If prepush shows a new failure, report
+it — do not fix files outside your two (`scripts/stack_doc.mjs`,
+`app/src/content/docs/docs/stack.md`, plus the sidebar line in
+`app/astro.config.mjs`).

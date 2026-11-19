@@ -90,6 +90,16 @@ for (const row of duplicates) console.log(`  name kept: ${row.name} -> ${row.ill
 if (missingFigure.length) for (const row of missingFigure) console.log(`  MISSING figure: ${row.uid} ${row.name}`);
 
 if (WRITE) {
+  mkdirSync(path.join(ROOT, "app", "public", "frames"), { recursive: true });
+  let copied = 0;
+  for (const row of rows) {
+    const from = path.join(ROOT, "app", "public", "figures", `${row.uid}.png`);
+    row.frame = existsSync(from) ? `/frames/${row.illus}.png` : null;
+    if (!existsSync(from)) continue;
+    copyFileSync(from, path.join(ROOT, "app", "public", "frames", `${row.illus}.png`));
+    copied += 1;
+  }
+
   const frames = {
     format: "curve-lab.frames/1",
     note: "the 90 chosen curves as framed illuminations; names are illus-<name> with the last postfix dropped; the PNGs are thumbnails, not print plates",
@@ -99,15 +109,6 @@ if (WRITE) {
   };
   writeFileSync(path.join(ROOT, "workbench", "frames.json"), JSON.stringify(frames, null, 1) + "\n");
 
-  const out = path.join(ROOT, "app", "public", "frames");
-  mkdirSync(out, { recursive: true });
-  let copied = 0;
-  for (const row of rows) {
-    const from = path.join(ROOT, "app", "public", "figures", `${row.uid}.png`);
-    if (!existsSync(from)) continue;
-    copyFileSync(from, path.join(out, `${row.illus}.png`));
-    copied += 1;
-  }
 
   const lines = [
     "# FRAMES-int — the 90 chosen curves as framed illuminations",
