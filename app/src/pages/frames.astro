@@ -1,5 +1,5 @@
 ---
-// The 90 chosen curves as framed illuminations, A and B. Generated list:
+// The 90 chosen curves as framed illuminations, A/B/C/D. Generated list:
 // workbench/frames.json, written by scripts/frames_build.mjs.
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -13,14 +13,15 @@ const notes = frames.notes || [];
 const pairs = [];
 const byBase = new Map();
 for (const plate of plates) {
-  const base = plate.illus.replace(/-B$/, "");
+  const base = plate.illus.replace(/-[BCD]$/, "");
   if (!byBase.has(base)) {
-    byBase.set(base, { base, name: plate.name, uid: plate.uid, a: null, b: null });
+    byBase.set(base, { base, name: plate.name, uid: plate.uid, variants: [] });
     pairs.push(byBase.get(base));
   }
-  const pair = byBase.get(base);
-  if (plate.variant === "B") pair.b = plate;
-  else pair.a = plate;
+  byBase.get(base).variants.push(plate);
+}
+for (const pair of pairs) {
+  pair.variants.sort((a, b) => "ABCD".indexOf(a.variant) - "ABCD".indexOf(b.variant));
 }
 ---
 
@@ -29,38 +30,40 @@ for (const plate of plates) {
     <style is:global>
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
     .pair{border:1px solid var(--pico-muted-border-color);background:var(--pico-card-background-color);padding:8px}
-    .pair .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .four{display:grid;grid-template-columns:1fr 1fr;gap:8px}
     figure{margin:0}
     img{display:block;width:100%;height:auto;background:#fff}
     figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin-top:6px;word-break:break-all}
     figcaption b{color:var(--pico-color)}
-    .note{color:var(--pico-muted-color);font-size:.82rem}
+    .note{color:var(--pico-muted-color);font-size:.82rem;margin:8px 0 0}
     .flagged{border-left:3px solid #c9a441;padding-left:.6rem}
     </style>
   </Fragment>
 
   <h1>The frames</h1>
-  <p><b>{pairs.length}</b> plates, each with an <b>A</b> and a <b>B</b> twin. A is the
-    note's stored offsets; B forces them on, filled, for the centre and the border.
-    The frame is the curve repeated <i>n</i> times a side, the side being
-    <i>n</i> × the chord; the figure is tight to the drawn marks. {notes.length} curves
-    on <a href="/figures">/figures</a> are not among these and are marked <b>[NOTE]</b> below.</p>
+  <p><b>{pairs.length}</b> plates, each with <b>A</b>, <b>B</b>, <b>C</b> and <b>D</b>.
+    A is the note's stored offsets; B forces them on, filled; C adds the corner rule
+    from the two leg directions; D is C plus a declared waist gap and the 50% centre /
+    9% band. The frame is the curve repeated <i>n</i> times a side, the side being
+    <i>n</i> × the chord. {notes.length} curves on <a href="/figures">/figures</a> are
+    not among these and are marked <b>[NOTE]</b> below.</p>
 
   <div class="grid">
     {pairs.map((pair) => (
       <div class="pair">
-        <div class="two">
-          {[pair.a, pair.b].filter(Boolean).map((plate) => (
+        <div class="four">
+          {pair.variants.map((plate) => (
             <figure>
               {plate.frame
                 ? <a href={plate.frame} target="_blank" rel="noopener" title={`open ${plate.illus} full size`}>
                     <img src={plate.frame} alt={plate.illus} loading="lazy">
                   </a>
                 : <div class="note">frame missing: run <code>node scripts/frames_build.mjs --write</code></div>}
-              <figcaption><b>{plate.illus}</b> · {plate.variant}<br>{plate.name} · {plate.uid} · {plate.perSide}/side · border {plate.marginPercent}% · offsets {plate.offsets}</figcaption>
+              <figcaption><b>{plate.illus}</b> · {plate.variant}<br>{plate.name} · {plate.uid} · {plate.perSide}/side · border {plate.marginPercent}% · offsets {plate.offsets}{plate.delta !== undefined ? ` · delta ${plate.delta}° · ${plate.cornerRule}` : ""}</figcaption>
             </figure>
           ))}
         </div>
+        {pair.variants[0]?.note ? <p class="note">{pair.variants[0].note}</p> : null}
       </div>
     ))}
   </div>

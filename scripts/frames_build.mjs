@@ -1,28 +1,32 @@
-// The 90 named curves, as framed illuminations.
+// The 90 named curves, as framed illuminations, A/B/C/D.
 //
 //   node scripts/frames_build.mjs            # report only
-//   node scripts/frames_build.mjs --write    # write the list, copy the frames
+//   node scripts/frames_build.mjs --write    # render the four, write the list
 //
-// A frame is the bordered figure the illuminations already draw: the curve,
-// then the same curve n times a side, the side being n × the chord (the lab's
-// rule). The figure is named `illus-<name>` with the last postfix dropped —
-// the variant number is what changed, not the plate — except where dropping it
-// would give two plates one name; there the whole name is kept.
+// A is the curve as the database says it is (the note's offsets, width, plus,
+// minus, profile). B forces the offsets on, filled, for the centre and the
+// border. C adds the corner rule from the two leg directions: a natural 90°
+// corner turns the motif, everything else stops the band at the corner. D is C
+// plus the seam and the proportion. Each row carries the numbers and one short
+// `note`, so the page prints the same words the file holds.
 //
-// Curves in /figures that are not among the 90 are listed as [NOTE]: they are
-// framed, they have no chosen name yet, and they belong at the top of the
-// naming desk.
-//
-// The source of truth for a name is the database, read here through its
-// readable mirror (workbench/curve-notes.json): a row with `candidate: true`
-// is set aside and is not framed.
+// The figure is named `illus-<name>` with the last postfix dropped — the
+// variant number is what changed, not the plate — except where dropping it
+// would give two plates one name; there the whole name is kept. The twins are
+// `illus-<name>-B`, `-C`, `-D`.
 
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
+import { chromium } from "playwright-core";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const WRITE = process.argv.includes("--write");
+const FRAMES_DIR = path.join(ROOT, "app", "public", "frames");
+const SVG_DIR = path.join(ROOT, "build", "frames-svg");
+const require = createRequire(import.meta.url);
+const P = require(path.join(ROOT, "workbench", "plate_math.js"));
 
 const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8"));
 const notes = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-notes.json"), "utf8"));
@@ -30,6 +34,7 @@ const figures = JSON.parse(readFileSync(path.join(ROOT, "app", "public", "figure
 
 const noteByUid = new Map((notes.curves || []).map((note) => [note.uid, note]));
 const figureByUid = new Map((figures.curves || []).map((figure) => [figure.uid, figure]));
+const byUid = new Map(registry.curves.map((curve) => [curve.uid, curve]));
 
 // A curve is chosen when its note does not set it aside, and it has a name.
 const chosen = registry.curves
@@ -52,24 +57,93 @@ for (const curve of chosen) {
   baseCount.set(base, (baseCount.get(base) || 0) + 1);
 }
 
-const rows = chosen.map((curve) => {
+const settingsOf = (note) => ({
+  offsets: note.offsets ?? 0,
+  widthPct: note.widthPct ?? 0,
+  plus: note.plus ?? 0,
+  minus: note.minus ?? 0,
+  profile: note.profile ?? null,
+});
+
+// The two leg directions from the sampled path: the tangent over the first and
+// the last few stations. `delta` is the gap in degrees, 0..180.
+function legGap(curve) {
+  const points = curve.path || P.spine(curve.speedX, curve.speedY, 400).map((s) => [s.x, s.y]);
+  const n = points.length;
+  const angle = (a, b) => (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI;
+  const leg0 = angle(points[0], points[Math.min(4, n - 1)]);
+  // The end leg points out of the curve, so a monotone line reads 180°.
+  const leg1 = angle(points[n - 1], points[Math.max(0, n - 5)]);
+  let delta = Math.abs(leg1 - leg0);
+  if (delta > 180) delta = 360 - delta;
+  return Math.round(delta);
+}
+
+// Within 20° of a right angle, the motif turns and splits the corner; every
+// other curve stops the band with a plain cap.
+function cornerRule(delta) {
+  const corner = Math.abs(delta - 90) <= 20;
+  return {
+    cornerRule: corner ? "corner" : "stop",
+    cornerGap: corner ? Math.round((Math.abs(90 - delta) / 2) * 10) / 10 : null,
+  };
+}
+
+function noteFor(row) {
+  const parts = [];
+  if (row.variant === "A") parts.push("A: as stored.");
+  if (row.variant === "B") parts.push("B: offsets on, band filled.");
+  if (row.variant === "C") {
+    parts.push(row.cornerRule === "corner"
+      ? `C: delta ${row.delta}°, corner ${row.cornerGap}°.`
+      : `C: delta ${row.delta}°, stop.`);
+  }
+  if (row.variant === "D") parts.push("D: C plus a declared waist gap and 50% centre / 9% band.");
+  if (row.cornerRule === "corner" && row.cornerGap > 2) parts.push("Miter visible at the corners.");
+  if (row.seam === "crossing") parts.push("The waist still crosses.");
+  if (row.variant === "A" && row.offsets === 0) parts.push("Try the rails.");
+  return parts.join(" ");
+}
+
+const rows = chosen.flatMap((curve) => {
   const base = dropPostfix(curve.chosenName);
   const shared = (baseCount.get(base) || 0) > 1;
   const illus = `illus-${shared ? curve.chosenName : base}`;
+  const note = noteByUid.get(curve.uid) || {};
+  const settings = settingsOf(note);
   const figure = figureByUid.get(curve.uid) || {};
-  return {
+  const delta = legGap(curve);
+  const { cornerRule: rule, cornerGap } = cornerRule(delta);
+  const common = {
     uid: curve.uid,
     name: curve.chosenName,
-    illus,
-    variant: shared ? "postfix kept: the base is shared" : null,
+    sharedBase: shared,
     perSide: figure.perSide ?? null,
     marginPercent: figure.marginPercent ?? null,
     tooWide: Boolean(figure.tooWide),
     failed: Boolean(figure.failed),
-    frame: existsSync(path.join(ROOT, "app", "public", "frames", `${illus}.png`))
-      ? `/frames/${illus}.png`
-      : null,
+    delta,
+    cornerGap,
+    cornerRule: rule,
   };
+  const rowFor = (variant, extra) => {
+    const row = {
+      ...common,
+      illus: variant === "A" ? illus : `${illus}-${variant}`,
+      variant,
+      ...settings,
+      ...extra,
+    };
+    row.frame = `/frames/${row.illus}.png`;
+    row.note = noteFor(row);
+    return row;
+  };
+  return [
+    rowFor("A", {}),
+    rowFor("B", { offsets: 1 }),
+    rowFor("C", { offsets: 1 }),
+    rowFor("D", { offsets: 1, seam: "gap" }),
+  ];
 });
 
 const chosenUids = new Set(rows.map((row) => row.uid));
@@ -82,43 +156,65 @@ const notesOnly = registry.curves
     figure: `/figures/${curve.uid}.png`,
   }));
 
-const missingFigure = rows.filter((row) => !figureByUid.has(row.uid));
-const duplicates = rows.filter((row) => row.variant);
+const missingFigure = [...new Set(rows.map((row) => row.uid))]
+  .filter((uid) => !figureByUid.has(uid));
+const shared = rows.filter((row) => row.variant === "A" && row.sharedBase);
 
-console.log(`chosen ${rows.length}; figures present ${rows.length - missingFigure.length}; listed as [NOTE] ${notesOnly.length}`);
-for (const row of duplicates) console.log(`  name kept: ${row.name} -> ${row.illus}`);
-if (missingFigure.length) for (const row of missingFigure) console.log(`  MISSING figure: ${row.uid} ${row.name}`);
+console.log(`chosen ${rows.length / 4}; A/B/C/D rows ${rows.length}; figures present ${rows.length / 4 - missingFigure.length}; listed as [NOTE] ${notesOnly.length}`);
+for (const row of shared) console.log(`  name kept: ${row.name} -> ${row.illus}`);
+if (missingFigure.length) for (const uid of missingFigure) console.log(`  MISSING figure: ${uid}`);
 
 if (WRITE) {
-  mkdirSync(path.join(ROOT, "app", "public", "frames"), { recursive: true });
-  let copied = 0;
+  mkdirSync(FRAMES_DIR, { recursive: true });
+  mkdirSync(SVG_DIR, { recursive: true });
+  const { figureFor, svgForFigure } = await import("../app/src/lib/bordered.js");
+
+  const browser = await chromium.launch({
+    executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    headless: true,
+  });
+  const page = await browser.newPage({ viewport: { width: 600, height: 600 } });
+  let rendered = 0;
   for (const row of rows) {
-    const from = path.join(ROOT, "app", "public", "figures", `${row.uid}.png`);
-    row.frame = existsSync(from) ? `/frames/${row.illus}.png` : null;
-    if (!existsSync(from)) continue;
-    copyFileSync(from, path.join(ROOT, "app", "public", "frames", `${row.illus}.png`));
-    copied += 1;
+    const curve = byUid.get(row.uid);
+    if (!curve) continue;
+    const note = noteByUid.get(row.uid) || {};
+    const record = {
+      ...curve,
+      ...settingsOf(note),
+      ...(row.variant === "B" ? { offsets: 1 } : {}),
+    };
+    const figure = figureFor(record, {}, null);
+    const svg = svgForFigure(figure, `${row.illus}: ${row.name}`);
+    const svgFile = path.join(SVG_DIR, `${row.illus}.svg`);
+    writeFileSync(svgFile, svg);
+    await page.setContent(
+      `<style>html,body{margin:0;background:#fff}svg{display:block;width:600px;height:600px}</style>${svg}`,
+      { waitUntil: "load" });
+    await page.screenshot({ path: path.join(FRAMES_DIR, `${row.illus}.png`), type: "png" });
+    rendered += 1;
   }
+  await browser.close();
 
   const frames = {
     format: "curve-lab.frames/1",
-    note: "the 90 chosen curves as framed illuminations; names are illus-<name> with the last postfix dropped; the PNGs are thumbnails, not print plates",
+    note: "the 90 chosen curves as framed illuminations, A, B, C, D; names are illus-<name> with the last postfix dropped; the PNGs are thumbnails, not print plates",
     thumbnailPixels: 600,
     curves: rows,
     notes: notesOnly,
   };
   writeFileSync(path.join(ROOT, "workbench", "frames.json"), JSON.stringify(frames, null, 1) + "\n");
 
-
   const lines = [
     "# FRAMES-int — the 90 chosen curves as framed illuminations",
     "",
     "Generated by `node scripts/frames_build.mjs --write`. Do not edit by hand.",
     "",
-    `- **${rows.length}** plates, each named \`illus-<name>\`, the last postfix dropped.`,
+    `- **${rows.length / 4}** plates, each named \`illus-<name>\`, the last postfix dropped, with **A**, **B**, **C** and **D**.`,
+    "- **A** is the note's stored offsets; **B** forces the offsets on, filled, for the centre and the border; **C** adds the corner rule from the two leg directions; **D** is C plus a declared waist gap and the 50% centre / 9% band.",
     "- The PNGs are **thumbnails** (600 px), kept so the set can be seen and ordered.",
     "  Print plates are a later step; nothing here is a final export.",
-    `- **${duplicates.length}** kept the postfix, because two curves share a base: ${duplicates.map((row) => `${row.name} → ${row.illus}`).join("; ") || "none"}.`,
+    `- **${shared.length}** kept the postfix, because two curves share a base: ${shared.map((row) => `${row.name} → ${row.illus}`).join("; ") || "none"}.`,
     `- **${notesOnly.length}** curves in \`/figures\` are not among the 90 and are marked **[NOTE]** below.`,
     "",
     "The frame rule is the lab's (see `state/DESIGN-int.md` §Square and frame): the",
@@ -127,9 +223,9 @@ if (WRITE) {
     "",
     "## The 90",
     "",
-    "| plate | source name | uid | a side | border % |",
-    "|---|---|---|---|---|",
-    ...rows.map((row) => `| ${row.illus} | ${row.name} | ${row.uid} | ${row.perSide ?? "?"} | ${row.marginPercent ?? "?"} |`),
+    "| plate | source name | uid | a side | border % | offsets (A) | delta | rule |",
+    "|---|---|---|---|---|---|---|---|",
+    ...rows.filter((row) => row.variant === "A").map((row) => `| ${row.illus} | ${row.name} | ${row.uid} | ${row.perSide ?? "?"} | ${row.marginPercent ?? "?"} | ${row.offsets} | ${row.delta}° | ${row.cornerRule} |`),
     "",
     "## [NOTE] — framed, not yet named",
     "",
@@ -143,5 +239,5 @@ if (WRITE) {
     "",
   ];
   writeFileSync(path.join(ROOT, "state", "FRAMES-int.md"), lines.join("\n"));
-  console.log(`wrote workbench/frames.json, ${copied} frames, state/FRAMES-int.md`);
+  console.log(`wrote workbench/frames.json, ${rendered} A/B/C/D PNGs, state/FRAMES-int.md`);
 }

@@ -35,10 +35,10 @@ const TOO_WIDE = 30;
 // the centre disappears. Measured on c-0003: chord 14, amplitude 50. Turning it
 // a quarter turn does not help (P.frame normalises each copy to its chord), so
 // the motif is flattened to a stated share of the step before tiling.
-const BAND_SHARE = 0.3;
+const BAND_SHARE = 0.09;
 // How much of the frame's side the central design takes: the subject, not a mark.
 // The old rule scaled it to 1/perSide (one ninth), which read as a speck.
-const CENTRAL_SHARE = 0.55;
+const CENTRAL_SHARE = 0.50;
 
 // The curves the operator found colliding with their own border (2026-11-19).
 // The aspect test catches the tall ones; these are the rest, where the loops
@@ -185,8 +185,28 @@ export function figureFor(record, all, borderRecord) {
   const build = (borderTurn) => {
     const borderFrame = frameBorder(borderRecord || record, perSide,
       borderRecord ? 0 : (Number(record.borderTurn) || 0));
-    const border = borderFrame.paths;
-    const borderFills = borderFrame.fills;
+    let border = borderFrame.paths;
+    let borderFills = borderFrame.fills;
+    // The corner rule is a C/D treatment; A and B keep the old wrap.
+    const applyCorner = record.variant === "C" || record.variant === "D";
+    // The corner rule: a natural right angle turns the motif by the per-leg
+    // residual; every other curve leaves the band where it is (the "stop").
+    if (applyCorner && record.cornerRule === "corner" && Number(record.cornerGap)) {
+      const a = (Number(record.cornerGap) * Math.PI) / 180;
+      const turn = ([x, y]) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)];
+      border = border.map((path) => path.map(turn));
+      borderFills = borderFills.map((path) => path.map(turn));
+    }
+    if (applyCorner && record.cornerRule === "stop") {
+      // Stop the band short of the corners with a plain cap: a 3% inset, not a
+      // wrap into the corner.
+      const box = P.bbox(border.flat());
+      const sx = (box[0] + box[2]) / 2;
+      const sy = (box[1] + box[3]) / 2;
+      const inset = ([x, y]) => [sx + (x - sx) * 0.97, sy + (y - sy) * 0.97];
+      border = border.map((path) => path.map(inset));
+      borderFills = borderFills.map((path) => path.map(inset));
+    }
     const fbox = P.bbox(border.flat());
     const cx = (fbox[0] + fbox[2]) / 2;
     const cy = (fbox[1] + fbox[3]) / 2;
@@ -246,6 +266,9 @@ export function figureFor(record, all, borderRecord) {
       centralCount,
       fills,
       borderTurn,
+      cornerRule: record.cornerRule || "stop",
+      cornerGap: record.cornerGap ?? null,
+      seam: record.seam || null,
       failed: false,
       tooWide: margin >= TOO_WIDE,
     };
