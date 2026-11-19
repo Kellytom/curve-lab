@@ -133,10 +133,11 @@
   },
   {
    "uid": "c-0018",
-   "importance": 0,
+   "name": "logspiral-fit",
+   "importance": 3,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.925Z"
+   "updated": "2026-11-19T03:13:57.398Z"
   },
   {
    "uid": "c-0019",
@@ -208,10 +209,11 @@
   },
   {
    "uid": "c-0028",
-   "importance": 0,
+   "name": "lace-2-eight-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.957Z"
+   "updated": "2026-11-19T03:12:35.439Z"
   },
   {
    "uid": "c-0029",
@@ -316,10 +318,11 @@
   },
   {
    "uid": "c-0043",
-   "importance": 0,
+   "name": "lace-collar-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:00.999Z"
+   "updated": "2026-11-19T03:12:48.175Z"
   },
   {
    "uid": "c-0044",
@@ -441,10 +444,11 @@
   },
   {
    "uid": "c-0060",
-   "importance": 0,
+   "name": "lace-arch-x-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.060Z"
+   "updated": "2026-11-19T03:13:37.827Z"
   },
   {
    "uid": "c-0061",
@@ -487,10 +491,11 @@
   },
   {
    "uid": "c-0066",
-   "importance": 0,
+   "name": "lace-drop-heart-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.084Z"
+   "updated": "2026-11-19T03:09:28.955Z"
   },
   {
    "uid": "c-0067",
@@ -509,10 +514,11 @@
   },
   {
    "uid": "c-0069",
-   "importance": 0,
+   "name": "lace-small-bottle-1",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.104Z"
+   "updated": "2026-11-19T03:12:05.206Z"
   },
   {
    "uid": "c-0070",
@@ -624,10 +630,11 @@
   },
   {
    "uid": "c-0085",
-   "importance": 0,
+   "name": "lace-tri-hershey-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.207Z"
+   "updated": "2026-11-19T03:11:25.643Z"
   },
   {
    "uid": "c-0086",
@@ -1227,10 +1234,11 @@
   },
   {
    "uid": "c-0163",
-   "importance": 0,
+   "name": "lace-lazy-s-2",
+   "importance": 9,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.584Z"
+   "updated": "2026-11-19T03:11:41.575Z"
   },
   {
    "uid": "c-0164",
@@ -1517,7 +1525,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.728Z"
+   "updated": "2026-11-18T23:28:01.728Z",
+   "candidate": true
   },
   {
    "uid": "c-0205",
@@ -1554,14 +1563,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.745Z"
+   "updated": "2026-11-18T23:28:01.745Z",
+   "candidate": true
   },
   {
    "uid": "c-0210",
-   "importance": 0,
+   "name": "lace-triangle-loop-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.749Z"
+   "updated": "2026-11-19T03:13:44.962Z"
   },
   {
    "uid": "c-0211",
@@ -1647,14 +1658,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.795Z"
+   "updated": "2026-11-18T23:28:01.795Z",
+   "candidate": true
   },
   {
    "uid": "c-0223",
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.798Z"
+   "updated": "2026-11-18T23:28:01.798Z",
+   "candidate": true
   },
   {
    "uid": "c-0224",
@@ -1677,7 +1690,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.809Z"
+   "updated": "2026-11-18T23:28:01.809Z",
+   "candidate": true
   },
   {
    "uid": "c-0227",
@@ -1691,7 +1705,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.816Z"
+   "updated": "2026-11-18T23:28:01.816Z",
+   "candidate": true
   },
   {
    "uid": "c-0229",
@@ -1705,14 +1720,16 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.824Z"
+   "updated": "2026-11-18T23:28:01.824Z",
+   "candidate": true
   },
   {
    "uid": "c-0231",
-   "importance": 0,
+   "name": "lace-arch-triangle-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.827Z"
+   "updated": "2026-11-19T03:10:27.876Z"
   },
   {
    "uid": "c-0232",
@@ -1726,7 +1743,8 @@
    "importance": 0,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.839Z"
+   "updated": "2026-11-18T23:28:01.839Z",
+   "candidate": true
   },
   {
    "uid": "c-0234",
@@ -1745,10 +1763,11 @@
   },
   {
    "uid": "c-0236",
-   "importance": 0,
+   "name": "lace-triangle-3",
+   "importance": 10,
    "rotation": 0,
    "pieces": 1,
-   "updated": "2026-11-18T23:28:01.848Z"
+   "updated": "2026-11-19T03:10:35.807Z"
   },
   {
    "uid": "c-0237",
