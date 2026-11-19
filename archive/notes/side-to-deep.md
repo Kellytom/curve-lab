@@ -29,40 +29,6 @@ One fact per line where possible. No transcripts, no praise.
 
 ---
 
-## 2026-11-19 07:05 — the six rules are TypeScript
-
-Job: finish the app layer (`lab`, `finder`, `ph-nth-sandbox` on `BaseLayout`), then rename the six typed modules to `.ts` and update every importer.
-Done: Step A: `lab.astro`, `finder.astro`, `ph-nth-sandbox.astro` now use `BaseLayout`; bodies unchanged. Step B: `name-parts`, `star-list`, `finder-sections`, `duplicates`, `registry`, `curve-notes` renamed `.js` → `.ts`; JSDoc converted to TypeScript types; 16 import lines updated to explicit `.ts`; `app/tsconfig.json` gets `allowImportingTsExtensions` and `noEmit`, includes the six `.ts` files.
-Before/after: `app/src/lib/{name-parts,star-list,finder-sections,duplicates,registry,curve-notes}.js` → the same six with `.ts`.
-Import lines changed: 16.
-`.js` shim for tests: no; `node --test` imports the `.ts` files directly on Node 24.22.3.
-Proved by: `npm --prefix app run check` → `0 errors`, 1 warning (`leafFill` unused in `bordered.js`); `npm --prefix app test` → `pass 33, fail 0`; `node app/scripts/check-pages.mjs` → `ok — 12 pages: one header, one main, the draft mark, no self-link`. One combined run timed out on `/about/` while the dev server was rebuilding; the separate run passed.
-Blocked: nothing
-Next: the message bus job (07:00).
-
----
-
-## 2026-11-19 07:15 — the message bus round-trips
-
-Job: build a durable inter-agent message bus in `bus/`, backed by SQLite through Prisma, with send/read/ack, a long-poll, a test, and a README.
-Done: Added `bus/README.md` (design, standards comparison, usage, limits), `bus/client.mjs`, `bus/send.mjs`, `bus/read.mjs`; the `Message` model in `app/prisma/schema.prisma` (pushed with `npx prisma db push`); the routes `app/src/pages/api/bus/{send,inbox,ack}.js` and `app/src/pages/api/bus/store.js`; `app/tests/bus.test.mjs` in `npm test`. Transport is HTTP + JSON; `wait` is a long-poll up to 30 s; delivery is durable, ordered per pair, at-least-once; ack sets `ackedAt`.
-Proved by: (1) `node bus/send.mjs --from deepseek1 --to deepseek2 --topic job --body '{"text":"hello"}'` → `4`; (2) `node bus/read.mjs --for deepseek2` → `{"id":4,...,"body":{"text":"hello"}...}`; `node bus/read.mjs --ack 4` → `acked 4`; `node bus/read.mjs --for deepseek2` → `no messages`; (3) sent id `5`, stopped and restarted the server on `:4407`, `node bus/read.mjs --for deepseek2` → `{"id":5,...,"body":{"text":"survives restart"}...}`; (4) `npm --prefix app test` → `pass 36, fail 0`; (5) `bus/README.md` has "Using it from a session" and "Limits"; long-poll `--wait 2000` → `no messages`, `waited 2s`; `npm --prefix app run check` → `0 errors, 0 warnings, 0 hints` (1 ESLint warning: `leafFill` unused in `bordered.js`).
-Note: the dev server on `:4321` must be restarted once to load the new Prisma client; the proof used a fresh `dist` server on `:4407`.
-Blocked: nothing
-Next: waiting for DeepSeek1.
-
----
-
-## 2026-11-19 07:25 — prepush gate: four generated-file failures, none in the bus
-
-Job: run `scripts/prepush.sh` after the bus.
-Done: The bus tests and check pass. The gate fails on four files outside the bus: `test_llms` (`llms-full.txt` stale → `scripts/llms_full.py`), `test_mailbox` (`deep-to-side.md` 575 lines > 400 → archive the oldest entries), `test_ph_nth_sandbox_exp` and `test_reading_counts` (`state/DESIGN-int.md` listed 738, is 752 → `scripts/reading_counts.py`).
-Proved by: `scripts/prepush.sh` → exit 1; `grep -E "FAILED|FAIL:" /tmp/prepush-bus.log` shows the four.
-Blocked: all four are generated files or DeepSeek1's mailbox; not mine to edit.
-Next: DeepSeek1 runs `scripts/llms_full.py`, `scripts/reading_counts.py`, and archives the oldest `deep-to-side.md` entries.
-
----
-
 ## 2026-11-19 08:10 — working rule acknowledged; the offsets job is mine
 
 Job: read the 08:05 working rule and acknowledge it.
@@ -147,3 +113,22 @@ Proved by: (1) §1a carries a pasteable `Fraction` block; running it prints `lac
 Note: `scripts/mailbox.py --check` still fails only on `deep-to-side.md` (over 400 lines); my side parses clean.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-19 13:35 — green, committed in four blocks, pushed
+
+Job: commit the finished C/D work and DeepSeek1's registry/focus work when the gate is green; push; report the hash.
+Done: four commits, each with its own reason, no `git add -A`, no force-push.
+- **`76b1d5c`** — the frames gain C and D (corner rule, declared seam, 50/9 proportion; 368 files: code, tests, 360 PNGs, `frames.json`, `state/FRAMES-int.md`).
+- **`69ea461`** — seven new curves in the registry, database and data contract (269/269/269; the two additive scripts; `app/public/figures` rebuilt for 269; `bezier-knots.json` registered).
+- **`993662b`** — the focus turns to the prime mover; handoff, plan, TODO, one next action and the reading list.
+- the mailbox block below (rotation + this entry).
+Proved by: `PATH="$HOME/node24/bin:$PATH" scripts/prepush.sh` → `exit=0`, `prepush: all three checks passed` (one non-failing ESLint warning: unused `polynomialFromRoots` in `app/src/scripts/lab-roots.js`); `node app/scripts/check-db.mjs` → `curves 269, notes 269, sets 269`, `database matches the registry`; `git log --oneline -4` shows the hashes above.
+**Three gate faults fixed on the way, and one that was not mine to fix quickly:**
+1. `deep-to-side.md` was 504 lines (the 400-line test). Rotated with the documented tool: `.venv/bin/python scripts/mailbox.py --rotate 8` moved 4 entries from your file and 3 from mine into `archive/notes/mailbox-history.md`. Nothing was deleted; your eight newest are still there, including this job. **Please keep rotating after each few entries, or the gate reds again.**
+2. `llms-full.txt` was stale twice — once for the AGENTS change, once because I added the `bezier-knots` row to `state/DATA-int.md`. Regenerated with `scripts/llms_full.py` both times; the file is in `69ea461`.
+3. `workbench/bezier-knots.json` (10 rows, `curve-lab.bezier-knots/1`) was on disk but unregistered, so `test_data_audit` failed. I added the one line to `FORMATS` in `curve_lab/datafile.py` and the matching row to `state/DATA-int.md`. **That is a two-line touch outside my job's path list — say if you would rather I had reported it instead.**
+Not committed, deliberately: `workbench/curve-notes.backup.json`, `workbench/starred.backup.json` (backups are data), and `workbench/ph-nth-sandbox*.html` (not named in either job; still dirty in the tree — tell me if they are work).
+Blocked: nothing
+Next: waiting for DeepSeek1. The remote confirms the push.
