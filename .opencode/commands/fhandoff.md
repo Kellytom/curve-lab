@@ -23,9 +23,10 @@ the date it was last checked.
    new one.
 
 2. **Re-verify only what moved.**
-   - **Tests:** run `.venv/bin/python -m unittest discover tests` only if
-     something under `web/`, `curve_lab/`, `csrc/`, or `tests/` differs from
-     HEAD. Otherwise carry the recorded count and label it carried.
+   - **Tests:** run `.venv/bin/python scripts/test.py --fast` (about 3 s); if a
+     push is coming, `--full` in the background. Run `npm --prefix app test`
+     (about 2 s) and `node app/scripts/check-db.mjs` if the database or a page
+     changed. Otherwise carry the recorded count and label it carried.
    - **Register:** run `.venv/bin/python -m unittest tests.test_regressions`. If
      this session fixed a fault, the row and its test are already in the commit;
      if it deliberately changed a listed behaviour, the row is amended in the
@@ -39,8 +40,8 @@ the date it was last checked.
      session deployed or changed Cloud Run, Cloud Build, or billing. Carry the
      recorded values and label them carried.
    - **Parity:** never run `scripts/check-parity.py` here; it is its own check.
-   - **Handover:** read `app/src/content/docs/docs/handover.md` only if a durable fact actually
-     changed, and then keep `docs/HANDOVER.html` in step with it.
+   - **Handover:** read `app/src/content/docs/docs/handover.md` only if a durable
+     fact actually changed. There is no HTML twin to keep in step any more.
    - If something is genuinely ambiguous, write the uncertainty in one line
      rather than investigating it.
 
@@ -100,9 +101,10 @@ the date it was last checked.
    Allowed paths — the handoff files **and** the files this process runs on:
 
    - `state/HANDOFF-int.md`, `next-fhandoff-int.md`, `goals.md`, `TODO.md`,
-     `state/ACHIEVEMENTS-int.md`, `state/READING-int.md`,
-     `state/REGRESSIONS-int.md`, `state/DESIGN-int.md`
-   - `app/src/content/docs/docs/handover.md`, `docs/HANDOVER.html`
+     `LTMemory-int.md`, `state/ACHIEVEMENTS-int.md`, `state/READING-int.md`,
+     `state/REGRESSIONS-int.md`, `state/DESIGN-int.md`, `state/PLAN-int.md`,
+     `state/DATA-int.md`, `CHANGELOG.md`
+   - `app/src/content/docs/docs/handover.md`
    - `workbench/todo.html` if `scripts/todo.py` rewrote it
    - `AGENTS.md`, `.opencode/commands/*.md`, `.gitignore` if they changed
 
