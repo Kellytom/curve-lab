@@ -49,5 +49,22 @@ class Hybrids(unittest.TestCase):
                          "kept candidates with no registry record")
 
 
+class ConversionSlot(unittest.TestCase):
+    def test_every_record_reserves_the_conversion_slot(self):
+        """2026-11-20: "they will have to come over to this algorithm eventually, so leave
+        space in that record for the new improved formula" — every record carries the slot,
+        with `formulaNext` present and null until the improved formula exists."""
+        registry = json.loads(REGISTRY.read_text())["curves"]
+        missing = []
+        for record in registry:
+            slot = record.get("conversion") or {}
+            for field in ("algorithm", "status", "target"):
+                if field not in slot:
+                    missing.append(f'{record["uid"]}:{field}')
+            if "formulaNext" not in slot:
+                missing.append(f'{record["uid"]}:formulaNext')
+        self.assertEqual(missing[:10], [], "records without the conversion slot")
+
+
 if __name__ == "__main__":
     unittest.main()

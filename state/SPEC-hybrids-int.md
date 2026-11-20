@@ -94,3 +94,23 @@ The same fields are columns on `Note` (`formula`, `params`, `grid`, `stationRule
 curve stored as a path. So `offsets: 1` on a hybrid has nothing to draw yet: the rail
 needs a path-based construction. The placeholders are in place; the construction is
 future work and will be its own spec.
+
+## The space for the improved formula
+
+The collection holds several algorithms today: polynomial speed rows (268 records), sampled
+paths, the prime mover's walk and the hybrid rational curve. They will be re-expressed in
+the rational form eventually, so **every** record carries the slot now:
+
+```
+conversion: {
+  algorithm,    rows | path | prime-mover | hybrid
+  status,       native | pending | converted
+  target,       x = C(t)^p, y = S(t)^q  (the rational form)
+  formulaNext   null until the improved formula is written
+}
+```
+
+`scripts/reserve_conversion.py` added it to all 272 records (a null is a deliberate
+placeholder, not missing data). The guard is
+`tests/test_hybrids.py::test_every_record_reserves_the_conversion_slot`, so a new record
+cannot arrive without the space.

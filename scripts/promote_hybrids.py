@@ -164,6 +164,12 @@ def main(argv=None) -> int:
             "minus": 0,
             "profile": None,
             "formula": formula,
+            "conversion": {
+                "algorithm": "hybrid",
+                "status": "native",
+                "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
+                "formulaNext": None,
+            },
             "grid": f"1/{grid}",
             "note": note,
             "path": [[round(x, 6), round(y, 6)] for x, y in pts],

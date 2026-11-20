@@ -3176,3 +3176,14 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **Known gap:** character rails cannot be drawn on a hybrid yet. `plate_math.group` builds
   rails from polynomial `speedX/speedY`, and a hybrid is rational, stored as a path. The
   placeholders are ready; a path-based rail is a future spec.
+
+### The conversion slot — 2026-11-20
+
+- Every registry record now carries
+  `conversion: {algorithm, status, target, formulaNext: null}`. 268 are `rows`, 2 `path`,
+  2 `prime-mover`; the hybrids are `native`. The null is the reserved space for the
+  improved formula, not a missing value.
+- `scripts/reserve_conversion.py --write` added it to all 272; a promoted hybrid carries it
+  from birth, with `status: native`.
+- `Note` gained `algorithm` and `conversion` (schema pushed, check-db green); the guard is
+  `tests/test_hybrids.py::test_every_record_reserves_the_conversion_slot`.
