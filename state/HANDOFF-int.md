@@ -3129,3 +3129,20 @@ Tschirnhausen — classic but adds nothing; off the board.
   axes and a 15 px legend; Fig. 9's count stays at seven and Fig. 5's at six.
 - **Not yet done:** the record for a *new* curve from this figure (A, then B/C/D). The figure is a
   probe on the page, not a stored curve.
+
+### The hybrid desk — 2026-11-20
+
+- **`/hybrids/`** is up: 343 cards, one per candidate of `x = C(t)^p, y = S(t)^q` with the
+  middle-term polynomial of `(x+y)^n` used in 2D — colour (a tint) or radius (a scale).
+  Each card has keep / later / reject; each decision is a `SandboxCurve` row, so a save
+  cannot touch another card.
+- **The figures are files**, not one page: `app/public/hybrid-figures/<id>.svg`, written by
+  `scripts/hybrid_figures.py`; the list is `workbench/hybrids.json`.
+- **Stations are one pass of the rational circle** (`t = u/(1−|u|)`, `u = i/100`): exact
+  fractions, no sin, no cos. Crossings come from the router in the generator.
+- **Contact sheets** for reading the whole family at once: `workbench/hybrid-sheets.html`
+  (colour sheet + six radius sheets).
+- **Guard:** `app/scripts/check-hybrids-page.mjs` — 343 cards, sampled figures load, two
+  keeps survive a reload, no page errors. `/hybrids/` is in `check-pages` (17 pages).
+- **Not done:** a kept candidate does not yet become a registry record; that is a separate
+  step, and the operator decides which.

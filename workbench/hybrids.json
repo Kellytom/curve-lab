@@ -1,0 +1,3102 @@
+{
+ "format": "curve-lab.hybrids/1",
+ "parameter": "t = u/(1-|u|), u = i/100, i = -99..99",
+ "powers": 7,
+ "blocks": [
+  "quadratic",
+  "cubic",
+  "quintic-central",
+  "quintic-all-four",
+  "cubic-and-quintic",
+  "every-term"
+ ],
+ "candidates": [
+  {
+   "id": "h-colour-1-1",
+   "p": 1,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-1-1.svg"
+  },
+  {
+   "id": "h-radius-1-1-quadratic",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-1-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-1-cubic",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-1-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-1-quintic-central",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 1,
+   "figure": "h-radius-1-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-1-quintic-all-four",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-1-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-1-cubic-and-quintic",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 2,
+   "figure": "h-radius-1-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-1-every-term",
+   "p": 1,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 4,
+   "figure": "h-radius-1-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-2",
+   "p": 1,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 12,
+   "figure": "h-colour-1-2.svg"
+  },
+  {
+   "id": "h-radius-1-2-quadratic",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 6,
+   "figure": "h-radius-1-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-2-cubic",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 12,
+   "figure": "h-radius-1-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-2-quintic-central",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 16,
+   "figure": "h-radius-1-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-2-quintic-all-four",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 12,
+   "figure": "h-radius-1-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-2-cubic-and-quintic",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 17,
+   "figure": "h-radius-1-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-2-every-term",
+   "p": 1,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 16,
+   "figure": "h-radius-1-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-3",
+   "p": 1,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-1-3.svg"
+  },
+  {
+   "id": "h-radius-1-3-quadratic",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-1-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-3-cubic",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-1-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-3-quintic-central",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 1,
+   "figure": "h-radius-1-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-3-quintic-all-four",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-1-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-3-cubic-and-quintic",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 2,
+   "figure": "h-radius-1-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-3-every-term",
+   "p": 1,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 4,
+   "figure": "h-radius-1-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-4",
+   "p": 1,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 10,
+   "figure": "h-colour-1-4.svg"
+  },
+  {
+   "id": "h-radius-1-4-quadratic",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 18,
+   "figure": "h-radius-1-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-4-cubic",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 17,
+   "figure": "h-radius-1-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-4-quintic-central",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 12,
+   "figure": "h-radius-1-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-4-quintic-all-four",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 15,
+   "figure": "h-radius-1-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-4-cubic-and-quintic",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 9,
+   "figure": "h-radius-1-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-4-every-term",
+   "p": 1,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 11,
+   "figure": "h-radius-1-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-5",
+   "p": 1,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-1-5.svg"
+  },
+  {
+   "id": "h-radius-1-5-quadratic",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-1-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-5-cubic",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-1-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-5-quintic-central",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 1,
+   "figure": "h-radius-1-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-5-quintic-all-four",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-1-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-5-cubic-and-quintic",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-1-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-5-every-term",
+   "p": 1,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 4,
+   "figure": "h-radius-1-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-6",
+   "p": 1,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 22,
+   "figure": "h-colour-1-6.svg"
+  },
+  {
+   "id": "h-radius-1-6-quadratic",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 13,
+   "figure": "h-radius-1-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-6-cubic",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 13,
+   "figure": "h-radius-1-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-6-quintic-central",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 17,
+   "figure": "h-radius-1-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-6-quintic-all-four",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 12,
+   "figure": "h-radius-1-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-6-cubic-and-quintic",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 12,
+   "figure": "h-radius-1-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-6-every-term",
+   "p": 1,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 14,
+   "figure": "h-radius-1-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-1-7",
+   "p": 1,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-1-7.svg"
+  },
+  {
+   "id": "h-radius-1-7-quadratic",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-1-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-1-7-cubic",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-1-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-1-7-quintic-central",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-1-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-1-7-quintic-all-four",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-1-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-1-7-cubic-and-quintic",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-1-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-1-7-every-term",
+   "p": 1,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 3,
+   "figure": "h-radius-1-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-1",
+   "p": 2,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 16,
+   "figure": "h-colour-2-1.svg"
+  },
+  {
+   "id": "h-radius-2-1-quadratic",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 19,
+   "figure": "h-radius-2-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-1-cubic",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 23,
+   "figure": "h-radius-2-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-1-quintic-central",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 18,
+   "figure": "h-radius-2-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-1-quintic-all-four",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 15,
+   "figure": "h-radius-2-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-1-cubic-and-quintic",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-2-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-1-every-term",
+   "p": 2,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 15,
+   "figure": "h-radius-2-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-2",
+   "p": 2,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-2-2.svg"
+  },
+  {
+   "id": "h-radius-2-2-quadratic",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-2-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-2-cubic",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 5,
+   "figure": "h-radius-2-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-2-quintic-central",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 7,
+   "figure": "h-radius-2-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-2-quintic-all-four",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 8,
+   "figure": "h-radius-2-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-2-cubic-and-quintic",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 7,
+   "figure": "h-radius-2-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-2-every-term",
+   "p": 2,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 8,
+   "figure": "h-radius-2-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-3",
+   "p": 2,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 10,
+   "figure": "h-colour-2-3.svg"
+  },
+  {
+   "id": "h-radius-2-3-quadratic",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 13,
+   "figure": "h-radius-2-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-3-cubic",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 17,
+   "figure": "h-radius-2-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-3-quintic-central",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 15,
+   "figure": "h-radius-2-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-3-quintic-all-four",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 11,
+   "figure": "h-radius-2-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-3-cubic-and-quintic",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 13,
+   "figure": "h-radius-2-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-3-every-term",
+   "p": 2,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 11,
+   "figure": "h-radius-2-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-4",
+   "p": 2,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 3,
+   "figure": "h-colour-2-4.svg"
+  },
+  {
+   "id": "h-radius-2-4-quadratic",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 10,
+   "figure": "h-radius-2-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-4-cubic",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 6,
+   "figure": "h-radius-2-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-4-quintic-central",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 8,
+   "figure": "h-radius-2-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-4-quintic-all-four",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 4,
+   "figure": "h-radius-2-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-4-cubic-and-quintic",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 12,
+   "figure": "h-radius-2-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-4-every-term",
+   "p": 2,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 5,
+   "figure": "h-radius-2-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-5",
+   "p": 2,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 13,
+   "figure": "h-colour-2-5.svg"
+  },
+  {
+   "id": "h-radius-2-5-quadratic",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 6,
+   "figure": "h-radius-2-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-5-cubic",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 10,
+   "figure": "h-radius-2-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-5-quintic-central",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 10,
+   "figure": "h-radius-2-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-5-quintic-all-four",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 8,
+   "figure": "h-radius-2-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-5-cubic-and-quintic",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 14,
+   "figure": "h-radius-2-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-5-every-term",
+   "p": 2,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 13,
+   "figure": "h-radius-2-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-6",
+   "p": 2,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 6,
+   "figure": "h-colour-2-6.svg"
+  },
+  {
+   "id": "h-radius-2-6-quadratic",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 7,
+   "figure": "h-radius-2-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-6-cubic",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 9,
+   "figure": "h-radius-2-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-6-quintic-central",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 5,
+   "figure": "h-radius-2-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-6-quintic-all-four",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 3,
+   "figure": "h-radius-2-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-6-cubic-and-quintic",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 11,
+   "figure": "h-radius-2-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-6-every-term",
+   "p": 2,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 4,
+   "figure": "h-radius-2-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-2-7",
+   "p": 2,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 10,
+   "figure": "h-colour-2-7.svg"
+  },
+  {
+   "id": "h-radius-2-7-quadratic",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 15,
+   "figure": "h-radius-2-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-2-7-cubic",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 14,
+   "figure": "h-radius-2-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-2-7-quintic-central",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 8,
+   "figure": "h-radius-2-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-2-7-quintic-all-four",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 7,
+   "figure": "h-radius-2-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-2-7-cubic-and-quintic",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-2-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-2-7-every-term",
+   "p": 2,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 15,
+   "figure": "h-radius-2-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-1",
+   "p": 3,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-3-1.svg"
+  },
+  {
+   "id": "h-radius-3-1-quadratic",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-3-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-1-cubic",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-3-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-1-quintic-central",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 1,
+   "figure": "h-radius-3-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-1-quintic-all-four",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-3-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-1-cubic-and-quintic",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-3-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-1-every-term",
+   "p": 3,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 3,
+   "figure": "h-radius-3-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-2",
+   "p": 3,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 18,
+   "figure": "h-colour-3-2.svg"
+  },
+  {
+   "id": "h-radius-3-2-quadratic",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 14,
+   "figure": "h-radius-3-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-2-cubic",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 16,
+   "figure": "h-radius-3-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-2-quintic-central",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 17,
+   "figure": "h-radius-3-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-2-quintic-all-four",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 19,
+   "figure": "h-radius-3-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-2-cubic-and-quintic",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-3-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-2-every-term",
+   "p": 3,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 13,
+   "figure": "h-radius-3-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-3",
+   "p": 3,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-3-3.svg"
+  },
+  {
+   "id": "h-radius-3-3-quadratic",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-3-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-3-cubic",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-3-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-3-quintic-central",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-3-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-3-quintic-all-four",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-3-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-3-cubic-and-quintic",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-3-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-3-every-term",
+   "p": 3,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 2,
+   "figure": "h-radius-3-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-4",
+   "p": 3,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 12,
+   "figure": "h-colour-3-4.svg"
+  },
+  {
+   "id": "h-radius-3-4-quadratic",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 10,
+   "figure": "h-radius-3-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-4-cubic",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 10,
+   "figure": "h-radius-3-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-4-quintic-central",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 15,
+   "figure": "h-radius-3-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-4-quintic-all-four",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 17,
+   "figure": "h-radius-3-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-4-cubic-and-quintic",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 9,
+   "figure": "h-radius-3-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-4-every-term",
+   "p": 3,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 15,
+   "figure": "h-radius-3-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-5",
+   "p": 3,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-3-5.svg"
+  },
+  {
+   "id": "h-radius-3-5-quadratic",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-3-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-5-cubic",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-3-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-5-quintic-central",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-3-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-5-quintic-all-four",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-3-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-5-cubic-and-quintic",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-3-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-5-every-term",
+   "p": 3,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-3-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-6",
+   "p": 3,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 9,
+   "figure": "h-colour-3-6.svg"
+  },
+  {
+   "id": "h-radius-3-6-quadratic",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 13,
+   "figure": "h-radius-3-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-6-cubic",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 14,
+   "figure": "h-radius-3-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-6-quintic-central",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 10,
+   "figure": "h-radius-3-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-6-quintic-all-four",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 14,
+   "figure": "h-radius-3-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-6-cubic-and-quintic",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 18,
+   "figure": "h-radius-3-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-6-every-term",
+   "p": 3,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 20,
+   "figure": "h-radius-3-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-3-7",
+   "p": 3,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-3-7.svg"
+  },
+  {
+   "id": "h-radius-3-7-quadratic",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-3-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-3-7-cubic",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-3-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-3-7-quintic-central",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-3-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-3-7-quintic-all-four",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-3-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-3-7-cubic-and-quintic",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-3-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-3-7-every-term",
+   "p": 3,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-3-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-1",
+   "p": 4,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 12,
+   "figure": "h-colour-4-1.svg"
+  },
+  {
+   "id": "h-radius-4-1-quadratic",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 12,
+   "figure": "h-radius-4-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-1-cubic",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 19,
+   "figure": "h-radius-4-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-1-quintic-central",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 9,
+   "figure": "h-radius-4-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-1-quintic-all-four",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 14,
+   "figure": "h-radius-4-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-1-cubic-and-quintic",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-4-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-1-every-term",
+   "p": 4,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 12,
+   "figure": "h-radius-4-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-2",
+   "p": 4,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 3,
+   "figure": "h-colour-4-2.svg"
+  },
+  {
+   "id": "h-radius-4-2-quadratic",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 7,
+   "figure": "h-radius-4-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-2-cubic",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 11,
+   "figure": "h-radius-4-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-2-quintic-central",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 9,
+   "figure": "h-radius-4-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-2-quintic-all-four",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 8,
+   "figure": "h-radius-4-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-2-cubic-and-quintic",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 11,
+   "figure": "h-radius-4-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-2-every-term",
+   "p": 4,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 8,
+   "figure": "h-radius-4-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-3",
+   "p": 4,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 16,
+   "figure": "h-colour-4-3.svg"
+  },
+  {
+   "id": "h-radius-4-3-quadratic",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 21,
+   "figure": "h-radius-4-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-3-cubic",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 16,
+   "figure": "h-radius-4-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-3-quintic-central",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 13,
+   "figure": "h-radius-4-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-3-quintic-all-four",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 19,
+   "figure": "h-radius-4-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-3-cubic-and-quintic",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-4-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-3-every-term",
+   "p": 4,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 20,
+   "figure": "h-radius-4-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-4",
+   "p": 4,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 10,
+   "figure": "h-colour-4-4.svg"
+  },
+  {
+   "id": "h-radius-4-4-quadratic",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 6,
+   "figure": "h-radius-4-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-4-cubic",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 7,
+   "figure": "h-radius-4-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-4-quintic-central",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 10,
+   "figure": "h-radius-4-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-4-quintic-all-four",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 7,
+   "figure": "h-radius-4-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-4-cubic-and-quintic",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 2,
+   "figure": "h-radius-4-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-4-every-term",
+   "p": 4,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 7,
+   "figure": "h-radius-4-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-5",
+   "p": 4,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 17,
+   "figure": "h-colour-4-5.svg"
+  },
+  {
+   "id": "h-radius-4-5-quadratic",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 9,
+   "figure": "h-radius-4-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-5-cubic",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 19,
+   "figure": "h-radius-4-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-5-quintic-central",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 13,
+   "figure": "h-radius-4-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-5-quintic-all-four",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 10,
+   "figure": "h-radius-4-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-5-cubic-and-quintic",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 16,
+   "figure": "h-radius-4-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-5-every-term",
+   "p": 4,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 19,
+   "figure": "h-radius-4-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-6",
+   "p": 4,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 7,
+   "figure": "h-colour-4-6.svg"
+  },
+  {
+   "id": "h-radius-4-6-quadratic",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 7,
+   "figure": "h-radius-4-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-6-cubic",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 6,
+   "figure": "h-radius-4-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-6-quintic-central",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 5,
+   "figure": "h-radius-4-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-6-quintic-all-four",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 6,
+   "figure": "h-radius-4-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-6-cubic-and-quintic",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 7,
+   "figure": "h-radius-4-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-6-every-term",
+   "p": 4,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 5,
+   "figure": "h-radius-4-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-4-7",
+   "p": 4,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 7,
+   "figure": "h-colour-4-7.svg"
+  },
+  {
+   "id": "h-radius-4-7-quadratic",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 13,
+   "figure": "h-radius-4-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-4-7-cubic",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 13,
+   "figure": "h-radius-4-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-4-7-quintic-central",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 11,
+   "figure": "h-radius-4-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-4-7-quintic-all-four",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 12,
+   "figure": "h-radius-4-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-4-7-cubic-and-quintic",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 12,
+   "figure": "h-radius-4-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-4-7-every-term",
+   "p": 4,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 18,
+   "figure": "h-radius-4-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-1",
+   "p": 5,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-5-1.svg"
+  },
+  {
+   "id": "h-radius-5-1-quadratic",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-5-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-1-cubic",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-5-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-1-quintic-central",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 1,
+   "figure": "h-radius-5-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-1-quintic-all-four",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-5-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-1-cubic-and-quintic",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-5-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-1-every-term",
+   "p": 5,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 2,
+   "figure": "h-radius-5-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-2",
+   "p": 5,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 18,
+   "figure": "h-colour-5-2.svg"
+  },
+  {
+   "id": "h-radius-5-2-quadratic",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 14,
+   "figure": "h-radius-5-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-2-cubic",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 13,
+   "figure": "h-radius-5-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-2-quintic-central",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 17,
+   "figure": "h-radius-5-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-2-quintic-all-four",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 17,
+   "figure": "h-radius-5-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-2-cubic-and-quintic",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 10,
+   "figure": "h-radius-5-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-2-every-term",
+   "p": 5,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 17,
+   "figure": "h-radius-5-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-3",
+   "p": 5,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-5-3.svg"
+  },
+  {
+   "id": "h-radius-5-3-quadratic",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-5-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-3-cubic",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-5-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-3-quintic-central",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-5-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-3-quintic-all-four",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-5-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-3-cubic-and-quintic",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-5-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-3-every-term",
+   "p": 5,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-5-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-4",
+   "p": 5,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 8,
+   "figure": "h-colour-5-4.svg"
+  },
+  {
+   "id": "h-radius-5-4-quadratic",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 19,
+   "figure": "h-radius-5-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-4-cubic",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 17,
+   "figure": "h-radius-5-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-4-quintic-central",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 14,
+   "figure": "h-radius-5-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-4-quintic-all-four",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 17,
+   "figure": "h-radius-5-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-4-cubic-and-quintic",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 8,
+   "figure": "h-radius-5-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-4-every-term",
+   "p": 5,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 18,
+   "figure": "h-radius-5-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-5",
+   "p": 5,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-5-5.svg"
+  },
+  {
+   "id": "h-radius-5-5-quadratic",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-5-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-5-cubic",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-5-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-5-quintic-central",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-5-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-5-quintic-all-four",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-5-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-5-cubic-and-quintic",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-5-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-5-every-term",
+   "p": 5,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-5-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-6",
+   "p": 5,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 8,
+   "figure": "h-colour-5-6.svg"
+  },
+  {
+   "id": "h-radius-5-6-quadratic",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 12,
+   "figure": "h-radius-5-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-6-cubic",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 11,
+   "figure": "h-radius-5-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-6-quintic-central",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 11,
+   "figure": "h-radius-5-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-6-quintic-all-four",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 10,
+   "figure": "h-radius-5-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-6-cubic-and-quintic",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 18,
+   "figure": "h-radius-5-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-6-every-term",
+   "p": 5,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 16,
+   "figure": "h-radius-5-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-5-7",
+   "p": 5,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-5-7.svg"
+  },
+  {
+   "id": "h-radius-5-7-quadratic",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-5-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-5-7-cubic",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-5-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-5-7-quintic-central",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-5-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-5-7-quintic-all-four",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-5-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-5-7-cubic-and-quintic",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-5-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-5-7-every-term",
+   "p": 5,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 0,
+   "figure": "h-radius-5-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-1",
+   "p": 6,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 7,
+   "figure": "h-colour-6-1.svg"
+  },
+  {
+   "id": "h-radius-6-1-quadratic",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 9,
+   "figure": "h-radius-6-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-1-cubic",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 15,
+   "figure": "h-radius-6-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-1-quintic-central",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 15,
+   "figure": "h-radius-6-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-1-quintic-all-four",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 19,
+   "figure": "h-radius-6-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-1-cubic-and-quintic",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 11,
+   "figure": "h-radius-6-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-1-every-term",
+   "p": 6,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 17,
+   "figure": "h-radius-6-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-2",
+   "p": 6,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 4,
+   "figure": "h-colour-6-2.svg"
+  },
+  {
+   "id": "h-radius-6-2-quadratic",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 9,
+   "figure": "h-radius-6-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-2-cubic",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 8,
+   "figure": "h-radius-6-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-2-quintic-central",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 10,
+   "figure": "h-radius-6-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-2-quintic-all-four",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 10,
+   "figure": "h-radius-6-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-2-cubic-and-quintic",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 8,
+   "figure": "h-radius-6-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-2-every-term",
+   "p": 6,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 11,
+   "figure": "h-radius-6-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-3",
+   "p": 6,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 12,
+   "figure": "h-colour-6-3.svg"
+  },
+  {
+   "id": "h-radius-6-3-quadratic",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 17,
+   "figure": "h-radius-6-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-3-cubic",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 13,
+   "figure": "h-radius-6-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-3-quintic-central",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 14,
+   "figure": "h-radius-6-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-3-quintic-all-four",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 12,
+   "figure": "h-radius-6-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-3-cubic-and-quintic",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 11,
+   "figure": "h-radius-6-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-3-every-term",
+   "p": 6,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 7,
+   "figure": "h-radius-6-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-4",
+   "p": 6,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 6,
+   "figure": "h-colour-6-4.svg"
+  },
+  {
+   "id": "h-radius-6-4-quadratic",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 8,
+   "figure": "h-radius-6-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-4-cubic",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 10,
+   "figure": "h-radius-6-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-4-quintic-central",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 10,
+   "figure": "h-radius-6-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-4-quintic-all-four",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 2,
+   "figure": "h-radius-6-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-4-cubic-and-quintic",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 4,
+   "figure": "h-radius-6-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-4-every-term",
+   "p": 6,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 8,
+   "figure": "h-radius-6-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-5",
+   "p": 6,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 3,
+   "figure": "h-colour-6-5.svg"
+  },
+  {
+   "id": "h-radius-6-5-quadratic",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 14,
+   "figure": "h-radius-6-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-5-cubic",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 16,
+   "figure": "h-radius-6-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-5-quintic-central",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 6,
+   "figure": "h-radius-6-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-5-quintic-all-four",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 16,
+   "figure": "h-radius-6-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-5-cubic-and-quintic",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 12,
+   "figure": "h-radius-6-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-5-every-term",
+   "p": 6,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 15,
+   "figure": "h-radius-6-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-6",
+   "p": 6,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 4,
+   "figure": "h-colour-6-6.svg"
+  },
+  {
+   "id": "h-radius-6-6-quadratic",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 6,
+   "figure": "h-radius-6-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-6-cubic",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 4,
+   "figure": "h-radius-6-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-6-quintic-central",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 9,
+   "figure": "h-radius-6-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-6-quintic-all-four",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 2,
+   "figure": "h-radius-6-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-6-cubic-and-quintic",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 4,
+   "figure": "h-radius-6-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-6-every-term",
+   "p": 6,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 6,
+   "figure": "h-radius-6-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-6-7",
+   "p": 6,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 16,
+   "figure": "h-colour-6-7.svg"
+  },
+  {
+   "id": "h-radius-6-7-quadratic",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 5,
+   "figure": "h-radius-6-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-6-7-cubic",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 10,
+   "figure": "h-radius-6-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-6-7-quintic-central",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 11,
+   "figure": "h-radius-6-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-6-7-quintic-all-four",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 15,
+   "figure": "h-radius-6-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-6-7-cubic-and-quintic",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 15,
+   "figure": "h-radius-6-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-6-7-every-term",
+   "p": 6,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 11,
+   "figure": "h-radius-6-7-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-1",
+   "p": 7,
+   "q": 1,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-7-1.svg"
+  },
+  {
+   "id": "h-radius-7-1-quadratic",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-7-1-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-1-cubic",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 1,
+   "figure": "h-radius-7-1-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-1-quintic-central",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-7-1-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-1-quintic-all-four",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 1,
+   "figure": "h-radius-7-1-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-1-cubic-and-quintic",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 1,
+   "figure": "h-radius-7-1-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-1-every-term",
+   "p": 7,
+   "q": 1,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 3,
+   "figure": "h-radius-7-1-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-2",
+   "p": 7,
+   "q": 2,
+   "use": "colour",
+   "block": "none",
+   "crossings": 15,
+   "figure": "h-colour-7-2.svg"
+  },
+  {
+   "id": "h-radius-7-2-quadratic",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 16,
+   "figure": "h-radius-7-2-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-2-cubic",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 7,
+   "figure": "h-radius-7-2-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-2-quintic-central",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 14,
+   "figure": "h-radius-7-2-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-2-quintic-all-four",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 18,
+   "figure": "h-radius-7-2-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-2-cubic-and-quintic",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 10,
+   "figure": "h-radius-7-2-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-2-every-term",
+   "p": 7,
+   "q": 2,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 22,
+   "figure": "h-radius-7-2-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-3",
+   "p": 7,
+   "q": 3,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-7-3.svg"
+  },
+  {
+   "id": "h-radius-7-3-quadratic",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-7-3-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-3-cubic",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-7-3-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-3-quintic-central",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-7-3-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-3-quintic-all-four",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-7-3-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-3-cubic-and-quintic",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-7-3-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-3-every-term",
+   "p": 7,
+   "q": 3,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-7-3-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-4",
+   "p": 7,
+   "q": 4,
+   "use": "colour",
+   "block": "none",
+   "crossings": 11,
+   "figure": "h-colour-7-4.svg"
+  },
+  {
+   "id": "h-radius-7-4-quadratic",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 13,
+   "figure": "h-radius-7-4-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-4-cubic",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 17,
+   "figure": "h-radius-7-4-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-4-quintic-central",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 16,
+   "figure": "h-radius-7-4-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-4-quintic-all-four",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 10,
+   "figure": "h-radius-7-4-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-4-cubic-and-quintic",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 14,
+   "figure": "h-radius-7-4-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-4-every-term",
+   "p": 7,
+   "q": 4,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 11,
+   "figure": "h-radius-7-4-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-5",
+   "p": 7,
+   "q": 5,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-7-5.svg"
+  },
+  {
+   "id": "h-radius-7-5-quadratic",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-7-5-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-5-cubic",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-7-5-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-5-quintic-central",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-7-5-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-5-quintic-all-four",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-7-5-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-5-cubic-and-quintic",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-7-5-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-5-every-term",
+   "p": 7,
+   "q": 5,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 1,
+   "figure": "h-radius-7-5-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-6",
+   "p": 7,
+   "q": 6,
+   "use": "colour",
+   "block": "none",
+   "crossings": 12,
+   "figure": "h-colour-7-6.svg"
+  },
+  {
+   "id": "h-radius-7-6-quadratic",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 12,
+   "figure": "h-radius-7-6-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-6-cubic",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 8,
+   "figure": "h-radius-7-6-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-6-quintic-central",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 16,
+   "figure": "h-radius-7-6-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-6-quintic-all-four",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 7,
+   "figure": "h-radius-7-6-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-6-cubic-and-quintic",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 10,
+   "figure": "h-radius-7-6-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-6-every-term",
+   "p": 7,
+   "q": 6,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 13,
+   "figure": "h-radius-7-6-every-term.svg"
+  },
+  {
+   "id": "h-colour-7-7",
+   "p": 7,
+   "q": 7,
+   "use": "colour",
+   "block": "none",
+   "crossings": 0,
+   "figure": "h-colour-7-7.svg"
+  },
+  {
+   "id": "h-radius-7-7-quadratic",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "quadratic",
+   "crossings": 0,
+   "figure": "h-radius-7-7-quadratic.svg"
+  },
+  {
+   "id": "h-radius-7-7-cubic",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic",
+   "crossings": 0,
+   "figure": "h-radius-7-7-cubic.svg"
+  },
+  {
+   "id": "h-radius-7-7-quintic-central",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-central",
+   "crossings": 0,
+   "figure": "h-radius-7-7-quintic-central.svg"
+  },
+  {
+   "id": "h-radius-7-7-quintic-all-four",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "quintic-all-four",
+   "crossings": 0,
+   "figure": "h-radius-7-7-quintic-all-four.svg"
+  },
+  {
+   "id": "h-radius-7-7-cubic-and-quintic",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "cubic-and-quintic",
+   "crossings": 0,
+   "figure": "h-radius-7-7-cubic-and-quintic.svg"
+  },
+  {
+   "id": "h-radius-7-7-every-term",
+   "p": 7,
+   "q": 7,
+   "use": "radius",
+   "block": "every-term",
+   "crossings": 0,
+   "figure": "h-radius-7-7-every-term.svg"
+  }
+ ]
+}

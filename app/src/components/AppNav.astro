@@ -19,6 +19,8 @@ const items = [
   { href: "/figures", label: "every curve" },
   { href: "/finder", label: "the curve finder" },
   { href: "/sandbox", label: "the sandboxes" },
+  { href: "/prime-mover", label: "the prime mover" },
+  { href: "/hybrids", label: "the hybrid desk" },
   { href: "/roots", label: "the root lab" },
   { href: "/bezier", label: "the Bézier knots" },
   { href: "/everything", label: "everything else" },
@@ -28,18 +30,33 @@ const atHome = path === "/";
 ---
 <a class="skip-link" href="#main">skip to the content</a>
 <header class="site-header">
-  <div class="bar">
+  <div class="title-row">
     {atHome
       ? <span class="brand" aria-current="page">curve-lab</span>
       : <a class="brand" href="/">curve-lab</a>}
     <span class="draft" title="the working draft, not a published edition">draft A</span>
     <span class="page-title">this page is <strong>{title}</strong></span>
   </div>
-  <nav class="site-menu" aria-label="Main">
-    <ul>
-      {items.filter((item) => !isCurrent(item.href)).map((item) => (
-        <li><a href={item.href}>{item.label}</a></li>
-      ))}
-    </ul>
-  </nav>
+  <div class="options">
+    <nav class="site-menu" aria-label="Main">
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="menu-panel">full menu</button>
+      <ul class="menu-line">
+        {items.filter((item) => !isCurrent(item.href)).map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+      <button type="button" class="menu-more" aria-expanded="false" aria-controls="menu-panel" hidden
+              aria-label="more options">…</button>
+      <div class="menu-panel" id="menu-panel" hidden>
+        <ul>
+          {items.map((item) => (
+            <li>{isCurrent(item.href)
+              ? <span aria-current="page">{item.label}</span>
+              : <a href={item.href}>{item.label}</a>}</li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  </div>
 </header>
+<script>import "../scripts/menu.js";</script>

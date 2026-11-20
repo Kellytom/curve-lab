@@ -1,0 +1,2376 @@
+{
+ "format": "curve-lab.hybrid-sheets/1",
+ "parameter": "t = u/(1-|u|), u = i/100, i = -99..99",
+ "powers": 7,
+ "blocks": [
+  "quadratic",
+  "cubic",
+  "quintic central",
+  "quintic all four",
+  "cubic + quintic",
+  "every term"
+ ],
+ "sheets": [
+  "colour.svg",
+  "radius-1-quadratic.svg",
+  "radius-2-cubic.svg",
+  "radius-3-quintic-central.svg",
+  "radius-4-quintic-all-four.svg",
+  "radius-5-cubic-and-quintic.svg",
+  "radius-6-every-term.svg"
+ ],
+ "candidates": [
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 2,
+   "crossings": 12
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 6,
+   "crossings": 22
+  },
+  {
+   "use": "colour",
+   "p": 1,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 1,
+   "crossings": 16
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 2,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 3,
+   "crossings": 10
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 4,
+   "crossings": 3
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 5,
+   "crossings": 13
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 6,
+   "crossings": 6
+  },
+  {
+   "use": "colour",
+   "p": 2,
+   "q": 7,
+   "crossings": 10
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 2,
+   "crossings": 18
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 4,
+   "crossings": 12
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 6,
+   "crossings": 9
+  },
+  {
+   "use": "colour",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 1,
+   "crossings": 12
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 2,
+   "crossings": 3
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 3,
+   "crossings": 16
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 5,
+   "crossings": 17
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 6,
+   "crossings": 7
+  },
+  {
+   "use": "colour",
+   "p": 4,
+   "q": 7,
+   "crossings": 7
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 2,
+   "crossings": 18
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 4,
+   "crossings": 8
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 6,
+   "crossings": 8
+  },
+  {
+   "use": "colour",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 1,
+   "crossings": 7
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 2,
+   "crossings": 4
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 3,
+   "crossings": 12
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 4,
+   "crossings": 6
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 5,
+   "crossings": 3
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 6,
+   "crossings": 4
+  },
+  {
+   "use": "colour",
+   "p": 6,
+   "q": 7,
+   "crossings": 16
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 2,
+   "crossings": 15
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 4,
+   "crossings": 11
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 6,
+   "crossings": 12
+  },
+  {
+   "use": "colour",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 2,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 4,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 6,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 1,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 1,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 2,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 3,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 5,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 6,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 2,
+   "q": 7,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 2,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 6,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 1,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 2,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 3,
+   "crossings": 21
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 4,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 5,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 6,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 4,
+   "q": 7,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 2,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 4,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 6,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 1,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 2,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 3,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 4,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 5,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 6,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 6,
+   "q": 7,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 2,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 4,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 6,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quadratic",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 2,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 4,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 6,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 1,
+   "q": 7,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 1,
+   "crossings": 23
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 2,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 3,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 4,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 5,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 6,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 2,
+   "q": 7,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 2,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 6,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 1,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 2,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 3,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 4,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 5,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 6,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 4,
+   "q": 7,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 2,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 4,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 6,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 3,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 5,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 6,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 6,
+   "q": 7,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 2,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 4,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 6,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "cubic",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 2,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 4,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 6,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 1,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 1,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 2,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 3,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 4,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 5,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 6,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 2,
+   "q": 7,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 2,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 4,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 6,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 1,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 2,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 3,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 5,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 6,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 4,
+   "q": 7,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 2,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 4,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 6,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 2,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 3,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 5,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 6,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 6,
+   "q": 7,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 1,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 2,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 4,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 6,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "quintic central",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 2,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 4,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 6,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 1,
+   "q": 7,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 3,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 4,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 5,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 6,
+   "crossings": 3
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 2,
+   "q": 7,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 2,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 4,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 6,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 1,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 3,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 4,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 5,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 6,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 4,
+   "q": 7,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 2,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 4,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 6,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 1,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 2,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 3,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 4,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 5,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 6,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 6,
+   "q": 7,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 2,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 4,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 6,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "quintic all four",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 1,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 2,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 3,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 4,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 6,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 1,
+   "q": 7,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 2,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 3,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 4,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 5,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 6,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 2,
+   "q": 7,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 2,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 4,
+   "crossings": 9
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 6,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 3,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 2,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 3,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 4,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 5,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 6,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 4,
+   "q": 7,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 2,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 4,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 6,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 1,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 3,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 4,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 5,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 6,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 6,
+   "q": 7,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 1,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 2,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 3,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 4,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 5,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 6,
+   "crossings": 10
+  },
+  {
+   "use": "radius",
+   "block": "cubic + quintic",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 1,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 2,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 3,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 4,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 5,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 6,
+   "crossings": 14
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 1,
+   "q": 7,
+   "crossings": 3
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 1,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 3,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 4,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 5,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 6,
+   "crossings": 4
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 2,
+   "q": 7,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 1,
+   "crossings": 3
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 2,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 3,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 4,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 6,
+   "crossings": 20
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 3,
+   "q": 7,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 1,
+   "crossings": 12
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 2,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 3,
+   "crossings": 20
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 4,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 5,
+   "crossings": 19
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 6,
+   "crossings": 5
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 4,
+   "q": 7,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 1,
+   "crossings": 2
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 2,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 4,
+   "crossings": 18
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 6,
+   "crossings": 16
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 5,
+   "q": 7,
+   "crossings": 0
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 1,
+   "crossings": 17
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 2,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 3,
+   "crossings": 7
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 4,
+   "crossings": 8
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 5,
+   "crossings": 15
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 6,
+   "crossings": 6
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 6,
+   "q": 7,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 1,
+   "crossings": 3
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 2,
+   "crossings": 22
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 3,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 4,
+   "crossings": 11
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 5,
+   "crossings": 1
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 6,
+   "crossings": 13
+  },
+  {
+   "use": "radius",
+   "block": "every term",
+   "p": 7,
+   "q": 7,
+   "crossings": 0
+  }
+ ]
+}

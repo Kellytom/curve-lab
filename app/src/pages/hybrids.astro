@@ -1,0 +1,79 @@
+---
+// The hybrid desk: one card per candidate of x = C(t)^p, y = S(t)^q, with an explicit
+// keep / later / reject decision saved to the database. Spec: state/SPEC-hybrids-int.md
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+
+const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "hybrids.json"), "utf8"));
+const candidates = data.candidates || [];
+const bySheet = new Map();
+for (const candidate of candidates) {
+  const sheet = candidate.use === "colour" ? "colour" : candidate.block;
+  if (!bySheet.has(sheet)) bySheet.set(sheet, []);
+  bySheet.get(sheet).push(candidate);
+}
+const groups = [...bySheet.entries()];
+---
+
+<BaseLayout title="the hybrid desk" pageTitle="The hybrid desk">
+  <p class="lead">
+    Every candidate of <code>x = C(t)<sup>p</sup></code>, <code>y = S(t)<sup>q</sup></code>,
+    with the middle-term polynomial of <code>(x + y)<sup>n</sup></code> used in 2D: as a tint
+    (<b>colour</b>) or as a radial scale (<b>radius</b>). One decision each — keep, later or
+    reject — saved to the database. Nothing is deleted here.
+  </p>
+  <p id="hybrids-counts" class="hybrids-counts" aria-live="polite">
+    {candidates.length} candidates · decisions load in a moment
+  </p>
+
+  {groups.map(([sheet, rows]) => (
+    <section class="hybrids-section">
+      <h2>{sheet === "colour" ? "colour use — the 49 shapes" : `radius use — ${sheet}`}</h2>
+      <div class="hybrids-grid">
+        {rows.map((row) => (
+          <article class="hybrid-card" data-name={row.id} data-decision="">
+            <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} loading="lazy" width="220" height="220" />
+            <p class="hybrid-id"><code>{row.id}</code></p>
+            <p class="hybrid-num">{row.crossings} crossing pairs · p {row.p}, q {row.q}</p>
+            <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
+              <button type="button" data-decision="keep">keep</button>
+              <button type="button" data-decision="later">later</button>
+              <button type="button" data-decision="reject">reject</button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <p class="hybrids-foot">
+    Stations are one pass of the rational circle, <code>t = u/(1 − |u|)</code> with
+    <code>u = i/100</code> — exact fractions, no sin, no cos. The join between stations is
+    a straight line. Crossing counts come from the generator (<code>scripts/hybrid_figures.py</code>),
+    not from this page.
+  </p>
+  <script>
+    import "../scripts/hybrids.js";
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .hybrids-counts { font: 15px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; margin: 6px 0 18px; }
+  .hybrids-section h2 { font-size: 18px; margin: 26px 0 10px; }
+  .hybrids-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .hybrid-card { border: 1px solid #e6dccb; background: #fffef9; padding: 8px; margin: 0; }
+  .hybrid-card img { width: 100%; height: auto; display: block; background: #fffef9; }
+  .hybrid-id { margin: 6px 0 0; font-size: 13px; }
+  .hybrid-num { margin: 2px 0 6px; font-size: 13px; color: #7a6a55; }
+  .hybrid-actions { display: flex; gap: 6px; }
+  .hybrid-actions button { flex: 1; padding: 4px 6px; font-size: 14px; margin: 0; }
+  .hybrid-card[data-decision="keep"] { border-color: #2f6f3a; box-shadow: inset 0 0 0 2px #2f6f3a22; }
+  .hybrid-card[data-decision="later"] { border-color: #b8860b; }
+  .hybrid-card[data-decision="reject"] { opacity: .55; border-color: #a8341f; }
+  .hybrid-card[data-decision="keep"] [data-decision="keep"],
+  .hybrid-card[data-decision="later"] [data-decision="later"],
+  .hybrid-card[data-decision="reject"] [data-decision="reject"] { font-weight: 700; }
+  .hybrids-foot { font-size: 15px; color: #5a4a36; margin-top: 24px; }
+</style>
