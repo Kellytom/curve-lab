@@ -21,7 +21,7 @@ const groups = [...bySheet.entries()];
   <p class="lead">
     Every candidate of <code>x = C(t)<sup>p</sup></code>, <code>y = S(t)<sup>q</sup></code>,
     with the middle-term polynomial of <code>(x + y)<sup>n</sup></code> used in 2D: as a tint
-    (<b>colour</b>) or as a radial scale (<b>radius</b>). One decision each — keep, later or
+    (<b>colour</b>) or as a radial scale (<b>radius</b>). One decision each — Save, move to notes or
     reject — saved to the database. Nothing is deleted here.
   </p>
   <p id="hybrids-counts" class="hybrids-counts" aria-live="polite">
@@ -34,8 +34,7 @@ const groups = [...bySheet.entries()];
       <div class="hybrids-grid">
         {rows.map((row) => (
           <article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0">
-            <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="220" height="220" />
-            <p class="hybrid-id"><code>{row.id}</code></p>
+            <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
             <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
               placeholder={`hybrid-${row.p}-${row.q}-${row.use === "colour" ? "colour" : `${row.block}-${row.use}`}`} />
             <span class="hybrid-flag"></span>
@@ -75,9 +74,9 @@ const groups = [...bySheet.entries()];
 <style is:global>
   .hybrids-counts { font: 15px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; margin: 6px 0 18px; }
   .hybrids-section h2 { font-size: 18px; margin: 26px 0 10px; }
-  .hybrids-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .hybrids-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 14px; }
   .hybrid-card { border: 1px solid #e6dccb; background: #fffef9; padding: 8px; margin: 0; }
-  .hybrid-card img { width: 100%; height: auto; display: block; background: #fffef9; }
+  .hybrid-card img { width: 100%; height: 300px; object-fit: contain; display: block; background: #fffef9; }
   .hybrid-id { margin: 6px 0 2px; font-size: 13px; }
   .hybrid-name { margin: 0 0 2px; padding: 3px 6px; font: 13px/1.3 ui-monospace, Menlo, monospace; width: 100%; }
   .hybrid-flag { display: block; min-height: 14px; font: 11px/1.3 ui-monospace, Menlo, monospace; color: #8c6a21; margin: 0 0 4px; }

@@ -30,7 +30,7 @@ for (const row of data.candidates) {
     stations: [],
     bounds: [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)],
     samples: row.points.length,
-  }, { width: 220 });
+  }, { width: 440 });
   // figureSvg is written for a page (width 100%); a file used by <img> needs its own
   // intrinsic size, so the viewBox numbers become width and height.
   const [, , vw, vh] = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/).length === 4

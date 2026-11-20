@@ -1,6 +1,6 @@
 {
  "format": "curve-lab.sandbox-curves/1",
- "written": "2026-11-20T15:16:53.054Z",
+ "written": "2026-11-20T15:22:35.973Z",
  "about": "One object per SandboxCurve row. `name` is the key; `decision` is keep, later or reject; the rest is whatever the page that saved it wrote.",
  "fields": {
   "name": "the record's key, e.g. h-radius-3-4-quadratic",
