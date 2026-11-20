@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import character_search as cs  # noqa: E402
+from diagonal_crossings import crossings_via_sin2 as diagonal_crossings  # noqa: E402
 
 CANDIDATES = ROOT / "workbench" / "hybrids.json"
 DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
@@ -76,48 +77,54 @@ def points_for(candidate):
     return out
 
 
-def runs_at_diagonal(points):
-    """every arc of the closed polygon between two crossings of y = x.
+def point_at(t, candidate):
+    """the drawn point at parameter t, exactly as the curve is drawn (radial scale included)."""
+    C = (1 - t * t) / (1 + t * t)
+    S = 2 * t / (1 + t * t)
+    x, y = C ** candidate["p"], S ** candidate["q"]
+    if candidate["use"] == "radius":
+        P = x * x + y * y
+        for coefficient, ix, iy in BLOCKS.get(candidate["block"], []):
+            P += coefficient * (x ** ix) * (y ** iy)
+        x, y = x * P, y * P
+    return (x, y)
 
-    A wonk may cross the 45° line many times, so there may be more than two pieces. Each
-    piece stays on one side of the line and stops at the crossings either side of it; the
-    side decides the label, NW (y > x) or SE (y < x).
+
+def runs_at_diagonal(points, roots, candidate):
+    """the arcs between the solved crossings of y = x.
+
+    The crossings come from the equation (scripts/diagonal_crossings.py), not from walking the
+    polygon: their number is the number of pieces. Each arc runs from one crossing to the next
+    and stops there.
     """
+    if len(roots) < 2:
+        return []
+    # where each root falls in the sampled polygon: t → u = t/(1+|t|) → station index
+    marks = []
+    for root in roots:
+        u = root / (1 + abs(root))
+        index = min(len(points) - 2, max(0, int(round((u + 1) * N))))
+        marks.append((index, point_at(root, candidate)))
+    marks.sort()
+    indices = [index for index, _ in marks]
+    if len(set(indices)) < 2:
+        return []
+
     closed = list(points)
     if closed[0] != closed[-1]:
         closed.append(closed[0])
 
-    crossings = []                     # (index of the point AFTER the crossing, point)
-    for i, ((x0, y0), (x1, y1)) in enumerate(zip(closed, closed[1:])):
-        d0, d1 = y0 - x0, y1 - x1
-        if (d0 >= 0) != (d1 >= 0):
-            t = d0 / (d0 - d1) if d0 != d1 else 0.0
-            crossings.append((i + 1, (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t)))
-    if len(crossings) < 2:
-        return []
-
-    # start the walk at the first crossing, so every piece begins and ends at a cut
-    i0, start_point = crossings[0]
-    rotated = [start_point] + closed[i0:] + closed[:i0] + [start_point]
-
-    runs = []
-    current = [start_point]
-    for (x0, y0), (x1, y1) in zip(rotated, rotated[1:]):
-        d0, d1 = y0 - x0, y1 - x1
-        current.append((x1, y1))
-        if (d0 >= 0) != (d1 >= 0):
-            runs.append(current)
-            current = [(x1, y1)]
-    if len(current) > 2:
-        runs.append(current)
-
     out = []
-    for run in runs:
-        if len(run) < 3:
+    for k, (start, start_point) in enumerate(marks):
+        end, end_point = marks[(k + 1) % len(marks)]
+        middle = closed[start + 1:end] if end > start else closed[start + 1:] + closed[:end]
+        # the arc ends exactly on the line: the solved crossing point, then the stations
+        arc = [start_point] + middle + [end_point]
+        if len(arc) < 3:
             continue
-        mid = run[len(run) // 2]
+        mid = arc[len(arc) // 2]
         side = "NW" if mid[1] > mid[0] else "SE"
-        out.append((side, run))
+        out.append((side, arc))
     return out
 
 
@@ -141,7 +148,7 @@ def main(argv=None) -> int:
     out = []
     for name, candidate in wonks:
         points = points_for(candidate)
-        runs = runs_at_diagonal(points)
+        runs = runs_at_diagonal(points, diagonal_crossings(candidate["p"], candidate["q"]), candidate)
         counters = {"NW": 0, "SE": 0}
         for side, part in runs:
             if len(part) < 4:

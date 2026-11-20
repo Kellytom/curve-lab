@@ -228,3 +228,19 @@ A wonk crosses `y = x` several times, so the cut gives **4, 6 or 8 pieces**, not
 140 wonkies from the 28 wonks. Each piece stays on one side of the line, is labelled
 `NW-n` (above) or `SE-n` (below), and **stops at the cut** — the ends sit on `y = x`, where
 the mirror is the point itself. The double is a piece mirrored across the line.
+
+## Solving y = x, not scanning it
+
+The crossing is solved from the equation. With `s = sin²θ`, `y = x` is
+
+```
+(1 − s)^p = s^q        degree max(p, q), not 2p + 2q
+```
+
+and each root gives four angles; the ones where `cos^pθ` and `sin^qθ` share a sign are the
+crossings. The parameter follows from `t = tan(θ/2) = sinθ / (1 + cosθ)`.
+
+`scripts/diagonal_crossings.py` does this with a Sturm sequence and bisection, and its
+`crossings_via_sin2` agrees exactly with the direct 2p+2q polynomial on every pair checked
+(`(2,2)`, `(3,3)`, `(1,3)`, `(3,4)`, `(5,5)`). No polygon is walked to find a cut; the
+polygon is only split at the solved values. The wonks have two crossings each, so two pieces.
