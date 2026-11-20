@@ -50,7 +50,7 @@
   "sandbox-curves.json": {
    "format": "curve-lab.data.sandbox-curves/1",
    "kind": "array",
-   "count": 142,
+   "count": 144,
    "fields": {
     "name": "string",
     "data": "string",
