@@ -3,6 +3,7 @@
 
 import { z } from "zod";
 import { prisma } from "../../lib/db.js";
+import { exportTable } from "../../lib/data-export.js";
 
 const Curve = z.object({ name: z.string().min(1).max(120) }).passthrough();
 const Payload = z.object({ curves: z.array(Curve).min(1) });
@@ -27,7 +28,15 @@ export const POST = async ({ request }) => {
       create: { name: curve.name, data: JSON.stringify(curve) },
       update: { data: JSON.stringify(curve) },
     })));
-    return json({ saved: curves.length });
+    // The visible record: a save writes data/sandbox-curves.json too. If the
+    // write fails the save still stands, but the response says so.
+    let warning;
+    try {
+      await exportTable("sandbox-curves");
+    } catch (error) {
+      warning = `saved, but the JSON copy is stale: ${String(error.message || error)}`;
+    }
+    return json({ saved: curves.length, ...(warning ? { warning } : {}) });
   } catch (error) {
     return json({ error: String(error.message || error) }, 400);
   }

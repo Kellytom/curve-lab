@@ -3,6 +3,7 @@
 // The logic is src/lib/stars.js so a Next or Hono route can reuse it.
 
 import { readStars, saveStars } from "../../lib/stars.js";
+import { exportTable } from "../../lib/data-export.js";
 
 export const GET = async () => {
   try {
@@ -18,7 +19,13 @@ export const POST = async ({ request }) => {
   try {
     const payload = await request.json();
     const result = await saveStars(payload, process.env.CURVE_LAB_ROOT || process.cwd());
-    return new Response(JSON.stringify(result), {
+    let warning;
+    try {
+      await exportTable("stars");
+    } catch (error) {
+      warning = `saved, but the JSON copy is stale: ${String(error.message || error)}`;
+    }
+    return new Response(JSON.stringify({ ...result, ...(warning ? { warning } : {}) }), {
       status: 200,
       headers: { "content-type": "application/json" },
     });

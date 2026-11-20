@@ -843,12 +843,51 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
+- **No complex steps, ever.** They import a length that is not a ratio (`2 + i`
+  has length √5), and that length stays in every position afterwards. Use
+  p-triples: `(3, 4, 5)` turns by a rational angle and keeps the length whole. The
+  rule, the reason, the replacement vocabulary and the conversion recipe are in
+  `state/EXACT-NUMBERS-int.md`; `scripts/check_no_imaginaries.py` fails the push
+  if one gets back into the pages or their scripts.
 - **A `cos` or `sin` of a general angle is a red flag, not a style choice.** It
   is irrational and leaves the integer grid for good. Use a rational point of the
   circle (a `p`-triple, or `t = tan(θ/2)` with rational `t`); if a figure was
   sampled with real trig, its caption says "sampled" and it claims no exactness.
   Reason and examples: `state/DESIGN-int.md` §Trigonometry.
 
+- **Every reply ends with the link to click.** Put the page URL and any file the
+  work produced on their own lines, plainly, so the operator can ctrl-shift-click
+  them: `http://127.0.0.1:4321/prime-mover/`, `workbench/walk-curves.svg`. No
+  hunting, no "it is in the repo somewhere". This is not optional.
+- **Never open a page for the operator.** Do not run `open`, do not launch a tab,
+  do not add a browser window. Give the link as plain text in the reply; the
+  operator opens it with ctrl-shift-click when they want it. Opening a page while
+  they are typing steals the focus, and repeated opens leave duplicate tabs.
+- **Two specs per page: clean and problems.** Before building or changing a page,
+  write `state/SPEC-<page>-int.md` — the clean description: what it is for, the
+  words it owns, the layout, and the rules, each with a check that can fail. Work
+  from that file, and update it in the same commit as the page; if the page and the
+  clean spec disagree, the page is wrong. Every fault that page has had — the
+  operator's words, what was actually wrong, the fix, and the guard — goes in
+  `state/PROBLEMS-<page>-int.md`, never in the clean spec. Examples:
+  `state/SPEC-prime-mover-int.md` and `state/PROBLEMS-prime-mover-int.md`.
+- **Curves, not jagged lines.** A plotted sequence is drawn as a smooth curve: join
+  the exact stations with a **cubic Bézier chain** (Catmull-Rom through the points),
+  never straight segments. The stations stay exact; the drawing between them is
+  **approximate**, and the figure says so in its title or legend. A zigzag through
+  correct points is still a wrong picture.
+- **Before a new page, read the last spec.** Open the previous page's clean spec
+  and its problems file before writing the new spec. Carry forward every invariant
+  that applies — exact ratios, no decoration on a reference circle, named axes, a
+  figure that fits its own frame, no dead controls — and say in the new spec which
+  ones are inherited. A new page starts from the last page's lessons, not from a
+  blank sheet.
+- **Patch a line; rewrite a structure.** String replacement is for one-line
+  fixes with unique context. When a change moves code, renames a concept or
+  touches several places, rewrite the file in one pass. Patching by strings is
+  how `input_left()` came to return a constant, three checkboxes came to be wired
+  to nothing, and comments came to describe code that had moved. Check behaviour
+  (alternation, row counts, exact values), never the strings you typed.
 - One task at a time, at the scope the operator set; verify, commit, stop.
 - **A page carries no rules.** Its `<script>` is one import; logic lives in
   `app/src/scripts/` (linted) or `app/src/lib/` (linted and tested). A rule that
@@ -882,7 +921,21 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   If the engine rejects one, say so at once and start a fresh session instead
   of retrying in place.
 
+## Layout
+
+- **Every page carries the same margin**, set once in `app/public/vendor/app-shell.css`
+  (`main { max-width: 1180px; margin-inline: auto; padding: 0 1.25rem 3.5rem }`). A
+  page does not invent its own.
+- **A panel of large numbers scrolls, it never widens the page.** Raw tables belong at
+  the foot of the page: exact numbers are evidence, not the reading order.
+
 ## Figures
+
+- **Name the geometric object first.** Before drawing, say what the figure is — a
+  circle and its centre, a congruence, a rotation, an orbit — and check it against
+  `state/GEOMETRY-int.md` (Euclid I.4, I.47, III.20; reflection keeps the radius;
+  two reflections make one rotation). A figure that cannot be named is not ready.
+
 
 - Label every figure **inside the figure**, not only in a caption: a figure
   number or letter (for example `Fig. 1`, `Fig. C1`, `Fig. G1`), a title naming
@@ -958,6 +1011,11 @@ process to satisfy.
     loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
 14. **A loop runs once per change.** Re-running to confirm is waste; a second
     run needs a change and a reason.
+15. **Patch a line; rewrite a structure.** A string replacement sees only its own
+    anchor, so a rename or a move leaves dead helpers, dead controls and false
+    comments behind — `input_left()` returning a constant, a checkbox wired to
+    nothing. One line: patch. Anything structural: rewrite the file in one pass,
+    then check behaviour (colours, rows, counts), not the strings you typed.
 
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault
@@ -3842,6 +3900,34 @@ not just md?" — and "i consider typescript a BIG framework. but do it".
   no longer be hidden by yesterday's text.
 - The rule behind all of it: **a rule that cannot fail a command is a wish.**
 
+## Naming: quadrature, rotation, phasor — 2026-11-19
+
+Settled by the operator: these numbers are not "imaginary", and the term is
+banned from new prose and code. "Euler transform" was proposed and refused: it is
+already a series transform in combinatorics, and "Euler angles" are a different
+(3D) rotation convention, so it would add confusion rather than remove it.
+
+The field's words, and the ones to use here:
+
+- **complex number** — the numbers themselves (`a + bi`). Standard, neutral.
+- **Gaussian rational** — a complex number with rational parts; **Gaussian
+  integer** when both parts are whole. This is the object the project uses.
+- **Gaussian rotation** (or **unit complex multiplication**) — multiplying by a
+  unit Gaussian rational, i.e. a rotation by a rational angle. A p-triple is its
+  integer generator.
+- **quarter turn** — the 90° case, `× i` or `× (−i)`. Fully integer, closes in
+  four steps.
+- **quadrature component** — the part 90° out of phase (the engineering term, as
+  in I/Q signals). Use it where "the imaginary part" was meant as "the component
+  at a right angle".
+- **phasor** — a unit complex number read as amplitude and phase. Use it for the
+  prime mover travelling the circle, and for the pendulum stack, where the field
+  already says "phasor" for exactly that.
+
+The physical reading is worth keeping in the prose: a rotation is a rotation, the
+circle is a circle, and the 90° part is a quadrature. Nothing in the geometry is
+hypothetical.
+
 ## The prime mover, and who owns git — 2026-11-19
 
 - **Curves may be driven by a circle, not a linear t.** The operator's reframing
@@ -3872,6 +3958,45 @@ Settled by the operator after the naming loss and the desk save that never ran.
   restore`. WAL is on.
 - **The user directory is not public.** It is the one store deliberately kept
   out of GitHub.
+
+
+## 2026-11-19 — the prime mover's method: remove the blind part, then station by the circle
+
+Settled, with the reasons, so the argument is not had twice.
+
+**1. A curve's circular part is invisible to a walk on the circle.** On any point with
+`x² + y² = 1`, every term `c(x² + y²)` is the constant `c`. So an equation's circular part
+cannot show up in a figure drawn on the walk: the character is the remainder. This is why
+"take the circle out" is a method and not a decoration — it removes exactly the part the
+walk cannot see.
+
+**2. Removing a radial part cannot reshape a parametric curve.** For `x(t), y(t)`, any
+removal acts along the radius, so the direction at each station is unchanged. A figure
+that shows a different outline has changed the direction somewhere, which the circle
+cannot do. The honest reform is therefore a **re-stationing**: `t = Y/(1+X)`, exact and
+rational, so the curve lands on the lattice without a new shape claim.
+
+**3. A rosette from a linkage is exact only when the closure is rational.** Closing a
+four-bar joint is a circle–circle intersection; it is rational exactly when the closure
+quadratic has a rational square discriminant. The parallelogram family satisfies this for
+every rational crank direction; a general Grashof crank-rocker does not, so its figure
+stays sampled and says so.
+
+**4. Every algorithm's figure carries its formula.** A drawing without its equation cannot
+be analysed: the reader cannot tell whether the reform is simpler. This is a rule for the
+page, recorded because the table-only version of Fig. 9 was rejected by the operator.
+
+**5. The reformed curve is stored as a re-stationing, not as `z·(P − C)/P`.** Settled
+2026-11-19, when the row was entered as `c-0272`. The rule in §12 of the spec writes the
+reformed point as `z·(P − C)/P`, but `P = x² + y²` is zero wherever the lace curve passes
+the origin, so that curve has poles there and cannot be a record. The form that can be
+stored is the re-stationing: the *same* curve sampled at `t = Y/(1+X)`, each station an
+exact rational with its own rational point of the circle. Reason: it is the only form of
+the reform that is exact everywhere, and it keeps the honest claim — a radial removal
+cannot bend the curve, so the outline is unchanged. `scripts/circle_split.py`
+(`reformed_record`) derives it, `scripts/add_circle_reform.py` enters it, and
+`tests/test_circle_split.py` checks the row, the note and the drawing against one
+derivation.
 
 
 <!-- source: state/REGRESSIONS-int.md -->
@@ -3933,6 +4058,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
 | 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
 | 35 | 2026-11-19 | "/illuminations is 500" — after the rails and fills, a figure held more points than `Math.min(...xs)` can take, and 238 figures in one request threw `Maximum call stack size exceeded` | `app/scripts/check-pages.mjs` (all 12 pages, 200 and one header) and `state/FRAMES-int.md` for the richer paths | the figure writer's bbox |
+| 36 | 2026-11-19 | "something is broken… you have some restriction making you not do the job" — the grid demo had been patched a dozen times by string replacement: two helpers that only returned `pad`, three checkboxes wired to nothing, a `picked` value written and never read, and comments describing code that had moved | `app/scripts/check-prime-mover-page.mjs` (alternating shapes, exact driver rows, computed guard, wave dot count, no dead controls) | the grid demo page, and the habit that made it |
 
 ## Fixed and measured, but not yet in the fast suite
 
@@ -3958,6 +4084,8 @@ headless browser), so they are named here rather than duplicated:
   nothing to remove.
 - The percentage-of-`t` control added earlier is superseded and inert; the
   markup is gone, the handler remains harmless.
+| 37 | 2026-11-19 | "the gallery is empty" behind a partial figure run: `curve_pngs.mjs --only` wrote `index.json` from the two curves it had drawn, so 270 entries vanished and every other cell lost its figure | `tests/test_regressions.py` (`test_the_figure_index_names_every_registry_curve`: the index names every registry uid) and the merge in `scripts/curve_pngs.mjs` | the figure index |
+| 38 | 2026-11-19 | the exact-linkage test said "no linkage closes rationally" for every link set, including the parallelogram that plainly does | `tests/test_linkage_exact.py` (parallelogram closes at every station; the joint meets both circle conditions; a general crank-rocker does not) | the rosette linkage rule |
 
 
 <!-- source: state/DATA-int.md -->
@@ -3999,6 +4127,27 @@ document it builds) rather than re-stamping by hand, or the next run repeats it.
 on 2026-11-17; their tests compare the written file with the generator, so they
 would fail either way. The other generators are fixed on first failure.
 
+## The visible record: `data/`
+
+SQLite is the source of truth, but a session with no database must read the same
+record. `scripts/export-data.mjs` writes one JSON file per table under `data/`,
+with `data/schema.json` (field → type) and `data/manifest.json` (row count and a
+hash per file). `data/README.md` is the dictionary in plain English: every field,
+its meaning, its unit, who writes it, what reads it, and what is lost without it.
+
+```sh
+PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs           # write
+PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs --check   # fail if stale
+```
+
+The save endpoints (`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call
+the same exporter, so a save writes its file; a save whose file cannot be written
+says so in the response. `scripts/sync-data.sh` stages `data/` on every run.
+`tests/test_data_export.py` fails when a file is stale. Every curve in
+`data/curves.json` carries `formula: {plain, rational, parameter, use, search}`,
+built from the stored rows (`app/src/lib/formula.js`) and checked against a
+numerical integral in `app/tests/formula.test.mjs`.
+
 ## The datasets
 
 Rows are counted by `data_audit.py` (2026-11-17).
@@ -4030,6 +4179,10 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
+| `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/prime_mover_hybrid.mjs` | the `/hybrids` page |
+| `hybrid-candidates.json` | `curve-lab.hybrid-candidates/1` | cache | `scripts/hybrid_candidates.mjs` | `scripts/hybrid_rank.py` |
+| `hybrid-formulas.json` | `curve-lab.hybrid-formulas/1` | cache | `scripts/hybrid_formulas.py` | `scripts/hybrid_rank.py` |
+| `pm-reform.json` | `curve-lab.pm-reform/1` | cache | `scripts/pm_reform_probe.py` | the `/prime-mover` page |
 | `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.py` | the root search report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
@@ -4038,13 +4191,25 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
-| `sandbox-curves.json` | `curve-lab.sandbox/1` | cache | `scripts/sandbox_curves.py` | the `/sandbox` page |
+| `sandbox-curves.json` | `curve-lab.sandbox-curves/1` | runtime | the save endpoint, via the exporter | the hybrid desk record; the `/sandbox` page expects `adders` and is currently guarded for absence |
 | `sandbox-parametric.json` | `curve-lab.sandbox-parametric/1` | cache | `scripts/sandbox_parametric.py` | the parametric adder |
 | `parametric-candidates.json` | `curve-lab.parametric-candidates/1` | cache | `scripts/parametric_search.py` | the complex-coefficient search history |
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |
 | `starred.backup.json` | `starred/1` | backup | `POST /api/stars`, on every write | the book gallery after a damaged read |
+| `character-candidates.json` | `curve-lab.character-candidates/1` | cache | `scripts/character_search.py --write` | Fig. 5 on `/prime-mover/` |
+| `character-curves.json` | `curve-lab.character/1` | cache | `scripts/character_search.py` | `workbench/character-curves.svg` |
+| `circle-split.json` | `curve-lab.circle-split/1` | cache | `scripts/circle_split.py --write` | Fig. 9 on `/prime-mover/`, `tests/test_circle_split.py` |
+| `lattice-mobile.json` | `curve-lab.lattice.mobile/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-mobile-fine.json` | `curve-lab.lattice.mobile.fine/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-mobile-quiet.json` | `curve-lab.lattice.mobile.quiet/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-spirograph.json` | `curve-lab.lattice.spirograph/1` | cache | `scripts/lattice_spirograph.py` | the spirograph probe |
+| `pm-deep.json` | `curve-lab.pm.deep/1` | cache | `scripts/pm_deep_search.py` | the prime-mover search record |
+| `pm-product.json` | `curve-lab.pm.product/1` | cache | `scripts/pm_product_probe.py` | the product probe |
+| `pm4-curves.json` | `curve-lab.pm4.curves/1` | cache | `scripts/pm4_search.py` | the four-fold probe |
+| `prime-mover-sweep.json` | `curve-lab.prime.mover.sweep/1` | cache | `scripts/sweep_prime_mover.mjs` | the prime-mover sweep |
+| `circle-plots.json` | `curve-lab.circle-plots/1` | cache | `scripts/circle_plots.py --write` | Fig. 9 on `/prime-mover/` |
 
 **Record** means the file is the authority for a number the site shows.
 **Cache** means it is derived and can be rebuilt by its script. **Runtime** means

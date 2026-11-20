@@ -3,6 +3,7 @@
 
 import { readNotes, saveNotes } from "../../lib/curve-notes.ts";
 import { clearIlluminateCache } from "../../lib/bordered.js";
+import { exportTable } from "../../lib/data-export.js";
 
 const base = () => process.env.CURVE_LAB_ROOT || process.cwd();
 const json = (body, status = 200) =>
@@ -24,7 +25,13 @@ export const POST = async ({ request }) => {
     const payload = await request.json();
     const result = await saveNotes(payload);
     clearIlluminateCache();
-    return json(result);
+    let warning;
+    try {
+      await exportTable("curves");
+    } catch (error) {
+      warning = `saved, but the JSON copy is stale: ${String(error.message || error)}`;
+    }
+    return json({ ...result, ...(warning ? { warning } : {}) });
   } catch (error) {
     return json({ error: String(error.message || error) }, error.status || 400);
   }

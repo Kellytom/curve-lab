@@ -35,6 +35,27 @@ document it builds) rather than re-stamping by hand, or the next run repeats it.
 on 2026-11-17; their tests compare the written file with the generator, so they
 would fail either way. The other generators are fixed on first failure.
 
+## The visible record: `data/`
+
+SQLite is the source of truth, but a session with no database must read the same
+record. `scripts/export-data.mjs` writes one JSON file per table under `data/`,
+with `data/schema.json` (field → type) and `data/manifest.json` (row count and a
+hash per file). `data/README.md` is the dictionary in plain English: every field,
+its meaning, its unit, who writes it, what reads it, and what is lost without it.
+
+```sh
+PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs           # write
+PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs --check   # fail if stale
+```
+
+The save endpoints (`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call
+the same exporter, so a save writes its file; a save whose file cannot be written
+says so in the response. `scripts/sync-data.sh` stages `data/` on every run.
+`tests/test_data_export.py` fails when a file is stale. Every curve in
+`data/curves.json` carries `formula: {plain, rational, parameter, use, search}`,
+built from the stored rows (`app/src/lib/formula.js`) and checked against a
+numerical integral in `app/tests/formula.test.mjs`.
+
 ## The datasets
 
 Rows are counted by `data_audit.py` (2026-11-17).
@@ -66,6 +87,10 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
+| `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/prime_mover_hybrid.mjs` | the `/hybrids` page |
+| `hybrid-candidates.json` | `curve-lab.hybrid-candidates/1` | cache | `scripts/hybrid_candidates.mjs` | `scripts/hybrid_rank.py` |
+| `hybrid-formulas.json` | `curve-lab.hybrid-formulas/1` | cache | `scripts/hybrid_formulas.py` | `scripts/hybrid_rank.py` |
+| `pm-reform.json` | `curve-lab.pm-reform/1` | cache | `scripts/pm_reform_probe.py` | the `/prime-mover` page |
 | `root-candidates.json` | `curve-lab.rootcandidates/1` | cache | `scripts/root_search.py` | the root search report |
 | `operator-list.json` | `curve-lab.operator-list/1` | record | `scripts/operator_list.py` | the lab's seed list, `tests/test_operator_list.py` |
 | `ph-11th-fitted-curves.json` | `curve-lab.ph-fitted/1` | cache | `scripts/ph_11th_sandbox2.py` | part 2 of the sandbox |
@@ -74,7 +99,7 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
-| `sandbox-curves.json` | `curve-lab.sandbox/1` | cache | `scripts/sandbox_curves.py` | the `/sandbox` page |
+| `sandbox-curves.json` | `curve-lab.sandbox-curves/1` | runtime | the save endpoint, via the exporter | the hybrid desk record; the `/sandbox` page expects `adders` and is currently guarded for absence |
 | `sandbox-parametric.json` | `curve-lab.sandbox-parametric/1` | cache | `scripts/sandbox_parametric.py` | the parametric adder |
 | `parametric-candidates.json` | `curve-lab.parametric-candidates/1` | cache | `scripts/parametric_search.py` | the complex-coefficient search history |
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |
