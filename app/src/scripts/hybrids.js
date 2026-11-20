@@ -3,7 +3,7 @@
 //
 // Spec: state/SPEC-hybrids-int.md. Check: app/scripts/check-hybrids-page.mjs.
 
-const ENDPOINT = "/api/sandbox-curves";
+import { readDecisions, saveDecision, removeDecisions, duplicateNames } from "../lib/desk-io.js";
 
 // The naming desk's first rule: a failed read is never a write. Until the decisions have
 // loaded, nothing on the page may be saved — otherwise an empty card would overwrite a
@@ -73,21 +73,11 @@ async function save(card, patch) {
     ...patch,
     crossedAt: new Date().toISOString(),
   };
-  const response = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ curves: [payload] }),
-  });
-  if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    throw new Error(body.error || `save failed: ${response.status}`);
-  }
+  await saveDecision(payload);
 }
 
 async function load() {
-  const response = await fetch(ENDPOINT);
-  if (!response.ok) throw new Error(`load failed: ${response.status}`);
-  const { curves } = await response.json();
+  const curves = await readDecisions();
   state.readOk = true;
   for (const row of curves) {
     const card = document.querySelector(`.hybrid-card[data-name="${row.name}"]`);
