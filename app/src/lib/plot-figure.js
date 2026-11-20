@@ -113,7 +113,7 @@ export function figureSvg(panel, { width: boxWidth = 460 } = {}) {
     const dx = px > plot.right - 72 ? -72 : (label.dx ?? 6);
     const dy = py < plot.top + 16 ? 14 : (label.dy ?? -6);
     const tone = label.colour || "#c9761f";        // orange: the cut on y = x
-    drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="${tone}" `
+    drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3.6" fill="${tone}" `
       + `stroke="#fffef9" stroke-width="0.8"/>`
       + `<text x="${(px + dx).toFixed(1)}" y="${(py + dy).toFixed(1)}" `
       + `font-family="ui-monospace, Menlo, monospace" font-size="11" fill="${tone}">${label.text}</text>`);

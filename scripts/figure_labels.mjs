@@ -17,7 +17,7 @@ export function labelsFor(row) {
     const onCurve = ends.some((end) => near([cut.x, cut.y], end));
     labels.push({
       x: cut.x, y: cut.y,
-      colour: onCurve ? "#7a4a1f" : "#c9761f",      // brown where the end sits on the cut
+      colour: onCurve ? "#5a3210" : "#c9761f",      // brown where the end sits on the cut
       text: onCurve ? `(${cut.x.toFixed(2)}, ${cut.y.toFixed(2)})`
         : `cut (${cut.x.toFixed(2)}, ${cut.y.toFixed(2)})`,
     });
