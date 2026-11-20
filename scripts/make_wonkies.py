@@ -76,37 +76,49 @@ def points_for(candidate):
     return out
 
 
-def arcs_at_diagonal(points):
-    """the two halves of the closed polygon, cut at ONE pair of crossings of y = x.
+def runs_at_diagonal(points):
+    """every arc of the closed polygon between two crossings of y = x.
 
-    Each half starts and ends on the line, so the curve stops at the cut. The pair chosen is
-    the one that splits the figure into the two most even arcs, which is the natural cut: the
-    figure is closed, so any two crossings give two complementary halves.
+    A wonk may cross the 45° line many times, so there may be more than two pieces. Each
+    piece stays on one side of the line and stops at the crossings either side of it; the
+    side decides the label, NW (y > x) or SE (y < x).
     """
-    crossings = []                    # (index, point) where the polygon crosses y = x
-    for i, ((x0, y0), (x1, y1)) in enumerate(zip(points, points[1:])):
+    closed = list(points)
+    if closed[0] != closed[-1]:
+        closed.append(closed[0])
+
+    crossings = []                     # (index of the point AFTER the crossing, point)
+    for i, ((x0, y0), (x1, y1)) in enumerate(zip(closed, closed[1:])):
         d0, d1 = y0 - x0, y1 - x1
         if (d0 >= 0) != (d1 >= 0):
             t = d0 / (d0 - d1) if d0 != d1 else 0.0
             crossings.append((i + 1, (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t)))
     if len(crossings) < 2:
-        return points, []
+        return []
 
-    def length(arc):
-        return sum(((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
-                   for a, b in zip(arc, arc[1:]))
+    # start the walk at the first crossing, so every piece begins and ends at a cut
+    i0, start_point = crossings[0]
+    rotated = [start_point] + closed[i0:] + closed[:i0] + [start_point]
 
-    best = None
-    for a in range(len(crossings)):
-        for b in range(a + 1, len(crossings)):
-            i, start_point = crossings[a]
-            j, end_point = crossings[b]
-            first = [start_point] + points[i:j] + [end_point]
-            second = [end_point] + points[j:] + points[:i] + [start_point]
-            score = min(length(first), length(second))
-            if best is None or score > best[0]:
-                best = (score, first, second)
-    return best[1], best[2]
+    runs = []
+    current = [start_point]
+    for (x0, y0), (x1, y1) in zip(rotated, rotated[1:]):
+        d0, d1 = y0 - x0, y1 - x1
+        current.append((x1, y1))
+        if (d0 >= 0) != (d1 >= 0):
+            runs.append(current)
+            current = [(x1, y1)]
+    if len(current) > 2:
+        runs.append(current)
+
+    out = []
+    for run in runs:
+        if len(run) < 3:
+            continue
+        mid = run[len(run) // 2]
+        side = "NW" if mid[1] > mid[0] else "SE"
+        out.append((side, run))
+    return out
 
 
 def main(argv=None) -> int:
@@ -129,10 +141,13 @@ def main(argv=None) -> int:
     out = []
     for name, candidate in wonks:
         points = points_for(candidate)
-        above, below = arcs_at_diagonal(points)
-        for half, part in (("NW", above), ("SE", below)):
+        runs = runs_at_diagonal(points)
+        counters = {"NW": 0, "SE": 0}
+        for side, part in runs:
             if len(part) < 4:
                 continue
+            counters[side] += 1
+            half = f"{side}-{counters[side]}"
             step = max(1, len(part) // 90)
             drawn = [[round(x, 6), round(y, 6)] for x, y in part[::step]]
             if drawn[-1] != [round(part[-1][0], 6), round(part[-1][1], 6)]:

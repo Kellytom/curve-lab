@@ -3272,3 +3272,11 @@ Tschirnhausen — classic but adds nothing; off the board.
 - 90/180/270 are integer matrices and exact; 45 stores `"√2/2"` entries and `exact: false`,
   because the half-turn rule in `DESIGN-int` makes 45° a display turn, not an exact one.
 - Guard: `tests/test_hybrids.py::test_every_record_carries_its_transform`.
+
+### Every piece of the cut — 2026-11-20
+
+- A wonk crosses `y = x` more than twice, so the cut gives 4, 6 or 8 pieces: **140 wonkies**
+  from 28 wonks, labelled `NW-n` / `SE-n`, each stopping at the line.
+- The halves rebuild the closed curve between one pair of crossings; the double is one piece
+  mirrored across `y = x` (an exact swap of x and y).
+- Page: `/hybrids-wonk/`, 28 text rows + 140 cards.

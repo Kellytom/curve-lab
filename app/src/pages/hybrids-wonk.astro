@@ -39,8 +39,9 @@ const groups = [...pairs.entries()]
 
 <BaseLayout title="the wonks" pageTitle="The wonks">
   <p class="lead">
-    Each wonk as text — no image — then its two halves side by side, cut at the 45° line <b>y = x</b>: the
-    <b>NW</b> half on the left, the <b>SE</b> on the right. Star or save a half
+    Each wonk as text — no image — then every piece the 45° line <b>y = x</b> cuts from it. A wonk can cross that line
+    several times, so a wonk may give four, six or eight pieces — each labelled <b>NW-n</b>
+    (above the line) or <b>SE-n</b> (below it), and each stopping at the cut. Star or save a half
     and its <b>double wonky</b> (that half mirrored across y = x) appears on
     <a href="/hybrids/">the desk</a>.
     Rename a wonk and it leaves this page for the desk.
@@ -67,7 +68,7 @@ const groups = [...pairs.entries()]
 <style is:global>
   .wonk-pair { margin: 26px 0; }
   .wonk-parent { font: 15px/1.5 Georgia, serif; color: #3b2d1c; margin: 0 0 10px; }
-  .wonk-halves { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .wonk-halves { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 14px; }
   .wonk-seam { font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; margin: -4px 0 10px; }
   @media (max-width: 900px) { .wonk-halves { grid-template-columns: 1fr; } }
 </style>

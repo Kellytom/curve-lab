@@ -221,3 +221,10 @@ transform: { degrees, matrix: [[a, b], [c, d]], exact }
 - Identity is the default on all 272 records and on every promoted hybrid; the column is
   `Note.transform`.
 - Guard: `tests/test_hybrids.py::test_every_record_carries_its_transform`.
+
+## As many pieces as the line cuts
+
+A wonk crosses `y = x` several times, so the cut gives **4, 6 or 8 pieces**, not two:
+140 wonkies from the 28 wonks. Each piece stays on one side of the line, is labelled
+`NW-n` (above) or `SE-n` (below), and **stops at the cut** — the ends sit on `y = x`, where
+the mirror is the point itself. The double is a piece mirrored across the line.
