@@ -25,6 +25,13 @@ const construction = JSON.stringify(constructionOf(row));
       <button type="button" data-imp={i + 1} class={i + 1 <= (row.importance || 0) ? "on" : ""}>{i + 1}</button>
     ))}
   </div>
+  {(row.kind === "double" || String(row.id).startsWith("double-")) && (
+    <div class="render-check" role="group" aria-label={`render check for ${row.id}`} data-render="">
+      <span class="label">render correct</span>
+      <button type="button" data-render="y">y</button>
+      <button type="button" data-render="n">n</button>
+    </div>
+  )}
   <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
     <button type="button" data-decision="saved">Save</button>
     <button type="button" data-decision="notes" title="move this candidate out of the desk and into the notes pool">move to notes</button>

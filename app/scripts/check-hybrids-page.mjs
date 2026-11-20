@@ -100,6 +100,18 @@ const duplicateFlag = await page.evaluate((name) =>
   document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-flag`)?.textContent || "", second);
 check(duplicateFlag.includes("already used"), `a duplicate name is refused ("${duplicateFlag}")`);
 
+// the render check on a double: press y, reload, it is still lit
+const doubleCard = await page.evaluate(() => document.querySelector(".hybrid-card .render-check")
+  ?.closest(".hybrid-card")?.dataset.name || "");
+if (doubleCard) {
+  await page.locator(`.hybrid-card[data-name="${doubleCard}"] .render-check button[data-render="y"]`).click();
+  await page.waitForTimeout(400);
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(800);
+  const lit = await page.locator(`.hybrid-card[data-name="${doubleCard}"] .render-check button.on`).count();
+  check(lit === 1, `the render check survives a reload ("${doubleCard}")`);
+}
+
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 
 // a failed read must not become a write: with the decisions unreachable, a click saves nothing

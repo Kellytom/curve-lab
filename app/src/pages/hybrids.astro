@@ -40,9 +40,11 @@ const likedHalves = new Set(
     .filter(([, row]) => (Number(row.importance) || 0) > 0 || row.decision === "saved")
     .map(([name]) => name),
 );
+// a double reaches the desk when its half is liked OR when the double itself was saved
 const doubles = (doubleData.doubles || [])
-  .filter((row) => likedHalves.has(row.parent))
-  .map(decorate);
+  .map(decorate)
+  .filter((row) => likedHalves.has(row.parent) || row.decision === "saved"
+    || (Number(row.importance) || 0) > 0);
 
 const rows = [...(data.candidates || []).map(decorate), ...doubles]
   // "wonk" is a staging label, not a family: while a candidate is still named wonk-<n> it

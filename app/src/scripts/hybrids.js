@@ -69,6 +69,10 @@ async function save(card, patch) {
     importance: Number(card.dataset.importance) || 0,
     construction: (() => { try { return JSON.parse(card.dataset.construction || "{}"); }
       catch { return {}; } })(),
+    renderCorrect: (() => {
+      const value = card.querySelector(".render-check")?.dataset.render || "";
+      return value === "y" ? true : value === "n" ? false : null;
+    })(),
     curveName: card.querySelector(".hybrid-name")?.value.trim() || "",
     ...patch,
     crossedAt: new Date().toISOString(),
@@ -95,6 +99,13 @@ async function load() {
       }
     }
     if (row.importance) paintStars(card, row.importance);
+    const render = card.querySelector(".render-check");
+    if (render) {
+      const value = row.renderCorrect === true ? "y" : row.renderCorrect === false ? "n" : "";
+      render.dataset.render = value;
+      render.querySelectorAll("button").forEach((button) =>
+        button.classList.toggle("on", button.dataset.render === value));
+    }
     const input = card.querySelector(".hybrid-name");
     if (input && row.curveName) input.value = row.curveName;
     const drafts = readDrafts();
@@ -141,6 +152,27 @@ export function mountHybridDesk() {
           const host = document.getElementById("hybrids-counts");
           if (host) host.textContent = String(error.message || error);
         }
+      });
+    }
+    const render = card.querySelector(".render-check");
+    if (render) {
+      render.querySelectorAll("button").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const value = button.dataset.render;
+          const previous = render.dataset.render;
+          render.dataset.render = value;
+          render.querySelectorAll("button").forEach((other) =>
+            other.classList.toggle("on", other === button));
+          try {
+            await save(card, { renderCorrect: value === "y" });
+          } catch (error) {
+            render.dataset.render = previous;
+            render.querySelectorAll("button").forEach((other) =>
+              other.classList.toggle("on", other.dataset.render === previous));
+            const flag = card.querySelector(".hybrid-flag");
+            if (flag) flag.textContent = String(error.message || error);
+          }
+        });
       });
     }
     card.querySelectorAll(".stars button").forEach((button) => {
