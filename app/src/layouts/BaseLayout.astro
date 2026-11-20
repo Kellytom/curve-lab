@@ -36,10 +36,16 @@ const { title, pageTitle, mainClass = "container" } = Astro.props;
 <link rel="stylesheet" href={`/vendor/app-shell.css?v=${shellVersion}`}>
 <slot name="head" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style is:global>
+    .served-at { font: 11px/1.6 ui-monospace, Menlo, monospace; color: #9c8a6a;
+      margin: 2.5rem auto 0; max-width: 1180px; padding: 0 1.25rem 1.5rem; }
+  </style>
 </head><body>
 <AppNav title={title} />
 <main id="main" class={mainClass}>
   <slot />
 </main>
+<p class="served-at">served at <code>{Astro.url.origin}</code> — every link here is relative,
+  so it works from whatever address you opened it on.</p>
 <slot name="scripts" />
 </body></html>
