@@ -185,8 +185,8 @@ stars are the same component.
 ## The wonkies
 
 `scripts/make_wonkies.py` takes every wonk (a candidate named `wonk-<n>`) and cuts its
-polygon where it crosses the **x axis**, giving an upper half and a lower half: 56 wonkies
-from the 28 wonks. The stations either side of a cut are exact; the cut point is a value on
+polygon at the **45° line `y = x`**, between one pair of crossings: two complementary halves,
+**NW** and **SE**, each stopping at the cut. 56 wonkies from the 28 wonks. The stations either side of a cut are exact; the cut point is a value on
 the drawn line between them, and the file says so.
 
 `/hybrids-wonkies/` lists them with the same cards, so a wonky can be starred, named, saved

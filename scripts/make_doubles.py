@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""A double wonky: a wonky mirrored across the x axis.
+"""A double wonky: a wonky mirrored across the y = x axis.
 
     .venv/bin/python scripts/make_doubles.py --write
 
-The wonky is open at the x axis (it was cut there). Mirroring it in that axis closes it into
-a symmetric figure: the half, then the same half with y negated, walked back. The join is
-exact at the two ends — those points sit on the axis, where y = 0 and −y = 0.
+The wonky is open at the 45° axis y = x (it was cut there). Mirroring it in that line closes
+it into a symmetric figure: the half, then the same half with x and y swapped, walked back.
+The join is exact at the two ends — those points sit on the line, where (x, y) and (y, x)
+are the same point.
 
 Writes workbench/doubles.json; scripts/double_figures.mjs draws them.
 """
@@ -27,8 +28,8 @@ OUT = ROOT / "workbench" / "doubles.json"
 
 
 def double(points):
-    """the half, then its mirror in the x axis, walked back."""
-    mirrored = [(x, -y) for x, y in reversed(points)]
+    """the half, then its mirror in the line y = x, walked back."""
+    mirrored = [(y, x) for x, y in reversed(points)]
     # the join: drop the duplicated end points (both sit on the axis)
     return points + mirrored[1:-1]
 
@@ -58,8 +59,8 @@ def main(argv=None) -> int:
                 "plain": row["formula"]["plain"],
                 "internal": row["formula"]["internal"],
                 "middle": row["formula"]["middle"],
-                "use": f"{row['parentName']}, its {row['half']} half mirrored across the x axis",
-                "search": f"{row['formula']['plain']} mirrored across the x axis",
+                "use": f"{row['parentName']}, its {row['half']} half mirrored across y = x",
+                "search": f"{row['formula']['plain']} mirrored across the line y = x",
             },
             "points": drawn,
             "figure": f"double-{row['id'].removeprefix('wonky-')}.svg",
@@ -69,9 +70,9 @@ def main(argv=None) -> int:
     if args.write:
         OUT.write_text(json.dumps({
             "format": "curve-lab.doubles/1",
-            "rule": "a wonky mirrored across the x axis: the half, then the same half with y "
-                    "negated, walked back; the join points sit on the axis, where the mirror "
-                    "is the point itself",
+            "rule": "a wonky mirrored across the line y = x: the half, then the same half with "
+                    "x and y swapped, walked back; the join points sit on the line, where the "
+                    "mirror is the point itself",
             "count": len(out),
             "doubles": out,
         }, indent=1) + "\n")

@@ -3243,7 +3243,7 @@ Tschirnhausen — classic but adds nothing; off the board.
 
 ### The wonkies — 2026-11-20
 
-- 28 wonks → 56 wonkies: each wonk cut at the x axis into an upper and a lower half.
+- 28 wonks → 56 wonkies: each wonk cut at the 45° line `y = x` into two halves, **NW** and **SE**, each stopping at the cut.
   `scripts/make_wonkies.py` writes `workbench/wonkies.json`; `scripts/wonky_figures.mjs`
   draws them with `figureSvg`.
 - `/hybrids-wonkies/` lists them in two groups (upper / lower) with the desk's cards, so a

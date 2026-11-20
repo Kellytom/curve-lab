@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Two wonkies from every wonk: divide the curve at the x axis.
+"""Two wonkies from every wonk: divide the curve at the y = x axis.
 
     .venv/bin/python scripts/make_wonkies.py --write
 
 A wonk is a radial hybrid (see scripts/hybrid_figures.py). Its polygon is cut where it
-crosses the x axis, giving an **upper** half and a **lower** half. The cut point is on the
+crosses the diagonal **y = x** (the 45° axis), giving the two halves — "north-west" of the
+line and "south-east" of it. The cut point is on the
 line between two exact stations, so the cut is a drawing value and the file says so; the
 stations on either side are exact.
 
@@ -75,22 +76,37 @@ def points_for(candidate):
     return out
 
 
-def split_at_x_axis(points):
-    """upper and lower halves, cut where the polygon crosses y = 0."""
-    upper, lower = [], []
-    for (x0, y0), (x1, y1) in zip(points, points[1:]):
-        if (y0 >= 0) == (y1 >= 0):
-            (upper if y0 >= 0 else lower).append((x1, y1))
-            continue
-        # the crossing, on the drawn line between two exact stations
-        t = y0 / (y0 - y1) if y0 != y1 else 0.0
-        cx = x0 + (x1 - x0) * t
-        upper.append((cx, 0.0))
-        if not upper or upper[-1] != (cx, 0.0):
-            upper.append((cx, 0.0))
-        lower.append((cx, 0.0))
-        (upper if y1 >= 0 else lower).append((x1, y1))
-    return upper, lower
+def arcs_at_diagonal(points):
+    """the two halves of the closed polygon, cut at ONE pair of crossings of y = x.
+
+    Each half starts and ends on the line, so the curve stops at the cut. The pair chosen is
+    the one that splits the figure into the two most even arcs, which is the natural cut: the
+    figure is closed, so any two crossings give two complementary halves.
+    """
+    crossings = []                    # (index, point) where the polygon crosses y = x
+    for i, ((x0, y0), (x1, y1)) in enumerate(zip(points, points[1:])):
+        d0, d1 = y0 - x0, y1 - x1
+        if (d0 >= 0) != (d1 >= 0):
+            t = d0 / (d0 - d1) if d0 != d1 else 0.0
+            crossings.append((i + 1, (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t)))
+    if len(crossings) < 2:
+        return points, []
+
+    def length(arc):
+        return sum(((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2) ** 0.5
+                   for a, b in zip(arc, arc[1:]))
+
+    best = None
+    for a in range(len(crossings)):
+        for b in range(a + 1, len(crossings)):
+            i, start_point = crossings[a]
+            j, end_point = crossings[b]
+            first = [start_point] + points[i:j] + [end_point]
+            second = [end_point] + points[j:] + points[:i] + [start_point]
+            score = min(length(first), length(second))
+            if best is None or score > best[0]:
+                best = (score, first, second)
+    return best[1], best[2]
 
 
 def main(argv=None) -> int:
@@ -113,8 +129,8 @@ def main(argv=None) -> int:
     out = []
     for name, candidate in wonks:
         points = points_for(candidate)
-        upper, lower = split_at_x_axis(points)
-        for half, part in (("upper", upper), ("lower", lower)):
+        above, below = arcs_at_diagonal(points)
+        for half, part in (("NW", above), ("SE", below)):
             if len(part) < 4:
                 continue
             step = max(1, len(part) // 90)
@@ -135,8 +151,8 @@ def main(argv=None) -> int:
                     "plain": candidate["formula"]["plain"],
                     "internal": candidate["formula"]["internal"],
                     "middle": candidate["formula"]["middle"],
-                    "use": f"the {half} half of {name}, cut at the x axis",
-                    "search": f"{candidate['formula']['plain']} -- {half} half, cut at the x axis",
+                    "use": f"the {half} half of {name}, cut at the y = x axis",
+                    "search": f"{candidate['formula']['plain']} -- {half} half, cut at the y = x axis",
                 },
                 "points": drawn,
                 "figure": f"wonky-{name.split('-')[1]}-{half}.svg",
@@ -146,8 +162,8 @@ def main(argv=None) -> int:
     if args.write:
         OUT.write_text(json.dumps({
             "format": "curve-lab.wonkies/1",
-            "cut": "each wonk is divided at the x axis into an upper and a lower half; the cut "
-                   "point is a drawing value between two exact stations",
+            "cut": "each wonk is divided at the 45° axis y = x into two halves, NW and SE; "
+                   "the cut point is a drawing value between two exact stations",
             "count": len(out),
             "wonkies": out,
         }, indent=1) + "\n")

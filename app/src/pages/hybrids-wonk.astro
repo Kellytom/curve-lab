@@ -1,41 +1,73 @@
 ---
-// The wonk family: the candidates the operator named wonk-1 … wonk-28, from the database.
-// Same template as /hybrids/; only the rows differ.
+// The wonks: each one as text (no image), then its two wonkies side by side.
+// "wonk" is staging: a curve renamed out of wonk-<n> has been adopted and lives on the desk.
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { repoRoot } from "../lib/gallery.js";
 import { prisma } from "../lib/db.js";
-import HybridDesk from "../components/HybridDesk.astro";
+import HybridCard from "../components/HybridCard.astro";
 
-const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "hybrids.json"), "utf8"));
-const byId = new Map((data.candidates || []).map((row) => [row.id, row]));
-
-const rows = await prisma.sandboxCurve.findMany();
-const wonk = [];
-for (const stored of rows) {
-  let payload = {};
-  try { payload = JSON.parse(stored.data); } catch { continue; }
-  const name = String(payload.curveName || "").trim();
-  // staging only: a curve renamed out of wonk-<n> has been adopted and lives on the desk
-  if (!/^wonk-\d+$/i.test(name)) continue;
-  const candidate = byId.get(stored.name);
-  if (!candidate) continue;
-  wonk.push({
-    ...candidate,
-    curveName: name,
-    importance: Number(payload.importance) || 0,
-    placeholder: name,
-    number: Number(name.split("-")[1]),
-  });
+const wonkyData = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wonkies.json"), "utf8"));
+const stored = await prisma.sandboxCurve.findMany();
+const decisions = new Map();
+for (const row of stored) {
+  try { decisions.set(row.name, JSON.parse(row.data)); } catch { /* not a decision */ }
 }
-wonk.sort((a, b) => a.number - b.number);
 
-const groups = [{ title: "the wonk family — wonk-1 … wonk-28", rows: wonk }];
+const decorate = (row) => {
+  const decision = decisions.get(row.id) || {};
+  return {
+    ...row,
+    curveName: String(decision.curveName || ""),
+    importance: Number(decision.importance) || 0,
+    decision: String(decision.decision || ""),
+    placeholder: row.id,
+  };
+};
+
+const pairs = new Map();
+for (const row of (wonkyData.wonkies || []).map(decorate)) {
+  if (!pairs.has(row.parentName)) pairs.set(row.parentName, []);
+  pairs.get(row.parentName).push(row);
+}
+const groups = [...pairs.entries()]
+  .filter(([name]) => /^wonk-\d+$/i.test(name))
+  .sort((a, b) => Number(a[0].split("-")[1]) - Number(b[0].split("-")[1]))
+  .map(([name, rows]) => ({ name, rows: rows.sort((a, b) => (a.half === "upper" ? -1 : 1)) }));
 ---
 
-<HybridDesk
-  title="the wonk family"
-  lead="The candidates named wonk-1 … wonk-28, read from the database. Same cards as the hybrid desk: Save, move to notes, reject, stars and the name."
-  groups={wonk.length ? groups : []}
-  count={wonk.length}
-/>
+<BaseLayout title="the wonks" pageTitle="The wonks">
+  <p class="lead">
+    Each wonk as text — no image — then its two halves side by side, cut at the 45° line <b>y = x</b>: the
+    <b>NW</b> half on the left, the <b>SE</b> on the right. Star or save a half
+    and its <b>double wonky</b> (that half mirrored across y = x) appears on
+    <a href="/hybrids/">the desk</a>.
+    Rename a wonk and it leaves this page for the desk.
+  </p>
+
+  {groups.map((pair) => (
+    <section class="wonk-pair">
+      <p class="wonk-parent">
+        <b>{pair.name}</b> · {pair.rows[0].crossings} crossing pairs in a half ·
+        <code>{pair.rows[0].formula.plain}</code> ·
+        <code>{pair.rows[0].formula.middle}</code>
+      </p>
+      <div class="wonk-halves">
+        {pair.rows.map((row) => <HybridCard row={row} />)}
+      </div>
+    </section>
+  ))}
+
+  <script>
+    import "../scripts/hybrids.js";
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .wonk-pair { margin: 26px 0; }
+  .wonk-parent { font: 15px/1.5 Georgia, serif; color: #3b2d1c; margin: 0 0 10px; }
+  .wonk-halves { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .wonk-seam { font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; margin: -4px 0 10px; }
+  @media (max-width: 900px) { .wonk-halves { grid-template-columns: 1fr; } }
+</style>
