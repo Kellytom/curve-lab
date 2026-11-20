@@ -82,7 +82,18 @@ async function load() {
   for (const row of curves) {
     const card = document.querySelector(`.hybrid-card[data-name="${row.name}"]`);
     if (!card) continue;
-    if (row.decision) mark(card, row.decision);
+    if (row.decision) {
+      mark(card, row.decision);
+      const flag = card.querySelector(".hybrid-flag");
+      if (flag) {
+        const when = row.crossedAt || row.savedAt || "";
+        const time = when ? new Date(when).toLocaleString([], { day: "numeric", month: "short",
+          hour: "2-digit", minute: "2-digit" }) : "";
+        flag.textContent = row.decision === "saved" ? `saved${time ? ` ${time}` : ""}`
+          : row.decision === "notes" ? `moved to notes${time ? ` ${time}` : ""}`
+          : `rejected${time ? ` ${time}` : ""}`;
+      }
+    }
     if (row.importance) paintStars(card, row.importance);
     const input = card.querySelector(".hybrid-name");
     if (input && row.curveName) input.value = row.curveName;

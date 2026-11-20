@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.wonkies/1",
  "cut": "each wonk is divided at the 45\u00b0 axis y = x into two halves, NW and SE; the cut point is a drawing value between two exact stations",
- "count": 140,
+ "count": 68,
  "wonkies": [
   {
    "id": "wonky-1-SE-1",
@@ -20,150 +20,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-1, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^3(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.054948,
-     0.022983
-    ],
-    [
-     0.106752,
-     0.051302
-    ],
-    [
-     0.151945,
-     0.08366
-    ],
-    [
-     0.189403,
-     0.119187
-    ],
-    [
-     0.218143,
-     0.156573
-    ],
-    [
-     0.237393,
-     0.194038
-    ],
-    [
-     0.246656,
-     0.229341
-    ],
-    [
-     0.247398,
-     0.247398
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.698497,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -1.892936,
-     "x": 0.2474,
-     "y": 0.2474
-    }
-   ],
-   "figure": "wonky-1-SE-1.svg"
-  },
-  {
-   "id": "wonky-1-NW-1",
-   "parent": "h-radius-1-3-cubic",
-   "parentName": "wonk-1",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-1, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.247398,
-     0.247398
-    ],
-    [
-     0.245782,
-     0.259818
-    ],
-    [
-     0.235022,
-     0.28248
-    ],
-    [
-     0.215073,
-     0.294152
-    ],
-    [
-     0.187096,
-     0.291667
-    ],
-    [
-     0.152713,
-     0.272102
-    ],
-    [
-     0.113959,
-     0.233044
-    ],
-    [
-     0.073217,
-     0.172862
-    ],
-    [
-     0.033095,
-     0.090964
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.892936,
-     "x": 0.2474,
-     "y": 0.2474
-    },
-    {
-     "t": -1.331396,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-1-NW-1.svg"
-  },
-  {
-   "id": "wonky-1-SE-2",
-   "parent": "h-radius-1-3-cubic",
-   "parentName": "wonk-1",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-1, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -555,14 +411,14 @@
      "y": 0.9636
     }
    ],
-   "figure": "wonky-1-SE-2.svg"
+   "figure": "wonky-1-SE-1.svg"
   },
   {
-   "id": "wonky-1-NW-2",
+   "id": "wonky-1-NW-1",
    "parent": "h-radius-1-3-cubic",
    "parentName": "wonk-1",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -572,8 +428,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-1, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-1, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -969,7 +825,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-1-NW-2.svg"
+   "figure": "wonky-1-NW-1.svg"
   },
   {
    "id": "wonky-2-SE-1",
@@ -988,130 +844,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-2, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^5(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.035779,
-     0.01838
-    ],
-    [
-     0.069541,
-     0.042867
-    ],
-    [
-     0.09513,
-     0.070091
-    ],
-    [
-     0.11166,
-     0.098017
-    ],
-    [
-     0.11779,
-     0.11779
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.11375,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -1.720804,
-     "x": 0.1178,
-     "y": 0.1178
-    }
-   ],
-   "figure": "wonky-2-SE-1.svg"
-  },
-  {
-   "id": "wonky-2-NW-1",
-   "parent": "h-radius-1-5-cubic",
-   "parentName": "wonk-2",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-2, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.11779,
-     0.11779
-    ],
-    [
-     0.118594,
-     0.12372
-    ],
-    [
-     0.115864,
-     0.143416
-    ],
-    [
-     0.103971,
-     0.152624
-    ],
-    [
-     0.084071,
-     0.14649
-    ],
-    [
-     0.057995,
-     0.120274
-    ],
-    [
-     0.028206,
-     0.069978
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.720804,
-     "x": 0.1178,
-     "y": 0.1178
-    },
-    {
-     "t": -1.32979,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-2-NW-1.svg"
-  },
-  {
-   "id": "wonky-2-SE-2",
-   "parent": "h-radius-1-5-cubic",
-   "parentName": "wonk-2",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-2, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -1511,14 +1243,14 @@
      "y": 0.6032
     }
    ],
-   "figure": "wonky-2-SE-2.svg"
+   "figure": "wonky-2-SE-1.svg"
   },
   {
-   "id": "wonky-2-NW-2",
+   "id": "wonky-2-NW-1",
    "parent": "h-radius-1-5-cubic",
    "parentName": "wonk-2",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 5,
    "use": "radius",
@@ -1528,8 +1260,8 @@
     "plain": "x = cos^1(t), y = sin^5(t)",
     "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-2, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-2, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -1937,7 +1669,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-2-NW-2.svg"
+   "figure": "wonky-2-NW-1.svg"
   },
   {
    "id": "wonky-3-SE-1",
@@ -1956,122 +1688,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-3, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^7(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.00331,
-     0.0017
-    ],
-    [
-     0.031934,
-     0.020473
-    ],
-    [
-     0.052549,
-     0.041814
-    ],
-    [
-     0.064269,
-     0.063165
-    ],
-    [
-     0.064824,
-     0.064824
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.865455,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.62585,
-     "x": 0.0648,
-     "y": 0.0648
-    }
-   ],
-   "figure": "wonky-3-SE-1.svg"
-  },
-  {
-   "id": "wonky-3-NW-1",
-   "parent": "h-radius-1-7-cubic",
-   "parentName": "wonk-3",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-3, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.064824,
-     0.064824
-    ],
-    [
-     0.066649,
-     0.080605
-    ],
-    [
-     0.059868,
-     0.088886
-    ],
-    [
-     0.044889,
-     0.081776
-    ],
-    [
-     0.023554,
-     0.052748
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.62585,
-     "x": 0.0648,
-     "y": 0.0648
-    },
-    {
-     "t": -1.328597,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-3-NW-1.svg"
-  },
-  {
-   "id": "wonky-3-SE-2",
-   "parent": "h-radius-1-7-cubic",
-   "parentName": "wonk-3",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-3, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -2479,14 +2095,14 @@
      "y": 0.4319
     }
    ],
-   "figure": "wonky-3-SE-2.svg"
+   "figure": "wonky-3-SE-1.svg"
   },
   {
-   "id": "wonky-3-NW-2",
+   "id": "wonky-3-NW-1",
    "parent": "h-radius-1-7-cubic",
    "parentName": "wonk-3",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 7,
    "use": "radius",
@@ -2496,8 +2112,8 @@
     "plain": "x = cos^1(t), y = sin^7(t)",
     "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-3, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-3, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -2905,7 +2521,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-3-NW-2.svg"
+   "figure": "wonky-3-NW-1.svg"
   },
   {
    "id": "wonky-4-SE-1",
@@ -2924,166 +2540,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-4, cut at the y = x axis",
     "search": "x = cos^3(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.039051,
-     0.013052
-    ],
-    [
-     0.103685,
-     0.038556
-    ],
-    [
-     0.159986,
-     0.066015
-    ],
-    [
-     0.207084,
-     0.09465
-    ],
-    [
-     0.244341,
-     0.123574
-    ],
-    [
-     0.27139,
-     0.15181
-    ],
-    [
-     0.288155,
-     0.178313
-    ],
-    [
-     0.294871,
-     0.201997
-    ],
-    [
-     0.292077,
-     0.22177
-    ],
-    [
-     0.280607,
-     0.236564
-    ],
-    [
-     0.261561,
-     0.245378
-    ],
-    [
-     0.247398,
-     0.247398
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -7.035073,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.239803,
-     "x": 0.2474,
-     "y": 0.2474
-    }
-   ],
-   "figure": "wonky-4-SE-1.svg"
-  },
-  {
-   "id": "wonky-4-NW-1",
-   "parent": "h-radius-3-1-cubic",
-   "parentName": "wonk-4",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-4, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.247398,
-     0.247398
-    ],
-    [
-     0.236254,
-     0.247312
-    ],
-    [
-     0.20617,
-     0.241605
-    ],
-    [
-     0.172886,
-     0.227668
-    ],
-    [
-     0.138004,
-     0.205114
-    ],
-    [
-     0.103079,
-     0.173777
-    ],
-    [
-     0.069541,
-     0.13373
-    ],
-    [
-     0.038635,
-     0.085291
-    ],
-    [
-     0.011367,
-     0.029015
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.239803,
-     "x": 0.2474,
-     "y": 0.2474
-    },
-    {
-     "t": -2.177512,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-4-NW-1.svg"
-  },
-  {
-   "id": "wonky-4-SE-2",
-   "parent": "h-radius-3-1-cubic",
-   "parentName": "wonk-4",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-4, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -3475,14 +2931,14 @@
      "y": 0.9636
     }
    ],
-   "figure": "wonky-4-SE-2.svg"
+   "figure": "wonky-4-SE-1.svg"
   },
   {
-   "id": "wonky-4-NW-2",
+   "id": "wonky-4-NW-1",
    "parent": "h-radius-3-1-cubic",
    "parentName": "wonk-4",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -3492,8 +2948,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-4, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-4, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -3873,7 +3329,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-4-NW-2.svg"
+   "figure": "wonky-4-NW-1.svg"
   },
   {
    "id": "wonky-5-SE-1",
@@ -3892,146 +3348,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-5, cut at the y = x axis",
     "search": "x = cos^5(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.032704,
-     0.011952
-    ],
-    [
-     0.078557,
-     0.032479
-    ],
-    [
-     0.113244,
-     0.052929
-    ],
-    [
-     0.136782,
-     0.072287
-    ],
-    [
-     0.149633,
-     0.089511
-    ],
-    [
-     0.152677,
-     0.103575
-    ],
-    [
-     0.147154,
-     0.113504
-    ],
-    [
-     0.134585,
-     0.11842
-    ],
-    [
-     0.11779,
-     0.11779
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -7.064469,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.774679,
-     "x": 0.1178,
-     "y": 0.1178
-    }
-   ],
-   "figure": "wonky-5-SE-1.svg"
-  },
-  {
-   "id": "wonky-5-NW-1",
-   "parent": "h-radius-5-1-cubic",
-   "parentName": "wonk-5",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-5, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.11779,
-     0.11779
-    ],
-    [
-     0.116673,
-     0.11758
-    ],
-    [
-     0.095198,
-     0.1104
-    ],
-    [
-     0.07191,
-     0.096486
-    ],
-    [
-     0.048426,
-     0.075641
-    ],
-    [
-     0.026147,
-     0.047876
-    ],
-    [
-     0.006194,
-     0.013399
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.774679,
-     "x": 0.1178,
-     "y": 0.1178
-    },
-    {
-     "t": -2.795734,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-5-NW-1.svg"
-  },
-  {
-   "id": "wonky-5-SE-2",
-   "parent": "h-radius-5-1-cubic",
-   "parentName": "wonk-5",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-5, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -4431,14 +3747,14 @@
      "y": 0.6032
     }
    ],
-   "figure": "wonky-5-SE-2.svg"
+   "figure": "wonky-5-SE-1.svg"
   },
   {
-   "id": "wonky-5-NW-2",
+   "id": "wonky-5-NW-1",
    "parent": "h-radius-5-1-cubic",
    "parentName": "wonk-5",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -4448,8 +3764,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-5, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-5, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -4841,7 +4157,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-5-NW-2.svg"
+   "figure": "wonky-5-NW-1.svg"
   },
   {
    "id": "wonky-6-SE-1",
@@ -4860,134 +4176,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
     "use": "the SE-1 half of wonk-6, cut at the y = x axis",
     "search": "x = cos^7(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.026512,
-     0.010595
-    ],
-    [
-     0.058344,
-     0.02682
-    ],
-    [
-     0.078427,
-     0.04152
-    ],
-    [
-     0.087824,
-     0.053666
-    ],
-    [
-     0.088051,
-     0.062302
-    ],
-    [
-     0.080939,
-     0.06659
-    ],
-    [
-     0.068486,
-     0.065845
-    ],
-    [
-     0.064824,
-     0.064824
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -7.086492,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -4.195652,
-     "x": 0.0648,
-     "y": 0.0648
-    }
-   ],
-   "figure": "wonky-6-SE-1.svg"
-  },
-  {
-   "id": "wonky-6-NW-1",
-   "parent": "h-radius-7-1-cubic",
-   "parentName": "wonk-6",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-1 half of wonk-6, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.064824,
-     0.064824
-    ],
-    [
-     0.052701,
-     0.059561
-    ],
-    [
-     0.035461,
-     0.047432
-    ],
-    [
-     0.018397,
-     0.029349
-    ],
-    [
-     0.002809,
-     0.00539
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -4.195652,
-     "x": 0.0648,
-     "y": 0.0648
-    },
-    {
-     "t": -3.310924,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-6-NW-1.svg"
-  },
-  {
-   "id": "wonky-6-SE-2",
-   "parent": "h-radius-7-1-cubic",
-   "parentName": "wonk-6",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the SE-2 half of wonk-6, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -5395,14 +4583,14 @@
      "y": 0.4319
     }
    ],
-   "figure": "wonky-6-SE-2.svg"
+   "figure": "wonky-6-SE-1.svg"
   },
   {
-   "id": "wonky-6-NW-2",
+   "id": "wonky-6-NW-1",
    "parent": "h-radius-7-1-cubic",
    "parentName": "wonk-6",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -5412,8 +4600,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
-    "use": "the NW-2 half of wonk-6, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-6, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -5809,7 +4997,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-6-NW-2.svg"
+   "figure": "wonky-6-NW-1.svg"
   },
   {
    "id": "wonky-7-SE-1",
@@ -5828,146 +5016,6 @@
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
     "use": "the SE-1 half of wonk-7, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^3(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.005065,
-     0.002434
-    ],
-    [
-     0.078315,
-     0.04312
-    ],
-    [
-     0.144598,
-     0.090992
-    ],
-    [
-     0.201053,
-     0.144306
-    ],
-    [
-     0.244946,
-     0.200212
-    ],
-    [
-     0.273929,
-     0.254699
-    ],
-    [
-     0.283066,
-     0.283066
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.456227,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.892936,
-     "x": 0.2831,
-     "y": 0.2831
-    }
-   ],
-   "figure": "wonky-7-SE-1.svg"
-  },
-  {
-   "id": "wonky-7-NW-1",
-   "parent": "h-radius-1-3-quintic-central",
-   "parentName": "wonk-7",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-1 half of wonk-7, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.283066,
-     0.283066
-    ],
-    [
-     0.28633,
-     0.302682
-    ],
-    [
-     0.281426,
-     0.338255
-    ],
-    [
-     0.259674,
-     0.355152
-    ],
-    [
-     0.222837,
-     0.347383
-    ],
-    [
-     0.173995,
-     0.310022
-    ],
-    [
-     0.11738,
-     0.240039
-    ],
-    [
-     0.058055,
-     0.137066
-    ],
-    [
-     0.001435,
-     0.003946
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.892936,
-     "x": 0.2831,
-     "y": 0.2831
-    },
-    {
-     "t": -1.379429,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-7-NW-1.svg"
-  },
-  {
-   "id": "wonky-7-SE-2",
-   "parent": "h-radius-1-3-quintic-central",
-   "parentName": "wonk-7",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the SE-2 half of wonk-7, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -6359,14 +5407,14 @@
      "y": 0.9993
     }
    ],
-   "figure": "wonky-7-SE-2.svg"
+   "figure": "wonky-7-SE-1.svg"
   },
   {
-   "id": "wonky-7-NW-2",
+   "id": "wonky-7-NW-1",
    "parent": "h-radius-1-3-quintic-central",
    "parentName": "wonk-7",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -6376,8 +5424,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-2 half of wonk-7, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-7, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -6777,7 +5825,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-7-NW-2.svg"
+   "figure": "wonky-7-NW-1.svg"
   },
   {
    "id": "wonky-8-SE-1",
@@ -6796,118 +5844,6 @@
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
     "use": "the SE-1 half of wonk-8, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^5(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.004961,
-     0.003655
-    ],
-    [
-     0.0358,
-     0.031426
-    ],
-    [
-     0.051844,
-     0.051844
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.868339,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -1.720804,
-     "x": 0.0518,
-     "y": 0.0518
-    }
-   ],
-   "figure": "wonky-8-SE-1.svg"
-  },
-  {
-   "id": "wonky-8-NW-1",
-   "parent": "h-radius-1-5-quintic-central",
-   "parentName": "wonk-8",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-1 half of wonk-8, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.051844,
-     0.051844
-    ],
-    [
-     0.055603,
-     0.058006
-    ],
-    [
-     0.06294,
-     0.077907
-    ],
-    [
-     0.057395,
-     0.084253
-    ],
-    [
-     0.039901,
-     0.069526
-    ],
-    [
-     0.012914,
-     0.026783
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.720804,
-     "x": 0.0518,
-     "y": 0.0518
-    },
-    {
-     "t": -1.414927,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-8-NW-1.svg"
-  },
-  {
-   "id": "wonky-8-SE-2",
-   "parent": "h-radius-1-5-quintic-central",
-   "parentName": "wonk-8",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the SE-2 half of wonk-8, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -7311,14 +6247,14 @@
      "y": 0.5373
     }
    ],
-   "figure": "wonky-8-SE-2.svg"
+   "figure": "wonky-8-SE-1.svg"
   },
   {
-   "id": "wonky-8-NW-2",
+   "id": "wonky-8-NW-1",
    "parent": "h-radius-1-5-quintic-central",
    "parentName": "wonk-8",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 5,
    "use": "radius",
@@ -7328,8 +6264,8 @@
     "plain": "x = cos^1(t), y = sin^5(t)",
     "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-2 half of wonk-8, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-8, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -7745,7 +6681,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-8-NW-2.svg"
+   "figure": "wonky-8-NW-1.svg"
   },
   {
    "id": "wonky-9-SE-1",
@@ -7764,154 +6700,6 @@
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
     "use": "the SE-1 half of wonk-9, cut at the y = x axis",
     "search": "x = cos^3(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.024133,
-     0.008974
-    ],
-    [
-     0.115631,
-     0.047713
-    ],
-    [
-     0.195024,
-     0.089138
-    ],
-    [
-     0.259956,
-     0.131471
-    ],
-    [
-     0.30871,
-     0.172687
-    ],
-    [
-     0.340331,
-     0.2106
-    ],
-    [
-     0.354693,
-     0.242978
-    ],
-    [
-     0.352525,
-     0.267667
-    ],
-    [
-     0.33536,
-     0.282723
-    ],
-    [
-     0.305435,
-     0.286538
-    ],
-    [
-     0.283066,
-     0.283066
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -6.27108,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.239803,
-     "x": 0.2831,
-     "y": 0.2831
-    }
-   ],
-   "figure": "wonky-9-SE-1.svg"
-  },
-  {
-   "id": "wonky-9-NW-1",
-   "parent": "h-radius-3-1-quintic-central",
-   "parentName": "wonk-9",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-1 half of wonk-9, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.283066,
-     0.283066
-    ],
-    [
-     0.265529,
-     0.277958
-    ],
-    [
-     0.218763,
-     0.256363
-    ],
-    [
-     0.168372,
-     0.221725
-    ],
-    [
-     0.117486,
-     0.174618
-    ],
-    [
-     0.068916,
-     0.116182
-    ],
-    [
-     0.024986,
-     0.04805
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.239803,
-     "x": 0.2831,
-     "y": 0.2831
-    },
-    {
-     "t": -2.373413,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-9-NW-1.svg"
-  },
-  {
-   "id": "wonky-9-SE-2",
-   "parent": "h-radius-3-1-quintic-central",
-   "parentName": "wonk-9",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the SE-2 half of wonk-9, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -8311,14 +7099,14 @@
      "y": 0.9993
     }
    ],
-   "figure": "wonky-9-SE-2.svg"
+   "figure": "wonky-9-SE-1.svg"
   },
   {
-   "id": "wonky-9-NW-2",
+   "id": "wonky-9-NW-1",
    "parent": "h-radius-3-1-quintic-central",
    "parentName": "wonk-9",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -8328,8 +7116,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-2 half of wonk-9, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-9, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -8713,7 +7501,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-9-NW-2.svg"
+   "figure": "wonky-9-NW-1.svg"
   },
   {
    "id": "wonky-10-SE-1",
@@ -8732,126 +7520,6 @@
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
     "use": "the SE-1 half of wonk-10, cut at the y = x axis",
     "search": "x = cos^5(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.015921,
-     0.007441
-    ],
-    [
-     0.053029,
-     0.028025
-    ],
-    [
-     0.075397,
-     0.045103
-    ],
-    [
-     0.084175,
-     0.057104
-    ],
-    [
-     0.081283,
-     0.062696
-    ],
-    [
-     0.069195,
-     0.060884
-    ],
-    [
-     0.051844,
-     0.051844
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -5.820124,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -3.774679,
-     "x": 0.0518,
-     "y": 0.0518
-    }
-   ],
-   "figure": "wonky-10-SE-1.svg"
-  },
-  {
-   "id": "wonky-10-NW-1",
-   "parent": "h-radius-5-1-quintic-central",
-   "parentName": "wonk-10",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-1 half of wonk-10, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.051844,
-     0.051844
-    ],
-    [
-     0.050682,
-     0.051076
-    ],
-    [
-     0.028554,
-     0.033114
-    ],
-    [
-     0.005411,
-     0.007261
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.774679,
-     "x": 0.0518,
-     "y": 0.0518
-    },
-    {
-     "t": -3.303248,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-10-NW-1.svg"
-  },
-  {
-   "id": "wonky-10-SE-2",
-   "parent": "h-radius-5-1-quintic-central",
-   "parentName": "wonk-10",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-central",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the SE-2 half of wonk-10, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -9263,14 +7931,14 @@
      "y": 0.5373
     }
    ],
-   "figure": "wonky-10-SE-2.svg"
+   "figure": "wonky-10-SE-1.svg"
   },
   {
-   "id": "wonky-10-NW-2",
+   "id": "wonky-10-NW-1",
    "parent": "h-radius-5-1-quintic-central",
    "parentName": "wonk-10",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -9280,8 +7948,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2",
-    "use": "the NW-2 half of wonk-10, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-10, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -9681,7 +8349,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-10-NW-2.svg"
+   "figure": "wonky-10-NW-1.svg"
   },
   {
    "id": "wonky-11-SE-1",
@@ -9700,174 +8368,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-11, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^3(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.054236,
-     0.014644
-    ],
-    [
-     0.13454,
-     0.042197
-    ],
-    [
-     0.212861,
-     0.077238
-    ],
-    [
-     0.288061,
-     0.120486
-    ],
-    [
-     0.358888,
-     0.172472
-    ],
-    [
-     0.423962,
-     0.233431
-    ],
-    [
-     0.481773,
-     0.30317
-    ],
-    [
-     0.530691,
-     0.380905
-    ],
-    [
-     0.569006,
-     0.46509
-    ],
-    [
-     0.595001,
-     0.553233
-    ],
-    [
-     0.603647,
-     0.603647
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.109824,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.892936,
-     "x": 0.6036,
-     "y": 0.6036
-    }
-   ],
-   "figure": "wonky-11-SE-1.svg"
-  },
-  {
-   "id": "wonky-11-NW-1",
-   "parent": "h-radius-1-3-quintic-all-four",
-   "parentName": "wonk-11",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-11, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.603647,
-     0.603647
-    ],
-    [
-     0.60707,
-     0.641739
-    ],
-    [
-     0.603883,
-     0.725826
-    ],
-    [
-     0.584591,
-     0.799537
-    ],
-    [
-     0.549055,
-     0.855929
-    ],
-    [
-     0.498069,
-     0.887455
-    ],
-    [
-     0.433539,
-     0.886575
-    ],
-    [
-     0.358566,
-     0.846561
-    ],
-    [
-     0.2774,
-     0.76245
-    ],
-    [
-     0.195222,
-     0.632005
-    ],
-    [
-     0.117761,
-     0.456535
-    ],
-    [
-     0.050759,
-     0.241406
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.892936,
-     "x": 0.6036,
-     "y": 0.6036
-    },
-    {
-     "t": -1.174638,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-11-NW-1.svg"
-  },
-  {
-   "id": "wonky-11-SE-2",
-   "parent": "h-radius-1-3-quintic-all-four",
-   "parentName": "wonk-11",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-11, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -10247,14 +8747,14 @@
      "y": 1.3198
     }
    ],
-   "figure": "wonky-11-SE-2.svg"
+   "figure": "wonky-11-SE-1.svg"
   },
   {
-   "id": "wonky-11-NW-2",
+   "id": "wonky-11-NW-1",
    "parent": "h-radius-1-3-quintic-all-four",
    "parentName": "wonk-11",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -10264,8 +8764,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-11, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-11, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -10649,7 +9149,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-11-NW-2.svg"
+   "figure": "wonky-11-NW-1.svg"
   },
   {
    "id": "wonky-12-SE-1",
@@ -10668,146 +9168,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-12, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^5(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.021634,
-     0.00922
-    ],
-    [
-     0.06821,
-     0.035039
-    ],
-    [
-     0.110778,
-     0.068286
-    ],
-    [
-     0.148442,
-     0.109372
-    ],
-    [
-     0.18008,
-     0.158078
-    ],
-    [
-     0.199126,
-     0.199126
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.168697,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.720804,
-     "x": 0.1991,
-     "y": 0.1991
-    }
-   ],
-   "figure": "wonky-12-SE-1.svg"
-  },
-  {
-   "id": "wonky-12-NW-1",
-   "parent": "h-radius-1-5-quintic-all-four",
-   "parentName": "wonk-12",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-12, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.199126,
-     0.199126
-    ],
-    [
-     0.204325,
-     0.213155
-    ],
-    [
-     0.219618,
-     0.271842
-    ],
-    [
-     0.224377,
-     0.329374
-    ],
-    [
-     0.217308,
-     0.37865
-    ],
-    [
-     0.197834,
-     0.410286
-    ],
-    [
-     0.166576,
-     0.413272
-    ],
-    [
-     0.125755,
-     0.376414
-    ],
-    [
-     0.079376,
-     0.2905
-    ],
-    [
-     0.03302,
-     0.150882
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.720804,
-     "x": 0.1991,
-     "y": 0.1991
-    },
-    {
-     "t": -1.182993,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-12-NW-1.svg"
-  },
-  {
-   "id": "wonky-12-SE-2",
-   "parent": "h-radius-1-5-quintic-all-four",
-   "parentName": "wonk-12",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-12, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -11195,14 +9555,14 @@
      "y": 0.6846
     }
    ],
-   "figure": "wonky-12-SE-2.svg"
+   "figure": "wonky-12-SE-1.svg"
   },
   {
-   "id": "wonky-12-NW-2",
+   "id": "wonky-12-NW-1",
    "parent": "h-radius-1-5-quintic-all-four",
    "parentName": "wonk-12",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 5,
    "use": "radius",
@@ -11212,8 +9572,8 @@
     "plain": "x = cos^1(t), y = sin^5(t)",
     "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-12, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-12, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -11617,7 +9977,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-12-NW-2.svg"
+   "figure": "wonky-12-NW-1.svg"
   },
   {
    "id": "wonky-13-SE-1",
@@ -11636,130 +9996,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-13, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^7(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.014098,
-     0.009038
-    ],
-    [
-     0.042992,
-     0.03421
-    ],
-    [
-     0.067332,
-     0.066176
-    ],
-    [
-     0.069115,
-     0.069115
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.812487,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.62585,
-     "x": 0.0691,
-     "y": 0.0691
-    }
-   ],
-   "figure": "wonky-13-SE-1.svg"
-  },
-  {
-   "id": "wonky-13-NW-1",
-   "parent": "h-radius-1-7-quintic-all-four",
-   "parentName": "wonk-13",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-13, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.069115,
-     0.069115
-    ],
-    [
-     0.086038,
-     0.104054
-    ],
-    [
-     0.097666,
-     0.145005
-    ],
-    [
-     0.100607,
-     0.183277
-    ],
-    [
-     0.093547,
-     0.209495
-    ],
-    [
-     0.07617,
-     0.2108
-    ],
-    [
-     0.049921,
-     0.172473
-    ],
-    [
-     0.018526,
-     0.081335
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.62585,
-     "x": 0.0691,
-     "y": 0.0691
-    },
-    {
-     "t": -1.193591,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-13-NW-1.svg"
-  },
-  {
-   "id": "wonky-13-SE-2",
-   "parent": "h-radius-1-7-quintic-all-four",
-   "parentName": "wonk-13",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-13, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -12155,14 +10391,14 @@
      "y": 0.4362
     }
    ],
-   "figure": "wonky-13-SE-2.svg"
+   "figure": "wonky-13-SE-1.svg"
   },
   {
-   "id": "wonky-13-NW-2",
+   "id": "wonky-13-NW-1",
    "parent": "h-radius-1-7-quintic-all-four",
    "parentName": "wonk-13",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 7,
    "use": "radius",
@@ -12172,8 +10408,8 @@
     "plain": "x = cos^1(t), y = sin^7(t)",
     "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-13, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-13, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -12585,7 +10821,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-13-NW-2.svg"
+   "figure": "wonky-13-NW-1.svg"
   },
   {
    "id": "wonky-14-SE-1",
@@ -12604,194 +10840,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-14, cut at the y = x axis",
     "search": "x = cos^3(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.084083,
-     0.015187
-    ],
-    [
-     0.228606,
-     0.047488
-    ],
-    [
-     0.365348,
-     0.086365
-    ],
-    [
-     0.491215,
-     0.131078
-    ],
-    [
-     0.603349,
-     0.180616
-    ],
-    [
-     0.699259,
-     0.233719
-    ],
-    [
-     0.776952,
-     0.288912
-    ],
-    [
-     0.835027,
-     0.344555
-    ],
-    [
-     0.872758,
-     0.398904
-    ],
-    [
-     0.890133,
-     0.450181
-    ],
-    [
-     0.887849,
-     0.496646
-    ],
-    [
-     0.867273,
-     0.536677
-    ],
-    [
-     0.830361,
-     0.568828
-    ],
-    [
-     0.77954,
-     0.591894
-    ],
-    [
-     0.717569,
-     0.604942
-    ],
-    [
-     0.647392,
-     0.607338
-    ],
-    [
-     0.603647,
-     0.603647
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -12.45225,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.239803,
-     "x": 0.6036,
-     "y": 0.6036
-    }
-   ],
-   "figure": "wonky-14-SE-1.svg"
-  },
-  {
-   "id": "wonky-14-NW-1",
-   "parent": "h-radius-3-1-quintic-all-four",
-   "parentName": "wonk-14",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-14, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.603647,
-     0.603647
-    ],
-    [
-     0.571978,
-     0.598749
-    ],
-    [
-     0.494185,
-     0.579123
-    ],
-    [
-     0.41664,
-     0.548663
-    ],
-    [
-     0.341647,
-     0.507785
-    ],
-    [
-     0.271125,
-     0.457078
-    ],
-    [
-     0.20658,
-     0.397262
-    ],
-    [
-     0.149099,
-     0.329154
-    ],
-    [
-     0.099369,
-     0.25365
-    ],
-    [
-     0.057707,
-     0.171711
-    ],
-    [
-     0.0241,
-     0.084365
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.239803,
-     "x": 0.6036,
-     "y": 0.6036
-    },
-    {
-     "t": -1.947946,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-14-NW-1.svg"
-  },
-  {
-   "id": "wonky-14-SE-2",
-   "parent": "h-radius-3-1-quintic-all-four",
-   "parentName": "wonk-14",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-14, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -13175,14 +11223,14 @@
      "y": 1.3198
     }
    ],
-   "figure": "wonky-14-SE-2.svg"
+   "figure": "wonky-14-SE-1.svg"
   },
   {
-   "id": "wonky-14-NW-2",
+   "id": "wonky-14-NW-1",
    "parent": "h-radius-3-1-quintic-all-four",
    "parentName": "wonk-14",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -13192,8 +11240,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-14, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-14, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -13553,7 +11601,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-14-NW-2.svg"
+   "figure": "wonky-14-NW-1.svg"
   },
   {
    "id": "wonky-15-SE-1",
@@ -13572,166 +11620,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-15, cut at the y = x axis",
     "search": "x = cos^5(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.031645,
-     0.005891
-    ],
-    [
-     0.141662,
-     0.030601
-    ],
-    [
-     0.235124,
-     0.058395
-    ],
-    [
-     0.309849,
-     0.087891
-    ],
-    [
-     0.364654,
-     0.117591
-    ],
-    [
-     0.399408,
-     0.145971
-    ],
-    [
-     0.415002,
-     0.171581
-    ],
-    [
-     0.413222,
-     0.193134
-    ],
-    [
-     0.396565,
-     0.209577
-    ],
-    [
-     0.368,
-     0.22014
-    ],
-    [
-     0.330708,
-     0.224349
-    ],
-    [
-     0.287837,
-     0.222015
-    ],
-    [
-     0.242293,
-     0.213192
-    ],
-    [
-     0.199126,
-     0.199126
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -11.929408,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.774679,
-     "x": 0.1991,
-     "y": 0.1991
-    }
-   ],
-   "figure": "wonky-15-SE-1.svg"
-  },
-  {
-   "id": "wonky-15-NW-1",
-   "parent": "h-radius-5-1-quintic-all-four",
-   "parentName": "wonk-15",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-15, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.199126,
-     0.199126
-    ],
-    [
-     0.196591,
-     0.198119
-    ],
-    [
-     0.152757,
-     0.17715
-    ],
-    [
-     0.11231,
-     0.150693
-    ],
-    [
-     0.07628,
-     0.119149
-    ],
-    [
-     0.045266,
-     0.082885
-    ],
-    [
-     0.019516,
-     0.042217
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.774679,
-     "x": 0.1991,
-     "y": 0.1991
-    },
-    {
-     "t": -2.711308,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-15-NW-1.svg"
-  },
-  {
-   "id": "wonky-15-SE-2",
-   "parent": "h-radius-5-1-quintic-all-four",
-   "parentName": "wonk-15",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-15, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -14131,14 +12019,14 @@
      "y": 0.6846
     }
    ],
-   "figure": "wonky-15-SE-2.svg"
+   "figure": "wonky-15-SE-1.svg"
   },
   {
-   "id": "wonky-15-NW-2",
+   "id": "wonky-15-NW-1",
    "parent": "h-radius-5-1-quintic-all-four",
    "parentName": "wonk-15",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -14148,8 +12036,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-15, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-15, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -14521,7 +12409,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-15-NW-2.svg"
+   "figure": "wonky-15-NW-1.svg"
   },
   {
    "id": "wonky-16-SE-1",
@@ -14540,146 +12428,6 @@
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-16, cut at the y = x axis",
     "search": "x = cos^7(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.074616,
-     0.016761
-    ],
-    [
-     0.1391,
-     0.036296
-    ],
-    [
-     0.182928,
-     0.055159
-    ],
-    [
-     0.207211,
-     0.07198
-    ],
-    [
-     0.214211,
-     0.085602
-    ],
-    [
-     0.207008,
-     0.09516
-    ],
-    [
-     0.189106,
-     0.100114
-    ],
-    [
-     0.16405,
-     0.100245
-    ],
-    [
-     0.135108,
-     0.095598
-    ],
-    [
-     0.105033,
-     0.086412
-    ],
-    [
-     0.075955,
-     0.073025
-    ],
-    [
-     0.069115,
-     0.069115
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -11.331047,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -4.195652,
-     "x": 0.0691,
-     "y": 0.0691
-    }
-   ],
-   "figure": "wonky-16-SE-1.svg"
-  },
-  {
-   "id": "wonky-16-NW-1",
-   "parent": "h-radius-7-1-quintic-all-four",
-   "parentName": "wonk-16",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-16, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.069115,
-     0.069115
-    ],
-    [
-     0.049364,
-     0.05579
-    ],
-    [
-     0.026175,
-     0.035012
-    ],
-    [
-     0.006838,
-     0.010909
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -4.195652,
-     "x": 0.0691,
-     "y": 0.0691
-    },
-    {
-     "t": -3.461578,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-16-NW-1.svg"
-  },
-  {
-   "id": "wonky-16-SE-2",
-   "parent": "h-radius-7-1-quintic-all-four",
-   "parentName": "wonk-16",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "quintic-all-four",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-16, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -15091,14 +12839,14 @@
      "y": 0.4362
     }
    ],
-   "figure": "wonky-16-SE-2.svg"
+   "figure": "wonky-16-SE-1.svg"
   },
   {
-   "id": "wonky-16-NW-2",
+   "id": "wonky-16-NW-1",
    "parent": "h-radius-7-1-quintic-all-four",
    "parentName": "wonk-16",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -15108,8 +12856,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-16, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-16, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -15489,7 +13237,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-16-NW-2.svg"
+   "figure": "wonky-16-NW-1.svg"
   },
   {
    "id": "wonky-17-SE-1",
@@ -15508,198 +13256,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-17, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^3(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.006687,
-     0.000943
-    ],
-    [
-     0.121024,
-     0.020252
-    ],
-    [
-     0.238201,
-     0.047
-    ],
-    [
-     0.356892,
-     0.08258
-    ],
-    [
-     0.475592,
-     0.12841
-    ],
-    [
-     0.592607,
-     0.185865
-    ],
-    [
-     0.706056,
-     0.256196
-    ],
-    [
-     0.813866,
-     0.340412
-    ],
-    [
-     0.913779,
-     0.439138
-    ],
-    [
-     1.003363,
-     0.552446
-    ],
-    [
-     1.080051,
-     0.679653
-    ],
-    [
-     1.141194,
-     0.819095
-    ],
-    [
-     1.184165,
-     0.967905
-    ],
-    [
-     1.206488,
-     1.121794
-    ],
-    [
-     1.209141,
-     1.209141
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.775435,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.892936,
-     "x": 1.2091,
-     "y": 1.2091
-    }
-   ],
-   "figure": "wonky-17-SE-1.svg"
-  },
-  {
-   "id": "wonky-17-NW-1",
-   "parent": "h-radius-1-3-cubic-and-quintic",
-   "parentName": "wonk-17",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-17, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     1.209141,
-     1.209141
-    ],
-    [
-     1.20603,
-     1.274905
-    ],
-    [
-     1.18123,
-     1.419758
-    ],
-    [
-     1.131369,
-     1.547357
-    ],
-    [
-     1.056837,
-     1.647517
-    ],
-    [
-     0.959392,
-     1.709436
-    ],
-    [
-     0.842327,
-     1.722534
-    ],
-    [
-     0.710525,
-     1.677523
-    ],
-    [
-     0.57034,
-     1.567617
-    ],
-    [
-     0.429279,
-     1.389735
-    ],
-    [
-     0.295481,
-     1.145517
-    ],
-    [
-     0.17703,
-     0.841936
-    ],
-    [
-     0.081172,
-     0.49134
-    ],
-    [
-     0.013539,
-     0.110813
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.892936,
-     "x": 1.2091,
-     "y": 1.2091
-    },
-    {
-     "t": -1.114872,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-17-NW-1.svg"
-  },
-  {
-   "id": "wonky-17-SE-2",
-   "parent": "h-radius-1-3-cubic-and-quintic",
-   "parentName": "wonk-17",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-17, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -16071,14 +13627,14 @@
      "y": 1.9253
     }
    ],
-   "figure": "wonky-17-SE-2.svg"
+   "figure": "wonky-17-SE-1.svg"
   },
   {
-   "id": "wonky-17-NW-2",
+   "id": "wonky-17-NW-1",
    "parent": "h-radius-1-3-cubic-and-quintic",
    "parentName": "wonk-17",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -16088,8 +13644,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-17, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-17, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -16193,14 +13749,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-17-NW-2.svg"
+   "figure": "wonky-17-NW-1.svg"
   },
   {
-   "id": "wonky-17-SE-3",
+   "id": "wonky-17-NW-2",
    "parent": "h-radius-1-3-cubic-and-quintic",
    "parentName": "wonk-17",
    "kind": "piece",
-   "half": "SE-3",
+   "half": "NW-2",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -16210,66 +13766,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-17, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-3 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     0.000575,
-     -0.002736
-    ],
-    [
-     0.011408,
-     -0.044225
-    ],
-    [
-     0.013865,
-     -0.044887
-    ],
-    [
-     0.005527,
-     -0.015191
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 1.220181,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": 1.400474,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-17-SE-3.svg"
-  },
-  {
-   "id": "wonky-17-NW-3",
-   "parent": "h-radius-1-3-cubic-and-quintic",
-   "parentName": "wonk-17",
-   "kind": "piece",
-   "half": "NW-3",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-17, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-2 half of wonk-17, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -16541,7 +14039,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-17-NW-3.svg"
+   "figure": "wonky-17-NW-2.svg"
   },
   {
    "id": "wonky-18-SE-1",
@@ -16560,170 +14058,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-18, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^5(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.01025,
-     0.001957
-    ],
-    [
-     0.091705,
-     0.021601
-    ],
-    [
-     0.171798,
-     0.049601
-    ],
-    [
-     0.249234,
-     0.087667
-    ],
-    [
-     0.322575,
-     0.137466
-    ],
-    [
-     0.390214,
-     0.200449
-    ],
-    [
-     0.450338,
-     0.277598
-    ],
-    [
-     0.50091,
-     0.36907
-    ],
-    [
-     0.539674,
-     0.473736
-    ],
-    [
-     0.559635,
-     0.559635
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.587494,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.720804,
-     "x": 0.5596,
-     "y": 0.5596
-    }
-   ],
-   "figure": "wonky-18-SE-1.svg"
-  },
-  {
-   "id": "wonky-18-NW-1",
-   "parent": "h-radius-1-5-cubic-and-quintic",
-   "parentName": "wonk-18",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-18, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.559635,
-     0.559635
-    ],
-    [
-     0.564231,
-     0.588614
-    ],
-    [
-     0.572208,
-     0.708278
-    ],
-    [
-     0.561564,
-     0.824349
-    ],
-    [
-     0.53102,
-     0.925281
-    ],
-    [
-     0.48059,
-     0.996689
-    ],
-    [
-     0.412123,
-     1.022472
-    ],
-    [
-     0.329693,
-     0.986844
-    ],
-    [
-     0.239682,
-     0.877185
-    ],
-    [
-     0.150408,
-     0.687279
-    ],
-    [
-     0.071219,
-     0.420193
-    ],
-    [
-     0.011148,
-     0.089934
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.720804,
-     "x": 0.5596,
-     "y": 0.5596
-    },
-    {
-     "t": -1.116381,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-18-NW-1.svg"
-  },
-  {
-   "id": "wonky-18-SE-2",
-   "parent": "h-radius-1-5-cubic-and-quintic",
-   "parentName": "wonk-18",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-18, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -17103,14 +14437,14 @@
      "y": 1.0451
     }
    ],
-   "figure": "wonky-18-SE-2.svg"
+   "figure": "wonky-18-SE-1.svg"
   },
   {
-   "id": "wonky-18-NW-2",
+   "id": "wonky-18-NW-1",
    "parent": "h-radius-1-5-cubic-and-quintic",
    "parentName": "wonk-18",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 5,
    "use": "radius",
@@ -17120,8 +14454,8 @@
     "plain": "x = cos^1(t), y = sin^5(t)",
     "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-18, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-18, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -17509,7 +14843,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-18-NW-2.svg"
+   "figure": "wonky-18-NW-1.svg"
   },
   {
    "id": "wonky-19-SE-1",
@@ -17528,154 +14862,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-19, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^7(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.021452,
-     0.005428
-    ],
-    [
-     0.083063,
-     0.026816
-    ],
-    [
-     0.141474,
-     0.057815
-    ],
-    [
-     0.195464,
-     0.10038
-    ],
-    [
-     0.243618,
-     0.156185
-    ],
-    [
-     0.28426,
-     0.226192
-    ],
-    [
-     0.315395,
-     0.309979
-    ],
-    [
-     0.31748,
-     0.31748
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.158516,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -1.62585,
-     "x": 0.3175,
-     "y": 0.3175
-    }
-   ],
-   "figure": "wonky-19-SE-1.svg"
-  },
-  {
-   "id": "wonky-19-NW-1",
-   "parent": "h-radius-1-7-cubic-and-quintic",
-   "parentName": "wonk-19",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-19, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.31748,
-     0.31748
-    ],
-    [
-     0.33473,
-     0.40482
-    ],
-    [
-     0.339847,
-     0.504571
-    ],
-    [
-     0.328606,
-     0.598627
-    ],
-    [
-     0.299812,
-     0.671415
-    ],
-    [
-     0.254068,
-     0.703132
-    ],
-    [
-     0.194601,
-     0.67233
-    ],
-    [
-     0.127683,
-     0.560561
-    ],
-    [
-     0.062318,
-     0.358386
-    ],
-    [
-     0.008933,
-     0.071041
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.62585,
-     "x": 0.3175,
-     "y": 0.3175
-    },
-    {
-     "t": -1.117969,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-19-NW-1.svg"
-  },
-  {
-   "id": "wonky-19-SE-2",
-   "parent": "h-radius-1-7-cubic-and-quintic",
-   "parentName": "wonk-19",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-19, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -18063,14 +15249,14 @@
      "y": 0.6846
     }
    ],
-   "figure": "wonky-19-SE-2.svg"
+   "figure": "wonky-19-SE-1.svg"
   },
   {
-   "id": "wonky-19-NW-2",
+   "id": "wonky-19-NW-1",
    "parent": "h-radius-1-7-cubic-and-quintic",
    "parentName": "wonk-19",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 1,
    "q": 7,
    "use": "radius",
@@ -18080,8 +15266,8 @@
     "plain": "x = cos^1(t), y = sin^7(t)",
     "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-19, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-19, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -18477,7 +15663,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-19-NW-2.svg"
+   "figure": "wonky-19-NW-1.svg"
   },
   {
    "id": "wonky-20-SE-1",
@@ -18592,100 +15778,6 @@
     }
    ],
    "figure": "wonky-20-SE-1.svg"
-  },
-  {
-   "id": "wonky-20-NW-1",
-   "parent": "h-radius-3-1-cubic-and-quintic",
-   "parentName": "wonk-20",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-20, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     1.209141,
-     1.209141
-    ],
-    [
-     1.154319,
-     1.208347
-    ],
-    [
-     1.018893,
-     1.194015
-    ],
-    [
-     0.882512,
-     1.162157
-    ],
-    [
-     0.748949,
-     1.113151
-    ],
-    [
-     0.621482,
-     1.047728
-    ],
-    [
-     0.502815,
-     0.966933
-    ],
-    [
-     0.39503,
-     0.872079
-    ],
-    [
-     0.299578,
-     0.764708
-    ],
-    [
-     0.217289,
-     0.646561
-    ],
-    [
-     0.148418,
-     0.519547
-    ],
-    [
-     0.092696,
-     0.385728
-    ],
-    [
-     0.049405,
-     0.247295
-    ],
-    [
-     0.017459,
-     0.106551
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.239803,
-     "x": 1.2091,
-     "y": 1.2091
-    },
-    {
-     "t": -1.720608,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-20-NW-1.svg"
   },
   {
    "id": "wonky-20-SE-2",
@@ -18926,68 +16018,6 @@
    "figure": "wonky-20-SE-2.svg"
   },
   {
-   "id": "wonky-20-NW-2",
-   "parent": "h-radius-3-1-cubic-and-quintic",
-   "parentName": "wonk-20",
-   "kind": "piece",
-   "half": "NW-2",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-20, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     0.0
-    ],
-    [
-     -0.00924,
-     0.003436
-    ],
-    [
-     -0.034017,
-     0.01137
-    ],
-    [
-     -0.04734,
-     0.014171
-    ],
-    [
-     -0.047061,
-     0.012558
-    ],
-    [
-     -0.031411,
-     0.007425
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.166831,
-     "x": -0.0,
-     "y": 0.0
-    },
-    {
-     "t": -0.099173,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-20-NW-2.svg"
-  },
-  {
    "id": "wonky-20-SE-3",
    "parent": "h-radius-3-1-cubic-and-quintic",
    "parentName": "wonk-20",
@@ -19162,11 +16192,11 @@
    "figure": "wonky-20-SE-3.svg"
   },
   {
-   "id": "wonky-20-NW-3",
+   "id": "wonky-20-NW-1",
    "parent": "h-radius-3-1-cubic-and-quintic",
    "parentName": "wonk-20",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -19176,8 +16206,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-20, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-20, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -19529,7 +16559,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-20-NW-3.svg"
+   "figure": "wonky-20-NW-1.svg"
   },
   {
    "id": "wonky-21-SE-1",
@@ -19548,190 +16578,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-21, cut at the y = x axis",
     "search": "x = cos^5(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.157051,
-     0.020798
-    ],
-    [
-     0.347019,
-     0.054973
-    ],
-    [
-     0.521208,
-     0.097031
-    ],
-    [
-     0.674529,
-     0.145709
-    ],
-    [
-     0.802749,
-     0.199369
-    ],
-    [
-     0.902744,
-     0.256071
-    ],
-    [
-     0.972699,
-     0.313669
-    ],
-    [
-     1.012198,
-     0.369926
-    ],
-    [
-     1.02222,
-     0.422633
-    ],
-    [
-     1.005023,
-     0.469733
-    ],
-    [
-     0.963934,
-     0.509421
-    ],
-    [
-     0.903076,
-     0.540226
-    ],
-    [
-     0.827044,
-     0.561059
-    ],
-    [
-     0.740586,
-     0.571231
-    ],
-    [
-     0.648297,
-     0.570432
-    ],
-    [
-     0.559635,
-     0.559635
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -18.184978,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.774679,
-     "x": 0.5596,
-     "y": 0.5596
-    }
-   ],
-   "figure": "wonky-21-SE-1.svg"
-  },
-  {
-   "id": "wonky-21-NW-1",
-   "parent": "h-radius-5-1-cubic-and-quintic",
-   "parentName": "wonk-21",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-21, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.559635,
-     0.559635
-    ],
-    [
-     0.554381,
-     0.55869
-    ],
-    [
-     0.462463,
-     0.536311
-    ],
-    [
-     0.375488,
-     0.503811
-    ],
-    [
-     0.29568,
-     0.461851
-    ],
-    [
-     0.224562,
-     0.411186
-    ],
-    [
-     0.163012,
-     0.352625
-    ],
-    [
-     0.111342,
-     0.287015
-    ],
-    [
-     0.069397,
-     0.215234
-    ],
-    [
-     0.036642,
-     0.138202
-    ],
-    [
-     0.012257,
-     0.056891
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.774679,
-     "x": 0.5596,
-     "y": 0.5596
-    },
-    {
-     "t": -2.259847,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-21-NW-1.svg"
-  },
-  {
-   "id": "wonky-21-SE-2",
-   "parent": "h-radius-5-1-cubic-and-quintic",
-   "parentName": "wonk-21",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-21, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -20115,14 +16961,14 @@
      "y": 1.0451
     }
    ],
-   "figure": "wonky-21-SE-2.svg"
+   "figure": "wonky-21-SE-1.svg"
   },
   {
-   "id": "wonky-21-NW-2",
+   "id": "wonky-21-NW-1",
    "parent": "h-radius-5-1-cubic-and-quintic",
    "parentName": "wonk-21",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -20132,8 +16978,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-21, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-21, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -20497,7 +17343,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-21-NW-2.svg"
+   "figure": "wonky-21-NW-1.svg"
   },
   {
    "id": "wonky-22-SE-1",
@@ -20516,174 +17362,6 @@
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-22, cut at the y = x axis",
     "search": "x = cos^7(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.131836,
-     0.017746
-    ],
-    [
-     0.297546,
-     0.048216
-    ],
-    [
-     0.438994,
-     0.084235
-    ],
-    [
-     0.551826,
-     0.12396
-    ],
-    [
-     0.633491,
-     0.165297
-    ],
-    [
-     0.683384,
-     0.206063
-    ],
-    [
-     0.702795,
-     0.244134
-    ],
-    [
-     0.694671,
-     0.277602
-    ],
-    [
-     0.663239,
-     0.304885
-    ],
-    [
-     0.613536,
-     0.324811
-    ],
-    [
-     0.55091,
-     0.336639
-    ],
-    [
-     0.480572,
-     0.340039
-    ],
-    [
-     0.407228,
-     0.335034
-    ],
-    [
-     0.334831,
-     0.321916
-    ],
-    [
-     0.31748,
-     0.31748
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -17.953561,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -4.195652,
-     "x": 0.3175,
-     "y": 0.3175
-    }
-   ],
-   "figure": "wonky-22-SE-1.svg"
-  },
-  {
-   "id": "wonky-22-NW-1",
-   "parent": "h-radius-7-1-cubic-and-quintic",
-   "parentName": "wonk-22",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-22, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.31748,
-     0.31748
-    ],
-    [
-     0.266467,
-     0.301154
-    ],
-    [
-     0.204335,
-     0.273314
-    ],
-    [
-     0.149816,
-     0.238994
-    ],
-    [
-     0.103586,
-     0.198784
-    ],
-    [
-     0.065752,
-     0.153252
-    ],
-    [
-     0.035982,
-     0.102946
-    ],
-    [
-     0.013625,
-     0.048415
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -4.195652,
-     "x": 0.3175,
-     "y": 0.3175
-    },
-    {
-     "t": -2.726346,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-22-NW-1.svg"
-  },
-  {
-   "id": "wonky-22-SE-2",
-   "parent": "h-radius-7-1-cubic-and-quintic",
-   "parentName": "wonk-22",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "cubic-and-quintic",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-22, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -21079,14 +17757,14 @@
      "y": 0.6846
     }
    ],
-   "figure": "wonky-22-SE-2.svg"
+   "figure": "wonky-22-SE-1.svg"
   },
   {
-   "id": "wonky-22-NW-2",
+   "id": "wonky-22-NW-1",
    "parent": "h-radius-7-1-cubic-and-quintic",
    "parentName": "wonk-22",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -21096,8 +17774,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-22, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-22, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -21465,7 +18143,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-22-NW-2.svg"
+   "figure": "wonky-22-NW-1.svg"
   },
   {
    "id": "wonky-23-SE-1",
@@ -21484,186 +18162,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-23, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^3(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.007487,
-     0.001477
-    ],
-    [
-     0.103,
-     0.023833
-    ],
-    [
-     0.199112,
-     0.05376
-    ],
-    [
-     0.294662,
-     0.092418
-    ],
-    [
-     0.388332,
-     0.140908
-    ],
-    [
-     0.478629,
-     0.200193
-    ],
-    [
-     0.563864,
-     0.270978
-    ],
-    [
-     0.642155,
-     0.353567
-    ],
-    [
-     0.711429,
-     0.447687
-    ],
-    [
-     0.769464,
-     0.552285
-    ],
-    [
-     0.813952,
-     0.665303
-    ],
-    [
-     0.842621,
-     0.78347
-    ],
-    [
-     0.851045,
-     0.851045
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.362808,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -1.892936,
-     "x": 0.851,
-     "y": 0.851
-    }
-   ],
-   "figure": "wonky-23-SE-1.svg"
-  },
-  {
-   "id": "wonky-23-NW-1",
-   "parent": "h-radius-1-3-every-term",
-   "parentName": "wonk-23",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.851045,
-     0.851045
-    ],
-    [
-     0.853396,
-     0.902133
-    ],
-    [
-     0.844615,
-     1.015169
-    ],
-    [
-     0.815286,
-     1.115055
-    ],
-    [
-     0.765356,
-     1.193123
-    ],
-    [
-     0.695963,
-     1.24006
-    ],
-    [
-     0.609627,
-     1.246668
-    ],
-    [
-     0.510316,
-     1.204838
-    ],
-    [
-     0.403365,
-     1.108675
-    ],
-    [
-     0.295186,
-     0.955626
-    ],
-    [
-     0.192796,
-     0.747428
-    ],
-    [
-     0.103173,
-     0.490682
-    ],
-    [
-     0.032526,
-     0.196881
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.892936,
-     "x": 0.851,
-     "y": 0.851
-    },
-    {
-     "t": -1.144584,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-23-NW-1.svg"
-  },
-  {
-   "id": "wonky-23-SE-2",
-   "parent": "h-radius-1-3-every-term",
-   "parentName": "wonk-23",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -21763,14 +18261,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-23-SE-2.svg"
+   "figure": "wonky-23-SE-1.svg"
   },
   {
-   "id": "wonky-23-NW-2",
+   "id": "wonky-23-SE-2",
    "parent": "h-radius-1-3-every-term",
    "parentName": "wonk-23",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "SE-2",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -21780,102 +18278,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     -0.032959,
-     0.030645
-    ],
-    [
-     -0.086829,
-     0.070971
-    ],
-    [
-     -0.133847,
-     0.096069
-    ],
-    [
-     -0.172597,
-     0.108611
-    ],
-    [
-     -0.201857,
-     0.111141
-    ],
-    [
-     -0.220577,
-     0.106004
-    ],
-    [
-     -0.227896,
-     0.095321
-    ],
-    [
-     -0.223188,
-     0.080985
-    ],
-    [
-     -0.206132,
-     0.064651
-    ],
-    [
-     -0.176775,
-     0.047729
-    ],
-    [
-     -0.135572,
-     0.03137
-    ],
-    [
-     -0.083395,
-     0.016455
-    ],
-    [
-     -0.021514,
-     0.0036
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.52828,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": -0.276833,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-23-NW-2.svg"
-  },
-  {
-   "id": "wonky-23-SE-3",
-   "parent": "h-radius-1-3-every-term",
-   "parentName": "wonk-23",
-   "kind": "piece",
-   "half": "SE-3",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-3 half, cut at the y = x axis"
+    "use": "the SE-2 half of wonk-23, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -22123,14 +18527,14 @@
      "y": 2.2834
     }
    ],
-   "figure": "wonky-23-SE-3.svg"
+   "figure": "wonky-23-SE-2.svg"
   },
   {
-   "id": "wonky-23-NW-3",
+   "id": "wonky-23-NW-1",
    "parent": "h-radius-1-3-every-term",
    "parentName": "wonk-23",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -22140,8 +18544,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-23, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -22241,14 +18645,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-23-NW-3.svg"
+   "figure": "wonky-23-NW-1.svg"
   },
   {
-   "id": "wonky-23-SE-4",
+   "id": "wonky-23-NW-2",
    "parent": "h-radius-1-3-every-term",
    "parentName": "wonk-23",
    "kind": "piece",
-   "half": "SE-4",
+   "half": "NW-2",
    "p": 1,
    "q": 3,
    "use": "radius",
@@ -22258,98 +18662,8 @@
     "plain": "x = cos^1(t), y = sin^3(t)",
     "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     0.034018,
-     -0.20591
-    ],
-    [
-     0.074432,
-     -0.35399
-    ],
-    [
-     0.114093,
-     -0.442314
-    ],
-    [
-     0.147958,
-     -0.478996
-    ],
-    [
-     0.172502,
-     -0.474133
-    ],
-    [
-     0.185672,
-     -0.438366
-    ],
-    [
-     0.186659,
-     -0.381711
-    ],
-    [
-     0.175546,
-     -0.312786
-    ],
-    [
-     0.152956,
-     -0.238446
-    ],
-    [
-     0.119746,
-     -0.163775
-    ],
-    [
-     0.076808,
-     -0.092318
-    ],
-    [
-     0.024989,
-     -0.026416
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 1.128873,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": 1.892936,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-23-SE-4.svg"
-  },
-  {
-   "id": "wonky-23-NW-4",
-   "parent": "h-radius-1-3-every-term",
-   "parentName": "wonk-23",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 1,
-   "q": 3,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^3(t)",
-    "internal": "x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-23, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^3(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-2 half of wonk-23, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^3(t) -- NW-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -22601,7 +18915,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-23-NW-4.svg"
+   "figure": "wonky-23-NW-2.svg"
   },
   {
    "id": "wonky-24-SE-1",
@@ -22620,338 +18934,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-24, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^5(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.043187,
-     0.015191
-    ],
-    [
-     0.101868,
-     0.043411
-    ],
-    [
-     0.157548,
-     0.080931
-    ],
-    [
-     0.209109,
-     0.128899
-    ],
-    [
-     0.255126,
-     0.187977
-    ],
-    [
-     0.29383,
-     0.25793
-    ],
-    [
-     0.316916,
-     0.316916
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -2.301765,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.720804,
-     "x": 0.3169,
-     "y": 0.3169
-    }
-   ],
-   "figure": "wonky-24-SE-1.svg"
-  },
-  {
-   "id": "wonky-24-NW-1",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.316916,
-     0.316916
-    ],
-    [
-     0.323136,
-     0.3371
-    ],
-    [
-     0.340768,
-     0.421802
-    ],
-    [
-     0.344535,
-     0.505761
-    ],
-    [
-     0.332743,
-     0.579791
-    ],
-    [
-     0.304726,
-     0.631966
-    ],
-    [
-     0.261403,
-     0.648538
-    ],
-    [
-     0.205712,
-     0.615742
-    ],
-    [
-     0.142745,
-     0.522416
-    ],
-    [
-     0.079448,
-     0.363031
-    ],
-    [
-     0.023802,
-     0.140431
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.720804,
-     "x": 0.3169,
-     "y": 0.3169
-    },
-    {
-     "t": -1.149018,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-24-NW-1.svg"
-  },
-  {
-   "id": "wonky-24-SE-2",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     -0.016435,
-     -0.132593
-    ],
-    [
-     -0.035195,
-     -0.433652
-    ],
-    [
-     -0.029441,
-     -0.733377
-    ],
-    [
-     0.0,
-     -1.0
-    ],
-    [
-     0.048372,
-     -1.204943
-    ],
-    [
-     0.107783,
-     -1.328025
-    ],
-    [
-     0.168691,
-     -1.360931
-    ],
-    [
-     0.221705,
-     -1.308071
-    ],
-    [
-     0.259272,
-     -1.18472
-    ],
-    [
-     0.276827,
-     -1.013125
-    ],
-    [
-     0.273207,
-     -0.81777
-    ],
-    [
-     0.250321,
-     -0.621043
-    ],
-    [
-     0.212283,
-     -0.440251
-    ],
-    [
-     0.164323,
-     -0.286327
-    ],
-    [
-     0.111783,
-     -0.164093
-    ],
-    [
-     0.059403,
-     -0.073529
-    ],
-    [
-     0.010973,
-     -0.011448
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.149018,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -0.581124,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-24-SE-2.svg"
-  },
-  {
-   "id": "wonky-24-NW-2",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "NW-2",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     -0.030694,
-     0.026944
-    ],
-    [
-     -0.063603,
-     0.046863
-    ],
-    [
-     -0.08635,
-     0.053228
-    ],
-    [
-     -0.09795,
-     0.050316
-    ],
-    [
-     -0.097759,
-     0.04166
-    ],
-    [
-     -0.085477,
-     0.030066
-    ],
-    [
-     -0.061209,
-     0.017672
-    ],
-    [
-     -0.025518,
-     0.006011
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.581124,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": -0.397048,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-24-NW-2.svg"
-  },
-  {
-   "id": "wonky-24-SE-3",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "SE-3",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-3 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -23235,14 +19217,14 @@
      "y": 1.2878
     }
    ],
-   "figure": "wonky-24-SE-3.svg"
+   "figure": "wonky-24-SE-1.svg"
   },
   {
-   "id": "wonky-24-NW-3",
+   "id": "wonky-24-NW-1",
    "parent": "h-radius-1-5-every-term",
    "parentName": "wonk-24",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 1,
    "q": 5,
    "use": "radius",
@@ -23252,200 +19234,8 @@
     "plain": "x = cos^1(t), y = sin^5(t)",
     "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-3 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     1.287793,
-     1.287793
-    ],
-    [
-     1.287947,
-     1.343605
-    ],
-    [
-     1.277102,
-     1.580793
-    ],
-    [
-     1.245027,
-     1.827639
-    ],
-    [
-     1.188579,
-     2.071051
-    ],
-    [
-     1.105977,
-     2.293671
-    ],
-    [
-     0.997527,
-     2.47485
-    ],
-    [
-     0.866195,
-     2.592717
-    ],
-    [
-     0.717877,
-     2.627272
-    ],
-    [
-     0.561146,
-     2.564108
-    ],
-    [
-     0.406434,
-     2.397982
-    ],
-    [
-     0.264675,
-     2.135297
-    ],
-    [
-     0.14565,
-     1.794599
-    ],
-    [
-     0.056387,
-     1.404613
-    ],
-    [
-     0.0,
-     1.0
-    ],
-    [
-     -0.024718,
-     0.615723
-    ],
-    [
-     -0.022836,
-     0.281372
-    ],
-    [
-     -0.002089,
-     0.016854
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 0.581124,
-     "x": 1.2878,
-     "y": 1.2878
-    },
-    {
-     "t": 1.131088,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-24-NW-3.svg"
-  },
-  {
-   "id": "wonky-24-SE-4",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "SE-4",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     0.02874,
-     -0.169569
-    ],
-    [
-     0.061415,
-     -0.280633
-    ],
-    [
-     0.089444,
-     -0.327347
-    ],
-    [
-     0.108646,
-     -0.325202
-    ],
-    [
-     0.117077,
-     -0.290467
-    ],
-    [
-     0.11449,
-     -0.237438
-    ],
-    [
-     0.101596,
-     -0.177027
-    ],
-    [
-     0.079409,
-     -0.116568
-    ],
-    [
-     0.04883,
-     -0.060442
-    ],
-    [
-     0.010542,
-     -0.010997
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 1.131088,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": 1.720804,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-24-SE-4.svg"
-  },
-  {
-   "id": "wonky-24-NW-4",
-   "parent": "h-radius-1-5-every-term",
-   "parentName": "wonk-24",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 1,
-   "q": 5,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^5(t)",
-    "internal": "x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-24, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^5(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-24, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^5(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -23737,7 +19527,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-24-NW-4.svg"
+   "figure": "wonky-24-NW-1.svg"
   },
   {
    "id": "wonky-25-SE-1",
@@ -23756,310 +19546,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-25, cut at the y = x axis",
     "search": "x = cos^1(t), y = sin^7(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     0.0
-    ],
-    [
-     0.024153,
-     0.012404
-    ],
-    [
-     0.064069,
-     0.041075
-    ],
-    [
-     0.100363,
-     0.079861
-    ],
-    [
-     0.131629,
-     0.129368
-    ],
-    [
-     0.133938,
-     0.133938
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.904748,
-     "x": 0.0,
-     "y": 0.0
-    },
-    {
-     "t": -1.62585,
-     "x": 0.1339,
-     "y": 0.1339
-    }
-   ],
-   "figure": "wonky-25-SE-1.svg"
-  },
-  {
-   "id": "wonky-25-NW-1",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.133938,
-     0.133938
-    ],
-    [
-     0.155928,
-     0.188578
-    ],
-    [
-     0.170901,
-     0.253737
-    ],
-    [
-     0.174125,
-     0.317207
-    ],
-    [
-     0.163765,
-     0.366744
-    ],
-    [
-     0.139438,
-     0.385893
-    ],
-    [
-     0.103089,
-     0.356166
-    ],
-    [
-     0.059506,
-     0.261243
-    ],
-    [
-     0.0161,
-     0.092587
-    ],
-    [
-     -0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.62585,
-     "x": 0.1339,
-     "y": 0.1339
-    },
-    {
-     "t": -1.154179,
-     "x": -0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-25-NW-1.svg"
-  },
-  {
-   "id": "wonky-25-SE-2",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     -0.018255,
-     -0.145168
-    ],
-    [
-     -0.03523,
-     -0.431315
-    ],
-    [
-     -0.029378,
-     -0.730637
-    ],
-    [
-     0.0,
-     -1.0
-    ],
-    [
-     0.048188,
-     -1.198446
-    ],
-    [
-     0.105984,
-     -1.297532
-    ],
-    [
-     0.161996,
-     -1.288235
-    ],
-    [
-     0.205539,
-     -1.182036
-    ],
-    [
-     0.22917,
-     -1.006109
-    ],
-    [
-     0.230065,
-     -0.794858
-    ],
-    [
-     0.209962,
-     -0.581068
-    ],
-    [
-     0.173931,
-     -0.389511
-    ],
-    [
-     0.128622,
-     -0.234313
-    ],
-    [
-     0.08064,
-     -0.119726
-    ],
-    [
-     0.035481,
-     -0.042911
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -1.154179,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -0.615063,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-25-SE-2.svg"
-  },
-  {
-   "id": "wonky-25-NW-2",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "NW-2",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     0.0
-    ],
-    [
-     -0.002846,
-     0.002797
-    ],
-    [
-     -0.031713,
-     0.025234
-    ],
-    [
-     -0.049525,
-     0.031751
-    ],
-    [
-     -0.055407,
-     0.028454
-    ],
-    [
-     -0.049014,
-     0.02003
-    ],
-    [
-     -0.030489,
-     0.009843
-    ],
-    [
-     -0.000487,
-     0.000123
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.615063,
-     "x": -0.0,
-     "y": 0.0
-    },
-    {
-     "t": -0.470291,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-25-NW-2.svg"
-  },
-  {
-   "id": "wonky-25-SE-3",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "SE-3",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-3 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -24363,14 +19849,14 @@
      "y": 0.8681
     }
    ],
-   "figure": "wonky-25-SE-3.svg"
+   "figure": "wonky-25-SE-1.svg"
   },
   {
-   "id": "wonky-25-NW-3",
+   "id": "wonky-25-NW-1",
    "parent": "h-radius-1-7-every-term",
    "parentName": "wonk-25",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 1,
    "q": 7,
    "use": "radius",
@@ -24380,184 +19866,8 @@
     "plain": "x = cos^1(t), y = sin^7(t)",
     "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-3 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.868105,
-     0.868105
-    ],
-    [
-     0.87762,
-     1.061384
-    ],
-    [
-     0.87342,
-     1.296766
-    ],
-    [
-     0.849306,
-     1.547194
-    ],
-    [
-     0.80128,
-     1.794432
-    ],
-    [
-     0.727359,
-     2.012958
-    ],
-    [
-     0.628763,
-     2.172326
-    ],
-    [
-     0.510708,
-     2.242132
-    ],
-    [
-     0.382372,
-     2.19899
-    ],
-    [
-     0.25575,
-     2.033788
-    ],
-    [
-     0.143487,
-     1.756669
-    ],
-    [
-     0.056187,
-     1.397378
-    ],
-    [
-     0.0,
-     1.0
-    ],
-    [
-     -0.024658,
-     0.613259
-    ],
-    [
-     -0.022827,
-     0.279469
-    ],
-    [
-     -0.003255,
-     0.025886
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 0.615063,
-     "x": 0.8681,
-     "y": 0.8681
-    },
-    {
-     "t": 1.133439,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-25-NW-3.svg"
-  },
-  {
-   "id": "wonky-25-SE-4",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "SE-4",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     0.02414,
-     -0.138828
-    ],
-    [
-     0.050678,
-     -0.222491
-    ],
-    [
-     0.070437,
-     -0.243353
-    ],
-    [
-     0.080564,
-     -0.222959
-    ],
-    [
-     0.080603,
-     -0.180508
-    ],
-    [
-     0.071364,
-     -0.130005
-    ],
-    [
-     0.053906,
-     -0.080035
-    ],
-    [
-     0.028999,
-     -0.035072
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 1.133439,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": 1.62585,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-25-SE-4.svg"
-  },
-  {
-   "id": "wonky-25-NW-4",
-   "parent": "h-radius-1-7-every-term",
-   "parentName": "wonk-25",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 1,
-   "q": 7,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^1(t), y = sin^7(t)",
-    "internal": "x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-25, cut at the y = x axis",
-    "search": "x = cos^1(t), y = sin^7(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-25, cut at the y = x axis",
+    "search": "x = cos^1(t), y = sin^7(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -24873,7 +20183,7 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-25-NW-4.svg"
+   "figure": "wonky-25-NW-1.svg"
   },
   {
    "id": "wonky-26-SE-1",
@@ -24892,206 +20202,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-26, cut at the y = x axis",
     "search": "x = cos^3(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.123604,
-     0.019142
-    ],
-    [
-     0.302369,
-     0.054614
-    ],
-    [
-     0.475374,
-     0.098748
-    ],
-    [
-     0.638738,
-     0.150992
-    ],
-    [
-     0.788694,
-     0.210458
-    ],
-    [
-     0.921747,
-     0.27593
-    ],
-    [
-     1.034839,
-     0.345882
-    ],
-    [
-     1.125492,
-     0.418518
-    ],
-    [
-     1.191938,
-     0.491827
-    ],
-    [
-     1.233217,
-     0.563656
-    ],
-    [
-     1.249227,
-     0.631791
-    ],
-    [
-     1.240737,
-     0.694046
-    ],
-    [
-     1.209345,
-     0.748354
-    ],
-    [
-     1.157391,
-     0.792855
-    ],
-    [
-     1.087823,
-     0.825969
-    ],
-    [
-     1.004043,
-     0.846451
-    ],
-    [
-     0.909718,
-     0.853434
-    ],
-    [
-     0.851045,
-     0.851045
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -14.832786,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.239803,
-     "x": 0.851,
-     "y": 0.851
-    }
-   ],
-   "figure": "wonky-26-SE-1.svg"
-  },
-  {
-   "id": "wonky-26-NW-1",
-   "parent": "h-radius-3-1-every-term",
-   "parentName": "wonk-26",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.851045,
-     0.851045
-    ],
-    [
-     0.808594,
-     0.84644
-    ],
-    [
-     0.70432,
-     0.825375
-    ],
-    [
-     0.600286,
-     0.7905
-    ],
-    [
-     0.499496,
-     0.742393
-    ],
-    [
-     0.404479,
-     0.681893
-    ],
-    [
-     0.317232,
-     0.61005
-    ],
-    [
-     0.239203,
-     0.528071
-    ],
-    [
-     0.171304,
-     0.437275
-    ],
-    [
-     0.113949,
-     0.339063
-    ],
-    [
-     0.067103,
-     0.234897
-    ],
-    [
-     0.030348,
-     0.126287
-    ],
-    [
-     0.002955,
-     0.014789
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.239803,
-     "x": 0.851,
-     "y": 0.851
-    },
-    {
-     "t": -1.846451,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-26-NW-1.svg"
-  },
-  {
-   "id": "wonky-26-SE-2",
-   "parent": "h-radius-3-1-every-term",
-   "parentName": "wonk-26",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -25279,14 +20389,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-26-SE-2.svg"
+   "figure": "wonky-26-SE-1.svg"
   },
   {
-   "id": "wonky-26-NW-2",
+   "id": "wonky-26-NW-1",
    "parent": "h-radius-3-1-every-term",
    "parentName": "wonk-26",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "NW-1",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -25296,8 +20406,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-26, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -25393,14 +20503,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-26-NW-2.svg"
+   "figure": "wonky-26-NW-1.svg"
   },
   {
-   "id": "wonky-26-SE-3",
+   "id": "wonky-26-SE-2",
    "parent": "h-radius-3-1-every-term",
    "parentName": "wonk-26",
    "kind": "piece",
-   "half": "SE-3",
+   "half": "SE-2",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -25410,8 +20520,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-3 half, cut at the y = x axis"
+    "use": "the SE-2 half of wonk-26, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -25551,14 +20661,14 @@
      "y": 2.2834
     }
    ],
-   "figure": "wonky-26-SE-3.svg"
+   "figure": "wonky-26-SE-2.svg"
   },
   {
-   "id": "wonky-26-NW-3",
+   "id": "wonky-26-NW-2",
    "parent": "h-radius-3-1-every-term",
    "parentName": "wonk-26",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-2",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -25568,8 +20678,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-2 half of wonk-26, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -25753,14 +20863,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-26-NW-3.svg"
+   "figure": "wonky-26-NW-2.svg"
   },
   {
-   "id": "wonky-26-SE-4",
+   "id": "wonky-26-NW-3",
    "parent": "h-radius-3-1-every-term",
    "parentName": "wonk-26",
    "kind": "piece",
-   "half": "SE-4",
+   "half": "NW-3",
    "p": 3,
    "q": 1,
    "use": "radius",
@@ -25770,102 +20880,8 @@
     "plain": "x = cos^3(t), y = sin^1(t)",
     "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     0.002159,
-     -0.013173
-    ],
-    [
-     0.017535,
-     -0.087772
-    ],
-    [
-     0.035232,
-     -0.146608
-    ],
-    [
-     0.054034,
-     -0.189148
-    ],
-    [
-     0.072491,
-     -0.215702
-    ],
-    [
-     0.08902,
-     -0.227235
-    ],
-    [
-     0.101989,
-     -0.225153
-    ],
-    [
-     0.109778,
-     -0.211107
-    ],
-    [
-     0.110828,
-     -0.186839
-    ],
-    [
-     0.103661,
-     -0.15407
-    ],
-    [
-     0.086912,
-     -0.114452
-    ],
-    [
-     0.059355,
-     -0.069556
-    ],
-    [
-     0.019962,
-     -0.020897
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 1.765613,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": 3.239803,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-26-SE-4.svg"
-  },
-  {
-   "id": "wonky-26-NW-4",
-   "parent": "h-radius-3-1-every-term",
-   "parentName": "wonk-26",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 3,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^3(t), y = sin^1(t)",
-    "internal": "x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-26, cut at the y = x axis",
-    "search": "x = cos^3(t), y = sin^1(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-3 half of wonk-26, cut at the y = x axis",
+    "search": "x = cos^3(t), y = sin^1(t) -- NW-3 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -26009,7 +21025,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-26-NW-4.svg"
+   "figure": "wonky-26-NW-3.svg"
   },
   {
    "id": "wonky-27-SE-1",
@@ -26028,178 +21044,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-27, cut at the y = x axis",
     "search": "x = cos^5(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.079711,
-     0.012627
-    ],
-    [
-     0.224444,
-     0.041784
-    ],
-    [
-     0.35237,
-     0.076117
-    ],
-    [
-     0.459783,
-     0.114191
-    ],
-    [
-     0.544,
-     0.15431
-    ],
-    [
-     0.603531,
-     0.194622
-    ],
-    [
-     0.638153,
-     0.233224
-    ],
-    [
-     0.64889,
-     0.268281
-    ],
-    [
-     0.637883,
-     0.298137
-    ],
-    [
-     0.608179,
-     0.321411
-    ],
-    [
-     0.563459,
-     0.337065
-    ],
-    [
-     0.507728,
-     0.344438
-    ],
-    [
-     0.44501,
-     0.343247
-    ],
-    [
-     0.379085,
-     0.333554
-    ],
-    [
-     0.316916,
-     0.316916
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -14.421166,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -3.774679,
-     "x": 0.3169,
-     "y": 0.3169
-    }
-   ],
-   "figure": "wonky-27-SE-1.svg"
-  },
-  {
-   "id": "wonky-27-NW-1",
-   "parent": "h-radius-5-1-every-term",
-   "parentName": "wonk-27",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.316916,
-     0.316916
-    ],
-    [
-     0.313271,
-     0.315706
-    ],
-    [
-     0.250289,
-     0.290256
-    ],
-    [
-     0.192198,
-     0.257882
-    ],
-    [
-     0.140405,
-     0.219311
-    ],
-    [
-     0.095713,
-     0.175256
-    ],
-    [
-     0.05842,
-     0.126374
-    ],
-    [
-     0.028414,
-     0.073245
-    ],
-    [
-     0.005282,
-     0.016381
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -3.774679,
-     "x": 0.3169,
-     "y": 0.3169
-    },
-    {
-     "t": -2.536376,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-27-NW-1.svg"
-  },
-  {
-   "id": "wonky-27-SE-2",
-   "parent": "h-radius-5-1-every-term",
-   "parentName": "wonk-27",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -26427,14 +21271,14 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-27-SE-2.svg"
+   "figure": "wonky-27-SE-1.svg"
   },
   {
-   "id": "wonky-27-NW-2",
+   "id": "wonky-27-SE-2",
    "parent": "h-radius-5-1-every-term",
    "parentName": "wonk-27",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "SE-2",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -26444,110 +21288,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.0,
-     -0.0
-    ],
-    [
-     -0.034793,
-     0.030614
-    ],
-    [
-     -0.075096,
-     0.057923
-    ],
-    [
-     -0.118004,
-     0.080053
-    ],
-    [
-     -0.162255,
-     0.097062
-    ],
-    [
-     -0.206171,
-     0.108958
-    ],
-    [
-     -0.247595,
-     0.115722
-    ],
-    [
-     -0.283878,
-     0.117368
-    ],
-    [
-     -0.31195,
-     0.114008
-    ],
-    [
-     -0.328479,
-     0.105926
-    ],
-    [
-     -0.330083,
-     0.093631
-    ],
-    [
-     -0.313595,
-     0.077884
-    ],
-    [
-     -0.276329,
-     0.059691
-    ],
-    [
-     -0.216325,
-     0.040272
-    ],
-    [
-     -0.132537,
-     0.020996
-    ],
-    [
-     -0.024947,
-     0.003304
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.264923,
-     "x": 0.0,
-     "y": -0.0
-    },
-    {
-     "t": -0.061512,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-27-NW-2.svg"
-  },
-  {
-   "id": "wonky-27-SE-3",
-   "parent": "h-radius-5-1-every-term",
-   "parentName": "wonk-27",
-   "kind": "piece",
-   "half": "SE-3",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-3 half, cut at the y = x axis"
+    "use": "the SE-2 half of wonk-27, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -26675,14 +21417,14 @@
      "y": 1.2878
     }
    ],
-   "figure": "wonky-27-SE-3.svg"
+   "figure": "wonky-27-SE-2.svg"
   },
   {
-   "id": "wonky-27-NW-3",
+   "id": "wonky-27-NW-1",
    "parent": "h-radius-5-1-every-term",
    "parentName": "wonk-27",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -26692,8 +21434,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-27, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -26913,14 +21655,14 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-27-NW-3.svg"
+   "figure": "wonky-27-NW-1.svg"
   },
   {
-   "id": "wonky-27-SE-4",
+   "id": "wonky-27-NW-2",
    "parent": "h-radius-5-1-every-term",
    "parentName": "wonk-27",
    "kind": "piece",
-   "half": "SE-4",
+   "half": "NW-2",
    "p": 5,
    "q": 1,
    "use": "radius",
@@ -26930,90 +21672,8 @@
     "plain": "x = cos^5(t), y = sin^1(t)",
     "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     0.0
-    ],
-    [
-     0.001501,
-     -0.006968
-    ],
-    [
-     0.012586,
-     -0.047472
-    ],
-    [
-     0.024552,
-     -0.076149
-    ],
-    [
-     0.036162,
-     -0.093217
-    ],
-    [
-     0.045912,
-     -0.099316
-    ],
-    [
-     0.052084,
-     -0.095368
-    ],
-    [
-     0.052791,
-     -0.08246
-    ],
-    [
-     0.046031,
-     -0.061762
-    ],
-    [
-     0.02975,
-     -0.034501
-    ],
-    [
-     0.001943,
-     -0.001958
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 2.317014,
-     "x": -0.0,
-     "y": 0.0
-    },
-    {
-     "t": 3.774679,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-27-SE-4.svg"
-  },
-  {
-   "id": "wonky-27-NW-4",
-   "parent": "h-radius-5-1-every-term",
-   "parentName": "wonk-27",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 5,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^5(t), y = sin^1(t)",
-    "internal": "x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-27, cut at the y = x axis",
-    "search": "x = cos^5(t), y = sin^1(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-2 half of wonk-27, cut at the y = x axis",
+    "search": "x = cos^5(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -27145,7 +21805,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-27-NW-4.svg"
+   "figure": "wonky-27-NW-2.svg"
   },
   {
    "id": "wonky-28-SE-1",
@@ -27164,158 +21824,6 @@
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
     "use": "the SE-1 half of wonk-28, cut at the y = x axis",
     "search": "x = cos^7(t), y = sin^1(t) -- SE-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     -0.0
-    ],
-    [
-     0.042083,
-     0.006819
-    ],
-    [
-     0.15965,
-     0.030634
-    ],
-    [
-     0.253916,
-     0.057038
-    ],
-    [
-     0.322781,
-     0.084224
-    ],
-    [
-     0.365912,
-     0.110335
-    ],
-    [
-     0.384661,
-     0.133622
-    ],
-    [
-     0.381821,
-     0.152582
-    ],
-    [
-     0.361245,
-     0.166061
-    ],
-    [
-     0.327382,
-     0.173319
-    ],
-    [
-     0.284812,
-     0.174037
-    ],
-    [
-     0.237827,
-     0.16828
-    ],
-    [
-     0.190119,
-     0.156414
-    ],
-    [
-     0.144588,
-     0.139011
-    ],
-    [
-     0.133938,
-     0.133938
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -13.971921,
-     "x": -0.0,
-     "y": -0.0
-    },
-    {
-     "t": -4.195652,
-     "x": 0.1339,
-     "y": 0.1339
-    }
-   ],
-   "figure": "wonky-28-SE-1.svg"
-  },
-  {
-   "id": "wonky-28-NW-1",
-   "parent": "h-radius-7-1-every-term",
-   "parentName": "wonk-28",
-   "kind": "piece",
-   "half": "NW-1",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-1 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     0.133938,
-     0.133938
-    ],
-    [
-     0.103288,
-     0.116734
-    ],
-    [
-     0.067467,
-     0.090243
-    ],
-    [
-     0.037688,
-     0.060122
-    ],
-    [
-     0.013983,
-     0.026835
-    ],
-    [
-     0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -4.195652,
-     "x": 0.1339,
-     "y": 0.1339
-    },
-    {
-     "t": -3.210559,
-     "x": 0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-28-NW-1.svg"
-  },
-  {
-   "id": "wonky-28-SE-2",
-   "parent": "h-radius-7-1-every-term",
-   "parentName": "wonk-28",
-   "kind": "piece",
-   "half": "SE-2",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-2 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -27567,14 +22075,14 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-28-SE-2.svg"
+   "figure": "wonky-28-SE-1.svg"
   },
   {
-   "id": "wonky-28-NW-2",
+   "id": "wonky-28-SE-2",
    "parent": "h-radius-7-1-every-term",
    "parentName": "wonk-28",
    "kind": "piece",
-   "half": "NW-2",
+   "half": "SE-2",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -27584,106 +22092,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-2 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     0.0
-    ],
-    [
-     -0.006692,
-     0.006433
-    ],
-    [
-     -0.03609,
-     0.029692
-    ],
-    [
-     -0.068636,
-     0.048565
-    ],
-    [
-     -0.103405,
-     0.063187
-    ],
-    [
-     -0.139061,
-     0.07362
-    ],
-    [
-     -0.173695,
-     0.079846
-    ],
-    [
-     -0.204711,
-     0.081806
-    ],
-    [
-     -0.228809,
-     0.079483
-    ],
-    [
-     -0.242116,
-     0.073006
-    ],
-    [
-     -0.240452,
-     0.062741
-    ],
-    [
-     -0.219718,
-     0.049356
-    ],
-    [
-     -0.176338,
-     0.033836
-    ],
-    [
-     -0.107697,
-     0.017452
-    ],
-    [
-     -0.012494,
-     0.001682
-    ],
-    [
-     0.0,
-     -0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": -0.238342,
-     "x": -0.0,
-     "y": 0.0
-    },
-    {
-     "t": -0.062546,
-     "x": 0.0,
-     "y": -0.0
-    }
-   ],
-   "figure": "wonky-28-NW-2.svg"
-  },
-  {
-   "id": "wonky-28-SE-3",
-   "parent": "h-radius-7-1-every-term",
-   "parentName": "wonk-28",
-   "kind": "piece",
-   "half": "SE-3",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-3 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-3 half, cut at the y = x axis"
+    "use": "the SE-2 half of wonk-28, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- SE-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -27807,14 +22217,14 @@
      "y": 0.8681
     }
    ],
-   "figure": "wonky-28-SE-3.svg"
+   "figure": "wonky-28-SE-2.svg"
   },
   {
-   "id": "wonky-28-NW-3",
+   "id": "wonky-28-NW-1",
    "parent": "h-radius-7-1-every-term",
    "parentName": "wonk-28",
    "kind": "piece",
-   "half": "NW-3",
+   "half": "NW-1",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -27824,8 +22234,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-3 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-3 half, cut at the y = x axis"
+    "use": "the NW-1 half of wonk-28, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- NW-1 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -28065,14 +22475,14 @@
      "y": 0.0
     }
    ],
-   "figure": "wonky-28-NW-3.svg"
+   "figure": "wonky-28-NW-1.svg"
   },
   {
-   "id": "wonky-28-SE-4",
+   "id": "wonky-28-NW-2",
    "parent": "h-radius-7-1-every-term",
    "parentName": "wonk-28",
    "kind": "piece",
-   "half": "SE-4",
+   "half": "NW-2",
    "p": 7,
    "q": 1,
    "use": "radius",
@@ -28082,78 +22492,8 @@
     "plain": "x = cos^7(t), y = sin^1(t)",
     "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
     "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the SE-4 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- SE-4 half, cut at the y = x axis"
-   },
-   "points": [
-    [
-     -0.0,
-     0.0
-    ],
-    [
-     0.004167,
-     -0.014806
-    ],
-    [
-     0.013276,
-     -0.037983
-    ],
-    [
-     0.022045,
-     -0.05138
-    ],
-    [
-     0.028867,
-     -0.055397
-    ],
-    [
-     0.031774,
-     -0.050687
-    ],
-    [
-     0.028476,
-     -0.038089
-    ],
-    [
-     0.016441,
-     -0.018581
-    ],
-    [
-     -0.0,
-     0.0
-    ]
-   ],
-   "cuts": [
-    {
-     "t": 2.775659,
-     "x": -0.0,
-     "y": 0.0
-    },
-    {
-     "t": 4.195652,
-     "x": -0.0,
-     "y": 0.0
-    }
-   ],
-   "figure": "wonky-28-SE-4.svg"
-  },
-  {
-   "id": "wonky-28-NW-4",
-   "parent": "h-radius-7-1-every-term",
-   "parentName": "wonk-28",
-   "kind": "piece",
-   "half": "NW-4",
-   "p": 7,
-   "q": 1,
-   "use": "radius",
-   "block": "every-term",
-   "crossings": 0,
-   "formula": {
-    "plain": "x = cos^7(t), y = sin^1(t)",
-    "internal": "x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
-    "middle": "P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2",
-    "use": "the NW-4 half of wonk-28, cut at the y = x axis",
-    "search": "x = cos^7(t), y = sin^1(t) -- NW-4 half, cut at the y = x axis"
+    "use": "the NW-2 half of wonk-28, cut at the y = x axis",
+    "search": "x = cos^7(t), y = sin^1(t) -- NW-2 half, cut at the y = x axis"
    },
    "points": [
     [
@@ -28281,7 +22621,7 @@
      "y": -0.0
     }
    ],
-   "figure": "wonky-28-NW-4.svg"
+   "figure": "wonky-28-NW-2.svg"
   }
  ]
 }

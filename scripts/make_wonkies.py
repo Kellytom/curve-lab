@@ -174,6 +174,12 @@ def runs_at_diagonal(points, roots, candidate):
             cut_ts = [nodes[start][0], nodes[end][0]]
         if len(arc) < 3:
             continue
+        # a piece that lies ON the line is the cut itself, not a curve: skip it;
+        # and a sliver of a few stations is not a figure either
+        if max(abs(py - px) for px, py in arc) < 1e-3:
+            continue
+        if len(arc) < 20:
+            continue
         mid = arc[len(arc) // 2]
         side = "NW" if mid[1] > mid[0] else "SE"
         pieces.append((side, arc, cut_ts))
