@@ -70,3 +70,6 @@ workbench/finder.json
 # per-write backup of workbench/starred.json: local repair only, not part of the record
 data/*.backup.json
 workbench/starred.backup.json
+
+# snapshots made by scripts/archive.sh: deposit them, do not commit them
+dist/
