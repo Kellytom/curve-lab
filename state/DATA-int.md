@@ -87,7 +87,10 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `mobile-curves.json` | `curve-lab.mobilecurves/1` | cache | `scripts/mobile_search.py` | the `/sandbox` mobile section |
 | `coupler-curves.json` | `curve-lab.couplercurves/1` | cache | `scripts/coupler_curves.py` | the `/sandbox` coupler section |
 | `bezier-knots.json` | `curve-lab.bezier-knots/1` | cache | `scripts/bezier_knots.py` | the `/sandbox` looped-Bezier section, `scripts/add_found_curves.py` |
-| `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/prime_mover_hybrid.mjs` | the `/hybrids` page |
+| `hybrids.json` | `curve-lab.hybrids/1` | cache | `scripts/hybrid_figures.py` | the `/hybrids` page, `scripts/promote_saved.py` |
+| `wonkies.json` | `curve-lab.wonkies/1` | cache | `scripts/make_wonkies.py` | `/hybrids-wonk/`, `scripts/make_doubles.py` |
+| `doubles.json` | `curve-lab.doubles/1` | cache | `scripts/make_doubles.py` | `/hybrids-wonk/`, `/hybrids/` |
+| `hybrid-rejected.json` | `curve-lab.hybrid-rejected/1` | record | `scripts/record_rejected.py` | the rejected record; a later search must read it |
 | `hybrid-candidates.json` | `curve-lab.hybrid-candidates/1` | cache | `scripts/hybrid_candidates.mjs` | `scripts/hybrid_rank.py` |
 | `hybrid-formulas.json` | `curve-lab.hybrid-formulas/1` | cache | `scripts/hybrid_formulas.py` | `scripts/hybrid_rank.py` |
 | `pm-reform.json` | `curve-lab.pm-reform/1` | cache | `scripts/pm_reform_probe.py` | the `/prime-mover` page |
