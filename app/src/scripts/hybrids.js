@@ -76,7 +76,10 @@ async function save(card, patch) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ curves: [payload] }),
   });
-  if (!response.ok) throw new Error(`save failed: ${response.status}`);
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.error || `save failed: ${response.status}`);
+  }
 }
 
 async function load() {
@@ -131,7 +134,7 @@ export function mountHybridDesk() {
           if (flag) flag.textContent = "saved";
         } catch (error) {
           input.value = previous;
-          if (flag) flag.textContent = "not saved — put back";
+          if (flag) flag.textContent = `not saved — ${String(error.message || error)}`;
           const host = document.getElementById("hybrids-counts");
           if (host) host.textContent = String(error.message || error);
         }

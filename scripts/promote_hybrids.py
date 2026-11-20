@@ -99,6 +99,17 @@ def main(argv=None) -> int:
     names = {row["name"] for row in registry["curves"]}
     used = {row["uid"] for row in registry["curves"]}
 
+    # one name, one curve: two keeps with the same chosen name would collide in the registry
+    chosen = {}
+    for key, row in kept.items():
+        name = (row.get("curveName") or "").strip().lower()
+        if not name:
+            continue
+        if name in chosen:
+            print(f"refusing to promote: {chosen[name]} and {key} are both named {name}")
+            return 1
+        chosen[name] = key
+
     print(f"{len(kept)} kept candidates")
     if not kept:
         print("nothing to promote; walk the desk and press keep first")

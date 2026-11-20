@@ -139,3 +139,11 @@ reload.
   refresh and labelled "draft, not saved". A save clears it; a draft never hides a newer save.
 - **The figures load eagerly.** 343 files at about 5 KB; lazy loading left blank cards on a
   first look, which reads as "there are no images".
+
+## One name, one curve
+
+A chosen name (`curveName`) is unique across the desk. The endpoint refuses a duplicate
+with 409 and the owner's id, and the card shows "not saved — name … is already used by …".
+`promote_hybrids.py` refuses to run at all if two `saved` candidates carry the same name.
+The guard is `app/scripts/check-hybrids-page.mjs`: a second curve given the first curve's
+name is refused and keeps its old value.

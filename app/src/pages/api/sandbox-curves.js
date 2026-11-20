@@ -23,6 +23,25 @@ export const GET = async () => {
 export const POST = async ({ request }) => {
   try {
     const { curves } = Payload.parse(await request.json());
+
+    // One name, one curve. A row's own name is its key; a *chosen* name (`curveName`)
+    // must be unique across the table, or two candidates would promote under one name.
+    const rows = await prisma.sandboxCurve.findMany();
+    const taken = new Map();
+    for (const row of rows) {
+      let data = {};
+      try { data = JSON.parse(row.data); } catch { data = {}; }
+      const chosen = String(data.curveName || "").trim().toLowerCase();
+      if (chosen) taken.set(chosen, row.name);
+    }
+    for (const curve of curves) {
+      const chosen = String(curve.curveName || "").trim().toLowerCase();
+      if (!chosen) continue;
+      const owner = taken.get(chosen);
+      if (owner && owner !== curve.name) {
+        return json({ error: `name "${curve.curveName}" is already used by ${owner}` }, 409);
+      }
+    }
     await prisma.$transaction(curves.map((curve) => prisma.sandboxCurve.upsert({
       where: { name: curve.name },
       create: { name: curve.name, data: JSON.stringify(curve) },

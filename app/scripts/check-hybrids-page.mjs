@@ -82,6 +82,15 @@ const draftBack = await page.evaluate((name) => ({
 check(draftBack.value === "draft-swimmer", `an unsaved draft survives a refresh ("${draftBack.value}")`);
 check(draftBack.flag.includes("draft"), `the draft says it is not saved ("${draftBack.flag}")`);
 
+// two curves cannot share a chosen name
+const [first, second] = decisions;
+await page.locator(`.hybrid-card[data-name="${second}"] .hybrid-name`).fill("swan-hybrid-7");
+await page.locator(`.hybrid-card[data-name="${second}"] .hybrid-name`).blur();
+await page.waitForTimeout(500);
+const duplicateFlag = await page.evaluate((name) =>
+  document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-flag`)?.textContent || "", second);
+check(duplicateFlag.includes("already used"), `a duplicate name is refused ("${duplicateFlag}")`);
+
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 
 // a failed read must not become a write: with the decisions unreachable, a click saves nothing
