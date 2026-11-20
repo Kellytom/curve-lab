@@ -1,0 +1,29 @@
+---
+// One hybrid card: figure, id, name box, measures, three formulas, stars, three actions.
+// Used by the desk (many cards) and the wonkies page (two cards under their parent).
+const { row } = Astro.props;
+---
+
+<article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0">
+  <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
+  <p class="hybrid-id"><code>{row.id}</code></p>
+  <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
+    value={row.curveName || ""}
+    placeholder={row.placeholder} />
+  <span class="hybrid-flag"></span>
+  <p class="hybrid-num">{row.crossings} crossing pairs · p {row.p}, q {row.q}</p>
+  <p class="hybrid-formula"><code>{row.formula.plain}</code></p>
+  <p class="hybrid-formula hybrid-internal"><code>{row.formula.internal}</code></p>
+  <p class="hybrid-formula hybrid-middle"><code>{row.formula.middle}</code></p>
+  <div class="stars" role="group" aria-label={`importance for ${row.id}`}>
+    <span class="label">stars</span>
+    {Array.from({ length: 10 }, (_, i) => (
+      <button type="button" data-imp={i + 1} class={i + 1 <= (row.importance || 0) ? "on" : ""}>{i + 1}</button>
+    ))}
+  </div>
+  <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
+    <button type="button" data-decision="saved">Save</button>
+    <button type="button" data-decision="notes" title="move this candidate out of the desk and into the notes pool">move to notes</button>
+    <button type="button" data-decision="rejected">reject</button>
+  </div>
+</article>
