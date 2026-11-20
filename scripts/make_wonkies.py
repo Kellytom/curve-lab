@@ -128,37 +128,55 @@ def cuts_of(candidate, steps=8000):
     return roots
 
 
-def runs_at_diagonal(points, roots, candidate):
-    """the arcs between the cuts, walked once round the parameter.
+def t_of_station(k):
+    """station k (list order) sits at u = (k − (N−1))/N, t = u/(1−|u|)."""
+    u = (k - (N - 1)) / N
+    if abs(u) >= 1:                       # the closing limit point sits at t = ∞
+        u = 0.999999 * (1 if u > 0 else -1)
+    return u / (1 - abs(u))
 
-    `u = t/(1+|t|)` runs from −1 to 1 round the circle; station i sits at u = i/N − 1. The
-    stations between two cuts belong to one piece, and the cut points themselves are exact
-    (solved) values, so a piece cannot contain a station from the other side.
+
+def runs_at_diagonal(points, roots, candidate):
+    """cut the polygon where the solved crossings fall, and return the arcs between them.
+
+    Each crossing is inserted into the segment it belongs to, so every piece is a contiguous
+    run of the drawn polygon: no chords across the figure, and no station from the other side
+    of the line.
     """
-    if len(roots) < 2:
+    ts = [t_of_station(k) for k in range(len(points))]
+    # nodes: (t, point, is_cut)
+    nodes = [(ts[i], points[i], False) for i in range(len(points))]
+    for root in roots:
+        # find the segment whose t range contains the root
+        index = None
+        for i in range(len(ts) - 1):
+            if (ts[i] - root) * (ts[i + 1] - root) <= 0:
+                index = i
+                break
+        if index is None:
+            continue
+        nodes.append((root, point_at(root, candidate), True))
+    nodes.sort(key=lambda node: node[0])
+
+    cuts = [i for i, node in enumerate(nodes) if node[2]]
+    if len(cuts) < 2:
         return []
 
-    def position(t):
-        return (t / (1 + abs(t)) + 1) * N
-
-    marks = sorted((position(t), t) for t in roots)
-    total = 2 * N
     pieces = []
-    for k, (start, start_t) in enumerate(marks):
-        end, end_t = marks[(k + 1) % len(marks)]
-        if end <= start:
-            end += total
-        middle = []
-        for i in range(len(points)):
-            pos = i
-            if start < pos < end or start < pos + total < end:
-                middle.append(points[i])
-        arc = [point_at(start_t, candidate)] + middle + [point_at(end_t, candidate)]
+    for k, start in enumerate(cuts):
+        end = cuts[(k + 1) % len(cuts)]
+        if end > start:
+            arc = [nodes[i][1] for i in range(start, end + 1)]
+            cut_ts = [nodes[start][0], nodes[end][0]]
+        else:                      # wrap round the end of the parameter
+            arc = [nodes[i][1] for i in range(start, len(nodes))] + \
+                  [nodes[i][1] for i in range(0, end + 1)]
+            cut_ts = [nodes[start][0], nodes[end][0]]
         if len(arc) < 3:
             continue
         mid = arc[len(arc) // 2]
         side = "NW" if mid[1] > mid[0] else "SE"
-        pieces.append((side, arc, [start_t, end_t]))
+        pieces.append((side, arc, cut_ts))
     return pieces
 
 
