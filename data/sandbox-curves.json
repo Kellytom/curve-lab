@@ -233,9 +233,9 @@
   },
   {
    "name": "double-24-SE-1",
-   "data": "{\"name\":\"double-24-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-24-SE-1\",\"parentName\":\"wonk-24\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.3169,\"y\":0.3169},{\"t\":0.581124,\"x\":1.2878,\"y\":1.2878}],\"ends\":[[0.316916,0.316916],[0.316916,0.316916]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-24, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-24-SE-1\",\"crossedAt\":\"2026-11-20T17:24:56.861Z\"}",
+   "data": "{\"name\":\"double-24-SE-1\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"double-24-SE-1\",\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-24-SE-1\",\"parentName\":\"wonk-24\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.3169,\"y\":0.3169},{\"t\":0.581124,\"x\":1.2878,\"y\":1.2878}],\"ends\":[[0.316916,0.316916],[0.316916,0.316916]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-24, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"transform\":{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true},\"crossedAt\":\"2026-11-20T19:29:55.209Z\"}",
    "createdAt": "2026-11-20T17:24:55.939Z",
-   "updatedAt": "2026-11-20T17:45:18.553Z"
+   "updatedAt": "2026-11-20T19:29:55.224Z"
   },
   {
    "name": "double-25-NW-1",
