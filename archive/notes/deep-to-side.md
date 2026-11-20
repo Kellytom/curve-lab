@@ -316,3 +316,12 @@ Rules:
   and the formula travel together and an outside search can find the curve;
 - `data/README.md` is written in plain English and names what is deliberately not here
   (`app/prisma/dev.db`, `app/data/users.json`).
+
+---
+
+## 2026-11-20 19:10 — a line between conversations
+
+Job: in the side chat, separate every conversation with a horizontal rule (Markdown `---` on
+its own line); if your renderer cannot draw one, print 40 hyphens instead. One line, nothing
+else on it. Also written into your prompt (`~/.config/opencode/agents/sidechat.md`), so it
+holds for every session, not just when you read this.
