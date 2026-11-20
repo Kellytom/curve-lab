@@ -16,6 +16,24 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Current (2026-11-20, night) — the hybrid desk and the doubles
+
+- **Landed:** the hybrid desk (343 candidates, Save / move to notes / reject, stars, names,
+  drafts, duplicate refusal); the wonk page (28 wonks as text, pieces cut at `y = x`, doubles
+  mirrored back, brown dots where the ends meet the cut); 125 saved rows promoted to records
+  (c-0273 … c-0397, 397 curves, figures and thumbnails); the 45° preset recorded on every
+  double with `exact: false`.
+- **Next 1 — the clean rotated formula.** All doubles are displayed at 45°; write the turn
+  into the parametric form instead of applying a matrix, e.g. delaying the cosine by half a
+  period (`x = C(t)`, `y = S(t − 1/2)`), and prove the result is the same figure rotated.
+- **Next 2 — the rotation control.** A preset per family (0 / 45 / 90) that turns the drawing
+  and records the matrix; 45 stays `exact: false` and says so on the figure.
+- **Next 3 — naming the promoted 125.** They are records with path-safe names; the naming
+  desk can give them real names, the way the 212 were named.
+- **Next 4 — promotion after every save.** `promote_saved.py` is run by hand; the sync or a
+  script should pick up new saved rows so a keep does not wait for a session.
+- **Parked:** the `data/` JSON dictionary and the sandbox export (sidechat), the print export.
+
 ## Current (2026-11-19, late)
 
 - **Landed:** the naming desk (90 chosen, 90 named, 172 set aside), the frames
