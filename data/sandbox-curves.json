@@ -241,7 +241,7 @@
    "name": "h-radius-2-1-cubic",
    "data": "{\"name\":\"h-radius-2-1-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"1/2-butterfly-2\",\"crossedAt\":\"2026-11-20T15:38:05.228Z\"}",
    "createdAt": "2026-11-20T15:38:04.146Z",
-   "updatedAt": "2026-11-20T15:38:05.232Z"
+   "updatedAt": "2026-11-20T16:17:50.697Z"
   },
   {
    "name": "h-radius-2-1-every-term",
@@ -325,7 +325,7 @@
    "name": "h-radius-4-1-cubic",
    "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"crossedAt\":\"2026-11-20T15:39:26.721Z\"}",
    "createdAt": "2026-11-20T15:39:26.595Z",
-   "updatedAt": "2026-11-20T15:39:26.727Z"
+   "updatedAt": "2026-11-20T16:17:50.697Z"
   },
   {
    "name": "h-radius-4-1-every-term",
