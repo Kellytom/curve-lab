@@ -3293,3 +3293,14 @@ Tschirnhausen — classic but adds nothing; off the board.
 - The cut rule is frozen and written in `state/SPEC-hybrids-int.md` with the per-wonk table:
   crossings solved, inserted into the polygon, 0 of 68 pieces cross the line, slivers under
   20 stations dropped. Wonks that pass the origin give 3–5 pieces; that is geometry.
+
+### Admin after the join fix — 2026-11-20
+
+- The `render correct y / n` control is removed: all 56 doubles joined correctly and the
+  control had done its job. `hybrids.js` was rewritten in one pass after a bad patch left
+  `mountHybridDesk` undefined; `node --check` and the page check are green.
+- **Every double carries the 45° preset** in `transform` (matrix with `√2/2` entries,
+  `exact: false`) — in `workbench/doubles.json`, in the 56 registry records and in the
+  database notes. The drawings are not turned yet.
+- Next on the list: a clean rotated formula (delaying the cosine by half), so the 45° is
+  arithmetic rather than a matrix.

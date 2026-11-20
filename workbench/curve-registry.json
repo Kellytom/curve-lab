@@ -125696,18 +125696,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -126550,18 +126550,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -127396,18 +127396,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -128258,18 +128258,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -129144,18 +129144,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -129974,18 +129974,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -130796,18 +130796,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -131666,18 +131666,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -132504,18 +132504,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -133390,18 +133390,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -134244,18 +134244,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -135026,18 +135026,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -135856,18 +135856,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -136662,18 +136662,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -137524,18 +137524,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -138346,18 +138346,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -139232,18 +139232,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -139502,18 +139502,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -140308,18 +140308,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -141146,18 +141146,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -141968,18 +141968,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -142822,18 +142822,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -143660,18 +143660,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -144538,18 +144538,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -145400,18 +145400,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -146166,18 +146166,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -146420,18 +146420,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -147210,18 +147210,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -148040,18 +148040,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -148838,18 +148838,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -149692,18 +149692,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -149954,18 +149954,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -150216,18 +150216,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -150862,18 +150862,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -151492,18 +151492,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -152186,18 +152186,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -152856,18 +152856,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -153294,18 +153294,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -153636,18 +153636,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -154154,18 +154154,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -154472,18 +154472,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -155014,18 +155014,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -155580,18 +155580,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -156458,18 +156458,18 @@
         "search": "x = cos^1(t), y = sin^7(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -157336,18 +157336,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -158158,18 +158158,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -159004,18 +159004,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -159850,18 +159850,18 @@
         "search": "x = cos^5(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -160712,18 +160712,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -161566,18 +161566,18 @@
         "search": "x = cos^7(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -162444,18 +162444,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -163306,18 +163306,18 @@
         "search": "x = cos^1(t), y = sin^3(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -164152,18 +164152,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -165046,18 +165046,18 @@
         "search": "x = cos^1(t), y = sin^5(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -165916,18 +165916,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",
@@ -166746,18 +166746,18 @@
         "search": "x = cos^3(t), y = sin^1(t) mirrored across the line y = x"
       },
       "transform": {
-        "degrees": 0,
+        "degrees": 45,
         "matrix": [
           [
-            1,
-            0
+            "\u221a2/2",
+            "-\u221a2/2"
           ],
           [
-            0,
-            1
+            "\u221a2/2",
+            "\u221a2/2"
           ]
         ],
-        "exact": true
+        "exact": false
       },
       "conversion": {
         "algorithm": "double",

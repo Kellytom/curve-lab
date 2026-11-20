@@ -205,6 +205,12 @@ A wonky is recovered when it is **saved** or **named**. From that moment it appe
 staging list that empties as halves are adopted. Proved: saving one wonky moved the desk
 46 → 47 and its page 56 → 55, and the saved card carried its name.
 
+## The render check is gone
+
+The doubles were marked `render correct y / n` while the join was being fixed. All 56 are
+correct now and the control is removed, so the card has one set of buttons again. The rows
+keep any `renderCorrect` they were given; nothing reads it.
+
 ## The transform slot
 
 A finished hybrid is usually turned **45° or 90°** for the page, so every record carries the
@@ -280,3 +286,19 @@ pieces instead of 2. The count per wonk is in the table below; that is geometry,
 
 Proved by `.venv/bin/python scripts/make_wonkies.py` printing the roots, and by the check in
 `app/scripts/check-hybrids-page.mjs`.
+
+## The 45° preset on every double
+
+Every double is displayed rotated **45°**, so each carries the matrix in its record:
+
+```
+transform: { degrees: 45, matrix: [["√2/2", "-√2/2"], ["√2/2", "√2/2"]], exact: false }
+```
+
+`exact: false` is the honest part: `cos 45° = √2/2` is irrational, so the turn is a display
+transform and no figure may claim an exact grid after it. The 56 doubles in the data and in
+the database carry it; **the drawings are not turned yet** — that waits on a clean formula.
+
+**Next, and deliberate:** a clean rotated formula, for example delaying the cosine by half a
+period so the turn is written into the parametric form (`x = C(t)`, `y = S(t − 1/2)`) instead
+of applied afterwards. That is where the 45° becomes arithmetic, not a matrix.
