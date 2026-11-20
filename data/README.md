@@ -121,9 +121,15 @@ PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs           # rewrite d
 PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs --check   # fail if stale
 ```
 
-`--check` recomputes every table from SQLite and compares it with the file and
-with `manifest.json` (row count and a hash of the rows). A stale file fails the
-suite: `tests/test_data_export.py` runs this check.
+`--check` refreshes first and verifies second: it rewrites every file from
+SQLite, then compares what it wrote with the database. So it cannot fail
+because the copy was old before the check started — the only failure it can
+report is a save that landed inside the verify itself, which is worth knowing.
+
+The rule is: whoever writes the database refreshes the copy. The save endpoints
+do it (one file), the bulk writers do it (`add-registry-curves.mjs`, `jobs.mjs`,
+`migrate.mjs`, `restore-db.mjs` — a full refresh after a seed or a restore), and
+the five-minute sync does it. `tests/test_data_export.py` runs this check.
 
 `schema.json` is the machine-readable dictionary: file → field → type, built
 from the rows that were just written.
