@@ -254,3 +254,29 @@ database took the press.
 
 Guard: `app/scripts/check-hybrids-page.mjs` presses Save and fails unless the card says
 "saved".
+
+## The cut, frozen — 2026-11-20
+
+The rule the pages now follow, in four lines:
+
+1. the crossings are **solved** (`sin²θ` reduction, Sturm + bisection), not sampled;
+2. each solved crossing is **inserted into the polygon segment it belongs to** — no rounding
+   to the nearest station;
+3. the pieces are the contiguous runs between the inserted points, so **no piece crosses
+   `y = x`** (measured: 0 of 68);
+4. a piece under 20 stations is dropped as a sliver, and a piece lying on the line is the cut
+   itself, not a figure.
+
+A curve that passes through the origin crosses `y = x` there too, so some wonks give 3–5
+pieces instead of 2. The count per wonk is in the table below; that is geometry, not a fault.
+
+| wonk | p, q | block | crossings | pieces |
+|---|---|---|---|---|
+| 1–16 | 1,3 … 7,1 | cubic, quintic-central, quintic-all-four | 4 | 2 |
+| 17 | 1,3 | cubic + quintic | 6 | 3 |
+| 18–19 | 1,5 / 1,7 | cubic + quintic | 4 | 2 |
+| 20–22 | 3,1 / 5,1 / 7,1 | cubic + quintic | 6 or 4 | 4 or 2 |
+| 23–28 | 1,3 … 7,1 | every term | 8 | 2–5 |
+
+Proved by `.venv/bin/python scripts/make_wonkies.py` printing the roots, and by the check in
+`app/scripts/check-hybrids-page.mjs`.

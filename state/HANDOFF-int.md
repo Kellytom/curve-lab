@@ -3280,3 +3280,16 @@ Tschirnhausen — classic but adds nothing; off the board.
 - The halves rebuild the closed curve between one pair of crossings; the double is one piece
   mirrored across `y = x` (an exact swap of x and y).
 - Page: `/hybrids-wonk/`, 28 text rows + 140 cards.
+
+### Every saved row is now a record — 2026-11-20
+
+- `scripts/promote_saved.py` turned **125 saved rows** into registry records (c-0273 … c-0397):
+  the 69 hybrids and the 56 doubles, each carrying `params` (kind, parent, half, p, q, block,
+  cuts, ends), `formula`, `note`, `transform` (identity) and `conversion` (native).
+- Names are made path-safe on the way in (`1/2-butterfly` → `1-2-butterfly`), because a name
+  is a file name; the desk keeps the name as typed.
+- `check-db` is green at **397 curves, 397 sets, 397 notes**; `prisma generate` was needed
+  after the `note` column was added.
+- The cut rule is frozen and written in `state/SPEC-hybrids-int.md` with the per-wonk table:
+  crossings solved, inserted into the polygon, 0 of 68 pieces cross the line, slivers under
+  20 stations dropped. Wonks that pass the origin give 3–5 pieces; that is geometry.
