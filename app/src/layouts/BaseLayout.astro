@@ -9,7 +9,21 @@
 // Page-specific styles and scripts go in the named slots, so they stay with
 // the page. The shared colours and type come from curve-lab-theme.css; a page
 // must not add a second font.
+import { statSync } from "node:fs";
+import path from "node:path";
 import AppNav from "../components/AppNav.astro";
+
+// A stylesheet that changes must reach the browser. The file's own timestamp is the
+// version, so an edit busts the cache with no manual bump.
+const stamp = (name) => {
+  try {
+    return Math.floor(statSync(path.join(process.cwd(), "public/vendor", name)).mtimeMs).toString(36);
+  } catch {
+    return "0";
+  }
+};
+const shellVersion = stamp("app-shell.css");
+const themeVersion = stamp("curve-lab-theme.css");
 
 const { title, pageTitle, mainClass = "container" } = Astro.props;
 ---
@@ -18,9 +32,10 @@ const { title, pageTitle, mainClass = "container" } = Astro.props;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{pageTitle || `${title}: draft A`}</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
-<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
-<link rel="stylesheet" href="/vendor/app-shell.css">
+<link rel="stylesheet" href={`/vendor/curve-lab-theme.css?v=${themeVersion}`}>
+<link rel="stylesheet" href={`/vendor/app-shell.css?v=${shellVersion}`}>
 <slot name="head" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 </head><body>
 <AppNav title={title} />
 <main id="main" class={mainClass}>
