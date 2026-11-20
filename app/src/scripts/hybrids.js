@@ -166,6 +166,13 @@ export function mountHybridDesk() {
           await save(card, { decision, curveName: input ? input.value.trim() : "" });
           if (input) input.dataset.saved = input.value.trim();
           mark(card, decision);
+          const flag = card.querySelector(".hybrid-flag");
+          if (flag) {
+            const when = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+            flag.textContent = decision === "saved" ? `saved ${when}`
+              : decision === "notes" ? `moved to notes ${when}`
+              : `rejected ${when}`;
+          }
         } catch (error) {
           mark(card, previous);
           const host = document.getElementById("hybrids-counts");

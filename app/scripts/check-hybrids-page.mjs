@@ -47,7 +47,9 @@ for (const name of decisions) {
   await page.locator(`.hybrid-card[data-name="${name}"] [data-decision="saved"]`).click();
   await page.waitForTimeout(250);
 }
-check(true, `pressed keep on ${decisions.length} cards`);
+const flagShown = await page.evaluate((name) =>
+  document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-flag`)?.textContent || "", decisions[0]);
+check(/saved/.test(flagShown), `the card says what was saved ("${flagShown}")`);
 
 await page.reload({ waitUntil: "domcontentloaded" });
 await page.waitForTimeout(900);

@@ -244,3 +244,13 @@ crossings. The parameter follows from `t = tan(θ/2) = sinθ / (1 + cosθ)`.
 `crossings_via_sin2` agrees exactly with the direct 2p+2q polynomial on every pair checked
 (`(2,2)`, `(3,3)`, `(1,3)`, `(3,4)`, `(5,5)`). No polygon is walked to find a cut; the
 polygon is only split at the solved values. The wonks have two crossings each, so two pieces.
+
+## A save always says so
+
+The page confirms every save in the card, beside the name: `saved 12:15`, `moved to notes 12:15`,
+`rejected 12:15`. The border colour changes as well, but colour alone is not confirmation — a
+silent save is the fault this page exists to prevent, and a person must be able to see the
+database took the press.
+
+Guard: `app/scripts/check-hybrids-page.mjs` presses Save and fails unless the card says
+"saved".
