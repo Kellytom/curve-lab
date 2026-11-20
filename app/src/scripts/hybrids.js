@@ -65,6 +65,7 @@ async function save(card, patch) {
   if (!state.readOk) throw new Error("decisions have not loaded; refusing to write");
   const payload = {
     name: card.dataset.name,
+    tag: card.dataset.tag || "",
     decision: card.dataset.decision || "",
     importance: Number(card.dataset.importance) || 0,
     curveName: card.querySelector(".hybrid-name")?.value.trim() || "",

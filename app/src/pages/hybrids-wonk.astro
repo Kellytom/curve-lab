@@ -16,12 +16,14 @@ for (const stored of rows) {
   let payload = {};
   try { payload = JSON.parse(stored.data); } catch { continue; }
   const name = String(payload.curveName || "").trim();
-  if (!/^wonk-\d+$/i.test(name)) continue;
+  const tag = String(payload.tag || "");
+  if (tag !== "wonk" && !/^wonk-\d+$/i.test(name)) continue;
   const candidate = byId.get(stored.name);
   if (!candidate) continue;
   wonk.push({
     ...candidate,
     curveName: name,
+    tag: "wonk",
     importance: Number(payload.importance) || 0,
     placeholder: name,
     number: Number(name.split("-")[1]),

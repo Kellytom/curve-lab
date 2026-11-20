@@ -4,7 +4,7 @@
 const { row } = Astro.props;
 ---
 
-<article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0">
+<article class="hybrid-card" data-name={row.id} data-tag={row.tag || ""} data-decision="" data-importance="0">
   <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
   <p class="hybrid-id"><code>{row.id}</code></p>
   <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
