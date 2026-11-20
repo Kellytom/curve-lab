@@ -23,8 +23,8 @@
   },
   "sandbox-curves": {
    "file": "sandbox-curves.json",
-   "count": 26,
-   "hash": "4e49367c4539f36f"
+   "count": 40,
+   "hash": "d1825a55d3557b32"
   },
   "metrics": {
    "file": "metrics.json",
