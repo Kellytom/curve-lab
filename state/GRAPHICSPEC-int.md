@@ -19,7 +19,14 @@ Nothing draws without a record: the plate is derived from the record, never type
 
 ## The steps
 
-**1. Spine and rails.** `workbench/plate_math.js`, `group(row)`:
+**1. Spine and character rails.** `workbench/plate_math.js`, `group(row)`.
+
+These are **character offsets, not parallel offsets**: the rail's shape comes from
+`widthPct`, `plus`, `minus` and the profile (`bow`, `s`, `taper`) — the same `rail()`
+function the sandbox draws with — so the two sides differ and each side bends with its own
+sign. A parallel offset would be the same curve on both sides at every station; that is not
+what is drawn. Pinned by `tests/js/plate-character.test.mjs` (changing `plus` moves the + rail,
+changing `minus` does not; changing the profile moves it).
 
 ```
 paths[0]        the spine
