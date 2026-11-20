@@ -1,0 +1,45 @@
+{
+ "format": "curve-lab.data.manifest/1",
+ "files": {
+  "curves": {
+   "file": "curves.json",
+   "count": 272,
+   "hash": "08368bebd7d307bf"
+  },
+  "stars": {
+   "file": "stars.json",
+   "count": 6,
+   "hash": "44af2b76000eb73a"
+  },
+  "plate-stars": {
+   "file": "plate-stars.json",
+   "count": 1,
+   "hash": "ce155f3d65b87378"
+  },
+  "users": {
+   "file": "users.json",
+   "count": 0,
+   "hash": "4f53cda18c2baa0c"
+  },
+  "sandbox-curves": {
+   "file": "sandbox-curves.json",
+   "count": 1,
+   "hash": "667fbdfcfb8357f7"
+  },
+  "metrics": {
+   "file": "metrics.json",
+   "count": 262,
+   "hash": "5c681ad5b2c83f29"
+  },
+  "jobs": {
+   "file": "jobs.json",
+   "count": 3,
+   "hash": "006b1f8fe99da627"
+  },
+  "messages": {
+   "file": "messages.json",
+   "count": 6,
+   "hash": "31903a4d50d71383"
+  }
+ }
+}

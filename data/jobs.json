@@ -1,0 +1,35 @@
+{
+ "format": "curve-lab.data.jobs/1",
+ "note": "The session and job rows: who is working, on what, and which files they hold.",
+ "count": 3,
+ "rows": {
+  "sessions": [
+   {
+    "id": "deepseek2",
+    "role": "assistant",
+    "model": "DeepSeek V4.1 Flash",
+    "state": "idle",
+    "job": null,
+    "lastSeen": "2026-11-19T06:10:51.814Z"
+   }
+  ],
+  "jobs": [
+   {
+    "id": "design-pass",
+    "owner": "deepseek1",
+    "files": "[\"app/src/lib/bordered.js\",\"scripts/frames_build.mjs\",\"app/src/pages/frames.astro\"]",
+    "state": "done",
+    "createdAt": "2026-11-19T06:25:25.566Z",
+    "updatedAt": "2026-11-19T06:30:45.509Z"
+   },
+   {
+    "id": "recovery-parity",
+    "owner": "deepseek2",
+    "files": "[\"scripts/recover.sh\",\"scripts/jobs.mjs\",\"app/prisma/schema.prisma\"]",
+    "state": "done",
+    "createdAt": "2026-11-19T06:08:46.831Z",
+    "updatedAt": "2026-11-19T06:09:22.096Z"
+   }
+  ]
+ }
+}

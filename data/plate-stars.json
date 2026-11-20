@@ -1,0 +1,12 @@
+{
+ "format": "curve-lab.data.plate-stars/1",
+ "note": "One object per starred plate.",
+ "count": 1,
+ "rows": [
+  {
+   "id": "u-bowl-arch-1-t-exp-c-0301",
+   "note": null,
+   "createdAt": "2026-11-19T00:21:17.847Z"
+  }
+ ]
+}

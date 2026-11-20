@@ -1,0 +1,122 @@
+{
+ "format": "curve-lab.data.schema/1",
+ "files": {
+  "curves.json": {
+   "format": "curve-lab.data.curves/1",
+   "kind": "array",
+   "count": 272,
+   "fields": {
+    "uid": "string",
+    "name": "string",
+    "family": "string",
+    "lists": "string",
+    "aliases": "string",
+    "starred": "boolean",
+    "candidate": "boolean",
+    "createdAt": "string",
+    "formula": "object",
+    "note": "object",
+    "set": "null",
+    "metric": "object"
+   }
+  },
+  "stars.json": {
+   "format": "curve-lab.data.stars/1",
+   "kind": "array",
+   "count": 6,
+   "fields": {
+    "name": "string",
+    "note": "null",
+    "spec": "null",
+    "createdAt": "string"
+   }
+  },
+  "plate-stars.json": {
+   "format": "curve-lab.data.plate-stars/1",
+   "kind": "array",
+   "count": 1,
+   "fields": {
+    "id": "string",
+    "note": "null",
+    "createdAt": "string"
+   }
+  },
+  "users.json": {
+   "format": "curve-lab.data.users/1",
+   "kind": "array",
+   "count": 0,
+   "fields": {}
+  },
+  "sandbox-curves.json": {
+   "format": "curve-lab.data.sandbox-curves/1",
+   "kind": "array",
+   "count": 1,
+   "fields": {
+    "name": "string",
+    "data": "string",
+    "createdAt": "string",
+    "updatedAt": "string"
+   }
+  },
+  "metrics.json": {
+   "format": "curve-lab.data.metrics/1",
+   "kind": "array",
+   "count": 262,
+   "fields": {
+    "uid": "string",
+    "family": "string",
+    "kind": "string",
+    "method": "string",
+    "degree": "number",
+    "step": "number",
+    "grid": "number",
+    "bend": "number",
+    "arc": "number",
+    "chord": "number",
+    "inflections": "number",
+    "inflectionMax": "number",
+    "closest": "number",
+    "crossings": "number",
+    "meetingPoints": "number",
+    "bboxW": "number",
+    "bboxH": "number",
+    "area": "number",
+    "maxCurvature": "number",
+    "curvatureMedian": "number",
+    "mirrorY": "number",
+    "halfTurn": "number",
+    "mirrorYX": "number",
+    "computedAt": "string",
+    "updatedAt": "string"
+   }
+  },
+  "jobs.json": {
+   "format": "curve-lab.data.jobs/1",
+   "kind": "object",
+   "count": 3,
+   "fields": {
+    "id": "string",
+    "role": "string",
+    "model": "string",
+    "state": "string",
+    "job": "null",
+    "lastSeen": "string"
+   }
+  },
+  "messages.json": {
+   "format": "curve-lab.data.messages/1",
+   "kind": "array",
+   "count": 6,
+   "fields": {
+    "id": "number",
+    "fromAgent": "string",
+    "toAgent": "string",
+    "topic": "string",
+    "body": "string",
+    "createdAt": "string",
+    "ackedAt": "null",
+    "attempts": "number"
+   }
+  }
+ }
+}
