@@ -323,3 +323,20 @@ double is saved as `mirror-<id>` and sits **directly after** the curve it mirror
 Every card has `45 · −45 · 90 · −90 · 0`. A turn is applied to the drawing and stored as
 `transform: { degrees, matrix, exact }` — 90 is exact, 45 is `exact: false` because
 `√2/2` is irrational.
+
+## The 45° turn is exact in the diagonal basis
+
+A 45° turn written in the usual frame needs `√2/2` and leaves the rational grid. Written in
+the **diagonal basis** it does not:
+
+```
+u = x + y,   v = y − x          both rational, length √2 times the original
+x = (u − v)/2, y = (u + v)/2    the turn back, rational again
+```
+
+So a 45° turn is exact up to one common scale, `√2`, which is recorded with the matrix
+(`transform.scale`). The turn buttons store `[[1,1],[-1,1]]` and say `exact: true`.
+
+The same basis is what the mirror double uses: in `u, v` the line `y = x` is `v = 0`, so the
+curve is cut and mirrored on a horizontal axis — the wonk rule — and the joins fall on the
+line. Measured: `mirror-h-radius-2-1-cubic` closes with joins `[0, 0]`.

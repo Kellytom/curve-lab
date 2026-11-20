@@ -66,8 +66,10 @@ function flag(card, text) {
 
 const TURNS = {
   0: { matrix: [[1, 0], [0, 1]], exact: true },
-  45: { matrix: [["√2/2", "-√2/2"], ["√2/2", "√2/2"]], exact: false },
-  "-45": { matrix: [["√2/2", "√2/2"], ["-√2/2", "√2/2"]], exact: false },
+  // a 45° turn is exact in the diagonal basis: u = x + y, v = y − x. The coordinates stay
+  // rational; the only price is one common scale, √2, which is stated with the matrix.
+  45: { matrix: [[1, 1], [-1, 1]], scale: "√2", exact: true },
+  "-45": { matrix: [[1, -1], [1, 1]], scale: "√2", exact: true },
   90: { matrix: [[0, -1], [1, 0]], exact: true },
   "-90": { matrix: [[0, 1], [-1, 0]], exact: true },
 };
