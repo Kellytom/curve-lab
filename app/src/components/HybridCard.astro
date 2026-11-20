@@ -11,7 +11,9 @@ const construction = JSON.stringify(constructionOf(row));
   data-construction={construction}>
   <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
   <p class="hybrid-id"><code>{row.id}</code>
-    <button type="button" class="mirror-make" title="make a mirrored double across the y axis">⇋</button>
+    {!(row.kind === "double" || String(row.id).startsWith("mirror-")) && (
+      <button type="button" class="mirror-make" title="make a mirrored double">⇋</button>
+    )}
   </p>
   <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
     value={row.curveName || row.placeholder || row.id}

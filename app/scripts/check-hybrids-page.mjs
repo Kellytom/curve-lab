@@ -37,6 +37,7 @@ const images = await page.evaluate(() => [...document.querySelectorAll(".hybrid-
 check(images.every((image) => image.ok), "every sampled figure loads");
 
 const decisions = await page.evaluate(() => [...document.querySelectorAll(".hybrid-card")]
+  .filter((card) => !card.dataset.name.startsWith("mirror-"))
   .slice(0, 2).map((card) => card.dataset.name));
 
 // snapshot: these two cards may belong to the operator, and this check must not keep
