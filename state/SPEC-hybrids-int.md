@@ -114,3 +114,17 @@ conversion: {
 placeholder, not missing data). The guard is
 `tests/test_hybrids.py::test_every_record_reserves_the_conversion_slot`, so a new record
 cannot arrive without the space.
+
+## Deciding a card: decision, stars, name
+
+The card carries the naming desk's three judgements, saved as one row:
+
+- **decision** — keep / later / reject;
+- **stars 1–10** — the naming desk's importance widget (`data-imp`, `.on`), not a new one;
+- **name** — typed in the card, kept as `curveName` in the row (the row's key stays the
+  candidate id, so a rename cannot lose the decision).
+
+On promotion, `curveName` becomes the record's name if it is set, otherwise the generated
+`hybrid-<p>-<q>-<block>-<use>`; importance becomes the record's `importance`. The guard is
+`app/scripts/check-hybrids-page.mjs`: keeps, seven stars and a typed name all survive a
+reload.

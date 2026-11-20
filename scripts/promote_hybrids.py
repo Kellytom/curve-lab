@@ -118,7 +118,8 @@ def main(argv=None) -> int:
         p, q = candidate["p"], candidate["q"]
         block_name = candidate["block"]
         use = candidate["use"]
-        name = name_for(p, q, block_name, use)
+        name = (kept[key].get("curveName") or "").strip() or name_for(p, q, block_name, use)
+        importance = int(candidate.get("importance") or kept[key].get("importance") or 0)
         if name in names:
             print(f"  {key}: already in the registry as {name}")
             continue
@@ -144,9 +145,9 @@ def main(argv=None) -> int:
             "family_id": "hybrid",
             "variant": f"{p}-{q}-{block_name}-{use}",
             "kind": "path",
-            "starred": False,
+            "starred": bool(importance),
             "candidate": False,
-            "importance": 0,
+            "importance": importance,
             "base_uid": None,
             "params": {"p": p, "q": q, "block": block_name, "use": use,
                        "stations": len(pts), "uStep": f"1/{N}",
@@ -199,7 +200,7 @@ def main(argv=None) -> int:
             "rotation": 0,
             "pieces": 1,
             "perSide": 9,
-            "importance": 0,
+            "importance": importance,
         })
     REGISTRY.write_text(json.dumps(registry, indent=2) + "\n")
     print(f"added {len(added)}; registry now {len(registry['curves'])} curves, "

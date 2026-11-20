@@ -48,6 +48,27 @@ const kept = await page.evaluate((names) => names.map((name) =>
   document.querySelector(`.hybrid-card[data-name="${name}"]`)?.dataset.decision || ""), decisions);
 check(kept.every((value) => value === "keep"), `both decisions survive a reload (${kept.join(", ")})`);
 
+// the stars are the naming desk's widget: click 7, reload, seven are on
+const starCard = decisions[0];
+await page.locator(`.hybrid-card[data-name="${starCard}"] .stars button[data-imp="7"]`).click();
+await page.waitForTimeout(300);
+await page.reload({ waitUntil: "domcontentloaded" });
+await page.waitForTimeout(900);
+const starsOn = await page.evaluate((name) =>
+  document.querySelectorAll(`.hybrid-card[data-name="${name}"] .stars button.on`).length, starCard);
+check(starsOn === 7, `stars survive a reload (${starsOn} on, expected 7)`);
+
+// the name is typed and kept, like the naming desk
+const nameCard = decisions[0];
+await page.locator(`.hybrid-card[data-name="${nameCard}"] .hybrid-name`).fill("swan-hybrid-7");
+await page.locator(`.hybrid-card[data-name="${nameCard}"] .hybrid-name`).blur();
+await page.waitForTimeout(300);
+await page.reload({ waitUntil: "domcontentloaded" });
+await page.waitForTimeout(900);
+const keptName = await page.evaluate((name) =>
+  document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-name`)?.value || "", nameCard);
+check(keptName === "swan-hybrid-7", `the typed name survives a reload ("${keptName}")`);
+
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 
 await browser.close();

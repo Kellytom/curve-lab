@@ -3187,3 +3187,13 @@ Tschirnhausen — classic but adds nothing; off the board.
   from birth, with `status: native`.
 - `Note` gained `algorithm` and `conversion` (schema pushed, check-db green); the guard is
   `tests/test_hybrids.py::test_every_record_reserves_the_conversion_slot`.
+
+### Stars and the name on the hybrid desk — 2026-11-20
+
+- The card now carries the naming desk's three judgements: **decision** (keep/later/reject),
+  **stars 1–10** (the same `data-imp` widget as `/names/`), and **name** (typed, stored as
+  `curveName`; the row key stays the candidate id).
+- Promotion uses `curveName` when set and lifts the stars to `importance`. One row per card,
+  so a rename cannot lose a decision.
+- Guard: `app/scripts/check-hybrids-page.mjs` — keeps, seven stars and a typed name survive a
+  reload.

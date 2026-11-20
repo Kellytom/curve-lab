@@ -31,10 +31,21 @@ function mark(card, decision) {
   paintCounts();
 }
 
-async function save(card, decision) {
+function paintStars(card, importance) {
+  card.dataset.importance = String(importance || 0);
+  card.querySelectorAll(".stars button").forEach((button) => {
+    button.classList.toggle("on", Number(button.dataset.imp) <= (importance || 0));
+  });
+  paintCounts();
+}
+
+async function save(card, patch) {
   const payload = {
     name: card.dataset.name,
-    decision,
+    decision: card.dataset.decision || "",
+    importance: Number(card.dataset.importance) || 0,
+    curveName: card.querySelector(".hybrid-name")?.value.trim() || "",
+    ...patch,
     crossedAt: new Date().toISOString(),
   };
   const response = await fetch(ENDPOINT, {
@@ -51,18 +62,47 @@ async function load() {
   const { curves } = await response.json();
   for (const row of curves) {
     const card = document.querySelector(`.hybrid-card[data-name="${row.name}"]`);
-    if (card && row.decision) mark(card, row.decision);
+    if (!card) continue;
+    if (row.decision) mark(card, row.decision);
+    if (row.importance) paintStars(card, row.importance);
+    const input = card.querySelector(".hybrid-name");
+    if (input && row.curveName) input.value = row.curveName;
   }
   paintCounts();
 }
 
 export function mountHybridDesk() {
   for (const card of cards()) {
+    const input = card.querySelector(".hybrid-name");
+    if (input) {
+      input.addEventListener("change", async () => {
+        try {
+          await save(card, { curveName: input.value.trim() });
+        } catch (error) {
+          const host = document.getElementById("hybrids-counts");
+          if (host) host.textContent = String(error.message || error);
+        }
+      });
+    }
+    card.querySelectorAll(".stars button").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const importance = Number(button.dataset.imp) || 0;
+        const previous = Number(card.dataset.importance) || 0;
+        paintStars(card, importance);
+        try {
+          await save(card, { importance });
+        } catch (error) {
+          paintStars(card, previous);
+          const host = document.getElementById("hybrids-counts");
+          if (host) host.textContent = String(error.message || error);
+        }
+      });
+    });
     for (const button of card.querySelectorAll("[data-decision]")) {
       button.addEventListener("click", async () => {
         const decision = button.dataset.decision;
         try {
-          await save(card, decision);
+          await save(card, { decision });
           mark(card, decision);
         } catch (error) {
           const host = document.getElementById("hybrids-counts");
