@@ -181,3 +181,13 @@ stars are the same component.
 - **Named families have their own page.** A candidate named `wonk-<number>` is hidden from
   the desk and appears at `/hybrids-wonk/`; the filter is the saved name, not a list.
 - **Order is by stars**, highest first, so the desk reads as a ranking.
+
+## The wonkies
+
+`scripts/make_wonkies.py` takes every wonk (a candidate named `wonk-<n>`) and cuts its
+polygon where it crosses the **x axis**, giving an upper half and a lower half: 56 wonkies
+from the 28 wonks. The stations either side of a cut are exact; the cut point is a value on
+the drawn line between them, and the file says so.
+
+`/hybrids-wonkies/` lists them with the same cards, so a wonky can be starred, named, saved
+or rejected. `scripts/wonky_figures.mjs` draws them with the same figure builder.

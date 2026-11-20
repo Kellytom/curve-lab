@@ -3240,3 +3240,13 @@ Tschirnhausen — classic but adds nothing; off the board.
   page decides its own headings; `/hybrids-wonk/` is a page file and nothing else.
 - The page check no longer expects a fixed 343; it asserts a live board, and it snapshots
   and restores any card it touches.
+
+### The wonkies — 2026-11-20
+
+- 28 wonks → 56 wonkies: each wonk cut at the x axis into an upper and a lower half.
+  `scripts/make_wonkies.py` writes `workbench/wonkies.json`; `scripts/wonky_figures.mjs`
+  draws them with `figureSvg`.
+- `/hybrids-wonkies/` lists them in two groups (upper / lower) with the desk's cards, so a
+  wonky can be starred, named, saved or rejected.
+- The cut: stations either side are exact, the crossing is on the drawn line between them —
+  stated in the file and on the page.
