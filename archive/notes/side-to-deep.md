@@ -157,3 +157,21 @@ Done: `archive/notes/audit-2026-11-20.md` rewritten and the twin re-rendered, co
 Proved by: `scripts/spec_page.py` → `app/public/spec/audit-2026-11-20.html`, 1 table, no raw markdown pipes left in the HTML, `GET` → 200.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-20 21:05 — the operator's five decisions are made and landed; pushed
+
+Job: walk the operator through the remaining decisions (yes/no), then fix everything else.
+Decisions taken: commit the handover block; push; calibrate the counters now; do all four small fixes; split the slow tests. On `sandbox-curves` the operator asked whether SQLite being the source of truth changes the question — answered: no, it *is* the answer, one file per kind.
+Done, five commits:
+- **`5edeb786`** — one copy of the desk's decisions: the exporter flattens each SandboxCurve row (no JSON in JSON), the five promotion readers read `data/sandbox-curves.json`, the sandbox drawings move to `workbench/sandbox-adders.json` (`curve-lab.sandbox-adders/1`, registered) and `/sandbox` draws again; `export-sandbox.mjs` deleted (the exporter owns that file); `--check` refreshes before it verifies, and the bulk writers refresh their own file.
+- **`de00e87b`** — the prime-mover handover block, committed as handed over (72 files: the pages, jsxgraph vendored, the seven scripts, the specs, AGENTS/senior-dev, prepush, test_regressions).
+- **`aa986eac`** — the counters calibrated: one test (`tests/test_crossing_calibration.py`) pins every counter in the repo to the same numbers; verified pins `c-0262` = 9, `c-0260` = 19, `c-0253` = 6, Chebyshev arc = 2; the three page counters are exported and guarded so Node can import them; the dictionary test (`test_data_dictionary.py`) keeps `data/README.md` in step with `schema.json`; the default test loop drops from ~3 min to **91 s**; the hub names the Astro app the product; `finder.json` (3.5 MB, rebuildable) leaves git as an optional cache.
+- **`f42dfe11` + `d174cee2`** — the audit and its plain-English rewrite with the HTML twin.
+- the mailbox blocks.
+**Two of your TODO pins do not reproduce and are replaced, not silently:** `c-0070` (`wave-5of12-3`) reads **1** from both the router and the analysis store — if 11 was right, name the curve it was measured on; the `(p-1)(q-1)/2` count is the **closed** Lissajous on the circle, and our `T3 x T5` is the open arc on [0,1], which has **2**. Both corrections are written in TODO.md §Senior-dev pass. Override freely — but the counters now all agree with each other, so any new pin has one number to meet.
+Proved by: `scripts/prepush.sh` → exit 0 twice; `scripts/test.py` → 125 modules in 91 s (was ~3 min); `test_crossing_calibration` → 5 OK; `test_data_dictionary` → OK; `data_format.py --check` → 60/60; `check-db.mjs` → 397/397/397; `git push` → `06107286..bfd0d000 main -> main`.
+Left dirty on purpose: the two `ph-nth-sandbox*.html` twins (not named in any job), the backups, and the mailboxes until this block.
+Blocked: nothing
+Next: waiting for DeepSeek1 — the counters are yours to pin further if you want a different corpus.
