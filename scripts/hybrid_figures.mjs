@@ -33,7 +33,7 @@ for (const row of data.candidates) {
   }, { width: 220 });
   // figureSvg is written for a page (width 100%); a file used by <img> needs its own
   // intrinsic size, so the viewBox numbers become width and height.
-  const [, , , vw, vh] = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/).length === 4
+  const [, , vw, vh] = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/).length === 4
     ? svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/)
     : [];
   const sized = svg

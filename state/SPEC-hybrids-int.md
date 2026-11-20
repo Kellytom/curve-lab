@@ -128,3 +128,14 @@ On promotion, `curveName` becomes the record's name if it is set, otherwise the 
 `hybrid-<p>-<q>-<block>-<use>`; importance becomes the record's `importance`. The guard is
 `app/scripts/check-hybrids-page.mjs`: keeps, seven stars and a typed name all survive a
 reload.
+
+## The naming desk's words and its safety, both
+
+- The three buttons are the naming desk's: **Save**, **move to notes**, **reject**. Stored as
+  `saved`, `notes`, `rejected`; a promotion takes `saved`.
+- **A failed read turns saving off** (`state.readOk`), so an empty card cannot overwrite a
+  real row; a failed save puts the previous value back and says so.
+- **A name being typed is a draft** in this browser (`hybrid-name-drafts`), restored after a
+  refresh and labelled "draft, not saved". A save clears it; a draft never hides a newer save.
+- **The figures load eagerly.** 343 files at about 5 KB; lazy loading left blank cards on a
+  first look, which reads as "there are no images".

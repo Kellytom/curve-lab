@@ -2,7 +2,7 @@
 
 Spec: state/SPEC-hybrids-int.md. The fault this guards is the one the register already
 names (a displayed number no current routine produces): a candidate with no formula, a
-figure that is listed but not on disk, or a "keep" that never became a registry record.
+figure that is listed but not on disk, or a "saved" that never became a registry record.
 """
 
 import json
@@ -42,7 +42,7 @@ class Hybrids(unittest.TestCase):
         if not DECISIONS.exists():
             self.skipTest("no decisions exported yet")
         decisions = json.loads(DECISIONS.read_text()).get("curves", [])
-        kept = [row["name"] for row in decisions if row.get("decision") == "keep"]
+        kept = [row["name"] for row in decisions if row.get("decision") == "saved"]
         registry = json.loads(REGISTRY.read_text())["curves"]
         aliases = {alias for record in registry for alias in record.get("aliases", [])}
         self.assertEqual([key for key in kept if key not in aliases], [],

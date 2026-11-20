@@ -3209,3 +3209,15 @@ Tschirnhausen — classic but adds nothing; off the board.
   (`state.readOk`), a failed save restores the previous value, and the stars/name/decision
   live in one row. Guard in `check-hybrids-page.mjs`: with the GET answering 500, a click
   makes zero POSTs.
+
+### The desk now speaks the naming desk's words — 2026-11-20
+
+- Buttons are **Save / move to notes / reject** (stored `saved` / `notes` / `rejected`);
+  `promote_hybrids.py` takes `saved`.
+- **Drafts**: a name typed but not yet saved is kept in `localStorage` and restored after a
+  refresh, flagged "draft, not saved" — the 2026-11-16 loss cannot repeat here.
+- **Write safety**: no write before a successful read; a failed save restores the old value.
+- **Figures render eagerly** (343 × ~5 KB); the blank cards were lazy-loading plus a swapped
+  width/height in the SVG writer, both fixed.
+- Guard: `app/scripts/check-hybrids-page.mjs` — saved name, seven stars, unsaved draft across
+  a refresh, and zero POSTs when the GET fails.

@@ -37,7 +37,7 @@ check(images.every((image) => image.ok), "every sampled figure loads");
 const decisions = await page.evaluate(() => [...document.querySelectorAll(".hybrid-card")]
   .slice(0, 2).map((card) => card.dataset.name));
 for (const name of decisions) {
-  await page.locator(`.hybrid-card[data-name="${name}"] [data-decision="keep"]`).click();
+  await page.locator(`.hybrid-card[data-name="${name}"] [data-decision="saved"]`).click();
   await page.waitForTimeout(250);
 }
 check(true, `pressed keep on ${decisions.length} cards`);
@@ -46,7 +46,7 @@ await page.reload({ waitUntil: "domcontentloaded" });
 await page.waitForTimeout(900);
 const kept = await page.evaluate((names) => names.map((name) =>
   document.querySelector(`.hybrid-card[data-name="${name}"]`)?.dataset.decision || ""), decisions);
-check(kept.every((value) => value === "keep"), `both decisions survive a reload (${kept.join(", ")})`);
+check(kept.every((value) => value === "saved"), `both decisions survive a reload (${kept.join(", ")})`);
 
 // the stars are the naming desk's widget: click 7, reload, seven are on
 const starCard = decisions[0];
@@ -68,6 +68,19 @@ await page.waitForTimeout(900);
 const keptName = await page.evaluate((name) =>
   document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-name`)?.value || "", nameCard);
 check(keptName === "swan-hybrid-7", `the typed name survives a reload ("${keptName}")`);
+
+// a name typed but not yet blurred survives a refresh (the naming desk's draft rule)
+const draftCard = decisions[1];
+await page.locator(`.hybrid-card[data-name="${draftCard}"] .hybrid-name`).fill("draft-swimmer");
+await page.waitForTimeout(200);
+await page.reload({ waitUntil: "domcontentloaded" });
+await page.waitForTimeout(900);
+const draftBack = await page.evaluate((name) => ({
+  value: document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-name`)?.value || "",
+  flag: document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-flag`)?.textContent || "",
+}), draftCard);
+check(draftBack.value === "draft-swimmer", `an unsaved draft survives a refresh ("${draftBack.value}")`);
+check(draftBack.flag.includes("draft"), `the draft says it is not saved ("${draftBack.flag}")`);
 
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 

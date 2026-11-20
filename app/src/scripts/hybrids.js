@@ -10,6 +10,18 @@ const ENDPOINT = "/api/sandbox-curves";
 // real one.
 const state = { readOk: false, message: "" };
 
+// The naming desk's draft rule: a name being typed is kept in this browser, and a refresh
+// restores it. A draft never hides a newer save, and a save clears it.
+const DRAFTS = "hybrid-name-drafts";
+
+function readDrafts() {
+  try { return JSON.parse(localStorage.getItem(DRAFTS) || "{}"); } catch { return {}; }
+}
+
+function writeDrafts(drafts) {
+  try { localStorage.setItem(DRAFTS, JSON.stringify(drafts)); } catch { /* a full disk is not a lost save */ }
+}
+
 function setBusy(host, text) {
   state.message = text;
   if (host) host.textContent = text;
@@ -20,7 +32,7 @@ function cards() {
 }
 
 function readCounts() {
-  const counts = { keep: 0, later: 0, reject: 0 };
+  const counts = { saved: 0, notes: 0, rejected: 0 };
   for (const card of cards()) {
     const decision = card.dataset.decision;
     if (decision && decision in counts) counts[decision] += 1;
@@ -32,8 +44,8 @@ function paintCounts() {
   const host = document.getElementById("hybrids-counts");
   if (!host) return;
   const counts = readCounts();
-  host.textContent = `${cards().length} candidates · ${counts.keep} kept · ` +
-    `${counts.later} later · ${counts.reject} rejected`;
+  host.textContent = `${cards().length} candidates · ${counts.saved} saved · ` +
+    `${counts.notes} moved to notes · ${counts.rejected} rejected`;
 }
 
 function mark(card, decision) {
@@ -79,6 +91,13 @@ async function load() {
     if (row.importance) paintStars(card, row.importance);
     const input = card.querySelector(".hybrid-name");
     if (input && row.curveName) input.value = row.curveName;
+    const drafts = readDrafts();
+    const draft = drafts[card.dataset.name];
+    if (input && draft && draft.value && draft.value !== (row.curveName || "")) {
+      input.value = draft.value;
+      const flag = card.querySelector(".hybrid-flag");
+      if (flag) flag.textContent = "draft, not saved";
+    }
   }
   paintCounts();
 }
@@ -88,13 +107,31 @@ export function mountHybridDesk() {
     const input = card.querySelector(".hybrid-name");
     if (input) {
       input.dataset.saved = input.value;
+      input.addEventListener("input", () => {
+        const drafts = readDrafts();
+        const flag = card.querySelector(".hybrid-flag");
+        if (input.value.trim() === (input.dataset.saved || "")) {
+          delete drafts[card.dataset.name];
+          if (flag) flag.textContent = "";
+        } else {
+          drafts[card.dataset.name] = { value: input.value, at: Date.now() };
+          if (flag) flag.textContent = "draft, not saved";
+        }
+        writeDrafts(drafts);
+      });
       input.addEventListener("change", async () => {
         const previous = input.dataset.saved || "";
+        const flag = card.querySelector(".hybrid-flag");
         try {
           await save(card, { curveName: input.value.trim() });
           input.dataset.saved = input.value.trim();
+          const drafts = readDrafts();
+          delete drafts[card.dataset.name];
+          writeDrafts(drafts);
+          if (flag) flag.textContent = "saved";
         } catch (error) {
           input.value = previous;
+          if (flag) flag.textContent = "not saved — put back";
           const host = document.getElementById("hybrids-counts");
           if (host) host.textContent = String(error.message || error);
         }

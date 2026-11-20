@@ -93,7 +93,7 @@ def main(argv=None) -> int:
 
     decisions = json.loads(DECISIONS.read_text())
     kept = {row["name"]: row for row in decisions.get("curves", [])
-            if row.get("decision") == "keep"}
+            if row.get("decision") == "saved"}
     candidates = {row["id"]: row for row in json.loads(CANDIDATES.read_text())["candidates"]}
     registry = json.loads(REGISTRY.read_text())
     names = {row["name"] for row in registry["curves"]}
