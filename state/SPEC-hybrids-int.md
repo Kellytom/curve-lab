@@ -52,3 +52,22 @@ The family is `x = C(t)^p`, `y = S(t)^q`, where `C(t) = (1 − t²)/(1 + t²)` a
   becomes a registry record in a separate step.
 - No second store: the decisions live in the same `SandboxCurve` table the sandbox
   uses.
+
+## Promotion — a keep becomes a record
+
+Order: **decide → promote → name → star**.
+
+`app/scripts/export-sandbox.mjs` writes `workbench/sandbox-curves.json` (the visible copy
+of every decision). `scripts/promote_hybrids.py` turns each `keep` into a registry record:
+uid, name `hybrid-<p>-<q>-<block>-<use>` (colour: `hybrid-<p>-<q>-colour`), `params`, the
+`formula` object, the exact `grid`, the measures in the note, and the drawn path. Then
+`app/scripts/add-registry-curves.mjs` puts it in SQLite and `node scripts/curve_pngs.mjs
+--only <uid>` draws its figure.
+
+Rules:
+- a keep is promoted once; the candidate id is kept as an alias, so the desk and the record
+  can always be matched;
+- the record's note names the construction, the crossing pairs, the station rule and the
+  grid, so it can be rebuilt without the desk;
+- the guard is `tests/test_hybrids.py`: every keep in the exported decisions has a registry
+  record, every candidate has a complete `formula`, and every figure is on disk.

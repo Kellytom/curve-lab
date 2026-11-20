@@ -37,6 +37,7 @@ const groups = [...bySheet.entries()];
             <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} loading="lazy" width="220" height="220" />
             <p class="hybrid-id"><code>{row.id}</code></p>
             <p class="hybrid-num">{row.crossings} crossing pairs · p {row.p}, q {row.q}</p>
+            <p class="hybrid-formula"><code>{row.formula.plain}</code></p>
             <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
               <button type="button" data-decision="keep">keep</button>
               <button type="button" data-decision="later">later</button>
@@ -50,7 +51,9 @@ const groups = [...bySheet.entries()];
 
   <p class="hybrids-foot">
     Stations are one pass of the rational circle, <code>t = u/(1 − |u|)</code> with
-    <code>u = i/100</code> — exact fractions, no sin, no cos. The join between stations is
+    <code>u = i/100</code> — exact fractions, no sin, no cos. The rational twin of every
+    formula is <code>x = ((1 − t²)/(1 + t²))<sup>p</sup></code>,
+    <code>y = (2t/(1 + t²))<sup>q</sup></code>, carried in <code>workbench/hybrids.json</code>. The join between stations is
     a straight line. Crossing counts come from the generator (<code>scripts/hybrid_figures.py</code>),
     not from this page.
   </p>
@@ -66,7 +69,8 @@ const groups = [...bySheet.entries()];
   .hybrid-card { border: 1px solid #e6dccb; background: #fffef9; padding: 8px; margin: 0; }
   .hybrid-card img { width: 100%; height: auto; display: block; background: #fffef9; }
   .hybrid-id { margin: 6px 0 0; font-size: 13px; }
-  .hybrid-num { margin: 2px 0 6px; font-size: 13px; color: #7a6a55; }
+  .hybrid-num { margin: 2px 0 2px; font-size: 13px; color: #7a6a55; }
+  .hybrid-formula { margin: 2px 0 8px; font-size: 12px; color: #5a4a36; overflow-wrap: anywhere; }
   .hybrid-actions { display: flex; gap: 6px; }
   .hybrid-actions button { flex: 1; padding: 4px 6px; font-size: 14px; margin: 0; }
   .hybrid-card[data-decision="keep"] { border-color: #2f6f3a; box-shadow: inset 0 0 0 2px #2f6f3a22; }

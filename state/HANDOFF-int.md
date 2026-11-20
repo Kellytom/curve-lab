@@ -3146,3 +3146,18 @@ Tschirnhausen — classic but adds nothing; off the board.
   keeps survive a reload, no page errors. `/hybrids/` is in `check-pages` (17 pages).
 - **Not done:** a kept candidate does not yet become a registry record; that is a separate
   step, and the operator decides which.
+
+### Promotion, and the visible copy — 2026-11-20
+
+- **`app/scripts/export-sandbox.mjs`** writes `workbench/sandbox-curves.json`: every
+  `SandboxCurve` row, with a header naming each field. This is the visible copy the
+  operator asked for; the sidechat adds the rest of the `data/` files.
+- **`scripts/promote_hybrids.py`** turns each kept candidate into a registry record:
+  uid, name `hybrid-<p>-<q>-<block>-<use>`, `params`, `formula`, exact `grid`, measures in
+  the note, path. Proven end to end on `h-colour-5-3` (c-0273, check-db green, figure
+  rendered), then removed, because the operator has not chosen yet.
+- **`tests/test_hybrids.py`** guards the three drifts: a candidate without a formula, a
+  figure missing from disk, a keep with no registry record.
+- **The grid of a promoted hybrid is large** (561 digits for 199 stations); it is stored
+  exactly in `grid` and its station rule is in `params`, because the lcm is the honest
+  number and a rounded one would be a lie.
