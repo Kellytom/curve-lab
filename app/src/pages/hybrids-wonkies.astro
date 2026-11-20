@@ -20,15 +20,17 @@ const decorate = (row) => {
     ...row,
     curveName: String(decision.curveName || ""),
     importance: Number(decision.importance) || 0,
+    decision: String(decision.decision || ""),
     placeholder: row.id,
   };
 };
 
 const pairs = new Map();
-for (const row of data.wonkies || []) {
+for (const row of (data.wonkies || []).map(decorate)) {
+  if (row.decision === "saved" || row.curveName) continue;   // recovered: it is on the desk
   const key = row.parentName;
   if (!pairs.has(key)) pairs.set(key, { name: key, rows: [] });
-  pairs.get(key).rows.push(decorate(row));
+  pairs.get(key).rows.push(row);
 }
 const groups = [...pairs.values()]
   .sort((a, b) => Number(a.name.split("-")[1]) - Number(b.name.split("-")[1]))

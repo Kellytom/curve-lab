@@ -197,3 +197,10 @@ or rejected. `scripts/wonky_figures.mjs` draws them with the same figure builder
 A candidate is a wonk only while its saved name matches `wonk-<number>`. Rename it and it
 leaves `/hybrids-wonk/` and appears on `/hybrids/` under its new name — it has been adopted.
 Nothing tags it and nothing needs tracking: the name is the state.
+
+## A recovered wonky joins the desk
+
+A wonky is recovered when it is **saved** or **named**. From that moment it appears on
+`/hybrids/` with the other candidates and leaves `/hybrids-wonkies/`, so the pair page is a
+staging list that empties as halves are adopted. Proved: saving one wonky moved the desk
+46 → 47 and its page 56 → 55, and the saved card carried its name.

@@ -3256,3 +3256,10 @@ Tschirnhausen — classic but adds nothing; off the board.
 - No tag is stored. A candidate is a wonk only while named `wonk-<n>`: renaming it moves it
   from `/hybrids-wonk/` to `/hybrids/` under the new name. Proved: rename one → wonk page
   28→27, desk 46→47, new name visible.
+
+### Wonkies recover onto the desk — 2026-11-20
+
+- Saving or naming a wonky moves it from `/hybrids-wonkies/` to `/hybrids/`, with its stars
+  and name. The pair page is staging, like the wonk page.
+- Proved end to end: one save moved the desk 46→47 and the wonkies page 56→55; the row was
+  then removed, so the pages are back to 46 and 56.
