@@ -12,7 +12,7 @@ import HybridDesk from "../components/HybridDesk.astro";
 
 const read = (name) => JSON.parse(readFileSync(path.join(repoRoot(), "workbench", name), "utf8"));
 const data = read("hybrids.json");
-const wonkyData = read("wonkies.json");
+const doubleData = read("doubles.json");
 const rejected = new Map((read("hybrid-rejected.json").rejected || []).map((row) => [row.id, row]));
 
 // the decisions, live from the database
@@ -33,12 +33,18 @@ const decorate = (candidate) => {
   };
 };
 
-// a wonky is recovered when it is saved or named; until then it stays on its own page
-const recoveredWonkies = (wonkyData.wonkies || [])
-  .map(decorate)
-  .filter((row) => row.decision === "saved" || row.curveName);
+// a double wonky is the deliverable: it appears here once its half has been liked
+// (a star is the "like"; a save is a decision to keep the half as well)
+const likedHalves = new Set(
+  [...decisions.entries()]
+    .filter(([, row]) => (Number(row.importance) || 0) > 0 || row.decision === "saved")
+    .map(([name]) => name),
+);
+const doubles = (doubleData.doubles || [])
+  .filter((row) => likedHalves.has(row.parent))
+  .map(decorate);
 
-const rows = [...(data.candidates || []).map(decorate), ...recoveredWonkies]
+const rows = [...(data.candidates || []).map(decorate), ...doubles]
   // "wonk" is a staging label, not a family: while a candidate is still named wonk-<n> it
   // sits on the wonk page; once it has a real name it belongs here
   .filter((row) => !/^wonk-\d+$/i.test(row.curveName))
