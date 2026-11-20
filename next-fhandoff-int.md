@@ -1,7 +1,7 @@
 ```text
-Read state/HANDOFF-int.md. Read state/PRIME-MOVER-int.md before designing a family; it is the standing direction.
-Find new curves along the prime-mover line: drive parametrics from a p-triple table (PMx, PMy over [-2pi, 2pi], both directions, points reused) rather than a linear t, and from whole-control Béziers. Star what is good and enter it properly: registry, SQLite, a figure, a plate.
-Proves: node app/scripts/check-db.mjs is green; the new curve has a row in CurveMetric with its grid and crossing pairs; its figure and plate exist at /figures and /frames; and its name follows the construction.
+Read state/HANDOFF-int.md. Read app/src/content/docs/docs/handover.md only for durable detail.
+You are reforming one stored curve with the circle parameter and entering it as its own record.
+Proves: node app/scripts/check-db.mjs is green with the new uid; its figure is at app/public/figures and its row in workbench/circle-split.json; the new record's note states the circle parameter and C; and the spec's "reformed and saved back" box is ticked with the guard that fails without it.
 ```
 
-Source: state/HANDOFF-int.md, 2026-11-19, the focus realignment block.
+Source: state/HANDOFF-int.md, 2026-11-19 (commit 28db8ce), the block "The circle taken out — the prime mover's method".
