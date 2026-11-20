@@ -241,7 +241,7 @@
    "name": "h-radius-2-1-cubic",
    "data": "{\"name\":\"h-radius-2-1-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"1/2-butterfly-2\",\"crossedAt\":\"2026-11-20T15:38:05.228Z\"}",
    "createdAt": "2026-11-20T15:38:04.146Z",
-   "updatedAt": "2026-11-20T16:17:50.697Z"
+   "updatedAt": "2026-11-20T16:24:21.639Z"
   },
   {
    "name": "h-radius-2-1-every-term",
@@ -325,7 +325,7 @@
    "name": "h-radius-4-1-cubic",
    "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"crossedAt\":\"2026-11-20T15:39:26.721Z\"}",
    "createdAt": "2026-11-20T15:39:26.595Z",
-   "updatedAt": "2026-11-20T16:17:50.697Z"
+   "updatedAt": "2026-11-20T16:24:21.639Z"
   },
   {
    "name": "h-radius-4-1-every-term",
@@ -439,7 +439,7 @@
    "name": "h-radius-7-1-every-term",
    "data": "{\"name\":\"h-radius-7-1-every-term\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-28\",\"crossedAt\":\"2026-11-20T16:06:27.550Z\"}",
    "createdAt": "2026-11-20T16:06:22.169Z",
-   "updatedAt": "2026-11-20T16:06:27.556Z"
+   "updatedAt": "2026-11-20T16:28:42.918Z"
   },
   {
    "name": "h-radius-7-1-quadratic",
