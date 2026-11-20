@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="spec-source-hash" content="a5e395c2d1f2a8ef">
+<meta name="spec-source-hash" content="a15c507de920eeb8">
 <title>Audit — 2026-11-20</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
@@ -30,237 +30,201 @@
 <blockquote>
 <p><strong>draft A</strong> — a working draft, not a final text.</p>
 </blockquote>
-<p>A whole-project pass: what is strong, what will cost late if it is not fixed
-soon, and the five actions I would take next. Every number below is computed in
-this session, and the command that produced it is printed beside it; the two
-counters I could not compute are marked unverified.</p>
-<p>Read before writing: <code>goals.md</code>, <code>SPEC.md</code>, <code>app/src/content/docs/docs/philosophy.md</code>,
-<code>senior-dev.md</code>, <code>state/PRIME-MOVER-int.md</code>, <code>state/PLAN-int.md</code>,
-<code>state/HANDOFF-int.md</code> (tail), <code>state/ACHIEVEMENTS-int.md</code>, <code>TODO.md</code>,
-<code>founder/LOG.md</code>, <code>app/src/content/docs/docs/review.md</code> (the 2026-10-26 pass,
-for continuity). Run in this session: <code>scripts/test.py --full</code>, <code>scripts/code_count.sh</code>,
-<code>app/scripts/check-db.mjs</code>, <code>scripts/export-data.mjs --check</code>, the data audit,
-and the file counts below.</p>
+<p>A look at the whole project: what is good, what should be fixed soon, and the
+five things I would do next. Every number was measured today, and the command
+that measured it is printed next to it. Two things I could not measure are
+marked "unverified".</p>
+<p>Written to be read without the project in front of you. Where a word is needed
+("grid", "bend"), it is explained in the same sentence.</p>
 <hr>
 <h2 id="the-project-in-numbers">The project in numbers</h2>
 <table>
 <thead>
 <tr>
-<th>measure</th>
-<th>value</th>
-<th>command</th>
+<th>what I counted</th>
+<th>the number</th>
+<th>how I counted</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>commits on <code>main</code></td>
-<td>1,126 since the first</td>
+<td>saved versions (commits)</td>
+<td>1,126 since the start</td>
 <td><code>git log --oneline \| wc -l</code></td>
 </tr>
 <tr>
-<td>commits in the last two days</td>
-<td>116 (88 on 11-20, 28 on 11-19)</td>
+<td>saved versions in the last two days</td>
+<td>116 (88 yesterday, 28 the day before)</td>
 <td><code>git log --format=%ad --date=short</code></td>
 </tr>
 <tr>
-<td>files in the tree (no venv, git, node_modules)</td>
+<td>files in the project</td>
 <td>37,227</td>
 <td><code>find . \( -name .venv … \) -prune -o -type f -print \| wc -l</code></td>
 </tr>
 <tr>
-<td>Python: engine</td>
+<td>the maths core (Python)</td>
 <td>47 files, 8,798 lines</td>
 <td><code>scripts/code_count.sh</code></td>
 </tr>
 <tr>
-<td>Python: scripts</td>
+<td>the small programs (Python)</td>
 <td>233 files, 61,585 lines</td>
 <td><code>scripts/code_count.sh</code></td>
 </tr>
 <tr>
-<td>Python: tests</td>
-<td>132 files, 10,744 lines, ~860 test functions</td>
-<td><code>scripts/code_count.sh</code>; <code>grep -rn "def test_" tests \| wc -l</code></td>
-</tr>
-<tr>
-<td>JS in the app</td>
-<td>6,513 lines in <code>app/scripts</code></td>
+<td>the checks (Python tests)</td>
+<td>132 files, 10,744 lines, about 860 checks</td>
 <td><code>scripts/code_count.sh</code></td>
 </tr>
 <tr>
-<td>Astro pages</td>
-<td>21 (<code>app/src/pages/*.astro</code>)</td>
-<td><code>ls</code></td>
+<td>the web app</td>
+<td>21 pages</td>
+<td><code>ls app/src/pages</code></td>
 </tr>
 <tr>
-<td>doc pages</td>
-<td>39 markdown, 35 carrying the draft-A line</td>
-<td><code>ls app/src/content/docs/docs/</code></td>
+<td>the reading pages</td>
+<td>39 documents</td>
+<td><code>ls app/src/content/docs/docs</code></td>
 </tr>
 <tr>
-<td>state files</td>
-<td>47</td>
+<td>the notebook files</td>
+<td>47 in <code>state/</code></td>
 <td><code>ls state/ \| wc -l</code></td>
 </tr>
 <tr>
-<td>curves</td>
-<td>397 in the registry, 397 in the database, 397 figures</td>
-<td><code>check-db.mjs</code>; <code>ls app/public/frames</code></td>
+<td>curves in the catalogue</td>
+<td>397, all drawn once each</td>
+<td><code>app/scripts/check-db.mjs</code></td>
 </tr>
 <tr>
-<td>frames drawn</td>
-<td>360 (90 curves × A/B/C/D)</td>
+<td>framed drawings</td>
+<td>360 (90 curves, four versions each)</td>
 <td><code>ls app/public/frames</code></td>
 </tr>
 <tr>
-<td>sandbox decisions</td>
-<td>147 rows in <code>data/sandbox-curves.json</code> (2 this morning)</td>
+<td>choices saved by the desk today</td>
+<td>147 (it was 2 this morning)</td>
 <td><code>scripts/export-data.mjs</code></td>
 </tr>
 <tr>
-<td>workbench</td>
-<td>103 MB, 102 HTML pages, <code>finder.json</code> 3.6 MB ×2</td>
-<td><code>du -sh workbench</code></td>
-</tr>
-<tr>
-<td>full suite</td>
-<td>130 modules, 314 s wall, 4 jobs</td>
+<td>time for the full check</td>
+<td>about 5 minutes</td>
 <td><code>scripts/test.py --full</code></td>
 </tr>
 <tr>
-<td>dirty tree</td>
-<td>79 paths (59 untracked)</td>
+<td>work not yet saved</td>
+<td>79 files (59 never saved at all)</td>
 <td><code>git status --porcelain</code></td>
 </tr>
 <tr>
-<td>unpushed</td>
-<td>3 commits, local only</td>
+<td>versions not sent to the backup copy (GitHub)</td>
+<td>3</td>
 <td><code>git rev-list --count origin/main..HEAD</code></td>
 </tr>
 </tbody>
 </table>
-<p>The suite result in this session: <strong>one failure, and it is the audit's own
-subject</strong> — <code>test_data_export</code> went stale during the run because rows were saved
-while it ran (§F1). Everything else passed.</p>
+<p>The big check ran to the end and found <strong>one problem, and it is item 2 below</strong>:
+the saved copy of the data went out of date during the run, because someone was
+using the desk at the same time.</p>
 <hr>
-<h2 id="highlights-what-is-genuinely-strong">Highlights — what is genuinely strong</h2>
+<h2 id="what-is-good-here">What is good here</h2>
 <ul>
-<li><strong>The exact core is real.</strong> <code>curve_lab/measure.py</code> holds grid, bend, arc,
-  inflections and closest approach in <code>Fraction</code>, and the pages quote numbers
-  from it. The achievements file carries a command beside every claim, so a
-  number can be re-derived instead of believed.</li>
-<li><strong>The data contract is enforced, not aspirational.</strong> Every dataset carries a
-  <code>format</code> string, one loader reads it, and <code>tests/test_data_audit.py</code> fails the
-  suite when a file is on disk but not registered. I confirmed it live twice:
-  <code>bezier-knots.json</code> and four hybrid files were caught within hours of appearing.</li>
-<li><strong>The visible record works.</strong> <code>data/</code> gives a session with no SQLite the whole
-  picture — 8 tables, <code>schema.json</code>, a dictionary in plain English — and
-  <code>tests/test_data_export.py</code> fails when a file falls behind the database.</li>
-<li><strong>The catalogue is the deliverable taking shape.</strong> 397 curves on one grid, the
-  hybrid desk turning operator decisions (147 and counting) into registry
-  records, and the naming rule ("a reader never asks which <code>c</code>") enforced from
-  code to figure captions.</li>
-<li><strong>Research is honest about what it cannot prove.</strong> Two searches (<code>RESEARCH-int</code>,
-  <code>sin-cos-parametric-research.md</code>) state "no prior art found in a search", never
-  "novel", name the field's terms (PH curves, offset curves, reach, crunode/
-  tacnode/acnode), and mark two claims unverified on purpose.</li>
-<li><strong>The prime mover is a direction with teeth.</strong> <code>PRIME-MOVER-int.md</code> states the
-  p-triple rule, the Niven guard (a fixed triple never closes at 2π), the
-  honest routes, and requires a new family to declare its driver. It changes how
-  the next curve is designed, not just how it is drawn.</li>
-<li><strong>Working discipline that survives crashes.</strong> The achievements log, the
-  regressions register with its test, backup/restore, recovery scripts, and the
-  mailbox protocol (one writer per file, proofs beside every Done). The rule
-  "never report a narrowed result as complete" is unusual and worth keeping.</li>
+<li><strong>The maths is exact, and the page shows it.</strong> The core measures every curve
+  in exact fractions. A "grid" here means the smallest step a point can take
+  (like 1/27720 — every position is a whole number of those steps). "Bend" means
+  arc length divided by straight-line distance: 1.0 is a straight line, higher
+  means the curve bends.</li>
+<li><strong>A claim is never just believed.</strong> The notebook of achievements (<code>state/ACHIEVEMENTS-int.md</code>)
+  stores a command next to every claim, so anyone can re-run it and see the
+  number again.</li>
+<li><strong>The files guard themselves.</strong> Every data file says what it is (a "format
+  string"), one program reads them, and a check fails loudly when a file appears
+  without its label. I watched this catch five files in two days.</li>
+<li><strong>Anyone can read the data without the database.</strong> The <code>data/</code> folder holds a
+  plain copy of every table, plus a dictionary that explains every field. The
+  checks fail if the copy falls behind the database.</li>
+<li><strong>The catalogue is becoming the product.</strong> 397 curves, each drawn, each named
+  so a reader never has to ask which one is meant. The desk where you say "keep,
+  later or reject" is turning those choices into permanent records.</li>
+<li><strong>The research says what it does not know.</strong> Two searches looked for anyone
+  who made these curves before. They report "not found in a search", never
+  "nobody has ever done this", and they name the terms the field already uses.</li>
+<li><strong>The new direction has a rule, not just a mood.</strong> The "prime mover" idea
+  drives curves from a point walking a circle by whole-number steps (Pythagorean
+  triples, like 3-4-5), so every point stays exact. The note also states the
+  catch: a fixed triple never closes the circle perfectly, and the file says
+  what to do about that.</li>
+<li><strong>Work survives a crash.</strong> Backups, a register of past faults with the test
+  that keeps each one fixed, and a clear rule about who owns which file.</li>
 </ul>
 <hr>
-<h2 id="findings-ordered-by-the-cost-of-discovering-each-late">Findings — ordered by the cost of discovering each late</h2>
-<h3 id="f1-the-record-and-the-suite-race-each-other-live-red">F1 · The record and the suite race each other (live red)</h3>
-<p><code>test_data_export</code> failed inside the full run: rows were saved while the suite
-ran, so the export was stale by the time the check executed. The same race will
-bite every long-running job, because the desk is live and the sync is on a timer.
-The fix is ordering, not tolerance: run <code>node scripts/export-data.mjs</code> at the
-<em>start</em> of every gate and immediately before any commit, and let <code>--check</code> remain
-strict. Cost if ignored: an intermittent red gate that trains sessions to stop
-trusting green.</p>
-<h3 id="f2-sandbox-curves-has-two-homes-and-one-of-them-draws-nothing">F2 · <code>sandbox-curves</code> has two homes and one of them draws nothing</h3>
-<p><code>workbench/sandbox-curves.json</code> (the <code>/sandbox</code> page's <code>{adders, quadrature}</code>)
-was replaced by the <code>SandboxCurve</code> export, while the addendum's record lives at
-<code>data/sandbox-curves.json</code>. Both copies exist; <code>/sandbox</code> draws no adders (the
-page is guarded so it does not throw, but the section is empty). Decision
-pending in the mailbox. Cost if ignored: the operator's sandbox page is blank and
-nobody can tell which file is lying.</p>
-<h3 id="f3-the-crossing-counters-are-uncalibrated-and-everything-ranks-on-them">F3 · The crossing counters are uncalibrated — and everything ranks on them</h3>
-<p><code>TODO.md</code> (senior-dev pass, item 1) records the fault: the same curve read
-<strong>9, 4 and 1</strong> pairs from three counters, and "540 new curves" turned out to be
-flat ghosts. The three pinned numbers are <code>c-0262</code> = 9, <code>c-0070</code> = 11, and the
-Chebyshev <code>T3 × T5</code> = 4. Until the counters agree, the "best curves" ranking,
-the hybrid desk's solved-pair counts and the empty-cell map (77 cells of
-crossings × inflections) rest on numbers that disagree with each other. This is
-the highest-value fix in the file. Cost if ignored: a catalogue ranked by a
-number that changes with the sampler.</p>
-<h3 id="f4-the-full-suite-is-five-minutes-and-three-tests-are-the-reason">F4 · The full suite is five minutes, and three tests are the reason</h3>
-<p><code>test_fleur_sets</code> 146 s, <code>test_ph_nth_sandbox2</code> 112 s, <code>test_ph_11th_sandbox2</code>
-108 s, <code>test_crossings</code> 83 s. A session that must confirm one change waits on
-all four. Split the page renderers from the logic they exercise, or cache the
-expensive fixtures. Cost if ignored: sessions drift to the fast loop only, and
-the slow truths stop being run.</p>
-<h3 id="f5-generated-pages-can-silently-lose-the-draft-a-label">F5 · Generated pages can silently lose the draft-A label</h3>
-<p><code>workbench/hybrid-sheets.html</code> and <code>workbench/todo.html</code> dropped it; the stamper
-re-added it, but the fix belongs in the generators, so a rebuild cannot lose it
-again. Cost if ignored: an outward page published as if final.</p>
-<h3 id="f6-59-untracked-paths-and-the-prime-mover-page-is-among-them">F6 · 59 untracked paths, and the prime-mover page is among them</h3>
-<p>The handover block (pages, vendor library, seven scripts, specs) is uncommitted.
-A crash here loses the newest part of the app. The decision is open in the
-mailbox; it is an ownership question, not a technical one. Cost if ignored: real
-loss, not just untidiness.</p>
-<h3 id="f7-three-commits-are-unpushed">F7 · Three commits are unpushed</h3>
-<p>Pushing awaits the operator's yes, but a red or stale remote is the backup the
-project leans on (<code>senior-dev.md</code> rule and the GitHub section). Say the word and
-they go. Cost if ignored: work that cannot be recovered from another machine.</p>
-<h3 id="f8-finderjson-is-36-mb-and-is-committed-twice">F8 · <code>finder.json</code> is 3.6 MB and is committed twice</h3>
-<p><code>workbench/finder.json</code> and <code>finder.backup.json</code> are both 3.5 MB in git. The
-audit already treats several caches as optional; this pair is a candidate.
-Cost if ignored: a fat clone for data the loader can rebuild.</p>
-<h3 id="f9-two-servers-one-product">F9 · Two servers, one product</h3>
-<p><code>web/server.py</code> (stdlib, <code>:8003</code>) and the Astro app (<code>:4321</code>, Cloud Run deploy)
-both serve. The docs name the app as the deliverable; the Python server is the
-render MVP. Make the split explicit in the hub, or a new session tests the wrong
-one. Cost if ignored: a page check that passes on a page nobody looks at.</p>
-<h3 id="f10-the-dictionary-must-chase-the-record-it-describes">F10 · The dictionary must chase the record it describes</h3>
-<p><code>data/README.md</code> is fresh today and already has to track a moving target: the
-file list test keeps <code>DATA-int.md</code> and the loader in step, but nothing keeps the
-<em>prose</em> dictionary in step with a new field. One test per file: "every field in
-<code>schema.json</code> is named in <code>README.md</code>". Cost if ignored: the dictionary goes
-quietly wrong, and the session that trusts it is the one that needed it.</p>
+<h2 id="what-should-be-fixed-worst-first">What should be fixed — worst first</h2>
+<h3 id="1-the-counting-rules-disagree-with-each-other">1 · The counting rules disagree with each other</h3>
+<p>This is the big one. The same curve got <strong>three different answers</strong> for how many
+times it crosses itself: 9, 4 and 1, from three different counters. Three
+pinned examples are already written down (<code>c-0262</code> = 9, <code>c-0070</code> = 11, and the
+Chebyshev cross = 4). The counting programs should all be checked against those
+three numbers, and the ones that disagree should be fixed or thrown out.</p>
+<p>Why it matters: the project chooses its "best curves" by this number. If the
+number depends on which counter you ask, the catalogue is sorted by noise.</p>
+<h3 id="2-the-saved-copy-falls-behind-while-people-work">2 · The saved copy falls behind while people work</h3>
+<p>The big check failed today for this reason alone: rows were saved while the
+check ran, so its copy of the data was already old. The fix is order, not
+leniency: refresh the copy at the start of every check, and again just before
+saving a version.</p>
+<h3 id="3-the-sandbox-page-draws-nothing">3 · The sandbox page draws nothing</h3>
+<p>The sandbox page lost its drawings because two people gave one file two
+different jobs. The desk's choices now live there, and the sandbox drawings used
+to. The fix is a decision: which file holds what, and then both pages read their
+own file. It is already written down in the mail as a question; it needs an
+answer, not a guess.</p>
+<h3 id="4-the-full-check-takes-five-minutes">4 · The full check takes five minutes</h3>
+<p>Three of the page checks take 100–146 seconds each. A session that wants to
+confirm one small change waits for all of them. The fix: split the slow drawing
+from the logic being tested, or remember the heavy work between runs.</p>
+<h3 id="5-some-files-have-never-been-saved">5 · Some files have never been saved</h3>
+<p>59 files (including the newest web pages) exist only on this machine. Saving
+them is waiting on a decision about who owns them. It is a real risk: a crash
+now loses the newest part of the app.</p>
+<h3 id="6-three-versions-are-not-on-the-backup-copy">6 · Three versions are not on the backup copy</h3>
+<p>They are waiting for a yes from you. The rule in the notebook says a red or
+stale backup is worse than a small delay, because it is the copy you rebuild
+from.</p>
+<h3 id="7-a-rebuilt-page-can-quietly-lose-its-draft-a-label">7 · A rebuilt page can quietly lose its "draft A" label</h3>
+<p>Two pages dropped the label when they were rebuilt. The label was put back by
+the stamping tool, but the real fix is in the builders, so it cannot happen
+again.</p>
+<h3 id="8-one-file-is-stored-twice-at-35-mb">8 · One file is stored twice at 3.5 MB</h3>
+<p><code>finder.json</code> and its backup are both in the saved history at 3.5 MB each. The
+loader can rebuild it, so it could be kept out of the history.</p>
+<h3 id="9-two-servers-serve-the-project">9 · Two servers serve the project</h3>
+<p>A small Python server and the main web app. The docs say the app is the
+deliverable. Make that obvious on the front page, so nobody tests the wrong one.</p>
+<h3 id="10-the-dictionary-must-chase-the-data-it-describes">10 · The dictionary must chase the data it describes</h3>
+<p>The <code>data/</code> dictionary is new, and nothing checks that it still matches the
+files. One small check — "every field named in the files is explained in the
+dictionary" — would keep it honest.</p>
 <hr>
-<h2 id="what-i-would-do-next-five-actions-in-order">What I would do next (five actions, in order)</h2>
+<h2 id="the-five-things-i-would-do-next">The five things I would do next</h2>
 <ol>
-<li><strong>Pin the counters (F3).</strong> One test, three numbers, run against every
-   counter; delete or rebadge the disagreeing ones. The catalogue's claims then
-   rest on one definition.</li>
-<li><strong>Settle <code>sandbox-curves</code> (F2)</strong> — one path, one format string, the page
-   reading it, and the other file deleted or redirected.</li>
-<li><strong>Export before every gate (F1)</strong> and re-check immediately before commit.</li>
-<li><strong>Commit or decide the handover block (F6, F7)</strong>, then push with the
-   operator's yes.</li>
-<li><strong>Trim the slow tests (F4)</strong> by splitting the page renderers from the logic.</li>
+<li>Pin the counting rules to the three known numbers and fix the counters that
+   disagree.</li>
+<li>Decide which file holds what, so the sandbox page draws again.</li>
+<li>Refresh the saved copy at the start of every check.</li>
+<li>Save the unsaved files, then send the three versions to the backup copy.</li>
+<li>Split the three slow checks from the logic they test.</li>
 </ol>
 <hr>
-<h2 id="one-line-verdict">One-line verdict</h2>
-<p>The rare part of this project is not the maths — it is that the maths is
-<em>guarded</em>: format strings, a loader, a hash per file, a register of faults, and
-a page that shows the proof. The risks are all in the seams where two systems
-meet (record and suite, page and generator, session and session), and every one
-of them is a decision that has already been written down and only needs to be
-made.</p>
-<ul>
-<li>Status: findings only; nothing was changed for this audit except the two
-  files it produced.</li>
-<li>Unverified here, marked so: the exact number of JS tests beyond the 17 files
-  in <code>app/tests</code> (<code>unverified</code>), and the Cloud Run deploy state
-  (<code>unverified</code> — no remote probe was made).</li>
-</ul>
+<h2 id="in-one-sentence">In one sentence</h2>
+<p>What is rare here is not the maths — it is that the maths is <em>guarded</em>: every
+file says what it is, every claim carries its command, every fault has a test
+that keeps it fixed. The risks all sit where two systems meet (the copy and the
+check, the page and its builder, one session and another), and each one is a
+decision that is already written down and only needs to be made.</p>
+<p>Nothing was changed to make this audit, except the two files it produced.
+Two things are marked unverified: the exact number of checks in the web app's
+own test folder, and the state of the online deployment (not looked at).</p>
 <p class="note">Generated from <code>archive/notes/audit-2026-11-20.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
 </main>
 </body>
