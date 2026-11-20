@@ -15,6 +15,10 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 
+// d3 does the geometry: the extents and the line generator. It is a dependency the app
+// already carries (app/node_modules), so the plate uses the same library as the pages.
+const d3 = await import(new URL("../app/node_modules/d3/dist/d3.mjs", import.meta.url).href);
+
 const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT = path.join(ROOT, "book", "print");
 mkdirSync(OUT, { recursive: true });
@@ -54,7 +58,9 @@ function rowFor(record) {
 
 function turn(points, degrees) {
   if (!degrees) return points;
-  const a = (degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
+  // the page turns a picture clockwise on screen (CSS rotate); in the y-up frame that is a
+  // negative angle, so the plate is turned the same way the desk shows it
+  const a = (-degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
   return points.map(([x, y]) => [x * c - y * s, x * s + y * c]);
 }
 
@@ -99,11 +105,8 @@ function plateSvg(record) {
   rails = rails.map((rail) => turn(rail, degrees));
 
   const all = [...spine, ...rails.flat()];
-  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-  for (const [x, y] of all) {
-    if (x < x0) x0 = x; if (x > x1) x1 = x;
-    if (y < y0) y0 = y; if (y > y1) y1 = y;
-  }
+  const [x0, x1] = d3.extent(all, (p) => p[0]);
+  const [y0, y1] = d3.extent(all, (p) => p[1]);
   const w = x1 - x0 || 1, h = y1 - y0 || 1;
   const long = Math.max(w, h);
   const margin = 0.012 * long;
@@ -115,9 +118,9 @@ function plateSvg(record) {
   const ox = (pxW - w * k) / 2 - x0 * k;
   const oy = (pxH + h * k) / 2 + y0 * k;
   const px = ([x, y]) => [ox + x * k, oy - y * k];
+  const gen = d3.line().x((p) => px(p)[0]).y((p) => px(p)[1]).curve(d3.curveLinear);
   const line = (points, colour, width) => points.length < 2 ? "" :
-    `<polyline points="${points.map((p) => px(p).map((v) => v.toFixed(2)).join(",")).join(" ")}" ` +
-    `fill="none" stroke="${colour}" stroke-width="${width.toFixed(2)}" ` +
+    `<path d="${gen(points)}" fill="none" stroke="${colour}" stroke-width="${width.toFixed(2)}" ` +
     `stroke-linecap="round" stroke-linejoin="round"/>`;
 
   const stroke = Math.max(1, STROKE * LONG_SIDE);
