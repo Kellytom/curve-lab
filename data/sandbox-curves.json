@@ -1,13 +1,25 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 77,
+ "count": 79,
  "rows": [
   {
    "name": "double-1-NW-1",
-   "data": "{\"name\":\"double-1-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"piece\",\"parent\":\"wonky-1-NW-1\",\"parentName\":\"wonk-1\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2474,\"y\":0.2474},{\"t\":0.52828,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.963589,0.963589],[0.963589,0.963589]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-1, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"wonk-1, its NW-1 half mirrored across y = x\"},\"curveName\":\"\",\"crossedAt\":\"2026-11-20T17:11:56.386Z\"}",
+   "data": "{\"name\":\"double-1-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-1-NW-1\",\"parentName\":\"wonk-1\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2474,\"y\":0.2474},{\"t\":0.52828,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.963589,0.963589],[0.963589,0.963589]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-1, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-1 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-1-NW-1\",\"crossedAt\":\"2026-11-20T17:17:39.046Z\"}",
    "createdAt": "2026-11-20T17:11:46.738Z",
-   "updatedAt": "2026-11-20T17:11:56.402Z"
+   "updatedAt": "2026-11-20T17:17:39.054Z"
+  },
+  {
+   "name": "double-1-SE-1",
+   "data": "{\"name\":\"double-1-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-1-SE-1\",\"parentName\":\"wonk-1\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2474,\"y\":0.2474},{\"t\":0.52828,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.247398,0.247398],[0.247398,0.247398]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-1, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-1-SE-1\",\"crossedAt\":\"2026-11-20T17:19:10.966Z\"}",
+   "createdAt": "2026-11-20T17:18:57.742Z",
+   "updatedAt": "2026-11-20T17:19:10.971Z"
+  },
+  {
+   "name": "double-2-NW-1",
+   "data": "{\"name\":\"double-2-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-2-NW-1\",\"parentName\":\"wonk-2\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.1178,\"y\":0.1178},{\"t\":0.581124,\"x\":0.6032,\"y\":0.6032}],\"ends\":[[0.603229,0.603229],[0.603229,0.603229]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-2, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-2-NW-1\",\"crossedAt\":\"2026-11-20T17:19:19.300Z\"}",
+   "createdAt": "2026-11-20T17:19:18.389Z",
+   "updatedAt": "2026-11-20T17:19:19.306Z"
   },
   {
    "name": "h-colour-1-1",
@@ -247,7 +259,7 @@
    "name": "h-radius-2-1-cubic",
    "data": "{\"name\":\"h-radius-2-1-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"1/2-butterfly-2\",\"crossedAt\":\"2026-11-20T15:38:05.228Z\"}",
    "createdAt": "2026-11-20T15:38:04.146Z",
-   "updatedAt": "2026-11-20T17:13:35.736Z"
+   "updatedAt": "2026-11-20T17:17:08.959Z"
   },
   {
    "name": "h-radius-2-1-every-term",
@@ -331,7 +343,7 @@
    "name": "h-radius-4-1-cubic",
    "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"crossedAt\":\"2026-11-20T15:39:26.721Z\"}",
    "createdAt": "2026-11-20T15:39:26.595Z",
-   "updatedAt": "2026-11-20T17:13:35.736Z"
+   "updatedAt": "2026-11-20T17:17:08.959Z"
   },
   {
    "name": "h-radius-4-1-every-term",
