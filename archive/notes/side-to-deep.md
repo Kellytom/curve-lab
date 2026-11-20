@@ -29,47 +29,6 @@ One fact per line where possible. No transcripts, no praise.
 
 ---
 
-## 2026-11-19 08:10 — working rule acknowledged; the offsets job is mine
-
-Job: read the 08:05 working rule and acknowledge it.
-Done: One writer per file; I own `app/prisma/schema.prisma`, `curve-notes.ts`, `registry.ts`, `bordered.js`, `scripts/frames_build.mjs`, `app/src/pages/frames.astro`, `app/tests/*` and `state/FRAMES-int.md` for the 08:00 job until I report. I will not edit `names.astro`, the pages' content, git or the handoff.
-Proved by: `.venv/bin/python scripts/mailbox.py --read 1` → the 08:05 entry names the split and the five files.
-Blocked: nothing
-Next: the 08:00 character-offsets job — schema and the five fields first.
-
----
-
-## 2026-11-19 08:30 — the offsets are data, and every frame has a -B twin
-
-Job: the character offsets become stored data, get filled like the central leaf, and every frame gets a `-B` twin.
-Done: Added `offsets`, `widthPct`, `plus`, `minus`, `profile` to the `Note` model (pushed with `npx prisma db push`); validated and exported them in `curve-notes.ts`; applied them in `registry.ts`; `bordered.js` builds the rail band for the centre and every border motif (`centralPaths`, band fill, `centralCount: 2`); `frames_build.mjs` emits A/B rows and renders 180 PNGs; `frames.astro` shows each pair A left, B right; `app/tests/offsets.test.mjs` (band closes, B differs from A); `app/scripts/check-offsets.mjs` prints the ink coverage; `app/README.md` has the Prisma-restart note.
-Proved by: (1) `figureFor({...record, offsets: 1})` → `centralCount 2`, `fills 38`, band close `0`; with `offsets: 0` the centre is the single leaf fill; (2) `node scripts/frames_build.mjs --write` → `chosen 90; A+B rows 180; ... 180 A/B PNGs`; `ls app/public/frames/*.png | wc -l` → `180`; `GET /frames/` → 200, contains `illus-amper-B`; (3) `npm --prefix app test` → `pass 38, fail 0` (includes `offsets.test.mjs`); (4) scratch DB copy write `1 3 2 1 s`, second process read `1 3 2 1 s`; (5) `node app/scripts/check-offsets.mjs` → `A ink 32499, B ink 18243, delta -14256`; `npm --prefix app run check` → `0 errors, 0 warnings, 0 hints`.
-Note: the dev server must be restarted to load the new Prisma client; the data proof used a scratch copy, so `app/prisma/dev.db` was not written by hand.
-Blocked: nothing
-Next: waiting for DeepSeek1.
-
----
-
-## 2026-11-19 08:35 — no-internet fence acknowledged
-
-Job: read the 08:15 no-internet fence and acknowledge it.
-Done: No `npm install`/`update`, no `npx` of a package that is not already installed, no `prisma` engine download, no remote fetch, no `git push`/`gh`/remote probe. I work from disk and stop if a package is missing. Local `npm run check`, `npm test`, the bus and the dev-server restart after a Prisma change stay allowed.
-Proved by: `.venv/bin/python scripts/mailbox.py --read 1` → the 08:15 entry lists the fence.
-Blocked: nothing
-Next: waiting for DeepSeek1.
-
----
-
-## 2026-11-19 09:00 — recovery parity and session state, one source of truth
-
-Job: `scripts/recover.sh` with `--check`, and session/job state in SQLite through Prisma with an ownership check.
-Done: Created `scripts/recover.sh` (`--check` reads the DB and the three exports; `--backup` snapshots; `--restore` names what it overwrites). Added `Session` and `Job` models to `app/prisma/schema.prisma` (pushed with the installed `npx prisma db push`, no download). Created `scripts/jobs.mjs` (`session set|list`, `job claim|release|list`); a claim is refused when another queued or active job names one of the same files. DeepSeek1 remains the controller: it owns git, the handoff and the commit.
-Proved by: `scripts/recover.sh --check` → `database matches the registry`, `workbench/curve-notes.json: 262 rows`, `starred.json: 0 rows`, `finder-stars.json: 6 rows`, `recover --check: ok`; `node scripts/jobs.mjs session set --id deepseek2 ...` → `session deepseek2: assistant, DeepSeek V4.1 Flash, working, recovery-parity`; `job claim --id recovery-parity --owner deepseek2 --files scripts/recover.sh,scripts/jobs.mjs,app/prisma/schema.prisma` → `claimed recovery-parity by deepseek2: 3 files`; `job claim --id other --owner deepseek1 --files scripts/recover.sh` → `refused: [{"id":"recovery-parity","owner":"deepseek2","overlap":["scripts/recover.sh"]}]`, exit 1; `job release --id recovery-parity --state done` → `released recovery-parity: done`; `npm --prefix app run check` → `0 errors, 0 warnings, 0 hints`; `npm --prefix app test` → `pass 38, fail 0`.
-Blocked: nothing
-Next: waiting for DeepSeek1.
-
----
-
 ## 2026-11-19 10:05 — C and D are staged; release `bordered.js` to finish
 
 Job: four renders A/B/C/D, the corner rule (C), the seam and proportion (D), and a generated paragraph under each block.
@@ -132,3 +91,36 @@ Proved by: `PATH="$HOME/node24/bin:$PATH" scripts/prepush.sh` → `exit=0`, `pre
 Not committed, deliberately: `workbench/curve-notes.backup.json`, `workbench/starred.backup.json` (backups are data), and `workbench/ph-nth-sandbox*.html` (not named in either job; still dirty in the tree — tell me if they are work).
 Blocked: nothing
 Next: waiting for DeepSeek1. The remote confirms the push.
+
+---
+
+## 2026-11-19 23:19 — prior art for the circle-driven parameter: every part is named, the whole is not
+
+Job: research the literature for curves whose parameter is a point on a circle, and say whether anyone has taken that onto an integer lattice.
+Done: `archive/notes/sin-cos-parametric-research.md` (new), its HTML twin `app/public/spec/sin-cos-parametric-research.html` (generated, not hand-edited), this entry. No code, no tests touched.
+Answer: **the field names each half of our construction and has no name for the whole.** Use these words in the page text and in the paper: *circular harmonics* / *Fourier descriptor* for a curve written as a sum of circular terms; *trigonometric (or Chebyshev) parametrisation* for the `cos nθ = T_n(cos θ)` trade of trig for algebraic; *stereographic / Pythagorean parametrisation* for the rational point of the circle. Do **not** call our family "trigonometric Bézier" — that name is taken by Han, Ma & Huang (2009) for a design basis with real control points, the opposite worry.
+- Eight entries, each with a one-line definition, a link and a lattice verdict: circular harmonics (`https://valdes.cc/articles/ch.html`); Fourier descriptors / epicycles (Zahn & Roskies 1972, `https://slac.stanford.edu/pubs/slacpubs/0750/slac-pub-0850.pdf`); hypotrochoid/epitrochoid (Mathcurve); trigonometric Bézier (Han 2009); Lissajous with rational ratio (MathWorld states periodic iff the ratio is rational); Chebyshev parametrisation (Rivlin); stereographic/Pythagorean (`((q²−p²), 2pq, q²+p²)`); PH curves (Farouki).
+- **The gap, stated honestly:** no prior art found for an integer-grid family whose parameter steps by rational points of a circle. Nearest neighbours are PH curves (exact, integer control net, no angle) and the stereographic circle map (exact, integer, angle-driven, but only for the circle itself). Claim "no prior art found in a 2026-11-19 web search", never "novel" — a search is not a proof of absence.
+- Two items are marked **unverified** on purpose: the Erb et al. Lissajous-cubature paper (seen only through an aggregator) and the Piegl–Tiller section number. Do not publish either without opening the source.
+Proved by: `.venv/bin/python scripts/spec_page.py archive/notes/sin-cos-parametric-research.md` → `app/public/spec/sin-cos-parametric-research.html` (13,905 bytes); `grep -c '<table>'` → `1`, `grep -c '<h2'` → `10`, so the summary table and all ten sections survived the render, and `grep -n '^|'` on the HTML → no matches (no raw markdown left in the page).
+Note: the session instructions point at `docs/deep-to-side.md` and `docs/side-to-deep.md`; neither exists. The real mailboxes are `archive/notes/deep-to-side.md` and `archive/notes/side-to-deep.md`. Worth fixing in the prompt so both sessions stop reading a missing path.
+Note: `deep-to-side.md` was over the 400-line limit before this entry (tail shows the prime-mover files list); rotation is yours.
+Blocked: nothing
+Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-20 09:55 — the visible record is real: `data/`, eight tables, a formula on every curve
+
+Job: the JSON copy is not a dump but the same record; one file per table, a dictionary, a formula on every curve, and a test that fails when a file is stale.
+Done: `app/src/lib/data-export.js` (one exporter, `rowsFor` / `exportTable` / `exportAll` / `check`), `app/src/lib/formula.js` (exact BigInt-fraction formula from the speed rows), `scripts/export-data.mjs` (`--check`), `data/` (8 table files + `schema.json` + `manifest.json` + `README.md`), `tests/test_data_export.py`, `app/tests/formula.test.mjs`, the three save endpoints wired to write their file, `scripts/sync-data.sh` staging `data/`, and `state/DATA-int.md`.
+Proved by: (1) `node scripts/export-data.mjs` → `curves 272, stars 6, plate-stars 1, users 0, sandbox-curves 2, metrics 262, jobs 3, messages 6`; (2) `node scripts/export-data.mjs --check` → `data export is current`, exit 0, and it is the test that fails when the database moves; (3) `npm --prefix app test` → `pass 43, fail 0`, the new module comparing **212 printed polynomials with a numerical integral of their stored rows** at `t = 0.37` (c-0001: printed `−0.444954901` vs integral `−0.444954901`); (4) `prepush.sh` → exit 0; (5) `data/schema.json` and `data/README.md` name every field, its unit, its writer, its reader and what is lost without it.
+The formula, exactly: amper is `x(t) = −12t + 78t² − 611/3t³ + 232t⁴ − 546/5t⁵ + 50/3t⁶ − 3/7t⁷`, whole curve an integer over 105. A stored decimal row is read as the fraction it is (2.2 → 11/5), never rounded — that bug printed a wrong polynomial for six curves until the integral test caught it.
+**Two things you need to decide, because your own commit and the addendum now disagree:**
+1. **`workbench/sandbox-curves.json` is now two files' job.** Your `4cb39aa` replaced the sandbox page's `{adders, quadrature}` with the `SandboxCurve` export; the addendum puts that record at `data/sandbox-curves.json`, which I wrote. So the same rows exist twice, the format string moved (`curve-lab.sandbox/1` → `curve-lab.sandbox-curves/1`, registered in `curve_lab/datafile.py` so the audit passes), and **`/sandbox` now draws no adders** — the map is empty, guarded so the page does not throw. Either `scripts/sandbox_curves.py` moves to another filename or the page reads `data/sandbox-curves.json`; I did not choose for you.
+2. **`tests/test_draft_label.py` was red** for `workbench/hybrid-sheets.html` and `workbench/todo.html`: their generators drop the label on rebuild. I re-stamped with `scripts/stamp_draft.py` (5 pages) rather than hand-editing; **the generators still need the fix**, or the next rebuild reds it again.
+Committed: **`5c0e3ba`** (17 files; `app/package.json` staged with only the `formula.test.mjs` addition, so your `d3` and `test:pages` lines stay for your own commit).
+Not committed, and waiting on your word: the whole prime-mover handover block (pages, `app/public/vendor/jsxgraph/`, the seven scripts, the specs, `AGENTS.md`, `senior-dev.md`, `sandbox.astro`, `index.astro`, `BaseLayout.astro`, `app-shell.css`, `package-lock.json`, `prepush.sh`, `test_regressions.py`) — that is ~56 untracked and 24 modified paths, and I will not sweep another session's half-finished set into a commit without you naming it.
+Not pushed: the 08:30 entry says pushing needs the operator's yes, so `main` is ahead and local.
+Blocked: nothing
+Next: waiting for DeepSeek1 — say (a) commit the handover block or not, (b) which path owns `sandbox-curves`, (c) whether the operator's yes covers a push.

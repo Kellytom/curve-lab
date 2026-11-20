@@ -41,194 +41,6 @@ Never rewrite an old entry; add a new one that corrects it.
 
 ---
 
-## 2026-11-19 08:15 — no internet, from now until the operator says otherwise
-
-The operator's instruction: "no more internets for a while."
-
-- **No `npm install`, `npm update`, `npx` of a package that is not already
-  installed, no `prisma` engine download, no remote fetch of any kind.**
-- **No `git push`, no `gh`, no remote probe.** Commits stay local; the operator
-  will say when the remote is back.
-- Work from what is on disk. If a job needs a package that is not installed,
-  stop and say so in your reply; do not try to fetch it.
-- The dev server restart after a Prisma schema change is local and allowed.
-- `npm --prefix app run check`, `npm --prefix app test`, and the bus are local;
-  keep using them.
-
-This is not a change to any job; it is a fence around all of them.
-
----
-
-## 2026-11-19 08:20 — DEFERRED: recovery parity, and session management
-
-The operator's instruction, for the next working block: "make sure deep2 can
-recover just as well as you can from accidents, and also we need a little
-session management … you will still control everything. one source of truth."
-
-Not started. The shape, so it is not re-invented:
-
-1. **Recovery parity.** DeepSeek2 runs the same recovery as DeepSeek1, from the
-   same commands, not from prose: check the database (`scripts/check-db.mjs`),
-   snapshot before a write, restore the newest snapshot, verify the exports, and
-   say what changed. One script, `scripts/recover.sh`, with a `--check` mode;
-   both sessions run it. The rule it enforces: a failed read is never a write,
-   and a restore names what it overwrites.
-2. **Session management, one source of truth.** SQLite through Prisma, a
-   `Session` row per agent (id, role, model, state idle/working, current job,
-   last seen) and a `Job` row (id, owner, files, state queued/active/done/
-   blocked). The bus carries messages; the database holds the state; git holds
-   the code; the mailbox holds the narrative. No fifth store.
-3. **DeepSeek1 remains the controller.** It assigns jobs, owns git and the
-   handoff, and is the only session that commits. DeepSeek2 reports and asks.
-4. **Ownership is checked, not remembered.** A job names its files; a second
-   active job naming the same file is refused by a check, which is the rule we
-   wrote at 08:05 with teeth on it.
-
----
-
-## 2026-11-19 09:40 — two new variants, C and D, after A and B
-
-Job: every plate gets four renders — A, B, C, D — in that order on `/frames`.
-A and B exist. This adds C and D.
-
-**The measurement that decides C** (already run; do not repeat it): take each
-curve's two leg directions from the sampled path (the tangent over the first and
-last few stations), and the gap `delta = |leg1 - leg0| mod 180`.
-
-| leg gap | curves | reading |
-|---|---|---|
-| 0° | 67 | parallel, same way |
-| 135° | 52 | obtuse |
-| 180° | 44 | parallel, opposite |
-| 120° | 28 | obtuse |
-| 150° | 24 | obtuse |
-| **70–110°** | **27** | **natural 90° corners** |
-| 60 / 75 | 6 / 3 | marginal |
-
-The 27 include swan (90°), knot-7 (89°), euler-hook (97°), amper (106°),
-double-tap (106°), curlicue (103°), cusp5-x3 (105°).
-
-### C — the corner rule
-
-- For a curve whose `delta` is within 20° of 90: rotate the motif so its two legs
-  split the corner, each leg `(90 - delta) / 2` off its side. Place one motif per
-  corner; the edges run between corners.
-- For every other curve: **stop the band at the corner** with a plain cap,
-  rather than wrapping into a collision. No rotation, no pretence.
-- Print per curve: `delta`, the per-leg residual gap, and which rule was used
-  (`corner 8.0°` or `stop`). Those numbers go in `frames.json` and the caption.
-
-### D — C plus the two design faults we know about
-
-- **The seam.** The leaf's two halves cross at the waist (a notch on swan, a
-  pinch on c-0037). Join them with a tangent arc of small radius, or leave a
-  declared gap; either way it is a choice and it is printed. A crossing that no
-  one chose is the fault.
-- **The proportion.** Central at 50% of the side (it is 55%), band about 9–10%
-  (it is ~7%), so the empty ring closes by a quarter. One constant each, stated
-  in the reply.
-
-### What done means
-
-1. `node scripts/frames_build.mjs --write` → **360 PNGs** (90 × A, B, C, D).
-2. `frames.json` rows carry `variant: "A"|"B"|"C"|"D"`, `delta`, `cornerGap`,
-   `cornerRule` (`corner` or `stop`), and the seam treatment.
-3. `/frames` shows the four per curve in order, one caption each.
-4. A test pins: a 90°-leg curve (swan) gets `cornerRule: corner` and a residual
-   under 1°; a 135° curve gets `stop`; C differs from A and D differs from C.
-5. A rendering check prints, for swan and one 135° curve, the ink at each corner
-   region so "the corner is resolved" is a number.
-
-Files: `app/src/lib/bordered.js`, `scripts/frames_build.mjs`,
-`app/src/pages/frames.astro`, `app/tests/*`. Do not touch `bus/`, the schema, or
-the Python analysis. DeepSeek1 has claimed `bordered.js` for a design pass —
-**release that claim is DeepSeek1's job**; start on `frames_build.mjs` and
-`frames.astro`, and say in your reply when you need `bordered.js`.
-
-Proved by the five items, commands and first lines, in your reply.
-
----
-
-## 2026-11-19 09:45 — a paragraph after each A/B/C/D block
-
-Addition to the C/D job: under each curve's four variants, `/frames` prints one
-short paragraph. It is generated from the data, never typed per plate.
-
-The paragraph says, in this order:
-
-1. **What each variant did**, in a clause: A "as stored", B "offsets on, band
-   filled", C "corners: 27 of the 262 turn, the rest stop" — with *this* curve's
-   own rule and number (`delta 90°, corner 0.0°` or `delta 135°, stop`), D "C
-   plus a tangent seam and 50% centre / 9% band".
-2. **What still needs doing**, from the same numbers: a residual corner gap over
-   2° says "miter visible at the corners"; a seam marked `crossing` says "the
-   waist still crosses"; `offsets: 0` on a curve with a good band says "try the
-   rails".
-3. Nothing that is not measured. If a sentence cannot be backed by a field in
-   `frames.json`, it is not written.
-
-The paragraph lives in the row as `note` (one string, four short sentences at
-most), so the page prints `{row.note}` and the file carries the same words.
-
----
-
-## 2026-11-19 10:05 — bordered.js is yours
-
-Released. `jobs.mjs job list` shows no active claim on `app/src/lib/bordered.js`
-(the design-pass job is `done`), and DeepSeek1 will not edit it until you report.
-Take it: `CENTRAL_SHARE` 0.55 → 0.50, `BAND_SHARE` 0.30 → 0.09, the corner rule
-and the seam in `figureFor`, then the 360 PNGs, the corner test and the
-ink-at-corners check, as your entry says.
-
-Two notes from the tree since your last run:
-
-- `svgFrom` now finds its bounds with a loop, not `Math.min(...xs)`: with rails
-  the point count threw `Maximum call stack size exceeded` on `/illuminations`.
-  Keep that shape; a spread there breaks the page.
-- The weights are in: 2.6 for the central paths, 1.4 for the border, tone
-  `#e6d9b6`. Your C and D should not undo them.
-
----
-
-## 2026-11-19 11:20 — internet search: has anyone else made these curves?
-
-Internet is allowed for this job. The operator's query, verbatim:
-
-> "I find it difficult to believe no one else has found all these good curves.
-> Please search github and the internets to find anyone else who has made or
-> researched these specific curves. If they haven't maybe there is something
-> close that talks about combining curves, adding a near zero offset, wobble,
-> higher degree parametric curves with many loops, etc."
-
-**What "these curves" means here, so the search is specific:**
-
-- parametric polynomials of high degree, `x(t), y(t)` rows, integer or rational
-  coefficients, with **many self-crossing pairs** (our best: 19 pairs on one
-  curve, 9 on a grid of 42);
-- **PH (Pythagorean-hodograph) curves** built from speed rows `u, v`;
-- the **mirrored root recipe**: roots at `p/q` and `(q−p)/q` plus a stack at ½,
-  which is how our `lace-*` family is made;
-- **adding curves**: `A + B` and `A + iB` (a quarter turn of one before adding);
-- **near-zero**: a curve that passes within ~2% of its own centre without
-  touching it ("grace"), and the **wobble** of moving that closest point off
-  centre;
-- frames and character rails around such curves.
-
-**Deliverable.** Write `state/RESEARCH-int.md`:
-
-1. A table of findings: what it is, the link, and one line on how close it is to
-   what we have.
-2. A short verdict: which of our ideas are **already known** (with the name the
-   field uses), which are **close** (and what to read), and which appear
-   **original** (say so plainly, with the search terms that failed).
-3. Search both GitHub and the open web; name the terms you tried, so a later
-   session does not repeat them.
-
-Do not change code. Do not edit anything outside `state/RESEARCH-int.md` and your
-reply here. Quote links as plain URLs.
-
----
-
 ## 2026-11-19 11:45 — more search terms: the fold at the middle
 
 Add these to the internet search (same deliverable, `state/RESEARCH-int.md`).
@@ -326,3 +138,181 @@ commit (you own git now). Paths:
 Verify first: `node app/scripts/check-db.mjs` says 269/269/269, and
 `PATH="$HOME/node24/bin:$PATH" scripts/prepush.sh` exits 0. Then commit, push,
 report the hash.
+
+---
+
+## 2026-11-19 13:40 — rename: no "imaginary" in code or prose
+
+The operator dislikes "imaginary number" and "imaginary transform"; the numbers
+are not hypothetical and the word is a historical accident. The naming decision
+is in `state/DESIGN-int.md` §Naming. **Do not use "Euler transform"** — it is a
+series transform in combinatorics and Euler angles are a different convention.
+
+The mapping to apply, in your paths only:
+
+| old | new |
+|---|---|
+| "imaginary number", "imaginary part" | "complex number", "quadrature component" |
+| "imaginary transform", "multiply by i" | "Gaussian rotation", or "quarter turn" for 90° |
+| "the imaginary variable: z = b i" | "the quarter-turn variable: z = b i" |
+| "imaginary component" (in a sum A + iB) | "the rotated component (a quarter turn of B)" |
+
+Where the word appears, check the sense first: `scripts/ph_nth_panels.js`,
+`scripts/ph_quintic_gallery.py` and `scripts/direction_curves.py` may use it in an
+older, unrelated sense. Rename only where it means the rotation.
+
+Files known to carry it: `app/src/pages/sandbox.astro`,
+`scripts/sandbox_curves.py`, `scripts/sandbox_parametric.py`,
+`scripts/adder_roots.py`, and the state files (those are DeepSeek1's; leave them).
+
+Prove it: `grep -rn "imaginary" app/src scripts --include=*.js --include=*.py
+--include=*.astro` returns nothing in the files you changed, and `prepush.sh` is
+green. Then commit and push, with the DESIGN entry included.
+
+---
+
+## 2026-11-19 14:20 — commit the prime-mover diagram, and finish the rename
+
+Two things in your queue.
+
+**1. Commit the sandbox upgrade** (DeepSeek1's edits, your commit):
+
+- `app/package.json` + `package-lock.json`: **d3** added — the operator asked for
+  "the usual suspects", so the diagram uses `d3.zoom`, `d3.scaleLinear` and
+  `d3.curveCatmullRom` rather than hand-written SVG.
+- `app/src/scripts/prime-mover.js` (new): two panels — both walks plus the
+  lagged sum, and a separated view (positive above the axis, negative mirrored
+  below). Controls: factor (2+i, 3+2i, 3+4i, 5+2i), steps 3–10, PM2 lag 0–3.
+  Dot radius follows the nearest-neighbour distance; labels only at the first
+  stations; zoom on wheel/drag.
+- `app/src/pages/sandbox.astro`: the diagram at the top, the builder box under
+  it, and the intro line corrected.
+
+**2. The rename you were sent at 13:40 is still open.** `sandbox.astro` still
+carries six occurrences of the banned word; the mapping and the proof are in that
+entry. Do the rename and this commit together, so the page ships clean.
+
+Gate first, then commit, push and report the hash as usual.
+
+---
+
+## 2026-11-19 15:05 — include the senior-dev pass in your next commit
+
+`TODO.md` now has a section, **Senior-dev pass — the measures and the claims**,
+that belongs with your next commit (no code change needed for the commit itself):
+
+1. calibrate the crossing counters against three pinned numbers (`c-0262` = 9,
+   `c-0070` = 11, Chebyshev `T3 x T5` = 4) and rebadge or delete the counters
+   that disagree — tonight the same curve read 9, 4 and 1;
+2. a smoke test per generator, one known number each;
+3. one audit pass over the word "exact" against `DESIGN-int` §Trigonometry;
+4. a `--check` (dry-run) mode for every script that writes — two page breakages
+   tonight came from scripts writing without one;
+5. finish the C/D corner rule (the motifs still cross at the corners).
+
+The first item is the one that matters: nothing measured is trustworthy until the
+counter is pinned.
+
+## Handover, 2026-11-19 — the prime mover page, please commit and push
+
+The operator asked for this to go to you now. One page and its supporting files:
+
+- `app/src/pages/prime-mover.astro` (rewritten: the walk, the hit points, the curves,
+  the spirograph; `/stage-two/` is now a redirect into it)
+- `app/src/scripts/prime-mover-driver.js` (the walker, `unitWalk`, `quadrantPoints`,
+  `fineWalk`, `toFloat`), `hit-points-chart.js`, `spirograph-curves.js`,
+  `stage-two-curves.js`, `linkage-curves.js`, `integer-spirograph.js`
+- `app/public/vendor/jsxgraph/` (the geometry library, served locally; MIT)
+- `app/public/vendor/app-shell.css` (header, margin, overflow) and
+  `app/src/layouts/BaseLayout.astro` (stylesheet versions by mtime)
+- `app/scripts/check-prime-mover-page.mjs`, `check-layout.mjs` (both in `test:pages`)
+- `state/`: `SPEC-prime-mover-int.md`, `PROBLEMS-prime-mover-int.md`,
+  `SPEC-stage-two-int.md` (marked merged), `PROBLEMS-stage-two-int.md`,
+  `SPEC-css-int.md`, `PROBLEMS-css-int.md`, `NOTES-prime-mover-gaussian.md`,
+  `GEOMETRY-int.md`, `EXACT-NUMBERS-int.md`
+- `AGENTS.md`, `LTMemory-int.md`, `state/README.md` (rules added today)
+- `scripts/`: `walk_curves.py`, `spirograph_walk.py`, `circle_grid_walk.py`,
+  `grid625_demo.py`, `flip_demo.py`, `prime_loop.py`, `pm4_search.py`,
+  `pm_deep_search.py`, `pm_product_probe.py`, `spec_page.py`,
+  `check_no_imaginaries.py`
+
+**Known state, so you are not surprised:**
+
+- `node app/scripts/check-prime-mover-page.mjs` and `check-layout.mjs` pass;
+  `scripts/check_no_imaginaries.py` passes; `npm --prefix app run check` has
+  **0 errors, 9 warnings**, all unused variables (`SEAM`, `OUTER`, `INNER`, `MARK`,
+  `bigGcd`, `base`, `grid`, `polynomialFromRoots`, `currentTriple`) — mine to clean,
+  not a blocker.
+- `app/dist/client/vendor/*.css` was stale and has been copied over by hand; a build
+  regenerates it.
+- Two figures on the page are still rough: the linkage frame, and the integer
+  spirograph (module written, not yet on the page).
+- No deploy, no force-push.
+
+Commit message suggestion: `The prime mover: one walk, exact fractions, and a guard
+for the big ones`.
+
+---
+
+## 2026-11-20 08:30 — export the sandbox rows, and make every hidden table readable as JSON
+
+Job: three related gaps the operator named. (1) The 5-minute sync pushes
+`curve-notes.json`, the star files and `operator-list.json`, but **not** `SandboxCurve`
+rows, so every hybrid-desk decision (keep / later / reject, 343 candidates, `/hybrids/`)
+lives only in `app/prisma/dev.db`. Export them and add the export to
+`scripts/sync-data.sh`. (2) Anything hidden in the database must have a JSON copy with a
+written explanation, so a session with no DB can understand the data. (3) Every curve
+needs a canonical, searchable formula string, so an outside search can find the curve.
+
+Done means:
+- `workbench/sandbox-curves.json` exists, written by `scripts/export-sandbox.mjs` (or by
+  the save path), with a header that says what each field means; it is in the sync's
+  `git add` list and in `state/DATA-int.md`.
+- `state/DATA-int.md` (or a new `workbench/DATA-DICTIONARY.md`) gives, for every table and
+  every JSON file: what it is, field, type, meaning, unit, who writes it, what reads it,
+  and what is lost if it is missing. Plain English; an AI must be able to rebuild the
+  picture from it without opening SQLite.
+- every registry record carries
+  `formula: { plain, rational, parameter }`, for example
+  plain `x = cos^5(t), y = sin^3(t)`,
+  rational `x = ((1 - t^2)/(1 + t^2))^5, y = (2t/(1 + t^2))^3`,
+  parameter `t rational; t = u/(1 - |u|), u = i/100 for the stations`.
+  The exports carry the same object, so the name and the formula travel together.
+- a test fails when an export is stale, the same pattern as `check-db`.
+
+Proved by: `node app/scripts/check-db.mjs`, the new staleness test, and the export diff.
+Blocked: pushing needs the operator's yes; do not push on your own.
+Next: waiting for the other session.
+
+---
+
+## 2026-11-20 09:00 — addendum: the JSON is a visible record, not an export
+
+The operator's words: "sqlite is the source of truth, but we need a visible source of
+truth in organised json files." So the JSON is not a convenience dump; it is the same
+record, readable without the database.
+
+Layout (one file per table, one object per row, no nesting tricks):
+
+    data/README.md            the data dictionary: every file, every field, meaning, unit,
+                              who writes it, what reads it, what is lost without it
+    data/schema.json          field -> type for every file, machine-readable
+    data/curves.json          Curve + its Note + its CurveSet, one object per curve
+    data/stars.json           Star
+    data/plate-stars.json     PlateStar
+    data/users.json           User (local only; never pushed)
+    data/sandbox-curves.json  SandboxCurve — the hybrid desk's decisions
+    data/metrics.json         CurveMetric
+    data/jobs.json            Session + Job
+    data/messages.json        Message
+
+Rules:
+- written by one exporter (`scripts/export-data.mjs`) on every save and by the 5-minute
+  sync; the sync stages `data/` as well as the existing files;
+- a save that cannot write its JSON is reported, never silent;
+- a test compares row counts (and a hash per file) and fails when a file is stale, the
+  same way `check-db` fails on a count mismatch;
+- every record carries `formula: { plain, rational, parameter, use, search }`, so the name
+  and the formula travel together and an outside search can find the curve;
+- `data/README.md` is written in plain English and names what is deliberately not here
+  (`app/prisma/dev.db`, `app/data/users.json`).
