@@ -52,6 +52,7 @@ for (const record of registry.curves) {
         algorithm: record.conversion?.algorithm || record.kind || null,
         conversion: record.conversion ? JSON.stringify(record.conversion) : null,
         transform: record.transform ? JSON.stringify(record.transform) : null,
+        note: record.note || null,
       },
     }),
     prisma.curveSet.create({

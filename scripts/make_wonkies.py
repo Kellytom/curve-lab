@@ -90,42 +90,76 @@ def point_at(t, candidate):
     return (x, y)
 
 
-def runs_at_diagonal(points, roots, candidate):
-    """the arcs between the solved crossings of y = x.
+def drawn_side(t, candidate):
+    """sign of the drawn point's distance from y = x: sign(P·(y − x))."""
+    px, py = point_at(t, candidate)
+    d = py - px
+    return 1 if d > 0 else (-1 if d < 0 else 0)
 
-    The crossings come from the equation (scripts/diagonal_crossings.py), not from walking the
-    polygon: their number is the number of pieces. Each arc runs from one crossing to the next
-    and stops there.
+
+def cuts_of(candidate, steps=8000):
+    """every parameter where the drawn point crosses y = x, solved and bisected.
+
+    The drawn point is (C^p·P, S^q·P), so it is on y = x where P·(S^q − C^p) = 0: both the
+    solved diagonal roots and the places the curve passes the origin. Each sign change of that
+    product is bracketed on the parameter and bisected; nothing is taken from the polygon.
+    """
+    def value(t):
+        px, py = point_at(t, candidate)
+        return py - px
+
+    roots = []
+    previous_t = previous_v = None
+    for i in range(-steps, steps + 1):
+        u = i / steps
+        t = u / (1 - abs(u)) if abs(u) < 1 else 1e9 * (1 if u > 0 else -1)
+        v = value(t)
+        if previous_v is not None and (previous_v < 0) != (v < 0):
+            lo, hi, flo = previous_t, t, previous_v
+            for _ in range(70):
+                mid = (lo + hi) / 2
+                fm = value(mid)
+                if (flo < 0) == (fm < 0):
+                    lo, flo = mid, fm
+                else:
+                    hi = mid
+            roots.append((lo + hi) / 2)
+        previous_t, previous_v = t, v
+    return roots
+
+
+def runs_at_diagonal(points, roots, candidate):
+    """the arcs between the cuts, walked once round the parameter.
+
+    `u = t/(1+|t|)` runs from −1 to 1 round the circle; station i sits at u = i/N − 1. The
+    stations between two cuts belong to one piece, and the cut points themselves are exact
+    (solved) values, so a piece cannot contain a station from the other side.
     """
     if len(roots) < 2:
         return []
-    # where each root falls in the sampled polygon: t → u = t/(1+|t|) → station index
-    marks = []
-    for root in roots:
-        u = root / (1 + abs(root))
-        index = min(len(points) - 2, max(0, int(round((u + 1) * N))))
-        marks.append((index, point_at(root, candidate)))
-    marks.sort()
-    indices = [index for index, _ in marks]
-    if len(set(indices)) < 2:
-        return []
 
-    closed = list(points)
-    if closed[0] != closed[-1]:
-        closed.append(closed[0])
+    def position(t):
+        return (t / (1 + abs(t)) + 1) * N
 
-    out = []
-    for k, (start, start_point) in enumerate(marks):
-        end, end_point = marks[(k + 1) % len(marks)]
-        middle = closed[start + 1:end] if end > start else closed[start + 1:] + closed[:end]
-        # the arc ends exactly on the line: the solved crossing point, then the stations
-        arc = [start_point] + middle + [end_point]
+    marks = sorted((position(t), t) for t in roots)
+    total = 2 * N
+    pieces = []
+    for k, (start, start_t) in enumerate(marks):
+        end, end_t = marks[(k + 1) % len(marks)]
+        if end <= start:
+            end += total
+        middle = []
+        for i in range(len(points)):
+            pos = i
+            if start < pos < end or start < pos + total < end:
+                middle.append(points[i])
+        arc = [point_at(start_t, candidate)] + middle + [point_at(end_t, candidate)]
         if len(arc) < 3:
             continue
         mid = arc[len(arc) // 2]
         side = "NW" if mid[1] > mid[0] else "SE"
-        out.append((side, arc))
-    return out
+        pieces.append((side, arc, [start_t, end_t]))
+    return pieces
 
 
 def main(argv=None) -> int:
@@ -148,9 +182,10 @@ def main(argv=None) -> int:
     out = []
     for name, candidate in wonks:
         points = points_for(candidate)
-        runs = runs_at_diagonal(points, diagonal_crossings(candidate["p"], candidate["q"]), candidate)
+        roots = cuts_of(candidate)
+        runs = runs_at_diagonal(points, roots, candidate)
         counters = {"NW": 0, "SE": 0}
-        for side, part in runs:
+        for side, part, cut_ts in runs:
             if len(part) < 4:
                 continue
             counters[side] += 1
@@ -163,6 +198,7 @@ def main(argv=None) -> int:
                 "id": f"wonky-{name.split('-')[1]}-{half}",
                 "parent": candidate["id"],
                 "parentName": name,
+                "kind": "piece",
                 "half": half,
                 "p": candidate["p"],
                 "q": candidate["q"],
@@ -177,9 +213,9 @@ def main(argv=None) -> int:
                     "search": f"{candidate['formula']['plain']} -- {half} half, cut at the y = x axis",
                 },
                 "points": drawn,
-            "cuts": [{"t": round(t, 6), "x": round(px, 4), "y": round(py, 4)}
-                     for (t, (px, py)) in ((root, point_at(root, candidate))
-                                           for root in diagonal_crossings(candidate["p"], candidate["q"]))],
+            "cuts": [{"t": round(t, 6),
+                      "x": round(point_at(t, candidate)[0], 4),
+                      "y": round(point_at(t, candidate)[1], 4)} for t in cut_ts],
                 "figure": f"wonky-{name.split('-')[1]}-{half}.svg",
             })
 

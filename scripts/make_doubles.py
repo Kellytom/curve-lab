@@ -53,6 +53,7 @@ def main(argv=None) -> int:
             "id": f"double-{row['id'].removeprefix('wonky-')}",
             "parent": row["id"],
             "parentName": row["parentName"],
+            "kind": "double",
             "half": row["half"],
             "p": row["p"], "q": row["q"], "use": row["use"], "block": row["block"],
             "crossings": cs.crossings(both),

@@ -67,6 +67,8 @@ async function save(card, patch) {
     name: card.dataset.name,
     decision: card.dataset.decision || "",
     importance: Number(card.dataset.importance) || 0,
+    construction: (() => { try { return JSON.parse(card.dataset.construction || "{}"); }
+      catch { return {}; } })(),
     curveName: card.querySelector(".hybrid-name")?.value.trim() || "",
     ...patch,
     crossedAt: new Date().toISOString(),
@@ -158,8 +160,11 @@ export function mountHybridDesk() {
       button.addEventListener("click", async () => {
         const decision = button.dataset.decision;
         const previous = card.dataset.decision || "";
+        const input = card.querySelector(".hybrid-name");
         try {
-          await save(card, { decision });
+          // Save carries the name shown in the box, so one press is enough
+          await save(card, { decision, curveName: input ? input.value.trim() : "" });
+          if (input) input.dataset.saved = input.value.trim();
           mark(card, decision);
         } catch (error) {
           mark(card, previous);
