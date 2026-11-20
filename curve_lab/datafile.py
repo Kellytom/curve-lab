@@ -46,6 +46,7 @@ FORMATS = {
     "wonkies.json": "curve-lab.wonkies/1",
     "doubles.json": "curve-lab.doubles/1",
     "hybrid-rejected.json": "curve-lab.hybrid-rejected/1",
+    "mirror-doubles.json": "curve-lab.mirror-doubles/1",
     "pm-reform.json": "curve-lab.pm-reform/1",
     "root-candidates.json": "curve-lab.root-candidates/1",
     "wobble.json": "curve-lab.wobble/1",
