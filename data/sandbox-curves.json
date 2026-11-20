@@ -413,21 +413,21 @@
   },
   {
    "name": "h-colour-1-1",
-   "data": "{\"name\":\"h-colour-1-1\",\"decision\":\"saved\",\"importance\":7,\"curveName\":\"swan-hybrid-7\",\"crossedAt\":\"2026-11-20T15:49:04.454Z\"}",
+   "data": "{\"name\":\"h-colour-1-1\",\"decision\":\"rejected\",\"importance\":7,\"curveName\":\"swan-hybrid-7\",\"construction\":{\"kind\":\"hybrid\",\"parent\":null,\"parentName\":null,\"half\":null,\"cuts\":[],\"ends\":[[-0.999796,-0.0202],[-0.999796,0.0202]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^1(t)\",\"internal\":\"x = C(t)^1, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"rational\":\"x = ((1 - t^2)/(1 + t^2))^1, y = (2t/(1 + t^2))^1\",\"middle\":\"P = x^2 + y^2\",\"parameter\":\"t rational; stations at t = u/(1 - |u|), u = i/100\",\"use\":\"P tints the curve; the shape is set by p and q alone\",\"search\":\"x = cos^1(t), y = sin^1(t)  P = x^2 + y^2  parametric curve, rational parametrisation\"},\"note\":\"P tints the curve; the shape is set by p and q alone\"},\"crossedAt\":\"2026-11-20T18:12:33.839Z\"}",
    "createdAt": "2026-11-20T15:45:23.825Z",
-   "updatedAt": "2026-11-20T16:12:31.376Z"
+   "updatedAt": "2026-11-20T18:12:33.862Z"
   },
   {
    "name": "h-colour-1-2",
-   "data": "{\"name\":\"h-colour-1-2\",\"decision\":\"saved\",\"importance\":0,\"curveName\":\"\",\"crossedAt\":\"2026-11-20T15:49:00.119Z\"}",
+   "data": "{\"name\":\"h-colour-1-2\",\"decision\":\"notes\",\"importance\":0,\"curveName\":\"hybrid-1-2-colour\",\"construction\":{\"kind\":\"hybrid\",\"parent\":null,\"parentName\":null,\"half\":null,\"cuts\":[],\"ends\":[[-0.999796,0.000408],[-0.999796,0.000408]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^2(t)\",\"internal\":\"x = C(t)^1, y = S(t)^2   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"rational\":\"x = ((1 - t^2)/(1 + t^2))^1, y = (2t/(1 + t^2))^2\",\"middle\":\"P = x^2 + y^2\",\"parameter\":\"t rational; stations at t = u/(1 - |u|), u = i/100\",\"use\":\"P tints the curve; the shape is set by p and q alone\",\"search\":\"x = cos^1(t), y = sin^2(t)  P = x^2 + y^2  parametric curve, rational parametrisation\"},\"note\":\"P tints the curve; the shape is set by p and q alone\"},\"crossedAt\":\"2026-11-20T18:12:58.023Z\"}",
    "createdAt": "2026-11-20T15:45:24.301Z",
-   "updatedAt": "2026-11-20T16:12:31.376Z"
+   "updatedAt": "2026-11-20T18:12:58.032Z"
   },
   {
    "name": "h-colour-7-2",
-   "data": "{\"name\":\"h-colour-7-2\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"point-1\",\"crossedAt\":\"2026-11-20T15:30:29.821Z\"}",
+   "data": "{\"name\":\"h-colour-7-2\",\"decision\":\"rejected\",\"importance\":1,\"curveName\":\"point-1\",\"construction\":{\"kind\":\"hybrid\",\"parent\":null,\"parentName\":null,\"half\":null,\"cuts\":[],\"ends\":[[-0.998573,0.000408],[-0.998573,0.000408]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^2(t)\",\"internal\":\"x = C(t)^7, y = S(t)^2   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"rational\":\"x = ((1 - t^2)/(1 + t^2))^7, y = (2t/(1 + t^2))^2\",\"middle\":\"P = x^2 + y^2\",\"parameter\":\"t rational; stations at t = u/(1 - |u|), u = i/100\",\"use\":\"P tints the curve; the shape is set by p and q alone\",\"search\":\"x = cos^7(t), y = sin^2(t)  P = x^2 + y^2  parametric curve, rational parametrisation\"},\"note\":\"P tints the curve; the shape is set by p and q alone\"},\"crossedAt\":\"2026-11-20T18:12:51.989Z\"}",
    "createdAt": "2026-11-20T15:28:59.410Z",
-   "updatedAt": "2026-11-20T15:30:29.825Z"
+   "updatedAt": "2026-11-20T18:12:52.042Z"
   },
   {
    "name": "h-colour-7-3",
