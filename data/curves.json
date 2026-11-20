@@ -18549,7 +18549,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-1 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.294Z"
+    "updatedAt": "2026-11-20T17:45:18.566Z"
    },
    "set": null,
    "metric": null
@@ -18592,7 +18592,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.301Z"
+    "updatedAt": "2026-11-20T17:45:18.568Z"
    },
    "set": null,
    "metric": null
@@ -18635,7 +18635,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-10 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.306Z"
+    "updatedAt": "2026-11-20T17:45:18.600Z"
    },
    "set": null,
    "metric": null
@@ -18678,7 +18678,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-10 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.311Z"
+    "updatedAt": "2026-11-20T17:45:18.602Z"
    },
    "set": null,
    "metric": null
@@ -18721,7 +18721,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-11 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.318Z"
+    "updatedAt": "2026-11-20T17:45:18.603Z"
    },
    "set": null,
    "metric": null
@@ -18764,7 +18764,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-11 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.323Z"
+    "updatedAt": "2026-11-20T17:45:18.606Z"
    },
    "set": null,
    "metric": null
@@ -18807,7 +18807,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-12 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.328Z"
+    "updatedAt": "2026-11-20T17:45:18.608Z"
    },
    "set": null,
    "metric": null
@@ -18850,7 +18850,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-12 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.334Z"
+    "updatedAt": "2026-11-20T17:45:18.610Z"
    },
    "set": null,
    "metric": null
@@ -18893,7 +18893,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-13 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.339Z"
+    "updatedAt": "2026-11-20T17:45:18.612Z"
    },
    "set": null,
    "metric": null
@@ -18936,7 +18936,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-13 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.344Z"
+    "updatedAt": "2026-11-20T17:45:18.614Z"
    },
    "set": null,
    "metric": null
@@ -18979,7 +18979,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-14 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.349Z"
+    "updatedAt": "2026-11-20T17:45:18.616Z"
    },
    "set": null,
    "metric": null
@@ -19022,7 +19022,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-14 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.353Z"
+    "updatedAt": "2026-11-20T17:45:18.617Z"
    },
    "set": null,
    "metric": null
@@ -19065,7 +19065,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-15 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.358Z"
+    "updatedAt": "2026-11-20T17:45:18.619Z"
    },
    "set": null,
    "metric": null
@@ -19108,7 +19108,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-15 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.362Z"
+    "updatedAt": "2026-11-20T17:45:18.621Z"
    },
    "set": null,
    "metric": null
@@ -19151,7 +19151,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-16 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.367Z"
+    "updatedAt": "2026-11-20T17:45:18.623Z"
    },
    "set": null,
    "metric": null
@@ -19194,7 +19194,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.373Z"
+    "updatedAt": "2026-11-20T17:45:18.625Z"
    },
    "set": null,
    "metric": null
@@ -19237,7 +19237,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-17 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.376Z"
+    "updatedAt": "2026-11-20T17:45:18.628Z"
    },
    "set": null,
    "metric": null
@@ -19280,7 +19280,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-17 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.382Z"
+    "updatedAt": "2026-11-20T17:45:18.629Z"
    },
    "set": null,
    "metric": null
@@ -19323,7 +19323,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-18 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.387Z"
+    "updatedAt": "2026-11-20T17:45:18.631Z"
    },
    "set": null,
    "metric": null
@@ -19366,7 +19366,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-18 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.391Z"
+    "updatedAt": "2026-11-20T17:45:18.632Z"
    },
    "set": null,
    "metric": null
@@ -19409,7 +19409,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-19 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.394Z"
+    "updatedAt": "2026-11-20T17:45:18.634Z"
    },
    "set": null,
    "metric": null
@@ -19452,7 +19452,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-19 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.399Z"
+    "updatedAt": "2026-11-20T17:45:18.636Z"
    },
    "set": null,
    "metric": null
@@ -19495,7 +19495,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.405Z"
+    "updatedAt": "2026-11-20T17:45:18.570Z"
    },
    "set": null,
    "metric": null
@@ -19538,7 +19538,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-2 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.411Z"
+    "updatedAt": "2026-11-20T17:45:18.572Z"
    },
    "set": null,
    "metric": null
@@ -19581,7 +19581,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-20 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.416Z"
+    "updatedAt": "2026-11-20T17:45:18.637Z"
    },
    "set": null,
    "metric": null
@@ -19624,7 +19624,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-20 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.420Z"
+    "updatedAt": "2026-11-20T17:45:18.639Z"
    },
    "set": null,
    "metric": null
@@ -19667,7 +19667,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-21 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.426Z"
+    "updatedAt": "2026-11-20T17:45:18.641Z"
    },
    "set": null,
    "metric": null
@@ -19710,7 +19710,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-21 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.430Z"
+    "updatedAt": "2026-11-20T17:45:18.644Z"
    },
    "set": null,
    "metric": null
@@ -19753,7 +19753,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-22 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.434Z"
+    "updatedAt": "2026-11-20T17:45:18.646Z"
    },
    "set": null,
    "metric": null
@@ -19796,7 +19796,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-22 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.438Z"
+    "updatedAt": "2026-11-20T17:45:18.648Z"
    },
    "set": null,
    "metric": null
@@ -19839,7 +19839,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-23 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.442Z"
+    "updatedAt": "2026-11-20T17:45:18.649Z"
    },
    "set": null,
    "metric": null
@@ -19882,7 +19882,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-23 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.448Z"
+    "updatedAt": "2026-11-20T17:45:18.651Z"
    },
    "set": null,
    "metric": null
@@ -19925,7 +19925,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-24 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.452Z"
+    "updatedAt": "2026-11-20T17:45:18.653Z"
    },
    "set": null,
    "metric": null
@@ -19968,7 +19968,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.455Z"
+    "updatedAt": "2026-11-20T17:45:18.654Z"
    },
    "set": null,
    "metric": null
@@ -20011,7 +20011,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-25 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.458Z"
+    "updatedAt": "2026-11-20T17:45:18.656Z"
    },
    "set": null,
    "metric": null
@@ -20054,7 +20054,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-25 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.461Z"
+    "updatedAt": "2026-11-20T17:45:18.658Z"
    },
    "set": null,
    "metric": null
@@ -20097,7 +20097,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-26 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.466Z"
+    "updatedAt": "2026-11-20T17:45:18.660Z"
    },
    "set": null,
    "metric": null
@@ -20140,7 +20140,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-26 (SE-2), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.469Z"
+    "updatedAt": "2026-11-20T17:45:18.662Z"
    },
    "set": null,
    "metric": null
@@ -20183,7 +20183,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-27 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.474Z"
+    "updatedAt": "2026-11-20T17:45:18.663Z"
    },
    "set": null,
    "metric": null
@@ -20226,7 +20226,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-27 (SE-2), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.480Z"
+    "updatedAt": "2026-11-20T17:45:18.665Z"
    },
    "set": null,
    "metric": null
@@ -20269,7 +20269,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-28 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.483Z"
+    "updatedAt": "2026-11-20T17:45:18.666Z"
    },
    "set": null,
    "metric": null
@@ -20312,7 +20312,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-28 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.487Z"
+    "updatedAt": "2026-11-20T17:45:18.668Z"
    },
    "set": null,
    "metric": null
@@ -20355,7 +20355,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-3 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.492Z"
+    "updatedAt": "2026-11-20T17:45:18.574Z"
    },
    "set": null,
    "metric": null
@@ -20398,7 +20398,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-3 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-20T17:40:28.496Z"
+    "updatedAt": "2026-11-20T17:45:18.577Z"
    },
    "set": null,
    "metric": null
@@ -20441,7 +20441,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-4 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.506Z"
+    "updatedAt": "2026-11-20T17:45:18.579Z"
    },
    "set": null,
    "metric": null
@@ -20484,7 +20484,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-4 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.513Z"
+    "updatedAt": "2026-11-20T17:45:18.580Z"
    },
    "set": null,
    "metric": null
@@ -20527,7 +20527,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-5 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.516Z"
+    "updatedAt": "2026-11-20T17:45:18.582Z"
    },
    "set": null,
    "metric": null
@@ -20570,7 +20570,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-5 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.520Z"
+    "updatedAt": "2026-11-20T17:45:18.584Z"
    },
    "set": null,
    "metric": null
@@ -20613,7 +20613,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-6 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.525Z"
+    "updatedAt": "2026-11-20T17:45:18.585Z"
    },
    "set": null,
    "metric": null
@@ -20656,7 +20656,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-6 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.529Z"
+    "updatedAt": "2026-11-20T17:45:18.587Z"
    },
    "set": null,
    "metric": null
@@ -20699,7 +20699,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-7 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.533Z"
+    "updatedAt": "2026-11-20T17:45:18.589Z"
    },
    "set": null,
    "metric": null
@@ -20742,7 +20742,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-7 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-20T17:40:28.538Z"
+    "updatedAt": "2026-11-20T17:45:18.591Z"
    },
    "set": null,
    "metric": null
@@ -20785,7 +20785,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-8 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.544Z"
+    "updatedAt": "2026-11-20T17:45:18.594Z"
    },
    "set": null,
    "metric": null
@@ -20828,7 +20828,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-8 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-20T17:40:28.549Z"
+    "updatedAt": "2026-11-20T17:45:18.596Z"
    },
    "set": null,
    "metric": null
@@ -20871,7 +20871,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-9 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.553Z"
+    "updatedAt": "2026-11-20T17:45:18.597Z"
    },
    "set": null,
    "metric": null
@@ -20914,7 +20914,7 @@
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "DW: the mirrored half of wonk-9 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-20T17:40:28.557Z"
+    "updatedAt": "2026-11-20T17:45:18.599Z"
    },
    "set": null,
    "metric": null
