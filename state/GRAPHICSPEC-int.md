@@ -38,8 +38,10 @@ paths[3..]      the joins from each spine end to each rail end
 The rails are the same maths the sandbox uses — `workbench/ph_nth_panels.js`
 (`characterRail`) is the live version — so a plate and a sandbox panel of the same curve
 agree. A rail that would fold is halved until it does not; at the 0.2 % floor the plate is
-spine-only and the note says so. **No stored width means the module's default (1.5 %), never
-zero**: zero puts the rails on the spine and the bands have no area.
+spine-only and the note says so. **The plate width is, in order:** the note's `widthPct`, then the desk row's `widthPct`
+(saved through `desk-io` from the width box on `/hybrids/`), then **6 %** — a visible
+ribbon on every curve. Never zero: zero puts the rails on the spine and the bands have no
+area.
 
 **2. Turn.** `scripts/lib/plate-frame.mjs`, `turn(points, degrees)`.
 
