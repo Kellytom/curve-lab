@@ -2690,6 +2690,26 @@
    "failed": false,
    "reason": null,
    "tooWide": false
+  },
+  {
+   "uid": "c-0270",
+   "name": "lens-56-783-785",
+   "family": "lens",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
+  },
+  {
+   "uid": "c-0271",
+   "name": "four-fold-56-783-785",
+   "family": "four-fold",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
   }
  ]
 }

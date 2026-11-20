@@ -22,8 +22,8 @@ const only = (() => {
   const at = process.argv.indexOf("--only");
   return at >= 0 ? new Set(process.argv.slice(at + 1).flatMap((v) => v.split(","))) : null;
 })();
-const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8")).curves
-  .filter((record) => !only || only.has(record.uid));
+const allRecords = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8")).curves;
+const registry = allRecords.filter((record) => !only || only.has(record.uid));
 const byUid = Object.fromEntries(registry.map((record) => [record.uid, record]));
 // A curve may name another curve as its border (the note's border_uid). The
 // database is the record; this reads its mirror, so the frame drawn here is the
@@ -71,6 +71,22 @@ for (const item of items) {
 }
 await browser.close();
 
-writeFileSync(path.join(PNG_DIR, "index.json"),
-  JSON.stringify({ format: "curve-lab.figures/1", curves: items.map((item) => item.meta) }, null, 1) + "\n");
-console.log(`${items.length} bordered PNGs, with index.json`);
+// The index covers every curve, not only the ones this run drew: a partial run
+// (`--only`) must merge, or 270 entries are lost and the gallery empties.
+const INDEX = path.join(PNG_DIR, "index.json");
+const previousMeta = (() => {
+  try {
+    return JSON.parse(readFileSync(INDEX, "utf8")).curves || [];
+  } catch {
+    return [];
+  }
+})();
+const metaByUid = new Map(previousMeta.map((meta) => [meta.uid, meta]));
+for (const item of items) metaByUid.set(item.record.uid, item.meta);
+const orderedMeta = allRecords
+  .map((record) => metaByUid.get(record.uid))
+  .filter(Boolean);
+
+writeFileSync(INDEX,
+  JSON.stringify({ format: "curve-lab.figures/1", curves: orderedMeta }, null, 1) + "\n");
+console.log(`${items.length} bordered PNGs, index now ${orderedMeta.length} curves`);

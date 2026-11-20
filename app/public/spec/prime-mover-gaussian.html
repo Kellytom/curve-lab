@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="spec-source-hash" content="99a6d8cac3a8335f">
+<title>NOTES — the prime mover in Gaussian integers</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+  li input[type="checkbox"] { margin-right: 0.5rem; }
+  li:has(> input[type="checkbox"]) { list-style: none; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="notes-the-prime-mover-in-gaussian-integers">NOTES — the prime mover in Gaussian integers</h1>
+<p>Attached to the prime-mover page. It records the algebra behind the big fractions,
+and the compression that keeps them readable.</p>
+<h2 id="what-a-gaussian-integer-is-here">What a Gaussian integer is here</h2>
+<p>A <strong>Gaussian integer</strong> is a pair of whole numbers written <code>a + bi</code>. The <code>i</code> is a tag
+that marks the second number as the vertical one. Nothing imaginary enters, and
+nothing is rounded. <code>24 + 7i</code> is the point <code>(24, 7)</code>.</p>
+<p>A <strong>Gaussian rational</strong> is the same pair divided by a whole number:
+<code>(10296 + 11753i)/625</code> is the point <code>(10296/625, 11753/625)</code>.</p>
+<h2 id="the-step">The step</h2>
+<p>The 7-24-25 triangle turns by <code>φ = atan(7/24) = 16.2602°</code>. In Gaussian form that
+turn is multiplication by</p>
+<pre><code>u = (24 + 7i)/25          length exactly 1, because 24² + 7² = 25²
+</code></pre>
+<p>Two triangles share each apex, so the apex advances by <strong>twice</strong> that angle —
+multiplication by <code>u²</code>:</p>
+<pre><code>u² = (24 + 7i)²/25² = (527 + 336i)/625
+</code></pre>
+<p>and <code>527² + 336² = 625²</code>, so the length is still exactly 1. This is "rotating the
+first two triangles until they share the hypotenuse": the composition of two
+reflections is a rotation by twice the angle, and in Gaussian integers that
+composition is simply a multiplication.</p>
+<h2 id="the-whole-run-in-one-expression">The whole run in one expression</h2>
+<p>Starting at <code>24 + 7i</code> and applying <code>u²</code> for <code>k</code> steps:</p>
+<pre><code>apex(k) = (24 + 7i) · (u²)^k = (24 + 7i)^(2k+1) / 25^(2k)
+</code></pre>
+<p>and <code>25^(2k) = 625^k = 5^(4k)</code>. So <strong>the entire sequence is one power</strong>:</p>
+<pre><code>apex(k) = (24 + 7i)^(2k+1) / 5^(4k)
+</code></pre>
+<p>Store <code>k</code>; regenerate the digits when needed. That is the compression.</p>
+<h2 id="the-fixed-factors">The fixed factors</h2>
+<p>Expanding <code>(24 + 7i)</code> in the Gaussian integers,</p>
+<pre><code>24 + 7i = −i · (2 + i)³ · (1 − 2i)
+</code></pre>
+<p>so the real part always carries <code>2³ · 3 = 24</code> and the imaginary part always carries
+<code>7</code>. Checked on all twelve stations:</p>
+<pre><code>x = 24 · a      y = 7 · b      x² + y² = (25 · 625ᵏ)²
+</code></pre>
+<p>The hypotenuse is a pure power of 5, <code>5^(4k+2)</code>. So the numbers that matter are
+<code>a</code> and <code>b</code>, and they are 24 and 7 times smaller than the raw coordinates.</p>
+<h2 id="the-table-compressed">The table, compressed</h2>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>a = x ÷ 24</th>
+<th>b = y ÷ 7</th>
+<th>hypotenuse</th>
+<th>the apex</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>25</td>
+<td><code>24 + 7i</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td>429</td>
+<td>1679</td>
+<td>15625</td>
+<td><code>(24 + 7i)³ / 5⁴</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>61541</td>
+<td>1379041</td>
+<td>9765625</td>
+<td><code>(24 + 7i)⁵ / 5⁸</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>−102713911</td>
+<td>797649839</td>
+<td>6103515625</td>
+<td><code>(24 + 7i)⁷ / 5¹²</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>−132299915319</td>
+<td>302035039681</td>
+<td>3814697265625</td>
+<td><code>(24 + 7i)⁹ / 5¹⁶</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-this-is-in-geometry">What this is, in geometry</h2>
+<p>The construction is an <strong>orbit under a rotation group</strong>, and saying it that way makes
+the storage obvious.</p>
+<ul>
+<li><strong>A rotation about a point</strong> is a congruence: it keeps every distance from the
+  centre, so it carries the radius-25 circle onto itself.</li>
+<li><strong>Two reflections compose to a rotation</strong> by twice the angle between their mirror
+  lines. That is why a step of the walk is a rotation, and why it is the <em>square</em> of
+  the triangle's own turn.</li>
+<li>The rotations <code>(24 + 7i)/25</code> and its square <code>(527 + 336i)/625</code> are elements of the
+  group of rotations that keep the lattice rational — multiplication by a Gaussian
+  rational of length 1.</li>
+<li><strong>The walk is the orbit</strong> of the first apex under the subgroup generated by that
+  rotation: <code>apex, R·apex, R²·apex, …</code>.</li>
+<li><strong>The figure is the orbit drawn</strong>; the table is its coordinates; the chart is its
+  projections.</li>
+</ul>
+<p><strong>So the record is two things:</strong> a generator of the rotation group and a seed point.
+Everything else — every station, every digit — is derived. In the code that is</p>
+<pre><code>WALK = { apex: (24, 7), rotation: (527, 336, 625) }
+</code></pre>
+<p>and <code>hitPoints()</code> applies the generator. Nothing else is stored.</p>
+<h2 id="rotating-the-first-triangle-which-rotations-land-on-whole-points">Rotating the first triangle: which rotations land on whole points</h2>
+<p>Take the first hypotenuse, the radius from <code>O</code> to <code>(24, 7)</code>, and rotate it about the
+origin by an integer Gaussian rotation. Every rotation keeps the length at exactly
+25 — that is what a rotation does — but only some land on a <strong>whole-number</strong> point:</p>
+<table>
+<thead>
+<tr>
+<th>rotation</th>
+<th>where the apex lands</th>
+<th>whole?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(24 − 7i)/25</code></td>
+<td><code>(25, 0)</code></td>
+<td><strong>yes</strong></td>
+</tr>
+<tr>
+<td><code>(4 + 3i)/5</code></td>
+<td><code>(15, 20)</code></td>
+<td><strong>yes</strong></td>
+</tr>
+<tr>
+<td><code>(7 + 24i)/25</code></td>
+<td><code>(0, 25)</code></td>
+<td><strong>yes</strong></td>
+</tr>
+<tr>
+<td><code>(24 + 7i)/25</code></td>
+<td><code>(527/25, 336/25)</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>(−7 + 24i)/25</code></td>
+<td><code>(−336/25, 527/25)</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>(3 + 4i)/5</code></td>
+<td><code>(44/5, 117/5)</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>(527 + 336i)/625</code></td>
+<td><code>(10296/625, 11753/625)</code></td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><strong>So the intuition is right, and it comes with a price.</strong> Rotating by an integer
+Gaussian rotation <em>can</em> create a new whole-number point on the same radius-25 circle
+— <code>(15, 20)</code> and <code>(0, 25)</code> are two of the twelve. What it cannot do is create them at
+<em>equal</em> angles: the integer points of <code>x² + y² = 25²</code> sit at uneven angles
+(0°, 16.26°, 36.87°, 53.13°, 73.74°, 90°, …), because the circle carries only twelve
+of them.</p>
+<ul>
+<li><strong>Equal steps</strong> (32.52° each) keep the walk even and leave the integers after the
+  first point.</li>
+<li><strong>Whole points</strong> (twelve of them) keep the numbers whole and make the steps uneven.</li>
+</ul>
+<p>You cannot have both on radius 25. That is the whole trade, in one sentence.</p>
+<h2 id="reading-the-compression-honestly">Reading the compression honestly</h2>
+<ul>
+<li>It <strong>does</strong> remove the noise: two numbers to look at instead of four, a factor of
+  24 and a factor of 7 gone, and the whole station replaced by an exponent.</li>
+<li>It <strong>does not</strong> make the numbers small. <code>a</code> and <code>b</code> still grow, because the walk
+  is exact and away from the twelve p-triple angles of radius 25.</li>
+<li>If small numerals are the aim, the only levers are: fewer steps, a smaller step
+  (<code>(3,4,5)</code> divides by 25 rather than 625), a growing radius with whole numbers, or
+  decimals that are labelled as samples.</li>
+</ul>
+<h2 id="the-spirograph-from-the-same-generator">The spirograph, from the same generator</h2>
+<p>A spirograph is a sum of two rotations: one vane turning slowly, one small vane
+turning fast, <code>P = a·Rᵏ + b·R^(m·k)</code>.</p>
+<p><strong>The ratio must be a whole number</strong>, and that decides the construction: both arms
+have to come from the <em>same</em> generator <code>R = (24 + 7i)/25</code>. Two different p-triples
+(16.26° and 73.74°) have an irrational ratio, so that pattern never repeats — the
+first attempt at this drew a rosette with no closure, which is not a spirograph but a
+quasi-periodic smear.</p>
+<p>With one generator and an integer ratio <code>m</code>, the shapes are the classical ones:</p>
+<table>
+<thead>
+<tr>
+<th>ratio</th>
+<th>stations</th>
+<th>shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>69</td>
+<td>two lobes, heart-like</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>113</td>
+<td><strong>four-lobed rosette — the classic spirograph flower</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>157</td>
+<td>seven-lobed star</td>
+</tr>
+<tr>
+<td>9</td>
+<td>201</td>
+<td>nine-lobed star, dense</td>
+</tr>
+</tbody>
+</table>
+<p>Every station is exact: each arm is <code>a·Rᵏ</code>, and <code>R</code> has length one, so the station is
+a ratio of whole numbers. The drawing is a line between stations; the stations are
+not sampled.</p>
+<p>Code: <code>scripts/spirograph_walk.py</code>. Figure: <code>workbench/spirograph.svg</code>.</p>
+<h2 id="the-whole-equation-and-its-simplification">The whole equation, and its simplification</h2>
+<p>Write <code>u = (24 + 7i)/25</code>, the step: length exactly 1, turn 16.26°. Then</p>
+<pre><code>walker(k) = (24 + 7i)^(2k+1) / 5^(4k) = 25 · u^(2k+1)
+walker(m·k) = 25 · u^(2mk+1)
+</code></pre>
+<p>A spirograph is two vanes at amplitudes <code>α</code> and <code>β</code>, the second stepping <code>m</code> times as
+fast. Every term written out:</p>
+<pre><code>P(k) = α·walker(k) + β·walker(m·k)
+     = 25α·u^(2k+1) + 25β·u^(2mk+1)
+</code></pre>
+<p><strong>Factor out the walker.</strong> Both terms carry <code>u^(2k+1)</code>:</p>
+<pre><code>P(k) = walker(k) · [ α + β·u^(2(m−1)k) ]
+</code></pre>
+<p>That is the whole curve: <strong>the walker, times a bracket that is a single power of the
+step.</strong> Nothing of higher order survives, and the bracket is the only place <code>m</code>
+appears.</p>
+<p><strong>In whole numbers</strong>, with <code>d = 5^(4mk)</code>:</p>
+<pre><code>P(k) = (24+7i)^(2k+1) · [ α·25^(2(m−1)k) + β·(24+7i)^(2(m−1)k) ] / 5^(4mk)
+</code></pre>
+<p>The bracket is a Gaussian integer, the leading factor is a Gaussian integer, so every
+station is <strong>one Gaussian integer over <code>5^(4mk)</code></strong> — the coarsest grid the curve needs.</p>
+<h3 id="what-the-simplification-tells-us">What the simplification tells us</h3>
+<table>
+<thead>
+<tr>
+<th>case</th>
+<th>bracket</th>
+<th>curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>m = 1</code></td>
+<td><code>α + β</code>, a constant</td>
+<td><code>(α + β)·walker(k)</code> — a plain circle</td>
+</tr>
+<tr>
+<td><code>k = 0</code></td>
+<td><code>α + β</code></td>
+<td><code>(α + β)·(24 + 7i)</code> — one point</td>
+</tr>
+<tr>
+<td><code>m = 2</code></td>
+<td><code>α + β·u^(2k)</code></td>
+<td>the simplest non-trivial spirograph</td>
+</tr>
+<tr>
+<td><code>β = 0</code></td>
+<td><code>α</code></td>
+<td>the walker itself</td>
+</tr>
+</tbody>
+</table>
+<p>So a spirograph is <strong>the walker modulated by a power of the step</strong>, and the modulation
+is the only thing that distinguishes one ratio from another. Verified numerically:
+the factored form agrees with the direct sum at every station tested.</p>
+<h2 id="the-twelve-stations-as-numbers">The twelve stations, as numbers</h2>
+<p>The tables that used to sit beside Fig. 2. They do not help the eye — they are evidence,
+so they live here.</p>
+<p><strong>As fractions</strong> on radius 25: the same point written <code>X/D</code>, <code>Y/D</code>.</p>
+<p><strong>Compressed</strong>: <code>x = 24·a</code>, <code>y = 7·b</code>, and the hypotenuse, which is always a power of 5.</p>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>x</th>
+<th>y</th>
+<th>x ÷ 24</th>
+<th>y ÷ 7</th>
+<th>hypotenuse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>24</td>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td>25</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10296/625</td>
+<td>11753/625</td>
+<td>429</td>
+<td>1679</td>
+<td>15625</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1476984/390625</td>
+<td>9653287/390625</td>
+<td>61541</td>
+<td>1379041</td>
+<td>9765625</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-2465133864/244140625</td>
+<td>5583548873/244140625</td>
+<td>-102713911</td>
+<td>797649839</td>
+<td>6103515625</td>
+</tr>
+<tr>
+<td>4</td>
+<td>-3175197967656/152587890625</td>
+<td>2114245277767/152587890625</td>
+<td>-132299915319</td>
+<td>302035039681</td>
+<td>3814697265625</td>
+</tr>
+<tr>
+<td>5</td>
+<td>-2383715742284424/95367431640625</td>
+<td>47340744250793/95367431640625</td>
+<td>-99321489261851</td>
+<td>6762963464399</td>
+<td>2384185791015625</td>
+</tr>
+<tr>
+<td>6</td>
+<td>-1272124686252157896/59604644775390625</td>
+<td>-775979917187398553/59604644775390625</td>
+<td>-53005195260506579</td>
+<td>-110854273883914079</td>
+<td>1490116119384765625</td>
+</tr>
+<tr>
+<td>7</td>
+<td>-409680457479921297384/37252902984619140625</td>
+<td>-836375310938484090487/37252902984619140625</td>
+<td>-17070019061663387391</td>
+<td>-119482187276926298641</td>
+<td>931322574615478515625</td>
+</tr>
+<tr>
+<td>8</td>
+<td>65120503383412130682264/23283064365386962890625</td>
+<td>-578422422577834671607673/23283064365386962890625</td>
+<td>2713354307642172111761</td>
+<td>-82631774653976381658239</td>
+<td>582076609134674072265625</td>
+</tr>
+<tr>
+<td>9</td>
+<td>228668439269210642529731256/14551915228366851806640625</td>
+<td>-282948127561692396028002967/14551915228366851806640625</td>
+<td>9527851636217110105405469</td>
+<td>-40421161080241770861143281</td>
+<td>363797880709171295166015625</td>
+</tr>
+<tr>
+<td>10</td>
+<td>215578838355602653678577368824/9094947017729282379150390625</td>
+<td>-72281067630557116816767861593/9094947017729282379150390625</td>
+<td>8982451598150110569940723701</td>
+<td>-10325866804365302402395408799</td>
+<td>227373675443232059478759765625</td>
+</tr>
+<tr>
+<td>11</td>
+<td>137896486537269789739044274865496/5684341886080801486968994140625</td>
+<td>34342367046178891073565332865353/5684341886080801486968994140625</td>
+<td>5745686939052907905793511452729</td>
+<td>4906052435168413010509333266479</td>
+<td>142108547152020037174224853515625</td>
+</tr>
+</tbody>
+</table>
+<p class="note">Generated from <code>state/NOTES-prime-mover-gaussian.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>

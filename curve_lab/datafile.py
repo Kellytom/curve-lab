@@ -57,6 +57,18 @@ FORMATS = {
     "septic-samples.json": "curve-lab.septic-samples/1",
     "starred.json": "starred/1",
     "starred.backup.json": "starred/1",
+    "character-candidates.json": "curve-lab.character-candidates/1",
+    "character-curves.json": "curve-lab.character/1",
+    "circle-split.json": "curve-lab.circle-split/1",
+    "lattice-mobile-fine.json": "curve-lab.lattice.mobile.fine/1",
+    "lattice-mobile-quiet.json": "curve-lab.lattice.mobile.quiet/1",
+    "lattice-mobile.json": "curve-lab.lattice-mobile/1",
+    "lattice-spirograph.json": "curve-lab.lattice-spirograph/1",
+    "pm-deep.json": "curve-lab.pm-deep/1",
+    "pm-product.json": "curve-lab.pm-product/1",
+    "pm4-curves.json": "curve-lab.pm4/1",
+    "prime-mover-sweep.json": "curve-lab.prime-mover-sweep/1",
+    "circle-plots.json": "curve-lab.circle-plots/1",
 }
 
 

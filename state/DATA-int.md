@@ -81,6 +81,18 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `septic-samples.json` | `curve-lab.septic-samples/1` | cache | `scripts/septic_samples.py` | `scripts/ph_septic_sandbox.py` |
 | `starred.json` | `starred/1` | runtime | `POST /api/stars` (`app/src/lib/stars.js`) | the Astro book gallery |
 | `starred.backup.json` | `starred/1` | backup | `POST /api/stars`, on every write | the book gallery after a damaged read |
+| `character-candidates.json` | `curve-lab.character-candidates/1` | cache | `scripts/character_search.py --write` | Fig. 5 on `/prime-mover/` |
+| `character-curves.json` | `curve-lab.character/1` | cache | `scripts/character_search.py` | `workbench/character-curves.svg` |
+| `circle-split.json` | `curve-lab.circle-split/1` | cache | `scripts/circle_split.py --write` | Fig. 9 on `/prime-mover/`, `tests/test_circle_split.py` |
+| `lattice-mobile.json` | `curve-lab.lattice.mobile/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-mobile-fine.json` | `curve-lab.lattice.mobile.fine/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-mobile-quiet.json` | `curve-lab.lattice.mobile.quiet/1` | cache | `scripts/lattice_circle_mobile.py` | the mobile probe |
+| `lattice-spirograph.json` | `curve-lab.lattice.spirograph/1` | cache | `scripts/lattice_spirograph.py` | the spirograph probe |
+| `pm-deep.json` | `curve-lab.pm.deep/1` | cache | `scripts/pm_deep_search.py` | the prime-mover search record |
+| `pm-product.json` | `curve-lab.pm.product/1` | cache | `scripts/pm_product_probe.py` | the product probe |
+| `pm4-curves.json` | `curve-lab.pm4.curves/1` | cache | `scripts/pm4_search.py` | the four-fold probe |
+| `prime-mover-sweep.json` | `curve-lab.prime.mover.sweep/1` | cache | `scripts/sweep_prime_mover.mjs` | the prime-mover sweep |
+| `circle-plots.json` | `curve-lab.circle-plots/1` | cache | `scripts/circle_plots.py --write` | Fig. 9 on `/prime-mover/` |
 
 **Record** means the file is the authority for a number the site shows.
 **Cache** means it is derived and can be rebuilt by its script. **Runtime** means

@@ -735,6 +735,34 @@ not just md?" — and "i consider typescript a BIG framework. but do it".
   no longer be hidden by yesterday's text.
 - The rule behind all of it: **a rule that cannot fail a command is a wish.**
 
+## Naming: quadrature, rotation, phasor — 2026-11-19
+
+Settled by the operator: these numbers are not "imaginary", and the term is
+banned from new prose and code. "Euler transform" was proposed and refused: it is
+already a series transform in combinatorics, and "Euler angles" are a different
+(3D) rotation convention, so it would add confusion rather than remove it.
+
+The field's words, and the ones to use here:
+
+- **complex number** — the numbers themselves (`a + bi`). Standard, neutral.
+- **Gaussian rational** — a complex number with rational parts; **Gaussian
+  integer** when both parts are whole. This is the object the project uses.
+- **Gaussian rotation** (or **unit complex multiplication**) — multiplying by a
+  unit Gaussian rational, i.e. a rotation by a rational angle. A p-triple is its
+  integer generator.
+- **quarter turn** — the 90° case, `× i` or `× (−i)`. Fully integer, closes in
+  four steps.
+- **quadrature component** — the part 90° out of phase (the engineering term, as
+  in I/Q signals). Use it where "the imaginary part" was meant as "the component
+  at a right angle".
+- **phasor** — a unit complex number read as amplitude and phase. Use it for the
+  prime mover travelling the circle, and for the pendulum stack, where the field
+  already says "phasor" for exactly that.
+
+The physical reading is worth keeping in the prose: a rotation is a rotation, the
+circle is a circle, and the 90° part is a quadrature. Nothing in the geometry is
+hypothetical.
+
 ## The prime mover, and who owns git — 2026-11-19
 
 - **Curves may be driven by a circle, not a linear t.** The operator's reframing
@@ -765,3 +793,30 @@ Settled by the operator after the naming loss and the desk save that never ran.
   restore`. WAL is on.
 - **The user directory is not public.** It is the one store deliberately kept
   out of GitHub.
+
+
+## 2026-11-19 — the prime mover's method: remove the blind part, then station by the circle
+
+Settled, with the reasons, so the argument is not had twice.
+
+**1. A curve's circular part is invisible to a walk on the circle.** On any point with
+`x² + y² = 1`, every term `c(x² + y²)` is the constant `c`. So an equation's circular part
+cannot show up in a figure drawn on the walk: the character is the remainder. This is why
+"take the circle out" is a method and not a decoration — it removes exactly the part the
+walk cannot see.
+
+**2. Removing a radial part cannot reshape a parametric curve.** For `x(t), y(t)`, any
+removal acts along the radius, so the direction at each station is unchanged. A figure
+that shows a different outline has changed the direction somewhere, which the circle
+cannot do. The honest reform is therefore a **re-stationing**: `t = Y/(1+X)`, exact and
+rational, so the curve lands on the lattice without a new shape claim.
+
+**3. A rosette from a linkage is exact only when the closure is rational.** Closing a
+four-bar joint is a circle–circle intersection; it is rational exactly when the closure
+quadratic has a rational square discriminant. The parallelogram family satisfies this for
+every rational crank direction; a general Grashof crank-rocker does not, so its figure
+stays sampled and says so.
+
+**4. Every algorithm's figure carries its formula.** A drawing without its equation cannot
+be analysed: the reader cannot tell whether the reform is simpler. This is a rule for the
+page, recorded because the table-only version of Fig. 9 was rejected by the operator.

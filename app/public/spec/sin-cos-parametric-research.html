@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prior art: curves driven by a point on a circle</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="prior-art-curves-driven-by-a-point-on-a-circle">Prior art: curves driven by a point on a circle</h1>
+<p>Question: what does the literature call a parametric curve whose parameter is an
+angle on a circle, <code>x(θ) = f(cos θ, sin θ)</code>, instead of a linear <code>t</code>? And has
+anyone forced such a curve onto an integer lattice?</p>
+<p>Searched 2026-11-19 (web search only; no paywalled full texts read). Every
+"integer lattice" verdict below is "found nothing", not "proved absent".</p>
+<h2 id="the-short-answer">The short answer</h2>
+<table>
+<thead>
+<tr>
+<th>Name in the literature</th>
+<th>What it is</th>
+<th>On an integer lattice?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Circular harmonics</td>
+<td>a curve as a sum of <code>cos kθ</code>, <code>sin kθ</code> terms</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Fourier descriptors</td>
+<td>one epicycle per Fourier coefficient</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Hypotrochoid / epitrochoid</td>
+<td>a point on a rolling circle</td>
+<td>only via a rational parametrisation</td>
+</tr>
+<tr>
+<td>Trigonometric Bézier</td>
+<td>a Bézier basis of <code>sin</code>/<code>cos</code>, exact arcs</td>
+<td>no (real control points)</td>
+</tr>
+<tr>
+<td>Lissajous, rational ratio</td>
+<td>closed iff the frequency ratio is rational</td>
+<td>as exact nodes, not lattice points</td>
+</tr>
+<tr>
+<td>Chebyshev parametrisation</td>
+<td><code>cos nθ = T_n(cos θ)</code>, trig → algebraic</td>
+<td>no (only an "integer Chebyshev" problem)</td>
+</tr>
+<tr>
+<td>Stereographic / Pythagorean</td>
+<td>rational points of the unit circle</td>
+<td><strong>yes</strong>, for the circle itself</td>
+</tr>
+<tr>
+<td>Pythagorean-hodograph</td>
+<td>polynomial curve with rational speed</td>
+<td><strong>yes</strong>, but no angle</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No prior art found</strong> for the whole combination: an integer-grid family of
+curves whose parameter steps by rational points of a circle. The mechanism is
+classical; the application to a grid family is the gap. Say "no prior art found
+in a 2026-11-19 web search", never "novel".</p>
+<hr>
+<h2 id="1-circular-harmonics">1. Circular harmonics</h2>
+<p><strong>Definition.</strong> A 2-D shape or closed curve written as a sum of terms
+<code>a_k cos kθ + b_k sin kθ</code>, the planar twin of spherical harmonics; the curve is
+the sum of its harmonics, each harmonic one circular motion.</p>
+<p><strong>Citation.</strong> Circular Harmonics, valdes.cc — https://valdes.cc/articles/ch.html
+(the same objects appear in shape-matching literature as the frequency-domain
+form of a Fourier descriptor; see 2).</p>
+<p><strong>Integer lattice.</strong> No. Coefficients are real magnitudes; the harmonics are
+exact circles, so a "harmonic" on a lattice would need its own radius to be a
+lattice length. Nothing found.</p>
+<p>Note the name collision: "circular harmonics" also means a pitch-class / tonal
+analysis in music theory. Do not cite that meaning for geometry.</p>
+<h2 id="2-fourier-descriptors-and-epicycles">2. Fourier descriptors and epicycles</h2>
+<p><strong>Definition.</strong> A closed curve sampled as <code>z(s) = x(s) + i y(s)</code>; its discrete
+Fourier coefficients are complex amplitudes, and the inverse transform draws the
+curve as one rotating circle (an epicycle) per coefficient — a chain of circles
+each carried by the last.</p>
+<p><strong>Citation.</strong> C. T. Zahn and R. Z. Roskies, "Fourier Descriptors for Plane Closed
+Curves", <em>IEEE Trans. Computers</em> C-21 (1972) — PDF:
+https://slac.stanford.edu/pubs/slacpubs/0750/slac-pub-0850.pdf
+Interactive epicycle view: https://www.dynamicmath.xyz/fourier-epicycles/</p>
+<p><strong>Integer lattice.</strong> No. This is the nearest thing to our construction in the
+literature: the epicycle chain is exactly "walk a circle by an angle". Every
+amplitude is a real number, and the standard use is shape matching, not exact
+integer geometry.</p>
+<h2 id="3-rational-parametrisation-of-hypotrochoids-and-epitrochoids">3. Rational parametrisation of hypotrochoids and epitrochoids</h2>
+<p><strong>Definition.</strong> A trochoid is the path of a point fixed to a circle rolling on
+(great) or inside (hypo) a fixed circle:
+<code>x = (R−r)cos θ + d cos((R−r)θ/r)</code>, <code>y = (R−r)sin θ − d sin((R−r)θ/r)</code>.</p>
+<p><strong>Citation.</strong> Mathcurve, "Hypotrochoid" —
+https://mathcurve.com/courbes2d.gb/hypotrochoid/hypotrochoid.shtml
+Classical: R. C. Archibald, "The Cardioide and Some of Its Related Curves"
+(1900), still the standard historical survey (unverified detail).
+Epitrochoid family overview: https://www.walter-fendt.de/html5/men/epihypotrochoids_en.htm</p>
+<p><strong>Integer lattice.</strong> Not as trochoids. But: a trochoid with rational <code>R/r</code> is an
+<strong>algebraic curve</strong>, hence rationally parametrisable (genus 0 when it has a
+rational point, e.g. an epicycloid/hypocycloid cusp). A rational parametrisation
+<em>is</em> an integer-lattice statement — see 7. The rolling circle is the Ptolemaios
+epicycle; the "on a circle, odd closing" behaviour is the rational-ratio
+condition, same as Lissajous (5).</p>
+<h2 id="4-polynomial-rational-curves-with-a-trigonometric-parameter-trigonometric-bezier">4. Polynomial / rational curves with a trigonometric parameter (trigonometric Bézier)</h2>
+<p><strong>Definition.</strong> A Bézier-type basis built from <code>sin</code>, <code>cos</code> and <code>1</code> instead of
+<code>(1−t)^k t^(n−k)</code>, so that a segment can be an exact arc of a circle; the
+uniform cubic "trigonometric Bézier" basis is <code>{sin²u, cos²u, ...}</code> with control
+points, plus two shape parameters.</p>
+<p><strong>Citation.</strong> X.-A. Han, Y. Ma, X.-L. Huang, "The cubic trigonometric Bézier
+curve with two shape parameters", <em>Applied Mathematics Letters</em> 22 (2009) —
+https://www.sciencedirect.com/science/article/pii/S0893965908001262
+Recent survey-adjacent item: "Quantum Trigonometric Bézier Curves",
+arXiv:2510.09336 — https://arxiv.org/abs/2510.09336</p>
+<p><strong>Integer lattice.</strong> No. These are design curves with real control points; the
+trig basis exists so the circle comes out <em>exactly</em>, which is the opposite
+worry from keeping coordinates whole.</p>
+<h2 id="5-lissajous-curves-rational-frequency-ratios-chebyshev-form">5. Lissajous curves, rational frequency ratios, Chebyshev form</h2>
+<p><strong>Definition.</strong> <code>x = A sin(a t + δ)</code>, <code>y = B sin(b t)</code>; closed exactly when
+<code>a/b</code> is rational, and when <code>a, b</code> are integers the figure is an algebraic curve
+whose implicit equation is a polynomial in <code>x, y</code> via <code>cos(nθ) = T_n(cos θ)</code>.</p>
+<p><strong>Citations.</strong> Wikipedia, "Lissajous curve" —
+https://en.wikipedia.org/wiki/Lissajous_curve (closed-iff-rational, Chebyshev
+identity). Wolfram MathWorld, "Lissajous Curve" —
+https://mathworld.wolfram.com/LissajousCurve.html (periodic iff the frequency
+ratio is rational; implicitisation by Chebyshev polynomials).
+Erb et al. on Lissajous curves with integer frequencies as cubature nodes:
+<em>Dolomites Research Notes on Approximation</em> (2015) — https://arxiv.org/abs/… (the
+exact item was seen only through an aggregator page; <strong>unverified</strong>).</p>
+<p><strong>Integer lattice.</strong> Partly the closest match, but as <em>sampling nodes</em>, not as
+lattice points: the Chebyshev-Lissajous nodes used for cubature have exact
+algebraic (not integer) coordinates. No integer-lattice Lissajous found.</p>
+<h2 id="6-chebyshev-trigonometric-parametrisation">6. Chebyshev / trigonometric parametrisation</h2>
+<p><strong>Definition.</strong> Using <code>T_n(cos θ) = cos nθ</code> to trade a trigonometric polynomial
+for a polynomial one; a curve given by two trigonometric polynomials of degree
+<code>n</code> becomes an algebraic curve of degree <code>n</code>, and conversely every curve with a
+trigonometric parametrisation is algebraic.</p>
+<p><strong>Citation.</strong> T. J. Rivlin, <em>The Chebyshev Polynomials</em> (Wiley, 1974); the
+identity and its use in Lissajous implicitisation as cited in 5.
+Chebyshev's own linkage work is the historical root: "Chebyshev linkage",
+https://en.wikipedia.org/wiki/Chebyshev_linkage</p>
+<p><strong>Integer lattice.</strong> Only the <em>integer Chebyshev problem</em> exists — minimising
+<code>‖p‖</code> over integer-coefficient polynomials on <code>[−1,1]</code> (Borwein &amp; Erdélyi,
+<em>Polynomials and Polynomial Inequalities</em>, 1995). That is a different question
+(coefficients integer, curve not on a lattice). No Chebyshev-parametrised curve
+on a lattice found.</p>
+<h2 id="7-the-bridge-that-does-reach-integers-stereographic-pythagorean-parametrisation">7. The bridge that does reach integers: stereographic / Pythagorean parametrisation</h2>
+<p><strong>Definition.</strong> Every rational point of the unit circle is
+<code>((1−t²)/(1+t²), 2t/(1+t²))</code>; with <code>t = p/q</code> this is
+<code>((q²−p²), 2pq, q²+p²)/|·|</code>, i.e. a Pythagorean triple. This is the <em>only</em>
+standard way a circle-driven parameter becomes exact on a lattice.</p>
+<p><strong>Citations.</strong> "Pythagorean triple — rational points on the unit circle",
+https://en.wikipedia.org/wiki/Pythagorean_triple
+"Rational curve" / conic parametrisation by a line of slope <code>t</code>,
+https://en.wikipedia.org/wiki/Algebraic_curve#Rational_curves
+NURBS exact circle, same weight form: Piegl &amp; Tiller, <em>The NURBS Book</em>, §7.4
+(unverified page number).</p>
+<p><strong>Integer lattice.</strong> Yes, at the level of the <em>circle</em>, not the curve: the
+triples give whole-number points on the circle. Scaling the whole construction by
+<code>q²+p²</code> makes the circle integer at the cost of a growing grid — which is the
+grid-bill question in <code>state/ACHIEVEMENTS-int.md</code>, not a new one.</p>
+<h2 id="8-pythagorean-hodograph-ph-curves-the-polynomial-analogue">8. Pythagorean-hodograph (PH) curves — the polynomial analogue</h2>
+<p><strong>Definition.</strong> A polynomial curve whose derivative has rational length, so arc
+length is a polynomial; equivalently, a curve whose hodograph is a Pythagorean
+triple of polynomials.</p>
+<p><strong>Citations.</strong> Wikipedia, "Pythagorean hodograph curve" —
+https://en.wikipedia.org/wiki/Pythagorean_hodograph_curve
+R. T. Farouki, "Introduction to Pythagorean-hodograph curves" —
+https://faculty.engineering.ucdavis.edu/farouki/wp-content/uploads/sites/51/2021/07/Introduction-to-PH-curves.pdf
+R. T. Farouki, <em>Pythagorean-Hodograph Curves: Algebra and Geometry Inseparable</em>
+(Springer, 2008).</p>
+<p><strong>Integer lattice.</strong> Closest existing <em>exactness</em> programme: PH curves are
+polynomial, so integer control points stay integer under the Bernstein form.
+But PH is about the tangent, not about a circle parameter — no trig, and the
+curve does not re-derive from an angle.</p>
+<hr>
+<h2 id="verdict-for-curve-lab">Verdict for curve-lab</h2>
+<p>The literature has a name for each half of our construction, and no name for the
+whole of it:</p>
+<ul>
+<li><strong>"circle-driven parameter"</strong> → circular harmonics / Fourier descriptors
+  (shape analysis, real amplitudes, no exactness claim).</li>
+<li><strong>"trigonometric polynomial parametrisation"</strong> → trigonometric Bézier /
+  Chebyshev-Lissajous (exact circles, real control points, no lattice).</li>
+<li><strong>"exact rational circle parameter"</strong> → stereographic / Pythagorean triples and
+  PH curves (exact, integer-friendly, but about the circle or the tangent, never
+  about a whole curve family on one grid).</li>
+</ul>
+<p><strong>No prior art found</strong> for the combination we use: an integer-lattice curve whose
+parameter steps by rational points of a circle (p-triples), so the curve is
+simultaneously exact, integer, and angle-driven. The nearest neighbours are PH
+curves (exact, integer control net, no trig) and the stereographic circle
+parametrisation (exact, integer, angle-driven, but only for the circle itself).</p>
+<p>That is the honest claim: the <em>mechanism</em> is classical (Ptolemy → Chebyshev →
+NURBS weights), the <em>application</em> to a grid family of algebraic curves appears
+to be ours. Say "no prior art found in a 2026-11-19 web search", not "novel".</p>
+<p class="note">Generated from <code>archive/notes/sin-cos-parametric-research.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>

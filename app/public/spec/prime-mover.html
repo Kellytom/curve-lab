@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="spec-source-hash" content="77c8f27f3d4ad7d6">
+<title>SPEC — the prime mover (/prime-mover/)</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+  li input[type="checkbox"] { margin-right: 0.5rem; }
+  li:has(> input[type="checkbox"]) { list-style: none; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="spec-the-prime-mover-prime-mover">SPEC — the prime mover (<code>/prime-mover/</code>)</h1>
+<p>The clean description of one page: what it is for, what it shows, and the rules it must
+keep. Work from this file. Every fault this page has had, with the guard for each, is in
+<code>state/PROBLEMS-prime-mover-int.md</code>.</p>
+<p><strong>Status, 2026-11-19:</strong> every item below is a promise; <code>[x]</code> means it is built and a check
+or a named script proves it, <code>[ ]</code> means it is not done. The count is kept honest by hand
+when the file changes.</p>
+<p><strong>The page:</strong> <code>app/src/pages/prime-mover.astro</code>
+<strong>The driver:</strong> <code>app/src/scripts/prime-mover-driver.js</code>
+<strong>The check:</strong> <code>app/scripts/check-prime-mover-page.mjs</code></p>
+<h2 id="1-what-the-page-is-one-walk">1 · What the page is: one walk</h2>
+<p><strong>The walk is the page.</strong> Everything else is a picture of it or derived from it.</p>
+<pre><code>apex      (24, 7)              the first hypotenuse, on radius 25
+rotation  (527, 336, 625)      the double angle, 32.5204°: 527 + 336i = (24 + 7i)²
+stations  twelve, on the 25 circle, equally spaced
+</code></pre>
+<ul>
+<li><input type="checkbox" disabled checked> The walk is the orbit of an apex under the rotation, one model for every triple.</li>
+<li><input type="checkbox" disabled checked> Every station is a reduced ratio of whole numbers: <code>x</code> a multiple of 24, <code>y</code> a
+      multiple of 7, the hypotenuse a power of 5.</li>
+<li><input type="checkbox" disabled checked> The rotation is the square of the triangle's own turn, because two triangles share
+      each apex.</li>
+<li><input type="checkbox" disabled checked> Twelve stations reach 357.7°, 2.3° short of a full turn; the shortfall is stated
+      rather than hidden.</li>
+<li><input type="checkbox" disabled checked> The station count follows the triple, and the page prints it (23 stations for the
+      default half walk).</li>
+</ul>
+<h2 id="2-what-the-driver-puts-out">2 · What the driver puts out</h2>
+<pre><code>{ i: {num, den}, x: {num, den}, y: {num, den} }
+</code></pre>
+<ul>
+<li><input type="checkbox" disabled checked> <code>i</code> is the counter, not an angle.</li>
+<li><input type="checkbox" disabled checked> Every <code>num</code> and <code>den</code> is a whole number; nothing is stored as a decimal.</li>
+<li><input type="checkbox" disabled checked> <code>x(−k) = x(k)</code> and <code>y(−k) = −y(k)</code> — the set of <code>i</code> is symmetric.</li>
+<li><input type="checkbox" disabled checked> A single conversion to a float exists (<code>fixed(n, d, 30)</code>), and it is the only place
+      a decimal is made.</li>
+<li><input type="checkbox" disabled> The driver's output table is on the page: it was moved to the notes and has not been
+      replaced by a readout in the new layout.</li>
+</ul>
+<h2 id="3-the-step-and-the-choice-of-it">3 · The step, and the choice of it</h2>
+<table>
+<thead>
+<tr>
+<th>triple</th>
+<th>turn a step</th>
+<th>steps</th>
+<th>turn reached</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(3, 4, 5)</code></td>
+<td>53.13°</td>
+<td>7</td>
+<td>371.91°</td>
+</tr>
+<tr>
+<td><code>(7, 24, 25)</code></td>
+<td>73.74°</td>
+<td>5</td>
+<td>368.70°</td>
+</tr>
+<tr>
+<td><code>(44, 117, 125)</code></td>
+<td>69.40°</td>
+<td>6</td>
+<td>416.40°</td>
+</tr>
+<tr>
+<td><code>(56, 783, 785)</code></td>
+<td>8.18°</td>
+<td>45</td>
+<td>368.1°</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><input type="checkbox" disabled checked> A thin triple steps finely: <code>(56, 783, 785)</code> moves 4.09° a triangle, so an apex
+      moves 8.18° a station.</li>
+<li><input type="checkbox" disabled checked> A cost guard disables a spirograph ratio whose BigInt cost is over 400,000; with
+      <code>(56, 783, 785)</code> only ratio 3 is offered.</li>
+<li><input type="checkbox" disabled checked> <strong>The thin triple is the page default, with quadrants I and IV ticked.</strong> The chooser
+      carries <code>selected</code>, the box carries <code>checked</code>, so the first drawing is the half walk
+      (23 stations, not 45). Picking another triple clears the tick.</li>
+<li><input type="checkbox" disabled checked> <strong>Quadrants I and IV only</strong> halves the walk: 23 stations instead of 45.</li>
+<li><input type="checkbox" disabled checked> The driver grid stays inside <code>2⁵³ − 1</code> for the triples the page offers.</li>
+<li><input type="checkbox" disabled> The guard line that reports the driver grid and whether every station divides it is
+      not on the page; the limit is respected by construction, not by a printed check.</li>
+</ul>
+<h2 id="4-who-reads-it">4 · Who reads it</h2>
+<ul>
+<li><input type="checkbox" disabled checked> Short sentences, everyday words, one idea at a time; no decimals in a table.</li>
+<li><input type="checkbox" disabled checked> Each term gets its meaning the first time it is used.</li>
+</ul>
+<h2 id="5-the-words-the-page-uses">5 · The words the page uses</h2>
+<table>
+<thead>
+<tr>
+<th>word</th>
+<th>what it means here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>prime mover</strong></td>
+<td>the point travelling the circle that supplies x and y</td>
+</tr>
+<tr>
+<td><strong>i</strong></td>
+<td>the driver's counter, not an angle</td>
+</tr>
+<tr>
+<td><strong>station</strong></td>
+<td>one position of the prime mover; a pair of exact ratios</td>
+</tr>
+<tr>
+<td><strong>step</strong></td>
+<td>one move, written as its triple</td>
+</tr>
+<tr>
+<td><strong>first part</strong></td>
+<td>the counter-clockwise values, <code>i &lt; 0</code></td>
+</tr>
+<tr>
+<td><strong>second part</strong></td>
+<td>the clockwise values, <code>i &gt; 0</code></td>
+</tr>
+<tr>
+<td><strong>driver grid</strong></td>
+<td><code>hypotenuse^steps</code> for the chosen step</td>
+</tr>
+<tr>
+<td><strong>reduced denominator</strong></td>
+<td><code>grid / gcd(x, y, grid)</code></td>
+</tr>
+<tr>
+<td><strong>ink dot</strong></td>
+<td>the station at <code>i = 0</code>, belonging to neither part</td>
+</tr>
+<tr>
+<td><strong>readout</strong></td>
+<td>the line that names the station you clicked</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-what-the-page-shows-top-to-bottom">6 · What the page shows, top to bottom</h2>
+<p>The real order today, which the headings carry:</p>
+<ul>
+<li><input type="checkbox" disabled checked> <strong>The equations</strong> — the operator's equation, stated before the figures.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 1 · the walk</strong> — the ring of stations, built by reflection; the heading names
+      the triple, the mode and the station count.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 2 · the hit points</strong> — the stations with axes, the heading carrying the triple.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 3 · the curves</strong> — the polynomial presets on the walk.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 4 · the spirograph</strong> — one curve and its stations, ratio cost-guarded.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 5 · curves with character</strong> — six measured curves, each with axes, a grid, a
+      15 px legend and a Bézier chain.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 6 · an equation, and the circle taken out</strong> — two lines, a hyperbola, and the
+      walk's stations.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 7 · the geared spirograph</strong> — a wheel in a ring, integer stations.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 8 · the linkage</strong> — the crank-rocker, its mirror, integer stations.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 9 · the circle taken out</strong> — seven panels, then the table of identities.</li>
+<li><input type="checkbox" disabled> A readout that names a clicked station in exact ratios.</li>
+<li><input type="checkbox" disabled> A colour key line for first part and second part as a standing legend.</li>
+</ul>
+<h2 id="7-the-triangle-figure-fig-1">7 · The triangle figure (Fig. 1)</h2>
+<p>The construction, which must not be replaced by hand-placed shapes:</p>
+<pre><code>T1  O, foot (24, 0), apex (24, 7)          foot on 24, apex on 25
+T2  reflect T1 across its hypotenuse        shares the 25 side with T1
+T3  reflect T2 across its 24 leg            shares the 24 side with T2
+T4  reflect T3 across its hypotenuse        shares the 25 side again
+</code></pre>
+<ul>
+<li><input type="checkbox" disabled checked> Built with JSXGraph from constructed points, one scale, both circles whole in frame.</li>
+<li><input type="checkbox" disabled checked> Feet on 24, apices on 25, both circles dashed, a right-angle mark at each foot.</li>
+<li><input type="checkbox" disabled checked> The title is inside the board.</li>
+<li><input type="checkbox" disabled checked> Whole-number coordinates are labelled.</li>
+<li><input type="checkbox" disabled checked> The walk is drawn with mirrored triangles, not with chords.</li>
+</ul>
+<h2 id="8-the-geometry-stated">8 · The geometry, stated</h2>
+<p>Everything in Figs 1–4 follows from these facts; they are written here so the figures can
+be checked against them rather than against an eye.</p>
+<p><strong>1. Two circles and a triangle.</strong> <code>C25</code> radius 25 and <code>C24</code> radius 24 about <code>O</code>, with
+<code>|OF| = 24</code>, <code>|FA| = 7</code>, <code>|OA| = 25</code>, right angle at <code>F</code>. <code>cos φ = 24/25</code>, so both
+coordinates are ratios.</p>
+<p><strong>2. Reflection keeps the circle.</strong> Every mirror line passes through <code>O</code>, so reflection
+preserves the distance to <code>O</code>: every apex stays on <code>C25</code> and every foot on <code>C24</code>.</p>
+<p><strong>3. Two reflections are one rotation.</strong> Consecutive triangles advance the apex by
+<code>2φ = 32.5204°</code>, and <code>(cos 2φ, sin 2φ) = (527/625, 336/625)</code>, hence <code>527² + 336² = 625²</code>.</p>
+<p><strong>4. Parity is conserved.</strong> <code>x′ = (527x − 336y)/625</code> stays even, <code>y′ = (336x + 527y)/625</code>
+stays odd, because <code>625ᵏ</code> is odd — the numerators end in 4 or 6 and in 3 or 7.</p>
+<p><strong>5. The integers behind the fractions.</strong> <code>x</code> is always a multiple of <code>24 = 2³·3</code>, <code>y</code> a
+multiple of <code>7</code>, and <code>x² + y² = (25 · 625ᵏ)²</code>: a p-triple at every level.</p>
+<p><strong>6. It cannot close evenly.</strong> <code>360 / 32.5204 = 11.07</code>, so twelve apices stop 2.3° short;
+the spacing between consecutive apices is exactly equal, and that is what the check
+measures.</p>
+<ul>
+<li><input type="checkbox" disabled checked> The first apex is <code>(24, 7)</code>; every apex is on <code>C25</code> within 0.1 unit.</li>
+<li><input type="checkbox" disabled checked> The gap between consecutive apices is 32.52° within 0.01°.</li>
+<li><input type="checkbox" disabled checked> The figures are square, because a circle drawn with two scales is an ellipse.</li>
+<li><input type="checkbox" disabled checked> Fig. 2 carries visible axes named <code>x</code> and <code>y</code>, a zero line and whole-number grid.</li>
+</ul>
+<h2 id="9-priority-the-circle-the-walk-cannot-see">9 · Priority: the circle the walk cannot see</h2>
+<p><strong>The standing priority of the page.</strong> A curve is rebuilt on the exact lattice by taking
+its circle out and reading what is left at the walk's stations.</p>
+<ol>
+<li>Write <code>F(x, y) = 0</code> and split it into the circular part <code>C</code> — every term <code>c·(x² + y²)</code> —
+   and the remainder <code>R</code>, so <code>F = C + R</code>.</li>
+<li>On the walk <code>x² + y² = 1</code> at every station, so <code>C</code> is the same constant everywhere and
+   the walk is blind to it.</li>
+<li>The character, as the walk reads it, is <code>R</code> alone.</li>
+</ol>
+<ul>
+<li><input type="checkbox" disabled checked> The quadratic split is implemented and checked exactly:
+      <code>x² + 2xy + y²</code> gives blind part 1 and remainder <code>2xy</code>.</li>
+<li><input type="checkbox" disabled checked> The general split reduces any polynomial by <code>x² + y² = 1</code> to <code>a(y) + x·b(y)</code>;
+      <code>(x² + y²)²</code> gives blind part 1 and no remainder terms.</li>
+<li><input type="checkbox" disabled checked> A PH speed is recognised as a circle walk: <code>x' = u² − v²</code>, <code>y' = 2uv</code>, radius
+      <code>u² + v²</code>; the tangent has norm 1 exactly on all three stored lace curves.</li>
+<li><input type="checkbox" disabled checked> The sharp edge is stated: <code>2xy = 1</code> with <code>x² + y² = 1</code> needs <code>x = 1/√2</code>, irrational,
+      so no station lands on it and the figure prints a tolerance instead.</li>
+<li><input type="checkbox" disabled checked> Every identity is asserted in <code>Fraction</code>, never in a float.</li>
+</ul>
+<h2 id="10-rosettes-from-linkages-done-exactly">10 · Rosettes from linkages, done exactly</h2>
+<p>A coupler curve is asymmetric; the crank run backwards gives its mirror; the pair is a
+rosette made by a mechanism.</p>
+<ul>
+<li><input type="checkbox" disabled checked> The closure rule is stated: a joint is rational only when the closure quadratic has
+      a rational square discriminant.</li>
+<li><input type="checkbox" disabled checked> <code>scripts/linkage_exact.py</code> refuses a link set that is not exact, and searches the
+      space: 60 parallelogram sets close at all 20 rational crank directions.</li>
+<li><input type="checkbox" disabled checked> <code>tests/test_linkage_exact.py</code> pins the parallelogram, the joint conditions and the
+      refusal for a general crank-rocker.</li>
+<li><input type="checkbox" disabled> The exact parallelogram rosette is drawn on the page; Fig. 8 is still the sampled
+      crank-rocker and says so.</li>
+</ul>
+<h2 id="11-the-circle-taken-out-fig-9">11 · The circle taken out (Fig. 9)</h2>
+<p><strong>Drawings first, table second.</strong> The operator's words: "how can i analyze with no plot?"</p>
+<ul>
+<li><input type="checkbox" disabled checked> Seven panels in page order: three curves stationed by the circle, three remainders,
+      then the operator's equation.</li>
+<li><input type="checkbox" disabled checked> <code>c-0028 · lace-2-eight-3</code>, <code>c-0029 · lace-balloon-3</code>, <code>c-0060 · lace-arch-x-1</code> are
+      drawn from their own stored rows.</li>
+<li><input type="checkbox" disabled checked> Each panel has a title inside, axis lines named <code>x</code> and <code>y</code>, a whole-number grid, and
+      a legend inside at 15 px.</li>
+<li><input type="checkbox" disabled checked> Each panel takes the data's own aspect, so no empty band.</li>
+<li><input type="checkbox" disabled checked> Every point is evaluated in <code>Fraction</code>; the line between stations is a cubic Bézier
+      chain, never a polyline, and the caption says the line is approximate.</li>
+<li><input type="checkbox" disabled checked> The table of identities follows, one row per implementation, every error exactly 0.</li>
+<li><input type="checkbox" disabled checked> The page check counts seven panels and fails on a missing label, a missing legend, or
+      a polyline.</li>
+</ul>
+<h2 id="12-taking-the-circle-out-of-a-parametric-curve">12 · Taking the circle out of a parametric curve</h2>
+<p>The operator's words, quoted so they are not paraphrased away:</p>
+<blockquote>
+<p>"what does the spec say about taking the x^2+y^2 out of the parametric polynomials in
+the database we choose to display? what does it say about plotting that curve, not the
+old curve?"</p>
+<p>"take a nice curve from the database, and plug it in to this generator … take a circle
+out of it … so that when you plugged in the new i values based on the circle, the curve
+would be reformed."</p>
+</blockquote>
+<p><strong>The rule.</strong> For <code>x(t), y(t)</code>: form <code>P(t) = x(t)² + y(t)²</code>; the circular part is its mean
+<code>C = ∫₀¹ P dt</code> (the constant term is useless — every lace curve starts at the origin);
+the remainder is <code>R = P − C</code>; the reformed point is <code>z·R/P</code>.</p>
+<p><strong>What that does, said plainly.</strong> <code>R/P = 1 − C/P</code> depends only on distance, so the point
+keeps its direction and only its radius changes. <strong>A radial term cannot bend a parametric
+curve.</strong> A circle is the case <code>P ≡ C</code>, where <code>R ≡ 0</code> and the curve collapses to the origin.</p>
+<ul>
+<li><input type="checkbox" disabled checked> The operation is implemented exactly in <code>scripts/circle_plots.py</code>.</li>
+<li><input type="checkbox" disabled checked> The curve is plotted with its stations set by the circle parameter <code>t = Y/(1+X)</code>,
+      kept to <code>0 ≤ t ≤ 1</code>, with the stations as exact rational points.</li>
+<li><input type="checkbox" disabled checked> The remainder is plotted in the bounded form <code>(P − C)/(P + C)</code>: zero where the circle
+      carries the curve, positive outside the mean circle, negative inside.</li>
+<li><input type="checkbox" disabled checked> The spec says that the shape cannot change, so no figure claims a new outline.</li>
+</ul>
+<h2 id="13-the-mechanisms-figs-7-and-8">13 · The mechanisms (Figs 7 and 8)</h2>
+<ul>
+<li><input type="checkbox" disabled checked> <strong>Fig. 7, the geared spirograph</strong> — a wheel of radius <code>r</code> inside a ring <code>R</code>, pen <code>d</code>;
+      <code>R/r = 6/2</code> gives three petals; axes, grid and integer stations drawn.</li>
+<li><input type="checkbox" disabled checked> <strong>Fig. 8, the linkage</strong> — a Grashof crank-rocker (<code>AB = 2</code>, ground <code>5</code>, coupler <code>5</code>,
+      rocker <code>3</code>), interactive, the coupler curve and its mirror.</li>
+<li><input type="checkbox" disabled checked> Integer stations are coloured by the part of the turn: blue first, orange second.</li>
+<li><input type="checkbox" disabled checked> Both captions say <strong>sampled</strong>: the joints are circle intersections and the pen angle
+      is a real number.</li>
+</ul>
+<h2 id="14-not-on-this-page-yet">14 · Not on this page yet</h2>
+<ul>
+<li><input type="checkbox" disabled> Stage II: the curves built from the driver table.</li>
+<li><input type="checkbox" disabled> A free step count: steps are fixed per triple.</li>
+<li><input type="checkbox" disabled> Saving or exporting a driver.</li>
+<li><input type="checkbox" disabled> Keyboard access to the stations: clicking is mouse-only.</li>
+</ul>
+<h2 id="15-how-this-page-thinks-algorithmically-geometrically">15 · How this page thinks: algorithmically, geometrically</h2>
+<p>The standing method, in the operator's words: <em>"you need to think algorithmically and
+geometrically."</em> Every figure on this page is produced by a construction that can be
+written down, not by hand-placed shapes.</p>
+<p><strong>The first algorithmic idea — reform a database curve with the circle's values.</strong>
+Take a mature curve with character from the database, take <code>x² + y²</code> out of it, then plug
+in the "new <code>i</code> values based on the circle". The circle is the object the walk can express
+exactly, so the reform is: station the curve at <code>t = Y/(1+X)</code> from the walk, which makes
+every station a rational point of the lattice.</p>
+<ul>
+<li><input type="checkbox" disabled checked> The rule is stated (§12) and implemented (<code>scripts/circle_plots.py</code>).</li>
+<li><input type="checkbox" disabled checked> The figure prints the original parametric rows and the reformed formula beside the
+      drawing, so the reader can judge whether the reform is simpler.</li>
+<li><input type="checkbox" disabled checked> The spec says plainly that a radial removal cannot change a curve's shape, so the
+      reform is a re-stationing, not a new outline.</li>
+<li><input type="checkbox" disabled> A stored curve is reformed <em>and</em> saved back to the database as its own record; the
+      reform exists as a figure only.</li>
+</ul>
+<p><strong>The second algorithmic idea — make rosettes with linkages.</strong> A coupler curve is
+asymmetric; the crank run backwards gives its mirror; the pair is a rosette made by a
+mechanism rather than sampled from a spirograph.</p>
+<ul>
+<li><input type="checkbox" disabled checked> The exactness condition is a rule, not a hope: a joint is rational only when the
+      closure quadratic has a rational square discriminant (§10).</li>
+<li><input type="checkbox" disabled checked> The search found the exact family: 60 parallelogram link sets close at every one of
+      20 rational crank directions.</li>
+<li><input type="checkbox" disabled> That family is drawn on the page; Fig. 8 remains the sampled crank-rocker.</li>
+</ul>
+<p><strong>Two habits that follow, and are checked:</strong></p>
+<ul>
+<li><input type="checkbox" disabled checked> A diagram never appears without its formula: every Fig. 9 panel prints its rows, its
+      remainder and its reform under the drawing.</li>
+<li><input type="checkbox" disabled checked> An idea becomes a check or it is a wish: each method above names the script and the
+      test or page check that fails when it stops being true.</li>
+</ul>
+<h2 id="16-how-to-change-this-page">16 · How to change this page</h2>
+<ul>
+<li><input type="checkbox" disabled checked> Change this file first: what moves, which rule changes, what it costs.</li>
+<li><input type="checkbox" disabled checked> If the change moves code, rewrite the file in one pass; a single line may be patched.</li>
+<li><input type="checkbox" disabled checked> Run the gates: <code>node app/scripts/check-prime-mover-page.mjs</code>,
+      <code>.venv/bin/python scripts/check_no_imaginaries.py</code>, <code>npm --prefix app run check</code>,
+      <code>.venv/bin/python scripts/test.py --fast</code>.</li>
+<li><input type="checkbox" disabled checked> Rebuild the readable copy: <code>.venv/bin/python scripts/spec_page.py --all</code>.</li>
+<li><input type="checkbox" disabled checked> Record a fixed fault in <code>state/PROBLEMS-prime-mover-int.md</code>, never here.</li>
+</ul>
+<h2 id="count">Count</h2>
+<ul>
+<li><input type="checkbox" disabled checked> The list is honest: 64 ticked, 9 open (counted from this file).</li>
+</ul>
+<p class="note">Generated from <code>state/SPEC-prime-mover-int.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>

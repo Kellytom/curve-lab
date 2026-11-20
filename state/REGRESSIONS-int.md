@@ -55,6 +55,7 @@ fixed. The tests live in `tests/test_regressions.py` and run in the fast suite.
 | 33 | 2026-11-19 | ten of the 212 chosen curves could not be saved: a name that is only its construction ("amper", "swan", "knot-6") composed to an empty string and Save refused | `app/tests/name-parts.test.mjs` and `app/scripts/check-names.mjs` (0 rows without a name) | the naming desk |
 | 34 | 2026-11-19 | "the names I saved are gone, again" — an old draft in the browser still sat in the box, so the saved name was hidden | `app/tests/name-parts.test.mjs` (`draftState`: an old draft never hides a newer save) and `app/scripts/check-names.mjs` | the naming desk's saved-name display |
 | 35 | 2026-11-19 | "/illuminations is 500" — after the rails and fills, a figure held more points than `Math.min(...xs)` can take, and 238 figures in one request threw `Maximum call stack size exceeded` | `app/scripts/check-pages.mjs` (all 12 pages, 200 and one header) and `state/FRAMES-int.md` for the richer paths | the figure writer's bbox |
+| 36 | 2026-11-19 | "something is broken… you have some restriction making you not do the job" — the grid demo had been patched a dozen times by string replacement: two helpers that only returned `pad`, three checkboxes wired to nothing, a `picked` value written and never read, and comments describing code that had moved | `app/scripts/check-prime-mover-page.mjs` (alternating shapes, exact driver rows, computed guard, wave dot count, no dead controls) | the grid demo page, and the habit that made it |
 
 ## Fixed and measured, but not yet in the fast suite
 
@@ -80,3 +81,5 @@ headless browser), so they are named here rather than duplicated:
   nothing to remove.
 - The percentage-of-`t` control added earlier is superseded and inert; the
   markup is gone, the handler remains harmless.
+| 37 | 2026-11-19 | "the gallery is empty" behind a partial figure run: `curve_pngs.mjs --only` wrote `index.json` from the two curves it had drawn, so 270 entries vanished and every other cell lost its figure | `tests/test_regressions.py` (`test_the_figure_index_names_every_registry_curve`: the index names every registry uid) and the merge in `scripts/curve_pngs.mjs` | the figure index |
+| 38 | 2026-11-19 | the exact-linkage test said "no linkage closes rationally" for every link set, including the parallelogram that plainly does | `tests/test_linkage_exact.py` (parallelogram closes at every station; the joint meets both circle conditions; a general crank-rocker does not) | the rosette linkage rule |

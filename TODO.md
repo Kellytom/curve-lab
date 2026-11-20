@@ -32,6 +32,38 @@ The main families are done; these are loose ends, not new work:
 - **`scripts/curve_registry.py` would rebuild the registry and lose the seven finds.**
   It must learn to keep curated rows before it is run again.
 
+## Senior-dev pass — the measures and the claims (2026-11-19)
+
+Not urgent enough to stop the curve work, but these are the foundation the
+claims rest on. In priority order:
+
+- [ ] **Calibrate the crossing counters.** One test that pins the three known
+      numbers: `c-0262` at **9** pairs (router), `c-0070` at **11**, and the
+      Chebyshev `T3 x T5` at **4** (the (p-1)(q-1)/2 count). Run it against every
+      counter in the repo — `ph_crossings.stable_crossings`, the sampled counters
+      in `new_curves.py`, `coupler_curves.py`, `bezier_knots.py`,
+      `prime-mover.js` — and delete or rebadge the ones that disagree. Tonight
+      the same curve read 9, 4 and 1 depending on the sampler, and "540 new
+      curves" turned out to be flat ghosts.
+- [ ] **A smoke test per generator.** `analyse_curves`, `bezier_knots`,
+      `root_search`, `parity_search`, `new_curves`, `coupler_curves`,
+      `mobile_search`, `sweep_prime_mover`, `add_found_curves`: each must have a
+      test that runs it on a fixed small input and asserts the shape of the
+      output and one known number. A script that only prints is a claim.
+- [ ] **Audit the word "exact".** One pass over the pages and docs: anything that
+      uses `cos`/`sin`, damping below 100%, or a non-p-triple angle says
+      **sampled**, in the same breath as the number. `DESIGN-int` §Trigonometry is
+      the rule; the site has not been read against it.
+- [ ] **A `--check` (dry-run) mode for every script that writes.** Tonight two
+      edits broke live pages: a helper block sliced out of `bordered.js`, and
+      `curve_pngs.mjs --only` clobbering `figures/index.json` with 7 rows. A
+      dry-run that prints what would change, and a check mode the gate can run,
+      makes both failures a second long instead of a page down.
+- [ ] **Finish the C and D corner rule.** C/D exist (90 each) but the border
+      motifs still cross at the corners; the corner-rotation for 90-degree legs
+      and the stop for the rest are built but not landing. Do not call C/D good
+      until a corner is visibly resolved.
+
 ## Book plates — 2026-11-17
 
 The short-term aim is a Christmas set of PNG plates; SVGs and cubic Béziers

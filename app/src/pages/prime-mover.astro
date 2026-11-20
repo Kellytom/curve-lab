@@ -1,0 +1,397 @@
+---
+// The prime mover: one walk, the curves it makes, and the equations behind both.
+// Spec: state/SPEC-prime-mover-int.md — change the spec first.
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { repoRoot } from "../lib/gallery.js";
+import { figureSvg } from "../lib/plot-figure.js";
+
+// The character gallery: curves found by scripts/character_search.py, drawn from the
+// scored JSON so the picture and the measurements cannot drift apart.
+const found = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "character-candidates.json"), "utf8"));
+const candidates = (found.candidates || []).slice(0, 6);
+
+// The circle taken out: the four implementations and their exact identities, read from
+// the script's own report so the table cannot drift from the maths.
+const split = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "circle-split.json"), "utf8"));
+const splitRows = (split.ways || []).map((row) => ({
+  way: row.way,
+  form: row.form || row.name || row.uid,
+  blind: row.circularPart ?? "—",
+  error: row.identityWorstError ?? row.worstError ?? "—",
+}));
+const splitExact = splitRows.every((row) => row.error === "0");
+const plots = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "circle-plots.json"), "utf8"));
+const plotPanels = plots.panels || [];
+
+function characterPanel(curve) {
+  // The same figure builder as Fig. 9: axes, grid, a Bézier chain and a legend, so a
+  // measured curve is read as a drawing rather than a squiggle.
+  const points = (curve.points || []).map(([x, y]) => [x, y]);
+  if (points.length < 2) return "";
+  const xs = points.map((point) => point[0]);
+  const ys = points.map((point) => point[1]);
+  return figureSvg({
+    key: String(curve.map || "curve").replace(/[^a-z0-9]+/gi, "-").toLowerCase(),
+    title: `${curve.map} · ${curve.triple}`,
+    equation: "",
+    bounds: [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)],
+    paths: [{ name: curve.map, colour: "#6f4a2a", points }],
+    legend: [{ label: `${curve.map} — the walked curve`, colour: "#6f4a2a" }],
+    stations: [],
+  });
+}
+---
+
+<BaseLayout title="the prime mover" pageTitle="The prime mover: draft A">
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/vendor/jsxgraph/jsxgraph.css" />
+    <style is:global>
+    .pm-bar{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;margin:0 0 16px;padding:10px 12px;border:1px solid var(--pico-muted-border-color);background:var(--pico-card-sectioning-background-color);font:12px/1.4 ui-monospace,Menlo,monospace}
+    .pm-bar label{display:flex;gap:6px;align-items:center}
+    .pm-hint{color:var(--pico-muted-color);font-size:11px}
+    .pm-bar select{width:auto;margin:0;padding:.2rem .35rem;font:12px/1.4 ui-monospace,Menlo,monospace}
+    .pm-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+    @media (max-width:880px){.pm-grid{grid-template-columns:1fr}}
+    .pm-board{width:620px;height:620px;max-width:100%;margin:0 auto}
+    .pm-board .jxgbox{border:0;background:#fffef9}
+    .pm-chart svg,.pm-curve svg{display:block;width:100%;height:auto}
+    .pm-panel{border:1px solid var(--pico-muted-border-color);background:#fffef9;padding:12px 14px}
+    .pm-panel h2{font-size:.95rem;margin:0 0 8px}
+    .pm-panel table{border-collapse:collapse;width:100%;font:11.5px/1.5 ui-monospace,Menlo,monospace}
+    .pm-panel th,.pm-panel td{text-align:left;padding:3px 6px;border-bottom:1px solid var(--pico-muted-border-color)}
+    .pm-panel th{color:var(--pico-muted-color);font-weight:400}
+    .pm-panel td.num{text-align:right}
+    .pm-split{width:100%;border-collapse:collapse;font:12px/1.5 ui-monospace,Menlo,monospace;margin:0 0 8px}
+    .pm-split th,.pm-split td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--pico-muted-border-color)}
+    .pm-split th{color:var(--pico-muted-color);font-weight:600}
+    .pm-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:0 0 10px;align-items:start}
+    .pm-card{margin:0;background:#fffef9;border:1px solid var(--pico-muted-border-color);padding:8px}
+    .pm-card svg{display:block;width:100%;height:auto}
+    .pm-card figcaption{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);padding:6px 4px 2px}
+    .pm-card b{color:#3b2d1c}
+    .pm-stat{color:#8c6a21}
+    .pm-eq{font:14px/1.9 ui-monospace,Menlo,monospace;margin:0 0 8px}
+    .pm-note{margin-top:16px;max-width:78ch;color:var(--pico-muted-color)}
+    </style>
+  </Fragment>
+
+  <h1>The prime mover</h1>
+  <p class="lead">One point walked round a circle, exactly. Each step is the mirror of the triangle
+    across a shared side, so the hypotenuse keeps its length and the apex walks the circle in even
+    steps — <b>32.52°</b> for 7-24-25, twice the triangle's own turn. Twelve stations reach 357.7°:
+    the last is 2.3° short of the first, because 360 is not a whole multiple of 32.52. Every station
+    is a reduced ratio of whole numbers.</p>
+
+  <h2>The equations</h2>
+  <div class="pm-panel" style="max-width:760px">
+    <p class="pm-eq"><b>walker(k)</b> = (x + y i)<sup>2k+1</sup> / z<sup>2k</sup>
+      &nbsp;=&nbsp; z · u<sup>2k+1</sup>, &nbsp; u = (x + y i)/z</p>
+    <p class="pm-eq"><b>curve(k)</b> = p( X(k), Y(k) )</p>
+    <p class="pm-eq"><b>spirograph(k)</b> = α·walker(k) + β·walker(m·k)
+      = walker(k) · [ α + β·u<sup>2(m−1)k</sup> ]</p>
+    <p class="pm-note" style="margin:6px 0 0">The same `walker` feeds both: a curve is a polynomial
+      of the walk's x and y, and a spirograph is two walks added. In the spirograph the walker
+      factors out, so the whole curve is the walk times one power of the step — at <code>m = 1</code>
+      the bracket is constant and the result is a plain circle.</p>
+  </div>
+
+  <h2 id="pm-fig1-title" style="margin-top:26px">Fig. 1 · the walk</h2>
+  <div class="pm-bar">
+    <label for="pm-triple">triple
+      <select id="pm-triple">
+        <option value="3,4,5">3, 4, 5</option>
+        <option value="7,24,25">7, 24, 25</option>
+        <option value="44,117,125">44, 117, 125</option>
+        <option value="56,783,785" selected>56, 783, 785 — 4.09°</option>
+      </select>
+    </label>
+    <label for="pm-half"><input type="checkbox" id="pm-half" checked> quadrants I and IV only
+      <span class="pm-hint">(halves the walk, so the numbers stay smaller)</span></label>
+  </div>
+  <figure class="tile pm" style="margin:0">
+    <div id="tm-board" class="pm-board" data-figure="triangle-walk" style="width:620px;height:620px"></div>
+    <figcaption>Fig. 1 · mirrored triangles · orange rings where the hypotenuse meets the circle</figcaption>
+  </figure>
+
+  <h2 id="pm-fig2-title" style="margin-top:26px">Fig. 2 · the hit points</h2>
+  <div class="pm-chart"><div id="hit-chart"></div></div>
+  <p class="pm-note">The numbers behind the points are in the
+    <a href="/spec/prime-mover-gaussian.html">notes</a>, where they can be read without
+    crowding the figure.</p>
+
+  <h2 id="pm-fig3-title" style="margin-top:26px">Fig. 3 · the curves</h2>
+  <div class="pm-bar">
+    <label for="st-preset">curve
+      <select id="st-preset">
+        <option value="circle" selected>the circle</option>
+        <option value="s">the S</option>
+        <option value="loop">the loop</option>
+        <option value="leaf">the leaf</option>
+        <option value="crest">the crest</option>
+        <option value="trefoil">the trefoil</option>
+        <option value="fold">the cubic fold</option>
+        <option value="knot">the knot</option>
+        <option value="horn">the horn</option>
+      </select>
+    </label>
+  </div>
+  <div class="pm-curve">
+    <svg id="st-plot" viewBox="0 0 720 720" width="720" height="720" role="img"
+         aria-label="the curve made from the walk"></svg>
+  </div>
+  <div class="st-pick" id="st-pick">Click a station to read X, Y and the curve point.</div>
+  <p class="pm-note"><b>What this picture is.</b> Every station of the walk gives two numbers,
+    X and Y, each between −1 and 1. The curve is those two numbers put through a sum. <i>The circle</i>
+    changes nothing, so it shows the walk itself. <i>The S</i> takes Y and subtracts Y³, so the top
+    and bottom fold in. <i>The loop</i> does the same to X, folding left and right. <i>The leaf</i>
+    multiplies X by Y, and <i>the crest</i> multiplies X into Y, so the curve leans with its height.
+    The stations are exact; the line drawn between them is a smooth cubic, so it is approximate.</p>
+
+  <h2 id="pm-fig4-title" style="margin-top:26px">Fig. 4 · the spirograph</h2>
+  <div class="pm-bar">
+    <label for="sp-ratio">ratio
+      <select id="sp-ratio">
+        <option value="3">3</option>
+        <option value="5" selected>5</option>
+        <option value="7">7</option>
+        <option value="9">9</option>
+      </select>
+    </label>
+  </div>
+  <div class="pm-curve"><div id="sp-plot"></div></div>
+
+  <h2 style="margin-top:26px">Fig. 5 · curves with character</h2>
+  <p class="lead">Found by measurement, not by taste. Each curve is the walk under a
+    whole-number map; the numbers under it are what
+    <code>scripts/character_search.py</code> measured — loops, flats (inflections), crossing
+    pairs, and how close the figure is to its own mirror.</p>
+  <div class="pm-gallery">
+    {candidates.map((curve) => (
+      <figure class="pm-card">
+        <Fragment set:html={characterPanel(curve)} />
+        <figcaption>
+          <b>{curve.map}</b> · {curve.triple}<br />
+          <span class="pm-stat">{curve.loops} loops · {curve.flats} flats · {curve.crossings} crossings
+            · mirror {curve.mirror_gap} · score {curve.character}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2 style="margin-top:26px">Fig. 6 · an equation, and the circle taken out</h2>
+  <div class="pm-curve"><div id="equation-plot"></div></div>
+  <p class="pm-note">The operator's example, drawn: <code>x² + 2xy + y² = 1</code> is a pair of
+    lines, and taking the circle out — dropping <code>x² + y²</code> — leaves the cross term alone,
+    <code>2xy = 1</code>, a hyperbola. The walker's x and y are the same numbers the rest of the
+    page uses; this figure is where an equation can be read as a shape.</p>
+
+  <h2 style="margin-top:26px">Fig. 7 · the geared spirograph</h2>
+  <div class="pm-curve"><div id="gear-plot"></div></div>
+  <p class="pm-note">The toy itself: a small wheel rolling inside a ring, a pen fixed near its
+    rim. Whole-number radii close the curve; the drawing is sampled, and says so.</p>
+
+  <h2 style="margin-top:26px">Fig. 8 · the linkage</h2>
+  <div class="pm-bar">
+    <label for="lk-theta">crank angle <output id="lk-theta-out">40°</output>
+      <input id="lk-theta" type="range" min="0" max="360" step="1" value="40">
+    </label>
+    <label for="lk-u">P along the coupler <output id="lk-u-out">0.50</output>
+      <input id="lk-u" type="range" min="0" max="200" step="1" value="50">
+    </label>
+    <label for="lk-v">P off the coupler <output id="lk-v-out">−0.60</output>
+      <input id="lk-v" type="range" min="-150" max="150" step="1" value="-60">
+    </label>
+  </div>
+  <div class="pm-curve"><div id="linkage-plot"></div></div>
+
+  <h2 style="margin-top:26px">Fig. 9 · the circle taken out</h2>
+  <p class="lead">A curve's circular part is a constant on the walk, so the walk cannot
+    show it. Take it out and the rest is the character. The four drawings come first, then
+    the table: three stored curves and the operator's equation, each with the exact
+    stations and a cubic Bézier chain between them — the stations are exact, the line
+    between them is approximate and says so.</p>
+  <div class="pm-gallery pm-plots">
+    {plotPanels.map((panel) => (
+      <figure class="pm-card">
+        <Fragment set:html={figureSvg(panel)} />
+        <figcaption>
+          <span class="pm-eqline">{panel.equation}</span>
+          {(panel.formulas || []).map((line) => (
+            <code class="pm-formula">{line}</code>
+          ))}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="pm-note">Then the numbers behind the drawings — every row asserts its own
+    identity, and the last column is the worst error, which must be zero.</p>
+  <table id="pm-circle-split" class="pm-split">
+    <thead><tr><th>way</th><th>curve or equation</th><th>the blind part</th><th>error</th></tr></thead>
+    <tbody>
+      {splitRows.map((row) => (
+        <tr><td>{row.way}</td><td>{row.form}</td><td>{row.blind}</td><td>{row.error}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="pm-note">{splitExact
+    ? "Every identity holds in exact arithmetic — no decimal in any check."
+    : "A row's identity does not hold; the script reports the fault before the page is built."}</p>
+  <p class="pm-note">A four-bar linkage: a crank turning about A, a coupler, a rocker about D, and a
+    point P fixed to the coupler. P traces the curve. This is the mobile's industrial cousin — bars
+    with pivots, not vanes about one centre — and it is <b>sampled</b>: the joint positions are
+    circle intersections, which are irrational in general, so no exactness is claimed for it.</p>
+
+  <p class="pm-note">The numbers behind these figures — the twelve stations as fractions and
+    in compressed form — are in the <a href="/spec/prime-mover-gaussian.html">notes</a>, where
+    they can be read without crowding the drawings.</p>
+
+  <p class="pm-note">The walk is stored as two things — the apex and the rotation — and everything
+    here is generated from them. Geometry: <code>state/GEOMETRY-int.md</code>. Algebra:
+    <a href="/spec/prime-mover-gaussian.html">the Gaussian notes</a>. Spec:
+    <a href="/spec/prime-mover.html">the clean spec</a>.</p>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/vendor/jsxgraph/jsxgraphcore.js"></script>
+    <script is:inline>
+      // Fig. 1: the walk, built by reflection. Rebuilds when the triple changes.
+      window.buildWalkBoard = function buildWalkBoard(tripleName) {
+        const host = document.getElementById("tm-board");
+        if (!host || !window.JXG) return;
+        const board = JXG.JSXGraph.initBoard("tm-board", {
+          boundingbox: [-27, 27, 27, -27], axis: true, keepaspectratio: true,
+          showCopyright: false, showNavigation: false,
+          defaultAxes: {
+            strokeColor: "#b9a98a", strokeWidth: 1,
+            ticks: { strokeColor: "#b9a98a", fontSize: 10 },
+            labels: { strokeColor: "#9b8a6b", fontSize: 10 },
+          },
+        });
+        // the triple is (x, y, z): z is the hypotenuse, x and y are the legs.
+        // The walk takes the LONGER leg along the x axis, as the figure has always drawn it.
+        const [px, py, pz] = tripleName.split(",").map(Number);
+        const [legX, legY] = [px, py].sort((a, b) => b - a);
+        const hyp = pz;
+        const ink = "#3b2d1c", gold = "#c9a441", warm = "#6f4a2a", cool = "#2f6fa8";
+        const point = (x, y, name, colour) => board.create("point", [x, y], {
+          name: name, fixed: true, highlight: false, size: 3,
+          strokeColor: colour, fillColor: colour,
+          label: { offset: [8, 8], fontSize: 11, strokeColor: colour, color: colour },
+        });
+        const edge = (from, to, colour) => board.create("segment", [from, to], {
+          strokeColor: colour, strokeWidth: 1.6, highlight: false,
+        });
+
+        const origin = point(0, 0, "O", ink);
+        origin.setAttribute({ size: 2 });
+        // the feet walk the longer leg's circle, the apices the hypotenuse's
+        for (const r of [legX, hyp]) {
+          board.create("circle", [origin, r], {
+            strokeColor: gold, strokeWidth: 1, dash: 2, fillColor: "none", highlight: false,
+          });
+        }
+
+        let foot = point(legX, 0, "", warm);
+        let apex = point(legX, legY, `(${legX}, ${legY})`, warm);
+        const steps = 23;
+
+        for (let step = 0; step < steps; step += 1) {
+          const colour = step % 2 === 0 ? warm : cool;
+          edge(origin, foot, colour);
+          edge(foot, apex, colour);
+          edge(apex, origin, colour);
+          board.create("circle", [apex, 0.42], {
+            strokeColor: "#e08a1e", strokeWidth: 1.6, fillColor: "none", highlight: false,
+          });
+          if (step + 1 === steps) break;
+          const shareHypotenuse = step % 2 === 0;
+          const line = board.create("line", [origin, shareHypotenuse ? apex : foot], { visible: false });
+          if (shareHypotenuse) {
+            foot = board.create("reflection", [foot, line], {
+              name: "", fixed: true, size: 2.2, strokeColor: colour, fillColor: colour,
+              label: { visible: false },
+            });
+          } else {
+            apex = board.create("reflection", [apex, line], {
+              name: "", fixed: true, size: 2.2, strokeColor: colour, fillColor: colour,
+              label: { visible: false },
+            });
+          }
+        }
+
+        board.create("text", [-26, 26.4, `Fig. 1 · ${tripleName} · 23 mirrored triangles · orange: where the hypotenuse meets the circle`], {
+          fontSize: 11, strokeColor: ink, color: ink, anchorX: "left", highlight: false, fixed: true,
+        });
+        return board;
+      };
+      window.buildWalkBoard("7,24,25");
+    </script>
+    <script>
+      import { buildHitChart } from "../scripts/hit-points-chart.js";
+      import { setCurveTriple } from "../scripts/stage-two-curves.js";
+      import { buildSpirograph, spirographCost } from "../scripts/spirograph-curves.js";
+      import { buildLinkage } from "../scripts/linkage-curves.js";
+      import { buildGearedSpirograph } from "../scripts/geared-spirograph.js";
+      import { buildEquationDemo } from "../scripts/equation-demo.js";
+
+      const triple = document.getElementById("pm-triple");
+      const ratio = document.getElementById("sp-ratio");
+
+      // a ratio is offered only when its BigInt cost is safe for this triple
+      const limitRatios = (name) => {
+        for (const option of ratio.options) {
+          const { cost } = spirographCost(Number(option.value), name);
+          option.disabled = cost > 400000;
+        }
+        if (ratio.selectedOptions[0]?.disabled) ratio.value = "3";
+      };
+
+      // the thin triple walks ninety stations a lap; quadrants I and IV halve that,
+      // so it is the default there and only there
+      const half = document.getElementById("pm-half");
+      triple.addEventListener("change", () => {
+        half.checked = triple.value === "56,783,785";
+      });
+
+      // The heading carries the setting, the way the readouts carry their numbers:
+      // a reader who scrolls back can see which triple the figure under it shows.
+      const updateFigureTitles = () => {
+        const name = triple.value;
+        const halfOn = half.checked;
+        const dots = document.querySelectorAll("#hit-chart svg circle").length - 1;
+        const qualifier = halfOn ? " · quadrants I and IV" : "";
+        const three = `(${name})${qualifier}`;
+        document.getElementById("pm-fig1-title").textContent = `Fig. 1 · the walk — ${three} · ${dots} stations`;
+        document.getElementById("pm-fig2-title").textContent = `Fig. 2 · the hit points — ${three} · ${dots} stations`;
+        document.getElementById("pm-fig3-title").textContent = `Fig. 3 · the curves — ${three}`;
+        document.getElementById("pm-fig4-title").textContent = `Fig. 4 · the spirograph — ${three} · ratio ${ratio.value}`;
+      };
+
+      const redraw = () => {
+        const name = triple.value;
+        document.getElementById("tm-board").innerHTML = "";
+        window.buildWalkBoard(name);
+        buildHitChart("hit-chart", 12, name, document.getElementById("pm-half").checked);
+        setCurveTriple(name, document.getElementById("pm-half").checked);
+        limitRatios(name);
+        buildSpirograph("sp-plot", Number(ratio.value), name);
+        updateFigureTitles();
+      };
+      triple.addEventListener("change", redraw);
+      document.getElementById("pm-half")?.addEventListener("change", redraw);
+      ratio.addEventListener("change", redraw);
+
+      // first paint: the chart and both figures
+      buildHitChart("hit-chart", 12, triple.value, document.getElementById("pm-half").checked);
+      setCurveTriple(triple.value, document.getElementById("pm-half").checked);
+      limitRatios(triple.value);
+      buildSpirograph("sp-plot", Number(ratio.value), triple.value);
+      updateFigureTitles();
+      buildLinkage("linkage-plot");
+      buildGearedSpirograph("gear-plot");
+      buildEquationDemo("equation-plot");
+      document.getElementById("st-preset")?.addEventListener("change", () => setCurveTriple(triple.value));
+    </script>
+  </Fragment>
+</BaseLayout>

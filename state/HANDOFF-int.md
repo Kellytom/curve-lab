@@ -3062,3 +3062,33 @@ Tschirnhausen — classic but adds nothing; off the board.
   Chebyshev Lissajous family (known, parked by the operator).
 - **The one change of hands:** DeepSeek2 owns git from now; DeepSeek1 decides,
   reviews and writes the handoff.
+
+### The circle taken out — the prime mover's method (2026-11-19, late)
+
+- **The typo hunt is over; the page is green.** Defaults are the thin triple `(56, 783, 785)`
+  with quadrants I and IV ticked (a check fails if either slips); Fig. 1–4 headings carry the
+  triple, the mode and the station count; figures are numbered in page order 1–8; Fig. 9
+  follows them.
+- **The method is settled and written down** (`state/DESIGN-int.md`): a circular part is a
+  constant on the walk, so it is invisible; removing a radial part cannot reshape a
+  parametric curve (it only re-stations it by `t = Y/(1+X)`); a linkage rosette is exact only
+  when its closure discriminant is a rational square, and the parallelogram family is the one
+  that qualifies (60 sets, 20 directions).
+- **Built and proven:** `scripts/circle_split.py` (four implementations, all identities exact
+  in `Fraction`), `scripts/circle_plots.py` + `app/src/lib/plot-figure.js` (Fig. 9: seven
+  panels, axes, grid, 15 px legends, cubic Bézier chains), `scripts/linkage_exact.py`
+  (closure rule + search), tests for all three.
+- **The database:** `c-0270 lens-56-783-785`, `c-0271 four-fold-56-783-785`, and the three
+  named lace curves renamed to `lace-2-eight-3`, `lace-balloon-3`, `lace-arch-x-1` (aliases
+  kept). Registry 271, sets 271, notes 271; `check-db` green; figures rendered.
+- **Faults fixed with guards:** the figure index was overwritten by a partial run (regression
+  37, merge + index test); the closure test divided by an irrational distance and reported
+  every linkage as impossible (regression 38, rational line-and-circle test).
+- **Spec is a checklist now:** 73 items, 64 ticked, 9 open, rendered as checkboxes at
+  `/spec/prime-mover.html`; the generated pages carry a source hash and `tests/test_spec_pages.py`
+  fails when one is stale.
+- **Tried and rejected:** a foundry over odd polynomial maps (`scripts/curve_foundry.py`) —
+  the top-scoring curves were flat lenses with no crossings, no better than the astroid
+  already stored; the lace sweep to new `p` values (1/7, 1/9, 1/14…) — flat folds, not new
+  character; splitting the parametric circle at the constant term `P(0)` — every lace curve
+  starts at the origin, so `P(0) = 0` and the split is empty. The mean split replaced it.

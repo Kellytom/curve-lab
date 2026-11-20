@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="spec-source-hash" content="67f3ef3ad4a5037b">
+<title>PROBLEMS — the stylesheets</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+  li input[type="checkbox"] { margin-right: 0.5rem; }
+  li:has(> input[type="checkbox"]) { list-style: none; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="problems-the-stylesheets">PROBLEMS — the stylesheets</h1>
+<p>Every fault the styling has had, as the operator saw it, what was wrong, and the guard.
+The clean spec is <code>SPEC-css-int.md</code>.</p>
+<h2 id="1-the-header-took-too-much-room-and-wrapped-badly">1. The header took too much room and wrapped badly</h2>
+<p><strong>Seen:</strong> "clean up the html css for the top of the page: it takes way too much
+vertical space, and the items do a text wrap … indent so the 'curve-lab' looks like a
+title for this page, and the rest like options."</p>
+<p><strong>Wrong:</strong> the brand, the draft mark, the page name and the whole menu sat in one flex
+row of equal weight, so the menu wrapped into the same block and everything read as one
+list. Nothing was a title; nothing was subordinate.</p>
+<p><strong>Fix:</strong> two rows. The brand is a title line at 1.12rem Georgia, the draft mark beside
+it; the page name and the menu sit indented behind a 2px rule in the mono face.</p>
+<p><strong>Guard:</strong> the header is measured in <code>check-prime-mover-page.mjs</code> and in the CSS spec —
+96 px is the ceiling at 1280 px wide, 86 px the working value.</p>
+<h2 id="2-the-headers-line-spacing-was-wrong">2. The header's line spacing was wrong</h2>
+<p><strong>Seen:</strong> "first thing again: fix the line spacing on the header."</p>
+<p><strong>Wrong:</strong> the two rows were set from the flex gap alone, with no line-height of their
+own, so the title and the options drifted apart at some widths and touched at others.</p>
+<p><strong>Fix:</strong> explicit line-heights — 1.2 on the title row, 1.15 on the brand, 1.5 on the
+options — with a <code>0.15rem</code> margin under the title row.</p>
+<p><strong>Guard:</strong> the header-height measurement fails if the block grows past its budget.</p>
+<h2 id="3-pages-had-no-margin-of-their-own">3. Pages had no margin of their own</h2>
+<p><strong>Seen:</strong> the raw-number tables pushed the whole document sideways on <code>/stage-two/</code>.</p>
+<p><strong>Wrong:</strong> there was no <code>main</code> rule at all; pages relied on pico's <code>.container</code>, so a
+page that opted out had no margin, and any wide table widened the document.</p>
+<p><strong>Fix:</strong> one <code>main</code> rule in <code>app-shell.css</code>, and <code>overflow-x: auto</code> on panels.</p>
+<p><strong>Guard:</strong> <code>check-pages.mjs</code> asserts no document-level horizontal overflow at two
+widths.</p>
+<h2 id="4-text-zoom-was-never-tested">4. Text zoom was never tested</h2>
+<p><strong>Seen:</strong> "this user usually increases the size using command + twice. other users
+might do something else."</p>
+<p><strong>Wrong:</strong> the layout was only ever checked at 100% width. Browser zoom shrinks the
+layout width to 853 px at 150%, which is a different layout and was never measured.</p>
+<p><strong>Fix:</strong> a written rule — no sideways scrolling, the brand on one line, the menu free to
+wrap — and a gate that measures it.</p>
+<p><strong>Guard:</strong> <code>app/scripts/check-layout.mjs</code> runs at 1280, 853, 683 and 420 px.</p>
+<h2 id="how-a-new-problem-is-added">How a new problem is added</h2>
+<p>The operator's words first, then the cause in one sentence, the fix, and the command
+or measurement that fails if it returns.</p>
+<p class="note">Generated from <code>state/PROBLEMS-css-int.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>

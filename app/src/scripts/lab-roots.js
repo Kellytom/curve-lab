@@ -10,32 +10,7 @@
 
 const STEPS = 220;
 
-function gcd(a, b) {
-  let x = Math.abs(a), y = Math.abs(b);
-  while (y) [x, y] = [y, x % y];
-  return x || 1;
-}
-
-function lcm(a, b) {
-  return Math.abs(a * b) / gcd(a, b);
-}
-
 // (t - r) products, ascending powers, cleared to integers.
-function polynomialFromRoots(roots) {
-  let coefficients = [1];
-  for (const root of roots) {
-    const next = new Array(coefficients.length + 1).fill(0);
-    coefficients.forEach((c, i) => {
-      next[i] -= c * root;
-      next[i + 1] += c;
-    });
-    coefficients = next;
-  }
-  // clear denominators
-  let denominator = 1;
-  for (const c of coefficients) denominator = lcm(denominator, 1 / c);
-  return coefficients.map((c) => Math.round(c * denominator));
-}
 
 function integrate(row) {
   const out = [0];

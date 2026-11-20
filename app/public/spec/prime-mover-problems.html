@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="spec-source-hash" content="3a72185fe64d3c6e">
+<title>PROBLEMS — the prime mover page (/prime-mover/)</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+  li input[type="checkbox"] { margin-right: 0.5rem; }
+  li:has(> input[type="checkbox"]) { list-style: none; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="problems-the-prime-mover-page-prime-mover">PROBLEMS — the prime mover page (<code>/prime-mover/</code>)</h1>
+<p>Every fault this page has had, as the operator saw it, what was actually wrong,
+and the guard that keeps it fixed. The clean spec is <code>SPEC-prime-mover-int.md</code>; this
+file is the scar tissue, kept so nobody fixes the same thing twice.</p>
+<p><strong>Rule:</strong> a fix and its entry land together. If a guard is ever removed, the entry
+stays and says why.</p>
+<h2 id="1-the-page-was-not-in-the-app">1. The page was not in the app</h2>
+<p><strong>Seen:</strong> "remember we are in astro" — a standalone HTML file had been written into
+<code>workbench/</code> instead of a page in the app.</p>
+<p><strong>Wrong:</strong> the project has one shell (nav, theme, skip link) and one build. A stray
+file bypasses all of it and does not get checked.</p>
+<p><strong>Fix:</strong> the page is <code>app/src/pages/prime-mover.astro</code>; the stray file and its throwaway
+generator were deleted.</p>
+<p><strong>Guard:</strong> <code>app/scripts/check-pages.mjs</code> visits <code>/prime-mover/</code> and asserts no page errors
+and no self-link.</p>
+<h2 id="2-negative-set-below-the-axis">2. "Negative set, below the axis"</h2>
+<p><strong>Seen:</strong> "it is definitely not supposed to be 'negative set, below the axis' as I
+have said about 3+ times … it is the first part of the i set."</p>
+<p><strong>Wrong:</strong> colouring was described by where the dots fell, not by what they are.
+The label taught the consequence instead of the rule.</p>
+<p><strong>Fix:</strong> blue is the <strong>first part</strong> of the i set (<code>i &lt; 0</code>); orange is the <strong>second
+part</strong> (<code>i &gt; 0</code>); they are drawn interleaved so they alternate. The phrase "below
+the axis" is gone from the page.</p>
+<p><strong>Guard:</strong> shapes alternate around the ring (<code>S O S O …</code>), and the page text no
+longer contains the axis phrasing.</p>
+<h2 id="3-the-loop-stopped-short-of-a-turn">3. The loop stopped short of a turn</h2>
+<p><strong>Seen:</strong> "land the curves at ±372 … go past the end."</p>
+<p><strong>Wrong:</strong> six steps reached 318.78°, so the loop never completed a turn.</p>
+<p><strong>Fix:</strong> seven steps reach 371.91° for <code>(3,4,5)</code>; the number of steps per triple is
+now chosen as the smallest that passes a full turn.</p>
+<p><strong>Guard:</strong> the figure title names the triple and the step count; the driver table's
+last row is <code>+1</code>.</p>
+<h2 id="4-a-rounded-number-placed-the-dots">4. A rounded number placed the dots</h2>
+<p><strong>Seen:</strong> "no cheating, no nudging. numbers must be exact on top and bottom."</p>
+<p><strong>Wrong:</strong> the wave placed stations using <code>53.1301</code>, a rounded angle. Positions
+looked right and were not derived from the data.</p>
+<p><strong>Fix:</strong> x comes from the exact counter <code>k/steps</code>; y comes from the stored ratios.
+The angle is printed as a note only.</p>
+<p><strong>Guard:</strong> the table is checked against a value computed in the check itself, and
+no table cell may contain a decimal point.</p>
+<h2 id="5-decimals-in-the-tables">5. Decimals in the tables</h2>
+<p><strong>Seen:</strong> "i see decimals. please use rational fractions", then "exact does not mean
+fraction. it means integer value or rational fraction."</p>
+<p><strong>Wrong:</strong> coordinates were printed with <code>toFixed(2)</code>, which hides the ratio and
+cannot be checked.</p>
+<p><strong>Fix:</strong> every value is a whole number or <code>n/d</code>; whole numbers are written whole
+(<code>1</code>, not <code>1/1</code>).</p>
+<p><strong>Guard:</strong> no cell contains <code>.</code>; integers appear without a denominator.</p>
+<h2 id="6-the-imaginary-unit-came-back">6. The imaginary unit came back</h2>
+<p><strong>Seen:</strong> "did imaginary number sneak back in? what is this? (44+117i)/125", then
+"we ditched imaginaries because for example it adds sqrt5".</p>
+<p><strong>Wrong:</strong> the step table printed complex notation, so <code>i</code> meant two things on one
+page (the dial and the square root of minus one). Worse, a complex step imports an
+irrational length, which is why it was dropped in the first place.</p>
+<p><strong>Fix:</strong> a step is always written as its triple, <code>(3, 4, 5)</code>. The reason is recorded
+in <code>state/EXACT-NUMBERS-int.md</code>.</p>
+<p><strong>Guard:</strong> <code>scripts/check_no_imaginaries.py</code> (runs in <code>scripts/prepush.sh</code>), plus an
+assertion that no <code>number + number i</code> appears on the page and that the step reads as
+a triple.</p>
+<h2 id="7-rotten-patching-left-dead-code">7. Rotten patching left dead code</h2>
+<p><strong>Seen:</strong> "something is broken… you have some restriction making you not do the
+job" — the page had two helpers that only returned <code>pad</code>, three checkboxes wired to
+nothing, a <code>picked</code> value written and never read, and two copies of one comment
+block.</p>
+<p><strong>Wrong:</strong> a dozen string replacements in a row, each blind to the rest of the file.</p>
+<p><strong>Fix:</strong> the file was rewritten whole in one pass.</p>
+<p><strong>Guard:</strong> the page check asserts there is no dead control; the unused-variable
+lint runs in <code>npm --prefix app run check</code>.</p>
+<h2 id="8-two-minus-signs">8. Two minus signs</h2>
+<p><strong>Seen:</strong> caught by the first run of the new page check: the table printed
+<code>-16124/78125</code> while the prose used <code>−</code>.</p>
+<p><strong>Wrong:</strong> <code>String(negative)</code> gives a hyphen; the project writes the true minus.</p>
+<p><strong>Fix:</strong> one <code>ratio()</code> helper builds every printed number with U+2212.</p>
+<p><strong>Guard:</strong> the check compares the table against values built the same way, and the
+page text is asserted to contain no hyphen in a number.</p>
+<h2 id="9-branch-strokes-with-no-meaning">9. Branch strokes with no meaning</h2>
+<p><strong>Seen:</strong> "take away all those lines from fig 1. i really don't see the need."</p>
+<p><strong>Wrong:</strong> a short stroke was drawn at every station as a "preview of stage II".
+It crowded the ring and said nothing.</p>
+<p><strong>Fix:</strong> removed, with their constant and comment.</p>
+<p><strong>Guard:</strong> the ring has exactly three lines (two axes and the seam), one path (the
+loop), and zero green marks.</p>
+<h2 id="10-lines-on-fig-1-again">10. Lines on Fig. 1, again</h2>
+<p><strong>Seen:</strong> "take away all those lines from fig 1. i really don't see the need", and
+after the branches went, "imagine my surprise to see lines on figure 1 again".</p>
+<p><strong>Wrong:</strong> the branch strokes were removed, but the loop path was not: it joined the
+stations in i order, so every pair of neighbouring stations was a chord straight
+across the circle. The seam was a second chord. Both were read as clutter, and the
+second one survived the first fix.</p>
+<p><strong>Fix:</strong> Fig. 1 draws the dashed reference circle, the two axes, the station marks
+and their labels — and nothing else.</p>
+<p><strong>Guard:</strong> the page check asserts exactly two lines on the ring (the axes), zero
+paths, and zero green marks. A new chord fails the check.</p>
+<h2 id="11-the-circle-was-three-quarters-off-the-page">11. The circle was three quarters off the page</h2>
+<p><strong>Seen:</strong> "you dont understand or graph basic geometry correctly … he who does not
+understand geometry shall not enter here."</p>
+<p><strong>Wrong, measured:</strong> the figure put the origin at the <strong>bottom-left corner</strong> of a
+620 × 620 drawing and gave the window only positive coordinates (0…27). A circle
+centred there with radius 25 is 453 px wide, so it ran from x = −380 to x = 528 and
+y = 94 to y = 1002: <strong>three quarters of it lay outside the canvas</strong>. What the page
+showed was an arc, labelled as a circle. The geometry of the triangle was right;
+the window was not.</p>
+<p>Numbers, from the page itself: centre <code>(74, 548)</code>, radius <code>453.70</code>, canvas
+<code>620 × 620</code>.</p>
+<p><strong>Fix:</strong> the figure is rebuilt on <strong>JSXGraph</strong> (open source, installed as
+<code>jsxgraph@1.11.1</code>), with the origin at the centre, the window <code>−27 … 27</code> on both
+axes, equal scale on both axes, and every object constructed from points rather
+than placed by hand at pixels.</p>
+<p><strong>Guard:</strong> the check measures the rendered circle against the canvas and fails if
+any part of it leaves the visible area — the exact test that would have caught this
+before it shipped.</p>
+<h2 id="12-three-triangles-drawn-as-three-separate-shapes">12. Three triangles drawn as three separate shapes</h2>
+<p><strong>Seen:</strong> "no no no no! basic geometry! we are walking around the circle. the next
+triangle has side 24 that is shared with triangle 2 … we are flipping triangles and
+laying them on top of each other."</p>
+<p><strong>Wrong:</strong> I drew triangle 1, its mirror, and then a <em>third</em> triangle standing on its
+own with the step doubled. Each was placed as an independent shape. The construction
+is a <strong>chain</strong>: every triangle is the mirror of the one before across a shared side,
+alternating the hypotenuse and the 24 leg, so the feet walk the 24 circle and the
+apices the 25 circle. Independent shapes cannot show that, which is why the picture
+looked like three drawings rather than one walk.</p>
+<p><strong>Fix:</strong> the figure is built by repeated reflection in JSXGraph — the library does
+the geometry, and each new triangle is generated from the previous one.</p>
+<p><strong>Guard:</strong> the page check counts the chain's segments (three per triangle) and the
+dashed reference circles; a hand-placed extra shape would have to change the count.
+The walk is 23 triangles, so it passes a full turn (373.98°), and every apex carries
+an orange ring because the apex is the station the engine uses.</p>
+<h2 id="13-a-temporal-dead-zone-broke-the-page">13. A temporal dead zone broke the page</h2>
+<p><strong>Seen:</strong> the page rendered nothing and the console said
+<code>Cannot access 'DRIVE_STEPS' before initialization</code>.</p>
+<p><strong>Wrong:</strong> helpers were appended after the first call to <code>draw()</code>.</p>
+<p><strong>Fix:</strong> declarations moved above their first use, and the file reordered so the
+reader sees the order the browser runs.</p>
+<p><strong>Guard:</strong> the page check fails on any page error, so a dead page cannot pass.</p>
+<h2 id="13-four-constructions-parked-not-deleted">13. Four constructions parked, not deleted</h2>
+<p><strong>Seen:</strong> "we just spent hours finding the right way to walk the circle for 7,24,25,
+and now you are using something else."</p>
+<p><strong>Wrong:</strong> the page carried four other ways of walking — the <code>(3,4,5)</code> seven-step
+chain, a sine wave of <code>x</code> and <code>y</code> against the counter, a test-grid table of step
+budgets, and a triple chooser. Each was built before the walk was settled, and each
+invites the reader to think the walk is negotiable.</p>
+<p><strong>Fix:</strong> the page now shows only the settled walk: the triangle figure, the twelve
+hit points, and two tables (exact fractions, and the compressed <code>a = x/24</code>,
+<code>b = y/7</code>, hypotenuse form). The other four are removed from the page.</p>
+<p><strong>Not working for now, kept in the record:</strong></p>
+<ul>
+<li>the <code>(3,4,5)</code> seven-step chain, and its driver table;</li>
+<li>the <code>x(i)</code> / <code>y(i)</code> sine plot with the pale reference curve;</li>
+<li>the test-grid tables (125 / 625 / 3125 / 15625);</li>
+<li>the triple chooser and the guard line.</li>
+</ul>
+<p>They were honest experiments and they are superseded. If one comes back it must run
+on the settled walk, not beside it.</p>
+<h2 id="14-stage-ii-merged-in-and-the-page-tidied">14. Stage II merged in, and the page tidied</h2>
+<p><strong>Seen:</strong> "we need to choose variables and see equations that are common to them both."</p>
+<p><strong>Wrong:</strong> the walk lived on one page and the curves on another, so the shared object —
+<code>walker(k)</code> — was invisible, and the two pages drifted apart (two different walks at
+one point).</p>
+<p><strong>Fix:</strong> one page. The triple chooser drives every figure; the equations for the walker,
+the curve and the spirograph sit together; the numeric tables moved to the notes.</p>
+<p><strong>Guard:</strong> the page check asserts the triple chooser drives the board, the chart, the
+curve and the spirograph; and that no numeric table is back on the page.</p>
+<h2 id="15-the-thin-triple-froze-the-page-and-fig-3-showed-a-dot">15. The thin triple froze the page, and Fig. 3 showed a dot</h2>
+<p><strong>Seen:</strong> "dont allow step 9 for the spirograph when i am using the very thin
+triangles. the page becomes unresponsive. you are using bigint?" and "all i see is a
+little blue dot in the top left."</p>
+<p><strong>Wrong:</strong> two faults. The spirograph multiplied BigInt rationals by the thin triple's
+hypotenuse for ninety-nine steps at ratio 9 — thousands of digits, seconds of work. And
+Fig. 3 framed itself on the largest value, so a shallow arc of stations (the half walk
+at 4°) sat at the edge of an empty square and read as a dot.</p>
+<p><strong>Fix:</strong> a cost estimate per ratio, and ratios above it disabled (ratio 5, 7 and 9 are
+off for <code>(56, 783, 785)</code>); and Fig. 3 now frames the drawn points, never tighter than
+the unit circle.</p>
+<p><strong>Guard:</strong> the page check asserts the chooser disables the expensive ratios for the
+thin triple, and that Fig. 3 draws one dot per station.</p>
+<h2 id="16-the-spirograph-drew-nothing-for-the-thin-triple">16. The spirograph drew nothing for the thin triple</h2>
+<p><strong>Seen:</strong> "at the thin triangle Fig. 4 · the spirograph doesnt work."</p>
+<p><strong>Wrong:</strong> the stations are exact BigInt ratios, and the thin triple's denominators run
+to hundreds of digits. The drawing converted them with <code>Number(x) / Number(d)</code> — both
+sides became <code>Infinity</code>, so every coordinate was <code>Infinity / Infinity = NaN</code>. The SVG
+was written with <code>MNaN,NaN</code>, and the browser dropped it. The data was right; only the
+conversion was wrong.</p>
+<p><strong>Fix:</strong> one conversion for the whole project, <code>toFloat(n, d)</code>, which divides in BigInt
+at a fixed scale of 10¹² before converting. Twelve digits of precision, no overflow.</p>
+<p><strong>Guard:</strong> the page check asserts no <code>NaN</code> or <code>Infinity</code> in any coordinate or path
+attribute of the three figures — a bad conversion fails the run instead of drawing an
+empty box.</p>
+<p><strong>Enforced at the boundary:</strong> the conversion is a fixed-point shift in the driver
+(<code>fixed(n, d, 30)</code>), so the quotient is small whatever the size of the inputs. A
+conversion outside the driver would be a second way to draw the same number, which is
+how the first fault happened.</p>
+<h2 id="17-the-default-the-operator-asked-for-twice-was-not-the-pages-default">17. The default the operator asked for twice was not the page's default</h2>
+<p><strong>The operator's words:</strong> "i must have said put the thin triangle with the 2 quadrant
+button on as default and no one cared what i said..."</p>
+<p><strong>What was actually wrong:</strong> the thin triple and the half box were wired to the
+chooser's <code>change</code> event only. The markup still opened on <code>(7, 24, 25)</code> with the box
+unticked, so a reader who never touched the dropdown saw the wrong start — including
+the operator, every time the page was reloaded.</p>
+<p><strong>Fix:</strong> the markup is the default: <code>selected</code> on the <code>(56, 783, 785)</code> option and
+<code>checked</code> on <code>#pm-half</code>. The <code>change</code> handler stays, so another triple clears the tick
+and the thin one puts it back.</p>
+<p><strong>Guard:</strong> <code>app/scripts/check-prime-mover-page.mjs</code> reads the chooser and the box on
+load and fails unless the triple is <code>56,783,785</code>, the box is ticked, and the hit chart
+draws 23 points with 46 guides. Before the fix that check would have failed on all
+three counts.</p>
+<h2 id="how-a-new-problem-is-added">How a new problem is added</h2>
+<ol>
+<li>Write the operator's words first — they are the evidence.</li>
+<li>Say what was actually wrong, in one sentence.</li>
+<li>Say the fix.</li>
+<li>Name the guard: the command, the test, or the assertion. If there is no guard,
+   write "none" and say why that is acceptable.</li>
+</ol>
+<p class="note">Generated from <code>state/PROBLEMS-prime-mover-int.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>
