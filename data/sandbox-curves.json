@@ -541,7 +541,7 @@
    "name": "h-radius-1-4-cubic",
    "data": "{\"name\":\"h-radius-1-4-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"side-top-1\",\"crossedAt\":\"2026-11-20T15:37:09.207Z\"}",
    "createdAt": "2026-11-20T15:37:06.639Z",
-   "updatedAt": "2026-11-20T15:37:09.211Z"
+   "updatedAt": "2026-11-20T22:23:53.353Z"
   },
   {
    "name": "h-radius-1-4-every-term",
@@ -817,7 +817,7 @@
    "name": "h-radius-6-1-every-term",
    "data": "{\"name\":\"h-radius-6-1-every-term\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"flourish-8\",\"crossedAt\":\"2026-11-20T16:06:07.270Z\"}",
    "createdAt": "2026-11-20T16:06:06.026Z",
-   "updatedAt": "2026-11-20T16:06:07.277Z"
+   "updatedAt": "2026-11-20T22:23:53.353Z"
   },
   {
    "name": "h-radius-6-1-quadratic",
