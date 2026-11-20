@@ -39,6 +39,10 @@ model Note {
   plus       Int      @default(0)   // 0 = plate_math DEFAULT_PLUS
   minus      Int      @default(0)   // 0 = plate_math DEFAULT_MINUS
   profile    String?                // bow, s, taper, or null for the default
+  formula    String?                // the canonical formula, as JSON text
+  params     String?                // the construction, as JSON text
+  grid       String?                // the exact grid, 1/G
+  stationRule String?               // how the stations were placed
   updatedAt  DateTime @updatedAt
 }
 

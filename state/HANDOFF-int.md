@@ -3161,3 +3161,18 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The grid of a promoted hybrid is large** (561 digits for 199 stations); it is stored
   exactly in `grid` and its station rule is in `params`, because the lcm is the honest
   number and a rounded one would be a lie.
+
+### The hybrid record's shape — 2026-11-20
+
+- **Every figure carries its equation.** Each SVG has `<title>` and `<desc>` with the
+  searchable form (`x = cos^p(t), y = sin^q(t)`, plus the `P` polynomial), so an outside
+  search can match the file itself.
+- **Each card prints two formulas**: the searchable one in cos/sin, and the internal one in
+  `C`/`S` (`C = (1−t²)/(1+t²)`, `S = 2t/(1+t²)`), stored in `workbench/hybrids.json` under
+  `formula.internal`.
+- **The mature field set is on the record at rest**: rotation 0, pieces 1, borderUid null,
+  perSide 9, borderTurn 0, offsets 0, widthPct 0, plus 0, minus 0, profile null. `Note`
+  gained `formula`, `params`, `grid`, `stationRule` (schema pushed; check-db green).
+- **Known gap:** character rails cannot be drawn on a hybrid yet. `plate_math.group` builds
+  rails from polynomial `speedX/speedY`, and a hybrid is rational, stored as a path. The
+  placeholders are ready; a path-based rail is a future spec.

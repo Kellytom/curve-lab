@@ -57,7 +57,7 @@ def stations():
 ST = stations()
 
 
-def figure(points, name):
+def figure(points, name, desc=""):
     xs = [p[0] for p in points]
     ys = [p[1] for p in points]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
@@ -80,8 +80,44 @@ def figure(points, name):
                 f'<line x1="{c[0]:.1f}" y1="{c[1]:.1f}" x2="{e[0]:.1f}" y2="{e[1]:.1f}" stroke="#e6dccb"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SIZE} {SIZE}" '
             f'width="{SIZE}" height="{SIZE}" role="img" aria-label="{name}">'
+            f'<title>{name}</title><desc>{desc}</desc>'
             f'<rect width="{SIZE}" height="{SIZE}" fill="#fffef9"/>{axes}'
             f'<path d="{d}" fill="none" stroke="#2f6fa8" stroke-width="1.2"/></svg>')
+
+
+def middle_text(block):
+    """P = x^2 + <the block's terms> + y^2, written for a reader."""
+    block = BLOCKS.get(block, block)      # a block may arrive by name
+    if block in ("none", None):
+        block = []
+    terms = ["x^2", "y^2"]
+    for coefficient, ix, iy in block:
+        part = f"{coefficient}*" if coefficient != 1 else ""
+        part += (f"x^{ix}" if ix else "") + (f"*y^{iy}" if iy else "")
+        terms.insert(len(terms) - 1, part)
+    return "P = " + " + ".join(terms)
+
+
+def formulas(p, q, use, block):
+    """Three forms: what the internet calls it, what we compute, and how to search it."""
+    plain = f"x = cos^{p}(t), y = sin^{q}(t)"
+    internal = (f"x = C(t)^{p}, y = S(t)^{q}   with   "
+                f"C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)")
+    rational = (f"x = ((1 - t^2)/(1 + t^2))^{p}, "
+                f"y = (2t/(1 + t^2))^{q}")
+    if use == "colour":
+        use_text = "P tints the curve; the shape is set by p and q alone"
+    else:
+        use_text = f"each station is multiplied by P, the {block} middle terms of (x + y)^n"
+    return {
+        "plain": plain,
+        "internal": internal,
+        "rational": rational,
+        "middle": middle_text(block),
+        "parameter": "t rational; stations at t = u/(1 - |u|), u = i/100",
+        "use": use_text,
+        "search": f"{plain}  {middle_text(block)}  parametric curve, rational parametrisation",
+    }
 
 
 def main() -> int:
@@ -92,9 +128,11 @@ def main() -> int:
             base = [(power(C, p), power(S, q)) for C, S in ST]
             pts = [(float(x), float(y)) for x, y in base]
             name = f"h-colour-{p}-{q}"
-            (FIG / f"{name}.svg").write_text(figure(pts, name))
+            formula = formulas(p, q, "colour", "none")
+            (FIG / f"{name}.svg").write_text(figure(pts, name, formula["search"]))
             rows.append({"id": name, "p": p, "q": q, "use": "colour", "block": "none",
-                         "crossings": cs.crossings(pts), "figure": f"{name}.svg"})
+                         "crossings": cs.crossings(pts), "figure": f"{name}.svg",
+                         "formula": formula})
 
             for block_name, block in BLOCKS.items():
                 scaled = []
@@ -104,16 +142,19 @@ def main() -> int:
                         P += coefficient * power(x, ix) * power(y, iy)
                     scaled.append((float(x * P), float(y * P)))
                 name = f"h-radius-{p}-{q}-{block_name}"
-                (FIG / f"{name}.svg").write_text(figure(scaled, name))
+                formula = formulas(p, q, "radius", block_name)
+                (FIG / f"{name}.svg").write_text(figure(scaled, name, formula["search"]))
                 rows.append({"id": name, "p": p, "q": q, "use": "radius",
                              "block": block_name, "crossings": cs.crossings(scaled),
-                             "figure": f"{name}.svg"})
+                             "figure": f"{name}.svg",
+                             "formula": formula})
 
     OUT.write_text(json.dumps({
         "format": "curve-lab.hybrids/1",
         "parameter": "t = u/(1-|u|), u = i/100, i = -99..99",
         "powers": POWERS,
         "blocks": list(BLOCKS),
+        "formulaConvention": "plain | rational | parameter | use | search; every record carries it",
         "candidates": rows,
     }, indent=1) + "\n")
     print(f"wrote {len(rows)} figures to {FIG.relative_to(ROOT)} and {OUT.relative_to(ROOT)}")

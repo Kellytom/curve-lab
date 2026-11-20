@@ -71,3 +71,26 @@ Rules:
   grid, so it can be rebuilt without the desk;
 - the guard is `tests/test_hybrids.py`: every keep in the exported decisions has a registry
   record, every candidate has a complete `formula`, and every figure is on disk.
+
+## The record's shape — mature from the first promotion
+
+A promoted hybrid carries the same field set as a mature curve, with placeholders at rest,
+so nothing downstream has to guess what is missing:
+
+```
+rotation 0 · pieces 1 · borderUid null · perSide 9 · borderTurn 0
+offsets 0 · widthPct 0 · plus 0 · minus 0 · profile null
+importance 0 · starred false
+params { p, q, block, use, stations, uStep, stationRule }
+formula { plain, internal, rational, middle, parameter, use, search }
+grid 1/G (exact) · measures in the note
+```
+
+The same fields are columns on `Note` (`formula`, `params`, `grid`, `stationRule` added
+2026-11-20), so a later edit is a database edit, not a file rewrite.
+
+**The one thing still missing for character rails.** A rail is drawn by
+`plate_math.group` from `speedX`/`speedY` polynomial rows, and a hybrid is a rational
+curve stored as a path. So `offsets: 1` on a hybrid has nothing to draw yet: the rail
+needs a path-based construction. The placeholders are in place; the construction is
+future work and will be its own spec.
