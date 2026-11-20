@@ -55,7 +55,8 @@ function mobile(radiusA, radiusB, p, q) {
   return { points, period, capped: steps < period };
 }
 
-function crossings(points) {
+export function crossings(points) {
+  // Clustered: two reports within a thousandth of the size are one meeting.
   const seen = new Set();
   const n = points.length;
   for (let i = 0; i < n - 1; i += 1) {
@@ -206,18 +207,20 @@ function render() {
     `${circle(radiusA).length} + ${circle(radiusB).length} circle points · ratio ${p}/${q}`;
 }
 
-for (const id of ["lm-radius-a", "lm-radius-b", "lm-ratio-p", "lm-ratio-q"]) {
-  const control = document.getElementById(id);
-  if (control) control.addEventListener("change", render);
-}
-document.getElementById("lm-clear")?.addEventListener("click", () => {
-  document.getElementById("lm-plot").dataset.cuts = "";
+if (typeof document !== "undefined") {
+  for (const id of ["lm-radius-a", "lm-radius-b", "lm-ratio-p", "lm-ratio-q"]) {
+    const control = document.getElementById(id);
+    if (control) control.addEventListener("change", render);
+  }
+  document.getElementById("lm-clear")?.addEventListener("click", () => {
+    document.getElementById("lm-plot").dataset.cuts = "";
+    render();
+  });
+  for (const id of ["lm-radius-a", "lm-radius-b"]) {
+    const select = document.getElementById(id);
+    if (select) select.innerHTML = RADII.map((r) => `<option value="${r}">${r}</option>`).join("");
+  }
+  if (document.getElementById("lm-radius-a")) document.getElementById("lm-radius-a").value = "65";
+  if (document.getElementById("lm-radius-b")) document.getElementById("lm-radius-b").value = "325";
   render();
-});
-for (const id of ["lm-radius-a", "lm-radius-b"]) {
-  const select = document.getElementById(id);
-  if (select) select.innerHTML = RADII.map((r) => `<option value="${r}">${r}</option>`).join("");
 }
-if (document.getElementById("lm-radius-a")) document.getElementById("lm-radius-a").value = "65";
-if (document.getElementById("lm-radius-b")) document.getElementById("lm-radius-b").value = "325";
-render();

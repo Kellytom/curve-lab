@@ -163,7 +163,10 @@ tr:nth-child(even) td{{background:#fcf8ee}}
 </main></body></html>
 """
     OUT.write_text(page, encoding="utf-8")
-    # the hub bar and the lattice pass, so a rebuild does not drop them
+    # the draft label, the hub bar and the lattice pass, so a rebuild does not
+    # drop them
+    import stamp_draft
+    stamp_draft.stamp_file(OUT)
     import hub
     hub.decorate_file(OUT.name)
     print(OUT)

@@ -85,7 +85,7 @@ FORMATS = {
 # The two `.backup.json` files are the previous value kept by every save (the
 # register row 23 fault); they exist only after a save on this machine.
 OPTIONAL = {"g3-catalogue-cache.json", "finder-stars.json",
-            "finder.backup.json", "finder-stars.backup.json",
+            "finder.json", "finder.backup.json", "finder-stars.backup.json",
             "curve-notes.backup.json", "starred.backup.json"}
 
 

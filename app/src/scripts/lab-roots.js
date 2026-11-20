@@ -44,7 +44,9 @@ function curvePoints(u, v, steps = STEPS) {
   return points;
 }
 
-function crossings(points) {
+export function crossings(points) {
+  // Counts segment pairs, not places: rank with the clustered router
+  // (scripts/ph_crossings.py), which this must agree with at page sampling.
   let hits = 0;
   for (let i = 0; i < points.length - 2; i += 1) {
     const [ax, ay] = points[i];
@@ -124,8 +126,11 @@ export function explain(result, p, q, mid) {
 }
 
 // --- the page wiring -------------------------------------------------------
-const plot = document.getElementById("lab-plot");
-if (plot) {
+// Guarded so the module imports cleanly in Node: the calibration test counts
+// crossings on the same polyline the router counts.
+if (typeof document !== "undefined") {
+  const plot = document.getElementById("lab-plot");
+  if (plot) {
   const controls = {
     p: document.getElementById("p"),
     q: document.getElementById("q"),
@@ -182,4 +187,5 @@ if (plot) {
     });
   });
   draw();
+}
 }

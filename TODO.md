@@ -37,14 +37,17 @@ The main families are done; these are loose ends, not new work:
 Not urgent enough to stop the curve work, but these are the foundation the
 claims rest on. In priority order:
 
-- [ ] **Calibrate the crossing counters.** One test that pins the three known
-      numbers: `c-0262` at **9** pairs (router), `c-0070` at **11**, and the
-      Chebyshev `T3 x T5` at **4** (the (p-1)(q-1)/2 count). Run it against every
-      counter in the repo — `ph_crossings.stable_crossings`, the sampled counters
-      in `new_curves.py`, `coupler_curves.py`, `bezier_knots.py`,
-      `prime-mover.js` — and delete or rebadge the ones that disagree. Tonight
-      the same curve read 9, 4 and 1 depending on the sampler, and "540 new
-      curves" turned out to be flat ghosts.
+- [x] **Calibrate the crossing counters.** Done 2026-11-20 as
+      `tests/test_crossing_calibration.py`: every counter in the repo (the
+      router, `parametric_search` raw and clustered, `coupler_curves`,
+      `bezier_knots`, and the three page counters `lissajous.js`, `lab-roots.js`,
+      `lattice-mobile.js`) now reports the same number on the same curve. The
+      verified pins are `c-0262` = **9**, `c-0260` = **19**, `c-0253` = **6**,
+      and the Chebyshev **arc** `T3 x T5` = **2**. Two of the old pins do not
+      reproduce and are replaced: `c-0070` reads **1** from both the router and
+      the analysis store (if 11 was right, name the curve it was measured on),
+      and the `(p-1)(q-1)/2` count is the **closed** Lissajous on the circle —
+      our `T3 x T5` is the open arc on [0, 1], a different object.
 - [ ] **A smoke test per generator.** `analyse_curves`, `bezier_knots`,
       `root_search`, `parity_search`, `new_curves`, `coupler_curves`,
       `mobile_search`, `sweep_prime_mover`, `add_found_curves`: each must have a

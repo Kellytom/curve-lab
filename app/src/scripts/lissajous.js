@@ -58,8 +58,11 @@ export function crossings(points) {
 }
 
 // --- page wiring -----------------------------------------------------------
-const svg = document.getElementById("liss-plot");
-if (svg) {
+// Guarded so the module imports cleanly in Node: the calibration test counts
+// crossings on the same polyline the router counts.
+if (typeof document !== "undefined") {
+  const svg = document.getElementById("liss-plot");
+  if (svg) {
   const mInput = document.getElementById("liss-m");
   const nInput = document.getElementById("liss-n");
   const readout = document.getElementById("liss-readout");
@@ -90,4 +93,5 @@ if (svg) {
   };
   [mInput, nInput].forEach((input) => input.addEventListener("input", draw));
   draw();
+}
 }
