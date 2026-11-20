@@ -647,9 +647,9 @@
   },
   {
    "name": "h-radius-2-1-cubic",
-   "data": "{\"name\":\"h-radius-2-1-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"1/2-butterfly-2\",\"crossedAt\":\"2026-11-20T15:38:05.228Z\"}",
+   "data": "{\"name\":\"h-radius-2-1-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"1/2-butterfly-2\",\"construction\":{\"kind\":\"hybrid\",\"parent\":null,\"parentName\":null,\"half\":null,\"cuts\":[],\"ends\":[[0.939882,-0.018993],[1.060933,0.02144]],\"formula\":{\"plain\":\"x = cos^2(t), y = sin^1(t)\",\"internal\":\"x = C(t)^2, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"rational\":\"x = ((1 - t^2)/(1 + t^2))^2, y = (2t/(1 + t^2))^1\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"parameter\":\"t rational; stations at t = u/(1 - |u|), u = i/100\",\"use\":\"each station is multiplied by P, the cubic middle terms of (x + y)^n\",\"search\":\"x = cos^2(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + y^2  parametric curve, rational parametrisation\"},\"note\":\"each station is multiplied by P, the cubic middle terms of (x + y)^n\"},\"transform\":{\"degrees\":90,\"matrix\":[[0,-1],[1,0]],\"exact\":true},\"crossedAt\":\"2026-11-20T18:18:22.577Z\"}",
    "createdAt": "2026-11-20T15:38:04.146Z",
-   "updatedAt": "2026-11-20T18:03:51.325Z"
+   "updatedAt": "2026-11-20T18:18:22.589Z"
   },
   {
    "name": "h-radius-2-1-every-term",
@@ -733,7 +733,7 @@
    "name": "h-radius-4-1-cubic",
    "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"crossedAt\":\"2026-11-20T15:39:26.721Z\"}",
    "createdAt": "2026-11-20T15:39:26.595Z",
-   "updatedAt": "2026-11-20T18:03:51.325Z"
+   "updatedAt": "2026-11-20T18:17:31.976Z"
   },
   {
    "name": "h-radius-4-1-every-term",
