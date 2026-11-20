@@ -6,6 +6,7 @@
 
 import { copyFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const DB = path.join(ROOT, "app", "prisma", "dev.db");
@@ -31,3 +32,15 @@ if (existsSync(DB)) {
 }
 copyFileSync(source, DB);
 console.log(`restored ${path.relative(ROOT, source)} · ${(statSync(DB).size / 1024).toFixed(0)} KB`);
+
+// The restored database is a different record: refresh every file in data/,
+// and say so loudly if the refresh fails, because the copy is now behind.
+try {
+  execFileSync(process.env.NODE24 || "node", ["scripts/export-data.mjs"], {
+    cwd: ROOT,
+    stdio: "inherit",
+  });
+} catch {
+  console.error("the data export failed after the restore; run scripts/export-data.mjs");
+  process.exitCode = 1;
+}

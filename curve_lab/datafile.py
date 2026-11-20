@@ -58,7 +58,7 @@ FORMATS = {
     "ph-quintic-yours.json": "curve-lab.ph-quintic-yours/1",
     "real-curves.json": "real-curves/1",
     "root-family.json": "curve-lab.root-family/1",
-    "sandbox-curves.json": "curve-lab.sandbox-curves/1",
+    "sandbox-adders.json": "curve-lab.sandbox-adders/1",
     "sandbox-parametric.json": "curve-lab.sandbox-parametric/1",
     "parametric-candidates.json": "curve-lab.parametric-candidates/1",
     "septic-curves.json": "curve-lab.septic-curves/1",

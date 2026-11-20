@@ -9,6 +9,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "@prisma/client";
+import { exportTable } from "../src/lib/data-export.js";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8"));
@@ -72,4 +73,9 @@ for (const record of registry.curves) {
   console.log(`created ${record.uid} ${record.name}`);
 }
 console.log(`${created} created, registry has ${registry.curves.length}`);
+// The visible record: whoever writes the database refreshes its JSON copy.
+if (created) {
+  const { name, count } = await exportTable("curves");
+  console.log(`refreshed data/${name} (${count} rows)`);
+}
 await prisma.$disconnect();

@@ -4140,9 +4140,13 @@ PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs           # write
 PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs --check   # fail if stale
 ```
 
-The save endpoints (`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call
-the same exporter, so a save writes its file; a save whose file cannot be written
-says so in the response. `scripts/sync-data.sh` stages `data/` on every run.
+**The rule: whoever writes the database refreshes the copy.** The save endpoints
+(`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call the same exporter,
+so a save writes its file, and a save whose file cannot be written says so in the
+response. The bulk writers do it too: `add-registry-curves.mjs` and `jobs.mjs`
+write their one file, `migrate.mjs` and `restore-db.mjs` refresh everything.
+`--check` refreshes first and verifies second, so it cannot fail on a copy that
+was old before it started; a failure means a save landed inside the verify itself. `scripts/sync-data.sh` stages `data/` on every run.
 `tests/test_data_export.py` fails when a file is stale. Every curve in
 `data/curves.json` carries `formula: {plain, rational, parameter, use, search}`,
 built from the stored rows (`app/src/lib/formula.js`) and checked against a

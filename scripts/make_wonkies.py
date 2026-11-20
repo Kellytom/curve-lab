@@ -28,7 +28,7 @@ import character_search as cs  # noqa: E402
 from diagonal_crossings import crossings_via_sin2 as diagonal_crossings  # noqa: E402
 
 CANDIDATES = ROOT / "workbench" / "hybrids.json"
-DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
+DECISIONS = ROOT / "data" / "sandbox-curves.json"
 OUT = ROOT / "workbench" / "wonkies.json"
 N = 100
 
@@ -192,7 +192,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     candidates = {row["id"]: row for row in json.loads(CANDIDATES.read_text())["candidates"]}
-    decisions = json.loads(DECISIONS.read_text()).get("curves", [])
+    decisions = json.loads(DECISIONS.read_text()).get("rows", [])
     wonks = []
     for row in decisions:
         name = str(row.get("curveName") or "")

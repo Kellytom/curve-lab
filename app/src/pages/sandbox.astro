@@ -1,19 +1,59 @@
 ---
-// Two sandboxes on one page, both from workbench/sandbox-curves.json:
+// Two sandboxes on one page, both from workbench/sandbox-adders.json:
 //
 //   the visual adder   every term drawn alone, three across, then the sum
-//   the imaginary      the polynomial at z = b i, exact numbers where they exist
+//   the quadrature     the polynomial at a quarter turn, exact numbers where they exist
 //
-// Sampled drawings; the imaginary curves carry exact grid and inflection counts
+// Sampled drawings; the quadrature curves carry exact grid and inflection counts
 // from the one core, so the page never claims exactness it does not have.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { repoRoot } from "../lib/gallery.js";
 
-const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-curves.json"), "utf8"));
+const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-adders.json"), "utf8"));
 // The parametric material lives in its own file; one page, two datasets.
 const parametric = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "sandbox-parametric.json"), "utf8"));
+
+
+
+
+// A fixed reference diagram: the two walks as coordinates, labelled, separated
+// positive above and negative below. It is a drawing to read, not a calculation.
+const REFERENCE_POSITIVE = [[1,0],[2,1],[3,4],[0.72,3.94],[-0.90,3.07],[-1.74,1.88],
+  [-1.92,0.72],[-1.63,0.17],[-1.11,0.70],[-0.54,0.90],[-0.06,0.84],[0.25,0.62]];
+const REFERENCE_NEGATIVE = [[1,0],[2,-1],[3,-4],[0.72,-3.94],[-0.90,-3.07],[-1.74,-1.88],
+  [-1.92,-0.72],[-1.63,-0.17],[-1.11,-0.70],[-0.54,-0.90],[-0.06,-0.84],[0.25,-0.62]];
+
+function referenceDiagram(size = 620) {
+  const all = [...REFERENCE_POSITIVE, ...REFERENCE_NEGATIVE];
+  const reach = Math.max(...all.map(([x, y]) => Math.max(Math.abs(x), Math.abs(y))), 1) + 0.6;
+  const pad = 30;
+  const k = (size - 2 * pad) / (2 * reach);
+  const sx = (x) => size / 2 + x * k;
+  const sy = (y) => size / 2 - y * k;
+  const grid = [];
+  for (let v = -Math.ceil(reach); v <= Math.ceil(reach); v += 1) {
+    grid.push(`<line x1="${sx(v)}" y1="${sy(-reach)}" x2="${sx(v)}" y2="${sy(reach)}" stroke="${v === 0 ? "#b9a98a" : "#ece4d2"}" stroke-width="${v === 0 ? 1.1 : 0.6}"/>`);
+    grid.push(`<line x1="${sx(-reach)}" y1="${sy(v)}" x2="${sx(reach)}" y2="${sy(v)}" stroke="${v === 0 ? "#b9a98a" : "#ece4d2"}" stroke-width="${v === 0 ? 1.1 : 0.6}"/>`);
+  }
+  const path = (points) => points.map(([x, y], i) => `${i ? "L" : "M"}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join("");
+  const labels = (points, fill, dy) => points.map(([x, y]) =>
+    `<text x="${(sx(x) + 6).toFixed(1)}" y="${(sy(y) + dy).toFixed(1)}" font-family="ui-monospace,Menlo,monospace" font-size="9" fill="${fill}">${x.toFixed(2)}, ${y.toFixed(2)}</text>`).join("");
+  const dots = (points, fill) => points.map(([x, y]) =>
+    `<circle cx="${sx(x).toFixed(1)}" cy="${sy(y).toFixed(1)}" r="3.4" fill="${fill}"/>`).join("");
+  return `<svg viewBox="0 0 ${size} ${size}" role="img" aria-label="reference: the two walks, positive above, negative below">
+    <rect width="${size}" height="${size}" fill="#fffdf7"/>${grid.join("")}
+    <path d="${path(REFERENCE_POSITIVE)}" fill="none" stroke="#e8b98a" stroke-width="1.6"/>
+    <path d="${path(REFERENCE_NEGATIVE)}" fill="none" stroke="#9ec3df" stroke-width="1.6"/>
+    ${dots(REFERENCE_POSITIVE, "#c9761f")}${dots(REFERENCE_NEGATIVE, "#2f6fa8")}
+    ${labels(REFERENCE_POSITIVE, "#8c5a1a", -7)}${labels(REFERENCE_NEGATIVE, "#245480", 13)}
+    <text x="${pad}" y="${size - 12}" font-family="ui-monospace,Menlo,monospace" font-size="10" fill="#8c6a21">separated · positive above, negative below</text>
+  </svg>`;
+}
+
+const reference = referenceDiagram();
+
 const wobble = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wobble.json"), "utf8"));
 const beziers = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "bezier-knots.json"), "utf8"));
 const couplers = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "coupler-curves.json"), "utf8"));
@@ -82,16 +122,232 @@ function rowsOf(terms) {
     .sum .tile svg{width:560px;height:560px}
     .imag{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
     .imag .tile svg{width:100%;height:auto}
+    .pm svg{display:block;width:100%;height:auto}
+    .pm-pair{display:block;margin:0}
+    .pm-pair .pm{margin:0 0 10px;border:0;padding:0;background:none}
+    .pm-controls{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:8px 0 6px}
+    .pm-field{display:flex;flex-direction:row;gap:5px;align-items:center;min-width:0}
+    .pm-field label{font:11px/1 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin:0;white-space:nowrap}
+    .pm-field output{font:11px/1 ui-monospace,Menlo,monospace;color:var(--pico-color)}
+    .pm-field button{font:11px/1 ui-monospace,Menlo,monospace;height:24px;padding:0 8px;margin:0;background:#fbf3dc;border:1px solid #c9a441;color:#8c6a21;cursor:pointer;border-radius:2px}
+    .pm-field button[aria-pressed="false"]{background:#fff;color:#8c6a21}
+    .pm-field input[type=number]{width:62px;height:24px;margin:0;padding:0 .3rem;font:11px/1 ui-monospace,Menlo,monospace;border-radius:2px}
+    .pm-field input[type=range]{width:96px;height:14px;margin:0;padding:0}
+    .pm-field select{width:84px;height:24px;margin:0;padding:0 .25rem;font:11px/1 ui-monospace,Menlo,monospace;border-radius:2px}
+    .pm-save{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 18px;font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--pico-muted-color)}
+    .pm-save input[type=text]{width:200px;margin:0;padding:.2rem .4rem;font:12px/1.3 ui-monospace,Menlo,monospace}
+    .pm-save select{width:220px;margin:0;padding:.2rem .35rem;font:12px/1.3 ui-monospace,Menlo,monospace}
+    .pm-save button{font:11px/1.2 ui-monospace,Menlo,monospace;padding:3px 10px;margin:0;background:#fbf3dc;border:1px solid #c9a441;color:#8c6a21;cursor:pointer}
+    .pm-status{color:#8a3b2a}
+    .pm-hud{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin:2px 0 8px;padding:4px 8px;background:var(--pico-card-sectioning-background-color);border:1px solid var(--pico-muted-border-color)}
+    .pm-turns{font:11px/1.5 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);margin:2px 0 6px}
+    .pm-turns b{color:#8c6a21}
     .facts{font:11px/1.6 ui-monospace,Menlo,monospace;color:var(--pico-muted-color);padding:6px 8px}
     </style>
   </Fragment>
 
-  <h1>Two sandboxes</h1>
-  <p class="lead">Both are sampled drawings. The imaginary curves also carry exact
-    grid and inflection counts from the one core, and say so where they do.</p>
+  <h1>The sandboxes</h1>
+  <p class="lead">Each section is a separate machine for making curves. Sampled drawings say so; the exact numbers carry their source.</p>
 
 
-  <h2>0 · The Lissajous maker</h2>
+
+  <h2>0 · Mirrored Euler transforms</h2>
+  <p class="lead">The same machine, with the chain broken in half. Each step is a p-triple
+    turn, and the step after it is the <b>mirror</b> of that triple — its last two numbers
+    swapped. For <code>(3,4,5)</code> the chain reads
+    <code>(3,4,5)</code>, <code>(3,5,4)</code>, <code>(3,4,5)</code>, <code>(3,5,4)</code>.
+    The first step keeps the circle; the mirror turns by a slightly different angle and
+    grows, so the walk breathes instead of holding one radius. Every reading is a fraction
+    of a turn; degrees are a readout, never an entry.</p>
+
+  <div class="pm-controls">
+    <div class="pm-field">
+      <label for="mm-triple">triple</label>
+      <select id="mm-triple"><option>3,4,5</option><option>7,24,25</option><option>5,12,13</option><option>8,15,17</option><option>20,21,29</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="mm-steps">steps <output id="mm-steps-out">12</output></label>
+      <input id="mm-steps" type="range" min="3" max="80" step="1" value="12">
+    </div>
+    <div class="pm-field">
+      <label for="mm-lag-frac">lag (turn) <output id="mm-lag-out">27°</output></label>
+      <select id="mm-lag-frac"><option value="0/1">0/1</option><option value="1/12" selected>1/12</option><option value="1/9">1/9</option><option value="1/8">1/8</option><option value="1/6">1/6</option><option value="1/5">1/5</option><option value="1/4">1/4</option><option value="1/3">1/3</option><option value="2/5">2/5</option><option value="1/2">1/2</option><option value="3/5">3/5</option><option value="2/3">2/3</option><option value="3/4">3/4</option><option value="4/5">4/5</option><option value="5/6">5/6</option><option value="7/8">7/8</option><option value="8/9">8/9</option><option value="11/12">11/12</option><option value="1/1">1/1</option></select>
+      <input id="mm-lag-range" type="range" min="0" max="18" step="1" value="1" aria-label="lag stop">
+    </div>
+    <div class="pm-field">
+      <label for="mm-damp-frac">orange radius <output id="mm-damp-out">4/5</output></label>
+      <select id="mm-damp-frac"><option value="1/1">1/1</option><option value="9/10">9/10</option><option value="4/5" selected>4/5</option><option value="3/4">3/4</option><option value="2/3">2/3</option><option value="1/2">1/2</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="mm-damp-blue-frac">blue radius <output id="mm-damp-blue-out">4/5</output></label>
+      <select id="mm-damp-blue-frac"><option value="1/1">1/1</option><option value="9/10">9/10</option><option value="4/5" selected>4/5</option><option value="3/4">3/4</option><option value="2/3">2/3</option><option value="1/2">1/2</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="mm-damp-at-frac">onset (turn) <output id="mm-damp-at-out">45°</output></label>
+      <select id="mm-damp-at-frac"><option value="0/1">0/1</option><option value="1/12">1/12</option><option value="1/9">1/9</option><option value="1/8" selected>1/8</option><option value="1/6">1/6</option><option value="1/5">1/5</option><option value="1/4">1/4</option><option value="1/3">1/3</option><option value="2/5">2/5</option><option value="1/2">1/2</option><option value="3/5">3/5</option><option value="2/3">2/3</option><option value="3/4">3/4</option><option value="4/5">4/5</option><option value="5/6">5/6</option><option value="7/8">7/8</option><option value="8/9">8/9</option><option value="11/12">11/12</option><option value="1/1">1/1</option></select>
+    </div>
+    <div class="pm-field">
+      <button type="button" id="mm-labels" aria-pressed="true">labels on</button>
+    </div>
+    <div class="pm-field">
+      <label for="mm-crop">crop ±y <output id="mm-crop-out">all</output></label>
+      <input id="mm-crop" type="range" min="0" max="1000" step="1" value="1000" aria-label="crop half height">
+    </div>
+  </div>
+
+  <div class="pm-turns">mirror <b id="mm-mirror-out">3,5,4</b> · <span id="mm-turns-out">—</span></div>
+
+  <div class="pm-pair">
+    <figure class="tile pm" style="margin:0">
+      <div id="mm-plot"></div>
+      <figcaption>the mirrored chain and its sum · orange the chain, blue its conjugate</figcaption>
+    </figure>
+  </div>
+
+  <div class="pm-hud" id="mm-hud">view: —</div>
+
+  <div class="pm-save">
+    <label for="mm-name">name</label>
+    <input id="mm-name" type="text" placeholder="mirrored chain 1" aria-label="name for this mirrored-chain curve">
+    <button type="button" id="mm-save">save</button>
+    <button type="button" id="mm-rename">rename</button>
+    <label for="mm-saved">saved</label>
+    <select id="mm-saved"><option value="">—</option></select>
+    <button type="button" id="mm-load">load</button>
+    <span id="mm-status" class="pm-status" aria-live="polite"></span>
+  </div>
+
+  <div class="pm-pair">
+    <figure class="tile pm" style="margin:0">
+      <div id="mm-sep"></div>
+      <figcaption>separated: the chain above the axis, its conjugate mirrored below</figcaption>
+    </figure>
+  </div>
+
+  <h2>0a · The lattice mobile</h2>
+  <p class="lead">A spirograph whose every station is an integer point. Two arms each walk the
+    integer points of their own circle, and the pen is their sum —
+    <code>P = A[k·q] + B[k·p]</code> — so each station is the sum of two integer points and
+    therefore an integer point itself. <b>Click a station to cut there</b>; the dashed stub is
+    the branch, taken along the exact integer perpendicular of the incoming segment. The cost,
+    said plainly: the integer points on a circle are not evenly spaced in angle, so the pen
+    speeds up and slows down where they crowd, and the figures are coarser than a drawn
+    spirograph. That is the price of every station being exact.</p>
+
+  <div class="pm-controls">
+    <div class="pm-field">
+      <label for="lm-radius-a">radius A</label>
+      <select id="lm-radius-a"></select>
+    </div>
+    <div class="pm-field">
+      <label for="lm-radius-b">radius B</label>
+      <select id="lm-radius-b"></select>
+    </div>
+    <div class="pm-field">
+      <label for="lm-ratio-p">ratio</label>
+      <select id="lm-ratio-p"><option>1</option><option>2</option><option>3</option><option>5</option><option>7</option></select>
+      <span class="plus">/</span>
+      <select id="lm-ratio-q"><option>1</option><option>2</option><option>3</option><option>5</option><option>7</option></select>
+    </div>
+    <div class="pm-field">
+      <button type="button" id="lm-clear">clear cuts</button>
+    </div>
+  </div>
+
+  <div class="pm-turns" id="lm-readout">—</div>
+
+  <div class="pm-pair">
+    <figure class="tile pm" style="margin:0">
+      <div id="lm-plot"></div>
+      <figcaption>the lattice mobile · every dot is an integer station, every cut is red</figcaption>
+    </figure>
+  </div>
+
+  <div class="pm-hud" id="lm-hud">—</div>
+
+  <h2>0b · The prime mover</h2>
+  <p class="lead">Instead of a straight parameter <code>t</code>, a pair of variables
+    travels the circle. Each step is a <b>p-triple</b> divided by its hypotenuse — the triple
+    <code>(3, 4, 5)</code> gives a turn of 53.13° and keeps the length at exactly 1 — so a walk
+    of them stays on the <b>integer circle</b> and every position is a ratio of whole numbers.
+    A complex step is refused: a step like <code>2 + i</code> has a length that is not a ratio,
+    and that length would ride along in every position afterwards. Orange is the positive walk, blue the
+    negative (the conjugate: different points, not the same ones backwards). PM2 is the
+    same walk retarded by a lag; <b>brown</b> is the two added station by station, drawn
+    with a Catmull-Rom spline so the curve between the lattice points is visible.</p>
+    <div class="pm-controls">
+    <div class="pm-field">
+      <label for="pm-factor">factor</label>
+      <select id="pm-factor"><option>3,4,5</option><option>7,24,25</option><option>5,12,13</option><option>8,15,17</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="pm-steps">steps <output id="pm-steps-out">12</output></label>
+      <input id="pm-steps" type="range" min="3" max="80" step="1" value="12">
+    </div>
+    <div class="pm-field">
+      <label for="pm-lag-frac">lag (turn) <output id="pm-lag-out">27°</output></label>
+      <select id="pm-lag-frac"><option value="0/1">0/1</option><option value="1/12" selected>1/12</option><option value="1/9">1/9</option><option value="1/8">1/8</option><option value="1/6">1/6</option><option value="1/5">1/5</option><option value="1/4">1/4</option><option value="1/3">1/3</option><option value="2/5">2/5</option><option value="1/2">1/2</option><option value="3/5">3/5</option><option value="2/3">2/3</option><option value="3/4">3/4</option><option value="4/5">4/5</option><option value="5/6">5/6</option><option value="7/8">7/8</option><option value="8/9">8/9</option><option value="11/12">11/12</option><option value="1/1">1/1</option></select>
+      <input id="pm-lag-range" type="range" min="0" max="18" step="1" value="1" aria-label="lag stop">
+    </div>
+    <div class="pm-field">
+      <label for="pm-damp-frac">orange radius <output id="pm-damp-out">4/5</output></label>
+      <select id="pm-damp-frac"><option value="1/1">1/1</option><option value="9/10">9/10</option><option value="4/5" selected>4/5</option><option value="3/4">3/4</option><option value="2/3">2/3</option><option value="1/2">1/2</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="pm-damp-blue-frac">blue radius <output id="pm-damp-blue-out">4/5</output></label>
+      <select id="pm-damp-blue-frac"><option value="1/1">1/1</option><option value="9/10">9/10</option><option value="4/5" selected>4/5</option><option value="3/4">3/4</option><option value="2/3">2/3</option><option value="1/2">1/2</option></select>
+    </div>
+    <div class="pm-field">
+      <label for="pm-damp-at-frac">onset (turn) <output id="pm-damp-at-out">45°</output></label>
+      <select id="pm-damp-at-frac"><option value="0/1">0/1</option><option value="1/12">1/12</option><option value="1/9">1/9</option><option value="1/8" selected>1/8</option><option value="1/6">1/6</option><option value="1/5">1/5</option><option value="1/4">1/4</option><option value="1/3">1/3</option><option value="2/5">2/5</option><option value="1/2">1/2</option><option value="3/5">3/5</option><option value="2/3">2/3</option><option value="3/4">3/4</option><option value="4/5">4/5</option><option value="5/6">5/6</option><option value="7/8">7/8</option><option value="8/9">8/9</option><option value="11/12">11/12</option><option value="1/1">1/1</option></select>
+    </div>
+    <div class="pm-field">
+      <button type="button" id="pm-labels" aria-pressed="true">labels on</button>
+    </div>
+    <div class="pm-field">
+      <label for="pm-crop">crop ±y <output id="pm-crop-out">all</output></label>
+      <input id="pm-crop" type="range" min="0" max="1000" step="1" value="1000" aria-label="crop half height">
+    </div>
+  </div>
+
+  <div class="pm-pair">
+    <figure class="tile pm" style="margin:0">
+      <div id="pm-plot"></div>
+      <figcaption>both walks and their sum · the dots shrink as they crowd</figcaption>
+    </figure>
+  </div>
+
+  <div class="pm-hud" id="pm-hud">view: —</div>
+
+  <div class="pm-save">
+    <label for="pm-name">name</label>
+    <input id="pm-name" type="text" placeholder="prime-mover 1" aria-label="name for this prime-mover curve">
+    <button type="button" id="pm-save">save</button>
+    <button type="button" id="pm-rename">rename</button>
+    <label for="pm-saved">saved</label>
+    <select id="pm-saved"><option value="">—</option></select>
+    <button type="button" id="pm-load">load</button>
+    <span id="pm-status" class="pm-status" aria-live="polite"></span>
+  </div>
+
+  <div class="pm-pair">
+    <figure class="tile pm" style="margin:0">
+      <div id="pm-sep"></div>
+      <figcaption>separated: positive above the axis, negative mirrored below</figcaption>
+    </figure>
+  </div>
+
+
+  <h2>0c · Reference: the two walks</h2>
+  <p class="lead">The same curve drawn from its coordinates, for reading rather
+    than calculating: orange positive above the axis, blue negative below, every
+    station labelled. It is the picture the builder reproduces.</p>
+  <div class="pm-pair"><figure class="tile pm" style="margin:0">
+    <Fragment set:html={reference} />
+    <figcaption>reference diagram · the stations are written on the drawing</figcaption>
+  </figure></div>
+
+  <h2>0d · The Lissajous maker</h2>
   <p class="lead">A new family for this registry: x = T<sub>m</sub>(t), y = T<sub>n</sub>(t),
     the Chebyshev form of the Lissajous figure. Whole coefficients, so every rational
     t gives a rational point — grid 1, not an approximation. Move the two degrees.</p>
@@ -114,7 +370,7 @@ function rowsOf(terms) {
     sum at the same scale. A polynomial's shape is the sum of its terms; this is
     the only way to see that happen.</p>
 
-  {data.adders.map((adder) => (
+  {(data.adders || []).map((adder) => (
     <section>
       <h3 style="font-size:1rem;margin:18px 0 4px">{adder.name}</h3>
       <p class="lead">{adder.note}</p>
@@ -142,14 +398,15 @@ function rowsOf(terms) {
     </section>
   ))}
 
-  <h2>2 · The imaginary variable: z = b i</h2>
-  <p class="lead">Even powers of <code>i b</code> are real, odd powers imaginary, so
+  <h2>2 · The quadrature variable: a quarter turn in place of x</h2>
+  <p class="lead">Replacing x by a quarter turn makes the even powers real and the odd powers
+    a quadrature — 90° out of phase — so
     the polynomial becomes a plane curve: even terms give x, odd terms give y, and
     every sign rotates. With only odd powers x is identically zero — a straight
     line, kept here rather than hidden.</p>
 
   <div class="imag">
-    {data.imaginary.map((curve) => (
+    {(data.quadrature || []).map((curve) => (
       <figure class="tile">
         {curve.degenerate
           ? <p class="facts">degenerate: x is identically zero</p>
@@ -193,7 +450,7 @@ function rowsOf(terms) {
 
   <h2>4 · Adding them, and adding with a quarter turn</h2>
   <p class="lead">A + B is the plain sum. A + iB multiplies B's speed by i, which
-    turns it a quarter turn — the imaginary component, and the only one of the
+    turns it a quarter turn — the quadrature component, and the only one of the
     two that can change whether the sum loops.</p>
 
   <div class="imag">
@@ -274,4 +531,10 @@ function rowsOf(terms) {
       </figure>
     ))}
   </div>
+  <Fragment slot="scripts">
+    <script>import "../scripts/lissajous.js";</script>
+    <script>import "../scripts/prime-mover.js";</script>
+    <script>import "../scripts/mirror-mover.js";</script>
+    <script>import "../scripts/lattice-mobile.js";</script>
+  </Fragment>
 </BaseLayout>

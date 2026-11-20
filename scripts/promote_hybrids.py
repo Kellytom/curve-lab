@@ -4,8 +4,7 @@
     .venv/bin/python scripts/promote_hybrids.py            # report only
     .venv/bin/python scripts/promote_hybrids.py --write    # append to the registry
 
-Reads the decisions (workbench/sandbox-curves.json, written by
-app/scripts/export-sandbox.mjs) and the candidate list (workbench/hybrids.json). Every
+Reads the decisions (data/sandbox-curves.json, written by scripts/export-data.mjs) and the candidate list (workbench/hybrids.json). Every
 candidate with decision "keep" and no registry row yet gets one:
 
     uid        the next free c-number, assigned once
@@ -32,7 +31,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "workbench" / "curve-registry.json"
-DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
+DECISIONS = ROOT / "data" / "sandbox-curves.json"
 CANDIDATES = ROOT / "workbench" / "hybrids.json"
 N = 100
 
@@ -92,7 +91,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     decisions = json.loads(DECISIONS.read_text())
-    kept = {row["name"]: row for row in decisions.get("curves", [])
+    kept = {row["name"]: row for row in decisions.get("rows", [])
             if row.get("decision") == "saved"}
     candidates = {row["id"]: row for row in json.loads(CANDIDATES.read_text())["candidates"]}
     registry = json.loads(REGISTRY.read_text())

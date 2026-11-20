@@ -48,9 +48,13 @@ PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs           # write
 PATH="$HOME/node24/bin:$PATH" node scripts/export-data.mjs --check   # fail if stale
 ```
 
-The save endpoints (`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call
-the same exporter, so a save writes its file; a save whose file cannot be written
-says so in the response. `scripts/sync-data.sh` stages `data/` on every run.
+**The rule: whoever writes the database refreshes the copy.** The save endpoints
+(`/api/curve-notes`, `/api/stars`, `/api/sandbox-curves`) call the same exporter,
+so a save writes its file, and a save whose file cannot be written says so in the
+response. The bulk writers do it too: `add-registry-curves.mjs` and `jobs.mjs`
+write their one file, `migrate.mjs` and `restore-db.mjs` refresh everything.
+`--check` refreshes first and verifies second, so it cannot fail on a copy that
+was old before it started; a failure means a save landed inside the verify itself. `scripts/sync-data.sh` stages `data/` on every run.
 `tests/test_data_export.py` fails when a file is stale. Every curve in
 `data/curves.json` carries `formula: {plain, rational, parameter, use, search}`,
 built from the stored rows (`app/src/lib/formula.js`) and checked against a
@@ -103,7 +107,12 @@ Rows are counted by `data_audit.py` (2026-11-17).
 | `ph-quintic-yours.json` | `curve-lab.ph-quintic-yours/1` | cache | `scripts/ph_quintic_yours.py` | the quintic gallery |
 | `real-curves.json` | `real-curves/1` | record | `scripts/real_curves.mjs` | the lab, the book, `plate_math.js` |
 | `root-family.json` | `curve-lab.root-family/1` | cache | `scripts/ph_root_search.py` | `scripts/ph_root_search.py` |
-| `sandbox-curves.json` | `curve-lab.sandbox-curves/1` | runtime | the save endpoint, via the exporter | the hybrid desk record; the `/sandbox` page expects `adders` and is currently guarded for absence |
+The desk's decisions left this folder for `data/sandbox-curves.json` (see the
+visible record above): one flat object per row, read by `promote_*.py`,
+`record_rejected.py`, `make_wonkies.py` and `make_mirror_doubles.py`, written by
+the save endpoint through `app/src/lib/data-export.js` and checked by
+`tests/test_data_export.py`.
+| `sandbox-adders.json` | `curve-lab.sandbox-adders/1` | cache | `scripts/sandbox_curves.py` | the `/sandbox` page (the adders and the quadrature drawings) |
 | `sandbox-parametric.json` | `curve-lab.sandbox-parametric/1` | cache | `scripts/sandbox_parametric.py` | the parametric adder |
 | `parametric-candidates.json` | `curve-lab.parametric-candidates/1` | cache | `scripts/parametric_search.py` | the complex-coefficient search history |
 | `septic-curves.json` | `curve-lab.septic-curves/1` | cache | `scripts/ph_11th_sandbox.py` | the septic sandbox |

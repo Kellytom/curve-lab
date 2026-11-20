@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HYBRIDS = ROOT / "workbench" / "hybrids.json"
-DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
+DECISIONS = ROOT / "data" / "sandbox-curves.json"
 OUT = ROOT / "workbench" / "mirror-doubles.json"
 FIG = ROOT / "app" / "public" / "hybrid-figures"
 SIZE = 440
@@ -76,7 +76,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
 
     hybrids = {row["id"]: row for row in json.loads(HYBRIDS.read_text())["candidates"]}
-    decisions = json.loads(DECISIONS.read_text()).get("curves", []) if DECISIONS.exists() else []
+    decisions = json.loads(DECISIONS.read_text()).get("rows", []) if DECISIONS.exists() else []
     wanted = {row["name"] for row in decisions if row.get("decision") == "saved"} if not args.only else set(args.only.split(","))
 
     out = []

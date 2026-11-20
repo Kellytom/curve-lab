@@ -4,7 +4,7 @@
     .venv/bin/python scripts/promote_saved.py            # report
     .venv/bin/python scripts/promote_saved.py --write    # append to the registry
 
-A "saved" row in `workbench/sandbox-curves.json` becomes a record with everything the row
+A "saved" row in `data/sandbox-curves.json` becomes a record with everything the row
 carries: the name, the stars as `importance`, the kind (hybrid / piece / double), the parent,
 the cut points, the ends, the formulas, the note, and the drawn path.
 
@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "workbench" / "curve-registry.json"
-DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
+DECISIONS = ROOT / "data" / "sandbox-curves.json"
 SOURCES = [ROOT / "workbench" / name for name in ("hybrids.json", "wonkies.json", "doubles.json")]
 TARGET = "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)"
 
@@ -55,7 +55,7 @@ def main(argv=None) -> int:
     parser.add_argument("--write", action="store_true")
     args = parser.parse_args(argv)
 
-    decisions = json.loads(DECISIONS.read_text()).get("curves", [])
+    decisions = json.loads(DECISIONS.read_text()).get("rows", [])
     by_id = geometry()
     registry = json.loads(REGISTRY.read_text())
     names = {row["name"] for row in registry["curves"]}

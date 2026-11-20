@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DECISIONS = ROOT / "workbench" / "sandbox-curves.json"
+DECISIONS = ROOT / "data" / "sandbox-curves.json"
 CANDIDATES = ROOT / "workbench" / "hybrids.json"
 OUT = ROOT / "workbench" / "hybrid-rejected.json"
 
@@ -32,7 +32,7 @@ def main(argv=None) -> int:
                         help="also record every candidate with no stars, as tried and set aside")
     args = parser.parse_args(argv)
 
-    decisions = json.loads(DECISIONS.read_text()).get("curves", []) if DECISIONS.exists() else []
+    decisions = json.loads(DECISIONS.read_text()).get("rows", []) if DECISIONS.exists() else []
     candidates = {row["id"]: row for row in json.loads(CANDIDATES.read_text())["candidates"]}
     existing = json.loads(OUT.read_text()) if OUT.exists() else {"rejected": []}
     by_id = {row["id"]: row for row in existing.get("rejected", [])}

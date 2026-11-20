@@ -98,6 +98,18 @@ try {
   if (group === "session") await session();
   else if (group === "job") await job();
   else throw new Error("usage: node scripts/jobs.mjs session|job ...");
+  // The visible record: a claim or a release changes who holds a file, so the
+  // JSON copy of the jobs tables is refreshed here, not at the next sync.
+  const { execFileSync } = await import("node:child_process");
+  const nodeBin = process.env.NODE24 || "node";
+  try {
+    execFileSync(nodeBin, ["scripts/export-data.mjs", "--table", "jobs"], {
+      cwd: ROOT,
+      stdio: "inherit",
+    });
+  } catch (error) {
+    console.error(`warning: the jobs copy in data/ is stale: ${error.message}`);
+  }
 } catch (error) {
   console.error(String(error.message || error));
   process.exitCode = 1;

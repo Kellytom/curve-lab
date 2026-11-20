@@ -53,9 +53,13 @@
    "count": 147,
    "fields": {
     "name": "string",
-    "data": "string",
-    "createdAt": "string",
-    "updatedAt": "string"
+    "decision": "string",
+    "importance": "number",
+    "construction": "object",
+    "renderCorrect": "null",
+    "curveName": "string",
+    "crossedAt": "string",
+    "savedAt": "string"
    }
   },
   "metrics.json": {

@@ -101,7 +101,18 @@ async function rowsFor(name) {
   if (name === "stars") return plain(await prisma.star.findMany({ orderBy: { name: "asc" } }));
   if (name === "plate-stars") return plain(await prisma.plateStar.findMany({ orderBy: { id: "asc" } }));
   if (name === "users") return plain(await prisma.user.findMany({ orderBy: { id: "asc" } }));
-  if (name === "sandbox-curves") return plain(await prisma.sandboxCurve.findMany({ orderBy: { name: "asc" } }));
+  if (name === "sandbox-curves") {
+    // One object per row, with the record's own fields unfolded: a JSON string
+    // inside a JSON file is double encoding, and every reader would have to
+    // parse it twice.
+    const rows = await prisma.sandboxCurve.findMany({ orderBy: { name: "asc" } });
+    return plain(rows.map((row) => {
+      let record = {};
+      try { record = JSON.parse(row.data); } catch { record = { raw: row.data }; }
+      delete record.name;
+      return { name: row.name, ...record, savedAt: row.updatedAt };
+    }));
+  }
   if (name === "metrics") return plain(await prisma.curveMetric.findMany({ orderBy: { uid: "asc" } }));
   if (name === "jobs") {
     const [sessions, jobs] = await Promise.all([

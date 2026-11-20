@@ -130,4 +130,15 @@ if (counts.curves !== registry.curves.length) {
   console.error("curve count does not match");
   process.exitCode = 1;
 }
+// The visible record: a seed writes every table's copy, since the database
+// went from empty to full.
+if (process.env.CURVE_LAB_SKIP_EXPORT !== "1") {
+  const { execFileSync } = await import("node:child_process");
+  const nodeBin = process.env.NODE24 || "node";
+  try {
+    execFileSync(nodeBin, ["scripts/export-data.mjs"], { cwd: path.resolve(import.meta.dirname, "..", ".."), stdio: "inherit" });
+  } catch (error) {
+    console.error(`warning: the data export failed, run scripts/export-data.mjs: ${error.message}`);
+  }
+}
 await prisma.$disconnect();
