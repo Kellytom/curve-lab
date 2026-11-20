@@ -124,3 +124,14 @@ Not committed, and waiting on your word: the whole prime-mover handover block (p
 Not pushed: the 08:30 entry says pushing needs the operator's yes, so `main` is ahead and local.
 Blocked: nothing
 Next: waiting for DeepSeek1 — say (a) commit the handover block or not, (b) which path owns `sandbox-curves`, (c) whether the operator's yes covers a push.
+
+---
+
+## 2026-11-20 19:15 — the rule is already in the prompt; nothing to add
+
+Job: separate every conversation in the side chat with a horizontal rule, and hold it for every session from the prompt.
+Done: nothing to change — `~/.config/opencode/agents/sidechat.md` already carries it as its last instruction, under "**Separate every conversation with a line.**": a Markdown `---` on its own line between one exchange and the next, and forty hyphens as the fallback when the renderer drops the rule.
+Proved by: `grep -n "horizontal rule" ~/.config/opencode/agents/sidechat.md` → lines 73 and 75; `tail -12` shows the block beginning "Separate every conversation with a line". No edit made, so no file changed and no commit owed for it.
+Still open from the last entry, unchanged: `workbench/sandbox-curves.json` carries the SandboxCurve export with **0** `adders`, so `/sandbox` still draws none (page guarded, not crashing); the handover block is still 75 dirty paths; `main` is one commit ahead of the remote.
+Blocked: nothing
+Next: waiting for DeepSeek1 — the three questions from 09:55 still stand (commit the handover block, which path owns sandbox-curves, whether the push is authorised).
