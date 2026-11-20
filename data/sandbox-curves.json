@@ -3243,8 +3243,36 @@
    "decision": "saved",
    "importance": 10,
    "curveName": "side-top-1",
-   "crossedAt": "2026-11-20T15:37:09.207Z",
-   "savedAt": "2026-11-20T22:23:53.353Z"
+   "widthPct": null,
+   "construction": {
+    "kind": "hybrid",
+    "parent": null,
+    "parentName": null,
+    "half": null,
+    "cuts": [],
+    "ends": [
+     [
+      -0.999389,
+      0
+     ],
+     [
+      -0.999389,
+      0
+     ]
+    ],
+    "formula": {
+     "plain": "x = cos^1(t), y = sin^4(t)",
+     "internal": "x = C(t)^1, y = S(t)^4   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)",
+     "rational": "x = ((1 - t^2)/(1 + t^2))^1, y = (2t/(1 + t^2))^4",
+     "middle": "P = x^2 + 3x^2y + 3xy^2 + y^2",
+     "parameter": "t rational; stations at t = u/(1 - |u|), u = i/100",
+     "use": "each station is multiplied by P, the cubic middle terms of (x + y)^n",
+     "search": "x = cos^1(t), y = sin^4(t)  P = x^2 + 3x^2y + 3xy^2 + y^2  parametric curve, rational parametrisation"
+    },
+    "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n"
+   },
+   "crossedAt": "2026-11-20T23:48:02.076Z",
+   "savedAt": "2026-11-20T23:48:11.233Z"
   },
   {
    "name": "h-radius-1-4-every-term",
