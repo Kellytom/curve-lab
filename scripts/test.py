@@ -112,6 +112,13 @@ def run(names, jobs=1):
 BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs")
 
 
+def node_binary() -> str:
+    """Node 24 lives at ~/node24 on this machine; the default `node` may be older and
+    fails the app's tests. Prefer the one the app requires."""
+    preferred = Path.home() / "node24" / "bin" / "node"
+    return str(preferred) if preferred.exists() else "node"
+
+
 def run_js_tests() -> int:
     """The browser-side modules' own tests, run in Node.
 
@@ -119,7 +126,7 @@ def run_js_tests() -> int:
     `workbench/*.js`; they run in the same runtime as the page, so their tests
     do too. This is the only reason Node is in the gate.
     """
-    node = subprocess.run(["node", "--version"], capture_output=True, text=True)
+    node = subprocess.run([node_binary(), "--version"], capture_output=True, text=True)
     if node.returncode != 0:
         print("  JS tests skipped: no node")
         return 0
@@ -127,7 +134,7 @@ def run_js_tests() -> int:
     files += sorted((ROOT / "app" / "tests").glob("*.test.mjs"))
     if not files:
         return 0
-    result = subprocess.run(["node", "--test", *[str(f) for f in files]],
+    result = subprocess.run([node_binary(), "--test", *[str(f) for f in files]],
                             cwd=ROOT, capture_output=True, text=True)
     passed = re.search(r"^# pass (\d+)$", result.stdout, re.M)
     failed = re.search(r"^# fail (\d+)$", result.stdout, re.M)
@@ -142,7 +149,7 @@ def run_js_tests() -> int:
 
 def run_browser_checks() -> int:
     """The page checks that need Chrome: a control exists and draws."""
-    node = subprocess.run(["node", "--version"], capture_output=True, text=True)
+    node = subprocess.run([node_binary(), "--version"], capture_output=True, text=True)
     if node.returncode != 0:
         print("  browser checks skipped: no node")
         return 0
