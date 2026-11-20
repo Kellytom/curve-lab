@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="spec-source-hash" content="a5e395c2d1f2a8ef">
+<title>Audit — 2026-11-20</title>
+<link rel="stylesheet" href="/vendor/pico.min.css">
+<link rel="stylesheet" href="/vendor/curve-lab-theme.css">
+<link rel="stylesheet" href="/vendor/app-shell.css">
+<style>
+  body { background: #fffdf7; color: #3b2d1c; }
+  main { max-width: 78ch; margin: 0 auto; padding: 28px 20px 80px; }
+  h1 { font-size: 1.5rem; margin-bottom: 4px; }
+  h2 { font-size: 1.1rem; margin-top: 30px; border-bottom: 1px solid #e6dcc6; padding-bottom: 4px; }
+  p, li { line-height: 1.6; }
+  code { font: 12.5px/1.5 ui-monospace, Menlo, monospace; background: #f7f1e3; padding: 1px 5px; border-radius: 2px; }
+  table { font: 12.5px/1.5 ui-monospace, Menlo, monospace; border-collapse: collapse; width: 100%; }
+  th, td { border-bottom: 1px solid #efe4c9; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { color: #8c6a21; font-weight: 400; }
+  blockquote { border-left: 3px solid #c9a441; margin-left: 0; padding-left: 14px; color: #5a4a32; }
+  .note { margin-top: 34px; padding-top: 12px; border-top: 1px solid #efe4c9; font-size: 12px; color: #8a7a5e; }
+  li input[type="checkbox"] { margin-right: 0.5rem; }
+  li:has(> input[type="checkbox"]) { list-style: none; }
+</style>
+</head>
+<body>
+<main>
+<h1 id="audit-2026-11-20">Audit — 2026-11-20</h1>
+<blockquote>
+<p><strong>draft A</strong> — a working draft, not a final text.</p>
+</blockquote>
+<p>A whole-project pass: what is strong, what will cost late if it is not fixed
+soon, and the five actions I would take next. Every number below is computed in
+this session, and the command that produced it is printed beside it; the two
+counters I could not compute are marked unverified.</p>
+<p>Read before writing: <code>goals.md</code>, <code>SPEC.md</code>, <code>app/src/content/docs/docs/philosophy.md</code>,
+<code>senior-dev.md</code>, <code>state/PRIME-MOVER-int.md</code>, <code>state/PLAN-int.md</code>,
+<code>state/HANDOFF-int.md</code> (tail), <code>state/ACHIEVEMENTS-int.md</code>, <code>TODO.md</code>,
+<code>founder/LOG.md</code>, <code>app/src/content/docs/docs/review.md</code> (the 2026-10-26 pass,
+for continuity). Run in this session: <code>scripts/test.py --full</code>, <code>scripts/code_count.sh</code>,
+<code>app/scripts/check-db.mjs</code>, <code>scripts/export-data.mjs --check</code>, the data audit,
+and the file counts below.</p>
+<hr>
+<h2 id="the-project-in-numbers">The project in numbers</h2>
+<table>
+<thead>
+<tr>
+<th>measure</th>
+<th>value</th>
+<th>command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>commits on <code>main</code></td>
+<td>1,126 since the first</td>
+<td><code>git log --oneline \| wc -l</code></td>
+</tr>
+<tr>
+<td>commits in the last two days</td>
+<td>116 (88 on 11-20, 28 on 11-19)</td>
+<td><code>git log --format=%ad --date=short</code></td>
+</tr>
+<tr>
+<td>files in the tree (no venv, git, node_modules)</td>
+<td>37,227</td>
+<td><code>find . \( -name .venv … \) -prune -o -type f -print \| wc -l</code></td>
+</tr>
+<tr>
+<td>Python: engine</td>
+<td>47 files, 8,798 lines</td>
+<td><code>scripts/code_count.sh</code></td>
+</tr>
+<tr>
+<td>Python: scripts</td>
+<td>233 files, 61,585 lines</td>
+<td><code>scripts/code_count.sh</code></td>
+</tr>
+<tr>
+<td>Python: tests</td>
+<td>132 files, 10,744 lines, ~860 test functions</td>
+<td><code>scripts/code_count.sh</code>; <code>grep -rn "def test_" tests \| wc -l</code></td>
+</tr>
+<tr>
+<td>JS in the app</td>
+<td>6,513 lines in <code>app/scripts</code></td>
+<td><code>scripts/code_count.sh</code></td>
+</tr>
+<tr>
+<td>Astro pages</td>
+<td>21 (<code>app/src/pages/*.astro</code>)</td>
+<td><code>ls</code></td>
+</tr>
+<tr>
+<td>doc pages</td>
+<td>39 markdown, 35 carrying the draft-A line</td>
+<td><code>ls app/src/content/docs/docs/</code></td>
+</tr>
+<tr>
+<td>state files</td>
+<td>47</td>
+<td><code>ls state/ \| wc -l</code></td>
+</tr>
+<tr>
+<td>curves</td>
+<td>397 in the registry, 397 in the database, 397 figures</td>
+<td><code>check-db.mjs</code>; <code>ls app/public/frames</code></td>
+</tr>
+<tr>
+<td>frames drawn</td>
+<td>360 (90 curves × A/B/C/D)</td>
+<td><code>ls app/public/frames</code></td>
+</tr>
+<tr>
+<td>sandbox decisions</td>
+<td>147 rows in <code>data/sandbox-curves.json</code> (2 this morning)</td>
+<td><code>scripts/export-data.mjs</code></td>
+</tr>
+<tr>
+<td>workbench</td>
+<td>103 MB, 102 HTML pages, <code>finder.json</code> 3.6 MB ×2</td>
+<td><code>du -sh workbench</code></td>
+</tr>
+<tr>
+<td>full suite</td>
+<td>130 modules, 314 s wall, 4 jobs</td>
+<td><code>scripts/test.py --full</code></td>
+</tr>
+<tr>
+<td>dirty tree</td>
+<td>79 paths (59 untracked)</td>
+<td><code>git status --porcelain</code></td>
+</tr>
+<tr>
+<td>unpushed</td>
+<td>3 commits, local only</td>
+<td><code>git rev-list --count origin/main..HEAD</code></td>
+</tr>
+</tbody>
+</table>
+<p>The suite result in this session: <strong>one failure, and it is the audit's own
+subject</strong> — <code>test_data_export</code> went stale during the run because rows were saved
+while it ran (§F1). Everything else passed.</p>
+<hr>
+<h2 id="highlights-what-is-genuinely-strong">Highlights — what is genuinely strong</h2>
+<ul>
+<li><strong>The exact core is real.</strong> <code>curve_lab/measure.py</code> holds grid, bend, arc,
+  inflections and closest approach in <code>Fraction</code>, and the pages quote numbers
+  from it. The achievements file carries a command beside every claim, so a
+  number can be re-derived instead of believed.</li>
+<li><strong>The data contract is enforced, not aspirational.</strong> Every dataset carries a
+  <code>format</code> string, one loader reads it, and <code>tests/test_data_audit.py</code> fails the
+  suite when a file is on disk but not registered. I confirmed it live twice:
+  <code>bezier-knots.json</code> and four hybrid files were caught within hours of appearing.</li>
+<li><strong>The visible record works.</strong> <code>data/</code> gives a session with no SQLite the whole
+  picture — 8 tables, <code>schema.json</code>, a dictionary in plain English — and
+  <code>tests/test_data_export.py</code> fails when a file falls behind the database.</li>
+<li><strong>The catalogue is the deliverable taking shape.</strong> 397 curves on one grid, the
+  hybrid desk turning operator decisions (147 and counting) into registry
+  records, and the naming rule ("a reader never asks which <code>c</code>") enforced from
+  code to figure captions.</li>
+<li><strong>Research is honest about what it cannot prove.</strong> Two searches (<code>RESEARCH-int</code>,
+  <code>sin-cos-parametric-research.md</code>) state "no prior art found in a search", never
+  "novel", name the field's terms (PH curves, offset curves, reach, crunode/
+  tacnode/acnode), and mark two claims unverified on purpose.</li>
+<li><strong>The prime mover is a direction with teeth.</strong> <code>PRIME-MOVER-int.md</code> states the
+  p-triple rule, the Niven guard (a fixed triple never closes at 2π), the
+  honest routes, and requires a new family to declare its driver. It changes how
+  the next curve is designed, not just how it is drawn.</li>
+<li><strong>Working discipline that survives crashes.</strong> The achievements log, the
+  regressions register with its test, backup/restore, recovery scripts, and the
+  mailbox protocol (one writer per file, proofs beside every Done). The rule
+  "never report a narrowed result as complete" is unusual and worth keeping.</li>
+</ul>
+<hr>
+<h2 id="findings-ordered-by-the-cost-of-discovering-each-late">Findings — ordered by the cost of discovering each late</h2>
+<h3 id="f1-the-record-and-the-suite-race-each-other-live-red">F1 · The record and the suite race each other (live red)</h3>
+<p><code>test_data_export</code> failed inside the full run: rows were saved while the suite
+ran, so the export was stale by the time the check executed. The same race will
+bite every long-running job, because the desk is live and the sync is on a timer.
+The fix is ordering, not tolerance: run <code>node scripts/export-data.mjs</code> at the
+<em>start</em> of every gate and immediately before any commit, and let <code>--check</code> remain
+strict. Cost if ignored: an intermittent red gate that trains sessions to stop
+trusting green.</p>
+<h3 id="f2-sandbox-curves-has-two-homes-and-one-of-them-draws-nothing">F2 · <code>sandbox-curves</code> has two homes and one of them draws nothing</h3>
+<p><code>workbench/sandbox-curves.json</code> (the <code>/sandbox</code> page's <code>{adders, quadrature}</code>)
+was replaced by the <code>SandboxCurve</code> export, while the addendum's record lives at
+<code>data/sandbox-curves.json</code>. Both copies exist; <code>/sandbox</code> draws no adders (the
+page is guarded so it does not throw, but the section is empty). Decision
+pending in the mailbox. Cost if ignored: the operator's sandbox page is blank and
+nobody can tell which file is lying.</p>
+<h3 id="f3-the-crossing-counters-are-uncalibrated-and-everything-ranks-on-them">F3 · The crossing counters are uncalibrated — and everything ranks on them</h3>
+<p><code>TODO.md</code> (senior-dev pass, item 1) records the fault: the same curve read
+<strong>9, 4 and 1</strong> pairs from three counters, and "540 new curves" turned out to be
+flat ghosts. The three pinned numbers are <code>c-0262</code> = 9, <code>c-0070</code> = 11, and the
+Chebyshev <code>T3 × T5</code> = 4. Until the counters agree, the "best curves" ranking,
+the hybrid desk's solved-pair counts and the empty-cell map (77 cells of
+crossings × inflections) rest on numbers that disagree with each other. This is
+the highest-value fix in the file. Cost if ignored: a catalogue ranked by a
+number that changes with the sampler.</p>
+<h3 id="f4-the-full-suite-is-five-minutes-and-three-tests-are-the-reason">F4 · The full suite is five minutes, and three tests are the reason</h3>
+<p><code>test_fleur_sets</code> 146 s, <code>test_ph_nth_sandbox2</code> 112 s, <code>test_ph_11th_sandbox2</code>
+108 s, <code>test_crossings</code> 83 s. A session that must confirm one change waits on
+all four. Split the page renderers from the logic they exercise, or cache the
+expensive fixtures. Cost if ignored: sessions drift to the fast loop only, and
+the slow truths stop being run.</p>
+<h3 id="f5-generated-pages-can-silently-lose-the-draft-a-label">F5 · Generated pages can silently lose the draft-A label</h3>
+<p><code>workbench/hybrid-sheets.html</code> and <code>workbench/todo.html</code> dropped it; the stamper
+re-added it, but the fix belongs in the generators, so a rebuild cannot lose it
+again. Cost if ignored: an outward page published as if final.</p>
+<h3 id="f6-59-untracked-paths-and-the-prime-mover-page-is-among-them">F6 · 59 untracked paths, and the prime-mover page is among them</h3>
+<p>The handover block (pages, vendor library, seven scripts, specs) is uncommitted.
+A crash here loses the newest part of the app. The decision is open in the
+mailbox; it is an ownership question, not a technical one. Cost if ignored: real
+loss, not just untidiness.</p>
+<h3 id="f7-three-commits-are-unpushed">F7 · Three commits are unpushed</h3>
+<p>Pushing awaits the operator's yes, but a red or stale remote is the backup the
+project leans on (<code>senior-dev.md</code> rule and the GitHub section). Say the word and
+they go. Cost if ignored: work that cannot be recovered from another machine.</p>
+<h3 id="f8-finderjson-is-36-mb-and-is-committed-twice">F8 · <code>finder.json</code> is 3.6 MB and is committed twice</h3>
+<p><code>workbench/finder.json</code> and <code>finder.backup.json</code> are both 3.5 MB in git. The
+audit already treats several caches as optional; this pair is a candidate.
+Cost if ignored: a fat clone for data the loader can rebuild.</p>
+<h3 id="f9-two-servers-one-product">F9 · Two servers, one product</h3>
+<p><code>web/server.py</code> (stdlib, <code>:8003</code>) and the Astro app (<code>:4321</code>, Cloud Run deploy)
+both serve. The docs name the app as the deliverable; the Python server is the
+render MVP. Make the split explicit in the hub, or a new session tests the wrong
+one. Cost if ignored: a page check that passes on a page nobody looks at.</p>
+<h3 id="f10-the-dictionary-must-chase-the-record-it-describes">F10 · The dictionary must chase the record it describes</h3>
+<p><code>data/README.md</code> is fresh today and already has to track a moving target: the
+file list test keeps <code>DATA-int.md</code> and the loader in step, but nothing keeps the
+<em>prose</em> dictionary in step with a new field. One test per file: "every field in
+<code>schema.json</code> is named in <code>README.md</code>". Cost if ignored: the dictionary goes
+quietly wrong, and the session that trusts it is the one that needed it.</p>
+<hr>
+<h2 id="what-i-would-do-next-five-actions-in-order">What I would do next (five actions, in order)</h2>
+<ol>
+<li><strong>Pin the counters (F3).</strong> One test, three numbers, run against every
+   counter; delete or rebadge the disagreeing ones. The catalogue's claims then
+   rest on one definition.</li>
+<li><strong>Settle <code>sandbox-curves</code> (F2)</strong> — one path, one format string, the page
+   reading it, and the other file deleted or redirected.</li>
+<li><strong>Export before every gate (F1)</strong> and re-check immediately before commit.</li>
+<li><strong>Commit or decide the handover block (F6, F7)</strong>, then push with the
+   operator's yes.</li>
+<li><strong>Trim the slow tests (F4)</strong> by splitting the page renderers from the logic.</li>
+</ol>
+<hr>
+<h2 id="one-line-verdict">One-line verdict</h2>
+<p>The rare part of this project is not the maths — it is that the maths is
+<em>guarded</em>: format strings, a loader, a hash per file, a register of faults, and
+a page that shows the proof. The risks are all in the seams where two systems
+meet (record and suite, page and generator, session and session), and every one
+of them is a decision that has already been written down and only needs to be
+made.</p>
+<ul>
+<li>Status: findings only; nothing was changed for this audit except the two
+  files it produced.</li>
+<li>Unverified here, marked so: the exact number of JS tests beyond the 17 files
+  in <code>app/tests</code> (<code>unverified</code>), and the Cloud Run deploy state
+  (<code>unverified</code> — no remote probe was made).</li>
+</ul>
+<p class="note">Generated from <code>archive/notes/audit-2026-11-20.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
+</main>
+</body>
+</html>
