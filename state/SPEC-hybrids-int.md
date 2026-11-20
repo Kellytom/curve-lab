@@ -158,3 +158,16 @@ readable and travels with the repository.
 - A rejected curve that is later saved stays on the record with `reinstated: true`.
 - `scripts/sync-data.sh` refreshes both visible copies before staging.
 - Guard: `tests/test_hybrids.py::test_every_rejected_candidate_is_on_record`.
+
+## The family pages, from one template
+
+`app/src/components/HybridDesk.astro` is the desk markup, with no candidates of its own:
+give it rows and it draws the cards; give it none and it renders the empty desk. Two pages
+use it, and only supply rows:
+
+- `/hybrids/` — every candidate, from `workbench/hybrids.json`;
+- `/hybrids-wonk/` — the candidates whose saved name matches `wonk-<number>`, read from the
+  database at request time, so a new wonk appears without a rebuild.
+
+A second family page is a new page file and nothing else; the cards, the save path and the
+stars are the same component.

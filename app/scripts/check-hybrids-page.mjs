@@ -36,6 +36,11 @@ check(images.every((image) => image.ok), "every sampled figure loads");
 
 const decisions = await page.evaluate(() => [...document.querySelectorAll(".hybrid-card")]
   .slice(0, 2).map((card) => card.dataset.name));
+
+// snapshot: these two cards may belong to the operator, and this check must not keep
+// anything it writes to them.
+const snapshot = await (await fetch(`${BASE}/api/sandbox-curves`)).json();
+const before = new Map((snapshot.curves || []).map((row) => [row.name, row]));
 for (const name of decisions) {
   await page.locator(`.hybrid-card[data-name="${name}"] [data-decision="saved"]`).click();
   await page.waitForTimeout(250);
@@ -110,6 +115,24 @@ await blocked.locator(".hybrid-card .hybrid-actions button").first().click();
 await blocked.waitForTimeout(300);
 check(warned.includes("saving is off"), "a failed read turns saving off");
 check(posts === 0, `no write after a failed read (${posts} POSTs)`);
+
+// put the two cards back exactly as they were, and remove the rows it created
+const restore = decisions.map((name) => before.get(name)).filter(Boolean);
+if (restore.length) {
+  await fetch(`${BASE}/api/sandbox-curves`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ curves: restore.map(({ savedAt, ...rest }) => rest) }),
+  });
+}
+const created = decisions.filter((name) => !before.has(name));
+if (created.length) {
+  await fetch(`${BASE}/api/sandbox-curves`, {
+    method: "DELETE",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ names: created }),
+  });
+}
 
 await browser.close();
 console.log(failed ? `FAILED ${failed}` : "ok /hybrids/ — cards, figures, decisions kept");

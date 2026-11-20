@@ -28,6 +28,8 @@ OUT = ROOT / "workbench" / "hybrid-rejected.json"
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--unstarred", action="store_true",
+                        help="also record every candidate with no stars, as tried and set aside")
     args = parser.parse_args(argv)
 
     decisions = json.loads(DECISIONS.read_text()).get("curves", []) if DECISIONS.exists() else []
@@ -54,12 +56,34 @@ def main(argv=None) -> int:
             "formula": candidate["formula"]["plain"],
             "middle": candidate["formula"]["middle"],
             "rejectedAt": row.get("crossedAt") or now,
+            "reason": "rejected",
             "reinstated": False,
         }
         added += 1
 
+    if args.unstarred:
+        importance = {row.get("name"): int(row.get("importance") or 0) for row in decisions}
+        for key, candidate in candidates.items():
+            if key in by_id or importance.get(key, 0) > 0:
+                continue
+            by_id[key] = {
+                "id": key,
+                "p": candidate["p"],
+                "q": candidate["q"],
+                "use": candidate["use"],
+                "block": candidate["block"],
+                "crossings": candidate["crossings"],
+                "formula": candidate["formula"]["plain"],
+                "middle": candidate["formula"]["middle"],
+                "rejectedAt": now,
+                "reason": "unstarred",
+                "reinstated": False,
+            }
+            added += 1
+
     # a rejected curve that is later saved is kept, and marked
-    saved = {row.get("name") for row in decisions if row.get("decision") == "saved"}
+    saved = {row.get("name") for row in decisions
+             if row.get("decision") == "saved" or int(row.get("importance") or 0) > 0}
     for key in saved:
         if key in by_id:
             by_id[key]["reinstated"] = True

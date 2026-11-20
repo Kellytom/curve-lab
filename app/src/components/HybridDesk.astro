@@ -1,0 +1,99 @@
+---
+// The hybrid desk, as a template: pass it groups of candidates and it draws the cards.
+//
+// This file is the exact desk markup, with no candidates of its own. `/hybrids/` passes all
+// 343; `/hybrids-wonk/` passes the ones the operator named "wonk". With no rows it renders
+// the empty desk, which is what a new family starts from.
+//
+// Spec: state/SPEC-hybrids-int.md
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const {
+  title = "the hybrid desk",
+  lead = "",
+  groups = [],
+  count = 0,
+} = Astro.props;
+---
+
+<BaseLayout title={title} pageTitle={title}>
+  <p class="lead">
+    {lead}
+  </p>
+  <p id="hybrids-counts" class="hybrids-counts" aria-live="polite">
+    {count} candidates · decisions load in a moment
+  </p>
+
+  {groups.length === 0 && (
+    <p class="hybrids-empty">No candidates here yet. The template is ready; give it rows.</p>
+  )}
+
+  {groups.map(([sheet, rows]) => (
+    <section class="hybrids-section">
+      <h2>{sheet === "colour" ? "colour use — the shapes" : `radius use — ${sheet}`}</h2>
+      <div class="hybrids-grid">
+        {rows.map((row) => (
+          <article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0">
+            <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
+            <p class="hybrid-id"><code>{row.id}</code></p>
+            <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
+              value={row.curveName || ""}
+              placeholder={row.placeholder} />
+            <span class="hybrid-flag"></span>
+            <p class="hybrid-num">{row.crossings} crossing pairs · p {row.p}, q {row.q}</p>
+            <p class="hybrid-formula"><code>{row.formula.plain}</code></p>
+            <p class="hybrid-formula hybrid-internal"><code>{row.formula.internal}</code></p>
+            <p class="hybrid-formula hybrid-middle"><code>{row.formula.middle}</code></p>
+            <div class="stars" role="group" aria-label={`importance for ${row.id}`}>
+              <span class="label">stars</span>
+              {Array.from({ length: 10 }, (_, i) => (
+                <button type="button" data-imp={i + 1} class={i + 1 <= (row.importance || 0) ? "on" : ""}>{i + 1}</button>
+              ))}
+            </div>
+            <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
+              <button type="button" data-decision="saved">Save</button>
+              <button type="button" data-decision="notes" title="move this candidate out of the desk and into the notes pool">move to notes</button>
+              <button type="button" data-decision="rejected">reject</button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <p class="hybrids-foot">
+    Stations are one pass of the rational circle, <code>t = u/(1 − |u|)</code> with
+    <code>u = i/100</code> — exact fractions, no sin, no cos. The rational twin of every
+    formula is <code>x = ((1 − t²)/(1 + t²))<sup>p</sup></code>,
+    <code>y = (2t/(1 + t²))<sup>q</sup></code>, carried in <code>workbench/hybrids.json</code>. The join between stations is
+    a straight line. Crossing counts come from the generator (<code>scripts/hybrid_figures.py</code>),
+    not from this page.
+  </p>
+  <script>
+    import "../scripts/hybrids.js";
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .hybrids-counts { font: 15px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; margin: 6px 0 18px; }
+  .hybrids-empty { font-size: 15px; color: #7a6a55; margin: 24px 0; }
+  .hybrids-section h2 { font-size: 18px; margin: 26px 0 10px; }
+  .hybrids-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 14px; }
+  .hybrid-card { border: 1px solid #e6dccb; background: #fffef9; padding: 8px; margin: 0; }
+  .hybrid-card img { width: 100%; height: 300px; object-fit: contain; display: block; background: #fffef9; }
+  .hybrid-id { margin: 4px 0 2px; font-size: 12px; color: #7a6a55; }
+  .hybrid-name { margin: 0 0 2px; padding: 3px 6px; font: 13px/1.3 ui-monospace, Menlo, monospace; width: 100%; }
+  .hybrid-flag { display: block; min-height: 14px; font: 11px/1.3 ui-monospace, Menlo, monospace; color: #8c6a21; margin: 0 0 4px; }
+  .hybrid-num { margin: 2px 0 2px; font-size: 13px; color: #7a6a55; }
+  .hybrid-formula { margin: 2px 0 2px; font-size: 12px; color: #5a4a36; overflow-wrap: anywhere; }
+  .hybrid-internal { color: #7a6a55; margin-bottom: 8px; }
+  .hybrid-actions { display: flex; gap: 6px; }
+  .hybrid-actions button { flex: 1; padding: 4px 6px; font-size: 14px; margin: 0; }
+  .hybrid-card[data-decision="saved"] { border-color: #2f6f3a; box-shadow: inset 0 0 0 2px #2f6f3a22; }
+  .hybrid-card[data-decision="notes"] { border-color: #b8860b; }
+  .hybrid-card[data-decision="rejected"] { opacity: .55; border-color: #a8341f; }
+  .hybrid-card[data-decision="saved"] [data-decision="saved"],
+  .hybrid-card[data-decision="notes"] [data-decision="notes"],
+  .hybrid-card[data-decision="rejected"] [data-decision="rejected"] { font-weight: 700; }
+  .hybrids-foot { font-size: 15px; color: #5a4a36; margin-top: 24px; }
+</style>

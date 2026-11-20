@@ -60,3 +60,15 @@ export const POST = async ({ request }) => {
     return json({ error: String(error.message || error) }, 400);
   }
 };
+
+export const DELETE = async ({ request }) => {
+  try {
+    const { names } = await request.json();
+    if (!Array.isArray(names) || names.length === 0) return json({ error: "names required" }, 400);
+    const removed = await prisma.sandboxCurve.deleteMany({ where: { name: { in: names } } });
+    return json({ removed: removed.count });
+  } catch (error) {
+    return json({ error: String(error.message || error) }, 400);
+  }
+};
+
