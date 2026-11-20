@@ -1,8 +1,20 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 40,
+ "count": 42,
  "rows": [
+  {
+   "name": "h-colour-1-1",
+   "data": "{\"name\":\"h-colour-1-1\",\"decision\":\"saved\",\"importance\":7,\"curveName\":\"swan-hybrid-7\",\"crossedAt\":\"2026-11-20T15:45:30.909Z\"}",
+   "createdAt": "2026-11-20T15:45:23.825Z",
+   "updatedAt": "2026-11-20T15:45:30.917Z"
+  },
+  {
+   "name": "h-colour-1-2",
+   "data": "{\"name\":\"h-colour-1-2\",\"decision\":\"saved\",\"importance\":0,\"curveName\":\"\",\"crossedAt\":\"2026-11-20T15:45:24.286Z\"}",
+   "createdAt": "2026-11-20T15:45:24.301Z",
+   "updatedAt": "2026-11-20T15:45:24.301Z"
+  },
   {
    "name": "h-colour-7-2",
    "data": "{\"name\":\"h-colour-7-2\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"point-1\",\"crossedAt\":\"2026-11-20T15:30:29.821Z\"}",
