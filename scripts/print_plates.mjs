@@ -33,8 +33,10 @@ const noteOf = new Map((notes.curves || []).map((row) => [row.uid, row]));
 
 const LONG_SIDE = 3000;
 const STROKE = 0.0035;                // 3.5/1000 of the long side, the book rule
-const LEFT = "#2b2b2b";               // the darker tone
-const RIGHT = "#8d8d8d";              // the lighter tone
+const LEFT = "#2b2b2b";               // the stroke
+const RIGHT = "#8d8d8d";              // the lighter stroke tone of the two-tone split
+const LIGHT_BAND = "#e2e2e2";          // between the left rail and the spine
+const DARK_BAND = "#8a8a8a";           // between the right rail and the spine
 
 const args = process.argv.slice(2);
 const only = (() => {
@@ -52,7 +54,9 @@ function rowFor(record) {
     name: record.name,
     speedX: record.speedX || [],
     speedY: record.speedY || [],
-    width: { percent: note.width_pct ?? note.widthPct ?? 0 },
+    // no stored width means the plate_math default, not zero: 0 would draw the rails on
+    // top of the spine and the bands would have no area
+    width: { percent: note.width_pct ?? note.widthPct ?? undefined },
     character: {
       plus: note.plus ?? 0, minus: note.minus ?? 0,
       profile: note.profile || undefined,
@@ -126,15 +130,25 @@ function plateSvg(record) {
   // centre is the y axis is split there
   const axisX = (x0 + x1) / 2;
   const axis = px([axisX, 0])[0].toFixed(2);
+  // the bands: between each rail and the spine, filled. The right rail's band is the dark
+  // grey, the left rail's the light one; the spine and the rails are then stroked on top.
+  const band = (rail, fill) => (rail && rail.length > 2)
+    ? `<path d="${gen([...spine, ...[...rail].reverse()])}Z" fill="${fill}" stroke="none"/>`
+    : "";
+  const bands = rails.length >= 2
+    ? band(rails[0], LIGHT_BAND) + band(rails[1], DARK_BAND)
+    : "";
   const body = singleTone
     ? [
         `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
-        ...rails.map((rail) => line(rail, "#c4c4c4", stroke * 0.7)),
+        bands,
+        ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
         line(spine, LEFT, stroke),
       ].join("")
     : [
         `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
-        ...rails.map((rail) => line(rail, "#c4c4c4", stroke * 0.7)),
+        bands,
+        ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
         line(spine, LEFT, stroke),
         `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
         `<g clip-path="url(#right)">${line(spine, RIGHT, stroke)}</g>`,
