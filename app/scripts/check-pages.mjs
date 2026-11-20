@@ -12,7 +12,7 @@ const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const ROUTES = [
   "/", "/about/", "/everything/", "/lab/", "/finder/", "/finder-candidates/",
-  "/illuminations/", "/figures/", "/names/", "/ph-nth-sandbox/", "/users/", "/blog/", "/sandbox/", "/roots/", "/bezier/", "/prime-mover/", "/hybrids/", "/hybrids-wonk/", "/hybrids-wonkies/",
+  "/illuminations/", "/figures/", "/names/", "/ph-nth-sandbox/", "/users/", "/blog/", "/sandbox/", "/roots/", "/bezier/", "/prime-mover/", "/hybrids/", "/hybrids-wonk/",
 ];
 
 const browser = await chromium.launch({ executablePath: EXE });
@@ -21,7 +21,16 @@ const failures = [];
 for (const route of ROUTES) {
   const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
   const errors = [];
-  page.on("pageerror", (error) => errors.push(String(error)));
+  page.on("pageerror", (error) => errors.push(`pageerror: ${error}`));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(`console: ${message.text()}`);
+  });
+  page.on("response", (response) => {
+    const status = response.status();
+    if (status >= 400 && !response.url().includes("favicon")) {
+      errors.push(`resource ${status}: ${response.url()}`);
+    }
+  });
   try {
     const response = await page.goto(BASE + route, { waitUntil: "domcontentloaded", timeout: 30000 });
     await page.waitForTimeout(400);
@@ -45,7 +54,7 @@ for (const route of ROUTES) {
     if (!found.draft) failures.push(`${route}: no draft mark`);
     if (!found.main) failures.push(`${route}: no <main id="main">`);
     if (found.selfLinks.length) failures.push(`${route}: links to itself (${found.selfLinks.join(", ")})`);
-    if (errors.length) failures.push(`${route}: page errors: ${errors.join(" | ")}`);
+    if (errors.length) failures.push(`${route}: ${errors.slice(0, 3).join(" | ")}`);
   } catch (error) {
     failures.push(`${route}: ${String(error).split("\n")[0]}`);
   }

@@ -177,6 +177,9 @@ def main(argv=None) -> int:
                     "search": f"{candidate['formula']['plain']} -- {half} half, cut at the y = x axis",
                 },
                 "points": drawn,
+            "cuts": [{"t": round(t, 6), "x": round(px, 4), "y": round(py, 4)}
+                     for (t, (px, py)) in ((root, point_at(root, candidate))
+                                           for root in diagonal_crossings(candidate["p"], candidate["q"]))],
                 "figure": f"wonky-{name.split('-')[1]}-{half}.svg",
             })
 

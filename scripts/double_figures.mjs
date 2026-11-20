@@ -22,6 +22,9 @@ for (const row of data.doubles) {
     legend: [{ label: `double wonky from ${row.parentName}`, colour: "#2f6fa8" }],
     paths: [{ name: row.id, colour: "#2f6fa8", points: row.points }],
     stations: [],
+    labels: (row.cuts || []).map((cut) => ({
+      x: cut.x, y: cut.y, text: `(${cut.x.toFixed(2)}, ${cut.y.toFixed(2)})`,
+    })),
     bounds: [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)],
     samples: row.points.length,
   }, { width: 440 });

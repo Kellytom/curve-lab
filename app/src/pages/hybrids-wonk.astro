@@ -9,6 +9,8 @@ import { prisma } from "../lib/db.js";
 import HybridCard from "../components/HybridCard.astro";
 
 const wonkyData = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "wonkies.json"), "utf8"));
+const doubleData = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "doubles.json"), "utf8"));
+const doubleByParent = new Map((doubleData.doubles || []).map((row) => [row.parent, row]));
 const stored = await prisma.sandboxCurve.findMany();
 const decisions = new Map();
 for (const row of stored) {
@@ -34,7 +36,13 @@ for (const row of (wonkyData.wonkies || []).map(decorate)) {
 const groups = [...pairs.entries()]
   .filter(([name]) => /^wonk-\d+$/i.test(name))
   .sort((a, b) => Number(a[0].split("-")[1]) - Number(b[0].split("-")[1]))
-  .map(([name, rows]) => ({ name, rows: rows.sort((a, b) => (a.half === "upper" ? -1 : 1)) }));
+  .map(([name, rows]) => ({
+    name,
+    pieces: rows
+      .sort((a, b) => a.id.localeCompare(b.id))
+      .map((piece) => ({ piece, double: doubleByParent.get(piece.id)
+        ? decorate(doubleByParent.get(piece.id)) : null })),
+  }));
 ---
 
 <BaseLayout title="the wonks" pageTitle="The wonks">
@@ -50,13 +58,22 @@ const groups = [...pairs.entries()]
   {groups.map((pair) => (
     <section class="wonk-pair">
       <p class="wonk-parent">
-        <b>{pair.name}</b> · {pair.rows[0].crossings} crossing pairs in a half ·
-        <code>{pair.rows[0].formula.plain}</code> ·
-        <code>{pair.rows[0].formula.middle}</code>
+        <b>{pair.name}</b> · {pair.pieces[0].piece.crossings} crossing pairs in a half ·
+        <code>{pair.pieces[0].piece.formula.plain}</code> ·
+        <code>{pair.pieces[0].piece.formula.middle}</code>
       </p>
-      <div class="wonk-halves">
-        {pair.rows.map((row) => <HybridCard row={row} />)}
-      </div>
+      {pair.pieces.map(({ piece, double }) => (
+        <div class="wonk-pair-row">
+          <div class="wonk-side">
+            <p class="wonk-label">{piece.id} — the piece</p>
+            <HybridCard row={piece} />
+          </div>
+          <div class="wonk-side">
+            <p class="wonk-label">{double ? `${double.id} — the completed figure` : "no double"}</p>
+            {double && <HybridCard row={double} />}
+          </div>
+        </div>
+      ))}
     </section>
   ))}
 
@@ -68,7 +85,9 @@ const groups = [...pairs.entries()]
 <style is:global>
   .wonk-pair { margin: 26px 0; }
   .wonk-parent { font: 15px/1.5 Georgia, serif; color: #3b2d1c; margin: 0 0 10px; }
-  .wonk-halves { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 14px; }
+  .wonk-pair-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 22px; }
+  .wonk-label { font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; margin: 0 0 6px; }
+  @media (max-width: 900px) { .wonk-pair-row { grid-template-columns: 1fr; } }
   .wonk-seam { font: 13px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; margin: -4px 0 10px; }
   @media (max-width: 900px) { .wonk-halves { grid-template-columns: 1fr; } }
 </style>

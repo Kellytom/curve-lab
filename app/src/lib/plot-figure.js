@@ -106,6 +106,16 @@ export function figureSvg(panel, { width: boxWidth = 460 } = {}) {
     drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3.2" fill="#c9761f" `
       + `stroke="#fffef9" stroke-width="1"/>`);
   }
+  // named points, inside the frame: a wonky's cut points, for example
+  for (const label of panel.labels || []) {
+    const [px, py] = project(label.x, label.y);
+    // keep the label inside the frame: flip the offset at the right edge and the top
+    const dx = px > plot.right - 72 ? -72 : (label.dx ?? 6);
+    const dy = py < plot.top + 16 ? 14 : (label.dy ?? -6);
+    drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="2.6" fill="#a8341f"/>`
+      + `<text x="${(px + dx).toFixed(1)}" y="${(py + dy).toFixed(1)}" `
+      + `font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#7a3a20">${label.text}</text>`);
+  }
   parts.push(`<g clip-path="url(#${clipId})">${drawn.join("")}</g>`);
 
   // axis names, inside the plot band
