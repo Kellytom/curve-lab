@@ -19,7 +19,7 @@ A session that reads only the files named in the message has skipped Tier 0.
 | 1 | `senior-dev.md` | 53 | twelve working rules: verify where the operator looks, one number one definition, never write after a failed read, commit then stop |
 | 2 | `LTMemory-int.md` | 318 | the map, the invariants, what is settled and what is open |
 | 3 | `next-fhandoff-int.md` | 7 | the default next action, when the operator has not set one |
-| 4 | `state/PLAN-int.md` | 138 | the next few sessions, one action each, with what is parked and why |
+| 4 | `state/PLAN-int.md` | 156 | the next few sessions, one action each, with what is parked and why |
 | 5 | `state/HANDOFF-int.md` | 3,306 | current truth — **read the tail (~80 lines), not the whole file** |
 | 6 | `TODO.md` | 914 | the real checklist: grades, workstreams, open decisions. `workbench/todo.html` is its generated twin; load one, never both |
 | 7 | `goals.md` | 266 | the long arc and the offset tiers (also Tier 1) |
