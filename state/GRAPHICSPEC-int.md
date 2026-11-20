@@ -85,7 +85,9 @@ legend; the name and the record are on the page that lists it, and in `plates.js
   plate; the card links the PNG, the SVG and the record's formula and turn.
 - `app/src/pages/api/print-plate/[uid].js` — serves the pair; the uid is checked against
   `^c-\d{4}$` before a path is built.
-- The PNGs are **not in git** (40 MB, regenerable): `book/print/` is ignored.
+- The plates **are in git**: 397 PNG + SVG pairs, about 42 MB, so a clone shows the work
+  without running anything. A re-render replaces the same paths; commit them when the set
+  changes, not on every tweak, because git keeps each old version.
 
 ## Checks that fail when the spec stops being true
 
