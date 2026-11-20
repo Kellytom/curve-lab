@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 53,
+ "count": 62,
  "rows": [
   {
    "name": "h-colour-1-1",
@@ -88,6 +88,12 @@
    "updatedAt": "2026-11-20T15:36:52.950Z"
   },
   {
+   "name": "h-radius-1-3-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-1-3-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-17\",\"crossedAt\":\"2026-11-20T15:54:03.975Z\"}",
+   "createdAt": "2026-11-20T15:53:56.660Z",
+   "updatedAt": "2026-11-20T15:54:03.984Z"
+  },
+  {
    "name": "h-radius-1-3-quadratic",
    "data": "{\"name\":\"h-radius-1-3-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"2-petals\",\"crossedAt\":\"2026-11-20T15:31:27.862Z\"}",
    "createdAt": "2026-11-20T15:31:22.691Z",
@@ -124,6 +130,12 @@
    "updatedAt": "2026-11-20T15:37:18.031Z"
   },
   {
+   "name": "h-radius-1-5-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-1-5-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-18\",\"crossedAt\":\"2026-11-20T15:54:17.308Z\"}",
+   "createdAt": "2026-11-20T15:54:16.385Z",
+   "updatedAt": "2026-11-20T15:54:17.314Z"
+  },
+  {
    "name": "h-radius-1-5-quadratic",
    "data": "{\"name\":\"h-radius-1-5-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"2-petals-2\",\"crossedAt\":\"2026-11-20T15:32:03.819Z\"}",
    "createdAt": "2026-11-20T15:32:02.726Z",
@@ -148,6 +160,12 @@
    "updatedAt": "2026-11-20T15:37:34.830Z"
   },
   {
+   "name": "h-radius-1-6-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-1-6-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":8,\"curveName\":\"double-bounce\",\"crossedAt\":\"2026-11-20T15:54:41.292Z\"}",
+   "createdAt": "2026-11-20T15:54:38.568Z",
+   "updatedAt": "2026-11-20T15:54:41.301Z"
+  },
+  {
    "name": "h-radius-1-6-quadratic",
    "data": "{\"name\":\"h-radius-1-6-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"flourish-2\",\"crossedAt\":\"2026-11-20T15:32:17.984Z\"}",
    "createdAt": "2026-11-20T15:32:16.913Z",
@@ -158,6 +176,12 @@
    "data": "{\"name\":\"h-radius-1-7-cubic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-3\",\"crossedAt\":\"2026-11-20T15:37:45.665Z\"}",
    "createdAt": "2026-11-20T15:37:44.340Z",
    "updatedAt": "2026-11-20T15:37:45.671Z"
+  },
+  {
+   "name": "h-radius-1-7-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-1-7-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-19\",\"crossedAt\":\"2026-11-20T15:54:58.392Z\"}",
+   "createdAt": "2026-11-20T15:54:52.445Z",
+   "updatedAt": "2026-11-20T15:54:58.402Z"
   },
   {
    "name": "h-radius-1-7-quadratic",
@@ -196,6 +220,12 @@
    "updatedAt": "2026-11-20T15:38:21.132Z"
   },
   {
+   "name": "h-radius-3-1-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-3-1-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-20\",\"crossedAt\":\"2026-11-20T15:55:46.543Z\"}",
+   "createdAt": "2026-11-20T15:55:45.853Z",
+   "updatedAt": "2026-11-20T15:55:46.557Z"
+  },
+  {
    "name": "h-radius-3-1-quadratic",
    "data": "{\"name\":\"h-radius-3-1-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"2-petals-4\",\"crossedAt\":\"2026-11-20T15:33:19.773Z\"}",
    "createdAt": "2026-11-20T15:33:05.368Z",
@@ -218,6 +248,12 @@
    "data": "{\"name\":\"h-radius-3-2-cubic\",\"decision\":\"saved\",\"importance\":2,\"curveName\":\"side-top-3\",\"crossedAt\":\"2026-11-20T15:38:37.129Z\"}",
    "createdAt": "2026-11-20T15:38:35.278Z",
    "updatedAt": "2026-11-20T15:38:37.134Z"
+  },
+  {
+   "name": "h-radius-3-2-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-3-2-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":3,\"curveName\":\"side-top-hat\",\"crossedAt\":\"2026-11-20T15:56:05.739Z\"}",
+   "createdAt": "2026-11-20T15:56:04.874Z",
+   "updatedAt": "2026-11-20T15:56:05.744Z"
   },
   {
    "name": "h-radius-3-3-cubic",
@@ -256,10 +292,22 @@
    "updatedAt": "2026-11-20T15:42:44.615Z"
   },
   {
+   "name": "h-radius-4-7-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-4-7-cubic-and-quintic\",\"decision\":\"rejected\",\"importance\":0,\"curveName\":\"\",\"crossedAt\":\"2026-11-20T15:57:28.377Z\"}",
+   "createdAt": "2026-11-20T15:57:28.384Z",
+   "updatedAt": "2026-11-20T15:57:28.384Z"
+  },
+  {
    "name": "h-radius-5-1-cubic",
    "data": "{\"name\":\"h-radius-5-1-cubic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-5\",\"crossedAt\":\"2026-11-20T15:39:45.839Z\"}",
    "createdAt": "2026-11-20T15:39:43.262Z",
    "updatedAt": "2026-11-20T15:39:45.845Z"
+  },
+  {
+   "name": "h-radius-5-1-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-5-1-cubic-and-quintic\",\"decision\":\"\",\"importance\":1,\"curveName\":\"wonk-21\",\"crossedAt\":\"2026-11-20T15:57:23.547Z\"}",
+   "createdAt": "2026-11-20T15:56:32.834Z",
+   "updatedAt": "2026-11-20T15:57:23.567Z"
   },
   {
    "name": "h-radius-5-1-quadratic",
@@ -278,6 +326,12 @@
    "data": "{\"name\":\"h-radius-5-1-quintic-central\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-10\",\"crossedAt\":\"2026-11-20T15:42:58.189Z\"}",
    "createdAt": "2026-11-20T15:42:57.445Z",
    "updatedAt": "2026-11-20T15:42:58.195Z"
+  },
+  {
+   "name": "h-radius-5-2-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-5-2-cubic-and-quintic\",\"decision\":\"notes\",\"importance\":8,\"curveName\":\"cubic-quintic-top\",\"crossedAt\":\"2026-11-20T15:58:04.020Z\"}",
+   "createdAt": "2026-11-20T15:57:58.405Z",
+   "updatedAt": "2026-11-20T15:58:04.029Z"
   },
   {
    "name": "h-radius-6-1-cubic",
