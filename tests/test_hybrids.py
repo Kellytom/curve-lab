@@ -64,6 +64,22 @@ class Rejected(unittest.TestCase):
                          "rejected decisions missing from workbench/hybrid-rejected.json")
 
 
+class TransformSlot(unittest.TestCase):
+    def test_every_record_carries_its_transform(self):
+        """2026-11-20: "they will need a matrix in the database" — 90° is a quarter turn and
+        exact; 45° is display only, because √2/2 is irrational. The slot is on every record."""
+        registry = json.loads(REGISTRY.read_text())["curves"]
+        missing = []
+        for record in registry:
+            slot = record.get("transform") or {}
+            if not all(key in slot for key in ("degrees", "matrix", "exact")):
+                missing.append(record["uid"])
+            matrix = slot.get("matrix")
+            if not (isinstance(matrix, list) and len(matrix) == 2 and all(len(row) == 2 for row in matrix)):
+                missing.append(f'{record["uid"]}:matrix')
+        self.assertEqual(missing[:10], [], "records without a 2×2 transform")
+
+
 class ConversionSlot(unittest.TestCase):
     def test_every_record_reserves_the_conversion_slot(self):
         """2026-11-20: "they will have to come over to this algorithm eventually, so leave

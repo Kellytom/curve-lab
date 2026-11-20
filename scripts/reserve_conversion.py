@@ -29,6 +29,18 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "workbench" / "curve-registry.json"
 TARGET = "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)"
 
+# A finished hybrid is usually turned 45° or 90° for the page. The matrix is the record of
+# that turn: 90° is a quarter turn and exact (0, −1, 1, 0); 45° is display only, because
+# cos 45° = √2/2 is irrational and no exact integer matrix can express it.
+IDENTITY = {"degrees": 0, "matrix": [[1, 0], [0, 1]], "exact": True}
+TURNS = {
+    0: {"degrees": 0, "matrix": [[1, 0], [0, 1]], "exact": True},
+    90: {"degrees": 90, "matrix": [[0, -1], [1, 0]], "exact": True},
+    180: {"degrees": 180, "matrix": [[-1, 0], [0, -1]], "exact": True},
+    270: {"degrees": 270, "matrix": [[0, 1], [-1, 0]], "exact": True},
+    45: {"degrees": 45, "matrix": [["√2/2", "-√2/2"], ["√2/2", "√2/2"]], "exact": False},
+}
+
 
 def algorithm_of(record):
     family = (record.get("family") or record.get("family_id") or "").lower()
@@ -53,6 +65,7 @@ def main(argv=None) -> int:
         if "conversion" in record:
             continue
         algorithm = algorithm_of(record)
+        record["transform"] = dict(IDENTITY)
         record["conversion"] = {
             "algorithm": algorithm,
             "status": "native" if algorithm == "hybrid" else "pending",
@@ -60,6 +73,11 @@ def main(argv=None) -> int:
             "formulaNext": None,
         }
         added += 1
+
+    missing = [row["uid"] for row in registry["curves"] if "transform" not in row]
+    for record in registry["curves"]:
+        if "transform" not in record:
+            record["transform"] = dict(IDENTITY)
 
     print(f"{added} records gained the conversion slot; "
           f"{len(registry['curves'])} records in all")

@@ -3263,3 +3263,12 @@ Tschirnhausen — classic but adds nothing; off the board.
   and name. The pair page is staging, like the wonk page.
 - Proved end to end: one save moved the desk 46→47 and the wonkies page 56→55; the row was
   then removed, so the pages are back to 46 and 56.
+
+### The transform slot — 2026-11-20
+
+- Every registry record now carries
+  `transform: { degrees, matrix: [[a,b],[c,d]], exact }`, identity by default (272 records).
+  `Note.transform` holds it.
+- 90/180/270 are integer matrices and exact; 45 stores `"√2/2"` entries and `exact: false`,
+  because the half-turn rule in `DESIGN-int` makes 45° a display turn, not an exact one.
+- Guard: `tests/test_hybrids.py::test_every_record_carries_its_transform`.

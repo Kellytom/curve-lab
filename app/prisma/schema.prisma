@@ -45,6 +45,7 @@ model Note {
   stationRule String?               // how the stations were placed
   algorithm  String?                // rows, path, prime-mover, hybrid …
   conversion String?                // JSON: what it came from, and the improved formula's slot
+  transform  String?                // JSON: degrees, the 2×2 matrix, and whether the turn is exact
   updatedAt  DateTime @updatedAt
 }
 

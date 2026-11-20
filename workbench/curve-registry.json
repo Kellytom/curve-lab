@@ -41,6 +41,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -83,6 +97,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -127,6 +155,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -169,6 +211,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -211,6 +267,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -253,6 +323,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -295,6 +379,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -337,6 +435,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -379,6 +491,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -421,6 +547,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -471,6 +611,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -506,6 +660,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -540,6 +708,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -576,6 +758,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -622,6 +818,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -668,6 +878,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -714,6 +938,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -760,6 +998,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -798,6 +1050,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -838,6 +1104,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -876,6 +1156,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -918,6 +1212,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -960,6 +1268,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1006,6 +1328,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1050,6 +1386,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1092,6 +1442,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1126,6 +1490,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1171,6 +1549,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1216,6 +1608,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1259,6 +1665,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1302,6 +1722,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1345,6 +1779,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1388,6 +1836,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1435,6 +1897,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1482,6 +1958,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1529,6 +2019,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1576,6 +2080,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1623,6 +2141,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1670,6 +2202,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1717,6 +2263,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1764,6 +2324,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1811,6 +2385,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1854,6 +2442,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1897,6 +2499,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1940,6 +2556,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -1983,6 +2613,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2024,6 +2668,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2065,6 +2723,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2106,6 +2778,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2147,6 +2833,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2188,6 +2888,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2229,6 +2943,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2270,6 +2998,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2311,6 +3053,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2356,6 +3112,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2401,6 +3171,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2444,6 +3228,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2487,6 +3285,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2530,6 +3342,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2575,6 +3401,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2618,6 +3458,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2661,6 +3515,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2704,6 +3572,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2747,6 +3629,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2790,6 +3686,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2833,6 +3743,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2876,6 +3800,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2919,6 +3857,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -2962,6 +3914,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3005,6 +3971,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3052,6 +4032,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3099,6 +4093,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3146,6 +4154,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3193,6 +4215,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3240,6 +4276,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3287,6 +4337,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3334,6 +4398,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3381,6 +4459,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3428,6 +4520,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3475,6 +4581,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3522,6 +4642,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3569,6 +4703,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3616,6 +4764,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3663,6 +4825,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3710,6 +4886,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3757,6 +4947,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -3800,6 +5004,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -5447,6 +6665,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -6768,6 +8000,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -8090,6 +9336,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -9413,6 +10673,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -10736,6 +12010,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -12059,6 +13347,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -13383,6 +14685,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -14704,6 +16020,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -16025,6 +17355,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -17346,6 +18690,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -18669,6 +20027,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -19989,6 +21361,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -21311,6 +22697,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -22637,6 +24037,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -23963,6 +25377,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -25289,6 +26717,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -26615,6 +28057,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -27941,6 +29397,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -29267,6 +30737,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -30593,6 +32077,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -31919,6 +33417,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -33242,6 +34754,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -34565,6 +36091,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -35888,6 +37428,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -37211,6 +38765,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -38534,6 +40102,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -39857,6 +41439,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -41180,6 +42776,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -42503,6 +44113,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -43826,6 +45450,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -46671,6 +48309,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -49516,6 +51168,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -52361,6 +54027,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -55206,6 +56886,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -58051,6 +59745,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -60896,6 +62604,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -63736,6 +65458,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -66576,6 +68312,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -69416,6 +71166,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -71863,6 +73627,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -74310,6 +76088,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -76761,6 +78553,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -79212,6 +81018,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -82136,6 +83956,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -85065,6 +86899,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -87994,6 +89842,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -90928,6 +92790,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -92899,6 +94775,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -94870,6 +96760,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -96841,6 +98745,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -98812,6 +100730,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -101732,6 +103664,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -104652,6 +106598,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -107572,6 +109532,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -110492,6 +112466,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111486,6 +113474,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111529,6 +113531,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111572,6 +113588,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111615,6 +113645,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111658,6 +113702,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111701,6 +113759,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111744,6 +113816,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111787,6 +113873,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111830,6 +113930,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111873,6 +113987,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111920,6 +114048,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -111967,6 +114109,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112014,6 +114170,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112061,6 +114231,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112108,6 +114292,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112155,6 +114353,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112202,6 +114414,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112249,6 +114475,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112296,6 +114536,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112337,6 +114591,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112378,6 +114646,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112419,6 +114701,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112460,6 +114756,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112501,6 +114811,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112542,6 +114866,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112583,6 +114921,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112624,6 +114976,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112665,6 +115031,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112706,6 +115086,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112747,6 +115141,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112788,6 +115196,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112829,6 +115251,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112870,6 +115306,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112911,6 +115361,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112952,6 +115416,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -112997,6 +115475,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113042,6 +115534,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113087,6 +115593,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113132,6 +115652,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113177,6 +115711,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113222,6 +115770,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113267,6 +115829,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113312,6 +115888,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113357,6 +115947,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113402,6 +116006,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113447,6 +116065,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113492,6 +116124,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113537,6 +116183,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113582,6 +116242,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113627,6 +116301,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113672,6 +116360,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113717,6 +116419,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113762,6 +116478,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113807,6 +116537,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113852,6 +116596,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113897,6 +116655,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113942,6 +116714,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -113987,6 +116773,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114032,6 +116832,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114075,6 +116889,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114118,6 +116946,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114161,6 +117003,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114204,6 +117060,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114247,6 +117117,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114290,6 +117174,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114333,6 +117231,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114376,6 +117288,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114419,6 +117345,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114462,6 +117402,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114505,6 +117459,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114548,6 +117516,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114591,6 +117573,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114634,6 +117630,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114677,6 +117687,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114720,6 +117744,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114767,6 +117805,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114814,6 +117866,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114861,6 +117927,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114908,6 +117988,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -114955,6 +118049,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115002,6 +118110,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115049,6 +118171,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115096,6 +118232,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115143,6 +118293,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115190,6 +118354,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115237,6 +118415,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115284,6 +118476,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115331,6 +118537,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115378,6 +118598,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115425,6 +118659,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115472,6 +118720,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115519,6 +118781,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115566,6 +118842,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115613,6 +118903,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115660,6 +118964,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115707,6 +119025,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115754,6 +119086,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115801,6 +119147,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115848,6 +119208,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115895,6 +119269,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115942,6 +119330,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -115989,6 +119391,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116036,6 +119452,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116083,6 +119513,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116130,6 +119574,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116177,6 +119635,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116224,6 +119696,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116271,6 +119757,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116318,6 +119818,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116365,6 +119879,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116412,6 +119940,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116459,6 +120001,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116506,6 +120062,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116553,6 +120123,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116604,6 +120188,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116651,6 +120249,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116698,6 +120310,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116753,6 +120379,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116794,6 +120434,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116837,6 +120491,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116885,6 +120553,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116933,6 +120615,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -116981,6 +120677,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -117029,6 +120739,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -117077,6 +120801,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -117125,6 +120863,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -120761,6 +124513,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -121149,6 +124915,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -121537,6 +125317,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     },
     {
@@ -121811,6 +125605,20 @@
         "status": "pending",
         "target": "x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)",
         "formulaNext": null
+      },
+      "transform": {
+        "degrees": 0,
+        "matrix": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "exact": true
       }
     }
   ],

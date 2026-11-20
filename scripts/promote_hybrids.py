@@ -176,6 +176,7 @@ def main(argv=None) -> int:
             "minus": 0,
             "profile": None,
             "formula": formula,
+            "transform": {"degrees": 0, "matrix": [[1, 0], [0, 1]], "exact": True},
             "conversion": {
                 "algorithm": "hybrid",
                 "status": "native",

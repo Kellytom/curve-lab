@@ -204,3 +204,20 @@ A wonky is recovered when it is **saved** or **named**. From that moment it appe
 `/hybrids/` with the other candidates and leaves `/hybrids-wonkies/`, so the pair page is a
 staging list that empties as halves are adopted. Proved: saving one wonky moved the desk
 46 → 47 and its page 56 → 55, and the saved card carried its name.
+
+## The transform slot
+
+A finished hybrid is usually turned **45° or 90°** for the page, so every record carries the
+turn as a matrix, reserved now and filled when it is set:
+
+```
+transform: { degrees, matrix: [[a, b], [c, d]], exact }
+```
+
+- **90°** is a quarter turn and exact: `[[0, −1], [1, 0]]`; 180° and 270° likewise.
+- **45°** is display only: `cos 45° = √2/2` is irrational, so the matrix holds the two
+  entries as the strings `"√2/2"` and marks `exact: false`. No figure may claim an exact
+  grid after it.
+- Identity is the default on all 272 records and on every promoted hybrid; the column is
+  `Note.transform`.
+- Guard: `tests/test_hybrids.py::test_every_record_carries_its_transform`.
