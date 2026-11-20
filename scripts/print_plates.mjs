@@ -10,7 +10,7 @@
 //
 // Writes book/print/<uid>.svg and <uid>.png (long side 3000 px, 300 dpi).
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
@@ -192,4 +192,15 @@ for (const record of records) {
   }
 }
 await browser.close();
-console.log(`${done} plates written to book/print at ${LONG_SIDE} px, 300 dpi`);
+
+// a plate is replaced, never duplicated: one file per uid, and a uid the registry no longer
+// has is removed, so the folder cannot drift from the records
+const uids = new Set(registry.curves.map((record) => record.uid));
+let pruned = 0;
+for (const file of readdirSync(OUT)) {
+  const [uid, ext] = file.split(".");
+  if (!["png", "svg"].includes(ext)) continue;
+  if (!uids.has(uid)) { rmSync(path.join(OUT, file)); pruned += 1; }
+}
+console.log(`${done} plates written to book/print at ${LONG_SIDE} px, 300 dpi` +
+  (pruned ? `; ${pruned} orphan files removed` : ""));
