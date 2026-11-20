@@ -191,3 +191,9 @@ the drawn line between them, and the file says so.
 
 `/hybrids-wonkies/` lists them with the same cards, so a wonky can be starred, named, saved
 or rejected. `scripts/wonky_figures.mjs` draws them with the same figure builder.
+
+## "wonk" is a staging label, not a family
+
+A candidate is a wonk only while its saved name matches `wonk-<number>`. Rename it and it
+leaves `/hybrids-wonk/` and appears on `/hybrids/` under its new name — it has been adopted.
+Nothing tags it and nothing needs tracking: the name is the state.

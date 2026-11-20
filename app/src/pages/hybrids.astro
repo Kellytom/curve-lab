@@ -29,13 +29,12 @@ const rows = (data.candidates || [])
       curveName: String(decision.curveName || ""),
       importance: Number(decision.importance) || 0,
       decision: String(decision.decision || ""),
-      tag: String(decision.tag || ""),
       placeholder: `hybrid-${candidate.p}-${candidate.q}-${candidate.use === "colour" ? "colour" : `${candidate.block}-${candidate.use}`}`,
     };
   })
-  // a family page owns its rows: the tag survives a rename, the old name pattern is the
-  // fallback for rows saved before the tag existed
-  .filter((row) => row.tag !== "wonk" && !/^wonk-\d+$/i.test(row.curveName))
+  // "wonk" is a staging label, not a family: while a candidate is still named wonk-<n> it
+  // sits on the wonk page; once it has a real name it belongs here
+  .filter((row) => !/^wonk-\d+$/i.test(row.curveName))
   // a recorded reject stays out unless it was starred or saved afterwards
   .filter((row) => {
     const record = rejected.get(row.id);

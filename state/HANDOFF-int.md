@@ -3250,3 +3250,9 @@ Tschirnhausen — classic but adds nothing; off the board.
   wonky can be starred, named, saved or rejected.
 - The cut: stations either side are exact, the crossing is on the drawn line between them —
   stated in the file and on the page.
+
+### Wonk is staging, not a family — 2026-11-20
+
+- No tag is stored. A candidate is a wonk only while named `wonk-<n>`: renaming it moves it
+  from `/hybrids-wonk/` to `/hybrids/` under the new name. Proved: rename one → wonk page
+  28→27, desk 46→47, new name visible.
