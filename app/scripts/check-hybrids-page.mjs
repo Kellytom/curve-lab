@@ -100,6 +100,22 @@ const duplicateFlag = await page.evaluate((name) =>
   document.querySelector(`.hybrid-card[data-name="${name}"] .hybrid-flag`)?.textContent || "", second);
 check(duplicateFlag.includes("already used"), `a duplicate name is refused ("${duplicateFlag}")`);
 
+// the turn buttons: 90° is saved with the row, and the card shows it after a reload
+const turnCard = await page.locator(".hybrid-card").first().getAttribute("data-name");
+await page.locator(`.hybrid-card[data-name="${turnCard}"] .rotate button[data-turn="90"]`).click();
+await page.waitForTimeout(1200);
+const savedTurn = (await (await fetch(`${BASE}/api/sandbox-curves`)).json()).curves
+  .find((row) => row.name === turnCard)?.transform;
+check(savedTurn?.degrees === 90, `the 90° turn is in the row (${JSON.stringify(savedTurn)})`);
+await page.reload({ waitUntil: "domcontentloaded" });
+await page.waitForTimeout(1000);
+const turned = await page.evaluate((name) => ({
+  degrees: document.querySelector(`.hybrid-card[data-name="${name}"] .rotate`)?.dataset.degrees,
+  image: document.querySelector(`.hybrid-card[data-name="${name}"] img`)?.style.transform,
+}), turnCard);
+check(turned.degrees === "90" && /90deg/.test(turned.image || ""),
+  `a 90° turn survives a reload (${turned.degrees}, ${turned.image})`);
+
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 
 // a failed read must not become a write: with the decisions unreachable, a click saves nothing

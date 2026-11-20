@@ -10,7 +10,9 @@ const construction = JSON.stringify(constructionOf(row));
 <article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0"
   data-construction={construction}>
   <img src={`/hybrid-figures/${row.figure}`} alt={`${row.id}, ${row.crossings} crossing pairs`} width="440" height="440" />
-  <p class="hybrid-id"><code>{row.id}</code></p>
+  <p class="hybrid-id"><code>{row.id}</code>
+    <button type="button" class="mirror-make" title="make a mirrored double across the y axis">⇋</button>
+  </p>
   <input class="hybrid-name" type="text" aria-label={`name for ${row.id}`}
     value={row.curveName || row.placeholder || row.id}
     placeholder={row.placeholder} />
@@ -24,6 +26,14 @@ const construction = JSON.stringify(constructionOf(row));
     {Array.from({ length: 10 }, (_, i) => (
       <button type="button" data-imp={i + 1} class={i + 1 <= (row.importance || 0) ? "on" : ""}>{i + 1}</button>
     ))}
+  </div>
+  <div class="rotate" role="group" aria-label={`rotate ${row.id}`} data-degrees={String(row.rowDegrees || 0)}>
+    <span class="label">turn</span>
+    <button type="button" data-turn="45">45</button>
+    <button type="button" data-turn="-45">−45</button>
+    <button type="button" data-turn="90">90</button>
+    <button type="button" data-turn="-90">−90</button>
+    <button type="button" data-turn="0">0</button>
   </div>
   <div class="hybrid-actions" role="group" aria-label={`decide ${row.id}`}>
     <button type="button" data-decision="saved">Save</button>

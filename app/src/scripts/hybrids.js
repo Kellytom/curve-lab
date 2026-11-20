@@ -64,6 +64,26 @@ function flag(card, text) {
   if (node) node.textContent = text;
 }
 
+const TURNS = {
+  0: { matrix: [[1, 0], [0, 1]], exact: true },
+  45: { matrix: [["√2/2", "-√2/2"], ["√2/2", "√2/2"]], exact: false },
+  "-45": { matrix: [["√2/2", "√2/2"], ["-√2/2", "√2/2"]], exact: false },
+  90: { matrix: [[0, -1], [1, 0]], exact: true },
+  "-90": { matrix: [[0, 1], [-1, 0]], exact: true },
+};
+
+function paintTurn(card, degrees) {
+  const value = String(degrees || 0);
+  const group = card.querySelector(".rotate");
+  if (group) group.dataset.degrees = value;
+  const img = card.querySelector("img");
+  if (img) img.style.transform = `rotate(${value}deg)`;
+  if (group) {
+    group.querySelectorAll("button").forEach((button) =>
+      button.classList.toggle("on", button.dataset.turn === value));
+  }
+}
+
 async function save(card, patch) {
   if (!state.readOk) throw new Error("decisions have not loaded; refusing to write");
   const input = card.querySelector(".hybrid-name");
@@ -97,6 +117,8 @@ async function load() {
         row.crossedAt || row.savedAt));
     }
     if (row.importance) paintStars(card, row.importance);
+    const degrees = row.transform && row.transform.degrees;
+    if (degrees !== undefined && degrees !== null) paintTurn(card, degrees);
     const input = card.querySelector(".hybrid-name");
     if (input && row.curveName) { input.value = row.curveName; input.dataset.saved = row.curveName; }
   }
@@ -144,6 +166,41 @@ export function mountHybridDesk() {
         }
       });
     }
+
+    const mirror = card.querySelector(".mirror-make");
+    if (mirror) {
+      mirror.addEventListener("click", async () => {
+        mirror.disabled = true;
+        try {
+          const response = await fetch("/api/mirror-double", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ parent: card.dataset.name }),
+          });
+          const body = await response.json();
+          if (!response.ok) throw new Error(body.error || "could not mirror");
+          location.reload();
+        } catch (error) {
+          mirror.disabled = false;
+          flag(card, `not mirrored — ${String(error.message || error)}`);
+        }
+      });
+    }
+
+    card.querySelectorAll(".rotate button").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const degrees = button.dataset.turn;
+        const previous = card.querySelector(".rotate")?.dataset.degrees || "0";
+        paintTurn(card, degrees === "0" ? 0 : degrees);
+        try {
+          const turn = TURNS[degrees] || TURNS[0];
+          await save(card, { transform: { degrees: Number(degrees), ...turn } });
+        } catch (error) {
+          paintTurn(card, previous);
+          say(String(error.message || error));
+        }
+      });
+    });
 
     card.querySelectorAll(".stars button").forEach((button) => {
       button.addEventListener("click", async () => {

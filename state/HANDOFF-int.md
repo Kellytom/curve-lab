@@ -3304,3 +3304,15 @@ Tschirnhausen — classic but adds nothing; off the board.
   database notes. The drawings are not turned yet.
 - Next on the list: a clean rotated formula (delaying the cosine by half), so the 45° is
   arithmetic rather than a matrix.
+
+### Mirrors and turns on the desk — 2026-11-20 (late)
+
+- **⇋ on every card** makes a mirror double across the y axis, joined at the ends with
+  straight segments, saved as `mirror-<id>` and placed directly after its parent. The joins
+  are measured and stored; the note says DW and the join lengths.
+- **Turn buttons** (`45 · −45 · 90 · −90 · 0`) rotate the drawing and store the matrix; 90 is
+  exact, 45 is `exact: false`.
+- `scripts/make_mirror_doubles.py` does the same in bulk and reports which ends meet (60 of
+  60 with the current cut).
+- The desk now hides any card moved to notes or rejected.
+- Guard: `check-hybrids-page.mjs` — turn saved in the row and shown after reload.

@@ -54,6 +54,13 @@ const {
 </BaseLayout>
 
 <style is:global>
+  .mirror-make { font-size: 11px; padding: 0 5px; margin: 0 0 0 6px; line-height: 1.4;
+    position: relative; z-index: 3; }
+  .hybrid-card img { position: relative; z-index: 0; }
+  .rotate { display: flex; gap: 4px; align-items: center; font: 12px/1.3 ui-monospace, Menlo, monospace; color: #7a6a55; margin: 2px 0 6px; }
+  .rotate .label { margin-right: 4px; }
+  .rotate button { padding: 1px 7px; font-size: 12px; margin: 0; }
+  .rotate button.on { background: #c9a441; color: #fff; }
   .hybrids-counts { font: 15px/1.4 ui-monospace, Menlo, monospace; color: #5a4a36; margin: 6px 0 18px; }
   .hybrids-empty { font-size: 15px; color: #7a6a55; margin: 24px 0; }
   .hybrids-section h2 { font-size: 18px; margin: 26px 0 10px; }

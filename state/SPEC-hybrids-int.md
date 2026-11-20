@@ -302,3 +302,24 @@ the database carry it; **the drawings are not turned yet** — that waits on a c
 **Next, and deliberate:** a clean rotated formula, for example delaying the cosine by half a
 period so the turn is written into the parametric form (`x = C(t)`, `y = S(t − 1/2)`) instead
 of applied afterwards. That is where the 45° becomes arithmetic, not a matrix.
+
+## Mirror doubles from the desk
+
+A tiny **⇋** beside the id makes a mirror double of that curve: the curve is mirrored across
+the `y` axis and the two copies are joined at their ends with straight segments, then the
+double is saved as `mirror-<id>` and sits **directly after** the curve it mirrors.
+
+- The joins are measured and stored (`construction.joins`, `construction.maxJoin`); a double
+  whose joins are long is honest about it rather than drawn as if it closed.
+- The note reads `DW: <parent> mirrored across the y axis; the two copies meet at straight
+  joins of …`.
+- The card carries the same controls (Save, move to notes, reject, stars, name, turn), so a
+  mirror can be rejected like anything else.
+- Guard: the page check exercises the desk; the mirror endpoint refuses a curve with no
+  points and returns the join lengths.
+
+## Turns on the desk
+
+Every card has `45 · −45 · 90 · −90 · 0`. A turn is applied to the drawing and stored as
+`transform: { degrees, matrix, exact }` — 90 is exact, 45 is `exact: false` because
+`√2/2` is irrational.

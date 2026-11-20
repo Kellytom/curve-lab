@@ -40,13 +40,55 @@ const likedHalves = new Set(
     .filter(([, row]) => (Number(row.importance) || 0) > 0 || row.decision === "saved")
     .map(([name]) => name),
 );
+// mirror doubles made with the little ⇋ button live in the database, and sit beside their parent
+const storedRows = await prisma.sandboxCurve.findMany();
+const mirrors = [];
+for (const stored of storedRows) {
+  try {
+    const data = JSON.parse(stored.data);
+    if (data.construction?.kind !== "double" || !data.construction?.mirror) continue;
+    const parent = data.construction.parent;
+    mirrors.push({
+      id: stored.name,
+      parent,
+      kind: "double",
+      points: data.points || [],
+      figure: `${stored.name}.svg`,
+      crossings: data.construction?.crossings ?? 0,
+      p: data.construction?.p ?? data.p, q: data.construction?.q ?? data.q,
+      curveName: data.curveName || stored.name,
+      importance: Number(data.importance) || 0,
+      decision: data.decision || "",
+      placeholder: stored.name,
+      note: data.construction?.note || "",
+      construction: data.construction,
+      formula: {
+        plain: data.formula?.plain || "",
+        internal: data.formula?.internal || "",
+        middle: data.formula?.middle || "",
+        use: `mirror of ${parent} across the y axis`,
+        search: `${data.formula?.plain || ""} mirrored across the y axis`,
+      },
+    });
+  } catch { /* not a mirror row */ }
+}
+
 // a double reaches the desk when its half is liked OR when the double itself was saved
 const doubles = (doubleData.doubles || [])
   .map(decorate)
   .filter((row) => likedHalves.has(row.parent) || row.decision === "saved"
     || (Number(row.importance) || 0) > 0);
 
-const rows = [...(data.candidates || []).map(decorate), ...doubles]
+const byParent = new Map();
+for (const mirror of mirrors) {
+  if (!byParent.has(mirror.parent)) byParent.set(mirror.parent, []);
+  byParent.get(mirror.parent).push(mirror);
+}
+
+const base = [...(data.candidates || []).map(decorate), ...doubles];
+const sorted = base
+  // a note or a rejection takes the card off the desk
+  .filter((row) => row.decision !== "notes" && row.decision !== "rejected")
   // "wonk" is a staging label, not a family: while a candidate is still named wonk-<n> it
   // sits on the wonk page; once it has a real name it belongs here
   .filter((row) => !/^wonk-\d+$/i.test(row.curveName))
@@ -59,9 +101,21 @@ const rows = [...(data.candidates || []).map(decorate), ...doubles]
     || b.crossings - a.crossings
     || a.id.localeCompare(b.id));
 
+// a mirror sits directly after the curve it mirrors, whatever the sort said
+const rows = sorted
+  .filter((row) => !String(row.id).startsWith("mirror-"))
+  .flatMap((row) => [row, ...(byParent.get(row.id) || [])]);
+for (const [parent, list] of byParent) {
+  if (!rows.some((row) => row.id === parent)) rows.push(...list);
+}
+
 const starGroups = new Map();
+const byId = new Map(rows.map((row) => [row.id, row]));
 for (const row of rows) {
-  const key = row.importance > 0 ? `${row.importance} stars` : "unstarred, still in play";
+  // a mirror belongs to its parent's group, so the two stay side by side
+  const parentImportance = row.parent ? (byId.get(row.parent)?.importance || 0) : 0;
+  const importance = row.importance > 0 ? row.importance : parentImportance;
+  const key = importance > 0 ? `${importance} stars` : "unstarred, still in play";
   if (!starGroups.has(key)) starGroups.set(key, []);
   starGroups.get(key).push(row);
 }
