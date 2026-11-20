@@ -1,8 +1,20 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 1,
+ "count": 3,
  "rows": [
+  {
+   "name": "h-colour-1-1",
+   "data": "{\"name\":\"h-colour-1-1\",\"decision\":\"keep\",\"importance\":7,\"curveName\":\"swan-hybrid-7\",\"crossedAt\":\"2026-11-20T15:02:51.291Z\"}",
+   "createdAt": "2026-11-20T15:02:46.301Z",
+   "updatedAt": "2026-11-20T15:02:51.296Z"
+  },
+  {
+   "name": "h-colour-1-2",
+   "data": "{\"name\":\"h-colour-1-2\",\"decision\":\"keep\",\"importance\":0,\"curveName\":\"\",\"crossedAt\":\"2026-11-20T15:02:46.774Z\"}",
+   "createdAt": "2026-11-20T15:02:46.802Z",
+   "updatedAt": "2026-11-20T15:02:46.802Z"
+  },
   {
    "name": "pm-test",
    "data": "{\"name\":\"pm-test\",\"family\":\"prime-mover\",\"settings\":{\"factor\":\"2+i\",\"steps\":12,\"lag\":27,\"dampOrange\":80,\"dampBlue\":80,\"onset\":45},\"kind\":\"prime-mover\"}",
