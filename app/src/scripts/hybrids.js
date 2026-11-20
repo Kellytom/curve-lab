@@ -94,6 +94,7 @@ async function save(card, patch) {
     decision: card.dataset.decision || "",
     importance: Number(card.dataset.importance) || 0,
     curveName: input ? input.value.trim() : "",
+    widthPct: Number(card.querySelector("[data-width]")?.value) || null,
     construction: (() => {
       try { return JSON.parse(card.dataset.construction || "{}"); } catch { return {}; }
     })(),
@@ -119,6 +120,8 @@ async function load() {
         row.crossedAt || row.savedAt));
     }
     if (row.importance) paintStars(card, row.importance);
+    const width = card.querySelector("[data-width]");
+    if (width && row.widthPct) width.value = row.widthPct;
     const degrees = row.transform && row.transform.degrees;
     if (degrees !== undefined && degrees !== null) paintTurn(card, degrees);
     const input = card.querySelector(".hybrid-name");
@@ -186,6 +189,14 @@ export function mountHybridDesk() {
           mirror.disabled = false;
           flag(card, `not mirrored — ${String(error.message || error)}`);
         }
+      });
+    }
+
+    const widthBox = card.querySelector("[data-width]");
+    if (widthBox) {
+      widthBox.addEventListener("change", async () => {
+        try { await save(card, { widthPct: Number(widthBox.value) || null }); }
+        catch (error) { say(String(error.message || error)); }
       });
     }
 
