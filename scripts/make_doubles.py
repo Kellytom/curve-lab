@@ -30,8 +30,9 @@ OUT = ROOT / "workbench" / "doubles.json"
 def double(points):
     """the half, then its mirror in the line y = x, walked back."""
     mirrored = [(y, x) for x, y in reversed(points)]
-    # the join: drop the duplicated end points (both sit on the axis)
-    return points + mirrored[1:-1]
+    # mirrored[0] repeats the piece's last point; mirrored[-1] is the piece's first point,
+    # which closes the figure on the line
+    return points + mirrored[1:]
 
 
 def main(argv=None) -> int:
