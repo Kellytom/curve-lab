@@ -3197,3 +3197,15 @@ Tschirnhausen — classic but adds nothing; off the board.
   so a rename cannot lose a decision.
 - Guard: `app/scripts/check-hybrids-page.mjs` — keeps, seven stars and a typed name survive a
   reload.
+
+### Reuse, not reinvention — 2026-11-20
+
+- **The hybrid figures are drawn by `figureSvg`**, the app's own builder (axes, grid,
+  legend, cubic Bézier chain) — `scripts/hybrid_figures.py` now writes data only and
+  `scripts/hybrid_figures.mjs` renders the files. The hand-rolled SVG writer is gone.
+- **The stars widget has one definition**, in `app/public/vendor/app-shell.css`; `/names/`
+  and `/hybrids/` both use it and neither page carries a copy.
+- **Data safety carried over from the naming desk:** a failed read turns saving off
+  (`state.readOk`), a failed save restores the previous value, and the stars/name/decision
+  live in one row. Guard in `check-hybrids-page.mjs`: with the GET answering 500, a click
+  makes zero POSTs.

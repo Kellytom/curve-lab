@@ -57,37 +57,9 @@ def stations():
 ST = stations()
 
 
-def figure(points, name, desc=""):
-    xs = [p[0] for p in points]
-    ys = [p[1] for p in points]
-    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
-    pad = (max(x1 - x0, y1 - y0) or 1) * 0.06
-    x0, x1, y0, y1 = x0 - pad, x1 + pad, y0 - pad, y1 + pad
-    k = SIZE / max(x1 - x0, y1 - y0)
-    ox = (SIZE - (x1 - x0) * k) / 2 - x0 * k
-    oy = (SIZE - (y1 - y0) * k) / 2 + y1 * k
-
-    def px(p):
-        return ox + p[0] * k, oy - p[1] * k
-
-    step = max(1, len(points) // 400)
-    d = "M" + " L".join(f"{px(p)[0]:.1f},{px(p)[1]:.1f}" for p in points[::step])
-    axes = ""
-    if x0 <= 0 <= x1 and y0 <= 0 <= y1:
-        a, b = px((x0, 0)), px((x1, 0))
-        c, e = px((0, y0)), px((0, y1))
-        axes = (f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="#e6dccb"/>'
-                f'<line x1="{c[0]:.1f}" y1="{c[1]:.1f}" x2="{e[0]:.1f}" y2="{e[1]:.1f}" stroke="#e6dccb"/>')
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SIZE} {SIZE}" '
-            f'width="{SIZE}" height="{SIZE}" role="img" aria-label="{name}">'
-            f'<title>{name}</title><desc>{desc}</desc>'
-            f'<rect width="{SIZE}" height="{SIZE}" fill="#fffef9"/>{axes}'
-            f'<path d="{d}" fill="none" stroke="#2f6fa8" stroke-width="1.2"/></svg>')
-
-
 def middle_text(block):
     """P = x^2 + <the block's terms> + y^2, written for a reader."""
-    block = BLOCKS.get(block, block)      # a block may arrive by name
+    block = BLOCKS.get(block, block)
     if block in ("none", None):
         block = []
     terms = ["x^2", "y^2"]
@@ -121,7 +93,6 @@ def formulas(p, q, use, block):
 
 
 def main() -> int:
-    FIG.mkdir(parents=True, exist_ok=True)
     rows = []
     for p in range(1, POWERS + 1):
         for q in range(1, POWERS + 1):
@@ -129,10 +100,10 @@ def main() -> int:
             pts = [(float(x), float(y)) for x, y in base]
             name = f"h-colour-{p}-{q}"
             formula = formulas(p, q, "colour", "none")
-            (FIG / f"{name}.svg").write_text(figure(pts, name, formula["search"]))
             rows.append({"id": name, "p": p, "q": q, "use": "colour", "block": "none",
                          "crossings": cs.crossings(pts), "figure": f"{name}.svg",
-                         "formula": formula})
+                         "formula": formula,
+                         "points": [[round(x, 6), round(y, 6)] for x, y in pts[::max(1, len(pts) // 90)]]})
 
             for block_name, block in BLOCKS.items():
                 scaled = []
@@ -143,11 +114,12 @@ def main() -> int:
                     scaled.append((float(x * P), float(y * P)))
                 name = f"h-radius-{p}-{q}-{block_name}"
                 formula = formulas(p, q, "radius", block_name)
-                (FIG / f"{name}.svg").write_text(figure(scaled, name, formula["search"]))
                 rows.append({"id": name, "p": p, "q": q, "use": "radius",
                              "block": block_name, "crossings": cs.crossings(scaled),
                              "figure": f"{name}.svg",
-                             "formula": formula})
+                             "formula": formula,
+                             "points": [[round(x, 6), round(y, 6)]
+                                        for x, y in scaled[::max(1, len(scaled) // 90)]]})
 
     OUT.write_text(json.dumps({
         "format": "curve-lab.hybrids/1",

@@ -5,6 +5,16 @@
 
 const ENDPOINT = "/api/sandbox-curves";
 
+// The naming desk's first rule: a failed read is never a write. Until the decisions have
+// loaded, nothing on the page may be saved — otherwise an empty card would overwrite a
+// real one.
+const state = { readOk: false, message: "" };
+
+function setBusy(host, text) {
+  state.message = text;
+  if (host) host.textContent = text;
+}
+
 function cards() {
   return [...document.querySelectorAll(".hybrid-card")];
 }
@@ -40,6 +50,7 @@ function paintStars(card, importance) {
 }
 
 async function save(card, patch) {
+  if (!state.readOk) throw new Error("decisions have not loaded; refusing to write");
   const payload = {
     name: card.dataset.name,
     decision: card.dataset.decision || "",
@@ -60,6 +71,7 @@ async function load() {
   const response = await fetch(ENDPOINT);
   if (!response.ok) throw new Error(`load failed: ${response.status}`);
   const { curves } = await response.json();
+  state.readOk = true;
   for (const row of curves) {
     const card = document.querySelector(`.hybrid-card[data-name="${row.name}"]`);
     if (!card) continue;
@@ -75,10 +87,14 @@ export function mountHybridDesk() {
   for (const card of cards()) {
     const input = card.querySelector(".hybrid-name");
     if (input) {
+      input.dataset.saved = input.value;
       input.addEventListener("change", async () => {
+        const previous = input.dataset.saved || "";
         try {
           await save(card, { curveName: input.value.trim() });
+          input.dataset.saved = input.value.trim();
         } catch (error) {
+          input.value = previous;
           const host = document.getElementById("hybrids-counts");
           if (host) host.textContent = String(error.message || error);
         }
@@ -101,10 +117,12 @@ export function mountHybridDesk() {
     for (const button of card.querySelectorAll("[data-decision]")) {
       button.addEventListener("click", async () => {
         const decision = button.dataset.decision;
+        const previous = card.dataset.decision || "";
         try {
           await save(card, { decision });
           mark(card, decision);
         } catch (error) {
+          mark(card, previous);
           const host = document.getElementById("hybrids-counts");
           if (host) host.textContent = String(error.message || error);
         }
@@ -112,8 +130,12 @@ export function mountHybridDesk() {
     }
   }
   load().catch((error) => {
+    state.readOk = false;
     const host = document.getElementById("hybrids-counts");
-    if (host) host.textContent = `could not load decisions: ${String(error.message || error)}`;
+    if (host) {
+      host.textContent = `could not load decisions — saving is off until they load: ` +
+        `${String(error.message || error)}`;
+    }
   });
 }
 

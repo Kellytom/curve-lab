@@ -71,6 +71,24 @@ check(keptName === "swan-hybrid-7", `the typed name survives a reload ("${keptNa
 
 check(errors.length === 0, errors.length ? `page errors: ${errors.join(" | ")}` : "no page errors");
 
+// a failed read must not become a write: with the decisions unreachable, a click saves nothing
+const blocked = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+let posts = 0;
+blocked.on("request", (request) => {
+  if (request.method() === "POST" && request.url().includes("/api/sandbox-curves")) posts += 1;
+});
+await blocked.route("**/api/sandbox-curves", (route) =>
+  route.request().method() === "GET"
+    ? route.fulfill({ status: 500, body: "down" })
+    : route.continue());
+await blocked.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+await blocked.waitForTimeout(900);
+const warned = await blocked.evaluate(() => document.getElementById("hybrids-counts")?.textContent || "");
+await blocked.locator(".hybrid-card .hybrid-actions button").first().click();
+await blocked.waitForTimeout(300);
+check(warned.includes("saving is off"), "a failed read turns saving off");
+check(posts === 0, `no write after a failed read (${posts} POSTs)`);
+
 await browser.close();
 console.log(failed ? `FAILED ${failed}` : "ok /hybrids/ — cards, figures, decisions kept");
 process.exit(failed ? 1 : 0);
