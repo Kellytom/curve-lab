@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 79,
+ "count": 121,
  "rows": [
   {
    "name": "double-1-NW-1",
@@ -16,10 +16,262 @@
    "updatedAt": "2026-11-20T17:19:10.971Z"
   },
   {
+   "name": "double-10-NW-1",
+   "data": "{\"name\":\"double-10-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-10-NW-1\",\"parentName\":\"wonk-10\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.0518,\"y\":0.0518},{\"t\":0.264923,\"x\":0.5373,\"y\":0.5373}],\"ends\":[[0.537283,0.537283],[0.537283,0.537283]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-10, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-10 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-10-NW-1\",\"crossedAt\":\"2026-11-20T17:21:16.210Z\"}",
+   "createdAt": "2026-11-20T17:21:15.262Z",
+   "updatedAt": "2026-11-20T17:21:16.221Z"
+  },
+  {
+   "name": "double-10-SE-1",
+   "data": "{\"name\":\"double-10-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-10-SE-1\",\"parentName\":\"wonk-10\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.0518,\"y\":0.0518},{\"t\":0.264923,\"x\":0.5373,\"y\":0.5373}],\"ends\":[[0.051844,0.051844],[0.051844,0.051844]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-10, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-10 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-10-SE-1\",\"crossedAt\":\"2026-11-20T17:21:22.566Z\"}",
+   "createdAt": "2026-11-20T17:21:21.121Z",
+   "updatedAt": "2026-11-20T17:21:22.572Z"
+  },
+  {
+   "name": "double-11-NW-1",
+   "data": "{\"name\":\"double-11-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-11-NW-1\",\"parentName\":\"wonk-11\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.6036,\"y\":0.6036},{\"t\":0.52828,\"x\":1.3198,\"y\":1.3198}],\"ends\":[[1.319838,1.319838],[1.319838,1.319838]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-11, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-11 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-11-NW-1\",\"crossedAt\":\"2026-11-20T17:21:28.067Z\"}",
+   "createdAt": "2026-11-20T17:21:27.055Z",
+   "updatedAt": "2026-11-20T17:21:28.076Z"
+  },
+  {
+   "name": "double-11-SE-1",
+   "data": "{\"name\":\"double-11-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-11-SE-1\",\"parentName\":\"wonk-11\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.6036,\"y\":0.6036},{\"t\":0.52828,\"x\":1.3198,\"y\":1.3198}],\"ends\":[[0.603647,0.603647],[0.603647,0.603647]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-11, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-11 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-11-SE-1\",\"crossedAt\":\"2026-11-20T17:21:33.928Z\"}",
+   "createdAt": "2026-11-20T17:21:33.015Z",
+   "updatedAt": "2026-11-20T17:21:33.935Z"
+  },
+  {
+   "name": "double-12-NW-1",
+   "data": "{\"name\":\"double-12-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-12-NW-1\",\"parentName\":\"wonk-12\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.1991,\"y\":0.1991},{\"t\":0.581124,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.684564,0.684564],[0.684564,0.684564]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-12, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-12 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-12-NW-1\",\"crossedAt\":\"2026-11-20T17:21:41.173Z\"}",
+   "createdAt": "2026-11-20T17:21:40.129Z",
+   "updatedAt": "2026-11-20T17:21:41.181Z"
+  },
+  {
+   "name": "double-12-SE-1",
+   "data": "{\"name\":\"double-12-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-12-SE-1\",\"parentName\":\"wonk-12\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.1991,\"y\":0.1991},{\"t\":0.581124,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.199126,0.199126],[0.199126,0.199126]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-12, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-12 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-12-SE-1\",\"crossedAt\":\"2026-11-20T17:21:46.666Z\"}",
+   "createdAt": "2026-11-20T17:21:45.637Z",
+   "updatedAt": "2026-11-20T17:21:46.673Z"
+  },
+  {
+   "name": "double-13-NW-1",
+   "data": "{\"name\":\"double-13-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-13-NW-1\",\"parentName\":\"wonk-13\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.0691,\"y\":0.0691},{\"t\":0.615063,\"x\":0.4362,\"y\":0.4362}],\"ends\":[[0.436198,0.436198],[0.436198,0.436198]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-13, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-13 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-13-NW-1\",\"crossedAt\":\"2026-11-20T17:22:04.311Z\"}",
+   "createdAt": "2026-11-20T17:22:03.401Z",
+   "updatedAt": "2026-11-20T17:22:04.318Z"
+  },
+  {
+   "name": "double-13-SE-1",
+   "data": "{\"name\":\"double-13-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-13-SE-1\",\"parentName\":\"wonk-13\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.0691,\"y\":0.0691},{\"t\":0.615063,\"x\":0.4362,\"y\":0.4362}],\"ends\":[[0.069115,0.069115],[0.069115,0.069115]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-13, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-13 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-13-SE-1\",\"crossedAt\":\"2026-11-20T17:22:09.052Z\"}",
+   "createdAt": "2026-11-20T17:22:08.122Z",
+   "updatedAt": "2026-11-20T17:22:09.060Z"
+  },
+  {
+   "name": "double-14-NW-1",
+   "data": "{\"name\":\"double-14-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-14-NW-1\",\"parentName\":\"wonk-14\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.6036,\"y\":0.6036},{\"t\":0.308661,\"x\":1.3198,\"y\":1.3198}],\"ends\":[[1.319838,1.319838],[1.319838,1.319838]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-14, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-14 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-14-NW-1\",\"crossedAt\":\"2026-11-20T17:22:16.580Z\"}",
+   "createdAt": "2026-11-20T17:22:15.589Z",
+   "updatedAt": "2026-11-20T17:22:16.587Z"
+  },
+  {
+   "name": "double-14-SE-1",
+   "data": "{\"name\":\"double-14-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-14-SE-1\",\"parentName\":\"wonk-14\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.6036,\"y\":0.6036},{\"t\":0.308661,\"x\":1.3198,\"y\":1.3198}],\"ends\":[[0.603647,0.603647],[0.603647,0.603647]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-14, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-14 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-14-SE-1\",\"crossedAt\":\"2026-11-20T17:22:23.745Z\"}",
+   "createdAt": "2026-11-20T17:22:22.464Z",
+   "updatedAt": "2026-11-20T17:22:23.753Z"
+  },
+  {
+   "name": "double-15-NW-1",
+   "data": "{\"name\":\"double-15-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-15-NW-1\",\"parentName\":\"wonk-15\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.1991,\"y\":0.1991},{\"t\":0.264923,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.684564,0.684564],[0.684564,0.684564]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-15, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-15 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-15-NW-1\",\"crossedAt\":\"2026-11-20T17:22:28.712Z\"}",
+   "createdAt": "2026-11-20T17:22:27.828Z",
+   "updatedAt": "2026-11-20T17:22:28.720Z"
+  },
+  {
+   "name": "double-15-SE-1",
+   "data": "{\"name\":\"double-15-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-15-SE-1\",\"parentName\":\"wonk-15\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.1991,\"y\":0.1991},{\"t\":0.264923,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.199126,0.199126],[0.199126,0.199126]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-15, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-15 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-15-SE-1\",\"crossedAt\":\"2026-11-20T17:22:34.539Z\"}",
+   "createdAt": "2026-11-20T17:22:33.565Z",
+   "updatedAt": "2026-11-20T17:22:34.550Z"
+  },
+  {
+   "name": "double-16-NW-1",
+   "data": "{\"name\":\"double-16-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-16-NW-1\",\"parentName\":\"wonk-16\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.0691,\"y\":0.0691},{\"t\":0.238342,\"x\":0.4362,\"y\":0.4362}],\"ends\":[[0.436198,0.436198],[0.436198,0.436198]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-16, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-16 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-16-NW-1\",\"crossedAt\":\"2026-11-20T17:22:39.481Z\"}",
+   "createdAt": "2026-11-20T17:22:38.559Z",
+   "updatedAt": "2026-11-20T17:22:39.489Z"
+  },
+  {
+   "name": "double-16-SE-1",
+   "data": "{\"name\":\"double-16-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-16-SE-1\",\"parentName\":\"wonk-16\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.0691,\"y\":0.0691},{\"t\":0.238342,\"x\":0.4362,\"y\":0.4362}],\"ends\":[[0.069115,0.069115],[0.069115,0.069115]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-16, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-16-SE-1\",\"crossedAt\":\"2026-11-20T17:22:44.441Z\"}",
+   "createdAt": "2026-11-20T17:22:43.414Z",
+   "updatedAt": "2026-11-20T17:22:44.452Z"
+  },
+  {
+   "name": "double-17-NW-1",
+   "data": "{\"name\":\"double-17-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-17-NW-1\",\"parentName\":\"wonk-17\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":1.2091,\"y\":1.2091},{\"t\":0.52828,\"x\":1.9253,\"y\":1.9253}],\"ends\":[[1.925332,1.925332],[1.925332,1.925332]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-17, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-17 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-17-NW-1\",\"crossedAt\":\"2026-11-20T17:22:51.356Z\"}",
+   "createdAt": "2026-11-20T17:22:50.244Z",
+   "updatedAt": "2026-11-20T17:22:51.365Z"
+  },
+  {
+   "name": "double-17-SE-1",
+   "data": "{\"name\":\"double-17-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-17-SE-1\",\"parentName\":\"wonk-17\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.892936,\"x\":1.2091,\"y\":1.2091},{\"t\":0.52828,\"x\":1.9253,\"y\":1.9253}],\"ends\":[[1.209141,1.209141],[1.209141,1.209141]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-17, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-17 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-17-SE-1\",\"crossedAt\":\"2026-11-20T17:23:13.282Z\"}",
+   "createdAt": "2026-11-20T17:23:12.352Z",
+   "updatedAt": "2026-11-20T17:23:13.295Z"
+  },
+  {
+   "name": "double-18-NW-1",
+   "data": "{\"name\":\"double-18-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-18-NW-1\",\"parentName\":\"wonk-18\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.5596,\"y\":0.5596},{\"t\":0.581124,\"x\":1.0451,\"y\":1.0451}],\"ends\":[[1.045074,1.045074],[1.045074,1.045074]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-18, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-18 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-18-NW-1\",\"crossedAt\":\"2026-11-20T17:23:20.297Z\"}",
+   "createdAt": "2026-11-20T17:23:19.205Z",
+   "updatedAt": "2026-11-20T17:23:20.304Z"
+  },
+  {
+   "name": "double-18-SE-1",
+   "data": "{\"name\":\"double-18-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-18-SE-1\",\"parentName\":\"wonk-18\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.5596,\"y\":0.5596},{\"t\":0.581124,\"x\":1.0451,\"y\":1.0451}],\"ends\":[[0.559635,0.559635],[0.559635,0.559635]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-18, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-18 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-18-SE-1\",\"crossedAt\":\"2026-11-20T17:23:31.213Z\"}",
+   "createdAt": "2026-11-20T17:23:30.250Z",
+   "updatedAt": "2026-11-20T17:23:31.221Z"
+  },
+  {
+   "name": "double-19-NW-1",
+   "data": "{\"name\":\"double-19-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-19-NW-1\",\"parentName\":\"wonk-19\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.3175,\"y\":0.3175},{\"t\":0.615063,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.684563,0.684563],[0.684563,0.684563]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-19, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-19 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-19-NW-1\",\"crossedAt\":\"2026-11-20T17:23:36.794Z\"}",
+   "createdAt": "2026-11-20T17:23:35.786Z",
+   "updatedAt": "2026-11-20T17:23:36.801Z"
+  },
+  {
+   "name": "double-19-SE-1",
+   "data": "{\"name\":\"double-19-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-19-SE-1\",\"parentName\":\"wonk-19\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.3175,\"y\":0.3175},{\"t\":0.615063,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.31748,0.31748],[0.31748,0.31748]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-19, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-19 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-19-SE-1\",\"crossedAt\":\"2026-11-20T17:23:42.080Z\"}",
+   "createdAt": "2026-11-20T17:23:41.143Z",
+   "updatedAt": "2026-11-20T17:23:42.087Z"
+  },
+  {
    "name": "double-2-NW-1",
    "data": "{\"name\":\"double-2-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-2-NW-1\",\"parentName\":\"wonk-2\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.1178,\"y\":0.1178},{\"t\":0.581124,\"x\":0.6032,\"y\":0.6032}],\"ends\":[[0.603229,0.603229],[0.603229,0.603229]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-2, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-2-NW-1\",\"crossedAt\":\"2026-11-20T17:19:19.300Z\"}",
    "createdAt": "2026-11-20T17:19:18.389Z",
    "updatedAt": "2026-11-20T17:19:19.306Z"
+  },
+  {
+   "name": "double-2-SE-1",
+   "data": "{\"name\":\"double-2-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-2-SE-1\",\"parentName\":\"wonk-2\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.1178,\"y\":0.1178},{\"t\":0.581124,\"x\":0.6032,\"y\":0.6032}],\"ends\":[[0.11779,0.11779],[0.11779,0.11779]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-2, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-2 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-2-SE-1\",\"crossedAt\":\"2026-11-20T17:19:33.183Z\"}",
+   "createdAt": "2026-11-20T17:19:32.302Z",
+   "updatedAt": "2026-11-20T17:19:33.189Z"
+  },
+  {
+   "name": "double-20-NW-1",
+   "data": "{\"name\":\"double-20-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-20-NW-1\",\"parentName\":\"wonk-20\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.239803,\"x\":1.2091,\"y\":1.2091},{\"t\":0.308661,\"x\":1.9253,\"y\":1.9253}],\"ends\":[[1.925332,1.925332],[1.925332,1.925332]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-20, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-20 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-20-NW-1\",\"crossedAt\":\"2026-11-20T17:23:48.644Z\"}",
+   "createdAt": "2026-11-20T17:23:47.686Z",
+   "updatedAt": "2026-11-20T17:23:48.651Z"
+  },
+  {
+   "name": "double-20-SE-1",
+   "data": "{\"name\":\"double-20-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-20-SE-1\",\"parentName\":\"wonk-20\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.239803,\"x\":1.2091,\"y\":1.2091},{\"t\":0.308661,\"x\":1.9253,\"y\":1.9253}],\"ends\":[[1.209141,1.209141],[1.209141,1.209141]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-20, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-20 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-20-SE-1\",\"crossedAt\":\"2026-11-20T17:23:55.329Z\"}",
+   "createdAt": "2026-11-20T17:23:54.389Z",
+   "updatedAt": "2026-11-20T17:23:55.338Z"
+  },
+  {
+   "name": "double-21-NW-1",
+   "data": "{\"name\":\"double-21-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-21-NW-1\",\"parentName\":\"wonk-21\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.5596,\"y\":0.5596},{\"t\":0.264923,\"x\":1.0451,\"y\":1.0451}],\"ends\":[[1.045074,1.045074],[1.045074,1.045074]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-21, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-21 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-21-NW-1\",\"crossedAt\":\"2026-11-20T17:24:01.833Z\"}",
+   "createdAt": "2026-11-20T17:24:00.655Z",
+   "updatedAt": "2026-11-20T17:24:01.840Z"
+  },
+  {
+   "name": "double-21-SE-1",
+   "data": "{\"name\":\"double-21-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-21-SE-1\",\"parentName\":\"wonk-21\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.5596,\"y\":0.5596},{\"t\":0.264923,\"x\":1.0451,\"y\":1.0451}],\"ends\":[[0.559635,0.559635],[0.559635,0.559635]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-21, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-21 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-21-SE-1\",\"crossedAt\":\"2026-11-20T17:24:08.651Z\"}",
+   "createdAt": "2026-11-20T17:24:07.581Z",
+   "updatedAt": "2026-11-20T17:24:08.657Z"
+  },
+  {
+   "name": "double-22-NW-1",
+   "data": "{\"name\":\"double-22-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-22-NW-1\",\"parentName\":\"wonk-22\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.3175,\"y\":0.3175},{\"t\":0.238342,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.684563,0.684563],[0.684563,0.684563]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-22, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-22 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-22-NW-1\",\"crossedAt\":\"2026-11-20T17:24:14.594Z\"}",
+   "createdAt": "2026-11-20T17:24:13.605Z",
+   "updatedAt": "2026-11-20T17:24:14.601Z"
+  },
+  {
+   "name": "double-22-SE-1",
+   "data": "{\"name\":\"double-22-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-22-SE-1\",\"parentName\":\"wonk-22\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.3175,\"y\":0.3175},{\"t\":0.238342,\"x\":0.6846,\"y\":0.6846}],\"ends\":[[0.31748,0.31748],[0.31748,0.31748]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-22, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-22 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-22-SE-1\",\"crossedAt\":\"2026-11-20T17:24:20.030Z\"}",
+   "createdAt": "2026-11-20T17:24:19.137Z",
+   "updatedAt": "2026-11-20T17:24:20.039Z"
+  },
+  {
+   "name": "double-23-NW-1",
+   "data": "{\"name\":\"double-23-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-23-NW-1\",\"parentName\":\"wonk-23\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.851,\"y\":0.851},{\"t\":0.52828,\"x\":2.2834,\"y\":2.2834}],\"ends\":[[2.283427,2.283427],[2.283427,2.283427]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 2xy + 3x^2y + 3xy^2 + 5x^4y + 10x^3y^2 + 10x^2y^3 + 5xy^4 + y^2\",\"use\":\"wonk-23, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-23 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-23-NW-1\",\"crossedAt\":\"2026-11-20T17:24:25.338Z\"}",
+   "createdAt": "2026-11-20T17:24:24.438Z",
+   "updatedAt": "2026-11-20T17:24:25.352Z"
+  },
+  {
+   "name": "double-3-NW-1",
+   "data": "{\"name\":\"double-3-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-3-NW-1\",\"parentName\":\"wonk-3\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.0648,\"y\":0.0648},{\"t\":0.615063,\"x\":0.4319,\"y\":0.4319}],\"ends\":[[0.431907,0.431907],[0.431907,0.431907]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-3, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-3 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-3-NW-1\",\"crossedAt\":\"2026-11-20T17:19:40.783Z\"}",
+   "createdAt": "2026-11-20T17:19:39.688Z",
+   "updatedAt": "2026-11-20T17:19:40.788Z"
+  },
+  {
+   "name": "double-3-SE-1",
+   "data": "{\"name\":\"double-3-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-3-SE-1\",\"parentName\":\"wonk-3\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.62585,\"x\":0.0648,\"y\":0.0648},{\"t\":0.615063,\"x\":0.4319,\"y\":0.4319}],\"ends\":[[0.064824,0.064824],[0.064824,0.064824]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^7(t)\",\"internal\":\"x = C(t)^1, y = S(t)^7   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-3, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^7(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-3 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)\"},\"curveName\":\"double-3-SE-1\",\"crossedAt\":\"2026-11-20T17:19:49.384Z\"}",
+   "createdAt": "2026-11-20T17:19:48.308Z",
+   "updatedAt": "2026-11-20T17:19:49.393Z"
+  },
+  {
+   "name": "double-4-NW-1",
+   "data": "{\"name\":\"double-4-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-4-NW-1\",\"parentName\":\"wonk-4\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.2474,\"y\":0.2474},{\"t\":0.308661,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.963589,0.963589],[0.963589,0.963589]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-4, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-4 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-4-NW-1\",\"crossedAt\":\"2026-11-20T17:19:59.367Z\"}",
+   "createdAt": "2026-11-20T17:19:58.448Z",
+   "updatedAt": "2026-11-20T17:19:59.375Z"
+  },
+  {
+   "name": "double-4-SE-1",
+   "data": "{\"name\":\"double-4-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-4-SE-1\",\"parentName\":\"wonk-4\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.2474,\"y\":0.2474},{\"t\":0.308661,\"x\":0.9636,\"y\":0.9636}],\"ends\":[[0.247398,0.247398],[0.247398,0.247398]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-4, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-4 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-4-SE-1\",\"crossedAt\":\"2026-11-20T17:20:05.446Z\"}",
+   "createdAt": "2026-11-20T17:20:04.300Z",
+   "updatedAt": "2026-11-20T17:20:05.553Z"
+  },
+  {
+   "name": "double-5-NW-1",
+   "data": "{\"name\":\"double-5-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-5-NW-1\",\"parentName\":\"wonk-5\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.1178,\"y\":0.1178},{\"t\":0.264923,\"x\":0.6032,\"y\":0.6032}],\"ends\":[[0.603229,0.603229],[0.603229,0.603229]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-5, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-5 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-5-NW-1\",\"crossedAt\":\"2026-11-20T17:20:11.634Z\"}",
+   "createdAt": "2026-11-20T17:20:10.709Z",
+   "updatedAt": "2026-11-20T17:20:11.640Z"
+  },
+  {
+   "name": "double-5-SE-1",
+   "data": "{\"name\":\"double-5-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-5-SE-1\",\"parentName\":\"wonk-5\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.774679,\"x\":0.1178,\"y\":0.1178},{\"t\":0.264923,\"x\":0.6032,\"y\":0.6032}],\"ends\":[[0.11779,0.11779],[0.11779,0.11779]],\"formula\":{\"plain\":\"x = cos^5(t), y = sin^1(t)\",\"internal\":\"x = C(t)^5, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-5, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^5(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-5 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)\"},\"curveName\":\"double-5-SE-1\",\"crossedAt\":\"2026-11-20T17:20:18.616Z\"}",
+   "createdAt": "2026-11-20T17:20:17.593Z",
+   "updatedAt": "2026-11-20T17:20:18.622Z"
+  },
+  {
+   "name": "double-6-NW-1",
+   "data": "{\"name\":\"double-6-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-6-NW-1\",\"parentName\":\"wonk-6\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.0648,\"y\":0.0648},{\"t\":0.238342,\"x\":0.4319,\"y\":0.4319}],\"ends\":[[0.431907,0.431907],[0.431907,0.431907]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-6, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-6 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-6-NW-1\",\"crossedAt\":\"2026-11-20T17:20:25.117Z\"}",
+   "createdAt": "2026-11-20T17:20:23.460Z",
+   "updatedAt": "2026-11-20T17:20:25.123Z"
+  },
+  {
+   "name": "double-6-SE-1",
+   "data": "{\"name\":\"double-6-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-6-SE-1\",\"parentName\":\"wonk-6\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-4.195652,\"x\":0.0648,\"y\":0.0648},{\"t\":0.238342,\"x\":0.4319,\"y\":0.4319}],\"ends\":[[0.064824,0.064824],[0.064824,0.064824]],\"formula\":{\"plain\":\"x = cos^7(t), y = sin^1(t)\",\"internal\":\"x = C(t)^7, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"use\":\"wonk-6, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^7(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-6 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)\"},\"curveName\":\"double-6-SE-1\",\"crossedAt\":\"2026-11-20T17:20:33.634Z\"}",
+   "createdAt": "2026-11-20T17:20:32.660Z",
+   "updatedAt": "2026-11-20T17:20:33.642Z"
+  },
+  {
+   "name": "double-7-NW-1",
+   "data": "{\"name\":\"double-7-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-7-NW-1\",\"parentName\":\"wonk-7\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2831,\"y\":0.2831},{\"t\":0.52828,\"x\":0.9993,\"y\":0.9993}],\"ends\":[[0.999257,0.999257],[0.999257,0.999257]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-7, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-7 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-7-NW-1\",\"crossedAt\":\"2026-11-20T17:20:39.600Z\"}",
+   "createdAt": "2026-11-20T17:20:38.617Z",
+   "updatedAt": "2026-11-20T17:20:39.620Z"
+  },
+  {
+   "name": "double-7-SE-1",
+   "data": "{\"name\":\"double-7-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-7-SE-1\",\"parentName\":\"wonk-7\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.892936,\"x\":0.2831,\"y\":0.2831},{\"t\":0.52828,\"x\":0.9993,\"y\":0.9993}],\"ends\":[[0.283066,0.283066],[0.283066,0.283066]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^3(t)\",\"internal\":\"x = C(t)^1, y = S(t)^3   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-7, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^3(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-7 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)\"},\"curveName\":\"double-7-SE-1\",\"crossedAt\":\"2026-11-20T17:20:46.135Z\"}",
+   "createdAt": "2026-11-20T17:20:45.075Z",
+   "updatedAt": "2026-11-20T17:20:46.143Z"
+  },
+  {
+   "name": "double-8-NW-1",
+   "data": "{\"name\":\"double-8-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-8-NW-1\",\"parentName\":\"wonk-8\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.0518,\"y\":0.0518},{\"t\":0.581124,\"x\":0.5373,\"y\":0.5373}],\"ends\":[[0.537283,0.537283],[0.537283,0.537283]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-8, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-8 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-8-NW-1\",\"crossedAt\":\"2026-11-20T17:20:54.753Z\"}",
+   "createdAt": "2026-11-20T17:20:53.548Z",
+   "updatedAt": "2026-11-20T17:20:54.764Z"
+  },
+  {
+   "name": "double-8-SE-1",
+   "data": "{\"name\":\"double-8-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-8-SE-1\",\"parentName\":\"wonk-8\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-1.720804,\"x\":0.0518,\"y\":0.0518},{\"t\":0.581124,\"x\":0.5373,\"y\":0.5373}],\"ends\":[[0.051844,0.051844],[0.051844,0.051844]],\"formula\":{\"plain\":\"x = cos^1(t), y = sin^5(t)\",\"internal\":\"x = C(t)^1, y = S(t)^5   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-8, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^1(t), y = sin^5(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-8 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)\"},\"curveName\":\"double-8-SE-1\",\"crossedAt\":\"2026-11-20T17:21:01.514Z\"}",
+   "createdAt": "2026-11-20T17:21:00.520Z",
+   "updatedAt": "2026-11-20T17:21:01.520Z"
+  },
+  {
+   "name": "double-9-NW-1",
+   "data": "{\"name\":\"double-9-NW-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-9-NW-1\",\"parentName\":\"wonk-9\",\"half\":\"NW-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.2831,\"y\":0.2831},{\"t\":0.308661,\"x\":0.9993,\"y\":0.9993}],\"ends\":[[0.999257,0.999257],[0.999257,0.999257]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-9, its NW-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-9 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-9-NW-1\",\"crossedAt\":\"2026-11-20T17:21:06.176Z\"}",
+   "createdAt": "2026-11-20T17:21:05.304Z",
+   "updatedAt": "2026-11-20T17:21:06.184Z"
+  },
+  {
+   "name": "double-9-SE-1",
+   "data": "{\"name\":\"double-9-SE-1\",\"decision\":\"saved\",\"importance\":10,\"construction\":{\"kind\":\"double\",\"parent\":\"wonky-9-SE-1\",\"parentName\":\"wonk-9\",\"half\":\"SE-1\",\"cuts\":[{\"t\":-3.239803,\"x\":0.2831,\"y\":0.2831},{\"t\":0.308661,\"x\":0.9993,\"y\":0.9993}],\"ends\":[[0.283066,0.283066],[0.283066,0.283066]],\"formula\":{\"plain\":\"x = cos^3(t), y = sin^1(t)\",\"internal\":\"x = C(t)^3, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"middle\":\"P = x^2 + 10x^3y^2 + 10x^2y^3 + y^2\",\"use\":\"wonk-9, its SE-1 half mirrored across y = x\",\"search\":\"x = cos^3(t), y = sin^1(t) mirrored across the line y = x\"},\"note\":\"DW: the mirrored half of wonk-9 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)\"},\"curveName\":\"double-9-SE-1\",\"crossedAt\":\"2026-11-20T17:21:11.397Z\"}",
+   "createdAt": "2026-11-20T17:21:10.571Z",
+   "updatedAt": "2026-11-20T17:21:11.403Z"
   },
   {
    "name": "h-colour-1-1",
