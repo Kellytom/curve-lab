@@ -92,7 +92,7 @@ legend; the name and the record are on the page that lists it, and in `plates.js
 | rule | check |
 |---|---|
 | +y is up; a turn is clockwise; the long side is exact | `tests/js/plate-frame.test.mjs` |
-| the page lists every record and serves every plate | `app/scripts/check-pages.mjs`, `/plates/` in the 19-page run |
+| the page lists every record and serves every plate | `app/scripts/check-pages.mjs` — `--quick` (four desks) in the loop, `/plates /hybrids/` when you touched those, no argument for all 19 at the end of a session |
 | the rails and the bands come from `plate_math` | the export prints `rails N` per plate; `N ≥ 2` means bands were drawn |
 | the database and the seed agree | `node app/scripts/check-db.mjs` |
 

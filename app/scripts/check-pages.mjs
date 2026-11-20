@@ -10,10 +10,22 @@ import { chromium } from "playwright-core";
 
 const BASE = process.env.CURVE_LAB_URL || "http://127.0.0.1:4321";
 const EXE = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const ROUTES = [
+const ALL_ROUTES = [
   "/", "/about/", "/everything/", "/lab/", "/finder/", "/finder-candidates/",
   "/illuminations/", "/figures/", "/names/", "/ph-nth-sandbox/", "/users/", "/blog/", "/sandbox/", "/roots/", "/bezier/", "/prime-mover/", "/hybrids/", "/hybrids-wonk/", "/plates/",
 ];
+
+// Only the pages you name, or a short list for the loop; with no argument, every page.
+//   node app/scripts/check-pages.mjs /plates /hybrids     the two you touched
+//   node app/scripts/check-pages.mjs --quick             the four desks
+//   node app/scripts/check-pages.mjs                     every page (end of session)
+const QUICK = ["/", "/plates", "/hybrids/", "/hybrids-wonk/"];
+const asked = process.argv.slice(2);
+const ROUTES = asked.includes("--quick")
+  ? QUICK
+  : asked.filter((arg) => arg.startsWith("/")).length
+    ? asked.filter((arg) => arg.startsWith("/"))
+    : ALL_ROUTES;
 
 const browser = await chromium.launch({ executablePath: EXE });
 const failures = [];
