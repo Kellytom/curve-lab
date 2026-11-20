@@ -820,3 +820,15 @@ stays sampled and says so.
 **4. Every algorithm's figure carries its formula.** A drawing without its equation cannot
 be analysed: the reader cannot tell whether the reform is simpler. This is a rule for the
 page, recorded because the table-only version of Fig. 9 was rejected by the operator.
+
+**5. The reformed curve is stored as a re-stationing, not as `z·(P − C)/P`.** Settled
+2026-11-19, when the row was entered as `c-0272`. The rule in §12 of the spec writes the
+reformed point as `z·(P − C)/P`, but `P = x² + y²` is zero wherever the lace curve passes
+the origin, so that curve has poles there and cannot be a record. The form that can be
+stored is the re-stationing: the *same* curve sampled at `t = Y/(1+X)`, each station an
+exact rational with its own rational point of the circle. Reason: it is the only form of
+the reform that is exact everywhere, and it keeps the honest claim — a radial removal
+cannot bend the curve, so the outline is unchanged. `scripts/circle_split.py`
+(`reformed_record`) derives it, `scripts/add_circle_reform.py` enters it, and
+`tests/test_circle_split.py` checks the row, the note and the drawing against one
+derivation.

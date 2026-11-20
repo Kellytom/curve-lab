@@ -261,8 +261,12 @@ every station a rational point of the lattice.
       drawing, so the reader can judge whether the reform is simpler.
 - [x] The spec says plainly that a radial removal cannot change a curve's shape, so the
       reform is a re-stationing, not a new outline.
-- [ ] A stored curve is reformed *and* saved back to the database as its own record; the
-      reform exists as a figure only.
+- [x] A stored curve is reformed *and* saved back to the database as its own record:
+      `c-0272` `lace-2-eight-3-circle-parameter`, a path of 61 exact stations taken at
+      `t = k/60` on `c-0028`, each with its own rational circle point; the note states
+      the parameter and C, its row is in `workbench/circle-split.json`, and
+      `tests/test_circle_split.py` (`test_way_4_the_reformed_curve_is_saved_as_its_own_record`)
+      fails without it.
 
 **The second algorithmic idea — make rosettes with linkages.** A coupler curve is
 asymmetric; the crank run backwards gives its mirror; the pair is a rosette made by a
@@ -293,4 +297,5 @@ mechanism rather than sampled from a spirograph.
 
 ## Count
 
-- [x] The list is honest: 64 ticked, 9 open (counted from this file).
+- [x] The list is honest: 72 ticked, 10 open — every `- [ ]` and `- [x]` in this file,
+      counted 2026-11-19 (the older line said 64 and 9 and had gone stale).

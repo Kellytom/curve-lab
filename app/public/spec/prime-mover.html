@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="spec-source-hash" content="77c8f27f3d4ad7d6">
+<meta name="spec-source-hash" content="2154917ab9294a0d">
 <title>SPEC — the prime mover (/prime-mover/)</title>
 <link rel="stylesheet" href="/vendor/pico.min.css">
 <link rel="stylesheet" href="/vendor/curve-lab-theme.css">
@@ -333,8 +333,12 @@ every station a rational point of the lattice.</p>
       drawing, so the reader can judge whether the reform is simpler.</li>
 <li><input type="checkbox" disabled checked> The spec says plainly that a radial removal cannot change a curve's shape, so the
       reform is a re-stationing, not a new outline.</li>
-<li><input type="checkbox" disabled> A stored curve is reformed <em>and</em> saved back to the database as its own record; the
-      reform exists as a figure only.</li>
+<li><input type="checkbox" disabled checked> A stored curve is reformed <em>and</em> saved back to the database as its own record:
+      <code>c-0272</code> <code>lace-2-eight-3-circle-parameter</code>, a path of 61 exact stations taken at
+      <code>t = k/60</code> on <code>c-0028</code>, each with its own rational circle point; the note states
+      the parameter and C, its row is in <code>workbench/circle-split.json</code>, and
+      <code>tests/test_circle_split.py</code> (<code>test_way_4_the_reformed_curve_is_saved_as_its_own_record</code>)
+      fails without it.</li>
 </ul>
 <p><strong>The second algorithmic idea — make rosettes with linkages.</strong> A coupler curve is
 asymmetric; the crank run backwards gives its mirror; the pair is a rosette made by a
@@ -365,7 +369,8 @@ mechanism rather than sampled from a spirograph.</p>
 </ul>
 <h2 id="count">Count</h2>
 <ul>
-<li><input type="checkbox" disabled checked> The list is honest: 64 ticked, 9 open (counted from this file).</li>
+<li><input type="checkbox" disabled checked> The list is honest: 72 ticked, 10 open — every <code>- [ ]</code> and <code>- [x]</code> in this file,
+      counted 2026-11-19 (the older line said 64 and 9 and had gone stale).</li>
 </ul>
 <p class="note">Generated from <code>state/SPEC-prime-mover-int.md</code> by <code>scripts/spec_page.py</code>. Edit the markdown, not this page.</p>
 </main>

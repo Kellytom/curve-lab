@@ -67,6 +67,54 @@ class CircleSplit(unittest.TestCase):
             self.assertLess(abs(Fraction(station["x"])), 10)
             self.assertLess(abs(Fraction(station["y"])), 10)
 
+    def test_way_4_the_reformed_curve_is_saved_as_its_own_record(self):
+        """2026-11-19: "a stored curve is reformed *and* saved back" — c-0272 is it.
+
+        The row in workbench/circle-split.json, the registry record and the figure all
+        come from one derivation: a curve that loses the row, the note's parameter or C,
+        or a station that no longer sits on the circle fails here.
+        """
+        split = circle_split.json.loads((ROOT / "workbench" / "circle-split.json").read_text())
+        reform = split["reformed"]
+        registry = circle_split.json.loads(
+            (ROOT / "workbench" / "curve-registry.json").read_text())
+        record = next((row for row in registry["curves"]
+                       if row["uid"] == reform["record"]["uid"]), None)
+        self.assertIsNotNone(record, "the reformed curve is not in the registry")
+        self.assertEqual(record["kind"], "path")
+        self.assertEqual(record["base_uid"], reform["from"])
+        self.assertIn("t = Y/(1+X)", record["note"])
+        self.assertIn("C = ", record["note"])
+        self.assertIn(reform["circularMean"]["fraction"], record["note"])
+        self.assertEqual(record["path"], reform["record"]["path"])
+        # the index names it, so the record has a figure
+        index = circle_split.json.loads(
+            (ROOT / "app" / "public" / "figures" / "index.json").read_text())
+        self.assertIn(record["uid"], {meta["uid"] for meta in index["curves"]})
+
+        parent = next(row for row in registry["curves"] if row["uid"] == reform["from"])
+        position_x = circle_split.pintegral(
+            circle_split.trim(circle_split.psub(
+                circle_split.pmul(parent["speedX"], parent["speedX"]),
+                circle_split.pmul(parent["speedY"], parent["speedY"]))))
+        position_y = circle_split.pintegral(circle_split.trim(
+            [Fraction(2) * c for c in
+             circle_split.pmul(parent["speedX"], parent["speedY"])]))
+        squared = circle_split.padd(circle_split.pmul(position_x, position_x),
+                                    circle_split.pmul(position_y, position_y))
+        mean = sum(c / Fraction(i + 1) for i, c in enumerate(squared))
+        self.assertEqual(f"{mean.numerator}/{mean.denominator}",
+                         reform["circularMean"]["fraction"])
+        self.assertEqual(len(record["path"]), reform["stations"])
+        for row, point in zip(reform["rows"], record["path"]):
+            t = Fraction(row["t"])
+            self.assertEqual(Fraction(row["circleX"]) ** 2 + Fraction(row["circleY"]) ** 2, 1)
+            self.assertEqual(t, Fraction(row["circleY"]) / (1 + Fraction(row["circleX"])))
+            self.assertEqual(Fraction(row["x"]), circle_split.peval(position_x, t))
+            self.assertEqual(Fraction(row["y"]), circle_split.peval(position_y, t))
+            self.assertEqual([round(float(Fraction(row["x"])), 6),
+                              round(float(Fraction(row["y"])), 6)], point)
+
 
 if __name__ == "__main__":
     unittest.main()

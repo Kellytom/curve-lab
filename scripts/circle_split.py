@@ -21,7 +21,8 @@ being slow:
    the curve's character is circular through and through.
 4. **Circle parameters reform a stored curve.** With `t = Y / (1 + X)` taken from the
    walk, `t` is rational and every coordinate of the stored curve is rational with it, so
-   the curve can be re-stationed on the lattice without a decimal.
+   the curve can be re-stationed on the lattice without a decimal. The re-stationing of
+   `c-0028` is also entered as its own record, `c-0272` (`reformed_record`).
 
 A non-zero error exits 1. Nothing here is a float check: the floats printed are only for
 reading, the fractions are the evidence.
@@ -44,6 +45,12 @@ OUT = ROOT / "workbench" / "circle-split.json"
 # numbers no bigger than 25^k, so exact arithmetic stays quick.
 EXACT_TRIPLE = (3, 4, 5)
 STATIONS = 12
+
+# The stored curve the reform is entered for, and the stations it is drawn at.
+REFORM_FROM = "c-0028"
+REFORM_UID = "c-0272"
+REFORM_NAME = "lace-2-eight-3-circle-parameter"
+REFORM_STATIONS = 60
 
 FORMS = [
     ("x² + 2xy + y² = 1", 1, 1, 1),
@@ -248,6 +255,93 @@ def check_circle_parameters(uid, registry, stations):
             "interval": "0 <= t <= 1", "worstError": str(worst), "rows": rows}
 
 
+def reformed_record(registry, count=REFORM_STATIONS):
+    """The stored curve re-stationed by the circle, as its own registry record.
+
+    Two ideas meet here, and only one of them can be stored:
+
+    - the reform `z · (P − C) / P` divides by `P`, and `P = x² + y²` is zero where the
+      lace curve passes the origin, so that curve has poles and is not a record;
+    - the re-stationing `t = Y / (1 + X)` is exact at every circle point and leaves the
+      outline alone, which is the settled reading of the reform (`DESIGN-int`, 2026-11-19:
+      a radial removal cannot bend a parametric curve).
+
+    Every station therefore carries the rational point of the unit circle that names it:
+    `t = k/count` gives `X = (1 − t²)/(1 + t²)`, `Y = 2t/(1 + t²)`, and both satisfy
+    `X² + Y² = 1` and `t = Y/(1 + X)` exactly. The whole-number walk is not used because
+    a dense walk's coordinates run to thousands of digits; these points are exact and
+    small. The path is stored as decimals for the drawing; the exact stations live in
+    this file's row, and a test checks the drawing against them.
+    """
+    record, u, v = lace_rows(REFORM_FROM, registry)
+    speed_x = trim(psub(pmul(u, u), pmul(v, v)))
+    speed_y = trim([Fraction(2) * c for c in pmul(u, v)])
+    position_x = pintegral(speed_x)
+    position_y = pintegral(speed_y)
+
+    # C = ∫₀¹ (x² + y²) dt, the circle the walk cannot see (the constant term is
+    # useless here: every lace curve starts at the origin, so P(0) = 0).
+    squared = padd(pmul(position_x, position_x), pmul(position_y, position_y))
+    mean = sum(c / Fraction(i + 1) for i, c in enumerate(squared))
+
+    rows = []
+    for k in range(count + 1):
+        t = Fraction(k, count)
+        circle_x = (1 - t * t) / (1 + t * t)
+        circle_y = 2 * t / (1 + t * t)
+        rows.append({
+            "t": str(t),
+            "circleX": str(circle_x),
+            "circleY": str(circle_y),
+            "x": str(peval(position_x, t)),
+            "y": str(peval(position_y, t)),
+        })
+    path = [[round(float(Fraction(row["x"])), 6), round(float(Fraction(row["y"])), 6)]
+            for row in rows]
+
+    note = (f"reform of {REFORM_FROM} {record['name']} by the circle parameter "
+            f"t = Y/(1+X); C = ∫₀¹(x² + y²) dt = "
+            f"{mean.numerator}/{mean.denominator} ≈ {float(mean):.4f} is the circle the "
+            f"walk cannot see; the removal is radial, so the outline is unchanged and "
+            f"only the stations move; {len(rows)} stations at t = k/{count}, every one "
+            f"an exact rational with its own rational circle point; row in "
+            f"workbench/circle-split.json")
+
+    return {
+        "way": "reform record",
+        "from": REFORM_FROM,
+        "fromName": record["name"],
+        "parameter": "t = Y / (1 + X), X = (1 − t²)/(1 + t²), Y = 2t/(1 + t²)",
+        "circularMean": {"fraction": f"{mean.numerator}/{mean.denominator}",
+                         "decimal": round(float(mean), 6)},
+        "stations": len(rows),
+        "interval": "0 <= t <= 1",
+        "pathPoints": len(path),
+        "rows": rows,
+        "record": {
+            "uid": REFORM_UID,
+            "name": REFORM_NAME,
+            "aliases": [],
+            "speedX": [],
+            "speedY": [],
+            "step": 1,
+            "lists": ["found"],
+            "family": "lace",
+            "source": "new",
+            "auto_named": False,
+            "family_id": "lace",
+            "variant": "2-eight-3-circle-parameter",
+            "kind": "path",
+            "starred": False,
+            "candidate": False,
+            "importance": 0,
+            "base_uid": REFORM_FROM,
+            "note": note,
+            "path": path,
+        },
+    }
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true")
@@ -287,6 +381,15 @@ def main(argv=None) -> int:
     for row in params["rows"][:3]:
         print(f'   t {row["tDecimal"]:>10}   x {row["xDecimal"]:>12}   y {row["yDecimal"]:>12}')
         print(f'   exact x = {row["x"]}')
+
+    reform = reformed_record(registry)
+    report["reformed"] = reform
+    saved = reform["record"]
+    print(f'\n{reform["way"]}: {saved["uid"]} {saved["name"]} from {reform["from"]} '
+          f'{reform["fromName"]}')
+    print(f'   parameter {reform["parameter"]}, {reform["stations"]} stations, '
+          f'{reform["pathPoints"]} path points')
+    print(f'   C = {reform["circularMean"]["fraction"]} ≈ {reform["circularMean"]["decimal"]}')
 
     failures = [row for row in report["ways"]
                 if row.get("identityWorstError", "0") != "0"

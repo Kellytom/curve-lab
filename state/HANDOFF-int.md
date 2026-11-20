@@ -3092,3 +3092,23 @@ Tschirnhausen — classic but adds nothing; off the board.
   already stored; the lace sweep to new `p` values (1/7, 1/9, 1/14…) — flat folds, not new
   character; splitting the parametric circle at the constant term `P(0)` — every lace curve
   starts at the origin, so `P(0) = 0` and the split is empty. The mean split replaced it.
+
+### The reform entered as a record — 2026-11-19
+
+- **`c-0272 lace-2-eight-3-circle-parameter`** is in the registry and the database
+  (272 curves, 272 sets, 272 notes; `node app/scripts/check-db.mjs` green), `kind: path`,
+  `base_uid: c-0028`, not starred.
+- **It is the re-stationing, not `z·(P − C)/P`.** `P = x² + y²` is zero where the lace
+  curve passes the origin, so the rule as written in §12 has poles there and cannot be a
+  record. The stored curve is the same outline sampled at `t = Y/(1+X)`: 61 stations at
+  `t = k/60`, each with its own exact rational circle point, and
+  `C = 72796373224/42945377475 ≈ 1.6951` in the note. The decision is in `DESIGN-int`.
+- **The proofs:** figure `app/public/figures/c-0272.png` (600 px, index merged, 272
+  entries); row in `workbench/circle-split.json` under `reformed`; guard
+  `tests/test_circle_split.py::test_way_4_the_reformed_curve_is_saved_as_its_own_record`
+  fails without the row, the note's parameter or C, the figure, or an exact station.
+- **Spec §15 box ticked** and `/spec/prime-mover.html` regenerated; the count line now
+  reads 72 ticked, 10 open, recounted from the file (the old 64/9 had gone stale).
+- **The tree carried another session's uncommitted work** (79 paths, including
+  `tests/test_regressions.py` and the sandbox pages). This action staged only its own
+  paths and did not touch those.

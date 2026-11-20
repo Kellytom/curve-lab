@@ -2710,6 +2710,16 @@
    "failed": false,
    "reason": null,
    "tooWide": false
+  },
+  {
+   "uid": "c-0272",
+   "name": "lace-2-eight-3-circle-parameter",
+   "family": "lace",
+   "perSide": 9,
+   "marginPercent": 25,
+   "failed": false,
+   "reason": null,
+   "tooWide": false
   }
  ]
 }
