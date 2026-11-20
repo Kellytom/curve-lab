@@ -58,15 +58,18 @@ ST = stations()
 
 
 def middle_text(block):
-    """P = x^2 + <the block's terms> + y^2, written for a reader."""
+    """P = x^2 + <the block's terms> + y^2, written the way a person writes it."""
     block = BLOCKS.get(block, block)
     if block in ("none", None):
         block = []
-    terms = ["x^2", "y^2"]
-    for coefficient, ix, iy in block:
-        part = f"{coefficient}*" if coefficient != 1 else ""
-        part += (f"x^{ix}" if ix else "") + (f"*y^{iy}" if iy else "")
-        terms.insert(len(terms) - 1, part)
+
+    def term(coefficient, ix, iy):
+        part = "" if coefficient == 1 else str(coefficient)
+        part += "x" + (f"^{ix}" if ix > 1 else "") if ix else ""
+        part += "y" + (f"^{iy}" if iy > 1 else "") if iy else ""
+        return part
+
+    terms = ["x^2"] + [term(c, i, j) for c, i, j in block] + ["y^2"]
     return "P = " + " + ".join(terms)
 
 
