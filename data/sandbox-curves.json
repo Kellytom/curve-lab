@@ -553,7 +553,7 @@
    "name": "h-radius-1-4-quadratic",
    "data": "{\"name\":\"h-radius-1-4-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"flourish-1\",\"crossedAt\":\"2026-11-20T15:31:50.865Z\"}",
    "createdAt": "2026-11-20T15:31:49.765Z",
-   "updatedAt": "2026-11-20T18:35:06.114Z"
+   "updatedAt": "2026-11-20T18:39:29.835Z"
   },
   {
    "name": "h-radius-1-5-cubic",
@@ -731,9 +731,9 @@
   },
   {
    "name": "h-radius-4-1-cubic",
-   "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"crossedAt\":\"2026-11-20T15:39:26.721Z\"}",
+   "data": "{\"name\":\"h-radius-4-1-cubic\",\"decision\":\"\",\"importance\":10,\"curveName\":\"top-2\",\"construction\":{\"kind\":\"hybrid\",\"parent\":null,\"parentName\":null,\"half\":null,\"cuts\":[],\"ends\":[[0.938732,-0.018978],[1.059636,0.021422]],\"formula\":{\"plain\":\"x = cos^4(t), y = sin^1(t)\",\"internal\":\"x = C(t)^4, y = S(t)^1   with   C(t) = (1 - t^2)/(1 + t^2), S(t) = 2t/(1 + t^2)\",\"rational\":\"x = ((1 - t^2)/(1 + t^2))^4, y = (2t/(1 + t^2))^1\",\"middle\":\"P = x^2 + 3x^2y + 3xy^2 + y^2\",\"parameter\":\"t rational; stations at t = u/(1 - |u|), u = i/100\",\"use\":\"each station is multiplied by P, the cubic middle terms of (x + y)^n\",\"search\":\"x = cos^4(t), y = sin^1(t)  P = x^2 + 3x^2y + 3xy^2 + y^2  parametric curve, rational parametrisation\"},\"note\":\"each station is multiplied by P, the cubic middle terms of (x + y)^n\"},\"transform\":{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true},\"crossedAt\":\"2026-11-20T18:38:42.851Z\"}",
    "createdAt": "2026-11-20T15:39:26.595Z",
-   "updatedAt": "2026-11-20T18:35:06.114Z"
+   "updatedAt": "2026-11-20T18:39:46.893Z"
   },
   {
    "name": "h-radius-4-1-every-term",
