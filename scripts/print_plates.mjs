@@ -14,6 +14,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
+import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -41,6 +42,9 @@ const only = (() => {
   return at >= 0 ? new Set(args[at + 1].split(",")) : null;
 })();
 const missing = args.includes("--missing");
+// one tone (a single black) or two (dark left, grey right); the brief asked for two
+const toneArg = (args.find((a) => a.startsWith("--tone=")) || "--tone=two").split("=")[1];
+const singleTone = toneArg === "one";
 
 function rowFor(record) {
   const note = noteOf.get(record.uid) || {};
@@ -54,14 +58,6 @@ function rowFor(record) {
       profile: note.profile || undefined,
     },
   };
-}
-
-function turn(points, degrees) {
-  if (!degrees) return points;
-  // the page turns a picture clockwise on screen (CSS rotate); in the y-up frame that is a
-  // negative angle, so the plate is turned the same way the desk shows it
-  const a = (-degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
-  return points.map(([x, y]) => [x * c - y * s, x * s + y * c]);
 }
 
 /** the polyline split where it crosses x = 0, both halves returned in order */
@@ -130,13 +126,19 @@ function plateSvg(record) {
   // centre is the y axis is split there
   const axisX = (x0 + x1) / 2;
   const axis = px([axisX, 0])[0].toFixed(2);
-  const body = [
-    `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
-    ...rails.map((rail) => line(rail, "#c4c4c4", stroke * 0.7)),
-    line(spine, LEFT, stroke),
-    `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
-    `<g clip-path="url(#right)">${line(spine, RIGHT, stroke)}</g>`,
-  ].join("");
+  const body = singleTone
+    ? [
+        `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
+        ...rails.map((rail) => line(rail, "#c4c4c4", stroke * 0.7)),
+        line(spine, LEFT, stroke),
+      ].join("")
+    : [
+        `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
+        ...rails.map((rail) => line(rail, "#c4c4c4", stroke * 0.7)),
+        line(spine, LEFT, stroke),
+        `<clipPath id="right"><rect x="${axis}" y="0" width="${(pxW - Number(axis)).toFixed(2)}" height="${pxH}"/></clipPath>`,
+        `<g clip-path="url(#right)">${line(spine, RIGHT, stroke)}</g>`,
+      ].join("");
   return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${pxW}" height="${pxH}" viewBox="0 0 ${pxW} ${pxH}">${body}</svg>`,
     pxW, pxH, degrees, rails: rails.length };
 }
