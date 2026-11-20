@@ -5,6 +5,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { figureSvg } from "../app/src/lib/plot-figure.js";
+import { labelsFor } from "./figure_labels.mjs";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const data = JSON.parse(readFileSync(path.join(ROOT, "workbench", "doubles.json"), "utf8"));
@@ -22,9 +23,7 @@ for (const row of data.doubles) {
     legend: [{ label: `double wonky from ${row.parentName}`, colour: "#2f6fa8" }],
     paths: [{ name: row.id, colour: "#2f6fa8", points: row.points }],
     stations: [],
-    labels: (row.cuts || []).map((cut) => ({
-      x: cut.x, y: cut.y, text: `(${cut.x.toFixed(2)}, ${cut.y.toFixed(2)})`,
-    })),
+    labels: labelsFor(row),
     bounds: [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)],
     samples: row.points.length,
   }, { width: 440 });
