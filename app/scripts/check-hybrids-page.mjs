@@ -28,7 +28,9 @@ const response = await page.goto(`${BASE}/hybrids/`, { waitUntil: "domcontentloa
 check(response?.status() === 200, `page answers ${response?.status()}`);
 
 const cards = await page.locator(".hybrid-card").count();
-check(cards === wanted, `${cards} cards, expected ${wanted}`);
+// the desk is filtered now (rejects out, wonks out), so the check asserts a live board
+// rather than a fixed number: some cards, no more than the family, each with a figure.
+check(cards > 0 && cards <= wanted, `${cards} cards on the desk (family ${wanted})`);
 
 const images = await page.evaluate(() => [...document.querySelectorAll(".hybrid-card img")]
   .slice(0, 8).map((img) => ({ ok: img.complete && img.naturalWidth > 0, src: img.getAttribute("src") })));

@@ -1,29 +1,60 @@
 ---
-// The hybrid desk: every candidate, one card each. The markup is the template component
-// (app/src/components/HybridDesk.astro); this page only supplies the rows.
+// The hybrid desk: the candidates still in play — starred, not rejected, and not part of a
+// named family page (the wonks live at /hybrids-wonk/). Sorted by stars.
+//
+// The markup is the template component; this page only supplies the rows.
 // Spec: state/SPEC-hybrids-int.md
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { repoRoot } from "../lib/gallery.js";
+import { prisma } from "../lib/db.js";
 import HybridDesk from "../components/HybridDesk.astro";
 
-const data = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "hybrids.json"), "utf8"));
-const candidates = (data.candidates || []).map((row) => ({
-  ...row,
-  placeholder: `hybrid-${row.p}-${row.q}-${row.use === "colour" ? "colour" : `${row.block}-${row.use}`}`,
-}));
+const read = (name) => JSON.parse(readFileSync(path.join(repoRoot(), "workbench", name), "utf8"));
+const data = read("hybrids.json");
+const rejected = new Map((read("hybrid-rejected.json").rejected || []).map((row) => [row.id, row]));
 
-const bySheet = new Map();
-for (const row of candidates) {
-  const sheet = row.use === "colour" ? "colour" : row.block;
-  if (!bySheet.has(sheet)) bySheet.set(sheet, []);
-  bySheet.get(sheet).push(row);
+// the decisions, live from the database
+const stored = await prisma.sandboxCurve.findMany();
+const decisions = new Map();
+for (const row of stored) {
+  try { decisions.set(row.name, JSON.parse(row.data)); } catch { /* a bad row is not a decision */ }
 }
+
+const rows = (data.candidates || [])
+  .map((candidate) => {
+    const decision = decisions.get(candidate.id) || {};
+    return {
+      ...candidate,
+      curveName: String(decision.curveName || ""),
+      importance: Number(decision.importance) || 0,
+      decision: String(decision.decision || ""),
+      placeholder: `hybrid-${candidate.p}-${candidate.q}-${candidate.use === "colour" ? "colour" : `${candidate.block}-${candidate.use}`}`,
+    };
+  })
+  // the wonks have their own page
+  .filter((row) => !/^wonk-\d+$/i.test(row.curveName))
+  // a recorded reject stays out unless it was starred or saved afterwards
+  .filter((row) => {
+    const record = rejected.get(row.id);
+    return !record || record.reinstated;
+  })
+  .sort((a, b) => b.importance - a.importance
+    || b.crossings - a.crossings
+    || a.id.localeCompare(b.id));
+
+const starGroups = new Map();
+for (const row of rows) {
+  const key = row.importance > 0 ? `${row.importance} stars` : "unstarred, still in play";
+  if (!starGroups.has(key)) starGroups.set(key, []);
+  starGroups.get(key).push(row);
+}
+const groups = [...starGroups.entries()].map(([title, list]) => ({ title, rows: list }));
 ---
 
 <HybridDesk
   title="the hybrid desk"
-  lead="Every candidate of x = C(t)^p, y = S(t)^q, with the middle-term polynomial of (x + y)^n used in 2D: as a tint (colour) or as a radial scale (radius). One decision each — Save, move to notes or reject — saved to the database. Nothing is deleted here."
-  groups={[...bySheet.entries()]}
-  count={candidates.length}
+  lead="The candidates still in play: starred, not rejected, and not on a named family page (the wonks are at /hybrids-wonk/). Sorted by stars, highest first. Save, move to notes or reject — saved to the database."
+  groups={groups}
+  count={rows.length}
 />

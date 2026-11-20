@@ -3230,3 +3230,13 @@ Tschirnhausen — classic but adds nothing; off the board.
 - `scripts/record_rejected.py --write` merges new rejections; `scripts/sync-data.sh`
   refreshes it (and `workbench/sandbox-curves.json`) before staging.
 - Guard: `tests/test_hybrids.py::test_every_rejected_candidate_is_on_record`.
+
+### The desk is the shortlist — 2026-11-20
+
+- `/hybrids/` now shows **46** candidates: rejects hidden (unless reinstated) and the 28
+  wonks moved to `/hybrids-wonk/`. Order is by stars, highest first; the group headings are
+  the star counts.
+- The template (`app/src/components/HybridDesk.astro`) takes `{ title, rows }` groups, so a
+  page decides its own headings; `/hybrids-wonk/` is a page file and nothing else.
+- The page check no longer expects a fixed 343; it asserts a live board, and it snapshots
+  and restores any card it touches.

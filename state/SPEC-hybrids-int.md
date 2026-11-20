@@ -171,3 +171,13 @@ use it, and only supply rows:
 
 A second family page is a new page file and nothing else; the cards, the save path and the
 stars are the same component.
+
+## What the desk shows now
+
+`/hybrids/` is the shortlist, not the family: the stars that are still in play.
+
+- **Rejects are out.** A candidate on `workbench/hybrid-rejected.json` is hidden unless its
+  entry is `reinstated` (starred or saved after the record was made).
+- **Named families have their own page.** A candidate named `wonk-<number>` is hidden from
+  the desk and appears at `/hybrids-wonk/`; the filter is the saved name, not a list.
+- **Order is by stars**, highest first, so the desk reads as a ranking.

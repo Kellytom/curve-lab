@@ -28,9 +28,9 @@ const {
     <p class="hybrids-empty">No candidates here yet. The template is ready; give it rows.</p>
   )}
 
-  {groups.map(([sheet, rows]) => (
+  {groups.map(({ title: groupTitle, rows }) => (
     <section class="hybrids-section">
-      <h2>{sheet === "colour" ? "colour use — the shapes" : `radius use — ${sheet}`}</h2>
+      <h2>{groupTitle}</h2>
       <div class="hybrids-grid">
         {rows.map((row) => (
           <article class="hybrid-card" data-name={row.id} data-decision="" data-importance="0">
