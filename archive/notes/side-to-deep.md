@@ -147,3 +147,13 @@ The five actions: pin the crossing counters (the same curve read 9, 4 and 1 pair
 Note: two items are marked unverified in the doc on purpose (the exact JS test count, the Cloud Run state — no remote probe was made).
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-20 17:40 — the audit is now in plain English
+
+Job: rewrite the audit for a reader without the project.
+Done: `archive/notes/audit-2026-11-20.md` rewritten and the twin re-rendered, commit **`d174cee2`**. Same ten findings and five actions, same measured numbers with the command beside each; every term that must stay ("grid", "bend", "format string", "commit") is explained in the sentence that uses it, and the section names now say what they mean ("The counting rules disagree", "The sandbox page draws nothing").
+Proved by: `scripts/spec_page.py` → `app/public/spec/audit-2026-11-20.html`, 1 table, no raw markdown pipes left in the HTML, `GET` → 200.
+Blocked: nothing
+Next: waiting for DeepSeek1.
