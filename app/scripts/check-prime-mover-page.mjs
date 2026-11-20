@@ -186,9 +186,26 @@ try {
   });
   check(panels.length === 7, `Fig. 9 draws ${panels.length} panels, expected seven`);
 
+  // Fig. 10 — the driver's table, and the circle taken out: two panels, same furniture
+  const reformPanels = await page.evaluate(() => {
+    return [...document.querySelectorAll(".pm-reform-plots svg[data-panel]")].map((svg) => {
+      const texts = [...svg.querySelectorAll("text")].map((node) => node.textContent);
+      return {
+        key: svg.dataset.panel,
+        hasX: texts.includes("x"),
+        hasY: texts.includes("y"),
+        legend: [...svg.querySelectorAll("text")]
+          .filter((node) => Number(node.getAttribute("font-size")) >= 15).length,
+      };
+    });
+  });
+  check(reformPanels.length === 2, `Fig. 10 draws ${reformPanels.length} panels, expected two`);
+  check(reformPanels.every((panel) => panel.hasX && panel.hasY), "a Fig. 10 panel does not name both axes");
+  check(reformPanels.every((panel) => panel.legend >= 2), "a Fig. 10 panel has no readable legend");
+
   // Fig. 5 — the character gallery gets the same treatment: axes, legend, Bézier chains
   const gallery = await page.evaluate(() =>
-    [...document.querySelectorAll(".pm-gallery:not(.pm-plots) svg[data-panel]")].map((svg) => ({
+    [...document.querySelectorAll(".pm-gallery:not(.pm-plots):not(.pm-reform-plots) svg[data-panel]")].map((svg) => ({
       x: [...svg.querySelectorAll("text")].some((node) => node.textContent === "x"),
       y: [...svg.querySelectorAll("text")].some((node) => node.textContent === "y"),
       polylines: [...svg.querySelectorAll("path")].filter((node) => !/C/.test(node.getAttribute("d") || "")).length,

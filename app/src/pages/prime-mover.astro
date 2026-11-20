@@ -24,6 +24,9 @@ const splitRows = (split.ways || []).map((row) => ({
 const splitExact = splitRows.every((row) => row.error === "0");
 const plots = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "circle-plots.json"), "utf8"));
 const plotPanels = plots.panels || [];
+// Fig. 10: the driver's own table, and the circle taken out of a curve built on it.
+const reform = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "pm-reform.json"), "utf8"));
+const reformPanels = reform.panels || [];
 
 function characterPanel(curve) {
   // The same figure builder as Fig. 9: axes, grid, a Bézier chain and a legend, so a
@@ -238,6 +241,31 @@ function characterPanel(curve) {
   <p class="pm-note">{splitExact
     ? "Every identity holds in exact arithmetic — no decimal in any check."
     : "A row's identity does not hold; the script reports the fault before the page is built."}</p>
+
+  <h2 style="margin-top:26px">Fig. 10 · the table, and the circle taken out</h2>
+  <p class="lead">The stations here are the driver's own table — <code>k</code>, <code>a</code>,
+    <code>b</code>, <code>denominator</code>, both directions — sent through the lens map
+    <code>x = X(1 − Y²), y = Y</code>. Then <code>P = x² + y²</code>, <code>C</code> is its mean,
+    and each point is carried to <code>z·(P − C)/P</code>. The stations stay exact; the line
+    between them is sampled, and the figure says so. Where <code>P = C</code> the reformed point
+    is the origin, so the second panel is a new figure, not a moved camera.</p>
+  <div class="pm-gallery pm-reform-plots">
+    {reformPanels.map((panel) => (
+      <figure class="pm-card">
+        <Fragment set:html={figureSvg(panel)} />
+        <figcaption>
+          <span class="pm-eqline">{panel.equation}</span>
+          {(panel.formulas || []).map((line) => (
+            <code class="pm-formula">{line}</code>
+          ))}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="pm-note">Exact mean for this walk: <code>C = {reform.C}</code> ≈ {reform.Cdecimal};
+    the {reform.stations.length} stations, with their <code>X</code> and <code>Y</code> as fractions of
+    one, are in <code>workbench/pm-reform.json</code>. The generated panel data is
+    <code>scripts/pm_reform_probe.py</code>.</p>
   <p class="pm-note">A four-bar linkage: a crank turning about A, a coupler, a rocker about D, and a
     point P fixed to the coupler. P traces the curve. This is the mobile's industrial cousin — bars
     with pivots, not vanes about one centre — and it is <b>sampled</b>: the joint positions are

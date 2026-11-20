@@ -225,7 +225,14 @@ curve.** A circle is the case `P ≡ C`, where `R ≡ 0` and the curve collapses
       kept to `0 ≤ t ≤ 1`, with the stations as exact rational points.
 - [x] The remainder is plotted in the bounded form `(P − C)/(P + C)`: zero where the circle
       carries the curve, positive outside the mean circle, negative inside.
-- [x] The spec says that the shape cannot change, so no figure claims a new outline.
+- [x] **The mean always pinches, and that changes the outline.** `C` is the mean of `P`, so it
+      lies between the curve's nearest and farthest point; somewhere `P = C` and the reformed
+      point is exactly the origin. Where `P < C` the factor is negative, so the point comes out
+      on the opposite ray. The directions are unchanged, but the figure is a new one, and
+      crossings can appear across the origin. **Superseded 2026-11-20:** the earlier line here
+      said "the shape cannot change, so no figure claims a new outline"; that is true of the
+      re-stationing (`t = Y/(1+X)`) and false of the mean-`C` reform. Fig. 10 shows the
+      difference, and both are stated on the figure.
 
 ## 13 · The mechanisms (Figs 7 and 8)
 
@@ -259,8 +266,17 @@ every station a rational point of the lattice.
 - [x] The rule is stated (§12) and implemented (`scripts/circle_plots.py`).
 - [x] The figure prints the original parametric rows and the reformed formula beside the
       drawing, so the reader can judge whether the reform is simpler.
-- [x] The spec says plainly that a radial removal cannot change a curve's shape, so the
-      reform is a re-stationing, not a new outline.
+- [x] Two operations, kept apart: the **re-stationing** (`t = Y/(1+X)`) leaves the outline
+      alone and is what `c-0272` stores; the **mean-`C` reform** (`z·(P − C)/P`) moves every
+      point along its ray and changes the outline, and §12 states where it pinches.
+- [x] **Fig. 10 · the table, and the circle taken out.** The stations are the driver's own
+      table — `k`, `a`, `b`, `denominator`, both directions, the same rule as `driverRows()` —
+      written by `scripts/pm_reform_probe.py` to `workbench/pm-reform.json`. The lens map
+      `x = X(1 − Y²), y = Y` is drawn, then the same stations carried through `z·(P − C)/P`.
+      The stations are exact ratios; the line between them is sampled and says so; `C` is
+      printed exactly and as ≈.
+- [x] The guard is `app/scripts/check-prime-mover-page.mjs`: Fig. 10 draws two panels, each
+      names `x` and `y`, and each carries a legend at 15 px or larger.
 - [x] A stored curve is reformed *and* saved back to the database as its own record:
       `c-0272` `lace-2-eight-3-circle-parameter`, a path of 61 exact stations taken at
       `t = k/60` on `c-0028`, each with its own rational circle point; the note states
@@ -297,5 +313,5 @@ mechanism rather than sampled from a spirograph.
 
 ## Count
 
-- [x] The list is honest: 72 ticked, 10 open — every `- [ ]` and `- [x]` in this file,
-      counted 2026-11-19 (the older line said 64 and 9 and had gone stale).
+- [x] The list is honest: 74 ticked, 10 open — every `- [ ]` and `- [x]` in this file,
+      counted 2026-11-20 (the older lines said 64/9 and 72/10 and had gone stale).

@@ -3112,3 +3112,20 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The tree carried another session's uncommitted work** (79 paths, including
   `tests/test_regressions.py` and the sandbox pages). This action staged only its own
   paths and did not touch those.
+
+### Fig. 10, and the table the operator asked for — 2026-11-20
+
+- **The stations now come from the driver's own table**, not a re-invented walk:
+  `scripts/pm_reform_probe.py` writes `workbench/pm-reform.json` with `k`, `a`, `b` and the exact
+  `X`, `Y`, both directions, the same rule as `driverRows()`.
+- **`/prime-mover/` Fig. 10** draws the lens map on that table, then the same 21 stations through
+  `z·(P − C)/P`: `C = 5004584177013258352947126468503097895474231/6071532165918824830441735684871673583984375`
+  ≈ 0.82427. The reformation turns the plain lens into a four-petalled figure with a pinch at the
+  origin.
+- **Spec supersession:** §12's "cannot change the shape" holds for the re-stationing, not for the
+  mean-`C` reform — `C` is the mean of `P`, so the reform always passes through the origin and
+  the outline does change. Written in §12 and §15 in the same commit.
+- **The guard:** `app/scripts/check-prime-mover-page.mjs` now checks Fig. 10 has two panels, both
+  axes and a 15 px legend; Fig. 9's count stays at seven and Fig. 5's at six.
+- **Not yet done:** the record for a *new* curve from this figure (A, then B/C/D). The figure is a
+  probe on the page, not a stored curve.
