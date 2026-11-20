@@ -63,6 +63,7 @@ def main(argv=None) -> int:
                 "search": f"{row['formula']['plain']} mirrored across the line y = x",
             },
             "points": drawn,
+            "cuts": row.get("cuts", []),
             "figure": f"double-{row['id'].removeprefix('wonky-')}.svg",
         })
 

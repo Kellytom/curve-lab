@@ -112,9 +112,11 @@ export function figureSvg(panel, { width: boxWidth = 460 } = {}) {
     // keep the label inside the frame: flip the offset at the right edge and the top
     const dx = px > plot.right - 72 ? -72 : (label.dx ?? 6);
     const dy = py < plot.top + 16 ? 14 : (label.dy ?? -6);
-    drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="2.6" fill="#a8341f"/>`
+    const tone = label.colour || "#c9761f";        // orange: the cut on y = x
+    drawn.push(`<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="3" fill="${tone}" `
+      + `stroke="#fffef9" stroke-width="0.8"/>`
       + `<text x="${(px + dx).toFixed(1)}" y="${(py + dy).toFixed(1)}" `
-      + `font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#7a3a20">${label.text}</text>`);
+      + `font-family="ui-monospace, Menlo, monospace" font-size="11" fill="${tone}">${label.text}</text>`);
   }
   parts.push(`<g clip-path="url(#${clipId})">${drawn.join("")}</g>`);
 
