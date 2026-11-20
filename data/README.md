@@ -45,7 +45,7 @@ the names, the notes and the measurements.
 | `formula.search` | string | one line, ASCII, built for an outside search. |
 | `note` | object | the editing row: importance, rotation, pieces, perSide, borderTurn, offsets, widthPct, plus, minus, profile. |
 | `set` | object | the curve set: inner curve, border curve, rotation, pieces, per side, importance. |
-| `metric` | object | the measurements: grid, bend, arc, chord, inflections, crossings, meeting points, bounding box, area, curvature. |
+| `metric` | object | the measurements, named in full under `metrics.json` below. |
 
 Units: `bend` is arc over chord (dimensionless); `grid` is an integer, the exact
 station step `1/grid`; `bboxW`, `bboxH`, `area`, `arc`, `chord` are in curve
@@ -85,7 +85,20 @@ Every save from the sandbox and from the hybrid desk. The save *is* the decision
 | field | type | meaning |
 |---|---|---|
 | `name` | string | the candidate's own name; one candidate never touches another's row. |
-| `data` | JSON text | the page's record as written: settings, family, and for the hybrid desk the `decision` (`keep`, `later`, `reject`) and `crossedAt`. |
+The record's own fields are unfolded, so a reader never unwraps a JSON string
+inside the JSON.
+
+| field | type | meaning |
+|---|---|---|
+| `name` | string | the record's key; one candidate never touches another's row. |
+| `decision` | string | `keep`, `later` or `reject` (the hybrid desk). |
+| `crossedAt` | ISO date | when the decision was made. |
+| `savedAt` | ISO date | when the row was last written. |
+| `construction` | object | how the curve was built: the cuts, the ends, the block. |
+| `curveName` | string | the display name the desk chose; a saved row becomes a registry record under it. |
+| `renderCorrect` | string | the retired join control on the old cards, kept so an old row still reads. |
+| `importance` | integer | the 0–5 rating from the naming pass. |
+| `family`, `settings`, `kind` | mixed | whatever the saving page wrote; every field the record carries is named here. |
 | `createdAt` | ISO date | first save. |
 | `updatedAt` | ISO date | last save. The latest decision wins. |
 
@@ -93,10 +106,35 @@ Lost without it: every keep/later/reject decision on the hybrid desk.
 
 ### `metrics.json` — 262 rows — `curve-lab.data.metrics/1`
 
-The measurements, one row per measured curve. Same fields as `metric` above,
-plus `computedAt`. A number here is produced by `scripts/analyse_curves.py`,
-never typed. Lost without it: no comparison between curves, and the pages must
-re-measure.
+The measurements, one row per measured curve, produced by
+`scripts/analyse_curves.py` — a number here is generated, never typed.
+
+| field | type | meaning |
+|---|---|---|
+| `uid` | string | the curve it measures. |
+| `family` | string | the family. |
+| `kind` | string | `rows`, `polyline` or `path`. |
+| `method` | string | `exact` (fraction arithmetic) or `sampled`. |
+| `degree` | integer | the degree of the polynomial or the station list. |
+| `step` | number | the parameter step used for the stations. |
+| `grid` | integer | the exact station step, `1/grid`. May exceed 2^53; stored as an integer. |
+| `bend` | number | arc length over straight-line distance (1.0 is straight). |
+| `arc` | number | the length of the stroke, in curve units. |
+| `chord` | number | the distance between its ends. |
+| `inflections` | integer | direction changes of the bend. |
+| `inflectionMax` | integer | the most inflections any span of the chain has. |
+| `closest` | number | how near the speed path comes to zero (a near-cusp). |
+| `crossings` | integer | crossing pairs, the router's count. |
+| `meetingPoints` | integer | distinct places where the stroke meets itself. |
+| `bboxW`, `bboxH` | number | the drawing's width and height. |
+| `area` | number | the enclosed area. |
+| `maxCurvature` | number | the sharpest bend (0 when not yet computed). |
+| `curvatureMedian` | number | typical bend, made dimensionless by the curve's size. |
+| `mirrorY`, `mirrorYX` | number | how close a mirror across the y (or the diagonal) reproduces the curve: 0 is exact. |
+| `halfTurn` | number | the drift after a 180° turn. |
+| `computedAt` | ISO date | when the numbers were made. |
+
+Lost without it: no comparison between curves, and the pages must re-measure.
 
 ### `jobs.json` — 3 rows (1 session, 2 jobs) — `curve-lab.data.jobs/1`
 
