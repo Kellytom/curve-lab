@@ -22278,7 +22278,7 @@
    "q": 1,
    "use": "radius",
    "block": "quintic-all-four",
-   "crossings": 15,
+   "crossings": 16,
    "figure": "h-radius-2-1-quintic-all-four.svg",
    "formula": {
     "plain": "x = cos^2(t), y = sin^1(t)",
@@ -27318,7 +27318,7 @@
    "q": 3,
    "use": "radius",
    "block": "cubic",
-   "crossings": 17,
+   "crossings": 18,
    "figure": "h-radius-2-3-cubic.svg",
    "formula": {
     "plain": "x = cos^2(t), y = sin^3(t)",
@@ -62598,7 +62598,7 @@
    "q": 1,
    "use": "radius",
    "block": "cubic",
-   "crossings": 19,
+   "crossings": 20,
    "figure": "h-radius-4-1-cubic.svg",
    "formula": {
     "plain": "x = cos^4(t), y = sin^1(t)",
@@ -63438,7 +63438,7 @@
    "q": 1,
    "use": "radius",
    "block": "quintic-all-four",
-   "crossings": 14,
+   "crossings": 15,
    "figure": "h-radius-4-1-quintic-all-four.svg",
    "formula": {
     "plain": "x = cos^4(t), y = sin^1(t)",
@@ -68058,7 +68058,7 @@
    "q": 3,
    "use": "radius",
    "block": "quadratic",
-   "crossings": 21,
+   "crossings": 22,
    "figure": "h-radius-4-3-quadratic.svg",
    "formula": {
     "plain": "x = cos^4(t), y = sin^3(t)",
@@ -75198,7 +75198,7 @@
    "q": 5,
    "use": "radius",
    "block": "quintic-all-four",
-   "crossings": 10,
+   "crossings": 11,
    "figure": "h-radius-4-5-quintic-all-four.svg",
    "formula": {
     "plain": "x = cos^4(t), y = sin^5(t)",
@@ -103758,7 +103758,7 @@
    "q": 1,
    "use": "radius",
    "block": "cubic",
-   "crossings": 15,
+   "crossings": 16,
    "figure": "h-radius-6-1-cubic.svg",
    "formula": {
     "plain": "x = cos^6(t), y = sin^1(t)",
@@ -104598,7 +104598,7 @@
    "q": 1,
    "use": "radius",
    "block": "quintic-all-four",
-   "crossings": 19,
+   "crossings": 20,
    "figure": "h-radius-6-1-quintic-all-four.svg",
    "formula": {
     "plain": "x = cos^6(t), y = sin^1(t)",
@@ -109638,7 +109638,7 @@
    "q": 3,
    "use": "radius",
    "block": "cubic",
-   "crossings": 13,
+   "crossings": 14,
    "figure": "h-radius-6-3-cubic.svg",
    "formula": {
     "plain": "x = cos^6(t), y = sin^3(t)",
@@ -111318,7 +111318,7 @@
    "q": 3,
    "use": "radius",
    "block": "every-term",
-   "crossings": 7,
+   "crossings": 8,
    "figure": "h-radius-6-3-every-term.svg",
    "formula": {
     "plain": "x = cos^6(t), y = sin^3(t)",
@@ -121398,7 +121398,7 @@
    "q": 7,
    "use": "radius",
    "block": "cubic",
-   "crossings": 10,
+   "crossings": 11,
    "figure": "h-radius-6-7-cubic.svg",
    "formula": {
     "plain": "x = cos^6(t), y = sin^7(t)",

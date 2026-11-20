@@ -296,12 +296,51 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
+- **No complex steps, ever.** They import a length that is not a ratio (`2 + i`
+  has length √5), and that length stays in every position afterwards. Use
+  p-triples: `(3, 4, 5)` turns by a rational angle and keeps the length whole. The
+  rule, the reason, the replacement vocabulary and the conversion recipe are in
+  `state/EXACT-NUMBERS-int.md`; `scripts/check_no_imaginaries.py` fails the push
+  if one gets back into the pages or their scripts.
 - **A `cos` or `sin` of a general angle is a red flag, not a style choice.** It
   is irrational and leaves the integer grid for good. Use a rational point of the
   circle (a `p`-triple, or `t = tan(θ/2)` with rational `t`); if a figure was
   sampled with real trig, its caption says "sampled" and it claims no exactness.
   Reason and examples: `state/DESIGN-int.md` §Trigonometry.
 
+- **Every reply ends with the link to click.** Put the page URL and any file the
+  work produced on their own lines, plainly, so the operator can ctrl-shift-click
+  them: `http://127.0.0.1:4321/prime-mover/`, `workbench/walk-curves.svg`. No
+  hunting, no "it is in the repo somewhere". This is not optional.
+- **Never open a page for the operator.** Do not run `open`, do not launch a tab,
+  do not add a browser window. Give the link as plain text in the reply; the
+  operator opens it with ctrl-shift-click when they want it. Opening a page while
+  they are typing steals the focus, and repeated opens leave duplicate tabs.
+- **Two specs per page: clean and problems.** Before building or changing a page,
+  write `state/SPEC-<page>-int.md` — the clean description: what it is for, the
+  words it owns, the layout, and the rules, each with a check that can fail. Work
+  from that file, and update it in the same commit as the page; if the page and the
+  clean spec disagree, the page is wrong. Every fault that page has had — the
+  operator's words, what was actually wrong, the fix, and the guard — goes in
+  `state/PROBLEMS-<page>-int.md`, never in the clean spec. Examples:
+  `state/SPEC-prime-mover-int.md` and `state/PROBLEMS-prime-mover-int.md`.
+- **Curves, not jagged lines.** A plotted sequence is drawn as a smooth curve: join
+  the exact stations with a **cubic Bézier chain** (Catmull-Rom through the points),
+  never straight segments. The stations stay exact; the drawing between them is
+  **approximate**, and the figure says so in its title or legend. A zigzag through
+  correct points is still a wrong picture.
+- **Before a new page, read the last spec.** Open the previous page's clean spec
+  and its problems file before writing the new spec. Carry forward every invariant
+  that applies — exact ratios, no decoration on a reference circle, named axes, a
+  figure that fits its own frame, no dead controls — and say in the new spec which
+  ones are inherited. A new page starts from the last page's lessons, not from a
+  blank sheet.
+- **Patch a line; rewrite a structure.** String replacement is for one-line
+  fixes with unique context. When a change moves code, renames a concept or
+  touches several places, rewrite the file in one pass. Patching by strings is
+  how `input_left()` came to return a constant, three checkboxes came to be wired
+  to nothing, and comments came to describe code that had moved. Check behaviour
+  (alternation, row counts, exact values), never the strings you typed.
 - One task at a time, at the scope the operator set; verify, commit, stop.
 - **A page carries no rules.** Its `<script>` is one import; logic lives in
   `app/src/scripts/` (linted) or `app/src/lib/` (linted and tested). A rule that
@@ -335,7 +374,21 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
   If the engine rejects one, say so at once and start a fresh session instead
   of retrying in place.
 
+## Layout
+
+- **Every page carries the same margin**, set once in `app/public/vendor/app-shell.css`
+  (`main { max-width: 1180px; margin-inline: auto; padding: 0 1.25rem 3.5rem }`). A
+  page does not invent its own.
+- **A panel of large numbers scrolls, it never widens the page.** Raw tables belong at
+  the foot of the page: exact numbers are evidence, not the reading order.
+
 ## Figures
+
+- **Name the geometric object first.** Before drawing, say what the figure is — a
+  circle and its centre, a congruence, a rotation, an orbit — and check it against
+  `state/GEOMETRY-int.md` (Euclid I.4, I.47, III.20; reflection keeps the radius;
+  two reflections make one rotation). A figure that cannot be named is not ready.
+
 
 - Label every figure **inside the figure**, not only in a caption: a figure
   number or letter (for example `Fig. 1`, `Fig. C1`, `Fig. G1`), a title naming

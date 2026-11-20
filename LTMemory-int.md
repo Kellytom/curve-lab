@@ -109,6 +109,28 @@ listed here rather than renamed, because the scripts are referenced elsewhere.
 
 ## Working rules learned the hard way
 
+- **Links, not tabs.** Never open a page for the operator — no `open`, no new tab.
+  Put the URL in the reply; they ctrl-shift-click it. Opening steals focus and has
+  left duplicate tabs on their screen.
+- **Curves, not jagged lines.** Join stations with a cubic Bézier chain
+  (Catmull-Rom); say the drawing between them is approximate. Exact points, wrong
+  shape, is still a wrong figure.
+- **Read the last spec before a new page.** Start from the previous page's clean
+  spec and problem file; inherit the invariants that apply and say which ones. The
+  first pair is `SPEC-prime-mover-int.md` / `PROBLEMS-prime-mover-int.md`, then
+  `SPEC-stage-two-int.md`.
+- **Two specs per page.** `state/SPEC-<page>-int.md` is the clean description —
+  purpose, words, layout, rules with a check each — and it is what you work from.
+  `state/PROBLEMS-<page>-int.md` holds every fault the page has had, the operator's
+  words, the cause, the fix and the guard. Never put the history in the clean spec.
+  First pair: `SPEC-prime-mover-int.md` and `PROBLEMS-prime-mover-int.md`.
+- **Patch a line; rewrite a structure.** One-line fix: patch with a unique
+  anchor. Anything structural (rename, move, several sites): rewrite the file
+  cleanly in one pass. A page left with dead helpers and dead controls is a
+  patching scar, not a coding style — `app/src/scripts/prime-mover-engine.js` was rewritten
+  on 2026-11-19 for exactly this, and `app/scripts/check-prime-mover-page.mjs` now
+  asserts the result.
+
 - **The page is the evidence, not the source.** A control that is correct in
   `scripts/` and stale in the browser looks broken; `scripts/build-pages.py`
   plus `tests/test_page_assets.py` exist for that fault.
@@ -183,8 +205,25 @@ no sync. It does **not** restore a session; it opens one local page,
 
 ## Invariants
 
-- **Exact means Fraction.** Anything claiming exactness is computed in
-  `fractions.Fraction` and asserted integral before it is drawn.
+- **Exact means an integer or a rational fraction** — a ratio of two whole
+  numbers, e.g. `3/5`, `−117/125`, or the integer `1`. It does not mean a decimal
+  (`0.6` hides the ratio) and it does not mean the Python type: `Fraction` is only
+  how the value is held and checked. Anything claiming exactness is computed in
+  whole numbers or `fractions.Fraction` and asserted, never sampled.
+- **Geometry before the figure.** Read `state/GEOMETRY-int.md` — the Euclid
+  propositions this project leans on (I.4, I.47, III.20), the reflection and
+  rotation facts, and the orbit. A figure is the drawing of a named geometric
+  object; if the object cannot be named, the figure is not ready. Two circles off
+  the page came from drawing first and naming second.
+- **No rounded number places a point.** A position comes from an exact index
+  and exact rational coordinates. A rounded angle (`53.1301°`) may be printed as
+  a readout, never used to compute where a dot sits — that is a nudge, and it
+  hides the one thing worth seeing: a step of `(3+4i)/5` turns `atan(4/3)`, so
+  stations drift from a pure sine instead of following it.
+- **Show fractions, not decimals.** A decimal is a sample of a fraction and must
+  never stand where an exact value exists. The operator reads `3/5 + 4/5i` at a
+  glance and cannot check `0.600 + 0.800i`. Degrees are the one exception: they
+  are a readout of a rational turn, and they say so.
 - **Every percentage is an error**, as a share of a stated reference. Where a
   number is not an error, say so in words.
 - **A curve is cheap exactly when it has a singularity** — a node, cusp or
@@ -192,6 +231,11 @@ no sync. It does **not** restore a session; it opens one local page,
   made exact.
 - **One grid per curve** for now; the grid is a factorisation problem, not a
   size problem.
+- **A complex step imports √5.** `2 + i` has length √5, so a walk by it carries a
+  square root in every position for ever. The exact alternative is a p-triple,
+  whose hypotenuse is whole: `(3, 4, 5)` changes a position by ratios only. This
+  is the reason the complex construction was dropped — not the letter `i`, the
+  irrational length it brings.
 - **`cos`/`sin` of an arbitrary angle is a red flag**: irrational, and off the
   grid for good. Use rational circle points (p-triples, `t = tan(θ/2)`), and call
   a real-trig figure *sampled*, never exact.
@@ -200,6 +244,23 @@ no sync. It does **not** restore a session; it opens one local page,
   `heart_forms.FORMS`, `curve_lab.presets`) and render from them. We once
   shipped a limaçon labelled "bean" while the exact bean sat in the table.
   A curve drawn from memory is a bug, even when it looks right.
+- **Reduce before you judge a grid.** A station written `375/625` needs only
+  grid 5, because the reduced denominator is what counts. On radius 3125 the 44
+  stations reduce to: 4 with denominator 1, and 8 each with 5, 25, 125, 625,
+  3125 — only 8 of the 44 need the full grid. **But a p-triple turn chain never
+  reduces**: `3+4i = (2+i)²` and `5 = (2+i)(2−i)`, so `((3+4i)/5)^k =
+  ((2+i)/(2−i))^k` is in lowest terms for every k (checked to k = 6). A
+  six-figure denominator there is real, and the cure is the circle, not
+  cancellation.
+- **Choose the circle before you turn.** A rotation by a p-triple angle divides
+  by the hypotenuse, so a chained turn leaves the whole-number grid after one or
+  two steps (`(48,55,73)` is whole at step 1, fractional at step 2; `(7,24,25)`
+  is whole twice on radius 625, then fraction). To stay on whole numbers, pick a
+  radius and **enumerate the integer points of that circle** — 625 has 36,
+  1105 has 108, 5525 has 180. The count follows the prime factors that are 1
+  mod 4, not the radius (325 has 60, more than 625's 36). Between two stations
+  the chord dips inside by the sagitta (6.28 at r=625, 2.95 at r=1105) and comes
+  back out at the next station.
 - **Say where a thing fails.** Three figures on `hearts.html` are recorded as
   broken rather than tuned to look acceptable.
 
@@ -223,6 +284,10 @@ no sync. It does **not** restore a session; it opens one local page,
   are factorisations; fixed m is a parabola, not a hyperbola.
 - Several grids can share one design: they compose by lcm (1, 1/5, 1/25 → 25).
   Per-span grids cost 5^k: fine to six spans, unusable by twelve.
+- A walk plus its own conjugate (the "negative set") sums to a **real line**:
+  `z^k + conj(z^k) = 2·Re(z^k)`, so the pair is not a closed curve but a segment,
+  and at lag 180° with two movers the sum is zero. The pair as two arms is a
+  leaf, not a closed figure; 720° of travel is real, the closure is not.
 - The Euclid family chain is integer at scale 1 and C1 everywhere; its curvature
   exponent drifts to -4/3, so it is a generalised Euler spiral in the limit.
 - A PH curve's offset is exact and rational: `O = C + d·(−y', x')/σ`, in

@@ -8,7 +8,7 @@
     "preview": "astro preview",
     "test": "node --test tests/finder-stars.test.mjs tests/users.test.mjs tests/curve-notes.test.mjs tests/stars.test.mjs tests/finder.test.mjs tests/star-list.test.mjs tests/finder-sections.test.mjs tests/name-parts.test.mjs tests/repopath.test.mjs tests/figure-leaf.test.mjs tests/bus.test.mjs tests/offsets.test.mjs tests/formula.test.mjs tests/frames.test.mjs",
     "check": "astro check && eslint src/lib src/scripts tests scripts",
-    "test:pages": "node scripts/check-pages.mjs && node scripts/check-stars.mjs && node scripts/check-names.mjs",
+    "test:pages": "node scripts/check-pages.mjs && node scripts/check-stars.mjs && node scripts/check-names.mjs && node scripts/check-prime-mover-page.mjs && node scripts/check-layout.mjs",
     "gate": "npm run check && npm test",
     "backup": "node scripts/backup-db.mjs",
     "restore": "node scripts/restore-db.mjs",
@@ -21,6 +21,7 @@
     "@astrojs/starlight": "^0.43.1",
     "@prisma/client": "^6.19.3",
     "astro": "^7.4.13",
+    "d3": "^7.9.2",
     "jsxgraph": "^1.11.1",
     "prisma": "^6.19.3",
     "zod": "^3.25.76"

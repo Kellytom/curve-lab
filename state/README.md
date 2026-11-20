@@ -9,6 +9,11 @@ What is true **this week**, as opposed to what is true in general.
 | `SESSIONS-int.md` | the proposed order for the next sessions |
 | `WORK-int.md` | the P/W/D registers and the spine layer's promotion gate |
 | `STATUS-int.md` | what works today, what is not wired |
+| `SPEC-css-int.md` | the stylesheets: what each file owns, the header, the margin, overflow |
+| `GEOMETRY-int.md` | the Euclid propositions, reflections, rotations and orbits this project uses, with sources |
+| `EXACT-NUMBERS-int.md` | what we use instead of complex steps: the reason, the vocabulary, the conversion, the debt |
+| `SPEC-<page>-int.md` | the clean spec for one page: purpose, words, layout, rules, and the check for each |
+| `PROBLEMS-<page>-int.md` | every fault that page has had: the operator's words, the cause, the fix, the guard |
 
 These are superseded regularly and grow stale on purpose — that is the point of
 keeping them apart from `docs/`, which holds the durable reference and the

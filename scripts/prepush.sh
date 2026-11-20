@@ -15,6 +15,9 @@ step() { printf '\n=== %s ===\n' "$1"; }
 step "python suite (--full)"
 .venv/bin/python scripts/test.py --full
 
+step "no imaginaries"
+.venv/bin/python scripts/check_no_imaginaries.py
+
 step "recheck"
 .venv/bin/python scripts/recheck.py
 

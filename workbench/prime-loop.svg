@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 840" width="940" height="840">
+<rect width="940" height="840" fill="#fffdf7"/>
+<text x="34" y="38" font-family="Georgia,serif" font-size="18" fill="#3b2d1c">Fig. 4 · The prime-mover loop · i = −1 … +1 of a turn · step (3+4i)/5</text>
+<text x="34" y="62" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#8c6a21">13 stations, each an integer or a rational fraction · the two ends are joined by the seam · branches leave the loop</text>
+<circle cx="470" cy="400" r="250" fill="none" stroke="#efe4c9" stroke-width="1"/>
+<line x1="220" y1="400" x2="720" y2="400" stroke="#efe4c9"/>
+<line x1="470" y1="150" x2="470" y2="650" stroke="#efe4c9"/>
+<polyline points="658.0,235.3 451.0,150.7 259.2,265.6 236.0,488.0 400.0,640.0 620.0,600.0 720.0,400.0 620.0,200.0 400.0,160.0 236.0,312.0 259.2,534.4 451.0,649.3 658.0,564.7" fill="none" stroke="#6f4a2a" stroke-width="2"/>
+<line x1="658.0" y1="235.3" x2="658.0" y2="564.7" stroke="#a8341f" stroke-width="2" stroke-dasharray="7 5"/>
+<line x1="451.0" y1="150.7" x2="409.5" y2="153.9" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="409.5" cy="153.9" r="2.4" fill="#4b7f3a"/>
+<line x1="259.2" y1="265.6" x2="281.6" y2="230.5" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="281.6" cy="230.5" r="2.4" fill="#4b7f3a"/>
+<line x1="236.0" y1="488.0" x2="250.7" y2="527.0" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="250.7" cy="527.0" r="2.4" fill="#4b7f3a"/>
+<line x1="400.0" y1="640.0" x2="360.0" y2="628.3" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="360.0" cy="628.3" r="2.4" fill="#4b7f3a"/>
+<line x1="620.0" y1="600.0" x2="653.3" y2="575.0" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="653.3" cy="575.0" r="2.4" fill="#4b7f3a"/>
+<line x1="720.0" y1="400.0" x2="720.0" y2="441.7" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="720.0" cy="441.7" r="2.4" fill="#4b7f3a"/>
+<line x1="620.0" y1="200.0" x2="586.7" y2="175.0" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="586.7" cy="175.0" r="2.4" fill="#4b7f3a"/>
+<line x1="400.0" y1="160.0" x2="440.0" y2="148.3" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="440.0" cy="148.3" r="2.4" fill="#4b7f3a"/>
+<line x1="236.0" y1="312.0" x2="221.3" y2="351.0" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="221.3" cy="351.0" r="2.4" fill="#4b7f3a"/>
+<line x1="259.2" y1="534.4" x2="236.8" y2="499.3" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="236.8" cy="499.3" r="2.4" fill="#4b7f3a"/>
+<line x1="451.0" y1="649.3" x2="492.6" y2="652.4" stroke="#4b7f3a" stroke-width="1.4"/>
+<circle cx="492.6" cy="652.4" r="2.4" fill="#4b7f3a"/>
+<circle cx="658.0" cy="235.3" r="4.6" fill="#a8341f"/>
+<circle cx="451.0" cy="150.7" r="3.0" fill="#c9761f"/>
+<circle cx="259.2" cy="265.6" r="3.0" fill="#c9761f"/>
+<circle cx="236.0" cy="488.0" r="3.0" fill="#c9761f"/>
+<circle cx="400.0" cy="640.0" r="3.0" fill="#c9761f"/>
+<circle cx="620.0" cy="600.0" r="3.0" fill="#c9761f"/>
+<circle cx="720.0" cy="400.0" r="3.0" fill="#2f6fa8"/>
+<circle cx="620.0" cy="200.0" r="3.0" fill="#c9761f"/>
+<circle cx="400.0" cy="160.0" r="3.0" fill="#c9761f"/>
+<circle cx="236.0" cy="312.0" r="3.0" fill="#c9761f"/>
+<circle cx="259.2" cy="534.4" r="3.0" fill="#c9761f"/>
+<circle cx="451.0" cy="649.3" r="3.0" fill="#c9761f"/>
+<circle cx="658.0" cy="564.7" r="4.6" fill="#a8341f"/>
+<text x="658.0" y="255.3" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#3b2d1c" text-anchor="middle">i = −1</text>
+<text x="720.0" y="420.0" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#3b2d1c" text-anchor="middle">i = 0</text>
+<text x="658.0" y="584.7" font-family="ui-monospace,Menlo,monospace" font-size="11.5" fill="#3b2d1c" text-anchor="middle">i = +1</text>
+<text x="459.0" y="142.7" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#8c5a1a">-237/3125 + 3116/3125i</text>
+<text x="267.2" y="257.6" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#8c5a1a">-527/625 + 336/625i</text>
+<text x="628.0" y="192.0" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#8c5a1a">3/5 + 4/5i</text>
+<text x="459.0" y="641.3" font-family="ui-monospace,Menlo,monospace" font-size="10.5" fill="#8c5a1a">-237/3125 − 3116/3125i</text>
+<rect x="0" y="716" width="940" height="124" fill="#f7f1e3"/>
+<line x1="38" y1="740" x2="66" y2="740" stroke="#6f4a2a" stroke-width="3.4"/>
+<text x="78" y="744" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#3b2d1c">the loop: i runs −1 → +1 of a turn, one station a step</text>
+<line x1="38" y1="763" x2="66" y2="763" stroke="#a8341f" stroke-width="3.4"/>
+<text x="78" y="767" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#3b2d1c">the seam: the two ends joined, 11753/15625 + 10296/15625i to 11753/15625 − 10296/15625i</text>
+<line x1="38" y1="786" x2="66" y2="786" stroke="#4b7f3a" stroke-width="3.4"/>
+<text x="78" y="790" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#3b2d1c">branches: the exact perpendicular at a station, scaled by a fraction of the radius</text>
+<line x1="38" y1="809" x2="66" y2="809" stroke="#2f6fa8" stroke-width="3.4"/>
+<text x="78" y="813" font-family="ui-monospace,Menlo,monospace" font-size="12" fill="#3b2d1c">i = 0 — the middle of the loop, where the positives and negatives cross over</text>
+</svg>

@@ -1,0 +1,3846 @@
+{
+ "format": "curve-lab.prime-mover-sweep/1",
+ "note": "every builder combination, written from a real browser; concentration = middle 80% of the stations over the full span",
+ "combinations": [
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.59
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.59
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.57
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.57
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.71
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.71
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.63
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.63
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.61
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.61
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.76
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.76
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.61
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.61
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.71
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.71
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.87
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0.87
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "2+i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 28,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.58
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.5
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0.61
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 22,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 19,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "3+4i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 3,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 7,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 5,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 7,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 0,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 27,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 90,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 1
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 0,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 100,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 0,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 80,
+   "onset": 2,
+   "points": 10,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 0,
+   "points": 16,
+   "crossings": 0,
+   "concentration": 0
+  },
+  {
+   "factor": "5+2i",
+   "steps": 10,
+   "lag": 180,
+   "damper": 60,
+   "onset": 2,
+   "points": 13,
+   "crossings": 0,
+   "concentration": 0
+  }
+ ]
+}

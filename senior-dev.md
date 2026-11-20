@@ -42,6 +42,11 @@ process to satisfy.
     loop is `scripts/test.py --fast`, about 3 s. Waiting is a workflow bug.
 14. **A loop runs once per change.** Re-running to confirm is waste; a second
     run needs a change and a reason.
+15. **Patch a line; rewrite a structure.** A string replacement sees only its own
+    anchor, so a rename or a move leaves dead helpers, dead controls and false
+    comments behind — `input_left()` returning a constant, a checkbox wired to
+    nothing. One line: patch. Anything structural: rewrite the file in one pass,
+    then check behaviour (colours, rows, counts), not the strings you typed.
 
 What is *not* here: ceremony. No gate for its own sake, no test that exists to
 look thorough. If a rule above makes the work slower without catching a fault

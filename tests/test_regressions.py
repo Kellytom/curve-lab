@@ -134,6 +134,19 @@ class TestRegressions(unittest.TestCase):
         load = panels[panels.index("window.phNthLoad = item =>"):panels.index("window.phNthLoad = item =>") + 400]
         self.assertNotIn("phPowerStep = 1", load)
 
+    def test_the_figure_index_names_every_registry_curve(self):
+        """2026-11-19: "the gallery is empty" — `curve_pngs.mjs --only` wrote the
+        index from the two curves it had just drawn, so 270 entries vanished.
+
+        The script now merges; this reads the two files so a partial run cannot
+        quietly shrink the gallery again.
+        """
+        registry = json.loads((ROOT / "workbench" / "curve-registry.json").read_text())
+        index = json.loads((ROOT / "app" / "public" / "figures" / "index.json").read_text())
+        wanted = {record["uid"] for record in registry["curves"]}
+        indexed = {meta["uid"] for meta in index["curves"]}
+        self.assertEqual(sorted(wanted - indexed), [], "registry curves with no figure")
+
 
 if __name__ == "__main__":
     unittest.main()
