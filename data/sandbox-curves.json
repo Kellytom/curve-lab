@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 62,
+ "count": 67,
  "rows": [
   {
    "name": "h-colour-1-1",
@@ -40,6 +40,12 @@
    "updatedAt": "2026-11-20T15:53:15.971Z"
   },
   {
+   "name": "h-radius-1-1-every-term",
+   "data": "{\"name\":\"h-radius-1-1-every-term\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"6-balloon-every-term\",\"crossedAt\":\"2026-11-20T15:59:34.159Z\"}",
+   "createdAt": "2026-11-20T15:59:32.009Z",
+   "updatedAt": "2026-11-20T15:59:34.173Z"
+  },
+  {
    "name": "h-radius-1-1-quintic-all-four",
    "data": "{\"name\":\"h-radius-1-1-quintic-all-four\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"quintic-double\",\"crossedAt\":\"2026-11-20T15:50:07.442Z\"}",
    "createdAt": "2026-11-20T15:50:06.230Z",
@@ -62,6 +68,12 @@
    "data": "{\"name\":\"h-radius-1-2-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"cubic-quintic\",\"crossedAt\":\"2026-11-20T15:53:47.255Z\"}",
    "createdAt": "2026-11-20T15:53:46.152Z",
    "updatedAt": "2026-11-20T15:53:47.267Z"
+  },
+  {
+   "name": "h-radius-1-2-every-term",
+   "data": "{\"name\":\"h-radius-1-2-every-term\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"incomplete-1\",\"crossedAt\":\"2026-11-20T16:01:57.035Z\"}",
+   "createdAt": "2026-11-20T16:01:55.577Z",
+   "updatedAt": "2026-11-20T16:01:57.043Z"
   },
   {
    "name": "h-radius-1-2-quadratic",
@@ -94,6 +106,12 @@
    "updatedAt": "2026-11-20T15:54:03.984Z"
   },
   {
+   "name": "h-radius-1-3-every-term",
+   "data": "{\"name\":\"h-radius-1-3-every-term\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-23\",\"crossedAt\":\"2026-11-20T16:03:22.986Z\"}",
+   "createdAt": "2026-11-20T16:03:21.964Z",
+   "updatedAt": "2026-11-20T16:03:22.994Z"
+  },
+  {
    "name": "h-radius-1-3-quadratic",
    "data": "{\"name\":\"h-radius-1-3-quadratic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"2-petals\",\"crossedAt\":\"2026-11-20T15:31:27.862Z\"}",
    "createdAt": "2026-11-20T15:31:22.691Z",
@@ -116,6 +134,12 @@
    "data": "{\"name\":\"h-radius-1-4-cubic\",\"decision\":\"saved\",\"importance\":10,\"curveName\":\"side-top-1\",\"crossedAt\":\"2026-11-20T15:37:09.207Z\"}",
    "createdAt": "2026-11-20T15:37:06.639Z",
    "updatedAt": "2026-11-20T15:37:09.211Z"
+  },
+  {
+   "name": "h-radius-1-4-every-term",
+   "data": "{\"name\":\"h-radius-1-4-every-term\",\"decision\":\"\",\"importance\":10,\"curveName\":\"incomplete-2\",\"crossedAt\":\"2026-11-20T16:03:33.262Z\"}",
+   "createdAt": "2026-11-20T16:03:33.157Z",
+   "updatedAt": "2026-11-20T16:03:33.280Z"
   },
   {
    "name": "h-radius-1-4-quadratic",
@@ -356,6 +380,12 @@
    "data": "{\"name\":\"h-radius-7-1-cubic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-6\",\"crossedAt\":\"2026-11-20T15:40:18.090Z\"}",
    "createdAt": "2026-11-20T15:40:17.105Z",
    "updatedAt": "2026-11-20T15:40:18.096Z"
+  },
+  {
+   "name": "h-radius-7-1-cubic-and-quintic",
+   "data": "{\"name\":\"h-radius-7-1-cubic-and-quintic\",\"decision\":\"saved\",\"importance\":1,\"curveName\":\"wonk-22\",\"crossedAt\":\"2026-11-20T15:58:59.785Z\"}",
+   "createdAt": "2026-11-20T15:58:55.245Z",
+   "updatedAt": "2026-11-20T15:58:59.804Z"
   },
   {
    "name": "h-radius-7-1-quadratic",
