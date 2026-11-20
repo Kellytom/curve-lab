@@ -147,3 +147,14 @@ with 409 and the owner's id, and the card shows "not saved — name … is alrea
 `promote_hybrids.py` refuses to run at all if two `saved` candidates carry the same name.
 The guard is `app/scripts/check-hybrids-page.mjs`: a second curve given the first curve's
 name is refused and keeps its old value.
+
+## The rejected record
+
+`workbench/hybrid-rejected.json` is the memory of what has been tried and rejected: id,
+`p`, `q`, use, block, crossing pairs, formulas, date. **JSON only, no SQLite**, so it is
+readable and travels with the repository.
+
+- `scripts/record_rejected.py --write` merges new rejections; nothing is ever removed.
+- A rejected curve that is later saved stays on the record with `reinstated: true`.
+- `scripts/sync-data.sh` refreshes both visible copies before staging.
+- Guard: `tests/test_hybrids.py::test_every_rejected_candidate_is_on_record`.

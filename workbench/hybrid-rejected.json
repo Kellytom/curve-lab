@@ -1,0 +1,6 @@
+{
+ "format": "curve-lab.hybrid-rejected/1",
+ "about": "Candidates already tried and rejected. Keep them: a later search must not propose them again. JSON only; nothing is deleted. `reinstated` marks a curve that was saved after being rejected.",
+ "count": 0,
+ "rejected": []
+}

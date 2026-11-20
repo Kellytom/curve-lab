@@ -3221,3 +3221,12 @@ Tschirnhausen — classic but adds nothing; off the board.
   width/height in the SVG writer, both fixed.
 - Guard: `app/scripts/check-hybrids-page.mjs` — saved name, seven stars, unsaved draft across
   a refresh, and zero POSTs when the GET fails.
+
+### The rejected record — 2026-11-20
+
+- `workbench/hybrid-rejected.json` holds every rejected candidate (id, p, q, use, block,
+  crossings, formulas, date) — JSON only, no SQLite. Nothing is removed; a rejected curve
+  that is later saved gains `reinstated: true`.
+- `scripts/record_rejected.py --write` merges new rejections; `scripts/sync-data.sh`
+  refreshes it (and `workbench/sandbox-curves.json`) before staging.
+- Guard: `tests/test_hybrids.py::test_every_rejected_candidate_is_on_record`.

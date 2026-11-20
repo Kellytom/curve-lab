@@ -49,6 +49,21 @@ class Hybrids(unittest.TestCase):
                          "kept candidates with no registry record")
 
 
+class Rejected(unittest.TestCase):
+    def test_every_rejected_candidate_is_on_record(self):
+        """2026-11-20: "keep a record of the rejected ones ... so we dont try them again".
+        The file is JSON only, and nothing there is ever removed."""
+        if not DECISIONS.exists():
+            self.skipTest("no decisions exported yet")
+        record = ROOT / "workbench" / "hybrid-rejected.json"
+        self.assertTrue(record.exists(), "the rejected record is missing")
+        rejected = {row["name"] for row in json.loads(DECISIONS.read_text()).get("curves", [])
+                    if row.get("decision") == "rejected"}
+        on_file = {row["id"] for row in json.loads(record.read_text())["rejected"]}
+        self.assertEqual(sorted(rejected - on_file), [],
+                         "rejected decisions missing from workbench/hybrid-rejected.json")
+
+
 class ConversionSlot(unittest.TestCase):
     def test_every_record_reserves_the_conversion_slot(self):
         """2026-11-20: "they will have to come over to this algorithm eventually, so leave
