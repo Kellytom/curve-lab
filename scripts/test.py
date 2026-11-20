@@ -136,8 +136,8 @@ def run_js_tests() -> int:
         return 0
     result = subprocess.run([node_binary(), "--test", *[str(f) for f in files]],
                             cwd=ROOT, capture_output=True, text=True)
-    passed = re.search(r"^# pass (\d+)$", result.stdout, re.M)
-    failed = re.search(r"^# fail (\d+)$", result.stdout, re.M)
+    passed = re.search(r"^(?:#|\u2139) pass (\d+)$", result.stdout, re.M)
+    failed = re.search(r"^(?:#|\u2139) fail (\d+)$", result.stdout, re.M)
     summary = (f"{passed.group(1) if passed else '?'} pass, "
                f"{failed.group(1) if failed else '?'} fail")
     print(f"  JS tests: {summary}")
