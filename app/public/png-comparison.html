@@ -28,26 +28,27 @@ looking for live on the curve edges at this scale.</p>
 <h2>The alpha set — judged on darkness, because that is where transparency shows</h2>
 <p class="lead">The web set is now curves on nothing: the background is fully
 transparent, and about 12 million pixels across the set are soft edges into
-that nothing. On this cream page banding hides, so this section draws every
-image on dark ground. The numbers are new too: they now measure the <b>alpha
+that nothing. On the cream page banding hides, so this section draws every
+image on the page colour's complement — a light blue — which is exactly where
+a banded alpha edge would betray itself against a non-white background. The numbers are new too: they now measure the <b>alpha
 edge</b> itself, not only the grey. One honest note: "grey max" is large in
 these captions because where alpha differs, the stored colour differs too —
 the alpha number is the one to read.</p>
-<div class="row" style="background:#1d1d22;padding:10px">
+<div class="row" style="background:#d6e6f7;padding:10px">
  <figure><img src="png-study/alpha-q90-99-c-0001-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption style="color:#cfc9bd">c-0001 · 90-99 · 59,305 bytes (−66%) · alpha worst 33 · over 8: 0.05% of pixels</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0001 · 90-99 · 59,305 bytes (−66%) · alpha worst 33 · over 8: 0.05% of pixels</figcaption></figure>
  <figure><img src="png-study/alpha-q70-95-c-0001-1600-grey.png" loading="lazy" alt="70-95">
-  <figcaption style="color:#cfc9bd">c-0001 · 70-95 · 42,013 bytes (−76%) · alpha worst 33 · over 8: 0.16% of pixels</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0001 · 70-95 · 42,013 bytes (−76%) · alpha worst 33 · over 8: 0.16% of pixels</figcaption></figure>
  <figure><img src="png-study/alpha-c16-q9099-c-0001-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption style="color:#cfc9bd">c-0001 · 16 colours + 90-99 · 35,234 bytes (−80%) · alpha worst 33 · over 8: 0.25%</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0001 · 16 colours + 90-99 · 35,234 bytes (−80%) · alpha worst 33 · over 8: 0.25%</figcaption></figure>
 </div>
-<div class="row" style="background:#1d1d22;padding:10px">
+<div class="row" style="background:#d6e6f7;padding:10px">
  <figure><img src="png-study/alpha-q90-99-c-0013-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption style="color:#cfc9bd">c-0013 (the softest plate) · 90-99 · 34,109 bytes (−95%) · alpha worst 13 · over 8: 0.04%</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0013 (the softest plate) · 90-99 · 34,109 bytes (−95%) · alpha worst 13 · over 8: 0.04%</figcaption></figure>
  <figure><img src="png-study/alpha-q70-95-c-0013-1600-grey.png" loading="lazy" alt="70-95">
-  <figcaption style="color:#cfc9bd">c-0013 · 70-95 · 25,789 bytes (−96%) · alpha worst 21 · over 8: 0.18%</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0013 · 70-95 · 25,789 bytes (−96%) · alpha worst 21 · over 8: 0.18%</figcaption></figure>
  <figure><img src="png-study/alpha-c16-q9099-c-0013-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption style="color:#cfc9bd">c-0013 · 16 colours + 90-99 · 23,289 bytes (−96%) · alpha worst 31 · over 8: 0.34%</figcaption></figure>
+  <figcaption style="color:#3b4a5c">c-0013 · 16 colours + 90-99 · 23,289 bytes (−96%) · alpha worst 31 · over 8: 0.34%</figcaption></figure>
 </div>
 <p class="lead">One finding that ends a debate: capping colours at 64 changes
 nothing at 90-99 — the cap never binds — and the 16-colour cap is <i>worse</i>
