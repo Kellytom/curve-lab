@@ -4,6 +4,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { loadRegistry } from "../lib/registry.ts";
+import { starsLabel } from "../lib/provenance.js";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const registry = (await loadRegistry()).curves;
@@ -40,7 +41,7 @@ try {
           <img src={`/figures/${record.uid}.png`} loading="lazy" alt={record.name}>
           <figcaption>
             {record.uid} · <b>{record.name}</b><br>
-            {record.family_id} · {record.lists.join(", ")}<br>
+            {record.family_id} · {record.lists.join(", ")} · stars {starsLabel(record.stars)}<br>
             {item.failed
               ? <span class="warn">no frame: {item.reason || "the frame failed"}</span>
               : margin !== undefined

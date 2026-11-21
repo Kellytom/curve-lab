@@ -95,7 +95,8 @@ async function rowsFor(name) {
         { ...record, kind, speedX: source.speedX || [], speedY: source.speedY || [], path: source.path || [] },
         metric ? plain(metric) : null,
       );
-      return { ...record, formula, note: plain(note), set: plain(set), metric: plain(metric) };
+      return { ...record, stars: note && Number(note.importance) > 0 ? Number(note.importance) : null,
+               formula, note: plain(note), set: plain(set), metric: plain(metric) };
     });
   }
   if (name === "stars") return plain(await prisma.star.findMany({ orderBy: { name: "asc" } }));

@@ -3,7 +3,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isKept, provenanceFor, MIN_STARS } from "../src/lib/provenance.js";
+import { isKept, provenanceFor, starsLabel, starsOf, MIN_STARS } from "../src/lib/provenance.js";
 
 const base = (over = {}) => ({
   uid: "c-0001", name: "amper", importance: 5, family: "amper", note: "", ...over,
@@ -50,4 +50,11 @@ test("a note is the proof when there is one; the formula is the fallback", () =>
   const bare = provenanceFor(base({ family: "amper", name: "amper", source: "found" }), byUid);
   assert.ok(bare.includes("found in the finder"), bare);
   assert.ok(!bare.includes("amper family"), "a family equal to the name proves nothing");
+});
+
+test("every curve states its stars, or none", () => {
+  assert.equal(starsLabel(5), "5/10");
+  assert.equal(starsLabel(null), "none");
+  assert.equal(starsOf({ stars: 4, importance: 0 }), 4, "the explicit star value wins");
+  assert.equal(starsOf({ stars: null, importance: 9 }), 0, "none is not a stored rating");
 });

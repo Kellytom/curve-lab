@@ -3439,4 +3439,8 @@ Tschirnhausen — classic but adds nothing; off the board.
   parent (`c-0001a`). Each card prints a provenance sentence: the rating, or the parent and its
   rating, then the saved note (or the formula/family/source). 1-star and unrated are out; demoting
   a 2-star to 1 removes it. Register 47; `app/src/lib/provenance.js`.
+- **Every curve states its stars.** The rating (the note's `importance`, 1–10) is explicit on
+  every record; unstarred says `none`. `loadRegistry` sets `record.stars`, `data/curves.json`
+  carries it on every row, and `/figures` (176 `none`), `/curves/<uid>` and `/tune/<uid>` print it;
+  `/plates` prints it in the provenance. Guard `tests/test_curve_stars.py` (fast loop).
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

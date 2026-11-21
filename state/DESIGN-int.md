@@ -909,3 +909,15 @@ need the explanation below the curve."
   the order later.
 - The 2-star curves are included by the explicit rule; a 2-star curve that does not belong is
   demoted to 1 and leaves the page. That is the operator's decision, not a hidden filter.
+
+## Every curve states its stars — 2026-11-21
+
+The operator: "add the stars to every curve either stored or none if unstarred so far."
+
+- **One explicit value per curve**: the rating 1–10 saved in the database note, or `none` while
+  it is unstarred. `loadRegistry` sets `record.stars` (`number | null`); the export
+  `data/curves.json` carries `stars` on every row. `none` is the absence of a rating, not a 0.
+- **One source**: the note's `importance`. The registry seed does not gain a second copy.
+- **Printed everywhere a curve appears**: `/figures` (all curves), `/curves/<uid>`, `/tune/<uid>`
+  say `stars 5/10` or `stars none`; `/plates` carries the rating in its provenance sentence.
+  `app/src/lib/provenance.js` (`starsOf`, `starsLabel`); guarded by `tests/test_curve_stars.py`.

@@ -12,6 +12,7 @@ export type Curve = {
   aliases?: string[];
   candidate?: boolean;
   importance?: number;
+  stars?: number | null;
   rotation?: number;
   pieces?: number;
   border_uid?: string;
@@ -65,6 +66,12 @@ export async function loadRegistry(base?: string): Promise<Registry> {
     if (note.plus) record.plus = note.plus;
     if (note.minus) record.minus = note.minus;
     if (note.profile) record.profile = note.profile;
+  }
+
+  // one explicit value per curve: the stored rating, or none while it is unstarred
+  for (const record of registry.curves) {
+    const stars = Number(record.importance || 0);
+    record.stars = stars > 0 ? stars : null;
   }
 
   const records = new Map(registry.curves.map((record) => [record.uid, record]));

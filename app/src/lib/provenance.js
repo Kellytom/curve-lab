@@ -7,7 +7,11 @@
 
 export const MIN_STARS = 2;
 
-export const starsOf = (curve) => Number(curve?.importance || 0);
+export const starsOf = (curve) => {
+  if (curve && Object.prototype.hasOwnProperty.call(curve, "stars")) return Number(curve.stars) || 0;
+  return Number(curve?.importance || 0);
+};
+export const starsLabel = (value) => (Number(value) > 0 ? `${Number(value)}/10` : "none");
 
 const oneLine = (text) => String(text || "").replace(/\s+/g, " ").trim().replace(/\.$/, "");
 

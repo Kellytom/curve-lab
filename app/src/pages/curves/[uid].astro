@@ -8,6 +8,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { loadRegistry } from "../../lib/registry.ts";
+import { starsLabel } from "../../lib/provenance.js";
 import { repoRoot } from "../../lib/gallery.js";
 
 const { uid } = Astro.params;
@@ -42,8 +43,8 @@ const number = (value, fallback = "—") =>
   </Fragment>
 
   <h1>{record.name}</h1>
-  <p class="lead">{record.uid} · {record.family_id} · {record.lists.join(", ")}
-    {record.candidate ? " · set aside" : ""}</p>
+  <p class="lead">{record.uid} · {record.family_id} · {record.lists.join(", ")} ·
+    stars {starsLabel(record.stars)}{record.candidate ? " · set aside" : ""}</p>
 
   <div class="single">
     <figure class="picture">
