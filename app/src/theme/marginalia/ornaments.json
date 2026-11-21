@@ -1,6 +1,6 @@
 {
  "format": "curve-lab.marginalia/1",
- "note": "One single-stroke ornament per curve. Displayed at a quarter of the text width; the SVGs are generated and gitignored, the manifest is the record.",
+ "note": "One soft-stroke ornament per curve (overlapping dots, no Béziers). Displayed at a quarter of the text width; the SVGs are generated and gitignored, the manifest is the record.",
  "scale": 0.25,
  "count": 371,
  "curves": [
@@ -10,8 +10,8 @@
    "family": "amper",
    "stars": 5,
    "file": "/ornaments/c-0001.svg",
-   "width": 2.2127,
-   "height": 2.03
+   "width": 652,
+   "height": 598.087
   },
   {
    "uid": "c-0002",
@@ -19,8 +19,8 @@
    "family": "euler",
    "stars": 3,
    "file": "/ornaments/c-0002.svg",
-   "width": 6.2431,
-   "height": 2.2034
+   "width": 652,
+   "height": 229.5901
   },
   {
    "uid": "c-0003",
@@ -28,8 +28,8 @@
    "family": "swan",
    "stars": 4,
    "file": "/ornaments/c-0003.svg",
-   "width": 14.5998,
-   "height": 50.5778
+   "width": 187.6379,
+   "height": 652
   },
   {
    "uid": "c-0004",
@@ -37,8 +37,8 @@
    "family": "gosling",
    "stars": 3,
    "file": "/ornaments/c-0004.svg",
-   "width": 1.9456,
-   "height": 1.6627
+   "width": 652,
+   "height": 557.0939
   },
   {
    "uid": "c-0005",
@@ -46,8 +46,8 @@
    "family": "double",
    "stars": 3,
    "file": "/ornaments/c-0005.svg",
-   "width": 2.3305,
-   "height": 1.8296
+   "width": 652,
+   "height": 511.6813
   },
   {
    "uid": "c-0006",
@@ -55,8 +55,8 @@
    "family": "curlicue",
    "stars": 3,
    "file": "/ornaments/c-0006.svg",
-   "width": 36.1203,
-   "height": 41.6067
+   "width": 565.9202,
+   "height": 652
   },
   {
    "uid": "c-0007",
@@ -64,8 +64,8 @@
    "family": "grass",
    "stars": 3,
    "file": "/ornaments/c-0007.svg",
-   "width": 573.2585,
-   "height": 555.8674
+   "width": 652,
+   "height": 632.1958
   },
   {
    "uid": "c-0008",
@@ -73,8 +73,8 @@
    "family": "u",
    "stars": 2,
    "file": "/ornaments/c-0008.svg",
-   "width": 0.68,
-   "height": 0.5133
+   "width": 652,
+   "height": 491.9964
   },
   {
    "uid": "c-0009",
@@ -82,8 +82,8 @@
    "family": "v",
    "stars": 2,
    "file": "/ornaments/c-0009.svg",
-   "width": 0.8743,
-   "height": 0.2671
+   "width": 652,
+   "height": 198.6579
   },
   {
    "uid": "c-0010",
@@ -91,8 +91,8 @@
    "family": "m",
    "stars": 4,
    "file": "/ornaments/c-0010.svg",
-   "width": 0.5465,
-   "height": 0.68
+   "width": 523.8712,
+   "height": 652
   },
   {
    "uid": "c-0011",
@@ -100,8 +100,8 @@
    "family": "gumdrop",
    "stars": 2,
    "file": "/ornaments/c-0011.svg",
-   "width": 4.2087,
-   "height": 2.4267
+   "width": 652,
+   "height": 375.5995
   },
   {
    "uid": "c-0012",
@@ -109,8 +109,8 @@
    "family": "m",
    "stars": 3,
    "file": "/ornaments/c-0012.svg",
-   "width": 3.3131,
-   "height": 3.0649
+   "width": 652,
+   "height": 603.1004
   },
   {
    "uid": "c-0013",
@@ -118,8 +118,8 @@
    "family": "bowl",
    "stars": 3,
    "file": "/ornaments/c-0013.svg",
-   "width": 1.2284,
-   "height": 2.2032
+   "width": 363.1667,
+   "height": 652
   },
   {
    "uid": "c-0014",
@@ -127,8 +127,8 @@
    "family": "wave",
    "stars": 8,
    "file": "/ornaments/c-0014.svg",
-   "width": 0.6554,
-   "height": 0.6528
+   "width": 652,
+   "height": 649.4488
   },
   {
    "uid": "c-0015",
@@ -136,8 +136,8 @@
    "family": "involute",
    "stars": 2,
    "file": "/ornaments/c-0015.svg",
-   "width": 12.8867,
-   "height": 16.0184
+   "width": 524.3714,
+   "height": 652
   },
   {
    "uid": "c-0016",
@@ -145,8 +145,8 @@
    "family": "catenary",
    "stars": 3,
    "file": "/ornaments/c-0016.svg",
-   "width": 3.0602,
-   "height": 1.4126
+   "width": 652,
+   "height": 300.5348
   },
   {
    "uid": "c-0017",
@@ -154,8 +154,8 @@
    "family": "euler",
    "stars": 3,
    "file": "/ornaments/c-0017.svg",
-   "width": 0.3978,
-   "height": 0.3645
+   "width": 652,
+   "height": 597.352
   },
   {
    "uid": "c-0018",
@@ -163,8 +163,8 @@
    "family": "logspiral",
    "stars": 3,
    "file": "/ornaments/c-0018.svg",
-   "width": 34.6985,
-   "height": 24.1501
+   "width": 652,
+   "height": 453.5487
   },
   {
    "uid": "c-0019",
@@ -172,8 +172,8 @@
    "family": "knot",
    "stars": 2,
    "file": "/ornaments/c-0019.svg",
-   "width": 4.1956,
-   "height": 4.8084
+   "width": 568.8007,
+   "height": 652
   },
   {
    "uid": "c-0020",
@@ -181,8 +181,8 @@
    "family": "knot",
    "stars": 2,
    "file": "/ornaments/c-0020.svg",
-   "width": 3.063,
-   "height": 4.6725
+   "width": 427.1306,
+   "height": 652
   },
   {
    "uid": "c-0021",
@@ -190,8 +190,8 @@
    "family": "inflect",
    "stars": 2,
    "file": "/ornaments/c-0021.svg",
-   "width": 0.2924,
-   "height": 3.3044
+   "width": 56.9754,
+   "height": 652
   },
   {
    "uid": "c-0022",
@@ -199,8 +199,8 @@
    "family": "wave3",
    "stars": 10,
    "file": "/ornaments/c-0022.svg",
-   "width": 1.5343,
-   "height": 0.7245
+   "width": 652,
+   "height": 307.4431
   },
   {
    "uid": "c-0023",
@@ -208,8 +208,8 @@
    "family": "cusp5",
    "stars": 2,
    "file": "/ornaments/c-0023.svg",
-   "width": 0.7443,
-   "height": 0.5146
+   "width": 652,
+   "height": 450.4748
   },
   {
    "uid": "c-0024",
@@ -217,8 +217,8 @@
    "family": "cusp7",
    "stars": 2,
    "file": "/ornaments/c-0024.svg",
-   "width": 0.7809,
-   "height": 0.5152
+   "width": 652,
+   "height": 429.9014
   },
   {
    "uid": "c-0025",
@@ -226,8 +226,8 @@
    "family": "twin",
    "stars": 3,
    "file": "/ornaments/c-0025.svg",
-   "width": 3.1485,
-   "height": 4.0503
+   "width": 506.6532,
+   "height": 652
   },
   {
    "uid": "c-0026",
@@ -235,8 +235,8 @@
    "family": "w",
    "stars": 2,
    "file": "/ornaments/c-0026.svg",
-   "width": 0.5465,
-   "height": 0.68
+   "width": 523.8712,
+   "height": 652
   },
   {
    "uid": "c-0027",
@@ -244,8 +244,8 @@
    "family": "new",
    "stars": 4,
    "file": "/ornaments/c-0027.svg",
-   "width": 0.816,
-   "height": 0.6827
+   "width": 652,
+   "height": 545.3189
   },
   {
    "uid": "c-0028",
@@ -253,8 +253,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0028.svg",
-   "width": 2.4232,
-   "height": 0.6577
+   "width": 652,
+   "height": 176.3786
   },
   {
    "uid": "c-0029",
@@ -262,8 +262,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0029.svg",
-   "width": 4.3162,
-   "height": 1.7451
+   "width": 652,
+   "height": 263.1431
   },
   {
    "uid": "c-0030",
@@ -271,8 +271,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0030.svg",
-   "width": 2.7512,
-   "height": 0.8065
+   "width": 652,
+   "height": 190.5593
   },
   {
    "uid": "c-0031",
@@ -280,8 +280,8 @@
    "family": "wave",
    "stars": 3,
    "file": "/ornaments/c-0031.svg",
-   "width": 0.521,
-   "height": 0.3047
+   "width": 652,
+   "height": 380.8969
   },
   {
    "uid": "c-0032",
@@ -289,8 +289,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0032.svg",
-   "width": 1.146,
-   "height": 0.4663
+   "width": 652,
+   "height": 264.8119
   },
   {
    "uid": "c-0033",
@@ -298,8 +298,8 @@
    "family": "wave",
    "stars": 2,
    "file": "/ornaments/c-0033.svg",
-   "width": 0.6213,
-   "height": 0.1684
+   "width": 652,
+   "height": 176.1589
   },
   {
    "uid": "c-0034",
@@ -307,8 +307,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0034.svg",
-   "width": 2.4447,
-   "height": 0.6808
+   "width": 652,
+   "height": 181.0028
   },
   {
    "uid": "c-0035",
@@ -316,8 +316,8 @@
    "family": "lace",
    "stars": 9,
    "file": "/ornaments/c-0035.svg",
-   "width": 2.4217,
-   "height": 0.7912
+   "width": 652,
+   "height": 212.4824
   },
   {
    "uid": "c-0036",
@@ -325,8 +325,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0036.svg",
-   "width": 1.8436,
-   "height": 0.5681
+   "width": 652,
+   "height": 200.3474
   },
   {
    "uid": "c-0037",
@@ -334,8 +334,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0037.svg",
-   "width": 0.8215,
-   "height": 0.489
+   "width": 652,
+   "height": 387.7338
   },
   {
    "uid": "c-0038",
@@ -343,8 +343,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0038.svg",
-   "width": 0.5283,
-   "height": 0.4044
+   "width": 652,
+   "height": 498.8999
   },
   {
    "uid": "c-0039",
@@ -352,8 +352,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0039.svg",
-   "width": 0.5331,
-   "height": 0.4289
+   "width": 652,
+   "height": 524.3432
   },
   {
    "uid": "c-0040",
@@ -361,8 +361,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0040.svg",
-   "width": 0.8354,
-   "height": 0.3503
+   "width": 652,
+   "height": 272.9438
   },
   {
    "uid": "c-0041",
@@ -370,8 +370,8 @@
    "family": "wave",
    "stars": 5,
    "file": "/ornaments/c-0041.svg",
-   "width": 0.3333,
-   "height": 0.2232
+   "width": 652,
+   "height": 436.2769
   },
   {
    "uid": "c-0042",
@@ -379,8 +379,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0042.svg",
-   "width": 0.408,
-   "height": 0.1205
+   "width": 652,
+   "height": 191.9551
   },
   {
    "uid": "c-0043",
@@ -388,8 +388,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0043.svg",
-   "width": 2.6401,
-   "height": 0.7377
+   "width": 652,
+   "height": 181.6072
   },
   {
    "uid": "c-0044",
@@ -397,8 +397,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0044.svg",
-   "width": 1.5374,
-   "height": 0.6221
+   "width": 652,
+   "height": 263.3696
   },
   {
    "uid": "c-0045",
@@ -406,8 +406,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0045.svg",
-   "width": 6.5663,
-   "height": 1.7785
+   "width": 652,
+   "height": 176.0086
   },
   {
    "uid": "c-0046",
@@ -415,8 +415,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0046.svg",
-   "width": 8.7109,
-   "height": 2.8144
+   "width": 652,
+   "height": 210.112
   },
   {
    "uid": "c-0047",
@@ -424,8 +424,8 @@
    "family": "lace",
    "stars": 3,
    "file": "/ornaments/c-0047.svg",
-   "width": 10.6061,
-   "height": 3.5886
+   "width": 652,
+   "height": 220.0749
   },
   {
    "uid": "c-0048",
@@ -433,8 +433,8 @@
    "family": "lace",
    "stars": 3,
    "file": "/ornaments/c-0048.svg",
-   "width": 3.5644,
-   "height": 3.8455
+   "width": 604.2951,
+   "height": 652
   },
   {
    "uid": "c-0049",
@@ -442,8 +442,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0049.svg",
-   "width": 0.2865,
-   "height": 0.1009
+   "width": 652,
+   "height": 229.0364
   },
   {
    "uid": "c-0050",
@@ -451,8 +451,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0050.svg",
-   "width": 3.5077,
-   "height": 2.0782
+   "width": 652,
+   "height": 385.9497
   },
   {
    "uid": "c-0051",
@@ -460,8 +460,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0051.svg",
-   "width": 23.1558,
-   "height": 6.5776
+   "width": 652,
+   "height": 184.6327
   },
   {
    "uid": "c-0052",
@@ -469,8 +469,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0052.svg",
-   "width": 0.0793,
-   "height": 0.0301
+   "width": 652,
+   "height": 247.182
   },
   {
    "uid": "c-0053",
@@ -478,8 +478,8 @@
    "family": "wave",
    "stars": 7,
    "file": "/ornaments/c-0053.svg",
-   "width": 14.4177,
-   "height": 4.0538
+   "width": 652,
+   "height": 182.747
   },
   {
    "uid": "c-0054",
@@ -487,8 +487,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0054.svg",
-   "width": 105.0859,
-   "height": 29.8503
+   "width": 652,
+   "height": 184.6321
   },
   {
    "uid": "c-0055",
@@ -496,8 +496,8 @@
    "family": "lace",
    "stars": 2,
    "file": "/ornaments/c-0055.svg",
-   "width": 3.3901,
-   "height": 0.9295
+   "width": 652,
+   "height": 178.1849
   },
   {
    "uid": "c-0056",
@@ -505,8 +505,8 @@
    "family": "wave",
    "stars": 9,
    "file": "/ornaments/c-0056.svg",
-   "width": 4.584,
-   "height": 1.2381
+   "width": 652,
+   "height": 175.51
   },
   {
    "uid": "c-0057",
@@ -514,8 +514,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0057.svg",
-   "width": 13.4574,
-   "height": 9.7892
+   "width": 652,
+   "height": 474.0613
   },
   {
    "uid": "c-0058",
@@ -523,8 +523,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0058.svg",
-   "width": 29.0987,
-   "height": 10.8187
+   "width": 652,
+   "height": 241.9061
   },
   {
    "uid": "c-0059",
@@ -532,8 +532,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0059.svg",
-   "width": 3.0234,
-   "height": 1.8782
+   "width": 652,
+   "height": 404.7364
   },
   {
    "uid": "c-0060",
@@ -541,8 +541,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0060.svg",
-   "width": 28.1726,
-   "height": 9.2293
+   "width": 652,
+   "height": 213.0568
   },
   {
    "uid": "c-0061",
@@ -550,8 +550,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0061.svg",
-   "width": 20.9647,
-   "height": 6.2457
+   "width": 652,
+   "height": 193.6774
   },
   {
    "uid": "c-0062",
@@ -559,8 +559,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0062.svg",
-   "width": 8.498,
-   "height": 6.205
+   "width": 652,
+   "height": 475.8554
   },
   {
    "uid": "c-0063",
@@ -568,8 +568,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0063.svg",
-   "width": 41.5415,
-   "height": 14.779
+   "width": 652,
+   "height": 231.4427
   },
   {
    "uid": "c-0064",
@@ -577,8 +577,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0064.svg",
-   "width": 60.606,
-   "height": 20.4756
+   "width": 652,
+   "height": 219.7466
   },
   {
    "uid": "c-0065",
@@ -586,8 +586,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0065.svg",
-   "width": 9.4775,
-   "height": 3.3513
+   "width": 652,
+   "height": 230.0341
   },
   {
    "uid": "c-0066",
@@ -595,8 +595,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0066.svg",
-   "width": 31.9412,
-   "height": 17.09
+   "width": 652,
+   "height": 348.4785
   },
   {
    "uid": "c-0067",
@@ -604,8 +604,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0067.svg",
-   "width": 20.6524,
-   "height": 6.8546
+   "width": 652,
+   "height": 215.8652
   },
   {
    "uid": "c-0068",
@@ -613,8 +613,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0068.svg",
-   "width": 63.4953,
-   "height": 23.2593
+   "width": 652,
+   "height": 238.3307
   },
   {
    "uid": "c-0069",
@@ -622,8 +622,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0069.svg",
-   "width": 90.7437,
-   "height": 25.8097
+   "width": 652,
+   "height": 184.8718
   },
   {
    "uid": "c-0070",
@@ -631,8 +631,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0070.svg",
-   "width": 100.3995,
-   "height": 33.3604
+   "width": 652,
+   "height": 216.1099
   },
   {
    "uid": "c-0071",
@@ -640,8 +640,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0071.svg",
-   "width": 17.3635,
-   "height": 11.9203
+   "width": 652,
+   "height": 447.3593
   },
   {
    "uid": "c-0072",
@@ -649,8 +649,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0072.svg",
-   "width": 60.7817,
-   "height": 18.3003
+   "width": 652,
+   "height": 195.7467
   },
   {
    "uid": "c-0073",
@@ -658,8 +658,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0073.svg",
-   "width": 11.9133,
-   "height": 3.4565
+   "width": 652,
+   "height": 188.6029
   },
   {
    "uid": "c-0074",
@@ -667,8 +667,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0074.svg",
-   "width": 15.4108,
-   "height": 5.2001
+   "width": 652,
+   "height": 219.4753
   },
   {
    "uid": "c-0075",
@@ -676,8 +676,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0075.svg",
-   "width": 28.1948,
-   "height": 13.2703
+   "width": 652,
+   "height": 306.4507
   },
   {
    "uid": "c-0076",
@@ -685,8 +685,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0076.svg",
-   "width": 36.1104,
-   "height": 17.8519
+   "width": 652,
+   "height": 321.9254
   },
   {
    "uid": "c-0077",
@@ -694,8 +694,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0077.svg",
-   "width": 40.8838,
-   "height": 16.4052
+   "width": 652,
+   "height": 261.1451
   },
   {
    "uid": "c-0078",
@@ -703,8 +703,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0078.svg",
-   "width": 56.56,
-   "height": 17.6613
+   "width": 652,
+   "height": 203.0418
   },
   {
    "uid": "c-0079",
@@ -712,8 +712,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0079.svg",
-   "width": 98.3329,
-   "height": 26.4607
+   "width": 652,
+   "height": 174.8642
   },
   {
    "uid": "c-0080",
@@ -721,8 +721,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0080.svg",
-   "width": 96.1637,
-   "height": 26.7001
+   "width": 652,
+   "height": 180.4516
   },
   {
    "uid": "c-0081",
@@ -730,8 +730,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0081.svg",
-   "width": 82.6006,
-   "height": 24.6903
+   "width": 652,
+   "height": 194.3298
   },
   {
    "uid": "c-0082",
@@ -739,8 +739,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0082.svg",
-   "width": 64.7311,
-   "height": 21.1306
+   "width": 652,
+   "height": 212.2974
   },
   {
    "uid": "c-0083",
@@ -748,8 +748,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0083.svg",
-   "width": 71.0665,
-   "height": 22.4675
+   "width": 652,
+   "height": 205.5811
   },
   {
    "uid": "c-0084",
@@ -757,8 +757,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0084.svg",
-   "width": 42.8577,
-   "height": 13.4949
+   "width": 652,
+   "height": 204.7511
   },
   {
    "uid": "c-0085",
@@ -766,8 +766,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0085.svg",
-   "width": 42.7149,
-   "height": 13.2726
+   "width": 652,
+   "height": 202.0411
   },
   {
    "uid": "c-0086",
@@ -775,8 +775,8 @@
    "family": "lace",
    "stars": 9,
    "file": "/ornaments/c-0086.svg",
-   "width": 7.482,
-   "height": 2.9447
+   "width": 652,
+   "height": 256.119
   },
   {
    "uid": "c-0087",
@@ -784,8 +784,8 @@
    "family": "wide",
    "stars": 10,
    "file": "/ornaments/c-0087.svg",
-   "width": 1.8799,
-   "height": 2.5008
+   "width": 489.9061,
+   "height": 652
   },
   {
    "uid": "c-0088",
@@ -793,8 +793,8 @@
    "family": "ph",
    "stars": 0,
    "file": "/ornaments/c-0088.svg",
-   "width": 3.3693,
-   "height": 3.7072
+   "width": 592.498,
+   "height": 652
   },
   {
    "uid": "c-0089",
@@ -802,8 +802,8 @@
    "family": "bend45",
    "stars": 0,
    "file": "/ornaments/c-0089.svg",
-   "width": 1.0625,
-   "height": 1.0625
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0090",
@@ -811,8 +811,8 @@
    "family": "bend45",
    "stars": 0,
    "file": "/ornaments/c-0090.svg",
-   "width": 2.2525,
-   "height": 2.2525
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0091",
@@ -820,8 +820,8 @@
    "family": "loop",
    "stars": 5,
    "file": "/ornaments/c-0091.svg",
-   "width": 1.4985,
-   "height": 1.4985
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0092",
@@ -829,8 +829,8 @@
    "family": "loop",
    "stars": 5,
    "file": "/ornaments/c-0092.svg",
-   "width": 1.3569,
-   "height": 1.3569
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0093",
@@ -838,8 +838,8 @@
    "family": "loop",
    "stars": 5,
    "file": "/ornaments/c-0093.svg",
-   "width": 1.2473,
-   "height": 1.2473
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0094",
@@ -847,8 +847,8 @@
    "family": "cross",
    "stars": 5,
    "file": "/ornaments/c-0094.svg",
-   "width": 7.6588,
-   "height": 7.6588
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0095",
@@ -856,8 +856,8 @@
    "family": "term",
    "stars": 0,
    "file": "/ornaments/c-0095.svg",
-   "width": 4.08,
-   "height": 4.08
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0096",
@@ -865,8 +865,8 @@
    "family": "term",
    "stars": 0,
    "file": "/ornaments/c-0096.svg",
-   "width": 4.08,
-   "height": 4.08
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0097",
@@ -874,8 +874,8 @@
    "family": "term",
    "stars": 0,
    "file": "/ornaments/c-0097.svg",
-   "width": 4.08,
-   "height": 4.08
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0098",
@@ -883,8 +883,8 @@
    "family": "term",
    "stars": 0,
    "file": "/ornaments/c-0098.svg",
-   "width": 4.08,
-   "height": 4.08
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0099",
@@ -892,8 +892,8 @@
    "family": "line",
    "stars": 0,
    "file": "/ornaments/c-0099.svg",
-   "width": 4.08,
-   "height": 4.08
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0100",
@@ -901,8 +901,8 @@
    "family": "term",
    "stars": 0,
    "file": "/ornaments/c-0100.svg",
-   "width": 10.6751,
-   "height": 10.6751
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0101",
@@ -910,8 +910,8 @@
    "family": "cross",
    "stars": 5,
    "file": "/ornaments/c-0101.svg",
-   "width": 1.3628,
-   "height": 1.3628
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0102",
@@ -919,8 +919,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0102.svg",
-   "width": 1.1512,
-   "height": 1.1512
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0103",
@@ -928,8 +928,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0103.svg",
-   "width": 1.3647,
-   "height": 1.3647
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0104",
@@ -937,8 +937,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0104.svg",
-   "width": 1.2473,
-   "height": 1.2473
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0105",
@@ -946,8 +946,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0105.svg",
-   "width": 1.4985,
-   "height": 1.4985
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0106",
@@ -955,8 +955,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0106.svg",
-   "width": 1.3569,
-   "height": 1.3569
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0107",
@@ -964,8 +964,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0107.svg",
-   "width": 0.9863,
-   "height": 0.9863
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0108",
@@ -973,8 +973,8 @@
    "family": "cross",
    "stars": 0,
    "file": "/ornaments/c-0108.svg",
-   "width": 1.4076,
-   "height": 1.4076
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0109",
@@ -982,8 +982,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0109.svg",
-   "width": 17.5087,
-   "height": 17.5087
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0110",
@@ -991,8 +991,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0110.svg",
-   "width": 17.5173,
-   "height": 17.5173
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0111",
@@ -1000,8 +1000,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0111.svg",
-   "width": 17.7871,
-   "height": 17.7871
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0112",
@@ -1009,8 +1009,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0112.svg",
-   "width": 37.371,
-   "height": 37.371
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0113",
@@ -1018,8 +1018,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0113.svg",
-   "width": 33.8728,
-   "height": 33.8728
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0114",
@@ -1027,8 +1027,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0114.svg",
-   "width": 30.0402,
-   "height": 30.0402
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0115",
@@ -1036,8 +1036,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0115.svg",
-   "width": 1.6148,
-   "height": 1.6148
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0116",
@@ -1045,8 +1045,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0116.svg",
-   "width": 1.1403,
-   "height": 1.1403
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0117",
@@ -1054,8 +1054,8 @@
    "family": "weighted-balance",
    "stars": 0,
    "file": "/ornaments/c-0117.svg",
-   "width": 1.5238,
-   "height": 1.5238
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0118",
@@ -1063,8 +1063,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0118.svg",
-   "width": 2.0825,
-   "height": 4.2056
+   "width": 322.4455,
+   "height": 652
   },
   {
    "uid": "c-0119",
@@ -1072,8 +1072,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0119.svg",
-   "width": 5.4929,
-   "height": 3.7133
+   "width": 652,
+   "height": 440.5014
   },
   {
    "uid": "c-0120",
@@ -1081,8 +1081,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0120.svg",
-   "width": 3.2433,
-   "height": 12.4088
+   "width": 169.8232,
+   "height": 652
   },
   {
    "uid": "c-0121",
@@ -1090,8 +1090,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0121.svg",
-   "width": 11.033,
-   "height": 10.9867
+   "width": 652,
+   "height": 649.2596
   },
   {
    "uid": "c-0122",
@@ -1099,8 +1099,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0122.svg",
-   "width": 17.5487,
-   "height": 13.7605
+   "width": 652,
+   "height": 511.0802
   },
   {
    "uid": "c-0123",
@@ -1108,8 +1108,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0123.svg",
-   "width": 9.6227,
-   "height": 5.5738
+   "width": 652,
+   "height": 377.3287
   },
   {
    "uid": "c-0124",
@@ -1117,8 +1117,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0124.svg",
-   "width": 3.1954,
-   "height": 3.5908
+   "width": 580.1257,
+   "height": 652
   },
   {
    "uid": "c-0125",
@@ -1126,8 +1126,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0125.svg",
-   "width": 4.1731,
-   "height": 4.5785
+   "width": 594.1969,
+   "height": 652
   },
   {
    "uid": "c-0126",
@@ -1135,8 +1135,8 @@
    "family": "bounded",
    "stars": 0,
    "file": "/ornaments/c-0126.svg",
-   "width": 5.4553,
-   "height": 6.2197
+   "width": 571.7736,
+   "height": 652
   },
   {
    "uid": "c-0127",
@@ -1144,8 +1144,8 @@
    "family": "mobile",
    "stars": 0,
    "file": "/ornaments/c-0127.svg",
-   "width": 2.83,
-   "height": 2.9074
+   "width": 634.6268,
+   "height": 652
   },
   {
    "uid": "c-0128",
@@ -1153,8 +1153,8 @@
    "family": "mobile",
    "stars": 0,
    "file": "/ornaments/c-0128.svg",
-   "width": 2.5077,
-   "height": 2.4763
+   "width": 652,
+   "height": 643.8195
   },
   {
    "uid": "c-0129",
@@ -1162,8 +1162,8 @@
    "family": "mobile",
    "stars": 0,
    "file": "/ornaments/c-0129.svg",
-   "width": 3.3349,
-   "height": 3.2092
+   "width": 652,
+   "height": 627.3964
   },
   {
    "uid": "c-0130",
@@ -1171,8 +1171,8 @@
    "family": "mobile",
    "stars": 0,
    "file": "/ornaments/c-0130.svg",
-   "width": 6.2726,
-   "height": 6.3928
+   "width": 639.7215,
+   "height": 652
   },
   {
    "uid": "c-0131",
@@ -1180,8 +1180,8 @@
    "family": "mobile-exact",
    "stars": 0,
    "file": "/ornaments/c-0131.svg",
-   "width": 1.636,
-   "height": 1.836
+   "width": 580.8889,
+   "height": 652
   },
   {
    "uid": "c-0132",
@@ -1189,8 +1189,8 @@
    "family": "mobile-exact",
    "stars": 0,
    "file": "/ornaments/c-0132.svg",
-   "width": 2.5164,
-   "height": 2.5893
+   "width": 633.6187,
+   "height": 652
   },
   {
    "uid": "c-0133",
@@ -1198,8 +1198,8 @@
    "family": "mobile-exact",
    "stars": 0,
    "file": "/ornaments/c-0133.svg",
-   "width": 1.7223,
-   "height": 1.8246
+   "width": 615.3979,
+   "height": 652
   },
   {
    "uid": "c-0134",
@@ -1207,8 +1207,8 @@
    "family": "mobile-exact",
    "stars": 5,
    "file": "/ornaments/c-0134.svg",
-   "width": 2.7573,
-   "height": 2.7757
+   "width": 647.6846,
+   "height": 652
   },
   {
    "uid": "c-0135",
@@ -1216,8 +1216,8 @@
    "family": "mobile-arcs",
    "stars": 0,
    "file": "/ornaments/c-0135.svg",
-   "width": 1.6069,
-   "height": 0.701
+   "width": 652,
+   "height": 283.9772
   },
   {
    "uid": "c-0136",
@@ -1225,8 +1225,8 @@
    "family": "mobile-arcs",
    "stars": 0,
    "file": "/ornaments/c-0136.svg",
-   "width": 1.7928,
-   "height": 2.2835
+   "width": 511.7149,
+   "height": 652
   },
   {
    "uid": "c-0137",
@@ -1234,8 +1234,8 @@
    "family": "mobile-arcs",
    "stars": 0,
    "file": "/ornaments/c-0137.svg",
-   "width": 2.3695,
-   "height": 0.9006
+   "width": 652,
+   "height": 247.3012
   },
   {
    "uid": "c-0138",
@@ -1243,8 +1243,8 @@
    "family": "mobile-arcs",
    "stars": 0,
    "file": "/ornaments/c-0138.svg",
-   "width": 2.5456,
-   "height": 2.5339
+   "width": 652,
+   "height": 649.0076
   },
   {
    "uid": "c-0139",
@@ -1252,8 +1252,8 @@
    "family": "rose",
    "stars": 0,
    "file": "/ornaments/c-0139.svg",
-   "width": 2.04,
-   "height": 1.5796
+   "width": 652,
+   "height": 504.6721
   },
   {
    "uid": "c-0140",
@@ -1261,8 +1261,8 @@
    "family": "rose",
    "stars": 0,
    "file": "/ornaments/c-0140.svg",
-   "width": 0.8498,
-   "height": 4.08
+   "width": 135.1679,
+   "height": 652
   },
   {
    "uid": "c-0141",
@@ -1270,8 +1270,8 @@
    "family": "rose",
    "stars": 0,
    "file": "/ornaments/c-0141.svg",
-   "width": 2.04,
-   "height": 2.04
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0142",
@@ -1279,8 +1279,8 @@
    "family": "rose",
    "stars": 0,
    "file": "/ornaments/c-0142.svg",
-   "width": 2.08,
-   "height": 4.08
+   "width": 332,
+   "height": 652
   },
   {
    "uid": "c-0143",
@@ -1288,8 +1288,8 @@
    "family": "graphs",
    "stars": 0,
    "file": "/ornaments/c-0143.svg",
-   "width": 1.02,
-   "height": 1.02
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0144",
@@ -1297,8 +1297,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0144.svg",
-   "width": 3.4858,
-   "height": 1.041
+   "width": 652,
+   "height": 194.1569
   },
   {
    "uid": "c-0145",
@@ -1306,8 +1306,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0145.svg",
-   "width": 4.3928,
-   "height": 1.3152
+   "width": 652,
+   "height": 194.6422
   },
   {
    "uid": "c-0146",
@@ -1315,8 +1315,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0146.svg",
-   "width": 2.0504,
-   "height": 0.8109
+   "width": 652,
+   "height": 257.384
   },
   {
    "uid": "c-0147",
@@ -1324,8 +1324,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0147.svg",
-   "width": 4.6404,
-   "height": 1.2788
+   "width": 652,
+   "height": 179.096
   },
   {
    "uid": "c-0148",
@@ -1333,8 +1333,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0148.svg",
-   "width": 2.2562,
-   "height": 1.0234
+   "width": 652,
+   "height": 295.2987
   },
   {
    "uid": "c-0149",
@@ -1342,8 +1342,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0149.svg",
-   "width": 0.9675,
-   "height": 0.5615
+   "width": 652,
+   "height": 378.0594
   },
   {
    "uid": "c-0150",
@@ -1351,8 +1351,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0150.svg",
-   "width": 0.8584,
-   "height": 0.5441
+   "width": 652,
+   "height": 412.9911
   },
   {
    "uid": "c-0151",
@@ -1360,8 +1360,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0151.svg",
-   "width": 0.6958,
-   "height": 0.4706
+   "width": 652,
+   "height": 440.7061
   },
   {
    "uid": "c-0152",
@@ -1369,8 +1369,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0152.svg",
-   "width": 6.6112,
-   "height": 1.942
+   "width": 652,
+   "height": 190.9551
   },
   {
    "uid": "c-0153",
@@ -1378,8 +1378,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0153.svg",
-   "width": 2.1692,
-   "height": 0.8717
+   "width": 652,
+   "height": 261.5268
   },
   {
    "uid": "c-0154",
@@ -1387,8 +1387,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0154.svg",
-   "width": 4.6996,
-   "height": 1.4149
+   "width": 652,
+   "height": 195.733
   },
   {
    "uid": "c-0155",
@@ -1396,8 +1396,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0155.svg",
-   "width": 5.3593,
-   "height": 1.5643
+   "width": 652,
+   "height": 189.7408
   },
   {
    "uid": "c-0156",
@@ -1405,8 +1405,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0156.svg",
-   "width": 3.5327,
-   "height": 0.9857
+   "width": 652,
+   "height": 181.357
   },
   {
    "uid": "c-0157",
@@ -1414,8 +1414,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0157.svg",
-   "width": 3.8237,
-   "height": 1.0305
+   "width": 652,
+   "height": 175.1343
   },
   {
    "uid": "c-0158",
@@ -1423,8 +1423,8 @@
    "family": "wave",
    "stars": 2,
    "file": "/ornaments/c-0158.svg",
-   "width": 6.3808,
-   "height": 1.8125
+   "width": 652,
+   "height": 184.6309
   },
   {
    "uid": "c-0159",
@@ -1432,8 +1432,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0159.svg",
-   "width": 3.1847,
-   "height": 0.9117
+   "width": 652,
+   "height": 186.0735
   },
   {
    "uid": "c-0160",
@@ -1441,8 +1441,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0160.svg",
-   "width": 1.9396,
-   "height": 0.7046
+   "width": 652,
+   "height": 236.3388
   },
   {
    "uid": "c-0161",
@@ -1450,8 +1450,8 @@
    "family": "wave",
    "stars": 9,
    "file": "/ornaments/c-0161.svg",
-   "width": 1.6622,
-   "height": 0.6232
+   "width": 652,
+   "height": 243.9467
   },
   {
    "uid": "c-0162",
@@ -1459,8 +1459,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0162.svg",
-   "width": 1.4759,
-   "height": 0.9812
+   "width": 652,
+   "height": 433.1801
   },
   {
    "uid": "c-0163",
@@ -1468,8 +1468,8 @@
    "family": "lace",
    "stars": 9,
    "file": "/ornaments/c-0163.svg",
-   "width": 2.176,
-   "height": 1.2471
+   "width": 652,
+   "height": 373.3373
   },
   {
    "uid": "c-0164",
@@ -1477,8 +1477,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0164.svg",
-   "width": 7.0545,
-   "height": 2.4142
+   "width": 652,
+   "height": 222.6001
   },
   {
    "uid": "c-0165",
@@ -1486,8 +1486,8 @@
    "family": "wave",
    "stars": 6,
    "file": "/ornaments/c-0165.svg",
-   "width": 10.11,
-   "height": 5.4265
+   "width": 652,
+   "height": 349.5894
   },
   {
    "uid": "c-0166",
@@ -1495,8 +1495,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0166.svg",
-   "width": 27.1842,
-   "height": 7.4566
+   "width": 652,
+   "height": 178.2624
   },
   {
    "uid": "c-0167",
@@ -1504,8 +1504,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0167.svg",
-   "width": 0.5037,
-   "height": 0.2004
+   "width": 652,
+   "height": 258.8764
   },
   {
    "uid": "c-0168",
@@ -1513,8 +1513,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0168.svg",
-   "width": 6.3963,
-   "height": 2.6775
+   "width": 652,
+   "height": 272.4644
   },
   {
    "uid": "c-0169",
@@ -1522,8 +1522,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0169.svg",
-   "width": 4.7534,
-   "height": 2.131
+   "width": 652,
+   "height": 291.8627
   },
   {
    "uid": "c-0170",
@@ -1531,8 +1531,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0170.svg",
-   "width": 0.8867,
-   "height": 0.9616
+   "width": 601.1647,
+   "height": 652
   },
   {
    "uid": "c-0171",
@@ -1540,8 +1540,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0171.svg",
-   "width": 1.0439,
-   "height": 0.3824
+   "width": 652,
+   "height": 238.3357
   },
   {
    "uid": "c-0172",
@@ -1549,8 +1549,8 @@
    "family": "wave",
    "stars": 7,
    "file": "/ornaments/c-0172.svg",
-   "width": 11.3751,
-   "height": 3.4035
+   "width": 652,
+   "height": 194.5248
   },
   {
    "uid": "c-0173",
@@ -1558,8 +1558,8 @@
    "family": "wave",
    "stars": 10,
    "file": "/ornaments/c-0173.svg",
-   "width": 2.7628,
-   "height": 1.7397
+   "width": 652,
+   "height": 410.2584
   },
   {
    "uid": "c-0174",
@@ -1567,8 +1567,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0174.svg",
-   "width": 45.3522,
-   "height": 12.8125
+   "width": 652,
+   "height": 183.6227
   },
   {
    "uid": "c-0175",
@@ -1576,8 +1576,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0175.svg",
-   "width": 23.4099,
-   "height": 6.5299
+   "width": 652,
+   "height": 181.2911
   },
   {
    "uid": "c-0176",
@@ -1585,8 +1585,8 @@
    "family": "wave",
    "stars": 4,
    "file": "/ornaments/c-0176.svg",
-   "width": 18.4452,
-   "height": 5.3993
+   "width": 652,
+   "height": 190.2872
   },
   {
    "uid": "c-0177",
@@ -1594,8 +1594,8 @@
    "family": "wave",
    "stars": 3,
    "file": "/ornaments/c-0177.svg",
-   "width": 43.491,
-   "height": 12.5093
+   "width": 652,
+   "height": 186.9641
   },
   {
    "uid": "c-0178",
@@ -1603,8 +1603,8 @@
    "family": "wave",
    "stars": 4,
    "file": "/ornaments/c-0178.svg",
-   "width": 8.5204,
-   "height": 2.2808
+   "width": 652,
+   "height": 173.9443
   },
   {
    "uid": "c-0179",
@@ -1612,8 +1612,8 @@
    "family": "wave",
    "stars": 2,
    "file": "/ornaments/c-0179.svg",
-   "width": 2.0826,
-   "height": 1.0183
+   "width": 652,
+   "height": 318.3862
   },
   {
    "uid": "c-0180",
@@ -1621,8 +1621,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0180.svg",
-   "width": 5.0665,
-   "height": 1.9846
+   "width": 652,
+   "height": 254.9141
   },
   {
    "uid": "c-0181",
@@ -1630,8 +1630,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0181.svg",
-   "width": 19.3481,
-   "height": 5.6139
+   "width": 652,
+   "height": 188.6106
   },
   {
    "uid": "c-0182",
@@ -1639,8 +1639,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0182.svg",
-   "width": 7.7187,
-   "height": 4.0273
+   "width": 652,
+   "height": 339.8044
   },
   {
    "uid": "c-0183",
@@ -1648,8 +1648,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0183.svg",
-   "width": 2.5878,
-   "height": 1.8648
+   "width": 652,
+   "height": 469.6114
   },
   {
    "uid": "c-0184",
@@ -1657,8 +1657,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0184.svg",
-   "width": 14.0215,
-   "height": 3.7363
+   "width": 652,
+   "height": 173.1504
   },
   {
    "uid": "c-0185",
@@ -1666,8 +1666,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0185.svg",
-   "width": 16.8017,
-   "height": 4.7194
+   "width": 652,
+   "height": 182.5649
   },
   {
    "uid": "c-0186",
@@ -1675,8 +1675,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0186.svg",
-   "width": 7.4704,
-   "height": 3.1366
+   "width": 652,
+   "height": 273.2897
   },
   {
    "uid": "c-0187",
@@ -1684,8 +1684,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0187.svg",
-   "width": 0.8073,
-   "height": 0.9907
+   "width": 531.1997,
+   "height": 652
   },
   {
    "uid": "c-0188",
@@ -1693,8 +1693,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0188.svg",
-   "width": 0.1639,
-   "height": 0.0604
+   "width": 652,
+   "height": 239.7026
   },
   {
    "uid": "c-0189",
@@ -1702,8 +1702,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0189.svg",
-   "width": 0.5209,
-   "height": 0.1499
+   "width": 652,
+   "height": 187.1073
   },
   {
    "uid": "c-0190",
@@ -1711,8 +1711,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0190.svg",
-   "width": 2.4992,
-   "height": 2.4155
+   "width": 652,
+   "height": 630.1212
   },
   {
    "uid": "c-0191",
@@ -1720,8 +1720,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0191.svg",
-   "width": 0.5196,
-   "height": 0.1499
+   "width": 652,
+   "height": 187.5117
   },
   {
    "uid": "c-0192",
@@ -1729,8 +1729,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0192.svg",
-   "width": 16.2053,
-   "height": 4.4887
+   "width": 652,
+   "height": 180.0201
   },
   {
    "uid": "c-0193",
@@ -1738,8 +1738,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0193.svg",
-   "width": 2.3051,
-   "height": 1.5466
+   "width": 652,
+   "height": 437.184
   },
   {
    "uid": "c-0194",
@@ -1747,8 +1747,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0194.svg",
-   "width": 17.9227,
-   "height": 5.1222
+   "width": 652,
+   "height": 185.7662
   },
   {
    "uid": "c-0195",
@@ -1756,8 +1756,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0195.svg",
-   "width": 10.5262,
-   "height": 3.4059
+   "width": 652,
+   "height": 210.4204
   },
   {
    "uid": "c-0196",
@@ -1765,8 +1765,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0196.svg",
-   "width": 6.6325,
-   "height": 2.8947
+   "width": 652,
+   "height": 284.1134
   },
   {
    "uid": "c-0197",
@@ -1774,8 +1774,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0197.svg",
-   "width": 11.2483,
-   "height": 4.1216
+   "width": 652,
+   "height": 238.4025
   },
   {
    "uid": "c-0198",
@@ -1783,8 +1783,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0198.svg",
-   "width": 3.2616,
-   "height": 2.2859
+   "width": 652,
+   "height": 456.7218
   },
   {
    "uid": "c-0199",
@@ -1792,8 +1792,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0199.svg",
-   "width": 1.5261,
-   "height": 1.6027
+   "width": 620.8198,
+   "height": 652
   },
   {
    "uid": "c-0200",
@@ -1801,8 +1801,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0200.svg",
-   "width": 0.6056,
-   "height": 0.2214
+   "width": 652,
+   "height": 237.8961
   },
   {
    "uid": "c-0201",
@@ -1810,8 +1810,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0201.svg",
-   "width": 0.0444,
-   "height": 0.0167
+   "width": 652,
+   "height": 245.2477
   },
   {
    "uid": "c-0202",
@@ -1819,8 +1819,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0202.svg",
-   "width": 5.8197,
-   "height": 3.4382
+   "width": 652,
+   "height": 384.8698
   },
   {
    "uid": "c-0203",
@@ -1828,8 +1828,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0203.svg",
-   "width": 6.1364,
-   "height": 2.0723
+   "width": 652,
+   "height": 219.6552
   },
   {
    "uid": "c-0204",
@@ -1837,8 +1837,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0204.svg",
-   "width": 7.6093,
-   "height": 6.2235
+   "width": 652,
+   "height": 533.114
   },
   {
    "uid": "c-0205",
@@ -1846,8 +1846,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0205.svg",
-   "width": 5.7066,
-   "height": 5.7893
+   "width": 642.6851,
+   "height": 652
   },
   {
    "uid": "c-0206",
@@ -1855,8 +1855,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0206.svg",
-   "width": 52.4005,
-   "height": 16.5199
+   "width": 652,
+   "height": 205.0029
   },
   {
    "uid": "c-0207",
@@ -1864,8 +1864,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0207.svg",
-   "width": 33.2626,
-   "height": 10.9021
+   "width": 652,
+   "height": 213.1612
   },
   {
    "uid": "c-0208",
@@ -1873,8 +1873,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0208.svg",
-   "width": 17.2606,
-   "height": 8.2414
+   "width": 652,
+   "height": 310.8919
   },
   {
    "uid": "c-0209",
@@ -1882,8 +1882,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0209.svg",
-   "width": 29.2438,
-   "height": 10.1318
+   "width": 652,
+   "height": 225.3692
   },
   {
    "uid": "c-0210",
@@ -1891,8 +1891,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0210.svg",
-   "width": 11.8879,
-   "height": 7.2331
+   "width": 652,
+   "height": 396.39
   },
   {
    "uid": "c-0211",
@@ -1900,8 +1900,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0211.svg",
-   "width": 5.7696,
-   "height": 5.6039
+   "width": 652,
+   "height": 633.2492
   },
   {
    "uid": "c-0212",
@@ -1909,8 +1909,8 @@
    "family": "wave",
    "stars": 8,
    "file": "/ornaments/c-0212.svg",
-   "width": 65.1192,
-   "height": 26.7002
+   "width": 652,
+   "height": 266.8615
   },
   {
    "uid": "c-0213",
@@ -1918,8 +1918,8 @@
    "family": "wave",
    "stars": 5,
    "file": "/ornaments/c-0213.svg",
-   "width": 0.1646,
-   "height": 0.5537
+   "width": 193.3192,
+   "height": 652
   },
   {
    "uid": "c-0214",
@@ -1927,8 +1927,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0214.svg",
-   "width": 0.3898,
-   "height": 0.7576
+   "width": 335.0628,
+   "height": 652
   },
   {
    "uid": "c-0215",
@@ -1936,8 +1936,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0215.svg",
-   "width": 131.5764,
-   "height": 36.7438
+   "width": 652,
+   "height": 181.4999
   },
   {
    "uid": "c-0216",
@@ -1945,8 +1945,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0216.svg",
-   "width": 104.1142,
-   "height": 33.7175
+   "width": 652,
+   "height": 210.6098
   },
   {
    "uid": "c-0217",
@@ -1954,8 +1954,8 @@
    "family": "wave",
    "stars": 9,
    "file": "/ornaments/c-0217.svg",
-   "width": 0.6213,
-   "height": 0.2517
+   "width": 652,
+   "height": 263.7269
   },
   {
    "uid": "c-0218",
@@ -1963,8 +1963,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0218.svg",
-   "width": 1.9796,
-   "height": 1.0226
+   "width": 652,
+   "height": 336.4035
   },
   {
    "uid": "c-0219",
@@ -1972,8 +1972,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0219.svg",
-   "width": 4.8777,
-   "height": 1.7809
+   "width": 652,
+   "height": 237.5387
   },
   {
    "uid": "c-0220",
@@ -1981,8 +1981,8 @@
    "family": "wave",
    "stars": 3,
    "file": "/ornaments/c-0220.svg",
-   "width": 1.7982,
-   "height": 1.2064
+   "width": 652,
+   "height": 437.1636
   },
   {
    "uid": "c-0221",
@@ -1990,8 +1990,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0221.svg",
-   "width": 68.8137,
-   "height": 18.5075
+   "width": 652,
+   "height": 174.7709
   },
   {
    "uid": "c-0222",
@@ -1999,8 +1999,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0222.svg",
-   "width": 41.6487,
-   "height": 11.3825
+   "width": 652,
+   "height": 177.608
   },
   {
    "uid": "c-0223",
@@ -2008,8 +2008,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0223.svg",
-   "width": 27.5455,
-   "height": 9.7617
+   "width": 652,
+   "height": 230.5419
   },
   {
    "uid": "c-0224",
@@ -2017,8 +2017,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0224.svg",
-   "width": 21.2998,
-   "height": 8.6196
+   "width": 652,
+   "height": 263.3758
   },
   {
    "uid": "c-0225",
@@ -2026,8 +2026,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0225.svg",
-   "width": 24.3615,
-   "height": 9.2192
+   "width": 652,
+   "height": 246.242
   },
   {
    "uid": "c-0226",
@@ -2035,8 +2035,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0226.svg",
-   "width": 29.4853,
-   "height": 9.924
+   "width": 652,
+   "height": 218.9152
   },
   {
    "uid": "c-0227",
@@ -2044,8 +2044,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0227.svg",
-   "width": 9.6476,
-   "height": 3.4324
+   "width": 652,
+   "height": 231.4505
   },
   {
    "uid": "c-0228",
@@ -2053,8 +2053,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0228.svg",
-   "width": 19.9114,
-   "height": 8.5933
+   "width": 652,
+   "height": 280.9317
   },
   {
    "uid": "c-0229",
@@ -2062,8 +2062,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0229.svg",
-   "width": 35.3525,
-   "height": 10.5571
+   "width": 652,
+   "height": 194.1417
   },
   {
    "uid": "c-0230",
@@ -2071,8 +2071,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0230.svg",
-   "width": 26.9677,
-   "height": 9.2131
+   "width": 652,
+   "height": 222.2195
   },
   {
    "uid": "c-0231",
@@ -2080,8 +2080,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0231.svg",
-   "width": 24.9637,
-   "height": 8.711
+   "width": 652,
+   "height": 226.9911
   },
   {
    "uid": "c-0232",
@@ -2089,8 +2089,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0232.svg",
-   "width": 19.8072,
-   "height": 8.1002
+   "width": 652,
+   "height": 266.1638
   },
   {
    "uid": "c-0233",
@@ -2098,8 +2098,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0233.svg",
-   "width": 9.3112,
-   "height": 6.559
+   "width": 652,
+   "height": 459.0495
   },
   {
    "uid": "c-0234",
@@ -2107,8 +2107,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0234.svg",
-   "width": 11.3129,
-   "height": 7.0293
+   "width": 652,
+   "height": 404.8207
   },
   {
    "uid": "c-0235",
@@ -2116,8 +2116,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0235.svg",
-   "width": 11.9529,
-   "height": 7.0031
+   "width": 652,
+   "height": 381.6707
   },
   {
    "uid": "c-0236",
@@ -2125,8 +2125,8 @@
    "family": "lace",
    "stars": 10,
    "file": "/ornaments/c-0236.svg",
-   "width": 11.181,
-   "height": 6.5895
+   "width": 652,
+   "height": 383.9267
   },
   {
    "uid": "c-0237",
@@ -2134,8 +2134,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0237.svg",
-   "width": 10.599,
-   "height": 6.6154
+   "width": 652,
+   "height": 406.6452
   },
   {
    "uid": "c-0238",
@@ -2143,8 +2143,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0238.svg",
-   "width": 50.3896,
-   "height": 16.176
+   "width": 652,
+   "height": 208.7612
   },
   {
    "uid": "c-0239",
@@ -2152,8 +2152,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0239.svg",
-   "width": 56.4216,
-   "height": 16.3497
+   "width": 652,
+   "height": 188.3665
   },
   {
    "uid": "c-0240",
@@ -2161,8 +2161,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0240.svg",
-   "width": 12.228,
-   "height": 4.9326
+   "width": 652,
+   "height": 262.5292
   },
   {
    "uid": "c-0241",
@@ -2170,8 +2170,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0241.svg",
-   "width": 110.4299,
-   "height": 31.2716
+   "width": 652,
+   "height": 184.0605
   },
   {
    "uid": "c-0242",
@@ -2179,8 +2179,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0242.svg",
-   "width": 97.4342,
-   "height": 29.7422
+   "width": 652,
+   "height": 198.4699
   },
   {
    "uid": "c-0243",
@@ -2188,8 +2188,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0243.svg",
-   "width": 74.1425,
-   "height": 26.7692
+   "width": 652,
+   "height": 234.8938
   },
   {
    "uid": "c-0244",
@@ -2197,8 +2197,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0244.svg",
-   "width": 67.0581,
-   "height": 18.4256
+   "width": 652,
+   "height": 178.57
   },
   {
    "uid": "c-0245",
@@ -2206,8 +2206,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0245.svg",
-   "width": 12.2771,
-   "height": 3.9471
+   "width": 652,
+   "height": 209.0745
   },
   {
    "uid": "c-0246",
@@ -2215,8 +2215,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0246.svg",
-   "width": 11.2673,
-   "height": 3.708
+   "width": 652,
+   "height": 214.03
   },
   {
    "uid": "c-0247",
@@ -2224,8 +2224,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0247.svg",
-   "width": 70.7985,
-   "height": 26.3516
+   "width": 652,
+   "height": 242.1761
   },
   {
    "uid": "c-0248",
@@ -2233,8 +2233,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0248.svg",
-   "width": 115.2977,
-   "height": 30.8492
+   "width": 652,
+   "height": 173.864
   },
   {
    "uid": "c-0249",
@@ -2242,8 +2242,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0249.svg",
-   "width": 1.0013,
-   "height": 0.8765
+   "width": 652,
+   "height": 570.6455
   },
   {
    "uid": "c-0250",
@@ -2251,8 +2251,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0250.svg",
-   "width": 0.5819,
-   "height": 0.7608
+   "width": 498.4994,
+   "height": 652
   },
   {
    "uid": "c-0251",
@@ -2260,8 +2260,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0251.svg",
-   "width": 0.2206,
-   "height": 0.6151
+   "width": 233.3005,
+   "height": 652
   },
   {
    "uid": "c-0252",
@@ -2269,8 +2269,8 @@
    "family": "wave",
    "stars": 0,
    "file": "/ornaments/c-0252.svg",
-   "width": 0.6726,
-   "height": 0.845
+   "width": 518.7984,
+   "height": 652
   },
   {
    "uid": "c-0253",
@@ -2278,8 +2278,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0253.svg",
-   "width": 14516815.165,
-   "height": 287516.7462
+   "width": 652,
+   "height": 12.1292
   },
   {
    "uid": "c-0254",
@@ -2287,8 +2287,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0254.svg",
-   "width": 67927964.0883,
-   "height": 1338191.3869
+   "width": 652,
+   "height": 12.0603
   },
   {
    "uid": "c-0255",
@@ -2296,8 +2296,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0255.svg",
-   "width": 77568374.7704,
-   "height": 1527663.485
+   "width": 652,
+   "height": 12.0565
   },
   {
    "uid": "c-0256",
@@ -2305,8 +2305,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0256.svg",
-   "width": 229.067,
-   "height": 9.3542
+   "width": 652,
+   "height": 25.8578
   },
   {
    "uid": "c-0257",
@@ -2314,8 +2314,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0257.svg",
-   "width": 427.7982,
-   "height": 15.0297
+   "width": 652,
+   "height": 22.1346
   },
   {
    "uid": "c-0258",
@@ -2323,8 +2323,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0258.svg",
-   "width": 907.6075,
-   "height": 30.4576
+   "width": 652,
+   "height": 21.1067
   },
   {
    "uid": "c-0259",
@@ -2332,8 +2332,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0259.svg",
-   "width": 67.2696,
-   "height": 3.9635
+   "width": 652,
+   "height": 37.6625
   },
   {
    "uid": "c-0260",
@@ -2341,8 +2341,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0260.svg",
-   "width": 2290.0121,
-   "height": 58.2496
+   "width": 652,
+   "height": 15.8049
   },
   {
    "uid": "c-0261",
@@ -2350,8 +2350,8 @@
    "family": "loop",
    "stars": 3,
    "file": "/ornaments/c-0261.svg",
-   "width": 1.6422,
-   "height": 0.7654
+   "width": 652,
+   "height": 303.4342
   },
   {
    "uid": "c-0262",
@@ -2359,8 +2359,8 @@
    "family": "loop",
    "stars": 0,
    "file": "/ornaments/c-0262.svg",
-   "width": 775.278,
-   "height": 37.9291
+   "width": 652,
+   "height": 31.1371
   },
   {
    "uid": "c-0263",
@@ -2368,8 +2368,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0263.svg",
-   "width": 3941.7006,
-   "height": 94960.762
+   "width": 26.2969,
+   "height": 652
   },
   {
    "uid": "c-0264",
@@ -2377,8 +2377,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0264.svg",
-   "width": 9127.1055,
-   "height": 16011.0366
+   "width": 371.3292,
+   "height": 652
   },
   {
    "uid": "c-0265",
@@ -2386,8 +2386,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0265.svg",
-   "width": 101485.3202,
-   "height": 61404.6021
+   "width": 652,
+   "height": 394.1825
   },
   {
    "uid": "c-0266",
@@ -2395,8 +2395,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0266.svg",
-   "width": 15572.2405,
-   "height": 12724.3071
+   "width": 652,
+   "height": 532.6125
   },
   {
    "uid": "c-0267",
@@ -2404,8 +2404,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0267.svg",
-   "width": 44631.7475,
-   "height": 48758.6006
+   "width": 596.748,
+   "height": 652
   },
   {
    "uid": "c-0268",
@@ -2413,8 +2413,8 @@
    "family": "bezier",
    "stars": 9,
    "file": "/ornaments/c-0268.svg",
-   "width": 5558.2463,
-   "height": 3749.6251
+   "width": 652,
+   "height": 439.5827
   },
   {
    "uid": "c-0269",
@@ -2422,8 +2422,8 @@
    "family": "mobile-k3",
    "stars": 8,
    "file": "/ornaments/c-0269.svg",
-   "width": 4.0117,
-   "height": 3.5304
+   "width": 652,
+   "height": 573.6793
   },
   {
    "uid": "c-0270",
@@ -2431,8 +2431,8 @@
    "family": "lens",
    "stars": 7,
    "file": "/ornaments/c-0270.svg",
-   "width": 2.04,
-   "height": 2.04
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0271",
@@ -2440,8 +2440,8 @@
    "family": "four-fold",
    "stars": 7,
    "file": "/ornaments/c-0271.svg",
-   "width": 2.04,
-   "height": 2.04
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0272",
@@ -2449,8 +2449,8 @@
    "family": "lace",
    "stars": 0,
    "file": "/ornaments/c-0272.svg",
-   "width": 2.425,
-   "height": 0.6577
+   "width": 652,
+   "height": 176.2387
   },
   {
    "uid": "c-0273",
@@ -2458,8 +2458,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0273.svg",
-   "width": 2.5783,
-   "height": 2.5783
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0274",
@@ -2467,8 +2467,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0274.svg",
-   "width": 2.3244,
-   "height": 2.3244
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0275",
@@ -2476,8 +2476,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0275.svg",
-   "width": 2.04,
-   "height": 2.04
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0276",
@@ -2485,8 +2485,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0276.svg",
-   "width": 2.1422,
-   "height": 2.1422
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0277",
@@ -2494,8 +2494,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0277.svg",
-   "width": 3.2549,
-   "height": 3.2549
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0278",
@@ -2503,8 +2503,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0278.svg",
-   "width": 2.7705,
-   "height": 2.7705
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0279",
@@ -2512,8 +2512,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0279.svg",
-   "width": 2.7585,
-   "height": 2.7585
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0280",
@@ -2521,8 +2521,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0280.svg",
-   "width": 2.3475,
-   "height": 2.3475
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0281",
@@ -2530,8 +2530,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0281.svg",
-   "width": 2.5554,
-   "height": 2.5554
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0282",
@@ -2539,8 +2539,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0282.svg",
-   "width": 2.2924,
-   "height": 2.2924
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0283",
@@ -2548,8 +2548,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0283.svg",
-   "width": 2.7686,
-   "height": 2.7686
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0284",
@@ -2557,8 +2557,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0284.svg",
-   "width": 3.2549,
-   "height": 3.2549
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0285",
@@ -2566,8 +2566,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0285.svg",
-   "width": 2.3474,
-   "height": 2.3474
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0286",
@@ -2575,8 +2575,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0286.svg",
-   "width": 2.7588,
-   "height": 2.7588
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0287",
@@ -2584,8 +2584,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0287.svg",
-   "width": 2.2955,
-   "height": 2.2955
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0288",
@@ -2593,8 +2593,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0288.svg",
-   "width": 2.5552,
-   "height": 2.5552
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0289",
@@ -2602,8 +2602,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0289.svg",
-   "width": 3.0991,
-   "height": 3.0991
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0290",
@@ -2611,8 +2611,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0290.svg",
-   "width": 3.7661,
-   "height": 3.7661
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0291",
@@ -2620,8 +2620,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0291.svg",
-   "width": 3.3384,
-   "height": 3.3384
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0292",
@@ -2629,8 +2629,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0292.svg",
-   "width": 2.7,
-   "height": 2.7
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0293",
@@ -2638,8 +2638,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0293.svg",
-   "width": 3.0078,
-   "height": 3.0078
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0294",
@@ -2647,8 +2647,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0294.svg",
-   "width": 2.5545,
-   "height": 2.5545
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0295",
@@ -2656,8 +2656,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0295.svg",
-   "width": 2.3613,
-   "height": 2.3613
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0296",
@@ -2665,8 +2665,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0296.svg",
-   "width": 2.2374,
-   "height": 2.2374
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0297",
@@ -2674,8 +2674,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0297.svg",
-   "width": 3.7675,
-   "height": 3.7675
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0298",
@@ -2683,8 +2683,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0298.svg",
-   "width": 1.7589,
-   "height": 1.7589
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0299",
@@ -2692,8 +2692,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0299.svg",
-   "width": 2.6946,
-   "height": 2.6946
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0300",
@@ -2701,8 +2701,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0300.svg",
-   "width": 3.3384,
-   "height": 3.3384
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0301",
@@ -2710,8 +2710,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0301.svg",
-   "width": 2.5538,
-   "height": 2.5538
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0302",
@@ -2719,8 +2719,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0302.svg",
-   "width": 3.01,
-   "height": 3.01
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0303",
@@ -2728,8 +2728,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0303.svg",
-   "width": 3.5677,
-   "height": 3.5677
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0304",
@@ -2737,8 +2737,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0304.svg",
-   "width": 1.8461,
-   "height": 1.8461
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0305",
@@ -2746,8 +2746,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0305.svg",
-   "width": 1.139,
-   "height": 1.139
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0306",
@@ -2755,8 +2755,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0306.svg",
-   "width": 1.346,
-   "height": 1.346
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0307",
@@ -2764,8 +2764,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0307.svg",
-   "width": 1.0987,
-   "height": 1.0987
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0308",
@@ -2773,8 +2773,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0308.svg",
-   "width": 1.0382,
-   "height": 1.0382
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0309",
@@ -2782,8 +2782,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0309.svg",
-   "width": 1.2345,
-   "height": 1.2345
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0310",
@@ -2791,8 +2791,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0310.svg",
-   "width": 3.568,
-   "height": 3.568
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0311",
@@ -2800,8 +2800,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0311.svg",
-   "width": 1.139,
-   "height": 1.139
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0312",
@@ -2809,8 +2809,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0312.svg",
-   "width": 2.7079,
-   "height": 2.7079
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0313",
@@ -2818,8 +2818,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0313.svg",
-   "width": 1.0382,
-   "height": 1.0382
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0314",
@@ -2827,8 +2827,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0314.svg",
-   "width": 1.0987,
-   "height": 1.0987
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0315",
@@ -2836,8 +2836,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0315.svg",
-   "width": 2.2672,
-   "height": 2.2672
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0316",
@@ -2845,8 +2845,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0316.svg",
-   "width": 2.1931,
-   "height": 2.1931
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0317",
@@ -2854,8 +2854,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0317.svg",
-   "width": 2.3247,
-   "height": 2.3247
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0318",
@@ -2863,8 +2863,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0318.svg",
-   "width": 2.5783,
-   "height": 2.5783
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0319",
@@ -2872,8 +2872,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0319.svg",
-   "width": 2.2374,
-   "height": 2.2374
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0320",
@@ -2881,8 +2881,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0320.svg",
-   "width": 2.3615,
-   "height": 2.3615
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0321",
@@ -2890,8 +2890,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0321.svg",
-   "width": 2.1945,
-   "height": 2.1945
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0322",
@@ -2899,8 +2899,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0322.svg",
-   "width": 2.2678,
-   "height": 2.2678
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0323",
@@ -2908,8 +2908,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0323.svg",
-   "width": 2.5031,
-   "height": 2.5031
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0324",
@@ -2917,8 +2917,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0324.svg",
-   "width": 2.0458,
-   "height": 2.0458
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0325",
@@ -2926,8 +2926,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0325.svg",
-   "width": 2.1421,
-   "height": 2.1421
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0326",
@@ -2935,8 +2935,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0326.svg",
-   "width": 2.04,
-   "height": 2.04
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0327",
@@ -2944,8 +2944,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0327.svg",
-   "width": 2.0438,
-   "height": 2.0438
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0328",
@@ -2953,8 +2953,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0328.svg",
-   "width": 2.5032,
-   "height": 2.5032
+   "width": 652,
+   "height": 652
   },
   {
    "uid": "c-0329",
@@ -2962,8 +2962,8 @@
    "family": "hybrid",
    "stars": 7,
    "file": "/ornaments/c-0329.svg",
-   "width": 2.0398,
-   "height": 2.04
+   "width": 651.9399,
+   "height": 652
   },
   {
    "uid": "c-0330",
@@ -2971,8 +2971,8 @@
    "family": "hybrid",
    "stars": 0,
    "file": "/ornaments/c-0330.svg",
-   "width": 2.0396,
-   "height": 1.0396
+   "width": 652,
+   "height": 331.928
   },
   {
    "uid": "c-0331",
@@ -2980,8 +2980,8 @@
    "family": "hybrid",
    "stars": 1,
    "file": "/ornaments/c-0331.svg",
-   "width": 2.0371,
-   "height": 1.0379
+   "width": 652,
+   "height": 331.8141
   },
   {
    "uid": "c-0332",
@@ -2989,8 +2989,8 @@
    "family": "hybrid",
    "stars": 0,
    "file": "/ornaments/c-0332.svg",
-   "width": 2.0371,
-   "height": 2.0351
+   "width": 652,
+   "height": 651.3783
   },
   {
    "uid": "c-0333",
@@ -2998,8 +2998,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0333.svg",
-   "width": 3.9975,
-   "height": 3.9971
+   "width": 652,
+   "height": 651.9421
   },
   {
    "uid": "c-0334",
@@ -3007,8 +3007,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0334.svg",
-   "width": 8.6899,
-   "height": 8.6898
+   "width": 652,
+   "height": 651.9903
   },
   {
    "uid": "c-0335",
@@ -3016,8 +3016,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0335.svg",
-   "width": 8.9873,
-   "height": 8.985
+   "width": 652,
+   "height": 651.8357
   },
   {
    "uid": "c-0336",
@@ -3025,8 +3025,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0336.svg",
-   "width": 6.5122,
-   "height": 6.5118
+   "width": 652,
+   "height": 651.9629
   },
   {
    "uid": "c-0337",
@@ -3034,8 +3034,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0337.svg",
-   "width": 4.4759,
-   "height": 4.4727
+   "width": 652,
+   "height": 651.5348
   },
   {
    "uid": "c-0338",
@@ -3043,8 +3043,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0338.svg",
-   "width": 2.5938,
-   "height": 1.8311
+   "width": 652,
+   "height": 460.0581
   },
   {
    "uid": "c-0339",
@@ -3052,8 +3052,8 @@
    "family": "hybrid",
    "stars": 1,
    "file": "/ornaments/c-0339.svg",
-   "width": 4.6658,
-   "height": 4.0991
+   "width": 652,
+   "height": 572.7129
   },
   {
    "uid": "c-0340",
@@ -3061,8 +3061,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0340.svg",
-   "width": 4.9354,
-   "height": 5.1684
+   "width": 622.5719,
+   "height": 652
   },
   {
    "uid": "c-0341",
@@ -3070,8 +3070,8 @@
    "family": "hybrid",
    "stars": 2,
    "file": "/ornaments/c-0341.svg",
-   "width": 2.1211,
-   "height": 1.3736
+   "width": 652,
+   "height": 421.9265
   },
   {
    "uid": "c-0342",
@@ -3079,8 +3079,8 @@
    "family": "hybrid",
    "stars": 2,
    "file": "/ornaments/c-0342.svg",
-   "width": 3.4464,
-   "height": 2.8991
+   "width": 652,
+   "height": 548.3402
   },
   {
    "uid": "c-0346",
@@ -3088,8 +3088,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0346.svg",
-   "width": 2.0478,
-   "height": 2.4976
+   "width": 534.4399,
+   "height": 652
   },
   {
    "uid": "c-0349",
@@ -3097,8 +3097,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0349.svg",
-   "width": 2.0388,
-   "height": 1.4341
+   "width": 652,
+   "height": 458.391
   },
   {
    "uid": "c-0350",
@@ -3106,8 +3106,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0350.svg",
-   "width": 2.7305,
-   "height": 3.4119
+   "width": 521.6291,
+   "height": 652
   },
   {
    "uid": "c-0351",
@@ -3115,8 +3115,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0351.svg",
-   "width": 2.0388,
-   "height": 1.2071
+   "width": 652,
+   "height": 385.7094
   },
   {
    "uid": "c-0355",
@@ -3124,8 +3124,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0355.svg",
-   "width": 2.0442,
-   "height": 2.3146
+   "width": 575.7219,
+   "height": 652
   },
   {
    "uid": "c-0358",
@@ -3133,8 +3133,8 @@
    "family": "hybrid",
    "stars": 5,
    "file": "/ornaments/c-0358.svg",
-   "width": 2.0388,
-   "height": 1.2963
+   "width": 652,
+   "height": 414.2713
   },
   {
    "uid": "c-0359",
@@ -3142,8 +3142,8 @@
    "family": "hybrid",
    "stars": 8,
    "file": "/ornaments/c-0359.svg",
-   "width": 2.0405,
-   "height": 2.1276
+   "width": 625.277,
+   "height": 652
   },
   {
    "uid": "c-0360",
@@ -3151,8 +3151,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0360.svg",
-   "width": 2.0388,
-   "height": 1.1517
+   "width": 652,
+   "height": 367.9659
   },
   {
    "uid": "c-0364",
@@ -3160,8 +3160,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0364.svg",
-   "width": 2.0425,
-   "height": 2.228
+   "width": 597.6403,
+   "height": 652
   },
   {
    "uid": "c-0366",
@@ -3169,8 +3169,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0366.svg",
-   "width": 1.8303,
-   "height": 2.5936
+   "width": 459.8802,
+   "height": 652
   },
   {
    "uid": "c-0367",
@@ -3178,8 +3178,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0367.svg",
-   "width": 5.1727,
-   "height": 4.935
+   "width": 652,
+   "height": 621.9932
   },
   {
    "uid": "c-0368",
@@ -3187,8 +3187,8 @@
    "family": "hybrid",
    "stars": 5,
    "file": "/ornaments/c-0368.svg",
-   "width": 1.3728,
-   "height": 2.1169
+   "width": 422.5361,
+   "height": 652
   },
   {
    "uid": "c-0369",
@@ -3196,8 +3196,8 @@
    "family": "hybrid",
    "stars": 8,
    "file": "/ornaments/c-0369.svg",
-   "width": 2.0016,
-   "height": 2.6698
+   "width": 488.6225,
+   "height": 652
   },
   {
    "uid": "c-0373",
@@ -3205,8 +3205,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0373.svg",
-   "width": 2.4976,
-   "height": 2.0444
+   "width": 652,
+   "height": 533.5622
   },
   {
    "uid": "c-0376",
@@ -3214,8 +3214,8 @@
    "family": "hybrid",
    "stars": 2,
    "file": "/ornaments/c-0376.svg",
-   "width": 2.0388,
-   "height": 1.035
+   "width": 652,
+   "height": 330.5932
   },
   {
    "uid": "c-0377",
@@ -3223,8 +3223,8 @@
    "family": "hybrid",
    "stars": 3,
    "file": "/ornaments/c-0377.svg",
-   "width": 2.2377,
-   "height": 1.0392
+   "width": 652,
+   "height": 302.3584
   },
   {
    "uid": "c-0378",
@@ -3232,8 +3232,8 @@
    "family": "hybrid",
    "stars": 2,
    "file": "/ornaments/c-0378.svg",
-   "width": 2.0363,
-   "height": 2.026
+   "width": 652,
+   "height": 648.6826
   },
   {
    "uid": "c-0379",
@@ -3241,8 +3241,8 @@
    "family": "hybrid",
    "stars": 3,
    "file": "/ornaments/c-0379.svg",
-   "width": 2.0363,
-   "height": 2.0258
+   "width": 652,
+   "height": 648.6473
   },
   {
    "uid": "c-0380",
@@ -3250,8 +3250,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0380.svg",
-   "width": 3.4075,
-   "height": 2.7288
+   "width": 652,
+   "height": 521.9705
   },
   {
    "uid": "c-0381",
@@ -3259,8 +3259,8 @@
    "family": "hybrid",
    "stars": 2,
    "file": "/ornaments/c-0381.svg",
-   "width": 1.2085,
-   "height": 2.0351
+   "width": 386.8375,
+   "height": 652
   },
   {
    "uid": "c-0382",
@@ -3268,8 +3268,8 @@
    "family": "hybrid",
    "stars": 7,
    "file": "/ornaments/c-0382.svg",
-   "width": 1.9236,
-   "height": 2.0351
+   "width": 616.2166,
+   "height": 652
   },
   {
    "uid": "c-0383",
@@ -3277,8 +3277,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0383.svg",
-   "width": 1.2618,
-   "height": 2.0351
+   "width": 403.9417,
+   "height": 652
   },
   {
    "uid": "c-0386",
@@ -3286,8 +3286,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0386.svg",
-   "width": 2.3146,
-   "height": 2.0406
+   "width": 652,
+   "height": 574.722
   },
   {
    "uid": "c-0389",
@@ -3295,8 +3295,8 @@
    "family": "hybrid",
    "stars": 8,
    "file": "/ornaments/c-0389.svg",
-   "width": 1.3014,
-   "height": 2.0351
+   "width": 416.653,
+   "height": 652
   },
   {
    "uid": "c-0390",
@@ -3304,8 +3304,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0390.svg",
-   "width": 2.7386,
-   "height": 2.0969
+   "width": 652,
+   "height": 499.0447
   },
   {
    "uid": "c-0391",
@@ -3313,8 +3313,8 @@
    "family": "hybrid",
    "stars": 4,
    "file": "/ornaments/c-0391.svg",
-   "width": 1.1522,
-   "height": 2.0351
+   "width": 368.8023,
+   "height": 652
   },
   {
    "uid": "c-0392",
@@ -3322,8 +3322,8 @@
    "family": "hybrid",
    "stars": 8,
    "file": "/ornaments/c-0392.svg",
-   "width": 1.0752,
-   "height": 2.0351
+   "width": 344.0933,
+   "height": 652
   },
   {
    "uid": "c-0396",
@@ -3331,8 +3331,8 @@
    "family": "hybrid",
    "stars": 10,
    "file": "/ornaments/c-0396.svg",
-   "width": 2.2355,
-   "height": 2.039
+   "width": 652,
+   "height": 594.6281
   },
   {
    "uid": "c-0001a",
@@ -3340,8 +3340,8 @@
    "family": "amper",
    "stars": 0,
    "file": "/ornaments/c-0001a.svg",
-   "width": 2.2127,
-   "height": 2.03
+   "width": 652,
+   "height": 598.087
   }
  ]
 }

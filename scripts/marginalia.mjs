@@ -48,16 +48,23 @@ for (const record of registry.curves) {
   const points = spineOf(record);
   if (points.length < 2) continue;
   const [x0, y0, x1, y1] = P.bbox(points);
-  const pad = 0.01 * (Math.max(x1 - x0, y1 - y0) || 1);
+  // A pixel-scale viewBox (long side 640) so the dot dash is a length in the drawing's own
+  // pixels, not in model units. The stroke is non-scaling, so it holds at every use.
+  const LONG = 640;
+  const k = LONG / (Math.max(x1 - x0, y1 - y0) || 1);
+  const pad = 6;
   const flip = y0 + y1;
   const d = points
-    .map(([x, y], i) => `${i ? "L" : "M"}${(x - x0 + pad).toFixed(2)},${(flip - y - y0 + pad).toFixed(2)}`)
+    .map(([x, y], i) => `${i ? "L" : "M"}${((x - x0) * k + pad).toFixed(1)},${((flip - y - y0) * k + pad).toFixed(1)}`)
     .join("");
-  const width = x1 - x0 + 2 * pad;
-  const height = y1 - y0 + 2 * pad;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width.toFixed(2)} ${height.toFixed(2)}" ` +
+  const width = (x1 - x0) * k + 2 * pad;
+  const height = (y1 - y0) * k + 2 * pad;
+  // Overlapping dots, no Béziers: a zero-length dash with a round cap, spaced closer than
+  // the dot diameter. The line reads as one soft stroke.
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width.toFixed(1)} ${height.toFixed(1)}" ` +
     `role="presentation" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" ` +
-    `stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>\n`;
+    `stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linecap="round" ` +
+    `stroke-dasharray="0.02 1.35"/></svg>\n`;
   writeFileSync(path.join(OUT, `${record.uid}.svg`), svg);
   manifest.push({
     uid: record.uid,
@@ -73,7 +80,7 @@ for (const record of registry.curves) {
 
 writeFileSync(MANIFEST, `${JSON.stringify({
   format: "curve-lab.marginalia/1",
-  note: "One single-stroke ornament per curve. Displayed at a quarter of the text width; " +
+  note: "One soft-stroke ornament per curve (overlapping dots, no Béziers). Displayed at a quarter of the text width; " +
     "the SVGs are generated and gitignored, the manifest is the record.",
   scale: SCALE,
   count: manifest.length,

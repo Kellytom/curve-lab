@@ -34,8 +34,10 @@ complete the template. The gallery shows every curve four-up — a quarter of th
   title, blockquote and footer ornaments are `width: 25%`; the sidebar is 45 % of its own pane.
 - **Masks, not pictures.** `background-color: currentColor` plus `mask: url(...) center / contain`
   gives one file per curve for both themes.
-- **The curves are the spine, one stroke, no rails.** The ornaments are not plates: the plate's
-  bands and paper are for print.
+- **The curves are the spine, one soft stroke, no rails.** The stroke is a zero-length dash with a
+  round cap, spaced closer than the dot diameter, so the dots overlap into one smooth line — no
+  Béziers, and the geometry is untouched. The ornaments are not plates: the plate's bands and
+  paper are for print.
 
 ## The generator
 

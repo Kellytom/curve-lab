@@ -4,13 +4,13 @@ description: "The documentation theme: every curve as an ornament, at a quarter 
 ---
 
 **Marginalia** is the ornament theme of this documentation. Every curve in the collection can
-appear as a single-stroke ornament; the page furniture uses four of them per page, chosen by a
+appear as a soft-stroke ornament; the page furniture uses four of them per page, chosen by a
 hash of the page's path, so every page is stable and every curve is used somewhere.
 
 - **A quarter scale.** An ornament is drawn at a quarter of the text width. The
   [contact sheet](/ornaments/) is four to a row, so each is exactly that quarter; the title's
   ornament is 25 % of the column, the footer's and blockquote's the same.
-- **One stroke, the page's ink.** The curves are masks, not pictures: they take the text colour,
+- **One soft stroke, the page's ink.** The stroke is overlapping dots (a zero-length dash with a round cap) along the exact outline: no Béziers, no geometry change. The curves are masks, not pictures: they take the text colour,
   so they work in light and dark without a second file.
 - **The placement is the customisation.** The page title, a section heading (a companion at the
   line's height), a quoted passage's corner, the footer's flourish and the sidebar's foot. That
