@@ -83,3 +83,6 @@ app/public/plates-web/
 # test/study PNG outputs stay out of git: full-size plates live on disk, and
 # only the compressed set the operator picks goes back in (2026-11-20)
 workbench/png-study/
+
+# the compression study images: on disk only, never in git
+app/public/png-study/
