@@ -76,3 +76,6 @@ dist/
 
 # the 3000 px print masters: local, re-rendered freely; git carries the lossless WebP
 book/print/
+
+# the web renders are working state while the look is being judged; commit the set at freeze
+app/public/plates-web/
