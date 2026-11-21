@@ -892,3 +892,20 @@ taken out of the collection — registry, plates, figures and database — with
 `scripts/remove_curve_records.mjs` (`--match '^wonk-[0-9]+$'`), which reports every file and keeps
 a registry copy in `state/backups/`. The wonk **desk rows stay**, so `/hybrids-wonk` keeps its
 source; the doubles are untouched.
+
+## The plates page shows the chosen curves, and says why — 2026-11-21
+
+The operator: "put the curves with stars? just dont put the ones with 1 star... that is why we
+need the explanation below the curve."
+
+- **A curve is shown when its rating is 2/10 or more.** A new curve (a variant) joins a kept
+  parent even before it is rated; 1/10 and unrated are out. The rating is `importance`, edited in
+  the database note, not the old boolean `starred` flag.
+- **Every card prints a provenance sentence.** For a base: "Chosen at 5/10 · found in the finder."
+  For a variant: "Variant of c-0001 (amper, 5/10) · width 1 % · ...". When a note was saved with
+  the curve, that note is the proof; otherwise the formula, family or source is named.
+  `app/src/lib/provenance.js`; guarded by `app/tests/provenance.test.mjs`.
+- **Order is by uid for now**, so a variant sits beside its parent. The ten stars will take over
+  the order later.
+- The 2-star curves are included by the explicit rule; a 2-star curve that does not belong is
+  demoted to 1 and leaves the page. That is the operator's decision, not a hidden filter.

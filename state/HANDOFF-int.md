@@ -3435,4 +3435,8 @@ Tschirnhausen — classic but adds nothing; off the board.
   wonks are working halves and the 59 `double-…` records are the kept ones. The wonk desk rows
   stay, so `/hybrids-wonk` still has its source. `scripts/remove_curve_records.mjs` reports and
   backs up the seed.
+- **`/plates` shows the curated set** — 194 of 371: rating 2/10 or more, plus a variant of a kept
+  parent (`c-0001a`). Each card prints a provenance sentence: the rating, or the parent and its
+  rating, then the saved note (or the formula/family/source). 1-star and unrated are out; demoting
+  a 2-star to 1 removes it. Register 47; `app/src/lib/provenance.js`.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

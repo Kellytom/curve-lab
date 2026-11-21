@@ -6,16 +6,18 @@ import path from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadRegistry } from "../lib/registry.ts";
 import { repoRoot } from "../lib/gallery.js";
+import { isKept, provenanceFor } from "../lib/provenance.js";
 
 const registry = await loadRegistry();
 const print = path.join(repoRoot(), "book", "print");
+const byUid = new Map(registry.curves.map((curve) => [curve.uid, curve]));
 const rows = registry.curves
-  .slice()
+  .filter((curve) => isKept(curve, byUid))
   .sort((a, b) => a.uid.localeCompare(b.uid))
   .map((curve) => ({
     uid: curve.uid,
     name: curve.name,
-    variantOf: curve.params?.variantOf || null,
+    provenance: provenanceFor(curve, byUid),
     formula: curve.formula?.plain || "",
     turn: curve.transform?.degrees || 0,
     exported: existsSync(path.join(print, `${curve.uid}-3000-grey-300dpi.png`)),
@@ -38,9 +40,10 @@ const done = rows.filter((row) => row.exported).length;
   </p>
   <p class="plates-count">To see what a value does before saving it, open
     <a href="/tune/">the tuning lab</a>: pick a curve and drag width, plus, minus and profile.</p>
-  <p class="plates-count">{done} of {rows.length} plates exported · generator
-    <code>scripts/print_plates.mjs</code> · ordered by uid, so a variant sits beside its
-    parent; the ten stars will take over this order later</p>
+  <p class="plates-count">{done} of {rows.length} plates exported · {rows.length} of
+    {registry.curves.length} records chosen (2 stars or more; a new curve joins its parent) ·
+    ordered by uid, so a variant sits beside its parent · generator
+    <code>scripts/print_plates.mjs</code></p>
 
   <div class="plates-grid">
     {rows.map((row) => (
@@ -49,10 +52,8 @@ const done = rows.filter((row) => row.exported).length;
           <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}` : `/api/print-plate/${row.uid}`}
             alt={row.name} loading="lazy" />
         </a>
-        <p class="plate-name"><code>{row.uid}</code> {row.name}
-          {row.variantOf && <span class="plate-variant">· variant of
-            <a href={`/tune/${row.variantOf}`}>{row.variantOf}</a></span>}
-        </p>
+        <p class="plate-name"><code>{row.uid}</code> {row.name}</p>
+        <p class="plate-provenance">{row.provenance}</p>
         <p class="plate-meta">
           {row.exported
             ? <><a href={`/api/print-plate/${row.uid}`}>png 300 dpi</a> ·
@@ -75,5 +76,5 @@ const done = rows.filter((row) => row.exported).length;
   .plate-name { margin: 8px 0 2px; font-size: 14px; }
   .plate-meta { margin: 0 0 4px; font-size: 12px; color: #7a6a55; }
   .plate-formula { margin: 0; font-size: 12px; color: #5a4a36; overflow-wrap: anywhere; }
-  .plate-variant { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .plate-provenance { margin: 0 0 6px; font: 13px/1.5 inherit; color: #3f3a33; }
 </style>

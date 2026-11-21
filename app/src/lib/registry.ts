@@ -56,6 +56,8 @@ export async function loadRegistry(base?: string): Promise<Registry> {
     if (note.borderUid) record.border_uid = note.borderUid;
     record.updated = note.updatedAt ? note.updatedAt.toISOString() : undefined;
     record.savedName = note.name || null;
+    // the note saved with the curve is the provenance the plates page prints
+    if (note.note) record.note = note.note;
     if (note.perSide) record.perSide = note.perSide;
     if (note.borderTurn) record.borderTurn = note.borderTurn;
     if (note.offsets) record.offsets = note.offsets;
