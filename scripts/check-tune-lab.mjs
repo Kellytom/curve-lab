@@ -96,6 +96,15 @@ try {
   const pathPaths = await page.$$eval("#lab-preview svg path", (nodes) => nodes.length);
   if (pathPaths !== 1) problems.push(`a path curve drew ${pathPaths} paths, not its spine`);
 
+  // a polyline is the plate's rail branch: it must draw a band and answer the width
+  await page.selectOption("#lab-curve", "c-0143");
+  await page.waitForFunction(
+    () => /stored points/.test(document.getElementById("lab-readout")?.textContent || ""),
+    { timeout: 8000 },
+  );
+  const polyPaths = await page.$$eval("#lab-preview svg path", (nodes) => nodes.length);
+  if (polyPaths < 5) problems.push(`a polyline drew ${polyPaths} paths, not a band`);
+
   // the first paint and the live redraw must use the same maths. A cached server module
   // once showed the old guard's 1.5 % until the first touch moved the band to 2.29 %.
   await page.goto(`${BASE}/tune/c-0002`, { waitUntil: "networkidle" });

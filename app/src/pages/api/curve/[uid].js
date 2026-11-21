@@ -1,7 +1,7 @@
 // GET /api/curve/<uid> — one curve's drawing data, for the live tuning lab.
 //
-// Only the three things a drawing needs travel: the two speed rows and, for a curve
-// stored as a path, its points. The rest of the registry stays on the server.
+// Only what a drawing needs travels: the two speed rows, or the stored points and their
+// kind (`path` is spine-only, `polyline` takes the plate's rail branch).
 
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -24,6 +24,7 @@ export const GET = async ({ params }) => {
     speedX: record.speedX || [],
     speedY: record.speedY || [],
     path: record.path || null,
+    kind: record.kind || null,
   }), {
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   });

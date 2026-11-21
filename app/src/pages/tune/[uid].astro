@@ -92,8 +92,26 @@ if (row.speedX.length) {
   }
 }
 if (!paths.length && record.path) {
-  paths = [record.path];
-  note = "this curve is stored as a path, so the plate prints the spine only";
+  // the plate draws the character law over a `polyline`; a `path` (a hybrid with corners)
+  // stays the spine until its rail is settled. The page must match the plate.
+  if (record.kind === "polyline" && PLATE.pathGroup) {
+    const group = PLATE.pathGroup(record.path, {
+      widthPercent: values.widthPct, plus: values.plus,
+      minus: values.minus, profile: values.profile,
+    });
+    if (group) {
+      paths = group.paths;
+      const cut = group.width < values.widthPct
+        ? ` (asked ${values.widthPct} %, cut so the band cannot fold over itself)`
+        : "";
+      note = `rails from the ${record.path.length} stored points: exact there, approximate ` +
+        `between them${cut}; plus ${values.plus}, minus ${values.minus}, ${values.profile}`;
+    }
+  }
+  if (!paths.length) {
+    paths = [record.path];
+    note = "this curve is stored as a path, so the plate prints the spine only";
+  }
 }
 if (values.degrees) {
   const a = (-values.degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
@@ -171,6 +189,7 @@ const svg = box
   speedX: record.speedX || [],
   speedY: record.speedY || [],
   path: record.path || null,
+  kind: record.kind || null,
 }).replace(/</g, "\\u003c")}></script>
 <script is:inline src="/api/plate-math"></script>
 <script>

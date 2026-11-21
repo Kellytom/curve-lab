@@ -64,11 +64,22 @@ export function bandSvg(paths, box) {
   </svg>`;
 }
 
-// ask the plate maths for the spine and its two rails; a path has no rows to build
-// them from, so it stays a spine until the plate's path band is settled
+// ask the plate maths for the spine and its two rails. A `polyline` is the plate's rail
+// branch — the same character law over the stored points. A `path` (a hybrid with corners)
+// stays the spine until its rail is settled, so the page matches the plate.
 function drawing(P, curve, values) {
   if (curve.path) {
-    return { paths: [curve.path], kind: "path", stored: curve.path.length };
+    if (curve.kind === "polyline" && P.pathGroup) {
+      const group = P.pathGroup(curve.path, {
+        widthPercent: values.widthPct, plus: values.plus,
+        minus: values.minus, profile: values.profile,
+      });
+      if (group && group.paths.length >= 3) {
+        return { paths: group.paths, kind: "polyline", stored: curve.path.length,
+                 width: group.width };
+      }
+    }
+    return { paths: [curve.path], kind: "path-spine", stored: curve.path.length };
   }
 
   const row = {
@@ -88,9 +99,9 @@ function drawing(P, curve, values) {
 }
 
 function readout(drawn, values, paths) {
-  if (drawn.kind === "path") {
-    return "this curve is stored as a path: the plate prints the spine only, so the four " +
-      "values do not change it. Pick a curve with speed rows to shape a band.";
+  if (drawn.kind === "path-spine") {
+    return "this curve is stored as a path; the plate prints the spine only until its " +
+      "rail is settled";
   }
   if (paths.length < 3) {
     return "at this width the rails would fold through themselves, so only the spine is " +
@@ -117,7 +128,11 @@ function readout(drawn, values, paths) {
     ? ` Band width ${used.toFixed(1)} % — asked ${asked} %, cut so the band cannot fold ` +
       "over itself."
     : ` Band width ${used.toFixed(1)} %.`;
-  return `${side("Right", right)}. ${same ? "Left edge the same" : side("Left", left)}.` + cut;
+  const stored = drawn.kind === "polyline"
+    ? ` Built from the ${drawn.stored} stored points: exact there, approximate between them.`
+    : "";
+  return `${side("Right", right)}. ${same ? "Left edge the same" : side("Left", left)}.` +
+    cut + stored;
 }
 
 // draw one curve; returns false (and says why) if the maths did not load

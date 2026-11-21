@@ -74,12 +74,16 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 - [x] A save is one transaction, then the JSON copy, then the plate. A failed copy or render
       is reported, not hidden.
 
-## 5 · What a path curve says
+## 5 · What a stored outline says
 
-A curve stored as a path cannot take rows-based rails yet.
-
-- [x] It draws the spine and says "this curve is stored as a path: the plate prints the
-      spine only". Check: `scripts/check-tune-lab.mjs` selects `c-0273`.
+- [x] A `path` record (a hybrid with corners) draws the spine only, on the page and the plate,
+      and says why. Check: `scripts/check-tune-lab.mjs` selects `c-0273` and expects one path.
+- [x] A `polyline` record (the finder families, `c-0088`–`c-0143`) takes the plate's character
+      law over its stored points: the page draws the same band, the readout says how many
+      stored points, and the default width is 1.5 %. Check: the same script selects `c-0143`
+      and expects a band.
+- [x] The outline is stored at six decimals. Identity may round to two; the drawing may not.
+      See `state/DESIGN-int.md` and register row 44.
 
 ## 6 · Layout
 

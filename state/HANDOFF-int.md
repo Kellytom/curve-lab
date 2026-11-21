@@ -3416,6 +3416,10 @@ Tschirnhausen — classic but adds nothing; off the board.
   y = x². `scripts/repair_registry_paths.py` rewrote only the `path` field of `c-0088`–`c-0143`
   from the finder source at six decimals; `curve_registry.py` now stores six; the data export is
   refreshed; `tests/test_registry_paths.py` is in the fast loop (register row 44).
+- **The 56 `polyline` records draw their offsets on the page too.** `/api/curve` now sends
+  `kind`; `polyline` takes the plate's rail branch and `path` stays spine-only, so the page and
+  the plate agree. The default is 1.5 %. `check-tune-lab` pins `c-0143` as a band and `c-0273`
+  as a spine. The 56 figures were re-rendered with the smooth outlines.
 - **The unsaved default width is 1.5 %**, not 6 %, in `plate-row.mjs`, the tune page and the lab;
   a saved row keeps its own values. The plates were re-rendered with both changes.
 - **Next:** the path-curve band fill (185 path records). The path rail's existing cap jitters;
