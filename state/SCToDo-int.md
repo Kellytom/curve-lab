@@ -28,8 +28,14 @@ numeric check, not a hope.
   (`app/scripts/parity-measure.mjs`), smoke test `app/tests/measure.test.mjs`
   pinned to the Python reference numbers. Three port faults caught by parity
   are recorded in `state/SC-NOTES-measure-port.md`.
-- Next row: `clearance.py` → `app/src/lib/clearance.ts`, same harness.
-  `Proves:` the parity script prints zero mismatches for its curves.
+- ~~`clearance.py` → `app/src/lib/clearance.ts`~~ **LANDED 2026-11-21**: flatten
+  (de Casteljau), segmentDistance (Ericson), segmentHit, Ink gap/crossings, and
+  the full measure() rule — parity 15 checks, 0 mismatches against the Python
+  results on three real pieces (straight pair, curved pair, mirror) via
+  `app/scripts/parity-clearance.mjs`.
+- Next row: `piece.py` → `app/src/lib/piece.ts` (the builder the clearance
+  numbers come from), then `model.py` (Design/Segment) so the port can build
+  pieces itself. `Proves:` the parity script prints zero mismatches.
 - Then `piece.py`, `junction.py`, `svg.py`, each with its own parity check.
 - `state/PORT-int.md` is the boundary record — update it per row.
 - `Proves:` per row: the parity script plus `npm --prefix app test`.
