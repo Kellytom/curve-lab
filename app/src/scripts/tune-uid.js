@@ -14,6 +14,8 @@ function start() {
   if (!data || !form) return;
 
   const curve = JSON.parse(data.textContent);
+  const uid = JSON.parse(el("tune-uid")?.textContent || '""');
+  const status = el("tune-status");
   const inputs = {
     widthPct: form.elements.widthPct,
     plus: form.elements.plus,
@@ -25,7 +27,56 @@ function start() {
   const readout = el("tune-readout");
 
   const redraw = () => render(preview, readout, curve, valuesOf(inputs));
-  live(Object.values(inputs), redraw);
+  live([inputs.profile, inputs.degrees], redraw);
+
+  // Save with the page's own script: the buttons disable while the write and the plate
+  // render run, and the state is said beside them. Without JavaScript the same buttons
+  // still post the form (formaction + formmethod) and the page comes back with a banner.
+  const say = (text, kind) => {
+    if (!status) return;
+    status.textContent = text;
+    status.className = `tune-status ${kind || ""}`;
+  };
+  const saveButtons = [...form.querySelectorAll("button[formaction]")];
+  const save = async (button) => {
+    const target = new URL(button.getAttribute("formaction"), location.origin);
+    const payload = Object.fromEntries(new FormData(form).entries());
+    saveButtons.forEach((item) => { item.disabled = true; });
+    say("saving…", "busy");
+    try {
+      const response = await fetch(`${target.pathname}${target.search}`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.error || `save failed: ${response.status}`);
+      if (body.uid && body.uid !== uid) {
+        location.href = `/tune/${body.uid}?saved=${encodeURIComponent(`saved as new: ${body.uid} ${body.name}`)}`;
+        return;
+      }
+      say(body.warning ? `saved — ${body.warning}` : "saved", body.warning ? "bad" : "ok");
+    } catch (error) {
+      say(`not saved: ${error.message}`, "bad");
+    } finally {
+      saveButtons.forEach((item) => { item.disabled = false; });
+    }
+  };
+  for (const button of saveButtons) {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      save(button);
+    });
+  }
+
+  // the three numbers each have a slider: move one and the other follows, then redraw
+  for (const key of ["widthPct", "plus", "minus"]) {
+    const number = inputs[key];
+    const slider = el(`${key}-slider`);
+    if (!slider) continue;
+    number.addEventListener("input", () => { slider.value = number.value; redraw(); });
+    slider.addEventListener("input", () => { number.value = slider.value; redraw(); });
+  }
 }
 
 start();

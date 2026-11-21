@@ -4005,25 +4005,32 @@ cannot bend the curve, so the outline is unchanged. `scripts/circle_split.py`
 `tests/test_circle_split.py` checks the row, the note and the drawing against one
 derivation.
 
-## The desk: one row per tuning, many per spine — 2026-11-21
+## The desk: one row per curve, a new curve beside its parent — 2026-11-21
 
-Settled by the operator: "we might have 5 different versions from one spine, and that is good."
+Settled by the operator: "we might have 5 different versions from one spine, and that is good",
+then "i want to choose the name if i want a new curve... and see it show up next to the old
+curve in /plates ... all with UIDs".
 
-- **A row's name is its key and its URL; `curveName` is what a person typed.** Many rows may
-  share a `spine`; two rows may never share a name or a chosen name (compared without case).
-  A refused name says which row holds it. A new version may not take a registry uid.
-- **Save over this row merges.** Only the four values and the turn are replaced; a chosen
-  name, a construction and every field the tune does not own survive. A save is one
-  transaction, then the JSON copy is written; a failed copy is reported, never hidden.
-- **A new version is a new row**, numbered from the rows already on the spine. It never
-  overwrites the base row.
-- **No automatic plate render.** The operator's words: "instead of save and render, put
-  robust desk io". The plate reads the desk at its next export.
+- **A tuning row holds the four values for one uid.** *Save* merges it: only the four values
+  and the turn are replaced, so a chosen name, a construction and every field the tune does
+  not own survive. A save is one transaction, then the JSON copy, then the plate.
+- **A new curve is a record, not a row.** It takes the next letter uid on its spine
+  (`c-0002` → `c-0002a`), copies the geometry, records `params.variantOf`, and gets its own
+  page. It is rendered at once, so it sits beside its parent on `/plates`.
+- **A variant of a variant stays in the original series** (`c-0002a` → `c-0002b`), because the
+  spine is taken from `params.variantOf`.
+- **A name is unique** across registry names, aliases and uids, compared without case. A
+  collision is refused and names the owning curve; it is never quietly suffixed.
+- **The order is by uid for now.** `c-0002`, `c-0002a`, `c-0003` puts a variant next to its
+  parent. The ten stars will take over the order later; that is not built.
 - **The character rail is one law, not a choice.** `distance = base × (1 + strength ×
-  profile)`, with the fold guard halving the whole width until no station can fold. A local
-  pinch cap was tried on 2026-11-21 and reverted: it is a second construction, and at the
-  same saved number it drew a band about four times too wide. The operator: "you cant cheat
-  and use another way to make the character rails."
+  profile)`, with the fold guard capping the whole width. A local pinch cap was tried on
+  2026-11-21 and reverted: it is a second construction, and at the same saved number it drew a
+  band about four times too wide. The operator: "you cant cheat and use another way to make
+  the character rails."
+- **The cap is solved directly, not by halving** (settled 2026-11-21). The rule is
+  `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
+  as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).
 
 
 <!-- source: state/REGRESSIONS-int.md -->
@@ -4115,7 +4122,9 @@ headless browser), so they are named here rather than duplicated:
 | 38 | 2026-11-19 | the exact-linkage test said "no linkage closes rationally" for every link set, including the parallelogram that plainly does | `tests/test_linkage_exact.py` (parallelogram closes at every station; the joint meets both circle conditions; a general crank-rocker does not) | the rosette linkage rule |
 | 39 | 2026-11-20 | "I CANT BELIEVE WE ARE DEALING WITH PARALLEL CURVE" — and the operator was right twice. (a) `print_plates.mjs` read `workbench/sandbox-curves.json`, which a later commit moved to `data/sandbox-curves.json`, and treated the missing file as "no desk values": every plate silently used 6 % / plus 2 / minus 2. (b) the row builder had a **duplicate `character:` key**; the second copy set plus and minus to 0, so the rail was `±d·normal` — a parallel offset by construction — whatever the desk said. (c) the save step called `app/scripts/export-sandbox.mjs`, which does not exist, so a tune wrote the database and never reached the plate. | `tests/test_regressions.py` (`test_the_plates_are_not_parallel_curves`, which runs `tests/js/plate-row.test.mjs`): the desk's plus/minus must reach the row, the guarded rail must widen along the curve while the other barely moves, and zero character must be the only parallel case | the one law for a plate's four values (`scripts/lib/plate-row.mjs`: note → desk row → defaults), and one copy of the decisions (`data/sandbox-curves.json`) |
 | 40 | 2026-11-20 | `/tune/c-0001` said "the rows are too large for the rail routine; spine only" and drew nothing — a confident caption over a blank picture | `scripts/check-tune-lab.mjs` (waits for `#lab-preview svg`; a blank preview fails, and so does a message that invents a cause) | the tuning preview: the page must draw, and must not name a reason the code does not measure. Cause: `(await import(path)).default` is `undefined` under Vite for a CommonJS file outside `app/`, and the `catch` covered it |
-| 41 | 2026-11-21 | "we might have 5 different versions from one spine, and that is good" — the only save was one row, replaced in full, so a chosen name and construction were lost and a second version could not exist | `app/tests/desk-tune.test.mjs` (overwrite keeps fields; a new row per version; collisions by key and by chosen name; five versions allowed) and the desk checks in `scripts/check-tune-lab.mjs` (a name, both save buttons, the version list) | the desk's rows: one row per tuning, many per spine, and a name is a key |
+| 41 | 2026-11-21 | "we might have 5 different versions from one spine, and that is good" — the only save was one row, replaced in full, so a chosen name and construction were lost and a second version could not exist | `app/tests/desk-tune.test.mjs` (save keeps fields; a new curve is a record with the next letter uid; collisions by name, alias and uid) and the desk checks in `scripts/check-tune-lab.mjs` (a name field, both save buttons, the family list) | the desk's rows: one row per curve, many curves per spine, and a name is a key |
+| 42 | 2026-11-21 | "try different lower values for the percentage... the width jumps all around" — two causes. (a) the fold guard halved the width in powers of two, so raising the slider could narrow the band (`c-0002`: 2.2 % became 1.15 % at the next step). (b) after that was fixed, the server's first paint still used the old guard from a cached `require`, so the band jumped from 1.5 % to 2.29 % on the first touch | `tests/js/plate-guard.test.mjs` (no drop while the width rises from 0.5 % to 8 %; the cut must be the largest width that does not fold) and `scripts/check-tune-lab.mjs` (the first paint and the live redraw must report the same used width and draw the same picture) | the fold guard cut once to the largest safe width, and one maths file shared by the server and the client |
+| 43 | 2026-11-21 | "add the usual 'saved' indicator. it only saves sometimes" — a save was a full form post that waited for the plate render, with no state beside the button, so a slow save looked like no save and a second click could write twice | `scripts/check-tune-lab.mjs` (a refused save says `not saved` beside the buttons and re-enables them) | the save's own state: saving, saved, or the server's refusal, beside the button |
 
 
 <!-- source: state/DATA-int.md -->

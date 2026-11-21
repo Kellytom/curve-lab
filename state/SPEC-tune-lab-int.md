@@ -85,4 +85,7 @@ A curve stored as a path cannot take rows-based rails yet.
 - [x] Preview left, controls right, legend below the readout. The legend defines every
       control in plain words, including the flat case.
 - [x] The page uses the shell margin; no width of its own.
+- [x] Width, plus and minus each have a number box and a slider; moving one moves the other.
+      The slider carries no name, so only the number is submitted. Check:
+      `scripts/check-tune-lab.mjs` (the slider reaches the number and redraws).
 - [x] The version list sits under the readout, with one row per saved version.

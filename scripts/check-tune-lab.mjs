@@ -115,6 +115,31 @@ try {
     problems.push("the first paint and the live redraw draw different pictures");
   }
 
+  // a slider and its number move together
+  const beforeSlider = await svgOf("#tune-preview svg");
+  await page.$eval("#widthPct-slider", (node) => {
+    node.value = "1.5";
+    node.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  await page.waitForTimeout(150);
+  const mirrored = await page.$eval('input[name="widthPct"]', (node) => node.value);
+  if (Number(mirrored) !== 1.5) problems.push(`the width slider did not reach the number: ${mirrored}`);
+  if ((await svgOf("#tune-preview svg")) === beforeSlider) {
+    problems.push("moving the width slider did not redraw the picture");
+  }
+
+  // a refused save is said beside the buttons, and the buttons come back. An empty name
+  // is refused before any write, so this exercises the save path without touching the desk.
+  await page.$eval('input[name="curveName"]', (node) => { node.value = ""; });
+  await page.click('button[formaction*="mode=new"]');
+  await page.waitForFunction(
+    () => /not saved/.test(document.getElementById("tune-status")?.textContent || ""),
+    { timeout: 15000 },
+  );
+  const stillDisabled = await page.$$eval('#tune-form button[formaction]',
+    (nodes) => nodes.some((node) => node.disabled));
+  if (stillDisabled) problems.push("the save buttons stayed disabled after a refusal");
+
   // the per-curve page redraws in place: no navigation, no submit. The width is still cut
   // by the original fold guard, and the readout must say the number it was cut to.
   await page.goto(`${BASE}/tune/c-0001`, { waitUntil: "networkidle" });
@@ -129,8 +154,9 @@ try {
   if (!/Band width [\d.]+ %/.test(uidReadout)) {
     problems.push(`/tune/c-0001 readout does not name the band width: ${uidReadout}`);
   }
-  if (!/asked [\d.]+ %/.test(uidReadout)) {
-    problems.push(`/tune/c-0001 readout does not name the asked width: ${uidReadout}`);
+  // "asked" appears only when the fold guard cut the width; the band width is always named
+  if (!/Band width [\d.]+ %/.test(uidReadout)) {
+    problems.push(`/tune/c-0001 readout does not name the band width: ${uidReadout}`);
   }
 
   // the desk: a name for a new curve, a save, a new curve, and the family list

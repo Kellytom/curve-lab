@@ -3368,3 +3368,48 @@ Tschirnhausen — classic but adds nothing; off the board.
   offset crosses the spine at corners and self-crossings, and on `c-0273` the fill becomes
   solid blobs with spikes. Rejected as a plate feature; the function stays in
   `plate_math.js`, unused, and `print_plates.mjs` says why in place.
+
+## 2026-11-21 — the sidechat's TypeScript port of the exact core
+
+- **`curve_lab/measure.py` → `app/src/lib/measure.ts`** (BigInt fractions), parity
+  against the Python core on all 212 rows with speed data: **0 mismatches**
+  (`app/scripts/parity-measure.mjs`; grid exact, bend/arc/closest within 1e-9,
+  inflection lists position by position). Smoke test `app/tests/measure.test.mjs`
+  pinned to the Python numbers.
+- Three port faults caught by parity and fixed: numerators added across
+  different denominators in the arc loop; the `limitDenominator` tie-break
+  compared against the loop-mutated tail instead of the original self; the
+  early return tested the raw 2^k denominator instead of the reduced one (a
+  dyadic like 15055/32768 must return immediately, or the loop divides by
+  zero). Written up for the docs in `state/SC-NOTES-measure-port.md`.
+- The gallery rename completion: `bfd0d000` renamed `book/plates.json` →
+  `old-plates.json` and updated `gallery.js` but not the test — `gallery.test.mjs`
+  and the two remaining `plates`/`platesDir` paths now read `old-plates`, and the
+  test is green (6 pass).
+- The reset files are in place (`state/SC-READING-int.md`,
+  `state/SCmemory-int.md`, `state/SCToDo-int.md`); `SCToDo-int.md` names the
+  TypeScript conversion as the sidechat's long-term track, `clearance.py` next.
+- No internet since 2026-11-21 by the operator's word: commits are local and the
+  push is held until it is back.
+
+## 2026-11-21 — the tuning desk, the width guard, and the save state
+
+- **A new curve is a record.** On `/tune/<uid>`, *save as a new curve* takes a name and gives the
+  curve the next letter uid on its spine (`c-0002a`), copies the geometry, writes the registry,
+  the Curve/Note/CurveSet rows and the desk row, renders the plate, and the curve appears beside
+  its parent on `/plates`. The order is by uid for now; the ten stars take over later. *save*
+  writes the row and rebuilds that plate. A name collision is refused and names the owner.
+- **The width no longer jumps.** The fold guard solves `distance × peak ≤ 0.9` directly instead of
+  halving in powers of two: `c-0002` caps at 2.29 %, `c-0001` at 2.01 %. All 397 plates were
+  re-rendered with the corrected guard; 2 are spine-only.
+- **One maths for the first paint and the live redraw.** The page re-reads `plate_math.js` on
+  every request and draws its first paint with `tune-render.js`'s own `frame` and `bandSvg`. The
+  used width and the picture now match until a value changes. Guards:
+  `tests/js/plate-guard.test.mjs`, `scripts/check-tune-lab.mjs`.
+- **The save says what it is doing.** The buttons post with the page's script, disable while the
+  write and the render run, and say `saving… / saved / not saved: …` beside them. Width, plus and
+  minus have paired numbers and sliders.
+- **Tried and rejected:** a local pinch cap for the rails (2026-11-21). The operator: "you cant
+  cheat and use another way to make the character rails." `plate_math.js` is the one law.
+- **Next:** the path-curve band fill (185 path records). The path rail's existing cap jitters;
+  changing it is a rail decision and waits on the operator.

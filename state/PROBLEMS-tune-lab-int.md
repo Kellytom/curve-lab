@@ -127,3 +127,19 @@ between the first paint and a live redraw.
 
 **Guard:** `tests/js/plate-guard.test.mjs`: no drop from 0.5 % to 8 %, and the cut must be the
 largest safe width (one more 0.01 % would fold). Plus the first-paint/live agreement check.
+
+## 8. The save gave no sign it had happened
+
+**Seen:** "add the usual 'saved' indicator. it only saves sometimes."
+
+**Wrong:** a save was a full form post that waited for the plate render, then redirected. There
+was no state beside the button while it ran, so a slow save looked like no save, and a second
+click could start a second write.
+
+**Fix:** the save buttons post with the page's own script. They disable while the write and the
+render run and say `saving…`, then `saved`, or `not saved: <reason>` beside them. A new curve
+still opens its own page. Without JavaScript the same buttons post the form and the page
+returns with its banner.
+
+**Guard:** `scripts/check-tune-lab.mjs`: an empty-name save is refused, the status says
+`not saved`, and the buttons are enabled again. Nothing is written by that check.
