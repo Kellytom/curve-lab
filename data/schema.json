@@ -50,15 +50,15 @@
   "sandbox-curves.json": {
    "format": "curve-lab.data.sandbox-curves/1",
    "kind": "array",
-   "count": 147,
+   "count": 148,
    "fields": {
     "name": "string",
-    "decision": "string",
-    "importance": "number",
-    "construction": "object",
-    "renderCorrect": "null",
-    "curveName": "string",
-    "crossedAt": "string",
+    "widthPct": "number",
+    "plus": "number",
+    "minus": "number",
+    "profile": "string",
+    "transform": "object",
+    "tune": "boolean",
     "savedAt": "string"
    }
   },

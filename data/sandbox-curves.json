@@ -1,8 +1,20 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 147,
+ "count": 148,
  "rows": [
+  {
+   "name": "c-0006",
+   "widthPct": 8,
+   "plus": 6,
+   "minus": 0.5,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "tune": true,
+   "savedAt": "2026-11-21T00:27:38.702Z"
+  },
   {
    "name": "double-1-NW-1",
    "decision": "saved",
@@ -3244,6 +3256,9 @@
    "importance": 10,
    "curveName": "side-top-1",
    "widthPct": null,
+   "plus": null,
+   "minus": null,
+   "profile": null,
    "construction": {
     "kind": "hybrid",
     "parent": null,
@@ -3271,8 +3286,8 @@
     },
     "note": "each station is multiplied by P, the cubic middle terms of (x + y)^n"
    },
-   "crossedAt": "2026-11-20T23:48:02.076Z",
-   "savedAt": "2026-11-20T23:48:11.233Z"
+   "crossedAt": "2026-11-21T00:25:03.459Z",
+   "savedAt": "2026-11-21T00:25:24.645Z"
   },
   {
    "name": "h-radius-1-4-every-term",
