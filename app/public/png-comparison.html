@@ -25,6 +25,38 @@ compare the antialiased edges; click again to go back. The grey steps you are
 looking for live on the curve edges at this scale.</p>
 <div class="draft">draft A</div>
 
+<h2>How far can we squeeze? — the ladder, worst first</h2>
+<p class="lead">You asked for the bottom of the ladder, so here it is above the
+good ones. <b>bad</b> is <code>--quality 5-25</code> (6 grey levels left):
+edges step up to 50/255 — that is a visible stair on the curves. <b>almost
+bad</b> is <code>--quality 35-55</code> (8 levels): steps of 27–28/255, right at
+the edge of what a printed page shows. The current recommendation (70-95) is
+repeated here so the jump is on one screen. Click to zoom.</p>
+<div class="row">
+ <figure><img src="png-study/bad-c-0001-1600-grey.png" loading="lazy" alt="bad">
+  <figcaption>c-0001 BAD · 5-25 · 24,982 bytes (−79%) · 6 levels · worst 49/255</figcaption></figure>
+ <figure><img src="png-study/almost-c-0001-1600-grey.png" loading="lazy" alt="almost bad">
+  <figcaption>c-0001 ALMOST BAD · 35-55 · 29,013 bytes (−75%) · 8 levels · worst 28/255</figcaption></figure>
+ <figure><img src="png-study/quant-c-0001-1600-grey.png" loading="lazy" alt="recommended">
+  <figcaption>c-0001 RECOMMENDED · 70-95 · 41,854 bytes (−64%) · 19 levels · worst 14/255</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original">
+  <figcaption>c-0001 ORIGINAL · 116,728 bytes · 211 levels</figcaption></figure>
+ <figure><img src="png-study/bad-c-0014-1600-grey.png" loading="lazy" alt="bad">
+  <figcaption>c-0014 BAD · 5-25 · 31,587 bytes (−80%) · 6 levels · worst 50/255</figcaption></figure>
+ <figure><img src="png-study/almost-c-0014-1600-grey.png" loading="lazy" alt="almost bad">
+  <figcaption>c-0014 ALMOST BAD · 35-55 · 36,363 bytes (−77%) · 8 levels · worst 27/255</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/quant-c-0014-1600-grey.png" loading="lazy" alt="recommended">
+  <figcaption>c-0014 RECOMMENDED · 70-95 · 55,684 bytes (−65%) · 17 levels · worst 16/255</figcaption></figure>
+ <figure><img src="png-study/orig-c-0014-1600-grey.png" loading="lazy" alt="original">
+  <figcaption>c-0014 ORIGINAL · 161,100 bytes · 211 levels</figcaption></figure>
+ <figure><img src="png-study/q90-c-0014-1600-grey.png" loading="lazy" alt="90-99">
+  <figcaption>c-0014 SOFT · 90-99 · 72,615 bytes (−55%) · worst 8/255</figcaption></figure>
+</div>
+
 <h2>The whole set, once more in numbers</h2>
 <table>
 <tr><th>setting</th><th>whole set (397 plates)</th><th>time</th><th>worst edge error</th></tr>
