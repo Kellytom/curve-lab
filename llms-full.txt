@@ -4100,6 +4100,19 @@ The operator: "add the stars to every curve either stored or none if unstarred s
   say `stars 5/10` or `stars none`; `/plates` carries the rating in its provenance sentence.
   `app/src/lib/provenance.js` (`starsOf`, `starsLabel`); guarded by `tests/test_curve_stars.py`.
 
+## Ten stars are the rating, stored in place — 2026-11-21
+
+The operator: "ten stars i can click and store."
+
+- On `/tune/<uid>` a row of ten stars and a **none**. A click stores at once through
+  `POST /api/curve-stars`, which writes the note's `importance` (0 = none) in one transaction
+  and refreshes `data/curves.json`. The page label and every other page follow; 2/10 or more is
+  on `/plates`.
+- The status says `saving stars…`, `stars saved`, or `stars not saved: …`; a failure repaints the
+  previous value. Clicking the star that is already set clears it to none.
+- The rating has one source: the note's `importance`. The star row is the editor; the pages are
+  readers.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 

@@ -149,6 +149,17 @@ try {
     (nodes) => nodes.some((node) => node.disabled));
   if (stillDisabled) problems.push("the save buttons stayed disabled after a refusal");
 
+  // ten stars and a none, showing the stored rating
+  await page.goto(`${BASE}/tune/c-0001a`, { waitUntil: "networkidle" });
+  await page.waitForSelector("#tune-stars", { timeout: 8000 });
+  const starButtons = await page.$$eval("#tune-stars button[data-stars]", (nodes) => nodes.length);
+  if (starButtons !== 11) problems.push(`the star row has ${starButtons} buttons, not 11`);
+  const stars = Number(await page.$eval("#tune-stars", (node) => node.dataset.stars));
+  const label = await page.$eval("#tune-stars-label", (node) => node.textContent.trim());
+  if ((stars === 0) !== /none/.test(label)) {
+    problems.push(`the star row and its label disagree: ${stars} vs ${label}`);
+  }
+
   // the per-curve page redraws in place: no navigation, no submit. The width is still cut
   // by the original fold guard, and the readout must say the number it was cut to.
   await page.goto(`${BASE}/tune/c-0001`, { waitUntil: "networkidle" });

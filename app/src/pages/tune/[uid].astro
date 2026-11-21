@@ -140,7 +140,8 @@ const svg = box
 ---
 
 <BaseLayout title="the tuning engine" pageTitle="The tuning engine">
-  <p class="lead"><b>{record.uid}</b> {record.name} · stars {starsLabel(record.stars)}{record.uid !== baseUid ? ` · variant of ${baseUid}` : ""}.
+  <p class="lead"><b>{record.uid}</b> {record.name} · <span id="tune-stars-label">stars
+    {starsLabel(record.stars)}</span>{record.uid !== baseUid ? ` · variant of ${baseUid}` : ""}.
     The four values shape the two edges of the band. Saving writes the desk row and rebuilds
     that plate; saving a new curve gives it the next uid beside its parent.</p>
 
@@ -150,6 +151,14 @@ const svg = box
   <div class="tune-grid">
     <div class="tune-preview" id="tune-preview" set:html={svg} />
     <form class="tune-form" id="tune-form" method="get">
+      <div class="tune-stars" id="tune-stars" data-stars={record.stars || 0}
+        role="group" aria-label="stars">
+        {Array.from({ length: 10 }, (_, i) => (
+          <button type="button" class:list={["star", { on: (record.stars || 0) > i }]}
+            data-stars={i + 1} aria-label={`${i + 1} stars`}>★</button>
+        ))}
+        <button type="button" class="star-none" data-stars="0" aria-label="no stars">none</button>
+      </div>
       <label>new curve name <input name="curveName" type="text" maxlength="120" value={suggestedName} /></label>
       <label>width % <input name="widthPct" type="number" min="0.5" max="20" step="0.05" value={values.widthPct} /></label>
       <input class="tune-slider" id="widthPct-slider" type="range" min="0.5" max="20" step="0.05"
@@ -220,6 +229,12 @@ const svg = box
   .tune-form input, .tune-form select { width: 8rem; margin: 0; padding: 2px 4px; font-size: 13px; }
   .tune-form button { width: 100%; margin: 6px 0 0; }
   .tune-slider { width: 100%; margin: -4px 0 8px; }
+  .tune-stars { display: flex; align-items: center; gap: 2px; margin: 0 0 12px; }
+  .tune-stars .star { background: none; border: 0; padding: 0 1px; margin: 0; width: auto;
+    font-size: 22px; line-height: 1; color: #d8c9a8; cursor: pointer; }
+  .tune-stars .star.on { color: #8a6a1f; }
+  .tune-stars .star-none { background: none; border: 0; margin: 0 0 0 8px; width: auto;
+    font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; cursor: pointer; }
   .tune-note { font: 13px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .tune-ok { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #2f6f3a; }
   .tune-bad { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #9b2c2c; }

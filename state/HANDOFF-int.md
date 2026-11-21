@@ -3443,4 +3443,11 @@ Tschirnhausen — classic but adds nothing; off the board.
   every record; unstarred says `none`. `loadRegistry` sets `record.stars`, `data/curves.json`
   carries it on every row, and `/figures` (176 `none`), `/curves/<uid>` and `/tune/<uid>` print it;
   `/plates` prints it in the provenance. Guard `tests/test_curve_stars.py` (fast loop).
+- **The ten stars are clickable and stored.** On `/tune/<uid>`, a click writes the note's
+  importance through `POST /api/curve-stars` (0 = none), refreshes the JSON copy and every page;
+  the set star clears it. The label says `stars 3/10` or `none`.
+- **A side-curve sandbox is up.** `scripts/side_curves.mjs` → `/workbench/side-curves.html`: the
+  spine, today's width rail, a similarity ×0.94 and a 2° rotation for `c-0269`, `c-0273`,
+  `c-0350`, with turns and gaps. The rail adds 49/17/23 turns over 10°; the algorithmic partner
+  adds none of its own. The gap is proportional, not constant — the next decision.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

@@ -74,6 +74,52 @@ function start() {
     });
   }
 
+  // Ten stars: a click stores the rating at once, through the same desk path as a save.
+  // Clicking the set star again clears it to none. The rating is the note's importance.
+  const starRow = el("tune-stars");
+  const starLabel = el("tune-stars-label");
+  if (starRow) {
+    const stars = [...starRow.querySelectorAll("button[data-stars]")];
+    let current = Number(starRow.dataset.stars || 0);
+    const paint = (value) => {
+      current = value;
+      starRow.dataset.stars = String(value);
+      for (const button of stars) {
+        const at = Number(button.dataset.stars);
+        button.classList.toggle("on", at > 0 && at <= value);
+      }
+      if (starLabel) starLabel.textContent = value > 0 ? `stars ${value}/10` : "stars none";
+    };
+    paint(current);
+    const store = async (value) => {
+      stars.forEach((button) => { button.disabled = true; });
+      say("saving stars…", "busy");
+      try {
+        const response = await fetch("/api/curve-stars", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ uid, stars: value }),
+        });
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(body.error || `stars failed: ${response.status}`);
+        paint(value);
+        say(body.warning ? `stars saved — ${body.warning}` : "stars saved",
+          body.warning ? "bad" : "ok");
+      } catch (error) {
+        paint(current);
+        say(`stars not saved: ${error.message}`, "bad");
+      } finally {
+        stars.forEach((button) => { button.disabled = false; });
+      }
+    };
+    for (const button of stars) {
+      button.addEventListener("click", () => {
+        const at = Number(button.dataset.stars);
+        store(at === 0 ? 0 : at === current ? 0 : at);
+      });
+    }
+  }
+
   // the three numbers each have a slider: move one and the other follows, then redraw
   for (const key of ["widthPct", "plus", "minus"]) {
     const number = inputs[key];

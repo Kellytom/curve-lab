@@ -57,6 +57,9 @@ A tuning row holds the four values and the turn for one curve, keyed by its uid.
 is a real record with a uid of its own, so it appears on `/plates` beside the curve it came
 from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 
+- [x] **Ten stars and a none** sit above the form. A click stores the rating at once to the
+      note's importance (0 = none); the set star clears it. Check: `scripts/check-tune-lab.mjs`
+      (eleven buttons, the label matches the stored value) and the route `POST /api/curve-stars`.
 - [x] **Save** writes the row for this uid and keeps every field it does not own. It then
       rebuilds that curve's plate. Check: `app/tests/desk-tune.test.mjs`
       (`save keeps every field the tune does not own`).
