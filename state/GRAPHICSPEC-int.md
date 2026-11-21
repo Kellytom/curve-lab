@@ -139,3 +139,25 @@ Rules:
 - Old sets keep their legacy names until they are migrated: `app/public/figures/<uid>.png`
   (600 px bordered thumbnail), `app/public/curves/<uid>.png`, `app/public/frames/illus-*.png`,
   `book/old-plates/<plate-id>.png`.
+
+## The tuning workflow
+
+```
+/plates/            every curve, its plate, and a "tune" link
+/tune/<uid>         one curve, the four character values, a live preview
+  preview           the same plate_math the plate uses: spine, two rails, two bands
+  save + render     writes the values through desk-io and runs print_plates --only <uid>
+  done              the redirect lands on "saved and rendered — back to the plates"
+```
+
+Good practice this follows:
+
+- **one source of maths** — the preview and the plate both call `plate_math.group(row)`;
+- **the save is the render** — a press cannot leave the page and the file disagreeing;
+- **the numbers are the record** — they go to the row, so a re-render later reproduces the
+  same plate without the page;
+- **the page is local and thin** — it spawns the same CLI a person would type, with a 120 s
+  timeout, and says so when a curve has nothing to draw.
+
+The values are read in this order everywhere: the note, the desk row, the defaults
+(6 %, plus 2, minus 2, bow).
