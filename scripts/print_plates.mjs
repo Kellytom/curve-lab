@@ -27,17 +27,16 @@ const WEB = path.join(ROOT, "app", "public", "plates-web");
 mkdirSync(OUT, { recursive: true });
 mkdirSync(WEB, { recursive: true });
 
-// The web copy: lossless WebP at 1600 px, about a third of the PNG and still exact. It is
-// what the page shows and what git carries; the 3000 px PNG stays local for print.
+// The web copy: PNG at 1600 px. PNG is the one format that opens everywhere — LibreOffice,
+// Pages, Word, a browser, a print shop — so the copy in git is a PNG too, not WebP. It is
+// about three times the WebP and worth it: a picture nobody can place in a document is not
+// preserved.
 const WEB_SIDE = 1600;
 function webCopy(uid, png) {
-  const small = path.join(WEB, `${uid}.tmp.png`);
   try {
-    execFileSync("sips", ["-Z", String(WEB_SIDE), png, "--out", small], { stdio: "ignore" });
-    execFileSync("cwebp", ["-quiet", "-lossless", "-z", "9", small,
-      "-o", path.join(WEB, `${uid}.webp`)], { stdio: "ignore" });
-  } catch { /* no sips or no cwebp: the PNG is still there */ }
-  rmSync(small, { force: true });
+    execFileSync("sips", ["-Z", String(WEB_SIDE), png,
+      "--out", path.join(WEB, `${uid}.png`)], { stdio: "ignore" });
+  } catch { /* no sips: the 3000 px plate is still there */ }
 }
 
 const PLATE = (await import(path.join(ROOT, "workbench", "plate_math.js"))).default

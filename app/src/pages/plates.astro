@@ -18,7 +18,7 @@ const rows = registry.curves
     formula: curve.formula?.plain || "",
     turn: curve.transform?.degrees || 0,
     exported: existsSync(path.join(print, `${curve.uid}.png`)),
-    web: existsSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}.webp`)),
+    web: existsSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}.png`)),
   }));
 const done = rows.filter((row) => row.exported).length;
 ---
@@ -37,7 +37,7 @@ const done = rows.filter((row) => row.exported).length;
     {rows.map((row) => (
       <article class="plate-card">
         <a href={`/api/print-plate/${row.uid}`}>
-          <img src={row.web ? `/plates-web/${row.uid}.webp` : `/api/print-plate/${row.uid}`}
+          <img src={row.web ? `/plates-web/${row.uid}.png` : `/api/print-plate/${row.uid}`}
             alt={row.name} loading="lazy" />
         </a>
         <p class="plate-name"><code>{row.uid}</code> {row.name}</p>
@@ -45,7 +45,7 @@ const done = rows.filter((row) => row.exported).length;
           {row.exported
             ? <><a href={`/api/print-plate/${row.uid}`}>png 300 dpi</a> ·
                 <a href={`/api/print-plate/${row.uid}?format=svg`}>svg</a>{row.web
-                  ? <> · <a href={`/plates-web/${row.uid}.webp`}>webp</a></> : null} ·</>
+                  ? <> · <a href={`/plates-web/${row.uid}.png`}>1600 png</a></> : null} ·</>
             : <span>not exported yet ·</span>}
           turn {row.turn}°
         </p>

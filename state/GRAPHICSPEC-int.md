@@ -85,14 +85,13 @@ legend; the name and the record are on the page that lists it, and in `plates.js
   plate; the card links the PNG, the SVG and the record's formula and turn.
 - `app/src/pages/api/print-plate/[uid].js` — serves the pair; the uid is checked against
   `^c-\d{4}$` before a path is built.
-- **Two sizes.** The 3000 px PNG and its SVG stay **local** in `book/print/` (gitignored):
-  that is the print master, re-rendered freely. Git carries a **lossless WebP at 1600 px**
-  per curve, `app/public/plates-web/<uid>.webp` — about a third of the PNG, exact, and with
-  alpha available — so a clone still shows every plate. The page shows the WebP and links the
-  PNG.
-- The WebP is made by two native tools, not a Python step: `sips -Z 1600` to resize and
-  `cwebp -lossless -z 9` to encode. Both are on this machine; if either is missing the PNG is
-  still written and the page falls back to it.
+- **Two sizes, both PNG.** The 3000 px master stays **local** in `book/print/` (gitignored,
+  re-rendered freely). Git carries a **1600 px PNG** per curve in
+  `app/public/plates-web/<uid>.png`, about 120 KB each, so a clone shows every plate and any
+  document can place it: PNG opens in LibreOffice, Pages, Word, a browser and a print shop,
+  where WebP does not.
+- The web copy is `sips -Z 1600`, a native tool, no Python and no extra library. If sips is
+  missing, the master is still written and the page falls back to it.
 
 ## Checks that fail when the spec stops being true
 
