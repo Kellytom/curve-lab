@@ -6085,10 +6085,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.221Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.52, -0.52) to (-0.52, 0.52)",
+    "plain": "polyline through 321 stations, (0.520833, -0.520833) to (-0.520833, 0.520833)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.52, -0.52) to (-0.52, 0.52); no metric yet",
+    "search": "polyline 321 stations from (0.520833, -0.520833) to (-0.520833, 0.520833); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6154,10 +6154,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.224Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.1, -1.1) to (-1.1, 1.1)",
+    "plain": "polyline through 321 stations, (1.104167, -1.104167) to (-1.104167, 1.104167)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.1, -1.1) to (-1.1, 1.1); no metric yet",
+    "search": "polyline 321 stations from (1.104167, -1.104167) to (-1.104167, 1.104167); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6223,10 +6223,10 @@
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.227Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.92, -0.55) to (-0.55, 0.92)",
+    "plain": "polyline through 321 stations, (0.922081, -0.547081) to (-0.547081, 0.922081)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.92, -0.55) to (-0.55, 0.92); no metric yet",
+    "search": "polyline 321 stations from (0.922081, -0.547081) to (-0.547081, 0.922081); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6292,10 +6292,10 @@
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.232Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.93, -0.05) to (-0.05, 0.93)",
+    "plain": "polyline through 321 stations, (0.934744, -0.045855) to (-0.045855, 0.934744)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.93, -0.05) to (-0.05, 0.93); no metric yet",
+    "search": "polyline 321 stations from (0.934744, -0.045855) to (-0.045855, 0.934744); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6361,10 +6361,10 @@
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.234Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.82, -0.07) to (-0.07, 0.82)",
+    "plain": "polyline through 321 stations, (0.815805, -0.065805) to (-0.065805, 0.815805)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.82, -0.07) to (-0.07, 0.82); no metric yet",
+    "search": "polyline 321 stations from (0.815805, -0.065805) to (-0.065805, 0.815805); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6430,10 +6430,10 @@
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.239Z",
    "formula": {
-    "plain": "polyline through 321 stations, (4.13, -3.38) to (-3.38, 4.13)",
+    "plain": "polyline through 321 stations, (4.129326, -3.379326) to (-3.379326, 4.129326)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (4.13, -3.38) to (-3.38, 4.13); no metric yet",
+    "search": "polyline 321 stations from (4.129326, -3.379326) to (-3.379326, 4.129326); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6913,10 +6913,10 @@
    "candidate": false,
    "createdAt": "2026-11-18T23:28:01.286Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.84, 0.56) to (0.56, 1.84)",
+    "plain": "polyline through 321 stations, (1.842686, 0.557314) to (0.557314, 1.842686)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.84, 0.56) to (0.56, 1.84); no metric yet",
+    "search": "polyline 321 stations from (1.842686, 0.557314) to (0.557314, 1.842686); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -6982,10 +6982,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.290Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.71, 0.93) to (0.93, 1.71)",
+    "plain": "polyline through 321 stations, (1.713448, 0.926552) to (0.926552, 1.713448)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.71, 0.93) to (0.93, 1.71); no metric yet",
+    "search": "polyline 321 stations from (1.713448, 0.926552) to (0.926552, 1.713448); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7051,10 +7051,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.293Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.9, 0.75) to (0.75, 1.9)",
+    "plain": "polyline through 321 stations, (1.898013, 0.754765) to (0.754765, 1.898013)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.9, 0.75) to (0.75, 1.9); no metric yet",
+    "search": "polyline 321 stations from (1.898013, 0.754765) to (0.754765, 1.898013); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7120,10 +7120,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.298Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.82, 0.93) to (0.93, 1.82)",
+    "plain": "polyline through 321 stations, (1.815805, 0.934195) to (0.934195, 1.815805)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.82, 0.93) to (0.93, 1.82); no metric yet",
+    "search": "polyline 321 stations from (1.815805, 0.934195) to (0.934195, 1.815805); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7189,10 +7189,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.301Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.92, 0.45) to (0.45, 1.92)",
+    "plain": "polyline through 321 stations, (1.922081, 0.452919) to (0.452919, 1.922081)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.92, 0.45) to (0.45, 1.92); no metric yet",
+    "search": "polyline 321 stations from (1.922081, 0.452919) to (0.452919, 1.922081); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7258,10 +7258,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.304Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.93, 0.95) to (0.95, 1.93)",
+    "plain": "polyline through 321 stations, (1.934744, 0.954145) to (0.954145, 1.934744)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.93, 0.95) to (0.95, 1.93); no metric yet",
+    "search": "polyline 321 stations from (1.934744, 0.954145) to (0.954145, 1.934744); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7327,10 +7327,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.307Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.54, 1.66) to (1.66, 1.54)",
+    "plain": "polyline through 321 stations, (1.5424, 1.6576) to (1.6576, 1.5424)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.54, 1.66) to (1.66, 1.54); no metric yet",
+    "search": "polyline 321 stations from (1.5424, 1.6576) to (1.6576, 1.5424); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7396,10 +7396,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.312Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.99, 0.97) to (0.97, 1.99)",
+    "plain": "polyline through 321 stations, (1.990821, 0.969179) to (0.969179, 1.990821)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.99, 0.97) to (0.97, 1.99); no metric yet",
+    "search": "polyline 321 stations from (1.990821, 0.969179) to (0.969179, 1.990821); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7465,10 +7465,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.317Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-9.87, 7.29) to (7.29, -9.87)",
+    "plain": "polyline through 321 stations, (-9.874348, 7.291015) to (7.291015, -9.874348)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-9.87, 7.29) to (7.29, -9.87); no metric yet",
+    "search": "polyline 321 stations from (-9.874348, 7.291015) to (7.291015, -9.874348); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7534,10 +7534,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.320Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-10.59, 6.59) to (6.59, -10.59)",
+    "plain": "polyline through 321 stations, (-10.586923, 6.586923) to (6.586923, -10.586923)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-10.59, 6.59) to (6.59, -10.59); no metric yet",
+    "search": "polyline 321 stations from (-10.586923, 6.586923) to (6.586923, -10.586923); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7603,10 +7603,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.324Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-11.74, 5.69) to (5.69, -11.74)",
+    "plain": "polyline through 321 stations, (-11.744146, 5.694146) to (5.694146, -11.744146)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-11.74, 5.69) to (5.69, -11.74); no metric yet",
+    "search": "polyline 321 stations from (-11.744146, 5.694146) to (5.694146, -11.744146); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7672,10 +7672,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.327Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-18.74, 17.9) to (17.9, -18.74)",
+    "plain": "polyline through 321 stations, (-18.735766, 17.902432) to (17.902432, -18.735766)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-18.74, 17.9) to (17.9, -18.74); no metric yet",
+    "search": "polyline 321 stations from (-18.735766, 17.902432) to (17.902432, -18.735766); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7741,10 +7741,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.329Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-17.33, 15.88) to (15.88, -17.33)",
+    "plain": "polyline through 321 stations, (-17.326523, 15.882079) to (15.882079, -17.326523)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-17.33, 15.88) to (15.88, -17.33); no metric yet",
+    "search": "polyline 321 stations from (-17.326523, 15.882079) to (15.882079, -17.326523); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7810,10 +7810,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.332Z",
    "formula": {
-    "plain": "polyline through 321 stations, (-16.16, 13.29) to (13.29, -16.16)",
+    "plain": "polyline through 321 stations, (-16.163076, 13.288076) to (13.288076, -16.163076)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (-16.16, 13.29) to (13.29, -16.16); no metric yet",
+    "search": "polyline 321 stations from (-16.163076, 13.288076) to (13.288076, -16.163076); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7879,10 +7879,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.335Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.69, 2.06) to (2.06, 0.69)",
+    "plain": "polyline through 321 stations, (0.694731, 2.055269) to (2.055269, 0.694731)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.69, 2.06) to (2.06, 0.69); no metric yet",
+    "search": "polyline 321 stations from (0.694731, 2.055269) to (2.055269, 0.694731); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -7948,10 +7948,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.340Z",
    "formula": {
-    "plain": "polyline through 321 stations, (1.21, 0.29) to (0.29, 1.21)",
+    "plain": "polyline through 321 stations, (1.209677, 0.290323) to (0.290323, 1.209677)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (1.21, 0.29) to (0.29, 1.21); no metric yet",
+    "search": "polyline 321 stations from (1.209677, 0.290323) to (0.290323, 1.209677); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8017,10 +8017,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.343Z",
    "formula": {
-    "plain": "polyline through 321 stations, (0.05, -0.3) to (-0.3, 0.05)",
+    "plain": "polyline through 321 stations, (0.050529, -0.300529) to (-0.300529, 0.050529)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 321 stations from (0.05, -0.3) to (-0.3, 0.05); no metric yet",
+    "search": "polyline 321 stations from (0.050529, -0.300529) to (-0.300529, 0.050529); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8086,10 +8086,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.347Z",
    "formula": {
-    "plain": "polyline through 701 stations, (3, 4) to (3, 4)",
+    "plain": "polyline through 701 stations, (2.999995, 3.998419) to (2.999995, 4.001561)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (3, 4) to (3, 4); no metric yet",
+    "search": "polyline 701 stations from (2.999995, 3.998419) to (2.999995, 4.001561); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8155,10 +8155,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.350Z",
    "formula": {
-    "plain": "polyline through 701 stations, (3, 4) to (3, 4)",
+    "plain": "polyline through 701 stations, (2.996846, 4.003134) to (3.003129, 3.996851)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (3, 4) to (3, 4); no metric yet",
+    "search": "polyline 701 stations from (2.996846, 4.003134) to (3.003129, 3.996851); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8224,10 +8224,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.354Z",
    "formula": {
-    "plain": "polyline through 701 stations, (5, 12) to (5, 12)",
+    "plain": "polyline through 701 stations, (4.999993, 11.996829) to (4.999993, 12.003112)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (5, 12) to (5, 12); no metric yet",
+    "search": "polyline 701 stations from (4.999993, 11.996829) to (4.999993, 12.003112); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8293,10 +8293,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.359Z",
    "formula": {
-    "plain": "polyline through 701 stations, (4.99, 12.01) to (5.01, 11.99)",
+    "plain": "polyline through 701 stations, (4.990553, 12.006259) to (5.009403, 11.993692)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (4.99, 12.01) to (5.01, 11.99); no metric yet",
+    "search": "polyline 701 stations from (4.990553, 12.006259) to (5.009403, 11.993692); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8362,10 +8362,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.363Z",
    "formula": {
-    "plain": "polyline through 701 stations, (7.98, 15.01) to (8.02, 14.99)",
+    "plain": "polyline through 701 stations, (7.984258, 15.009395) to (8.015673, 14.990546)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (7.98, 15.01) to (8.02, 14.99); no metric yet",
+    "search": "polyline 701 stations from (7.984258, 15.009395) to (8.015673, 14.990546); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8431,10 +8431,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.366Z",
    "formula": {
-    "plain": "polyline through 701 stations, (2.99, 4.01) to (3.01, 3.99)",
+    "plain": "polyline through 701 stations, (2.992126, 4.007849) to (3.007834, 3.992141)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (2.99, 4.01) to (3.01, 3.99); no metric yet",
+    "search": "polyline 701 stations from (2.992126, 4.007849) to (3.007834, 3.992141); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8500,10 +8500,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.388Z",
    "formula": {
-    "plain": "polyline through 701 stations, (1, 0) to (1, 0)",
+    "plain": "polyline through 701 stations, (0.999985, 0.003142) to (0.999985, -0.003142)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (1, 0) to (1, 0); no metric yet",
+    "search": "polyline 701 stations from (0.999985, 0.003142) to (0.999985, -0.003142); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8569,10 +8569,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.400Z",
    "formula": {
-    "plain": "polyline through 701 stations, (2, 0.01) to (2, -0.01)",
+    "plain": "polyline through 701 stations, (1.999975, 0.006283) to (1.999975, -0.006283)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (2, 0.01) to (2, -0.01); no metric yet",
+    "search": "polyline 701 stations from (1.999975, 0.006283) to (1.999975, -0.006283); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8638,10 +8638,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.419Z",
    "formula": {
-    "plain": "polyline through 701 stations, (1, 0) to (1, 0)",
+    "plain": "polyline through 701 stations, (0.99998, 0.003142) to (0.99998, -0.003142)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 701 stations from (1, 0) to (1, 0); no metric yet",
+    "search": "polyline 701 stations from (0.99998, 0.003142) to (0.99998, -0.003142); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8707,10 +8707,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.424Z",
    "formula": {
-    "plain": "polyline through 601 stations, (-1.27, -0.76) to (-1.27, 0.76)",
+    "plain": "polyline through 601 stations, (-1.272973, -0.762162) to (-1.272973, 0.762162)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 601 stations from (-1.27, -0.76) to (-1.27, 0.76); no metric yet",
+    "search": "polyline 601 stations from (-1.272973, -0.762162) to (-1.272973, 0.762162); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8776,10 +8776,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.428Z",
    "formula": {
-    "plain": "polyline through 601 stations, (-1.13, -0.67) to (-1.13, 0.67)",
+    "plain": "polyline through 601 stations, (-1.125203, -0.673171) to (-1.125203, 0.673171)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 601 stations from (-1.13, -0.67) to (-1.13, 0.67); no metric yet",
+    "search": "polyline 601 stations from (-1.125203, -0.673171) to (-1.125203, 0.673171); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8845,10 +8845,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.436Z",
    "formula": {
-    "plain": "polyline through 601 stations, (-1.52, -0.8) to (-1.52, 0.8)",
+    "plain": "polyline through 601 stations, (-1.519525, -0.803541) to (-1.519525, 0.803541)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 601 stations from (-1.52, -0.8) to (-1.52, 0.8); no metric yet",
+    "search": "polyline 601 stations from (-1.519525, -0.803541) to (-1.519525, 0.803541); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -8914,10 +8914,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.443Z",
    "formula": {
-    "plain": "polyline through 601 stations, (-2.77, -1.85) to (-2.77, 1.85)",
+    "plain": "polyline through 601 stations, (-2.772222, -1.845064) to (-2.772222, 1.845064)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 601 stations from (-2.77, -1.85) to (-2.77, 1.85); no metric yet",
+    "search": "polyline 601 stations from (-2.772222, -1.845064) to (-2.772222, 1.845064); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -9121,10 +9121,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.454Z",
    "formula": {
-    "plain": "polyline through 721 stations, (0.4, -0.53) to (-0.4, 0.53)",
+    "plain": "polyline through 721 stations, (0.4, -0.533333) to (-0.4, 0.533333)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 721 stations from (0.4, -0.53) to (-0.4, 0.53); no metric yet",
+    "search": "polyline 721 stations from (0.4, -0.533333) to (-0.4, 0.533333); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -9259,10 +9259,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.464Z",
    "formula": {
-    "plain": "polyline through 481 stations, (1.26, 0.79) to (-0.31, 1.39)",
+    "plain": "polyline through 481 stations, (1.261538, 0.792308) to (-0.313846, 1.389231)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 481 stations from (1.26, 0.79) to (-0.31, 1.39); no metric yet",
+    "search": "polyline 481 stations from (1.261538, 0.792308) to (-0.313846, 1.389231); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -9328,10 +9328,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.473Z",
    "formula": {
-    "plain": "polyline through 481 stations, (1.02, -0.78) to (-0.31, 1.39)",
+    "plain": "polyline through 481 stations, (1.015385, -0.776923) to (-0.313846, 1.389231)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 481 stations from (1.02, -0.78) to (-0.31, 1.39); no metric yet",
+    "search": "polyline 481 stations from (1.015385, -0.776923) to (-0.313846, 1.389231); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -9397,10 +9397,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.476Z",
    "formula": {
-    "plain": "polyline through 481 stations, (1.26, 0.79) to (-1.06, 0.61)",
+    "plain": "polyline through 481 stations, (1.261538, 0.792308) to (-1.061538, 0.607692)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 481 stations from (1.26, 0.79) to (-1.06, 0.61); no metric yet",
+    "search": "polyline 481 stations from (1.261538, 0.792308) to (-1.061538, 0.607692); no metric yet",
     "use": "no metric yet"
    },
    "note": {
@@ -9466,10 +9466,10 @@
    "candidate": true,
    "createdAt": "2026-11-18T23:28:01.481Z",
    "formula": {
-    "plain": "polyline through 481 stations, (0.14, -0.99) to (-1.06, 0.61)",
+    "plain": "polyline through 481 stations, (0.138462, -0.992308) to (-1.061538, 0.607692)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
     "parameter": "k = 0 … station count − 1",
-    "search": "polyline 481 stations from (0.14, -0.99) to (-1.06, 0.61); no metric yet",
+    "search": "polyline 481 stations from (0.138462, -0.992308) to (-1.061538, 0.607692); no metric yet",
     "use": "no metric yet"
    },
    "note": {
