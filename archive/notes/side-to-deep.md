@@ -262,3 +262,15 @@ Flag for you: **`scripts/print_plates.mjs` should gain this pngquant step** (`pn
 Proved by: the pass printed `{"plates": 397, "beforeBytes": 63555068, "afterBytes": 24347197, "pct": 61.7, "wallSeconds": 264.0}`; PIL verify → 397 readable, 0 broken; the spot-check above; `GET /plates/` → 200.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-21 03:05 — the exact core is in TypeScript: parity 212/212, committed locally
+
+Job (operator, direct): "go for it" — the conversion track from state/SCToDo-int.md.
+Done: **`93e14244`** — `app/src/lib/measure.ts` (the full port of `curve_lab/measure.py` in BigInt fractions), `app/scripts/parity-measure.mjs` (the harness), `app/tests/measure.test.mjs` (smoke pins), the notes for the docs (`state/SC-NOTES-measure-port.md`), and the gallery rename completion (`gallery.js`/`gallery.test.mjs` read `book/old-plates.*` — `bfd0d000` had left the test red for every clone).
+Proved by: `node app/scripts/parity-measure.mjs` → `parity: 212 curves checked, 0 mismatches`; `node --test app/tests/measure.test.mjs` → 3 pass; `node --test app/tests/gallery.test.mjs` → 7 pass; `scripts/test.py` → 125 modules, 0 fail, JS 89 pass.
+**Push held** — no internet by your word. The commit is local; say when the network is back and it rides to GitHub.
+Flag for you: the port caught three of my own faults (a fraction-addition shortcut, a tie-break against the mutated CF tail, an early-return on the unreduced denominator) — all three are written up in `state/SC-NOTES-measure-port.md` as lessons for the next row (`clearance.py` next).
+Blocked: nothing
+Next: `clearance.py` → TypeScript on your word, and the push when internet returns.
