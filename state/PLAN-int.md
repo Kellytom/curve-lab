@@ -16,6 +16,17 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Current (2026-11-20, late) — the plates and the lab
+
+- **Landed:** the four character values reach the plate (three faults, one row law in
+  `scripts/lib/plate-row.mjs`, register row 39); `/tune/<uid>` draws again and starts from
+  the saved row (row 40); `/tune/` is a live lab in the browser gate; the plate ground is
+  transparent, and masters (3000 px) and web copies (1600 px) are both grey+alpha and both
+  gitignored; `state/RESPONSIBILITIES-int.md` says overlap is allowed.
+- **Next — the path-curve band fill.** The rail must be a band, not a blob, on a curve with
+  corners and self-crossings (`c-0273`). Same action as the last handoff; it did not land.
+- **Parked:** none.
+
 ## Current (2026-11-20, night) — the hybrid desk and the doubles
 
 - **Landed:** the hybrid desk (343 candidates, Save / move to notes / reject, stars, names,

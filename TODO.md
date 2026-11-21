@@ -915,3 +915,14 @@ What is left is feature work, not correctness.
   changed to single curves; keep as a reference or remove.
 - [ ] Integer grid at high degree: the pitch reaches 1e14 with decimal
   coefficients, so clear the denominators before asking for hits.
+
+## Plates and the lab — 2026-11-20
+
+- [x] **Transparent ground.** The plate is ink only; the white rect is gone and the
+      screenshot uses `omitBackground`. Measured 83.3 % clear, corners alpha 0.
+- [x] **Grey + alpha.** 397 masters (3000 px) and 397 web copies (1600 px), all colour
+      type 4; both sets gitignored, so a clone rebuilds them and a deploy still ships them.
+- [x] **The live tuning lab** at `/tune/`: four values and the turn, redrawn by the same
+      `plate_math.js`, in the browser gate.
+- [ ] **Path curves carry rails.** Blocked on the band fill at corners and self-crossings
+      (`c-0273`). 185 records are stored as paths.

@@ -3350,3 +3350,21 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The freshness guard was passing on a typo.** An H2 dated `2026-13-11` made `max()` win
   over every real date. Corrected to `2026-11-13`; the guard now fails when the handoff is
   older than the last code commit, which is what it is for.
+
+### Close of the handoff, 2026-11-20
+
+- **Git:** `main` is level with `origin/main` at `f9a55967` (DeepSeek2's alpha rows). The
+  working tree carries DeepSeek2's uncommitted files and sidechat's two `SC-` notes; none
+  of them are this session's.
+- **Tests, run at this handoff:** `scripts/test.py --fast` 11 modules green (5.2 s);
+  `tests.test_regressions` OK; `npm --prefix app test` 0 failures; `reading_counts.py`
+  reports the counts already right.
+- **Carried, last checked 2026-11-20:** `scripts/recheck.py` 65/65. Cloud Run revision,
+  limits and budget not re-read: nothing was deployed or changed there.
+- **The previous action did not land.** `next-fhandoff-int.md` named the path-curve band
+  fill; `tests/js/plate-path.test.mjs` does not exist, and `print_plates.mjs` still prints
+  the spine only for a path. It is carried, unchanged, not replaced with new work.
+- **Tried and rejected:** `pathGroup` on the refined walk drawn as a filled band — the
+  offset crosses the spine at corners and self-crossings, and on `c-0273` the fill becomes
+  solid blobs with spikes. Rejected as a plate feature; the function stays in
+  `plate_math.js`, unused, and `print_plates.mjs` says why in place.

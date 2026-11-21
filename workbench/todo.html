@@ -22,7 +22,7 @@ code{font:12px ui-monospace,Menlo,monospace;background:#f2ead8;padding:1px 4px}
 a{color:#8c6a21}
 .progress{background:#fffdf7;border:1px solid #d8ccae;padding:14px 16px;margin:0 0 22px}
 .bar{height:12px;background:#efe7d3;border:1px solid #d8ccae;margin:0 0 8px}
-.fill{height:100%;background:#8c6a21;width:68.3%}
+.fill{height:100%;background:#8c6a21;width:68.4%}
 .count{font:11px ui-monospace,Menlo,monospace;color:#7b6c4e}
 .tablewrap{overflow-x:auto;margin:0 0 18px}
 table{border-collapse:collapse;width:100%;font:11px/1.45 ui-monospace,Menlo,monospace}
@@ -35,7 +35,7 @@ tr:nth-child(even) td{background:#fcf8ee}
 <h1>Todo</h1>
 <div class="progress">
 <div class="bar"><div class="fill"></div></div>
-<div class="count">129 / 189 done · 68% · read-only twin of
+<div class="count">132 / 193 done · 68% · read-only twin of
 <a href="../TODO.md">TODO.md</a> · regenerate with <code>scripts/todo.py</code></div>
 </div>
 <h1>Focused todo</h1>
@@ -499,4 +499,13 @@ tr:nth-child(even) td{background:#fcf8ee}
 <p>changed to single curves; keep as a reference or remove.</p>
 <label class="task"><input type="checkbox" disabled><span>Integer grid at high degree: the pitch reaches 1e14 with decimal</span></label>
 <p>coefficients, so clear the denominators before asking for hits.</p>
+<h2>Plates and the lab — 2026-11-20</h2>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Transparent ground.</strong> The plate is ink only; the white rect is gone and the</span></label>
+<p>screenshot uses <code>omitBackground</code>. Measured 83.3 % clear, corners alpha 0.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>Grey + alpha.</strong> 397 masters (3000 px) and 397 web copies (1600 px), all colour</span></label>
+<p>type 4; both sets gitignored, so a clone rebuilds them and a deploy still ships them.</p>
+<label class="task"><input type="checkbox" checked disabled><span><strong>The live tuning lab</strong> at <code>/tune/</code>: four values and the turn, redrawn by the same</span></label>
+<p><code>plate_math.js</code>, in the browser gate.</p>
+<label class="task"><input type="checkbox" disabled><span><strong>Path curves carry rails.</strong> Blocked on the band fill at corners and self-crossings</span></label>
+<p>(<code>c-0273</code>). 185 records are stored as paths.</p>
 </main></body></html>

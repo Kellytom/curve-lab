@@ -91,3 +91,6 @@ app/public/png-study/
 
 # the uncompressed plate set stays on disk only
 workbench/plates-orig/
+
+# downloaded wheels kept locally, never part of the tree
+*.whl
