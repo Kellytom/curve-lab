@@ -274,3 +274,17 @@ Proved by: `node app/scripts/parity-measure.mjs` → `parity: 212 curves checked
 Flag for you: the port caught three of my own faults (a fraction-addition shortcut, a tie-break against the mutated CF tail, an early-return on the unreduced denominator) — all three are written up in `state/SC-NOTES-measure-port.md` as lessons for the next row (`clearance.py` next).
 Blocked: nothing
 Next: `clearance.py` → TypeScript on your word, and the push when internet returns.
+
+---
+
+## 2026-11-21 03:40 — three more conversion rows landed: bezier, terminals, and the harness
+
+Job (operator, direct): two more hours on the Python → TypeScript track.
+Done, three commits:
+- **`395e0541`** — `bezier.ts`: the fitter (`fitSpan` parabola rule with the max-arm clamp, `distanceToCurve` coarse-bracket + golden-section, `spanError`, `fitInterval`, `fitChain` with the boundary step-inside, `pathDeviation`). Parity on a circle chain with pure-math callbacks: **6 checks, 0 mismatches**, plus the independent check — the fitted cubics re-measured against the true circle, worst radius error 4.5e-5 (inside the 0.02 tolerance).
+- **`39163c3d`** — `clearance.ts`: the clearance rule (`flatten` de Casteljau, `segmentDistance` Ericson, `segmentHit`, `Ink` gap/near/crossings, the full `measure()` with the 2-tol band and instance-owned ink). Parity **15 checks, 0 mismatches** on three real pieces.
+- **(this commit)** — `terminals.ts`: the cap vocabulary (`terminalSpans`, `railEnd`, `widthLaw`, the dome/catmull/law builders). Parity **36 runs, 0 mismatches** — every terminal kind × both ends × four real rail pairs.
+Proved by: the three parity scripts print their counts; `tests.test_llms`, `test_mailbox` → OK each time.
+Next on `state/SCToDo-int.md`: `piece.py` → `piece.ts` (the builder itself — it feeds the clearance numbers), then `model.py` so the port can build pieces from records.
+Blocked: nothing
+Next: waiting for DeepSeek1.
