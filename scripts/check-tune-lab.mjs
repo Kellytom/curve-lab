@@ -87,14 +87,14 @@ try {
     problems.push(`plus 0 / minus 0 is not flat: ${flat}`);
   }
 
-  // a path curve has no speed rows: the plate prints the spine only, and the page says so
+  // a stored path draws the plate's band, like the polyline case below
   await page.selectOption("#lab-curve", "c-0273");
   await page.waitForFunction(
-    () => /stored as a path/.test(document.getElementById("lab-readout")?.textContent || ""),
+    () => /stored points/.test(document.getElementById("lab-readout")?.textContent || ""),
     { timeout: 8000 },
   );
   const pathPaths = await page.$$eval("#lab-preview svg path", (nodes) => nodes.length);
-  if (pathPaths !== 1) problems.push(`a path curve drew ${pathPaths} paths, not its spine`);
+  if (pathPaths < 5) problems.push(`a path curve drew ${pathPaths} paths, not a band`);
 
   // a polyline is the plate's rail branch: it must draw a band and answer the width
   await page.selectOption("#lab-curve", "c-0143");
@@ -186,7 +186,7 @@ try {
 
   console.log(problems.length
     ? `FAIL\n- ${problems.join("\n- ")}`
-    : "tune lab: both pages draw live, the flat case reads 1.00×, and a path says it is a spine");
+    : "tune lab: both pages draw live, the flat case reads 1.00×, and stored outlines draw bands");
 } finally {
   await browser.close();
 }

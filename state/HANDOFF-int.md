@@ -3422,5 +3422,9 @@ Tschirnhausen — classic but adds nothing; off the board.
   as a spine. The 56 figures were re-rendered with the smooth outlines.
 - **The unsaved default width is 1.5 %**, not 6 %, in `plate-row.mjs`, the tune page and the lab;
   a saved row keeps its own values. The plates were re-rendered with both changes.
-- **Next:** the path-curve band fill (185 path records). The path rail's existing cap jitters;
-  changing it is a rail decision and waits on the operator.
+- **The path records print two rails.** The path rail's fold cap is continuous (same law, the
+  half-radius rule, a ceiling that moves at most 0.25 per unit of arc length). All 129 `path`
+  records join the 56 `polyline` ones; `c-0273` prints two bands, the page matches, and the
+  plates are re-rendered. Registers 44, 45; guards `tests/test_registry_paths.py`,
+  `tests/js/plate-path.test.mjs`, `scripts/check-tune-lab.mjs`.
+- **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

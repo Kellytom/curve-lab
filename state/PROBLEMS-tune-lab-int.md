@@ -143,3 +143,19 @@ returns with its banner.
 
 **Guard:** `scripts/check-tune-lab.mjs`: an empty-name save is refused, the status says
 `not saved`, and the buttons are enabled again. Nothing is written by that check.
+
+## 9. A path curve said "spine only" while its plate printed a blob
+
+**Seen:** `c-0273`'s plate was a filled blob with spikes; the page said the plate printed the
+spine only, and the two views disagreed.
+
+**Wrong:** the path rail's fold cap moved one station at a time. Where the curvature changed,
+the distance jumped (4 % of the curve's size, 105 sharp turns); the plate hid the result behind a
+spine-only branch.
+
+**Fix:** the cap is continuous — the same law, the same half-radius rule, applied as a ceiling
+that moves at most 0.25 per unit of arc length. The page and the plate both draw the band for
+every stored outline.
+
+**Guard:** `tests/js/plate-path.test.mjs` (`c-0273`) and the stored-path case in
+`scripts/check-tune-lab.mjs`.

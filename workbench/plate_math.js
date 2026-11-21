@@ -404,13 +404,28 @@
     return out;
   }
 
+  // A ceiling that changes no faster than `slope` per unit of arc length. The path rail's
+  // cap used to be one station at a time, so it jumped wherever the curvature did: on
+  // c-0273 the distance moved 4 % of the curve's size in one step and the edge made 105
+  // sharp turns. This is the same rule — d ≤ half the local radius — applied continuously.
+  function pinchCap(room, arc, slope = 0.25) {
+    const cap = room.slice();
+    for (let i = 1; i < cap.length; i += 1) {
+      cap[i] = Math.min(cap[i], cap[i - 1] + slope * (arc[i] - arc[i - 1]));
+    }
+    for (let i = cap.length - 2; i >= 0; i -= 1) {
+      cap[i] = Math.min(cap[i], cap[i + 1] + slope * (arc[i + 1] - arc[i]));
+    }
+    return cap;
+  }
+
   // The rail on a path: the refined walk, then the same law as a row curve —
   // distance = base * (1 + strength * profile(u)), u by arclength, one sign per side.
-  // The offset is capped by the local radius of curvature, so a corner yields a thin rail
-  // instead of a fold: past that radius the rail crosses itself and the band fills wrong.
+  // The offset is held below half the local radius by a continuous cap, so a corner
+  // yields a thin rail instead of a fold, and the edge never jumps between stations.
   function pathGroup(points, options) {
     const opts = options || {};
-    const widthPercent = Number(opts.widthPercent ?? 6);
+    const widthPercent = Number(opts.widthPercent ?? 1.5);
     const plus = Number(opts.plus ?? 2);
     const minus = Number(opts.minus ?? 2);
     const profile = ["bow", "s", "taper"].includes(opts.profile) ? opts.profile : "bow";
@@ -429,28 +444,38 @@
     }
     const total = arc[arc.length - 1] || 1;
 
-    const railFor = (side, strength) => walk.map((p, i) => {
+    const tangents = walk.map((p, i) => {
       const before = walk[Math.max(0, i - 1)];
       const after = walk[Math.min(walk.length - 1, i + 1)];
-      let tx = after[0] - before[0], ty = after[1] - before[1];
+      const tx = after[0] - before[0], ty = after[1] - before[1];
       const len = Math.hypot(tx, ty) || 1;
-      tx /= len; ty /= len;
-      const segA = Math.hypot(p[0] - before[0], p[1] - before[1]);
-      const segB = Math.hypot(after[0] - p[0], after[1] - p[1]);
-      const ax = (p[0] - before[0]) / (segA || 1), ay = (p[1] - before[1]) / (segA || 1);
-      const bx = (after[0] - p[0]) / (segB || 1), by = (after[1] - p[1]) / (segB || 1);
-      const turn = Math.abs(Math.atan2(ax * by - ay * bx, ax * bx + ay * by));
-      const radius = Math.min(segA || Infinity, segB || Infinity) / Math.max(turn, 1e-9);
-      const room = 0.5 * radius;
+      return [tx / len, ty / len];
+    });
+    const room = walk.map((p, i) => {
+      const a = tangents[Math.max(0, i - 1)];
+      const b = tangents[Math.min(walk.length - 1, i + 1)];
+      const step = arc[Math.min(walk.length - 1, i + 1)] - arc[Math.max(0, i - 1)];
+      const turn = Math.abs(Math.atan2(a[0] * b[1] - a[1] * b[0], a[0] * b[0] + a[1] * b[1]));
+      return turn > 1e-9 ? (0.5 * step) / turn : Infinity;
+    });
+    const cap = pinchCap(room, arc);
+    const narrowest = (100 * Math.min(...cap)) / size;
+
+    const railFor = (side, strength) => walk.map((p, i) => {
+      const [tx, ty] = tangents[i];
       const want = base * (1 + strength * profileAt(profile, arc[i] / total));
-      const d = Math.min(want, room) * side;
+      const mag = Math.min(Math.abs(want), cap[i]);
+      const d = side * (want < 0 ? -mag : mag);
       return [p[0] - ty * d, p[1] + tx * d];
     });
 
     const paths = [walk, railFor(1, plus), railFor(-1, minus)];
-    return { paths, bbox: bbox(paths.flat()),
-             note: `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` +
-               ` · ${walk.length} points from ${stored.length} stored` };
+    let note = `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` +
+      ` · ${walk.length} points from ${stored.length} stored`;
+    if (narrowest < Math.abs(widthPercent) - 1e-9) {
+      note += ` · pinched to ${narrowest.toFixed(1)}% at the tightest bend`;
+    }
+    return { paths, bbox: bbox(paths.flat()), width: widthPercent, narrowest, note };
   }
 
   return { value, spine, curvaturePeak, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,

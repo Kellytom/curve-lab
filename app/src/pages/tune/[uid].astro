@@ -92,9 +92,8 @@ if (row.speedX.length) {
   }
 }
 if (!paths.length && record.path) {
-  // the plate draws the character law over a `polyline`; a `path` (a hybrid with corners)
-  // stays the spine until its rail is settled. The page must match the plate.
-  if (record.kind === "polyline" && PLATE.pathGroup) {
+  // the plate draws the character law over every stored outline; the page must match it
+  if (PLATE.pathGroup) {
     const group = PLATE.pathGroup(record.path, {
       widthPercent: values.widthPct, plus: values.plus,
       minus: values.minus, profile: values.profile,

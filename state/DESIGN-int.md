@@ -873,3 +873,13 @@ curve in /plates ... all with UIDs".
   (2026-11-21, operator: "please fix underlying graph"). Identity still rounds to two decimals;
   the drawing does not. `scripts/repair_registry_paths.py` repairs, `tests/test_registry_paths.py`
   keeps it.
+
+## A path rail's cap is continuous — 2026-11-21
+
+The path rail keeps the one law: `distance = base × (1 + strength × profile)` over the refined
+walk, with the rule that the distance stays below half the local radius. What changed is how the
+rule is applied: a continuous ceiling that moves at most 0.25 per unit of arc length, not a
+per-station value. The per-station cap jumped wherever the curvature did — on `c-0273` the
+distance moved 4 % of the curve's size in one step and the edge made 105 sharp turns — and the
+plate hid it by printing the spine only. The operator: "go for it", 2026-11-21. All 129 `path`
+records, with the 56 `polyline` ones, now print two rails; the page draws the same band.

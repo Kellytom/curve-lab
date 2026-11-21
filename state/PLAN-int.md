@@ -16,6 +16,17 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Current (2026-11-21) — the tuning desk, the outlines, the path rails
+
+- **Landed:** desk saves (save / new curve with its own uid / collision refusal / the save
+  state); paired sliders; the fold guard solved directly, so the width never jumps; the first
+  paint and the live redraw use one maths and one frame; stored outlines at six decimals
+  (register 44); unsaved width 1.5 %; every stored outline draws the plate's band and the page
+  matches (register 45). The plates and the 56 figures were re-rendered.
+- **Next:** `/fhandoff` to write the block; then the ten-star order on `/plates`, once the
+  operator names the ten. The path band action is landed.
+- **Parked:** Sprint 1 (the grid bill); the W01–W04 board order.
+
 ## Current (2026-11-20, late) — the plates and the lab
 
 - **Landed:** the four character values reach the plate (three faults, one row law in

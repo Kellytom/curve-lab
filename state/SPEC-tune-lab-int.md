@@ -76,14 +76,15 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 
 ## 5 · What a stored outline says
 
-- [x] A `path` record (a hybrid with corners) draws the spine only, on the page and the plate,
-      and says why. Check: `scripts/check-tune-lab.mjs` selects `c-0273` and expects one path.
-- [x] A `polyline` record (the finder families, `c-0088`–`c-0143`) takes the plate's character
-      law over its stored points: the page draws the same band, the readout says how many
-      stored points, and the default width is 1.5 %. Check: the same script selects `c-0143`
-      and expects a band.
-- [x] The outline is stored at six decimals. Identity may round to two; the drawing may not.
-      See `state/DESIGN-int.md` and register row 44.
+- [x] Every stored outline (`path` or `polyline`) draws the plate's character law over the
+      refined walk; the page draws the same band. Check: `scripts/check-tune-lab.mjs` selects
+      `c-0273` and `c-0143` and expects a band for each.
+- [x] The rail's fold cap is continuous, so the edge cannot step or cross the spine. The
+      readout says how many stored points and, when the cap narrows it, the pinched width.
+      Check: `tests/js/plate-path.test.mjs`.
+- [x] Fewer than three stored points: the spine only, and the page says so.
+- [x] The outline is stored at six decimals. Identity may round to two; the drawing may not
+      (`state/DESIGN-int.md`, register row 44).
 
 ## 6 · Layout
 

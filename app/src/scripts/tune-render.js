@@ -64,18 +64,18 @@ export function bandSvg(paths, box) {
   </svg>`;
 }
 
-// ask the plate maths for the spine and its two rails. A `polyline` is the plate's rail
-// branch — the same character law over the stored points. A `path` (a hybrid with corners)
-// stays the spine until its rail is settled, so the page matches the plate.
+// ask the plate maths for the spine and its two rails. Every stored outline takes the
+// plate's rail branch: the same character law over the refined walk, with the same
+// continuous fold cap, so the page and the plate draw one picture.
 function drawing(P, curve, values) {
   if (curve.path) {
-    if (curve.kind === "polyline" && P.pathGroup) {
+    if (P.pathGroup) {
       const group = P.pathGroup(curve.path, {
         widthPercent: values.widthPct, plus: values.plus,
         minus: values.minus, profile: values.profile,
       });
       if (group && group.paths.length >= 3) {
-        return { paths: group.paths, kind: "polyline", stored: curve.path.length,
+        return { paths: group.paths, kind: "stored", stored: curve.path.length,
                  width: group.width };
       }
     }
@@ -128,7 +128,7 @@ function readout(drawn, values, paths) {
     ? ` Band width ${used.toFixed(1)} % — asked ${asked} %, cut so the band cannot fold ` +
       "over itself."
     : ` Band width ${used.toFixed(1)} %.`;
-  const stored = drawn.kind === "polyline"
+  const stored = drawn.kind === "stored"
     ? ` Built from the ${drawn.stored} stored points: exact there, approximate between them.`
     : "";
   return `${side("Right", right)}. ${same ? "Left edge the same" : side("Left", left)}.` +

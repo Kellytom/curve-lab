@@ -121,20 +121,21 @@ function plateSvg(record) {
   const degrees = Number(record.transform?.degrees || 0);
   let spine;
   let rails = [];
-  if (record.kind === "path" && Array.isArray(record.path) && record.path.length > 2) {
-    // NOT READY: plate_math.pathGroup walks the stored points and offsets them correctly,
-    // but on a curve with corners the band fill explodes (seen on c-0273, 2026-11-20).
-    // The plate therefore prints the spine only until the fill is fixed. Do not wire
-    // pathGroup in here again without looking at the rendered plate first.
-    spine = record.path.map(([x, y]) => [x, y]);
-  } else if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
-    // a path curve: the rails are built from the polyline itself, same character law
+  if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
+    // a stored outline: the rails are built from the walk itself, same character law and
+    // the same continuous fold cap as the page. c-0273 prints two bands (2026-11-21).
     const group = PLATE.pathGroup(record.path, {
       widthPercent: row.width.percent, plus: row.character.plus,
       minus: row.character.minus, profile: row.character.profile,
     });
-    spine = group.paths[0];
-    rails = group.paths.slice(1);
+    if (group && group.paths.length) {
+      spine = group.paths[0];
+      rails = group.paths.slice(1);
+    } else {
+      spine = record.path.map(([x, y]) => [x, y]);
+    }
+  } else if (Array.isArray(record.path) && record.path.length > 2) {
+    spine = record.path.map(([x, y]) => [x, y]);
   } else {
     // rails come from the polynomial; a row whose coefficients are too large for the
     // curvature routine falls back to the spine alone rather than failing the export
