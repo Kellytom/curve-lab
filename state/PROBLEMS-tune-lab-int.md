@@ -119,8 +119,11 @@ untouched. The cap on `c-0002` is 2.29 %, on `c-0001` 2.01 %.
 page had `require`d it once and kept the old module, so the band jumped on the first touch.
 
 **Second fix:** the page deletes the require cache and reads `plate_math.js` on every request,
-the same way the client fetches it. `scripts/check-tune-lab.mjs` now compares the first paint's
-used width with the live redraw's and fails when they disagree.
+the same way the client fetches it. It also builds its first paint with the live drawing's own
+`frame` and `bandSvg` (`tune-render.js`); page and script had used slightly different frames
+(0.98 / 200 px against 0.96 / 240 px), so even a correct width shifted the whole picture on the
+first touch. `scripts/check-tune-lab.mjs` now compares both the used width and the picture
+between the first paint and a live redraw.
 
 **Guard:** `tests/js/plate-guard.test.mjs`: no drop from 0.5 % to 8 %, and the cut must be the
 largest safe width (one more 0.01 % would fold). Plus the first-paint/live agreement check.

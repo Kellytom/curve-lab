@@ -102,11 +102,17 @@ try {
   await page.waitForSelector("#tune-preview svg", { timeout: 8000 });
   const first = await readoutOf("#tune-readout");
   const firstUsed = Number((first.match(/each edge ([\d.]+) %/) || [])[1]);
+  const firstPicture = await svgOf("#tune-preview svg");
   await setInput('input[name="plus"]', 2);
   const live = await readoutOf("#tune-readout");
   const liveUsed = Number((live.match(/Band width ([\d.]+) %/) || [])[1]);
   if (!(Math.abs(firstUsed - liveUsed) <= 0.11)) {
     problems.push(`first paint ${firstUsed} % and live redraw ${liveUsed} % disagree`);
+  }
+  // the same values must draw the same picture: a different frame made the first touch
+  // shift the whole drawing even when the width was right
+  if ((await svgOf("#tune-preview svg")) !== firstPicture) {
+    problems.push("the first paint and the live redraw draw different pictures");
   }
 
   // the per-curve page redraws in place: no navigation, no submit. The width is still cut

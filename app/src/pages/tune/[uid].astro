@@ -8,6 +8,7 @@ import path from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { repoRoot } from "../../lib/gallery.js";
 import { prisma } from "../../lib/db.js";
+import { bandSvg, frame } from "../../scripts/tune-render.js";
 
 // plate_math.js is CommonJS and lives outside app/, so Vite's import interop hands back no
 // default. require() reads it from disk as Node sees it, which is the same module the plate
@@ -98,32 +99,12 @@ if (values.degrees) {
   const a = (-values.degrees * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
   paths = paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
 }
-const all = paths.flat().filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y));
-if (!all.length) {
-  paths = [];
-}
-const x0 = all.length ? Math.min(...all.map((p) => p[0])) : 0;
-const x1 = all.length ? Math.max(...all.map((p) => p[0])) : 1;
-const y0 = Math.min(...all.map((p) => p[1])), y1 = Math.max(...all.map((p) => p[1]));
-const W = 760, H = Math.max(200, Math.round((W * (y1 - y0)) / ((x1 - x0) || 1)));
-const k = (W * 0.98) / ((x1 - x0) || 1);
-const ox = W / 2 - ((x0 + x1) / 2) * k, oy = H / 2 + ((y0 + y1) / 2) * k;
-const toPath = (line) => line.map(([x, y]) => `${(ox + x * k).toFixed(1)},${(oy - y * k).toFixed(1)}`).join(" L");
-const svg = !all.length
-  ? `<p class="tune-note">No drawable points for this curve at these values.</p>`
-  : paths.length >= 3
-  ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
-      <rect width="${W}" height="${H}" fill="#fff"/>
-      <path d="M${toPath([...paths[0], ...[...paths[1]].reverse()])}Z" fill="#e2e2e2"/>
-      <path d="M${toPath([...paths[0], ...[...paths[2]].reverse()])}Z" fill="#8a8a8a"/>
-      <path d="M${toPath(paths[1])}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
-      <path d="M${toPath(paths[2])}" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
-      <path d="M${toPath(paths[0])}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
-    </svg>`
-  : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
-      <rect width="${W}" height="${H}" fill="#fff"/>
-      <path d="M${toPath(paths[0] || [])}" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
-    </svg>`;
+// the first paint uses the same drawing function as the live redraw, so touching a control
+// changes the picture only when a value changed
+const box = frame(paths);
+const svg = box
+  ? bandSvg(paths, box)
+  : `<p class="tune-note">No drawable points for this curve at these values.</p>`;
 ---
 
 <BaseLayout title="the tuning engine" pageTitle="The tuning engine">

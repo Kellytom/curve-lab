@@ -17,7 +17,7 @@ function spread(spine, rail) {
 }
 
 // the drawing box: the curve's own extents, mapped so +y is up (the screen flip is here)
-function frame(paths) {
+export function frame(paths) {
   const points = paths.flat();
   if (!points.length) return null;
   const xs = points.map((p) => p[0]);
@@ -46,7 +46,7 @@ function turn(paths, degrees) {
   return paths.map((line) => line.map(([x, y]) => [x * c - y * s, x * s + y * c]));
 }
 
-function bandSvg(paths, box) {
+export function bandSvg(paths, box) {
   const [spine, plusRail, minusRail] = paths;
   if (paths.length < 3) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${box.W} ${box.H}">
