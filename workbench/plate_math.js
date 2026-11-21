@@ -125,6 +125,20 @@
     return [x0, y0, x1, y1];
   };
 
+  // A character rail: the offset is not a constant. Each side carries its own law,
+  // width * (1 + strength * profile(t)), so the right and left bands differ at the same
+  // station and each one breathes along the curve. This is what makes it a character rail
+  // rather than a parallel offset.
+  function sideRail(samples, distance, sign, strength, profileName, shear = 0, steps = STEPS) {
+    const strengthClamped = Math.max(-0.95, Math.min(4, Number(strength) || 0));
+    return samples.map((s, i) => {
+      const t = i / steps;
+      const d = distance * (1 + strengthClamped * profileAt(profileName, t));
+      return [s.x + sign * d * s.nx + shear * t * s.tx,
+              s.y + sign * d * s.ny + shear * t * s.ty];
+    });
+  }
+
   function rawGroup(row) {
     const u = row.speedX, v = row.speedY;
     const samples = spine(u, v);
@@ -147,8 +161,8 @@
     const rails = [];
     let note;
     if (Math.abs(distance) * peak <= FOLD_LIMIT) {
-      rails.push(rail(samples, u, v, distance, 1, plus, profileName, shear));
-      rails.push(rail(samples, u, v, distance, -1, minus, profileName, shear));
+      rails.push(sideRail(samples, distance, 1, plus, profileName, shear, samples.length - 1));
+      rails.push(sideRail(samples, distance, -1, minus, profileName, shear, samples.length - 1));
       note = `character rails · width ${width}% · ${profileName} ${plus}/${minus}`;
     } else {
       distance = 0;
@@ -388,7 +402,7 @@
              note: `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` };
   }
 
-  return { value, spine, curvaturePeak, rail, bbox, group, prepared, pathGroup,
+  return { value, spine, curvaturePeak, rail, sideRail, bbox, group, prepared, pathGroup,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });
