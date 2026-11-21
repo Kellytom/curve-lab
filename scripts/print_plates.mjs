@@ -10,7 +10,7 @@
 //
 // Writes book/print/<uid>.svg and <uid>.png (long side 3000 px, 300 dpi).
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { chromium } from "playwright-core";
@@ -32,6 +32,18 @@ mkdirSync(WEB, { recursive: true });
 // Pages, Word, a browser, a print shop — so the copy in git is a PNG too, not WebP. It is
 // about three times the WebP and worth it: a picture nobody can place in a document is not
 // preserved.
+// The screenshot arrives as RGBA with three identical channels: the two greys are stored
+// three times over. Rewrite it as grey + alpha — half the bytes, the same picture, and the
+// `grey` in the file name becomes true.
+function greyAlpha(file) {
+  const temp = file.replace(/\.png$/, ".grey.png");
+  try {
+    execFileSync("sips", ["--matchTo", "/System/Library/ColorSync/Profiles/Generic Gray Profile.icc",
+      file, "--out", temp], { stdio: "ignore" });
+    renameSync(temp, file);
+  } catch { rmSync(temp, { force: true }); }
+}
+
 const WEB_SIDE = 1600;
 function webCopy(uid, png) {
   const small = path.join(WEB, `${uid}.tmp.png`);
@@ -212,6 +224,7 @@ for (const record of records) {
   await page.setContent(`<body style="margin:0;background:transparent">${svg}</body>`);
   await page.screenshot({ path: pngPath, clip: { x: 0, y: 0, width: pxW, height: pxH },
     omitBackground: true });
+  greyAlpha(pngPath);
   setDpi(pngPath, 300);
   webCopy(record.uid, pngPath);
   done += 1;

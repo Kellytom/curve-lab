@@ -75,7 +75,10 @@ workbench/starred.backup.json
 dist/
 
 # the 3000 px print masters: local, re-rendered freely; git carries the lossless WebP
+# The plate renders are derived: the records and the generator are in git, so a clone can
+# rebuild them. Keep them out of the repository — masters and web copies both.
 book/print/
+app/public/plates-web/
 
 # the web renders are working state while the look is being judged; commit the set at freeze
 
