@@ -40,6 +40,7 @@ needs a subscription or a running service is not preserved; it is rented.
 | **Submit to Software Heritage** | free | it archives public repositories permanently and mints a `swh:1:` identifier |
 | **Deposit the plate set** (Zenodo or the Internet Archive) | free | a citable snapshot of the pictures that does not depend on git at all |
 | **Keep a local copy** | free | a clone plus `data/` on a disk that is not the working machine |
+| **The plates in git are lossless WebP at 1600 px** | free | a clone shows every plate; the 3000 px masters stay local and regenerable |
 | **A succession note in the README** | free | who may take the repository over, and that it is meant to be kept |
 
 ## What not to do

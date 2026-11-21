@@ -73,3 +73,6 @@ workbench/starred.backup.json
 
 # snapshots made by scripts/archive.sh: deposit them, do not commit them
 dist/
+
+# the 3000 px print masters: local, re-rendered freely; git carries the lossless WebP
+book/print/

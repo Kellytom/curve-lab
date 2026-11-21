@@ -11,6 +11,7 @@
 // Writes book/print/<uid>.svg and <uid>.png (long side 3000 px, 300 dpi).
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
@@ -22,7 +23,22 @@ const d3 = await import(new URL("../app/node_modules/d3/dist/d3.mjs", import.met
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const OUT = path.join(ROOT, "book", "print");
+const WEB = path.join(ROOT, "app", "public", "plates-web");
 mkdirSync(OUT, { recursive: true });
+mkdirSync(WEB, { recursive: true });
+
+// The web copy: lossless WebP at 1600 px, about a third of the PNG and still exact. It is
+// what the page shows and what git carries; the 3000 px PNG stays local for print.
+const WEB_SIDE = 1600;
+function webCopy(uid, png) {
+  const small = path.join(WEB, `${uid}.tmp.png`);
+  try {
+    execFileSync("sips", ["-Z", String(WEB_SIDE), png, "--out", small], { stdio: "ignore" });
+    execFileSync("cwebp", ["-quiet", "-lossless", "-z", "9", small,
+      "-o", path.join(WEB, `${uid}.webp`)], { stdio: "ignore" });
+  } catch { /* no sips or no cwebp: the PNG is still there */ }
+  rmSync(small, { force: true });
+}
 
 const PLATE = (await import(path.join(ROOT, "workbench", "plate_math.js"))).default
   || (await import(path.join(ROOT, "workbench", "plate_math.js")));
@@ -185,6 +201,7 @@ for (const record of records) {
   await page.setContent(`<body style="margin:0;background:#fff">${svg}</body>`);
   await page.screenshot({ path: pngPath, clip: { x: 0, y: 0, width: pxW, height: pxH } });
   setDpi(pngPath, 300);
+  webCopy(record.uid, pngPath);
   done += 1;
   if (done <= 12 || done % 50 === 0) {
     console.log(`${record.uid.padEnd(8)} ${record.name.slice(0, 26).padEnd(26)} ` +
