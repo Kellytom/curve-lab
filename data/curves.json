@@ -112,7 +112,7 @@
     "conversion": "{\"algorithm\":\"rows\",\"status\":\"pending\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"exact\":true}",
     "note": "variant of c-0001 (amper) · width 1% · bow plus 2.5 minus 0.1 · turn 0°",
-    "updatedAt": "2026-11-21T15:59:17.081Z"
+    "updatedAt": "2026-11-21T16:29:52.974Z"
    },
    "set": null,
    "metric": null
