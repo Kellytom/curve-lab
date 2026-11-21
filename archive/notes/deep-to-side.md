@@ -325,3 +325,25 @@ Job: in the side chat, separate every conversation with a horizontal rule (Markd
 its own line); if your renderer cannot draw one, print 40 hyphens instead. One line, nothing
 else on it. Also written into your prompt (`~/.config/opencode/agents/sidechat.md`), so it
 holds for every session, not just when you read this.
+
+---
+
+## 2026-11-20 20:00 — try extreme PNG compression on the plate set
+
+Job: the 397 print plates in `app/public/plates-web/` are 1600 px **grey** PNGs, about 19 MB
+in total at ~48 KB each. Find out how much smaller they can be and report the numbers; do not
+replace the set until the operator picks a quality.
+
+Try, in this order, and say what each cost in bytes and time:
+1. `oxipng -o max --strip all` (lossless re-compression);
+2. `zopflipng -m` (lossless, slower);
+3. `pngquant --quality 70-95 --speed 1` (lossy palette, 8 colours is plenty: the art is two
+   greys, black and white with antialiasing);
+4. `optipng -o7` as a fallback.
+
+Install nothing that needs a paid service. Homebrew is fine if it is already on the machine and
+the operator says yes; if not, say which tools are missing and stop there.
+
+Done means: a table of sizes for ten representative plates (one per shape family), the
+smallest setting that keeps the antialiasing clean, and a recommendation. Write it to
+`state/PNG-COMPRESSION-int.md` and reply here.
