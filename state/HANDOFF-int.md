@@ -1894,7 +1894,7 @@ rejected: judging every node curve by the LAC law — most are not LACs.
 **Next move:** the notes-page section, specification versus representation, with
 both tables.
 
-## 2026-13-11 (session) — new curves from the symmetric root walk
+## 2026-11-13 (session) — new curves from the symmetric root walk
 
 **Landed.** `scripts/ph_root_search.py` walks every mirror-closed root set up to a
 chosen speed degree and denominator, over symmetric x rows only (a constant and
@@ -3316,3 +3316,37 @@ Tschirnhausen — classic but adds nothing; off the board.
   60 with the current cut).
 - The desk now hides any card moved to notes or rejected.
 - Guard: `check-hybrids-page.mjs` — turn saved in the row and shown after reload.
+
+## 2026-11-20 — character rails reach the plate, the ground goes transparent
+
+- **The plate now obeys its four values.** Three faults stacked: `print_plates.mjs` read
+  `workbench/sandbox-curves.json`, which a later commit moved to `data/sandbox-curves.json`,
+  and a missing file meant "no values" — every plate used the defaults; the row builder
+  carried a **duplicate `character:` key** whose second copy set plus and minus to 0, so the
+  rail was a parallel offset by construction; and the tune API called a script that does not
+  exist. All three fixed. The one law is `scripts/lib/plate-row.mjs` (note → desk row →
+  defaults), guarded by `tests/js/plate-row.test.mjs` and register row 39.
+- **`/tune/<uid>` draws again.** `(await import(...)).default` returned nothing under Vite
+  for a CommonJS file outside `app/`; it uses `createRequire` now. It also starts from the
+  saved desk row rather than the registry, and its caption says what the band measures and
+  when the fold guard cut it. Register row 40; spec and scars in
+  `state/SPEC-tune-lab-int.md`, `state/PROBLEMS-tune-lab-int.md`.
+- **`/tune/` is a live lab** — curve picker, width / plus / minus / profile / turn, redrawn
+  in the browser by the same `plate_math.js` served at `/api/plate-math`, with the readout in
+  shares of the curve's size. Guarded by `scripts/check-tune-lab.mjs` in the browser gate.
+- **The ground is transparent.** The white rect is gone and the screenshot uses
+  `omitBackground`. Measured: 83.3 % of `c-0001` clear, all corners alpha 0. Masters (3000 px)
+  and web copies (1600 px) are both grey+alpha, colour type 4, and **both gitignored**:
+  397 + 397 files on disk, 100.3 MB and 63.6 MB. A clone rebuilds them; a deploy uploads the
+  working tree, so the images still ship.
+- **Working pages are served** at `/workbench/<file>`, read from disk, so `adder.html` and
+  `wobble.html` open through Astro with no copy.
+- **`state/RESPONSIBILITIES-int.md`** — overlap is allowed; a shared file is not a reason to
+  wait. Read at `/focus` and at sidechat startup.
+- **Path curves.** `refinePath` (centripetal Catmull-Rom over the stored points) and
+  `pathGroup` exist and are measured, but the **band fill explodes** at corners and
+  self-crossings (`c-0273`). The plate stays spine-only and `print_plates.mjs` says why in
+  place. 185 records are stored as paths, with 39 to 901 points each.
+- **The freshness guard was passing on a typo.** An H2 dated `2026-13-11` made `max()` win
+  over every real date. Corrected to `2026-11-13`; the guard now fails when the handoff is
+  older than the last code commit, which is what it is for.
