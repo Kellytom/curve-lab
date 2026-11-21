@@ -23,12 +23,14 @@ already proven three times in this repo: `app/src/lib/stars.js`,
 `curve-notes.ts`, and my `formula.js` + `data-export.js` — each ported with a
 numeric check, not a hope.
 
-- First row: `curve_lab/measure.py` → TypeScript with BigInt fractions
-  (`app/src/lib/measure.ts`), validated by running both implementations on the
-  same 397 curves and diffing grid, bend, arc, inflections. `Proves:` the diff
-  script prints zero mismatches.
-- Then the pieces in dependency order, each with its own parity check:
-  `clearance.py`, `piece.py`, `junction.py`, `svg.py`.
+- ~~First row: `curve_lab/measure.py` → TypeScript~~ **LANDED 2026-11-21**:
+  `app/src/lib/measure.ts`, parity on 212 stored curves with **0 mismatches**
+  (`app/scripts/parity-measure.mjs`), smoke test `app/tests/measure.test.mjs`
+  pinned to the Python reference numbers. Three port faults caught by parity
+  are recorded in `state/SC-NOTES-measure-port.md`.
+- Next row: `clearance.py` → `app/src/lib/clearance.ts`, same harness.
+  `Proves:` the parity script prints zero mismatches for its curves.
+- Then `piece.py`, `junction.py`, `svg.py`, each with its own parity check.
 - `state/PORT-int.md` is the boundary record — update it per row.
 - `Proves:` per row: the parity script plus `npm --prefix app test`.
 

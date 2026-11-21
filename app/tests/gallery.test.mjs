@@ -17,7 +17,7 @@ import { buildGallery, readStarred, PLATE_ID } from "../src/lib/gallery.js";
 const APP = fileURLToPath(new URL("..", import.meta.url));
 const ROOT = path.resolve(APP, "..");
 const manifest = JSON.parse(
-  await readFile(path.join(ROOT, "book", "plates.json"), "utf8"));
+  await readFile(path.join(ROOT, "book", "old-plates.json"), "utf8"));
 const manifestDesigns = manifest.plates.filter((plate) => plate.kind === "design");
 
 test("both simple designs are listed, each with its caption and its PNG", () => {

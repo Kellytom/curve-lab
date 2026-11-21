@@ -22,7 +22,7 @@ export function repoRoot(root) {
   // book manifest rather than trusting one relative path.
   for (const candidate of [path.resolve(process.cwd(), ".."), process.cwd(),
                            path.resolve(APP_ROOT, "..")]) {
-    if (existsSync(path.join(candidate, "book", "plates.json"))) return candidate;
+    if (existsSync(path.join(candidate, "book", "old-plates.json"))) return candidate;
   }
   return path.resolve(APP_ROOT, "..");
 }
@@ -87,10 +87,10 @@ function plateItem(plate, rows, plateDir, composePlate) {
 
 export function buildGallery({ root, starred: givenStarred } = {}) {
   const repo = repoRoot(root);
-  const manifest = readJson(path.join(repo, "book", "plates.json"), { plates: [] });
+  const manifest = readJson(path.join(repo, "book", "old-plates.json"), { plates: [] });
   const curves = readJson(path.join(repo, "workbench", "real-curves.json"), { curves: [] });
   const rows = Object.fromEntries((curves.curves || []).map((row) => [row.name, row]));
-  const plateDir = path.join(repo, "book", "plates");
+  const plateDir = path.join(repo, "book", "old-plates");
 
   const starredFile = path.join(repo, "workbench", "starred.json");
   const starred = givenStarred
