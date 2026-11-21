@@ -169,3 +169,98 @@ export function terminalSpans(railPos: Rail, railNeg: Rail, kind: string,
   }
   return [dome(pPos, pNeg, outward, sagitta)];
 }
+
+export interface ConeResult {
+  spans: SpanDict[];
+  tip: Point;
+  centres: { pos: Point; neg: Point };
+  radius: number;
+  half: number;
+  outward: Point;
+  tangents: { base: Point; tip_pos: Point; tip_neg: Point };
+  shift: { pos: number; neg: number };
+  axisTwist: number;
+}
+
+/** The two-arc cone terminal: R = 2 x the half width, meeting at the tip.
+ * NOT the same as kind="cone" (a width law): this is a construction. One
+ * circular arc leaves each rail end, both of radius R = 2 x half, each tangent
+ * to its rail at the base, and the two meet at a point on the centreline. The
+ * two 60-degree turns make 120 degrees - the cap limit, a pointed cone, not a
+ * cap. Symmetric mode snaps the rail ends to the centreline and squares the
+ * cap's axis; shift and axisTwist say how far each had to move, zero when they
+ * were already symmetric. */
+export function coneTerminal(railPos: Rail, railNeg: Rail, end = "end",
+                             symmetric = false, centre?: Point,
+                             tangent?: Point): ConeResult {
+  const [pPosBase, tPos0] = railEnd(railPos.spans, end);
+  const [pNegBase, tNeg0] = railEnd(railNeg.spans, end);
+  const span = Math.hypot(pPosBase[0] - pNegBase[0], pPosBase[1] - pNegBase[1]);
+  let half = span / 2.0;
+  if (half <= 1e-9) throw new Error("a cone terminal needs a ribbon with a width");
+  let mid: Point = [(pPosBase[0] + pNegBase[0]) / 2.0, (pPosBase[1] + pNegBase[1]) / 2.0];
+  const outwardBase = unit(tPos0[0] + tNeg0[0], tPos0[1] + tNeg0[1]);
+  let side = unit(pPosBase[0] - pNegBase[0], pPosBase[1] - pNegBase[1]);
+  const shift = { pos: 0.0, neg: 0.0 };
+  if (centre != null) mid = [centre[0], centre[1]];
+  let outward = outwardBase;
+  const along = outward[0] * side[0] + outward[1] * side[1];
+  const squared: Point = [outward[0] - side[0] * along, outward[1] - side[1] * along];
+  if (Math.hypot(squared[0], squared[1]) < 1e-12) {
+    throw new Error("a cone terminal needs the two rails to leave the same way");
+  }
+  let axisTwist = Math.abs(90.0 - Math.acos(Math.max(-1.0, Math.min(1.0, Math.abs(along)))) * 180.0 / Math.PI);
+  outward = unit(squared[0], squared[1]);
+  let pPos: Point = [pPosBase[0], pPosBase[1]];
+  let pNeg: Point = [pNegBase[0], pNegBase[1]];
+  if (symmetric) {
+    if (tangent !== undefined) {
+      outward = unit(tangent[0], tangent[1]);
+      axisTwist = Math.abs(Math.acos(Math.max(-1.0, Math.min(1.0,
+        outwardBase[0] * outward[0] + outwardBase[1] * outward[1]))) * 180.0 / Math.PI);
+    }
+    side = [-outward[1], outward[0]];
+    if (side[0] * (pPos[0] - pNeg[0]) + side[1] * (pPos[1] - pNeg[1]) < 0) {
+      side = [outward[1], -outward[0]];
+    }
+    half = Math.abs((pPos[0] - pNeg[0]) * side[0] + (pPos[1] - pNeg[1]) * side[1]) / 2.0;
+    if (half <= 1e-9) throw new Error("a symmetric cone terminal needs a width across its axis");
+    const targetPos: Point = [mid[0] + side[0] * half, mid[1] + side[1] * half];
+    const targetNeg: Point = [mid[0] - side[0] * half, mid[1] - side[1] * half];
+    shift.pos = Math.hypot(pPos[0] - targetPos[0], pPos[1] - targetPos[1]);
+    shift.neg = Math.hypot(pNeg[0] - targetNeg[0], pNeg[1] - targetNeg[1]);
+    pPos = targetPos;
+    pNeg = targetNeg;
+  }
+  const radius = 2.0 * half;
+  const tip: Point = [mid[0] + outward[0] * Math.sqrt(3.0) * half,
+                      mid[1] + outward[1] * Math.sqrt(3.0) * half];
+  const centrePos: Point = [...pNeg] as Point;
+  const centreNeg: Point = [...pPos] as Point;
+  const reach = (4.0 / 3.0) * Math.tan(15.0 * Math.PI / 180.0) * radius;
+  const arc = (start: Point, finish: Point, at: Point,
+               tAtStart: Point, tAtFinish: Point): SpanDict =>
+    asSpan(start, finish,
+           [start[0] + tAtStart[0] * reach, start[1] + tAtStart[1] * reach],
+           [finish[0] - tAtFinish[0] * reach, finish[1] - tAtFinish[1] * reach]);
+  const toTipPos = unit(tip[0] - pPos[0], tip[1] - pPos[1]);
+  const leaveTip = unit(pNeg[0] - tip[0], pNeg[1] - tip[1]);
+  const tangentPos = outward;
+  const tangentNeg: Point = [-outward[0], -outward[1]];
+  const perpendicularInto = (radiusVector: Point, travelHint: Point): Point => {
+    let candidate = unit(-radiusVector[1], radiusVector[0]);
+    if (candidate[0] * travelHint[0] + candidate[1] * travelHint[1] < 0) {
+      candidate = unit(radiusVector[1], -radiusVector[0]);
+    }
+    return candidate;
+  };
+  const tipTangentPos = perpendicularInto([tip[0] - centrePos[0], tip[1] - centrePos[1]], toTipPos);
+  const tipTangentNeg = perpendicularInto([tip[0] - centreNeg[0], tip[1] - centreNeg[1]], leaveTip);
+  const spans = [
+    arc(pPos, tip, centrePos, tangentPos, tipTangentPos),
+    arc(tip, pNeg, centreNeg, tipTangentNeg, tangentNeg),
+  ];
+  return { spans, tip, centres: { pos: centrePos, neg: centreNeg }, radius, half,
+           outward, tangents: { base: outward, tip_pos: tipTangentPos, tip_neg: tipTangentNeg },
+           shift, axisTwist };
+}
