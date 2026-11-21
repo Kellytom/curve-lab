@@ -109,7 +109,22 @@ print(a, b, round(100*(1-b/a),1), round(time.perf_counter()-t0,1))
 PY
 ```
 
-## Status
+## Decision, made 2026-11-20 (operator, after seeing the ladder)
 
-Report only. The set is untouched; the compressed copies are in the scratch
-folder and die with the session unless the operator says swap them in.
+**`pngquant --colors 3 --speed 1`, printed over the whole set and swapped in.**
+The originals are kept on disk only, at `workbench/plates-orig/` (gitignored).
+
+| set | bytes | measured |
+|---|---|---|
+| the on-disk originals, as re-exported | 32,589,476 (31.1 MB) | `workbench/plates-orig/` |
+| the swapped-in three-colour set | 6,179,383 (5.9 MB) | −81.0%, 390.5 s wall |
+
+The Astro app reads `app/public/plates-web/`, so the swap is the wiring: the
+same paths, 5.9 MB where there were 31 MB. Note the on-disk originals are much
+heavier than the set git had (17.8 MB) — the set was re-exported heavier since
+the brief was written.
+
+**Open for the export pipeline:** the generator that writes `plates-web/`
+(`scripts/print_plates.mjs`) should gain the same pngquant step, so a future
+export lands compressed instead of needing this pass again. Flagged to
+DeepSeek1.

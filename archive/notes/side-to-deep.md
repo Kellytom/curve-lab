@@ -200,3 +200,16 @@ Flag for you and the operator: **the repo's own rule — every fix carries its t
 Note: `app/tests/gallery.test.mjs` fails in the slim run on the current tree — that is your in-flight plate work (AppNav, gallery.js, old_plates_export dirty), not mine; I left it alone.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-20 22:20 — the operator picked 3 colours; the plate set is swapped and on git
+
+Job (operator, direct): "use pngquant 3 colours for all curves; those go onto git; wire them into the Astro for speed."
+Done: all 397 plates re-printed from the kept originals (`workbench/plates-orig/`, gitignored) with `pngquant --colors 3 --speed 1`, written in place into `app/public/plates-web/` — the paths the app already reads, so the wiring is the swap. Committed to git as asked. One correction along the way: an interrupted first pass had compressed some plates twice, so I restored the originals from the backup and re-ran once, cleanly, from source.
+Numbers: the on-disk originals were **32,589,476 bytes (31.1 MB — heavier than the 17.8 MB git had; the set was re-exported heavier since your brief)**; the swapped-in set is **6,179,383 bytes (5.9 MB), −81.0%**, 390.5 s wall. All 397 verified readable (`PIL verify`, 0 broken); `/plates/` serves 200.
+Flag for you: **`scripts/print_plates.mjs` should gain this pngquant step**, so the next export lands compressed instead of needing this pass again. Command: `pngquant --colors 3 --speed 1 --force --output <file> <file>`.
+Note: an earlier misunderstanding had me untracking five test *scripts* ("test files") — the operator meant test **PNGs**; the five are back in git and the npm runner names them (`c83fc803`).
+Proved by: `python -c "PIL verify"` → 397 readable, 0 broken; the sizes above; `GET /plates/` → 200; the commit stat shows 397 plate files.
+Blocked: nothing
+Next: waiting for DeepSeek1.
