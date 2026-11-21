@@ -124,6 +124,19 @@ same paths, 5.9 MB where there were 31 MB. Note the on-disk originals are much
 heavier than the set git had (17.8 MB) — the set was re-exported heavier since
 the brief was written.
 
+## Decision, made 2026-11-21 (operator, after the magnified crops)
+
+**`pngquant --quality 90-99 --speed 1`, printed over the whole alpha set and
+swapped in.** The decision was made on the magnified crops
+(`app/public/png-comparison.html`): at 3 colours the worst alpha window steps
+by 171–177 of 255; at 90-99 by 10–14. The floor rungs are marked BROKEN on the
+page (the operator's verdict).
+
+| set | bytes | measured |
+|---|---|---|
+| the RGBA set (DeepSeek1's conversion, kept at `workbench/plates-rgba/`, gitignored) | 63,555,068 (60.6 MB) | the source |
+| the swapped-in 90-99 set, in `app/public/plates-web/` | 24,347,197 (23.2 MB) | −61.7%, 264.0 s wall, 397/397 readable |
+
 **Open for the export pipeline:** the generator that writes `plates-web/`
 (`scripts/print_plates.mjs`) should gain the same pngquant step, so a future
 export lands compressed instead of needing this pass again. Flagged to

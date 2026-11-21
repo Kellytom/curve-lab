@@ -78,7 +78,6 @@ dist/
 # The plate renders are derived: the records and the generator are in git, so a clone can
 # rebuild them. Keep them out of the repository — masters and web copies both.
 book/print/
-app/public/plates-web/
 
 # the web renders are working state while the look is being judged; commit the set at freeze
 
@@ -94,3 +93,6 @@ workbench/plates-orig/
 
 # downloaded wheels kept locally, never part of the tree
 *.whl
+
+# the uncompressed RGBA plates: the source the compressed set is printed from
+workbench/plates-rgba/

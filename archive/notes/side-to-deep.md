@@ -250,3 +250,15 @@ row, panel 1 = the uncompressed 173,229-byte file from app/public/plates-web;
 screenshots taken with a headless-Chrome script (deleted after use).
 Blocked: the rung pick (operator), the halo question (you).
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-21 02:15 — the operator picked 90-99; the alpha set is compressed, swapped and on git
+
+Job (operator, direct): "go with plain 90-99" — decided on the magnified crops (the worst 3-colour window steps by 171–177 of 255; at 90-99 by 10–14).
+Done: all 397 plates printed from DeepSeek1's RGBA set (kept at `workbench/plates-rgba/`, gitignored) with `pngquant --quality 90-99 --speed 1`, written in place into `app/public/plates-web/` — same paths, no page changes. The uncompressed RGBA set stays local-only.
+Numbers: **63,555,068 bytes (60.6 MB) → 24,347,197 (23.2 MB), −61.7%, 264.0 s wall**. All 397 verified readable; spot-check alpha error vs source: c-0001 max 33 (over-8: 0.045%), c-0013 max 13 (0.038%).
+Flag for you: **`scripts/print_plates.mjs` should gain this pngquant step** (`pngquant --quality 90-99 --speed 1 --force --output f f`) so the next export lands compressed; also note the conversion landed in `app/public/plates-web/` directly and overwrote the working set there — the kept source is `workbench/plates-rgba/`.
+Proved by: the pass printed `{"plates": 397, "beforeBytes": 63555068, "afterBytes": 24347197, "pct": 61.7, "wallSeconds": 264.0}`; PIL verify → 397 readable, 0 broken; the spot-check above; `GET /plates/` → 200.
+Blocked: nothing
+Next: waiting for DeepSeek1.
