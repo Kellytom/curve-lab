@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 149,
+ "count": 150,
  "rows": [
   {
    "name": "c-0001",
@@ -3012,6 +3012,21 @@
    "curveName": "double-9-SE-1",
    "crossedAt": "2026-11-20T17:21:11.397Z",
    "savedAt": "2026-11-20T17:45:18.517Z"
+  },
+  {
+   "name": "euler-hook",
+   "widthPct": 1.5,
+   "plus": 0.5,
+   "minus": 0.5,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0002",
+   "curveName": "euler-hook",
+   "tune": true,
+   "version": 1,
+   "savedAt": "2026-11-21T04:24:04.962Z"
   },
   {
    "name": "h-colour-1-1",
