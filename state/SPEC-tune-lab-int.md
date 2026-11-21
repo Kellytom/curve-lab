@@ -3,7 +3,7 @@
 The clean description of one page: what it is for, what it shows, and the rules it must
 keep. Faults, with their guards, are in `state/PROBLEMS-tune-lab-int.md`.
 
-**Status, 2026-11-21:** built, live on both pages, and the desk's saves are in.
+**Status, 2026-11-21:** built, live on both pages; a new curve is a record with a uid.
 
 **The page:** `app/src/pages/tune/index.astro`
 **The drivers:** `app/src/scripts/tune-lab.js` and `app/src/scripts/tune-uid.js`
@@ -50,27 +50,28 @@ It is the sandbox; `/tune/<uid>` is the page that writes.
 - [x] The ratio is the variation along the curve: `1.00×` means parallel, and that is
       named as the flat case in the legend.
 
-## 4 · The desk: one row per tuning, many versions per spine
+## 4 · The desk: one row per curve, a new curve beside its parent
 
-A row's `name` is its key and its URL; `curveName` is the name a person typed. Many rows may
-carry the same `spine` — five versions of one curve is the point — but two rows may never
-share a name.
+A tuning row holds the four values and the turn for one curve, keyed by its uid. A new curve
+is a real record with a uid of its own, so it appears on `/plates` beside the curve it came
+from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 
-- [x] **Save over this row** writes the four values and the turn into the row you are on and
-      keeps every field it does not own (a chosen name, a construction). Check:
-      `app/tests/desk-tune.test.mjs` (`overwrite keeps every field the tune does not own`).
-- [x] **Save as new version** needs a name, makes a new row on the same spine, and never
-      overwrites the base row. Check: `a new version is a new row on the same spine`.
-- [x] **A name collision is refused**, case-insensitively, by the row key or the chosen name,
-      and the refusal names the row that holds it. A new version may not take a curve id.
-      Check: the three collision tests in the same file.
-- [x] The page lists every row on this spine, marks the base row and the current row, and
-      links each to its own `/tune/<name>`. Check: `scripts/check-tune-lab.mjs`.
-- [x] A `name` is a URL segment: lower-case, digits and dashes only (`slugOf`).
-- [x] A save writes the database in one transaction, then the JSON copy the plate reads. A
-      failed copy is reported, not hidden.
-- [x] **No automatic plate render.** The operator's words: "instead of save and render, put
-      robust desk io". The plate picks the row up at its next export.
+- [x] **Save** writes the row for this uid and keeps every field it does not own. It then
+      rebuilds that curve's plate. Check: `app/tests/desk-tune.test.mjs`
+      (`save keeps every field the tune does not own`).
+- [x] **Save as a new curve** needs a name. It copies the spine's geometry, gives the record
+      the next letter uid on that spine, writes the registry, the database rows, the desk row,
+      and renders the plate. Check: `a new curve is a record beside its parent` and
+      `a variant of a variant lands in the original series`.
+- [x] **A name is checked against names, aliases and uids**, compared without case. A
+      collision is refused and names the owning curve. Check: the collision tests in the
+      same file.
+- [x] The page lists every curve from this spine, base and variants, each linked to its own
+      `/tune/<uid>`. Check: `scripts/check-tune-lab.mjs`.
+- [x] **The order is by uid for now**, so a variant sits beside its parent. The ten stars will
+      take over the order later; that is not built.
+- [x] A save is one transaction, then the JSON copy, then the plate. A failed copy or render
+      is reported, not hidden.
 
 ## 5 · What a path curve says
 

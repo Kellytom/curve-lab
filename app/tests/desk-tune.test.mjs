@@ -1,117 +1,94 @@
-// The desk's rules for /tune: overwrite one row, save a new named version of one spine.
+// The desk's rules for /tune. A tuning row holds the four values; a new curve is a real
+// record beside its parent, with its own uid: c-0002 -> c-0002a.
 //
-// The operator's need: "we might have 5 different versions from one spine, and that is
-// good." So many rows per spine are allowed, but a name is a key — two rows may never
-// share one, and a new version may not squat on a curve id. These tests fail if a save
-// goes back to replacing the whole row, or if a collision is quietly suffixed.
+// The operator's need: choose the name for a new curve, and see it next to the old one on
+// the plates page. These tests fail if a save goes back to replacing the row, if a variant
+// loses its parent, or if a name collision is quietly suffixed.
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { planSave, slugOf, valuesFrom } from "../src/lib/desk-tune.js";
+import { planOverwrite, planVariant, safeCurveName, valuesFrom, variantUid }
+  from "../src/lib/desk-tune.js";
 
-const uids = new Set(["c-0001", "c-0002"]);
+const uids = new Set(["c-0002", "c-0003"]);
 const row = (name, data) => ({ name, data: JSON.stringify(data) });
 const values = (over = {}) => valuesFrom({ widthPct: 6, plus: 2, minus: 2, profile: "bow",
                                            degrees: 0, ...over });
+const curves = [
+  { uid: "c-0002", name: "euler-hook", aliases: [], speedX: [1, 2], speedY: [3, 4],
+    kind: "rows", transform: { degrees: 0 }, lists: ["found"] },
+  { uid: "c-0002a", name: "euler-hook-thin", aliases: [], params: { variantOf: "c-0002" },
+    speedX: [1, 2], speedY: [3, 4], kind: "rows", transform: { degrees: 0 } },
+  { uid: "c-0003", name: "lace-1of8-3", aliases: ["lace"], speedX: [1], speedY: [1] },
+];
 
-const base = () => row("c-0001", {
-  widthPct: 1.5, plus: 2, minus: 2, profile: "bow", transform: { degrees: 0 },
-  curveName: "amper", construction: { kind: "piece", parent: "x" }, tune: true,
+test("a curve name is a path component", () => {
+  assert.equal(safeCurveName("Euler Hook Thin"), "euler-hook-thin");
+  assert.equal(safeCurveName("  lace / 1/8 "), "lace-1of8");
+  assert.equal(safeCurveName("!!!"), "");
 });
 
-test("a name becomes a key that is safe in a URL", () => {
-  assert.equal(slugOf("Amper 2"), "amper-2");
-  assert.equal(slugOf("  Lace / 1of8  "), "lace-1of8");
-  assert.equal(slugOf("!!!"), "");
+test("a variant takes the next letter on its spine", () => {
+  assert.equal(variantUid("c-0002", new Set()), "c-0002a");
+  assert.equal(variantUid("c-0002", new Set(["c-0002a"])), "c-0002b");
+  assert.equal(variantUid("c-0002", new Set(["c-0002a", "c-0002b"])), "c-0002c");
 });
 
-test("overwrite keeps every field the tune does not own", () => {
-  const plan = planSave({ rows: [base()], uids, mode: "overwrite", rowId: "c-0001",
-                          spine: "c-0001", curveName: "amper", values: values({ plus: 5 }) });
+test("save keeps every field the tune does not own", () => {
+  const rows = [row("c-0002", { widthPct: 1.5, plus: 2, minus: 2, profile: "bow",
+                                spine: "c-0002", curveName: "amper", construction: { kind: "piece" } })];
+  const plan = planOverwrite({ rows, uids, rowId: "c-0002", spine: "c-0002",
+                               values: values({ plus: 5 }) });
   assert.equal(plan.ok, true);
-  assert.equal(plan.created, false);
   assert.equal(plan.data.plus, 5);
   assert.equal(plan.data.widthPct, 6);
-  assert.equal(plan.data.curveName, "amper", "the chosen name survives a value save");
-  assert.deepEqual(plan.data.construction, { kind: "piece", parent: "x" },
-    "the construction survives a value save");
-  assert.equal(plan.data.spine, "c-0001");
+  assert.equal(plan.data.curveName, "amper");
+  assert.deepEqual(plan.data.construction, { kind: "piece" });
 });
 
-test("a new version is a new row on the same spine", () => {
-  const plan = planSave({ rows: [base()], uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                          curveName: "Amper 2", values: values({ plus: 4 }) });
-  assert.equal(plan.ok, true);
-  assert.equal(plan.created, true);
-  assert.equal(plan.name, "amper-2");
-  assert.equal(plan.data.spine, "c-0001");
-  assert.equal(plan.data.curveName, "Amper 2");
-  assert.equal(plan.data.version, 2);
-  assert.notEqual(plan.name, "c-0001", "a version never overwrites the base row");
+test("a bad id is refused before a write", () => {
+  const bad = planOverwrite({ rows: [], uids, rowId: "nope", spine: "nope", values: values() });
+  assert.equal(bad.ok, false);
+  assert.equal(bad.status, 400);
 });
 
-test("five versions of one spine are all allowed", () => {
-  const rows = [base(),
-    row("amper-b", { spine: "c-0001", curveName: "amper b" }),
-    row("amper-c", { spine: "c-0001", curveName: "amper c" }),
-    row("amper-d", { spine: "c-0001", curveName: "amper d" })];
-  const plan = planSave({ rows, uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                          curveName: "amper e", values: values() });
+test("a new curve is a record beside its parent", () => {
+  const plan = planVariant({ curves, baseUid: "c-0002", name: "Euler Hook Wide", values: values({ plus: 4 }) });
   assert.equal(plan.ok, true);
-  assert.equal(plan.name, "amper-e");
-  assert.equal(plan.data.version, 5);
-  // the base row predates the `spine` field; three named versions carry it explicitly
-  assert.equal(rows.filter((item) => JSON.parse(item.data).spine === "c-0001").length, 3);
+  assert.equal(plan.uid, "c-0002b");
+  assert.equal(plan.name, "euler-hook-wide");
+  assert.equal(plan.record.uid, "c-0002b");
+  assert.equal(plan.record.params.variantOf, "c-0002");
+  assert.equal(plan.record.params.parent, "c-0002");
+  assert.equal(plan.record.plus, 4);
+  assert.deepEqual(plan.record.speedX, [1, 2], "the geometry is copied from the spine");
+  assert.ok(plan.record.lists.includes("variant"));
+  assert.equal(plan.record.starred, false);
+});
+
+test("a variant of a variant lands in the original series", () => {
+  const plan = planVariant({ curves, baseUid: "c-0002a", name: "thin two", values: values() });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.uid, "c-0002b");
+  assert.equal(plan.record.params.variantOf, "c-0002");
 });
 
 test("a name collision is refused and names the owner", () => {
-  const rows = [base(), row("amper-2", { spine: "c-0001", curveName: "Amper 2" })];
-  const byKey = planSave({ rows, uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                           curveName: "amper 2", values: values() });
-  assert.equal(byKey.ok, false);
-  assert.equal(byKey.status, 409);
-  assert.match(byKey.error, /already used by Amper 2/);
-
-  const byChosen = planSave({ rows, uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                              curveName: "AMPER 2", values: values() });
-  assert.equal(byChosen.ok, false, "the chosen name is compared without case");
-});
-
-test("a new version may not take a curve id", () => {
-  const plan = planSave({ rows: [base()], uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                          curveName: "c-0002", values: values() });
+  const plan = planVariant({ curves, baseUid: "c-0002", name: "Euler Hook Thin", values: values() });
   assert.equal(plan.ok, false);
   assert.equal(plan.status, 409);
-  assert.match(plan.error, /already a curve id/);
+  assert.match(plan.error, /already used by c-0002a \(euler-hook-thin\)/);
+  const alias = planVariant({ curves, baseUid: "c-0002", name: "lace", values: values() });
+  assert.equal(alias.ok, false);
+  assert.equal(alias.status, 409, "an alias is a name too");
 });
 
-test("a new version needs a name with a letter or a digit", () => {
-  const empty = planSave({ rows: [base()], uids, mode: "new", rowId: "c-0001", spine: "c-0001",
-                           curveName: "  ", values: values() });
+test("a new curve needs a name with a letter or a digit", () => {
+  const empty = planVariant({ curves, baseUid: "c-0002", name: "  ", values: values() });
   assert.equal(empty.ok, false);
   assert.equal(empty.status, 400);
-  const symbols = planSave({ rows: [base()], uids, mode: "new", rowId: "c-0001",
-                             spine: "c-0001", curveName: "!!!", values: values() });
+  const symbols = planVariant({ curves, baseUid: "c-0002", name: "!!!", values: values() });
   assert.equal(symbols.ok, false);
-});
-
-test("an overwrite may not rename onto another row", () => {
-  const rows = [base(), row("amper-2", { spine: "c-0001", curveName: "Amper 2" })];
-  const plan = planSave({ rows, uids, mode: "overwrite", rowId: "c-0001", spine: "c-0001",
-                          curveName: "amper 2", values: values() });
-  assert.equal(plan.ok, false);
-  assert.equal(plan.status, 409);
-});
-
-test("a bad id and a missing version are refused before a write", () => {
-  const bad = planSave({ rows: [base()], uids, mode: "overwrite", rowId: "nope",
-                         spine: "nope", values: values() });
-  assert.equal(bad.ok, false);
-  assert.equal(bad.status, 400);
-  const gone = planSave({ rows: [base()], uids, mode: "overwrite", rowId: "amper-9",
-                          spine: "c-0001", values: values() });
-  assert.equal(gone.ok, false);
-  assert.equal(gone.status, 404);
 });
 
 test("values are clamped into the sliders' own ranges", () => {

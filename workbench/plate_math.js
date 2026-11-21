@@ -152,19 +152,24 @@
       ? character.profile : DEFAULT_PROFILE;
     const shear = Number(row.shear ?? 0);
     const peak = curvaturePeak(u, v);
-    let distance = (width / 100) * size;
-    while (Math.abs(distance) * peak > FOLD_LIMIT && width > WIDTH_FLOOR) {
-      width /= 2;
-      distance = (width / 100) * size;
-    }
+    // The guard's job is "the largest width that does not fold", not "halve until it fits".
+    // Halving made the band jump DOWN as the slider went up: on c-0002, 2.2 % became 1.15 %
+    // at the next step, and again at 4.6 % (2026-11-21). This is the same rule —
+    // distance × peak ≤ FOLD_LIMIT — solved directly, so the band moves with the slider.
+    const safePercent = peak > 0 && Number.isFinite(peak)
+      ? Math.floor((FOLD_LIMIT / peak) * 10000 / size) / 100
+      : Infinity;
+    width = Math.min(width, safePercent);
+    let distance = width >= WIDTH_FLOOR ? (width / 100) * size : 0;
     const spinePoints = samples.map((s) => [s.x, s.y]);
     const rails = [];
     let note;
-    if (Math.abs(distance) * peak <= FOLD_LIMIT) {
+    if (distance > 0) {
       rails.push(sideRail(samples, distance, 1, plus, profileName, shear, samples.length - 1));
       rails.push(sideRail(samples, distance, -1, minus, profileName, shear, samples.length - 1));
       note = `character rails · width ${width}% · ${profileName} ${plus}/${minus}`;
     } else {
+      width = 0;
       distance = 0;
       note = `rail folds at the ${WIDTH_FLOOR}% floor · spine only`;
     }

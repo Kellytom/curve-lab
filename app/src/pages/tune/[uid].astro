@@ -1,6 +1,6 @@
 ---
 // The tuning page: one curve, its four values, a live preview, and the desk's saves.
-// A page may show the curve's base row or one named version of the same spine.
+// A curve can be saved over, or a new curve made beside it with a uid of its own.
 // Spec: state/SPEC-tune-lab-int.md. Desk rules: app/src/lib/desk-tune.js.
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -8,7 +8,6 @@ import path from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { repoRoot } from "../../lib/gallery.js";
 import { prisma } from "../../lib/db.js";
-import { versionsFor } from "../../lib/desk-tune.js";
 
 // plate_math.js is CommonJS and lives outside app/, so Vite's import interop hands back no
 // default. require() reads it from disk as Node sees it, which is the same module the plate
@@ -18,18 +17,16 @@ const PLATE = require(path.join(repoRoot(), "workbench", "plate_math.js"));
 const registry = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "curve-registry.json"), "utf8"));
 
 const { uid } = Astro.params;
-const parse = (row) => { try { return JSON.parse(row.data) || {}; } catch { return {}; } };
-const deskRows = await prisma.sandboxCurve.findMany({ orderBy: { updatedAt: "desc" } });
-
-// a version's id is not a registry uid: resolve it to the spine it was built from
-const current = deskRows.find((row) => row.name === uid) || null;
-const currentData = current ? parse(current) : {};
-const spine = currentData.spine || uid;
-const record = registry.curves.find((row) => row.uid === spine);
+const record = registry.curves.find((row) => row.uid === uid);
 if (!record) return Astro.redirect("/plates/");
-const rowId = current ? current.name : record.uid;
 
-// the form starts from the saved row, so opening it and saving cannot quietly undo a tune
+// a variant points at the curve it was made from; the list is every curve in that family
+const baseUid = String(record.params?.variantOf || record.uid);
+const parse = (row) => { try { return JSON.parse(row.data) || {}; } catch { return {}; } };
+const deskRows = await prisma.sandboxCurve.findMany();
+const dataOf = new Map(deskRows.map((row) => [row.name, parse(row)]));
+const current = dataOf.get(record.uid) || {};
+
 const defaults = { widthPct: 6, plus: 2, minus: 2, profile: "bow" };
 const q = Astro.url.searchParams;
 const number = (name, fallback) => {
@@ -37,14 +34,27 @@ const number = (name, fallback) => {
   return raw === null || raw === "" ? fallback : Number(raw);
 };
 const values = {
-  widthPct: number("widthPct", currentData.widthPct ?? defaults.widthPct),
-  plus: number("plus", currentData.plus ?? defaults.plus),
-  minus: number("minus", currentData.minus ?? defaults.minus),
-  profile: q.get("profile") || currentData.profile || defaults.profile,
-  degrees: number("degrees", currentData.transform?.degrees ?? record.transform?.degrees ?? 0),
+  widthPct: number("widthPct", current.widthPct ?? defaults.widthPct),
+  plus: number("plus", current.plus ?? defaults.plus),
+  minus: number("minus", current.minus ?? defaults.minus),
+  profile: q.get("profile") || current.profile || defaults.profile,
+  degrees: number("degrees", current.transform?.degrees ?? record.transform?.degrees ?? 0),
 };
-const curveName = currentData.curveName || record.name;
-const versions = await versionsFor(record.uid);
+
+const valueOf = (curve) => {
+  const data = dataOf.get(curve.uid) || {};
+  return {
+    widthPct: data.widthPct ?? (curve.widthPct || defaults.widthPct),
+    plus: data.plus ?? (curve.plus || defaults.plus),
+    minus: data.minus ?? (curve.minus || defaults.minus),
+    profile: data.profile || curve.profile || defaults.profile,
+    degrees: data.transform?.degrees ?? curve.transform?.degrees ?? 0,
+  };
+};
+const variants = registry.curves
+  .filter((curve) => curve.uid === baseUid || String(curve.params?.variantOf || "") === baseUid)
+  .sort((a, b) => a.uid.localeCompare(b.uid))
+  .map((curve) => ({ uid: curve.uid, name: curve.name, ...valueOf(curve) }));
 
 const row = {
   name: record.name,
@@ -110,9 +120,9 @@ const svg = !all.length
 ---
 
 <BaseLayout title="the tuning engine" pageTitle="The tuning engine">
-  <p class="lead"><b>{record.uid}</b> {record.name}{rowId !== record.uid ? ` · version ${curveName}` : ""}.
-    The four values shape the two edges of the band. Saving writes to the desk; the plate reads
-    the desk at its next export.</p>
+  <p class="lead"><b>{record.uid}</b> {record.name}{record.uid !== baseUid ? ` · variant of ${baseUid}` : ""}.
+    The four values shape the two edges of the band. Saving writes the desk row and rebuilds
+    that plate; saving a new curve gives it the next uid beside its parent.</p>
 
   {q.get("saved") && <p class="tune-ok">{q.get("saved")}. {q.get("warning") || ""}</p>}
   {q.get("error") && <p class="tune-bad">not saved: {q.get("error")}</p>}
@@ -120,7 +130,7 @@ const svg = !all.length
   <div class="tune-grid">
     <div class="tune-preview" id="tune-preview" set:html={svg} />
     <form class="tune-form" id="tune-form" method="get">
-      <label>name <input name="curveName" type="text" maxlength="120" value={curveName} /></label>
+      <label>new curve name <input name="curveName" type="text" maxlength="120" placeholder="euler-hook-thin" /></label>
       <label>width % <input name="widthPct" type="number" min="0.5" max="20" step="0.5" value={values.widthPct} /></label>
       <label>plus <input name="plus" type="number" min="-8" max="8" step="0.5" value={values.plus} /></label>
       <label>minus <input name="minus" type="number" min="-8" max="8" step="0.5" value={values.minus} /></label>
@@ -132,35 +142,31 @@ const svg = !all.length
       <label>turn° <input name="degrees" type="number" min="-180" max="180" step="45" value={values.degrees} /></label>
       <button type="submit">preview</button>
       <button type="submit" formmethod="post"
-        formaction={`/api/tune?uid=${rowId}&spine=${record.uid}&mode=overwrite`}>save over this row</button>
+        formaction={`/api/tune?uid=${record.uid}&spine=${record.uid}&mode=overwrite`}>save</button>
       <button type="submit" formmethod="post"
-        formaction={`/api/tune?uid=${record.uid}&spine=${record.uid}&mode=new`}>save as new version</button>
+        formaction={`/api/tune?uid=${record.uid}&spine=${record.uid}&mode=new`}>save as a new curve</button>
     </form>
   </div>
   <p class="tune-readout" id="tune-readout">{note}. The picture redraws as you type; the
     preview button is only for a no-JavaScript browser.</p>
 
   <section class="tune-versions">
-    <h2>Versions of this spine</h2>
-    {versions.length ? (
-      <ul>
-        {versions.map((version) => (
-          <li class:list={["tune-version", { current: version.name === rowId }]}>
-            <a href={`/tune/${version.name}`}>{version.curveName}</a>
-            <span class="mono">
-              {version.name === record.uid ? "base · " : ""}
-              width {version.widthPct} % · plus {version.plus} · minus {version.minus} ·
-              {` ${version.profile}`} · turn {version.degrees}°
-            </span>
-            {version.name === rowId && <b>this one</b>}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <p class="tune-note">No saved rows for this spine yet. Save, or save as new, to start one.</p>
-    )}
-    <p class="tune-note">A name is a key: two rows may not share one, and a new version may not
-      take a curve id. A refused name says who holds it. Five versions of one spine is expected.</p>
+    <h2>Curves from this spine</h2>
+    <ul>
+      {variants.map((variant) => (
+        <li class:list={["tune-version", { current: variant.uid === record.uid }]}>
+          <a href={`/tune/${variant.uid}`}><code>{variant.uid}</code> {variant.name}</a>
+          <span class="mono">
+            width {variant.widthPct} % · plus {variant.plus} · minus {variant.minus} ·
+            {` ${variant.profile}`} · turn {variant.degrees}°
+          </span>
+          {variant.uid === record.uid && <b>this one</b>}
+        </li>
+      ))}
+    </ul>
+    <p class="tune-note">A new curve takes the next uid on this spine (<code>c-0002a</code>,
+      <code>c-0002b</code>) and is drawn beside its parent on the plates page. The order is by
+      uid for now; the ten stars will take over the order later.</p>
   </section>
 </BaseLayout>
 

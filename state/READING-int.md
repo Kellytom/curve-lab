@@ -72,6 +72,7 @@ plant-forms that becomes the ornament grammar, not a gallery of drawings.
 | the eleventh-power sandbox / the degree ladder | `scripts/ph_nth_sandbox.py`, `scripts/ph_nth_panels.js`, `scripts/ph_math.js`, `scripts/ph_quintic_metrics.py`, `tests/test_ph_nth_sandbox.py`, `scripts/check-nth-page.mjs`, `workbench/ph-nth-sandbox.html` |
 | a curve's folder and its figure | `curves/README.md`, `scripts/curve_files.py`, `scripts/curve_svg.py`, `scripts/curve_png.mjs`, `scripts/curve_png_all.mjs`, `workbench/figures/` |
 | book plates (PNG export) | `book/README.md`, `book/plates.json`, `workbench/real-curves.json`, `scripts/real_curves.mjs`, `scripts/plates_export.mjs`, `workbench/plate_math.js`, `tests/js/plates.test.js` |
+| the tuning desk (`/tune/`, `/tune/<uid>`) | `state/SPEC-tune-lab-int.md`, `state/PROBLEMS-tune-lab-int.md`, `app/src/lib/desk-tune.js`, `app/src/scripts/tune-render.js`, `app/src/scripts/tune-uid.js`, `app/tests/desk-tune.test.mjs`, `scripts/check-tune-lab.mjs` |
 | square and frame figures | `curve_lab/square_assembly.py`, `workbench/plate_math.js`, `workbench/square-frame.html`, `scripts/square_frame.py`, `scripts/square_try.py`, `tests/js/plates.test.js`, `tests/test_square_frame.py` |
 | the prime mover: circle-driven parametrics, p-triple points, the closure fact | `state/PRIME-MOVER-int.md` |
 | future exploration (the pendulum mobile, Gaussian transforms, tails, the review) | `state/EXPLORATION-int.md` |

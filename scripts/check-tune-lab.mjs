@@ -114,19 +114,20 @@ try {
     problems.push(`/tune/c-0001 readout does not name the asked width: ${uidReadout}`);
   }
 
-  // the desk: a name, an overwrite, a new version, and the list of versions
-  const name = await page.$eval('#tune-form input[name="curveName"]', (node) => node.value);
-  if (!name.trim()) problems.push("the desk has no name to save under");
+  // the desk: a name for a new curve, a save, a new curve, and the family list
+  const name = await page.$eval('#tune-form input[name="curveName"]',
+    (node) => node.getAttribute("placeholder"));
+  if (!name) problems.push("the desk has no name field for a new curve");
   const buttons = await page.$$eval('#tune-form button', (nodes) =>
     nodes.map((node) => node.textContent.trim().toLowerCase()));
-  if (!buttons.includes("save over this row")) problems.push(`no overwrite button: ${buttons}`);
-  if (!buttons.includes("save as new version")) problems.push(`no new-version button: ${buttons}`);
+  if (!buttons.includes("save")) problems.push(`no save button: ${buttons}`);
+  if (!buttons.includes("save as a new curve")) problems.push(`no new-curve button: ${buttons}`);
   if (buttons.some((text) => text === "save + render")) {
     problems.push("the old save + render button is still there");
   }
   const versions = await page.$eval(".tune-versions", (node) => node.textContent);
-  if (!/Versions of this spine/.test(versions)) {
-    problems.push("the page does not list the versions of this spine");
+  if (!/Curves from this spine/.test(versions)) {
+    problems.push("the page does not list the curves from this spine");
   }
 
   console.log(problems.length

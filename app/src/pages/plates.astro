@@ -38,7 +38,8 @@ const done = rows.filter((row) => row.exported).length;
   <p class="plates-count">To see what a value does before saving it, open
     <a href="/tune/">the tuning lab</a>: pick a curve and drag width, plus, minus and profile.</p>
   <p class="plates-count">{done} of {rows.length} plates exported · generator
-    <code>scripts/print_plates.mjs</code></p>
+    <code>scripts/print_plates.mjs</code> · ordered by uid, so a variant sits beside its
+    parent; the ten stars will take over this order later</p>
 
   <div class="plates-grid">
     {rows.map((row) => (

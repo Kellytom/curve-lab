@@ -66,20 +66,22 @@ URL is not part of it.
 
 ## 5. One save could not hold two versions
 
-**Seen:** "we might have 5 different versions from one spine, and that is good."
+**Seen:** "we might have 5 different versions from one spine, and that is good", then "i want to
+choose the name... and see it show up next to the old curve in /plates... all with UIDs".
 
 **Wrong:** the only write was "save + render". It wrote one row keyed by the uid and replaced
 that row's data with just the four values, so a chosen name or a construction was lost; there
-was no second row; and a name collision could not happen because there was no name.
+was no second row; there was no uid for a variant; and a name collision could not happen
+because there was no name.
 
-**Fix:** `app/src/lib/desk-tune.js`. *Save over this row* merges and keeps every field the
-tune does not own; *save as new version* makes a new row on the same `spine`; a name is
-slugged into a URL key; a collision is refused, case-insensitively, and names the row that
-holds it; a new version may not take a registry uid. The page lists every row on the spine.
-The automatic render is gone: the operator asked for desk io instead.
+**Fix:** `app/src/lib/desk-tune.js`. *Save* merges the row. *Save as a new curve* takes a name,
+allocates the next letter uid on the spine (`c-0002a`), copies the geometry into a real registry
+record with `params.variantOf`, writes the Curve/Note/CurveSet rows and the desk row, and
+renders the plate, so the new curve is on `/plates` next to its parent. A name is checked
+against names, aliases and uids; a collision names the owner.
 
-**Guard:** `app/tests/desk-tune.test.mjs` (ten rules, no database), and the desk checks in
-`scripts/check-tune-lab.mjs` (a name, both buttons, the version list).
+**Guard:** `app/tests/desk-tune.test.mjs` (11 rules, no database) and
+`scripts/check-tune-lab.mjs` (a name field, both buttons, the family list).
 
 ## 6. A rail change that looked local and was not
 
@@ -99,3 +101,18 @@ the guard still halves the whole width. The live drawing and the desk are the on
 **Guard:** none is needed in code because the change was reverted; the rule is written in
 `state/DESIGN-int.md` §The desk. A session that wants a smoother rail must bring a reason to
 the operator first.
+
+## 7. The width jumped as the slider rose
+
+**Seen:** "try different lower values for the percentage... the width jumps all around."
+
+**Wrong:** the fold guard halved the width in powers of two. The used width was `asked / 2^k`,
+so when the next halving began the band *narrowed* as the slider went up: on `c-0002`, 2.2 %
+became 1.15 % at 2.3 %, and 2.25 % became 1.15 % at 4.6 %.
+
+**Fix:** the same rule — `distance × peak ≤ 0.9` — solved directly. The used width is
+`min(asked, largest safe)`, floored to 0.01 %, so it never steps down. The rail law is
+untouched. The cap on `c-0002` is 2.29 %, on `c-0001` 2.01 %.
+
+**Guard:** `tests/js/plate-guard.test.mjs`: no drop from 0.5 % to 8 %, and the cut must be the
+largest safe width (one more 0.01 % would fold).

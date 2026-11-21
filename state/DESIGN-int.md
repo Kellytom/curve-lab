@@ -833,22 +833,29 @@ cannot bend the curve, so the outline is unchanged. `scripts/circle_split.py`
 `tests/test_circle_split.py` checks the row, the note and the drawing against one
 derivation.
 
-## The desk: one row per tuning, many per spine — 2026-11-21
+## The desk: one row per curve, a new curve beside its parent — 2026-11-21
 
-Settled by the operator: "we might have 5 different versions from one spine, and that is good."
+Settled by the operator: "we might have 5 different versions from one spine, and that is good",
+then "i want to choose the name if i want a new curve... and see it show up next to the old
+curve in /plates ... all with UIDs".
 
-- **A row's name is its key and its URL; `curveName` is what a person typed.** Many rows may
-  share a `spine`; two rows may never share a name or a chosen name (compared without case).
-  A refused name says which row holds it. A new version may not take a registry uid.
-- **Save over this row merges.** Only the four values and the turn are replaced; a chosen
-  name, a construction and every field the tune does not own survive. A save is one
-  transaction, then the JSON copy is written; a failed copy is reported, never hidden.
-- **A new version is a new row**, numbered from the rows already on the spine. It never
-  overwrites the base row.
-- **No automatic plate render.** The operator's words: "instead of save and render, put
-  robust desk io". The plate reads the desk at its next export.
+- **A tuning row holds the four values for one uid.** *Save* merges it: only the four values
+  and the turn are replaced, so a chosen name, a construction and every field the tune does
+  not own survive. A save is one transaction, then the JSON copy, then the plate.
+- **A new curve is a record, not a row.** It takes the next letter uid on its spine
+  (`c-0002` → `c-0002a`), copies the geometry, records `params.variantOf`, and gets its own
+  page. It is rendered at once, so it sits beside its parent on `/plates`.
+- **A variant of a variant stays in the original series** (`c-0002a` → `c-0002b`), because the
+  spine is taken from `params.variantOf`.
+- **A name is unique** across registry names, aliases and uids, compared without case. A
+  collision is refused and names the owning curve; it is never quietly suffixed.
+- **The order is by uid for now.** `c-0002`, `c-0002a`, `c-0003` puts a variant next to its
+  parent. The ten stars will take over the order later; that is not built.
 - **The character rail is one law, not a choice.** `distance = base × (1 + strength ×
-  profile)`, with the fold guard halving the whole width until no station can fold. A local
-  pinch cap was tried on 2026-11-21 and reverted: it is a second construction, and at the
-  same saved number it drew a band about four times too wide. The operator: "you cant cheat
-  and use another way to make the character rails."
+  profile)`, with the fold guard capping the whole width. A local pinch cap was tried on
+  2026-11-21 and reverted: it is a second construction, and at the same saved number it drew a
+  band about four times too wide. The operator: "you cant cheat and use another way to make
+  the character rails."
+- **The cap is solved directly, not by halving** (settled 2026-11-21). The rule is
+  `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
+  as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).

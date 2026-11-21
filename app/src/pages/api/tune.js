@@ -1,12 +1,13 @@
 // POST /api/tune — the desk's write for the tuning pages.
 //
-//   ?uid=<row>&spine=<curve>&mode=overwrite   save over this row
-//   ?uid=<curve>&spine=<curve>&mode=new       save a new named version of this spine
+//   ?uid=<uid>&spine=<curve>&mode=overwrite   save the four values over this curve's row
+//   ?uid=<curve>&spine=<curve>&mode=new       make a new curve beside its parent
 //
 // A form post lands back on the page with a message; a JSON post gets JSON. The rules
-// (a unique name, a refused collision, a kept row on overwrite) are in lib/desk-tune.js.
+// (a unique name, a kept row on overwrite, a variant with its own uid) are in
+// lib/desk-tune.js.
 
-import { DeskError, saveTune, valuesFrom } from "../../lib/desk-tune.js";
+import { DeskError, createVariant, saveTune, valuesFrom } from "../../lib/desk-tune.js";
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { "content-type": "application/json" },
@@ -30,24 +31,27 @@ export const POST = async ({ request, url }) => {
       raw = await request.json();
     }
     const values = valuesFrom(raw || {});
-    const result = await saveTune({ mode, rowId, spine, curveName: raw?.curveName, values });
+    const result = mode === "new"
+      ? await createVariant({ spine, name: raw?.curveName, values })
+      : await saveTune({ rowId, spine, values });
+    const savedUid = result.uid || result.name;
 
     if (formPost) {
-      const query = new URLSearchParams({
-        saved: result.created ? `saved as new: ${result.name}` : `saved ${result.name}`,
-      });
+      const message = mode === "new"
+        ? `saved as new: ${result.uid} ${result.name}`
+        : `saved ${savedUid}`;
+      const query = new URLSearchParams({ saved: message });
       if (result.warning) query.set("warning", result.warning);
-      return new Response(null, { status: 303, headers: { location: `/tune/${result.name}?${query}` } });
+      return new Response(null, { status: 303, headers: { location: `/tune/${savedUid}?${query}` } });
     }
     return json(result);
   } catch (error) {
     const status = error instanceof DeskError ? error.status : 400;
     const message = String(error.message || error);
     if (formPost) {
-      const back = spine || rowId;
       return new Response(null, {
         status: 303,
-        headers: { location: `/tune/${back}?${new URLSearchParams({ error: message })}` },
+        headers: { location: `/tune/${spine || rowId}?${new URLSearchParams({ error: message })}` },
       });
     }
     return json({ error: message }, status);
