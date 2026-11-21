@@ -22,7 +22,7 @@ const rows = registry.curves
     // the web copy is re-rendered by the tuning page; the stamp makes the browser fetch the
     // new one instead of showing the cached plate
     stamp: (() => { try {
-      return statSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}-1600-grey.png`)).mtimeMs;
+      return Math.round(statSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}-1600-grey.png`)).mtimeMs);
     } catch { return 0; } })(),
   }));
 const done = rows.filter((row) => row.exported).length;
@@ -41,7 +41,7 @@ const done = rows.filter((row) => row.exported).length;
   <div class="plates-grid">
     {rows.map((row) => (
       <article class="plate-card">
-        <a href={`/api/print-plate/${row.uid}`}>
+        <a href={`/tune/${row.uid}`} title="open the tuning engine for this curve">
           <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}` : `/api/print-plate/${row.uid}`}
             alt={row.name} loading="lazy" />
         </a>
