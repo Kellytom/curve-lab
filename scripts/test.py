@@ -109,7 +109,7 @@ def run(names, jobs=1):
     return code, time.perf_counter() - t0, done
 
 
-BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs")
+BROWSER_CHECKS = ("check-saved.mjs", "check-rails.mjs", "check-tune-lab.mjs")
 
 
 def node_binary() -> str:
@@ -155,7 +155,7 @@ def run_browser_checks() -> int:
         return 0
     code = 0
     for name in BROWSER_CHECKS:
-        result = subprocess.run(["node", str(ROOT / "scripts" / name)], cwd=ROOT,
+        result = subprocess.run([node_binary(), str(ROOT / "scripts" / name)], cwd=ROOT,
                                 capture_output=True, text=True)
         tail = (result.stdout.strip().splitlines() or [""])[-1]
         print(f"  {name}: {tail}")

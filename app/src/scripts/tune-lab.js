@@ -179,16 +179,23 @@ async function start() {
     control.addEventListener("input", () => { sync(); draw(); });
   }
 
+  const show = async () => {
+    try {
+      await load(state.uid);
+      draw();
+    } catch (error) {
+      say(`${state.uid} could not be loaded: ${error.message}`);
+    }
+  };
+
   controls.curve.addEventListener("change", async () => {
     state.uid = controls.curve.value;
-    await load(state.uid);
-    draw();
+    await show();
   });
 
   state.uid = controls.curve.value;
-  await load(state.uid);
   sync();
-  draw();
+  await show();
 }
 
 start();

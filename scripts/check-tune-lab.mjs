@@ -58,6 +58,13 @@ try {
   const secondSvg = await page.$eval("#lab-preview svg", (node) => node.outerHTML);
   if (secondSvg === firstSvg) problems.push("changing plus did not redraw the picture");
 
+  // the profile must change the drawing too
+  await page.selectOption("#lab-profile", "taper");
+  await page.waitForTimeout(120);
+  const thirdSvg = await page.$eval("#lab-preview svg", (node) => node.outerHTML);
+  if (thirdSvg === secondSvg) problems.push("changing the profile did not redraw the picture");
+  await page.selectOption("#lab-profile", "bow");
+
   // width 0.5 with plus 0 and minus 0 is the only parallel setting
   await page.$eval("#lab-plus", (node) => {
     node.value = "0";
