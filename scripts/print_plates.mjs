@@ -174,13 +174,11 @@ function plateSvg(record) {
     : "";
   const body = singleTone
     ? [
-        `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
         bands,
         ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
         line(spine, LEFT, stroke),
       ].join("")
     : [
-        `<rect width="${pxW}" height="${pxH}" fill="#ffffff"/>`,
         bands,
         ...rails.map((rail) => line(rail, "#3a3a3a", stroke * 0.6)),
         line(spine, LEFT, stroke),
@@ -210,8 +208,10 @@ for (const record of records) {
   const pngPath = path.join(OUT, `${record.uid}-${LONG_SIDE}-grey-300dpi.png`);
   writeFileSync(svgPath, svg);
   await page.setViewportSize({ width: pxW, height: pxH });
-  await page.setContent(`<body style="margin:0;background:#fff">${svg}</body>`);
-  await page.screenshot({ path: pngPath, clip: { x: 0, y: 0, width: pxW, height: pxH } });
+  // omitBackground keeps the alpha: what is not drawn is transparent, not white
+  await page.setContent(`<body style="margin:0;background:transparent">${svg}</body>`);
+  await page.screenshot({ path: pngPath, clip: { x: 0, y: 0, width: pxW, height: pxH },
+    omitBackground: true });
   setDpi(pngPath, 300);
   webCopy(record.uid, pngPath);
   done += 1;

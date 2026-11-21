@@ -74,8 +74,14 @@ two tones.
 it at the canvas size; `scripts/lib/png-dpi.mjs` stamps the PNG's `pHYs` chunk to **300 dpi**.
 No PIL, no ImageMagick: the browser is the rasteriser, so the plate is the SVG.
 
-**7. Ground and text.** White `#ffffff`. **No text on the plate** — no title, no axes, no
-legend; the name and the record are on the page that lists it, and in `plates.json`.
+**7. Ground and text.** **The ground is transparent, not white.** The design is the ink
+only: two opaque greys and their strokes, with nothing else in the file. A white rectangle
+is a colour, so a compressor spends palette on it and then dithers the near-white pixels
+next to the bands — which is what produced a visible background in the compressed copies.
+Transparent, the plate sits on any page, any paper, any colour, and the compressor sees
+only ink. Corner pixels are alpha 0; about 83 % of a plate's area is clear. **No text on
+the plate** — no title, no axes, no legend; the name and the record are on the page that
+lists it, and in `plates.json`.
 
 ## Where the result lives
 
