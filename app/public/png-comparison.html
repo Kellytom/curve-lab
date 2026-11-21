@@ -4,249 +4,146 @@
 <style>
  body{font:16px/1.5 Georgia,serif;color:#3b2d1c;background:#fffdf7;margin:0 auto;max-width:1360px;padding:24px 20px 60px}
  h1{font-size:26px} h2{font-size:18px;margin:28px 0 8px}
- p.lead{color:#5a4a36;max-width:70ch}
+ p.lead{color:#5a4a36;max-width:80ch}
  table{border-collapse:collapse;font:13px ui-monospace,Menlo,monospace;margin:12px 0}
  td,th{border:1px solid #e6dccb;padding:4px 10px;text-align:right;background:#fffef9}
  th{background:#f4ecdd;text-align:left}
- figure{margin:18px 0}
- .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+ .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;background:#d6e6f7;padding:10px}
  .row figure{margin:0}
- img{width:100%;height:auto;border:1px solid #e6dccb;background:#fffef9;display:block;cursor:zoom-in}
+ img{width:100%;height:auto;border:1px solid #e6dccb;display:block;cursor:zoom-in}
  img.zoom{cursor:zoom-out;width:auto;max-width:none;max-height:1200px}
- figcaption{font:12px ui-monospace,Menlo,monospace;color:#7a6a55;margin-top:6px}
+ figcaption{font:12px ui-monospace,Menlo,monospace;color:#3b4a5c;margin-top:6px}
+ .star{color:#1a6b3c;font-weight:700}
  .draft{position:fixed;right:.75rem;bottom:.75rem;z-index:99;background:#1b1b1b;color:#fff;font:12px/1.4 system-ui,sans-serif;padding:.35rem .6rem;border-radius:.25rem;opacity:.9}
 </style></head><body><main>
-<h1>PNG compression study</h1>
-<p class="lead">Same plate three ways. Left: as stored today. Middle:
-<code>pngquant --quality 70-95</code> — the recommendation, 6.0&nbsp;MB for the
-whole set. Right: <code>pngquant --quality 90-99</code> — the softer-edge
-option, about 8.5&nbsp;MB for the set. Click any image to zoom to full size and
-compare the antialiased edges; click again to go back. The grey steps you are
-looking for live on the curve edges at this scale.</p>
+<h1>PNG compression study — one generation, judged on blue</h1>
+<p class="lead">Every image on this page comes from <b>one snapshot</b> of
+<code>app/public/plates-web/</code> taken at <b>22:23</b> — the grey + alpha set
+(397 plates, curves on nothing). Earlier sections mixed three generations of
+plates; that is fixed: what is not from the snapshot is gone. ★ marks the rung
+I consider ready. Click any image to zoom to full size.</p>
 <div class="draft">draft A</div>
 
-<h2>The alpha set — judged on darkness, because that is where transparency shows</h2>
-<p class="lead">The web set is now curves on nothing: the background is fully
-transparent, and about 12 million pixels across the set are soft edges into
-that nothing. On the cream page banding hides, so this section draws every
-image on the page colour's complement — a light blue — which is exactly where
-a banded alpha edge would betray itself against a non-white background. The numbers are new too: they now measure the <b>alpha
-edge</b> itself, not only the grey. One honest note: "grey max" is large in
-these captions because where alpha differs, the stored colour differs too —
-the alpha number is the one to read.</p>
-<div class="row" style="background:#d6e6f7;padding:10px">
- <figure><img src="png-study/rgba-orig-c-0001-1600-grey.png" loading="lazy" alt="original RGBA">
-  <figcaption style="color:#3b4a5c">c-0001 ORIGINAL RGBA (uncompressed) · 173,229 bytes · the reference</figcaption></figure>
- <figure><img src="png-study/alpha-q90-99-c-0001-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption style="color:#3b4a5c">c-0001 · 90-99 · 59,305 bytes (−66%) · alpha worst 33 · over 8: 0.05% of pixels</figcaption></figure>
- <figure><img src="png-study/alpha-q70-95-c-0001-1600-grey.png" loading="lazy" alt="70-95">
-  <figcaption style="color:#3b4a5c">c-0001 · 70-95 · 42,013 bytes (−76%) · alpha worst 33 · over 8: 0.16% of pixels</figcaption></figure>
- <figure><img src="png-study/alpha-c16-q9099-c-0001-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption style="color:#3b4a5c">c-0001 · 16 colours + 90-99 · 35,234 bytes (−80%) · alpha worst 33 · over 8: 0.25%</figcaption></figure>
-</div>
-<div class="row" style="background:#d6e6f7;padding:10px">
- <figure><img src="png-study/alpha-q90-99-c-0013-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption style="color:#3b4a5c">c-0013 (the softest plate) · 90-99 · 34,109 bytes (−95%) · alpha worst 13 · over 8: 0.04%</figcaption></figure>
- <figure><img src="png-study/alpha-q70-95-c-0013-1600-grey.png" loading="lazy" alt="70-95">
-  <figcaption style="color:#3b4a5c">c-0013 · 70-95 · 25,789 bytes (−96%) · alpha worst 21 · over 8: 0.18%</figcaption></figure>
- <figure><img src="png-study/alpha-c16-q9099-c-0013-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption style="color:#3b4a5c">c-0013 · 16 colours + 90-99 · 23,289 bytes (−96%) · alpha worst 31 · over 8: 0.34%</figcaption></figure>
-</div>
-<p class="lead">One finding that ends a debate: capping colours at 64 changes
-nothing at 90-99 — the cap never binds — and the 16-colour cap is <i>worse</i>
-than no cap at the same window (alpha error 6–8× higher on the soft plate).
-The real choice is the window: <b>70-95</b> is the small one (whole set
-estimated ~12 MB), <b>90-99</b> is the quiet one (estimated ~18 MB, alpha error
-4× smaller). The floor rungs are gone from this decision: 4–6 levels cannot
-hold a soft alpha edge on any background.</p>
+<h2>The set being judged</h2>
+<table>
+<tr><th>set</th><th>bytes</th><th>note</th></tr>
+<tr><td>plates-web snapshot, 397 plates (grey + alpha, colour type 4)</td><td>60.6 MB</td><td>the source: backgrounds fully transparent, ~12M soft edge pixels</td></tr>
+<tr><td><span class="star">★</span> plain 90-99</td><td>~18 MB (est.)</td><td>alpha error four times quieter than 70-95; a 64-colour cap changes nothing here</td></tr>
+<tr><td>70-95</td><td>~12 MB (est.)</td><td>the small rung</td></tr>
+<tr><td>3 colours (the set that was in git before this conversion)</td><td>5.9 MB</td><td>from the older grey set; the alpha banding on blue is why we are here</td></tr>
+</table>
 
-<h2>The full ladder for the decision — every rung on one screen</h2>
-<p class="lead">The 3-colour print is in the set today; the operator asked for
-higher. Here is every rung measured from the kept originals, heaviest plate
-first. Note the refused rung: <code>8 colours + 90-99</code> does not exist —
-pngquant declines it (exit 99) because 8 colours cannot meet that quality
-window; the honest rungs near it are <b>16 colours + 90-99</b> (worst 13–16,
-about the same size as plain 70-95) and plain <b>90-99</b> (worst 6–8, biggest
-files). Click to zoom.</p>
+<h2>c-0001 · amper — the ladder on one screen</h2>
+<div class="row">
+ <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original">
+  <figcaption>ORIGINAL (snapshot) · 173,229 bytes · 211 grey levels</figcaption></figure>
+ <figure><img src="png-study/r9099-c-0001-1600-grey.png" loading="lazy" alt="90-99">
+  <figcaption><span class="star">★ READY</span> 90-99 · 59,305 bytes (−66%) · alpha worst 33 · over 8: 0.045% of pixels · 36 levels</figcaption></figure>
+ <figure><img src="png-study/r7095-c-0001-1600-grey.png" loading="lazy" alt="70-95">
+  <figcaption>70-95 · 42,013 bytes (−76%) · alpha worst 33 · over 8: 0.164% · 19 levels</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/rc16-c-0001-1600-grey.png" loading="lazy" alt="16 colours">
+  <figcaption>16 colours + 90-99 · 35,234 bytes (−80%) · alpha worst 33 · over 8: 0.248% — the cap makes it worse, not better</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0001-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>FLOOR 0-10 · 18,921 bytes (−89%) · alpha worst 77 · over 8: 0.347% · 5 levels</figcaption></figure>
+ <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original zoom reference">
+  <figcaption>ORIGINAL again, for the eye: same plate, same blue, same zoom</figcaption></figure>
+</div>
+
+<h2>c-0014 · the heaviest plate</h2>
 <div class="row">
  <figure><img src="png-study/orig-c-0014-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0014 ORIGINAL · 161,100 bytes · 211 levels</figcaption></figure>
- <figure><img src="png-study/quant-c-0014-1600-grey.png" loading="lazy" alt="3 colours">
-  <figcaption>c-0014 3 COLOURS (today) · 55,684 bytes (−65%) · worst 16/255</figcaption></figure>
- <figure><img src="png-study/c16-q9099-c-0014-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption>c-0014 16 COLOURS + 90-99 · 51,767 bytes (−68%) · worst 16/255 · 4.1% moved</figcaption></figure>
+  <figcaption>ORIGINAL (snapshot) · 161,100 bytes · 211 grey levels</figcaption></figure>
+ <figure><img src="png-study/r9099-c-0014-1600-grey.png" loading="lazy" alt="90-99">
+  <figcaption><span class="star">★ READY</span> 90-99 · 67,075 bytes (−58%) · alpha worst 54 · over 8: 0.022% · 37 levels</figcaption></figure>
+ <figure><img src="png-study/r7095-c-0014-1600-grey.png" loading="lazy" alt="70-95">
+  <figcaption>70-95 · 47,855 bytes (−70%) · alpha worst 54 · over 8: 0.17% · 19 levels</figcaption></figure>
 </div>
 <div class="row">
- <figure><img src="png-study/q90-c-0014-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption>c-0014 PLAIN 90-99 · 72,615 bytes (−55%) · worst 8/255 · 3.4% moved</figcaption></figure>
- <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0001 ORIGINAL · 116,728 bytes · 211 levels</figcaption></figure>
- <figure><img src="png-study/quant-c-0001-1600-grey.png" loading="lazy" alt="3 colours">
-  <figcaption>c-0001 3 COLOURS (today) · 41,854 bytes (−64%) · worst 14/255 · 3.2% moved</figcaption></figure>
-</div>
-<div class="row">
- <figure><img src="png-study/c16-q9099-c-0001-1600-grey.png" loading="lazy" alt="16 colours 90-99">
-  <figcaption>c-0001 16 COLOURS + 90-99 · 41,456 bytes (−64%) · worst 13/255 · 3.0% moved</figcaption></figure>
- <figure><img src="png-study/q90-c-0001-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption>c-0001 PLAIN 90-99 · 54,566 bytes (−53%) · worst 6/255 · 2.4% moved</figcaption></figure>
- <figure></figure>
+ <figure><img src="png-study/rc16-c-0014-1600-grey.png" loading="lazy" alt="16 colours">
+  <figcaption>16 colours + 90-99 · 41,930 bytes (−74%) · alpha worst 54 · over 8: 0.331%</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0014-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>FLOOR 0-10 · 21,760 bytes (−86%) · alpha worst 80 · over 8: 0.477% · 4 levels</figcaption></figure>
+ <figure><img src="png-study/rc3-c-0014-1600-grey.png" loading="lazy" alt="3 colours">
+  <figcaption>3 COLOURS (yesterday's pick) · 18,013 bytes (−89%) · alpha worst 177 — the transparency bands badly on blue</figcaption></figure>
 </div>
 
-<h2>More curves at the floor — the wash-out check</h2>
-<p class="lead">The operator's report: at the floor rung the greys get washed
-out. Here are eight more curves, original on the left, floor (quality 0-10) on
-the right, so the wash-out can be judged curve by curve. The numbers to read
-are the moved share and the grey count: c-0091 dithers 18.4% of its pixels and
-c-0022 13.9% — those are where "washed out" should show. One oddity, stated
-plainly: c-0088's floor output is <i>bigger</i> than its original (71,168 vs
-16,481 bytes) — the dither noise on that plate costs more than the palette
-saves, so the floor is not even a win there. Click to zoom.</p>
+<h2>The floor and the old pick, judged on the new set</h2>
+<p class="lead">The rungs below are the ones that looked fine on the old grey
+plates and do not survive the alpha conversion: the worst alpha error of the
+3-colour print is <b>177–194 steps</b> on blue — that is the banding you saw.
+The floor rung is gentler on alpha than 3 colours but keeps only 4–5 levels.</p>
+<div class="row">
+ <figure><img src="png-study/rc3-c-0001-1600-grey.png" loading="lazy" alt="3 colours">
+  <figcaption>c-0001 · 3 COLOURS · 12,703 bytes · alpha worst 181</figcaption></figure>
+ <figure><img src="png-study/rc2-c-0001-1600-grey.png" loading="lazy" alt="2 colours">
+  <figcaption>c-0001 · 2 COLOURS · 7,811 bytes · alpha worst 194 · every pixel dithered</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0014-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0014 · FLOOR 0-10 · 21,760 bytes · alpha worst 80</figcaption></figure>
+</div>
+
+<h2>Eight more curves at the floor — the wash-out check, rebuilt</h2>
+<p class="lead">Original on the left of each pair, floor on the right. The moved
+share is the wash-out signal: c-0088 and c-0142 are the worst of this batch.
+One oddity stands: c-0088's floor output is <i>bigger</i> than its original —
+dither noise costs more than the palette saves on that plate.</p>
 <div class="row">
  <figure><img src="png-study/orig-c-0002-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0002 euler-hook ORIGINAL · 66,649 bytes</figcaption></figure>
- <figure><img src="png-study/floor-c-0002-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0002 FLOOR 0-10 · 12,543 bytes (−81%) · 5 levels · worst 50/255 · 3.6% moved</figcaption></figure>
+  <figcaption>c-0002 euler-hook ORIGINAL · 67,310 bytes</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0002-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0002 FLOOR · 10,373 bytes · alpha worst 81 · 0.48% over 8</figcaption></figure>
  <figure><img src="png-study/orig-c-0007-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0007 grass ORIGINAL · 29,081 bytes</figcaption></figure>
+  <figcaption>c-0007 grass ORIGINAL · 28,096 bytes</figcaption></figure>
 </div>
 <div class="row">
- <figure><img src="png-study/floor-c-0007-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0007 FLOOR 0-10 · 5,281 bytes (−82%) · 5 levels · worst 49/255 · 7.0% moved</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0007-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0007 FLOOR · 4,540 bytes · alpha worst 92 · 1.09% over 8</figcaption></figure>
  <figure><img src="png-study/orig-c-0010-1600-grey.png" loading="lazy" alt="original">
   <figcaption>c-0010 m-arch-line ORIGINAL</figcaption></figure>
- <figure><img src="png-study/floor-c-0010-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0010 FLOOR 0-10 · 16,741 bytes · 4 levels · worst 62/255 · 6.2% moved</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0010-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0010 FLOOR · 16,497 bytes · alpha worst 147</figcaption></figure>
 </div>
 <div class="row">
  <figure><img src="png-study/orig-c-0012-1600-grey.png" loading="lazy" alt="original">
   <figcaption>c-0012 m-side-wave ORIGINAL</figcaption></figure>
- <figure><img src="png-study/floor-c-0012-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0012 FLOOR 0-10 · 14,748 bytes · 5 levels · worst 46/255 · 4.3% moved</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0012-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0012 FLOOR · 12,179 bytes · alpha worst 91 · 0.61% over 8</figcaption></figure>
  <figure><img src="png-study/orig-c-0022-1600-grey.png" loading="lazy" alt="original">
   <figcaption>c-0022 wave3-balance ORIGINAL</figcaption></figure>
 </div>
 <div class="row">
- <figure><img src="png-study/floor-c-0022-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0022 FLOOR 0-10 · 18,688 bytes · 6 levels · worst 48/255 · 13.9% moved</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0022-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0022 FLOOR · 14,290 bytes · alpha worst 88 · 0.56% over 8</figcaption></figure>
  <figure><img src="png-study/orig-c-0091-1600-grey.png" loading="lazy" alt="original">
   <figcaption>c-0091 loop-2-cusps-45 ORIGINAL</figcaption></figure>
- <figure><img src="png-study/floor-c-0091-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0091 FLOOR 0-10 · 46,813 bytes · 5 levels · worst 48/255 · 18.4% moved</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0091-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0091 FLOOR · 69,048 bytes · alpha worst 137 · 1.92% over 8</figcaption></figure>
 </div>
 <div class="row">
  <figure><img src="png-study/orig-c-0142-1600-grey.png" loading="lazy" alt="original">
   <figcaption>c-0142 rose-k-4-a-1-b-1 ORIGINAL</figcaption></figure>
- <figure><img src="png-study/floor-c-0142-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0142 FLOOR 0-10 · 54,907 bytes · 6 levels · worst 34/255 · 15.7% moved</figcaption></figure>
- <figure><img src="png-study/floor-c-0088-1600-grey.png" loading="lazy" alt="floor">
-  <figcaption>c-0088 FLOOR 0-10 · 71,168 bytes — bigger than the 16,481 original: dither noise costs more than the palette saves here</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0142-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0142 FLOOR · 90,978 bytes — bigger than the original · alpha worst 69 · 4.33% over 8</figcaption></figure>
+ <figure><img src="png-study/rfcloor-c-0088-1600-grey.png" loading="lazy" alt="floor">
+  <figcaption>c-0088 FLOOR · 135,994 bytes — bigger than its original · alpha worst 38 · 3.66% over 8</figcaption></figure>
 </div>
 
-<h2>The floor — worst quality, as requested</h2>
-<p class="lead">Three rungs below "bad". <b>0–10</b> keeps 4–5 grey levels (the
-survivor of the family: only 3–4% of pixels move, worst 60/255). <b>3
-colours</b> lets the dithering spread, and on the heavy plate it dithers 78% of
-the image — grainy everywhere. <b>2 colours</b> is pure black and white, no grey
-at all: every pixel in the plate changes (mean 8–13 steps), and it is not even
-smaller on the dense plate, because dither noise is expensive to store. Click to
-zoom; the 2-colour rows are where the antialiasing has been deleted, not
-compressed.</p>
-<div class="row">
- <figure><img src="png-study/floor-0-10-c-0001-1600-grey.png" loading="lazy" alt="floor 0-10">
-  <figcaption>c-0001 FLOOR · quality 0-10 · 21,697 bytes (−81%) · 4 levels · worst 60/255 · 3.5% pixels moved</figcaption></figure>
- <figure><img src="png-study/floor-3col-c-0001-1600-grey.png" loading="lazy" alt="3 colours">
-  <figcaption>c-0001 FLOOR · 3 colours · 14,888 bytes (−87%) · 3 levels · worst 86/255 · 7.3% moved</figcaption></figure>
- <figure><img src="png-study/floor-2col-c-0001-1600-grey.png" loading="lazy" alt="2 colours">
-  <figcaption>c-0001 FLOOR · 2 colours (black/white) · 29,880 bytes (−74%) · worst 119/255 · 100% moved</figcaption></figure>
-</div>
-<div class="row">
- <figure><img src="png-study/floor-0-10-c-0014-1600-grey.png" loading="lazy" alt="floor 0-10">
-  <figcaption>c-0014 FLOOR · quality 0-10 · 28,017 bytes (−83%) · 5 levels · worst 50/255 · 4.2% moved</figcaption></figure>
- <figure><img src="png-study/floor-3col-c-0014-1600-grey.png" loading="lazy" alt="3 colours">
-  <figcaption>c-0014 FLOOR · 3 colours · 53,766 bytes (−67%) · 3 levels · worst 100/255 · 78% moved</figcaption></figure>
- <figure><img src="png-study/floor-2col-c-0014-1600-grey.png" loading="lazy" alt="2 colours">
-  <figcaption>c-0014 FLOOR · 2 colours (black/white) · 15,948 bytes (−90%) · worst 101/255 · 100% moved</figcaption></figure>
-</div>
+<h2>Where this leaves the choice</h2>
+<p class="lead"><span class="star">★</span> My ready pick: <b>plain 90-99</b>.
+On the alpha set it is the only rung whose worst alpha error stays at or under
+~54 steps with the over-8 share at 0.02–0.05% of pixels, and the whole-set
+estimate is ~18 MB against the 60.6 MB source. 70-95 is the size option
+(~12 MB) at four times the alpha error. The floor and the colour-count rungs
+(3, 2, and the 16-colour cap) all band the transparency and are recorded here
+so the decision is made with them visible, not remembered.</p>
 
-<h2>How far can we squeeze? — the ladder, worst first</h2>
-<p class="lead">You asked for the bottom of the ladder, so here it is above the
-good ones. <b>bad</b> is <code>--quality 5-25</code> (6 grey levels left):
-edges step up to 50/255 — that is a visible stair on the curves. <b>almost
-bad</b> is <code>--quality 35-55</code> (8 levels): steps of 27–28/255, right at
-the edge of what a printed page shows. The current recommendation (70-95) is
-repeated here so the jump is on one screen. Click to zoom.</p>
-<div class="row">
- <figure><img src="png-study/bad-c-0001-1600-grey.png" loading="lazy" alt="bad">
-  <figcaption>c-0001 BAD · 5-25 · 24,982 bytes (−79%) · 6 levels · worst 49/255</figcaption></figure>
- <figure><img src="png-study/almost-c-0001-1600-grey.png" loading="lazy" alt="almost bad">
-  <figcaption>c-0001 ALMOST BAD · 35-55 · 29,013 bytes (−75%) · 8 levels · worst 28/255</figcaption></figure>
- <figure><img src="png-study/quant-c-0001-1600-grey.png" loading="lazy" alt="recommended">
-  <figcaption>c-0001 RECOMMENDED · 70-95 · 41,854 bytes (−64%) · 19 levels · worst 14/255</figcaption></figure>
-</div>
-<div class="row">
- <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0001 ORIGINAL · 116,728 bytes · 211 levels</figcaption></figure>
- <figure><img src="png-study/bad-c-0014-1600-grey.png" loading="lazy" alt="bad">
-  <figcaption>c-0014 BAD · 5-25 · 31,587 bytes (−80%) · 6 levels · worst 50/255</figcaption></figure>
- <figure><img src="png-study/almost-c-0014-1600-grey.png" loading="lazy" alt="almost bad">
-  <figcaption>c-0014 ALMOST BAD · 35-55 · 36,363 bytes (−77%) · 8 levels · worst 27/255</figcaption></figure>
-</div>
-<div class="row">
- <figure><img src="png-study/quant-c-0014-1600-grey.png" loading="lazy" alt="recommended">
-  <figcaption>c-0014 RECOMMENDED · 70-95 · 55,684 bytes (−65%) · 17 levels · worst 16/255</figcaption></figure>
- <figure><img src="png-study/orig-c-0014-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>c-0014 ORIGINAL · 161,100 bytes · 211 levels</figcaption></figure>
- <figure><img src="png-study/q90-c-0014-1600-grey.png" loading="lazy" alt="90-99">
-  <figcaption>c-0014 SOFT · 90-99 · 72,615 bytes (−55%) · worst 8/255</figcaption></figure>
-</div>
-
-<h2>The whole set, once more in numbers</h2>
-<table>
-<tr><th>setting</th><th>whole set (397 plates)</th><th>time</th><th>worst edge error</th></tr>
-<tr><td>as stored</td><td>17.8 MB</td><td>—</td><td>—</td></tr>
-<tr><td>pngquant 70-95</td><td>6.0 MB (−66.6%)</td><td>113 s</td><td>10–16 steps of 255, on ≤7% of pixels</td></tr>
-<tr><td>pngquant 90-99</td><td>~8.5 MB (−53%)</td><td>~3 min</td><td>6–8 steps of 255</td></tr>
-<tr><td>zopflipng (lossless)</td><td>−28.5% ≈ 12.7 MB</td><td>~5.4 h</td><td>0 (pixel-perfect)</td></tr>
-</table>
-
-<h2>c-0001 · amper — the plates side by side</h2>
-<div class="row">
- <figure><img src="png-study/orig-c-0001-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>original · 116,728 bytes · 211 grey levels</figcaption></figure>
- <figure><img src="png-study/quant-c-0001-1600-grey.png" loading="lazy" alt="pngquant 70-95">
-  <figcaption>pngquant 70-95 · 41,854 bytes (−64%) · 19 levels · worst edge 14/255</figcaption></figure>
- <figure><img src="png-study/q90-c-0001-1600-grey.png" loading="lazy" alt="pngquant 90-99">
-  <figcaption>pngquant 90-99 · 54,566 bytes (−53%) · worst edge 6/255</figcaption></figure>
-</div>
-
-<h2>c-0014 · the heaviest plate in the set</h2>
-<div class="row">
- <figure><img src="png-study/orig-c-0014-1600-grey.png" loading="lazy" alt="original">
-  <figcaption>original · 161,100 bytes</figcaption></figure>
- <figure><img src="png-study/quant-c-0014-1600-grey.png" loading="lazy" alt="pngquant 70-95">
-  <figcaption>pngquant 70-95 · 55,684 bytes (−65%) · worst edge 16/255</figcaption></figure>
- <figure><img src="png-study/q90-c-0014-1600-grey.png" loading="lazy" alt="pngquant 90-99">
-  <figcaption>pngquant 90-99 · 72,615 bytes (−55%) · worst edge 8/255</figcaption></figure>
-</div>
-
-<h2>Every studied plate: original (left) against the recommendation (right)</h2>
-<p class="lead">c-0088 is the one to squint at — an almost-empty plate with a
-single stray pixel 78 steps off; invisible here, honest in the numbers.</p>
-<div class="row" id="pairs"></div>
-<script>
-const plates = ["c-0002","c-0005","c-0007","c-0009","c-0013","c-0021","c-0028","c-0088"];
-const host = document.getElementById("pairs");
-for (const p of plates) {
-  const mk = (src, cap) => {
-    const f = document.createElement("figure");
-    const i = document.createElement("img");
-    i.src = src; i.loading = "lazy"; i.alt = cap;
-    i.onclick = () => i.classList.toggle("zoom");
-    const c = document.createElement("figcaption"); c.textContent = cap;
-    f.append(i, c); return f;
-  };
-  host.append(mk(`png-study/orig-${p}-1600-grey.png`, `${p} · original`),
-              mk(`png-study/quant-${p}-1600-grey.png`, `${p} · pngquant 70-95`));
-}
-</script>
+<h2>The commands, so the numbers can be re-derived</h2>
+<p class="lead">Snapshot: copy <code>app/public/plates-web/*.png</code> aside
+(22:23). Each rung:
+<code>pngquant [args] --speed 1 --force --output out.png in.png</code> with
+<code>--quality 70-95</code>, <code>--quality 90-99</code>,
+<code>--colors 16 --quality 90-99</code>, <code>--quality 0-10</code>,
+<code>--colors 3</code>, <code>--colors 2</code>. Fidelity: Pillow, RGBA,
+per-channel difference, grey and alpha separately.</p>
 </main></body></html>
