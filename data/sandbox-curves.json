@@ -6,14 +6,14 @@
   {
    "name": "c-0001",
    "widthPct": 6,
-   "plus": 5,
-   "minus": 2,
+   "plus": 1.5,
+   "minus": 0.2,
    "profile": "bow",
    "transform": {
     "degrees": 0
    },
    "tune": true,
-   "savedAt": "2026-11-21T01:28:23.741Z"
+   "savedAt": "2026-11-21T01:48:54.410Z"
   },
   {
    "name": "c-0006",
