@@ -14,6 +14,7 @@
     "starred": "boolean",
     "candidate": "boolean",
     "createdAt": "string",
+    "stars": "number",
     "formula": "object",
     "note": "object",
     "set": "null",
