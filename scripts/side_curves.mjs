@@ -107,6 +107,8 @@ c = the spine's bounding-box centre; s = scale; φ = rotation.</div>
     <label>scale s <input id="scale" type="range" min="0.80" max="1.20" step="0.005" value="0.94"><output id="scale-out">0.940</output></label>
     <label>rotation φ° <input id="rot" type="range" min="-15" max="15" step="0.5" value="0"><output id="rot-out">0.0</output></label>
     <label>centre <input id="centre" type="range" min="0" max="1" step="0.05" value="0.5"><output id="centre-out">0.50</output></label>
+    <label>stroke <select id="stroke"><option value="dots" selected>dots</option><option value="line">line</option></select></label>
+    <label>dot r px <input id="dot" type="range" min="0.6" max="2.4" step="0.1" value="1.6"><output id="dot-out">1.6</output></label>
     <p class="lead" style="font-size:12px">Centre moves along the bounding box's x axis:
       0.5 is its middle, 0 is the left edge, 1 the right. The gap is zero at the centre.</p>
     <table id="metrics"></table>
@@ -116,7 +118,7 @@ c = the spine's bounding-box centre; s = scale; φ = rotation.</div>
 The rail is the plate's width law at 1.5 %, plus 2, minus 2, bow.</p>
 <script>
 const DATA = ${JSON.stringify(data)};
-const state = { index: 0, s: 0.94, phi: 0, centreMix: 0.5 };
+const state = { index: 0, s: 0.94, phi: 0, centreMix: 0.5, dots: true, dot: 1.6 };
 const byId = (id) => document.getElementById(id);
 const styleOf = () => ({ spine: "#2b2b2b", rail: "#b9b1a2", partner: "#8a3b2a" });
 
@@ -144,10 +146,19 @@ function draw() {
     (i ? "L" : "M") + ((x - x0 + pad) * k).toFixed(1) + "," +
     (H - (y - y0 + pad) * k).toFixed(1)).join("");
   const colour = styleOf();
+  // Dots without Béziers: a zero-length dash with a round cap, spaced closer than the dot
+  // diameter, lays overlapping dots along the exact polyline. No curve fitting, no smoothing
+  // of the geometry; only the drawn stroke.
+  const stroke = (radius) => state.dots
+    ? ' stroke-width="' + (2 * radius).toFixed(2) + '" stroke-linecap="round" stroke-dasharray="0.01 ' +
+      (radius * 1.05).toFixed(2) + '"'
+    : ' stroke-width="' + (2 * radius * 0.55).toFixed(2) +
+      '" stroke-linecap="round" stroke-linejoin="round"';
   const paths = [
-    ...entry.rails.map((rail) => '<path d="' + toD(rail) + '" fill="none" stroke="' + colour.rail + '" stroke-width="1" stroke-dasharray="2 3"/>'),
-    '<path d="' + toD(entry.spine) + '" fill="none" stroke="' + colour.spine + '" stroke-width="1.6"/>',
-    '<path d="' + toD(partner) + '" fill="none" stroke="' + colour.partner + '" stroke-width="1.8"/>',
+    ...entry.rails.map((rail) => '<path d="' + toD(rail) + '" fill="none" stroke="' + colour.rail +
+      '" opacity="0.6"' + stroke(state.dot * 0.7) + '/>'),
+    '<path d="' + toD(entry.spine) + '" fill="none" stroke="' + colour.spine + '"' + stroke(state.dot) + '/>',
+    '<path d="' + toD(partner) + '" fill="none" stroke="' + colour.partner + '"' + stroke(state.dot) + '/>',
   ];
   byId("picture").innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img">' + paths.join("") + '</svg>';
 
@@ -187,6 +198,15 @@ function wire() {
   byId("centre").addEventListener("input", (event) => {
     state.centreMix = Number(event.target.value);
     byId("centre-out").value = state.centreMix.toFixed(2);
+    draw();
+  });
+  byId("stroke").addEventListener("change", (event) => {
+    state.dots = event.target.value === "dots";
+    draw();
+  });
+  byId("dot").addEventListener("input", (event) => {
+    state.dot = Number(event.target.value);
+    byId("dot-out").value = state.dot.toFixed(1);
     draw();
   });
   draw();
