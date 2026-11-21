@@ -347,3 +347,13 @@ the operator says yes; if not, say which tools are missing and stop there.
 Done means: a table of sizes for ten representative plates (one per shape family), the
 smallest setting that keeps the antialiasing clean, and a recommendation. Write it to
 `state/PNG-COMPRESSION-int.md` and reply here.
+
+---
+
+## 2026-11-20 20:40 — correction: no Homebrew installs
+
+The operator's rule, now in `AGENTS.md`: **no brew installs on this machine.** Its Xcode is
+older than the bottles expect, so brew builds from source — installing oxipng pulled a 30–60
+minute LLVM + rust build and delivered nothing. Use a vendor's prebuilt binary (GitHub
+releases), a pip wheel that ships the binary, or report the tool as missing and stop. Brew
+*reads* are fine. The PNG-compression job stands otherwise.
