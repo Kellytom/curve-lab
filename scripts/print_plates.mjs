@@ -16,6 +16,7 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 import { setDpi } from "./lib/png-dpi.mjs";
 import { turn, frame as frameFor } from "./lib/plate-frame.mjs";
+import { rowFor as plateRow } from "./lib/plate-row.mjs";
 
 // d3 does the geometry: the extents and the line generator. It is a dependency the app
 // already carries (app/node_modules), so the plate uses the same library as the pages.
@@ -50,10 +51,16 @@ const PLATE = (await import(path.join(ROOT, "workbench", "plate_math.js"))).defa
 const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8"));
 const notes = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-notes.json"), "utf8"));
 const noteOf = new Map((notes.curves || []).map((row) => [row.uid, row]));
-// the desk's own rows can carry a width per curve (saved through desk-io); the plate reads it
-const decisions = existsSync(path.join(ROOT, "workbench", "sandbox-curves.json"))
-  ? JSON.parse(readFileSync(path.join(ROOT, "workbench", "sandbox-curves.json"), "utf8")).curves || []
-  : [];
+// The desk's decisions live in ONE copy: data/sandbox-curves.json (the database export).
+// Reading the old workbench path in silence used the defaults for every curve, which is how
+// character values stopped reaching the plates.
+const DECISIONS = path.join(ROOT, "data", "sandbox-curves.json");
+const decisionsRaw = existsSync(DECISIONS) ? JSON.parse(readFileSync(DECISIONS, "utf8")) : {};
+const decisions = decisionsRaw.rows || decisionsRaw.curves || [];
+if (!decisions.length) {
+  console.log("WARNING: data/sandbox-curves.json is missing or empty — every plate will use " +
+    "the defaults (6 %, plus 2, minus 2, bow). Run: node scripts/export-data.mjs");
+}
 const extra = new Map(decisions.map((row) => [row.uid || row.name, row]));
 
 const LONG_SIDE = 3000;
@@ -73,28 +80,11 @@ const missing = args.includes("--missing");
 const toneArg = (args.find((a) => a.startsWith("--tone=")) || "--tone=two").split("=")[1];
 const singleTone = toneArg === "one";
 
-function rowFor(record, extra) {
-  const note = noteOf.get(record.uid) || {};
-  const desk = () => extra.get(record.uid) || extra.get((record.aliases || [])[0]) || {};
-  return {
-    name: record.name,
-    speedX: record.speedX || [],
-    speedY: record.speedY || [],
-    // every curve gets the same visible ribbon unless its row says otherwise: 6% of the
-    // curve's size. 0 would put the rails on the spine and the bands would have no area.
-    width: { percent: note.width_pct ?? note.widthPct
-      ?? desk()?.widthPct ?? 6 },
-    character: {
-      plus: note.plus ?? desk()?.plus ?? 2,
-      minus: note.minus ?? desk()?.minus ?? 2,
-      profile: note.profile || desk()?.profile || undefined,
-    },
-    character: {
-      plus: note.plus ?? 0, minus: note.minus ?? 0,
-      profile: note.profile || undefined,
-    },
-  };
-}
+// the one law lives in scripts/lib/plate-row.mjs: note -> desk row -> defaults
+const rowFor = (record, extra) => plateRow(record, {
+  note: noteOf.get(record.uid) || {},
+  desk: extra.get(record.uid) || extra.get((record.aliases || [])[0]) || {},
+});
 
 /** the polyline split where it crosses x = 0, both halves returned in order */
 function halves(points) {

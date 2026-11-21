@@ -30,7 +30,7 @@ export const POST = async ({ request, url }) => {
       update: { data: JSON.stringify(data) },
     });
     // the plate reads the exported JSON, so refresh it from the database first
-    await run(process.execPath, [path.join(repoRoot(), "app", "scripts", "export-sandbox.mjs")],
+    await run(process.execPath, [path.join(repoRoot(), "scripts", "export-data.mjs")],
       { cwd: repoRoot(), timeout: 60000 });
     // render before redirecting: the page you land on shows the plate that was just made
     await run(process.execPath, [path.join(repoRoot(), "scripts", "print_plates.mjs"), "--only", uid],

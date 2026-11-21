@@ -13,6 +13,8 @@ browser, so they run in the fast suite. Browser-level proof lives in
 
 import json
 import re
+import shutil
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -146,6 +148,25 @@ class TestRegressions(unittest.TestCase):
         wanted = {record["uid"] for record in registry["curves"]}
         indexed = {meta["uid"] for meta in index["curves"]}
         self.assertEqual(sorted(wanted - indexed), [], "registry curves with no figure")
+
+    def test_the_plates_are_not_parallel_curves(self):
+        """2026-11-20, the operator: "I CANT BELIEVE WE ARE DEALING WITH PARALLEL
+        CURVE". They were right twice: the plate read a decision file that no longer
+        existed, and its row builder carried a duplicate `character:` key whose second
+        copy set plus and minus to 0 — a plain parallel offset — whatever the desk said.
+
+        The law now lives in `scripts/lib/plate-row.mjs`, and its own test measures the
+        two rails: the guarded side must widen along the curve, the other must not move
+        much, and zero character must be the only parallel case.
+        """
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("node is not on PATH")
+        run = subprocess.run(
+            [node, "--test", str(ROOT / "tests" / "js" / "plate-row.test.mjs")],
+            capture_output=True, text=True, cwd=ROOT,
+        )
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 
 if __name__ == "__main__":
