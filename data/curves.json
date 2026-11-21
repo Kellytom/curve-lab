@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.curves/1",
  "note": "One object per curve: the Curve row, its Note, its CurveSet, its metric and its formula.",
- "count": 397,
+ "count": 398,
  "rows": [
   {
    "uid": "c-0001",
@@ -71,6 +71,49 @@
     "computedAt": "2026-11-19T06:18:38.211Z",
     "updatedAt": "2026-11-19T06:18:38.211Z"
    }
+  },
+  {
+   "uid": "c-0001a",
+   "name": "amper-thin",
+   "family": "amper",
+   "lists": "[\"found\",\"variant\"]",
+   "aliases": "[]",
+   "starred": false,
+   "candidate": false,
+   "createdAt": "2026-11-21T15:59:17.081Z",
+   "formula": {
+    "plain": "x(t) = −12t + 78t² − 611/3t³ + 232t⁴ − 546/5t⁵ + 50/3t⁶ − 3/7t⁷;  y(t) = 16t − 64t² + 356/3t³ − 121t⁴ + 48t⁵ + 10/3t⁶ − 4/7t⁷",
+    "rational": "the same polynomial exactly: every coefficient is a fraction, and the whole curve is an integer over 105",
+    "parameter": "t runs 0 to 1 in equal steps; the stored step and grid give the exact station",
+    "search": "PH x=−12t + 78t^2 − 611/3t^3 + 232t^4 − 546/5t^5 + 50/3t^6 − 3/7t^7; y=16t − 64t^2 + 356/3t^3 − 121t^4 + 48t^5 + 10/3t^6 − 4/7t^7; no metric yet",
+    "use": "no metric yet"
+   },
+   "note": {
+    "uid": "c-0001a",
+    "name": "amper-thin",
+    "importance": 0,
+    "rotation": 0,
+    "pieces": 1,
+    "borderUid": null,
+    "perSide": 9,
+    "borderTurn": 0,
+    "offsets": 0,
+    "widthPct": 1,
+    "plus": 2,
+    "minus": 0,
+    "profile": "bow",
+    "formula": null,
+    "params": "{\"parent\":\"c-0001\",\"parentName\":\"amper\",\"variantOf\":\"c-0001\",\"tuned\":{\"widthPct\":1,\"plus\":2.5,\"minus\":0.1,\"profile\":\"bow\",\"transform\":{\"degrees\":0},\"degrees\":0}}",
+    "grid": null,
+    "stationRule": null,
+    "algorithm": "rows",
+    "conversion": "{\"algorithm\":\"rows\",\"status\":\"pending\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
+    "transform": "{\"degrees\":0,\"exact\":true}",
+    "note": "variant of c-0001 (amper) · width 1% · bow plus 2.5 minus 0.1 · turn 0°",
+    "updatedAt": "2026-11-21T15:59:17.081Z"
+   },
+   "set": null,
+   "metric": null
   },
   {
    "uid": "c-0002",
