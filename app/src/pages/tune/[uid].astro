@@ -13,7 +13,14 @@ import { prisma } from "../../lib/db.js";
 // default. require() reads it from disk as Node sees it, which is the same module the plate
 // script uses. Without this the page showed "no drawable points" for every row curve.
 const require = createRequire(import.meta.url);
-const PLATE = require(path.join(repoRoot(), "workbench", "plate_math.js"));
+// Read the maths fresh on every request. Node caches a required file, and a cached copy
+// made the server's first paint disagree with the live redraw after a maths change: the
+// band sat at the old guard's 1.5 % until the first control touch moved it to 2.29 %
+// (2026-11-21). The client already fetches the file with no-cache; this makes the server
+// do the same.
+const plateFile = path.join(repoRoot(), "workbench", "plate_math.js");
+delete require.cache[require.resolve(plateFile)];
+const PLATE = require(plateFile);
 const registry = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "curve-registry.json"), "utf8"));
 
 const { uid } = Astro.params;

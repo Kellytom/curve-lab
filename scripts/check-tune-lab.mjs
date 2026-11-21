@@ -96,6 +96,19 @@ try {
   const pathPaths = await page.$$eval("#lab-preview svg path", (nodes) => nodes.length);
   if (pathPaths !== 1) problems.push(`a path curve drew ${pathPaths} paths, not its spine`);
 
+  // the first paint and the live redraw must use the same maths. A cached server module
+  // once showed the old guard's 1.5 % until the first touch moved the band to 2.29 %.
+  await page.goto(`${BASE}/tune/c-0002`, { waitUntil: "networkidle" });
+  await page.waitForSelector("#tune-preview svg", { timeout: 8000 });
+  const first = await readoutOf("#tune-readout");
+  const firstUsed = Number((first.match(/each edge ([\d.]+) %/) || [])[1]);
+  await setInput('input[name="plus"]', 2);
+  const live = await readoutOf("#tune-readout");
+  const liveUsed = Number((live.match(/Band width ([\d.]+) %/) || [])[1]);
+  if (!(Math.abs(firstUsed - liveUsed) <= 0.11)) {
+    problems.push(`first paint ${firstUsed} % and live redraw ${liveUsed} % disagree`);
+  }
+
   // the per-curve page redraws in place: no navigation, no submit. The width is still cut
   // by the original fold guard, and the readout must say the number it was cut to.
   await page.goto(`${BASE}/tune/c-0001`, { waitUntil: "networkidle" });
