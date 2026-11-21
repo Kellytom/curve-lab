@@ -80,9 +80,6 @@ book/print/
 # the web renders are working state while the look is being judged; commit the set at freeze
 app/public/plates-web/
 
-# the operator asked these out of git (2026-11-20); they stay on disk
-tests/test_crossing_calibration.py
-tests/test_data_dictionary.py
-tests/test_data_export.py
-app/tests/formula.test.mjs
-app/tests/frames.test.mjs
+# test/study PNG outputs stay out of git: full-size plates live on disk, and
+# only the compressed set the operator picks goes back in (2026-11-20)
+workbench/png-study/
