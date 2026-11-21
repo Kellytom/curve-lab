@@ -3411,5 +3411,12 @@ Tschirnhausen — classic but adds nothing; off the board.
   minus have paired numbers and sliders.
 - **Tried and rejected:** a local pinch cap for the rails (2026-11-21). The operator: "you cant
   cheat and use another way to make the character rails." `plate_math.js` is the one law.
+- **The stored outlines keep their precision.** The registry had copied 56 sampled paths with
+  `round(px, 2)`, coarser than the step between samples: `c-0143` drew as a staircase, not
+  y = x². `scripts/repair_registry_paths.py` rewrote only the `path` field of `c-0088`–`c-0143`
+  from the finder source at six decimals; `curve_registry.py` now stores six; the data export is
+  refreshed; `tests/test_registry_paths.py` is in the fast loop (register row 44).
+- **The unsaved default width is 1.5 %**, not 6 %, in `plate-row.mjs`, the tune page and the lab;
+  a saved row keeps its own values. The plates were re-rendered with both changes.
 - **Next:** the path-curve band fill (185 path records). The path rail's existing cap jitters;
   changing it is a rail decision and waits on the operator.

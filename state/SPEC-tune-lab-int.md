@@ -28,7 +28,8 @@ It is the sandbox; `/tune/<uid>` is the page that writes.
 
 ## 2 · The four values, and what each one does
 
-    width %   the base distance from the spine, as a share of the curve's own size
+    width %   the base distance from the spine, as a share of the curve's own size;
+              an unsaved curve starts at 1.5 %, a saved row at its own value
     plus      how much the right edge widens along the curve
     minus     the same for the left edge
     profile   bow: widest at the middle

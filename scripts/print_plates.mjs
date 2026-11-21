@@ -71,7 +71,7 @@ const decisionsRaw = existsSync(DECISIONS) ? JSON.parse(readFileSync(DECISIONS, 
 const decisions = decisionsRaw.rows || decisionsRaw.curves || [];
 if (!decisions.length) {
   console.log("WARNING: data/sandbox-curves.json is missing or empty — every plate will use " +
-    "the defaults (6 %, plus 2, minus 2, bow). Run: node scripts/export-data.mjs");
+    "the defaults (1.5 %, plus 2, minus 2, bow). Run: node scripts/export-data.mjs");
 }
 const extra = new Map(decisions.map((row) => [row.uid || row.name, row]));
 

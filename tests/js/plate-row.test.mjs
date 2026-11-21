@@ -62,3 +62,13 @@ test("plus = minus = 0 is the only case that is a parallel offset", () => {
   const flat = (s) => Math.abs(s.max - s.min) < 1e-9;
   assert.ok(flat(plus) && flat(minus), "zero character must be a true parallel offset");
 });
+
+test("an unsaved curve starts at 1.5 % width", () => {
+  // The operator, 2026-11-21: "instead of 6%, set width of offsets to 1.5% for the ones i
+  // havent saved." 6 % was the old guard's asked width, drawn at about 1.5 after halving;
+  // now that the guard is solved directly, the untouched default is the old drawn width.
+  assert.equal(DEFAULTS.widthPercent, 1.5);
+  assert.equal(rowFor(record).width.percent, 1.5);
+  assert.equal(rowFor(record, { desk: { widthPct: 4 } }).width.percent, 4,
+    "a saved row always keeps its own width");
+});

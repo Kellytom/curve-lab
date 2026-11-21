@@ -859,3 +859,17 @@ curve in /plates ... all with UIDs".
 - **The cap is solved directly, not by halving** (settled 2026-11-21). The rule is
   `distance × peak ≤ 0.9`; the used width is the largest safe width, so the band never narrows
   as the slider rises. Halving made it jump (`c-0002`: 2.2 % → 1.15 % at the next step).
+
+## The unsaved default is 1.5 %, and an outline keeps its precision — 2026-11-21
+
+- **A curve with no desk row starts at width 1.5 %**, plus 2, minus 2, bow. A saved row always
+  uses its own values. The operator: "instead of 6%, set width of offsets to 1.5% for the ones
+  i havent saved." Reason: 6 % was the old guard's *asked* width, drawn at about 1.5 % after
+  halving; now that the guard is solved directly, 6 % is a genuinely wide band, so the untouched
+  default is the width it used to draw.
+- **The registry copies a sampled outline at six decimals, never two.** Two decimals is coarser
+  than the step between samples on a curve of size 1–3, and it turns a smooth curve into a run
+  of axis-aligned steps: `c-0143` (y = x² as a t² cover) drew as a staircase, not a parabola
+  (2026-11-21, operator: "please fix underlying graph"). Identity still rounds to two decimals;
+  the drawing does not. `scripts/repair_registry_paths.py` repairs, `tests/test_registry_paths.py`
+  keeps it.

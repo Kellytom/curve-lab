@@ -40,7 +40,7 @@ function start() {
   const saveButtons = [...form.querySelectorAll("button[formaction]")];
   const save = async (button) => {
     const target = new URL(button.getAttribute("formaction"), location.origin);
-    const payload = Object.fromEntries(new FormData(form).entries());
+    const payload = { ...valuesOf(inputs), curveName: form.elements.curveName?.value || "" };
     saveButtons.forEach((item) => { item.disabled = true; });
     say("saving…", "busy");
     try {

@@ -35,7 +35,7 @@ const deskRows = await prisma.sandboxCurve.findMany();
 const dataOf = new Map(deskRows.map((row) => [row.name, parse(row)]));
 const current = dataOf.get(record.uid) || {};
 
-const defaults = { widthPct: 6, plus: 2, minus: 2, profile: "bow" };
+const defaults = { widthPct: 1.5, plus: 2, minus: 2, profile: "bow" };
 const q = Astro.url.searchParams;
 const number = (name, fallback) => {
   const raw = q.get(name);
