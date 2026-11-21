@@ -33,10 +33,15 @@ mkdirSync(WEB, { recursive: true });
 // preserved.
 const WEB_SIDE = 1600;
 function webCopy(uid, png) {
+  const small = path.join(WEB, `${uid}.tmp.png`);
   try {
-    execFileSync("sips", ["-Z", String(WEB_SIDE), png,
-      "--out", path.join(WEB, `${uid}.png`)], { stdio: "ignore" });
+    // resize, then drop to grey: the plate is grey on white, so an RGB PNG carries three
+    // channels for one. Grey is about half the bytes and opens in every program.
+    execFileSync("sips", ["-Z", String(WEB_SIDE), png, "--out", small], { stdio: "ignore" });
+    execFileSync("sips", ["--matchTo", "/System/Library/ColorSync/Profiles/Generic Gray Profile.icc",
+      small, "--out", path.join(WEB, `${uid}.png`)], { stdio: "ignore" });
   } catch { /* no sips: the 3000 px plate is still there */ }
+  rmSync(small, { force: true });
 }
 
 const PLATE = (await import(path.join(ROOT, "workbench", "plate_math.js"))).default
