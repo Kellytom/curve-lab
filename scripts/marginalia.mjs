@@ -1,0 +1,83 @@
+// Marginalia: every curve as an ornament, at a quarter of the text width.
+//
+//   node scripts/marginalia.mjs
+//
+// One single-stroke SVG per registry curve, the spine only (no character rails), drawn with
+// currentColor and a non-scaling stroke so it holds at any size. The manifest records the
+// natural box, so the theme can say "a quarter of the column" and the gallery can go four-up.
+//
+// The SVGs are generated output and gitignored; the manifest is tracked so the theme and its
+// test know the set without drawing it. Model y is up; the SVG flip happens here.
+
+import { createRequire } from "node:module";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import path from "node:path";
+
+const require = createRequire(import.meta.url);
+const P = require("../workbench/plate_math.js");
+
+const ROOT = path.resolve(import.meta.dirname, "..");
+const OUT = path.join(ROOT, "app", "public", "ornaments");
+const MANIFEST = path.join(ROOT, "app", "src", "theme", "marginalia", "ornaments.json");
+const SCALE = 0.25;
+
+const registry = JSON.parse(readFileSync(path.join(ROOT, "workbench", "curve-registry.json"), "utf8"));
+// the star values live in the database export, not the seed
+const starsOf = new Map();
+try {
+  const exported = JSON.parse(readFileSync(path.join(ROOT, "data", "curves.json"), "utf8"));
+  for (const row of exported.rows || []) starsOf.set(row.uid, row.stars ?? null);
+} catch { /* the manifest falls back to the seed's importance */ }
+rmSync(OUT, { recursive: true, force: true });
+mkdirSync(OUT, { recursive: true });
+mkdirSync(path.dirname(MANIFEST), { recursive: true });
+
+const spineOf = (record) => {
+  if (record.speedX?.length || record.speedY?.length) {
+    return P.spine(record.speedX || [0], record.speedY || [0], 260).map((s) => [s.x, s.y]);
+  }
+  if (!record.path?.length) return [];
+  const [x0, y0, x1, y1] = P.bbox(record.path);
+  const size = Math.hypot(x1 - x0, y1 - y0) || 1;
+  return P.refinePath(record.path, size / 500);
+};
+
+const manifest = [];
+let drawn = 0;
+for (const record of registry.curves) {
+  const points = spineOf(record);
+  if (points.length < 2) continue;
+  const [x0, y0, x1, y1] = P.bbox(points);
+  const pad = 0.01 * (Math.max(x1 - x0, y1 - y0) || 1);
+  const flip = y0 + y1;
+  const d = points
+    .map(([x, y], i) => `${i ? "L" : "M"}${(x - x0 + pad).toFixed(2)},${(flip - y - y0 + pad).toFixed(2)}`)
+    .join("");
+  const width = x1 - x0 + 2 * pad;
+  const height = y1 - y0 + 2 * pad;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width.toFixed(2)} ${height.toFixed(2)}" ` +
+    `role="presentation" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" ` +
+    `stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>\n`;
+  writeFileSync(path.join(OUT, `${record.uid}.svg`), svg);
+  manifest.push({
+    uid: record.uid,
+    name: record.name,
+    family: record.family_id || record.family || "",
+    stars: starsOf.get(record.uid) ?? record.importance ?? null,
+    file: `/ornaments/${record.uid}.svg`,
+    width: Number(width.toFixed(4)),
+    height: Number(height.toFixed(4)),
+  });
+  drawn += 1;
+}
+
+writeFileSync(MANIFEST, `${JSON.stringify({
+  format: "curve-lab.marginalia/1",
+  note: "One single-stroke ornament per curve. Displayed at a quarter of the text width; " +
+    "the SVGs are generated and gitignored, the manifest is the record.",
+  scale: SCALE,
+  count: manifest.length,
+  curves: manifest,
+}, null, 1)}\n`);
+console.log(`${drawn} ornaments written to app/public/ornaments; manifest at ` +
+  `${path.relative(ROOT, MANIFEST)} · scale ${SCALE}`);

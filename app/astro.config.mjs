@@ -50,6 +50,7 @@ const sidebar = [
     label: "Design",
     items: [
       "docs/philosophy",
+      "docs/marginalia",
       "docs/clearance",
       "docs/junction",
       "docs/primal",
@@ -100,6 +101,8 @@ export default defineConfig({
       description:
         "Exact integer and Euler curves for ornament: a Python engine, a browser lab, and an Astro app.",
       sidebar,
+      customCss: ["./src/theme/marginalia/marginalia.css"],
+      components: { Head: "./src/theme/marginalia/Head.astro" },
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/Kellytom/curve-lab" },
       ],

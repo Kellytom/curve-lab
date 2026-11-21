@@ -12,8 +12,8 @@
     "gate": "npm run check && npm test",
     "backup": "node scripts/backup-db.mjs",
     "restore": "node scripts/restore-db.mjs",
-    "predev": "node scripts/backup-db.mjs",
-    "prebuild": "node scripts/backup-db.mjs",
+    "predev": "node scripts/backup-db.mjs && node ../scripts/marginalia.mjs",
+    "prebuild": "node scripts/backup-db.mjs && node ../scripts/marginalia.mjs",
     "test:full": "node --test tests/*.test.mjs"
   },
   "dependencies": {

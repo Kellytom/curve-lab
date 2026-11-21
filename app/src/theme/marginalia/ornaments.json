@@ -1,0 +1,3347 @@
+{
+ "format": "curve-lab.marginalia/1",
+ "note": "One single-stroke ornament per curve. Displayed at a quarter of the text width; the SVGs are generated and gitignored, the manifest is the record.",
+ "scale": 0.25,
+ "count": 371,
+ "curves": [
+  {
+   "uid": "c-0001",
+   "name": "amper",
+   "family": "amper",
+   "stars": 5,
+   "file": "/ornaments/c-0001.svg",
+   "width": 2.2127,
+   "height": 2.03
+  },
+  {
+   "uid": "c-0002",
+   "name": "euler-hook",
+   "family": "euler",
+   "stars": 3,
+   "file": "/ornaments/c-0002.svg",
+   "width": 6.2431,
+   "height": 2.2034
+  },
+  {
+   "uid": "c-0003",
+   "name": "swan",
+   "family": "swan",
+   "stars": 4,
+   "file": "/ornaments/c-0003.svg",
+   "width": 14.5998,
+   "height": 50.5778
+  },
+  {
+   "uid": "c-0004",
+   "name": "gosling",
+   "family": "gosling",
+   "stars": 3,
+   "file": "/ornaments/c-0004.svg",
+   "width": 1.9456,
+   "height": 1.6627
+  },
+  {
+   "uid": "c-0005",
+   "name": "double-tap",
+   "family": "double",
+   "stars": 3,
+   "file": "/ornaments/c-0005.svg",
+   "width": 2.3305,
+   "height": 1.8296
+  },
+  {
+   "uid": "c-0006",
+   "name": "curlicue",
+   "family": "curlicue",
+   "stars": 3,
+   "file": "/ornaments/c-0006.svg",
+   "width": 36.1203,
+   "height": 41.6067
+  },
+  {
+   "uid": "c-0007",
+   "name": "grass",
+   "family": "grass",
+   "stars": 3,
+   "file": "/ornaments/c-0007.svg",
+   "width": 573.2585,
+   "height": 555.8674
+  },
+  {
+   "uid": "c-0008",
+   "name": "u-bowl",
+   "family": "u",
+   "stars": 2,
+   "file": "/ornaments/c-0008.svg",
+   "width": 0.68,
+   "height": 0.5133
+  },
+  {
+   "uid": "c-0009",
+   "name": "v-sharp",
+   "family": "v",
+   "stars": 2,
+   "file": "/ornaments/c-0009.svg",
+   "width": 0.8743,
+   "height": 0.2671
+  },
+  {
+   "uid": "c-0010",
+   "name": "m-arch",
+   "family": "m",
+   "stars": 4,
+   "file": "/ornaments/c-0010.svg",
+   "width": 0.5465,
+   "height": 0.68
+  },
+  {
+   "uid": "c-0011",
+   "name": "gumdrop",
+   "family": "gumdrop",
+   "stars": 2,
+   "file": "/ornaments/c-0011.svg",
+   "width": 4.2087,
+   "height": 2.4267
+  },
+  {
+   "uid": "c-0012",
+   "name": "m-coarse",
+   "family": "m",
+   "stars": 3,
+   "file": "/ornaments/c-0012.svg",
+   "width": 3.3131,
+   "height": 3.0649
+  },
+  {
+   "uid": "c-0013",
+   "name": "bowl-coarse",
+   "family": "bowl",
+   "stars": 3,
+   "file": "/ornaments/c-0013.svg",
+   "width": 1.2284,
+   "height": 2.2032
+  },
+  {
+   "uid": "c-0014",
+   "name": "wave-coarse",
+   "family": "wave",
+   "stars": 8,
+   "file": "/ornaments/c-0014.svg",
+   "width": 0.6554,
+   "height": 0.6528
+  },
+  {
+   "uid": "c-0015",
+   "name": "involute-fit",
+   "family": "involute",
+   "stars": 2,
+   "file": "/ornaments/c-0015.svg",
+   "width": 12.8867,
+   "height": 16.0184
+  },
+  {
+   "uid": "c-0016",
+   "name": "catenary-fit",
+   "family": "catenary",
+   "stars": 3,
+   "file": "/ornaments/c-0016.svg",
+   "width": 3.0602,
+   "height": 1.4126
+  },
+  {
+   "uid": "c-0017",
+   "name": "euler-fit",
+   "family": "euler",
+   "stars": 3,
+   "file": "/ornaments/c-0017.svg",
+   "width": 0.3978,
+   "height": 0.3645
+  },
+  {
+   "uid": "c-0018",
+   "name": "logspiral-fit",
+   "family": "logspiral",
+   "stars": 3,
+   "file": "/ornaments/c-0018.svg",
+   "width": 34.6985,
+   "height": 24.1501
+  },
+  {
+   "uid": "c-0019",
+   "name": "knot-6",
+   "family": "knot",
+   "stars": 2,
+   "file": "/ornaments/c-0019.svg",
+   "width": 4.1956,
+   "height": 4.8084
+  },
+  {
+   "uid": "c-0020",
+   "name": "knot-7",
+   "family": "knot",
+   "stars": 2,
+   "file": "/ornaments/c-0020.svg",
+   "width": 3.063,
+   "height": 4.6725
+  },
+  {
+   "uid": "c-0021",
+   "name": "inflect-2",
+   "family": "inflect",
+   "stars": 2,
+   "file": "/ornaments/c-0021.svg",
+   "width": 0.2924,
+   "height": 3.3044
+  },
+  {
+   "uid": "c-0022",
+   "name": "wave3",
+   "family": "wave3",
+   "stars": 10,
+   "file": "/ornaments/c-0022.svg",
+   "width": 1.5343,
+   "height": 0.7245
+  },
+  {
+   "uid": "c-0023",
+   "name": "cusp5-x3",
+   "family": "cusp5",
+   "stars": 2,
+   "file": "/ornaments/c-0023.svg",
+   "width": 0.7443,
+   "height": 0.5146
+  },
+  {
+   "uid": "c-0024",
+   "name": "cusp7-deep",
+   "family": "cusp7",
+   "stars": 2,
+   "file": "/ornaments/c-0024.svg",
+   "width": 0.7809,
+   "height": 0.5152
+  },
+  {
+   "uid": "c-0025",
+   "name": "twin-cusp",
+   "family": "twin",
+   "stars": 3,
+   "file": "/ornaments/c-0025.svg",
+   "width": 3.1485,
+   "height": 4.0503
+  },
+  {
+   "uid": "c-0026",
+   "name": "w-arch",
+   "family": "w",
+   "stars": 2,
+   "file": "/ornaments/c-0026.svg",
+   "width": 0.5465,
+   "height": 0.68
+  },
+  {
+   "uid": "c-0027",
+   "name": "new-symmetric",
+   "family": "new",
+   "stars": 4,
+   "file": "/ornaments/c-0027.svg",
+   "width": 0.816,
+   "height": 0.6827
+  },
+  {
+   "uid": "c-0028",
+   "name": "lace-2-eight-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0028.svg",
+   "width": 2.4232,
+   "height": 0.6577
+  },
+  {
+   "uid": "c-0029",
+   "name": "lace-balloon-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0029.svg",
+   "width": 4.3162,
+   "height": 1.7451
+  },
+  {
+   "uid": "c-0030",
+   "name": "lace-1of10-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0030.svg",
+   "width": 2.7512,
+   "height": 0.8065
+  },
+  {
+   "uid": "c-0031",
+   "name": "wave-1of3-3",
+   "family": "wave",
+   "stars": 3,
+   "file": "/ornaments/c-0031.svg",
+   "width": 0.521,
+   "height": 0.3047
+  },
+  {
+   "uid": "c-0032",
+   "name": "wave-1of4-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0032.svg",
+   "width": 1.146,
+   "height": 0.4663
+  },
+  {
+   "uid": "c-0033",
+   "name": "wave-middle-5",
+   "family": "wave",
+   "stars": 2,
+   "file": "/ornaments/c-0033.svg",
+   "width": 0.6213,
+   "height": 0.1684
+  },
+  {
+   "uid": "c-0034",
+   "name": "wave-1of10-5",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0034.svg",
+   "width": 2.4447,
+   "height": 0.6808
+  },
+  {
+   "uid": "c-0035",
+   "name": "lace-1of12-5",
+   "family": "lace",
+   "stars": 9,
+   "file": "/ornaments/c-0035.svg",
+   "width": 2.4217,
+   "height": 0.7912
+  },
+  {
+   "uid": "c-0036",
+   "name": "wave-1of8-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0036.svg",
+   "width": 1.8436,
+   "height": 0.5681
+  },
+  {
+   "uid": "c-0037",
+   "name": "wave-1of6-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0037.svg",
+   "width": 0.8215,
+   "height": 0.489
+  },
+  {
+   "uid": "c-0038",
+   "name": "wave-1of5-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0038.svg",
+   "width": 0.5283,
+   "height": 0.4044
+  },
+  {
+   "uid": "c-0039",
+   "name": "wave-2x1of3-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0039.svg",
+   "width": 0.5331,
+   "height": 0.4289
+  },
+  {
+   "uid": "c-0040",
+   "name": "wave-1of4-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0040.svg",
+   "width": 0.8354,
+   "height": 0.3503
+  },
+  {
+   "uid": "c-0041",
+   "name": "wave-1of3-5",
+   "family": "wave",
+   "stars": 5,
+   "file": "/ornaments/c-0041.svg",
+   "width": 0.3333,
+   "height": 0.2232
+  },
+  {
+   "uid": "c-0042",
+   "name": "wave-middle-7",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0042.svg",
+   "width": 0.408,
+   "height": 0.1205
+  },
+  {
+   "uid": "c-0043",
+   "name": "lace-1of9-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0043.svg",
+   "width": 2.6401,
+   "height": 0.7377
+  },
+  {
+   "uid": "c-0044",
+   "name": "wave-1of7-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0044.svg",
+   "width": 1.5374,
+   "height": 0.6221
+  },
+  {
+   "uid": "c-0045",
+   "name": "wave-2of7-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0045.svg",
+   "width": 6.5663,
+   "height": 1.7785
+  },
+  {
+   "uid": "c-0046",
+   "name": "wave-1of14-3",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0046.svg",
+   "width": 8.7109,
+   "height": 2.8144
+  },
+  {
+   "uid": "c-0047",
+   "name": "lace-1of8-1of3-0",
+   "family": "lace",
+   "stars": 3,
+   "file": "/ornaments/c-0047.svg",
+   "width": 10.6061,
+   "height": 3.5886
+  },
+  {
+   "uid": "c-0048",
+   "name": "lace-1of10-2",
+   "family": "lace",
+   "stars": 3,
+   "file": "/ornaments/c-0048.svg",
+   "width": 3.5644,
+   "height": 3.8455
+  },
+  {
+   "uid": "c-0049",
+   "name": "wave-1of3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0049.svg",
+   "width": 0.2865,
+   "height": 0.1009
+  },
+  {
+   "uid": "c-0050",
+   "name": "wave-2of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0050.svg",
+   "width": 3.5077,
+   "height": 2.0782
+  },
+  {
+   "uid": "c-0051",
+   "name": "wave-3of8-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0051.svg",
+   "width": 23.1558,
+   "height": 6.5776
+  },
+  {
+   "uid": "c-0052",
+   "name": "wave-middle-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0052.svg",
+   "width": 0.0793,
+   "height": 0.0301
+  },
+  {
+   "uid": "c-0053",
+   "name": "wave-1of3-2of5-0",
+   "family": "wave",
+   "stars": 7,
+   "file": "/ornaments/c-0053.svg",
+   "width": 14.4177,
+   "height": 4.0538
+  },
+  {
+   "uid": "c-0054",
+   "name": "wave-2x1of6-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0054.svg",
+   "width": 105.0859,
+   "height": 29.8503
+  },
+  {
+   "uid": "c-0055",
+   "name": "lace-1of10-4",
+   "family": "lace",
+   "stars": 2,
+   "file": "/ornaments/c-0055.svg",
+   "width": 3.3901,
+   "height": 0.9295
+  },
+  {
+   "uid": "c-0056",
+   "name": "wave-1of12-4",
+   "family": "wave",
+   "stars": 9,
+   "file": "/ornaments/c-0056.svg",
+   "width": 4.584,
+   "height": 1.2381
+  },
+  {
+   "uid": "c-0057",
+   "name": "lace-1of12-1of3-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0057.svg",
+   "width": 13.4574,
+   "height": 9.7892
+  },
+  {
+   "uid": "c-0058",
+   "name": "lace-1of10-1of4-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0058.svg",
+   "width": 29.0987,
+   "height": 10.8187
+  },
+  {
+   "uid": "c-0059",
+   "name": "lace-1of10-3-2",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0059.svg",
+   "width": 3.0234,
+   "height": 1.8782
+  },
+  {
+   "uid": "c-0060",
+   "name": "lace-arch-x-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0060.svg",
+   "width": 28.1726,
+   "height": 9.2293
+  },
+  {
+   "uid": "c-0061",
+   "name": "lace-1of6-1of5-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0061.svg",
+   "width": 20.9647,
+   "height": 6.2457
+  },
+  {
+   "uid": "c-0062",
+   "name": "lace-1of10-1of3-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0062.svg",
+   "width": 8.498,
+   "height": 6.205
+  },
+  {
+   "uid": "c-0063",
+   "name": "lace-1of12-1of4-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0063.svg",
+   "width": 41.5415,
+   "height": 14.779
+  },
+  {
+   "uid": "c-0064",
+   "name": "wave-1of10-1of5-1",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0064.svg",
+   "width": 60.606,
+   "height": 20.4756
+  },
+  {
+   "uid": "c-0065",
+   "name": "lace-1of8-1of3-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0065.svg",
+   "width": 9.4775,
+   "height": 3.3513
+  },
+  {
+   "uid": "c-0066",
+   "name": "lace-1of8-1of5-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0066.svg",
+   "width": 31.9412,
+   "height": 17.09
+  },
+  {
+   "uid": "c-0067",
+   "name": "lace-1of8-1of4-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0067.svg",
+   "width": 20.6524,
+   "height": 6.8546
+  },
+  {
+   "uid": "c-0068",
+   "name": "wave-1of8-1of6-1",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0068.svg",
+   "width": 63.4953,
+   "height": 23.2593
+  },
+  {
+   "uid": "c-0069",
+   "name": "lace-1of8-2of5-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0069.svg",
+   "width": 90.7437,
+   "height": 25.8097
+  },
+  {
+   "uid": "c-0070",
+   "name": "wave-5of12-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0070.svg",
+   "width": 100.3995,
+   "height": 33.3604
+  },
+  {
+   "uid": "c-0071",
+   "name": "wave-1of10-1of4-3",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0071.svg",
+   "width": 17.3635,
+   "height": 11.9203
+  },
+  {
+   "uid": "c-0072",
+   "name": "lace-1of12-2x1of3-1",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0072.svg",
+   "width": 60.7817,
+   "height": 18.3003
+  },
+  {
+   "uid": "c-0073",
+   "name": "wave-1of10-1of3-3",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0073.svg",
+   "width": 11.9133,
+   "height": 3.4565
+  },
+  {
+   "uid": "c-0074",
+   "name": "lace-1of12-1of3-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0074.svg",
+   "width": 15.4108,
+   "height": 5.2001
+  },
+  {
+   "uid": "c-0075",
+   "name": "wave-1of12-1of4-3",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0075.svg",
+   "width": 28.1948,
+   "height": 13.2703
+  },
+  {
+   "uid": "c-0076",
+   "name": "wave-1of6-2of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0076.svg",
+   "width": 36.1104,
+   "height": 17.8519
+  },
+  {
+   "uid": "c-0077",
+   "name": "wave-1of10-2x1of3-1",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0077.svg",
+   "width": 40.8838,
+   "height": 16.4052
+  },
+  {
+   "uid": "c-0078",
+   "name": "wave-1of12-1of5-3",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0078.svg",
+   "width": 56.56,
+   "height": 17.6613
+  },
+  {
+   "uid": "c-0079",
+   "name": "wave-2x1of6-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0079.svg",
+   "width": 98.3329,
+   "height": 26.4607
+  },
+  {
+   "uid": "c-0080",
+   "name": "wave-2x1of5-1of4-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0080.svg",
+   "width": 96.1637,
+   "height": 26.7001
+  },
+  {
+   "uid": "c-0081",
+   "name": "wave-1of6-2x1of4-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0081.svg",
+   "width": 82.6006,
+   "height": 24.6903
+  },
+  {
+   "uid": "c-0082",
+   "name": "wave-1of8-1of4-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0082.svg",
+   "width": 64.7311,
+   "height": 21.1306
+  },
+  {
+   "uid": "c-0083",
+   "name": "wave-1of8-2of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0083.svg",
+   "width": 71.0665,
+   "height": 22.4675
+  },
+  {
+   "uid": "c-0084",
+   "name": "lace-1of10-1of5-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0084.svg",
+   "width": 42.8577,
+   "height": 13.4949
+  },
+  {
+   "uid": "c-0085",
+   "name": "lace-1of8-1of6-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0085.svg",
+   "width": 42.7149,
+   "height": 13.2726
+  },
+  {
+   "uid": "c-0086",
+   "name": "lace-1of8-1of3-3",
+   "family": "lace",
+   "stars": 9,
+   "file": "/ornaments/c-0086.svg",
+   "width": 7.482,
+   "height": 2.9447
+  },
+  {
+   "uid": "c-0087",
+   "name": "wide-knot-x20",
+   "family": "wide",
+   "stars": 10,
+   "file": "/ornaments/c-0087.svg",
+   "width": 1.8799,
+   "height": 2.5008
+  },
+  {
+   "uid": "c-0088",
+   "name": "ph-3-4-5-rotated-mirror-slope-minus3of4",
+   "family": "ph",
+   "stars": 0,
+   "file": "/ornaments/c-0088.svg",
+   "width": 3.3693,
+   "height": 3.7072
+  },
+  {
+   "uid": "c-0089",
+   "name": "bend45-t1of2",
+   "family": "bend45",
+   "stars": 0,
+   "file": "/ornaments/c-0089.svg",
+   "width": 1.0625,
+   "height": 1.0625
+  },
+  {
+   "uid": "c-0090",
+   "name": "bend45-b-1-t1of2",
+   "family": "bend45",
+   "stars": 0,
+   "file": "/ornaments/c-0090.svg",
+   "width": 2.2525,
+   "height": 2.2525
+  },
+  {
+   "uid": "c-0091",
+   "name": "loop-t1of2-3of4",
+   "family": "loop",
+   "stars": 5,
+   "file": "/ornaments/c-0091.svg",
+   "width": 1.4985,
+   "height": 1.4985
+  },
+  {
+   "uid": "c-0092",
+   "name": "loop-t1of3-2of3",
+   "family": "loop",
+   "stars": 5,
+   "file": "/ornaments/c-0092.svg",
+   "width": 1.3569,
+   "height": 1.3569
+  },
+  {
+   "uid": "c-0093",
+   "name": "loop-t1of4-3of4",
+   "family": "loop",
+   "stars": 5,
+   "file": "/ornaments/c-0093.svg",
+   "width": 1.2473,
+   "height": 1.2473
+  },
+  {
+   "uid": "c-0094",
+   "name": "cross-45deg-t1of4",
+   "family": "cross",
+   "stars": 5,
+   "file": "/ornaments/c-0094.svg",
+   "width": 7.6588,
+   "height": 7.6588
+  },
+  {
+   "uid": "c-0095",
+   "name": "term-a-plus-1",
+   "family": "term",
+   "stars": 0,
+   "file": "/ornaments/c-0095.svg",
+   "width": 4.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0096",
+   "name": "term-c-minus1",
+   "family": "term",
+   "stars": 0,
+   "file": "/ornaments/c-0096.svg",
+   "width": 4.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0097",
+   "name": "term-e-plus-1",
+   "family": "term",
+   "stars": 0,
+   "file": "/ornaments/c-0097.svg",
+   "width": 4.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0098",
+   "name": "term-a-c-e-mixed",
+   "family": "term",
+   "stars": 0,
+   "file": "/ornaments/c-0098.svg",
+   "width": 4.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0099",
+   "name": "line-q-0",
+   "family": "line",
+   "stars": 0,
+   "file": "/ornaments/c-0099.svg",
+   "width": 4.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0100",
+   "name": "term-c-10-middle",
+   "family": "term",
+   "stars": 0,
+   "file": "/ornaments/c-0100.svg",
+   "width": 10.6751,
+   "height": 10.6751
+  },
+  {
+   "uid": "c-0101",
+   "name": "cross-2of5-4of5",
+   "family": "cross",
+   "stars": 5,
+   "file": "/ornaments/c-0101.svg",
+   "width": 1.3628,
+   "height": 1.3628
+  },
+  {
+   "uid": "c-0102",
+   "name": "cross-1of5-4of5",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0102.svg",
+   "width": 1.1512,
+   "height": 1.1512
+  },
+  {
+   "uid": "c-0103",
+   "name": "cross-1of3-3of4",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0103.svg",
+   "width": 1.3647,
+   "height": 1.3647
+  },
+  {
+   "uid": "c-0104",
+   "name": "cross-1of4-3of4",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0104.svg",
+   "width": 1.2473,
+   "height": 1.2473
+  },
+  {
+   "uid": "c-0105",
+   "name": "cross-1of2-3of4",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0105.svg",
+   "width": 1.4985,
+   "height": 1.4985
+  },
+  {
+   "uid": "c-0106",
+   "name": "cross-1of3-2of3",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0106.svg",
+   "width": 1.3569,
+   "height": 1.3569
+  },
+  {
+   "uid": "c-0107",
+   "name": "cross-1of5-3of5",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0107.svg",
+   "width": 0.9863,
+   "height": 0.9863
+  },
+  {
+   "uid": "c-0108",
+   "name": "cross-2of5-3of5",
+   "family": "cross",
+   "stars": 0,
+   "file": "/ornaments/c-0108.svg",
+   "width": 1.4076,
+   "height": 1.4076
+  },
+  {
+   "uid": "c-0109",
+   "name": "weighted-balance-exp-balance-t1of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0109.svg",
+   "width": 17.5087,
+   "height": 17.5087
+  },
+  {
+   "uid": "c-0110",
+   "name": "weighted-balance-exp-balance-t1of2",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0110.svg",
+   "width": 17.5173,
+   "height": 17.5173
+  },
+  {
+   "uid": "c-0111",
+   "name": "weighted-balance-exp-balance-t3of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0111.svg",
+   "width": 17.7871,
+   "height": 17.7871
+  },
+  {
+   "uid": "c-0112",
+   "name": "weighted-balance-parabola-balance-t1of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0112.svg",
+   "width": 37.371,
+   "height": 37.371
+  },
+  {
+   "uid": "c-0113",
+   "name": "weighted-balance-parabola-balance-t1of2",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0113.svg",
+   "width": 33.8728,
+   "height": 33.8728
+  },
+  {
+   "uid": "c-0114",
+   "name": "weighted-balance-parabola-balance-t3of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0114.svg",
+   "width": 30.0402,
+   "height": 30.0402
+  },
+  {
+   "uid": "c-0115",
+   "name": "weighted-balance-flat-balance-t1of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0115.svg",
+   "width": 1.6148,
+   "height": 1.6148
+  },
+  {
+   "uid": "c-0116",
+   "name": "weighted-balance-flat-balance-t1of2",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0116.svg",
+   "width": 1.1403,
+   "height": 1.1403
+  },
+  {
+   "uid": "c-0117",
+   "name": "weighted-balance-flat-balance-t3of4",
+   "family": "weighted-balance",
+   "stars": 0,
+   "file": "/ornaments/c-0117.svg",
+   "width": 1.5238,
+   "height": 1.5238
+  },
+  {
+   "uid": "c-0118",
+   "name": "bounded-3-4-5-gentle",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0118.svg",
+   "width": 2.0825,
+   "height": 4.2056
+  },
+  {
+   "uid": "c-0119",
+   "name": "bounded-3-4-5-crossed",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0119.svg",
+   "width": 5.4929,
+   "height": 3.7133
+  },
+  {
+   "uid": "c-0120",
+   "name": "bounded-5-12-13-gentle",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0120.svg",
+   "width": 3.2433,
+   "height": 12.4088
+  },
+  {
+   "uid": "c-0121",
+   "name": "bounded-5-12-13-crossed",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0121.svg",
+   "width": 11.033,
+   "height": 10.9867
+  },
+  {
+   "uid": "c-0122",
+   "name": "bounded-8-15-17-crossed",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0122.svg",
+   "width": 17.5487,
+   "height": 13.7605
+  },
+  {
+   "uid": "c-0123",
+   "name": "bounded-3-4-5-tight",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0123.svg",
+   "width": 9.6227,
+   "height": 5.5738
+  },
+  {
+   "uid": "c-0124",
+   "name": "bounded-limacon-1-plus-2cos",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0124.svg",
+   "width": 3.1954,
+   "height": 3.5908
+  },
+  {
+   "uid": "c-0125",
+   "name": "bounded-limacon-1-plus-3cos",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0125.svg",
+   "width": 4.1731,
+   "height": 4.5785
+  },
+  {
+   "uid": "c-0126",
+   "name": "bounded-limacon-2-plus-3cos",
+   "family": "bounded",
+   "stars": 0,
+   "file": "/ornaments/c-0126.svg",
+   "width": 5.4553,
+   "height": 6.2197
+  },
+  {
+   "uid": "c-0127",
+   "name": "mobile-two-vanes-1-1of2",
+   "family": "mobile",
+   "stars": 0,
+   "file": "/ornaments/c-0127.svg",
+   "width": 2.83,
+   "height": 2.9074
+  },
+  {
+   "uid": "c-0128",
+   "name": "mobile-two-vanes-1-1of3",
+   "family": "mobile",
+   "stars": 0,
+   "file": "/ornaments/c-0128.svg",
+   "width": 2.5077,
+   "height": 2.4763
+  },
+  {
+   "uid": "c-0129",
+   "name": "mobile-three-vanes-1-1of2-1of4",
+   "family": "mobile",
+   "stars": 0,
+   "file": "/ornaments/c-0129.svg",
+   "width": 3.3349,
+   "height": 3.2092
+  },
+  {
+   "uid": "c-0130",
+   "name": "mobile-three-vanes-big-small",
+   "family": "mobile",
+   "stars": 0,
+   "file": "/ornaments/c-0130.svg",
+   "width": 6.2726,
+   "height": 6.3928
+  },
+  {
+   "uid": "c-0131",
+   "name": "mobile-exact-one-vane-3-4-5",
+   "family": "mobile-exact",
+   "stars": 0,
+   "file": "/ornaments/c-0131.svg",
+   "width": 1.636,
+   "height": 1.836
+  },
+  {
+   "uid": "c-0132",
+   "name": "mobile-exact-3-4-5-plus-half-2-turns",
+   "family": "mobile-exact",
+   "stars": 0,
+   "file": "/ornaments/c-0132.svg",
+   "width": 2.5164,
+   "height": 2.5893
+  },
+  {
+   "uid": "c-0133",
+   "name": "mobile-exact-3-4-5-plus-third-3-turns",
+   "family": "mobile-exact",
+   "stars": 0,
+   "file": "/ornaments/c-0133.svg",
+   "width": 1.7223,
+   "height": 1.8246
+  },
+  {
+   "uid": "c-0134",
+   "name": "mobile-exact-1-1of2-1of5-1-2-5",
+   "family": "mobile-exact",
+   "stars": 5,
+   "file": "/ornaments/c-0134.svg",
+   "width": 2.7573,
+   "height": 2.7757
+  },
+  {
+   "uid": "c-0135",
+   "name": "mobile-arcs-arc-0-to-1of2",
+   "family": "mobile-arcs",
+   "stars": 0,
+   "file": "/ornaments/c-0135.svg",
+   "width": 1.6069,
+   "height": 0.701
+  },
+  {
+   "uid": "c-0136",
+   "name": "mobile-arcs-arc-minus1of2-to-1of2",
+   "family": "mobile-arcs",
+   "stars": 0,
+   "file": "/ornaments/c-0136.svg",
+   "width": 1.7928,
+   "height": 2.2835
+  },
+  {
+   "uid": "c-0137",
+   "name": "mobile-arcs-arc-0-to-1",
+   "family": "mobile-arcs",
+   "stars": 0,
+   "file": "/ornaments/c-0137.svg",
+   "width": 2.3695,
+   "height": 0.9006
+  },
+  {
+   "uid": "c-0138",
+   "name": "mobile-arcs-arc-minus1-to-1",
+   "family": "mobile-arcs",
+   "stars": 0,
+   "file": "/ornaments/c-0138.svg",
+   "width": 2.5456,
+   "height": 2.5339
+  },
+  {
+   "uid": "c-0139",
+   "name": "rose-k-2-a-1-b-1",
+   "family": "rose",
+   "stars": 0,
+   "file": "/ornaments/c-0139.svg",
+   "width": 2.04,
+   "height": 1.5796
+  },
+  {
+   "uid": "c-0140",
+   "name": "rose-k-2-a-1-b-minus1",
+   "family": "rose",
+   "stars": 0,
+   "file": "/ornaments/c-0140.svg",
+   "width": 0.8498,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0141",
+   "name": "rose-k-3-a-1-b-1",
+   "family": "rose",
+   "stars": 0,
+   "file": "/ornaments/c-0141.svg",
+   "width": 2.04,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0142",
+   "name": "rose-k-4-a-1-b-1",
+   "family": "rose",
+   "stars": 0,
+   "file": "/ornaments/c-0142.svg",
+   "width": 2.08,
+   "height": 4.08
+  },
+  {
+   "uid": "c-0143",
+   "name": "graphs-y-x-2-as-t2-cover",
+   "family": "graphs",
+   "stars": 0,
+   "file": "/ornaments/c-0143.svg",
+   "width": 1.02,
+   "height": 1.02
+  },
+  {
+   "uid": "c-0144",
+   "name": "wave-1of5-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0144.svg",
+   "width": 3.4858,
+   "height": 1.041
+  },
+  {
+   "uid": "c-0145",
+   "name": "wave-2x1of4-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0145.svg",
+   "width": 4.3928,
+   "height": 1.3152
+  },
+  {
+   "uid": "c-0146",
+   "name": "wave-1of4-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0146.svg",
+   "width": 2.0504,
+   "height": 0.8109
+  },
+  {
+   "uid": "c-0147",
+   "name": "wave-1of6-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0147.svg",
+   "width": 4.6404,
+   "height": 1.2788
+  },
+  {
+   "uid": "c-0148",
+   "name": "wave-2of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0148.svg",
+   "width": 2.2562,
+   "height": 1.0234
+  },
+  {
+   "uid": "c-0149",
+   "name": "wave-1of6-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0149.svg",
+   "width": 0.9675,
+   "height": 0.5615
+  },
+  {
+   "uid": "c-0150",
+   "name": "wave-2x1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0150.svg",
+   "width": 0.8584,
+   "height": 0.5441
+  },
+  {
+   "uid": "c-0151",
+   "name": "wave-1of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0151.svg",
+   "width": 0.6958,
+   "height": 0.4706
+  },
+  {
+   "uid": "c-0152",
+   "name": "wave-1of5-1of4-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0152.svg",
+   "width": 6.6112,
+   "height": 1.942
+  },
+  {
+   "uid": "c-0153",
+   "name": "wave-1of5-1of3-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0153.svg",
+   "width": 2.1692,
+   "height": 0.8717
+  },
+  {
+   "uid": "c-0154",
+   "name": "wave-1of5-1of4-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0154.svg",
+   "width": 4.6996,
+   "height": 1.4149
+  },
+  {
+   "uid": "c-0155",
+   "name": "wave-1of4-2x1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0155.svg",
+   "width": 5.3593,
+   "height": 1.5643
+  },
+  {
+   "uid": "c-0156",
+   "name": "wave-2x1of4-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0156.svg",
+   "width": 3.5327,
+   "height": 0.9857
+  },
+  {
+   "uid": "c-0157",
+   "name": "wave-1of6-1of3-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0157.svg",
+   "width": 3.8237,
+   "height": 1.0305
+  },
+  {
+   "uid": "c-0158",
+   "name": "wave-1of3-2of5-3",
+   "family": "wave",
+   "stars": 2,
+   "file": "/ornaments/c-0158.svg",
+   "width": 6.3808,
+   "height": 1.8125
+  },
+  {
+   "uid": "c-0159",
+   "name": "wave-3x1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0159.svg",
+   "width": 3.1847,
+   "height": 0.9117
+  },
+  {
+   "uid": "c-0160",
+   "name": "wave-2of5-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0160.svg",
+   "width": 1.9396,
+   "height": 0.7046
+  },
+  {
+   "uid": "c-0161",
+   "name": "wave-1of4-1of3-3",
+   "family": "wave",
+   "stars": 9,
+   "file": "/ornaments/c-0161.svg",
+   "width": 1.6622,
+   "height": 0.6232
+  },
+  {
+   "uid": "c-0162",
+   "name": "wave-1of6-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0162.svg",
+   "width": 1.4759,
+   "height": 0.9812
+  },
+  {
+   "uid": "c-0163",
+   "name": "lace-1of8-2",
+   "family": "lace",
+   "stars": 9,
+   "file": "/ornaments/c-0163.svg",
+   "width": 2.176,
+   "height": 1.2471
+  },
+  {
+   "uid": "c-0164",
+   "name": "wave-1of6-1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0164.svg",
+   "width": 7.0545,
+   "height": 2.4142
+  },
+  {
+   "uid": "c-0165",
+   "name": "wave-1of5-1of4-0",
+   "family": "wave",
+   "stars": 6,
+   "file": "/ornaments/c-0165.svg",
+   "width": 10.11,
+   "height": 5.4265
+  },
+  {
+   "uid": "c-0166",
+   "name": "wave-1of4-2of5-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0166.svg",
+   "width": 27.1842,
+   "height": 7.4566
+  },
+  {
+   "uid": "c-0167",
+   "name": "wave-1of4-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0167.svg",
+   "width": 0.5037,
+   "height": 0.2004
+  },
+  {
+   "uid": "c-0168",
+   "name": "wave-2x1of4-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0168.svg",
+   "width": 6.3963,
+   "height": 2.6775
+  },
+  {
+   "uid": "c-0169",
+   "name": "wave-1of5-1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0169.svg",
+   "width": 4.7534,
+   "height": 2.131
+  },
+  {
+   "uid": "c-0170",
+   "name": "wave-1of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0170.svg",
+   "width": 0.8867,
+   "height": 0.9616
+  },
+  {
+   "uid": "c-0171",
+   "name": "wave-2x1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0171.svg",
+   "width": 1.0439,
+   "height": 0.3824
+  },
+  {
+   "uid": "c-0172",
+   "name": "wave-1of12-2",
+   "family": "wave",
+   "stars": 7,
+   "file": "/ornaments/c-0172.svg",
+   "width": 11.3751,
+   "height": 3.4035
+  },
+  {
+   "uid": "c-0173",
+   "name": "wave-1of4-1of3-0",
+   "family": "wave",
+   "stars": 10,
+   "file": "/ornaments/c-0173.svg",
+   "width": 2.7628,
+   "height": 1.7397
+  },
+  {
+   "uid": "c-0174",
+   "name": "wave-1of6-1of5-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0174.svg",
+   "width": 45.3522,
+   "height": 12.8125
+  },
+  {
+   "uid": "c-0175",
+   "name": "wave-2x1of5-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0175.svg",
+   "width": 23.4099,
+   "height": 6.5299
+  },
+  {
+   "uid": "c-0176",
+   "name": "wave-1of6-1of4-0",
+   "family": "wave",
+   "stars": 4,
+   "file": "/ornaments/c-0176.svg",
+   "width": 18.4452,
+   "height": 5.3993
+  },
+  {
+   "uid": "c-0177",
+   "name": "wave-1of8-1of4-0",
+   "family": "wave",
+   "stars": 3,
+   "file": "/ornaments/c-0177.svg",
+   "width": 43.491,
+   "height": 12.5093
+  },
+  {
+   "uid": "c-0178",
+   "name": "wave-1of8-1of3-2",
+   "family": "wave",
+   "stars": 4,
+   "file": "/ornaments/c-0178.svg",
+   "width": 8.5204,
+   "height": 2.2808
+  },
+  {
+   "uid": "c-0179",
+   "name": "wave-1of8-4",
+   "family": "wave",
+   "stars": 2,
+   "file": "/ornaments/c-0179.svg",
+   "width": 2.0826,
+   "height": 1.0183
+  },
+  {
+   "uid": "c-0180",
+   "name": "wave-1of6-1of3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0180.svg",
+   "width": 5.0665,
+   "height": 1.9846
+  },
+  {
+   "uid": "c-0181",
+   "name": "wave-1of4-2of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0181.svg",
+   "width": 19.3481,
+   "height": 5.6139
+  },
+  {
+   "uid": "c-0182",
+   "name": "wave-1of3-2of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0182.svg",
+   "width": 7.7187,
+   "height": 4.0273
+  },
+  {
+   "uid": "c-0183",
+   "name": "wave-1of5-1of3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0183.svg",
+   "width": 2.5878,
+   "height": 1.8648
+  },
+  {
+   "uid": "c-0184",
+   "name": "wave-1of5-2x1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0184.svg",
+   "width": 14.0215,
+   "height": 3.7363
+  },
+  {
+   "uid": "c-0185",
+   "name": "wave-2x1of4-1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0185.svg",
+   "width": 16.8017,
+   "height": 4.7194
+  },
+  {
+   "uid": "c-0186",
+   "name": "wave-1of4-2x1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0186.svg",
+   "width": 7.4704,
+   "height": 3.1366
+  },
+  {
+   "uid": "c-0187",
+   "name": "wave-1of6-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0187.svg",
+   "width": 0.8073,
+   "height": 0.9907
+  },
+  {
+   "uid": "c-0188",
+   "name": "wave-1of3-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0188.svg",
+   "width": 0.1639,
+   "height": 0.0604
+  },
+  {
+   "uid": "c-0189",
+   "name": "wave-1of5-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0189.svg",
+   "width": 0.5209,
+   "height": 0.1499
+  },
+  {
+   "uid": "c-0190",
+   "name": "wave-3x1of3-0",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0190.svg",
+   "width": 2.4992,
+   "height": 2.4155
+  },
+  {
+   "uid": "c-0191",
+   "name": "wave-1of4-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0191.svg",
+   "width": 0.5196,
+   "height": 0.1499
+  },
+  {
+   "uid": "c-0192",
+   "name": "wave-3of8-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0192.svg",
+   "width": 16.2053,
+   "height": 4.4887
+  },
+  {
+   "uid": "c-0193",
+   "name": "wave-2of5-4",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0193.svg",
+   "width": 2.3051,
+   "height": 1.5466
+  },
+  {
+   "uid": "c-0194",
+   "name": "wave-1of6-1of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0194.svg",
+   "width": 17.9227,
+   "height": 5.1222
+  },
+  {
+   "uid": "c-0195",
+   "name": "wave-1of6-1of4-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0195.svg",
+   "width": 10.5262,
+   "height": 3.4059
+  },
+  {
+   "uid": "c-0196",
+   "name": "wave-1of5-1of4-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0196.svg",
+   "width": 6.6325,
+   "height": 2.8947
+  },
+  {
+   "uid": "c-0197",
+   "name": "wave-2x1of5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0197.svg",
+   "width": 11.2483,
+   "height": 4.1216
+  },
+  {
+   "uid": "c-0198",
+   "name": "wave-2x1of4-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0198.svg",
+   "width": 3.2616,
+   "height": 2.2859
+  },
+  {
+   "uid": "c-0199",
+   "name": "wave-1of4-1of3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0199.svg",
+   "width": 1.5261,
+   "height": 1.6027
+  },
+  {
+   "uid": "c-0200",
+   "name": "wave-2x1of3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0200.svg",
+   "width": 0.6056,
+   "height": 0.2214
+  },
+  {
+   "uid": "c-0201",
+   "name": "wave-middle-6",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0201.svg",
+   "width": 0.0444,
+   "height": 0.0167
+  },
+  {
+   "uid": "c-0202",
+   "name": "wave-1of5-1of3-1-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0202.svg",
+   "width": 5.8197,
+   "height": 3.4382
+  },
+  {
+   "uid": "c-0203",
+   "name": "wave-1of6-1of3-1-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0203.svg",
+   "width": 6.1364,
+   "height": 2.0723
+  },
+  {
+   "uid": "c-0204",
+   "name": "lace-2x1of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0204.svg",
+   "width": 7.6093,
+   "height": 6.2235
+  },
+  {
+   "uid": "c-0205",
+   "name": "wave-1of6-1of4-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0205.svg",
+   "width": 5.7066,
+   "height": 5.7893
+  },
+  {
+   "uid": "c-0206",
+   "name": "lace-1of6-2of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0206.svg",
+   "width": 52.4005,
+   "height": 16.5199
+  },
+  {
+   "uid": "c-0207",
+   "name": "lace-1of5-2of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0207.svg",
+   "width": 33.2626,
+   "height": 10.9021
+  },
+  {
+   "uid": "c-0208",
+   "name": "wave-1of4-2of5-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0208.svg",
+   "width": 17.2606,
+   "height": 8.2414
+  },
+  {
+   "uid": "c-0209",
+   "name": "lace-3of10-3",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0209.svg",
+   "width": 29.2438,
+   "height": 10.1318
+  },
+  {
+   "uid": "c-0210",
+   "name": "lace-3of8-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0210.svg",
+   "width": 11.8879,
+   "height": 7.2331
+  },
+  {
+   "uid": "c-0211",
+   "name": "lace-1of3-2of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0211.svg",
+   "width": 5.7696,
+   "height": 5.6039
+  },
+  {
+   "uid": "c-0212",
+   "name": "wave-1of3-3of8-1",
+   "family": "wave",
+   "stars": 8,
+   "file": "/ornaments/c-0212.svg",
+   "width": 65.1192,
+   "height": 26.7002
+  },
+  {
+   "uid": "c-0213",
+   "name": "wave-1of3-3-2",
+   "family": "wave",
+   "stars": 5,
+   "file": "/ornaments/c-0213.svg",
+   "width": 0.1646,
+   "height": 0.5537
+  },
+  {
+   "uid": "c-0214",
+   "name": "wave-1of4-3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0214.svg",
+   "width": 0.3898,
+   "height": 0.7576
+  },
+  {
+   "uid": "c-0215",
+   "name": "wave-3of10-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0215.svg",
+   "width": 131.5764,
+   "height": 36.7438
+  },
+  {
+   "uid": "c-0216",
+   "name": "wave-2x2of5-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0216.svg",
+   "width": 104.1142,
+   "height": 33.7175
+  },
+  {
+   "uid": "c-0217",
+   "name": "wave-middle-5-2",
+   "family": "wave",
+   "stars": 9,
+   "file": "/ornaments/c-0217.svg",
+   "width": 0.6213,
+   "height": 0.2517
+  },
+  {
+   "uid": "c-0218",
+   "name": "wave-1of8-5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0218.svg",
+   "width": 1.9796,
+   "height": 1.0226
+  },
+  {
+   "uid": "c-0219",
+   "name": "wave-1of6-1of3-3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0219.svg",
+   "width": 4.8777,
+   "height": 1.7809
+  },
+  {
+   "uid": "c-0220",
+   "name": "wave-1of4-1of3-3-2",
+   "family": "wave",
+   "stars": 3,
+   "file": "/ornaments/c-0220.svg",
+   "width": 1.7982,
+   "height": 1.2064
+  },
+  {
+   "uid": "c-0221",
+   "name": "lace-1of4-1of3-2of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0221.svg",
+   "width": 68.8137,
+   "height": 18.5075
+  },
+  {
+   "uid": "c-0222",
+   "name": "lace-2x1of5-1of3-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0222.svg",
+   "width": 41.6487,
+   "height": 11.3825
+  },
+  {
+   "uid": "c-0223",
+   "name": "lace-2x1of3-2of5-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0223.svg",
+   "width": 27.5455,
+   "height": 9.7617
+  },
+  {
+   "uid": "c-0224",
+   "name": "lace-1of5-1of4-1of3-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0224.svg",
+   "width": 21.2998,
+   "height": 8.6196
+  },
+  {
+   "uid": "c-0225",
+   "name": "lace-1of5-2of5-3",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0225.svg",
+   "width": 24.3615,
+   "height": 9.2192
+  },
+  {
+   "uid": "c-0226",
+   "name": "lace-3x1of4-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0226.svg",
+   "width": 29.4853,
+   "height": 9.924
+  },
+  {
+   "uid": "c-0227",
+   "name": "wave-1of6-1of4-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0227.svg",
+   "width": 9.6476,
+   "height": 3.4324
+  },
+  {
+   "uid": "c-0228",
+   "name": "lace-3of10-5",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0228.svg",
+   "width": 19.9114,
+   "height": 8.5933
+  },
+  {
+   "uid": "c-0229",
+   "name": "wave-1of6-1of4-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0229.svg",
+   "width": 35.3525,
+   "height": 10.5571
+  },
+  {
+   "uid": "c-0230",
+   "name": "lace-1of8-2x1of3-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0230.svg",
+   "width": 26.9677,
+   "height": 9.2131
+  },
+  {
+   "uid": "c-0231",
+   "name": "lace-1of8-1of5-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0231.svg",
+   "width": 24.9637,
+   "height": 8.711
+  },
+  {
+   "uid": "c-0232",
+   "name": "wave-2x1of6-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0232.svg",
+   "width": 19.8072,
+   "height": 8.1002
+  },
+  {
+   "uid": "c-0233",
+   "name": "lace-2x1of4-1of3-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0233.svg",
+   "width": 9.3112,
+   "height": 6.559
+  },
+  {
+   "uid": "c-0234",
+   "name": "lace-1of4-2of5-3",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0234.svg",
+   "width": 11.3129,
+   "height": 7.0293
+  },
+  {
+   "uid": "c-0235",
+   "name": "wave-1of6-2x1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0235.svg",
+   "width": 11.9529,
+   "height": 7.0031
+  },
+  {
+   "uid": "c-0236",
+   "name": "lace-1of8-1of4-3",
+   "family": "lace",
+   "stars": 10,
+   "file": "/ornaments/c-0236.svg",
+   "width": 11.181,
+   "height": 6.5895
+  },
+  {
+   "uid": "c-0237",
+   "name": "wave-1of6-1of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0237.svg",
+   "width": 10.599,
+   "height": 6.6154
+  },
+  {
+   "uid": "c-0238",
+   "name": "lace-1of3-3of8-3",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0238.svg",
+   "width": 50.3896,
+   "height": 16.176
+  },
+  {
+   "uid": "c-0239",
+   "name": "lace-1of5-2x1of4-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0239.svg",
+   "width": 56.4216,
+   "height": 16.3497
+  },
+  {
+   "uid": "c-0240",
+   "name": "wave-3of8-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0240.svg",
+   "width": 12.228,
+   "height": 4.9326
+  },
+  {
+   "uid": "c-0241",
+   "name": "wave-1of4-3of8-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0241.svg",
+   "width": 110.4299,
+   "height": 31.2716
+  },
+  {
+   "uid": "c-0242",
+   "name": "wave-3of10-1of3-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0242.svg",
+   "width": 97.4342,
+   "height": 29.7422
+  },
+  {
+   "uid": "c-0243",
+   "name": "wave-2x2of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0243.svg",
+   "width": 74.1425,
+   "height": 26.7692
+  },
+  {
+   "uid": "c-0244",
+   "name": "wave-1of6-1of5-1of3-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0244.svg",
+   "width": 67.0581,
+   "height": 18.4256
+  },
+  {
+   "uid": "c-0245",
+   "name": "lace-1of5-2x1of3-1",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0245.svg",
+   "width": 12.2771,
+   "height": 3.9471
+  },
+  {
+   "uid": "c-0246",
+   "name": "wave-2x1of5-3",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0246.svg",
+   "width": 11.2673,
+   "height": 3.708
+  },
+  {
+   "uid": "c-0247",
+   "name": "wave-5of12-5",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0247.svg",
+   "width": 70.7985,
+   "height": 26.3516
+  },
+  {
+   "uid": "c-0248",
+   "name": "wave-1of5-1of3-2of5-1",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0248.svg",
+   "width": 115.2977,
+   "height": 30.8492
+  },
+  {
+   "uid": "c-0249",
+   "name": "wave-1of6-5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0249.svg",
+   "width": 1.0013,
+   "height": 0.8765
+  },
+  {
+   "uid": "c-0250",
+   "name": "wave-1of5-5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0250.svg",
+   "width": 0.5819,
+   "height": 0.7608
+  },
+  {
+   "uid": "c-0251",
+   "name": "wave-1of4-5-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0251.svg",
+   "width": 0.2206,
+   "height": 0.6151
+  },
+  {
+   "uid": "c-0252",
+   "name": "wave-2x1of3-3-2",
+   "family": "wave",
+   "stars": 0,
+   "file": "/ornaments/c-0252.svg",
+   "width": 0.6726,
+   "height": 0.845
+  },
+  {
+   "uid": "c-0253",
+   "name": "loop-12-13-15-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0253.svg",
+   "width": 14516815.165,
+   "height": 287516.7462
+  },
+  {
+   "uid": "c-0254",
+   "name": "loop-12-15-18-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0254.svg",
+   "width": 67927964.0883,
+   "height": 1338191.3869
+  },
+  {
+   "uid": "c-0255",
+   "name": "loop-13-15-17-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0255.svg",
+   "width": 77568374.7704,
+   "height": 1527663.485
+  },
+  {
+   "uid": "c-0256",
+   "name": "loop-3-5-11-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0256.svg",
+   "width": 229.067,
+   "height": 9.3542
+  },
+  {
+   "uid": "c-0257",
+   "name": "loop-3-7-11-mid-3",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0257.svg",
+   "width": 427.7982,
+   "height": 15.0297
+  },
+  {
+   "uid": "c-0258",
+   "name": "loop-3-8-13-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0258.svg",
+   "width": 907.6075,
+   "height": 30.4576
+  },
+  {
+   "uid": "c-0259",
+   "name": "loop-5-12-mid-3",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0259.svg",
+   "width": 67.2696,
+   "height": 3.9635
+  },
+  {
+   "uid": "c-0260",
+   "name": "loop-5-8-12-mid-5",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0260.svg",
+   "width": 2290.0121,
+   "height": 58.2496
+  },
+  {
+   "uid": "c-0261",
+   "name": "loop-7-mid-2",
+   "family": "loop",
+   "stars": 3,
+   "file": "/ornaments/c-0261.svg",
+   "width": 1.6422,
+   "height": 0.7654
+  },
+  {
+   "uid": "c-0262",
+   "name": "loop-8-11-mid-1",
+   "family": "loop",
+   "stars": 0,
+   "file": "/ornaments/c-0262.svg",
+   "width": 775.278,
+   "height": 37.9291
+  },
+  {
+   "uid": "c-0263",
+   "name": "bezier-loop-1",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0263.svg",
+   "width": 3941.7006,
+   "height": 94960.762
+  },
+  {
+   "uid": "c-0264",
+   "name": "bezier-loop-2",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0264.svg",
+   "width": 9127.1055,
+   "height": 16011.0366
+  },
+  {
+   "uid": "c-0265",
+   "name": "bezier-loop-3",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0265.svg",
+   "width": 101485.3202,
+   "height": 61404.6021
+  },
+  {
+   "uid": "c-0266",
+   "name": "bezier-loop-4",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0266.svg",
+   "width": 15572.2405,
+   "height": 12724.3071
+  },
+  {
+   "uid": "c-0267",
+   "name": "bezier-loop-5",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0267.svg",
+   "width": 44631.7475,
+   "height": 48758.6006
+  },
+  {
+   "uid": "c-0268",
+   "name": "bezier-loop-6",
+   "family": "bezier",
+   "stars": 9,
+   "file": "/ornaments/c-0268.svg",
+   "width": 5558.2463,
+   "height": 3749.6251
+  },
+  {
+   "uid": "c-0269",
+   "name": "mobile-k3-equal",
+   "family": "mobile-k3",
+   "stars": 8,
+   "file": "/ornaments/c-0269.svg",
+   "width": 4.0117,
+   "height": 3.5304
+  },
+  {
+   "uid": "c-0270",
+   "name": "lens-56-783-785",
+   "family": "lens",
+   "stars": 7,
+   "file": "/ornaments/c-0270.svg",
+   "width": 2.04,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0271",
+   "name": "four-fold-56-783-785",
+   "family": "four-fold",
+   "stars": 7,
+   "file": "/ornaments/c-0271.svg",
+   "width": 2.04,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0272",
+   "name": "lace-2-eight-3-circle-parameter",
+   "family": "lace",
+   "stars": 0,
+   "file": "/ornaments/c-0272.svg",
+   "width": 2.425,
+   "height": 0.6577
+  },
+  {
+   "uid": "c-0273",
+   "name": "double-1-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0273.svg",
+   "width": 2.5783,
+   "height": 2.5783
+  },
+  {
+   "uid": "c-0274",
+   "name": "double-1-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0274.svg",
+   "width": 2.3244,
+   "height": 2.3244
+  },
+  {
+   "uid": "c-0275",
+   "name": "double-10-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0275.svg",
+   "width": 2.04,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0276",
+   "name": "double-10-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0276.svg",
+   "width": 2.1422,
+   "height": 2.1422
+  },
+  {
+   "uid": "c-0277",
+   "name": "double-11-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0277.svg",
+   "width": 3.2549,
+   "height": 3.2549
+  },
+  {
+   "uid": "c-0278",
+   "name": "double-11-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0278.svg",
+   "width": 2.7705,
+   "height": 2.7705
+  },
+  {
+   "uid": "c-0279",
+   "name": "double-12-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0279.svg",
+   "width": 2.7585,
+   "height": 2.7585
+  },
+  {
+   "uid": "c-0280",
+   "name": "double-12-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0280.svg",
+   "width": 2.3475,
+   "height": 2.3475
+  },
+  {
+   "uid": "c-0281",
+   "name": "double-13-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0281.svg",
+   "width": 2.5554,
+   "height": 2.5554
+  },
+  {
+   "uid": "c-0282",
+   "name": "double-13-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0282.svg",
+   "width": 2.2924,
+   "height": 2.2924
+  },
+  {
+   "uid": "c-0283",
+   "name": "double-14-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0283.svg",
+   "width": 2.7686,
+   "height": 2.7686
+  },
+  {
+   "uid": "c-0284",
+   "name": "double-14-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0284.svg",
+   "width": 3.2549,
+   "height": 3.2549
+  },
+  {
+   "uid": "c-0285",
+   "name": "double-15-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0285.svg",
+   "width": 2.3474,
+   "height": 2.3474
+  },
+  {
+   "uid": "c-0286",
+   "name": "double-15-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0286.svg",
+   "width": 2.7588,
+   "height": 2.7588
+  },
+  {
+   "uid": "c-0287",
+   "name": "double-16-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0287.svg",
+   "width": 2.2955,
+   "height": 2.2955
+  },
+  {
+   "uid": "c-0288",
+   "name": "double-16-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0288.svg",
+   "width": 2.5552,
+   "height": 2.5552
+  },
+  {
+   "uid": "c-0289",
+   "name": "double-17-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0289.svg",
+   "width": 3.0991,
+   "height": 3.0991
+  },
+  {
+   "uid": "c-0290",
+   "name": "double-17-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0290.svg",
+   "width": 3.7661,
+   "height": 3.7661
+  },
+  {
+   "uid": "c-0291",
+   "name": "double-18-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0291.svg",
+   "width": 3.3384,
+   "height": 3.3384
+  },
+  {
+   "uid": "c-0292",
+   "name": "double-18-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0292.svg",
+   "width": 2.7,
+   "height": 2.7
+  },
+  {
+   "uid": "c-0293",
+   "name": "double-19-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0293.svg",
+   "width": 3.0078,
+   "height": 3.0078
+  },
+  {
+   "uid": "c-0294",
+   "name": "double-19-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0294.svg",
+   "width": 2.5545,
+   "height": 2.5545
+  },
+  {
+   "uid": "c-0295",
+   "name": "double-2-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0295.svg",
+   "width": 2.3613,
+   "height": 2.3613
+  },
+  {
+   "uid": "c-0296",
+   "name": "double-2-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0296.svg",
+   "width": 2.2374,
+   "height": 2.2374
+  },
+  {
+   "uid": "c-0297",
+   "name": "double-20-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0297.svg",
+   "width": 3.7675,
+   "height": 3.7675
+  },
+  {
+   "uid": "c-0298",
+   "name": "double-20-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0298.svg",
+   "width": 1.7589,
+   "height": 1.7589
+  },
+  {
+   "uid": "c-0299",
+   "name": "double-21-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0299.svg",
+   "width": 2.6946,
+   "height": 2.6946
+  },
+  {
+   "uid": "c-0300",
+   "name": "double-21-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0300.svg",
+   "width": 3.3384,
+   "height": 3.3384
+  },
+  {
+   "uid": "c-0301",
+   "name": "double-22-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0301.svg",
+   "width": 2.5538,
+   "height": 2.5538
+  },
+  {
+   "uid": "c-0302",
+   "name": "double-22-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0302.svg",
+   "width": 3.01,
+   "height": 3.01
+  },
+  {
+   "uid": "c-0303",
+   "name": "double-23-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0303.svg",
+   "width": 3.5677,
+   "height": 3.5677
+  },
+  {
+   "uid": "c-0304",
+   "name": "double-23-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0304.svg",
+   "width": 1.8461,
+   "height": 1.8461
+  },
+  {
+   "uid": "c-0305",
+   "name": "double-24-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0305.svg",
+   "width": 1.139,
+   "height": 1.139
+  },
+  {
+   "uid": "c-0306",
+   "name": "double-24-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0306.svg",
+   "width": 1.346,
+   "height": 1.346
+  },
+  {
+   "uid": "c-0307",
+   "name": "double-25-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0307.svg",
+   "width": 1.0987,
+   "height": 1.0987
+  },
+  {
+   "uid": "c-0308",
+   "name": "double-25-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0308.svg",
+   "width": 1.0382,
+   "height": 1.0382
+  },
+  {
+   "uid": "c-0309",
+   "name": "double-26-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0309.svg",
+   "width": 1.2345,
+   "height": 1.2345
+  },
+  {
+   "uid": "c-0310",
+   "name": "double-26-se-2",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0310.svg",
+   "width": 3.568,
+   "height": 3.568
+  },
+  {
+   "uid": "c-0311",
+   "name": "double-27-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0311.svg",
+   "width": 1.139,
+   "height": 1.139
+  },
+  {
+   "uid": "c-0312",
+   "name": "double-27-se-2",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0312.svg",
+   "width": 2.7079,
+   "height": 2.7079
+  },
+  {
+   "uid": "c-0313",
+   "name": "double-28-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0313.svg",
+   "width": 1.0382,
+   "height": 1.0382
+  },
+  {
+   "uid": "c-0314",
+   "name": "double-28-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0314.svg",
+   "width": 1.0987,
+   "height": 1.0987
+  },
+  {
+   "uid": "c-0315",
+   "name": "double-3-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0315.svg",
+   "width": 2.2672,
+   "height": 2.2672
+  },
+  {
+   "uid": "c-0316",
+   "name": "double-3-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0316.svg",
+   "width": 2.1931,
+   "height": 2.1931
+  },
+  {
+   "uid": "c-0317",
+   "name": "double-4-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0317.svg",
+   "width": 2.3247,
+   "height": 2.3247
+  },
+  {
+   "uid": "c-0318",
+   "name": "double-4-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0318.svg",
+   "width": 2.5783,
+   "height": 2.5783
+  },
+  {
+   "uid": "c-0319",
+   "name": "double-5-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0319.svg",
+   "width": 2.2374,
+   "height": 2.2374
+  },
+  {
+   "uid": "c-0320",
+   "name": "double-5-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0320.svg",
+   "width": 2.3615,
+   "height": 2.3615
+  },
+  {
+   "uid": "c-0321",
+   "name": "double-6-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0321.svg",
+   "width": 2.1945,
+   "height": 2.1945
+  },
+  {
+   "uid": "c-0322",
+   "name": "double-6-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0322.svg",
+   "width": 2.2678,
+   "height": 2.2678
+  },
+  {
+   "uid": "c-0323",
+   "name": "double-7-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0323.svg",
+   "width": 2.5031,
+   "height": 2.5031
+  },
+  {
+   "uid": "c-0324",
+   "name": "double-7-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0324.svg",
+   "width": 2.0458,
+   "height": 2.0458
+  },
+  {
+   "uid": "c-0325",
+   "name": "double-8-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0325.svg",
+   "width": 2.1421,
+   "height": 2.1421
+  },
+  {
+   "uid": "c-0326",
+   "name": "double-8-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0326.svg",
+   "width": 2.04,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0327",
+   "name": "double-9-nw-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0327.svg",
+   "width": 2.0438,
+   "height": 2.0438
+  },
+  {
+   "uid": "c-0328",
+   "name": "double-9-se-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0328.svg",
+   "width": 2.5032,
+   "height": 2.5032
+  },
+  {
+   "uid": "c-0329",
+   "name": "swan-hybrid-7",
+   "family": "hybrid",
+   "stars": 7,
+   "file": "/ornaments/c-0329.svg",
+   "width": 2.0398,
+   "height": 2.04
+  },
+  {
+   "uid": "c-0330",
+   "name": "h-colour-1-2",
+   "family": "hybrid",
+   "stars": 0,
+   "file": "/ornaments/c-0330.svg",
+   "width": 2.0396,
+   "height": 1.0396
+  },
+  {
+   "uid": "c-0331",
+   "name": "point-1",
+   "family": "hybrid",
+   "stars": 1,
+   "file": "/ornaments/c-0331.svg",
+   "width": 2.0371,
+   "height": 1.0379
+  },
+  {
+   "uid": "c-0332",
+   "name": "h-colour-7-3",
+   "family": "hybrid",
+   "stars": 0,
+   "file": "/ornaments/c-0332.svg",
+   "width": 2.0371,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0333",
+   "name": "cubic-radius-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0333.svg",
+   "width": 3.9975,
+   "height": 3.9971
+  },
+  {
+   "uid": "c-0334",
+   "name": "quintic-balloons",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0334.svg",
+   "width": 8.6899,
+   "height": 8.6898
+  },
+  {
+   "uid": "c-0335",
+   "name": "6-balloon-every-term",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0335.svg",
+   "width": 8.9873,
+   "height": 8.985
+  },
+  {
+   "uid": "c-0336",
+   "name": "quintic-double",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0336.svg",
+   "width": 6.5122,
+   "height": 6.5118
+  },
+  {
+   "uid": "c-0337",
+   "name": "quintic-radius",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0337.svg",
+   "width": 4.4759,
+   "height": 4.4727
+  },
+  {
+   "uid": "c-0338",
+   "name": "1of2-butterfly",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0338.svg",
+   "width": 2.5938,
+   "height": 1.8311
+  },
+  {
+   "uid": "c-0339",
+   "name": "cubic-quintic",
+   "family": "hybrid",
+   "stars": 1,
+   "file": "/ornaments/c-0339.svg",
+   "width": 4.6658,
+   "height": 4.0991
+  },
+  {
+   "uid": "c-0340",
+   "name": "incomplete-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0340.svg",
+   "width": 4.9354,
+   "height": 5.1684
+  },
+  {
+   "uid": "c-0341",
+   "name": "bounce",
+   "family": "hybrid",
+   "stars": 2,
+   "file": "/ornaments/c-0341.svg",
+   "width": 2.1211,
+   "height": 1.3736
+  },
+  {
+   "uid": "c-0342",
+   "name": "wild-butterfly",
+   "family": "hybrid",
+   "stars": 2,
+   "file": "/ornaments/c-0342.svg",
+   "width": 3.4464,
+   "height": 2.8991
+  },
+  {
+   "uid": "c-0346",
+   "name": "2-petals",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0346.svg",
+   "width": 2.0478,
+   "height": 2.4976
+  },
+  {
+   "uid": "c-0349",
+   "name": "side-top-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0349.svg",
+   "width": 2.0388,
+   "height": 1.4341
+  },
+  {
+   "uid": "c-0350",
+   "name": "flourish-3",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0350.svg",
+   "width": 2.7305,
+   "height": 3.4119
+  },
+  {
+   "uid": "c-0351",
+   "name": "flourish-1",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0351.svg",
+   "width": 2.0388,
+   "height": 1.2071
+  },
+  {
+   "uid": "c-0355",
+   "name": "2-petals-2",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0355.svg",
+   "width": 2.0442,
+   "height": 2.3146
+  },
+  {
+   "uid": "c-0358",
+   "name": "side-top-2",
+   "family": "hybrid",
+   "stars": 5,
+   "file": "/ornaments/c-0358.svg",
+   "width": 2.0388,
+   "height": 1.2963
+  },
+  {
+   "uid": "c-0359",
+   "name": "double-bounce",
+   "family": "hybrid",
+   "stars": 8,
+   "file": "/ornaments/c-0359.svg",
+   "width": 2.0405,
+   "height": 2.1276
+  },
+  {
+   "uid": "c-0360",
+   "name": "flourish-2",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0360.svg",
+   "width": 2.0388,
+   "height": 1.1517
+  },
+  {
+   "uid": "c-0364",
+   "name": "2-petals-3",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0364.svg",
+   "width": 2.0425,
+   "height": 2.228
+  },
+  {
+   "uid": "c-0366",
+   "name": "1of2-butterfly-2",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0366.svg",
+   "width": 1.8303,
+   "height": 2.5936
+  },
+  {
+   "uid": "c-0367",
+   "name": "flourish-5",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0367.svg",
+   "width": 5.1727,
+   "height": 4.935
+  },
+  {
+   "uid": "c-0368",
+   "name": "side-bounce",
+   "family": "hybrid",
+   "stars": 5,
+   "file": "/ornaments/c-0368.svg",
+   "width": 1.3728,
+   "height": 2.1169
+  },
+  {
+   "uid": "c-0369",
+   "name": "quintic-butterfly-2",
+   "family": "hybrid",
+   "stars": 8,
+   "file": "/ornaments/c-0369.svg",
+   "width": 2.0016,
+   "height": 2.6698
+  },
+  {
+   "uid": "c-0373",
+   "name": "2-petals-4",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0373.svg",
+   "width": 2.4976,
+   "height": 2.0444
+  },
+  {
+   "uid": "c-0376",
+   "name": "side-top-3",
+   "family": "hybrid",
+   "stars": 2,
+   "file": "/ornaments/c-0376.svg",
+   "width": 2.0388,
+   "height": 1.035
+  },
+  {
+   "uid": "c-0377",
+   "name": "side-top-hat",
+   "family": "hybrid",
+   "stars": 3,
+   "file": "/ornaments/c-0377.svg",
+   "width": 2.2377,
+   "height": 1.0392
+  },
+  {
+   "uid": "c-0378",
+   "name": "star-trek-2",
+   "family": "hybrid",
+   "stars": 2,
+   "file": "/ornaments/c-0378.svg",
+   "width": 2.0363,
+   "height": 2.026
+  },
+  {
+   "uid": "c-0379",
+   "name": "star-trek-1",
+   "family": "hybrid",
+   "stars": 3,
+   "file": "/ornaments/c-0379.svg",
+   "width": 2.0363,
+   "height": 2.0258
+  },
+  {
+   "uid": "c-0380",
+   "name": "flourish-7",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0380.svg",
+   "width": 3.4075,
+   "height": 2.7288
+  },
+  {
+   "uid": "c-0381",
+   "name": "side-bounce-2",
+   "family": "hybrid",
+   "stars": 2,
+   "file": "/ornaments/c-0381.svg",
+   "width": 1.2085,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0382",
+   "name": "top-5",
+   "family": "hybrid",
+   "stars": 7,
+   "file": "/ornaments/c-0382.svg",
+   "width": 1.9236,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0383",
+   "name": "top-4",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0383.svg",
+   "width": 1.2618,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0386",
+   "name": "2-petals-5",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0386.svg",
+   "width": 2.3146,
+   "height": 2.0406
+  },
+  {
+   "uid": "c-0389",
+   "name": "top-3",
+   "family": "hybrid",
+   "stars": 8,
+   "file": "/ornaments/c-0389.svg",
+   "width": 1.3014,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0390",
+   "name": "flourish-8",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0390.svg",
+   "width": 2.7386,
+   "height": 2.0969
+  },
+  {
+   "uid": "c-0391",
+   "name": "top-1",
+   "family": "hybrid",
+   "stars": 4,
+   "file": "/ornaments/c-0391.svg",
+   "width": 1.1522,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0392",
+   "name": "double-top",
+   "family": "hybrid",
+   "stars": 8,
+   "file": "/ornaments/c-0392.svg",
+   "width": 1.0752,
+   "height": 2.0351
+  },
+  {
+   "uid": "c-0396",
+   "name": "2-petals-6",
+   "family": "hybrid",
+   "stars": 10,
+   "file": "/ornaments/c-0396.svg",
+   "width": 2.2355,
+   "height": 2.039
+  },
+  {
+   "uid": "c-0001a",
+   "name": "amper-thin",
+   "family": "amper",
+   "stars": 0,
+   "file": "/ornaments/c-0001a.svg",
+   "width": 2.2127,
+   "height": 2.03
+  }
+ ]
+}

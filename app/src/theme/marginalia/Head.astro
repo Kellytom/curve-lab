@@ -1,0 +1,31 @@
+---
+// Marginalia — the docs ornament head.
+//
+// Starlight calls this on every docs page. It picks four curves deterministically from the
+// ornament manifest (a hash of the page path), and sets them as CSS variables for
+// marginalia.css to place: the page title, a section heading, the footer, the sidebar.
+// The same page always gets the same curves; across the docs, every curve appears.
+
+import Default from "@astrojs/starlight/components/Head.astro";
+import marginalia from "../../theme/marginalia/ornaments.json";
+
+const curves = marginalia.curves || [];
+const hash = (text) => {
+  let h = 2166136261;
+  for (const ch of text) {
+    h ^= ch.charCodeAt(0);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+};
+const pick = (role) => (curves.length ? curves[hash(`${Astro.url.pathname}#${role}`) % curves.length] : null);
+const vars = {};
+for (const role of ["title", "heading", "footer", "sidebar"]) {
+  const curve = pick(role);
+  if (curve) vars[`--marginalia-${role}`] = `url("${curve.file}")`;
+}
+const varsText = `:root{${Object.entries(vars).map(([key, value]) => `${key}:${value};`).join("")}}`;
+---
+
+<Default />
+<style is:inline set:html={varsText}></style>

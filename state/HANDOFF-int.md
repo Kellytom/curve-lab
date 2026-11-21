@@ -3450,4 +3450,8 @@ Tschirnhausen — classic but adds nothing; off the board.
   spine, today's width rail, a similarity ×0.94 and a 2° rotation for `c-0269`, `c-0273`,
   `c-0350`, with turns and gaps. The rail adds 49/17/23 turns over 10°; the algorithmic partner
   adds none of its own. The gap is proportional, not constant — the next decision.
+- **Marginalia is the docs ornament theme.** Every curve at a quarter of the text width: the
+  title, an `h2` companion, a blockquote corner, the footer and the sidebar, plus `/ornaments/`
+  four-up with all 371. Template record `app/src/theme/marginalia/README.md`; generator
+  `scripts/marginalia.mjs` (SVGs gitignored, manifest tracked, predev/prebuild). Build and check green.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

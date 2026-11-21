@@ -1,0 +1,88 @@
+/* Marginalia — the docs ornament theme.
+ *
+ * Every curve is an ornament, used at a quarter of the text width. The curves are masks,
+ * so they take the page's text colour in light and dark. The uids are set per page by
+ * Head.astro from the manifest; the placements below are the whole customisation.
+ */
+
+:root {
+  --marginalia-scale: 0.25;
+}
+
+/* The title carries a curve in its clear right-hand side, at a quarter of the column. */
+main h1 {
+  position: relative;
+}
+main h1::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -0.4rem;
+  width: 25%;
+  height: 5.5rem;
+  background-color: currentColor;
+  -webkit-mask: var(--marginalia-title) center / contain no-repeat;
+  mask: var(--marginalia-title) center / contain no-repeat;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+/* A section heading gains a small companion: one ornament, at the line's height. */
+.sl-markdown-content h2::after {
+  content: "";
+  display: inline-block;
+  width: 1.35em;
+  height: 1.35em;
+  margin-left: 0.5em;
+  vertical-align: -0.22em;
+  background-color: currentColor;
+  -webkit-mask: var(--marginalia-heading) center / contain no-repeat;
+  mask: var(--marginalia-heading) center / contain no-repeat;
+  opacity: 0.45;
+}
+
+/* A quoted passage gets a corner ornament. */
+.sl-markdown-content blockquote::after {
+  content: "";
+  float: right;
+  width: 25%;
+  height: 4.5rem;
+  margin: 0 0 0.5rem 1rem;
+  background-color: currentColor;
+  -webkit-mask: var(--marginalia-heading) center / contain no-repeat;
+  mask: var(--marginalia-heading) center / contain no-repeat;
+  opacity: 0.18;
+}
+
+/* The footer closes with a flourish, a quarter of the column. */
+footer::after {
+  content: "";
+  display: block;
+  width: 25%;
+  height: 4.5rem;
+  margin: 2rem auto 0;
+  background-color: currentColor;
+  -webkit-mask: var(--marginalia-footer) center / contain no-repeat;
+  mask: var(--marginalia-footer) center / contain no-repeat;
+  opacity: 0.2;
+}
+
+/* The sidebar settles at its foot with one curve. */
+.sidebar-pane::after {
+  content: "";
+  display: block;
+  width: 45%;
+  height: 5rem;
+  margin: 2.5rem auto 1rem;
+  background-color: currentColor;
+  -webkit-mask: var(--marginalia-sidebar) center / contain no-repeat;
+  mask: var(--marginalia-sidebar) center / contain no-repeat;
+  opacity: 0.2;
+}
+
+@media (max-width: 50rem) {
+  main h1::after,
+  .sl-markdown-content blockquote::after {
+    display: none;
+  }
+}
