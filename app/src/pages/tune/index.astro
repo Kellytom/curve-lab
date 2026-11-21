@@ -1,0 +1,105 @@
+---
+// The live tuning lab. Everything is drawn in the browser by /api/plate-math.js, which is
+// workbench/plate_math.js itself; nothing here is saved.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const CURVES = [
+  ["c-0001", "amper — a tight loop"],
+  ["c-0002", "euler-hook"],
+  ["c-0012", "m-coarse"],
+  ["c-0050", "wave-2of5-2"],
+  ["c-0262", "loop-8-11-mid-1"],
+  ["c-0100", "term-c-10-middle — stored as a path"],
+  ["c-0273", "double-1-nw-1 — stored as a path"],
+  ["c-0350", "flourish-3 — stored as a path"],
+];
+---
+
+<BaseLayout title="the tuning lab" pageTitle="The tuning lab">
+  <p class="lead">Pick a curve and drag a value. The picture is drawn here in the browser by
+    the same file the printed plate loads, so what you see is what the plate makes. Nothing is
+    saved on this page; the per-curve page saves.</p>
+
+  <div class="lab-grid">
+    <div class="lab-preview" id="lab-preview"></div>
+
+    <div class="lab-controls">
+      <label class="lab-row" for="lab-curve"><span>curve</span>
+        <select id="lab-curve">
+          {CURVES.map(([uid, label]) => <option value={uid}>{uid} · {label}</option>)}
+        </select>
+      </label>
+
+      <label class="lab-row" for="lab-width"><span>width %</span>
+        <input id="lab-width" type="range" min="0.5" max="20" step="0.5" value="6" />
+        <output id="lab-width-out">6</output>
+      </label>
+
+      <label class="lab-row" for="lab-plus"><span>plus</span>
+        <input id="lab-plus" type="range" min="-4" max="8" step="0.5" value="2" />
+        <output id="lab-plus-out">2</output>
+      </label>
+
+      <label class="lab-row" for="lab-minus"><span>minus</span>
+        <input id="lab-minus" type="range" min="-4" max="8" step="0.5" value="2" />
+        <output id="lab-minus-out">2</output>
+      </label>
+
+      <label class="lab-row" for="lab-profile"><span>profile</span>
+        <select id="lab-profile">
+          <option value="bow">bow</option>
+          <option value="s">s</option>
+          <option value="taper">taper</option>
+        </select>
+      </label>
+
+      <label class="lab-row" for="lab-degrees"><span>turn°</span>
+        <select id="lab-degrees">
+          <option value="0">0</option>
+          <option value="45">45</option>
+          <option value="90">90</option>
+          <option value="180">180</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <p class="lab-readout" id="lab-readout"></p>
+
+  <dl class="lab-legend">
+    <dt>width %</dt>
+    <dd>How far both edges sit from the spine, as a share of the curve's own size.</dd>
+    <dt>plus</dt>
+    <dd>How much the <b>right</b> edge widens along the curve. 0 leaves it a plain offset.</dd>
+    <dt>minus</dt>
+    <dd>The same for the <b>left</b> edge. Give the two different numbers and the band is
+      lopsided — that is the whole point.</dd>
+    <dt>profile</dt>
+    <dd><b>bow</b> — widest at the middle. <b>s</b> — wide near the start, pinched at the
+      middle, the far half on the other side. <b>taper</b> — nothing at the start, widest
+      two-thirds along, back to nothing at the end.</dd>
+    <dt>the flat case</dt>
+    <dd>plus 0 and minus 0 is the one setting that draws two parallel edges. Any other
+      number makes a character rail.</dd>
+  </dl>
+</BaseLayout>
+
+<script is:inline src="/api/plate-math"></script>
+<script>
+  import "../../scripts/tune-lab.js";
+</script>
+
+<style is:global>
+  .lab-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: start; }
+  .lab-preview { border: 1px solid #e6dccb; background: #fff; padding: 8px; min-height: 240px; }
+  .lab-preview svg { width: 100%; height: auto; display: block; }
+  .lab-controls { font: 13px/1.5 ui-monospace, Menlo, monospace; }
+  .lab-row { display: grid; grid-template-columns: 5rem minmax(0, 1fr) 2.5rem; gap: 8px; align-items: center; margin: 0 0 10px; }
+  .lab-row select { grid-column: 2 / 4; }
+  .lab-row output { text-align: right; }
+  .lab-readout { font: 13px/1.6 ui-monospace, Menlo, monospace; color: #4a4a4a; margin: 16px 0 0; }
+  .lab-legend { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 6px 16px; margin: 24px 0 0; font: 14px/1.6 inherit; }
+  .lab-legend dt { font: 13px/1.6 ui-monospace, Menlo, monospace; color: #7a6a55; }
+  .lab-legend dd { margin: 0; }
+  @media (max-width: 760px) { .lab-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>
