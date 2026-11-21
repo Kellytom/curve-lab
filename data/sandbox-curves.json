@@ -1,7 +1,7 @@
 {
  "format": "curve-lab.data.sandbox-curves/1",
  "note": "One object per sandbox or hybrid-desk save: the decision is the save.",
- "count": 150,
+ "count": 151,
  "rows": [
   {
    "name": "c-0001",
@@ -3820,6 +3820,21 @@
    "curveName": "wonk-16",
    "crossedAt": "2026-11-20T15:52:49.155Z",
    "savedAt": "2026-11-20T15:52:49.161Z"
+  },
+  {
+   "name": "m-arch",
+   "widthPct": 1.5,
+   "plus": 2,
+   "minus": 2,
+   "profile": "bow",
+   "transform": {
+    "degrees": 0
+   },
+   "spine": "c-0010",
+   "curveName": "m-arch",
+   "tune": true,
+   "version": 1,
+   "savedAt": "2026-11-21T04:28:36.506Z"
   },
   {
    "name": "mirror-h-radius-1-4-quadratic",
