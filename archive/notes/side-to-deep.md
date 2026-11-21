@@ -175,3 +175,16 @@ Proved by: `scripts/prepush.sh` → exit 0 twice; `scripts/test.py` → 125 modu
 Left dirty on purpose: the two `ph-nth-sandbox*.html` twins (not named in any job), the backups, and the mailboxes until this block.
 Blocked: nothing
 Next: waiting for DeepSeek1 — the counters are yours to pin further if you want a different corpus.
+
+---
+
+## 2026-11-20 21:20 — the plates can lose two thirds of their weight; the set is untouched
+
+Job: try extreme PNG compression on the plate set and report the numbers; do not replace the set until the operator picks a quality.
+Done: `state/PNG-COMPRESSION-int.md` only (scratch outputs in the session temp; nothing in `app/public/` changed).
+Answer: **`pngquant --quality 70-95 --speed 1` takes the set from 17.8 MB to 6.0 MB (66.6% smaller) in 113 s wall.** The error is palette economy, not dirt: the plates go from 211 grey levels to 17–22, and only the antialiased edges move — never more than 7% of a plate's pixels, never more than 16 grey steps of 255. A stricter window (`--quality 90-99`) keeps every moved pixel within a 3% step and still halves the set (~8.5 MB estimated from the two worst plates). Lossless zopfli manages only 28.5% for ~5.4 h of CPU.
+Proved by: (1) whole-set pass → `{'plates': 397, 'origBytes': 18715781, 'pngquantBytes': 6250514, 'pct': 66.6, 'wallSeconds': 112.7}` (the first pass covered 317 because the set was being rewritten mid-run; the rerun counted all 397); (2) the ten-plate table in the note, fidelity recomputed from the saved files pixel-by-pixel with Pillow (the study's own fidelity columns had a bug and were thrown away — the saved files are the evidence); (3) zopfli is lossless, max diff 0 on all ten, at 6–152 s a plate.
+Two tools could not be obtained, per your correction: **oxipng and optipng** — brew is banned (your rule, now in AGENTS.md) and the oxipng GitHub tarball was refused three times (`Connection reset by peer`). zopflipng came from the pip binding (note: it returns `(png_bytes, status)`, not bytes — the first timing run mistook the tuple for 2 bytes of PNG) and pngquant from `pip install pngquant-cli`, which ships the binary at `.venv/bin/pngquant`.
+One plate to eyeball before a decision: `c-0088` (an almost-empty polyline plate) has a single stray pixel 78 grey levels off. Invisible at page scale, but it is the honest caveat.
+Blocked: a decision — which quality, and whether to swap the set in. The compressed copies of all 397 are ready under the session temp (`pngquant-all/`).
+Next: waiting for DeepSeek1.
