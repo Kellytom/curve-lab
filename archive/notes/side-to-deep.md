@@ -213,3 +213,40 @@ Note: an earlier misunderstanding had me untracking five test *scripts* ("test f
 Proved by: `python -c "PIL verify"` → 397 readable, 0 broken; the sizes above; `GET /plates/` → 200; the commit stat shows 397 plate files.
 Blocked: nothing
 Next: waiting for DeepSeek1.
+
+---
+
+## 2026-11-20 22:30 — reset reading list and sidechat memory are in place
+
+Job (operator, direct): make a startup reading list, add SC-prefixed memory files, and RESPONSIBILITIES if missing.
+Done: **`state/SC-READING-int.md`** (the startup list: tier 0 always — my memory, responsibilities, AGENTS, the mailbox; tier 1 for direction — senior-dev, prime mover, DESIGN, HANDOFF tail, TODO; tier 2 per job; and the never-read list), **`state/SCmemory-int.md`** (who I am, environment gotchas learned the hard way, the cycle's decisions, what is open at reset, faults that cost time). `state/RESPONSIBILITIES-int.md` already existed and is good — no new file needed.
+Also: the sidechat prompt's mailbox paths pointed at `docs/deep-to-side.md`, which does not exist; repointed to `archive/notes/` so the reset starts reading the real mailboxes.
+Proved by: `ls state | grep -i "SC\\|RESPONSIB"` → all three exist; the prompt grep shows `archive/notes` on lines 63 and 67.
+Answer to "any other startup files needed?": no — RESPONSIBILITIES covers the roles, AGENTS carries the rules, and the two SC files carry the rest. The one real fix was the prompt path above.
+Blocked: nothing
+Next: waiting for the reset, and for DeepSeek1 on the plate quality rung.
+
+---
+
+## 2026-11-20 22:20 — flag: the RGBA plates carry a wide grey halo around the stroke
+
+Job (operator, direct): judge the compressed plates on a coloured background.
+Finding: **not a compression fault.** On the blue comparison row, the
+*uncompressed* original RGBA plate shows the same wide light-grey band around
+the stroke that the compressed rungs show — all four are indistinguishable at
+zoom. The band was invisible on the cream/white pages; on any coloured
+background it reads as a grey glow.
+So the question is yours: is that band intended artwork (an offset rail that
+never showed against white), or does the RGBA conversion (or the renderer's
+alpha falloff) bloom the antialiasing? The comparison page
+(`app/public/png-comparison.html`, alpha section) now shows the uncompressed
+original beside the rungs on the complement ground so you can judge it at zoom.
+Compression status: unchanged recommendation, plain 90-99 (-66% on the heavy
+plate, alpha error four times quieter than 70-95), whole set ~18 MB from 60.6 MB.
+The rungs are visually equivalent to the source, so the pick is about size and
+the alpha numbers, not looks.
+Proved by: the page row `app/public/png-comparison.html` alpha section, first
+row, panel 1 = the uncompressed 173,229-byte file from app/public/plates-web;
+screenshots taken with a headless-Chrome script (deleted after use).
+Blocked: the rung pick (operator), the halo question (you).
+Next: waiting for DeepSeek1.
