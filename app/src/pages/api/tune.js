@@ -1,42 +1,55 @@
-// POST /api/tune?uid=c-0001  — save the four character values and re-render that plate.
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
+// POST /api/tune — the desk's write for the tuning pages.
+//
+//   ?uid=<row>&spine=<curve>&mode=overwrite   save over this row
+//   ?uid=<curve>&spine=<curve>&mode=new       save a new named version of this spine
+//
+// A form post lands back on the page with a message; a JSON post gets JSON. The rules
+// (a unique name, a refused collision, a kept row on overwrite) are in lib/desk-tune.js.
 
-const run = promisify(execFile);
-import path from "node:path";
-import { repoRoot } from "../../lib/gallery.js";
-import { prisma } from "../../lib/db.js";
+import { DeskError, saveTune, valuesFrom } from "../../lib/desk-tune.js";
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), {
   status, headers: { "content-type": "application/json" },
 });
 
+const isFormPost = (request) =>
+  String(request.headers.get("content-type") || "").includes("form");
+
 export const POST = async ({ request, url }) => {
+  const mode = url.searchParams.get("mode") || "overwrite";
+  const rowId = String(url.searchParams.get("uid") || "");
+  const spine = String(url.searchParams.get("spine") || rowId);
+  const formPost = isFormPost(request);
+
   try {
-    const uid = String(url.searchParams.get("uid") || "");
-    if (!/^[a-z0-9-]+$/.test(uid)) return json({ error: "bad uid" }, 400);
-    const form = await request.formData();
-    const data = {
-      widthPct: Number(form.get("widthPct") || 6),
-      plus: Number(form.get("plus") || 2),
-      minus: Number(form.get("minus") || 2),
-      profile: String(form.get("profile") || "bow"),
-      transform: { degrees: Number(form.get("degrees") || 0) },
-      tune: true,
-    };
-    await prisma.sandboxCurve.upsert({
-      where: { name: uid },
-      create: { name: uid, data: JSON.stringify(data) },
-      update: { data: JSON.stringify(data) },
-    });
-    // the plate reads the exported JSON, so refresh it from the database first
-    await run(process.execPath, [path.join(repoRoot(), "scripts", "export-data.mjs")],
-      { cwd: repoRoot(), timeout: 60000 });
-    // render before redirecting: the page you land on shows the plate that was just made
-    await run(process.execPath, [path.join(repoRoot(), "scripts", "print_plates.mjs"), "--only", uid],
-      { cwd: repoRoot(), timeout: 120000 });
-    return new Response(null, { status: 303, headers: { location: `/tune/${uid}?saved=1` } });
+    let raw;
+    if (formPost) {
+      const form = await request.formData();
+      raw = Object.fromEntries(form.entries());
+    } else {
+      raw = await request.json();
+    }
+    const values = valuesFrom(raw || {});
+    const result = await saveTune({ mode, rowId, spine, curveName: raw?.curveName, values });
+
+    if (formPost) {
+      const query = new URLSearchParams({
+        saved: result.created ? `saved as new: ${result.name}` : `saved ${result.name}`,
+      });
+      if (result.warning) query.set("warning", result.warning);
+      return new Response(null, { status: 303, headers: { location: `/tune/${result.name}?${query}` } });
+    }
+    return json(result);
   } catch (error) {
-    return json({ error: String(error.message || error) }, 400);
+    const status = error instanceof DeskError ? error.status : 400;
+    const message = String(error.message || error);
+    if (formPost) {
+      const back = spine || rowId;
+      return new Response(null, {
+        status: 303,
+        headers: { location: `/tune/${back}?${new URLSearchParams({ error: message })}` },
+      });
+    }
+    return json({ error: message }, status);
   }
 };

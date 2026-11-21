@@ -1,9 +1,11 @@
-// Open /tune/ in headless Chrome and prove the lab redraws: the SVG must change when a
-// value changes, and the readout must name both edges.
+// Open /tune/ and /tune/<uid> in headless Chrome and prove both are live: the SVG must
+// change when a value changes, the readout must name both edges, the flat case must read
+// 1.00×, a path curve must say it prints the spine, and the per-curve page must redraw
+// without submitting its form.
 //
 //   node scripts/check-tune-lab.mjs [base]
 //
-// The page is a live drawing, so this reads the DOM after the script has run.
+// The pages are live drawings, so this reads the DOM after the script has run.
 
 import fs from "node:fs";
 import { chromium } from "playwright-core";
@@ -32,17 +34,30 @@ if (!browser) {
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 const problems = [];
 
+const setInput = async (selector, value) => {
+  await page.$eval(selector, (node, next) => {
+    node.value = String(next);
+    node.dispatchEvent(new Event("input", { bubbles: true }));
+  }, value);
+  await page.waitForTimeout(140);
+};
+const svgOf = (selector) => page.$eval(selector, (node) => node.outerHTML);
+const readoutOf = (selector) => page.$eval(selector, (node) => node.textContent);
+
 try {
   await page.goto(`${BASE}/tune/`, { waitUntil: "networkidle" });
   await page.waitForSelector("#lab-preview svg", { timeout: 8000 });
 
-  const firstSvg = await page.$eval("#lab-preview svg", (node) => node.outerHTML);
-  const firstReadout = await page.$eval("#lab-readout", (node) => node.textContent.trim());
+  const firstSvg = await svgOf("#lab-preview svg");
+  const firstReadout = await readoutOf("#lab-readout");
   if (!/Right edge .* Left edge /.test(firstReadout)) {
     problems.push(`readout does not name both edges: ${firstReadout}`);
   }
   if (!/of the curve's size/.test(firstReadout)) {
     problems.push(`readout is not the expected sentence: ${firstReadout}`);
+  }
+  if (!/Band width [\d.]+ %/.test(firstReadout)) {
+    problems.push(`readout does not name the band width: ${firstReadout}`);
   }
 
   // a character rail must not be parallel: the + side has to widen somewhere
@@ -50,45 +65,73 @@ try {
   if (!(ratio > 1.05)) problems.push(`the right edge is parallel (ratio ${ratio})`);
 
   // move plus and the drawing must change
-  await page.$eval("#lab-plus", (node) => {
-    node.value = "6";
-    node.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  await page.waitForTimeout(120);
-  const secondSvg = await page.$eval("#lab-preview svg", (node) => node.outerHTML);
-  if (secondSvg === firstSvg) problems.push("changing plus did not redraw the picture");
+  await setInput("#lab-plus", 6);
+  if ((await svgOf("#lab-preview svg")) === firstSvg) {
+    problems.push("changing plus did not redraw the picture");
+  }
 
   // the profile must change the drawing too
+  const beforeProfile = await svgOf("#lab-preview svg");
   await page.selectOption("#lab-profile", "taper");
-  await page.waitForTimeout(120);
-  const thirdSvg = await page.$eval("#lab-preview svg", (node) => node.outerHTML);
-  if (thirdSvg === secondSvg) problems.push("changing the profile did not redraw the picture");
+  await page.waitForTimeout(140);
+  if ((await svgOf("#lab-preview svg")) === beforeProfile) {
+    problems.push("changing the profile did not redraw the picture");
+  }
   await page.selectOption("#lab-profile", "bow");
 
-  // width 0.5 with plus 0 and minus 0 is the only parallel setting
-  await page.$eval("#lab-plus", (node) => {
-    node.value = "0";
-    node.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  await page.$eval("#lab-minus", (node) => {
-    node.value = "0";
-    node.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  await page.waitForTimeout(120);
-  const flat = await page.$eval("#lab-readout", (node) => node.textContent);
+  // plus 0 and minus 0 is the flat case: both edges parallel, so the ratio is 1.00×
+  await setInput("#lab-plus", 0);
+  await setInput("#lab-minus", 0);
+  const flat = await readoutOf("#lab-readout");
   if (!/Right edge .*\(1\.00× at the belly\)/.test(flat)) {
     problems.push(`plus 0 / minus 0 is not flat: ${flat}`);
   }
 
-  // a path curve must say so rather than pretend the values shape it
+  // a path curve has no speed rows: the plate prints the spine only, and the page says so
   await page.selectOption("#lab-curve", "c-0273");
-  await page.waitForTimeout(400);
-  const pathReadout = await page.$eval("#lab-readout", (node) => node.textContent);
-  if (!/stored as a path/.test(pathReadout)) {
-    problems.push(`a path curve did not say so: ${pathReadout}`);
+  await page.waitForFunction(
+    () => /stored as a path/.test(document.getElementById("lab-readout")?.textContent || ""),
+    { timeout: 8000 },
+  );
+  const pathPaths = await page.$$eval("#lab-preview svg path", (nodes) => nodes.length);
+  if (pathPaths !== 1) problems.push(`a path curve drew ${pathPaths} paths, not its spine`);
+
+  // the per-curve page redraws in place: no navigation, no submit. The width is still cut
+  // by the original fold guard, and the readout must say the number it was cut to.
+  await page.goto(`${BASE}/tune/c-0001`, { waitUntil: "networkidle" });
+  await page.waitForSelector("#tune-preview svg", { timeout: 8000 });
+  const uidBefore = await svgOf("#tune-preview svg");
+  const urlBefore = page.url();
+  await setInput('input[name="plus"]', 3);
+  const uidAfter = await svgOf("#tune-preview svg");
+  if (uidAfter === uidBefore) problems.push("/tune/c-0001 did not redraw as a value changed");
+  if (page.url() !== urlBefore) problems.push("/tune/c-0001 navigated instead of redrawing");
+  const uidReadout = await readoutOf("#tune-readout");
+  if (!/Band width [\d.]+ %/.test(uidReadout)) {
+    problems.push(`/tune/c-0001 readout does not name the band width: ${uidReadout}`);
+  }
+  if (!/asked [\d.]+ %/.test(uidReadout)) {
+    problems.push(`/tune/c-0001 readout does not name the asked width: ${uidReadout}`);
   }
 
-  console.log(problems.length ? `FAIL\n- ${problems.join("\n- ")}` : "tune lab: draws, redraws, and says when it is flat or a path");
+  // the desk: a name, an overwrite, a new version, and the list of versions
+  const name = await page.$eval('#tune-form input[name="curveName"]', (node) => node.value);
+  if (!name.trim()) problems.push("the desk has no name to save under");
+  const buttons = await page.$$eval('#tune-form button', (nodes) =>
+    nodes.map((node) => node.textContent.trim().toLowerCase()));
+  if (!buttons.includes("save over this row")) problems.push(`no overwrite button: ${buttons}`);
+  if (!buttons.includes("save as new version")) problems.push(`no new-version button: ${buttons}`);
+  if (buttons.some((text) => text === "save + render")) {
+    problems.push("the old save + render button is still there");
+  }
+  const versions = await page.$eval(".tune-versions", (node) => node.textContent);
+  if (!/Versions of this spine/.test(versions)) {
+    problems.push("the page does not list the versions of this spine");
+  }
+
+  console.log(problems.length
+    ? `FAIL\n- ${problems.join("\n- ")}`
+    : "tune lab: both pages draw live, the flat case reads 1.00×, and a path says it is a spine");
 } finally {
   await browser.close();
 }

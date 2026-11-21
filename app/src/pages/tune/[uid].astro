@@ -1,11 +1,14 @@
 ---
-// The tuning engine: one curve, its character values, and a live preview.
-// Spec: state/GRAPHICSPEC-int.md. The numbers are saved through desk-io by the form post.
+// The tuning page: one curve, its four values, a live preview, and the desk's saves.
+// A page may show the curve's base row or one named version of the same spine.
+// Spec: state/SPEC-tune-lab-int.md. Desk rules: app/src/lib/desk-tune.js.
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { repoRoot } from "../../lib/gallery.js";
+import { prisma } from "../../lib/db.js";
+import { versionsFor } from "../../lib/desk-tune.js";
 
 // plate_math.js is CommonJS and lives outside app/, so Vite's import interop hands back no
 // default. require() reads it from disk as Node sees it, which is the same module the plate
@@ -13,31 +16,35 @@ import { repoRoot } from "../../lib/gallery.js";
 const require = createRequire(import.meta.url);
 const PLATE = require(path.join(repoRoot(), "workbench", "plate_math.js"));
 const registry = JSON.parse(readFileSync(path.join(repoRoot(), "workbench", "curve-registry.json"), "utf8"));
+
 const { uid } = Astro.params;
-const record = registry.curves.find((row) => row.uid === uid);
+const parse = (row) => { try { return JSON.parse(row.data) || {}; } catch { return {}; } };
+const deskRows = await prisma.sandboxCurve.findMany({ orderBy: { updatedAt: "desc" } });
+
+// a version's id is not a registry uid: resolve it to the spine it was built from
+const current = deskRows.find((row) => row.name === uid) || null;
+const currentData = current ? parse(current) : {};
+const spine = currentData.spine || uid;
+const record = registry.curves.find((row) => row.uid === spine);
 if (!record) return Astro.redirect("/plates/");
+const rowId = current ? current.name : record.uid;
 
-// the form must start from the values the plate was built from (the desk row), not from the
-// registry record, or opening the page and pressing save would quietly undo the tuning
-const decisions = (() => {
-  try {
-    return JSON.parse(readFileSync(path.join(repoRoot(), "data", "sandbox-curves.json"), "utf8")).rows || [];
-  } catch { return []; }
-})();
-const desk = decisions.find((row) => (row.uid || row.name) === uid) || {};
-
+// the form starts from the saved row, so opening it and saving cannot quietly undo a tune
+const defaults = { widthPct: 6, plus: 2, minus: 2, profile: "bow" };
 const q = Astro.url.searchParams;
 const number = (name, fallback) => {
   const raw = q.get(name);
   return raw === null || raw === "" ? fallback : Number(raw);
 };
 const values = {
-  widthPct: number("widthPct", desk.widthPct ?? record.widthPct ?? 6),
-  plus: number("plus", desk.plus ?? record.plus ?? 2),
-  minus: number("minus", desk.minus ?? record.minus ?? 2),
-  profile: q.get("profile") || desk.profile || record.profile || "bow",
-  degrees: number("degrees", desk.transform?.degrees ?? record.transform?.degrees ?? 0),
+  widthPct: number("widthPct", currentData.widthPct ?? defaults.widthPct),
+  plus: number("plus", currentData.plus ?? defaults.plus),
+  minus: number("minus", currentData.minus ?? defaults.minus),
+  profile: q.get("profile") || currentData.profile || defaults.profile,
+  degrees: number("degrees", currentData.transform?.degrees ?? record.transform?.degrees ?? 0),
 };
+const curveName = currentData.curveName || record.name;
+const versions = await versionsFor(record.uid);
 
 const row = {
   name: record.name,
@@ -103,13 +110,17 @@ const svg = !all.length
 ---
 
 <BaseLayout title="the tuning engine" pageTitle="The tuning engine">
-  <p class="lead"><b>{record.uid}</b> {record.name} · {note}. The four values below shape the
-    two edges of the band. The preview is drawn by the same code as the printed plate, and
-    saving writes the numbers to this curve and rebuilds the plate before the page returns.</p>
+  <p class="lead"><b>{record.uid}</b> {record.name}{rowId !== record.uid ? ` · version ${curveName}` : ""}.
+    The four values shape the two edges of the band. Saving writes to the desk; the plate reads
+    the desk at its next export.</p>
+
+  {q.get("saved") && <p class="tune-ok">{q.get("saved")}. {q.get("warning") || ""}</p>}
+  {q.get("error") && <p class="tune-bad">not saved: {q.get("error")}</p>}
 
   <div class="tune-grid">
-    <div class="tune-preview" set:html={svg} />
-    <form class="tune-form" method="get">
+    <div class="tune-preview" id="tune-preview" set:html={svg} />
+    <form class="tune-form" id="tune-form" method="get">
+      <label>name <input name="curveName" type="text" maxlength="120" value={curveName} /></label>
       <label>width % <input name="widthPct" type="number" min="0.5" max="20" step="0.5" value={values.widthPct} /></label>
       <label>plus <input name="plus" type="number" min="-8" max="8" step="0.5" value={values.plus} /></label>
       <label>minus <input name="minus" type="number" min="-8" max="8" step="0.5" value={values.minus} /></label>
@@ -120,22 +131,64 @@ const svg = !all.length
       </label>
       <label>turn° <input name="degrees" type="number" min="-180" max="180" step="45" value={values.degrees} /></label>
       <button type="submit">preview</button>
-      <button type="submit" formaction={`/api/tune?uid=${record.uid}`} formmethod="post">save + render</button>
+      <button type="submit" formmethod="post"
+        formaction={`/api/tune?uid=${rowId}&spine=${record.uid}&mode=overwrite`}>save over this row</button>
+      <button type="submit" formmethod="post"
+        formaction={`/api/tune?uid=${record.uid}&spine=${record.uid}&mode=new`}>save as new version</button>
     </form>
   </div>
-  {q.get("saved") && <p class="tune-ok">saved and rendered — <a href="/plates/">back to the plates</a></p>}
-  <p class="tune-note">Save writes the four values to the row (desk-io) and runs
-    <code>print_plates.mjs --only {record.uid}</code>; reload this page to see the new
-    <code>book/print/{record.uid}-3000-grey-300dpi.png</code>.</p>
+  <p class="tune-readout" id="tune-readout">{note}. The picture redraws as you type; the
+    preview button is only for a no-JavaScript browser.</p>
+
+  <section class="tune-versions">
+    <h2>Versions of this spine</h2>
+    {versions.length ? (
+      <ul>
+        {versions.map((version) => (
+          <li class:list={["tune-version", { current: version.name === rowId }]}>
+            <a href={`/tune/${version.name}`}>{version.curveName}</a>
+            <span class="mono">
+              {version.name === record.uid ? "base · " : ""}
+              width {version.widthPct} % · plus {version.plus} · minus {version.minus} ·
+              {` ${version.profile}`} · turn {version.degrees}°
+            </span>
+            {version.name === rowId && <b>this one</b>}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="tune-note">No saved rows for this spine yet. Save, or save as new, to start one.</p>
+    )}
+    <p class="tune-note">A name is a key: two rows may not share one, and a new version may not
+      take a curve id. A refused name says who holds it. Five versions of one spine is expected.</p>
+  </section>
 </BaseLayout>
 
+<script type="application/json" id="tune-curve" set:html={JSON.stringify({
+  name: record.name,
+  speedX: record.speedX || [],
+  speedY: record.speedY || [],
+  path: record.path || null,
+}).replace(/</g, "\\u003c")}></script>
+<script is:inline src="/api/plate-math"></script>
+<script>
+  import "../../scripts/tune-uid.js";
+</script>
+
 <style is:global>
-  .tune-grid { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 24px; align-items: start; }
+  .tune-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: start; }
   .tune-preview { border: 1px solid #e6dccb; background: #fff; padding: 8px; }
   .tune-preview svg { width: 100%; height: auto; display: block; }
   .tune-form label { display: flex; justify-content: space-between; gap: 8px; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 0 0 8px; }
-  .tune-form input, .tune-form select { width: 7rem; margin: 0; padding: 2px 4px; font-size: 13px; }
+  .tune-form input, .tune-form select { width: 8rem; margin: 0; padding: 2px 4px; font-size: 13px; }
   .tune-form button { width: 100%; margin: 6px 0 0; }
   .tune-note { font: 13px/1.5 ui-monospace, Menlo, monospace; color: #7a6a55; }
   .tune-ok { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #2f6f3a; }
+  .tune-bad { font: 14px/1.5 ui-monospace, Menlo, monospace; color: #9b2c2c; }
+  .tune-versions { margin: 28px 0 0; }
+  .tune-versions h2 { font-size: 1rem; margin: 0 0 8px; }
+  .tune-versions ul { list-style: none; margin: 0; padding: 0; }
+  .tune-version { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; padding: 6px 0; border-top: 1px solid #eee3d3; }
+  .tune-version .mono { font: 12px/1.5 ui-monospace, Menlo, monospace; color: #6b5b46; }
+  .tune-version.current { background: #fbf6ec; }
 </style>

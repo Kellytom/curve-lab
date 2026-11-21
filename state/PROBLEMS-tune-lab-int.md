@@ -63,3 +63,39 @@ URL is not part of it.
 **Fix:** the script tag loads `/api/plate-math`.
 
 **Guard:** the lab check fails on a blank preview, which is what a wrong script URL gives.
+
+## 5. One save could not hold two versions
+
+**Seen:** "we might have 5 different versions from one spine, and that is good."
+
+**Wrong:** the only write was "save + render". It wrote one row keyed by the uid and replaced
+that row's data with just the four values, so a chosen name or a construction was lost; there
+was no second row; and a name collision could not happen because there was no name.
+
+**Fix:** `app/src/lib/desk-tune.js`. *Save over this row* merges and keeps every field the
+tune does not own; *save as new version* makes a new row on the same `spine`; a name is
+slugged into a URL key; a collision is refused, case-insensitively, and names the row that
+holds it; a new version may not take a registry uid. The page lists every row on the spine.
+The automatic render is gone: the operator asked for desk io instead.
+
+**Guard:** `app/tests/desk-tune.test.mjs` (ten rules, no database), and the desk checks in
+`scripts/check-tune-lab.mjs` (a name, both buttons, the version list).
+
+## 6. A rail change that looked local and was not
+
+**Seen:** "the curve looks fine on page refresh but as soon as i touch any control it gets
+crushed... so it works, but wrong", then "you cant cheat and use another way to make the
+character rails".
+
+**Wrong:** to make width visible, the fold guard was replaced by a per-station pinch cap in
+`plate_math.js`. That is a second rail construction. At the same saved number it drew what
+the guard used to cut to 1.5 %, so every saved row came out about four times too wide. The
+per-curve page's first paint also came from a stale server module, so it looked right until
+a control was touched.
+
+**Fix:** `workbench/plate_math.js` was reverted exactly. The character rail is one law, and
+the guard still halves the whole width. The live drawing and the desk are the only new work.
+
+**Guard:** none is needed in code because the change was reverted; the rule is written in
+`state/DESIGN-int.md` §The desk. A session that wants a smoother rail must bring a reason to
+the operator first.

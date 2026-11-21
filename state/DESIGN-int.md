@@ -832,3 +832,23 @@ cannot bend the curve, so the outline is unchanged. `scripts/circle_split.py`
 (`reformed_record`) derives it, `scripts/add_circle_reform.py` enters it, and
 `tests/test_circle_split.py` checks the row, the note and the drawing against one
 derivation.
+
+## The desk: one row per tuning, many per spine — 2026-11-21
+
+Settled by the operator: "we might have 5 different versions from one spine, and that is good."
+
+- **A row's name is its key and its URL; `curveName` is what a person typed.** Many rows may
+  share a `spine`; two rows may never share a name or a chosen name (compared without case).
+  A refused name says which row holds it. A new version may not take a registry uid.
+- **Save over this row merges.** Only the four values and the turn are replaced; a chosen
+  name, a construction and every field the tune does not own survive. A save is one
+  transaction, then the JSON copy is written; a failed copy is reported, never hidden.
+- **A new version is a new row**, numbered from the rows already on the spine. It never
+  overwrites the base row.
+- **No automatic plate render.** The operator's words: "instead of save and render, put
+  robust desk io". The plate reads the desk at its next export.
+- **The character rail is one law, not a choice.** `distance = base × (1 + strength ×
+  profile)`, with the fold guard halving the whole width until no station can fold. A local
+  pinch cap was tried on 2026-11-21 and reverted: it is a second construction, and at the
+  same saved number it drew a band about four times too wide. The operator: "you cant cheat
+  and use another way to make the character rails."
