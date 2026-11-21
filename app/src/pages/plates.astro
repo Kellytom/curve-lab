@@ -1,7 +1,7 @@
 ---
 // The print plates: every curve in one list, each with a thumbnail and a link to its plate.
 // A plate is 300 dpi, white ground, turned as the record says, in two greys.
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { loadRegistry } from "../lib/registry.ts";
@@ -19,6 +19,11 @@ const rows = registry.curves
     turn: curve.transform?.degrees || 0,
     exported: existsSync(path.join(print, `${curve.uid}-3000-grey-300dpi.png`)),
     web: existsSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}-1600-grey.png`)),
+    // the web copy is re-rendered by the tuning page; the stamp makes the browser fetch the
+    // new one instead of showing the cached plate
+    stamp: (() => { try {
+      return statSync(path.join(repoRoot(), "app", "public", "plates-web", `${curve.uid}-1600-grey.png`)).mtimeMs;
+    } catch { return 0; } })(),
   }));
 const done = rows.filter((row) => row.exported).length;
 ---
@@ -37,7 +42,7 @@ const done = rows.filter((row) => row.exported).length;
     {rows.map((row) => (
       <article class="plate-card">
         <a href={`/api/print-plate/${row.uid}`}>
-          <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png` : `/api/print-plate/${row.uid}`}
+          <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}` : `/api/print-plate/${row.uid}`}
             alt={row.name} loading="lazy" />
         </a>
         <p class="plate-name"><code>{row.uid}</code> {row.name}</p>
@@ -45,7 +50,7 @@ const done = rows.filter((row) => row.exported).length;
           {row.exported
             ? <><a href={`/api/print-plate/${row.uid}`}>png 300 dpi</a> ·
                 <a href={`/api/print-plate/${row.uid}?format=svg`}>svg</a>{row.web
-                  ? <> · <a href={`/plates-web/${row.uid}-1600-grey.png`}>1600 png</a></> : null} ·</>
+                  ? <> · <a href={`/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}`}>1600 png</a></> : null} ·</>
             : <span>not exported yet ·</span>}
           turn {row.turn}° · <a href={`/tune/${row.uid}`}>tune</a>
         </p>
