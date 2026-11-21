@@ -6,8 +6,10 @@
 1. `docs/deep-to-side.md` — this file: what changed, what not to trust.
 2. `docs/STRUCTURE.md` — where every folder is, and the files that matter.
 3. `state/DATA-int.md` — every dataset, its format, who writes and reads it.
-4. `workbench/finder.json` — the curve finder's current results (read, do not edit).
-5. `docs/CURVATURE-POWER-CURVES.md` — the power-curve numbers, all computed by
+4. `state/RESPONSIBILITIES-int.md` — who owns what, and the rule that overlap
+   is allowed: do not refuse a job because a file looks busy.
+5. `workbench/finder.json` — the curve finder's current results (read, do not edit).
+6. `docs/CURVATURE-POWER-CURVES.md` — the power-curve numbers, all computed by
    `scripts/curvature_power.py`.
 
 Do not read: `reference/` (13 GB, mostly gitignored), `vendor/`, `out/`, `dist/`,

@@ -346,63 +346,109 @@
     return { kind, symmetric: kind !== "none", half: half / size, mirror: mirror / size };
   }
 
-  // ---- rails from a path --------------------------------------------------- //
-  // A curve stored as a path has no u, v, so the rail is built from the polyline itself:
-  // the local normal at each station, scaled by the width, then shaped by the character —
-  // the same plus / minus / profile law, applied to arclength instead of to t.
+  // ---- a path curve: refine the walk, then the same character law ----------------- //
+
+  // One segment of a centripetal Catmull-Rom spline through p0..p3. Centripetal (alpha 0.5)
+  // is used rather than uniform: uniform overshoots when the stored points are unevenly
+  // spaced, and a path's points are uneven.
+  function catmullRom(p0, p1, p2, p3, t) {
+    const knot = (a, b) => Math.pow(Math.hypot(b[0] - a[0], b[1] - a[1]), 0.5) || 1e-9;
+    const t0 = 0, t1 = knot(p0, p1), t2 = t1 + knot(p1, p2), t3 = t2 + knot(p2, p3);
+    const at = t1 + t * (t2 - t1);
+    const mix = (a, b, ta, tb) => [
+      ((tb - at) * a[0] + (at - ta) * b[0]) / (tb - ta),
+      ((tb - at) * a[1] + (at - ta) * b[1]) / (tb - ta),
+    ];
+    const a1 = mix(p0, p1, t0, t1), a2 = mix(p1, p2, t1, t2), a3 = mix(p2, p3, t2, t3);
+    return mix(mix(a1, a2, t0, t2), mix(a2, a3, t1, t3), t1, t2);
+  }
+
+  // A stored path is a short polyline (39 to 901 points), so drawn as segments it shows the
+  // facets. Walk it as a spline through the stored points and sample at a fixed step. The
+  // stored points stay exact; everything between them is approximate, and the plate is a
+  // drawing of the curve, not the curve itself.
+  function refinePath(points, step) {
+    const input = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+    // a repeated stored point makes a zero-length knot interval, and the centripetal
+    // parameterisation then divides by zero and cusps; one copy of each point is enough
+    const pts = [];
+    for (const p of input) {
+      const last = pts[pts.length - 1];
+      if (!last || Math.hypot(p[0] - last[0], p[1] - last[1]) > 1e-9) pts.push([p[0], p[1]]);
+    }
+    if (pts.length < 2) return pts.map((p) => [p[0], p[1]]);
+    // the end tangents are reflected rather than clamped: clamping repeats an end point,
+    // which is the same zero-length knot the duplicate filter just removed
+    const at = (i) => {
+      if (i < 0) return [2 * pts[0][0] - pts[1][0], 2 * pts[0][1] - pts[1][1]];
+      if (i >= pts.length) {
+        const n = pts.length - 1;
+        return [2 * pts[n][0] - pts[n - 1][0], 2 * pts[n][1] - pts[n - 1][1]];
+      }
+      return pts[i];
+    };
+    const span = Number(step) > 0 ? Number(step) : 0;
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i += 1) {
+      const p0 = at(i - 1), p1 = at(i), p2 = at(i + 1), p3 = at(i + 2);
+      const chord = Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) || 1;
+      const count = span ? Math.max(1, Math.ceil(chord / span)) : 1;
+      for (let k = 0; k < count; k += 1) out.push(catmullRom(p0, p1, p2, p3, k / count));
+    }
+    out.push([pts[pts.length - 1][0], pts[pts.length - 1][1]]);
+    return out;
+  }
+
+  // The rail on a path: the refined walk, then the same law as a row curve —
+  // distance = base * (1 + strength * profile(u)), u by arclength, one sign per side.
+  // The offset is capped by the local radius of curvature, so a corner yields a thin rail
+  // instead of a fold: past that radius the rail crosses itself and the band fills wrong.
   function pathGroup(points, options) {
     const opts = options || {};
     const widthPercent = Number(opts.widthPercent ?? 6);
     const plus = Number(opts.plus ?? 2);
     const minus = Number(opts.minus ?? 2);
     const profile = ["bow", "s", "taper"].includes(opts.profile) ? opts.profile : "bow";
-    const pts = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
-    if (pts.length < 3) return null;
+    const stored = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+    if (stored.length < 3) return null;
 
-    const box = bbox(pts);
+    const box = bbox(stored);
     const size = Math.hypot(box[2] - box[0], box[3] - box[1]) || 1;
     const base = (widthPercent / 100) * size;
+    // about 1600 samples across the curve's own size: 2 px apart on a 3000 px plate
+    const walk = refinePath(stored, size / 1600);
 
     const arc = [0];
-    for (let i = 1; i < pts.length; i += 1) {
-      arc.push(arc[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    for (let i = 1; i < walk.length; i += 1) {
+      arc.push(arc[i - 1] + Math.hypot(walk[i][0] - walk[i - 1][0], walk[i][1] - walk[i - 1][1]));
     }
     const total = arc[arc.length - 1] || 1;
 
-    const shape = (u, strength) => {
-      if (profile === "s") return 1 + strength * (2 * u - 1) * 0.5;
-      if (profile === "taper") return 1 - strength * u * 0.6;
-      return 1 + strength * Math.sin(Math.PI * u) * 0.5;   // bow
-    };
-
-    // the offset is capped by the local segment length: past that the rail folds over
-    // itself at a tight turn and the band fills the wrong side
-    const railFor = (side, strength) => pts.map((p, i) => {
-      const before = pts[Math.max(0, i - 1)];
-      const after = pts[Math.min(pts.length - 1, i + 1)];
+    const railFor = (side, strength) => walk.map((p, i) => {
+      const before = walk[Math.max(0, i - 1)];
+      const after = walk[Math.min(walk.length - 1, i + 1)];
       let tx = after[0] - before[0], ty = after[1] - before[1];
       const len = Math.hypot(tx, ty) || 1;
       tx /= len; ty /= len;
-      // the room left before the rail folds is the local radius of curvature: a segment
-      // length divided by the turn it makes. A gentle stretch gives a big radius and the
-      // full width; a corner gives a small one and a thin rail.
       const segA = Math.hypot(p[0] - before[0], p[1] - before[1]);
       const segB = Math.hypot(after[0] - p[0], after[1] - p[1]);
       const ax = (p[0] - before[0]) / (segA || 1), ay = (p[1] - before[1]) / (segA || 1);
       const bx = (after[0] - p[0]) / (segB || 1), by = (after[1] - p[1]) / (segB || 1);
       const turn = Math.abs(Math.atan2(ax * by - ay * bx, ax * bx + ay * by));
-      const radius = Math.min(segA || Infinity, segB || Infinity) / Math.max(turn, 1e-6);
+      const radius = Math.min(segA || Infinity, segB || Infinity) / Math.max(turn, 1e-9);
       const room = 0.5 * radius;
-      const d = Math.min(base * shape(arc[i] / total, strength), room) * side;
+      const want = base * (1 + strength * profileAt(profile, arc[i] / total));
+      const d = Math.min(want, room) * side;
       return [p[0] - ty * d, p[1] + tx * d];
     });
 
-    const paths = [pts, railFor(1, plus), railFor(-1, minus)];
+    const paths = [walk, railFor(1, plus), railFor(-1, minus)];
     return { paths, bbox: bbox(paths.flat()),
-             note: `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` };
+             note: `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` +
+               ` · ${walk.length} points from ${stored.length} stored` };
   }
 
-  return { value, spine, curvaturePeak, rail, sideRail, bbox, group, prepared, pathGroup,
+  return { value, spine, curvaturePeak, rail, sideRail, refinePath, bbox, group, prepared, pathGroup,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });

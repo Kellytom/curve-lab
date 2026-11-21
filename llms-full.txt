@@ -843,6 +843,13 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
+- **No Homebrew installs.** This machine's Xcode (13.2.1) is older than the
+  bottles expect, so brew compiles dependencies from source — installing
+  `oxipng` pulled a 30–60 minute LLVM + rust build and delivered nothing
+  (2026-11-20). Install the vendor's prebuilt binary instead (GitHub releases,
+  a pip wheel that ships the binary, or `python -m pip`), and say which URL or
+  package was used. Brew reads are fine; only installs are banned.
+
 - **No complex steps, ever.** They import a length that is not a ratio (`2 + i`
   has length √5), and that length stays in every position afterwards. Use
   p-triples: `(3, 4, 5)` turns by a rational angle and keeps the length whole. The
@@ -1395,7 +1402,7 @@ what comes next. Every claim names the command that checks it.
 | stored curves agree with the exact core | 75 curves, every grid and bend | `scripts/exact_numbers.py` |
 | stored crossing counts agree with the router | every record | `scripts/crossing_audit.py` |
 | every dataset declares its format and reads through one loader | 24 files | `scripts/data_audit.py` |
-| the book plates exist and match their manifest | 29 plates | `node scripts/plates_export.mjs --check` |
+| the book plates exist and match their manifest | 29 plates | `node scripts/old_plates_export.mjs --check` |
 | the square and frame rule holds at a 45° leg | arch 0° kink, S 90° | `scripts/square_try.py` |
 | a fixed fault stays fixed | the register, row by row | `scripts/test_regressions.py` |
 
@@ -4086,6 +4093,8 @@ headless browser), so they are named here rather than duplicated:
   markup is gone, the handler remains harmless.
 | 37 | 2026-11-19 | "the gallery is empty" behind a partial figure run: `curve_pngs.mjs --only` wrote `index.json` from the two curves it had drawn, so 270 entries vanished and every other cell lost its figure | `tests/test_regressions.py` (`test_the_figure_index_names_every_registry_curve`: the index names every registry uid) and the merge in `scripts/curve_pngs.mjs` | the figure index |
 | 38 | 2026-11-19 | the exact-linkage test said "no linkage closes rationally" for every link set, including the parallelogram that plainly does | `tests/test_linkage_exact.py` (parallelogram closes at every station; the joint meets both circle conditions; a general crank-rocker does not) | the rosette linkage rule |
+| 39 | 2026-11-20 | "I CANT BELIEVE WE ARE DEALING WITH PARALLEL CURVE" — and the operator was right twice. (a) `print_plates.mjs` read `workbench/sandbox-curves.json`, which a later commit moved to `data/sandbox-curves.json`, and treated the missing file as "no desk values": every plate silently used 6 % / plus 2 / minus 2. (b) the row builder had a **duplicate `character:` key**; the second copy set plus and minus to 0, so the rail was `±d·normal` — a parallel offset by construction — whatever the desk said. (c) the save step called `app/scripts/export-sandbox.mjs`, which does not exist, so a tune wrote the database and never reached the plate. | `tests/test_regressions.py` (`test_the_plates_are_not_parallel_curves`, which runs `tests/js/plate-row.test.mjs`): the desk's plus/minus must reach the row, the guarded rail must widen along the curve while the other barely moves, and zero character must be the only parallel case | the one law for a plate's four values (`scripts/lib/plate-row.mjs`: note → desk row → defaults), and one copy of the decisions (`data/sandbox-curves.json`) |
+| 40 | 2026-11-20 | `/tune/c-0001` said "the rows are too large for the rail routine; spine only" and drew nothing — a confident caption over a blank picture | `scripts/check-tune-lab.mjs` (waits for `#lab-preview svg`; a blank preview fails, and so does a message that invents a cause) | the tuning preview: the page must draw, and must not name a reason the code does not measure. Cause: `(await import(path)).default` is `undefined` under Vite for a CommonJS file outside `app/`, and the `catch` covered it |
 
 
 <!-- source: state/DATA-int.md -->
@@ -4427,7 +4436,7 @@ image, clipped to the curve**, a plain gallery with no controls.
 - **t** — temporary set. The final set can be `f` without renaming the geometry.
 - **exp** — export, not a working page.
 - **c** — curve (as opposed to a terminal or an ornament).
-- **serial** — four digits, allocated once in `plates.json`, never reused. A
+- **serial** — four digits, allocated once in `old-plates.json`, never reused. A
   re-export keeps the name, so a LibreOffice link survives.
 
 ## The image
@@ -4451,7 +4460,7 @@ square.
 
 ## Adding a plate
 
-1. Add a row to `plates.json` with a fresh serial. The plates draw the saved
+1. Add a row to `old-plates.json` with a fresh serial. The plates draw the saved
    curves from `workbench/real-curves.json`, so a row is `"kind": "seed"` plus
    the curve's `"name"`:
 
@@ -4470,7 +4479,7 @@ square.
 3. Run:
 
 ```sh
-node scripts/plates_export.mjs
+node scripts/old_plates_export.mjs
 ```
 
 It writes `svg/<id>.svg`, `plates/<id>.png` and `render.html`, prints the
@@ -4488,7 +4497,7 @@ instruction rather than an error. The Astro gallery lists every star the moment
 the file exists; a star whose PNG has not been exported yet says so on its card.
 
 The section below it, **Simple framed symmetric central figures**, is the pair
-in `plates.json` (cross and leaf). The 27 single curves from `plates.json` follow. The lab's picker offers the
+in `old-plates.json` (cross and leaf). The 27 single curves from `old-plates.json` follow. The lab's picker offers the
 full 88-curve set, including the 60 found curves; starring one promotes it to
 the top section.
 
@@ -4509,12 +4518,12 @@ the top section.
 
 | path | what it is |
 |---|---|
-| `plates.json` | the manifest: id, source, offset share, note |
+| `old-plates.json` | the manifest: id, source, offset share, note |
 | `plates/*.png` | the images, 300 dpi |
 | `svg/*.svg` | the same plates as SVG |
 | `render.html` | the page the screenshots are taken from (generated) |
 
 The gallery is not a generated file. It is `app/src/pages/book.astro`, reading
-`plates.json` and `workbench/starred.json` on each request and serving the PNGs
+`old-plates.json` and `workbench/starred.json` on each request and serving the PNGs
 through `/api/plate/<id>`. `workbench/plate_compose.js` writes every caption
 once, for both the exporter and the page.

@@ -110,8 +110,10 @@ function plateSvg(record) {
   let spine;
   let rails = [];
   if (record.kind === "path" && Array.isArray(record.path) && record.path.length > 2) {
-    // a path curve prints spine-only for now: a plain normal offset folds and spikes at
-    // the joins, so the rail needs round joins before it can be drawn (see GRAPHICSPEC)
+    // NOT READY: plate_math.pathGroup walks the stored points and offsets them correctly,
+    // but on a curve with corners the band fill explodes (seen on c-0273, 2026-11-20).
+    // The plate therefore prints the spine only until the fill is fixed. Do not wire
+    // pathGroup in here again without looking at the rendered plate first.
     spine = record.path.map(([x, y]) => [x, y]);
   } else if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
     // a path curve: the rails are built from the polyline itself, same character law

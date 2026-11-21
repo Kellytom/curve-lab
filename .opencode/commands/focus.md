@@ -18,11 +18,14 @@ Focus this session on curve-lab, without starting any work.
    `state/DESIGN-int.md` (settled decisions and why). The wall clock is retired;
    `scripts/ctx.py` is the only measurement now.
 
-3. Read `next-fhandoff-int.md` at that repo root. Restate its second line — the
+3. Read `state/RESPONSIBILITIES-int.md`. Overlap is allowed: another agent working in
+   the same file is not a reason to wait. The only things that need coordinating are
+   listed there, and a shared file is not one of them.
+4. Read `next-fhandoff-int.md` at that repo root. Restate its second line — the
    one focused action — in one or two lines of your own words.
-4. If `next-fhandoff-int.md` is missing or empty, read `state/HANDOFF-int.md` and
+5. If `next-fhandoff-int.md` is missing or empty, read `state/HANDOFF-int.md` and
    restate the Next move section instead.
-5. Stop there. Do not begin the action. The project-scoped `/fhandon` command
+6. Stop there. Do not begin the action. The project-scoped `/fhandon` command
    is now available in this session and runs it; `/fhandoff` writes the block
    `/fhandon` reads next time.
 
