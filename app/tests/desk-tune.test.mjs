@@ -66,6 +66,13 @@ test("a new curve is a record beside its parent", () => {
   assert.equal(plan.record.starred, false);
 });
 
+test("a desk row that never became a record still holds its uid", () => {
+  const plan = planVariant({ curves, baseUid: "c-0002", name: "spare", values: values(),
+                             deskIds: ["c-0002b"] });
+  assert.equal(plan.ok, true);
+  assert.equal(plan.uid, "c-0002c");
+});
+
 test("a variant of a variant lands in the original series", () => {
   const plan = planVariant({ curves, baseUid: "c-0002a", name: "thin two", values: values() });
   assert.equal(plan.ok, true);

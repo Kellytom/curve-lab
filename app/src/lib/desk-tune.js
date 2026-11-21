@@ -102,7 +102,7 @@ export function planOverwrite({ rows, uids, mode = "overwrite", rowId, spine, va
 
 // A new curve beside its parent. The parent's own parent is the spine, so a variant of a
 // variant still lands in the c-0002a, c-0002b series.
-export function planVariant({ curves, baseUid, name, values, deskNames = [] }) {
+export function planVariant({ curves, baseUid, name, values, deskNames = [], deskIds = [] }) {
   const base = curves.find((curve) => curve.uid === baseUid);
   if (!base) return { ok: false, status: 400, error: `${baseUid || "(no id)"} is not a curve id` };
   const root = String(base.params?.variantOf || base.uid);
@@ -130,7 +130,8 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [] }) {
     return { ok: false, status: 409, error: `"${chosen}" is a curve id; choose another name` };
   }
 
-  const uid = variantUid(root, new Set(curves.map((curve) => curve.uid)));
+  // a desk row may hold a uid that never became a record; never take its name either
+  const uid = variantUid(root, new Set([...curves.map((curve) => curve.uid), ...deskIds]));
   const record = {
     ...JSON.parse(JSON.stringify(base)),
     uid,
@@ -220,7 +221,8 @@ export async function createVariant({ spine, name, values }) {
     const registry = JSON.parse(readFileSync(REGISTRY, "utf8"));
     const deskRows = await prisma.sandboxCurve.findMany();
     const deskNames = deskRows.map((row) => parsed(row)?.curveName).filter(Boolean);
-    const plan = planVariant({ curves: registry.curves, baseUid: spine, name, values, deskNames });
+    const plan = planVariant({ curves: registry.curves, baseUid: spine, name, values, deskNames,
+                               deskIds: deskRows.map((row) => row.name) });
     if (!plan.ok) throw new DeskError(plan.error, plan.status);
 
     const record = plan.record;
