@@ -98,6 +98,7 @@ inside the JSON.
 | `curveName` | string | the display name the desk chose; a saved row becomes a registry record under it. |
 | `renderCorrect` | string | the retired join control on the old cards, kept so an old row still reads. |
 | `importance` | integer | the 0–5 rating from the naming pass. |
+| `spine` | string | the spine the saved row belongs to; the tune desk groups a plate's versions under one spine. |
 | `tune` | boolean | true when the row was written by the tuning page, so it is a plate's values rather than a desk decision. |
 | `transform` | object | the turn the plate is drawn at: `{ degrees }`, in whole degrees. |
 | `family`, `settings`, `kind` | mixed | whatever the saving page wrote; every field the record carries is named here. |
