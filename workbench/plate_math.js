@@ -332,7 +332,63 @@
     return { kind, symmetric: kind !== "none", half: half / size, mirror: mirror / size };
   }
 
-  return { value, spine, curvaturePeak, rail, bbox, group, prepared,
+  // ---- rails from a path --------------------------------------------------- //
+  // A curve stored as a path has no u, v, so the rail is built from the polyline itself:
+  // the local normal at each station, scaled by the width, then shaped by the character —
+  // the same plus / minus / profile law, applied to arclength instead of to t.
+  function pathGroup(points, options) {
+    const opts = options || {};
+    const widthPercent = Number(opts.widthPercent ?? 6);
+    const plus = Number(opts.plus ?? 2);
+    const minus = Number(opts.minus ?? 2);
+    const profile = ["bow", "s", "taper"].includes(opts.profile) ? opts.profile : "bow";
+    const pts = (points || []).filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+    if (pts.length < 3) return null;
+
+    const box = bbox(pts);
+    const size = Math.hypot(box[2] - box[0], box[3] - box[1]) || 1;
+    const base = (widthPercent / 100) * size;
+
+    const arc = [0];
+    for (let i = 1; i < pts.length; i += 1) {
+      arc.push(arc[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    }
+    const total = arc[arc.length - 1] || 1;
+
+    const shape = (u, strength) => {
+      if (profile === "s") return 1 + strength * (2 * u - 1) * 0.5;
+      if (profile === "taper") return 1 - strength * u * 0.6;
+      return 1 + strength * Math.sin(Math.PI * u) * 0.5;   // bow
+    };
+
+    // the offset is capped by the local segment length: past that the rail folds over
+    // itself at a tight turn and the band fills the wrong side
+    const railFor = (side, strength) => pts.map((p, i) => {
+      const before = pts[Math.max(0, i - 1)];
+      const after = pts[Math.min(pts.length - 1, i + 1)];
+      let tx = after[0] - before[0], ty = after[1] - before[1];
+      const len = Math.hypot(tx, ty) || 1;
+      tx /= len; ty /= len;
+      // the room left before the rail folds is the local radius of curvature: a segment
+      // length divided by the turn it makes. A gentle stretch gives a big radius and the
+      // full width; a corner gives a small one and a thin rail.
+      const segA = Math.hypot(p[0] - before[0], p[1] - before[1]);
+      const segB = Math.hypot(after[0] - p[0], after[1] - p[1]);
+      const ax = (p[0] - before[0]) / (segA || 1), ay = (p[1] - before[1]) / (segA || 1);
+      const bx = (after[0] - p[0]) / (segB || 1), by = (after[1] - p[1]) / (segB || 1);
+      const turn = Math.abs(Math.atan2(ax * by - ay * bx, ax * bx + ay * by));
+      const radius = Math.min(segA || Infinity, segB || Infinity) / Math.max(turn, 1e-6);
+      const room = 0.5 * radius;
+      const d = Math.min(base * shape(arc[i] / total, strength), room) * side;
+      return [p[0] - ty * d, p[1] + tx * d];
+    });
+
+    const paths = [pts, railFor(1, plus), railFor(-1, minus)];
+    return { paths, bbox: bbox(paths.flat()),
+             note: `path rails · width ${widthPercent}% · ${profile} ${plus}/${minus}` };
+  }
+
+  return { value, spine, curvaturePeak, rail, bbox, group, prepared, pathGroup,
            cross, leaf, chain, frame, design, rotate, translate, scale, scaleY,
            flipY, strokeFor, symmetry };
 });

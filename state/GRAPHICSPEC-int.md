@@ -104,9 +104,10 @@ legend; the name and the record are on the page that lists it, and in `plates.js
 
 ## Open
 
-- **Path records have no rails yet.** The hybrids, wonkies and doubles are stored as paths;
-  `plate_math` builds rails from speed rows, so those plates are spine-only. A path-based
-  rail is the one missing piece, and it is the same gap named in `state/SPEC-hybrids-int.md`.
+- **Path records have no rails yet.** `plate_math.pathGroup()` exists and draws a rail from
+  the polyline, but on a curve with corners or self-crossings a plain normal offset folds and
+  spikes at the joins (seen on `c-0273`). The plate therefore prints spine-only until the
+  offset gets round joins and a fold cut. Do not wire `pathGroup` back in until that lands.
 - **The turn is applied to the drawing, not the data.** The record keeps its own coordinates
   and the matrix; the plate turns the picture. A future "clean formula" would write the turn
   into the parametric form instead (state/PLAN-int.md, next 1).

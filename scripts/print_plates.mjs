@@ -120,7 +120,17 @@ function plateSvg(record) {
   let spine;
   let rails = [];
   if (record.kind === "path" && Array.isArray(record.path) && record.path.length > 2) {
+    // a path curve prints spine-only for now: a plain normal offset folds and spikes at
+    // the joins, so the rail needs round joins before it can be drawn (see GRAPHICSPEC)
     spine = record.path.map(([x, y]) => [x, y]);
+  } else if (Array.isArray(record.path) && record.path.length > 2 && PLATE.pathGroup) {
+    // a path curve: the rails are built from the polyline itself, same character law
+    const group = PLATE.pathGroup(record.path, {
+      widthPercent: row.width.percent, plus: row.character.plus,
+      minus: row.character.minus, profile: row.character.profile,
+    });
+    spine = group.paths[0];
+    rails = group.paths.slice(1);
   } else {
     // rails come from the polynomial; a row whose coefficients are too large for the
     // curvature routine falls back to the spine alone rather than failing the export
