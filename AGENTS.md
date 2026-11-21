@@ -296,6 +296,19 @@ gcloud run deploy clothoid-web --source . --region us-central1 \
 
 ## Guardrails
 
+- **No Homebrew installs.** This machine's Xcode (13.2.1) is older than the
+  bottles expect, so brew compiles dependencies from source — installing
+  `oxipng` pulled a 30–60 minute LLVM + rust build and delivered nothing
+  (2026-11-20). Install the vendor's prebuilt binary instead (GitHub releases,
+  a pip wheel that ships the binary, or `python -m pip`), and say which URL or
+  package was used. Brew reads are fine; only installs are banned.
+
+- **Generated output over ~1 MB never enters git.** A built page or export
+  larger than about a megabyte (showcase HTML, print plates, dense JSON) gets a
+  gitignore row before it is first committed — the generator and its source are
+  the record; the output is a local artefact. Small figures and the compressed
+  plate set stay tracked, on the operator's say-so.
+
 - **No complex steps, ever.** They import a length that is not a ratio (`2 + i`
   has length √5), and that length stays in every position afterwards. Use
   p-triples: `(3, 4, 5)` turns by a rational angle and keeps the length whole. The
