@@ -75,6 +75,7 @@ const singleTone = toneArg === "one";
 
 function rowFor(record, extra) {
   const note = noteOf.get(record.uid) || {};
+  const desk = () => extra.get(record.uid) || extra.get((record.aliases || [])[0]) || {};
   return {
     name: record.name,
     speedX: record.speedX || [],
@@ -82,9 +83,12 @@ function rowFor(record, extra) {
     // every curve gets the same visible ribbon unless its row says otherwise: 6% of the
     // curve's size. 0 would put the rails on the spine and the bands would have no area.
     width: { percent: note.width_pct ?? note.widthPct
-      ?? extra.get(record.uid)?.widthPct
-      ?? extra.get((record.aliases || [])[0])?.widthPct
-      ?? 6 },
+      ?? desk()?.widthPct ?? 6 },
+    character: {
+      plus: note.plus ?? desk()?.plus ?? 2,
+      minus: note.minus ?? desk()?.minus ?? 2,
+      profile: note.profile || desk()?.profile || undefined,
+    },
     character: {
       plus: note.plus ?? 0, minus: note.minus ?? 0,
       profile: note.profile || undefined,

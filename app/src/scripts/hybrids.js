@@ -95,6 +95,9 @@ async function save(card, patch) {
     importance: Number(card.dataset.importance) || 0,
     curveName: input ? input.value.trim() : "",
     widthPct: Number(card.querySelector("[data-width]")?.value) || null,
+    plus: Number(card.querySelector("[data-plus]")?.value ?? 2),
+    minus: Number(card.querySelector("[data-minus]")?.value ?? 2),
+    profile: card.querySelector("[data-profile]")?.value || "bow",
     construction: (() => {
       try { return JSON.parse(card.dataset.construction || "{}"); } catch { return {}; }
     })(),
@@ -122,6 +125,12 @@ async function load() {
     if (row.importance) paintStars(card, row.importance);
     const width = card.querySelector("[data-width]");
     if (width && row.widthPct) width.value = row.widthPct;
+    const plus = card.querySelector("[data-plus]");
+    if (plus && row.plus !== undefined && row.plus !== null) plus.value = row.plus;
+    const minus = card.querySelector("[data-minus]");
+    if (minus && row.minus !== undefined && row.minus !== null) minus.value = row.minus;
+    const profile = card.querySelector("[data-profile]");
+    if (profile && row.profile) profile.value = row.profile;
     const degrees = row.transform && row.transform.degrees;
     if (degrees !== undefined && degrees !== null) paintTurn(card, degrees);
     const input = card.querySelector(".hybrid-name");
@@ -192,11 +201,16 @@ export function mountHybridDesk() {
       });
     }
 
-    const widthBox = card.querySelector("[data-width]");
-    if (widthBox) {
-      widthBox.addEventListener("change", async () => {
-        try { await save(card, { widthPct: Number(widthBox.value) || null }); }
-        catch (error) { say(String(error.message || error)); }
+    for (const box of card.querySelectorAll("[data-width], [data-plus], [data-minus], [data-profile]")) {
+      box.addEventListener("change", async () => {
+        try {
+          await save(card, {
+            widthPct: Number(card.querySelector("[data-width]")?.value) || null,
+            plus: Number(card.querySelector("[data-plus]")?.value ?? 2),
+            minus: Number(card.querySelector("[data-minus]")?.value ?? 2),
+            profile: card.querySelector("[data-profile]")?.value || "bow",
+          });
+        } catch (error) { say(String(error.message || error)); }
       });
     }
 
