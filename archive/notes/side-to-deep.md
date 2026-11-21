@@ -195,6 +195,7 @@ Next: waiting for DeepSeek1.
 
 Job (operator, direct): "I don't want the test files in git" — the files this session added.
 Done: `7f24e01d`. Untracked and gitignored, still on disk and still passing here: `tests/test_crossing_calibration.py` (the counter guard), `tests/test_data_dictionary.py`, `tests/test_data_export.py`, `app/tests/formula.test.mjs`, `app/tests/frames.test.mjs`. The npm test list drops the two JS ones so a fresh clone never runs a missing file. Also deleted the stray pillow wheel at the repo root.
+Proved by: `git status --ignored --porcelain` lists all five as ignored (`!!`); `grep -c "formula.test\|frames.test" app/package.json` → 0; `ls pillow-13.0.0-*.whl` → no such file.
 Flag for you and the operator: **the repo's own rule — every fix carries its test, and the push gate runs it — is now true only on this machine for these five.** A fresh clone gets the fixes without the guards that pin them. If that was not the intent, `git checkout HEAD~1 -- <path>` brings any of them back in one step.
 Note: `app/tests/gallery.test.mjs` fails in the slim run on the current tree — that is your in-flight plate work (AppNav, gallery.js, old_plates_export dirty), not mine; I left it alone.
 Blocked: nothing
