@@ -34,6 +34,48 @@ I consider ready. Click any image to zoom to full size.</p>
 <tr><td>3 colours (the set that was in git before this conversion)</td><td>5.9 MB</td><td>from the older grey set; the alpha banding on blue is why we are here</td></tr>
 </table>
 
+<h2>What is wrong with 3 colours — the worst spot, magnified 4×</h2>
+<p class="lead">This is the real comparison. Each crop is the <b>same 200 × 200
+pixel window</b>, taken from the spot where the 3-colour print has its worst
+alpha error (c-0001: x 340, y 120 — the top loop; c-0014: x 1180, y 300), shown
+at 4× with hard pixels so no browser smoothing hides the steps. The full plate
+with the crop rectangle marked sits at the left of each row. Read the alpha
+column: at 3 colours the edge steps by <b>171–177 of 255</b>; at the starred
+rung it is <b>10–14</b>. The 2-colour crop is there as the reference for
+"broken", since you called it.</p>
+<div class="row">
+ <figure><img src="png-study/locator-c-0001.png" loading="lazy" alt="locator">
+  <figcaption style="color:#3b4a5c">c-0001 · where the crop is (red box)</figcaption></figure>
+ <figure><img src="png-study/crop4x-orig-c-0001.png" loading="lazy" alt="original crop">
+  <figcaption style="color:#3b4a5c">ORIGINAL · 4× · alpha error 0</figcaption></figure>
+ <figure><img src="png-study/crop4x-q3-c-0001.png" loading="lazy" alt="3 colours crop">
+  <figcaption style="color:#3b4a5c">3 COLOURS · 4× · alpha steps to 171 — the staircase</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/crop4x-q2-c-0001.png" loading="lazy" alt="2 colours crop">
+  <figcaption style="color:#3b4a5c">2 COLOURS (your "broken" reference) · 4× · alpha steps to 190</figcaption></figure>
+ <figure><img src="png-study/crop4x-r7095-c-0001.png" loading="lazy" alt="70-95 crop">
+  <figcaption style="color:#3b4a5c">70-95 · 4× · alpha steps to 20</figcaption></figure>
+ <figure><img src="png-study/crop4x-r9099-c-0001.png" loading="lazy" alt="90-99 crop">
+  <figcaption style="color:#3b4a5c"><span class="star">★ My ready pick:</span> 90-99 · 4× · alpha steps to 14</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/locator-c-0014.png" loading="lazy" alt="locator">
+  <figcaption style="color:#3b4a5c">c-0014 · where the crop is (red box)</figcaption></figure>
+ <figure><img src="png-study/crop4x-orig-c-0014.png" loading="lazy" alt="original crop">
+  <figcaption style="color:#3b4a5c">ORIGINAL · 4× · alpha error 0</figcaption></figure>
+ <figure><img src="png-study/crop4x-q3-c-0014.png" loading="lazy" alt="3 colours crop">
+  <figcaption style="color:#3b4a5c">3 COLOURS · 4× · alpha steps to 177</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/crop4x-q2-c-0014.png" loading="lazy" alt="2 colours crop">
+  <figcaption style="color:#3b4a5c">2 COLOURS · 4× · alpha steps to 168</figcaption></figure>
+ <figure><img src="png-study/crop4x-r7095-c-0014.png" loading="lazy" alt="70-95 crop">
+  <figcaption style="color:#3b4a5c">70-95 · 4× · alpha steps to 18</figcaption></figure>
+ <figure><img src="png-study/crop4x-r9099-c-0014.png" loading="lazy" alt="90-99 crop">
+  <figcaption style="color:#3b4a5c"><span class="star">★ My ready pick:</span> 90-99 · 4× · alpha steps to 10</figcaption></figure>
+</div>
+
 <h2>c-0001 · amper — the ladder on one screen</h2>
 <p class="lead"><span class="star">★ My ready pick:</span> the middle image below (plain 90-99).</p>
 <div class="row">
