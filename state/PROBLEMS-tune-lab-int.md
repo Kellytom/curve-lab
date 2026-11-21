@@ -159,3 +159,20 @@ every stored outline.
 
 **Guard:** `tests/js/plate-path.test.mjs` (`c-0273`) and the stored-path case in
 `scripts/check-tune-lab.mjs`.
+
+## 10. The new-curve name box looked filled but was not
+
+**Seen:** "error: not saved: a new curve needs a name... how am i supposed to name it? desk io",
+then "the suggested name is in the box, but is greyed out and i cant save it".
+
+**Wrong:** the field carried only a `placeholder`, so it posted an empty name. A half-landed edit
+then referenced a name variable that did not exist, and the page returned 500 — the form was
+dead, not just the name.
+
+**Fix:** the page computes a free name (`<curve>-v2`, stepping to `-v3` if taken) and puts it in
+the box as a real value. A hint says the name is for **save as a new curve**; **save** keeps the
+current name. Clearing it says "type a name for the new curve" and focuses the box. The server's
+refusal names the box. The 500 is gone.
+
+**Guard:** `scripts/check-tune-lab.mjs`: the box starts with a non-empty name; clearing it and
+pressing the button says so in place and leaves the buttons enabled.

@@ -41,6 +41,11 @@ function start() {
   const save = async (button) => {
     const target = new URL(button.getAttribute("formaction"), location.origin);
     const payload = { ...valuesOf(inputs), curveName: form.elements.curveName?.value || "" };
+    if (target.searchParams.get("mode") === "new" && !String(payload.curveName).trim()) {
+      say("type a name for the new curve", "bad");
+      form.elements.curveName?.focus();
+      return;
+    }
     saveButtons.forEach((item) => { item.disabled = true; });
     say("saving…", "busy");
     try {

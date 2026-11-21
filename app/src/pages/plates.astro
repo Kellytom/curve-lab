@@ -15,6 +15,7 @@ const rows = registry.curves
   .map((curve) => ({
     uid: curve.uid,
     name: curve.name,
+    variantOf: curve.params?.variantOf || null,
     formula: curve.formula?.plain || "",
     turn: curve.transform?.degrees || 0,
     exported: existsSync(path.join(print, `${curve.uid}-3000-grey-300dpi.png`)),
@@ -48,7 +49,10 @@ const done = rows.filter((row) => row.exported).length;
           <img src={row.web ? `/plates-web/${row.uid}-1600-grey.png?v=${row.stamp}` : `/api/print-plate/${row.uid}`}
             alt={row.name} loading="lazy" />
         </a>
-        <p class="plate-name"><code>{row.uid}</code> {row.name}</p>
+        <p class="plate-name"><code>{row.uid}</code> {row.name}
+          {row.variantOf && <span class="plate-variant">· variant of
+            <a href={`/tune/${row.variantOf}`}>{row.variantOf}</a></span>}
+        </p>
         <p class="plate-meta">
           {row.exported
             ? <><a href={`/api/print-plate/${row.uid}`}>png 300 dpi</a> ·
@@ -71,4 +75,5 @@ const done = rows.filter((row) => row.exported).length;
   .plate-name { margin: 8px 0 2px; font-size: 14px; }
   .plate-meta { margin: 0 0 4px; font-size: 12px; color: #7a6a55; }
   .plate-formula { margin: 0; font-size: 12px; color: #5a4a36; overflow-wrap: anywhere; }
+  .plate-variant { font: 12px/1.4 ui-monospace, Menlo, monospace; color: #7a6a55; }
 </style>

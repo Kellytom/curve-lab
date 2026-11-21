@@ -3427,4 +3427,7 @@ Tschirnhausen — classic but adds nothing; off the board.
   records join the 56 `polyline` ones; `c-0273` prints two bands, the page matches, and the
   plates are re-rendered. Registers 44, 45; guards `tests/test_registry_paths.py`,
   `tests/js/plate-path.test.mjs`, `scripts/check-tune-lab.mjs`.
+- **The new-curve name box holds a real free name** (`<curve>-v2`, stepping up when taken), not a
+  placeholder; clearing it says "type a name for the new curve". The operator's own `c-0001a`
+  (`amper-thin`) exists on `/plates` beside `c-0001`. Register row 46.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

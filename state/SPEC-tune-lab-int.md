@@ -60,7 +60,8 @@ from: `c-0002`, `c-0002a`, `c-0002b`, then `c-0003`.
 - [x] **Save** writes the row for this uid and keeps every field it does not own. It then
       rebuilds that curve's plate. Check: `app/tests/desk-tune.test.mjs`
       (`save keeps every field the tune does not own`).
-- [x] **Save as a new curve** needs a name. It copies the spine's geometry, gives the record
+- [x] **Save as a new curve** needs a name. The box starts with a free `<curve>-vN`, so the
+      page is saveable at once; clearing it refuses in place. It copies the spine's geometry, gives the record
       the next letter uid on that spine, writes the registry, the database rows, the desk row,
       and renders the plate. Check: `a new curve is a record beside its parent` and
       `a variant of a variant lands in the original series`.

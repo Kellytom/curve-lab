@@ -108,7 +108,7 @@ export function planVariant({ curves, baseUid, name, values, deskNames = [], des
   const root = String(base.params?.variantOf || base.uid);
 
   const chosen = safeCurveName(name);
-  if (!chosen) return { ok: false, status: 400, error: "a new curve needs a name" };
+  if (!chosen) return { ok: false, status: 400, error: "a new curve needs a name; type one in the new curve name box" };
 
   const takenNames = new Map();
   for (const curve of curves) {
@@ -296,13 +296,21 @@ export async function createVariant({ spine, name, values }) {
       throw new DeskError(`could not make the new curve: ${String(error.message || error)}`, 500);
     }
 
-    // the plate is what /plates shows: a render failure is a warning, not a lost curve
-    let warning;
+    // the plate is what /plates shows, and the figure index is a gate: render both.
+    // A render failure is a warning, not a lost curve.
+    const warnings = [];
     try {
       await renderPlate(uid);
     } catch (error) {
-      warning = `the curve is saved; its plate did not render: ${String(error.message || error)}`;
+      warnings.push(`the plate did not render: ${String(error.message || error)}`);
     }
+    try {
+      await run(process.execPath, [path.join(ROOT, "scripts", "curve_pngs.mjs"), "--only", uid],
+        { cwd: ROOT, timeout: 180000 });
+    } catch (error) {
+      warnings.push(`the figure did not render: ${String(error.message || error)}`);
+    }
+    const warning = warnings.length ? `the curve is saved; ${warnings.join("; ")}` : undefined;
     return { uid, name: record.name, spine: plan.root, created: true, values,
              ...(warning ? { warning } : {}) };
   });

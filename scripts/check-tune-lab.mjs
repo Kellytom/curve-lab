@@ -142,7 +142,7 @@ try {
   await page.$eval('input[name="curveName"]', (node) => { node.value = ""; });
   await page.click('button[formaction*="mode=new"]');
   await page.waitForFunction(
-    () => /not saved/.test(document.getElementById("tune-status")?.textContent || ""),
+    () => /type a name|not saved/.test(document.getElementById("tune-status")?.textContent || ""),
     { timeout: 15000 },
   );
   const stillDisabled = await page.$$eval('#tune-form button[formaction]',
@@ -169,9 +169,8 @@ try {
   }
 
   // the desk: a name for a new curve, a save, a new curve, and the family list
-  const name = await page.$eval('#tune-form input[name="curveName"]',
-    (node) => node.getAttribute("placeholder"));
-  if (!name) problems.push("the desk has no name field for a new curve");
+  const name = await page.$eval('#tune-form input[name="curveName"]', (node) => node.value);
+  if (!name.trim()) problems.push("the new-curve name box starts empty");
   const buttons = await page.$$eval('#tune-form button', (nodes) =>
     nodes.map((node) => node.textContent.trim().toLowerCase()));
   if (!buttons.includes("save")) problems.push(`no save button: ${buttons}`);
