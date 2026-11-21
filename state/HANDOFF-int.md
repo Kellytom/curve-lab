@@ -3430,4 +3430,9 @@ Tschirnhausen — classic but adds nothing; off the board.
 - **The new-curve name box holds a real free name** (`<curve>-v2`, stepping up when taken), not a
   placeholder; clearing it says "type a name for the new curve". The operator's own `c-0001a`
   (`amper-thin`) exists on `/plates` beside `c-0001`. Register row 46.
+- **The wonks are out of the collection.** The 27 `wonk-…` records (wonk-21 was never promoted)
+  were removed from the registry, database, plates and figures; the recorded decision is that the
+  wonks are working halves and the 59 `double-…` records are the kept ones. The wonk desk rows
+  stay, so `/hybrids-wonk` still has its source. `scripts/remove_curve_records.mjs` reports and
+  backs up the seed.
 - **Next:** `/fhandoff`; then the ten-star order on `/plates` when the operator names the ten.

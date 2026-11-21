@@ -4062,6 +4062,15 @@ distance moved 4 % of the curve's size in one step and the edge made 105 sharp t
 plate hid it by printing the spine only. The operator: "go for it", 2026-11-21. All 129 `path`
 records, with the 56 `polyline` ones, now print two rails; the page draws the same band.
 
+## The wonks are working shapes, not collection curves — 2026-11-21
+
+The operator settled this before: the **wonks** are the raw halves, the kept curves are the
+**doubles** (the "dwonkies", `double-…`, about 59 records). The 27 wonk records were therefore
+taken out of the collection — registry, plates, figures and database — with
+`scripts/remove_curve_records.mjs` (`--match '^wonk-[0-9]+$'`), which reports every file and keeps
+a registry copy in `state/backups/`. The wonk **desk rows stay**, so `/hybrids-wonk` keeps its
+source; the doubles are untouched.
+
 
 <!-- source: state/REGRESSIONS-int.md -->
 
