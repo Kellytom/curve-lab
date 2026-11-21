@@ -25,6 +25,32 @@ compare the antialiased edges; click again to go back. The grey steps you are
 looking for live on the curve edges at this scale.</p>
 <div class="draft">draft A</div>
 
+<h2>The floor — worst quality, as requested</h2>
+<p class="lead">Three rungs below "bad". <b>0–10</b> keeps 4–5 grey levels (the
+survivor of the family: only 3–4% of pixels move, worst 60/255). <b>3
+colours</b> lets the dithering spread, and on the heavy plate it dithers 78% of
+the image — grainy everywhere. <b>2 colours</b> is pure black and white, no grey
+at all: every pixel in the plate changes (mean 8–13 steps), and it is not even
+smaller on the dense plate, because dither noise is expensive to store. Click to
+zoom; the 2-colour rows are where the antialiasing has been deleted, not
+compressed.</p>
+<div class="row">
+ <figure><img src="png-study/floor-0-10-c-0001-1600-grey.png" loading="lazy" alt="floor 0-10">
+  <figcaption>c-0001 FLOOR · quality 0-10 · 21,697 bytes (−81%) · 4 levels · worst 60/255 · 3.5% pixels moved</figcaption></figure>
+ <figure><img src="png-study/floor-3col-c-0001-1600-grey.png" loading="lazy" alt="3 colours">
+  <figcaption>c-0001 FLOOR · 3 colours · 14,888 bytes (−87%) · 3 levels · worst 86/255 · 7.3% moved</figcaption></figure>
+ <figure><img src="png-study/floor-2col-c-0001-1600-grey.png" loading="lazy" alt="2 colours">
+  <figcaption>c-0001 FLOOR · 2 colours (black/white) · 29,880 bytes (−74%) · worst 119/255 · 100% moved</figcaption></figure>
+</div>
+<div class="row">
+ <figure><img src="png-study/floor-0-10-c-0014-1600-grey.png" loading="lazy" alt="floor 0-10">
+  <figcaption>c-0014 FLOOR · quality 0-10 · 28,017 bytes (−83%) · 5 levels · worst 50/255 · 4.2% moved</figcaption></figure>
+ <figure><img src="png-study/floor-3col-c-0014-1600-grey.png" loading="lazy" alt="3 colours">
+  <figcaption>c-0014 FLOOR · 3 colours · 53,766 bytes (−67%) · 3 levels · worst 100/255 · 78% moved</figcaption></figure>
+ <figure><img src="png-study/floor-2col-c-0014-1600-grey.png" loading="lazy" alt="2 colours">
+  <figcaption>c-0014 FLOOR · 2 colours (black/white) · 15,948 bytes (−90%) · worst 101/255 · 100% moved</figcaption></figure>
+</div>
+
 <h2>How far can we squeeze? — the ladder, worst first</h2>
 <p class="lead">You asked for the bottom of the ladder, so here it is above the
 good ones. <b>bad</b> is <code>--quality 5-25</code> (6 grey levels left):
