@@ -110,3 +110,32 @@ legend; the name and the record are on the page that lists it, and in `plates.js
 - **The turn is applied to the drawing, not the data.** The record keeps its own coordinates
   and the matrix; the plate turns the picture. A future "clean formula" would write the turn
   into the parametric form instead (state/PLAN-int.md, next 1).
+
+## The naming convention for every render
+
+A file name says what the file is, so a folder can be read without opening anything.
+
+```
+<id>-<long side>-<tone>-<dpi>.<ext>      a raster master
+<id>-<long side>-<tone>.<ext>            a web render
+<id>.svg                                 the vector twin (no size: it is a vector)
+```
+
+Examples:
+
+| file | what it is |
+|---|---|
+| `c-0006-3000-grey-300dpi.png` | the print master: 3000 px, grey, 300 dpi |
+| `c-0006-1600-grey.png` | the web copy: 1600 px, grey, about 48 KB |
+| `c-0006.svg` | the vector: infinite resolution, the Inkscape file |
+
+Rules:
+
+- **`grey` or `colour`** is never omitted — the tone is part of the identity now.
+- **The size is the long side in pixels**, never a percentage or a paper size.
+- **`300dpi`** appears only on a file meant for print; a screen file has no dpi in its name.
+- **The id comes first**, so a folder sorts by curve and every render of one curve sits
+  together.
+- Old sets keep their legacy names until they are migrated: `app/public/figures/<uid>.png`
+  (600 px bordered thumbnail), `app/public/curves/<uid>.png`, `app/public/frames/illus-*.png`,
+  `book/old-plates/<plate-id>.png`.

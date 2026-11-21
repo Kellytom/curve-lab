@@ -39,7 +39,7 @@ function webCopy(uid, png) {
     // channels for one. Grey is about half the bytes and opens in every program.
     execFileSync("sips", ["-Z", String(WEB_SIDE), png, "--out", small], { stdio: "ignore" });
     execFileSync("sips", ["--matchTo", "/System/Library/ColorSync/Profiles/Generic Gray Profile.icc",
-      small, "--out", path.join(WEB, `${uid}.png`)], { stdio: "ignore" });
+      small, "--out", path.join(WEB, `${uid}-${WEB_SIDE}-grey.png`)], { stdio: "ignore" });
   } catch { /* no sips: the 3000 px plate is still there */ }
   rmSync(small, { force: true });
 }
@@ -198,8 +198,10 @@ const page = await browser.newPage();
 let done = 0;
 for (const record of records) {
   const { svg, pxW, pxH, degrees, rails } = plateSvg(record);
+  // Naming: <uid>-<long side>-<tone>-<dpi>.<ext>. The size and tone are in the name so a
+  // folder of renders can be read without opening one.
   const svgPath = path.join(OUT, `${record.uid}.svg`);
-  const pngPath = path.join(OUT, `${record.uid}.png`);
+  const pngPath = path.join(OUT, `${record.uid}-${LONG_SIDE}-grey-300dpi.png`);
   writeFileSync(svgPath, svg);
   await page.setViewportSize({ width: pxW, height: pxH });
   await page.setContent(`<body style="margin:0;background:#fff">${svg}</body>`);
@@ -214,14 +216,18 @@ for (const record of records) {
 }
 await browser.close();
 
-// a plate is replaced, never duplicated: one file per uid, and a uid the registry no longer
-// has is removed, so the folder cannot drift from the records
-const uids = new Set(registry.curves.map((record) => record.uid));
+// a plate is replaced, never duplicated: the expected names are known, so anything else in
+// the folder is an orphan and is removed
+const expected = new Set();
+for (const record of registry.curves) {
+  expected.add(`${record.uid}.svg`);
+  expected.add(`${record.uid}-${LONG_SIDE}-grey-300dpi.png`);
+}
 let pruned = 0;
 for (const file of readdirSync(OUT)) {
-  const [uid, ext] = file.split(".");
-  if (!["png", "svg"].includes(ext)) continue;
-  if (!uids.has(uid)) { rmSync(path.join(OUT, file)); pruned += 1; }
+  if (expected.has(file)) continue;
+  rmSync(path.join(OUT, file));
+  pruned += 1;
 }
 console.log(`${done} plates written to book/print at ${LONG_SIDE} px, 300 dpi` +
   (pruned ? `; ${pruned} orphan files removed` : ""));

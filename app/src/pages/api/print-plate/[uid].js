@@ -7,14 +7,19 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { repoRoot } from "../../../lib/gallery.js";
 
-const UID = /^c-\d{4}$/;
+const UID = /^[a-z0-9-]+$/;
 
 export const GET = async ({ params, url }) => {
   const uid = String(params.uid || "");
   if (!UID.test(uid)) return new Response("no such curve", { status: 404 });
   const format = url.searchParams.get("format") === "svg" ? "svg" : "png";
-  const file = path.join(repoRoot(), "book", "print", `${uid}.${format}`);
-  if (!existsSync(file)) return new Response("plate not exported yet", { status: 404 });
+  // the name carries the size and the tone; the svg is vector and has no size in its name
+  const candidates = format === "svg"
+    ? [`${uid}.svg`]
+    : [`${uid}-3000-grey-300dpi.png`, `${uid}.png`];
+  const file = candidates.map((name) => path.join(repoRoot(), "book", "print", name))
+    .find((candidate) => existsSync(candidate));
+  if (!file) return new Response("plate not exported yet", { status: 404 });
   return new Response(readFileSync(file), {
     headers: {
       "content-type": format === "svg" ? "image/svg+xml" : "image/png",
