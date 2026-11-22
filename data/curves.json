@@ -6368,7 +6368,7 @@
     "uid": "c-0091",
     "name": "loop-2-cusps-45",
     "importance": 5,
-    "rotation": 180,
+    "rotation": -70,
     "pieces": 1,
     "borderUid": null,
     "perSide": 0,
@@ -6384,9 +6384,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": "{\"degrees\":180,\"matrix\":[[-1,0],[0,-1]],\"exact\":true}",
+    "transform": "{\"degrees\":-70.68,\"matrix\":[[0.330844,0.943686],[-0.943686,0.330844]],\"exact\":false}",
     "note": null,
-    "updatedAt": "2026-11-22T20:57:33.457Z"
+    "updatedAt": "2026-11-22T21:00:48.500Z"
    },
    "set": null,
    "metric": {
@@ -6438,7 +6438,7 @@
     "uid": "c-0092",
     "name": "loop-2-small-loops-45",
     "importance": 5,
-    "rotation": -140,
+    "rotation": -48,
     "pieces": 1,
     "borderUid": null,
     "perSide": 0,
@@ -6454,9 +6454,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": "{\"degrees\":-140.7416,\"matrix\":[[-0.7743,0.632818],[-0.632818,-0.7743]],\"exact\":false}",
+    "transform": "{\"degrees\":-48.86,\"matrix\":[[0.657901,0.753104],[-0.753104,0.657901]],\"exact\":false}",
     "note": null,
-    "updatedAt": "2026-11-22T20:57:33.462Z"
+    "updatedAt": "2026-11-22T21:00:48.504Z"
    },
    "set": null,
    "metric": {
@@ -6508,7 +6508,7 @@
     "uid": "c-0093",
     "name": "loop-2-loops-45",
     "importance": 5,
-    "rotation": -137,
+    "rotation": -49,
     "pieces": 1,
     "borderUid": null,
     "perSide": 0,
@@ -6524,9 +6524,9 @@
     "stationRule": null,
     "algorithm": null,
     "conversion": null,
-    "transform": "{\"degrees\":-137.6776,\"matrix\":[[-0.739367,0.673302],[-0.673302,-0.739367]],\"exact\":false}",
+    "transform": "{\"degrees\":-49.08,\"matrix\":[[0.655005,0.755625],[-0.755625,0.655005]],\"exact\":false}",
     "note": null,
-    "updatedAt": "2026-11-22T20:57:33.464Z"
+    "updatedAt": "2026-11-22T21:00:48.506Z"
    },
    "set": null,
    "metric": {
@@ -18848,7 +18848,7 @@
     "uid": "c-0273",
     "name": "double-1-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18864,9 +18864,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-1 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.621Z"
+    "updatedAt": "2026-11-22T21:00:48.663Z"
    },
    "set": null,
    "metric": null
@@ -18892,7 +18892,7 @@
     "uid": "c-0274",
     "name": "double-1-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18908,9 +18908,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-1 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.625Z"
+    "updatedAt": "2026-11-22T21:00:48.666Z"
    },
    "set": null,
    "metric": null
@@ -18936,7 +18936,7 @@
     "uid": "c-0275",
     "name": "double-10-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18952,9 +18952,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-10 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.627Z"
+    "updatedAt": "2026-11-22T21:00:48.668Z"
    },
    "set": null,
    "metric": null
@@ -18980,7 +18980,7 @@
     "uid": "c-0276",
     "name": "double-10-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -18996,9 +18996,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-10 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.629Z"
+    "updatedAt": "2026-11-22T21:00:48.671Z"
    },
    "set": null,
    "metric": null
@@ -19024,7 +19024,7 @@
     "uid": "c-0277",
     "name": "double-11-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19040,9 +19040,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-11 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.632Z"
+    "updatedAt": "2026-11-22T21:00:48.673Z"
    },
    "set": null,
    "metric": null
@@ -19068,7 +19068,7 @@
     "uid": "c-0278",
     "name": "double-11-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19084,9 +19084,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-11 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.634Z"
+    "updatedAt": "2026-11-22T21:00:48.676Z"
    },
    "set": null,
    "metric": null
@@ -19112,7 +19112,7 @@
     "uid": "c-0279",
     "name": "double-12-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19128,9 +19128,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-12 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.636Z"
+    "updatedAt": "2026-11-22T21:00:48.678Z"
    },
    "set": null,
    "metric": null
@@ -19156,7 +19156,7 @@
     "uid": "c-0280",
     "name": "double-12-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19172,9 +19172,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-12 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.639Z"
+    "updatedAt": "2026-11-22T21:00:48.680Z"
    },
    "set": null,
    "metric": null
@@ -19200,7 +19200,7 @@
     "uid": "c-0281",
     "name": "double-13-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19216,9 +19216,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-13 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.641Z"
+    "updatedAt": "2026-11-22T21:00:48.682Z"
    },
    "set": null,
    "metric": null
@@ -19244,7 +19244,7 @@
     "uid": "c-0282",
     "name": "double-13-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19260,9 +19260,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-13 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.644Z"
+    "updatedAt": "2026-11-22T21:00:48.684Z"
    },
    "set": null,
    "metric": null
@@ -19288,7 +19288,7 @@
     "uid": "c-0283",
     "name": "double-14-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19304,9 +19304,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-14 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.646Z"
+    "updatedAt": "2026-11-22T21:00:48.687Z"
    },
    "set": null,
    "metric": null
@@ -19332,7 +19332,7 @@
     "uid": "c-0284",
     "name": "double-14-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19348,9 +19348,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-14 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.648Z"
+    "updatedAt": "2026-11-22T21:00:48.689Z"
    },
    "set": null,
    "metric": null
@@ -19376,7 +19376,7 @@
     "uid": "c-0285",
     "name": "double-15-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19392,9 +19392,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-15 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.650Z"
+    "updatedAt": "2026-11-22T21:00:48.692Z"
    },
    "set": null,
    "metric": null
@@ -19420,7 +19420,7 @@
     "uid": "c-0286",
     "name": "double-15-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19436,9 +19436,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-15 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.653Z"
+    "updatedAt": "2026-11-22T21:00:48.694Z"
    },
    "set": null,
    "metric": null
@@ -19464,7 +19464,7 @@
     "uid": "c-0287",
     "name": "double-16-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19480,9 +19480,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-16 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.655Z"
+    "updatedAt": "2026-11-22T21:00:48.697Z"
    },
    "set": null,
    "metric": null
@@ -19508,7 +19508,7 @@
     "uid": "c-0288",
     "name": "double-16-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19524,9 +19524,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-16 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.658Z"
+    "updatedAt": "2026-11-22T21:00:48.699Z"
    },
    "set": null,
    "metric": null
@@ -19552,7 +19552,7 @@
     "uid": "c-0289",
     "name": "double-17-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19568,9 +19568,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-17 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.660Z"
+    "updatedAt": "2026-11-22T21:00:48.701Z"
    },
    "set": null,
    "metric": null
@@ -19596,7 +19596,7 @@
     "uid": "c-0290",
     "name": "double-17-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19612,9 +19612,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-17 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.663Z"
+    "updatedAt": "2026-11-22T21:00:48.704Z"
    },
    "set": null,
    "metric": null
@@ -19640,7 +19640,7 @@
     "uid": "c-0291",
     "name": "double-18-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19656,9 +19656,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-18 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.665Z"
+    "updatedAt": "2026-11-22T21:00:48.707Z"
    },
    "set": null,
    "metric": null
@@ -19684,7 +19684,7 @@
     "uid": "c-0292",
     "name": "double-18-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19700,9 +19700,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-18 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.667Z"
+    "updatedAt": "2026-11-22T21:00:48.710Z"
    },
    "set": null,
    "metric": null
@@ -19728,7 +19728,7 @@
     "uid": "c-0293",
     "name": "double-19-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19744,9 +19744,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-19 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.670Z"
+    "updatedAt": "2026-11-22T21:00:48.712Z"
    },
    "set": null,
    "metric": null
@@ -19772,7 +19772,7 @@
     "uid": "c-0294",
     "name": "double-19-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19788,9 +19788,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-19 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.672Z"
+    "updatedAt": "2026-11-22T21:00:48.714Z"
    },
    "set": null,
    "metric": null
@@ -19816,7 +19816,7 @@
     "uid": "c-0295",
     "name": "double-2-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19832,9 +19832,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-2 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.675Z"
+    "updatedAt": "2026-11-22T21:00:48.716Z"
    },
    "set": null,
    "metric": null
@@ -19860,7 +19860,7 @@
     "uid": "c-0296",
     "name": "double-2-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19876,9 +19876,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-2 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.677Z"
+    "updatedAt": "2026-11-22T21:00:48.719Z"
    },
    "set": null,
    "metric": null
@@ -19904,7 +19904,7 @@
     "uid": "c-0297",
     "name": "double-20-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19920,9 +19920,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-20 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.680Z"
+    "updatedAt": "2026-11-22T21:00:48.721Z"
    },
    "set": null,
    "metric": null
@@ -19948,7 +19948,7 @@
     "uid": "c-0298",
     "name": "double-20-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -19964,9 +19964,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-20 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.682Z"
+    "updatedAt": "2026-11-22T21:00:48.724Z"
    },
    "set": null,
    "metric": null
@@ -19992,7 +19992,7 @@
     "uid": "c-0299",
     "name": "double-21-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20008,9 +20008,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-21 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.684Z"
+    "updatedAt": "2026-11-22T21:00:48.726Z"
    },
    "set": null,
    "metric": null
@@ -20036,7 +20036,7 @@
     "uid": "c-0300",
     "name": "double-21-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20052,9 +20052,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-21 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.687Z"
+    "updatedAt": "2026-11-22T21:00:48.729Z"
    },
    "set": null,
    "metric": null
@@ -20080,7 +20080,7 @@
     "uid": "c-0301",
     "name": "double-22-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20096,9 +20096,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-22 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.689Z"
+    "updatedAt": "2026-11-22T21:00:48.731Z"
    },
    "set": null,
    "metric": null
@@ -20124,7 +20124,7 @@
     "uid": "c-0302",
     "name": "double-22-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20140,9 +20140,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-22 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.692Z"
+    "updatedAt": "2026-11-22T21:00:48.733Z"
    },
    "set": null,
    "metric": null
@@ -20168,7 +20168,7 @@
     "uid": "c-0303",
     "name": "double-23-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20184,9 +20184,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-23 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.694Z"
+    "updatedAt": "2026-11-22T21:00:48.735Z"
    },
    "set": null,
    "metric": null
@@ -20212,7 +20212,7 @@
     "uid": "c-0304",
     "name": "double-23-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20228,9 +20228,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-23 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.696Z"
+    "updatedAt": "2026-11-22T21:00:48.738Z"
    },
    "set": null,
    "metric": null
@@ -20256,7 +20256,7 @@
     "uid": "c-0305",
     "name": "double-24-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20272,9 +20272,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-24 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.699Z"
+    "updatedAt": "2026-11-22T21:00:48.740Z"
    },
    "set": null,
    "metric": null
@@ -20300,7 +20300,7 @@
     "uid": "c-0306",
     "name": "double-24-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20316,9 +20316,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-24 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.701Z"
+    "updatedAt": "2026-11-22T21:00:48.743Z"
    },
    "set": null,
    "metric": null
@@ -20344,7 +20344,7 @@
     "uid": "c-0307",
     "name": "double-25-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20360,9 +20360,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-25 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.704Z"
+    "updatedAt": "2026-11-22T21:00:48.746Z"
    },
    "set": null,
    "metric": null
@@ -20388,7 +20388,7 @@
     "uid": "c-0308",
     "name": "double-25-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20404,9 +20404,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-25 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.706Z"
+    "updatedAt": "2026-11-22T21:00:48.748Z"
    },
    "set": null,
    "metric": null
@@ -20432,7 +20432,7 @@
     "uid": "c-0309",
     "name": "double-26-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20448,9 +20448,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-26 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.709Z"
+    "updatedAt": "2026-11-22T21:00:48.750Z"
    },
    "set": null,
    "metric": null
@@ -20476,7 +20476,7 @@
     "uid": "c-0310",
     "name": "double-26-se-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20492,9 +20492,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-26 (SE-2), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.711Z"
+    "updatedAt": "2026-11-22T21:00:48.752Z"
    },
    "set": null,
    "metric": null
@@ -20520,7 +20520,7 @@
     "uid": "c-0311",
     "name": "double-27-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20536,9 +20536,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-27 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.713Z"
+    "updatedAt": "2026-11-22T21:00:48.755Z"
    },
    "set": null,
    "metric": null
@@ -20564,7 +20564,7 @@
     "uid": "c-0312",
     "name": "double-27-se-2",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20580,9 +20580,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-27 (SE-2), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.715Z"
+    "updatedAt": "2026-11-22T21:00:48.758Z"
    },
    "set": null,
    "metric": null
@@ -20608,7 +20608,7 @@
     "uid": "c-0313",
     "name": "double-28-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20624,9 +20624,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-28 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.717Z"
+    "updatedAt": "2026-11-22T21:00:48.761Z"
    },
    "set": null,
    "metric": null
@@ -20652,7 +20652,7 @@
     "uid": "c-0314",
     "name": "double-28-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20668,9 +20668,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-28 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.720Z"
+    "updatedAt": "2026-11-22T21:00:48.763Z"
    },
    "set": null,
    "metric": null
@@ -20696,7 +20696,7 @@
     "uid": "c-0315",
     "name": "double-3-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20712,9 +20712,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-3 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.722Z"
+    "updatedAt": "2026-11-22T21:00:48.765Z"
    },
    "set": null,
    "metric": null
@@ -20740,7 +20740,7 @@
     "uid": "c-0316",
     "name": "double-3-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20756,9 +20756,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-3 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^7(t)",
-    "updatedAt": "2026-11-22T20:57:33.725Z"
+    "updatedAt": "2026-11-22T21:00:48.768Z"
    },
    "set": null,
    "metric": null
@@ -20784,7 +20784,7 @@
     "uid": "c-0317",
     "name": "double-4-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20800,9 +20800,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-4 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.727Z"
+    "updatedAt": "2026-11-22T21:00:48.770Z"
    },
    "set": null,
    "metric": null
@@ -20828,7 +20828,7 @@
     "uid": "c-0318",
     "name": "double-4-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20844,9 +20844,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-4 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.730Z"
+    "updatedAt": "2026-11-22T21:00:48.772Z"
    },
    "set": null,
    "metric": null
@@ -20872,7 +20872,7 @@
     "uid": "c-0319",
     "name": "double-5-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20888,9 +20888,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-5 (NW-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.732Z"
+    "updatedAt": "2026-11-22T21:00:48.774Z"
    },
    "set": null,
    "metric": null
@@ -20916,7 +20916,7 @@
     "uid": "c-0320",
     "name": "double-5-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20932,9 +20932,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-5 (SE-1), mirrored across the line y = x. x = cos^5(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.734Z"
+    "updatedAt": "2026-11-22T21:00:48.776Z"
    },
    "set": null,
    "metric": null
@@ -20960,7 +20960,7 @@
     "uid": "c-0321",
     "name": "double-6-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -20976,9 +20976,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-6 (NW-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.737Z"
+    "updatedAt": "2026-11-22T21:00:48.780Z"
    },
    "set": null,
    "metric": null
@@ -21004,7 +21004,7 @@
     "uid": "c-0322",
     "name": "double-6-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21020,9 +21020,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-6 (SE-1), mirrored across the line y = x. x = cos^7(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.739Z"
+    "updatedAt": "2026-11-22T21:00:48.784Z"
    },
    "set": null,
    "metric": null
@@ -21048,7 +21048,7 @@
     "uid": "c-0323",
     "name": "double-7-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21064,9 +21064,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-7 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.742Z"
+    "updatedAt": "2026-11-22T21:00:48.786Z"
    },
    "set": null,
    "metric": null
@@ -21092,7 +21092,7 @@
     "uid": "c-0324",
     "name": "double-7-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21108,9 +21108,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-7 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^3(t)",
-    "updatedAt": "2026-11-22T20:57:33.744Z"
+    "updatedAt": "2026-11-22T21:00:48.789Z"
    },
    "set": null,
    "metric": null
@@ -21136,7 +21136,7 @@
     "uid": "c-0325",
     "name": "double-8-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21152,9 +21152,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-8 (NW-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:57:33.746Z"
+    "updatedAt": "2026-11-22T21:00:48.791Z"
    },
    "set": null,
    "metric": null
@@ -21180,7 +21180,7 @@
     "uid": "c-0326",
     "name": "double-8-se-1",
     "importance": 10,
-    "rotation": 90,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21196,9 +21196,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":90,\"matrix\":[[\"0\",\"-1\"],[\"1\",\"0\"]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-8 (SE-1), mirrored across the line y = x. x = cos^1(t), y = sin^5(t)",
-    "updatedAt": "2026-11-22T20:48:31.427Z"
+    "updatedAt": "2026-11-22T21:00:48.793Z"
    },
    "set": null,
    "metric": null
@@ -21224,7 +21224,7 @@
     "uid": "c-0327",
     "name": "double-9-nw-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": -45,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21240,9 +21240,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":-45,\"matrix\":[[0.707107,0.707107],[-0.707107,0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-9 (NW-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.749Z"
+    "updatedAt": "2026-11-22T21:00:48.796Z"
    },
    "set": null,
    "metric": null
@@ -21268,7 +21268,7 @@
     "uid": "c-0328",
     "name": "double-9-se-1",
     "importance": 10,
-    "rotation": 0,
+    "rotation": 135,
     "pieces": 1,
     "borderUid": null,
     "perSide": 9,
@@ -21284,9 +21284,9 @@
     "stationRule": null,
     "algorithm": "double",
     "conversion": "{\"algorithm\":\"double\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
-    "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
+    "transform": "{\"degrees\":135,\"matrix\":[[-0.707107,-0.707107],[0.707107,-0.707107]],\"exact\":false}",
     "note": "DW: the mirrored half of wonk-9 (SE-1), mirrored across the line y = x. x = cos^3(t), y = sin^1(t)",
-    "updatedAt": "2026-11-22T20:57:33.752Z"
+    "updatedAt": "2026-11-22T21:00:48.798Z"
    },
    "set": null,
    "metric": null
