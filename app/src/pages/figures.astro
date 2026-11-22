@@ -5,9 +5,12 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { loadRegistry } from "../lib/registry.ts";
 import { starsLabel } from "../lib/provenance.js";
+import { pageSlice } from "../lib/figure-pages.js";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const registry = (await loadRegistry()).curves;
+// Fifty a page: the sheet is a reading order, not one 371-image wall.
+const view = pageSlice(registry, Astro.url.searchParams.get("page") || "1");
 const meta = new Map();
 try {
   const index = JSON.parse(readFileSync(path.join(process.cwd(), "public", "figures", "index.json"), "utf8"));
@@ -15,7 +18,7 @@ try {
 } catch { /* the index is written by scripts/curve_pngs.mjs */ }
 ---
 
-<BaseLayout title="every curve" pageTitle="Every curve: draft A" mainClass="">
+<BaseLayout title={`every curve · page ${view.page}`} pageTitle={`Every curve: page ${view.page} of ${view.pages}: draft A`} mainClass="">
   <Fragment slot="head">
     <style is:global>
     body{margin:0;padding:16px;background:#faf8f2;color:#222;font:13px/1.4 system-ui,sans-serif}
@@ -27,13 +30,28 @@ try {
     figcaption{font-size:11px;color:#555;margin-top:6px;word-break:break-all}
     figcaption b{color:#222;font-weight:600}
     .warn{color:#8a3b2a}
+    .pager{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 14px;
+      font:12px/1.5 ui-monospace,Menlo,monospace}
+    .pager a,.pager span{padding:2px 7px;border:1px solid #ddd;background:#fff;text-decoration:none;color:#555}
+    .pager [aria-current="page"]{background:#2e2413;color:#fbf7ec;border-color:#2e2413}
+    .pager a:hover{background:#f1e9d8}
     </style>
   </Fragment>
   <h1>Every curve</h1>
   <p>{registry.length} curves, one PNG each, cut from the same frame rule as the gallery.
-    Under each: the border's share of the figure, and the copies per side.</p>
+    Under each: the border's share of the figure, and the copies per side.
+    Showing <b>{view.total ? `${view.start + 1}–${view.end}` : "none"}</b> of {view.total};
+    page {view.page} of {view.pages}.</p>
+  <nav class="pager" aria-label="figure pages">
+    {view.page > 1 && <a href={`/figures/?page=${view.page - 1}`} rel="prev">previous</a>}
+    {Array.from({ length: view.pages }, (_, i) => i + 1).map((n) =>
+      n === view.page
+        ? <span aria-current="page">{n}</span>
+        : <a href={`/figures/?page=${n}`}>{n}</a>)}
+    {view.page < view.pages && <a href={`/figures/?page=${view.page + 1}`} rel="next">next</a>}
+  </nav>
   <div class="grid">
-    {registry.map((record) => {
+    {view.items.map((record) => {
       const item = meta.get(record.uid) || {};
       const margin = item.marginPercent;
       return (
@@ -52,4 +70,12 @@ try {
       );
     })}
   </div>
+  <nav class="pager" aria-label="figure pages">
+    {view.page > 1 && <a href={`/figures/?page=${view.page - 1}`} rel="prev">previous</a>}
+    {Array.from({ length: view.pages }, (_, i) => i + 1).map((n) =>
+      n === view.page
+        ? <span aria-current="page">{n}</span>
+        : <a href={`/figures/?page=${n}`}>{n}</a>)}
+    {view.page < view.pages && <a href={`/figures/?page=${view.page + 1}`} rel="next">next</a>}
+  </nav>
 </BaseLayout>

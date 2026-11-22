@@ -3495,6 +3495,11 @@ Tschirnhausen — classic but adds nothing; off the board.
   flattens saved pairs to their primary and drops a nameless record (register 49); `/prime-mover/`
   no longer scrolls sideways (the plot scales, long fractions wrap); the names check counts the
   non-candidate curves from the database instead of a remembered 212.
+- **The figures sheet is paginated** (2026-11-21): fifty figures a page, eight pages, the last
+  page twenty-one; the range and the pager are on the page, and `app/src/lib/figure-pages.js`
+  carries the arithmetic with its own test. The split with DeepSeek2 is in `state/PLAN-int.md`:
+  the side-offset curves and the bordered illumination variants C/D are theirs; the figures
+  sheet and the curation surfaces are ours.
 - **The 11-degree/NURBS reduction** is DeepSeek2's: the protocol, the corrected spec and the
   reducer draft are merged; the amendments are in their spec (reduce the curve *and* fit each
   rail; a reduced curve is a new variant record; report the total miss).

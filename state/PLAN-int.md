@@ -16,6 +16,15 @@ in one line. Keep going to the next row while the operator wants more; stop when
 they say stop, when a row is blocked, or when a `Proves:` line needs a decision
 nobody has made — and then write the question instead of picking.
 
+## Split — the side-offset curves are DeepSeek2's (2026-11-21)
+
+The operator: "coordinate with deep2: don't collide with code about the side offset curves."
+DeepSeek2 has the side-offset curves and the bordered illumination variants **C** (corner rule)
+and **D** (C plus the tangent seam and proportion): `illuminations.astro`, `bordered.js`, the
+plate offset/width code and the C/D renders. DeepSeek1 takes the figures sheet (pagination,
+the index) and the review/curation surfaces. Say which file you are in; do not revert or
+rewrite the other's uncommitted edit.
+
 ## Current (2026-11-21, late) — the review desk, Marginalia, the partners
 
 - **Landed:** the review desk (`/review/`, bulk stars, scopes, refusals); the ten clickable stars;
