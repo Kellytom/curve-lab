@@ -21388,7 +21388,7 @@
    "starred": true,
    "candidate": false,
    "createdAt": "2026-11-20T17:40:28.572Z",
-   "stars": 1,
+   "stars": 2,
    "formula": {
     "plain": "polyline through 100 stations, (-0.998573, 0.000408) to (-0.998573, 0.000408)",
     "rational": "the stations are stored as written; nothing is resampled or rounded by the export",
@@ -21399,7 +21399,7 @@
    "note": {
     "uid": "c-0331",
     "name": "point-1",
-    "importance": 1,
+    "importance": 2,
     "rotation": 0,
     "pieces": 1,
     "borderUid": null,
@@ -21418,7 +21418,7 @@
     "conversion": "{\"algorithm\":\"hybrid\",\"status\":\"native\",\"target\":\"x = C(t)^p, y = S(t)^q; C = (1 - t^2)/(1 + t^2), S = 2t/(1 + t^2)\",\"formulaNext\":null}",
     "transform": "{\"degrees\":0,\"matrix\":[[1,0],[0,1]],\"exact\":true}",
     "note": "P tints the curve; the shape is set by p and q alone",
-    "updatedAt": "2026-11-20T17:40:28.572Z"
+    "updatedAt": "2026-11-22T01:21:47.418Z"
    },
    "set": null,
    "metric": null
