@@ -88,3 +88,17 @@ test("a placeholder zero in a note does not win over the desk row", () => {
   assert.equal(row.character.minus, 0.1);
   assert.equal(row.character.profile, "bow");
 });
+
+test("a stored-path record keeps a zero note as the clean spine-only line", () => {
+  // The doubles and flourishes (c-0275..c-0368) are stored paths. Their zero note is the
+  // two-tone spine, not a placeholder; giving them the row preset drew a band that tangled
+  // at the tight loop. The operator: "it looks to me like you went backwards with c-0275
+  // to 368."
+  const registry = JSON.parse(readFileSync(new URL("../../workbench/curve-registry.json", import.meta.url)));
+  const path = registry.curves.find((row) => Array.isArray(row.path) && row.path.length > 2);
+  assert.ok(path, "a stored-path record is needed for this test");
+  const row = rowFor(path, { note: { widthPct: 0, plus: 0, minus: 0, profile: null }, desk: {} });
+  assert.equal(row.width.percent, 0);
+  assert.equal(row.character.plus, 0);
+  assert.equal(row.character.minus, 0);
+});

@@ -24,9 +24,16 @@ const choose = (noteValue, deskValue, defaultValue) => {
 export function rowFor(record, context = {}) {
   const note = context.note || {};
   const desk = context.desk || {};
-  const widthPercent = choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
-  const plus = choose(note.plus, desk.plus, DEFAULTS.plus);
-  const minus = choose(note.minus, desk.minus, DEFAULTS.minus);
+  // The zero placeholders are a row-record problem. A stored path (the doubles and the
+  // flourishes) uses its zero note as the clean two-tone spine; the preset must not add a
+  // band there (2026-11-21, the operator: "it looks to me like you went backwards with
+  // c-0275 to 368").
+  const storedPath = Array.isArray(record.path) && record.path.length > 2;
+  const widthPercent = storedPath
+    ? (note.width_pct ?? note.widthPct ?? desk.widthPct ?? DEFAULTS.widthPercent)
+    : choose(note.width_pct ?? note.widthPct, desk.widthPct, DEFAULTS.widthPercent);
+  const plus = storedPath ? (note.plus ?? desk.plus ?? DEFAULTS.plus) : choose(note.plus, desk.plus, DEFAULTS.plus);
+  const minus = storedPath ? (note.minus ?? desk.minus ?? DEFAULTS.minus) : choose(note.minus, desk.minus, DEFAULTS.minus);
   return {
     name: record.name,
     speedX: record.speedX || [],
